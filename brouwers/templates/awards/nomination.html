@@ -1,0 +1,43 @@
+{% extends "awards/base.html" %}
+
+{% block title %}
+Nominaties
+{% endblock %}
+
+{% block content %}
+<p>Op deze pagina kan een nominatie in het systeem ingevoerd worden. Alle velden zijn verplicht. Geef de <b>volledige</b> URL op, die is van de vorm: <u>http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=<i>[getal]</i>&t=<i>[getal]</i></u></p>
+<br />
+<p><strong>Enkel</strong> projecten die in het huidige jaar afgerond 
+zijn mogen genomineerd worden, en ze <strong>moeten</strong> afgerond 
+zijn.</p>
+<br />
+<br />
+<form action="." method="POST">{% csrf_token %}
+<table class="table">
+	<tr><td>URL naar het verslag: </td><td>{{form.url}}</td></tr>
+	<tr><td>Titel van het verslag: </td><td>{{form.name}}</td></tr>
+	<tr><td>Brouwer: </td><td>{{form.brouwer}}</td></tr>
+	<tr><td>Categorie: </td><td>{{form.category}}</td></tr>
+</table>
+<br />
+<input type = "submit" value="Voeg nominatie toe"/>
+</form>
+<br />
+{% if status %}
+{% autoescape off %}
+{{ status }}
+{% endautoescape %}
+<br />
+{% endif %}
+<br />
+<br />
+<i>Dit zijn de nieuwste nominaties:</i>
+<br />
+<br />
+<br />
+{% for project in last_nominations %}
+	<a class="project_link" href={{project.url}} target="_blank">{{project.name}}</a> - brouwer: <i>{{project.brouwer}}</i><br /><br />
+{% endfor %}
+<br />
+
+{% endblock %}

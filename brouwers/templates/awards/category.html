@@ -1,0 +1,29 @@
+{% extends "awards/base.html" %}
+
+{% block title %}
+Categorieën
+{% endblock %}
+
+{% block content %}
+<h1>Bestaande categorieën:</h1>
+<br />
+{% for category in categories%}
+<p><a href="/awards/categories/{{category.id}}/">{{category.name}}</a></p>
+{% endfor %}
+<br />
+<br />
+<br />
+<br />
+<br />
+{% if allowed %}
+<form action="." method="POST">{% csrf_token %}
+Categorie:&nbsp;&nbsp;{{ form.name}}
+<input type = "submit" value="Voeg categorie toe"/>
+</form>
+{% endif %}
+<p id="status"><br />{{ status }}</p>
+<br />
+<br />
+<br />
+
+{% endblock %}

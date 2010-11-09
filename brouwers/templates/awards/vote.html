@@ -1,0 +1,47 @@
+{% extends "awards/base.html" %}
+
+{% block title %}
+Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
+{% endblock %}
+
+{% block content %}
+Op deze pagina kan je je stem uitbrengen. Het is niet verplicht om bij elke categorie te stemmen. De projectnamen zijn links naar het brouwverslag.
+<br/>
+<br/>
+<br/>
+<form action="." method="POST">
+{% csrf_token %}
+{% if not voted %}
+{% for category, projects in data.items %}
+{% if category and projects %}
+	<div class="category">
+	<h2>{{category.name}}</h2>
+	<br />
+		<div class="list_category">
+			{% for project in projects %}
+				<input type="radio" name="{{category}}" id="{{project.id}}" value="{{project.id}}"/>&nbsp;
+				<label for="{{project.id}}">{#<b>Project:</b>&nbsp;#}<a class="project_link" href={{project.url}} target="_blank">{{project.name}}</a> door <i>{{project.brouwer}}</i></label>
+				<br />
+				<br />
+			{% endfor %}
+			<input type="radio" name="{{category}}" value="No vote" style="display:none" checked/>
+		</div>
+	</div>
+{% else %}
+<input type="radio" name="{{category}}" value="No vote" style="display:none" checked/>
+{% endif %}
+{% endfor %}
+<br />
+<br />
+<p class="submit"><input type="submit" value="Stem"/></p>
+</form>
+{% else %}
+	<div>
+	{% if status %}
+		<strong>{{status}}</strong>
+	{% else %}
+		Bedankt voor je stem!
+	{% endif %}
+	</div>
+{% endif %}
+{% endblock content%}

@@ -1,0 +1,20 @@
+{% extends "awards/base.html" %}
+
+{% block title %}
+Nominaties in de categorie {{ category.name }}
+{% endblock %}
+
+{% block content %}
+<p>Deze pagina geeft een overzicht van alle nominaties binnen de categorie "{{ category.name }}". Klik op de titel van het project om het brouwverslag te bekijken.</p>
+<br />
+<br />
+<br />
+{% if projects %}
+	{% for project in projects %}
+	<p>{#<b>Project:</b>&nbsp;#}<a class="project_link" href="{{project.url}}" target="_blank">{{project.name}}</a> gebouwd door <i>{{project.brouwer}}</i></p>
+	<br />
+	{% endfor %}
+{% else %}
+<p>Er bestaan nog geen nominaties voor deze categorie!</p>
+{% endif %}
+{% endblock %}

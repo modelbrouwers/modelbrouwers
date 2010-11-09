@@ -1,0 +1,31 @@
+<head>
+	<title>{% block title %}Modelbrouwers.nl externe applicatie - Brouwersawards{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="/static_media/css/stylesheet.css"/>
+</head>
+
+<body>
+	<div id="container">
+	
+		<div id="sidebar">{% block sidebar %}
+			<div class="side_header">
+				<h1><a href="/awards/categories/">Categorie</a></h1>
+				<div>
+					<div class="side_header">
+					<h1><a href="/awards/nominations/">Nominaties</a></h1>
+						<div>
+							<div class="side_header">
+								<h1><a href="/awards/vote/">Stemmen</a>
+								</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endblock %}
+		</div>	
+		
+		<div id="content">
+			Dit is de indexpagina. Gebruik het menu aan de linkerzijde om categories te bekijken, nominaties toe te voegen en om te stemmen (pas mogelijk vanaf bepaalde datum).
+		</div>
+	</div>
+</body>
