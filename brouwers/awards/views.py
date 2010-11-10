@@ -91,29 +91,30 @@ def nomination(request):
 	last_nominations = Project.objects.filter(Q(nomination_date__year=date.today().year-1) | Q(nomination_date__year = date.today().year)).order_by('-pk')[:15]
 	if request.method == 'POST':
 		form = ProjectForm(request.POST)
-		if form.is_valid(): #check op url
+		if form.is_valid():
 			url = request.POST['url']
-			if url_valid(url):
-				new_nomination = form.save()
+			valid, status = url_valid(url)
+			if valid:
+				form.save()
 				form = ProjectForm()
-				status = "Nominatie is toegevoegd"
-			else:
-				status = "<font color=\"Red\">De nominatie kon niet worden toegevoegd, de url wijst niet naar een forumtopic!</font>"
 	else:
 		form = ProjectForm()
 	return render_to_response('awards/nomination.html', RequestContext(request, {'form': form, 'status': status, 'last_nominations': last_nominations})
 	)
 
 def url_valid(url):
-	url_re = re.compile('http://www.modelbrouwers.nl/phpBB3/viewtopic.php\?f=\d+&t=\d+')
-	match = url_re.match(url)
-	
-	url_re2 = re.compile('modelbrouwers.nl/phpBB3/viewtopic.php\?f=\d+&t=\d+')
-	match2 = url_re2.search(url)
-	if match or match2:
-		return True
+	match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
+	if match:
+		url = match.group(0)
+		projects = Project.objects.filter(url__icontains = url)
+		if projects:
+			category = projects[0].category.name
+			status = "<font color=\"Red\">Dit project is al genomineerd in de categorie \"%s\"</font>" % category
+			return (False, status)
+		else:
+			return (True, "De nominatie is toegevoegd")
 	else:
-		return False
+		return (False, "<font color=\"Red\">De nominatie kon niet worden toegevoegd, de url wijst niet naar een forumtopic!</font>")
 
 def category_list_nominations(request, id):
 	category = Category.objects.get(id__exact = id)
