@@ -31,7 +31,7 @@ def get_or_create_profile(user):
 def register(request):
 	if request.method=='POST':
 		form = UserCreationForm(request.POST)
-		if form.is_valid(): #dinges toevoegen voor als 't fout is
+		if form.is_valid():
 			form.save()
 			new_user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password1'])
 			login(request, new_user)
@@ -73,7 +73,7 @@ def category(request):
 	status = ''
 	allowed = False
 	categories = Category.objects.all()
-	if request.user.groups.filter(name__iexact="moderators"):
+	if (request.user.groups.filter(name__iexact="moderators") or request.user.is_superuser):
 		allowed = True
 	if request.method == 'POST':
 		form = CategoryForm(request.POST)
@@ -95,8 +95,13 @@ def nomination(request):
 			url = request.POST['url']
 			valid, status = url_valid(url)
 			if valid:
-				form.save()
-				form = ProjectForm()
+				if request.user.is_authenticated():
+					new_nomination = form.save()
+					new_nomination.nominator = get_or_create_profile(request.user)
+					new_nomination.save()
+				else:
+					form.save()
+					form = ProjectForm()
 	else:
 		form = ProjectForm()
 	return render_to_response('awards/nomination.html', RequestContext(request, {'form': form, 'status': status, 'last_nominations': last_nominations})
