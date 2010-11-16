@@ -32,9 +32,7 @@ Registratie
 			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
 		{% endfor %}
 	{% endif %}
-</table>
-<br />
-<table>
+	<tr><td><br/></td><td></td></tr>
 	<tr><td>Nickname op het forum*: </td><td>{{form.forum_nickname}}</td></tr>
 	{% if form.forum_nickname.errors %}
 		{% for error in form.forum_nickname.errors %}
