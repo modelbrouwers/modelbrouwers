@@ -19,14 +19,11 @@ from forms import ProjectForm, CategoryForm, UserProfileForm
 def index(request):
 	return render_to_response('awards/base.html', {'user': request.user})
 
-def get_or_create_profile(user):
-	try:
-		profile = user.get_profile()
-	except ObjectDoesNotExist:
-		profile = UserProfile()
-		profile.user = user
-		profile.save()
-	return profile
+def apply_exclusion(nickname):
+	projects = Project.objects.filter(brouwer__iexact = nickname)
+	for project in projects:
+		project.rejected = True
+		project.save()
 
 def register(request):
 	if request.method=='POST':
@@ -35,6 +32,8 @@ def register(request):
 			form.save()
 			new_user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password1'])
 			login(request, new_user)
+			if new_user.get_profile().exclude_from_nomination:
+				apply_exclusion(new_user.get_profile().forum_nickname)
 			return HttpResponseRedirect('/awards/')
 		else:
 			return render_to_response('awards/register2.html', RequestContext(request, {'form': form}))
@@ -88,16 +87,21 @@ def category(request):
 
 def nomination(request):
 	status = ''
-	last_nominations = Project.objects.filter(Q(nomination_date__year=date.today().year-1) | Q(nomination_date__year = date.today().year)).order_by('-pk')[:15]
+	last_nominations = Project.objects.filter(Q(nomination_date__year=date.today().year-1) | Q(nomination_date__year = date.today().year)).order_by('-pk')
+	last_nominations = last_nominations.exclude(rejected=True)[:15]
 	if request.method == 'POST':
 		form = ProjectForm(request.POST)
 		if form.is_valid():
-			url = request.POST['url']
-			valid, status = url_valid(url)
+			url = form.cleaned_data['url']
+			brouwer = form.cleaned_data['brouwer']
+			valid, status, exclude = nomination_valid(url, brouwer)
 			if valid:
 				if request.user.is_authenticated():
 					new_nomination = form.save()
-					new_nomination.nominator = get_or_create_profile(request.user)
+					if exclude:
+						new_nomination.rejected = True
+						new_nomination.save()
+					new_nomination.nominator = request.user.get_profile()
 					new_nomination.save()
 				else:
 					form.save()
@@ -107,7 +111,7 @@ def nomination(request):
 	return render_to_response('awards/nomination.html', RequestContext(request, {'form': form, 'status': status, 'last_nominations': last_nominations})
 	)
 
-def url_valid(url):
+def nomination_valid(url, brouwer):
 	match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
 	if match:
 		url = match.group(0)
@@ -115,15 +119,20 @@ def url_valid(url):
 		if projects:
 			category = projects[0].category.name
 			status = "<font color=\"Red\">Dit project is al genomineerd in de categorie \"%s\"</font>" % category
-			return (False, status)
+			return (False, status, False)
 		else:
-			return (True, "De nominatie is toegevoegd")
+			brouwers_excluded = UserProfile.objects.filter(forum_nickname__iexact = brouwer)
+			if brouwers_excluded:
+				return (True, "<font color=\"Red\">De nominatie is in de database opgenomen, echter deze zal op verzoek van de brouwer niet in aanmerking komen voor een award.</font>", True)
+			else:
+				return (True, "De nominatie is toegevoegd", False)
 	else:
-		return (False, "<font color=\"Red\">De nominatie kon niet worden toegevoegd, de url wijst niet naar een forumtopic!</font>")
+		return (False, "<font color=\"Red\">De nominatie kon niet worden toegevoegd, de url wijst niet naar een forumtopic!</font>", False)
 
 def category_list_nominations(request, id):
 	category = Category.objects.get(id__exact = id)
 	projects = category.project_set.all().order_by('pk')
+	projects = projects.exclude(rejected=True)
 	return render_to_response('awards/category_list_nominations.html', RequestContext(request, {'category': category, 'projects': projects}))
 	
 
@@ -145,7 +154,7 @@ def vote(request):
 		voted = True;
 		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted}))
 	else:
-		if (get_or_create_profile(request.user).last_vote.year == date.today().year):
+		if (request.user.get_profile().last_vote.year == date.today().year):
 			status = 'Je hebt dit jaar al gestemd, bedankt!'
 			voted = True;
 			return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': voted}))

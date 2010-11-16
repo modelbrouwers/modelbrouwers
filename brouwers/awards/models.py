@@ -28,6 +28,7 @@ class Project(models.Model):
 	nominator = models.ForeignKey('UserProfile', null=True)
 	
 	votes = models.IntegerField(null=True, blank=True, default=0)
+	rejected = models.BooleanField(default=False)
 	
 	def __unicode__(self):
 		return self.name + ' - ' + self.brouwer
