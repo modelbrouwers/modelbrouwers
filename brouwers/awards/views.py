@@ -36,10 +36,10 @@ def register(request):
 				apply_exclusion(new_user.get_profile().forum_nickname)
 			return HttpResponseRedirect('/awards/')
 		else:
-			return render_to_response('awards/register2.html', RequestContext(request, {'form': form}))
+			return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
 	else:
 		form = UserProfileForm()
-		return render_to_response('awards/register2.html', RequestContext(request, {'form': form}))
+		return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
 
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
