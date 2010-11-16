@@ -14,7 +14,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 
 from models import *
-from forms import ProjectForm, CategoryForm
+from forms import ProjectForm, CategoryForm, UserProfileForm
 
 def index(request):
 	return render_to_response('awards/base.html', {'user': request.user})
@@ -30,17 +30,17 @@ def get_or_create_profile(user):
 
 def register(request):
 	if request.method=='POST':
-		form = UserCreationForm(request.POST)
+		form = UserProfileForm(request.POST)
 		if form.is_valid():
 			form.save()
 			new_user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password1'])
 			login(request, new_user)
 			return HttpResponseRedirect('/awards/')
 		else:
-			return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
+			return render_to_response('awards/register2.html', RequestContext(request, {'form': form}))
 	else:
-		form = UserCreationForm()
-		return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
+		form = UserProfileForm()
+		return render_to_response('awards/register2.html', RequestContext(request, {'form': form}))
 
 def custom_login(request):    
     next_page = request.REQUEST.get('next')

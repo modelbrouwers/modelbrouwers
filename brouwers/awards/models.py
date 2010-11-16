@@ -7,8 +7,15 @@ class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)	
 	last_vote = models.DateField(default=date(2010,1,1))
 	
+	forum_nickname = models.CharField(max_length=20, unique=True)
+	exclude_from_nomination = models.BooleanField(default=False)
+	
 	def __unicode__(self):
 		return self.user.username
+	
+	class Meta:
+		verbose_name = _("Gebruikersprofiel")
+		verbose_name_plural = _("Gebruikersprofielen")
 	
 
 class Project(models.Model):
@@ -37,5 +44,5 @@ class Category(models.Model):
 	
 	class Meta:
 		verbose_name = _("Categorie")
-		verbose_name_plural = u'Categorie\u00EBn'
+		verbose_name_plural = _(u'Categorie\u00EBn')
 

@@ -1,7 +1,7 @@
 {% extends "awards/base.html" %}
 
 {% block title %}
-Registreer
+Registratie
 {% endblock %}
 
 {% block content %}
@@ -29,6 +29,22 @@ Registreer
 	<tr><td>Wachtwoord* (bevestig): </td><td>{{form.password2}}</td></tr>
 	{% if form.password2.errors %}
 		{% for error in form.password2.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+</table>
+<br />
+<table>
+	<tr><td>Nickname op het forum*: </td><td>{{form.forum_nickname}}</td></tr>
+	{% if form.forum_nickname.errors %}
+		{% for error in form.forum_nickname.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td><br/></td><td></td></tr>
+	<tr><td style="text-align: center">{{form.exclude_from_nomination}}</td><td>Vink dit aan als je <strong>niet</strong> genomineerd wil worden.</td></tr>
+	{% if form.exclude_from_nomination.errors %}
+		{% for error in form.exclude_from_nomination.errors %}
 			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
 		{% endfor %}
 	{% endif %}
