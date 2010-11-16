@@ -71,7 +71,12 @@ body:before {
 	color: #FFA34F;
 }
 
-.side_header a{
+.side_header h1 a{
+	color: white;
+	margin-right: 25px;
+}
+
+.side_header h2 a{
 	color: white;
 	margin-right: 25px;
 }
