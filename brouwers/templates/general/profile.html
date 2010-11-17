@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Wijzig profiel
+{% endblock %}
+
+{% block content %}
+<p>Op deze pagina kunt u uw profiel aanpassen. Alle velden zijn optioneel. Nadat u op 'wijzigen' geklikt hebt, wordt deze pagina herladen met de nieuwe gegevens.</p>
+<br />
+<hr />
+<br />
+<form action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<table>
+	<tr><td>Uw forumnickname:</td><td><strong>{{user.get_profile.forum_nickname}}</strong></td></tr>
+	<tr><td><br /></td><td></td></tr>
+	<tr><td>{{profileform.exclude_from_nomination}}&nbsp;&nbsp;Sluit mij uit van nominaties</td><td></td></tr>
+	{% if profileform.exclude_from_nomination.errors %}
+		{% for error in profileform.exclude_from_nomination.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td><br /></td><td></td></tr>
+	<tr><td>Voornaam</td><td>{{userform.first_name}}</td></tr>
+	{% if userform.first_name.errors %}
+		{% for error in userform.first_name.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td>Familienaam</td><td>{{userform.last_name}}</td></tr>
+	{% if userform.last_name.errors %}
+		{% for error in userform.last_name.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td>E-mailadres</td><td>{{userform.email}}</td></tr>
+	{% if userform.email.errors %}
+		{% for error in userform.email.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+</table>
+<br />
+<input type = "submit" value="Wijzig"/>
+</form>
+{% endblock %}

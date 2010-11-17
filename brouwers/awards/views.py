@@ -19,12 +19,6 @@ from forms import ProjectForm, CategoryForm, UserProfileForm
 def index(request):
 	return render_to_response('awards/base.html', {'user': request.user})
 
-def apply_exclusion(nickname):
-	projects = Project.objects.filter(brouwer__iexact = nickname)
-	for project in projects:
-		project.rejected = True
-		project.save()
-
 def register(request):
 	if request.method=='POST':
 		form = UserProfileForm(request.POST)
@@ -33,7 +27,10 @@ def register(request):
 			new_user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password1'])
 			login(request, new_user)
 			if new_user.get_profile().exclude_from_nomination:
-				apply_exclusion(new_user.get_profile().forum_nickname)
+				projects = Project.objects.filter(brouwer__iexact = new_user.get_profile().forum_nickname)
+				for project in projects:
+					project.rejected = True
+					project.save()
 			return HttpResponseRedirect('/awards/')
 		else:
 			return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
@@ -66,7 +63,6 @@ def custom_logout(request):
 		next_page = "/awards/?logout=1"
 	logout(request)
 	return HttpResponseRedirect(next_page)
-
 
 def category(request):
 	status = ''
@@ -121,9 +117,11 @@ def nomination_valid(url, brouwer):
 			status = "<font color=\"Red\">Dit project is al genomineerd in de categorie \"%s\"</font>" % category
 			return (False, status, False)
 		else:
-			brouwers_excluded = UserProfile.objects.filter(forum_nickname__iexact = brouwer)
-			if brouwers_excluded:
-				return (True, "<font color=\"Red\">De nominatie is in de database opgenomen, echter deze zal op verzoek van de brouwer niet in aanmerking komen voor een award.</font>", True)
+			profiles = UserProfile.objects.filter(forum_nickname__iexact = brouwer)
+			if profiles:
+				profile = profiles[0]
+				if (profile.exclude_from_nomination==True):
+					return (True, "<font color=\"Red\">De nominatie is in de database opgenomen, echter deze zal op verzoek van de brouwer niet in aanmerking komen voor een award.</font>", True)
 			else:
 				return (True, "De nominatie is toegevoegd", False)
 	else:

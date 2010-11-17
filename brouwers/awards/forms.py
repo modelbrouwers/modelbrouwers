@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 from models import Project, Category, UserProfile
@@ -10,8 +11,8 @@ class ProjectForm(forms.ModelForm):
 		model = Project
 		exclude = ('votes', 'nomination_date', 'nominator')
 		widgets = {
-			'url': forms.TextInput(attrs={'size':'60'}),
-			'name': forms.TextInput(attrs={'size':'60'})
+			'url': forms.TextInput(attrs={'size':60}),
+			'name': forms.TextInput(attrs={'size':60})
 		}
 
 class CategoryForm(forms.ModelForm):
@@ -39,3 +40,16 @@ class UserProfileForm(UserCreationForm):
 			profile.exclude_from_nomination = True
 		profile.save()
 		return user
+
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model = UserProfile
+		exclude = ('user', 'last_vote', 'forum_nickname')
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields =('email', 'first_name', 'last_name')
+        widgets = {
+        	'email': forms.TextInput(attrs={'size':30})
+        }

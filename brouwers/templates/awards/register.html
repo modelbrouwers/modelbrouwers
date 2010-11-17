@@ -8,7 +8,7 @@ Registratie
 <p>Op deze pagina kunt u zich registreren. Registratie is nodig om te kunnen nomineren en stemmen bij de awards.</p>
 <p>De gebruikersnaam mag maximaal 30 tekens bevatten en bestaat uit letters, cijfers en/of de volgende karakters: @, ., +, -, _. Spaties zijn <strong>niet</strong> toegelaten, deze vervang je bijvoorbeeld door een underscore ('_').</p>
 <br />
-<form action="." method="POST">
+<form action="" method="POST">
 {% csrf_token %}
 		{% for error in form.non_field_errors %}
 			<p class="error"><strong>{{ error|escape }}</strong></p>
