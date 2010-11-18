@@ -25,6 +25,9 @@ body:before {
 	margin-top: -32767px;/
 }
 
+h1{
+	color: #333333;
+}
 
 #container{
 	margin: 0 auto;
