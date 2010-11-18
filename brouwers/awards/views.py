@@ -99,6 +99,7 @@ def nomination(request):
 						new_nomination.save()
 					new_nomination.nominator = request.user.get_profile()
 					new_nomination.save()
+					form = ProjectForm()
 				else:
 					form.save()
 					form = ProjectForm()
