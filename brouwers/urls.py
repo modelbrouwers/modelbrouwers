@@ -17,7 +17,6 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^awards/', include('brouwers.awards.urls')),
     (r'^$', 'brouwers.general.views.index'),
-#    (r'news/', include('brouwers.news.urls')),
 	(r'^profile/$', 'brouwers.general.views.profile'),
     )
 
