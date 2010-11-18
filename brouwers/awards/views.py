@@ -159,5 +159,6 @@ def vote(request):
 		else:
 			voted = False;
 			for cat in categories:
-				data[cat] = Project.objects.filter(category__exact=cat)
+				projects = Project.objects.filter(category__exact=cat)
+				data[cat] = projects.exclude(rejected=True)
 			return render_to_response('awards/vote.html', RequestContext(request, {'data': data, 'voted': voted}))
