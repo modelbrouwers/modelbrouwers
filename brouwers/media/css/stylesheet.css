@@ -73,17 +73,17 @@ body:before {
 
 .side_header h1 a{
 	color: white;
-	margin-right: 25px;
+	margin-right: 15px;
 }
 
 .side_header h2 a{
 	color: white;
-	margin-right: 25px;
+	margin-right: 15px;
 }
 
 .side_header h3 a{
 	color: #FFA34F;
-	margin-right:25px
+	margin-right: 15px
 }
 
 #content{
