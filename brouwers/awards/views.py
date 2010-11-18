@@ -94,6 +94,7 @@ def nomination(request):
 			if valid:
 				if request.user.is_authenticated():
 					new_nomination = form.save()
+
 					if exclude:
 						new_nomination.rejected = True
 						new_nomination.save()
@@ -123,6 +124,8 @@ def nomination_valid(url, brouwer):
 				profile = profiles[0]
 				if (profile.exclude_from_nomination==True):
 					return (True, "<font color=\"Red\">De nominatie is in de database opgenomen, echter deze zal op verzoek van de brouwer niet in aanmerking komen voor een award.</font>", True)
+				else:
+					return (True, "De nominatie is toegevoegd", False)
 			else:
 				return (True, "De nominatie is toegevoegd", False)
 	else:
