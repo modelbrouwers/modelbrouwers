@@ -5,8 +5,11 @@ Nominaties in de categorie {{ category.name }}
 {% endblock %}
 
 {% block content %}
-<p>Deze pagina geeft een overzicht van alle nominaties binnen de categorie "{{ category.name }}". Klik op de titel van het project om het brouwverslag te bekijken.</p>
+<h1>Nominaties in de categorie "{{ category.name }}"</h1>
+<hr />
 <br />
+<br />
+<p>Klik op de titel van het project om het brouwverslag te bekijken.</p>
 <br />
 <br />
 {% if projects %}
@@ -15,6 +18,6 @@ Nominaties in de categorie {{ category.name }}
 	<br />
 	{% endfor %}
 {% else %}
-<p>Er bestaan nog geen nominaties voor deze categorie!</p>
+<p>Er is nog niets genomineerd in deze categorie!</p>
 {% endif %}
 {% endblock %}

@@ -106,6 +106,10 @@ h1{
 	decorations: none;
 }
 
+.category hr{
+	width: 40%;
+}
+
 #footer{
 	width: 100%;
 	clear: both;

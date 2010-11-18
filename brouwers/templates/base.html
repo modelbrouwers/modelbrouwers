@@ -32,7 +32,7 @@
 								{% block user_authentication %}
 								<div class="side_header">
 								{% if user.is_authenticated %} 
-									<p>Welkom, <strong>{{user.username}}</strong>(<a class="url_oranje" href="/awards/logout/">Uitloggen</a>)</p>
+									<p>Welkom, <strong>{{user.username}}</strong> (<a class="url_oranje" href="/awards/logout/">Uitloggen</a>)</p>
 										<div class="side_header">
 											<a class="url_oranje" href="/profile/">Gebruikersprofiel</a>
 											{% if user.is_staff %}
@@ -58,7 +58,7 @@
 		
 			<div id="content">
 		{% block content %}
-			<div id="news"><h2>Nieuws</h2>
+			<div id="news"><h1>Nieuws</h1>
 				<hr />
 				<br />
 				<br />

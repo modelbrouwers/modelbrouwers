@@ -1,17 +1,16 @@
 {% extends "awards/base.html" %}
 
 {% block title %}
-Categorieën
+BrouwersAwards - Categorieën
 {% endblock %}
 
 {% block content %}
-<h1>Bestaande categorieën:</h1>
+<h1>Bestaande categorieën</h1>
+<hr />
 <br />
 {% for category in categories%}
-<p><a href="/awards/categories/{{category.id}}/">{{category.name}}</a></p>
+<h2><a href="/awards/categories/{{category.id}}/">{{category.name}}</a></h2>
 {% endfor %}
-<br />
-<br />
 <br />
 <br />
 <br />
