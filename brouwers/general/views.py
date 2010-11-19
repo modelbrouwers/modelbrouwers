@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 
 from brouwers.awards.forms import ProfileForm, UserForm
-from brouwers.awards.models import UserProfile
+from brouwers.awards.models import UserProfile, Project
 
 def index(request):
 	return render_to_response('base.html', {'user': request.user})
@@ -20,7 +20,7 @@ def profile(request):
 		
 		if forms['profileform'].is_valid():
 			forms['profileform'].save()
-			if forms['profileform'].cleaned_data['exclude_from_nomination']:
+			if forms['profileform'].cleaned_data['exclude_from_nomination']==True:
 				projects = Project.objects.filter(brouwer__iexact=request.user.get_profile().forum_nickname)
 				for project in projects:
 					project.rejected = True
