@@ -21,7 +21,7 @@ def profile(request):
 		if forms['profileform'].is_valid():
 			forms['profileform'].save()
 			if forms['profileform'].cleaned_data['exclude_from_nomination']:
-				projects = Project.objects.filter(brouwers__iexact=request.user.get_profile().forum_nickname)
+				projects = Project.objects.filter(brouwer__iexact=request.user.get_profile().forum_nickname)
 				for project in projects:
 					project.rejected = True
 					project.save()
