@@ -92,17 +92,14 @@ def nomination(request):
 			brouwer = form.cleaned_data['brouwer']
 			valid, status, exclude = nomination_valid(url, brouwer)
 			if valid:
-				if request.user.is_authenticated():
+				
 					new_nomination = form.save()
-
 					if exclude:
 						new_nomination.rejected = True
 						new_nomination.save()
-					new_nomination.nominator = request.user.get_profile()
-					new_nomination.save()
-					form = ProjectForm()
-				else:
-					form.save()
+					if request.user.is_authenticated():
+						new_nomination.nominator = request.user.get_profile()
+						new_nomination.save()
 					form = ProjectForm()
 	else:
 		form = ProjectForm()
