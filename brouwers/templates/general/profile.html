@@ -41,6 +41,75 @@ Wijzig profiel
 	{% endif %}
 </table>
 <br />
+<h2>Secret Santa gegevens</h2>
+<hr>
+<br />
+<table>
+	<tr><td>{{profileform.secret_santa}}&nbsp;&nbsp;Vink dit aan als je met de Secret Santa wil meedoen.</td><td></td></tr>
+	{% if profileform.secret_santa.errors %}
+		{% for error in profileform.secret_santa.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+</table>
+<table>
+	<tr><td><br /><strong>Adresgegevens</strong></td><td></td></tr>
+	<tr><td>Straat:</td><td>{{profileform.street}}</td></tr>
+	{% if profileform.street.errors %}
+		{% for error in profileform.street.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td>Huisnummer (+ bus)</td><td>{{profileform.number}}</td></tr>
+	{% if profileform.number.errors %}
+		{% for error in profileform.number.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td>Postcode</td><td>{{profileform.postal}}</td></tr>
+	{% if profileform.postal.errors %}
+		{% for error in profileform.postal.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td>Stad</td><td>{{profileform.city}}</td></tr>
+	{% if profileform.city.errors %}
+		{% for error in profileform.city.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td>Provincie</td><td>{{profileform.province}}</td></tr>
+	{% if profileform.province.errors %}
+		{% for error in profileform.province.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+	<tr><td>Land</td><td>{{profileform.country}}</td></tr>
+	{% if profileform.country.errors %}
+		{% for error in profileform.country.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
+	{% endif %}
+</table>
+<div>
+	<br />
+	<strong>Voorkeuren</strong>
+	<br />
+	<p>Dit wil ik graag:<br />{{profileform.preference}}</p>
+	{% if profileform.preference.errors %}
+		{% for error in profileform.preference.errors %}
+			<p class="error"><strong>{{ error|escape }}</strong></p>
+		{% endfor %}
+	{% endif %}
+	<br />
+	<p>Dit wil ik absoluut niet:<br />{{profileform.refuse}}</p>
+	{% if profileform.refuse.errors %}
+		{% for error in profileform.refuse.errors %}
+			<p class="error"><strong>{{ error|escape }}</strong></p>
+		{% endfor %}
+	{% endif %}
+</div>
+<br />
 <input type = "submit" value="Wijzig"/>
 </form>
 {% endblock %}

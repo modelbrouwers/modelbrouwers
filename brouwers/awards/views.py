@@ -31,7 +31,7 @@ def register(request):
 				for project in projects:
 					project.rejected = True
 					project.save()
-			return HttpResponseRedirect('/awards/')
+			return HttpResponseRedirect('/profile/')
 		else:
 			return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
 	else:
