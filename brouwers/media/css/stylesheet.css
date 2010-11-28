@@ -52,7 +52,7 @@ h1{
 	color: #8B0000;
 }
 
-#updates{
+.updates{
 	margin-left: 30px;
 }
 
@@ -101,7 +101,7 @@ h1{
 	margin-right: 12px;
 }
 
-.project_link{
+.link{
 	color: black;
 	decorations: none;
 }
@@ -130,4 +130,8 @@ span.foot_1{
 .submit input{
 	margin-left: 35px;
 	margin-bottom: 60px;
+}
+
+.right {
+	float: right;
 }
