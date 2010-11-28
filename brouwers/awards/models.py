@@ -34,6 +34,9 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return self.forum_nickname
 	
+	def full_name(self):
+		return self.user.get_full_name()
+	
 	class Meta:
 		verbose_name = _("Gebruikersprofiel")
 		verbose_name_plural = _("Gebruikersprofielen")

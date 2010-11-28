@@ -6,7 +6,23 @@ class ProjectAdmin(admin.ModelAdmin):
 	list_display = ('name', 'brouwer','category','nomination_date', 'nominator', 'rejected', 'votes')
 
 class UserProfileAdmin(admin.ModelAdmin):
-	list_display = ('user', 'last_vote', 'forum_nickname', 'exclude_from_nomination')
+	fieldsets = (
+		('General', {
+			'fields': ('user', 'forum_nickname')
+		  }),
+		('Awards', {
+#			'classes': ['collapse'],
+			'fields': ('last_vote', 'exclude_from_nomination')
+		}),
+		('Secret Santa', {
+#			'classes': ['collapse'],
+			'fields': ('secret_santa', ('street','number'),('postal', 'city'),('province','country'), 'preference', 'refuse')
+		})
+	)
+	
+	list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'secret_santa')
+
+
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category)
