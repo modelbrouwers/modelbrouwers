@@ -32,11 +32,12 @@ class UserProfile(models.Model):
 	refuse = models.TextField(help_text=_("Dit wil ik absoluut niet"), blank=True, null=True)
 	
 	def __unicode__(self):
-		return self.user.username
+		return self.forum_nickname
 	
 	class Meta:
 		verbose_name = _("Gebruikersprofiel")
 		verbose_name_plural = _("Gebruikersprofielen")
+		ordering = ['forum_nickname']
 	
 
 class Project(models.Model):
@@ -57,6 +58,7 @@ class Project(models.Model):
 	class Meta:
 		verbose_name = _("Nominatie")
 		verbose_name_plural = _("Nominaties")
+		ordering = ['category', 'name']
 
 class Category(models.Model):
 	name = models.CharField(max_length=100)
