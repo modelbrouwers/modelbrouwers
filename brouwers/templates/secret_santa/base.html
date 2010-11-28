@@ -28,6 +28,19 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
 <li type="1" class="updates">{{participant.user.get_profile.forum_nickname}}</li>
 {% endfor %}
 </ul>
+<br />
+<br />
+{% if user.is_staff %}
+<br />
+<hr />
+<div class="admin">
+<p><strong>Deze paragraaf (en al de rest dat ingesprongen is) is enkel voor admins zichtbaar.</strong></p>
+<br />
+<p>Door op onderstaande link te klikken wijs je random mensen toe aan elkaar als zender en ontvanger. Je kan achteraf in de admin het resultaat controleren, bij het '<strong>Secret Santa</strong>' gedeelte klik je naar het '<strong>Couples</strong>' gedeelte.<br /><br />Na het klikken word je naar de Secret Santa homepage doorverwezen. Als je per ongeluk meerdere keren op de link klikt, worden eerst de vorige koppels gewist en worden ze gewoon opnieuw random toegewezen.</p>
+<br />
+<a href="do_lottery">Wijs de mensen aan elkaar toe!</a>
+</div>
+{% endif %}
 {% endblock %}
 
 
