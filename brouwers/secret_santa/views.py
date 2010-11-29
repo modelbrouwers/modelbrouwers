@@ -19,14 +19,14 @@ def lottery(request):
 		for couple in couples:
 			couple.delete()
 	
-	sending_participants = Participant.objects.all().filter(year__exact=date.today().year) #needs filtering by year
+	sending_participants = Participant.objects.all().filter(year__exact=date.today().year).order_by('pk')
 	receivers = sending_participants.order_by('?') #randomize list of participants
 	
 	already_sender = set()
 	
 	if sending_participants:
 		for receiver in receivers:
-			senders = sending_participants.exclude(receiver__exact=receiver) #exclude yourself - you don't send a present to yourself
+			senders = sending_participants.exclude(user=receiver.user) #exclude yourself - you don't send a present to yourself
 			couple = Couple()
 			couple.receiver = receiver
 			for sender in senders: #dedicate a sender to the receiver
@@ -35,5 +35,11 @@ def lottery(request):
 					already_sender.add(sender)
 					break	#break once a sender has been determined
 			couple.save()
-		
 	return HttpResponseRedirect('/secret_santa')
+
+def receiver(request):
+	senders = Participant.objects.filter(user=request.user)
+	if senders:
+		couple = Couple.objects.filter(sender=senders[0]) #couple where user is the sender
+		receiver = couple.receiver
+	return render_to_response('secret_santa/receiver.html', RequestContext(request, {'receiver': receiver}))
