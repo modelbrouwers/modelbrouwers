@@ -38,9 +38,10 @@ def lottery(request):
 	return HttpResponseRedirect('/secret_santa')
 
 def receiver(request):
+	treshold = date(2010,12,05)
 	senders = Participant.objects.filter(user=request.user)
 	receiver = None
-	if senders:
+	if senders and not (date.today() < treshold):
 		couples = Couple.objects.filter(sender=senders[0]) #couple where user is the sender
 		if couples:
 			receiver = couples[0].receiver
