@@ -139,3 +139,11 @@ span.foot_1{
 .admin {
 	margin-left: 8%;
 }
+
+.preferences_ss{
+	border-style: dotted;
+	border-width: 1px;
+	border-color: #FFA34F;
+	margin-left: 20px;
+	width: 50%;
+}

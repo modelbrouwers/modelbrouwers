@@ -39,7 +39,11 @@ def lottery(request):
 
 def receiver(request):
 	senders = Participant.objects.filter(user=request.user)
+	receiver = None
 	if senders:
-		couple = Couple.objects.filter(sender=senders[0]) #couple where user is the sender
-		receiver = couple.receiver
-	return render_to_response('secret_santa/receiver.html', RequestContext(request, {'receiver': receiver}))
+		couples = Couple.objects.filter(sender=senders[0]) #couple where user is the sender
+		if couples:
+			receiver = couples[0].receiver
+		return render_to_response('secret_santa/receiver.html', RequestContext(request, {'receiver': receiver}))
+	else:
+		return HttpResponseRedirect('/media/error.html')

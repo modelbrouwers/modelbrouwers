@@ -1,0 +1,43 @@
+{% extends "secret_santa/base.html" %}
+
+{% block content %}
+<div>
+	<h1>Adresgegevens van jouw ontvanger</h1>
+	<hr />
+	<br />
+	<p>Op deze pagina zie je de gegevens van de persoon die jij hebt voor de Secret Santa. Enkel jij kan deze gegevens zien, zie onderaan ook de link naar de privacyverklaring.</p>
+</div>
+<br />
+<br />
+<br />
+<br />
+<div>
+	<p>Forumnickname:&nbsp;<i>{{receiver.user.get_profile.forum_nickname}}</i></p>
+	<br />
+	<p><strong>Adres</strong></p>
+	<br />
+	<p>
+	{% if receiver.user.get_full_name%}
+		{{receiver.user.get_full_name}}
+	{% else %}
+		{{receiver.user.get_profile.forum_nickname}}
+	{% endif %}
+	</p>
+	<p>{{receiver.user.get_profile.street}}&nbsp;{{receiver.user.get_profile.number}}</p>
+	<p>{{receiver.user.get_profile.postal}}&nbsp;{{receiver.user.get_profile.city}}</p>
+	<p>{{receiver.user.get_profile.province}}</p>
+	<p>{{receiver.user.get_profile.get_country_display}}</p>
+</div>
+<br />
+<div>
+	<p><strong>Voorkeuren</strong></p>
+	<br />
+	<p>Dit wil hij/zij <u>wel</u>:</p>
+		<br />
+	<div class="preferences_ss">{{receiver.user.get_profile.preference|linebreaks}}</div>
+	<br />
+	<p>Dit wil hij/zij <u>niet</u>:</p>
+	<br />
+	<div class="preferences_ss">{{receiver.user.get_profile.refuse|linebreaks}}</div>
+</div>
+{% endblock %}
