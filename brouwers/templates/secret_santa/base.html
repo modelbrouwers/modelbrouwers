@@ -36,7 +36,7 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
 {% for participant in participants %}
 <li type="1" class="updates">{{participant.user.get_profile.forum_nickname}}
 {% if participant.verified %}
-&nbsp;---&nbsp;Bevestigd
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&nbsp;&nbsp;bevestigd
 {% endif %}
 </li>
 {% endfor %}
