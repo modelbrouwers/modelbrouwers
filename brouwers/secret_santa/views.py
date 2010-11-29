@@ -1,6 +1,7 @@
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import user_passes_test
 
 from brouwers.secret_santa.models import Participant, Couple
 
