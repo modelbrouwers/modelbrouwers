@@ -60,7 +60,7 @@ def custom_login(request):
 def custom_logout(request):
 	next_page = request.GET.get('next')
 	if not next_page or ' ' in next_page:
-		next_page = "/awards/?logout=1"
+		next_page = "/?logout=1"
 	logout(request)
 	return HttpResponseRedirect(next_page)
 
@@ -135,7 +135,7 @@ def category_list_nominations(request, id):
 	return render_to_response('awards/category_list_nominations.html', RequestContext(request, {'category': category, 'projects': projects}))
 	
 
-@user_passes_test(lambda u: u.is_authenticated(), login_url='/awards/login/')
+@user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def vote(request):
 	data = {}
 	categories = Category.objects.all()

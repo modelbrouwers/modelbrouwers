@@ -1,4 +1,4 @@
-{% extends "awards/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="side_header">
@@ -14,7 +14,7 @@
     		{% if next %}
     			<input type="hidden" name="next" value="{{ next }}" />
     		{% else %}
-    			<input type="hidden" name="next" value="/awards/" />
+    			<input type="hidden" name="next" value="/" />
     		{% endif %}
     		
     		<input type="submit" value="login" />
