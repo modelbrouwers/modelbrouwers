@@ -14,7 +14,7 @@ Nominaties in de categorie {{ category.name }}
 <br />
 {% if projects %}
 	{% for project in projects %}
-	<p>{#<b>Project:</b>&nbsp;#}<a class="project_link" href="{{project.url}}" target="_blank">{{project.name}}</a> gebouwd door <i>{{project.brouwer}}</i></p>
+	<p>{#<b>Project:</b>&nbsp;#}<a class="link" href="{{project.url}}" target="_blank">{{project.name}}</a> gebouwd door <i>{{project.brouwer}}</i></p>
 	<br />
 	{% endfor %}
 {% else %}
