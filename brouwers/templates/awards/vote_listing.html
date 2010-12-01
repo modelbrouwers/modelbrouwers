@@ -26,9 +26,15 @@ Brouwersawards - Stemmen
 	<br />
 	</div>
 {% else %}
-<p>Er zijn geen projecten gevonden in de categorie {{category}}.</p>
-<br />
-<br />
+	<div class="category">
+	<h2>{{category.name}}</h2>
+	<hr />
+	<br />
+		<div class="list_category">
+			<p>Er zijn geen projecten gevonden.</p>
+		</div>
+	<br />
+	</div>
 {% endif %}
 {% endfor %}
 <br />
