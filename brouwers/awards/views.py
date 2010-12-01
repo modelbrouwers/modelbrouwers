@@ -139,6 +139,8 @@ def category_list_nominations(request, id):
 def vote(request):
 	data = {}
 	categories = Category.objects.all()
+	year = date.today().year-1
+	limit_date = date(year+1,1,15) #date where the voting ends
 	if request.method=='POST':
 		for cat in categories:
 			try:
@@ -151,15 +153,20 @@ def vote(request):
 		profile.last_vote = date.today()
 		profile.save()
 		voted = True;
-		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted}))
+		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted, 'year': year}))
 	else:
-		if (request.user.get_profile().last_vote.year == date.today().year):
-			status = 'Je hebt dit jaar al gestemd, bedankt!'
-			voted = True;
-			return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': voted}))
+		if date.today() <= limit_date:
+			if (request.user.get_profile().last_vote.year == date.today().year):
+				status = 'Je hebt al gestemd voor de editie van %s, bedankt!' % year
+				voted = True;
+				return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': voted, 'year': year}))
+			else:
+				voted = False;
+				for cat in categories:
+					projects = Project.objects.filter(category__exact=cat)
+					projects_valid = projects.filter(nomination_date__year = year)
+					data[cat] = projects_valid.exclude(rejected=True)
+				return render_to_response('awards/vote.html', RequestContext(request, {'data': data, 'voted': voted, 'year': year}))
 		else:
-			voted = False;
-			for cat in categories:
-				projects = Project.objects.filter(category__exact=cat)
-				data[cat] = projects.exclude(rejected=True)
-			return render_to_response('awards/vote.html', RequestContext(request, {'data': data, 'voted': voted}))
+			status = "De editie van %s is afgelopen, er kon gestemd worden tot en met %s. Vanaf %s tot %s kunt u stemmen voor de projecten uit %s." % (year, limit_date.strftime("%d-%m-%Y"), date(year+2,1,1).strftime("%d-%m-%Y"), date(limit_date.year+1, limit_date.month, limit_date.day).strftime("%d-%m-%Y"), year+1)
+			return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': True, 'year': year}))
