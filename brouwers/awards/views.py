@@ -169,4 +169,14 @@ def vote(request):
 				return render_to_response('awards/vote.html', RequestContext(request, {'data': data, 'voted': voted, 'year': year}))
 		else:
 			status = "De editie van %s is afgelopen, er kon gestemd worden tot en met %s. Vanaf %s tot %s kunt u stemmen voor de projecten uit %s." % (year, limit_date.strftime("%d-%m-%Y"), date(year+2,1,1).strftime("%d-%m-%Y"), date(limit_date.year+1, limit_date.month, limit_date.day).strftime("%d-%m-%Y"), year+1)
-			return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': True, 'year': year}))
+			return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': True, 'year': year, 'year_now': year+1}))
+
+def vote_overview(request):
+	data = {}
+	categories = Category.objects.all()
+	year = date.today().year
+	for cat in categories:
+		projects = Project.objects.filter(category__exact=cat)
+		projects_valid = projects.filter(nomination_date__year = year)
+		data[cat] = projects_valid.exclude(rejected=True)
+	return render_to_response('awards/vote_listing.html', RequestContext(request, {'data': data, 'year': year}))

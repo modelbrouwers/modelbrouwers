@@ -42,7 +42,9 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 {% else %}
 	<div>
 	{% if status %}
-		<strong>{{status}}</strong>
+		<p><strong>{{status}}</strong></p>
+		<br />
+		<p>Je vindt een voorbeeld van wat stembaar zal zijn voor de editie van {{year_now}} <a class="link" href="/awards/vote/overview">hier</a>.</p>
 	{% else %}
 		Bedankt voor je stem!
 	{% endif %}
