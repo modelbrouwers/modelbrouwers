@@ -22,6 +22,7 @@ def lottery(request):
 			couple.delete()
 	
 	sending_participants = Participant.objects.all().filter(year__exact=date.today().year).order_by('pk')
+	sending_participants = sending_participants.exclude(verified=False)
 	receivers = sending_participants.order_by('?') #randomize list of participants
 	
 	already_sender = set()
