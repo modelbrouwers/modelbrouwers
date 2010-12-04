@@ -1,7 +1,7 @@
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 from brouwers.secret_santa.models import Participant, Couple
 
@@ -40,6 +40,7 @@ def lottery(request):
 			couple.save()
 	return HttpResponseRedirect('/secret_santa')
 
+@login_required
 def receiver(request):
 	treshold = date(2010,12,05)
 	senders = Participant.objects.filter(user=request.user)
