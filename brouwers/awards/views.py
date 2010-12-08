@@ -5,75 +5,19 @@ from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 
 from django.template import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 
 from models import *
-from forms import ProjectForm, CategoryForm, UserProfileForm
+from forms import ProjectForm, CategoryForm
 
 
 from django.core.mail import send_mail
 
 def index(request):
 	return render_to_response('awards/base.html', {'user': request.user})
-
-def register(request):
-	if request.method=='POST':
-		form = UserProfileForm(request.POST)
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password1']
-			new_user = authenticate(username = username, password = password)
-			login(request, new_user)
-			if new_user.get_profile().exclude_from_nomination:
-				projects = Project.objects.filter(brouwer__iexact = new_user.get_profile().forum_nickname)
-				for project in projects:
-					project.rejected = True
-					project.save()
-			if form.cleaned_data['email']:
-				subject = 'Registratie op xbbtx.be'
-				message = 'Bedankt voor uw registratie op http://xbbtx.be.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (username, password)
-				sender = 'sergeimaertens@skynet.be'
-				receiver = [form.cleaned_data['email']]
-				send_mail(subject, message, sender, receiver, fail_silently=True)			
-			return HttpResponseRedirect('/profile/')
-		else:
-			return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
-	else:
-		form = UserProfileForm()
-		return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
-
-def custom_login(request):    
-    next_page = request.REQUEST.get('next')
-    if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            # Light security check -- make sure next_page isn't garbage.
-            if not next_page or ' ' in next_page:
-                next_page = settings.LOGIN_REDIRECT_URL
-            from django.contrib.auth import login
-            user = form.get_user()
-            login(request, user)
-            return HttpResponseRedirect(next_page)
-    else:
-        form = AuthenticationForm(request)
-    return render_to_response('awards/login.html', RequestContext(request, {
-        'form': form,
-        'next': next_page,
-    }))
-
-def custom_logout(request):
-	next_page = request.GET.get('next')
-	if not next_page or ' ' in next_page:
-		next_page = "/?logout=1"
-	logout(request)
-	return HttpResponseRedirect(next_page)
 
 def category(request):
 	status = ''

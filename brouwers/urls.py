@@ -15,11 +15,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^$', 'brouwers.general.views.index'),
-    (r'^login/$', 'brouwers.awards.views.custom_login'),
-    (r'^profile/$', 'brouwers.general.views.profile'),
-    (r'^profile/change_password/$', 'django.contrib.auth.views.password_change', {'template_name':'general/password.html'}),
-	(r'^password_change_done/$','django.contrib.auth.views.password_change_done', {'template_name': 'general/password_change_done.html'}),
+    (r'^', include('brouwers.general.urls')),
     (r'^awards/', include('brouwers.awards.urls')),
     (r'^secret_santa/', include('brouwers.secret_santa.urls')),
     )

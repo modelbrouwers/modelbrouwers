@@ -35,7 +35,7 @@
 								{% block user_authentication %}
 								<div class="side_header">
 								{% if user.is_authenticated %} 
-									<p>Welkom, <strong>{{user.username}}</strong> (<a class="url_oranje" href="/awards/logout/">Uitloggen</a>)</p>
+									<p>Welkom, <strong>{{user.username}}</strong> (<a class="url_oranje" href="/logout/">Uitloggen</a>)</p>
 										<div class="side_header">
 											<a class="url_oranje" href="/profile/">Gebruikersprofiel</a>
 											{% if user.is_staff %}
@@ -47,7 +47,7 @@
 								{% else %} 
 									<h3><a href="/login/">Inloggen</a></h3>
 										<div class="side_header">
-											<h3><a href="/awards/register/">Registreren</a></h3>
+											<h3><a href="/register/">Registreren</a></h3>
 										</div>
 								{% endif %}
 								</div>
