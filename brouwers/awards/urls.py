@@ -11,6 +11,5 @@ urlpatterns = patterns('brouwers.awards.views',
     (r'^login/$', 'custom_login'),
     (r'^logout/$', 'custom_logout'),
     (r'^register/$', 'register'),
-    ('^send_testmail/$', 'sendmail'),
     )
 

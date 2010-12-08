@@ -14,6 +14,7 @@ Registratie
 			<p class="error"><strong>{{ error|escape }}</strong></p>
 		{% endfor %}
 <table>
+	<tr><td><h2>Algemeen</h2></td><td></td></tr>
 	<tr><td>Gebruikersnaam*: </td><td>{{form.username}}</td></tr>
 	{% if form.username.errors %}
 		{% for error in form.username.errors %}
@@ -32,6 +33,10 @@ Registratie
 			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
 		{% endfor %}
 	{% endif %}
+	<tr><td>E-mail: </td><td>{{form.email}}</td></tr>
+		{% for error in form.email.errors %}
+			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+		{% endfor %}
 	<tr><td><br/></td><td></td></tr>
 	<tr><td>Nickname op het forum*: </td><td>{{form.forum_nickname}}</td></tr>
 	{% if form.forum_nickname.errors %}
@@ -40,6 +45,7 @@ Registratie
 		{% endfor %}
 	{% endif %}
 	<tr><td><br/></td><td></td></tr>
+	<tr><td><h2>BrouwersAwards</h2></td><td></td></tr>
 	<tr><td>{{form.exclude_from_nomination}}&nbsp;&nbsp;Sluit mij uit van nominaties</td><td></td></tr>
 	{% if form.exclude_from_nomination.errors %}
 		{% for error in form.exclude_from_nomination.errors %}

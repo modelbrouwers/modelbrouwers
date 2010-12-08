@@ -22,6 +22,7 @@ class CategoryForm(forms.ModelForm):
 class UserProfileForm(UserCreationForm):
 	forum_nickname = forms.CharField(required=True,min_length=3, max_length=20)
 	exclude_from_nomination = forms.BooleanField(required=False)
+	email = forms.EmailField(label=_("E-mail"), max_length=75)
 	
 	def clean_forum_nickname(self):
 		nickname = self.cleaned_data['forum_nickname']

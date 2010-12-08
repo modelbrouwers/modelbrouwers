@@ -27,13 +27,21 @@ def register(request):
 		form = UserProfileForm(request.POST)
 		if form.is_valid():
 			form.save()
-			new_user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password1'])
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password1']
+			new_user = authenticate(username = username, password = password)
 			login(request, new_user)
 			if new_user.get_profile().exclude_from_nomination:
 				projects = Project.objects.filter(brouwer__iexact = new_user.get_profile().forum_nickname)
 				for project in projects:
 					project.rejected = True
 					project.save()
+			if form.cleaned_data['email']:
+				subject = 'Registratie op xbbtx.be'
+				message = 'Bedankt voor uw registratie op http://xbbtx.be.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (username, password)
+				sender = 'sergeimaertens@skynet.be'
+				receiver = [form.cleaned_data['email']]
+				send_mail(subject, message, sender, receiver, fail_silently=True)			
 			return HttpResponseRedirect('/profile/')
 		else:
 			return render_to_response('awards/register.html', RequestContext(request, {'form': form}))
@@ -183,7 +191,3 @@ def vote_overview(request):
 		projects_valid = projects.filter(nomination_date__year = year)
 		data[cat] = projects_valid.exclude(rejected=True)
 	return render_to_response('awards/vote_listing.html', RequestContext(request, {'data': data, 'year': year}))
-
-def sendmail(request):
-	send_mail('Test3 - live server', 'A standard message, you can use templates for this I assume.', 'sergeimaertens@skynet.be', ['sergeimaertens@gmail.com'])
-	return HttpResponseRedirect('/awards/')
