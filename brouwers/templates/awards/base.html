@@ -23,7 +23,16 @@ Modelbrouwers.nl externe applicaties - Brouwersawards
 </div>
 {% endblock %}
 
-{% block content %}		
+{% block content %}
+
+{% if user.is_staff %}
+<div>
+<p><a href="/awards/send_testmail">Verstuur testmail</a></p>
+</div>
+<br />
+<br />
+{% endif %}
+
 <p>Dit is de indexpagina. Gebruik het menu aan de linkerzijde om categorieën te bekijken, nominaties toe te voegen en om te stemmen (pas mogelijk vanaf januari 2011).</p>
 <br />
 <hr />

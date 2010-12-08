@@ -16,6 +16,9 @@ from django.shortcuts import render_to_response, get_object_or_404
 from models import *
 from forms import ProjectForm, CategoryForm, UserProfileForm
 
+
+from django.core.mail import send_mail
+
 def index(request):
 	return render_to_response('awards/base.html', {'user': request.user})
 
@@ -180,3 +183,7 @@ def vote_overview(request):
 		projects_valid = projects.filter(nomination_date__year = year)
 		data[cat] = projects_valid.exclude(rejected=True)
 	return render_to_response('awards/vote_listing.html', RequestContext(request, {'data': data, 'year': year}))
+
+def sendmail(request):
+	send_mail('Test3 - live server', 'A standard message, you can use templates for this I assume.', 'sergeimaertens@skynet.be', ['sergeimaertens@gmail.com'])
+	return HttpResponseRedirect('/awards/')
