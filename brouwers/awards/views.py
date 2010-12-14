@@ -47,7 +47,6 @@ def nomination(request):
 			brouwer = form.cleaned_data['brouwer']
 			valid, status, exclude = nomination_valid(url, brouwer)
 			if valid:
-				
 					new_nomination = form.save()
 					if exclude:
 						new_nomination.rejected = True

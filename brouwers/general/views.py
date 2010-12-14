@@ -1,4 +1,5 @@
 from django.core.context_processors import csrf
+from django.core.mail import send_mail
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
