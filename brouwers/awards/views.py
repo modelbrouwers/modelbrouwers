@@ -13,9 +13,6 @@ from django.shortcuts import render_to_response, get_object_or_404
 from models import *
 from forms import ProjectForm, CategoryForm
 
-
-from django.core.mail import send_mail
-
 def index(request):
 	return render_to_response('awards/base.html', {'user': request.user})
 
