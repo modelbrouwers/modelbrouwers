@@ -140,6 +140,7 @@ def scores(request):
 	if request.user.get_profile().last_vote.year != year:
 		return HttpResponseRedirect('/awards/vote/')
 	data = []
+	voters = UserProfile.objects.filter(last_vote__year = year).count()
 	year = date.today().year-1
 	categories = Category.objects.all()
 	for category in categories:
@@ -149,4 +150,4 @@ def scores(request):
 			for project in projects:
 				votes_total += project.votes
 			data.append({'category': category, 'projects': projects[:5], 'total': votes_total})
-	return render_to_response('awards/vote_scores.html', RequestContext(request, {'data': data, 'year': year}))
+	return render_to_response('awards/vote_scores.html', RequestContext(request, {'data': data, 'year': year, 'voters': voters}))
