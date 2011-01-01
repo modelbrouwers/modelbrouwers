@@ -176,3 +176,7 @@ td.votes_num{
 .content td{
 	padding: 3px 0px 3px;
 }
+span.big{
+	font-size: 150%;
+	color: #CC0000;
+}
