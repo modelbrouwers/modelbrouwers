@@ -164,7 +164,7 @@ table#vote_scores {
 
 td.votes, td.builder{
 	text-align: center;
-	width: 30%;
+	width: 25%;
 }
 .content td{
 	padding: 3px 0px 3px;
