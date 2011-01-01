@@ -162,9 +162,16 @@ table#vote_scores {
 	background-color: #D1D0CC;
 }
 
-td.votes, td.builder{
+td.builder{
 	text-align: center;
 	width: 25%;
+}
+td.votes{
+	width:15%;
+}
+td.votes_num{
+	width:10%;
+	text-align: left;
 }
 .content td{
 	padding: 3px 0px 3px;

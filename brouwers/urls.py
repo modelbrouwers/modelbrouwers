@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     (r'^secret_santa/', include('brouwers.secret_santa.urls')),
     )
 
-#if settings.DEBUG:
-#	urlpatterns += patterns('',(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-#	)
+if settings.DEBUG:
+	urlpatterns += patterns('',(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+	)
 
