@@ -131,3 +131,16 @@ def vote_overview(request):
 		projects_valid = projects.filter(nomination_date__year = year)
 		data[cat] = projects_valid.exclude(rejected=True)
 	return render_to_response('awards/vote_listing.html', RequestContext(request, {'data': data, 'year': year}))
+
+def scores(request):
+	data = []
+	year = date.today().year-1
+	categories = Category.objects.all()
+	for category in categories:
+		projects = Project.objects.filter(category__exact=category).exclude(rejected=True).order_by('-votes')
+		votes_total = 0
+		if projects:
+			for project in projects:
+				votes_total += project.votes
+			data.append({'category': category, 'projects': projects[:5], 'total': votes_total})
+	return render_to_response('awards/vote_scores.html', RequestContext(request, {'data': data, 'year': year}))

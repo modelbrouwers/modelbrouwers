@@ -6,6 +6,7 @@ urlpatterns = patterns('brouwers.awards.views',
 #    (r'^nomination/(\d+)/$', 'nomination_detail'),
     (r'^vote/$', 'vote'),
     (r'^vote/overview/$', 'vote_overview'),
+    (r'^vote/scores/$', 'scores'),
     (r'^categories/$', 'category'),
     (r'^categories/(\d+)/$', 'category_list_nominations'),
     )

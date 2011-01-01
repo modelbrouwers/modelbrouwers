@@ -151,3 +151,17 @@ span.foot_1{
 .helptext{
 	font-size: 85%;
 }
+
+table#vote_scores {
+	border-collapse: collapse;
+	width:100%;
+}
+
+#vote_scores th{
+	text-align: center;
+	background-color: #D1D0CC;
+}
+
+td.votes, td.builder{
+	text-align: center;
+}
