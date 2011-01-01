@@ -44,7 +44,7 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 	{% if status %}
 		<p><strong>{{status}}</strong></p>
 		<br />
-		<p>Een tussenstand vind je <a class="link" href="./scores/">hier</a>, een voorbeeld van wat stembaar zal zijn voor de editie van {{year_now}} staat <a class="link" href="/awards/vote/overview">hier</a>.</p>
+		<p>Een tussenstand vind je <a class="link" href="./scores/">hier</a>, een voorbeeld van wat stembaar zal zijn voor de editie van {{year|add:1}} staat <a class="link" href="/awards/vote/overview">hier</a>.</p>
 	{% else %}
 		Bedankt voor je stem!
 	{% endif %}
