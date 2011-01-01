@@ -16,9 +16,9 @@ Brouwersawards - Stemmentussenstand
 	<tr class="category"><td colspan="3"><h2>{{dict.category.name}}</h2><hr /><br />Aantal stemmen in deze categorie: {{dict.total}}<br /><br /></td></tr>
 	<tr><th>Project</th><th>Brouwer</th><th>Stemmen</th></tr>
 		{% for project in dict.projects %}
-		<tr><td class="project"><a class="link" href="{{project.url}}" target="_blank">{{project.name}}</a></td><td class="builder">{{project.brouwer}}</td><td class="votes">{{project.votes}}</td></tr>
+		<tr class="content"><td class="project"><a class="link" href="{{project.url}}" target="_blank">{{project.name}}</a></td><td class="builder">{{project.brouwer}}</td><td class="votes">{{project.votes}}</td></tr>
 		{% endfor %}
-		<tr ><td colspan="3"><br /><br /></td></tr>
+		<tr><td colspan="3"><br /><br /></td></tr>
 {% endfor %}
 </table>
 <br />

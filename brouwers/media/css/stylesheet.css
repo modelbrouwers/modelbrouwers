@@ -166,3 +166,6 @@ td.votes, td.builder{
 	text-align: center;
 	width: 30%;
 }
+.content td{
+	padding: 3px 0px 3px;
+}
