@@ -7,6 +7,7 @@ from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import user_passes_test
 
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 
@@ -104,7 +105,8 @@ def vote(request):
 		profile.last_vote = date.today()
 		profile.save()
 		voted = True;
-		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted, 'year': year}))
+		return HttpResponseRedirect('/awards/vote/scores/')
+#		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted, 'year': year}))
 	else:
 		if date.today() <= limit_date:
 			if (request.user.get_profile().last_vote.year == date.today().year):
@@ -132,7 +134,11 @@ def vote_overview(request):
 		data[cat] = projects_valid.exclude(rejected=True)
 	return render_to_response('awards/vote_listing.html', RequestContext(request, {'data': data, 'year': year}))
 
+@user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def scores(request):
+	year = date.today().year
+	if request.user.get_profile().last_vote.year != year:
+		return HttpResponseRedirect('/awards/vote/')
 	data = []
 	year = date.today().year-1
 	categories = Category.objects.all()
