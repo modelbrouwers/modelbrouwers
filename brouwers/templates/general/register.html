@@ -34,6 +34,7 @@ Registratie
 		{% endfor %}
 	{% endif %}
 	<tr><td>E-mail: </td><td>{{form.email}}</td></tr>
+	<tr><td colspan="2" class="helptext">Als je je e-mailadres invult,<br />wordt een e-mail met je logingegevens verstuurd.</td></tr>
 		{% for error in form.email.errors %}
 			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
 		{% endfor %}
