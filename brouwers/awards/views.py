@@ -122,8 +122,11 @@ def vote(request):
 				voted = False;
 				for cat in categories:
 					projects = Project.objects.filter(category__exact=cat)
-					projects_valid = projects.filter(nomination_date__year = year)
-					data[cat] = projects_valid.exclude(rejected=True)
+					projects_valid = projects.filter(nomination_date__year = year).exclude(rejected=True)
+					if not projects_valid:
+						profile.categories_voted.add(cat)
+						profile.save()
+					data[cat] = projects_valid
 				return render_to_response('awards/vote.html', RequestContext(request, {'data': data, 'voted': voted, 'year': year}))
 		else:
 			status = "De editie van %s is afgelopen, er kon gestemd worden tot en met %s. Vanaf %s tot %s kunt u stemmen voor de projecten uit %s." % (year, limit_date.strftime("%d-%m-%Y"), date(year+2,1,1).strftime("%d-%m-%Y"), date(limit_date.year+1, limit_date.month, limit_date.day).strftime("%d-%m-%Y"), year+1)
