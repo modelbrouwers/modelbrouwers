@@ -110,6 +110,8 @@ def vote(request):
 #		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted, 'year': year}))
 	else:
 		if date.today() <= limit_date:
+			if profile.last_vote.year < date.today().year:
+				profile.categories_voted.clear()
 			if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
 				status = 'Je hebt al gestemd voor de editie van %s, bedankt!' % year
 				voted = True;
