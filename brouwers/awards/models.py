@@ -19,6 +19,7 @@ class UserProfile(models.Model):
 	
 	#awardsinfo
 	secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet"))
+	categories_voted = models.ManyToManyField('Category', blank=True, null=True)
 	#adres
 	street = models.CharField(max_length=255, help_text=_("Straatnaam"), blank=True, null=True)
 	number = models.CharField(max_length=10, help_text=_("Huisnummer (+ bus indien van toepassing)"), blank=True, null=True)

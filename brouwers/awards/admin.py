@@ -14,7 +14,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 		  }),
 		('Awards', {
 #			'classes': ['collapse'],
-			'fields': ('last_vote', 'exclude_from_nomination')
+			'fields': (('last_vote', 'exclude_from_nomination'), 'categories_voted')
 		}),
 		('Secret Santa', {
 #			'classes': ['collapse'],

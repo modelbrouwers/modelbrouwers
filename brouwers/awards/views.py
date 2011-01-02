@@ -86,22 +86,23 @@ def category_list_nominations(request, id):
 	projects = projects.exclude(rejected=True)
 	return render_to_response('awards/category_list_nominations.html', RequestContext(request, {'category': category, 'projects': projects}))
 	
-
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def vote(request):
 	data = {}
 	categories = Category.objects.all()
 	year = date.today().year-1
 	limit_date = date(year+1,1,15) #date where the voting ends
+	profile = request.user.get_profile()
 	if request.method=='POST':
 		for cat in categories:
 			try:
 				project = get_object_or_404(Project, pk=request.POST[unicode(cat)])
 				project.votes += 1
 				project.save()
-			except ValueError, KeyError:
+				profile.categories_voted.add(cat)
+				profile.save()
+			except (ValueError, KeyError):
 				pass
-		profile = request.user.get_profile()
 		profile.last_vote = date.today()
 		profile.save()
 		voted = True;
@@ -109,11 +110,13 @@ def vote(request):
 #		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted, 'year': year}))
 	else:
 		if date.today() <= limit_date:
-			if (request.user.get_profile().last_vote.year == date.today().year):
+			if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
 				status = 'Je hebt al gestemd voor de editie van %s, bedankt!' % year
 				voted = True;
 				return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': voted, 'year': year}))
 			else:
+				categories_voted = profile.categories_voted.all()
+				categories = categories.exclude(id__in=categories_voted)
 				voted = False;
 				for cat in categories:
 					projects = Project.objects.filter(category__exact=cat)
