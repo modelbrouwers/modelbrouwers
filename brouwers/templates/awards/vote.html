@@ -10,6 +10,8 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 <br/>
 <p>Op deze pagina kan je je stem uitbrengen. Het is niet verplicht om bij elke categorie te stemmen. De projectnamen zijn links naar het brouwverslag.</p>
 <br/>
+<p style="font-size: 80%;">Bij waarschuwingsbordjes: laat je muis eens even op de afbeelding staan en kijk wat er gebeurt...</p>
+<br/>
 <br/>
 <form action="." method="POST">
 {% csrf_token %}
@@ -23,7 +25,7 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 		<div class="list_category">
 			{% for project in projects %}
 				<input type="radio" name="{{category}}" id="{{project.id}}" value="{{project.id}}"/>&nbsp;
-				<label for="{{project.id}}">{#<b>Project:</b>&nbsp;#}<a class="link" href={{project.url}} target="_blank">{{project.name}}</a> door <i>{{project.brouwer}}</i></label>
+				<label for="{{project.id}}">{% include "awards/project.html" %}</label>
 				<br />
 				<br />
 			{% endfor %}
