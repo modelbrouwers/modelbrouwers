@@ -178,11 +178,8 @@ td.votes_num{
 	text-align: left;
 }
 .content td, th{
-	padding: 5px 0px 5px;
+	padding: 3px 0px 3px;
 }
 .light{
 	background-color: #ECECEC;
-}
-.dark{
-	background-color: #b2bcc2;
 }
