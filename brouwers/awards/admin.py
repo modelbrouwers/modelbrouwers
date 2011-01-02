@@ -22,7 +22,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 		})
 	)
 	
-	list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'secret_santa')
+	list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'last_vote', 'secret_santa')
 
 
 
