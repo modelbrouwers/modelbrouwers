@@ -9,6 +9,7 @@ Brouwersawards - Stemmen
 <hr />
 <br/>
 <p>Dit is een overzichtspagina van alles dat stembaar is. Beschouw het als een soort tussenstandspagina voor alle nominaties.</p>
+<p style="font-size: 80%;">Bij waarschuwingsbordjes: laat je muis eens even op de afbeelding staan en kijk wat er gebeurt...</p>
 <br/>
 <br/>
 {% for category, projects in data.items %}
@@ -19,8 +20,7 @@ Brouwersawards - Stemmen
 	<br />
 		<div class="list_category">
 			{% for project in projects %}
-				<p><a class="link" href={{project.url}} target="_blank">{{project.name}}</a> door <i>{{project.brouwer}}</i></p>
-				<br />
+				{% include "awards/project.html" %}
 			{% endfor %}
 		</div>
 	<br />

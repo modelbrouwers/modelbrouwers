@@ -56,10 +56,11 @@ BrouwersAwards - Nominaties
 <br />
 <h1>Nieuwste nominaties</h1>
 <hr />
+<p style="font-size: 80%;">Bij waarschuwingsbordjes: laat je muis eens even op de afbeelding staan en kijk wat er gebeurt...</p>
 <br />
 <br />
 {% for project in last_nominations %}
-	<a class="link" href={{project.url}} target="_blank">{{project.name}}</a> - brouwer: <i>{{project.brouwer}}</i><br /><br />
+{% include "awards/project.html" %}
 {% endfor %}
 <br />
 
