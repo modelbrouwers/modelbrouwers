@@ -39,7 +39,6 @@ h1{
 	border-right: 1px solid #000;
 	background: url(../bg.jpg) repeat-y;
 }
-
 #header{
 	margin-left: 15px;
 }
@@ -151,17 +150,22 @@ span.foot_1{
 .helptext{
 	font-size: 85%;
 }
-
+/*******voting tussenstanden*******/
+span.big{
+	font-size: 200%;
+	color: #CC0000;
+}
 table#vote_scores {
 	border-collapse: collapse;
 	width:100%;
 }
-
 #vote_scores th{
 	text-align: center;
 	background-color: #D1D0CC;
 }
-
+.project{
+	padding-left: 5px;
+}
 td.builder{
 	text-align: center;
 	width: 25%;
@@ -173,10 +177,12 @@ td.votes_num{
 	width: 8%;
 	text-align: left;
 }
-.content td{
+.content td, th{
 	padding: 3px 0px 3px;
 }
-span.big{
-	font-size: 200%;
-	color: #CC0000;
+.light{
+	background-color: #ECECEC;
+}
+.dark{
+	background-color: #A9B8C2;
 }
