@@ -25,7 +25,9 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 		<div class="list_category">
 			{% for project in projects %}
 				<input type="radio" name="{{category}}" id="{{project.id}}" value="{{project.id}}"/>&nbsp;
-				<label for="{{project.id}}">{% include "awards/project.html" %}</label>
+				<label for="{{project.id}}">
+				<a class="link" href="{{project.url}}" target="_blank">{{project.name}}</a> gebouwd door <i>{{project.brouwer}}</i>
+{% if project.brouwer|lower == project.nominator.forum_nickname|lower %}<img src="/media/images/warning.png" height="18" width="21" title="Deze persoon nomineerde zijn/haar eigen project!"/>{% endif %}</label>
 				<br />
 				<br />
 			{% endfor %}
