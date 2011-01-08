@@ -153,7 +153,7 @@ def scores(request):
 	year = date.today().year-1
 	categories = Category.objects.all()
 	categories_voted = request.user.get_profile().categories_voted.all()
-	categories = categories.exclude(id__in=categories_voted)
+	categories = categories.filter(id__in=categories_voted)
 	for category in categories:
 		projects = Project.objects.filter(category__exact=category).exclude(rejected=True).order_by('-votes')
 		votes_total = 0
