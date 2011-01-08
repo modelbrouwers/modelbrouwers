@@ -23,6 +23,7 @@
 					<h2><a href="/">Home/Nieuws</a></h2>
 					<br />
 					<br />
+					<hr />
 						{% block sidebar_links %}		
 						<div class="side_header">
 							<h1><a href="/awards/">Awards</a></h1>
@@ -31,11 +32,12 @@
 						{% endblock %}
 								<br />
 								<br />
+								<hr />
 								<br />
 								{% block user_authentication %}
 								<div class="side_header">
 								{% if user.is_authenticated %} 
-									<p>Welkom, <strong>{{user.username}}</strong> (<a class="url_oranje" href="/logout/">Uitloggen</a>)</p>
+									<p>Welkom, <strong>{{user.username}}</strong> (<a class="url_oranje" href="/logout/">Uitloggen<span style="color: white;">)</span></a></p>
 										<div class="side_header">
 											<a class="url_oranje" href="/profile/">Gebruikersprofiel</a>
 											{% if user.is_staff %}
@@ -72,6 +74,16 @@
 					<li>Layout van gebruikersprofiel verbeterd.</li>
 					<li>Secret Santa applicatie is klaar, op het mail-versturen gedeelte na.</li>
 					<li>Bugfix in de Secret Santa.</li>
+				</ul></p>
+				<br />
+				<br />
+				<p><h4>Update 08 januari 2011</h4>
+				<br />
+				<ul class="updates">
+					<li>Stemmen kan in meerdere keren gebeuren.</li>
+					<li>Tussenstandpagina gemaakt.</li>
+					<li>De tussenstandpagina is enkel zichtbaar als je ingelogd bent, én toont enkel de categorieën waarin je gestemd hebt. Zo worden eventuele latere stemmen niet beïnvloed.</li>
+					<li>Redirect toegevoegd als het stemmen volledig voltooid is.</li>
 				</ul></p>
 				<br />
 				<br />

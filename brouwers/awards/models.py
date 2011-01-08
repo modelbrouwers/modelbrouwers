@@ -62,7 +62,7 @@ class Project(models.Model):
 	class Meta:
 		verbose_name = _("Nominatie")
 		verbose_name_plural = _("Nominaties")
-		ordering = ['category', 'votes', 'pk']
+		ordering = ['category', 'votes']
 
 class Category(models.Model):
 	name = models.CharField(max_length=100)

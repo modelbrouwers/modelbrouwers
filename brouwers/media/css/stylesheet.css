@@ -12,7 +12,7 @@ html, body {
 
 body {
 	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-	font-size: 12px;
+	font-size: 0.75em;
 	background-color: #dedede;
 }
 
@@ -65,17 +65,18 @@ h1{
 	float: left;
 	clear: left;
 	text-align: right;
-	width: 200px;
+	width: 210px;
 	margin: 15px 0;
 }
 
 .url_oranje{
 	color: #FFA34F;
+	margin-right: 15px;
 }
 
 .side_header h1 a{
 	color: white;
-	margin-right: 15px;
+	margin-right: 20px;
 }
 
 .side_header h2 a{
