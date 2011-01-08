@@ -113,9 +113,10 @@ def vote(request):
 			if profile.last_vote.year < date.today().year:
 				profile.categories_voted.clear()
 			if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
-				status = 'Je hebt al gestemd voor de editie van %s, bedankt!' % year
-				voted = True;
-				return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': voted, 'year': year}))
+#				status = 'Je hebt al gestemd voor de editie van %s, bedankt!' % year
+#				voted = True;
+#				return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': voted, 'year': year}))
+				return HttpResponseRedirect('/awards/vote/scores/')
 			else:
 				categories_voted = profile.categories_voted.all()
 				categories = categories.exclude(id__in=categories_voted)
@@ -151,6 +152,8 @@ def scores(request):
 	voters = UserProfile.objects.filter(last_vote__year = year).count()
 	year = date.today().year-1
 	categories = Category.objects.all()
+	categories_voted = request.user.get_profile().categories_voted.all()
+	categories = categories.exclude(id__in=categories_voted)
 	for category in categories:
 		projects = Project.objects.filter(category__exact=category).exclude(rejected=True).order_by('-votes')
 		votes_total = 0
