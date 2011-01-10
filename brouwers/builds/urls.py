@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from brouwers.awards.models import UserProfile
+from models import Build
 
 urlpatterns = patterns('brouwers.builds.views',
 	(r'^$', 'builders_overview'),
@@ -14,6 +15,13 @@ info = {
 	'template_object_name': 'profile'
 	}
 
+info_build = {
+	'queryset': Build.objects.all(),
+	'template_name': 'builds/build.html',
+	'template_object_name': 'build'
+	}
+
 urlpatterns += patterns('django.views.generic.list_detail',
+	(r'^(?P<object_id>\d+)/$', 'object_detail', info_build),
 	(r'^profile/(?P<object_id>\d+)/$', 'object_detail', info),
 	)

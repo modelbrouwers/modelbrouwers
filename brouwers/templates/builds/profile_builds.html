@@ -9,6 +9,8 @@
 	<tr><th>Titel</th><th>Merk</th><th>Schaal</th><th>Topic</th></tr>
 	{% for build in profile.build_set.all %}
 	<tr class="content light"><td><a class="link project" href="/builds/{{build.id}}/">{{build.title}}</a></td><td class="center">{{build.brand}}</td><td class="center">{{build.scale}}</td><td class="center"><a href="{{build.url}}" target="_blank">klik!</a></td></tr>
+	{% empty %}
+	<tr class="content light"><td colspan="4">Deze gebruiker heeft nog geen verslagen aan zijn/haar profiel toegevoegd.</td></tr>
 	{% endfor %}
 </table>
 {% endblock %}

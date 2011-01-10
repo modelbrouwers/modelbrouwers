@@ -12,7 +12,7 @@ class BuildAdmin(admin.ModelAdmin):
 		}),
 		('Varia', {
 			'classes': ['collapse'],
-			'fields': ('nomination', 'img1', 'img2', 'img3')
+			'fields': (('start_date', 'end_date'), 'nomination', 'img1', 'img2', 'img3')
 		})
 	)
 	
