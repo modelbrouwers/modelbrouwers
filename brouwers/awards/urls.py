@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('brouwers.awards.views',
-    (r'^$', 'index'),
     (r'^nomination/$', 'nomination'),
 #    (r'^nomination/(\d+)/$', 'nomination_detail'),
     (r'^vote/$', 'vote'),
@@ -11,3 +10,6 @@ urlpatterns = patterns('brouwers.awards.views',
     (r'^categories/(\d+)/$', 'category_list_nominations'),
     )
 
+urlpatterns += patterns('django.views.generic.simple',
+    (r'^$', 'direct_to_template', {'template': 'awards/base.html'})
+    )

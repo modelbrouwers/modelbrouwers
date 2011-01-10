@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+Brouwverslagenoverzicht
+{% endblock %}
+
+{% block sidebar_links %}
+<div class="side_header">
+	<h1><a href="/builds/">Zoeken</a></h1>
+{% endblock %}
+{% block sidebar_links_closing_tags %}
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Brouwverslagenoverzicht</h1>
+<hr />
+<br />
+<p>Op deze pagina kan je de verslagen van andere brouwers terugvinden. Geef in het zoekveld (een stuk van) de forumnaam op, en klik op 'zoeken'. Klik vervolgens op de juiste nickname om een overzicht te krijgen.
+</p>
+<br />
+<br />
+<br />
+<form action="." method="POST">
+	<p>{{form.nickname}} <input type = "submit" value="Zoek"/></p>
+	{% for error in form.nickname.errors %}
+		<p class="error"><strong>{{error}}</strong></p>
+	{% endfor %}
+</form>
+<br />
+<br />
+{% block results %}
+{% endblock %}
+{% endblock %}

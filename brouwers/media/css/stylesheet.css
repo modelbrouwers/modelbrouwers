@@ -136,6 +136,10 @@ span.foot_1{
 	float: right;
 }
 
+.center {
+	text-align: center;
+}
+
 .admin {
 	margin-left: 8%;
 }
@@ -156,11 +160,11 @@ span.big{
 	font-size: 200%;
 	color: #CC0000;
 }
-table#vote_scores {
+table#vote_scores, table#builds {
 	border-collapse: collapse;
 	width:100%;
 }
-#vote_scores th{
+#vote_scores th, #builds th{
 	text-align: center;
 	background-color: #D1D0CC;
 }

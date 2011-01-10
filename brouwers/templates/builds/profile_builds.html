@@ -1,0 +1,14 @@
+{% extends "builds/base.html" %}
+
+{% block content %}
+<h1>Brouwverslagenoverzicht van {{profile.forum_nickname}}</h1>
+<hr />
+<br />
+<br />
+<table id="builds">
+	<tr><th>Titel</th><th>Merk</th><th>Schaal</th><th>Topic</th></tr>
+	{% for build in profile.build_set.all %}
+	<tr class="content light"><td><a class="link project" href="/builds/{{build.id}}/">{{build.title}}</a></td><td class="center">{{build.brand}}</td><td class="center">{{build.scale}}</td><td class="center"><a href="{{build.url}}" target="_blank">klik!</a></td></tr>
+	{% endfor %}
+</table>
+{% endblock %}

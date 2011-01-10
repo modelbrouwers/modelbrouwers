@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 	<title>{% block title %}Modelbrouwers.nl externe applicaties{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="/media/css/stylesheet.css" charset="utf-8"/>
-	<link rel="shortcut icon" href="/media/images/favicon.ico" /> 
+	<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/stylesheet.css" charset="utf-8"/>
+	<link rel="shortcut icon" href="{{MEDIA_URL}}images/favicon.ico" /> 
 	{% block extrastyle %}
 	{% endblock %}
 </head>
@@ -12,7 +12,7 @@
 <body>
 	<div id="container">	
 		<div id="header">
-			<a href="http://www.modelbrouwers.nl/"><img id="logo" src="/media/logo.png" alt="logo"/></a>
+			<a href="http://www.modelbrouwers.nl/"><img id="logo" src="{{MEDIA_URL}}logo.png" alt="logo"/></a>
 			{% block extra_logo %}
 			{% endblock %}
 		</div>
@@ -29,6 +29,8 @@
 							<h1><a href="/awards/">Awards</a></h1>
 								<div class="side_header">
 									<h1><a href="/secret_santa/">Secret Santa</a></h1>
+										<div class="side_header">
+											<h1><a href="/builds/">Verslagen</a></h1>
 						{% endblock %}
 								<br />
 								<br />
@@ -55,6 +57,7 @@
 								</div>
 								{% endblock %}
 						{% block sidebar_links_closing_tags %}
+										</div>
 								</div>
 						</div>
 						{% endblock %}
@@ -132,7 +135,7 @@
 	</div>
 
 	<div id="footer">
-		<span class="foot_1>">Modelbrouwers {% block appname %}Applicaties{% endblock %} v1.2.1 - <a href="/media/privacy.html" target="_blank">Privacyverklaring</a><br />&copy; 2010 Sergei Maertens en Modelbrouwers.nl</span>
+		<span class="foot_1>">Modelbrouwers {% block appname %}Applicaties{% endblock %} v1.2.1 - <a href="{{MEDIA_URL}}privacy.html" target="_blank">Privacyverklaring</a><br />&copy; 2010 Sergei Maertens en Modelbrouwers.nl</span>
 	</div> 
 </body>
 </html>

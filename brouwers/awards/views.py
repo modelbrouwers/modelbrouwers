@@ -9,13 +9,11 @@ from django.contrib.auth.decorators import user_passes_test
 
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
+from brouwers.general.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
 
 from models import *
 from forms import ProjectForm, CategoryForm
-
-def index(request):
-	return render_to_response('awards/base.html', {'user': request.user})
 
 def category(request):
 	status = ''
@@ -31,7 +29,7 @@ def category(request):
 			status = "Nieuwe categorie is toegevoegd"
 	else:
 		form = CategoryForm()
-	return render_to_response('awards/category.html', RequestContext(request, {'form': form, 'allowed': allowed, 'status': status, 'categories': categories}))
+	return render_to_response(request, 'awards/category.html', {'form': form, 'allowed': allowed, 'status': status, 'categories': categories})
 
 
 def nomination(request):
@@ -55,36 +53,34 @@ def nomination(request):
 					form = ProjectForm()
 	else:
 		form = ProjectForm()
-	return render_to_response('awards/nomination.html', RequestContext(request, {'form': form, 'status': status, 'last_nominations': last_nominations})
-	)
+	return render_to_response(request, 'awards/nomination.html', {'form': form, 'status': status, 'last_nominations': last_nominations})
 
 def nomination_valid(url, brouwer):
 	match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
+	valid = True
+	status = "De nominatie is toegevoegd"
+	exclude = False
 	if match:
 		url = match.group(0)
 		projects = Project.objects.filter(url__icontains = url)
 		if projects:
 			category = projects[0].category.name
-			status = "<font color=\"Red\">Dit project is al genomineerd in de categorie \"%s\"</font>" % category
-			return (False, status, False)
-		else:
-			profiles = UserProfile.objects.filter(forum_nickname__iexact = brouwer)
-			if profiles:
-				profile = profiles[0]
-				if (profile.exclude_from_nomination==True):
-					return (True, "<font color=\"Red\">De nominatie is in de database opgenomen, echter deze zal op verzoek van de brouwer niet in aanmerking komen voor een award.</font>", True)
-				else:
-					return (True, "De nominatie is toegevoegd", False)
-			else:
-				return (True, "De nominatie is toegevoegd", False)
+			valid, status = False, "<font color=\"Red\">Dit project is al genomineerd in de categorie \"%s\"</font>" % category
+		profiles = UserProfile.objects.filter(forum_nickname__iexact = brouwer)
+		if profiles:
+			profile = profiles[0]
+			if (profile.exclude_from_nomination==True):
+				status = "<font color=\"Red\">De nominatie is in de database opgenomen, echter deze zal op verzoek van de brouwer niet in aanmerking komen voor een award.</font>"
+				exclude = True
 	else:
-		return (False, "<font color=\"Red\">De nominatie kon niet worden toegevoegd, de url wijst niet naar een forumtopic!</font>", False)
+		valid, status= False, "<font color=\"Red\">De nominatie kon niet worden toegevoegd, de url wijst niet naar een forumtopic!</font>"
+	return(valid, status, exclude)
 
 def category_list_nominations(request, id):
 	category = Category.objects.get(id__exact = id)
-	projects = category.project_set.all().order_by('pk')
+	projects = category.project_set.all().filter(nomination_date__year = date.today().year)
 	projects = projects.exclude(rejected=True)
-	return render_to_response('awards/category_list_nominations.html', RequestContext(request, {'category': category, 'projects': projects}))
+	return render_to_response(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})
 	
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def vote(request):
@@ -107,7 +103,7 @@ def vote(request):
 		profile.save()
 		voted = True;
 		return HttpResponseRedirect('/awards/vote/scores/')
-#		return render_to_response('awards/vote.html', RequestContext(request, {'voted': voted, 'year': year}))
+#		return render_to_response(request, 'awards/vote.html', {'voted': voted, 'year': year})
 	else:
 		if date.today() <= limit_date:
 			if profile.last_vote.year < date.today().year:
@@ -115,7 +111,7 @@ def vote(request):
 			if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
 #				status = 'Je hebt al gestemd voor de editie van %s, bedankt!' % year
 #				voted = True;
-#				return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': voted, 'year': year}))
+#				return render_to_response(request, 'awards/vote.html', {'status': status, 'voted': voted, 'year': year})
 				return HttpResponseRedirect('/awards/vote/scores/')
 			else:
 				categories_voted = profile.categories_voted.all()
@@ -128,10 +124,10 @@ def vote(request):
 						profile.categories_voted.add(cat)
 						profile.save()
 					data[cat] = projects_valid
-				return render_to_response('awards/vote.html', RequestContext(request, {'data': data, 'voted': voted, 'year': year}))
+				return render_to_response(request, 'awards/vote.html', {'data': data, 'voted': voted, 'year': year})
 		else:
 			status = "De editie van %s is afgelopen, er kon gestemd worden tot en met %s. Vanaf %s tot %s kunt u stemmen voor de projecten uit %s." % (year, limit_date.strftime("%d-%m-%Y"), date(year+2,1,1).strftime("%d-%m-%Y"), date(limit_date.year+1, limit_date.month, limit_date.day).strftime("%d-%m-%Y"), year+1)
-			return render_to_response('awards/vote.html', RequestContext(request, {'status': status, 'voted': True, 'year': year, 'year_now': year+1}))
+			return render_to_response(request, 'awards/vote.html', {'status': status, 'voted': True, 'year': year})
 
 def vote_overview(request):
 	data = {}
@@ -141,7 +137,7 @@ def vote_overview(request):
 		projects = Project.objects.filter(category__exact=cat)
 		projects_valid = projects.filter(nomination_date__year = year)
 		data[cat] = projects_valid.exclude(rejected=True)
-	return render_to_response('awards/vote_listing.html', RequestContext(request, {'data': data, 'year': year}))
+	return render_to_response(request, 'awards/vote_listing.html', {'data': data, 'year': year})
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def scores(request):
@@ -161,4 +157,4 @@ def scores(request):
 			for project in projects:
 				votes_total += project.votes
 			data.append({'category': category, 'projects': projects[:5], 'total': votes_total})
-	return render_to_response('awards/vote_scores.html', RequestContext(request, {'data': data, 'year': year, 'voters': voters}))
+	return render_to_response(request, 'awards/vote_scores.html', {'data': data, 'year': year, 'voters': voters})

@@ -1,13 +1,11 @@
-from django.core.context_processors import csrf
 from django.core.mail import send_mail
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from django.template import RequestContext
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from shortcuts import render_to_response
 from django.db.models import Q
 
 from brouwers.awards.forms import ProfileForm, UserForm, UserProfileForm
@@ -15,9 +13,6 @@ from brouwers.awards.models import UserProfile, Project
 from brouwers.secret_santa.models import Participant
 
 from datetime import date
-
-def index(request):
-	return render_to_response('base.html', {'user': request.user})
 
 def register(request):
 	if request.method=='POST':
@@ -40,11 +35,9 @@ def register(request):
 				receiver = [form.cleaned_data['email']]
 				send_mail(subject, message, sender, receiver, fail_silently=True)			
 			return HttpResponseRedirect('/profile/')
-		else:
-			return render_to_response('general/register.html', RequestContext(request, {'form': form}))
 	else:
 		form = UserProfileForm()
-		return render_to_response('general/register.html', RequestContext(request, {'form': form}))
+	return render_to_response(request, 'general/register.html', {'form': form})
 
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
@@ -60,10 +53,10 @@ def custom_login(request):
             return HttpResponseRedirect(next_page)
     else:
         form = AuthenticationForm(request)
-    return render_to_response('general/login.html', RequestContext(request, {
+    return render_to_response(request, 'general/login.html', {
         'form': form,
         'next': next_page,
-    }))
+    })
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def profile(request):
@@ -91,11 +84,11 @@ def profile(request):
 
 		if forms['userform'].is_valid():
 			forms['userform'].save()
-		return render_to_response('general/profile.html', RequestContext(request, forms))
+		return render_to_response(request, 'general/profile.html', forms)
 	else:
 		forms['profileform'] = ProfileForm(instance=request.user.get_profile())
 		forms['userform'] = UserForm(instance=request.user)
-		return render_to_response('general/profile.html', RequestContext(request, forms))
+		return render_to_response(request, 'general/profile.html', forms)
 		
 def custom_logout(request):
 	next_page = request.GET.get('next')

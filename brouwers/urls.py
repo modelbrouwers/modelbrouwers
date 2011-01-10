@@ -15,9 +15,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^', include('brouwers.general.urls')),
     (r'^awards/', include('brouwers.awards.urls')),
     (r'^secret_santa/', include('brouwers.secret_santa.urls')),
+    (r'^builds/', include('brouwers.builds.urls')),
+    (r'^', include('brouwers.general.urls')),
     )
 
 if settings.DEBUG:

@@ -7,12 +7,6 @@ from brouwers.secret_santa.models import Participant, Couple
 
 from datetime import date
 
-def index(request):
-	year = date.today().year
-	participants = Participant.objects.all()
-	participants = participants.filter(year = year).order_by('pk')
-	return render_to_response('secret_santa/base.html', RequestContext(request, {'participants': participants, 'year': year}))
-
 @user_passes_test(lambda u: u.is_authenticated() and u.is_staff, login_url='/login/')
 def lottery(request):
 	#clear old entries

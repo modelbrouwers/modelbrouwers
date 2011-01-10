@@ -8,7 +8,7 @@ Secret Santa {{year}} - Modelbrouwers applicaties
 <h1>Secret Santa {{year}}</h1>
 <hr />
 <br />
-<img class="right" src="/media/images/santa.jpg" alt="Santa Image">
+<img class="right" src="{{MEDIA_URL}}images/santa.jpg" alt="Santa Image">
 <p><i>Juggernaut</i> schreef het volgende:</p>
 <br />
 <p>Het idee van SS is dat je, net als bij lootjes trekken, een cadeautje (in de vorm van een kitje) krijgt van een ander forumlid.
@@ -33,7 +33,7 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
 <h3>Ingeschreven deelnemers</h3>
 <br />
 <ul>
-{% for participant in participants %}
+{% for participant in participants_list %}
 <li type="1" class="updates">{{participant.user.get_profile.forum_nickname}}
 {% if participant.verified %}
 &nbsp;-&nbsp;&nbsp;ok

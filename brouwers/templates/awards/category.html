@@ -18,7 +18,7 @@ BrouwersAwards - Categorieën
 <br />
 <br />
 {% if allowed %}
-<form action="." method="POST">{% csrf_token %}
+<form action="." method="POST">
 Categorie:&nbsp;&nbsp;{{ form.name}}
 <input type = "submit" value="Voeg categorie toe"/>
 </form>

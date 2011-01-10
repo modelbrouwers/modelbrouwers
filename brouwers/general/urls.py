@@ -1,7 +1,10 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('brouwers.general.views',
-    (r'^$', 'index'),
+urlpatterns = patterns('django.views.generic.simple',
+    (r'^$', 'direct_to_template', {'template': 'base.html'})
+    )
+
+urlpatterns += patterns('brouwers.general.views',
     (r'^login/$', 'custom_login'),
     (r'^logout/$', 'custom_logout'),
     (r'^register/$', 'register'),
