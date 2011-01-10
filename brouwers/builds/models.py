@@ -28,4 +28,4 @@ class Build(models.Model):
 	class Meta:
 		verbose_name = _("brouwverslag")
 		verbose_name_plural = _("brouwverslagen")
-		ordering = ['profile', 'category']
+		ordering = ['profile', 'scale', 'brand']
