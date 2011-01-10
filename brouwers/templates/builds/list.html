@@ -4,7 +4,7 @@
 <h2>Zoekresultaten</h2>
 <br />
 {% for profile in profiles %}
-<p><a class="link project" href="/builds/profile/{{profile.id}}/" title="Overzicht brouwer">{{profile.forum_nickname}}</a></p>
+<p><a class="link" href="/builds/profile/{{profile.id}}/" title="Overzicht brouwer">{{profile.forum_nickname}}</a></p>
 {% empty %}
 <p>Sorry, deze brouwer is niet geregistreerd op deze website.</p>
 {% endfor %}
