@@ -29,6 +29,8 @@ class BuildForm(forms.ModelForm):
 	
 	def clean_scale(self):
 		scale = self.cleaned_data['scale']
+		if scale == "":
+			return scale
 		match = re.search('1:\d+', scale)
 		if match:
 			return scale

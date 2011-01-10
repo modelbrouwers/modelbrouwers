@@ -4,7 +4,7 @@
 <h1>{{build}}</h1>
 <hr />
 <br />
-{% if user.get_profile == build.profile %}
+{% if user.get_profile == build.profile or user.is_staff %}
 <a href="../edit/{{build.id}}/" style="float: right;"><img src="{{MEDIA_URL}}images/edit.gif" width="90" height="20" alt="edit"/></a>
 {% endif %}
 <p>
