@@ -22,7 +22,6 @@ Brouwverslagenoverzicht
 <p>Op deze pagina kan je de verslagen van andere brouwers terugvinden. Geef in het zoekveld (een stuk van) de forumnaam op, en klik op 'zoeken'. Klik vervolgens op de juiste nickname om een overzicht te krijgen.</p>
 <br />
 <br />
-<br />
 <form action="." method="POST">
 	<p>{{form.nickname}} <input type = "submit" value="Zoek"/></p>
 	{% for error in form.nickname.errors %}
@@ -32,5 +31,12 @@ Brouwverslagenoverzicht
 <br />
 <br />
 {% block results %}
+<h1>Laatst toegevoegd</h1>
+<hr />
+<br />
+{% for build in builds %}
+<p><a class="link" href="/builds/profile/{{build.profile.id}}/">{{build.profile}}</a>: <a class="link project" href="/builds/{{build.id}}/">{{build.title}}</a></p>
+<br />
+{% endfor %}
 {% endblock %}
 {% endblock %}

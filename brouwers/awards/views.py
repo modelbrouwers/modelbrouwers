@@ -15,6 +15,14 @@ from django.shortcuts import get_object_or_404
 from models import *
 from forms import ProjectForm, CategoryForm
 
+#TODO: link the user submitted in a nomination to an existing profile on the site
+def find_profile(brouwer):
+	try:
+		profile = UserProfile.objects.get(forum_nickname__iexact=brouwer)
+		return profile
+	except ObjectDoesNotExist:
+		return False
+
 def category(request):
 	status = ''
 	allowed = False

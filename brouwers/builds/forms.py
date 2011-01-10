@@ -24,14 +24,8 @@ class BuildForm(forms.ModelForm):
 		match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
 		if not match:
 			raise forms.ValidationError("De url wijst niet naar een forumtopic.")
-		else:
-			matched_url = match.group(0)
-			try:
-				Build.objects.get(url__icontains = matched_url)
-				raise forms.ValidationError("Dit brouwverslag is al opgenomen in de database.")
-			except ObjectDoesNotExist:
-				pass
-		return url
+		self.cleaned_data['url'] = "http://www.%s" % match.group(0)
+		return self.cleaned_data['url']
 	
 	def clean_scale(self):
 		scale = self.cleaned_data['scale']

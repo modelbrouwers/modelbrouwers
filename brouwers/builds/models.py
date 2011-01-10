@@ -5,7 +5,7 @@ from brouwers.awards.models import Project, Category, UserProfile
 
 class Build(models.Model):
 	profile = models.ForeignKey(UserProfile)
-	url = models.URLField(max_length=500, help_text=_("link naar het verslag"))
+	url = models.URLField(max_length=500, help_text=_("link naar het verslag"), unique=True)
 	title = models.CharField(_("naam model"), max_length=255, help_text=_("schaal en merk kan je apart opgeven"))
 	category = models.ForeignKey(Category, blank=True, null=True, verbose_name=_("categorie"))
 	scale = models.CharField(_("schaal"), max_length=10, blank=True)
@@ -21,6 +21,9 @@ class Build(models.Model):
 	
 	def __unicode__(self):
 		return _("%s - %s" % (self.profile.forum_nickname, self.title))
+	
+	def get_absolute_url(self):
+		return "/builds/%i/" % self.id
 	
 	class Meta:
 		verbose_name = _("brouwverslag")

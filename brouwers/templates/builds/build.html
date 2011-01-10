@@ -4,6 +4,9 @@
 <h1>{{build}}</h1>
 <hr />
 <br />
+{% if user.get_profile == build.profile %}
+<a href="../edit/{{build.id}}/" style="float: right;"><img src="{{MEDIA_URL}}images/edit.gif" width="90" height="20" alt="edit"/></a>
+{% endif %}
 <p>
 --- {{build.category}} ---
 <br />
