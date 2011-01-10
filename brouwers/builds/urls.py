@@ -26,5 +26,5 @@ info_build = {
 
 urlpatterns += patterns('django.views.generic.list_detail',
 	(r'^(?P<object_id>\d+)/$', 'object_detail', info_build, "build_detail"),
-	(r'^profile/(?P<object_id>\d+)/$', 'object_detail', info),
+	(r'^profile/(?P<object_id>\d+)/$', 'object_detail', info, "profile_detail"),
 	)

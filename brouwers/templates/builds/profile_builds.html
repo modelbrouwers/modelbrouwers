@@ -1,6 +1,14 @@
 {% extends "builds/base.html" %}
 
 {% block content %}
+{% with profile.id|add:"-1" as prev_id %}
+<p id="buttons">
+<a id="button_left" href="{% url profile_detail prev_id %}" title="Vorige"><img src="{{MEDIA_URL}}images/prev.gif" width="26" height="25" alt="previous"/></a>
+{% endwith %}
+{% with profile.id|add:"1" as next_id %}
+<a id="button_right" href="{% url profile_detail next_id %}" title="Volgende"><img src="{{MEDIA_URL}}images/next.gif" width="26" height="25" alt="next"/></a>
+{% endwith %}
+</p>
 <h1>Brouwverslagenoverzicht van {{profile.forum_nickname}}</h1>
 <hr />
 <br />
