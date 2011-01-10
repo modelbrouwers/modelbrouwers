@@ -4,6 +4,7 @@ from models import Build
 
 urlpatterns = patterns('brouwers.builds.views',
 	(r'^$', 'builders_overview'),
+	(r'^add/$', 'add'),
 	)
 
 #GENERIC VIEWS

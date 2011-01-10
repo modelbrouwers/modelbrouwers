@@ -1,10 +1,13 @@
-{% extends "awards/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
 Registratie
 {% endblock %}
 
 {% block content %}
+<h1>Registratie</h1>
+<hr />
+<br />
 <p>Op deze pagina kunt u zich registreren. Registratie is nodig om te kunnen nomineren en stemmen bij de awards.</p>
 <p>De gebruikersnaam mag maximaal 30 tekens bevatten en bestaat uit letters, cijfers en/of de volgende karakters: @, ., +, -, _. Spaties zijn <strong>niet</strong> toegelaten, deze vervang je bijvoorbeeld door een underscore ('_').</p>
 <br />
@@ -16,35 +19,26 @@ Registratie
 <table>
 	<tr><td><h2>Algemeen</h2></td><td></td></tr>
 	<tr><td>Gebruikersnaam*: </td><td>{{form.username}}</td></tr>
-	{% if form.username.errors %}
-		{% for error in form.username.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
+	{% for error in form.username.errors %}
+		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+	{% endfor %}
+	<tr><td>Nickname op het forum*: </td><td>{{form.forum_nickname}}</td></tr>
+	{% for error in form.forum_nickname.errors %}
+		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+	{% endfor %}
 	<tr><td>Wachtwoord*: </td><td>{{form.password1}}</td></tr>
-	{% if form.password1.errors %}
-		{% for error in form.password1.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
+	{% for error in form.password1.errors %}
+		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+	{% endfor %}
 	<tr><td>Wachtwoord* (bevestig): </td><td>{{form.password2}}</td></tr>
-	{% if form.password2.errors %}
-		{% for error in form.password2.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
+	{% for error in form.password2.errors %}
+		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
+	{% endfor %}
 	<tr><td>E-mail: </td><td>{{form.email}}</td></tr>
 	<tr><td colspan="2" class="helptext">Als je je e-mailadres invult, dan wordt een e-mail met je logingegevens verstuurd.</td></tr>
 		{% for error in form.email.errors %}
 			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
 		{% endfor %}
-	<tr><td><br/></td><td></td></tr>
-	<tr><td>Nickname op het forum*: </td><td>{{form.forum_nickname}}</td></tr>
-	{% if form.forum_nickname.errors %}
-		{% for error in form.forum_nickname.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
 	<tr><td><br/></td><td></td></tr>
 	<tr><td><h2>BrouwersAwards</h2></td><td></td></tr>
 	<tr><td>{{form.exclude_from_nomination}}&nbsp;&nbsp;Sluit mij uit van nominaties</td><td></td></tr>

@@ -29,8 +29,8 @@ class UserProfileForm(UserCreationForm):
 		try:
 			UserProfile.objects.get(forum_nickname=nickname)
 		except UserProfile.DoesNotExist:
-			return nickname
-		raise forms.ValidationError(_("Deze forumnickname is al in gebruik bij een andere user op deze website."))
+			raise forms.ValidationError(_("Deze forumnickname is al in gebruik bij een andere user op deze website."))
+		return nickname
 	
 	def save(self, commit=False):
 		user = super(UserProfileForm, self).save(commit=False)

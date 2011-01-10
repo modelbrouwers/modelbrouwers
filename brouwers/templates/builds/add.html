@@ -1,0 +1,25 @@
+{% extends "builds/base.html" %}
+
+{% block content %}
+<h1>Brouwverslag toevoegen</h1>
+<hr />
+<br />
+<p>Gebruik deze pagina om projecten aan jouw profiel te koppelen. Alles wat hier ingegeven wordt is publiek zichtbaar voor andere bezoekers.</p>
+<br />
+<br />
+<form action="." method="POST">
+<table width="100%">
+{% for field in form %}
+	<tr><td>{{field.label_tag}}:</td><td>{{field}}</td></tr>
+	{% for error in field.errors %}
+		<tr><td></td><td class="error"><strong>{{error}}</strong></td></tr>
+	{% endfor %}
+	<tr><td></td><td class="helptext"><i>{{field.help_text}}</i></td></tr>
+{% endfor %}
+</table>
+<br>
+<input type="submit" value="Voeg dit project toe"/>
+</form>
+
+
+{% endblock %}
