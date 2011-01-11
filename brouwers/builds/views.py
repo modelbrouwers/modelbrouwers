@@ -57,3 +57,17 @@ def edit(request, id):
 				return HttpResponseRedirect(reverse(builders_overview))
 		form = BuildForm(instance=build)
 	return render_to_response(request, 'builds/edit.html', {'form': form})
+
+from django.views.generic.list_detail import object_detail
+
+def custom_object_detail(request, queryset, object_id=None, template_name=None, template_object_name='object'):
+	object_id = int(object_id)
+	queryset_new = queryset.filter(pk=object_id)
+	while (not queryset_new and object_id < queryset.order_by('-pk')[0].pk):
+		object_id += 1
+		queryset_new = queryset.filter(pk=object_id)
+	return object_detail(request, queryset_new, object_id, template_name=template_name, template_object_name=template_object_name)
+	
+	
+	
+	

@@ -1,22 +1,6 @@
 from django.conf.urls.defaults import *
 from brouwers.awards.models import UserProfile
 from models import Build
-from forms import BuildForm
-
-urlpatterns = patterns('brouwers.builds.views',
-	(r'^$', 'builders_overview'),
-	(r'^add/$', 'add'),
-	(r'^edit/(\d+)/$', 'edit'),
-	)
-
-#GENERIC VIEWS
-
-#UserProfile - lists the builds, this one is a detail of a profile
-info = {
-	'queryset': UserProfile.objects.all(),
-	'template_name': 'builds/profile_builds.html',
-	'template_object_name': 'profile'
-	}
 
 info_build = {
 	'queryset': Build.objects.all(),
@@ -24,7 +8,16 @@ info_build = {
 	'template_object_name': 'build'
 	}
 
-urlpatterns += patterns('django.views.generic.list_detail',
-	(r'^(?P<object_id>\d+)/$', 'object_detail', info_build, "build_detail"),
-	(r'^profile/(?P<object_id>\d+)/$', 'object_detail', info, "profile_detail"),
+info_profile = {
+	'queryset': UserProfile.objects.all(),
+	'template_name': 'builds/profile_builds.html',
+	'template_object_name': 'profile'
+	}
+
+urlpatterns = patterns('brouwers.builds.views',
+	(r'^$', 'builders_overview'),
+	(r'^add/$', 'add'),
+	(r'^edit/(\d+)/$', 'edit'),
+	(r'^(?P<object_id>\d+)/$', 'custom_object_detail', info_build, "build_detail"),
+	(r'^profile/(?P<object_id>\d+)/$', 'custom_object_detail', info_profile, "profile_detail"),
 	)
