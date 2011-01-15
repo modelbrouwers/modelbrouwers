@@ -113,7 +113,7 @@ def vote(request):
 		return HttpResponseRedirect('/awards/vote/scores/')
 #		return render_to_response(request, 'awards/vote.html', {'voted': voted, 'year': year})
 	else:
-		if date.today() <= limit_date:
+		if date.today() < limit_date:
 			if profile.last_vote.year < date.today().year:
 				profile.categories_voted.clear()
 			if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
