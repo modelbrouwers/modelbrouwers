@@ -8,11 +8,14 @@ from django.http import HttpResponseRedirect
 from shortcuts import render_to_response
 from django.db.models import Q
 
-from brouwers.awards.forms import ProfileForm, UserForm, UserProfileForm
-from brouwers.awards.models import UserProfile, Project
+from forms import ProfileForm, UserForm, UserProfileForm
+from brouwers.awards.models import Project
+from models import UserProfile
 from brouwers.secret_santa.models import Participant
 
 from datetime import date
+
+#TODO: separate code for awards and secret santa
 
 def register(request):
 	if request.method=='POST':
