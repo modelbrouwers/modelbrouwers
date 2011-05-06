@@ -14,6 +14,7 @@ from django.shortcuts import get_object_or_404
 
 from models import *
 from forms import ProjectForm, CategoryForm
+from brouwers.general.models import UserProfile
 
 #TODO: link the user submitted in a nomination to an existing profile on the site
 def find_profile(brouwer):

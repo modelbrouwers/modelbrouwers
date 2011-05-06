@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from brouwers.general.shortcuts import render_to_response
-from brouwers.awards.models import UserProfile, Project
+from brouwers.general.models import UserProfile
+from brouwers.awards.models import Project
 from forms import BrouwerSearchForm
 from models import Build
 from forms import BuildForm
@@ -60,6 +61,7 @@ def edit(request, id):
 
 from django.views.generic.list_detail import object_detail
 
+#TODO: fix backlooping
 def custom_object_detail(request, queryset, object_id=None, template_name=None, template_object_name='object'):
 	object_id = int(object_id)
 	queryset_new = queryset.filter(pk=object_id)

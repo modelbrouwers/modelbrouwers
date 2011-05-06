@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from brouwers.awards.models import UserProfile
+from brouwers.general.models import UserProfile
 from models import Build
 
 info_build = {

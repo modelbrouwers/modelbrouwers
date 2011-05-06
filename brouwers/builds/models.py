@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from brouwers.awards.models import Project, Category, UserProfile
+from brouwers.awards.models import Project, Category
+from brouwers.general.models import UserProfile
 
 class Build(models.Model):
 	profile = models.ForeignKey(UserProfile)
