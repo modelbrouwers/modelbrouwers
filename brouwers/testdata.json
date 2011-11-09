@@ -1,383 +1,5 @@
 [
     {
-        "pk": 22, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_logentry", 
-            "name": "Can add log entry", 
-            "content_type": 8
-        }
-    }, 
-    {
-        "pk": 23, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_logentry", 
-            "name": "Can change log entry", 
-            "content_type": 8
-        }
-    }, 
-    {
-        "pk": 24, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_logentry", 
-            "name": "Can delete log entry", 
-            "content_type": 8
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_group", 
-            "name": "Can add group", 
-            "content_type": 2
-        }
-    }, 
-    {
-        "pk": 5, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_group", 
-            "name": "Can change group", 
-            "content_type": 2
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_group", 
-            "name": "Can delete group", 
-            "content_type": 2
-        }
-    }, 
-    {
-        "pk": 10, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_message", 
-            "name": "Can add message", 
-            "content_type": 4
-        }
-    }, 
-    {
-        "pk": 11, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_message", 
-            "name": "Can change message", 
-            "content_type": 4
-        }
-    }, 
-    {
-        "pk": 12, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_message", 
-            "name": "Can delete message", 
-            "content_type": 4
-        }
-    }, 
-    {
-        "pk": 1, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_permission", 
-            "name": "Can add permission", 
-            "content_type": 1
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_permission", 
-            "name": "Can change permission", 
-            "content_type": 1
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_permission", 
-            "name": "Can delete permission", 
-            "content_type": 1
-        }
-    }, 
-    {
-        "pk": 7, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_user", 
-            "name": "Can add user", 
-            "content_type": 3
-        }
-    }, 
-    {
-        "pk": 8, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_user", 
-            "name": "Can change user", 
-            "content_type": 3
-        }
-    }, 
-    {
-        "pk": 9, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_user", 
-            "name": "Can delete user", 
-            "content_type": 3
-        }
-    }, 
-    {
-        "pk": 31, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_category", 
-            "name": "Can add Categorie", 
-            "content_type": 11
-        }
-    }, 
-    {
-        "pk": 32, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_category", 
-            "name": "Can change Categorie", 
-            "content_type": 11
-        }
-    }, 
-    {
-        "pk": 33, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_category", 
-            "name": "Can delete Categorie", 
-            "content_type": 11
-        }
-    }, 
-    {
-        "pk": 28, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_project", 
-            "name": "Can add Nominatie", 
-            "content_type": 10
-        }
-    }, 
-    {
-        "pk": 29, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_project", 
-            "name": "Can change Nominatie", 
-            "content_type": 10
-        }
-    }, 
-    {
-        "pk": 30, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_project", 
-            "name": "Can delete Nominatie", 
-            "content_type": 10
-        }
-    }, 
-    {
-        "pk": 25, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_userprofile", 
-            "name": "Can add Gebruikersprofiel", 
-            "content_type": 9
-        }
-    }, 
-    {
-        "pk": 26, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_userprofile", 
-            "name": "Can change Gebruikersprofiel", 
-            "content_type": 9
-        }
-    }, 
-    {
-        "pk": 27, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_userprofile", 
-            "name": "Can delete Gebruikersprofiel", 
-            "content_type": 9
-        }
-    }, 
-    {
-        "pk": 40, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_build", 
-            "name": "Can add build", 
-            "content_type": 14
-        }
-    }, 
-    {
-        "pk": 41, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_build", 
-            "name": "Can change build", 
-            "content_type": 14
-        }
-    }, 
-    {
-        "pk": 42, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_build", 
-            "name": "Can delete build", 
-            "content_type": 14
-        }
-    }, 
-    {
-        "pk": 13, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_contenttype", 
-            "name": "Can add content type", 
-            "content_type": 5
-        }
-    }, 
-    {
-        "pk": 14, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_contenttype", 
-            "name": "Can change content type", 
-            "content_type": 5
-        }
-    }, 
-    {
-        "pk": 15, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_contenttype", 
-            "name": "Can delete content type", 
-            "content_type": 5
-        }
-    }, 
-    {
-        "pk": 37, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_couple", 
-            "name": "Can add couple", 
-            "content_type": 13
-        }
-    }, 
-    {
-        "pk": 38, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_couple", 
-            "name": "Can change couple", 
-            "content_type": 13
-        }
-    }, 
-    {
-        "pk": 39, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_couple", 
-            "name": "Can delete couple", 
-            "content_type": 13
-        }
-    }, 
-    {
-        "pk": 34, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_participant", 
-            "name": "Can add participant", 
-            "content_type": 12
-        }
-    }, 
-    {
-        "pk": 35, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_participant", 
-            "name": "Can change participant", 
-            "content_type": 12
-        }
-    }, 
-    {
-        "pk": 36, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_participant", 
-            "name": "Can delete participant", 
-            "content_type": 12
-        }
-    }, 
-    {
-        "pk": 16, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_session", 
-            "name": "Can add session", 
-            "content_type": 6
-        }
-    }, 
-    {
-        "pk": 17, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_session", 
-            "name": "Can change session", 
-            "content_type": 6
-        }
-    }, 
-    {
-        "pk": 18, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_session", 
-            "name": "Can delete session", 
-            "content_type": 6
-        }
-    }, 
-    {
-        "pk": 19, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "add_site", 
-            "name": "Can add site", 
-            "content_type": 7
-        }
-    }, 
-    {
-        "pk": 20, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "change_site", 
-            "name": "Can change site", 
-            "content_type": 7
-        }
-    }, 
-    {
-        "pk": 21, 
-        "model": "auth.permission", 
-        "fields": {
-            "codename": "delete_site", 
-            "name": "Can delete site", 
-            "content_type": 7
-        }
-    }, 
-    {
         "pk": 1, 
         "model": "auth.user", 
         "fields": {
@@ -387,7 +9,7 @@
             "is_active": true, 
             "is_superuser": true, 
             "is_staff": true, 
-            "last_login": "2011-01-10 14:05:09", 
+            "last_login": "2011-05-06 03:03:35", 
             "groups": [], 
             "user_permissions": [], 
             "password": "sha1$06c42$06e150f664dbbdfa5fedb443327dd36aa076ea9c", 
@@ -433,74 +55,30 @@
     }, 
     {
         "pk": 1, 
-        "model": "sites.site", 
+        "model": "awards.category", 
         "fields": {
-            "domain": "example.com", 
-            "name": "example.com"
-        }
-    }, 
-    {
-        "pk": 1, 
-        "model": "general.userprofile", 
-        "fields": {
-            "province": "", 
-            "city": "", 
-            "refuse": "", 
-            "country": null, 
-            "number": "", 
-            "categories_voted": [
-                3
-            ], 
-            "street": "", 
-            "user": 1, 
-            "last_vote": "2011-01-02", 
-            "secret_santa": true, 
-            "postal": "", 
-            "forum_nickname": "BBT", 
-            "exclude_from_nomination": false, 
-            "preference": "test"
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "general.userprofile", 
-        "fields": {
-            "province": "", 
-            "city": "", 
-            "refuse": "", 
-            "country": null, 
-            "number": "", 
-            "categories_voted": [
-                3
-            ], 
-            "street": "", 
-            "user": 3, 
-            "last_vote": "2010-01-01", 
-            "secret_santa": false, 
-            "postal": "", 
-            "forum_nickname": "Joe Silent", 
-            "exclude_from_nomination": true, 
-            "preference": ""
+            "name": "Militaire luchtvaart"
         }
     }, 
     {
         "pk": 2, 
-        "model": "general.userprofile", 
+        "model": "awards.category", 
         "fields": {
-            "province": "", 
-            "city": "", 
-            "refuse": "", 
-            "country": null, 
-            "number": "", 
-            "categories_voted": [], 
-            "street": "", 
-            "user": 2, 
-            "last_vote": "2010-01-01", 
-            "secret_santa": true, 
-            "postal": "", 
-            "forum_nickname": "Mytheny", 
-            "exclude_from_nomination": false, 
-            "preference": ""
+            "name": "Civiele luchtvaart"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "awards.category", 
+        "fields": {
+            "name": "Militaire voertuigen"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "awards.category", 
+        "fields": {
+            "name": "Figuren"
         }
     }, 
     {
@@ -575,30 +153,66 @@
     }, 
     {
         "pk": 1, 
-        "model": "awards.category", 
+        "model": "general.userprofile", 
         "fields": {
-            "name": "Militaire luchtvaart"
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "awards.category", 
-        "fields": {
-            "name": "Civiele luchtvaart"
+            "province": "", 
+            "city": "", 
+            "refuse": "", 
+            "country": null, 
+            "number": "", 
+            "categories_voted": [
+                3
+            ], 
+            "street": "", 
+            "user": 1, 
+            "last_vote": "2011-01-02", 
+            "secret_santa": true, 
+            "postal": "", 
+            "forum_nickname": "BBT", 
+            "exclude_from_nomination": false, 
+            "preference": "test"
         }
     }, 
     {
         "pk": 3, 
-        "model": "awards.category", 
+        "model": "general.userprofile", 
         "fields": {
-            "name": "Militaire voertuigen"
+            "province": "", 
+            "city": "", 
+            "refuse": "", 
+            "country": null, 
+            "number": "", 
+            "categories_voted": [
+                3
+            ], 
+            "street": "", 
+            "user": 3, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": "", 
+            "forum_nickname": "Joe Silent", 
+            "exclude_from_nomination": true, 
+            "preference": ""
         }
     }, 
     {
-        "pk": 4, 
-        "model": "awards.category", 
+        "pk": 2, 
+        "model": "general.userprofile", 
         "fields": {
-            "name": "Figuren"
+            "province": "", 
+            "city": "", 
+            "refuse": "", 
+            "country": null, 
+            "number": "", 
+            "categories_voted": [], 
+            "street": "", 
+            "user": 2, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": true, 
+            "postal": "", 
+            "forum_nickname": "Mytheny", 
+            "exclude_from_nomination": false, 
+            "preference": ""
         }
     }, 
     {
@@ -617,6 +231,19 @@
             "verified": true, 
             "user": 2, 
             "year": "2011"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "group_builds.groupbuild", 
+        "fields": {
+            "topic": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=512", 
+            "name": "Phabulous Phantom", 
+            "end_date": "2010-11-10", 
+            "organisator": 1, 
+            "start_date": "2010-05-08", 
+            "forum_category": "A", 
+            "approved": false
         }
     }
 ]
