@@ -1,33 +1,14 @@
-# Django settings for brouwers project.
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-     ('Sergei Maertens', 'sergeimaertens@skynet.be'),
-)
-
-MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/bbt/Coding/brouwers/brouwers.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+# Django settings for brouwers
+import sys
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
+# although not all choices may be avilable on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = None
+TIME_ZONE = 'Europe/Brussels'
+
+DATE_FORMAT = 'd-m-Y'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -37,7 +18,7 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
@@ -45,7 +26,7 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/bbt/Coding/brouwers/media/'
+MEDIA_ROOT = '/home/bbt/coding/brouwers/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -55,7 +36,19 @@ MEDIA_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
+#ADMIN_MEDIA_PREFIX = '/media/'
+
 ADMIN_MEDIA_PREFIX = '/media/admin/'
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = '/home/bbt/coding/brouwers/static/'
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = '/static/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'tzt$*c-=)%9hi=#ce#lu!0+-6k3*6x@_%$r*j9-g85@v)_1^oa'
@@ -66,6 +59,15 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.request",
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -78,7 +80,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'brouwers.urls'
 
 TEMPLATE_DIRS = (
-	'/home/bbt/Coding/brouwers/templates/'
+	"/home/bbt/coding/brouwers/templates"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -97,7 +99,11 @@ INSTALLED_APPS = (
     'brouwers.general',
     'brouwers.secret_santa',
     'brouwers.builds',
-    'brouwers.group_builds',
+#    'brouwers.group_builds',
+)
+
+AUTHENTICATION_BACKENDS = (
+	'django.contrib.auth.backends.ModelBackend',
 )
 
 AUTH_PROFILE_MODULE = 'general.UserProfile'
@@ -106,5 +112,15 @@ AUTH_PROFILE_MODULE = 'general.UserProfile'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '/home/bbt/Coding/brouwers/mails'
+try:
+    from local_settings import *
+except ImportError:
+    try:
+        from mod_python import apache
+        apache.log_error("You need to copy local_settings.py.example to local_settings.py and edit settings")
+    except ImportError:
+        import sys
+        sys.stderr.write("You need to copy local_settings.py.example to local_settings.py and edit settings")
+
+TEMPLATE_DEBUG = DEBUG
+MANAGERS = ADMINS

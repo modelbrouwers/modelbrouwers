@@ -232,18 +232,5 @@
             "user": 2, 
             "year": "2011"
         }
-    }, 
-    {
-        "pk": 1, 
-        "model": "group_builds.groupbuild", 
-        "fields": {
-            "topic": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=512", 
-            "name": "Phabulous Phantom", 
-            "end_date": "2010-11-10", 
-            "organisator": 1, 
-            "start_date": "2010-05-08", 
-            "forum_category": "A", 
-            "approved": false
-        }
     }
 ]

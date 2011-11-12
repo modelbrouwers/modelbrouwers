@@ -5,33 +5,16 @@ Modelbrouwers.nl externe applicaties - Brouwersawards
 {% endblock %}
 
 {% block extra_logo %}
-<img id="logo2" src="{{MEDIA_URL}}awards.png" alt="Awards" />
+<img id="logo2" src="{{STATIC_URL}}awards.png" alt="Awards" width="413" height="100"/>
 {% endblock %}
 
-{% block sidebar_links %}
-<div class="side_header">
-	<h1><a href="/awards/categories/">Categorieën</a></h1>
-			<div class="side_header">
-				<h1><a href="/awards/nomination/">Nominaties</a></h1>
-						<div class="side_header">
-							<h1><a href="/awards/vote/">Stemmen</a></h1>
-									<div class="side_header">
-										<h1><a href="/awards/vote/scores/">Tussenstand</a></h1>
-{% endblock %}
-
-{% block sidebar_links_closing_tags %}
-									</div>
-						</div>
-			</div>
-</div>
-{% endblock %}
+{% block submenu %}
+<li><a href="/awards/nomination/">Nominaties</a></li>
+<li><a href="/awards/categories/">Categorie</a></li>
+<li><a href="/awards/vote/">Stemmen</a></li>
+{% endblock submenu %}
 
 {% block content %}
-<p>Dit is de indexpagina. Gebruik het menu aan de linkerzijde om categorieën te bekijken, nominaties toe te voegen en om te stemmen (pas mogelijk vanaf januari 2011).</p>
-<br />
-<hr />
-<br />
-<br />
 <div id="algemene_info">
 	<strong>Wat zijn de brouwersawards?</strong>
 	<br />
@@ -39,15 +22,10 @@ Modelbrouwers.nl externe applicaties - Brouwersawards
 	<br />
 	<strong>Hoe gaat het in z'n werk?</strong>
 	<br />
-	<p>Aan de linkerzijde zie je de drie delen van het hele awardsgebeuren. De categorieën waarin een project geplaatst kan worden, worden bepaald. Enkel site-admins kunnen categorieën wijzigen, toevoegen of verwijderen. Standaard zijn de categorieën de verschillende forumdelen, er is echter uitbreiding mogelijk en daarvoor zullen later suggesties kunnen ingediend worden.</p>
+	<p>In het submenu vind je de drie delen van het hele awardsgebeuren. De categorieën waarin een project geplaatst kan worden, zijn reeds bepaald. Enkel site-admins kunnen categorieën wijzigen, toevoegen of verwijderen. Standaard zijn de categorieën de verschillende forumdelen, er is echter uitbreiding mogelijk en daarvoor zullen later suggesties kunnen ingediend worden.</p>
 	<br />
-	<p>Vervolgens heb je een volledig jaar de tijd om modellen te nomineren binnen een bepaalde categorie. Als je een indrukwekkend, leuk of gewoon supermooi project ziet op het forum, en je vindt dat de brouwer eeuwige roem verdient daarvoor, dan kan je in luttele seconden het project nomineren binnen de juiste categorie. Dit kan op ieder moment van de dag, week, maand of jaar. Er wordt automatisch bijgehouden wat de nominatiedatum is, zodat het project bij de juiste editie van de BrouwersAwards gevoegd wordt. Let op! Je mag enkel projecten nomineren die afgewerkt zijn, en dat binnen het juiste (huidige) jaar! Projecten van 2009 kunnen in 2010 helaas niet meer meedoen.</p>
+	<p>Vervolgens heb je een volledig jaar de tijd om modellen te nomineren binnen een bepaalde categorie. Als je een indrukwekkend, leuk of gewoon supermooi project ziet op het forum, en je vindt dan ook nog dat de brouwer eeuwige roem verdient daarvoor, dan kan je in luttele seconden het project nomineren binnen de juiste categorie. Dit kan op ieder moment van de dag, week, maand of jaar. Er wordt automatisch bijgehouden wat de nominatiedatum is, zodat het project bij de juiste editie van de BrouwersAwards gevoegd wordt. <strong>Let op! Je mag enkel projecten nomineren die dit jaar afgewerkt zijn!</strong> Projecten van 2010 kunnen in 2011 niet meer meedoen.</p>
 	<br />
-	<p>En dan... het deel waar het om draait: stemmen! Vanaf 1 januari 2011 kan je geen projecten meer nomineren voor 2010 en gaat de stemming open. Zoals je merkt, kan je nu niet stemmen en krijg je een melding dat je 'voor dit jaar al gestemd hebt'. Dit is een standaardmededeling op basis van een configuratieveld in je gebruikersaccount. Vanaf 2011 klopt dit gewoon allemaal zoals het hoort.</p>
-	<br />
-	<strong>En verder...?</strong>
-	<p>Verder zal deze website uitgebreid worden met specifieke awardsfunctionaliteit, zoals extra controles, extra functies en sterkere uitbouw in het algemeen. Het was de bedoeling om nog op projecten van 2010 te kunnen stemmen, en zoals je ziet is het gelukt om de 1.0 versie online te krijgen. Verdere plannen zijn ook uitbouw van andere applicaties, maar dat zien jullie wel verschijnen ter zijner tijd.</p>
-	<br />
-	<br />
+	<p>En dan... het deel waar het om draait: stemmen! Vanaf 1 januari 2012 kan je geen projecten meer nomineren voor de editie van 2011 en gaat de stemming open.</p>
 </div>
 {% endblock %}

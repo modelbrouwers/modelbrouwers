@@ -2,10 +2,8 @@ from datetime import date
 import re
 
 from django.db.models import Q
-from django.db.models.query import QuerySet
-from django.core.context_processors import csrf
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -91,7 +89,7 @@ def category_list_nominations(request, id):
 	projects = projects.exclude(rejected=True)
 	return render_to_response(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})
 	
-@user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
+@login_required
 def vote(request):
 	data = {}
 	categories = Category.objects.all()
