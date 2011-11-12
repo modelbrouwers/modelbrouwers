@@ -38,6 +38,8 @@ div#header{
 div#header img#logo{
 	margin-top: 14px;
 	margin-left: 20px;
+	border: none;
+	padding: 0;
 }
 div#header img#logo2{
 	float: right;
