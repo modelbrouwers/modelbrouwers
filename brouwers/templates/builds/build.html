@@ -3,17 +3,17 @@
 {% block content %}
 {% with build.id|add:"-1" as prev_id %}
 <p id="buttons">
-<a id="button_left" href="{% url build_detail prev_id %}" title="Vorige"><img src="{{MEDIA_URL}}images/prev.gif" width="26" height="25" alt="previous"/></a>
+<a id="button_left" href="{% url build_detail prev_id %}" title="Vorige"><img src="{{STATIC_URL}}images/prev.gif" width="26" height="25" alt="previous"/></a>
 {% endwith %}
 {% with build.id|add:"1" as next_id %}
-<a id="button_right" href="{% url build_detail next_id %}" title="Volgende"><img src="{{MEDIA_URL}}images/next.gif" width="26" height="25" alt="next"/></a>
+<a id="button_right" href="{% url build_detail next_id %}" title="Volgende"><img src="{{STATIC_URL}}images/next.gif" width="26" height="25" alt="next"/></a>
 {% endwith %}
 </p>
 <h1>{{build}}</h1>
 <hr />
 <br />
 {% if user.get_profile == build.profile or user.is_staff %}
-<a href="../edit/{{build.id}}/" style="float: right;"><img src="{{MEDIA_URL}}images/edit.gif" width="90" height="20" alt="edit"/></a>
+<a href="../edit/{{build.id}}/" style="float: right;"><img src="{{STATIC_URL}}images/edit.gif" width="90" height="20" alt="edit"/></a>
 {% endif %}
 <p>
 --- {{build.category}} ---

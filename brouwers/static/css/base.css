@@ -132,6 +132,10 @@ ul#submenu li a{
 ul#submenu li a:hover{
 	text-decoration: underline;
 }
+/*** content ***/
+a{
+	color: black;
+{
 /*** sidebar ***/
 div#sidebar{
 	color: #111;
@@ -175,4 +179,8 @@ span.foot_1{
 
 img.right{
 	float: right;
+}
+div#news li{
+	list-style-type: disc;
+	margin-left: 20px;
 }
