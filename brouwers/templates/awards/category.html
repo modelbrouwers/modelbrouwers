@@ -12,7 +12,7 @@ BrouwersAwards
 		<p>Laatste {{category.latest.count}} nominaties:</p>
 		<ul class="latest_nominations">
 		{% for nomination in category.latest %}
-			<li><a href="nomination.url" target="_blank">{{nomination.name}}</a></li>
+			<li><a href="{{nomination.url}}" target="_blank">{{nomination.name}}</a></li>
 		{% endfor %}
 		{% if category.latest.count != 0 %}
 			<li><a class="overview" href="/awards/categories/{{category.id}}/">meer</a>...
