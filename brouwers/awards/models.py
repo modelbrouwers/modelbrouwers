@@ -16,7 +16,9 @@ class Category(models.Model):
 		'''
 		returns latest five nominations in this category
 		'''
-		projects = self.project_set.exclude(rejected=True).order_by('-nomination_date', '-id')[:5]
+		year = date.today().year
+		start_date = date(year, 1, 1)
+		projects = self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).order_by('-nomination_date', '-id')[:5]
 		return projects
 
 class Project(models.Model):
