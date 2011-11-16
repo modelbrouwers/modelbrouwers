@@ -11,6 +11,13 @@ class Category(models.Model):
 	class Meta:
 		verbose_name = _("Categorie")
 		verbose_name_plural = _(u'Categorie\u00EBn')
+	
+	def latest(self):
+		'''
+		returns latest five nominations in this category
+		'''
+		projects = self.project_set.exclude(rejected=True).order_by('-nomination_date', '-id')[:5]
+		return projects
 
 class Project(models.Model):
 	url = models.URLField(max_length=500)

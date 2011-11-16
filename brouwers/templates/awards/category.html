@@ -1,31 +1,23 @@
 {% extends "awards/base.html" %}
 
 {% block title %}
-BrouwersAwards - Categorieën
+BrouwersAwards
 {% endblock %}
 
 {% block content %}
-<h1>Bestaande categorieën</h1>
-<hr />
-<br />
-<p>Klik op de categorietitel voor een overzicht van de nominaties binnen die categorie. Een overzicht van ALLE nominaties vind je <a class="link" href="/awards/vote/overview">hier</a>.</p>
-<br />
-<br />
-{% for category in categories%}
-<h2><a href="/awards/categories/{{category.id}}/">{{category.name}}</a></h2>
+<div class="title">Categorieën</div>
+{% for category in categories %}
+	<div class="category">
+		<div class="subtitle"><a href="/awards/categories/{{category.id}}/">{{category.name}}</a></div>
+		<p>Laatste {{category.latest.count}} nominaties:</p>
+		<ul class="latest_nominations">
+		{% for nomination in category.latest %}
+			<li><a href="nomination.url" target="_blank">{{nomination.name}}</a></li>
+		{% endfor %}
+		{% if category.latest.count != 0 %}
+			<li><a class="overview" href="/awards/categories/{{category.id}}/">meer</a>...
+		{% endif %}
+		</ul>
+	</div>
 {% endfor %}
-<br />
-<br />
-<br />
-{% if allowed %}
-<form action="." method="POST">
-Categorie:&nbsp;&nbsp;{{ form.name}}
-<input type = "submit" value="Voeg categorie toe"/>
-</form>
-{% endif %}
-<p id="status"><br />{{ status }}</p>
-<br />
-<br />
-<br />
-
 {% endblock %}

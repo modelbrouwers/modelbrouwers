@@ -66,7 +66,6 @@ div#sidebar{
 	width: 240px;
 	padding: 5px;
 	float: right;
-	/*background-color: #C7D0D7;*/
 }
 
 /*** topmenu ***/
@@ -153,6 +152,59 @@ a{
 	font-size: 85%;
 	padding-bottom: 5px;
 }
+
+/*** awards ***/
+div.title{
+	text-align: center;
+	font-size: 150%;
+	margin-bottom: 25px;
+}
+div.subtitle{
+	font-size: 120%;
+	background-image: url(images/bg_subtitle.gif);
+	background-repeat: repeat-y;
+	/*margin-bottom: 10px;*/
+}
+div.category{
+	margin: 0 15px 20px 15px;
+}
+div.category p{
+	padding-left: 10px;
+	margin-bottom: 5px;
+	font-size: 85%;
+}
+div.category div.subtitle a{
+	display: block;
+	padding: 3px 3px 3px 10px;
+	color: #222;
+	text-decoration: none;
+}
+div.category div.subtitle a:hover{
+	color: #0a1871;
+	text-decoration: underline;
+}
+div.category a.overview{
+	text-decoration: none;
+	font-style: italic;
+}
+div.category a.overview:hover{
+	text-decoration: underline;
+}
+div.category ul.latest_nominations{
+	list-style-type: none;
+	margin-left: 10px;
+}
+div.category ul.latest_nominations li{
+	padding: 2px 0 2px;
+}
+
+
+
+
+
+
+
+
 /*******voting tussenstanden*******/
 span.big{
 	font-size: 200%;
@@ -233,4 +285,11 @@ img.right{
 div#news li{
 	list-style-type: disc;
 	margin-left: 20px;
+}
+/*** secret santa ***/
+ul#participants{
+	margin-left: 10px;
+}
+ul#participants li{
+	margin-left: 15px;
 }

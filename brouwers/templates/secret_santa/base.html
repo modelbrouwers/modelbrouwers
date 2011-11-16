@@ -29,7 +29,7 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
 <br />
 <h3>Ingeschreven deelnemers</h3>
 <br />
-<ul>
+<ul id="participants">
 {% for participant in participants_list %}
 <li type="1" class="updates">{{participant.user.get_profile.forum_nickname}}
 {% if participant.verified %}
