@@ -112,9 +112,6 @@ ul#submenu{
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6f8698), color-stop(100%,#c7d0d7));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6F8698', endColorstr='#C7D0D7',GradientType=0 );
 	
-	/*position: absolute;
-	top: 0px;
-	left: 0px;*/
 	margin-left: -5px;
 	margin-top: -5px;
 	margin-bottom: 20px;
@@ -132,6 +129,54 @@ ul#submenu li a{
 }
 ul#submenu li a:hover{
 	text-decoration: underline;
+}
+/*** forms ***/
+input[type="text"], input[type="password"], input[type="submit"], button, input[type="button"], select, textarea{
+	border: solid 1px #6F8698;
+}
+input[type="submit"]{
+	padding: 3px;
+}
+td.submit{
+	text-align: center;
+	padding: 20px 0 10px;
+}
+td.fieldlabel{
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+input:focus{
+	background-color: #ECECEC;
+}
+input[type="submit"]:hover{
+    border: 1px solid #0a1871;
+}
+/**** messages ****/
+div#messages{
+	margin: 20px 10px 20px 10px;
+	padding: 2px 20px 2px 20px;
+	background-color: #F9CC79;
+	border: solid 1px #BB9860;
+	color: #222;
+}
+div#messages ul, div#sidebar div.messages ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+div#messages ul.messages li{
+	font-weight: bold;
+	margin: 4px 0 4px 30px;
+}
+div#messages ul li.success{
+	list-style-image: url(/media/admin/img/admin/icon_success.gif);
+}
+div#messages ul li.error{
+	list-style-image: url(/media/admin/img/admin/icon_error.gif);
+	color: red;
+}
+div#messages ul li.info{
+	list-style-image: url(/media/admin/img/admin/icon_deletelink.gif);
 }
 /*** content ***/
 a{
@@ -151,6 +196,7 @@ a{
 .helptext{
 	font-size: 85%;
 	padding-bottom: 5px;
+	font-style: italic;
 }
 
 /*** awards ***/
@@ -164,6 +210,13 @@ div.subtitle{
 	background-image: url(images/bg_subtitle.gif);
 	background-repeat: repeat-y;
 	/*margin-bottom: 10px;*/
+}
+div.important{
+	background-color: #C7D0D7;
+	margin: 20px;
+	padding: 5px;
+	border: solid 1px red;
+	text-align: center;
 }
 div.category{
 	margin: 0 15px 20px 15px;
@@ -197,8 +250,13 @@ div.category ul.latest_nominations{
 div.category ul.latest_nominations li{
 	padding: 2px 0 2px;
 }
-
-
+div#latest_nominations{
+	margin-left: 15px;
+}
+div#latest_nominations div.subtitle{
+	padding: 3px 3px 3px 10px;
+	margin-bottom: 20px;
+}
 
 
 

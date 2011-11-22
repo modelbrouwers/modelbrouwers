@@ -5,63 +5,27 @@ BrouwersAwards &bull; Nominaties
 {% endblock %}
 
 {% block content %}
-<p>Op deze pagina kan een nominatie in het systeem ingevoerd worden. Alle velden zijn verplicht. Geef de <b>volledige</b> URL op, die is van de vorm: <u>http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=<i>[getal]</i>&t=<i>[getal]</i></u></p>
-<br />
-<p><strong>Enkel</strong> projecten die in het huidige jaar afgerond zijn mogen genomineerd worden, en ze <strong>moeten</strong> afgerond zijn.</p>
-<br />
-<hr />
-<br />
-<br />
-<form action="." method="POST">
+<p>Op deze pagina kan je nominaties invoeren. Alle velden zijn verplicht. Geef de <b>volledige</b> URL op, die is van de vorm: <u>http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=<i>[getal]</i>&t=<i>[getal]</i></u></p>
+
+<div class="important">Enkel projecten in {{current_year}} <strong>afgewerkt</strong>  zijn geldige nominaties!</div>
+
+<form action="." method="POST" id="nomination_form">
 	{% for error in form.non_field_errors %}
 		<p class="error"><strong>{{ error|escape }}</strong></p>
 	{% endfor %}
-<table class="table">
-	<tr><td>URL naar het verslag: </td><td>{{form.url}}</td></tr>
-	{% if form.url.errors %}
-		{% for error in form.url.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Titel van het verslag: </td><td>{{form.name}}</td></tr>
-	{% if form.name.errors %}
-		{% for error in form.name.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Brouwer: </td><td>{{form.brouwer}}</td></tr>
-	{% if form.brouwer.errors %}
-		{% for error in form.brouwer.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Categorie: </td><td>{{form.category}}</td></tr>
-	{% if form.category.errors %}
-		{% for error in form.category.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-</table>
-<br />
-<input type = "submit" value="Voeg nominatie toe"/>
+	<table class="table">
+	{% include "2_col_form.html" %}
+		<tr><td colspan="2" class="submit"><input type = "submit" value="Nomineren"/></td></tr>
+	</table>
 </form>
 <br />
-{% if status %}
-{% autoescape off %}
-{{ status }}
-{% endautoescape %}
-<br />
-{% endif %}
 <br />
 <br />
-<h1>Nieuwste nominaties</h1>
-<hr />
-<p style="font-size: 80%;">Bij waarschuwingsbordjes: laat je muis eens even op de afbeelding staan en kijk wat er gebeurt...</p>
-<br />
-<br />
-{% for project in last_nominations %}
-{% include "awards/project.html" %}
-{% endfor %}
-<br />
+<div id="latest_nominations">
+	<div class="subtitle">Laatste vijf nominaties</div>
+	{% for project in last_nominations %}
+		{% include "awards/project.html" %}
+	{% endfor %}
+</div>
 
 {% endblock %}

@@ -1,18 +1,17 @@
-from datetime import date
-import re
-
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required
-
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
-from brouwers.general.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 
+from brouwers.general.models import UserProfile
+from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import ProjectForm, CategoryForm
-from brouwers.general.models import UserProfile
+from datetime import date
+import re
 
 #TODO: link the user submitted in a nomination to an existing profile on the site
 def find_profile(brouwer):
@@ -23,68 +22,31 @@ def find_profile(brouwer):
 		return False
 
 def category(request):
-	status = ''
-	allowed = False
 	categories = Category.objects.all()
-	if (request.user.groups.filter(name__iexact="moderators") or request.user.is_superuser):
-		allowed = True
-	if request.method == 'POST':
-		form = CategoryForm(request.POST)
-		if form.is_valid():
-			new_category = form.save()
-			form = CategoryForm()
-			status = "Nieuwe categorie is toegevoegd"
-	else:
-		form = CategoryForm()
-	return render_to_response(request, 'awards/category.html', {'form': form, 'allowed': allowed, 'status': status, 'categories': categories})
-
+	return render_to_response(request, 'awards/category.html', {'categories': categories})
 
 def nomination(request):
-	status = ''
-	last_nominations = Project.objects.filter(Q(nomination_date__year=date.today().year-1) | Q(nomination_date__year = date.today().year)).order_by('-pk')
-	last_nominations = last_nominations.exclude(rejected=True)[:15]
+	year = date.today().year
+	last_nominations = Project.objects.filter(Q(nomination_date__year=date.today().year-1) | Q(nomination_date__year = date.today().year), rejected=False).order_by('-pk')[:15]
 	if request.method == 'POST':
 		form = ProjectForm(request.POST)
 		if form.is_valid():
-			url = form.cleaned_data['url']
-			brouwer = form.cleaned_data['brouwer']
-			valid, status, exclude = nomination_valid(url, brouwer)
-			if valid:
-					new_nomination = form.save()
-					if exclude:
-						new_nomination.rejected = True
-						new_nomination.save()
-					if request.user.is_authenticated():
-						new_nomination.nominator = request.user.get_profile()
-						new_nomination.save()
-					form = ProjectForm()
+			new_nomination = form.save()
+			if new_nomination.rejected:
+				#or warning
+				messages.info(request, "De nominatie zal niet stembaar zijn op verzoek van de brouwer zelf.")
+			else:
+				messages.success(request, "De nominatie is toegevoegd.")
+			if request.user.is_authenticated():
+				new_nomination.nominator = request.user.get_profile()
+				new_nomination.save()
+			return HttpResponseRedirect(reverse(nomination))
 	else:
 		form = ProjectForm()
-	return render_to_response(request, 'awards/nomination.html', {'form': form, 'status': status, 'last_nominations': last_nominations})
+	return render_to_response(request, 'awards/nomination.html', {'form': form, 'last_nominations': last_nominations, 'current_year': year})
 
-def nomination_valid(url, brouwer):
-	match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
-	valid = True
-	status = "De nominatie is toegevoegd"
-	exclude = False
-	if match:
-		url = match.group(0)
-		projects = Project.objects.filter(url__icontains = url)
-		if projects:
-			category = projects[0].category.name
-			valid, status = False, "<font color=\"Red\">Dit project is al genomineerd in de categorie \"%s\"</font>" % category
-		profiles = UserProfile.objects.filter(forum_nickname__iexact = brouwer)
-		if profiles:
-			profile = profiles[0]
-			if (profile.exclude_from_nomination==True):
-				status = "<font color=\"Red\">De nominatie is in de database opgenomen, echter deze zal op verzoek van de brouwer niet in aanmerking komen voor een award.</font>"
-				exclude = True
-	else:
-		valid, status= False, "<font color=\"Red\">De nominatie kon niet worden toegevoegd, de url wijst niet naar een forumtopic!</font>"
-	return(valid, status, exclude)
-
-def category_list_nominations(request, id):
-	category = Category.objects.get(id__exact = id)
+def category_list_nominations(request, id_):
+	category = get_object_or_404(Category, pk = id_)
 	projects = category.project_set.all().filter(nomination_date__year = date.today().year)
 	projects = projects.exclude(rejected=True)
 	return render_to_response(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})

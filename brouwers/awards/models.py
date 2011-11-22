@@ -22,10 +22,10 @@ class Category(models.Model):
 		return projects
 
 class Project(models.Model):
-	url = models.URLField(max_length=500)
-	name = models.CharField(max_length=100)
+	url = models.URLField(max_length=500, help_text="link naar het verslag")
+	name = models.CharField("titel verslag", max_length=100)
 	brouwer = models.CharField(max_length=30) #this should be able to be linked to an (existing) user
-	category = models.ForeignKey(Category)
+	category = models.ForeignKey(Category, verbose_name="categorie")
 	
 	nomination_date = models.DateField(default=date.today)
 	nominator = models.ForeignKey('general.UserProfile', null=True)
@@ -40,3 +40,4 @@ class Project(models.Model):
 		verbose_name = _("Nominatie")
 		verbose_name_plural = _("Nominaties")
 		ordering = ['category', 'votes']
+		unique_together = (("category", "url"),)
