@@ -326,6 +326,9 @@ div.winners span.brouwer{
 	color: #9d0707;
 	line-height: 140%;
 }
+div.winners span.votes{
+	font-size: 70%;
+}
 /* from left to right */
 div.winners div.pos_1{
 	background-image: url(/static/images/silver_medal.png);

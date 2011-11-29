@@ -15,9 +15,13 @@
 		<div class="winners">
 		{% for project in dict.top_three %}
 			<div class="pos_{{forloop.counter}}">
+			{% if project %}
 				<span class="brouwer">{{project.brouwer}}</span>
 				<br />
 				<a href="{{project.url}}" target="_blank">{{project.name}}</a>
+				<br />
+				<span class="votes">{{project.votes}} stemmen</span>
+			{% endif %}
 			</div>
 		{% endfor %}
 		</div>
