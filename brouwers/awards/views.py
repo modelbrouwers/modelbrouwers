@@ -7,9 +7,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from brouwers.general.models import UserProfile
-from brouwers.general.shortcuts import render_to_response
+from brouwers.general.shortcuts import render_to_response, voting_enabled
 from models import *
-from forms import ProjectForm, CategoryForm
+from forms import ProjectForm, CategoryForm, YearForm
 from datetime import date
 import re
 
@@ -33,7 +33,6 @@ def nomination(request):
 		if form.is_valid():
 			new_nomination = form.save()
 			if new_nomination.rejected:
-				#or warning
 				messages.info(request, "De nominatie zal niet stembaar zijn op verzoek van de brouwer zelf.")
 			else:
 				messages.success(request, "De nominatie is toegevoegd.")
@@ -56,7 +55,6 @@ def vote(request):
 	data = {}
 	categories = Category.objects.all()
 	year = date.today().year-1
-	limit_date = date(year+1,1,15) #date where the voting ends
 	profile = request.user.get_profile()
 	if request.method=='POST':
 		for cat in categories:
@@ -70,17 +68,12 @@ def vote(request):
 				pass
 		profile.last_vote = date.today()
 		profile.save()
-		voted = True;
 		return HttpResponseRedirect('/awards/vote/scores/')
-#		return render_to_response(request, 'awards/vote.html', {'voted': voted, 'year': year})
 	else:
-		if date.today() <= limit_date:
+		if voting_enabled():
 			if profile.last_vote.year < date.today().year:
 				profile.categories_voted.clear()
 			if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
-#				status = 'Je hebt al gestemd voor de editie van %s, bedankt!' % year
-#				voted = True;
-#				return render_to_response(request, 'awards/vote.html', {'status': status, 'voted': voted, 'year': year})
 				return HttpResponseRedirect('/awards/vote/scores/')
 			else:
 				categories_voted = profile.categories_voted.all()
@@ -89,13 +82,13 @@ def vote(request):
 				for cat in categories:
 					projects = Project.objects.filter(category__exact=cat)
 					projects_valid = projects.filter(nomination_date__year = year).exclude(rejected=True)
-					if not projects_valid:
+					if not projects_valid.exists():
 						profile.categories_voted.add(cat)
 						profile.save()
 					data[cat] = projects_valid
 				return render_to_response(request, 'awards/vote.html', {'data': data, 'voted': voted, 'year': year})
 		else:
-			status = "De editie van %s is afgelopen, er kon gestemd worden tot en met %s. Vanaf %s tot %s kunt u stemmen voor de projecten uit %s." % (year, limit_date.strftime("%d-%m-%Y"), date(year+2,1,1).strftime("%d-%m-%Y"), date(limit_date.year+1, limit_date.month, limit_date.day).strftime("%d-%m-%Y"), year+1)
+			status = "De editie van %s is afgelopen, er kan niet meer gestemd worden" % year
 			return render_to_response(request, 'awards/vote.html', {'status': status, 'voted': True, 'year': year})
 
 def vote_overview(request):
@@ -127,3 +120,36 @@ def scores(request):
 				votes_total += project.votes
 			data.append({'category': category, 'projects': projects[:5], 'total': votes_total})
 	return render_to_response(request, 'awards/vote_scores.html', {'data': data, 'year': year, 'voters': voters})
+
+def winners(request):
+	form = YearForm(request.GET)
+	today = date.today()
+	last_year = today.year-1
+	try:
+		year = int(request.REQUEST.get('year', last_year))
+	except ValueError: #not an integer that was entered
+		year = last_year
+	#year redirects
+	if year >= today.year:
+		if voting_enabled() and year == today.year:
+			messages.info(request, "Het stemmen loopt nog, u kan nog geen winnaars voor dit jaar bekijken. U bent omgeleid naar de tussenstand.")
+			return HttpResponseRedirect(reverse(scores))
+		year = today.year-1
+		messages.info(request, "Ook wij kunnen helaas niet in de toekomst kijken... u ziet dus de resultaten van editie %s." % year)
+		return HttpResponseRedirect("%s?year=%s" % (reverse(winners), year))
+	#actual data fetching
+	data = []
+	categories = Category.objects.all()
+	for category in categories:
+		projects = Project.objects.filter(category=category, nomination_date__year=year).order_by('-votes')
+		if projects.exists():
+			top_three = list(projects[:3])
+			#ordering: first in the middle, second left, third right
+			try:
+				top_three[1], top_three[0] = top_three[0], top_three[1]
+			except IndexError:
+				#there's only one element (since the second is an index out of range)
+				#do nothing
+				top_three = [None, top_three[0], None]
+			data.append({'category': category, 'top_three': top_three})
+	return render_to_response(request, 'awards/winners.html', {'year': year, 'data': data, 'form': form})

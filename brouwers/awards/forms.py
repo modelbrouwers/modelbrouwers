@@ -2,6 +2,7 @@ from django import forms
 from models import Project, Category
 from brouwers.general.models import UserProfile
 import re
+from datetime import date
 
 class ProjectForm(forms.ModelForm):
 	class Meta:
@@ -35,3 +36,9 @@ class ProjectForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
 	class Meta:
 		model = Category
+
+class YearForm(forms.Form):
+	year = forms.IntegerField(required=False, label="Bekijk jaar")
+
+#class VoteForm(forms.Form):
+#	category = forms.ChoiceField()

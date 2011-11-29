@@ -79,6 +79,7 @@ ul#menu{
 	background: -moz-linear-gradient(top, #069 0%, #0a1871 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#069), color-stop(100%,#0a1871));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#069', endColorstr='#0a1871',GradientType=0 );
+	background-image: -o-linear-gradient(top,rgb(0,102,153),rgb(10,24,113));
 	
 	position: absolute;
 	bottom: 0px;
@@ -111,6 +112,7 @@ ul#submenu{
 	background: -moz-linear-gradient(top, #6F8698 0%, #C7D0D7 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6f8698), color-stop(100%,#c7d0d7));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6F8698', endColorstr='#C7D0D7',GradientType=0 );
+	background-image: -o-linear-gradient(top,rgb(111,134,152),rgb(199,208,215));
 	
 	margin-left: -5px;
 	margin-top: -5px;
@@ -258,11 +260,6 @@ div#latest_nominations div.subtitle{
 	margin-bottom: 20px;
 }
 
-
-
-
-
-
 /*******voting tussenstanden*******/
 span.big{
 	font-size: 200%;
@@ -295,6 +292,52 @@ td.votes_num{
 }
 .light{
 	background-color: #ECECEC;
+}
+/*** winners ***/
+form#yearform{
+	text-align: right;
+	margin-right: 10px;
+}
+input#id_year{
+	width: 40px;
+	margin-left: 6px;
+	padding: 2px;
+}
+input#submit_year{
+	margin-left: -6px;
+	padding: 2px;
+}
+div.winners{
+	margin: 10px 0 20px 0;
+	/*height: 300px;*/
+	text-align: center;
+}
+div.winners div{
+	display: inline-block;
+	padding-top: 100px;
+	background-repeat: no-repeat;
+	background-position: center top;
+	width: 30%;
+	vertical-align: top;
+}
+div.winners span.brouwer{
+	font-weight: bold;
+	font-size: 110%;
+	color: #9d0707;
+	line-height: 140%;
+}
+/* from left to right */
+div.winners div.pos_1{
+	background-image: url(/static/images/silver_medal.png);
+	margin-top: 15px;
+}
+div.winners div.pos_2{
+	background-image: url(/static/images/gold_medal.png);
+	padding-top: 115px;
+}
+div.winners div.pos_3{
+	background-image: url(/static/images/bronze_medal.png);
+	margin-top: 15px;
 }
 /*** sidebar ***/
 div#sidebar{

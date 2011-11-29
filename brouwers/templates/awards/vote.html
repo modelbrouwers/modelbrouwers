@@ -14,7 +14,6 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 <br/>
 <br/>
 <form action="." method="POST">
-{% csrf_token %}
 {% if not voted %}
 {% for category, projects in data.items %}
 {% if category and projects %}

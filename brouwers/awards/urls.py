@@ -8,6 +8,7 @@ urlpatterns = patterns('brouwers.awards.views',
     (r'^vote/scores/$', 'scores'),
     (r'^categories/$', 'category'),
     (r'^categories/(\d+)/$', 'category_list_nominations'),
+    (r'^winners/$', 'winners'),
     )
 
 urlpatterns += patterns('django.views.generic.simple',

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class ProjectAdmin(admin.ModelAdmin):
 	fields = ['url', 'brouwer', 'name', 'category','nomination_date','nominator', 'rejected', 'votes']
 	list_display = ('name', 'brouwer','category','nomination_date', 'nominator', 'rejected', 'votes')
+	list_filter = ('category', 'nomination_date')
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category)

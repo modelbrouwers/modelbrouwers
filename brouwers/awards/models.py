@@ -26,6 +26,8 @@ class Project(models.Model):
 	name = models.CharField("titel verslag", max_length=100)
 	brouwer = models.CharField(max_length=30) #this should be able to be linked to an (existing) user
 	category = models.ForeignKey(Category, verbose_name="categorie")
+	#TODO: allow for an image to be shown
+	#image = models.ImageField()
 	
 	nomination_date = models.DateField(default=date.today)
 	nominator = models.ForeignKey('general.UserProfile', null=True)
@@ -41,3 +43,8 @@ class Project(models.Model):
 		verbose_name_plural = _("Nominaties")
 		ordering = ['category', 'votes']
 		unique_together = (("category", "url"),)
+	
+	def save(self, *args, **kwargs):
+		if not self.id:
+			self.year = self.nomination_date.year
+		super(Project, self).save(*args, **kwargs)
