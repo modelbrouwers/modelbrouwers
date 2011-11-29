@@ -125,10 +125,9 @@ def winners(request):
 	form = YearForm(request.GET)
 	today = date.today()
 	last_year = today.year-1
-	try:
-		year = int(request.REQUEST.get('year', last_year))
-	except ValueError: #not an integer that was entered
-		year = last_year
+	year = last_year
+	if form.is_valid():
+		year = form.cleaned_data['year']
 	#year redirects
 	if year >= today.year:
 		if voting_enabled() and year == today.year:
@@ -137,7 +136,7 @@ def winners(request):
 		year = today.year-1
 		messages.info(request, "Ook wij kunnen helaas niet in de toekomst kijken... u ziet dus de resultaten van editie %s." % year)
 		return HttpResponseRedirect("%s?year=%s" % (reverse(winners), year))
-	#actual data fetching
+		#actual data fetching
 	data = []
 	categories = Category.objects.all()
 	for category in categories:
