@@ -125,9 +125,10 @@ def winners(request):
 	form = YearForm(request.GET)
 	today = date.today()
 	last_year = today.year-1
-	year = last_year
 	if form.is_valid():
 		year = form.cleaned_data['year']
+	if not year or not form.is_valid():
+		year = last_year
 	#year redirects
 	if year >= today.year:
 		if voting_enabled() and year == today.year:
