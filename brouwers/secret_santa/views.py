@@ -36,7 +36,7 @@ def lottery(request):
 
 @login_required
 def receiver(request):
-	treshold = date(2010,12,05)
+	treshold = date(2010,11,30)
 	senders = Participant.objects.filter(user=request.user)
 	receiver = None
 	if senders and not (date.today() < treshold):
