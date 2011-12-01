@@ -3,8 +3,8 @@ from models import Participant
 from datetime import date
 
 urlpatterns = patterns('brouwers.secret_santa.views',
-	(r'^do_lottery', 'lottery'),
-	(r'^receiver', 'receiver'),
+	(r'^do_lottery/$', 'lottery'),
+	(r'^receiver/$', 'receiver'),
 )
 
 #GENERIC VIEWS
