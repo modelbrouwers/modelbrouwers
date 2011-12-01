@@ -45,4 +45,4 @@ def receiver(request):
 			receiver = couples[0].receiver
 		return render_to_response('secret_santa/receiver.html', RequestContext(request, {'receiver': receiver}))
 	else:
-		return HttpResponseRedirect('/media/error.html')
+		return HttpResponseRedirect('/static/error.html')
