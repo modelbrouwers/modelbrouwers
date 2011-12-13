@@ -11,6 +11,9 @@ Brouwverslagenoverzicht
 {% block submenu %}
 <li><a href="/builds/">Zoeken</a></li>
 <li><a href="/builds/add/">Toevoegen</a></li>
+{% if user.is_authenticated %}
+	<li><a href="/builds/profile/{{user.get_profile.id}}/">Mijn projecten</a></li>
+{% endif %}
 {% endblock submenu %}
 
 {% block content %}
