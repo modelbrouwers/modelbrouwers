@@ -26,11 +26,11 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 				<input type="radio" name="{{category}}" id="{{project.id}}" value="{{project.id}}"/>&nbsp;
 				<label for="{{project.id}}">
 				<a class="link" href="{{project.url}}" target="_blank">{{project.name}}</a> gebouwd door <i>{{project.brouwer}}</i>
-{% if project.brouwer|lower == project.nominator.forum_nickname|lower %}<img src="/media/images/warning.png" height="18" width="21" title="Deze persoon nomineerde zijn/haar eigen project!"/>{% endif %}</label>
+{% if project.brouwer|lower == project.nominator.forum_nickname|lower %}<img src="{{STATIC_URL}}images/warning.png" height="18" width="21" title="Deze persoon nomineerde zijn/haar eigen project!"/>{% endif %}</label>
 				<br />
 				<br />
 			{% endfor %}
-			<input type="radio" name="{{category}}" value="No vote" style="display:none" checked/>
+			<input type="radio" name="{{category}}" value="Blanco" checked/>
 		</div>
 	<br />
 	</div>
@@ -40,17 +40,7 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 {% endfor %}
 <br />
 <br />
-<p class="submit"><input type="submit" value="Stem"/></p>
+<p class="submit"><input type="submit" value="Stem uitbrengen"/></p>
 </form>
-{% else %}
-	<div>
-	{% if status %}
-		<p><strong>{{status}}</strong></p>
-		<br />
-		<p>Een tussenstand vind je <a class="link" href="./scores/">hier</a>, een voorbeeld van wat stembaar zal zijn voor de editie van {{year|add:1}} staat <a class="link" href="/awards/vote/overview">hier</a>.</p>
-	{% else %}
-		Bedankt voor je stem!
-	{% endif %}
-	</div>
 {% endif %}
 {% endblock content%}
