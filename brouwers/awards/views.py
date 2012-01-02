@@ -130,7 +130,7 @@ def winners(request):
 	if not year or not form.is_valid():
 		year = last_year
 	#year redirects
-	if year >= today.year:
+	if year >= today.year-1:
 		if voting_enabled() and year == today.year-1:
 			messages.info(request, "Het stemmen loopt nog, u kan nog geen winnaars voor dit jaar bekijken. U bent omgeleid naar de tussenstand.")
 			return HttpResponseRedirect(reverse(scores))
