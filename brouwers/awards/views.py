@@ -131,7 +131,7 @@ def winners(request):
 		year = last_year
 	#year redirects
 	if year >= today.year:
-		if voting_enabled() and year == today.year:
+		if voting_enabled() and year == today.year-1:
 			messages.info(request, "Het stemmen loopt nog, u kan nog geen winnaars voor dit jaar bekijken. U bent omgeleid naar de tussenstand.")
 			return HttpResponseRedirect(reverse(scores))
 		year = today.year-1
