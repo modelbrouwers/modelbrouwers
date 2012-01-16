@@ -134,9 +134,9 @@ def winners(request):
 		if voting_enabled() and year == today.year-1:
 			messages.info(request, "Het stemmen loopt nog, u kan nog geen winnaars voor dit jaar bekijken.")
 			return render_to_response(request, 'awards/winners.html', {'year': year, 'data': None, 'form': form})
-		year = today.year-1
-		messages.info(request, "Ook wij kunnen helaas niet in de toekomst kijken... u ziet dus de resultaten van editie %s." % year)
-		return HttpResponseRedirect("%s?year=%s" % (reverse(winners), year))
+		elif year > today.year-1
+			messages.info(request, "Ook wij kunnen helaas niet in de toekomst kijken... u ziet dus de resultaten van editie %s." % year)
+			return HttpResponseRedirect("%s?year=%s" % (reverse(winners), year))
 		#actual data fetching
 	data = []
 	categories = Category.objects.all()
