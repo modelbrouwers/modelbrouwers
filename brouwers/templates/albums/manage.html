@@ -1,0 +1,59 @@
+{% extends "albums/base.html" %}
+
+{% block extrastyle %}
+<style type="text/css">
+	div.manage{
+		float: left;
+	}
+	div.break.form{
+		clear: both;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	div.break.form *{
+		padding-right: 5px;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="subtitle">Albums organiseren</div>
+<br />
+<div id="album_list">
+	<form action="." method="POST">
+		{{ albumformset.management_form }}
+		{% for form in albumformset %}
+		<div class="break form">
+			{% for error in form.non_field_errors %}
+				<div class="error">
+					{{ error }}
+				</div>
+			{% endfor %}
+			<div class="album_title manage">
+				{% for hidden in form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{{ form.title }}
+				{% for error in form.title.errors %}
+					<div class="error">
+						{{ error }}
+					</div>
+				{% endfor %}
+			</div>
+			<div class="order manage">{{ form.ORDER }}</div>
+			<div class="delete">{{ form.DELETE }} Album verwijderen?</div>
+		</div>
+		{% endfor %}
+		<br />
+		<input type="submit" value="Save changes" name="manage"/>
+	</form>
+</div>
+<br />
+<div class="subtitle">Nieuw album aanmaken</div>
+<form action="." method="POST">
+	<table>
+		{{add_album_form.as_table}}
+	</table>
+	<input type="submit" value="Add album" name="add"/>
+</form>
+{% endblock %}

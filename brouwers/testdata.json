@@ -1,236 +1,366 @@
 [
     {
-        "pk": 1, 
-        "model": "auth.user", 
+        "pk": 1,
+        "model": "auth.user",
         "fields": {
-            "username": "BBT", 
-            "first_name": "Sergei", 
-            "last_name": "Maertens", 
-            "is_active": true, 
-            "is_superuser": true, 
-            "is_staff": true, 
-            "last_login": "2011-05-06 03:03:35", 
-            "groups": [], 
-            "user_permissions": [], 
-            "password": "sha1$06c42$06e150f664dbbdfa5fedb443327dd36aa076ea9c", 
-            "email": "sergeimaertens@gmail.com", 
+            "username": "BBT",
+            "first_name": "Sergei",
+            "last_name": "Maertens",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2012-02-15 20:48:42",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$06c42$06e150f664dbbdfa5fedb443327dd36aa076ea9c",
+            "email": "sergeimaertens@gmail.com",
             "date_joined": "2010-11-28 01:58:00"
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "auth.user", 
+        "pk": 2,
+        "model": "auth.user",
         "fields": {
-            "username": "Mytheny", 
-            "first_name": "", 
-            "last_name": "", 
-            "is_active": true, 
-            "is_superuser": false, 
-            "is_staff": false, 
-            "last_login": "2010-11-28 19:36:00", 
-            "groups": [], 
-            "user_permissions": [], 
-            "password": "sha1$2b20a$60329f2b904dde6906ba54d57811242b0c65e917", 
-            "email": "", 
+            "username": "Mytheny",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2010-11-28 19:36:00",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$2b20a$60329f2b904dde6906ba54d57811242b0c65e917",
+            "email": "",
             "date_joined": "2010-11-28 19:36:00"
         }
-    }, 
+    },
     {
-        "pk": 3, 
-        "model": "auth.user", 
+        "pk": 3,
+        "model": "auth.user",
         "fields": {
-            "username": "joesilent", 
-            "first_name": "", 
-            "last_name": "", 
-            "is_active": true, 
-            "is_superuser": false, 
-            "is_staff": false, 
-            "last_login": "2011-01-10 14:04:16", 
-            "groups": [], 
-            "user_permissions": [], 
-            "password": "sha1$5f85b$d03537e8147c7f552ba97e2d6fce1f9f8a7ca7e4", 
-            "email": "", 
+            "username": "joesilent",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2011-01-10 14:04:16",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$5f85b$d03537e8147c7f552ba97e2d6fce1f9f8a7ca7e4",
+            "email": "",
             "date_joined": "2011-01-10 14:03:10"
         }
-    }, 
+    },
     {
-        "pk": 1, 
-        "model": "awards.category", 
+        "pk": 1,
+        "model": "sites.site",
+        "fields": {
+            "domain": "example.com",
+            "name": "example.com"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "awards.category",
         "fields": {
             "name": "Militaire luchtvaart"
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "awards.category", 
+        "pk": 2,
+        "model": "awards.category",
         "fields": {
             "name": "Civiele luchtvaart"
         }
-    }, 
+    },
     {
-        "pk": 3, 
-        "model": "awards.category", 
+        "pk": 3,
+        "model": "awards.category",
         "fields": {
             "name": "Militaire voertuigen"
         }
-    }, 
+    },
     {
-        "pk": 4, 
-        "model": "awards.category", 
+        "pk": 4,
+        "model": "awards.category",
         "fields": {
             "name": "Figuren"
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "awards.project", 
+        "pk": 2,
+        "model": "awards.project",
         "fields": {
-            "category": 1, 
-            "brouwer": "Ronald1903", 
-            "votes": 0, 
-            "name": "Su-24M Fencer D - Trumpeter 1/48", 
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=27509", 
-            "rejected": false, 
-            "nominator": 1, 
+            "category": 1,
+            "brouwer": "Ronald1903",
+            "votes": 0,
+            "name": "Su-24M Fencer D - Trumpeter 1/48",
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=27509",
+            "rejected": false,
+            "nominator": 1,
             "nomination_date": "2011-01-10"
         }
-    }, 
+    },
     {
-        "pk": 4, 
-        "model": "awards.project", 
+        "pk": 4,
+        "model": "awards.project",
         "fields": {
-            "category": 1, 
-            "brouwer": "Joe Silent", 
-            "votes": 0, 
-            "name": "test", 
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=2&t=26704", 
-            "rejected": false, 
-            "nominator": 1, 
+            "category": 1,
+            "brouwer": "Joe Silent",
+            "votes": 0,
+            "name": "test",
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=2&t=26704",
+            "rejected": false,
+            "nominator": 1,
             "nomination_date": "2010-01-10"
         }
-    }, 
+    },
     {
-        "pk": 1, 
-        "model": "awards.project", 
+        "pk": 1,
+        "model": "awards.project",
         "fields": {
-            "category": 1, 
-            "brouwer": "BBT", 
-            "votes": 3, 
-            "name": "1/144 Revell SU-27 Flanker", 
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=28524&p=591859#p591859", 
-            "rejected": false, 
-            "nominator": 2, 
+            "category": 1,
+            "brouwer": "BBT",
+            "votes": 3,
+            "name": "1/144 Revell SU-27 Flanker",
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=28524&p=591859#p591859",
+            "rejected": false,
+            "nominator": 2,
             "nomination_date": "2011-01-10"
         }
-    }, 
+    },
     {
-        "pk": 3, 
-        "model": "awards.project", 
+        "pk": 3,
+        "model": "awards.project",
         "fields": {
-            "category": 2, 
-            "brouwer": "TheFlyingDutchman", 
-            "votes": 3, 
-            "name": "Boeing 737-600 'Mal\u00e9v Hungari", 
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=46&t=24875&p=597139#p597139", 
-            "rejected": false, 
-            "nominator": 1, 
+            "category": 2,
+            "brouwer": "TheFlyingDutchman",
+            "votes": 3,
+            "name": "Boeing 737-600 'Mal\u00e9v Hungari",
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=46&t=24875&p=597139#p597139",
+            "rejected": false,
+            "nominator": 1,
             "nomination_date": "2010-08-11"
         }
-    }, 
+    },
     {
-        "pk": 5, 
-        "model": "awards.project", 
+        "pk": 5,
+        "model": "awards.project",
         "fields": {
-            "category": 3, 
-            "brouwer": "Joe Silent", 
-            "votes": 0, 
-            "name": "sdfqsdfqsdf", 
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=5&t=12261", 
-            "rejected": true, 
-            "nominator": 1, 
+            "category": 3,
+            "brouwer": "Joe Silent",
+            "votes": 0,
+            "name": "sdfqsdfqsdf",
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=5&t=12261",
+            "rejected": true,
+            "nominator": 1,
             "nomination_date": "2011-01-10"
         }
-    }, 
+    },
     {
-        "pk": 1, 
-        "model": "general.userprofile", 
+        "pk": 1,
+        "model": "general.userprofile",
         "fields": {
-            "province": "", 
-            "city": "", 
-            "refuse": "", 
-            "country": null, 
-            "number": "", 
+            "province": "",
+            "city": "",
+            "refuse": "",
+            "country": null,
+            "number": "",
             "categories_voted": [
                 3
-            ], 
-            "street": "", 
-            "user": 1, 
-            "last_vote": "2011-01-02", 
-            "secret_santa": true, 
-            "postal": "", 
-            "forum_nickname": "BBT", 
-            "exclude_from_nomination": false, 
+            ],
+            "street": "",
+            "user": 1,
+            "last_vote": "2011-01-02",
+            "secret_santa": true,
+            "postal": "",
+            "forum_nickname": "BBT",
+            "exclude_from_nomination": false,
             "preference": "test"
         }
-    }, 
+    },
     {
-        "pk": 3, 
-        "model": "general.userprofile", 
+        "pk": 3,
+        "model": "general.userprofile",
         "fields": {
-            "province": "", 
-            "city": "", 
-            "refuse": "", 
-            "country": null, 
-            "number": "", 
+            "province": "",
+            "city": "",
+            "refuse": "",
+            "country": null,
+            "number": "",
             "categories_voted": [
                 3
-            ], 
-            "street": "", 
-            "user": 3, 
-            "last_vote": "2010-01-01", 
-            "secret_santa": false, 
-            "postal": "", 
-            "forum_nickname": "Joe Silent", 
-            "exclude_from_nomination": true, 
+            ],
+            "street": "",
+            "user": 3,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": "",
+            "forum_nickname": "Joe Silent",
+            "exclude_from_nomination": true,
             "preference": ""
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "general.userprofile", 
+        "pk": 2,
+        "model": "general.userprofile",
         "fields": {
-            "province": "", 
-            "city": "", 
-            "refuse": "", 
-            "country": null, 
-            "number": "", 
-            "categories_voted": [], 
-            "street": "", 
-            "user": 2, 
-            "last_vote": "2010-01-01", 
-            "secret_santa": true, 
-            "postal": "", 
-            "forum_nickname": "Mytheny", 
-            "exclude_from_nomination": false, 
+            "province": "",
+            "city": "",
+            "refuse": "",
+            "country": null,
+            "number": "",
+            "categories_voted": [],
+            "street": "",
+            "user": 2,
+            "last_vote": "2010-01-01",
+            "secret_santa": true,
+            "postal": "",
+            "forum_nickname": "Mytheny",
+            "exclude_from_nomination": false,
             "preference": ""
         }
-    }, 
+    },
     {
-        "pk": 1, 
-        "model": "secret_santa.participant", 
+        "pk": 1,
+        "model": "secret_santa.participant",
         "fields": {
-            "verified": false, 
-            "user": 1, 
+            "verified": false,
+            "user": 1,
             "year": "2011"
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "secret_santa.participant", 
+        "pk": 2,
+        "model": "secret_santa.participant",
         "fields": {
-            "verified": true, 
-            "user": 2, 
+            "verified": true,
+            "user": 2,
             "year": "2011"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "albums.category",
+        "fields": {
+            "name": "BrouwersAlbums",
+            "order": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "albums.category",
+        "fields": {
+            "name": "Brouwersdagen",
+            "order": 2
+        }
+    },
+    {
+        "pk": 1,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "description": "Album met bouw- en eindfoto's van de 1/144 Revell Flanker",
+            "created": "2012-02-11 15:35:43",
+            "views": 0,
+            "title": "Su-27 Flanker",
+            "modified": "2012-02-18 17:36:04",
+            "public": false,
+            "build_report": "",
+            "user": 1,
+            "writable_to": "u",
+            "order": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "description": "1/144 Tornado",
+            "created": "2012-02-11 15:38:14",
+            "views": 0,
+            "title": "Tornado IDS 'White Tiger'",
+            "modified": "2012-02-12 20:41:36",
+            "public": false,
+            "build_report": "",
+            "user": 2,
+            "writable_to": "u",
+            "order": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "description": "",
+            "created": "2012-02-15 20:51:57",
+            "views": 0,
+            "title": "EJ-10 Honda",
+            "modified": "2012-02-18 17:36:03",
+            "public": false,
+            "build_report": "",
+            "user": 1,
+            "writable_to": "u",
+            "order": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "albums.album",
+        "fields": {
+            "category": 2,
+            "votes": 0,
+            "description": "Foto's gemaakt op de Brouwersdag van 2011",
+            "created": "2012-02-11 15:36:22",
+            "views": 0,
+            "title": "Brouwersdag 2011",
+            "modified": "2012-02-15 20:51:11",
+            "public": true,
+            "build_report": "",
+            "user": 1,
+            "writable_to": "o",
+            "order": 2
+        }
+    },
+    {
+        "pk": 5,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "description": "",
+            "created": "2012-02-15 22:13:09",
+            "views": 0,
+            "title": "test",
+            "modified": "2012-02-18 17:36:04",
+            "public": true,
+            "build_report": "",
+            "user": 1,
+            "writable_to": "u",
+            "order": 3
+        }
+    },
+    {
+        "pk": 1,
+        "model": "albums.photo",
+        "fields": {
+            "album": 3,
+            "uploaded": "2012-02-12 12:19:50",
+            "description": "",
+            "views": 0,
+            "image": "albums/3/s5001563.JPG",
+            "modified": "2012-02-12 12:19:50",
+            "height": 600,
+            "width": 800,
+            "user": 2,
+            "order": 1
         }
     }
 ]

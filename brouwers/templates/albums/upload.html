@@ -1,0 +1,26 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden en voeg de foto's toe. Op de volgende pagina kan je desgewenst meer info invullen bij de foto's.
+<div id="uploading">
+	<br />
+	<form action=".">
+		Ik wil {{ amountform.amount }} foto's uploaden.
+		<input type="submit" value="pagina herladen" />
+	</form>
+	<br />
+	<br />
+	<form action="." method="POST" enctype="multipart/form-data">
+		Toevoegen aan het {{ albumform }}
+		<br />
+		<br />
+		{{ formset.management_form }}
+		
+		{% for form in formset %}
+			<div>{{ form }}</div>
+		{% endfor %}
+		
+		<input type="submit" value="uploaden" />
+	</form>
+</div>
+{% endblock %}

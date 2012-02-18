@@ -1,0 +1,53 @@
+{% extends "albums/base.html" %}
+
+{% block extrastyle %}
+<style type="text/css">
+	div.upload{
+		clear: both;
+		margin-left: 20px;
+	}
+	div.upload p{
+		margin: 5px;
+	}
+	div.thumb{
+		float: left;
+		margin-bottom: 15px;
+		margin-right: 15px;
+	}
+	label{
+		width: 150px;
+		float: left;
+	}
+	div.upload textarea{
+		width: 280px;
+		height: 50px;
+	}
+	div.upload input[type="text"]{
+		width: 30px;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="uploading">
+	<div>Er waren voor deze upload {{ photos_before }} afbeeldingen in het album {{ album }}.</div>
+	<br />
+	<br />
+	<form action="/albums/upload/extra_info/" method="POST" enctype="multipart/form-data">
+		{{ formset.management_form }}
+		
+		{% for form in formset %}
+		<div class="upload">
+			<div class="thumb">
+				{% if form.instance.image %}
+				<img src="{{ form.instance.image.url }}" width="200" />
+				{% endif %}
+			</div>
+			<div>{{ form.as_p }}</div>
+		</div>
+		{% endfor %}
+		
+		<div class="upload"><input type="submit" value="opslaan" /></div>
+	</form>
+</div>
+{% endblock %}
