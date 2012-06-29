@@ -32,6 +32,7 @@
 
 - Brouwverslagenoverzicht van brouwer
 	+ makkelijker verslagen van een forumlid terugvinden
+	+ search van forum gebruiken?
 
 *Varia*
 - e-mailadres mods... deftig in orde brengen
