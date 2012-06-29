@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -93,13 +94,18 @@ def upload(request):
 	return render_to_response(request, 'albums/upload.html', {'amountform': amountform, 'albumform': albumform, 'formset': formset})
 
 @login_required
+def upload_flash(request):
+    albumform = PickAlbumForm(request.user)
+    return render_to_response(request, 'albums/uploadify.html', {'albumform': albumform, 'session_cookie_name': settings.SESSION_COOKIE_NAME, 'session_key': request.session.session_key})
+
+@login_required
 def set_extra_info(request, photo_ids=None, album=None):
 	PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=0)
 	if request.method == "POST":
 		formset = PhotoFormSet(request.POST)
 		if formset.is_valid():
 			formset.save()
-			return HttpResponseRedirect('/albums/') #change to the album that's being uploaded to
+			return HttpResponseRedirect('/albums/') #TODO:change to the album that's being uploaded to
 	else:
 		if not photo_ids:
 			return HttpResponseRedirect(reverse(upload))
@@ -110,4 +116,8 @@ def set_extra_info(request, photo_ids=None, album=None):
 	photos_before = all_photos_album - photos_uploaded_now
 	return render_to_response(request, 'albums/extra_info_uploads.html', {'formset': formset, 'photos_before': photos_before, 'album': album})
 
-
+@login_required
+def uploadify(request):
+    # Processing of each uploaded image
+    albumId = request.POST['album']
+    return HttpResponse('True\nAlbum id: %s\nUser: %s' % (albumId, request.user))

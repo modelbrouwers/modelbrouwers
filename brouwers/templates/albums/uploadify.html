@@ -1,0 +1,54 @@
+{% extends "albums/base.html" %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
+{% endblock %}
+
+{% block extrascript %}
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.uploadify-3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){
+    $('#uploadify_input').uploadify({
+        'swf'       : '{{ STATIC_URL }}scripts/uploadify.swf',
+        'uploader'  : '/albums/upload/uploadify/',
+        'auto'      : false, //this could be in a user setting
+        'buttonText': 'Selecteer foto\'s',
+        'queueID'   : 'upload_queue',
+        'preventCaching': true,
+        'fileSizeLimit' : '500KB',
+        'fileTypeDesc'  : 'Afbeeldingen',
+        'fileTypeExts'  : '*.jpeg; *.jpg; *.png; *.PNG; *.JPG; *.JPEG',
+        'formData'  : {'album': 'nope'},
+        'method'    : 'post',
+        'removeCompleted'   : false,
+        'onUploadStart' : function(file) {
+            var albumId = $('#id_album').val();
+            $("#uploadify_input").uploadify("settings", "formData", {'album': albumId, '{{ session_cookie_name }}': '{{ session_key }}'});
+        },
+        'onUploadSuccess': function(file, data, response) {
+            alert(data);
+        },
+        'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+            alert(errorString);
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden en voeg de foto's toe. Op de volgende pagina kan je desgewenst meer info invullen bij de foto's.
+
+<br />
+<br />
+{{ albumform }}
+<br />
+<br />
+<br />
+
+<!--TODO: AJAX form met keuze album! -->
+<div id="upload_queue"></div>
+<input type="file" name="file_upload" id="uploadify_input" /><a href="javascript:$('#uploadify_input').uploadify('upload', '*')">Begin upload</a>
+
+{% endblock content %}
