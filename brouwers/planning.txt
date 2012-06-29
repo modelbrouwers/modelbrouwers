@@ -1,0 +1,38 @@
+*Software*
+
+- Groepsbouwenkalender
+
+- Nieuwe albumssoftware maken. Momenteel enkele problemen...
+	+ flash upload (multiple files at once), a la imgur.com
+	+ resizen, grootte-errors: hoge drempel -> autoscaling naar verschillende formaten (800 wide, 1024 wide, thumbs)
+	+ aparte login -> koppelen aan forumlogin
+	+ automatisch [img] codes genereren bij tonen afbeelding
+	+ misschien in zijbalk een folder tonen, makkelijker invoegen?
+	
+- modelbouwwinkelsdatabank schrijven
+	+ databank van alle winkels, ingegeven door leden
+	+ wereldwijd
+	+ adressen, contactgevens, website
+	+ specialisatie?
+	+ reviews
+	+ integratie met google maps
+
+- galerijen meer in site zelf verwerken (uploadform)
+	+ tabje naast de rest
+	+ vereist: brouwverslag
+	+ passeren door goedkeuring voor definitief plaatsen
+	+ verdeling per discipline
+	
+- badges/ribbons voor de groepsprojecten die af zijn
+	+ als beloning voor succesvol afronden van groepsproject
+	+ is te zien onder avatar bijvoorbeeld
+
+- BrouwersAwards op de site zelf, login met forumlogin.
+	+ knop bij topic om snel topic te kunnen nomineren (javascript, zo weinig mogelijk forumcode modden)
+
+- Brouwverslagenoverzicht van brouwer
+	+ makkelijker verslagen van een forumlid terugvinden
+
+*Varia*
+- e-mailadres mods... deftig in orde brengen
+- forumregels verwerken in file op server -> lezen bij registreren

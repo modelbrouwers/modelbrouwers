@@ -71,6 +71,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'brouwers.albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 #    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -99,12 +100,13 @@ INSTALLED_APPS = (
     'brouwers.general',
     'brouwers.secret_santa',
     'brouwers.builds',
-    'brouwers.group_builds',
+#    'brouwers.group_builds',
+    'brouwers.albums',
 )
 
 AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',
-	'boudewijn.django_rpx.backends.RpxBackend',
+#	'brouwers.django_rpx.backends.RpxBackend',
 )
 
 AUTH_PROFILE_MODULE = 'general.UserProfile'
