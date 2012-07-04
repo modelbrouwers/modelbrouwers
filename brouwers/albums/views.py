@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import *
+from utils import resize
 
 def index(request):
 	return render_to_response(request, 'albums/base.html')
@@ -119,5 +120,17 @@ def set_extra_info(request, photo_ids=None, album=None):
 @login_required
 def uploadify(request):
     # Processing of each uploaded image
-    albumId = request.POST['album']
-    return HttpResponse('True\nAlbum id: %s\nUser: %s' % (albumId, request.user))
+    albumform = PickAlbumForm(request.user, request.POST)
+    if albumform.is_valid():
+        album = albumform.cleaned_data['album']
+        img = request.FILES['Filedata']
+        path = 'albums/%s/%s/' % (request.user.id, album.id) #/media/albums/userid/albumid/<img>.jpg
+        img_data = resize(img, upload_to=path)
+        for data in img_data:
+            photo = Photo(user=request.user, album=album, width=data[1], height=data[2])
+            photo.image = data[0]
+            photo.save()
+        return HttpResponse('True', mimetype="text/plain")
+    else:
+        return HttpResponse()
+

@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
 	search_fields = ('name',)
 
 class PhotoAdmin(admin.ModelAdmin):
-	list_display = ('user', 'album', 'views', 'uploaded')
+	list_display = ('user', 'album', 'views', 'uploaded', 'BBCode')
 	list_filter = ('user', 'album')
 
 admin.site.register(Album, AlbumAdmin)

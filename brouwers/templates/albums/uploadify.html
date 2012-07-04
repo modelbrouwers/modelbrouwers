@@ -26,11 +26,14 @@ $(document).ready(function (){
             var albumId = $('#id_album').val();
             $("#uploadify_input").uploadify("settings", "formData", {'album': albumId, '{{ session_cookie_name }}': '{{ session_key }}'});
         },
-        'onUploadSuccess': function(file, data, response) {
-            alert(data);
-        },
+        //'onUploadSuccess': function(file, data, response) {
+        //    alert(data);
+        //},
         'onUploadError' : function(file, errorCode, errorMsg, errorString) {
             alert(errorString);
+        },
+        'onQueueComplete' : function(queueData) {
+            alert(queueData.uploadsSuccessful + ' files were successfully uploaded.');
         }
     });
 });
@@ -42,13 +45,13 @@ Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden e
 
 <br />
 <br />
+
+
+<!--TODO: AJAX form met keuze album! -->
 {{ albumform }}
 <br />
 <br />
-<br />
-
-<!--TODO: AJAX form met keuze album! -->
 <div id="upload_queue"></div>
-<input type="file" name="file_upload" id="uploadify_input" /><a href="javascript:$('#uploadify_input').uploadify('upload', '*')">Begin upload</a>
-
+<input type="file" name="file_upload" id="uploadify_input" />
+<a href="javascript:$('#uploadify_input').uploadify('upload', '*')">Begin upload</a>
 {% endblock content %}

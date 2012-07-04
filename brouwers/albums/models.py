@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 
 from datetime import date, datetime
@@ -70,35 +71,39 @@ class Album(models.Model):
 		return "/albums/album/%s/" % self.id
 
 class Photo(models.Model):
-	""" Helper functions """	
-	def get_image_path(self, filename):
-		name, extension = os.path.splitext(filename)
-		filename = name.lower() + extension
-		return os.path.join('albums', str(self.album.id), filename)
-	
-	""" Model Fields """
-	#image properties
-	user = models.ForeignKey(User) #we need to know the owner (public albums)
-	album = models.ForeignKey(Album)
-	width = models.PositiveSmallIntegerField(blank=True, null=True)
-	height = models.PositiveSmallIntegerField(blank=True, null=True)
-	image = models.ImageField(upload_to=get_image_path, height_field='height', width_field='width')
-	description = models.CharField(_("photo description"), max_length=500, blank=True)
-	
-	#Logging and statistics
-	uploaded = models.DateTimeField(auto_now_add=True)
-	modified = models.DateTimeField(_("last modified"), auto_now=True)
-	views = models.PositiveIntegerField(default=0)
-	
-	order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
-	
-	class Meta:
-		verbose_name = _("Photo")
-		verbose_name_plural = _("Photos")
-		ordering = ['album', 'order']
-	
-	def __unicode__(self):
-		return "image from %s in %s" % (self.user, self.album.title)
-	
-	def get_absolute_url(self):
-		return "/albums/photo/%s/" % self.id
+    """ Helper functions """	
+    def get_image_path(self, filename):
+        name, extension = os.path.splitext(filename)
+        filename = name.lower() + extension
+        return os.path.join('albums', str(self.album.id), filename)
+    
+    """ Model Fields """
+    #image properties
+    user = models.ForeignKey(User) #we need to know the owner (public albums)
+    album = models.ForeignKey(Album)
+    width = models.PositiveSmallIntegerField(blank=True, null=True)
+    height = models.PositiveSmallIntegerField(blank=True, null=True)
+    image = models.ImageField(upload_to='albums', height_field='height', width_field='width')
+    description = models.CharField(_("photo description"), max_length=500, blank=True)
+    
+    #Logging and statistics
+    uploaded = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(_("last modified"), auto_now=True)
+    views = models.PositiveIntegerField(default=0)
+    
+    order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
+    
+    class Meta:
+        verbose_name = _("Photo")
+        verbose_name_plural = _("Photos")
+        ordering = ['album', 'order']
+    
+    def __unicode__(self):
+        return "image from %s in %s" % (self.user, self.album.title)
+    
+    def get_absolute_url(self):
+        return "/albums/photo/%s/" % self.id
+    
+    def BBCode(self):
+        domain = Site.objects.get_current().domain
+        return u'[img]http://%s%s[/img]' % (domain, self.image.url)

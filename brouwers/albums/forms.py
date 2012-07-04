@@ -40,3 +40,7 @@ class PhotoForm(forms.ModelForm):
 		widgets = {
 			'description': forms.Textarea(),
 		}
+
+class AddPhotoForm(forms.ModelForm):
+    class Meta:
+        fields = ('album', 'image')

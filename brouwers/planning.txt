@@ -7,7 +7,7 @@
 	+ resizen, grootte-errors: hoge drempel -> autoscaling naar verschillende formaten (800 wide, 1024 wide, thumbs)
 	+ aparte login -> koppelen aan forumlogin
 	+ automatisch [img] codes genereren bij tonen afbeelding
-	+ misschien in zijbalk een folder tonen, makkelijker invoegen?
+	+ misschien in zijbalk een folder tonen, makkelijker invoegen? (think battlelog)
 	
 - modelbouwwinkelsdatabank schrijven
 	+ databank van alle winkels, ingegeven door leden
