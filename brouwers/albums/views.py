@@ -136,5 +136,5 @@ def uploadify(request):
 
 @login_required
 def photos(request):
-	photos = Photo.objects.exclude(image__icontains='1024_').exclude(image__icontains='thumb_')
+	photos = Photo.objects.filter(user=request.user).exclude(image__icontains='1024_').exclude(image__icontains='thumb_').order_by('-pk')
 	return render_to_response(request, 'albums/photos.html', {'photos': photos})
