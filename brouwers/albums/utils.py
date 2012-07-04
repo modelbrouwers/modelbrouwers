@@ -2,6 +2,7 @@ import Image
 import os
 import itertools
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.core.files.storage import FileSystemStorage
 
 def valid_ext(extension):
@@ -22,6 +23,7 @@ def get_available_name(name):
         """
         dir_name, file_name = os.path.split(name)
         file_root, file_ext = os.path.splitext(file_name)
+        file_root = file_root.replace('/', '-') #avoid / in filenames
         # If the filename already exists, add an underscore and a number (before
         # the file extension, if one exists) to the filename until the generated
         # filename doesn't exist.
@@ -29,7 +31,7 @@ def get_available_name(name):
         while exists(name):
             # file_ext includes the dot.
             name = os.path.join(dir_name, "%s_%s%s" % (file_root, count.next(), file_ext))
-        return name
+        return name, dir_name
 
 def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, ''), (100, 75, 'thumb_')], upload_to='albums/'):
     """
@@ -59,9 +61,21 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, ''), (100, 75, '
                 img = img.resize(size, Image.ANTIALIAS) #resized image
             # path and filename collision avoiding
             outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext.lower())
-            outfile = get_available_name(outfile)
+            outfile, path_dir = get_available_name(outfile)
+            
             #get the relative path for the database
             rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
+            rel_folder = path_dir + '/'
+            print rel_folder
+            #if relative path doesn't exist, create it
+            if not os.path.exists(rel_folder):
+                try:
+                    os.makedirs(rel_folder)
+                except OSError, err:
+                    raise ImproperlyConfigured('Could not create directory: %s (%s)' % (rel_folder, err))
+            #Make sure folder is writable
+            if not os.access(rel_folder, os.W_OK):
+                raise ImproperlyConfigured('Could not write to directory: %s' % folder)
             img.save(outfile)
             img_data.append((rel_path, img.size[0], img.size[1]))
         return img_data
