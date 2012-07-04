@@ -8,4 +8,5 @@ urlpatterns = patterns('brouwers.albums.views',
 	(r'^upload/uploadify/$', 'uploadify'),
 	(r'^manage/$', 'manage'),
 	(r'^manage/(\d+)/$', 'manage'),
+	(r'^photos/$', 'photos'),
     )
