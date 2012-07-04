@@ -104,6 +104,13 @@ class Photo(models.Model):
     def get_absolute_url(self):
         return "/albums/photo/%s/" % self.id
     
+    @property
     def BBCode(self):
         domain = Site.objects.get_current().domain
         return u'[img]http://%s%s[/img]' % (domain, self.image.url)
+    
+    @property
+    def BBCode_1024(self):
+        domain = Site.objects.get_current().domain
+        path, f = os.path.split(self.image.url)
+        return u'[img]http://%s%s/1024_%s[/img]' % (domain, path, f)

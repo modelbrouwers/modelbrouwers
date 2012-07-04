@@ -46,7 +46,7 @@ Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden e
 <br />
 <br />
 
-<form action="/albums/upload/uploadify/" method="POST" enctype="multipart/form-data">
+{#<form action="/albums/upload/uploadify/" method="POST" enctype="multipart/form-data">#}
 <!--TODO: AJAX form met keuze album! -->
 {{ albumform }}
 <br />
@@ -54,8 +54,8 @@ Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden e
 <div id="upload_queue"></div>
 <input type="file" name="file_upload" id="uploadify_input" />
 <a href="javascript:$('#uploadify_input').uploadify('upload', '*')">Begin upload</a>
-<br />
+{% comment %}<br />
 <input type="file" name="Filedata" />
 <input type="submit"/>
-</form>
+</form>{% endcomment %}
 {% endblock content %}

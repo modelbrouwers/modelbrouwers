@@ -66,7 +66,6 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, ''), (100, 75, '
             #get the relative path for the database
             rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
             rel_folder = path_dir + '/'
-            print rel_folder
             #if relative path doesn't exist, create it
             if not os.path.exists(rel_folder):
                 try:
