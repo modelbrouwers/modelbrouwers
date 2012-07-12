@@ -28,10 +28,13 @@ class PickAlbumForm(forms.Form):
 	album = forms.ModelChoiceField(queryset=Album.objects.none(), empty_label=None)
 	
 	def __init__(self, user, *args, **kwargs):
+		browse = kwargs.pop('browse')
 		super(PickAlbumForm, self).__init__(*args, **kwargs)
 		own_albums = Album.objects.filter(user=user, writable_to="u", trash=False)
 		public_albums = Album.objects.filter(writable_to="o", trash=False)
 		self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to')
+		if browse:
+			self.fields['album'].required = False
 
 class PhotoForm(forms.ModelForm):
 	class Meta:

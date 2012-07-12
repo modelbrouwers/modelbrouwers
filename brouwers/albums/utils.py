@@ -33,7 +33,30 @@ def get_available_name(name):
             name = os.path.join(dir_name, "%s_%s%s" % (file_root, count.next(), file_ext))
         return name, dir_name
 
-def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, ''), (100, 75, 'thumb_')], upload_to='albums/'):
+def save_to_path(img, upload_to, prefix, filename, ext):
+    outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
+    outfile, path_dir = get_available_name(outfile)
+    
+    #get the relative path for the database
+    rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
+    rel_folder = path_dir + '/'
+    #if relative path doesn't exist, create it
+    if not os.path.exists(rel_folder):
+        try:
+            os.makedirs(rel_folder)
+        except OSError, err:
+            raise ImproperlyConfigured('Could not create directory: %s (%s)' % (rel_folder, err))
+    #Make sure folder is writable
+    if not os.access(rel_folder, os.W_OK):
+        raise ImproperlyConfigured('Could not write to directory: %s' % folder)
+    img.save(outfile)
+    return (rel_path, img)
+
+def resize(image, sizes_data=[
+                (1024, 1024, '1024_'),
+                (800, 800, ''),
+                (100, 75, settings.THUMB_PREFIX)],
+                            upload_to='albums/'):
     """
     Resizes an image to multiple sizes and saves it to disk.
     
@@ -59,23 +82,11 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, ''), (100, 75, '
             if ratio < 1.0: #resizing required
                 size = (int(round(ratio * width)), int(round(ratio * height)))
                 img = img.resize(size, Image.ANTIALIAS) #resized image
-            # path and filename collision avoiding
-            outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext.lower())
-            outfile, path_dir = get_available_name(outfile)
-            
-            #get the relative path for the database
-            rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
-            rel_folder = path_dir + '/'
-            #if relative path doesn't exist, create it
-            if not os.path.exists(rel_folder):
-                try:
-                    os.makedirs(rel_folder)
-                except OSError, err:
-                    raise ImproperlyConfigured('Could not create directory: %s (%s)' % (rel_folder, err))
-            #Make sure folder is writable
-            if not os.access(rel_folder, os.W_OK):
-                raise ImproperlyConfigured('Could not write to directory: %s' % folder)
-            img.save(outfile)
-            img_data.append((rel_path, img.size[0], img.size[1]))
+                rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
+                if not prefix == 'thumb_':
+                    img_data.append((rel_path, img.size[0], img.size[1]))
+            elif (ratio >= 1.0 and size == (800, 800, '')): # ratio = 1.0 or picture is smaller than 800x800
+                rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
+                img_data.append((rel_path, img.size[0], img.size[1]))
         return img_data
     return None

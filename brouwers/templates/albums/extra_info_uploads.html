@@ -40,7 +40,7 @@
 		<div class="upload">
 			<div class="thumb">
 				{% if form.instance.image %}
-				<img src="{{ form.instance.image.url }}" width="200" />
+				<img src="{{ form.instance.thumb_url }}" width="100" />
 				{% endif %}
 			</div>
 			<div>{{ form.as_p }}</div>

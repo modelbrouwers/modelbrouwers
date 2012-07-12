@@ -1,10 +1,38 @@
 {% extends "albums/base.html" %}
 
+{% block extrascript %}
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.BBCode').focus(function(){
+        $(this).select();
+    });
+    $('.BBCode').mouseup(function(e){
+        e.preventDefault();
+    });
+});
+</script>
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+input.BBCode{
+    padding: 0.2em;
+}
+</style>
+{% endblock %}
+
 {% block content %}
+<form action="." method="GET">
+    {{ albumform.as_table }}
+    <input type="submit" value="show pictures"></input>
+</form>
+<br />
+<br />
 {% for photo in photos %}
 	<img src="{{ photo.image.url }}" width="400" alt="{{ photo.image }}" />
 	<br />
-	BBCode: {{ photo.BBCode }}
+	BBCode: <input class="BBCode" type="text" readonly="readonly" value="{{ photo.BBCode }}" size="100"></input>
 	<!--<br />
 	BBCode 1024: {{ photo.BBCode_1024 }} -->
 	<br />

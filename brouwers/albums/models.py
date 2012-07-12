@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
@@ -30,12 +31,12 @@ class Category(models.Model):
 		return "/albums/category/%s" % self.id
 
 class Album(models.Model):
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(User) #owner of the album
 	title = models.CharField(_("album title"), max_length="256",
 			default="album %s" % datetime.now().strftime("%d-%m-%Y"))
 	description = models.CharField(_("album description"),
 			max_length=500, blank=True)
-	category = models.ForeignKey(Category, blank=True, null=True)
+	category = models.ForeignKey(Category, blank=True, null=True, default=1)
 	
 	#Logging and statistics
 	created = models.DateTimeField(auto_now_add=True)
@@ -90,6 +91,9 @@ class Photo(models.Model):
     uploaded = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
     views = models.PositiveIntegerField(default=0)
+    #internal working
+    #uploadify = models.BooleanField(default=False)
+    #TODO: override save -> resize before saving picture to disk
     
     order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
     
@@ -114,3 +118,9 @@ class Photo(models.Model):
         domain = Site.objects.get_current().domain
         path, f = os.path.split(self.image.url)
         return u'[img]http://%s%s/1024_%s[/img]' % (domain, path, f)
+    
+    @property
+    def thumb_url(self):
+        path, f = os.path.split(self.image.url)
+        return u"%s/%s%s" % (path, settings.THUMB_PREFIX, f)
+        
