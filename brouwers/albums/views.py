@@ -164,7 +164,6 @@ def photos(request):
     albumform = PickAlbumForm(request.user, request.GET, browse=True)
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
-        print album
         photos = Photo.objects.filter(user=request.user, album=album)
     else:
         photos = Photo.objects.filter(user=request.user)
