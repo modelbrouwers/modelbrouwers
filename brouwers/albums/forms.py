@@ -28,7 +28,10 @@ class PickAlbumForm(forms.Form):
 	album = forms.ModelChoiceField(queryset=Album.objects.none(), empty_label=None)
 	
 	def __init__(self, user, *args, **kwargs):
-		browse = kwargs.pop('browse')
+		try:
+			browse = kwargs.pop('browse')
+		except KeyError: #key not suplied
+			browse = False
 		super(PickAlbumForm, self).__init__(*args, **kwargs)
 		own_albums = Album.objects.filter(user=user, writable_to="u", trash=False)
 		public_albums = Album.objects.filter(writable_to="o", trash=False)
