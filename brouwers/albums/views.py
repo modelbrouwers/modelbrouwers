@@ -121,21 +121,25 @@ def pre_extra_info_uploadify(request):
 
 @login_required
 def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
-	PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=0)
-	if request.method == "POST":
-		formset = PhotoFormSet(request.POST)
-		if formset.is_valid():
-			formset.save()
-			return HttpResponseRedirect('/albums/') #TODO:change to the album that's being uploaded to
-	else:
-		if not photo_ids:
-			return HttpResponseRedirect(reverse(reverse))
-		photos = Photo.objects.filter(id__in = photo_ids, user=request.user) #avoid being ablo to edit someone else's photos
-		formset = PhotoFormSet(queryset=photos)
-	photos_uploaded_now = photos.count()
-	all_photos_album = album.photo_set.count()
-	photos_before = all_photos_album - photos_uploaded_now
-	return render_to_response(request, 'albums/extra_info_uploads.html', {'formset': formset, 'photos_before': photos_before, 'album': album})
+    PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=0)
+    if request.method == "POST":
+        formset = PhotoFormSet(request.POST)
+        if formset.is_valid():
+            instances = formset.save()
+            try:
+                a_id = instances[0].album.id
+            except IndexError:
+                a_id = ''
+            return HttpResponseRedirect('/albums/photos/?album=%s' % a_id) #TODO:change to the album that's being uploaded to
+    else:
+        if not photo_ids:
+            return HttpResponseRedirect(reverse(reverse))
+        photos = Photo.objects.filter(id__in = photo_ids, user=request.user) #avoid being ablo to edit someone else's photos
+        formset = PhotoFormSet(queryset=photos)
+    photos_uploaded_now = photos.count()
+    all_photos_album = album.photo_set.count()
+    photos_before = all_photos_album - photos_uploaded_now
+    return render_to_response(request, 'albums/extra_info_uploads.html', {'formset': formset, 'photos_before': photos_before, 'album': album})
 
 @login_required
 def uploadify(request):
