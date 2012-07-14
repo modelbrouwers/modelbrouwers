@@ -119,7 +119,7 @@ class Photo(models.Model):
     @property
     def thumb_url(self):
         path, f = os.path.split(self.image.url)
-        return u"%s/%s%s" % (path, settings.THUMB_PREFIX, f)
+        return u"%s/%s%s" % (path, settings.THUMB_DIMENSIONS[2], f)
 
 IMG_SIZES = (
     (0, "1024x768"),

@@ -68,7 +68,8 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
     
     if valid_ext(ext):
         img_data = [] # to return -> gets saved in db
-        sizes_data = sizes_data.append(thumb_dimensions)
+        sizes_data.append(thumb_dimensions)
+        print sizes_data
         for size in sizes_data:
             max_width = size[0]
             max_height = size[1]
@@ -79,7 +80,7 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
                 size = (int(round(ratio * width)), int(round(ratio * height)))
                 img = img.resize(size, Image.ANTIALIAS) #resized image
             rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
-            if not prefix == settings.THUMB_PREFIX: #don't save the thumb in the database
+            if not prefix == thumb_dimensions[2]: #don't save the thumb in the database
                 img_data.append((rel_path, img.size[0], img.size[1]))
             #elif (ratio >= 1.0): # ratio = 1.0 or bigger: picture is smaller than max sizes
             #    rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
