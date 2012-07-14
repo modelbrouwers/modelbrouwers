@@ -69,7 +69,6 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
     if valid_ext(ext):
         img_data = [] # to return -> gets saved in db
         sizes_data.append(thumb_dimensions)
-        print sizes_data
         for size in sizes_data:
             max_width = size[0]
             max_height = size[1]
