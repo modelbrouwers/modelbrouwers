@@ -1,11 +1,68 @@
 {% extends "base.html" %}
 
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
+<style>
+div.clear{
+    clear: both;
+}
+div#uploadify{
+    width: 40%;
+    float: left;
+}
+th{
+    text-align: right;
+    padding: 0.8em 0.5em;
+}
+div#uploadify{
+    position: relative;
+}
+a#start_upload{
+    position: absolute;
+    right: 0;
+    bottom: 0.8em;
+}
+a#start_upload:hover{
+    cursor: pointer;
+}
+a#start_upload button{
+    padding: 0.6em 0.8em 0.6em 0.8em;
+    background-color: #6b6b6b;
+    color: white;
+    font-weight: bolder;
+    border: none;
+    -moz-border-radius: 1.3em;
+	-webkit-border-radius: 1.3em;
+	border-radius: 1.3em;
+}
+</style>
+{% endblock %}
+
 {% block submenu %}
-<li><a href="/albums/upload/">Foto's toevoegen</a></li>
-<li><a href="/albums/manage/">Beheer albums</a></li>
-<li><a href="/albums/photos/">Foto's bekijken</a></li>
+{% url brouwers.albums.views.uploadify as uploadify_url %}
+{% url brouwers.albums.views.upload as basic_url %}
+<li><a href="
+    {% if album_preferences.default_uploader == 'F' %}
+        {{ uploadify_url }}
+    {% else %}
+        {{ basic_url }}
+    {% endif %}
+    ">Foto's toevoegen</a></li>
+<li><a href="{% url brouwers.albums.views.manage %}">Beheer albums</a></li>
+<li><a href="{% url brouwers.albums.views.photos %}">Foto's bekijken</a></li>
+<li><a href="{% url brouwers.albums.views.preferences %}">Voorkeuren</a></li>
 {% endblock submenu %}
 
 {% block content %}
-
+<div>
+    <h3>Nieuwe Brouwersalbums</h3>
+    <br />
+    <p>Beste gebruiker,</p>
+    <br />
+    <p>Er wordt hard gewerkt aan nieuwe software voor de Brouwersalbums. Wat u hier ziet, is een product dat nog ver van klaar is. Er moet nog erg veel functionaliteit toegevoegd worden. Let u tevens ook niet te veel op de layout, daar is helemaal nog geen aandacht aan besteed.</p>
+    <br />
+    <p>De kernfuncties zijn aanwezig, en deze 'Brouwersalbums Alpha' mogen gebruikt worden om foto's voor het forum in op te slaan. Alle foto's zullen meeverhuizen als de software klaar is.</p>
+    <br />
+    <p>Mochten er problemen optreden, aarzel dan niet om <a href="http://www.modelbrouwers.nl/phpBB3/ucp.php?i=pm&mode=compose&u=862">BBT</a> op de hoogte te brengen.</p>
+</div>
 {% endblock %}

@@ -15,6 +15,12 @@ class PhotoAdmin(admin.ModelAdmin):
 	list_display = ('user', 'album', 'views', 'uploaded', 'BBCode')
 	list_filter = ('user', 'album')
 
+class PreferencesAdmin(admin.ModelAdmin):
+    list_display = ('user', 'default_img_size', 'default_uploader', 'auto_start_uploading')
+    list_editable = ('default_img_size', 'default_uploader', 'auto_start_uploading')
+    list_filter = ('default_uploader', 'default_img_size')
+
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Preferences, PreferencesAdmin)

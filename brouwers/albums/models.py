@@ -5,14 +5,14 @@ from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 
 from datetime import date, datetime
-import os
+import os, re
 
 #TODO: comments on albums/photos
 
 WRITABLE_CHOICES = (
 	("u", _("user")),
 	#("g", _("group")),
-	("o", _("everyone")),#everyone = every logged in user
+	("o", _("everyone")), #everyone = every logged in user
 	)
 
 class Category(models.Model):
@@ -62,11 +62,11 @@ class Album(models.Model):
 		verbose_name = _("album")
 		verbose_name_plural = _("albums")
 		#order_with_respect_to = "user"
-		ordering = ('order',)
+		ordering = ('order', 'title')
 		unique_together = (('user', 'title'),)
 	
 	def __unicode__(self):
-		return self.title
+		return u"%s" % self.title
 	
 	def get_absolute_url(self):
 		return "/albums/album/%s/" % self.id
@@ -91,9 +91,6 @@ class Photo(models.Model):
     uploaded = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
     views = models.PositiveIntegerField(default=0)
-    #internal working
-    #uploadify = models.BooleanField(default=False)
-    #TODO: override save -> resize before saving picture to disk
     
     order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
     
@@ -123,4 +120,50 @@ class Photo(models.Model):
     def thumb_url(self):
         path, f = os.path.split(self.image.url)
         return u"%s/%s%s" % (path, settings.THUMB_PREFIX, f)
-        
+
+IMG_SIZES = (
+    (0, "1024x768"),
+    (1, "800x600"),
+    (2, "1024x1024"),
+    (3, "800x800"),
+)
+UPLOADER_CHOICES = (
+    ("F", _("Multiple files at once")),
+    ("H", _("Basic")),
+    #("J", "Javascript")
+)
+class Preferences(models.Model): #only create this object when user visits preferences page first time, otherwise go with the defaults
+    user = models.ForeignKey(User, unique=True)
+    default_img_size = models.PositiveSmallIntegerField(choices=IMG_SIZES, default=0, help_text=_("Your pictures will be scaled to this size."))
+    default_uploader = models.CharField(max_length=1, choices=UPLOADER_CHOICES, default="F")
+    #options for uploadify
+    auto_start_uploading = models.BooleanField(help_text=_("Start upload automatically when files are selected"))
+    
+    class Meta:
+        verbose_name = _("User preferences")
+        verbose_name_plural = verbose_name
+        ordering = ('user',)
+    
+    def __unicode__(self):
+        return u"Preferences for %s" % self.user.get_full_name()
+    
+    @classmethod
+    def get_or_create(cls, user):
+        try:
+            p = cls.objects.get(user=user)
+        except cls.DoesNotExist:
+            p = cls(user=user)
+            p.save()
+        return p
+    
+    def get_default_img_size(self):
+        """
+            Returns a tupple (max_width, max_height, prefix) for scaling.
+        """
+        d = {
+            0: (1024, 768, ''),
+            1: (800, 600, ''),
+            2: (1024, 1024, ''),
+            3: (800, 800, '')
+        }
+        return d[self.default_img_size]

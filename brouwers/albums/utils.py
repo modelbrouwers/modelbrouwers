@@ -3,7 +3,6 @@ import os
 import itertools
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.files.storage import FileSystemStorage
 
 def valid_ext(extension):
     """
@@ -52,11 +51,7 @@ def save_to_path(img, upload_to, prefix, filename, ext):
     img.save(outfile)
     return (rel_path, img)
 
-def resize(image, sizes_data=[
-                (1024, 1024, '1024_'),
-                (800, 800, ''),
-                (100, 75, settings.THUMB_PREFIX)],
-                            upload_to='albums/'):
+def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dimensions=settings.THUMB_DIMENSIONS, upload_to='albums/'):
     """
     Resizes an image to multiple sizes and saves it to disk.
     
@@ -73,6 +68,7 @@ def resize(image, sizes_data=[
     
     if valid_ext(ext):
         img_data = [] # to return -> gets saved in db
+        sizes_data = sizes_data.append(thumb_dimensions)
         for size in sizes_data:
             max_width = size[0]
             max_height = size[1]
@@ -82,11 +78,11 @@ def resize(image, sizes_data=[
             if ratio < 1.0: #resizing required
                 size = (int(round(ratio * width)), int(round(ratio * height)))
                 img = img.resize(size, Image.ANTIALIAS) #resized image
-                rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
-                if not prefix == 'thumb_':
-                    img_data.append((rel_path, img.size[0], img.size[1]))
-            elif (ratio >= 1.0 and size == (800, 800, '')): # ratio = 1.0 or picture is smaller than 800x800
-                rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
+            rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
+            if not prefix == settings.THUMB_PREFIX: #don't save the thumb in the database
                 img_data.append((rel_path, img.size[0], img.size[1]))
+            #elif (ratio >= 1.0): # ratio = 1.0 or bigger: picture is smaller than max sizes
+            #    rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
+            #    img_data.append((rel_path, img.size[0], img.size[1]))
         return img_data
     return None
