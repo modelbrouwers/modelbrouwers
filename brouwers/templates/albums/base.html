@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extra_logo %}
+<img id="logo2" src="{{STATIC_URL}}albums.png" alt="Awards" width="413" height="100"/>
+{% endblock %}
+
 {% block extrastyle %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
 <style>
