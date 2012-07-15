@@ -170,13 +170,13 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
                 a_id = instances[0].album.id
             except IndexError:
                 a_id = ''
-            return HttpResponseRedirect('%s?album=%s' % (reverse(photos), a_id))
+            return HttpResponseRedirect('/albums/photos/?album=%s' % (a_id)) #apparently there's a bug which makes that 'reverse' doesn't work... very odd
     else:
         if not photo_ids:
             return HttpResponseRedirect(reverse(reverse))
-        photos = Photo.objects.filter(id__in = photo_ids, user=request.user) # avoid being ablo to edit someone else's photos
-        formset = PhotoFormSet(queryset=photos)
-        photos_uploaded_now = photos.count()
+        p = Photo.objects.filter(id__in = photo_ids, user=request.user) # avoid being ablo to edit someone else's photos
+        formset = PhotoFormSet(queryset=p)
+        photos_uploaded_now = p.count()
         all_photos_album = album.photo_set.count()
         photos_before = all_photos_album - photos_uploaded_now
     return render_to_response(request, 'albums/extra_info_uploads.html', {'formset': formset, 'photos_before': photos_before, 'album': album})
