@@ -90,7 +90,6 @@ def preferences(request):
 ###########################
 @login_required
 def uploadify(request):
-    #test user preferences
     albumform = PickAlbumForm(request.user)
     return render_to_response(request, 'albums/uploadify.html', {'albumform': albumform, 'session_cookie_name': settings.SESSION_COOKIE_NAME, 'session_key': request.session.session_key})
 
@@ -159,7 +158,7 @@ def pre_extra_info_uploadify(request):
         return set_extra_info(request, photo_ids, album, reverse=uploadify)
     return HttpResponse() #URL is created in javascript, so the form should always validate
 
-@login_required
+#@login_required #bug related to outputting instead of redirecting
 def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
     PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=0)
     if request.method == "POST": # editing
@@ -173,7 +172,7 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
             return HttpResponseRedirect('/albums/photos/?album=%s' % (a_id)) #apparently there's a bug which makes that 'reverse' doesn't work... very odd
     else:
         if not photo_ids:
-            return HttpResponseRedirect(reverse(reverse))
+            return HttpResponseRedirect(reverse('/albums/upload/'))
         p = Photo.objects.filter(id__in = photo_ids, user=request.user) # avoid being ablo to edit someone else's photos
         formset = PhotoFormSet(queryset=p)
         photos_uploaded_now = p.count()
