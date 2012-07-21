@@ -200,7 +200,7 @@ def my_last_uploads(request):
     page = request.GET.get('page')
     try:
         uploads = p.page(page)
-    except PageNotAnInteger:
+    except PageNotAnInteger, TypeError:
         # If page is not an integer, deliver first page.
         uploads = p.page(1)
     except EmptyPage:
