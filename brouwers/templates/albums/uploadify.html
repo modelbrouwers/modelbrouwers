@@ -1,11 +1,18 @@
 {% extends "albums/base.html" %}
 
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
+{% endblock %}
+
 {% block extrascript %}
 <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.uploadify-3.1.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js"></script>
 <script type="text/javascript">
-$(document).ready(function (){
+$(document).ready(function() {
     $('#no_javascript').remove(); //hide the warning
+    
+    /* uploadify */
     var albumId;
 	var photo_ids = "";
     $('#uploadify_input').uploadify({
@@ -33,16 +40,22 @@ $(document).ready(function (){
         },
         'onQueueComplete' : function(queueData) {
             //remove the previous button
-            $('button#next_step').remove();
-            var button = '<button id="next_step" style="margin-left: 20px; padding: 5px;">Next step</button>';
-            var url = '<a href="/albums/upload/uploadify/complete/?album='+albumId+'&photo_ids='+photo_ids+'">';
-            url += button + "</a>";
-            $('select#id_album').after(url);
+            var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Volgende stap</button>';
+            var href = '/albums/upload/uploadify/complete/?album='+albumId+'&photo_ids='+photo_ids;
+            $('a#next_step').html(button);
+            $('a#next_step').attr("href", href);
+            $('a#next_step').show();
+        },
+        'onDialogOpen' : function() {
+            $('#queue-title').show();
+            $('a#next_step').hide();
         }
     });
+    
     $('a#create_new_album').click(function(){
         $.get('{% url brouwers.albums.ajax_views.new_album %}', {}, function(html){
             $('div#new_album').html(html);
+            $('div#new_album').show();
         });
         $(this).hide();
         return false;
@@ -66,6 +79,7 @@ function add_album(e){
         writable_to: perm
         },
         function(response){
+            alert(response);
             var status = $(response).find('#status').val();
             var id = status;
             var title = $(response).attr('title');
@@ -79,33 +93,31 @@ function add_album(e){
             }
         }
     );
-}
+} 
 </script>
-{% endblock %}
+{% endblock extrascript %}
 
 {% block content %}
-
-<div id="no_javascript">
+<div class="tab">Upload images</div>
+<div id="no_javascript" class="margin">
     Je browser ondersteunt geen Javascript, wat vereist is voor deze uploader. Je kan de <a href="{% url brouwers.albums.views.upload %}">alternatieve uploader</a> gebruiken.
 </div>
 
-Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden en voeg de foto's toe. Op de volgende pagina kan je desgewenst meer info invullen bij de foto's.
+<div class="info margin">Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden en voeg de foto's toe. In een volgende stap kan je desgewenst een beschrijving invullen.</div>
 
-<br />
-<br />
-{#<form action="/albums/upload/uploadify/" method="POST" enctype="multipart/form-data">#}
-{{ albumform }} <a href="/albums/manage/#new" id="create_new_album" >
-    <button style="padding: 1px 8px 1px 8px;">Create new</button></a>
-{% comment %}    <input type="file" name="Filedata"/>
-    <input type="submit">{% endcomment %}
-</form>
-<br />
-<br />
-<div id="uploadify">
-    <div id="upload_queue"></div>
-    <input type="file" name="file_upload" id="uploadify_input" />
-    <a href="javascript:$('#uploadify_input').uploadify('upload', '*')" id="start_upload"><button>Begin upload</button></a>
+<div id="pick-album" class="margin">
+    Uploaden naar {{ albumform.album }} <a href="/albums/manage/#new" id="create_new_album" >
+    <button>Nieuw album</button></a>
 </div>
-<div id="new_album"></div>
+<div id="new_album" class="margin" style="display: none;"></div>
+
+<div id="uploadify">
+    <input type="file" name="file_upload" id="uploadify_input" />
+    <a href="javascript:$('#uploadify_input').uploadify('upload', '*')" id="start_upload">
+        <button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Begin upload</button></a>
+    <a id="next_step" href="" style="display:none;">&nbsp;</a>
+    <div class="subtitle tab" style="display: none;" id="queue-title">Upload queue</div>
+    <div id="upload_queue"></div>
+</div>
 <div class="clear"></div>
 {% endblock content %}

@@ -1,72 +1,232 @@
-{% extends "base.html" %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+	<title>{% block title %}BrouwersAlbums{% endblock %}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" /> 
+	<meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
+	
+	{% block style %}
+	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css" charset="utf-8"/>
+	    {% block extrastyle %}
+	    {% endblock extrastyle %}
+	{% endblock style %}
+	
+	{% block scripts %}
+	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
+	    {% block extrascript %}
+	        <script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js"></script>
+	    {% endblock %}
+	{% endblock scripts %}
+</head>
 
-{% block extra_logo %}
-<img id="logo2" src="{{STATIC_URL}}albums.png" alt="Awards" width="413" height="100"/>
-{% endblock %}
+<body>
+    <div id="top">
+        <div id="navigation">
+            <ul id="tabs">
+                <li>
+                    <a href="/">
+                        <img src="{{ STATIC_URL }}images/nav/home_achter.png" alt="Ga naar de homepage!" /></a>
+                </li>
+                <li>
+                    <a href="http://localhost/phpBB3/"><img src="{{ STATIC_URL }}images/nav/forum_achter.png" alt="Ga naar het forum!"/></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/"><img src="{{ STATIC_URL }}images/nav/shop_achter.png" alt="Ga naar de shop!"/></a>
+                </li>
+                <li>
+                    <a href="/albums/"><img src="{{ STATIC_URL }}images/nav/albums_achter.png" alt="Je bent nu in de fotoalbums!"/></a>
+                </li>
+                <li id="kitreviews">
+                    <a href="/kitreviews/"><img src="{{ STATIC_URL }}images/nav/kitreviews_achter.png" alt="Ga naar de kitreviews!"/></a>
+                </li>
+                <li>
+                    <img src="{{ STATIC_URL }}images/nav/modelbouw_wiki.png" alt="Modelbouw Wiki"/>
+                </li>
+            </ul>
+        </div> 
+        <!-- end navigation -->
+        
+        <div id="shop_banner">
+            <ul>
+                <li>
+                    <a href="/shop/catalog/uhu-m-28.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/uhu.gif" alt="UHU" width="54" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/xuron-m-52.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/xuron.gif" alt="Xuron" width="102" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/revell-m-14.html?language=nl&sort=3d">
+                        <img src="{{ STATIC_URL }}images/shop/revell.gif" alt="Revell" width="62" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/alclad2-m-19.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/alclad.gif" alt="Alclad" width="65" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/bare-metal-foil-m-15.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/bmf.gif" alt="Bare Metal Foil" width="66" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/birchwood-casey-m-44.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/birchwood_casey.gif" alt="Birchwood Casey" width="52" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/createx-m-23.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/createx.gif" alt="Createx" width="54" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/evergreen-m-11.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/evergreen.gif" alt="Evergreen" width="50" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/billing-boats-m-29.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/billing.gif" alt="Billing Boats" width="41" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/excel-m-35.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/excel.gif" alt="Excel" width="56" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/rc-afstandbestuurbaar-rcsets-billing-boats-c-106_120.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/graupner.gif" alt="Graupner" width="65" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/mamoli-m-32.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/mamoli.gif" alt="Mamoli" width="82" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/microscale-m-17.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/microscale.gif" alt="Microscale" width="62" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/milliput-m-26.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/milliput.gif" alt="Milliput" width="93" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/modelbrouwers-m-12.html?language=nl&page=1&sort=3d">
+                        <img src="{{ STATIC_URL }}images/shop/modelbrouwers.gif" alt="Modelbrouwers" width="127" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/rustall-m-53.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/rustall.gif" alt="Rustall" width="93" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/scalemotorsport-m-24.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/scalemotorsport.gif" alt="Scale Motorsport" width="25" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/pro-modeller-m-43.html?language=nl&sort=2a">
+                    <img src="{{ STATIC_URL }}images/shop/promodeller.gif" alt="" width="57" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/vallejo-m-42.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/vallejo.gif" alt="Vallejo" width="42" /></a>
+                </li>
+            </ul>
+        </div>
+        <!-- end shop products banner -->
+    </div>
+    <!-- end top div -->
+    
+    <div id="container">
+        <!-- div with logos and misc -->
+        <div id="logo">
+             <div class="left">
+                 <a href="/">
+                    <img src="{{ STATIC_URL }}images/logo/logo_modelbrouwers.png" width="395" height="75" alt="Terug 
+naar de Modelbrouwers.nl homepage"/></a>
+            </div>
+            <div class="left">
+                {% block announcement %}
+                    <img id="logo2" src="{{STATIC_URL}}albums.png" alt="Awards" width="330" height="75"/>
+                {% endblock %}
+            </div>
+            <div class="right">
+                <a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank">
+                    <img class="rounded" src="{{ STATIC_URL }}images/varia/MM-actie.gif" 
+                        alt="Modelbouwmagazine / Modelbrouwers ACTIE" width="308" height="60"></a>
+                <a href="http://www.flexwebhosting.nl/" target="_blank">
+                    <img class="rounded" src="{{ STATIC_URL }}images/varia/flex_webhosting.gif" width="234" height="60" alt="Flexwebhosting.nl"></a>
+            </div>
+        </div>
+        <!-- end logo div -->
+    
+        <div id="content_wrapper">
+            <ul id="menu">
+                {% block menu %}
+                    <li><a href="{% url brouwers.albums.views.index %}">Home</a></li>
+                    <li><a href="
+                        {% if album_preferences.default_uploader == 'F' %}
+                            {% url brouwers.albums.views.uploadify %}
+                        {% else %}
+                            {% url brouwers.albums.views.upload %}
+                        {% endif %}
+                        ">Foto's toevoegen</a>
+                    </li>
+                    <li><a href="{% url brouwers.albums.views.manage %}">Beheer albums</a></li>
+                    <!--<li><a href="{% url brouwers.albums.views.photos %}">Foto's bekijken</a></li>-->
+                    <li><a href="{% url brouwers.albums.views.my_albums_list %}">Mijn albums</a></li>
+                    <li><a href="{% url brouwers.albums.views.my_last_uploads %}">Mijn laatste uploads</a></li>
+                    <li><a href="{% url brouwers.albums.views.preferences %}">Voorkeuren</a></li>
+                {% endblock %}
+            </ul>
+            
+            <div id="content">
+            {% block content %}
+                <div class="tab">Laatste uploads...</div>
+                <div id="last_uploads">
+                    {% for photo in last_uploads %}
+                        {% cycle '<div class="row">' '' '' '' '' %}
+                            <div class="photo">
+                                <a class="photo" href="{{ photo.get_absolute_url }}">
+                                    
+                                    <img src="{{ photo.thumb_url }}" {% if photo.is_wider_than_higher %}
+                                    width="140"{% else %}height="105"{% endif %} alt="thumb"/></a>
+                                
+                                <div class="properties">
+                                    views: {{ photo.views }}
+                                    <br />
+                                    <a href="{{ photo.user.get_profile.get_absolute_url }}">{{ photo.user.username }}</a>
+                                </div>
+                            </div>
+                        {% cycle '' '' '' '' '</div>' %}
+                    {% endfor %}
+                    {% if needs_closing_tag_row %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endblock content %}
+            </div>
+            <!-- end content -->
+        </div>
+        <!-- end content wrapper -->
+    </div>
+    <!-- end container -->
+    
 
-{% block extrastyle %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
-<style>
-div.clear{
-    clear: both;
-}
-div#uploadify{
-    width: 40%;
-    float: left;
-}
-th{
-    text-align: right;
-    padding: 0.8em 0.5em;
-}
-div#uploadify{
-    position: relative;
-}
-a#start_upload{
-    position: absolute;
-    right: 0;
-    bottom: 0.8em;
-}
-a#start_upload:hover{
-    cursor: pointer;
-}
-a#start_upload button{
-    padding: 0.6em 0.8em 0.6em 0.8em;
-    background-color: #6b6b6b;
-    color: white;
-    font-weight: bolder;
-    border: none;
-    -moz-border-radius: 1.3em;
-	-webkit-border-radius: 1.3em;
-	border-radius: 1.3em;
-}
-</style>
-{% endblock %}
 
-{% block submenu %}
-{% url brouwers.albums.views.uploadify as uploadify_url %}
-{% url brouwers.albums.views.upload as basic_url %}
-<li><a href="
-    {% if album_preferences.default_uploader == 'F' %}
-        {{ uploadify_url }}
-    {% else %}
-        {{ basic_url }}
-    {% endif %}
-    ">Foto's toevoegen</a></li>
-<li><a href="{% url brouwers.albums.views.manage %}">Beheer albums</a></li>
-<li><a href="{% url brouwers.albums.views.photos %}">Foto's bekijken</a></li>
-<li><a href="{% url brouwers.albums.views.preferences %}">Voorkeuren</a></li>
-{% endblock submenu %}
 
-{% block content %}
-<div>
-    <h3>Nieuwe Brouwersalbums</h3>
-    <br />
-    <p>Beste gebruiker,</p>
-    <br />
-    <p>Er wordt hard gewerkt aan nieuwe software voor de Brouwersalbums. Wat u hier ziet, is een product dat nog ver van klaar is. Er moet nog erg veel functionaliteit toegevoegd worden. Let u tevens ook niet te veel op de layout, daar is helemaal nog geen aandacht aan besteed.</p>
-    <br />
-    <p>De kernfuncties zijn aanwezig, en deze 'Brouwersalbums Alpha' mogen gebruikt worden om foto's voor het forum in op te slaan. Alle foto's zullen meeverhuizen als de software klaar is.</p>
-    <br />
-    <p>Mochten er problemen optreden, aarzel dan niet om <a href="http://www.modelbrouwers.nl/phpBB3/ucp.php?i=pm&mode=compose&u=862">BBT</a> op de hoogte te brengen.</p>
-</div>
-{% endblock %}
+
+
+{% comment %}
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-385491-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+{% endcomment %}
+
+</body>
+</html>

@@ -37,6 +37,7 @@ class Album(models.Model):
 	description = models.CharField(_("album description"),
 			max_length=500, blank=True)
 	category = models.ForeignKey(Category, blank=True, null=True, default=1)
+	#cover = models.ForeignKey('Photo', blank=True, null=True, help_text=_("Image to use as album cover.")) #limit choices!
 	
 	#Logging and statistics
 	created = models.DateTimeField(auto_now_add=True)
@@ -108,18 +109,30 @@ class Photo(models.Model):
     @property
     def BBCode(self):
         domain = Site.objects.get_current().domain
-        return u'[img]http://%s%s[/img]' % (domain, self.image.url)
+        return u'[IMG]http://%s%s[/IMG]' % (domain, self.image.url)
+    
+    @property
+    def direct_link(self):
+        domain = Site.objects.get_current().domain
+        return u'http://%s%s' % (domain, self.image.url)
     
     @property
     def BBCode_1024(self):
         domain = Site.objects.get_current().domain
         path, f = os.path.split(self.image.url)
-        return u'[img]http://%s%s/1024_%s[/img]' % (domain, path, f)
+        return u'[IMG]http://%s%s/1024_%s[/IMG]' % (domain, path, f)
     
     @property
     def thumb_url(self):
         path, f = os.path.split(self.image.url)
         return u"%s/%s%s" % (path, settings.THUMB_DIMENSIONS[2], f)
+    
+    @property
+    def is_wider_than_higher(self):
+        ratio = float(self.width) / float(self.height)
+        if ratio >= 1.333:
+            return True
+        return False
 
 IMG_SIZES = (
     (0, "1024x768"),
@@ -138,6 +151,7 @@ class Preferences(models.Model): #only create this object when user visits prefe
     default_uploader = models.CharField(max_length=1, choices=UPLOADER_CHOICES, default="F")
     #options for uploadify
     auto_start_uploading = models.BooleanField(help_text=_("Start upload automatically when files are selected"))
+    show_direct_link = models.BooleanField(_("Show direct links under the photo"), default=False)
     
     class Meta:
         verbose_name = _("User preferences")

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Max
 from django.forms import ValidationError
 from django.forms.models import modelformset_factory
@@ -17,7 +18,14 @@ from utils import resize
 #          BASE           #
 ###########################
 def index(request):
-    return render_to_response(request, 'albums/base.html')
+    last_uploads = Photo.objects.filter(album__public=True).order_by('-uploaded')
+    amount_last_uploads = last_uploads.count()
+    if  amount_last_uploads < 20 and amount_last_uploads % 5 != 0:
+        needs_closing_tag_row = True
+    else:
+        last_uploads = last_uploads[:20]
+        needs_closing_tag_row = False
+    return render_to_response(request, 'albums/base.html', {'last_uploads': last_uploads, 'needs_closing_tag_row': needs_closing_tag_row})
 
 ###########################
 #        MANAGING         #
@@ -169,7 +177,8 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
                 a_id = instances[0].album.id
             except IndexError:
                 a_id = ''
-            return HttpResponseRedirect('/albums/photos/?album=%s' % (a_id)) #apparently there's a bug which makes that 'reverse' doesn't work... very odd
+            return HttpResponseRedirect('/albums/my_gallery/last_uploads/')
+            #return HttpResponseRedirect('/albums/photos/?album=%s' % (a_id)) #apparently there's a bug which makes that 'reverse' doesn't work... very odd
     else:
         if not photo_ids:
             return HttpResponseRedirect(reverse('/albums/upload/'))
@@ -184,14 +193,38 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
 #        BROWSING         #
 ###########################
 @login_required
-def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :)
-    kwargs = {'browse': True}
+def my_last_uploads(request):
+    last_uploads = Photo.objects.filter(user=request.user).order_by('-uploaded')
+    p = Paginator(last_uploads, 20)
+    
+    page = request.GET.get('page')
+    try:
+        uploads = p.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        uploads = p.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        uploads = p.page(p.num_pages)
+    amount = len(uploads.object_list)
+    
+    needs_closing_tag_row = False
+    if amount < 20 and amount % 5 != 0:
+        needs_closing_tag_row = True
+    return render_to_response(request, 'albums/my_last_uploads.html', {'uploads': uploads, 'needs_closing_tag_row': needs_closing_tag_row})
+
+@login_required
+def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder
     albumform = PickAlbumForm(request.user, request.GET, browse=True)
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
         photos = Photo.objects.filter(user=request.user, album=album)
     else:
         photos = Photo.objects.filter(user=request.user)
-    photos = photos.exclude(image__icontains='1024_').order_by('-pk')
     return render_to_response(request, 'albums/photos.html', {'photos': photos, 'albumform': albumform})
 
+@login_required
+def my_albums_list(request):
+    own_albums = Album.objects.filter(user=request.user)
+    other_albums = Album.objects.filter(writable_to='o', public=True)
+    return render_to_response(request, 'albums/my_albums_list.html', {'own_albums': own_albums, 'other_albums': other_albums})

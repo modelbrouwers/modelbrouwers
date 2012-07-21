@@ -3,6 +3,8 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('brouwers.albums.views',
 	(r'^$', 'index'),
 	(r'^manage/(\d+)/$', 'manage'),
+	(r'^my_gallery/$', 'my_albums_list'),
+	(r'^my_gallery/last_uploads/$', 'my_last_uploads'),
 	(r'^photos/$', 'photos'),
 	(r'^preferences/$', 'preferences'),
 	(r'^upload/$', 'uploadify'),

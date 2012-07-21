@@ -1,0 +1,55 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+<div class="tab">Mijn laatste uploads...</div>
+<div id="last_uploads">
+    {% for photo in uploads %}
+        {% cycle '<div class="row">' '' '' '' '' %}
+            <div class="photo">
+                <a class="photo" href="{{ photo.get_absolute_url }}">
+                    <img src="{{ photo.thumb_url }}" {% if photo.is_wider_than_higher %}
+                        width="140"{% else %}height="105"{% endif %} alt="thumb"/></a>
+                
+                <div class="properties">
+                    <input class="BBCode" type="text" readonly="readonly" value="{{ photo.BBCode }}"></input>
+                    {% if album_preferences.show_direct_link %}
+                        <input class="BBCode" type="text" readonly="readonly" value="{{ photo.direct_link }}"></input>
+                    {% endif %}
+                </div>
+            </div>
+        {% cycle '' '' '' '' '</div>' %}
+    {% endfor %}
+    
+    {% if needs_closing_tag_row %}
+        </div>
+    {% endif %}
+    <div id="pagination">
+        {% if uploads.number != 1 %}
+            <a href="?page=1" title="Eerste pagina">&laquo;</a>
+        {% else %}
+            <span>&laquo;</span>
+        {% endif %}
+        &nbsp;&nbsp;
+        {% if uploads.has_previous %}
+            <a href="?page={{ uploads.previous_page_number }}">&lt;</a>
+        {% else %}
+            <span>&lt;</span>
+        {% endif %}
+        
+        &nbsp;&nbsp;<a href="?page={{ uploads.number }}">{{ uploads.number }}</a>&nbsp;&nbsp;
+        
+        {% if uploads.has_next %}
+            <a href="?page={{ uploads.next_page_number }}">&gt;</a>
+        {% else %}
+            <span>&gt;</span>
+        {% endif %}
+        &nbsp;&nbsp;
+        {% if uploads.number != uploads.paginator.num_pages %}
+            <a href="?page={{ uploads.paginator.num_pages }}" title="Laatste pagina">&raquo;</a>
+        {% else %}
+            <span>&raquo;</span>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+

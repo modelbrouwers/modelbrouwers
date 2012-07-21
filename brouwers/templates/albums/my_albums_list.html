@@ -1,0 +1,26 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+<div id="album_list">
+    <div class="subtitle">Mijn albums</div>
+    <div class="albums_container">
+        {% for album in own_albums %}
+            <div class="album">
+                <a href="{{ album.get_absolute_url }}">
+                <table><tr>
+                        <td valign="middle">
+                            <img src="{{ MEDIA_URL }}albums/1/5/thumb_chameleon.jpg" alt="{{ album.title }}" width="100"/>
+                        </td>
+                    <td>
+                        <div class="info">
+                            {{ album.title }}
+                            {{ album.description }}
+                        </div>
+                    </td>
+                </tr></table></a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="subtitle clear">Publieke albums</div>
+</div>
+{% endblock %}

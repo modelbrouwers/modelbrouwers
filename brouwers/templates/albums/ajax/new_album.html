@@ -1,10 +1,37 @@
 <div>
-{% if error %}
-    <span class="error">{{ error }}</span>
-{% endif %}
-<table>
-    {{ form.as_table }}
-    <tr style="text-align: center;"><td colspan="2"><button onclick="add_album(this);">Create Album</button></td></tr>
-</table>
-<input type="hidden" id="status" value="invalid"/>
+    <img style="float:right;position:relative;right:60%;z-index:11;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="Sluiten" onclick="hideNewAlbum();"/>
+    {% if non_field_errors %}
+    </ul>
+        {% for error in non_field_errors %}
+            <li class="error">{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <table>
+        {% for field in form %}
+        <tr>
+            <th class="label{% if field.field.required %} required{% endif %}">{{ field.label }}</th>
+            <td class="field">
+                {{ field }}
+                {% if field.help_text %}
+                    <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" onclick="showHelp(this);" alt="?"/>
+                {% endif %}
+            </td>
+            <td class="help_text">
+                <div class="rounded" style="display: none;">
+                    <img style="float:right;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="Sluiten" onclick="$(this).parent().hide();"/>
+                    {{ field.help_text }}
+                </div>
+            </td>
+        </tr>
+        {% for error in field.errors %}
+            <tr>
+                <td class="" colspan="2">Herstel de fout:</td>
+                <td class="error">{{ error }}</td>
+            </tr>
+        {% endfor %}
+        {% endfor %}
+        <tr style="text-align: center;"><td colspan="2"><button onclick="add_album(this);">Maak album</button></td><td></td></tr>
+    </table>
+    <input type="hidden" id="status" value="invalid"/>
 </div>
