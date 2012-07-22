@@ -27,6 +27,9 @@ div#top, div#logo{
 div#container{
 	padding: 5px 5px 0 5px;
 }
+a img{
+    border: none;
+}
 /*** FORMS ***/
 input[type="text"], input[type="password"], input[type="submit"], button, input[type="button"], select, textarea{
 	border: solid 1px #6F8698;
