@@ -1,7 +1,12 @@
 {% extends "albums/base.html" %}
 
 {% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
 <style type="text/css">
+	div#uploading{
+	    margin-bottom: 2em;
+	    padding-bottom: 2em;
+	}
 	div.upload{
 		clear: both;
 		margin-left: 20px;
@@ -30,9 +35,7 @@
 
 {% block content %}
 <div id="uploading">
-	<div>Er waren voor deze upload {{ photos_before }} afbeeldingen in het album {{ album }}.</div>
-	<br />
-	<br />
+	<div style="margin:1em;">Er waren voor deze upload {{ photos_before }} afbeeldingen in het album {{ album }}.</div>
 	<form action="/albums/upload/extra_info/" method="POST" enctype="multipart/form-data">
 		{{ formset.management_form }}
 		
@@ -40,14 +43,16 @@
 		<div class="upload">
 			<div class="thumb">
 				{% if form.instance.image %}
-				<img src="{{ form.instance.thumb_url }}" width="100" />
+				<img src="{{ form.instance.thumb_url }}" width="120" />
 				{% endif %}
 			</div>
 			<div>{{ form.as_p }}</div>
 		</div>
 		{% endfor %}
 		
-		<div class="upload"><input type="submit" value="opslaan" /></div>
+		<div class="upload center">
+		    <input type="submit" value="Bewaren" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
+		</div>
 	</form>
 </div>
 {% endblock %}
