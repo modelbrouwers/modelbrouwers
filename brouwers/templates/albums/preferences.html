@@ -1,17 +1,12 @@
 {% extends "albums/base.html" %}
 
 {% block content %}
-<div class="subtitle">Stel hier je voorkeuren in.</div>
-<br />
-<br />
+<div class="tab">Stel hier je voorkeuren in.</div>
 <form action="." method="POST">
-    <table>
-        {{ form.as_table }}
-        <tr>
-            <td colspan="100" style="text-align: center;">
-                <input type="submit" value="Opslaan" />
-            </td>
-        </tr>
-    </table>
+    {% include "form_in_table.html" %}
+    <div class="center">
+        <input type="submit" value="Instellingen bewaren" class="uploadify-button" 
+		style="height: 34px; line-height: 30px; width: 180px;"/>
+    </div>
 </form>
 {% endblock %}

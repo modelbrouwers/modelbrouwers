@@ -14,7 +14,7 @@
             <td>
                 {{ field }}
                 {% if field.help_text %}
-                    <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" alt="?"/>
+                    <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" alt="?" onclick="showHelp(this);"/>
                 {% endif %}
             </td>
             <td class="help_text">

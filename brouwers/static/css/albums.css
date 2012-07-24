@@ -45,6 +45,28 @@ a img{
 input[type="text"], input[type="password"], input[type="submit"], button, input[type="button"], select, textarea{
 	border: solid 1px #6F8698;
 }
+form table{
+    width: 96%;
+    margin: 1em auto;
+}
+th.label{
+    text-align: right;
+    padding-right: 1em;
+    font-weight: normal;
+    width: 28%;
+}
+td.field{
+    width: 22%;
+}
+td.help_text{
+    width: 50%;
+}
+td.field input, td.field select{
+    width: 12em;
+}
+td.field input[type="checkbox"]{
+    width: 2.4em;
+}
 /*** NAVIGATION BAR, SHOP BANNER ***/
 div#navigation, div#shop_banner{
     margin: 0 auto;
@@ -172,6 +194,8 @@ div#content_wrapper{
 div#content{
     border: solid 1px #CCC;
     font-size: 0.94em;
+    padding-bottom: 2em;
+    margin-bottom: 2em;
 }
 div#last_uploads{
     padding-top: 0.5em;

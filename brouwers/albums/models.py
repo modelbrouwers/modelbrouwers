@@ -163,7 +163,10 @@ UPLOADER_CHOICES = (
 class Preferences(models.Model): #only create this object when user visits preferences page first time, otherwise go with the defaults
     user = models.ForeignKey(User, unique=True)
     default_img_size = models.PositiveSmallIntegerField(choices=IMG_SIZES, default=0, help_text=_("Your pictures will be scaled to this size."))
-    default_uploader = models.CharField(max_length=1, choices=UPLOADER_CHOICES, default="F")
+    default_uploader = models.CharField(max_length=1, 
+        choices=UPLOADER_CHOICES, default="F", 
+        help_text=_("Multiple files at once makes use of a Flash uploader, you select all your files without having to click too much buttons. The basic uploader has a file field for each image.")
+    )
     #options for uploadify
     auto_start_uploading = models.BooleanField(help_text=_("Start upload automatically when files are selected"))
     show_direct_link = models.BooleanField(_("Show direct links under the photo"), default=False)
