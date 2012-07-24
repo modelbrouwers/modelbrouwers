@@ -10,8 +10,6 @@
 <script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#no_javascript').remove(); //hide the warning
-    
     /* uploadify */
     var albumId;
 	var photo_ids = "";
@@ -99,7 +97,7 @@ function add_album(e){
 
 {% block content %}
 <div class="tab">Upload images</div>
-<div id="no_javascript" class="margin">
+<div class="no-javascript" class="margin">
     Je browser ondersteunt geen Javascript, wat vereist is voor deze uploader. Je kan de <a href="{% url brouwers.albums.views.upload %}">alternatieve uploader</a> gebruiken.
 </div>
 

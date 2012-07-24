@@ -9,12 +9,12 @@
             "is_active": true,
             "is_superuser": true,
             "is_staff": true,
-            "last_login": "2012-02-15 20:48:42",
+            "last_login": "2012-07-23T23:49:54.126",
             "groups": [],
             "user_permissions": [],
-            "password": "sha1$06c42$06e150f664dbbdfa5fedb443327dd36aa076ea9c",
+            "password": "pbkdf2_sha256$10000$z3awiDWfqZnd$G2e7/1g/t4ahl+laSnUFl7Dux7b6OVyhhv4xFQA8+4k=",
             "email": "sergeimaertens@gmail.com",
-            "date_joined": "2010-11-28 01:58:00"
+            "date_joined": "2010-11-28T01:58:00"
         }
     },
     {
@@ -27,12 +27,12 @@
             "is_active": true,
             "is_superuser": false,
             "is_staff": false,
-            "last_login": "2010-11-28 19:36:00",
+            "last_login": "2010-11-28T19:36:00",
             "groups": [],
             "user_permissions": [],
             "password": "sha1$2b20a$60329f2b904dde6906ba54d57811242b0c65e917",
             "email": "",
-            "date_joined": "2010-11-28 19:36:00"
+            "date_joined": "2010-11-28T19:36:00"
         }
     },
     {
@@ -45,12 +45,12 @@
             "is_active": true,
             "is_superuser": false,
             "is_staff": false,
-            "last_login": "2011-01-10 14:04:16",
+            "last_login": "2011-01-10T14:04:16",
             "groups": [],
             "user_permissions": [],
             "password": "sha1$5f85b$d03537e8147c7f552ba97e2d6fce1f9f8a7ca7e4",
             "email": "",
-            "date_joined": "2011-01-10 14:03:10"
+            "date_joined": "2011-01-10T14:03:10"
         }
     },
     {
@@ -258,20 +258,40 @@
         }
     },
     {
+        "pk": 4,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "description": "",
+            "created": "2012-02-15T20:51:57",
+            "views": 0,
+            "title": "EJ-10 Honda",
+            "modified": "2012-02-18T17:36:03",
+            "public": false,
+            "build_report": "",
+            "user": 1,
+            "writable_to": "u",
+            "trash": false,
+            "order": 1
+        }
+    },
+    {
         "pk": 1,
         "model": "albums.album",
         "fields": {
             "category": 1,
             "votes": 0,
             "description": "Album met bouw- en eindfoto's van de 1/144 Revell Flanker",
-            "created": "2012-02-11 15:35:43",
+            "created": "2012-02-11T15:35:43",
             "views": 0,
             "title": "Su-27 Flanker",
-            "modified": "2012-02-18 17:36:04",
+            "modified": "2012-02-18T17:36:04",
             "public": false,
             "build_report": "",
             "user": 1,
             "writable_to": "u",
+            "trash": false,
             "order": 1
         }
     },
@@ -282,32 +302,34 @@
             "category": 1,
             "votes": 0,
             "description": "1/144 Tornado",
-            "created": "2012-02-11 15:38:14",
+            "created": "2012-02-11T15:38:14",
             "views": 0,
             "title": "Tornado IDS 'White Tiger'",
-            "modified": "2012-02-12 20:41:36",
+            "modified": "2012-02-12T20:41:36",
             "public": false,
             "build_report": "",
             "user": 2,
             "writable_to": "u",
+            "trash": false,
             "order": 1
         }
     },
     {
-        "pk": 4,
+        "pk": 6,
         "model": "albums.album",
         "fields": {
             "category": 1,
             "votes": 0,
             "description": "",
-            "created": "2012-02-15 20:51:57",
+            "created": "2012-07-21T22:40:04.675",
             "views": 0,
-            "title": "EJ-10 Honda",
-            "modified": "2012-02-18 17:36:03",
-            "public": false,
+            "title": "album 21-07-2012",
+            "modified": "2012-07-21T22:40:04.675",
+            "public": true,
             "build_report": "",
             "user": 1,
             "writable_to": "u",
+            "trash": false,
             "order": 1
         }
     },
@@ -318,14 +340,15 @@
             "category": 2,
             "votes": 0,
             "description": "Foto's gemaakt op de Brouwersdag van 2011",
-            "created": "2012-02-11 15:36:22",
+            "created": "2012-02-11T15:36:22",
             "views": 0,
             "title": "Brouwersdag 2011",
-            "modified": "2012-02-15 20:51:11",
+            "modified": "2012-02-15T20:51:11",
             "public": true,
             "build_report": "",
             "user": 1,
             "writable_to": "o",
+            "trash": false,
             "order": 2
         }
     },
@@ -336,15 +359,304 @@
             "category": 1,
             "votes": 0,
             "description": "",
-            "created": "2012-02-15 22:13:09",
+            "created": "2012-02-15T22:13:09",
             "views": 0,
             "title": "test",
-            "modified": "2012-02-18 17:36:04",
+            "modified": "2012-02-18T17:36:04",
             "public": true,
             "build_report": "",
             "user": 1,
             "writable_to": "u",
+            "trash": false,
             "order": 3
+        }
+    },
+    {
+        "pk": 26,
+        "model": "albums.photo",
+        "fields": {
+            "album": 4,
+            "uploaded": "2012-07-21T23:17:11.920",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 19.58.27_1.jpg",
+            "modified": "2012-07-21T23:17:11.920",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": 27,
+        "model": "albums.photo",
+        "fields": {
+            "album": 4,
+            "uploaded": "2012-07-21T23:17:12.771",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 18.27.26.jpg",
+            "modified": "2012-07-21T23:17:12.771",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": 28,
+        "model": "albums.photo",
+        "fields": {
+            "album": 4,
+            "uploaded": "2012-07-21T23:17:13.648",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 18.26.55.jpg",
+            "modified": "2012-07-21T23:17:13.649",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": 29,
+        "model": "albums.photo",
+        "fields": {
+            "album": 4,
+            "uploaded": "2012-07-21T23:18:24.659",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 18.27.26_1.jpg",
+            "modified": "2012-07-21T23:18:24.659",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 4
+        }
+    },
+    {
+        "pk": 2,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:40.760",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/BILD0058.jpg",
+            "modified": "2012-07-21T18:14:40.760",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:41.432",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/BILD0065.jpg",
+            "modified": "2012-07-21T18:14:41.432",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": 4,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:42.104",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/BILD0070.jpg",
+            "modified": "2012-07-21T18:14:42.104",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": 5,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:42.782",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/BILD0074.jpg",
+            "modified": "2012-07-21T18:14:42.782",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 4
+        }
+    },
+    {
+        "pk": 6,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:43.436",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 00.09.16.jpg",
+            "modified": "2012-07-21T18:14:43.436",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 5
+        }
+    },
+    {
+        "pk": 7,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:44.120",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 00.09.32.jpg",
+            "modified": "2012-07-21T18:14:44.120",
+            "height": 601,
+            "width": 800,
+            "user": 1,
+            "order": 6
+        }
+    },
+    {
+        "pk": 8,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:44.786",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 00.09.56.jpg",
+            "modified": "2012-07-21T18:14:44.786",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 7
+        }
+    },
+    {
+        "pk": 9,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:45.457",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 00.10.44.jpg",
+            "modified": "2012-07-21T18:14:45.457",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 8
+        }
+    },
+    {
+        "pk": 10,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:46.154",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 00.11.02.jpg",
+            "modified": "2012-07-21T18:14:46.154",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 9
+        }
+    },
+    {
+        "pk": 11,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:46.920",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 00.11.19.jpg",
+            "modified": "2012-07-21T18:14:46.920",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 10
+        }
+    },
+    {
+        "pk": 12,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:47.578",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 01.44.48.jpg",
+            "modified": "2012-07-21T18:14:47.579",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 11
+        }
+    },
+    {
+        "pk": 13,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:48.357",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 01.45.05.jpg",
+            "modified": "2012-07-21T18:14:48.357",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 12
+        }
+    },
+    {
+        "pk": 14,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:49.024",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 01.45.19.jpg",
+            "modified": "2012-07-21T18:14:49.024",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 13
+        }
+    },
+    {
+        "pk": 15,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-07-21T18:14:49.695",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/1/2012-04-02 01.45.30.jpg",
+            "modified": "2012-07-21T18:14:49.695",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 14
         }
     },
     {
@@ -352,15 +664,346 @@
         "model": "albums.photo",
         "fields": {
             "album": 3,
-            "uploaded": "2012-02-12 12:19:50",
+            "uploaded": "2012-02-12T12:19:50",
             "description": "",
             "views": 0,
             "image": "albums/3/s5001563.JPG",
-            "modified": "2012-02-12 12:19:50",
+            "modified": "2012-02-12T12:19:50",
             "height": 600,
             "width": 800,
             "user": 2,
             "order": 1
+        }
+    },
+    {
+        "pk": 16,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T22:57:42.823",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 19.26.48.jpg",
+            "modified": "2012-07-21T22:57:42.823",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": 17,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T22:57:43.511",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 20.07.43.jpg",
+            "modified": "2012-07-21T22:57:43.511",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": 18,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T22:57:44.274",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 19.58.27.jpg",
+            "modified": "2012-07-21T22:57:44.274",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": 19,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T22:57:45.267",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 18.27.26_1.jpg",
+            "modified": "2012-07-21T22:57:45.267",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 4
+        }
+    },
+    {
+        "pk": 20,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:08:29.630",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-07-21-130547_1366x768_scrot.png",
+            "modified": "2012-07-21T23:08:29.630",
+            "height": 576,
+            "width": 1024,
+            "user": 1,
+            "order": 5
+        }
+    },
+    {
+        "pk": 21,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:08:30.552",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-07-21-034403_1366x768_scrot.png",
+            "modified": "2012-07-21T23:08:30.552",
+            "height": 576,
+            "width": 1024,
+            "user": 1,
+            "order": 6
+        }
+    },
+    {
+        "pk": 22,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:08:31.473",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-07-21-024541_1366x768_scrot.png",
+            "modified": "2012-07-21T23:08:31.473",
+            "height": 576,
+            "width": 1024,
+            "user": 1,
+            "order": 7
+        }
+    },
+    {
+        "pk": 23,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:11:38.965",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 20.07.43_1.jpg",
+            "modified": "2012-07-21T23:11:38.965",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 8
+        }
+    },
+    {
+        "pk": 24,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:13:09.526",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 18.27.26_2.jpg",
+            "modified": "2012-07-21T23:13:09.526",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 9
+        }
+    },
+    {
+        "pk": 25,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:15:30.257",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 19.26.48_1.jpg",
+            "modified": "2012-07-21T23:15:30.257",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 10
+        }
+    },
+    {
+        "pk": 30,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:19:48.454",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 20.07.43_2.jpg",
+            "modified": "2012-07-21T23:19:48.454",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 11
+        }
+    },
+    {
+        "pk": 31,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:19:49.093",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 19.58.27_1.jpg",
+            "modified": "2012-07-21T23:19:49.093",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 12
+        }
+    },
+    {
+        "pk": 32,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:19:50.119",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-06 18.27.26_3.jpg",
+            "modified": "2012-07-21T23:19:50.119",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 13
+        }
+    },
+    {
+        "pk": 33,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:21:26.429",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/help.png",
+            "modified": "2012-07-21T23:21:26.429",
+            "height": 16,
+            "width": 16,
+            "user": 1,
+            "order": 14
+        }
+    },
+    {
+        "pk": 34,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:22:47.813",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/help_1.png",
+            "modified": "2012-07-21T23:22:47.813",
+            "height": 16,
+            "width": 16,
+            "user": 1,
+            "order": 15
+        }
+    },
+    {
+        "pk": 35,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:24:18.812",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/help_2.png",
+            "modified": "2012-07-21T23:24:18.812",
+            "height": 256,
+            "width": 256,
+            "user": 1,
+            "order": 16
+        }
+    },
+    {
+        "pk": 36,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:25:06.314",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/help_3.png",
+            "modified": "2012-07-21T23:25:06.314",
+            "height": 16,
+            "width": 16,
+            "user": 1,
+            "order": 17
+        }
+    },
+    {
+        "pk": 37,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:25:53.422",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/help_4.png",
+            "modified": "2012-07-21T23:25:53.422",
+            "height": 16,
+            "width": 16,
+            "user": 1,
+            "order": 18
+        }
+    },
+    {
+        "pk": 38,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:26:33.562",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/help_5.png",
+            "modified": "2012-07-21T23:26:33.562",
+            "height": 16,
+            "width": 16,
+            "user": 1,
+            "order": 19
+        }
+    },
+    {
+        "pk": 39,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-21T23:27:01.461",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/help_6.png",
+            "modified": "2012-07-21T23:27:01.461",
+            "height": 16,
+            "width": 16,
+            "user": 1,
+            "order": 20
+        }
+    },
+    {
+        "pk": 1,
+        "model": "albums.preferences",
+        "fields": {
+            "default_uploader": "F",
+            "show_direct_link": false,
+            "auto_start_uploading": false,
+            "user": 1,
+            "default_img_size": 0
         }
     }
 ]

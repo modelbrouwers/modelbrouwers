@@ -2,25 +2,43 @@
 
 {% block content %}
 <div id="album_list">
-    <div class="subtitle">Mijn albums</div>
-    <div class="albums_container">
-        {% for album in own_albums %}
-            <div class="album">
-                <a href="{{ album.get_absolute_url }}">
-                <table><tr>
-                        <td valign="middle">
-                            <img src="{{ MEDIA_URL }}albums/1/5/thumb_chameleon.jpg" alt="{{ album.title }}" width="100"/>
-                        </td>
-                    <td>
-                        <div class="info">
-                            {{ album.title }}
-                            {{ album.description }}
-                        </div>
-                    </td>
-                </tr></table></a>
-            </div>
-        {% endfor %}
+    
+    <div class="no-javascript" class="margin">
+        Je browser ondersteunt geen Javascript. Om je albums te organiseren, kan je deze <a href="{% url brouwers.albums.views.manage %}">alternatieve pagina</a> gebruiken.
     </div>
-    <div class="subtitle clear">Publieke albums</div>
+    
+    <div class="tab">Mijn persoonlijke albums</div>
+    <div class="albums_container">
+        {% with albums_data.0.albums as albums %}
+            {% include "albums/albums_list/albums_rows.html" %}
+        {% endwith %}
+        {% if albums_data.0.closing_tag %}
+            </div>
+        {% endif %}
+    </div>
+    
+    {% if albums_data.1.albums %}
+        <div class="tab clear">Mijn publieke albums &#45; schrijfbaar voor anderen</div>
+    {% endif %}
+    <div class="albums_container">
+        {% with albums_data.1.albums as albums %}
+            {% include "albums/albums_list/albums_rows.html" %}
+        {% endwith %}
+        {% if albums_data.1.closing_tag %}
+            </div>
+        {% endif %}
+    </div>
+    
+    {% if albums_data.2.albums %}
+        <div class="tab clear">Publieke albums &#45; ook schrijfbaar voor mij</div>
+    {% endif %}
+    <div class="albums_container">
+        {% with albums_data.2.albums as albums %}
+            {% include "albums/albums_list/albums_rows.html" %}
+        {% endwith %}
+        {% if albums_data.2.closing_tag %}
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

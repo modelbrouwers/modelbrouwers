@@ -9,6 +9,17 @@ html, body {
     background-color: #ffffff;
     font-size: 100%;
 }
+a{
+    text-decoration: none;
+    color: #0E72A4;
+}
+a:hover{
+    text-decoration: underline;
+    color: #DD6900;
+}
+img{
+    border: none;
+}
 .left{
 	float: left;
 }
@@ -22,7 +33,7 @@ html, body {
     text-align: center;
 }
 div#top, div#logo{
-	min-width: 1248px; /* else the floating images are fugly */
+	min-width: 1300px; /* else the floating images are fugly */
 }
 div#container{
 	padding: 5px 5px 0 5px;
@@ -214,18 +225,18 @@ div.margin{
     margin-right: 1em;
     margin-top: 1em;
 }
-button::-moz-focus-inner {
+button::-moz-focus-inner, select::-moz-focus-inner {
 	border: 0;
 }
 #id_album{
-    width: 12em;
+    width: 14em;
 }
 #id_album, #create_new_album button{
-    padding-left: 0.4em;
-    padding-right: 0.4em;
-    height: 2em;
+    padding: 4px 0.4em 4px 0.4em;
 }
 #create_new_album button{
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-top-right-radius: 6px;
 	-webkit-border-top-right-radius: 6px;
 	-khtml-border-top-right-radius: 6px;
@@ -313,4 +324,99 @@ a#start_upload, a#next_step{
 }
 a#start_upload:hover{
     cursor: pointer;
+}
+/*** MY ALBUMS ***/
+div.album{
+    height: 12em;
+    width: 22%;
+    margin-top: 0.6em;
+}
+.album-title{
+    font-weight: bold;
+    color: #333;
+}
+a.album{
+    position: relative;
+}
+a.album img.private{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+.edit, .remove{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    display: none;
+}
+.edit{
+    right: 18px;
+}
+div.album div.properties{
+    font-size: 0.7em;
+}
+/*** MANAGE ALBUMS ***/
+div#albums-list, div#new-album{
+    padding: 1em;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+}
+div.album-form{
+    clear: both;
+    margin-bottom: 1em;
+}
+div.thumb-container{
+    width: 140px;
+    height: 105px;
+    background-color: #EEE;
+    border: solid 1px #555;
+    float: left;
+    margin: 0 1em 1em 0;
+    text-align: center;
+}
+div.album-form th{
+    text-align: right;
+    padding-right: 1em;
+    font-weight: normal;
+    font-size: 0.9em;
+}
+div.album-form input[type="text"], #new-album input[type="text"], #new-album select{
+    width: 24em;
+    padding: 0.2em 0.4em 0.2em 0.4em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+div.album-form input[name$="-ORDER"], div.album-form input[type="checkbox"]{
+    width: 2.4em;
+    text-align: center;
+}
+div.album-form td.help_text, #new-album td.help_text{
+    font-style: italic;
+    font-size: 0.8em;
+    padding-left: 1em;
+}
+tr.error td, tr.error th{
+    font-weight: bold;
+}
+td.error{
+    color: red;
+}
+#top-right-submit{
+    position: absolute;
+    right: 0;
+    top: 1em;
+}
+
+#new-album{
+    margin-bottom: 2em;
+}
+#new-album .label{
+    font-weight: normal;
+    text-align: right;
+    padding-right: 1em;
+    width: 20%;
 }

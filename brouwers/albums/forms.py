@@ -8,7 +8,7 @@ import re
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        exclude = ('user', 'created', 'modified', 'views', 'votes', 'order', 'trash')
+        exclude = ('user', 'created', 'modified', 'views', 'votes', 'order', 'trash', 'cover')
         
     def clean_build_report(self):
         url = self.cleaned_data['build_report']

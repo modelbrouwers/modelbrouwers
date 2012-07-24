@@ -1,0 +1,33 @@
+{% for album in albums %}
+    {% cycle '<div class="row">' '' '' '' %}
+        <div class="photo album">
+            <div class="album-title">
+                <a href="{{ album.get_absolute_url }}">{{ album.title }}</a>
+            </div>
+            
+            <div class="properties">
+                {{ album.photo_set.count }} foto&apos;s &#45; {{ album.views }} views
+            </div>
+            
+            <a class="photo album" href="{{ album.get_absolute_url }}">
+                {% if album.cover_thumb_url %}
+                    <img src="{{ album.cover_thumb_url }}" {% if album.cover.is_wider_than_higher %}
+                    width="140"{% else %}height="105"{% endif %} alt="thumb"/>{% endif %}
+                    {% if not album.public %}
+                        <img class="private" src="{{ STATIC_URL }}images/icons/private.png" width="16" 
+                        height="16" alt="private" title="Dit album is enkel zichtbaar voor mezelf."/>
+                    {% endif %}
+                    <img class="edit" src="{{ STATIC_URL }}images/icons/edit.png" alt="edit" 
+                    height="16" onclick="alert('edit');" title="Album bewerken"/>
+                    <img class="remove" src="{{ STATIC_URL }}images/icons/remove.png" alt="edit" 
+                    height="16" onlick="alert('remove');" title="Album naar prullenbak verplaatsen"/>
+            </a>
+                    
+            <div class="properties">
+                <span class="date">Gewijzigd op {{ album.modified|date:"d b Y, H:i" }}</span>
+                <br />
+                <span class="date">Aangemaakt op {{ album.created|date:"d b Y, H:i" }}</span>
+            </div>
+        </div>
+    {% cycle '' '' '' '</div>' %}
+{% endfor %}

@@ -36,7 +36,7 @@ def manage(request, album_id=None):
         Manage albums: change the order, delete albums, create a new album.
     """
     AlbumFormSet = modelformset_factory(
-            Album, fields=('title',),
+            Album, fields=('title', 'description', 'build_report'),
             extra=0, can_order=True,
             can_delete=True
         )
@@ -62,7 +62,7 @@ def manage(request, album_id=None):
                     error = u"You already have an album with this title"
                     add_album_form._errors["title"] = add_album_form.error_class([error])
         
-        album_formset = AlbumFormSet(queryset=albums)
+        album_formset = AlbumFormSet(queryset=albums) #FIXME: create a special form class for this, add class to certain fields etc.
         if 'manage' in request.POST:
             album_formset = AlbumFormSet(request.POST)
             if album_formset.is_valid():
@@ -80,6 +80,10 @@ def manage(request, album_id=None):
         # creating a formset to change the ordering of the albums - AJAX degradable
         album_formset = AlbumFormSet(queryset=albums)
     return render_to_response(request, 'albums/manage.html', {'albumformset': album_formset, 'add_album_form': add_album_form})
+
+@login_required #TODO: implement
+def edit_album(request, album_id):
+    return HttpResponse()
 
 @login_required
 def preferences(request):
@@ -197,10 +201,10 @@ def my_last_uploads(request):
     last_uploads = Photo.objects.filter(user=request.user).order_by('-uploaded')
     p = Paginator(last_uploads, 20)
     
-    page = request.GET.get('page')
+    page = request.GET.get('page', 1)
     try:
         uploads = p.page(page)
-    except PageNotAnInteger, TypeError:
+    except (PageNotAnInteger, TypeError):
         # If page is not an integer, deliver first page.
         uploads = p.page(1)
     except EmptyPage:
@@ -225,6 +229,16 @@ def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is t
 
 @login_required
 def my_albums_list(request):
-    own_albums = Album.objects.filter(user=request.user)
-    other_albums = Album.objects.filter(writable_to='o', public=True)
-    return render_to_response(request, 'albums/my_albums_list.html', {'own_albums': own_albums, 'other_albums': other_albums})
+    own_albums = Album.objects.filter(user=request.user, writable_to='u')
+    own_public_albums = Album.objects.filter(user=request.user, writable_to='o')
+    other_albums = Album.objects.filter(writable_to='o', public=True).exclude(user=request.user)
+    
+    albums_list = [own_albums, own_public_albums, other_albums]
+    albums_data = []
+    for albums in albums_list:
+        amount = albums.count()
+        closing_tag = False
+        if amount < 20 and amount % 4 != 0:
+            closing_tag = True
+        albums_data.append({'albums': albums, 'closing_tag': closing_tag})
+    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data})

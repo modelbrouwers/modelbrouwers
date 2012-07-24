@@ -10,11 +10,11 @@
     <table>
         {% for field in form %}
         <tr>
-            <th class="label{% if field.field.required %} required{% endif %}">{{ field.label }}</th>
-            <td class="field">
+            <th class="{% if field.field.required %}required{% endif %}">{{ field.label }}</th>
+            <td>
                 {{ field }}
                 {% if field.help_text %}
-                    <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" onclick="showHelp(this);" alt="?"/>
+                    <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" alt="?"/>
                 {% endif %}
             </td>
             <td class="help_text">
@@ -25,9 +25,9 @@
             </td>
         </tr>
         {% for error in field.errors %}
-            <tr>
-                <td class="" colspan="2">Herstel de fout:</td>
-                <td class="error">{{ error }}</td>
+            <tr class="error">
+                <td>Herstel de fout:</td>
+                <td class="error" colspan="2">{{ error }}</td>
             </tr>
         {% endfor %}
         {% endfor %}

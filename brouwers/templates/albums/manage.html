@@ -1,59 +1,88 @@
 {% extends "albums/base.html" %}
 
 {% block extrastyle %}
-<style type="text/css">
-	div.manage{
-		float: left;
-	}
-	div.break.form{
-		clear: both;
-		padding-top: 5px;
-		padding-bottom: 5px;
-	}
-	div.break.form *{
-		padding-right: 5px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
 {% endblock %}
 
 {% block content %}
-<div class="subtitle">Albums organiseren</div>
-<br />
-<div id="album_list">
+<div class="tab" id="new">Nieuw album aanmaken</div>
+<div id="new-album">
+    <form action="." method="POST">
+	    <table>
+		    {% for field in add_album_form %}
+            <tr>
+                <th class="label{% if field.field.required %} required{% endif %}">{{ field.label }}</th>
+                <td class="field">
+                    {{ field }}
+                    
+                </td>
+                <td class="help_text">
+                    {% if field.help_text %}
+                        <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" alt=""/>
+                    {% endif %}
+                    {{ field.help_text }}
+                </td>
+            </tr>
+            {% for error in field.errors %}
+                <tr class="error">
+                    <td>Herstel de fout:</td>
+                    <td class="error" colspan="2">{{ error }}</td>
+                </tr>
+            {% endfor %}
+            {% endfor %}
+        </table>
+	    <div class="center">
+	        <input type="submit" value="Album toevoegen" name="add" 
+	        class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;margin-top: 1em;"/>
+	    </div>
+    </form>
+</div>
+
+<div class="tab">Albums organiseren</div>
+<div id="albums-list">
 	<form action="." method="POST">
 		{{ albumformset.management_form }}
+		<input id="top-right-submit" type="submit" value="Bewaren" name="manage" class="uploadify-button" 
+		style="height: 34px; line-height: 30px; width: 124px;"/>
+        
 		{% for form in albumformset %}
-		<div class="break form">
+		<div class="album-form">
+			<div class="thumb-container">
+			    <img src="{{ form.instance.cover_thumb_url }}" {% if form.instance.cover.is_wider_than_higher %}
+                 width="140"{% else %}height="105"{% endif %} alt="thumb"/>
+			</div>
+			
 			{% for error in form.non_field_errors %}
 				<div class="error">
 					{{ error }}
 				</div>
 			{% endfor %}
-			<div class="album_title manage">
-				{% for hidden in form.hidden_fields %}
-					{{ hidden }}
-				{% endfor %}
-				{{ form.title }}
-				{% for error in form.title.errors %}
-					<div class="error">
-						{{ error }}
-					</div>
-				{% endfor %}
-			</div>
-			<div class="order manage">{{ form.ORDER }}</div>
-			<div class="delete">{{ form.DELETE }} Album verwijderen?</div>
+			
+			{% for hidden in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+			
+			<table>
+			    {% for field in form.visible_fields %}
+			        <tr>
+			            <th>{{ field.label }}</th>
+			            <td>{{ field }}</td>
+			            <td class="help_text">{{ field.help_text }}</td>
+			        </tr>
+			        {% for error in field.errors %}
+			            <tr class="error">
+			                <th>Fout:</th>
+			                <td colspan="2" class="error">{{ error }}</td>
+			            </tr>
+			        {% endfor %}
+			    {% endfor %}
+			    
+			</table>
 		</div>
 		{% endfor %}
-		<br />
-		<input type="submit" value="Save changes" name="manage"/>
+		<div class="center">
+		    <input type="submit" value="Bewaren" name="manage" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
+		</div>
 	</form>
 </div>
-<br />
-<div class="subtitle" id="new">Nieuw album aanmaken</div>
-<form action="." method="POST">
-	<table>
-		{{add_album_form.as_table}}
-	</table>
-	<input type="submit" value="Add album" name="add"/>
-</form>
 {% endblock %}
