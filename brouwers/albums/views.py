@@ -229,9 +229,10 @@ def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is t
 
 @login_required
 def my_albums_list(request):
-    own_albums = Album.objects.filter(user=request.user, writable_to='u')
-    own_public_albums = Album.objects.filter(user=request.user, writable_to='o')
-    other_albums = Album.objects.filter(writable_to='o', public=True).exclude(user=request.user)
+    base_albums = Album.objects.filter(trash=False)
+    own_albums = base_albums.filter(user=request.user, writable_to='u')
+    own_public_albums = base_albums.filter(user=request.user, writable_to='o')
+    other_albums = base_albums.filter(writable_to='o', public=True).exclude(user=request.user)
     
     albums_list = [own_albums, own_public_albums, other_albums]
     albums_data = []
