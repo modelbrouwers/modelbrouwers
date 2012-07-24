@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if IE]><!--> <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" class="IE"> <!--<![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr"> <!--<![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
 	<title>{% block title %}BrouwersAlbums{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,6 +10,13 @@
 	
 	{% block style %}
 	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css" charset="utf-8"/>
+	    <!--[if IE]>
+	        <style type="text/css">
+	            body{
+	                background-color: black;
+	            }
+	        </style>
+	    <![endif]-->
 	    {% block extrastyle %}
 	    {% endblock extrastyle %}
 	{% endblock style %}
