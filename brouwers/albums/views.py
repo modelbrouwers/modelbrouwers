@@ -218,6 +218,38 @@ def my_last_uploads(request):
     return render_to_response(request, 'albums/my_last_uploads.html', {'uploads': uploads, 'needs_closing_tag_row': needs_closing_tag_row})
 
 @login_required
+def my_albums_list(request):
+    base_albums = Album.objects.filter(trash=False)
+    own_albums = base_albums.filter(user=request.user, writable_to='u')
+    own_public_albums = base_albums.filter(user=request.user, writable_to='o')
+    other_albums = base_albums.filter(writable_to='o', public=True).exclude(user=request.user)
+    
+    albums_list = [own_albums, own_public_albums, other_albums]
+    page_keys = ['page_own', 'page_pub', 'page_other']
+    albums_data = []
+    
+    for albums in albums_list:
+        amount = albums.count()
+        paginator = Paginator(albums, 20)
+        
+        page_key = page_keys.pop(0)
+        page = request.GET.get(page_key, 1)
+        try:
+            albums = paginator.page(page)
+        except PageNotAnInteger:
+            albums = paginator.page(1)
+        except EmptyPage:
+            albums = paginator.page(paginator.num_pages)
+        
+        closing_tag = False
+        if amount < 20 and amount % 4 != 0:
+            closing_tag = True
+        albums_data.append(
+            {'albums': albums, 'closing_tag': closing_tag}
+        )
+    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data})
+
+@login_required
 def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder
     albumform = PickAlbumForm(request.user, request.GET, browse=True)
     if albumform.is_valid():
@@ -227,19 +259,4 @@ def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is t
         photos = Photo.objects.filter(user=request.user)
     return render_to_response(request, 'albums/photos.html', {'photos': photos, 'albumform': albumform})
 
-@login_required
-def my_albums_list(request):
-    base_albums = Album.objects.filter(trash=False)
-    own_albums = base_albums.filter(user=request.user, writable_to='u')
-    own_public_albums = base_albums.filter(user=request.user, writable_to='o')
-    other_albums = base_albums.filter(writable_to='o', public=True).exclude(user=request.user)
-    
-    albums_list = [own_albums, own_public_albums, other_albums]
-    albums_data = []
-    for albums in albums_list:
-        amount = albums.count()
-        closing_tag = False
-        if amount < 20 and amount % 4 != 0:
-            closing_tag = True
-        albums_data.append({'albums': albums, 'closing_tag': closing_tag})
-    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data})
+

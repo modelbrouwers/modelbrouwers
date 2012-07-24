@@ -11,34 +11,49 @@
     <div class="albums_container">
         {% with albums_data.0.albums as albums %}
             {% include "albums/albums_list/albums_rows.html" %}
-        {% endwith %}
-        {% if albums_data.0.closing_tag %}
+        
+            {% if albums_data.0.closing_tag %}
             </div>
-        {% endif %}
+            {% endif %}
+            
+            {% with "page_own" as page %}
+                {% include "albums/albums_list/pagination.html" %}
+            {% endwith %}
+        {% endwith %}
     </div>
     
     {% if albums_data.1.albums %}
         <div class="tab clear">Mijn publieke albums &#45; schrijfbaar voor anderen</div>
+        <div class="albums_container">
+            {% with albums_data.1.albums as albums %}
+                {% include "albums/albums_list/albums_rows.html" %}
+            
+                {% if albums_data.1.closing_tag %}
+                    </div>
+                {% endif %}
+                
+                {% with "page_pub" as page %}
+                    {% include "albums/albums_list/pagination.html" %}
+                {% endwith %}
+            {% endwith %}
+        </div>
     {% endif %}
-    <div class="albums_container">
-        {% with albums_data.1.albums as albums %}
-            {% include "albums/albums_list/albums_rows.html" %}
-        {% endwith %}
-        {% if albums_data.1.closing_tag %}
-            </div>
-        {% endif %}
-    </div>
     
     {% if albums_data.2.albums %}
         <div class="tab clear">Publieke albums &#45; ook schrijfbaar voor mij</div>
+        <div class="albums_container">
+            {% with albums_data.2.albums as albums %}
+                {% include "albums/albums_list/albums_rows.html" %}
+                
+                {% if albums_data.2.closing_tag %}
+                    </div>
+                {% endif %}
+                
+                {% with "page_other" as page %}
+                    {% include "albums/albums_list/pagination.html" %}
+                {% endwith %}
+            {% endwith %}
+        </div>
     {% endif %}
-    <div class="albums_container">
-        {% with albums_data.2.albums as albums %}
-            {% include "albums/albums_list/albums_rows.html" %}
-        {% endwith %}
-        {% if albums_data.2.closing_tag %}
-            </div>
-        {% endif %}
-    </div>
 </div>
 {% endblock %}

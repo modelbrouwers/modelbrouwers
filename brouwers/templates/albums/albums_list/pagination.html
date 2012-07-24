@@ -1,0 +1,27 @@
+<div class="pagination">
+    {% if albums.number != 1 %}
+        <a href="?{{ page }}=1" title="Eerste pagina">&laquo;</a>
+    {% else %}
+        <span>&laquo;</span>
+    {% endif %}
+    &nbsp;&nbsp;
+    {% if albums.has_previous %}
+        <a href="?{{ page }}={{ albums.previous_page_number }}">&lt;</a>
+    {% else %}
+        <span>&lt;</span>
+    {% endif %}
+    
+    &nbsp;&nbsp;<a href="?{{ page }}={{ albums.number }}">{{ albums.number }}</a>&nbsp;&nbsp;
+    
+    {% if albums.has_next %}
+        <a href="?{{ page }}={{ albums.next_page_number }}">&gt;</a>
+    {% else %}
+        <span>&gt;</span>
+    {% endif %}
+    &nbsp;&nbsp;
+    {% if albums.number != albums.paginator.num_pages %}
+        <a href="?{{ page }}={{ albums.paginator.num_pages }}" title="Laatste pagina">&raquo;</a>
+    {% else %}
+        <span>&raquo;</span>
+    {% endif %}
+</div>
