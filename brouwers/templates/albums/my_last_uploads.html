@@ -7,8 +7,9 @@
         {% cycle '<div class="row">' '' '' '' '' %}
             <div class="photo">
                 <a class="photo" href="{{ photo.get_absolute_url }}">
-                    <img src="{{ photo.thumb_url }}" {% if photo.is_wider_than_higher %}
-                        width="140"{% else %}height="105"{% endif %} alt="thumb"/></a>
+                    {% if photo.thumb_url %}
+                        <img src="{{ photo.thumb_url }}" {% if photo.is_wider_than_higher %}
+                        width="140"{% else %}height="105"{% endif %} alt="thumb"/>{% endif %}</a>
                 
                 <div class="properties">
                     <input class="BBCode" type="text" readonly="readonly" value="{{ photo.BBCode }}"></input>

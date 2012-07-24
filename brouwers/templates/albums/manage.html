@@ -48,8 +48,10 @@
 		{% for form in albumformset %}
 		<div class="album-form">
 			<div class="thumb-container">
-			    <img src="{{ form.instance.cover_thumb_url }}" {% if form.instance.cover.is_wider_than_higher %}
-                 width="140"{% else %}height="105"{% endif %} alt="thumb"/>
+			    {% if form.instance.cover %}
+			        <img src="{{ form.instance.cover_thumb_url }}" {% if form.instance.cover.is_wider_than_higher %}
+                    width="140"{% else %}height="105"{% endif %} alt="thumb"/>
+                {% endif %}
 			</div>
 			
 			{% for error in form.non_field_errors %}
