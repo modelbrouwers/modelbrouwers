@@ -226,7 +226,7 @@ def browse_album(request, album_id=None):
         q = Q(public=True) | Q(user=request.user)
     else:
         q = Q(public=True)
-    album = get_object_or_404(Album, q, pk=album_id)
+    album = get_object_or_404(Album, q, pk=album_id, trash=False)
     # increment album views
     album.views = F('views') + 1
     album.save()
