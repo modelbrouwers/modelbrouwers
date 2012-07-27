@@ -222,7 +222,11 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
 ###########################
 
 def browse_album(request, album_id=None):
-    album = get_object_or_404(Album, Q(public=True) | Q(user=request.user), pk=album_id)
+    if request.user.is_authenticated():
+        q = Q(public=True) | Q(user=request.user)
+    else:
+        q = Q(public=True)
+    album = get_object_or_404(Album, q, pk=album_id)
     # increment album views
     album.views = F('views') + 1
     album.save()
