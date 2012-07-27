@@ -18,7 +18,7 @@ from utils import resize
 #          BASE           #
 ###########################
 def index(request):
-    albums = Album.objects.filter(trash=False, public=True).order_by('-modified')
+    albums = Album.objects.filter(trash=False, public=True).order_by('-created') #FIXME sorteren op laatste datum foto toegevoegd
     
     p = Paginator(albums, 20)
     page = request.GET.get('page', 1)
