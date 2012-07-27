@@ -19,6 +19,9 @@ from datetime import date
 
 def register(request):
 	if request.method=='POST':
+		# hack to allow spaces in 'usernames' TODO: change nickname field to hidden field
+		request.POST['username'] = str(request.POST['forum_nickname']).replace(' ', '_')
+		print request.POST['username']
 		form = UserProfileForm(request.POST)
 		if form.is_valid():
 			form.save()

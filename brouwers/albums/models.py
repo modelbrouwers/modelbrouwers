@@ -83,6 +83,9 @@ class Album(models.Model):
         else: #no photo's in album
             return None
     #TODO: on save, validate url to topic
+    
+    def number_of_photos(self):
+        return self.photo_set.count()
 
 class Photo(models.Model):
     """ Helper functions """    
@@ -110,7 +113,12 @@ class Photo(models.Model):
     class Meta:
         verbose_name = _("Photo")
         verbose_name_plural = _("Photos")
-        ordering = ['album', 'order']
+        ordering = ['album', 'order', 'pk']
+    
+    def save(self, *args, **kwargs):
+        #also save the album, so the last modified date gets set
+        super(Photo, self).save(*args, **kwargs)
+        self.album.save()
     
     def __unicode__(self):
         return "image from %s in %s" % (self.user, self.album.title)

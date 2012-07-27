@@ -65,7 +65,12 @@
 			        <tr>
 			            <th>{{ field.label }}</th>
 			            <td>{{ field }}</td>
-			            <td class="help_text">{{ field.help_text }}</td>
+			            <td class="help_text">
+			                {% if field.help_text %}
+                                <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" alt=""/>
+                            {% endif %}
+                            {{ field.help_text }}
+                        </td>
 			        </tr>
 			        {% for error in field.errors %}
 			            <tr class="error">

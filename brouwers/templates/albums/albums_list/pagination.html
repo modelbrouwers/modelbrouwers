@@ -6,17 +6,17 @@
     {% endif %}
     &nbsp;&nbsp;
     {% if albums.has_previous %}
-        <a href="?{{ page }}={{ albums.previous_page_number }}">&lt;</a>
+        <a href="?{{ page }}={{ albums.previous_page_number }}">&lsaquo;</a>
     {% else %}
-        <span>&lt;</span>
+        <span>&lsaquo;</span>
     {% endif %}
     
     &nbsp;&nbsp;<a href="?{{ page }}={{ albums.number }}">{{ albums.number }}</a>&nbsp;&nbsp;
     
     {% if albums.has_next %}
-        <a href="?{{ page }}={{ albums.next_page_number }}">&gt;</a>
+        <a href="?{{ page }}={{ albums.next_page_number }}">&rsaquo;</a>
     {% else %}
-        <span>&gt;</span>
+        <span>&rsaquo;</span>
     {% endif %}
     &nbsp;&nbsp;
     {% if albums.number != albums.paginator.num_pages %}

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q, Max
+from django.db.models import F, Q, Max
 from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
@@ -18,6 +18,23 @@ from utils import resize
 #          BASE           #
 ###########################
 def index(request):
+    albums = Album.objects.filter(trash=False, public=True).order_by('-modified')
+    
+    p = Paginator(albums, 20)
+    page = request.GET.get('page', 1)
+    try:
+        albums = p.page(page)
+    except (PageNotAnInteger, TypeError):
+        # If page is not an integer, deliver first page.
+        albums = p.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        albums = p.page(p.num_pages)
+    
+    needs_closing_tag_row_albums = False
+    if len(albums) % 4 != 0:
+        needs_closing_tag_row_albums = True
+    
     last_uploads = Photo.objects.filter(album__public=True).order_by('-uploaded')
     amount_last_uploads = last_uploads.count()
     if  amount_last_uploads < 20 and amount_last_uploads % 5 != 0:
@@ -25,7 +42,14 @@ def index(request):
     else:
         last_uploads = last_uploads[:20]
         needs_closing_tag_row = False
-    return render_to_response(request, 'albums/base.html', {'last_uploads': last_uploads, 'needs_closing_tag_row': needs_closing_tag_row})
+    return render_to_response(request, 'albums/base.html', 
+            {
+                'last_uploads': last_uploads, 
+                'needs_closing_tag_row': needs_closing_tag_row,
+                'albums': albums,
+                'needs_closing_tag_row_albums': needs_closing_tag_row_albums,
+            }
+        )
 
 ###########################
 #        MANAGING         #
@@ -196,6 +220,34 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
 ###########################
 #        BROWSING         #
 ###########################
+
+def browse_album(request, album_id=None):
+    album = get_object_or_404(Album, Q(public=True) | Q(user=request.user), pk=album_id)
+    # increment album views
+    album.views = F('views') + 1
+    album.save()
+    album = get_object_or_404(Album, pk=album_id)
+    
+    photos = album.photo_set.all()
+    p = Paginator(photos, 32)
+    
+    page = request.GET.get('page', 1)
+    try:
+        photos = p.page(page)
+    except (PageNotAnInteger, TypeError):
+        # If page is not an integer, deliver first page.
+        photos = p.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        photos = p.page(p.num_pages)
+    
+    needs_closing_tag_row = False
+    if len(photos) % 4 != 0:
+        needs_closing_tag_row = True
+    return render_to_response(request, 'albums/browse_album.html', 
+        {'album': album, 'photos': photos, 'needs_closing_tag_row': needs_closing_tag_row}
+        )
+
 @login_required
 def my_last_uploads(request):
     last_uploads = Photo.objects.filter(user=request.user).order_by('-uploaded')

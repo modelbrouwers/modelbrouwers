@@ -1,0 +1,48 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+<div class="album-photos-list">
+    <div class="tab album-title">
+        <span style="font-weight: normal;">Album:</span> <span class="album-title">{{ album.title }}</span>
+         &bull; <a href="{{ album.user.get_absolute_url }}">{{ album.user.get_profile.forum_nickname }}</a>
+        {% if album.build_report %}
+            &bull; <a href="{{ album.build_report }}" target="_blank">Brouwverslag</a>
+        {% endif %}
+        <span class="album-stats">
+            {% ifequal user.id album.user.id %}
+                <a href="{% url brouwers.albums.views.edit_album album.id %}">bewerken</a> &#124; 
+            {% endifequal %}
+            {{ album.views }} views &#124; gewijzigd {{ album.modified|date:"d b Y, H:i" }} &#124; created {{ album.created|date:"d b Y, H:i" }}
+        </span>
+    </div>
+    
+    <div class="photos-list margin">
+        {% for photo in photos %}
+            {% cycle '<div class="row">' '' '' '' %}
+                {% spaceless %}
+                <div class="photo">
+                    <a class="photo" href="{{ photo.get_absolute_url }}" id="photo_{{ photo.id }}">
+                        <img src="{{ photo.thumb_url }}" alt="{{ photo.id }}" 
+                        {% if photo.is_wider_than_higher %}width="200"{% else %}height="150"{% endif %}/>
+                    </a>
+                    
+                    <div class="description">
+                    {% if photo.description %}
+                        &ldquo;{{ photo.description|truncatechars:40 }}&rdquo;
+                    {% endif %}
+                    </div>
+                </div>
+                {% endspaceless %}
+            {% cycle '' '' '' '</div>' %}
+        {% endfor %}
+        
+        {% if needs_closing_tag_row %}
+            </div>
+        {% endif %}
+    </div>
+    
+    {% with page='page' objects=photos %}
+        {% include "pagination.html" %}
+    {% endwith %}
+</div>
+{% endblock content %}

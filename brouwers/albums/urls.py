@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('brouwers.albums.views',
 	(r'^$', 'index'),
+	(r'^album/(\d)+/$', 'browse_album'),
 	(r'^album/(\d)+/edit/', 'edit_album'),
 	(r'^manage/(\d+)/$', 'manage'),
 	(r'^my_gallery/$', 'my_albums_list'),

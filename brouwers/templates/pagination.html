@@ -1,0 +1,27 @@
+<div class="pagination">
+    {% if objects.number != 1 %}
+        <a href="?{{ page }}=1" title="Eerste pagina">&laquo;</a>
+    {% else %}
+        <span>&laquo;</span>
+    {% endif %}
+    &nbsp;&nbsp;
+    {% if objects.has_previous %}
+        <a href="?{{ page }}={{ objects.previous_page_number }}">&lsaquo;</a>
+    {% else %}
+        <span>&lsaquo;</span>
+    {% endif %}
+    
+    &nbsp;&nbsp;<a href="?{{ page }}={{ objects.number }}">{{ objects.number }}</a>&nbsp;&nbsp;
+    
+    {% if objects.has_next %}
+        <a href="?{{ page }}={{ objects.next_page_number }}">&rsaquo;</a>
+    {% else %}
+        <span>&rsaquo;</span>
+    {% endif %}
+    &nbsp;&nbsp;
+    {% if objects.number != objects.paginator.num_pages %}
+        <a href="?{{ page }}={{ objects.paginator.num_pages }}" title="Laatste pagina">&raquo;</a>
+    {% else %}
+        <span>&raquo;</span>
+    {% endif %}
+</div>

@@ -32,17 +32,17 @@
         {% endif %}
         &nbsp;&nbsp;
         {% if uploads.has_previous %}
-            <a href="?page={{ uploads.previous_page_number }}">&lt;</a>
+            <a href="?page={{ uploads.previous_page_number }}">&lsaquo;</a>
         {% else %}
-            <span>&lt;</span>
+            <span>&lsaquo;</span>
         {% endif %}
         
         &nbsp;&nbsp;<a href="?page={{ uploads.number }}">{{ uploads.number }}</a>&nbsp;&nbsp;
         
         {% if uploads.has_next %}
-            <a href="?page={{ uploads.next_page_number }}">&gt;</a>
+            <a href="?page={{ uploads.next_page_number }}">&rsaquo;</a>
         {% else %}
-            <span>&gt;</span>
+            <span>&rsaquo;</span>
         {% endif %}
         &nbsp;&nbsp;
         {% if uploads.number != uploads.paginator.num_pages %}

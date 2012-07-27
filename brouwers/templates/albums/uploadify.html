@@ -77,7 +77,6 @@ function add_album(e){
         writable_to: perm
         },
         function(response){
-            alert(response);
             var status = $(response).find('#status').val();
             var id = status;
             var title = $(response).attr('title');

@@ -174,6 +174,7 @@ ul#menu li a:hover{
 div.pagination{
     text-align: center;
     margin-bottom: 0.5em;
+    clear: both;
 }
 div.pagination a, div.pagination span{
     color: #369;
@@ -187,7 +188,7 @@ div.pagination a:hover{
 /*** CONTENT ***/
 div#content_wrapper{
     clear: both;
-	min-width: 840px;
+	min-width: 900px;
 	width: 80%;
 	margin: 0 auto;
 }
@@ -196,6 +197,37 @@ div#content{
     font-size: 0.94em;
     padding-bottom: 2em;
     margin-bottom: 2em;
+}
+div#albums-list-homepage .row{
+    clear: both;
+    border-bottom: dashed 1px #EEE;
+}
+div#albums-list-homepage .row:first-child{
+    border: none;
+}
+div.homepage-album{
+    float: left;
+    width: 22%;
+    margin: 1em 1.2% 0.2em 1.2%;
+    text-align: center;
+}
+div.homepage-album div.album-title{
+    font-size: 0.9em;
+    height: 2em;
+}
+div.homepage-album a.photo{
+    display: inline-block;
+    width: 140px;
+    height: 105px;
+    border: solid 1px #555;
+    background-color: #EEE;
+    margin: 0 auto;
+}
+.properties{
+    font-size: 0.8em;
+}
+.properties a{
+    font-weight: bold;
 }
 div#last_uploads{
     padding-top: 0.5em;
@@ -226,11 +258,6 @@ div.photo a.photo{
 div.photo div.properties input{
     padding: 0.1em;
     margin: 0.2em 0 0.2em;
-}
-div.photo div.properties a{
-    color: #0E72A4;
-    font-size: 0.8em;
-    font-weight: bolder;
 }
 /*** LAST UPLOADS SPECIFICS ***/
 div.tab{
@@ -396,6 +423,7 @@ div#albums-list, div#new-album{
 div.album-form{
     clear: both;
     margin-bottom: 1em;
+    border-bottom: solid 1px #EEE;
 }
 div.thumb-container{
     width: 140px;
@@ -405,6 +433,10 @@ div.thumb-container{
     float: left;
     margin: 0 1em 1em 0;
     text-align: center;
+}
+div.album-form table{
+    width: auto;
+    
 }
 div.album-form th{
     text-align: right;
@@ -448,4 +480,34 @@ td.error{
     text-align: right;
     padding-right: 1em;
     width: 20%;
+}
+/*** ALBUM BROWSING ***/
+.album-photos-list div.album-title{
+    padding: 0.3em 1em 0.3em 1em;
+}
+span.album-title{
+    font-size: 1.1em;
+}
+span.album-stats{
+    float: right;
+    font-size: 0.7em;
+    font-weight: normal;
+    line-height: 2em;
+}
+.album-photo-list .row{
+    clear: both;
+}
+.album-photos-list div.photo{
+    display: block;
+    float: left;
+    width: 22.6%;
+    height: 200px;
+}
+.album-photos-list div.photo a.photo{
+    width: 200px;
+    height: 150px;
+}
+div.photo .description{
+    font-style: italic;
+    font-size: 0.85em;
 }
