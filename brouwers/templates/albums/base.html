@@ -198,7 +198,7 @@ naar de Modelbrouwers.nl homepage"/></a>
                             {% spaceless %}
                                 <div class="homepage-album">
                                     <div class="album-title">
-                                        <a href="{{ album.get_absolute_url }}">{{ album.title }}</a>
+                                        <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">{{ album.title|truncatechars:25 }}</a>
                                     </div>
                                     <a class="photo album" href="{{ album.get_absolute_url }}">
                                         {% if album.cover_thumb_url %}
