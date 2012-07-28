@@ -41,6 +41,15 @@ div#container{
 a img{
     border: none;
 }
+.warning{
+    background-color: #F9CC79;
+    border: solid 1px #BB9860;
+    color: #333;
+    margin: 1em 3em 1em 3em;
+    padding: 0.5em;
+    font-weight: bold;
+    font-size: 0.9em;
+}
 /*** FORMS ***/
 input[type="text"], input[type="password"], input[type="submit"], button, input[type="button"], select, textarea{
 	border: solid 1px #6F8698;
