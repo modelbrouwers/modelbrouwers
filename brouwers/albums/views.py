@@ -311,6 +311,9 @@ def photo(request, photo_id=None):
     else:
         q = Q(album__public=True)
     photo = get_object_or_404(Photo, q, pk=photo_id)
+    photo.views = F('views') + 1
+    photo.save()
+    photo = get_object_or_404(Photo, pk=photo_id)
     return render_to_response(request, 'albums/photo.html', {'photo': photo})
 
 def edit_photo(request, photo_id=None):
