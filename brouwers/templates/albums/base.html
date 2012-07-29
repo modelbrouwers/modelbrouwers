@@ -205,6 +205,9 @@ naar de Modelbrouwers.nl homepage"/></a>
                                     <div class="album-title">
                                         <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">{{ album.title|truncatechars:25 }}</a>
                                     </div>
+                                    <div class="properties">
+                                        {{ album.photo_set.count }} foto&apos;s
+                                    </div>
                                     <a class="photo album" href="{{ album.get_absolute_url }}">
                                         {% if album.cover_thumb_url %}
                                             <img src="{{ album.cover_thumb_url }}" 

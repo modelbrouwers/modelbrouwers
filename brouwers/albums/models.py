@@ -126,6 +126,38 @@ class Photo(models.Model):
     def get_absolute_url(self):
         return "/albums/photo/%s/" % self.id
     
+    def get_next_3(self):
+        photos = Photo.objects.filter(album=self.album, id__gt=self.id).order_by('order', 'id')
+        if photos:
+            return photos[:3]
+        return None
+    
+    def get_previous_3(self):
+        photos = Photo.objects.filter(id__lt=self.id, album=self.album).order_by('-order', '-id')
+        if photos:
+            return photos[:3] #previous three, most recent first (use reversed in template)
+        return None
+    
+    #TODO optimaliseren
+    def url_back_3(self):
+        photos = Photo.objects.filter(id__lt=self.id, album=self.album).order_by('-order', '-id')
+        if photos:
+            try:
+                return photos[3].get_absolute_url() #previous three, most recent first (use reversed in template)
+            except IndexError:
+                pass
+        return None
+    
+    #TODO optimaliseren
+    def url_forward_3(self):
+        photos = Photo.objects.filter(id__gt=self.id, album=self.album).order_by('order', 'id')
+        if photos:
+            try:
+                return photos[3].get_absolute_url() #previous three, most recent first (use reversed in template)
+            except IndexError:
+                pass
+        return None
+    
     @property
     def BBCode(self):
         domain = Site.objects.get_current().domain

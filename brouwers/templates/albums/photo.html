@@ -1,0 +1,62 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+<div class="tab photo-title">
+    {% spaceless %}
+        Van 
+        <a href="{{ photo.user.get_absolute_url }}"><strong>{{ photo.user.get_profile.forum_nickname }}</strong></a>
+        <span style="font-weight: normal;">, in het album </span> 
+        <a href="{{ photo.album.get_absolute_url }}"><strong>{{ photo.album.title }}</strong></a> 
+        <span class="properties">&nbsp;({{ photo.album.number_of_photos }} afbeeldingen)</span>
+        {% if photo.album.build_report %}
+            &bull; <a href="{{ photo.album.build_report }}" target="_blank">Brouwverslag</a>
+        {% endif %}
+    {% endspaceless %}
+    
+    <span class="photo-stats">
+        {% ifequal user.id photo.user.id %}
+            <a href="{% url brouwers.albums.views.edit_photo photo.id %}">bewerken</a> &#124; 
+        {% endifequal %}
+        {{ photo.views }} views &#124; gewijzigd {{ photo.modified|date:"d b Y, H:i" }} &#124; upload {{ photo.uploaded|date:"d b Y, H:i" }}
+    </span>
+</div>
+
+<div class="photo-container">
+    <img class="photo" src="{{ photo.image.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="photo {{ photo.id }}"/>
+    
+    {% if photo.description %}
+    <div class="description">
+        &ldquo;{{ photo.description }}&rdquo;
+    </div>
+    {% endif %}
+</div>
+
+<div id="photo-navigation">
+    <!--TODO put the anchors in li elements, will be easier to style-->
+    <a class="navigation" href="{{ photo.url_back_3 }}"{% if not photo.url_back_3 %} style="visibility: hidden;"{% endif %}>&lsaquo;</a>
+    
+    {% for photo in photo.get_previous_3 reversed %}
+        {% spaceless %}
+        <a class="previous" href="{{ photo.get_absolute_url }}">
+            <img src="{{ photo.thumb_url }}" alt="photo {{ photo.id }}"/>
+        </a>
+        {% endspaceless %}
+    {% endfor %}
+    
+    {% spaceless %}
+    <a class="current" href="{{ photo.get_absolute_url }}">
+        <img src="{{ photo.thumb_url }}" alt="photo {{ photo.id }}"/>
+    </a>
+    {% endspaceless %}
+    
+    {% for photo in photo.get_next_3 %}
+        {% spaceless %}
+        <a class="next" href="{{ photo.get_absolute_url }}">
+            <img src="{{ photo.thumb_url }}" alt="photo {{ photo.id }}"/>
+        </a>
+        {% endspaceless %}
+    {% endfor %}
+    
+    <a class="navigation" href="{{ photo.url_forward_3 }}"{% if not photo.url_forward_3 %} style="visibility: hidden;"{% endif %}>&rsaquo;</a>
+</div>
+{% endblock %}

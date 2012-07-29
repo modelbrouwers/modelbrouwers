@@ -305,6 +305,17 @@ def my_albums_list(request):
         )
     return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data})
 
+def photo(request, photo_id=None):
+    if request.user.is_authenticated():
+        q = Q(album__public=True) | Q(user=request.user)
+    else:
+        q = Q(album__public=True)
+    photo = get_object_or_404(Photo, q, pk=photo_id)
+    return render_to_response(request, 'albums/photo.html', {'photo': photo})
+
+def edit_photo(request, photo_id=None):
+    return HttpResponse()
+
 @login_required
 def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder
     albumform = PickAlbumForm(request.user, request.GET, browse=True)
