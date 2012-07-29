@@ -33,6 +33,7 @@
 	        <script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js"></script>
 	    {% endblock %}
 	{% endblock scripts %}
+    <link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" /> 
 </head>
 
 <body>
@@ -198,31 +199,7 @@ naar de Modelbrouwers.nl homepage"/></a>
             {% block content %}
                 <div class="tab">Laatst gewijzigde albums</div>
                 <div id="albums-list-homepage">
-                    {% for album in albums %}
-                        {% cycle '<div class="row">' '' '' '' %}
-                            {% spaceless %}
-                                <div class="homepage-album">
-                                    <div class="album-title">
-                                        <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">{{ album.title|truncatechars:25 }}</a>
-                                    </div>
-                                    <div class="properties">
-                                        {{ album.photo_set.count }} foto&apos;s
-                                    </div>
-                                    <a class="photo album" href="{{ album.get_absolute_url }}">
-                                        {% if album.cover_thumb_url %}
-                                            <img src="{{ album.cover_thumb_url }}" 
-                                            {% if album.cover.is_wider_than_higher %}width="140"{% else %}height="105"{% endif %} alt="thumb"/>
-                                        {% endif %}
-                                    </a>
-                                    <div class="properties">
-                                        {{ album.views }} views
-                                        <br />
-                                        <a href="{{ album.user.get_absolute_url }}">{{ album.user.username }}</a>
-                                    </div>
-                                </div>
-                            {% endspaceless %}
-                        {% cycle '' '' '' '</div>' %}
-                    {% endfor %}
+                    {% include "albums/albums_list/public_albums_rows.html" %}
                     
                     {% if needs_closing_tag_row_albums %}
                         </div>

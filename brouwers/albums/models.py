@@ -36,8 +36,9 @@ class Album(models.Model):
             default="album %s" % datetime.now().strftime("%d-%m-%Y"))
     description = models.CharField(_("album description"),
             max_length=500, blank=True)
-    category = models.ForeignKey(Category, blank=True, null=True, default=1)
-    cover = models.ForeignKey('Photo', blank=True, null=True, help_text=_("Image to use as album cover."), related_name='cover') # TODO limit choices!
+    category = models.ForeignKey(Category, blank=True, null=True, default=1 or None)
+    cover = models.ForeignKey('Photo', blank=True, null=True, help_text=_("Image to use as album cover."), related_name='cover') 
+    # limit choices in form
     
     #Logging and statistics
     created = models.DateTimeField(auto_now_add=True)

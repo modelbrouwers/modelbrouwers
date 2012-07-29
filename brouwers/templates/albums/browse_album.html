@@ -20,7 +20,8 @@
         {% for photo in photos %}
             {% cycle '<div class="row">' '' '' '' %}
                 {% spaceless %}
-                <div class="photo">
+                <div class="photo{% if photo == photo.album.cover %} cover{% endif %}" 
+                {% if photo == photo.album.cover %}title="Album cover"{% endif %}>
                     <a class="photo" href="{{ photo.get_absolute_url }}" id="photo_{{ photo.id }}">
                         <img src="{{ photo.thumb_url }}" alt="{{ photo.id }}" 
                         {% if photo.is_wider_than_higher %}width="200"{% else %}height="150"{% endif %}/>

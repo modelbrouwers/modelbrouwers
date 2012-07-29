@@ -41,7 +41,7 @@ div#container{
 a img{
     border: none;
 }
-.warning{
+.warning, .no-javascript{
     background-color: #F9CC79;
     border: solid 1px #BB9860;
     color: #333;
@@ -512,6 +512,11 @@ span.album-stats, span.photo-stats{
     width: 22.4%;
     height: 200px;
 }
+.album-photos-list .cover.photo a{
+    padding: 1px;
+    border: solid 2px #0E72A4;
+    margin-top: -2px;
+}
 .album-photos-list div.photo a.photo{
     width: 200px;
     height: 150px;
@@ -568,4 +573,44 @@ img.photo{
     font-size: 3em;
     position: relative;
     bottom: 22px;
+}
+/*** EDIT ALBUM & PHOTO ***/
+#edit-album form table th{
+    width: 20%;
+}
+#edit-album form table td.field{
+    width: 42%;
+}
+#edit-album td, #edit-album th{
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+}
+#edit-album form input[type="text"], #edit-album select, #edit-photo form input[type="text"], #edit-photo select{
+    padding: 0.2em 0.4em 0.2em 0.4em;
+    width: 30em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#edit-photo .edit-photo{
+    float: left;
+    padding: 0 0.5em 0 3em;
+}
+#edit-photo form table{
+    width: 70%;
+    margin: 0;
+}
+#edit-photo form table th{
+    width: 30%;
+}
+#edit-photo form table td{
+    width: inherit;
+}
+#edit-photo textarea, #edit-album textarea{
+    height: 3em;
+    width: 30em;
+    padding: 0.2em 0.4em 0.2em 0.4em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }

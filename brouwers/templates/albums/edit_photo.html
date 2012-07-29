@@ -1,0 +1,19 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+<div class="tab">
+    Foto in het album <a href="{{ form.instance.album.get_absolute_url }}"><strong>{{ form.instance.album }}</strong></a>
+</div>
+<div id="edit-photo" class="margin">
+    <form action="." method="POST">
+        <div class="edit-photo">
+            <img src="{{ form.instance.thumb_url }}" width="150" alt="thumb" />
+        </div>
+        
+        {% include "form_in_table.html" %}
+        <div class="center clear">
+            <input type="submit" value="Bewaren" name="manage" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
+        </div>
+    </form>
+</div>
+{% endblock %}

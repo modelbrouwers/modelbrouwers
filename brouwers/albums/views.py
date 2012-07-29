@@ -13,6 +13,7 @@ from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import *
 from utils import resize
+from datetime import datetime
 
 ###########################
 #          BASE           #
@@ -95,7 +96,7 @@ def manage(request, album_id=None):
                     form.instance.save()
                 for form in album_formset.deleted_forms:
                     form.instance.trash = True
-                    form.instance.title = "trash_%s" % form.instance.title
+                    form.instance.title = "trash_%s_%s" % (datetime.now().strftime('dmY_H.M.s'), form.instance.title)
                     #avoid title-user collisions in the future TODO can still happen, find a fix
                     form.instance.save()
                 return HttpResponseRedirect(reverse(manage))
@@ -105,9 +106,28 @@ def manage(request, album_id=None):
         album_formset = AlbumFormSet(queryset=albums)
     return render_to_response(request, 'albums/manage.html', {'albumformset': album_formset, 'add_album_form': add_album_form})
 
-@login_required #TODO: implement
-def edit_album(request, album_id):
-    return HttpResponse()
+@login_required
+def edit_album(request, album_id=None):
+    album = get_object_or_404(Album, pk=album_id, user=request.user)
+    if request.method == "POST":
+        form = EditAlbumForm(request.POST, instance=album)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse(my_albums_list))
+    else:
+        form = EditAlbumForm(instance=album)
+    return render_to_response(request, 'albums/edit_album.html', {'form': form})
+
+def edit_photo(request, photo_id=None):
+    photo = get_object_or_404(Photo, pk=photo_id, user=request.user)
+    if request.method == "POST":
+        form = EditPhotoForm(request.POST, instance=photo)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse(browse_album, args=[photo.album.id]))
+    else:
+        form = EditPhotoForm(instance=photo)
+    return render_to_response(request, 'albums/edit_photo.html', {'form': form})
 
 @login_required
 def preferences(request):
@@ -315,9 +335,6 @@ def photo(request, photo_id=None):
     photo.save()
     photo = get_object_or_404(Photo, pk=photo_id)
     return render_to_response(request, 'albums/photo.html', {'photo': photo})
-
-def edit_photo(request, photo_id=None):
-    return HttpResponse()
 
 @login_required
 def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder

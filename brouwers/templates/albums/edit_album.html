@@ -1,0 +1,13 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+<div class="tab">Bewerk album &lsquo;<strong>{{ form.instance }}</strong>&rsquo;</div>
+<div id="edit-album">
+    <form action="." method="POST">
+        {% include "form_in_table.html" %}
+        <div class="center">
+            <input type="submit" value="Bewaren" name="manage" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
+        </div>
+    </form>
+</div>
+{% endblock %}
