@@ -8,51 +8,25 @@ Registratie
 <h1>Registratie</h1>
 <hr />
 <br />
-<p>Op deze pagina kunt u zich registreren. Registratie is nodig om te kunnen nomineren en stemmen bij de awards.</p>
-<p>De gebruikersnaam mag maximaal 30 tekens bevatten en bestaat uit letters, cijfers en/of de volgende karakters: @, ., +, -, _. Spaties zijn <strong>niet</strong> toegelaten, deze vervang je bijvoorbeeld door een underscore ('_').</p>
+<p>
+    Beste gebruiker,
+    <br />
+    Op deze pagina registreert u zich voor de extra applicaties rond Modelbrouwers.nl. U geeft als gebruikersnaam uw forumgebruikersnaam op.
+</p>
+<br />
 <br />
 <form action="" method="POST">
-{% csrf_token %}
-		{% for error in form.non_field_errors %}
-			<p class="error"><strong>{{ error|escape }}</strong></p>
-		{% endfor %}
-<table>
-	<tr><td><h2>Algemeen</h2></td><td></td></tr>
-	<tr><td>Gebruikersnaam*: </td><td>{{form.username}}</td></tr>
-	{% for error in form.username.errors %}
-		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-	{% endfor %}
-	<tr><td>Nickname op het forum*: </td><td>{{form.forum_nickname}}</td></tr>
-	{% for error in form.forum_nickname.errors %}
-		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-	{% endfor %}
-	<tr><td>Wachtwoord*: </td><td>{{form.password1}}</td></tr>
-	{% for error in form.password1.errors %}
-		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-	{% endfor %}
-	<tr><td>Wachtwoord* (bevestig): </td><td>{{form.password2}}</td></tr>
-	{% for error in form.password2.errors %}
-		<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-	{% endfor %}
-	<tr><td>E-mail: </td><td>{{form.email}}</td></tr>
-	<tr><td colspan="2" class="helptext">Als je je e-mailadres invult, dan wordt een e-mail met je logingegevens verstuurd.</td></tr>
-		{% for error in form.email.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	<tr><td><br/></td><td></td></tr>
-	<tr><td><h2>BrouwersAwards</h2></td><td></td></tr>
-	<tr><td>{{form.exclude_from_nomination}}&nbsp;&nbsp;Sluit mij uit van nominaties</td><td></td></tr>
-	{% if form.exclude_from_nomination.errors %}
-		{% for error in form.exclude_from_nomination.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-</table>
+    {% csrf_token %}
+    {% for error in form.non_field_errors %}
+        <p class="error"><strong>{{ error|escape }}</strong></p>
+    {% endfor %}
+    
+    {% include "form_in_table.html" %}
 <br />
 <input type = "submit" value="Registreer"/>
 </form>
 <br />
-Velden met een * zijn verplicht.
+Alle velden zijn verplicht en in uw profiel kunt u opties instellen.
 <br />
 <br />
 <br />

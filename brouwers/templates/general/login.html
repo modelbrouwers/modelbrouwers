@@ -1,24 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="side_header">
-	<h1 class="content_part">Login</h1>
-</div>   
-<div class="side_content">
-    <table style="width: 80%"><tr><td>
-    	<form method="post" action=".">
-    	{% csrf_token %}
-    		<table>
-    			{{ form }}
-    		</table>
-    		{% if next %}
-    			<input type="hidden" name="next" value="{{ next }}" />
-    		{% else %}
-    			<input type="hidden" name="next" value="/" />
-    		{% endif %}
-    		
-    		<input type="submit" value="login" />
-    	</form>
-	</td></tr></table>
+<h1 class="content_part">Login</h1>
+<hr />
+<br />
+<br />
+<p style="border: solid 2px red;background-color:#CCC;padding:5px;">
+    <strong>Opgepast!</strong> Sinds 30-07-2012 is het interne inlogsysteem gewijzigd!
+    <br />
+    Voortaan log je niet meer in met de gebruikersnaam die je hier gekozen hebt, maar met je forumgebruikersnaam!
+    <br />
+    <br />
+    Als je hiermee niet langer kan inloggen, contacteer dan sergeimaertens@skynet.be of BBT op het forum, en vermeld hierbij je forumgebruikersnaam.
+</p>
+<br />
+<br />
+<table style="width: 80%"><tr><td>
+	<form method="post" action=".">
+	{% csrf_token %}
+		<table>
+			{{ form }}
+		</table>
+ 		{% if next %}
+  			<input type="hidden" name="next" value="{{ next }}" />
+   		{% else %}
+   			<input type="hidden" name="next" value="/" />
+   		{% endif %}
+   		
+   		<input type="submit" value="login" />
+   	</form>
+</td></tr></table>
 </div>
 {% endblock %}

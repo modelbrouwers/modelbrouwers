@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -11,43 +11,41 @@ from brouwers.albums.models import Album
 from brouwers.awards.models import Project
 from brouwers.secret_santa.models import Participant
 
-from forms import ProfileForm, UserForm, UserProfileForm
+from forms import *
 from models import UserProfile
 from shortcuts import render_to_response
 
 from datetime import date
 
-#TODO: separate code for awards and secret santa
-
+### ready for implementation on modelbrouwers.nl
 def register(request):
     if request.method=='POST':
-        form = UserProfileForm(request.POST)
+        #form = UserProfileForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
+            user = form.save()
+            username = user.username
+            nickname = form.cleaned_data['forum_nickname']
             password = form.cleaned_data['password1']
             new_user = authenticate(username = username, password = password)
             login(request, new_user)
-            if new_user.get_profile().exclude_from_nomination:
-                projects = Project.objects.filter(brouwer__iexact = new_user.get_profile().forum_nickname)
-                for project in projects:
-                    project.rejected = True
-                    project.save()
-            if form.cleaned_data['email']:
-                subject = 'Registratie op xbbtx.be'
-                message = 'Bedankt voor uw registratie op http://xbbtx.be.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (username, password)
-                sender = 'sergeimaertens@skynet.be'
-                receiver = [form.cleaned_data['email']]
-                send_mail(subject, message, sender, receiver, fail_silently=True)            
+            
+            subject = 'Registratie op xbbtx.be'
+            message = 'Bedankt voor uw registratie op http://xbbtx.be.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
+            sender = 'sergeimaertens@skynet.be'
+            receiver = [form.cleaned_data['email']]
+            send_mail(subject, message, sender, receiver, fail_silently=True)      
+            
             return HttpResponseRedirect('/profile/')
     else:
-        form = UserProfileForm()
+        form = RegistrationForm()
     return render_to_response(request, 'general/register.html', {'form': form})
 
+### ready for implementation on modelbrouwers.nl
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
             # Light security check -- make sure next_page isn't garbage.
             if not next_page or ' ' in next_page:
