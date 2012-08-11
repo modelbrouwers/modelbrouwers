@@ -37,6 +37,8 @@ class UserProfileForm(UserCreationForm):
         profile.save()
         return user
 
+#FIXME change forum_nickname to regexfield with spaces, avoid other special characters
+#TODO validate email, should be unique
 class RegistrationForm(forms.ModelForm):
     error_messages = {
         'duplicate_username': _("A user with that username already exists."),

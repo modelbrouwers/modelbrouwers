@@ -13,6 +13,8 @@ $(document).ready(function() {
     $('div.album').mouseout(function() {
         $(this).find('.edit, .remove').hide();
     });
+    
+    
 });
 
 function hideNewAlbum(){

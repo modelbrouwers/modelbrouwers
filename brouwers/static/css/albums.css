@@ -542,6 +542,7 @@ img.photo{
     padding: 0.5em;
     border-top: solid 1px #0E72A4;
     border-bottom: solid 1px #0E72A4;
+    position: relative;
 }
 #photo-navigation{
     background-color: #333;
@@ -574,6 +575,21 @@ img.photo{
     position: relative;
     bottom: 22px;
 }
+.photo-container2{
+    position: relative;
+}
+.photo-container2 .in-photo-navigation{
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    z-index: 2;
+    margin-bottom: -22px;
+    margin-left: -30px;
+}
+.photo-container2 .in-photo-navigation .nav-arrow{
+    position: relative;
+}
+
 /*** EDIT ALBUM & PHOTO ***/
 #edit-album form table th{
     width: 20%;

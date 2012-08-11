@@ -22,12 +22,42 @@
 </div>
 
 <div class="photo-container">
-    <img class="photo" src="{{ photo.image.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="photo {{ photo.id }}"/>
-    
-    {% if photo.description %}
-    <div class="description">
-        &ldquo;{{ photo.description }}&rdquo;
+    <div class="photo-container2">
+        <div class="in-photo-navigation">
+            {% spaceless %}
+            {% if photo.get_previous %}
+            <a href="{{ photo.get_previous.get_absolute_url }}">
+	            <img class="nav-arrow arrow-left" src="{{ STATIC_URL }}images/nav/arrow-left.png" 
+	            alt="previous" style="right: {{ position }}px;"/>
+            </a>
+            {% else %}
+            <a href="#" style="visibility: hidden;">
+	            <img class="nav-arrow arrow-left" src="{{ STATIC_URL }}images/nav/arrow-left.png" 
+	            alt="previous" style="right: {{ position }}px;"/>
+            </a>
+            {% endif %}
+            {% endspaceless %}
+            
+            {% spaceless %}
+            {% if photo.get_next %}
+            <a href="{{ photo.get_next.get_absolute_url }}">
+                 <img class="nav-arrow arrow-right" src="{{ STATIC_URL }}images/nav/arrow-right.png" 
+                 alt="next" next="{{ photo.get_next.id }}" style="left: {{ position }}px;"/>
+            </a>
+            {% else %}
+            <a href="#" style="visibility: hidden;">
+	            <img class="nav-arrow arrow-right" src="{{ STATIC_URL }}images/nav/arrow-right.png" 
+	            alt="previous" style="right: {{ position }}px;"/>
+            </a>
+            {% endif %}
+            {% endspaceless %}
+        </div>
+        <img class="photo" src="{{ photo.image.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="photo {{ photo.id }}"/>
     </div>
+    {% if photo.description %}
+       <div class="description">
+           &ldquo;{{ photo.description }}&rdquo;
+       </div>
     {% endif %}
 </div>
 

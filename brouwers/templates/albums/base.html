@@ -10,6 +10,8 @@
 	
 	{% block style %}
 	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css" charset="utf-8"/>
+	    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.8.22.custom.css" />
+	    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
 	    <!--[if IE]>
 	        <style type="text/css">
 	            ul#menu{
@@ -23,12 +25,12 @@
 	        </style>
 	    <![endif]-->
 	    {% block extrastyle %}
-	        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
 	    {% endblock extrastyle %}
 	{% endblock style %}
 	
 	{% block scripts %}
 	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
+	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.8.22.custom.min.js"></script>
 	    {% block extrascript %}
 	        <script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js"></script>
 	    {% endblock %}

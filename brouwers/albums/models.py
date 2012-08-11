@@ -127,14 +127,28 @@ class Photo(models.Model):
     def get_absolute_url(self):
         return "/albums/photo/%s/" % self.id
     
+    def get_next(self):
+    	photos = Photo.objects.filter(album=self.album, order__gt=self.order)
+    	photos = photos.order_by('order', 'id')
+    	if photos:
+    		return photos[0]
+    	return None
+    
+    def get_previous(self):
+    	photos = Photo.objects.filter(album=self.album, order__lt=self.order)
+    	photos = photos.order_by('-order', '-id')
+    	if photos:
+    		return photos[0]
+    	return None
+    
     def get_next_3(self):
-        photos = Photo.objects.filter(album=self.album, id__gt=self.id).order_by('order', 'id')
+        photos = Photo.objects.filter(album=self.album, order__gt=self.order).order_by('order', 'id')
         if photos:
             return photos[:3]
         return None
     
     def get_previous_3(self):
-        photos = Photo.objects.filter(id__lt=self.id, album=self.album).order_by('-order', '-id')
+        photos = Photo.objects.filter(order__lt=self.order, album=self.album).order_by('-order', '-id')
         if photos:
             return photos[:3] #previous three, most recent first (use reversed in template)
         return None

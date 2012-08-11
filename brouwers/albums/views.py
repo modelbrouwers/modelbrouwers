@@ -334,7 +334,8 @@ def photo(request, photo_id=None):
     photo.views = F('views') + 1
     photo.save()
     photo = get_object_or_404(Photo, pk=photo_id)
-    return render_to_response(request, 'albums/photo.html', {'photo': photo})
+    position = (photo.width / 2) - 40
+    return render_to_response(request, 'albums/photo.html', {'photo': photo, 'position': position})
 
 @login_required
 def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder
