@@ -11,7 +11,7 @@
         <span>&lsaquo;</span>
     {% endif %}
     
-    &nbsp;&nbsp;<a href="?{{ page }}={{ objects.number }}">{{ objects.number }} van {{ objects.paginator.num_pages }}</a>&nbsp;&nbsp;
+    &nbsp;&nbsp;<a href="?{{ page }}={{ objects.number }}">{{ objects.number }}</a> van {{ objects.paginator.num_pages }}&nbsp;&nbsp;
     
     {% if objects.has_next %}
         <a href="?{{ page }}={{ objects.next_page_number }}">&rsaquo;</a>
