@@ -2,7 +2,7 @@ from models import *
 from django.contrib import admin
 
 class AlbumAdmin(admin.ModelAdmin):
-	list_display = ('user', 'title', 'created', 'public', 'writable_to')
+	list_display = ('user', 'title', 'last_upload', 'created', 'public', 'writable_to')
 	list_filter = ('user', 'public', 'writable_to', 'created')
 	search_fields = ('title', 'description')
 
