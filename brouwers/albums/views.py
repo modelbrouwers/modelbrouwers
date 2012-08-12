@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F, Q, Max
+from django.db.models import Count, F, Q, Max
 from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
