@@ -19,7 +19,7 @@ from datetime import datetime
 #          BASE           #
 ###########################
 def index(request):
-    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created') #FIXME sorteren op laatste datum foto toegevoegd
+    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')
     
     p = Paginator(albums, 20)
     page = request.GET.get('page', 1)
@@ -242,7 +242,7 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
 ###########################
 
 def albums_list(request):
-    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload')
+    albums = Album.objects.filter(trash=False, public=True).annotate(null_last_upload=Count('last_upload')).order_by('-last_upload', '-created')
     
     p = Paginator(albums, 30)
     page = request.GET.get('page', 1)
