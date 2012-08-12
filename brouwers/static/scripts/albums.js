@@ -77,6 +77,27 @@ $(document).ready(function() {
             searchfield.val('albums doorzoeken...');
         }
     });
+    // setting the album cover
+    $('.album-photos-list a.photo img').mouseenter(function(){
+        if (!$(this).parent().parent().hasClass('cover')){
+            $(this).parent().find('img.set_cover').show();
+        }
+    });
+    $('.album-photos-list a.photo img').mouseleave(function(){
+        $(this).parent().find('img.set_cover').hide();
+    });
+    $('.album-photos-list a.photo img.set_cover').click(function(e){
+        e.stopPropagation();
+        var a = $(this).parent();
+        var p_id = a.attr('id').slice(6);
+        $.post('/albums/set_cover/', {'photo': p_id}, function(data){
+            if (data == 1){//success
+                $('.cover').removeClass('cover');
+                a.parent().addClass("cover");
+            }
+        });
+        return false; // don't follow the url
+    });
 });
 
 function hideNewAlbum(){

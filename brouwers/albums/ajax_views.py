@@ -77,3 +77,18 @@ def search(request):
             "url": album.get_absolute_url()
         })
     return HttpResponse(json.dumps(output))
+
+### set album_cover
+@login_required
+def set_cover(request):
+    if request.method == "POST":
+        p_id = request.POST['photo']
+        try:
+            p_id = int(p_id)
+            photo = get_object_or_404(Photo, pk=p_id, user=request.user)
+            photo.album.cover = photo
+            photo.album.save()
+            return HttpResponse(1)
+        except ValueError: #not an integer
+            pass
+    return HttpResponse()

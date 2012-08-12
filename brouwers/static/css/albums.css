@@ -586,6 +586,17 @@ span.album-stats, span.photo-stats{
 .album-photos-list div.photo a.photo{
     width: 200px;
     height: 150px;
+    position: relative;
+}
+.album-photos-list img.set_cover{
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    border-right: solid 1px #0E72A4;
+    border-bottom: solid 1px #0E72A4;
+    display: none;
 }
 div.photo .description{
     font-style: italic;

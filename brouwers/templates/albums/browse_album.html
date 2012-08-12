@@ -23,6 +23,10 @@
                 <div class="photo{% if photo == photo.album.cover %} cover{% endif %}" 
                 {% if photo == photo.album.cover %}title="Album cover"{% endif %}>
                     <a class="photo" href="{{ photo.get_absolute_url }}" id="photo_{{ photo.id }}">
+                        
+                        <img class="set_cover" src="{{ STATIC_URL }}images/icons/cover.png" 
+                        width="24" height="24" alt="cover" title="instellen als albumcover"/>
+                        
                         <img src="{{ photo.thumb_url }}" alt="{{ photo.id }}" 
                         {% if photo.is_wider_than_higher %}width="200"{% else %}height="150"{% endif %}/>
                     </a>
