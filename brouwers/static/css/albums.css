@@ -593,14 +593,14 @@ div.photo .description{
 }
 
 .photo-container{
-    width: 98%;
+    width: 99%;
     margin: 0 auto;
     text-align: center;
 }
 img.photo{
     border: solid 1px #333;
     padding: 1px;
-    margin: 1em;
+    margin: 1em auto 1em auto;
 }
 .photo-container .description{
     background-color: #EEE;
