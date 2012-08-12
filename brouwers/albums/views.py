@@ -19,7 +19,7 @@ from datetime import datetime
 #          BASE           #
 ###########################
 def index(request):
-    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')
+    albums = Album.objects.filter(trash=False, public=True).annotate(null_last_upload=Count('last_upload')).order_by('-last_upload', '-created')
     
     p = Paginator(albums, 20)
     page = request.GET.get('page', 1)
