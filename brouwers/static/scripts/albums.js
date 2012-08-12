@@ -14,7 +14,7 @@ $(document).ready(function() {
         $(this).find('.edit, .remove').hide();
     });
     
-    $('.photo-container2 img.photo').mouseenter(function() {
+    $('.photo-container2 img.photo, .photo-container2 nav-arrow').mouseenter(function() {
         $('div.in-photo-navigation').css('visibility', 'visible');
     });
     $('.photo-container2 img.photo').mouseleave(function() {
