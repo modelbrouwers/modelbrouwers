@@ -64,7 +64,7 @@ def search(request):
         q = Q(title__icontains=value) | Q(description__icontains=value) | Q(user__username__icontains=value)
         query.append(q)
     if len(query) > 0 and len(query) < 10:
-        albums = Album.objects.filter(*query).order_by('title')
+        albums = Album.objects.filter(trash=False, public=True, *query).order_by('title')
     else:
         return HttpResponse()
     output = []
