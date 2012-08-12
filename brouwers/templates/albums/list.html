@@ -1,6 +1,12 @@
 {% extends "albums/base.html" %}
 
 {% block content %}
+<div class="tab">
+    <form action="." method="GET" id="album-list-searchform">
+        {{ searchform }}
+<!--        <input type="submit" value="zoeken" />-->
+    </form>
+</div>
 <div id="albums-list">
     {% include "albums/albums_list/public_albums_rows_5col.html" %}
     

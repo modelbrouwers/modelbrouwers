@@ -2,7 +2,13 @@
     {% cycle '<div class="row">' '' '' '' %}
         <div class="photo album">
             <div class="album-title">
-                <a href="{{ album.get_absolute_url }}">{{ album.title }}</a>
+                <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
+                    {% if album.title|length > 19 %}
+                        {{ album.title|truncatechars:19 }}
+                    {% else %}
+                        {{ album.title }}
+                    {% endif %}
+                </a>
             </div>
             
             <div class="properties">

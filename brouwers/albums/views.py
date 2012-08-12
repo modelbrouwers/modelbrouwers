@@ -256,7 +256,13 @@ def albums_list(request):
     needs_closing_tag_row = False
     if len(albums) % 5 != 0:
         needs_closing_tag_row = True
-    return render_to_response(request, 'albums/list.html', {'albums': albums, 'needs_closing_tag_row': needs_closing_tag_row})
+    
+    searchform = SearchForm()
+    return render_to_response(request, 'albums/list.html', {
+            'albums': albums, 
+            'needs_closing_tag_row': needs_closing_tag_row,
+            'searchform': searchform
+            })
 
 def browse_album(request, album_id=None):
     if request.user.is_authenticated():

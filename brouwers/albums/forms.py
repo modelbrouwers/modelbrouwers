@@ -103,3 +103,7 @@ class PreferencesForm(forms.ModelForm):
         widgets = {
             'user': forms.HiddenInput(),
         }
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=256, label=_("Keywords"))
+

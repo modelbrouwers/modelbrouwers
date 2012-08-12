@@ -1,10 +1,12 @@
-from django.db.models import Max
+from django.db.models import Q, Max
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.forms import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils.safestring import mark_safe
+import django.utils.simplejson as json
 
 from brouwers.general.shortcuts import render_to_response
 from models import *
@@ -53,3 +55,25 @@ def uploadify(request):
         return HttpResponse('%s' % p_id, mimetype="text/plain") #return the photo id
     else:
         return HttpResponse()
+
+### search function
+def search(request):
+    inputresults = request.GET.__getitem__('term').split(' ')
+    query = []
+    for value in inputresults:
+        q = Q(title__icontains=value) | Q(description__icontains=value) | Q(user__username__icontains=value)
+        query.append(q)
+    if len(query) > 0 and len(query) < 10:
+        albums = Album.objects.filter(*query).order_by('title')
+    else:
+        return HttpResponse()
+    output = []
+    for album in albums:
+        label = mark_safe(u"%s \u2022 %s" % (album.__unicode__(), album.user.get_profile().forum_nickname))
+        output.append({
+            "id": album.id,
+            "label": label,
+            "value": album.__unicode__(),
+            "url": album.get_absolute_url()
+        })
+    return HttpResponse(json.dumps(output))
