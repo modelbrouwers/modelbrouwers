@@ -7,10 +7,10 @@
 <!--        <input type="submit" value="zoeken" />-->
     </form>
 </div>
-<div id="albums-list">
+<div id="albums-list" style="padding:0;">
     {% include "albums/albums_list/public_albums_rows_5col.html" %}
     
-    {% if needs_closing_tag_row_albums %}
+    {% if needs_closing_tag_row %}
         </div>
     {% endif %}
     

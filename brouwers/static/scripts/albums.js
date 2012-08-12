@@ -22,7 +22,7 @@ $(document).ready(function() {
     });
     
     /* FIXME werkt nog niet al te goed...
-    $('.album-list .album-title').mouseenter(function() {
+    $('.album-column .album-title').mouseenter(function() {
         var title = $(this).find('a').attr('title');
         if (title.length > 19)
         {
@@ -37,7 +37,7 @@ $(document).ready(function() {
             $(this).parent().css('z-index', '10');
         }
     });
-    $('.album-list .album-title').mouseleave(function() {
+    $('.album-column .album-title').mouseleave(function() {
         $(this).parent().css('overflow', 'hidden');
         $(this).css('overflow', 'hidden');
         $(this).css('width', 'auto');

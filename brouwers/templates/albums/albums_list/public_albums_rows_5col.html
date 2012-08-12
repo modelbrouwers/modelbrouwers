@@ -1,7 +1,7 @@
 {% for album in albums %}
 {% cycle '<div class="row">' '' '' '' '' %}
     {% spaceless %}
-        <div class="album-list">
+        <div class="album-column">
             <div class="album-title">
                 <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
                     {% if album.title|length > 19 %}
