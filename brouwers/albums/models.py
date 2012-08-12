@@ -118,9 +118,13 @@ class Photo(models.Model):
     
     def save(self, *args, **kwargs):
         #also save the album, so the last modified date gets set
+        new = False
+        if not self.id:
+            new = True
         super(Photo, self).save(*args, **kwargs)
-        self.album.last_upload = photo.uploaded
-        self.album.save()
+        if new:
+            self.album.last_upload = self.uploaded
+            self.album.save()
     
     def __unicode__(self):
         return "image from %s in %s" % (self.user, self.album.title)
