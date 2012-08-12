@@ -26,7 +26,7 @@
         <div class="in-photo-navigation">
             {% spaceless %}
             {% if photo.get_previous %}
-            <a href="{{ photo.get_previous.get_absolute_url }}">
+            <a href="{{ photo.get_previous.get_absolute_url }}#photo_{{ photo.get_previous.id }}">
 	            <img class="nav-arrow arrow-left" src="{{ STATIC_URL }}images/nav/arrow-left.png" 
 	            alt="previous" style="right: {{ position }}px;"/>
             </a>
@@ -40,7 +40,7 @@
             
             {% spaceless %}
             {% if photo.get_next %}
-            <a href="{{ photo.get_next.get_absolute_url }}">
+            <a href="{{ photo.get_next.get_absolute_url }}#photo_{{ photo.get_next.id }}">
                  <img class="nav-arrow arrow-right" src="{{ STATIC_URL }}images/nav/arrow-right.png" 
                  alt="next" next="{{ photo.get_next.id }}" style="left: {{ position }}px;"/>
             </a>
@@ -52,7 +52,7 @@
             {% endif %}
             {% endspaceless %}
         </div>
-        <img class="photo" src="{{ photo.image.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="photo {{ photo.id }}"/>
+        <img id="photo_{{ photo.id }}" class="photo" src="{{ photo.image.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="photo {{ photo.id }}"/>
     </div>
     {% if photo.description %}
        <div class="description">
