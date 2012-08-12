@@ -1,0 +1,33 @@
+{% for album in albums %}
+{% cycle '<div class="row">' '' '' '' '' %}
+    {% spaceless %}
+        <div class="album-list">
+            <div class="album-title">
+                <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
+                    {% if album.title|length > 19 %}
+                        {{ album.title|truncatechars:"19"}}
+                    {% else %}
+                        {{ album.title}}
+                    {% endif %}
+                </a>
+            </div>
+            <div class="properties">
+                {{ album.photo_set.count }} foto&apos;s
+            </div>
+            <a class="photo album" href="{{ album.get_absolute_url }}">
+                {% if album.cover_thumb_url %}
+                    <img src="{{ album.cover_thumb_url }}" 
+                    {% if album.cover.is_wider_than_higher %}width="140"{% else %}height="105"{% endif %} alt="thumb"/>
+                {% endif %}
+            </a>
+            <div class="properties">
+                {{ album.views }} views
+                {% if not total %}
+                    <br />
+                    <a href="{{ album.user.get_absolute_url }}">{{ album.user.username }}</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endspaceless %}
+{% cycle '' '' '' '' '</div>' %}
+{% endfor %}

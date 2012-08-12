@@ -19,7 +19,7 @@ from datetime import datetime
 #          BASE           #
 ###########################
 def index(request):
-    albums = Album.objects.filter(trash=False, public=True).order_by('-created') #FIXME sorteren op laatste datum foto toegevoegd
+    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created') #FIXME sorteren op laatste datum foto toegevoegd
     
     p = Paginator(albums, 20)
     page = request.GET.get('page', 1)
@@ -240,6 +240,23 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
 ###########################
 #        BROWSING         #
 ###########################
+
+def albums_list(request):
+    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload')
+    
+    p = Paginator(albums, 30)
+    page = request.GET.get('page', 1)
+    try:
+        albums = p.page(page)
+    except (PageNotAnInteger, TypeError):
+        albums = p.page(1)
+    except EmptyPage:
+        albums = p.page(p.num_pages)
+    
+    needs_closing_tag_row = False
+    if len(albums) % 5 != 0:
+        needs_closing_tag_row = True
+    return render_to_response(request, 'albums/list.html', {'albums': albums, 'needs_closing_tag_row': needs_closing_tag_row})
 
 def browse_album(request, album_id=None):
     if request.user.is_authenticated():

@@ -43,7 +43,7 @@ class Album(models.Model):
     #Logging and statistics
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
-    #(default=datetime.now)     #auto_now or something like that?
+    last_upload = models.DateTimeField(blank=True, null=True)
     views = models.PositiveIntegerField(default=0)
     
     #User preferences
@@ -119,6 +119,7 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         #also save the album, so the last modified date gets set
         super(Photo, self).save(*args, **kwargs)
+        self.album.last_upload = photo.uploaded
         self.album.save()
     
     def __unicode__(self):

@@ -19,7 +19,7 @@ def cln_build_report(form):
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        exclude = ('user', 'created', 'modified', 'views', 'votes', 'order', 'trash', 'cover')
+        exclude = ('user', 'created', 'modified', 'last_upload', 'views', 'votes', 'order', 'trash', 'cover')
         
     def clean_build_report(self):
         return cln_build_report(self)

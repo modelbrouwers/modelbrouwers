@@ -9,7 +9,7 @@
             "is_active": true,
             "is_superuser": true,
             "is_staff": true,
-            "last_login": "2012-07-23T23:49:54.126",
+            "last_login": "2012-07-30T23:42:04.785",
             "groups": [],
             "user_permissions": [],
             "password": "pbkdf2_sha256$10000$z3awiDWfqZnd$G2e7/1g/t4ahl+laSnUFl7Dux7b6OVyhhv4xFQA8+4k=",
@@ -39,7 +39,7 @@
         "pk": 3,
         "model": "auth.user",
         "fields": {
-            "username": "joesilent",
+            "username": "joe_silent",
             "first_name": "",
             "last_name": "",
             "is_active": true,
@@ -51,6 +51,60 @@
             "password": "sha1$5f85b$d03537e8147c7f552ba97e2d6fce1f9f8a7ca7e4",
             "email": "",
             "date_joined": "2011-01-10T14:03:10"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "auth.user",
+        "fields": {
+            "username": "test",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2012-07-30T22:54:16.311",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$2XlRm0F30Y7I$aPYviDxjpqE6TtC/Vvf8i50Ju+5d96jlCAIrIhnDc1g=",
+            "email": "test@test.com",
+            "date_joined": "2012-07-30T22:54:15.023"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "auth.user",
+        "fields": {
+            "username": "Ronald_Kok",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2012-07-30T23:04:06.575",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$JiL2MS1Aq5Fb$yOyG34prtawJ6TYDiM2Hu7jPvqsozV/4upXrK172qao=",
+            "email": "ron@kok.be",
+            "date_joined": "2012-07-30T22:54:45"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "auth.user",
+        "fields": {
+            "username": "Se\u00f1or_M",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2012-07-30T23:41:32.018",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$AlNhdrpN2WsO$upNUxnqtIEKZT1/I5JVRVq7LibcFMx4ohVBak3YvwJA=",
+            "email": "sergeimaertens@skynet.be",
+            "date_joined": "2012-07-30T23:41:30.755"
         }
     },
     {
@@ -224,6 +278,66 @@
         }
     },
     {
+        "pk": 5,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 5,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "Ronald Kok",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 6,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 6,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "Se\u00f1or M",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 4,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 4,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "test",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
         "pk": 1,
         "model": "secret_santa.participant",
         "fields": {
@@ -267,28 +381,10 @@
             "created": "2012-02-15T20:51:57",
             "views": 0,
             "title": "EJ-10 Honda",
-            "modified": "2012-02-18T17:36:03",
+            "cover": 28,
+            "modified": "2012-07-24T17:49:38.738",
             "public": false,
-            "build_report": "",
-            "user": 1,
-            "writable_to": "u",
-            "trash": false,
-            "order": 1
-        }
-    },
-    {
-        "pk": 1,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "description": "Album met bouw- en eindfoto's van de 1/144 Revell Flanker",
-            "created": "2012-02-11T15:35:43",
-            "views": 0,
-            "title": "Su-27 Flanker",
-            "modified": "2012-02-18T17:36:04",
-            "public": false,
-            "build_report": "",
+            "build_report": "http://modelbrouwers.nl/phpBB3/",
             "user": 1,
             "writable_to": "u",
             "trash": false,
@@ -305,6 +401,7 @@
             "created": "2012-02-11T15:38:14",
             "views": 0,
             "title": "Tornado IDS 'White Tiger'",
+            "cover": null,
             "modified": "2012-02-12T20:41:36",
             "public": false,
             "build_report": "",
@@ -315,6 +412,26 @@
         }
     },
     {
+        "pk": 1,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "description": "Album met bouw- en eindfoto's van de 1/144 Revell Flanker",
+            "created": "2012-02-11T15:35:43",
+            "views": 22,
+            "title": "Su-27 Flanker - Ukraine",
+            "cover": 4,
+            "modified": "2012-08-11T01:19:53.588",
+            "public": true,
+            "build_report": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=28524",
+            "user": 1,
+            "writable_to": "u",
+            "trash": false,
+            "order": 2
+        }
+    },
+    {
         "pk": 6,
         "model": "albums.album",
         "fields": {
@@ -322,15 +439,16 @@
             "votes": 0,
             "description": "",
             "created": "2012-07-21T22:40:04.675",
-            "views": 0,
-            "title": "album 21-07-2012",
-            "modified": "2012-07-21T22:40:04.675",
+            "views": 2,
+            "title": "trash_29072012_15.36.1343569008_album 21-07-2012",
+            "cover": null,
+            "modified": "2012-07-29T15:36:48.061",
             "public": true,
             "build_report": "",
             "user": 1,
             "writable_to": "u",
-            "trash": false,
-            "order": 1
+            "trash": true,
+            "order": 3
         }
     },
     {
@@ -341,15 +459,16 @@
             "votes": 0,
             "description": "Foto's gemaakt op de Brouwersdag van 2011",
             "created": "2012-02-11T15:36:22",
-            "views": 0,
+            "views": 2,
             "title": "Brouwersdag 2011",
-            "modified": "2012-02-15T20:51:11",
+            "cover": null,
+            "modified": "2012-07-29T16:20:36.929",
             "public": true,
             "build_report": "",
             "user": 1,
             "writable_to": "o",
             "trash": false,
-            "order": 2
+            "order": 4
         }
     },
     {
@@ -360,15 +479,16 @@
             "votes": 0,
             "description": "",
             "created": "2012-02-15T22:13:09",
-            "views": 0,
+            "views": 13,
             "title": "test",
-            "modified": "2012-02-18T17:36:04",
+            "cover": null,
+            "modified": "2012-08-12T00:38:54.733",
             "public": true,
             "build_report": "",
             "user": 1,
             "writable_to": "u",
             "trash": false,
-            "order": 3
+            "order": 5
         }
     },
     {
@@ -436,15 +556,31 @@
         }
     },
     {
+        "pk": 1,
+        "model": "albums.photo",
+        "fields": {
+            "album": 3,
+            "uploaded": "2012-02-12T12:19:50",
+            "description": "",
+            "views": 0,
+            "image": "albums/3/s5001563.JPG",
+            "modified": "2012-02-12T12:19:50",
+            "height": 600,
+            "width": 800,
+            "user": 2,
+            "order": 1
+        }
+    },
+    {
         "pk": 2,
         "model": "albums.photo",
         "fields": {
             "album": 1,
             "uploaded": "2012-07-21T18:14:40.760",
-            "description": "",
-            "views": 0,
+            "description": "Wat commentaar erbij om te testen",
+            "views": 1,
             "image": "albums/1/1/BILD0058.jpg",
-            "modified": "2012-07-21T18:14:40.760",
+            "modified": "2012-07-29T15:38:25.292",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -457,10 +593,10 @@
         "fields": {
             "album": 1,
             "uploaded": "2012-07-21T18:14:41.432",
-            "description": "",
+            "description": "Foto",
             "views": 0,
             "image": "albums/1/1/BILD0065.jpg",
-            "modified": "2012-07-21T18:14:41.432",
+            "modified": "2012-07-27T20:32:55.144",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -474,9 +610,9 @@
             "album": 1,
             "uploaded": "2012-07-21T18:14:42.104",
             "description": "",
-            "views": 0,
+            "views": 1,
             "image": "albums/1/1/BILD0070.jpg",
-            "modified": "2012-07-21T18:14:42.104",
+            "modified": "2012-07-29T16:06:00.893",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -537,10 +673,10 @@
         "fields": {
             "album": 1,
             "uploaded": "2012-07-21T18:14:44.786",
-            "description": "",
+            "description": "Herpa derpa durka durr",
             "views": 0,
             "image": "albums/1/1/2012-04-02 00.09.56.jpg",
-            "modified": "2012-07-21T18:14:44.786",
+            "modified": "2012-07-27T20:33:02.284",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -553,10 +689,10 @@
         "fields": {
             "album": 1,
             "uploaded": "2012-07-21T18:14:45.457",
-            "description": "",
+            "description": "Een lange comment om verder te testen, geen idee of ik al voorbij de 30 karakters zit. Nu ben ik wel vrij zeker",
             "views": 0,
             "image": "albums/1/1/2012-04-02 00.10.44.jpg",
-            "modified": "2012-07-21T18:14:45.457",
+            "modified": "2012-07-27T20:33:21.213",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -569,10 +705,10 @@
         "fields": {
             "album": 1,
             "uploaded": "2012-07-21T18:14:46.154",
-            "description": "",
+            "description": "Oi!",
             "views": 0,
             "image": "albums/1/1/2012-04-02 00.11.02.jpg",
-            "modified": "2012-07-21T18:14:46.154",
+            "modified": "2012-07-27T20:33:26.369",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -660,19 +796,35 @@
         }
     },
     {
-        "pk": 1,
+        "pk": 42,
         "model": "albums.photo",
         "fields": {
-            "album": 3,
-            "uploaded": "2012-02-12T12:19:50",
+            "album": 1,
+            "uploaded": "2012-08-11T01:19:09.187",
             "description": "",
             "views": 0,
-            "image": "albums/3/s5001563.JPG",
-            "modified": "2012-02-12T12:19:50",
-            "height": 600,
-            "width": 800,
-            "user": 2,
-            "order": 1
+            "image": "albums/1/1/chameleon.jpg",
+            "modified": "2012-08-11T01:19:09.187",
+            "height": 576,
+            "width": 1024,
+            "user": 1,
+            "order": 15
+        }
+    },
+    {
+        "pk": 43,
+        "model": "albums.photo",
+        "fields": {
+            "album": 1,
+            "uploaded": "2012-08-11T01:19:11.224",
+            "description": "",
+            "views": 1,
+            "image": "albums/1/1/fox.jpg",
+            "modified": "2012-08-11T01:19:53.341",
+            "height": 683,
+            "width": 1024,
+            "user": 1,
+            "order": 16
         }
     },
     {
@@ -682,9 +834,9 @@
             "album": 5,
             "uploaded": "2012-07-21T22:57:42.823",
             "description": "",
-            "views": 0,
+            "views": 72,
             "image": "albums/1/5/2012-04-06 19.26.48.jpg",
-            "modified": "2012-07-21T22:57:42.823",
+            "modified": "2012-08-12T00:16:47.419",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -698,9 +850,9 @@
             "album": 5,
             "uploaded": "2012-07-21T22:57:43.511",
             "description": "",
-            "views": 0,
+            "views": 17,
             "image": "albums/1/5/2012-04-06 20.07.43.jpg",
-            "modified": "2012-07-21T22:57:43.511",
+            "modified": "2012-08-12T00:38:54.473",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -810,9 +962,9 @@
             "album": 5,
             "uploaded": "2012-07-21T23:13:09.526",
             "description": "",
-            "views": 0,
+            "views": 1,
             "image": "albums/1/5/2012-04-06 18.27.26_2.jpg",
-            "modified": "2012-07-21T23:13:09.526",
+            "modified": "2012-08-11T02:26:12.722",
             "height": 768,
             "width": 1024,
             "user": 1,
@@ -996,6 +1148,38 @@
         }
     },
     {
+        "pk": 40,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-24T20:55:26.162",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/edit.png",
+            "modified": "2012-07-24T20:55:26.162",
+            "height": 32,
+            "width": 36,
+            "user": 1,
+            "order": 21
+        }
+    },
+    {
+        "pk": 41,
+        "model": "albums.photo",
+        "fields": {
+            "album": 5,
+            "uploaded": "2012-07-27T21:16:32.346",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/5/2012-04-02 00.09.16.jpg",
+            "modified": "2012-07-27T21:16:32.346",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 22
+        }
+    },
+    {
         "pk": 1,
         "model": "albums.preferences",
         "fields": {
@@ -1003,6 +1187,39 @@
             "show_direct_link": false,
             "auto_start_uploading": false,
             "user": 1,
+            "default_img_size": 0
+        }
+    },
+    {
+        "pk": 2,
+        "model": "albums.preferences",
+        "fields": {
+            "default_uploader": "F",
+            "show_direct_link": false,
+            "auto_start_uploading": false,
+            "user": 4,
+            "default_img_size": 0
+        }
+    },
+    {
+        "pk": 3,
+        "model": "albums.preferences",
+        "fields": {
+            "default_uploader": "F",
+            "show_direct_link": false,
+            "auto_start_uploading": false,
+            "user": 5,
+            "default_img_size": 0
+        }
+    },
+    {
+        "pk": 4,
+        "model": "albums.preferences",
+        "fields": {
+            "default_uploader": "F",
+            "show_direct_link": false,
+            "auto_start_uploading": false,
+            "user": 6,
             "default_img_size": 0
         }
     }

@@ -1,0 +1,15 @@
+{% extends "albums/base.html" %}
+
+{% block content %}
+<div id="albums-list">
+    {% include "albums/albums_list/public_albums_rows_5col.html" %}
+    
+    {% if needs_closing_tag_row_albums %}
+        </div>
+    {% endif %}
+    
+    {% with page='page' objects=albums %}
+        {% include "pagination.html" %}
+    {% endwith %}
+</div>
+{% endblock %}

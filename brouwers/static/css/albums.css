@@ -387,6 +387,28 @@ a#start_upload, a#next_step{
 a#start_upload:hover{
     cursor: pointer;
 }
+/*** ALBUMS LIST ***/
+div.album-list{
+    float: left;
+    width: 18%;
+    margin: 1em 1% 0.2em 1%;
+    text-align: center;
+    position: relative;
+}
+div.album-list div.album-title{
+    font-size: 0.9em;
+    padding-bottom: 0.2em;
+    overflow: hidden;
+    height: 1.2em;
+}
+div.album-list a.photo{
+    display: inline-block;
+    width: 140px;
+    height: 105px;
+    border: solid 1px #555;
+    background-color: #EEE;
+    margin: 0 auto;
+}
 /*** MY ALBUMS ***/
 #album_list{
     margin-bottom: 2em;
@@ -425,7 +447,7 @@ div.album div.properties{
 /*** MANAGE ALBUMS ***/
 div#albums-list, div#new-album{
     padding: 1em;
-    width: 90%;
+    width: 98%;
     margin: 0 auto;
     position: relative;
 }
@@ -585,6 +607,7 @@ img.photo{
     z-index: 2;
     margin-bottom: -22px;
     margin-left: -30px;
+    visibility: hidden;
 }
 .photo-container2 .in-photo-navigation .nav-arrow{
     position: relative;
