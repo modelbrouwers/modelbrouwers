@@ -73,11 +73,21 @@ class Album(models.Model):
     def get_absolute_url(self):
         return "/albums/album/%s/" % self.id
     
+    #TODO: test
+    def get_cover(self):
+        if self.cover:
+            return self.cover
+        else:
+    	    imgs = self.photo_set.all().order_by('order')
+       	    if imgs:
+                return imgs[0]
+        return None
+    
     @property
     def cover_thumb_url(self):
         if self.cover:
             return u"%s" % self.cover.thumb_url
-        imgs = self.photo_set.all().order_by('pk')
+        imgs = self.photo_set.all().order_by('order')
         if imgs:
             img = imgs[0]
             return img.thumb_url

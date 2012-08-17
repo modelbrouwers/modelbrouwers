@@ -12,7 +12,7 @@
                 {% if album.cover_thumb_url %}
                     {% if album.cover %}
                         <img src="{{ album.cover_thumb_url }}" 
-                        {% if album.cover.is_wider_than_higher %}width="140"{% else %}height="105"{% endif %}
+                        {% if album.get_cover.is_wider_than_higher %}width="140"{% else %}height="105"{% endif %}
                          alt="thumb"/>
                     {% else %}
                         <img src="{{ album.cover_thumb_url }}" width="140" alt="thumb"/>

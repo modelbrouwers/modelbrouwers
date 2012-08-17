@@ -17,7 +17,7 @@
             <a class="photo album" href="{{ album.get_absolute_url }}">
                 {% if album.cover_thumb_url %}
                     <img src="{{ album.cover_thumb_url }}" 
-                    {% if album.cover.is_wider_than_higher %}width="140"{% else %}height="105"{% endif %} alt="thumb"/>
+                    {% if album.get_cover.is_wider_than_higher %}width="140"{% else %}height="105"{% endif %} alt="thumb"/>
                 {% endif %}
             </a>
             <div class="properties">
