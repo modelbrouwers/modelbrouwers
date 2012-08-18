@@ -50,6 +50,9 @@ a img{
     font-weight: bold;
     font-size: 0.9em;
 }
+.small-text{
+    font-size: 0.8em;
+}
 /*** FORMS ***/
 input[type="text"], input[type="password"], input[type="submit"], button, input[type="button"], select, textarea{
 	border: solid 1px #6F8698;
@@ -415,6 +418,38 @@ div.album-column a.photo{
 #album_list{
     margin-bottom: 2em;
 }
+/* sortable stuff, with ul and li */
+ul#personal-albums{
+    list-style-type: none;
+    width: 98%;
+    margin: 1em auto;
+}
+ul#personal-albums li.album{
+    width: 25%;
+    float: left;
+    text-align: center;
+    height: 12em;
+}
+ul#personal-albums li.album:hover{
+    background-color: #EEE;
+    cursor: move;
+}
+ul#personal-albums li.album a.album{
+    display: inline-block;
+    width: 140px;
+    height: 105px;
+    border: solid 1px #555;
+    background-color: #EEE;
+    margin: 0 auto;
+}
+.sort-placeholder{
+    background-color: #000;
+    filter:alpha(opacity=15); /* msie */
+    -moz-opacity: 0.15; /* firefox 1.0 */
+    -khtml-opacity: 0.15; /* webkit */
+    opacity: 0.15; /* css 3 */
+    zoom: 1;/* for msie */
+}
 div.album{
     height: 12em;
     width: 22%;
@@ -443,7 +478,7 @@ a.album img.private{
 .edit{
     right: 18px;
 }
-div.album div.properties{
+div.album div.properties, li.album div.properties{
     font-size: 0.7em;
 }
 input[type="submit"]::-moz-focus-inner{

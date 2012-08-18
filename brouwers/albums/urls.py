@@ -21,8 +21,10 @@ urlpatterns = patterns('brouwers.albums.views',
 
 # AJAX
 urlpatterns += patterns('brouwers.albums.ajax_views',
+    (r'^all_own/$',             'get_all_own_albums'),
     (r'^new_album/$',           'new_album'),
     (r'^upload/uploadify/$',    'uploadify'),
+    (r'^reorder/$',             'reorder'),
     (r'^search/$',              'search'),
-    #(r'^set_cover/$',           'set_cover'),
+    (r'^set_cover/$',           'set_cover'),
     )

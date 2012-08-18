@@ -73,7 +73,6 @@ class Album(models.Model):
     def get_absolute_url(self):
         return "/albums/album/%s/" % self.id
     
-    #TODO: test
     def get_cover(self):
         if self.cover:
             return self.cover
@@ -218,6 +217,19 @@ class Photo(models.Model):
         if ratio >= 1.333:
             return True
         return False
+    
+    def get_thumb_height(self):
+        height = 105
+        if self.is_wider_than_higher:
+            ratio = float(self.width) / float(self.height)
+            height = int(140/ratio)
+        return height
+    
+    def get_thumb_width(self):
+        width = 140
+        if self.width and self.width < width:
+            width = self.width
+        return width
 
 IMG_SIZES = (
     (0, "1024x768"),

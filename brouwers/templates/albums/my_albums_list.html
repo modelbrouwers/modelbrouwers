@@ -1,20 +1,35 @@
 {% extends "albums/base.html" %}
 
+{% block extrascript %}
+<script type="text/javascript">
+$(document).ready(function(){
+    
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <div id="album_list">
-    
+    {% spaceless %}
+    <div class="tab">
+        Mijn persoonlijke albums &bull; 
+        <a href="{% url brouwers.albums.views.manage %}">
+            <strong>Beheren</strong>
+        </a>
+        <span class="right small-text">
+            <a id="ShowAllAlbums" href="{% url brouwers.albums.views.my_albums_list %}?all=1">
+                Toon al mijn persoonlijke albums
+            </a>
+        </span>
+    </div>
+    {% endspaceless %}
     <div class="no-javascript" class="margin">
         Je browser ondersteunt geen Javascript. Om je albums te organiseren, kan je deze <a href="{% url brouwers.albums.views.manage %}">alternatieve pagina</a> gebruiken.
     </div>
     
-    <div class="tab">Mijn persoonlijke albums &bull; <a href="{% url brouwers.albums.views.manage %}"><strong>Beheren</strong></a></div>
     <div class="albums_container">
         {% with albums_data.0.albums as albums %}
-            {% include "albums/albums_list/albums_rows.html" %}
-        
-            {% if albums_data.0.closing_tag %}
-            </div>
-            {% endif %}
+            {% include "albums/albums_list/albums_rows_li.html" %}
             
             {% with "page_own" as page %}
                 {% include "albums/albums_list/pagination.html" %}

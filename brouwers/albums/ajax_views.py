@@ -1,4 +1,4 @@
-from django.db.models import Q, Max
+from django.db.models import F, Q, Max
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -10,7 +10,7 @@ import django.utils.simplejson as json
 
 from brouwers.general.shortcuts import render_to_response
 from models import *
-from forms import AlbumForm, PickAlbumForm
+from forms import AlbumForm, PickAlbumForm, OrderAlbumForm
 from utils import resize
 
 @login_required
@@ -92,3 +92,46 @@ def set_cover(request):
         except ValueError: #not an integer
             pass
     return HttpResponse()
+
+@login_required
+def reorder(request):
+    form = OrderAlbumForm(request.user, request.POST)
+    if form.is_valid():
+        album = form.cleaned_data['album']
+        album_before = form.cleaned_data['album_before']
+        album_after = form.cleaned_data['album_after']
+
+        if album_after and album.order > album_after.order: # moved forward
+            lower = album_after.order
+            upper = album.order
+            album.order = lower
+            
+            albums_to_reorder = Album.objects.filter(order__gte=lower, order__lt=upper)
+            albums_to_reorder.update(order=(F('order') + 1))
+            album.save()
+        
+        elif album_before and album_before.order > album.order: # moved backwards
+            lower = album.order
+            upper = album_before.order
+            album.order = upper
+            
+            albums_to_reorder = Album.objects.filter(order__gt=lower, order__lte=upper)
+            albums_to_reorder.update(order=(F('order') - 1))
+            album.save()
+        
+        elif ((album_before and album_before.order == album.order) or (album_after and album_after.order == album.order)):
+            order = album.order
+            if album_after:
+                albums_to_reorder = Album.objects.filter(order__gte=order, title__gt=album.title)
+                albums_to_reorder.update(order=(F('order') + 1))
+            elif album_before:
+                album.order = (F('order') + 1)
+                albums_to_reorder = Album.objects.filter(order__gte=order, title__gt=album.title)
+                albums_to_reorder.update(order=(F('order') + 2))
+                album.save()
+    return HttpResponse()
+
+@login_required
+def get_all_own_albums(request):
+    own_albums = Album.objects.filter(user=request.user, writable_to='u', trash=False)
+    return render_to_response(request, 'albums/albums_list/albums_rows_li.html', {'albums': own_albums})

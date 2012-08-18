@@ -63,6 +63,15 @@ class PickAlbumForm(forms.Form):
         if browse:
             self.fields['album'].required = False
 
+class OrderAlbumForm(PickAlbumForm):
+    album_before = forms.ModelChoiceField(queryset=Album.objects.none(), required=False)
+    album_after = forms.ModelChoiceField(queryset=Album.objects.none(), required=False)
+    
+    def __init__(self, user, *args, **kwargs):
+        super(OrderAlbumForm, self).__init__(user, *args, **kwargs)
+        self.fields['album_before'].queryset = self.fields['album'].queryset
+        self.fields['album_after'].queryset = self.fields['album'].queryset
+
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo

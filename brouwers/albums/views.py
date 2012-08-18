@@ -318,6 +318,7 @@ def my_last_uploads(request):
 
 @login_required
 def my_albums_list(request):
+    number_to_display = 20
     base_albums = Album.objects.filter(trash=False)
     own_albums = base_albums.filter(user=request.user, writable_to='u')
     own_public_albums = base_albums.filter(user=request.user, writable_to='o')
@@ -329,9 +330,13 @@ def my_albums_list(request):
     
     for albums in albums_list:
         amount = albums.count()
-        paginator = Paginator(albums, 20)
-        
         page_key = page_keys.pop(0)
+        
+        show_all = str(request.GET.get('all', False))
+        if show_all == '1' and page_key == 'page_own':
+            number_to_display = amount
+        
+        paginator = Paginator(albums, number_to_display)
         page = request.GET.get(page_key, 1)
         try:
             albums = paginator.page(page)
@@ -341,7 +346,7 @@ def my_albums_list(request):
             albums = paginator.page(paginator.num_pages)
         
         closing_tag = False
-        if amount < 20 and amount % 4 != 0:
+        if amount < number_to_display and amount % 4 != 0:
             closing_tag = True
         albums_data.append(
             {'albums': albums, 'closing_tag': closing_tag}

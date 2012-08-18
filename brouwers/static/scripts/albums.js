@@ -7,10 +7,24 @@ $(document).ready(function() {
     $('.BBCode').mouseup(function(e){
         e.preventDefault();
     });
+    
+    //fix afbeeldingen verticaal centreren
+    var $a = $('li.album a.album');
+    $.each($a, function(){
+        var a_height = $(this).height();
+        var img = $(this).children('img.thumb')[0];
+        var img_height = $(img).attr('height');
+        if (img_height > 0 && img_height != a_height){
+            padding = (a_height - img_height) / 2;
+            $(img).css('padding-top', padding);
+            $(img).css('padding-bottom', padding);
+        }
+    });
+    
     $('a.album img').hover(function() {
         $(this).parent().find('.edit, .remove').show();
     });
-    $('div.album').mouseout(function() {
+    $('li.album').mouseout(function() {
         $(this).find('.edit, .remove').hide();
     });
     
@@ -20,37 +34,6 @@ $(document).ready(function() {
     $('.photo-container2 img.photo').mouseleave(function() {
         $('div.in-photo-navigation').css('visibility', 'hidden');
     });
-    
-    /* FIXME werkt nog niet al te goed...
-    $('.album-column .album-title').mouseenter(function() {
-        var title = $(this).find('a').attr('title');
-        if (title.length > 19)
-        {
-            $(this).parent().css('overflow', 'visible');
-            $(this).css('overflow', 'visible');
-            $(this).css('width', '1000px');
-            
-            $(this).find('a').html(title);
-            var width = $(this).find('a').css('width');
-            $(this).css('width', width);
-            $(this).css('background', 'white');
-            $(this).parent().css('z-index', '10');
-        }
-    });
-    $('.album-column .album-title').mouseleave(function() {
-        $(this).parent().css('overflow', 'hidden');
-        $(this).css('overflow', 'hidden');
-        $(this).css('width', 'auto');
-        $(this).parent().css('z-index', '1');
-        $(this).css('background', 'auto');
-        var title = $(this).find('a').attr('title');
-        if (title.length > 19)
-        {
-            title=title.slice(0,16)+"...";
-        }
-        $(this).find('a').html(title);
-    });
-    */
     
     var searchfield = $("#id_search");
     if (searchfield.val() == ''){
@@ -98,6 +81,23 @@ $(document).ready(function() {
         });
         return false; // don't follow the url
     });
+    try{
+        initSortable($('#personal-albums'));
+    }
+    catch (err){
+        //do nothing
+    }
+    $('#ShowAllAlbums').click(function(e){
+        e.preventDefault();
+        $.get(
+            "/albums/all_own/",
+            function (response){
+                $('#personal-albums').replaceWith(response);
+                initSortable($('#personal-albums'));
+            }
+        );
+        return false;
+    });
 });
 
 function hideNewAlbum(){
@@ -110,7 +110,29 @@ function showHelp(e){
     $('td.help_text div').hide();
     $(e).parent().parent().find('td.help_text div').show();
 }
-    
-    
-    
 
+function updateOrder(album, album_before, album_after){
+    $.post(
+        "/albums/reorder/",
+        {
+            'album': album, 
+            'album_before': album_before,
+            'album_after': album_after
+        }
+    );
+}
+function initSortable(element){
+    element.sortable({
+        placeholder: "sort-placeholder album",
+        forcePlaceholderSize: true,
+        helper: 'clone',
+        forceHelperSize: true,
+        opacity: 0.8,
+        update: function(event, ui){
+            var album = ui.item.find('input[name="album_id"]').val();
+            var album_before = ui.item.prev().find('input[name="album_id"]').val();
+            var album_after = ui.item.next().find('input[name="album_id"]').val();
+            updateOrder(album, album_before, album_after);
+        }
+    });
+}
