@@ -57,8 +57,8 @@ class PickAlbumForm(forms.Form):
         except KeyError: #key not suplied
             browse = False
         super(PickAlbumForm, self).__init__(*args, **kwargs)
-        own_albums = Album.objects.filter(user=user, writable_to="u", trash=False)
-        public_albums = Album.objects.filter(writable_to="o", trash=False)
+        own_albums = Album.objects.filter(user=user, writable_to="u", trash=False).order_by('order', 'title')
+        public_albums = Album.objects.filter(writable_to="o", trash=False).order_by('order', 'title')
         self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to')
         if browse:
             self.fields['album'].required = False

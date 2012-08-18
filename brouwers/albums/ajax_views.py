@@ -22,6 +22,7 @@ def new_album(request):
             album.user = request.user
             try:
                 album.validate_unique()
+                album.set_order()
                 album.save()
                 return HttpResponse("<div title=\"%s\"><input type=\"hidden\" id=\"status\" value=\"%s\"/></div>" % (album.title, album.id))
             except ValidationError:

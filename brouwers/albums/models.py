@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Max
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
@@ -96,6 +97,11 @@ class Album(models.Model):
     
     def number_of_photos(self):
         return self.photo_set.count()
+    
+    def set_order(self):
+        max_order = Album.objects.filter(user=self.user, trash=False).aggregate(Max('order'))['order__max'] or 0
+        self.order = max_order+1
+        return self
 
 class Photo(models.Model):
     """ Helper functions """    
