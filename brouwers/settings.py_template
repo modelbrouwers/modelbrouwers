@@ -101,7 +101,7 @@ INSTALLED_APPS = (
     'brouwers.secret_santa',
     'brouwers.builds',
 #    'brouwers.group_builds',
-    'brouwers.albums',
+    'brouwers.albums'
 )
 
 AUTHENTICATION_BACKENDS = (
