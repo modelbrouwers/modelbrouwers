@@ -14,3 +14,5 @@ EMAIL_FILE_PATH = '{ CD }mails/'
 
 VOTE_END_MONTH = 1
 VOTE_END_DAY = 15
+VALID_IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png']
+THUMB_DIMENSIONS = (200, 150, 'thumb_')
