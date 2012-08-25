@@ -9,7 +9,7 @@
             "is_active": true,
             "is_superuser": true,
             "is_staff": true,
-            "last_login": "2012-08-18T20:10:49.844",
+            "last_login": "2012-08-25T01:45:33.815",
             "groups": [],
             "user_permissions": [],
             "password": "pbkdf2_sha256$10000$z3awiDWfqZnd$G2e7/1g/t4ahl+laSnUFl7Dux7b6OVyhhv4xFQA8+4k=",
@@ -113,30 +113,6 @@
         "fields": {
             "domain": "example.com",
             "name": "example.com"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "sessionprofile.sessionprofile",
-        "fields": {
-            "session": "53087eadcc0d1a97cb9054d4345a469f",
-            "user": 1
-        }
-    },
-    {
-        "pk": 2,
-        "model": "sessionprofile.sessionprofile",
-        "fields": {
-            "session": "0a85dff3ab6358c8997e011b135c215c",
-            "user": 1
-        }
-    },
-    {
-        "pk": 3,
-        "model": "sessionprofile.sessionprofile",
-        "fields": {
-            "session": "43df2184b67d9f0d9368904b40986212",
-            "user": 1
         }
     },
     {
@@ -408,7 +384,7 @@
             "title": "EJ-10 Honda",
             "cover": 28,
             "modified": "2012-08-12T04:40:36.499",
-            "last_upload": null,
+            "last_upload": "2012-08-12T04:40:36.499",
             "public": false,
             "user": 1,
             "writable_to": "u",
@@ -450,7 +426,7 @@
             "title": "Tornado IDS 'White Tiger' lange titel om te testen",
             "cover": null,
             "modified": "2012-08-12T02:40:28.636",
-            "last_upload": null,
+            "last_upload": "2012-08-12T04:40:36.499",
             "public": false,
             "user": 2,
             "writable_to": "u",
@@ -555,7 +531,7 @@
             "title": "Su-27 Flanker - Ukraine",
             "cover": 15,
             "modified": "2012-08-12T22:11:54.135",
-            "last_upload": null,
+            "last_upload": "2012-08-12T04:40:36.499",
             "public": true,
             "user": 1,
             "writable_to": "u",
@@ -597,7 +573,7 @@
             "title": "trash_29072012_15.36.1343569008_album 21-07-2012",
             "cover": null,
             "modified": "2012-07-29T15:36:48.061",
-            "last_upload": null,
+            "last_upload": "2012-08-12T04:40:36.499",
             "public": true,
             "user": 1,
             "writable_to": "u",
@@ -1436,6 +1412,106 @@
             "auto_start_uploading": false,
             "user": 6,
             "default_img_size": 0
+        }
+    },
+    {
+        "pk": 1,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "Anonymous",
+            "hash": null,
+            "username_clean": "anonymous",
+            "email": ""
+        }
+    },
+    {
+        "pk": 10,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "BBT",
+            "hash": "",
+            "username_clean": "bbt",
+            "email": "sergeimaertens@gmail.com"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "djon",
+            "hash": null,
+            "username_clean": "djon",
+            "email": "djon_stam@hotmail.com"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "jmdkdb",
+            "hash": null,
+            "username_clean": "jmdkdb",
+            "email": "jeffaboy91@hotmail.com"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "jprovo",
+            "hash": null,
+            "username_clean": "jprovo",
+            "email": "jprovo@mac.com"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "Marcel174",
+            "hash": null,
+            "username_clean": "marcel174",
+            "email": "m.voogd@hotmail.com"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "martijn-boten",
+            "hash": null,
+            "username_clean": "martijn-boten",
+            "email": "smartie_donker@hotmail.com"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "Ruward11",
+            "hash": null,
+            "username_clean": "ruward11",
+            "email": "ruwa.rd@live.nl"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "ruwie",
+            "hash": null,
+            "username_clean": "ruwie",
+            "email": "ruward@live.nl"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "vliegtuigbouwer",
+            "hash": null,
+            "username_clean": "vliegtuigbouwer",
+            "email": "tristan_van_leest@live.nl"
         }
     }
 ]
