@@ -24,7 +24,8 @@ DURATION_CHOICES = (
 )
     
 class Groepsbouw(models.Model):
-    applicant = models.CharField(max_length=100)   
+    applicant = models.CharField(max_length=100,)
+    #TODO applicant mag veranderen naar een ForeignKey naar User. vergelijk met albums/models.py op lijn 35 en zie ook lijn 4
     buildname = models.CharField(max_length=200, unique=False)
     forumpart = models.CharField(max_length=1, choices=FORUMGEDEELTE_CHOICES)
     start_date = models.DateField()
