@@ -10,6 +10,7 @@ urlpatterns += patterns('brouwers.general.views',
     (r'^register/$', 'register'),
     (r'^profile/$', 'profile'),
     (r'^users/(\w+)/$', 'user_profile'),
+    (r'^confirm_account/$', 'confirm_account'),
     )
 
 urlpatterns += patterns('django.contrib.auth.views',

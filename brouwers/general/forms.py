@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+from brouwers.migration.models import UserMigration
 from models import UserProfile
 
 from django.utils.translation import ugettext_lazy as _
@@ -105,3 +106,51 @@ class UserForm(forms.ModelForm):
         widgets = {
             'email': forms.TextInput(attrs={'size':30})
         }
+
+class ForumAccountForm(forms.Form):
+    forum_nickname = forms.CharField(required=True, min_length=3, max_length=30, label=_("Forum name"))
+    hash = forms.CharField(required=True, min_length=24, max_length=24, label=_("Code"))
+    password1 = forms.CharField(label=_("Password"),
+        widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_("Password confirmation"),
+        widget=forms.PasswordInput,
+        help_text = _("Enter the same password as above, for verification."))
+    
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1", "")
+        password2 = self.cleaned_data["password2"]
+        if password1 != password2:
+            raise forms.ValidationError(
+                _("The two password fields didn't match."))
+        return password2
+    
+    def clean_forum_nickname(self):
+        u = self.get_usermigration()
+        if not u:
+            raise forms.ValidationError(_("Deze gebruiker bestaat niet op het forum. Controleer op typfouten."))
+        #try:
+        #    username = u.username.replace(' ', '_')
+        #    user = User.objects.get(username=username)
+        #except User.DoesNotExist:
+        #    raise forms.ValidationError("Je bent aan het foefelen... dit wordt gelogd!")
+        return self.cleaned_data['forum_nickname']
+    
+    def clean(self): #TODO: loggen foutieve ingaves
+        user = self.get_usermigration()
+        try:
+            h = self.cleaned_data["hash"]
+            if h.lower() != user.hash.lower():
+                raise forms.ValidationError(_("Je hebt een foutieve code ingegeven."))
+                del self.cleaned_data["forum_nickname"]
+                del self.cleaned_data["hash"]
+        except KeyError: #has was invalid
+            pass
+        return self.cleaned_data
+    
+    def get_usermigration(self):
+        nickname = self.cleaned_data["forum_nickname"]
+        try:
+            user = UserMigration.objects.get(username__exact=nickname)
+        except UserMigration.DoesNotExist:
+            user = None
+        return user

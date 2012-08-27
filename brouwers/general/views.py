@@ -2,8 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
 from django.core.validators import validate_email
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -55,6 +57,7 @@ def custom_login(request):
     if request.method == "POST":
         form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
+            print request.POST
             # Light security check -- make sure next_page isn't garbage.
             if not next_page or ' ' in next_page:
                 next_page = settings.LOGIN_REDIRECT_URL
@@ -67,34 +70,72 @@ def custom_login(request):
             username = request.POST['username']
             users = User.objects.filter(username__iexact = username)
             if UserMigration:
-                migration_user = UserMigration.objects.get(username=username)
-                if migration_user and not users: #user exists on the forum, but not in our db
-                    # save user, set user inactive and generate + send the key
-                    username_ = username.replace(" ", "_")
-                    email = migration_user.email
-                    password = User.objects.make_random_password(length=8)
-                    password = 'test' #TODO: remove me
-                    #set the password later, when validating the hash
-                    user = User.objects.create_user(username_, email, password)
-                    user.is_active = False
-                    user.save()
-                    #ok, user created, now compose email etc.
-                    h = sha_constructor(settings.SECRET_KEY + username).hexdigest()[:24]
-                    migration_user.hash = h
-                    migration_user.save()
-                    text = "Beste %s,\nOp Modelbrouwers.nl proberen we het gebruiksgemak zo hoog mogelijk te houden. In het kader daarvan stappen we over op een overkoepelende Modelbrouwers.nl account. U bent een bestaande forumgebruiker, maar uw overkoepelende account werd net aangemaakt. Om uw identiteit tijdens deze koppeling te controleren, hebben wij eenmalig een code naar uw e-mailadres gestuurd. In de e-mail vindt u ook een link waar u die code kan ingeven. Deze koppeling is een eenmalige gebeurtenis."
-                    url = 'http://xbbtx.be/validate_code/'
-                    mailtext = "Beste %s,\n\nUw code is: %s. Geef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
-                    subject = 'Modelbrouwersaccount'
-                    send_mail(subject, mailtext, 'beheer@modelbrouwers.nl', [email], fail_silently=True)
-                    return render_to_response(request, 'general/user_migration.html', {'username': username})
-                
+                try:
+                    migration_user = UserMigration.objects.get(username=username)
+                    if not users: #user exists on the forum, but not in our db
+                        # save user, set user inactive and generate + send the key
+                        username_ = username.replace(" ", "_")
+                        email = migration_user.email
+                        password = User.objects.make_random_password(length=8)
+                        
+                        #set the password later, when validating the hash
+                        user = User.objects.create_user(username_, email, password)
+                        user.is_active = False
+                        user.save()
+                        profile = UserProfile(user=user, forum_nickname=username)
+                        profile.save()
+                        
+                        #ok, user created, now compose email etc.
+                        h = sha_constructor(settings.SECRET_KEY + username).hexdigest()[:24]
+                        migration_user.hash = h
+                        migration_user.save()
+                        domain = Site.objects.get_current().domain
+                        url = "http://%s%s"% (domain, reverse(confirm_account))
+                        url = "<a href=\"%s\">%s</a>" % (url, url)
+                        mailtext = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
+                        subject = 'Modelbrouwersaccount'
+                        send_mail(subject, mailtext, 'beheer@modelbrouwers.nl', [email], fail_silently=True)
+                        return render_to_response(request, 'general/user_migration.html', {'username': username})
+                except UserMigration.DoesNotExist: #unknown on the forum
+                    pass  
     else:
         form = AuthenticationForm(request)
     return render_to_response(request, 'general/login.html', {
         'form': form,
         'next': next_page,
     })
+  
+def custom_logout(request):
+    next_page = request.GET.get('next')
+    if not next_page or ' ' in next_page:
+        next_page = "/?logout=1"
+    logout(request)
+    return HttpResponseRedirect(next_page)
+
+def confirm_account(request):
+    if request.method == "POST":
+        # takes the forumnickname, two password fields and the hash
+        form = ForumAccountForm(request.POST)
+        if form.is_valid():
+            nickname = form.cleaned_data["forum_nickname"]
+            username_ = nickname.replace(" ", "_")
+            user = get_object_or_404(User, username=username_, is_active=False)
+            user.is_active = True
+            password = form.cleaned_data['password1']
+            user.set_password(password)
+            user.save()
+            
+            #logging in
+            user = authenticate(username=username_, password=password)
+            login(request, user)
+            return HttpResponseRedirect('/phpBB3/')
+    else:
+        form = ForumAccountForm()
+    return render_to_response(request, 'general/confirm_account.html', {'form': form})
+
+#############################
+#    showing userprofile    #
+#############################
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def profile(request):
@@ -127,18 +168,6 @@ def profile(request):
         forms['profileform'] = ProfileForm(instance=request.user.get_profile())
         forms['userform'] = UserForm(instance=request.user)
         return render_to_response(request, 'general/profile.html', forms)
-        
-def custom_logout(request):
-    next_page = request.GET.get('next')
-    if not next_page or ' ' in next_page:
-        next_page = "/?logout=1"
-    logout(request)
-    return HttpResponseRedirect(next_page)
-
-
-#############################
-#    showing userprofile    #
-#############################
 
 def user_profile(request, username=None):
     profile = get_object_or_404(UserProfile, user__username=username)
