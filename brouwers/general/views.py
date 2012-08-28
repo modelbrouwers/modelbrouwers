@@ -57,7 +57,6 @@ def custom_login(request):
     if request.method == "POST":
         form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
-            print request.POST
             # Light security check -- make sure next_page isn't garbage.
             if not next_page or ' ' in next_page:
                 next_page = settings.LOGIN_REDIRECT_URL
