@@ -1,0 +1,27 @@
+{% include "albums/album_li.html" %}
+
+<script type="text/javascript">
+    var new_li = $('#edit-dialog').html();
+    $('#edit-dialog').dialog("close");
+	old_li = $('#album_{{ album.id }}');
+	old_li.replaceWith(new_li);
+	
+	// rebind... because on() won't work
+	$('#temp').attr('id', 'album_{{ album.id }}');
+	
+	$('a.album').hover(function() {
+        $(this).find('.edit, .remove').show();
+    });
+    $('a.album img').hover(function() {
+        $(this).parent().find('.edit, .remove').show();
+    });
+    $('li.album').mouseout(function() {
+        $(this).find('.edit, .remove').hide();
+    });
+    
+    $('img.edit').click(function(e){
+    	openEditDialog(e, $(this));
+    	return false;
+    });
+    fixVerticalCenter();
+</script>
