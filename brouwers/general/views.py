@@ -20,7 +20,7 @@ from forms import *
 from models import UserProfile
 from shortcuts import render_to_response
 from datetime import date
-import settings
+from django.conf import settings
 
 try:
     from brouwers.migration.models import UserMigration
