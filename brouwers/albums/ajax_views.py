@@ -139,6 +139,7 @@ def get_all_own_albums(request):
 
 @login_required
 def edit_album(request):
+    status = ''
     if request.method == "POST":
         form = PickAlbumForm(request.user, request.POST)
         if form.is_valid():
@@ -148,6 +149,8 @@ def edit_album(request):
                 editform.save()
                 album = get_object_or_404(Album, pk=album.id);
                 return render_to_response(request, 'albums/album_li.html', {'album': album})
+        else:
+            status = 'fail'
     else:
         form = PickAlbumForm(request.user, request.GET)
         if form.is_valid():
@@ -157,4 +160,4 @@ def edit_album(request):
             else:
                 return HttpResponse('This event has been logged')
     photos = editform.fields["cover"].queryset
-    return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'photos': photos})
+    return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'photos': photos, 'status': status})

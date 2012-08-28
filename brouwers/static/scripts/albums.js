@@ -43,13 +43,19 @@ $(document).ready(function() {
 			        "Opslaan": function(){
 			            data = $('#form-edit-album').serializeArray();
 			            var album_id = $(this).find('input[name="album"]').val();
-			            $(this).dialog("close");
 			            $.post(
 			                url_edit,
 			                data,
 			                function (response){
-			                    old_li = $('#album_'+album_id);
-			                    old_li.replaceWith(response);
+			                    response = $(response);
+			                    status = response.find('div#fail');
+			                    if (status.length > 0){ //it failed
+			                        $("#edit-dialog").html(response);
+			                    } else {
+			                        old_li = $('#album_'+album_id);
+			                        old_li.replaceWith(response);
+			                        $(this).dialog("close");
+			                    }
 			                }
 			            );
 			        },

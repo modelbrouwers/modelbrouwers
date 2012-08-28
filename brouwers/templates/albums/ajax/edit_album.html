@@ -1,3 +1,6 @@
+{% if status %}
+    <div id="fail" style="display:none;"></div>
+{% endif %}
 <form id="form-edit-album">
     <input type="hidden" name="album" value="{{ form.instance.id }}" id="id_album" />
     <input type="hidden" name="cover" value="" id="id_hidden_cover" />
