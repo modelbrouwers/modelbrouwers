@@ -144,6 +144,7 @@ def edit_album(request):
         if form.is_valid():
             album = form.cleaned_data["album"]
             editform = EditAlbumFormAjax(request.POST, instance=album)
+            photos = editform.fields["cover"].queryset
             if editform.is_valid() and album.user == request.user:
                 editform.save()
                 album = get_object_or_404(Album, pk=album.id);
@@ -154,7 +155,7 @@ def edit_album(request):
             album = form.cleaned_data["album"]
             if request.user == album.user:
                 editform = EditAlbumFormAjax(instance=album)
+                photos = editform.fields["cover"].queryset
             else:
                 return HttpResponse('This event has been logged')
-    photos = editform.fields["cover"].queryset
     return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'photos': photos})
