@@ -1,5 +1,7 @@
 {% if status %}
-    <div id="fail" style="display:none;"></div>
+    <script type="text/javascript">
+        var fail = true;
+    </script>
 {% endif %}
 <form id="form-edit-album">
     <input type="hidden" name="album" value="{{ form.instance.id }}" id="id_album" />

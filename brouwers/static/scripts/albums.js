@@ -9,25 +9,24 @@ $(document).ready(function() {
     });
     
     //fix afbeeldingen verticaal centreren
-    var $a = $('li.album a.album');
-    $.each($a, function(){
-        var a_height = $(this).height();
-        var img = $(this).children('img.thumb')[0];
-        var img_height = $(img).attr('height');
-        if (img_height > 0 && img_height != a_height){
-            padding = (a_height - img_height) / 2;
-            $(img).css('padding-top', padding);
-            $(img).css('padding-bottom', padding);
-        }
-    });
+    fixVerticalCenter();
     
     // my albums - overzicht + editen etc.
+    /*$('#personal-albums').on('mouseover', 'a.album', function() {
+        $(this).find('.edit, .remove').show();
+    });
+    $('#personal-albums').on('mouseenter', 'a.album img', function() {
+        $(this).parent().find('.edit, .remove').show();
+    });*/
     $('a.album').hover(function() {
         $(this).find('.edit, .remove').show();
     });
     $('a.album img').hover(function() {
         $(this).parent().find('.edit, .remove').show();
     });
+    /*$('#personal-albums').on('mouseout', 'li.album', function() {
+        $(this).find('.edit, .remove').hide();
+    });*/
     $('li.album').mouseout(function() {
         $(this).find('.edit, .remove').hide();
     });
@@ -47,15 +46,7 @@ $(document).ready(function() {
 			                url_edit,
 			                data,
 			                function (response){
-			                    response = $(response);
-			                    status = response.find('div#fail');
-			                    if (status.length > 0){ //it failed
 			                        $("#edit-dialog").html(response);
-			                    } else {
-			                        $('#edit-dialog').dialog("close");
-			                        old_li = $('#album_'+album_id);
-			                        old_li.replaceWith(response);
-			                    }
 			                }
 			            );
 			        },
@@ -68,28 +59,7 @@ $(document).ready(function() {
 	}
     
     $('img.edit').click(function(e){
-    	e.preventDefault();
-		var li = $(this).closest('li.album');
-		var album_id = li.children('input[name="album_id"]').val();
-		$.get(
-		    url_edit,
-		    {'album': album_id},
-		    function (response){
-		        $("#edit-dialog").html(response);
-		        
-		        $('#id_hidden_cover').val($('#id_cover').val());
-		        var a = "<a href=\"#\" onclick=\"showCovers();\">";
-		        a += "<u>Cover kiezen</u></a>";
-                $('#id_cover').replaceWith(a);
-		    }
-		);
-		
-		$("#edit-dialog").dialog("open");
-		$('button').button();
-		$(".ui-icon-closethick").click(function(){
-		    $("#edit-dialog").dialog("option", "height", 350);
-		});
-    	return false;
+    	openEditDialog(e, $(this));
     });
     
     $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {
@@ -190,6 +160,20 @@ function updateOrder(album, album_before, album_after){
         }
     );
 }
+function fixVerticalCenter(){
+    var $a = $('li.album a.album');
+    $.each($a, function(){
+        var a_height = $(this).height();
+        var img = $(this).children('img.thumb')[0];
+        var img_height = $(img).attr('height');
+        if (img_height > 0 && img_height != a_height){
+            padding = (a_height - img_height) / 2;
+            $(img).css('padding-top', padding);
+            $(img).css('padding-bottom', padding);
+        }
+    });
+}
+
 function initSortable(element){
     element.sortable({
         placeholder: "sort-placeholder album",
@@ -228,5 +212,29 @@ function showCovers(){
         new_height = $("#edit-dialog").dialog( "option", "height" ) - height - 20;
         $("#edit-dialog").dialog( "option", "height", new_height );
     }
+    return false;
+}
+function openEditDialog(e, element){
+    e.preventDefault();
+	var li = $(element).closest('li.album');
+	var album_id = li.children('input[name="album_id"]').val();
+	$.get(
+	    url_edit,
+	    {'album': album_id},
+	    function (response){
+	        $("#edit-dialog").html(response);
+	        
+	        $('#id_hidden_cover').val($('#id_cover').val());
+	        var a = "<a href=\"#\" onclick=\"showCovers();\">";
+	        a += "<u>Cover kiezen</u></a>";
+            $('#id_cover').replaceWith(a);
+	    }
+	);
+	
+	$("#edit-dialog").dialog("open");
+	$('button').button();
+	$(".ui-icon-closethick").click(function(){
+	    $("#edit-dialog").dialog("option", "height", 350);
+	});
     return false;
 }

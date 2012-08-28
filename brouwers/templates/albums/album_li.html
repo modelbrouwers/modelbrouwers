@@ -1,4 +1,8 @@
+{% if custom_id %}
+<li class="photo album" id="{{ custom_id }}">
+{% else %}
 <li class="photo album" id="album_{{ album.id }}">
+{% endif %}
     <input type="hidden" name="album_id" value="{{ album.id }}" />
     <div class="album-title">
         <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
