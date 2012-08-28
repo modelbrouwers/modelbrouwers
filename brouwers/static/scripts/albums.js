@@ -41,7 +41,7 @@ $(document).ready(function() {
 			    title: "Album bewerken",
 			    buttons: {
 			        "Opslaan": function(){
-			            data = $('#edit-dialog form').serializeArray();
+			            data = $('#form-edit-album').serializeArray();
 			            var album_id = $(this).find('input[name="album"]').val();
 			            $(this).dialog("close");
 			            $.post(
@@ -85,7 +85,6 @@ $(document).ready(function() {
 		});
     	return false;
     });
-    
     
     $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {
         $('div.in-photo-navigation').css('visibility', 'visible');
@@ -208,6 +207,13 @@ function showCovers(){
         new_height = height + $("#edit-dialog").dialog( "option", "height" )+20;
         $('#edit-dialog').parent().css('top', '100px');
         $("#edit-dialog").dialog( "option", "height", new_height );
+        
+        $('#edit-dialog #photo-navigation img').click(function(){
+            var p_id = $(this).next().val();
+            $('#form-edit-album input[name="cover"]').val(p_id);
+            $('#photo-navigation li').removeClass('cover');
+            $(this).closest('li').addClass('cover');
+        });
     }
     else
     {
