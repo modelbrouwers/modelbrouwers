@@ -52,9 +52,9 @@ $(document).ready(function() {
 			                    if (status.length > 0){ //it failed
 			                        $("#edit-dialog").html(response);
 			                    } else {
+			                        $('#edit-dialog').dialog("close");
 			                        old_li = $('#album_'+album_id);
 			                        old_li.replaceWith(response);
-			                        $(this).dialog("close");
 			                    }
 			                }
 			            );
