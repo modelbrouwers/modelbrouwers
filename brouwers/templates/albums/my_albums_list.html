@@ -2,9 +2,7 @@
 
 {% block extrascript %}
 <script type="text/javascript">
-$(document).ready(function(){
-    
-});
+	var url_edit = "{% url brouwers.albums.ajax_views.edit_album %}";
 </script>
 {% endblock %}
 
@@ -29,7 +27,7 @@ $(document).ready(function(){
     
     <div class="albums_container">
         {% with albums_data.0.albums as albums %}
-            {% include "albums/albums_list/albums_rows_li.html" %}
+            {% include "albums/albums_list/albums_li.html" %}
             
             {% with "page_own" as page %}
                 {% include "albums/albums_list/pagination.html" %}
@@ -70,5 +68,8 @@ $(document).ready(function(){
             {% endwith %}
         </div>
     {% endif %}
+    
+    <div id="edit-dialog"></div>
+    
 </div>
 {% endblock %}

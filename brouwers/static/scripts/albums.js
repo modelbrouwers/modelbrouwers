@@ -21,12 +21,71 @@ $(document).ready(function() {
         }
     });
     
+    // my albums - overzicht + editen etc.
+    $('a.album').hover(function() {
+        $(this).find('.edit, .remove').show();
+    });
     $('a.album img').hover(function() {
         $(this).parent().find('.edit, .remove').show();
     });
     $('li.album').mouseout(function() {
         $(this).find('.edit, .remove').hide();
     });
+    
+    if ($('#edit-dialog').length > 0){
+        $('#edit-dialog').dialog({
+			    autoOpen: false,
+			    height: 400,
+			    width: 800,
+			    modal: true,
+			    title: "Album bewerken",
+			    buttons: {
+			        "Opslaan": function(){
+			            data = $('#edit-dialog form').serializeArray();
+			            var album_id = $(this).find('input[name="album"]').val();
+			            $(this).dialog("close");
+			            $.post(
+			                url_edit,
+			                data,
+			                function (response){
+			                    old_li = $('#album_'+album_id);
+			                    old_li.replaceWith(response);
+			                }
+			            );
+			        },
+			        "Annuleren": function() {
+			            $(this).dialog("close");
+			            $(this).dialog("option", "height", 400);
+			        }
+			    }
+	    });
+	}
+    
+    $('img.edit').click(function(e){
+    	e.preventDefault();
+		var li = $(this).closest('li.album');
+		var album_id = li.children('input[name="album_id"]').val();
+		$.get(
+		    url_edit,
+		    {'album': album_id},
+		    function (response){
+		        $("#edit-dialog").html(response);
+		        
+		        $('#id_hidden_cover').val($('#id_cover').val());
+		        var a = "<a href=\"#\" onclick=\"showCovers();\">";
+		        a += "<u>Cover kiezen</u></a>";
+                $('#id_cover').replaceWith(a);
+		    }
+		);
+		
+		$("#edit-dialog").dialog("open");
+		$('button').button();
+		$(".ui-icon-closethick").click(function(){
+		    $("#edit-dialog").dialog("option", "height", 350);
+		});
+    	return false;
+    });
+    
     
     $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {
         $('div.in-photo-navigation').css('visibility', 'visible');
@@ -107,8 +166,13 @@ function hideNewAlbum(){
 
 function showHelp(e){
     //close all (the others)
+    if ($(e).css('display') == 'none')
+    {
+        $('span.help_text').hide();
+    }
     $('td.help_text div').hide();
-    $(e).parent().parent().find('td.help_text div').show();
+    $(e).parent().parent().find('td.help_text div').toggle();
+    $(e).siblings('.help_text').toggle();
 }
 
 function updateOrder(album, album_before, album_after){
@@ -135,4 +199,22 @@ function initSortable(element){
             updateOrder(album, album_before, album_after);
         }
     });
+}
+function showCovers(){
+    if ($('#photo-navigation').css('display') == 'none')
+    {
+        $('#photo-navigation').show();
+        height = $('#photo-navigation').height();
+        new_height = height + $("#edit-dialog").dialog( "option", "height" )+20;
+        $('#edit-dialog').parent().css('top', '100px');
+        $("#edit-dialog").dialog( "option", "height", new_height );
+    }
+    else
+    {
+        $('#photo-navigation').hide();
+        height = $('#photo-navigation').height();
+        new_height = $("#edit-dialog").dialog( "option", "height" ) - height - 20;
+        $("#edit-dialog").dialog( "option", "height", new_height );
+    }
+    return false;
 }

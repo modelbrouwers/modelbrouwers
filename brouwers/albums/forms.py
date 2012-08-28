@@ -45,6 +45,14 @@ class EditAlbumForm(forms.ModelForm):
     def clean_build_report(self):
         return cln_build_report(self)
 
+class EditAlbumFormAjax(EditAlbumForm):
+    class Meta:
+        model = Album
+        fields = (
+            'title', 'description', 'build_report', 
+            'category', 'public', 'writable_to', 'cover'
+        )
+
 class AmountForm(forms.Form):
     amount = forms.IntegerField(required=False, min_value=1, max_value=50)
 

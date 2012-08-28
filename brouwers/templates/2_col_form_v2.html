@@ -1,0 +1,9 @@
+{% for field in form %}
+	<tr><td class="fieldlabel">{{field.label}}{% if field.field.required %}<strong style="color: red;">*</strong>{% endif %}:</td><td>{{field}}</td></tr>
+	{% for error in field.errors %}
+		<tr><td colspan="2" class="error">{{error}}</td></tr>
+	{% endfor %}
+	{% if field.help_text %}
+		<tr><td></td><td class="helptext">{{field.help_text}}</td></tr>
+	{% endif %}
+{% endfor %}

@@ -53,6 +53,9 @@ a img{
 .small-text{
     font-size: 0.8em;
 }
+button.ui-button{
+    padding: 0.3em;
+}
 /*** FORMS ***/
 input[type="text"], input[type="password"], input[type="submit"], button, input[type="button"], select, textarea{
 	border: solid 1px #6F8698;
@@ -578,7 +581,7 @@ td.error{
 }
 #top-right-submit{
     position: absolute;
-    right: 0;
+    right: 1em;
     top: 1em;
 }
 
@@ -714,13 +717,73 @@ img.photo{
     padding-top: 0.1em;
     padding-bottom: 0.1em;
 }
-#edit-album form input[type="text"], #edit-album select, #edit-photo form input[type="text"], #edit-photo select{
+#edit-album form input[type="text"], #edit-album select, #edit-photo form input[type="text"], #edit-photo select, #edit-dialog form input[type="text"]{
     padding: 0.2em 0.4em 0.2em 0.4em;
     width: 30em;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+/* jquery-dialog */
+div.ui-widget-header{
+    background: #069;
+    background-image: none;
+    color: white;
+	background: -moz-linear-gradient(top, #069 0%, #0A1871 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#069), color-stop(100%,#0a1871));
+	background-image: -o-linear-gradient(top,rgb(0,102,153),rgb(10,24,113));
+}
+#edit-dialog{
+    text-align: center;
+    background-color: #EEE;
+}
+#edit-dialog table{
+    border-collapse: collapse;
+}
+#edit-dialog tr{
+    border-bottom: dashed 1px #DDD;
+}
+#edit-dialog th{
+    width: 12%;
+}
+#edit-dialog td,#edit-dialog td{
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+}
+#edit-dialog span.help_text{
+    display: none;
+    font-style: italic;
+    font-size: 0.8em;
+}
+#edit-dialog textarea#id_description{
+    height: 4em;
+    width: 30em;
+}
+#edit-dialog form input[type="text"]{
+    width: 30em;
+}
+#edit-dialog td{
+    text-align: left;
+}
+
+#edit-dialog #photo-navigation{
+    display: none;
+    list-style: none;
+    margin: 0 -1em 0 -1em;
+    overflow: hidden;
+}
+#edit-dialog #photo-navigation li{
+    display: inline-block;
+    padding: 1px;
+    border: solid 1px #777;
+}
+#edit-dialog #photo-navigation li.cover{
+    border-color: #0E72A4;
+}
+#edit-dialog #photo-navigation li:hover{
+    cursor: pointer;
+}
+
 #edit-photo .edit-photo{
     float: left;
     padding: 0 0.5em 0 3em;
@@ -735,7 +798,7 @@ img.photo{
 #edit-photo form table td{
     width: inherit;
 }
-#edit-photo textarea, #edit-album textarea{
+#edit-photo textarea, #edit-album textarea, #edit-dialog textarea{
     height: 3em;
     width: 30em;
     padding: 0.2em 0.4em 0.2em 0.4em;

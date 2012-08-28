@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>
+    Beste {{ username }},
+    <br />
+    <br />
+    Modelbrouwers.nl voert een overkoepelende account in voor uw gemak. U ziet dit bericht omdat u al een forumaccount hebt, maar nog geen overkoepelende account. Deze is net aangemaakt, maar moet nog geactiveerd worden.
+    <br />
+    <br />
+    Er is een e-mail verstuurd naar het e-mailadres dat u op het forum ingesteld hebt. In dat mailtje vindt u een code en een link om de koppeling te voltooien. Deze koppeling is &eacute;&eacute;nmalig.
+    <br />
+    <br />
+    Tot op het forum!
+    <br />
+    <br />
+    Het beheer
+    <br />
+    <a href="{% url brouwers.general.views.confirm_account %}">(Klik hier om naar de bevestigingspagina te gaan)</a>
+</p>
+{% endblock %}

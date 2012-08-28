@@ -10,7 +10,7 @@ import django.utils.simplejson as json
 
 from brouwers.general.shortcuts import render_to_response
 from models import *
-from forms import AlbumForm, PickAlbumForm, OrderAlbumForm
+from forms import AlbumForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm
 from utils import resize
 
 @login_required
@@ -136,3 +136,25 @@ def reorder(request):
 def get_all_own_albums(request):
     own_albums = Album.objects.filter(user=request.user, writable_to='u', trash=False)
     return render_to_response(request, 'albums/albums_list/albums_rows_li.html', {'albums': own_albums})
+
+@login_required
+def edit_album(request):
+    if request.method == "POST":
+        form = PickAlbumForm(request.user, request.POST)
+        if form.is_valid():
+            album = form.cleaned_data["album"]
+            editform = EditAlbumFormAjax(request.POST, instance=album)
+            if editform.is_valid() and album.user == request.user:
+                editform.save()
+                album = get_object_or_404(Album, pk=album.id);
+                return render_to_response(request, 'albums/album_li.html', {'album': album})
+    else:
+        form = PickAlbumForm(request.user, request.GET)
+        if form.is_valid():
+            album = form.cleaned_data["album"]
+            if request.user == album.user:
+                editform = EditAlbumFormAjax(instance=album)
+            else:
+                return HttpResponse('This event has been logged')
+    photos = editform.fields["cover"].queryset
+    return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'photos': photos})
