@@ -17,6 +17,9 @@ a:hover{
     text-decoration: underline;
     color: #DD6900;
 }
+a.highlight{
+    color: #DD6900;
+}
 img{
     border: none;
 }
@@ -782,6 +785,13 @@ div.ui-widget-header{
 }
 #edit-dialog #photo-navigation li:hover{
     cursor: pointer;
+}
+#remove-dialog{
+    text-align: center;
+    padding-top: 1.5em;
+}
+#id-album-title{
+    font-weight: bold;
 }
 
 #edit-photo .edit-photo{

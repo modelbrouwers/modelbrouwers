@@ -108,6 +108,78 @@
         }
     },
     {
+        "pk": 8,
+        "model": "auth.user",
+        "fields": {
+            "username": "martijn-boten",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2012-08-27T19:08:20.678",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$uskNW6EqUFT5$MDV3ibDvofKVkX733kj3x46ViR27iHRHsNhs6GEYJqs=",
+            "email": "smartie_donker@hotmail.com",
+            "date_joined": "2012-08-27T18:38:47.979"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "auth.user",
+        "fields": {
+            "username": "djon",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2012-08-27T23:56:35.949",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$RTiWLEkSBimF$bdyLqHYmBvdKg8Dw5DSIAosCpLzZ52+Xnp3fY16JTew=",
+            "email": "djon_stam@hotmail.com",
+            "date_joined": "2012-08-27T23:56:18.649"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "auth.user",
+        "fields": {
+            "username": "j_provo",
+            "first_name": "",
+            "last_name": "",
+            "is_active": false,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2012-08-28T00:07:28.250",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$S3p3iDgA8jj0$LGsiEbeYBnq/KQzRfRL0+xEisiF+yRI01iTX0F2om9o=",
+            "email": "jprovo@mac.com",
+            "date_joined": "2012-08-28T00:07:28.250"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "auth.user",
+        "fields": {
+            "username": "jmdkdb",
+            "first_name": "",
+            "last_name": "",
+            "is_active": false,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2012-08-28T00:11:52.788",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$l2Xx1XVmD6nl$uLCcRh1uA79SjXJMBGbfwWVH6ObGtfG5hXfpSAZu1e8=",
+            "email": "jeffaboy91@hotmail.com",
+            "date_joined": "2012-08-28T00:11:52.788"
+        }
+    },
+    {
         "pk": 1,
         "model": "sites.site",
         "fields": {
@@ -313,6 +385,86 @@
             "secret_santa": false,
             "postal": null,
             "forum_nickname": "Se\u00f1or M",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 9,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 9,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "djon",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 10,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 10,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "j provo",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 11,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 11,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "jmdkdb",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 8,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 8,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "martijn-boten",
             "exclude_from_nomination": false,
             "preference": null
         }
@@ -1412,6 +1564,96 @@
             "auto_start_uploading": false,
             "user": 6,
             "default_img_size": 0
+        }
+    },
+    {
+        "pk": 1,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "Anonymous",
+            "hash": null,
+            "username_clean": "anonymous",
+            "email": "anon@anon.org"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "BBT",
+            "hash": "",
+            "username_clean": "bbt",
+            "email": "sergeimaertens@gmail.com"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "djon",
+            "hash": "07fc0ff381f17664fe9ed2e8",
+            "username_clean": "djon",
+            "email": "djon_stam@hotmail.com"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "j provo",
+            "hash": "c41da8c3d98a51820a427913",
+            "username_clean": "j provo",
+            "email": "jprovo@mac.com"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "jmdkdb",
+            "hash": "c00fb8b25c1ba50009bf05ba",
+            "username_clean": "jmdkdb",
+            "email": "jeffaboy91@hotmail.com"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "Marcel174",
+            "hash": null,
+            "username_clean": "marcel174",
+            "email": "m.voogd@hotmail.com"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "Ruward11",
+            "hash": null,
+            "username_clean": "ruward11",
+            "email": "ruwa.rd@live.nl"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "ruwie",
+            "hash": "35be5fc5e8ed6b53fed5a0ba",
+            "username_clean": "ruwie",
+            "email": "ruward@live.nl"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "vliegtuigbouwer",
+            "hash": null,
+            "username_clean": "vliegtuigbouwer",
+            "email": "tristan_van_leest@live.nl"
         }
     }
 ]

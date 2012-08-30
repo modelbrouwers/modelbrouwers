@@ -6,10 +6,10 @@
     <input type="hidden" name="album_id" value="{{ album.id }}" />
     <div class="album-title">
         <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
-            {% if album.title|length > 19 %}
-                {{ album.title|truncatechars:19 }}
+            {% if album.clean_title|length > 19 %}
+                {{ album.clean_title|truncatechars:19 }}
             {% else %}
-                {{ album.title }}
+                {{ album.clean_title }}
             {% endif %}
         </a>
     </div>
@@ -26,16 +26,21 @@
             height="{{ album.get_cover.get_thumb_height }}" alt="thumb"/>
         {% endif %}
             
-           {% if not album.public %}
+            {% if not album.public %}
                 <img class="private" src="{{ STATIC_URL }}images/icons/private.png" width="16" 
                 height="16" alt="private" title="Dit album is enkel zichtbaar voor mezelf."/>
-           {% endif %}
+            {% endif %}
             
-           <img class="edit" src="{{ STATIC_URL }}images/icons/edit.png" alt="edit" 
-            height="16" title="Album bewerken"/>
+            {% if not album.trash %}
+               <img class="edit" src="{{ STATIC_URL }}images/icons/edit.png" alt="edit" 
+                height="16" title="Album bewerken"/>
             
-            <img class="remove" src="{{ STATIC_URL }}images/icons/remove.png" alt="edit" 
-            height="16" title="Album naar prullenbak verplaatsen"/>
+                <img class="remove" src="{{ STATIC_URL }}images/icons/remove.png" alt="edit" 
+                height="16" title="Album naar prullenbak verplaatsen"/>
+{% comment %}            {% else %}
+                <img class="restore" src="{{ STATIC_URL }}images/icons/restore.png" alt="restore" 
+                height="16" title="Album terugzetten"/>{% endcomment %}
+            {% endif %}
     </a>
     {% endspaceless %}
                 

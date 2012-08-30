@@ -159,3 +159,24 @@ def edit_album(request):
             else:
                 return HttpResponse('This event has been logged')
     return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'photos': photos})
+
+@login_required
+def remove_album(request):
+    status = 'fail'
+    form = PickAlbumForm(request.user, request.POST)
+    if form.is_valid():
+        album = form.cleaned_data["album"]
+        album.trash = True
+        album.title = "trash_%s_%s" % (datetime.now().strftime('dmY_H.M.s'), album.title)
+        album.save()
+        status = 'ok'
+    return HttpResponse(status)
+
+@login_required
+def get_title(request):
+    title = ''
+    form = PickAlbumForm(request.user, request.GET)
+    if form.is_valid():
+        album = form.cleaned_data["album"]
+        title = album.title
+    return HttpResponse(title)

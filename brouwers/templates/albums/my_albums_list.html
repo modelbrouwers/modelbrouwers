@@ -3,6 +3,8 @@
 {% block extrascript %}
 <script type="text/javascript">
 	var url_edit = "{% url brouwers.albums.ajax_views.edit_album %}";
+	var url_remove = "{% url brouwers.albums.ajax_views.remove_album %}";
+	var url_get_title = "{% url brouwers.albums.ajax_views.get_title %}";
 </script>
 {% endblock %}
 
@@ -14,6 +16,16 @@
         <a href="{% url brouwers.albums.views.manage %}">
             <strong>Beheren</strong>
         </a>
+        &bull; 
+        {% if trash %}
+            <a href="." class="highlight" title="Klik nogmaals om te verlaten">
+                <strong>Prullenbak</strong>
+            </a>
+        {% else %}
+            <a href="./?trash=True">
+                <strong>Prullenbak</strong>
+            </a>
+        {% endif %}
         <span class="right small-text">
             <a id="ShowAllAlbums" href="{% url brouwers.albums.views.my_albums_list %}?all=1">
                 Toon al mijn persoonlijke albums
@@ -39,11 +51,7 @@
         <div class="tab clear">Mijn publieke albums &#45; schrijfbaar voor anderen</div>
         <div class="albums_container">
             {% with albums_data.1.albums as albums %}
-                {% include "albums/albums_list/albums_rows.html" %}
-            
-                {% if albums_data.1.closing_tag %}
-                    </div>
-                {% endif %}
+                {% include "albums/albums_list/albums_li.html" %}
                 
                 {% with "page_pub" as page %}
                     {% include "albums/albums_list/pagination.html" %}
@@ -70,6 +78,10 @@
     {% endif %}
     
     <div id="edit-dialog"></div>
+    <div id="remove-dialog">
+    	<p class="warn">Ben je zeker dat je het album &lsquo;<span id="id-album-title"></span>&rsquo; naar de prullenbak wil verplaatsen?</p>
+    	<input type="hidden" name="album" id="remove-album" value=""/>
+    </div>
     
 </div>
 {% endblock %}

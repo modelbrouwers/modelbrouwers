@@ -35,6 +35,7 @@ class Album(models.Model):
     user = models.ForeignKey(User) #owner of the album
     title = models.CharField(_("album title"), max_length="256",
             default="album %s" % datetime.now().strftime("%d-%m-%Y"))
+    clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
     description = models.CharField(_("album description"),
             max_length=500, blank=True)
     category = models.ForeignKey(Category, blank=True, null=True, default=1 or None)
@@ -70,6 +71,11 @@ class Album(models.Model):
     
     def __unicode__(self):
         return u"%s" % self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.trash and self.clean_title != self.title:
+            self.clean_title = self.title
+        super(Album, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
         return "/albums/album/%s/" % self.id

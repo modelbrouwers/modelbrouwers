@@ -96,8 +96,8 @@ def manage(request, album_id=None):
                     form.instance.save()
                 for form in album_formset.deleted_forms:
                     form.instance.trash = True
+                    form.instance.clean_title=form.instance.title
                     form.instance.title = "trash_%s_%s" % (datetime.now().strftime('dmY_H.M.s'), form.instance.title)
-                    #avoid title-user collisions in the future TODO can still happen, find a fix
                     form.instance.save()
                 return HttpResponseRedirect(reverse(manage))
     else:
@@ -318,8 +318,13 @@ def my_last_uploads(request):
 
 @login_required
 def my_albums_list(request):
+    trash = request.GET.get('trash', False)
+    extra_parameters = ''
+    if trash:
+        extra_parameters = '&trash=%s' % trash
+    
     number_to_display = 20
-    base_albums = Album.objects.filter(trash=False)
+    base_albums = Album.objects.filter(trash=trash)
     own_albums = base_albums.filter(user=request.user, writable_to='u')
     own_public_albums = base_albums.filter(user=request.user, writable_to='o')
     other_albums = base_albums.filter(writable_to='o', public=True).exclude(user=request.user)
@@ -351,7 +356,7 @@ def my_albums_list(request):
         albums_data.append(
             {'albums': albums, 'closing_tag': closing_tag}
         )
-    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data})
+    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters})
 
 def photo(request, photo_id=None):
     if request.user.is_authenticated():

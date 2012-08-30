@@ -1,5 +1,6 @@
 $(document).ready(function() {    
     $('.no-javascript').remove(); //hide the warning
+    var remove_album_id = 0;
     
     $('.BBCode').focus(function(){
         $(this).select();
@@ -57,9 +58,44 @@ $(document).ready(function() {
 			    }
 	    });
 	}
+	if ($('#remove-dialog').length > 0){
+        $('#remove-dialog').dialog({
+			autoOpen: false,
+			draggable: false,
+			dialogClass: "remove-album",
+			height: 200,
+			width: 400,
+			modal: true,
+			title: "Naar prullenbak?",
+			buttons: {
+			    Bevestig: function(){
+			        var album_id = $('#remove-album').val();
+			        $.post(
+			            url_remove,
+			            {'album': album_id},
+			            function (response){
+			                if (response == 'ok'){
+			                    $('li#album_'+album_id).remove();
+			                    $('#remove-dialog').dialog("close");
+			                } else {
+			                    alert('Het verwijderen is niet geslaagd.');
+			                }
+			            }
+			        );
+			    },
+			    Annuleren: function() {
+			        $(this).dialog("close");
+			    }
+			}
+	    });
+	}
     
     $('img.edit').click(function(e){
     	openEditDialog(e, $(this));
+    });
+    
+    $('img.remove').click(function(e){
+    	openRemoveDialog(e, $(this));
     });
     
     $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {
@@ -236,5 +272,20 @@ function openEditDialog(e, element){
 	$(".ui-icon-closethick").click(function(){
 	    $("#edit-dialog").dialog("option", "height", 350);
 	});
+    return false;
+}
+function openRemoveDialog(e, element){
+    e.preventDefault();
+    var li = $(element).closest('li.album');
+    remove_album_id = li.children('input[name="album_id"]').val();
+    $('#remove-album').val(remove_album_id);
+    $.get(
+        url_get_title,
+        {'album': remove_album_id},
+        function (title){
+            $("span#id-album-title").text(title);
+        }
+    );
+    $("#remove-dialog").dialog("open");
     return false;
 }
