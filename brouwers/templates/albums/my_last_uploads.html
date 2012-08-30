@@ -6,10 +6,15 @@
     {% for photo in uploads %}
         {% cycle '<div class="row">' '' '' '' '' %}
             <div class="photo">
+                {% spaceless %}
                 <a class="photo" href="{{ photo.get_absolute_url }}">
                     {% if photo.thumb_url %}
-                        <img src="{{ photo.thumb_url }}" {% if photo.is_wider_than_higher %}
-                        width="140"{% else %}height="105"{% endif %} alt="thumb"/>{% endif %}</a>
+                        <img class="thumb" src="{{ photo.thumb_url }}" alt="thumb" 
+                        width="{{ photo.get_thumb_width }}" 
+                        height="{{ photo.get_thumb_height }}"/>
+                    {% endif %}
+                </a>
+                {% endspaceless %}
                 
                 <div class="properties">
                     <input class="BBCode" type="text" readonly="readonly" value="{{ photo.BBCode }}"></input>

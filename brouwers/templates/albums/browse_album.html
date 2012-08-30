@@ -1,5 +1,11 @@
 {% extends "albums/base.html" %}
 
+{% block extrascript %}
+<script type="text/javascript">
+	var url_edit = "{% url brouwers.albums.ajax_views.edit_album %}";
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="album-photos-list">
     <div class="tab album-title">
@@ -10,7 +16,7 @@
         {% endif %}
         <span class="album-stats">
             {% ifequal user.id album.user.id %}
-                <a href="{% url brouwers.albums.views.edit_album album.id %}">bewerken</a> &#124; 
+                <a href="{% url brouwers.albums.views.edit_album album.id %}" onclick="openEditDialog(event, null, {{ album.id }})">bewerken</a> &#124; 
             {% endifequal %}
             {{ album.views }} views &#124; gewijzigd {{ album.modified|date:"d b Y, H:i" }} &#124; created {{ album.created|date:"d b Y, H:i" }}
         </span>
@@ -29,8 +35,9 @@
                         width="24" height="24" alt="cover" title="instellen als albumcover"/>
                         {% endifequal %}
                         
-                        <img src="{{ photo.thumb_url }}" alt="{{ photo.id }}" 
-                        {% if photo.is_wider_than_higher %}width="200"{% else %}height="150"{% endif %}/>
+                        <img class="thumb" src="{{ photo.thumb_url }}" alt="{{ photo.id }}" 
+                        width="{{ photo.get_thumb_width_200 }}" 
+                        height="{{ photo.get_thumb_height_150 }}"/>
                     </a>
                     
                     <div class="description">
@@ -52,4 +59,5 @@
         {% include "pagination.html" %}
     {% endwith %}
 </div>
+<div id="edit-dialog"></div>
 {% endblock content %}

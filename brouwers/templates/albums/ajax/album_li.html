@@ -4,6 +4,12 @@
     var new_li = $('#edit-dialog').html();
     $('#edit-dialog').dialog("close");
 	old_li = $('#album_{{ album.id }}');
+	
+	if (old_li.length == 0)
+	{
+	    location.reload();
+	}
+	
 	old_li.replaceWith(new_li);
 	
 	// rebind... because on() won't work

@@ -10,13 +10,9 @@
             </div>
             <a class="photo album" href="{{ album.get_absolute_url }}">
                 {% if album.cover_thumb_url %}
-                    {% if album.cover %}
-                        <img src="{{ album.cover_thumb_url }}" 
-                        {% if album.get_cover.is_wider_than_higher %}width="140"{% else %}height="105"{% endif %}
-                         alt="thumb"/>
-                    {% else %}
-                        <img src="{{ album.cover_thumb_url }}" width="140" alt="thumb"/>
-                    {% endif %}
+                    <img class="thumb" src="{{ album.cover_thumb_url }}" 
+                    width="{{ album.get_cover.get_thumb_width }}" 
+                    height="{{ album.get_cover.get_thumb_height }}" alt="thumb"/>
                 {% endif %}
             </a>
             <div class="properties">

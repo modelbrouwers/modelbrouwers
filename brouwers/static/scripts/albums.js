@@ -200,7 +200,7 @@ function updateOrder(album, album_before, album_after){
     );
 }
 function fixVerticalCenter(){
-    var $a = $('li.album a.album');
+    var $a = $('a.album, a.photo');
     $.each($a, function(){
         var a_height = $(this).height();
         var img = $(this).children('img.thumb')[0];
@@ -253,10 +253,12 @@ function showCovers(){
     }
     return false;
 }
-function openEditDialog(e, element){
+function openEditDialog(e, element, album_id){
     e.preventDefault();
-	var li = $(element).closest('li.album');
-	var album_id = li.children('input[name="album_id"]').val();
+    if (typeof album_id == 'undefined'){
+	    var li = $(element).closest('li.album');
+	    var album_id = li.children('input[name="album_id"]').val();
+	}
 	$.get(
 	    url_edit,
 	    {'album': album_id},

@@ -230,18 +230,24 @@ class Photo(models.Model):
             return True
         return False
     
-    def get_thumb_height(self):
-        height = 105
+    def get_thumb_height(self, width=140, height=105):
         if self.is_wider_than_higher:
             ratio = float(self.width) / float(self.height)
-            height = int(140/ratio)
+            height = int(width/ratio)
+        if self.height < height:
+            height = self.height
         return height
     
-    def get_thumb_width(self):
-        width = 140
+    def get_thumb_width(self, width=140, height=105):
         if self.width and self.width < width:
             width = self.width
         return width
+    
+    def get_thumb_width_200(self):
+        return self.get_thumb_width(width=200, height=150)
+    
+    def get_thumb_height_150(self):
+        return self.get_thumb_height(width=200, height=150)
 
 IMG_SIZES = (
     (0, "1024x768"),
