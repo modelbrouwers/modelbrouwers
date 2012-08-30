@@ -12,7 +12,7 @@ import django.utils.simplejson as json
 from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import AlbumForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm
-from utils import resize
+from utils import resize, admin_mode
 import itertools
 
 @login_required
@@ -67,7 +67,9 @@ def search(request):
         q = Q(title__icontains=value) | Q(description__icontains=value) | Q(user__username__icontains=value)
         query.append(q)
     if len(query) > 0 and len(query) < 10:
-        albums = Album.objects.filter(trash=False, public=True, *query).order_by('title')
+        if not request.user.is_authenticated() or not admin_mode(request.user):
+            query.append(Q(public=True))
+        albums = Album.objects.filter(trash=False, *query).order_by('title')
     else:
         return HttpResponse()
     output = []
@@ -88,7 +90,10 @@ def set_cover(request):
         p_id = request.POST['photo']
         try:
             p_id = int(p_id)
-            photo = get_object_or_404(Photo, pk=p_id, user=request.user)
+            if admin_mode(request.user):
+                photo = get_object_or_404(Photo, pk=p_id)
+            else:
+                photo = get_object_or_404(Photo, pk=p_id, user=request.user)
             photo.album.cover = photo
             photo.album.save()
             return HttpResponse(1)
@@ -147,7 +152,7 @@ def edit_album(request):
             album = form.cleaned_data["album"]
             editform = EditAlbumFormAjax(request.POST, instance=album)
             photos = editform.fields["cover"].queryset
-            if editform.is_valid() and album.user == request.user:
+            if editform.is_valid() and (album.user == request.user or admin_mode(request.user)):
                 editform.save()
                 album = get_object_or_404(Album, pk=album.id);
                 return render_to_response(request, 'albums/ajax/album_li.html', {'album': album, 'custom_id': 'temp'})
@@ -155,7 +160,7 @@ def edit_album(request):
         form = PickAlbumForm(request.user, request.GET)
         if form.is_valid():
             album = form.cleaned_data["album"]
-            if request.user == album.user:
+            if request.user == album.user or admin_mode(request.user):
                 editform = EditAlbumFormAjax(instance=album)
                 photos = editform.fields["cover"].queryset
             else:

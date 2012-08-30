@@ -68,6 +68,10 @@ class Album(models.Model):
         #order_with_respect_to = "user"
         ordering = ('order', 'title')
         unique_together = (('user', 'title'),)
+        permissions = (
+            ('edit_album', _("Can edit/remove album")),
+            ('see_all_albums', _("Can see all albums")),
+        )
     
     def __unicode__(self):
         return u"%s" % self.title
@@ -270,6 +274,9 @@ class Preferences(models.Model): #only create this object when user visits prefe
     #options for uploadify
     auto_start_uploading = models.BooleanField(help_text=_("Start upload automatically when files are selected"))
     show_direct_link = models.BooleanField(_("Show direct links under the photo"), default=False)
+    
+    #admin options
+    apply_admin_permissions = models.BooleanField(help_text=_("When checked, you will see all the albums and be able to edit them."))
     
     class Meta:
         verbose_name = _("User preferences")

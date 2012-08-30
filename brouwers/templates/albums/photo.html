@@ -14,9 +14,9 @@
     {% endspaceless %}
     
     <span class="photo-stats">
-        {% ifequal user.id photo.user.id %}
+        {% if user.id == photo.user.id or user_is_album_admin %}
             <a href="{% url brouwers.albums.views.edit_photo photo.id %}">bewerken</a> &#124; 
-        {% endifequal %}
+        {% endif %}
         {{ photo.views }} views &#124; gewijzigd {{ photo.modified|date:"d b Y, H:i" }} &#124; upload {{ photo.uploaded|date:"d b Y, H:i" }}
     </span>
 </div>

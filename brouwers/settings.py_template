@@ -68,6 +68,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "brouwers.albums.context_processors.preferences",
+    "brouwers.albums.context_processors.user_is_album_admin",
     )
 
 MIDDLEWARE_CLASSES = (

@@ -15,9 +15,9 @@
             &bull; <a href="{{ album.build_report }}" target="_blank">Brouwverslag</a>
         {% endif %}
         <span class="album-stats">
-            {% ifequal user.id album.user.id %}
+            {% if user.id == album.user.id or user_is_album_admin %}
                 <a href="{% url brouwers.albums.views.edit_album album.id %}" onclick="openEditDialog(event, null, {{ album.id }})">bewerken</a> &#124; 
-            {% endifequal %}
+            {% endif %}
             {{ album.views }} views &#124; gewijzigd {{ album.modified|date:"d b Y, H:i" }} &#124; created {{ album.created|date:"d b Y, H:i" }}
         </span>
     </div>
@@ -30,10 +30,10 @@
                 {% if photo == photo.album.cover %}title="Album cover"{% endif %}>
                     <a class="photo" href="{{ photo.get_absolute_url }}" id="photo_{{ photo.id }}">
                         
-                        {% ifequal photo.album.user user %}
+                        {% if photo.album.user == user or user_is_album_admin %}
                         <img class="set_cover" src="{{ STATIC_URL }}images/icons/cover.png" 
                         width="24" height="24" alt="cover" title="instellen als albumcover"/>
-                        {% endifequal %}
+                        {% endif %}
                         
                         <img class="thumb" src="{{ photo.thumb_url }}" alt="{{ photo.id }}" 
                         width="{{ photo.get_thumb_width_200 }}" 

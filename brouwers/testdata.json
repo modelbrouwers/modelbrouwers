@@ -9,7 +9,7 @@
             "is_active": true,
             "is_superuser": true,
             "is_staff": true,
-            "last_login": "2012-08-25T01:45:33.815",
+            "last_login": "2012-08-30T20:59:58.317",
             "groups": [],
             "user_permissions": [],
             "password": "pbkdf2_sha256$10000$z3awiDWfqZnd$G2e7/1g/t4ahl+laSnUFl7Dux7b6OVyhhv4xFQA8+4k=",
@@ -524,153 +524,6 @@
         }
     },
     {
-        "pk": 4,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": false,
-            "description": "",
-            "created": "2012-02-15T20:51:57",
-            "views": 0,
-            "title": "EJ-10 Honda",
-            "cover": 28,
-            "modified": "2012-08-12T04:40:36.499",
-            "last_upload": "2012-08-12T04:40:36.499",
-            "public": false,
-            "user": 1,
-            "writable_to": "u",
-            "build_report": "http://modelbrouwers.nl/phpBB3/",
-            "order": 1
-        }
-    },
-    {
-        "pk": 7,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": false,
-            "description": "",
-            "created": "2012-08-16T21:37:44.124",
-            "views": 3,
-            "title": "Test album",
-            "cover": null,
-            "modified": "2012-08-16T21:40:07.099",
-            "last_upload": "2012-08-16T21:38:18.218",
-            "public": true,
-            "user": 3,
-            "writable_to": "u",
-            "build_report": "",
-            "order": 1
-        }
-    },
-    {
-        "pk": 3,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": false,
-            "description": "1/144 Tornado",
-            "created": "2012-02-11T15:38:14",
-            "views": 0,
-            "title": "Tornado IDS 'White Tiger' lange titel om te testen",
-            "cover": null,
-            "modified": "2012-08-12T02:40:28.636",
-            "last_upload": "2012-08-12T04:40:36.499",
-            "public": false,
-            "user": 2,
-            "writable_to": "u",
-            "build_report": "",
-            "order": 1
-        }
-    },
-    {
-        "pk": 8,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": false,
-            "description": "Test",
-            "created": "2012-08-18T17:16:58.204",
-            "views": 0,
-            "title": "Vierde album",
-            "cover": null,
-            "modified": "2012-08-18T17:17:15.824",
-            "last_upload": "2012-08-18T17:17:15.573",
-            "public": true,
-            "user": 1,
-            "writable_to": "u",
-            "build_report": "",
-            "order": 1
-        }
-    },
-    {
-        "pk": 9,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": false,
-            "description": "Sorterentest",
-            "created": "2012-08-18T17:18:25.877",
-            "views": 0,
-            "title": "Vijfde album",
-            "cover": null,
-            "modified": "2012-08-18T17:18:35.992",
-            "last_upload": "2012-08-18T17:18:35.726",
-            "public": true,
-            "user": 1,
-            "writable_to": "u",
-            "build_report": "",
-            "order": 1
-        }
-    },
-    {
-        "pk": 10,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": false,
-            "description": "",
-            "created": "2012-08-18T18:12:26.541",
-            "views": 0,
-            "title": "zesde album",
-            "cover": null,
-            "modified": "2012-08-18T18:12:26.541",
-            "last_upload": "1970-01-01T00:00:00",
-            "public": true,
-            "user": 1,
-            "writable_to": "u",
-            "build_report": "",
-            "order": 1
-        }
-    },
-    {
-        "pk": 11,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": false,
-            "description": "",
-            "created": "2012-08-18T18:13:45.985",
-            "views": 0,
-            "title": "zevende album",
-            "cover": null,
-            "modified": "2012-08-18T18:13:45.985",
-            "last_upload": "1970-01-01T00:00:00",
-            "public": true,
-            "user": 1,
-            "writable_to": "u",
-            "build_report": "",
-            "order": 1
-        }
-    },
-    {
         "pk": 1,
         "model": "albums.album",
         "fields": {
@@ -678,59 +531,18 @@
             "votes": 0,
             "trash": false,
             "description": "Album met bouw- en eindfoto's van de 1/144 Revell Flanker",
-            "created": "2012-02-11T15:35:43",
-            "views": 68,
+            "clean_title": "Su-27 Flanker - Ukraine",
+            "last_upload": "2012-08-12T04:40:36.499",
+            "views": 69,
             "title": "Su-27 Flanker - Ukraine",
             "cover": 15,
-            "modified": "2012-08-12T22:11:54.135",
-            "last_upload": "2012-08-12T04:40:36.499",
+            "modified": "2012-08-30T23:16:15.142",
+            "created": "2012-02-11T15:35:43",
             "public": true,
             "user": 1,
             "writable_to": "u",
             "build_report": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=28524",
-            "order": 2
-        }
-    },
-    {
-        "pk": 2,
-        "model": "albums.album",
-        "fields": {
-            "category": 2,
-            "votes": 0,
-            "trash": false,
-            "description": "Foto's gemaakt op de Brouwersdag van 2011",
-            "created": "2012-02-11T15:36:22",
-            "views": 3,
-            "title": "Brouwersdag 2011",
-            "cover": null,
-            "modified": "2012-08-16T21:36:43.115",
-            "last_upload": "2012-08-01T15:40:37",
-            "public": true,
-            "user": 1,
-            "writable_to": "o",
-            "build_report": "",
-            "order": 3
-        }
-    },
-    {
-        "pk": 6,
-        "model": "albums.album",
-        "fields": {
-            "category": 1,
-            "votes": 0,
-            "trash": true,
-            "description": "",
-            "created": "2012-07-21T22:40:04.675",
-            "views": 2,
-            "title": "trash_29072012_15.36.1343569008_album 21-07-2012",
-            "cover": null,
-            "modified": "2012-07-29T15:36:48.061",
-            "last_upload": "2012-08-12T04:40:36.499",
-            "public": true,
-            "user": 1,
-            "writable_to": "u",
-            "build_report": "",
-            "order": 3
+            "order": 1
         }
     },
     {
@@ -741,12 +553,57 @@
             "votes": 0,
             "trash": false,
             "description": "",
-            "created": "2012-02-15T22:13:09",
+            "clean_title": "test",
+            "last_upload": "2012-08-12T04:40:26",
             "views": 19,
             "title": "test",
             "cover": 44,
-            "modified": "2012-08-18T20:05:02.966",
-            "last_upload": "2012-08-12T04:40:26",
+            "modified": "2012-08-30T22:23:57.518",
+            "created": "2012-02-15T22:13:09",
+            "public": true,
+            "user": 1,
+            "writable_to": "u",
+            "build_report": "",
+            "order": 2
+        }
+    },
+    {
+        "pk": 8,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "trash": false,
+            "description": "",
+            "clean_title": "Album 4",
+            "last_upload": "2012-08-18T17:17:15.573",
+            "views": 18,
+            "title": "Album 4",
+            "cover": 45,
+            "modified": "2012-08-30T22:45:44.711",
+            "created": "2012-08-18T17:16:58.204",
+            "public": true,
+            "user": 1,
+            "writable_to": "u",
+            "build_report": "",
+            "order": 3
+        }
+    },
+    {
+        "pk": 9,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "trash": false,
+            "description": "Sorterentest",
+            "clean_title": "Album 5",
+            "last_upload": "2012-08-18T17:18:35.726",
+            "views": 2,
+            "title": "Album 5",
+            "cover": null,
+            "modified": "2012-08-30T22:53:30.509",
+            "created": "2012-08-18T17:18:25.877",
             "public": true,
             "user": 1,
             "writable_to": "u",
@@ -755,147 +612,223 @@
         }
     },
     {
-        "pk": 26,
-        "model": "albums.photo",
+        "pk": 7,
+        "model": "albums.album",
         "fields": {
-            "album": 4,
-            "uploaded": "2012-07-21T23:17:11.920",
+            "category": 1,
+            "votes": 0,
+            "trash": false,
             "description": "",
-            "views": 0,
-            "image": "albums/1/4/2012-04-06 19.58.27_1.jpg",
-            "modified": "2012-07-21T23:17:11.920",
-            "height": 600,
-            "width": 800,
-            "user": 1,
-            "order": 1
-        }
-    },
-    {
-        "pk": 27,
-        "model": "albums.photo",
-        "fields": {
-            "album": 4,
-            "uploaded": "2012-07-21T23:17:12.771",
-            "description": "",
-            "views": 0,
-            "image": "albums/1/4/2012-04-06 18.27.26.jpg",
-            "modified": "2012-07-21T23:17:12.771",
-            "height": 768,
-            "width": 1024,
-            "user": 1,
-            "order": 2
-        }
-    },
-    {
-        "pk": 29,
-        "model": "albums.photo",
-        "fields": {
-            "album": 4,
-            "uploaded": "2012-07-21T23:18:24.659",
-            "description": "",
-            "views": 0,
-            "image": "albums/1/4/2012-04-06 18.27.26_1.jpg",
-            "modified": "2012-07-21T23:18:24.659",
-            "height": 768,
-            "width": 1024,
-            "user": 1,
+            "clean_title": "Test album",
+            "last_upload": "2012-08-16T21:38:18",
+            "views": 3,
+            "title": "Test album",
+            "cover": null,
+            "modified": "2012-08-30T21:03:04.297",
+            "created": "2012-08-16T21:37:44.124",
+            "public": true,
+            "user": 3,
+            "writable_to": "u",
+            "build_report": "",
             "order": 4
         }
     },
     {
-        "pk": 28,
-        "model": "albums.photo",
+        "pk": 3,
+        "model": "albums.album",
         "fields": {
-            "album": 7,
-            "uploaded": "2012-07-21T23:17:13.648",
-            "description": "",
+            "category": 1,
+            "votes": 0,
+            "trash": false,
+            "description": "1/144 Tornado",
+            "clean_title": "Tornado IDS 'White Tiger' lange titel om te testen",
+            "last_upload": "2012-08-12T04:40:36.499",
             "views": 0,
-            "image": "albums/1/4/2012-04-06 18.26.55.jpg",
-            "modified": "2012-08-16T21:38:58.182",
-            "height": 768,
-            "width": 1024,
-            "user": 1,
-            "order": 3
-        }
-    },
-    {
-        "pk": 1,
-        "model": "albums.photo",
-        "fields": {
-            "album": 3,
-            "uploaded": "2012-02-12T12:19:50",
-            "description": "",
-            "views": 0,
-            "image": "albums/3/s5001563.JPG",
-            "modified": "2012-02-12T12:19:50",
-            "height": 600,
-            "width": 800,
+            "title": "Tornado IDS 'White Tiger' lange titel om te testen",
+            "cover": null,
+            "modified": "2012-08-30T21:13:11.061",
+            "created": "2012-02-11T15:38:14",
+            "public": false,
             "user": 2,
-            "order": 1
+            "writable_to": "u",
+            "build_report": "",
+            "order": 4
         }
     },
     {
-        "pk": 45,
-        "model": "albums.photo",
+        "pk": 4,
+        "model": "albums.album",
         "fields": {
-            "album": 8,
-            "uploaded": "2012-08-18T17:17:14.147",
+            "category": 1,
+            "votes": 0,
+            "trash": true,
             "description": "",
+            "clean_title": "EJ-10 Honda",
+            "last_upload": "2012-08-12T04:40:36",
             "views": 0,
-            "image": "albums/1/8/chameleon.jpg",
-            "modified": "2012-08-18T17:17:14.147",
-            "height": 576,
-            "width": 1024,
+            "title": "trash_30082012_21.10.1346353859_EJ-10 Honda",
+            "cover": 28,
+            "modified": "2012-08-30T21:10:59.893",
+            "created": "2012-02-15T20:51:57",
+            "public": false,
             "user": 1,
-            "order": 1
+            "writable_to": "u",
+            "build_report": "http://modelbrouwers.nl/phpBB3/",
+            "order": 4
         }
     },
     {
-        "pk": 46,
-        "model": "albums.photo",
+        "pk": 10,
+        "model": "albums.album",
         "fields": {
-            "album": 8,
-            "uploaded": "2012-08-18T17:17:15.573",
+            "category": 1,
+            "votes": 0,
+            "trash": false,
             "description": "",
+            "clean_title": "zesde album",
+            "last_upload": "1970-01-01T00:00:00",
             "views": 0,
-            "image": "albums/1/8/fox.jpg",
-            "modified": "2012-08-18T17:17:15.573",
-            "height": 683,
-            "width": 1024,
+            "title": "zesde album",
+            "cover": null,
+            "modified": "2012-08-30T21:13:13.980",
+            "created": "2012-08-18T18:12:26.541",
+            "public": true,
             "user": 1,
-            "order": 2
+            "writable_to": "u",
+            "build_report": "",
+            "order": 4
         }
     },
     {
-        "pk": 47,
-        "model": "albums.photo",
+        "pk": 14,
+        "model": "albums.album",
         "fields": {
-            "album": 9,
-            "uploaded": "2012-08-18T17:18:34.545",
+            "category": 1,
+            "votes": 0,
+            "trash": false,
             "description": "",
+            "clean_title": "zevende album",
+            "last_upload": "1970-01-01T00:00:00",
             "views": 0,
-            "image": "albums/1/9/masstaden_wall1.jpg",
-            "modified": "2012-08-18T17:18:34.545",
-            "height": 576,
-            "width": 1024,
+            "title": "zevende album",
+            "cover": null,
+            "modified": "2012-08-30T21:53:46.441",
+            "created": "2012-08-30T21:53:46.441",
+            "public": true,
             "user": 1,
-            "order": 1
+            "writable_to": "u",
+            "build_report": "",
+            "order": 4
         }
     },
     {
-        "pk": 48,
-        "model": "albums.photo",
+        "pk": 11,
+        "model": "albums.album",
         "fields": {
-            "album": 9,
-            "uploaded": "2012-08-18T17:18:35.726",
+            "category": 1,
+            "votes": 0,
+            "trash": false,
             "description": "",
+            "clean_title": "zevende album_1",
+            "last_upload": "1970-01-01T00:00:00",
             "views": 0,
-            "image": "albums/1/9/masstaden_wall2.jpg",
-            "modified": "2012-08-18T17:18:35.726",
-            "height": 576,
-            "width": 1024,
+            "title": "zevende album_1",
+            "cover": null,
+            "modified": "2012-08-30T21:54:55.340",
+            "created": "2012-08-18T18:13:45.985",
+            "public": true,
             "user": 1,
-            "order": 2
+            "writable_to": "u",
+            "build_report": "",
+            "order": 4
+        }
+    },
+    {
+        "pk": 12,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "trash": false,
+            "description": "",
+            "clean_title": "zevende album_2",
+            "last_upload": "1970-01-01T00:00:00",
+            "views": 0,
+            "title": "zevende album_2",
+            "cover": null,
+            "modified": "2012-08-30T21:54:56.536",
+            "created": "2012-08-30T21:39:22.886",
+            "public": true,
+            "user": 1,
+            "writable_to": "u",
+            "build_report": "",
+            "order": 4
+        }
+    },
+    {
+        "pk": 13,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "trash": false,
+            "description": "",
+            "clean_title": "zevende album_3",
+            "last_upload": "1970-01-01T00:00:00",
+            "views": 0,
+            "title": "zevende album_3",
+            "cover": null,
+            "modified": "2012-08-30T21:56:09.223",
+            "created": "2012-08-30T21:53:24.363",
+            "public": true,
+            "user": 1,
+            "writable_to": "u",
+            "build_report": "",
+            "order": 4
+        }
+    },
+    {
+        "pk": 2,
+        "model": "albums.album",
+        "fields": {
+            "category": 2,
+            "votes": 0,
+            "trash": false,
+            "description": "Foto's gemaakt op de Brouwersdag van 2011",
+            "clean_title": "Brouwersdag 2011",
+            "last_upload": "2012-08-01T15:40:37",
+            "views": 3,
+            "title": "Brouwersdag 2011",
+            "cover": null,
+            "modified": "2012-08-30T21:13:15.049",
+            "created": "2012-02-11T15:36:22",
+            "public": true,
+            "user": 1,
+            "writable_to": "o",
+            "build_report": "",
+            "order": 5
+        }
+    },
+    {
+        "pk": 6,
+        "model": "albums.album",
+        "fields": {
+            "category": 1,
+            "votes": 0,
+            "trash": true,
+            "description": "",
+            "clean_title": "album 21-07-2012",
+            "last_upload": "2012-08-12T04:40:36.499",
+            "views": 2,
+            "title": "trash_29072012_15.36.1343569008_",
+            "cover": null,
+            "modified": "2012-08-30T21:13:15.586",
+            "created": "2012-07-21T22:40:04.675",
+            "public": true,
+            "user": 1,
+            "writable_to": "u",
+            "build_report": "",
+            "order": 5
         }
     },
     {
@@ -905,9 +838,9 @@
             "album": 1,
             "uploaded": "2012-07-21T18:14:40.760",
             "description": "Wat commentaar erbij om te testen",
-            "views": 5,
+            "views": 6,
             "image": "albums/1/1/BILD0058.jpg",
-            "modified": "2012-08-12T22:07:31.487",
+            "modified": "2012-08-30T23:16:21.363",
             "height": 600,
             "width": 800,
             "user": 1,
@@ -1520,6 +1453,150 @@
             "width": 1024,
             "user": 1,
             "order": 23
+        }
+    },
+    {
+        "pk": 45,
+        "model": "albums.photo",
+        "fields": {
+            "album": 8,
+            "uploaded": "2012-08-18T17:17:14.147",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/8/chameleon.jpg",
+            "modified": "2012-08-18T17:17:14.147",
+            "height": 576,
+            "width": 1024,
+            "user": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": 46,
+        "model": "albums.photo",
+        "fields": {
+            "album": 8,
+            "uploaded": "2012-08-18T17:17:15.573",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/8/fox.jpg",
+            "modified": "2012-08-18T17:17:15.573",
+            "height": 683,
+            "width": 1024,
+            "user": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": 47,
+        "model": "albums.photo",
+        "fields": {
+            "album": 9,
+            "uploaded": "2012-08-18T17:18:34.545",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/9/masstaden_wall1.jpg",
+            "modified": "2012-08-18T17:18:34.545",
+            "height": 576,
+            "width": 1024,
+            "user": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": 48,
+        "model": "albums.photo",
+        "fields": {
+            "album": 9,
+            "uploaded": "2012-08-18T17:18:35.726",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/9/masstaden_wall2.jpg",
+            "modified": "2012-08-18T17:18:35.726",
+            "height": 576,
+            "width": 1024,
+            "user": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": 28,
+        "model": "albums.photo",
+        "fields": {
+            "album": 7,
+            "uploaded": "2012-07-21T23:17:13.648",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 18.26.55.jpg",
+            "modified": "2012-08-16T21:38:58.182",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": 1,
+        "model": "albums.photo",
+        "fields": {
+            "album": 3,
+            "uploaded": "2012-02-12T12:19:50",
+            "description": "",
+            "views": 0,
+            "image": "albums/3/s5001563.JPG",
+            "modified": "2012-02-12T12:19:50",
+            "height": 600,
+            "width": 800,
+            "user": 2,
+            "order": 1
+        }
+    },
+    {
+        "pk": 26,
+        "model": "albums.photo",
+        "fields": {
+            "album": 4,
+            "uploaded": "2012-07-21T23:17:11.920",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 19.58.27_1.jpg",
+            "modified": "2012-07-21T23:17:11.920",
+            "height": 600,
+            "width": 800,
+            "user": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": 27,
+        "model": "albums.photo",
+        "fields": {
+            "album": 4,
+            "uploaded": "2012-07-21T23:17:12.771",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 18.27.26.jpg",
+            "modified": "2012-07-21T23:17:12.771",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": 29,
+        "model": "albums.photo",
+        "fields": {
+            "album": 4,
+            "uploaded": "2012-07-21T23:18:24.659",
+            "description": "",
+            "views": 0,
+            "image": "albums/1/4/2012-04-06 18.27.26_1.jpg",
+            "modified": "2012-07-21T23:18:24.659",
+            "height": 768,
+            "width": 1024,
+            "user": 1,
+            "order": 4
         }
     },
     {

@@ -12,14 +12,14 @@ from django.shortcuts import get_object_or_404
 from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import *
-from utils import resize
+from utils import resize, admin_mode
 from datetime import datetime
 
 ###########################
 #          BASE           #
 ###########################
 def index(request):
-    albums = Album.objects.filter(trash=False, public=True).annotate(null_last_upload=Count('last_upload')).order_by('-last_upload', '-created')
+    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')
     
     p = Paginator(albums, 20)
     page = request.GET.get('page', 1)
@@ -108,7 +108,11 @@ def manage(request, album_id=None):
 
 @login_required
 def edit_album(request, album_id=None):
-    album = get_object_or_404(Album, pk=album_id, user=request.user)
+    q = Q(pk=album_id)
+    if not admin_mode(request.user):
+        q = Q(q, user=request.user)
+    
+    album = get_object_or_404(Album, q)
     if request.method == "POST":
         form = EditAlbumForm(request.POST, instance=album)
         if form.is_valid():
@@ -118,15 +122,20 @@ def edit_album(request, album_id=None):
         form = EditAlbumForm(instance=album)
     return render_to_response(request, 'albums/edit_album.html', {'form': form})
 
+@login_required
 def edit_photo(request, photo_id=None):
-    photo = get_object_or_404(Photo, pk=photo_id, user=request.user)
+    q = Q(pk=photo_id)
+    if not admin_mode(request.user):
+        q = Q(q, user=request.user)
+    
+    photo = get_object_or_404(Photo, q)
     if request.method == "POST":
-        form = EditPhotoForm(request.POST, instance=photo)
+        form = EditPhotoForm(request.user, request.POST, instance=photo)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse(browse_album, args=[photo.album.id]))
     else:
-        form = EditPhotoForm(instance=photo)
+        form = EditPhotoForm(request.user, instance=photo)
     return render_to_response(request, 'albums/edit_photo.html', {'form': form})
 
 @login_required
@@ -139,6 +148,8 @@ def preferences(request):
             return HttpResponseRedirect(reverse(index))
     else:
         form = PreferencesForm(instance=p)
+        if not admin_mode(request.user):
+            del form.fields["apply_admin_permissions"]
     return render_to_response(request, 'albums/preferences.html', {'form': form})
 
 ###########################
@@ -242,7 +253,12 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
 ###########################
 
 def albums_list(request):
-    albums = Album.objects.filter(trash=False, public=True).annotate(null_last_upload=Count('last_upload')).order_by('-last_upload', '-created')
+    user = request.user
+    if user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album'):
+        q = Q(trash=False)
+    else:
+        q = Q(trash=False, public=True)
+    albums = Album.objects.filter(q).annotate(null_last_upload=Count('last_upload')).order_by('-last_upload', '-created')
     
     p = Paginator(albums, 30)
     page = request.GET.get('page', 1)
@@ -265,11 +281,13 @@ def albums_list(request):
             })
 
 def browse_album(request, album_id=None):
+    q = Q(pk=album_id)
     if request.user.is_authenticated():
-        q = Q(public=True) | Q(user=request.user)
+        if not admin_mode(request.user):
+            q = Q(q, Q(public=True) | Q(user=request.user))
     else:
-        q = Q(public=True)
-    album = get_object_or_404(Album, q, pk=album_id, trash=False)
+        q = Q(q, public=True)
+    album = get_object_or_404(Album, q, trash=False)
     # increment album views
     album.views = F('views') + 1
     album.save()
@@ -359,11 +377,13 @@ def my_albums_list(request):
     return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters})
 
 def photo(request, photo_id=None):
+    q = Q(pk=photo_id)
     if request.user.is_authenticated():
-        q = Q(album__public=True) | Q(user=request.user)
+        if not admin_mode(request.user):
+            q = Q(q, Q(album__public=True) | Q(user=request.user))
     else:
-        q = Q(album__public=True)
-    photo = get_object_or_404(Photo, q, pk=photo_id)
+        q = Q(q, album__public=True)
+    photo = get_object_or_404(Photo, q)
     photo.views = F('views') + 1
     photo.save()
     photo = get_object_or_404(Photo, pk=photo_id)

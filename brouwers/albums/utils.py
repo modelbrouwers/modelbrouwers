@@ -3,6 +3,7 @@ import os
 import itertools
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from models import Preferences
 
 def valid_ext(extension):
     """
@@ -86,3 +87,9 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
             #    img_data.append((rel_path, img.size[0], img.size[1]))
         return img_data
     return None
+
+def admin_mode(user):
+    p = Preferences.get_or_create(user)
+    if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.apply_admin_permissions:
+        return True
+    return False

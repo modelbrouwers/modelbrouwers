@@ -2,6 +2,7 @@ from django import forms
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 from models import *
+from utils import admin_mode
 
 import re
 from datetime import datetime
@@ -70,7 +71,13 @@ class PickAlbumForm(forms.Form):
             trash = False
         super(PickAlbumForm, self).__init__(*args, **kwargs)
         #own_albums = Album.objects.filter(user=user, writable_to="u", trash=False).order_by('order', 'title')
-        own_albums = Album.objects.filter(user=user, trash=trash).order_by('order', 'title')
+        
+        if admin_mode(user):
+            q = Q(trash=trash)
+        else:
+            q = Q(user=user, trash=trash)
+        
+        own_albums = Album.objects.filter(q).order_by('order', 'title')
         public_albums = Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title')
         self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to')
         if browse:
@@ -102,10 +109,14 @@ class EditPhotoForm(forms.ModelForm):
             'description': forms.Textarea(),
         }
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(EditPhotoForm, self).__init__(*args, **kwargs)
         photo = kwargs['instance']
-        albums = Album.objects.filter(Q(user=photo.user)|Q(public=True), trash=False)
+        
+        if admin_mode(user):
+            albums = Album.objects.all()
+        else:
+            albums = Album.objects.filter(Q(user=photo.user)|Q(public=True), trash=False)
         self.fields['album'].queryset = albums
         self.fields['album'].empty_label = None
     

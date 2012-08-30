@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.hashcompat import sha_constructor
 
 from brouwers.albums.models import Album
+from brouwers.albums.utils import admin_mode
 from brouwers.awards.models import Project
 from brouwers.secret_santa.models import Participant
 
@@ -170,7 +171,11 @@ def profile(request):
 
 def user_profile(request, username=None):
     profile = get_object_or_404(UserProfile, user__username=username)
-    albums = Album.objects.filter(trash=False, user=profile.user, public=True)
+    q = Q(trash=False, user=profile.user)
+    if request.user.is_authenticated():
+        if not admin_mode(request.user):
+            q = Q(q, public=True)
+    albums = Album.objects.filter(q)
     total = albums.count()
     
     p = Paginator(albums, 24)
