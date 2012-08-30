@@ -245,6 +245,9 @@ class Photo(models.Model):
     def get_thumb_width(self, width=140, height=105):
         if self.width and self.width < width:
             width = self.width
+        elif not self.is_wider_than_higher :
+            ratio = float(self.width) / float(self.height)
+            width = int(ratio*height)
         return width
     
     def get_thumb_width_200(self):
