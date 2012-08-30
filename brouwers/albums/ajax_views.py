@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.db.models import F, Q, Max
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -12,6 +13,7 @@ from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import AlbumForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm
 from utils import resize
+import itertools
 
 @login_required
 def new_album(request):
@@ -167,7 +169,7 @@ def remove_album(request):
     if form.is_valid():
         album = form.cleaned_data["album"]
         album.trash = True
-        album.title = "trash_%s_%s" % (datetime.now().strftime('dmY_H.M.s'), album.title)
+        album.title = "trash_%s_%s" % (datetime.now().strftime('%d%m%Y_%H.%M.%s'), album.title)
         album.save()
         status = 'ok'
     return HttpResponse(status)
@@ -180,3 +182,24 @@ def get_title(request):
         album = form.cleaned_data["album"]
         title = album.title
     return HttpResponse(title)
+
+@login_required
+def restore_album(request):
+    form = PickAlbumForm(request.user, request.POST, trash=True)
+    if form.is_valid():
+        album = form.cleaned_data["album"]
+        album.trash = False
+        album.title = album.clean_title
+        
+        i = itertools.count(2)
+        saved = False
+        while(not saved):
+            try:
+                album.save()
+                saved = True
+                return HttpResponse('ok')
+            except IntegrityError:
+                album.title = "%s_%s" % (album.clean_title, i.next())
+            
+            print i
+    return HttpResponse('<table>'+form.as_table()+'</table>')

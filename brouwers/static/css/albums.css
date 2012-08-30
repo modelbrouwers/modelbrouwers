@@ -474,7 +474,7 @@ a.album img.private{
     left: 0;
     z-index: 5;
 }
-.edit, .remove{
+.edit, .remove, .restore{
     position: absolute;
     top: 0;
     right: 0;

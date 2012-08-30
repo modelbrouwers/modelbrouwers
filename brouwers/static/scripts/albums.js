@@ -1,6 +1,5 @@
 $(document).ready(function() {    
     $('.no-javascript').remove(); //hide the warning
-    var remove_album_id = 0;
     
     $('.BBCode').focus(function(){
         $(this).select();
@@ -20,16 +19,16 @@ $(document).ready(function() {
         $(this).parent().find('.edit, .remove').show();
     });*/
     $('a.album').hover(function() {
-        $(this).find('.edit, .remove').show();
+        $(this).find('.edit, .remove, .restore').show();
     });
     $('a.album img').hover(function() {
-        $(this).parent().find('.edit, .remove').show();
+        $(this).parent().find('.edit, .remove, .restore').show();
     });
     /*$('#personal-albums').on('mouseout', 'li.album', function() {
         $(this).find('.edit, .remove').hide();
     });*/
     $('li.album').mouseout(function() {
-        $(this).find('.edit, .remove').hide();
+        $(this).find('.edit, .remove, .restore').hide();
     });
     
     if ($('#edit-dialog').length > 0){
@@ -96,6 +95,10 @@ $(document).ready(function() {
     
     $('img.remove').click(function(e){
     	openRemoveDialog(e, $(this));
+    });
+    
+    $('img.restore').click(function(e){
+    	restoreAlbum(e, $(this));
     });
     
     $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {
@@ -287,5 +290,23 @@ function openRemoveDialog(e, element){
         }
     );
     $("#remove-dialog").dialog("open");
+    return false;
+}
+function restoreAlbum(e, element){
+    e.preventDefault();
+    var li = $(element).closest('li.album');
+    album_id = li.children('input[name="album_id"]').val();
+    
+    $.post(
+        url_restore,
+		{'album': album_id},
+		function (response){
+		    if (response == 'ok'){
+			    $('li#album_'+album_id).remove();
+			} else {
+			    alert('Het terugzetten is niet geslaagd.');
+			}
+		}
+	);
     return false;
 }

@@ -19,7 +19,7 @@ def cln_build_report(form):
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        exclude = ('user', 'created', 'modified', 'last_upload', 'views', 'votes', 'order', 'trash', 'cover')
+        exclude = ('user', 'created', 'modified', 'last_upload', 'views', 'votes', 'order', 'trash', 'cover', 'clean_title')
         
     def clean_build_report(self):
         return cln_build_report(self)
@@ -64,10 +64,14 @@ class PickAlbumForm(forms.Form):
             browse = kwargs.pop('browse')
         except KeyError: #key not suplied
             browse = False
+        try:
+            trash = kwargs.pop('trash')
+        except KeyError: #key not suplied
+            trash = False
         super(PickAlbumForm, self).__init__(*args, **kwargs)
         #own_albums = Album.objects.filter(user=user, writable_to="u", trash=False).order_by('order', 'title')
-        own_albums = Album.objects.filter(user=user, trash=False).order_by('order', 'title')
-        public_albums = Album.objects.filter(writable_to="o", trash=False).order_by('order', 'title')
+        own_albums = Album.objects.filter(user=user, trash=trash).order_by('order', 'title')
+        public_albums = Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title')
         self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to')
         if browse:
             self.fields['album'].required = False

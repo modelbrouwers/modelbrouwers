@@ -97,7 +97,7 @@ def manage(request, album_id=None):
                 for form in album_formset.deleted_forms:
                     form.instance.trash = True
                     form.instance.clean_title=form.instance.title
-                    form.instance.title = "trash_%s_%s" % (datetime.now().strftime('dmY_H.M.s'), form.instance.title)
+                    form.instance.title = "trash_%s_%s" % (datetime.now().strftime('%d%m%Y_%H.%M.%s'), form.instance.title)
                     form.instance.save()
                 return HttpResponseRedirect(reverse(manage))
     else:
