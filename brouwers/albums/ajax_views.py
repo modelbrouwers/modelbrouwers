@@ -142,10 +142,12 @@ def reorder(request):
 @login_required
 def get_all_own_albums(request):
     own_albums = Album.objects.filter(user=request.user, writable_to='u', trash=False)
-    return render_to_response(request, 'albums/albums_list/albums_rows_li.html', {'albums': own_albums})
+    return render_to_response(request, 'albums/albums_list/albums_li.html', {'albums': own_albums})
 
 @login_required
 def edit_album(request):
+    editform = None
+    photos = None
     if request.method == "POST":
         form = PickAlbumForm(request.user, request.POST)
         if form.is_valid():

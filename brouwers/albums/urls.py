@@ -32,3 +32,7 @@ urlpatterns += patterns('brouwers.albums.ajax_views',
     (r'^search/$',              'search'),
     (r'^set_cover/$',           'set_cover'),
     )
+
+urlpatterns += patterns('brouwers.albums.ajax_views_forum',
+    (r'^sidebar/$',          'get_sidebar'),
+    )

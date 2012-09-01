@@ -1,7 +1,8 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('django.views.generic.simple',
-    (r'^$', 'direct_to_template', {'template': 'base.html'})
+    (r'^$', 'direct_to_template', {'template': 'base.html'}),
+#    (r'^phpBB3/$', 'redirect_to', {'url': 'http://localhost/phpBB3/'}),
     )
 
 urlpatterns += patterns('brouwers.general.views',

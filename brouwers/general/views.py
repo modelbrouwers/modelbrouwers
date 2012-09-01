@@ -47,7 +47,10 @@ def register(request):
             receiver = [form.cleaned_data['email']]
             send_mail(subject, message, sender, receiver, fail_silently=True)      
             
-            return HttpResponseRedirect('/profile/')
+            next_page = request.GET.get('next', reverse(profile))
+            if ' ' in next_page:
+            	next_page = reverse(profile)
+            return HttpResponseRedirect(next)
     else:
         form = RegistrationForm()
     return render_to_response(request, 'general/register.html', {'form': form})
