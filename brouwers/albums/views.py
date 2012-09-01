@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import *
-from utils import resize, admin_mode
+from utils import resize, admin_mode, can_switch_admin_mode
 from datetime import datetime
 
 ###########################
