@@ -148,7 +148,7 @@ def preferences(request):
             return HttpResponseRedirect(reverse(index))
     else:
         form = PreferencesForm(instance=p)
-        if not admin_mode(request.user):
+        if not can_switch_admin_mode(request.user):
             del form.fields["apply_admin_permissions"]
     return render_to_response(request, 'albums/preferences.html', {'form': form})
 

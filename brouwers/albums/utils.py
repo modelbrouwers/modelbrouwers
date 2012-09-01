@@ -93,3 +93,8 @@ def admin_mode(user):
     if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.apply_admin_permissions:
         return True
     return False
+
+def can_switch_admin_mode(user):
+    if user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album'):
+        return True
+    return False
