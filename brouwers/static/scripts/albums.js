@@ -167,6 +167,7 @@ $(document).ready(function() {
             function (response){
                 $('#personal-albums').replaceWith(response);
                 initSortable($('#personal-albums'));
+                fixVerticalCenter();
             }
         );
         return false;

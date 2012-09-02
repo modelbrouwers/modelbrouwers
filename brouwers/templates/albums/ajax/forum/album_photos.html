@@ -1,0 +1,15 @@
+<div class="helptext">(klik op de foto om in te voegen)</div>
+<ul id="photos-list">
+    {% for photo in photos %}
+        <li class="photo">
+            {% spaceless %}
+            <input type="hidden" name="BBCode" value="{{ photo.BBCode }}">
+            <a href="{{ photo.BBCode }}" class="photo">
+                <img class="thumb" src="{{ photo.thumb_url }}" alt="photo_{{ photo.id }}"
+                    width="{{ photo.get_thumb_width_100 }}"
+                    height="{{ photo.get_thumb_height_75 }}"/>
+            </a>
+            {% endspaceless %}
+        </li>
+    {% endfor %}
+</ul>

@@ -34,5 +34,8 @@ urlpatterns += patterns('brouwers.albums.ajax_views',
     )
 
 urlpatterns += patterns('brouwers.albums.ajax_views_forum',
+    (r'^get_photos/(\d+)/$', 'get_photos'),
+    (r'^search_own_albums/$','search'),
     (r'^sidebar/$',          'get_sidebar'),
+    (r'^sidebar_color/$',    'get_sidebar_color'),
     )

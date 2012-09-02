@@ -83,6 +83,11 @@ class PickAlbumForm(forms.Form):
         if browse:
             self.fields['album'].required = False
 
+class PickOwnAlbumForm(PickAlbumForm):
+    def __init__(self, user, *args, **kwargs):
+        super(PickOwnAlbumForm, self).__init__(user)
+        self.fields['album'].queryset = Album.objects.filter(user=user, trash=False).order_by('order', 'title')
+
 class OrderAlbumForm(PickAlbumForm):
     album_before = forms.ModelChoiceField(queryset=Album.objects.none(), required=False)
     album_after = forms.ModelChoiceField(queryset=Album.objects.none(), required=False)

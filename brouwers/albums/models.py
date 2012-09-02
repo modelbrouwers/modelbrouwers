@@ -255,6 +255,12 @@ class Photo(models.Model):
     
     def get_thumb_height_150(self):
         return self.get_thumb_height(width=200, height=150)
+    
+    def get_thumb_width_100(self):
+        return self.get_thumb_width(width=100, height=75)
+    
+    def get_thumb_height_75(self):
+        return self.get_thumb_height(width=100, height=75)
 
 IMG_SIZES = (
     (0, "1024x768"),
@@ -280,6 +286,10 @@ class Preferences(models.Model): #only create this object when user visits prefe
     
     #admin options
     apply_admin_permissions = models.BooleanField(help_text=_("When checked, you will see all the albums and be able to edit them."))
+    
+    #sidebar settings
+    sidebar_bg_color = models.CharField(_("Sidebar background color"), max_length=7, blank=True, help_text=_("Background color for the overlay in the board. Format #xxxxxx or #xxx"))
+    #TODO: set the text color
     
     class Meta:
         verbose_name = _("User preferences")
