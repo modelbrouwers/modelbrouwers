@@ -4,8 +4,11 @@
 <div class="tab" id="new">Nieuw album aanmaken</div>
 <div id="new-album">
     <form action="." method="POST">
+        {% for field in add_album_form.hidden_fields %}
+            {{ field }}
+        {% endfor %}
 	    <table>
-		    {% for field in add_album_form %}
+		    {% for field in add_album_form.visible_fields %}
             <tr>
                 <th class="label{% if field.field.required %} required{% endif %}">{{ field.label }}</th>
                 <td class="field">

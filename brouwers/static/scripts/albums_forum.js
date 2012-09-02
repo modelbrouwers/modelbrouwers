@@ -5,106 +5,109 @@ var prev_width = 0;
 
 $(document).ready(function(){
     // sidebar loading etc.
-    // TODO: add code to only do this for the beta testers
-    if ($('textarea[name="message"]').length > 0){
-        $('textarea[name="message"]').attr('id','id-textarea-post');
-        $('#wrapfooter').after(sidebar_html);
-        var sidebar = $("#albums-sidebar");
-        
+    if (($('textarea[name="message"]').length > 0)){
         $.get(
-            '/albums/sidebar/',
+            '/albums/is_beta_tester/',
             function(response){
-                sidebar.html(response);
-                sidebar.resizable({
-                    ghost: true,
-                    handles: "e",
-                    maxWidth: 800
-                });
-                
-                $('label').remove();
-                selected_album = $('#id_album').val();
-                window_height = $('body').height();
-                console.log(selected_album);
-                //TODO: get selected album & set title etc.
-                
-                /*$('#resizer').height(sidebar.height()-2);
-                $('#resizer').resizable({
-                    ghost: true,
-                    handles: "e",
-                    maxWidth: 800
-                });*/
-                
-                $('#id_album').remove();
-                $('#autocomplete-album').css('color', '#555');
-                $('#autocomplete-album').focus(function () {
-                    $(this).val('');
-                    $(this).css('color', 'auto');
-                    $(this).autocomplete({
-                        source: "/albums/search_own_albums/",
-                        autoFocus: true,
-                        minLength: 2,
-                        delay: 0,
-                        select:  function(e, ui) {
-                            loadPhotos(ui.item.album_id);
-                        }
-                    });
-                });
-                $('#autocomplete-album').blur(function () {
-                    if ($(this).val() == ''){
-                        $(this).css('color', '555');
-                        $(this).val('Albums doorzoeken');
-                    }
-                });
-            }
-        );
-        
-        // options...
-        $.get(
-            '/albums/sidebar_color/',
-            function (response){
-                if (response != ''){
-                    sidebar.css('background-color', response);
+                if (response == '1'){ // has access
+                    loadSidebar();
                 }
             }
         );
-        
-        $('a.photo').live('click', function(e){
-            e.preventDefault();
-            var BBCode = $(this).attr('href')+"\n";
-            insertAtCaret('id-textarea-post', BBCode);
-            return false;
-        });
-        
-        
-        
-        /* not required, position: fixed takes care of this
-        var window_height = $('body').height();
-        var sidebar_height = sidebar.height();
-        var sidebar_top = parseInt(sidebar.css('top'), 10);
-        var sidebar_total = sidebar_height + sidebar_top;
-        
-        // scrolling & moving of sidebar
-        var lastScrollTop = 0;
-        $(window).scroll(function(){
-            var st = $(window).scrollTop();
-            if (sidebar_total < window_height || st <= lastScrollTop){
-            // also when scrolling up + prevent window height from increasing because of the scrolling
-                sidebar.css("top", $(window).scrollTop() + "px");
-            }
-            window_height = $('body').height();
-            sidebar_height = sidebar.height();
-            sidebar_top = parseInt(sidebar.css('top'), 10);
-            sidebar_total = sidebar_height + sidebar_top;
-            lastScrollTop = st; 
-        });
-        */
     }
 });
+
+function loadSidebar(){
+    $('textarea[name="message"]').attr('id','id-textarea-post');
+    $('#wrapfooter').after(sidebar_html);
+    var sidebar = $("#albums-sidebar");
+    
+    $.get(
+        '/albums/sidebar/',
+        function(response){
+            sidebar.html(response);
+            sidebar.resizable({
+                ghost: true,
+                handles: "e",
+                maxWidth: 800
+            });
+            
+            $('label').remove();
+            selected_album = $('#id_album').val();
+            window_height = $('body').height();
+            
+            /*$('#resizer').height(sidebar.height()-2);
+            $('#resizer').resizable({
+                ghost: true,
+                handles: "e",
+                maxWidth: 800
+            });*/
+            
+            $('#id_album').remove();
+            $('#autocomplete-album').css('color', '#555');
+            $('#autocomplete-album').focus(function () {
+                $(this).val('');
+                $(this).css('color', 'auto');
+                $(this).autocomplete({
+                    source: "/albums/search_own_albums/",
+                    autoFocus: true,
+                    minLength: 2,
+                    delay: 0,
+                    select:  function(e, ui) {
+                        loadPhotos(ui.item.album_id);
+                    }
+               });
+           });
+           $('#autocomplete-album').blur(function () {
+               if ($(this).val() == ''){
+                    $(this).css('color', '555');
+                    $(this).val('Albums doorzoeken');
+               }
+           });
+       }
+    );
+    
+    // options...
+    $.get(
+       '/albums/sidebar_options/',
+        function (json){
+            if (json != ''){
+                //console.log(json);
+                json = $.parseJSON(json);
+                if (json["background_color"]){
+                    bg_url = '/static/images/backgrounds/';
+                    if (json["transparent"]){
+                        bg_url += 'transparent_';
+                    }
+                    bg_url += json.background_color + '.png';
+                    console.log(bg_url);
+                    sidebar.css('background', 'url('+bg_url+')');
+                }
+                if (json["text_color"]){
+                    sidebar.css('color', json["text_color"]);
+                }
+                if (json["width"]){
+                    sidebar.width(json["width"]);
+                }
+            }
+        }
+    );
+    
+    $('a.photo').live('click', function(e){
+        e.preventDefault();
+        var BBCode = $(this).attr('href')+"\n";
+        insertAtCaret('id-textarea-post', BBCode);
+        $(this).addClass('selected');
+        return false;
+    });
+}
 function loadPhotos(album_id){
     $.get(
         '/albums/get_photos/'+album_id+'/',
         function (response){
-            $('#photos-list').replaceWith(response);
+            photos_list = $('#photos-list');
+            photos_list.prev('div.helptext').remove();
+            photos_list.replaceWith(response);
             //$("#albums-sidebar").tinyscrollbar();
             fixVerticalCenter();
         }
@@ -139,7 +142,7 @@ function toggleSidebar(){
         if (prev_width != 0){
             sidebar.width(prev_width);
         } else {
-            sidebar.css('width', '30%');
+            sidebar.css('width', '240px');
         }
         $('#control_icon').attr('src', close_icon);
     }

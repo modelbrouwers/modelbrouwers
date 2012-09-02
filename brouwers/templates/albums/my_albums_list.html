@@ -6,6 +6,7 @@
 	var url_remove = "{% url brouwers.albums.ajax_views.remove_album %}";
 	var url_restore = "{% url brouwers.albums.ajax_views.restore_album %}";
 	var url_get_title = "{% url brouwers.albums.ajax_views.get_title %}";
+	var url_new = "{% url brouwers.albums.ajax_views.new_album_jquery_ui %}";
 </script>
 {% endblock %}
 
@@ -14,17 +15,21 @@
     {% spaceless %}
     <div class="tab">
         Mijn persoonlijke albums &bull; 
+        <a href="#" id="new-album-popup">
+            <strong>Nieuw album</strong>
+        </a>
+        &bull;
         <a href="{% url brouwers.albums.views.manage %}">
-            <strong>Beheren</strong>
+            Beheren
         </a>
         &bull; 
         {% if trash %}
             <a href="." class="highlight" title="Klik nogmaals om te verlaten">
-                <strong>Prullenbak</strong>
+                Prullenbak
             </a>
         {% else %}
             <a href="./?trash=True">
-                <strong>Prullenbak</strong>
+                Prullenbak
             </a>
         {% endif %}
         <span class="right small-text">
@@ -78,6 +83,11 @@
         </div>
     {% endif %}
     
+    <div id="new-album-dialog">
+        <form id="new-album">
+            {% include "form_in_table_jquery-ui.html" %}
+        </form>
+    </div>
     <div id="edit-dialog"></div>
     <div id="remove-dialog" style="display:none">
     	<p class="warn">Ben je zeker dat je het album &lsquo;<span id="id-album-title"></span>&rsquo; naar de prullenbak wil verplaatsen?</p>

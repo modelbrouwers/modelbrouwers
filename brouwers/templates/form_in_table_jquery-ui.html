@@ -1,6 +1,6 @@
-{% if non_field_errors %}
+{% if form.non_field_errors %}
 </ul>
-    {% for error in non_field_errors %}
+    {% for error in form.non_field_errors %}
         <li class="error">{{ error }}</li>
     {% endfor %}
 </ul>

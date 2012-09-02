@@ -571,10 +571,13 @@ div.album-form input[name$="-ORDER"], div.album-form input[type="checkbox"]{
     width: 2.4em;
     text-align: center;
 }
-div.album-form td.help_text, #new-album td.help_text{
+div.album-form td.help_text, #new-album td.help_text, td.help_text, span.help_text{
     font-style: italic;
     font-size: 0.8em;
     padding-left: 1em;
+}
+span.help_text{
+    padding-left: 0;
 }
 tr.error td, tr.error th{
     font-weight: bold;

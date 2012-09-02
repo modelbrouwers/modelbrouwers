@@ -1,0 +1,14 @@
+<form id="new-album">
+    {% include "form_in_table_jquery-ui.html" %}
+</form>
+<div id="response">
+    {% include "albums/album_li.html" %}
+</div>
+
+<script type="text/javascript">
+    $('#new-album-dialog').dialog("close");
+    var new_li = $('#response').html();
+	$('ul#personal-albums').append(new_li);
+	$('#response').remove();
+    fixVerticalCenter();
+</script>

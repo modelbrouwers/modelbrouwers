@@ -71,6 +71,7 @@ class Album(models.Model):
         permissions = (
             ('edit_album', _("Can edit/remove album")),
             ('see_all_albums', _("Can see all albums")),
+            ('access_albums', _("Can use new albums")),
         )
     
     def __unicode__(self):
@@ -273,6 +274,12 @@ UPLOADER_CHOICES = (
     ("H", _("Basic")),
     #("J", "Javascript")
 )
+BACKGROUND_CHOICES = (
+    ("black", _("Black")),
+    ("white", _("White")),
+    ("#EEE", _("Light grey")),
+    ("#333", _("Dark grey")),
+)
 class Preferences(models.Model): #only create this object when user visits preferences page first time, otherwise go with the defaults
     user = models.ForeignKey(User, unique=True)
     default_img_size = models.PositiveSmallIntegerField(choices=IMG_SIZES, default=0, help_text=_("Your pictures will be scaled to this size."))
@@ -288,8 +295,19 @@ class Preferences(models.Model): #only create this object when user visits prefe
     apply_admin_permissions = models.BooleanField(help_text=_("When checked, you will see all the albums and be able to edit them."))
     
     #sidebar settings
-    sidebar_bg_color = models.CharField(_("Sidebar background color"), max_length=7, blank=True, help_text=_("Background color for the overlay in the board. Format #xxxxxx or #xxx"))
-    #TODO: set the text color
+    sidebar_bg_color = models.CharField(
+        _("sidebar background color"), 
+        max_length=7, blank=True, 
+        help_text=_("Background for the overlay in the board."),
+        choices=BACKGROUND_CHOICES, default='black'
+    )
+    sidebar_transparent = models.BooleanField(_("transparent background?"), default=True)
+    text_color = models.CharField(_("sidebar text color"), max_length=7, blank=True,
+        help_text=_("Text color in the overlay. HTML color format #xxxxxx or #xxx.")
+    )
+    width = models.CharField(_("sidebar width"), max_length=6, blank=True, 
+        help_text=_("Width of the sidebar. E.g. '30%' or '300px'.")
+    )
     
     class Meta:
         verbose_name = _("User preferences")

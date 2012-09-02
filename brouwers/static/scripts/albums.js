@@ -31,6 +31,30 @@ $(document).ready(function() {
         $(this).find('.edit, .remove, .restore').hide();
     });
     
+    if ($('#new-album-dialog').length > 0){
+        $('#new-album-dialog').dialog({
+			    autoOpen: false,
+			    height: 400,
+			    width: 800,
+			    modal: true,
+			    title: "Nieuw album",
+			    buttons: {
+			        "Bewaren": function(){
+			            data = $('form#new-album').serializeArray();
+			            $.post(
+			                url_new,
+			                data,
+			                function (response){
+			                    $("#new-album-dialog").html(response);
+			                }
+			            );
+			        },
+			        "Annuleren": function() {
+			            $(this).dialog("close");
+			        }
+			    }
+	    });
+	}
     if ($('#edit-dialog').length > 0){
         $('#edit-dialog').dialog({
 			    autoOpen: false,
@@ -99,6 +123,11 @@ $(document).ready(function() {
     
     $('img.restore').click(function(e){
     	restoreAlbum(e, $(this));
+    });
+    $('a#new-album-popup').click(function(e){
+        e.preventDefault();
+        $('#new-album-dialog').dialog('open');
+        return false;
     });
     
     $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {

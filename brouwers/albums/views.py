@@ -101,6 +101,8 @@ def manage(request, album_id=None):
                     form.instance.save()
                 return HttpResponseRedirect(reverse(manage))
     else:
+        if not album:
+            album = Album(user=request.user)
         add_album_form = AlbumForm(instance=album)
         # creating a formset to change the ordering of the albums - AJAX degradable
         album_formset = AlbumFormSet(queryset=albums)
@@ -374,7 +376,9 @@ def my_albums_list(request):
         albums_data.append(
             {'albums': albums, 'closing_tag': closing_tag}
         )
-    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters})
+    new_album = Album(user=request.user)
+    form = AlbumForm(instance=new_album)
+    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters, 'form': form})
 
 def photo(request, photo_id=None):
     q = Q(pk=photo_id)

@@ -24,10 +24,20 @@ def get_sidebar(request):
     return render_to_response(request, 'albums/ajax/forum/sidebar.html', {'form': form})
 
 @login_required
-def get_sidebar_color(request):
+def get_sidebar_options(request):
     p = Preferences.get_or_create(request.user)
-    color = p.sidebar_bg_color
-    return HttpResponse(color)
+    options = {}
+    options['transparent'] = p.sidebar_transparent
+    options['text_color'] = p.text_color
+    options['background_color'] = p.sidebar_bg_color
+    options['width'] = p.width
+    return HttpResponse(json.dumps(options))
+
+def is_beta_tester(request):
+    user = request.user
+    if user.has_perm('albums.access_albums'):
+        return HttpResponse(1)
+    return HttpResponse(0)
 
 @login_required
 def search(request):

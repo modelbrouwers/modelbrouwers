@@ -182,6 +182,21 @@ def remove_album(request):
     return HttpResponse(status)
 
 @login_required
+def new_album_jquery_ui(request):
+    new_album = Album(user=request.user)
+    if request.method == "POST":
+        form = AlbumForm(request.POST)
+        if form.is_valid():
+            album = form.save()
+            new_form = AlbumForm(instance=new_album)
+            return render_to_response(
+                request, 
+                'albums/ajax/new_album_li.html', 
+                {'album': album, 'form': new_form}
+            )
+    return render_to_response(request, 'albums/ajax/new_album_jquery-ui.html', {'form': form})
+
+@login_required
 def get_title(request):
     title = ''
     form = PickAlbumForm(request.user, request.GET)
