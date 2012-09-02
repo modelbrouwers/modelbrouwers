@@ -9,7 +9,7 @@
             "is_active": true,
             "is_superuser": true,
             "is_staff": true,
-            "last_login": "2012-08-30T20:59:58.317",
+            "last_login": "2012-08-31T23:41:00.079",
             "groups": [],
             "user_permissions": [],
             "password": "pbkdf2_sha256$10000$z3awiDWfqZnd$G2e7/1g/t4ahl+laSnUFl7Dux7b6OVyhhv4xFQA8+4k=",
@@ -308,6 +308,46 @@
         }
     },
     {
+        "pk": 9,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 9,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "djon",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 11,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 11,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "jmdkdb",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
         "pk": 3,
         "model": "general.userprofile",
         "fields": {
@@ -327,6 +367,46 @@
             "forum_nickname": "Joe Silent",
             "exclude_from_nomination": true,
             "preference": ""
+        }
+    },
+    {
+        "pk": 10,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 10,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "j provo",
+            "exclude_from_nomination": false,
+            "preference": null
+        }
+    },
+    {
+        "pk": 8,
+        "model": "general.userprofile",
+        "fields": {
+            "province": null,
+            "city": null,
+            "refuse": null,
+            "country": null,
+            "number": null,
+            "categories_voted": [],
+            "street": null,
+            "user": 8,
+            "last_vote": "2010-01-01",
+            "secret_santa": false,
+            "postal": null,
+            "forum_nickname": "martijn-boten",
+            "exclude_from_nomination": false,
+            "preference": null
         }
     },
     {
@@ -385,86 +465,6 @@
             "secret_santa": false,
             "postal": null,
             "forum_nickname": "Se\u00f1or M",
-            "exclude_from_nomination": false,
-            "preference": null
-        }
-    },
-    {
-        "pk": 9,
-        "model": "general.userprofile",
-        "fields": {
-            "province": null,
-            "city": null,
-            "refuse": null,
-            "country": null,
-            "number": null,
-            "categories_voted": [],
-            "street": null,
-            "user": 9,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": null,
-            "forum_nickname": "djon",
-            "exclude_from_nomination": false,
-            "preference": null
-        }
-    },
-    {
-        "pk": 10,
-        "model": "general.userprofile",
-        "fields": {
-            "province": null,
-            "city": null,
-            "refuse": null,
-            "country": null,
-            "number": null,
-            "categories_voted": [],
-            "street": null,
-            "user": 10,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": null,
-            "forum_nickname": "j provo",
-            "exclude_from_nomination": false,
-            "preference": null
-        }
-    },
-    {
-        "pk": 11,
-        "model": "general.userprofile",
-        "fields": {
-            "province": null,
-            "city": null,
-            "refuse": null,
-            "country": null,
-            "number": null,
-            "categories_voted": [],
-            "street": null,
-            "user": 11,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": null,
-            "forum_nickname": "jmdkdb",
-            "exclude_from_nomination": false,
-            "preference": null
-        }
-    },
-    {
-        "pk": 8,
-        "model": "general.userprofile",
-        "fields": {
-            "province": null,
-            "city": null,
-            "refuse": null,
-            "country": null,
-            "number": null,
-            "categories_voted": [],
-            "street": null,
-            "user": 8,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": null,
-            "forum_nickname": "martijn-boten",
             "exclude_from_nomination": false,
             "preference": null
         }
@@ -599,10 +599,10 @@
             "description": "Sorterentest",
             "clean_title": "Album 5",
             "last_upload": "2012-08-18T17:18:35.726",
-            "views": 2,
+            "views": 3,
             "title": "Album 5",
             "cover": null,
-            "modified": "2012-08-30T22:53:30.509",
+            "modified": "2012-09-02T01:29:42.680",
             "created": "2012-08-18T17:18:25.877",
             "public": true,
             "user": 1,
@@ -1603,10 +1603,12 @@
         "pk": 1,
         "model": "albums.preferences",
         "fields": {
+            "auto_start_uploading": false,
+            "sidebar_bg_color": "black",
+            "user": 1,
             "default_uploader": "F",
             "show_direct_link": false,
-            "auto_start_uploading": false,
-            "user": 1,
+            "apply_admin_permissions": false,
             "default_img_size": 0
         }
     },
@@ -1614,10 +1616,12 @@
         "pk": 2,
         "model": "albums.preferences",
         "fields": {
+            "auto_start_uploading": false,
+            "sidebar_bg_color": "",
+            "user": 4,
             "default_uploader": "F",
             "show_direct_link": false,
-            "auto_start_uploading": false,
-            "user": 4,
+            "apply_admin_permissions": false,
             "default_img_size": 0
         }
     },
@@ -1625,10 +1629,12 @@
         "pk": 3,
         "model": "albums.preferences",
         "fields": {
+            "auto_start_uploading": false,
+            "sidebar_bg_color": "",
+            "user": 5,
             "default_uploader": "F",
             "show_direct_link": false,
-            "auto_start_uploading": false,
-            "user": 5,
+            "apply_admin_permissions": false,
             "default_img_size": 0
         }
     },
@@ -1636,10 +1642,12 @@
         "pk": 4,
         "model": "albums.preferences",
         "fields": {
+            "auto_start_uploading": false,
+            "sidebar_bg_color": "",
+            "user": 6,
             "default_uploader": "F",
             "show_direct_link": false,
-            "auto_start_uploading": false,
-            "user": 6,
+            "apply_admin_permissions": false,
             "default_img_size": 0
         }
     },
@@ -1674,16 +1682,6 @@
         }
     },
     {
-        "pk": 6,
-        "model": "migration.usermigration",
-        "fields": {
-            "username": "j provo",
-            "hash": "c41da8c3d98a51820a427913",
-            "username_clean": "j provo",
-            "email": "jprovo@mac.com"
-        }
-    },
-    {
         "pk": 9,
         "model": "migration.usermigration",
         "fields": {
@@ -1691,6 +1689,16 @@
             "hash": "c00fb8b25c1ba50009bf05ba",
             "username_clean": "jmdkdb",
             "email": "jeffaboy91@hotmail.com"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "migration.usermigration",
+        "fields": {
+            "username": "j provo",
+            "hash": "c41da8c3d98a51820a427913",
+            "username_clean": "j provo",
+            "email": "jprovo@mac.com"
         }
     },
     {
@@ -1731,6 +1739,32 @@
             "hash": null,
             "username_clean": "vliegtuigbouwer",
             "email": "tristan_van_leest@live.nl"
+        }
+    },
+    {
+        "pk": 21,
+        "model": "sessionprofile.sessionprofile",
+        "fields": {
+            "session": "a75662fed183828cfdbe3cf752c88598",
+            "user": 1
+        }
+    },
+    {
+        "pk": 1,
+        "model": "south.migrationhistory",
+        "fields": {
+            "applied": "2012-09-02T01:13:06.194",
+            "app_name": "albums",
+            "migration": "0001_initial"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "south.migrationhistory",
+        "fields": {
+            "applied": "2012-09-02T01:13:33.560",
+            "app_name": "albums",
+            "migration": "0002_auto__add_field_preferences_sidebar_bg_color"
         }
     }
 ]

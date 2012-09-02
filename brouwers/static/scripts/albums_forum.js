@@ -105,6 +105,7 @@ function loadPhotos(album_id){
         '/albums/get_photos/'+album_id+'/',
         function (response){
             $('#photos-list').replaceWith(response);
+            //$("#albums-sidebar").tinyscrollbar();
             fixVerticalCenter();
         }
     );

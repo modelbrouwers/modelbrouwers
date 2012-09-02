@@ -22,8 +22,9 @@ ul, li{
     /*background-color: rgba(0,0,0,0.9);*/
     color: white;
     /*width: 30%;*/
-    width: 120px;
+    width: 240px;
     border-right: solid 2px #0E72A4;
+    overflow: hidden;
     overflow-x: hidden;
     overflow-y: auto;
     font-size: 1.5em;
@@ -40,7 +41,7 @@ ul, li{
 }
 #albums-sidebar.opened{
     /*width: 30%;*/
-    width: 120px;
+    width: 240px;
 }
 #albums-sidebar.opened #albums-list, 
 #albums-sidebar.opened #photos-list, 
@@ -117,3 +118,16 @@ li.photo a.photo.selected{
 #resizer:hover{
     cursor: move;
 }
+
+/** scrollbar **/
+/*
+#albums-sidebar .viewport { width: 500px; overflow: hidden; position: relative; }
+#albums-sidebar .overview { list-style: none; position: absolute; left: 0; top: 0; }
+#albums-sidebar .thumb .end,
+#albums-sidebar .thumb { background-color: #003D5D; }
+#albums-sidebar .scrollbar { position: relative; float: right; width: 15px; }
+#albums-sidebar .track { background-color: #D8EEFD; height: 100%; width:13px; position: relative; padding: 0 1px; }
+#albums-sidebar .thumb { height: 20px; width: 13px; cursor: pointer; overflow: hidden; position: absolute; top: 0; }
+#albums-sidebar .thumb .end { overflow: hidden; height: 5px; width: 13px; }
+#albums-sidebar .disable{ display: none; }
+.noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }*/
