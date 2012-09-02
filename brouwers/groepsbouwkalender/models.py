@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -24,7 +25,7 @@ DURATION_CHOICES = (
 )
     
 class Groepsbouw(models.Model):
-    applicant = models.CharField(max_length=100,)
+    applicant = models.ForeignKey(User)
     #TODO applicant mag veranderen naar een ForeignKey naar User. vergelijk met albums/models.py op lijn 35 en zie ook lijn 4
     buildname = models.CharField(max_length=200, unique=False)
     forumpart = models.CharField(max_length=1, choices=FORUMGEDEELTE_CHOICES)
@@ -34,6 +35,6 @@ class Groepsbouw(models.Model):
     description = models.TextField(blank=True)
     topiclink = models.URLField(max_length=500)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
-    opmerkingen = models.CharField(max_length=300)
+    opmerkingen = models.CharField(max_length=300, blank=True)
 
     
