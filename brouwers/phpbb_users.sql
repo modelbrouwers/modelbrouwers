@@ -1,4 +1,4 @@
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('Anonymous', 'anonymous', ''),
 ('martijn-boten', 'martijn-boten', 'smartie_donker@hotmail.com'),
 ('Ruward11', 'ruward11', 'ruwa.rd@live.nl'),
@@ -998,7 +998,7 @@ INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VA
 ('dontommetjuh', 'dontommetjuh', 'tomheesters@msn.com'),
 ('buggie', 'buggie', 'micha.k@gmail.com'),
 ('123jeroenb', '123jeroenb', 'j.bongers19@chello.nl');
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('snepke', 'snepke', 'jeroen_1994@msn.com'),
 ('deadeye dick', 'deadeye dick', 'ddtv@deadeye.be'),
 ('Fresco', 'fresco', 'stefan@vdglas.com'),
@@ -1995,7 +1995,7 @@ INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VA
 ('hanky', 'hanky', 'snoo@hetnet.nl'),
 ('Andre 1:18', 'andre 1:18', 'andre.brigitte@hetnet.nl'),
 ('John1512', 'john1512', 'john@smscity.nl');
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('RTheaven', 'rtheaven', 'reiniertje14@hotmail.com'),
 ('de leeme', 'de leeme', 'dino_leemans@hotmail.com'),
 ('Bootjebouwer', 'bootjebouwer', 'mennojacobs@tele2.nl'),
@@ -2990,7 +2990,7 @@ INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VA
 ('R0BBIE', 'r0bbie', 'robbievanroekel1991@gmail.com'),
 ('klaasd', 'klaasd', 'd.van.herp@xs4all.nl'),
 ('Alefosi', 'alefosi', 'ralphbrian@hetnet.nl');
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('michaelkelder', 'michaelkelder', 'modeltruck24@live.nl'),
 ('alexander snyers', 'alexander snyers', 'snyers_alexander@hotmail.com'),
 ('Webspider', 'webspider', 'zero_hour_alex_92@hotmail.com'),
@@ -3987,7 +3987,7 @@ INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VA
 ('wittehaai', 'wittehaai', 'a.verduijn@chello.nl'),
 ('Vargen666', 'vargen666', 'arjen.schouten@xs4all.nl'),
 ('MBakker', 'mbakker', 'michel.bakker@etcdistribution.nl');
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('forten freak', 'forten freak', 'madstefan8v@home.nl'),
 ('Stephan_v', 'stephan_v', 'stephan_vroom@hotmail.com'),
 ('andre1', 'andre1', 'margand@hetnet.nl'),
@@ -4994,7 +4994,7 @@ INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VA
 ('BigBlockBerry', 'bigblockberry', 'bigblockberry1@hotmail.com'),
 ('Captain Chaos', 'captain chaos', 'm_breas@hotmail.com'),
 ('Loeten', 'loeten', 'elslander@hotmail.com');
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('Wild Weasel', 'wild weasel', 'carbon@telenet.be'),
 ('toyosoft', 'toyosoft', 'theo.slikboer@wxs.nl'),
 ('youri2', 'youri2', 'y_dehouck@yahoo.co.uk'),
@@ -5993,7 +5993,7 @@ INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VA
 ('soeth99', 'soeth99', 'r.soethoudt@planet.nl'),
 ('Carlojbj', 'carlojbj', 'willemienkessels@hotmail.com'),
 ('brandweerman', 'brandweerman', 'brwjackstaals@hotmail.com');
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('omedick', 'omedick', 'omedick@kpnmail.nl'),
 ('eenkhoornjong', 'eenkhoornjong', 'nelesdeeenkhoorn@hotmail.com'),
 ('fire&amp;ice koekie', 'fire&amp;ice koekie', 'kef666ownz_15@hotmail.com'),
@@ -6982,7 +6982,7 @@ INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VA
 ('Gied1972', 'gied1972', 'info@gied.nl'),
 ('Knutselaar1991', 'knutselaar1991', 'rooijen.fvr@gmail.com'),
 ('mmkant', 'mmkant', 'dhr.marijn@gmail.com');
-INSERT INTO `migration_usermigration` (`username`, `username_clean`, `email`) VALUES
+INSERT INTO migration_usermigration (username, username_clean, email) VALUES
 ('Vinnie_', 'vinnie_', 'zottekloon@hotmail.com'),
 ('krimh', 'krimh', 'yrustupid@gmail.com'),
 ('dakduif', 'dakduif', 'franberg@tele2.nl'),
