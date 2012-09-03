@@ -104,9 +104,9 @@ def custom_login(request):
                         url_a = "<a href=\"%s\">%s</a>" % (url, url)
                         text_content = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
                         html_content = "Beste %s,\n\nUw code is: <strong>%s</strong>.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url_a)
-                        subject, from_email, to = 'Modelbrouwersaccount', 'beheer@modelbrouwers.nl', 
+                        subject, from_email = 'Modelbrouwersaccount', 'beheer@modelbrouwers.nl'
                         
-                        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
                         msg.attach_alternative(html_content, "text/html")
                         msg.send()
                         #send_mail(subject, mailtext, from_email, [to], fail_silently=True)
