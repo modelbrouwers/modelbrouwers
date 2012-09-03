@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_email
@@ -99,12 +99,17 @@ def custom_login(request):
                         migration_user.hash = h
                         migration_user.save()
                         domain = Site.objects.get_current().domain
+                        
                         url = "http://%s%s"% (domain, reverse(confirm_account))
-                        url = "<a href=\"%s\">%s</a>" % (url, url)
-                        mailtext = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
-                        mailtext = mark_safe(mailtext)
-                        subject = 'Modelbrouwersaccount'
-                        send_mail(subject, mailtext, 'beheer@modelbrouwers.nl', [email], fail_silently=True)
+                        url_a = "<a href=\"%s\">%s</a>" % (url, url)
+                        text_content = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
+                        html_content = "Beste %s,\n\nUw code is: <strong>%s</strong>.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url_a)
+                        subject, from_email, to = 'Modelbrouwersaccount', 'beheer@modelbrouwers.nl', 
+                        
+                        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        msg.attach_alternative(html_content, "text/html")
+                        msg.send()
+                        #send_mail(subject, mailtext, from_email, [to], fail_silently=True)
                         return render_to_response(request, 'general/user_migration.html', {'username': username})
                 except UserMigration.DoesNotExist: #unknown on the forum
                     pass  
