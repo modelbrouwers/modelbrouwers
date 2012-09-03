@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.hashcompat import sha_constructor
+from django.utils.safestring import mark_safe
 
 from brouwers.albums.models import Album
 from brouwers.albums.utils import admin_mode
@@ -101,6 +102,7 @@ def custom_login(request):
                         url = "http://%s%s"% (domain, reverse(confirm_account))
                         url = "<a href=\"%s\">%s</a>" % (url, url)
                         mailtext = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
+                        mailtext = mark_safe(mailtext)
                         subject = 'Modelbrouwersaccount'
                         send_mail(subject, mailtext, 'beheer@modelbrouwers.nl', [email], fail_silently=True)
                         return render_to_response(request, 'general/user_migration.html', {'username': username})
