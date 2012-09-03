@@ -19,6 +19,9 @@ from datetime import datetime
 #          BASE           #
 ###########################
 def index(request):
+    if not request.user.has_perm('albums.access_albums'):
+        return HttpResponseRedirect('/albums/coppermine/index.php') #to old albums
+    
     albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')
     
     p = Paginator(albums, 20)

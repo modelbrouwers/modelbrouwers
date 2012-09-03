@@ -28,6 +28,11 @@ try:
 except ImportError:
     UserMigration = None
 
+def index(request):
+    if not request.user.has_perm('albums.access_albums'):
+        return HttpResponseRedirect('/index.php') #to old albums
+    return render_to_response(request, 'base.html')
+
 ### ready for implementation on modelbrouwers.nl
 def register(request):
     if request.method=='POST':
