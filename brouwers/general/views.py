@@ -103,7 +103,7 @@ def custom_login(request):
                         url = "http://%s%s"% (domain, reverse(confirm_account))
                         url_a = "<a href=\"%s\">%s</a>" % (url, url)
                         text_content = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
-                        html_content = "Beste %s,\n\nUw code is: <strong>%s</strong>.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url_a)
+                        html_content = "Beste %s,<br /><br />Uw code is: <strong>%s</strong>.<br />Geef deze code in op: %s<br /><br />Mvg,<br />Het beheer" % (username, h, url_a)
                         subject, from_email = 'Modelbrouwersaccount', 'beheer@modelbrouwers.nl'
                         
                         msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
