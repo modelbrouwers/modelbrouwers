@@ -47,7 +47,7 @@
                         <img src="{{ STATIC_URL }}images/nav/home_achter.png" alt="Ga naar de homepage!" /></a>
                 </li>
                 <li>
-                    <a href="http://localhost/phpBB3/"><img src="{{ STATIC_URL }}images/nav/forum_achter.png" alt="Ga naar het forum!"/></a>
+                    <a href="/phpBB3/"><img src="{{ STATIC_URL }}images/nav/forum_achter.png" alt="Ga naar het forum!"/></a>
                 </li>
                 <li>
                     <a href="/shop/catalog/"><img src="{{ STATIC_URL }}images/nav/shop_achter.png" alt="Ga naar de shop!"/></a>
@@ -254,7 +254,7 @@ naar de Modelbrouwers.nl homepage"/></a>
 
 
 
-
+{% comment %}
 <script type="text/javascript">
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-27403558-1']);
@@ -266,8 +266,8 @@ naar de Modelbrouwers.nl homepage"/></a>
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
 </script>
+{% endcomment %}
 
-{% comment %}
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -277,8 +277,6 @@ try {
 var pageTracker = _gat._getTracker("UA-385491-1");
 pageTracker._trackPageview();
 } catch(err) {}</script>
-
-{% endcomment %}
 
 </body>
 </html>
