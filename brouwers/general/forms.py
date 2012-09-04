@@ -69,6 +69,11 @@ class RegistrationForm(forms.ModelForm):
     def clean_forum_nickname(self):
         nickname = self.cleaned_data['forum_nickname']
         try:
+            migration_user = UserMigration.objects.get(username=nickname)
+            raise forms.ValidationError(_("Deze gebruikersnaam is al in gebruik."))
+        except UserMigration.DoesNotExist:
+            pass
+        try:
             UserProfile.objects.get(forum_nickname=nickname)
             raise forms.ValidationError(_("Deze forumnickname is al in gebruik bij een andere user op deze website."))
             return nickname
