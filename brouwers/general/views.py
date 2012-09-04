@@ -56,7 +56,7 @@ def register(request):
             next_page = request.GET.get('next', reverse(profile))
             if ' ' in next_page:
             	next_page = reverse(profile)
-            return HttpResponseRedirect(next)
+            return HttpResponseRedirect(next_page)
     else:
         form = RegistrationForm()
     return render_to_response(request, 'general/register.html', {'form': form})
