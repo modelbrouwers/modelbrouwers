@@ -17,10 +17,12 @@
 		<!-- begin header -->
 		<div id="header">
 			<a href="http://www.modelbrouwers.nl/"><img id="logo" src="{{STATIC_URL}}images/modelbrouwers.gif" width="444" height="86" alt="logo"/></a>
+			
 			{% block extra_logo %}
 			{% endblock %}
 			<!-- menu -->
 			<ul id="menu">
+				<li><a href="/phpBB3">Forum</a></li>
 				<li><a href="/">Nieuws</a></li>
 				<li><a href="/albums/">Albums</a></li>
 				<li><a href="/awards/">Awards</a></li>
@@ -42,6 +44,10 @@
 			{% block messages %}
 				{% include "messages.html" %}
 			{% endblock %}
+			
+			<div class="warning" style="border: solid 2px red;background-color:#CCC;padding:5px;"">
+                Deze voorpagina en stijl is tijdelijk. <strong>Het inlogsysteem is gewijzigd, gebruikersnaam en wachtwoord zijn hoofdlettergevoelig!</strong>
+            </div>
 			
 			{% block content %}
 				<div id="news"><h1>Nieuws</h1>
