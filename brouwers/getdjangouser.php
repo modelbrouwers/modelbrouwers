@@ -18,10 +18,11 @@ function GetDjangoUser()
 
     $dbSession = GetDBSession();
     $query =
-      "SELECT auth_user.username as username, auth_user.email as email ".
-      "  FROM auth_user, sessionprofile_sessionprofile sp" .
+      "SELECT up.forum_nickname as username, auth_user.email as email ".
+      "  FROM auth_user, sessionprofile_sessionprofile sp, general_userprofile up" .
       " WHERE sp.session_id = '" . pg_escape_string($djangoSessionID) . "' " .
-      "   AND auth_user.id = sp.user_id";
+      "   AND auth_user.id = sp.user_id
+          AND auth_user.id = up.user_id";
     $queryID = pg_query($dbSession, $query);
 
     if (!$queryID)
