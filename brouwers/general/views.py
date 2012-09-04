@@ -57,8 +57,8 @@ def register(request):
                     new_user = authenticate(username = username, password = password)
                     login(request, new_user)
                     
-                    subject = 'Registratie op xbbtx.be'
-                    message = 'Bedankt voor uw registratie op http://xbbtx.be.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
+                    subject = 'Registratie op modelbrouwers.nl'
+                    message = 'Bedankt voor uw registratie op http://modelbrouwers.nl.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
                     sender = 'sergeimaertens@skynet.be'
                     receiver = [form.cleaned_data['email']]
                     send_mail(subject, message, sender, receiver, fail_silently=True)      
@@ -110,7 +110,8 @@ def custom_login(request):
                         profile.save()
                         
                         #ok, user created, now compose email etc.
-                        h = sha_constructor(settings.SECRET_KEY + username).hexdigest()[:24]
+                        u = username.encode('ascii', 'ignore')
+                        h = sha_constructor(settings.SECRET_KEY + u).hexdigest()[:24]
                         migration_user.hash = h
                         migration_user.save()
                         domain = Site.objects.get_current().domain
