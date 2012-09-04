@@ -48,7 +48,7 @@ def save_to_path(img, upload_to, prefix, filename, ext):
             raise ImproperlyConfigured('Could not create directory: %s (%s)' % (rel_folder, err))
     #Make sure folder is writable
     if not os.access(rel_folder, os.W_OK):
-        raise ImproperlyConfigured('Could not write to directory: %s' % folder)
+        raise ImproperlyConfigured('Could not write to directory: %s' % rel_folder)
     img.save(outfile)
     return (rel_path, img)
 
