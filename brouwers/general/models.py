@@ -44,5 +44,18 @@ class UserProfile(models.Model):
 		verbose_name = _("Gebruikersprofiel")
 		verbose_name_plural = _("Gebruikersprofielen")
 		ordering = ['forum_nickname']
-	
 
+class QuestionAnswer(models.Model):
+    answer = models.CharField(max_length=255)
+    
+    def __unicode__(self):
+        return u"%s" % self.answer
+	
+class RegistrationQuestion(models.Model):
+    question = models.CharField(max_length=255, help_text=_("Question which must be answered for registration."))
+    answers = models.ManyToManyField(QuestionAnswer, blank=True, null=True)
+    in_use = models.BooleanField(default=True)
+    
+    def __unicode__(self):
+        return u"%s" % self.question
+    

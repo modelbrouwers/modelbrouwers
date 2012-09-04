@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from brouwers.migration.models import UserMigration
-from models import UserProfile
+from models import UserProfile, RegistrationQuestion
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -154,3 +154,9 @@ class ForumAccountForm(forms.Form):
         except UserMigration.DoesNotExist:
             user = None
         return user
+
+class AnswerForm(forms.Form):
+    answer = forms.CharField(label=_("answer"), required=True)
+
+class QuestionForm(forms.Form):
+    question = forms.ModelChoiceField(queryset=RegistrationQuestion.objects.filter(in_use=True), empty_label=None, widget=forms.HiddenInput())

@@ -19,7 +19,7 @@ from brouwers.awards.models import Project
 from brouwers.secret_santa.models import Participant
 
 from forms import *
-from models import UserProfile
+from models import UserProfile, RegistrationQuestion
 from shortcuts import render_to_response
 from datetime import date
 from django.conf import settings
@@ -36,30 +36,45 @@ def index(request):
 
 ### ready for implementation on modelbrouwers.nl
 def register(request):
+    error = ''
     if request.method=='POST':
         #form = UserProfileForm(request.POST)
         form = RegistrationForm(request.POST)
+        answerform = AnswerForm(request.POST)
+        questionform = QuestionForm(request.POST)
+        if questionform.is_valid():
+            question = questionform.cleaned_data['question']
         if form.is_valid():
-            user = form.save()
-            username = user.username
-            nickname = form.cleaned_data['forum_nickname']
-            password = form.cleaned_data['password1']
-            new_user = authenticate(username = username, password = password)
-            login(request, new_user)
-            
-            subject = 'Registratie op xbbtx.be'
-            message = 'Bedankt voor uw registratie op http://xbbtx.be.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
-            sender = 'sergeimaertens@skynet.be'
-            receiver = [form.cleaned_data['email']]
-            send_mail(subject, message, sender, receiver, fail_silently=True)      
-            
-            next_page = request.GET.get('next', reverse(profile))
-            if ' ' in next_page:
-            	next_page = reverse(profile)
-            return HttpResponseRedirect(next_page)
+            #check anti spam question
+            if answerform.is_valid() and questionform.is_valid():
+                answer = answerform.cleaned_data['answer']
+                valid_answers = question.answers.filter(answer__iexact=answer)
+                if valid_answers:
+                    user = form.save()
+                    username = user.username
+                    nickname = form.cleaned_data['forum_nickname']
+                    password = form.cleaned_data['password1']
+                    new_user = authenticate(username = username, password = password)
+                    login(request, new_user)
+                    
+                    subject = 'Registratie op xbbtx.be'
+                    message = 'Bedankt voor uw registratie op http://xbbtx.be.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
+                    sender = 'sergeimaertens@skynet.be'
+                    receiver = [form.cleaned_data['email']]
+                    send_mail(subject, message, sender, receiver, fail_silently=True)      
+                    
+                    next_page = request.GET.get('next', reverse(profile))
+                    if ' ' in next_page:
+                    	next_page = reverse(profile)
+                    return HttpResponseRedirect(next_page)
+                else:
+                    error = "Fout antwoord."
     else:
         form = RegistrationForm()
-    return render_to_response(request, 'general/register.html', {'form': form})
+        question = RegistrationQuestion.objects.all().order_by('?')[0]
+        questionform = QuestionForm(initial = {'question':question})
+        answerform = AnswerForm()
+    return render_to_response(request, 'general/register.html', {'error': error, 'form': form, 'questionform': questionform, 'question': question, 'answerform': answerform})
 
 ### almost ready for implementation on modelbrouwers.nl
 def custom_login(request):    

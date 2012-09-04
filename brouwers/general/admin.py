@@ -18,4 +18,13 @@ class UserProfileAdmin(admin.ModelAdmin):
 	
 	list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'last_vote', 'secret_santa')
 
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question', 'in_use')
+    search_fields = ('question',)
+
+class QuestionAnswerAdmin(admin.ModelAdmin):
+    list_display = ('answer',)
+
 admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(RegistrationQuestion, QuestionAdmin)
+admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
