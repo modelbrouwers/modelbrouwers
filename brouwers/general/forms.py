@@ -153,11 +153,14 @@ class ForumAccountForm(forms.Form):
         return self.cleaned_data
     
     def get_usermigration(self):
-        nickname = self.cleaned_data["forum_nickname"]
         try:
-            user = UserMigration.objects.get(username__exact=nickname)
-        except UserMigration.DoesNotExist:
-            user = None
+            nickname = self.cleaned_data['forum_nickname']
+            try:
+                user = UserMigration.objects.get(username__exact=nickname)
+            except UserMigration.DoesNotExist:
+                user = None
+        except KeyError: #forum_nickname not there
+            raise forms.ValidationError(_("Je hebt een foutieve gebruikersnaam ingegeven."))
         return user
 
 class AnswerForm(forms.Form):
