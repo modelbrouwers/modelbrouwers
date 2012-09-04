@@ -17,6 +17,7 @@ if (!defined('IN_PHPBB'))
 }
 
 require_once("getdjangouser.php");
+include_once($phpbb_root_path . 'includes/utf/utf_tools.' . $phpEx);
 
 
 /**
@@ -134,8 +135,15 @@ function autologin_django()
   {
     return array();
   }
-
-  $php_auth_user = strtolower($djangoUser['username']);
+  //$_REQUEST['username'] = $djangoUser['username'];
+  $php_auth_user = utf8_normalize_nfc($djangoUser['username']);
+  //$php_auth_user = utf8_normalize_nfc(request_var('username', '', true));
+  
+  
+  //$_REQUEST['name'] = $php_auth_user;
+  //$php_auth_user = utf8_normalize_nfc(request_var('name','empty', true)); 
+  //echo $php_auth_user;
+  
   $php_auth_email = $djangoUser['email'];
   $php_auth_pw = "pretend password";
 
@@ -147,7 +155,7 @@ function autologin_django()
 
     $sql = 'SELECT *
       FROM ' . USERS_TABLE . "
-      WHERE username_clean = '" . $db->sql_escape($php_auth_user) . "'";
+      WHERE username_clean = '" . $db->sql_escape(strtolower($php_auth_user)) . "'";
     $result = $db->sql_query($sql);
     $row = $db->sql_fetchrow($result);
     $db->sql_freeresult($result);

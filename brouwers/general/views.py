@@ -92,13 +92,13 @@ def custom_login(request):
         else: 
             #ok, maybe an existing forumuser trying to login, but the accounts aren't coupled yet
             username = request.POST['username']
-            users = User.objects.filter(username__iexact = username)
+            username_ = username.replace(" ", "_")
+            users = User.objects.filter(username__iexact = username_)
             if UserMigration:
                 try:
                     migration_user = UserMigration.objects.get(username=username)
                     if not users: #user exists on the forum, but not in our db
                         # save user, set user inactive and generate + send the key
-                        username_ = username.replace(" ", "_")
                         email = migration_user.email
                         password = User.objects.make_random_password(length=8)
                         
