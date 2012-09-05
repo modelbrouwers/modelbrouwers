@@ -19,7 +19,7 @@ urlpatterns += patterns('django.contrib.auth.views',
 if not settings.DEVELOPMENT:
 	urlpatterns += patterns('django.views.generic.simple',
 	#    (r'^$', 'direct_to_template', {'template': 'base.html'}),
-		(r'^$', 'redirect_to', {'url': '/phpBB3'}),
+		(r'^$', 'redirect_to', {'url': '/index.php'}),
 		)
 else:
 	urlpatterns += patterns('brouwers.general.views',
