@@ -79,6 +79,11 @@ def register(request):
 ### almost ready for implementation on modelbrouwers.nl
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
+    #phpBB3 returns a 'redirect' key
+    next = request.REQUEST.get('redirect')
+    if next:
+    	next = next[1:] #strip the dot
+    	next_page = '/phpBB3/%s' % next
     if request.method == "POST":
         form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
