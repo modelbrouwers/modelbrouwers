@@ -277,8 +277,8 @@ UPLOADER_CHOICES = (
 BACKGROUND_CHOICES = (
     ("black", _("Black")),
     ("white", _("White")),
-    ("#EEE", _("Light grey")),
-    ("#333", _("Dark grey")),
+    ("EEE", _("Light grey")),
+    ("333", _("Dark grey")),
 )
 class Preferences(models.Model): #only create this object when user visits preferences page first time, otherwise go with the defaults
     user = models.ForeignKey(User, unique=True)
