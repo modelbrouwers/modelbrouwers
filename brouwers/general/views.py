@@ -122,7 +122,7 @@ def custom_login(request):
                         domain = Site.objects.get_current().domain
                         
                         url = "http://%s%s"% (domain, reverse(confirm_account))
-                        url_a = "<a href=\"%s\">%s</a>" % (url, url)
+                        url_a = "<a href=\"%s\">%s?hash=%s&forum_nickname=%s</a>" % (url, url, h, username)
                         text_content = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
                         html_content = "<p>Beste %s,</p><br >" % username
                         html_content += "<p>Uw code is: <strong>%s</strong>.</p>" % h
@@ -169,7 +169,7 @@ def confirm_account(request):
             login(request, user)
             return HttpResponseRedirect('/phpBB3/')
     else:
-        form = ForumAccountForm()
+        form = ForumAccountForm(request.GET)
     return render_to_response(request, 'general/confirm_account.html', {'form': form})
 
 #############################
