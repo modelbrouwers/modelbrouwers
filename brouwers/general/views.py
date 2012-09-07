@@ -153,6 +153,7 @@ def custom_logout(request):
 
 def confirm_account(request):
     if request.method == "POST":
+        initial = False
         # takes the forumnickname, two password fields and the hash
         form = ForumAccountForm(request.POST)
         if form.is_valid():
@@ -170,7 +171,8 @@ def confirm_account(request):
             return HttpResponseRedirect('/phpBB3/')
     else:
         form = ForumAccountForm(request.GET)
-    return render_to_response(request, 'general/confirm_account.html', {'form': form})
+        initial = True
+    return render_to_response(request, 'general/confirm_account.html', {'form': form, 'initial':initial})
 
 #############################
 #    showing userprofile    #
