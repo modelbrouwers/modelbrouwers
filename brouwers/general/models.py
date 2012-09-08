@@ -16,7 +16,7 @@ class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)	
 	last_vote = models.DateField(default=date(2010,1,1))
 	
-	forum_nickname = models.CharField(max_length=20, unique=True)
+	forum_nickname = models.CharField(max_length=30, unique=True) #TODO: add case insensitive username here
 	exclude_from_nomination = models.BooleanField()
 	
 	#awardsinfo
