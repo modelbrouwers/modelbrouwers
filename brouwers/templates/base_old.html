@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>{% block title %}Brouwersapps &bull; Modelbrouwers.nl{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css" charset="utf-8"/>
+		<link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" /> 
+		{% block extrastyle %}
+		{% endblock %}
+		{% block extrascript %}
+		{% endblock %}
+	</head>
+
+<body>
+	<!-- container containing content and sidebar -->
+	<div id="container">
+		<!-- begin header -->
+		<div id="header">
+			<a href="http://www.modelbrouwers.nl/"><img id="logo" src="{{STATIC_URL}}images/modelbrouwers.gif" width="444" height="86" alt="logo"/></a>
+			
+			{% block extra_logo %}
+			{% endblock %}
+			<!-- menu -->
+			<ul id="menu">
+				<li><a href="/phpBB3">Forum</a></li>
+				<li><a href="/">Nieuws</a></li>
+				<li><a href="/albums/">Albums</a></li>
+				<li><a href="/awards/">Awards</a></li>
+				<li><a href="/secret_santa/">Secret Santa</a></li>
+				<li><a href="/builds/">Verslagen</a></li>
+			<ul>
+			<!-- end menu -->
+		</div>
+		<!-- end header -->
+		
+		
+		<!-- actual content -->
+		<div id="content">
+			<ul id="submenu">
+			{% block submenu %}
+			{% endblock submenu %}
+			</ul>
+			
+			{% block messages %}
+				{% include "messages.html" %}
+			{% endblock %}
+			
+			<div class="warning" style="border: solid 2px red;background-color:#CCC;padding:5px;"">
+                Deze voorpagina en stijl is tijdelijk. <strong>Het inlogsysteem is gewijzigd, gebruikersnaam en wachtwoord zijn hoofdlettergevoelig!</strong>
+            </div>
+			
+			{% block content %}
+				<div id="news"><h1>Nieuws</h1>
+				<hr />
+				<br />
+				<br />
+				<p><h4>Update 10 januari 2011</h4>
+				<br />
+				<ul class="updates">
+					<li>Nieuwe applicatie: "verslagen". Hier kan je je brouwverslagen van het forum aan je profiel toevoegen, zodat die makkelijk terug te vinden zijn.</li>
+					<li>Moderators (BBT, Arie Kabaalstra en Juggernaut) kunnen fouten eventueel aanpassen.</li>
+					<li>Je kan alle info, met uitzondering van de URL wijzigen. Als de URL gewijzigd moet worden, of het verslag moet verwijderd worden, dan neem je best contact op met mij (BBT).</li>
+					<li>Voorlopig is er een minimalistische zoekfunctie, die wordt uitgebreid.</li>
+					<li>Er komt ook koppeling tussen de nominaties voor de awards, en de verslagen. Sowieso wordt een verslag al gelinkt aan nominaties die al bestaan, maar voorlopig heeft dit nog geen echt 'nut'.</li>
+				</ul></p>
+				<br />
+				<br />
+				<p><h4>Update 08 januari 2011</h4>
+				<br />
+				<ul class="updates">
+					<li>Stemmen kan in meerdere keren gebeuren.</li>
+					<li>Tussenstandpagina gemaakt.</li>
+					<li>De tussenstandpagina is enkel zichtbaar als je ingelogd bent, Ã©n toont enkel de categorieÃ«n waarin je gestemd hebt. Zo worden eventuele latere stemmen niet beÃ¯nvloed.</li>
+					<li>Redirect toegevoegd als het stemmen volledig voltooid is.</li>
+				</ul></p>
+				<br />
+				<br />
+				<p><h4>Update 30 november 2010</h4>
+				<br />
+				<ul class="updates">
+					<li>Layout van gebruikersprofiel verbeterd.</li>
+					<li>Secret Santa applicatie is klaar, op het mail-versturen gedeelte na.</li>
+					<li>Bugfix in de Secret Santa.</li>
+				</ul></p>
+				<br />
+				<br />
+				
+				<p><h4>Update 28 november 2010</h4>
+				<br />
+				<ul class="updates">
+					<li>Het gebruikersprofiel uit onderstaande update staat al een tijdje online.</li>
+					<li>De registraties voor Secret Santa worden bijgehouden.</li>
+					<li>Na registratie word je meteen naar je profiel doorgelinkt, waar je indien gewenst nog extra gegevens kan invullen.</li>
+					<li>Het random en automatisch toewijzen van zender/ontvanger voor de Secret Santa is geschreven</li>
+					<li><strong>We (Juggernaut en ik) controleren of de mensen die zich opgegeven hebben daadwerkelijk de forumleden zijn die ze beweren te zijn. Dit is een check om fraude tegen te gaan.</strong></li>
+				</ul></p>
+				<br />
+				<br />
+				<p><h4>Update 16 november 2010</h4>
+				<br />
+				<ul class="updates">
+					<li>Bij registratie kan je aangeven of je al dan niet genomineerd wil worden. Een gebruikersprofiel waarin je dit kunt veranderen komt eraan.</li>
+					<li>Het is nu verplicht om bij registratie je forumnickname op te geven.</li>
+					<li>Een nominatie kan nu ook de status 'rejected' krijgen. Dan wordt de nominatie nergens getoond en is ze niet stembaar.</li>
+				</ul></p>
+				<br />
+				<br />
+				<p><h4>Updates in werking sinds 10 november 2010:</h4>
+				<br />
+				<ul class="updates">
+					<li>Een automatische check bij een nominatie gaat na of een project al eerder genomineerd is.</li>
+					<li>Categorie "Overige" toegevoegd, aangezien we een project uit die categorie hebben.</li>
+				</ul></p>
+				<br />
+				<br />
+				<p><h4>Updates in werking sinds 9 november 2010:</h4>
+				<br />
+				<ul class="updates">
+					<li>Afhandelen van foutmeldingen bij een registratieprobleem: geen 'Internal server' errorpagina's meer.</li>
+					<li>Automatische controle of de link naar het verslag naar een forumtopic op Modelbrouwers.nl wijst.</li>
+					<li>Overzicht van alle nominaties per categorie toegevoegd.</li>
+					<li>Na registratie ben je meteen ingelogd.</li>
+					<li>Enkel rechthebbenden op deze website kunnen categorieÃ«n wijzigen/toevoegen/verwijderen.</li>
+				</ul></p>
+			</div>
+			{% endblock %}
+		</div>
+		<!-- end content -->
+		
+		<div id="sidebar">
+			{% if not user.is_authenticated %}
+			<div id="login">
+				<a href="/login/?next={{request.url}}">Inloggen</a>
+				<br />
+				<a href="/register/">Registreren</a>
+			</div>
+			{% else %}
+			<div id="loggedIn">
+				Welkom, <strong><a href="/profile/">{{user.get_profile.forum_nickname}}</a></strong>
+				<br />
+				<span id="logout">(<a href="/logout/">uitloggen</a>)</span>
+				<br />
+				<br />
+				<a href="/profile/" id="profile">Gebruikersprofiel</a>
+				{% if user.is_staff %}
+				<br />
+				<a href="/admin/" id="admin">Admin</a>
+				{% endif %}
+			</div>
+			{% endif %}
+			
+		</div>
+	</div>
+	<!-- end container -->
+	
+	<div id="footer">
+		<div id="real_footer">
+			Modelbrouwers {% block appname %}applicaties{% endblock %} - 
+			<a href="{{STATIC_URL}}privacy.html" target="_blank">Privacyverklaring</a>
+			<br />
+			&copy; 2010 - 2011 Sergei Maertens en Modelbrouwers.nl
+		</div>
+	</div>
+</body>
+    {% comment %}
+    <script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-27403558-1']);
+	_gaq.push(['_setDomainName', 'xbbtx.be']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+    </script>{% endcomment %}
+</html>

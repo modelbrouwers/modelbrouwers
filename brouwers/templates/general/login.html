@@ -1,34 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="content_part">Login</h1>
-<hr />
-<br />
-<br />
-<p style="border: solid 2px red;background-color:#CCC;padding:5px;">
-    <strong>Opgepast!</strong> Sinds 3 september is het inlogsysteem gewijzigd!
-    <br />
-    Als het de eerste keer is dat je deze pagina ziet, log dan in met je forumgegevens. <span style="color:red;"><b>Je forumnaam is hoofdlettergevoelig!</b></span>. Hierna wordt de koppeling gemaakt met je forumaccount en krijg je een e-mail met een bevestigingscode.
-    <br />
-    <br />
-    Ondervind je hierbij problemen, contacteer dan sergeimaertens@skynet.be en vermeld hierbij je forumgebruikersnaam.
-</p>
-<br />
-<br />
-<table style="width: 80%"><tr><td>
+<div id="login">
+    <p style="border: solid 2px red;background-color:#CCC;padding:5px;">
+        <strong>Opgepast!</strong> Sinds 3 september is het inlogsysteem gewijzigd!
+        <br />
+        Als het de eerste keer is dat je deze pagina ziet, log dan in met je gebruikelijke forumgegevens. <span style="color:red;"><b>Je forumnaam is hoofdlettergevoelig!</b></span>. Hierna wordt de koppeling gemaakt met je forumaccount en krijg je een e-mail met een bevestigingscode.
+        <br />
+        <br />
+        Ondervind je hierbij problemen, contacteer dan sergeimaertens@skynet.be en vermeld hierbij je forumgebruikersnaam.
+    </p>
+    
 	<form method="post" action=".">
-	{% csrf_token %}
-		<table>
-			{{ form }}
-		</table>
+		{% include "form_in_table.html" %}
  		{% if next %}
   			<input type="hidden" name="next" value="{{ next }}" />
    		{% else %}
    			<input type="hidden" name="next" value="/" />
    		{% endif %}
    		
-   		<input type="submit" value="login" />
+   		<div class="center">
+   		    <input type="submit" value="inloggen" />
+   		</div>
    	</form>
-</td></tr></table>
 </div>
 {% endblock %}

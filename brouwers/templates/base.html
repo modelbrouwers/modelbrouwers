@@ -1,177 +1,204 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>{% block title %}Brouwersapps &bull; Modelbrouwers.nl{% endblock %}</title>
-		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css" charset="utf-8"/>
-		<link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" /> 
-		{% block extrastyle %}
-		{% endblock %}
-		{% block extrascript %}
-		{% endblock %}
-	</head>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+	<title>{% block title %}Modelbrouwers - Materialen en kennisbank voor de modelbouw.{% endblock %}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" /> 
+	<meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
+	
+	{% block style %}
+	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v=beta-1.0" charset="utf-8"/>
+	    {% block extrastyle %}
+	    {% endblock extrastyle %}
+	{% endblock style %}
+	
+	{% block scripts %}
+	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
+	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/common.js"></script>
+	    {% block extrascript %}
+	    {% endblock %}
+	{% endblock scripts %}
+    <link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" /> 
+</head>
 
 <body>
-	<!-- container containing content and sidebar -->
-	<div id="container">
-		<!-- begin header -->
-		<div id="header">
-			<a href="http://www.modelbrouwers.nl/"><img id="logo" src="{{STATIC_URL}}images/modelbrouwers.gif" width="444" height="86" alt="logo"/></a>
-			
-			{% block extra_logo %}
-			{% endblock %}
-			<!-- menu -->
-			<ul id="menu">
-				<li><a href="/phpBB3">Forum</a></li>
-				<li><a href="/">Nieuws</a></li>
-				<li><a href="/albums/">Albums</a></li>
-				<li><a href="/awards/">Awards</a></li>
-				<li><a href="/secret_santa/">Secret Santa</a></li>
-				<li><a href="/builds/">Verslagen</a></li>
-			<ul>
-			<!-- end menu -->
-		</div>
-		<!-- end header -->
-		
-		
-		<!-- actual content -->
-		<div id="content">
-			<ul id="submenu">
-			{% block submenu %}
-			{% endblock submenu %}
-			</ul>
-			
-			{% block messages %}
-				{% include "messages.html" %}
-			{% endblock %}
-			
-			<div class="warning" style="border: solid 2px red;background-color:#CCC;padding:5px;"">
-                Deze voorpagina en stijl is tijdelijk. <strong>Het inlogsysteem is gewijzigd, gebruikersnaam en wachtwoord zijn hoofdlettergevoelig!</strong>
+    <div id="top">
+        <div id="navigation">
+            <ul id="tabs">
+                <li>
+                    <a href="/">
+                        <img src="{{ STATIC_URL }}images/nav/home_achter.png" alt="Ga naar de homepage!" /></a>
+                </li>
+                <li>
+                    <a href="/phpBB3/"><img src="{{ STATIC_URL }}images/nav/forum_achter.png" alt="Ga naar het forum!"/></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/"><img src="{{ STATIC_URL }}images/nav/shop_achter.png" alt="Ga naar de shop!"/></a>
+                </li>
+                <li>
+                    <a href="/albums/"><img src="{{ STATIC_URL }}images/nav/albums_achter.png" alt="Je bent nu in de fotoalbums!"/></a>
+                </li>
+                <li id="kitreviews">
+                    <a href="/kitreviews/"><img src="{{ STATIC_URL }}images/nav/kitreviews_achter.png" alt="Ga naar de kitreviews!"/></a>
+                </li>
+                <!--<li>
+                    <img src="{{ STATIC_URL }}images/nav/modelbouw_wiki.png" alt="Modelbouw Wiki"/>
+                </li>-->
+            </ul>
+        </div> 
+        <!-- end navigation -->
+        
+        <div id="shop_banner">
+            <ul>
+                <li>
+                    <a href="/shop/catalog/uhu-m-28.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/uhu.gif" alt="UHU" width="54" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/xuron-m-52.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/xuron.gif" alt="Xuron" width="102" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/revell-m-14.html?language=nl&sort=3d">
+                        <img src="{{ STATIC_URL }}images/shop/revell.gif" alt="Revell" width="62" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/alclad2-m-19.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/alclad.gif" alt="Alclad" width="65" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/bare-metal-foil-m-15.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/bmf.gif" alt="Bare Metal Foil" width="66" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/birchwood-casey-m-44.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/birchwood_casey.gif" alt="Birchwood Casey" width="52" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/createx-m-23.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/createx.gif" alt="Createx" width="54" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/evergreen-m-11.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/evergreen.gif" alt="Evergreen" width="50" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/billing-boats-m-29.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/billing.gif" alt="Billing Boats" width="41" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/excel-m-35.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/excel.gif" alt="Excel" width="56" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/rc-afstandbestuurbaar-rcsets-billing-boats-c-106_120.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/graupner.gif" alt="Graupner" width="65" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/mamoli-m-32.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/mamoli.gif" alt="Mamoli" width="82" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/microscale-m-17.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/microscale.gif" alt="Microscale" width="62" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/milliput-m-26.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/milliput.gif" alt="Milliput" width="93" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/modelbrouwers-m-12.html?language=nl&page=1&sort=3d">
+                        <img src="{{ STATIC_URL }}images/shop/modelbrouwers.gif" alt="Modelbrouwers" width="127" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/rustall-m-53.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/rustall.gif" alt="Rustall" width="93" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/scalemotorsport-m-24.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/scalemotorsport.gif" alt="Scale Motorsport" width="25" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/pro-modeller-m-43.html?language=nl&sort=2a">
+                    <img src="{{ STATIC_URL }}images/shop/promodeller.gif" alt="" width="57" /></a>
+                </li>
+                <li>
+                    <a href="/shop/catalog/vallejo-m-42.html?language=nl&sort=2a">
+                        <img src="{{ STATIC_URL }}images/shop/vallejo.gif" alt="Vallejo" width="42" /></a>
+                </li>
+            </ul>
+        </div>
+        <!-- end shop products banner -->
+    </div>
+    <!-- end top div -->
+    
+    <div id="container">
+        <!-- div with logos and misc -->
+        <div id="logo">
+             <div class="left">
+                 <a href="{% url brouwers.general.views.index %}">
+                    <img src="{{ STATIC_URL }}images/logo/logo_modelbrouwers.png" width="395" height="75" alt="Terug 
+naar de Modelbrouwers.nl homepage"/></a>
             </div>
-			
-			{% block content %}
-				<div id="news"><h1>Nieuws</h1>
-				<hr />
-				<br />
-				<br />
-				<p><h4>Update 10 januari 2011</h4>
-				<br />
-				<ul class="updates">
-					<li>Nieuwe applicatie: "verslagen". Hier kan je je brouwverslagen van het forum aan je profiel toevoegen, zodat die makkelijk terug te vinden zijn.</li>
-					<li>Moderators (BBT, Arie Kabaalstra en Juggernaut) kunnen fouten eventueel aanpassen.</li>
-					<li>Je kan alle info, met uitzondering van de URL wijzigen. Als de URL gewijzigd moet worden, of het verslag moet verwijderd worden, dan neem je best contact op met mij (BBT).</li>
-					<li>Voorlopig is er een minimalistische zoekfunctie, die wordt uitgebreid.</li>
-					<li>Er komt ook koppeling tussen de nominaties voor de awards, en de verslagen. Sowieso wordt een verslag al gelinkt aan nominaties die al bestaan, maar voorlopig heeft dit nog geen echt 'nut'.</li>
-				</ul></p>
-				<br />
-				<br />
-				<p><h4>Update 08 januari 2011</h4>
-				<br />
-				<ul class="updates">
-					<li>Stemmen kan in meerdere keren gebeuren.</li>
-					<li>Tussenstandpagina gemaakt.</li>
-					<li>De tussenstandpagina is enkel zichtbaar als je ingelogd bent, Ã©n toont enkel de categorieÃ«n waarin je gestemd hebt. Zo worden eventuele latere stemmen niet beÃ¯nvloed.</li>
-					<li>Redirect toegevoegd als het stemmen volledig voltooid is.</li>
-				</ul></p>
-				<br />
-				<br />
-				<p><h4>Update 30 november 2010</h4>
-				<br />
-				<ul class="updates">
-					<li>Layout van gebruikersprofiel verbeterd.</li>
-					<li>Secret Santa applicatie is klaar, op het mail-versturen gedeelte na.</li>
-					<li>Bugfix in de Secret Santa.</li>
-				</ul></p>
-				<br />
-				<br />
-				
-				<p><h4>Update 28 november 2010</h4>
-				<br />
-				<ul class="updates">
-					<li>Het gebruikersprofiel uit onderstaande update staat al een tijdje online.</li>
-					<li>De registraties voor Secret Santa worden bijgehouden.</li>
-					<li>Na registratie word je meteen naar je profiel doorgelinkt, waar je indien gewenst nog extra gegevens kan invullen.</li>
-					<li>Het random en automatisch toewijzen van zender/ontvanger voor de Secret Santa is geschreven</li>
-					<li><strong>We (Juggernaut en ik) controleren of de mensen die zich opgegeven hebben daadwerkelijk de forumleden zijn die ze beweren te zijn. Dit is een check om fraude tegen te gaan.</strong></li>
-				</ul></p>
-				<br />
-				<br />
-				<p><h4>Update 16 november 2010</h4>
-				<br />
-				<ul class="updates">
-					<li>Bij registratie kan je aangeven of je al dan niet genomineerd wil worden. Een gebruikersprofiel waarin je dit kunt veranderen komt eraan.</li>
-					<li>Het is nu verplicht om bij registratie je forumnickname op te geven.</li>
-					<li>Een nominatie kan nu ook de status 'rejected' krijgen. Dan wordt de nominatie nergens getoond en is ze niet stembaar.</li>
-				</ul></p>
-				<br />
-				<br />
-				<p><h4>Updates in werking sinds 10 november 2010:</h4>
-				<br />
-				<ul class="updates">
-					<li>Een automatische check bij een nominatie gaat na of een project al eerder genomineerd is.</li>
-					<li>Categorie "Overige" toegevoegd, aangezien we een project uit die categorie hebben.</li>
-				</ul></p>
-				<br />
-				<br />
-				<p><h4>Updates in werking sinds 9 november 2010:</h4>
-				<br />
-				<ul class="updates">
-					<li>Afhandelen van foutmeldingen bij een registratieprobleem: geen 'Internal server' errorpagina's meer.</li>
-					<li>Automatische controle of de link naar het verslag naar een forumtopic op Modelbrouwers.nl wijst.</li>
-					<li>Overzicht van alle nominaties per categorie toegevoegd.</li>
-					<li>Na registratie ben je meteen ingelogd.</li>
-					<li>Enkel rechthebbenden op deze website kunnen categorieÃ«n wijzigen/toevoegen/verwijderen.</li>
-				</ul></p>
-			</div>
-			{% endblock %}
-		</div>
-		<!-- end content -->
-		
-		<div id="sidebar">
-			{% if not user.is_authenticated %}
-			<div id="login">
-				<a href="/login/?next={{request.url}}">Inloggen</a>
-				<br />
-				<a href="/register/">Registreren</a>
-			</div>
-			{% else %}
-			<div id="loggedIn">
-				Welkom, <strong><a href="/profile/">{{user.get_profile.forum_nickname}}</a></strong>
-				<br />
-				<span id="logout">(<a href="/logout/">uitloggen</a>)</span>
-				<br />
-				<br />
-				<a href="/profile/" id="profile">Gebruikersprofiel</a>
-				{% if user.is_staff %}
-				<br />
-				<a href="/admin/" id="admin">Admin</a>
-				{% endif %}
-			</div>
-			{% endif %}
-			
-		</div>
-	</div>
-	<!-- end container -->
-	
-	<div id="footer">
-		<div id="real_footer">
-			Modelbrouwers {% block appname %}applicaties{% endblock %} - 
-			<a href="{{STATIC_URL}}privacy.html" target="_blank">Privacyverklaring</a>
-			<br />
-			&copy; 2010 - 2011 Sergei Maertens en Modelbrouwers.nl
-		</div>
-	</div>
+            <div class="left">
+                {% block announcement %}
+                {% endblock %}
+            </div>
+            <div class="right">
+                <a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank">
+                    <img class="rounded" src="{{ STATIC_URL }}images/varia/MM-actie.gif" 
+                        alt="Modelbouwmagazine / Modelbrouwers ACTIE" width="308" height="60"></a>
+                <a href="http://www.flexwebhosting.nl/" target="_blank">
+                    <img class="rounded" src="{{ STATIC_URL }}images/varia/flex_webhosting.gif" width="234" height="60" alt="Flexwebhosting.nl"></a>
+            </div>
+        </div>
+        <!-- end logo div -->
+        
+        <div id="content_wrapper">
+            {% block important_message %}
+            {% endblock %}
+            
+            <div id="menu_wrapper">
+                <ul id="menu">
+                    {% block menu %}
+                        <li><a href="{% url brouwers.general.views.index %}">Home</a></li>
+                        {% if not user.is_authenticated %}
+                            <li><a href="{% url brouwers.general.views.custom_login %}">Inloggen</a></li>
+                            <li><a href="{% url brouwers.general.views.register %}">Registreren</a></li>
+                        {% else %}
+                            <li class="right" style="font-weight:normal;">
+                                <a href="{% url brouwers.general.views.custom_logout %}">uitloggen</a>
+                            </li>
+                            <li id="profile-link" class="right" style="font-weight:normal;">
+                                <a href="{% url brouwers.general.views.profile %}">Profiel [ {{ user.get_profile.forum_nickname }} ]</a>
+                            <li>
+                        {% endif %}
+                    {% endblock %}
+                </ul>
+            </div>
+            
+            <div id="content">
+            {% block content %}
+                <!-- TODO inhoud voor homepage genereren -->
+            {% endblock content %}
+            </div>
+            <!-- end content -->
+        </div>
+        <!-- end content wrapper -->
+    </div>
+    <!-- end container -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-385491-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
 </body>
-    {% comment %}
-    <script type="text/javascript">
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-27403558-1']);
-	_gaq.push(['_setDomainName', 'xbbtx.be']);
-	_gaq.push(['_trackPageview']);
-	(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-    </script>{% endcomment %}
 </html>

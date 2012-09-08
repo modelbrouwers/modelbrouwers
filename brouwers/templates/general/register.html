@@ -5,37 +5,28 @@ Registratie
 {% endblock %}
 
 {% block content %}
-<h1>Registratie</h1>
-<hr />
-<br />
-<p>
-    Beste gebruiker,
-    <br />
-    Op deze pagina registreert u zich voor de extra applicaties rond Modelbrouwers.nl. U geeft als gebruikersnaam uw forumgebruikersnaam op.
-</p>
-<br />
-<br />
-<form action="" method="POST">
-    {% csrf_token %}
-    {% for error in form.non_field_errors %}
-        <p class="error"><strong>{{ error|escape }}</strong></p>
-    {% endfor %}
-    
-    {% include "form_in_table.html" %}
-    <br />
-    <h4>Anti-spam maatregelen</h4>
-    {{ questionform }}
-    {{ question.question }}
-    <br />
-    {{ answerform }} <span class="error">{{ error }}</span>
-    <br />
-<br />
-<input type = "submit" value="Registreer"/>
-</form>
-<br />
-Alle velden zijn verplicht en in uw profiel kunt u opties instellen.
-<br />
-<br />
-<br />
-
+<div id="register">
+    <form action="" method="POST">
+        {% include "form_in_table.html" %}
+        <table>
+            <tr>
+                <td></td>
+                <td colspan="2" style="padding-bottom:0.5em;"><h4>Anti-spam maatregelen</h4></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="label required" colspan="2">{{ questionform }}{{ question.question }}</th>
+            </tr>
+            <tr>
+                <th class="label required">Antwoord:</th>
+                <td class="field">{{ answerform.answer }}</td>
+                <td class="help_text"><span class="error">{{ error }}</span></td>
+            </tr>
+        </table>
+        
+        <div class="center">
+            <input type="submit" value="Registreer"/>
+        </div>
+    </form>
+</div>
 {% endblock %}
