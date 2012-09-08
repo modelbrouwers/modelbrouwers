@@ -30,7 +30,7 @@ except ImportError:
     UserMigration = None
 
 def index(request):
-    if not request.user.has_perm('albums.access_albums') or true:
+    if not request.user.has_perm('albums.access_albums') or True:
         return HttpResponseRedirect('/index.php')
     return render_to_response(request, 'base.html')
 
