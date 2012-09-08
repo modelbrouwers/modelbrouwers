@@ -3,10 +3,10 @@
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v=beta-1.0" charset="utf-8"/>
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css?v=beta-1.0" charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css?v={{ software_version }}" charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.8.22.custom.css" />
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css?v={{ software_version }}" />
 <!--[if IE]>
 	<style type="text/css">
 		ul#menu{
@@ -26,7 +26,7 @@
 {% block scripts %}
 	<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.8.23.custom.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js?v=beta-1.0"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js?v={{ software_version }}"></script>
 	{% block extrascript %}
 	{% endblock %}
 {% endblock scripts %}

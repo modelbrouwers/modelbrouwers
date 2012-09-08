@@ -25,6 +25,10 @@ class QuestionAdmin(admin.ModelAdmin):
 class QuestionAnswerAdmin(admin.ModelAdmin):
     list_display = ('answer',)
 
+class SoftwareVersionAdmin(admin.ModelAdmin):
+    list_diplsay = ('__unicode__', 'start', 'end')
+
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)
 admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
+admin.site.register(SoftwareVersion, SoftwareVersionAdmin)

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import date, datetime
 
 from brouwers.awards.models import Category
 
@@ -58,4 +58,25 @@ class RegistrationQuestion(models.Model):
     
     def __unicode__(self):
         return u"%s" % self.question
+
+class SoftwareVersion(models.Model):
+    VERSION_TYPES = (
+        ('a', 'alpha'),
+        ('b', 'beta'),
+        ('v', 'vanilla')
+    )
+    state = models.CharField(max_length=1, choices=VERSION_TYPES, default='v')
+    major = models.PositiveSmallIntegerField()
+    minor = models.PositiveSmallIntegerField(default=0)
+    start = models.DateTimeField(default=datetime.now)
+    end = models.DateTimeField(default=datetime.now)
+    changelog = models.TextField(blank=True)
     
+    class Meta:
+        ordering = ('-state', '-major', '-minor')
+    
+    def __unicode__(self):
+        prefix = ''
+        if self.state != 'v':
+            prefix = '%s-' % self.get_state_display()
+        return u"%s%s.%s" % (prefix, self.major, self.minor)

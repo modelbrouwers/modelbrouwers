@@ -231,12 +231,12 @@ div#content_wrapper{
 div#content{
     border: solid 1px #CCC;
     font-size: 0.94em;
-    padding-bottom: 2em;
+    padding: 1em;
     margin-bottom: 2em;
     min-height: 400px;
 }
 
 /*** specific stuff ***/
-div#login, div#register{margin: 1em;}
+div#login, div#register{}
 div#login form, div#register form{margin-top: 2em;}
 div#login input[type="submit"], div#register input[type="submit"]{padding: 0.3em 1em 0.3em 1em;font-size:1.1em;}
