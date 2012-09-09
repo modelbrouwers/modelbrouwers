@@ -281,6 +281,7 @@ div.photo div.properties input{
 div.tab{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     padding: 0.1em 1em 0.1em 1em;
+    margin: -1em -1em 0 -1em;
     background-color: #EEE;
 	background: -moz-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(92%,#C7D0D7), color-stop(100%,#6F8698));
