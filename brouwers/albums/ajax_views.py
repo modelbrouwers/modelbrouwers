@@ -17,6 +17,7 @@ import itertools
 
 @login_required
 def new_album(request):
+    error = None
     if request.method == "POST": #submission of new album
         form = AlbumForm(request.POST)
         if form.is_valid():
@@ -31,7 +32,6 @@ def new_album(request):
                 error = "You have used this album title before. Make sure you pick an unique title."
     else: #request for rendered form
         form = AlbumForm()
-        error = None
     return render_to_response(request, 'albums/ajax/new_album.html', {'form': form, 'error': error})
 
 @login_required
@@ -184,10 +184,15 @@ def remove_album(request):
 @login_required
 def new_album_jquery_ui(request):
     new_album = Album(user=request.user)
+    from_page = request.POST['from-page']
     if request.method == "POST":
         form = AlbumForm(request.POST)
         if form.is_valid():
             album = form.save()
+            if from_page == "upload":
+                option = mark_safe('<p><option value="%s" selected="selected" class=\"new_album\">%s</option></p>' % (album.id, album.__unicode__()))
+                output = {'option': option, 'status': 1}
+                return HttpResponse(option)
             new_form = AlbumForm(instance=new_album)
             return render_to_response(
                 request, 

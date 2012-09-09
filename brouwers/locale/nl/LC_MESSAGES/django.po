@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-09 14:54+0200\n"
+"POT-Creation-Date: 2012-09-09 21:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,176 +20,227 @@ msgstr ""
 #: albums/forms.py:16
 msgid ""
 "This link doesn't point to a valid forum topic. Please correct the error"
-msgstr ""
+msgstr "Deze link wijst niet naar een forumtopic. Pas de fout aan aub."
 
-#: albums/forms.py:163
+#: albums/forms.py:149
 msgid "Keywords"
-msgstr ""
+msgstr "Zoektermen"
 
 #: albums/models.py:14
 msgid "user"
-msgstr ""
+msgstr "mezelf"
 
 #: albums/models.py:16
 msgid "everyone"
-msgstr ""
+msgstr "iedereen"
 
 #: albums/models.py:20
 msgid "name"
-msgstr ""
+msgstr "naam"
 
-#: albums/models.py:24
+#: albums/models.py:21 albums/models.py:59
+msgid "order"
+msgstr "volgorde"
+
+#: albums/models.py:24 albums/models.py:41
 msgid "category"
-msgstr ""
+msgstr "categorie"
 
 #: albums/models.py:25
 msgid "categories"
-msgstr ""
+msgstr "categorieën"
 
 #: albums/models.py:36 albums/models.py:38
 msgid "album title"
-msgstr ""
+msgstr "albumtitel"
 
 #: albums/models.py:39
 msgid "album description"
-msgstr ""
+msgstr "album beschrijving"
 
-#: albums/models.py:42
+#: albums/models.py:46
 msgid "Image to use as album cover."
-msgstr ""
+msgstr "Coverfoto"
 
-#: albums/models.py:47 albums/models.py:135
+#: albums/models.py:48
+msgid "cover"
+msgstr "cover"
+
+#: albums/models.py:54 albums/models.py:149
 msgid "last modified"
-msgstr ""
+msgstr "laatst aangepast"
 
-#: albums/models.py:53
+#: albums/models.py:61
 msgid "Public?"
-msgstr ""
+msgstr "Publiek?"
 
-#: albums/models.py:54
+#: albums/models.py:62
 msgid ""
 "Can this album be viewed by everyone? Untick to make the album available "
 "only to yourself."
 msgstr ""
+"Kan iedereen dit album zien? Vink dit uit om het album persoonlijk te maken."
 
-#: albums/models.py:58
+#: albums/models.py:68
+msgid "build report"
+msgstr "brouwverslag"
+
+#: albums/models.py:70
 msgid "Link to the forumtopic of the build."
-msgstr ""
-
-#: albums/models.py:59
-msgid "appreciation"
-msgstr ""
-
-#: albums/models.py:66
-msgid "album"
-msgstr ""
-
-#: albums/models.py:67
-msgid "albums"
-msgstr ""
-
-#: albums/models.py:72
-msgid "Can edit/remove album"
-msgstr ""
+msgstr "Link naar het brouwverslag."
 
 #: albums/models.py:73
+msgid "appreciation"
+msgstr "waardering"
+
+#: albums/models.py:75
+msgid "writable to"
+msgstr "schrijfbaar voor"
+
+#: albums/models.py:80
+msgid "album"
+msgstr "album"
+
+#: albums/models.py:81
+msgid "albums"
+msgstr "albums"
+
+#: albums/models.py:86
+msgid "Can edit/remove album"
+msgstr "Kan album bewerken/verwijderen"
+
+#: albums/models.py:87
 msgid "Can see all albums"
-msgstr ""
+msgstr "Kan alle albums zien"
 
-#: albums/models.py:74
+#: albums/models.py:88
 msgid "Can use new albums"
-msgstr ""
-
-#: albums/models.py:131
-msgid "photo description"
-msgstr ""
-
-#: albums/models.py:141
-msgid "Photo"
-msgstr ""
+msgstr "Kan nieuwe albums gebruiken"
 
 #: albums/models.py:142
+msgid "width"
+msgstr "breedte"
+
+#: albums/models.py:143
+msgid "height"
+msgstr "hoogte"
+
+#: albums/models.py:144
+msgid "image"
+msgstr "foto"
+
+#: albums/models.py:145
+msgid "photo description"
+msgstr "beschrijving"
+
+#: albums/models.py:155
+msgid "Photo"
+msgstr "Foto"
+
+#: albums/models.py:156
 msgid "Photos"
-msgstr ""
+msgstr "Foto's"
 
-#: albums/models.py:273
+#: albums/models.py:287
 msgid "Multiple files at once"
-msgstr ""
-
-#: albums/models.py:274
-msgid "Basic"
-msgstr ""
-
-#: albums/models.py:278
-msgid "Black"
-msgstr ""
-
-#: albums/models.py:279
-msgid "White"
-msgstr ""
-
-#: albums/models.py:280
-msgid "Light grey"
-msgstr ""
-
-#: albums/models.py:281
-msgid "Dark grey"
-msgstr ""
-
-#: albums/models.py:285
-msgid "Your pictures will be scaled to this size."
-msgstr ""
+msgstr "Meerdere bestanden tegelijk"
 
 #: albums/models.py:288
-msgid ""
-"Multiple files at once makes use of a Flash uploader, you select all your "
-"files without having to click too much buttons. The basic uploader has a "
-"file field for each image."
-msgstr ""
-
-#: albums/models.py:291
-msgid "Start upload automatically when files are selected"
-msgstr ""
+msgid "Basic"
+msgstr "Beperkt"
 
 #: albums/models.py:292
-msgid "Show direct links under the photo"
-msgstr ""
+msgid "Black"
+msgstr "Zwart"
+
+#: albums/models.py:293
+msgid "White"
+msgstr "Wit"
+
+#: albums/models.py:294
+msgid "Light grey"
+msgstr "Lichtgrijs"
 
 #: albums/models.py:295
-msgid "When checked, you will see all the albums and be able to edit them."
-msgstr ""
+msgid "Dark grey"
+msgstr "Donkergrijs"
 
-#: albums/models.py:299
-msgid "sidebar background color"
-msgstr ""
+#: albums/models.py:300
+msgid "default image dimensions"
+msgstr "standaard afmetingen"
 
-#: albums/models.py:301
-msgid "Background for the overlay in the board."
-msgstr ""
-
-#: albums/models.py:304
-msgid "transparent background?"
-msgstr ""
-
-#: albums/models.py:305
-msgid "sidebar text color"
-msgstr ""
+#: albums/models.py:303
+msgid "Your pictures will be scaled to this size."
+msgstr "Formaat waarnaar je afbeeldingen herschaald worden."
 
 #: albums/models.py:306
-msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
-msgstr ""
-
-#: albums/models.py:308
-msgid "sidebar width"
-msgstr ""
+msgid "default uploader"
+msgstr "standaard uploader"
 
 #: albums/models.py:309
+#, fuzzy
+msgid ""
+"Multiple files at once makes use of a Flash uploader,                     "
+"you select all your files without having to click too much "
+"buttons.                     The basic uploader has a file field for each "
+"image."
+msgstr ""
+"Meerdere bestanden tegelijk gebruikt een Flash uploader. Hiermee kan je alle "
+"bestanden in een map in één keer selecteren. De beperkte uploader vereist "
+"dat je elk bestand apart selecteert."
+
+#: albums/models.py:314
+msgid "start uploading automatically?"
+msgstr "meteen beginnen uploaden"
+
+#: albums/models.py:314
+msgid "Start upload automatically when files are selected"
+msgstr "Automatisch beginnen uploaden zodra bestanden geselecteerd zijn"
+
+#: albums/models.py:315
+msgid "Show direct links under the photo"
+msgstr "Toon de directe link naar de afbeelding"
+
+#: albums/models.py:318
+msgid "When checked, you will see all the albums and be able to edit them."
+msgstr "Als dit aangevinkt is kan je alle albums zien en bewerken."
+
+#: albums/models.py:321
+msgid "collapse sidebar"
+msgstr "standaard ingeklapte zijbalk"
+
+#: albums/models.py:323
+msgid "sidebar background color"
+msgstr "Achtergrondkleur"
+
+#: albums/models.py:325
+msgid "Background for the overlay in the board."
+msgstr "Achtergrondkleur voor de zijbalk in het antwoordscherm."
+
+#: albums/models.py:328
+msgid "transparent background?"
+msgstr "achtergrond transparant?"
+
+#: albums/models.py:329
+msgid "sidebar text color"
+msgstr "tekstkleur"
+
+#: albums/models.py:330
+msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
+msgstr "Tekstkleur in de zijbalk. HTML kleurcodes worden aanvaard."
+
+#: albums/models.py:332
+msgid "sidebar width"
+msgstr "Breedte"
+
+#: albums/models.py:333
 msgid "Width of the sidebar. E.g. '30%' or '300px'."
 msgstr ""
+"Breedte van de zijbalk, in pixels of procent. Bijvoorbeeld: '300px' of '20%'"
 
-#: albums/models.py:313
+#: albums/models.py:337
 msgid "User preferences"
-msgstr ""
+msgstr "Gebruikersinstellingen"
 
 #: awards/models.py:12
 msgid "Categorie"
@@ -262,7 +313,7 @@ msgstr ""
 #: builds/models.py:24
 #, python-format
 msgid "%(nickname)s - %(title)s"
-msgstr ""
+msgstr "%(nickname)s - %(title)s"
 
 #: builds/models.py:30
 msgid "brouwverslag"
@@ -274,7 +325,7 @@ msgstr ""
 
 #: general/forms.py:13
 msgid "E-mail"
-msgstr ""
+msgstr "E-mailadres"
 
 #: general/forms.py:19 general/forms.py:78
 msgid ""
@@ -283,31 +334,31 @@ msgstr ""
 
 #: general/forms.py:45
 msgid "A user with that username already exists."
-msgstr ""
+msgstr "Er bestaat al iemand met deze gebruikersnaam."
 
 #: general/forms.py:46 general/forms.py:129
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "De wachtwoordvelden zijn niet identiek."
 
 #: general/forms.py:49
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: general/forms.py:50
 msgid "E-mail address"
-msgstr ""
+msgstr "E-mailadres"
 
 #: general/forms.py:51 general/forms.py:118
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #: general/forms.py:53 general/forms.py:120
 msgid "Password confirmation"
-msgstr ""
+msgstr "Wachtwoord - bevestig"
 
 #: general/forms.py:55 general/forms.py:122
 msgid "Enter the same password as above, for verification."
-msgstr ""
+msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 
 #: general/forms.py:73
 msgid "Deze gebruikersnaam is al in gebruik."
@@ -315,11 +366,11 @@ msgstr ""
 
 #: general/forms.py:116
 msgid "Forum name"
-msgstr ""
+msgstr "Forumnaam"
 
 #: general/forms.py:117
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: general/forms.py:135
 msgid "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
@@ -335,7 +386,7 @@ msgstr ""
 
 #: general/forms.py:167
 msgid "answer"
-msgstr ""
+msgstr "antwoord"
 
 #: general/models.py:9
 msgid "Nederland"
@@ -343,7 +394,7 @@ msgstr ""
 
 #: general/models.py:10
 msgid "Belgium"
-msgstr ""
+msgstr "België"
 
 #: general/models.py:11
 msgid "Duitsland"
@@ -399,4 +450,4 @@ msgstr ""
 
 #: general/models.py:55
 msgid "Question which must be answered for registration."
-msgstr ""
+msgstr "Vraag die beantwoord moet worden voor de registratie"

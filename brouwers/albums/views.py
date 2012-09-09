@@ -163,7 +163,9 @@ def preferences(request):
 @login_required
 def uploadify(request):
     albumform = PickAlbumForm(request.user)
-    return render_to_response(request, 'albums/uploadify.html', {'albumform': albumform, 'session_cookie_name': settings.SESSION_COOKIE_NAME, 'session_key': request.session.session_key})
+    new_album = Album(user=request.user)
+    form = AlbumForm(instance=new_album)
+    return render_to_response(request, 'albums/uploadify.html', {'albumform': albumform, 'session_cookie_name': settings.SESSION_COOKIE_NAME, 'session_key': request.session.session_key, 'form': form})
 
 @login_required
 def upload(request):

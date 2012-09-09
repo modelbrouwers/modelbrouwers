@@ -1,13 +1,6 @@
 *Software*
 
 - Groepsbouwenkalender: myth
-
-- Nieuwe albumssoftware maken. Momenteel enkele problemen...
-	x+ flash upload (multiple files at once), a la imgur.com
-	x+ resizen, grootte-errors: hoge drempel -> autoscaling naar verschillende formaten (800 wide, 1024 wide, thumbs)
-	x+ aparte login -> koppelen aan forumlogin
-	x+ automatisch [img] codes genereren bij tonen afbeelding
-	+ misschien in zijbalk een folder tonen, makkelijker invoegen? (think battlelog)
 	
 - modelbouwwinkelsdatabank schrijven
 	+ databank van alle winkels, ingegeven door leden

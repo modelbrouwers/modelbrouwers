@@ -2,13 +2,15 @@
 
 {% block extrastyle %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
+<style type="text/css">
+#new-album-upload{display:none;}
+</style>
 {% endblock %}
 
 {% block extrascript %}
-<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.uploadify-3.1.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js"></script>
 <script type="text/javascript">
+var url_new = "{% url brouwers.albums.ajax_views.new_album_jquery_ui %}";
 $(document).ready(function() {
     /* uploadify */
     var albumId;
@@ -50,16 +52,45 @@ $(document).ready(function() {
         }
     });
     
-    $('a#create_new_album').click(function(){
-        $.get('{% url brouwers.albums.ajax_views.new_album %}', {}, function(html){
-            $('div#new_album').html(html);
-            $('div#new_album').show();
-        });
-        $(this).hide();
+    $('#new-album-upload').dialog({
+	    autoOpen: false,
+		height: 400,
+		width: 800,
+		modal: true,
+		title: "Nieuw album",
+		buttons: {
+		    "Bewaren": function(){
+		        data = $('#new-album').serializeArray();
+		        $.post(
+		            url_new,
+		            data,
+		            function (response){
+		                var response = $(response);
+		                option = response.find('option.new_album');
+		                if (option.length > 0){ //success
+		                    $('#id_album:selected').attr('selected', '');
+		                    $('#id_album').append(option);
+		                    $('#new-album-upload').dialog('close');
+		                }
+		                else{
+		                    $("#new-album").html(response);
+		                }
+		            }
+		        );
+		    },
+		    "Annuleren": function() {
+		        $(this).dialog("close");
+		    }
+		}
+	});
+    
+    $('a#create_new_album').click(function(e){
+        e.preventDefault();
+        $('#new-album-upload').dialog('open');
         return false;
     });
 });
-function add_album(e){
+function add_album(e){ // no longer used
     //POST data
     var title = $('#id_title').val();
     var desc = $('#id_description').val();
@@ -106,7 +137,12 @@ function add_album(e){
     Uploaden naar {{ albumform.album }} <a href="/albums/manage/#new" id="create_new_album" >
     <button>Nieuw album</button></a>
 </div>
-<div id="new_album" class="margin" style="display: none;"></div>
+<div id="new-album-upload">
+    <form id="new-album">
+        {% include "form_in_table_jquery-ui.html" %}
+        <input type="hidden" name="from-page" value="upload" />
+    </form>
+</div>
 
 <div id="uploadify">
     <input type="file" name="file_upload" id="uploadify_input" />

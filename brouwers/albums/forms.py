@@ -27,20 +27,6 @@ class AlbumForm(forms.ModelForm):
         
     def clean_build_report(self):
         return cln_build_report(self)
-    
-#    def clean(self): #validate unique_together
-#        cleaned_data = super(AlbumForm, self).clean()
-#        title = cleaned_data.get('title')
-#        user = cleaned_data.get('user')
-#        
-#        try:
-#            album = Album.objects.get(title=title, user=user)
-#            error = _(u"You have used this title before.")
-#            self._errors["title"] = self.error_class([error])
-#            del cleaned_data["title"]
-#        except Album.DoesNotExist:
-#            pass #valid
-#        return cleaned_data
 
 class EditAlbumForm(forms.ModelForm):
     class Meta:

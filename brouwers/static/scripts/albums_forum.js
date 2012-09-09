@@ -1,4 +1,4 @@
-var sidebar_html = "<div id=\"albums-sidebar\" class=\"opened\"></div>";
+var sidebar_html = "<div id=\"albums-sidebar\" class=\"opened initial\"></div>";
 var restore_icon = '/static/images/icons/restore.png';
 var close_icon = '/static/images/icons/remove2.png';
 var prev_width = 0;
@@ -26,6 +26,8 @@ function loadSidebar(){
         '/albums/sidebar/',
         function(response){
             sidebar.html(response);
+            toggleSidebar(); // hide sidebar after loading
+            sidebar.removeClass('initial');
             sidebar.resizable({
                 ghost: true,
                 handles: "e",
@@ -36,15 +38,8 @@ function loadSidebar(){
             selected_album = $('#id_album').val();
             window_height = $('body').height();
             
-            /*$('#resizer').height(sidebar.height()-2);
-            $('#resizer').resizable({
-                ghost: true,
-                handles: "e",
-                maxWidth: 800
-            });*/
-            
             $('#id_album').remove();
-            $('#autocomplete-album').css('color', '#555');
+            $('#autocomplete-album').css('color', '#888');
             $('#autocomplete-album').focus(function () {
                 $(this).val('');
                 $(this).css('color', 'auto');
@@ -60,7 +55,7 @@ function loadSidebar(){
            });
            $('#autocomplete-album').blur(function () {
                if ($(this).val() == ''){
-                    $(this).css('color', '555');
+                    $(this).css('color', '888');
                     $(this).val('Albums doorzoeken');
                }
            });
@@ -86,8 +81,12 @@ function loadSidebar(){
                 if (json["text_color"]){
                     sidebar.css('color', json["text_color"]);
                 }
-                if (json["width"]){
-                    sidebar.width(json["width"]);
+                if (!json["collapse"])
+                {
+                    if (json["width"]){
+                        sidebar.width(json["width"]);
+                    }
+                    toggleSidebar();
                 }
             }
         }
@@ -139,7 +138,7 @@ function toggleSidebar(){
         sidebar.removeClass('closed');
         sidebar.addClass('opened');
         sidebar.width('300');
-        if (prev_width != 0){
+        if (prev_width != 0 && prev_width != 10){
             sidebar.width(prev_width);
         } else {
             sidebar.css('width', '240px');

@@ -71,13 +71,13 @@ th.label{
     text-align: right;
     padding-right: 1em;
     font-weight: normal;
-    width: 28%;
+    width: 35%;
 }
 td.field{
-    width: 22%;
+    width: 30%;
 }
 td.help_text{
-    width: 50%;
+    width: 35%;
 }
 td.field input, td.field select{
     width: 12em;
@@ -359,7 +359,7 @@ td.help_text div{
     position: absolute;
     top: -1em;
     display: inline;
-    padding: 0.2em;
+    padding: 0.6em;
 }
 
 

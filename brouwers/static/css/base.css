@@ -65,6 +65,8 @@ input[type="text"], input[type="password"], input[type="submit"], button, input[
 	padding: 3px;
 	font-size: 1.08em;
 }
+button.uploadify-button{padding:0;}
+input[type="submit"].uploadify-button{padding:0;}
 form table{
     width: 96%;
     margin: 1em auto;

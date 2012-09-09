@@ -3,6 +3,7 @@
     margin: 0;
     list-style-type: none;
 }
+#albums-sidebar.initial{width:10px;}
 #albums-sidebar{
     position: fixed;
     left: 0;
@@ -27,7 +28,6 @@
     padding: 0.5em;
     text-align: center;
 }
-
 #albums-sidebar.closed #albums-list, 
 #albums-sidebar.closed #photos-list, 
 #albums-sidebar.closed div.helptext, 

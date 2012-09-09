@@ -18,7 +18,7 @@ WRITABLE_CHOICES = (
 
 class Category(models.Model):
     name = models.CharField(_("name"), max_length=256, unique=True)
-    order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
+    order = models.PositiveSmallIntegerField(_("order"), default=1, blank=True, null=True)
     
     class Meta:
         verbose_name = _("category")
@@ -38,8 +38,15 @@ class Album(models.Model):
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
     description = models.CharField(_("album description"),
             max_length=500, blank=True)
-    category = models.ForeignKey(Category, blank=True, null=True, default=1 or None)
-    cover = models.ForeignKey('Photo', blank=True, null=True, help_text=_("Image to use as album cover."), related_name='cover') 
+    category = models.ForeignKey(Category, blank=True, null=True, default=1 or None, verbose_name=_("category"))
+    cover = models.ForeignKey(
+        'Photo', 
+        blank=True, 
+        null=True, 
+        help_text=_("Image to use as album cover."), 
+        related_name='cover',
+        verbose_name=_("cover")
+    ) 
     # limit choices in form
     
     #Logging and statistics
@@ -49,16 +56,23 @@ class Album(models.Model):
     views = models.PositiveIntegerField(default=0)
     
     #User preferences
-    order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
-    public = models.BooleanField(_("Public?"),
-            help_text=_("Can this album be viewed by everyone? Untick to make the album available only to yourself."), default=True)
+    order = models.PositiveSmallIntegerField(_("order"), default=1, blank=True, null=True)
+    public = models.BooleanField(
+            _("Public?"),
+            help_text=_("Can this album be viewed by everyone? Untick to make the album available only to yourself."), 
+            default=True
+        )
     
     #Misc features
-    build_report = models.URLField(max_length=500,
-            help_text=_("Link to the forumtopic of the build."), blank=True)
+    build_report = models.URLField(
+            _("build report"),
+            max_length=500,
+            help_text=_("Link to the forumtopic of the build."), 
+            blank=True
+        )
     votes = models.IntegerField(_("appreciation"), default=0)
     #albums can be voted, so we can have an 'album of the month' feature
-    writable_to = models.CharField(max_length=1, choices=WRITABLE_CHOICES, default="u")
+    writable_to = models.CharField(_("writable to"), max_length=1, choices=WRITABLE_CHOICES, default="u")
     #writable to only user, group or everyone (unix like permissions)
     trash = models.BooleanField() #put in trash before removing from db
     
@@ -125,9 +139,9 @@ class Photo(models.Model):
     #image properties
     user = models.ForeignKey(User) #we need to know the owner (public albums)
     album = models.ForeignKey(Album)
-    width = models.PositiveSmallIntegerField(blank=True, null=True)
-    height = models.PositiveSmallIntegerField(blank=True, null=True)
-    image = models.ImageField(upload_to='albums', height_field='height', width_field='width')
+    width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
+    height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
+    image = models.ImageField(_("image"), upload_to='albums', height_field='height', width_field='width')
     description = models.CharField(_("photo description"), max_length=500, blank=True)
     
     #Logging and statistics
@@ -282,19 +296,29 @@ BACKGROUND_CHOICES = (
 )
 class Preferences(models.Model): #only create this object when user visits preferences page first time, otherwise go with the defaults
     user = models.ForeignKey(User, unique=True)
-    default_img_size = models.PositiveSmallIntegerField(choices=IMG_SIZES, default=0, help_text=_("Your pictures will be scaled to this size."))
-    default_uploader = models.CharField(max_length=1, 
+    default_img_size = models.PositiveSmallIntegerField(
+        _("default image dimensions"), 
+        choices=IMG_SIZES, 
+        default=0, 
+        help_text=_("Your pictures will be scaled to this size.")
+    )
+    default_uploader = models.CharField(
+        _("default uploader"),
+        max_length=1, 
         choices=UPLOADER_CHOICES, default="F", 
-        help_text=_("Multiple files at once makes use of a Flash uploader, you select all your files without having to click too much buttons. The basic uploader has a file field for each image.")
+        help_text=_("Multiple files at once makes use of a Flash uploader, \
+                    you select all your files without having to click too much buttons. \
+                    The basic uploader has a file field for each image.")
     )
     #options for uploadify
-    auto_start_uploading = models.BooleanField(help_text=_("Start upload automatically when files are selected"))
+    auto_start_uploading = models.BooleanField(_("start uploading automatically?"), help_text=_("Start upload automatically when files are selected"))
     show_direct_link = models.BooleanField(_("Show direct links under the photo"), default=False)
     
     #admin options
     apply_admin_permissions = models.BooleanField(help_text=_("When checked, you will see all the albums and be able to edit them."))
     
     #sidebar settings
+    collapse_sidebar = models.BooleanField(_("collapse sidebar"), default=True)
     sidebar_bg_color = models.CharField(
         _("sidebar background color"), 
         max_length=7, blank=True, 
