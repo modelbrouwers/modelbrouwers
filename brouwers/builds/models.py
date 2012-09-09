@@ -21,7 +21,7 @@ class Build(models.Model):
 	img3 = models.URLField(_("Foto 3"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
 	
 	def __unicode__(self):
-		return _("%s - %s" % (self.profile.forum_nickname, self.title))
+		return _("%(nickname)s - %(title)s") % {'nickname': self.profile.forum_nickname, 'title': self.title}
 	
 	def get_absolute_url(self):
 		return "/builds/%i/" % self.id
