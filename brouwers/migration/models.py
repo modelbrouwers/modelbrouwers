@@ -16,3 +16,7 @@ class UserMigration(models.Model):
         if not self.username_clean:
             self.username_clean = self.username.lower()
         super(UserMigration, self).save(*args, **kwargs)
+    
+    @property
+    def url(self):
+        return u"http://modelbrouwers.nl/confirm_account/?hash=%s&forum_nickname=%s" % (self.hash, self.username)
