@@ -1,5 +1,8 @@
 *Software*
 
+- Albums:
+	+ Knop om in 1x alle foto's uit album in post in te voegen.
+
 - Groepsbouwenkalender: myth
 	
 - modelbouwwinkelsdatabank schrijven
@@ -30,7 +33,5 @@
 *Varia*
 - e-mailadres mods... deftig in orde brengen
 - forumregels verwerken in file op server -> lezen bij registreren
-
-- domainwide login mogelijk: postgresql voor django site, mysql voor phpBB3 en rest. pg_hba.conf is belangrijk, verder files in /srv/http/modelbrouw/phpBB3/includes/auth/* bekijken en toepassen achteraf.
 
 - footer: laatste 5 regels chat tonen (brouwbot kan opslaan in databank) + eventuele interactie

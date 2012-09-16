@@ -96,7 +96,7 @@ def custom_login(request):
             return HttpResponseRedirect(next_page)
         else: 
             #ok, maybe an existing forumuser trying to login, but the accounts aren't coupled yet
-            username = request.POST['username']
+            username = request.POST.get('username', '') #make it empty if it isn't set
             username_ = username.replace(" ", "_")
             users = User.objects.filter(username__iexact = username_)
             if UserMigration:

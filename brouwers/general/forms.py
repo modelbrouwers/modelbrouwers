@@ -113,7 +113,7 @@ class UserForm(forms.ModelForm):
         }
 
 class ForumAccountForm(forms.Form):
-    forum_nickname = forms.CharField(required=True, min_length=3, max_length=30, label=_("Forum name"))
+    forum_nickname = forms.CharField(required=True, min_length=2, max_length=30, label=_("Forum name"))
     hash = forms.CharField(required=True, min_length=24, max_length=24, label=_("Code"))
     password1 = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput)
