@@ -16,7 +16,7 @@ $(document).ready(function(){
     });
     
     $.get('/ou/ous/', function(response){
-        if (response != ''){
+        if (response != '0'){
             $('#popup').html(response);
             $('#popup').dialog('open');
         }

@@ -20,4 +20,6 @@ def get_online_users(request):
     now = datetime.now()
     past = now - timedelta(minutes = MINUTES_FOR_ONLINE)
     users = TrackedUser.objects.filter(notificate=True, last_seen__gte=past)
-    return render_to_response(request, 'online_users/userlist.html', {'users': users})
+    if users:
+        return render_to_response(request, 'online_users/userlist.html', {'users': users})
+    return HttpResponse(0)
