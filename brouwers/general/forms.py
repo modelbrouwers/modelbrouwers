@@ -38,7 +38,6 @@ class UserProfileForm(UserCreationForm):
         profile.save()
         return user
 
-#FIXME change forum_nickname to regexfield with spaces, avoid other special characters
 #TODO validate email, should be unique
 class RegistrationForm(forms.ModelForm):
     error_messages = {
@@ -58,6 +57,13 @@ class RegistrationForm(forms.ModelForm):
         model = User
         fields = ('forum_nickname', 'email', 'password1', 'password2')
     
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        users = User.objects.filter(email=email)
+        if users:
+            raise forms.ValidationError(_("This e-mail address is already registered."))
+        return email
+    
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
         password2 = self.cleaned_data["password2"]
@@ -67,22 +73,23 @@ class RegistrationForm(forms.ModelForm):
         return password2
     
     def clean_forum_nickname(self):
+        msg = _("This username has been taken.")
         nickname = self.cleaned_data['forum_nickname']
         try:
-            migration_user = UserMigration.objects.get(username=nickname)
-            raise forms.ValidationError(_("Deze gebruikersnaam is al in gebruik."))
+            migration_user = UserMigration.objects.get(username__iexact=nickname)
+            raise forms.ValidationError(msg)
         except UserMigration.DoesNotExist:
             pass
         try:
-            UserProfile.objects.get(forum_nickname=nickname)
-            raise forms.ValidationError(_("Deze forumnickname is al in gebruik bij een andere user op deze website."))
+            UserProfile.objects.get(forum_nickname__iexact=nickname)
+            raise forms.ValidationError(msg)
             return nickname
         except UserProfile.DoesNotExist:
             return nickname
     
     def save(self, commit=True):
         forum_nickname = self.cleaned_data['forum_nickname']
-        username = forum_nickname.replace(" ", "_") #TODO: lower() might be needed
+        username = forum_nickname.replace(" ", "_")
         user = User(username=username)
         user.email = self.cleaned_data['email']
         user.set_password(self.cleaned_data["password1"])
@@ -96,7 +103,7 @@ class RegistrationForm(forms.ModelForm):
 class CustomAuthenticationForm(AuthenticationForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        username = username.replace(" ", "_") #TODO: lower() might be needed
+        username = username.replace(" ", "_")
         return username
 
 class ProfileForm(forms.ModelForm):

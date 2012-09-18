@@ -30,7 +30,7 @@ except ImportError:
     UserMigration = None
 
 def index(request):
-    if not request.user.has_perm('albums.access_albums') or True:
+    if not request.user.has_perm('albums.access_albums') and not settings.DEVELOPMENT:
         return HttpResponseRedirect('/index.php')
     return render_to_response(request, 'base.html')
 
@@ -76,7 +76,6 @@ def register(request):
         answerform = AnswerForm()
     return render_to_response(request, 'general/register.html', {'error': error, 'form': form, 'questionform': questionform, 'question': question, 'answerform': answerform})
 
-### almost ready for implementation on modelbrouwers.nl
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
     #phpBB3 returns a 'redirect' key

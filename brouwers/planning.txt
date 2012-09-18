@@ -2,6 +2,7 @@
 
 - Albums:
 	+ Knop om in 1x alle foto's uit album in post in te voegen.
+	+ Upload vanaf URL
 
 - Groepsbouwenkalender: myth
 	

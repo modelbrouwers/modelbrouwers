@@ -71,7 +71,7 @@ form table{
     width: 96%;
     margin: 1em auto;
 }
-th.label{
+th.label, tr.error th{
     text-align: right;
     padding-right: 1em;
     font-weight: normal;
@@ -102,6 +102,10 @@ td.field input, td.field select{
 }
 td.field input[type="checkbox"]{
     width: 2.4em;
+}
+/* form errors */
+tr.error td{
+    color: red;
 }
 
 /*** NAVIGATION BAR, SHOP BANNER ***/
@@ -242,3 +246,4 @@ div#content{
 div#login, div#register{}
 div#login form, div#register form{margin-top: 2em;}
 div#login input[type="submit"], div#register input[type="submit"]{padding: 0.3em 1em 0.3em 1em;font-size:1.1em;}
+div#register input[type="text"]{width:17em;}

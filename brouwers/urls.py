@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     (r'^awards/', include('brouwers.awards.urls')),
     (r'^secret_santa/', include('brouwers.secret_santa.urls')),
     (r'^builds/', include('brouwers.builds.urls')),
-#    (r'^groupbuilds/', include('brouwers.group_builds.urls')),
+    (r'^ou/', include('brouwers.online_users.urls')),
     (r'^', include('brouwers.general.urls')),
     )
 
