@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.http import HttpResponse
 from brouwers.general.shortcuts import render_to_response
 from models import *
@@ -15,7 +15,7 @@ def set_online(request):
             pass
     return HttpResponse()
 
-@login_required #TODO: test if user is a moderator ( -> in the right group)
+@permission_required('online_users.add_trackeduser')
 def get_online_users(request):
     now = datetime.now()
     past = now - timedelta(minutes = MINUTES_FOR_ONLINE)
