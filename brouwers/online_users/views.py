@@ -11,7 +11,7 @@ def set_online(request):
         try:
             tracked_user = TrackedUser.objects.get(user=request.user)
             tracked_user.save()
-        except TrackedUser.ObjectDoesNotExist:
+        except TrackedUser.DoesNotExist:
             pass
     return HttpResponse()
 
