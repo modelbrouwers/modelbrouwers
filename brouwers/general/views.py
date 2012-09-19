@@ -244,5 +244,5 @@ def user_profile(request, username=None):
     )
 
 def test_redirects(request, path):
-    redirect = get_object_or_404(Redirect, path_from=path)
+    redirect = get_object_or_404(Redirect, path_from__iexact=path)
     return HttpResponseRedirect(redirect.path_to)
