@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_email
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.utils.hashcompat import sha_constructor
 from django.utils.safestring import mark_safe
@@ -19,7 +19,7 @@ from brouwers.awards.models import Project
 from brouwers.secret_santa.models import Participant
 
 from forms import *
-from models import UserProfile, RegistrationQuestion
+from models import UserProfile, RegistrationQuestion, Redirect
 from shortcuts import render_to_response
 from datetime import date
 from django.conf import settings
@@ -242,3 +242,7 @@ def user_profile(request, username=None):
             'total': total,
         }
     )
+
+def test_redirects(request, path):
+    redirect = get_object_or_404(Redirect, path_from=path)
+    return HttpResponseRedirect(redirect.path_to)

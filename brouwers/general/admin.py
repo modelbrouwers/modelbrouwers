@@ -28,7 +28,13 @@ class QuestionAnswerAdmin(admin.ModelAdmin):
 class SoftwareVersionAdmin(admin.ModelAdmin):
     list_diplsay = ('__unicode__', 'start', 'end')
 
+class RedirectAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'path_from', 'path_to')
+    list_editable = ('path_from', 'path_to')
+    search_fields = ('path_from', 'path_to')
+
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)
 admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
 admin.site.register(SoftwareVersion, SoftwareVersionAdmin)
+admin.site.register(Redirect, RedirectAdmin)

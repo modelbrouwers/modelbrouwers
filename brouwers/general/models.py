@@ -80,3 +80,23 @@ class SoftwareVersion(models.Model):
         if self.state != 'v':
             prefix = '%s-' % self.get_state_display()
         return u"%s%s.%s" % (prefix, self.major, self.minor)
+
+class Redirect(models.Model):
+    path_from = models.CharField(
+            _("path from"), 
+            max_length=512, 
+            help_text=_("path from where to redirect, without leading slash. \
+                        E.g. '/shop/' becomse 'shop/'."),
+            unique=True
+            )
+    path_to = models.CharField(_("redirect to"), max_length=1024,
+            help_text=_("Path (relative or absolute to the docroot) or url.")
+    )
+   
+    class Meta:
+        verbose_name = _("redirect")
+        verbose_name_plural = _("redirects")
+        ordering = ('path_from',)
+    
+    def __unicode__(self):
+        return u"%s" % self.path_from
