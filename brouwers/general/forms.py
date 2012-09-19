@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from brouwers.migration.models import UserMigration
-from models import UserProfile, RegistrationQuestion
+from models import UserProfile, RegistrationQuestion, PasswordReset
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -167,7 +167,7 @@ class ForumAccountForm(forms.Form):
             except UserMigration.DoesNotExist:
                 user = None
         except KeyError: #forum_nickname not there
-            raise forms.ValidationError(_("Je hebt een foutieve gebruikersnaam ingegeven."))
+            raise forms.ValidationError(_("The username entered was not correct."))
         return user
 
 class AnswerForm(forms.Form):
@@ -175,3 +175,66 @@ class AnswerForm(forms.Form):
 
 class QuestionForm(forms.Form):
     question = forms.ModelChoiceField(queryset=RegistrationQuestion.objects.filter(in_use=True), empty_label=None, widget=forms.HiddenInput())
+
+class RequestPasswordResetForm(forms.Form):
+    forum_nickname = forms.CharField(
+            required=False, min_length=2, 
+            max_length=30, label=_("Username")
+            )
+    email = forms.EmailField(
+        required=False, label=_("E-mail address"),
+        help_text=_("If you forgot your username, you can enter the e-mail \
+                    address you registered with.")
+        )
+    
+    def clean_forum_nickname(self):
+        username = self.cleaned_data['forum_nickname']
+        profiles = UserProfile.objects.filter(forum_nickname__iexact=username)
+        if not profiles and username != '':
+            raise forms.ValidationError(_("This user is unknown in the database."))
+        return username
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        users = User.objects.filter(email__iexact=email)
+        if not users and email != '':
+            raise forms.ValidationError(_("This email adress is unknown in the database"))
+        return email
+    
+    def clean(self):
+        username = self.cleaned_data.get('forum_nickname', '')
+        email = self.cleaned_data.get('email', '')
+        if not email and not username:
+            raise forms.ValidationError(_("Enter your username or e-mail address."))
+        return self.cleaned_data
+    
+    def get_user(self):
+        forum_nickname = self.cleaned_data['forum_nickname']
+        if forum_nickname:
+            user = User.objects.get(userprofile__forum_nickname__iexact=forum_nickname)
+        else:
+            email = self.cleaned_data['email']
+            user = User.objects.get(email__iexact=email)
+        return user
+
+class HashForm(forms.Form):
+    h = forms.CharField(required=True, min_length=24, max_length=24, widget=forms.HiddenInput)
+
+class PasswordResetForm(forms.Form):
+    user = forms.ModelChoiceField(
+        queryset=User.objects.filter(is_active=True), 
+        widget=forms.HiddenInput
+    )
+    password1 = forms.CharField(label=_("Password"),
+        widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_("Password confirmation"),
+        widget=forms.PasswordInput,
+        help_text = _("Enter the same password as above, for verification."))
+    
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1", "")
+        password2 = self.cleaned_data["password2"]
+        if password1 != password2:
+            raise forms.ValidationError(
+                _("The two password fields didn't match."))
+        return password2

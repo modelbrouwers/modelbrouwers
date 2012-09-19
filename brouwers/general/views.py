@@ -12,6 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.utils.hashcompat import sha_constructor
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 
 from brouwers.albums.models import Album
 from brouwers.albums.utils import admin_mode
@@ -19,15 +20,31 @@ from brouwers.awards.models import Project
 from brouwers.secret_santa.models import Participant
 
 from forms import *
-from models import UserProfile, RegistrationQuestion, Redirect
+from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset
 from shortcuts import render_to_response
-from datetime import date
+from datetime import date, datetime, timedelta
 from django.conf import settings
 
 try:
     from brouwers.migration.models import UserMigration
 except ImportError:
     UserMigration = None
+
+######## EMAIL TEMPLATES ############
+TEMPLATE_RESET_PW_HTML = """
+    <p>Hello %(nickname)s,</p><br >
+    <p>You (or someone else) has requested a password reset
+    for your account at Modelbrouwers.nl. This request will 
+    expire after 24 hours.</p><br >
+    <p>You can reset your password on the following url: <a href="%(url)s">%(url)s</a>
+    </p>
+    <br ><br >
+    <p>Sincerely,</p>
+    <p>The administrators of Modelbrouwers.nl</p>
+"""
+
+
+
 
 def index(request):
     if not request.user.has_perm('albums.access_albums') or not settings.DEVELOPMENT:
@@ -127,7 +144,7 @@ def custom_login(request):
                         html_content += "<p>Uw code is: <strong>%s</strong>.</p>" % h
                         html_content += "<p>Geef deze code in op: %s</p><br >" % url_a
                         html_content += "<p>Mvg,</p><p>Het beheer</p>"
-                        subject, from_email = 'Modelbrouwersaccount', 'beheer@modelbrouwers.nl'
+                        subject, from_email = 'Modelbrouwersaccount', 'admins@modelbrouwers.nl'
                         
                         msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
                         msg.attach_alternative(html_content, "text/html")
@@ -246,3 +263,77 @@ def user_profile(request, username=None):
 def test_redirects(request, path):
     redirect = get_object_or_404(Redirect, path_from__iexact=path)
     return HttpResponseRedirect(redirect.path_to)
+
+def password_reset(request):
+    if request.method == "POST":
+        form = RequestPasswordResetForm(request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            expire = datetime.now() + timedelta(days=1)
+            variable_part = expire.strftime("%Y-%m-%d %H:%i:%s")
+            h = sha_constructor(settings.SECRET_KEY + variable_part).hexdigest()[:24]
+            
+            reset = PasswordReset(user=user, expire=expire, h=h)
+            reset.save()
+            
+            #send email
+            nickname = user.get_profile().forum_nickname
+            email = user.email
+            domain = Site.objects.get_current().domain
+            url = "http://%s%s?h=%s" % (
+                    domain, 
+                    reverse(do_password_reset),
+                    h
+                    )
+            
+            text_content = _("""Hello %(nickname)s, \n
+You or someone else has requested a password reset for your Modelbrouwers.nl account.
+This request will expire after 24 hours.\n
+Go to %(url)s to complete your password reset.\n
+Sincerely,\n
+The Modelbrouwers.nl staff""" % {
+                                'nickname': nickname,
+                                'url': url
+                                }
+                            )
+            
+            html_content = _(TEMPLATE_RESET_PW_HTML % {
+                                'nickname': nickname,
+                                'url': url
+                                }
+                            )
+            subject, from_email = _("Modelbrouwers.nl password reset"), 'admins@modelbrouwers.nl'
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+            return HttpResponseRedirect(reverse(custom_login))
+    else:
+        form = RequestPasswordResetForm()
+    return render_to_response(request, 'general/password_reset.html', {'form': form})
+
+def do_password_reset(request):
+    if request.method == "POST":
+        hashform = HashForm(request.POST)
+        form = PasswordResetForm(request.POST)
+        if hashform.is_valid():
+            h = hashform.cleaned_data['h']
+            pr = get_object_or_404(PasswordReset, h=h)
+            if form.is_valid():
+                user = form.cleaned_data['user']
+                if user == pr.user:
+                    pw = form.cleaned_data['password1']
+                    user.set_password(pw)
+                    user.save()
+                    pr.delete()
+                    return HttpResponseRedirect(reverse(custom_login))
+                else:
+                    pass #TODO: messages tonen & loggen
+    else:
+        hashform = HashForm(request.GET)
+        form = None
+        if hashform.is_valid():
+            h = hashform.cleaned_data['h']
+            pr = get_object_or_404(PasswordReset, h=h)
+            form = PasswordResetForm(initial={'user': pr.user})
+    return render_to_response(request, 'general/do_password_reset.html', {'form': form, 'hashform': hashform})
+    #return HttpResponseRedirect(reverse(password_reset))

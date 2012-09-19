@@ -16,7 +16,7 @@ class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)	
 	last_vote = models.DateField(default=date(2010,1,1))
 	
-	forum_nickname = models.CharField(max_length=30, unique=True) #TODO: add case insensitive username here
+	forum_nickname = models.CharField(max_length=30, unique=True)
 	exclude_from_nomination = models.BooleanField()
 	
 	#awardsinfo
@@ -80,6 +80,19 @@ class SoftwareVersion(models.Model):
         if self.state != 'v':
             prefix = '%s-' % self.get_state_display()
         return u"%s%s.%s" % (prefix, self.major, self.minor)
+
+class PasswordReset(models.Model):
+    user = models.ForeignKey(User)
+    h = models.CharField(_("hash"), max_length=256)
+    expire = models.DateTimeField(_("expire datetime"))
+    
+    class Meta:
+        verbose_name = _("password reset")
+        verbose_name_plural = _("password resets")
+        ordering = ('expire',)
+    
+    def __unicode__(self):
+        return _(u"Password reset for %(user)s" % {'user': self.user.get_profile().__unicode__()})
 
 class Redirect(models.Model):
     path_from = models.CharField(

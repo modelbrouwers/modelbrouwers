@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from datetime import datetime, timedelta
 
-MINUTES_FOR_ONLINE = 2
+MINUTES_FOR_ONLINE = 5
 
 class TrackedUser(models.Model):
     user = models.ForeignKey(User, unique=True)

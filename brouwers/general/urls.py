@@ -9,6 +9,8 @@ urlpatterns = patterns('brouwers.general.views',
     (r'^profile/$', 'profile'),
     (r'^users/(\w+)/$', 'user_profile'),
     (r'^confirm_account/$', 'confirm_account'),
+    (r'^reset_pw/$', 'password_reset'),
+    (r'^do_reset_pw/$', 'do_password_reset'),
     )
 
 urlpatterns += patterns('django.contrib.auth.views',
