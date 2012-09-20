@@ -7,8 +7,8 @@ Found {{ found }} of {{ total }}
     {% for migration in migrations %}
         {% if migration.django_user %}
             <li style="margin-left:2em;">
-                <input type="checkbox" name="link{{ migration.id }}" />
-                {{ migration }}
+                <input type="checkbox" name="link{{ migration.id }}" id="link{{ migration.id }}"/>
+                <label for="link{{ migration.id }}">{{ migration }}</label>
             </li>
         {% endif %}
     {% endfor %}
