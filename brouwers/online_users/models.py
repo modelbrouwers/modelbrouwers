@@ -5,8 +5,16 @@ from datetime import datetime, timedelta
 
 MINUTES_FOR_ONLINE = 5
 
+class OrderedUser(User):
+    class Meta:
+        ordering = ["username"]
+        proxy = True
+    
+    def __unicode__(self):
+        return u"%s" % self.username.replace('_', ' ')
+
 class TrackedUser(models.Model):
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(OrderedUser, unique=True)
     last_seen = models.DateTimeField(_("last seen online"), auto_now=True)
     tracking_since = models.DateTimeField(auto_now_add=True)
     notificate = models.BooleanField(
