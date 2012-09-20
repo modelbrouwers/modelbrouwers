@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block menu %}
+    <li><a href="{% url brouwers.general.views.index %}">Home</a></li>
+    {% if user.is_superuser %}
+        <li><a href="{% url brouwers.migration.views.albumusers %}">Migratie album gebruikers</a></li>
+    {% endif %}
+{% endblock %}

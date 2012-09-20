@@ -7,4 +7,9 @@ class UserMigrationAdmin(admin.ModelAdmin):
 	list_display_links = ('__unicode__',)
 	search_fields = ('username',)
 
+class AlbumUserMigrationAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'django_user')
+    search_fields = ('username',)
+
 admin.site.register(UserMigration, UserMigrationAdmin)
+admin.site.register(AlbumUserMigration, AlbumUserMigrationAdmin)
