@@ -90,6 +90,7 @@ class PasswordReset(models.Model):
         verbose_name = _("password reset")
         verbose_name_plural = _("password resets")
         ordering = ('expire',)
+        unique_together = (('user', 'h'),)
     
     def __unicode__(self):
         return _(u"Password reset for %(user)s" % {'user': self.user.get_profile().__unicode__()})

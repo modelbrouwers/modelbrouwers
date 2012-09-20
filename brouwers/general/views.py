@@ -7,6 +7,7 @@ from django.core.mail import EmailMultiAlternatives, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_email
+from django.db import IntegrityError
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
@@ -24,6 +25,7 @@ from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset
 from shortcuts import render_to_response
 from datetime import date, datetime, timedelta
 from django.conf import settings
+import random
 
 try:
     from brouwers.migration.models import UserMigration
@@ -270,11 +272,18 @@ def password_reset(request):
         if form.is_valid():
             user = form.get_user()
             expire = datetime.now() + timedelta(days=1)
-            variable_part = expire.strftime("%Y-%m-%d %H:%i:%s")
+            variable_part = expire.strftime("%Y-%m-%d %H:%i:%s") + str(int(random.random() * 10))
             h = sha_constructor(settings.SECRET_KEY + variable_part).hexdigest()[:24]
             
+            # make sure the hash is unique enough
             reset = PasswordReset(user=user, expire=expire, h=h)
-            reset.save()
+            try:
+                reset.save()
+            except IntegrityError:
+                extrapart = int(random.random() * 10)
+                h = sha_constructor(settings.SECRET_KEY + variable_part + extrapart).hexdigest()[:24]
+                reset = PasswordReset(user=user, expire=expire, h=h)
+                reset.save()
             
             #send email
             nickname = user.get_profile().forum_nickname

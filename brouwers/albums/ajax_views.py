@@ -184,7 +184,10 @@ def remove_album(request):
 @login_required
 def new_album_jquery_ui(request):
     new_album = Album(user=request.user)
-    from_page = request.POST['from-page']
+    try:
+        from_page = request.POST['from-page']
+    except KeyError:
+        from_page = None
     if request.method == "POST":
         form = AlbumForm(request.POST)
         if form.is_valid():
