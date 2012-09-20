@@ -306,9 +306,10 @@ class Preferences(models.Model): #only create this object when user visits prefe
         _("default uploader"),
         max_length=1, 
         choices=UPLOADER_CHOICES, default="F", 
-        help_text=_("Multiple files at once makes use of a Flash uploader, \
-                    you select all your files without having to click too much buttons. \
-                    The basic uploader has a file field for each image.")
+        help_text=_("""Multiple files at once makes use of a Flash uploader, 
+you select all your files without having to click too much buttons. 
+The basic uploader has a file field for each image."""
+        )
     )
     #options for uploadify
     auto_start_uploading = models.BooleanField(_("start uploading automatically?"), help_text=_("Start upload automatically when files are selected"))

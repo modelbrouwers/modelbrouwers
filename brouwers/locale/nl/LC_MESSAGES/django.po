@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-09 21:13+0200\n"
+"POT-Creation-Date: 2012-09-20 22:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,67 +178,65 @@ msgid "default uploader"
 msgstr "standaard uploader"
 
 #: albums/models.py:309
-#, fuzzy
 msgid ""
-"Multiple files at once makes use of a Flash uploader,                     "
-"you select all your files without having to click too much "
-"buttons.                     The basic uploader has a file field for each "
-"image."
+"Multiple files at once makes use of a Flash uploader, \n"
+"you select all your files without having to click too much buttons. \n"
+"The basic uploader has a file field for each image."
 msgstr ""
 "Meerdere bestanden tegelijk gebruikt een Flash uploader. Hiermee kan je alle "
 "bestanden in een map in één keer selecteren. De beperkte uploader vereist "
 "dat je elk bestand apart selecteert."
 
-#: albums/models.py:314
+#: albums/models.py:316
 msgid "start uploading automatically?"
 msgstr "meteen beginnen uploaden"
 
-#: albums/models.py:314
+#: albums/models.py:316
 msgid "Start upload automatically when files are selected"
 msgstr "Automatisch beginnen uploaden zodra bestanden geselecteerd zijn"
 
-#: albums/models.py:315
+#: albums/models.py:317
 msgid "Show direct links under the photo"
 msgstr "Toon de directe link naar de afbeelding"
 
-#: albums/models.py:318
+#: albums/models.py:320
 msgid "When checked, you will see all the albums and be able to edit them."
 msgstr "Als dit aangevinkt is kan je alle albums zien en bewerken."
 
-#: albums/models.py:321
+#: albums/models.py:323
 msgid "collapse sidebar"
 msgstr "standaard ingeklapte zijbalk"
 
-#: albums/models.py:323
+#: albums/models.py:325
 msgid "sidebar background color"
 msgstr "Achtergrondkleur"
 
-#: albums/models.py:325
+#: albums/models.py:327
 msgid "Background for the overlay in the board."
 msgstr "Achtergrondkleur voor de zijbalk in het antwoordscherm."
 
-#: albums/models.py:328
+#: albums/models.py:330
 msgid "transparent background?"
 msgstr "achtergrond transparant?"
 
-#: albums/models.py:329
+#: albums/models.py:331
 msgid "sidebar text color"
 msgstr "tekstkleur"
 
-#: albums/models.py:330
+#: albums/models.py:332
 msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
 msgstr "Tekstkleur in de zijbalk. HTML kleurcodes worden aanvaard."
 
-#: albums/models.py:332
+#: albums/models.py:334
 msgid "sidebar width"
 msgstr "Breedte"
 
-#: albums/models.py:333
+#: albums/models.py:335
 msgid "Width of the sidebar. E.g. '30%' or '300px'."
 msgstr ""
 "Breedte van de zijbalk, in pixels of procent. Bijvoorbeeld: '300px' of '20%'"
 
-#: albums/models.py:337
+#: albums/models.py:339
 msgid "User preferences"
 msgstr "Gebruikersinstellingen"
 
@@ -327,66 +325,90 @@ msgstr ""
 msgid "E-mail"
 msgstr "E-mailadres"
 
-#: general/forms.py:19 general/forms.py:78
+#: general/forms.py:19
 msgid ""
 "Deze forumnickname is al in gebruik bij een andere user op deze website."
 msgstr ""
 
-#: general/forms.py:45
+#: general/forms.py:44
 msgid "A user with that username already exists."
 msgstr "Er bestaat al iemand met deze gebruikersnaam."
 
-#: general/forms.py:46 general/forms.py:129
+#: general/forms.py:45 general/forms.py:136 general/forms.py:239
 msgid "The two password fields didn't match."
 msgstr "De wachtwoordvelden zijn niet identiek."
 
-#: general/forms.py:49
+#: general/forms.py:48 general/forms.py:182
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: general/forms.py:50
+#: general/forms.py:49 general/forms.py:185
 msgid "E-mail address"
 msgstr "E-mailadres"
 
-#: general/forms.py:51 general/forms.py:118
+#: general/forms.py:50 general/forms.py:125 general/forms.py:228
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: general/forms.py:53 general/forms.py:120
+#: general/forms.py:52 general/forms.py:127 general/forms.py:230
 msgid "Password confirmation"
 msgstr "Wachtwoord - bevestig"
 
-#: general/forms.py:55 general/forms.py:122
+#: general/forms.py:54 general/forms.py:129 general/forms.py:232
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 
-#: general/forms.py:73
-msgid "Deze gebruikersnaam is al in gebruik."
-msgstr ""
+#: general/forms.py:64
+msgid "This e-mail address is already registered."
+msgstr "Dit e-mailadres is al geregistreerd."
 
-#: general/forms.py:116
+#: general/forms.py:76
+msgid "This username has been taken."
+msgstr "Deze gebruikersnaam is al in gebruik."
+
+#: general/forms.py:123
 msgid "Forum name"
 msgstr "Forumnaam"
 
-#: general/forms.py:117
+#: general/forms.py:124
 msgid "Code"
 msgstr "Code"
 
-#: general/forms.py:135
+#: general/forms.py:142
 msgid "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
 msgstr ""
 
-#: general/forms.py:148
+#: general/forms.py:155
 msgid "Je hebt een foutieve code ingegeven."
 msgstr ""
 
-#: general/forms.py:163
-msgid "Je hebt een foutieve gebruikersnaam ingegeven."
-msgstr ""
+#: general/forms.py:170
+msgid "The username entered was not correct."
+msgstr "De ingegeven gebruikersnaam was niet correct."
 
-#: general/forms.py:167
+#: general/forms.py:174
 msgid "answer"
 msgstr "antwoord"
+
+#: general/forms.py:186
+msgid ""
+"If you forgot your username, you can enter the e-mail                     "
+"address you registered with."
+msgstr ""
+"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres"
+"waarmee je registreerde ingeven."
+
+#: general/forms.py:194
+msgid "This user is unknown in the database."
+msgstr "Deze gebruiker is onbekend in de databank."
+
+#: general/forms.py:201
+msgid "This email adress is unknown in the database"
+msgstr "Dit e-mailadres is onbekend in de databank."
+
+#: general/forms.py:208
+msgid "Enter your username or e-mail address."
+msgstr "Voer je gebruikersnaam of e-mailadres in."
 
 #: general/models.py:9
 msgid "Nederland"
@@ -451,3 +473,119 @@ msgstr ""
 #: general/models.py:55
 msgid "Question which must be answered for registration."
 msgstr "Vraag die beantwoord moet worden voor de registratie"
+
+#: general/models.py:86
+msgid "hash"
+msgstr "hash"
+
+#: general/models.py:87
+msgid "expire datetime"
+msgstr "vervaldatum"
+
+#: general/models.py:90
+msgid "password reset"
+msgstr "Wachtwoord reset"
+
+#: general/models.py:91
+msgid "password resets"
+msgstr "Wachtwoord resets"
+
+#: general/models.py:96
+#, python-format
+msgid "Password reset for %(user)s"
+msgstr "Wachtwoord reset voor %(user)s"
+
+#: general/models.py:100
+msgid "path from"
+msgstr "pad van"
+
+#: general/models.py:102
+msgid ""
+"path from where to redirect, without leading slash.                         "
+"E.g. '/shop/' becomse 'shop/'."
+msgstr ""
+"pad vanaf waar geredirect moet worden, zonder forward slash. "
+"Bijvoorbeeld: '/shop/' wordt 'shop/'"
+
+#: general/models.py:106
+msgid "redirect to"
+msgstr "redirect naar"
+
+#: general/models.py:107
+msgid "Path (relative or absolute to the docroot) or url."
+msgstr "Pad (relatief of absoluut tot de website root) of url."
+
+#: general/models.py:111
+msgid "redirect"
+msgstr "omleiding"
+
+#: general/models.py:112
+msgid "redirects"
+msgstr "omleidingen"
+
+#: general/views.py:298
+#, python-format
+msgid ""
+"Hello %(nickname)s, \n"
+"\n"
+"You or someone else has requested a password reset for your Modelbrouwers.nl "
+"account.\n"
+"This request will expire after 24 hours.\n"
+"\n"
+"Go to %(url)s to complete your password reset.\n"
+"\n"
+"Sincerely,\n"
+"\n"
+"The Modelbrouwers.nl staff"
+msgstr ""
+"Hallo %(nickname)s, \n"
+"\n"
+"Jijzelf of iemand anders heeft een wachtwoordreset aangevraagd voor je "
+"Modelbrouwers.nl account.\n"
+"Deze aanvraag vervalt na 24 uur.\n"
+"\n"
+"Ga naar %(url)s om je wachtwoordreset uit te voeren.\n"
+"\n"
+"Met vriendelijke groet,\n"
+"\n"
+"Het Modelbrouwers.nl beheer"
+
+#: general/views.py:310
+#, fuzzy
+msgid "nickname"
+msgstr "naam"
+
+#: general/views.py:314
+msgid "Modelbrouwers.nl password reset"
+msgstr "Modelbrouwers.nl wachtwoordreset"
+
+#: migration/models.py:32
+msgid "album user migration"
+msgstr "albumgebruikermigratie"
+
+#: migration/models.py:33
+msgid "album user migrations"
+msgstr "albumgebruikermigraties"
+
+#: online_users/models.py:18
+msgid "last seen online"
+msgstr "laatst online"
+
+#: online_users/models.py:21
+msgid "notificate"
+msgstr "toon in popup"
+
+#: online_users/models.py:23
+msgid ""
+"Send a notification to the online                         moderators when "
+"this user is online."
+msgstr ""
+"Stuur een melding naar de online moderators als deze gebruiker online is."
+
+#: online_users/models.py:28
+msgid "tracked user"
+msgstr "gevolgde gebruiker"
+
+#: online_users/models.py:29
+msgid "tracked users"
+msgstr "gevolgde gebruikers"
