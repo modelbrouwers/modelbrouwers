@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from django.shortcuts import redirect
 from brouwers.general.models import UserProfile
 from brouwers.general.shortcuts import render_to_response
 from models import *
+from brouwers.albums.models import Album
 
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
@@ -43,3 +46,25 @@ def find_django_user(request):
                 migration.save()
             found += 1
     return render_to_response(request, 'migration/albumusers.html', {'migrations': migrations, 'total': total, 'found': found})
+
+@user_passes_test(lambda u: u.is_superuser)
+def migrate_albums(request):
+    albums = AlbumMigration.objects.filter(migrated=False)
+    new_albums = []
+    for album in albums:
+        django_user = album.owner.django_user
+        if django_user:
+            new_album = Album(
+                title = album.title,
+                description = album.description,
+                user = django_user
+            )
+            try:
+                new_album.full_clean()
+                new_album.save()
+                new_albums.append(new_album)
+                album.migrated = True
+                album.save()
+            except ValidationError:
+                pass
+    return render_to_response(request, 'migration/albums.html', {'new_albums': new_albums})

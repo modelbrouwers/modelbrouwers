@@ -38,3 +38,15 @@ class AlbumUserMigration(models.Model):
         else:
             django_user = "[django user not found]"
         return u"%s (%s) -> %s" % (self.username, self.email, django_user)
+
+class AlbumMigration(models.Model):
+    title = models.CharField(max_length=1024)
+    description = models.CharField(max_length=1024, blank=True)
+    owner = models.ForeignKey(AlbumUserMigration)
+    migrated = models.BooleanField()
+    
+    class Meta:
+        ordering = ('owner', 'title')
+    
+    def __unicode__(self):
+        return u"%s" % self.title

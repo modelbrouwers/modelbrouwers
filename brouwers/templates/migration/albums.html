@@ -1,0 +1,9 @@
+{% extends "migration/base.html" %}
+
+{% block content %}
+<ul>
+    {% for album in new_albums %}
+        <li style="margin-left: 2em;margin-bottom:0.5em;">{{ album }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

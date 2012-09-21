@@ -4,5 +4,6 @@
     <li><a href="{% url brouwers.general.views.index %}">Home</a></li>
     {% if user.is_superuser %}
         <li><a href="{% url brouwers.migration.views.albumusers %}">Migratie album gebruikers</a></li>
+        <li><a href="{% url brouwers.migration.views.migrate_albums %}">Migratie albums</a></li>
     {% endif %}
 {% endblock %}
