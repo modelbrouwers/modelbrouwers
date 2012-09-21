@@ -74,7 +74,7 @@ def migrate_albums(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):
-    pictures = PhotoMigration.objects.filter(migrated=False)
+    pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False)
     if pictures.count() > 1000:
         pictures = pictures[:1000]
     
