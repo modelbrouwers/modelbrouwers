@@ -1,6 +1,7 @@
 {% extends "migration/base.html" %}
 
 {% block content %}
+Aantal: {{ photos|length }}
 <ul>
     {% for photo in photos %}
     <li style="margin-left:2em;margin-bottom:0.2em;">

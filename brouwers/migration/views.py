@@ -74,7 +74,10 @@ def migrate_albums(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):
-    pictures = PhotoMigration.objects.filter(migrated=False, album__owner__username__iexact='BBT')
+    pictures = PhotoMigration.objects.filter(migrated=False)
+    if pictures.count() > 1000:
+        pictures = pictures[:1000]
+    
     p = []
     for picture in pictures:
         album = picture.album.new_album
@@ -103,10 +106,10 @@ def migrate_pictures(request):
                 'filename': "thumb_" + picture.filename
             }
             
-            #src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
-            #src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + picture.filename
-            src = settings.MEDIA_ROOT + 'albums/test.jpg'
-            src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
+            src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
+            src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + picture.filename
+            #src = settings.MEDIA_ROOT + 'albums/test.jpg'
+            #src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
             target = settings.MEDIA_ROOT + filepath
             target2 = settings.MEDIA_ROOT + filepath2
             
