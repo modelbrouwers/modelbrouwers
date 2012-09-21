@@ -1,0 +1,11 @@
+{% extends "migration/base.html" %}
+
+{% block content %}
+<ul>
+    {% for photo in photos %}
+    <li style="margin-left:2em;margin-bottom:0.2em;">
+        {{ photo }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

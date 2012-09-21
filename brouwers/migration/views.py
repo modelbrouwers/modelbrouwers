@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -7,7 +8,8 @@ from django.shortcuts import redirect
 from brouwers.general.models import UserProfile
 from brouwers.general.shortcuts import render_to_response
 from models import *
-from brouwers.albums.models import Album
+from brouwers.albums.models import Album, Photo
+import os
 
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
@@ -64,7 +66,70 @@ def migrate_albums(request):
                 new_album.save()
                 new_albums.append(new_album)
                 album.migrated = True
+                album.new_album = new_album
                 album.save()
             except ValidationError:
                 pass
     return render_to_response(request, 'migration/albums.html', {'new_albums': new_albums})
+
+@user_passes_test(lambda u: u.is_superuser)
+def migrate_pictures(request):
+    pictures = PhotoMigration.objects.filter(migrated=False, album__owner__username__iexact='BBT')
+    p = []
+    for picture in pictures:
+        album = picture.album.new_album
+        user = picture.owner.django_user
+        if album and user:
+            if picture.title:
+                description = picture.title
+            else:
+                description = ''
+            if picture.caption:
+                if description:
+                    description += ' %s' % picture.caption
+                else:
+                    description = picture.caption
+            
+            # media/albums/<userid>/<albumid>/filename
+            base = "albums/%(userid)s/%(albumid)s/%(filename)s"
+            filepath = base % {
+                'userid': user.id,
+                'albumid': album.id,
+                'filename': picture.filename
+            }
+            filepath2 = base % {
+                'userid': user.id,
+                'albumid': album.id,
+                'filename': "thumb_" + picture.filename
+            }
+            
+            #src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
+            #src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + picture.filename
+            src = settings.MEDIA_ROOT + 'albums/test.jpg'
+            src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
+            target = settings.MEDIA_ROOT + filepath
+            target2 = settings.MEDIA_ROOT + filepath2
+            
+            if not os.path.lexists(target):
+                if not os.path.isdir(os.path.dirname(target)):
+                    os.makedirs(os.path.dirname(target))
+                os.symlink(src, target)
+                os.symlink(src2, target2)
+            
+            new_photo = Photo(
+                user = user,
+                album = album,
+                width = picture.pwidth,
+                height = picture.pheight,
+                image = filepath,
+                description = description
+            )
+            try:
+                #new_photo.full_clean()
+                new_photo.save()
+                picture.migrated = True
+                picture.save()
+                p.append(new_photo)
+            except ValidationError:
+                pass
+    return render_to_response(request, 'migration/photos.html', {'photos': p})

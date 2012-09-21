@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from brouwers.albums.models import Album
 
 class UserMigration(models.Model):
     username = models.CharField(max_length=50) #actually 20
@@ -44,9 +45,27 @@ class AlbumMigration(models.Model):
     description = models.CharField(max_length=1024, blank=True)
     owner = models.ForeignKey(AlbumUserMigration)
     migrated = models.BooleanField()
+    new_album = models.ForeignKey(Album, blank=True, null=True)
     
     class Meta:
         ordering = ('owner', 'title')
     
     def __unicode__(self):
         return u"%s" % self.title
+
+class PhotoMigration(models.Model):
+    album = models.ForeignKey(AlbumMigration)
+    filepath = models.CharField(max_length=80)
+    filename = models.CharField(max_length=256)
+    pwidth = models.PositiveIntegerField(blank=True, null=True)
+    pheight = models.PositiveIntegerField(blank=True, null=True)
+    owner = models.ForeignKey(AlbumUserMigration)
+    title = models.CharField(max_length=512, blank=True)
+    caption = models.CharField(max_length=1024, blank=True)
+    migrated = models.BooleanField()
+    
+    class Meta:
+        ordering = ('album',)
+    
+    def __unicode__(self):
+        return u"%(path)s%(filename)s" % {'path': self.filepath, 'filename': self.filename}
