@@ -62,7 +62,7 @@ class PhotoMigration(models.Model):
     owner = models.ForeignKey(AlbumUserMigration)
     title = models.CharField(max_length=512, blank=True)
     caption = models.CharField(max_length=1024, blank=True)
-    migrated = models.BooleanField()
+    migrated = models.NullBooleanField()
     
     class Meta:
         ordering = ('album',)

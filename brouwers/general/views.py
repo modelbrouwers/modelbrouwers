@@ -49,7 +49,7 @@ TEMPLATE_RESET_PW_HTML = """
 
 
 def index(request):
-    if not request.user.has_perm('albums.access_albums') or not settings.DEVELOPMENT:
+    if True or not request.user.has_perm('albums.access_albums') and not settings.DEVELOPMENT:
         return HttpResponseRedirect('/index.php')
     return render_to_response(request, 'base.html')
 

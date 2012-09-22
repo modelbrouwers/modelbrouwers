@@ -8,7 +8,7 @@ class UserMigrationAdmin(admin.ModelAdmin):
 	search_fields = ('username',)
 
 class AlbumUserMigrationAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'django_user')
+    list_display = ('id', 'username', 'email', 'django_user')
     search_fields = ('username',)
 
 class AlbumMigrationAdmin(admin.ModelAdmin):
