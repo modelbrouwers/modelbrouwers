@@ -141,7 +141,7 @@ class Photo(models.Model):
     album = models.ForeignKey(Album)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
-    image = models.ImageField(_("image"), upload_to='albums', height_field='height', width_field='width')
+    image = models.ImageField(_("image"), max_length=200, upload_to='albums', height_field='height', width_field='width')
     description = models.CharField(_("photo description"), max_length=500, blank=True)
     
     #Logging and statistics
