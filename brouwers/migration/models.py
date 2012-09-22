@@ -44,7 +44,7 @@ class AlbumMigration(models.Model):
     title = models.CharField(max_length=1024)
     description = models.CharField(max_length=1024, blank=True)
     owner = models.ForeignKey(AlbumUserMigration)
-    migrated = models.BooleanField(blank=True, null=True)
+    migrated = models.NullBooleanField(blank=True, null=True)
     new_album = models.ForeignKey(Album, blank=True, null=True)
     
     class Meta:
