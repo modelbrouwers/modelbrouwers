@@ -79,6 +79,7 @@ def migrate_pictures(request):
         pictures = pictures[:10000]
     
     p = []
+    albums = []
     for picture in pictures:
         try:
             album = picture.album.new_album
@@ -136,8 +137,18 @@ def migrate_pictures(request):
                     picture.migrated = True
                     picture.save()
                     p.append(new_photo)
+                    if album not in albums:
+                        albums.append(album)
                 except ValidationError:
                     pass
         except UnicodeEncodeError: #don't bother
             pass
+        
+        for album in albums:
+            # order in orde zetten
+            i = 1
+            for photo in album.photo_set.all():
+                photo.order = i
+                photo.save()
+                i += 1
     return render_to_response(request, 'migration/photos.html', {'photos': p})
