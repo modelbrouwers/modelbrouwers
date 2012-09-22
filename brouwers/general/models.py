@@ -12,6 +12,14 @@ COUNTRY_CHOICES = (
 	("F",_("Frankrijk")),
 )
 
+class OrderedUser(User):
+    class Meta:
+        ordering = ["username"]
+        proxy = True
+    
+    def __unicode__(self):
+        return u"%s" % self.username.replace('_', ' ')
+
 class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)	
 	last_vote = models.DateField(default=date(2010,1,1))

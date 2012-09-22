@@ -2,16 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from datetime import datetime, timedelta
+from brouwers.general.models import OrderedUser
 
 MINUTES_FOR_ONLINE = 5
-
-class OrderedUser(User):
-    class Meta:
-        ordering = ["username"]
-        proxy = True
-    
-    def __unicode__(self):
-        return u"%s" % self.username.replace('_', ' ')
 
 class TrackedUser(models.Model):
     user = models.ForeignKey(OrderedUser, unique=True)

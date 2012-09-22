@@ -45,7 +45,7 @@
     {% endspaceless %}
                 
     <div class="properties">
-        <span class="date">Gewijzigd op {{ album.modified|date:"d b Y, H:i" }}</span>
+        <span class="date">Gewijzigd op {{ album.last_upload|date:"d b Y, H:i" }}</span>
         <br />
         <span class="date">Aangemaakt op {{ album.created|date:"d b Y, H:i" }}</span>
     </div>

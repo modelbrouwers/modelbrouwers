@@ -93,6 +93,8 @@ def migrate_pictures(request):
                         description += ' %s' % picture.caption
                     else:
                         description = picture.caption
+                if len(description) > 500:
+                    description = description[:500]
                 
                 # media/albums/<userid>/<albumid>/filename
                 base = "albums/%(userid)s/%(albumid)s/%(filename)s"

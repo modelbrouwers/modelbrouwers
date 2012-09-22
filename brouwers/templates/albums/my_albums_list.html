@@ -44,11 +44,11 @@
     </div>
     
     <div class="albums_container">
-        {% with albums_data.0.albums as albums %}
+        {% with albums=albums_data.0.albums %}
             {% include "albums/albums_list/albums_li.html" %}
             
-            {% with "page_own" as page %}
-                {% include "albums/albums_list/pagination.html" %}
+            {% with page="page_own" objects=albums %}
+                {% include "pagination.html" %}
             {% endwith %}
         {% endwith %}
     </div>
@@ -59,8 +59,8 @@
             {% with albums_data.1.albums as albums %}
                 {% include "albums/albums_list/albums_li.html" %}
                 
-                {% with "page_pub" as page %}
-                    {% include "albums/albums_list/pagination.html" %}
+                {% with page="page_pub" objects=albums %}
+                    {% include "pagination.html" %}
                 {% endwith %}
             {% endwith %}
         </div>
@@ -76,8 +76,8 @@
                     </div>
                 {% endif %}
                 
-                {% with "page_other" as page %}
-                    {% include "albums/albums_list/pagination.html" %}
+                {% with page="page_other" objects=albums %}
+                    {% include "pagination.html" %}
                 {% endwith %}
             {% endwith %}
         </div>

@@ -192,7 +192,7 @@ ul#menu li a:hover{
 div.pagination{
     text-align: center;
     padding-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
     clear: both;
 }
 div.pagination a, div.pagination span{
@@ -207,7 +207,7 @@ div.pagination a:hover{
 /*** CONTENT ***/
 div#content_wrapper{
     clear: both;
-	min-width: 900px;
+	min-width: 1000px;
 	width: 80%;
 	margin: 0 auto;
 }
@@ -216,6 +216,7 @@ div#content{
     font-size: 0.94em;
     padding-bottom: 2em;
     margin-bottom: 2em;
+    min-width: 1000px;
 }
 div#albums-list-homepage .row{
     clear: both;
@@ -368,6 +369,7 @@ div#uploadify{
     position: relative;
 }
 #uploadify .subtitle{
+    margin-top: 0;
     border-top-right-radius: 6px;
 	-webkit-border-top-right-radius: 6px;
 	-khtml-border-top-right-radius: 6px;
