@@ -19,7 +19,11 @@ from datetime import datetime
 #          BASE           #
 ###########################
 def index(request):
-    if not request.user.has_perm('albums.access_albums'):
+    new_user = False
+    if request.user.is_authenticated():
+        if request.user.date_joined >= datetime(2012, 9, 22):
+            new_user = True
+    if not request.user.has_perm('albums.access_albums') and not new_user:
         return HttpResponseRedirect('/albums/coppermine/index.php') #to old albums
     
     albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')
