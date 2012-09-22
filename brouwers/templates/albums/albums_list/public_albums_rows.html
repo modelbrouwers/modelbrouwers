@@ -19,7 +19,7 @@
                 {{ album.views }} views
                 {% if not total %}
                     <br />
-                    <a href="{{ album.user.get_absolute_url }}">{{ album.user.username }}</a>
+                    <a href="{{ album.user.get_absolute_url }}">{{ album.user.get_profile.forum_nickname }}</a>
                 {% endif %}
             </div>
         </div>

@@ -2,6 +2,10 @@
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
+{% block album_tab %}
+<img src="{{ STATIC_URL }}images/nav/albums_voor.png" alt="Je bent nu in de fotoalbums!"/>
+{% endblock %}
+
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css?v={{ software_version }}" charset="utf-8"/>
