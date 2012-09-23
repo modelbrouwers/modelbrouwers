@@ -34,10 +34,7 @@ class AlbumForm(forms.ModelForm):
         # limit visible categories for regular users
         user = None
         if 'user' in kwargs:
-            user = kwargs.pop('user')
-        elif 'instance' in kwargs:
-            album = kwargs['instance']
-            user = album.user
+            user = kwargs['user']
         if not admin_mode(user):
             self.fields['category'].queryset = Category.objects.filter(public=True)
 

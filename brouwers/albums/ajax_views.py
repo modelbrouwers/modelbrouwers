@@ -19,7 +19,7 @@ import itertools
 def new_album(request):
     error = None
     if request.method == "POST": #submission of new album
-        form = AlbumForm(request.POST)
+        form = AlbumForm(request.POST, user=request.user)
         if form.is_valid():
             album = form.save(commit=False)
             album.user = request.user
@@ -32,13 +32,13 @@ def new_album(request):
                 error = "You have used this album title before. Make sure you pick an unique title."
     else: #request for rendered form
         album = Album(user=request.user)
-        form = AlbumForm(instance=album)
+        form = AlbumForm(instance=album, user=request.user)
     return render_to_response(request, 'albums/ajax/new_album.html', {'form': form, 'error': error})
 
 @login_required
 def uploadify(request):
     # Processing of each uploaded image
-    albumform = PickAlbumForm(request.user, request.POST)
+    albumform = PickAlbumForm(request.user, request.POST, user=request.user)
     
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
@@ -190,14 +190,14 @@ def new_album_jquery_ui(request):
     except KeyError:
         from_page = None
     if request.method == "POST":
-        form = AlbumForm(request.POST)
+        form = AlbumForm(request.POST, user=request.user)
         if form.is_valid():
             album = form.save()
             if from_page == "upload":
                 option = mark_safe('<p><option value="%s" selected="selected" class=\"new_album\">%s</option></p>' % (album.id, album.__unicode__()))
                 output = {'option': option, 'status': 1}
                 return HttpResponse(option)
-            new_form = AlbumForm(instance=new_album)
+            new_form = AlbumForm(instance=new_album, user=request.user)
             return render_to_response(
                 request, 
                 'albums/ajax/new_album_li.html', 

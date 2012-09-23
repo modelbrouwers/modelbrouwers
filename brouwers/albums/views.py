@@ -114,7 +114,7 @@ def manage(request, album_id=None):
     else:
         if not album:
             album = Album(user=request.user)
-        add_album_form = AlbumForm(instance=album)
+        add_album_form = AlbumForm(instance=album, user=request.user)
         # creating a formset to change the ordering of the albums - AJAX degradable
         album_formset = AlbumFormSet(queryset=albums)
     return render_to_response(request, 'albums/manage.html', {'albumformset': album_formset, 'add_album_form': add_album_form})
@@ -172,7 +172,7 @@ def preferences(request):
 def uploadify(request):
     albumform = PickAlbumForm(request.user)
     new_album = Album(user=request.user)
-    form = AlbumForm(instance=new_album)
+    form = AlbumForm(instance=new_album, user=request.user)
     return render_to_response(request, 'albums/uploadify.html', {'albumform': albumform, 'session_cookie_name': settings.SESSION_COOKIE_NAME, 'session_key': request.session.session_key, 'form': form})
 
 @login_required
@@ -188,7 +188,7 @@ def upload(request):
     PhotoFormSet = modelformset_factory(Photo, fields=('image',), extra=amount)
     
     if request.method == "POST":
-        albumform = PickAlbumForm(request.user, request.POST)
+        albumform = PickAlbumForm(request.user, request.POST, user=request.user)
         formset = PhotoFormSet(request.POST, request.FILES)
         if albumform.is_valid() and formset.is_valid():
             album = albumform.cleaned_data['album']
@@ -390,7 +390,7 @@ def my_albums_list(request):
             {'albums': albums, 'closing_tag': closing_tag}
         )
     new_album = Album(user=request.user)
-    form = AlbumForm(instance=new_album)
+    form = AlbumForm(instance=new_album, user=request.user)
     return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters, 'form': form})
 
 def photo(request, photo_id=None):
