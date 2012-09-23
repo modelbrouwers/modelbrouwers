@@ -38,7 +38,13 @@ function loadSidebar(){
             selected_album = $('#id_album').val();
             window_height = $('body').height();
             
-            $('#id_album').remove();
+            $('#id_album').change(function(){
+                album_id = $(this).val();
+                loadPhotos(album_id);
+            });
+            // trigger change
+            $('#id_album').change();
+            
             $('#autocomplete-album').css('color', '#888');
             $('#autocomplete-album').focus(function () {
                 $(this).val('');
@@ -98,6 +104,11 @@ function loadSidebar(){
         insertAtCaret('id-textarea-post', BBCode);
         $(this).addClass('selected');
         return false;
+    });
+    
+    $('button#insert-all').live('click', function(e){
+        // trigger click events
+        $('a.photo').click();
     });
 }
 function loadPhotos(album_id){

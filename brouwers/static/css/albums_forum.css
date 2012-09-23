@@ -64,8 +64,18 @@ div.tab{
     font-size: 0.7em;
 }
 #id_album, #autocomplete-album{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#id_album{width:95%;}
+#id_album{font-weight:normal;font-size:0.94em;}
+#autocomplete-album{
     width: 95%;
     margin-bottom: 0.8em;
+    font-weight: normal;
+    font-size: 1.04em;
+    padding: 0.1em 0.3em 0.1em 0.3em;
 }
 ul.ui-autocomplete .ui-menu-item a{
     font-size: 1.5em;
@@ -73,11 +83,14 @@ ul.ui-autocomplete .ui-menu-item a{
 #photos-list{
     width: 99%;
     margin: 0 auto;
+    padding-bottom: 1em;
 }
 #photos-list li.photo{
     float: left;
     text-align: center;
     padding: 0.1em;
+    width: 104px;
+    height: 80px;
 }
 li.photo a.photo{
     display: inline-block;
@@ -89,6 +102,7 @@ li.photo a.photo{
 li.photo a.photo.selected{
     border-color: #0E72A4;
 }
+#insert-all{padding:0.1em 0.4em 0.1em 0.4em;}
 #resizer{
     z-index: -1;
     position: absolute;

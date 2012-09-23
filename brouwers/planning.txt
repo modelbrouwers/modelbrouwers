@@ -1,8 +1,11 @@
 *Software*
 
 - Albums:
-	+ Knop om in 1x alle foto's uit album in post in te voegen.
 	+ Upload vanaf URL
+	+ Download als zip
+	+ Categorieen -> rechtenafhankelijk maken
+	+ Belangrijke categorieen tonen op frontpage (BCC winnaars)
+	+ URL bij Categorie
 
 - Groepsbouwenkalender: myth
 	
