@@ -29,13 +29,13 @@ class AlbumForm(forms.ModelForm):
         return cln_build_report(self)
     
     def __init__(self, *args, **kwargs):
-        super(AlbumForm, self).__init__(*args, **kwargs)
-        
-        # limit visible categories for regular users
         user = None
         if 'user' in kwargs:
-            user = kwargs['user']
-        if not admin_mode(user):
+            user = kwargs.pop('user')
+        
+        super(AlbumForm, self).__init__(*args, **kwargs)
+        # limit visible categories for regular users
+        if not user or not admin_mode(user):
             self.fields['category'].queryset = Category.objects.filter(public=True)
 
 class EditAlbumForm(AlbumForm):

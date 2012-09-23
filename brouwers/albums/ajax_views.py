@@ -153,7 +153,7 @@ def edit_album(request):
         form = PickAlbumForm(request.user, request.POST)
         if form.is_valid():
             album = form.cleaned_data["album"]
-            editform = EditAlbumFormAjax(request.POST, instance=album)
+            editform = EditAlbumFormAjax(request.POST, instance=album, user=request.user)
             photos = editform.fields["cover"].queryset
             if editform.is_valid() and (album.user == request.user or admin_mode(request.user)):
                 editform.save()
@@ -164,7 +164,7 @@ def edit_album(request):
         if form.is_valid():
             album = form.cleaned_data["album"]
             if request.user == album.user or admin_mode(request.user):
-                editform = EditAlbumFormAjax(instance=album)
+                editform = EditAlbumFormAjax(instance=album, user=request.user)
                 photos = editform.fields["cover"].queryset
             else:
                 return HttpResponse('This event has been logged')
