@@ -84,8 +84,8 @@
                 <div class="description">
                     <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
                         <strong>
-                        {% if album.clean_title|length > 46 %}
-                            {{ album.clean_title|truncatechars:46 }}
+                        {% if album.clean_title|length > 38 %}
+                            {{ album.clean_title|truncatechars:38 }}
                         {% else %}
                             {{ album.clean_title }}
                         {% endif %}
@@ -93,8 +93,8 @@
                     </a>
                     <br />
                     <span class="description">
-                        {% if album.description|length > 90 %}
-                            {{ album.description|truncatechars:90 }}
+                        {% if album.description|length > 100 %}
+                            {{ album.description|truncatechars:100 }}
                         {% else %}
                             {{ album.description }}
                         {% endif %}
