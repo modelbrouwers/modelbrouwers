@@ -64,6 +64,50 @@
 	<li><a href="/albums/coppermine/index.php" style="font-size:0.7em;">Oude albums</a></li>
 {% endblock %}
 
+{% block above_content %}
+{% if spotlight_albums %}
+<div id="spotlight">
+    <ul class="albums-list">
+        {% for album in spotlight_albums %}
+            <li class="photo album" id="album_{{ album.id }}">
+                <div class="album-link">
+                    {% spaceless %}
+                    <a class="photo album" href="{{ album.get_absolute_url }}">
+                        {% if album.cover_thumb_url %}
+                            <img class="thumb" src="{{ album.cover_thumb_url }}" 
+                            width="{{ album.get_cover.get_thumb_width }}" 
+                            height="{{ album.get_cover.get_thumb_height }}" alt="thumb"/>
+                        {% endif %}
+                    </a>
+                    {% endspaceless %}
+                </div>
+                <div class="description">
+                    <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
+                        <strong>
+                        {% if album.clean_title|length > 30 %}
+                            {{ album.clean_title|truncatechars:30 }}
+                        {% else %}
+                            {{ album.clean_title }}
+                        {% endif %}
+                        </strong>
+                    </a>
+                    <br />
+                    <span class="description">
+                        {% if album.description|length > 70 %}
+                            {{ album.description|truncatechars:70 }}
+                        {% else %}
+                            {{ album.description }}
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="clear"></div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 	<div class="tab">Laatst gewijzigde albums</div>
 	<div id="albums-list-homepage">

@@ -3,9 +3,7 @@
 - Albums:
 	+ Upload vanaf URL
 	+ Download als zip
-	+ Categorieen -> rechtenafhankelijk maken
-	+ Belangrijke categorieen tonen op frontpage (BCC winnaars)
-	+ URL bij Categorie
+	+ groepsrechten
 
 - Groepsbouwenkalender: myth
 	

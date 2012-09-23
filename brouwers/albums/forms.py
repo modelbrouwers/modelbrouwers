@@ -27,8 +27,21 @@ class AlbumForm(forms.ModelForm):
         
     def clean_build_report(self):
         return cln_build_report(self)
+    
+    def __init__(self, *args, **kwargs):
+        super(AlbumForm, self).__init__(*args, **kwargs)
+        
+        # limit visible categories for regular users
+        user = None
+        if 'user' in kwargs:
+            user = kwargs.pop('user')
+        elif 'instance' in kwargs:
+            album = kwargs['instance']
+            user = album.user
+        if not admin_mode(user):
+            self.fields['category'].queryset = Category.objects.filter(public=True)
 
-class EditAlbumForm(forms.ModelForm):
+class EditAlbumForm(AlbumForm):
     class Meta:
         model = Album
         fields = ('title', 'description', 'build_report', 'category', 'cover', 'order', 'public', 'writable_to', 'trash')

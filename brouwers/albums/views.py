@@ -27,6 +27,9 @@ def index(request):
         return HttpResponseRedirect('/albums/coppermine/index.php') #to old albums
     
     albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')
+    spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
+    if spotlight_albums.count() > 2:
+        spotlight_albums = spotlight_albums[:3]
     
     p = Paginator(albums, 20)
     page = request.GET.get('page', 1)
@@ -55,6 +58,7 @@ def index(request):
                 'last_uploads': last_uploads, 
                 'needs_closing_tag_row': needs_closing_tag_row,
                 'albums': albums,
+                'spotlight_albums': spotlight_albums,
                 'needs_closing_tag_row_albums': needs_closing_tag_row_albums,
             }
         )
@@ -80,9 +84,9 @@ def manage(request, album_id=None):
         album = None
     
     if request.method == "POST":
-        add_album_form = AlbumForm()
+        add_album_form = AlbumForm(user=request.user)
         if 'add' in request.POST:
-            add_album_form = AlbumForm(request.POST, instance=album)
+            add_album_form = AlbumForm(request.POST, instance=album, user=request.user)
             if add_album_form.is_valid():
                 album = add_album_form.save(commit=False)
                 album.user = request.user
@@ -123,12 +127,12 @@ def edit_album(request, album_id=None):
     
     album = get_object_or_404(Album, q)
     if request.method == "POST":
-        form = EditAlbumForm(request.POST, instance=album)
+        form = EditAlbumForm(request.POST, instance=album, user=request.user)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse(my_albums_list))
     else:
-        form = EditAlbumForm(instance=album)
+        form = EditAlbumForm(instance=album, user=request.user)
     return render_to_response(request, 'albums/edit_album.html', {'form': form})
 
 @login_required

@@ -31,7 +31,8 @@ def new_album(request):
             except ValidationError:
                 error = "You have used this album title before. Make sure you pick an unique title."
     else: #request for rendered form
-        form = AlbumForm()
+        album = Album(user=request.user)
+        form = AlbumForm(instance=album)
     return render_to_response(request, 'albums/ajax/new_album.html', {'form': form, 'error': error})
 
 @login_required

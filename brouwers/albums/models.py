@@ -20,6 +20,10 @@ class Category(models.Model):
     name = models.CharField(_("name"), max_length=256, unique=True)
     order = models.PositiveSmallIntegerField(_("order"), default=1, blank=True, null=True)
     
+    url = models.URLField(_("url"), max_length=500, blank=True)
+    on_frontpage = models.BooleanField(_("on frontpage"), default=False)
+    public = models.BooleanField(_("public"), default=True, help_text=_("If the category is public, regular users can add their albums to the category. If it isn't, only people with admin permissions can do so."))
+    
     class Meta:
         verbose_name = _("category")
         verbose_name_plural = _("categories")
@@ -38,7 +42,13 @@ class Album(models.Model):
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
     description = models.CharField(_("album description"),
             max_length=500, blank=True)
-    category = models.ForeignKey(Category, blank=True, null=True, default=1 or None, verbose_name=_("category"))
+    category = models.ForeignKey(
+            Category, 
+            blank=True, 
+            null=True, 
+            default=1 or None, 
+            verbose_name=_("category"),
+            )
     cover = models.ForeignKey(
         'Photo', 
         blank=True, 
