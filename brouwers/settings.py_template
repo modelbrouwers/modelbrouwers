@@ -110,8 +110,10 @@ INSTALLED_APPS = (
     'brouwers.groepsbouwkalender',
     'brouwers.migration',
     'brouwers.online_users',
-    
 )
+
+# how long before cookie expires => 10 weeks
+SESSION_COOKIE_AGE = 6048000
 
 AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',

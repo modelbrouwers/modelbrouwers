@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
+from django.utils.translation import pgettext
 
 from datetime import date, datetime
 import os, re
@@ -11,7 +12,7 @@ import os, re
 #TODO: comments on albums/photos
 
 WRITABLE_CHOICES = (
-    ("u", _("user")),
+    ("u", pgettext("write permissions for owner", "owner")),
     #("g", _("group")),
     ("o", _("everyone")), #everyone = every logged in user
     )
