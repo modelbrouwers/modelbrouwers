@@ -38,7 +38,7 @@ def new_album(request):
 @login_required
 def uploadify(request):
     # Processing of each uploaded image
-    albumform = PickAlbumForm(request.user, request.POST, user=request.user)
+    albumform = PickAlbumForm(request.user, request.POST)
     
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
