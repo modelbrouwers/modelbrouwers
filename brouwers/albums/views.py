@@ -151,36 +151,36 @@ def download_album(request, album_id=None):
     
     #log download
     album_download = AlbumDownload(album=album, downloader=request.user)
-    album_download.save()
     
-    rel_path = "albums/%(userid)s/%(albumid)s/%(zipfile)s" % {
+    rel_path = "albums/%(userid)s/%(albumid)s/%(albumid)s.zip" % {
             'userid': album.user.id,
             'albumid': album.id,
-            'zipfile': "%s.zip" % album.id
             }
     
-    if not downloads:
+    if not downloads or True:
         #create zip file
         filename = "%(media_root)s%(url)s" % {
                     'media_root': settings.MEDIA_ROOT,
                     'url': rel_path
                     }
         zf = ZipFile(filename, mode='w')
-        try:
+        #try:
+        if True:
             for photo in album.photo_set.all():
                 f = photo.image.path
                 arcname = os.path.split(f)[1]
                 zf.write(f, arcname)
-        except:
-            album_download.failed = True
-            album_download.save()
-        finally:
-            zf.close()
+        #except:
+        #    album_download.failed = True
+        #finally:
+        #    zf.close()
     
     url = "%(media_url)s%(rel_path)s" % {
         'media_url': settings.MEDIA_URL,
         'rel_path': rel_path
         }
+    
+    album_download.save()
     return HttpResponseRedirect(url)
 
 @login_required
