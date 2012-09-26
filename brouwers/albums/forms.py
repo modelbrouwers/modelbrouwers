@@ -1,10 +1,11 @@
 from django import forms
+from django.conf import settings
 from django.db.models import Q
 from django.utils.translation import ugettext as _
 from models import *
 from utils import admin_mode
 
-import re
+import re, urllib2
 from datetime import datetime
 
 def cln_build_report(form):
@@ -147,6 +148,27 @@ class EditPhotoForm(forms.ModelForm):
 class AddPhotoForm(forms.ModelForm):
     class Meta:
         fields = ('album', 'image')
+
+class UploadFromURLForm(forms.Form):
+    url = forms.URLField(required=False, label=_("link"), help_text=_("Upload a picture from url"))
+    
+    def clean_url(self):
+        url = self.cleaned_data['url']
+        if url != '':
+            try:
+                d = urllib2.urlopen(url)
+                content_type = d.info()['Content-Type']
+                valid = False
+                for ext in settings.VALID_IMG_EXTENSIONS:
+                    valid_content_type = "image/%s" % ext.replace('.', '')
+                    if valid_content_type in content_type:
+                        valid = True
+                        break;
+                if not valid:
+                    raise forms.ValidationError(_("Make sure the link points to a jpg or png image."))
+            except urllib2.HTTPError:
+                raise forms.ValidationError(_("Could not download the image from the url"))
+        return url
 
 class PreferencesForm(forms.ModelForm):
     class Meta:

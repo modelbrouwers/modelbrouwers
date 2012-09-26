@@ -16,7 +16,7 @@ def valid_ext(extension):
 def exists(name):
     return os.path.exists(name)
 
-def get_available_name(name):
+def get_available_name(name, overwrite=False):
         """
         Returns a filename that's free on the target storage system, and
         available for new content to be written to.
@@ -28,14 +28,14 @@ def get_available_name(name):
         # the file extension, if one exists) to the filename until the generated
         # filename doesn't exist.
         count = itertools.count(1)
-        while exists(name):
+        while exists(name) and not overwrite:
             # file_ext includes the dot.
             name = os.path.join(dir_name, "%s_%s%s" % (file_root, count.next(), file_ext))
         return name, dir_name
 
-def save_to_path(img, upload_to, prefix, filename, ext):
+def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
-    outfile, path_dir = get_available_name(outfile)
+    outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     
     #get the relative path for the database
     rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
@@ -52,7 +52,7 @@ def save_to_path(img, upload_to, prefix, filename, ext):
     img.save(outfile)
     return (rel_path, img)
 
-def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dimensions=settings.THUMB_DIMENSIONS, upload_to='albums/'):
+def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dimensions=settings.THUMB_DIMENSIONS, upload_to='albums/', overwrite=False):
     """
     Resizes an image to multiple sizes and saves it to disk.
     
@@ -79,12 +79,9 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
             if ratio < 1.0: #resizing required
                 size = (int(round(ratio * width)), int(round(ratio * height)))
                 img = img.resize(size, Image.ANTIALIAS) #resized image
-            rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
+            rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower(), overwrite=overwrite)
             if not prefix == thumb_dimensions[2]: #don't save the thumb in the database
                 img_data.append((rel_path, img.size[0], img.size[1]))
-            #elif (ratio >= 1.0): # ratio = 1.0 or bigger: picture is smaller than max sizes
-            #    rel_path, img = save_to_path(img, upload_to, prefix, filename, ext.lower())
-            #    img_data.append((rel_path, img.size[0], img.size[1]))
         return img_data
     return None
 

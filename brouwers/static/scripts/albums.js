@@ -11,22 +11,12 @@ $(document).ready(function() {
     //fix afbeeldingen verticaal centreren
     fixVerticalCenter();
     
-    // my albums - overzicht + editen etc.
-    /*$('#personal-albums').on('mouseover', 'a.album', function() {
-        $(this).find('.edit, .remove').show();
-    });
-    $('#personal-albums').on('mouseenter', 'a.album img', function() {
-        $(this).parent().find('.edit, .remove').show();
-    });*/
     $('a.album').hover(function() {
         $(this).find('.edit, .remove, .restore').show();
     });
     $('a.album img').hover(function() {
         $(this).parent().find('.edit, .remove, .restore').show();
     });
-    /*$('#personal-albums').on('mouseout', 'li.album', function() {
-        $(this).find('.edit, .remove').hide();
-    });*/
     $('li.album').mouseout(function() {
         $(this).find('.edit, .remove, .restore').hide();
     });

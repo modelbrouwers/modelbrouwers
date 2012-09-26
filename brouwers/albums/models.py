@@ -141,10 +141,10 @@ class Album(models.Model):
 
 class Photo(models.Model):
     """ Helper functions """    
-    def get_image_path(self, filename):
+    def get_image_path(instance, filename):
         name, extension = os.path.splitext(filename)
-        filename = name.lower() + extension
-        return os.path.join('albums', str(self.album.id), filename)
+        filename = name + extension
+        return os.path.join('albums', str(instance.album.user.id), str(instance.album.id), filename)
     
     """ Model Fields """
     #image properties
@@ -152,7 +152,7 @@ class Photo(models.Model):
     album = models.ForeignKey(Album)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
-    image = models.ImageField(_("image"), max_length=200, upload_to='albums', height_field='height', width_field='width')
+    image = models.ImageField(_("image"), max_length=200, upload_to=get_image_path, height_field='height', width_field='width')
     description = models.CharField(_("photo description"), max_length=500, blank=True)
     
     #Logging and statistics

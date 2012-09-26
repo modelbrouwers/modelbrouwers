@@ -216,6 +216,12 @@ a#start_upload, a#next_step{
 a#start_upload:hover{
     cursor: pointer;
 }
+#forms th.label, #forms td.field{
+    width: auto;
+}
+#id_url{
+    width: 13.5em;
+}
 /*** ALBUMS LIST ***/
 div.album-column{
     float: left;

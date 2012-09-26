@@ -3,6 +3,8 @@ from django.db.models import F, Q, Max
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.forms import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -11,9 +13,11 @@ import django.utils.simplejson as json
 
 from brouwers.general.shortcuts import render_to_response
 from models import *
-from forms import AlbumForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm
+from forms import AlbumForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
 from utils import resize, admin_mode
 import itertools
+import urllib2
+from urlparse import urlparse
 
 @login_required
 def new_album(request):
@@ -59,6 +63,41 @@ def uploadify(request):
         return HttpResponse('%s' % p_id, mimetype="text/plain") #return the photo id
     else:
         return HttpResponse()
+
+### uploading images from urls
+@login_required
+def upload_url(request):
+    albumform = PickAlbumForm(request.user, request.POST)
+    urlform = UploadFromURLForm(request.POST)
+    if albumform.is_valid() and urlform.is_valid():
+        url = urlform.cleaned_data['url']
+        album = albumform.cleaned_data['album']
+        name = urlparse(url).path.split('/')[-1]
+        
+        tmp_img = NamedTemporaryFile(delete=True)
+        tmp_img.write(urllib2.urlopen(url).read())
+        tmp_img.flush()
+        
+        max_order = Photo.objects.filter(album=album).aggregate(Max('order'))['order__max'] or 0
+        path = 'albums/%s/%s/' % (request.user.id, album.id)
+        
+        photo = Photo(user=request.user, album=album)
+        photo.image.save(name, File(tmp_img))
+        photo.image.open()
+        
+        # get the resizing dimensions from the preferences #TODO this might move to utils in the future
+        preferences = Preferences.get_or_create(request.user)
+        resize_dimensions = preferences.get_default_img_size()
+        img_data = resize(photo.image, upload_to=path, sizes_data=[resize_dimensions], overwrite=True)
+        
+        for data in img_data:
+            photo.width=data[1]
+            photo.height=data[2]
+            photo.order = max_order + 1
+            photo.save()
+            p_id = photo.id
+        return HttpResponse(p_id, mimetype="text/plain")
+    return render_to_response(request, 'albums/uploadify_url.html', {'urlform': urlform})
 
 ### search function
 def search(request):
