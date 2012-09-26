@@ -2,7 +2,6 @@
 
 - Albums:
 	+ Upload vanaf URL
-	+ Download als zip
 	+ groepsrechten
 
 - Groepsbouwenkalender: myth

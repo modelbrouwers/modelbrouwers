@@ -14,6 +14,8 @@ from models import *
 from forms import *
 from utils import resize, admin_mode, can_switch_admin_mode
 from datetime import datetime
+from zipfile import ZipFile
+import os
 
 ###########################
 #          BASE           #
@@ -136,6 +138,53 @@ def edit_album(request, album_id=None):
     return render_to_response(request, 'albums/edit_album.html', {'form': form})
 
 @login_required
+def download_album(request, album_id=None):
+    """
+    view generates zip and then redirects to the static page
+    let apache handle the file serving
+    """
+    album = get_object_or_404(Album, pk=album_id)
+    
+    #previous downloads: does the file have to be generated?
+    last_upload = album.last_upload
+    downloads = AlbumDownload.objects.filter(album=album, timestamp__gte=last_upload)
+    
+    #log download
+    album_download = AlbumDownload(album=album, downloader=request.user, failed=False)
+    album_download.save()
+    
+    rel_path = "albums/%(userid)s/%(albumid)s/%(zipfile)s" % {
+            'userid': album.user.id,
+            'albumid': album.id,
+            'zipfile': "%s.zip" % album.id
+            }
+    
+    if not downloads:
+        #create zip file
+        filename = "%(media_root)s%(url)s" % {
+                    'media_root': settings.MEDIA_ROOT,
+                    'url': rel_path
+                    }
+        print filename
+        zf = ZipFile(filename, mode='w')
+        try:
+            for photo in album.photo_set.all():
+                f = photo.image.path
+                arcname = os.path.split(f)[1]
+                zf.write(f, arcname)
+        except:
+            album_download.failed = True
+            album_download.save()
+        finally:
+            zf.close()
+    
+    url = "%(media_url)s%(rel_path)s" % {
+        'media_url': settings.MEDIA_URL,
+        'rel_path': rel_path
+        }
+    return HttpResponseRedirect(url)
+
+@login_required
 def edit_photo(request, photo_id=None):
     q = Q(pk=photo_id)
     if not admin_mode(request.user):
@@ -255,7 +304,7 @@ def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
             #return HttpResponseRedirect('/albums/photos/?album=%s' % (a_id)) #apparently there's a bug which makes that 'reverse' doesn't work... very odd
     else:
         if not photo_ids:
-            return HttpResponseRedirect(reverse('/albums/upload/'))
+            return HttpResponseRedirect('/albums/upload/')
         p = Photo.objects.filter(id__in = photo_ids, user=request.user) # avoid being ablo to edit someone else's photos
         formset = PhotoFormSet(queryset=p)
         photos_uploaded_now = p.count()

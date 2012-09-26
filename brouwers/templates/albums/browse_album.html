@@ -58,6 +58,9 @@
     {% with page='page' objects=photos %}
         {% include "pagination.html" %}
     {% endwith %}
+    <div class="center">
+        <a class="download-link" href="{% url brouwers.albums.views.download_album album.id %}" target="_blank">download album (.zip)</a>
+    </div>
 </div>
 <div id="edit-dialog"></div>
 {% endblock content %}

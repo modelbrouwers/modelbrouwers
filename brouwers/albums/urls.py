@@ -4,6 +4,7 @@ urlpatterns = patterns('brouwers.albums.views',
     (r'^$', 'index'),
     (r'^album/(\d+)/$',     'browse_album'),
     (r'^album/(\d+)/edit/', 'edit_album'),
+    (r'^album/(\d+)/download/', 'download_album'),
     (r'^list/$',             'albums_list'), #all albums
     (r'^manage/(\d+)/$',    'manage'),
     (r'^my_gallery/$',      'my_albums_list'),

@@ -23,7 +23,13 @@ class PreferencesAdmin(admin.ModelAdmin):
     list_editable = ('default_img_size', 'default_uploader', 'auto_start_uploading')
     list_filter = ('default_uploader', 'default_img_size')
 
+class AlbumDownloadAdmin(admin.ModelAdmin):
+    list_display = ('album', 'downloader', 'timestamp', 'failed')
+    list_filter = ('timestamp', 'failed')
+    search_fields = ('album__title', 'downloader__username')
+
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Preferences, PreferencesAdmin)
+admin.site.register(AlbumDownload, AlbumDownloadAdmin)

@@ -373,3 +373,21 @@ The basic uploader has a file field for each image."""
             3: (800, 800, '')
         }
         return d[self.default_img_size]
+
+class AlbumDownload(models.Model):
+    album = models.ForeignKey(Album)
+    downloader = models.ForeignKey(User, help_text=_("user who downloaded the album"))
+    timestamp = models.DateTimeField(_("timestamp"), auto_now_add=True)
+    failed = models.BooleanField(default=False)
+    
+    class Meta:
+        verbose_name = _("album download")
+        verbose_name_plural = _("album downloads")
+        ordering = ('-timestamp',)
+    
+    def __unicode__(self):
+        return _(u"Download of %(album)s by %(username)s" % {
+                'album': self.album.title, 
+                'username': self.downloader.get_profile().forum_nickname
+                }
+            )
