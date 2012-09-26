@@ -1,6 +1,6 @@
 var sidebar_html = "<div id=\"albums-sidebar\" class=\"opened initial\"></div>";
-var restore_icon = '/static/images/icons/restore.png';
-var close_icon = '/static/images/icons/remove2.png';
+var restore_icon = '/static/images/icons/open.png';
+var close_icon = '/static/images/icons/close.png';
 var prev_width = 0;
 
 $(document).ready(function(){

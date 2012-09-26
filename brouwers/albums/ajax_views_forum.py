@@ -34,6 +34,7 @@ def get_sidebar_options(request):
     options['width'] = p.width
     return HttpResponse(json.dumps(options))
 
+#TODO: dit aanpassen in de javascript
 def is_beta_tester(request):
     user = request.user
     if user.has_perm('albums.access_albums'):

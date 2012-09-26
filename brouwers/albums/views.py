@@ -21,6 +21,7 @@ import os
 #          BASE           #
 ###########################
 def index(request):
+    #TODO: volgend blok code weg als we deployen
     new_user = False
     if request.user.is_authenticated():
         if request.user.date_joined >= datetime(2012, 9, 22):
