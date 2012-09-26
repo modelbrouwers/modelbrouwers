@@ -22,7 +22,7 @@
     padding: 0.5em;
     text-align: center;
 }
-#sidebar-header{position:fixed; left:0;top:0;}
+#sidebar-header{position:absolute; left:0;top:0;}
 #albums-sidebar.closed #albums-list, 
 #albums-sidebar.closed #photos-list, 
 #albums-sidebar.closed div.helptext, 
