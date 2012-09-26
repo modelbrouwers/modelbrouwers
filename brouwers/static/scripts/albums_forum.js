@@ -73,7 +73,6 @@ function loadSidebar(){
        '/albums/sidebar_options/',
         function (json){
             if (json != ''){
-                //console.log(json);
                 json = $.parseJSON(json);
                 if (json["background_color"]){
                     bg_url = '/static/images/backgrounds/';
@@ -81,7 +80,6 @@ function loadSidebar(){
                         bg_url += 'transparent_';
                     }
                     bg_url += json.background_color + '.png';
-                    console.log(bg_url);
                     sidebar.css('background', 'url('+bg_url+')');
                 }
                 if (json["text_color"]){
@@ -131,7 +129,6 @@ function fixVerticalCenter(){
         var img_height = $(img).attr('height');
         if (img_height > 0 && img_height != a_height){
             padding = (a_height - img_height) / 2;
-            console.log(padding);
             $(img).css('padding-top', padding);
             $(img).css('padding-bottom', padding);
         }
