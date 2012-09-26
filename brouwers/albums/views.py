@@ -147,10 +147,10 @@ def download_album(request, album_id=None):
     
     #previous downloads: does the file have to be generated?
     last_upload = album.last_upload
-    downloads = AlbumDownload.objects.filter(album=album, timestamp__gte=last_upload)
+    downloads = AlbumDownload.objects.filter(album=album, timestamp__gte=last_upload, failed=False)
     
     #log download
-    album_download = AlbumDownload(album=album, downloader=request.user, failed=False)
+    album_download = AlbumDownload(album=album, downloader=request.user)
     album_download.save()
     
     rel_path = "albums/%(userid)s/%(albumid)s/%(zipfile)s" % {
@@ -165,7 +165,6 @@ def download_album(request, album_id=None):
                     'media_root': settings.MEDIA_ROOT,
                     'url': rel_path
                     }
-        print filename
         zf = ZipFile(filename, mode='w')
         try:
             for photo in album.photo_set.all():
