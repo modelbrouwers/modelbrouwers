@@ -147,7 +147,7 @@ def download_album(request, album_id=None):
     
     #previous downloads: does the file have to be generated?
     last_upload = album.last_upload
-    downloads = AlbumDownload.objects.filter(album=album, timestamp__gte=last_upload, failed=False)
+    downloads = AlbumDownload.objects.filter(album=album, timestamp__gte=last_upload, failed=False).count()
     
     #log download
     album_download = AlbumDownload(album=album, downloader=request.user)
@@ -157,23 +157,22 @@ def download_album(request, album_id=None):
             'albumid': album.id,
             }
     
-    if not downloads or True:
+    if downloads == 0:
         #create zip file
         filename = "%(media_root)s%(url)s" % {
                     'media_root': settings.MEDIA_ROOT,
                     'url': rel_path
                     }
         zf = ZipFile(filename, mode='w')
-        #try:
-        if True:
+        try:
             for photo in album.photo_set.all():
                 f = photo.image.path
                 arcname = os.path.split(f)[1]
                 zf.write(f, arcname)
-        #except:
-        #    album_download.failed = True
-        #finally:
-        #    zf.close()
+        except:
+            album_download.failed = True
+        finally:
+            zf.close()
     
     url = "%(media_url)s%(rel_path)s" % {
         'media_url': settings.MEDIA_URL,
