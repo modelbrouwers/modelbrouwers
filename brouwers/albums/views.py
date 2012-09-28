@@ -303,7 +303,11 @@ def pre_extra_info_uploadify(request):
 def set_extra_info(request, photo_ids=None, album=None):
     PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=0)
     if request.method == "POST": # editing
-        formset = PhotoFormSet(request.POST)
+        photo_ids = request.session['photo_ids']
+        formset = PhotoFormSet(
+            request.POST, 
+            queryset=Photo.objects.filter(id__in=photo_ids, user=request.user)
+            )
         if formset.is_valid():
             for form in formset:
                 instance = form.save()
@@ -312,8 +316,10 @@ def set_extra_info(request, photo_ids=None, album=None):
     else:
         if not photo_ids:
             return HttpResponseRedirect('/albums/upload/')
-        p = Photo.objects.filter(id__in = photo_ids, user=request.user) 
         # avoid being ablo to edit someone else's photos
+        p = Photo.objects.filter(id__in = photo_ids, user=request.user)
+        
+        request.session['photo_ids'] = photo_ids
         formset = PhotoFormSet(queryset=p)
         photos_uploaded_now = p.count()
         all_photos_album = album.photo_set.count()

@@ -1,7 +1,7 @@
 *Software*
 
 - Albums:
-	+ Upload vanaf URL
+    + performance van extra_info is dramatisch
 	+ groepsrechten
 
 - Groepsbouwenkalender: myth
