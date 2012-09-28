@@ -213,6 +213,7 @@ a#start_upload, a#next_step{
     left: 2em;
     margin-right: 2em;
 }
+a#end-upload{margin-left:2em;}
 a#start_upload:hover{
     cursor: pointer;
 }

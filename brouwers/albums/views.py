@@ -287,6 +287,7 @@ def pre_extra_info_uploadify(request):
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
         ids_string = request.GET['photo_ids']
+        
         # clean this string, verify these are integers
         ids_list = ids_string[:-1].split(' ')
         photo_ids = []
@@ -295,31 +296,38 @@ def pre_extra_info_uploadify(request):
                 photo_ids.append(int(entry))
             except ValueError: # entry is not an integer!
                 pass #fail silently
-        return set_extra_info(request, photo_ids, album, reverse=uploadify)
+        return set_extra_info(request, photo_ids=photo_ids, album=album)
     return HttpResponse() #URL is created in javascript, so the form should always validate
 
 #@login_required #bug related to outputting instead of redirecting
-def set_extra_info(request, photo_ids=None, album=None, reverse=upload):
+def set_extra_info(request, photo_ids=None, album=None):
     PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=0)
     if request.method == "POST": # editing
         formset = PhotoFormSet(request.POST)
         if formset.is_valid():
-            instances = formset.save()
-            try:
-                a_id = instances[0].album.id
-            except IndexError:
-                a_id = ''
-            return HttpResponseRedirect('/albums/my_gallery/last_uploads/')
-            #return HttpResponseRedirect('/albums/photos/?album=%s' % (a_id)) #apparently there's a bug which makes that 'reverse' doesn't work... very odd
+            for form in formset:
+                instance = form.save()
+            redirect = request.POST.get('next', reverse(my_last_uploads))
+            return HttpResponseRedirect(redirect)
     else:
         if not photo_ids:
             return HttpResponseRedirect('/albums/upload/')
-        p = Photo.objects.filter(id__in = photo_ids, user=request.user) # avoid being ablo to edit someone else's photos
+        p = Photo.objects.filter(id__in = photo_ids, user=request.user) 
+        # avoid being ablo to edit someone else's photos
         formset = PhotoFormSet(queryset=p)
         photos_uploaded_now = p.count()
         all_photos_album = album.photo_set.count()
         photos_before = all_photos_album - photos_uploaded_now
-    return render_to_response(request, 'albums/extra_info_uploads.html', {'formset': formset, 'photos_before': photos_before, 'album': album})
+        
+        album_id = p[0].album.id
+        redirect = reverse(browse_album, args=[album_id])
+    return render_to_response(request, 'albums/extra_info_uploads.html', {
+        'formset': formset, 
+        'photos_before': photos_before, 
+        'album': album,
+        'next': redirect
+        }
+    )
 
 ###########################
 #        BROWSING         #

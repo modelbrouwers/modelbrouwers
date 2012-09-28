@@ -16,7 +16,8 @@ var success_icon = '&nbsp;<img src="{{ STATIC_URL }}admin/img/icon-yes.gif" widt
 $(document).ready(function() {
     /* uploadify */
     var albumId;
-    var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Volgende stap</button>';
+    var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Extra info</button>';
+    var button2 = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Voltooien</button>';
 	var photo_ids = "";
     
     $('#uploadify_input').uploadify({
@@ -48,6 +49,12 @@ $(document).ready(function() {
             $('a#next_step').html(button);
             $('a#next_step').attr("href", href);
             $('a#next_step').show();
+            
+            var href2 = '{% url brouwers.albums.views.browse_album "0" %}';
+            href2 = href2.replace('0', albumId);
+            $('a#end-upload').html(button2);
+            $('a#end-upload').attr("href", href2);
+            $('a#end-upload').show();
         },
         'onDialogOpen' : function() {
             $('#queue-title').show();
@@ -200,6 +207,7 @@ function add_album(e){ // no longer used
     <input type="file" name="file_upload" id="uploadify_input" />
     <a href="javascript:$('#uploadify_input').uploadify('upload', '*')" id="start_upload">
         <button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Begin upload</button></a>
+    <a id="end-upload" href="" style="display:none;"></a>
     <a id="next_step" href="" style="display:none;"></a>
     <div class="subtitle tab" style="display: none;" id="queue-title">Upload queue</div>
     <div id="upload_queue"></div>

@@ -93,7 +93,7 @@ class PickAlbumForm(forms.Form):
         
         own_albums = Album.objects.filter(q).order_by('order', 'title')
         public_albums = Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title')
-        self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to')
+        self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to', 'order', 'title')
         if browse:
             self.fields['album'].required = False
 
