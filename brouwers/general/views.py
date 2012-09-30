@@ -45,9 +45,6 @@ TEMPLATE_RESET_PW_HTML = """
     <p>The administrators of Modelbrouwers.nl</p>
 """
 
-
-
-
 def index(request):
     if True or not request.user.has_perm('albums.access_albums') and not settings.DEVELOPMENT:
         return HttpResponseRedirect('/index.php')

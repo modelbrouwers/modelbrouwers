@@ -1,8 +1,9 @@
 *Software*
 
 - Albums:
-    + performance van extra_info is dramatisch
 	+ groepsrechten
+
+- Bestelformulier brouwersshirts
 
 - Groepsbouwenkalender: myth
 	

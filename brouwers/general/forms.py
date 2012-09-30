@@ -151,11 +151,11 @@ class ForumAccountForm(forms.Form):
         user = self.get_usermigration()
         try:
             h = self.cleaned_data["hash"]
-            if h.lower() != user.hash.lower():
+            if user.hash and h.lower() != user.hash.lower():
                 raise forms.ValidationError(_("Je hebt een foutieve code ingegeven."))
                 del self.cleaned_data["forum_nickname"]
                 del self.cleaned_data["hash"]
-        except KeyError: #has was invalid
+        except KeyError: #hash was invalid
             pass
         return self.cleaned_data
     

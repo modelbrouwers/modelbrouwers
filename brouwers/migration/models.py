@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from brouwers.albums.models import Album
+import urllib
 
 class UserMigration(models.Model):
     username = models.CharField(max_length=50) #actually 20
@@ -22,7 +23,9 @@ class UserMigration(models.Model):
     
     @property
     def url(self):
-        return u"http://modelbrouwers.nl/confirm_account/?hash=%s&forum_nickname=%s" % (self.hash, self.username)
+        params = {'hash': self.hash, 'forum_nickname': self.username}
+        query_string = urllib.urlencode(dict([k, v.encode('utf-8')] for k, v in params.items()))
+        return u"http://modelbrouwers.nl/confirm_account/?%s" % (query_string)
 
 class AlbumUserMigration(models.Model):
     username = models.CharField(max_length=50)
