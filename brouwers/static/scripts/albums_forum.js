@@ -98,7 +98,7 @@ function loadSidebar(){
     
     $('a.photo').live('click', function(e){
         e.preventDefault();
-        var BBCode = $(this).attr('href')+"\n";
+        var BBCode = $(this).data('bbcode')+"\n";
         insertAtCaret('id-textarea-post', BBCode);
         $(this).addClass('selected');
         return false;
