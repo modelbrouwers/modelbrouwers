@@ -14,10 +14,12 @@ ul.albums-list{
     margin: 0 auto;
 }
 ul.albums-list li.album{
-    width: 33%;
+    width: 32%;
     float: left;
     text-align: center;
     height: 6.5em;
+    margin-right: 0.8%;
+    overflow: hidden;
 }
 ul.albums-list li.album div.album-link{float:left;}
 ul.albums-list li.album a.album{
@@ -30,8 +32,8 @@ ul.albums-list li.album a.album{
 }
 ul.albums-list li.album a.album img{max-height:96px;max-width:128px;}
 ul.albums-list li.album div.description{text-align:left; padding-left:1em;}
-ul.albums-list li.album div.description a {font-size:0.9em;}
-ul.albums-list span.description{font-size:0.8em;}
+ul.albums-list li.album div.description a {font-size:0.85em;}
+ul.albums-list span.description{font-size:0.75em;}
 div#content{clear:both;}
 
 /*** ALBUMS LIST HOMEPAGE ***/

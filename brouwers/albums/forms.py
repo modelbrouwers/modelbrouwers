@@ -71,6 +71,19 @@ class EditAlbumFormAjax(EditAlbumForm):
 class AmountForm(forms.Form):
     amount = forms.IntegerField(required=False, min_value=1, max_value=50)
 
+def albums_as_choices(q, trash=False):
+    albums = []
+    own_albums = []
+    for album in Album.objects.filter(q).order_by('order', 'title'):
+        own_albums.append([album.id, album.__unicode__()])
+    public_albums = []
+    for album in Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title'):
+        public_albums.append([album.id, album.__unicode__()])
+    
+    albums.append([_("Own albums"), own_albums])
+    albums.append([_("Public albums"), public_albums])
+    return albums
+
 class PickAlbumForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.none(), empty_label=None)
     
@@ -91,9 +104,10 @@ class PickAlbumForm(forms.Form):
         else:
             q = Q(user=user, trash=trash)
         
-        own_albums = Album.objects.filter(q).order_by('order', 'title')
-        public_albums = Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title')
-        self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to', 'order', 'title')
+        #own_albums = Album.objects.filter(q).order_by('order', 'title')
+        #public_albums = Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title')
+        #self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to', 'order', 'title')
+        self.fields['album'].choices = albums_as_choices(q, trash=trash)
         if browse:
             self.fields['album'].required = False
 
