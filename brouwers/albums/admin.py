@@ -6,7 +6,7 @@ class AlbumAdmin(admin.ModelAdmin):
 	list_editable = ('title', 'clean_title', 'public', 'order')
 	list_filter = ('user', 'public', 'writable_to', 'created')
 	search_fields = ('title', 'description')
-	raw_id_fields = ('user',)
+	raw_id_fields = ('user', 'cover')
 
 class CategoryAdmin(admin.ModelAdmin):
 	list_display = ('__unicode__', 'name', 'order',)
