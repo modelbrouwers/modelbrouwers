@@ -2,6 +2,7 @@ from django import forms
 from django.conf import settings
 from django.db.models import Q
 from django.utils.translation import ugettext as _
+from brouwers.general.models import OrderedUser
 from models import *
 from utils import admin_mode
 
@@ -66,22 +67,25 @@ class EditAlbumFormAjax(EditAlbumForm):
         fields = (
             'title', 'description', 'build_report', 
             'category', 'public', 'writable_to', 'cover'
-        )
+            )
+
+class AlbumGroupForm(forms.ModelForm):
+    class Meta:
+        model = AlbumGroup
+        widgets = {'users': forms.HiddenInput()}
 
 class AmountForm(forms.Form):
     amount = forms.IntegerField(required=False, min_value=1, max_value=50)
 
-def albums_as_choices(q, trash=False):
+def albums_as_choices(querysets, trash=False):
     albums = []
-    own_albums = []
-    for album in Album.objects.filter(q).order_by('order', 'title'):
-        own_albums.append([album.id, album.__unicode__()])
-    public_albums = []
-    for album in Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title'):
-        public_albums.append([album.id, album.__unicode__()])
-    
-    albums.append([_("Own albums"), own_albums])
-    albums.append([_("Public albums"), public_albums])
+    for qs_dict in querysets:
+        temp = []
+        for album in qs_dict['qs']:
+            label = album.__unicode__()
+            temp.append([album.id, label])
+        if temp:
+            albums.append([qs_dict['optgroup'], temp])
     return albums
 
 class PickAlbumForm(forms.Form):
@@ -104,10 +108,24 @@ class PickAlbumForm(forms.Form):
         else:
             q = Q(user=user, trash=trash)
         
-        #own_albums = Album.objects.filter(q).order_by('order', 'title')
-        #public_albums = Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title')
-        #self.fields['album'].queryset = (own_albums | public_albums).order_by('-writable_to', 'order', 'title')
-        self.fields['album'].choices = albums_as_choices(q, trash=trash)
+        own_albums = Album.objects.filter(q).order_by('order', 'title')
+        #groups = user.albumgroup_set.filter(
+        group_albums = Album.objects.filter(
+            writable_to = "g", 
+            trash = trash, 
+            albumgroup__in = user.albumgroup_set.all()
+            ).order_by('order', 'title')
+        public_albums = Album.objects.filter(writable_to="o", trash=trash).order_by('order', 'title')
+        
+        #order is important here
+        querysets = [
+            {'optgroup': _("Own albums"), 'qs': own_albums},
+            {'optgroup': _("Group albums"), 'qs': group_albums},
+            {'optgroup': _("Public albums"), 'qs': public_albums},
+            ] 
+        
+        self.fields['album'].queryset = (own_albums | public_albums)
+        self.fields['album'].choices = albums_as_choices(querysets, trash=trash)
         if browse:
             self.fields['album'].required = False
 

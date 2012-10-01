@@ -28,8 +28,14 @@ class AlbumDownloadAdmin(admin.ModelAdmin):
     list_filter = ('timestamp', 'failed')
     search_fields = ('album__title', 'downloader__username')
 
+class AlbumGroupAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__',)
+    search_fields = ('album__title',)
+    filter_horizontal = ('users',)
+
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Preferences, PreferencesAdmin)
 admin.site.register(AlbumDownload, AlbumDownloadAdmin)
+admin.site.register(AlbumGroup, AlbumGroupAdmin)

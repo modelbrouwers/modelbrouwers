@@ -129,14 +129,26 @@ def edit_album(request, album_id=None):
         q = Q(q, user=request.user)
     
     album = get_object_or_404(Album, q)
+    from django.forms.models import inlineformset_factory
+    GroupFormset = inlineformset_factory(Album, AlbumGroup, extra=1)
+    
     if request.method == "POST":
         form = EditAlbumForm(request.POST, instance=album, user=request.user)
+        formset = GroupFormset(request.POST, instance=album)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse(my_albums_list))
+            response = HttpResponseRedirect(reverse(my_albums_list))
+            if formset.is_valid() and album.writable_to == 'g':
+                formset.save()
+                return response
+            elif not formset.is_valid():
+                pass
+            else:
+                return response
     else:
         form = EditAlbumForm(instance=album, user=request.user)
-    return render_to_response(request, 'albums/edit_album.html', {'form': form})
+        formset = GroupFormset(instance=album)
+    return render_to_response(request, 'albums/edit_album.html', {'form': form, 'formset': formset})
 
 @login_required
 def download_album(request, album_id=None):

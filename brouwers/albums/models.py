@@ -6,6 +6,8 @@ from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
 from django.utils.translation import pgettext
 
+from brouwers.general.models import OrderedUser
+
 from datetime import date, datetime
 import os, re
 
@@ -13,7 +15,7 @@ import os, re
 
 WRITABLE_CHOICES = (
     ("u", pgettext("write permissions for owner", "owner")),
-    #("g", _("group")),
+    ("g", _("group")),
     ("o", _("everyone")), #everyone = every logged in user
     )
 
@@ -138,6 +140,23 @@ class Album(models.Model):
         max_order = Album.objects.filter(user=self.user, trash=False).aggregate(Max('order'))['order__max'] or 0
         self.order = max_order+1
         return self
+
+class AlbumGroup(models.Model):
+    album = models.ForeignKey(
+            Album, 
+            verbose_name=_("album"), 
+            help_text=_("Album for which the group has write permissions."),
+            unique=True
+            )
+    users = models.ManyToManyField(User, verbose_name=_("users"), help_text=_("Users who can write in this album."), blank=True, null=True)
+    
+    class Meta:
+        verbose_name = _("album group")
+        verbose_name_plural = _("album groups")
+        ordering = ('album',)
+    
+    def __unicode__(self):
+        return _(u"Write permissions for '%(album)s'") % {'album': self.album.__unicode__()}
 
 class Photo(models.Model):
     """ Helper functions """    

@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.forms import ValidationError
+from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.safestring import mark_safe
@@ -13,7 +14,7 @@ import django.utils.simplejson as json
 
 from brouwers.general.shortcuts import render_to_response
 from models import *
-from forms import AlbumForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
+from forms import AlbumForm, AlbumGroupForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
 from utils import resize, admin_mode
 import itertools
 import urllib2
@@ -186,6 +187,7 @@ def get_all_own_albums(request):
 
 @login_required
 def edit_album(request):
+    GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
     editform = None
     photos = None
     if request.method == "POST":
@@ -196,6 +198,9 @@ def edit_album(request):
             photos = editform.fields["cover"].queryset
             if editform.is_valid() and (album.user == request.user or admin_mode(request.user)):
                 editform.save()
+                formset = GroupFormset(request.POST, instance=album)
+                if formset.is_valid() and album.writable_to == 'g':
+                    formset.save()
                 album = get_object_or_404(Album, pk=album.id);
                 return render_to_response(request, 'albums/ajax/album_li.html', {'album': album, 'custom_id': 'temp'})
     else:
@@ -204,10 +209,13 @@ def edit_album(request):
             album = form.cleaned_data["album"]
             if request.user == album.user or admin_mode(request.user):
                 editform = EditAlbumFormAjax(instance=album, user=request.user)
+                formset = GroupFormset(instance=album)
                 photos = editform.fields["cover"].queryset
             else:
                 return HttpResponse('This event has been logged')
-    return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'photos': photos})
+        else:
+            return HttpResponse(form.as_p())
+    return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'formset': formset, 'photos': photos})
 
 @login_required
 def remove_album(request):

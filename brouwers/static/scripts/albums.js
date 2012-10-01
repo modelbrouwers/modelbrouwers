@@ -152,6 +152,9 @@ $(document).ready(function() {
             searchfield.val('albums doorzoeken...');
         }
     });
+    // write permissions for groups
+    
+    
     // setting the album cover
     $('.album-photos-list a.photo img').mouseenter(function(){
         if (!$(this).parent().parent().hasClass('cover')){
