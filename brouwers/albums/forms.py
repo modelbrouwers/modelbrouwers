@@ -72,7 +72,13 @@ class EditAlbumFormAjax(EditAlbumForm):
 class AlbumGroupForm(forms.ModelForm):
     class Meta:
         model = AlbumGroup
-        widgets = {'users': forms.HiddenInput()}
+        #widgets = {'users': forms.HiddenInput()}
+    
+    def __init__(self, *args, **kwargs):
+        super(AlbumGroupForm, self).__init__(*args, **kwargs)
+        queryset = self.fields['users'].queryset
+        self.fields['users'].queryset = queryset.order_by('username')
+    
 
 class AmountForm(forms.Form):
     amount = forms.IntegerField(required=False, min_value=1, max_value=50)

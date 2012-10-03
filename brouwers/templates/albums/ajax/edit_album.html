@@ -3,15 +3,15 @@
         var fail = true;
     </script>
 {% endif %}
+
+<script type="text/javascript">
+    var user_search_url = "{% url brouwers.general.ajax_views.search_users %}";
+</script>
+
 <form id="form-edit-album">
     <input type="hidden" name="album" value="{{ form.instance.id }}" id="id_album" />
     <input type="hidden" name="cover" value="" id="id_hidden_cover" />
     {% include "form_in_table_jquery-ui.html" %}
-    
-    {% for form in formset %}
-        {{ formset.management_form }}
-        {% include "form_in_table_jquery-ui.html" %}
-    {% endfor %}
 </form>
 
 {% if photos %}

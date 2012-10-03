@@ -169,6 +169,20 @@ div#logo div.right{
 	-khtml-border-radius: 6px;
 	-moz-border-radius: 6px;
 }
+div#announcement{
+    float: left;
+    max-width: 350px;
+    min-width: 300px;
+    position: relative;
+    font-size: 0.8em;
+    margin-left: 1em;
+    margin-top: 2em;
+}
+div#announcement div{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
 /*** MENU ***/
 ul#menu{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;

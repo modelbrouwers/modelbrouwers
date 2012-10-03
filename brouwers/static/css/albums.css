@@ -596,6 +596,16 @@ div.ui-widget-header{
 #edit-dialog form input[type="text"]{
     width: 30em;
 }
+#edit-dialog #search-users{width:18em;margin-left: -1px;height:1.8em;}
+#edit-dialog #id_writable_to{height:1.8em;}
+#edit-dialog #users{margin-top:0.3em;margin-bottom:0.3em;}
+#edit-dialog span.user{
+    padding: 3px;
+    color: #333;
+    margin: 0.3em;
+}
+#edit-dialog a.remove-user:hover{text-decoration:none;}
+
 #edit-dialog td{
     text-align: left;
 }

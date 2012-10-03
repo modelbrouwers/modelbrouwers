@@ -48,7 +48,7 @@ $(document).ready(function() {
     if ($('#edit-dialog').length > 0){
         $('#edit-dialog').dialog({
 			    autoOpen: false,
-			    height: 400,
+			    height: 440,
 			    width: 800,
 			    modal: true,
 			    title: "Album bewerken",
@@ -152,8 +152,6 @@ $(document).ready(function() {
             searchfield.val('albums doorzoeken...');
         }
     });
-    // write permissions for groups
-    
     
     // setting the album cover
     $('.album-photos-list a.photo img').mouseenter(function(){
@@ -281,16 +279,95 @@ function openEditDialog(e, element, album_id){
 	        var a = "<a href=\"#\" onclick=\"showCovers();\">";
 	        a += "<u>Cover kiezen</u></a>";
             $('#id_cover').replaceWith(a);
+            
+            // write permissions for groups
+            initSearchBox();
 	    }
 	);
 	
 	$("#edit-dialog").dialog("open");
 	$('button').button();
 	$(".ui-icon-closethick").click(function(){
-	    $("#edit-dialog").dialog("option", "height", 350);
+	    $("#edit-dialog").dialog("option", "height", 600);
 	});
     return false;
 }
+
+function initSearchBox(){
+    $('#id_albumgroup_set-0-users').parent().parent().hide();
+    var writable_select = $('#id_writable_to');
+    var text_field = '<input type=\"text\" class=\"autocomplete\" id=\"search-users\" placeholder=\"gebruikers zoeken...\"/>';
+    var div_users = '<tr><td></td><td colspan=\"2\"><div id=\"users\"></div></td>';
+    writable_select.after(text_field);
+    writable_select.parent().parent().after(div_users);
+    
+    var searchbox = $('#search-users');
+    writable_select.change(function(){
+        if (writable_select.val() == 'g'){ // writable for group
+            searchbox.show();
+            $('div#users').parent().parent().show();
+            showLinkedUsers();
+        } else {
+            searchbox.hide();
+            $('div#users').parent().parent().hide(); //hide the row
+        }
+    });
+    // trigger event
+    writable_select.change();
+    
+    // search & autocomplete
+    searchbox.focus(function(){
+        searchbox.val('');
+    });
+    searchbox.blur(function(){
+        searchbox.val('');
+    });
+    searchbox.autocomplete({
+        source: user_search_url,
+        autoFocus: true,
+        minLength: 3,
+        delay: 0,
+        select:  function(e, ui) {
+            var multi_select = $('#id_albumgroup_set-0-users');
+            var user_id = String(ui.item.id);
+            var values = multi_select.val();
+            if (values == null){values=new Array();}
+            values.push(user_id);
+            
+            console.log(values);
+            multi_select.val(values);
+            showLinkedUsers();
+        }
+    });
+    $('a.remove-user').live('click', function(event){
+        var user_id = String($(this).data('user_id'));
+        var multi_select = $('#id_albumgroup_set-0-users');
+        var values = multi_select.val();
+        var index = values.indexOf(user_id);
+        var removed = values.splice(index, 1);
+        multi_select.val(values);
+        showLinkedUsers();
+    });
+    
+}
+function showLinkedUsers()
+{
+    var options = $('#id_albumgroup_set-0-users option:selected');
+    var html = '';
+    $.each(options, function(index, option){
+        var opt = $(option);
+        var name = opt.text();
+        var user_id = opt.val();
+        
+        var element = '<a href=\"#\" class=\"remove-user\" title=\"klik om rechten in te trekken\" data-user_id=\"' + user_id + '\">';
+        element += '<span class=\"user ui-state-hover ui-widget ui-corner-all ui-icon-closethick\">';
+        element += name + '</span></a>';
+        html += element;
+    });
+    $('#users').html(html);
+}
+
+
 function openRemoveDialog(e, element){
     e.preventDefault();
     var li = $(element).closest('li.album');

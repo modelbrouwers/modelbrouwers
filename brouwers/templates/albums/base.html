@@ -37,15 +37,17 @@
 {% endblock scripts %}
 
 {% block announcement %}
-	<img id="logo2" src="{{STATIC_URL}}albums.png" alt="Awards" width="330" height="75"/>
+	<div>Meer info over de nieuwe albums vind je in <a href="/albums/about/" target="_blank">dit topic</a>.</div>
 {% endblock %}
-			
+
+{% comment %}
 {% block important_message %}		
 <div class="warning" style="font-size: 0.8em;">
 	Dit is een beta-versie van de nieuwe BrouwersAlbums. 
 	Meld bugs, opmerkingen en suggesties aan admins[.@.]modelbrouwers.nl.
 </div>
 {% endblock %}
+{% endcomment %}
 
 {% block menu %}
 	<li><a href="{% url brouwers.albums.views.index %}">Home</a></li>

@@ -13,6 +13,11 @@ urlpatterns = patterns('brouwers.general.views',
     (r'^do_reset_pw/$', 'do_password_reset'),
     )
 
+# AJAX
+urlpatterns += patterns('brouwers.general.ajax_views',
+    (r'^user/search/$',    'search_users'),
+    )
+
 urlpatterns += patterns('django.contrib.auth.views',
     (r'^profile/change_password/$', 'password_change', {'template_name':'general/password.html'}),
     (r'^password_change_done/$','password_change_done', {'template_name': 'general/password_change_done.html'}),

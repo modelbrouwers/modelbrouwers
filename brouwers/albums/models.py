@@ -35,6 +35,7 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
     
+    #TODO: reversen
     def get_absolute_url(self):
         return "/albums/category/%s" % self.id
 
