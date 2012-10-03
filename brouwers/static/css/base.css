@@ -36,7 +36,7 @@ img{
     text-align: center;
 }
 div#top, div#logo{
-	min-width: 1300px; /* else the floating images are fugly */
+	min-width: 1340px; /* else the floating images are fugly */
 }
 div#container{
 	padding: 5px 5px 0 5px;
@@ -124,7 +124,7 @@ div#navigation, div#shop_banner{
     font-size: 0;
 }
 #navigation li, #shop_banner li{
-    display: inline;
+    display: inline-block;
     list-style: none;
     margin-bottom: 3px;
     width: 130px;
