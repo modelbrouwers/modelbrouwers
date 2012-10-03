@@ -5,7 +5,10 @@ $(document).ready(function() {
         $(this).select();
     });
     $('.BBCode').mouseup(function(e){
-        e.preventDefault();
+        if(e.preventDefault) {
+            e.preventDefault();
+        }
+        return false;
     });
     
     //fix afbeeldingen verticaal centreren
@@ -115,7 +118,9 @@ $(document).ready(function() {
     	restoreAlbum(e, $(this));
     });
     $('a#new-album-popup').click(function(e){
-        e.preventDefault();
+        if(e.preventDefault) {
+            e.preventDefault();
+        }
         $('#new-album-dialog').dialog('open');
         return false;
     });
@@ -181,7 +186,9 @@ $(document).ready(function() {
         //do nothing
     }
     $('#ShowAllAlbums').click(function(e){
-        e.preventDefault();
+        if(e.preventDefault) {
+            e.preventDefault();
+        }
         $.get(
             "/albums/all_own/",
             function (response){
@@ -263,8 +270,10 @@ function showCovers(){
     }
     return false;
 }
-function openEditDialog(e, element, album_id){
-    e.preventDefault();
+function openEditDialog(event, element, album_id){
+    if(event.preventDefault) {
+        event.preventDefault();
+    }
     if (typeof album_id == 'undefined'){
 	    var li = $(element).closest('li.album');
 	    var album_id = li.children('input[name="album_id"]').val();
@@ -333,8 +342,6 @@ function initSearchBox(){
             var values = multi_select.val();
             if (values == null){values=new Array();}
             values.push(user_id);
-            
-            console.log(values);
             multi_select.val(values);
             showLinkedUsers();
         }
@@ -368,8 +375,10 @@ function showLinkedUsers()
 }
 
 
-function openRemoveDialog(e, element){
-    e.preventDefault();
+function openRemoveDialog(event, element){
+    if(event.preventDefault) {
+        event.preventDefault();
+    }
     var li = $(element).closest('li.album');
     remove_album_id = li.children('input[name="album_id"]').val();
     $('#remove-album').val(remove_album_id);
@@ -383,8 +392,10 @@ function openRemoveDialog(e, element){
     $("#remove-dialog").dialog("open");
     return false;
 }
-function restoreAlbum(e, element){
-    e.preventDefault();
+function restoreAlbum(event, element){
+    if(event.preventDefault) {
+        event.preventDefault();
+    }
     var li = $(element).closest('li.album');
     album_id = li.children('input[name="album_id"]').val();
     
