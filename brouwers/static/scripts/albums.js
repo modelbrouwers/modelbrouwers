@@ -263,8 +263,8 @@ function showCovers(){
     }
     else
     {
-        $('#photo-navigation').hide();
         height = $('#photo-navigation').height();
+        $('#photo-navigation').hide();
         new_height = $("#edit-dialog").dialog( "option", "height" ) - height - 20;
         $("#edit-dialog").dialog( "option", "height", new_height );
     }
