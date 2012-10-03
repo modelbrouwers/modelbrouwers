@@ -124,7 +124,7 @@ div#navigation, div#shop_banner{
     font-size: 0;
 }
 #navigation li, #shop_banner li{
-    display: inline-block;
+    display: inline;
     list-style: none;
     margin-bottom: 3px;
     width: 130px;
