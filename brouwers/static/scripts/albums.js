@@ -274,7 +274,6 @@ function openEditDialog(event, element, album_id){
     if(event.preventDefault) {
         event.preventDefault();
     }
-    return false;
     if (typeof album_id == 'undefined'){
 	    var li = $(element).closest('li.album');
 	    var album_id = li.children('input[name="album_id"]').val();
