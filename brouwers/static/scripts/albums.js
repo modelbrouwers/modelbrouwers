@@ -274,6 +274,7 @@ function openEditDialog(event, element, album_id){
     if(event.preventDefault) {
         event.preventDefault();
     }
+    return false;
     if (typeof album_id == 'undefined'){
 	    var li = $(element).closest('li.album');
 	    var album_id = li.children('input[name="album_id"]').val();
@@ -287,10 +288,9 @@ function openEditDialog(event, element, album_id){
 	        $('#id_hidden_cover').val($('#id_cover').val());
 	        var a = "<a href=\"#\" onclick=\"showCovers();\">";
 	        a += "<u>Cover kiezen</u></a>";
-            $('#id_cover').replaceWith(a);
-            
-            // write permissions for groups
-            initSearchBox();
+                $('#id_cover').replaceWith(a);
+                // write permissions for groups
+                initSearchBox();
 	    }
 	);
 	
