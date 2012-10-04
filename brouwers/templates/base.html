@@ -10,13 +10,6 @@
 	
 	{% block style %}
 	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
-	    <!--[if IE 7]>
-		<style type="text/css">
-			#navigation li, #shop_banner li{
-				display: inline;
-			}
-		</style>
-		<![endif]-->
 		{% block extrastyle %}
 	    {% endblock extrastyle %}
 	{% endblock style %}

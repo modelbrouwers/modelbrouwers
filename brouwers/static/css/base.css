@@ -129,6 +129,9 @@ div#navigation, div#shop_banner{
     margin-bottom: 3px;
     width: 130px;
     font-size: 14px;
+	/* IE 7 hack */
+	zoom: 1;
+	*display: inline;
 }
 #navigation li a, #shop_banner li a{
     display: inline-block;
