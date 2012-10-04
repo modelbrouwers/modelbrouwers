@@ -80,6 +80,9 @@ div.row{
 div.photo{
     text-align: center;
     display: inline-block;
+	/* IE 7 hack */
+	zoom: 1;
+	*display: inline;
     width: 17%;
     height: 150px;
     padding: 0.2em 0 .1em 0;
@@ -259,7 +262,7 @@ ul#personal-albums{
     margin: 1em auto;
 }
 ul#personal-albums li.album{
-    width: 25%;
+    width: 24.99%;
     float: left;
     text-align: center;
     height: 12em;
