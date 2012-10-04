@@ -142,7 +142,7 @@ button::-moz-focus-inner, select::-moz-focus-inner {
 	-moz-border-bottom-right-radius: 6px;
 }
 #create_new_album button{
-    margin-left: -6px;
+    margin-left: -1px;
 }
 #new_album input[type="text"], #new_album select{
     width: 16em;
@@ -222,8 +222,11 @@ a#end-upload{margin-left:2em;}
 a#start_upload:hover{
     cursor: pointer;
 }
-#forms th.label, #forms td.field{
-    width: auto;
+#forms td.field{
+	width: 60%;
+}
+#forms th.label{
+	width: 15%;
 }
 #id_url{
     width: 13.5em;
