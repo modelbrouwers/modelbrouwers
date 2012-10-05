@@ -29,21 +29,10 @@ def index(request):
     if not request.user.has_perm('albums.access_albums') and not new_user:
         return HttpResponseRedirect('/albums/coppermine/index.php') #to old albums
     
-    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')
+    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')[:20]
     spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
     if spotlight_albums.count() > 2:
         spotlight_albums = spotlight_albums[:3]
-    
-    p = Paginator(albums, 20)
-    page = request.GET.get('page', 1)
-    try:
-        albums = p.page(page)
-    except (PageNotAnInteger, TypeError):
-        # If page is not an integer, deliver first page.
-        albums = p.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        albums = p.page(p.num_pages)
     
     needs_closing_tag_row_albums = False
     if len(albums) % 4 != 0:
