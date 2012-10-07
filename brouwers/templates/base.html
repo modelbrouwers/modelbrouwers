@@ -134,6 +134,7 @@
     </div>
     <!-- end top div -->
     
+    <!-- start container -->
     <div id="container">
         <!-- div with logos and misc -->
         <div id="logo">
@@ -157,6 +158,7 @@ naar de Modelbrouwers.nl homepage"/></a>
         </div>
         <!-- end logo div -->
         
+        <!-- start content wrapper -->
         <div id="content_wrapper">
             {% block important_message %}
             {% endblock %}
@@ -186,6 +188,7 @@ naar de Modelbrouwers.nl homepage"/></a>
             {% block above_content %}
             {% endblock %}
             
+            <!-- start content -->
             <div id="content">
             {% block content %}
                 <!-- TODO inhoud voor homepage genereren -->
@@ -194,6 +197,19 @@ naar de Modelbrouwers.nl homepage"/></a>
             <!-- end content -->
         </div>
         <!-- end content wrapper -->
+        
+        <!-- start footer -->
+        <div id="footer">
+            {% block footer %}
+                {% include "footer_banner.html" %}
+                <div id="copyright">
+                    <img src="{{ STATIC_URL }}images/varia/email.png" width="158" height="15" alt="admins@modelbrouwers.nl" />
+                    <br />
+                    &copy; 2005-2012 Modelbrouwers.nl &amp; Sergei Maertens (2012)
+                </div>
+            {% endblock %}
+        </div>
+        <!-- end footer -->
     </div>
     <!-- end container -->
 

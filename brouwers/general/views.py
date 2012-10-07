@@ -46,7 +46,7 @@ TEMPLATE_RESET_PW_HTML = """
 """
 
 def index(request):
-    if True or not request.user.has_perm('albums.access_albums') and not settings.DEVELOPMENT:
+    if not settings.DEVELOPMENT:
         return HttpResponseRedirect('/index.php')
     return render_to_response(request, 'base.html')
 
@@ -54,7 +54,6 @@ def index(request):
 def register(request):
     error = ''
     if request.method=='POST':
-        #form = UserProfileForm(request.POST)
         form = RegistrationForm(request.POST)
         answerform = AnswerForm(request.POST)
         questionform = QuestionForm(request.POST)
@@ -75,7 +74,7 @@ def register(request):
                     
                     subject = 'Registratie op modelbrouwers.nl'
                     message = 'Bedankt voor uw registratie op http://modelbrouwers.nl.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
-                    sender = 'sergeimaertens@skynet.be'
+                    sender = 'admins@modelbrouwers.nl'
                     receiver = [form.cleaned_data['email']]
                     send_mail(subject, message, sender, receiver, fail_silently=True)      
                     

@@ -432,8 +432,9 @@ def my_albums_list(request):
     number_to_display = 20
     base_albums = Album.objects.filter(trash=trash)
     own_albums = base_albums.filter(user=request.user, writable_to='u')
-    own_public_albums = base_albums.filter(user=request.user, writable_to='o')
-    other_albums = base_albums.filter(writable_to='o', public=True).exclude(user=request.user)
+    own_public_albums = base_albums.filter(Q(writable_to='o') | Q(writable_to='g'), user=request.user).order_by('order')
+    groups = request.user.albumgroup_set.all()
+    other_albums = base_albums.filter(Q(writable_to='o') | Q(albumgroup__in=groups)).exclude(user=request.user).distinct()
     
     albums_list = [own_albums, own_public_albums, other_albums]
     page_keys = ['page_own', 'page_pub', 'page_other']

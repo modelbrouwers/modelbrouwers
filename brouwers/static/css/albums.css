@@ -259,22 +259,27 @@ div.album-column a.photo{
     margin-bottom: 2em;
 }
 /* sortable stuff, with ul and li */
-ul#personal-albums{
+ul#personal-albums, ul.my-albums-list, ul.other-albums-list{
     list-style-type: none;
     width: 98%;
     margin: 1em auto;
 }
-ul#personal-albums li.album{
+ul#personal-albums li.album, 
+ul.my-albums-list li.album, 
+ul.other-albums-list li.album{
     width: 24.99%;
     float: left;
     text-align: center;
     height: 12em;
 }
-ul#personal-albums li.album:hover{
+ul#personal-albums li.album:hover, 
+ul.my-albums-list li.album:hover{
     background-color: #EEE;
     cursor: move;
 }
-ul#personal-albums li.album a.album{
+ul#personal-albums li.album a.album, 
+ul.my-albums-list li.album a.album, 
+ul.other-albums-list li.album a.album{
     display: inline-block;
     width: 140px;
     height: 105px;

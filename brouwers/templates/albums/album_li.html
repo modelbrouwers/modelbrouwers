@@ -29,6 +29,9 @@
             {% if not album.public %}
                 <img class="private" src="{{ STATIC_URL }}images/icons/private.png" width="16" 
                 height="16" alt="private" title="Dit album is enkel zichtbaar voor mezelf."/>
+            {% elif album.writable_to == "g" %}
+                <img class="private" src="{{ STATIC_URL }}images/icons/group.png" width="16" 
+                height="16" alt="group" title="Dit album is schrijfbaar voor een groep."/>
             {% endif %}
             
             {% if not album.trash %}

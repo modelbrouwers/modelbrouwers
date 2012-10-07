@@ -149,13 +149,17 @@ def reorder(request):
         album = form.cleaned_data['album']
         album_before = form.cleaned_data['album_before']
         album_after = form.cleaned_data['album_after']
-
+        
+        if album.writable_to in ["g", "o"]:
+            q = Q(writable_to="g") | Q(writable_to="o")
+        else:
+            q = Q(writable_to="u")
         if album_after and album.order > album_after.order: # moved forward
             lower = album_after.order
             upper = album.order
             album.order = lower
             
-            albums_to_reorder = Album.objects.filter(order__gte=lower, order__lt=upper)
+            albums_to_reorder = Album.objects.filter(q, order__gte=lower, order__lt=upper)
             albums_to_reorder.update(order=(F('order') + 1))
             album.save()
         
@@ -164,18 +168,18 @@ def reorder(request):
             upper = album_before.order
             album.order = upper
             
-            albums_to_reorder = Album.objects.filter(order__gt=lower, order__lte=upper)
+            albums_to_reorder = Album.objects.filter(q, order__gt=lower, order__lte=upper)
             albums_to_reorder.update(order=(F('order') - 1))
             album.save()
         
         elif ((album_before and album_before.order == album.order) or (album_after and album_after.order == album.order)):
             order = album.order
             if album_after:
-                albums_to_reorder = Album.objects.filter(order__gte=order, title__gt=album.title)
+                albums_to_reorder = Album.objects.filter(q, order__gte=order, title__gt=album.title)
                 albums_to_reorder.update(order=(F('order') + 1))
             elif album_before:
                 album.order = (F('order') + 1)
-                albums_to_reorder = Album.objects.filter(order__gte=order, title__gt=album.title)
+                albums_to_reorder = Album.objects.filter(q, order__gte=order, title__gt=album.title)
                 albums_to_reorder.update(order=(F('order') + 2))
                 album.save()
     return HttpResponse()

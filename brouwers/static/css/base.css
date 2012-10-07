@@ -244,6 +244,24 @@ div.pagination a, div.pagination span{
 div.pagination a:hover{
     text-decoration: underline;
 }
+/*** FOOTER/BANNER ***/
+div#footer{text-align: center;margin-bottom: 1em;min-width: 870px;}
+div#copyright{font-size: 0.6em;margin-top: 2em;}
+div#shop-footer{font-family: Verdana, Arial, Helvetica, sans-serif;text-align: center;}
+div#shop-footer .aankeiler{font-weight: regular; font-size: 10px; color: #999}
+div#shop-footer .aankeiler:hover{text-decoration: none; color: #1d42ff;}
+div#shop-footer ul{width: 96%;margin: 0 auto 0 auto;list-style: none;}
+div#shop-footer li, div#shop-footer a.aankeiler
+{display: inline-block;text-align: center;/* IE 7 hack */zoom: 1;*display: inline;}
+div#shop-footer a.aankeiler div{width: 156px;height: 146px;margin: 0 auto;}
+#footer-decals              {background: url('/static/images/shop/decal_onder.jpg');}
+#footer-decals:hover        {background: url('/static/images/shop/decal_boven.gif');}
+#footer-schuur-polijst      {background: url('/static/images/shop/schuur-polijst_onder.jpg');}
+#footer-schuur-polijst:hover{background: url('/static/images/shop/schuur-polijst_boven.jpg');}
+#footer-gieten              {background: url('/static/images/shop/gietprod_onder.gif')}
+#footer-gieten:hover        {background: url('/static/images/shop/gietprod_boven.gif')}
+#footer-verlichting         {background: url('/static/images/shop/verlichting_onder.gif')}
+#footer-verlichting:hover   {background: url('/static/images/shop/verlichting_boven.gif')}
 /*** CONTENT ***/
 div#content_wrapper{
     clear: both;
@@ -259,7 +277,7 @@ div#content{
     min-height: 400px;
 }
 
-/*** specific stuff ***/
+/*** REGISTER/LOGIN ***/
 div#login, div#register{}
 div#login form, div#register form{margin-top: 2em;}
 div#login input[type="submit"], div#register input[type="submit"]{padding: 0.3em 1em 0.3em 1em;font-size:1.1em;}

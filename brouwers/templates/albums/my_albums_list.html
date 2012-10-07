@@ -7,6 +7,7 @@
 	var url_restore = "{% url brouwers.albums.ajax_views.restore_album %}";
 	var url_get_title = "{% url brouwers.albums.ajax_views.get_title %}";
 	var url_new = "{% url brouwers.albums.ajax_views.new_album_jquery_ui %}";
+    var user_search_url = "{% url brouwers.general.ajax_views.search_users %}";
 </script>
 {% endblock %}
 
@@ -44,6 +45,7 @@
     </div>
     
     <div class="albums_container">
+        <ul id="personal-albums" class="my-albums-list">
         {% with albums=albums_data.0.albums %}
             {% include "albums/albums_list/albums_li.html" %}
             
@@ -51,11 +53,13 @@
                 {% include "pagination.html" %}
             {% endwith %}
         {% endwith %}
+        </ul>
     </div>
     
     {% if albums_data.1.albums %}
         <div class="tab clear">Mijn publieke albums &#45; schrijfbaar voor anderen</div>
         <div class="albums_container">
+            <ul id="public-albums" class="my-albums-list">
             {% with albums_data.1.albums as albums %}
                 {% include "albums/albums_list/albums_li.html" %}
                 
@@ -63,23 +67,22 @@
                     {% include "pagination.html" %}
                 {% endwith %}
             {% endwith %}
+            </ul>
         </div>
     {% endif %}
     
     {% if albums_data.2.albums %}
         <div class="tab clear">Publieke albums &#45; ook schrijfbaar voor mij</div>
         <div class="albums_container">
+            <ul id="public-albums-others" class="other-albums-list">
             {% with albums_data.2.albums as albums %}
-                {% include "albums/albums_list/albums_rows.html" %}
-                
-                {% if albums_data.2.closing_tag %}
-                    </div>
-                {% endif %}
+                {% include "albums/albums_list/albums_li.html" %}
                 
                 {% with page="page_other" objects=albums %}
                     {% include "pagination.html" %}
                 {% endwith %}
             {% endwith %}
+            </ul>
         </div>
     {% endif %}
     

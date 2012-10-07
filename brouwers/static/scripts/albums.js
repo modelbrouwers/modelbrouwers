@@ -181,6 +181,7 @@ $(document).ready(function() {
     });
     try{
         initSortable($('#personal-albums'));
+        initSortable($('#public-albums'));
     }
     catch (err){
         //do nothing
@@ -198,6 +199,18 @@ $(document).ready(function() {
             }
         );
         return false;
+    });
+    
+    $('#id_writable_to').live('change', function(){
+        var searchbox = $('input#search-users');
+        if ($(this).val() == 'g'){ // writable for group
+            searchbox.show();
+            $('div#users').parent().parent().show();
+            showLinkedUsers();
+        } else {
+            searchbox.hide();
+            $('div#users').parent().parent().hide(); //hide the row
+        }
     });
 });
 
@@ -278,6 +291,7 @@ function openEditDialog(event, element, album_id){
 	    var li = $(element).closest('li.album');
 	    var album_id = li.children('input[name="album_id"]').val();
 	}
+	
 	$.get(
 	    url_edit,
 	    {'album': album_id},
@@ -287,9 +301,9 @@ function openEditDialog(event, element, album_id){
 	        $('#id_hidden_cover').val($('#id_cover').val());
 	        var a = "<a href=\"#\" onclick=\"showCovers();\">";
 	        a += "<u>Cover kiezen</u></a>";
-                $('#id_cover').replaceWith(a);
-                // write permissions for groups
-                initSearchBox();
+            $('#id_cover').replaceWith(a);
+            // write permissions for groups
+            initSearchBox();
 	    }
 	);
 	
@@ -303,23 +317,27 @@ function openEditDialog(event, element, album_id){
 
 function initSearchBox(){
     $('#id_albumgroup_set-0-users').parent().parent().hide();
-    var writable_select = $('#id_writable_to');
+    var writable_select = $('select#id_writable_to');
     var text_field = '<input type=\"text\" class=\"autocomplete\" id=\"search-users\" placeholder=\"gebruikers zoeken...\"/>';
     var div_users = '<tr><td></td><td colspan=\"2\"><div id=\"users\"></div></td>';
     writable_select.after(text_field);
     writable_select.parent().parent().after(div_users);
-    
-    var searchbox = $('#search-users');
-    writable_select.change(function(){
-        if (writable_select.val() == 'g'){ // writable for group
-            searchbox.show();
-            $('div#users').parent().parent().show();
-            showLinkedUsers();
-        } else {
-            searchbox.hide();
-            $('div#users').parent().parent().hide(); //hide the row
-        }
-    });
+    var searchbox = $('input#search-users');
+    searchbox.autocomplete({
+            source: user_search_url,
+            autoFocus: true,
+            minLength: 3,
+            delay: 0,
+            select:  function(e, ui) {
+                var multi_select = $('#id_albumgroup_set-0-users');
+                var user_id = String(ui.item.id);
+                var values = multi_select.val();
+                if (values == null){values=new Array();}
+                values.push(user_id);
+                multi_select.val(values);
+                showLinkedUsers();
+            }
+        });
     // trigger event
     writable_select.change();
     
@@ -330,21 +348,6 @@ function initSearchBox(){
     searchbox.blur(function(){
         searchbox.val('');
     });
-    searchbox.autocomplete({
-        source: user_search_url,
-        autoFocus: true,
-        minLength: 3,
-        delay: 0,
-        select:  function(e, ui) {
-            var multi_select = $('#id_albumgroup_set-0-users');
-            var user_id = String(ui.item.id);
-            var values = multi_select.val();
-            if (values == null){values=new Array();}
-            values.push(user_id);
-            multi_select.val(values);
-            showLinkedUsers();
-        }
-    });
     $('a.remove-user').live('click', function(event){
         var user_id = String($(this).data('user_id'));
         var multi_select = $('#id_albumgroup_set-0-users');
@@ -354,7 +357,6 @@ function initSearchBox(){
         multi_select.val(values);
         showLinkedUsers();
     });
-    
 }
 function showLinkedUsers()
 {
@@ -370,7 +372,7 @@ function showLinkedUsers()
         element += name + '</span></a>';
         html += element;
     });
-    $('#users').html(html);
+    $('div#users').html(html);
 }
 
 
