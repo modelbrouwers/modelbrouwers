@@ -5,7 +5,9 @@ var prev_width = 0;
 
 $(document).ready(function(){
     // sidebar loading etc.
-    loadSidebar();
+    if ($('textarea[name="message"]').length){
+        loadSidebar();
+    }
 });
 
 function loadSidebar(){
