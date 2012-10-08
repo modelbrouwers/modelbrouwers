@@ -21,14 +21,6 @@ import os
 #          BASE           #
 ###########################
 def index(request):
-    #TODO: volgend blok code weg als we deployen
-    new_user = False
-    if request.user.is_authenticated():
-        if request.user.date_joined >= datetime(2012, 9, 22):
-            new_user = True
-    if not request.user.has_perm('albums.access_albums') and not new_user:
-        return HttpResponseRedirect('/albums/coppermine/index.php') #to old albums
-    
     albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')[:20]
     spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
     if spotlight_albums.count() > 2:

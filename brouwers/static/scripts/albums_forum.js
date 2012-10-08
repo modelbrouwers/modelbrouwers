@@ -5,16 +5,7 @@ var prev_width = 0;
 
 $(document).ready(function(){
     // sidebar loading etc.
-    if (($('textarea[name="message"]').length > 0)){
-        $.get(
-            '/albums/is_beta_tester/',
-            function(response){
-                if (response == '1'){ // has access
-                    loadSidebar();
-                }
-            }
-        );
-    }
+    loadSidebar();
 });
 
 function loadSidebar(){
