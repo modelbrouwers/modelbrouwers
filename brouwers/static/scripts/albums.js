@@ -1,3 +1,7 @@
+/* note about translations: all the translations of 'static' stuff happens
+*  in the template where the variable is passed to the js.
+*  This makes the configuration less complex & keeps the static nature of the .js
+*/
 $(document).ready(function() {    
     $('.no-javascript').remove(); //hide the warning
     
@@ -26,52 +30,56 @@ $(document).ready(function() {
     
     if ($('#new-album-dialog').length > 0){
         $('#new-album-dialog').dialog({
-			    autoOpen: false,
-			    height: 400,
-			    width: 800,
-			    modal: true,
-			    title: "Nieuw album",
-			    buttons: {
-			        "Bewaren": function(){
-			            data = $('form#new-album').serializeArray();
-			            $.post(
-			                url_new,
-			                data,
-			                function (response){
-			                    $("#new-album-dialog").html(response);
-			                }
-			            );
-			        },
-			        "Annuleren": function() {
-			            $(this).dialog("close");
-			        }
+			autoOpen: false,
+			height: 400,
+			width: 800,
+			modal: true,
+			title: trans_new_album,
+			buttons: [{
+			    text: trans_save,
+			    click: function(){
+			        data = $('form#new-album').serializeArray();
+			        $.post(
+			            url_new,
+			            data,
+			            function (response){
+			                $("#new-album-dialog").html(response);
+			            }
+			        );
+			    }}, {
+			    text: trans_cancel,
+			    click: function() {
+			        $(this).dialog("close");
 			    }
+			}]
 	    });
 	}
     if ($('#edit-dialog').length > 0){
         $('#edit-dialog').dialog({
-			    autoOpen: false,
-			    height: 440,
-			    width: 800,
-			    modal: true,
-			    title: "Album bewerken",
-			    buttons: {
-			        "Opslaan": function(){
-			            data = $('#form-edit-album').serializeArray();
-			            var album_id = $(this).find('input[name="album"]').val();
-			            $.post(
-			                url_edit,
-			                data,
-			                function (response){
-			                        $("#edit-dialog").html(response);
-			                }
-			            );
-			        },
-			        "Annuleren": function() {
-			            $(this).dialog("close");
-			            $(this).dialog("option", "height", 400);
-			        }
-			    }
+			autoOpen: false,
+            height: 440,
+            width: 800,
+            modal: true,
+            title: trans_edit_album,
+            buttons: [{
+                text: trans_save,
+                click: function(){
+		            data = $('#form-edit-album').serializeArray();
+		            var album_id = $(this).find('input[name="album"]').val();
+		            $.post(
+		                url_edit,
+		                data,
+		                function (response){
+		                    $("#edit-dialog").html(response);
+		                }
+		            );
+		        }}, {
+		        text: trans_cancel,
+		        click: function() {
+		            $(this).dialog("close");
+		            $(this).dialog("option", "height", 400);
+		        }
+		    }]
 	    });
 	}
 	if ($('#remove-dialog').length > 0){
@@ -82,9 +90,10 @@ $(document).ready(function() {
 			height: 200,
 			width: 400,
 			modal: true,
-			title: "Naar prullenbak?",
-			buttons: {
-			    Bevestig: function(){
+			title: trans_trash,
+			buttons: [{
+			    text: trans_confirm,
+			    click: function(){
 			        var album_id = $('#remove-album').val();
 			        $.post(
 			            url_remove,
@@ -94,15 +103,16 @@ $(document).ready(function() {
 			                    $('li#album_'+album_id).remove();
 			                    $('#remove-dialog').dialog("close");
 			                } else {
-			                    alert('Het verwijderen is niet geslaagd.');
+			                    alert('Moving to trash failed.');
 			                }
 			            }
 			        );
-			    },
-			    Annuleren: function() {
+			    }}, {
+			    text: trans_cancel,
+			    click: function() {
 			        $(this).dialog("close");
 			    }
-			}
+			}]
 	    });
 	}
     
@@ -154,7 +164,7 @@ $(document).ready(function() {
     searchfield.blur(function () {
         if (searchfield.val() == ''){
             searchfield.css('color', '555');
-            searchfield.val('albums doorzoeken...');
+            searchfield.val(trans_search_album);
         }
     });
     
@@ -300,7 +310,7 @@ function openEditDialog(event, element, album_id){
 	        
 	        $('#id_hidden_cover').val($('#id_cover').val());
 	        var a = "<a href=\"#\" onclick=\"showCovers();\">";
-	        a += "<u>Cover kiezen</u></a>";
+	        a += "<u>" + trans_pick_cover + "</u></a>";
             $('#id_cover').replaceWith(a);
             // write permissions for groups
             initSearchBox();
@@ -318,7 +328,7 @@ function openEditDialog(event, element, album_id){
 function initSearchBox(){
     $('#id_albumgroup_set-0-users').parent().parent().hide();
     var writable_select = $('select#id_writable_to');
-    var text_field = '<input type=\"text\" class=\"autocomplete\" id=\"search-users\" placeholder=\"gebruikers zoeken...\"/>';
+    var text_field = '<input type=\"text\" class=\"autocomplete\" id=\"search-users\" placeholder=\"'+ trans_find_users +'\"/>';
     var div_users = '<tr><td></td><td colspan=\"2\"><div id=\"users\"></div></td>';
     writable_select.after(text_field);
     writable_select.parent().parent().after(div_users);
@@ -368,7 +378,7 @@ function showLinkedUsers()
         var name = opt.text();
         var user_id = opt.val();
         
-        var element = '<a href=\"#\" class=\"remove-user\" title=\"klik om rechten in te trekken\" data-user_id=\"' + user_id + '\">';
+        var element = '<a href=\"#\" class=\"remove-user\" title=\"' + trans_revoke_rights + '\" data-user_id=\"' + user_id + '\">';
         element += '<span class=\"user ui-state-hover ui-widget ui-corner-all ui-icon-closethick\">';
         element += name + '</span></a>';
         html += element;
@@ -408,7 +418,7 @@ function restoreAlbum(event, element){
 		    if (response == 'ok'){
 			    $('li#album_'+album_id).remove();
 			} else {
-			    alert('Het terugzetten is niet geslaagd.');
+			    alert('Restoring failed.');
 			}
 		}
 	);

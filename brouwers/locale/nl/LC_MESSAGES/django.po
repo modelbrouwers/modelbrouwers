@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-08 16:33+0200\n"
+"POT-Creation-Date: 2012-10-08 17:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -721,7 +721,7 @@ msgstr "Dit album is enkel zichtbaar voor mij"
 msgid "This album is writable for a group"
 msgstr "Dit album is schrijfbaar voor een groep"
 
-#: templates/albums/album_li.html:41
+#: templates/albums/album_li.html:41 templates/albums/base.html:34
 #: templates/albums/albums_list/albums_rows.html:35
 msgid "Edit album"
 msgstr "Album bewerken"
@@ -750,31 +750,71 @@ msgstr "aangemaakt"
 msgid "You are now in the photo albums!"
 msgstr "Je bent nu in de fotoalbums!"
 
-#: templates/albums/base.html:52
+#: templates/albums/base.html:33 templates/albums/my_albums_list.html:21
+#: templates/albums/uploadify.html:85 templates/albums/uploadify.html:207
+msgid "New album"
+msgstr "Nieuw album"
+
+#: templates/albums/base.html:35 templates/albums/edit_album.html:11
+#: templates/albums/edit_photo.html:17
+#: templates/albums/extra_info_uploads.html:58
+#: templates/albums/preferences.html:9 templates/albums/uploadify.html:87
+msgid "Save"
+msgstr "Bewaren"
+
+#: templates/albums/base.html:36 templates/albums/uploadify.html:106
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: templates/albums/base.html:37
+msgid "Move to trash?"
+msgstr "Naar prullenbak verplaatsen?"
+
+#: templates/albums/base.html:38
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: templates/albums/base.html:39
+msgid "search albums..."
+msgstr "albums doorzoeken..."
+
+#: templates/albums/base.html:40
+msgid "choose an album cover"
+msgstr "albumcover kiezen"
+
+#: templates/albums/base.html:41
+msgid "find users..."
+msgstr "gebruikers doorzoeken..."
+
+#: templates/albums/base.html:42
+msgid "click to remove from group"
+msgstr "klik om uit de groep te verwijderen"
+
+#: templates/albums/base.html:65
 msgid "Add photos"
 msgstr "Foto's toevoegen"
 
-#: templates/albums/base.html:54
+#: templates/albums/base.html:67
 msgid "My albums"
 msgstr "Mijn albums"
 
-#: templates/albums/base.html:55
+#: templates/albums/base.html:68
 msgid "All albums"
 msgstr "Alle albums"
 
-#: templates/albums/base.html:56
+#: templates/albums/base.html:69
 msgid "My last uploads"
 msgstr "Mijn laatste uploads"
 
-#: templates/albums/base.html:57
+#: templates/albums/base.html:70
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: templates/albums/base.html:106
+#: templates/albums/base.html:119
 msgid "Last modified albums"
 msgstr "Laatst gewijzigde albums"
 
-#: templates/albums/base.html:117
+#: templates/albums/base.html:130
 msgid "Last uploads"
 msgstr "Laatste uploads"
 
@@ -799,12 +839,6 @@ msgstr "album downloaden (.zip)"
 msgid "Edit album &lsquo;<strong>%(album)s</strong>&rsquo;"
 msgstr "Bewerk album &lsquo;<strong>%(album)s</strong>&rsquo;"
 
-#: templates/albums/edit_album.html:11 templates/albums/edit_photo.html:17
-#: templates/albums/extra_info_uploads.html:58
-#: templates/albums/preferences.html:9 templates/albums/uploadify.html:87
-msgid "Save"
-msgstr "Bewaren"
-
 #: templates/albums/edit_photo.html:6
 #, python-format
 msgid ""
@@ -825,11 +859,6 @@ msgstr[1] ""
 #: templates/albums/my_albums_list.html:19
 msgid "My personal albums"
 msgstr "Mijn persoonlijke albums"
-
-#: templates/albums/my_albums_list.html:21 templates/albums/uploadify.html:85
-#: templates/albums/uploadify.html:207
-msgid "New album"
-msgstr "Nieuw album"
 
 #: templates/albums/my_albums_list.html:25
 msgid "Manage"
@@ -908,10 +937,6 @@ msgstr "Bladeren"
 #: templates/albums/uploadify.html:46
 msgid "Images..."
 msgstr "Afbeeldingen..."
-
-#: templates/albums/uploadify.html:106
-msgid "Cancel"
-msgstr "Annuleren"
 
 #: templates/albums/uploadify.html:189
 msgid "Upload images"

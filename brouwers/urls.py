@@ -16,6 +16,17 @@ urlpatterns = patterns('',
     (r'^', include('brouwers.general.urls')),
     )
 
+##################
+# JS TRANSLATION #
+##################
+#js_info_dict = {
+#    'packages': ('brouwers.albums',),
+#}
+#
+#urlpatterns += patterns('',
+#    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+#)
+
 if settings.DEBUG and settings.DEVELOPMENT:
 	urlpatterns += patterns('',
 		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
