@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-20 22:20+0200\n"
+"POT-Creation-Date: 2012-10-08 09:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,167 +17,246 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: albums/forms.py:16
+#: albums/forms.py:18
 msgid ""
 "This link doesn't point to a valid forum topic. Please correct the error"
 msgstr "Deze link wijst niet naar een forumtopic. Pas de fout aan aub."
 
-#: albums/forms.py:149
+#: albums/forms.py:128
+msgid "Own albums"
+msgstr "Eigen albums"
+
+#: albums/forms.py:129
+msgid "Group albums"
+msgstr "Groepalbums"
+
+#: albums/forms.py:130
+msgid "Public albums"
+msgstr "Publieke albums"
+
+#: albums/forms.py:191
+msgid "link"
+msgstr "link"
+
+#: albums/forms.py:191
+msgid "Upload a picture from url"
+msgstr "Foto uploaden vanaf een link"
+
+#: albums/forms.py:206
+msgid "Make sure the link points to a jpg or png image."
+msgstr "Zorg dat de link naar een .jpg of .png afbeelding verwijst."
+
+#: albums/forms.py:208
+msgid "Could not download the image from the url"
+msgstr "De afbeelding kon niet gedownload worden"
+
+#: albums/forms.py:219
 msgid "Keywords"
 msgstr "Zoektermen"
 
-#: albums/models.py:14
-msgid "user"
+#: albums/models.py:17
+msgctxt "write permissions for owner"
+msgid "owner"
 msgstr "mezelf"
 
-#: albums/models.py:16
+#: albums/models.py:18
+msgid "group"
+msgstr "groep"
+
+#: albums/models.py:19
 msgid "everyone"
 msgstr "iedereen"
 
-#: albums/models.py:20
+#: albums/models.py:23
 msgid "name"
 msgstr "naam"
 
-#: albums/models.py:21 albums/models.py:59
+#: albums/models.py:24 albums/models.py:73
 msgid "order"
 msgstr "volgorde"
 
-#: albums/models.py:24 albums/models.py:41
+#: albums/models.py:26
+msgid "url"
+msgstr "link"
+
+#: albums/models.py:27
+msgid "on frontpage"
+msgstr "op de voorpagina"
+
+#: albums/models.py:28
+msgid "public"
+msgstr "publiek?"
+
+#: albums/models.py:28
+msgid ""
+"If the category is public, regular users can add their albums to the "
+"category. If it isn't, only people with admin permissions can do so."
+msgstr ""
+"Als de categorie publiek is, dan kunnen alle gebruikers albums eraan "
+"toevoegen. Anders kunnen enkel gebruikers met administratorrechten albums "
+"toevoegen aan deze categorie."
+
+#: albums/models.py:31 albums/models.py:54
 msgid "category"
 msgstr "categorie"
 
-#: albums/models.py:25
+#: albums/models.py:32
 msgid "categories"
 msgstr "categorieën"
 
-#: albums/models.py:36 albums/models.py:38
+#: albums/models.py:44 albums/models.py:46
 msgid "album title"
 msgstr "albumtitel"
 
-#: albums/models.py:39
+#: albums/models.py:47
 msgid "album description"
 msgstr "album beschrijving"
 
-#: albums/models.py:46
+#: albums/models.py:60
 msgid "Image to use as album cover."
 msgstr "Coverfoto"
 
-#: albums/models.py:48
+#: albums/models.py:62
 msgid "cover"
 msgstr "cover"
 
-#: albums/models.py:54 albums/models.py:149
+#: albums/models.py:68 albums/models.py:180
 msgid "last modified"
 msgstr "laatst aangepast"
 
-#: albums/models.py:61
+#: albums/models.py:75
 msgid "Public?"
 msgstr "Publiek?"
 
-#: albums/models.py:62
+#: albums/models.py:76
 msgid ""
 "Can this album be viewed by everyone? Untick to make the album available "
 "only to yourself."
 msgstr ""
 "Kan iedereen dit album zien? Vink dit uit om het album persoonlijk te maken."
 
-#: albums/models.py:68
+#: albums/models.py:82
 msgid "build report"
 msgstr "brouwverslag"
 
-#: albums/models.py:70
+#: albums/models.py:84
 msgid "Link to the forumtopic of the build."
 msgstr "Link naar het brouwverslag."
 
-#: albums/models.py:73
+#: albums/models.py:87
 msgid "appreciation"
 msgstr "waardering"
 
-#: albums/models.py:75
+#: albums/models.py:89
 msgid "writable to"
 msgstr "schrijfbaar voor"
 
-#: albums/models.py:80
+#: albums/models.py:94 albums/models.py:148
 msgid "album"
 msgstr "album"
 
-#: albums/models.py:81
+#: albums/models.py:95
 msgid "albums"
 msgstr "albums"
 
-#: albums/models.py:86
+#: albums/models.py:100
 msgid "Can edit/remove album"
 msgstr "Kan album bewerken/verwijderen"
 
-#: albums/models.py:87
+#: albums/models.py:101
 msgid "Can see all albums"
 msgstr "Kan alle albums zien"
 
-#: albums/models.py:88
+#: albums/models.py:102
 msgid "Can use new albums"
 msgstr "Kan nieuwe albums gebruiken"
 
-#: albums/models.py:142
+#: albums/models.py:149
+msgid "Album for which the group has write permissions."
+msgstr ""
+
+#: albums/models.py:152
+msgid "users"
+msgstr "gebruikers"
+
+#: albums/models.py:152
+msgid "Users who can write in this album."
+msgstr "Gebruikers die foto's kunnen toevoegen aan dit album."
+
+#: albums/models.py:155
+msgid "album group"
+msgstr "albumgroep"
+
+#: albums/models.py:156
+msgid "album groups"
+msgstr "albumgroepen"
+
+#: albums/models.py:160
+#, python-format
+msgid "Write permissions for '%(album)s'"
+msgstr "Schrijfrechten voor '%(album)s'"
+
+#: albums/models.py:173
 msgid "width"
 msgstr "breedte"
 
-#: albums/models.py:143
+#: albums/models.py:174
 msgid "height"
 msgstr "hoogte"
 
-#: albums/models.py:144
+#: albums/models.py:175
 msgid "image"
 msgstr "foto"
 
-#: albums/models.py:145
+#: albums/models.py:176
 msgid "photo description"
 msgstr "beschrijving"
 
-#: albums/models.py:155
+#: albums/models.py:186
 msgid "Photo"
 msgstr "Foto"
 
-#: albums/models.py:156
+#: albums/models.py:187
 msgid "Photos"
 msgstr "Foto's"
 
-#: albums/models.py:287
+#: albums/models.py:318
 msgid "Multiple files at once"
 msgstr "Meerdere bestanden tegelijk"
 
-#: albums/models.py:288
+#: albums/models.py:319
 msgid "Basic"
 msgstr "Beperkt"
 
-#: albums/models.py:292
+#: albums/models.py:323
 msgid "Black"
 msgstr "Zwart"
 
-#: albums/models.py:293
+#: albums/models.py:324
 msgid "White"
 msgstr "Wit"
 
-#: albums/models.py:294
+#: albums/models.py:325
 msgid "Light grey"
 msgstr "Lichtgrijs"
 
-#: albums/models.py:295
+#: albums/models.py:326
 msgid "Dark grey"
 msgstr "Donkergrijs"
 
-#: albums/models.py:300
+#: albums/models.py:331
 msgid "default image dimensions"
 msgstr "standaard afmetingen"
 
-#: albums/models.py:303
+#: albums/models.py:334
 msgid "Your pictures will be scaled to this size."
 msgstr "Formaat waarnaar je afbeeldingen herschaald worden."
 
-#: albums/models.py:306
+#: albums/models.py:337
 msgid "default uploader"
 msgstr "standaard uploader"
 
-#: albums/models.py:309
+#: albums/models.py:340
 msgid ""
 "Multiple files at once makes use of a Flash uploader, \n"
 "you select all your files without having to click too much buttons. \n"
@@ -187,58 +266,79 @@ msgstr ""
 "bestanden in een map in één keer selecteren. De beperkte uploader vereist "
 "dat je elk bestand apart selecteert."
 
-#: albums/models.py:316
+#: albums/models.py:346
 msgid "start uploading automatically?"
 msgstr "meteen beginnen uploaden"
 
-#: albums/models.py:316
+#: albums/models.py:346
 msgid "Start upload automatically when files are selected"
 msgstr "Automatisch beginnen uploaden zodra bestanden geselecteerd zijn"
 
-#: albums/models.py:317
+#: albums/models.py:347
 msgid "Show direct links under the photo"
 msgstr "Toon de directe link naar de afbeelding"
 
-#: albums/models.py:320
+#: albums/models.py:350
 msgid "When checked, you will see all the albums and be able to edit them."
 msgstr "Als dit aangevinkt is kan je alle albums zien en bewerken."
 
-#: albums/models.py:323
+#: albums/models.py:353
 msgid "collapse sidebar"
 msgstr "standaard ingeklapte zijbalk"
 
-#: albums/models.py:325
+#: albums/models.py:355
 msgid "sidebar background color"
 msgstr "Achtergrondkleur"
 
-#: albums/models.py:327
+#: albums/models.py:357
 msgid "Background for the overlay in the board."
 msgstr "Achtergrondkleur voor de zijbalk in het antwoordscherm."
 
-#: albums/models.py:330
+#: albums/models.py:360
 msgid "transparent background?"
 msgstr "achtergrond transparant?"
 
-#: albums/models.py:331
+#: albums/models.py:361
 msgid "sidebar text color"
 msgstr "tekstkleur"
 
-#: albums/models.py:332
+#: albums/models.py:362
 msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
 msgstr "Tekstkleur in de zijbalk. HTML kleurcodes worden aanvaard."
 
-#: albums/models.py:334
+#: albums/models.py:364
 msgid "sidebar width"
 msgstr "Breedte"
 
-#: albums/models.py:335
+#: albums/models.py:365
 msgid "Width of the sidebar. E.g. '30%' or '300px'."
 msgstr ""
 "Breedte van de zijbalk, in pixels of procent. Bijvoorbeeld: '300px' of '20%'"
 
-#: albums/models.py:339
+#: albums/models.py:369
 msgid "User preferences"
 msgstr "Gebruikersinstellingen"
+
+#: albums/models.py:399
+msgid "user who downloaded the album"
+msgstr "gebruiker die het album downloadde"
+
+#: albums/models.py:400
+msgid "timestamp"
+msgstr "tijdstip"
+
+#: albums/models.py:404
+msgid "album download"
+msgstr "albumdownload"
+
+#: albums/models.py:405
+msgid "album downloads"
+msgstr "albumdownloads"
+
+#: albums/models.py:409
+#, python-format
+msgid "Download of %(album)s by %(username)s"
+msgstr "Download van %(album)s door %(username)s"
 
 #: awards/models.py:12
 msgid "Categorie"
@@ -395,8 +495,8 @@ msgid ""
 "If you forgot your username, you can enter the e-mail                     "
 "address you registered with."
 msgstr ""
-"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres"
-"waarmee je registreerde ingeven."
+"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadreswaarmee je "
+"registreerde ingeven."
 
 #: general/forms.py:194
 msgid "This user is unknown in the database."
@@ -426,104 +526,104 @@ msgstr ""
 msgid "Frankrijk"
 msgstr ""
 
-#: general/models.py:23
+#: general/models.py:31
 msgid "Aanvinken als je meedoet"
 msgstr ""
 
-#: general/models.py:26
+#: general/models.py:34
 msgid "Straatnaam"
 msgstr ""
 
-#: general/models.py:27
+#: general/models.py:35
 msgid "Huisnummer (+ bus indien van toepassing)"
 msgstr ""
 
-#: general/models.py:28
+#: general/models.py:36
 msgid "Postcode"
 msgstr ""
 
-#: general/models.py:29
+#: general/models.py:37
 msgid "Stad"
 msgstr ""
 
-#: general/models.py:30
+#: general/models.py:38
 msgid "Provincie"
 msgstr ""
 
-#: general/models.py:31
+#: general/models.py:39
 msgid "Land"
 msgstr ""
 
-#: general/models.py:34
+#: general/models.py:42
 msgid "Dit wil ik graag"
 msgstr ""
 
-#: general/models.py:35
+#: general/models.py:43
 msgid "Dit wil ik absoluut niet"
 msgstr ""
 
-#: general/models.py:44
+#: general/models.py:52
 msgid "Gebruikersprofiel"
 msgstr ""
 
-#: general/models.py:45
+#: general/models.py:53
 msgid "Gebruikersprofielen"
 msgstr ""
 
-#: general/models.py:55
+#: general/models.py:63
 msgid "Question which must be answered for registration."
 msgstr "Vraag die beantwoord moet worden voor de registratie"
 
-#: general/models.py:86
+#: general/models.py:94
 msgid "hash"
 msgstr "hash"
 
-#: general/models.py:87
+#: general/models.py:95
 msgid "expire datetime"
 msgstr "vervaldatum"
 
-#: general/models.py:90
+#: general/models.py:98
 msgid "password reset"
 msgstr "Wachtwoord reset"
 
-#: general/models.py:91
+#: general/models.py:99
 msgid "password resets"
 msgstr "Wachtwoord resets"
 
-#: general/models.py:96
+#: general/models.py:104
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr "Wachtwoord reset voor %(user)s"
 
-#: general/models.py:100
+#: general/models.py:108
 msgid "path from"
 msgstr "pad van"
 
-#: general/models.py:102
+#: general/models.py:110
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
 msgstr ""
-"pad vanaf waar geredirect moet worden, zonder forward slash. "
-"Bijvoorbeeld: '/shop/' wordt 'shop/'"
+"pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
+"shop/' wordt 'shop/'"
 
-#: general/models.py:106
+#: general/models.py:114
 msgid "redirect to"
 msgstr "redirect naar"
 
-#: general/models.py:107
+#: general/models.py:115
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr "Pad (relatief of absoluut tot de website root) of url."
 
-#: general/models.py:111
+#: general/models.py:119
 msgid "redirect"
 msgstr "omleiding"
 
-#: general/models.py:112
+#: general/models.py:120
 msgid "redirects"
 msgstr "omleidingen"
 
-#: general/views.py:298
+#: general/views.py:294
 #, python-format
 msgid ""
 "Hello %(nickname)s, \n"
@@ -550,42 +650,41 @@ msgstr ""
 "\n"
 "Het Modelbrouwers.nl beheer"
 
-#: general/views.py:310
-#, fuzzy
+#: general/views.py:306
 msgid "nickname"
-msgstr "naam"
+msgstr "gebruikersnaam"
 
-#: general/views.py:314
+#: general/views.py:310
 msgid "Modelbrouwers.nl password reset"
 msgstr "Modelbrouwers.nl wachtwoordreset"
 
-#: migration/models.py:32
+#: migration/models.py:36
 msgid "album user migration"
 msgstr "albumgebruikermigratie"
 
-#: migration/models.py:33
+#: migration/models.py:37
 msgid "album user migrations"
 msgstr "albumgebruikermigraties"
 
-#: online_users/models.py:18
+#: online_users/models.py:11
 msgid "last seen online"
 msgstr "laatst online"
 
-#: online_users/models.py:21
+#: online_users/models.py:14
 msgid "notificate"
 msgstr "toon in popup"
 
-#: online_users/models.py:23
+#: online_users/models.py:16
 msgid ""
 "Send a notification to the online                         moderators when "
 "this user is online."
 msgstr ""
 "Stuur een melding naar de online moderators als deze gebruiker online is."
 
-#: online_users/models.py:28
+#: online_users/models.py:21
 msgid "tracked user"
 msgstr "gevolgde gebruiker"
 
-#: online_users/models.py:29
+#: online_users/models.py:22
 msgid "tracked users"
 msgstr "gevolgde gebruikers"
