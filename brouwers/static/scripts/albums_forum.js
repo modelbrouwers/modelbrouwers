@@ -85,6 +85,9 @@ function loadSidebar(){
                     }
                     toggleSidebar();
                 }
+                /*if (json["hide"]){
+                    sidebar.width('1px');
+                }*/
             }
         }
     );

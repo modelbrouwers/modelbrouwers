@@ -353,6 +353,7 @@ The basic uploader has a file field for each image."""
     
     #sidebar settings
     collapse_sidebar = models.BooleanField(_("collapse sidebar"), default=True)
+#    hide_sidebar = models.BooleanField(_("hide sidebar"), default=False, help_text=_("Don't show the sidebar at all"))
     sidebar_bg_color = models.CharField(
         _("sidebar background color"), 
         max_length=7, blank=True, 
