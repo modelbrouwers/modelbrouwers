@@ -10,4 +10,19 @@
 		style="height: 34px; line-height: 30px; width: 180px;"/>
     </div>
 </form>
+<br />
+<br />
+<div class="tab">{% trans 'Language settings' %}</div>
+<div class="margin">
+    <form action="/i18n/setlang/" method="post">
+        <!--<input name="next" type="hidden" value="{{ redirect_to }}" />-->
+        <select name="language">
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}">{{ language.name_local }} ({{ language.code }})</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Go" />
+    </form>
+</div>
 {% endblock %}
