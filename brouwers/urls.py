@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^ou/', include('brouwers.online_users.urls')),
     (r'^migration/', include('brouwers.migration.urls')),
     (r'^', include('brouwers.general.urls')),
+    (r'^i18n/', include('django.conf.urls.i18n')),
     )
 
 ##################

@@ -21,10 +21,6 @@ import os
 #          BASE           #
 ###########################
 def index(request):
-    
-    print request.META['HTTP_ACCEPT_LANGUAGE']
-    
-    
     albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')[:20]
     spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
     if spotlight_albums.count() > 2:

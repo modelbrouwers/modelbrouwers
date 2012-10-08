@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-08 17:23+0200\n"
+"POT-Creation-Date: 2012-10-08 19:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: settings.py:19
+msgid "English"
+msgstr ""
+
+#: settings.py:20
+msgid "Dutch"
+msgstr ""
 
 #: albums/forms.py:18
 msgid ""
@@ -110,11 +118,11 @@ msgstr "albumtitel"
 
 #: albums/models.py:47
 msgid "album description"
-msgstr "album beschrijving"
+msgstr "beschrijving"
 
 #: albums/models.py:60
 msgid "Image to use as album cover."
-msgstr "Coverfoto"
+msgstr "Afbeelding voor de albumcover"
 
 #: albums/models.py:62
 msgid "cover"
@@ -122,7 +130,7 @@ msgstr "cover"
 
 #: albums/models.py:68 albums/models.py:181
 msgid "last modified"
-msgstr "laatst aangepast"
+msgstr "laatst gewijzigd"
 
 #: albums/models.py:75
 msgid "Public?"
@@ -133,7 +141,6 @@ msgid ""
 "Can this album be viewed by everyone? Untick to make the album available "
 "only to yourself."
 msgstr ""
-"Kan iedereen dit album zien? Vink dit uit om het album persoonlijk te maken."
 
 #: albums/models.py:82
 msgid "build report"
@@ -141,11 +148,11 @@ msgstr "brouwverslag"
 
 #: albums/models.py:84
 msgid "Link to the forumtopic of the build."
-msgstr "Link naar het brouwverslag."
+msgstr "Link naar het topic van de bouw."
 
 #: albums/models.py:87
 msgid "appreciation"
-msgstr "waardering"
+msgstr ""
 
 #: albums/models.py:89
 msgid "writable to"
@@ -757,8 +764,9 @@ msgstr "Nieuw album"
 
 #: templates/albums/base.html:35 templates/albums/edit_album.html:11
 #: templates/albums/edit_photo.html:17
-#: templates/albums/extra_info_uploads.html:58
-#: templates/albums/preferences.html:9 templates/albums/uploadify.html:87
+#: templates/albums/extra_info_uploads.html:58 templates/albums/manage.html:45
+#: templates/albums/manage.html.py:92 templates/albums/preferences.html:9
+#: templates/albums/uploadify.html:87
 msgid "Save"
 msgstr "Bewaren"
 
@@ -855,6 +863,26 @@ msgid_plural ""
 msgstr[0] "Er was 1 foto in het album %(album)s voor deze upload."
 msgstr[1] ""
 "Er waren %(photos_before)s foto's in het album %(album)s voor deze upload."
+
+#: templates/albums/manage.html:5 templates/albums/ajax/new_album.html:36
+msgid "Create new album"
+msgstr "Maak nieuw album"
+
+#: templates/albums/manage.html:28 templates/albums/ajax/new_album.html:31
+msgid "Fix the error"
+msgstr "Herstel de fout"
+
+#: templates/albums/manage.html:35
+msgid "Add album"
+msgstr "Album toevoegen"
+
+#: templates/albums/manage.html:41
+msgid "Organize albums"
+msgstr "Albums organiseren"
+
+#: templates/albums/manage.html:82
+msgid "error"
+msgstr "fout"
 
 #: templates/albums/my_albums_list.html:19
 msgid "My personal albums"
@@ -977,14 +1005,6 @@ msgstr "Bestanden wachtrij"
 #: templates/albums/ajax/new_album.html:24
 msgid "Close"
 msgstr "Sluiten"
-
-#: templates/albums/ajax/new_album.html:31
-msgid "Fix the error"
-msgstr "Herstel de fout"
-
-#: templates/albums/ajax/new_album.html:36
-msgid "Create new album"
-msgstr "Maak nieuw album"
 
 #: templates/albums/albums_list/public_albums_rows.html:11
 msgid "photo"
