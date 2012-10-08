@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, IntegrityError
 from django.db.models import Max
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -110,6 +110,7 @@ class Album(models.Model):
             self.clean_title = self.title
         super(Album, self).save(*args, **kwargs)
     
+    #TODO: reverse gebruiken
     def get_absolute_url(self):
         return "/albums/album/%s/" % self.id
     
@@ -200,6 +201,7 @@ class Photo(models.Model):
     def __unicode__(self):
         return "image from %s in %s" % (self.user, self.album.title)
     
+    #TODO: reverse gebruiken
     def get_absolute_url(self):
         return "/albums/photo/%s/" % self.id
     
@@ -379,7 +381,10 @@ The basic uploader has a file field for each image."""
             p = cls.objects.get(user=user)
         except cls.DoesNotExist:
             p = cls(user=user)
-            p.save()
+            try:
+                p.save()
+            except IntegrityError:
+                pass # concurrent saves
         return p
     
     def get_default_img_size(self):

@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
 {% block album_tab %}
-<img src="{{ STATIC_URL }}images/nav/albums_voor.png" alt="Je bent nu in de fotoalbums!"/>
+<img src="{{ STATIC_URL }}images/nav/albums_voor.png" alt="{% trans 'You are now in the photo albums!' %}"/>
 {% endblock %}
 
 {% block style %}
@@ -40,15 +41,6 @@
 	<div>Meer info over de nieuwe albums vind je in <a href="/albums/about/" target="_blank">dit topic</a>.</div>
 {% endblock %}
 
-{% comment %}
-{% block important_message %}		
-<div class="warning" style="font-size: 0.8em;">
-	Dit is een beta-versie van de nieuwe BrouwersAlbums. 
-	Meld bugs, opmerkingen en suggesties aan admins[.@.]modelbrouwers.nl.
-</div>
-{% endblock %}
-{% endcomment %}
-
 {% block menu %}
 	<li><a href="{% url brouwers.albums.views.index %}">Home</a></li>
 	<li><a href="
@@ -57,13 +49,13 @@
 		{% else %}
 			{% url brouwers.albums.views.upload %}
 		{% endif %}
-		">Foto's toevoegen</a>
+		">{% trans 'Add photos' %}</a>
 	</li>
-	<li><a href="{% url brouwers.albums.views.my_albums_list %}">Mijn albums</a></li>
-	<li><a href="{% url brouwers.albums.views.albums_list %}">Alle albums</a></li>
-	<li><a href="{% url brouwers.albums.views.my_last_uploads %}?page=1">Mijn laatste uploads</a></li>
-	<li><a href="{% url brouwers.albums.views.preferences %}">Voorkeuren</a></li>
-	<li><a href="/albums/coppermine/index.php" style="font-size:0.7em;">Oude albums</a></li>
+	<li><a href="{% url brouwers.albums.views.my_albums_list %}">{% trans 'My albums' %}</a></li>
+	<li><a href="{% url brouwers.albums.views.albums_list %}">{% trans 'All albums' %}</a></li>
+	<li><a href="{% url brouwers.albums.views.my_last_uploads %}?page=1">{% trans 'My last uploads' %}</a></li>
+	<li><a href="{% url brouwers.albums.views.preferences %}">{% trans 'Preferences' %}</a></li>
+	<!--<li><a href="/albums/coppermine/index.php" style="font-size:0.7em;">Oude albums</a></li>-->
 {% endblock %}
 
 {% block above_content %}
@@ -111,10 +103,10 @@
 {% endblock %}
 
 {% block content %}
-	<div class="tab">Laatst gewijzigde albums</div>
+	<div class="tab">{% trans 'Last modified albums' %}</div>
 	<div id="albums-list-homepage">
     	{% include "albums/albums_list/public_albums_rows.html" %}
-
+        
 		{% if needs_closing_tag_row_albums %}
 	        </div>
 		{% endif %}
@@ -122,7 +114,7 @@
 		<br />
     </div>
 	
-	<div class="tab">Laatste uploads...</div>
+	<div class="tab">{% trans 'Last uploads' %}</div>
 	<div id="last_uploads">
 		{% for photo in last_uploads %}
 			{% cycle '<div class="row">' '' '' '' '' %}

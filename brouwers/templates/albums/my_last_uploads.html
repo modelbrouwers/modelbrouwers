@@ -1,7 +1,8 @@
 {% extends "albums/base.html" %}
+{% load i18n %}
 
 {% block content %}
-<div class="tab">Mijn laatste uploads...</div>
+<div class="tab">{% trans 'My last uploads...' %}</div>
 <div id="last_uploads">
     {% for photo in uploads %}
         {% cycle '<div class="row">' '' '' '' '' %}
@@ -31,7 +32,7 @@
     {% endif %}
     <div class="pagination">
         {% if uploads.number != 1 %}
-            <a href="?page=1" title="Eerste pagina">&laquo;</a>
+            <a href="?page=1" title="{% trans 'First page' %}">&laquo;</a>
         {% else %}
             <span>&laquo;</span>
         {% endif %}
@@ -51,7 +52,7 @@
         {% endif %}
         &nbsp;&nbsp;
         {% if uploads.number != uploads.paginator.num_pages %}
-            <a href="?page={{ uploads.paginator.num_pages }}" title="Laatste pagina">&raquo;</a>
+            <a href="?page={{ uploads.paginator.num_pages }}" title="{% trans 'Last page' %}">&raquo;</a>
         {% else %}
             <span>&raquo;</span>
         {% endif %}

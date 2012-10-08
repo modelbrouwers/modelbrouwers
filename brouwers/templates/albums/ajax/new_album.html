@@ -1,5 +1,7 @@
+{% load i18n %}
+
 <div>
-    <img style="float:right;position:relative;right:60%;z-index:11;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="Sluiten" onclick="hideNewAlbum();"/>
+    <img style="float:right;position:relative;right:60%;z-index:11;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="{% trans 'Close' %}" onclick="hideNewAlbum();"/>
     {% if non_field_errors %}
     </ul>
         {% for error in non_field_errors %}
@@ -19,19 +21,19 @@
             </td>
             <td class="help_text">
                 <div class="rounded" style="display: none;">
-                    <img style="float:right;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="Sluiten" onclick="$(this).parent().hide();"/>
+                    <img style="float:right;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="{% trans 'Close' %}" onclick="$(this).parent().hide();"/>
                     {{ field.help_text }}
                 </div>
             </td>
         </tr>
         {% for error in field.errors %}
             <tr class="error">
-                <td>Herstel de fout:</td>
+                <td>{% trans 'Fix the error' %}:</td>
                 <td class="error" colspan="2">{{ error }}</td>
             </tr>
         {% endfor %}
         {% endfor %}
-        <tr style="text-align: center;"><td colspan="2"><button onclick="add_album(this);">Maak album</button></td><td></td></tr>
+        <tr style="text-align: center;"><td colspan="2"><button onclick="add_album(this);">{% trans 'Create new album' %}</button></td><td></td></tr>
     </table>
     <input type="hidden" id="status" value="invalid"/>
 </div>

@@ -1,4 +1,5 @@
 {% extends "albums/base.html" %}
+{% load i18n %}
 
 {% block extrascript %}
 <script type="text/javascript">
@@ -15,33 +16,34 @@
 <div id="album_list">
     {% spaceless %}
     <div class="tab">
-        Mijn persoonlijke albums &bull; 
+        {% trans 'My personal albums' %} &bull; 
         <a href="#" id="new-album-popup">
-            <strong>Nieuw album</strong>
+            <strong>{% trans 'New album' %}</strong>
         </a>
         &bull;
         <a href="{% url brouwers.albums.views.manage %}">
-            Beheren
+            {% trans 'Manage' %}
         </a>
         &bull; 
         {% if trash %}
             <a href="." class="highlight" title="Klik nogmaals om te verlaten">
-                Prullenbak
+                {% trans 'Trash' %}
             </a>
         {% else %}
             <a href="./?trash=True">
-                Prullenbak
+                {% trans 'Trash' %}
             </a>
         {% endif %}
         <span class="right small-text">
             <a id="ShowAllAlbums" href="{% url brouwers.albums.views.my_albums_list %}?all=1">
-                Toon al mijn persoonlijke albums
+                {% trans 'Show all my personal albums' %}
             </a>
         </span>
     </div>
     {% endspaceless %}
     <div class="no-javascript" class="margin">
-        Je browser ondersteunt geen Javascript. Om je albums te organiseren, kan je deze <a href="{% url brouwers.albums.views.manage %}">alternatieve pagina</a> gebruiken.
+        {% url brouwers.albums.views.manage as manage_url %}
+        {% blocktrans %}Your browser has no javascript. You can reorganize your albums on an <a href="{{ manage_url }}">alternative page</a>.{% endblocktrans %}
     </div>
     
     <div class="albums_container">
@@ -57,7 +59,7 @@
     </div>
     
     {% if albums_data.1.albums %}
-        <div class="tab clear">Mijn publieke albums &#45; schrijfbaar voor anderen</div>
+        <div class="tab clear">{% trans 'My public albums &#45; others can add photos' %}</div>
         <div class="albums_container">
             <ul id="public-albums" class="my-albums-list">
             {% with albums_data.1.albums as albums %}
@@ -72,7 +74,7 @@
     {% endif %}
     
     {% if albums_data.2.albums %}
-        <div class="tab clear">Publieke albums &#45; ook schrijfbaar voor mij</div>
+        <div class="tab clear">{% trans 'Public albums &#45; writable for me' %}</div>
         <div class="albums_container">
             <ul id="public-albums-others" class="other-albums-list">
             {% with albums_data.2.albums as albums %}
@@ -94,9 +96,8 @@
     </div>
     <div id="edit-dialog"></div>
     <div id="remove-dialog" style="display:none">
-    	<p class="warn">Ben je zeker dat je het album &lsquo;<span id="id-album-title"></span>&rsquo; naar de prullenbak wil verplaatsen?</p>
+    	<p class="warn">{% trans 'Are you sure you want to move the album &lsquo;<span id="id-album-title"></span>&rsquo; to the trash?' %}</p>
     	<input type="hidden" name="album" id="remove-album" value=""/>
     </div>
-    
 </div>
 {% endblock %}

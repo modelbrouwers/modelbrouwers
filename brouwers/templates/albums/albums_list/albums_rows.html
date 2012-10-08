@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% for album in albums %}
     {% cycle '<div class="row">' '' '' '' %}
         <div class="photo album">
@@ -12,7 +14,7 @@
             </div>
             
             <div class="properties">
-                {{ album.photo_set.count }} foto&apos;s &#45; {{ album.views }} views
+                {% blocktrans count counter=album.photo_set.count %}1 photo{% plural %}{{ counter }} photos{% endblocktrans %} &#45; {{ album.views }} views
             </div>
             
             {% spaceless %}
@@ -25,23 +27,23 @@
                     
                     {% if not album.public %}
                         <img class="private" src="{{ STATIC_URL }}images/icons/private.png" width="16" 
-                        height="16" alt="private" title="Dit album is enkel zichtbaar voor mezelf."/>
+                        height="16" alt="private" title="{% trans 'This album is only visible for me' %}"/>
                     {% endif %}
                     
                     {% ifequal album.user user %}
                     <img class="edit" src="{{ STATIC_URL }}images/icons/edit.png" alt="edit" 
-                    height="16" onclick="alert('edit');" title="Album bewerken"/>
+                    height="16" onclick="alert('edit');" title="{% trans 'Edit album' %}"/>
                     
                     <img class="remove" src="{{ STATIC_URL }}images/icons/remove.png" alt="edit" 
-                    height="16" onlick="alert('remove');" title="Album naar prullenbak verplaatsen"/>
+                    height="16" onlick="alert('remove');" title="{% trans 'Move album to trash' %}"/>
                     {% endifequal %}
             </a>
             {% endspaceless %}
                     
             <div class="properties">
-                <span class="date">Gewijzigd op {{ album.last_upload|date:"d b Y, H:i" }}</span>
+                <span class="date">{% trans 'modified' %} {{ album.last_upload|date:"d b Y, H:i" }}</span>
                 <br />
-                <span class="date">Aangemaakt op {{ album.created|date:"d b Y, H:i" }}</span>
+                <span class="date">{% trans 'created' %} {{ album.created|date:"d b Y, H:i" }}</span>
             </div>
         </div>
     {% cycle '' '' '' '</div>' %}

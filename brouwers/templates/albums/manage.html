@@ -1,7 +1,8 @@
 {% extends "albums/base.html" %}
+{% load i18n %}
 
 {% block content %}
-<div class="tab" id="new">Nieuw album aanmaken</div>
+<div class="tab" id="new">{% translate 'Create new album' %}</div>
 <div id="new-album">
     <form action="." method="POST">
         {% for field in add_album_form.hidden_fields %}
@@ -24,25 +25,25 @@
             </tr>
             {% for error in field.errors %}
                 <tr class="error">
-                    <td>Herstel de fout:</td>
+                    <td>{% translate 'Fix the error' %}:</td>
                     <td class="error" colspan="2">{{ error }}</td>
                 </tr>
             {% endfor %}
             {% endfor %}
         </table>
 	    <div class="center" style="margin-bottom:1em;">
-	        <input type="submit" value="Album toevoegen" name="add" 
+	        <input type="submit" value="{% translate 'Add album' %}" name="add" 
 	        class="uploadify-button" style="height:34px;line-height:30px;width:180px;margin-top:1em;"/>
 	    </div>
     </form>
 </div>
 
-<div class="tab">Albums organiseren</div>
+<div class="tab">{% translate 'Organize albums' %}</div>
 <div id="albums-list">
 	<form action="." method="POST">
 		{{ albumformset.management_form }}
-		<input id="top-right-submit" type="submit" value="Bewaren" name="manage" class="uploadify-button" 
-		style="height: 34px; line-height: 30px; width: 124px;"/>
+		<input id="top-right-submit" type="submit" value="{% translate 'Save' %}" name="manage" 
+		class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
         
 		{% for form in albumformset %}
 		<div class="album-form">
@@ -70,14 +71,15 @@
 			            <td>{{ field }}</td>
 			            <td class="help_text">
 			                {% if field.help_text %}
-                                <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" alt=""/>
+                                <img src="{{ STATIC_URL }}images/icons/help.png" 
+                                width="16" height="16" alt=""/>
                             {% endif %}
                             {{ field.help_text }}
                         </td>
 			        </tr>
 			        {% for error in field.errors %}
 			            <tr class="error">
-			                <th>Fout:</th>
+			                <th>{% translate 'error' %}:</th>
 			                <td colspan="2" class="error">{{ error }}</td>
 			            </tr>
 			        {% endfor %}
@@ -87,7 +89,7 @@
 		</div>
 		{% endfor %}
 		<div class="center">
-		    <input type="submit" value="Bewaren" name="manage" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
+		    <input type="submit" value="{% translate 'Save' %}" name="manage" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
 		</div>
 	</form>
 </div>

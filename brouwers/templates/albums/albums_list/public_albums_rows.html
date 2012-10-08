@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% for album in albums %}
 {% cycle '<div class="row">' '' '' '' %}
     {% spaceless %}
@@ -6,7 +8,7 @@
                 <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">{{ album.title|truncatechars:25 }}</a>
             </div>
             <div class="properties">
-                {{ album.photo_set.count }} foto&apos;s
+                {{ album.photo_set.count }} {% blocktrans count album.photo_set.count as counter %}photo{% plural %}photos{% endblocktrans %}
             </div>
             <a class="photo album" href="{{ album.get_absolute_url }}">
                 {% if album.cover_thumb_url %}

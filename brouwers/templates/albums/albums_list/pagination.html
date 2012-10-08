@@ -1,6 +1,8 @@
+{% load i18n %}
+
 <div class="pagination">
     {% if albums.number != 1 %}
-        <a href="?{{ page }}=1{{ extra_parameters }}" title="Eerste pagina">&laquo;</a>
+        <a href="?{{ page }}=1{{ extra_parameters }}" title="{% trans 'First page' %}">&laquo;</a>
     {% else %}
         <span>&laquo;</span>
     {% endif %}
@@ -20,7 +22,7 @@
     {% endif %}
     &nbsp;&nbsp;
     {% if albums.number != albums.paginator.num_pages %}
-        <a href="?{{ page }}={{ albums.paginator.num_pages }}{{ extra_parameters }}" title="Laatste pagina">&raquo;</a>
+        <a href="?{{ page }}={{ albums.paginator.num_pages }}{{ extra_parameters }}" title="{% trans 'Last page' %}">&raquo;</a>
     {% else %}
         <span>&raquo;</span>
     {% endif %}

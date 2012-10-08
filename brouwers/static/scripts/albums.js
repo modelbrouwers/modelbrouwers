@@ -356,6 +356,7 @@ function initSearchBox(){
         var removed = values.splice(index, 1);
         multi_select.val(values);
         showLinkedUsers();
+        return false;
     });
 }
 function showLinkedUsers()

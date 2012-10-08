@@ -1,4 +1,5 @@
 {% extends "albums/base.html" %}
+{% load i18n %}
 
 {% block extrastyle %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
@@ -31,18 +32,18 @@ $(document).ready(function() {
     /* uploadify */
     var albumId;
     var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Extra info</button>';
-    var button2 = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Voltooien</button>';
+    var button2 = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">{% trans "complete" %}</button>';
 	var photo_ids = "";
     
     $('#uploadify_input').uploadify({
         'swf'       : '{{ STATIC_URL }}scripts/uploadify.swf',
         'uploader'  : '{% url brouwers.albums.ajax_views.uploadify %}',
         'auto'      : {% if album_preferences.auto_start_uploading %}true{% else %}false{% endif %},
-        'buttonText': 'Selecteer foto\'s',
+        'buttonText': '{% trans "Browse" %}',
         'queueID'   : 'upload_queue',
         'preventCaching': true,
-        'fileSizeLimit' : '18MB',
-        'fileTypeDesc'  : 'Afbeeldingen',
+        'fileSizeLimit' : '15MB',
+        'fileTypeDesc'  : '{% trans "Images..." %}',
         'fileTypeExts'  : '*.jpeg; *.jpg; *.png; *.PNG; *.JPG; *.JPEG',
         'formData'  : {'album': 'nope'},
         'method'    : 'post',
@@ -81,9 +82,9 @@ $(document).ready(function() {
 		height: 400,
 		width: 800,
 		modal: true,
-		title: "Nieuw album",
+		title: "{% trans 'New album' %}",
 		buttons: {
-		    "Bewaren": function(){
+		    "{% trans 'Save' %}": function(){
 		        data = $('#new-album').serializeArray();
 		        $.post(
 		            url_new,
@@ -102,7 +103,7 @@ $(document).ready(function() {
 		            }
 		        );
 		    },
-		    "Annuleren": function() {
+		    "{% trans 'Cancel' %}": function() {
 		        $(this).dialog("close");
 		    }
 		}
@@ -185,22 +186,25 @@ function add_album(e){ // no longer used
 {% endblock extrascript %}
 
 {% block content %}
-<div class="tab">Upload images</div>
+<div class="tab">{% trans 'Upload images' %}</div>
 <div class="no-javascript" class="margin">
-    Je browser ondersteunt geen Javascript, wat vereist is voor deze uploader. Je kan de <a href="{% url brouwers.albums.views.upload %}">alternatieve uploader</a> gebruiken.
+    {% url brouwers.albums.views.upload as upload_url %}
+    {% blocktrans  %}Your browser doesn't support javascript, which is required for this uploader to work. You can use an <a href="{{ upload_url }}">alternative uploader</a>.{% endblocktrans %}
 </div>
 
-<div class="info margin">Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil uploaden en voeg de foto's toe. In een volgende stap kan je desgewenst een beschrijving invullen.</div>
+<div class="info margin">
+    {% blocktrans %}You can upload images on this page. Choose the album you want to upload to and select pictures. You can set some extra info on the images in the next step.{% endblocktrans %}
+</div>
 
 <div id="forms" class="margin">
 <form id="special-form">
     <table>
         <tr>
-            <th class="label">Uploaden naar</th>
+            <th class="label">{% trans 'Upload to' %}</th>
             {% spaceless %}
 			<td class="field">{{ albumform.album }} 
                 <a href="/albums/manage/#new" id="create_new_album" >
-                    <button>Nieuw album</button>
+                    <button>{% trans 'New album' %}</button>
                 </a>
             </td>
 			{% endspaceless %}
@@ -221,10 +225,10 @@ function add_album(e){ // no longer used
 <div id="uploadify">
     <input type="file" name="file_upload" id="uploadify_input" />
     <a onclick="$('#uploadify_input').uploadify('upload', '*');" id="start_upload">
-        <button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Begin upload</button></a>
+        <button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">{% trans 'Start upload' %}</button></a>
     <a id="end-upload" href="" style="display:none;"></a>
     <a id="next_step" href="" style="display:none;"></a>
-    <div class="subtitle tab" style="display: none;" id="queue-title">Upload queue</div>
+    <div class="subtitle tab" style="display: none;" id="queue-title">{% trans 'Upload queue' %}</div>
     <div id="upload_queue"></div>
 </div>
 {% endspaceless %}

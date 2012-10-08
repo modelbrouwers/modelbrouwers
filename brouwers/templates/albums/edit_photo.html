@@ -1,8 +1,9 @@
 {% extends "albums/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="tab">
-    Foto in het album <a href="{{ form.instance.album.get_absolute_url }}"><strong>{{ form.instance.album }}</strong></a>
+    {% blocktrans with album_url=form.instance.album.get_absolute_url album=form.instance.album %}Photo in the album <a href="{{ album_url }}"><strong>{{ album }}</strong></a>{% endblocktrans %}
 </div>
 <div id="edit-photo" class="margin">
     <form action="." method="POST">
@@ -11,8 +12,9 @@
         </div>
         
         {% include "form_in_table.html" %}
+        
         <div class="center clear">
-            <input type="submit" value="Bewaren" name="manage" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
+            <input type="submit" value="{% trans 'Save' %}" name="manage" class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>
         </div>
     </form>
 </div>
