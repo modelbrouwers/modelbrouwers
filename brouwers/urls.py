@@ -6,15 +6,16 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^admin/', include(admin.site.urls)),
-    (r'^albums/', include('brouwers.albums.urls')),
-    (r'^awards/', include('brouwers.awards.urls')),
+    (r'^admin/',        include(admin.site.urls)),
+    (r'^albums/',       include('brouwers.albums.urls')),
+    (r'^awards/',       include('brouwers.awards.urls')),
     (r'^secret_santa/', include('brouwers.secret_santa.urls')),
-    (r'^builds/', include('brouwers.builds.urls')),
-    (r'^ou/', include('brouwers.online_users.urls')),
-    (r'^migration/', include('brouwers.migration.urls')),
-    (r'^', include('brouwers.general.urls')),
-    (r'^i18n/', include('django.conf.urls.i18n')),
+    (r'^shirts/',       include('brouwers.shirts.urls')),
+    (r'^builds/',       include('brouwers.builds.urls')),
+    (r'^ou/',           include('brouwers.online_users.urls')),
+    (r'^migration/',    include('brouwers.migration.urls')),
+    (r'^i18n/',         include('django.conf.urls.i18n')),
+    (r'^',              include('brouwers.general.urls')),
     )
 
 ##################

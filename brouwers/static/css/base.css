@@ -276,7 +276,46 @@ div#content{
     margin-bottom: 2em;
     min-height: 400px;
 }
-
+div.tab{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    padding: 0.1em 1em 0.1em 1em;
+    margin: -1em -1em 0 -1em;
+    background-color: #EEE;
+	background: -moz-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(92%,#C7D0D7), color-stop(100%,#6F8698));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C7D0D7', endColorstr='#C7D0D7',GradientType=0 );
+	zoom: 1;
+	background-image: -o-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
+	border-right: solid 1px #CCC;
+	border-left: solid 1px #CCC;
+}
+/*** MESSAGES ***/
+div#messages{
+	margin: 1.5em 1em 1.5em 1em;
+	padding: 2px 20px 2px 20px;
+	background-color: #F9CC79;
+	border: solid 1px #BB9860;
+	color: #222;
+}
+div#messages ul, div#sidebar div.messages ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+div#messages ul.messages li{
+	font-weight: bold;
+	margin: 4px 0 4px 30px;
+}
+div#messages ul li.success{
+	list-style-image: url(/static/admin/img/icon_success.gif);
+}
+div#messages ul li.error{
+	list-style-image: url(/static/admin/img/icon_error.gif);
+	color: red;
+}
+div#messages ul li.info{
+	list-style-image: url(/static/admin/img/icon_deletelink.gif);
+}
 /*** REGISTER/LOGIN ***/
 div#login, div#register{}
 div#login form, div#register form{margin-top: 2em;}

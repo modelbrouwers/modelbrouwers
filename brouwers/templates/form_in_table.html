@@ -13,7 +13,7 @@
 <table>
 {% for field in form.visible_fields %}
     <tr>
-        <th class="label{% if field.field.required %} required{% endif %}">{{ field.label }}</th>
+        <th class="label{% if field.field.required %} required{% endif %}">{{ field.label_tag }}</th>
         <td class="field">
             {{ field }}
             {% if field.help_text %}
