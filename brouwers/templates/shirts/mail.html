@@ -1,6 +1,5 @@
 {% load i18n %}
 <p>{% blocktrans with username=order.user.get_profile.forum_nickname %}Dear {{ username }},{% endblocktrans %}</p>
-<br >
 <p>{% blocktrans with color=order.get_color_display size=order.get_size_display type=order.get_type_display date=order.order_time|date:"d-m-Y, H:i" %}This is an order confirmation for a Modelbrouwers.nl shirt with the following options: 
 color {{ color }}; size {{ size }}; type {{ type }}. The order was placed on {{ date }}{% endblocktrans %}</p>
 <p>{% blocktrans with price=order.price orderid=order.id %}To complete this order, please make a payment to Sergei Maertens on the following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br ><br >Be sure to mention your order ID: {{ orderid }}.
