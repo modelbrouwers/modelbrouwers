@@ -143,6 +143,23 @@ def set_cover(request):
     return HttpResponse()
 
 @login_required
+def delete_photo(request):
+    if request.method == "POST":
+        p_id = request.POST['photo']
+        try:
+            p_id = int(p_id)
+            if admin_mode(request.user):
+                photo = get_object_or_404(Photo, pk=p_id)
+            else:
+                photo = get_object_or_404(Photo, pk=p_id, user=request.user)
+            photo.trash = True
+            photo.save()
+            return HttpResponse(1)
+        except ValueError: #not an integer
+            pass
+    return HttpResponse()
+
+@login_required
 def reorder(request):
     form = OrderAlbumForm(request.user, request.POST)
     if form.is_valid():

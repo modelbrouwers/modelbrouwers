@@ -15,7 +15,7 @@ from utils import admin_mode
 @login_required
 def get_photos(request, album_id=None):
     album = get_object_or_404(Album, pk=album_id, user=request.user)
-    photos = Photo.objects.filter(album=album).order_by('-uploaded')
+    photos = Photo.objects.filter(album=album, trash=False).order_by('-uploaded')
     return render_to_response(request, 'albums/ajax/forum/album_photos.html', {'photos': photos})
 
 @login_required

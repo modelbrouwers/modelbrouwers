@@ -3,6 +3,7 @@ from django.db.models import Max
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext
 
@@ -110,15 +111,14 @@ class Album(models.Model):
             self.clean_title = self.title
         super(Album, self).save(*args, **kwargs)
     
-    #TODO: reverse gebruiken
     def get_absolute_url(self):
-        return "/albums/album/%s/" % self.id
+        return reverse('brouwers.albums.views.browse_album', args=[self.id])
     
     def get_cover(self):
         if self.cover:
             return self.cover
         else:
-    	    imgs = self.photo_set.all().order_by('order')
+    	    imgs = self.photo_set.filter(trash=False).order_by('order')
        	    if imgs:
                 return imgs[0]
         return None
@@ -127,7 +127,7 @@ class Album(models.Model):
     def cover_thumb_url(self):
         if self.cover:
             return u"%s" % self.cover.thumb_url
-        imgs = self.photo_set.all().order_by('order')
+        imgs = self.photo_set.filter(trash=False).order_by('order')
         if imgs:
             img = imgs[0]
             return img.thumb_url
@@ -136,7 +136,7 @@ class Album(models.Model):
     #TODO: on save, validate url to topic
     
     def number_of_photos(self):
-        return self.photo_set.count()
+        return self.photo_set.filter(trash=False).count()
     
     def set_order(self):
         max_order = Album.objects.filter(user=self.user, trash=False).aggregate(Max('order'))['order__max'] or 0
@@ -182,6 +182,7 @@ class Photo(models.Model):
     views = models.PositiveIntegerField(default=0)
     
     order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
+    trash = models.BooleanField()
     
     class Meta:
         verbose_name = _("Photo")
@@ -201,39 +202,38 @@ class Photo(models.Model):
     def __unicode__(self):
         return "image from %s in %s" % (self.user, self.album.title)
     
-    #TODO: reverse gebruiken
     def get_absolute_url(self):
-        return "/albums/photo/%s/" % self.id
+        return reverse('brouwers.albums.views.photo', args=[self.id])
     
     def get_next(self):
-    	photos = Photo.objects.filter(album=self.album, order__gt=self.order)
+    	photos = Photo.objects.filter(album=self.album, order__gt=self.order, trash=False)
     	photos = photos.order_by('order', 'id')
     	if photos:
     		return photos[0]
     	return None
     
     def get_previous(self):
-    	photos = Photo.objects.filter(album=self.album, order__lt=self.order)
+    	photos = Photo.objects.filter(album=self.album, order__lt=self.order, trash=False)
     	photos = photos.order_by('-order', '-id')
     	if photos:
     		return photos[0]
     	return None
     
     def get_next_3(self):
-        photos = Photo.objects.filter(album=self.album, order__gt=self.order).order_by('order', 'id')
+        photos = Photo.objects.filter(album=self.album, order__gt=self.order, trash=False).order_by('order', 'id')
         if photos:
             return photos[:3]
         return None
     
     def get_previous_3(self):
-        photos = Photo.objects.filter(order__lt=self.order, album=self.album).order_by('-order', '-id')
+        photos = Photo.objects.filter(order__lt=self.order, album=self.album, trash=False).order_by('-order', '-id')
         if photos:
             return photos[:3] #previous three, most recent first (use reversed in template)
         return None
     
     #TODO optimaliseren
     def url_back_3(self):
-        photos = Photo.objects.filter(id__lt=self.id, album=self.album).order_by('-order', '-id')
+        photos = Photo.objects.filter(id__lt=self.id, album=self.album, trash=False).order_by('-order', '-id')
         if photos:
             try:
                 return photos[3].get_absolute_url() #previous three, most recent first (use reversed in template)
@@ -243,7 +243,7 @@ class Photo(models.Model):
     
     #TODO optimaliseren
     def url_forward_3(self):
-        photos = Photo.objects.filter(id__gt=self.id, album=self.album).order_by('order', 'id')
+        photos = Photo.objects.filter(id__gt=self.id, album=self.album, trash=False).order_by('order', 'id')
         if photos:
             try:
                 return photos[3].get_absolute_url() #previous three, most recent first (use reversed in template)

@@ -34,6 +34,8 @@
                         {% if photo.album.user == user or user_is_album_admin %}
                         <img class="set_cover" src="{{ STATIC_URL }}images/icons/cover.png" 
                         width="24" height="24" alt="cover" title="{% trans 'set as album cover' %}"/>
+                        <img class="delete" src="{{ STATIC_URL }}images/icons/remove2.png" 
+                        width="24" height="24" alt="delete" title="{% trans 'delete photo' %}"/>
                         {% endif %}
                         
                         <img class="thumb" src="{{ photo.thumb_url }}" alt="{{ photo.id }}" 

@@ -74,8 +74,9 @@ class SoftwareVersion(models.Model):
         ('v', 'vanilla')
     )
     state = models.CharField(max_length=1, choices=VERSION_TYPES, default='v')
-    major = models.PositiveSmallIntegerField()
+    major = models.PositiveSmallIntegerField(default=1)
     minor = models.PositiveSmallIntegerField(default=0)
+    detail = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
     start = models.DateTimeField(default=datetime.now)
     end = models.DateTimeField(default=datetime.now)
     changelog = models.TextField(blank=True)
@@ -87,7 +88,8 @@ class SoftwareVersion(models.Model):
         prefix = ''
         if self.state != 'v':
             prefix = '%s-' % self.get_state_display()
-        return u"%s%s.%s" % (prefix, self.major, self.minor)
+        detail = '.' + str(self.detail) or ''
+        return u"%s%s.%s%s" % (prefix, self.major, self.minor, detail)
 
 class PasswordReset(models.Model):
     user = models.ForeignKey(User)

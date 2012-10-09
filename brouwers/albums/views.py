@@ -159,7 +159,7 @@ def download_album(request, album_id=None):
                     }
         zf = ZipFile(filename, mode='w')
         try:
-            for photo in album.photo_set.all():
+            for photo in album.photo_set.filter(trash=False):
                 f = photo.image.path
                 arcname = os.path.split(f)[1]
                 zf.write(f, arcname)
@@ -299,7 +299,7 @@ def set_extra_info(request, photo_ids=None, album=None):
         photo_ids = request.session['photo_ids']
         formset = PhotoFormSet(
             request.POST, 
-            queryset=Photo.objects.filter(id__in=photo_ids, user=request.user)
+            queryset=Photo.objects.filter(id__in=photo_ids, user=request.user, trash=False)
             )
         if formset.is_valid():
             for form in formset:
@@ -310,12 +310,12 @@ def set_extra_info(request, photo_ids=None, album=None):
         if not photo_ids:
             return HttpResponseRedirect('/albums/upload/')
         # avoid being ablo to edit someone else's photos
-        p = Photo.objects.filter(id__in = photo_ids, user=request.user)
+        p = Photo.objects.filter(id__in = photo_ids, user=request.user, trash=False)
         
         request.session['photo_ids'] = photo_ids
         formset = PhotoFormSet(queryset=p)
         photos_uploaded_now = p.count()
-        all_photos_album = album.photo_set.count()
+        all_photos_album = album.photo_set.filter(trash=False).count()
         photos_before = all_photos_album - photos_uploaded_now
         
         album_id = p[0].album.id
@@ -373,7 +373,7 @@ def browse_album(request, album_id=None):
     album.save()
     album = get_object_or_404(Album, pk=album_id)
     
-    photos = album.photo_set.all()
+    photos = album.photo_set.filter(trash=False)
     p = Paginator(photos, 32)
     
     page = request.GET.get('page', 1)
@@ -395,7 +395,7 @@ def browse_album(request, album_id=None):
 
 @login_required
 def my_last_uploads(request):
-    last_uploads = Photo.objects.filter(user=request.user).order_by('-uploaded')
+    last_uploads = Photo.objects.filter(user=request.user, trash=False).order_by('-uploaded')
     p = Paginator(last_uploads, 20)
     
     page = request.GET.get('page', 1)
@@ -478,9 +478,9 @@ def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is t
     albumform = PickAlbumForm(request.user, request.GET, browse=True)
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
-        photos = Photo.objects.filter(user=request.user, album=album)
+        photos = Photo.objects.filter(user=request.user, album=album, trash=False)
     else:
-        photos = Photo.objects.filter(user=request.user)
+        photos = Photo.objects.filter(user=request.user, trash=False)
     return render_to_response(request, 'albums/photos.html', {'photos': photos, 'albumform': albumform})
 
 
