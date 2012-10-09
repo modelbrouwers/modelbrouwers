@@ -4,7 +4,6 @@
 {% block extrastyle %}
 <style type="text/css">
     div#shirts{position:relative;}
-    div#messages{margin-right: 250px;}
     div#shirts p{margin-top:1em;}
     div#shirts p.padding{padding-right:250px;}
     img#shirt_preview{position:absolute;top:3em;right:0}
@@ -44,7 +43,7 @@ function updateImage(){
 <div class="tab">{% trans 'Shirt ordering' %}</div>
 <div class="margin" id="shirts">
     {% include "messages.html" %}
-    <p>{% blocktrans %}With this form, you can order a Modelbrouwers.nl shirt. After ordering, you will receive an e-mail with account details. You must pay the shirt to complete the order.{% endblocktrans %}</p>
+    <p class="padding">{% blocktrans %}With this form, you can order a Modelbrouwers.nl shirt. After ordering, you will receive an e-mail with account details. You must pay the shirt to complete the order.{% endblocktrans %}</p>
     <p class="padding">{% blocktrans %}If you don't wish the shirt to be mailed, the delivery of the shirt will happen on some meeting. You will be contacted for this through your e-mail.
     {% endblocktrans %}</p>
     <form action="." method="POST">
