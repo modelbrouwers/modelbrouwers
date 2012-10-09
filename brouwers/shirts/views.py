@@ -36,7 +36,7 @@ def index(request):
             }
             html_content = render_to_response(request, 'shirts/mail.html', {'order': order})
             
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [request.user.email])
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [order.user.email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
             
