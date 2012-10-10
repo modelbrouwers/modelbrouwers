@@ -239,7 +239,7 @@ def upload(request):
     PhotoFormSet = modelformset_factory(Photo, fields=('image',), extra=amount)
     
     if request.method == "POST":
-        albumform = PickAlbumForm(request.user, request.POST, user=request.user)
+        albumform = PickAlbumForm(request.user, request.POST)
         formset = PhotoFormSet(request.POST, request.FILES)
         if albumform.is_valid() and formset.is_valid():
             album = albumform.cleaned_data['album']

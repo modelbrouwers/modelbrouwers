@@ -283,7 +283,9 @@ def password_reset(request):
             
             #send email
             nickname = user.get_profile().forum_nickname
-            email = user.email
+            email = user.email 
+            if not email:
+                email = 'admins@modelbrouwers.nl'
             domain = Site.objects.get_current().domain
             url = "http://%s%s?h=%s" % (
                     domain, 
