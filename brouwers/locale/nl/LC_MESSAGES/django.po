@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-08 20:26+0200\n"
+"POT-Creation-Date: 2012-10-10 12:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: settings.py:19
 msgid "English"
-msgstr ""
+msgstr "Engels"
 
 #: settings.py:20
 msgid "Dutch"
-msgstr ""
+msgstr "Nederlands"
 
 #: albums/forms.py:18
 msgid ""
@@ -62,40 +62,40 @@ msgstr "De afbeelding kon niet gedownload worden"
 msgid "Keywords"
 msgstr "Zoektermen"
 
-#: albums/models.py:17
+#: albums/models.py:18
 msgctxt "write permissions for owner"
 msgid "owner"
 msgstr "mezelf"
 
-#: albums/models.py:18
+#: albums/models.py:19
 msgid "group"
 msgstr "groep"
 
-#: albums/models.py:19
+#: albums/models.py:20
 msgid "everyone"
 msgstr "iedereen"
 
-#: albums/models.py:23
+#: albums/models.py:24
 msgid "name"
 msgstr "naam"
 
-#: albums/models.py:24 albums/models.py:73
+#: albums/models.py:25 albums/models.py:74
 msgid "order"
 msgstr "volgorde"
 
-#: albums/models.py:26
+#: albums/models.py:27
 msgid "url"
 msgstr "link"
 
-#: albums/models.py:27
+#: albums/models.py:28
 msgid "on frontpage"
 msgstr "op de voorpagina"
 
-#: albums/models.py:28
+#: albums/models.py:29
 msgid "public"
 msgstr "publiek?"
 
-#: albums/models.py:28
+#: albums/models.py:29
 msgid ""
 "If the category is public, regular users can add their albums to the "
 "category. If it isn't, only people with admin permissions can do so."
@@ -104,77 +104,79 @@ msgstr ""
 "toevoegen. Anders kunnen enkel gebruikers met administratorrechten albums "
 "toevoegen aan deze categorie."
 
-#: albums/models.py:31 albums/models.py:54
+#: albums/models.py:32 albums/models.py:55
 msgid "category"
 msgstr "categorie"
 
-#: albums/models.py:32
+#: albums/models.py:33
 msgid "categories"
 msgstr "categorieën"
 
-#: albums/models.py:44 albums/models.py:46
+#: albums/models.py:45 albums/models.py:47
 msgid "album title"
 msgstr "albumtitel"
 
-#: albums/models.py:47
+#: albums/models.py:48
 msgid "album description"
 msgstr "beschrijving"
 
-#: albums/models.py:60
+#: albums/models.py:61
 msgid "Image to use as album cover."
 msgstr "Afbeelding voor de albumcover"
 
-#: albums/models.py:62
+#: albums/models.py:63
 msgid "cover"
 msgstr "cover"
 
-#: albums/models.py:68 albums/models.py:181
+#: albums/models.py:69 albums/models.py:181
 msgid "last modified"
 msgstr "laatst gewijzigd"
 
-#: albums/models.py:75
+#: albums/models.py:76
 msgid "Public?"
 msgstr "Publiek?"
 
-#: albums/models.py:76
+#: albums/models.py:77
 msgid ""
 "Can this album be viewed by everyone? Untick to make the album available "
 "only to yourself."
 msgstr ""
+"Is dit album zichtbaar voor iedereen? Vink uit om het album enkel voor jezelf "
+"zichtbaar te maken."
 
-#: albums/models.py:82
+#: albums/models.py:83
 msgid "build report"
 msgstr "brouwverslag"
 
-#: albums/models.py:84
+#: albums/models.py:85
 msgid "Link to the forumtopic of the build."
 msgstr "Link naar het topic van de bouw."
 
-#: albums/models.py:87
+#: albums/models.py:88
 msgid "appreciation"
 msgstr ""
 
-#: albums/models.py:89
+#: albums/models.py:90
 msgid "writable to"
 msgstr "schrijfbaar voor"
 
-#: albums/models.py:94 albums/models.py:149
+#: albums/models.py:95 albums/models.py:149
 msgid "album"
 msgstr "album"
 
-#: albums/models.py:95
+#: albums/models.py:96
 msgid "albums"
 msgstr "albums"
 
-#: albums/models.py:100
+#: albums/models.py:101
 msgid "Can edit/remove album"
 msgstr "Kan album bewerken/verwijderen"
 
-#: albums/models.py:101
+#: albums/models.py:102
 msgid "Can see all albums"
 msgstr "Kan alle albums zien"
 
-#: albums/models.py:102
+#: albums/models.py:103
 msgid "Can use new albums"
 msgstr "Kan nieuwe albums gebruiken"
 
@@ -219,11 +221,11 @@ msgstr "foto"
 msgid "photo description"
 msgstr "beschrijving"
 
-#: albums/models.py:187
+#: albums/models.py:188
 msgid "Photo"
 msgstr "Foto"
 
-#: albums/models.py:188
+#: albums/models.py:189
 msgid "Photos"
 msgstr "Foto's"
 
@@ -235,11 +237,11 @@ msgstr "Meerdere bestanden tegelijk"
 msgid "Basic"
 msgstr "Beperkt"
 
-#: albums/models.py:325
+#: albums/models.py:325 shirts/models.py:20
 msgid "Black"
 msgstr "Zwart"
 
-#: albums/models.py:326
+#: albums/models.py:326 shirts/models.py:19
 msgid "White"
 msgstr "Wit"
 
@@ -293,56 +295,56 @@ msgstr "Als dit aangevinkt is kan je alle albums zien en bewerken."
 msgid "collapse sidebar"
 msgstr "standaard ingeklapte zijbalk"
 
-#: albums/models.py:357
+#: albums/models.py:358
 msgid "sidebar background color"
 msgstr "Achtergrondkleur"
 
-#: albums/models.py:359
+#: albums/models.py:360
 msgid "Background for the overlay in the board."
 msgstr "Achtergrondkleur voor de zijbalk in het antwoordscherm."
 
-#: albums/models.py:362
+#: albums/models.py:363
 msgid "transparent background?"
 msgstr "achtergrond transparant?"
 
-#: albums/models.py:363
+#: albums/models.py:364
 msgid "sidebar text color"
 msgstr "tekstkleur"
 
-#: albums/models.py:364
+#: albums/models.py:365
 msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
 msgstr "Tekstkleur in de zijbalk. HTML kleurcodes worden aanvaard."
 
-#: albums/models.py:366
+#: albums/models.py:367
 msgid "sidebar width"
 msgstr "Breedte"
 
-#: albums/models.py:367
+#: albums/models.py:368
 msgid "Width of the sidebar. E.g. '30%' or '300px'."
 msgstr ""
 "Breedte van de zijbalk, in pixels of procent. Bijvoorbeeld: '300px' of '20%'"
 
-#: albums/models.py:371
+#: albums/models.py:372
 msgid "User preferences"
 msgstr "Gebruikersinstellingen"
 
-#: albums/models.py:404
+#: albums/models.py:405
 msgid "user who downloaded the album"
 msgstr "gebruiker die het album downloadde"
 
-#: albums/models.py:405
+#: albums/models.py:406
 msgid "timestamp"
 msgstr "tijdstip"
 
-#: albums/models.py:409
+#: albums/models.py:410
 msgid "album download"
 msgstr "albumdownload"
 
-#: albums/models.py:410
+#: albums/models.py:411
 msgid "album downloads"
 msgstr "albumdownloads"
 
-#: albums/models.py:414
+#: albums/models.py:415
 #, python-format
 msgid "Download of %(album)s by %(username)s"
 msgstr "Download van %(album)s door %(username)s"
@@ -581,32 +583,32 @@ msgstr ""
 msgid "Question which must be answered for registration."
 msgstr "Vraag die beantwoord moet worden voor de registratie"
 
-#: general/models.py:94
+#: general/models.py:96
 msgid "hash"
 msgstr "hash"
 
-#: general/models.py:95
+#: general/models.py:97
 msgid "expire datetime"
 msgstr "vervaldatum"
 
-#: general/models.py:98
+#: general/models.py:100
 msgid "password reset"
 msgstr "Wachtwoord reset"
 
-#: general/models.py:99
+#: general/models.py:101
 msgid "password resets"
 msgstr "Wachtwoord resets"
 
-#: general/models.py:104
+#: general/models.py:106
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr "Wachtwoord reset voor %(user)s"
 
-#: general/models.py:108
+#: general/models.py:110
 msgid "path from"
 msgstr "pad van"
 
-#: general/models.py:110
+#: general/models.py:112
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
@@ -614,19 +616,19 @@ msgstr ""
 "pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
 "shop/' wordt 'shop/'"
 
-#: general/models.py:114
+#: general/models.py:116
 msgid "redirect to"
 msgstr "redirect naar"
 
-#: general/models.py:115
+#: general/models.py:117
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr "Pad (relatief of absoluut tot de website root) of url."
 
-#: general/models.py:119
+#: general/models.py:121
 msgid "redirect"
 msgstr "omleiding"
 
-#: general/models.py:120
+#: general/models.py:122
 msgid "redirects"
 msgstr "omleidingen"
 
@@ -696,6 +698,110 @@ msgstr "gevolgde gebruiker"
 msgid "tracked users"
 msgstr "gevolgde gebruikers"
 
+#: shirts/models.py:15
+msgid "Standard"
+msgstr "Standaard"
+
+#: shirts/models.py:16
+msgid "Girlie"
+msgstr "Girlie"
+
+#: shirts/models.py:24
+msgid "size"
+msgstr "maat"
+
+#: shirts/models.py:25
+msgid "type"
+msgstr "type"
+
+#: shirts/models.py:26
+msgid "color"
+msgstr "kleur"
+
+#: shirts/models.py:27
+msgid "mail the shirt"
+msgstr "shirt opsturen"
+
+#: shirts/models.py:27
+msgid ""
+"Mailing the shirt will add 8 euros to the costs and you need to fill in your "
+"address data in your profile."
+msgstr ""
+"Opsturen van het shirt voegt 8 euro toe aan de prijs en je moet je "
+"adresgegevens invullen in je profiel."
+
+#: shirts/models.py:28
+msgid "moderator shirt"
+msgstr "moderatorshirt"
+
+#: shirts/models.py:28
+msgid "Check this box if you want the moderator shirt. Moderators only!"
+msgstr "Vink dit aan als je een moderatorshirt wenst. Enkel voor mods!"
+
+#: shirts/models.py:31
+msgid "order time"
+msgstr "besteltijd"
+
+#: shirts/models.py:32
+msgid "payment received"
+msgstr "betaling ontvangen"
+
+#: shirts/models.py:35
+msgid "shirt order"
+msgstr "shirtbestelling"
+
+#: shirts/models.py:36
+msgid "shirt orders"
+msgstr "shirtbestellingen"
+
+#: shirts/views.py:12
+#, python-format
+msgid ""
+"Dear %(username)s,\n"
+"\n"
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: color %(color)s; size %(size)s; type %(type)s. The order "
+"was placed on %(date)s.\n"
+"\n"
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account: \n"
+"IBAN: BE47 1325 1771 2380\n"
+"BIC: BNAG BE BB.\n"
+"Be sure to mention your order ID: %(orderid)s.\n"
+"\n"
+"The price for this order is %(price)s euros.\n"
+"\n"
+"\n"
+"Sincerely,\n"
+"Sergei Maertens\n"
+msgstr ""
+"Beste %(username)s,\n"
+"\n"
+"Dit is een bevesting van je Modelbrouwers.nl shirt bestelling met de volgende "
+"opties: kleur %(color)s; maar %(size)s; type %(type)s. De bestelling werd "
+"geplaatst op %(date)s.\n"
+"\n"
+"Om deze bestelling te voltooien moet je nog een betaling overmaken aan Sergei "
+"Maertens naar de volgende rekening: \n"
+"IBAN: BE47 1325 1771 2380\n"
+"BIC: BNAG BE BB.\n"
+"Vergeet niet het ID van je bestelling te vermelden: %(orderid)s.\n"
+"\n"
+"De totaalprijs voor deze bestelling bedraagt %(price)s euro.\n"
+"\n"
+"\n"
+"Met vriendelijke groet,\n"
+"Sergei Maertens\n"
+
+#: shirts/views.py:27
+msgid "Modelbrouwers.nl shirt order"
+msgstr "Modelbrouwers.nl shirtbestelling"
+
+#: shirts/views.py:43
+#, python-format
+msgid "You have placed order %(orderid)s"
+msgstr "Je hebt bestelling %(orderid)s geplaatst."
+
 #: templates/pagination.html:5 templates/albums/my_last_uploads.html:35
 #: templates/albums/albums_list/pagination.html:5
 msgid "First page"
@@ -709,6 +815,18 @@ msgstr "van"
 #: templates/albums/albums_list/pagination.html:25
 msgid "Last page"
 msgstr "Laatste pagina"
+
+#: templates/admin/base_site.html:4
+msgid "Modelbrouwers.nl admin"
+msgstr "Modelbrouwers.nl administratie"
+
+#: templates/admin/base_site.html:7
+msgid "administration"
+msgstr "administratie"
+
+#: templates/admin/base_site.html:17
+msgid "Find a member"
+msgstr "Zoek een forumlid"
 
 #: templates/albums/album_li.html:20
 #: templates/albums/albums_list/albums_rows.html:17
@@ -838,7 +956,11 @@ msgstr "Brouwverslag"
 msgid "set as album cover"
 msgstr "instellen als albumcover"
 
-#: templates/albums/browse_album.html:63
+#: templates/albums/browse_album.html:38
+msgid "delete photo"
+msgstr "foto verwijderen"
+
+#: templates/albums/browse_album.html:65
 msgid "download album (.zip)"
 msgstr "album downloaden (.zip)"
 
@@ -1015,3 +1137,77 @@ msgid "photo"
 msgid_plural "photos"
 msgstr[0] "foto"
 msgstr[1] "foto's"
+
+#: templates/shirts/base.html:43
+msgid "Shirt ordering"
+msgstr "Shirt bestellen"
+
+#: templates/shirts/base.html:46
+msgid ""
+"With this form, you can order a Modelbrouwers.nl shirt. After ordering, you "
+"will receive an e-mail with account details. You must pay the shirt to "
+"complete the order."
+msgstr ""
+"Met dit formulier bestel je een Modelbrouwers.nl shirt. Na het plaatsen van "
+"de bestelling ontvang je een e-mail met de rekeninggegevens. Je moet het shirt"
+" betalen om de bestelling te voltooien."
+
+#: templates/shirts/base.html:47
+msgid ""
+"If you don't wish the shirt to be mailed, the delivery of the shirt will "
+"happen on some meeting. You will be contacted for this through your e-mail.\n"
+"    "
+msgstr ""
+"Als je het shirt niet wenst te ontvangen per post, dan zal het afleveren op "
+"een of andere meeting gebeuren. Er zal contact opgenomen worden via e-mail om "
+"dit vast te leggen."
+
+#: templates/shirts/base.html:52
+msgid "Place order"
+msgstr "Bestelling plaatsen"
+
+#: templates/shirts/base.html:56
+msgid ""
+"Note: the preview of the shirt is a mock-up. The actual shirt may be "
+"slightly different."
+msgstr ""
+"Opmerking: het voorbeeld van de shirts is een mock-up. Het eigenlijke shirt "
+"kan lichtjes anders zijn."
+
+#: templates/shirts/mail.html:2
+#, python-format
+msgid "Dear %(username)s,"
+msgstr "Beste %(username)s,"
+
+#: templates/shirts/mail.html:3
+#, python-format
+msgid ""
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: \n"
+"color %(color)s; size %(size)s; type %(type)s. The order was placed on "
+"%(date)s"
+msgstr ""
+"Dit is een bevesting van een Modelbrouwers.nl shirtbestelling met de volgende "
+"opties: \n"
+"kleur %(color)s; maat %(size)s; type %(type)s. De bestelling werd geplaatst "
+"op %(date)s"
+
+#: templates/shirts/mail.html:5
+#, python-format
+msgid ""
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br "
+"><br >Be sure to mention your order ID: %(orderid)s.\n"
+"<br >\n"
+"The price for this order is %(price)s euros."
+msgstr ""
+"Om de bestelling te voltooien moet je het verschuldigde bedrag overmaken aan "
+"Sergei Maertens op de volgende rekening:<br >"
+"IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br "
+"><br >Vergeet niet om je bestellings ID te vermelden: %(orderid)s.\n"
+"<br >\n"
+"De totaalprijs voor deze bestelling is %(price)s euro."
+
+#: templates/shirts/mail.html:9
+msgid "Sincerely,<br >Sergei Maertens"
+msgstr "Met vriendelijke groet,<br >Sergei Maertens"
