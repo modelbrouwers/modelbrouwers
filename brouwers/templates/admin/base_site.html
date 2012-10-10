@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Modelbrouwers.nl admin' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="/"><img src="{{ STATIC_URL }}images/logo/logo_modelbrouwers.png" alt="Modelbrouwers.nl" width="182" height="30"/></a> {% trans 'administration' %}</h1>
+{% endblock %}
+
+{% block extrahead %}
+<link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" />
+{% endblock %}
+
+{% block userlinks %}
+{{ block.super }}
+<br />
+<a href="/phpBB3/viewforum.php?f=39" target="_blank">Moddeel</a> &bull; <a href="/phpBB3/" target="_blank">Forum</a> &bull; <a href="/shop/catalog/" target="_blank">Shop</a> &bull; <a href="/albums/" target="_blank">Albums</a> &bull; <a href="/phpBB3/memberlist.php?mode=searchuser" target="_blank">{% trans 'Find a member' %}</a>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
