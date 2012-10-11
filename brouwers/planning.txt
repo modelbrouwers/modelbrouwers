@@ -1,9 +1,9 @@
 *Software*
 
 - Albums:
-	+ groepsrechten
-	+ tekst BCC's valt buiten kot -> kleiner/korter maken (description: 0.7em; titel: 0.75em)
 	+ Album beschrijving wordt niet getoond op pagina album
+	+ Sorteren foto's
+	+ Knop aan BBCodelijst toevoegen om sidebar te verbergen/tonen
 
 - Bestelformulier brouwersshirts
 
