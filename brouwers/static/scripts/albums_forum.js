@@ -87,9 +87,9 @@ function loadSidebar(){
                     }
                     toggleSidebar();
                 }
-                //if (json["hide"]){
+                if (json["hide"]){
                     toggleSidebar(true);
-                //}
+                }
             }
         }
     );
