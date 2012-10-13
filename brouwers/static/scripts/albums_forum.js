@@ -138,7 +138,6 @@ function fixVerticalCenter(){
 }
 function toggleSidebar(hide_completely){
     var sidebar = $('#albums-sidebar');
-    console.log(hide_completely);
     if (hide_completely){
     	if (!sidebar.hasClass('hidden')){
 			sidebar.addClass('hidden');
@@ -165,6 +164,7 @@ function toggleSidebar(hide_completely){
         }
         $('#control_icon').attr('src', close_icon);
     }
+    return false;
 }
 function insertAtCaret(areaId,text) {
     var txtarea = document.getElementById(areaId);
