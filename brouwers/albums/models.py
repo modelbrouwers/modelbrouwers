@@ -352,8 +352,14 @@ The basic uploader has a file field for each image."""
     apply_admin_permissions = models.BooleanField(help_text=_("When checked, you will see all the albums and be able to edit them."))
     
     #sidebar settings
-    collapse_sidebar = models.BooleanField(_("collapse sidebar"), default=True)
-#    hide_sidebar = models.BooleanField(_("hide sidebar"), default=False, help_text=_("Don't show the sidebar at all"))
+    collapse_sidebar = models.BooleanField(
+        _("collapse sidebar"), default=True, 
+        help_text=_("Show the sidebar as closed when typing a post.")
+        )
+    hide_sidebar = models.BooleanField(
+        _("hide sidebar"), default=False, 
+        help_text=_("Hide the sidebar completely when typing a post and activate it with a button.")
+        )
     sidebar_bg_color = models.CharField(
         _("sidebar background color"), 
         max_length=7, blank=True, 

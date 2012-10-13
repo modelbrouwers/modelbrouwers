@@ -2,6 +2,7 @@ var sidebar_html = "<div id=\"albums-sidebar\" class=\"opened initial\"></div>";
 var restore_icon = '/static/images/icons/open.png';
 var close_icon = '/static/images/icons/close.png';
 var prev_width = 0;
+var sidebar_button = ' <input type="button" class="btnbbcode" accesskey="s" value="Foto\'s invoegen" onclick="toggleSidebar(true);toggleSidebar();" /><span style="color:red;font-weight:bold;font-size:1em;"><sup>nieuw!</sup></span>';
 
 $(document).ready(function(){
     // sidebar loading etc.
@@ -14,6 +15,7 @@ function loadSidebar(){
     $('textarea[name="message"]').attr('id','id-textarea-post');
     $('#wrapfooter').after(sidebar_html);
     var sidebar = $("#albums-sidebar");
+    $('input.btnbbcode:last').after(sidebar_button);
     
     $.get(
         '/albums/sidebar/',
@@ -85,9 +87,9 @@ function loadSidebar(){
                     }
                     toggleSidebar();
                 }
-                /*if (json["hide"]){
-                    sidebar.width('1px');
-                }*/
+                //if (json["hide"]){
+                    toggleSidebar(true);
+                //}
             }
         }
     );
@@ -134,8 +136,18 @@ function fixVerticalCenter(){
         }
     });
 }
-function toggleSidebar(){
+function toggleSidebar(hide_completely){
     var sidebar = $('#albums-sidebar');
+    console.log(hide_completely);
+    if (hide_completely){
+    	if (!sidebar.hasClass('hidden')){
+			sidebar.addClass('hidden');
+			sidebar.hide();
+		} else {
+		    sidebar.removeClass('hidden');
+		    sidebar.show();
+		}
+    }
     if (sidebar.hasClass('opened')){
         sidebar.removeClass('opened');
         sidebar.addClass('closed');

@@ -258,6 +258,7 @@ div.album-column a.photo{
 #album_list{
     margin-bottom: 2em;
 }
+#new-album #id_writable_to{width:7em;}
 /* sortable stuff, with ul and li */
 ul#personal-albums, ul.my-albums-list, ul.other-albums-list{
     list-style-type: none;
@@ -677,3 +678,5 @@ div.ui-widget-header{
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+/*** PREFERENCES ***/
+#id_row_collapse_sidebar th, #id_row_collapse_sidebar td{padding-top: 2em;}

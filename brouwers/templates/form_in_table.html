@@ -12,7 +12,7 @@
 
 <table>
 {% for field in form.visible_fields %}
-    <tr>
+    <tr id="id_row_{{ field.name }}">
         <th class="label{% if field.field.required %} required{% endif %}">{{ field.label_tag }}</th>
         <td class="field">
             {{ field }}

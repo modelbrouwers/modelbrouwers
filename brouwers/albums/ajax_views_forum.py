@@ -28,7 +28,7 @@ def get_sidebar_options(request):
     p = Preferences.get_or_create(request.user)
     options = {}
     options['collapse'] = p.collapse_sidebar
-    #options['hide'] = p.hide_sidebar
+    options['hide'] = p.hide_sidebar
     options['transparent'] = p.sidebar_transparent
     options['text_color'] = p.text_color
     options['background_color'] = p.sidebar_bg_color
