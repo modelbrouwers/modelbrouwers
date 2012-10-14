@@ -19,4 +19,7 @@ def user_is_album_admin(request):
     return {'user_is_album_admin': is_album_admin}
 
 def connection(request):
-    return {'connection': _connection}
+    total_time = 0.0
+    for query in _connection.queries:
+        total_time += float(query.get('time', 0))
+    return {'connection': _connection, 'queries_time': total_time}

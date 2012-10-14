@@ -108,7 +108,7 @@ naar de Modelbrouwers.nl homepage"/></a>
             {% if user.is_superuser %}
             <div id="debug">
             {% block queries %}
-                Total: {{ connection.queries|length }}
+                Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
                 <ol>
 	            {% for query in connection.queries %}
 		            <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
