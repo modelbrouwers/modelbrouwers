@@ -75,16 +75,65 @@ def migrate_albums(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):
-    p = None
-    if request.method == "POST":
-        form = PhotoMigrationForm(request.POST)
-        if form.is_valid():
-            start = form.cleaned_data['start']
-            end = form.cleaned_data['end']
-            pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False)[start:end]
-            p = []
-            albums = []
-            for picture in pictures:
+    pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False)
+    if pictures.count() > 12000:
+        pictures = pictures[10000:12000]
+    elif pictures.count() > 1000:
+        pictures = pictures[:1000]
+    
+    p = []
+    albums = []
+    for picture in pictures:
+        try:
+            album = picture.album.new_album
+            user = picture.owner.django_user
+            if album and user:
+                if picture.title:
+                    description = picture.title
+                else:
+                    description = ''
+                if picture.caption:
+                    if description:
+                        description += ' %s' % picture.caption
+                    else:
+                        description = picture.caption
+                if len(description) > 500:
+                    description = description[:500]
+                
+                # media/albums/<userid>/<albumid>/filename
+                base = "albums/%(userid)s/%(albumid)s/%(filename)s"
+                filepath = base % {
+                    'userid': user.id,
+                    'albumid': album.id,
+                    'filename': picture.filename
+                }
+                filepath2 = base % {
+                    'userid': user.id,
+                    'albumid': album.id,
+                    'filename': "thumb_" + picture.filename
+                }
+                
+                src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
+                src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + picture.filename
+                #src = settings.MEDIA_ROOT + 'albums/test.jpg'
+                #src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
+                target = settings.MEDIA_ROOT + filepath
+                target2 = settings.MEDIA_ROOT + filepath2
+                
+                if not os.path.lexists(target):
+                    if not os.path.isdir(os.path.dirname(target)):
+                        os.makedirs(os.path.dirname(target))
+                    os.symlink(src, target)
+                    os.symlink(src2, target2)
+                
+                new_photo = Photo(
+                    user = user,
+                    album = album,
+                    width = picture.pwidth,
+                    height = picture.pheight,
+                    image = filepath,
+                    description = description
+                )
                 try:
                     album = picture.album.new_album
                     user = picture.owner.django_user

@@ -211,7 +211,7 @@ class RequestPasswordResetForm(forms.Form):
     def get_user(self):
         forum_nickname = self.cleaned_data['forum_nickname']
         if forum_nickname:
-            user = User.objects.get(userprofile__forum_nickname__iexact=forum_nickname)
+            user = User.objects.get(userprofile__forum_nickname__iexact=forum_nickname, is_active=True)
         else:
             email = self.cleaned_data['email']
             user = User.objects.get(email__iexact=email)
