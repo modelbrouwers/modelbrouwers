@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import UserCreationForm
@@ -267,6 +268,8 @@ def password_reset(request):
         form = RequestPasswordResetForm(request.POST)
         if form.is_valid():
             user = form.get_user()
+            if not user.is_active:
+                messages.warning(request, _("Your account is still inactive! You won't be able to log in until you reactivate with the link sent by e-mail."))
             expire = datetime.now() + timedelta(days=1)
             variable_part = expire.strftime("%Y-%m-%d %H:%i:%s") + str(int(random.random() * 10))
             h = sha_constructor(settings.SECRET_KEY + variable_part).hexdigest()[:24]
@@ -313,6 +316,7 @@ The Modelbrouwers.nl staff""" % {
             msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
+            messages.success(request, _("An e-mail was sent to '%(email)s' with a link to reset your pasword.") % {'email': email})
             return HttpResponseRedirect(reverse(custom_login))
     else:
         form = RequestPasswordResetForm()

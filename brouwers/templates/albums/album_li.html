@@ -17,7 +17,7 @@
     </div>
     
     <div class="properties">
-        {% blocktrans count counter=album.photo_set.count %}1 photo{% plural %}{{ counter }} photos{% endblocktrans %} &#45; {{ album.views }} views
+        {% blocktrans count counter=album.number_of_photos %}1 photo{% plural %}{{ counter }} photos{% endblocktrans %} &#45; {{ album.views }} views
     </div>
     
     {% spaceless %}

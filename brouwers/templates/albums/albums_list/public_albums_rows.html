@@ -8,20 +8,22 @@
                 <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">{{ album.title|truncatechars:25 }}</a>
             </div>
             <div class="properties">
-                {{ album.photo_set.count }} {% blocktrans count album.photo_set.count as counter %}photo{% plural %}photos{% endblocktrans %}
+                {% blocktrans count album.number_of_photos as counter %}1 photo{% plural %}{{ counter }} photos{% endblocktrans %}
             </div>
+            {% with coverdata=album.get_cover_data %}
             <a class="photo album" href="{{ album.get_absolute_url }}">
                 {% if album.cover_thumb_url %}
-                    <img class="thumb" src="{{ album.cover_thumb_url }}" 
-                    width="{{ album.get_cover.get_thumb_width }}" 
-                    height="{{ album.get_cover.get_thumb_height }}" alt="thumb"/>
+                    <img class="thumb" src="{{ coverdata.thumb_url }}" 
+                    width="{{ coverdata.width }}" 
+                    height="{{ coverdata.height }}" alt="thumb"/>
                 {% endif %}
             </a>
+            {% endwith %}
             <div class="properties">
                 {{ album.views }} views
                 {% if not total %}
                     <br />
-                    <a href="{{ album.user.get_absolute_url }}">{{ album.user.get_profile.forum_nickname }}</a>
+                    <a href="{{ album.user.get_absolute_url }}">{{ album.get_username }}</a>
                 {% endif %}
             </div>
         </div>

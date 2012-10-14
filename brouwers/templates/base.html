@@ -70,6 +70,10 @@ naar de Modelbrouwers.nl homepage"/></a>
             {% block important_message %}
             {% endblock %}
             
+            {% block messages %}
+                {% include "messages.html" %}
+            {% endblock %}
+            
             <div id="menu_wrapper">
                 <ul id="menu">
                     {% block menu %}
@@ -94,7 +98,6 @@ naar de Modelbrouwers.nl homepage"/></a>
             
             {% block above_content %}
             {% endblock %}
-            
             <!-- start content -->
             <div id="content">
             {% block content %}
@@ -102,6 +105,18 @@ naar de Modelbrouwers.nl homepage"/></a>
             {% endblock content %}
             </div>
             <!-- end content -->
+            {% if user.is_superuser %}
+            <div id="debug">
+            {% block queries %}
+                Total: {{ connection.queries|length }}
+                <ol>
+	            {% for query in connection.queries %}
+		            <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
+	            {% endfor %}
+	            </ol>
+            {% endblock %}
+            </div>
+            {% endif %}
         </div>
         <!-- end content wrapper -->
         

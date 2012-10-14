@@ -1,5 +1,6 @@
 from models import Preferences
 from utils import admin_mode
+from django.db import connection as _connection
 
 def preferences(request):
     try:
@@ -16,3 +17,6 @@ def user_is_album_admin(request):
     except TypeError: #anonymous user
         pass
     return {'user_is_album_admin': is_album_admin}
+
+def connection(request):
+    return {'connection': _connection}

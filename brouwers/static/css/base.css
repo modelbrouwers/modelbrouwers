@@ -172,7 +172,7 @@ div#logo div.right{
 	-khtml-border-radius: 6px;
 	-moz-border-radius: 6px;
 }
-div#announcement{
+div#logo div#announcement{
     float: left;
     max-width: 350px;
     min-width: 300px;
@@ -180,6 +180,7 @@ div#announcement{
     font-size: 0.8em;
     margin-left: 1em;
     margin-top: 2em;
+    height: 60px;
 }
 div#announcement div{
     position: absolute;
@@ -291,11 +292,12 @@ div.tab{
 }
 /*** MESSAGES ***/
 div#messages{
-	margin: 1.5em 1em 1.5em 1em;
+	margin: 0.1em 0 0.5em 0;
 	padding: 2px 20px 2px 20px;
 	background-color: #F9CC79;
 	border: solid 1px #BB9860;
-	color: #222;
+	color: #333;
+	font-size: 0.9em;
 }
 div#messages ul, div#sidebar div.messages ul{
 	margin: 0;
@@ -315,6 +317,13 @@ div#messages ul li.error{
 }
 div#messages ul li.info{
 	list-style-image: url(/static/admin/img/icon_deletelink.gif);
+}
+div#messages ul li.warning{
+    padding: 0;
+    list-style-image: url(/static/admin/img/icon_alert.gif);
+    background: none;
+    border: none;
+    color: auto;
 }
 /*** REGISTER/LOGIN ***/
 div#login, div#register{}

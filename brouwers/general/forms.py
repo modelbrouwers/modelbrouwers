@@ -140,11 +140,6 @@ class ForumAccountForm(forms.Form):
         u = self.get_usermigration()
         if not u:
             raise forms.ValidationError(_("Deze gebruiker bestaat niet op het forum. Controleer op typfouten."))
-        #try:
-        #    username = u.username.replace(' ', '_')
-        #    user = User.objects.get(username=username)
-        #except User.DoesNotExist:
-        #    raise forms.ValidationError("Je bent aan het foefelen... dit wordt gelogd!")
         return self.cleaned_data['forum_nickname']
     
     def clean(self): #TODO: loggen foutieve ingaves
@@ -211,7 +206,7 @@ class RequestPasswordResetForm(forms.Form):
     def get_user(self):
         forum_nickname = self.cleaned_data['forum_nickname']
         if forum_nickname:
-            user = User.objects.get(userprofile__forum_nickname__iexact=forum_nickname, is_active=True)
+            user = User.objects.get(userprofile__forum_nickname__iexact=forum_nickname)
         else:
             email = self.cleaned_data['email']
             user = User.objects.get(email__iexact=email)

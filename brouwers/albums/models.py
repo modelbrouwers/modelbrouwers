@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext
 
 from brouwers.general.models import OrderedUser
+from brouwers.general.utils import get_username as _get_username
 
 from datetime import date, datetime
 import os, re
@@ -118,22 +119,37 @@ class Album(models.Model):
         if self.cover:
             return self.cover
         else:
-    	    imgs = self.photo_set.filter(trash=False).order_by('order')
+    	    imgs = self.photo_set.filter(trash=False).order_by('order')[:1]
        	    if imgs:
-                return imgs[0]
+       	        img = imgs[0]
+       	        self.cover = img # save the cover to perform optimalization if no cover is set
+       	        self.save()
+       	        return img
         return None
     
+    def get_username(self):
+        return _get_username(self)
+    
+    #TODO: fix in templates with get_cover_data, now deprecated
     @property
     def cover_thumb_url(self):
-        if self.cover:
-            return u"%s" % self.cover.thumb_url
-        imgs = self.photo_set.filter(trash=False).order_by('order')
-        if imgs:
-            img = imgs[0]
+        img = self.get_cover()
+        if img:
             return img.thumb_url
-        else: #no photo's in album
-            return None
-    #TODO: on save, validate url to topic
+        return None
+    
+    def get_cover_data(self):
+        cover = self.get_cover()
+        data = {'cover': cover}
+        if cover:
+            data['width'] = cover.get_thumb_width()
+            data['height'] = cover.get_thumb_height()
+            data['width_200'] = cover.get_thumb_width_200()
+            data['height_150'] = cover.get_thumb_height_150()
+            data['width_100'] = cover.get_thumb_width_100()
+            data['height_75'] = cover.get_thumb_height_75()
+            data['thumb_url'] = cover.thumb_url
+        return data
     
     def number_of_photos(self):
         return self.photo_set.filter(trash=False).count()
@@ -204,6 +220,9 @@ class Photo(models.Model):
     
     def get_absolute_url(self):
         return reverse('brouwers.albums.views.photo', args=[self.id])
+    
+    def get_username(self):
+        return _get_username(self)
     
     def get_next(self):
     	photos = Photo.objects.filter(album=self.album, order__gt=self.order, trash=False)

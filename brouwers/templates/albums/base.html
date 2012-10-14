@@ -73,6 +73,7 @@
 
 {% block above_content %}
 {% if spotlight_albums %}
+<!-- start spotlight banner -->
 <div id="spotlight">
     <ul class="albums-list">
         {% for album in spotlight_albums %}
@@ -112,6 +113,7 @@
         {% endfor %}
     </ul>
 </div>
+<!-- end spotlight banner -->
 {% endif %}
 {% endblock %}
 
@@ -142,7 +144,7 @@
 					<div class="properties">
 						{{ photo.views }} views
 						<br />
-						<a href="{{ photo.user.get_absolute_url }}">{{ photo.user.username }}</a>
+						<a href="{{ photo.user.get_absolute_url }}">{{ photo.get_username }}</a>
 					</div>
 				</div>
 				{% endspaceless %}

@@ -21,7 +21,7 @@ import os
 #          BASE           #
 ###########################
 def index(request):
-    albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-created')[:20]
+    albums = Album.objects.select_related('user', 'user__userprofile', 'cover').filter(trash=False, public=True).order_by('-last_upload', '-created')[:20]
     spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
     if spotlight_albums.count() > 2:
         spotlight_albums = spotlight_albums[:3]
@@ -30,7 +30,7 @@ def index(request):
     if len(albums) % 4 != 0:
         needs_closing_tag_row_albums = True
     
-    last_uploads = Photo.objects.filter(album__public=True).order_by('-uploaded')
+    last_uploads = Photo.objects.select_related('user', 'user__userprofile').filter(album__public=True).order_by('-uploaded')
     amount_last_uploads = last_uploads.count()
     if  amount_last_uploads < 20 and amount_last_uploads % 5 != 0:
         needs_closing_tag_row = True
