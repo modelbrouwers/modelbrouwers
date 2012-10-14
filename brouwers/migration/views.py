@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from brouwers.general.models import UserProfile
 from brouwers.general.shortcuts import render_to_response
 from models import *
+from forms import PhotoMigrationForm
 from brouwers.albums.models import Album, Photo
 import os
 
@@ -74,81 +75,86 @@ def migrate_albums(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):
-    pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False)
-    if pictures.count() > 10000:
-        pictures = pictures[:10000]
-    
-    p = []
-    albums = []
-    for picture in pictures:
-        try:
-            album = picture.album.new_album
-            user = picture.owner.django_user
-            if album and user:
-                if picture.title:
-                    description = picture.title
-                else:
-                    description = ''
-                if picture.caption:
-                    if description:
-                        description += ' %s' % picture.caption
-                    else:
-                        description = picture.caption
-                if len(description) > 500:
-                    description = description[:500]
-                
-                # media/albums/<userid>/<albumid>/filename
-                base = "albums/%(userid)s/%(albumid)s/%(filename)s"
-                filepath = base % {
-                    'userid': user.id,
-                    'albumid': album.id,
-                    'filename': picture.filename
-                }
-                filepath2 = base % {
-                    'userid': user.id,
-                    'albumid': album.id,
-                    'filename': "thumb_" + picture.filename
-                }
-                
-                src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
-                src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + picture.filename
-                #src = settings.MEDIA_ROOT + 'albums/test.jpg'
-                #src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
-                target = settings.MEDIA_ROOT + filepath
-                target2 = settings.MEDIA_ROOT + filepath2
-                
-                if not os.path.lexists(target):
-                    if not os.path.isdir(os.path.dirname(target)):
-                        os.makedirs(os.path.dirname(target))
-                    os.symlink(src, target)
-                    os.symlink(src2, target2)
-                
-                new_photo = Photo(
-                    user = user,
-                    album = album,
-                    width = picture.pwidth,
-                    height = picture.pheight,
-                    image = filepath,
-                    description = description
-                )
+    p = None
+    if request.method == "POST":
+        form = PhotoMigrationForm(request.POST)
+        if form.is_valid():
+            start = form.cleaned_data['start']
+            end = form.cleaned_data['end']
+            pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False)[start:end]
+            p = []
+            albums = []
+            for picture in pictures:
                 try:
-                    #new_photo.full_clean()
-                    new_photo.save()
-                    picture.migrated = True
-                    picture.save()
-                    p.append(new_photo)
-                    if album not in albums:
-                        albums.append(album)
-                except ValidationError:
+                    album = picture.album.new_album
+                    user = picture.owner.django_user
+                    if album and user:
+                        if picture.title:
+                            description = picture.title
+                        else:
+                            description = ''
+                        if picture.caption:
+                            if description:
+                                description += ' %s' % picture.caption
+                            else:
+                                description = picture.caption
+                        if len(description) > 500:
+                            description = description[:500]
+                    
+                        # media/albums/<userid>/<albumid>/filename
+                        base = "albums/%(userid)s/%(albumid)s/%(filename)s"
+                        filepath = base % {
+                            'userid': user.id,
+                            'albumid': album.id,
+                            'filename': picture.filename
+                        }
+                        filepath2 = base % {
+                            'userid': user.id,
+                            'albumid': album.id,
+                            'filename': "thumb_" + picture.filename
+                        }
+                    
+                        src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
+                        src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + picture.filename
+                        #src = settings.MEDIA_ROOT + 'albums/test.jpg'
+                        #src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
+                        target = settings.MEDIA_ROOT + filepath
+                        target2 = settings.MEDIA_ROOT + filepath2
+                    
+                        if not os.path.lexists(target):
+                            if not os.path.isdir(os.path.dirname(target)):
+                                os.makedirs(os.path.dirname(target))
+                            os.symlink(src, target)
+                            os.symlink(src2, target2)
+                    
+                        new_photo = Photo(
+                            user = user,
+                            album = album,
+                            width = picture.pwidth,
+                            height = picture.pheight,
+                            image = filepath,
+                            description = description
+                        )
+                        try:
+                            #new_photo.full_clean()
+                            new_photo.save()
+                            picture.migrated = True
+                            picture.save()
+                            p.append(new_photo)
+                            if album not in albums:
+                                albums.append(album)
+                        except ValidationError:
+                            pass
+                except UnicodeEncodeError: #don't bother
                     pass
-        except UnicodeEncodeError: #don't bother
-            pass
-        
-        for album in albums:
-            # order in orde zetten
-            i = 1
-            for photo in album.photo_set.all():
-                photo.order = i
-                photo.save()
-                i += 1
-    return render_to_response(request, 'migration/photos.html', {'photos': p})
+            
+                for album in albums:
+                    # order in orde zetten
+                    i = 1
+                    for photo in album.photo_set.all():
+                        photo.order = i
+                        photo.save()
+                        i += 1
+    else:
+        form = PhotoMigrationForm()
+    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form})

@@ -1,6 +1,12 @@
 {% extends "migration/base.html" %}
 
 {% block content %}
+<form action="." method="POST">
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="migreren" />
+</form>
 Aantal: {{ photos|length }}
 <ul>
     {% for photo in photos %}
