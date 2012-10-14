@@ -403,15 +403,8 @@ The basic uploader has a file field for each image."""
     
     @classmethod
     def get_or_create(cls, user):
-        try:
-            p = cls.objects.get(user=user)
-        except cls.DoesNotExist:
-            p = cls(user=user)
-            try:
-                p.save()
-            except IntegrityError:
-                pass # concurrent saves
-        return p
+        p = cls.objects.get_or_create(user=user)
+        return p[0]
     
     def get_default_img_size(self):
         """
