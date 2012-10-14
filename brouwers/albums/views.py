@@ -31,7 +31,7 @@ def index(request):
         needs_closing_tag_row_albums = True
     
     last_uploads = Photo.objects.select_related('user').filter(album__public=True).order_by('-uploaded')[:20]
-    amount_last_uploads = last_uploads.count()
+    amount_last_uploads = len(last_uploads)
     if  amount_last_uploads < 20 and amount_last_uploads % 5 != 0:
         needs_closing_tag_row = True
     else:
