@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from brouwers.general.models import UserProfile
 from brouwers.general.shortcuts import render_to_response
 from models import *
+from forms import PhotoMigrationForm
 from brouwers.albums.models import Album, Photo
 import os
 
