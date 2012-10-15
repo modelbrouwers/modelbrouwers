@@ -76,6 +76,7 @@ def migrate_albums(request):
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):
     p = None
+    cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).count()
     if request.method == "POST":
         form = PhotoMigrationForm(request.POST)
         if form.is_valid():
@@ -157,4 +158,4 @@ def migrate_pictures(request):
                         i += 1
     else:
         form = PhotoMigrationForm()
-    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form})
+    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form, 'count':cnt})
