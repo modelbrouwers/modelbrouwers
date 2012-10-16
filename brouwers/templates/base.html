@@ -141,14 +141,9 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 </script>
 <script type="text/javascript">
 try {
-    //var pageTracker = _gat._getTracker("UA-385491-1");
-   // pageTracker._trackPageview();
-    
-    var _gaq = _gaq || [];
-    _gaq.push (['_setAccount', 'UA-385491-1']);
-    _gaq.push (['_gat._anonymizeIp']);
-    _gaq.push (['_trackPageview']);
-} catch(err) {}
+var pageTracker = _gat._getTracker("UA-385491-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 </script>
 </body>
 </html>
