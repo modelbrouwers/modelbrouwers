@@ -251,9 +251,9 @@ div#copyright{font-size: 0.6em;margin-top: 2em;}
 div#shop-footer{font-family: Verdana, Arial, Helvetica, sans-serif;text-align: center;}
 div#shop-footer .aankeiler{font-weight: regular; font-size: 10px; color: #999}
 div#shop-footer .aankeiler:hover{text-decoration: none; color: #1d42ff;}
-div#shop-footer ul{width: 96%;margin: 0 auto 0 auto;list-style: none;}
-div#shop-footer li, div#shop-footer a.aankeiler
-{display: inline-block;text-align: center;/* IE 7 hack */zoom: 1;*display: inline;}
+div#shop-footer ul{width: 96%;margin: 0 auto 0 auto;list-style: none;position:relative;margin-top:-150px;}
+div#shop-footer li, div#shop-footer a.aankeiler{display: inline-block;text-align: center;/* IE 7 hack */zoom: 1;*display: inline;}
+div#shop-footer li#new_product{position:relative;top:156px;}
 div#shop-footer a.aankeiler div{width: 156px;height: 146px;margin: 0 auto;}
 #footer-decals              {background: url('/static/images/shop/decal_onder.jpg');}
 #footer-decals:hover        {background: url('/static/images/shop/decal_boven.gif');}
