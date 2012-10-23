@@ -1,5 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from models import *
+
+class UserAdmin2(UserAdmin):
+    list_editable = ('email',)
 
 class UserProfileAdmin(admin.ModelAdmin):
 	fieldsets = (
@@ -36,6 +41,9 @@ class RedirectAdmin(admin.ModelAdmin):
 class PasswordResetAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'expire', 'h')
     list_filter = ('expire',)
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin2)
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)
