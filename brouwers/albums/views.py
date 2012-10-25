@@ -152,21 +152,26 @@ def download_album(request, album_id=None):
             }
     
     if downloads == 0:
-        #create zip file
-        filename = "%(media_root)s%(url)s" % {
-                    'media_root': settings.MEDIA_ROOT,
-                    'url': rel_path
-                    }
-        zf = ZipFile(filename, mode='w')
-        try:
-            for photo in album.photo_set.filter(trash=False):
-                f = photo.image.path
-                arcname = os.path.split(f)[1]
-                zf.write(f, arcname)
-        except:
-            album_download.failed = True
-        finally:
-            zf.close()
+        photos = album.photo_set.filter(trash=False)
+        if photos.count() > 0:
+            #create zip file
+            filename = "%(media_root)s%(url)s" % {
+                        'media_root': settings.MEDIA_ROOT,
+                        'url': rel_path
+                        }
+            zf = ZipFile(filename, mode='w')
+            try:
+                for photo in photos:
+                    f = photo.image.path
+                    arcname = os.path.split(f)[1]
+                    zf.write(f, arcname)
+            except:
+                album_download.failed = True
+            finally:
+                zf.close()
+        else:
+            messages.warning(request, _("This album could not be downloaded because it has no photos yet."))
+            return HttpResponseRedirect(reverse(browse_album, args=[album.id]))
     
     url = "%(media_url)s%(rel_path)s" % {
         'media_url': settings.MEDIA_URL,
