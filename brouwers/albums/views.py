@@ -8,6 +8,7 @@ from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext as _
 
 from brouwers.general.shortcuts import render_to_response
 from models import *
