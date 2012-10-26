@@ -171,6 +171,8 @@ def download_album(request, album_id=None):
             finally:
                 zf.close()
         else:
+            album_download.failed = True
+            album_download.save()
             messages.warning(request, _("This album could not be downloaded because it has no photos yet."))
             return HttpResponseRedirect(reverse(browse_album, args=[album.id]))
     

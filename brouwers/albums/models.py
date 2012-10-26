@@ -430,7 +430,7 @@ class AlbumDownload(models.Model):
         ordering = ('-timestamp',)
     
     def __unicode__(self):
-        return _(u"Download of %(album)s by %(username)s" % {
+        return u"%s" % _("Download of %(album)s by %(username)s" % {
                 'album': self.album.title, 
                 'username': self.downloader.get_profile().forum_nickname
                 }

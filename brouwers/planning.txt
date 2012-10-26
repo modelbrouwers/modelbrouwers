@@ -3,9 +3,6 @@
 - Albums:
 	+ Album beschrijving wordt niet getoond op pagina album
 	+ Sorteren foto's
-	+ Knop aan BBCodelijst toevoegen om sidebar te verbergen/tonen
-
-- Bestelformulier brouwersshirts
 
 - Groepsbouwenkalender: myth
 	
@@ -27,7 +24,7 @@
 	+ als beloning voor succesvol afronden van groepsproject
 	+ is te zien onder avatar bijvoorbeeld
 
-- BrouwersAwards op de site zelf, login met forumlogin.
+- BrouwersAwards
 	+ knop bij topic om snel topic te kunnen nomineren (javascript, zo weinig mogelijk forumcode modden)
 
 - Brouwverslagenoverzicht van brouwer
