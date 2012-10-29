@@ -88,6 +88,8 @@ def migrate_pictures(request):
             albums = []
             for picture in pictures:
                 try:
+                    sfsdfa
+                except:
                     album = picture.album.new_album
                     user = picture.owner.django_user
                     if album and user:
@@ -148,8 +150,8 @@ def migrate_pictures(request):
                                 albums.append(album)
                         except ValidationError:
                             pass
-                except UnicodeEncodeError: #don't bother
-                    failed_migrations.append({'cleaned': cleaned_filename or 'None', 'filename': picture.filename})
+                #except UnicodeEncodeError: #don't bother
+                    #failed_migrations.append({'cleaned': cleaned_filename or 'None', 'filename': picture.filename})
             
                 for album in albums:
                     # order in orde zetten
