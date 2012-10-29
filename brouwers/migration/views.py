@@ -80,6 +80,7 @@ def migrate_pictures(request):
     if request.method == "POST":
         form = PhotoMigrationForm(request.POST)
         if form.is_valid():
+            import unicodedata
             start = form.cleaned_data['start']
             end = form.cleaned_data['end']
             pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False).select_related('album', 'album__new_album', 'owner', 'owner__djang_user')[start:end]
@@ -104,15 +105,16 @@ def migrate_pictures(request):
                     
                         # media/albums/<userid>/<albumid>/filename
                         base = "albums/%(userid)s/%(albumid)s/%(filename)s"
+                        cleaned_filename = ''.join((c for c in unicodedata.normalize('NFD', picture.filename) if unicodedata.category(c) != 'Mn'))
                         filepath = base % {
                             'userid': user.id,
                             'albumid': album.id,
-                            'filename': picture.filename
+                            'filename': cleaned_filename
                         }
                         filepath2 = base % {
                             'userid': user.id,
                             'albumid': album.id,
-                            'filename': "thumb_" + picture.filename
+                            'filename': "thumb_" + cleaned_filename
                         }
                     
                         src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
