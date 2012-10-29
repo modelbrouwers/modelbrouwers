@@ -151,7 +151,7 @@ def migrate_pictures(request):
                         except ValidationError:
                             pass
                 #except UnicodeEncodeError: #don't bother
-                    #failed_migrations.append({'cleaned': cleaned_filename or 'None', 'filename': picture.filename})
+                        failed_migrations.append({'cleaned': cleaned_filename or 'None', 'filename': picture.filename})
             
                 for album in albums:
                     # order in orde zetten
