@@ -76,7 +76,7 @@ def migrate_albums(request):
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):
     p = None
-    cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).count()
+    failed_migrations = []
     if request.method == "POST":
         form = PhotoMigrationForm(request.POST)
         if form.is_valid():
@@ -149,7 +149,7 @@ def migrate_pictures(request):
                         except ValidationError:
                             pass
                 except UnicodeEncodeError: #don't bother
-                    pass
+                    failed_migrations.append({'cleaned': cleaned_filename or 'None', 'filename': picture.filename})
             
                 for album in albums:
                     # order in orde zetten
@@ -160,4 +160,5 @@ def migrate_pictures(request):
                         i += 1
     else:
         form = PhotoMigrationForm()
-    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form, 'count':cnt})
+    cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).count()
+    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form, 'count':cnt, 'failed_migrations': failed_migrations})
