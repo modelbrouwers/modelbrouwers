@@ -18,6 +18,7 @@ Aantal: {{ photos|length }}
 </ul>
 
 <h2>Failed:</h2>
+{{ failed_migrations }}
 <ul>
     {% for cleaned_filename, filename in failed_migrations.items %}
         <li>{{ filename }}: {{ cleaned_filename }}</li>
