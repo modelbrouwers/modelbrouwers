@@ -83,7 +83,7 @@ def migrate_pictures(request):
         if form.is_valid():
             start = form.cleaned_data['start']
             end = form.cleaned_data['end']
-            pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False).select_related('album', 'album__new_album', 'owner', 'owner__djang_user')[start:end]
+            pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False).exclude(owner__django_user=None).select_related('album', 'album__new_album', 'owner', 'owner__django_user')[start:end]
             p = []
             albums = []
             
