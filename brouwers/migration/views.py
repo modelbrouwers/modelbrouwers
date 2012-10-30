@@ -163,5 +163,5 @@ def migrate_pictures(request):
     else:
         form = PhotoMigrationForm()
     
-    cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).count()
+    cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).exclude(owner__django_user=None).count()
     return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form, 'count': cnt, 'failed_migrations': failed_migrations})
