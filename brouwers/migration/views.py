@@ -132,6 +132,20 @@ def migrate_pictures(request):
                             
                             os.symlink(src, target)
                             os.symlink(src2, target2)
+                        new_photo = Photo(
+                            user = user,
+                            album = album,
+                            width = picture.pwidth,
+                            height = picture.pheight,
+                            image = filepath,
+                            description = description
+                        )
+                        new_photo.save()
+                        picture.migrated = True
+                        picture.save()
+                        p.append(new_photo)
+                        if album not in albums:
+                            albums.append(album)
                     except UnicodeEncodeError:
                         failed_migrations.append({
                             'id': picture.id,
@@ -139,32 +153,13 @@ def migrate_pictures(request):
                             'cleaned_filename': cleaned_filename
                         })
                 
-                    new_photo = Photo(
-                        user = user,
-                        album = album,
-                        width = picture.pwidth,
-                        height = picture.pheight,
-                        image = filepath,
-                        description = description
-                    )
-                    try:
-                        #new_photo.full_clean()
-                        new_photo.save()
-                        picture.migrated = True
-                        picture.save()
-                        p.append(new_photo)
-                        if album not in albums:
-                            albums.append(album)
-                    except ValidationError:
-                        pass
-                
-                for album in albums:
-                    # order in orde zetten
-                    i = 1
-                    for photo in album.photo_set.all():
-                        photo.order = i
-                        photo.save()
-                        i += 1
+            for album in albums:
+                # order in orde zetten
+                i = 1
+                for photo in album.photo_set.all():
+                    photo.order = i
+                    photo.save()
+                    i += 1
     else:
         form = PhotoMigrationForm()
     
