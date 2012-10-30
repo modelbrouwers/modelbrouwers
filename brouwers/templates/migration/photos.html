@@ -12,7 +12,7 @@ Aantal: {{ photos|length }}
 <ul>
     {% for photo in photos %}
     <li style="margin-left:2em;margin-bottom:0.2em;">
-        {{ photo }}
+        {{ photo }} ({{ photo.image }})
     </li>
     {% endfor %}
 </ul>
