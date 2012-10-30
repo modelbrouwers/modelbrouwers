@@ -125,18 +125,19 @@ def migrate_pictures(request):
                     target = settings.MEDIA_ROOT + filepath
                     target2 = settings.MEDIA_ROOT + filepath2
                     
-                    if not os.path.lexists(target):
-                        if not os.path.isdir(os.path.dirname(target)):
-                            os.makedirs(os.path.dirname(target))
-                        try:
+                    try:
+                        if not os.path.lexists(target):
+                            if not os.path.isdir(os.path.dirname(target)):
+                                os.makedirs(os.path.dirname(target))
+                            
                             os.symlink(src, target)
                             os.symlink(src2, target2)
-                        except UnicodeEncodeError:
-                            failed_migrations.append({
-                                'id': picture.id,
-                                'filename': picture.filepath + picture.filename,
-                                'cleaned_filename': cleaned_filename
-                            })
+                    except UnicodeEncodeError:
+                        failed_migrations.append({
+                            'id': picture.id,
+                            'filename': picture.filepath + picture.filename,
+                            'cleaned_filename': cleaned_filename
+                        })
                 
                     new_photo = Photo(
                         user = user,
