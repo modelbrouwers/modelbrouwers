@@ -21,7 +21,7 @@ Aantal: {{ photos|length }}
 {{ failed_migrations }}
 <ol>
     {% for dict in failed_migrations %}
-        <li>{{ dict.id }} - filename: {{ filename }} ({{ cleaned_filename }})</li>
+        <li>{{ dict.id }} - filename: {{ dict.filename }} ({{ dict.cleaned_filename }})</li>
     {% endfor %}
 </ol>
 {% endblock %}
