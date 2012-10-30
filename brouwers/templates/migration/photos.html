@@ -19,12 +19,9 @@ Aantal: {{ photos|length }}
 
 <h2>Failed:</h2>
 {{ failed_migrations }}
-<ul>
-    {% for cleaned_filename, filename in failed_migrations.items %}
-        <li>{{ filename }}: {{ cleaned_filename }}</li>
+<ol>
+    {% for dict in failed_migrations %}
+        <li>{{ dict.id }} - filename: {{ filename }} ({{ cleaned_filename }})</li>
     {% endfor %}
-    {% for photo in photos2 %}
-        <li>{{ photo.filepath }}{{ photo.filename }} - {{ photo.album }} --- {{ photo.album.new_album }}</li>
-    {% endfor %}
-</ul>
+</ol>
 {% endblock %}

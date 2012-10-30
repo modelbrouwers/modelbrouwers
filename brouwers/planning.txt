@@ -4,7 +4,7 @@
 	+ Album beschrijving wordt niet getoond op pagina album
 	+ Sorteren foto's
 
-- Groepsbouwenkalender: myth
+- Groepsbouwenkalender --> Myth
 	
 - modelbouwwinkelsdatabank schrijven
 	+ databank van alle winkels, ingegeven door leden

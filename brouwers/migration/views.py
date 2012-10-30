@@ -77,82 +77,86 @@ def migrate_albums(request):
 def migrate_pictures(request):
     p = None
     failed_migrations = []
+    
     if request.method == "POST":
         form = PhotoMigrationForm(request.POST)
         if form.is_valid():
-            import unicodedata
             start = form.cleaned_data['start']
             end = form.cleaned_data['end']
             pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False).select_related('album', 'album__new_album', 'owner', 'owner__djang_user')[start:end]
             p = []
             albums = []
+            
+            import unicodedata
             for picture in pictures:
-                try:
-                    sfsdfa
-                except:
-                    album = picture.album.new_album
-                    user = picture.owner.django_user
-                    if album and user:
-                        if picture.title:
-                            description = picture.title
+                album = picture.album.new_album
+                user = picture.owner.django_user
+                if album and user:
+                    if picture.title:
+                        description = picture.title
+                    else:
+                        description = ''
+                    if picture.caption:
+                        if description:
+                            description += ' %s' % picture.caption
                         else:
-                            description = ''
-                        if picture.caption:
-                            if description:
-                                description += ' %s' % picture.caption
-                            else:
-                                description = picture.caption
-                        if len(description) > 500:
-                            description = description[:500]
+                            description = picture.caption
+                    if len(description) > 500:
+                        description = description[:500]
+                
+                    # media/albums/<userid>/<albumid>/filename
+                    base = "albums/%(userid)s/%(albumid)s/%(filename)s"
+                    cleaned_filename = ''.join((c for c in unicodedata.normalize('NFD', picture.filename) if unicodedata.category(c) != 'Mn'))
+                    filepath = base % {
+                        'userid': user.id,
+                        'albumid': album.id,
+                        'filename': cleaned_filename
+                    }
+                    filepath2 = base % {
+                        'userid': user.id,
+                        'albumid': album.id,
+                        'filename': "thumb_" + cleaned_filename
+                    }
+                
+                    src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + cleaned_filename
+                    src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + cleaned_filename
+                    #src = settings.MEDIA_ROOT + 'albums/test.jpg'
+                    #src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
+                    target = settings.MEDIA_ROOT + filepath
+                    target2 = settings.MEDIA_ROOT + filepath2
                     
-                        # media/albums/<userid>/<albumid>/filename
-                        base = "albums/%(userid)s/%(albumid)s/%(filename)s"
-                        cleaned_filename = ''.join((c for c in unicodedata.normalize('NFD', picture.filename) if unicodedata.category(c) != 'Mn'))
-                        filepath = base % {
-                            'userid': user.id,
-                            'albumid': album.id,
-                            'filename': cleaned_filename
-                        }
-                        filepath2 = base % {
-                            'userid': user.id,
-                            'albumid': album.id,
-                            'filename': "thumb_" + cleaned_filename
-                        }
-                    
-                        src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + picture.filename
-                        src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + picture.filename
-                        #src = settings.MEDIA_ROOT + 'albums/test.jpg'
-                        #src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
-                        target = settings.MEDIA_ROOT + filepath
-                        target2 = settings.MEDIA_ROOT + filepath2
-                    
-                        if not os.path.lexists(target):
-                            if not os.path.isdir(os.path.dirname(target)):
-                                os.makedirs(os.path.dirname(target))
+                    if not os.path.lexists(target):
+                        if not os.path.isdir(os.path.dirname(target)):
+                            os.makedirs(os.path.dirname(target))
+                        try:
                             os.symlink(src, target)
                             os.symlink(src2, target2)
-                    
-                        new_photo = Photo(
-                            user = user,
-                            album = album,
-                            width = picture.pwidth,
-                            height = picture.pheight,
-                            image = filepath,
-                            description = description
-                        )
-                        try:
-                            #new_photo.full_clean()
-                            new_photo.save()
-                            picture.migrated = True
-                            picture.save()
-                            p.append(new_photo)
-                            if album not in albums:
-                                albums.append(album)
-                        except ValidationError:
-                            pass
-                #except UnicodeEncodeError: #don't bother
-                        failed_migrations.append({'cleaned': cleaned_filename or 'None', 'filename': picture.filename})
-            
+                        except UnicodeEncodeError:
+                            failed_migrations.append({
+                                'id': picture.id,
+                                'filename': picture.filepath + picture.filename,
+                                'cleaned_filename': cleaned_filename
+                            })
+                
+                    new_photo = Photo(
+                        user = user,
+                        album = album,
+                        width = picture.pwidth,
+                        height = picture.pheight,
+                        image = filepath,
+                        description = description
+                    )
+                    try:
+                        #new_photo.full_clean()
+                        new_photo.save()
+                        picture.migrated = True
+                        picture.save()
+                        p.append(new_photo)
+                        if album not in albums:
+                            albums.append(album)
+                    except ValidationError:
+                        pass
+                
                 for album in albums:
                     # order in orde zetten
                     i = 1
@@ -162,6 +166,6 @@ def migrate_pictures(request):
                         i += 1
     else:
         form = PhotoMigrationForm()
+    
     cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).count()
-    photos2 = PhotoMigration.objects.filter(album__migrated=True, migrated=False)
-    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form, 'count':cnt, 'failed_migrations': failed_migrations, 'photos2': photos2})
+    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form, 'count': cnt, 'failed_migrations': failed_migrations})
