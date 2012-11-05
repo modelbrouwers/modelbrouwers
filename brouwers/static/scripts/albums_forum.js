@@ -2,7 +2,7 @@ var sidebar_html = "<div id=\"albums-sidebar\" class=\"opened initial\"></div>";
 var restore_icon = '/static/images/icons/open.png';
 var close_icon = '/static/images/icons/close.png';
 var prev_width = 0;
-var sidebar_button = ' <input type="button" class="btnbbcode" accesskey="s" value="Foto\'s invoegen" onclick="toggleSidebar(true);toggleSidebar();" /><span style="color:red;font-weight:bold;font-size:1em;"><sup>nieuw!</sup></span>';
+var sidebar_button = ' <input id="hideSidebar" type="button" class="btnbbcode" accesskey="s" value="Fotobalk verbergen" onclick="toggleSidebar(true);toggleSidebar();" /><span style="color:red;font-weight:bold;font-size:1em;"><sup>nieuw!</sup></span>';
 
 $(document).ready(function(){
     // sidebar loading etc.
@@ -142,9 +142,11 @@ function toggleSidebar(hide_completely){
     	if (!sidebar.hasClass('hidden')){
 			sidebar.addClass('hidden');
 			sidebar.hide();
+            $('#hideSidebar').val('Fotobalk tonen');
 		} else {
 		    sidebar.removeClass('hidden');
 		    sidebar.show();
+            $('#hideSidebar').val('Fotobalk verbergen');
 		}
     }
     if (sidebar.hasClass('opened')){
