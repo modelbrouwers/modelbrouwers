@@ -209,8 +209,7 @@ def get_all_own_albums(request):
 @login_required
 def edit_album(request):
     GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
-    editform = None
-    photos = None
+    editform, formset, photos = None, None, None
     if request.method == "POST":
         form = PickAlbumForm(request.user, request.POST)
         if form.is_valid():
