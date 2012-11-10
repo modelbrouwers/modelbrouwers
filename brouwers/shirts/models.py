@@ -43,3 +43,6 @@ class ShirtOrder(models.Model):
             price += 8
         return price
 
+    @property
+    def user_email(self):
+        return self.user.email
