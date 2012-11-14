@@ -78,6 +78,8 @@ naar de Modelbrouwers.nl homepage"/></a>
                 <ul id="menu">
                     {% block menu %}
                         <li><a href="{% url brouwers.general.views.index %}">Home</a></li>
+                        <li><a href="/awards/">Awards</a></li>
+                        <li><a href="/secret_santa/">Secret Santa</a></li>
                         {% if user.is_superuser %}
                             <li><a href="{% url brouwers.migration.views.index %}">Migraties</a></li>
                         {% endif %}
