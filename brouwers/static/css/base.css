@@ -290,6 +290,9 @@ div.tab{
 	border-right: solid 1px #CCC;
 	border-left: solid 1px #CCC;
 }
+div.tab.midpage{
+    margin: 1em -1em 0 -1em;
+}
 /*** MESSAGES ***/
 div#messages{
 	margin: 0.1em 0 0.5em 0;

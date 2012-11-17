@@ -85,8 +85,11 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
         return img_data
     return None
 
-def admin_mode(user):
-    p = Preferences.get_or_create(user)
+def admin_mode(user, preferences=None):
+    if preferences:
+        p = preferences
+    else:
+        p = Preferences.get_or_create(user)
     if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.apply_admin_permissions:
         return True
     return False

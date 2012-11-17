@@ -1,55 +1,83 @@
 {% extends "base.html" %}
 
-{% block title %}
-Secret Santa {{year}} - Modelbrouwers applicaties
+{% block extrastyle %}
+<style type="text/css">
+p{margin-top:1em;}
+code{font-size:1.2em;font-weight:bolder;}
+div.preferences_ss{
+    margin: 1em;
+    margin-right: 5em;
+    padding: 0.3em;
+    background-color: #EEE;
+    width: 70%;
+}
+</style>
 {% endblock %}
 
+{% block title %}
+Modelbrouwers.nl &bull; {{ secret_santa }}
+{% endblock %}
+
+<!-- TODO: translations -->
 {% block content %}
-<h1>Secret Santa {{year}}</h1>
-<hr />
-<br />
+<div class="tab">{{ secret_santa }} &bull; <a href="#participants">Deelnemers</a> &bull; <a href="{% url brouwers.secret_santa.views.receiver %}">Mijn Secret Santa</a></div>
 <img class="right" src="{{STATIC_URL}}images/santa.jpg" alt="Santa Image">
-<p>Het idee van SS is dat je, net als bij lootjes trekken, een cadeautje (in de vorm van een kitje) krijgt van een ander forumlid.
-Het is de bedoeling om het cadeautje vóór 25-12-2013 af te hebben (en ik hoop dat iedereen dat ook gaat lukken). Je plaatst je brouwverslag in het reguliere forumdeel, en zet er de flag [SS 2011] voor.</p>
-<br />
-<p>De prijsklasse is ongeveer 15 euro, erboven mag altijd, maar omdat het lullig is als jij een kit van &euro;30,- opstuurt en je krijgt een kitje van &euro;12,50 terug, is het verstandig om in de buurt van deze prijsklasse te blijven.
-Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, maar het is wel leuk natuurlijk.</p>
-<br />
-<p>Aanmelden kan <strong>tot vrijdag 30 november</strong>, daarna (1 december) worden de lootjes verdeeld en kan iedereen een cadeautje kopen voor degene die op z'n lootje staat...</p><br />
-<br />
-<h3>Inschrijven</h3>
-<br />
-<p>Inschrijven gebeurt via je <a href="/profile/">gebruikersprofiel</a>. Vink het vakje bij 'Secret Santa' aan om je in te schrijven, en vul je adresgegevens aan.</p>
-<br />
-<br />
-<h3>Wiens lootje heb ik nou?</h3>
-<br />
-<p>Dat ontdek je - pas vanaf 1 december! - door <a class= "link" href="receiver">hier</a> te klikken! De gegevens kunnen ook naar je e-mailadres (indien ingevuld) gestuurd worden.</p>
-<br />
-<br />
-<h3>Ingeschreven deelnemers</h3>
-<br />
-<ul id="participants" style="margin-left:2em;">
-{% for participant in participants_list %}
-<li type="1" class="updates">{{participant.user.get_profile.forum_nickname}}
-{% if participant.verified %}
-&nbsp;-&nbsp;&nbsp;ok
-{% endif %}
-</li>
-{% endfor %}
-</ul>
-<br />
-<br />
+
+<p>Het idee van Secret Santa (SS) is dat je, net als bij lootjes trekken, een cadeautje (in de vorm van een kitje) krijgt van een ander forumlid.
+Het is de bedoeling om het cadeautje vóór 25-12-{{ secret_santa.year|add:"1" }} af te hebben (en we hopen dat dat ook iedereen lukt). Je plaatst je brouwverslag in het gewone forumdeel, maar je zet in je topictitel de volgende tag: <code>[SS {{ secret_santa.year }}]</code>.
+</p>
+
+<p>De prijsklasse is ongeveer {{ secret_santa.get_price_class }} euro, erboven mag altijd, maar omdat het lullig is als jij een kit van &euro;30,- opstuurt en je krijgt een kitje van &euro;12,50,- terug, is het verstandig om in de buurt van deze prijsklasse te blijven.
+Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, maar het is wel leuk natuurlijk.
+</p>
+
+<p>Aanmelden kan van {{ secret_santa.enrollment_start|date:"l j F" }} <strong>tot {{ secret_santa.enrollment_end|date:"l j F" }}</strong>, daarna ({{ secret_santa.lottery_date|date:"j F" }}) worden de lootjes verdeeld en kan iedereen een cadeautje kopen voor degene die op z'n lootje staat... Je krijgt een notificatie per e-mail als de lootjes verdeeld zijn.</p>
+
+<div class="tab midpage">Inschrijven</div>
+<p>
+    Om in te kunnen schrijven moeten je adresgegevens in je 
+    <a href="{% url brouwers.general.views.profile %}">profiel</a> ingevuld 
+    zijn. Je kan ook je voorkeuren doorgeven via je profiel.
+    <br />
+    <br />
+    {% if user.get_profile.is_address_ok %}
+        <form action="{% url brouwers.secret_santa.views.enroll %}" method="POST">
+            {{ form.as_p }}
+            <input type="submit" value="Deelnemen" />
+        </form>
+    {% else %}
+        <input type="submit" value="Deelnemen" disabled="disabled"/> Je adresgegevens zijn niet volledig!
+    {% endif %}
+</p>
+
+<div class="midpage tab">Wiens lootje heb ik nou?</div>
+<p>Dat ontdek je - pas vanaf {{ secret_santa.lottery_date|date:"j F" }}! - door <a href="receiver">hier</a> te klikken! De gegevens worden ook gemaild eenmaal de lootjes verdeeld zijn.
+</p>
+
+<div class="midpage tab" id="participants">Ingeschreven deelnemers</div>
+<p><ul id="participants" style="margin-left:2em;">
+    {% for participant in participants %}
+        <li type="1" class="updates">
+            {% if participant.verified %}<img src="{{ STATIC_URL }}admin/img/icon_success.gif" width="16" height="16" alt="ok" title="Deelnemer heeft bevestigd." />&nbsp;{% endif %}{{ participant.user.get_profile.forum_nickname }}
+        </li>
+    {% endfor %}
+</ul></p>
+
 {% if user.is_staff %}
-<br />
-<hr />
-<div class="admin">
-<p><strong>Deze paragraaf (en al de rest dat ingesprongen is) is enkel voor admins zichtbaar.</strong></p>
-<br />
-<p>Door op onderstaande link te klikken wijs je random mensen toe aan elkaar als zender en ontvanger. Je kan achteraf in de admin het resultaat controleren, bij het '<strong>Secret Santa</strong>' gedeelte klik je naar het '<strong>Couples</strong>' gedeelte.<br /><br />Na het klikken word je naar de Secret Santa homepage doorverwezen. Als je per ongeluk meerdere keren op de link klikt, worden eerst de vorige koppels gewist en worden ze gewoon opnieuw random toegewezen.</p>
-<br />
-<a href="do_lottery">Wijs de mensen aan elkaar toe!</a>
-</div>
+    <div class="midpage tab">Lootjes verdelen</div>
+        <p><strong>Wat volgt is enkel voor admins zichtbaar.</strong></p>
+        <p>Door op onderstaande link te klikken wijs je random mensen toe aan elkaar als zender en ontvanger. Je kan achteraf in de admin het resultaat controleren, bij het '<strong>Secret Santa</strong>' gedeelte klik je naar het '<strong>Couples</strong>' gedeelte.<br /><br />Na het klikken word je naar de Secret Santa homepage doorverwezen. Als je per ongeluk meerdere keren op de link klikt, worden eerst de vorige koppels gewist en worden ze gewoon opnieuw random toegewezen.</p>
+    <p>
+        {% if not secret_santa.lottery_done %}
+            {% if can_do_lottery %}
+                <a href="do_lottery"><button>Wijs de mensen aan elkaar toe!</button></a>
+            {% else %}
+                De lootjes kunnen pas op {{ secret_santa.lottery_date|date:"d-m-y" }} verdeeld worden.
+            {% endif %}
+        {% else %}
+            De lootjes zijn al verdeeld!
+        {% endif %}
+    </p>
 {% endif %}
 {% endblock %}
 {% block appname %}Secret Santa{% endblock %}

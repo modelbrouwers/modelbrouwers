@@ -53,15 +53,6 @@ Wijzig profiel
 <br />
 <h2>Secret Santa gegevens</h2>
 <hr>
-<br />
-<table>
-	<tr><td>{{profileform.secret_santa}}&nbsp;&nbsp;Vink dit aan als je met de Secret Santa wil meedoen.</td><td></td></tr>
-	{% if profileform.secret_santa.errors %}
-		{% for error in profileform.secret_santa.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-</table>
 <table>
 	<tr><td><br /><strong>Adresgegevens</strong></td><td></td></tr>
 	<tr><td>Straat:</td><td>{{profileform.street}}</td></tr>

@@ -20,8 +20,8 @@ Aantal: {{ photos|length }}
 <h2>Failed:</h2>
 <ol style="margin-left:1em;">
     {% for dict in failed_migrations %}
-        <li>
-            <ul>
+        <li style="margin-left:1em;">
+            <ul style="margin-left:1em;">
                 <li>{{ dict.id }}</li>
                 <li>filename: <i>{{ dict.filename }}</i></li>
                 <li>cleaned filename: {{ dict.cleaned_filename }}</li>

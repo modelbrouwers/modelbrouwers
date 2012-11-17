@@ -109,7 +109,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'last_vote', 'forum_nickname')
+        exclude = ('user', 'last_vote', 'forum_nickname', 'secret_santa')
 
 class UserForm(forms.ModelForm):
     class Meta:
