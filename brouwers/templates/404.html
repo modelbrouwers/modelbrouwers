@@ -36,7 +36,7 @@ div#content{border:none;min-height:200px;}
     </div>
     
     <div id="text-not-found">
-        {% blocktrans %}The requested page could not be found or isn't accessible because of limited user rights. Click on the big logo above or click <a href="/">here</a> to return to the homepage. Alternatively, use the back button in your browser to return to the previous page.{% endblocktrans %}
+        {% blocktrans with return=request.META.HTTP_REFERER %}The requested page could not be found or isn't accessible because of limited user rights. Click on the big logo above or click <a href="/">here</a> to return to the homepage. Alternatively, use the back button in your browser or click <a href="{{ return }}">here</a> to return to the previous page.{% endblocktrans %}
     </div>
 </div>
 {% endspaceless %}
