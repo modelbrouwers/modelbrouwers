@@ -33,6 +33,7 @@ if settings.DEBUG and settings.DEVELOPMENT:
 	urlpatterns += patterns('',
 		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+		(r'^404/$', 'django.views.generic.simple.direct_to_template', {'template': '404.html'}),
 	)
 
 # some sort of catchall, check the database if redirects exist, else return a 404

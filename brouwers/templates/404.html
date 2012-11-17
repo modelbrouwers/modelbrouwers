@@ -1,8 +1,43 @@
-{% extends "awards/base.html" %}
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+<style type="text/css">
+div#content{border:none;min-height:200px;}
+#not-found-content{font-family: Verdana, Arial, Helvetica, sans-serif;font-size:0.8em;}
+#not-found {
+	font-size: 1.8em;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	background: url('/static/images/logo/logo_spiegel.jpg') no-repeat;
+	background-position: center;
+	letter-spacing: 1px;
+    color: #069;
+    width: 592px;
+    height: 56px;
+    margin: 0 auto;
+}
+#footer{margin-top:-150px;}
+</style>
+{% endblock %}
 
 {% block content %}
-<div>
-<h1 class="error">404</h1>
-Het lijkt erop dat het tapijtmonster weer een slachtoffer heeft gemaakt... De gevraagde pagina kon niet worden gevonden.
+{% spaceless %}
+<div class="center" id="not-found-content">
+    <div>
+        <a href="/">
+            <img src="{{ STATIC_URL }}images/logo/logo.gif" 
+                alt="Klik hier voor de homepage van deze maand." 
+                width="592" height="92">
+        </a>
+    </div>
+    <div id="not-found">
+        <div style="padding-top:1em;">{% trans "Oops... a 404!" %}</div>
+    </div>
+    
+    <div id="text-not-found">
+        {% blocktrans %}The requested page could not be found or isn't accessible because of limited user rights. Click on the big logo above or click <a href="/">here</a> to return to the homepage. Alternatively, use the back button in your browser to return to the previous page.{% endblocktrans %}
+    </div>
 </div>
+{% endspaceless %}
 {% endblock %}
