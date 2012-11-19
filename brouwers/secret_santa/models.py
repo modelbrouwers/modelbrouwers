@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from datetime import datetime
+from utils import do_lottery_mailing
 
 class SecretSanta(models.Model):
     year = models.PositiveSmallIntegerField(_("year"), unique=True, help_text=_("Year the lottery starts."))
@@ -26,6 +27,18 @@ class SecretSanta(models.Model):
     def get_price_class(self):
         price_class = self.price_class or 15
         return price_class
+    
+    #wrapper around util function
+    def do_mailing(self):
+        couples = self.couple_set.all().select_related('participant__user')
+        do_lottery_mailing(couples)
+        return None
+    
+    def is_participant(self, user):
+        p = self.participant_set.filter(user=user)
+        if p:
+            return True
+        return False
 
 class Participant(models.Model):
     secret_santa = models.ForeignKey(SecretSanta, verbose_name=_("secret santa edition"), null=True)

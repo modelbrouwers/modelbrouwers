@@ -41,12 +41,20 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
     <br />
     <br />
     {% if user.get_profile.is_address_ok %}
-        <form action="{% url brouwers.secret_santa.views.enroll %}" method="POST">
-            {{ form.as_p }}
-            <input type="submit" value="Deelnemen" />
-        </form>
+        {% if not is_participant %}
+            <form action="{% url brouwers.secret_santa.views.enroll %}" method="POST">
+                {{ form.as_p }}
+                <input type="submit" value="Deelnemen" />
+            </form>
+        {% else %}
+            Je bent al ingeschreven!
+        {% endif %}
     {% else %}
-        <input type="submit" value="Deelnemen" disabled="disabled"/> Je adresgegevens zijn niet volledig!
+        {% if not is_participant %}
+            <input type="submit" value="Deelnemen" disabled="disabled"/> Je adresgegevens zijn niet volledig!
+        {% else %}
+            Je bent al ingeschreven!
+        {% endif %}
     {% endif %}
 </p>
 
@@ -66,7 +74,7 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
 {% if user.is_staff %}
     <div class="midpage tab">Lootjes verdelen</div>
         <p><strong>Wat volgt is enkel voor admins zichtbaar.</strong></p>
-        <p>Door op onderstaande link te klikken wijs je random mensen toe aan elkaar als zender en ontvanger. Je kan achteraf in de admin het resultaat controleren, bij het '<strong>Secret Santa</strong>' gedeelte klik je naar het '<strong>Couples</strong>' gedeelte.<br /><br />Na het klikken word je naar de Secret Santa homepage doorverwezen. Als je per ongeluk meerdere keren op de link klikt, worden eerst de vorige koppels gewist en worden ze gewoon opnieuw random toegewezen.</p>
+        <p>Door op onderstaande link te klikken wijs je random mensen toe aan elkaar als zender en ontvanger. Je kan achteraf in de admin het resultaat controleren, bij het '<strong>Secret Santa</strong>' gedeelte klik je naar het '<strong>Couples</strong>' gedeelte.</p> 
     <p>
         {% if not secret_santa.lottery_done %}
             {% if can_do_lottery %}
