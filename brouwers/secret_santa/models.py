@@ -35,9 +35,10 @@ class SecretSanta(models.Model):
         return None
     
     def is_participant(self, user):
-        p = self.participant_set.filter(user=user)
-        if p:
-            return True
+        if user.is_authenticated():
+	        p = self.participant_set.filter(user=user)
+	        if p:
+	            return True
         return False
 
 class Participant(models.Model):
