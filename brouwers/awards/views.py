@@ -25,20 +25,21 @@ def category(request):
 	categories = Category.objects.all()
 	return render_to_response(request, 'awards/category.html', {'categories': categories})
 
+@login_required
 def nomination(request):
 	year = date.today().year
 	last_nominations = Project.objects.filter(Q(nomination_date__year=date.today().year-1) | Q(nomination_date__year = date.today().year), rejected=False).order_by('-pk')[:15]
 	if request.method == 'POST':
 		form = ProjectForm(request.POST)
 		if form.is_valid():
-			new_nomination = form.save()
+			new_nomination = form.save(commit=False)
+			new_nomination.nominator = request.user.get_profile()
+			new_nomination.save()
+			
 			if new_nomination.rejected:
 				messages.info(request, "De nominatie zal niet stembaar zijn op verzoek van de brouwer zelf.")
 			else:
 				messages.success(request, "De nominatie is toegevoegd.")
-			if request.user.is_authenticated():
-				new_nomination.nominator = request.user.get_profile()
-				new_nomination.save()
 			return HttpResponseRedirect(reverse(nomination))
 	else:
 		form = ProjectForm()
