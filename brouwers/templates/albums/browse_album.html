@@ -1,6 +1,8 @@
 {% extends "albums/base.html" %}
 {% load i18n %}
 
+{% block title %}Modelbrouwers.nl album &bull; {{ album.title }}{% endblock %}
+
 {% block extrascript %}
 <script type="text/javascript">
 	var url_edit = "{% url brouwers.albums.ajax_views.edit_album %}";

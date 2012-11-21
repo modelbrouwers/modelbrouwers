@@ -3,10 +3,6 @@
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
-{% block album_tab %}
-<img src="{{ STATIC_URL }}images/nav/albums_voor.png" alt="{% trans 'You are now in the photo albums!' %}"/>
-{% endblock %}
-
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css?v={{ software_version }}" charset="utf-8"/>
@@ -47,8 +43,11 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js?v={{ software_version }}"></script>
 	{% block extrascript %}
 	{% endblock %}
-	
 {% endblock scripts %}
+
+{% block nav_tabs %}
+    {% include "albums/nav_tabs.html" %}
+{% endblock %}
 
 {% block announcement %}
 	<div>Meer info over de nieuwe albums vind je in <a href="/albums/about/" target="_blank">dit topic</a>.</div>

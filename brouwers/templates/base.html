@@ -27,7 +27,9 @@
     <div id="top">
         <div id="navigation">
             <ul id="tabs">
-                {% include "nav_tabs.html" %}
+                {% block nav_tabs %}
+                    {% include "nav_tabs.html" %}
+                {% endblock %}
             </ul>
         </div> 
         <!-- end navigation -->

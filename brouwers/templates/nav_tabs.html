@@ -1,19 +1,33 @@
+{% block home_tab %}
 <li>
     <a href="/">
         <img src="{{ STATIC_URL }}images/nav/home_achter.png" alt="Ga naar de homepage!" /></a>
 </li>
+{% endblock %}
+
+{% block forum_tab %}
 <li>
     <a href="/phpBB3/"><img src="{{ STATIC_URL }}images/nav/forum_achter.png" alt="Ga naar het forum!"/></a>
 </li>
+{% endblock %}
+
+{% block shop_tab %}
 <li>
     <a href="/shop/catalog/"><img src="{{ STATIC_URL }}images/nav/shop_achter.png" alt="Ga naar de shop!"/></a>
 </li>
+{% endblock %}
+
+{% block albums_tab %}
 <li>
-    <a href="/albums/">{% block album_tab %}<img src="{{ STATIC_URL }}images/nav/albums_achter.png" alt="Je bent nu in de fotoalbums!"/>{% endblock %}</a>
+    <a href="{% url brouwers.albums.views.index %}">{% block album_tab %}<img src="{{ STATIC_URL }}images/nav/albums_achter.png" alt="Je bent nu in de fotoalbums!"/>{% endblock %}</a>
 </li>
+{% endblock %}
+
+{% block reviews_tab %}
 <li id="kitreviews">
     <a href="/kitreviews/"><img src="{{ STATIC_URL }}images/nav/kitreviews_achter.png" alt="Ga naar de kitreviews!"/></a>
 </li>
+{% endblock %}
 <!--<li>
     <img src="{{ STATIC_URL }}images/nav/modelbouw_wiki.png" alt="Modelbouw Wiki"/>
 </li>-->
