@@ -216,13 +216,13 @@ ul#menu{
 ul#menu li{
 	display: inline;
 	list-style: none;
-	margin: 0 1.2em 0 1.2em;
+	margin: 0 1.3em 0 1.3em;
 	text-align: center;
 	font-weight: bold;
 }
 ul#menu li:hover{border-bottom: solid 3px #DD6900;}
 ul#menu li a{
-	padding: 3px 5px 3px 5px;
+	padding: 3px 0 3px 0;
 	color: white;
 	text-decoration: none;
 }
