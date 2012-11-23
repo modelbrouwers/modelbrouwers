@@ -4,7 +4,7 @@
 {% block content %}
 <div class="tab" id="new">{% trans 'Create new album' %}</div>
 <div id="new-album">
-    <form action="." method="POST">
+    <form action="." method="post">
         {% for field in add_album_form.hidden_fields %}
             {{ field }}
         {% endfor %}
@@ -40,7 +40,7 @@
 
 <div class="tab">{% trans 'Organize albums' %}</div>
 <div id="albums-list">
-	<form action="." method="POST">
+	<form action="." method="post">
 		{{ albumformset.management_form }}
 		<input id="top-right-submit" type="submit" value="{% trans 'Save' %}" name="manage" 
 		class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;"/>

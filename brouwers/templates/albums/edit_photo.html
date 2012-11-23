@@ -6,7 +6,7 @@
     {% blocktrans with album_url=form.instance.album.get_absolute_url album=form.instance.album %}Photo in the album <a href="{{ album_url }}"><strong>{{ album }}</strong></a>{% endblocktrans %}
 </div>
 <div id="edit-photo" class="margin">
-    <form action="." method="POST">
+    <form action="." method="post">
         <div class="edit-photo">
             <img src="{{ form.instance.thumb_url }}" width="150" alt="thumb" />
         </div>
