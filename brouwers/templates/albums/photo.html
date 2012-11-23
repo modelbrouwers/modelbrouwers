@@ -24,6 +24,11 @@
 
 <div class="photo-container">
     <div class="photo-container2">
+        <div class="center">
+            <br /><!-- FF workaround, doesn't center the image otherwise -->
+            <img id="photo_{{ photo.id }}" class="photo" src="{{ photo.image.url }}" style="width:{{ photo.width }}px;height:{{ photo.height }}px;" alt="photo {{ photo.id }}" />
+        </div>
+        
         <div class="in-photo-navigation">
             {% spaceless %}
             {% if photo.get_previous %}
@@ -53,7 +58,6 @@
             {% endif %}
             {% endspaceless %}
         </div>
-        <img id="photo_{{ photo.id }}" class="photo" src="{{ photo.image.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="photo {{ photo.id }}"/>
     </div>
     {% if photo.description %}
        <div class="description">

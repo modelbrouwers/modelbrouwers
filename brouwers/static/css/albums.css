@@ -548,6 +548,9 @@ img.photo{
 .photo-container2{
     position: relative;
 }
+.photo-container2 img.photo{
+    margin-top: 0;
+}
 .photo-container2 .in-photo-navigation{
     position: absolute;
     bottom: 50%;
