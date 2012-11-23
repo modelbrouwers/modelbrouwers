@@ -48,7 +48,7 @@
             {% if photo.get_next %}
             <a href="{{ photo.get_next.get_absolute_url }}#photo_{{ photo.get_next.id }}">
                  <img class="nav-arrow arrow-right" src="{{ STATIC_URL }}images/nav/arrow-right.png" 
-                 alt="next" next="{{ photo.get_next.id }}" style="left: {{ position }}px;"/>
+                 alt="next" style="left: {{ position }}px;"/>
             </a>
             {% else %}
             <a href="#" style="visibility: hidden;">
