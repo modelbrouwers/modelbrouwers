@@ -1,3 +1,5 @@
+{% if form %}
+
 {% if form.non_field_errors %}
 </ul>
     {% for error in form.non_field_errors %}
@@ -21,3 +23,5 @@
     {% include "form_in_table_rows.html" %}
 {% endfor %}
 </table>
+
+{% endif %}
