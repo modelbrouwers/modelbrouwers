@@ -49,7 +49,7 @@ def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     #Make sure folder is writable
     if not os.access(rel_folder, os.W_OK):
         raise ImproperlyConfigured('Could not write to directory: %s' % rel_folder)
-    img.save(outfile)
+    img.save(outfile.encode('utf-8'))
     return (rel_path, img)
 
 def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dimensions=settings.THUMB_DIMENSIONS, upload_to='albums/', overwrite=False):
