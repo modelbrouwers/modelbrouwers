@@ -14,7 +14,7 @@ def valid_ext(extension):
     return False
 
 def exists(name):
-    return os.path.exists(name)
+    return os.path.exists(name.encode('utf-8'))
 
 def get_available_name(name, overwrite=False):
         """
@@ -41,7 +41,7 @@ def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
     rel_folder = path_dir + '/'
     #if relative path doesn't exist, create it
-    if not os.path.exists(rel_folder):
+    if not os.path.exists(rel_folder.encode('utf-8')):
         try:
             os.makedirs(rel_folder)
         except OSError, err:
