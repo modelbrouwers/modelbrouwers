@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from brouwers.migration.models import UserMigration
-from models import UserProfile, RegistrationQuestion, PasswordReset
+from models import UserProfile, RegistrationQuestion, PasswordReset, ForumUser
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -112,12 +112,35 @@ class ProfileForm(forms.ModelForm):
         exclude = ('user', 'last_vote', 'forum_nickname', 'secret_santa')
 
 class UserForm(forms.ModelForm):
+    _original_email = None
+    _profile = None
+    
     class Meta:
         model = User
         fields =('email', 'first_name', 'last_name')
         widgets = {
             'email': forms.TextInput(attrs={'size':30})
         }
+    
+    def __init__(self, profile=None, *args, **kwargs):
+        user = kwargs['instance']
+        self._original_email = user.email
+        if profile:
+            self._profile = profile
+        super(UserForm, self).__init__(*args, **kwargs)
+    
+    def save(self, *args, **kwargs):
+        if self._original_email != self.cleaned_data['email']:
+            new_email = self.cleaned_data['email']
+            try:
+                forum_user = ForumUser.objects.get(username=self._profile.forum_nickname)
+                forum_user.user_email = new_email
+                forum_user.save()
+            except:
+                super(UserForm, self).save(*args, **kwargs) # save the profile data anyway
+                # reraise exception so we get the error mail
+                raise
+        super(UserForm, self).save(*args, **kwargs)
 
 class ForumAccountForm(forms.Form):
     forum_nickname = forms.CharField(required=True, min_length=2, max_length=30, label=_("Forum name"))

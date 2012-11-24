@@ -197,8 +197,9 @@ def confirm_account(request):
 def profile(request):
     forms = {}
     if request.method=='POST':
-        forms['profileform'] = ProfileForm(request.POST, instance=request.user.get_profile())
-        forms['userform'] = UserForm(request.POST, instance=request.user)
+        profile = request.user.get_profile()
+        forms['profileform'] = ProfileForm(request.POST, instance=profile)
+        forms['userform'] = UserForm(profile, request.POST, instance=request.user)
         
         if forms['profileform'].is_valid():
             forms['profileform'].save()

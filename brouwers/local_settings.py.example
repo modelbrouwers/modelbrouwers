@@ -6,13 +6,24 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '{ CD }brouwers.db'
+    },
+    'postgres': { #with phpBB3
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'brouwers',
+        'USER': 'brouwers',
+        'PASSWORD': 'test',
     }
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '{ CD }mails/'
 
+#DATABASE_ROUTERS = ['brouwers.sessionprofile_router.SessionProfileRouter']
+
 VOTE_END_MONTH = 1
 VOTE_END_DAY = 15
+
 VALID_IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png']
 THUMB_DIMENSIONS = (200, 150, 'thumb_')
+
+PHPBB_TABLE_PREFIX = 'phpbb3_'

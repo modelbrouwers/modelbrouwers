@@ -1,9 +1,11 @@
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 from datetime import date, datetime
 
 from brouwers.awards.models import Category
+import zlib
 
 COUNTRY_CHOICES = (
     ("N",_("Nederland")),
@@ -60,6 +62,39 @@ class UserProfile(models.Model):
             ok = True
         return ok
 
+class ForumUser(models.Model):
+    user_id = models.PositiveIntegerField(primary_key=True,
+        # mediumint(8) unsigned
+        help_text="Primary key"
+    )
+    username = models.CharField(_("username"), max_length=255)
+    user_email = models.CharField(_("email"), max_length=100)
+    user_email_hash = models.BigIntegerField(db_column="user_email_hash",
+        # bigint(20)
+        default=0,
+        help_text="A hash of the user's email address."
+    )
+    
+    class Meta:
+        verbose_name = _("forum user")
+        verbose_name_plural = _("forum users")
+        ordering = ('username',)
+        managed = False
+        db_table = u"%susers" % settings.PHPBB_TABLE_PREFIX
+    
+    def __unicode__(self):
+        return u"%s" % self.username
+    
+    def get_email_hash(self):
+        email = self.user_email
+        h = zlib.crc32(email.lower()) & 0xffffffff
+        return "%s%s" % (h, len(email))
+    
+    def save(self, *args, **kwargs):
+        self.user_email_hash = self.get_email_hash()
+        super(ForumUser, self).save(*args, **kwargs)
+
+
 class QuestionAnswer(models.Model):
     answer = models.CharField(max_length=255)
     
@@ -115,7 +150,7 @@ class PasswordReset(models.Model):
 class Redirect(models.Model):
     path_from = models.CharField(
             _("path from"), 
-            max_length=512, 
+            max_length=255, 
             help_text=_("path from where to redirect, without leading slash. \
                         E.g. '/shop/' becomse 'shop/'."),
             unique=True
