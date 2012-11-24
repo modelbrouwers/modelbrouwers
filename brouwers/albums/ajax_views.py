@@ -57,7 +57,7 @@ def uploadify(request):
         
         for data in img_data:
             photo = Photo(user=request.user, album=album, width=data[1], height=data[2])
-            photo.image = data[0].encode('utf-8')
+            photo.image = data[0]
             photo.order = max_order + 1
             photo.save()
             p_id = photo.id

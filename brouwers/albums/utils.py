@@ -4,6 +4,7 @@ import itertools
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from models import Preferences
+import unicodedata
 
 def valid_ext(extension):
     """
@@ -14,7 +15,7 @@ def valid_ext(extension):
     return False
 
 def exists(name):
-    return os.path.exists(name.encode('utf-8'))
+    return os.path.exists(name)
 
 def get_available_name(name, overwrite=False):
         """
@@ -35,13 +36,14 @@ def get_available_name(name, overwrite=False):
 
 def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
+    #outfile = unicodedata.normalize('NFKD', outfile).encode('ascii', 'ignore')
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     
     #get the relative path for the database
     rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
     rel_folder = path_dir + '/'
     #if relative path doesn't exist, create it
-    if not os.path.exists(rel_folder.encode('utf-8')):
+    if not os.path.exists(rel_folder):
         try:
             os.makedirs(rel_folder)
         except OSError, err:
@@ -49,7 +51,7 @@ def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     #Make sure folder is writable
     if not os.access(rel_folder, os.W_OK):
         raise ImproperlyConfigured('Could not write to directory: %s' % rel_folder)
-    img.save(outfile.encode('utf-8'))
+    img.save(outfile)
     return (rel_path, img)
 
 def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dimensions=settings.THUMB_DIMENSIONS, upload_to='albums/', overwrite=False):
