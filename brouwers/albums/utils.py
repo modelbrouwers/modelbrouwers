@@ -37,6 +37,7 @@ def get_available_name(name, overwrite=False):
 def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
     #outfile = unicodedata.normalize('NFKD', outfile).encode('ascii', 'ignore')
+    outfile = outfile.encode('utf-8')
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     
     #get the relative path for the database
