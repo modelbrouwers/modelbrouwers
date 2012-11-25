@@ -34,14 +34,15 @@ def get_available_name(name, overwrite=False):
             name = os.path.join(dir_name, "%s_%s%s" % (file_root, count.next(), file_ext))
         return name, dir_name
 
+# FIXME unicode issues
 def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
-    #outfile = unicodedata.normalize('NFKD', outfile).encode('ascii', 'ignore')
-    outfile = outfile.encode('utf-8')
+    outfile = unicodedata.normalize('NFKD', outfile).encode('ascii', 'ignore')
+    #outfile = outfile.encode('utf-8')
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     
     #get the relative path for the database
-    rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1).decode('utf-8')
+    rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
     rel_folder = path_dir + '/'
     #if relative path doesn't exist, create it
     if not os.path.exists(rel_folder):
