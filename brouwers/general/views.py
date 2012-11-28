@@ -54,6 +54,7 @@ def index(request):
 ### ready for implementation on modelbrouwers.nl
 def register(request):
     error = ''
+    question = None
     if request.method=='POST':
         form = RegistrationForm(request.POST)
         answerform = AnswerForm(request.POST)
