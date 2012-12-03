@@ -34,10 +34,9 @@ def get_available_name(name, overwrite=False):
             name = os.path.join(dir_name, "%s_%s%s" % (file_root, count.next(), file_ext))
         return name, dir_name
 
-# FIXME unicode issues
 def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
-    outfile = unicodedata.normalize('NFKD', outfile).encode('ascii', 'ignore')
+    outfile = unicodedata.normalize('NFKD', outfile).encode('ascii', 'ignore') # FIXME unicode issues
     #outfile = outfile.encode('utf-8')
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     

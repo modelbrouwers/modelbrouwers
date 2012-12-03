@@ -85,14 +85,21 @@ naar de Modelbrouwers.nl homepage"/></a>
                         {% if user.is_superuser %}
                             <li><a href="{% url brouwers.migration.views.index %}">Migraties</a></li>
                         {% endif %}
+                    {% endblock %}
+                    
+                    {% block user_auth %}
                         {% if not user.is_authenticated %}
-                            <li><a href="{% url brouwers.general.views.custom_login %}">Inloggen</a></li>
-                            <li><a href="{% url brouwers.general.views.register %}">Registreren</a></li>
+                            <li class="user-auth">
+                                <a href="{% url brouwers.general.views.custom_login %}?next={{ request.path }}">Inloggen</a>
+                            </li>
+                            <li class="user-auth">
+                                <a href="{% url brouwers.general.views.register %}">Registreren</a>
+                            </li>
                         {% else %}
-                            <li class="right" style="font-weight:normal;">
+                            <li class="user-auth">
                                 <a href="{% url brouwers.general.views.custom_logout %}">uitloggen</a>
                             </li>
-                            <li id="profile-link" class="right" style="font-weight:normal;">
+                            <li class="user-auth">
                                 <a href="{% url brouwers.general.views.profile %}">Profiel [ {{ user.get_profile.forum_nickname }} ]</a>
                             <li>
                         {% endif %}

@@ -229,6 +229,11 @@ ul#menu li a{
 ul#menu li a:hover{
 	color: #DD6900;
 }
+/*** USER AUTH ***/
+ul#menu li.user-auth{float:right;margin-left:0;}
+ul#menu li.user-auth a{font-weight:normal;}
+ul#menu li.user-auth a:hover{color: white;}
+ul#menu li.user-auth:hover{border-color: #C00;}
 /*** PAGINATION ***/
 div.pagination{
     text-align: center;

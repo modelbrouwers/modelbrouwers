@@ -28,3 +28,16 @@
     {% endfor %}
 </ul>
 {% endif %}
+
+            {% if user.is_superuser %}
+            <div id="debug" style="text-align:left">
+            {% block queries %}
+                Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
+                <ol>
+	            {% for query in connection.queries %}
+		            <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
+	            {% endfor %}
+	            </ol>
+            {% endblock %}
+            </div>
+            {% endif %}

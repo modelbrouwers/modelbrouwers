@@ -215,7 +215,7 @@ def edit_album(request):
         if form.is_valid():
             album = form.cleaned_data["album"]
             editform = EditAlbumFormAjax(request.POST, instance=album, user=request.user)
-            photos = editform.fields["cover"].queryset
+            photos = editform.fields["cover"].queryset.select_related('album', 'album__cover')
             if editform.is_valid() and (album.user == request.user or admin_mode(request.user)):
                 editform.save()
                 formset = GroupFormset(request.POST, instance=album)
@@ -224,13 +224,14 @@ def edit_album(request):
                 album = get_object_or_404(Album, pk=album.id);
                 return render_to_response(request, 'albums/ajax/album_li.html', {'album': album, 'custom_id': 'temp'})
     else:
-        form = PickAlbumForm(request.user, request.GET)
+        admin = admin_mode(request.user)
+        form = PickAlbumForm(request.user, request.GET, admin_mode=admin)
         if form.is_valid():
             album = form.cleaned_data["album"]
-            if request.user == album.user or admin_mode(request.user):
+            if request.user == album.user or admin:
                 editform = EditAlbumFormAjax(instance=album, user=request.user)
                 formset = GroupFormset(instance=album)
-                photos = editform.fields["cover"].queryset
+                photos = editform.fields["cover"].queryset.select_related('album', 'album__cover')
             else:
                 return HttpResponse('This event has been logged')
         else:

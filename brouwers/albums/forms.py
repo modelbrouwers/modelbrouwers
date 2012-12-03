@@ -51,7 +51,7 @@ class EditAlbumForm(AlbumForm):
     def __init__(self, *args, **kwargs):
         super(EditAlbumForm, self).__init__(*args, **kwargs)
         album = kwargs.pop('instance')
-        self.fields['cover'].queryset = Photo.objects.filter(album=album)
+        self.fields['cover'].queryset = Photo.objects.filter(album=album).select_related('album', 'album__cover')
     
     def save(self, *args, **kwargs):
         if self.instance.trash:
@@ -106,10 +106,14 @@ class PickAlbumForm(forms.Form):
             trash = kwargs.pop('trash')
         except KeyError: #key not suplied
             trash = False
+        try:
+            admin = kwargs.pop('admin_mode')
+        except KeyError:
+            admin = admin_mode(user)
         super(PickAlbumForm, self).__init__(*args, **kwargs)
         #own_albums = Album.objects.filter(user=user, writable_to="u", trash=False).order_by('order', 'title')
         
-        if admin_mode(user):
+        if admin:
             q = Q(trash=trash)
         else:
             q = Q(user=user, trash=trash)
@@ -130,7 +134,7 @@ class PickAlbumForm(forms.Form):
             {'optgroup': _("Public albums"), 'qs': public_albums},
             ] 
         
-        self.fields['album'].queryset = (own_albums | public_albums)
+        self.fields['album'].queryset = (own_albums | public_albums).select_related('user')
         self.fields['album'].choices = albums_as_choices(querysets, trash=trash)
         if browse:
             self.fields['album'].required = False
@@ -138,7 +142,7 @@ class PickAlbumForm(forms.Form):
 class PickOwnAlbumForm(PickAlbumForm):
     def __init__(self, user, *args, **kwargs):
         super(PickOwnAlbumForm, self).__init__(user)
-        self.fields['album'].queryset = Album.objects.filter(user=user, trash=False).order_by('order', 'title')
+        self.fields['album'].queryset = Album.objects.select_related('user').filter(user=user, trash=False).order_by('order', 'title')
 
 class OrderAlbumForm(PickAlbumForm):
     album_before = forms.ModelChoiceField(queryset=Album.objects.none(), required=False)

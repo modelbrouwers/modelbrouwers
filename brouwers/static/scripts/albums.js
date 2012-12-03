@@ -175,9 +175,9 @@ $(document).ready(function() {
         }
         $(this).parent().find('img.delete').show();
     });
-    $('.album-photos-list a.photo img').mouseleave(function(){
-        $(this).parent().find('img.set_cover').hide();
-        $(this).parent().find('img.delete').hide();
+    $('.album-photos-list a.photo').mouseleave(function(){
+        $(this).parent().parent().find('img.set_cover').hide();
+        $(this).parent().parent().find('img.delete').hide();
     });
     $('.album-photos-list a.photo img.set_cover').click(function(e){
         e.stopPropagation();
@@ -310,6 +310,7 @@ function openEditDialog(event, element, album_id){
     if(event.preventDefault) {
         event.preventDefault();
     }
+    $("#edit-dialog").html('<img src=\"/static/images/loading_big.gif\" alt=\"Loading...\" style=\"margin-top:5em;\"/>');
     if (typeof album_id == 'undefined'){
 	    var li = $(element).closest('li.album');
 	    var album_id = li.children('input[name="album_id"]').val();
