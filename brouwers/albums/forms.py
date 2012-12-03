@@ -34,10 +34,14 @@ class AlbumForm(forms.ModelForm):
         user = None
         if 'user' in kwargs:
             user = kwargs.pop('user')
+        if 'admin_mode' in kwargs:
+            admin = kwargs.pop('admin_mode')
+        else:
+            admin = admin_mode(user)
         
         super(AlbumForm, self).__init__(*args, **kwargs)
         # limit visible categories for regular users
-        if not user or not admin_mode(user):
+        if not user or not admin:
             self.fields['category'].queryset = Category.objects.filter(public=True)
 
 class EditAlbumForm(AlbumForm):
@@ -51,7 +55,7 @@ class EditAlbumForm(AlbumForm):
     def __init__(self, *args, **kwargs):
         super(EditAlbumForm, self).__init__(*args, **kwargs)
         album = kwargs.pop('instance')
-        self.fields['cover'].queryset = Photo.objects.filter(album=album).select_related('album', 'album__cover')
+        self.fields['cover'].queryset = Photo.objects.filter(album=album).select_related('user', 'album', 'album__cover')
     
     def save(self, *args, **kwargs):
         if self.instance.trash:

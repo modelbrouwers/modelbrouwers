@@ -228,10 +228,10 @@ def edit_album(request):
         form = PickAlbumForm(request.user, request.GET, admin_mode=admin)
         if form.is_valid():
             album = form.cleaned_data["album"]
-            if request.user == album.user or admin:
+            if request.user.id == album.user_id or admin:
                 editform = EditAlbumFormAjax(instance=album, user=request.user)
                 formset = GroupFormset(instance=album)
-                photos = editform.fields["cover"].queryset.select_related('album', 'album__cover')
+                photos = editform.fields["cover"].queryset.select_related('user', 'album', 'album__cover')
             else:
                 return HttpResponse('This event has been logged')
         else:
