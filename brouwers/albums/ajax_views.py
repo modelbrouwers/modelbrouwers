@@ -230,13 +230,28 @@ def edit_album(request):
             album = form.cleaned_data["album"]
             if request.user.id == album.user_id or admin:
                 editform = EditAlbumFormAjax(instance=album, user=request.user)
-                formset = GroupFormset(instance=album)
+                #formset = GroupFormset(instance=album)
                 photos = editform.fields["cover"].queryset.select_related('user', 'album', 'album__cover')
             else:
                 return HttpResponse('This event has been logged')
         else:
             return HttpResponse(form.as_p())
     return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'formset': formset, 'photos': photos})
+
+@login_required
+def edit_albumgroup(request):
+    GroupFormset = inlineformset_factory(
+        Album, AlbumGroup, 
+        form=AlbumGroupForm, extra=1, 
+        can_delete=False
+    )
+    admin = admin_mode(request.user)
+    form = PickAlbumForm(request.user, request.GET, admin_mode=admin)
+    if form.is_valid():
+        album = form.cleaned_data["album"]
+        formset = GroupFormset(instance=album)
+        return render(request, 'albums/ajax/group_rights.html', {'formset': formset})
+    return HttpResponse(0)
 
 @login_required
 def remove_album(request):

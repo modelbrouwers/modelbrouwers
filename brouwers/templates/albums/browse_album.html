@@ -6,6 +6,9 @@
 {% block extrascript %}
 <script type="text/javascript">
 	var url_edit = "{% url brouwers.albums.ajax_views.edit_album %}";
+	var url_covers = "{% url brouwers.albums.ajax_views.get_covers %}";
+	var url_get_group = "{% url brouwers.albums.ajax_views.edit_albumgroup %}";
+	var user_search_url = "{% url brouwers.general.ajax_views.search_users %}";
 </script>
 {% endblock %}
 

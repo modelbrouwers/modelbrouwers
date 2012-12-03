@@ -358,7 +358,23 @@ function openEditDialog(event, element, album_id){
 }
 
 function initSearchBox(){
-    $('#id_albumgroup_set-0-users').parent().parent().hide();
+    if ($('#id_albumgroup_set-0-users').length == 0){
+        $.get(
+            url_get_group,
+            {'album': $('#id_album').val()},
+	        function (response){
+	            $('#showCovers').parent().parent().after(response);
+	            $('.hide').hide();
+	            $('#id_albumgroup_set-0-users').parent().parent().hide();
+	            insertSearchbox();
+	        }
+        );
+    } else {
+        insertSearchbox();
+    }
+}
+
+function insertSearchbox(){
     var writable_select = $('select#id_writable_to');
     var text_field = '<input type=\"text\" class=\"autocomplete\" id=\"search-users\" placeholder=\"'+ trans_find_users +'\"/>';
     var div_users = '<tr><td></td><td colspan=\"2\"><div id=\"users\"></div></td>';
@@ -366,22 +382,23 @@ function initSearchBox(){
     writable_select.parent().parent().after(div_users);
     var searchbox = $('input#search-users');
     searchbox.autocomplete({
-            source: user_search_url,
-            autoFocus: true,
-            minLength: 3,
-            delay: 0,
-            select:  function(e, ui) {
-                var multi_select = $('#id_albumgroup_set-0-users');
-                var user_id = String(ui.item.id);
-                var values = multi_select.val();
-                if (values == null){values=new Array();}
-                values.push(user_id);
-                multi_select.val(values);
-                showLinkedUsers();
-            }
-        });
+        source: user_search_url,
+        autoFocus: true,
+        minLength: 3,
+        delay: 0,
+        select:  function(e, ui) {
+            var multi_select = $('#id_albumgroup_set-0-users');
+            var user_id = String(ui.item.id);
+            var values = multi_select.val();
+            if (values == null){values=new Array();}
+            values.push(user_id);
+            multi_select.val(values);
+            showLinkedUsers();
+        }
+    });
+    
     // trigger event
-    writable_select.change();
+    $('select#id_writable_to').change();
     
     // search & autocomplete
     searchbox.focus(function(){
@@ -401,8 +418,8 @@ function initSearchBox(){
         return false;
     });
 }
-function showLinkedUsers()
-{
+
+function showLinkedUsers(){
     var options = $('#id_albumgroup_set-0-users option:selected');
     var html = '';
     $.each(options, function(index, option){

@@ -1,8 +1,9 @@
 {% extends "albums/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="tab">
-    {% blocktrans with form.instance as album %}Edit album &lsquo;<strong>{{ album }}</strong>&rsquo;{% endblocktrans %}
+    {% blocktrans with album=form.instance %}Edit album &lsquo;<strong>{{ album }}</strong>&rsquo;{% endblocktrans %}
 </div>
 <div id="edit-album">
     <form action="." method="post">
