@@ -2,7 +2,7 @@
 *  in the template where the variable is passed to the js.
 *  This makes the configuration less complex & keeps the static nature of the .js
 */
-$(document).ready(function() {    
+$(document).ready(function() {
     $('.no-javascript').remove(); //hide the warning
     
     $('.BBCode').focus(function(){
@@ -235,6 +235,9 @@ $(document).ready(function() {
             $('div#users').parent().parent().hide(); //hide the row
         }
     });
+    $('#showCovers').live('click', function(){
+        showCovers($(this));
+    });
 });
 
 function hideNewAlbum(){
@@ -281,7 +284,22 @@ function initSortable(element){
         }
     });
 }
-function showCovers(){
+function showCovers(element){
+    if ($('ul#photo-navigation').hasClass('not-downloaded')){ // covers ophalen
+        $("#photo-navigation").before('<img id=\"loading\" src=\"/static/images/loading_big.gif\" alt=\"Loading...\"/>');
+        album_id = $('#id_album').val();
+        $.get(
+            url_covers,
+	        {'album': album_id},
+	        function (response){
+	            $("#photo-navigation").html(response);
+	            if (response != 0){
+	                $('img#loading').remove();
+	                $("#photo-navigation").removeClass('not-downloaded');
+	            }
+	        }
+        );
+    }
     if ($('#photo-navigation').css('display') == 'none')
     {
         $('#photo-navigation').show();
@@ -323,7 +341,7 @@ function openEditDialog(event, element, album_id){
 	        $("#edit-dialog").html(response);
 	        
 	        $('#id_hidden_cover').val($('#id_cover').val());
-	        var a = "<a href=\"#\" onclick=\"showCovers();\">";
+	        var a = "<a href=\"#\" id=\"showCovers\">";
 	        a += "<u>" + trans_pick_cover + "</u></a>";
             $('#id_cover').replaceWith(a);
             // write permissions for groups

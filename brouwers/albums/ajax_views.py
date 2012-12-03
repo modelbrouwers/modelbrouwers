@@ -8,7 +8,7 @@ from django.core.files.temp import NamedTemporaryFile
 from django.forms import ValidationError
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils.safestring import mark_safe
 import django.utils.simplejson as json
 
@@ -281,6 +281,17 @@ def get_title(request):
         album = form.cleaned_data["album"]
         title = album.title
     return HttpResponse(title)
+
+@login_required
+def get_covers(request):
+    admin = admin_mode(request.user)
+    print request.GET
+    form = PickAlbumForm(request.user, request.GET, admin_mode=admin)
+    if form.is_valid():
+        album = form.cleaned_data["album"]
+        photos = Photo.objects.select_related('user', 'album').filter(album=album, trash=False).order_by('order')
+        return render(request, 'albums/ajax/album_covers.html', {'album': album, 'photos':photos})
+    return HttpResponse(0)
 
 @login_required
 def restore_album(request):

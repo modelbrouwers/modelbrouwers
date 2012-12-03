@@ -14,20 +14,9 @@
     {% include "form_in_table_jquery-ui.html" %}
 </form>
 
-{% if photos %}
-<ul id="photo-navigation">
-    {% for photo in photos %}
-        {% if photo.album.cover == photo %}
-            <li class="cover">
-        {% else %}
-            <li>
-        {% endif %}
-            <img src="{{ photo.thumb_url }}" alt="photo {{ photo.id }}"/>
-            <input type="hidden" name="cover" value="{{ photo.id }}" />
-        </li>
-    {% endfor %}
+<ul id="photo-navigation" class="not-downloaded">
+    {% include "albums/ajax/album_covers.html" %}
 </ul>
-{% endif %}
 
             {% if user.is_superuser %}
             <div id="debug" style="text-align:left">

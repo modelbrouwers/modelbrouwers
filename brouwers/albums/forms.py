@@ -72,6 +72,10 @@ class EditAlbumFormAjax(EditAlbumForm):
             'title', 'description', 'build_report', 
             'category', 'public', 'writable_to', 'cover'
             )
+    
+    def __init__(self, *args, **kwargs):
+        super(EditAlbumForm, self).__init__(*args, **kwargs)
+        self.fields['cover'].queryset = Photo.objects.none()
 
 class AlbumGroupForm(forms.ModelForm):
     class Meta:

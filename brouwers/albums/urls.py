@@ -23,6 +23,7 @@ urlpatterns = patterns('brouwers.albums.views',
 # AJAX
 urlpatterns += patterns('brouwers.albums.ajax_views',
     (r'^album/edit/$',          'edit_album'),
+    (r'^album/get_covers/$',    'get_covers'),
     (r'^album/get_title/$',     'get_title'),
     (r'^album/new/$',           'new_album_jquery_ui'),
     (r'^album/remove/$',        'remove_album'),
