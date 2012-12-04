@@ -144,7 +144,7 @@ $(document).ready(function() {
     
     var searchfield = $("#id_search");
     if (searchfield.val() == ''){
-        searchfield.val('albums doorzoeken...');
+        searchfield.val(trans_search_album);
         searchfield.css('color', '#555');
     }
     
