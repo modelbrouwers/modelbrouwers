@@ -22,7 +22,7 @@ import os
 #          BASE           #
 ###########################
 def index(request):
-    albums = Album.objects.select_related('user', 'cover').filter(trash=False, public=True).order_by('-last_upload', '-created')[:20]
+    albums = Album.objects.select_related('user', 'cover').filter(trash=False, public=True).order_by('-last_upload')[:20]
     spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
     if spotlight_albums.count() > 2:
         spotlight_albums = spotlight_albums[:3]
