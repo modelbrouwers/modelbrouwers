@@ -42,7 +42,7 @@ class Category(models.Model):
         return "/albums/category/%s" % self.id
 
 class Album(models.Model):
-    user = models.ForeignKey(User) #owner of the album
+    user = models.ForeignKey(User, db_index=True) #owner of the album
     title = models.CharField(_("album title"), max_length="256",
             default="album %s" % datetime.now().strftime("%d-%m-%Y"), db_index=True)
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
@@ -185,7 +185,7 @@ class Photo(models.Model):
     
     """ Model Fields """
     #image properties
-    user = models.ForeignKey(User) #we need to know the owner (public albums)
+    user = models.ForeignKey(User, db_index=True) #we need to know the owner (public albums)
     album = models.ForeignKey(Album, db_index=True)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)

@@ -346,7 +346,7 @@ def albums_list(request):
         q = Q(trash=False)
     else:
         q = Q(trash=False, public=True)
-    albums = Album.objects.filter(q).annotate(null_last_upload=Count('last_upload')).order_by('-last_upload', '-created')
+    albums = Album.objects.select_related('user').filter(q).order_by('-last_upload')
     
     p = Paginator(albums, 30)
     page = request.GET.get('page', 1)
