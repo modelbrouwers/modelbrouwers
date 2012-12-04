@@ -44,7 +44,7 @@ class Category(models.Model):
 class Album(models.Model):
     user = models.ForeignKey(User) #owner of the album
     title = models.CharField(_("album title"), max_length="256",
-            default="album %s" % datetime.now().strftime("%d-%m-%Y"))
+            default="album %s" % datetime.now().strftime("%d-%m-%Y"), db_index=True)
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
     description = models.CharField(_("album description"),
             max_length=500, blank=True)
@@ -68,11 +68,11 @@ class Album(models.Model):
     #Logging and statistics
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
-    last_upload = models.DateTimeField(default=datetime(1970,1,1,0,0,0))
+    last_upload = models.DateTimeField(default=datetime(1970,1,1,0,0,0), db_index=True)
     views = models.PositiveIntegerField(default=0)
     
     #User preferences
-    order = models.PositiveSmallIntegerField(_("order"), default=1, blank=True, null=True)
+    order = models.PositiveSmallIntegerField(_("order"), default=1, blank=True, null=True, db_index=True)
     public = models.BooleanField(
             _("Public?"),
             help_text=_("Can this album be viewed by everyone? Untick to make the album available only to yourself."), 
@@ -186,18 +186,18 @@ class Photo(models.Model):
     """ Model Fields """
     #image properties
     user = models.ForeignKey(User) #we need to know the owner (public albums)
-    album = models.ForeignKey(Album)
+    album = models.ForeignKey(Album, db_index=True)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
     image = models.ImageField(_("image"), max_length=200, upload_to=get_image_path, height_field='height', width_field='width')
     description = models.CharField(_("photo description"), max_length=500, blank=True)
     
     #Logging and statistics
-    uploaded = models.DateTimeField(auto_now_add=True)
+    uploaded = models.DateTimeField(auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
     views = models.PositiveIntegerField(default=0)
     
-    order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
+    order = models.PositiveSmallIntegerField(default=1, blank=True, null=True, db_index=True)
     trash = models.BooleanField()
     
     class Meta:
