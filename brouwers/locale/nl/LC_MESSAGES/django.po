@@ -1349,7 +1349,7 @@ msgid ""
 "Contact admins@modelbrouwers.nl if you are interested in helping with "
 "translations."
 msgstr ""
-"Contacteerd admins@modelbrouwers.nl als je interesse hebt om mee te helpen met"
+"Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen met"
 " vertalingen."
 
 #: templates/shirts/base.html:43
