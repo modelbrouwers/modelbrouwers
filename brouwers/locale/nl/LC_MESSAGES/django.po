@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-04 19:39+0100\n"
+"POT-Creation-Date: 2012-12-15 21:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,15 @@ msgstr "Engels"
 #: settings.py:20
 msgid "Dutch"
 msgstr "Nederlands"
+
+#: albums/ajax_views.py:38
+msgid ""
+"You have used this album title before. Make sure to pick an unique title."
+msgstr "Je hebt deze albumtitel al eerder gebruikt. Kies een unieke titel."
+
+#: albums/ajax_views.py:237
+msgid "This event has been logged"
+msgstr "Deze gebeurtenis werd gelogged."
 
 #: albums/forms.py:18
 msgid ""
@@ -111,6 +120,10 @@ msgstr "categorie"
 #: albums/models.py:34
 msgid "categories"
 msgstr "categorieën"
+
+#: albums/models.py:45 secret_santa/models.py:46
+msgid "user"
+msgstr "gebruiker"
 
 #: albums/models.py:46 albums/models.py:48
 msgid "album title"
@@ -307,8 +320,8 @@ msgstr "verberg de zijbalk"
 msgid ""
 "Hide the sidebar completely when typing a post and activate it with a button."
 msgstr ""
-"Verberg de zijbalk volledig tijdens het typen van een post en activeer ze door"
-"op een knop te klikken."
+"Verberg de zijbalk volledig tijdens het typen van een post en activeer ze "
+"doorop een knop te klikken."
 
 #: albums/models.py:383
 msgid "sidebar background color"
@@ -449,92 +462,83 @@ msgstr ""
 msgid "brouwverslagen"
 msgstr ""
 
-#: general/forms.py:13
+#: general/forms.py:16
 msgid "E-mail"
 msgstr "E-mailadres"
 
-#: general/forms.py:19
-msgid ""
-"Deze forumnickname is al in gebruik bij een andere user op deze website."
-msgstr ""
-
-#: general/forms.py:44
+#: general/forms.py:22 general/forms.py:41
 msgid "A user with that username already exists."
 msgstr "Er bestaat al iemand met deze gebruikersnaam."
 
-#: general/forms.py:45 general/forms.py:159 general/forms.py:257
+#: general/forms.py:42 general/forms.py:128 general/forms.py:222
 msgid "The two password fields didn't match."
 msgstr "De wachtwoordvelden zijn niet identiek."
 
-#: general/forms.py:48 general/forms.py:200
+#: general/forms.py:45 general/forms.py:166
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: general/forms.py:49 general/forms.py:203
+#: general/forms.py:46 general/forms.py:169
 msgid "E-mail address"
 msgstr "E-mailadres"
 
-#: general/forms.py:50 general/forms.py:148 general/forms.py:246
+#: general/forms.py:47 general/forms.py:117 general/forms.py:211
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: general/forms.py:52 general/forms.py:150 general/forms.py:248
+#: general/forms.py:49 general/forms.py:119 general/forms.py:213
 msgid "Password confirmation"
 msgstr "Wachtwoord - bevestig"
 
-#: general/forms.py:54 general/forms.py:152 general/forms.py:250
+#: general/forms.py:51 general/forms.py:121 general/forms.py:215
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 
-#: general/forms.py:64
+#: general/forms.py:61
 msgid "This e-mail address is already registered."
 msgstr "Dit e-mailadres is al geregistreerd."
 
-#: general/forms.py:76
-msgid "This username has been taken."
-msgstr "Deze gebruikersnaam is al in gebruik."
-
-#: general/forms.py:146
-msgid "Forum name"
-msgstr "Forumnaam"
-
-#: general/forms.py:147
-msgid "Code"
-msgstr "Code"
-
-#: general/forms.py:165
-msgid "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
-msgstr ""
-
-#: general/forms.py:173
-msgid "Je hebt een foutieve code ingegeven."
-msgstr ""
-
-#: general/forms.py:188
-msgid "The username entered was not correct."
-msgstr "De ingegeven gebruikersnaam was niet correct."
-
-#: general/forms.py:192
+#: general/forms.py:101
 msgid "answer"
 msgstr "antwoord"
 
-#: general/forms.py:204
+#: general/forms.py:115
+msgid "Forum name"
+msgstr "Forumnaam"
+
+#: general/forms.py:116
+msgid "Code"
+msgstr "Code"
+
+#: general/forms.py:134
+msgid "This user doesn't exist on the board, check for typos."
+msgstr "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
+
+#: general/forms.py:142
+msgid "You entered the wrong code."
+msgstr "Je hebt een foutieve code ingegeven."
+
+#: general/forms.py:157
+msgid "The username entered was not correct."
+msgstr "De ingegeven gebruikersnaam was niet correct."
+
+#: general/forms.py:170
 msgid ""
-"If you forgot your username, you can enter the e-mail                     "
-"address you registered with."
+"If you forgot your username, you can enter the e-mail address you registered "
+"with."
 msgstr ""
-"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadreswaarmee je "
+"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee je "
 "registreerde ingeven."
 
-#: general/forms.py:212
+#: general/forms.py:177
 msgid "This user is unknown in the database."
 msgstr "Deze gebruiker is onbekend in de databank."
 
-#: general/forms.py:219
+#: general/forms.py:184
 msgid "This email adress is unknown in the database"
 msgstr "Dit e-mailadres is onbekend in de databank."
 
-#: general/forms.py:226
+#: general/forms.py:191
 msgid "Enter your username or e-mail address."
 msgstr "Voer je gebruikersnaam of e-mailadres in."
 
@@ -554,96 +558,108 @@ msgstr ""
 msgid "Frankrijk"
 msgstr ""
 
+#: general/models.py:30
+msgid "exclude me from nominations"
+msgstr "sluit me uit van nominaties"
+
+#: general/models.py:30
+msgid "If checked, you will be excluded from Awards-nominations."
+msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
+
 #: general/models.py:33
 msgid "Aanvinken als je meedoet"
 msgstr ""
 
-#: general/models.py:36
-msgid "Straatnaam"
-msgstr ""
+#: general/models.py:35
+msgid "street name"
+msgstr "straatnaam"
 
 #: general/models.py:37
-msgid "Huisnummer (+ bus indien van toepassing)"
-msgstr ""
+msgid "number"
+msgstr "nummer"
 
 #: general/models.py:38
-msgid "Postcode"
-msgstr ""
-
-#: general/models.py:39
-msgid "Stad"
-msgstr ""
-
-#: general/models.py:40
-msgid "Provincie"
-msgstr ""
+msgid "house number (+ PO box if applicable)"
+msgstr "huisnummer (+ postbus indien van toepassing)"
 
 #: general/models.py:41
-msgid "Land"
-msgstr ""
+msgid "postal code"
+msgstr "postcode"
+
+#: general/models.py:42
+msgid "city"
+msgstr "stad"
+
+#: general/models.py:43
+msgid "province"
+msgstr "provincie"
 
 #: general/models.py:44
+msgid "country"
+msgstr "land"
+
+#: general/models.py:47
 msgid "Dit wil ik graag"
 msgstr ""
 
-#: general/models.py:45
+#: general/models.py:48
 msgid "Dit wil ik absoluut niet"
 msgstr ""
 
-#: general/models.py:54
-msgid "Gebruikersprofiel"
-msgstr ""
+#: general/models.py:57
+msgid "userprofile"
+msgstr "gebruikersprofiel"
 
-#: general/models.py:55
-msgid "Gebruikersprofielen"
-msgstr ""
+#: general/models.py:58
+msgid "userprofiles"
+msgstr "gebruikersprofielen"
 
-#: general/models.py:70
+#: general/models.py:73
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: general/models.py:71
+#: general/models.py:74
 msgid "email"
 msgstr "e-mailadres"
 
-#: general/models.py:79
+#: general/models.py:82
 msgid "forum user"
 msgstr "forumgebruiker"
 
-#: general/models.py:80
+#: general/models.py:83
 msgid "forum users"
 msgstr "forumgebruikers"
 
-#: general/models.py:105
+#: general/models.py:108
 msgid "Question which must be answered for registration."
 msgstr "Vraag die beantwoord moet worden voor de registratie"
 
-#: general/models.py:138
+#: general/models.py:141
 msgid "hash"
 msgstr "hash"
 
-#: general/models.py:139
+#: general/models.py:142
 msgid "expire datetime"
 msgstr "vervaldatum"
 
-#: general/models.py:142
+#: general/models.py:145
 msgid "password reset"
 msgstr "Wachtwoord reset"
 
-#: general/models.py:143
+#: general/models.py:146
 msgid "password resets"
 msgstr "Wachtwoord resets"
 
-#: general/models.py:148
+#: general/models.py:151
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr "Wachtwoord reset voor %(user)s"
 
-#: general/models.py:152
+#: general/models.py:155
 msgid "path from"
 msgstr "pad van"
 
-#: general/models.py:154
+#: general/models.py:157
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
@@ -651,29 +667,37 @@ msgstr ""
 "pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
 "shop/' wordt 'shop/'"
 
-#: general/models.py:158
+#: general/models.py:161
 msgid "redirect to"
 msgstr "redirect naar"
 
-#: general/models.py:159
+#: general/models.py:162
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr "Pad (relatief of absoluut tot de website root) of url."
 
-#: general/models.py:163
+#: general/models.py:166
 msgid "redirect"
 msgstr "omleiding"
 
-#: general/models.py:164
+#: general/models.py:167
 msgid "redirects"
 msgstr "omleidingen"
+
+#: general/views.py:211
+msgid "Your profile data has been updated."
+msgstr "Je profielgegevens werden bijgewerkt."
+
+#: general/views.py:213
+msgid "Some fields were not valid, please fix the errors."
+msgstr "Sommige gegevens waren ongeldig, pas a.u.b. de problemen aan."
 
 #: general/views.py:264
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
 "reactivate with the link sent by e-mail."
 msgstr ""
-"Je account is nog inactief! Je zal niet kunnen inloggen tot je je account"
-" geheractiveerd hebt via de link die gemaild werd."
+"Je account is nog inactief! Je zal niet kunnen inloggen tot je je account "
+"geheractiveerd hebt via de link die gemaild werd."
 
 #: general/views.py:291
 #, python-format
@@ -713,8 +737,9 @@ msgstr "Modelbrouwers.nl wachtwoordreset"
 #: general/views.py:311
 #, python-format
 msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
-msgstr "Er werd een e-mail verstuurd naar '%(email)s' met een link om je "
-"wachtwoord te resetten."
+msgstr ""
+"Er werd een e-mail verstuurd naar '%(email)s' met een link om je wachtwoord "
+"te resetten."
 
 #: migration/models.py:36
 msgid "album user migration"
@@ -802,10 +827,6 @@ msgstr "secret santas"
 #: secret_santa/models.py:45 secret_santa/models.py:59
 msgid "secret santa edition"
 msgstr "secret santa editie"
-
-#: secret_santa/models.py:46
-msgid "user"
-msgstr "gebruiker"
 
 #: secret_santa/models.py:51
 msgid "participant"
@@ -934,8 +955,8 @@ msgstr ""
 "De opgevraagde pagina kon niet gevonden worden of je hebt niet voldoende "
 "rechten om de pagina te bekijken. Klik op het grote logo hierboven of klik "
 "<a href=\"/\">hier</a> om naar de homepage terug te keren. Je kan ook de "
-"'terug'-knop in je browser gebruiken, of <a href=\"%(return)s\">hier</a> klikken"
-" om naar de vorige pagina terug te keren."
+"'terug'-knop in je browser gebruiken, of <a href=\"%(return)s\">hier</a> "
+"klikken om naar de vorige pagina terug te keren."
 
 #: templates/pagination.html:5 templates/albums/my_last_uploads.html:35
 #: templates/albums/albums_list/pagination.html:5
@@ -1016,7 +1037,7 @@ msgstr "Nieuw album"
 #: templates/albums/edit_photo.html:17
 #: templates/albums/extra_info_uploads.html:58 templates/albums/manage.html:45
 #: templates/albums/manage.html.py:92 templates/albums/preferences.html:9
-#: templates/albums/uploadify.html:87
+#: templates/albums/uploadify.html:87 templates/general/profile.html:38
 msgid "Save"
 msgstr "Bewaren"
 
@@ -1052,7 +1073,7 @@ msgstr "klik om uit de groep te verwijderen"
 msgid "Add photos"
 msgstr "Foto's toevoegen"
 
-#: templates/albums/base.html:66
+#: templates/albums/base.html:66 templates/albums/ajax/forum/sidebar.html:4
 msgid "My albums"
 msgstr "Mijn albums"
 
@@ -1212,10 +1233,6 @@ msgstr "bewerken"
 msgid "Here you can configure your preferences"
 msgstr "Stel hier je voorkeuren in"
 
-#: templates/albums/preferences.html:15
-msgid "Language settings"
-msgstr "Taalinstellingen"
-
 #: templates/albums/uploadify.html:35
 msgid "complete"
 msgstr "voltooien"
@@ -1267,6 +1284,73 @@ msgstr "Bestanden wachtrij"
 #: templates/albums/ajax/new_album.html:24
 msgid "Close"
 msgstr "Sluiten"
+
+#: templates/albums/ajax/forum/album_photos.html:4
+msgid "Insert all"
+msgstr "Alles invoegen"
+
+#: templates/albums/ajax/forum/album_photos.html:5
+msgid "click on the image to insert"
+msgstr "klik op de afbeelding om in te voegen"
+
+#: templates/albums/ajax/forum/album_photos.html:24
+#, python-format
+msgid ""
+"You don't seem to have photos here. Upload some in <a href=\"%(upload_url)s"
+"\">our albums</a>!"
+msgstr ""
+"Je lijkt hier nog geen foto's te hebben. Upload ze naar <a href="
+"\"%(upload_url)s\">onze albums</a>!"
+
+#: templates/albums/ajax/forum/sidebar.html:17
+msgid "Search albums"
+msgstr "Albums doorzoeken"
+
+#: templates/general/profile.html:5
+msgid "Modelbrouwers.nl &bull; Edit profile"
+msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
+
+#: templates/general/profile.html:10
+msgid "Account details"
+msgstr "Accountdetails"
+
+#: templates/general/profile.html:11
+msgid "Change password"
+msgstr "Wachtwoord wijzigen"
+
+#: templates/general/profile.html:19
+msgid "Your username"
+msgstr "Je gebruikersnaam"
+
+#: templates/general/profile.html:28
+msgid "Address details"
+msgstr "Adresdetails"
+
+#: templates/general/profile.html:33
+msgid "Awards"
+msgstr "Awards"
+
+#: templates/general/profile.html:43
+msgid "Language settings"
+msgstr "Taalinstellingen"
+
+#: templates/general/profile.html:45
+msgid ""
+"Set your preferred language here. Note that this setting is stored in your "
+"cookies, so if you clear those, the default language according to your "
+"browser preferences will be used."
+msgstr ""
+"Stel hier je voorkeurstaal in. Let op, de instellingen worden in je cookies "
+"bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je browser"
+"instellingen gekozen."
+
+#: templates/general/profile.html:57
+msgid ""
+"Contact admins@modelbrouwers.nl if you are interested in helping with "
+"translations."
+msgstr ""
+"Contacteerd admins@modelbrouwers.nl als je interesse hebt om mee te helpen met"
+" vertalingen."
 
 #: templates/shirts/base.html:43
 msgid "Shirt ordering"

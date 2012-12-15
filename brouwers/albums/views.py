@@ -276,7 +276,7 @@ def upload(request):
                 i += 1
                 #make it a GET request again to pass it to the next function
             request.method = "GET"
-            return set_extra_info(request, photo_ids, album, reverse=upload)
+            return set_extra_info(request, photo_ids, album)
     else:
         albumform = PickAlbumForm(request.user)
         formset = PhotoFormSet(queryset=Photo.objects.none())

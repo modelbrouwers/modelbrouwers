@@ -10,7 +10,7 @@
     {{ hidden }}
 {% endfor %}
 
-<table>
+{% if not hide_table_tags %}<table>{% endif %}
 {% for field in form.visible_fields %}
     <tr id="id_row_{{ field.name }}">
         <th class="label{% if field.field.required %} required{% endif %}">{{ field.label_tag }}</th>
@@ -36,4 +36,4 @@
         </tr>
     {% endfor %}
 {% endfor %}
-</table>
+{% if not hide_table_tags %}</table>{% endif %}

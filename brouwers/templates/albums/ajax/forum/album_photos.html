@@ -1,6 +1,8 @@
+{% load i18n %}
+
 <div class="helptext">
-    <button id="insert-all">Alles invoegen</button><br />
-    (klik op de foto om in te voegen)
+    <button id="insert-all">{% trans 'Insert all' %}</button><br />
+    ({% trans 'click on the image to insert' %})
 </div>
 <ul id="photos-list">
     {% for photo in photos %}
@@ -13,5 +15,12 @@
             </a>
             {% endspaceless %}
         </li>
+    {% empty %}
+        {% if album_preferences.default_uploader == 'F' %}
+    		{% url brouwers.albums.views.uploadify as upload_url %}
+		{% else %}
+			{% url brouwers.albums.views.upload as upload_url %}
+		{% endif %}
+        <li>{% blocktrans %}You don't seem to have photos here. Upload some in <a href="{{ upload_url }}">our albums</a>!{% endblocktrans %}</li>
     {% endfor %}
 </ul>

@@ -1,116 +1,58 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}
-Wijzig profiel
+{% trans 'Modelbrouwers.nl &bull; Edit profile' %}
 {% endblock %}
 
 {% block content %}
-<p>Op deze pagina kunt u uw profiel aanpassen. Alle velden zijn optioneel. Nadat u op 'wijzigen' geklikt hebt, wordt deze pagina herladen met de nieuwe gegevens.</p>
-<br />
-<br />
-<form action="" method="POST" enctype="multipart/form-data">
-{% csrf_token %}
-<h2>Algemene gegevens</h2>
-<hr>
-<br />
-<a href="change_password">Klik hier om uw wachtwoord te wijzigen</a>
-<br />
-<br />
-<table>
-	<tr><td>Uw forumnickname:</td><td><strong>{{user.get_profile.forum_nickname}}</strong></td></tr>
-	<tr><td><br /></td></tr>
-	<tr><td>Voornaam</td><td>{{userform.first_name}}</td></tr>
-	{% if userform.first_name.errors %}
-		{% for error in userform.first_name.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Familienaam</td><td>{{userform.last_name}}</td></tr>
-	{% if userform.last_name.errors %}
-		{% for error in userform.last_name.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>E-mailadres</td><td>{{userform.email}}</td></tr>
-	{% if userform.email.errors %}
-		{% for error in userform.email.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-</table>
-<br />
-<h2>BrouwersAwards gegevens</h2>
-<hr>
-<br />
-<table>
-	<tr><td>{{profileform.exclude_from_nomination}}&nbsp;&nbsp;Sluit mij uit van nominaties</td><td></td></tr>
-	{% if profileform.exclude_from_nomination.errors %}
-		{% for error in profileform.exclude_from_nomination.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-</table>
-<br />
-<h2>Secret Santa gegevens</h2>
-<hr>
-<table>
-	<tr><td><br /><strong>Adresgegevens</strong></td><td></td></tr>
-	<tr><td>Straat:</td><td>{{profileform.street}}</td></tr>
-	{% if profileform.street.errors %}
-		{% for error in profileform.street.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Huisnummer (+ bus)</td><td>{{profileform.number}}</td></tr>
-	{% if profileform.number.errors %}
-		{% for error in profileform.number.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Postcode</td><td>{{profileform.postal}}</td></tr>
-	{% if profileform.postal.errors %}
-		{% for error in profileform.postal.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Stad</td><td>{{profileform.city}}</td></tr>
-	{% if profileform.city.errors %}
-		{% for error in profileform.city.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Provincie</td><td>{{profileform.province}}</td></tr>
-	{% if profileform.province.errors %}
-		{% for error in profileform.province.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-	<tr><td>Land</td><td>{{profileform.country}}</td></tr>
-	{% if profileform.country.errors %}
-		{% for error in profileform.country.errors %}
-			<tr><td></td><td class="error"><strong>{{ error|escape }}</strong></td></tr>
-		{% endfor %}
-	{% endif %}
-</table>
-<div>
-	<br />
-	<strong>Voorkeuren</strong>
-	<br />
-	<p>Dit wil ik graag:<br />{{profileform.preference}}</p>
-	{% if profileform.preference.errors %}
-		{% for error in profileform.preference.errors %}
-			<p class="error"><strong>{{ error|escape }}</strong></p>
-		{% endfor %}
-	{% endif %}
-	<br />
-	<p>Dit wil ik absoluut niet:<br />{{profileform.refuse}}</p>
-	{% if profileform.refuse.errors %}
-		{% for error in profileform.refuse.errors %}
-			<p class="error"><strong>{{ error|escape }}</strong></p>
-		{% endfor %}
-	{% endif %}
+<div class="tab">
+    {% trans 'Account details' %} &bull; 
+    <a href="{% url django.contrib.auth.views.password_change %}" id="change-password">{% trans 'Change password' %}</a>
 </div>
-<br />
-<input type = "submit" value="Wijzig"/>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+    {% with form=userform hide_table_tags="True" %}
+        <tr id="id_row_forum_nickname">
+            <th class="label">{% trans 'Your username' %}</th>
+            <td class="field" colspan="2">
+                <strong>{{ user.get_profile.forum_nickname }}</strong>
+            </td>
+        </tr>
+        {% include "form_in_table.html" %}
+    {% endwith %}
+    </table>
+    
+    <div class="tab midpage">{% trans 'Address details' %}</div>
+    {% with form=addressform %}
+        {% include "form_in_table.html" %}
+    {% endwith %}
+    
+    <div class="tab midpage">{% trans 'Awards' %}</div>
+    {% with form=awardsform %}
+        {% include "form_in_table.html" %}
+    {% endwith %}
+    <div class="center" style="margin-top:1em;">
+        <input type="submit" value="{% trans 'Save' %}" class="submit-button" />
+    </div>
 </form>
+
+<!-- Language settings -->
+<div class="tab midpage" id="language-settings" style="margin-top:5em;">{% trans 'Language settings' %}</div>
+<p style="margin-top:1em;margin-bottom:1em;">
+    {% trans 'Set your preferred language here. Note that this setting is stored in your cookies, so if you clear those, the default language according to your browser preferences will be used.' %}
+</p>
+<form action="/i18n/setlang/" method="post">
+    <!--<input name="next" type="hidden" value="{{ redirect_to }}" />-->
+    <select name="language">
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            <option value="{{ language.code }}">{{ language.name_local }} ({{ language.code }})</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Go"/>
+</form>
+<p>{% trans 'Contact admins@modelbrouwers.nl if you are interested in helping with translations.' %}</p>
 {% endblock %}

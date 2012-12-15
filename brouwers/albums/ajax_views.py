@@ -10,6 +10,7 @@ from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 import django.utils.simplejson as json
 
 from brouwers.general.shortcuts import render_to_response
@@ -34,7 +35,7 @@ def new_album(request):
                 album.save()
                 return HttpResponse("<div title=\"%s\"><input type=\"hidden\" id=\"status\" value=\"%s\"/></div>" % (album.title, album.id))
             except ValidationError:
-                error = "You have used this album title before. Make sure you pick an unique title."
+                error = _("You have used this album title before. Make sure to pick an unique title.")
     else: #request for rendered form
         album = Album(user=request.user)
         form = AlbumForm(instance=album, user=request.user)
@@ -233,7 +234,7 @@ def edit_album(request):
                 #formset = GroupFormset(instance=album)
                 photos = editform.fields["cover"].queryset.select_related('user', 'album', 'album__cover')
             else:
-                return HttpResponse('This event has been logged')
+                return HttpResponse(_('This event has been logged'))
         else:
             return HttpResponse(form.as_p())
     return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'formset': formset, 'photos': photos})

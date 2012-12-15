@@ -1,12 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.utils.translation import ugettext_lazy as _
 
 from brouwers.migration.models import UserMigration
 from models import UserProfile, RegistrationQuestion, PasswordReset, ForumUser
+from brouwers.awards.models import Project
 
-from django.utils.translation import ugettext_lazy as _
-
+######################################
+#  Registration and migration stuff  #
+######################################
 class UserProfileForm(UserCreationForm):
     forum_nickname = forms.CharField(required=True,min_length=3, max_length=20)
     exclude_from_nomination = forms.BooleanField(required=False)
@@ -16,17 +19,10 @@ class UserProfileForm(UserCreationForm):
         nickname = self.cleaned_data['forum_nickname']
         try:
             UserProfile.objects.get(forum_nickname=nickname)
-            raise forms.ValidationError(_("Deze forumnickname is al in gebruik bij een andere user op deze website."))
+            raise forms.ValidationError(_("A user with that username already exists."))
             return nickname
         except UserProfile.DoesNotExist:
             return nickname
-    
-    def __init__(self, *args, **kwargs):
-        super(UserProfileForm, self).__init__(*args, **kwargs)
-        #self.fields['username'].required = False
-    
-    #def clean(self):
-    #    
     
     def save(self, commit=False):
         user = super(UserProfileForm, self).save(commit=False)
@@ -40,6 +36,7 @@ class UserProfileForm(UserCreationForm):
 
 #TODO validate email, should be unique
 class RegistrationForm(forms.ModelForm):
+    """ Form to handle new registrations """
     error_messages = {
         'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),
@@ -73,7 +70,7 @@ class RegistrationForm(forms.ModelForm):
         return password2
     
     def clean_forum_nickname(self):
-        msg = _("This username has been taken.")
+        msg = self.error_messages['duplicate_username']
         nickname = self.cleaned_data['forum_nickname']
         try:
             migration_user = UserMigration.objects.get(username__iexact=nickname)
@@ -100,49 +97,21 @@ class RegistrationForm(forms.ModelForm):
             profile.save()
         return user
 
+class AnswerForm(forms.Form):
+    answer = forms.CharField(label=_("answer"), required=True)
+
+class QuestionForm(forms.Form):
+    question = forms.ModelChoiceField(queryset=RegistrationQuestion.objects.filter(in_use=True), empty_label=None, widget=forms.HiddenInput())
+
+# logging in
 class CustomAuthenticationForm(AuthenticationForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         username = username.replace(" ", "_")
         return username
 
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ('user', 'last_vote', 'forum_nickname', 'secret_santa')
-
-class UserForm(forms.ModelForm):
-    _original_email = None
-    _profile = None
-    
-    class Meta:
-        model = User
-        fields =('email', 'first_name', 'last_name')
-        widgets = {
-            'email': forms.TextInput(attrs={'size':30})
-        }
-    
-    def __init__(self, profile=None, *args, **kwargs):
-        user = kwargs['instance']
-        self._original_email = user.email
-        if profile:
-            self._profile = profile
-        super(UserForm, self).__init__(*args, **kwargs)
-    
-    def save(self, *args, **kwargs):
-        if self._original_email != self.cleaned_data['email']:
-            new_email = self.cleaned_data['email']
-            try:
-                forum_user = ForumUser.objects.get(username=self._profile.forum_nickname)
-                forum_user.user_email = new_email
-                forum_user.save()
-            except:
-                super(UserForm, self).save(*args, **kwargs) # save the profile data anyway
-                # reraise exception so we get the error mail
-                raise
-        super(UserForm, self).save(*args, **kwargs)
-
 class ForumAccountForm(forms.Form):
+    """ Migrations """
     forum_nickname = forms.CharField(required=True, min_length=2, max_length=30, label=_("Forum name"))
     hash = forms.CharField(required=True, min_length=24, max_length=24, label=_("Code"))
     password1 = forms.CharField(label=_("Password"),
@@ -162,7 +131,7 @@ class ForumAccountForm(forms.Form):
     def clean_forum_nickname(self):
         u = self.get_usermigration()
         if not u:
-            raise forms.ValidationError(_("Deze gebruiker bestaat niet op het forum. Controleer op typfouten."))
+            raise forms.ValidationError(_("This user doesn't exist on the board, check for typos."))
         return self.cleaned_data['forum_nickname']
     
     def clean(self): #TODO: loggen foutieve ingaves
@@ -170,7 +139,7 @@ class ForumAccountForm(forms.Form):
         try:
             h = self.cleaned_data["hash"]
             if user.hash and h.lower() != user.hash.lower():
-                raise forms.ValidationError(_("Je hebt een foutieve code ingegeven."))
+                raise forms.ValidationError(_("You entered the wrong code."))
                 del self.cleaned_data["forum_nickname"]
                 del self.cleaned_data["hash"]
         except KeyError: #hash was invalid
@@ -188,12 +157,9 @@ class ForumAccountForm(forms.Form):
             raise forms.ValidationError(_("The username entered was not correct."))
         return user
 
-class AnswerForm(forms.Form):
-    answer = forms.CharField(label=_("answer"), required=True)
-
-class QuestionForm(forms.Form):
-    question = forms.ModelChoiceField(queryset=RegistrationQuestion.objects.filter(in_use=True), empty_label=None, widget=forms.HiddenInput())
-
+######################################
+#          Password resets           #
+######################################
 class RequestPasswordResetForm(forms.Form):
     forum_nickname = forms.CharField(
             required=False, min_length=2, 
@@ -201,8 +167,7 @@ class RequestPasswordResetForm(forms.Form):
             )
     email = forms.EmailField(
         required=False, label=_("E-mail address"),
-        help_text=_("If you forgot your username, you can enter the e-mail \
-                    address you registered with.")
+        help_text=_("If you forgot your username, you can enter the e-mail address you registered with.")
         )
     
     def clean_forum_nickname(self):
@@ -256,3 +221,60 @@ class PasswordResetForm(forms.Form):
             raise forms.ValidationError(
                 _("The two password fields didn't match."))
         return password2
+
+######################################
+#            Profile stuff           #
+######################################
+class UserForm(forms.ModelForm):
+    _original_email = None
+    _profile = None
+    
+    class Meta:
+        model = User
+        fields =('email', 'first_name', 'last_name')
+        widgets = {
+            'email': forms.TextInput(attrs={'size':30})
+        }
+    
+    def __init__(self, profile=None, *args, **kwargs):
+        user = kwargs['instance']
+        self._original_email = user.email
+        if profile:
+            self._profile = profile
+        super(UserForm, self).__init__(*args, **kwargs)
+    
+    def save(self, *args, **kwargs):
+        if self._original_email != self.cleaned_data['email']:
+            new_email = self.cleaned_data['email']
+            try:
+                forum_user = ForumUser.objects.get(username=self._profile.forum_nickname)
+                forum_user.user_email = new_email
+                forum_user.save()
+            except:
+                super(UserForm, self).save(*args, **kwargs) # save the profile data anyway
+                # reraise exception so we get the error mail
+                raise
+        super(UserForm, self).save(*args, **kwargs)
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('street', 'number', 'postal', 'city', 'province', 'country')
+
+class AwardsForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('exclude_from_nomination',)
+    
+    def save(self, *args, **kwargs):
+        profile = super(AwardsForm, self).save(*args, **kwargs)
+        if profile.exclude_from_nomination:
+            projects = Project.objects.filter(brouwer__iexact=profile.forum_nickname)
+            for project in projects:
+                project.rejected = True
+                project.save()
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'last_vote', 'forum_nickname', 'secret_santa')

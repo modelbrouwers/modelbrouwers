@@ -60,15 +60,21 @@ button.ui-button{
     padding: 0.3em;
 }
 /*** FORMS ***/
+input, select, textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
 input[type="text"], input[type="password"], input[type="submit"], button, input[type="button"], select, textarea{
 	border: solid 1px #6F8698;
-	padding: 3px;
+	padding: 2px;
 	font-size: 1.08em;
 }
-button.uploadify-button{padding:0;}
-input[type="submit"].uploadify-button{padding:0;}
+button.uploadify-button, input[type="submit"].uploadify-button{
+    padding:0;
+}
 form table{
-    width: 96%;
+    width: 98%;
     margin: 1em auto;
 }
 th.label, tr.error th{
@@ -82,6 +88,7 @@ th.required{
 }
 td.field{
     width: 25%;
+    white-space: nowrap;
 }
 td.help_text{
     width: 50%;
@@ -98,7 +105,7 @@ td.help_text div{
     padding: 0.2em;
 }
 td.field input, td.field select{
-    width: 12em;
+    width: 13em;
 }
 td.field input[type="checkbox"]{
     width: 2.4em;
@@ -107,7 +114,48 @@ td.field input[type="checkbox"]{
 tr.error td, li.error{
     color: red;
 }
-
+input.submit-button {
+	background-color: #505050;
+	background-image: linear-gradient(bottom, #505050 0%, #707070 100%);
+	background-image: -o-linear-gradient(bottom, #505050 0%, #707070 100%);
+	background-image: -moz-linear-gradient(bottom, #505050 0%, #707070 100%);
+	background-image: -webkit-linear-gradient(bottom, #505050 0%, #707070 100%);
+	background-image: -ms-linear-gradient(bottom, #505050 0%, #707070 100%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #505050),
+		color-stop(1, #707070)
+	);
+	background-position: center top;
+	background-repeat: no-repeat;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	border: 2px solid #808080;
+	color: #FFF;
+	font: bold 1em Arial, Helvetica, sans-serif;
+	text-align: center;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+	padding: 0.4em 2em 0.4em 2em;
+}
+input.submit-button:hover {
+	background-color: #606060;
+	background-image: linear-gradient(top, #606060 0%, #808080 100%);
+	background-image: -o-linear-gradient(top, #606060 0%, #808080 100%);
+	background-image: -moz-linear-gradient(top, #606060 0%, #808080 100%);
+	background-image: -webkit-linear-gradient(top, #606060 0%, #808080 100%);
+	background-image: -ms-linear-gradient(top, #606060 0%, #808080 100%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #606060),
+		color-stop(1, #808080)
+	);
+	background-position: center bottom;
+}
 /*** NAVIGATION BAR, SHOP BANNER ***/
 div#navigation, div#shop_banner{
     margin: 0 auto;

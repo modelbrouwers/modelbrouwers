@@ -197,28 +197,28 @@ def confirm_account(request):
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def profile(request):
     forms = {}
+    profile = request.user.get_profile()
     if request.method=='POST':
-        profile = request.user.get_profile()
-        forms['profileform'] = ProfileForm(request.POST, instance=profile)
+        err = False
+        forms['addressform'] = AddressForm(request.POST, instance=profile)
         forms['userform'] = UserForm(profile, request.POST, instance=request.user)
-        
-        if forms['profileform'].is_valid():
-            forms['profileform'].save()
-            if forms['profileform'].cleaned_data['exclude_from_nomination']==True:
-                projects = Project.objects.filter(brouwer__iexact=request.user.get_profile().forum_nickname)
-                for project in projects:
-                    project.rejected = True
-                    project.save()
-
-        if forms['userform'].is_valid():
-            forms['userform'].save()
-        return render_to_response(request, 'general/profile.html', forms)
+        forms['awardsform'] = AwardsForm(request.POST, instance=profile)
+        for key, form in forms.items():
+            if form.is_valid():
+                form.save()
+            else:
+                err = True
+        if not err:
+            messages.success(request, _("Your profile data has been updated."))
+        else:
+            messages.error(request, _("Some fields were not valid, please fix the errors."))
     else:
-        forms['profileform'] = ProfileForm(instance=request.user.get_profile())
+        forms['addressform'] = AddressForm(instance=profile)
         forms['userform'] = UserForm(instance=request.user)
-        return render_to_response(request, 'general/profile.html', forms)
+        forms['awardsform'] = AwardsForm(instance=profile)
+    return render_to_response(request, 'general/profile.html', forms)
 
-def user_profile(request, username=None):
+def user_profile(request, username=None): # overview of albums from user
     profile = get_object_or_404(UserProfile, user__username=username)
     q = Q(trash=False, user=profile.user)
     if request.user.is_authenticated():

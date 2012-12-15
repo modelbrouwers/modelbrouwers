@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from datetime import date, datetime
 
 from brouwers.awards.models import Category
@@ -23,36 +23,39 @@ class OrderedUser(User):
         return u"%s" % self.username.replace('_', ' ')
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)    
+    user = models.ForeignKey(User, unique=True)
+    #awardsinfo  
     last_vote = models.DateField(default=date(2010,1,1))
-    
     forum_nickname = models.CharField(max_length=30, unique=True)
-    exclude_from_nomination = models.BooleanField()
-    
-    #awardsinfo
-    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet"))
+    exclude_from_nomination = models.BooleanField(_("exclude me from nominations"), help_text=_("If checked, you will be excluded from Awards-nominations."))
     categories_voted = models.ManyToManyField(Category, blank=True, null=True)
-    #adres
-    street = models.CharField(max_length=255, help_text=_("Straatnaam"), blank=True, null=True)
-    number = models.CharField(max_length=10, help_text=_("Huisnummer (+ bus indien van toepassing)"), blank=True, null=True)
-    postal = models.CharField(max_length=10, help_text=_("Postcode"), blank=True, null=True)
-    city = models.CharField(max_length=255, help_text=_("Stad"), blank=True, null=True)
-    province = models.CharField(max_length=255, help_text=_("Provincie"), blank=True, null=True)
-    country = models.CharField(max_length=1, help_text=_("Land"),choices=COUNTRY_CHOICES, blank=True, null=True)
     
-    #voorkeuren
+    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet")) # No longer used
+    #adres
+    street = models.CharField(_("street name"), max_length=255, blank=True, null=True)
+    number = models.CharField(
+            _("number"), max_length=10, 
+            help_text=_("house number (+ PO box if applicable)"), 
+            blank=True, null=True
+        )
+    postal = models.CharField(_("postal code"), max_length=10, blank=True, null=True)
+    city = models.CharField(_("city"), max_length=255, blank=True, null=True)
+    province = models.CharField(_("province"), max_length=255, blank=True, null=True)
+    country = models.CharField(_("country"), max_length=1, choices=COUNTRY_CHOICES, blank=True, null=True)
+    
+    #voorkeuren -> TODO: move to secret santa object
     preference = models.TextField(help_text=_("Dit wil ik graag"), blank=True, null=True)
     refuse = models.TextField(help_text=_("Dit wil ik absoluut niet"), blank=True, null=True)
     
     def __unicode__(self):
-        return self.forum_nickname
+        return u"%s" % self.forum_nickname
     
     def full_name(self):
         return self.user.get_full_name()
     
     class Meta:
-        verbose_name = _("Gebruikersprofiel")
-        verbose_name_plural = _("Gebruikersprofielen")
+        verbose_name = _("userprofile")
+        verbose_name_plural = _("userprofiles")
         ordering = ['forum_nickname']
     
     @property
@@ -62,7 +65,7 @@ class UserProfile(models.Model):
             ok = True
         return ok
 
-class ForumUser(models.Model):
+class ForumUser(models.Model): # phpBB3 tables
     user_id = models.PositiveIntegerField(primary_key=True,
         # mediumint(8) unsigned
         help_text="Primary key"
@@ -124,7 +127,7 @@ class SoftwareVersion(models.Model):
     changelog = models.TextField(blank=True)
     
     class Meta:
-        ordering = ('-state', '-major', '-minor')
+        ordering = ('-state', '-major', '-minor', '-detail')
     
     def __unicode__(self):
         prefix = ''

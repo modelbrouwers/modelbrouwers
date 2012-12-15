@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import pgettext
+from django.utils.translation import pgettext_lazy
 
 from brouwers.general.models import OrderedUser
 from brouwers.general.utils import get_username as _get_username
@@ -16,7 +16,7 @@ import os, re
 #TODO: comments on albums/photos
 
 WRITABLE_CHOICES = (
-    ("u", pgettext("write permissions for owner", "owner")),
+    ("u", pgettext_lazy("write permissions for owner", "owner")),
     ("g", _("group")),
     ("o", _("everyone")), #everyone = every logged in user
     )
@@ -42,7 +42,7 @@ class Category(models.Model):
         return "/albums/category/%s" % self.id
 
 class Album(models.Model):
-    user = models.ForeignKey(User, db_index=True) #owner of the album
+    user = models.ForeignKey(User, db_index=True, verbose_name=_("user")) #owner of the album
     title = models.CharField(_("album title"), max_length="256",
             default="album %s" % datetime.now().strftime("%d-%m-%Y"), db_index=True)
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)

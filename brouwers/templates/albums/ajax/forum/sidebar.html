@@ -1,9 +1,7 @@
-<!--<div id="resizer"></div>-->
-{#<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>#}
-{#<div class="viewport">#}
-{#    <div class="overview">#}
+{% load i18n %}
+
         <div class="tab" id="sidebar-header">
-            <span>Mijn albums</span>
+            <span>{% trans 'My albums' %}</span>
 
             {% spaceless %}
             <a href="#" onclick="toggleSidebar();">
@@ -16,11 +14,9 @@
         <div id="albums-list">
             <form>
                 {{ form }}
-                <input type="text" class="autocomplete" id="autocomplete-album" value="Albums doorzoeken" />
+                <input type="text" class="autocomplete" id="autocomplete-album" value="{% trans 'Search albums' %}" />
             </form>
         </div>
 
         <ul id="photos-list">
         </ul>
-{#    </div>#}
-{#</div>#}

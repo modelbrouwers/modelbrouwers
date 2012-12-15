@@ -1,7 +1,7 @@
 from models import SoftwareVersion
 
 def version(request):
-    versions = SoftwareVersion.objects.all()
+    versions = SoftwareVersion.objects.all().order_by('-id')
     if versions:
         version = versions[0]
     else:
