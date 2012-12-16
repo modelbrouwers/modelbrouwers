@@ -139,6 +139,7 @@ naar de Modelbrouwers.nl homepage"/></a>
                     <img src="{{ STATIC_URL }}images/varia/email.png" width="158" height="15" alt="admins@modelbrouwers.nl" />
                     <br />
                     &copy; 2005-2012 Modelbrouwers.nl &amp; Sergei Maertens (2012)
+                    {% if user.is_superuser %}<br /><a href="/admin/">[ Django admin ]</a>{% endif %}
                 </div>
             {% endblock %}
         </div>
