@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% if form.non_field_errors %}
 </ul>
     {% for error in form.non_field_errors %}
@@ -6,6 +8,7 @@
 </ul>
 {% endif %}
 
+{% csrf_token %}
 {% for hidden in form.hidden_fields %}
     {{ hidden }}
 {% endfor %}
@@ -31,7 +34,7 @@
     </tr>
     {% for error in field.errors %}
         <tr class="error">
-            <th>Herstel de fout:</th>
+            <th>{% trans 'Fix the error:' %}</th>
             <td class="error" colspan="2">{{ error }}</td>
         </tr>
     {% endfor %}

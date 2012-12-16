@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, send_mail
@@ -11,10 +11,11 @@ from django.core.validators import validate_email
 from django.db import IntegrityError
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.hashcompat import sha_constructor
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
+from django.views.decorators.csrf import csrf_protect
 
 from brouwers.albums.models import Album
 from brouwers.albums.utils import admin_mode
@@ -194,7 +195,8 @@ def confirm_account(request):
 #    showing userprofile    #
 #############################
 
-@user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
+@login_required
+@csrf_protect
 def profile(request):
     forms = {}
     profile = request.user.get_profile()
@@ -210,12 +212,14 @@ def profile(request):
                 err = True
         if not err:
             messages.success(request, _("Your profile data has been updated."))
+            return redirect(reverse('brouwers.general.views.profile'))
         else:
             messages.error(request, _("Some fields were not valid, please fix the errors."))
     else:
         forms['addressform'] = AddressForm(instance=profile)
         forms['userform'] = UserForm(instance=request.user)
         forms['awardsform'] = AwardsForm(instance=profile)
+        forms['passwordform'] = PasswordChangeForm(user=request.user)
     return render_to_response(request, 'general/profile.html', forms)
 
 def user_profile(request, username=None): # overview of albums from user
@@ -340,4 +344,3 @@ def do_password_reset(request):
             pr = get_object_or_404(PasswordReset, h=h)
             form = PasswordResetForm(initial={'user': pr.user})
     return render_to_response(request, 'general/do_password_reset.html', {'form': form, 'hashform': hashform})
-    #return HttpResponseRedirect(reverse(password_reset))

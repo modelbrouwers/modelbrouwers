@@ -1,6 +1,11 @@
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.shortcuts import render
+from django.utils.translation import ugettext as _
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.csrf import csrf_protect
 import json
 
 from models import UserProfile
@@ -26,3 +31,28 @@ def search_users(request):
             "value": ''
         })
     return HttpResponse(json.dumps(output))
+
+@sensitive_post_parameters()
+@csrf_protect
+@login_required
+def password_change(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            data = {
+                'success': True,
+                'msg': {
+                    'tag': 'success', 
+                    'text': _("Your password was successfully changed.")
+                    },
+                }
+            return HttpResponse(json.dumps(data))
+    
+    from django.template import RequestContext
+    from django.template.loader import get_template
+    c = RequestContext(request, {'form': form})
+    t = get_template('general/ajax/password_change.html')
+    html = t.render(c)
+    data = {'success': False, 'html': html}
+    return HttpResponse(json.dumps(data))

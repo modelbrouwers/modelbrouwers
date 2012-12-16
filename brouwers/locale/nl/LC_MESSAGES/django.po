@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-15 21:51+0100\n"
+"POT-Creation-Date: 2012-12-16 19:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,6 +462,10 @@ msgstr ""
 msgid "brouwverslagen"
 msgstr ""
 
+#: general/ajax_views.py:47
+msgid "Your password was successfully changed."
+msgstr "Je wachtwoord werd succesvol aangepast."
+
 #: general/forms.py:16
 msgid "E-mail"
 msgstr "E-mailadres"
@@ -527,8 +531,8 @@ msgid ""
 "If you forgot your username, you can enter the e-mail address you registered "
 "with."
 msgstr ""
-"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee je "
-"registreerde ingeven."
+"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee "
+"je registreerde ingeven."
 
 #: general/forms.py:177
 msgid "This user is unknown in the database."
@@ -683,15 +687,15 @@ msgstr "omleiding"
 msgid "redirects"
 msgstr "omleidingen"
 
-#: general/views.py:211
+#: general/views.py:214
 msgid "Your profile data has been updated."
 msgstr "Je profielgegevens werden bijgewerkt."
 
-#: general/views.py:213
+#: general/views.py:217
 msgid "Some fields were not valid, please fix the errors."
 msgstr "Sommige gegevens waren ongeldig, pas a.u.b. de problemen aan."
 
-#: general/views.py:264
+#: general/views.py:269
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
 "reactivate with the link sent by e-mail."
@@ -699,7 +703,7 @@ msgstr ""
 "Je account is nog inactief! Je zal niet kunnen inloggen tot je je account "
 "geheractiveerd hebt via de link die gemaild werd."
 
-#: general/views.py:291
+#: general/views.py:296
 #, python-format
 msgid ""
 "Hello %(nickname)s, \n"
@@ -726,15 +730,15 @@ msgstr ""
 "\n"
 "Het Modelbrouwers.nl beheer"
 
-#: general/views.py:303
+#: general/views.py:308
 msgid "nickname"
 msgstr "gebruikersnaam"
 
-#: general/views.py:307
+#: general/views.py:312
 msgid "Modelbrouwers.nl password reset"
 msgstr "Modelbrouwers.nl wachtwoordreset"
 
-#: general/views.py:311
+#: general/views.py:316
 #, python-format
 msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
 msgstr ""
@@ -813,8 +817,8 @@ msgid "price class"
 msgstr "prijsklasse"
 
 #: secret_santa/models.py:16
-msgid "Enter a value here for the estimated price class of the gif."
-msgstr ""
+msgid "Enter a value here for the estimated price class of the gift."
+msgstr "Vul hier de prijsklasse van het cadeautje in."
 
 #: secret_santa/models.py:20
 msgid "secret santa"
@@ -958,6 +962,10 @@ msgstr ""
 "'terug'-knop in je browser gebruiken, of <a href=\"%(return)s\">hier</a> "
 "klikken om naar de vorige pagina terug te keren."
 
+#: templates/form_in_table.html:37 templates/form_in_table_rows.html:19
+msgid "Fix the error:"
+msgstr "Herstel de fout:"
+
 #: templates/pagination.html:5 templates/albums/my_last_uploads.html:35
 #: templates/albums/albums_list/pagination.html:5
 msgid "First page"
@@ -1037,11 +1045,12 @@ msgstr "Nieuw album"
 #: templates/albums/edit_photo.html:17
 #: templates/albums/extra_info_uploads.html:58 templates/albums/manage.html:45
 #: templates/albums/manage.html.py:92 templates/albums/preferences.html:9
-#: templates/albums/uploadify.html:87 templates/general/profile.html:38
+#: templates/albums/uploadify.html:87 templates/general/profile.html:52
 msgid "Save"
 msgstr "Bewaren"
 
 #: templates/albums/base.html:32 templates/albums/uploadify.html:106
+#: templates/general/profile.html:16
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -1049,7 +1058,7 @@ msgstr "Annuleren"
 msgid "Move to trash?"
 msgstr "Naar prullenbak verplaatsen?"
 
-#: templates/albums/base.html:34
+#: templates/albums/base.html:34 templates/general/profile.html:15
 msgid "Confirm"
 msgstr "Bevestigen"
 
@@ -1306,51 +1315,53 @@ msgstr ""
 msgid "Search albums"
 msgstr "Albums doorzoeken"
 
-#: templates/general/profile.html:5
-msgid "Modelbrouwers.nl &bull; Edit profile"
-msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
-
-#: templates/general/profile.html:10
-msgid "Account details"
-msgstr "Accountdetails"
-
-#: templates/general/profile.html:11
+#: templates/general/password.html:5 templates/general/password.html.py:9
+#: templates/general/password.html:13 templates/general/profile.html:14
+#: templates/general/profile.html.py:25
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
-#: templates/general/profile.html:19
+#: templates/general/profile.html:3
+msgid "Modelbrouwers.nl &bull; Edit profile"
+msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
+
+#: templates/general/profile.html:24
+msgid "Account details"
+msgstr "Accountdetails"
+
+#: templates/general/profile.html:33
 msgid "Your username"
 msgstr "Je gebruikersnaam"
 
-#: templates/general/profile.html:28
+#: templates/general/profile.html:42
 msgid "Address details"
 msgstr "Adresdetails"
 
-#: templates/general/profile.html:33
+#: templates/general/profile.html:47
 msgid "Awards"
 msgstr "Awards"
 
-#: templates/general/profile.html:43
+#: templates/general/profile.html:58
 msgid "Language settings"
 msgstr "Taalinstellingen"
 
-#: templates/general/profile.html:45
+#: templates/general/profile.html:60
 msgid ""
 "Set your preferred language here. Note that this setting is stored in your "
 "cookies, so if you clear those, the default language according to your "
 "browser preferences will be used."
 msgstr ""
 "Stel hier je voorkeurstaal in. Let op, de instellingen worden in je cookies "
-"bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je browser"
-"instellingen gekozen."
+"bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
+"browserinstellingen gekozen."
 
-#: templates/general/profile.html:57
+#: templates/general/profile.html:72
 msgid ""
 "Contact admins@modelbrouwers.nl if you are interested in helping with "
 "translations."
 msgstr ""
-"Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen met"
-" vertalingen."
+"Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen "
+"met vertalingen."
 
 #: templates/shirts/base.html:43
 msgid "Shirt ordering"

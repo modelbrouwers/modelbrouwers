@@ -8,6 +8,7 @@
 </ul>
 {% endif %}
 
+{% csrf_token %}
 {% for hidden in form.hidden_fields %}
     {{hidden }}
 {% endfor %}

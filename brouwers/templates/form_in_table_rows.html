@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% for field in form.visible_fields %}
     <tr>
         <th class="label{% if field.field.required %} required{% endif %}">{{ field.label_tag }}</th>
@@ -14,7 +16,7 @@
     </tr>
     {% for error in field.errors %}
         <tr class="error">
-            <th>Herstel de fout:</th>
+            <th>{% trans 'Fix the error:' %}</th>
             <td class="error" colspan="2">{{ error }}</td>
         </tr>
     {% endfor %}

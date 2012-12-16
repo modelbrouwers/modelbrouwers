@@ -16,6 +16,7 @@ urlpatterns = patterns('brouwers.general.views',
 # AJAX
 urlpatterns += patterns('brouwers.general.ajax_views',
     (r'^user/search/$',    'search_users'),
+    (r'^profile/ajax/change_password/$', 'password_change'),
     )
 
 urlpatterns += patterns('django.contrib.auth.views',

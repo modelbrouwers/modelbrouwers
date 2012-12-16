@@ -13,7 +13,7 @@ class SecretSanta(models.Model):
     price_class = models.PositiveSmallIntegerField(
             _("price class"), 
             blank = True, null = True, 
-            help_text = _("Enter a value here for the estimated price class of the gif.")
+            help_text = _("Enter a value here for the estimated price class of the gift.")
         )
     
     class Meta:

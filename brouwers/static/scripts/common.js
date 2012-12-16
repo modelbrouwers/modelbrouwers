@@ -12,3 +12,11 @@ function showHelp(e){
     $(e).parent().parent().find('td.help_text div').toggle();
     $(e).siblings('.help_text').toggle();
 }
+
+function add_message(msg){
+    m = '<li class=\"{{ class }}\">{{ text }}</li>';
+    m = m.replace("{{ class }}", msg.tag);
+    m = m.replace("{{ text }}", msg.text);
+    $('div#messages ul.messages').append(m);
+    $('div#messages').show();
+}
