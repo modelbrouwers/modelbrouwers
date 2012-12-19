@@ -4,7 +4,9 @@
 */
 $(document).ready(function() {
     $('.no-javascript').remove(); //hide the warning
+    fixVerticalCenter(); // vertical centering of images
     
+    // BBCode stuff
     $('.BBCode').focus(function(){
         $(this).select();
     });
@@ -15,9 +17,7 @@ $(document).ready(function() {
         return false;
     });
     
-    //fix afbeeldingen verticaal centreren
-    fixVerticalCenter();
-    
+    // show/hide edit, remove, restore icons
     $('a.album').hover(function() {
         $(this).find('.edit, .remove, .restore').show();
     });
@@ -28,10 +28,11 @@ $(document).ready(function() {
         $(this).find('.edit, .remove, .restore').hide();
     });
     
-    if ($('#new-album-dialog').length > 0){
+    // init dialogs
+    if ($('#new-album-dialog').length > 0){ // new album dialog
         $('#new-album-dialog').dialog({
 			autoOpen: false,
-			height: 400,
+			/*height: 400,*/
 			width: 800,
 			modal: true,
 			title: trans_new_album,
@@ -54,10 +55,10 @@ $(document).ready(function() {
 			}]
 	    });
 	}
-    if ($('#edit-dialog').length > 0){
+    if ($('#edit-dialog').length > 0){ // edit album dialog
         $('#edit-dialog').dialog({
 			autoOpen: false,
-            height: 440,
+            /*height: 440,*/
             width: 800,
             modal: true,
             title: trans_edit_album,
@@ -116,6 +117,7 @@ $(document).ready(function() {
 	    });
 	}
     
+    // opening of the appropriate dialogs
     $('img.edit').click(function(e){
     	openEditDialog(e, $(this));
     });
@@ -135,6 +137,7 @@ $(document).ready(function() {
         return false;
     });
     
+    // navigation arrows
     $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {
         $('div.in-photo-navigation').css('visibility', 'visible');
     });
@@ -303,10 +306,10 @@ function showCovers(element){
     if ($('#photo-navigation').css('display') == 'none')
     {
         $('#photo-navigation').show();
-        height = $('#photo-navigation').height();
-        new_height = height + $("#edit-dialog").dialog( "option", "height" )+20;
-        $('#edit-dialog').parent().css('top', '100px');
-        $("#edit-dialog").dialog( "option", "height", new_height );
+        //height = $('#photo-navigation').height();
+        //new_height = height + $("#edit-dialog").dialog( "option", "height" )+20;
+        //$('#edit-dialog').parent().css('top', '100px');
+        //$("#edit-dialog").dialog( "option", "height", new_height );
         
         $('#edit-dialog #photo-navigation img').click(function(){
             var p_id = $(this).next().val();
@@ -319,8 +322,8 @@ function showCovers(element){
     {
         height = $('#photo-navigation').height();
         $('#photo-navigation').hide();
-        new_height = $("#edit-dialog").dialog( "option", "height" ) - height - 20;
-        $("#edit-dialog").dialog( "option", "height", new_height );
+        //new_height = $("#edit-dialog").dialog( "option", "height" ) - height - 20;
+        //$("#edit-dialog").dialog( "option", "height", new_height );
     }
     return false;
 }

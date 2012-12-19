@@ -5,7 +5,7 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 {% endblock %}
 
 {% block content %}
-<h1>Stemmen Awards {{year}}</h1>
+<h1>Stemmen Awards {{ year }}</h1>
 <hr />
 <br/>
 <p>Op deze pagina kan je je stem uitbrengen. Het is niet verplicht om bij elke categorie te stemmen. De projectnamen zijn links naar het brouwverslag.</p>
@@ -13,12 +13,12 @@ Modelbrouwers.nl externe applicatie - Brouwersawards - Stemmen
 <p style="font-size: 80%;">Bij waarschuwingsbordjes: laat je muis eens even op de afbeelding staan en kijk wat er gebeurt...</p>
 <br/>
 <br/>
-<form action="." method="POST">
+<form action="." method="post">{% csrf_token %}
 {% if not voted %}
 {% for category, projects in data.items %}
 {% if category and projects %}
 	<div class="category">
-	<h2>{{category.name}}</h2>
+	<h2>{{ category.name }}</h2>
 	<hr />
 	<br />
 		<div class="list_category">

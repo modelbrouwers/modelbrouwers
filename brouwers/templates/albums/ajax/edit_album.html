@@ -18,7 +18,7 @@
     {% include "albums/ajax/album_covers.html" %}
 </ul>
 
-            {% if user.is_superuser %}
+            {% if user.is_superuser and False %}
             <div id="debug" style="text-align:left">
             {% block queries %}
                 Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s

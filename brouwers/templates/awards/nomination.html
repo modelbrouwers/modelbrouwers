@@ -9,7 +9,7 @@ BrouwersAwards &bull; Nominaties
 
 <div class="important">Enkel projecten in {{current_year}} <strong>afgewerkt</strong>  zijn geldige nominaties!</div>
 
-<form action="." method="POST" id="nomination_form">
+<form action="." method="post" id="nomination_form">
 	{% for error in form.non_field_errors %}
 		<p class="error"><strong>{{ error|escape }}</strong></p>
 	{% endfor %}

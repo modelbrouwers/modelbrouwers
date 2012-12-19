@@ -10,8 +10,8 @@
 {% block content %}
 <div class="tab">
     <form action="." method="get" id="album-list-searchform">
+        {% csrf_token %}
         {{ searchform.as_p }}
-<!--        <input type="submit" value="zoeken" />-->
     </form>
 </div>
 <div id="albums-list" style="padding:0;">

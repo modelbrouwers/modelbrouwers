@@ -2,7 +2,7 @@
 
 {% block content %}
 Found {{ found }} of {{ total }}
-<form action="{% url brouwers.migration.views.find_django_user %}" method="POST">
+<form action="{% url brouwers.migration.views.find_django_user %}" method="post">{% csrf_token %}
 <ul style="margin-left:1em;">
     {% for migration in migrations %}
         {% if migration.django_user %}
@@ -22,7 +22,7 @@ Found {{ found }} of {{ total }}
 <br />
 
 <hr />
-<form method="POST">
+<form method="post">{% csrf_token %}
     <ul style="margin-left:1em;">
     {% for email, migrations in data.items %}
         <li>

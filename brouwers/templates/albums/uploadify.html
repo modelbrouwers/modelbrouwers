@@ -50,7 +50,7 @@ $(document).ready(function() {
         'removeCompleted'   : false,
         'onUploadStart' : function(file) {
             albumId = $('#id_album').val();
-            $("#uploadify_input").uploadify("settings", "formData", {'album': albumId, '{{ session_cookie_name }}': '{{ session_key }}'});
+            $("#uploadify_input").uploadify("settings", "formData", {'album': albumId, '{{ session_cookie_name }}': '{{ session_key }}', 'csrfmiddlewaretoken': '{{ csrf_token }}'});
         },
         'onUploadSuccess': function(file, data, response) {
             photo_ids += data + "+";
@@ -197,7 +197,8 @@ function add_album(e){ // no longer used
 </div>
 
 <div id="forms" class="margin">
-<form id="special-form">
+<form id="special-form" action="." method="get">
+    {% csrf_token %}
     <table>
         <tr>
             <th class="label">{% trans 'Upload to' %}</th>
@@ -215,7 +216,7 @@ function add_album(e){ // no longer used
 </div>
 
 <div id="new-album-upload">
-    <form id="new-album">
+    <form id="new-album" method="post" action=".">
         {% include "form_in_table_jquery-ui.html" %}
         <input type="hidden" name="from-page" value="upload" />
     </form>

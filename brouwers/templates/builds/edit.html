@@ -4,7 +4,7 @@
 <h1>Brouwverslag bewerken</h1>
 <hr />
 <br />
-<form action="." method="POST">
+<form action="." method="post">{% csrf_token %}
 <table width="100%">
 <tr><td>Url:</td><td style="padding-bottom: 5px;"><a href="{{form.instance.url}}" target="_blank">{{form.instance.url}}</a></td></tr>
 {% for error in form.url.errors %}

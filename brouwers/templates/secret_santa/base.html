@@ -42,7 +42,7 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
     <br />
     {% if user.get_profile.is_address_ok %}
         {% if not is_participant %}
-            <form action="{% url brouwers.secret_santa.views.enroll %}" method="POST">
+            <form action="{% url brouwers.secret_santa.views.enroll %}" method="post">{% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Deelnemen" />
             </form>

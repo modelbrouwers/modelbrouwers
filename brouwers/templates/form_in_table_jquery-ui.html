@@ -9,6 +9,7 @@
 {% endif %}
 
 {% csrf_token %}
+
 {% for hidden in form.hidden_fields %}
     {{hidden }}
 {% endfor %}
@@ -19,7 +20,7 @@
 {% for form in formset %}
     {{ formset.management_form }}
     {% for hidden in form.hidden_fields %}
-        {{hidden }}
+        {{ hidden }}
     {% endfor %}
     {% include "form_in_table_rows.html" %}
 {% endfor %}

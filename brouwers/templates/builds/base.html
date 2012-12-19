@@ -23,7 +23,7 @@ Brouwverslagenoverzicht
 <p>Op deze pagina kan je de verslagen van andere brouwers terugvinden. Geef in het zoekveld (een stuk van) de forumnaam op, en klik op 'zoeken'. Klik vervolgens op de juiste nickname om een overzicht te krijgen.</p>
 <br />
 <br />
-<form action="." method="POST">
+<form action="." method="post">{% csrf_token %}
 	<p>{{form.nickname}} <input type = "submit" value="Zoek"/></p>
 	{% for error in form.nickname.errors %}
 		<p class="error"><strong>{{error}}</strong></p>

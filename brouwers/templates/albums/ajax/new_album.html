@@ -1,5 +1,5 @@
 {% load i18n %}
-
+<!-- no longer used -->
 <div>
     <img style="float:right;position:relative;right:60%;z-index:11;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="{% trans 'Close' %}" onclick="hideNewAlbum();"/>
     {% if non_field_errors %}
@@ -10,6 +10,7 @@
     </ul>
     {% endif %}
     <table>
+        {% csrf_token %}
         {% for field in form %}
         <tr>
             <th class="{% if field.field.required %}required{% endif %}">{{ field.label }}</th>

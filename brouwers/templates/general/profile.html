@@ -26,7 +26,6 @@
 </div>
 
 <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
     <table>
     {% with form=userform hide_table_tags="True" %}
         <tr id="id_row_forum_nickname">
@@ -60,6 +59,7 @@
         {% trans 'Set your preferred language here. Note that this setting is stored in your cookies, so if you clear those, the default language according to your browser preferences will be used.' %}
     </p>
     <form action="/i18n/setlang/" method="post">
+        {% csrf_token %}
         <!--<input name="next" type="hidden" value="{{ redirect_to }}" />-->
         <select name="language">
             {% get_language_info_list for LANGUAGES as languages %}

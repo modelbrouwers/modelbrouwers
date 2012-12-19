@@ -47,7 +47,7 @@ function updateImage(){
     <p class="padding">{% blocktrans %}If you don't wish the shirt to be mailed, the delivery of the shirt will happen on some meeting. You will be contacted for this through your e-mail.
     {% endblocktrans %}</p>
     <p class="padding">{% trans 'The price of a shirt is 10 euros + 8 if you want it mailed.' %}</p>
-    <form action="." method="POST">
+    <form action="." method="post">
         {% include "form_in_table.html" %}
         <div class="center">
             <input type="submit" value="{% trans 'Place order' %}" />

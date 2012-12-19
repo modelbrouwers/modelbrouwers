@@ -40,6 +40,7 @@
 	    {% blocktrans count counter=photos_before %}There was 1 photo in the album {{ album }} prior to this upload.{% plural %}There were {{ photos_before }} photos in the album {{ album }} prior to this upload.{% endblocktrans %}
 	</div>
 	<form action="/albums/upload/extra_info/" method="post" enctype="multipart/form-data">
+	    {% csrf_token %}
 		{{ formset.management_form }}
 		
 		{% for form in formset %}

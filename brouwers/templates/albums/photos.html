@@ -23,8 +23,8 @@ input.BBCode{
 {% endblock %}
 
 {% block content %}
-<form action="." method="GET">
-    {{ albumform.as_table }}
+<form action="." method="get">
+    <table>{{ albumform.as_table }}</table>
     <input type="submit" value="show pictures"></input>
 </form>
 <br />

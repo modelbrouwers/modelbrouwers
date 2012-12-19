@@ -2,7 +2,7 @@
 
 {% block content %}
 {{ count }} available
-<form action="." method="POST">
+<form action="." method="post">{% csrf_token %}
     <table>
     {{ form.as_table }}
     </table>
