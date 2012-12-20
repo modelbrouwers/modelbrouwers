@@ -1,31 +1,31 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}
-Registratie
-{% endblock %}
+{% block title %}Modelbrouwers.nl &bull; {% trans 'Registration' %}{% endblock %}
 
 {% block content %}
 <div id="register">
+    <!-- TODO: show forum rules -->
     <form action="" method="post">
         {% include "form_in_table.html" %}
         <table>
             <tr>
                 <td></td>
-                <td colspan="2" style="padding-bottom:0.5em;"><h4>Anti-spam maatregelen</h4></td>
+                <td colspan="2" style="padding-bottom:0.5em;"><h4>{% trans 'Anti-Spambot question' %}</h4></td>
             </tr>
             <tr>
                 <td></td>
                 <td class="label required" colspan="2">{{ questionform }}{{ question.question }}</th>
             </tr>
             <tr>
-                <th class="label required">Antwoord:</th>
+                <th class="label required">{% trans 'Answer' %}:</th>
                 <td class="field">{{ answerform.answer }}</td>
                 <td class="help_text"><span class="error">{{ error }}</span></td>
             </tr>
         </table>
         
         <div class="center">
-            <input type="submit" value="Registreer"/>
+            <input class="submit-button" type="submit" value="{% trans 'Register' %}"/>
         </div>
     </form>
 </div>

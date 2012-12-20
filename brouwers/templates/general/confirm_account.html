@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block extrastyle %}
 <style type="text/css">
@@ -20,7 +21,7 @@ input[type="text"], input[type="password"]{
     <table>
         {% include "2_col_form_v2.html" %}
         <tr><td colspan="2" style="text-align: center">
-            <input type="submit" value="Bevestigen" />
+            <input type="submit" value="{% trans 'Confirm' %}" />
         </td></tr>
     </table>
 </form>

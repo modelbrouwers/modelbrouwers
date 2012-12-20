@@ -12,5 +12,5 @@ urlpatterns = patterns('brouwers.awards.views',
     )
 
 urlpatterns += patterns('django.views.generic.simple',
-    (r'^$', 'direct_to_template', {'template': 'awards/base.html'})
+    url(r'^$', 'direct_to_template', {'template': 'awards/base.html'}, name='awards_index'),
     )

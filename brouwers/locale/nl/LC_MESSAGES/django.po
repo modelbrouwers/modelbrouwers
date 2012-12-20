@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-16 19:40+0100\n"
+"POT-Creation-Date: 2012-12-20 06:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -962,9 +962,60 @@ msgstr ""
 "'terug'-knop in je browser gebruiken, of <a href=\"%(return)s\">hier</a> "
 "klikken om naar de vorige pagina terug te keren."
 
-#: templates/form_in_table.html:37 templates/form_in_table_rows.html:19
+#: templates/base.html:5
+msgid "Materials and knowledge for scale modelling."
+msgstr ""
+
+#: templates/base.html:61
+#, fuzzy
+msgid "Back to the Modelbrouwers.nl homepage"
+msgstr "Modelbrouwers.nl shirtbestelling"
+
+#: templates/base.html:98
+msgid "Migrations"
+msgstr ""
+
+#: templates/base.html:105
+msgid "Login"
+msgstr ""
+
+#: templates/base.html:108 templates/general/register.html:28
+msgid "Register"
+msgstr ""
+
+#: templates/base.html:112
+msgid "logout"
+msgstr ""
+
+#: templates/base.html:115
+#, fuzzy
+msgid "Profile"
+msgstr "gebruikersprofiel"
+
+#: templates/form_in_table.html:38 templates/form_in_table_rows.html:19
 msgid "Fix the error:"
 msgstr "Herstel de fout:"
+
+#: templates/nav_tabs.html:5
+msgid "Visit the homepage!"
+msgstr ""
+
+#: templates/nav_tabs.html:11
+msgid "Visit the board!"
+msgstr ""
+
+#: templates/nav_tabs.html:17
+msgid "Visit the shop!"
+msgstr ""
+
+#: templates/nav_tabs.html:23
+#, fuzzy
+msgid "You are now in the albums!"
+msgstr "Je bent nu in de fotoalbums!"
+
+#: templates/nav_tabs.html:29
+msgid "Visit the kit reviews!"
+msgstr ""
 
 #: templates/pagination.html:5 templates/albums/my_last_uploads.html:35
 #: templates/albums/albums_list/pagination.html:5
@@ -1037,15 +1088,15 @@ msgid "created"
 msgstr "aangemaakt"
 
 #: templates/albums/base.html:29 templates/albums/my_albums_list.html:23
-#: templates/albums/uploadify.html:85 templates/albums/uploadify.html:207
+#: templates/albums/uploadify.html:85 templates/albums/uploadify.html:208
 msgid "New album"
 msgstr "Nieuw album"
 
 #: templates/albums/base.html:31 templates/albums/edit_album.html:12
 #: templates/albums/edit_photo.html:17
-#: templates/albums/extra_info_uploads.html:58 templates/albums/manage.html:45
-#: templates/albums/manage.html.py:92 templates/albums/preferences.html:9
-#: templates/albums/uploadify.html:87 templates/general/profile.html:52
+#: templates/albums/extra_info_uploads.html:59 templates/albums/manage.html:47
+#: templates/albums/manage.html.py:94 templates/albums/preferences.html:9
+#: templates/albums/uploadify.html:87 templates/general/profile.html:51
 msgid "Save"
 msgstr "Bewaren"
 
@@ -1058,7 +1109,8 @@ msgstr "Annuleren"
 msgid "Move to trash?"
 msgstr "Naar prullenbak verplaatsen?"
 
-#: templates/albums/base.html:34 templates/general/profile.html:15
+#: templates/albums/base.html:34 templates/general/confirm_account.html:24
+#: templates/general/profile.html:15
 msgid "Confirm"
 msgstr "Bevestigen"
 
@@ -1148,23 +1200,23 @@ msgstr[0] "Er was 1 foto in het album %(album)s voor deze upload."
 msgstr[1] ""
 "Er waren %(photos_before)s foto's in het album %(album)s voor deze upload."
 
-#: templates/albums/manage.html:5 templates/albums/ajax/new_album.html:36
+#: templates/albums/manage.html:5 templates/albums/ajax/new_album.html:37
 msgid "Create new album"
 msgstr "Maak nieuw album"
 
-#: templates/albums/manage.html:28 templates/albums/ajax/new_album.html:31
+#: templates/albums/manage.html:29 templates/albums/ajax/new_album.html:32
 msgid "Fix the error"
 msgstr "Herstel de fout"
 
-#: templates/albums/manage.html:35
+#: templates/albums/manage.html:36
 msgid "Add album"
 msgstr "Album toevoegen"
 
-#: templates/albums/manage.html:41
+#: templates/albums/manage.html:42
 msgid "Organize albums"
 msgstr "Albums organiseren"
 
-#: templates/albums/manage.html:82
+#: templates/albums/manage.html:84
 msgid "error"
 msgstr "fout"
 
@@ -1242,6 +1294,27 @@ msgstr "bewerken"
 msgid "Here you can configure your preferences"
 msgstr "Stel hier je voorkeuren in"
 
+#: templates/albums/upload.html:15 templates/albums/uploadify.html:189
+msgid "Upload images"
+msgstr "Afbeeldingen uploaden"
+
+#: templates/albums/upload.html:16
+msgid "Specifiy the number of pictures you want to upload"
+msgstr ""
+
+#: templates/albums/upload.html:17
+msgid "Refresh"
+msgstr ""
+
+#: templates/albums/upload.html:23 templates/albums/uploadify.html:204
+msgid "Upload to"
+msgstr "Uploaden naar"
+
+#: templates/albums/upload.html:31
+#, fuzzy
+msgid "add photos"
+msgstr "Foto's toevoegen"
+
 #: templates/albums/uploadify.html:35
 msgid "complete"
 msgstr "voltooien"
@@ -1253,10 +1326,6 @@ msgstr "Bladeren"
 #: templates/albums/uploadify.html:46
 msgid "Images..."
 msgstr "Afbeeldingen..."
-
-#: templates/albums/uploadify.html:189
-msgid "Upload images"
-msgstr "Afbeeldingen uploaden"
 
 #: templates/albums/uploadify.html:192
 #, python-format
@@ -1277,20 +1346,16 @@ msgstr ""
 "uploaden en voeg de foto's toe. In een volgende stap kan je desgewenst een "
 "beschrijving invullen."
 
-#: templates/albums/uploadify.html:203
-msgid "Upload to"
-msgstr "Uploaden naar"
-
-#: templates/albums/uploadify.html:228
+#: templates/albums/uploadify.html:229
 msgid "Start upload"
 msgstr "Begin upload"
 
-#: templates/albums/uploadify.html:231
+#: templates/albums/uploadify.html:232
 msgid "Upload queue"
 msgstr "Bestanden wachtrij"
 
 #: templates/albums/ajax/new_album.html:4
-#: templates/albums/ajax/new_album.html:24
+#: templates/albums/ajax/new_album.html:25
 msgid "Close"
 msgstr "Sluiten"
 
@@ -1311,15 +1376,46 @@ msgstr ""
 "Je lijkt hier nog geen foto's te hebben. Upload ze naar <a href="
 "\"%(upload_url)s\">onze albums</a>!"
 
-#: templates/albums/ajax/forum/sidebar.html:17
+#: templates/albums/ajax/forum/sidebar.html:18
 msgid "Search albums"
 msgstr "Albums doorzoeken"
+
+#: templates/general/do_password_reset.html:5
+msgid "Enter your new password"
+msgstr ""
+
+#: templates/general/do_password_reset.html:10
+#: templates/general/password_reset.html:13
+#, fuzzy
+msgid "confirm"
+msgstr "Bevestigen"
+
+#: templates/general/login.html:26
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/general/login.html:28
+#, fuzzy
+msgid "Request a password reset"
+msgstr "Wachtwoord reset"
 
 #: templates/general/password.html:5 templates/general/password.html.py:9
 #: templates/general/password.html:13 templates/general/profile.html:14
 #: templates/general/profile.html.py:25
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
+
+#: templates/general/password_reset.html:6
+#, fuzzy
+msgid "Enter your username or e-mail address to request a password reset."
+msgstr "Voer je gebruikersnaam of e-mailadres in."
+
+#: templates/general/password_reset.html:8
+#, fuzzy
+msgid "An e-mail will be sent to you with a link to reset your password."
+msgstr ""
+"Er werd een e-mail verstuurd naar '%(email)s' met een link om je wachtwoord "
+"te resetten."
 
 #: templates/general/profile.html:3
 msgid "Modelbrouwers.nl &bull; Edit profile"
@@ -1329,23 +1425,23 @@ msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
 msgid "Account details"
 msgstr "Accountdetails"
 
-#: templates/general/profile.html:33
+#: templates/general/profile.html:32
 msgid "Your username"
 msgstr "Je gebruikersnaam"
 
-#: templates/general/profile.html:42
+#: templates/general/profile.html:41
 msgid "Address details"
 msgstr "Adresdetails"
 
-#: templates/general/profile.html:47
+#: templates/general/profile.html:46
 msgid "Awards"
 msgstr "Awards"
 
-#: templates/general/profile.html:58
+#: templates/general/profile.html:57
 msgid "Language settings"
 msgstr "Taalinstellingen"
 
-#: templates/general/profile.html:60
+#: templates/general/profile.html:59
 msgid ""
 "Set your preferred language here. Note that this setting is stored in your "
 "cookies, so if you clear those, the default language according to your "
@@ -1362,6 +1458,20 @@ msgid ""
 msgstr ""
 "Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen "
 "met vertalingen."
+
+#: templates/general/register.html:4
+#, fuzzy
+msgid "Registration"
+msgstr "administratie"
+
+#: templates/general/register.html:14
+msgid "Anti-Spambot question"
+msgstr ""
+
+#: templates/general/register.html:21
+#, fuzzy
+msgid "Answer"
+msgstr "antwoord"
 
 #: templates/shirts/base.html:43
 msgid "Shirt ordering"
