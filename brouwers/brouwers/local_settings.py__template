@@ -1,0 +1,35 @@
+DEBUG = True
+DEVELOPMENT = True
+ADMINS = ()
+
+DATABASES = {
+    'default': { # django postgres db
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'brouwers',
+        'USER': 'brouwers',
+        'PASSWORD': 'test',
+    },
+    'mysql': { # django mysql db
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'forum',
+        'USER': 'brouwers',
+        'PASSWORD': 'test',
+    },
+    'sqlite3': { #pure django development
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '{ CD }../brouwers.db'
+    },
+}
+
+DATABASE_ROUTERS = ['general.db_router.ForumUserRouter']
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '{ CD }../mails/'
+
+VOTE_END_MONTH = 1
+VOTE_END_DAY = 15
+
+VALID_IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png']
+THUMB_DIMENSIONS = (200, 150, 'thumb_')
+
+PHPBB_TABLE_PREFIX = 'phpbb3_'

@@ -1,0 +1,719 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-20 14:05+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ajax_views.py:38
+msgid ""
+"You have used this album title before. Make sure to pick an unique title."
+msgstr "Je hebt deze albumtitel al eerder gebruikt. Kies een unieke titel."
+
+#: ajax_views.py:237
+msgid "This event has been logged"
+msgstr "Deze gebeurtenis werd gelogged."
+
+#: forms.py:17
+msgid ""
+"This link doesn't point to a valid forum topic. Please correct the error"
+msgstr "Deze link wijst niet naar een forumtopic. Pas a.u.b. de fout aan."
+
+#: forms.py:139
+msgid "Own albums"
+msgstr "Eigen albums"
+
+#: forms.py:140
+msgid "Group albums"
+msgstr "Groepalbums"
+
+#: forms.py:141
+msgid "Public albums"
+msgstr "Publieke albums"
+
+#: forms.py:202
+msgid "link"
+msgstr "link"
+
+#: forms.py:202
+msgid "Upload a picture from url"
+msgstr "Foto uploaden vanaf een link"
+
+#: forms.py:217
+msgid "Make sure the link points to a jpg or png image."
+msgstr "Zorg dat de link naar een .jpg of .png afbeelding verwijst."
+
+#: forms.py:219
+msgid "Could not download the image from the url"
+msgstr "De afbeelding kon niet gedownload worden"
+
+#: forms.py:230
+msgid "Keywords"
+msgstr "Zoektermen"
+
+#: models.py:17
+msgctxt "write permissions for owner"
+msgid "owner"
+msgstr "mezelf"
+
+#: models.py:18
+msgid "group"
+msgstr "groep"
+
+#: models.py:19
+msgid "everyone"
+msgstr "iedereen"
+
+#: models.py:23
+msgid "name"
+msgstr "naam"
+
+#: models.py:24 models.py:73
+msgid "order"
+msgstr "volgorde"
+
+#: models.py:26
+msgid "url"
+msgstr "link"
+
+#: models.py:27
+msgid "on frontpage"
+msgstr "op de voorpagina"
+
+#: models.py:28
+msgid "public"
+msgstr "publiek?"
+
+#: models.py:28
+msgid ""
+"If the category is public, regular users can add their albums to the "
+"category. If it isn't, only people with admin permissions can do so."
+msgstr ""
+"Als de categorie publiek is, dan kunnen alle gebruikers albums eraan "
+"toevoegen. Anders kunnen enkel gebruikers met administratorrechten albums "
+"toevoegen aan deze categorie."
+
+#: models.py:31 models.py:54
+msgid "category"
+msgstr "categorie"
+
+#: models.py:32
+msgid "categories"
+msgstr "categorieën"
+
+#: models.py:43
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:44 models.py:46
+msgid "album title"
+msgstr "albumtitel"
+
+#: models.py:47
+msgid "album description"
+msgstr "albumbeschrijving"
+
+#: models.py:60
+msgid "Image to use as album cover."
+msgstr "Afbeelding als albumcover"
+
+#: models.py:62
+msgid "cover"
+msgstr "cover"
+
+#: models.py:68 models.py:195
+msgid "last modified"
+msgstr "laatst gewijzigd"
+
+#: models.py:75
+msgid "Public?"
+msgstr "Publiek?"
+
+#: models.py:76
+msgid ""
+"Can this album be viewed by everyone? Untick to make the album available "
+"only to yourself."
+msgstr ""
+"Is dit album zichtbaar voor iedereen? Vink uit om het album enkel voor "
+"jezelf zichtbaar te maken."
+
+#: models.py:82
+msgid "build report"
+msgstr "brouwverslag"
+
+#: models.py:84
+msgid "Link to the forumtopic of the build."
+msgstr "Link naar het topic van de bouw."
+
+#: models.py:87
+msgid "appreciation"
+msgstr "waardering"
+
+#: models.py:89
+msgid "writable to"
+msgstr "schrijfbaar voor"
+
+#: models.py:94 models.py:163
+msgid "album"
+msgstr "album"
+
+#: models.py:95
+msgid "albums"
+msgstr "albums"
+
+#: models.py:100
+msgid "Can edit/remove album"
+msgstr "Kan album bewerken/verwijderen"
+
+#: models.py:101
+msgid "Can see all albums"
+msgstr "Kan alle albums zien"
+
+#: models.py:102
+msgid "Can use new albums"
+msgstr "Kan nieuwe albums gebruiken"
+
+#: models.py:164
+msgid "Album for which the group has write permissions."
+msgstr "Album waarin de groep foto's mag toevoegen."
+
+#: models.py:167
+msgid "users"
+msgstr "gebruikers"
+
+#: models.py:167
+msgid "Users who can write in this album."
+msgstr "Gebruikers die foto's kunnen toevoegen aan dit album."
+
+#: models.py:170
+msgid "album group"
+msgstr "albumgroep"
+
+#: models.py:171
+msgid "album groups"
+msgstr "albumgroepen"
+
+#: models.py:175
+#, python-format
+msgid "Write permissions for '%(album)s'"
+msgstr "Schrijfrechten voor '%(album)s'"
+
+#: models.py:188
+msgid "width"
+msgstr "breedte"
+
+#: models.py:189
+msgid "height"
+msgstr "hoogte"
+
+#: models.py:190
+msgid "image"
+msgstr "afbeelding"
+
+#: models.py:191
+msgid "photo description"
+msgstr "beschrijving"
+
+#: models.py:202
+msgid "Photo"
+msgstr "Foto"
+
+#: models.py:203
+msgid "Photos"
+msgstr "Foto's"
+
+#: models.py:337
+msgid "Multiple files at once"
+msgstr "Meerdere bestanden tegelijk"
+
+#: models.py:338
+msgid "Basic"
+msgstr "Beperkt"
+
+#: models.py:342
+msgid "Black"
+msgstr "Zwart"
+
+#: models.py:343
+msgid "White"
+msgstr "Wit"
+
+#: models.py:344
+msgid "Light grey"
+msgstr "Lichtgrijs"
+
+#: models.py:345
+msgid "Dark grey"
+msgstr "Donkergrijs"
+
+#: models.py:350
+msgid "default image dimensions"
+msgstr "standaard afmetingen"
+
+#: models.py:353
+msgid "Your pictures will be scaled to this size."
+msgstr "Formaat waarnaar je afbeeldingen herschaald worden."
+
+#: models.py:356
+msgid "default uploader"
+msgstr "standaard uploader"
+
+#: models.py:359
+msgid ""
+"Multiple files at once makes use of a Flash uploader, \n"
+"you select all your files without having to click too much buttons. \n"
+"The basic uploader has a file field for each image."
+msgstr ""
+"Meerdere bestanden tegelijk gebruikt een Flash uploader. Hiermee kan je alle "
+"bestanden in een map in één keer selecteren. De beperkte uploader vereist "
+"dat je elk bestand apart selecteert."
+
+#: models.py:365
+msgid "start uploading automatically?"
+msgstr "meteen beginnen uploaden"
+
+#: models.py:365
+msgid "Start upload automatically when files are selected"
+msgstr "Automatisch beginnen uploaden zodra bestanden geselecteerd zijn"
+
+#: models.py:366
+msgid "Show direct links under the photo"
+msgstr "Toon de directe link naar de afbeelding"
+
+#: models.py:369
+msgid "When checked, you will see all the albums and be able to edit them."
+msgstr "Als dit aangevinkt is kan je alle albums zien en bewerken."
+
+#: models.py:373
+msgid "collapse sidebar"
+msgstr "standaard ingeklapte zijbalk"
+
+#: models.py:374
+msgid "Show the sidebar as closed when typing a post."
+msgstr "Verberg de zijbalk volledig tijdens het typen van een post."
+
+#: models.py:377
+msgid "hide sidebar"
+msgstr "verberg de zijbalk"
+
+#: models.py:378
+msgid ""
+"Hide the sidebar completely when typing a post and activate it with a button."
+msgstr ""
+"Verberg de zijbalk volledig tijdens het typen van een post en activeer ze "
+"doorop een knop te klikken."
+
+#: models.py:381
+msgid "sidebar background color"
+msgstr "Achtergrondkleur zijbalk"
+
+#: models.py:383
+msgid "Background for the overlay in the board."
+msgstr "Achtergrondkleur voor de zijbalk in het antwoordscherm."
+
+#: models.py:386
+msgid "transparent background?"
+msgstr "achtergrond transparant?"
+
+#: models.py:387
+msgid "sidebar text color"
+msgstr "tekstkleur"
+
+#: models.py:388
+msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
+msgstr "Tekstkleur in de zijbalk. HTML kleurcodes worden aanvaard."
+
+#: models.py:390
+msgid "sidebar width"
+msgstr "Breedte"
+
+#: models.py:391
+msgid "Width of the sidebar. E.g. '30%' or '300px'."
+msgstr ""
+"Breedte van de zijbalk, in pixels of procent. Bijvoorbeeld: '300px' of '20%'"
+
+#: models.py:395
+msgid "User preferences"
+msgstr "Gebruikersvoorkeuren"
+
+#: models.py:421
+msgid "user who downloaded the album"
+msgstr "gebruiker die het album downloadde"
+
+#: models.py:422
+msgid "timestamp"
+msgstr "tijdstip"
+
+#: models.py:426
+msgid "album download"
+msgstr "albumdownload"
+
+#: models.py:427
+msgid "album downloads"
+msgstr "albumdownloads"
+
+#: models.py:431
+#, python-format
+msgid "Download of %(album)s by %(username)s"
+msgstr "Download van %(album)s door %(username)s"
+
+#: views.py:175
+msgid "This album could not be downloaded because it has no photos yet."
+msgstr "Dit album kon niet gedownload worden, het bevat nog geen foto's."
+
+#: templates/albums/album_li.html:20
+#: templates/albums/albums_list/albums_rows.html:17
+#: templates/albums/albums_list/public_albums_rows.html:11
+#: templates/albums/albums_list/public_albums_rows_5col.html:17
+#, python-format
+msgid "1 photo"
+msgid_plural "%(counter)s photos"
+msgstr[0] "1 foto"
+msgstr[1] "%(counter)s foto's"
+
+#: templates/albums/album_li.html:33
+#: templates/albums/albums_list/albums_rows.html:30
+msgid "This album is only visible for me"
+msgstr "Dit album is enkel zichtbaar voor mij"
+
+#: templates/albums/album_li.html:36
+msgid "This album is writable for a group"
+msgstr "Dit album is schrijfbaar voor een groep"
+
+#: templates/albums/album_li.html:41 templates/albums/base.html:30
+#: templates/albums/albums_list/albums_rows.html:35
+msgid "Edit album"
+msgstr "Album bewerken"
+
+#: templates/albums/album_li.html:44
+#: templates/albums/albums_list/albums_rows.html:38
+msgid "Move album to trash"
+msgstr "Album naar prullenbak verplaatsen"
+
+#: templates/albums/album_li.html:47
+msgid "Restore album"
+msgstr "Album terugzetten"
+
+#: templates/albums/album_li.html:53 templates/albums/browse_album.html:27
+#: templates/albums/photo.html:21
+#: templates/albums/albums_list/albums_rows.html:44
+msgid "modified"
+msgstr "gewijzigd"
+
+#: templates/albums/album_li.html:55 templates/albums/browse_album.html:27
+#: templates/albums/albums_list/albums_rows.html:46
+msgid "created"
+msgstr "aangemaakt"
+
+#: templates/albums/base.html:29 templates/albums/my_albums_list.html:23
+#: templates/albums/uploadify.html:85 templates/albums/uploadify.html:208
+msgid "New album"
+msgstr "Nieuw album"
+
+#: templates/albums/base.html:31 templates/albums/edit_album.html:12
+#: templates/albums/edit_photo.html:17
+#: templates/albums/extra_info_uploads.html:59 templates/albums/manage.html:47
+#: templates/albums/manage.html.py:94 templates/albums/preferences.html:9
+#: templates/albums/uploadify.html:87
+msgid "Save"
+msgstr "Bewaren"
+
+#: templates/albums/base.html:32 templates/albums/uploadify.html:106
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: templates/albums/base.html:33
+msgid "Move to trash?"
+msgstr "Naar prullenbak verplaatsen?"
+
+#: templates/albums/base.html:34
+msgid "Confirm"
+msgstr "Bevestigen"
+
+#: templates/albums/base.html:35 templates/albums/list.html:6
+msgid "search albums..."
+msgstr "albums doorzoeken..."
+
+#: templates/albums/base.html:36
+msgid "choose an album cover"
+msgstr "albumcover kiezen"
+
+#: templates/albums/base.html:37
+msgid "find users..."
+msgstr "gebruikers doorzoeken..."
+
+#: templates/albums/base.html:38
+msgid "click to remove from group"
+msgstr "klik om uit de groep te verwijderen"
+
+#: templates/albums/base.html:64
+msgid "Add photos"
+msgstr "Foto's toevoegen"
+
+#: templates/albums/base.html:66 templates/albums/ajax/forum/sidebar.html:4
+msgid "My albums"
+msgstr "Mijn albums"
+
+#: templates/albums/base.html:67
+msgid "All albums"
+msgstr "Alle albums"
+
+#: templates/albums/base.html:68
+msgid "My last uploads"
+msgstr "Mijn laatste uploads"
+
+#: templates/albums/base.html:69
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: templates/albums/base.html:120
+msgid "Last modified albums"
+msgstr "Laatst gewijzigde albums"
+
+#: templates/albums/base.html:131
+msgid "Last uploads"
+msgstr "Laatste uploads"
+
+#: templates/albums/browse_album.html:18
+msgid "Album"
+msgstr "Album"
+
+#: templates/albums/browse_album.html:21 templates/albums/photo.html:13
+msgid "Build report"
+msgstr "Brouwverslag"
+
+#: templates/albums/browse_album.html:41
+msgid "set as album cover"
+msgstr "instellen als albumcover"
+
+#: templates/albums/browse_album.html:43
+msgid "delete photo"
+msgstr "foto verwijderen"
+
+#: templates/albums/browse_album.html:70
+msgid "download album (.zip)"
+msgstr "album downloaden (.zip)"
+
+#: templates/albums/edit_album.html:6
+#, python-format
+msgid "Edit album &lsquo;<strong>%(album)s</strong>&rsquo;"
+msgstr "Bewerk album &lsquo;<strong>%(album)s</strong>&rsquo;"
+
+#: templates/albums/edit_photo.html:6
+#, python-format
+msgid ""
+"Photo in the album <a href=\"%(album_url)s\"><strong>%(album)s</strong></a>"
+msgstr ""
+"Foto in het album <a href=\"%(album_url)s\"><strong>%(album)s</strong></a>"
+
+#: templates/albums/extra_info_uploads.html:40
+#, python-format
+msgid "There was 1 photo in the album %(album)s prior to this upload."
+msgid_plural ""
+"There were %(photos_before)s photos in the album %(album)s prior to this "
+"upload."
+msgstr[0] "Er was 1 foto in het album %(album)s voor deze upload."
+msgstr[1] ""
+"Er waren %(photos_before)s foto's in het album %(album)s voor deze upload."
+
+#: templates/albums/manage.html:5 templates/albums/ajax/new_album.html:37
+msgid "Create new album"
+msgstr "Maak nieuw album"
+
+#: templates/albums/manage.html:29 templates/albums/ajax/new_album.html:32
+msgid "Fix the error"
+msgstr "Herstel de fout"
+
+#: templates/albums/manage.html:36
+msgid "Add album"
+msgstr "Album toevoegen"
+
+#: templates/albums/manage.html:42
+msgid "Organize albums"
+msgstr "Albums organiseren"
+
+#: templates/albums/manage.html:84
+msgid "error"
+msgstr "fout"
+
+#: templates/albums/my_albums_list.html:21
+msgid "My personal albums"
+msgstr "Mijn persoonlijke albums"
+
+#: templates/albums/my_albums_list.html:27
+msgid "Manage"
+msgstr "Beheren"
+
+#: templates/albums/my_albums_list.html:32
+#: templates/albums/my_albums_list.html:36
+msgid "Trash"
+msgstr "Prullenbak"
+
+#: templates/albums/my_albums_list.html:41
+msgid "Show all my personal albums"
+msgstr "Al mijn persoonlijke albums tonen"
+
+#: templates/albums/my_albums_list.html:48
+#, python-format
+msgid ""
+"Your browser has no javascript. You can reorganize your albums on an <a href="
+"\"%(manage_url)s\">alternative page</a>."
+msgstr ""
+"Je browser ondersteunt geen javascript, wat vereist is voor deze uploader. "
+"Je kan je albums organiseren op een <a href=\"%(manage_url)s\">alternatieve "
+"pagina</a>."
+
+#: templates/albums/my_albums_list.html:64
+msgid "My public albums &#45; others can add photos"
+msgstr "Mijn persoonlijke albums &#45; anderen kunnen foto's toevoegen."
+
+#: templates/albums/my_albums_list.html:79
+msgid "Public albums &#45; writable for me"
+msgstr "Publieke albums &#45; schrijfbaar voor mij"
+
+#: templates/albums/my_albums_list.html:101
+msgid ""
+"Are you sure you want to move the album &lsquo;<span id=\"id-album-title\"></"
+"span>&rsquo; to the trash?"
+msgstr ""
+"Ben je zeker dat je het album &lsquo;<span id=\"id-album-title\"></"
+"span>&rsquo; naar de prullenbak wil verplaatsen?"
+
+#: templates/albums/my_last_uploads.html:5
+msgid "My last uploads..."
+msgstr "Mijn laatste uploads..."
+
+#: templates/albums/my_last_uploads.html:35
+#: templates/albums/albums_list/pagination.html:5
+msgid "First page"
+msgstr "Eerste pagina"
+
+#: templates/albums/my_last_uploads.html:55
+#: templates/albums/albums_list/pagination.html:25
+msgid "Last page"
+msgstr "Laatste pagina"
+
+#: templates/albums/nav_tabs.html:6
+msgid "You are now in the photo albums!"
+msgstr "Je bent nu in de fotoalbums!"
+
+#: templates/albums/photo.html:7
+msgid "From"
+msgstr "Van"
+
+#: templates/albums/photo.html:9
+msgid "in the album"
+msgstr "in het album"
+
+#: templates/albums/photo.html:11
+#, python-format
+msgid "(1 image)"
+msgid_plural "(%(counter)s images)"
+msgstr[0] "(1 foto)"
+msgstr[1] "(%(counter)s foto's)"
+
+#: templates/albums/photo.html:19
+msgid "edit"
+msgstr "bewerken"
+
+#: templates/albums/preferences.html:5
+msgid "Here you can configure your preferences"
+msgstr "Stel hier je voorkeuren in"
+
+#: templates/albums/upload.html:15 templates/albums/uploadify.html:189
+msgid "Upload images"
+msgstr "Afbeeldingen uploaden"
+
+#: templates/albums/upload.html:16
+msgid "Specify the number of pictures you want to upload"
+msgstr "Specifieer het aantal foto's dat je wil uploaden"
+
+#: templates/albums/upload.html:17
+msgid "Refresh"
+msgstr "Pagina herladen"
+
+#: templates/albums/upload.html:23 templates/albums/uploadify.html:204
+msgid "Upload to"
+msgstr "Uploaden naar"
+
+#: templates/albums/upload.html:31
+msgid "add photos"
+msgstr "foto's toevoegen"
+
+#: templates/albums/uploadify.html:35
+msgid "complete"
+msgstr "voltooien"
+
+#: templates/albums/uploadify.html:42
+msgid "Browse"
+msgstr "Bladeren"
+
+#: templates/albums/uploadify.html:46
+msgid "Images..."
+msgstr "Afbeeldingen..."
+
+#: templates/albums/uploadify.html:192
+#, python-format
+msgid ""
+"Your browser doesn't support javascript, which is required for this uploader "
+"to work. You can use an <a href=\"%(upload_url)s\">alternative uploader</a>."
+msgstr ""
+"Je browser ondersteunt geen javascript, wat vereist is voor deze uploader. "
+"Jekan een <a href=\"%(upload_url)s\">alternatieve uploader</a> gebruiken."
+
+#: templates/albums/uploadify.html:196
+msgid ""
+"You can upload images on this page. Choose the album you want to upload to "
+"and select pictures. You can set some extra info on the images in the next "
+"step."
+msgstr ""
+"Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil "
+"uploaden en voeg de foto's toe. In een volgende stap kan je desgewenst een "
+"beschrijving invullen."
+
+#: templates/albums/uploadify.html:229
+msgid "Start upload"
+msgstr "Begin upload"
+
+#: templates/albums/uploadify.html:232
+msgid "Upload queue"
+msgstr "Bestanden in wachtrij"
+
+#: templates/albums/ajax/new_album.html:4
+#: templates/albums/ajax/new_album.html:25
+msgid "Close"
+msgstr "Sluiten"
+
+#: templates/albums/ajax/forum/album_photos.html:4
+msgid "Insert all"
+msgstr "Alles invoegen"
+
+#: templates/albums/ajax/forum/album_photos.html:5
+msgid "click on the image to insert"
+msgstr "klik op de afbeelding om in te voegen"
+
+#: templates/albums/ajax/forum/album_photos.html:24
+#, python-format
+msgid ""
+"You don't seem to have photos here. Upload some in <a href=\"%(upload_url)s"
+"\">our albums</a>!"
+msgstr ""
+"Je lijkt hier nog geen foto's te hebben. Upload ze naar <a href="
+"\"%(upload_url)s\">onze albums</a>!"
+
+#: templates/albums/ajax/forum/sidebar.html:18
+msgid "Search albums"
+msgstr "Albums doorzoeken"

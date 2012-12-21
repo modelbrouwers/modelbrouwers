@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
-from brouwers.migration.models import UserMigration
+from migration.models import UserMigration
 from models import UserProfile, RegistrationQuestion, PasswordReset, ForumUser
-from brouwers.awards.models import Project
+from awards.models import Project
 
 ######################################
 #  Registration and migration stuff  #

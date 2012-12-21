@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('brouwers.albums.views',
+urlpatterns = patterns('albums.views',
     (r'^$', 'index'),
     (r'^album/(\d+)/$',     'browse_album'),
     (r'^album/(\d+)/edit/', 'edit_album'),
@@ -21,7 +21,7 @@ urlpatterns = patterns('brouwers.albums.views',
     )
 
 # AJAX
-urlpatterns += patterns('brouwers.albums.ajax_views',
+urlpatterns += patterns('albums.ajax_views',
     (r'^album/edit/$',          'edit_album'),
     (r'^album/get_covers/$',    'get_covers'),
     (r'^album/get_title/$',     'get_title'),
@@ -39,7 +39,7 @@ urlpatterns += patterns('brouwers.albums.ajax_views',
     (r'^set_cover/$',           'set_cover'),
     )
 
-urlpatterns += patterns('brouwers.albums.ajax_views_forum',
+urlpatterns += patterns('albums.ajax_views_forum',
     (r'^get_photos/(\d+)/$',    'get_photos'),
     (r'^is_beta_tester/$',      'is_beta_tester'),
     (r'^search_own_albums/$',   'search'),

@@ -7,10 +7,9 @@ from django.db.models import Count, F, Q, Max
 from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
-from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import *
 from utils import resize, admin_mode, can_switch_admin_mode
@@ -38,7 +37,7 @@ def index(request):
     else:
         last_uploads = last_uploads[:20]
         needs_closing_tag_row = False
-    return render_to_response(request, 'albums/base.html', 
+    return render(request, 'albums/base.html', 
             {
                 'last_uploads': last_uploads, 
                 'needs_closing_tag_row': needs_closing_tag_row,
@@ -102,7 +101,7 @@ def manage(request, album_id=None):
         add_album_form = AlbumForm(instance=album, user=request.user)
         # creating a formset to change the ordering of the albums - AJAX degradable
         album_formset = AlbumFormSet(queryset=albums)
-    return render_to_response(request, 'albums/manage.html', {'albumformset': album_formset, 'add_album_form': add_album_form})
+    return render(request, 'albums/manage.html', {'albumformset': album_formset, 'add_album_form': add_album_form})
 
 @login_required
 def edit_album(request, album_id=None):
@@ -130,7 +129,7 @@ def edit_album(request, album_id=None):
     else:
         form = EditAlbumForm(instance=album, user=request.user)
         formset = GroupFormset(instance=album)
-    return render_to_response(request, 'albums/edit_album.html', {'form': form, 'formset': formset})
+    return render(request, 'albums/edit_album.html', {'form': form, 'formset': formset})
 
 @login_required
 def download_album(request, album_id=None):
@@ -198,7 +197,7 @@ def edit_photo(request, photo_id=None):
             return HttpResponseRedirect(reverse(browse_album, args=[photo.album.id]))
     else:
         form = EditPhotoForm(request.user, instance=photo)
-    return render_to_response(request, 'albums/edit_photo.html', {'form': form})
+    return render(request, 'albums/edit_photo.html', {'form': form})
 
 @login_required
 def preferences(request):
@@ -212,7 +211,7 @@ def preferences(request):
         form = PreferencesForm(instance=p)
         if not can_switch_admin_mode(request.user):
             del form.fields["apply_admin_permissions"]
-    return render_to_response(request, 'albums/preferences.html', {'form': form})
+    return render(request, 'albums/preferences.html', {'form': form})
 
 ###########################
 #        UPLOADING        #
@@ -223,7 +222,7 @@ def uploadify(request):
     new_album = Album(user=request.user)
     form = AlbumForm(instance=new_album, user=request.user)
     urlform = UploadFromURLForm()
-    return render_to_response(
+    return render(
         request, 
         'albums/uploadify.html', {
             'albumform': albumform, 
@@ -280,7 +279,7 @@ def upload(request):
     else:
         albumform = PickAlbumForm(request.user)
         formset = PhotoFormSet(queryset=Photo.objects.none())
-    return render_to_response(request, 'albums/upload.html', {'amountform': amountform, 'albumform': albumform, 'formset': formset})
+    return render(request, 'albums/upload.html', {'amountform': amountform, 'albumform': albumform, 'formset': formset})
 
 @login_required
 def pre_extra_info_uploadify(request):
@@ -328,7 +327,7 @@ def set_extra_info(request, photo_ids=None, album=None):
         
         album_id = p[0].album.id
         redirect = reverse(browse_album, args=[album_id])
-    return render_to_response(request, 'albums/extra_info_uploads.html', {
+    return render(request, 'albums/extra_info_uploads.html', {
         'formset': formset, 
         'photos_before': photos_before, 
         'album': album,
@@ -362,7 +361,7 @@ def albums_list(request):
         needs_closing_tag_row = True
     
     searchform = SearchForm()
-    return render_to_response(request, 'albums/list.html', {
+    return render(request, 'albums/list.html', {
             'albums': albums, 
             'needs_closing_tag_row': needs_closing_tag_row,
             'searchform': searchform
@@ -397,7 +396,7 @@ def browse_album(request, album_id=None):
     needs_closing_tag_row = False
     if len(photos) % 4 != 0:
         needs_closing_tag_row = True
-    return render_to_response(request, 'albums/browse_album.html', 
+    return render(request, 'albums/browse_album.html', 
         {'album': album, 'photos': photos, 'needs_closing_tag_row': needs_closing_tag_row}
         )
 
@@ -420,7 +419,7 @@ def my_last_uploads(request):
     needs_closing_tag_row = False
     if amount < 20 and amount % 5 != 0:
         needs_closing_tag_row = True
-    return render_to_response(request, 'albums/my_last_uploads.html', {'uploads': uploads, 'needs_closing_tag_row': needs_closing_tag_row})
+    return render(request, 'albums/my_last_uploads.html', {'uploads': uploads, 'needs_closing_tag_row': needs_closing_tag_row})
 
 @login_required
 def my_albums_list(request):
@@ -465,7 +464,7 @@ def my_albums_list(request):
         )
     new_album = Album(user=request.user)
     form = AlbumForm(instance=new_album, user=request.user)
-    return render_to_response(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters, 'form': form})
+    return render(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters, 'form': form})
 
 def photo(request, photo_id=None):
     q = Q(pk=photo_id)
@@ -479,7 +478,7 @@ def photo(request, photo_id=None):
     photo.save()
     photo = get_object_or_404(Photo, pk=photo_id)
     position = (photo.width / 2) - 40
-    return render_to_response(request, 'albums/photo.html', {'photo': photo, 'position': position})
+    return render(request, 'albums/photo.html', {'photo': photo, 'position': position})
 
 @login_required
 def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder
@@ -489,6 +488,6 @@ def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is t
         photos = Photo.objects.filter(user=request.user, album=album, trash=False)
     else:
         photos = Photo.objects.filter(user=request.user, trash=False)
-    return render_to_response(request, 'albums/photos.html', {'photos': photos, 'albumform': albumform})
+    return render(request, 'albums/photos.html', {'photos': photos, 'albumform': albumform})
 
 

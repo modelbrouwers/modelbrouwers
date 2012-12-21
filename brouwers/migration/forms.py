@@ -4,8 +4,4 @@ from models import PhotoMigration
 
 class PhotoMigrationForm(forms.Form):
     start = forms.IntegerField(min_value=0, initial=0)
-#    cnt = PhotoMigration.objects.filter(album__migrated=True, 
-#migrated=False).count()
-#    if settings.DEBUG:
-#        cnt = 100000
     end = forms.IntegerField(min_value=0, initial=2000)

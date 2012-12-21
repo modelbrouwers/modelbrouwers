@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('brouwers.general.views',
+urlpatterns = patterns('general.views',
     (r'^$', 'index'),
     (r'^login/$', 'custom_login'),
     (r'^logout/$', 'custom_logout'),
@@ -14,7 +14,7 @@ urlpatterns = patterns('brouwers.general.views',
     )
 
 # AJAX
-urlpatterns += patterns('brouwers.general.ajax_views',
+urlpatterns += patterns('general.ajax_views',
     (r'^user/search/$',    'search_users'),
     (r'^profile/ajax/change_password/$', 'password_change'),
     )

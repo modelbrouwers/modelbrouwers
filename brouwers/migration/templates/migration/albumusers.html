@@ -1,0 +1,53 @@
+{% extends "migration/base.html" %}
+
+{% block content %}
+Found {{ found }} of {{ total }}
+<form action="{% url migration.views.find_django_user %}" method="post">{% csrf_token %}
+<ul style="margin-left:1em;">
+    {% for migration in migrations %}
+        {% if migration.django_user %}
+            <li style="margin-left:2em;">
+                <input type="checkbox" name="link{{ migration.id }}" id="link{{ migration.id }}"/>
+                <label for="link{{ migration.id }}">{{ migration }}</label>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% if migrations %}
+<input type="submit" value="gebruikers linken" />
+{% endif %}
+</form>
+
+<a href="{% url migration.views.find_django_user %}">Django gebruiker zoeken</a>
+<br />
+
+<hr />
+<form method="post">{% csrf_token %}
+    <ul style="margin-left:1em;">
+    {% for email, migrations in data.items %}
+        <li>
+            <input type="checkbox" name="emails" 
+            {% if "tom.com" in email or ".cn" in email or "chongseo.net" in email or ".ru" in email or "chongsoft" in email or "aol.com" in email or "mail114.net" in email or "21cn.com" in email or "163.com" in email or "siteposter.net" in email or "domozmail" in email or "110mail.net" in email or "baby" in email or ".pl" in email or "sina.com" in email or ".ua" in email or "5fingershoesoutlet.com" in email or "126.com" in email or "pc1520.com" in email %}
+                checked="checked"
+            {% endif %}
+            value="{{ email }}" id="{{ email }}"/>
+            <label for="{{ email }}">Email: <strong>{{ email }}</strong></label>
+            <br />
+            <ul style="margin-left:2em;margin-bottom:1em;">
+                {% for migration in migrations %}
+                    {% if migrations.count > 1 %}
+                        <li style="color:red;">
+                    {% else %}
+                        <li>
+                    {% endif %}
+                    <input type="checkbox" name="migrations" value="{{ migration.id }}" id="migration{{ migration.id }}"/>
+                    <label for="migration{{ migration.id }}">
+                    {{ migration.username }}</label></li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+    {% if data %}<input type="submit" />{% endif %}
+</form>
+{% endblock %}

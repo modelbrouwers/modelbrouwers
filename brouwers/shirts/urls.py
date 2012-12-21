@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('brouwers.shirts.views',
+urlpatterns = patterns('shirts.views',
     (r'^$', 'index'),
     )

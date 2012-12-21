@@ -3,11 +3,10 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils.safestring import mark_safe
 import django.utils.simplejson as json
 
-from brouwers.general.shortcuts import render_to_response
 from models import *
 from forms import PickOwnAlbumForm
 from utils import admin_mode
@@ -16,12 +15,12 @@ from utils import admin_mode
 def get_photos(request, album_id=None):
     album = get_object_or_404(Album, pk=album_id, user=request.user)
     photos = Photo.objects.filter(album=album, trash=False).order_by('-uploaded')
-    return render_to_response(request, 'albums/ajax/forum/album_photos.html', {'photos': photos})
+    return render(request, 'albums/ajax/forum/album_photos.html', {'photos': photos})
 
 @login_required
 def get_sidebar(request):
     form = PickOwnAlbumForm(request.user)
-    return render_to_response(request, 'albums/ajax/forum/sidebar.html', {'form': form})
+    return render(request, 'albums/ajax/forum/sidebar.html', {'form': form})
 
 @login_required
 def get_sidebar_options(request):

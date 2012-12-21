@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from brouwers.general.models import UserProfile
+from general.models import UserProfile
 from models import Build
 
 info_build = {
@@ -14,7 +14,7 @@ info_profile = {
 	'template_object_name': 'profile'
 	}
 
-urlpatterns = patterns('brouwers.builds.views',
+urlpatterns = patterns('builds.views',
 	(r'^$', 'builders_overview'),
 	(r'^add/$', 'add'),
 	(r'^edit/(\d+)/$', 'edit'),

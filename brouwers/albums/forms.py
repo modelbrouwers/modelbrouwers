@@ -2,7 +2,6 @@ from django import forms
 from django.conf import settings
 from django.db.models import Q
 from django.utils.translation import ugettext as _
-from brouwers.general.models import OrderedUser
 from models import *
 from utils import admin_mode
 

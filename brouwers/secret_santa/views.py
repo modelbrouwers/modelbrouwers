@@ -81,4 +81,4 @@ def receiver(request):
             receiver = couples[0].receiver
         return render(request, 'secret_santa/receiver.html', {'receiver': receiver, 'secret_santa': secret_santa })
     else:
-        return HttpResponseRedirect('/static/error.html')
+        return HttpResponseRedirect('/static/error.html') #FIXME: proper via messages oplossen

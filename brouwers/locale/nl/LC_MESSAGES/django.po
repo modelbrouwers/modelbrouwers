@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-20 06:00+0100\n"
+"POT-Creation-Date: 2012-12-20 14:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,369 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: settings.py:19
-msgid "English"
-msgstr "Engels"
-
-#: settings.py:20
-msgid "Dutch"
-msgstr "Nederlands"
-
-#: albums/ajax_views.py:38
-msgid ""
-"You have used this album title before. Make sure to pick an unique title."
-msgstr "Je hebt deze albumtitel al eerder gebruikt. Kies een unieke titel."
-
-#: albums/ajax_views.py:237
-msgid "This event has been logged"
-msgstr "Deze gebeurtenis werd gelogged."
-
-#: albums/forms.py:18
-msgid ""
-"This link doesn't point to a valid forum topic. Please correct the error"
-msgstr "Deze link wijst niet naar een forumtopic. Pas de fout aan aub."
-
-#: albums/forms.py:140
-msgid "Own albums"
-msgstr "Eigen albums"
-
-#: albums/forms.py:141
-msgid "Group albums"
-msgstr "Groepalbums"
-
-#: albums/forms.py:142
-msgid "Public albums"
-msgstr "Publieke albums"
-
-#: albums/forms.py:203
-msgid "link"
-msgstr "link"
-
-#: albums/forms.py:203
-msgid "Upload a picture from url"
-msgstr "Foto uploaden vanaf een link"
-
-#: albums/forms.py:218
-msgid "Make sure the link points to a jpg or png image."
-msgstr "Zorg dat de link naar een .jpg of .png afbeelding verwijst."
-
-#: albums/forms.py:220
-msgid "Could not download the image from the url"
-msgstr "De afbeelding kon niet gedownload worden"
-
-#: albums/forms.py:231
-msgid "Keywords"
-msgstr "Zoektermen"
-
-#: albums/models.py:19
-msgctxt "write permissions for owner"
-msgid "owner"
-msgstr "mezelf"
-
-#: albums/models.py:20
-msgid "group"
-msgstr "groep"
-
-#: albums/models.py:21
-msgid "everyone"
-msgstr "iedereen"
-
-#: albums/models.py:25
-msgid "name"
-msgstr "naam"
-
-#: albums/models.py:26 albums/models.py:75
-msgid "order"
-msgstr "volgorde"
-
-#: albums/models.py:28
-msgid "url"
-msgstr "link"
-
-#: albums/models.py:29
-msgid "on frontpage"
-msgstr "op de voorpagina"
-
-#: albums/models.py:30
-msgid "public"
-msgstr "publiek?"
-
-#: albums/models.py:30
-msgid ""
-"If the category is public, regular users can add their albums to the "
-"category. If it isn't, only people with admin permissions can do so."
-msgstr ""
-"Als de categorie publiek is, dan kunnen alle gebruikers albums eraan "
-"toevoegen. Anders kunnen enkel gebruikers met administratorrechten albums "
-"toevoegen aan deze categorie."
-
-#: albums/models.py:33 albums/models.py:56
-msgid "category"
-msgstr "categorie"
-
-#: albums/models.py:34
-msgid "categories"
-msgstr "categorieën"
-
-#: albums/models.py:45 secret_santa/models.py:46
-msgid "user"
-msgstr "gebruiker"
-
-#: albums/models.py:46 albums/models.py:48
-msgid "album title"
-msgstr "albumtitel"
-
-#: albums/models.py:49
-msgid "album description"
-msgstr "beschrijving"
-
-#: albums/models.py:62
-msgid "Image to use as album cover."
-msgstr "Afbeelding voor de albumcover"
-
-#: albums/models.py:64
-msgid "cover"
-msgstr "cover"
-
-#: albums/models.py:70 albums/models.py:197
-msgid "last modified"
-msgstr "laatst gewijzigd"
-
-#: albums/models.py:77
-msgid "Public?"
-msgstr "Publiek?"
-
-#: albums/models.py:78
-msgid ""
-"Can this album be viewed by everyone? Untick to make the album available "
-"only to yourself."
-msgstr ""
-"Is dit album zichtbaar voor iedereen? Vink uit om het album enkel voor "
-"jezelf zichtbaar te maken."
-
-#: albums/models.py:84
-msgid "build report"
-msgstr "brouwverslag"
-
-#: albums/models.py:86
-msgid "Link to the forumtopic of the build."
-msgstr "Link naar het topic van de bouw."
-
-#: albums/models.py:89
-msgid "appreciation"
-msgstr "waardering"
-
-#: albums/models.py:91
-msgid "writable to"
-msgstr "schrijfbaar voor"
-
-#: albums/models.py:96 albums/models.py:165
-msgid "album"
-msgstr "album"
-
-#: albums/models.py:97
-msgid "albums"
-msgstr "albums"
-
-#: albums/models.py:102
-msgid "Can edit/remove album"
-msgstr "Kan album bewerken/verwijderen"
-
-#: albums/models.py:103
-msgid "Can see all albums"
-msgstr "Kan alle albums zien"
-
-#: albums/models.py:104
-msgid "Can use new albums"
-msgstr "Kan nieuwe albums gebruiken"
-
-#: albums/models.py:166
-msgid "Album for which the group has write permissions."
-msgstr "Album waarin de groep foto's mag toevoegen."
-
-#: albums/models.py:169
-msgid "users"
-msgstr "gebruikers"
-
-#: albums/models.py:169
-msgid "Users who can write in this album."
-msgstr "Gebruikers die foto's kunnen toevoegen aan dit album."
-
-#: albums/models.py:172
-msgid "album group"
-msgstr "albumgroep"
-
-#: albums/models.py:173
-msgid "album groups"
-msgstr "albumgroepen"
-
-#: albums/models.py:177
-#, python-format
-msgid "Write permissions for '%(album)s'"
-msgstr "Schrijfrechten voor '%(album)s'"
-
-#: albums/models.py:190
-msgid "width"
-msgstr "breedte"
-
-#: albums/models.py:191
-msgid "height"
-msgstr "hoogte"
-
-#: albums/models.py:192
-msgid "image"
-msgstr "foto"
-
-#: albums/models.py:193
-msgid "photo description"
-msgstr "beschrijving"
-
-#: albums/models.py:204
-msgid "Photo"
-msgstr "Foto"
-
-#: albums/models.py:205
-msgid "Photos"
-msgstr "Foto's"
-
-#: albums/models.py:339
-msgid "Multiple files at once"
-msgstr "Meerdere bestanden tegelijk"
-
-#: albums/models.py:340
-msgid "Basic"
-msgstr "Beperkt"
-
-#: albums/models.py:344 shirts/models.py:20
-msgid "Black"
-msgstr "Zwart"
-
-#: albums/models.py:345 shirts/models.py:19
-msgid "White"
-msgstr "Wit"
-
-#: albums/models.py:346
-msgid "Light grey"
-msgstr "Lichtgrijs"
-
-#: albums/models.py:347
-msgid "Dark grey"
-msgstr "Donkergrijs"
-
-#: albums/models.py:352
-msgid "default image dimensions"
-msgstr "standaard afmetingen"
-
-#: albums/models.py:355
-msgid "Your pictures will be scaled to this size."
-msgstr "Formaat waarnaar je afbeeldingen herschaald worden."
-
-#: albums/models.py:358
-msgid "default uploader"
-msgstr "standaard uploader"
-
-#: albums/models.py:361
-msgid ""
-"Multiple files at once makes use of a Flash uploader, \n"
-"you select all your files without having to click too much buttons. \n"
-"The basic uploader has a file field for each image."
-msgstr ""
-"Meerdere bestanden tegelijk gebruikt een Flash uploader. Hiermee kan je alle "
-"bestanden in een map in één keer selecteren. De beperkte uploader vereist "
-"dat je elk bestand apart selecteert."
-
-#: albums/models.py:367
-msgid "start uploading automatically?"
-msgstr "meteen beginnen uploaden"
-
-#: albums/models.py:367
-msgid "Start upload automatically when files are selected"
-msgstr "Automatisch beginnen uploaden zodra bestanden geselecteerd zijn"
-
-#: albums/models.py:368
-msgid "Show direct links under the photo"
-msgstr "Toon de directe link naar de afbeelding"
-
-#: albums/models.py:371
-msgid "When checked, you will see all the albums and be able to edit them."
-msgstr "Als dit aangevinkt is kan je alle albums zien en bewerken."
-
-#: albums/models.py:375
-msgid "collapse sidebar"
-msgstr "standaard ingeklapte zijbalk"
-
-#: albums/models.py:376
-msgid "Show the sidebar as closed when typing a post."
-msgstr "Verberg de zijbalk volledig tijdens het typen van een post."
-
-#: albums/models.py:379
-msgid "hide sidebar"
-msgstr "verberg de zijbalk"
-
-#: albums/models.py:380
-msgid ""
-"Hide the sidebar completely when typing a post and activate it with a button."
-msgstr ""
-"Verberg de zijbalk volledig tijdens het typen van een post en activeer ze "
-"doorop een knop te klikken."
-
-#: albums/models.py:383
-msgid "sidebar background color"
-msgstr "Achtergrondkleur"
-
-#: albums/models.py:385
-msgid "Background for the overlay in the board."
-msgstr "Achtergrondkleur voor de zijbalk in het antwoordscherm."
-
-#: albums/models.py:388
-msgid "transparent background?"
-msgstr "achtergrond transparant?"
-
-#: albums/models.py:389
-msgid "sidebar text color"
-msgstr "tekstkleur"
-
-#: albums/models.py:390
-msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
-msgstr "Tekstkleur in de zijbalk. HTML kleurcodes worden aanvaard."
-
-#: albums/models.py:392
-msgid "sidebar width"
-msgstr "Breedte"
-
-#: albums/models.py:393
-msgid "Width of the sidebar. E.g. '30%' or '300px'."
-msgstr ""
-"Breedte van de zijbalk, in pixels of procent. Bijvoorbeeld: '300px' of '20%'"
-
-#: albums/models.py:397
-msgid "User preferences"
-msgstr "Gebruikersinstellingen"
-
-#: albums/models.py:423
-msgid "user who downloaded the album"
-msgstr "gebruiker die het album downloadde"
-
-#: albums/models.py:424
-msgid "timestamp"
-msgstr "tijdstip"
-
-#: albums/models.py:428
-msgid "album download"
-msgstr "albumdownload"
-
-#: albums/models.py:429
-msgid "album downloads"
-msgstr "albumdownloads"
-
-#: albums/models.py:433
-#, python-format
-msgid "Download of %(album)s by %(username)s"
-msgstr "Download van %(album)s door %(username)s"
-
-#: albums/views.py:176
-msgid "This album could not be downloaded because it has no photos yet."
-msgstr "Dit album kon niet gedownload worden, het bevat nog geen foto's."
+#: templates/pagination.html:5
+msgid "First page"
+msgstr "Eerste pagina"
+
+#: templates/pagination.html:25
+msgid "Last page"
+msgstr "Laatste pagina"
 
 #: awards/models.py:12
 msgid "Categorie"
@@ -396,6 +40,14 @@ msgstr ""
 #: awards/models.py:43
 msgid "Nominaties"
 msgstr ""
+
+#: brouwers/settings.py:19
+msgid "English"
+msgstr "Engels"
+
+#: brouwers/settings.py:20
+msgid "Dutch"
+msgstr "Nederlands"
 
 #: builds/models.py:9
 msgid "link naar het verslag"
@@ -461,289 +113,6 @@ msgstr ""
 #: builds/models.py:31
 msgid "brouwverslagen"
 msgstr ""
-
-#: general/ajax_views.py:47
-msgid "Your password was successfully changed."
-msgstr "Je wachtwoord werd succesvol aangepast."
-
-#: general/forms.py:16
-msgid "E-mail"
-msgstr "E-mailadres"
-
-#: general/forms.py:22 general/forms.py:41
-msgid "A user with that username already exists."
-msgstr "Er bestaat al iemand met deze gebruikersnaam."
-
-#: general/forms.py:42 general/forms.py:128 general/forms.py:222
-msgid "The two password fields didn't match."
-msgstr "De wachtwoordvelden zijn niet identiek."
-
-#: general/forms.py:45 general/forms.py:166
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: general/forms.py:46 general/forms.py:169
-msgid "E-mail address"
-msgstr "E-mailadres"
-
-#: general/forms.py:47 general/forms.py:117 general/forms.py:211
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: general/forms.py:49 general/forms.py:119 general/forms.py:213
-msgid "Password confirmation"
-msgstr "Wachtwoord - bevestig"
-
-#: general/forms.py:51 general/forms.py:121 general/forms.py:215
-msgid "Enter the same password as above, for verification."
-msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
-
-#: general/forms.py:61
-msgid "This e-mail address is already registered."
-msgstr "Dit e-mailadres is al geregistreerd."
-
-#: general/forms.py:101
-msgid "answer"
-msgstr "antwoord"
-
-#: general/forms.py:115
-msgid "Forum name"
-msgstr "Forumnaam"
-
-#: general/forms.py:116
-msgid "Code"
-msgstr "Code"
-
-#: general/forms.py:134
-msgid "This user doesn't exist on the board, check for typos."
-msgstr "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
-
-#: general/forms.py:142
-msgid "You entered the wrong code."
-msgstr "Je hebt een foutieve code ingegeven."
-
-#: general/forms.py:157
-msgid "The username entered was not correct."
-msgstr "De ingegeven gebruikersnaam was niet correct."
-
-#: general/forms.py:170
-msgid ""
-"If you forgot your username, you can enter the e-mail address you registered "
-"with."
-msgstr ""
-"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee "
-"je registreerde ingeven."
-
-#: general/forms.py:177
-msgid "This user is unknown in the database."
-msgstr "Deze gebruiker is onbekend in de databank."
-
-#: general/forms.py:184
-msgid "This email adress is unknown in the database"
-msgstr "Dit e-mailadres is onbekend in de databank."
-
-#: general/forms.py:191
-msgid "Enter your username or e-mail address."
-msgstr "Voer je gebruikersnaam of e-mailadres in."
-
-#: general/models.py:11
-msgid "Nederland"
-msgstr ""
-
-#: general/models.py:12
-msgid "Belgium"
-msgstr "België"
-
-#: general/models.py:13
-msgid "Duitsland"
-msgstr ""
-
-#: general/models.py:14
-msgid "Frankrijk"
-msgstr ""
-
-#: general/models.py:30
-msgid "exclude me from nominations"
-msgstr "sluit me uit van nominaties"
-
-#: general/models.py:30
-msgid "If checked, you will be excluded from Awards-nominations."
-msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
-
-#: general/models.py:33
-msgid "Aanvinken als je meedoet"
-msgstr ""
-
-#: general/models.py:35
-msgid "street name"
-msgstr "straatnaam"
-
-#: general/models.py:37
-msgid "number"
-msgstr "nummer"
-
-#: general/models.py:38
-msgid "house number (+ PO box if applicable)"
-msgstr "huisnummer (+ postbus indien van toepassing)"
-
-#: general/models.py:41
-msgid "postal code"
-msgstr "postcode"
-
-#: general/models.py:42
-msgid "city"
-msgstr "stad"
-
-#: general/models.py:43
-msgid "province"
-msgstr "provincie"
-
-#: general/models.py:44
-msgid "country"
-msgstr "land"
-
-#: general/models.py:47
-msgid "Dit wil ik graag"
-msgstr ""
-
-#: general/models.py:48
-msgid "Dit wil ik absoluut niet"
-msgstr ""
-
-#: general/models.py:57
-msgid "userprofile"
-msgstr "gebruikersprofiel"
-
-#: general/models.py:58
-msgid "userprofiles"
-msgstr "gebruikersprofielen"
-
-#: general/models.py:73
-msgid "username"
-msgstr "gebruikersnaam"
-
-#: general/models.py:74
-msgid "email"
-msgstr "e-mailadres"
-
-#: general/models.py:82
-msgid "forum user"
-msgstr "forumgebruiker"
-
-#: general/models.py:83
-msgid "forum users"
-msgstr "forumgebruikers"
-
-#: general/models.py:108
-msgid "Question which must be answered for registration."
-msgstr "Vraag die beantwoord moet worden voor de registratie"
-
-#: general/models.py:141
-msgid "hash"
-msgstr "hash"
-
-#: general/models.py:142
-msgid "expire datetime"
-msgstr "vervaldatum"
-
-#: general/models.py:145
-msgid "password reset"
-msgstr "Wachtwoord reset"
-
-#: general/models.py:146
-msgid "password resets"
-msgstr "Wachtwoord resets"
-
-#: general/models.py:151
-#, python-format
-msgid "Password reset for %(user)s"
-msgstr "Wachtwoord reset voor %(user)s"
-
-#: general/models.py:155
-msgid "path from"
-msgstr "pad van"
-
-#: general/models.py:157
-msgid ""
-"path from where to redirect, without leading slash.                         "
-"E.g. '/shop/' becomse 'shop/'."
-msgstr ""
-"pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
-"shop/' wordt 'shop/'"
-
-#: general/models.py:161
-msgid "redirect to"
-msgstr "redirect naar"
-
-#: general/models.py:162
-msgid "Path (relative or absolute to the docroot) or url."
-msgstr "Pad (relatief of absoluut tot de website root) of url."
-
-#: general/models.py:166
-msgid "redirect"
-msgstr "omleiding"
-
-#: general/models.py:167
-msgid "redirects"
-msgstr "omleidingen"
-
-#: general/views.py:214
-msgid "Your profile data has been updated."
-msgstr "Je profielgegevens werden bijgewerkt."
-
-#: general/views.py:217
-msgid "Some fields were not valid, please fix the errors."
-msgstr "Sommige gegevens waren ongeldig, pas a.u.b. de problemen aan."
-
-#: general/views.py:269
-msgid ""
-"Your account is still inactive! You won't be able to log in until you "
-"reactivate with the link sent by e-mail."
-msgstr ""
-"Je account is nog inactief! Je zal niet kunnen inloggen tot je je account "
-"geheractiveerd hebt via de link die gemaild werd."
-
-#: general/views.py:296
-#, python-format
-msgid ""
-"Hello %(nickname)s, \n"
-"\n"
-"You or someone else has requested a password reset for your Modelbrouwers.nl "
-"account.\n"
-"This request will expire after 24 hours.\n"
-"\n"
-"Go to %(url)s to complete your password reset.\n"
-"\n"
-"Sincerely,\n"
-"\n"
-"The Modelbrouwers.nl staff"
-msgstr ""
-"Hallo %(nickname)s, \n"
-"\n"
-"Jijzelf of iemand anders heeft een wachtwoordreset aangevraagd voor je "
-"Modelbrouwers.nl account.\n"
-"Deze aanvraag vervalt na 24 uur.\n"
-"\n"
-"Ga naar %(url)s om je wachtwoordreset uit te voeren.\n"
-"\n"
-"Met vriendelijke groet,\n"
-"\n"
-"Het Modelbrouwers.nl beheer"
-
-#: general/views.py:308
-msgid "nickname"
-msgstr "gebruikersnaam"
-
-#: general/views.py:312
-msgid "Modelbrouwers.nl password reset"
-msgstr "Modelbrouwers.nl wachtwoordreset"
-
-#: general/views.py:316
-#, python-format
-msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
-msgstr ""
-"Er werd een e-mail verstuurd naar '%(email)s' met een link om je wachtwoord "
-"te resetten."
 
 #: migration/models.py:36
 msgid "album user migration"
@@ -896,7 +265,7 @@ msgstr "shirtbestelling"
 msgid "shirt orders"
 msgstr "shirtbestellingen"
 
-#: shirts/views.py:12
+#: shirts/views.py:11
 #, python-format
 msgid ""
 "Dear %(username)s,\n"
@@ -935,14 +304,92 @@ msgstr ""
 "Met vriendelijke groet,\n"
 "Sergei Maertens\n"
 
-#: shirts/views.py:27
+#: shirts/views.py:26
 msgid "Modelbrouwers.nl shirt order"
 msgstr "Modelbrouwers.nl shirtbestelling"
 
-#: shirts/views.py:43
+#: shirts/views.py:42
 #, python-format
 msgid "You have placed order %(orderid)s"
 msgstr "Je hebt bestelling %(orderid)s geplaatst."
+
+#: shirts/templates/shirts/base.html:43
+msgid "Shirt ordering"
+msgstr "Shirt bestellen"
+
+#: shirts/templates/shirts/base.html:46
+msgid ""
+"With this form, you can order a Modelbrouwers.nl shirt. After ordering, you "
+"will receive an e-mail with account details. You must pay the shirt to "
+"complete the order."
+msgstr ""
+"Met dit formulier bestel je een Modelbrouwers.nl shirt. Na het plaatsen van "
+"de bestelling ontvang je een e-mail met de rekeninggegevens. Je moet het "
+"shirt betalen om de bestelling te voltooien."
+
+#: shirts/templates/shirts/base.html:47
+msgid ""
+"If you don't wish the shirt to be mailed, the delivery of the shirt will "
+"happen on some meeting. You will be contacted for this through your e-mail.\n"
+"    "
+msgstr ""
+"Als je het shirt niet wenst te ontvangen per post, dan zal het afleveren op "
+"een of andere meeting gebeuren. Er zal contact opgenomen worden via e-mail "
+"om dit vast te leggen."
+
+#: shirts/templates/shirts/base.html:49
+msgid "The price of a shirt is 10 euros + 8 if you want it mailed."
+msgstr "De prijs bedraagt 10 euro + 8 als je het per post wenst te ontvangen."
+
+#: shirts/templates/shirts/base.html:53
+msgid "Place order"
+msgstr "Bestelling plaatsen"
+
+#: shirts/templates/shirts/base.html:57
+msgid ""
+"Note: the preview of the shirt is a mock-up. The actual shirt may be "
+"slightly different."
+msgstr ""
+"Opmerking: het voorbeeld van de shirts is een mock-up. Het eigenlijke shirt "
+"kan lichtjes anders zijn."
+
+#: shirts/templates/shirts/mail.html:2
+#, python-format
+msgid "Dear %(username)s,"
+msgstr "Beste %(username)s,"
+
+#: shirts/templates/shirts/mail.html:3
+#, python-format
+msgid ""
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: \n"
+"color %(color)s; size %(size)s; type %(type)s. The order was placed on "
+"%(date)s"
+msgstr ""
+"Dit is een bevesting van een Modelbrouwers.nl shirtbestelling met de "
+"volgende opties: \n"
+"kleur %(color)s; maat %(size)s; type %(type)s. De bestelling werd geplaatst "
+"op %(date)s"
+
+#: shirts/templates/shirts/mail.html:5
+#, python-format
+msgid ""
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br "
+"><br >Be sure to mention your order ID: %(orderid)s.\n"
+"<br >\n"
+"The price for this order is %(price)s euros."
+msgstr ""
+"Om de bestelling te voltooien moet je het verschuldigde bedrag overmaken aan "
+"Sergei Maertens op de volgende rekening:<br >IBAN: BE47 1325 1771 2380<br "
+">BIC: BNAG BE BB.<br ><br >Vergeet niet om je bestellings ID te vermelden: "
+"%(orderid)s.\n"
+"<br >\n"
+"De totaalprijs voor deze bestelling is %(price)s euro."
+
+#: shirts/templates/shirts/mail.html:9
+msgid "Sincerely,<br >Sergei Maertens"
+msgstr "Met vriendelijke groet,<br >Sergei Maertens"
 
 #: templates/404.html:35
 msgid "Oops... a 404!"
@@ -967,30 +414,24 @@ msgid "Materials and knowledge for scale modelling."
 msgstr ""
 
 #: templates/base.html:61
-#, fuzzy
 msgid "Back to the Modelbrouwers.nl homepage"
-msgstr "Modelbrouwers.nl shirtbestelling"
+msgstr "Terug naar de Modelbrouwers.nl homepage"
 
 #: templates/base.html:98
 msgid "Migrations"
-msgstr ""
+msgstr "Migraties"
 
 #: templates/base.html:105
 msgid "Login"
-msgstr ""
-
-#: templates/base.html:108 templates/general/register.html:28
-msgid "Register"
-msgstr ""
+msgstr "Inloggen"
 
 #: templates/base.html:112
 msgid "logout"
-msgstr ""
+msgstr "uitloggen"
 
 #: templates/base.html:115
-#, fuzzy
 msgid "Profile"
-msgstr "gebruikersprofiel"
+msgstr "Profiel"
 
 #: templates/form_in_table.html:38 templates/form_in_table_rows.html:19
 msgid "Fix the error:"
@@ -998,38 +439,27 @@ msgstr "Herstel de fout:"
 
 #: templates/nav_tabs.html:5
 msgid "Visit the homepage!"
-msgstr ""
+msgstr "Ga naar de homepage!"
 
 #: templates/nav_tabs.html:11
 msgid "Visit the board!"
-msgstr ""
+msgstr "Ga naar het forum!"
 
 #: templates/nav_tabs.html:17
 msgid "Visit the shop!"
-msgstr ""
+msgstr "Ga naar de shop!"
 
 #: templates/nav_tabs.html:23
-#, fuzzy
 msgid "You are now in the albums!"
 msgstr "Je bent nu in de fotoalbums!"
 
 #: templates/nav_tabs.html:29
 msgid "Visit the kit reviews!"
-msgstr ""
-
-#: templates/pagination.html:5 templates/albums/my_last_uploads.html:35
-#: templates/albums/albums_list/pagination.html:5
-msgid "First page"
-msgstr "Eerste pagina"
+msgstr "Ga naar de kitreviews!"
 
 #: templates/pagination.html:16
 msgid "of"
 msgstr "van"
-
-#: templates/pagination.html:25 templates/albums/my_last_uploads.html:55
-#: templates/albums/albums_list/pagination.html:25
-msgid "Last page"
-msgstr "Laatste pagina"
 
 #: templates/admin/base_site.html:4
 msgid "Modelbrouwers.nl admin"
@@ -1042,511 +472,3 @@ msgstr "administratie"
 #: templates/admin/base_site.html:17
 msgid "Find a member"
 msgstr "Zoek een forumlid"
-
-#: templates/albums/album_li.html:20
-#: templates/albums/albums_list/albums_rows.html:17
-#: templates/albums/albums_list/public_albums_rows.html:11
-#: templates/albums/albums_list/public_albums_rows_5col.html:17
-#, python-format
-msgid "1 photo"
-msgid_plural "%(counter)s photos"
-msgstr[0] "1 foto"
-msgstr[1] "%(counter)s foto's"
-
-#: templates/albums/album_li.html:33
-#: templates/albums/albums_list/albums_rows.html:30
-msgid "This album is only visible for me"
-msgstr "Dit album is enkel zichtbaar voor mij"
-
-#: templates/albums/album_li.html:36
-msgid "This album is writable for a group"
-msgstr "Dit album is schrijfbaar voor een groep"
-
-#: templates/albums/album_li.html:41 templates/albums/base.html:30
-#: templates/albums/albums_list/albums_rows.html:35
-msgid "Edit album"
-msgstr "Album bewerken"
-
-#: templates/albums/album_li.html:44
-#: templates/albums/albums_list/albums_rows.html:38
-msgid "Move album to trash"
-msgstr "Album naar prullenbak verplaatsen"
-
-#: templates/albums/album_li.html:47
-msgid "Restore album"
-msgstr "Album terugzetten"
-
-#: templates/albums/album_li.html:53 templates/albums/browse_album.html:27
-#: templates/albums/photo.html:21
-#: templates/albums/albums_list/albums_rows.html:44
-msgid "modified"
-msgstr "gewijzigd"
-
-#: templates/albums/album_li.html:55 templates/albums/browse_album.html:27
-#: templates/albums/albums_list/albums_rows.html:46
-msgid "created"
-msgstr "aangemaakt"
-
-#: templates/albums/base.html:29 templates/albums/my_albums_list.html:23
-#: templates/albums/uploadify.html:85 templates/albums/uploadify.html:208
-msgid "New album"
-msgstr "Nieuw album"
-
-#: templates/albums/base.html:31 templates/albums/edit_album.html:12
-#: templates/albums/edit_photo.html:17
-#: templates/albums/extra_info_uploads.html:59 templates/albums/manage.html:47
-#: templates/albums/manage.html.py:94 templates/albums/preferences.html:9
-#: templates/albums/uploadify.html:87 templates/general/profile.html:51
-msgid "Save"
-msgstr "Bewaren"
-
-#: templates/albums/base.html:32 templates/albums/uploadify.html:106
-#: templates/general/profile.html:16
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: templates/albums/base.html:33
-msgid "Move to trash?"
-msgstr "Naar prullenbak verplaatsen?"
-
-#: templates/albums/base.html:34 templates/general/confirm_account.html:24
-#: templates/general/profile.html:15
-msgid "Confirm"
-msgstr "Bevestigen"
-
-#: templates/albums/base.html:35 templates/albums/list.html:6
-msgid "search albums..."
-msgstr "albums doorzoeken..."
-
-#: templates/albums/base.html:36
-msgid "choose an album cover"
-msgstr "albumcover kiezen"
-
-#: templates/albums/base.html:37
-msgid "find users..."
-msgstr "gebruikers doorzoeken..."
-
-#: templates/albums/base.html:38
-msgid "click to remove from group"
-msgstr "klik om uit de groep te verwijderen"
-
-#: templates/albums/base.html:64
-msgid "Add photos"
-msgstr "Foto's toevoegen"
-
-#: templates/albums/base.html:66 templates/albums/ajax/forum/sidebar.html:4
-msgid "My albums"
-msgstr "Mijn albums"
-
-#: templates/albums/base.html:67
-msgid "All albums"
-msgstr "Alle albums"
-
-#: templates/albums/base.html:68
-msgid "My last uploads"
-msgstr "Mijn laatste uploads"
-
-#: templates/albums/base.html:69
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-#: templates/albums/base.html:120
-msgid "Last modified albums"
-msgstr "Laatst gewijzigde albums"
-
-#: templates/albums/base.html:131
-msgid "Last uploads"
-msgstr "Laatste uploads"
-
-#: templates/albums/browse_album.html:18
-msgid "Album"
-msgstr "Album"
-
-#: templates/albums/browse_album.html:21 templates/albums/photo.html:13
-msgid "Build report"
-msgstr "Brouwverslag"
-
-#: templates/albums/browse_album.html:41
-msgid "set as album cover"
-msgstr "instellen als albumcover"
-
-#: templates/albums/browse_album.html:43
-msgid "delete photo"
-msgstr "foto verwijderen"
-
-#: templates/albums/browse_album.html:70
-msgid "download album (.zip)"
-msgstr "album downloaden (.zip)"
-
-#: templates/albums/edit_album.html:6
-#, python-format
-msgid "Edit album &lsquo;<strong>%(album)s</strong>&rsquo;"
-msgstr "Bewerk album &lsquo;<strong>%(album)s</strong>&rsquo;"
-
-#: templates/albums/edit_photo.html:6
-#, python-format
-msgid ""
-"Photo in the album <a href=\"%(album_url)s\"><strong>%(album)s</strong></a>"
-msgstr ""
-"Foto in het album <a href=\"%(album_url)s\"><strong>%(album)s</strong></a>"
-
-#: templates/albums/extra_info_uploads.html:40
-#, python-format
-msgid "There was 1 photo in the album %(album)s prior to this upload."
-msgid_plural ""
-"There were %(photos_before)s photos in the album %(album)s prior to this "
-"upload."
-msgstr[0] "Er was 1 foto in het album %(album)s voor deze upload."
-msgstr[1] ""
-"Er waren %(photos_before)s foto's in het album %(album)s voor deze upload."
-
-#: templates/albums/manage.html:5 templates/albums/ajax/new_album.html:37
-msgid "Create new album"
-msgstr "Maak nieuw album"
-
-#: templates/albums/manage.html:29 templates/albums/ajax/new_album.html:32
-msgid "Fix the error"
-msgstr "Herstel de fout"
-
-#: templates/albums/manage.html:36
-msgid "Add album"
-msgstr "Album toevoegen"
-
-#: templates/albums/manage.html:42
-msgid "Organize albums"
-msgstr "Albums organiseren"
-
-#: templates/albums/manage.html:84
-msgid "error"
-msgstr "fout"
-
-#: templates/albums/my_albums_list.html:21
-msgid "My personal albums"
-msgstr "Mijn persoonlijke albums"
-
-#: templates/albums/my_albums_list.html:27
-msgid "Manage"
-msgstr "Beheren"
-
-#: templates/albums/my_albums_list.html:32
-#: templates/albums/my_albums_list.html:36
-msgid "Trash"
-msgstr "Prullenbak"
-
-#: templates/albums/my_albums_list.html:41
-msgid "Show all my personal albums"
-msgstr "Al mijn persoonlijke albums tonen"
-
-#: templates/albums/my_albums_list.html:48
-#, python-format
-msgid ""
-"Your browser has no javascript. You can reorganize your albums on an <a href="
-"\"%(manage_url)s\">alternative page</a>."
-msgstr ""
-"Je browser ondersteunt geen javascript, wat vereist is voor deze uploader. "
-"Je kan je albums organiseren op een <a href=\"%(manage_url)s\">alternatieve "
-"pagina</a>."
-
-#: templates/albums/my_albums_list.html:64
-msgid "My public albums &#45; others can add photos"
-msgstr "Mijn persoonlijke albums &#45; anderen kunnen foto's toevoegen."
-
-#: templates/albums/my_albums_list.html:79
-msgid "Public albums &#45; writable for me"
-msgstr "Publieke albums &#45; schrijfbaar voor mij"
-
-#: templates/albums/my_albums_list.html:101
-msgid ""
-"Are you sure you want to move the album &lsquo;<span id=\"id-album-title\"></"
-"span>&rsquo; to the trash?"
-msgstr ""
-"Ben je zeker dat je het album &lsquo;<span id=\"id-album-title\"></"
-"span>&rsquo; naar de prullenbak wil verplaatsen?"
-
-#: templates/albums/my_last_uploads.html:5
-msgid "My last uploads..."
-msgstr "Mijn laatste uploads..."
-
-#: templates/albums/nav_tabs.html:6
-msgid "You are now in the photo albums!"
-msgstr "Je bent nu in de fotoalbums!"
-
-#: templates/albums/photo.html:7
-msgid "From"
-msgstr "Van"
-
-#: templates/albums/photo.html:9
-msgid "in the album"
-msgstr "in het album"
-
-#: templates/albums/photo.html:11
-#, python-format
-msgid "(1 image)"
-msgid_plural "(%(counter)s images)"
-msgstr[0] "(1 foto)"
-msgstr[1] "(%(counter)s images)"
-
-#: templates/albums/photo.html:19
-msgid "edit"
-msgstr "bewerken"
-
-#: templates/albums/preferences.html:5
-msgid "Here you can configure your preferences"
-msgstr "Stel hier je voorkeuren in"
-
-#: templates/albums/upload.html:15 templates/albums/uploadify.html:189
-msgid "Upload images"
-msgstr "Afbeeldingen uploaden"
-
-#: templates/albums/upload.html:16
-msgid "Specifiy the number of pictures you want to upload"
-msgstr ""
-
-#: templates/albums/upload.html:17
-msgid "Refresh"
-msgstr ""
-
-#: templates/albums/upload.html:23 templates/albums/uploadify.html:204
-msgid "Upload to"
-msgstr "Uploaden naar"
-
-#: templates/albums/upload.html:31
-#, fuzzy
-msgid "add photos"
-msgstr "Foto's toevoegen"
-
-#: templates/albums/uploadify.html:35
-msgid "complete"
-msgstr "voltooien"
-
-#: templates/albums/uploadify.html:42
-msgid "Browse"
-msgstr "Bladeren"
-
-#: templates/albums/uploadify.html:46
-msgid "Images..."
-msgstr "Afbeeldingen..."
-
-#: templates/albums/uploadify.html:192
-#, python-format
-msgid ""
-"Your browser doesn't support javascript, which is required for this uploader "
-"to work. You can use an <a href=\"%(upload_url)s\">alternative uploader</a>."
-msgstr ""
-"Je browser ondersteunt geen javascript, wat vereist is voor deze uploader. "
-"Jekan een <a href=\"%(upload_url)s\">alternatieve uploader</a> gebruiken."
-
-#: templates/albums/uploadify.html:196
-msgid ""
-"You can upload images on this page. Choose the album you want to upload to "
-"and select pictures. You can set some extra info on the images in the next "
-"step."
-msgstr ""
-"Op deze pagina kan je foto's uploaden. Kies het album waarnaar je wil "
-"uploaden en voeg de foto's toe. In een volgende stap kan je desgewenst een "
-"beschrijving invullen."
-
-#: templates/albums/uploadify.html:229
-msgid "Start upload"
-msgstr "Begin upload"
-
-#: templates/albums/uploadify.html:232
-msgid "Upload queue"
-msgstr "Bestanden wachtrij"
-
-#: templates/albums/ajax/new_album.html:4
-#: templates/albums/ajax/new_album.html:25
-msgid "Close"
-msgstr "Sluiten"
-
-#: templates/albums/ajax/forum/album_photos.html:4
-msgid "Insert all"
-msgstr "Alles invoegen"
-
-#: templates/albums/ajax/forum/album_photos.html:5
-msgid "click on the image to insert"
-msgstr "klik op de afbeelding om in te voegen"
-
-#: templates/albums/ajax/forum/album_photos.html:24
-#, python-format
-msgid ""
-"You don't seem to have photos here. Upload some in <a href=\"%(upload_url)s"
-"\">our albums</a>!"
-msgstr ""
-"Je lijkt hier nog geen foto's te hebben. Upload ze naar <a href="
-"\"%(upload_url)s\">onze albums</a>!"
-
-#: templates/albums/ajax/forum/sidebar.html:18
-msgid "Search albums"
-msgstr "Albums doorzoeken"
-
-#: templates/general/do_password_reset.html:5
-msgid "Enter your new password"
-msgstr ""
-
-#: templates/general/do_password_reset.html:10
-#: templates/general/password_reset.html:13
-#, fuzzy
-msgid "confirm"
-msgstr "Bevestigen"
-
-#: templates/general/login.html:26
-msgid "Forgot your password?"
-msgstr ""
-
-#: templates/general/login.html:28
-#, fuzzy
-msgid "Request a password reset"
-msgstr "Wachtwoord reset"
-
-#: templates/general/password.html:5 templates/general/password.html.py:9
-#: templates/general/password.html:13 templates/general/profile.html:14
-#: templates/general/profile.html.py:25
-msgid "Change password"
-msgstr "Wachtwoord wijzigen"
-
-#: templates/general/password_reset.html:6
-#, fuzzy
-msgid "Enter your username or e-mail address to request a password reset."
-msgstr "Voer je gebruikersnaam of e-mailadres in."
-
-#: templates/general/password_reset.html:8
-#, fuzzy
-msgid "An e-mail will be sent to you with a link to reset your password."
-msgstr ""
-"Er werd een e-mail verstuurd naar '%(email)s' met een link om je wachtwoord "
-"te resetten."
-
-#: templates/general/profile.html:3
-msgid "Modelbrouwers.nl &bull; Edit profile"
-msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
-
-#: templates/general/profile.html:24
-msgid "Account details"
-msgstr "Accountdetails"
-
-#: templates/general/profile.html:32
-msgid "Your username"
-msgstr "Je gebruikersnaam"
-
-#: templates/general/profile.html:41
-msgid "Address details"
-msgstr "Adresdetails"
-
-#: templates/general/profile.html:46
-msgid "Awards"
-msgstr "Awards"
-
-#: templates/general/profile.html:57
-msgid "Language settings"
-msgstr "Taalinstellingen"
-
-#: templates/general/profile.html:59
-msgid ""
-"Set your preferred language here. Note that this setting is stored in your "
-"cookies, so if you clear those, the default language according to your "
-"browser preferences will be used."
-msgstr ""
-"Stel hier je voorkeurstaal in. Let op, de instellingen worden in je cookies "
-"bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
-"browserinstellingen gekozen."
-
-#: templates/general/profile.html:72
-msgid ""
-"Contact admins@modelbrouwers.nl if you are interested in helping with "
-"translations."
-msgstr ""
-"Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen "
-"met vertalingen."
-
-#: templates/general/register.html:4
-#, fuzzy
-msgid "Registration"
-msgstr "administratie"
-
-#: templates/general/register.html:14
-msgid "Anti-Spambot question"
-msgstr ""
-
-#: templates/general/register.html:21
-#, fuzzy
-msgid "Answer"
-msgstr "antwoord"
-
-#: templates/shirts/base.html:43
-msgid "Shirt ordering"
-msgstr "Shirt bestellen"
-
-#: templates/shirts/base.html:46
-msgid ""
-"With this form, you can order a Modelbrouwers.nl shirt. After ordering, you "
-"will receive an e-mail with account details. You must pay the shirt to "
-"complete the order."
-msgstr ""
-"Met dit formulier bestel je een Modelbrouwers.nl shirt. Na het plaatsen van "
-"de bestelling ontvang je een e-mail met de rekeninggegevens. Je moet het "
-"shirt betalen om de bestelling te voltooien."
-
-#: templates/shirts/base.html:47
-msgid ""
-"If you don't wish the shirt to be mailed, the delivery of the shirt will "
-"happen on some meeting. You will be contacted for this through your e-mail.\n"
-"    "
-msgstr ""
-"Als je het shirt niet wenst te ontvangen per post, dan zal het afleveren op "
-"een of andere meeting gebeuren. Er zal contact opgenomen worden via e-mail "
-"om dit vast te leggen."
-
-#: templates/shirts/base.html:49
-msgid "The price of a shirt is 10 euros + 8 if you want it mailed."
-msgstr "De prijs bedraagt 10 euro + 8 als je het per post wenst te ontvangen."
-
-#: templates/shirts/base.html:53
-msgid "Place order"
-msgstr "Bestelling plaatsen"
-
-#: templates/shirts/base.html:57
-msgid ""
-"Note: the preview of the shirt is a mock-up. The actual shirt may be "
-"slightly different."
-msgstr ""
-"Opmerking: het voorbeeld van de shirts is een mock-up. Het eigenlijke shirt "
-"kan lichtjes anders zijn."
-
-#: templates/shirts/mail.html:2
-#, python-format
-msgid "Dear %(username)s,"
-msgstr "Beste %(username)s,"
-
-#: templates/shirts/mail.html:3
-#, python-format
-msgid ""
-"This is an order confirmation for a Modelbrouwers.nl shirt with the "
-"following options: \n"
-"color %(color)s; size %(size)s; type %(type)s. The order was placed on "
-"%(date)s"
-msgstr ""
-"Dit is een bevesting van een Modelbrouwers.nl shirtbestelling met de "
-"volgende opties: \n"
-"kleur %(color)s; maat %(size)s; type %(type)s. De bestelling werd geplaatst "
-"op %(date)s"
-
-#: templates/shirts/mail.html:5
-#, python-format
-msgid ""
-"To complete this order, please make a payment to Sergei Maertens on the "
-"following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br "
-"><br >Be sure to mention your order ID: %(orderid)s.\n"
-"<br >\n"
-"The price for this order is %(price)s euros."
-msgstr ""
-"Om de bestelling te voltooien moet je het verschuldigde bedrag overmaken aan "
-"Sergei Maertens op de volgende rekening:<br >IBAN: BE47 1325 1771 2380<br "
-">BIC: BNAG BE BB.<br ><br >Vergeet niet om je bestellings ID te vermelden: "
-"%(orderid)s.\n"
-"<br >\n"
-"De totaalprijs voor deze bestelling is %(price)s euro."
-
-#: templates/shirts/mail.html:9
-msgid "Sincerely,<br >Sergei Maertens"
-msgstr "Met vriendelijke groet,<br >Sergei Maertens"

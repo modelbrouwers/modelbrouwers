@@ -7,9 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
-from brouwers.general.models import OrderedUser
-from brouwers.general.utils import get_username as _get_username
-
+from general.utils import get_username as _get_username
 from datetime import date, datetime
 import os, re
 
@@ -113,7 +111,7 @@ class Album(models.Model):
         super(Album, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
-        return reverse('brouwers.albums.views.browse_album', args=[self.id])
+        return reverse('albums.views.browse_album', args=[self.id])
     
     def get_cover(self):
         if self.cover:
@@ -219,7 +217,7 @@ class Photo(models.Model):
         return "image from %s in %s" % (self.user, self.album.title)
     
     def get_absolute_url(self):
-        return reverse('brouwers.albums.views.photo', args=[self.id])
+        return reverse('albums.views.photo', args=[self.id])
     
     def get_username(self):
         return _get_username(self)

@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from datetime import date, datetime
 
-from brouwers.awards.models import Category
+from awards.models import Category
 import zlib
 
 COUNTRY_CHOICES = (
-    ("N",_("Nederland")),
+    ("N",_("The Netherlands")),
     ("B",_("Belgium")),
-    ("D",_("Duitsland")),
-    ("F",_("Frankrijk")),
+    ("D",_("Germany")),
+    ("F",_("France")),
 )
 
 class OrderedUser(User):
@@ -30,7 +30,7 @@ class UserProfile(models.Model):
     exclude_from_nomination = models.BooleanField(_("exclude me from nominations"), help_text=_("If checked, you will be excluded from Awards-nominations."))
     categories_voted = models.ManyToManyField(Category, blank=True, null=True)
     
-    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet")) # No longer used
+    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet")) # No longer used TODO remove
     #adres
     street = models.CharField(_("street name"), max_length=255, blank=True, null=True)
     number = models.CharField(

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Modelbrouwers.nl &bull; Edit profile' %}{% endblock %}
+
+<!-- css and scripts -->
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.8.22.custom.css" />
+{% endblock %}
+
+{% block extrascript %}
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/profile.js?v={{ software_version }}"></script>
+<script type="text/javascript">
+    var trans_change_password = "{% trans 'Change password' %}";
+    var trans_confirm = "{% trans 'Confirm' %}";
+    var trans_cancel = "{% trans 'Cancel' %}";
+</script>
+{% endblock %}
+<!-- end css and scripts -->
+
+<!-- content -->
+{% block content %}
+<div class="tab">
+    {% trans 'Account details' %} &bull; 
+    <a href="{% url django.contrib.auth.views.password_change %}" id="change-password-link">{% trans 'Change password' %}</a>
+</div>
+
+<form action="" method="post" enctype="multipart/form-data">
+    <table>
+    {% with form=userform hide_table_tags="True" %}
+        <tr id="id_row_forum_nickname">
+            <th class="label">{% trans 'Your username' %}</th>
+            <td class="field" colspan="2">
+                <strong>{{ user.get_profile.forum_nickname }}</strong>
+            </td>
+        </tr>
+        {% include "form_in_table.html" %}
+    {% endwith %}
+    </table>
+    
+    <div class="tab midpage">{% trans 'Address details' %}</div>
+    {% with form=addressform %}
+        {% include "form_in_table.html" %}
+    {% endwith %}
+    
+    <div class="tab midpage">{% trans 'Awards' %}</div>
+    {% with form=awardsform %}
+        {% include "form_in_table.html" %}
+    {% endwith %}
+    <div class="center" style="margin-top:1em;">
+        <input type="submit" value="{% trans 'Save' %}" class="submit-button" />
+    </div>
+</form>
+
+<!-- Language settings -->
+<div id="language-settings" >
+    <div class="tab midpage" style="margin-top:5em;">{% trans 'Language settings' %}</div>
+    <p style="margin-top:1em;margin-bottom:1em;">
+        {% trans 'Set your preferred language here. Note that this setting is stored in your cookies, so if you clear those, the default language according to your browser preferences will be used.' %}
+    </p>
+    <form action="/i18n/setlang/" method="post">
+        {% csrf_token %}
+        <!--<input name="next" type="hidden" value="{{ redirect_to }}" />-->
+        <select name="language">
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% ifequal language.code LANGUAGE_CODE %}selected="selected"{% endifequal %}>{{ language.name_local }} ({{ language.code }})</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Go"/>
+    </form>
+    <p>{% trans 'Contact admins@modelbrouwers.nl if you are interested in helping with translations.' %}</p>
+</div>
+
+<div id="password-change-dialog">
+    {% include "general/ajax/password_change.html" %}
+</div>
+{% endblock %}

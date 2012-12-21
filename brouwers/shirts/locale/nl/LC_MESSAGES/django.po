@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-20 14:50+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: models.py:15
+msgid "Standard"
+msgstr ""
+
+#: models.py:16
+msgid "Girlie"
+msgstr ""
+
+#: models.py:19
+msgid "White"
+msgstr ""
+
+#: models.py:20
+msgid "Black"
+msgstr ""
+
+#: models.py:24
+msgid "size"
+msgstr ""
+
+#: models.py:25
+msgid "type"
+msgstr ""
+
+#: models.py:26
+msgid "color"
+msgstr ""
+
+#: models.py:27
+msgid "mail the shirt"
+msgstr ""
+
+#: models.py:27
+msgid ""
+"Mailing the shirt will add 8 euros to the costs and you need to fill in your "
+"address data in your profile."
+msgstr ""
+
+#: models.py:28
+msgid "moderator shirt"
+msgstr ""
+
+#: models.py:28
+msgid "Check this box if you want the moderator shirt. Moderators only!"
+msgstr ""
+
+#: models.py:31
+msgid "order time"
+msgstr ""
+
+#: models.py:32
+msgid "payment received"
+msgstr ""
+
+#: models.py:35
+msgid "shirt order"
+msgstr ""
+
+#: models.py:36
+msgid "shirt orders"
+msgstr ""
+
+#: views.py:11
+#, python-format
+msgid ""
+"Dear %(username)s,\n"
+"\n"
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: color %(color)s; size %(size)s; type %(type)s. The order "
+"was placed on %(date)s.\n"
+"\n"
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account: \n"
+"IBAN: BE47 1325 1771 2380\n"
+"BIC: BNAG BE BB.\n"
+"Be sure to mention your order ID: %(orderid)s.\n"
+"\n"
+"The price for this order is %(price)s euros.\n"
+"\n"
+"\n"
+"Sincerely,\n"
+"Sergei Maertens\n"
+msgstr ""
+
+#: views.py:26
+msgid "Modelbrouwers.nl shirt order"
+msgstr ""
+
+#: views.py:42
+#, python-format
+msgid "You have placed order %(orderid)s"
+msgstr ""
+
+#: templates/shirts/base.html:43
+msgid "Shirt ordering"
+msgstr ""
+
+#: templates/shirts/base.html:46
+msgid ""
+"With this form, you can order a Modelbrouwers.nl shirt. After ordering, you "
+"will receive an e-mail with account details. You must pay the shirt to "
+"complete the order."
+msgstr ""
+
+#: templates/shirts/base.html:47
+msgid ""
+"If you don't wish the shirt to be mailed, the delivery of the shirt will "
+"happen on some meeting. You will be contacted for this through your e-mail.\n"
+"    "
+msgstr ""
+
+#: templates/shirts/base.html:49
+msgid "The price of a shirt is 10 euros + 8 if you want it mailed."
+msgstr ""
+
+#: templates/shirts/base.html:53
+msgid "Place order"
+msgstr ""
+
+#: templates/shirts/base.html:57
+msgid ""
+"Note: the preview of the shirt is a mock-up. The actual shirt may be "
+"slightly different."
+msgstr ""
+
+#: templates/shirts/mail.html:2
+#, python-format
+msgid "Dear %(username)s,"
+msgstr ""
+
+#: templates/shirts/mail.html:3
+#, python-format
+msgid ""
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: \n"
+"color %(color)s; size %(size)s; type %(type)s. The order was placed on "
+"%(date)s"
+msgstr ""
+
+#: templates/shirts/mail.html:5
+#, python-format
+msgid ""
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br "
+"><br >Be sure to mention your order ID: %(orderid)s.\n"
+"<br >\n"
+"The price for this order is %(price)s euros."
+msgstr ""
+
+#: templates/shirts/mail.html:9
+msgid "Sincerely,<br >Sergei Maertens"
+msgstr ""

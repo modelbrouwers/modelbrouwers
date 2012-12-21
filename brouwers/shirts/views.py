@@ -2,10 +2,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.utils.translation import ugettext as _
 
-from brouwers.general.shortcuts import render_to_response
 from models import ShirtOrder
 from forms import ShirtOrderForm
 
@@ -34,14 +33,14 @@ def index(request):
                 'price': order.price,
                 'orderid': order.id,
             }
-            html_content = render_to_response(request, 'shirts/mail.html', {'order': order})
+            html_content = render(request, 'shirts/mail.html', {'order': order}) #TODO: don't render to response, just render template
             
             msg = EmailMultiAlternatives(subject, text_content, from_email, [order.user.email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
             
             messages.success(request, _("You have placed order %(orderid)s") % {'orderid':order.id})
-            return HttpResponseRedirect(reverse(index))
+            return redirect(reverse(index))
     else:
         form = ShirtOrderForm()
-    return render_to_response(request, 'shirts/base.html', {'form': form})
+    return render(request, 'shirts/base.html', {'form': form})

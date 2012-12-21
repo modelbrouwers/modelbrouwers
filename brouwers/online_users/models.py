@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from datetime import datetime, timedelta
-from brouwers.general.models import OrderedUser
+from general.models import OrderedUser
 
 MINUTES_FOR_ONLINE = 5
 
@@ -13,8 +13,8 @@ class TrackedUser(models.Model):
     notificate = models.BooleanField(
             _("notificate"), 
             default=True, 
-            help_text=_("Send a notification to the online \
-                        moderators when this user is online.")
+            help_text=_("Send a notification to the online "
+                        "moderators when this user is online.")
         )
     
     class Meta:

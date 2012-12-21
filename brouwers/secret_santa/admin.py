@@ -1,5 +1,5 @@
 from django.contrib import admin
-from brouwers.secret_santa.models import *
+from models import *
 
 class SecretSantaAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'enrollment_start', 'enrollment_end', 'lottery_date', 'lottery_done')

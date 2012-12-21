@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('brouwers.awards.views',
+urlpatterns = patterns('awards.views',
     (r'^nomination/$', 'nomination'),
 #    (r'^nomination/(\d+)/$', 'nomination_detail'),
     (r'^vote/$', 'vote'),

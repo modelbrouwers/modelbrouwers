@@ -1,0 +1,8 @@
+{% extends "nav_tabs.html" %}
+{% load i18n %}
+
+{% block albums_tab %}
+<li>
+    <a href="{% url albums.views.index %}"><img src="{{ STATIC_URL }}images/nav/albums_voor.png" alt="{% trans 'You are now in the photo albums!' %}"/></a>
+</li>
+{% endblock %}

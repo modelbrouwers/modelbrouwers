@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response as real_render_to_response
 from django.template.context import RequestContext
 from datetime import date
 
-def render_to_response(request, template, data = {}):
+def render_to_response(request, template, data = {}): #DEPRECATED - use django.shortcuts.render
 	"""
 	Shortcut to render templates, passing a RequestContext as context_instance,
 	this way you always have 'user' available in templates.

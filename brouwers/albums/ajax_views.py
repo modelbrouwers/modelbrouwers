@@ -13,7 +13,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 import django.utils.simplejson as json
 
-from brouwers.general.shortcuts import render_to_response
+from general.shortcuts import render_to_response
 from models import *
 from forms import AlbumForm, AlbumGroupForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
 from utils import resize, admin_mode

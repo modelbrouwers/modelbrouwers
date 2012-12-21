@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.http import HttpResponse
-from brouwers.general.shortcuts import render_to_response
+from django.shortcuts import render
 from models import *
 from datetime import datetime, timedelta
 
@@ -22,5 +22,5 @@ def get_online_users(request):
         past = now - timedelta(minutes = MINUTES_FOR_ONLINE)
         users = TrackedUser.objects.filter(notificate=True, last_seen__gte=past)
         if users:
-            return render_to_response(request, 'online_users/userlist.html', {'users': users})
+            return render(request, 'online_users/userlist.html', {'users': users})
     return HttpResponse(0)

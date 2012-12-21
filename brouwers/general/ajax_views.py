@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
-from django.views.decorators.csrf import csrf_protect
 import json
 
 from models import UserProfile
@@ -33,7 +32,6 @@ def search_users(request):
     return HttpResponse(json.dumps(output))
 
 @sensitive_post_parameters()
-@csrf_protect
 @login_required
 def password_change(request):
     if request.method == "POST":

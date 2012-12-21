@@ -1,6 +1,6 @@
 from django import forms
 from models import Project, Category
-from brouwers.general.models import UserProfile
+from general.models import UserProfile
 import re
 from datetime import date
 

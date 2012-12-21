@@ -17,14 +17,13 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_protect
 
-from brouwers.albums.models import Album
-from brouwers.albums.utils import admin_mode
-from brouwers.awards.models import Project
-from brouwers.secret_santa.models import Participant
+from albums.models import Album
+from albums.utils import admin_mode
+from awards.models import Project
+from secret_santa.models import Participant
 
 from forms import *
 from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset
-from shortcuts import render_to_response
 from datetime import date, datetime, timedelta
 from django.conf import settings
 import random
@@ -50,7 +49,7 @@ TEMPLATE_RESET_PW_HTML = """
 def index(request):
     if not settings.DEVELOPMENT:
         return HttpResponseRedirect('/index.php')
-    return render_to_response(request, 'base.html')
+    return render(request, 'base.html')
 
 ### ready for implementation on modelbrouwers.nl
 def register(request):
@@ -92,7 +91,7 @@ def register(request):
         question = RegistrationQuestion.objects.all().order_by('?')[0]
         questionform = QuestionForm(initial = {'question':question})
         answerform = AnswerForm()
-    return render_to_response(request, 'general/register.html', {'error': error, 'form': form, 'questionform': questionform, 'question': question, 'answerform': answerform})
+    return render(request, 'general/register.html', {'error': error, 'form': form, 'questionform': questionform, 'question': question, 'answerform': answerform})
 
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
@@ -151,12 +150,12 @@ def custom_login(request):
                         msg.attach_alternative(html_content, "text/html")
                         msg.send()
                         #send_mail(subject, mailtext, from_email, [to], fail_silently=True)
-                        return render_to_response(request, 'general/user_migration.html', {'username': username})
+                        return render(request, 'general/user_migration.html', {'username': username})
                 except UserMigration.DoesNotExist: #unknown on the forum
                     pass  
     else:
         form = AuthenticationForm(request)
-    return render_to_response(request, 'general/login.html', {
+    return render(request, 'general/login.html', {
         'form': form,
         'next': next_page,
     })
@@ -189,14 +188,13 @@ def confirm_account(request):
     else:
         form = ForumAccountForm(request.GET)
         initial = True
-    return render_to_response(request, 'general/confirm_account.html', {'form': form, 'initial':initial})
+    return render(request, 'general/confirm_account.html', {'form': form, 'initial':initial})
 
 #############################
 #    showing userprofile    #
 #############################
 
 @login_required
-@csrf_protect
 def profile(request):
     forms = {}
     profile = request.user.get_profile()
@@ -220,7 +218,7 @@ def profile(request):
         forms['userform'] = UserForm(instance=request.user)
         forms['awardsform'] = AwardsForm(instance=profile)
         forms['passwordform'] = PasswordChangeForm(user=request.user)
-    return render_to_response(request, 'general/profile.html', forms)
+    return render(request, 'general/profile.html', forms)
 
 def user_profile(request, username=None): # overview of albums from user
     profile = get_object_or_404(UserProfile, user__username=username)
@@ -245,7 +243,7 @@ def user_profile(request, username=None): # overview of albums from user
     needs_closing_tag_row_albums = False
     if len(albums) % 4 != 0:
         needs_closing_tag_row_albums = True
-    return render_to_response(request, 'general/public_profile.html', 
+    return render(request, 'general/public_profile.html', 
         {
             'profile': profile, 
             'albums': albums, 
@@ -317,7 +315,7 @@ The Modelbrouwers.nl staff""" % {
             return HttpResponseRedirect(reverse(custom_login))
     else:
         form = RequestPasswordResetForm()
-    return render_to_response(request, 'general/password_reset.html', {'form': form})
+    return render(request, 'general/password_reset.html', {'form': form})
 
 def do_password_reset(request):
     if request.method == "POST":
@@ -343,4 +341,4 @@ def do_password_reset(request):
             h = hashform.cleaned_data['h']
             pr = get_object_or_404(PasswordReset, h=h)
             form = PasswordResetForm(initial={'user': pr.user})
-    return render_to_response(request, 'general/do_password_reset.html', {'form': form, 'hashform': hashform})
+    return render(request, 'general/do_password_reset.html', {'form': form, 'hashform': hashform})

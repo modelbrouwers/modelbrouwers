@@ -4,17 +4,16 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-from django.shortcuts import redirect
-from brouwers.general.models import UserProfile
-from brouwers.general.shortcuts import render_to_response
+from django.shortcuts import redirect, render
+from general.models import UserProfile
 from models import *
 from forms import PhotoMigrationForm
-from brouwers.albums.models import Album, Photo
+from albums.models import Album, Photo
 import os
 
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
-    return render_to_response(request, 'migration/base.html')
+    return render(request, 'migration/base.html')
 
 @user_passes_test(lambda u: u.is_superuser)
 def albumusers(request):
@@ -30,7 +29,7 @@ def albumusers(request):
         data = {}
         for email in emails:
             data[email] = AlbumUserMigration.objects.filter(email=email).order_by('username')
-    return render_to_response(request, 'migration/albumusers.html', {'data': data})
+    return render(request, 'migration/albumusers.html', {'data': data})
 
 @user_passes_test(lambda u: u.is_superuser)
 def find_django_user(request):
@@ -48,7 +47,7 @@ def find_django_user(request):
             if key in request.POST and request.POST[key] == 'on':
                 migration.save()
             found += 1
-    return render_to_response(request, 'migration/albumusers.html', {'migrations': migrations, 'total': total, 'found': found})
+    return render(request, 'migration/albumusers.html', {'migrations': migrations, 'total': total, 'found': found})
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_albums(request):
@@ -71,7 +70,7 @@ def migrate_albums(request):
                 album.save()
             except ValidationError:
                 pass
-    return render_to_response(request, 'migration/albums.html', {'new_albums': new_albums})
+    return render(request, 'migration/albums.html', {'new_albums': new_albums})
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):
@@ -166,4 +165,4 @@ def migrate_pictures(request):
         form = PhotoMigrationForm()
     
     cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).exclude(owner__django_user=None).count()
-    return render_to_response(request, 'migration/photos.html', {'photos': p, 'form': form, 'count': cnt, 'failed_migrations': failed_migrations})
+    return render(request, 'migration/photos.html', {'photos': p, 'form': form, 'count': cnt, 'failed_migrations': failed_migrations})

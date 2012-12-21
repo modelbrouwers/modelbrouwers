@@ -4,10 +4,10 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
-from brouwers.general.models import UserProfile
-from brouwers.general.shortcuts import render_to_response, voting_enabled
+from general.models import UserProfile
+from general.shortcuts import voting_enabled
 from models import *
 from forms import ProjectForm, CategoryForm, YearForm
 from datetime import date
@@ -23,7 +23,7 @@ def find_profile(brouwer):
 
 def category(request):
 	categories = Category.objects.all()
-	return render_to_response(request, 'awards/category.html', {'categories': categories})
+	return render(request, 'awards/category.html', {'categories': categories})
 
 @login_required
 def nomination(request):
@@ -43,13 +43,13 @@ def nomination(request):
 			return HttpResponseRedirect(reverse(nomination))
 	else:
 		form = ProjectForm()
-	return render_to_response(request, 'awards/nomination.html', {'form': form, 'last_nominations': last_nominations, 'current_year': year})
+	return render(request, 'awards/nomination.html', {'form': form, 'last_nominations': last_nominations, 'current_year': year})
 
 def category_list_nominations(request, id_):
 	category = get_object_or_404(Category, pk = id_)
 	projects = category.project_set.all().filter(nomination_date__year = date.today().year)
 	projects = projects.exclude(rejected=True)
-	return render_to_response(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})
+	return render(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})
 	
 @login_required
 def vote(request):
@@ -87,10 +87,10 @@ def vote(request):
 						profile.categories_voted.add(cat)
 						profile.save()
 					data[cat] = projects_valid
-				return render_to_response(request, 'awards/vote.html', {'data': data, 'voted': voted, 'year': year})
+				return render(request, 'awards/vote.html', {'data': data, 'voted': voted, 'year': year})
 		else:
 			status = "De editie van %s is afgelopen, er kan niet meer gestemd worden" % year
-			return render_to_response(request, 'awards/vote.html', {'status': status, 'voted': True, 'year': year})
+			return render(request, 'awards/vote.html', {'status': status, 'voted': True, 'year': year})
 
 def vote_overview(request):
 	data = {}
@@ -100,7 +100,7 @@ def vote_overview(request):
 		projects = Project.objects.filter(category__exact=cat)
 		projects_valid = projects.filter(nomination_date__year = year)
 		data[cat] = projects_valid.exclude(rejected=True)
-	return render_to_response(request, 'awards/vote_listing.html', {'data': data, 'year': year})
+	return render(request, 'awards/vote_listing.html', {'data': data, 'year': year})
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def scores(request):
@@ -120,7 +120,7 @@ def scores(request):
 			for project in projects:
 				votes_total += project.votes
 			data.append({'category': category, 'projects': projects[:5], 'total': votes_total})
-	return render_to_response(request, 'awards/vote_scores.html', {'data': data, 'year': year, 'voters': voters})
+	return render(request, 'awards/vote_scores.html', {'data': data, 'year': year, 'voters': voters})
 
 def winners(request):
 	form = YearForm(request.GET)
@@ -134,7 +134,7 @@ def winners(request):
 	if year >= today.year-1:
 		if voting_enabled() and year == today.year-1:
 			messages.info(request, "Het stemmen loopt nog, u kan nog geen winnaars voor dit jaar bekijken.")
-			return render_to_response(request, 'awards/winners.html', {'year': year, 'data': None, 'form': form})
+			return render(request, 'awards/winners.html', {'year': year, 'data': None, 'form': form})
 		elif year > today.year-1:
 			messages.info(request, "Ook wij kunnen helaas niet in de toekomst kijken... u ziet dus de resultaten van editie %s." % year)
 			return HttpResponseRedirect("%s?year=%s" % (reverse(winners), year))
@@ -153,4 +153,4 @@ def winners(request):
 				#do nothing
 				top_three = [None, top_three[0], None]
 			data.append({'category': category, 'top_three': top_three})
-	return render_to_response(request, 'awards/winners.html', {'year': year, 'data': data, 'form': form})
+	return render(request, 'awards/winners.html', {'year': year, 'data': data, 'form': form})

@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from models import Participant
 from datetime import date
 
-urlpatterns = patterns('brouwers.secret_santa.views',
+urlpatterns = patterns('secret_santa.views',
     (r'^$',             'index'),
     (r'^enroll/$',      'enroll'),
     (r'^do_lottery/$',  'lottery'),
