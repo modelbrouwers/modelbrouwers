@@ -30,6 +30,7 @@ class ShirtOrder(models.Model):
     #internal
     order_time = models.DateTimeField(_("order time"), auto_now_add=True)
     payment_received = models.BooleanField(_("payment received"))
+    delivered = models.BooleanField(_("delivered?"))
     
     class Meta:
         verbose_name = _("shirt order")
