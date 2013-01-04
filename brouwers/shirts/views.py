@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.utils.translation import ugettext as _
 
-from models import ShirtOrder
+from models import ShirtOrder, BASE_PRICE, SHIPPING_COST
 from forms import ShirtOrderForm
 
 TEXT_TEMPLATE = _("""Dear %(username)s,\n
@@ -43,4 +43,4 @@ def index(request):
             return redirect(reverse(index))
     else:
         form = ShirtOrderForm()
-    return render(request, 'shirts/base.html', {'form': form})
+    return render(request, 'shirts/base.html', {'form': form, 'price': BASE_PRICE, 'shipping_cost': SHIPPING_COST})

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+BASE_PRICE = 10.0
+SHIPPING_COST = 3.20
+
 class ShirtOrder(models.Model):
     SIZES = (
         ("S", "S"),
@@ -24,7 +27,7 @@ class ShirtOrder(models.Model):
     size = models.CharField(_("size"), max_length=4, choices=SIZES, default="L")
     type = models.CharField(_("type"), max_length=1, choices=TYPES, default="S")
     color = models.CharField(_("color"), max_length=2, choices=COLORS, default="W")
-    send_per_mail = models.BooleanField(_("mail the shirt"), help_text=_("Mailing the shirt will add 8 euros to the costs and you need to fill in your address data in your profile."))
+    send_per_mail = models.BooleanField(_("mail the shirt"), help_text=_("Mailing the shirt will add %(shipping_cost)s euros to the costs and you need to fill in your address data in your profile.") % {'shipping_cost': SHIPPING_COST})
     moderator = models.BooleanField(_("moderator shirt"), help_text=_("Check this box if you want the moderator shirt. Moderators only!"))
     
     #internal
@@ -39,9 +42,9 @@ class ShirtOrder(models.Model):
     
     @property
     def price(self):
-        price = 10 #euros
+        price = BASE_PRICE # in euros
         if self.send_per_mail:
-            price += 8
+            price += SHIPPING_COST
         return price
 
     @property

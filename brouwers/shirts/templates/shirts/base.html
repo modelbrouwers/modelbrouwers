@@ -46,7 +46,7 @@ function updateImage(){
     <p class="padding">{% blocktrans %}With this form, you can order a Modelbrouwers.nl shirt. After ordering, you will receive an e-mail with account details. You must pay the shirt to complete the order.{% endblocktrans %}</p>
     <p class="padding">{% blocktrans %}If you don't wish the shirt to be mailed, the delivery of the shirt will happen on some meeting. You will be contacted for this through your e-mail.
     {% endblocktrans %}</p>
-    <p class="padding">{% trans 'The price of a shirt is 10 euros + 8 if you want it mailed.' %}</p>
+    <p class="padding">{% blocktrans %}The price of a shirt is {{ price }} euros + {{ shipping_cost }} if you want it to be mailed.{% endblocktrans %}</p>
     <form action="." method="post">
         {% include "form_in_table.html" %}
         <div class="center">

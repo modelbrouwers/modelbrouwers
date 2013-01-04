@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-20 14:50+0100\n"
+"POT-Creation-Date: 2013-01-04 03:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,67 +18,75 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:15
+#: models.py:18
 msgid "Standard"
-msgstr ""
-
-#: models.py:16
-msgid "Girlie"
-msgstr ""
+msgstr "Standaard"
 
 #: models.py:19
+msgid "Girlie"
+msgstr "Girlie"
+
+#: models.py:22
 msgid "White"
-msgstr ""
+msgstr "Wit"
 
-#: models.py:20
+#: models.py:23
 msgid "Black"
-msgstr ""
+msgstr "Zwart"
 
-#: models.py:24
+#: models.py:27
 msgid "size"
-msgstr ""
+msgstr "maat"
 
-#: models.py:25
+#: models.py:28
 msgid "type"
-msgstr ""
+msgstr "type"
 
-#: models.py:26
+#: models.py:29
 msgid "color"
-msgstr ""
+msgstr "kleur"
 
-#: models.py:27
+#: models.py:30
 msgid "mail the shirt"
-msgstr ""
+msgstr "shirt opsturen"
 
-#: models.py:27
+#: models.py:30
+#, python-format
 msgid ""
-"Mailing the shirt will add 8 euros to the costs and you need to fill in your "
-"address data in your profile."
+"Mailing the shirt will add %(shipping_cost)s euros to the costs and you need "
+"to fill in your address data in your profile."
 msgstr ""
-
-#: models.py:28
-msgid "moderator shirt"
-msgstr ""
-
-#: models.py:28
-msgid "Check this box if you want the moderator shirt. Moderators only!"
-msgstr ""
+"Opsturen van het shirt voegt %(shipping_cost)s euro verzendkosten toe aan de "
+"totaalprijs. Je moet ook je adresgegevens in je profiel invullen!"
 
 #: models.py:31
-msgid "order time"
-msgstr ""
+msgid "moderator shirt"
+msgstr "moderatorshirt"
 
-#: models.py:32
-msgid "payment received"
+#: models.py:31
+msgid "Check this box if you want the moderator shirt. Moderators only!"
 msgstr ""
+"Aanvinken als je een shirt voor de moderators wil. Enkel voor moderators!"
+
+#: models.py:34
+msgid "order time"
+msgstr "besteltijd"
 
 #: models.py:35
-msgid "shirt order"
-msgstr ""
+msgid "payment received"
+msgstr "betaling ontvangen"
 
 #: models.py:36
+msgid "delivered?"
+msgstr "bezorgd?"
+
+#: models.py:39
+msgid "shirt order"
+msgstr "shirtbestelling"
+
+#: models.py:40
 msgid "shirt orders"
-msgstr ""
+msgstr "shirtbestellingen"
 
 #: views.py:11
 #, python-format
@@ -101,19 +109,36 @@ msgid ""
 "Sincerely,\n"
 "Sergei Maertens\n"
 msgstr ""
+"Beste %(username)s,\n"
+"\n"
+"Dit is een bevesting van je Modelbrouwers.nl shirt bestelling met de "
+"volgende opties: kleur %(color)s; maar %(size)s; type %(type)s. De "
+"bestelling werd geplaatst op %(date)s.\n"
+"\n"
+"Om deze bestelling te voltooien moet je nog een betaling overmaken aan "
+"Sergei Maertens naar de volgende rekening: \n"
+"IBAN: BE47 1325 1771 2380\n"
+"BIC: BNAG BE BB.\n"
+"Vergeet niet het ID van je bestelling te vermelden: %(orderid)s.\n"
+"\n"
+"De totaalprijs voor deze bestelling bedraagt %(price)s euro.\n"
+"\n"
+"\n"
+"Met vriendelijke groet,\n"
+"Sergei Maertens\n"
 
 #: views.py:26
 msgid "Modelbrouwers.nl shirt order"
-msgstr ""
+msgstr "Modelbrouwers.nl shirtbestelling"
 
 #: views.py:42
 #, python-format
 msgid "You have placed order %(orderid)s"
-msgstr ""
+msgstr "Je hebt bestelling %(orderid)s geplaatst."
 
 #: templates/shirts/base.html:43
 msgid "Shirt ordering"
-msgstr ""
+msgstr "Shirt bestellen"
 
 #: templates/shirts/base.html:46
 msgid ""
@@ -121,6 +146,9 @@ msgid ""
 "will receive an e-mail with account details. You must pay the shirt to "
 "complete the order."
 msgstr ""
+"Met dit formulier bestel je een Modelbrouwers.nl shirt. Na het plaatsen van "
+"de bestelling ontvang je een e-mail met de rekeninggegevens. Je moet het "
+"shirt betalen om de bestelling te voltooien."
 
 #: templates/shirts/base.html:47
 msgid ""
@@ -128,25 +156,34 @@ msgid ""
 "happen on some meeting. You will be contacted for this through your e-mail.\n"
 "    "
 msgstr ""
+"Als je het shirt niet wenst te ontvangen per post, dan zal het afleveren op "
+"een of andere meeting gebeuren. Er zal contact opgenomen worden via e-mail "
+"om dit vast te leggen."
 
 #: templates/shirts/base.html:49
-msgid "The price of a shirt is 10 euros + 8 if you want it mailed."
+#, python-format
+msgid ""
+"The price of a shirt is %(price)s euros + %(shipping_cost)s if you want it "
+"to be mailed."
 msgstr ""
+"De prijs bedraagt %(price)s euro + %(shipping_cost)s als je het per post wenst te ontvangen."
 
 #: templates/shirts/base.html:53
 msgid "Place order"
-msgstr ""
+msgstr "Bestelling plaatsen"
 
 #: templates/shirts/base.html:57
 msgid ""
 "Note: the preview of the shirt is a mock-up. The actual shirt may be "
 "slightly different."
 msgstr ""
+"Opmerking: het voorbeeld van de shirts is een mock-up. Het eigenlijke shirt "
+"kan lichtjes anders zijn."
 
 #: templates/shirts/mail.html:2
 #, python-format
 msgid "Dear %(username)s,"
-msgstr ""
+msgstr "Beste %(username)s,"
 
 #: templates/shirts/mail.html:3
 #, python-format
@@ -156,6 +193,10 @@ msgid ""
 "color %(color)s; size %(size)s; type %(type)s. The order was placed on "
 "%(date)s"
 msgstr ""
+"Dit is een bevesting van een Modelbrouwers.nl shirtbestelling met de "
+"volgende opties: \n"
+"kleur %(color)s; maat %(size)s; type %(type)s. De bestelling werd geplaatst "
+"op %(date)s"
 
 #: templates/shirts/mail.html:5
 #, python-format
@@ -166,7 +207,13 @@ msgid ""
 "<br >\n"
 "The price for this order is %(price)s euros."
 msgstr ""
+"Om de bestelling te voltooien moet je het verschuldigde bedrag overmaken aan "
+"Sergei Maertens op de volgende rekening:<br >IBAN: BE47 1325 1771 2380<br "
+">BIC: BNAG BE BB.<br ><br >Vergeet niet om je bestellings ID te vermelden: "
+"%(orderid)s.\n"
+"<br >\n"
+"De totaalprijs voor deze bestelling is %(price)s euro."
 
 #: templates/shirts/mail.html:9
 msgid "Sincerely,<br >Sergei Maertens"
-msgstr ""
+msgstr "Met vriendelijke groet,<br >Sergei Maertens"

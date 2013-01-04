@@ -210,7 +210,7 @@ def profile(request):
                 err = True
         if not err:
             messages.success(request, _("Your profile data has been updated."))
-            return redirect(reverse('brouwers.general.views.profile'))
+            return redirect(reverse('general.views.profile'))
         else:
             messages.error(request, _("Some fields were not valid, please fix the errors."))
     else:
