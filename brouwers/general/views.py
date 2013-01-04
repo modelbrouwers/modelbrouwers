@@ -29,7 +29,7 @@ from django.conf import settings
 import random
 
 try:
-    from brouwers.migration.models import UserMigration
+    from migration.models import UserMigration
 except ImportError:
     UserMigration = None
 
