@@ -1,0 +1,35 @@
+<!-- $Id: user_menu.html,v 1.1 2007/04/04 09:33:31 angelside Exp $ //-->
+<table class="tablebg" cellspacing="1" width="100%">
+<!--
+<tr>
+	<th align="center">{L_USER_MENU}</th>
+</tr>
+-->
+<tr class="row1">
+	<td align="center" class="cat"><h4><span<!-- IF USERNAME_COLOR -->{USERNAME_COLOR}<!-- ENDIF -->>{USERNAME}</span></h4></td>
+</tr>
+<tr>
+	<td class="row1">
+		<div align="center"><br /><a href="{U_PROFILE}"><!-- IF USER_AVATAR -->{USER_AVATAR}<!-- ELSE --><img src="{T_THEME_PATH}/images/no_avatar.gif" alt="" /><!-- ENDIF --></a></div><br />
+	</td>
+</tr>
+<tr>
+	<td class="row1" nowrap="nowrap" onmouseover="this.className='row2'" onmouseout="this.className='row1'" onclick="location.href='search.php?search_id=newposts'"><a class="nav" href="search.php?search_id=newposts">{L_SEARCH_NEW}</a></td>
+</tr>
+<tr>
+	<td class="row1" nowrap="nowrap" onmouseover="this.className='row2'" onmouseout="this.className='row1'" onclick="location.href='search.php?search_id=egosearch'"><a class="nav" href="search.php?search_id=egosearch">{L_SEARCH_SELF}</a></td>
+</tr>
+<tr>
+	<td class="row1" nowrap="nowrap" onmouseover="this.className='row2'" onmouseout="this.className='row1'" onclick="location.href='ucp.php?i=main&mode=bookmarks'"><a class="nav" href="ucp.php?i=main&mode=bookmarks">{L_UM_BOOKMARKS}</a></td>
+</tr>
+<tr>
+	<td class="row1" nowrap="nowrap" onmouseover="this.className='row2'" onmouseout="this.className='row1'" onclick="location.href='ucp.php?i=main&mode=subscribed'"><a class="nav" href="ucp.php?i=main&mode=subscribed">{L_UM_MAIN_SUBSCRIBED}</a></td>
+</tr>
+<tr>
+	<td class="row1" nowrap="nowrap" onmouseover="this.className='row2'" onmouseout="this.className='row1'" onclick="location.href='ucp.php?i=pm&folder=inbox'"><a class="nav" href="ucp.php?i=pm&folder=inbox">{L_PRIVATE_MESSAGES}</a></td>
+</tr>
+<tr>
+	<td class="row2" align="center"><a href="{U_LOGIN_LOGOUT}">{L_LOGIN_LOGOUT}</a></td>
+</tr>
+</table>
+<br />

@@ -1,0 +1,35 @@
+<!-- $Id: online_friends.html,v 1.1 2007/04/04 09:33:30 angelside Exp $ //-->
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+	<td class="cat" colspan="2"><h4>{L_FRIENDS}</h4></td>
+</tr>
+<tr>
+	<td class="row2" colspan="2"><strong class="genmed" style="color:green">{L_FRIENDS_ONLINE}</strong></td>
+</tr>
+
+<tr class="row1">
+	<td class="gensmall" align="left" valign="middle">
+	<!-- BEGIN friends_online -->
+		<img src="bb3portal/images/member.gif" /> <strong>{friends_online.USERNAME_FULL}</strong><br />
+		<!-- BEGINELSE -->
+		<center>{L_NO_FRIENDS_ONLINE}</center>
+	<!-- END friends_online -->
+	</td>
+</tr>
+
+<tr>
+	<td class="row2" colspan="2"><strong class="genmed" style="color:red">{L_FRIENDS_OFFLINE}</strong></td>
+</tr>
+
+<tr class="row1">
+	<td class="gensmall" align="left" valign="middle">
+	<!-- BEGIN friends_offline -->
+		<img src="bb3portal/images/member.gif" /> <strong>{friends_offline.USERNAME_FULL}</strong><br />
+		<!-- BEGINELSE -->
+		<center>{L_NO_FRIENDS_OFFLINE}</center>
+	<!-- END friends_offline -->
+	</td>
+</tr>
+
+</table>
+<br />
