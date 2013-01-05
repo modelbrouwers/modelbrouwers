@@ -1,0 +1,17 @@
+<!-- $Id: most_poster.html,v 1.1 2007/04/04 09:33:30 angelside Exp $ //-->
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+	<td class="cat" colspan="2"><h4>{L_MOST_POSTER}</h4></td>
+</tr>
+<tr>
+	<td class="row3" align="left" nowrap="nowrap"><span class="gensmall"><strong>{L_USERNAME}</strong></span></td>
+	<td class="row3" align="right" nowrap="nowrap"><span class="gensmall"><strong>{L_POSTS}</strong></span></td>
+</tr>
+<!-- BEGIN most_poster -->
+<!-- IF most_poster.S_ROW_COUNT is even --><tr class="row2"><!-- ELSE -->	<tr class="row1"><!-- ENDIF -->
+	<td class="gensmall" align="left" valign="middle"><img src="bb3portal/images/member.gif" /> <strong><a href="{most_poster.U_USERNAME}"><span<!-- IF most_poster.USERNAME_COLOR -->{most_poster.USERNAME_COLOR}<!-- ENDIF -->>{most_poster.USERNAME}</span></a></strong><br /></td>
+	<td class="gensmall" align="right" nowrap="nowrap" valign="middle"><a href="{most_poster.S_SEARCH_ACTION}">{most_poster.POSTER_POSTS}</a></td>
+</tr>
+<!-- END most_poster -->
+</table>
+<br />

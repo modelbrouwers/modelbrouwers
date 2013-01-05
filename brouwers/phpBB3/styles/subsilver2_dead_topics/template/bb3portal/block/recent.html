@@ -1,0 +1,29 @@
+<!-- $Id: recent.html,v 1.1 2007/04/04 09:33:31 angelside Exp $ //-->
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+	<td align="center" class="cat" colspan="3"><h4>{L_RECENT_TOPIC}</h4></td>
+</tr>
+<tr>
+	<td class="row1"><strong>{L_RECENT_ANN}</strong></td>
+	<td class="row1"><strong>{L_RECENT_HOT_TOPIC}</strong></td>
+	<td class="row1"><strong>{L_RECENT_TOPIC}</strong></td>
+</tr>
+<tr>
+	<td class="row1" width="33%" valign="top">
+		<!-- BEGIN latest_announcments -->
+					<a href="{latest_announcments.U_VIEW_TOPIC}" title="{latest_announcments.FULL_TITLE}">{latest_announcments.TITLE}</a><br />
+		<!-- END latest_announcments -->
+	</td>
+	<td class="row1" width="33%" valign="top">
+		<!-- BEGIN latest_hot_topics -->
+			<a href="{latest_hot_topics.U_VIEW_TOPIC}" title="{latest_hot_topics.FULL_TITLE}">{latest_hot_topics.TITLE}</a><br />
+		<!-- END latest_hot_topics -->
+	</td>
+	<td class="row1" width="33%" valign="top">
+		<!-- BEGIN latest_topics -->
+			<a href="{latest_topics.U_VIEW_TOPIC}" title="{latest_topics.FULL_TITLE}">{latest_topics.TITLE}</a><br />
+		<!-- END latest_topics -->
+	</td>
+</tr>
+</table>
+<br />

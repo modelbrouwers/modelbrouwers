@@ -1,0 +1,34 @@
+<!-- $Id: announcements.html,v 1.1 2007/04/14 02:05:17 angelside Exp $ //-->
+<table class="tablebg" cellspacing="1" width="100%">
+<tr>
+   <th>{L_ANNOUNCMENTS}</th>
+</tr>
+<tr>
+   <td class="row1">
+		<!-- BEGIN announcments_row -->
+		<table class="tablebg" cellspacing="1" width="100%">
+			<tr>
+				<td class="cat">
+					{announcments_row.ATTACH_ICON_IMG}<!-- IF announcments_row.S_POLL --> <strong>{L_POLL}: </strong><!-- ENDIF --><a href="{announcments_row.U_VIEW_COMMENTS}"><strong>{announcments_row.TITLE}</strong></a>
+				</td>
+			</tr>
+			<tr>
+				<td class="row1">
+					<span class="gensmall">{L_POSTED_BY}: <strong><a href="{announcments_row.U_USER_PROFILE}">{announcments_row.POSTER}</a></strong></span><br /><br />
+					{announcments_row.TEXT}<br /><br />
+					<span style="float: right;">{announcments_row.OPEN}<a href="{announcments_row.U_READ_FULL}">{announcments_row.L_READ_FULL}</a>{announcments_row.CLOSE}</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="row1" align="center">
+					<span style="float: left;">{announcments_row.MINI_POST_IMG}{announcments_row.TIME}</span>
+					<span style="float: right;"><a href="{announcments_row.U_VIEW_COMMENTS}" title="{L_VIEW_COMMENTS}">{L_COMMENTS}: {announcments_row.REPLIES}</a> &nbsp;&bull;&nbsp; <a href="{announcments_row.U_POST_COMMENT}">{L_POST_REPLY}</a></span>
+				</td>
+			</tr>
+		</table>
+		<!-- IF announcments_row.S_NOT_LAST --><br /><!-- ENDIF -->
+		<!-- END announcments_row -->
+	</td>
+</tr>
+</table>
+<!-- IF S_DISPLAY_NEWS_LIST --><br /><!-- ENDIF -->
