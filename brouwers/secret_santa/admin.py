@@ -7,9 +7,8 @@ class SecretSantaAdmin(admin.ModelAdmin):
     search_fields = ('year',)
 
 class ParticipantAdmin(admin.ModelAdmin):
-    list_display = ('user', 'year', 'verified')
-    list_editable = ('verified',)
-    list_filter = ('secret_santa', 'year', 'verified')
+    list_display = ('user', 'year')
+    list_filter = ('secret_santa',)
     search_fields = ('user__username', 'user__email', 'user__first_name', 'user__last_name')
 
 class CoupleAdmin(admin.ModelAdmin):

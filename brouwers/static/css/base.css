@@ -331,6 +331,14 @@ div.tab{
 div.tab.midpage{
     margin: 1em -1em 0 -1em;
 }
+div.tab.staff{
+    color: #000;
+    background-color: #999;
+	background: -moz-linear-gradient(top, #999 92%, #333 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(92%,#999), color-stop(100%,#333));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999', endColorstr='#333',GradientType=0 );
+	background-image: -o-linear-gradient(top, #999 92%, #333 100%);
+}
 /*** MESSAGES ***/
 div#messages{
 	margin: 0.1em 0 0.5em 0;

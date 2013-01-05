@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-04 03:42+0100\n"
+"POT-Creation-Date: 2013-01-05 04:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,14 +70,93 @@ msgstr "secret santa"
 msgid "secret santas"
 msgstr "secret santas"
 
-#: models.py:45 models.py:59
+#: models.py:52 models.py:68
 msgid "secret santa edition"
 msgstr "secret santa editie"
 
-#: models.py:51
+#: models.py:53
+msgid "user"
+msgstr ""
+
+#: models.py:56
 msgid "participant"
 msgstr "deelnemer"
 
-#: models.py:52
+#: models.py:57
 msgid "participants"
 msgstr "deelnemers"
+
+#: views.py:44 templates/secret_santa/base.html:58
+msgid "Your address details are incomplete."
+msgstr ""
+
+#: views.py:46
+msgid "Enrollment is not possible at this time."
+msgstr ""
+
+#: views.py:77
+#, fuzzy
+msgid "The lottery is done."
+msgstr "Lootjes verdeeld?"
+
+#: views.py:94
+msgid "Your match does not exist."
+msgstr ""
+
+#: views.py:96
+#, fuzzy
+msgid "You're not a participant!"
+msgstr "deelnemer"
+
+#: views.py:98
+#, fuzzy
+msgid "You can't view the lottery results yet."
+msgstr "Jaar waarin de lootjesverdeling plaatsvindt."
+
+#: templates/secret_santa/base.html:24 templates/secret_santa/base.html:72
+#, fuzzy
+msgid "Participants"
+msgstr "deelnemers"
+
+#: templates/secret_santa/base.html:24
+#, fuzzy
+msgid "My Secret Santa"
+msgstr "secret santa"
+
+#: templates/secret_santa/base.html:39
+#, fuzzy
+msgid "Enrollment"
+msgstr "einde inschrijvingen"
+
+#: templates/secret_santa/base.html:43
+#, python-format
+msgid ""
+"To be able to enroll, you must make sure that your address\n"
+"    details are complete in your <a href=\"%(profile_url)s\">profile</a>."
+msgstr ""
+
+#: templates/secret_santa/base.html:51 templates/secret_santa/base.html:58
+msgid "Join!"
+msgstr ""
+
+#: templates/secret_santa/base.html:60
+msgid "You are already participating."
+msgstr ""
+
+#: templates/secret_santa/base.html:64
+msgid "Enrollment is not possible at the moment."
+msgstr ""
+
+#: templates/secret_santa/base.html:82 templates/secret_santa/base.html:86
+#, fuzzy
+msgid "Do the lottery"
+msgstr "Jaar waarin de lootjesverdeling plaatsvindt."
+
+#: templates/secret_santa/base.html:88
+#, python-format
+msgid "The lottery can only be done on %(date)s or later."
+msgstr ""
+
+#: templates/secret_santa/base.html:91
+msgid "Done already!"
+msgstr ""

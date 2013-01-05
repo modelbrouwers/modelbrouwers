@@ -40,17 +40,26 @@ class SecretSanta(models.Model):
 	        if p:
 	            return True
         return False
+    
+    @property
+    def enrollment_open(self):
+        now = datetime.now()
+        if self.enrollment_start <= now <= self.enrollment_end:
+            return True
+        return False
 
 class Participant(models.Model):
     secret_santa = models.ForeignKey(SecretSanta, verbose_name=_("secret santa edition"), null=True)
     user = models.ForeignKey(User, verbose_name=_("user"))
-    year = models.CharField(max_length=4) #TODO: deprecated
-    verified = models.BooleanField() #TODO: deprecated
     
     class Meta:
         verbose_name = _("participant")
         verbose_name_plural = _("participants")
         ordering = ['secret_santa', 'user__username']
+    
+    @property
+    def year(self):
+        return self.secret_santa.year
     
     def __unicode__(self):
         return u"%s" % self.user.get_profile().forum_nickname

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block extrastyle %}
 <style type="text/css">
@@ -18,74 +19,77 @@ div.preferences_ss{
 Modelbrouwers.nl &bull; {{ secret_santa }}
 {% endblock %}
 
-<!-- TODO: translations -->
 {% block content %}
-<div class="tab">{{ secret_santa }} &bull; <a href="#participants">Deelnemers</a> &bull; <a href="{% url secret_santa.views.receiver %}">Mijn Secret Santa</a></div>
+<div class="tab">
+    {{ secret_santa }} &bull; <a href="#participants">{% trans 'Participants' %}</a> {% if is_participant %}&bull; <a href="{% url secret_santa.views.receiver %}">{% trans 'My Secret Santa' %}</a>{% endif %}
+</div>
 <img class="right" src="{{STATIC_URL}}images/santa.jpg" alt="Santa Image">
 
+<!-- TODO: translations -->
 <p>Het idee van Secret Santa (SS) is dat je, net als bij lootjes trekken, een cadeautje (in de vorm van een kitje) krijgt van een ander forumlid.
 Het is de bedoeling om het cadeautje vóór 25-12-{{ secret_santa.year|add:"1" }} af te hebben (en we hopen dat dat ook iedereen lukt). Je plaatst je brouwverslag in het gewone forumdeel, maar je zet in je topictitel de volgende tag: <code>[SS {{ secret_santa.year }}]</code>.
 </p>
-
+<!-- TODO: translations -->
 <p>De prijsklasse is ongeveer {{ secret_santa.get_price_class }} euro, erboven mag altijd, maar omdat het lullig is als jij een kit van &euro;30,- opstuurt en je krijgt een kitje van &euro;12,50,- terug, is het verstandig om in de buurt van deze prijsklasse te blijven.
 Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, maar het is wel leuk natuurlijk.
 </p>
-
+<!-- TODO: translations -->
 <p>Aanmelden kan van {{ secret_santa.enrollment_start|date:"l j F" }} <strong>tot {{ secret_santa.enrollment_end|date:"l j F" }}</strong>, daarna ({{ secret_santa.lottery_date|date:"j F" }}) worden de lootjes verdeeld en kan iedereen een cadeautje kopen voor degene die op z'n lootje staat... Je krijgt een notificatie per e-mail als de lootjes verdeeld zijn.</p>
 
-<div class="tab midpage">Inschrijven</div>
+<div class="tab midpage">{% trans 'Enrollment' %}</div>
 <p>
-    Om in te kunnen schrijven moeten je adresgegevens in je 
-    <a href="{% url general.views.profile %}">profiel</a> ingevuld 
-    zijn. Je kan ook je voorkeuren doorgeven via je profiel.
+{% url general.views.profile as profile_url %}
+{% if secret_santa.enrollment_open %}
+    {% blocktrans %}To be able to enroll, you must make sure that your address
+    details are complete in your <a href="{{ profile_url }}">profile</a>.{% endblocktrans %}
     <br />
     <br />
     {% if user.get_profile.is_address_ok %}
         {% if not is_participant %}
             <form action="{% url secret_santa.views.enroll %}" method="post">{% csrf_token %}
                 {{ form.as_p }}
-                <input type="submit" value="Deelnemen" />
+                <input class="submit-button" type="submit" value="{% trans 'Join!' %}" />
             </form>
         {% else %}
             Je bent al ingeschreven!
         {% endif %}
     {% else %}
         {% if not is_participant %}
-            <input type="submit" value="Deelnemen" disabled="disabled"/> Je adresgegevens zijn niet volledig!
+            <input class="submit-button" type="submit" value="{% trans 'Join!' %}" disabled="disabled"/> {% trans 'Your address details are incomplete.' %}
         {% else %}
-            Je bent al ingeschreven!
+            {% trans 'You are already participating.' %}
         {% endif %}
     {% endif %}
+{% else %}
+    {% trans 'Enrollment is not possible at the moment.' %}
+{% endif %}
 </p>
 
+<!-- TODO: some more translations -->
 <div class="midpage tab">Wiens lootje heb ik nou?</div>
-<p>Dat ontdek je - pas vanaf {{ secret_santa.lottery_date|date:"j F" }}! - door <a href="receiver">hier</a> te klikken! De gegevens worden ook gemaild eenmaal de lootjes verdeeld zijn.
-</p>
+<p>Dat ontdek je - pas vanaf {{ secret_santa.lottery_date|date:"j F" }}! - door <a href="receiver">hier</a> te klikken! De gegevens worden ook gemaild eenmaal de lootjes verdeeld zijn.</p>
 
-<div class="midpage tab" id="participants">Ingeschreven deelnemers</div>
+<div class="midpage tab" id="participants">{% trans 'Participants' %}</div>
 <p><ul id="participants" style="margin-left:2em;">
     {% for participant in participants %}
-        <li type="1" class="updates">
-            {% if participant.verified %}<img src="{{ STATIC_URL }}admin/img/icon_success.gif" width="16" height="16" alt="ok" title="Deelnemer heeft bevestigd." />&nbsp;{% endif %}{{ participant.user.get_profile.forum_nickname }}
+        <li type="1">
+            {{ participant.user.get_profile.forum_nickname }}
         </li>
     {% endfor %}
 </ul></p>
 
 {% if user.is_staff %}
-    <div class="midpage tab">Lootjes verdelen</div>
-        <p><strong>Wat volgt is enkel voor admins zichtbaar.</strong></p>
-        <p>Door op onderstaande link te klikken wijs je random mensen toe aan elkaar als zender en ontvanger. Je kan achteraf in de admin het resultaat controleren, bij het '<strong>Secret Santa</strong>' gedeelte klik je naar het '<strong>Couples</strong>' gedeelte.</p> 
+    <div class="midpage tab staff">{% trans 'Do the lottery' %}</div>
     <p>
         {% if not secret_santa.lottery_done %}
             {% if can_do_lottery %}
-                <a href="do_lottery"><button>Wijs de mensen aan elkaar toe!</button></a>
+                <a href="do_lottery"><button>{% trans 'Do the lottery' %}</button></a>
             {% else %}
-                De lootjes kunnen pas op {{ secret_santa.lottery_date|date:"d-m-y" }} verdeeld worden.
+                {% blocktrans with date=secret_santa.lottery_date|date:"d-m-y" %}The lottery can only be done on {{ date }} or later.{% endblocktrans %}
             {% endif %}
         {% else %}
-            De lootjes zijn al verdeeld!
+            {% trans 'Done already!' %}
         {% endif %}
     </p>
 {% endif %}
 {% endblock %}
-{% block appname %}Secret Santa{% endblock %}
