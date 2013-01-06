@@ -25,22 +25,22 @@ Modelbrouwers.nl &bull; {{ secret_santa }}
 </div>
 <img class="right" src="{{STATIC_URL}}images/santa.jpg" alt="Santa Image">
 
-<!-- TODO: translations -->
-<p>Het idee van Secret Santa (SS) is dat je, net als bij lootjes trekken, een cadeautje (in de vorm van een kitje) krijgt van een ander forumlid.
-Het is de bedoeling om het cadeautje vóór 25-12-{{ secret_santa.year|add:"1" }} af te hebben (en we hopen dat dat ook iedereen lukt). Je plaatst je brouwverslag in het gewone forumdeel, maar je zet in je topictitel de volgende tag: <code>[SS {{ secret_santa.year }}]</code>.
-</p>
-<!-- TODO: translations -->
-<p>De prijsklasse is ongeveer {{ secret_santa.get_price_class }} euro, erboven mag altijd, maar omdat het lullig is als jij een kit van &euro;30,- opstuurt en je krijgt een kitje van &euro;12,50,- terug, is het verstandig om in de buurt van deze prijsklasse te blijven.
-Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, maar het is wel leuk natuurlijk.
-</p>
-<!-- TODO: translations -->
-<p>Aanmelden kan van {{ secret_santa.enrollment_start|date:"l j F" }} <strong>tot {{ secret_santa.enrollment_end|date:"l j F" }}</strong>, daarna ({{ secret_santa.lottery_date|date:"j F" }}) worden de lootjes verdeeld en kan iedereen een cadeautje kopen voor degene die op z'n lootje staat... Je krijgt een notificatie per e-mail als de lootjes verdeeld zijn.</p>
+<p>{% blocktrans with year_later=secret_santa.year|add:"1" year=secret_santa.year %}
+&quot;Secret Santa is a Western Christmas tradition in which members of a group or community are randomly assigned a person to whom they anonymously give a gift.&quot; <sup>[<a href="http://en.wikipedia.org/wiki/Secret_Santa">Wikipedia</a>]</sup> Since we're a scale modelling website, the gift is in the form of a modelling kit. The intent is to finish the model by the end of {{ year_later }} (and we really hope everybody succeeds). You're supposed to put the build report in the normal subforum, provided with the tag <code>[SS {{ year }}]</code>.
+{% endblocktrans %}</p>
 
-<div class="tab midpage">{% trans 'Enrollment' %}</div>
+<p>{% blocktrans with price=secret_santa.get_price_class %}
+The price class is {{ price }} euros. You can always buy a more expensive kit, but expect your Secret Santa to stick with the price range. It would be fun to include a poem with the gift, since that is tradition, but it's no obligation to do so.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans with enrollment_start=secret_santa.enrollment_start enrollment_end=secret_santa.enrollment_end lottery_date=secret_santa.lottery_date %}
+Signing up is possible from {{ enrollment_start }} <strong>until {{ enrollment_end }}</strong>. After this date (on {{ lottery_date }}) the random assignment will be executed. After that, you're all set to buy your Secret Santa a nice present! An e-mail notification will be sent when the assignment is done.</p>{% endblocktrans %}
+
+<div class="tab midpage">{% trans 'Sign up' %}</div>
 <p>
 {% url general.views.profile as profile_url %}
 {% if secret_santa.enrollment_open %}
-    {% blocktrans %}To be able to enroll, you must make sure that your address
+    {% blocktrans %}To be able to sign up, you must make sure that your address
     details are complete in your <a href="{{ profile_url }}">profile</a>.{% endblocktrans %}
     <br />
     <br />
@@ -48,26 +48,27 @@ Verder is het niet verplicht om een Kerstgedichtje bij het cadeautje te doen, ma
         {% if not is_participant %}
             <form action="{% url secret_santa.views.enroll %}" method="post">{% csrf_token %}
                 {{ form.as_p }}
-                <input class="submit-button" type="submit" value="{% trans 'Join!' %}" />
+                <input class="submit-button" type="submit" value="{% trans 'Sign up!' %}" />
             </form>
         {% else %}
             Je bent al ingeschreven!
         {% endif %}
     {% else %}
         {% if not is_participant %}
-            <input class="submit-button" type="submit" value="{% trans 'Join!' %}" disabled="disabled"/> {% trans 'Your address details are incomplete.' %}
+            <input class="submit-button" type="submit" value="{% trans 'Sign up!' %}" disabled="disabled"/> {% trans 'Your address details are incomplete.' %}
         {% else %}
-            {% trans 'You are already participating.' %}
+            {% trans 'You have signed up already.' %}
         {% endif %}
     {% endif %}
 {% else %}
-    {% trans 'Enrollment is not possible at the moment.' %}
+    {% trans 'Signing up is not possible at this time.' %}
 {% endif %}
 </p>
 
-<!-- TODO: some more translations -->
-<div class="midpage tab">Wiens lootje heb ik nou?</div>
-<p>Dat ontdek je - pas vanaf {{ secret_santa.lottery_date|date:"j F" }}! - door <a href="receiver">hier</a> te klikken! De gegevens worden ook gemaild eenmaal de lootjes verdeeld zijn.</p>
+<div class="midpage tab">{% trans "Who's my Secret Santa?" %}</div>
+{% url secret_santa.views.receiver as receiver_url %}
+<p>{% blocktrans %}Click <a href="{{ receiver_url }}">here</a> to find out. You should have received the information by e-mail too, though.
+{% endblocktrans %}</p>
 
 <div class="midpage tab" id="participants">{% trans 'Participants' %}</div>
 <p><ul id="participants" style="margin-left:2em;">

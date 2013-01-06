@@ -43,7 +43,7 @@ def enroll(request):
             elif not address_complete:
                 messages.error(request, _("Your address details are incomplete."))
         else:
-            messages.error(request, _("Enrollment is not possible at this time."))
+            messages.error(request, _("Signing up is not possible at this time."))
     return HttpResponseRedirect(reverse(index))
 
 @user_passes_test(lambda u: u.is_authenticated() and u.is_staff, login_url='/login/')

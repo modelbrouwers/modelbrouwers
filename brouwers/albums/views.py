@@ -480,6 +480,7 @@ def photo(request, photo_id=None):
     position = (photo.width / 2) - 40
     return render(request, 'albums/photo.html', {'photo': photo, 'position': position})
 
+"""
 @login_required
 def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder
     albumform = PickAlbumForm(request.user, request.GET, browse=True)
@@ -489,5 +490,5 @@ def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is t
     else:
         photos = Photo.objects.filter(user=request.user, trash=False)
     return render(request, 'albums/photos.html', {'photos': photos, 'albumform': albumform})
-
+"""
 

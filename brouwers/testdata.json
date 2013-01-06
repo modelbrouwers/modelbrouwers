@@ -1,458 +1,841 @@
 [
     {
-        "pk": 1,
-        "model": "auth.group",
+        "pk": 1, 
+        "model": "auth.group", 
         "fields": {
-            "name": "Beta albums",
+            "name": "Beta albums", 
             "permissions": [
                 66
             ]
         }
-    },
+    }, 
     {
-        "pk": 4,
-        "model": "auth.user",
+        "pk": 4, 
+        "model": "auth.user", 
         "fields": {
-            "username": "test",
-            "first_name": "",
-            "last_name": "",
-            "is_active": true,
-            "is_superuser": false,
-            "is_staff": false,
-            "last_login": "2012-09-02T20:27:52.857",
+            "username": "test", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2012-09-02T20:27:52.857", 
             "groups": [
                 1
-            ],
-            "user_permissions": [],
-            "password": "pbkdf2_sha256$10000$2XlRm0F30Y7I$aPYviDxjpqE6TtC/Vvf8i50Ju+5d96jlCAIrIhnDc1g=",
-            "email": "test@test.com",
+            ], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$2XlRm0F30Y7I$aPYviDxjpqE6TtC/Vvf8i50Ju+5d96jlCAIrIhnDc1g=", 
+            "email": "test@test.com", 
             "date_joined": "2012-07-30T22:54:15"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "auth.user",
+        "pk": 3, 
+        "model": "auth.user", 
         "fields": {
-            "username": "BBT",
-            "first_name": "Sergei",
-            "last_name": "Maertens",
-            "is_active": true,
-            "is_superuser": true,
-            "is_staff": true,
-            "last_login": "2012-10-05T15:31:17.813",
-            "groups": [],
-            "user_permissions": [],
-            "password": "pbkdf2_sha256$10000$bgUAgGyBXvya$XSoR65fGQUMBebCAL4e0ugumRDbGI1/Sikv57Fqno7c=",
-            "email": "sergeimaertens@gmail.com",
-            "date_joined": "2010-11-28T01:58:00"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "auth.user",
-        "fields": {
-            "username": "Mytheny",
-            "first_name": "",
-            "last_name": "",
-            "is_active": true,
-            "is_superuser": false,
-            "is_staff": false,
-            "last_login": "2010-11-28T19:36:00",
-            "groups": [],
-            "user_permissions": [],
-            "password": "sha1$2b20a$60329f2b904dde6906ba54d57811242b0c65e917",
-            "email": "",
-            "date_joined": "2010-11-28T19:36:00"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "auth.user",
-        "fields": {
-            "username": "joe_silent",
-            "first_name": "",
-            "last_name": "",
-            "is_active": true,
-            "is_superuser": false,
-            "is_staff": false,
-            "last_login": "2011-01-10T14:04:16",
-            "groups": [],
-            "user_permissions": [],
-            "password": "sha1$5f85b$d03537e8147c7f552ba97e2d6fce1f9f8a7ca7e4",
-            "email": "",
+            "username": "joe_silent", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-01-10T14:04:16", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$5f85b$d03537e8147c7f552ba97e2d6fce1f9f8a7ca7e4", 
+            "email": "", 
             "date_joined": "2011-01-10T14:03:10"
         }
-    },
+    }, 
     {
-        "pk": 17,
-        "model": "auth.user",
+        "pk": 17, 
+        "model": "auth.user", 
         "fields": {
-            "username": "djon",
-            "first_name": "",
-            "last_name": "",
-            "is_active": false,
-            "is_superuser": false,
-            "is_staff": false,
-            "last_login": "2012-09-04T21:51:54.247",
-            "groups": [],
-            "user_permissions": [],
-            "password": "pbkdf2_sha256$10000$x9b9mIPL28y1$j7CEyP2PJ29vGZISRdPR4lQf8DE6TMsz5iRNMC4ULFs=",
-            "email": "djon_stam@hotmail.com",
+            "username": "djon", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": false, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2012-09-04T21:51:54.247", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$x9b9mIPL28y1$j7CEyP2PJ29vGZISRdPR4lQf8DE6TMsz5iRNMC4ULFs=", 
+            "email": "djon_stam@hotmail.com", 
             "date_joined": "2012-09-04T21:51:54.247"
         }
-    },
+    }, 
     {
-        "pk": 13,
-        "model": "auth.user",
+        "pk": 13, 
+        "model": "auth.user", 
         "fields": {
-            "username": "Ren\u00e9_Duret",
-            "first_name": "",
-            "last_name": "",
-            "is_active": true,
-            "is_superuser": false,
-            "is_staff": false,
-            "last_login": "2012-09-04T23:27:56.957",
-            "groups": [],
-            "user_permissions": [],
-            "password": "pbkdf2_sha256$10000$0UuoxnixnCBd$up4t0Rza/NyxMBEy6aUT7ZI6uzGqbD2GUzXor/YZ1gQ=",
-            "email": "reneduret@casema.nl",
+            "username": "Ren\u00e9_Duret", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2012-09-04T23:27:56.957", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$0UuoxnixnCBd$up4t0Rza/NyxMBEy6aUT7ZI6uzGqbD2GUzXor/YZ1gQ=", 
+            "email": "reneduret@casema.nl", 
             "date_joined": "2012-09-04T19:55:10.078"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "sites.site",
+        "pk": 18, 
+        "model": "auth.user", 
         "fields": {
-            "domain": "example.com",
+            "username": "Jef", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": false, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-01-04T14:00:12.111", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$gN0p4Ewce02J$rBBUJJS+pCNersxuV8khMEzDCmzxcVGIXDmQlLk9JDQ=", 
+            "email": "jef@jef.com", 
+            "date_joined": "2013-01-04T14:00:12.111"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "Mytheny", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2010-11-28T19:36:00", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$4tvBacrncm0I$5gY+gSxN4d+bt2mxjUa3R1SC7ZErOfOmp+jqiW9kjHY=", 
+            "email": "", 
+            "date_joined": "2010-11-28T19:36:00"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "BBT", 
+            "first_name": "Sergei", 
+            "last_name": "Maertens", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2013-01-06T01:04:52.849", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$XpY55ffQEb4s$YtJJQnzoCDjTTOE7iBe3BsSuFUkMkjxqBHC9cfZI3Qk=", 
+            "email": "sergeimaertens@gmail.com", 
+            "date_joined": "2010-11-28T01:58:00"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "example.com", 
             "name": "example.com"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "awards.category",
+        "pk": 4, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": false, 
+            "description": "", 
+            "clean_title": "album 15-12-2012", 
+            "last_upload": "2012-12-20T05:16:58.023", 
+            "views": 2, 
+            "title": "album 15-12-2012", 
+            "cover": 7, 
+            "modified": "2012-12-20T05:16:59.665", 
+            "created": "2012-12-15T12:05:53.764", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": false, 
+            "description": "", 
+            "clean_title": "nieuw album", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "nieuw album", 
+            "cover": null, 
+            "modified": "2012-12-19T04:28:32.570", 
+            "created": "2012-12-15T11:53:05.647", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "album 19-12-2012", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_19122012_04.03.1355886193_album 19-12-2012", 
+            "cover": null, 
+            "modified": "2012-12-19T04:03:13.980", 
+            "created": "2012-12-19T04:02:50.054", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "test", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 1, 
+            "title": "trash_19122012_04.03.1355886194_test", 
+            "cover": null, 
+            "modified": "2012-12-19T04:03:14.650", 
+            "created": "2012-12-15T11:53:39.862", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": false, 
+            "description": "", 
+            "clean_title": "test upload seamonkey", 
+            "last_upload": "2012-12-03T00:06:05.941", 
+            "views": 22, 
+            "title": "test upload seamonkey", 
+            "cover": 1, 
+            "modified": "2012-12-19T04:03:18.454", 
+            "created": "2012-11-23T21:36:47.394", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "g", 
+            "build_report": "", 
+            "order": 2
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "albums.albumgroup", 
+        "fields": {
+            "album": 1, 
+            "users": [
+                4, 
+                3, 
+                2
+            ]
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-15T12:15:46.530", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/4/IUN5V.jpg", 
+            "modified": "2012-12-20T05:17:02.837", 
+            "height": 768, 
+            "width": 960, 
+            "user": 1, 
+            "trash": true, 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-15T12:16:53.296", 
+            "description": "", 
+            "views": 1, 
+            "image": "albums/1/4/IUN5V_1.jpg", 
+            "modified": "2012-12-21T18:26:39.828", 
+            "height": 768, 
+            "width": 960, 
+            "user": 1, 
+            "trash": false, 
+            "order": 2
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-19T04:01:36.329", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/4/IUN5V_2.jpg", 
+            "modified": "2012-12-19T04:01:36.329", 
+            "height": 768, 
+            "width": 960, 
+            "user": 1, 
+            "trash": false, 
+            "order": 3
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-19T04:38:50.247", 
+            "description": "", 
+            "views": 1, 
+            "image": "albums/1/4/img1481853198.jpeg", 
+            "modified": "2012-12-19T04:38:55.147", 
+            "height": 700, 
+            "width": 525, 
+            "user": 1, 
+            "trash": false, 
+            "order": 4
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-20T05:16:58.023", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/4/img1481853198_1.jpeg", 
+            "modified": "2012-12-20T05:16:58.023", 
+            "height": 700, 
+            "width": 525, 
+            "user": 1, 
+            "trash": false, 
+            "order": 5
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 1, 
+            "uploaded": "2012-11-23T21:37:01.419", 
+            "description": "", 
+            "views": 3, 
+            "image": "albums/1/1/2012-11-23-205015_2646x1024_scrot.png", 
+            "modified": "2012-12-02T23:58:55.966", 
+            "height": 396, 
+            "width": 1024, 
+            "user": 1, 
+            "trash": false, 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 1, 
+            "uploaded": "2012-11-23T21:41:48.478", 
+            "description": "", 
+            "views": 42, 
+            "image": "albums/1/1/kitreviews_achter.png", 
+            "modified": "2012-11-23T22:22:19.709", 
+            "height": 35, 
+            "width": 173, 
+            "user": 1, 
+            "trash": false, 
+            "order": 2
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 1, 
+            "uploaded": "2012-11-25T00:17:40.498", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/1/Gr\u00fc\u00df.png", 
+            "modified": "2012-11-25T00:17:40.498", 
+            "height": 768, 
+            "width": 979, 
+            "user": 1, 
+            "trash": false, 
+            "order": 3
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 1, 
+            "uploaded": "2012-11-25T00:18:14.128", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/1/Gr\u00fc\u00df_1.png", 
+            "modified": "2012-11-25T00:18:14.128", 
+            "height": 768, 
+            "width": 979, 
+            "user": 1, 
+            "trash": false, 
+            "order": 4
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 1, 
+            "uploaded": "2012-11-25T00:19:17.403", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/1/Gr\u00fc\u00df_2.png", 
+            "modified": "2012-11-25T00:19:17.403", 
+            "height": 768, 
+            "width": 979, 
+            "user": 1, 
+            "trash": false, 
+            "order": 5
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 1, 
+            "uploaded": "2012-12-03T00:06:05.941", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/1/2012-10-13-141325_1366x768_scrot.png", 
+            "modified": "2012-12-03T00:06:05.941", 
+            "height": 307, 
+            "width": 117, 
+            "user": 1, 
+            "trash": false, 
+            "order": 6
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "albums.preferences", 
+        "fields": {
+            "auto_start_uploading": false, 
+            "sidebar_transparent": true, 
+            "sidebar_bg_color": "black", 
+            "text_color": "", 
+            "width": "", 
+            "user": 1, 
+            "hide_sidebar": false, 
+            "default_uploader": "F", 
+            "collapse_sidebar": true, 
+            "show_direct_link": false, 
+            "apply_admin_permissions": false, 
+            "default_img_size": 0
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "awards.category", 
         "fields": {
             "name": "Militaire luchtvaart"
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "awards.category",
+        "pk": 2, 
+        "model": "awards.category", 
         "fields": {
             "name": "Civiele luchtvaart"
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "awards.category",
+        "pk": 3, 
+        "model": "awards.category", 
         "fields": {
             "name": "Militaire voertuigen"
         }
-    },
+    }, 
     {
-        "pk": 4,
-        "model": "awards.category",
+        "pk": 4, 
+        "model": "awards.category", 
         "fields": {
             "name": "Figuren"
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "awards.project",
+        "pk": 2, 
+        "model": "awards.project", 
         "fields": {
-            "category": 1,
-            "brouwer": "Ronald1903",
-            "votes": 0,
-            "name": "Su-24M Fencer D - Trumpeter 1/48",
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=27509",
-            "rejected": false,
-            "nominator": 1,
+            "category": 1, 
+            "brouwer": "Ronald1903", 
+            "votes": 0, 
+            "name": "Su-24M Fencer D - Trumpeter 1/48", 
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=27509", 
+            "rejected": false, 
+            "nominator": 1, 
             "nomination_date": "2011-01-10"
         }
-    },
+    }, 
     {
-        "pk": 4,
-        "model": "awards.project",
+        "pk": 4, 
+        "model": "awards.project", 
         "fields": {
-            "category": 1,
-            "brouwer": "Joe Silent",
-            "votes": 0,
-            "name": "test",
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=2&t=26704",
-            "rejected": false,
-            "nominator": 1,
+            "category": 1, 
+            "brouwer": "Joe Silent", 
+            "votes": 0, 
+            "name": "test", 
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=2&t=26704", 
+            "rejected": false, 
+            "nominator": 1, 
             "nomination_date": "2010-01-10"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "awards.project",
+        "pk": 1, 
+        "model": "awards.project", 
         "fields": {
-            "category": 1,
-            "brouwer": "BBT",
-            "votes": 3,
-            "name": "1/144 Revell SU-27 Flanker",
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=28524&p=591859#p591859",
-            "rejected": false,
-            "nominator": 2,
+            "category": 1, 
+            "brouwer": "BBT", 
+            "votes": 3, 
+            "name": "1/144 Revell SU-27 Flanker", 
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=28524&p=591859#p591859", 
+            "rejected": false, 
+            "nominator": 2, 
             "nomination_date": "2011-01-10"
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "awards.project",
+        "pk": 3, 
+        "model": "awards.project", 
         "fields": {
-            "category": 2,
-            "brouwer": "TheFlyingDutchman",
-            "votes": 3,
-            "name": "Boeing 737-600 'Mal\u00e9v Hungari",
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=46&t=24875&p=597139#p597139",
-            "rejected": false,
-            "nominator": 1,
+            "category": 2, 
+            "brouwer": "TheFlyingDutchman", 
+            "votes": 3, 
+            "name": "Boeing 737-600 'Mal\u00e9v Hungari", 
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=46&t=24875&p=597139#p597139", 
+            "rejected": false, 
+            "nominator": 1, 
             "nomination_date": "2010-08-11"
         }
-    },
+    }, 
     {
-        "pk": 5,
-        "model": "awards.project",
+        "pk": 5, 
+        "model": "awards.project", 
         "fields": {
-            "category": 3,
-            "brouwer": "Joe Silent",
-            "votes": 0,
-            "name": "sdfqsdfqsdf",
-            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=5&t=12261",
-            "rejected": true,
-            "nominator": 1,
+            "category": 3, 
+            "brouwer": "Joe Silent", 
+            "votes": 0, 
+            "name": "sdfqsdfqsdf", 
+            "url": "http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=5&t=12261", 
+            "rejected": true, 
+            "nominator": 1, 
             "nomination_date": "2011-01-10"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "general.userprofile",
+        "pk": 1, 
+        "model": "general.userprofile", 
         "fields": {
-            "province": "",
-            "city": "",
-            "refuse": "",
-            "country": null,
-            "number": "",
-            "categories_voted": [
-                3
-            ],
-            "street": "",
-            "user": 1,
-            "last_vote": "2011-01-02",
-            "secret_santa": true,
-            "postal": "",
-            "forum_nickname": "BBT",
-            "exclude_from_nomination": false,
+            "province": "Oost-Vlaanderen", 
+            "city": "Gent", 
+            "refuse": "", 
+            "country": "B", 
+            "number": "70 bus 509", 
+            "categories_voted": [], 
+            "street": "Harelbekestraat", 
+            "user": 1, 
+            "last_vote": "2011-01-02", 
+            "secret_santa": true, 
+            "postal": "9000", 
+            "forum_nickname": "BBT", 
+            "exclude_from_nomination": false, 
             "preference": "test"
         }
-    },
+    }, 
     {
-        "pk": 14,
-        "model": "general.userprofile",
+        "pk": 15, 
+        "model": "general.userprofile", 
         "fields": {
-            "province": null,
-            "city": null,
-            "refuse": null,
-            "country": null,
-            "number": null,
-            "categories_voted": [],
-            "street": null,
-            "user": 17,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": null,
-            "forum_nickname": "djon",
-            "exclude_from_nomination": false,
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 18, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "Jef", 
+            "exclude_from_nomination": false, 
             "preference": null
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "general.userprofile",
+        "pk": 3, 
+        "model": "general.userprofile", 
         "fields": {
-            "province": "",
-            "city": "",
-            "refuse": "",
-            "country": null,
-            "number": "",
+            "province": "", 
+            "city": "", 
+            "refuse": "", 
+            "country": null, 
+            "number": "", 
             "categories_voted": [
                 3
-            ],
-            "street": "",
-            "user": 3,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": "",
-            "forum_nickname": "Joe Silent",
-            "exclude_from_nomination": true,
+            ], 
+            "street": "", 
+            "user": 3, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": "", 
+            "forum_nickname": "Joe Silent", 
+            "exclude_from_nomination": true, 
             "preference": ""
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "general.userprofile",
+        "pk": 2, 
+        "model": "general.userprofile", 
         "fields": {
-            "province": "",
-            "city": "",
-            "refuse": "",
-            "country": null,
-            "number": "",
-            "categories_voted": [],
-            "street": "",
-            "user": 2,
-            "last_vote": "2010-01-01",
-            "secret_santa": true,
-            "postal": "",
-            "forum_nickname": "Mytheny",
-            "exclude_from_nomination": false,
+            "province": "", 
+            "city": "", 
+            "refuse": "", 
+            "country": null, 
+            "number": "", 
+            "categories_voted": [], 
+            "street": "", 
+            "user": 2, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": true, 
+            "postal": "", 
+            "forum_nickname": "Mytheny", 
+            "exclude_from_nomination": false, 
             "preference": ""
         }
-    },
+    }, 
     {
-        "pk": 13,
-        "model": "general.userprofile",
+        "pk": 13, 
+        "model": "general.userprofile", 
         "fields": {
-            "province": null,
-            "city": null,
-            "refuse": null,
-            "country": null,
-            "number": null,
-            "categories_voted": [],
-            "street": null,
-            "user": 13,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": null,
-            "forum_nickname": "Ren\u00e9 Duret",
-            "exclude_from_nomination": false,
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 13, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "Ren\u00e9 Duret", 
+            "exclude_from_nomination": false, 
             "preference": null
         }
-    },
+    }, 
     {
-        "pk": 4,
-        "model": "general.userprofile",
+        "pk": 14, 
+        "model": "general.userprofile", 
         "fields": {
-            "province": null,
-            "city": null,
-            "refuse": null,
-            "country": null,
-            "number": null,
-            "categories_voted": [],
-            "street": null,
-            "user": 4,
-            "last_vote": "2010-01-01",
-            "secret_santa": false,
-            "postal": null,
-            "forum_nickname": "test",
-            "exclude_from_nomination": false,
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 17, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "djon", 
+            "exclude_from_nomination": false, 
             "preference": null
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "general.questionanswer",
+        "pk": 4, 
+        "model": "general.userprofile", 
+        "fields": {
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 4, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "test", 
+            "exclude_from_nomination": false, 
+            "preference": null
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "general.questionanswer", 
         "fields": {
             "answer": "zeven"
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "general.questionanswer",
+        "pk": 2, 
+        "model": "general.questionanswer", 
         "fields": {
             "answer": "7"
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "general.questionanswer",
+        "pk": 3, 
+        "model": "general.questionanswer", 
         "fields": {
             "answer": "ZEVEN"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "general.registrationquestion",
+        "pk": 1, 
+        "model": "general.registrationquestion", 
         "fields": {
-            "question": "Hoeveel bubbels staan er boven de R in het modelbrouwers logo?",
+            "question": "Hoeveel bubbels staan er boven de R in het modelbrouwers logo?", 
             "answers": [
-                1,
-                2,
+                1, 
+                2, 
                 3
-            ],
+            ], 
             "in_use": true
         }
-    },
+    }, 
     {
-        "pk": 11,
-        "model": "general.passwordreset",
+        "pk": 11, 
+        "model": "general.passwordreset", 
         "fields": {
-            "h": "be8b10a991c9fab682e07e8b",
-            "expire": "2012-09-21T21:22:54.350",
+            "h": "be8b10a991c9fab682e07e8b", 
+            "expire": "2012-09-21T21:22:54.350", 
             "user": 1
         }
-    },
+    }, 
     {
-        "pk": 13,
-        "model": "general.passwordreset",
+        "pk": 13, 
+        "model": "general.passwordreset", 
         "fields": {
-            "h": "4457cebe79aa76f3e701dbd5",
-            "expire": "2012-09-21T21:29:23.247",
+            "h": "4457cebe79aa76f3e701dbd5", 
+            "expire": "2012-09-21T21:29:23.247", 
             "user": 1
         }
-    },
+    }, 
     {
-        "pk": 14,
-        "model": "general.passwordreset",
+        "pk": 14, 
+        "model": "general.passwordreset", 
         "fields": {
-            "h": "1da82bf2e59a2a1b3c762285",
-            "expire": "2012-09-21T21:29:23.383",
+            "h": "1da82bf2e59a2a1b3c762285", 
+            "expire": "2012-09-21T21:29:23.383", 
             "user": 1
         }
-    },
+    }, 
     {
-        "pk": 15,
-        "model": "general.passwordreset",
+        "pk": 15, 
+        "model": "general.passwordreset", 
         "fields": {
-            "h": "1b76d740626ed264a6310005",
-            "expire": "2012-09-21T21:29:23.519",
+            "h": "1b76d740626ed264a6310005", 
+            "expire": "2012-09-21T21:29:23.519", 
             "user": 1
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "general.redirect",
+        "pk": 1, 
+        "model": "general.redirect", 
         "fields": {
-            "path_from": "shop",
+            "path_from": "shop", 
             "path_to": "/albums/"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "secret_santa.participant",
+        "pk": 1, 
+        "model": "migration.usermigration", 
         "fields": {
-            "verified": false,
-            "user": 1,
-            "year": "2011"
+            "username": "Jef", 
+            "hash": "01d1d4cd1322b6e9fa8cc867", 
+            "username_clean": "jef", 
+            "email": "jef@jef.com"
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "secret_santa.participant",
+        "pk": 1, 
+        "model": "online_users.trackeduser", 
         "fields": {
-            "verified": true,
-            "user": 2,
-            "year": "2011"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "online_users.trackeduser",
-        "fields": {
-            "tracking_since": "2012-09-18T19:30:17.270",
-            "notificate": true,
-            "user": 1,
+            "tracking_since": "2012-09-18T19:30:17.270", 
+            "notificate": true, 
+            "user": 1, 
             "last_seen": "2012-09-18T22:51:12.754"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "secret_santa.secretsanta", 
+        "fields": {
+            "lottery_done": false, 
+            "price_class": 15, 
+            "enrollment_start": "2012-11-01T00:00:00", 
+            "lottery_date": "2012-12-01T00:00:00", 
+            "year": 2012, 
+            "enrollment_end": "2012-11-30T00:00:00"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "secret_santa.participant", 
+        "fields": {
+            "secret_santa": null, 
+            "user": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "secret_santa.participant", 
+        "fields": {
+            "secret_santa": null, 
+            "user": 2
         }
     }
 ]

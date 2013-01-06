@@ -1,18 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SECRET SANTA TRANSLATIONS
+# Copyright (C) 2013 Sergei Maertens
+# This file is distributed under the same license as the secret_santa package.
+# Sergei Maertens <sergei@modelbrouwers.nl>, 2013.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-05 04:13+0100\n"
+"POT-Creation-Date: 2013-01-06 02:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Last-Translator: Sergei Maertens <sergei@modelbrouwers.nl>\n"
+"Language-Team: nl <sergei@modelbrouwers.nl>\n"
+"Language: Nederlands\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -76,7 +76,7 @@ msgstr "secret santa editie"
 
 #: models.py:53
 msgid "user"
-msgstr ""
+msgstr "gebruiker"
 
 #: models.py:56
 msgid "participant"
@@ -88,75 +88,132 @@ msgstr "deelnemers"
 
 #: views.py:44 templates/secret_santa/base.html:58
 msgid "Your address details are incomplete."
-msgstr ""
+msgstr "Je adresgegevens zijn onvolledig."
 
-#: views.py:46
-msgid "Enrollment is not possible at this time."
-msgstr ""
+#: views.py:46 templates/secret_santa/base.html:64
+msgid "Signing up is not possible at this time."
+msgstr "Inschrijven is niet mogelijk op dit moment."
 
 #: views.py:77
-#, fuzzy
 msgid "The lottery is done."
-msgstr "Lootjes verdeeld?"
+msgstr "De lootjes zijn verdeeld."
 
 #: views.py:94
 msgid "Your match does not exist."
-msgstr ""
+msgstr "Je Secret Santa bestaat niet. Paniek!"
 
 #: views.py:96
-#, fuzzy
 msgid "You're not a participant!"
-msgstr "deelnemer"
+msgstr "Je bent niet ingeschreven!"
 
 #: views.py:98
-#, fuzzy
 msgid "You can't view the lottery results yet."
-msgstr "Jaar waarin de lootjesverdeling plaatsvindt."
+msgstr "De lootjesverdeling is nog niet beschikbaar."
 
-#: templates/secret_santa/base.html:24 templates/secret_santa/base.html:72
-#, fuzzy
+#: templates/secret_santa/base.html:24 templates/secret_santa/base.html:73
 msgid "Participants"
-msgstr "deelnemers"
+msgstr "Deelnemers"
 
 #: templates/secret_santa/base.html:24
-#, fuzzy
 msgid "My Secret Santa"
-msgstr "secret santa"
+msgstr "Mijn Secret Santa"
+
+#: templates/secret_santa/base.html:28
+#, python-format
+msgid ""
+"\n"
+"&quot;Secret Santa is a Western Christmas tradition in which members of a "
+"group or community are randomly assigned a person to whom they anonymously "
+"give a gift.&quot; <sup>[<a href=\"http://en.wikipedia.org/wiki/Secret_Santa"
+"\">Wikipedia</a>]</sup> Since we're a scale modelling website, the gift is "
+"in the form of a modelling kit. The intent is to finish the model by the end "
+"of %(year_later)s (and we really hope everybody succeeds). You're supposed "
+"to put the build report in the normal subforum, provided with the tag "
+"<code>[SS %(year)s]</code>.\n"
+msgstr ""
+"\n"
+"Het idee van Secret Santa (SS) is dat je, net als bij lootjes trekken, een "
+"cadeautje (in de vorm van een kitje) krijgt van een willekeurig forumlid "
+"(die deelnemer is). Het is de bedoeling om het cadeautje vóór eind "
+"%(year_later)s af te hebben (en we hopen dat dat ook iedereen lukt). Je "
+"plaatst je brouwverslag in het gewone forumdeel, maar je zet in je "
+"topictitel de volgende tag: <code>[SS %(year)s]</code>.\n"
+
+#: templates/secret_santa/base.html:32
+#, python-format
+msgid ""
+"\n"
+"The price class is %(price)s euros. You can always buy a more expensive kit, "
+"but expect your Secret Santa to stick with the price range. It would be fun "
+"to include a poem with the gift, since that is tradition, but it's no "
+"obligation to do so.\n"
+msgstr ""
+"\n"
+"De prijsklasse is ongeveer %(price)s euro, erboven mag altijd, maar omdat "
+"het lullig is als jij een kit van &euro;30,- opstuurt en je krijgt een kitje "
+"van &euro;12,50,- terug, is het verstandig om in de buurt van deze "
+"prijsklasse te blijven. Verder is het niet verplicht om een kerstgedichtje "
+"bij het cadeautje te doen, maar het is wel leuk natuurlijk.\n"
+
+#: templates/secret_santa/base.html:36
+#, python-format
+msgid ""
+"\n"
+"Signing up is possible from %(enrollment_start)s <strong>until "
+"%(enrollment_end)s</strong>. After this date (on %(lottery_date)s) the "
+"random assignment will be executed. After that, you're all set to buy your "
+"Secret Santa a nice present! An e-mail notification will be sent when the "
+"assignment is done.</p>"
+msgstr ""
+"\n"
+"Aanmelden kan van %(enrollment_start)s <strong>tot %(enrollment_end)s"
+"</strong>, daarna (op %(lottery_date)s) worden de lootjes verdeeld en kan "
+"iedereen een cadeautje kopen voor degene die op z'n lootje staat... "
+"Je krijgt een notificatie per e-mail als de lootjes verdeeld zijn."
 
 #: templates/secret_santa/base.html:39
-#, fuzzy
-msgid "Enrollment"
-msgstr "einde inschrijvingen"
+msgid "Sign up"
+msgstr "Inschrijven"
 
 #: templates/secret_santa/base.html:43
 #, python-format
 msgid ""
-"To be able to enroll, you must make sure that your address\n"
+"To be able to sign up, you must make sure that your address\n"
 "    details are complete in your <a href=\"%(profile_url)s\">profile</a>."
 msgstr ""
+"Om te kunnen inschrijven moet je ervoor zorgen dat je adresgegevens in je <a "
+"href=\"%(profile_url)s\">profiel</a> volledig zijn."
 
 #: templates/secret_santa/base.html:51 templates/secret_santa/base.html:58
-msgid "Join!"
-msgstr ""
+msgid "Sign up!"
+msgstr "Inschrijven!"
 
 #: templates/secret_santa/base.html:60
-msgid "You are already participating."
-msgstr ""
+msgid "You have signed up already."
+msgstr "Je bent al ingeschreven."
 
-#: templates/secret_santa/base.html:64
-msgid "Enrollment is not possible at the moment."
-msgstr ""
+#: templates/secret_santa/base.html:68
+msgid "Who's my Secret Santa?"
+msgstr "Welke Secret Santa heb ik?"
 
-#: templates/secret_santa/base.html:82 templates/secret_santa/base.html:86
-#, fuzzy
+#: templates/secret_santa/base.html:70
+#, python-format
+msgid ""
+"Click <a href=\"%(receiver_url)s\">here</a> to find out. You should have "
+"received the information by e-mail too, though.\n"
+msgstr ""
+"Klik <a href=\"%(receiver_url)s\">hier</a> om dat te ontdekken. Je zou de "
+"informatie ook per e-mail moeten ontvangen hebben.\n"
+
+#: templates/secret_santa/base.html:83 templates/secret_santa/base.html:87
 msgid "Do the lottery"
-msgstr "Jaar waarin de lootjesverdeling plaatsvindt."
+msgstr "Lootjes verdelen"
 
-#: templates/secret_santa/base.html:88
+#: templates/secret_santa/base.html:89
 #, python-format
 msgid "The lottery can only be done on %(date)s or later."
-msgstr ""
+msgstr "De lootjes kunnen pas vanaf %(date)s verdeeld worden."
 
-#: templates/secret_santa/base.html:91
+#: templates/secret_santa/base.html:92
 msgid "Done already!"
-msgstr ""
+msgstr "Is al gebeurd!"
