@@ -1,3 +1,12 @@
+TODO Sergei
+--------------------------------------------------------------------------------
+Bij commit -> dode topics javascript code is verhuisd naar forum.js, dus in 
+de template van het forum die link naar dead_topic.js weghalen.
+
+Ook: jquery importen vanaf google's CDN (zie base.html) en anders terugvallen 
+op local copy.
+
+--------------------------------------------------------------------------------
 *Software*
 
 - Albums:
