@@ -95,11 +95,11 @@ def register(request):
 
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
-    #phpBB3 returns a 'redirect' key
-    next = request.REQUEST.get('redirect')
-    if next:
-    	next = next[1:] #strip the dot
-    	next_page = '/phpBB3/%s' % next
+    
+    redirect_form = RedirectForm(request.REQUEST) #phpBB3 returns a 'redirect' key
+    if redirect_form.is_valid():
+        next_page = redirect_form.cleaned_data['redirect']
+    
     if request.method == "POST":
         form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -158,6 +158,7 @@ def custom_login(request):
     return render(request, 'general/login.html', {
         'form': form,
         'next': next_page,
+        'redirect_form': redirect_form,
     })
   
 def custom_logout(request):

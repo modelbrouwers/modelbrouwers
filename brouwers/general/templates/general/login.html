@@ -13,6 +13,8 @@
     </p>
     
 	<form method="post" action=".">
+	    {{ redirect_form.as_p }}
+	    
 		{% include "form_in_table.html" %}
  		{% if next %}
   			<input type="hidden" name="next" value="{{ next }}" />

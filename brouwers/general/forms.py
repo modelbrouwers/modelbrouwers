@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
@@ -278,3 +279,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         exclude = ('user', 'last_vote', 'forum_nickname', 'secret_santa')
+
+######################################
+#      Logging in from the board     #
+######################################
+class RedirectForm(forms.Form):
+    redirect = forms.CharField(required=False, widget=forms.HiddenInput())
+    
+    def clean_redirect(self):
+        path = self.cleaned_data['redirect']
+        return "%s%s" % (settings.PHPBB_URL, path[1:])
