@@ -43,12 +43,13 @@
     {
         $uri = $tab['url'];
         $request_uri = $_SERVER['REQUEST_URI'];
-        echo $request_uri;
         
         $pattern = "%^".$uri.'%';
         preg_match($pattern, $request_uri, $m);
-        if (count($m) > 0 && $request_uri != '/index.php'){
-            $best_match = $k;
+        if (count($m) > 0){
+            if ($uri != '/' || ($request_uri == '/index.php')){
+                $best_match = $k;
+            }
         }
     }
     echo $best_match;
