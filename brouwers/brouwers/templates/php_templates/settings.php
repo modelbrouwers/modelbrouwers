@@ -51,6 +51,7 @@
             $best_match = $k;
         }
     }
+    echo $best_match;
     
     // hightlightsettings doen
     $nav[$best_match]['img'] = str_replace('achter', 'voor', $nav[$best_match]['img']);
