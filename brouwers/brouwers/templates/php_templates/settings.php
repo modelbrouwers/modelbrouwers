@@ -43,6 +43,7 @@
     {
         $uri = $tab['url'];
         $request_uri = $_SERVER['REQUEST_URI'];
+        echo $request_uri;
         
         $pattern = "%^".$uri.'%';
         preg_match($pattern, $request_uri, $m);
