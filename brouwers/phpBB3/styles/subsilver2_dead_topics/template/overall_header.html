@@ -23,10 +23,11 @@
 	<!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
 	<!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
 <!-- ENDIF -->
-
+<link rel="stylesheet" type="text/css" href="/static/css/common.css?v=1.0" charset="utf-8"/>
 <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
 <link rel="stylesheet" type="text/css" href="/static/css/jquery-ui-1.8.22.custom.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/albums_forum.css?v=beta-1.0" charset="utf-8"/>
+
 
 <script type="text/javascript">
 // <![CDATA[
@@ -152,43 +153,10 @@ function marklist(id, name, state)
 </head>
 
 <body class="{S_CONTENT_DIRECTION}">
-
-
 	<!-- begin header tabs -->
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td background="images/nav/nav_bg_tabs.gif">
-		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-		  <td width="30%">&nbsp;</td>
-          <td><a href="../index.php"><img src="images/nav/home_achter.png" alt="Ga naar de homepage!" width="130" height="35" border="0"></a></td>
-          <td><a href="index.php"><img src="images/nav/forum_voor.png" alt="Je bent nu op het forum!" width="130" height="35" border="0"></a></td>
-          <td><a href="../shop/catalog/index.php/language/nl"><img src="images/nav/shop_achter.png" alt="Ga naar de shop!" width="130" height="35" border="0"></a></td>
-          <td><a href="../albums/"><img src="images/nav/albums_achter.png" alt="Ga naar de fotoalbums!" width="130" height="35" border="0"></a></td>
-          <td><a href="../kitreviews/index.php"><img src="images/nav/kitreviews_achter.png" alt="Ga naar de kitreviews!" width="173" height="35" border="0"></a></td>
-          <td><img src="images/nav/modelbouw_wiki.png" alt="Wiki" width="131" height="35" border="0"></td>
-		  <td width="30%">&nbsp;</td>
-        </tr>
-		</table>
-	</td>
-  </tr>
-  <tr>
-    <td height="3" background="images/nav/nav_bg_rand.gif"></td>
-  </tr>
-  <tr>
-    <td>
-    <!-- aankeiler -->
-    <!-- INCLUDE ../../../../banner_merken.php --> 
-    <!-- /aankeiler -->
-    </td>
-  </tr>
-  <tr>
-    <td>&nbsp;
-	
-    </td>
-  </tr>
-</table>
+<!-- INCLUDEPHP styles/subsilver2_dead_topics/template/common/top.php -->
+
 
 <a name="top"></a>
 
