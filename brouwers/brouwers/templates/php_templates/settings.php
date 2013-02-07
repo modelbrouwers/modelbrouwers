@@ -46,7 +46,7 @@
         
         $pattern = "%^".$uri.'%';
         preg_match($pattern, $request_uri, $m);
-        if (count($m) > 0){
+        if (count($m) > 0 && $request_uri != '/index.php'){
             $best_match = $k;
         }
     }
