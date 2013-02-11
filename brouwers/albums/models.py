@@ -230,11 +230,12 @@ class Photo(models.Model):
     	return None
     
     def get_previous(self):
-    	photos = Photo.objects.filter(album=self.album, order__lt=self.order, trash=False)
-    	photos = photos.order_by('-order', '-id')
-    	if photos:
-    		return photos[0]
-    	return None
+        #TODO: order can be None, throws error
+        photos = Photo.objects.filter(album=self.album, order__lt=self.order, trash=False)
+        photos = photos.order_by('-order', '-id')
+        if photos:
+            return photos[0]
+        return None
     
     def get_next_3(self):
         photos = Photo.objects.filter(album=self.album, order__gt=self.order, trash=False).order_by('order', 'id')
