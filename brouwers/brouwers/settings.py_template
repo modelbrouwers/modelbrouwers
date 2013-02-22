@@ -43,7 +43,7 @@ STATIC_ROOT = '{ CD }static/'
 STATIC_URL = '/static/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'tzt$*c-=)%9hi=#ce#lu!0+-6k3*6x@_%$r*j9-g85@v)_1^oa'
+SECRET_KEY = 'herpmiz2j66z22($vv6&fgi_np#t$(xj8m=!o$hmspom2(&pkd0^-kderp'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
