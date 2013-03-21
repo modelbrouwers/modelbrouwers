@@ -11,19 +11,19 @@
 {% csrf_token %}
 
 {% for hidden in form.hidden_fields %}
-    {{hidden }}
+    {{ hidden }}
 {% endfor %}
 
 <table>
     {% include "form_in_table_rows.html" %}
 
-{% for form in formset %}
-    {{ formset.management_form }}
-    {% for hidden in form.hidden_fields %}
-        {{ hidden }}
+    {% for form in formset %}
+        {{ formset.management_form }}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% include "form_in_table_rows.html" %}
     {% endfor %}
-    {% include "form_in_table_rows.html" %}
-{% endfor %}
 </table>
 
 {% endif %}

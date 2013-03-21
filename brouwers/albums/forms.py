@@ -30,17 +30,23 @@ class AlbumForm(forms.ModelForm):
         return cln_build_report(self)
     
     def __init__(self, *args, **kwargs):
-        user = None
         if 'user' in kwargs:
-            user = kwargs.pop('user')
+            self.user = kwargs.pop('user')
+        else:
+            instance = kwargs.get('initial', None)
+            if initial:
+                self.user = initial.get('user', None)
+            else:
+                self.user = None
+        
         if 'admin_mode' in kwargs:
             admin = kwargs.pop('admin_mode')
         else:
-            admin = admin_mode(user)
+            admin = admin_mode(self.user)
         
         super(AlbumForm, self).__init__(*args, **kwargs)
         # limit visible categories for regular users
-        if not user or not admin:
+        if not self.user or not admin:
             self.fields['category'].queryset = Category.objects.filter(public=True)
 
 class EditAlbumForm(AlbumForm):
@@ -69,8 +75,12 @@ class EditAlbumFormAjax(EditAlbumForm):
         model = Album
         fields = (
             'title', 'description', 'build_report', 
-            'category', 'public', 'writable_to', 'cover'
+            'category', 'public', 'writable_to', 'cover',
+            'user'
             )
+        widgets = {
+            'user': forms.HiddenInput(),
+        }
     
     def __init__(self, *args, **kwargs):
         super(EditAlbumForm, self).__init__(*args, **kwargs)

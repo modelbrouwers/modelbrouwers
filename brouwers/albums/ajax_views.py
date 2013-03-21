@@ -9,11 +9,12 @@ from django.forms import ValidationError
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
+from django.template import Context, loader
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
-import django.utils.simplejson as json
+#import django.utils.simplejson as json
+import json
 
-from general.shortcuts import render_to_response
 from models import *
 from forms import AlbumForm, AlbumGroupForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
 from utils import resize, admin_mode
@@ -21,8 +22,11 @@ import itertools
 import urllib2
 from urlparse import urlparse
 
+GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
+
 @login_required
 def new_album(request):
+    """ Deprecated """
     error = None
     if request.method == "POST": #submission of new album
         form = AlbumForm(request.POST, user=request.user)
@@ -38,8 +42,8 @@ def new_album(request):
                 error = _("You have used this album title before. Make sure to pick an unique title.")
     else: #request for rendered form
         album = Album(user=request.user)
-        form = AlbumForm(instance=album, user=request.user)
-    return render_to_response(request, 'albums/ajax/new_album.html', {'form': form, 'error': error})
+        form = AlbumForm(instance=album, user=request.user, initial={'user': request.user})
+    return render(request, 'albums/ajax/new_album.html', {'form': form, 'error': error})
 
 @login_required
 def uploadify(request):
@@ -99,7 +103,7 @@ def upload_url(request):
             photo.save()
             p_id = photo.id
         return HttpResponse(p_id, mimetype="text/plain")
-    return render_to_response(request, 'albums/uploadify_url.html', {'urlform': urlform})
+    return render(request, 'albums/uploadify_url.html', {'urlform': urlform})
 
 ### search function
 def search(request):
@@ -205,27 +209,34 @@ def reorder(request):
 @login_required
 def get_all_own_albums(request):
     own_albums = Album.objects.filter(user=request.user, writable_to='u', trash=False)
-    return render_to_response(request, 'albums/albums_list/albums_li.html', {'albums': own_albums})
+    return render(request, 'albums/albums_list/albums_li.html', {'albums': own_albums})
 
 @login_required
 def edit_album(request):
-    GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
+    admin = admin_mode(request.user)
     editform, formset, photos = None, None, None
     if request.method == "POST":
-        form = PickAlbumForm(request.user, request.POST)
+        form = PickAlbumForm(request.user, request.POST, admin_mode=admin)
         if form.is_valid():
             album = form.cleaned_data["album"]
+            formset = GroupFormset(request.POST, instance=album)
             editform = EditAlbumFormAjax(request.POST, instance=album, user=request.user)
             photos = editform.fields["cover"].queryset.select_related('album', 'album__cover')
-            if editform.is_valid() and (album.user == request.user or admin_mode(request.user)):
+            if editform.is_valid() and (album.user == request.user or admin):
                 editform.save()
-                formset = GroupFormset(request.POST, instance=album)
+                """
+                try:
+                    album.validate_unique()
+                    album.save()
+                except ValidationError:
+                    error = _("You have used this album title before. Make sure to pick an unique title.")
+                    print editform._errors
+                """
                 if formset.is_valid() and album.writable_to == 'g':
                     formset.save()
                 album = get_object_or_404(Album, pk=album.id);
-                return render_to_response(request, 'albums/ajax/album_li.html', {'album': album, 'custom_id': 'temp'})
+                return render(request, 'albums/ajax/album_li.html', {'album': album, 'custom_id': 'temp'})
     else:
-        admin = admin_mode(request.user)
         form = PickAlbumForm(request.user, request.GET, admin_mode=admin)
         if form.is_valid():
             album = form.cleaned_data["album"]
@@ -237,7 +248,7 @@ def edit_album(request):
                 return HttpResponse(_('This event has been logged'))
         else:
             return HttpResponse(form.as_p())
-    return render_to_response(request, 'albums/ajax/edit_album.html', {'form': editform, 'formset': formset, 'photos': photos})
+    return render(request, 'albums/ajax/edit_album.html', {'form': editform, 'formset': formset, 'photos': photos})
 
 @login_required
 def edit_albumgroup(request):
@@ -274,20 +285,33 @@ def new_album_jquery_ui(request):
     except KeyError:
         from_page = None
     if request.method == "POST":
-        form = AlbumForm(request.POST, user=request.user)
+        form = AlbumForm(request.POST, user=request.user, instance=new_album)
         if form.is_valid():
             album = form.save()
+            
+            # new album created on upload page -> return new form html & option to add to select
             if from_page == "upload":
-                option = mark_safe('<p><option value="%s" selected="selected" class=\"new_album\">%s</option></p>' % (album.id, album.__unicode__()))
+                option = mark_safe('<p><option value="%s" selected="selected" class=\"new_album\">%s</option></p>' % (
+                                       album.id, 
+                                       album.__unicode__()
+                                   ))
                 output = {'option': option, 'status': 1}
+                
+                
+                new_form = AlbumForm(initial={'user': request.user})
+                t = loader.get_template('albums/new_album_jquery-ui.html')
+                rendered_form = t.render(Context({'form': new_form}))
+                print rendered_form
+                #TODO
+                
                 return HttpResponse(option)
             new_form = AlbumForm(instance=new_album, user=request.user)
-            return render_to_response(
+            return render(
                 request, 
-                'albums/ajax/new_album_li.html', 
+                'albums/ajax/new_album_li.html',
                 {'album': album, 'form': new_form}
             )
-    return render_to_response(request, 'albums/ajax/new_album_jquery-ui.html', {'form': form})
+    return render(request, 'albums/ajax/new_album_jquery-ui.html', {'form': form})
 
 @login_required
 def get_title(request):

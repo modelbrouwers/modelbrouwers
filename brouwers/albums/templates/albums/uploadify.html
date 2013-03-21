@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
 <style type="text/css">
 #new-album-upload{display:none;}
+td span.help_text{display: inline-block; max-width:500px;}
 </style>
 <!--[if IE]>
 	<style type="text/css">
@@ -79,7 +80,7 @@ $(document).ready(function() {
     
     $('#new-album-upload').dialog({
 	    autoOpen: false,
-		height: 400,
+		//height: 400,
 		width: 800,
 		modal: true,
 		title: "{% trans 'New album' %}",
@@ -91,6 +92,9 @@ $(document).ready(function() {
 		            data,
 		            function (response){
 		                var response = $(response);
+		                
+		                console.log(response);
+		                
 		                option = response.find('option.new_album');
 		                if (option.length > 0){ //success
 		                    $('#id_album:selected').attr('selected', '');
@@ -112,6 +116,7 @@ $(document).ready(function() {
     $('a#create_new_album').click(function(e){
         e.preventDefault();
         $('#new-album-upload').dialog('open');
+        $('#new-album-upload span.help_text').hide();
         return false;
     });
     

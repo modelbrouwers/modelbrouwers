@@ -2,6 +2,7 @@
 *  in the template where the variable is passed to the js.
 *  This makes the configuration less complex & keeps the static nature of the .js
 */
+// FIXME: initUI() -> clean up and make more general, current version produces nasty JS code
 $(document).ready(function() {
     $('.no-javascript').remove(); //hide the warning
     fixVerticalCenter(); // vertical centering of images
@@ -72,6 +73,9 @@ $(document).ready(function() {
 		                data,
 		                function (response){
 		                    $("#edit-dialog").html(response);
+		                    // this way, initUI sets the right interface
+		                    $('#id_row_users, #id_albumgroup_set-TOTAL_FORMS, #id_albumgroup_set-INITIAL_FORMS, #id_albumgroup_set-MAX_NUM_FORMS').remove(); 
+		                    initUI();
 		                }
 		            );
 		        }}, {
@@ -134,6 +138,7 @@ $(document).ready(function() {
             e.preventDefault();
         }
         $('#new-album-dialog').dialog('open');
+        //$('#new-album-dialog td.help_text div').hide();
         return false;
     });
     
@@ -342,13 +347,7 @@ function openEditDialog(event, element, album_id){
 	    {'album': album_id},
 	    function (response){
 	        $("#edit-dialog").html(response);
-	        
-	        $('#id_hidden_cover').val($('#id_cover').val());
-	        var a = "<a href=\"#\" id=\"showCovers\">";
-	        a += "<u>" + trans_pick_cover + "</u></a>";
-            $('#id_cover').replaceWith(a);
-            // write permissions for groups
-            initSearchBox();
+	        initUI();
 	    }
 	);
 	
@@ -360,15 +359,24 @@ function openEditDialog(event, element, album_id){
     return false;
 }
 
+function initUI(){
+    $('#id_hidden_cover').val($('#id_cover').val());
+	var a = "<a href=\"#\" id=\"showCovers\">";
+	a += "<u>" + trans_pick_cover + "</u></a>";
+    $('#id_cover').replaceWith(a);
+    // write permissions for groups
+    initSearchBox();
+}
+
 function initSearchBox(){
     if ($('#id_albumgroup_set-0-users').length == 0){
         $.get(
             url_get_group,
             {'album': $('#id_album').val()},
 	        function (response){
-	            $('#showCovers').parent().parent().after(response);
+	            $('#id_row_cover').after(response);
 	            $('.hide').hide();
-	            $('#id_albumgroup_set-0-users').parent().parent().hide();
+	            $('#id_row_users').hide();
 	            insertSearchbox();
 	        }
         );
