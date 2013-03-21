@@ -10,7 +10,23 @@
 	
 	{% block style %}
 	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
-		{% block extrastyle %}
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.8.22.custom.css" />
+        <!--[if IE]>
+            <style type="text/css">
+                div.tab{border-bottom: solid 2px #6F8698;}
+                ul#menu li a{padding-top: 2px;}
+            </style>
+        <![endif]-->
+        <!--[if lte IE 8]>
+            <style type="text/css">
+                ul#menu{
+                    background-color: #0A1871;
+                    background-image: url('/static/images/nav/bg_menu.png');
+                    background-repeat: repeat-x;
+                }
+            </style>
+        <![endif]-->
+        {% block extrastyle %}
 	    {% endblock extrastyle %}
 	{% endblock style %}
 	
@@ -25,7 +41,8 @@
         }
         </script>
 	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/common.js?v{{ software_version }}"></script>
-	    {% block extrascript %}
+	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.8.23.custom.min.js"></script>
+        {% block extrascript %}
 	    {% endblock %}
 	{% endblock scripts %}
     <link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" /> 
@@ -89,7 +106,7 @@
             {% endblock %}
             
             <div id="menu_wrapper">
-                <ul id="menu">
+                <ul id="menu">{% spaceless %}
                     {% block menu %}
                         <li><a href="{% url general.views.index %}">Home</a></li>
                         <li><a href="{% url awards_index %}">Awards</a></li>
@@ -109,14 +126,18 @@
                             </li>
                         {% else %}
                             <li class="user-auth">
-                                <a href="{% url general.views.custom_logout %}">{% trans 'logout' %}</a>
+                                <a href="{% url general.views.custom_logout %}">
+                                    <span>&nbsp;</span><!-- hack for proper height display in chrome -->
+                                    <img id="img-logout" src="{{ STATIC_URL }}images/icons/door.png" title="{% trans 'logout' %}" alt="{% trans 'logout' %}"/>
+                                    <span>&nbsp;</span>
+                                </a>
                             </li>
                             <li class="user-auth">
                                 <a href="{% url general.views.profile %}">{% trans 'Profile' %} [ {{ user.get_profile.forum_nickname }} ]</a>
-                            <li>
+                            </li>
                         {% endif %}
                     {% endblock %}
-                </ul>
+                {% endspaceless %}</ul>
             </div>
             
             {% block above_content %}
