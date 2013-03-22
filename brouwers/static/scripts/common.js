@@ -1,5 +1,8 @@
 $(document).ready(function(){
     $('td.help_text div').hide(); // hide the help texts
+    
+    $('img').tooltip();
+    $('span.help_text').remove(); // mag weg als de tooltip werkt
 });
 
 function showHelp(e){

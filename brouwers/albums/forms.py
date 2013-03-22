@@ -30,14 +30,13 @@ class AlbumForm(forms.ModelForm):
         return cln_build_report(self)
     
     def __init__(self, *args, **kwargs):
+        self.user = None
         if 'user' in kwargs:
             self.user = kwargs.pop('user')
         else:
-            instance = kwargs.get('initial', None)
+            initial = kwargs.get('initial', None)
             if initial:
                 self.user = initial.get('user', None)
-            else:
-                self.user = None
         
         if 'admin_mode' in kwargs:
             admin = kwargs.pop('admin_mode')

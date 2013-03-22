@@ -80,30 +80,24 @@ $(document).ready(function() {
     
     $('#new-album-upload').dialog({
 	    autoOpen: false,
-		//height: 400,
 		width: 800,
 		modal: true,
 		title: "{% trans 'New album' %}",
 		buttons: {
 		    "{% trans 'Save' %}": function(){
-		        data = $('#new-album').serializeArray();
+		        data = $('form#new-album').serializeArray();
 		        $.post(
 		            url_new,
 		            data,
 		            function (response){
-		                var response = $(response);
-		                
-		                console.log(response);
-		                
-		                option = response.find('option.new_album');
-		                if (option.length > 0){ //success
-		                    $('#id_album:selected').attr('selected', '');
-		                    $('#id_album').append(option);
+		                var status = response.status
+		                if (status == '1'){
+		                	$('#id_album:selected').attr('selected', '');
+		                	$('#id_album').prepend(response.option);
 		                    $('#new-album-upload').dialog('close');
 		                }
-		                else{
-		                    $("#new-album").html(response);
-		                }
+		                $('#new-album-upload').html(response.form);
+		                $('img').tooltip();
 		            }
 		        );
 		    },
@@ -116,7 +110,6 @@ $(document).ready(function() {
     $('a#create_new_album').click(function(e){
         e.preventDefault();
         $('#new-album-upload').dialog('open');
-        $('#new-album-upload span.help_text').hide();
         return false;
     });
     
@@ -132,7 +125,6 @@ $(document).ready(function() {
                     var intRegex = /^\d+$/;
                     if(intRegex.test(response)) { // integer? (photo id)
                         $('#url-errors').remove();
-                        //$('#id_url').val('');
                         $('#id_url').after(success_icon);
                         var next = $('a#next_step');
                         
@@ -155,38 +147,6 @@ $(document).ready(function() {
         }
     });
 });
-function add_album(e){ // no longer used
-    //post data
-    var title = $('#id_title').val();
-    var desc = $('#id_description').val();
-    var cat = $('#id_category').val();
-    var pub = $('#id_public').val();
-    var build_report = $('#id_build_report').val();
-    var perm = $('#id_writable_to').val();
-    // post the data
-    $.post('{% url albums.ajax_views.new_album %}', {
-        title: title,
-        description: desc,
-        category: cat,
-        public: pub,
-        build_report: build_report,
-        writable_to: perm
-        },
-        function(response){
-            var status = $(response).find('#status').val();
-            var id = status;
-            var title = $(response).attr('title');
-            if (status == 'invalid'){ //show form error(s)
-                $('div#new_album').html(response);
-            } else { // add option to select and remove selected option
-                $('#id_album').append($("<option></option>").attr("value", id).text(title));
-                $('#id_album').val(id);
-                $('a#create_new_album').show();
-                $(e).parent().parent().parent().parent().parent().remove();
-            }
-        }
-    );
-} 
 </script>
 {% endblock extrascript %}
 
@@ -221,10 +181,7 @@ function add_album(e){ // no longer used
 </div>
 
 <div id="new-album-upload">
-    <form id="new-album" method="post" action=".">
-        {% include "form_in_table_jquery-ui.html" %}
-        <input type="hidden" name="from-page" value="upload" />
-    </form>
+    {% include "albums/ajax/new_album_jquery-ui.html" %}
 </div>
 
 {% spaceless %}

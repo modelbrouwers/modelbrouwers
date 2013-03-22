@@ -9,7 +9,7 @@ from django.forms import ValidationError
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.template import Context, loader
+from django.template import RequestContext, loader
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 #import django.utils.simplejson as json
@@ -291,26 +291,33 @@ def new_album_jquery_ui(request):
             
             # new album created on upload page -> return new form html & option to add to select
             if from_page == "upload":
-                option = mark_safe('<p><option value="%s" selected="selected" class=\"new_album\">%s</option></p>' % (
+                option = mark_safe('<option value="%s" selected="selected">%s</option>' % (
                                        album.id, 
                                        album.__unicode__()
                                    ))
-                output = {'option': option, 'status': 1}
-                
                 
                 new_form = AlbumForm(initial={'user': request.user})
-                t = loader.get_template('albums/new_album_jquery-ui.html')
-                rendered_form = t.render(Context({'form': new_form}))
-                print rendered_form
-                #TODO
+                t = loader.get_template('albums/ajax/new_album_jquery-ui.html')
+                rendered_form = t.render(RequestContext(request, {'form': new_form}))
+                output = {
+                	'option': option, 
+                	'status': 1,
+                	'form': rendered_form,
+                }
+                return HttpResponse(json.dumps(output), mimetype="application/json")
                 
-                return HttpResponse(option)
             new_form = AlbumForm(instance=new_album, user=request.user)
             return render(
                 request, 
                 'albums/ajax/new_album_li.html',
                 {'album': album, 'form': new_form}
             )
+        else:
+        	if from_page == 'upload':
+        		t = loader.get_template('albums/ajax/new_album_jquery-ui.html')
+                rendered_form = t.render(RequestContext(request, {'form': form}))
+                output = {'form': rendered_form, 'status': 0}
+                return HttpResponse(json.dumps(output), mimetype="application/json")
     return render(request, 'albums/ajax/new_album_jquery-ui.html', {'form': form})
 
 @login_required

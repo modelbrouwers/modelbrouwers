@@ -1,4 +1,5 @@
-<form id="new-album">
+<form id="new-album" method="post" action=".">
     {% include "form_in_table_jquery-ui.html" %}
+    <input type="hidden" name="from-page" value="upload" />
 </form>
 

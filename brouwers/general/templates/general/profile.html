@@ -3,12 +3,7 @@
 {% block title %}{% trans 'Modelbrouwers.nl &bull; Edit profile' %}{% endblock %}
 
 <!-- css and scripts -->
-{% block extrastyle %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.8.22.custom.css" />
-{% endblock %}
-
 {% block extrascript %}
-<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.8.23.custom.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}scripts/profile.js?v={{ software_version }}"></script>
 <script type="text/javascript">
     var trans_change_password = "{% trans 'Change password' %}";

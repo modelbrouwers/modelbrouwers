@@ -10,7 +10,7 @@
 	
 	{% block style %}
 	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.8.22.custom.css" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.10.2.custom.css" />
         <!--[if IE]>
             <style type="text/css">
                 div.tab{border-bottom: solid 2px #6F8698;}
@@ -41,7 +41,7 @@
         }
         </script>
 	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/common.js?v{{ software_version }}"></script>
-	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.8.23.custom.min.js"></script>
+	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.10.2.custom.min.js"></script>
         {% block extrascript %}
 	    {% endblock %}
 	{% endblock scripts %}
