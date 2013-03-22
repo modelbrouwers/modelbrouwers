@@ -36,7 +36,7 @@
                 height="16" alt="group" title="{% trans 'This album is writable for a group' %}"/>
             {% endif %}
             
-            {% if not album.trash %}
+            {% if not album.trash and album.user == request.user %}
                <img class="edit" src="{{ STATIC_URL }}images/icons/edit.png" alt="edit" 
                 height="16" title="{% trans 'Edit album' %}"/>
             

@@ -43,10 +43,10 @@
         </span>
     </div>
     {% endspaceless %}
-    <div class="no-javascript" class="margin">
+    <noscript>
         {% url albums.views.manage as manage_url %}
         {% blocktrans %}Your browser has no javascript. You can reorganize your albums on an <a href="{{ manage_url }}">alternative page</a>.{% endblocktrans %}
-    </div>
+    </noscript>
     
     <div class="albums_container">
         <ul id="personal-albums" class="my-albums-list">
