@@ -42,7 +42,7 @@
             
                 <img class="remove" src="{{ STATIC_URL }}images/icons/remove.png" alt="edit" 
                 height="16" title="{% trans 'Move album to trash' %}"/>
-            {% else %}
+            {% elif album.trash %}
                 <img class="restore" src="{{ STATIC_URL }}images/icons/restore.png" alt="restore" 
                 height="16" title="{% trans 'Restore album' %}"/>
             {% endif %}
