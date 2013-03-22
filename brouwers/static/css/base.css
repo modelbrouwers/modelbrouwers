@@ -38,6 +38,9 @@ div.ui-widget-header{
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#069), color-stop(100%,#0a1871));
 	background-image: -o-linear-gradient(top,rgb(0,102,153),rgb(10,24,113));
 }
+body .ui-tooltip{
+	font-size: 80%;
+}
 /*** FORMS ***/
 input, select, textarea {
   box-sizing: border-box;
