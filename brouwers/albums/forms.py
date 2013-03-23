@@ -157,12 +157,19 @@ class PickAlbumForm(forms.Form):
 class PickOwnAlbumForm(PickAlbumForm):
     def __init__(self, user, *args, **kwargs):
         super(PickOwnAlbumForm, self).__init__(user)
-        self.fields['album'].queryset = Album.objects.select_related('user').filter(user=user, trash=False).order_by('order', 'title')
+        
+        own_albums = Album.objects.select_related('user').filter(user=user, trash=False).order_by('order', 'title')
+        group_albums = Album.objects.filter(
+            writable_to = "g", 
+            trash = trash, 
+            albumgroup__in = user.albumgroup_set.all()
+            ).order_by('order', 'title')
         
         querysets = [
             {'optgroup': _("Own albums"), 'qs': own_albums},
             {'optgroup': _("Group albums"), 'qs': group_albums},
             ]
+        self.fields['album'].queryset = (own_albums | group_albums).select_related('user')
         self.fields['album'].choices = albums_as_choices(querysets, trash=False)
 
 class OrderAlbumForm(PickAlbumForm):
