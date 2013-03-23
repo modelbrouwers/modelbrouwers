@@ -135,7 +135,6 @@ class PickAlbumForm(forms.Form):
             q = Q(user=user, trash=trash)
         
         own_albums = Album.objects.filter(q).order_by('order', 'title')
-        #groups = user.albumgroup_set.filter(
         group_albums = Album.objects.filter(
             writable_to = "g", 
             trash = trash, 
@@ -150,7 +149,7 @@ class PickAlbumForm(forms.Form):
             {'optgroup': _("Public albums"), 'qs': public_albums},
             ] 
         
-        self.fields['album'].queryset = (own_albums | public_albums).select_related('user')
+        self.fields['album'].queryset = (own_albums | public_albums | group_albums).select_related('user')
         self.fields['album'].choices = albums_as_choices(querysets, trash=trash)
         if browse:
             self.fields['album'].required = False

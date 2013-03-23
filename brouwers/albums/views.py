@@ -370,8 +370,9 @@ def albums_list(request):
 def browse_album(request, album_id=None):
     q = Q(pk=album_id)
     if request.user.is_authenticated():
+        groups = request.user.albumgroup_set.all()
         if not admin_mode(request.user):
-            q = Q(q, Q(public=True) | Q(user=request.user))
+            q = Q(q, Q(public=True) | Q(user=request.user) | Q(albumgroup__in=groups))
     else:
         q = Q(q, public=True)
     album = get_object_or_404(Album, q, trash=False)

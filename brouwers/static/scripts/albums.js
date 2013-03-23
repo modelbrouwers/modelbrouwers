@@ -46,6 +46,9 @@ $(document).ready(function() {
 			            data,
 			            function (response){
 			                $("#new-album-dialog").html(response);
+							$('img').tooltip({
+								track: true
+							});
 			            }
 			        );
 			    }}, {
