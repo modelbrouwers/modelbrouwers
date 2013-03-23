@@ -332,7 +332,6 @@ def get_title(request):
 @login_required
 def get_covers(request):
     admin = admin_mode(request.user)
-    print request.GET
     form = PickAlbumForm(request.user, request.GET, admin_mode=admin)
     if form.is_valid():
         album = form.cleaned_data["album"]

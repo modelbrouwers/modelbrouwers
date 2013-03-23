@@ -13,7 +13,8 @@ from utils import admin_mode
 
 @login_required
 def get_photos(request, album_id=None):
-    album = get_object_or_404(Album, pk=album_id, user=request.user)
+    q_group = Q(albumgroup__in = request.user.albumgroup_set.all())
+    album = get_object_or_404(Album, Q(pk=album_id), Q(Q(user=request.user) | q_group ))
     photos = Photo.objects.filter(album=album, trash=False).order_by('-uploaded')
     return render(request, 'albums/ajax/forum/album_photos.html', {'photos': photos})
 

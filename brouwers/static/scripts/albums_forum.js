@@ -1,3 +1,32 @@
+$.fn.extend({
+  insertAtCaret: function(myValue){
+  var obj;
+  if( typeof this[0].name !='undefined' ) obj = this[0];
+  else obj = this;
+
+  if ($.browser.msie) {
+    obj.focus();
+    sel = document.selection.createRange();
+    sel.text = myValue;
+    obj.focus();
+    }
+  else if ($.browser.mozilla || $.browser.webkit) {
+    var startPos = obj.selectionStart;
+    var endPos = obj.selectionEnd;
+    var scrollTop = obj.scrollTop;
+    obj.value = obj.value.substring(0, startPos)+myValue+obj.value.substring(endPos,obj.value.length);
+    obj.focus();
+    obj.selectionStart = startPos + myValue.length;
+    obj.selectionEnd = startPos + myValue.length;
+    obj.scrollTop = scrollTop;
+  } else {
+    obj.value += myValue;
+    obj.focus();
+   }
+ }
+})
+
+
 var sidebar_html = "<div id=\"albums-sidebar\" class=\"opened initial\"></div>";
 var restore_icon = '/static/images/icons/open.png';
 var close_icon = '/static/images/icons/close.png';
@@ -101,7 +130,7 @@ function loadSidebar(){
             e.returnValue = false;
         }
         var BBCode = $(this).data('bbcode')+"\n";
-        insertAtCaret('id-textarea-post', BBCode);
+        $('#id-textarea-post').insertAtCaret(BBCode);
         $(this).addClass('selected');
         return false;
     });
@@ -168,7 +197,7 @@ function toggleSidebar(hide_completely){
     }
     return false;
 }
-function insertAtCaret(areaId,text) {
+/*function insertAtCaret(areaId,text) {
     var txtarea = document.getElementById(areaId);
     var scrollPos = txtarea.scrollTop;
     var strPos = 0;
@@ -200,4 +229,4 @@ function insertAtCaret(areaId,text) {
         txtarea.focus();
     }
     txtarea.scrollTop = scrollPos;
-}
+}*/
