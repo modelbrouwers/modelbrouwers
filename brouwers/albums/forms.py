@@ -161,7 +161,7 @@ class PickOwnAlbumForm(PickAlbumForm):
         own_albums = Album.objects.select_related('user').filter(user=user, trash=False).order_by('order', 'title')
         group_albums = Album.objects.filter(
             writable_to = "g", 
-            trash = trash, 
+            trash = False, 
             albumgroup__in = user.albumgroup_set.all()
             ).order_by('order', 'title')
         
