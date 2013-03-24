@@ -544,18 +544,6 @@ img.photo{
 .photo-container2 img.photo{
     margin-top: 0;
 }
-/*.photo-container2 .in-photo-navigation{
-    position: absolute;
-    bottom: 50%;
-    left: 50%;
-    z-index: 2;
-    margin-bottom: -22px;
-    margin-left: -30px;
-    visibility: hidden;
-}
-.photo-container2 .in-photo-navigation .nav-arrow{
-    position: relative;
-}*/
 #in-photo-navigation-container{
     position: absolute;
     top: 0;
@@ -564,10 +552,18 @@ img.photo{
     height: 100%;
     z-index: 10;
 }
-div.in-photo-navigation {width: 50%; height: 100%; z-index: 15;}
+div.in-photo-navigation {
+    width: 50%; 
+    height: 100%; 
+    z-index: 15;
+}
 #previous-photo         {float: left; text-align: left;}
 #next-photo             {float: right; text-align: right;}
-.in-photo-navigation a  {display: block; height: 100%;}
+.in-photo-navigation a  {
+    display: block; 
+    height: 100%;
+    background: transparent url('http://alex.leonard.ie/misc-images/transparent.png') repeat 0 0;
+}
 .in-photo-navigation img.nav-arrow  {
     padding: 1em; 
     position: relative; 
