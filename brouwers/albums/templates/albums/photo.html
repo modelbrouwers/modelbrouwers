@@ -1,6 +1,14 @@
 {% extends "albums/base.html" %}
 {% load i18n %}
 
+{% block extrastyle %}
+<!--[if IE]>
+<style type="text/css">
+    div.in-photo-navigation{background: transparent url('/static/images/varia/transparent.png') repeat 0 0;}
+</style>
+<![endif]-->
+{% endblock %}
+
 {% block content %}
 <div class="tab photo-title">
     {% spaceless %}
