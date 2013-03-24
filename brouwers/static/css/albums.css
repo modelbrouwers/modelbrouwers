@@ -536,7 +536,7 @@ img.photo{
     position: relative;
     bottom: 22px;
 }
-.photo-container2   {margin-top: 1em;}
+.photo-container2   {margin-top: 1em; z-index: 1;}
 .photo-container2 > div{
     position: relative;
 }
