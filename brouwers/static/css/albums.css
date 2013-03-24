@@ -492,6 +492,10 @@ img.photo{
     border: solid 1px #333;
     padding: 1px;
     margin: 1em auto 1em auto;
+    
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
 }
 .photo-container .description{
     background-color: #EEE;
@@ -532,13 +536,14 @@ img.photo{
     position: relative;
     bottom: 22px;
 }
-.photo-container2{
+.photo-container2   {margin-top: 1em;}
+.photo-container2 > div{
     position: relative;
 }
 .photo-container2 img.photo{
     margin-top: 0;
 }
-.photo-container2 .in-photo-navigation{
+/*.photo-container2 .in-photo-navigation{
     position: absolute;
     bottom: 50%;
     left: 50%;
@@ -549,6 +554,24 @@ img.photo{
 }
 .photo-container2 .in-photo-navigation .nav-arrow{
     position: relative;
+}*/
+#in-photo-navigation-container{
+    position: absolute;
+    top: 0;
+    left: 1px;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+div.in-photo-navigation {width: 50%; height: 100%;}
+#previous-photo         {float: left; text-align: left;}
+#next-photo             {float: right; text-align: right;}
+.in-photo-navigation a  {display: block; height: 100%;}
+.in-photo-navigation img.nav-arrow  {
+    padding: 1em; 
+    position: relative; 
+    top: 50%; 
+    margin-top: -22px;
 }
 
 /*** EDIT ALBUM & PHOTO ***/
@@ -562,7 +585,9 @@ img.photo{
     padding-top: 0.1em;
     padding-bottom: 0.1em;
 }
-#edit-album form input[type="text"], #edit-album select, #edit-photo form input[type="text"], #edit-photo select, #edit-dialog form input[type="text"]{
+#edit-album form input[type="text"], #edit-album select, 
+#edit-photo form input[type="text"], #edit-photo select, 
+#edit-dialog form input[type="text"]{
     padding: 0.2em 0.4em 0.2em 0.4em;
     width: 30em;
     -moz-box-sizing: border-box;

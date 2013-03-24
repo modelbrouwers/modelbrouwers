@@ -468,7 +468,7 @@ def my_albums_list(request):
     return render(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters, 'form': form})
 
 def photo(request, photo_id=None):
-    q = Q(pk=photo_id)
+    q = Q(pk=photo_id, album__trash=False)
     if request.user.is_authenticated():
         if not admin_mode(request.user):
             q = Q(q, Q(album__public=True) | Q(user=request.user))
@@ -478,18 +478,5 @@ def photo(request, photo_id=None):
     photo.views = F('views') + 1
     photo.save()
     photo = get_object_or_404(Photo, pk=photo_id)
-    position = (photo.width / 2) - 40
-    return render(request, 'albums/photo.html', {'photo': photo, 'position': position})
-
-"""
-@login_required
-def photos(request): #TODO: veel uitgebreider maken met deftige pagina's :) is temporary placeholder
-    albumform = PickAlbumForm(request.user, request.GET, browse=True)
-    if albumform.is_valid():
-        album = albumform.cleaned_data['album']
-        photos = Photo.objects.filter(user=request.user, album=album, trash=False)
-    else:
-        photos = Photo.objects.filter(user=request.user, trash=False)
-    return render(request, 'albums/photos.html', {'photos': photos, 'albumform': albumform})
-"""
+    return render(request, 'albums/photo.html', {'photo': photo})
 

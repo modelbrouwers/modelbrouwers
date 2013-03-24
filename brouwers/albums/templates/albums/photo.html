@@ -18,47 +18,36 @@
         {% if user.id == photo.user.id or user_is_album_admin %}
             <a href="{% url albums.views.edit_photo photo.id %}">{% trans 'edit' %}</a> &#124; 
         {% endif %}
-        {{ photo.views }} views &#124; {% trans 'modified' %} {{ photo.modified|date:"d b Y, H:i" }} &#124; upload {{ photo.uploaded|date:"d b Y, H:i" }}
+        {{ photo.views }} views &#124; {% trans 'uploaded' %} {{ photo.uploaded|date:"d b Y, H:i" }} 
+        &#124; <a href="{{ photo.image.url }}" target="_blank"><img src="{{ STATIC_URL }}images/icons/save.png" height="12" width="12" title="{% trans 'Download photo' %}" alt="download"/></a>
     </span>
 </div>
 
 <div class="photo-container">
     <div class="photo-container2">
-        <div class="center">
-            <br /><!-- FF workaround, doesn't center the image otherwise -->
-            <img id="photo_{{ photo.id }}" class="photo" src="{{ photo.image.url }}" style="width:{{ photo.width }}px;height:{{ photo.height }}px;" alt="photo {{ photo.id }}" />
-        </div>
-        
-        <div class="in-photo-navigation">
-            {% spaceless %}
-            {% if photo.get_previous %}
-            <a href="{{ photo.get_previous.get_absolute_url }}#photo_{{ photo.get_previous.id }}">
-	            <img class="nav-arrow arrow-left" src="{{ STATIC_URL }}images/nav/arrow-left.png" 
-	            alt="previous" style="right: {{ position }}px;"/>
-            </a>
-            {% else %}
-            <a href="#" style="visibility: hidden;">
-	            <img class="nav-arrow arrow-left" src="{{ STATIC_URL }}images/nav/arrow-left.png" 
-	            alt="previous" style="right: {{ position }}px;"/>
-            </a>
-            {% endif %}
-            {% endspaceless %}
-            
-            {% spaceless %}
-            {% if photo.get_next %}
-            <a href="{{ photo.get_next.get_absolute_url }}#photo_{{ photo.get_next.id }}">
-                 <img class="nav-arrow arrow-right" src="{{ STATIC_URL }}images/nav/arrow-right.png" 
-                 alt="next" style="left: {{ position }}px;"/>
-            </a>
-            {% else %}
-            <a href="#" style="visibility: hidden;">
-	            <img class="nav-arrow arrow-right" src="{{ STATIC_URL }}images/nav/arrow-right.png" 
-	            alt="previous" style="right: {{ position }}px;"/>
-            </a>
-            {% endif %}
-            {% endspaceless %}
+        <div>
+            <img id="photo_{{ photo.id }}" class="photo" src="{{ photo.image.url }}" alt="photo {{ photo.id }}" />
+            <div id="in-photo-navigation-container">
+                <div id="previous-photo" class="in-photo-navigation">
+                    {% if photo.get_previous %}
+                    <a href="{{ photo.get_previous.get_absolute_url }}#photo_{{ photo.get_previous.id }}">
+	                    <img class="nav-arrow arrow-left" src="{{ STATIC_URL }}images/nav/arrow-left.png" alt="previous"/>
+                    </a>
+                    {% endif %}
+                </div>
+                
+                <div id="next-photo" class="in-photo-navigation">
+                    {% if photo.get_next %}
+                    <a href="{{ photo.get_next.get_absolute_url }}#photo_{{ photo.get_next.id }}">
+                         <img class="nav-arrow arrow-right" src="{{ STATIC_URL }}images/nav/arrow-right.png" alt="next"/>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
+    
     {% if photo.description %}
        <div class="description">
            &ldquo;{{ photo.description }}&rdquo;

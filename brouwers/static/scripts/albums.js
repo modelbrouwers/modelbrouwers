@@ -146,11 +146,12 @@ $(document).ready(function() {
     });
     
     // navigation arrows
-    $('.photo-container2 img.photo, .in-photo-navigation').mouseenter(function() {
-        $('div.in-photo-navigation').css('visibility', 'visible');
+    $('div.in-photo-navigation a').hide();
+    $('#previous-photo, #next-photo').mouseenter(function() {
+        $(this).find('a').show();
     });
-    $('.photo-container2 img.photo').mouseleave(function() {
-        $('div.in-photo-navigation').css('visibility', 'hidden');
+    $('#previous-photo, #next-photo').mouseleave(function() {
+        $(this).find('a').hide();
     });
     
     var searchfield = $("#id_search");
