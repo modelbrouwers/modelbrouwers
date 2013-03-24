@@ -556,13 +556,14 @@ div.in-photo-navigation {
     width: 50%; 
     height: 100%; 
     z-index: 15;
+    background: transparent url('http://alex.leonard.ie/misc-images/transparent.png') repeat 0 0;
 }
 #previous-photo         {float: left; text-align: left;}
 #next-photo             {float: right; text-align: right;}
 .in-photo-navigation a  {
     display: block; 
     height: 100%;
-    background: transparent url('http://alex.leonard.ie/misc-images/transparent.png') repeat 0 0;
+    
 }
 .in-photo-navigation img.nav-arrow  {
     padding: 1em; 
