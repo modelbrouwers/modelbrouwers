@@ -2,6 +2,7 @@ from django.db import IntegrityError
 from django.db.models import F, Q, Max
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -12,13 +13,12 @@ from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext, loader
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
-#import django.utils.simplejson as json
-import json
 
 from models import *
 from forms import AlbumForm, AlbumGroupForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
 from utils import resize, admin_mode
 import itertools
+import json
 import urllib2
 from urlparse import urlparse
 
@@ -193,17 +193,23 @@ def reorder(request):
             albums_to_reorder = Album.objects.filter(q, order__gt=lower, order__lte=upper)
             albums_to_reorder.update(order=(F('order') - 1))
             album.save()
-        
-        elif ((album_before and album_before.order == album.order) or (album_after and album_after.order == album.order)):
+        elif ((album_before and album_before.order == album.order) \
+            or (album_after and album_after.order == album.order)):
             order = album.order
-            if album_after:
-                albums_to_reorder = Album.objects.filter(q, order__gte=order, title__gt=album.title)
-                albums_to_reorder.update(order=(F('order') + 1))
-            elif album_before:
+            if album_before:
                 album.order = (F('order') + 1)
-                albums_to_reorder = Album.objects.filter(q, order__gte=order, title__gt=album.title)
+                q1 = Q(order__exact=order, title__gt=album.title)
+                q2 = Q(order__gt=order)
+                albums_to_reorder = Album.objects.filter(q, Q(q1 | q2)).exclude(pk=album_before.id)
                 albums_to_reorder.update(order=(F('order') + 2))
                 album.save()
+            elif album_after:
+                q1 = Q(order__exact=order, title__gt=album.title)
+                q2 = Q(order__gt=order)
+                album_after.order = (F('order') + 1)
+                albums_to_reorder = Album.objects.filter(q, Q(q1 | q2)).exclude(pk=album_after.id)
+                albums_to_reorder.update(order=(F('order') + 2))
+                album_after.save()
     return HttpResponse()
 
 @login_required
@@ -235,6 +241,7 @@ def edit_album(request):
                 if formset.is_valid() and album.writable_to == 'g':
                     formset.save()
                 album = get_object_or_404(Album, pk=album.id);
+                # TODO: convert to JSON - see new_album_jquery-ui
                 return render(request, 'albums/ajax/album_li.html', {'album': album, 'custom_id': 'temp'})
     else:
         form = PickAlbumForm(request.user, request.GET, admin_mode=admin)
@@ -279,46 +286,46 @@ def remove_album(request):
 
 @login_required
 def new_album_jquery_ui(request):
-    new_album = Album(user=request.user)
-    try:
-        from_page = request.POST['from-page']
-    except KeyError:
-        from_page = None
     if request.method == "POST":
+        try:
+            from_page = request.POST['from-page']
+        except KeyError:
+            from_page = None
+        
+        new_album = Album(user=request.user)
         form = AlbumForm(request.POST, user=request.user, instance=new_album)
+        t = loader.get_template(u'albums/ajax/new_album_jquery-ui.html')
+        
+        context = {'from_page': from_page}
         if form.is_valid():
             album = form.save()
+            context['form'] = AlbumForm(
+                            instance = Album(user=request.user), 
+                            user=request.user
+                            )
+            rendered_form = t.render(RequestContext(request, context))
             
-            # new album created on upload page -> return new form html & option to add to select
-            if from_page == "upload":
-                option = mark_safe('<option value="%s" selected="selected">%s</option>' % (
+            output = {
+                'status': 1,
+                'form': rendered_form,
+            }
+            
+            if from_page == u"upload": # return option to append to select
+                option = '<option value="%s" selected="selected">%s</option>' % (
                                        album.id, 
                                        album.__unicode__()
-                                   ))
-                
-                new_form = AlbumForm(initial={'user': request.user})
-                t = loader.get_template('albums/ajax/new_album_jquery-ui.html')
-                rendered_form = t.render(RequestContext(request, {'form': new_form}))
-                output = {
-                	'option': option, 
-                	'status': 1,
-                	'form': rendered_form,
-                }
-                return HttpResponse(json.dumps(output), mimetype="application/json")
-                
-            new_form = AlbumForm(instance=new_album, user=request.user)
-            return render(
-                request, 
-                'albums/ajax/new_album_li.html',
-                {'album': album, 'form': new_form}
-            )
+                                   )
+                output['option'] = mark_safe(option)
+            elif from_page == u"my-albums-list": # return li element to place in list
+                t2 = loader.get_template(u'albums/album_li.html')
+                album_li = t2.render(RequestContext(request, {'album': album}))
+                output['album_li'] = album_li
+                output['album_write_mode'] = album.writable_to
         else:
-        	if from_page == 'upload':
-        		t = loader.get_template('albums/ajax/new_album_jquery-ui.html')
-                rendered_form = t.render(RequestContext(request, {'form': form}))
-                output = {'form': rendered_form, 'status': 0}
-                return HttpResponse(json.dumps(output), mimetype="application/json")
-    return render(request, 'albums/ajax/new_album_jquery-ui.html', {'form': form})
+            context['form'] = form
+            rendered_form = t.render(RequestContext(request, context))
+            output = {'form': rendered_form, 'status': 0}
+    return HttpResponse(json.dumps(output), mimetype="application/json")
 
 @login_required
 def get_title(request):
@@ -357,5 +364,4 @@ def restore_album(request):
             except IntegrityError:
                 album.title = "%s_%s" % (album.clean_title, i.next())
             
-            print i
     return HttpResponse('<table>'+form.as_table()+'</table>')

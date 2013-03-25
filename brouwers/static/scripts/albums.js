@@ -19,13 +19,10 @@ $(document).ready(function() {
     });
     
     // show/hide edit, remove, restore icons
-    $('a.album').hover(function() {
-        $(this).find('.edit, .remove, .restore').show();
+    $('#album_list').on('mouseover', 'a.album, a.album img', function(){
+        $(this).closest('li.album').find('.edit, .remove, .restore').show();
     });
-    $('a.album img').hover(function() {
-        $(this).parent().find('.edit, .remove, .restore').show();
-    });
-    $('li.album').mouseout(function() {
+    $('#album_list').on('mouseout', 'a.album', function() {
         $(this).find('.edit, .remove, .restore').hide();
     });
     
@@ -33,7 +30,6 @@ $(document).ready(function() {
     if ($('#new-album-dialog').length > 0){ // new album dialog
         $('#new-album-dialog').dialog({
 			autoOpen: false,
-			/*height: 400,*/
 			width: 800,
 			modal: true,
 			title: trans_new_album,
@@ -45,10 +41,20 @@ $(document).ready(function() {
 			            url_new,
 			            data,
 			            function (response){
-			                $("#new-album-dialog").html(response);
+			                $("#new-album-dialog").html(response.form);
 							$('img').tooltip({
 								track: true
 							});
+							if (response.status == '1'){ // no form errors
+							    mode = response.album_write_mode;
+							    if (mode == 'u'){
+							        parent = $('ul#personal-albums');
+							    } else {
+							        parent = $('ul#public-albums');
+							    }
+							    parent.append(response.album_li);
+							    $("#new-album-dialog").dialog('close');
+							}
 			            }
 			        );
 			    }}, {
@@ -141,7 +147,6 @@ $(document).ready(function() {
             e.preventDefault();
         }
         $('#new-album-dialog').dialog('open');
-        //$('#new-album-dialog td.help_text div').hide();
         return false;
     });
     

@@ -49,51 +49,53 @@
     </noscript>
     
     <div class="albums_container">
-        <ul id="personal-albums" class="my-albums-list">
         {% with albums=albums_data.0.albums %}
-            {% include "albums/albums_list/albums_li.html" %}
+            <ul id="personal-albums" class="my-albums-list">
+                {% include "albums/albums_list/albums_li.html" %}
+            </ul>    
             
-            {% with page="page_own" objects=albums %}
-                {% include "pagination.html" %}
-            {% endwith %}
+            {% if albums %}
+                {% with page="page_own" objects=albums %}
+                    {% include "pagination.html" %}
+                {% endwith %}
+            {% endif %}
         {% endwith %}
-        </ul>
     </div>
     
-    {% if albums_data.1.albums %}
-        <div class="tab clear">{% trans 'My public albums &#45; others can add photos' %}</div>
-        <div class="albums_container">
+    <div class="tab clear">{% trans 'My public albums &#45; others can add photos' %}</div>
+    <div class="albums_container">
+        {% with albums_data.1.albums as albums %}
             <ul id="public-albums" class="my-albums-list">
-            {% with albums_data.1.albums as albums %}
                 {% include "albums/albums_list/albums_li.html" %}
-                
+            </ul>
+            
+            {% if albums %}
                 {% with page="page_pub" objects=albums %}
                     {% include "pagination.html" %}
                 {% endwith %}
-            {% endwith %}
-            </ul>
-        </div>
-    {% endif %}
+            {% endif %}
+        {% endwith %}
+    </div>
     
-    {% if albums_data.2.albums %}
-        <div class="tab clear">{% trans 'Public albums &#45; writable for me' %}</div>
-        <div class="albums_container">
+    <div class="tab clear">{% trans 'Public albums &#45; writable for me' %}</div>
+    <div class="albums_container">
+        {% with albums_data.2.albums as albums %}
             <ul id="public-albums-others" class="other-albums-list">
-            {% with albums_data.2.albums as albums %}
                 {% include "albums/albums_list/albums_li.html" %}
-                
+            </ul>
+            
+            {% if albums %}
                 {% with page="page_other" objects=albums %}
                     {% include "pagination.html" %}
                 {% endwith %}
-            {% endwith %}
-            </ul>
-        </div>
-    {% endif %}
+            {% endif %}
+        {% endwith %}
+    </div>
     
     <div id="new-album-dialog">
-        <form id="new-album">
+        <form id="new-album" method="post" action=".">
             {% include "form_in_table_jquery-ui.html" %}
-            <input type="hidden" name="from-page" value="my_albums_list" />
+            <input type="hidden" name="from-page" value="my-albums-list" />
         </form>
     </div>
     <div id="edit-dialog"></div>

@@ -4,7 +4,7 @@ from django.contrib import admin
 class AlbumAdmin(admin.ModelAdmin):
 	list_display = ('user', 'title', 'clean_title', 'last_upload', 'created', 'public', 'writable_to', 'order')
 	list_editable = ('title', 'clean_title', 'public', 'order')
-	list_filter = ('user', 'public', 'writable_to', 'created')
+	list_filter = ('user', 'public', 'writable_to', 'created', 'trash')
 	search_fields = ('title', 'description')
 	raw_id_fields = ('user', 'cover')
 
