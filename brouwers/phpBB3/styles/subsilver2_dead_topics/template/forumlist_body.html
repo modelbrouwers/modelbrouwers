@@ -39,7 +39,7 @@
 		<!-- ENDIF -->
 		<tr>
 			<td class="row1" width="50" align="center">{forumrow.FORUM_FOLDER_IMG}</td>
-			<td class="row1" width="100%">
+			<td class="row1" width="100%" id="forum_{forumrow.FORUM_ID}">
 				<!-- IF forumrow.FORUM_IMAGE -->
 					<div style="float: {S_CONTENT_FLOW_BEGIN}; margin-{S_CONTENT_FLOW_END}: 5px;">{forumrow.FORUM_IMAGE}</div>
 				<!-- ENDIF -->
@@ -49,7 +49,12 @@
 					<p class="forumdesc"><strong>{forumrow.L_MODERATOR_STR}:</strong> {forumrow.MODERATORS}</p>
 				<!-- ENDIF -->
 				<!-- IF forumrow.SUBFORUMS and forumrow.S_LIST_SUBFORUMS -->
-					<p class="forumdesc"><strong>{S_UNREAD}{forumrow.L_SUBFORUM_STR}</strong> {forumrow.SUBFORUMS}</p>
+					<p class="forumdesc"><strong>{S_UNREAD}{forumrow.L_SUBFORUM_STR}</strong>
+					<!-- BEGIN subforum --><!-- IF subforum.S_FIRST_ROW != 1 -->, <!-- ENDIF -->
+					    <a id="forum_{forumrow.FORUM_ID}_sub_{subforum.S_ROW_COUNT}" href="{subforum.U_SUBFORUM}" 
+					        class="subforum <!-- IF subforum.S_UNREAD -->unread<!-- ELSE -->read<!-- ENDIF -->" 
+					        title="<!-- IF subforum.S_UNREAD -->{L_NEW_POSTS}<!-- ELSE -->{L_NO_NEW_POSTS}<!-- ENDIF -->">{subforum.SUBFORUM_NAME}</a><!-- END subforum -->
+					</p>
 				<!-- ENDIF -->
 			</td>
 			<td class="row2" align="center"><p class="topicdetails">{forumrow.TOPICS}</p></td>

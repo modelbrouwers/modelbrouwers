@@ -80,7 +80,7 @@
                         </strong>
                     </a>
                     <br />
-                    <span class="description">
+                    <span class="description" title="{{ album.description }}">
                         {% if album.description|length > 100 %}
                             {{ album.description|truncatechars:100 }}
                         {% else %}

@@ -1,0 +1,2 @@
+SetEnv HTTP_CurrentLocation "forum"
+php_value current_location "forum"

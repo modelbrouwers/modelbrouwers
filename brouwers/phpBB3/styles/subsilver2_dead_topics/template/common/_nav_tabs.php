@@ -1,0 +1,1 @@
+/home/bbt/coding/brouwers/brouwers/templates/php_templates/nav_tabs.php

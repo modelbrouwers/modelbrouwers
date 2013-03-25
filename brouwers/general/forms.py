@@ -288,4 +288,7 @@ class RedirectForm(forms.Form):
     
     def clean_redirect(self):
         path = self.cleaned_data['redirect']
-        return "%s%s" % (settings.PHPBB_URL, path[1:])
+        if path:
+            return "%s%s" % (settings.PHPBB_URL, path[1:])
+        else:
+            return ""

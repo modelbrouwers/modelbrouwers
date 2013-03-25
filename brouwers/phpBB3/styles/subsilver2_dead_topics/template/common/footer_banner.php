@@ -2,6 +2,7 @@
     <ul>
         <li>
             <a class="aankeiler" href="http://www.modelbrouwers.nl/shop/catalog/decals-en-benodigdheden-c-66.html?language=nl">decalbenodigdheden</a>
+            <!--<br />-->
             <div id="footer-decals" class="blokje">
                 <a class="div_link" href="http://www.modelbrouwers.nl/shop/catalog/decals-en-benodigdheden-c-66.html?language=nl"></a>
             </div>

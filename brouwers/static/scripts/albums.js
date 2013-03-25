@@ -6,6 +6,7 @@
 $(document).ready(function() {
     $('.no-javascript').remove(); //hide the warning
     fixVerticalCenter(); // vertical centering of images
+    $('div.description').tooltip(); // show full description in popup from spotlight albums
     
     // BBCode stuff
     $('.BBCode').focus(function(){

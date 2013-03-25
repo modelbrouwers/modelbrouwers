@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'albums',
     'awards',
     'builds',
+    'forum_tools',
     'general',
 #    'groepsbouwkalender',
     'migration',

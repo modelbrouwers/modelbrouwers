@@ -8,6 +8,18 @@ $(document).ready(function(){
 		$('body').css('overflow-y','auto');
 		return false;
 	});
+	
+	// oranje briefjes syncen
+	$.get('/forum_tools/get_sync_data/', function(response){
+	    $.each(response, function(key, value){
+	        var source = $('#'+key);
+	        var cls = source.attr('class');
+	        var title = source.attr('title');
+	        $.each(value, function(key, value){
+	            $('#'+value).attr('class', cls).attr('title', title);
+	        });
+	    });
+	});
 });
 
 // dead topics

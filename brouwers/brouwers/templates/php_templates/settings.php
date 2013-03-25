@@ -52,7 +52,6 @@
             }
         }
     }
-    echo $best_match;
     
     // hightlightsettings doen
     if ($best_match){

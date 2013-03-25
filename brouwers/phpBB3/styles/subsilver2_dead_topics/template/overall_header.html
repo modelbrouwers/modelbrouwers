@@ -23,10 +23,10 @@
 	<!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
 	<!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
 <!-- ENDIF -->
-<link rel="stylesheet" type="text/css" href="/static/css/common.css?v=1.0" charset="utf-8"/>
 <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
-<link rel="stylesheet" type="text/css" href="/static/css/jquery-ui-1.8.22.custom.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/albums_forum.css?v=beta-1.0" charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="/static/css/common.css?v=1.1.1" charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="/static/css/jquery-ui-1.10.2.custom.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/albums_forum.css?v=1.1.1" charset="utf-8"/>
 
 
 <script type="text/javascript">
@@ -145,11 +145,20 @@ function marklist(id, name, state)
 
 // ]]>
 </script>
-<script type="text/javascript" src="{T_TEMPLATE_PATH}/jquery.js"></script>
-<script type="text/javascript" src="{T_TEMPLATE_PATH}/topic_dead.js"></script>
-<script type="text/javascript" src="/static/scripts/jquery-ui-1.8.23.custom.min.js"></script>
-<!--<script type="text/javascript" src="/static/scripts/tinyscrollbar.js"></script>-->
-<script type="text/javascript" src="/static/scripts/albums_forum.js?v=1.0.3"></script>
+<!-- use googles jquery, loads faster and relieves own server -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- fallback -->
+    <script type="text/javascript">
+        if (typeof jQuery == 'undefined')
+        {
+            document.write(unescape("%3Cscript src='/static/scripts/jquery.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script type="text/javascript" src="/static/scripts/jquery-ui-1.10.2.custom.min.js"></script>
+    <!--<script type="text/javascript" src="/static/scripts/tinyscrollbar.js"></script>-->
+    <script type="text/javascript" src="/static/scripts/forum.js?v=1.1.1"></script>
+    <script type="text/javascript" src="/static/scripts/albums_forum.js?v=1.1.1"></script>
+    <!-- IF U_MCP || U_ACP --><script type="text/javascript" src="/static/scripts/mods.js?v=1.1.1"></script><!-- ENDIF -->
 </head>
 
 <body class="{S_CONTENT_DIRECTION}">

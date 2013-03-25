@@ -138,54 +138,6 @@ input.submit-button:hover {
 	);
 	background-position: center bottom;
 }
-/*** NAVIGATION BAR, SHOP BANNER ***/
-div#navigation, div#shop_banner{
-    margin: 0 auto;
-    text-align: center;
-    min-width: 1200px;
-    height: 38px;
-    background-image: url("/static/images/nav/nav_bg.gif");
-    background-repeat: repeat-x;
-}
-#navigation ul, #shop_banner ul{
-    margin: 0 auto 0 auto;
-    list-style: none;
-    height: 38px;
-    font-size: 0;
-}
-#navigation li, #shop_banner li{
-    display: inline-block;
-    list-style: none;
-    margin-bottom: 3px;
-    width: 130px;
-    font-size: 14px;
-	/* IE 7 hack */
-	zoom: 1;
-	*display: inline;
-}
-#navigation li a, #shop_banner li a{
-    display: inline-block;
-}
-#navigation li img{
-    width: 130px;
-    height: 35px;
-}
-#navigation li#kitreviews, #navigation li#kitreviews img{
-    width: 173px;
-}
-/*** SHOP BANNER ***/
-div#shop_banner, #shop_banner ul{
-	height: 25px;
-	background-image: none;
-}
-#shop_banner li{
-	width: auto;
-	margin: 0;
-	padding: 0;
-}
-#shop_banner li img{
-	height: 25px;
-}
 /*** LOGO + AANKONDIGINGEN + FLEX + MM ***/
 div#logo, div#logo div{
 	height: 75px;
