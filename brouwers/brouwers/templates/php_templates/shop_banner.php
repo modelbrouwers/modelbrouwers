@@ -68,7 +68,7 @@
 </li>
 <li>
     <a href="/shop/catalog/pro-modeller-m-43.html?language=nl&amp;sort=2a">
-    <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/promodeller.gif" alt="" width="57" /></a>
+        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/promodeller.gif" alt="" width="57" /></a>
 </li>
 <li>
     <a href="/shop/catalog/vallejo-m-42.html?language=nl&amp;sort=2a">
