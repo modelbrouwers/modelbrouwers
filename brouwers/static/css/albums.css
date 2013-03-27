@@ -198,6 +198,8 @@ div#uploadify_input{
     clear: both;
     display: inline-block;
     margin-left: 5em;
+    zoom: 1;
+    *display: inline;
 }
 a#start_upload, a#next_step{
     display: inline-block;

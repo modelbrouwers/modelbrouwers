@@ -16,9 +16,8 @@ td span.help_text{display: inline-block; max-width:500px;}
 <!--[if IE 7]>
 	<style type="text/css">
 		#id_album{border-width:2px;}
-		/*td.field{width:auto;}*/
-		#create_new_album button{padding:0;}
-		a#start_upload{margin-left:3em;margin-bottom:1em;}
+		#special-form a#create_new_album button{padding-top:0;padding-bottom:0}
+		a#start_upload, a#end-upload, a#next_step{margin-bottom:0.3em;}
 	</style>
 <![endif]-->
 {% endblock %}
@@ -190,10 +189,13 @@ $(document).ready(function() {
 {% spaceless %}
 <div id="uploadify">
     <input type="file" name="file_upload" id="uploadify_input" />
+    {% spaceless %}
     <a onclick="$('#uploadify_input').uploadify('upload', '*');" id="start_upload">
-        <button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">{% trans 'Start upload' %}</button></a>
+        <button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">{% trans 'Start upload' %}</button>
+    </a>
     <a id="end-upload" href="" style="display:none;"></a>
     <a id="next_step" href="" style="display:none;"></a>
+    {% endspaceless %}
     <div class="subtitle tab" style="display: none;" id="queue-title">{% trans 'Upload queue' %}</div>
     <div id="upload_queue"></div>
 </div>

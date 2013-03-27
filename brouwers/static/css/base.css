@@ -29,18 +29,7 @@ a img   {border: none;}
     font-weight: bold;
     font-size: 0.9em;
 }
-button.ui-button{padding: 0.3em;}
-div.ui-widget-header{
-    background: #069;
-    background-image: none;
-    color: white;
-	background: -moz-linear-gradient(top, #069 0%, #0A1871 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#069), color-stop(100%,#0a1871));
-	background-image: -o-linear-gradient(top,rgb(0,102,153),rgb(10,24,113));
-}
-body .ui-tooltip{
-	font-size: 80%;
-}
+
 /*** FORMS ***/
 input, select, textarea {
   box-sizing: border-box;
@@ -188,7 +177,8 @@ ul#menu{
     background-color: #0A1871;
 	background: -moz-linear-gradient(top, #069 0%, #0A1871 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#069), color-stop(100%,#0a1871));
-	background-image: -o-linear-gradient(top,rgb(0,102,153),rgb(10,24,113));	
+	background-image: -o-linear-gradient(top,rgb(0,102,153),rgb(10,24,113));
+    background: linear-gradient(#006699, #0A1871);	
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006699', endColorstr='#0A1871',GradientType=0 );
 	zoom: 1;
     
@@ -202,11 +192,6 @@ ul#menu{
 	-moz-border-top-left-radius: 6px;
     height: 24px;
 }
-/*#menu:after {
-    content:"";
-    clear:both;
-    display:block;
-}*/
 ul#menu li{
 	display: inline;
     float: left;
@@ -247,30 +232,6 @@ div.pagination a, div.pagination span{
 div.pagination a:hover{
     text-decoration: underline;
 }
-/*** FOOTER/BANNER ***/
-div#footer{text-align: center;margin-bottom: 1em;min-width: 870px;}
-div#copyright{font-size: 0.6em;margin-top: 2em;}
-div#shop-footer{font-family: Verdana, Arial, Helvetica, sans-serif;text-align: center;}
-div#shop-footer .aankeiler{font-weight: regular; font-size: 10px; color: #999}
-div#shop-footer .aankeiler:hover{text-decoration: none; color: #1d42ff;}
-div#shop-footer ul{width: 96%;margin: 0 auto 0 auto;list-style: none;}
-div#shop-footer li, div#shop-footer a.aankeiler, div#shop-footer a.div_link{
-    display: inline-block;
-    text-align: center;
-    /* IE 7 hack */zoom: 1;
-    *display: inline;
-}
-div#shop-footer a.div_link{width:100%;height:100%;}
-/*div#shop-footer li#new_product{position:relative;top:156px;}*/
-div#shop-footer div.blokje{width: 156px;height: 146px;margin: 0 auto;}
-#footer-decals              {background: url('/static/images/shop/decal_onder.jpg');}
-#footer-decals:hover        {background: url('/static/images/shop/decal_boven.gif');}
-#footer-schuur-polijst      {background: url('/static/images/shop/schuur-polijst_onder.jpg');}
-#footer-schuur-polijst:hover{background: url('/static/images/shop/schuur-polijst_boven.jpg');}
-#footer-gieten              {background: url('/static/images/shop/gietprod_onder.gif')}
-#footer-gieten:hover        {background: url('/static/images/shop/gietprod_boven.gif')}
-#footer-verlichting         {background: url('/static/images/shop/verlichting_onder.gif')}
-#footer-verlichting:hover   {background: url('/static/images/shop/verlichting_boven.gif')}
 /*** CONTENT ***/
 div#content_wrapper{
     clear: both;
@@ -297,6 +258,7 @@ div.tab{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C7D0D7', endColorstr='#C7D0D7',GradientType=0 );
 	zoom: 1;
 	background-image: -o-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
+    background: linear-gradient(#C7D0D7 92%, #6F8698 100%);
 	border-right: solid 1px #CCC;
 	border-left: solid 1px #CCC;
 }

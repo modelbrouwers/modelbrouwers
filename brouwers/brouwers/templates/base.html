@@ -12,14 +12,14 @@
 	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
 	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/common.css?v={{ software_version }}" charset="utf-8"/>
 		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.10.2.custom.css" />
-        <!--[if IE]>
+        <!--[if IE 9]>
             <style type="text/css">
-                div.tab{border-bottom: solid 2px #6F8698;}
                 ul#menu li a{padding-top: 2px;}
             </style>
         <![endif]-->
         <!--[if lte IE 8]>
             <style type="text/css">
+                div.tab{border-bottom: solid 2px #6F8698;}
                 ul#menu{
                     background-color: #0A1871;
                     background-image: url('/static/images/nav/bg_menu.png');
@@ -171,7 +171,7 @@
                 <div id="copyright">
                     <img src="{{ STATIC_URL }}images/varia/email.png" width="158" height="15" alt="admins@modelbrouwers.nl" />
                     <br />
-                    &copy; 2005-2012 Modelbrouwers.nl &amp; Sergei Maertens (2012)
+                    &copy; 2005-2013 Modelbrouwers.nl &amp; Sergei Maertens
                     {% if user.is_superuser %}<br /><a href="/admin/">[ Django admin ]</a>{% endif %}
                 </div>
             {% endblock %}
