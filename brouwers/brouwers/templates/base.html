@@ -1,6 +1,8 @@
-{% load i18n %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+{% load i18n %}
+{% load staticfiles %}
 <head>
 	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,9 +11,9 @@
 	<meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
 	
 	{% block style %}
-	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css?v={{ software_version }}" charset="utf-8"/>
-	    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/common.css?v={{ software_version }}" charset="utf-8"/>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery-ui-1.10.2.custom.css" />
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" charset="utf-8"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-1.10.2.custom.css' %}" />
         <!--[if IE 9]>
             <style type="text/css">
                 ul#menu li a{padding-top: 2px;}
@@ -38,15 +40,15 @@
         <script type="text/javascript">
         if (typeof jQuery == 'undefined')
         {
-            document.write(unescape("%3Cscript src='{{ STATIC_URL }}scripts/jquery.js' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
         }
         </script>
-	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/common.js?v{{ software_version }}"></script>
-	    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery-ui-1.10.2.custom.min.js"></script>
+	    <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
         {% block extrascript %}
 	    {% endblock %}
 	{% endblock scripts %}
-    <link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" /> 
+    <link rel="shortcut icon" href="{% static 'images/icon/favicon.ico' %}" /> 
 </head>
 
 <body>
@@ -76,7 +78,7 @@
              <div class="left">
                 {% spaceless %}
                  <a href="{% url general.views.index %}">
-                    <img src="{{ STATIC_URL }}images/logo/logo_modelbrouwers.png" width="395" height="75" alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
+                    <img src="{% static 'images/logo/logo_modelbrouwers.png' %}" width="395" height="75" alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
                  </a>{% endspaceless %}
             </div>
             <div id="announcement">
@@ -86,11 +88,11 @@
 
             <div class="right">{% spaceless %}
                 <a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank">
-                    <img class="rounded" src="{{ STATIC_URL }}images/varia/MM-actie.gif" 
+                    <img class="rounded" src="{% static 'images/varia/MM-actie.gif' %}" 
                         alt="Modelbouwmagazine / Modelbrouwers ACTIE" width="308" height="60" />
                 </a>
                 <a href="http://www.flexwebhosting.nl/" target="_blank">
-                    <img class="rounded" src="{{ STATIC_URL }}images/varia/flex_webhosting.gif" 
+                    <img class="rounded" src="{% static 'images/varia/flex_webhosting.gif' %}" 
                         width="234" height="60" alt="Flexwebhosting.nl" />
                 </a>{% endspaceless %}
             </div>
@@ -129,7 +131,7 @@
                             <li class="user-auth">
                                 <a href="{% url general.views.custom_logout %}">
                                     <span>&nbsp;</span><!-- hack for proper height display in chrome -->
-                                    <img id="img-logout" src="{{ STATIC_URL }}images/icons/door.png" title="{% trans 'logout' %}" alt="{% trans 'logout' %}"/>
+                                    <img id="img-logout" src="{% static 'images/icons/door.png' %}" title="{% trans 'logout' %}" alt="{% trans 'logout' %}"/>
                                     <span>&nbsp;</span>
                                 </a>
                             </li>
@@ -169,7 +171,7 @@
             {% block footer %}
                 {% include "footer_banner.html" %}
                 <div id="copyright">
-                    <img src="{{ STATIC_URL }}images/varia/email.png" width="158" height="15" alt="admins@modelbrouwers.nl" />
+                    <img src="{% static 'images/varia/email.png' %}" width="158" height="15" alt="admins[[@]]modelbrouwers.nl" />
                     <br />
                     &copy; 2005-2013 Modelbrouwers.nl &amp; Sergei Maertens
                     {% if user.is_superuser %}<br /><a href="/admin/">[ Django admin ]</a>{% endif %}

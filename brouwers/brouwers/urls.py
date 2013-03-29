@@ -1,8 +1,7 @@
-from django.conf.urls.defaults import *
 from django.conf import settings
-
-# Uncomment the next two lines to enable the admin:
+from django.conf.urls.defaults import *
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -19,6 +18,8 @@ urlpatterns = patterns('',
     (r'^',              include('general.urls')),
     )
 
+urlpatterns += staticfiles_urlpatterns()
+
 ##################
 # JS TRANSLATION #
 ##################
@@ -32,8 +33,8 @@ urlpatterns = patterns('',
 
 if settings.DEBUG and settings.DEVELOPMENT:
 	urlpatterns += patterns('',
-		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+#		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
 		(r'^404/$', 'django.views.generic.simple.direct_to_template', {'template': '404.html'}),
 	)
 

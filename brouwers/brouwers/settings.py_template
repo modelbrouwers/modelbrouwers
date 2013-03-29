@@ -42,6 +42,13 @@ STATIC_ROOT = '{ CD }static/'
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    '{ CD }brouwers/static',
+)
+
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
+# won't play nice with javascript stuff TODO: maybe make a get request to get the static files from django in phpBB templates!
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'herpmiz2j66z22($vv6&fgi_np#t$(xj8m=!o$hmspom2(&pkd0^-kderp'
 
@@ -68,7 +75,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'sessionprofile.middleware.SessionProfileMiddleware',
+#    'sessionprofile.middleware.SessionProfileMiddleware',
     'albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -89,11 +96,14 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
-    # Uncomment the next line to enable the admin:
+    'django.contrib.staticfiles',
     'django.contrib.admin',
+    #'sessionprofile',
+    #'south',
+    # own apps
     'albums',
     'awards',
     'builds',
@@ -103,9 +113,7 @@ INSTALLED_APPS = (
     'migration',
     'online_users',
     'secret_santa',
-    'sessionprofile',
     'shirts',
-    'south',
 )
 
 # how long before cookie expires => 10 weeks
@@ -113,7 +121,6 @@ SESSION_COOKIE_AGE = 6048000
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-#    'brouwers.django_rpx.backends.RpxBackend',
 )
 
 AUTH_PROFILE_MODULE = 'general.UserProfile'
@@ -126,7 +133,7 @@ try:
     from local_settings import *
 except ImportError:
     try:
-        from mod_python import apache
+        from mod_wsgi import apache
         apache.log_error("You need to copy local_settings.py.example to local_settings.py and edit settings")
     except ImportError:
         import sys

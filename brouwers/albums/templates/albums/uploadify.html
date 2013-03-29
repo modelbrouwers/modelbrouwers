@@ -55,9 +55,9 @@ $(document).ready(function() {
         'onUploadSuccess': function(file, data, response) {
             photo_ids += data + "+";
         },
-        'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+        /*'onUploadError' : function(file, errorCode, errorMsg, errorString) { TODO: proper handler
             alert(errorString);
-        },
+        },*/
         'onQueueComplete' : function(queueData) {
             //remove the previous button
             var href = '/albums/upload/uploadify/complete/?album='+albumId+'&photo_ids='+photo_ids;

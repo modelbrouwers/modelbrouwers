@@ -171,14 +171,14 @@ div#messages ul.messages li{
 	margin: 4px 0 4px 30px;
 }
 div#messages ul li.success{
-	list-style-image: url(/media/admin/img/admin/icon_success.gif);
+	list-style-image: url(/media/admin/img/icon_success.gif);
 }
 div#messages ul li.error{
-	list-style-image: url(/media/admin/img/admin/icon_error.gif);
+	list-style-image: url(/media/admin/img/icon_error.gif);
 	color: red;
 }
 div#messages ul li.info{
-	list-style-image: url(/media/admin/img/admin/icon_deletelink.gif);
+	list-style-image: url(/media/admin/img/icon_deletelink.gif);
 }
 /*** content ***/
 a{
