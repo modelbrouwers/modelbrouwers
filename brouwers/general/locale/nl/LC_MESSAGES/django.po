@@ -60,7 +60,7 @@ msgstr "Dit e-mailadres is al geregistreerd."
 
 #: forms.py:101
 msgid "answer"
-msgstr "Dit e-mailadres is al geregistreerd."
+msgstr "antwoord"
 
 #: forms.py:115
 msgid "Forum name"
