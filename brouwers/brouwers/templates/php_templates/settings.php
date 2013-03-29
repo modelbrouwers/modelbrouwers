@@ -5,6 +5,7 @@
     $settings = array(
         'MEDIA_URL'         => '/media/',
         'STATIC_URL'        => '/static/',
+        'HONEYPOT_URL'      => '/scratchy.php',
     );
     
     // options: 'achter' or 'voor' in the filename. voor <==> highlighted image

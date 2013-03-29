@@ -40,5 +40,5 @@ if settings.DEBUG and settings.DEVELOPMENT:
 # some sort of catchall, check the database if redirects exist, else return a 404
 # this MUST come as last option
 urlpatterns += patterns('general.views',
-    (r'^([a-z,A-z,/,0-9,-,_]+)/$', 'test_redirects'),
+    (r'^([a-z,A-z,/,0-9,-,_]+(?!\.php$))/$', 'test_redirects'),
     )

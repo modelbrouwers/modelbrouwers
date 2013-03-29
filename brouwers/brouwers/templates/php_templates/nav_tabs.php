@@ -9,3 +9,4 @@
         <img src="{{ STATIC_URL }}images/nav/modelbouw_wiki.png" alt="Modelbouw Wiki"/>
     </li>-->
 </ul>
+<a href="<?php echo $settings['HONEYPOT_URL']; ?>" style="display: none;">ozone-inevitable</a>

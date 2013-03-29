@@ -4,7 +4,7 @@
     <!-- TODO: translations + using li elements + showing public profile info -->
     <div class="tab">
         {% spaceless %}
-        Albums van <a href="profile.get_absolute_url">
+        Albums van <a href="{{ profile.get_absolute_url }}">
             <strong>{{ profile.forum_nickname }}</strong>
         </a>
         <span class="properties">&nbsp;({{ total }} albums)</span>

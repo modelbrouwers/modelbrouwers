@@ -33,3 +33,7 @@ VALID_IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png']
 THUMB_DIMENSIONS = (200, 150, 'thumb_')
 
 PHPBB_TABLE_PREFIX = 'phpbb3_'
+PHPBB_URL = '/phpBB3'
+
+HTTPBL_ACCESS_KEY = 'yegymochlggr'
+URL_HONEYPOT = '/scratchy.php'

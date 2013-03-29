@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import date, datetime
 
 from awards.models import Category
-from utils import get_client_ip
+from utils import get_client_ip, lookup_http_blacklist
 import zlib
 
 COUNTRY_CHOICES = (
@@ -122,6 +122,10 @@ class RegistrationAttempt(models.Model):
     ip_address = models.IPAddressField(_('IP address'), db_index=True)
     success = models.BooleanField(_('success'))
     
+    # keeping spam out
+    potential_spammer = False
+    type_of_visitor = models.CharField(_('type of visitor'), max_length=255, default=_('normal user'))
+    
     class Meta:
         verbose_name = _('registration attempt')
         verbose_name_plural = _('registration attempts')
@@ -132,15 +136,21 @@ class RegistrationAttempt(models.Model):
     
     @classmethod
     def add(cls, request):
+        ip = get_client_ip(request)
         instance = cls(
             username = request.POST.get('forum_nickname'),
             question_id = request.POST.get('question'),
             answer = request.POST.get('answer'),
-            ip_address = get_client_ip(request)
-            ).save()
+            ip_address = ip
+            )
+        
+        type_of_visitor, potential_spammer = lookup_http_blacklist(ip)
+        if type_of_visitor is not None and potential_spammer is not None:
+            instance.potential_spammer = potential_spammer
+            instance.type_of_visitor = type_of_visitor
+        
+        instance.save()
         return instance
-
-
 
 class SoftwareVersion(models.Model):
     VERSION_TYPES = (

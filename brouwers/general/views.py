@@ -25,6 +25,7 @@ from secret_santa.models import Participant
 
 from forms import *
 from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset, RegistrationAttempt
+from utils import send_inactive_user_mail
 from datetime import date, datetime, timedelta
 from django.conf import settings
 import random
@@ -52,7 +53,6 @@ def index(request):
         return HttpResponseRedirect('/index.php')
     return render(request, 'base.html')
 
-### ready for implementation on modelbrouwers.nl
 def register(request):
     error = ''
     question = None
@@ -75,8 +75,16 @@ def register(request):
                     nickname = form.cleaned_data['forum_nickname']
                     password = form.cleaned_data['password1']
                     new_user = authenticate(username = username, password = password)
-                    login(request, new_user)
                     
+                    # do not log in potential spammers
+                    if attempt.potential_spammer:
+                        new_user.is_active = False
+                        new_user.save()
+                        send_inactive_user_mail(new_user)
+                    else:
+                        login(request, new_user)
+                    
+                    # TODO: move to template + add translations
                     subject = 'Registratie op modelbrouwers.nl'
                     message = 'Bedankt voor uw registratie op http://modelbrouwers.nl.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
                     sender = 'admins@modelbrouwers.nl'
@@ -97,7 +105,15 @@ def register(request):
         question = RegistrationQuestion.objects.all().order_by('?')[0]
         questionform = QuestionForm(initial = {'question':question})
         answerform = AnswerForm()
-    return render(request, 'general/register.html', {'error': error, 'form': form, 'questionform': questionform, 'question': question, 'answerform': answerform})
+    return render(request, 'general/register.html', 
+                {
+                'error': error, 
+                'form': form, 
+                'questionform': questionform, 
+                'question': question, 
+                'answerform': answerform
+                }
+            )
 
 def custom_login(request):    
     next_page = request.REQUEST.get('next')
@@ -169,7 +185,7 @@ def custom_login(request):
 def custom_logout(request):
     next_page = request.GET.get('next')
     if not next_page or ' ' in next_page:
-        next_page = "/?logout=1"
+        next_page = "/"
     logout(request)
     return HttpResponseRedirect(next_page)
 
@@ -195,6 +211,7 @@ def confirm_account(request):
         form = ForumAccountForm(request.GET)
         initial = True
     return render(request, 'general/confirm_account.html', {'form': form, 'initial':initial})
+
 
 #############################
 #    showing userprofile    #

@@ -1,0 +1,5 @@
+{# TODO: add translations #}
+{% load url from future %}
+Beste admin
+
+Een nieuwe gebruiker registreerde zich die gemarkeerd werd als potentiële spambot: beheer op http://modelbrouwers.nl{% url 'admin:auth_user_change' user.pk %}.
