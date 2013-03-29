@@ -24,7 +24,7 @@ from awards.models import Project
 from secret_santa.models import Participant
 
 from forms import *
-from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset
+from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset, RegistrationAttempt
 from datetime import date, datetime, timedelta
 from django.conf import settings
 import random
@@ -60,6 +60,8 @@ def register(request):
         form = RegistrationForm(request.POST)
         answerform = AnswerForm(request.POST)
         questionform = QuestionForm(request.POST)
+        attempt = RegistrationAttempt.add(request)
+        
         if questionform.is_valid():
             question = questionform.cleaned_data['question']
         if form.is_valid():
@@ -84,6 +86,9 @@ def register(request):
                     next_page = request.GET.get('next', reverse(profile))
                     if ' ' in next_page:
                     	next_page = reverse(profile)
+                    
+                    attempt.success = True
+                    attempt.save()
                     return HttpResponseRedirect(next_page)
                 else:
                     error = "Fout antwoord."

@@ -35,6 +35,11 @@ class QuestionAdmin(admin.ModelAdmin):
 class QuestionAnswerAdmin(admin.ModelAdmin):
     list_display = ('answer',)
 
+class RegistrationAttemptAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'question', 'answer', 'timestamp', 'ip_address', 'success')
+    list_filter = ('success', 'timestamp', 'ip_address', 'username')
+    search_fields = ('username',)
+
 class SoftwareVersionAdmin(admin.ModelAdmin):
     list_diplsay = ('__unicode__', 'start', 'end')
 
@@ -54,6 +59,7 @@ admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(ForumUser, ForumUserAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)
 admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
+admin.site.register(RegistrationAttempt, RegistrationAttemptAdmin)
 admin.site.register(SoftwareVersion, SoftwareVersionAdmin)
 admin.site.register(Redirect, RedirectAdmin)
 admin.site.register(PasswordReset, PasswordResetAdmin)

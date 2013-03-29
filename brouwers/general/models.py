@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import date, datetime
 
 from awards.models import Category
+from utils import get_client_ip
 import zlib
 
 COUNTRY_CHOICES = (
@@ -111,6 +112,35 @@ class RegistrationQuestion(models.Model):
     
     def __unicode__(self):
         return u"%s" % self.question
+
+class RegistrationAttempt(models.Model):
+    username = models.CharField(_('username'), max_length=30) # same as forum_nickname
+    question = models.ForeignKey(RegistrationQuestion, verbose_name=_('registration question'))
+    answer = models.CharField(_('answer'), max_length=255)
+    # answer_correct = models.BooleanField(_('correct answer?'))
+    timestamp = models.DateTimeField(_('timestamp'), auto_now_add=True)
+    ip_address = models.IPAddressField(_('IP address'))
+    success = models.BooleanField(_('success'))
+    
+    class Meta:
+        verbose_name = _('registration attempt')
+        verbose_name_plural = _('registration attempts')
+        ordering = ('-timestamp',)
+    
+    def __unicode__(self):
+        return u"%s" % self.username
+    
+    @classmethod
+    def add(cls, request):
+        instance = cls(
+            username = request.POST.get('forum_nickname'),
+            question_id = request.POST.get('question'),
+            answer = request.POST.get('answer'),
+            ip_address = get_client_ip(request)
+            )
+        return instance
+
+
 
 class SoftwareVersion(models.Model):
     VERSION_TYPES = (
