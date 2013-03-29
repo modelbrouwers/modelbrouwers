@@ -5,8 +5,8 @@
 
 {% block style %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/albums.css?v={{ software_version }}" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css?v={{ software_version }}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/albums.css' %}" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/uploadify.css' %}" />
 {% endblock style %}
 	
 {% block scripts %}
@@ -23,7 +23,7 @@
 	    var trans_find_users = "{% trans 'find users...' %}";
 	    var trans_revoke_rights = "{% trans 'click to remove from group' %}";
 	</script>
-	<script type="text/javascript" src="{{ STATIC_URL }}scripts/albums.js?v={{ software_version }}"></script>
+	<script type="text/javascript" src="{% static 'scripts/albums.js' %}"></script>
 	{% block extrascript %}
 	{% endblock %}
 {% endblock scripts %}

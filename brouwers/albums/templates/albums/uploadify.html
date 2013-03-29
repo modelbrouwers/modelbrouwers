@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block extrastyle %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/uploadify.css" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/uploadify.css' %}" />
 <style type="text/css">
 #new-album-upload{display:none;}
 td span.help_text{display: inline-block; max-width:500px;}
@@ -23,10 +23,10 @@ td span.help_text{display: inline-block; max-width:500px;}
 {% endblock %}
 
 {% block extrascript %}
-<script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.uploadify-3.1.min.js"></script>
+<script type="text/javascript" src="{% static 'scripts/jquery.uploadify-3.1.min.js' %}"></script>
 <script type="text/javascript">
 var url_new = "{% url albums.ajax_views.new_album_jquery_ui %}";
-var success_icon = '&nbsp;<img src="{{ STATIC_URL }}admin/img/icon-yes.gif" width="10" height="10" alt="ok"></img>';
+var success_icon = '&nbsp;<img src="{% static "admin/img/icon-yes.gif" %}" width="10" height="10" alt="ok"></img>';
 
 $(document).ready(function() {
     /* uploadify */
@@ -36,7 +36,7 @@ $(document).ready(function() {
 	var photo_ids = "";
     
     $('#uploadify_input').uploadify({
-        'swf'       : '{{ STATIC_URL }}scripts/uploadify.swf',
+        'swf'       : '{% static "scripts/uploadify.swf" %}',
         'uploader'  : '{% url albums.ajax_views.uploadify %}',
         'auto'      : {% if album_preferences.auto_start_uploading %}true{% else %}false{% endif %},
         'buttonText': '{% trans "Browse" %}',

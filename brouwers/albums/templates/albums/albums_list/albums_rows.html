@@ -26,15 +26,15 @@
                 {% endif %}
                     
                     {% if not album.public %}
-                        <img class="private" src="{{ STATIC_URL }}images/icons/private.png" width="16" 
+                        <img class="private" src="{% static 'images/icons/private.png' %}" width="16" 
                         height="16" alt="private" title="{% trans 'This album is only visible for me' %}"/>
                     {% endif %}
                     
                     {% ifequal album.user user %}
-                    <img class="edit" src="{{ STATIC_URL }}images/icons/edit.png" alt="edit" 
+                    <img class="edit" src="{% static 'images/icons/edit.png' %}" alt="edit" 
                     height="16" onclick="alert('edit');" title="{% trans 'Edit album' %}"/>
                     
-                    <img class="remove" src="{{ STATIC_URL }}images/icons/remove.png" alt="edit" 
+                    <img class="remove" src="{% static 'images/icons/remove.png' %}" alt="edit" 
                     height="16" onlick="alert('remove');" title="{% trans 'Move album to trash' %}"/>
                     {% endifequal %}
             </a>

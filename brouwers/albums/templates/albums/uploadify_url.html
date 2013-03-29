@@ -3,8 +3,7 @@
     <td class="field">
         {{ urlform.url }}
         {% if urlform.url.help_text %}
-            <img src="{{ STATIC_URL }}images/icons/help.png" width="16" 
-                height="16" alt="?" onclick="showHelp(this);"/>
+            <img src="{% static 'images/icons/help.png' %}" width="16" height="16" alt="?" title="{{ urlform.url.help_text }}"/>
         {% endif %}
         
         <span id="url-errors">
@@ -15,11 +14,6 @@
         </span>
     </td>
     <td class="help_text">
-        {% if urlform.url.help_text %}
-        <div class="rounded">
-            <img style="float:right;" src="{{ STATIC_URL }}images/icons/cancel.png" width="16" height="16" alt="Sluiten" onclick="$(this).parent().hide();"/>
-            {{ urlform.url.help_text }}
-        </div>
-        {% endif %}
+        <!-- TODO: weghalen -->
     </td>
 </tr>

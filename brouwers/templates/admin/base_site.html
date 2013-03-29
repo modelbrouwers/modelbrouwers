@@ -4,11 +4,11 @@
 {% block title %}{{ title }} | {% trans 'Modelbrouwers.nl admin' %}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="/"><img src="{{ STATIC_URL }}images/logo/logo_modelbrouwers.png" alt="Modelbrouwers.nl" width="182" height="30"/></a> {% trans 'administration' %}</h1>
+<h1 id="site-name"><a href="/"><img src="{% static 'images/logo/logo_modelbrouwers.png' %}" alt="Modelbrouwers.nl" width="182" height="30"/></a> {% trans 'administration' %}</h1>
 {% endblock %}
 
 {% block extrahead %}
-<link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.ico" />
+<link rel="shortcut icon" href="{{ STATIC_URL }}images/icons/favicon.ico" />
 {% endblock %}
 
 {% block userlinks %}

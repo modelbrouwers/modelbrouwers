@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>{% block title %}Brouwersapps &bull; Modelbrouwers.nl{% endblock %}</title>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base_old.css" charset="utf-8"/>
-		<link rel="shortcut icon" href="{{ STATIC_URL }}images/icons/favicon.ico" /> 
+		<link rel="stylesheet" type="text/css" href="{% static 'css/base_old.css' %}" charset="utf-8"/>
+		<link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" /> 
 		{% block extrastyle %}
 		{% endblock %}
 		{% block extrascript %}

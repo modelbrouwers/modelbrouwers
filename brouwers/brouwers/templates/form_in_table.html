@@ -21,7 +21,7 @@
         <td class="field">
             {{ field }}
             {% if field.help_text %}
-                <img src="{{ STATIC_URL }}images/icons/help.png" width="16" height="16" alt="?" title="{{ field.help_text }}"/>
+                <img src="{% static 'images/icons/help.png' %}" width="16" height="16" alt="?" title="{{ field.help_text }}"/>
             {% endif %}
         </td>
         <td class="help_text">
