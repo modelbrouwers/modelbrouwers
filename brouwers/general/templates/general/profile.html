@@ -18,6 +18,10 @@
 <div class="tab">
     {% trans 'Account details' %} &bull; 
     <a href="{% url django.contrib.auth.views.password_change %}" id="change-password-link">{% trans 'Change password' %}</a>
+    {% if user_is_new %}
+        &bull;
+        <a href="/introduce-yourself" style="color:red;"><strong>{% trans 'Introduce yourself!' %}</strong></a>
+    {% endif %}
 </div>
 
 <form action="" method="post" enctype="multipart/form-data">

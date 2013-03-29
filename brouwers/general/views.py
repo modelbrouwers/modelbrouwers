@@ -241,6 +241,12 @@ def profile(request):
         forms['userform'] = UserForm(instance=request.user)
         forms['awardsform'] = AwardsForm(instance=profile)
         forms['passwordform'] = PasswordChangeForm(user=request.user)
+    
+    min_date = datetime.now() - timedelta(weeks=1)
+    if min_date <= request.user.date_joined < datetime.now():
+        forms['user_is_new'] = True
+    else:
+        forms['user_is_new'] = False
     return render(request, 'general/profile.html', forms)
 
 def user_profile(request, username=None): # overview of albums from user
