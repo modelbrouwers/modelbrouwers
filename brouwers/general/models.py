@@ -137,7 +137,7 @@ class RegistrationAttempt(models.Model):
             question_id = request.POST.get('question'),
             answer = request.POST.get('answer'),
             ip_address = get_client_ip(request)
-            )
+            ).save()
         return instance
 
 
