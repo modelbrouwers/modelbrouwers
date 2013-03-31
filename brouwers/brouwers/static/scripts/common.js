@@ -9,7 +9,6 @@ $(document).ready(function(){
     now = new Date();
     d = now.getDate();
     m = now.getMonth() + 1;
-    
     if (d == 1 && m == 4){
         n = Math.random();
         //console.log(n);

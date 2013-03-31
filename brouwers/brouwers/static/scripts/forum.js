@@ -1,3 +1,4 @@
+var rotation = 0;
 $(document).ready(function(){
     $.get('/ou/so/');
     
@@ -20,7 +21,33 @@ $(document).ready(function(){
 	        });
 	    });
 	});
+	
+	now = new Date();
+    d = now.getDate();
+    m = now.getMonth() + 1;
+    if (d == 1 && m == 4){
+        n = Math.random();
+        //console.log(n);
+        if (n >= 0.40 && n <= 0.60){
+            setTimeout(function(){setInterval(function(){rotate()}, 1)}, 30000);
+        }
+    }
 });
+
+function rotate(){
+    if (rotation < 180){
+        rotation += 1;
+        rotateScreen(rotation);
+    }
+}
+
+function rotateScreen(degrees){
+    $('body').css('-webkit-transform', 'rotate('+degrees+'deg)');
+    $('body').css('-moz-transform', 'rotate('+degrees+'deg)');
+    $('body').css('-ms-transform', 'rotate('+degrees+'deg)');
+    $('body').css('-o-transform', 'rotate('+degrees+'deg)');
+    $('body').css('transform', 'rotate('+degrees+'deg)');
+}
 
 // dead topics
 function test_url(topic_id, a){
