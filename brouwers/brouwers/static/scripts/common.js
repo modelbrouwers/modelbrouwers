@@ -1,10 +1,22 @@
+var rotation = 0;
 $(document).ready(function(){
     $('td.help_text div').hide(); // hide the help texts
     
     $('img').tooltip({
     	track: true
     });
-    $('span.help_text').remove(); // mag weg als de tooltip werkt
+    
+    now = new Date();
+    d = now.getDate();
+    m = now.getMonth() + 1;
+    
+    if (d == 1 && m == 4){
+        n = Math.random();
+        //console.log(n);
+        if (n >= 0.40 && n <= 0.60){
+            setTimeout(function(){setInterval(function(){rotate()}, 1)}, 30000);
+        }
+    }
 });
 
 function showHelp(e){
@@ -24,6 +36,21 @@ function add_message(msg){
     m = m.replace("{{ text }}", msg.text);
     $('div#messages ul.messages').append(m);
     $('div#messages').show();
+}
+
+function rotate(){
+    if (rotation < 180){
+        rotation += 1;
+        rotateScreen(rotation);
+    }
+}
+
+function rotateScreen(degrees){
+    $('body').css('-webkit-transform', 'rotate('+degrees+'deg)');
+    $('body').css('-moz-transform', 'rotate('+degrees+'deg)');
+    $('body').css('-ms-transform', 'rotate('+degrees+'deg)');
+    $('body').css('-o-transform', 'rotate('+degrees+'deg)');
+    $('body').css('transform', 'rotate('+degrees+'deg)');
 }
 
 // CSRF protection, code from Django docs
