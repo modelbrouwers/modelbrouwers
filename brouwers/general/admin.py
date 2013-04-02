@@ -39,6 +39,7 @@ class RegistrationAttemptAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'question', 'answer', 'timestamp', 'ip_address', 'success', 'type_of_visitor')
     list_filter = ('success', 'timestamp', 'type_of_visitor', 'ip_address', 'username')
     search_fields = ('username',)
+    actions = None
 
 class SoftwareVersionAdmin(admin.ModelAdmin):
     list_diplsay = ('__unicode__', 'start', 'end')
