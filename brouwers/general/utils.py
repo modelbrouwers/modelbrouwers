@@ -31,6 +31,8 @@ def lookup_http_blacklist(ip):
         
         Returns a tupple (type_of_visitor, potential_spammer), e.g. ('comment spammer', True)
     """
+    if settings.DEVELOPMENT:
+        ip = '220.249.167.159'
     key = settings.HTTPBL_ACCESS_KEY
     octets = ip.split('.')
     octets.reverse()
@@ -38,6 +40,7 @@ def lookup_http_blacklist(ip):
     
     host = u"%s.%s.dnsbl.httpbl.org" % (key, reverse_ip)
     result = socket.getaddrinfo(host, 80)
+    
     # go with the first hit
     ip = result[0][4][0]
     octets = ip.split('.')
