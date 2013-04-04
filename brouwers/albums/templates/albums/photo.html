@@ -8,6 +8,11 @@
 </style>
 <![endif]-->
 {% endblock %}
+{% block extrascript %}
+<script type="text/javascript">
+$(document).ready(function(){$('input.BBCode').tooltip();});
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="tab photo-title">
@@ -45,12 +50,16 @@
                 </div>
                 
                 <div id="next-photo" class="in-photo-navigation">
+                    {% if album_preferences.show_direct_link and photo.user_id == user.id %}
+                        <input class="BBCode" type="text" readonly="readonly" value="{{ photo.direct_link }}" title="{% trans 'Copy direct link' %}"></input>
+                    {% endif %}
                     {% if photo.get_next %}
                     <a href="{{ photo.get_next.get_absolute_url }}#photo_{{ photo.get_next.id }}">
                          <img class="nav-arrow arrow-right" src="{% static 'images/nav/arrow-right.png' %}" alt="next"/>
                     </a>
                     {% endif %}
                 </div>
+                
                 <div class="clear"></div>
             </div>
         </div>

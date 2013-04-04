@@ -154,10 +154,10 @@ $(document).ready(function() {
     // navigation arrows
     $('div.in-photo-navigation a').hide();
     $('#previous-photo, #next-photo').mouseenter(function() {
-        $(this).find('a').show();
+        $(this).find('a, input.BBCode').show();
     });
     $('#previous-photo, #next-photo').mouseleave(function() {
-        $(this).find('a').hide();
+        $(this).find('a, input.BBCode').hide();
     });
     
     var searchfield = $("#id_search");
