@@ -23,6 +23,12 @@ DATABASES = {
 
 DATABASE_ROUTERS = ['general.db_router.ForumUserRouter']
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '{ CD }../mails/'
 

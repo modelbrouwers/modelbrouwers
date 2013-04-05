@@ -1,14 +1,16 @@
 {% extends "base.html" %}
-{% load i18n %}{% load staticfiles %}
+{% load i18n staticfiles cache %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
+{% cache 300 albums_index LANGUAGE_CODE %}	
 {% block style %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/albums.css' %}" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/uploadify.css' %}" />
 {% endblock style %}
-	
+
 {% block scripts %}
     {{ block.super }}
     <script type="text/javascript">
@@ -140,4 +142,4 @@
         </form>
     </div>
 {% endblock content %}
-
+{% endcache %}
