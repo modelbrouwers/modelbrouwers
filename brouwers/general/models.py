@@ -144,7 +144,7 @@ class RegistrationAttempt(models.Model):
             ip_address = ip
             )
         
-        #type_of_visitor, potential_spammer = lookup_http_blacklist(ip)
+        type_of_visitor, potential_spammer = lookup_http_blacklist(ip)
         if type_of_visitor is not None and potential_spammer is not None:
             instance.potential_spammer = potential_spammer
             instance.type_of_visitor = type_of_visitor

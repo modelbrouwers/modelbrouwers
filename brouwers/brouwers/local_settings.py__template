@@ -35,5 +35,7 @@ THUMB_DIMENSIONS = (200, 150, 'thumb_')
 PHPBB_TABLE_PREFIX = 'phpbb3_'
 PHPBB_URL = '/phpBB3'
 
-HTTPBL_ACCESS_KEY = 'yegymochlggr'
+HTTPBL_ACCESS_KEY = 'my-private-key'
 URL_HONEYPOT = '/scratchy.php'
+# Value between 0 and 255, with 0 meaning no threat.
+HTTPBL_MIN_THREAT_LEVEL = 10

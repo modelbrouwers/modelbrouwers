@@ -50,10 +50,11 @@ def lookup_http_blacklist(ip):
         threat_score = octets[2]
         type_of_visitor = octets[3]
         
-        if type_of_visitor in BLOCKING_LEVELS.keys():
+        if type_of_visitor in BLOCKING_LEVELS.keys() or threat_score >= settings.MIN_THREAT_LEVEL:
             potential_spammer = True
         else:
             potential_spammer = False
+        
         return (BLOCKING_LEVELS.get(type_of_visitor), potential_spammer)
     return (None, None) # something went wrong
 
