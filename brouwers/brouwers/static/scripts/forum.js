@@ -101,7 +101,7 @@ $(document).ready(function(){
             return false;
         }
     });
-    $('body').on('click', ':not(#boardcontent) a', function(){
+    $('body').on('click', ':not(#boardcontent) a:not(#open-chat)', function(){
         if(chat_opened){
             window.open($(this).attr('href'));
             return false;
