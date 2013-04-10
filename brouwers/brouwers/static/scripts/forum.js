@@ -98,7 +98,12 @@ $(document).ready(function(){
                 $('title').text(title);
                 $(document).scrollTop(0);
             });
-            //window.open($(this).attr('href'));
+            return false;
+        }
+    });
+    $('body').on('click', ':not(#boardcontent) a', function(){
+        if(chat_opened){
+            window.open($(this).attr('href'));
             return false;
         }
     });
