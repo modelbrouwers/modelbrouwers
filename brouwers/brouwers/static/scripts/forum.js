@@ -86,9 +86,18 @@ $(document).ready(function(){
     
     // als de chat geopend is, zal die popup weg zijn als je op een link klikt
     // forceer dus het openen vna links in een nieuw venster/tab
-    $('a:not(#open-chat)').click(function(){
+    $('body').on('click', '#boardcontent a', function(){
         if(chat_opened){
-            window.open($(this).attr('href'));
+            // get the content through an ajax call and replace the original content
+            var url = $(this).attr('href');
+            $.get(url, function(response){
+                content = $(response);
+                boardcontent = content.find('div#boardcontent');
+                $('#boardcontent').html(boardcontent.html());
+                var title = content.filter('title').text();
+                $('title').text(title);
+            });
+            //window.open($(this).attr('href'));
             return false;
         }
     });
