@@ -52,7 +52,7 @@ a.subforum.unread {
 }
 
 #wrapcentre {
-	margin: 15px 25px 0 25px;
+	margin: 0 25px;
 }
 
 #wrapfooter {
@@ -72,7 +72,7 @@ a.subforum.unread {
 #logodesc {
 	background-repeat: repeat-x;
 	background-position: center bottom;
-	padding: 0 25px 15px 25px;
+	padding: 0 25px 0 25px;
 }
 
 #menubar {
