@@ -16,12 +16,12 @@
 <title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
 
 <!-- IF S_ENABLE_FEEDS -->
-	<link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" />
-	<!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
-	<!-- IF S_ENABLE_FEEDS_FORUMS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_FORUMS}" href="{U_FEED}?mode=forums" /><!-- ENDIF -->
-	<!-- IF S_ENABLE_FEEDS_TOPICS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_TOPICS}" href="{U_FEED}?mode=topics" /><!-- ENDIF -->
-	<!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
-	<!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
+    <link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" />
+    <!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
+    <!-- IF S_ENABLE_FEEDS_FORUMS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_FORUMS}" href="{U_FEED}?mode=forums" /><!-- ENDIF -->
+    <!-- IF S_ENABLE_FEEDS_TOPICS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_TOPICS}" href="{U_FEED}?mode=topics" /><!-- ENDIF -->
+    <!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
+    <!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
 <!-- ENDIF -->
 <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
 <link rel="stylesheet" type="text/css" href="/static/css/common.css?v=1.1.5" charset="utf-8"/>
@@ -48,40 +48,40 @@ input.gsc-search-button.gsc-search-button-v2{
 <script type="text/javascript">
 // <![CDATA[
 <!-- IF S_USER_PM_POPUP -->
-	if ({S_NEW_PM})
-	{
-		popup('{UA_POPUP_PM}', 400, 225, '_phpbbprivmsg');
-	}
+    if ({S_NEW_PM})
+    {
+        popup('{UA_POPUP_PM}', 400, 225, '_phpbbprivmsg');
+    }
 <!-- ENDIF -->
 
 function popup(url, width, height, name)
 {
-	if (!name)
-	{
-		name = '_popup';
-	}
+    if (!name)
+    {
+        name = '_popup';
+    }
 
-	window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
-	return false;
+    window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
+    return false;
 }
 
 function jumpto()
 {
-	var page = prompt('{LA_JUMP_PAGE}:', '{ON_PAGE}');
-	var per_page = '{PER_PAGE}';
-	var base_url = '{A_BASE_URL}';
+    var page = prompt('{LA_JUMP_PAGE}:', '{ON_PAGE}');
+    var per_page = '{PER_PAGE}';
+    var base_url = '{A_BASE_URL}';
 
-	if (page !== null && !isNaN(page) && page == Math.floor(page) && page > 0)
-	{
-		if (base_url.indexOf('?') == -1)
-		{
-			document.location.href = base_url + '?start=' + ((page - 1) * per_page);
-		}
-		else
-		{
-			document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + ((page - 1) * per_page);
-		}
-	}
+    if (page !== null && !isNaN(page) && page == Math.floor(page) && page > 0)
+    {
+        if (base_url.indexOf('?') == -1)
+        {
+            document.location.href = base_url + '?start=' + ((page - 1) * per_page);
+        }
+        else
+        {
+            document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + ((page - 1) * per_page);
+        }
+    }
 }
 
 /**
@@ -89,8 +89,8 @@ function jumpto()
 */
 function find_username(url)
 {
-	popup(url, 760, 570, '_usersearch');
-	return false;
+    popup(url, 760, 570, '_usersearch');
+    return false;
 }
 
 /**
@@ -99,70 +99,70 @@ function find_username(url)
 */
 function marklist(id, name, state)
 {
-	var parent = document.getElementById(id);
-	if (!parent)
-	{
-		eval('parent = document.' + id);
-	}
+    var parent = document.getElementById(id);
+    if (!parent)
+    {
+        eval('parent = document.' + id);
+    }
 
-	if (!parent)
-	{
-		return;
-	}
+    if (!parent)
+    {
+        return;
+    }
 
-	var rb = parent.getElementsByTagName('input');
-	
-	for (var r = 0; r < rb.length; r++)
-	{
-		if (rb[r].name.substr(0, name.length) == name)
-		{
-			rb[r].checked = state;
-		}
-	}
+    var rb = parent.getElementsByTagName('input');
+    
+    for (var r = 0; r < rb.length; r++)
+    {
+        if (rb[r].name.substr(0, name.length) == name)
+        {
+            rb[r].checked = state;
+        }
+    }
 }
 
 <!-- IF ._file -->
 
-	/**
-	* Play quicktime file by determining it's width/height
-	* from the displayed rectangle area
-	*
-	* Only defined if there is a file block present.
-	*/
-	function play_qt_file(obj)
-	{
-		var rectangle = obj.GetRectangle();
+    /**
+    * Play quicktime file by determining it's width/height
+    * from the displayed rectangle area
+    *
+    * Only defined if there is a file block present.
+    */
+    function play_qt_file(obj)
+    {
+        var rectangle = obj.GetRectangle();
 
-		if (rectangle)
-		{
-			rectangle = rectangle.split(',')
-			var x1 = parseInt(rectangle[0]);
-			var x2 = parseInt(rectangle[2]);
-			var y1 = parseInt(rectangle[1]);
-			var y2 = parseInt(rectangle[3]);
+        if (rectangle)
+        {
+            rectangle = rectangle.split(',')
+            var x1 = parseInt(rectangle[0]);
+            var x2 = parseInt(rectangle[2]);
+            var y1 = parseInt(rectangle[1]);
+            var y2 = parseInt(rectangle[3]);
 
-			var width = (x1 < 0) ? (x1 * -1) + x2 : x2 - x1;
-			var height = (y1 < 0) ? (y1 * -1) + y2 : y2 - y1;
-		}
-		else
-		{
-			var width = 200;
-			var height = 0;
-		}
+            var width = (x1 < 0) ? (x1 * -1) + x2 : x2 - x1;
+            var height = (y1 < 0) ? (y1 * -1) + y2 : y2 - y1;
+        }
+        else
+        {
+            var width = 200;
+            var height = 0;
+        }
 
-		obj.width = width;
-		obj.height = height + 16;
+        obj.width = width;
+        obj.height = height + 16;
 
-		obj.SetControllerVisible(true);
+        obj.SetControllerVisible(true);
 
-		obj.Play();
-	}
+        obj.Play();
+    }
 <!-- ENDIF -->
 
 // ]]>
 </script>
 <!-- use googles jquery, loads faster and relieves own server -->
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <!-- fallback -->
     <script type="text/javascript">
         if (typeof jQuery == 'undefined')
@@ -178,7 +178,7 @@ function marklist(id, name, state)
 </head>
 
 <body class="{S_CONTENT_DIRECTION}">
-	<!-- begin header tabs -->
+    <!-- begin header tabs -->
 
 <!-- INCLUDEPHP styles/subsilver2_dead_topics/template/common/top.php -->
 
@@ -187,151 +187,187 @@ function marklist(id, name, state)
 
 <div id="wrapheader">
 
-	
+    
 
 
 <table width="100%"  border="0" cellspacing="0" cellpadding="3">
-  <tr>
-    <td>
-      <table width="100%"  border="0" cellspacing="0" cellpadding="3">
-		<tr>
-			<td>&nbsp;</td>
-			<td>
-			<a href="/index.php"><img src="{T_THEME_PATH}/images/modelbrouwers.gif" border="0" alt="Tuus" vspace="1" /></a>
-	 		</td>
-			<!-- <td><a href="http://www.brouwersdag.nl">Brouwersdag aanstaande zaterdag! Kom je ook?</a></td>
-			 <td><a href="../actie.html"><img src="{T_THEME_PATH}/images/banner.gif" border="0" alt="ACTIE, klik hier!" vspace="1" /></a> </td> -->
-<td><center>
-<a href="/shirts/"><img src="http://modelbrouwers.nl/static/images/shirts/white.jpg" alt="img_shirt" width="75" /></a><br />
-<a href="/shirts/">Modelbrouwers.nl shirts!</a>
-</center></td>
-			<td>
-
-			<div align="right">
-			<table width="475"  border="0" cellspacing="0" cellpadding="3">
-			    <tr>
-                    <td><a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank"><img src="images/banners/modelbouwmagazine-modelbrouwers-actie.gif" alt="Modelbouwmagazine / Modelbrouwers Actie" border="0" align="right" /></a></td>
+    <tr>
+        <td>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="3">
+                <tr>
                     <td>&nbsp;</td>
+                    <td>
+                        <a href="/index.php"><img src="{T_THEME_PATH}/images/modelbrouwers.gif" border="0" alt="Tuus" vspace="1" /></a>
+                     </td>
+                    <!-- <td><a href="http://www.brouwersdag.nl">Brouwersdag aanstaande zaterdag! Kom je ook?</a></td> -->
+                    <!-- <td>
+                            <a href="../actie.html">
+                                <img src="{T_THEME_PATH}/images/banner.gif" border="0" alt="ACTIE, klik hier!" vspace="1" />
+                            </a> 
+                        </td> -->
+                    <td>
+                        <center>
+                            <a href="/shirts/">
+                                <img src="http://modelbrouwers.nl/static/images/shirts/white.jpg" alt="img_shirt" width="75" />
+                            </a>
+                            <br />
+                            <a href="/shirts/">Modelbrouwers.nl shirts!</a>
+                        </center>
+                    </td>
+                    <td>
+                        <div align="right">
+                            <table width="475"  border="0" cellspacing="0" cellpadding="3">
+                                <tr>
+                                    <td><a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank"><img src="images/banners/modelbouwmagazine-modelbrouwers-actie.gif" alt="Modelbouwmagazine / Modelbrouwers Actie" border="0" align="right" /></a></td>
+                                    <td>&nbsp;</td>
 
-				    <td><a href="http://www.flexwebhosting.nl" target="_blank"><img src="images/banners/flex_webhosting.gif" width="234" height="60" align="right" border="0" alt="Flexwebhosting" /></a></td>
-				    <td>&nbsp;</td>
+                                    <td><a href="http://www.flexwebhosting.nl" target="_blank"><img src="images/banners/flex_webhosting.gif" width="234" height="60" align="right" border="0" alt="Flexwebhosting" /></a></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
                 </tr>
-			</table>
-			</div>
-
-			</td>
-	      </tr>
-	    </table>
-	  </td>
-	</tr>
-	<tr>
-	<td>&nbsp;</td>
-	</tr>
-	<tr>
-       <td colspan="3">
-		  <div align="center">
-			<table cellspacing="0" cellpadding="2" border="0" align="center">
-			  <tr>
-				<td>&nbsp;</td>			
-				<td>
-				<!-- Google CSE Search Box -->
-				    <div style="width:372px;height:18px;position:relative;">
-				        <script type="text/javascript">
-                          (function() {
-                            var cx = '014647983356809770866:isouu01clny';
-                            var gcse = document.createElement('script');
-                            gcse.type = 'text/javascript';
-                            gcse.async = true;
-                            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                                '//www.google.com/cse/cse.js?cx=' + cx;
-                            var s = document.getElementsByTagName('script')[0];
-                            s.parentNode.insertBefore(gcse, s);
-                          })();
-                        </script>
-                        <gcse:search></gcse:search>
-                    </div>
-				</td>
-				<td align="center" valign="top" nowrap="nowrap">			
-			
-			<!--	&nbsp;<a href="viewforum.php?f=25" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_message.gif"  border="0" alt="Modelbouw woordenboek" hspace="3" />Columns</a> -->
-				&nbsp;<a href="viewtopic.php?t=22861" class="mainmenu" id="open-chat"><img src="{T_THEME_PATH}/images/icon_mini_chat.gif" border="0" alt="Modelbrouwers.nl chat" hspace="3" />Brouw Chat</a>
-				&nbsp;<a href="viewtopic.php?t=3606" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_abc.gif"  border="0" alt="Modelbouw woordenboek" hspace="3" />A tot Z</a>
-				&nbsp;<a href="http://www.modelbrouwers.nl/winkel.html" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_brouw.gif" border="0" alt="Modelbrouwers.nl winkel" hspace="3" />Winkel</a>	
-				&nbsp;<a href="viewforum.php?f=30" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_tips-n-trucs.gif"  border="0" alt="Tips en trucs" hspace="3" />Tips en trucs</a>
-				&nbsp;<a href="http://twitter.com/Modelbrouwers" target="_blank" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_twitter.gif"  border="0" alt="Volg ons" hspace="3" />Twitter</a>
-				&nbsp;<a href="http://www.airbrushforum.nl" target="_blank" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_airbrush.gif"  border="0" alt="Airbrushforum.nl" hspace="3" />Airbrushforum.nl</a>
-                &nbsp;<a href="http://www.youtube.com/modelbrouwers" target="_blank" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_youtube.gif"  border="0" alt="Modelbrouwers YouTube-kanaal" hspace="3" />YouTube</a>
-               <!-- &nbsp;<a href="http://www.brouwersdag.nl" target="_blank" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_brouw.gif"  border="0" alt="Modelbrouwers modelbouwdag 2012" hspace="3" />Brouwersdag 2012</a> -->
-			
-			   
-				  </td>		
-			    </tr>
-			  </table>
-		    </div>
-		  </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div align="center">
+                <table cellspacing="0" cellpadding="2" border="0" align="center">
+                    <tr>
+                        <td>&nbsp;</td>            
+                        <td>
+                        <!-- Google CSE Search Box -->
+                            <div style="width:372px;height:18px;position:relative;">
+                                <script type="text/javascript">
+                                  (function() {
+                                    var cx = '014647983356809770866:isouu01clny';
+                                    var gcse = document.createElement('script');
+                                    gcse.type = 'text/javascript';
+                                    gcse.async = true;
+                                    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                        '//www.google.com/cse/cse.js?cx=' + cx;
+                                    var s = document.getElementsByTagName('script')[0];
+                                    s.parentNode.insertBefore(gcse, s);
+                                  })();
+                                </script>
+                                <gcse:search></gcse:search>
+                            </div>
+                        </td>
+                        <td align="center" valign="top" nowrap="nowrap">            
+                    
+                        <!--    &nbsp;
+                            <a href="viewforum.php?f=25" class="mainmenu">
+                                <img src="{T_THEME_PATH}/images/icon_mini_message.gif"  border="0" 
+                                    alt="Modelbouw woordenboek" hspace="3" />
+                                Columns
+                            </a> -->
+                            &nbsp;
+                            <a href="viewtopic.php?t=22861" class="mainmenu" id="open-chat">
+                                <img src="{T_THEME_PATH}/images/icon_mini_chat.gif" border="0" alt="Modelbrouwers.nl chat" hspace="3" />
+                                Brouw Chat
+                            </a>
+                            &nbsp;
+                            <a href="viewtopic.php?t=3606" class="mainmenu">
+                                <img src="{T_THEME_PATH}/images/icon_mini_abc.gif"  border="0" alt="Modelbouw woordenboek" hspace="3" />
+                                A tot Z
+                            </a>
+                            &nbsp;
+                            <a href="http://www.modelbrouwers.nl/winkel.html" class="mainmenu">
+                                <img src="{T_THEME_PATH}/images/icon_mini_brouw.gif" border="0" alt="Modelbrouwers.nl winkel" hspace="3" />
+                                Winkel
+                            </a>    
+                            &nbsp;
+                            <a href="viewforum.php?f=30" class="mainmenu">
+                                <img src="{T_THEME_PATH}/images/icon_mini_tips-n-trucs.gif"  border="0" alt="Tips en trucs" hspace="3" />
+                                Tips en trucs
+                            </a>
+                            &nbsp;
+                            <a href="http://twitter.com/Modelbrouwers" target="_blank" class="mainmenu">
+                                <img src="{T_THEME_PATH}/images/icon_mini_twitter.gif"  border="0" alt="Volg ons" hspace="3" />
+                                Twitter
+                            </a>
+                            &nbsp;
+                            <a href="http://www.airbrushforum.nl" target="_blank" class="mainmenu">
+                                <img src="{T_THEME_PATH}/images/icon_mini_airbrush.gif"  border="0" alt="Airbrushforum.nl" hspace="3" />
+                                Airbrushforum.nl
+                            </a>
+                            &nbsp;
+                            <a href="http://www.youtube.com/modelbrouwers" target="_blank" class="mainmenu">
+                                <img src="{T_THEME_PATH}/images/icon_mini_youtube.gif"  border="0" 
+                                    alt="Modelbrouwers YouTube-kanaal" hspace="3" />
+                                YouTube
+                            </a>
+                           <!-- &nbsp;<a href="http://www.brouwersdag.nl" target="_blank" class="mainmenu"><img src="{T_THEME_PATH}/images/icon_mini_brouw.gif"  border="0" alt="Modelbrouwers modelbouwdag 2012" hspace="3" />Brouwersdag 2012</a> -->
+                        </td>        
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
 </table>
 
 <!-- einde header tabs -->
 
 <div id="logodesc">
 
-	</div>
+    </div>
 
-	<div id="menubar">
-		<table width="100%" cellspacing="0">
-		<tr>
-			<td class="genmed">
-				<!-- IF not S_IS_BOT --><!-- IF S_USER_LOGGED_IN --><a href="/logout/?next=/phpBB3/"><!-- ELSE --><a href="/login/?next=/phpBB3/"><!-- ENDIF --><img src="{T_THEME_PATH}/images/icon_mini_login.gif" width="12" height="13" alt="*" /> {L_LOGIN_LOGOUT}</a>&nbsp;<!-- ENDIF -->
-				<!-- IF U_RESTORE_PERMISSIONS --> &nbsp;<a href="{U_RESTORE_PERMISSIONS}"><img src="{T_THEME_PATH}/images/icon_mini_login.gif" width="12" height="13" alt="*" /> {L_RESTORE_PERMISSIONS}</a><!-- ENDIF -->
-				<!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN --> &nbsp;<span style="color: red;">{L_BOARD_DISABLED}</span><!-- ENDIF -->
-				<!-- IF not S_IS_BOT -->
-					<!-- IF S_USER_LOGGED_IN -->
-						<!-- IF S_DISPLAY_PM --> &nbsp;<a href="{U_PRIVATEMSGS}"><img src="{T_THEME_PATH}/images/icon_mini_message.gif" width="12" height="13" alt="*" /> {PRIVATE_MESSAGE_INFO}<!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></a><!-- ENDIF -->
-					<!-- ELSEIF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --> &nbsp;<a 
+    <div id="menubar">
+        <table width="100%" cellspacing="0">
+        <tr>
+            <td class="genmed">
+                <!-- IF not S_IS_BOT --><!-- IF S_USER_LOGGED_IN --><a href="/logout/?next=/phpBB3/"><!-- ELSE --><a href="/login/?next=/phpBB3/"><!-- ENDIF --><img src="{T_THEME_PATH}/images/icon_mini_login.gif" width="12" height="13" alt="*" /> {L_LOGIN_LOGOUT}</a>&nbsp;<!-- ENDIF -->
+                <!-- IF U_RESTORE_PERMISSIONS --> &nbsp;<a href="{U_RESTORE_PERMISSIONS}"><img src="{T_THEME_PATH}/images/icon_mini_login.gif" width="12" height="13" alt="*" /> {L_RESTORE_PERMISSIONS}</a><!-- ENDIF -->
+                <!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN --> &nbsp;<span style="color: red;">{L_BOARD_DISABLED}</span><!-- ENDIF -->
+                <!-- IF not S_IS_BOT -->
+                    <!-- IF S_USER_LOGGED_IN -->
+                        <!-- IF S_DISPLAY_PM --> &nbsp;<a href="{U_PRIVATEMSGS}"><img src="{T_THEME_PATH}/images/icon_mini_message.gif" width="12" height="13" alt="*" /> {PRIVATE_MESSAGE_INFO}<!-- IF PRIVATE_MESSAGE_INFO_UNREAD -->, {PRIVATE_MESSAGE_INFO_UNREAD}<!-- ENDIF --></a><!-- ENDIF -->
+                    <!-- ELSEIF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) --> &nbsp;<a 
 href="/register/"><img src="{T_THEME_PATH}/images/icon_mini_register.gif" width="12" height="13" alt="*" /> {L_REGISTER}</a>
-					<!-- ENDIF -->
-				<!-- ENDIF -->
-			</td>
-			<td class="genmed" align="{S_CONTENT_FLOW_END}">
-				<a href="{U_FAQ}"><img src="{T_THEME_PATH}/images/icon_mini_faq.gif" width="12" height="13" alt="*" /> {L_FAQ}</a>
-				<!-- IF S_DISPLAY_SEARCH -->&nbsp; &nbsp;<a href="{U_SEARCH}"><img src="{T_THEME_PATH}/images/icon_mini_search.gif" width="12" height="13" alt="*" /> {L_SEARCH}</a><!-- ENDIF -->
-				<!-- IF not S_IS_BOT -->
-					<!-- IF S_DISPLAY_MEMBERLIST -->&nbsp; &nbsp;<a href="{U_MEMBERLIST}"><img src="{T_THEME_PATH}/images/icon_mini_members.gif" width="12" height="13" alt="*" /> {L_MEMBERLIST}</a><!-- ENDIF -->
-					<!-- IF S_USER_LOGGED_IN -->&nbsp; &nbsp;<a href="{U_PROFILE}"><img src="{T_THEME_PATH}/images/icon_mini_profile.gif" width="12" height="13" alt="*" /> {L_PROFILE}</a><!-- ENDIF -->
-				<!-- ENDIF -->
-			</td>
-		</tr>
-		</table>
-	</div>
+                    <!-- ENDIF -->
+                <!-- ENDIF -->
+            </td>
+            <td class="genmed" align="{S_CONTENT_FLOW_END}">
+                <a href="{U_FAQ}"><img src="{T_THEME_PATH}/images/icon_mini_faq.gif" width="12" height="13" alt="*" /> {L_FAQ}</a>
+                <!-- IF S_DISPLAY_SEARCH -->&nbsp; &nbsp;<a href="{U_SEARCH}"><img src="{T_THEME_PATH}/images/icon_mini_search.gif" width="12" height="13" alt="*" /> {L_SEARCH}</a><!-- ENDIF -->
+                <!-- IF not S_IS_BOT -->
+                    <!-- IF S_DISPLAY_MEMBERLIST -->&nbsp; &nbsp;<a href="{U_MEMBERLIST}"><img src="{T_THEME_PATH}/images/icon_mini_members.gif" width="12" height="13" alt="*" /> {L_MEMBERLIST}</a><!-- ENDIF -->
+                    <!-- IF S_USER_LOGGED_IN -->&nbsp; &nbsp;<a href="{U_PROFILE}"><img src="{T_THEME_PATH}/images/icon_mini_profile.gif" width="12" height="13" alt="*" /> {L_PROFILE}</a><!-- ENDIF -->
+                <!-- ENDIF -->
+            </td>
+        </tr>
+        </table>
+    </div>
 
-	<div id="datebar">
-		<table width="100%" cellspacing="0">
-		<tr>
-			<td class="gensmall"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ENDIF --></td>
-			<td class="gensmall" align="{S_CONTENT_FLOW_END}">{CURRENT_TIME}<br /></td>
-		</tr>
-		</table>
-	</div>
+    <div id="datebar">
+        <table width="100%" cellspacing="0">
+        <tr>
+            <td class="gensmall"><!-- IF S_USER_LOGGED_IN -->{LAST_VISIT_DATE}<!-- ENDIF --></td>
+            <td class="gensmall" align="{S_CONTENT_FLOW_END}">{CURRENT_TIME}<br /></td>
+        </tr>
+        </table>
+    </div>
 
 </div>
 
 <div id="wrapcentre">
 
-	<!-- IF S_DISPLAY_SEARCH -->
-	<p class="searchbar">
-		<span style="float: {S_CONTENT_FLOW_BEGIN};"><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a> | <a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a></span>
-		<!-- IF S_USER_LOGGED_IN -->
-		<span style="float: {S_CONTENT_FLOW_END};"><a href="{U_SEARCH_UNREAD}">{L_SEARCH_UNREAD}</a> | <a href="{U_SEARCH_NEW}">{L_SEARCH_NEW}</a> | <a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a></span>
-		<!-- ENDIF -->
-	</p>
-	<!-- ENDIF -->
+    <!-- IF S_DISPLAY_SEARCH -->
+    <p class="searchbar">
+        <span style="float: {S_CONTENT_FLOW_BEGIN};"><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a> | <a href="{U_SEARCH_ACTIVE_TOPICS}">{L_SEARCH_ACTIVE_TOPICS}</a></span>
+        <!-- IF S_USER_LOGGED_IN -->
+        <span style="float: {S_CONTENT_FLOW_END};"><a href="{U_SEARCH_UNREAD}">{L_SEARCH_UNREAD}</a> | <a href="{U_SEARCH_NEW}">{L_SEARCH_NEW}</a> | <a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a></span>
+        <!-- ENDIF -->
+    </p>
+    <!-- ENDIF -->
 
-	<br style="clear: both;" />
+    <br style="clear: both;" />
 
-	<!-- INCLUDE breadcrumbs.html -->
+    <!-- INCLUDE breadcrumbs.html -->
 
-	<br />
+    <br />
