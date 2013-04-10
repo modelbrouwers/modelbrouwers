@@ -129,6 +129,12 @@ AUTH_PROFILE_MODULE = 'general.UserProfile'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
+# MIBBIT CHAT
+MIBBIT_SETTINGS = '61b92aae9db826980bf63939f88326f9'
+IRC_SERVER = 'irc.slacknet.org'
+IRC_CHANNEL = '#modelbrouwers.nl'
+IRC_DEFAULT_NICK = 'brouwer%3F%3F'
+
 try:
     from local_settings import *
 except ImportError:

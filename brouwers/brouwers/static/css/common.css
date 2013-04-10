@@ -127,3 +127,10 @@ div#shop-footer div.blokje{width: 156px;height: 146px;margin: 0 auto;}
 #footer-gieten:hover        {background: url('/static/images/shop/gietprod_boven.gif')}
 #footer-verlichting         {background: url('/static/images/shop/verlichting_onder.gif')}
 #footer-verlichting:hover   {background: url('/static/images/shop/verlichting_boven.gif')}
+
+/*** CHAT ***/
+/*#chat-window{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}*/

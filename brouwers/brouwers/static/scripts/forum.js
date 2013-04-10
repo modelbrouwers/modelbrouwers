@@ -1,4 +1,5 @@
 var rotation = 0;
+var chat_opened = false;
 $(document).ready(function(){
     $.get('/ou/so/');
     
@@ -22,16 +23,53 @@ $(document).ready(function(){
 	    });
 	});
 	
-	now = new Date();
-    d = now.getDate();
-    m = now.getMonth() + 1;
-    if (d == 1 && m == 4){
-        n = Math.random();
-        //console.log(n);
-        if (n >= 0.40 && n <= 0.60){
-            setTimeout(function(){setInterval(function(){rotate()}, 1)}, 30000);
+	// chat in een popup window
+	$('#chat-window').dialog({
+		autoOpen: false,
+		//draggable: true,
+		dialogClass: "chat-dialog",
+		height: $(window).height()*0.75,
+		width: $(window).width()/2,
+		modal: false,
+		resizable: true,
+		// fixed position css
+		create: function(event){
+		    $(event.target).parent().css('position', 'fixed');
+		},
+		close: function(event, ui){
+		    $(this).html('');
+		    chat_opened=false;
+		},
+		open: function(event, ui){
+		    $(event.target).parent().css('top', 'auto');
+		    $(event.target).parent().css('left', 'auto');
+		    $(event.target).parent().css('bottom', '0');
+		    $(event.target).parent().css('right', '0');
+		    chat_opened=true;
+		}
+    });
+    
+    $('#open-chat').click(function(e){
+        e.preventDefault();
+        if (!chat_opened){
+            $.get('/forum_tools/get_chat/', function(json){
+                $('#chat-window').html(json.html);
+                // title zetten met extra gegevens
+                $('#chat-window').dialog("option", "title", json.title);
+                $('#chat-window').dialog('open');
+            });
         }
-    }
+        return false;
+    });
+    
+    // als de chat geopend is, zal die popup weg zijn als je op een link klikt
+    // forceer dus het openen vna links in een nieuw venster/tab
+    $('a').click(function(){
+        if(chat_opened){
+            window.open($(this).attr('href'));
+            return false;
+        }
+    });
 });
 
 function rotate(){

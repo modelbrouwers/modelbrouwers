@@ -3,8 +3,11 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import Context, loader
 import socket
 
+def get_username_for_user(user):
+    return user.username.replace("_", " ")
+
 def get_username(obj):
-    username = obj.user.username.replace("_", " ")
+    username = get_username_for_user(obj.user)
     return username
 
 ###### KEEPING SPAMMERS OUT ####################
