@@ -1,3 +1,4 @@
+<ul>
 <li>
     <a href="/shop/catalog/uhu-m-28.html?language=nl&amp;amp;sort=2a">
         <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/uhu.gif" alt="UHU" width="54" /></a>
@@ -74,3 +75,4 @@
     <a href="/shop/catalog/vallejo-m-42.html?language=nl&amp;sort=2a">
         <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/vallejo.gif" alt="Vallejo" width="42" /></a>
 </li>
+</ul>
