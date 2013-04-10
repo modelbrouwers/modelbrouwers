@@ -96,6 +96,7 @@ $(document).ready(function(){
                 $('#boardcontent').html(boardcontent.html());
                 var title = content.filter('title').text();
                 $('title').text(title);
+                $(document).scrollTop(0);
             });
             //window.open($(this).attr('href'));
             return false;
