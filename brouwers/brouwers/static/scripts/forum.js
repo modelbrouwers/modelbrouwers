@@ -1,5 +1,6 @@
 var rotation = 0;
 var chat_opened = false;
+var chat_moved = false;
 $(document).ready(function(){
     $.get('/ou/so/');
     
@@ -26,8 +27,7 @@ $(document).ready(function(){
 	// chat in een popup window
 	$('#chat-window').dialog({
 		autoOpen: false,
-		//draggable: true,
-		dialogClass: "chat-dialog",
+		draggable: true,
 		height: $(window).height()*0.75,
 		width: $(window).width()/2,
 		modal: false,
@@ -46,6 +46,25 @@ $(document).ready(function(){
 		    $(event.target).parent().css('bottom', '0');
 		    $(event.target).parent().css('right', '0');
 		    chat_opened=true;
+		},
+		resizeStop: function(event, ui){
+		    // reset de positie
+		    $(event.target).parent().css('position', 'fixed');
+		    if(!chat_moved){
+		        $(event.target).parent().css('top', 'auto');
+		        $(event.target).parent().css('left', 'auto');
+		        $(event.target).parent().css('bottom', '0');
+		        $(event.target).parent().css('right', '0');
+		    }
+		},
+		dragStart: function(event, ui){
+		    // fixen van position
+		    $(event.target).parent().css('position', 'fixed');
+		    $(event.target).parent().css('top', 'auto');
+		    $(event.target).parent().css('left', 'auto');
+		    $(event.target).parent().css('bottom', 'auto');
+		    $(event.target).parent().css('right', 'auto');
+		    chat_moved = true;
 		}
     });
     
@@ -59,17 +78,24 @@ $(document).ready(function(){
                 $('#chat-window').dialog('open');
             });
         }
+        else{
+            $('#chat-window').toggle();
+        }
         return false;
     });
     
     // als de chat geopend is, zal die popup weg zijn als je op een link klikt
     // forceer dus het openen vna links in een nieuw venster/tab
-    $('a').click(function(){
+    $('a:not(#open-chat)').click(function(){
         if(chat_opened){
             window.open($(this).attr('href'));
             return false;
         }
     });
+    $('body').on('click', '.ui-dialog-titlebar', function(){
+        $(this).siblings('#chat-window').toggle();
+    });
+    // einde chat javascript
 });
 
 function rotate(){
