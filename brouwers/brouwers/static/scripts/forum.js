@@ -96,8 +96,7 @@ $(document).ready(function(){
             var url = $(this).attr('href');
             $.get(url, function(response){
                 content = $(response);
-                boardcontent = content.find('div#boardcontent');
-                $('#boardcontent').html(boardcontent.html());
+                $('#boardcontent').html(content.find('div#boardcontent').html());
                 var title = content.filter('title').text();
                 $('title').text(title);
                 $(document).scrollTop(0);
