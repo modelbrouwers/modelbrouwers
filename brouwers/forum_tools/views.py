@@ -1,11 +1,12 @@
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
+from django.utils.translation import ungettext as _n
 from django.views.decorators.cache import cache_page
 from general.utils import get_username_for_user
-from models import ForumLinkBase
+from models import ForumLinkBase, Report
 from datetime import date
 import json
 
@@ -39,3 +40,11 @@ def get_chat(request):
         'title': "Brouwers chat [%s, %s]" % (settings.IRC_SERVER, settings.IRC_CHANNEL)
     }
     return HttpResponse(json.dumps(json_data), mimetype='application/json')
+
+@permission_required('forum_tools.can_see_reports')
+def get_mod_data(request):
+    data = {}
+    num_open_reports = Report.objects.filter(report_closed=False).count()
+    data['open_reports'] = num_open_reports
+    data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports)
+    return HttpResponse(json.dumps(data), mimetype="application/json")

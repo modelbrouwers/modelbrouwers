@@ -21,4 +21,11 @@ $(document).ready(function(){
             $('#popup').dialog('open');
         }
     });
+    
+    $.get('/forum_tools/mods/get_data/', function(json){
+        if (json.open_reports > 0){
+            html = '&nbsp;<span id=\"open_reports\">('+json.text_reports+')</span>';
+            $('#pageheader a').after(html);
+        }
+    });
 });

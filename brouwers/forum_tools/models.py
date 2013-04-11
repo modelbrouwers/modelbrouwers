@@ -84,6 +84,9 @@ class Report(models.Model):
         verbose_name = _('report')
         verbose_name_plural = _('reports')
         db_table = u"%sreports" % settings.PHPBB_TABLE_PREFIX
+        permissions = (
+            ("can_see_reports", _("Can see (number of) open reports")),
+        )
     
     def __unicode__(self):
         return _('Report %(id)s' % {'id': self.report_id})

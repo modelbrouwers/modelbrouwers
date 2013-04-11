@@ -135,3 +135,5 @@ div#shop-footer div.blokje{width: 156px;height: 146px;margin: 0 auto;}
     background-color: #FAFAFA;/*rgb(34, 34, 34);*/
     overflow: hidden;
 }
+/*** MODS ***/
+#open_reports{color: red;}
