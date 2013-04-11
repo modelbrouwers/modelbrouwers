@@ -101,6 +101,10 @@ $(document).ready(function(){
                 var title = c.find('#page-title').text();
                 document.title = title;
                 $(document).scrollTop(0);
+                
+                if(history.pushState){
+                    history.pushState({"id": history.length+1}, title, "url");
+                }
             });
             return false;
         }
