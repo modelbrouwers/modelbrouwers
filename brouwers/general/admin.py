@@ -24,10 +24,6 @@ class UserProfileAdmin(admin.ModelAdmin):
 	list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'last_vote', 'secret_santa')
 	search_fields = ('forum_nickname',)
 
-class ForumUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'user_email', 'user_email_hash', 'get_email_hash')
-    search_fields = ('username',)
-
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('question', 'in_use')
     search_fields = ('question',)
@@ -57,7 +53,6 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin2)
 
 admin.site.register(UserProfile, UserProfileAdmin)
-admin.site.register(ForumUser, ForumUserAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)
 admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
 admin.site.register(RegistrationAttempt, RegistrationAttemptAdmin)

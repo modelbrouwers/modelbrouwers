@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
 from migration.models import UserMigration
-from models import UserProfile, RegistrationQuestion, PasswordReset, ForumUser
+from models import UserProfile, RegistrationQuestion, PasswordReset
+from forum_tools.models import ForumUser
 from awards.models import Project
 
 ######################################
@@ -251,11 +252,10 @@ class UserForm(forms.ModelForm):
                 forum_user = ForumUser.objects.get(username=self._profile.forum_nickname)
                 forum_user.user_email = new_email
                 forum_user.save()
-            except:
-                super(UserForm, self).save(*args, **kwargs) # save the profile data anyway
-                # reraise exception so we get the error mail
-                raise
-        super(UserForm, self).save(*args, **kwargs)
+            except ForumUser.DoesNotExist: # user hasn't been on the forum yet, so no record exists
+                pass
+            finally:
+                super(UserForm, self).save(*args, **kwargs)
 
 class AddressForm(forms.ModelForm):
     class Meta:

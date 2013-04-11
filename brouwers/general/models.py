@@ -6,7 +6,6 @@ from datetime import date, datetime
 
 from awards.models import Category
 from utils import get_client_ip, lookup_http_blacklist
-import zlib
 
 COUNTRY_CHOICES = (
     ("N",_("The Netherlands")),
@@ -65,39 +64,6 @@ class UserProfile(models.Model):
         if self.street and self.number and self.postal and self.city and self.country:
             ok = True
         return ok
-
-class ForumUser(models.Model): # phpBB3 tables
-    user_id = models.PositiveIntegerField(primary_key=True,
-        # mediumint(8) unsigned
-        help_text="Primary key"
-    )
-    username = models.CharField(_("username"), max_length=255)
-    user_email = models.CharField(_("email"), max_length=100)
-    user_email_hash = models.BigIntegerField(db_column="user_email_hash",
-        # bigint(20)
-        default=0,
-        help_text="A hash of the user's email address."
-    )
-    
-    class Meta:
-        verbose_name = _("forum user")
-        verbose_name_plural = _("forum users")
-        ordering = ('username',)
-        managed = False
-        db_table = u"%susers" % settings.PHPBB_TABLE_PREFIX
-    
-    def __unicode__(self):
-        return u"%s" % self.username
-    
-    def get_email_hash(self):
-        email = self.user_email
-        h = zlib.crc32(email.lower()) & 0xffffffff
-        return "%s%s" % (h, len(email))
-    
-    def save(self, *args, **kwargs):
-        self.user_email_hash = self.get_email_hash()
-        super(ForumUser, self).save(*args, **kwargs)
-
 
 class QuestionAnswer(models.Model):
     answer = models.CharField(max_length=255)
