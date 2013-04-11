@@ -95,9 +95,9 @@ $(document).ready(function(){
             // get the content through an ajax call and replace the original content
             var url = $(this).attr('href');
             $.get(url, function(response){
-                content = $(response);
-                $('#boardcontent').html(content.find('div#boardcontent').html());
-                var title = content.filter('title').text();
+                c = $(response);
+                $('#boardcontent').html(c.find('#boardcontent').html());
+                var title = c.filter('title').text();
                 $('title').text(title);
                 $(document).scrollTop(0);
             });
