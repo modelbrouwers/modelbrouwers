@@ -181,7 +181,7 @@ function init_popup(){
 		    },
 		    'Annuleren': function(){
 		        $(this).dialog('close');
-		    },
+		    }
 		}
 	});
 }
