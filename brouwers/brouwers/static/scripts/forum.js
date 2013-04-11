@@ -97,8 +97,9 @@ $(document).ready(function(){
             $.get(url, function(response){
                 c = $(response);
                 $('#boardcontent').html(c.find('#boardcontent').html());
-                var title = c.filter('title').text();
-                $('title').text(title);
+                
+                var title = c.find('#page-title').text();
+                document.title = title;
                 $(document).scrollTop(0);
             });
             return false;
