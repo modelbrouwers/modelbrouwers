@@ -2,48 +2,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="{S_CONTENT_DIRECTION}" lang="{S_USER_LANG}" xml:lang="{S_USER_LANG}">
 <head>
 
-<meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
-<meta http-equiv="content-language" content="{S_USER_LANG}" />
-<meta http-equiv="content-style-type" content="text/css" />
-<meta http-equiv="imagetoolbar" content="no" />
-<meta name="resource-type" content="document" />
-<meta name="distribution" content="global" />
-<meta name="copyright" content="2000, 2002, 2005, 2007 phpBB Group" />
-<meta name="keywords" content="modelbouw, revell, shop, modelbrouwers, schaalmodel" />
-<meta name="description" content="Modelbrouwers.nl is de place to be als het om modelbouw gaat! Kennisbank, forum, fotoalbums, shop en kitreviews." />
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-{META}
-<title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
+    <meta http-equiv="content-type" content="text/html; charset={S_CONTENT_ENCODING}" />
+    <meta http-equiv="content-language" content="{S_USER_LANG}" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta name="resource-type" content="document" />
+    <meta name="distribution" content="global" />
+    <meta name="copyright" content="2000, 2002, 2005, 2007 phpBB Group" />
+    <meta name="keywords" content="modelbouw, revell, shop, modelbrouwers, schaalmodel" />
+    <meta name="description" content="Modelbrouwers.nl is de place to be als het om modelbouw gaat! Kennisbank, forum, fotoalbums, shop en kitreviews." />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    {META}
+    <title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull; <!-- ELSEIF S_IN_UCP -->{L_UCP} &bull; <!-- ENDIF -->{PAGE_TITLE}</title>
 
-<!-- IF S_ENABLE_FEEDS -->
-    <link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" />
-    <!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
-    <!-- IF S_ENABLE_FEEDS_FORUMS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_FORUMS}" href="{U_FEED}?mode=forums" /><!-- ENDIF -->
-    <!-- IF S_ENABLE_FEEDS_TOPICS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_TOPICS}" href="{U_FEED}?mode=topics" /><!-- ENDIF -->
-    <!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
-    <!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
-<!-- ENDIF -->
-<link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
-<link rel="stylesheet" type="text/css" href="/static/css/common.css?v=1.1.5" charset="utf-8"/>
-<link rel="stylesheet" type="text/css" href="/static/css/jquery-ui-1.10.2.custom.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/albums_forum.css?v=1.1.1" charset="utf-8"/>
-<style type="text/css">
-div#___gcse_0 input.gsc-input, form.gsc-search-box{
-    font-size: 0.9em;
-}
-div.gsc-input-box, input.gsc-search-button.gsc-search-button-v2 {height: 18px;}
-#gs_tti0{
-    padding: 2px 4px 0;
-}
-div.gsc-control-cse.gsc-control-cse-nl{
-    padding: 0;
-}
-input.gsc-search-button.gsc-search-button-v2{
-    padding: 3px 27px;
-    height: 12px;
-    margin-top: 0;
-}
-</style>
+    <!-- IF S_ENABLE_FEEDS -->
+        <link rel="alternate" type="application/atom+xml" title="{L_FEED} - {SITENAME}" href="{U_FEED}" />
+        <!-- IF S_ENABLE_FEEDS_NEWS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FEED_NEWS}" href="{U_FEED}?mode=news" /><!-- ENDIF -->
+        <!-- IF S_ENABLE_FEEDS_FORUMS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_FORUMS}" href="{U_FEED}?mode=forums" /><!-- ENDIF -->
+        <!-- IF S_ENABLE_FEEDS_TOPICS --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_ALL_TOPICS}" href="{U_FEED}?mode=topics" /><!-- ENDIF -->
+        <!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
+        <!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
+    <!-- ENDIF -->
+    <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css?v=1.1.5" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery-ui-1.10.2.custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/albums_forum.css?v=1.1.1" charset="utf-8"/>
+    <style type="text/css">
+        div#___gcse_0 input.gsc-input, form.gsc-search-box{font-size: 0.9em;}
+        div.gsc-input-box, input.gsc-search-button.gsc-search-button-v2 {height: 18px;}
+        #gs_tti0{padding: 2px 4px 0;}
+        div.gsc-control-cse.gsc-control-cse-nl{padding: 0;}
+        input.gsc-search-button.gsc-search-button-v2{padding: 3px 27px;height: 12px;margin-top: 0;}
+    </style>
+<!-- use googles jquery, loads faster and relieves own server -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- fallback -->
+    <script type="text/javascript">
+        if (typeof jQuery == 'undefined'){
+            document.write(unescape("%3Cscript src='/static/scripts/jquery.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script type="text/javascript" src="/static/scripts/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/static/scripts/forum.js?v=1.1.5-2"></script>
+    <script type="text/javascript" src="/static/scripts/albums_forum.js?v=1.1.1"></script>
+    <!-- IF U_MCP || U_ACP --><script type="text/javascript" src="/static/scripts/mods.js?v=1.1.2"></script><!-- ENDIF -->
 
 <script type="text/javascript">
 // <![CDATA[
@@ -161,19 +163,6 @@ function marklist(id, name, state)
 
 // ]]>
 </script>
-<!-- use googles jquery, loads faster and relieves own server -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <!-- fallback -->
-    <script type="text/javascript">
-        if (typeof jQuery == 'undefined')
-        {
-            document.write(unescape("%3Cscript src='/static/scripts/jquery.js' type='text/javascript'%3E%3C/script%3E"));
-        }
-    </script>
-    <script type="text/javascript" src="/static/scripts/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="/static/scripts/forum.js?v=1.1.5"></script>
-    <script type="text/javascript" src="/static/scripts/albums_forum.js?v=1.1.1"></script>
-    <!-- IF U_MCP || U_ACP --><script type="text/javascript" src="/static/scripts/mods.js?v=1.1.2"></script><!-- ENDIF -->
 </head>
 
 <body class="{S_CONTENT_DIRECTION}">

@@ -46,6 +46,7 @@ $(document).ready(function(){
 		    $(event.target).parent().css('bottom', '0');
 		    $(event.target).parent().css('right', '0');
 		    chat_opened=true;
+		    init_popup();
 		},
 		resizeStop: function(event, ui){
 		    // reset de positie
@@ -74,7 +75,10 @@ $(document).ready(function(){
             $.get('/forum_tools/get_chat/', function(json){
                 $('#chat-window').html(json.html);
                 // title zetten met extra gegevens
-                $('#chat-window').dialog("option", "title", json.title);
+                title = json.title;
+                title += "&nbsp;&bull; <a href=\""+$('#open-chat').attr('href')+"\" target=\"_blank\">FAQ</a>";
+                applyHtmlToDialog($('#chat-window').dialog(), title);
+                //$('#chat-window').dialog("option", "title", title);
                 $('#chat-window').dialog('open');
             });
         }
@@ -101,17 +105,32 @@ $(document).ready(function(){
             return false;
         }
     });
-    $('body').on('click', ':not(#boardcontent) a:not(#open-chat)', function(){
+    $('a').not('#boardcontent a').click(function(){
+        if(chat_opened){
+            html = '<p>De chat staat nog open. Indien je de pagina niet in een niew tabblad/venster opent, zal je chatsessie niet meer actief zijn.</p>';
+            html += '<br /><p>Je kan de pagina in een nieuw venster of tabblad openen, of de chat sluiten en de pagina in dit venster openen.</p>';
+            $('#popup').data('href', $(this).attr('href'));
+            $('#popup').html(html);
+            $('#popup').dialog('open');
+            return false;
+        }
+    });
+    /*$('body').on('click', ':not(#boardcontent) a', function(){
         if(chat_opened){
             window.open($(this).attr('href'));
             return false;
         }
-    });
+    });*/
     $('body').on('click', '.ui-dialog-titlebar', function(){
         $(this).siblings('#chat-window').toggle();
     });
     // einde chat javascript
 });
+function applyHtmlToDialog(dialog, htmlTitle) {
+    dialog.data("uiDialog")._title = function (title) { 
+            title.html(this.options.title); };
+    dialog.dialog('option', 'title', htmlTitle);
+}
 
 function rotate(){
     if (rotation < 180){
@@ -139,6 +158,30 @@ function test_url(topic_id, a){
 			$('div#blanket').show();
 			$('div#dead_topic').show();
 			$('div#message_topic_dead').html(data);
+		}
+	});
+}
+function init_popup(){
+    $('#popup').dialog({
+		autoOpen: false,
+		draggable: false,
+		height: 'auto',
+		width: '400px',
+		modal: true,
+		resizable: false,
+		title: 'Opgepast!',
+		buttons: {
+		    'Nieuw venster/tabblad': function(){
+		        window.open($(this).data('href'));
+		        $(this).dialog('close');
+		    },
+		    'Chat sluiten': function(){
+		        $(this).dialog('close');
+		        window.location = $(this).data('href');
+		    },
+		    'Annuleren': function(){
+		        $(this).dialog('close');
+		    },
 		}
 	});
 }
