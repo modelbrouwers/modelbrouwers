@@ -471,7 +471,8 @@ def photo(request, photo_id=None):
     q = Q(pk=photo_id, album__trash=False)
     if request.user.is_authenticated():
         if not admin_mode(request.user):
-            q = Q(q, Q(album__public=True) | Q(user=request.user))
+            groups = request.user.albumgroup_set.all()
+            q = Q(q, Q(album__public=True) | Q(user=request.user) | Q(album__albumgroup__in=groups))
     else:
         q = Q(q, album__public=True)
     photo = get_object_or_404(Photo, q)
