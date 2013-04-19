@@ -80,7 +80,7 @@ class RegistrationQuestion(models.Model):
         return u"%s" % self.question
 
 class RegistrationAttempt(models.Model):
-    username = models.CharField(_('username'), max_length=30, db_index=True) # same as forum_nickname
+    username = models.CharField(_('username'), max_length=512, db_index=True) # same as forum_nickname
     question = models.ForeignKey(RegistrationQuestion, verbose_name=_('registration question'))
     answer = models.CharField(_('answer'), max_length=255)
     # answer_correct = models.BooleanField(_('correct answer?'))
