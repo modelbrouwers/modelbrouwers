@@ -25,7 +25,7 @@ $(document).ready(function(){
     $.get('/forum_tools/mods/get_data/', function(json){
         if (json.open_reports > 0){
             html = '&nbsp;<span id=\"open_reports\">('+json.text_reports+')</span>';
-            $('#pageheader a').after(html);
+            $('#pageheader p.linkmcp a').after(html);
         }
     });
 });
