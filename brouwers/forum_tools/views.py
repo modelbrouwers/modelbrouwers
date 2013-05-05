@@ -46,5 +46,5 @@ def get_mod_data(request):
     data = {}
     num_open_reports = Report.objects.filter(report_closed=False).count()
     data['open_reports'] = num_open_reports
-    data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports)
+    data['text_reports'] = _n("1 open report", "%(num)d open reports", num) % {'num': num_open_reports}
     return HttpResponse(json.dumps(data), mimetype="application/json")
