@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
-from django.utils.translation import ungettext as _n
+from django.utils.translation import ungettext_lazy as _n
 from django.views.decorators.cache import cache_page
 from general.utils import get_username_for_user
 from models import ForumLinkBase, Report
