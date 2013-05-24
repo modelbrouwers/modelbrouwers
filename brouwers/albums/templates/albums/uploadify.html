@@ -27,8 +27,20 @@ td span.help_text{display: inline-block; max-width:500px;}
 <script type="text/javascript">
 var url_new = "{% url albums.ajax_views.new_album_jquery_ui %}";
 var success_icon = '&nbsp;<img src="{% static "admin/img/icon-yes.gif" %}" width="10" height="10" alt="ok"></img>';
+var msg_error = "{% trans 'Something went wrong, the admins have been notified.' %}";
 
 $(document).ready(function() {
+    var hasFlash = false;
+    try {
+      var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+      if(fo) hasFlash = true;
+    }catch(e){
+      if(navigator.mimeTypes ["application/x-shockwave-flash"] != undefined) hasFlash = true;
+    }
+    if (!hasFlash){
+        alert('{% trans "You need (Adobe) Flash to use this uploader." %}');
+    }
+
     /* uploadify */
     var albumId;
     var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Extra info</button>';
@@ -50,14 +62,22 @@ $(document).ready(function() {
         'removeCompleted'   : false,
         'onUploadStart' : function(file) {
             albumId = $('#id_album').val();
-            $("#uploadify_input").uploadify("settings", "formData", {'album': albumId, '{{ session_cookie_name }}': '{{ session_key }}', 'csrfmiddlewaretoken': '{{ csrf_token }}'});
+            $("#uploadify_input").uploadify(
+                "settings", 
+                "formData", 
+                {
+                    'album': albumId, 
+                    '{{ session_cookie_name }}': '{{ session_key }}', 
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                }
+            );
         },
         'onUploadSuccess': function(file, data, response) {
             photo_ids += data + "+";
         },
-        /*'onUploadError' : function(file, errorCode, errorMsg, errorString) { TODO: proper handler
-            alert(errorString);
-        },*/
+        'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+            alert(msg_error);
+        },
         'onQueueComplete' : function(queueData) {
             //remove the previous button
             var href = '/albums/upload/uploadify/complete/?album='+albumId+'&photo_ids='+photo_ids;
@@ -154,10 +174,12 @@ $(document).ready(function() {
 
 {% block content %}
 <div class="tab">{% trans 'Upload images' %}</div>
-<div class="no-javascript" class="margin">
-    {% url albums.views.upload as upload_url %}
-    {% blocktrans  %}Your browser doesn't support javascript, which is required for this uploader to work. You can use an <a href="{{ upload_url }}">alternative uploader</a>.{% endblocktrans %}
-</div>
+<noscript>
+    <div class="no-javascript" class="margin">
+        {% url albums.views.upload as upload_url %}
+        {% blocktrans  %}Your browser doesn't support javascript, which is required for this uploader to work. You can use an <a href="{{ upload_url }}">alternative uploader</a>.{% endblocktrans %}
+    </div>
+</noscript>
 
 <div class="info margin">
     {% blocktrans %}You can upload images on this page. Choose the album you want to upload to and select pictures. You can set some extra info on the images in the next step.{% endblocktrans %}

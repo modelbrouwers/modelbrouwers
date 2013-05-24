@@ -3,25 +3,25 @@ DEVELOPMENT = True
 ADMINS = ()
 
 DATABASES = {
-    'default': { # django postgres db
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'brouwers',
-        'USER': 'brouwers',
-        'PASSWORD': 'test',
-    },
-    'mysql': { # django mysql db
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'forum',
-        'USER': 'brouwers',
-        'PASSWORD': 'test',
-    },
-    'sqlite3': { #pure django development
+    # 'postgres': { # django postgres db
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'brouwers',
+    #     'USER': 'brouwers',
+    #     'PASSWORD': 'test',
+    # },
+    # 'mysql': { # django mysql db
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'forum',
+    #     'USER': 'brouwers',
+    #     'PASSWORD': 'test',
+    # },
+    'default': { #pure django development
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '{ CD }../brouwers.db'
     },
 }
 
-DATABASE_ROUTERS = ['general.db_router.ForumUserRouter']
+DATABASE_ROUTERS = ['forum_tools.db_router.ForumUserRouter']
 
 CACHES = {
     'default': {
@@ -42,6 +42,6 @@ PHPBB_TABLE_PREFIX = 'phpbb3_'
 PHPBB_URL = '/phpBB3'
 
 HTTPBL_ACCESS_KEY = 'my-private-key'
-URL_HONEYPOT = '/scratchy.php'
+HONEYPOT_URL = '/scratchy.php'
 # Value between 0 and 255, with 0 meaning no threat.
 HTTPBL_MIN_THREAT_LEVEL = 10

@@ -60,13 +60,19 @@ def uploadify(request):
         resize_dimensions = preferences.get_default_img_size()
         img_data = resize(img, upload_to=path, sizes_data=[resize_dimensions])
         
-        for data in img_data:
-            photo = Photo(user=request.user, album=album, width=data[1], height=data[2])
-            photo.image = data[0]
-            photo.order = max_order + 1
-            photo.save()
-            p_id = photo.id
-        return HttpResponse('%s' % p_id, mimetype="text/plain") #return the photo id
+        if img_data is not None:
+            for data in img_data:
+                photo = Photo(user=request.user, album=album, width=data[1], height=data[2])
+                photo.image = data[0]
+                photo.order = max_order + 1
+                photo.save()
+                p_id = photo.id
+            return HttpResponse('%s' % p_id, mimetype="text/plain") #return the photo id
+        else:
+            return HttpResponse(_('File extension not in valid extensions: "%(extensions)s".' % {
+                'extensions': ",".join(settings.VALID_IMG_EXTENSIONS)
+                })
+            )
     else:
         return HttpResponse()
 
