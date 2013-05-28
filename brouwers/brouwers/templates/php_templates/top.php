@@ -1,4 +1,5 @@
 <?php 
+    //echo 'foo';
     $root = dirname(__FILE__).'/';
     //echo $root;
     include($root.'settings.php');

@@ -10,26 +10,6 @@
         }
     }, 
     {
-        "pk": 4, 
-        "model": "auth.user", 
-        "fields": {
-            "username": "test", 
-            "first_name": "", 
-            "last_name": "", 
-            "is_active": true, 
-            "is_superuser": false, 
-            "is_staff": false, 
-            "last_login": "2012-09-02T20:27:52.857", 
-            "groups": [
-                1
-            ], 
-            "user_permissions": [], 
-            "password": "pbkdf2_sha256$10000$2XlRm0F30Y7I$aPYviDxjpqE6TtC/Vvf8i50Ju+5d96jlCAIrIhnDc1g=", 
-            "email": "test@test.com", 
-            "date_joined": "2012-07-30T22:54:15"
-        }
-    }, 
-    {
         "pk": 3, 
         "model": "auth.user", 
         "fields": {
@@ -84,6 +64,60 @@
         }
     }, 
     {
+        "pk": 22, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "test5", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": false, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-29T16:34:19.366", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$2vgmGGfHJvXC$41fW/Za+Ys8mpcmXbAUccmzC/ESmRN3thxTRIt444VA=", 
+            "email": "test5@foobar.com", 
+            "date_joined": "2013-03-29T16:34:19.366"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "BBT", 
+            "first_name": "Sergei", 
+            "last_name": "Maertens", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2013-05-28T23:40:46.688", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$XpY55ffQEb4s$YtJJQnzoCDjTTOE7iBe3BsSuFUkMkjxqBHC9cfZI3Qk=", 
+            "email": "sergeimaertens@gmail.com", 
+            "date_joined": "2010-11-28T01:58:00"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "brouwers", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2013-05-28T23:41:01", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$g8KTa7dWWvqm$N6Y/hxNc1mreBVofDUTBQEJzJW1GqmEUvneLB2rkk9U=", 
+            "email": "", 
+            "date_joined": "2013-05-28T23:41:01"
+        }
+    }, 
+    {
         "pk": 18, 
         "model": "auth.user", 
         "fields": {
@@ -120,29 +154,234 @@
         }
     }, 
     {
-        "pk": 1, 
+        "pk": 4, 
         "model": "auth.user", 
         "fields": {
-            "username": "BBT", 
-            "first_name": "Sergei", 
-            "last_name": "Maertens", 
+            "username": "test", 
+            "first_name": "", 
+            "last_name": "", 
             "is_active": true, 
-            "is_superuser": true, 
-            "is_staff": true, 
-            "last_login": "2013-01-06T01:04:52.849", 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-23T01:13:48.641", 
+            "groups": [
+                1
+            ], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$2XlRm0F30Y7I$aPYviDxjpqE6TtC/Vvf8i50Ju+5d96jlCAIrIhnDc1g=", 
+            "email": "test@test.com", 
+            "date_joined": "2012-07-30T22:54:15"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "Test_reg_log", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-29T02:22:20.374", 
             "groups": [], 
             "user_permissions": [], 
-            "password": "pbkdf2_sha256$10000$XpY55ffQEb4s$YtJJQnzoCDjTTOE7iBe3BsSuFUkMkjxqBHC9cfZI3Qk=", 
-            "email": "sergeimaertens@gmail.com", 
-            "date_joined": "2010-11-28T01:58:00"
+            "password": "pbkdf2_sha256$10000$leZjD8dgjccl$I24ewYolJP89QJw6i5vPGJfPYRQqSJXeA84aCFq3hss=", 
+            "email": "test2@test.com", 
+            "date_joined": "2013-03-29T02:22:20.016"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "Test3", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-29T15:56:07.013", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$jBb21XiZf1M1$wxGcuuMa4eJ20uznqGLzW7VJnwGcDIIS+Cy9fHBaAuw=", 
+            "email": "test3@test.com", 
+            "date_joined": "2013-03-29T15:56:06.679"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "test4", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": false, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2013-03-29T16:03:58.954", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$BIELIClQDfkf$tYY5eQZQcAU/jzMUvP9Z1P/ji71RZRh4FWVv57X1J2U=", 
+            "email": "test4@test.com", 
+            "date_joined": "2013-03-29T16:03:58.954"
         }
     }, 
     {
         "pk": 1, 
-        "model": "sites.site", 
+        "model": "south.migrationhistory", 
         "fields": {
-            "domain": "example.com", 
-            "name": "example.com"
+            "applied": "2012-12-21T18:34:47.934", 
+            "app_name": "shirts", 
+            "migration": "0001_initial"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "south.migrationhistory", 
+        "fields": {
+            "applied": "2012-12-21T18:35:07.862", 
+            "app_name": "shirts", 
+            "migration": "0002_auto__add_field_shirtorder_delivered"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "south.migrationhistory", 
+        "fields": {
+            "applied": "2013-03-29T15:52:15.281", 
+            "app_name": "general", 
+            "migration": "0001_initial"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "south.migrationhistory", 
+        "fields": {
+            "applied": "2013-03-29T15:56:00.487", 
+            "app_name": "general", 
+            "migration": "0002_auto__add_field_registrationattempt_type_of_visitor"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "albums.category", 
+        "fields": {
+            "url": "", 
+            "public": false, 
+            "name": "Herpaderp!", 
+            "on_frontpage": true, 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "albums.album", 
+        "fields": {
+            "category": 1, 
+            "votes": 0, 
+            "trash": false, 
+            "description": "Dit is een testbeschrijving, die ik redelijk lang ga maken om te testen of die popup een beetje deftig is. 't Moet natuurlijk wel lang genoeg zijn he.", 
+            "clean_title": "Foo bar versus baz: ronde 10.", 
+            "last_upload": "2013-03-25T15:23:20", 
+            "views": 3, 
+            "title": "Foo bar versus baz: ronde 10.", 
+            "cover": 14, 
+            "modified": "2013-04-04T20:33:53.600", 
+            "created": "2013-03-25T15:17:16.259", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": false, 
+            "description": "Verborgen album", 
+            "clean_title": "Testje groep, verborgen album", 
+            "last_upload": "2013-03-23T01:20:11.810", 
+            "views": 4, 
+            "title": "Testje groep, verborgen album", 
+            "cover": 13, 
+            "modified": "2013-03-24T21:43:10.437", 
+            "created": "2013-03-23T01:14:19.181", 
+            "public": false, 
+            "user": 4, 
+            "writable_to": "g", 
+            "build_report": "", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "Een nieuw album", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.27.1363991274_Een nieuw album", 
+            "cover": null, 
+            "modified": "2013-03-22T23:27:54.284", 
+            "created": "2013-03-22T23:03:06.387", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "g", 
+            "build_report": "", 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": false, 
+            "description": "", 
+            "clean_title": "Een normale titel", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 1, 
+            "title": "Een normale titel", 
+            "cover": null, 
+            "modified": "2013-03-25T16:12:33.545", 
+            "created": "2013-03-25T15:34:56.008", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 2
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "test upload seamonkey", 
+            "last_upload": "2012-12-03T00:06:05.941", 
+            "views": 22, 
+            "title": "trash_22032013_23.27.1363991276_test upload seamonkey", 
+            "cover": 1, 
+            "modified": "2013-03-22T23:27:56.389", 
+            "created": "2012-11-23T21:36:47.394", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "g", 
+            "build_report": "", 
+            "order": 2
         }
     }, 
     {
@@ -151,42 +390,42 @@
         "fields": {
             "category": null, 
             "votes": 0, 
-            "trash": false, 
+            "trash": true, 
             "description": "", 
-            "clean_title": "album 15-12-2012", 
+            "clean_title": "Random", 
             "last_upload": "2012-12-20T05:16:58.023", 
-            "views": 2, 
-            "title": "album 15-12-2012", 
-            "cover": 7, 
-            "modified": "2012-12-20T05:16:59.665", 
+            "views": 5, 
+            "title": "trash_22032013_23.27.1363991278_Random", 
+            "cover": 8, 
+            "modified": "2013-03-22T23:27:58.395", 
             "created": "2012-12-15T12:05:53.764", 
             "public": true, 
             "user": 1, 
-            "writable_to": "u", 
+            "writable_to": "g", 
             "build_report": "", 
-            "order": 1
+            "order": 2
         }
     }, 
     {
-        "pk": 2, 
+        "pk": 32, 
         "model": "albums.album", 
         "fields": {
             "category": null, 
             "votes": 0, 
             "trash": false, 
             "description": "", 
-            "clean_title": "nieuw album", 
+            "clean_title": "werkt dit nog?", 
             "last_upload": "1970-01-01T00:00:00", 
-            "views": 0, 
-            "title": "nieuw album", 
+            "views": 1, 
+            "title": "werkt dit nog?", 
             "cover": null, 
-            "modified": "2012-12-19T04:28:32.570", 
-            "created": "2012-12-15T11:53:05.647", 
+            "modified": "2013-03-25T16:12:27.307", 
+            "created": "2013-03-23T00:29:14.094", 
             "public": true, 
             "user": 1, 
             "writable_to": "u", 
             "build_report": "", 
-            "order": 1
+            "order": 3
         }
     }, 
     {
@@ -208,7 +447,7 @@
             "user": 1, 
             "writable_to": "u", 
             "build_report": "", 
-            "order": 1
+            "order": 21
         }
     }, 
     {
@@ -230,29 +469,854 @@
             "user": 1, 
             "writable_to": "u", 
             "build_report": "", 
-            "order": 1
+            "order": 21
         }
     }, 
     {
-        "pk": 1, 
+        "pk": 16, 
         "model": "albums.album", 
         "fields": {
             "category": null, 
             "votes": 0, 
-            "trash": false, 
+            "trash": true, 
             "description": "", 
-            "clean_title": "test upload seamonkey", 
-            "last_upload": "2012-12-03T00:06:05.941", 
-            "views": 22, 
-            "title": "test upload seamonkey", 
-            "cover": 1, 
-            "modified": "2012-12-19T04:03:18.454", 
-            "created": "2012-11-23T21:36:47.394", 
+            "clean_title": "dfsafsadfas", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991011_dfsafsadfas", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:31.458", 
+            "created": "2013-03-22T23:20:49.738", 
             "public": true, 
             "user": 1, 
-            "writable_to": "g", 
+            "writable_to": "u", 
             "build_report": "", 
-            "order": 2
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foobarbaz", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991013_foobarbaz", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:33.460", 
+            "created": "2013-03-22T23:19:17.254", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "safsadf", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991015_safsadf", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:35.310", 
+            "created": "2013-03-22T23:19:54.733", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foobar", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991017_foobar", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:37.945", 
+            "created": "2013-02-23T16:16:51.033", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "Testje2", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991019_Testje2", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:39.589", 
+            "created": "2013-02-23T15:15:25.952", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "kapot", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991021_kapot", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:41.555", 
+            "created": "2013-02-23T15:52:34.017", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foo bar baz", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991023_foo bar baz", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:43.466", 
+            "created": "2013-03-22T23:17:20.514", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "ldsj;f", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991026_ldsj;f", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:46.390", 
+            "created": "2013-02-23T16:02:13.197", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "testjebla", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991028_testjebla", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:48.561", 
+            "created": "2013-02-23T16:13:14.693", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "nieuw album", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991030_nieuw album", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:50.736", 
+            "created": "2012-12-15T11:53:05.647", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "herpderp", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.23.1363991032_herpderp", 
+            "cover": null, 
+            "modified": "2013-03-22T23:23:52.954", 
+            "created": "2013-02-23T15:40:58.264", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "dfgdsgsd", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.35.1363991750_dfgdsgsd", 
+            "cover": null, 
+            "modified": "2013-03-22T23:35:50.974", 
+            "created": "2013-03-22T23:31:06.850", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "fooooooo", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.35.1363991752_fooooooo", 
+            "cover": null, 
+            "modified": "2013-03-22T23:35:52.762", 
+            "created": "2013-03-22T23:33:42.395", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foobar", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.35.1363991754_foobar", 
+            "cover": null, 
+            "modified": "2013-03-22T23:35:54.840", 
+            "created": "2013-03-22T23:32:42.385", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "sadfsrea", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.35.1363991756_sadfsrea", 
+            "cover": null, 
+            "modified": "2013-03-22T23:35:56.830", 
+            "created": "2013-03-22T23:32:19.726", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foobar", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.38.1363991936_foobar", 
+            "cover": null, 
+            "modified": "2013-03-22T23:38:56.253", 
+            "created": "2013-03-22T23:36:04.472", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "lksadj;falks;dfja;l", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.38.1363991938_lksadj;falks;dfja;l", 
+            "cover": null, 
+            "modified": "2013-03-22T23:38:58.945", 
+            "created": "2013-03-22T23:36:27.074", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "testje nieuw album", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.39.1363991942_testje nieuw album", 
+            "cover": null, 
+            "modified": "2013-03-22T23:39:02.166", 
+            "created": "2013-03-22T23:24:21.069", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "asdfasdfa", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.42.1363992164_asdfasdfa", 
+            "cover": null, 
+            "modified": "2013-03-22T23:42:44.177", 
+            "created": "2013-03-22T23:40:34.245", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "nieuw album", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.42.1363992166_nieuw album", 
+            "cover": null, 
+            "modified": "2013-03-22T23:42:46.792", 
+            "created": "2013-03-22T23:39:41.645", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "nieuw album 2", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.42.1363992168_nieuw album 2", 
+            "cover": null, 
+            "modified": "2013-03-22T23:42:48.666", 
+            "created": "2013-03-22T23:40:04.498", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "test", 
+            "last_upload": "2013-03-22T23:39:24.290", 
+            "views": 1, 
+            "title": "trash_22032013_23.42.1363992170_test", 
+            "cover": 12, 
+            "modified": "2013-03-22T23:42:50.316", 
+            "created": "2013-03-22T23:39:12.067", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "fdas", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_22032013_23.42.1363992172_fdas", 
+            "cover": null, 
+            "modified": "2013-03-22T23:42:52.431", 
+            "created": "2013-03-22T23:37:28.915", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "album 23-03-2013", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_23032013_00.29.1363994997_album 23-03-2013", 
+            "cover": null, 
+            "modified": "2013-03-23T00:29:57.654", 
+            "created": "2013-03-23T00:07:02.197", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "album 22-03-2013", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_23032013_00.29.1363994999_album 22-03-2013", 
+            "cover": null, 
+            "modified": "2013-03-23T00:29:59.726", 
+            "created": "2013-03-22T23:43:02.478", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foo bar", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_23032013_00.30.1363995012_foo bar", 
+            "cover": null, 
+            "modified": "2013-03-23T00:30:12.456", 
+            "created": "2013-03-23T00:26:26.563", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "Een nieuw album", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_14.52.1364219524_Een nieuw album", 
+            "cover": null, 
+            "modified": "2013-03-25T14:52:04.115", 
+            "created": "2013-03-25T14:25:26.046", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "Testje", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_14.52.1364219526_Testje", 
+            "cover": null, 
+            "modified": "2013-03-25T14:52:06.283", 
+            "created": "2013-03-25T14:20:36.207", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "album 25-03-2013", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_14.52.1364219527_album 25-03-2013", 
+            "cover": null, 
+            "modified": "2013-03-25T14:52:07.933", 
+            "created": "2013-03-25T14:26:49.386", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "sdfsdf", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_14.52.1364219529_sdfsdf", 
+            "cover": null, 
+            "modified": "2013-03-25T14:52:09.735", 
+            "created": "2013-03-25T14:49:17.104", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "test2", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_14.52.1364219532_test2", 
+            "cover": null, 
+            "modified": "2013-03-25T14:52:12.004", 
+            "created": "2013-03-25T14:26:57.024", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "testje nieuw album", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_14.52.1364219533_testje nieuw album", 
+            "cover": null, 
+            "modified": "2013-03-25T14:52:13.931", 
+            "created": "2013-03-25T14:48:11.375", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "album 25-03-2013", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_15.05.1364220352_album 25-03-2013", 
+            "cover": null, 
+            "modified": "2013-03-25T15:05:52.879", 
+            "created": "2013-03-25T15:00:26.847", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foobar", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_15.05.1364220355_foobar", 
+            "cover": null, 
+            "modified": "2013-03-25T15:05:55.465", 
+            "created": "2013-03-25T15:01:05.793", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foobar", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_15.17.1364221027_foobar", 
+            "cover": null, 
+            "modified": "2013-03-25T15:17:07.299", 
+            "created": "2013-03-25T15:06:03.023", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "testje", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_15.17.1364221029_testje", 
+            "cover": null, 
+            "modified": "2013-03-25T15:17:09.272", 
+            "created": "2013-03-25T15:13:31.482", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "ldsjfaklsdfj", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_15.34.1364222064_ldsjfaklsdfj", 
+            "cover": null, 
+            "modified": "2013-03-25T15:34:24.611", 
+            "created": "2013-03-25T15:30:38.607", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "albums.album", 
+        "fields": {
+            "category": null, 
+            "votes": 0, 
+            "trash": true, 
+            "description": "", 
+            "clean_title": "foooo", 
+            "last_upload": "1970-01-01T00:00:00", 
+            "views": 0, 
+            "title": "trash_25032013_15.34.1364222067_foooo", 
+            "cover": null, 
+            "modified": "2013-03-25T15:34:27.405", 
+            "created": "2013-03-25T15:18:01.232", 
+            "public": true, 
+            "user": 1, 
+            "writable_to": "u", 
+            "build_report": "", 
+            "order": 21
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "albums.albumgroup", 
+        "fields": {
+            "album": 33, 
+            "users": [
+                1, 
+                2
+            ]
         }
     }, 
     {
@@ -261,73 +1325,92 @@
         "fields": {
             "album": 1, 
             "users": [
-                4, 
                 3, 
+                2, 
+                4
+            ]
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "albums.albumgroup", 
+        "fields": {
+            "album": 4, 
+            "users": [
+                1, 
                 2
             ]
         }
     }, 
     {
-        "pk": 7, 
+        "pk": 3, 
+        "model": "albums.albumgroup", 
+        "fields": {
+            "album": 32, 
+            "users": []
+        }
+    }, 
+    {
+        "pk": 14, 
         "model": "albums.photo", 
         "fields": {
-            "album": 4, 
-            "uploaded": "2012-12-15T12:15:46.530", 
+            "album": 44, 
+            "uploaded": "2013-03-25T15:23:19.251", 
             "description": "", 
-            "views": 0, 
-            "image": "albums/1/4/IUN5V.jpg", 
-            "modified": "2012-12-20T05:17:02.837", 
-            "height": 768, 
-            "width": 960, 
+            "views": 1, 
+            "image": "albums/1/44/acres cover.jpg", 
+            "modified": "2013-04-04T20:42:58.843", 
+            "height": 350, 
+            "width": 350, 
             "user": 1, 
-            "trash": true, 
+            "trash": false, 
             "order": 1
         }
     }, 
     {
-        "pk": 8, 
+        "pk": 15, 
         "model": "albums.photo", 
         "fields": {
-            "album": 4, 
-            "uploaded": "2012-12-15T12:16:53.296", 
+            "album": 44, 
+            "uploaded": "2013-03-25T15:23:19.711", 
             "description": "", 
-            "views": 1, 
-            "image": "albums/1/4/IUN5V_1.jpg", 
-            "modified": "2012-12-21T18:26:39.828", 
-            "height": 768, 
-            "width": 960, 
+            "views": 45, 
+            "image": "albums/1/44/chameleon.jpg", 
+            "modified": "2013-04-04T20:55:04.434", 
+            "height": 576, 
+            "width": 1024, 
             "user": 1, 
             "trash": false, 
             "order": 2
         }
     }, 
     {
-        "pk": 9, 
+        "pk": 16, 
         "model": "albums.photo", 
         "fields": {
-            "album": 4, 
-            "uploaded": "2012-12-19T04:01:36.329", 
+            "album": 44, 
+            "uploaded": "2013-03-25T15:23:20.329", 
             "description": "", 
             "views": 0, 
-            "image": "albums/1/4/IUN5V_2.jpg", 
-            "modified": "2012-12-19T04:01:36.329", 
-            "height": 768, 
-            "width": 960, 
+            "image": "albums/1/44/fox.jpg", 
+            "modified": "2013-03-25T15:23:20.329", 
+            "height": 683, 
+            "width": 1024, 
             "user": 1, 
             "trash": false, 
             "order": 3
         }
     }, 
     {
-        "pk": 10, 
+        "pk": 17, 
         "model": "albums.photo", 
         "fields": {
-            "album": 4, 
-            "uploaded": "2012-12-19T04:38:50.247", 
+            "album": 44, 
+            "uploaded": "2013-03-25T15:23:20.565", 
             "description": "", 
-            "views": 1, 
-            "image": "albums/1/4/img1481853198.jpeg", 
-            "modified": "2012-12-19T04:38:55.147", 
+            "views": 0, 
+            "image": "albums/1/44/img1481853198.jpeg", 
+            "modified": "2013-03-25T15:23:20.565", 
             "height": 700, 
             "width": 525, 
             "user": 1, 
@@ -336,20 +1419,20 @@
         }
     }, 
     {
-        "pk": 11, 
+        "pk": 13, 
         "model": "albums.photo", 
         "fields": {
-            "album": 4, 
-            "uploaded": "2012-12-20T05:16:58.023", 
+            "album": 33, 
+            "uploaded": "2013-03-23T01:20:11.810", 
             "description": "", 
-            "views": 0, 
-            "image": "albums/1/4/img1481853198_1.jpeg", 
-            "modified": "2012-12-20T05:16:58.023", 
-            "height": 700, 
-            "width": 525, 
+            "views": 6, 
+            "image": "albums/1/33/2013-03-17-221008_1366x768_scrot.png", 
+            "modified": "2013-03-24T21:52:42.871", 
+            "height": 497, 
+            "width": 1024, 
             "user": 1, 
             "trash": false, 
-            "order": 5
+            "order": 1
         }
     }, 
     {
@@ -455,6 +1538,108 @@
         }
     }, 
     {
+        "pk": 7, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-15T12:15:46.530", 
+            "description": "", 
+            "views": 0, 
+            "image": "albums/1/4/IUN5V.jpg", 
+            "modified": "2012-12-20T05:17:02.837", 
+            "height": 768, 
+            "width": 960, 
+            "user": 1, 
+            "trash": true, 
+            "order": 1
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-15T12:16:53.296", 
+            "description": "", 
+            "views": 8, 
+            "image": "albums/1/4/IUN5V_1.jpg", 
+            "modified": "2013-03-24T21:34:57.969", 
+            "height": 768, 
+            "width": 960, 
+            "user": 1, 
+            "trash": false, 
+            "order": 2
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-19T04:01:36.329", 
+            "description": "", 
+            "views": 78, 
+            "image": "albums/1/4/IUN5V_2.jpg", 
+            "modified": "2013-03-24T21:36:37.059", 
+            "height": 768, 
+            "width": 960, 
+            "user": 1, 
+            "trash": false, 
+            "order": 3
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-19T04:38:50.247", 
+            "description": "", 
+            "views": 11, 
+            "image": "albums/1/4/img1481853198.jpeg", 
+            "modified": "2013-03-24T21:42:24.263", 
+            "height": 700, 
+            "width": 525, 
+            "user": 1, 
+            "trash": false, 
+            "order": 4
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 4, 
+            "uploaded": "2012-12-20T05:16:58.023", 
+            "description": "", 
+            "views": 4, 
+            "image": "albums/1/4/img1481853198_1.jpeg", 
+            "modified": "2013-03-24T21:53:40.146", 
+            "height": 700, 
+            "width": 525, 
+            "user": 1, 
+            "trash": false, 
+            "order": 5
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "albums.photo", 
+        "fields": {
+            "album": 25, 
+            "uploaded": "2013-03-22T23:39:24.290", 
+            "description": "", 
+            "views": 1, 
+            "image": "albums/1/25/info_icon.png", 
+            "modified": "2013-03-24T21:34:24.991", 
+            "height": 16, 
+            "width": 16, 
+            "user": 1, 
+            "trash": false, 
+            "order": 1
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "albums.preferences", 
         "fields": {
@@ -464,6 +1649,60 @@
             "text_color": "", 
             "width": "", 
             "user": 1, 
+            "hide_sidebar": false, 
+            "default_uploader": "F", 
+            "collapse_sidebar": true, 
+            "show_direct_link": true, 
+            "apply_admin_permissions": false, 
+            "default_img_size": 0
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "albums.preferences", 
+        "fields": {
+            "auto_start_uploading": false, 
+            "sidebar_transparent": true, 
+            "sidebar_bg_color": "black", 
+            "text_color": "", 
+            "width": "", 
+            "user": 4, 
+            "hide_sidebar": false, 
+            "default_uploader": "F", 
+            "collapse_sidebar": true, 
+            "show_direct_link": false, 
+            "apply_admin_permissions": false, 
+            "default_img_size": 0
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "albums.preferences", 
+        "fields": {
+            "auto_start_uploading": false, 
+            "sidebar_transparent": true, 
+            "sidebar_bg_color": "black", 
+            "text_color": "", 
+            "width": "", 
+            "user": 19, 
+            "hide_sidebar": false, 
+            "default_uploader": "F", 
+            "collapse_sidebar": true, 
+            "show_direct_link": false, 
+            "apply_admin_permissions": false, 
+            "default_img_size": 0
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "albums.preferences", 
+        "fields": {
+            "auto_start_uploading": false, 
+            "sidebar_transparent": true, 
+            "sidebar_bg_color": "black", 
+            "text_color": "", 
+            "width": "", 
+            "user": 20, 
             "hide_sidebar": false, 
             "default_uploader": "F", 
             "collapse_sidebar": true, 
@@ -571,6 +1810,25 @@
         }
     }, 
     {
+        "pk": 2, 
+        "model": "forum_tools.forumlinkbase", 
+        "fields": {
+            "short_description": "Testje", 
+            "from_date": "2013-03-25", 
+            "enabled": true, 
+            "to_date": "2013-09-25", 
+            "link_id": "forum_5_sub_0"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "forum_tools.forumlinksynced", 
+        "fields": {
+            "base": 2, 
+            "link_id": "forum_3_sub_0"
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "general.userprofile", 
         "fields": {
@@ -673,6 +1931,46 @@
         }
     }, 
     {
+        "pk": 16, 
+        "model": "general.userprofile", 
+        "fields": {
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 19, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "Test reg log", 
+            "exclude_from_nomination": false, 
+            "preference": null
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "general.userprofile", 
+        "fields": {
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 20, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "Test3", 
+            "exclude_from_nomination": false, 
+            "preference": null
+        }
+    }, 
+    {
         "pk": 14, 
         "model": "general.userprofile", 
         "fields": {
@@ -713,6 +2011,46 @@
         }
     }, 
     {
+        "pk": 18, 
+        "model": "general.userprofile", 
+        "fields": {
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 21, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "test4", 
+            "exclude_from_nomination": false, 
+            "preference": null
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "general.userprofile", 
+        "fields": {
+            "province": null, 
+            "city": null, 
+            "refuse": null, 
+            "country": null, 
+            "number": null, 
+            "categories_voted": [], 
+            "street": null, 
+            "user": 22, 
+            "last_vote": "2010-01-01", 
+            "secret_santa": false, 
+            "postal": null, 
+            "forum_nickname": "test5", 
+            "exclude_from_nomination": false, 
+            "preference": null
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "general.questionanswer", 
         "fields": {
@@ -744,6 +2082,84 @@
                 3
             ], 
             "in_use": true
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "general.registrationattempt", 
+        "fields": {
+            "username": "test5", 
+            "type_of_visitor": "suspicious & comment spammer", 
+            "success": true, 
+            "timestamp": "2013-03-29T16:34:19.302", 
+            "question": 1, 
+            "answer": "zeven", 
+            "ip_address": "216.152.251.9"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "general.registrationattempt", 
+        "fields": {
+            "username": "test4", 
+            "type_of_visitor": "suspicious & comment spammer", 
+            "success": true, 
+            "timestamp": "2013-03-29T16:03:58.889", 
+            "question": 1, 
+            "answer": "zeven", 
+            "ip_address": "216.152.250.147"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "general.registrationattempt", 
+        "fields": {
+            "username": "Test3", 
+            "type_of_visitor": "suspicious & comment spammer", 
+            "success": true, 
+            "timestamp": "2013-03-29T15:56:06.609", 
+            "question": 1, 
+            "answer": "zeven", 
+            "ip_address": "216.152.250.147"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "general.registrationattempt", 
+        "fields": {
+            "username": "Test reg log", 
+            "type_of_visitor": "normal user", 
+            "success": true, 
+            "timestamp": "2013-03-29T02:22:19.938", 
+            "question": 1, 
+            "answer": "7", 
+            "ip_address": "127.0.0.1"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "general.registrationattempt", 
+        "fields": {
+            "username": "Test reg log", 
+            "type_of_visitor": "normal user", 
+            "success": false, 
+            "timestamp": "2013-03-29T02:22:12.770", 
+            "question": 1, 
+            "answer": "7", 
+            "ip_address": "127.0.0.1"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "general.registrationattempt", 
+        "fields": {
+            "username": "Foo", 
+            "type_of_visitor": "normal user", 
+            "success": false, 
+            "timestamp": "2013-03-29T02:21:42.897", 
+            "question": 1, 
+            "answer": "acht", 
+            "ip_address": "127.0.0.1"
         }
     }, 
     {
@@ -805,9 +2221,9 @@
         "model": "online_users.trackeduser", 
         "fields": {
             "tracking_since": "2012-09-18T19:30:17.270", 
-            "notificate": true, 
+            "notificate": false, 
             "user": 1, 
-            "last_seen": "2012-09-18T22:51:12.754"
+            "last_seen": "2013-04-11T06:00:22.022"
         }
     }, 
     {
