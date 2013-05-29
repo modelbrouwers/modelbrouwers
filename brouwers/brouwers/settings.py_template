@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'albums',
     'awards',
     'builds',
+    # 'django_extensions',
     'forum_tools',
     'general',
 #    'groepsbouwkalender',
