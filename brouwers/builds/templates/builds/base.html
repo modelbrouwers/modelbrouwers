@@ -9,6 +9,12 @@ Modelbrouwers.nl &bull; Brouwverslagenoverzicht
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/builds.css" charset="utf-8"/>
 {% endblock %}
 
+{% block announcement %}
+<p style="border: solid 2px red;background-color:#CCC;padding:5px;">
+    De layout van deze pagina is... vreselijk en staat op de planning voor herwerking ;)
+</p>
+{% endblock %}
+
 {% block menu %}
     <li><a href="{% url builds.views.builders_overview %}">{% trans "All builds" %}</a></li>
     <li><a href="{% url builds.views.add %}">{% trans 'Add build' %}</a></li>
