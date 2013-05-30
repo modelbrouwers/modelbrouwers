@@ -6,8 +6,9 @@ import socket
 def get_username_for_user(user):
     return user.username.replace("_", " ")
 
-def get_username(obj):
-    username = get_username_for_user(obj.user)
+def get_username(obj, field='user'):
+    user = getattr(obj, field)
+    username = get_username_for_user(user)
     return username
 
 ###### KEEPING SPAMMERS OUT ####################
