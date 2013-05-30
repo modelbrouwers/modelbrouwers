@@ -1,20 +1,21 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}
-Brouwverslagenoverzicht
+Modelbrouwers.nl &bull; Brouwverslagenoverzicht
 {% endblock %}
 
 {% block extrastyle %}
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/builds.css" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/builds.css" charset="utf-8"/>
 {% endblock %}
 
-{% block submenu %}
-<li><a href="/builds/">Zoeken</a></li>
-<li><a href="/builds/add/">Toevoegen</a></li>
-{% if user.is_authenticated %}
-	<li><a href="/builds/profile/{{user.get_profile.id}}/">Mijn projecten</a></li>
-{% endif %}
-{% endblock submenu %}
+{% block menu %}
+    <li><a href="{% url builds.views.builders_overview %}">{% trans "All builds" %}</a></li>
+    <li><a href="{% url builds.views.add %}">{% trans 'Add build' %}</a></li>
+    {% if user.is_authenticated %}
+        <li><a href="/builds/profile/{{ user.get_profile.id }}/">{% trans 'My builds' %}</a></li>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 <h1>Brouwverslagenoverzicht</h1>
