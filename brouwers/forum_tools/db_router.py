@@ -4,6 +4,7 @@ MYSQL_MODELS = [
     'ForumUser', 
     'Report',
     ]
+
 MYSQL_MODELS_NO_SYNCDB = [
     'Forum', 
     'ForumUser', 
@@ -38,5 +39,8 @@ class ForumUserRouter(object):
             if (model._meta.app_label == 'forum_tools' \
                     and model.__name__ in MYSQL_MODELS_NO_SYNCDB \
                     ) or model._meta.app_label != 'forum_tools':
+                return False
+        elif db == 'default':
+            if model._meta.app_label == 'forum_tools' and model.__name__ not in ['ForumLinkBase', 'ForumLinkSynced']:
                 return False
         return True
