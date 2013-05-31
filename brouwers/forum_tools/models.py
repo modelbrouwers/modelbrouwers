@@ -41,6 +41,7 @@ class ForumUser(models.Model): # phpBB3 tables
         help_text=_("Primary key")
     )
     username = models.CharField(_("username"), max_length=255)
+    user_posts = models.IntegerField()
     user_email = models.CharField(_("email"), max_length=100)
     user_email_hash = models.BigIntegerField(db_column="user_email_hash",
         # bigint(20)

@@ -13,7 +13,9 @@ class ForumLinkSyncedAdmin(admin.ModelAdmin):
     list_filter = ('base__enabled',)
 
 class ForumUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'user_email', 'show_absolute_url', 'user_email_hash', 'get_email_hash')
+    list_display = ('username', 'user_email', 
+                    'show_absolute_url', 'user_posts',
+                    'user_email_hash', 'get_email_hash')
     search_fields = ('username',)
     
     def show_absolute_url(self, obj):
