@@ -56,13 +56,17 @@ class ModelKit(models.Model):
     
     brand = models.ForeignKey(Brand, verbose_name=_(u'brand'))
     kit_number = models.CharField(
-        _(u'kit number'), max_length=50, 
-        blank=True, help_text=_(u'Kit number as found on the box.'),
-        db_index=True
-        )
+                _(u'kit number'), max_length=50,
+                blank=True, help_text=_(u'Kit number as found on the box.'),
+                db_index=True
+                )
     name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
     scale = models.ForeignKey(Scale)
-    # TODO: field to keep known identical kits from a different brand in
+    duplicates = models.ManyToManyField(
+                "self", blank=True, null=True, 
+                verbose_name=_(u'duplicates'),
+                help_text=_(u'Kits that are the same but have another producer.'),
+                )
 
     submitter = models.ForeignKey(User)
     submitted_on = models.DateTimeField(auto_now_add=True)
@@ -94,6 +98,7 @@ class ModelKit(models.Model):
                         'kit_number': self.kit_number
                         }
                     )
+
 
 class KitReview(models.Model):
     """ Model holding the review information for a model kit """
