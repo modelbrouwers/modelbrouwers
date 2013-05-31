@@ -62,7 +62,7 @@ def get_posting_level(request):
         forum = form.cleaned_data['forum']
         # forum_user = ForumUser.objects.get(username=get_username(request))
         username = request.user.get_profile().forum_nickname
-        forum_user = ForumUser.objects.get(username=username)
+        forum_user = ForumUser.objects.get(username__iexact=username)
         num_posts = forum_user.user_posts
 
         restrictions = ForumPostCountRestriction.objects.filter(forum=forum)
