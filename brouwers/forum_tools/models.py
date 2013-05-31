@@ -35,7 +35,11 @@ class ForumLinkSynced(models.Model):
     def __unicode__(self):
         return u"%s -- %s" % (self.base.__unicode__(), self.link_id)
 
-class ForumUser(models.Model): # phpBB3 tables
+
+########## Models to interact with the MYSQL database #############################
+
+class ForumUser(models.Model):
+    """ MySQL phpBB3 user, managed by phpBB3 """
     user_id = models.PositiveIntegerField(primary_key=True,
         # mediumint(8) unsigned
         help_text=_("Primary key")
@@ -50,10 +54,10 @@ class ForumUser(models.Model): # phpBB3 tables
     )
     
     class Meta:
+        managed = False
         verbose_name = _("forum user")
         verbose_name_plural = _("forum users")
         ordering = ('username',)
-        managed = False
         db_table = u"%susers" % settings.PHPBB_TABLE_PREFIX
     
     def __unicode__(self):
@@ -71,7 +75,63 @@ class ForumUser(models.Model): # phpBB3 tables
         self.user_email_hash = self.get_email_hash()
         super(ForumUser, self).save(*args, **kwargs)
 
+
+class Forum(models.Model):
+    """ MySQL Forum, managed by phpBB3 """
+    forum_id = models.IntegerField(primary_key=True)
+    forum_name = models.CharField(max_length=60)
+    forum_topics = models.IntegerField()
+    forum_posts = models.IntegerField()
+    # forum_last_post = models.OneToOneField(
+    #         'PhpbbPost',
+    #         db_column='forum_last_post_id',
+    #         related_name="last_post_of_forum")
+    forum_desc = models.TextField()
+    parent = models.ForeignKey('self', related_name="child")
+    left = models.OneToOneField('self', related_name="right_of")
+    right = models.OneToOneField('self', related_name="left_of")
+    
+    def __unicode__(self):
+        return u"%s" % self.forum_name
+    
+    # def get_absolute_url(self):
+    #     return u"/archiwum/%s/%s/" % (self.forum_id, self.get_slug())
+    
+    # def get_slug(self):
+    #     return slugify(self.forum_name)
+    
+    class Meta:
+        managed = False
+        db_table = settings.PHPBB_TABLE_PREFIX + 'forums'
+        ordering = ['forum_name']
+
+
+class ForumPostCountRestriction(models.Model):
+    """ Model to hold information on the minimum post-count and level of posting rights.
+        Managed by Django. """
+    
+    POSTING_LEVELS = (
+        ('T', _('Topic')),
+        ('R', _('Reply')),
+        )
+    
+    forum = models.ForeignKey(Forum)
+    min_posts = models.PositiveSmallIntegerField(_('minimum number of posts'))
+    posting_level = models.CharField(_('posting level'), max_length=1, 
+                    choices=POSTING_LEVELS
+                )
+
+    class Meta:
+        verbose_name = _('forum post count restriction')
+        verbose_name_plural = _('forum post count restrictions')
+        ordering = ['forum']
+
+    def __unicode__(self):
+        return _("Restriction for %(forum)s") % {'forum': self.forum.forum_name}
+        
+
 class Report(models.Model):
+    """ MySQL Report model, managed by phpBB3 """
     report_id = models.PositiveIntegerField(primary_key=True,
         # mediumint(8) unsigned
         help_text="Primary key"
@@ -82,6 +142,7 @@ class Report(models.Model):
     report_text = models.TextField('text', blank=True)
     
     class Meta:
+        managed = False
         verbose_name = _('report')
         verbose_name_plural = _('reports')
         db_table = u"%sreports" % settings.PHPBB_TABLE_PREFIX
@@ -94,5 +155,3 @@ class Report(models.Model):
     
     def report_time(self):
         return datetime.fromtimestamp(self.report_time_int)
-
-

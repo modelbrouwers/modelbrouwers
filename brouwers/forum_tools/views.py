@@ -5,8 +5,11 @@ from django.template import Context
 from django.template.loader import get_template
 from django.utils.translation import ungettext as _n
 from django.views.decorators.cache import cache_page
-from general.utils import get_username_for_user
-from models import ForumLinkBase, Report
+
+
+from general.utils import get_username_for_user, get_username
+from models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser
+from forms import ForumForm
 from datetime import date
 import json
 
@@ -47,4 +50,19 @@ def get_mod_data(request):
     num_open_reports = Report.objects.filter(report_closed=False).count()
     data['open_reports'] = num_open_reports
     data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports) % {'num': num_open_reports}
+    return HttpResponse(json.dumps(data), mimetype="application/json")
+
+@login_required
+def get_posting_level(request):
+    data = {}
+    
+    
+    form = ForumForm(request.GET)
+    if form.is_valid():
+        forum = form.cleaned_data['forum']
+        forum_user = ForumUser.objects.get(username=get_username(request))
+        num_posts = forum_user.user_posts
+
+        restrictions = ForumPostCountRestriction.objects.filter(forum=forum)
+        data['restrictions'] = [restr.posting_level for restr in restrictions if restr.min_posts > num_posts]
     return HttpResponse(json.dumps(data), mimetype="application/json")
