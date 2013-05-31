@@ -55,14 +55,12 @@ def get_mod_data(request):
 @login_required
 def get_posting_level(request):
     data = {}
-    
-    
     form = ForumForm(request.GET)
     if form.is_valid():
         forum = form.cleaned_data['forum']
         # forum_user = ForumUser.objects.get(username=get_username(request))
         username = request.user.get_profile().forum_nickname
-        forum_user = ForumUser.objects.get(username__iexact=username)
+        forum_user = ForumUser.objects.get(username_clean=username.lower())
         num_posts = forum_user.user_posts
 
         restrictions = ForumPostCountRestriction.objects.filter(forum=forum)
