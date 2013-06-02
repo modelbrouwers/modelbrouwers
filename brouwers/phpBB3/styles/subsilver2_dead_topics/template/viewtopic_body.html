@@ -211,7 +211,13 @@
 					<!-- BEGIN custom_fields -->
 						<br /><b>{postrow.custom_fields.PROFILE_FIELD_NAME}:</b> {postrow.custom_fields.PROFILE_FIELD_VALUE}
 					<!-- END custom_fields -->
+
+					<!-- IF U_MCP -->
+						<span id="sharing_{postrow.POSTER_ID}" class="sharing" data-posterid="{postrow.POSTER_ID}"></span>
+					<!-- ENDIF -->
 				</span>
+
+
 
 			</td>
 			<td valign="top">

@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
@@ -7,9 +7,10 @@ from django.utils.translation import ungettext as _n
 from django.views.decorators.cache import cache_page
 
 
-from general.utils import get_username_for_user, get_username
+from general.models import UserProfile
+from general.utils import get_username_for_user, get_username, clean_username
 from models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser
-from forms import ForumForm
+from forms import ForumForm, PosterIDsForm
 from datetime import date
 import json
 
@@ -52,14 +53,37 @@ def get_mod_data(request):
     data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports) % {'num': num_open_reports}
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
+@user_passes_test(lambda u: u.groups.filter(name__iexact='moderators').exists())
+def get_sharing_perms(request):
+    data = {}
+    form = PosterIDsForm(request.GET)
+    if form.is_valid():
+        forumusers = ForumUser.objects.filter(user_id__in=form.poster_ids)
+        if forumusers.exists():
+            # render text in template
+            t_allowed = get_template('forum_tools/sharing_allowed.html')
+            t_not_allowed = get_template('forum_tools/sharing_not_allowed.html')
+            template_sharing_allowed = t_allowed.render(Context())
+            template_sharing_not_allowed = t_not_allowed.render(Context())
+
+            for forumuser in forumusers:
+                profile = UserProfile.objects.get(forum_nickname=forumuser.username)
+                if profile.allow_sharing:
+                    data[forumuser.user_id] = template_sharing_allowed
+                else:
+                    data[forumuser.user_id] = template_sharing_not_allowed
+
+
+    return HttpResponse(json.dumps(data), mimetype="application/json")
+
 @login_required
 def get_posting_level(request):
     data = {}
     form = ForumForm(request.GET)
     if form.is_valid():
         forum = form.cleaned_data['forum']
-        # forum_user = ForumUser.objects.get(username=get_username(request))
-        username = request.user.get_profile().forum_nickname
+        username = clean_username(request.user.get_profile().forum_nickname)
+        # iexact doesn't work because MySQL tables are utf8_bin collated...
         forum_user = ForumUser.objects.get(username_clean=username.lower())
         num_posts = forum_user.user_posts
 

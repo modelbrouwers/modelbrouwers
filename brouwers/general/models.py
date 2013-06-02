@@ -46,6 +46,11 @@ class UserProfile(models.Model):
     #voorkeuren -> TODO: move to secret santa object
     preference = models.TextField(help_text=_("Dit wil ik graag"), blank=True, null=True)
     refuse = models.TextField(help_text=_("Dit wil ik absoluut niet"), blank=True, null=True)
+
+    # allow social sharing
+    allow_sharing = models.BooleanField(_("allow social sharing"), default=True, 
+            help_text=_('Checking this gives us permission to share your topics and albums on social media. Uncheck if you don\'t want to share.')
+        )
     
     def __unicode__(self):
         return u"%s" % self.forum_nickname

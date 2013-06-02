@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from utils import get_username
+from utils import get_username, clean_username
 
 class UsernameTest(TestCase):
     def setUp(self):
@@ -17,6 +17,7 @@ class UsernameTest(TestCase):
 
         self.object1 = TestObject('BBT')
         self.object2 = TestObject('Joe_Silent')
+        self.object3 = TestObject('My\'User')
 
     def test_username_correct(self):
         """
@@ -25,3 +26,7 @@ class UsernameTest(TestCase):
         self.assertEqual(get_username(self.object1, field='field'), 'BBT')
         self.assertEqual(get_username(self.object2, field='field'), 'Joe Silent')
         self.assertEqual(get_username(self.object2), 'Joe Silent')
+
+    def test_clean_username(self):
+        username = self.object3.user.username
+        self.assertEqual(clean_username(username), 'my user')

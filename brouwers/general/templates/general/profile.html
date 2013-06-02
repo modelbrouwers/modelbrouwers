@@ -46,6 +46,12 @@
     {% with form=awardsform %}
         {% include "form_in_table.html" %}
     {% endwith %}
+
+    <div class="tab midpage">{% trans "Social sharing" %}</div>
+    {% with form=sharingform %}
+        {% include "form_in_table.html" %}
+    {% endwith %}
+
     <div class="center" style="margin-top:1em;">
         <input type="submit" value="{% trans 'Save' %}" class="submit-button" />
     </div>

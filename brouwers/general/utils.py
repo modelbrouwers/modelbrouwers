@@ -11,6 +11,9 @@ def get_username(obj, field='user'):
     username = get_username_for_user(user)
     return username
 
+def clean_username(username):
+    return username.replace('\'', ' ').lower()
+
 ###### KEEPING SPAMMERS OUT ####################
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

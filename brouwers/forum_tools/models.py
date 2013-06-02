@@ -106,6 +106,9 @@ class Forum(models.Model):
         db_table = settings.PHPBB_TABLE_PREFIX + 'forums'
         ordering = ['forum_name']
 
+    def get_django_username(self):
+        return self.forum_name.replace(' ', '_')
+
 
 class ForumPostCountRestriction(models.Model):
     """ Model to hold information on the minimum post-count and level of posting rights.

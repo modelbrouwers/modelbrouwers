@@ -226,6 +226,7 @@ def profile(request):
         forms['addressform'] = AddressForm(request.POST, instance=profile)
         forms['userform'] = UserForm(profile, request.POST, instance=request.user)
         forms['awardsform'] = AwardsForm(request.POST, instance=profile)
+        forms['sharingform'] = SharingForm(request.POST, instance=profile)
         for key, form in forms.items():
             if form.is_valid():
                 form.save()
@@ -241,6 +242,7 @@ def profile(request):
         forms['userform'] = UserForm(instance=request.user)
         forms['awardsform'] = AwardsForm(instance=profile)
         forms['passwordform'] = PasswordChangeForm(user=request.user)
+        forms['sharingform'] = SharingForm(instance=profile)
     
     min_date = datetime.now() - timedelta(weeks=1)
     if min_date <= request.user.date_joined < datetime.now():

@@ -280,6 +280,11 @@ class ProfileForm(forms.ModelForm):
         model = UserProfile
         exclude = ('user', 'last_vote', 'forum_nickname', 'secret_santa')
 
+class SharingForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('allow_sharing',)
+
 ######################################
 #      Logging in from the board     #
 ######################################
