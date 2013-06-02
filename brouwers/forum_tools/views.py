@@ -67,13 +67,14 @@ def get_sharing_perms(request):
             template_sharing_not_allowed = t_not_allowed.render(Context())
 
             for forumuser in forumusers:
-                profile = UserProfile.objects.get(forum_nickname=forumuser.username)
-                if profile.allow_sharing:
+                try:
+                    profile = UserProfile.objects.get(forum_nickname=forumuser.username)
+                    if profile.allow_sharing:
+                        data[forumuser.user_id] = template_sharing_allowed
+                    else:
+                        data[forumuser.user_id] = template_sharing_not_allowed
+                except UserProfile.DoesNotExist:
                     data[forumuser.user_id] = template_sharing_allowed
-                else:
-                    data[forumuser.user_id] = template_sharing_not_allowed
-
-
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
 @login_required
