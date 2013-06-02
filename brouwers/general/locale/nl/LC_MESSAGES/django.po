@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-20 15:19+0100\n"
+"POT-Creation-Date: 2013-06-02 22:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,67 +22,67 @@ msgstr ""
 msgid "Your password was successfully changed."
 msgstr "Je wachtwoord werd succesvol aangepast."
 
-#: forms.py:16
+#: forms.py:18
 msgid "E-mail"
 msgstr "E-mailadres"
 
-#: forms.py:22 forms.py:41
+#: forms.py:24 forms.py:43
 msgid "A user with that username already exists."
 msgstr "Er bestaat al iemand met deze gebruikersnaam."
 
-#: forms.py:42 forms.py:128 forms.py:222
+#: forms.py:44 forms.py:130 forms.py:224
 msgid "The two password fields didn't match."
 msgstr "De wachtwoordvelden zijn niet identiek."
 
-#: forms.py:45 forms.py:166
+#: forms.py:47 forms.py:168
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: forms.py:46 forms.py:169
+#: forms.py:48 forms.py:171
 msgid "E-mail address"
 msgstr "E-mailadres"
 
-#: forms.py:47 forms.py:117 forms.py:211
+#: forms.py:49 forms.py:119 forms.py:213
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: forms.py:49 forms.py:119 forms.py:213
+#: forms.py:51 forms.py:121 forms.py:215
 msgid "Password confirmation"
 msgstr "Wachtwoord - bevestig"
 
-#: forms.py:51 forms.py:121 forms.py:215
+#: forms.py:53 forms.py:123 forms.py:217
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 
-#: forms.py:61
+#: forms.py:63
 msgid "This e-mail address is already registered."
 msgstr "Dit e-mailadres is al geregistreerd."
 
-#: forms.py:101
+#: forms.py:103 models.py:90
 msgid "answer"
 msgstr "antwoord"
 
-#: forms.py:115
+#: forms.py:117
 msgid "Forum name"
 msgstr "Forumnaam"
 
-#: forms.py:116
+#: forms.py:118
 msgid "Code"
 msgstr "Code"
 
-#: forms.py:134
+#: forms.py:136
 msgid "This user doesn't exist on the board, check for typos."
 msgstr "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
 
-#: forms.py:142
+#: forms.py:144
 msgid "You entered the wrong code."
 msgstr "Je hebt een foutieve code ingegeven."
 
-#: forms.py:157
+#: forms.py:159
 msgid "The username entered was not correct."
 msgstr "De ingegeven gebruikersnaam was niet correct."
 
-#: forms.py:170
+#: forms.py:172
 msgid ""
 "If you forgot your username, you can enter the e-mail address you registered "
 "with."
@@ -90,15 +90,15 @@ msgstr ""
 "Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee "
 "je registreerde ingeven."
 
-#: forms.py:177
+#: forms.py:179
 msgid "This user is unknown in the database."
 msgstr "Deze gebruiker komt niet in de databank voor."
 
-#: forms.py:184
+#: forms.py:186
 msgid "This email adress is unknown in the database"
 msgstr "Dit e-mailadres komt niet in de databank voor."
 
-#: forms.py:191
+#: forms.py:193
 msgid "Enter your username or e-mail address."
 msgstr "Voer je gebruikersnaam of e-mailadres in."
 
@@ -166,60 +166,98 @@ msgstr ""
 msgid "Dit wil ik absoluut niet"
 msgstr ""
 
-#: models.py:57
+#: models.py:51
+msgid "allow social sharing"
+msgstr "sociaal delen toestaan"
+
+#: models.py:52
+msgid ""
+"Checking this gives us permission to share your topics and albums on social "
+"media. Uncheck if you don't want to share."
+msgstr ""
+"Als je dit aanvinkt, dan geef je toestemming om je topics en albums "
+"te delen op sociale media zoals Facebook. Vink dit uit als je dit "
+"niet wil."
+
+#: models.py:62
 msgid "userprofile"
 msgstr "gebruikersprofiel"
 
-#: models.py:58
+#: models.py:63
 msgid "userprofiles"
 msgstr "gebruikersprofielen"
 
-#: models.py:73
-msgid "username"
-msgstr "gebruikersnaam"
-
-#: models.py:74
-msgid "email"
-msgstr "e-mailadres"
-
-#: models.py:82
-msgid "forum user"
-msgstr "forumgebruiker"
-
-#: models.py:83
-msgid "forum users"
-msgstr "forumgebruikers"
-
-#: models.py:108
+#: models.py:80
 msgid "Question which must be answered for registration."
 msgstr "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
 
-#: models.py:141
+#: models.py:88
+msgid "username"
+msgstr "gebruikersnaam"
+
+#: models.py:89
+#, fuzzy
+msgid "registration question"
+msgstr "Registratie"
+
+#: models.py:92
+msgid "timestamp"
+msgstr ""
+
+#: models.py:93
+#, fuzzy
+msgid "IP address"
+msgstr "E-mailadres"
+
+#: models.py:94
+msgid "success"
+msgstr ""
+
+#: models.py:98
+msgid "type of visitor"
+msgstr ""
+
+#: models.py:98
+#, fuzzy
+msgid "normal user"
+msgstr "forumgebruiker"
+
+#: models.py:101
+#, fuzzy
+msgid "registration attempt"
+msgstr "Registratie"
+
+#: models.py:102
+#, fuzzy
+msgid "registration attempts"
+msgstr "Registratie"
+
+#: models.py:152
 msgid "hash"
 msgstr ""
 
-#: models.py:142
+#: models.py:153
 msgid "expire datetime"
 msgstr "vervaldatum"
 
-#: models.py:145
+#: models.py:156
 msgid "password reset"
 msgstr "Wachtwoordreset"
 
-#: models.py:146
+#: models.py:157
 msgid "password resets"
 msgstr "Wachtwoordresets"
 
-#: models.py:151
+#: models.py:162
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr "Wachtwoordreset voor %(user)s"
 
-#: models.py:155
+#: models.py:166
 msgid "path from"
 msgstr "pad van"
 
-#: models.py:157
+#: models.py:168
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
@@ -227,31 +265,31 @@ msgstr ""
 "pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
 "shop/' wordt 'shop/'"
 
-#: models.py:161
+#: models.py:172
 msgid "redirect to"
 msgstr "redirect naar"
 
-#: models.py:162
+#: models.py:173
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr "Pad (relatief of absoluut tot de website root) of url."
 
-#: models.py:166
+#: models.py:177
 msgid "redirect"
 msgstr "omleiding"
 
-#: models.py:167
+#: models.py:178
 msgid "redirects"
 msgstr "omleidingen"
 
-#: views.py:212
+#: views.py:236
 msgid "Your profile data has been updated."
 msgstr "Je profielgegevens werden bijgewerkt."
 
-#: views.py:215
+#: views.py:239
 msgid "Some fields were not valid, please fix the errors."
 msgstr "Sommige gegevens waren ongeldig, pas a.u.b. de problemen aan."
 
-#: views.py:267
+#: views.py:298
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
 "reactivate with the link sent by e-mail."
@@ -259,7 +297,7 @@ msgstr ""
 "Je account is nog inactief! Je zal niet kunnen inloggen tot je je account "
 "geheractiveerd hebt via de link die gemaild werd."
 
-#: views.py:294
+#: views.py:325
 #, python-format
 msgid ""
 "Hello %(nickname)s, \n"
@@ -286,22 +324,22 @@ msgstr ""
 "\n"
 "Het Modelbrouwers.nl beheer"
 
-#: views.py:306
+#: views.py:337
 msgid "nickname"
 msgstr "gebruikersnaam"
 
-#: views.py:310
+#: views.py:341
 msgid "Modelbrouwers.nl password reset"
 msgstr "Modelbrouwers.nl wachtwoordreset"
 
-#: views.py:314
+#: views.py:345
 #, python-format
 msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
 msgstr ""
 "Er werd een e-mail verstuurd naar '%(email)s' met een link om je wachtwoord "
 "te resetten."
 
-#: templates/general/confirm_account.html:24 templates/general/profile.html:15
+#: templates/general/confirm_account.html:24 templates/general/profile.html:10
 msgid "Confirm"
 msgstr "Bevestigen"
 
@@ -314,17 +352,17 @@ msgstr "Vul je nieuwe wachtwoord in"
 msgid "confirm"
 msgstr "bevestigen"
 
-#: templates/general/login.html:26
+#: templates/general/login.html:28
 msgid "Forgot your password?"
 msgstr "Wachtwoord vergeten?"
 
-#: templates/general/login.html:28
+#: templates/general/login.html:30
 msgid "Request a password reset"
 msgstr "Vraag om een wachtwoord reset"
 
 #: templates/general/password.html:5 templates/general/password.html.py:9
-#: templates/general/password.html:13 templates/general/profile.html:14
-#: templates/general/profile.html.py:25
+#: templates/general/password.html:13 templates/general/profile.html:9
+#: templates/general/profile.html.py:20
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
@@ -343,35 +381,43 @@ msgstr ""
 msgid "Modelbrouwers.nl &bull; Edit profile"
 msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
 
-#: templates/general/profile.html:16
+#: templates/general/profile.html:11
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: templates/general/profile.html:24
+#: templates/general/profile.html:19
 msgid "Account details"
 msgstr "Accountdetails"
 
-#: templates/general/profile.html:32
+#: templates/general/profile.html:23
+msgid "Introduce yourself!"
+msgstr ""
+
+#: templates/general/profile.html:31
 msgid "Your username"
 msgstr "Je gebruikersnaam"
 
-#: templates/general/profile.html:41
+#: templates/general/profile.html:40
 msgid "Address details"
 msgstr "Adresdetails"
 
-#: templates/general/profile.html:46
+#: templates/general/profile.html:45
 msgid "Awards"
 msgstr "Awards"
 
-#: templates/general/profile.html:51
+#: templates/general/profile.html:50
+msgid "Social sharing"
+msgstr "Delen op sociale media"
+
+#: templates/general/profile.html:56
 msgid "Save"
 msgstr "Bewaren"
 
-#: templates/general/profile.html:57
+#: templates/general/profile.html:62
 msgid "Language settings"
 msgstr "Taalinstellingen"
 
-#: templates/general/profile.html:59
+#: templates/general/profile.html:64
 msgid ""
 "Set your preferred language here. Note that this setting is stored in your "
 "cookies, so if you clear those, the default language according to your "
@@ -381,7 +427,7 @@ msgstr ""
 "bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
 "browserinstellingen gekozen."
 
-#: templates/general/profile.html:72
+#: templates/general/profile.html:77
 msgid ""
 "Contact admins@modelbrouwers.nl if you are interested in helping with "
 "translations."
@@ -404,3 +450,9 @@ msgstr "Antwoord"
 #: templates/general/register.html:28
 msgid "Register"
 msgstr "Registreren"
+
+#~ msgid "email"
+#~ msgstr "e-mailadres"
+
+#~ msgid "forum users"
+#~ msgstr "forumgebruikers"
