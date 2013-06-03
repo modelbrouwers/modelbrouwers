@@ -21,7 +21,7 @@ class ForumUserAdmin(admin.ModelAdmin):
     list_display = ('username', 'user_email', 
                     'show_absolute_url', 'user_posts',
                     'user_email_hash', 'get_email_hash')
-    search_fields = ('username',)
+    search_fields = ('username', 'user_email')
     
     def show_absolute_url(self, obj):
         click = ugettext('forum profile')
