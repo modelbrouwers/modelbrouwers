@@ -85,7 +85,7 @@ def get_posting_level(request):
         forum = form.cleaned_data['forum']
         username = clean_username(request.user.get_profile().forum_nickname)
         # iexact doesn't work because MySQL tables are utf8_bin collated...
-        forum_user = ForumUser.objects.get(username_clean=username.lower())
+        forum_user = ForumUser.objects.get(username_clean=username)
         num_posts = forum_user.user_posts
 
         restrictions = ForumPostCountRestriction.objects.filter(forum=forum)
