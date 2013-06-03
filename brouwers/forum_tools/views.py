@@ -74,7 +74,7 @@ def get_sharing_perms(request):
                     else:
                         data[forumuser.user_id] = template_sharing_not_allowed
                 except UserProfile.DoesNotExist:
-                    data[forumuser.user_id] = template_sharing_allowed
+                    data[forumuser.user_id] = template_sharing_not_allowed
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
 @login_required
