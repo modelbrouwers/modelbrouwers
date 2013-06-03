@@ -22,7 +22,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 	)
 	
 	list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'last_vote', 'secret_santa')
-	search_fields = ('forum_nickname',)
+    list_filter = ('allow_sharing', 'exclude_from_nomination')
+	search_fields = ('forum_nickname', 'user__email')
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('question', 'in_use')
