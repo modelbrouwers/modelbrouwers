@@ -29,5 +29,5 @@ class UsernameTest(TestCase):
 
     def test_clean_username(self):
         username = self.object3.user.username
-        self.assertEqual(clean_username(username), 'myʹuser')
+        self.assertEqual(clean_username(username), 'my\xcauser')
         self.assertEqual(clean_username_fallback(username), 'my user')
