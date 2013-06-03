@@ -159,7 +159,7 @@ class PasswordReset(models.Model):
         unique_together = (('user', 'h'),)
     
     def __unicode__(self):
-        return _(u"Password reset for %(user)s" % {'user': self.user.get_profile().__unicode__()})
+        return _("Password reset for %(user)s") % {'user': self.user.get_profile().__unicode__()}
 
 class Redirect(models.Model):
     path_from = models.CharField(
