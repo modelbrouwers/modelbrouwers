@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 
 
 from general.models import UserProfile
-from general.utils import get_username_for_user, get_username, clean_username
+from general.utils import get_username_for_user, get_username, clean_username, clean_username_fallback
 from models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser
 from forms import ForumForm, PosterIDsForm
 from datetime import date
@@ -83,9 +83,14 @@ def get_posting_level(request):
     form = ForumForm(request.GET)
     if form.is_valid():
         forum = form.cleaned_data['forum']
-        username = clean_username(request.user.get_profile().forum_nickname)
+        username = request.user.get_profile().forum_nickname
         # iexact doesn't work because MySQL tables are utf8_bin collated...
-        forum_user = ForumUser.objects.get(username_clean=username)
+        try:
+            username_cleaned = clean_username(username)
+            forum_user = ForumUser.objects.get(username_clean=username_cleaned)
+        except ForumUser.DoesNotExist:
+            username_cleaned = clean_username_fallback(username)
+            forum_user = ForumUser.objects.get(username_clean=username_cleaned)
         num_posts = forum_user.user_posts
 
         restrictions = ForumPostCountRestriction.objects.filter(forum=forum)

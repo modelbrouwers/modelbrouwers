@@ -12,6 +12,9 @@ def get_username(obj, field='user'):
     return username
 
 def clean_username(username):
+    return username.replace('\'', 'ʹ').lower()
+
+def clean_username_fallback(username):
     return username.replace('\'', ' ').lower()
 
 ###### KEEPING SPAMMERS OUT ####################
