@@ -86,11 +86,11 @@ def get_posting_level(request):
         username = request.user.get_profile().forum_nickname
         # iexact doesn't work because MySQL tables are utf8_bin collated...
         try:
-            username_cleaned = clean_username(username) + 'foo'
+            username_cleaned = clean_username(username)
             forum_user = ForumUser.objects.get(username_clean=username_cleaned)
         except ForumUser.DoesNotExist:
             try:
-                username_cleaned = clean_username_fallback(username) + 'foo'
+                username_cleaned = clean_username_fallback(username)
                 forum_user = ForumUser.objects.get(username_clean=username_cleaned)
             except ForumUser.DoesNotExist:
                 # final fallback - try to read the cookie
