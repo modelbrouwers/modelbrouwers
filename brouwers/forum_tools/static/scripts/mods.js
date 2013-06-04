@@ -36,12 +36,14 @@ $(document).ready(function(){
         user_ids.push(user_id);
     });
     var ids = user_ids.join(",");
-    $.get(
-        '/forum_tools/mods/get_sharing_perms/',
-        {'poster_ids': ids},
-        function(json_response){
-            $.each(json_response, function(poster_id, html){
-                $('span#sharing_' + poster_id).html(html);
+    if (ids){
+        $.get(
+            '/forum_tools/mods/get_sharing_perms/',
+            {'poster_ids': ids},
+            function(json_response){
+                $.each(json_response, function(poster_id, html){
+                    $('span#sharing_' + poster_id).html(html);
+                });
             });
-        });
+    }
 });

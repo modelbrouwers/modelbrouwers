@@ -86,11 +86,17 @@ def get_posting_level(request):
         username = request.user.get_profile().forum_nickname
         # iexact doesn't work because MySQL tables are utf8_bin collated...
         try:
-            username_cleaned = clean_username(username)
+            username_cleaned = clean_username(username) + 'foo'
             forum_user = ForumUser.objects.get(username_clean=username_cleaned)
         except ForumUser.DoesNotExist:
-            username_cleaned = clean_username_fallback(username)
-            forum_user = ForumUser.objects.get(username_clean=username_cleaned)
+            try:
+                username_cleaned = clean_username_fallback(username) + 'foo'
+                forum_user = ForumUser.objects.get(username_clean=username_cleaned)
+            except ForumUser.DoesNotExist:
+                # final fallback - try to read the cookie
+                uid = request.COOKIES.get(settings.PHPBB_UID_COOKIE)
+                forum_user = ForumUser.objects.get(pk=uid)
+
         num_posts = forum_user.user_posts
 
         restrictions = ForumPostCountRestriction.objects.filter(forum=forum)

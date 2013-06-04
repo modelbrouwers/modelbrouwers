@@ -40,6 +40,7 @@ THUMB_DIMENSIONS = (200, 150, 'thumb_')
 
 PHPBB_TABLE_PREFIX = 'phpbb3_'
 PHPBB_URL = '/phpBB3'
+PHPBB_UID_COOKIE = 'phpbb3_10uny8_u'
 
 HTTPBL_ACCESS_KEY = 'my-private-key'
 HONEYPOT_URL = '/scratchy.php'
