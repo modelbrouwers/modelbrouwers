@@ -53,7 +53,6 @@ class Scale(models.Model):
         """ Output the scale as 1/48 instead of 1:48 """
         return self.get_repr(separator='/')
 
-# TODO: multiple box photos?
 class ModelKit(models.Model):
     """ Model containing all the data about kits, to be linked with kitreviews """
     
@@ -65,6 +64,9 @@ class ModelKit(models.Model):
                 )
     name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
     scale = models.ForeignKey(Scale)
+    box_image = models.ImageField(
+        _('box image'), upload_to='kits/box_images/%Y/%m', 
+        blank=True, null=True)
     duplicates = models.ManyToManyField(
                 "self", blank=True, null=True,
                 verbose_name=_(u'duplicates'),

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block menu %}
+    <li><a href="{% url 'kitreviews:index' %}">{% trans "Home" %}</a></li>
+{% endblock %}
+
+{% block content %}
+<ul>
+    {% for review in reviews %}
+        <li>{{ review }} &dash; <a href="{{ review.topic_url }}">topic</a> &dash; rating: {{ review.rating_scaled }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}
