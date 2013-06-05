@@ -1,9 +1,12 @@
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.db import models
 from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 
+from albums.models import Album
 from general.utils import get_username
 
 
@@ -38,7 +41,7 @@ class Scale(models.Model):
         verbose_name = _(u'scale')
         verbose_name_plural = _(u'scales')
         ordering = ['scale']
-    # TODO: default ordering based on amount of kits with that scale -> most popular ones one top?
+    # TODO: default ordering based on amount of kits with that scale -> most popular ones on top?
 
     def get_repr(self, separator=":"):
         return u'1%s%d' % (separator, self.scale)
@@ -63,7 +66,7 @@ class ModelKit(models.Model):
     name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
     scale = models.ForeignKey(Scale)
     duplicates = models.ManyToManyField(
-                "self", blank=True, null=True, 
+                "self", blank=True, null=True,
                 verbose_name=_(u'duplicates'),
                 help_text=_(u'Kits that are the same but have another producer.'),
                 )
@@ -99,7 +102,6 @@ class ModelKit(models.Model):
                         }
                     )
 
-
 class KitReview(models.Model):
     """ Model holding the review information for a model kit """
 
@@ -108,8 +110,25 @@ class KitReview(models.Model):
     html = models.TextField(blank=True, help_text=u'raw_text with BBCode rendered as html')
     rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING)
     difficulty = models.PositiveSmallIntegerField(_(u'difficulty'), default=DEFAULT_DIFFICULTY)
-    # TODO: custom field voor maken met images, of jquery-ui schuifbalk?
+    
+    # linking to extra information
+    album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
+    topic_id = models.PositiveIntegerField(
+            _('topic'), blank=True, 
+            null=True, help_text=_('ID of the topic on Modelbrouwers.')
+            )
+    external_topic_url = models.URLField(
+        _('topic url'), blank=True, 
+        help_text=_('URL to the topic not hosted on Modelbrouwers')
+        )
 
+    # some privacy settings...
+    show_real_name = models.BooleanField(
+        _('show real name?'), default=True,
+        help_text=_('Checking this option will display your real name as reviewer. Uncheck to use your nickname.'),
+        )
+    
+    # internal information
     reviewer = models.ForeignKey(User)
     submitted_on = models.DateTimeField(auto_now_add=True)
     last_edited_on = models.DateTimeField(auto_now=True)
@@ -130,6 +149,28 @@ class KitReview(models.Model):
         votes_neg = self.kitreviewvote_set.filter(vote='-').count()
         votes_total = votes_pos + votes_neg
         return (votes_pos, votes_neg, votes_total)
+
+    @property
+    def topic_url(self):
+        if self.topic_id:
+            domain = Site.objects.get_current().domain
+            topic_url = "%(http)s%(domain)s%(phpBB)s%(topic)s" % {
+                'http': 'http://', # TODO: check for https or http
+                'domain': domain,
+                'phpBB': settings.PHPBB_URL,
+                'topic': '/viewtopic.php?t=%d' % self.topic_id
+                }
+            return topic_url
+        elif self.external_topic_url:
+            return self.external_topic_url
+        return None
+
+    @property
+    def rating_scaled(self):
+        factor = RATING_BASE / (10 * RATING_DISPLAY_BASE) # factor ten: for rounding
+        rating_scaled = float(self.rating) / RATING_BASE * RATING_DISPLAY_BASE
+        rating_scaled = round(factor*rating_scaled) / factor
+        return rating_scaled
 
 class KitReviewVote(models.Model):
     """ Model holding the votes for kitreviews, showing the quality of the review """
