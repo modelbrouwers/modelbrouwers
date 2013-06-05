@@ -1,0 +1,18 @@
+{% extends "kitreviews/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="tab">{% trans 'Model kit' %}</div>
+    <form action="." method="post">
+        {% with form=kitform %}
+            {% include "form_in_table.html" %}
+        {% endwith %}
+
+        <div class="tab midpage">{% trans "Review" %}</div>
+        {% include "kitreviews/review_form.html" %}
+        
+        <div class="center">
+            <input type="submit" value="{% trans 'Add' %}" class="submit-button" />
+        </div>
+    </form>
+{% endblock content %}

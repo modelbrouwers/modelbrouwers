@@ -10,6 +10,11 @@ class ScaleAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'scale')
     list_editable = ('scale',)
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'name',)
+    list_editable = ('name',)
+    search_fields = ('name',)
+
 class ModelKitAdmin(admin.ModelAdmin):
     list_display = ('brand', 'name', 'kit_number', 'scale', 'submitter', 'submitted_on')
     list_filter = ('brand', 'scale', 'submitter', 'submitted_on')
@@ -26,6 +31,7 @@ class KitReviewVoteAdmin(admin.ModelAdmin):
 
 admin.site.register(Brand, BrandAdmin)
 admin.site.register(Scale, ScaleAdmin)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(ModelKit, ModelKitAdmin)
 admin.site.register(KitReview, KitReviewAdmin)
 admin.site.register(KitReviewVote, KitReviewVoteAdmin)

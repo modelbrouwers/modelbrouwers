@@ -53,6 +53,17 @@ class Scale(models.Model):
         """ Output the scale as 1/48 instead of 1:48 """
         return self.get_repr(separator='/')
 
+class Category(models.Model):
+    name = models.CharField(_('name'), max_length=255)
+
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
+
+    def __unicode__(self):
+        return self.name
+    
+
 class ModelKit(models.Model):
     """ Model containing all the data about kits, to be linked with kitreviews """
     
@@ -63,7 +74,10 @@ class ModelKit(models.Model):
                 db_index=True
                 )
     name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
-    scale = models.ForeignKey(Scale)
+    scale = models.ForeignKey(Scale, verbose_name=_('scale'))
+    category = models.ForeignKey(Category, verbose_name=_('category'), null=True)
+    difficulty = models.PositiveSmallIntegerField(_(u'difficulty'), default=DEFAULT_DIFFICULTY)
+
     box_image = models.ImageField(
         _('box image'), upload_to='kits/box_images/%Y/%m', 
         blank=True, null=True)
@@ -89,7 +103,7 @@ class ModelKit(models.Model):
 
     def clean(self):
         super(ModelKit, self).clean()
-        if self.kit_number:
+        if self.kit_number and not self.id:
             # validate the uniqueness of kitnumber, scale and brand only if a kit number is supplied
             reviews = ModelKit.objects.filter(
                             brand = self.brand,
@@ -108,10 +122,14 @@ class KitReview(models.Model):
     """ Model holding the review information for a model kit """
 
     model_kit = models.ForeignKey(ModelKit)
-    raw_text = models.TextField(_(u'review text'))
+    raw_text = models.TextField(
+        _(u'review'), 
+        help_text=_('This is your review. You can use BBCode here.')
+        )
     html = models.TextField(blank=True, help_text=u'raw_text with BBCode rendered as html')
+    positive_points = models.TextField(_('positive points'), blank=True)
+    negative_points = models.TextField(_('negative points'), blank=True)
     rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING)
-    difficulty = models.PositiveSmallIntegerField(_(u'difficulty'), default=DEFAULT_DIFFICULTY)
     
     # linking to extra information
     album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
