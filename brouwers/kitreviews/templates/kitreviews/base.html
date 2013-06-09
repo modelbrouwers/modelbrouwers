@@ -4,6 +4,7 @@
 
 {% block menu %}
     <li><a href="{% url 'kitreviews:index' %}">{% trans "Home" %}</a></li>
+    <li><a href="{% url 'kitreviews:find_kit' %}">{% trans "Find kits/reviews" %}</a></li>
     <li><a href="{% url 'kitreviews:add_review' %}">{% trans "Add review" %}</a></li>
 {% endblock %}
 

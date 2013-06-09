@@ -54,7 +54,7 @@ th.label, tr.error th{
     font-weight: normal;
     width: 25%;
 }
-th.required{
+th.required, label.required{
     font-weight: bold;
 }
 td.field{

@@ -8,7 +8,9 @@
 </ul>
 {% endif %}
 
-{% csrf_token %}
+{% if request.method != 'GET' %}
+    {% csrf_token %}
+{% endif %}
 
 {% for hidden in form.hidden_fields %}
     {{ hidden }}

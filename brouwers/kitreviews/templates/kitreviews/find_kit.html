@@ -1,0 +1,57 @@
+{% extends "kitreviews/base.html" %}
+{% load i18n static %}
+{% load url from future %}
+
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/kitreviews.css' %}" charset="utf-8"/>
+{% endblock style %}
+
+{% block content %}
+    <div class="tab">{% trans 'Find model kit(s) &dash; Enter your search parameters' %}</div>
+
+    <form action="." method="get">
+        {% with form=kitform %}
+            {% include "form_in_table.html" %}
+        {% endwith %}
+        
+        <div class="center">
+            <input type="submit" value="{% trans 'Find kits' %}" class="submit-button" />
+        </div>
+    </form>
+    {% with kits.count as num_kits %}
+        {% if num_kits %}
+            <div class="tab midpage">{% blocktrans %}
+               Search results ({{ num_kits }})
+            {% endblocktrans %}</div>
+            <div id="search-results">
+                {% for kit in kits %}
+                    <div class="kit">
+                        <div class="box-image">
+                            <a href="{{ kit.get_absolute_url }}" title="{{ kit.name }}">
+                                <img src="{{ kit.box_image.url }}" class="box-image-small" alt="boximg"/>
+                            </a>
+                        </div>
+                        <div class="kit-details">
+                            <p>
+                                <a href="{{ kit.get_absolute_url }}" class="kit-name" title="{{ kit.name }}">
+                                    {{ kit.name|truncatechars:15 }}
+                                </a>
+                            </p>
+                            <p>
+                                {% if kit.kit_number %}
+                                    {{ kit.kit_number }} &dash; 
+                                {% endif %}
+                                {{ kit.brand }}
+                            </p>
+                            <p>{{ kit.scale }}</p>
+                            <p class="category">{{ kit.category }}</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="clear"></div>
+        {% endif %}
+    {% endwith %}
+{% endblock content %}

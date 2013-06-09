@@ -1,0 +1,23 @@
+div#search-results{
+    width: 99%;
+    margin: 1em auto 0 auto;
+}
+div#search-results div.kit{
+    width: 31%;
+    float: left;
+    margin: 1%;
+}
+div.kit div.box-image{
+    float: left;
+}
+div.kit img.box-image-small{
+    width: 140px;
+}
+div.kit a.kit-name{font-weight:bold;}
+div.kit div.kit-details{
+    padding-left: 150px;
+}
+div.kit div.kit-details p.category{
+    font-size: 90%;
+    font-style: italic;
+}

@@ -20,6 +20,7 @@ class Brand(models.Model):
     """ Model for scale model brands, e.g. Revell"""
     
     name = models.CharField(_(u'brand'), max_length=100, db_index=True)
+    #TODO: clean for uniqueness in kitreviews/sql/brand.sql
     is_active = models.BooleanField(_(u'is active?'), default=True, 
                 help_text=_(u'Does the brand still exist?')
                 )
@@ -100,6 +101,10 @@ class ModelKit(models.Model):
             'brand': self.brand.__unicode__(),
             'name': self.name,
             }
+
+    def get_absolute_url(self):
+        # TODO
+        return 'foo%s' % self.id
 
     def clean(self):
         super(ModelKit, self).clean()
