@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-02 22:41+0200\n"
+"POT-Creation-Date: 2013-06-16 22:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,9 +175,8 @@ msgid ""
 "Checking this gives us permission to share your topics and albums on social "
 "media. Uncheck if you don't want to share."
 msgstr ""
-"Als je dit aanvinkt, dan geef je toestemming om je topics en albums "
-"te delen op sociale media zoals Facebook. Vink dit uit als je dit "
-"niet wil."
+"Als je dit aanvinkt, dan geef je toestemming om je topics en albums te delen "
+"op sociale media zoals Facebook. Vink dit uit als je dit niet wil."
 
 #: models.py:62
 msgid "userprofile"
@@ -202,7 +201,7 @@ msgstr "Registratie"
 
 #: models.py:92
 msgid "timestamp"
-msgstr ""
+msgstr "timestamp"
 
 #: models.py:93
 #, fuzzy
@@ -211,30 +210,27 @@ msgstr "E-mailadres"
 
 #: models.py:94
 msgid "success"
-msgstr ""
+msgstr "geslaagd"
 
 #: models.py:98
 msgid "type of visitor"
-msgstr ""
+msgstr "type bezoeker"
 
 #: models.py:98
-#, fuzzy
 msgid "normal user"
-msgstr "forumgebruiker"
+msgstr "normale gebruiker"
 
 #: models.py:101
-#, fuzzy
 msgid "registration attempt"
-msgstr "Registratie"
+msgstr "registratiepoging"
 
 #: models.py:102
-#, fuzzy
 msgid "registration attempts"
-msgstr "Registratie"
+msgstr "registratiepogingen"
 
 #: models.py:152
 msgid "hash"
-msgstr ""
+msgstr "hash"
 
 #: models.py:153
 msgid "expire datetime"
@@ -391,7 +387,7 @@ msgstr "Accountdetails"
 
 #: templates/general/profile.html:23
 msgid "Introduce yourself!"
-msgstr ""
+msgstr "Introduceer jezelf!"
 
 #: templates/general/profile.html:31
 msgid "Your username"
@@ -436,20 +432,211 @@ msgstr ""
 "met vertalingen."
 
 #: templates/general/register.html:4
+#: templates/general/registration_terms.html:6
 msgid "Registration"
 msgstr "Registratie"
 
-#: templates/general/register.html:14
+#: templates/general/register.html:24
 msgid "Anti-Spambot question"
 msgstr "Anti-spambot vraag"
 
-#: templates/general/register.html:21
+#: templates/general/register.html:31
 msgid "Answer"
 msgstr "Antwoord"
 
-#: templates/general/register.html:28
+#: templates/general/register.html:38
 msgid "Register"
 msgstr "Registreren"
+
+#: templates/general/register.html:40
+msgid "By registering, you agree to the terms below."
+msgstr "Bij registratie ga je akkoord met de voorwaarden hieronder."
+
+#: templates/general/register.html:44
+msgid "Registration terms"
+msgstr "Registratievoorwaarden"
+
+#: templates/general/registration_terms.html:8
+#, python-format
+msgid ""
+"\n"
+"                By registering on %(site)s and creating an account and "
+"profile,\n"
+"                you get access to the forums and albums. Single sign on for "
+"all parts\n"
+"                of %(site)s will be implemented in the future. Registration\n"
+"                automatically implies agreement on these terms.\n"
+"            "
+msgstr ""
+"\n"
+"                Door te registeren op %(site)s en het aanmaken van een account "
+"en profiel,\n"
+"                krijg je toegang tot het forum en de albums. Single sign on "
+"voor alle delen van \n"
+"                %(site)s will be implemented in the future. Registration\n"
+"                automatically implies agreement on these terms.\n"
+"            "
+
+#: templates/general/registration_terms.html:16
+msgid ""
+"\n"
+"                You agree to keep your credentials safe. Furthermore, you "
+"will keep one, \n"
+"                and <strong>only one</strong> account. Multiple accounts are "
+"strictly\n"
+"                forbidden. You will not impersonate\n"
+"                other users or try to gain access to other users accounts.\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:24
+#, python-format
+msgid ""
+"\n"
+"                Some parts of %(site)s contain (extra) rules. It's your "
+"responsibility\n"
+"                to have read them. The admins and moderators (= the staff) "
+"will always assume\n"
+"                you are aware of the relevant rules.\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:32
+msgid "Content"
+msgstr ""
+
+#: templates/general/registration_terms.html:34
+#, python-format
+msgid ""
+"\n"
+"                All content posted on %(site)s becomes property of %(site)s "
+"as\n"
+"                soon as it's posted. You do, however, maintain the copyright "
+"and will\n"
+"                be cited as the author where possible. We don't fulfill "
+"requests\n"
+"                for deletion of content, unless a strong reason can be "
+"provided (e.g.\n"
+"                work related privacy issues).\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:43
+msgid ""
+"\n"
+"                On the forums, you are allowed to edit your posts, unless "
+"that right\n"
+"                has been taken away by the staff. You can delete your latest "
+"post,\n"
+"                if no-one replied to it. In special cases, an exception can "
+"be made,\n"
+"                contact the staff if your case needs an exception.\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:51
+msgid ""
+"\n"
+"                All images added to the albums stay on our server. Even if "
+"you delete\n"
+"                an image from your album, the file is still on the hard "
+"drive. This\n"
+"                is to prevent discontinuity in forum topics, we try to avoid "
+"as few\n"
+"                missing images as possible.\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:59
+#, python-format
+msgid ""
+"\n"
+"                Posted content is subject to Dutch and Belgian legislation.\n"
+"                Furthermore, people off all ages visit %(site)s. "
+"Pornographic,\n"
+"                racist, blasphemous or offensive content is not allowed. "
+"When in\n"
+"                doubt, contact the staff.\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:69
+msgid "Stored data"
+msgstr ""
+
+#: templates/general/registration_terms.html:71
+#, python-format
+msgid ""
+"\n"
+"                %(site)s makes use of cookies to keep you logged in. "
+"Furthermore,\n"
+"                certain cookies are used to enhance the safety of the "
+"website.\n"
+"                These cookies are essential to provide a well functioning "
+"website.\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:78
+#, python-format
+msgid ""
+"\n"
+"                %(site)s also makes use of Google Analytics cookies. These\n"
+"                cookies generate anonymous statistics of %(site)s usage. We\n"
+"                use them to improve your experience and create better "
+"quality.\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:85
+#, python-format
+msgid ""
+"\n"
+"                %(site)s values your privacy highly. Your password is "
+"hashed\n"
+"                and can not be retrieved from the hash. All personal "
+"information\n"
+"                is kept private. We don't sell or give away your personal "
+"information.\n"
+"                Certain privacy settings are available in your profile (e."
+"g. \n"
+"                content sharing on social media).\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:96
+msgid "Terms violations"
+msgstr ""
+
+#: templates/general/registration_terms.html:98
+#, python-format
+msgid ""
+"\n"
+"                Violation of these terms will be looked at case-per-case by "
+"the staff.\n"
+"                The staff decides on sending Official Warnings, temporary or "
+"permanent\n"
+"                bans. Bans apply per component of %(site)s, but can be "
+"extended\n"
+"                on the entire website. Decisions made by the staff are final "
+"and need\n"
+"                no further discussion. The staff will always treat you "
+"respectfully,\n"
+"                unless you give them reason not too. Remember, the staff "
+"are\n"
+"                people too!\n"
+"            "
+msgstr ""
+
+#: templates/general/registration_terms.html:109
+msgid ""
+"\n"
+"                Mistakes occur. If you feel like an error is in place,\n"
+"                don't hesitate to contact the admins. The e-mail address is "
+"in the\n"
+"                footer of this page.\n"
+"            "
+msgstr ""
 
 #~ msgid "email"
 #~ msgstr "e-mailadres"

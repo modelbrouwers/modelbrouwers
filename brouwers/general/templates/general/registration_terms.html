@@ -1,0 +1,118 @@
+{% load i18n %}
+
+{% with 'Modelbrouwers.nl' as site %}
+<ol id="terms-list">
+    <li>
+        <p class="p-title">{% trans "Registration" %}</p>
+        <p class="term">
+            {% blocktrans %}
+                By registering on {{ site }} and creating an account and profile,
+                you get access to the forums and albums. Single sign on for all parts
+                of {{ site }} will be implemented in the future. Registration
+                automatically implies agreement on these terms.
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                You agree to keep your credentials safe. Furthermore, you will keep one, 
+                and <strong>only one</strong> account. Multiple accounts are strictly
+                forbidden. You will not impersonate
+                other users or try to gain access to other users accounts.
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                Some parts of {{ site }} contain (extra) rules. It's your responsibility
+                to have read them. The admins and moderators (= the staff) will always assume
+                you are aware of the relevant rules.
+            {% endblocktrans %}
+    </li>
+
+    <li>
+        <p class="p-title">{% trans "Content" %}</p>
+        <p class="term">
+            {% blocktrans %}
+                All content posted on {{ site }} becomes property of {{ site }} as
+                soon as it's posted. You do, however, maintain the copyright and will
+                be cited as the author where possible. We don't fulfill requests
+                for deletion of content, unless a strong reason can be provided (e.g.
+                work related privacy issues).
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                On the forums, you are allowed to edit your posts, unless that right
+                has been taken away by the staff. You can delete your latest post,
+                if no-one replied to it. In special cases, an exception can be made,
+                contact the staff if your case needs an exception.
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                All images added to the albums stay on our server. Even if you delete
+                an image from your album, the file is still on the hard drive. This
+                is to prevent discontinuity in forum topics, we try to avoid as few
+                missing images as possible.
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                Posted content is subject to Dutch and Belgian legislation.
+                Furthermore, people off all ages visit {{ site }}. Pornographic,
+                racist, blasphemous or offensive content is not allowed. When in
+                doubt, contact the staff.
+            {% endblocktrans %}
+        </p>
+    </li>
+
+    <li>
+        <p class="p-title">{% trans "Stored data" %}</p>
+        <p class="term">
+            {% blocktrans %}
+                {{ site }} makes use of cookies to keep you logged in. Furthermore,
+                certain cookies are used to enhance the safety of the website.
+                These cookies are essential to provide a well functioning website.
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                {{ site }} also makes use of Google Analytics cookies. These
+                cookies generate anonymous statistics of {{ site }} usage. We
+                use them to improve your experience and create better quality.
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                {{ site }} values your privacy highly. Your password is hashed
+                and can not be retrieved from the hash. All personal information
+                is kept private. We don't sell or give away your personal information.
+                Certain privacy settings are available in your profile (e.g. 
+                content sharing on social media).
+            {% endblocktrans %}
+        </p>
+    </li>
+
+    <li>
+        <p class="p-title">{% trans "Terms violations" %}</p>
+        <p class="term">
+            {% blocktrans %}
+                Violation of these terms will be looked at case-per-case by the staff.
+                The staff decides on sending Official Warnings, temporary or permanent
+                bans. Bans apply per component of {{ site }}, but can be extended
+                on the entire website. Decisions made by the staff are final and need
+                no further discussion. The staff will always treat you respectfully,
+                unless you give them reason not too. Remember, the staff are
+                people too!
+            {% endblocktrans %}
+        </p>
+        <p class="term">
+            {% blocktrans %}
+                Mistakes occur. If you feel like an error is in place,
+                don't hesitate to contact the admins. The e-mail address is in the
+                footer of this page.
+            {% endblocktrans %}
+        </p>
+    </li>
+
+</ol>
+{% endwith %}

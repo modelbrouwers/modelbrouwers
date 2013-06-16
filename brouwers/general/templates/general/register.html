@@ -3,12 +3,22 @@
 
 {% block title %}Modelbrouwers.nl &bull; {% trans 'Registration' %}{% endblock %}
 
+{% block style %}
+    {{ block.super }}
+    <style type="text/css">
+        #registration-form  {margin-bottom: 2em;}
+        #registration-terms {margin: 1em;}
+        #terms-list li      {margin-bottom: 1em;}
+        .p-title            {font-weight: bold;}
+        p.term              {margin-bottom: 0.5em;}
+    </style>
+{% endblock style %}
+
 {% block content %}
 <div id="register">
-    <!-- TODO: show forum rules -->
     <form action="" method="post">
         {% include "form_in_table.html" %}
-        <table>
+        <table id="registration-form">
             <tr>
                 <td></td>
                 <td colspan="2" style="padding-bottom:0.5em;"><h4>{% trans 'Anti-Spambot question' %}</h4></td>
@@ -26,7 +36,14 @@
         
         <div class="center">
             <input class="submit-button" type="submit" value="{% trans 'Register' %}"/>
+            <br />
+            <span class="small-text">{% trans "By registering, you agree to the terms below." %}</span>
         </div>
     </form>
+
+    <div class="tab midpage">{% trans "Registration terms" %}</div>
+    <div id="registration-terms">
+        {% include "general/registration_terms.html" %}
+    </div>
 </div>
 {% endblock %}
