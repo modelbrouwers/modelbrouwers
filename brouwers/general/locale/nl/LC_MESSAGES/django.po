@@ -473,8 +473,8 @@ msgstr ""
 "en profiel,\n"
 "                krijg je toegang tot het forum en de albums. Single sign on "
 "voor alle delen van \n"
-"                %(site)s will be implemented in the future. Registration\n"
-"                automatically implies agreement on these terms.\n"
+"                %(site)s wordt in de toekomst toegevoegd. Registratie\n"
+"                houdt in dat je automatisch akkoord gaat met de voorwaarden.\n"
 "            "
 
 #: templates/general/registration_terms.html:16
@@ -488,6 +488,10 @@ msgid ""
 "                other users or try to gain access to other users accounts.\n"
 "            "
 msgstr ""
+"\nJe zorgt ervoor om je inloggegevens veilig te houden. Verder zal je <strong>"
+"slechts &eacute;&eacute;n</strong> account hebben. Dubbelaccounts zijn niet"
+"toegelaten. Je zal je ook niet voordoen als een ander forumlid of proberen"
+"onrechtmatige toegang te krijgen tot de account van een ander forumlid."
 
 #: templates/general/registration_terms.html:24
 #, python-format
@@ -500,10 +504,16 @@ msgid ""
 "                you are aware of the relevant rules.\n"
 "            "
 msgstr ""
+"\n"
+"                Sommige delen van %(site)s hebben (extra) regels. Het is "
+"jouw verantwoordelijkheid\n"
+"                om deze te lezen. De admins en moderators (= het modteam) "
+"gaat er altijd van uit dat je op de hoogte bent van de regels."
+"\n"
 
 #: templates/general/registration_terms.html:32
 msgid "Content"
-msgstr ""
+msgstr "Inhoud"
 
 #: templates/general/registration_terms.html:34
 #, python-format
@@ -520,6 +530,12 @@ msgid ""
 "                work related privacy issues).\n"
 "            "
 msgstr ""
+"\n"
+"Alle inhoud geplaatst op %site)s wordt eigendom van %(site)s zodra het "
+"geplaatst is. Je behoudt wel het auteursrecht en wordt als auteur weergegeven"
+" waar mogelijk. We voldoen niet aan verzoeken om inhoud te verwijderen, "
+"tenzij een geldige reden opgegeven wordt (bijvoorbeeld werk-gerelateerde "
+"privacy)."
 
 #: templates/general/registration_terms.html:43
 msgid ""
@@ -533,6 +549,11 @@ msgid ""
 "                contact the staff if your case needs an exception.\n"
 "            "
 msgstr ""
+"\n"
+"Op het forum kan je je posts bewerken, tenzij het modteam dit recht afgenomen"
+" heeft. Je kan ook je laatste post verwijderen, tenzij er al een reactie op "
+"gekomen is. Soms is een uitzondering op zijn plaats, contacteer het modteam "
+"als je denkt dat een uitzondering vereist is."
 
 #: templates/general/registration_terms.html:51
 msgid ""
@@ -546,6 +567,11 @@ msgid ""
 "                missing images as possible.\n"
 "            "
 msgstr ""
+"\n"
+"Alle afbeeldingen die toegevoegd worden aan de albums blijven op onze server. "
+"Zelfs als je een foto uit je album verwijdert, blijft het bestand op de harde "
+"schijf. Op deze manier proberen we continu&iuml;teit in de topics te "
+"verzekeren door rode kruisjes te vermijden."
 
 #: templates/general/registration_terms.html:59
 #, python-format
@@ -559,10 +585,15 @@ msgid ""
 "                doubt, contact the staff.\n"
 "            "
 msgstr ""
+"\n"
+"Geplaatste inhoud is onderhevig aan Nederlandse en Belgische wetgeving. "
+"Verder zit het publiek van %(site)s tussen ruime leeftijdsgrenzen. "
+"Pornografische, racistische, godslasterlijke of grievende inhoud is niet "
+"toegestaan. Bij twijfel, contacteer het modteam."
 
 #: templates/general/registration_terms.html:69
 msgid "Stored data"
-msgstr ""
+msgstr "Bewaarde gegevens"
 
 #: templates/general/registration_terms.html:71
 #, python-format
@@ -576,6 +607,10 @@ msgid ""
 "website.\n"
 "            "
 msgstr ""
+"\n"
+"%(site)s gebruikt cookies om je ingelogd te houden. Verder worden ook cookies "
+"gebruikt om de veiligheid van de site hoog te houden. Deze cookies zijn "
+"essentieel om %(site)s goed te laten werken."
 
 #: templates/general/registration_terms.html:78
 #, python-format
@@ -587,6 +622,10 @@ msgid ""
 "quality.\n"
 "            "
 msgstr ""
+"\n"
+"%(site)s gebruikt verder ook Google Analytics cookies. Deze cookies genereren "
+"anonieme statistieken over het gebruik van %(site)s. We gebruiken ze om jouw "
+"ervaring op %(site)s te verbeteren en de kwaliteit hoog te houden."
 
 #: templates/general/registration_terms.html:85
 #, python-format
@@ -603,10 +642,15 @@ msgid ""
 "                content sharing on social media).\n"
 "            "
 msgstr ""
+"\n"
+"%(site)s hecht belang aan jouw privacy. Je wachtwoord is ge&euml;crypteerd "
+"opgeslagen en kan niet gedecodeerd worden. Alle persoonlijke gegevens worden "
+"veilig bewaard. We verkopen of geven geen gegevens weg. Enkele privacy-opties "
+"kunnen ingesteld worden in je profiel, zoals het <i>sharen</i> op social media."
 
 #: templates/general/registration_terms.html:96
 msgid "Terms violations"
-msgstr ""
+msgstr "Overtredingen van de voorwaarden"
 
 #: templates/general/registration_terms.html:98
 #, python-format
@@ -627,6 +671,15 @@ msgid ""
 "                people too!\n"
 "            "
 msgstr ""
+"\n"
+"Overtredingen van deze voorwaarden worden geval per geval bekeken door het "
+"modteam. Het team beslist of Offici&euml;le Waarschuwingen, tijdelijke, of "
+"permanente verbanningen verstuurd worden. Verbanningen gelden per deel van "
+"%(site)s, maar kunnen uitgebreid worden tot de volledige website. "
+"Op beslissingen van het modteam wordt niet teruggekomen en er wordt niet over "
+"gediscussieerd. Het modteam zal je altijd met respect behandelen, tenzij je "
+"aanleiding geeft om dat niet te doen. Vergeet niet, ook het modteam bestaat "
+"uit gewone mensen!"
 
 #: templates/general/registration_terms.html:109
 msgid ""
@@ -637,9 +690,7 @@ msgid ""
 "                footer of this page.\n"
 "            "
 msgstr ""
-
-#~ msgid "email"
-#~ msgstr "e-mailadres"
-
-#~ msgid "forum users"
-#~ msgstr "forumgebruikers"
+"\n"
+"Foutjes kunnen gebeuren. Als je denkt dat er een fout in het spel is, aarzel "
+"dan niet om de admins te contacteren. Het e-mailadres staat onderaan deze "
+"pagina."
