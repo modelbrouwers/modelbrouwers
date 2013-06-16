@@ -29,7 +29,8 @@ def add_review(request):
 def find_kit(request):
     kitform, results = FindModelKitForm(request.GET), None
     if kitform.is_valid() and 'brand' in request.GET:
-        results = ModelKit.objects.all().select_related('brand', 'scale', 'category')
+        results = ModelKit.objects.all().select_related(
+            'brand', 'scale', 'category')
 
         brand = kitform.cleaned_data['brand']
         if brand:
@@ -58,7 +59,7 @@ def find_kit(request):
             results = results.filter(category_id=category.id)
 
 
-
+    # import pdb; pdb.set_trace()
 
     return render(request, 'kitreviews/find_kit.html', {
             'kitform': kitform,
