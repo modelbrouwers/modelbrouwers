@@ -26,7 +26,19 @@ DATABASE_ROUTERS = ['forum_tools.db_router.ForumUserRouter']
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    }
+    },
+    # 'memcached': {
+    #     'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+    #     'LOCATION': '127.0.0.1:11211',
+    # },
+    # 'database': {
+    #     'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+    #     'LOCATION': 'django_cache',
+    # },
+    # 'local_mem': {
+    #     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    #     'LOCATION': 'unique-snowflake'
+    # }
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

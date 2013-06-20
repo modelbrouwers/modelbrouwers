@@ -1,0 +1,38 @@
+{% extends "404.html" %}
+{% load i18n static %}
+
+{% block title %}403 - You are banned.{% endblock title %}
+{% block extra_css %}
+#bans-summary           {margin: 2em auto;width: 60%;}
+#bans-summary table     {width: 100%;border-collapse: collapse;}
+#bans-summary tr > *    {padding: 0.5em; border-bottom:solid 1px #CCC;}
+span.error              {color: red; font-weight:bold;}
+{% endblock extra_css %}
+
+{% block error_code %}
+    {% trans "Oops... you've been naughty!" %}
+{% endblock error_code %}
+
+{% block error_msg %}
+    {% blocktrans %}The requested page cannot be shown since you have been <span class="error">banned</span>.{% endblocktrans %}
+
+    <div id="bans-summary">
+        <table>
+            <tr>
+                <th>{% trans "Ban type" %}</th>
+                <th>{% trans "Reason" %}</th>
+                <th>
+                    {% trans "Expires" %}
+                    <img src="{% static 'images/icons/help.png' %}" width="16" height="16" alt="?" title="{% trans "Starting from this moment, you regain access to the website." %}"/>
+                </th>
+            </tr>
+            {% for ban in bans %}
+                <tr>
+                    <td>{{ ban.type }}</td>
+                    <td>{{ ban.reason|linebreaksbr }}</td>
+                    <td>{{ ban.expires }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock error_msg %}

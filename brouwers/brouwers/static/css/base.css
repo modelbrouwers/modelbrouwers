@@ -134,6 +134,22 @@ div#logo, div#logo div{
 div#logo a{
 	display: auto;
 }
+a#main-logo{
+    display:block;
+    /*position: relative;
+    top: -75px;
+    left: 20px;*/
+}
+a#main-logo img{
+    width: 395px;
+    height: 75px;
+    /*width: 296px;
+    height: 56px;*/
+    /*
+    z-index: -1;
+    opacity:0.5;
+    filter:alpha(opacity=50); /* For IE8 and earlier */
+}
 div#logo div.right{
 	padding: 8px 0 7px;
 }

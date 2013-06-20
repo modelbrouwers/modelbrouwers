@@ -1,24 +1,26 @@
 {% extends "base.html" %}
 {% load i18n %}{% load staticfiles %}
 
-{% block extrastyle %}
-<style type="text/css">
-div#content{border:none;min-height:200px;}
-#not-found-content{font-family: Verdana, Arial, Helvetica, sans-serif;font-size:0.8em;}
-#not-found {
-	font-size: 1.8em;
-	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	background: url('/static/images/logo/logo_spiegel.jpg') no-repeat;
-	background-position: center;
-	letter-spacing: 1px;
-    color: #069;
-    width: 592px;
-    height: 56px;
-    margin: 0 auto;
-}
-#footer{margin-top:-40px;}
-</style>
+
+{% block style %}
+    {{ block.super }}
+    <style type="text/css">
+        div#content{min-height:200px;clear:both;}
+        #not-found-content{font-family: Verdana, Arial, Helvetica, sans-serif;font-size:0.8em;}
+        #not-found {
+            font-size: 1.8em;
+            font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            background: url('/static/images/logo/logo_spiegel.jpg') no-repeat;
+            background-position: center;
+            letter-spacing: 1px;
+            color: #069;
+            width: 592px;
+            height: 56px;
+            margin: 0 auto;
+        }
+        {% block extra_css %}{% endblock extra_css %}
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -27,17 +29,23 @@ div#content{border:none;min-height:200px;}
     <div>
         <a href="/">
             <img src="{% static 'images/logo/logo.gif' %}" 
-                alt="Klik hier voor de homepage van deze maand." 
+                alt="logo" 
                 width="592" height="92">
         </a>
     </div>
     <div id="not-found">
-        <div style="padding-top:1em;">{% trans "Oops... a 404!" %}</div>
+        <div style="padding-top:1em;">
+            {% block error_code %}
+                {% trans "Oops... a 404!" %}
+            {% endblock error_code %}
+        </div>
     </div>
     
-    <div id="text-not-found">
-        {% blocktrans with return=request.META.HTTP_REFERER %}The requested page could not be found or isn't accessible because of limited user rights. Click on the big logo above or click <a href="/">here</a> to return to the homepage. Alternatively, use the back button in your browser or click <a href="{{ return }}">here</a> to return to the previous page.{% endblocktrans %}
-    </div>
+    {% block error_msg %}
+        <div id="text-not-found">
+            {% blocktrans with return=request.META.HTTP_REFERER %}The requested page could not be found or isn't accessible because of limited user rights. Click on the big logo above or click <a href="/">here</a> to return to the homepage. Alternatively, use the back button in your browser or click <a href="{{ return }}">here</a> to return to the previous page.{% endblocktrans %}
+        </div>
+    {% endblock error_msg %}
 </div>
 {% endspaceless %}
 {% endblock %}

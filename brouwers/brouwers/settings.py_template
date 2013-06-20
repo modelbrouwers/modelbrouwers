@@ -1,3 +1,4 @@
+
 # Django settings for brouwers
 import sys
 gettext_noop = lambda s: s
@@ -45,6 +46,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     '{ CD }brouwers/static',
 )
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 # won't play nice with javascript stuff TODO: maybe make a get request to get the static files from django in phpBB templates!

@@ -606,9 +606,8 @@ msgstr ""
 "permanente verbanningen verstuurd worden. Verbanningen gelden per deel van "
 "%(site)s, maar kunnen uitgebreid worden tot de volledige website. Op "
 "beslissingen van het modteam wordt niet teruggekomen en er wordt niet over "
-"gediscussieerd. Het modteam zal je altijd met respect behandelen, tenzij je "
-"aanleiding geeft om dat niet te doen. Vergeet niet, ook het modteam bestaat "
-"uit gewone mensen!"
+"gediscussieerd. Het modteam zal je altijd met respect behandelen. "
+"Vergeet echter niet, ook het modteam bestaat uit gewone mensen!"
 
 #: templates/general/registration_terms.html:52
 msgid ""

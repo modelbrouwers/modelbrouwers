@@ -77,8 +77,9 @@
         <div id="logo">
              <div class="left">
                 {% spaceless %}
-                 <a href="{% url general.views.index %}">
-                    <img src="{% static 'images/logo/logo_modelbrouwers.png' %}" width="395" height="75" alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
+                 <a href="{% url general.views.index %}" id="main-logo">
+                    <img src="{% static 'images/logo/logo_modelbrouwers.png' %}"
+                    alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
                  </a>{% endspaceless %}
             </div>
             <div id="announcement">
@@ -143,25 +144,24 @@
                 {% endspaceless %}</ul>
             </div>
             
-            {% block above_content %}
-            {% endblock %}
+            {% block above_content %}{% endblock %}
             <!-- start content -->
             <div id="content">
-            {% block content %}
-            {% endblock content %}
+            {% block content %}{% endblock content %}
             </div>
             <!-- end content -->
-            {% if user.is_superuser %}
-            <div id="debug">
-            {% block queries %}
-                Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
-                <ol>
-	            {% for query in connection.queries %}
-		            <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
-	            {% endfor %}
-	            </ol>
-            {% endblock %}
-            </div>
+            
+            {% if debug %}
+                <div id="debug">
+                    {% block queries %}
+                        Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
+                        <ol>
+        	            {% for query in connection.queries %}
+        		            <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
+        	            {% endfor %}
+        	            </ol>
+                    {% endblock %}
+                </div>
             {% endif %}
         </div>
         <!-- end content wrapper -->
