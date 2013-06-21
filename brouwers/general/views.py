@@ -35,6 +35,9 @@ try:
 except ImportError:
     UserMigration = None
 
+LOG_REGISTRATION_ATTEMPS = False
+
+
 ######## EMAIL TEMPLATES ############
 TEMPLATE_RESET_PW_HTML = """
     <p>Hello %(nickname)s,</p><br >
@@ -60,7 +63,8 @@ def register(request):
         form = RegistrationForm(request.POST)
         answerform = AnswerForm(request.POST)
         questionform = QuestionForm(request.POST)
-        attempt = RegistrationAttempt.add(request)
+        if LOG_REGISTRATION_ATTEMPS:
+            attempt = RegistrationAttempt.add(request)
         
         if questionform.is_valid():
             question = questionform.cleaned_data['question']
@@ -76,13 +80,14 @@ def register(request):
                     password = form.cleaned_data['password1']
                     new_user = authenticate(username = username, password = password)
                     
-                    # do not log in potential spammers
-                    if attempt.potential_spammer:
-                        new_user.is_active = False
-                        new_user.save()
-                        send_inactive_user_mail(new_user)
-                    else:
-                        login(request, new_user)
+                    if LOG_REGISTRATION_ATTEMPS:
+                        # do not log in potential spammers
+                        if attempt.potential_spammer:
+                            new_user.is_active = False
+                            new_user.save()
+                            send_inactive_user_mail(new_user)
+                        else:
+                            login(request, new_user)
                     
                     # TODO: move to template + add translations
                     subject = 'Registratie op modelbrouwers.nl'
@@ -95,8 +100,9 @@ def register(request):
                     if ' ' in next_page:
                     	next_page = reverse(profile)
                     
-                    attempt.success = True
-                    attempt.save()
+                    if LOG_REGISTRATION_ATTEMPS:
+                        attempt.success = True
+                        attempt.save()
                     return HttpResponseRedirect(next_page)
                 else:
                     error = "Fout antwoord."
