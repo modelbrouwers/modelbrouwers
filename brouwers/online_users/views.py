@@ -9,8 +9,11 @@ from general.decorators import login_required_403
 @login_required_403
 def set_online(request): 
     # less awareness = better
-    tracked_user = TrackedUser.objects.get(user=request.user)
-    tracked_user.save()
+    try:
+        tracked_user = TrackedUser.objects.get(user=request.user)
+        tracked_user.save()
+    except TrackedUser.DoesNotExist:
+        pass
     return HttpResponse(1)
 
 
