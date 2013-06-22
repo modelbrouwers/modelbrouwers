@@ -1,0 +1,12 @@
+{% extends "404.html" %}
+{% load i18n %}
+
+{% block title %}403 - {% trans "Access denied" %}.{% endblock title %}
+
+{% block error_code %}
+    {% trans "Oops... you don't have access to this page!" %}
+{% endblock error_code %}
+
+{% block error_msg %}
+    {% blocktrans %}The requested page cannot be shown, you have insufficient permissions. You might need to log in to view the content.{% endblocktrans %}
+{% endblock error_msg %}

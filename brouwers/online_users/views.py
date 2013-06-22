@@ -4,16 +4,14 @@ from django.shortcuts import render
 from models import *
 from datetime import datetime, timedelta
 
+from general.decorators import login_required_403
+
+@login_required_403
 def set_online(request): 
-    # login required, but just filter out the anonymous users.
     # less awareness = better
-    if request.user.is_authenticated():
-        try:
-            tracked_user = TrackedUser.objects.get(user=request.user)
-            tracked_user.save()
-        except TrackedUser.DoesNotExist:
-            pass
-    return HttpResponse()
+    tracked_user = TrackedUser.objects.get(user=request.user)
+    tracked_user.save()
+    return HttpResponse(1)
 
 
 def get_online_users(request):

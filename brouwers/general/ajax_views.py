@@ -1,5 +1,4 @@
 from django.db.models import Q
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
@@ -7,9 +6,11 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
 import json
 
+
+from general.decorators import login_required_403
 from models import UserProfile
 
-@login_required
+@login_required_403
 def search_users(request):
     inputresults = request.GET.__getitem__('term').split(' ')
     query = []
@@ -32,7 +33,7 @@ def search_users(request):
     return HttpResponse(json.dumps(output))
 
 @sensitive_post_parameters()
-@login_required
+@login_required_403
 def password_change(request):
     if request.method == "POST":
         form = PasswordChangeForm(user=request.user, data=request.POST)

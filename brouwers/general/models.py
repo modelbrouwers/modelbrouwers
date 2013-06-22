@@ -96,6 +96,7 @@ class RegistrationAttempt(models.Model):
     # keeping spam out
     potential_spammer = False
     type_of_visitor = models.CharField(_('type of visitor'), max_length=255, default=_('normal user'))
+    ban = models.ForeignKey('banning.Ban', blank=True, null=True)
     
     class Meta:
         verbose_name = _('registration attempt')
@@ -122,6 +123,10 @@ class RegistrationAttempt(models.Model):
         
         instance.save()
         return instance
+
+    @property
+    def is_banned(self):
+        return self.ban_id is not None
 
 class SoftwareVersion(models.Model):
     VERSION_TYPES = (

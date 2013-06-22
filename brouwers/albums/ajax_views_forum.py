@@ -1,29 +1,31 @@
 from django.db.models import F, Q, Max
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.safestring import mark_safe
 import django.utils.simplejson as json
 
+
+from general.decorators import login_required_403
 from models import *
 from forms import PickOwnAlbumForm
 from utils import admin_mode
 
-@login_required
+@login_required_403
 def get_photos(request, album_id=None):
     q_group = Q(albumgroup__in = request.user.albumgroup_set.all())
     album = get_object_or_404(Album, Q(pk=album_id), Q(Q(user=request.user) | q_group ))
     photos = Photo.objects.filter(album=album, trash=False).order_by('-uploaded')
     return render(request, 'albums/ajax/forum/album_photos.html', {'photos': photos})
 
-@login_required
+@login_required_403
 def get_sidebar(request):
     form = PickOwnAlbumForm(request.user)
     return render(request, 'albums/ajax/forum/sidebar.html', {'form': form})
 
-@login_required
+@login_required_403
 def get_sidebar_options(request):
     p = Preferences.get_or_create(request.user)
     options = {}
@@ -41,7 +43,7 @@ def is_beta_tester(request):
         return HttpResponse(1)
     return HttpResponse(0)
 
-@login_required
+@login_required_403
 def search(request):
     inputresults = request.GET.__getitem__('term').split(' ')
     query = []
