@@ -1,6 +1,11 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% load url from future %}
+
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/kitreviews.css' %}" charset="utf-8"/>
+{% endblock style %}
 
 {% block menu %}
     <li><a href="{% url 'kitreviews:index' %}">{% trans "Home" %}</a></li>

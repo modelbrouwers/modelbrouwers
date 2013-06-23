@@ -265,7 +265,7 @@ div#content{
     min-height: 400px;
 }
 div.tab{
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
     padding: 0.1em 1em 0.1em 1em;
     margin: -1em -1em 0 -1em;
     background-color: #EEE;

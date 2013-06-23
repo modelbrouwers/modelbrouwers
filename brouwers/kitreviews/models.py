@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -103,8 +104,7 @@ class ModelKit(models.Model):
             }
 
     def get_absolute_url(self):
-        # TODO
-        return 'foo%s' % self.id
+        return reverse('kitreviews:kit_detail', args=[self.id])
 
     def clean(self):
         super(ModelKit, self).clean()

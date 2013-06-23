@@ -6,28 +6,45 @@
 
 {% block content %}
     {% url 'kitreviews:find_kit' as search_url %}
+    
+    <div class="tab">
+        {% if kitform %}
+            {% trans 'Model kit' %}
+        {% else %}
+            {% trans "Review" %}
+        {% endif %}
+    </div>
 
-    <div class="tab">{% trans 'Model kit' %}</div>
-    <noscript>
-        <div class="no-javascript">
-            {% blocktrans %}
-                It appears you don't have Javascript enabled. Adding kits and/or reviews is still possible
-                by <a href="{{ search_url }}">searching</a> for kits.
-            {% endblocktrans %}
-        </div>
-    </noscript>
+    {% if kitform %}
+        <noscript>
+            <div class="no-javascript">
+                {% blocktrans %}
+                    It appears you don't have Javascript enabled. Adding kits and/or reviews is still possible
+                    by <a href="{{ search_url }}">searching</a> for kits.
+                {% endblocktrans %}
+            </div>
+        </noscript>
 
-    <form action="{{ search_url }}" method="get">
-        {% with form=kitform %}
-            {% include "form_in_table.html" %}
-        {% endwith %}
-        <div class="center">
-            <input type="button" value="{% trans 'Find kits' %}" class="submit-button" />
-        </div>
-    </form>
+        {# Javascript only form #}
+        <form id="add-kit-form" style="display:none;">
+            {% with form=kitform %}
+                {% include "form_in_table.html" %}
+            {% endwith %}
+            <div class="center">
+                <input type="button" value="{% trans 'Find kits' %}" class="submit-button" />
+            </div>
+        </form>
+        {# javascript enabled: show the form #}
+        <script type="text/javascript">
+            $('#add-kit-form').show();
+        </script>
+    {% endif %}
 
     <form action="." method="post">
-        <div class="tab midpage">{% trans "Review" %}</div>
+        {% if kitform %}
+            <div class="tab midpage">{% trans "Review" %}</div>
+        {% endif %}
+        
         {% include "kitreviews/review_form.html" %}
         
         <div class="center">

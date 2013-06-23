@@ -3,8 +3,11 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import Context, loader
 import socket
 
+def get_forumname_for_username(username):
+    return username.replace("_", " ")
+
 def get_username_for_user(user):
-    return user.username.replace("_", " ")
+    return get_forumname_for_username(user.username)
 
 def get_username(obj, field='user'):
     user = getattr(obj, field)

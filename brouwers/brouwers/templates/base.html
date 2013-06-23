@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 {% load i18n %}
 {% load staticfiles %}
+{% load forum_tools %}
 <head>
 	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -137,7 +138,7 @@
                                 </a>
                             </li>
                             <li class="user-auth">
-                                <a href="{% url general.views.profile %}">{% trans 'Profile' %} [ {{ user.get_profile.forum_nickname }} ]</a>
+                                <a href="{% url general.views.profile %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
                             </li>
                         {% endif %}
                     {% endblock %}

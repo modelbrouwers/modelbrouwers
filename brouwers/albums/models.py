@@ -89,6 +89,9 @@ class Album(models.Model):
     writable_to = models.CharField(_("writable to"), max_length=1, choices=WRITABLE_CHOICES, default="u")
     #writable to only user, group or everyone (unix like permissions)
     trash = models.BooleanField() #put in trash before removing from db
+
+    # custom managers
+    # FIXME custom managers give import errors? wtf
     
     class Meta:
         verbose_name = _("album")

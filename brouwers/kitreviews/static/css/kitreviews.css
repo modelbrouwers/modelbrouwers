@@ -1,3 +1,4 @@
+/* search results page */
 div#search-results{
     width: 99%;
     margin: 1em auto 0 auto;
@@ -21,3 +22,18 @@ div.kit div.kit-details p.category{
     font-size: 90%;
     font-style: italic;
 }
+/* kit detail page */
+div#kit-title      {line-height: 150%;}
+span#kit-name       {font-size: 120%;}
+div#kit-information {margin: 1em 0;}
+div#box-image       {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto 0 auto;
+}
+.add-review-button  {
+    padding: 0.1em 0.4em;
+    color: #333;
+    font-weight: bolder;
+}
+.add-review-button:hover{background-color: #DD6900;}

@@ -1,11 +1,6 @@
 {% extends "kitreviews/base.html" %}
-{% load i18n static %}
+{% load i18n %}
 {% load url from future %}
-
-{% block style %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/kitreviews.css' %}" charset="utf-8"/>
-{% endblock style %}
 
 {% block content %}
     <div class="tab">{% trans 'Find model kit(s) &dash; Enter your search parameters' %}</div>
@@ -46,6 +41,11 @@
                             </p>
                             <p>{{ kit.scale }}</p>
                             <p class="category">{{ kit.category }}</p>
+                            <span class="small-text">
+                                <br />
+                                ({% blocktrans count counter=kit.kitreview_set.count %}{{ counter }} review{% plural %}{{ counter }} reviews{% endblocktrans %})
+                                <a href="{% url 'kitreviews:kit_add_review' kit.id %}">{% trans "Add review" %}</a> 
+                            </span>
                         </div>
                         <div class="clear"></div>
                     </div>

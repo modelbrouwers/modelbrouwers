@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 
 from forms import *
@@ -13,13 +13,22 @@ def index(request):
 
 
 @login_required
-def add_review(request):
+def add_review(request, kit_id=None):
     if request.method == 'POST':
         kitform = ModelKitForm(request.POST, prefix='kit')
         reviewform = KitReviewForm(request.user, request.POST, prefix='review')
     else:
-        kitform = ModelKitForm(prefix='kit')
-        reviewform = KitReviewForm(request.user, prefix='review')
+        if kit_id:
+            kit = get_object_or_404(ModelKit, id=kit_id)
+            reviewform = KitReviewForm(
+                request.user, 
+                prefix='review',
+                initial={'model_kit': kit}
+                )
+            kitform = None
+        else:
+            kitform = ModelKitForm(prefix='kit')
+            reviewform = KitReviewForm(request.user, prefix='review')
 
     return render(request, 'kitreviews/add_review.html', {
             'kitform': kitform,
@@ -47,7 +56,7 @@ def find_kit(request):
             # the search terms
             q_list = []
             for part in name_parts:
-                q_list.append(Q(kit_name__icontains=part))
+                q_list.append(Q(name__icontains=part))
             results = results.filter(*q_list)
 
         scale = kitform.cleaned_data['scale']
@@ -64,4 +73,16 @@ def find_kit(request):
     return render(request, 'kitreviews/find_kit.html', {
             'kitform': kitform,
             'kits': results,
+            'hide_csrf_token': True,
         })
+
+def kit_detail(request, kit_id=None):
+    if not kit_id:
+        # show latest added kit
+        kit = ModelKit.objects.all().order_by('-pk')[:1] or None
+        if kit:
+            kit = kit[0]
+    else:
+        kit = get_object_or_404(ModelKit.objects.select_related(), pk=kit_id)
+
+    return render(request, 'kitreviews/kit_detail.html', {'kit': kit})
