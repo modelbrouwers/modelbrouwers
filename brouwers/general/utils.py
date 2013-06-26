@@ -44,6 +44,9 @@ def lookup_http_blacklist(ip):
         
         Returns a tupple (type_of_visitor, potential_spammer), e.g. ('comment spammer', True)
     """
+    return (None, None) # disable lookups for now, not thread safe
+    # FIXME
+
     if settings.DEVELOPMENT:
         ip = '220.249.167.159'
     key = settings.HTTPBL_ACCESS_KEY

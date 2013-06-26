@@ -35,7 +35,7 @@ try:
 except ImportError:
     UserMigration = None
 
-LOG_REGISTRATION_ATTEMPS = False
+LOG_REGISTRATION_ATTEMPS = True
 
 
 ######## EMAIL TEMPLATES ############

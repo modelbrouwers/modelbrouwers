@@ -17,6 +17,7 @@ def set_online(request):
     return HttpResponse(1)
 
 
+#TODO: switch to permission required!
 def get_online_users(request):
     if request.user.has_perms('online_users.add_trackeduser'):
         now = datetime.now()
