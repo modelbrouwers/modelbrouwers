@@ -36,10 +36,10 @@ except ImportError:
     UserMigration = None
 
 try:
-    LOG_REGISTRATION_ATTEMPS = settings.LOG_REGISTRATION_ATTEMPS
+    LOG_REGISTRATION_ATTEMPTS = settings.LOG_REGISTRATION_ATTEMPTS
 except AttributeError:
     # setting not yet defined
-    LOG_REGISTRATION_ATTEMPS = True
+    LOG_REGISTRATION_ATTEMPTS = True
 
 
 ######## EMAIL TEMPLATES ############
@@ -67,7 +67,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         answerform = AnswerForm(request.POST)
         questionform = QuestionForm(request.POST)
-        if LOG_REGISTRATION_ATTEMPS:
+        if LOG_REGISTRATION_ATTEMPTS:
             attempt = RegistrationAttempt.add(request)
         
         if questionform.is_valid():
@@ -84,7 +84,7 @@ def register(request):
                     password = form.cleaned_data['password1']
                     new_user = authenticate(username = username, password = password)
                     
-                    if LOG_REGISTRATION_ATTEMPS:
+                    if LOG_REGISTRATION_ATTEMPTS:
                         # do not log in potential spammers
                         if attempt.potential_spammer:
                             new_user.is_active = False
@@ -104,14 +104,14 @@ def register(request):
                     if ' ' in next_page:
                     	next_page = reverse(profile)
                     
-                    if LOG_REGISTRATION_ATTEMPS:
+                    if LOG_REGISTRATION_ATTEMPTS:
                         attempt.success = True
                         attempt.save()
                     return HttpResponseRedirect(next_page)
                 else:
                     # wrong answer, test if same ip has tried registrations before
                     error = "Fout antwoord."
-                    if LOG_REGISTRATION_ATTEMPS:
+                    if LOG_REGISTRATION_ATTEMPTS:
                         ban = attempt.set_ban()
                         print ban
     else:

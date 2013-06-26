@@ -140,7 +140,7 @@ IRC_CHANNEL = '#modelbrouwers.nl'
 IRC_DEFAULT_NICK = 'brouwer%3F%3F'
 
 # REGISTRATION ATTEMPT LOGGING AND COUPLING WITH BANS
-LOG_REGISTRATION_ATTEMPS = True
+LOG_REGISTRATION_ATTEMPTS = True
 
 try:
     from local_settings import *
