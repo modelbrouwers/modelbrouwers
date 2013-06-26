@@ -2,7 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from datetime import date, datetime
+from django.utils.translation import ungettext as _n
+from datetime import date, datetime, timedelta
 
 from awards.models import Category
 from utils import get_client_ip, lookup_http_blacklist
@@ -13,6 +14,10 @@ COUNTRY_CHOICES = (
     ("D",_("Germany")),
     ("F",_("France")),
 )
+
+MAX_REGISTRATION_ATTEMPTS = 3
+STANDARD_BAN_TIME_HOURS = 12
+
 
 class OrderedUser(User):
     class Meta:
@@ -85,7 +90,7 @@ class RegistrationQuestion(models.Model):
         return u"%s" % self.question
 
 class RegistrationAttempt(models.Model):
-    username = models.CharField(_('username'), max_length=512, db_index=True) # same as forum_nickname
+    username = models.CharField(_('username'), max_length=512, db_index=True, default='_not_filled_in_') # same as forum_nickname
     question = models.ForeignKey(RegistrationQuestion, verbose_name=_('registration question'))
     answer = models.CharField(_('answer'), max_length=255)
     # answer_correct = models.BooleanField(_('correct answer?'))
@@ -125,8 +130,68 @@ class RegistrationAttempt(models.Model):
         return instance
 
     @property
-    def is_banned(self):
-        return self.ban_id is not None
+    def question_short(self):
+        return self.question.__unicode__()[:15]
+
+    #@property
+    # def is_banned(self):
+    #     return self.ban_id is not None
+
+    def _is_banned(self):
+        if self.ban_id is not None:
+            return True
+        return False
+    _is_banned.boolean = True
+    is_banned = property(_is_banned)
+
+    def set_ban(self):
+        """ 
+        Logic to set a ban on failed registration attempts. If a ban is required, 
+        the time (in weeks) is exponentially in function of faulty attempts.
+
+        Returns False if no bans were set.
+        """
+
+        num_attempts = RegistrationAttempt.objects.filter(
+            ip_address=self.ip_address, success=False
+            ).count()
+
+        if num_attempts >= 2:
+            from banning.models import Ban
+            kwargs = {}
+            
+            # expiry date
+            if num_attempts >= MAX_REGISTRATION_ATTEMPTS:
+                import math
+                i = num_attempts - MAX_REGISTRATION_ATTEMPTS
+                num_weeks = round(math.exp(i))
+                kwargs['expiry_date'] = datetime.now() + timedelta(weeks=num_weeks)
+            else:
+                kwargs['expiry_date'] = datetime.now() + timedelta(hours=STANDARD_BAN_TIME_HOURS)
+            
+
+            kwargs['reason'] = _n('The system flagged you as a bot or your registration attempt was not valid.',
+                        'You tried registering %(times)s times without succes, the system flagged you as a bot.',
+                        num_attempts) % {
+                            'times': num_attempts
+                        }
+            kwargs['reason_internal'] = _('Probably spambot, %(num_attempts)s against maximum attempts of %(max)s') % {
+                                'num_attempts': num_attempts,
+                                'max': MAX_REGISTRATION_ATTEMPTS
+                            }
+            kwargs['automatic'] = True
+            
+            ban = Ban.objects.create(
+                    ip = self.ip_address,
+                    **kwargs
+                    )
+            
+            # set the ban to the registration attempt
+            self.ban = ban
+            self.save()
+            return ban
+        return False
+
 
 class SoftwareVersion(models.Model):
     VERSION_TYPES = (

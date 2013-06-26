@@ -16,6 +16,7 @@ img     {border: none;}
 .center {text-align: center;}
 .hidden {display:none;}
 .small-text {font-size: 0.8em;}
+.error  {color: red;}
 
 div#top, div#logo{min-width: 1340px;}
 div#container{padding: 5px 5px 0 5px;}

@@ -35,7 +35,11 @@ try:
 except ImportError:
     UserMigration = None
 
-LOG_REGISTRATION_ATTEMPS = True
+try:
+    LOG_REGISTRATION_ATTEMPS = settings.LOG_REGISTRATION_ATTEMPS
+except AttributeError:
+    # setting not yet defined
+    LOG_REGISTRATION_ATTEMPS = True
 
 
 ######## EMAIL TEMPLATES ############
@@ -58,7 +62,7 @@ def index(request):
 
 def register(request):
     error = ''
-    question = None
+    question, attempt = None, None
     if request.method=='POST':
         form = RegistrationForm(request.POST)
         answerform = AnswerForm(request.POST)
@@ -105,7 +109,11 @@ def register(request):
                         attempt.save()
                     return HttpResponseRedirect(next_page)
                 else:
+                    # wrong answer, test if same ip has tried registrations before
                     error = "Fout antwoord."
+                    if LOG_REGISTRATION_ATTEMPS:
+                        ban = attempt.set_ban()
+                        print ban
     else:
         form = RegistrationForm()
         question = RegistrationQuestion.objects.all().order_by('?')[0]

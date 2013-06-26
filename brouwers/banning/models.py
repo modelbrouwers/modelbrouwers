@@ -30,6 +30,7 @@ class Ban(models.Model):
         _(u'reason'), blank=True,
         help_text=_(u'This reason will be shown to the banned user.')
         )
+    automatic = models.BooleanField(_('automatically created?'), default=False)
 
     class Meta:
         verbose_name = _(u'ban')
