@@ -113,7 +113,6 @@ def register(request):
                     error = "Fout antwoord."
                     if LOG_REGISTRATION_ATTEMPTS:
                         ban = attempt.set_ban()
-                        print ban
     else:
         form = RegistrationForm()
         question = RegistrationQuestion.objects.all().order_by('?')[0]

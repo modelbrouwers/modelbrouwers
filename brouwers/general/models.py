@@ -165,7 +165,9 @@ class RegistrationAttempt(models.Model):
                 import math
                 i = num_attempts - MAX_REGISTRATION_ATTEMPTS
                 num_weeks = round(math.exp(i))
-                kwargs['expiry_date'] = datetime.now() + timedelta(weeks=num_weeks)
+                if num_weeks <= 52:
+                    kwargs['expiry_date'] = datetime.now() + timedelta(weeks=num_weeks)
+                # else kwarg not set -> permaban
             else:
                 kwargs['expiry_date'] = datetime.now() + timedelta(hours=STANDARD_BAN_TIME_HOURS)
             
