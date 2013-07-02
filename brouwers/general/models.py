@@ -115,7 +115,7 @@ class RegistrationAttempt(models.Model):
     def add(cls, request):
         ip = get_client_ip(request)
         instance = cls(
-            username = request.POST.get('forum_nickname'),
+            username = request.POST.get('forum_nickname') or '__no_username',
             question_id = request.POST.get('question'),
             answer = request.POST.get('answer'),
             ip_address = ip
