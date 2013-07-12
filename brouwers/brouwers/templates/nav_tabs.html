@@ -1,9 +1,10 @@
 {% load i18n %}
 {% load staticfiles %}
+{% load url from future %}
 
 {% block home_tab %}
 <li>
-    <a href="{% url general.views.index %}">
+    <a href="{% url 'general.views.index' %}">
         <img src="{% static 'images/nav/home_achter.png' %}" alt="{% trans 'Visit the homepage!' %}" /></a>
 </li>
 {% endblock %}
@@ -22,7 +23,7 @@
 
 {% block albums_tab %}
 <li>
-    <a href="{% url albums.views.index %}">{% block album_tab %}<img src="{% static 'images/nav/albums_achter.png' %}" alt="{% trans 'You are now in the albums!' %}"/>{% endblock %}</a>
+    <a href="{% url 'albums.views.index' %}">{% block album_tab %}<img src="{% static 'images/nav/albums_achter.png' %}" alt="{% trans 'You are now in the albums!' %}"/>{% endblock %}</a>
 </li>
 {% endblock %}
 

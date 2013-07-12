@@ -35,8 +35,11 @@ class ForumUserRouter(object):
         return True
     
     def allow_syncdb(self, db, model):
+        print db
         if db == 'mysql':
-            if (model._meta.app_label == 'forum_tools' \
+            if model._meta.app_label == 'south':
+                return True
+            elif (model._meta.app_label == 'forum_tools' \
                     and model.__name__ in MYSQL_MODELS_NO_SYNCDB \
                     ) or model._meta.app_label != 'forum_tools':
                 return False

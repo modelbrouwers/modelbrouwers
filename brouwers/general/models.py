@@ -15,6 +15,8 @@ COUNTRY_CHOICES = (
     ("F",_("France")),
 )
 
+#TODO: change this to list of all countries, order by most common
+
 MAX_REGISTRATION_ATTEMPTS = 3
 STANDARD_BAN_TIME_HOURS = 12
 
@@ -117,7 +119,7 @@ class RegistrationAttempt(models.Model):
         instance = cls(
             username = request.POST.get('forum_nickname') or '__no_username',
             question_id = request.POST.get('question'),
-            answer = request.POST.get('answer'),
+            answer = request.POST.get('answer') or '__empty_answer',
             ip_address = ip
             )
         
