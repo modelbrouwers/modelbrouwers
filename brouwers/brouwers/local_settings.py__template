@@ -54,7 +54,7 @@ PHPBB_TABLE_PREFIX = 'phpbb3_'
 PHPBB_URL = '/phpBB3'
 PHPBB_UID_COOKIE = 'phpbb3_10uny8_u'
 
-HTTPBL_ACCESS_KEY = 'my-private-key'
 HONEYPOT_URL = '/scratchy.php'
+HTTPBL_ACCESS_KEY = 'my-private-key'
 # Value between 0 and 255, with 0 meaning no threat.
 HTTPBL_MIN_THREAT_LEVEL = 10
