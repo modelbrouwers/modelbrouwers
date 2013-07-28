@@ -29,6 +29,13 @@ class OrderedUser(User):
     def __unicode__(self):
         return u"%s" % self.username.replace('_', ' ')
 
+class LoggedModel(models.Model):
+    user = models.ForeignKey(User, verbose_name=_(u'added by'), help_text=_(u'User who added the object.'))
+    timestamp_added = models.DateTimeField(_('added on'), auto_now_add=True)
+
+    class Meta:
+        abstract = True
+
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     #awardsinfo  
@@ -103,7 +110,7 @@ class RegistrationAttempt(models.Model):
     # keeping spam out
     potential_spammer = False
     type_of_visitor = models.CharField(_('type of visitor'), max_length=255, default=_('normal user'))
-    ban = models.ForeignKey('banning.Ban', blank=True, null=True)
+    ban = models.OneToOneField('banning.Ban', blank=True, null=True)
     
     class Meta:
         verbose_name = _('registration attempt')

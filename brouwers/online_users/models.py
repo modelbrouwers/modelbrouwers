@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+
+
+from general.models import OrderedUser, LoggedModel
 from datetime import datetime, timedelta
-from general.models import OrderedUser
 
 MINUTES_FOR_ONLINE = 5
 
@@ -16,6 +18,7 @@ class TrackedUser(models.Model):
             help_text=_("Send a notification to the online "
                         "moderators when this user is online.")
         )
+
     
     class Meta:
         verbose_name = _("tracked user")
