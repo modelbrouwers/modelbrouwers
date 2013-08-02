@@ -23,3 +23,16 @@ urlpatterns += patterns('django.contrib.auth.views',
     (r'^profile/change_password/$', 'password_change', {'template_name':'general/password.html'}),
     (r'^password_change_done/$','password_change_done', {'template_name': 'general/password_change_done.html'}),
     )
+
+# API
+if 'tastypie' in settings.INSTALLED_APPS:
+    from tastypie.api import Api
+    from general.api.resources import UserResource
+
+    v1_api = Api(api_name='v1')
+
+    v1_api.register(UserResource())
+
+    urlpatterns += patterns('',
+        (r'^api/', include(v1_api.urls)),
+        )

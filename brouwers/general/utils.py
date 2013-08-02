@@ -4,7 +4,7 @@ from django.template import Context, loader
 import socket
 
 def get_forumname_for_username(username):
-    return username.replace("_", " ")
+    return username.replace("_", " ") # NOT always valid, users can have underscores!
 
 def get_username_for_user(user):
     return get_forumname_for_username(user.username)
