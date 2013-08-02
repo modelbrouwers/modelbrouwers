@@ -55,6 +55,7 @@ if 'tastypie' in settings.INSTALLED_APPS:
     v1_api = Api(api_name='v1')
 
     v1_api.register(AlbumResource())
+    v1_api.register(OwnAlbumsResource())
     v1_api.register(PhotoResource())
 
     urlpatterns += patterns('',
