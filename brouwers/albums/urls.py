@@ -50,7 +50,7 @@ urlpatterns += patterns('albums.ajax_views_forum',
 # API
 if 'tastypie' in settings.INSTALLED_APPS:
     from tastypie.api import Api
-    from albums.api.resources import AlbumResource, PhotoResource
+    from albums.api.resources import AlbumResource, OwnAlbumsResource, PhotoResource
 
     v1_api = Api(api_name='v1')
 
