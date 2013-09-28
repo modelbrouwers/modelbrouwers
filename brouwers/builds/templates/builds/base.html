@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load url from future %}
 
 {% block title %}
 Modelbrouwers.nl &bull; Brouwverslagenoverzicht
@@ -16,8 +17,8 @@ Modelbrouwers.nl &bull; Brouwverslagenoverzicht
 {% endblock %}
 
 {% block menu %}
-    <li><a href="{% url builds.views.builders_overview %}">{% trans "All builds" %}</a></li>
-    <li><a href="{% url builds.views.add %}">{% trans 'Add build' %}</a></li>
+    <li><a href="{% url 'builds:builds.views.builders_overview' %}">{% trans "All builds" %}</a></li>
+    <li><a href="{% url 'builds:builds.views.add' %}">{% trans 'Add build' %}</a></li>
     {% if user.is_authenticated %}
         <li><a href="/builds/profile/{{ user.get_profile.id }}/">{% trans 'My builds' %}</a></li>
     {% endif %}
