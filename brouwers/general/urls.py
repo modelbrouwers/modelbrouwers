@@ -13,6 +13,11 @@ urlpatterns = patterns('general.views',
     (r'^do_reset_pw/$', 'do_password_reset'),
     )
 
+# new auth backend
+urlpatterns += patterns('general.views2',
+    (r'^new_login/$',     'custom_login'),
+    )
+
 # AJAX
 urlpatterns += patterns('general.ajax_views',
     (r'^user/search/$',    'search_users'),

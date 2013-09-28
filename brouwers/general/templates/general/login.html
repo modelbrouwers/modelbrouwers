@@ -1,35 +1,37 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load url from future %}
 
 {% block content %}
 <div id="login">
-    <p style="border: solid 2px red;background-color:#CCC;padding:5px;">
-        <strong>Opgepast!</strong> Sinds 3 september 2012 is het inlogsysteem gewijzigd!
-        <br />
-        Als het de eerste keer is dat je deze pagina ziet, log dan in met je gebruikelijke forumgegevens. Als je je wachtwoord vergeten bent, dan vul je gewoon wat in - in een verdere stap kan je je wachtwoord opnieuw instellen. <span style="color:red;"><b>Je forumnaam is hoofdlettergevoelig!</b></span>. Hierna wordt de koppeling gemaakt met je forumaccount en krijg je een e-mail met een bevestigingscode.
-        <br />
-        <br />
-        Ondervind je hierbij problemen, contacteer dan admins[ at ]modelbrouwers.nl en vermeld hierbij je forumgebruikersnaam.
-    </p>
-    
+	<p style="border: solid 2px red;background-color:#CCC;padding:5px;">
+		<strong>Opgepast!</strong> Sinds 3 september 2012 is het inlogsysteem gewijzigd!
+		<br />
+		Als het de eerste keer is dat je deze pagina ziet, log dan in met je gebruikelijke forumgegevens. Als je je wachtwoord vergeten bent, dan vul je gewoon wat in - in een verdere stap kan je je wachtwoord opnieuw instellen. <span style="color:red;"><b>Je forumnaam is hoofdlettergevoelig!</b></span>. Hierna wordt de koppeling gemaakt met je forumaccount en krijg je een e-mail met een bevestigingscode.
+		<br />
+		<br />
+		Ondervind je hierbij problemen, contacteer dan admins[ at ]modelbrouwers.nl en vermeld hierbij je forumgebruikersnaam.
+	</p>
+
 	<form method="post" action=".">
-	    {{ redirect_form.as_p }}
-	    
+		{{ redirect_form.as_p }}
+			
 		{% include "form_in_table.html" %}
- 		{% if next %}
-  			<input type="hidden" name="next" value="{{ next }}" />
-   		{% else %}
-   			<input type="hidden" name="next" value="/" />
-   		{% endif %}
-   		
-   		<div class="center">
-   		    <input type="submit" value="inloggen" />
-   		    <p>
-   		        {% trans 'Forgot your password?' %}
-   		        <br />
-   		        <a href="{% url general.views.password_reset %}">{% trans 'Request a password reset' %}</a>
-   		    </p>
-   		</div>
-   	</form>
+
+		{% if next %}
+		<input type="hidden" name="next" value="{{ next }}" />
+		{% else %}
+		<input type="hidden" name="next" value="/" />
+		{% endif %}
+
+		<div class="center">
+			<input type="submit" value="inloggen" />
+			<p>
+				{% trans 'Forgot your password?' %}
+				<br />
+				<a href="{% url 'general.views.password_reset' %}">{% trans 'Request a password reset' %}</a>
+			</p>
+		</div>
+	</form>
 </div>
 {% endblock %}
