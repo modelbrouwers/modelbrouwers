@@ -11,7 +11,7 @@ class Migration(DataMigration):
         "Just save all the objects. The save method will generate an unique slug."
         for build in orm.Build.objects.all():
             value = "%(username)s %(brand)s %(scale)s %(title)s" % {
-                'username': build.user.username,
+                'username': build.profile.user.username,
                 'brand': build.brand,
                 'scale': "1-%s" % build.scale,
                 'title': build.title
