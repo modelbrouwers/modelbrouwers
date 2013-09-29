@@ -1,3 +1,35 @@
+div.tab-content{
+    margin-bottom: 2em;
+}
+/* detail page */
+div.title{
+    padding: 0.3em 1em 0.3em 1em;
+    font-weight: bold;
+    color: #333;
+}
+
+div.title > span.title {
+    font-size: 1.1em;
+}
+.properties{
+    font-size: 0.8em;
+    font-weight: normal;
+    line-height: 1.5em;
+}
+
+div.photos{
+    text-align: center;
+}
+div.photos img{
+    margin: 1em auto;
+}
+
+
+
+
+
+
+
 #img_build{
 	margin-bottom: 50px;
 }

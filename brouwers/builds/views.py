@@ -3,13 +3,33 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.views.generic import DetailView
+
 
 from general.models import UserProfile
 from awards.models import Project
-from forms import BrouwerSearchForm
-from models import Build
-from forms import BuildForm
 
+
+from .forms import BrouwerSearchForm
+from .models import Build
+from .forms import BuildForm
+
+
+class BuildDetailView(DetailView):
+	context_object_name = 'build'
+	template_name = 'builds/build.html'
+	model = Build
+
+
+
+
+
+
+
+
+
+
+# TODO: replace with ListView
 def builders_overview(request):
 	if request.method == "POST":
 		form = BrouwerSearchForm(request.POST)
@@ -24,21 +44,20 @@ def builders_overview(request):
 	return render(request, 'builds/base.html', {'form': form, 'builds': builds})
 
 @login_required
-def add(request):
+def add(request): # FIXME
 	if request.method == "POST":
-		build = Build(profile = request.user.get_profile())
+		build = Build(
+			profile = request.user.get_profile(),
+			user = request.user
+			)
 		form = BuildForm(request.POST, instance=build)
 		if form.is_valid():
 			build = form.save()
-			try:
-				nomination = Project.objects.get(url__icontains = form.cleaned_data['url'])
-				build.nomination = nomination
-				build.save()
-			except ObjectDoesNotExist:
-				pass
 			return HttpResponseRedirect(reverse('build_detail', args=[build.id]))
 	else:
-		form = BuildForm()
+		form = BuildForm(initial={
+				'user': request.user,
+			})
 	return render(request, 'builds/add.html', {'form': form})
 
 @login_required

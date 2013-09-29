@@ -10,7 +10,7 @@ class BrouwerSearchForm(forms.Form):
 class BuildForm(forms.ModelForm):
 	class Meta:
 		model = Build
-		exclude = ('profile', 'nomination')
+		exclude = ('profile', 'nomination', 'user', 'slug', 'topic_id', 'forum_id', 'brand_name')
 		widgets = {
 			'url': forms.TextInput(attrs={'size':70}),
 			'title': forms.TextInput(attrs={'size':70}),

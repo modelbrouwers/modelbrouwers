@@ -1,13 +1,14 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% load url from future %}
 
 {% block title %}
-Modelbrouwers.nl &bull; Brouwverslagenoverzicht
+Modelbrouwers.nl &bull; {% trans "Build reports" %}
 {% endblock %}
 
-{% block extrastyle %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/builds.css" charset="utf-8"/>
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/builds.css" %}" charset="utf-8"/>
 {% endblock %}
 
 {% block announcement %}
@@ -25,7 +26,7 @@ Modelbrouwers.nl &bull; Brouwverslagenoverzicht
 {% endblock %}
 
 {% block content %}
-<h1>Brouwverslagenoverzicht</h1>
+<h1>{% trans "Build reports" %}</h1>
 <hr />
 <br />
 <p>Op deze pagina kan je de verslagen van andere brouwers terugvinden. Geef in het zoekveld (een stuk van) de forumnaam op, en klik op 'zoeken'. Klik vervolgens op de juiste nickname om een overzicht te krijgen.</p>
@@ -44,7 +45,7 @@ Modelbrouwers.nl &bull; Brouwverslagenoverzicht
 <hr />
 <br />
 {% for build in builds %}
-<p><a class="link" href="/builds/profile/{{build.profile.id}}/">{{build.profile}}</a>: <a class="link project" href="/builds/{{build.id}}/">{{build.title}}</a></p>
+<p><a class="link" href="/builds/profile/{{build.profile.id}}/">{{build.profile}}</a>: <a class="link project" href="{{ build.get_absolute_url }}">{{build.title}}</a></p>
 <br />
 {% endfor %}
 {% endblock %}

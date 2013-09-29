@@ -26,6 +26,7 @@ class Build(models.Model):
     slug = models.SlugField(_('slug'), unique=True)
 
     # topic information
+    # allow external urls? Might be interesting!
     url = models.URLField(max_length=500, help_text=_("link naar het verslag"), unique=True, blank=True)
     topic_id = models.PositiveIntegerField(
         _('Topic ID'), unique=True,
@@ -79,8 +80,7 @@ class Build(models.Model):
 
     # URLS
     def get_absolute_url(self):
-        return reverse('builds.views.custom_object_detail', kwargs={'object_id': self.id}) 
-        #TODO: named url if funciton based generic view is gone, with slug
+        return reverse('builds:detail', kwargs={'slug': self.slug}) 
     
     def get_topic_url(self):
         """ Build the PHPBB3 url based on topic (and forum) id. """

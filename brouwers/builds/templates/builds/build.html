@@ -1,6 +1,9 @@
 {% extends "builds/base.html" %}
+{% load i18n static builds %}
+{% load url from future %}
 
 {% block content %}
+{% comment %}
 {% with build.id|add:"-1" as prev_id %}
 <p id="buttons">
 <a id="button_left" href="{% url build_detail prev_id %}" title="Vorige"><img src="{{STATIC_URL}}images/prev.gif" width="26" height="25" alt="previous"/></a>
@@ -9,48 +12,57 @@
 <a id="button_right" href="{% url build_detail next_id %}" title="Volgende"><img src="{{STATIC_URL}}images/next.gif" width="26" height="25" alt="next"/></a>
 {% endwith %}
 </p>
-<h1>{{build}}</h1>
-<hr />
-<br />
-{% if user.get_profile == build.profile or user.is_staff %}
-<a href="../edit/{{build.id}}/" style="float: right;"><img src="{{STATIC_URL}}images/edit.gif" width="90" height="20" alt="edit"/></a>
-{% endif %}
-<p>
---- {{build.category}} ---
-<br />
-<br />
-<a href="{{build.url}}" target="_blank" title="Forumtopic">Forumtopic</a>
-<br />
-<br />
-Merk: {{build.brand}}
-<br />
-Schaal: {{build.scale}}
-<br />
-<br />
-{% if build.start_date %}
-Project gestart op {{build.start_date|date:"d/m/Y"}}{% if build.end_date %}, en op {{build.end_date|date:"d/m/Y"}} afgewerkt{% endif %}.
-{% endif %}
-<br />
-</p>
-<br />
-<br />
-<br />
-<br />
-{% if build.img1 %}
-<h2 class="center">Enkele foto's</h2>
-<br />
-<p class="center" id="img_build">
-<img src="{{build.img1}}" alt="img1" width="640"></img>
-{% if build.img2 %}
-<br />
-<br />
-<img src="{{build.img2}}" alt="img2" width="640"></img>
-{% if build.img3 %}
-<br />
-<br />
-<img src="{{build.img3}}" alt="img3" width="640"></img>
-{% endif %}
-{% endif %}
-</p>
-{% endif %}
+{% endcomment %}
+
+<div class="tab title">
+    <span class="title">{{ build.title }}</span>
+    &bull;
+    <a href="{{ build.user.get_absolute_url }}">
+        <span class="author">{{ build.user.get_profile.forum_nickname }}</span>
+    </a>
+    &bull;
+    <a class="topic-link" href="{{ build.topic_url }}">{% trans "View topic" %}</a>
+
+    {% if build|can_edit:user %}
+    {% spaceless %}
+        <a class="edit-link right" href="{% url 'builds:edit' build.id %}">
+            <img src="{% static "images/edit.gif" %}" width="90" height="20" alt="edit"/>
+        </a>
+    {% endspaceless %}
+    {% endif %}
+
+    <span class="right properties">
+
+        {{ build.start_date }}
+        {% if build.end_date %}
+            &dash; {{ build.end_date }}
+        {% endif %}
+
+    </span>
+
+</div>
+
+
+<div class="tab-content">
+    <div class="kit-info">
+        <!-- TODO: uitbreiden met meer kitinfo, link naar kitreviews -->
+        {{ build.brand_name }}, {{ build.get_scale }}
+    </div>
+
+    <div class="photos">
+        {% if build.img1 %}
+            <img src="{{ build.img1 }}" alt="img1" width="640" />
+        {% endif %}
+        
+        {% if build.img2 %}
+            <img src="{{ build.img2 }}" alt="img1" width="640" />
+        {% endif %}
+        
+        {% if build.img3 %}
+            <img src="{{ build.img3 }}" alt="img1" width="640" />
+        {% endif %}
+    </div>
+</div>
+
+{# <div class="tab">{% trans "Kit information" %}</div> #}
 {% endblock %}
