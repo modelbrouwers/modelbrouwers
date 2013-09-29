@@ -53,7 +53,7 @@ def add(request): # FIXME
 		form = BuildForm(request.POST, instance=build)
 		if form.is_valid():
 			build = form.save()
-			return HttpResponseRedirect(reverse('build_detail', args=[build.id]))
+			return HttpResponseRedirect(build.get_absolute_url())
 	else:
 		form = BuildForm(initial={
 				'user': request.user,
@@ -67,7 +67,7 @@ def edit(request, id):
 		form = BuildForm(request.POST, instance=build)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect(reverse('build_detail', args=[id]))
+			return HttpResponseRedirect(build.get_absolute_url())
 	else:
 		if request.user.groups.filter(name__iexact="moderators"):
 			form = BuildForm(instance=build)
