@@ -42,7 +42,7 @@ class Build(models.Model):
     # kit information
     title = models.CharField(_("title"), max_length=255, 
         help_text=_("Enter a descriptive build title."))
-    scale = models.CharField(_("scale"), max_length=10, blank=True)
+    scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True)
     brand = models.ForeignKey(Brand, blank=True, null=True)
     brand_name = models.CharField(_("brand name (old)"), max_length=64, blank=True)
     

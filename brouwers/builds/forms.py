@@ -26,16 +26,3 @@ class BuildForm(forms.ModelForm):
 			raise forms.ValidationError("De url wijst niet naar een forumtopic.")
 		self.cleaned_data['url'] = "http://www.%s" % match.group(0)
 		return self.cleaned_data['url']
-	
-	def clean_scale(self):
-		scale = self.cleaned_data['scale']
-		if scale == "":
-			return scale
-		match = re.search('1:\d+', scale)
-		if match:
-			return scale
-		else:
-			match = re.search('1/\d+', scale)
-			if not match:
-				raise forms.ValidationError("Fout formaat van schaal, correct zijn: 1/24 of 1:48.")
-		return scale

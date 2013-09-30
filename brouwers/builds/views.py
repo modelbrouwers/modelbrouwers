@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 
 from general.models import UserProfile
@@ -13,6 +13,10 @@ from awards.models import Project
 from .forms import BrouwerSearchForm
 from .models import Build
 from .forms import BuildForm
+
+
+class BuildListView(ListView):
+	pass
 
 
 class BuildDetailView(DetailView):
