@@ -56,7 +56,7 @@ def get_mod_data(request):
     data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports) % {'num': num_open_reports}
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
-@user_passes_test_403(lambda u: u.groups.filter(name__iexact='moderators').exists())
+@user_passes_test_403(lambda u: u.groups.filter(name__iexact='content sharing').exists())
 def get_sharing_perms(request):
     data = {}
     form = PosterIDsForm(request.GET)
