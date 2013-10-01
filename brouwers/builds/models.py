@@ -71,7 +71,7 @@ class Build(models.Model):
         if not self.slug:
             value = "%(username)s %(brand)s %(scale)s %(title)s" % {
                 'username': self.user.username,
-                'brand': self.brand,
+                'brand': self.brand_name,
                 'scale': self.get_scale('-'),
                 'title': self.title
             }
