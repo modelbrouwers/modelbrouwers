@@ -27,7 +27,7 @@ class Build(models.Model):
 
     # topic information
     # allow external urls? Might be interesting!
-    url = models.URLField(max_length=500, help_text=_("link naar het verslag"), unique=True, blank=True)
+    url = models.URLField(max_length=500, help_text=_("link naar het verslag"), unique=True)
     topic_id = models.PositiveIntegerField(
         _('Topic ID'), unique=True,
         blank=True, null=True,
@@ -42,7 +42,8 @@ class Build(models.Model):
     # kit information
     title = models.CharField(_("title"), max_length=255, 
         help_text=_("Enter a descriptive build title."))
-    scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True)
+    scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True,
+        help_text=_('Voer het getal na de "1:" of "1/" in. Bv: 1/48 --> 48 ingeven.'))
     brand = models.ForeignKey(Brand, blank=True, null=True)
     brand_name = models.CharField(_("brand name (old)"), max_length=64, blank=True)
     

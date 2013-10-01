@@ -44,6 +44,9 @@ input[type="text"], input[type="password"], input[type="submit"], button, input[
 }
 button.uploadify-button, input[type="submit"].uploadify-button{
     padding:0;
+    height: 34px; 
+    line-height: 30px; 
+    width: 124px;
 }
 form table{
     width: 98%;

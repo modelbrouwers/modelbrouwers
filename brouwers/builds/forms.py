@@ -23,6 +23,8 @@ class BuildForm(forms.ModelForm):
 		url = self.cleaned_data['url']
 		match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
 		if not match:
-			raise forms.ValidationError("De url wijst niet naar een forumtopic.")
+			match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?t=(\d+)&f=(\d+)', url)
+			if not match:
+				raise forms.ValidationError("De url wijst niet naar een forumtopic.")
 		self.cleaned_data['url'] = "http://www.%s" % match.group(0)
 		return self.cleaned_data['url']

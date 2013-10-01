@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import CreateView
 
 
 from general.models import UserProfile
@@ -14,6 +15,9 @@ from awards.models import Project
 from .forms import BrouwerSearchForm
 from .models import Build
 from .forms import BuildForm
+
+
+""" Views responsible for displaying data """
 
 
 class BuildDetailView(DetailView):
@@ -43,10 +47,6 @@ class UserBuildListView(ListView):
         return Build.objects.filter(user_id=user_id)
 
 
-
-
-
-
 # TODO: replace with ListView
 def builders_overview(request):
     if request.method == "POST":
@@ -61,22 +61,25 @@ def builders_overview(request):
     builds = Build.objects.all().order_by('-pk')[:15]
     return render(request, 'builds/base.html', {'form': form, 'builds': builds})
 
-@login_required
-def add(request): # FIXME
-    if request.method == "POST":
-        build = Build(
-            profile = request.user.get_profile(),
-            user = request.user
-            )
-        form = BuildForm(request.POST, instance=build)
-        if form.is_valid():
-            build = form.save()
-            return HttpResponseRedirect(build.get_absolute_url())
-    else:
-        form = BuildForm(initial={
-                'user': request.user,
-            })
-    return render(request, 'builds/add.html', {'form': form})
+
+
+""" Views responsible for editing data """
+
+
+class BuildCreate(CreateView):
+    form_class = BuildForm
+    template_name = 'builds/add.html'
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.profile = self.request.user.get_profile()
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
 
 @login_required
 def edit(request, id):
