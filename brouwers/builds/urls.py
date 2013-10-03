@@ -7,7 +7,8 @@ from general.models import UserProfile
 
 from .models import Build
 from .views import BuildDetailView, BuildRedirectView, \
-                   UserBuildListView, BuildCreate, BuildUpdate
+                   UserBuildListView, BuildCreate, BuildUpdate, \
+                   ProfileRedirectView
 
 
 urlpatterns = patterns('builds.views',
@@ -25,5 +26,5 @@ urlpatterns += patterns('',
     url(r'^build/(?P<slug>[-_\w]+)/edit/$', login_required(BuildUpdate.as_view()), name='edit'),
     
     url(r'^user/(?P<user_id>\d+)/$', UserBuildListView.as_view(), name='user_build_list'),
-
+    url(r'^profile/(?P<profile_id>\d+)/$', ProfileRedirectView.as_view(), name='profile_build_list'),
     )

@@ -38,6 +38,15 @@ class BuildRedirectView(SingleObjectMixin, RedirectView):
         return self.build.get_absolute_url()
 
 
+class ProfileRedirectView(RedirectView):
+    permanent = True
+
+    def get_redirect_url(self, **kwargs):
+        profile_id = self.kwargs.get('profile_id', None)
+        profile = UserProfile.objects.get(pk=profile_id)
+        return reverse('builds:user_build_list', kwargs={'user_id': profile.user.id})
+
+
 class UserBuildListView(ListView):
     context_object_name = 'builds'
     template_name = 'builds/profile_builds.html'
