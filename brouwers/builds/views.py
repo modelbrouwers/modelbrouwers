@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 
 from general.models import UserProfile
@@ -42,9 +43,19 @@ class UserBuildListView(ListView):
     template_name = 'builds/profile_builds.html'
     paginate_by = 50
 
+    def __init__(self, *args, **kwargs):
+        super(UserBuildListView, self).__init__(*args, **kwargs)
+        self.user_id = None
+
     def get_queryset(self):
         user_id = self.kwargs.get('user_id', None)
+        self.user = get_object_or_404(User, pk=user_id)
         return Build.objects.filter(user_id=user_id)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserBuildListView, self).get_context_data(**kwargs)
+        context['user'] = self.user
+        return context
 
 
 # TODO: replace with ListView
@@ -79,6 +90,21 @@ class BuildCreate(CreateView):
         self.object.profile = self.request.user.get_profile()
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+class BuildUpdate(BuildCreate, UpdateView):
+    template_name = 'builds/edit.html'
+
+    def get_queryset(self):
+        if self.request.user.has_perms('builds.edit_build'):
+            return Build.objects.all()
+        return Build.objects.filter(user_id=self.request.user.id)
+
+
+    def get_form_kwargs(self):
+        kwargs = super(BuildUpdate, self).get_form_kwargs()
+        kwargs.update({'is_edit': True})
+        return kwargs
 
 
 @login_required

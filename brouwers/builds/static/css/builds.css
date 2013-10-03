@@ -1,6 +1,59 @@
 div.tab-content{
     margin-bottom: 2em;
 }
+
+/* overviews */
+#builds-overview{
+    width: 80%;
+    margin: 2em auto;
+    border-collapse: collapse;
+}
+#table-header{
+    background-color: #EEE;
+    background: -moz-linear-gradient(top, #C7D0D7 0%, #6F8698 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#C7D0D7), color-stop(100%,#6F8698));
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C7D0D7', endColorstr='#C7D0D7', GradientType=0 );
+    zoom: 1;
+    background-image: -o-linear-gradient(top, #C7D0D7 0%, #6F8698 100%);
+    background: linear-gradient(#C7D0D7 0%, #6F8698 100%);
+    color: #222;
+}
+#builds-overview tr > *{
+    padding: 0.4em;
+    text-align: center;
+}
+#builds-overview tr > td{
+    border-bottom: solid 1px #CCC;
+    border-top: solid 1px #CCC;
+}
+#builds-overview th:first-child{
+    border-top-left-radius: 6px;
+}
+#builds-overview th:last-child{
+    border-top-right-radius: 6px;
+}
+#builds-overview .title{
+    font-weight: bold;
+    width: 40%;
+    text-align: left;
+}
+td.topic-url, td.brand{
+    width: 20%;
+    font-weight: bold;
+}
+td.brand{color: #333;}
+#builds-overview tr.light{ background-color: #EEE;}
+#builds-overview tr.dark { background-color: #DDD;}
+a.link-project{
+    background-image: url(../images/icons/permalink.gif); /* TODO: sprite */;
+    background-repeat: no-repeat;
+    padding-right: 18px;
+    background-position: -100% 50%;
+}
+a.link-project:hover{
+    background-position: 100% 50%;
+}
+
 /* detail page */
 div.title{
     padding: 0.3em 1em 0.3em 1em;

@@ -1,29 +1,12 @@
-{% extends "builds/base.html" %}
-
-{% block content %}
-<h1>Brouwverslag bewerken</h1>
-<hr />
-<br />
-<form action="." method="post">{% csrf_token %}
-<table width="100%">
-<tr><td>Url:</td><td style="padding-bottom: 5px;"><a href="{{form.instance.url}}" target="_blank">{{form.instance.url}}</a></td></tr>
-{% for error in form.url.errors %}
-	<tr><td></td><td class="error"><strong>{{error}}</strong></td></tr>
-{% endfor %}
-{% for field in form %}
-	{% if not forloop.counter0 = 0 %}
-	<tr><td>{{field.label_tag}}:</td><td>{{field}}</td></tr>
-	{% for error in field.errors %}
-		<tr><td></td><td class="error"><strong>{{error}}</strong></td></tr>
-	{% endfor %}
-	<tr><td></td><td class="helptext"><i>{{field.help_text}}</i></td></tr>
-	{% endif %}
-{% endfor %}
-</table>
-<br>
-<input type="hidden" id="id_url" name="url" value="{{form.instance.url}}" />
-<input type="submit" value="Bewerk dit project"/>
-</form>
+{% extends "builds/add.html" %}
+{% load i18n %}
 
 
-{% endblock %}
+{% block header %}
+    {% trans "Edit build report" %} 
+    &bull;
+    <span class="title">{{ build.title }}</span>
+{% endblock header %}
+
+{% block info %}
+{% endblock info %}

@@ -49,13 +49,13 @@ class Build(models.Model):
     
     # build information # TODO: jquery ui date
     start_date = models.DateField(_("start date"), blank=True, null=True, help_text=_("Format: yyyy-mm-dd"))
-    end_date = models.DateField(_("eind date"), blank=True, null=True, help_text=_("Format: yyyy-mm-dd"))
+    end_date = models.DateField(_("end date"), blank=True, null=True, help_text=_("Format: yyyy-mm-dd"))
     
 
     # images TODO: replace with m2m album images
-    img1 = models.URLField(_("Foto 1"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
-    img2 = models.URLField(_("Foto 2"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
-    img3 = models.URLField(_("Foto 3"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
+    img1 = models.URLField(_("Photo 1"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
+    img2 = models.URLField(_("Photo 2"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
+    img3 = models.URLField(_("Photo 3"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
     
 
     class Meta:
