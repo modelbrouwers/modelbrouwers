@@ -39,7 +39,7 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
 <hr />
 <br />
 {% for build in builds %}
-<p><a class="link" href="/builds/profile/{{build.profile.id}}/">{{build.profile}}</a>: <a class="link project" href="{{ build.get_absolute_url }}">{{build.title}}</a></p>
+<p><a class="link" href="/builds/user/{{build.profile.id}}/">{{build.profile}}</a>: <a class="link project" href="{{ build.get_absolute_url }}">{{build.title}}</a></p>
 <br />
 {% endfor %}
 {% endblock %}
