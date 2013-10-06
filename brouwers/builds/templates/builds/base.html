@@ -12,7 +12,7 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
 {% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'builds:builds.views.builders_overview' %}">{% trans "All builds" %}</a></li>
+    {#<li><a href="{% url 'builds:builds.views.builders_overview' %}">{% trans "All builds" %}</a></li>#}
     <li><a href="{% url 'builds:add_build' %}">{% trans 'Add build' %}</a></li>
     {% if user.is_authenticated %}
         <li><a href="/builds/profile/{{ user.get_profile.id }}/">{% trans 'My builds' %}</a></li>
@@ -20,6 +20,9 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
 {% endblock %}
 
 {% block content %}
+
+    <div class="tab">{% trans "Build reports" %}</div>
+
 <h1>{% trans "Build reports" %}</h1>
 <hr />
 <br />

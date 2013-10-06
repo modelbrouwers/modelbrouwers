@@ -1,0 +1,10 @@
+{% for build in builds %}
+<p>
+    <a class="link" href="/builds/user/{{ build.profile.id }}/">
+        {{ build.profile }}
+    </a>: 
+    <a class="link project" href="{{ build.get_absolute_url }}">
+        {{ build.title }}
+    </a>
+</p>
+{% endfor %}

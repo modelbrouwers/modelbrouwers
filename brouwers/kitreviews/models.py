@@ -23,7 +23,8 @@ class Brand(models.Model):
     name = models.CharField(_(u'brand'), max_length=100, db_index=True)
     #TODO: clean for uniqueness in kitreviews/sql/brand.sql
     is_active = models.BooleanField(_(u'is active?'), default=True, 
-                help_text=_(u'Does the brand still exist?')
+                help_text=_(u'Does the brand still exist?'),
+                db_index=True
                 )
 
     class Meta:

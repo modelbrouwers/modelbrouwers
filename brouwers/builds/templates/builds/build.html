@@ -25,7 +25,7 @@
 
     {% if build|can_edit:user %}
     {% spaceless %}
-        <a class="edit-link right" href="{% url 'builds:edit' build.id %}">
+        <a class="edit-link right" href="{% url 'builds:edit' build.slug %}">
             <img src="{% static "images/edit.gif" %}" width="90" height="20" alt="edit"/>
         </a>
     {% endspaceless %}

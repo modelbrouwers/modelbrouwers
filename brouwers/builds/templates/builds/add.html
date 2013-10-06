@@ -1,24 +1,63 @@
 {% extends "builds/base.html" %}
 {% load i18n %}
+{% load url from future %}
+
+{% block extrastyle %}
+    <style type="text/css">
+        div#content{padding: 1em 0 0 0;min-height:300px;}
+        div.tab {margin-left: 0;margin-right: 0;}
+    </style>
+{% endblock extrastyle %}
 
 {% block content %}
+<div id="builds">
     <div class="tab">
-        {% block header %}
-            {% trans "Add a build report" %}
-        {% endblock header %}
+        {% if user.is_authenticated %}
+            <div class="column left-column">
+                {% block header %}
+                    {% trans "Add a build report" %}
+                {% endblock header %}
+            </div>
+            <div class="column right-column">
+                {% trans "Last 20 builds" %}
+            </div>
+            <div class="clear"></div>
+        {% else %}
+            {% trans "Last 20 builds" %}
+        {% endif %}
     </div>
 
-    {% block info %}
-        <p class="info margin">
-            {% trans "Use this page to link your projects to your profile. Caution, everything you enter here is public for all visitors!" %}
-        </p>
-    {% endblock info %}
+    {% if user.is_authenticated %}
+        <div class="column left-column content">
+            <div>
+                {% block info %}
+                    <p class="info margin">
+                        {% trans "Use this page to link your projects to your profile. Caution, everything you enter here is public for all visitors!" %}
+                    </p>
+                {% endblock info %}
 
-    <form action="." method="post">
-        {% include "form_in_table.html" %}
-        <div class="center">
-            <input type="submit" value="{% trans 'Save' %}" name="manage" class="uploadify-button" />
+                <form action="." method="post">
+                    {% include "form_in_table.html" %}
+                    <div class="center">
+                        <input type="submit" value="{% trans 'Save' %}" name="manage" class="uploadify-button" />
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
 
+        <!-- right block, show form to add a build -->
+        <div class="column right-column content">
+            <div>
+                {% include "builds/builds_list.html" %}
+            </div>
+        </div>
+        <div class="clear"></div>
+    {% else %}
+        <div style="padding:1em;">
+            <p class="info">{% trans "Sign in to add your own build reports!" %}</p>
+            <br />
+            {% include "builds/builds_list.html" %}
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

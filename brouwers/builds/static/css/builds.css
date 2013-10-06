@@ -1,5 +1,30 @@
+div#content{
+    /*min-height: 360px;*/
+}
 div.tab-content{
     margin-bottom: 2em;
+}
+
+div.column{
+    width: 50%;
+    float: left;
+}
+div.column > div{
+    padding: 1em;
+}
+div.tab div.column{
+    text-align: center;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+#builds div.left-column.content > div{
+    border-right: solid 1px #CCCCCC;
+    background-color: #eef3f7;
+    text-align: left;
+    margin-right: -1px;
+}
+#builds div.right-column.content > div{
+    border-left: solid 1px #CCCCCC;
 }
 
 /* overviews */

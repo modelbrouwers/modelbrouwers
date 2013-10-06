@@ -11,16 +11,17 @@ from .views import BuildDetailView, BuildRedirectView, \
                    ProfileRedirectView
 
 
-urlpatterns = patterns('builds.views',
-    url(r'^$', 'builders_overview'),
-    )
+# urlpatterns = patterns('builds.views',
+#     url(r'^$', 'builders_overview'),
+#     )
 
 
 # CLASS BASED VIEWS
-urlpatterns += patterns('',
-    # backwards compatible, redirect old urls
-    url(r'^build/$', login_required(BuildCreate.as_view()), name='add_build'),
+urlpatterns = patterns('',
+    # index page
+    url(r'^$', BuildCreate.as_view(), name='add_build'),
     
+    # backwards compatible, redirect old urls
     url(r'^(?P<build_id>\d+)/$', BuildRedirectView.as_view(), name='old_detail'),
     url(r'^build/(?P<slug>[-_\w]+)/$', BuildDetailView.as_view(), name='detail'),
     url(r'^build/(?P<slug>[-_\w]+)/edit/$', login_required(BuildUpdate.as_view()), name='edit'),

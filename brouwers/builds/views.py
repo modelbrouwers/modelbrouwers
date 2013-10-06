@@ -43,7 +43,7 @@ class ProfileRedirectView(RedirectView):
 
     def get_redirect_url(self, **kwargs):
         profile_id = self.kwargs.get('profile_id', None)
-        profile = UserProfile.objects.get(pk=profile_id)
+        profile = get_object_or_404(UserProfile, pk=profile_id)
         return reverse('builds:user_build_list', kwargs={'user_id': profile.user.id})
 
 
@@ -99,6 +99,12 @@ class BuildCreate(CreateView):
         self.object.profile = self.request.user.get_profile()
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, **kwargs):
+        context = super(BuildCreate, self).get_context_data(**kwargs)
+        # show last 20 builds
+        context['builds'] = Build.objects.all().order_by('-pk')[:20]
+        return context
 
 
 class BuildUpdate(BuildCreate, UpdateView):
