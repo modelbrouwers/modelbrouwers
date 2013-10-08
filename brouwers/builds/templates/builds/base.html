@@ -12,38 +12,16 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
 {% endblock %}
 
 {% block menu %}
-    {#<li><a href="{% url 'builds:builds.views.builders_overview' %}">{% trans "All builds" %}</a></li>#}
-    <li><a href="{% url 'builds:add_build' %}">{% trans 'Add build' %}</a></li>
+    <li>
+        <a href="{% url 'builds:add_build' %}">
+            {% trans 'Add build' %}
+        </a>
+    </li>
     {% if user.is_authenticated %}
-        <li><a href="/builds/profile/{{ user.get_profile.id }}/">{% trans 'My builds' %}</a></li>
+        <li>
+            <a href="/builds/profile/{{ user.get_profile.id }}/"> <!-- TODO: -->
+                {% trans 'My builds' %}
+            </a>
+        </li>
     {% endif %}
-{% endblock %}
-
-{% block content %}
-
-    <div class="tab">{% trans "Build reports" %}</div>
-
-<h1>{% trans "Build reports" %}</h1>
-<hr />
-<br />
-<p>Op deze pagina kan je de verslagen van andere brouwers terugvinden. Geef in het zoekveld (een stuk van) de forumnaam op, en klik op 'zoeken'. Klik vervolgens op de juiste nickname om een overzicht te krijgen.</p>
-<br />
-<br />
-<form action="." method="post">{% csrf_token %}
-	<p>{{form.nickname}} <input type = "submit" value="Zoek"/></p>
-	{% for error in form.nickname.errors %}
-		<p class="error"><strong>{{error}}</strong></p>
-	{% endfor %}
-</form>
-<br />
-<br />
-{% block results %}
-<h1>Laatst toegevoegd</h1>
-<hr />
-<br />
-{% for build in builds %}
-<p><a class="link" href="/builds/user/{{build.profile.id}}/">{{build.profile}}</a>: <a class="link project" href="{{ build.get_absolute_url }}">{{build.title}}</a></p>
-<br />
-{% endfor %}
-{% endblock %}
 {% endblock %}

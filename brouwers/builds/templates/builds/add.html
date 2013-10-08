@@ -9,53 +9,69 @@
     </style>
 {% endblock extrastyle %}
 
+
 {% block content %}
-<div id="builds">
-    <div class="tab">
-        {% if user.is_authenticated %}
-            <div class="column left-column">
-                {% block header %}
-                    {% trans "Add a build report" %}
-                {% endblock header %}
-            </div>
-            <div class="column right-column">
-                {% trans "Last 20 builds" %}
-            </div>
-            <div class="clear"></div>
-        {% else %}
-            {% trans "Last 20 builds" %}
-        {% endif %}
-    </div>
-
+<div class="tab">
     {% if user.is_authenticated %}
-        <div class="column left-column content">
-            <div>
-                {% block info %}
-                    <p class="info margin">
-                        {% trans "Use this page to link your projects to your profile. Caution, everything you enter here is public for all visitors!" %}
-                    </p>
-                {% endblock info %}
-
-                <form action="." method="post">
-                    {% include "form_in_table.html" %}
-                    <div class="center">
-                        <input type="submit" value="{% trans 'Save' %}" name="manage" class="uploadify-button" />
-                    </div>
-                </form>
-            </div>
+        <div class="column left-column">
+            {% block header %}
+                {% trans "Add a build report" %}
+            {% endblock header %}
         </div>
+        <div class="column right-column">
+            {% trans "Last 20 builds" %}
+        </div>
+        <div class="clear"></div>
+    {% else %}
+        <div id="search-box-wrapper">
+            <form action="./#builds-overview" method="get" id="search-builds">
+                {% include "search_form.html" %}
+            </form>
+        </div>
+        <div style="padding-top:3px;">
+            {% trans "Last 20 builds" %}
+        </div>
+        <div class="clear"></div>
+    {% endif %}
+</div>
 
-        <!-- right block, show form to add a build -->
-        <div class="column right-column content">
-            <div>
-                {% include "builds/builds_list.html" %}
+<div id="builds">
+    {% if user.is_authenticated %}
+        <div class="column-container container-right">
+            <div class="column-container container-left">
+                
+                <div class="column left-column content">
+                    <div>
+                        {% block info %}
+                            <p class="info margin">
+                                {% trans "Use this page to link your projects to your profile. Caution, everything you enter here is public for all visitors!" %}
+                            </p>
+                        {% endblock info %}
+
+                        <form action="." method="post">
+                            {% include "form_in_table.html" %}
+                            <div class="center">
+                                <input type="submit" value="{% trans 'Save' %}" name="manage" class="uploadify-button" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- right block, show form to add a build -->
+                <div class="column right-column content">
+                    <div>
+                        <form action="./#builds-overview" method="get" id="search-builds">
+                            {% include "search_form.html" %}
+                        </form>
+                        {% include "builds/builds_list.html" %}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="clear"></div>
     {% else %}
         <div style="padding:1em;">
             <p class="info">{% trans "Sign in to add your own build reports!" %}</p>
-            <br />
             {% include "builds/builds_list.html" %}
         </div>
     {% endif %}

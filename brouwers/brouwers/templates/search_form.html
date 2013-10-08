@@ -1,0 +1,26 @@
+{% load i18n %}
+
+{% for field in searchform %}
+    <p>
+        {# only show the label if there's no placeholder #}
+        {% if not field.field.widget.attrs.placeholder %}
+            <label for="{{ field.id_for_label }}"
+            {% if field.field.required %} class="required"{% endif %}>
+                {{ field.label }}
+            </label>
+        {% endif %}
+
+        {{ field }}
+        
+        {% if forloop.last %}
+            <input type="submit" name="search-button" value="{% trans "Search" %}" />
+        {% endif %}
+        
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <br />
+                <span class="error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+    </p>
+{% endfor %}

@@ -11,12 +11,6 @@ from .views import BuildDetailView, BuildRedirectView, \
                    ProfileRedirectView
 
 
-# urlpatterns = patterns('builds.views',
-#     url(r'^$', 'builders_overview'),
-#     )
-
-
-# CLASS BASED VIEWS
 urlpatterns = patterns('',
     # index page
     url(r'^$', BuildCreate.as_view(), name='add_build'),

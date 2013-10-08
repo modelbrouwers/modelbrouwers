@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView, RedirectView
@@ -13,7 +14,7 @@ from general.models import UserProfile
 from awards.models import Project
 
 
-from .forms import BrouwerSearchForm
+from .forms import SearchForm
 from .models import Build
 from .forms import BuildForm
 
@@ -67,26 +68,15 @@ class UserBuildListView(ListView):
         return context
 
 
-# TODO: replace with ListView
-def builders_overview(request):
-    if request.method == "POST":
-        form = BrouwerSearchForm(request.POST)
-        if form.is_valid():
-            brouwer = form.cleaned_data['nickname']
-            profiles = UserProfile.objects.filter(forum_nickname__icontains = brouwer).order_by('forum_nickname')
-            form = BrouwerSearchForm()
-            return render(request, 'builds/profile_list.html', {'profiles': profiles, 'form': form})
-    else:
-        form = BrouwerSearchForm()
-    builds = Build.objects.all().order_by('-pk')[:15]
-    return render(request, 'builds/base.html', {'form': form, 'builds': builds})
-
-
 
 """ Views responsible for editing data """
 
 
 class BuildCreate(CreateView):
+    """
+    Both the index page and create page.
+    """
+
     form_class = BuildForm
     template_name = 'builds/add.html'
 
@@ -101,10 +91,27 @@ class BuildCreate(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
-        context = super(BuildCreate, self).get_context_data(**kwargs)
-        # show last 20 builds
-        context['builds'] = Build.objects.all().order_by('-pk')[:20]
-        return context
+        kwargs['builds'] = Build.objects.all().order_by('-pk')[:20] # TODO: paginate
+        
+        args = []
+        if 'search-button' in self.request.GET:
+            args.append(self.request.GET)
+            form = SearchForm(*args)
+            if form.is_valid():
+                builds = self.get_queryset(form)
+                kwargs.update({'builds': builds})
+
+        
+        kwargs['searchform'] = SearchForm(*args)
+        return super(BuildCreate, self).get_context_data(**kwargs)
+
+    def get_queryset(self, form):
+        # TODO: look into Haystack/Whoosh for relevance ordered results
+        search_term = form.cleaned_data['search_term']
+        q = Q()
+        for term in search_term.split():
+            q |= Q(slug__icontains=term)
+        return Build.objects.filter(q)
 
 
 class BuildUpdate(BuildCreate, UpdateView):
@@ -120,36 +127,3 @@ class BuildUpdate(BuildCreate, UpdateView):
         kwargs = super(BuildUpdate, self).get_form_kwargs()
         kwargs.update({'is_edit': True})
         return kwargs
-
-
-@login_required
-def edit(request, id):
-    build = get_object_or_404(Build, pk=id)
-    if request.method == "POST":
-        form = BuildForm(request.POST, instance=build)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(build.get_absolute_url())
-    else:
-        if request.user.groups.filter(name__iexact="moderators"):
-            form = BuildForm(instance=build)
-        else:
-            if (build.profile != request.user.get_profile()):
-                return HttpResponseRedirect(reverse(builders_overview))
-        form = BuildForm(instance=build)
-    return render(request, 'builds/edit.html', {'form': form})
-
-from django.views.generic.list_detail import object_detail
-
-#TODO: fix backlooping
-def custom_object_detail(request, queryset, object_id=None, template_name=None, template_object_name='object'):
-    object_id = int(object_id)
-    queryset_new = queryset.filter(pk=object_id)
-    while (not queryset_new and object_id < queryset.order_by('-pk')[0].pk):
-        object_id += 1
-        queryset_new = queryset.filter(pk=object_id)
-    return object_detail(request, queryset_new, object_id, template_name=template_name, template_object_name=template_object_name)
-    
-    
-    
-    

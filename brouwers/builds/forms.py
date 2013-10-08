@@ -1,11 +1,23 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import ugettext_lazy as _
+
+
 from models import Build
+
 
 import re
 
-class BrouwerSearchForm(forms.Form):
-	nickname = forms.CharField(max_length=20)
+
+class SearchForm(forms.Form):
+	search_term = forms.CharField(
+					max_length=100, required=False,
+					widget=forms.TextInput(attrs={
+						'placeholder': _('Enter a keyword or the '
+										 'name of the builder'),
+						})
+					)
+
 
 class BuildForm(forms.ModelForm):
 	class Meta:
