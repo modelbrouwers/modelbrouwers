@@ -110,7 +110,7 @@ class BuildCreate(CreateView):
         search_term = form.cleaned_data['search_term']
         q = Q()
         for term in search_term.split():
-            q |= Q(slug__icontains=term)
+            q &= Q(slug__icontains=term)
         return Build.objects.filter(q)
 
 
