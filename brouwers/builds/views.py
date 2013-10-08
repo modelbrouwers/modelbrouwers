@@ -108,10 +108,10 @@ class BuildCreate(CreateView):
     def get_queryset(self, form):
         # TODO: look into Haystack/Whoosh for relevance ordered results
         search_term = form.cleaned_data['search_term']
-        q = Q()
+        qs = Build.objects.all()
         for term in search_term.split():
-            q &= Q(slug__icontains=term)
-        return Build.objects.filter(q)
+            qs = qs.filter(slug__icontains=term)
+        return qs
 
 
 class BuildUpdate(BuildCreate, UpdateView):
