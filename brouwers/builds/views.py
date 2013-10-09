@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView, ListView, RedirectView
+from django.utils.safestring import mark_safe
+from django.views.generic import DetailView, ListView, RedirectView, View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, UpdateView
 
@@ -17,6 +18,9 @@ from awards.models import Project
 from .forms import SearchForm
 from .models import Build
 from .forms import BuildForm
+
+
+import json
 
 
 """ Views responsible for displaying data """
@@ -68,11 +72,73 @@ class UserBuildListView(ListView):
         return context
 
 
+class SearchMixin(object):
+    def get_search_queryset(self, form=None, key='term'):
+        # TODO: look into Haystack/Whoosh for relevance ordered results
+        if form:
+            search_term = form.cleaned_data['search_term']
+        else:
+            search_term = self.request.GET.get(key, '')
+        
+        qs = Build.objects.all()
+        for term in search_term.split():
+            qs = qs.filter(slug__icontains=term)
+        return qs.select_related('user', 'profile', 'brand')
+
+
+class AjaxSearchView(SearchMixin, View):
+    """ 
+    Ajax search form suitable for jQuery-ui's 
+    autocomplete.
+    """
+
+    field_for_value = 'id'
+    field_for_label = 'title'
+
+    def get(self, request, *args, **kwargs):
+        objects = self.get_search_queryset(key='term')
+
+        # serialize data
+        data = self.serialize(objects)
+        return HttpResponse(json.dumps(data), mimetype="application/json")
+
+    def get_label(self, obj):
+        """ Returns the visible label """
+        return getattr(obj, self.field_for_label)
+
+    def get_additional_data(self, obj):
+        """ 
+        Return a dictionary with keys the json key and value the
+        object value
+        """
+        return {}
+    
+    def serialize(self, objects):
+        data = []
+        for obj in objects:
+            d = {
+                'value': getattr(obj, self.field_for_value, None),
+                'label': self.get_label(obj),
+            }
+            d.update(self.get_additional_data(obj))
+            data.append(d)
+        return data
+
+
+class BuildAjaxSearchView(AjaxSearchView):
+    field_for_value = 'title'
+
+    def get_label(self, obj):
+        label = u"%s \u2022 %s" % (obj.profile.forum_nickname, obj.title)
+        return mark_safe(label)
+
+    def get_additional_data(self, obj):
+        return {'url': obj.get_absolute_url()}
+
 
 """ Views responsible for editing data """
 
-
-class BuildCreate(CreateView):
+class BuildCreate(SearchMixin, CreateView):
     """
     Both the index page and create page.
     """
@@ -91,27 +157,21 @@ class BuildCreate(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
-        kwargs['builds'] = Build.objects.all().order_by('-pk')[:20] # TODO: paginate
+        kwargs['builds'] = Build.objects.all().select_related(
+                            'user', 'profile', 'brand'
+                            ).order_by('-pk')[:20] # TODO: paginate
         
         args = []
         if 'search-button' in self.request.GET:
             args.append(self.request.GET)
             form = SearchForm(*args)
             if form.is_valid():
-                builds = self.get_queryset(form)
+                builds = self.get_search_queryset(form)
                 kwargs.update({'builds': builds})
 
         
         kwargs['searchform'] = SearchForm(*args)
         return super(BuildCreate, self).get_context_data(**kwargs)
-
-    def get_queryset(self, form):
-        # TODO: look into Haystack/Whoosh for relevance ordered results
-        search_term = form.cleaned_data['search_term']
-        qs = Build.objects.all()
-        for term in search_term.split():
-            qs = qs.filter(slug__icontains=term)
-        return qs
 
 
 class BuildUpdate(BuildCreate, UpdateView):

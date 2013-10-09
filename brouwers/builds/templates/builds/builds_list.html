@@ -13,7 +13,7 @@
         <tr class="content {% cycle 'light' 'dark' %}">
             <td>
                 <a href="{% url 'builds:user_build_list' build.user.id %}">
-                    {{ build.user.get_profile.forum_nickname|truncatechars:10 }}
+                    {{ build.profile.forum_nickname|truncatechars:10 }}
                 </a>
             </td>
             <td class="title" id="{{ build.slug }}">

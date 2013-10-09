@@ -6,7 +6,7 @@ from general.models import UserProfile
 
 
 from .models import Build
-from .views import BuildDetailView, BuildRedirectView, \
+from .views import BuildAjaxSearchView, BuildDetailView, BuildRedirectView, \
                    UserBuildListView, BuildCreate, BuildUpdate, \
                    ProfileRedirectView
 
@@ -22,4 +22,9 @@ urlpatterns = patterns('',
     
     url(r'^user/(?P<user_id>\d+)/$', UserBuildListView.as_view(), name='user_build_list'),
     url(r'^profile/(?P<profile_id>\d+)/$', ProfileRedirectView.as_view(), name='profile_build_list'),
+    )
+
+#### AJAX ####
+urlpatterns += patterns('',
+    url(r'^search/', BuildAjaxSearchView.as_view(), name='search'),
     )

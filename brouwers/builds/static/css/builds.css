@@ -102,7 +102,6 @@ div.tab div.column{
     background-repeat: no-repeat;
     text-shadow: -1px -1px #444;
     color: white;
-    font-weight: 600;
 }
 #search-builds input[type="submit"]:hover{
     background-color: #606060;

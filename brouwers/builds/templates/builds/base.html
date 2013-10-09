@@ -11,6 +11,14 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
     <link rel="stylesheet" type="text/css" href="{% static "css/builds.css" %}" charset="utf-8"/>
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        var search_url = '{% url 'builds:search' %}';
+    </script>
+    <script type="text/javascript" src="{% static "js/builds.js" %}"></script>
+{% endblock %}
+
 {% block menu %}
     <li>
         <a href="{% url 'builds:add_build' %}">
