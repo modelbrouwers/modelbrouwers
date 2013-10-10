@@ -51,17 +51,17 @@
 			<td class="nav" valign="middle" nowrap="nowrap">&nbsp;{PAGE_NUMBER}<br /></td>
 			<td class="gensmall" nowrap="nowrap">&nbsp;[ {TOTAL_POSTS} ]&nbsp;</td>
 		<!-- ENDIF -->
-		<td class="topic-controls" nowrap="nowrap">
 		<!-- IF S_USER_LOGGED_IN  && S_USERNAME == TOPIC_AUTHOR -->
+			<td class="topic-controls" nowrap="nowrap">
 				<a id="add-build-report" href="/builds/?forum_id={FORUM_ID}&amp;topic_id={TOPIC_ID}&amp;title={TOPIC_TITLE}&amp;prefill=true" 
 					data-topic-author="{TOPIC_AUTHOR}"
 					data-topic-id="{TOPIC_ID}"
 					data-forum-id="{FORUM_ID}"
 					data-topic-title="{TOPIC_TITLE}"
 				><button class="open-popup">Add build report</button></a>
-		<!-- IF TOTAL_POSTS -->
-		</td>
+			</td>
 		<!-- ENDIF -->
+		<!-- IF TOTAL_POSTS -->
 			<td class="gensmall" width="100%" align="{S_CONTENT_FLOW_END}" nowrap="nowrap"><!-- INCLUDE pagination.html --></td>
 		<!-- ENDIF -->
 	</tr>
