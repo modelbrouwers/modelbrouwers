@@ -31,10 +31,12 @@ class BuildForm(forms.ModelForm):
             'nomination', 
             'user', 
             'slug', 
-            'topic_id', 
-            'forum_id', 
             'brand_name'
             )
+        widgets = {
+            'topic_id': forms.HiddenInput(),
+            'forum_id': forms.HiddenInput(),
+        }
     
     def __init__(self, *args, **kwargs):
         is_edit = kwargs.pop('is_edit', False)
