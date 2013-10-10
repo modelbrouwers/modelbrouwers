@@ -15,9 +15,8 @@ from general.models import UserProfile
 from awards.models import Project
 
 
-from .forms import SearchForm
+from .forms import SearchForm, BuildForm, BuildFormForum
 from .models import Build
-from .forms import BuildForm
 
 
 import json
@@ -138,7 +137,7 @@ class BuildAjaxSearchView(AjaxSearchView):
 
 """ Views responsible for editing data """
 
-class BuildCreate(SearchMixin, CreateView):
+class BuildCreate(CreateView, SearchMixin):
     """
     Both the index page and create page.
     """
@@ -148,6 +147,18 @@ class BuildCreate(SearchMixin, CreateView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+    def get_form_kwargs(self):
+        """
+        When Javascript is turned off, the user has a direct link with initial
+        data. The form can be prefilled with this data.
+        """
+        kwargs = super(BuildCreate, self).get_form_kwargs()
+        if self.request.method == 'GET' and 'prefill' in self.request.GET:
+            form = BuildFormForum(self.request, self.request.GET)
+            if form.is_valid():
+                kwargs['instance'] = form.get_build()
+        return kwargs
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

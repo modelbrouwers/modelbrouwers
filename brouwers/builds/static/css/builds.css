@@ -12,7 +12,7 @@ div.column{
     float: left;
     min-height: 100%;
 }
-div.column > div{
+div.left-column > div{
     padding: 1em;
 }
 div.tab div.column{
@@ -30,6 +30,7 @@ div.tab div.column{
 }
 #builds div.container-left{
     background-color: #eef3f7;
+    border-right: solid 1px #CCCCCC;
     position: relative;
     right: 50%;
 }
@@ -37,19 +38,15 @@ div.tab div.column{
     position: relative;
     left: 50%;
 }
-#builds div.left-column.content > div{
-    border-right: solid 1px #CCCCCC;
-    text-align: left;
-    margin-right: -1px;
+#builds div.right-column > div{
+    position: relative;
+    left: 2px;
 }
-#builds div.right-column.content > div{
-    border-left: solid 1px #CCCCCC;
+#builds div.left-column.content > div{
+    text-align: left;
 }
 
 /* index page */
-#search-builds{
-    margin: -1em -1em 0;
-}
 /*
  * Anonymous users
  */
@@ -72,6 +69,7 @@ div.tab div.column{
 #search-builds p{
     overflow: visible;
     border-bottom: solid 1px #CCCCCC;
+    white-space: nowrap;
 }
 #search-builds input{
     border: none;
@@ -121,7 +119,9 @@ div.tab div.column{
 }
 #builds #builds-overview{
     width: 100%;
-    margin: 1em 0;
+    margin: 0;
+    position: relative;
+    top: 1px;
 }
 #builds #builds-overview tr > *{
     padding: 0.2em;
@@ -164,6 +164,10 @@ div.tab div.column{
 }
 #builds-overview th:last-child{
     border-top-right-radius: 6px;
+}
+#builds #builds-overview th{
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
 }
 #builds-overview .title{
     font-weight: bold;

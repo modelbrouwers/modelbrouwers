@@ -108,3 +108,8 @@ class Build(models.Model):
 
     def get_scale(self, separator=':'):
         return "1%s%s" % (separator, self.scale)
+
+    def get_brand_name(self):
+        if self.brand:
+            return self.brand.name
+        return self.brand_name

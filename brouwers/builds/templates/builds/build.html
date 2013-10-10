@@ -33,7 +33,9 @@
 
     <span class="right properties">
 
-        {{ build.start_date }}
+        {% if build.start_date %}
+            {{ build.start_date }}
+        {% endif %}
         {% if build.end_date %}
             &dash; {{ build.end_date }}
         {% endif %}
@@ -46,7 +48,7 @@
 <div class="tab-content">
     <div class="kit-info">
         <!-- TODO: uitbreiden met meer kitinfo, link naar kitreviews -->
-        {{ build.brand_name }}, {{ build.get_scale }}
+        {{ build.get_brand_name }}, {{ build.get_scale }}
     </div>
 
     <div class="photos">

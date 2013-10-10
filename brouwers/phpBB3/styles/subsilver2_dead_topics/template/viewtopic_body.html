@@ -50,6 +50,18 @@
 		<!-- IF TOTAL_POSTS -->
 			<td class="nav" valign="middle" nowrap="nowrap">&nbsp;{PAGE_NUMBER}<br /></td>
 			<td class="gensmall" nowrap="nowrap">&nbsp;[ {TOTAL_POSTS} ]&nbsp;</td>
+		<!-- ENDIF -->
+		<!-- IF S_USER_LOGGED_IN  && S_USERNAME == TOPIC_AUTHOR -->
+			<td class="topic-controls" nowrap="nowrap">
+				<a id="add-build-report" href="/builds/?forum_id={FORUM_ID}&amp;topic_id={TOPIC_ID}&amp;title={TOPIC_TITLE}&amp;prefill=true" 
+					data-topic-author="{TOPIC_AUTHOR}"
+					data-topic-id="{TOPIC_ID}"
+					data-forum-id="{FORUM_ID}"
+					data-topic-title="{TOPIC_TITLE}"
+				><button class="open-popup">Add build report</button></a>
+			</td>
+		<!-- IF TOTAL_POSTS -->
+		<!-- ENDIF -->
 			<td class="gensmall" width="100%" align="{S_CONTENT_FLOW_END}" nowrap="nowrap"><!-- INCLUDE pagination.html --></td>
 		<!-- ENDIF -->
 	</tr>
@@ -70,7 +82,14 @@
 				<!-- ENDIF -->
 				</td>
 
-				<td class="nav" align="{S_CONTENT_FLOW_END}" nowrap="nowrap"><a href="{U_VIEW_OLDER_TOPIC}">{L_VIEW_PREVIOUS_TOPIC}</a><!-- IF U_VIEW_UNREAD_POST and not S_IS_BOT --> | <a href="{U_VIEW_UNREAD_POST}">{L_VIEW_UNREAD_POST}</a><!-- ENDIF --> | <a href="{U_VIEW_NEWER_TOPIC}">{L_VIEW_NEXT_TOPIC}</a>&nbsp;</td>
+				<td class="nav" align="{S_CONTENT_FLOW_END}" nowrap="nowrap">
+					<a href="{U_VIEW_OLDER_TOPIC}">{L_VIEW_PREVIOUS_TOPIC}</a>
+					<!-- IF U_VIEW_UNREAD_POST and not S_IS_BOT --> 
+						| <a href="{U_VIEW_UNREAD_POST}">{L_VIEW_UNREAD_POST}</a>
+					<!-- ENDIF -->
+					 | <a href="{U_VIEW_NEWER_TOPIC}">{L_VIEW_NEXT_TOPIC}</a>
+					 &nbsp;
+				</td>
 			</tr>
 			</table>
 		</td>

@@ -22,12 +22,12 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
 {% block menu %}
     <li>
         <a href="{% url 'builds:add_build' %}">
-            {% trans 'Add build' %}
+            {% trans 'Overview / Add build report' %}
         </a>
     </li>
     {% if user.is_authenticated %}
         <li>
-            <a href="/builds/profile/{{ user.get_profile.id }}/"> <!-- TODO: -->
+            <a href="{% url 'builds:user_build_list' user_id=user.id %}">
                 {% trans 'My builds' %}
             </a>
         </li>
