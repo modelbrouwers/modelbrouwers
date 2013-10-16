@@ -35,7 +35,7 @@
 	    {% endblock extrastyle %}
 	{% endblock style %}
 	
-	{% block scripts %}
+    {% block scripts %}
 	    <!-- use googles jquery, loads faster and relieves own server -->
 	    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <!-- fallback -->
@@ -45,8 +45,11 @@
             document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
         }
         </script>
-	    <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
-	    <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
+        {% ifnotequal LANGUAGE_CODE 'en' %}
+            <script type="text/javascript" src="{% static 'scripts/jquery.ui.datepicker-nl.js' %}" ></script>
+        {% endifnotequal %}
         {% block extrascript %}
 	    {% endblock %}
 	{% endblock scripts %}

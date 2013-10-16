@@ -24,6 +24,14 @@ class SearchForm(forms.Form):
 
 
 class BuildForm(forms.ModelForm):
+    # blerg #FIXME: update to 1.6...
+    start_date = forms.DateField(label=_('Start date'), required=False, 
+                            localize=True, widget=forms.TextInput(attrs={'class': 'date'})
+                            )
+    end_date = forms.DateField(label=_('End date'), required=False, 
+                            localize=True, widget=forms.TextInput(attrs={'class': 'date'})
+                            )
+
     class Meta:
         model = Build
         exclude = (
@@ -36,7 +44,11 @@ class BuildForm(forms.ModelForm):
         widgets = {
             'topic_id': forms.HiddenInput(),
             'forum_id': forms.HiddenInput(),
+            'start_date': forms.TextInput(attrs={'class': 'date'}),
+            'end_date': forms.TextInput(attrs={'class': 'date'}),
         }
+        # available in 1.6
+        # localized_fields = ('start_date', 'end_date')
     
     def __init__(self, *args, **kwargs):
         is_edit = kwargs.pop('is_edit', False)
@@ -53,6 +65,18 @@ class BuildForm(forms.ModelForm):
                 raise forms.ValidationError(_("This URL doesn't point to a forum topic."))
         self.cleaned_data['url'] = "http://www.%s" % match.group(0)
         return self.cleaned_data['url']
+
+
+class EditBuildForm(BuildForm):
+    class Meta(BuildForm.Meta):
+        exclude = (
+            'profile', 
+            'nomination', 
+            'user', 
+            'slug', 
+            'brand_name',
+            'url'
+            )
 
 
 class BuildFormForum(forms.ModelForm):

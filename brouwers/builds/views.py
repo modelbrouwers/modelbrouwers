@@ -15,7 +15,7 @@ from general.models import UserProfile
 from awards.models import Project
 
 
-from .forms import SearchForm, BuildForm, BuildFormForum
+from .forms import SearchForm, BuildForm, BuildFormForum, EditBuildForm
 from .models import Build
 
 
@@ -185,16 +185,24 @@ class BuildCreate(CreateView, SearchMixin):
         return super(BuildCreate, self).get_context_data(**kwargs)
 
 
-class BuildUpdate(BuildCreate, UpdateView):
+class BuildUpdate(UpdateView):
+    form_class = EditBuildForm
     template_name = 'builds/edit.html'
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
     def get_queryset(self):
         if self.request.user.has_perms('builds.edit_build'):
             return Build.objects.all()
         return Build.objects.filter(user_id=self.request.user.id)
 
-
-    def get_form_kwargs(self):
-        kwargs = super(BuildUpdate, self).get_form_kwargs()
-        kwargs.update({'is_edit': True})
-        return kwargs
+    def get_context_data(self, **kwargs):
+        kwargs['builds'] = Build.objects.filter(
+                                user = self.request.user
+                            ).select_related(
+                                'user', 'profile', 'brand'
+                            ).order_by('-pk')[:20]
+        
+        kwargs['searchform'] = SearchForm()
+        return super(BuildUpdate, self).get_context_data(**kwargs)

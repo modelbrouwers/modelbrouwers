@@ -1,4 +1,5 @@
 var rotation = 0;
+
 $(document).ready(function(){
     $('td.help_text div').hide(); // hide the help texts
     
@@ -16,6 +17,8 @@ $(document).ready(function(){
             setTimeout(function(){setInterval(function(){rotate()}, 1)}, 30000);
         }
     }
+
+    $('input.date').datepicker();
 });
 
 function showHelp(e){
