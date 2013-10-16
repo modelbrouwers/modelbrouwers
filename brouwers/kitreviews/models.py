@@ -21,6 +21,7 @@ class Brand(models.Model):
     """ Model for scale model brands, e.g. Revell"""
     
     name = models.CharField(_(u'brand'), max_length=100, db_index=True)
+    logo = models.ImageField(_(u'logo'), upload_to='images/brand_logos/', blank=True, null=True)
     #TODO: clean for uniqueness in kitreviews/sql/brand.sql
     is_active = models.BooleanField(_(u'is active?'), default=True, 
                 help_text=_(u'Does the brand still exist?'),

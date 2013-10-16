@@ -46,10 +46,25 @@
 
 
 <div class="tab-content">
-    <div class="kit-info">
-        <!-- TODO: uitbreiden met meer kitinfo, link naar kitreviews -->
-        {{ build.get_brand_name }}, {{ build.get_scale }}
-    </div>
+    {% if build.get_brand_name or build.get_scale %}
+        <div class="kit-info">
+
+            <div class="column scale">
+                {{ build.get_scale }}
+            </div>
+            <div class="column brand">
+                {% if build.brand.logo %}
+                    <img src="{{ build.brand.logo.url }}" class="brand-logo" />
+                {% else %}
+                    {{ build.get_brand_name }}
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+
+
+        </div>
+        <div class="handle">=</div>
+    {% endif %}
 
     <div class="photos">
         {% if build.img1 %}

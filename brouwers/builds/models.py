@@ -107,7 +107,9 @@ class Build(models.Model):
         return self.get_topic_url()
 
     def get_scale(self, separator=':'):
-        return "1%s%s" % (separator, self.scale)
+        if self.scale:
+            return "1%s%s" % (separator, self.scale)
+        return ''
 
     def get_brand_name(self):
         if self.brand:

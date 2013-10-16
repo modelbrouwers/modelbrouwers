@@ -8,4 +8,14 @@ $(document).ready(function(){
             window.location = ui.item.url;
         }
 	});
+
+	$('div.kit-info').hide();
+	$('.handle').mouseenter(function(){
+		$('div.kit-info').slideDown();
+		$(this).addClass('opened');
+	});
+	$('.handle').click(function(){
+		$(this).removeClass('opened');
+		$('div.kit-info').slideUp();
+	});
 });
