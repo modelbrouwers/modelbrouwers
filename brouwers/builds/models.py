@@ -44,7 +44,7 @@ class Build(models.Model):
         help_text=_("Enter a descriptive build title."))
     scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True,
         help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
-    brand = models.ForeignKey(Brand, blank=True, null=True)
+    brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
     brand_name = models.CharField(_("brand name (old)"), max_length=64, blank=True)
     
     # build information # TODO: jquery ui date

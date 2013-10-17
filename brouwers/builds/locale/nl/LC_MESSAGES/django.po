@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-17 19:38+0200\n"
+"POT-Creation-Date: 2013-10-17 20:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr "Deze URL wijst niet naar een forum brouwverslag."
 
 #: models.py:26
 msgid "slug"
-msgstr ""
+msgstr "slug"
 
 #: models.py:30
 msgid "link to the build report"
@@ -52,16 +52,16 @@ msgstr "link naar het brouwverslag"
 
 #: models.py:32
 msgid "Topic ID"
-msgstr ""
+msgstr "Topic id"
 
 #: models.py:34
 msgid "PHPBB topic id, used to build the link to the topic."
-msgstr "PHPBB topic id, wordt gebruikt om de link naar het brouwverslag "
-"te genereren."
+msgstr ""
+"PHPBB topic id, wordt gebruikt om de link naar het brouwverslag te genereren."
 
 #: models.py:37
 msgid "Forum ID"
-msgstr ""
+msgstr "Forum id"
 
 #: models.py:39
 msgid "Used to determine the 'category'."
@@ -82,6 +82,10 @@ msgstr "schaal"
 #: models.py:46
 msgid "Enter the number after the \"1:\" or \"1/\". E.g. 1/48 --> enter 48."
 msgstr "Geef de schaal (bv voor 1/48 geef je 48)."
+
+#: models.py:47
+msgid "brand"
+msgstr "merk"
 
 #: models.py:48
 msgid "brand name (old)"
@@ -137,8 +141,8 @@ msgid ""
 "Use this page to link your projects to your profile. Caution, everything you "
 "enter here is public for all visitors!"
 msgstr ""
-"Gebruik deze pagina om je projecten te linken naar je profiel. "
-"PAS OP: alles wat je hier opgeeft is voor alle bezoekers zichtbaar!"
+"Gebruik deze pagina om je projecten te linken naar je profiel. PAS OP: alles "
+"wat je hier opgeeft is voor alle bezoekers zichtbaar!"
 
 #: templates/builds/add.html:54
 msgid "Save"
