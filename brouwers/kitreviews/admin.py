@@ -2,7 +2,8 @@ from django.contrib import admin
 from models import *
 
 class BrandAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_active')
+    list_display = ('name', 'is_active', 'logo')
+    list_editable = ('logo',)
     list_filter = ('is_active',)
     search_fields = ('name',)
 
