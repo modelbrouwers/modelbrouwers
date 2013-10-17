@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.models import BaseInlineFormSet
 from django.contrib.sites.models import get_current_site
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
@@ -65,6 +66,10 @@ class BuildForm(forms.ModelForm):
                 raise forms.ValidationError(_("This URL doesn't point to a forum topic."))
         self.cleaned_data['url'] = "http://www.%s" % match.group(0)
         return self.cleaned_data['url']
+
+
+class BuildPhotoFormSet(BaseInlineFormSet):
+    pass
 
 
 class EditBuildForm(BuildForm):

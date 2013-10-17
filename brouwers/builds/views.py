@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.forms.models import inlineformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.safestring import mark_safe
@@ -15,8 +16,9 @@ from general.models import UserProfile
 from awards.models import Project
 
 
-from .forms import SearchForm, BuildForm, BuildFormForum, EditBuildForm
-from .models import Build
+from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm, 
+                    BuildPhotoFormSet)
+from .models import Build, BuildPhoto
 
 
 import json
@@ -136,6 +138,7 @@ class BuildAjaxSearchView(AjaxSearchView):
 
 
 """ Views responsible for editing data """
+BuildPhotoInlineFormSet = inlineformset_factory(Build, BuildPhoto, formset=BuildPhotoFormSet)
 
 class BuildCreate(CreateView, SearchMixin):
     """
@@ -161,11 +164,28 @@ class BuildCreate(CreateView, SearchMixin):
         return kwargs
 
     def form_valid(self, form):
+        """ Save the build, process the build photos """
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.profile = self.request.user.get_profile()
         self.object.save()
+        formset = BuildPhotoInlineFormSet(
+                    self.request.POST, self.request.FILES, 
+                    instance=self.object
+                    )
+        # TODO: convert this back to function based view?
+        if formset.is_valid():
+            formset.save()
+        else:
+            # TODO: show form too!
+            context = self.get_context_data(photos_formset=formset, form=form)
+            return self.render_to_response(context)
         return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        """ Don't forget the formset """
+        formset = formset = BuildPhotoInlineFormSet(self.request.POST, self.request.FILES)
+        return self.render_to_response(self.get_context_data(form=form, photos_formset=formset))
 
     def get_context_data(self, **kwargs):
         kwargs['builds'] = Build.objects.all().select_related(
@@ -182,6 +202,8 @@ class BuildCreate(CreateView, SearchMixin):
 
         
         kwargs['searchform'] = SearchForm(*args)
+        if not kwargs.get('photos_formset', False):
+            kwargs['photos_formset'] = BuildPhotoInlineFormSet(queryset=BuildPhoto.objects.none())
         return super(BuildCreate, self).get_context_data(**kwargs)
 
 

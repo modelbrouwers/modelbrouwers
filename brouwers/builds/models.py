@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.datastructures import SortedDict
@@ -45,7 +46,6 @@ class Build(models.Model):
     scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True,
         help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
-    brand_name = models.CharField(_("brand name (old)"), max_length=64, blank=True)
     
     # build information # TODO: jquery ui date
     start_date = models.DateField(_("start date"), blank=True, null=True)
@@ -61,7 +61,7 @@ class Build(models.Model):
     class Meta:
         verbose_name = _("build report")
         verbose_name_plural = _("build reports")
-        ordering = ['profile', 'scale', 'brand_name']
+        ordering = ['profile', 'scale', 'brand__name']
     
     def __unicode__(self):
         return _("%(nickname)s - %(title)s") % {'nickname': self.profile.forum_nickname, 'title': self.title}
@@ -71,7 +71,7 @@ class Build(models.Model):
         if not self.slug:
             value = "%(username)s %(brand)s %(scale)s %(title)s" % {
                 'username': self.user.username,
-                'brand': self.brand_name,
+                'brand': self.brand.name or '',
                 'scale': self.get_scale('-'),
                 'title': self.title
             }
@@ -112,6 +112,26 @@ class Build(models.Model):
         return ''
 
     def get_brand_name(self):
-        if self.brand:
-            return self.brand.name
-        return self.brand_name
+        """ Deprecated """
+        return self.brand.name
+
+
+class BuildPhoto(models.Model):
+    build = models.ForeignKey(Build, verbose_name = _(u'build'))
+    photo = models.OneToOneField('albums.Photo', blank=True, null=True)
+    photo_url = models.URLField(blank=True)
+    order = models.PositiveSmallIntegerField(default=1)
+
+    class Meta:
+        verbose_name = _(u'build photo')
+        verbose_name_plural = _(u'build photos')
+        ordering = ['order']
+
+    def __unicode__(self):
+        return _("Photo for build %(build)s") % {'build': self.build.title}
+
+    def clean(self):
+        if not self.photo and not self.photo_url:
+            raise ValidationError(_('Provide either an album photo'
+                                    ' or a link to a photo.'))
+

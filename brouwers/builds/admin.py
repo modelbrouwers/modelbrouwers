@@ -20,7 +20,6 @@ class BuildAdmin(admin.ModelAdmin):
         (_('Kit information'), {
             'fields': (
                 ('brand', 'scale'),
-                'brand_name',
                 ),
             'classes': ['collapse'],
             }
@@ -44,4 +43,11 @@ class BuildAdmin(admin.ModelAdmin):
         'slug': ('title',),
         }
 
+class BuildPhotoAdmin(admin.ModelAdmin):
+    list_display = ('build', 'photo', 'photo_url', 'order')
+    list_editable = ('order',)
+    search_fields = ('build__slug',)
+    raw_id_fields = ('photo',)
+
 admin.site.register(Build, BuildAdmin)
+admin.site.register(BuildPhoto, BuildPhotoAdmin)
