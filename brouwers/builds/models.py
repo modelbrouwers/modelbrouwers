@@ -27,7 +27,7 @@ class Build(models.Model):
 
     # topic information
     # allow external urls? Might be interesting!
-    url = models.URLField(max_length=500, help_text=_("link naar het verslag"), unique=True)
+    url = models.URLField(max_length=500, help_text=_("link to the build report"), unique=True)
     topic_id = models.PositiveIntegerField(
         _('Topic ID'), unique=True,
         blank=True, null=True,
@@ -43,24 +43,24 @@ class Build(models.Model):
     title = models.CharField(_("title"), max_length=255, 
         help_text=_("Enter a descriptive build title."))
     scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True,
-        help_text=_('Voer het getal na de "1:" of "1/" in. Bv: 1/48 --> 48 ingeven.'))
+        help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
     brand = models.ForeignKey(Brand, blank=True, null=True)
     brand_name = models.CharField(_("brand name (old)"), max_length=64, blank=True)
     
     # build information # TODO: jquery ui date
-    start_date = models.DateField(_("start date"), blank=True, null=True, help_text=_("Format: yyyy-mm-dd"))
-    end_date = models.DateField(_("end date"), blank=True, null=True, help_text=_("Format: yyyy-mm-dd"))
+    start_date = models.DateField(_("start date"), blank=True, null=True)
+    end_date = models.DateField(_("end date"), blank=True, null=True)
     
 
     # images TODO: replace with m2m album images
-    img1 = models.URLField(_("Photo 1"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
-    img2 = models.URLField(_("Photo 2"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
-    img3 = models.URLField(_("Photo 3"), max_length=255, blank=True, help_text=_("geef een link naar een foto op"))
+    img1 = models.URLField(_("Photo 1"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
+    img2 = models.URLField(_("Photo 2"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
+    img3 = models.URLField(_("Photo 3"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
     
 
     class Meta:
-        verbose_name = _("brouwverslag")
-        verbose_name_plural = _("brouwverslagen")
+        verbose_name = _("build report")
+        verbose_name_plural = _("build reports")
         ordering = ['profile', 'scale', 'brand_name']
     
     def __unicode__(self):
