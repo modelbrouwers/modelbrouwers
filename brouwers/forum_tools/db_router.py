@@ -3,6 +3,7 @@ MYSQL_MODELS = [
     'ForumPostCountRestriction',
     'ForumUser', 
     'Report',
+    'BuildReportsForum',
     ]
 
 MYSQL_MODELS_NO_SYNCDB = [
@@ -13,8 +14,7 @@ MYSQL_MODELS_NO_SYNCDB = [
     'ForumLinkSynced',
     ]
 
-class ForumUserRouter(object):
-    #TODO: change name here and in settings
+class ForumToolsRouter(object):
     def db_for_read(self, model, **hints):
         "ForumUser -> use the MySQL db"
         if model.__name__ in MYSQL_MODELS and model._meta.app_label == 'forum_tools':
