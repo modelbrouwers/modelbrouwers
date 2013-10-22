@@ -17,6 +17,9 @@ class ForumAdmin(admin.ModelAdmin):
     list_editable = ('forum_name',) #'forum_desc')
     search_fields = ('forum_name', 'forum_desc')
 
+class BuildReportsForumAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'forum_id')
+
 class ForumUserAdmin(admin.ModelAdmin):
     list_display = ('username', 'user_email', 
                     'show_absolute_url', 'user_posts',
@@ -44,4 +47,5 @@ admin.site.register(ForumLinkBase, ForumLinkBaseAdmin)
 admin.site.register(ForumLinkSynced, ForumLinkSyncedAdmin)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(Forum, ForumAdmin)
+admin.site.register(BuildReportsForum, BuildReportsForumAdmin)
 admin.site.register(ForumPostCountRestriction, ForumPostCountRestrictionAdmin)

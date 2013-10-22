@@ -3,7 +3,6 @@ MYSQL_MODELS = [
     'ForumPostCountRestriction',
     'ForumUser', 
     'Report',
-    'BuildReportsForum',
     ]
 
 MYSQL_MODELS_NO_SYNCDB = [

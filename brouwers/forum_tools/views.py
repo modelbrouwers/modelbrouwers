@@ -3,7 +3,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
-from django.utils.translation import ungettext as _n
+from django.utils.translation import ungettext as _n, ugettext as _
 from django.views.decorators.cache import cache_page
 
 
@@ -12,7 +12,7 @@ from general.models import UserProfile
 from general.utils import get_username_for_user, get_username, clean_username, clean_username_fallback
 
 
-from models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser
+from models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser, BuildReportsForum
 from forms import ForumForm, PosterIDsForm
 from datetime import date
 import json
@@ -104,4 +104,13 @@ def get_posting_level(request):
 
         restrictions = ForumPostCountRestriction.objects.filter(forum=forum)
         data['restrictions'] = [restr.posting_level for restr in restrictions if restr.min_posts > num_posts]
+    return HttpResponse(json.dumps(data), mimetype="application/json")
+
+@cache_page(60*60*24*7*2) # two weeks
+def get_build_report_forums(self):
+    forum_ids = BuildReportsForum.objects.values_list('forum_id', flat=True)
+    data = {
+        'forum_ids': list(forum_ids),
+        'text': _('Add build report'),
+    }
     return HttpResponse(json.dumps(data), mimetype="application/json")

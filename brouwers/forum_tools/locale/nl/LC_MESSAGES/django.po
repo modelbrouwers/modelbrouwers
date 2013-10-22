@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-02 18:09+0200\n"
+"POT-Creation-Date: 2013-10-23 00:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:27
+#: admin.py:30
 msgid "forum profile"
 msgstr "forumprofiel"
 
-#: admin.py:30
+#: admin.py:33
 msgid "Link"
 msgstr "Link"
 
@@ -36,7 +36,7 @@ msgstr "linkid"
 
 #: models.py:8
 msgid "HTML id of the base anchor."
-msgstr ""
+msgstr "HTML-id van de basislink"
 
 #: models.py:9
 msgid "short description"
@@ -48,7 +48,7 @@ msgstr "ingeschakeld"
 
 #: models.py:12
 msgid "Enable the syncing of this link."
-msgstr ""
+msgstr "Schakel synchronisatie van deze link in."
 
 #: models.py:14
 msgid "from date"
@@ -56,139 +56,151 @@ msgstr ""
 
 #: models.py:14
 msgid "Start date from when this link is enabled."
-msgstr ""
+msgstr "Startdatum wanneer deze link begint te synchroniseren."
 
 #: models.py:15
 msgid "to date"
-msgstr ""
+msgstr "tot datum"
 
 #: models.py:15
 msgid "End date from when this link is enabled, this date included."
-msgstr ""
+msgstr "Einddatum tot wanneer deze link gesynchroniseerd wordt, datum inbegrepen."
 
 #: models.py:18
 msgid "base forum link"
-msgstr ""
+msgstr "basis forumlink"
 
 #: models.py:19
 msgid "base forum links"
-msgstr ""
+msgstr "basis forumlinks"
 
 #: models.py:23
 #, python-format
 msgid "base forum link: %(desc)s"
-msgstr ""
+msgstr "basis forumlink: %(desc)s"
 
 #: models.py:25
 #, python-format
 msgid "base forum link: %(id)s"
-msgstr ""
+msgstr "basis forumlink: %(id)s"
 
 #: models.py:28
 msgid "base link"
-msgstr ""
+msgstr "basislink"
 
 #: models.py:28
 msgid "Link this link syncs with."
-msgstr ""
+msgstr "Link waarmee deze link synchroniseert."
 
 #: models.py:29
 msgid "HTML id of the anchor to be synced."
-msgstr ""
+msgstr "HTML id van het link element dat gesynchroniseerd wordt."
 
 #: models.py:32
 msgid "synced forum link"
-msgstr ""
+msgstr "gesynchroniseerde forumlink"
 
 #: models.py:33
 msgid "synced forum links"
-msgstr ""
+msgstr "gesynchroniseerde forumlinks"
+
+#: models.py:44
+msgid "build report forum"
+msgstr "brouwverslagforum"
 
 #: models.py:45
+msgid "build report forums"
+msgstr "brouwverslagfora"
+
+#: models.py:66
 msgid "Primary key"
-msgstr ""
+msgstr "Primary key"
 
-#: models.py:47 models.py:48
+#: models.py:68 models.py:69
 msgid "username"
-msgstr ""
+msgstr "gebruikersnaam"
 
-#: models.py:50
+#: models.py:71
 msgid "email"
-msgstr ""
+msgstr "emails"
 
-#: models.py:54
+#: models.py:75
 msgid "A hash of the user's email address."
-msgstr ""
+msgstr "Hash van de gebruikers e-mailadres."
 
-#: models.py:59
+#: models.py:80
 msgid "forum user"
 msgstr ""
 
-#: models.py:60
+#: models.py:81
 msgid "forum users"
 msgstr ""
 
-#: models.py:118
+#: models.py:139
 msgid "Topic"
 msgstr ""
 
-#: models.py:119
+#: models.py:140
 msgid "Reply"
 msgstr ""
 
-#: models.py:123
+#: models.py:144
 msgid "minimum number of posts"
 msgstr ""
 
-#: models.py:124
+#: models.py:145
 msgid "posting level"
 msgstr ""
 
-#: models.py:129
+#: models.py:150
 msgid "forum post count restriction"
 msgstr ""
 
-#: models.py:130
+#: models.py:151
 msgid "forum post count restrictions"
 msgstr ""
 
-#: models.py:134
+#: models.py:155
 #, python-format
 msgid "Restriction for %(forum)s"
 msgstr ""
 
-#: models.py:144
+#: models.py:165
 msgid "closed"
 msgstr ""
 
-#: models.py:144
+#: models.py:165
 msgid "Closed reports need no more attention."
 msgstr ""
 
-#: models.py:145
+#: models.py:166
 msgid "time"
 msgstr ""
 
-#: models.py:145
+#: models.py:166
 msgid "UNIX time when the report was added."
 msgstr ""
 
-#: models.py:150
+#: models.py:171
 msgid "report"
 msgstr ""
 
-#: models.py:151
+#: models.py:172
 msgid "reports"
 msgstr ""
 
-#: models.py:154
+#: models.py:175
 msgid "Can see (number of) open reports"
 msgstr ""
 
-#: models.py:158
+#: models.py:179
 #, python-format
 msgid "Report %(id)s"
 msgstr ""
+
+#: views.py:114
+msgid "Add build report"
+msgstr "Brouwverslag toevoegen"
 
 #: templates/forum_tools/sharing_allowed.html:2
 #: templates/forum_tools/sharing_not_allowed.html:2

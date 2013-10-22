@@ -5,6 +5,7 @@ var forum_id_key = 'f';
 
 $(document).ready(function(){
 	$.get('/ou/so/');
+	$('#add-build-report').hide();
 	
 	// dead topics
 	$('a#close_message').click(function(){
@@ -169,12 +170,26 @@ $(document).ready(function(){
 				});
 			});
 	}
+
+	// if we're on a viewtopic page, check if the 'Add build report' button may be shown
+	var url = $.url();
+	if(url.segment(-1) == 'viewtopic.php'){
+		var forum_id = parseInt(url.param('f'), 10);
+		$.getJSON('/forum_tools/get_build_report_forums/', function(json){
+			if(json.forum_ids.indexOf(forum_id) > -1){ // good to go!
+				$('#add-build-report button').text(json.text);
+				$('#add-build-report').show();
+			} else {
+				$('#add-build-report button').remove();
+			}
+		});
+	}
 });
 
 
 function applyHtmlToDialog(dialog, htmlTitle) {
 	dialog.data("uiDialog")._title = function (title) { 
-			title.html(this.options.title); };
+	title.html(this.options.title); };
 	dialog.dialog('option', 'title', htmlTitle);
 }
 

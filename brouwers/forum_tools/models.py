@@ -36,6 +36,27 @@ class ForumLinkSynced(models.Model):
         return u"%s -- %s" % (self.base.__unicode__(), self.link_id)
 
 
+class BuildReportsForum(models.Model):
+    """ Model which tells us which forums hold build reports """
+    forum_id = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = _(u'build report forum')
+        verbose_name_plural = _(u'build report forums')
+        ordering = ['forum_id']
+
+    def __unicode__(self):
+        return self.forum_name
+
+    @property
+    def forum(self):
+        return Forum.objects.get(pk=self.forum_id)
+
+    @property
+    def forum_name(self):
+        return self.forum.forum_name
+
+
 ########## Models to interact with the MYSQL database #############################
 
 class ForumUser(models.Model):
