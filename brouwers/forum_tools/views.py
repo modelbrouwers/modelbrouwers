@@ -108,6 +108,7 @@ def get_posting_level(request):
 
 @cache_page(60*60*24*7*2) # two weeks
 def get_build_report_forums(self):
+    # TODO: return data if the build report was added already
     forum_ids = BuildReportsForum.objects.values_list('forum_id', flat=True)
     data = {
         'forum_ids': list(forum_ids),
