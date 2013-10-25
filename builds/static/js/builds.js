@@ -18,4 +18,8 @@ $(document).ready(function(){
 		$(this).removeClass('opened');
 		$('div.kit-info').slideUp();
 	});
+
+	$('input.order, input.photo-url').tooltip({
+    	track: true
+    });
 });

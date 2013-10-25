@@ -133,6 +133,23 @@ div.tab div.column{
 #builds #builds-overview td.scale{
     width: 20%;
 }
+#photos-formset{
+    list-style: none;
+    white-space: nowrap;
+    margin-bottom: 1em;
+}
+#photos-formset fieldset{
+    border:none;
+    margin-bottom: -1px;
+}
+#photos-formset input.order{
+    width: 10%;
+}
+#photos-formset input.photo-url{
+    width: 90%;
+    margin-left: -6px;
+}
+
 
 /* overviews */
 #builds-overview{

@@ -119,8 +119,8 @@ class Build(models.Model):
 class BuildPhoto(models.Model):
     build = models.ForeignKey(Build, verbose_name = _(u'build'))
     photo = models.OneToOneField('albums.Photo', blank=True, null=True)
-    photo_url = models.URLField(blank=True)
-    order = models.PositiveSmallIntegerField(default=1)
+    photo_url = models.URLField(blank=True, help_text=_('Link to an image'))
+    order = models.PositiveSmallIntegerField(help_text=_('Order in which photos are shown'))
 
     class Meta:
         verbose_name = _(u'build photo')

@@ -172,6 +172,7 @@ def index_and_add(request):
                 else:
                     formfield.widget.attrs['class'] = cls_name
                 formfield.widget.attrs['placeholder'] = field.verbose_name.capitalize()
+                formfield.widget.attrs['title'] = field.help_text
             except AttributeError:
                 pass # autofield has no widget
         return formfield

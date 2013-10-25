@@ -1,0 +1,11 @@
+*.pyc
+
+# [sublime]
+*.sublime*
+
+
+apache
+brouwers/settings.py
+brouwers/local_settings.py
+media
+static
