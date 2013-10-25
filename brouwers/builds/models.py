@@ -8,9 +8,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 from awards.models import Project, Category
+from brouwers.utils.slugify import unique_slugify
 from general.models import UserProfile
 from kitreviews.models import Brand #TODO: FK to scale
-from utils.slugify import unique_slugify
 
 
 import urllib
@@ -47,7 +47,7 @@ class Build(models.Model):
         help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
     
-    # build information # TODO: jquery ui date
+    # build information
     start_date = models.DateField(_("start date"), blank=True, null=True)
     end_date = models.DateField(_("end date"), blank=True, null=True)
     
@@ -71,7 +71,7 @@ class Build(models.Model):
         if not self.slug:
             value = "%(username)s %(brand)s %(scale)s %(title)s" % {
                 'username': self.user.username,
-                'brand': self.brand.name or '',
+                'brand': self.brand.name if self.brand else '',
                 'scale': self.get_scale('-'),
                 'title': self.title
             }

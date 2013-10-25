@@ -1,5 +1,25 @@
 {% if photos_formset %}
     
-    {{ photos_formset }}
-    
+    {{ photos_formset.management_form }}
+
+    <ul id="photos-formset">
+        
+        {% for form in photos_formset %}
+            
+            <li class="photo-form">
+                
+                <div class="preview"></div>
+
+                <fieldset>
+                    {{ form.photo }}
+                    {{ form.order }}
+                    {{ form.photo_url }}
+                </fieldset>
+                            
+            </li>
+        
+        {% endfor %}
+
+    </ul>   
+
 {% endif %}

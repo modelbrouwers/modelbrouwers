@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from kitreviews.models import Brand
 
 
-from models import Build
+from models import Build, BuildPhoto
 
 
 import re
@@ -45,8 +45,8 @@ class BuildForm(forms.ModelForm):
         widgets = {
             'topic_id': forms.HiddenInput(),
             'forum_id': forms.HiddenInput(),
-            'start_date': forms.TextInput(attrs={'class': 'date'}),
-            'end_date': forms.TextInput(attrs={'class': 'date'}),
+            'start_date': forms.DateInput(attrs={'class': 'date'}),
+            'end_date': forms.DateInput(attrs={'class': 'date'}),
         }
         # available in 1.6
         # localized_fields = ('start_date', 'end_date')
@@ -69,7 +69,11 @@ class BuildForm(forms.ModelForm):
 
 
 class BuildPhotoFormSet(BaseInlineFormSet):
-    pass
+    def save_new(self, form, commit=True):
+        photo = super(BuildPhotoFormSet, self).save_new(form, commit=commit)
+        photo.order = form.cleaned_data['order']
+        photo.save()
+        return photo
 
 
 class EditBuildForm(BuildForm):

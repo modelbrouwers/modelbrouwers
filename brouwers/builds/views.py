@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -5,20 +6,22 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.safestring import mark_safe
 from django.views.generic import DetailView, ListView, RedirectView, View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, UpdateView
 
 
-from general.models import UserProfile
 from awards.models import Project
+from albums.models import Photo
+from general.models import UserProfile
 
 
 from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm, 
                     BuildPhotoFormSet)
 from .models import Build, BuildPhoto
+from .utils import get_search_queryset
 
 
 import json
@@ -73,21 +76,7 @@ class UserBuildListView(ListView):
         return context
 
 
-class SearchMixin(object):
-    def get_search_queryset(self, form=None, key='term'):
-        # TODO: look into Haystack/Whoosh for relevance ordered results
-        if form:
-            search_term = form.cleaned_data['search_term']
-        else:
-            search_term = self.request.GET.get(key, '')
-        
-        qs = Build.objects.all()
-        for term in search_term.split():
-            qs = qs.filter(slug__icontains=term)
-        return qs.select_related('user', 'profile', 'brand')
-
-
-class AjaxSearchView(SearchMixin, View):
+class AjaxSearchView(View):
     """ 
     Ajax search form suitable for jQuery-ui's 
     autocomplete.
@@ -97,7 +86,7 @@ class AjaxSearchView(SearchMixin, View):
     field_for_label = 'title'
 
     def get(self, request, *args, **kwargs):
-        objects = self.get_search_queryset(key='term')
+        objects = get_search_queryset(key='term')
 
         # serialize data
         data = self.serialize(objects)
@@ -138,73 +127,115 @@ class BuildAjaxSearchView(AjaxSearchView):
 
 
 """ Views responsible for editing data """
-BuildPhotoInlineFormSet = inlineformset_factory(Build, BuildPhoto, formset=BuildPhotoFormSet)
+BuildPhotoInlineFormSetEdit = inlineformset_factory(Build, BuildPhoto, 
+                                                formset=BuildPhotoFormSet, 
+                                                extra=1
+                                                )
 
-class BuildCreate(CreateView, SearchMixin):
+def index_and_add(request):
+    """ 
+    The index page displays a search field and list of recently added build
+    reports. Additionally, logged in users see a form to add new builds.
+
+    This is a rather complex view, due to the formset stuff and two different
+    forms. Another form is used to pre-populate the add-form based on GET data,
+    coming from the forum.
+
+    TODO: write tests!
     """
-    Both the index page and create page.
-    """
 
-    form_class = BuildForm
-    template_name = 'builds/add.html'
-
-    def get_success_url(self):
-        return self.object.get_absolute_url()
-
-    def get_form_kwargs(self):
-        """
-        When Javascript is turned off, the user has a direct link with initial
-        data. The form can be prefilled with this data.
-        """
-        kwargs = super(BuildCreate, self).get_form_kwargs()
-        if self.request.method == 'GET' and 'prefill' in self.request.GET:
-            form = BuildFormForum(self.request, self.request.GET)
-            if form.is_valid():
-                kwargs['instance'] = form.get_build()
-        return kwargs
-
-    def form_valid(self, form):
-        """ Save the build, process the build photos """
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.profile = self.request.user.get_profile()
-        self.object.save()
-        formset = BuildPhotoInlineFormSet(
-                    self.request.POST, self.request.FILES, 
-                    instance=self.object
-                    )
-        # TODO: convert this back to function based view?
-        if formset.is_valid():
-            formset.save()
+    # Initialize some stuff ####################################################
+    qs = Photo.objects.select_related(
+                'album', 
+                'user'
+            ).filter(
+                trash = False, 
+                album__trash = False, 
+                user = request.user
+            )
+    
+    # ugh... really? TODO: move to forms
+    def formfield_callback(field, **kwargs):
+        """ Callback function to limit the photos that can be selected. """
+        if field.name == 'photo':
+            return forms.ModelChoiceField(
+                queryset = qs, required = False,
+                widget = forms.HiddenInput(attrs={'class': 'album-photo'})
+                )
         else:
-            # TODO: show form too!
-            context = self.get_context_data(photos_formset=formset, form=form)
-            return self.render_to_response(context)
-        return HttpResponseRedirect(self.get_success_url())
+            formfield = field.formfield(**kwargs)
+            try:
+                cls_name = field.name.replace('_', '-')
+                if formfield.widget.attrs.get('class', False):
+                    cls = formfield.widget.attrs['class']
+                    formfield.widget.attrs['class'] = "%s %s" % (cls_name, cls)
+                else:
+                    formfield.widget.attrs['class'] = cls_name
+                formfield.widget.attrs['placeholder'] = field.verbose_name.capitalize()
+            except AttributeError:
+                pass # autofield has no widget
+        return formfield
 
-    def form_invalid(self, form):
-        """ Don't forget the formset """
-        formset = formset = BuildPhotoInlineFormSet(self.request.POST, self.request.FILES)
-        return self.render_to_response(self.get_context_data(form=form, photos_formset=formset))
+    # Initialize the FormSet factory with the correct callback
+    BuildPhotoInlineFormSet = inlineformset_factory(
+                                  Build, BuildPhoto, 
+                                  formset = BuildPhotoFormSet, 
+                                  extra = 3, can_delete = False,
+                                  formfield_callback = formfield_callback
+                              )
+    
+    # initialize some defaults
+    form_kwargs, context = {}, {}
+    builds = None
+    
+    searchform = SearchForm()
+    photos_formset = BuildPhotoInlineFormSet(queryset=BuildPhoto.objects.none())
 
-    def get_context_data(self, **kwargs):
-        kwargs['builds'] = Build.objects.all().select_related(
+
+    # Actuall request processing ###############################################
+    if request.method == 'POST':
+        form = BuildForm(data=request.POST)
+        if form.is_valid():
+            build = form.save(commit=False)
+            photos_formset = BuildPhotoInlineFormSet(data=request.POST, instance=build)
+            if photos_formset.is_valid():
+                # commit the changes
+                build.user = request.user
+                build.profile = request.user.get_profile()
+                build.save()
+                photos_formset.save()
+                return redirect(build.get_absolute_url())
+
+    else: # GET
+        # See if we can fill in some data already from the querystring
+        if 'prefill' in request.GET:
+            prefill_form = BuildFormForum(request, request.GET)
+            if prefill_form.is_valid():
+                form_kwargs['instance'] = prefill_form.get_build()
+
+        # show the search results
+        if 'search-button' in request.GET:
+            searchform = SearchForm(request.GET)
+            if searchform.is_valid():
+                builds = get_search_queryset(request, searchform)
+            
+        
+        form = BuildForm(**form_kwargs)
+    
+    
+    # Populate the context #####################################################
+    context['searchform'] = searchform
+    context['form'] = form
+    context['photos_formset'] = photos_formset
+
+    if builds is None:
+        context['builds'] = Build.objects.all().select_related(
                             'user', 'profile', 'brand'
                             ).order_by('-pk')[:20] # TODO: paginate
-        
-        args = []
-        if 'search-button' in self.request.GET:
-            args.append(self.request.GET)
-            form = SearchForm(*args)
-            if form.is_valid():
-                builds = self.get_search_queryset(form)
-                kwargs.update({'builds': builds})
-
-        
-        kwargs['searchform'] = SearchForm(*args)
-        if not kwargs.get('photos_formset', False):
-            kwargs['photos_formset'] = BuildPhotoInlineFormSet(queryset=BuildPhoto.objects.none())
-        return super(BuildCreate, self).get_context_data(**kwargs)
+    else:
+        context['builds'] = builds
+    
+    return render(request, 'builds/add.html', context)
 
 
 class BuildUpdate(UpdateView):
@@ -227,4 +258,6 @@ class BuildUpdate(UpdateView):
                             ).order_by('-pk')[:20]
         
         kwargs['searchform'] = SearchForm()
+        if not kwargs.get('photos_formset', False):
+            kwargs['photos_formset'] = BuildPhotoInlineFormSetEdit(instance=self.object)
         return super(BuildUpdate, self).get_context_data(**kwargs)

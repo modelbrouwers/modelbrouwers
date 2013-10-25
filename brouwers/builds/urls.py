@@ -6,14 +6,14 @@ from general.models import UserProfile
 
 
 from .models import Build
-from .views import BuildAjaxSearchView, BuildDetailView, BuildRedirectView, \
-                   UserBuildListView, BuildCreate, BuildUpdate, \
-                   ProfileRedirectView
+from .views import (BuildAjaxSearchView, BuildDetailView, BuildRedirectView, 
+                   UserBuildListView, index_and_add, BuildUpdate, 
+                   ProfileRedirectView)
 
 
 urlpatterns = patterns('',
     # index page
-    url(r'^$', BuildCreate.as_view(), name='add_build'),
+    url(r'^$', index_and_add, name='add_build'),
     
     # backwards compatible, redirect old urls
     url(r'^(?P<build_id>\d+)/$', BuildRedirectView.as_view(), name='old_detail'),

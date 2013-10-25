@@ -45,11 +45,18 @@
             document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
         }
         </script>
-        <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
         <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
+        <script type="text/javascript">
+            // set the default date format, corresponding to Django's en
+            jQuery(function($){
+                $.datepicker.regional['en'] = {dateFormat: 'yy-mm-dd'};
+                $.datepicker.setDefaults($.datepicker.regional['en']);
+            });
+        </script>
         {% ifnotequal LANGUAGE_CODE 'en' %}
             <script type="text/javascript" src="{% static 'scripts/jquery.ui.datepicker-nl.js' %}" ></script>
         {% endifnotequal %}
+        <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
         {% block extrascript %}
 	    {% endblock %}
 	{% endblock scripts %}

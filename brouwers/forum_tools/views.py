@@ -100,13 +100,14 @@ def get_posting_level(request):
                 uid = request.COOKIES.get(settings.PHPBB_UID_COOKIE)
                 forum_user = ForumUser.objects.get(pk=uid)
 
+        # TODO: find a way to cache this... or find it out client side
         num_posts = forum_user.user_posts
 
         restrictions = ForumPostCountRestriction.objects.filter(forum=forum)
         data['restrictions'] = [restr.posting_level for restr in restrictions if restr.min_posts > num_posts]
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
-@cache_page(60*60*24*7*2) # two weeks
+@cache_page(60*60*24*7*2) # two weeks, cache is language based already
 def get_build_report_forums(self):
     # TODO: return data if the build report was added already
     forum_ids = BuildReportsForum.objects.values_list('forum_id', flat=True)
