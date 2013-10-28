@@ -149,6 +149,11 @@ div.tab div.column{
     width: 90%;
     margin-left: -6px;
 }
+#photos-dropzone{
+    margin: 1em 0;
+    border: dashed 2px #AAA;
+    min-height: 8em;
+}
 
 
 /* overviews */

@@ -1,4 +1,8 @@
+{% load i18n %}
+
 {% if photos_formset %}
+    
+    {# <div id="photos-dropzone"></div> #}
     
     {{ photos_formset.management_form }}
 
@@ -20,6 +24,6 @@
         
         {% endfor %}
 
-    </ul>   
+    </ul>
 
 {% endif %}
