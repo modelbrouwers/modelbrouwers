@@ -35,9 +35,8 @@ def get_available_name(name, overwrite=False):
         return name, dir_name
 
 def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
-    outfile = '%s%s%s%s%s' % (settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
-    #outfile = unicodedata.normalize('NFKD', outfile).encode('ascii', 'ignore') # FIXME unicode issues
-    #outfile = outfile.encode('utf-8')
+    import pdb; pdb.set_trace()
+    outfile = os.path.join(settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     
     #get the relative path for the database
