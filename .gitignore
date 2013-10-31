@@ -11,5 +11,5 @@ phpBB3/styles/subsilver2_dead_topics/template/common/_nav_tabs.php
 apache
 brouwers/settings.py
 brouwers/local_settings.py
-media
-static
+^media/$
+/static
