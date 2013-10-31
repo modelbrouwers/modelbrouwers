@@ -25,7 +25,7 @@
         'shop'          => array(
                             'img' => 'images/nav/shop_achter.png', 
                             'alt' => 'Ga naar de shop!',
-                            'url' => '/shop/catalog/',
+                            'url' => '/winkel/',
                             ),
         'albums'        => array(
                             'img' => 'images/nav/albums_achter.png', 
