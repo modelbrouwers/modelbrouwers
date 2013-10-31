@@ -35,7 +35,6 @@ def get_available_name(name, overwrite=False):
         return name, dir_name
 
 def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
-    import pdb; pdb.set_trace()
     fn = "%s%s" % (filename, ext)
     outfile = os.path.join(settings.MEDIA_ROOT, upload_to, prefix, fn)
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
