@@ -36,11 +36,12 @@ def get_available_name(name, overwrite=False):
 
 def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     import pdb; pdb.set_trace()
-    outfile = os.path.join(settings.MEDIA_ROOT, upload_to, prefix, filename, ext)
+    fn = "%s%s" % (filename, ext)
+    outfile = os.path.join(settings.MEDIA_ROOT, upload_to, prefix, fn)
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     
     #get the relative path for the database
-    rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
+    rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)[1:] # strip slash
     rel_folder = path_dir + '/'
     #if relative path doesn't exist, create it
     if not os.path.exists(rel_folder):
