@@ -40,7 +40,9 @@ def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
     
     #get the relative path for the database
-    rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)[1:] # strip slash
+    rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
+    if rel_path[0] == '/':
+        rel_path = rel_path[1:] # strip slash
     rel_folder = path_dir + '/'
     #if relative path doesn't exist, create it
     if not os.path.exists(rel_folder):
