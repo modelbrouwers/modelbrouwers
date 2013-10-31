@@ -1,37 +1,44 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load url from future %}
+{% load brouwers %}
 
-{% block home_tab %}
-<li>
-    <a href="{% url 'general.views.index' %}">
-        <img src="{% static 'images/nav/home_achter.png' %}" alt="{% trans 'Visit the homepage!' %}" /></a>
-</li>
-{% endblock %}
+{% url 'general.views.index' as url_home %}
 
-{% block forum_tab %}
-<li>
-    <a href="/phpBB3/"><img src="{% static 'images/nav/forum_achter.png' %}" alt="{% trans 'Visit the board!' %}"/></a>
-</li>
-{% endblock %}
+{% spaceless %}
+    {% block home_tab %}
+        <li>
+            <a href="{{ url_home }}"{% if request.path|startswith:url_home %} class="nav active"{% endif %}>
+                <img src="{% static 'images/nav/home_achter.png' %}" alt="{% trans 'Visit the homepage!' %}" /></a>
+        </li>
+    {% endblock %}
 
-{% block shop_tab %}
-<li>
-    <a href="/winkel/"><img src="{% static 'images/nav/shop_achter.png' %}" alt="{% trans 'Visit the shop!' %}"/></a>
-</li>
-{% endblock %}
+    {% block forum_tab %}
+        <li>
+            <a href="/phpBB3/">
+                <img src="{% static 'images/nav/forum_achter.png' %}" alt="{% trans 'Visit the board!' %}"/></a>
+        </li>
+    {% endblock %}
 
-{% block albums_tab %}
-<li>
-    <a href="{% url 'albums.views.index' %}">{% block album_tab %}<img src="{% static 'images/nav/albums_achter.png' %}" alt="{% trans 'You are now in the albums!' %}"/>{% endblock %}</a>
-</li>
-{% endblock %}
+    {% block shop_tab %}
+        <li>
+            <a href="/winkel/">
+                <img src="{% static 'images/nav/shop_achter.png' %}" alt="{% trans 'Visit the shop!' %}"/></a>
+        </li>
+    {% endblock %}
 
-{% block reviews_tab %}
-<li id="kitreviews">
-    <a href="/kitreviews/"><img src="{% static 'images/nav/kitreviews_achter.png' %}" alt="{% trans 'Visit the kit reviews!' %}"/></a>
-</li>
-{% endblock %}
-<!--<li>
-    <img src="{% static 'images/nav/modelbouw_wiki.png' %}" alt="Modelbouw Wiki"/>
-</li>-->
+    {% block albums_tab %}
+        <li>
+            <a href="{% url 'albums.views.index' %}">{% block album_tab %}<img src="{% static 'images/nav/albums_achter.png' %}" alt="{% trans 'You are now in the albums!' %}"/>{% endblock %}</a>
+        </li>
+    {% endblock %}
+
+    {% block reviews_tab %}
+        <li id="kitreviews">
+            <a href="/kitreviews/"><img src="{% static 'images/nav/kitreviews_achter.png' %}" alt="{% trans 'Visit the kit reviews!' %}"/></a>
+        </li>
+    {% endblock %}
+    <!--<li>
+        <img src="{% static 'images/nav/modelbouw_wiki.png' %}" alt="Modelbouw Wiki"/>
+    </li>-->
+{% endspaceless %}
