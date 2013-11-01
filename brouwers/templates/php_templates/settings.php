@@ -59,23 +59,23 @@
     $footer_shop = array(
         'decals'        => array(
                             'url' => 'http://www.modelbrouwers.nl/shop/catalog/decals-en-benodigdheden-c-66.html?language=nl',
-                            'text' => 'decalbenodigdheden';
+                            'text' => 'decalbenodigdheden',
                             ),
         'schuur-polijst'=> array(
-                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/advanced_search_result.php/keywords/mba0/sort/3d/page/1/language/nl'
-                            'text' => '';
+                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/advanced_search_result.php/keywords/mba0/sort/3d/page/1/language/nl',
+                            'text' => 'schuur- en polijstmaterialen',
                             ),
         // 'new-product'   => array(
         //                         'iframe' => true,
         //                         'iframe_src' => 'TODO'
         //                         ),
         'gieten'        => array(
-                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/mal-en-resinproducten-c-105.html?language=nl&amp;page=1&amp;sort=3a'
-                            'text' => '';
+                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/mal-en-resinproducten-c-105.html?language=nl&amp;page=1&amp;sort=3a',
+                            'text' => 'mal- en gietproducten',
                             ),
         'verlichting'   => array(
-                            'url' => 'ttp://www.modelbrouwers.nl/shop/catalog/verlichtingsets-c-117.html?language=nl&amp;sort=2a'
-                            'text' => '';
+                            'url' => 'ttp://www.modelbrouwers.nl/shop/catalog/verlichtingsets-c-117.html?language=nl&amp;sort=2a',
+                            'text' => 'erlichtingsmaterialen',
                             ),
     );
 ?>
