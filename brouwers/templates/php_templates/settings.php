@@ -13,23 +13,23 @@
     // CAUTION: due to the preg_match searching, place the most specific urls LAST
     $nav = array(
         'home'          => array(
-                            'alt' => 'Ga naar de startpagina!',
+                            'title' => 'Ga naar de startpagina!',
                             'url' => '/',
                             ),
         'forum'         => array(
-                            'alt' => 'Ga naar het forum!',
+                            'title' => 'Ga naar het forum!',
                             'url' => '/phpBB3/',
                             ),
         'shop'          => array(
-                            'alt' => 'Ga naar de shop!',
+                            'title' => 'Ga naar de shop!',
                             'url' => '/winkel/',
                             ),
         'albums'        => array(
-                            'alt' => 'Ga naar de albums!',
+                            'title' => 'Ga naar de albums!',
                             'url' => '/albums/',
                             ),
         'kitreviews'    => array(
-                            'alt' => 'Ga naar de kitreviews!',
+                            'title' => 'Ga naar de kitreviews!',
                             'url' => '/kitreviews/',
                             ),
     );
@@ -54,4 +54,28 @@
         $nav[$best_match]['classes'] = 'nav active';
         $nav[$best_match]['title'] = 'Je bent hier!';
     }
+
+    // footer links
+    $footer_shop = array(
+        'decals'        => array(
+                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/decals-en-benodigdheden-c-66.html?language=nl',
+                            'text' => 'decalbenodigdheden';
+                            ),
+        'schuur-polijst'=> array(
+                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/advanced_search_result.php/keywords/mba0/sort/3d/page/1/language/nl'
+                            'text' => '';
+                            ),
+        // 'new-product'   => array(
+        //                         'iframe' => true,
+        //                         'iframe_src' => 'TODO'
+        //                         ),
+        'gieten'        => array(
+                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/mal-en-resinproducten-c-105.html?language=nl&amp;page=1&amp;sort=3a'
+                            'text' => '';
+                            ),
+        'verlichting'   => array(
+                            'url' => 'ttp://www.modelbrouwers.nl/shop/catalog/verlichtingsets-c-117.html?language=nl&amp;sort=2a'
+                            'text' => '';
+                            ),
+    );
 ?>
