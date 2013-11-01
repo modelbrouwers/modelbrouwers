@@ -56,6 +56,35 @@ div#navigation, div#shop_banner{
 #navigation li#kitreviews, #navigation li#kitreviews img{
     width: 173px;
 }
+#navigation li.tab a{
+    background-image: url('../images/nav/nav_sprite.png');
+    background-repeat: no-repeat;
+}
+#navigation li.tab > a.active,
+#navigation li.tab#tab-kitreviews > a.active,
+#navigation li.tab > a:hover,
+#navigation li.tab#tab-kitreviews > a:hover{
+    background-position-y: -35px;
+}
+#navigation li.tab > a{
+    display: inline-block;
+    width: 130px;
+    height: 35px;
+}
+#tab-forum > a{
+    background-position: -130px 0;
+}
+#tab-shop > a{
+    background-position: -260px 0;
+}
+#tab-albums > a{
+    background-position: -390px 0;
+}
+#navigation li.tab#tab-kitreviews > a{
+    background-position: -520px 0;
+    width: 173px;
+}
+
 /*** SHOP BANNER ***/
 div#shop_banner, #shop_banner ul{
 	height: 25px;

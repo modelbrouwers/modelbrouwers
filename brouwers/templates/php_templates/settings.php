@@ -13,27 +13,22 @@
     // CAUTION: due to the preg_match searching, place the most specific urls LAST
     $nav = array(
         'home'          => array(
-                            'img' => 'images/nav/home_achter.png', 
                             'alt' => 'Ga naar de startpagina!',
                             'url' => '/',
                             ),
         'forum'         => array(
-                            'img' => 'images/nav/forum_achter.png', 
                             'alt' => 'Ga naar het forum!',
                             'url' => '/phpBB3/',
                             ),
         'shop'          => array(
-                            'img' => 'images/nav/shop_achter.png', 
                             'alt' => 'Ga naar de shop!',
                             'url' => '/winkel/',
                             ),
         'albums'        => array(
-                            'img' => 'images/nav/albums_achter.png', 
                             'alt' => 'Ga naar de albums!',
                             'url' => '/albums/',
                             ),
         'kitreviews'    => array(
-                            'img' => 'images/nav/kitreviews_achter.png', 
                             'alt' => 'Ga naar de kitreviews!',
                             'url' => '/kitreviews/',
                             ),
@@ -56,7 +51,7 @@
     
     // hightlightsettings doen
     if ($best_match){
-        $nav[$best_match]['img'] = str_replace('achter', 'voor', $nav[$best_match]['img']);
-        $nav[$best_match]['alt'] = 'Je bent hier!';
+        $nav[$best_match]['classes'] = 'nav active';
+        $nav[$best_match]['title'] = 'Je bent hier!';
     }
 ?>
