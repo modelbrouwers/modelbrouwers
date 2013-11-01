@@ -1,13 +1,12 @@
-img     {border: none;}
-.left   {float: left;}
-.right  {float: right;}
-.clear  {clear: both;}
-.center {text-align: center;}
+img, a img  {border: none;}
+.left       {float: left;}
+.right      {float: right;}
+.clear      {clear: both;}
+.center     {text-align: center;}
 .small-text {font-size: 0.8em;}
 
 div#top, div#logo       {min-width: 1340px;}
-div#container             {padding: 5px 5px 0 5px;}
-a img                             {border: none;}
+div#container           {padding: 5px 5px 0 5px;}
 
 button.ui-button        {padding: 0.3em;}
 div.ui-widget-header{
@@ -27,7 +26,7 @@ div#navigation, div#shop_banner{
     text-align: center;
     min-width: 1200px;
     height: 38px;
-    background-image: url("/static/images/nav/nav_bg.gif");
+    background-image: url("../images/nav/nav_bg.gif");
     background-repeat: repeat-x;
 }
 #navigation ul, #shop_banner ul{
@@ -142,20 +141,26 @@ div#shop-footer li, div#shop-footer a.aankeiler, div#shop-footer a.div_link{
     display: inline-block;
     width: 156px;
     text-align: center;
-    /* IE 7 hack */zoom: 1;
+    /* IE 7 hack */
+    zoom: 1;
     *display: inline;
 }
-div#shop-footer a.div_link{width:100%;height:100%;}
+div#shop-footer a.div_link  {width:100%;height:100%;}
 /*div#shop-footer li#new_product{position:relative;top:156px;}*/
-div#shop-footer div.blokje{width: 156px;height: 146px;margin: 0 auto;}
-#footer-decals              {background: url('/static/images/shop/decal_onder.jpg');}
-#footer-decals:hover        {background: url('/static/images/shop/decal_boven.gif');}
-#footer-schuur-polijst      {background: url('/static/images/shop/schuur-polijst_onder.jpg');}
-#footer-schuur-polijst:hover{background: url('/static/images/shop/schuur-polijst_boven.jpg');}
-#footer-gieten              {background: url('/static/images/shop/gietprod_onder.gif')}
-#footer-gieten:hover        {background: url('/static/images/shop/gietprod_boven.gif')}
-#footer-verlichting         {background: url('/static/images/shop/verlichting_onder.gif')}
-#footer-verlichting:hover   {background: url('/static/images/shop/verlichting_boven.gif')}
+div#shop-footer div.blokje  {
+    width: 156px;
+    height: 146px;
+    margin: 0 auto;
+    background-image: url('../images/shop/products_sprite.png');
+}
+#footer-decals              {background-position: 0 top;}
+#footer-decals:hover        {background-position: 0 -146px;}
+#footer-schuur-polijst      {background-position: -156px top;}
+#footer-schuur-polijst:hover{background-position: -156px -146px;}
+#footer-gieten              {background-position: -312px top;}
+#footer-gieten:hover        {background-position: -312px -146px;}
+#footer-verlichting         {background-position: -468px top;}
+#footer-verlichting:hover   {background-position: -468px -146px;}
 
 /*** CHAT ***/
 #chat-window{
@@ -165,7 +170,7 @@ div#shop-footer div.blokje{width: 156px;height: 146px;margin: 0 auto;}
     overflow: hidden;
 }
 /*** MODS ***/
-#open_reports{color: red;}
+#open_reports               {color: red;}
 
 /*** TOPIC CONTROL ***/
 button.open-popup{
