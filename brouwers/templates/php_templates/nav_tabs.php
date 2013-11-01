@@ -1,8 +1,8 @@
 <ul id="tabs">
     <?php foreach($nav as $k => $tab) { ?>
-        <li id="<?php echo $k ?>">
-            <?php echo "<a href=\"{$tab['url']}\" title=\"{$tab['alt']}\">"; ?>
-                <img src="<?php echo $settings['STATIC_URL'].$tab['img']; ?>" alt="<?php echo $k; ?>" /></a>
+        <li id="tab-<?php echo $k; ?>" class="tab">
+            <a href="<?php echo $tab['url']; ?>" title="<?php echo $tab['title']; ?>"
+            	class="<?php echo $tab['classes']; ?>"></a>
         </li>
     <?php } ?>
     <!--<li>
