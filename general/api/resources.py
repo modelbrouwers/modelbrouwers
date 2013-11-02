@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.conf.urls import url
 
 
-from tastypie.authentication import BasicAuthentication
+from tastypie.authentication import BasicAuthentication, SessionAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
 from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie.resources import ModelResource
@@ -23,7 +23,8 @@ class UserResource(ModelResource):
         fields = ['username']
         allowed_methods = ['get', 'post']
         resource_name = 'user'
-        authentication = BasicAuthentication() #TODO: switchen naar api key die ze krijgen eenmaal ze ingelogd hebben
+        # authentication = BasicAuthentication() #TODO: switchen naar api key die ze krijgen eenmaal ze ingelogd hebben
+        authentication = SessionAuthentication()
         authorization = UserAuthorization()
 
     def dehydrate_username(self, bundle):

@@ -86,7 +86,7 @@ class AjaxSearchView(View):
     field_for_label = 'title'
 
     def get(self, request, *args, **kwargs):
-        objects = get_search_queryset(key='term')
+        objects = get_search_queryset(request, key='term')
 
         # serialize data
         data = self.serialize(objects)
@@ -175,13 +175,15 @@ def index_and_add(request):
                 formfield.widget.attrs['title'] = field.help_text
             except AttributeError:
                 pass # autofield has no widget
+                
         return formfield
 
     # Initialize the FormSet factory with the correct callback
     BuildPhotoInlineFormSet = inlineformset_factory(
                                   Build, BuildPhoto, 
                                   formset = BuildPhotoFormSet, 
-                                  extra = 3, can_delete = False,
+                                  max_num = 10, extra = 1, 
+                                  can_delete = False,
                                   formfield_callback = formfield_callback
                               )
     
@@ -206,6 +208,8 @@ def index_and_add(request):
                 build.save()
                 photos_formset.save()
                 return redirect(build.get_absolute_url())
+        else:
+            photos_formset = BuildPhotoInlineFormSet(data=request.POST, instance=Build())
 
     else: # GET
         # See if we can fill in some data already from the querystring

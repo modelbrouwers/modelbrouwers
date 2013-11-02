@@ -1,0 +1,13 @@
+{% load handlebars %}
+{% verbatim %}
+<div class="dropdown">
+    <select id="id_album">
+        {{#each albums}}
+            <option value="{{this.id}}" {{#if this.current}}selected="selected"{{/if}}>{{this.title}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<ul class="photos">
+</ul>
+{% endverbatim %}

@@ -40,7 +40,10 @@ class BuildForm(forms.ModelForm):
             'nomination', 
             'user', 
             'slug', 
-            'brand_name'
+            'brand_name',
+            # 'img1',
+            # 'img2',
+            # 'img3',
             )
         widgets = {
             'topic_id': forms.HiddenInput(),

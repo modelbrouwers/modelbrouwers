@@ -1,5 +1,5 @@
 {% extends "builds/base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% load url from future %}
 
 {% block extrastyle %}
@@ -50,7 +50,7 @@
 
                         <form action="{{ request.path }}" method="post">
                             {% include "form_in_table.html" %}
-                            {% include "builds/photos_formset.html" %}
+                            {# {% include "builds/photos_formset.html" %} #}
                             <div class="center">
                                 <input type="submit" value="{% trans 'Save' %}" name="add_build" class="uploadify-button" />
                             </div>
@@ -60,11 +60,18 @@
 
                 <!-- right block, show form to add a build -->
                 <div class="column right-column content">
-                    <div>
+                    <div id="builds-list-overview">
                         <form action="./#builds-overview" method="get" id="search-builds">
                             {% include "search_form.html" %}
                         </form>
                         {% include "builds/builds_list.html" %}
+                    </div>
+
+                    <div id="album-photos">
+                        <div class="center" id="div-loading">
+                            <img src="{% static "images/loading_big.gif" %}" alt="{% trans "loading" %}" width="32" height="32" />
+                        </div>
+                        <div id="photos-list"></div>
                     </div>
                 </div>
             </div>

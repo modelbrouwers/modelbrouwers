@@ -1,4 +1,19 @@
+{% load i18n %}
+
 {% if photos_formset %}
+    <hr />
+    <br />
+    <div class="subtab">
+        <div id="radio">
+            {% trans "Add photos" %}:
+            <input type="radio" name="input-method" id="add-albumphoto" />
+            <label for="add-albumphoto">{% trans "From albums" %}</label>
+            <input type="radio" name="input-method" id="add-urlphoto" />
+            <label for="add-urlphoto">{% trans "URL" %}</label>
+        </div>
+    </div>
+    
+    <div id="photos-dropzone"></div>
     
     {{ photos_formset.management_form }}
 
@@ -11,15 +26,34 @@
                 <div class="preview"></div>
 
                 <fieldset>
-                    {{ form.photo }}
-                    {{ form.order }}
-                    {{ form.photo_url }}
+                    <p>
+                        {% if form.photo.errors %}
+                            <span class="errored">{{ form.photo }}</span>
+                        {% else %}
+                            {{ form.photo }}
+                        {% endif %}
+                        
+                        {% if form.order.errors %}
+                            <span class="errored">{{ form.order }}</span>
+                        {% else %}
+                            {{ form.order }}
+                        {% endif %}
+
+                        {% if form.photo_url.errors %}
+                            <span class="errored">{{ form.photo_url }}</span>
+                        {% else %}
+                            {{ form.photo_url }}
+                        {% endif %}
+                    </p>
+                    {{ form.photo.errors }}
+                    {{ form.order.errors }}
+                    {{ form.photo_url.errors }}
                 </fieldset>
                             
             </li>
         
         {% endfor %}
 
-    </ul>   
+    </ul>
 
 {% endif %}

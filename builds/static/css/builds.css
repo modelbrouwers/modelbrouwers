@@ -133,10 +133,24 @@ div.tab div.column{
 #builds #builds-overview td.scale{
     width: 20%;
 }
+    /* adding photos from albums */
+#div-loading {margin-top: 2em;}
+#div-loading, #photos-dropzone{
+    display: none;
+}
+#radio{
+    margin-bottom: 0.5em;
+}
 #photos-formset{
     list-style: none;
     white-space: nowrap;
     margin-bottom: 1em;
+}
+#photos-formset span.errored input{
+    border-bottom-color: red;
+    border-top-color: red;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
 }
 #photos-formset fieldset{
     border:none;
@@ -148,6 +162,11 @@ div.tab div.column{
 #photos-formset input.photo-url{
     width: 90%;
     margin-left: -6px;
+}
+#photos-dropzone{
+    margin: 1em 0;
+    border: dashed 2px #AAA;
+    min-height: 8em;
 }
 
 

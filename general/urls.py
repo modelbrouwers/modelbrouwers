@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from .views import ServeHbsTemplateView
 
 urlpatterns = patterns('general.views',
     (r'^$', 'index'),
@@ -11,6 +12,7 @@ urlpatterns = patterns('general.views',
     (r'^confirm_account/$', 'confirm_account'),
     (r'^reset_pw/$', 'password_reset'),
     (r'^do_reset_pw/$', 'do_password_reset'),
+    url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w]+)/$', ServeHbsTemplateView.as_view(), name='hbs_template') # get handlebars templates
     )
 
 # new auth backend
