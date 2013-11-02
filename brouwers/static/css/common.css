@@ -100,8 +100,14 @@ div#shop_banner, #shop_banner ul{
 	margin: 0;
 	padding: 0;
 }
+/* brands, individual */
 #shop-uhu{
     width: 54px;
+    background-position: 0px -293px;
+}
+#shop-xuron{
+    width: 102px;
+    background-position: -54px -293px;
 }
 
 /*** LOGO + AANKONDIGINGEN + FLEX + MM ***/
