@@ -13,6 +13,7 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
 
 {% block scripts %}
     {{ block.super }}
+    <script type="text/javascript" src="{% static "scripts/handlebars-1.0.0.js" %}"></script>
     <script type="text/javascript">
         var search_url = '{% url 'builds:search' %}';
     </script>

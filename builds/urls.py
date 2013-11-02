@@ -12,8 +12,9 @@ from .views import (BuildAjaxSearchView, BuildDetailView, BuildRedirectView,
 
 
 urlpatterns = patterns('',
-    # index page
+    # index page, give two possible names
     url(r'^$', index_and_add, name='add_build'),
+    url(r'^$', index_and_add, name='index'),
     
     # backwards compatible, redirect old urls
     url(r'^(?P<build_id>\d+)/$', BuildRedirectView.as_view(), name='old_detail'),

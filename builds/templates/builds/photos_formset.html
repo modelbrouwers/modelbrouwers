@@ -1,8 +1,15 @@
 {% load i18n %}
 
 {% if photos_formset %}
+    <hr />
+    <br />
+    <div class="subtab">
+        {% trans "Add photos" %}:
+        <button type="button" id="add-albumphoto">{% trans "From albums" %}</button>
+        <button type="button" id="add-urlphoto">{% trans "URL" %}</button>
+    </div>
     
-    {# <div id="photos-dropzone"></div> #}
+    <div id="photos-dropzone"></div>
     
     {{ photos_formset.management_form }}
 

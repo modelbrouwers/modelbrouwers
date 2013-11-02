@@ -4,6 +4,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load forum_tools %}
+{% load url from future %}
 <head>
 	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -89,7 +90,7 @@
         <div id="logo">
              <div class="left">
                 {% spaceless %}
-                 <a href="{% url general.views.index %}" id="main-logo">
+                 <a href="{% url 'general.views.index' %}" id="main-logo">
                     <img src="{% static 'images/logo/logo_modelbrouwers.png' %}"
                     alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
                  </a>{% endspaceless %}
@@ -124,32 +125,33 @@
             <div id="menu_wrapper">
                 <ul id="menu">{% spaceless %}
                     {% block menu %}
-                        <li><a href="{% url general.views.index %}">Home</a></li>
-                        <li><a href="{% url awards_index %}">Awards</a></li>
-                        <li><a href="{% url secret_santa.views.index %}">Secret Santa</a></li>
+                        <li><a href="{% url 'general.views.index' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'builds:index' %}">{% trans "Builds" %}</a></li>
+                        <li><a href="{% url 'awards_index' %}">{% trans "Awards" %}</a></li>
+                        <li><a href="{% url 'secret_santa.views.index' %}">{% trans "Secret Santa" %}</a></li>
                         {% if user.is_superuser %}
-                            <li><a href="{% url migration.views.index %}">{% trans 'Migrations' %}</a></li>
+                            <li><a href="{% url 'migration.views.index' %}">{% trans 'Migrations' %}</a></li>
                         {% endif %}
                     {% endblock %}
                     
                     {% block user_auth %}
                         {% if not user.is_authenticated %}
                             <li class="user-auth">
-                                <a href="{% url general.views.custom_login %}?next={{ request.path }}">{% trans 'Login' %}</a>
+                                <a href="{% url 'general.views.custom_login' %}?next={{ request.path }}">{% trans 'Login' %}</a>
                             </li>
                             <li class="user-auth">
-                                <a href="{% url general.views.register %}">{% trans 'Register' %}</a>
+                                <a href="{% url 'general.views.register' %}">{% trans 'Register' %}</a>
                             </li>
                         {% else %}
                             <li class="user-auth">
-                                <a href="{% url general.views.custom_logout %}">
+                                <a href="{% url 'general.views.custom_logout' %}">
                                     <span>&nbsp;</span><!-- hack for proper height display in chrome -->
                                     <img id="img-logout" src="{% static 'images/icons/door.png' %}" title="{% trans 'logout' %}" alt="{% trans 'logout' %}"/>
                                     <span>&nbsp;</span>
                                 </a>
                             </li>
                             <li class="user-auth">
-                                <a href="{% url general.views.profile %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
+                                <a href="{% url 'general.views.profile' %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
                             </li>
                         {% endif %}
                     {% endblock %}

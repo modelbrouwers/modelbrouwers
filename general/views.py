@@ -13,9 +13,11 @@ from django.db import IntegrityError
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template import loader
 from django.utils.hashcompat import sha_constructor
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
+from django.views.generic import View
 from django.views.decorators.csrf import csrf_protect
 
 from albums.models import Album
@@ -386,3 +388,14 @@ def do_password_reset(request):
             pr = get_object_or_404(PasswordReset, h=h)
             form = PasswordResetForm(initial={'user': pr.user})
     return render(request, 'general/do_password_reset.html', {'form': form, 'hashform': hashform})
+
+
+class ServeHbsTemplateView(View):
+    
+    def get(self, request, *args, **kwargs):
+        app_name = kwargs.get('app_name')
+        template_name = "{template_name}.hbs".format(template_name=kwargs.get('template_name'))
+
+        import pdb; pdb.set_trace()
+        response = HttpResponse()
+        return response
