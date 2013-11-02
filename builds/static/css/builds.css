@@ -133,6 +133,14 @@ div.tab div.column{
 #builds #builds-overview td.scale{
     width: 20%;
 }
+    /* adding photos from albums */
+#div-loading {margin-top: 2em;}
+#div-loading, #photos-dropzone{
+    display: none;
+}
+#radio{
+    margin-bottom: 0.5em;
+}
 #photos-formset{
     list-style: none;
     white-space: nowrap;

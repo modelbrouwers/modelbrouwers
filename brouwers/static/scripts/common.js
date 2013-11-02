@@ -96,8 +96,11 @@ function load_template(tpl_name){
     if(Handlebars.templates[tpl_name] === undefined){
         // nope, get it via json
         tpl_url = hbs_templates[tpl_name];
-        $.get(tpl_url, function(tpl){
-            Handlebars.templates[tpl_name] = Handlebars.compile(tpl);
+        $.ajax(tpl_url, {
+            async: false,
+            success: function(tpl, status, jqXHR){
+                Handlebars.templates[tpl_name] = Handlebars.compile(tpl);
+            }
         });
     }
     return Handlebars.templates[tpl_name];

@@ -4,9 +4,13 @@
     <hr />
     <br />
     <div class="subtab">
-        {% trans "Add photos" %}:
-        <button type="button" id="add-albumphoto">{% trans "From albums" %}</button>
-        <button type="button" id="add-urlphoto">{% trans "URL" %}</button>
+        <div id="radio">
+            {% trans "Add photos" %}:
+            <input type="radio" name="input-method" id="add-albumphoto" />
+            <label for="add-albumphoto">{% trans "From albums" %}</label>
+            <input type="radio" name="input-method" id="add-urlphoto" />
+            <label for="add-urlphoto">{% trans "URL" %}</label>
+        </div>
     </div>
     
     <div id="photos-dropzone"></div>

@@ -86,7 +86,7 @@ class AjaxSearchView(View):
     field_for_label = 'title'
 
     def get(self, request, *args, **kwargs):
-        objects = get_search_queryset(key='term')
+        objects = get_search_queryset(request, key='term')
 
         # serialize data
         data = self.serialize(objects)

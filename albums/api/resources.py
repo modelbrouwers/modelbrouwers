@@ -2,7 +2,7 @@ from django.db.models import Q
 
 
 from tastypie import fields
-from tastypie.authentication import BasicAuthentication
+from tastypie.authentication import BasicAuthentication, SessionAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 
@@ -16,7 +16,7 @@ class AlbumAuthorization(ReadOnlyAuthorization):
         user = bundle.request.user
         q_public = Q(public=True)
         q_own = Q(user__id=user.id)
-        return object_list.filter(Q(q_public | q_own))
+        return object_list.filter(Q(q_public | q_own)).order_by('order', 'title')
 
 class AlbumResource(ModelResource):
     cover = fields.ForeignKey('albums.api.resources.PhotoResource', 'cover', null=True)
@@ -25,7 +25,8 @@ class AlbumResource(ModelResource):
         queryset = Album.objects.filter(trash=False).order_by('-last_upload')
         resource_name = 'album'
         fields = ['id', 'title', 'description', 'created', 'last_upload', 'views', 'build_report', 'votes']
-        authentication = BasicAuthentication()
+        # authentication = BasicAuthentication()
+        authentication = SessionAuthentication()
         authorization = AlbumAuthorization()
 
 class OwnAlbumsResource(AlbumResource):

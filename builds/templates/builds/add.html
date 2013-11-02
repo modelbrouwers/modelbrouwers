@@ -50,7 +50,7 @@
 
                         <form action="{{ request.path }}" method="post">
                             {% include "form_in_table.html" %}
-                            {% include "builds/photos_formset.html" %}
+                            {# {% include "builds/photos_formset.html" %} #}
                             <div class="center">
                                 <input type="submit" value="{% trans 'Save' %}" name="add_build" class="uploadify-button" />
                             </div>
@@ -71,7 +71,7 @@
                         <div class="center" id="div-loading">
                             <img src="{% static "images/loading_big.gif" %}" alt="{% trans "loading" %}" width="32" height="32" />
                         </div>
-                        {% include "builds/handlebars/albums.hbs" %}
+                        <div id="photos-list"></div>
                     </div>
                 </div>
             </div>
