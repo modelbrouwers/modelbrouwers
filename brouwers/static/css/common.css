@@ -48,6 +48,11 @@ div#navigation, div#shop_banner{
 #navigation li a, #shop_banner li a{
     display: inline-block;
 }
+#shop_banner li a{
+    height: 25px;
+    background-image: url('../images/shop/products_sprite.png');
+    background-repeat: no-repeat;
+}
 #navigation li img{
     width: 130px;
     height: 35px;
@@ -95,9 +100,10 @@ div#shop_banner, #shop_banner ul{
 	margin: 0;
 	padding: 0;
 }
-#shop_banner li img{
-	height: 25px;
+#shop-uhu{
+    width: 54px;
 }
+
 /*** LOGO + AANKONDIGINGEN + FLEX + MM ***/
 div#logo, div#logo div{
 	height: 75px;
