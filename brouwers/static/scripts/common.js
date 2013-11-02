@@ -84,3 +84,21 @@ $.ajaxSetup({
         }
     }
 });
+
+
+
+function load_template(tpl_name){
+    // keep the templates in an objects
+    if(Handlebars.templates === undefined){
+        Handlebars.templates = {};
+    }
+    // see if we have it cached
+    if(Handlebars.templates[tpl_name] === undefined){
+        // nope, get it via json
+        tpl_url = hbs_templates[tpl_name];
+        $.get(tpl_url, function(tpl){
+            Handlebars.templates[tpl_name] = Handlebars.compile(tpl);
+        });
+    }
+    return Handlebars.templates[tpl_name];
+}

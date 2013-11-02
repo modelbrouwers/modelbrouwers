@@ -1,14 +1,13 @@
+{% load handlebars %}
 {% verbatim %}
-<script type="text/x-handlebars" data-template-name="albums-list">
-    <div class="dropdown">
-        <select id="id_album">
-            {{each album in albums}}
-                <option value="{{album.id}}">{{album.title}}</option>
-            {{/each}}
-        </select>
-    </div>
-    
-    <ul class="photos">
-    </ul>
-</script>
+<div class="dropdown">
+    {{!-- <select id="id_album">
+        {{each albums}}
+            <option value="{{album.id}}">{{album.title}}</option>
+        {{/each}}
+    </select> --}}
+</div>
+
+<ul class="photos">
+</ul>
 {% endverbatim %}

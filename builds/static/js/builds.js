@@ -22,4 +22,12 @@ $(document).ready(function(){
 	$('input.order, input.photo-url').tooltip({
     	track: true
     });
+
+    $('#add-albumphoto').click(show_photos_selector);
 });
+
+
+function show_photos_selector(){
+	var tpl = load_template('albums');
+	console.log(tpl);
+}

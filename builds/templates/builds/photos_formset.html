@@ -22,9 +22,28 @@
                 <div class="preview"></div>
 
                 <fieldset>
-                    {{ form.photo }}
-                    {{ form.order }}
-                    {{ form.photo_url }}
+                    <p>
+                        {% if form.photo.errors %}
+                            <span class="errored">{{ form.photo }}</span>
+                        {% else %}
+                            {{ form.photo }}
+                        {% endif %}
+                        
+                        {% if form.order.errors %}
+                            <span class="errored">{{ form.order }}</span>
+                        {% else %}
+                            {{ form.order }}
+                        {% endif %}
+
+                        {% if form.photo_url.errors %}
+                            <span class="errored">{{ form.photo_url }}</span>
+                        {% else %}
+                            {{ form.photo_url }}
+                        {% endif %}
+                    </p>
+                    {{ form.photo.errors }}
+                    {{ form.order.errors }}
+                    {{ form.photo_url.errors }}
                 </fieldset>
                             
             </li>

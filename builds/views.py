@@ -208,6 +208,8 @@ def index_and_add(request):
                 build.save()
                 photos_formset.save()
                 return redirect(build.get_absolute_url())
+        else:
+            photos_formset = BuildPhotoInlineFormSet(data=request.POST, instance=Build())
 
     else: # GET
         # See if we can fill in some data already from the querystring

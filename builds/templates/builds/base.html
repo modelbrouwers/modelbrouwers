@@ -16,6 +16,10 @@ Modelbrouwers.nl &bull; {% trans "Build reports" %}
     <script type="text/javascript" src="{% static "scripts/handlebars-1.0.0.js" %}"></script>
     <script type="text/javascript">
         var search_url = '{% url 'builds:search' %}';
+        // key: tpl name, value: tpl url
+        var hbs_templates = {
+            'albums': '{% url 'hbs_template' app_name='builds' template_name='albums' %}'
+        };
     </script>
     <script type="text/javascript" src="{% static "js/builds.js" %}"></script>
 {% endblock %}

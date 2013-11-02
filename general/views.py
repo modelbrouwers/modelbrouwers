@@ -13,7 +13,7 @@ from django.db import IntegrityError
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader
+from django.template import loader, Context
 from django.utils.hashcompat import sha_constructor
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -42,6 +42,9 @@ try:
 except AttributeError:
     # setting not yet defined
     LOG_REGISTRATION_ATTEMPTS = True
+
+
+EMPTY_CONTEXT = Context()
 
 
 ######## EMAIL TEMPLATES ############
@@ -396,6 +399,11 @@ class ServeHbsTemplateView(View):
         app_name = kwargs.get('app_name')
         template_name = "{template_name}.hbs".format(template_name=kwargs.get('template_name'))
 
-        import pdb; pdb.set_trace()
-        response = HttpResponse()
+        template_path = "{app_name}/handlebars/{template_name}".format(
+                            app_name = app_name,
+                            template_name = template_name
+                        )
+        template = loader.get_template(template_path)
+        tpl_source = template.render(EMPTY_CONTEXT)
+        response = HttpResponse(tpl_source)
         return response

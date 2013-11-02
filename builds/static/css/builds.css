@@ -138,6 +138,12 @@ div.tab div.column{
     white-space: nowrap;
     margin-bottom: 1em;
 }
+#photos-formset span.errored input{
+    border-bottom-color: red;
+    border-top-color: red;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}
 #photos-formset fieldset{
     border:none;
     margin-bottom: -1px;
