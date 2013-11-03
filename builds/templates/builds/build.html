@@ -67,17 +67,11 @@
     {% endif %}
 
     <div class="photos">
-        {% if build.img1 %}
-            <img src="{{ build.img1 }}" alt="img1" width="640" />
-        {% endif %}
-        
-        {% if build.img2 %}
-            <img src="{{ build.img2 }}" alt="img1" width="640" />
-        {% endif %}
-        
-        {% if build.img3 %}
-            <img src="{{ build.img3 }}" alt="img1" width="640" />
-        {% endif %}
+        {% for photo in photos %}
+            <p class="center">
+                <img src="{{ photo.image_url }}" alt="img{{ forloop.counter }}" width="640" />
+            </p>
+        {% endfor %}
     </div>
 </div>
 

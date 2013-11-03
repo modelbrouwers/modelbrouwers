@@ -27,9 +27,6 @@ class BuildAdmin(admin.ModelAdmin):
         ('Varia', {
             'fields': (
                 ('start_date', 'end_date'), 
-                'img1', 
-                'img2', 
-                'img3'
                 ),
             'classes': ['collapse'],
         }),

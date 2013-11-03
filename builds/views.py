@@ -35,6 +35,11 @@ class BuildDetailView(DetailView):
     template_name = 'builds/build.html'
     model = Build
 
+    def get_context_data(self, **kwargs):
+        kwargs['photos'] = self.object.buildphoto_set.all().order_by('order', 'id')
+        return super(BuildDetailView, self).get_context_data(**kwargs)
+
+
 
 class BuildRedirectView(SingleObjectMixin, RedirectView):
     """ Get the build by pk, redirect to the slug url """

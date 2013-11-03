@@ -49,14 +49,7 @@ class Build(models.Model):
     
     # build information
     start_date = models.DateField(_("start date"), blank=True, null=True)
-    end_date = models.DateField(_("end date"), blank=True, null=True)
-    
-
-    # images TODO: replace with m2m album images
-    img1 = models.URLField(_("Photo 1"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
-    img2 = models.URLField(_("Photo 2"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
-    img3 = models.URLField(_("Photo 3"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
-    
+    end_date = models.DateField(_("end date"), blank=True, null=True)    
 
     class Meta:
         verbose_name = _("build report")
@@ -134,4 +127,11 @@ class BuildPhoto(models.Model):
         if not self.photo and not self.photo_url:
             raise ValidationError(_('Provide either an album photo'
                                     ' or a link to a photo.'))
+
+    @property
+    def image_url(self):
+        """ Album photos always go before image links """
+        if self.photo:
+            pass # TODO
+        return self.photo_url
 

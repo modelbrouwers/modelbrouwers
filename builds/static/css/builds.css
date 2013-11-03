@@ -353,3 +353,10 @@ div.handle{
 	float: left;
 	padding-right: 25px;
 }
+
+.photo-form fieldset select{
+    display:none; /* FIXME: temp solution */
+}
+.photo-form fieldset input{
+    width: 100%;
+}
