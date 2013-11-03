@@ -35,56 +35,56 @@ $(document).ready(function(){
 
 	/* links to photos */
 	// hide last 9 blocks if they're empty
-	// $('li.photo-form:not(:first)').filter(function(index){
-	// 	return !$(this).find('.photo-url').val();
-	// }).hide();
+	$('li.photo-form:not(:first)').filter(function(index){
+		return !$(this).find('.photo-url').val();
+	}).hide();
 	
 	// update preview & do validation
-	// $('#photos-formset').on('keyup', 'input.photo-url', function(event){
-	// 	var img_src = $(this).val();
-	// 	var extension = img_src.split('.').pop();
-	// 	var preview = $(this).closest('fieldset').siblings('.preview');
-	// 	$(this).siblings('.error.jquery-validation').remove();
+	$('#photos-formset').on('keyup', 'input.photo-url', function(event){
+		var img_src = $(this).val();
+		var extension = img_src.split('.').pop();
+		var preview = $(this).closest('fieldset').siblings('.preview');
+		$(this).siblings('.error.jquery-validation').remove();
 
-	// 	if (img_extensions.indexOf(extension.toLowerCase()) > -1){
-	// 		var tpl = load_template('photo_preview');
-	// 		var context = {'img_src': img_src};
-	// 		var rendered_tpl = tpl(context);
-	// 		preview.html(rendered_tpl);
-	// 		update_photo_fields($(this), true);
+		if (img_extensions.indexOf(extension.toLowerCase()) > -1){
+			var tpl = load_template('photo_preview');
+			var context = {'img_src': img_src};
+			var rendered_tpl = tpl(context);
+			preview.html(rendered_tpl);
+			update_photo_fields($(this), true);
 
-	// 		if($('.error.jquery-validation').length == 0){
-	// 			// allow submitting
-	// 			$(this).closest('form').unbind('submit');
-	// 			$('#submit-build').removeAttr('disabled');
-	// 		}
-	// 	} else {
-	// 		preview.html('');
-	// 		update_photo_fields($(this), false);
+			if($('.error.jquery-validation').length == 0){
+				// allow submitting
+				$(this).closest('form').unbind('submit');
+				$('#submit-build').removeAttr('disabled');
+			}
+		} else {
+			preview.html('');
+			update_photo_fields($(this), false);
 			
-	// 		if($(this).val()){
-	// 			// show invalid warning
-	// 			var tpl = load_template('invalid_img_url');
-	// 			$(tpl()).insertAfter($(this));
+			if($(this).val()){
+				// show invalid warning
+				var tpl = load_template('invalid_img_url');
+				$(tpl()).insertAfter($(this));
 				
-	// 			// disable form
-	// 			$(this).closest('form').submit(function(event){
-	// 				event.preventDefault();
-	// 				return false;
-	// 			});
-	// 			// disable button
-	// 			$('#submit-build').prop('disabled', true);
-	// 		} else {
-	// 			if($('.error.jquery-validation').length == 0){
-	// 				// allow submitting
-	// 				$(this).closest('form').unbind('submit');
-	// 				$('#submit-build').removeAttr('disabled');
-	// 			}
-	// 		}
-	// 	}
-	// });
+				// disable form
+				$(this).closest('form').submit(function(event){
+					event.preventDefault();
+					return false;
+				});
+				// disable button
+				$('#submit-build').prop('disabled', true);
+			} else {
+				if($('.error.jquery-validation').length == 0){
+					// allow submitting
+					$(this).closest('form').unbind('submit');
+					$('#submit-build').removeAttr('disabled');
+				}
+			}
+		}
+	});
 	// trigger event, just in case it's filled in and we're re-displaying the form
-	// $('#photos-formset input.photo-url:visible').keyup();
+	$('#photos-formset input.photo-url:visible').keyup();
 });
 
 function update_photo_fields(url_input, show_next){
