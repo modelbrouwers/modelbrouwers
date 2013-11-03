@@ -10,13 +10,22 @@ from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from albums.models import Album, Photo
 # for the availble fields, look in albums/models.py!
 
-
+### AUTHORIZATION ##############################################################
 class AlbumAuthorization(ReadOnlyAuthorization):
     def read_list(self, object_list, bundle):
         user = bundle.request.user
         q_public = Q(public=True)
         q_own = Q(user__id=user.id)
         return object_list.filter(Q(q_public | q_own)).order_by('order', 'title')
+
+
+class OwnAlbumAuthorization(AlbumAuthorization):
+    def read_list(self, object_list, bundle):
+        qs = super(OwnAlbumAuthorization, self).read_list(object_list, bundle)
+        return qs.filter(user=bundle.request.user)
+
+
+### RESOURCES ##################################################################
 
 class AlbumResource(ModelResource):
     cover = fields.ForeignKey('albums.api.resources.PhotoResource', 'cover', null=True)
@@ -29,14 +38,11 @@ class AlbumResource(ModelResource):
         authentication = SessionAuthentication()
         authorization = AlbumAuthorization()
 
+
 class OwnAlbumsResource(AlbumResource):
     class Meta(AlbumResource.Meta):
         resource_name = 'own_albums'
-    
-    def apply_authorization_limits(self, request, object_list):
-        return object_list.filter(user=request.user)
-
-
+        authorization = OwnAlbumAuthorization()
 
 
 class PhotoResource(ModelResource):

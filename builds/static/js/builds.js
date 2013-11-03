@@ -32,8 +32,10 @@ $(document).ready(function(){
     });
 
     /* links to photos */
-    // hide last 9 blocks
-    $('li.photo-form:not(:first)').hide();
+    // hide last 9 blocks if they're empty
+    $('li.photo-form:not(:first)').filter(function(index){
+    	return !$(this).find('.photo-url').val();
+    }).hide();
 
     $('#photos-formset').on('keyup', 'input.photo-url', function(){
     	update_photo_fields($(this));
@@ -86,11 +88,9 @@ function update_photo_fields(url_input){
 		}
 	} else {
 		li_item.data('used', false);
-		console.log(next_li.find('photo-url').val());
-		console.log(next_li.find('.preview').html());
-		var next_li_used = next_li.find('photo-url').val() || next_li.find('.preview').html() != '';
-		if(next_li.is(':visible') && !next_li_used){
-			next_li.hide();
-		}
+		li_item.siblings('li.photo-form').filter(function(index){
+			return !$(this).data('used');
+		}).hide();
+		// TODO: fix the order if removing urls midway
 	}
 }
