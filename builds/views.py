@@ -175,17 +175,17 @@ def index_and_add(request):
                 formfield.widget.attrs['title'] = field.help_text
             except AttributeError:
                 pass # autofield has no widget
-                
+        if field.name == 'order':
+            formfield.initial = 1
         return formfield
 
     # Initialize the FormSet factory with the correct callback
     BuildPhotoInlineFormSet = inlineformset_factory(
                                   Build, BuildPhoto, 
                                   formset = BuildPhotoFormSet, 
-                                  max_num = 10, extra = 1, 
-                                  can_delete = False,
-                                  formfield_callback = formfield_callback
-                              )
+                                  max_num = 10, extra = 10, 
+                                  can_delete = False, can_order = True,
+                                  formfield_callback = formfield_callback                              )
     
     # initialize some defaults
     form_kwargs, context = {}, {}
