@@ -21,22 +21,17 @@
         
         {% for form in photos_formset %}
             
-            <li class="photo-form" data-used="false" data-order="{{ forloop.counter }}">
+            <li class="photo-form" data-used="false">
                 
                 <div class="preview"></div>
 
                 <fieldset>
                     <p>
+                        {# {{ form.id }} #}
                         {% if form.photo.errors %}
                             <span class="errored">{{ form.photo }}</span>
                         {% else %}
                             {{ form.photo }}
-                        {% endif %}
-                        
-                        {% if form.order.errors %}
-                            <span class="errored">{{ form.order }}</span>
-                        {% else %}
-                            {{ form.order }}
                         {% endif %}
 
                         {% if form.photo_url.errors %}
@@ -45,8 +40,8 @@
                             {{ form.photo_url }}
                         {% endif %}
                     </p>
+                    {{ form.non_field_errors }}
                     {{ form.photo.errors }}
-                    {{ form.order.errors }}
                     {{ form.photo_url.errors }}
                 </fieldset>
                             

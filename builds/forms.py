@@ -72,11 +72,12 @@ class BuildForm(forms.ModelForm):
 
 
 class BuildPhotoFormSet(BaseInlineFormSet):
-    def save_new(self, form, commit=True):
-        photo = super(BuildPhotoFormSet, self).save_new(form, commit=commit)
-        photo.order = form.cleaned_data['order']
-        photo.save()
-        return photo
+    pass
+    # def save_new(self, form, commit=True):
+    #     photo = super(BuildPhotoFormSet, self).save_new(form, commit=commit)
+    #     photo.order = form.cleaned_data['order']
+    #     photo.save()
+    #     return photo
 
 
 class EditBuildForm(BuildForm):

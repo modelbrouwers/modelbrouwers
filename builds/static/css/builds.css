@@ -197,11 +197,8 @@ div.tab div.column{
 #submit-build[disabled]{
     opacity: 0.5;
 }
-#photos-formset input.order{
-    width: 10%;
-}
 #photos-formset input.photo-url{
-    width: 90%;
+    width: 100%;
     margin-left: -6px;
 }
 #photos-dropzone{

@@ -2,18 +2,13 @@
 {% load i18n static %}
 {% load url from future %}
 
+
 {% block extrastyle %}
     <style type="text/css">
         div#content{padding: 1em 0 0 0;min-height:300px;}
         div.tab {margin-left: 0;margin-right: 0;}
     </style>
 {% endblock extrastyle %}
-
-{% block extrascript %}
-    <script type="text/javascript">
-        var photo_row = '{{ photos_formset.empty_form|escapejs }}';
-    </script>
-{% endblock extrascript %}
 
 
 {% block content %}

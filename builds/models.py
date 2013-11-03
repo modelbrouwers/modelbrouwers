@@ -120,12 +120,12 @@ class BuildPhoto(models.Model):
     build = models.ForeignKey(Build, verbose_name = _(u'build'))
     photo = models.OneToOneField('albums.Photo', blank=True, null=True)
     photo_url = models.URLField(blank=True, help_text=_('Link to an image'))
-    order = models.PositiveSmallIntegerField(help_text=_('Order in which photos are shown'))
+    order = models.PositiveSmallIntegerField(help_text=_('Order in which photos are shown'), blank=True , null=True)
 
     class Meta:
         verbose_name = _(u'build photo')
         verbose_name_plural = _(u'build photos')
-        ordering = ['order']
+        ordering = ['order', 'id']
 
     def __unicode__(self):
         return _("Photo for build %(build)s") % {'build': self.build.title}
