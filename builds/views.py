@@ -35,6 +35,11 @@ class BuildDetailView(DetailView):
     template_name = 'builds/build.html'
     model = Build
 
+    def get_context_data(self, **kwargs):
+        kwargs['photos'] = self.object.buildphoto_set.all().order_by('order', 'id')
+        return super(BuildDetailView, self).get_context_data(**kwargs)
+
+
 
 class BuildRedirectView(SingleObjectMixin, RedirectView):
     """ Get the build by pk, redirect to the slug url """
@@ -129,6 +134,7 @@ class BuildAjaxSearchView(AjaxSearchView):
 """ Views responsible for editing data """
 BuildPhotoInlineFormSetEdit = inlineformset_factory(Build, BuildPhoto, 
                                                 formset=BuildPhotoFormSet, 
+                                                exclude = ('order',),
                                                 extra=1
                                                 )
 
@@ -157,6 +163,7 @@ def index_and_add(request):
     # ugh... really? TODO: move to forms
     def formfield_callback(field, **kwargs):
         """ Callback function to limit the photos that can be selected. """
+
         if field.name == 'photo':
             return forms.ModelChoiceField(
                 queryset = qs, required = False,
@@ -171,21 +178,21 @@ def index_and_add(request):
                     formfield.widget.attrs['class'] = "%s %s" % (cls_name, cls)
                 else:
                     formfield.widget.attrs['class'] = cls_name
+                
                 formfield.widget.attrs['placeholder'] = field.verbose_name.capitalize()
                 formfield.widget.attrs['title'] = field.help_text
             except AttributeError:
                 pass # autofield has no widget
-                
         return formfield
 
     # Initialize the FormSet factory with the correct callback
     BuildPhotoInlineFormSet = inlineformset_factory(
                                   Build, BuildPhoto, 
                                   formset = BuildPhotoFormSet, 
-                                  max_num = 10, extra = 1, 
+                                  max_num = 10, extra = 10, 
                                   can_delete = False,
                                   formfield_callback = formfield_callback
-                              )
+                                  )
     
     # initialize some defaults
     form_kwargs, context = {}, {}
@@ -201,6 +208,7 @@ def index_and_add(request):
         if form.is_valid():
             build = form.save(commit=False)
             photos_formset = BuildPhotoInlineFormSet(data=request.POST, instance=build)
+
             if photos_formset.is_valid():
                 # commit the changes
                 build.user = request.user

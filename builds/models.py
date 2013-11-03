@@ -49,14 +49,7 @@ class Build(models.Model):
     
     # build information
     start_date = models.DateField(_("start date"), blank=True, null=True)
-    end_date = models.DateField(_("end date"), blank=True, null=True)
-    
-
-    # images TODO: replace with m2m album images
-    img1 = models.URLField(_("Photo 1"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
-    img2 = models.URLField(_("Photo 2"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
-    img3 = models.URLField(_("Photo 3"), max_length=255, blank=True, help_text=_("Enter a link to a photo"))
-    
+    end_date = models.DateField(_("end date"), blank=True, null=True)    
 
     class Meta:
         verbose_name = _("build report")
@@ -120,12 +113,12 @@ class BuildPhoto(models.Model):
     build = models.ForeignKey(Build, verbose_name = _(u'build'))
     photo = models.OneToOneField('albums.Photo', blank=True, null=True)
     photo_url = models.URLField(blank=True, help_text=_('Link to an image'))
-    order = models.PositiveSmallIntegerField(help_text=_('Order in which photos are shown'))
+    order = models.PositiveSmallIntegerField(help_text=_('Order in which photos are shown'), blank=True , null=True)
 
     class Meta:
         verbose_name = _(u'build photo')
         verbose_name_plural = _(u'build photos')
-        ordering = ['order']
+        ordering = ['order', 'id']
 
     def __unicode__(self):
         return _("Photo for build %(build)s") % {'build': self.build.title}
@@ -134,4 +127,11 @@ class BuildPhoto(models.Model):
         if not self.photo and not self.photo_url:
             raise ValidationError(_('Provide either an album photo'
                                     ' or a link to a photo.'))
+
+    @property
+    def image_url(self):
+        """ Album photos always go before image links """
+        if self.photo:
+            pass # TODO
+        return self.photo_url
 

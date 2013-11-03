@@ -152,15 +152,53 @@ div.tab div.column{
     border-top-width: 2px;
     border-bottom-width: 2px;
 }
+#photos-formset div.preview{
+    text-align: center;
+    margin: 0.2em;
+}
 #photos-formset fieldset{
     border:none;
     margin-bottom: -1px;
 }
-#photos-formset input.order{
-    width: 10%;
+#photos-formset fieldset p{ /* center */
+    width: 99%;
+    margin: 0 auto;
+    /*text-align: center;*/
+}
+#photos-formset .error.jquery-validation{
+    background-color: #FFD4BF;
+    padding: 0.2em 0.5em;
+    border: solid 1px red;
+    z-index: 2;
+    position: relative;
+    margin-left: 1em;
+}
+#photos-formset .error.jquery-validation:before, #photos-formset .error.jquery-validation:after{
+    content: ' ';
+    height: 0;
+    position: absolute;
+    width: 0;
+    border: solid transparent;
+    right: 100%;
+    pointer-events: none;
+}
+#photos-formset .error.jquery-validation:after{
+    border-width: 6px;
+    border-right-color: #FFD4BF;
+    top: 50%;
+    margin-top: -6px;
+}
+#photos-formset .error.jquery-validation:before{
+    border-width: 7px;
+    border-right-color: red;
+    top: 50%;
+    margin-top: -7px;
+}
+#submit-build[disabled]{
+    opacity: 0.5;
 }
 #photos-formset input.photo-url{
-    width: 90%;
+    width: 100%;
     margin-left: -6px;
 }
 #photos-dropzone{
@@ -314,4 +352,11 @@ div.handle{
 #button_left img{
 	float: left;
 	padding-right: 25px;
+}
+
+.photo-form fieldset select{
+    display:none; /* FIXME: temp solution */
+}
+.photo-form fieldset input{
+    width: 100%;
 }
