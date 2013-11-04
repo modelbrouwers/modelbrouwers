@@ -217,7 +217,7 @@ class Photo(models.Model):
             self.album.save()
     
     def __unicode__(self):
-        return u"image from %s in %s" % (self.user, self.album.title) # TODO: translation
+        return u'albumphoto %d' % self.id
     
     def get_absolute_url(self):
         return reverse('albums.views.photo', args=[self.id])
