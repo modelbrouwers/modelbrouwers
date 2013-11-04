@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 
 
+from albums.models import Photo
 from kitreviews.models import Brand
 
 
@@ -129,3 +130,29 @@ class BuildFormForum(forms.ModelForm):
 
         return build
 
+def buildphoto_formfield_callback(field, request, **kwargs):
+    qs = request.user.photo_set.filter(
+            trash = False, 
+            album__trash = False
+        ).select_related('album', 'user')
+
+    if field.name == 'photo':
+        return forms.ModelChoiceField(
+            queryset = qs, required = False,
+            widget = forms.HiddenInput(attrs={'class': 'album-photo'})
+            )
+    else:
+        formfield = field.formfield(**kwargs)
+        try:
+            cls_name = field.name.replace('_', '-')
+            if formfield.widget.attrs.get('class', False):
+                cls = formfield.widget.attrs['class']
+                formfield.widget.attrs['class'] = "%s %s" % (cls_name, cls)
+            else:
+                formfield.widget.attrs['class'] = cls_name
+            
+            formfield.widget.attrs['placeholder'] = field.verbose_name.capitalize()
+            formfield.widget.attrs['title'] = field.help_text
+        except AttributeError:
+            pass # autofield has no widget
+    return formfield

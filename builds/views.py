@@ -19,7 +19,7 @@ from general.models import UserProfile
 
 
 from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm, 
-                    BuildPhotoFormSet)
+                    BuildPhotoFormSet, buildphoto_formfield_callback)
 from .models import Build, BuildPhoto
 from .utils import get_search_queryset
 
@@ -150,60 +150,34 @@ def index_and_add(request):
     TODO: write tests!
     """
 
-    # Initialize some stuff ####################################################
-    qs = Photo.objects.select_related(
-                'album', 
-                'user'
-            ).filter(
-                trash = False, 
-                album__trash = False, 
-                user = request.user
-            )
-    
-    # ugh... really? TODO: move to forms
-    def formfield_callback(field, **kwargs):
-        """ Callback function to limit the photos that can be selected. """
+    user_logged_in = request.user.is_authenticated()
 
-        if field.name == 'photo':
-            return forms.ModelChoiceField(
-                queryset = qs, required = False,
-                widget = forms.HiddenInput(attrs={'class': 'album-photo'})
-                )
-        else:
-            formfield = field.formfield(**kwargs)
-            try:
-                cls_name = field.name.replace('_', '-')
-                if formfield.widget.attrs.get('class', False):
-                    cls = formfield.widget.attrs['class']
-                    formfield.widget.attrs['class'] = "%s %s" % (cls_name, cls)
-                else:
-                    formfield.widget.attrs['class'] = cls_name
-                
-                formfield.widget.attrs['placeholder'] = field.verbose_name.capitalize()
-                formfield.widget.attrs['title'] = field.help_text
-            except AttributeError:
-                pass # autofield has no widget
-        return formfield
-
-    # Initialize the FormSet factory with the correct callback
-    BuildPhotoInlineFormSet = inlineformset_factory(
-                                  Build, BuildPhoto, 
-                                  formset = BuildPhotoFormSet, 
-                                  max_num = 10, extra = 10, 
-                                  can_delete = False,
-                                  formfield_callback = formfield_callback
-                                  )
-    
     # initialize some defaults
     form_kwargs, context = {}, {}
     builds = None
+    photos_formset, form = None, None
     
     searchform = SearchForm()
-    photos_formset = BuildPhotoInlineFormSet(queryset=BuildPhoto.objects.none())
+    
 
+    if user_logged_in:
+        def formfield_callback(field, **kwargs):
+            """ Callback function to limit the photos that can be selected. """
+            return buildphoto_formfield_callback(field, request, **kwargs)
 
+        # Initialize the FormSet factory with the correct callback
+        BuildPhotoInlineFormSet = inlineformset_factory(
+                                      Build, BuildPhoto, 
+                                      formset = BuildPhotoFormSet, 
+                                      max_num = 10, extra = 10, 
+                                      can_delete = False,
+                                      formfield_callback = formfield_callback
+                                      )
+        photos_formset = BuildPhotoInlineFormSet(queryset=BuildPhoto.objects.none())
+    
+    
     # Actuall request processing ###############################################
-    if request.method == 'POST':
+    if user_logged_in and request.method == 'POST':
         form = BuildForm(data=request.POST)
         if form.is_valid():
             build = form.save(commit=False)
@@ -221,7 +195,7 @@ def index_and_add(request):
 
     else: # GET
         # See if we can fill in some data already from the querystring
-        if 'prefill' in request.GET:
+        if user_logged_in and 'prefill' in request.GET:
             prefill_form = BuildFormForum(request, request.GET)
             if prefill_form.is_valid():
                 form_kwargs['instance'] = prefill_form.get_build()
@@ -233,7 +207,8 @@ def index_and_add(request):
                 builds = get_search_queryset(request, searchform)
             
         
-        form = BuildForm(**form_kwargs)
+        if user_logged_in:
+            form = BuildForm(**form_kwargs)
     
     
     # Populate the context #####################################################
