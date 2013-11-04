@@ -19,7 +19,7 @@ from general.models import UserProfile
 
 
 from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm, 
-                    BuildPhotoFormSet, buildphoto_formfield_callback)
+                    buildphoto_formfield_callback)
 from .models import Build, BuildPhoto
 from .utils import get_search_queryset
 
@@ -132,11 +132,6 @@ class BuildAjaxSearchView(AjaxSearchView):
 
 
 """ Views responsible for editing data """
-BuildPhotoInlineFormSetEdit = inlineformset_factory(Build, BuildPhoto, 
-                                                formset=BuildPhotoFormSet, 
-                                                exclude = ('order',),
-                                                extra=1
-                                                )
 
 def index_and_add(request):
     """ 
@@ -168,7 +163,6 @@ def index_and_add(request):
         # Initialize the FormSet factory with the correct callback
         BuildPhotoInlineFormSet = inlineformset_factory(
                                       Build, BuildPhoto, 
-                                      formset = BuildPhotoFormSet, 
                                       max_num = 10, extra = 10, 
                                       can_delete = False,
                                       formfield_callback = formfield_callback
@@ -225,10 +219,18 @@ def index_and_add(request):
     
     return render(request, 'builds/add.html', context)
 
+from functools import partial
 
-class BuildUpdate(UpdateView):
+class BuildUpdate(UpdateView): # TODO
     form_class = EditBuildForm
     template_name = 'builds/edit.html'
+
+    
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        """ Callback function to limit the photos that can be selected. """
+        request = kwargs.pop('request', None)
+        return buildphoto_formfield_callback(db_field, request, **kwargs)
+    
 
     def get_success_url(self):
         return self.object.get_absolute_url()
@@ -239,6 +241,18 @@ class BuildUpdate(UpdateView):
         return Build.objects.filter(user_id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
+        
+        BuildPhotoInlineFormSet = inlineformset_factory(Build, BuildPhoto, 
+                                    exclude = ('order',),
+                                    extra=10, max_num=10,
+                                    formfield_callback = partial(
+                                        self.formfield_for_dbfield, 
+                                        request=self.request
+                                        )
+                                    )
+
+
+
         kwargs['builds'] = Build.objects.filter(
                                 user = self.request.user
                             ).select_related(
@@ -247,5 +261,5 @@ class BuildUpdate(UpdateView):
         
         kwargs['searchform'] = SearchForm()
         if not kwargs.get('photos_formset', False):
-            kwargs['photos_formset'] = BuildPhotoInlineFormSetEdit(instance=self.object)
+            kwargs['photos_formset'] = BuildPhotoInlineFormSet(instance=self.object)
         return super(BuildUpdate, self).get_context_data(**kwargs)
