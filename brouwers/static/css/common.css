@@ -1,4 +1,4 @@
-img, a img  {border: none;}
+kbimg, a img  {border: none;}
 .left       {float: left;}
 .right      {float: right;}
 .clear      {clear: both;}
@@ -108,6 +108,10 @@ div#shop_banner, #shop_banner ul{
 #shop-xuron{
     width: 102px;
     background-position: -54px -293px;
+}
+#shop-revell{
+    width: 62px;
+    background-position: -156px -293px;
 }
 
 /*** LOGO + AANKONDIGINGEN + FLEX + MM ***/
