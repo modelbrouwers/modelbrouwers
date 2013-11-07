@@ -21,7 +21,7 @@ $(document).ready(function(){
 		$('div.kit-info').slideUp();
 	});
 
-	$('input.photo-url').tooltip({
+	$('input.photo-url, input[type="checkbox"]').tooltip({
 		track: true
 	});
 

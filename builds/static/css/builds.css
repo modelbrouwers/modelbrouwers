@@ -197,15 +197,24 @@ div.tab div.column{
 #submit-build[disabled]{
     opacity: 0.5;
 }
-#photos-formset input.photo-url{
+#photos-formset input[type="text"].photo-url{
     width: 100%;
-    margin-left: -6px;
 }
+/* TODO: test on IE*/
+span.checkbox{
+    display: inline-block;
+    margin-left: -13px;
+}
+span.delete input[type="checkbox"]{
+    width: auto;
+}
+
 #photos-dropzone{
     margin: 1em 0;
     border: dashed 2px #AAA;
     min-height: 8em;
 }
+
 
 
 /* overviews */
@@ -256,7 +265,7 @@ td.brand{color: #333;}
 #builds-overview tr.light{ background-color: #EEE;}
 #builds-overview tr.dark { background-color: #DDD;}
 a.link-project{
-    background-image: url(../images/icons/permalink.gif); /* TODO: sprite */;
+    background-image: url(../images/icons/permalink.gif); /* TODO: sprite */
     background-repeat: no-repeat;
     padding-right: 18px;
     background-position: -100% 50%;
@@ -355,8 +364,5 @@ div.handle{
 }
 
 .photo-form fieldset select{
-    display:none; /* FIXME: temp solution */
-}
-.photo-form fieldset input{
-    width: 100%;
+    display: none; /* FIXME: temp solution */
 }
