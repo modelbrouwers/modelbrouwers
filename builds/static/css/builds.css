@@ -129,7 +129,7 @@ div.tab div.column{
 #builds #builds-overview td.title{
     width: 50%;
 }
-#builds #builds-overview td.brand, 
+#builds #builds-overview td.brand,
 #builds #builds-overview td.scale{
     width: 20%;
 }
@@ -209,6 +209,7 @@ span.delete input[type="checkbox"]{
     width: auto;
 }
 
+/* Drag and drop */
 #photos-dropzone{
     margin: 1em 0;
     border: dashed 2px #AAA;

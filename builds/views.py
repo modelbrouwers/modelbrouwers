@@ -18,7 +18,7 @@ from albums.models import Photo
 from general.models import UserProfile
 
 
-from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm, 
+from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm,
                     buildphoto_formfield_callback)
 from .models import Build, BuildPhoto
 from .utils import get_search_queryset
@@ -83,8 +83,8 @@ class UserBuildListView(ListView):
 
 
 class AjaxSearchView(View):
-    """ 
-    Ajax search form suitable for jQuery-ui's 
+    """
+    Ajax search form suitable for jQuery-ui's
     autocomplete.
     """
 
@@ -103,12 +103,12 @@ class AjaxSearchView(View):
         return getattr(obj, self.field_for_label)
 
     def get_additional_data(self, obj):
-        """ 
+        """
         Return a dictionary with keys the json key and value the
         object value
         """
         return {}
-    
+
     def serialize(self, objects):
         data = []
         for obj in objects:
@@ -135,7 +135,7 @@ class BuildAjaxSearchView(AjaxSearchView):
 """ Views responsible for editing data """
 
 def index_and_add(request):
-    """ 
+    """
     The index page displays a search field and list of recently added build
     reports. Additionally, logged in users see a form to add new builds.
 
@@ -152,9 +152,9 @@ def index_and_add(request):
     form_kwargs, context = {}, {}
     builds = None
     photos_formset, form = None, None
-    
+
     searchform = SearchForm()
-    
+
 
     if user_logged_in:
         def formfield_callback(field, **kwargs):
@@ -163,14 +163,14 @@ def index_and_add(request):
 
         # Initialize the FormSet factory with the correct callback
         BuildPhotoInlineFormSet = inlineformset_factory(
-                                      Build, BuildPhoto, 
-                                      max_num = 10, extra = 10, 
+                                      Build, BuildPhoto,
+                                      max_num = 10, extra = 10,
                                       can_delete = False,
                                       formfield_callback = formfield_callback
                                       )
         photos_formset = BuildPhotoInlineFormSet(queryset=BuildPhoto.objects.none())
-    
-    
+
+
     # Actuall request processing ###############################################
     if user_logged_in and request.method == 'POST':
         form = BuildForm(data=request.POST)
@@ -200,12 +200,12 @@ def index_and_add(request):
             searchform = SearchForm(request.GET)
             if searchform.is_valid():
                 builds = get_search_queryset(request, searchform)
-            
-        
+
+
         if user_logged_in:
             form = BuildForm(**form_kwargs)
-    
-    
+
+
     # Populate the context #####################################################
     context['searchform'] = searchform
     context['form'] = form
@@ -217,7 +217,7 @@ def index_and_add(request):
                             ).order_by('-pk')[:20] # TODO: paginate
     else:
         context['builds'] = builds
-    
+
     return render(request, 'builds/add.html', context)
 
 
@@ -229,7 +229,7 @@ class BuildUpdate(UpdateView): # TODO
         if self.request.user.has_perms('builds.edit_build'):
             return Build.objects.all()
         return Build.objects.filter(user_id=self.request.user.id)
-    
+
     def formfield_for_dbfield(self, db_field, **kwargs):
         """ Callback function to limit the photos that can be selected. """
         request = kwargs.pop('request', None)
@@ -237,7 +237,7 @@ class BuildUpdate(UpdateView): # TODO
 
     def get_formset_class(self):
         ff_callback = partial(self.formfield_for_dbfield, request=self.request)
-        return inlineformset_factory(Build, BuildPhoto, 
+        return inlineformset_factory(Build, BuildPhoto,
                                     exclude = ('order',),
                                     extra=10, max_num=10,
                                     formfield_callback = ff_callback,
@@ -247,12 +247,12 @@ class BuildUpdate(UpdateView): # TODO
     def get_success_url(self):
         """ Show the detail page """
         return self.object.get_absolute_url()
-    
+
     def get_formset(self, **kwargs):
         """ Method to easily get the formset in different stages """
         BuildPhotoFormset = self.get_formset_class()
         return BuildPhotoFormset(**kwargs)
-    
+
     def form_valid(self, form):
         self.object = form.save(commit=False)
         formset = self.get_formset(instance=self.object, data=self.request.POST)
@@ -275,15 +275,15 @@ class BuildUpdate(UpdateView): # TODO
         return self.render_to_response(self.get_context_data(**context))
 
     def get_context_data(self, **context):
-        
+
         context['builds'] = Build.objects.filter(
                                 user = self.request.user
                             ).select_related(
                                 'user', 'profile', 'brand'
                             ).order_by('-pk')[:20]
-        
+
         context['searchform'] = SearchForm()
-        
+
         if not context.get('photos_formset', False):
             context['photos_formset'] = self.get_formset(instance=self.object)
         return super(BuildUpdate, self).get_context_data(**context)
