@@ -4,6 +4,9 @@ from django.utils.translation import ugettext as _
 
 from .models import *
 
+class BuildPhotoInline(admin.TabularInline):
+    model = BuildPhoto
+    raw_id_fields = ('photo',)
 
 class BuildAdmin(admin.ModelAdmin):
     list_display = ('profile', 'title', 'brand', 'scale')
@@ -39,6 +42,8 @@ class BuildAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ('title',),
         }
+
+    inlines = (BuildPhotoInline,)
 
 class BuildPhotoAdmin(admin.ModelAdmin):
     list_display = ('build', 'photo', 'photo_url', 'order')

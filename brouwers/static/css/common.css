@@ -104,7 +104,7 @@ div#logo, div#logo div{
 	height: 75px;
 }
 div#logo a{
-	display: auto;
+	display: inline;
 }
 div#logo div.right{
 	padding: 8px 0 7px;
@@ -135,7 +135,7 @@ div#announcement div{
 div#footer{text-align: center;margin-bottom: 1em;min-width: 870px;}
 div#copyright{font-size: 0.6em;margin-top: 2em;}
 div#shop-footer{font-family: Verdana, Arial, Helvetica, sans-serif;text-align: center;}
-div#shop-footer .aankeiler{font-weight: regular; font-size: 10px; color: #999}
+div#shop-footer .aankeiler{font-weight: normal; font-size: 10px; color: #999}
 div#shop-footer .aankeiler:hover{text-decoration: none; color: #1d42ff;}
 div#shop-footer ul{width: 96%;margin: 0 auto 0 auto;list-style: none;}
 div#shop-footer li, div#shop-footer a.aankeiler, div#shop-footer a.div_link{

@@ -69,15 +69,6 @@ class BuildForm(forms.ModelForm):
         return self.cleaned_data['url']
 
 
-class BuildPhotoFormSet(BaseInlineFormSet):
-    pass
-    # def save_new(self, form, commit=True):
-    #     photo = super(BuildPhotoFormSet, self).save_new(form, commit=commit)
-    #     photo.order = form.cleaned_data['order']
-    #     photo.save()
-    #     return photo
-
-
 class EditBuildForm(BuildForm):
     class Meta(BuildForm.Meta):
         exclude = (
