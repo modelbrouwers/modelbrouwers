@@ -144,9 +144,6 @@ input.submit-button:hover {
 div#logo, div#logo div{
 	height: 75px;
 }
-div#logo a{
-	display: auto;
-}
 a#main-logo{
     display:block;
     /*position: relative;
@@ -328,7 +325,6 @@ div#messages ul li.warning  {
     list-style-image: url(/static/admin/img/icon_alert.gif);
     background: none;
     border: none;
-    color: auto;
 }
 /*** REGISTER/LOGIN ***/
 div#login, div#register{}

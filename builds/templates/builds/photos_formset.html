@@ -5,7 +5,7 @@
     <br />
     <div class="subtab">
         <div id="radio">
-            {% trans "Add photos" %}<!--:-->
+            {% trans "Build photos" %}<!--:-->
             {# <input type="radio" name="input-method" id="add-albumphoto" /> #}
             {# <label for="add-albumphoto">{% trans "From albums" %}</label> #}
             {# <input type="radio" name="input-method" id="add-urlphoto" /> #}
@@ -27,7 +27,13 @@
 
                 <fieldset>
                     <p>
-                        {# {{ form.id }} #}
+                        {{ form.id }}
+                        {% if form.DELETE %}
+                            <span class="delete checkbox" title="{% trans "Check to delete photo" %}">
+                                {{ form.DELETE }}
+                            </span>
+                        {% endif %}
+                        
                         {% if form.photo.errors %}
                             <span class="errored">{{ form.photo }}</span>
                         {% else %}

@@ -1,0 +1,22 @@
+language: python
+
+python:
+  - "2.7"
+
+env:
+  - DJANGO=django==1.4.9
+  - DJANGO=https://github.com/django/django/archive/master.zip
+
+install:
+  - "pip install --upgrade setuptools --use-mirrors"
+  - "pip install $DJANGO --use-mirrors"
+  - "pip install -r requirements.txt --use-mirrors"
+  - "python brouwers/create_settings.py" # TODO: create settings
+  - "python brouwers/create_local_settings.py" # TODO: create settings
+
+matrix:
+  allow_failures:
+    - env: DJANGO=https://github.com/django/django/archive/master.zip
+
+script:
+  - python ./manage.py test --settings=onepercentclub.settings.travis -v 2

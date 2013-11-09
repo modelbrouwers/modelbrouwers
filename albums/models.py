@@ -401,7 +401,11 @@ The basic uploader has a file field for each image."""
         ordering = ('user',)
     
     def __unicode__(self):
-        return u"Preferences for %s" % self.user.get_full_name()
+        if self.id:
+            user = self.user.get_full_name()
+        else:
+            user = 'Anonymous user'
+        return u"Preferences for %s" % user
     
     @classmethod
     def get_or_create(cls, user):
