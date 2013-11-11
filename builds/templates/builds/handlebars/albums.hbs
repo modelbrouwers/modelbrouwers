@@ -9,5 +9,10 @@
 </div>
 
 <ul class="photos">
+    {{#each photos}}
+    <li class="photo">
+        <img src="{{this.image}}" width="{{this.width}}" height="{{this.height}}"/>
+    </li>
+    {{/each}}
 </ul>
 {% endverbatim %}

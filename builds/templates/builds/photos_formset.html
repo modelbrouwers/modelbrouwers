@@ -6,23 +6,23 @@
     <div class="subtab">
         <div id="radio">
             {% trans "Build photos" %}<!--:-->
-            {# <input type="radio" name="input-method" id="add-albumphoto" /> #}
-            {# <label for="add-albumphoto">{% trans "From albums" %}</label> #}
-            {# <input type="radio" name="input-method" id="add-urlphoto" /> #}
-            {# <label for="add-urlphoto">{% trans "URL" %}</label> #}
+            <input type="radio" name="input-method" id="add-albumphoto" />
+            <label for="add-albumphoto">{% trans "From albums" %}</label>
+            <input type="radio" name="input-method" id="add-urlphoto" />
+            <label for="add-urlphoto">{% trans "URL" %}</label>
         </div>
     </div>
-    
+
     <div id="photos-dropzone"></div>
-    
+
     {{ photos_formset.management_form }}
 
     <ul id="photos-formset">
-        
+
         {% for form in photos_formset %}
-            
+
             <li class="photo-form" data-used="false">
-                
+
                 <div class="preview"></div>
 
                 <fieldset>
@@ -33,7 +33,7 @@
                                 {{ form.DELETE }}
                             </span>
                         {% endif %}
-                        
+
                         {% if form.photo.errors %}
                             <span class="errored">{{ form.photo }}</span>
                         {% else %}
@@ -50,9 +50,9 @@
                     {{ form.photo.errors }}
                     {{ form.photo_url.errors }}
                 </fieldset>
-                            
+
             </li>
-        
+
         {% endfor %}
 
     </ul>

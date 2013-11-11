@@ -1,4 +1,5 @@
 var img_extensions = ['jpg', 'jpeg', 'png'];
+var own_albums = new Array();
 
 $(document).ready(function(){
 	$('#id_search_term').autocomplete({
@@ -26,19 +27,19 @@ $(document).ready(function(){
 	});
 
 	// drag and drop photos
-	// $('#radio').buttonset();
-	// $('#add-albumphoto').click(show_photos_selector);
-	// $('#photos-list').on('change', '#id_album', function(){
-	// 	$('#photos-list').data('current-album', $(this).val());
-	// 	update_photos_selector();
-	// });
+	$('#radio').buttonset();
+	$('#add-albumphoto').click(show_photos_selector);
+	$('#photos-list').on('change', '#id_album', function(){
+		$('#photos-list').data('current-album', $(this).val());
+		update_photos_selector();
+	});
 
 	/* links to photos */
 	// hide last 9 blocks if they're empty
 	$('li.photo-form:not(:first)').filter(function(index){
 		return !$(this).find('.photo-url').val();
 	}).hide();
-	
+
 	// update preview & do validation
 	$('#photos-formset').on('keyup', 'input.photo-url', function(event){
 		var img_src = $(this).val();
@@ -61,12 +62,12 @@ $(document).ready(function(){
 		} else {
 			preview.html('');
 			update_photo_fields($(this), false);
-			
+
 			if($(this).val()){
 				// show invalid warning
 				var tpl = load_template('invalid_img_url');
 				$(tpl()).insertAfter($(this));
-				
+
 				// disable form
 				$(this).closest('form').submit(function(event){
 					event.preventDefault();
@@ -90,7 +91,7 @@ $(document).ready(function(){
 function update_photo_fields(url_input, show_next){
 	var li_item = url_input.closest('li.photo-form');
 	var next_li = li_item.next();
-	
+
 	if(url_input.val()){
 		// something is filled in, so we add a line
 		li_item.data('used', true);
@@ -109,26 +110,56 @@ function show_photos_selector(){
 	$('#builds-overview').hide();
 	$('#div-loading').show();
 
+	// ophalen albums via JSON call, via tastypie API!
+	if(!own_albums.length){
+		$.ajax(own_albums_url+'?limit=0', {
+			async: false,
+			success: function(json, textStatus, jqXHR){
+				own_albums = json.objects;
+			}
+		});
+	}
+
 	var tpl = load_template('albums');
 	var context = {
-		'albums': new Array()
+		'albums': own_albums,
+		'photos': null
 	};
 
-	// ophalen albums via JSON call, via tastypie API!
-	$.ajax(own_albums_url+'?limit=0', {
-		async: false,
-		success: function(json, textStatus, jqXHR){
-			context.albums = json.objects;
-		}
-	});
+	render_photos_tpl(context);
 
-	var rendered_tpl = $(tpl(context));
-	// set the checked album
-	rendered_tpl.find('#id_album').val($('#photos-list').data('current-album'));
-	$('#photos-list').html($(rendered_tpl));
 	$('#div-loading').hide();
+	$('#id_album').change();
 }
 
 function update_photos_selector(){
-	console.log('I am updating');
+	$('#div-loading').show();
+	// fetch the photos of the selected album
+	var album_id = $('#photos-list').data('current-album');
+	var photos = null;
+
+	$.ajax(album_photos_url, {
+		async: false,
+		data: {'limit': 0, 'album': album_id},
+		success: function(json, textStatus, jqXHR){
+			photos = json.objects;
+		}
+	});
+
+	var context = {
+		'albums': own_albums,
+		'photos': photos
+	}
+
+	render_photos_tpl(context);
+	$('#div-loading').hide();
+}
+
+function render_photos_tpl(context){
+	var tpl = load_template('albums');
+	var rendered_tpl = $(tpl(context));
+	// set the checked album
+	var album_val = $('#photos-list').data('current-album');
+	rendered_tpl.find('#id_album').val(album_val);
+	$('#photos-list').html(rendered_tpl);
 }
