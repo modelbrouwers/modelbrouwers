@@ -215,6 +215,26 @@ span.delete input[type="checkbox"]{
     border: dashed 2px #AAA;
     min-height: 8em;
 }
+li.photo{
+    list-style: none;
+    float: left;
+    width: 140px;
+    height: 105px;
+    border: solid 1px #CCC;
+    text-align: center;
+    margin: 0.2em;
+}
+li.photo > a.photo.popup {
+    display: block;
+    height: 100%;
+}
+li.photo > a.photo.popup > img{
+    max-height: 105px;
+    max-width: 140px;
+}
+div.full-image{
+    display: none;
+}
 
 
 

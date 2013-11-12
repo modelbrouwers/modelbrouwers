@@ -162,4 +162,5 @@ function render_photos_tpl(context){
 	var album_val = $('#photos-list').data('current-album');
 	rendered_tpl.find('#id_album').val(album_val);
 	$('#photos-list').html(rendered_tpl);
+	fixVerticalCenter();
 }

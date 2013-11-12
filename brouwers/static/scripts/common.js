@@ -2,21 +2,10 @@ var rotation = 0;
 
 $(document).ready(function(){
     $('td.help_text div').hide(); // hide the help texts
-    
+
     $('img').tooltip({
     	track: true
     });
-    
-    now = new Date();
-    d = now.getDate();
-    m = now.getMonth() + 1;
-    if (d == 1 && m == 4){
-        n = Math.random();
-        //console.log(n);
-        if (n >= 0.40 && n <= 0.60){
-            setTimeout(function(){setInterval(function(){rotate()}, 1)}, 30000);
-        }
-    }
 
     $('input.date').datepicker();
 });
@@ -40,19 +29,18 @@ function add_message(msg){
     $('div#messages').show();
 }
 
-function rotate(){
-    if (rotation < 180){
-        rotation += 1;
-        rotateScreen(rotation);
-    }
-}
-
-function rotateScreen(degrees){
-    $('body').css('-webkit-transform', 'rotate('+degrees+'deg)');
-    $('body').css('-moz-transform', 'rotate('+degrees+'deg)');
-    $('body').css('-ms-transform', 'rotate('+degrees+'deg)');
-    $('body').css('-o-transform', 'rotate('+degrees+'deg)');
-    $('body').css('transform', 'rotate('+degrees+'deg)');
+function fixVerticalCenter(){
+    var anchor = $('a.album, a.photo');
+    $.each(anchor, function(){
+        var a_height = $(this).height();
+        var img = $(this).children('img.thumb:first');
+        var img_height = $(img).height();
+        if (img_height > 0 && img_height != a_height){
+            padding = (a_height - img_height) / 2;
+            $(img).css('padding-top', padding);
+            $(img).css('padding-bottom', padding);
+        }
+    });
 }
 
 // CSRF protection, code from Django docs
