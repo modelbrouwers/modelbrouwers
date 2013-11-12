@@ -133,7 +133,7 @@ function show_photos_selector(){
 }
 
 function update_photos_selector(){
-	$('#div-loading').show();
+	$('#div-loading, #photos-dropzone').show();
 	// fetch the photos of the selected album
 	var album_id = $('#photos-list').data('current-album');
 	var photos = null;
