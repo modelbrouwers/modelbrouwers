@@ -1,5 +1,8 @@
 from django.conf import settings
-from django.conf.urls.defaults import *
+from django.conf.urls import *
+from django.contrib.auth.decorators import login_required
+
+from .ajax_views import RotateView
 
 urlpatterns = patterns('albums.views',
     (r'^$', 'index'),
@@ -32,6 +35,7 @@ urlpatterns += patterns('albums.ajax_views',
     (r'^all_own/$',             'get_all_own_albums'),
     (r'^new_album/$',           'new_album'),
     (r'^photo/delete',          'delete_photo'),
+    url(r'^photo/(?P<pk>\d+)/rotate', login_required(RotateView.as_view()), name='rotate_photo'),
     (r'^upload/uploadify/$',    'uploadify'),
     (r'^upload/from_url/$',     'upload_url'),
     (r'^reorder/$',             'reorder'),

@@ -160,6 +160,27 @@ $(document).ready(function() {
         $(this).find('a, input.BBCode').hide();
     });
 
+    // rotating
+    $('#edit-icons .rotate-image').click(function(){
+        var reload = false;
+        $.ajax({
+            type: 'POST',
+            url: photo_rotate_url,
+            data: {'direction': $(this).data('direction')},
+            async: false,
+            success: function(data, statusText, jqXHR){
+                if(data.ok){
+                    reload = true;
+                }
+            }
+        });
+
+        if(reload){ // reload the image
+            var img = $('.photo-container2 img.photo');
+            img.attr('src', img.attr('src') + '?' + Math.random());
+        }
+    });
+
     var searchfield = $("#id_search");
     if (searchfield.val() == ''){
         searchfield.val(trans_search_album);

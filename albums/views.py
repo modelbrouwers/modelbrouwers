@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count, F, Q, Max
+from django.db.models import F, Q, Max
 from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
@@ -25,11 +25,11 @@ def index(request):
     spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
     if spotlight_albums.count() > 2:
         spotlight_albums = spotlight_albums[:3]
-    
+
     needs_closing_tag_row_albums = False
     if len(albums) % 4 != 0:
         needs_closing_tag_row_albums = True
-    
+
     last_uploads = Photo.objects.select_related('user').filter(album__public=True).order_by('-uploaded')[:20]
     amount_last_uploads = len(last_uploads)
     if  amount_last_uploads < 20 and amount_last_uploads % 5 != 0:
@@ -37,9 +37,9 @@ def index(request):
     else:
         last_uploads = last_uploads[:20]
         needs_closing_tag_row = False
-    return render(request, 'albums/base.html', 
+    return render(request, 'albums/base.html',
             {
-                'last_uploads': last_uploads, 
+                'last_uploads': last_uploads,
                 'needs_closing_tag_row': needs_closing_tag_row,
                 'albums': albums,
                 'spotlight_albums': spotlight_albums,
@@ -61,12 +61,12 @@ def manage(request, album_id=None):
             can_delete=True
         )
     albums = Album.objects.filter(user=request.user, trash=False)
-    
+
     if album_id: #fallback pure http (no AJAX)
         album = get_object_or_404(Album, pk=album_id)
     else:
         album = None
-    
+
     if request.method == "POST":
         add_album_form = AlbumForm(user=request.user)
         if 'add' in request.POST:
@@ -81,7 +81,7 @@ def manage(request, album_id=None):
                 except ValidationError:
                     error = u"You already have an album with this title"
                     add_album_form._errors["title"] = add_album_form.error_class([error])
-        
+
         album_formset = AlbumFormSet(queryset=albums) #FIXME: create a special form class for this, add class to certain fields etc.
         if 'manage' in request.POST:
             album_formset = AlbumFormSet(request.POST)
@@ -108,11 +108,11 @@ def edit_album(request, album_id=None):
     q = Q(pk=album_id)
     if not admin_mode(request.user):
         q = Q(q, user=request.user)
-    
+
     album = get_object_or_404(Album, q)
     from django.forms.models import inlineformset_factory
     GroupFormset = inlineformset_factory(Album, AlbumGroup, extra=1)
-    
+
     if request.method == "POST":
         form = EditAlbumForm(request.POST, instance=album, user=request.user)
         formset = GroupFormset(request.POST, instance=album)
@@ -138,19 +138,19 @@ def download_album(request, album_id=None):
     let apache handle the file serving
     """
     album = get_object_or_404(Album, pk=album_id)
-    
+
     #previous downloads: does the file have to be generated?
     last_upload = album.last_upload
     downloads = AlbumDownload.objects.filter(album=album, timestamp__gte=last_upload, failed=False).count()
-    
+
     #log download
     album_download = AlbumDownload(album=album, downloader=request.user)
-    
+
     rel_path = "albums/%(userid)s/%(albumid)s/%(albumid)s.zip" % {
             'userid': album.user.id,
             'albumid': album.id,
             }
-    
+
     if downloads == 0:
         photos = album.photo_set.filter(trash=False)
         if photos.count() > 0:
@@ -174,12 +174,12 @@ def download_album(request, album_id=None):
             album_download.save()
             messages.warning(request, _("This album could not be downloaded because it has no photos yet."))
             return HttpResponseRedirect(reverse(browse_album, args=[album.id]))
-    
+
     url = "%(media_url)s%(rel_path)s" % {
         'media_url': settings.MEDIA_URL,
         'rel_path': rel_path
         }
-    
+
     album_download.save()
     return HttpResponseRedirect(url)
 
@@ -188,7 +188,7 @@ def edit_photo(request, photo_id=None):
     q = Q(pk=photo_id)
     if not admin_mode(request.user):
         q = Q(q, user=request.user)
-    
+
     photo = get_object_or_404(Photo, q)
     if request.method == "POST":
         form = EditPhotoForm(request.user, request.POST, instance=photo)
@@ -223,11 +223,11 @@ def uploadify(request):
     form = AlbumForm(instance=new_album, user=request.user)
     urlform = UploadFromURLForm()
     return render(
-        request, 
+        request,
         'albums/uploadify.html', {
-            'albumform': albumform, 
-            'session_cookie_name': settings.SESSION_COOKIE_NAME, 
-            'session_key': request.session.session_key, 
+            'albumform': albumform,
+            'session_cookie_name': settings.SESSION_COOKIE_NAME,
+            'session_key': request.session.session_key,
             'form': form,
             'urlform': urlform
             }
@@ -244,7 +244,7 @@ def upload(request):
     else:
         amount = 20
     PhotoFormSet = modelformset_factory(Photo, fields=('image',), extra=amount)
-    
+
     if request.method == "POST":
         albumform = PickAlbumForm(request.user, request.POST)
         formset = PhotoFormSet(request.POST, request.FILES)
@@ -287,7 +287,7 @@ def pre_extra_info_uploadify(request):
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
         ids_string = request.GET['photo_ids']
-        
+
         # clean this string, verify these are integers
         ids_list = ids_string[:-1].split(' ')
         photo_ids = []
@@ -305,7 +305,7 @@ def set_extra_info(request, photo_ids=None, album=None):
     if request.method == "POST": # editing
         photo_ids = request.session['photo_ids']
         formset = PhotoFormSet(
-            request.POST, 
+            request.POST,
             queryset=Photo.objects.filter(id__in=photo_ids, user=request.user, trash=False)
             )
         if formset.is_valid():
@@ -318,18 +318,18 @@ def set_extra_info(request, photo_ids=None, album=None):
             return HttpResponseRedirect('/albums/upload/')
         # avoid being ablo to edit someone else's photos
         p = Photo.objects.filter(id__in = photo_ids, user=request.user, trash=False)
-        
+
         request.session['photo_ids'] = photo_ids
         formset = PhotoFormSet(queryset=p)
         photos_uploaded_now = p.count()
         all_photos_album = album.photo_set.filter(trash=False).count()
         photos_before = all_photos_album - photos_uploaded_now
-        
+
         album_id = p[0].album.id
         redirect = reverse(browse_album, args=[album_id])
     return render(request, 'albums/extra_info_uploads.html', {
-        'formset': formset, 
-        'photos_before': photos_before, 
+        'formset': formset,
+        'photos_before': photos_before,
         'album': album,
         'next': redirect
         }
@@ -346,7 +346,7 @@ def albums_list(request):
     else:
         q = Q(trash=False, public=True)
     albums = Album.objects.select_related('user').filter(q).order_by('-last_upload')
-    
+
     p = Paginator(albums, 30)
     page = request.GET.get('page', 1)
     try:
@@ -355,14 +355,14 @@ def albums_list(request):
         albums = p.page(1)
     except EmptyPage:
         albums = p.page(p.num_pages)
-    
+
     needs_closing_tag_row = False
     if len(albums) % 5 != 0:
         needs_closing_tag_row = True
-    
+
     searchform = SearchForm()
     return render(request, 'albums/list.html', {
-            'albums': albums, 
+            'albums': albums,
             'needs_closing_tag_row': needs_closing_tag_row,
             'searchform': searchform
             })
@@ -380,10 +380,10 @@ def browse_album(request, album_id=None):
     album.views = F('views') + 1
     album.save()
     album = get_object_or_404(Album, pk=album_id)
-    
+
     photos = album.photo_set.filter(trash=False)
     p = Paginator(photos, 32)
-    
+
     page = request.GET.get('page', 1)
     try:
         photos = p.page(page)
@@ -393,11 +393,11 @@ def browse_album(request, album_id=None):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         photos = p.page(p.num_pages)
-    
+
     needs_closing_tag_row = False
     if len(photos) % 4 != 0:
         needs_closing_tag_row = True
-    return render(request, 'albums/browse_album.html', 
+    return render(request, 'albums/browse_album.html',
         {'album': album, 'photos': photos, 'needs_closing_tag_row': needs_closing_tag_row}
         )
 
@@ -405,7 +405,7 @@ def browse_album(request, album_id=None):
 def my_last_uploads(request):
     last_uploads = Photo.objects.filter(user=request.user, trash=False).order_by('-uploaded')
     p = Paginator(last_uploads, 20)
-    
+
     page = request.GET.get('page', 1)
     try:
         uploads = p.page(page)
@@ -416,7 +416,7 @@ def my_last_uploads(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         uploads = p.page(p.num_pages)
     amount = len(uploads.object_list)
-    
+
     needs_closing_tag_row = False
     if amount < 20 and amount % 5 != 0:
         needs_closing_tag_row = True
@@ -428,26 +428,26 @@ def my_albums_list(request):
     extra_parameters = ''
     if trash:
         extra_parameters = '&trash=%s' % trash
-    
+
     number_to_display = 20
     base_albums = Album.objects.filter(trash=trash)
     own_albums = base_albums.filter(user=request.user, writable_to='u')
     own_public_albums = base_albums.filter(Q(writable_to='o') | Q(writable_to='g'), user=request.user).order_by('order')
     groups = request.user.albumgroup_set.all()
     other_albums = base_albums.filter(Q(writable_to='o') | Q(albumgroup__in=groups)).exclude(user=request.user).distinct()
-    
+
     albums_list = [own_albums, own_public_albums, other_albums]
     page_keys = ['page_own', 'page_pub', 'page_other']
     albums_data = []
-    
+
     for albums in albums_list:
         amount = albums.count()
         page_key = page_keys.pop(0)
-        
+
         show_all = str(request.GET.get('all', False))
         if show_all == '1' and page_key == 'page_own':
             number_to_display = amount
-        
+
         paginator = Paginator(albums, number_to_display)
         page = request.GET.get(page_key, 1)
         try:
@@ -456,7 +456,7 @@ def my_albums_list(request):
             albums = paginator.page(1)
         except EmptyPage:
             albums = paginator.page(paginator.num_pages)
-        
+
         closing_tag = False
         if amount < number_to_display and amount % 4 != 0:
             closing_tag = True

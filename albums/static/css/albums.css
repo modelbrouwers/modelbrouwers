@@ -74,7 +74,7 @@ div#last_uploads{
 }
 div.row{
     min-width: 840px;
-    width: 98%;   
+    width: 98%;
     margin: 0 auto;
 }
 div.photo{
@@ -254,21 +254,21 @@ ul#personal-albums, ul.my-albums-list, ul.other-albums-list{
     width: 98%;
     margin: 1em auto;
 }
-ul#personal-albums li.album, 
-ul.my-albums-list li.album, 
+ul#personal-albums li.album,
+ul.my-albums-list li.album,
 ul.other-albums-list li.album{
     width: 24.99%;
     float: left;
     text-align: center;
     height: 12em;
 }
-ul#personal-albums li.album:hover, 
+ul#personal-albums li.album:hover,
 ul.my-albums-list li.album:hover{
     background-color: #EEE;
     cursor: move;
 }
-ul#personal-albums li.album a.album, 
-ul.my-albums-list li.album a.album, 
+ul#personal-albums li.album a.album,
+ul.my-albums-list li.album a.album,
 ul.other-albums-list li.album a.album{
     display: inline-block;
     width: 140px;
@@ -381,7 +381,7 @@ div.thumb-container{
 }
 div.album-form table{
     width: auto;
-    
+
 }
 div.album-form th{
     text-align: right;
@@ -494,7 +494,7 @@ img.photo{
     border: solid 1px #333;
     padding: 1px;
     margin: 1em auto 1em auto;
-    
+
     max-width: 100%;
     height: auto;
     width: auto\9; /* ie8 */
@@ -551,6 +551,23 @@ img.photo{
     margin: 0.5em;
     display: none;
 }
+#edit-icons{
+    display: inline-block;
+    margin: 0.5em 0.5em 0;
+}
+.rotate-image{
+    background: url(../images/icons/icons.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+}
+.rotate-image:hover{
+    cursor: pointer;
+}
+#rotate-cw{
+    background-position: -32px 0;
+}
 #in-photo-navigation-container{
     position: absolute;
     top: 0;
@@ -560,17 +577,17 @@ img.photo{
     z-index: 10;
 }
 div.in-photo-navigation {
-    width: 50%; 
-    height: 100%; 
+    width: 50%;
+    height: 100%;
     z-index: 15;
 }
 #previous-photo         {float: left; text-align: left;}
 #next-photo             {float: right; text-align: right;}
 .in-photo-navigation a  {display: block; height: 100%;}
 .in-photo-navigation img.nav-arrow  {
-    padding: 1em; 
-    position: relative; 
-    top: 50%; 
+    padding: 1em;
+    position: relative;
+    top: 50%;
     margin-top: -22px;
 }
 
@@ -585,8 +602,8 @@ div.in-photo-navigation {
     padding-top: 0.1em;
     padding-bottom: 0.1em;
 }
-#edit-album form input[type="text"], #edit-album select, 
-#edit-photo form input[type="text"], #edit-photo select, 
+#edit-album form input[type="text"], #edit-album select,
+#edit-photo form input[type="text"], #edit-photo select,
 #edit-dialog form input[type="text"]{
     padding: 0.2em 0.4em 0.2em 0.4em;
     width: 30em;

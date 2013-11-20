@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
 from general.utils import get_username as _get_username
+from .utils import rotate_img
+
 from datetime import datetime
 import os
 
@@ -224,6 +226,17 @@ class Photo(models.Model):
 
     def get_username(self):
         return _get_username(self)
+
+    ### TRANSFORMING OF IMAGE #################################
+    def rotate_left(self):
+        """ Rotate 90 degrees counter clock wise """
+        rotate_img(self.image, degrees=90)
+        self.save()
+
+    def rotate_right(self):
+        """ Rotate 90 degrees clock wise """
+        rotate_img(self.image, degrees=-90)
+        self.save()
 
     def get_next(self):
     	photos = Photo.objects.filter(album=self.album, order__gt=self.order, trash=False)
