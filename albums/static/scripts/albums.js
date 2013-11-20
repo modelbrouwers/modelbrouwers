@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('.no-javascript').remove(); //hide the warning
     fixVerticalCenter(); // vertical centering of images
     $('div.description').tooltip(); // show full description in popup from spotlight albums
-    
+
     // BBCode stuff
     $('.BBCode').focus(function(){
         $(this).select();
@@ -18,7 +18,7 @@ $(document).ready(function() {
         }
         return false;
     });
-    
+
     // show/hide edit, remove, restore icons
     $('#album_list').on('mouseover', 'a.album, a.album img', function(){
         $(this).closest('li.album').find('.edit, .remove, .restore').show();
@@ -26,7 +26,7 @@ $(document).ready(function() {
     $('#album_list').on('mouseout', 'a.album', function() {
         $(this).find('.edit, .remove, .restore').hide();
     });
-    
+
     // init dialogs
     if ($('#new-album-dialog').length > 0){ // new album dialog
         $('#new-album-dialog').dialog({
@@ -84,7 +84,7 @@ $(document).ready(function() {
 		                function (response){
 		                    $("#edit-dialog").html(response);
 		                    // this way, initUI sets the right interface
-		                    $('#id_row_users, #id_albumgroup_set-TOTAL_FORMS, #id_albumgroup_set-INITIAL_FORMS, #id_albumgroup_set-MAX_NUM_FORMS').remove(); 
+		                    $('#id_row_users, #id_albumgroup_set-TOTAL_FORMS, #id_albumgroup_set-INITIAL_FORMS, #id_albumgroup_set-MAX_NUM_FORMS').remove();
 		                    initUI();
 		                }
 		            );
@@ -130,16 +130,16 @@ $(document).ready(function() {
 			}]
 	    });
 	}
-    
+
     // opening of the appropriate dialogs
     $('img.edit').click(function(e){
     	openEditDialog(e, $(this));
     });
-    
+
     $('img.remove').click(function(e){
     	openRemoveDialog(e, $(this));
     });
-    
+
     $('img.restore').click(function(e){
     	restoreAlbum(e, $(this));
     });
@@ -150,7 +150,7 @@ $(document).ready(function() {
         $('#new-album-dialog').dialog('open');
         return false;
     });
-    
+
     // navigation arrows
     $('div.in-photo-navigation a').hide();
     $('#previous-photo, #next-photo').mouseenter(function() {
@@ -159,13 +159,34 @@ $(document).ready(function() {
     $('#previous-photo, #next-photo').mouseleave(function() {
         $(this).find('a, input.BBCode').hide();
     });
-    
+
+    // rotating
+    $('#edit-icons .rotate-image').click(function(){
+        var reload = false;
+        $.ajax({
+            type: 'POST',
+            url: photo_rotate_url,
+            data: {'direction': $(this).data('direction')},
+            async: false,
+            success: function(data, statusText, jqXHR){
+                if(data.ok){
+                    reload = true;
+                }
+            }
+        });
+
+        if(reload){ // reload the image
+            var img = $('.photo-container2 img.photo');
+            img.attr('src', img.attr('src') + '?' + Math.random());
+        }
+    });
+
     var searchfield = $("#id_search");
     if (searchfield.val() == ''){
         searchfield.val(trans_search_album);
         searchfield.css('color', '#555');
     }
-    
+
     searchfield.focus(function () {
         searchfield.val('');
         searchfield.css('color', 'auto');
@@ -185,7 +206,7 @@ $(document).ready(function() {
             searchfield.val(trans_search_album);
         }
     });
-    
+
     // setting the album cover & deleting
     $('.album-photos-list a.photo img').mouseenter(function(){
         if (!$(this).parent().parent().hasClass('cover')){
@@ -241,7 +262,7 @@ $(document).ready(function() {
         );
         return false;
     });
-    
+
     $('#id_writable_to').live('change', function(){
         var searchbox = $('input#search-users');
         if ($(this).val() == 'g'){ // writable for group
@@ -267,24 +288,11 @@ function updateOrder(album, album_before, album_after){
     $.post(
         "/albums/reorder/",
         {
-            'album': album, 
+            'album': album,
             'album_before': album_before,
             'album_after': album_after
         }
     );
-}
-function fixVerticalCenter(){
-    var $a = $('a.album, a.photo');
-    $.each($a, function(){
-        var a_height = $(this).height();
-        var img = $(this).children('img.thumb')[0];
-        var img_height = $(img).attr('height');
-        if (img_height > 0 && img_height != a_height){
-            padding = (a_height - img_height) / 2;
-            $(img).css('padding-top', padding);
-            $(img).css('padding-bottom', padding);
-        }
-    });
 }
 
 function initSortable(element){
@@ -302,6 +310,7 @@ function initSortable(element){
         }
     });
 }
+fixVerticalCenter()
 function showCovers(element){
     if ($('ul#photo-navigation').hasClass('not-downloaded')){ // covers ophalen
         $("#photo-navigation").before('<img id=\"loading\" src=\"/static/images/loading_big.gif\" alt=\"Loading...\"/>');
@@ -325,7 +334,7 @@ function showCovers(element){
         //new_height = height + $("#edit-dialog").dialog( "option", "height" )+20;
         //$('#edit-dialog').parent().css('top', '100px');
         //$("#edit-dialog").dialog( "option", "height", new_height );
-        
+
         $('#edit-dialog #photo-navigation img').click(function(){
             var p_id = $(this).next().val();
             $('#form-edit-album input[name="cover"]').val(p_id);
@@ -351,7 +360,7 @@ function openEditDialog(event, element, album_id){
 	    var li = $(element).closest('li.album');
 	    var album_id = li.children('input[name="album_id"]').val();
 	}
-	
+
 	$.get(
 	    url_edit,
 	    {'album': album_id},
@@ -360,7 +369,7 @@ function openEditDialog(event, element, album_id){
 	        initUI();
 	    }
 	);
-	
+
 	$("#edit-dialog").dialog("open");
 	$('button').button();
 	$(".ui-icon-closethick").click(function(){
@@ -417,10 +426,10 @@ function insertSearchbox(){
             showLinkedUsers();
         }
     });
-    
+
     // trigger event
     $('select#id_writable_to').change();
-    
+
     // search & autocomplete
     searchbox.focus(function(){
         searchbox.val('');
@@ -447,7 +456,7 @@ function showLinkedUsers(){
         var opt = $(option);
         var name = opt.text();
         var user_id = opt.val();
-        
+
         var element = '<a href=\"#\" class=\"remove-user\" title=\"' + trans_revoke_rights + '\" data-user_id=\"' + user_id + '\">';
         element += '<span class=\"user ui-state-hover ui-widget ui-corner-all ui-icon-closethick\">';
         element += name + '</span></a>';
@@ -480,7 +489,7 @@ function restoreAlbum(event, element){
     }
     var li = $(element).closest('li.album');
     album_id = li.children('input[name="album_id"]').val();
-    
+
     $.post(
         url_restore,
 		{'album': album_id},

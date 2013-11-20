@@ -1,5 +1,7 @@
 {% extends "albums/base.html" %}
-{% load i18n %}{% load staticfiles %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
 
 {% block extrastyle %}
 <!--[if IE]>
@@ -10,28 +12,29 @@
 {% endblock %}
 {% block extrascript %}
 <script type="text/javascript">
-$(document).ready(function(){$('input.BBCode').tooltip();});
+    var photo_rotate_url = "{% url 'rotate_photo' photo.id %}";
+    $(document).ready(function(){$('input.BBCode').tooltip();});
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="tab photo-title">
     {% spaceless %}
-        {% trans 'From' %} 
+        {% trans 'From' %}
         <a href="{{ photo.user.get_absolute_url }}"><strong>{{ photo.user.get_profile.forum_nickname }}</strong></a>
-        <span style="font-weight: normal;">, {% trans 'in the album' %} </span> 
-        <a href="{{ photo.album.get_absolute_url }}"><strong>{{ photo.album.title }}</strong></a> 
+        <span style="font-weight: normal;">, {% trans 'in the album' %} </span>
+        <a href="{{ photo.album.get_absolute_url }}"><strong>{{ photo.album.title }}</strong></a>
         <span class="properties">&nbsp;{% blocktrans count counter=photo.album.number_of_photos %}(1 image){% plural %}({{ counter }} images){% endblocktrans%}</span>
         {% if photo.album.build_report %}
             &bull; <a href="{{ photo.album.build_report }}" target="_blank">{% trans 'Build report' %}</a>
         {% endif %}
     {% endspaceless %}
-    
+
     <span class="photo-stats">
         {% if user.id == photo.user.id or user_is_album_admin %}
-            <a href="{% url albums.views.edit_photo photo.id %}">{% trans 'edit' %}</a> &#124; 
+            <a href="{% url 'albums.views.edit_photo' photo.id %}">{% trans 'edit' %}</a> &#124;
         {% endif %}
-        {{ photo.views }} views &#124; {% trans 'uploaded' %} {{ photo.uploaded|date:"d b Y, H:i" }} 
+        {{ photo.views }} views &#124; {% trans 'uploaded' %} {{ photo.uploaded|date:"d b Y, H:i" }}
         &#124; <a href="{{ photo.image.url }}" target="_blank"><img src="{% static 'images/icons/save.png' %}" height="12" width="12" title="{% trans 'Download photo' %}" alt="download"/></a>
     </span>
 </div>
@@ -48,23 +51,32 @@ $(document).ready(function(){$('input.BBCode').tooltip();});
                     </a>
                     {% endif %}
                 </div>
-                
+
                 <div id="next-photo" class="in-photo-navigation">
-                    {% if album_preferences.show_direct_link and photo.user_id == user.id %}
-                        <input class="BBCode" type="text" readonly="readonly" value="{{ photo.direct_link }}" title="{% trans 'Copy direct link' %}"></input>
+
+
+                    {% if photo.user_id == user.id or user_is_album_admin %}
+                        <div id="edit-icons">
+                            <span id="rotate-ccw" class="rotate-image" data-direction="ccw"></span>
+                            <span id="rotate-cw" class="rotate-image" data-direction="cw"></span>
+                        </div>
+                        {% if album_preferences.show_direct_link %}
+                            <div><input class="BBCode" type="text" readonly="readonly" value="{{ photo.direct_link }}" title="{% trans 'Copy direct link' %}" /></div>
+                        {% endif %}
                     {% endif %}
+
                     {% if photo.get_next %}
-                    <a href="{{ photo.get_next.get_absolute_url }}#photo_{{ photo.get_next.id }}">
-                         <img class="nav-arrow arrow-right" src="{% static 'images/nav/arrow-right.png' %}" alt="next"/>
-                    </a>
+                        <a href="{{ photo.get_next.get_absolute_url }}#photo_{{ photo.get_next.id }}">
+                             <img class="nav-arrow arrow-right" src="{% static 'images/nav/arrow-right.png' %}" alt="next"/>
+                        </a>
                     {% endif %}
                 </div>
-                
+
                 <div class="clear"></div>
             </div>
         </div>
     </div>
-    
+
     {% if photo.description %}
        <div class="description">
            &ldquo;{{ photo.description }}&rdquo;
@@ -74,7 +86,7 @@ $(document).ready(function(){$('input.BBCode').tooltip();});
 
 <div id="photo-navigation">
     <a class="navigation" href="{{ photo.url_back_3 }}"{% if not photo.url_back_3 %} style="visibility: hidden;"{% endif %}>&lsaquo;</a>
-    
+
     {% for photo in photo.get_previous_3 reversed %}
         {% spaceless %}
         <a class="previous" href="{{ photo.get_absolute_url }}">
@@ -82,13 +94,13 @@ $(document).ready(function(){$('input.BBCode').tooltip();});
         </a>
         {% endspaceless %}
     {% endfor %}
-    
+
     {% spaceless %}
     <a class="current" href="{{ photo.get_absolute_url }}">
         <img src="{{ photo.thumb_url }}" alt="photo {{ photo.id }}"/>
     </a>
     {% endspaceless %}
-    
+
     {% for photo in photo.get_next_3 %}
         {% spaceless %}
         <a class="next" href="{{ photo.get_absolute_url }}">
@@ -96,7 +108,7 @@ $(document).ready(function(){$('input.BBCode').tooltip();});
         </a>
         {% endspaceless %}
     {% endfor %}
-    
+
     <a class="navigation" href="{{ photo.url_forward_3 }}"{% if not photo.url_forward_3 %} style="visibility: hidden;"{% endif %}>&rsaquo;</a>
 </div>
 {% endblock %}

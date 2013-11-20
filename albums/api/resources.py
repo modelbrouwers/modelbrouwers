@@ -2,7 +2,7 @@ from django.db.models import Q
 
 
 from tastypie import fields
-from tastypie.authentication import BasicAuthentication, SessionAuthentication
+from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 
@@ -47,6 +47,7 @@ class OwnAlbumsResource(AlbumResource):
 
 class PhotoResource(ModelResource):
     album = fields.ForeignKey(AlbumResource, 'album')
+    thumb_url = fields.CharField(attribute='thumb_url', readonly=True)
 
     class Meta:
         queryset = Photo.objects.filter(album__public=True, album__trash=False, trash=False)

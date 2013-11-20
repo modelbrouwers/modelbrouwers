@@ -32,7 +32,7 @@ urlpatterns += staticfiles_urlpatterns()
 #    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
 #)
 
-if settings.DEBUG and settings.DEVELOPMENT:
+if settings.DEBUG:
 	urlpatterns += patterns('',
 #		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),

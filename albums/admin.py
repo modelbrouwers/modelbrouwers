@@ -16,17 +16,20 @@ class CategoryAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
 	list_display = ('user', 'album', 'views', 'uploaded', 'BBCode')
 	list_filter = ('user', 'album')
-	raw_id_fields = ('user',)
+	raw_id_fields = ('user', 'album')
 
 class PreferencesAdmin(admin.ModelAdmin):
     list_display = ('user', 'default_img_size', 'default_uploader', 'auto_start_uploading')
     list_editable = ('default_img_size', 'default_uploader', 'auto_start_uploading')
     list_filter = ('default_uploader', 'default_img_size')
+    search_fields = ('user__username', 'user__first_name', 'user__last_name')
+    raw_id_fields = ('user',)
 
 class AlbumDownloadAdmin(admin.ModelAdmin):
     list_display = ('album', 'downloader', 'timestamp', 'failed')
     list_filter = ('timestamp', 'failed')
     search_fields = ('album__title', 'downloader__username')
+    raw_id_fields = ('downloader', 'album')
 
 class AlbumGroupAdmin(admin.ModelAdmin):
     list_display = ('__unicode__',)

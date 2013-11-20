@@ -53,7 +53,7 @@ def uploadify(request):
     # Processing of each uploaded image
     albumform = PickAlbumForm(request.user, request.POST)
     # import pdb; pdb.set_trace()
-    
+
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
         max_order = Photo.objects.filter(album=album).aggregate(Max('order'))['order__max'] or 0
@@ -63,7 +63,7 @@ def uploadify(request):
         preferences = Preferences.get_or_create(request.user)
         resize_dimensions = preferences.get_default_img_size()
         img_data = resize(img, upload_to=path, sizes_data=[resize_dimensions])
-        
+
         # if img_data is not None:
         for data in img_data:
             photo = Photo(user=request.user, album=album, width=data[1], height=data[2])
@@ -89,23 +89,23 @@ def upload_url(request):
         url = urlform.cleaned_data['url']
         album = albumform.cleaned_data['album']
         name = urlparse(url).path.split('/')[-1]
-        
+
         tmp_img = NamedTemporaryFile(delete=True)
         tmp_img.write(urllib2.urlopen(url).read())
         tmp_img.flush()
-        
+
         max_order = Photo.objects.filter(album=album).aggregate(Max('order'))['order__max'] or 0
         path = 'albums/%s/%s/' % (request.user.id, album.id)
-        
+
         photo = Photo(user=request.user, album=album)
         photo.image.save(name, File(tmp_img))
         photo.image.open()
-        
+
         # get the resizing dimensions from the preferences #TODO this might move to utils in the future
         preferences = Preferences.get_or_create(request.user)
         resize_dimensions = preferences.get_default_img_size()
         img_data = resize(photo.image, upload_to=path, sizes_data=[resize_dimensions], overwrite=True)
-        
+
         for data in img_data:
             photo.width=data[1]
             photo.height=data[2]
@@ -181,7 +181,7 @@ def reorder(request):
         album = form.cleaned_data['album']
         album_before = form.cleaned_data['album_before']
         album_after = form.cleaned_data['album_after']
-        
+
         if album.writable_to in ["g", "o"]:
             q = Q(writable_to="g") | Q(writable_to="o")
         else:
@@ -190,16 +190,16 @@ def reorder(request):
             lower = album_after.order
             upper = album.order
             album.order = lower
-            
+
             albums_to_reorder = Album.objects.filter(q, order__gte=lower, order__lt=upper)
             albums_to_reorder.update(order=(F('order') + 1))
             album.save()
-        
+
         elif album_before and album_before.order > album.order: # moved backwards
             lower = album.order
             upper = album_before.order
             album.order = upper
-            
+
             albums_to_reorder = Album.objects.filter(q, order__gt=lower, order__lte=upper)
             albums_to_reorder.update(order=(F('order') - 1))
             album.save()
@@ -270,8 +270,8 @@ def edit_album(request):
 @login_required_403
 def edit_albumgroup(request):
     GroupFormset = inlineformset_factory(
-        Album, AlbumGroup, 
-        form=AlbumGroupForm, extra=1, 
+        Album, AlbumGroup,
+        form=AlbumGroupForm, extra=1,
         can_delete=False
     )
     admin = admin_mode(request.user)
@@ -301,28 +301,28 @@ def new_album_jquery_ui(request):
             from_page = request.POST['from-page']
         except KeyError:
             from_page = None
-        
+
         new_album = Album(user=request.user)
         form = AlbumForm(request.POST, user=request.user, instance=new_album)
         t = loader.get_template(u'albums/ajax/new_album_jquery-ui.html')
-        
+
         context = {'from_page': from_page}
         if form.is_valid():
             album = form.save()
             context['form'] = AlbumForm(
-                            instance = Album(user=request.user), 
+                            instance = Album(user=request.user),
                             user=request.user
                             )
             rendered_form = t.render(RequestContext(request, context))
-            
+
             output = {
                 'status': 1,
                 'form': rendered_form,
             }
-            
+
             if from_page == u"upload": # return option to append to select
                 option = '<option value="%s" selected="selected">%s</option>' % (
-                                       album.id, 
+                                       album.id,
                                        album.__unicode__()
                                    )
                 output['option'] = mark_safe(option)
@@ -363,7 +363,7 @@ def restore_album(request):
         album = form.cleaned_data["album"]
         album.trash = False
         album.title = album.clean_title
-        
+
         i = itertools.count(2)
         saved = False
         while(not saved):
@@ -373,5 +373,34 @@ def restore_album(request):
                 return HttpResponse('ok')
             except IntegrityError:
                 album.title = "%s_%s" % (album.clean_title, i.next())
-            
+
     return HttpResponse('<table>'+form.as_table()+'</table>')
+
+
+### CLASS BASED VIEWS ###
+from django.views.generic import View
+from django.views.generic.detail import SingleObjectMixin
+
+class RotateView(SingleObjectMixin, View):
+    """ View taking a photo, rotating it, and returning the success status when done """
+    #TODO: unittest!
+    model = Photo
+
+    def get_queryset(self):
+        qs = super(RotateView, self).get_queryset()
+        if not admin_mode(self.request.user):
+            qs = qs.filter(user=self.request.user)
+        return qs
+
+    def post(self, request, *args, **kwargs):
+        photo = self.get_object()
+        direction = self.request.POST['direction']
+        if direction == 'cw':
+            photo.rotate_right()
+        elif direction == 'ccw':
+            photo.rotate_left()
+        else:
+            response = {'result': 'Invalid direction'}
+
+        response = {'result': 'success', 'ok': True}
+        return HttpResponse(json.dumps(response), mimetype='application/json')

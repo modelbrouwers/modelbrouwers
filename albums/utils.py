@@ -1,10 +1,12 @@
-import Image
-import os
-import itertools
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from models import Preferences
-import unicodedata
+
+import itertools
+import Image
+import shutil
+import os
+
+ORIGINALS_FOLDER_NAME = 'originals'
 
 def valid_ext(extension):
     """
@@ -38,7 +40,7 @@ def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
     fn = "%s%s%s" % (prefix, filename, ext)
     outfile = os.path.join(settings.MEDIA_ROOT, upload_to, fn)
     outfile, path_dir = get_available_name(outfile, overwrite=overwrite)
-    
+
     #get the relative path for the database
     rel_path = outfile.replace(settings.MEDIA_ROOT, '', 1)
     if rel_path[0] == '/':
@@ -59,7 +61,7 @@ def save_to_path(img, upload_to, prefix, filename, ext, overwrite=False):
 def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dimensions=settings.THUMB_DIMENSIONS, upload_to='albums/', overwrite=False):
     """
     Resizes an image to multiple sizes and saves it to disk.
-    
+
     :param image        : Django UploadedFile(can be in memory or temporary file)
     :param sizes_data   : a list of 3-tupples (max_width, max_height, prefix)
     :param upload_to    : path relative to settings.MEDIA_ROOT where the file will be stored
@@ -70,7 +72,7 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
     width, height = float(img.size[0]), float(img.size[1]) #original sizes
     f = os.path.split(image.name)[1]
     filename, ext = os.path.splitext(f)
-    
+
     if valid_ext(ext):
         img_data = [] # to return -> gets saved in db
         sizes_data.append(thumb_dimensions)
@@ -78,7 +80,7 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
             max_width = size[0]
             max_height = size[1]
             prefix = size[2]
-            
+
             ratio = min(max_width/width, max_height/height)
             if ratio < 1.0: #resizing required
                 size = (int(round(ratio * width)), int(round(ratio * height)))
@@ -89,10 +91,52 @@ def resize(image, sizes_data=[(1024, 1024, '1024_'), (800, 800, '')], thumb_dime
         return img_data
     return None
 
+def rotate_img(image_field, degrees=90):
+    """
+    Util function to rotate the uploaded image.
+
+    The original image is first copied to a folder containing all originals
+    within an album, if it doesn't exist yet. The image in the album folder is
+    then transformed and overwritten with PIL.
+
+    # TODO: write test
+
+    """
+    copy_original_photo(image_field.path)
+
+    # thumbnail
+    path, filename = os.path.split(image_field.path)
+    filename, ext = os.path.splitext(filename)
+    thumb_filename = "".join([settings.THUMB_DIMENSIONS[2], filename, ext])
+    thumb_path = os.path.join(path, thumb_filename)
+
+    for path in [image_field.path, thumb_path]:
+        img = Image.open(path)
+        img = img.rotate(degrees)
+        img.save(path) # TODO: check for unicode shit here
+
+def get_or_create_originals_folder(album_folder):
+    originals_folder = os.path.join(album_folder, ORIGINALS_FOLDER_NAME)
+    if not os.path.exists(originals_folder):
+        try:
+            os.makedirs(originals_folder)
+        except OSError, err:
+            raise ImproperlyConfigured('Could not create directory: %s (%s)' % (originals_folder, err))
+    return originals_folder
+
+def copy_original_photo(image_path):
+    album_folder, filename = os.path.split(image_path)
+    originals_folder = get_or_create_originals_folder(album_folder)
+    destination = os.path.join(originals_folder, filename)
+    if not os.path.exists(destination):
+        shutil.copyfile(image_path, destination)
+    return None
+
 def admin_mode(user, preferences=None):
     if preferences:
         p = preferences
     else:
+        from .models import Preferences
         p = Preferences.get_or_create(user)
     if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.apply_admin_permissions:
         return True
