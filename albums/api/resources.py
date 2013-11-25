@@ -52,7 +52,7 @@ class PhotoResource(ModelResource):
     class Meta:
         queryset = Photo.objects.filter(album__public=True, album__trash=False, trash=False)
         resource_name = 'photo'
-        fields = ['width', 'height', 'image', 'description', 'uploaded', 'modified', 'views']
+        fields = ['id', 'width', 'height', 'image', 'description', 'uploaded', 'modified', 'views']
 
         filtering = {
             'album': ALL_WITH_RELATIONS,

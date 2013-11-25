@@ -41,24 +41,24 @@ class Build(models.Model):
         )
 
     # kit information
-    title = models.CharField(_("title"), max_length=255, 
+    title = models.CharField(_("title"), max_length=255,
         help_text=_("Enter a descriptive build title."))
     scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True,
         help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
-    
+
     # build information
     start_date = models.DateField(_("start date"), blank=True, null=True)
-    end_date = models.DateField(_("end date"), blank=True, null=True)    
+    end_date = models.DateField(_("end date"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("build report")
         verbose_name_plural = _("build reports")
         ordering = ['profile', 'scale', 'brand__name']
-    
+
     def __unicode__(self):
         return _("%(nickname)s - %(title)s") % {'nickname': self.profile.forum_nickname, 'title': self.title}
-    
+
     # override save to generate slug
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -74,21 +74,21 @@ class Build(models.Model):
 
     # URLS
     def get_absolute_url(self):
-        return reverse('builds:detail', kwargs={'slug': self.slug}) 
-    
+        return reverse('builds:detail', kwargs={'slug': self.slug})
+
     def get_topic_url(self):
         """ Build the PHPBB3 url based on topic (and forum) id. """
         query_params = SortedDict()
         query_params['t'] = self.topic_id
         if self.forum_id:
             query_params['f'] = self.forum_id
-        
+
         query_string = urllib.urlencode(query_params)
         return os.path.join(settings.PHPBB_URL, 'viewtopic.php?%s' % query_string)
 
     @property
     def topic_url(self):
-        """ 
+        """
         Return the url to the topic.
 
         Always give precedence to the url in database, as it can point to a
@@ -132,6 +132,6 @@ class BuildPhoto(models.Model):
     def image_url(self):
         """ Album photos always go before image links """
         if self.photo:
-            pass # TODO
+            return self.photo.image.url
         return self.photo_url
 
