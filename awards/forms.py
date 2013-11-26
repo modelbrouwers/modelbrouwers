@@ -10,9 +10,19 @@ class ProjectForm(forms.ModelForm):
 		exclude = ('votes', 'nomination_date', 'nominator', 'rejected')
 		widgets = {
 			'url': forms.TextInput(attrs={'size':60}),
-			'name': forms.TextInput(attrs={'size':60})
+			'name': forms.TextInput(attrs={'size':60}),
 		}
-	
+
+	def __init__(self, *args, **kwargs):
+		super(ProjectForm, self).__init__(*args, **kwargs)
+		# do some processing if added from the board itself
+		forum_id = self.initial.get('forum_id', None)
+		topic_id = self.initial.get('topic_id', None)
+		if forum_id and topic_id:
+			url = 'http://modelbrouwers.nl/phpBB3/viewtopic.php?f={0}&t={1}'
+			url = url.format(forum_id, topic_id)
+			self.fields['url'].initial = url
+
 	def clean_url(self):
 		url = self.cleaned_data['url']
 		match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
@@ -20,7 +30,7 @@ class ProjectForm(forms.ModelForm):
 			raise forms.ValidationError("Deze url wijst niet naar een forumtopic.")
 		url = "http://www.%s" % match.group(0)
 		return url
-	
+
 	def save(self, *args, **kwargs):
 		instance = super(ProjectForm, self).save(*args, **kwargs)
 		try:

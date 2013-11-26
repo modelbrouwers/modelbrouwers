@@ -33,14 +33,14 @@ def get_chat(request):
         nickname = get_username_for_user(request.user)
     else:
         nickname = settings.IRC_DEFAULT_NICK
-    
+
     c = Context({
         'MIBBIT_SETTINGS': settings.MIBBIT_SETTINGS,
         'IRC_SERVER': settings.IRC_SERVER,
         'IRC_CHANNEL': settings.IRC_CHANNEL,
         'nickname': nickname,
     })
-    
+
     html = t.render(c)
     json_data = {
         'html': html,
@@ -113,6 +113,7 @@ def get_build_report_forums(self):
     forum_ids = BuildReportsForum.objects.values_list('forum_id', flat=True)
     data = {
         'forum_ids': list(forum_ids),
-        'text': _('Add build report'),
+        'text_build_report': _('Add build report'),
+        'text_nominate': _('Nominate for award'),
     }
     return HttpResponse(json.dumps(data), mimetype="application/json")

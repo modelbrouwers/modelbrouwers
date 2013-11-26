@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-23 00:11+0200\n"
+"POT-Creation-Date: 2013-11-26 21:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr "Schakel synchronisatie van deze link in."
 
 #: models.py:14
 msgid "from date"
-msgstr ""
+msgstr "vanaf datum"
 
 #: models.py:14
 msgid "Start date from when this link is enabled."
@@ -64,7 +64,8 @@ msgstr "tot datum"
 
 #: models.py:15
 msgid "End date from when this link is enabled, this date included."
-msgstr "Einddatum tot wanneer deze link gesynchroniseerd wordt, datum inbegrepen."
+msgstr ""
+"Einddatum tot wanneer deze link gesynchroniseerd wordt, datum inbegrepen."
 
 #: models.py:18
 msgid "base forum link"
@@ -130,23 +131,23 @@ msgstr "Hash van de gebruikers e-mailadres."
 
 #: models.py:80
 msgid "forum user"
-msgstr ""
+msgstr "forumgebruiker"
 
 #: models.py:81
 msgid "forum users"
-msgstr ""
+msgstr "forumgebruikers"
 
 #: models.py:139
 msgid "Topic"
-msgstr ""
+msgstr "Topic"
 
 #: models.py:140
 msgid "Reply"
-msgstr ""
+msgstr "Antwoord"
 
 #: models.py:144
 msgid "minimum number of posts"
-msgstr ""
+msgstr "minimum aantal posts"
 
 #: models.py:145
 msgid "posting level"
@@ -198,9 +199,13 @@ msgstr ""
 msgid "Report %(id)s"
 msgstr ""
 
-#: views.py:114
+#: views.py:116
 msgid "Add build report"
 msgstr "Brouwverslag toevoegen"
+
+#: views.py:117
+msgid "Nominate for award"
+msgstr "Nomineer voor award"
 
 #: templates/forum_tools/sharing_allowed.html:2
 #: templates/forum_tools/sharing_not_allowed.html:2
