@@ -35,14 +35,14 @@ def nomination(request):
 			new_nomination = form.save(commit=False)
 			new_nomination.nominator = request.user.get_profile()
 			new_nomination.save()
-			
+
 			if new_nomination.rejected:
 				messages.info(request, "De nominatie zal niet stembaar zijn op verzoek van de brouwer zelf.")
 			else:
 				messages.success(request, "De nominatie is toegevoegd.")
 			return HttpResponseRedirect(reverse(nomination))
 	else:
-		form = ProjectForm()
+		form = ProjectForm(initial=request.GET.items())
 	return render(request, 'awards/nomination.html', {'form': form, 'last_nominations': last_nominations, 'current_year': year})
 
 def category_list_nominations(request, id_):
@@ -50,7 +50,7 @@ def category_list_nominations(request, id_):
 	projects = category.project_set.all().filter(nomination_date__year = date.today().year)
 	projects = projects.exclude(rejected=True)
 	return render(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})
-	
+
 @login_required
 def vote(request):
 	data = {}
