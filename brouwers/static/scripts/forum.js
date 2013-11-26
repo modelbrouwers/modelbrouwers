@@ -5,8 +5,8 @@ var forum_id_key = 'f';
 
 $(document).ready(function(){
 	$.get('/ou/so/');
-	$('#add-build-report').hide();
-	
+	$('.topic-controls button').hide();
+
 	// dead topics
 	$('a#close_message').click(function(){
 		$('div#blanket').hide();
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		$('body').css('overflow-y','auto');
 		return false;
 	});
-	
+
 	// oranje briefjes syncen
 	$.get('/forum_tools/get_sync_data/', function(response){
 		$.each(response, function(key, value){
@@ -26,7 +26,7 @@ $(document).ready(function(){
 			});
 		});
 	});
-	
+
 	// chat in een popup window
 	$('#chat-window').dialog({
 		autoOpen: false,
@@ -71,7 +71,7 @@ $(document).ready(function(){
 			chat_moved = true;
 		}
 	});
-	
+
 	$('#open-chat').click(function(e){
 		e.preventDefault();
 		if (!chat_opened){
@@ -90,7 +90,7 @@ $(document).ready(function(){
 		}
 		return false;
 	});
-	
+
 	// als de chat geopend is, zal die popup weg zijn als je op een link klikt
 	// forceer dus het openen vna links in een nieuw venster/tab
 	$('body').on('click', '#boardcontent a', function(){
@@ -100,11 +100,11 @@ $(document).ready(function(){
 			$.get(url, function(response){
 				c = $(response);
 				$('#boardcontent').html(c.find('#boardcontent').html());
-				
+
 				var title = c.find('#page-title').text();
 				document.title = title;
 				$(document).scrollTop(0);
-				
+
 				if(history.pushState){
 					history.pushState({"id": history.length+1}, title, "url");
 				}
@@ -171,16 +171,18 @@ $(document).ready(function(){
 			});
 	}
 
-	// if we're on a viewtopic page, check if the 'Add build report' button may be shown
+	// if we're on a viewtopic page, check if the buttons should be visible
 	var url = $.url();
 	if(url.segment(-1) == 'viewtopic.php'){
 		var forum_id = parseInt(url.param('f'), 10);
 		$.getJSON('/forum_tools/get_build_report_forums/', function(json){
 			if(json.forum_ids.indexOf(forum_id) > -1){ // good to go!
-				$('#add-build-report button').text(json.text);
-				$('#add-build-report').show();
+				$('#add-build-report button').text(json.text_build_report);
+				$('#nominate-build button').text(json.text_nominate);
+				$('.topic-controls button').show();
+
 			} else {
-				$('#add-build-report button').remove();
+				$('.topic-controls button').remove();
 			}
 		});
 	}
@@ -188,7 +190,7 @@ $(document).ready(function(){
 
 
 function applyHtmlToDialog(dialog, htmlTitle) {
-	dialog.data("uiDialog")._title = function (title) { 
+	dialog.data("uiDialog")._title = function (title) {
 	title.html(this.options.title); };
 	dialog.dialog('option', 'title', htmlTitle);
 }

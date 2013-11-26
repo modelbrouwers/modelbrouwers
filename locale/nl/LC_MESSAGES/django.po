@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-20 14:32+0100\n"
+"POT-Creation-Date: 2013-11-26 21:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,715 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/pagination.html:5
+#: albums/ajax_views.py:45
+msgid ""
+"You have used this album title before. Make sure to pick an unique title."
+msgstr ""
+
+#: albums/ajax_views.py:265
+msgid "This event has been logged"
+msgstr ""
+
+#: albums/forms.py:17
+msgid ""
+"This link doesn't point to a valid forum topic. Please correct the error"
+msgstr ""
+
+#: albums/forms.py:147 albums/forms.py:169
+msgid "Own albums"
+msgstr ""
+
+#: albums/forms.py:148 albums/forms.py:170
+msgid "Group albums"
+msgstr ""
+
+#: albums/forms.py:149
+msgid "Public albums"
+msgstr ""
+
+#: albums/forms.py:223
+msgid "link"
+msgstr ""
+
+#: albums/forms.py:223
+msgid "Upload a picture from url"
+msgstr ""
+
+#: albums/forms.py:238
+msgid "Make sure the link points to a jpg or png image."
+msgstr ""
+
+#: albums/forms.py:240
+msgid "Could not download the image from the url"
+msgstr ""
+
+#: albums/forms.py:251
+msgid "Keywords"
+msgstr ""
+
+#: albums/models.py:19
+msgctxt "write permissions for owner"
+msgid "owner"
+msgstr ""
+
+#: albums/models.py:20
+msgid "group"
+msgstr ""
+
+#: albums/models.py:21
+msgid "everyone"
+msgstr ""
+
+#: albums/models.py:25 kitreviews/models.py:61
+msgid "name"
+msgstr ""
+
+#: albums/models.py:26 albums/models.py:75
+msgid "order"
+msgstr ""
+
+#: albums/models.py:28
+msgid "url"
+msgstr ""
+
+#: albums/models.py:29
+msgid "on frontpage"
+msgstr ""
+
+#: albums/models.py:30
+msgid "public"
+msgstr ""
+
+#: albums/models.py:30
+msgid ""
+"If the category is public, regular users can add their albums to the "
+"category. If it isn't, only people with admin permissions can do so."
+msgstr ""
+
+#: albums/models.py:33 albums/models.py:56 kitreviews/models.py:82
+msgid "category"
+msgstr ""
+
+#: albums/models.py:34
+msgid "categories"
+msgstr ""
+
+#: albums/models.py:45 banning/models.py:17 secret_santa/models.py:53
+msgid "user"
+msgstr ""
+
+#: albums/models.py:46 albums/models.py:48
+msgid "album title"
+msgstr ""
+
+#: albums/models.py:49
+#, fuzzy
+msgid "album description"
+msgstr "albumgebruikermigratie"
+
+#: albums/models.py:62
+msgid "Image to use as album cover."
+msgstr ""
+
+#: albums/models.py:64
+msgid "cover"
+msgstr ""
+
+#: albums/models.py:70 albums/models.py:200
+msgid "last modified"
+msgstr ""
+
+#: albums/models.py:77
+msgid "Public?"
+msgstr ""
+
+#: albums/models.py:78
+msgid ""
+"Can this album be viewed by everyone? Untick to make the album available "
+"only to yourself."
+msgstr ""
+
+#: albums/models.py:84 builds/models.py:55
+msgid "build report"
+msgstr ""
+
+#: albums/models.py:86
+msgid "Link to the forumtopic of the build."
+msgstr ""
+
+#: albums/models.py:89
+msgid "appreciation"
+msgstr ""
+
+#: albums/models.py:91
+msgid "writable to"
+msgstr ""
+
+#: albums/models.py:99 albums/models.py:168 kitreviews/models.py:142
+msgid "album"
+msgstr ""
+
+#: albums/models.py:100
+msgid "albums"
+msgstr ""
+
+#: albums/models.py:105
+msgid "Can edit/remove album"
+msgstr ""
+
+#: albums/models.py:106
+msgid "Can see all albums"
+msgstr ""
+
+#: albums/models.py:107
+msgid "Can use new albums"
+msgstr ""
+
+#: albums/models.py:169
+msgid "Album for which the group has write permissions."
+msgstr ""
+
+#: albums/models.py:172
+msgid "users"
+msgstr ""
+
+#: albums/models.py:172
+msgid "Users who can write in this album."
+msgstr ""
+
+#: albums/models.py:175
+msgid "album group"
+msgstr ""
+
+#: albums/models.py:176
+#, fuzzy
+msgid "album groups"
+msgstr "albumgebruikermigraties"
+
+#: albums/models.py:180
+#, python-format
+msgid "Write permissions for '%(album)s'"
+msgstr ""
+
+#: albums/models.py:193
+msgid "width"
+msgstr ""
+
+#: albums/models.py:194
+msgid "height"
+msgstr ""
+
+#: albums/models.py:195
+msgid "image"
+msgstr ""
+
+#: albums/models.py:196
+msgid "photo description"
+msgstr ""
+
+#: albums/models.py:207
+msgid "Photo"
+msgstr ""
+
+#: albums/models.py:208
+msgid "Photos"
+msgstr ""
+
+#: albums/models.py:354
+msgid "Multiple files at once"
+msgstr ""
+
+#: albums/models.py:355
+msgid "Basic"
+msgstr ""
+
+#: albums/models.py:359 shirts/models.py:23
+msgid "Black"
+msgstr ""
+
+#: albums/models.py:360 shirts/models.py:22
+msgid "White"
+msgstr ""
+
+#: albums/models.py:361
+msgid "Light grey"
+msgstr ""
+
+#: albums/models.py:362
+msgid "Dark grey"
+msgstr ""
+
+#: albums/models.py:367
+msgid "default image dimensions"
+msgstr ""
+
+#: albums/models.py:370
+msgid "Your pictures will be scaled to this size."
+msgstr ""
+
+#: albums/models.py:373
+msgid "default uploader"
+msgstr ""
+
+#: albums/models.py:376
+msgid ""
+"Multiple files at once makes use of a Flash uploader,\n"
+"you select all your files without having to click too much buttons.\n"
+"The basic uploader has a file field for each image."
+msgstr ""
+
+#: albums/models.py:382
+msgid "start uploading automatically?"
+msgstr ""
+
+#: albums/models.py:382
+msgid "Start upload automatically when files are selected"
+msgstr ""
+
+#: albums/models.py:383
+msgid "Show direct links under the photo"
+msgstr ""
+
+#: albums/models.py:386
+msgid "When checked, you will see all the albums and be able to edit them."
+msgstr ""
+
+#: albums/models.py:390
+msgid "collapse sidebar"
+msgstr ""
+
+#: albums/models.py:391
+msgid "Show the sidebar as closed when typing a post."
+msgstr ""
+
+#: albums/models.py:394
+msgid "hide sidebar"
+msgstr ""
+
+#: albums/models.py:395
+msgid ""
+"Hide the sidebar completely when typing a post and activate it with a button."
+msgstr ""
+
+#: albums/models.py:398
+msgid "sidebar background color"
+msgstr ""
+
+#: albums/models.py:400
+msgid "Background for the overlay in the board."
+msgstr ""
+
+#: albums/models.py:403
+msgid "transparent background?"
+msgstr ""
+
+#: albums/models.py:404
+msgid "sidebar text color"
+msgstr ""
+
+#: albums/models.py:405
+msgid "Text color in the overlay. HTML color format #xxxxxx or #xxx."
+msgstr ""
+
+#: albums/models.py:407
+msgid "sidebar width"
+msgstr ""
+
+#: albums/models.py:408
+msgid "Width of the sidebar. E.g. '30%' or '300px'."
+msgstr ""
+
+#: albums/models.py:412
+msgid "User preferences"
+msgstr ""
+
+#: albums/models.py:442
+msgid "user who downloaded the album"
+msgstr ""
+
+#: albums/models.py:443 general/models.py:106
+msgid "timestamp"
+msgstr ""
+
+#: albums/models.py:447
+msgid "album download"
+msgstr ""
+
+#: albums/models.py:448
+msgid "album downloads"
+msgstr ""
+
+#: albums/models.py:452
+#, python-format
+msgid "Download of %(album)s by %(username)s"
+msgstr ""
+
+#: albums/views.py:175
+msgid "This album could not be downloaded because it has no photos yet."
+msgstr ""
+
+#: albums/templates/albums/album_li.html:20
+#: albums/templates/albums/albums_list/albums_rows.html:17
+#: albums/templates/albums/albums_list/public_albums_rows.html:11
+#: albums/templates/albums/albums_list/public_albums_rows_5col.html:17
+#, python-format
+msgid "1 photo"
+msgid_plural "%(counter)s photos"
+msgstr[0] ""
+msgstr[1] ""
+
+#: albums/templates/albums/album_li.html:33
+#: albums/templates/albums/albums_list/albums_rows.html:30
+msgid "This album is only visible for me"
+msgstr ""
+
+#: albums/templates/albums/album_li.html:36
+msgid "This album is writable for a group"
+msgstr ""
+
+#: albums/templates/albums/album_li.html:41
+#: albums/templates/albums/base.html:17
+#: albums/templates/albums/albums_list/albums_rows.html:35
+msgid "Edit album"
+msgstr ""
+
+#: albums/templates/albums/album_li.html:44
+#: albums/templates/albums/albums_list/albums_rows.html:38
+msgid "Move album to trash"
+msgstr ""
+
+#: albums/templates/albums/album_li.html:47
+msgid "Restore album"
+msgstr ""
+
+#: albums/templates/albums/album_li.html:53
+#: albums/templates/albums/browse_album.html:27
+#: albums/templates/albums/albums_list/albums_rows.html:44
+msgid "modified"
+msgstr ""
+
+#: albums/templates/albums/album_li.html:55
+#: albums/templates/albums/browse_album.html:27
+#: albums/templates/albums/albums_list/albums_rows.html:46
+msgid "created"
+msgstr ""
+
+#: albums/templates/albums/base.html:16
+#: albums/templates/albums/my_albums_list.html:23
+#: albums/templates/albums/uploadify.html:104
+#: albums/templates/albums/uploadify.html:197
+msgid "New album"
+msgstr ""
+
+#: albums/templates/albums/base.html:18
+#: albums/templates/albums/edit_album.html:12
+#: albums/templates/albums/edit_photo.html:17
+#: albums/templates/albums/extra_info_uploads.html:59
+#: albums/templates/albums/manage.html:47
+#: albums/templates/albums/manage.html:94
+#: albums/templates/albums/preferences.html:9
+#: albums/templates/albums/uploadify.html:106
+#: builds/templates/builds/add.html:56
+#: general/templates/general/profile.html:56
+msgid "Save"
+msgstr ""
+
+#: albums/templates/albums/base.html:19
+#: albums/templates/albums/uploadify.html:126
+#: general/templates/general/profile.html:11
+msgid "Cancel"
+msgstr ""
+
+#: albums/templates/albums/base.html:20
+msgid "Move to trash?"
+msgstr ""
+
+#: albums/templates/albums/base.html:21
+#: general/templates/general/confirm_account.html:24
+#: general/templates/general/profile.html:10
+msgid "Confirm"
+msgstr ""
+
+#: albums/templates/albums/base.html:22 albums/templates/albums/list.html:6
+msgid "search albums..."
+msgstr ""
+
+#: albums/templates/albums/base.html:23
+msgid "choose an album cover"
+msgstr ""
+
+#: albums/templates/albums/base.html:24
+msgid "find users..."
+msgstr ""
+
+#: albums/templates/albums/base.html:25
+msgid "click to remove from group"
+msgstr ""
+
+#: albums/templates/albums/base.html:43
+msgid "Add photos"
+msgstr ""
+
+#: albums/templates/albums/base.html:45
+#: albums/templates/albums/ajax/forum/sidebar.html:4
+msgid "My albums"
+msgstr ""
+
+#: albums/templates/albums/base.html:46
+msgid "All albums"
+msgstr ""
+
+#: albums/templates/albums/base.html:47
+msgid "My last uploads"
+msgstr ""
+
+#: albums/templates/albums/base.html:48
+msgid "Preferences"
+msgstr ""
+
+#: albums/templates/albums/base.html:98
+msgid "Last modified albums"
+msgstr ""
+
+#: albums/templates/albums/base.html:109
+#, fuzzy
+msgid "Last uploads"
+msgstr "Laatste pagina"
+
+#: albums/templates/albums/browse_album.html:18
+msgid "Album"
+msgstr ""
+
+#: albums/templates/albums/browse_album.html:21
+#: albums/templates/albums/photo.html:29
+msgid "Build report"
+msgstr ""
+
+#: albums/templates/albums/browse_album.html:41
+msgid "set as album cover"
+msgstr ""
+
+#: albums/templates/albums/browse_album.html:43
+msgid "delete photo"
+msgstr ""
+
+#: albums/templates/albums/browse_album.html:70
+msgid "download album (.zip)"
+msgstr ""
+
+#: albums/templates/albums/edit_album.html:6
+#, python-format
+msgid "Edit album &lsquo;<strong>%(album)s</strong>&rsquo;"
+msgstr ""
+
+#: albums/templates/albums/edit_photo.html:6
+#, python-format
+msgid ""
+"Photo in the album <a href=\"%(album_url)s\"><strong>%(album)s</strong></a>"
+msgstr ""
+
+#: albums/templates/albums/extra_info_uploads.html:40
+#, python-format
+msgid "There was 1 photo in the album %(album)s prior to this upload."
+msgid_plural ""
+"There were %(photos_before)s photos in the album %(album)s prior to this "
+"upload."
+msgstr[0] ""
+msgstr[1] ""
+
+#: albums/templates/albums/manage.html:5
+msgid "Create new album"
+msgstr ""
+
+#: albums/templates/albums/manage.html:29
+#, fuzzy
+msgid "Fix the error"
+msgstr "Herstel de fout:"
+
+#: albums/templates/albums/manage.html:36
+msgid "Add album"
+msgstr ""
+
+#: albums/templates/albums/manage.html:42
+msgid "Organize albums"
+msgstr ""
+
+#: albums/templates/albums/manage.html:84
+msgid "error"
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:21
+msgid "My personal albums"
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:27
+msgid "Manage"
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:32
+#: albums/templates/albums/my_albums_list.html:36
+msgid "Trash"
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:41
+msgid "Show all my personal albums"
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:48
+#, python-format
+msgid ""
+"Your browser has no javascript. You can reorganize your albums on an <a href="
+"\"%(manage_url)s\">alternative page</a>."
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:65
+msgid "My public albums &#45; others can add photos"
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:80
+msgid "Public albums &#45; writable for me"
+msgstr ""
+
+#: albums/templates/albums/my_albums_list.html:103
+msgid ""
+"Are you sure you want to move the album &lsquo;<span id=\"id-album-title\"></"
+"span>&rsquo; to the trash?"
+msgstr ""
+
+#: albums/templates/albums/my_last_uploads.html:5
+msgid "My last uploads..."
+msgstr ""
+
+#: albums/templates/albums/my_last_uploads.html:35
+#: albums/templates/albums/albums_list/pagination.html:5
+#: brouwers/templates/pagination.html:5
 msgid "First page"
 msgstr "Eerste pagina"
 
-#: templates/pagination.html:25
+#: albums/templates/albums/my_last_uploads.html:55
+#: albums/templates/albums/albums_list/pagination.html:25
+#: brouwers/templates/pagination.html:25
 msgid "Last page"
 msgstr "Laatste pagina"
+
+#: albums/templates/albums/photo.html:23
+msgid "From"
+msgstr ""
+
+#: albums/templates/albums/photo.html:25
+#, fuzzy
+msgid "in the album"
+msgstr "Je bent nu in de fotoalbums!"
+
+#: albums/templates/albums/photo.html:27
+#, python-format
+msgid "(1 image)"
+msgid_plural "(%(counter)s images)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: albums/templates/albums/photo.html:35
+msgid "edit"
+msgstr ""
+
+#: albums/templates/albums/photo.html:37
+msgid "uploaded"
+msgstr ""
+
+#: albums/templates/albums/photo.html:38
+msgid "Download photo"
+msgstr ""
+
+#: albums/templates/albums/photo.html:64
+msgid "Copy direct link"
+msgstr ""
+
+#: albums/templates/albums/preferences.html:5
+msgid "Here you can configure your preferences"
+msgstr ""
+
+#: albums/templates/albums/upload.html:15
+#: albums/templates/albums/uploadify.html:176
+msgid "Upload images"
+msgstr ""
+
+#: albums/templates/albums/upload.html:16
+msgid "Specify the number of pictures you want to upload"
+msgstr ""
+
+#: albums/templates/albums/upload.html:17
+msgid "Refresh"
+msgstr ""
+
+#: albums/templates/albums/upload.html:23
+#: albums/templates/albums/uploadify.html:193
+msgid "Upload to"
+msgstr ""
+
+#: albums/templates/albums/upload.html:31
+msgid "add photos"
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:30
+msgid "Something went wrong, the admins have been notified."
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:41
+msgid "You need (Adobe) Flash to use this uploader."
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:47
+msgid "complete"
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:54
+msgid "Browse"
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:58
+msgid "Images..."
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:180
+#, python-format
+msgid ""
+"Your browser doesn't support javascript, which is required for this uploader "
+"to work. You can use an <a href=\"%(upload_url)s\">alternative uploader</a>."
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:185
+msgid ""
+"You can upload images on this page. Choose the album you want to upload to "
+"and select pictures. You can set some extra info on the images in the next "
+"step."
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:216
+msgid "Start upload"
+msgstr ""
+
+#: albums/templates/albums/uploadify.html:221
+msgid "Upload queue"
+msgstr ""
+
+#: albums/templates/albums/ajax/forum/album_photos.html:4
+msgid "Insert all"
+msgstr ""
+
+#: albums/templates/albums/ajax/forum/album_photos.html:5
+msgid "click on the image to insert"
+msgstr ""
+
+#: albums/templates/albums/ajax/forum/album_photos.html:24
+#, python-format
+msgid ""
+"You don't seem to have photos here. Upload some in <a href=\"%(upload_url)s"
+"\">our albums</a>!"
+msgstr ""
+
+#: albums/templates/albums/ajax/forum/sidebar.html:18
+msgid "Search albums"
+msgstr ""
 
 #: awards/models.py:12
 msgid "Categorie"
@@ -41,92 +743,129 @@ msgstr ""
 msgid "Nominaties"
 msgstr ""
 
-#: brouwers/settings.py:19
+#: banning/models.py:19
+msgid "ip"
+msgstr ""
+
+#: banning/models.py:20
+msgid "Ip address to ban."
+msgstr ""
+
+#: banning/models.py:24
+msgid "expiry date"
+msgstr ""
+
+#: banning/models.py:26
+msgid "Date the ban expires. Leave blank for permabans."
+msgstr ""
+
+#: banning/models.py:28
+msgid "reason (internal)"
+msgstr ""
+
+#: banning/models.py:30
+msgid "reason"
+msgstr ""
+
+#: banning/models.py:31
+msgid "This reason will be shown to the banned user."
+msgstr ""
+
+#: banning/models.py:33
+msgid "automatically created?"
+msgstr ""
+
+#: banning/models.py:36
+msgid "ban"
+msgstr ""
+
+#: banning/models.py:37
+msgid "bans"
+msgstr ""
+
+#: banning/models.py:42
+msgid "never"
+msgstr ""
+
+#: banning/models.py:48
+msgid "ip ban"
+msgstr ""
+
+#: banning/models.py:49
+msgid "account ban"
+msgstr ""
+
+#: banning/models.py:53
+#, python-format
+msgid "Ban: %(username)s"
+msgstr ""
+
+#: banning/models.py:55
+#, python-format
+msgid "Ban: %(ip)s"
+msgstr ""
+
+#: banning/models.py:60
+msgid "Submit either an user or IP address."
+msgstr ""
+
+#: banning/templates/banning/banned.html:4
+msgid "You are banned"
+msgstr ""
+
+#: banning/templates/banning/banned.html:13
+msgid "Oops... you've been naughty!"
+msgstr ""
+
+#: banning/templates/banning/banned.html:17
+msgid ""
+"The requested page cannot be shown since you have been <span class=\"error"
+"\">banned</span>."
+msgstr ""
+
+#: banning/templates/banning/banned.html:22
+msgid "Ban type"
+msgstr ""
+
+#: banning/templates/banning/banned.html:23
+msgid "Reason"
+msgstr ""
+
+#: banning/templates/banning/banned.html:25
+msgid "Expires"
+msgstr ""
+
+#: banning/templates/banning/banned.html:26
+msgid "Starting from this moment, you regain access to the website."
+msgstr ""
+
+#: brouwers/settings.py:25
 msgid "English"
 msgstr "Engels"
 
-#: brouwers/settings.py:20
+#: brouwers/settings.py:26
 msgid "Dutch"
 msgstr "Nederlands"
 
-#: builds/models.py:9
-msgid "link naar het verslag"
+#: brouwers/templates/403.html:4
+msgid "Access denied"
 msgstr ""
 
-#: builds/models.py:10
-msgid "naam model"
+#: brouwers/templates/403.html:7
+msgid "Oops... you don't have access to this page!"
 msgstr ""
 
-#: builds/models.py:10
-msgid "schaal en merk kan je apart opgeven"
+#: brouwers/templates/403.html:11
+msgid ""
+"The requested page cannot be shown, you have insufficient permissions. You "
+"might need to log in to view the content."
 msgstr ""
 
-#: builds/models.py:11
-msgid "categorie"
-msgstr ""
-
-#: builds/models.py:12
-msgid "schaal"
-msgstr ""
-
-#: builds/models.py:13
-msgid "merk"
-msgstr ""
-
-#: builds/models.py:14
-msgid "startdatum"
-msgstr ""
-
-#: builds/models.py:14 builds/models.py:15
-msgid "Formaat: jjjj-mm-dd"
-msgstr ""
-
-#: builds/models.py:15
-msgid "einddatum"
-msgstr ""
-
-#: builds/models.py:19
-msgid "Foto 1"
-msgstr ""
-
-#: builds/models.py:19 builds/models.py:20 builds/models.py:21
-msgid "geef een link naar een foto op"
-msgstr ""
-
-#: builds/models.py:20
-msgid "Foto 2"
-msgstr ""
-
-#: builds/models.py:21
-msgid "Foto 3"
-msgstr ""
-
-#: builds/models.py:24
-#, python-format
-msgid "%(nickname)s - %(title)s"
-msgstr "%(nickname)s - %(title)s"
-
-#: builds/models.py:30
-msgid "brouwverslag"
-msgstr ""
-
-#: builds/models.py:31
-msgid "brouwverslagen"
-msgstr ""
-
-#: migration/models.py:36
-msgid "album user migration"
-msgstr "albumgebruikermigratie"
-
-#: migration/models.py:37
-msgid "album user migrations"
-msgstr "albumgebruikermigraties"
-
-#: templates/404.html:35
+#: brouwers/templates/404.html:39
 msgid "Oops... a 404!"
 msgstr "Oeps... een 404!"
 
-#: templates/404.html:39
+#: brouwers/templates/404.html:46
 #, python-format
 msgid ""
 "The requested page could not be found or isn't accessible because of limited "
@@ -140,66 +879,1622 @@ msgstr ""
 "'terug'-knop in je browser gebruiken, of <a href=\"%(return)s\">hier</a> "
 "klikken om naar de vorige pagina terug te keren."
 
-#: templates/base.html:5
+#: brouwers/templates/base.html:9
 msgid "Materials and knowledge for scale modelling."
 msgstr "Materialen en kennisbank voor de modelbouw."
 
-#: templates/base.html:61
+#: brouwers/templates/base.html:95
 msgid "Back to the Modelbrouwers.nl homepage"
 msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#: templates/base.html:98
+#: brouwers/templates/base.html:128
+#: kitreviews/templates/kitreviews/base.html:11
+msgid "Home"
+msgstr ""
+
+#: brouwers/templates/base.html:129 templates/admin/base_site.html:22
+msgid "Builds"
+msgstr ""
+
+#: brouwers/templates/base.html:130 general/templates/general/profile.html:45
+msgid "Awards"
+msgstr ""
+
+#: brouwers/templates/base.html:131
+msgid "Secret Santa"
+msgstr ""
+
+#: brouwers/templates/base.html:133
 msgid "Migrations"
 msgstr "Migraties"
 
-#: templates/base.html:105
+#: brouwers/templates/base.html:140
 msgid "Login"
 msgstr "Inloggen"
 
-#: templates/base.html:112
+#: brouwers/templates/base.html:143 general/templates/general/register.html:38
+msgid "Register"
+msgstr ""
+
+#: brouwers/templates/base.html:149
 msgid "logout"
 msgstr "uitloggen"
 
-#: templates/base.html:115
+#: brouwers/templates/base.html:154
 msgid "Profile"
 msgstr "Profiel"
 
-#: templates/form_in_table.html:38 templates/form_in_table_rows.html:19
+#: brouwers/templates/form_in_table.html:35
+#: brouwers/templates/form_in_table_rows.html:19
 msgid "Fix the error:"
 msgstr "Herstel de fout:"
 
-#: templates/nav_tabs.html:5
+#: brouwers/templates/nav_tabs.html:14
 msgid "Visit the homepage!"
 msgstr "Ga naar de homepage!"
 
-#: templates/nav_tabs.html:11
-msgid "Visit the board!"
+#: brouwers/templates/nav_tabs.html:18
+#, fuzzy
+msgid "Visit the forums!"
 msgstr "Ga naar het forum!"
 
-#: templates/nav_tabs.html:17
+#: brouwers/templates/nav_tabs.html:22
 msgid "Visit the shop!"
 msgstr "Ga naar de shop!"
 
-#: templates/nav_tabs.html:23
-msgid "You are now in the albums!"
+#: brouwers/templates/nav_tabs.html:28
+#, fuzzy
+msgid "You are now in the photo albums!"
 msgstr "Je bent nu in de fotoalbums!"
 
-#: templates/nav_tabs.html:29
+#: brouwers/templates/nav_tabs.html:28
+#, fuzzy
+msgid "Go to the albums!"
+msgstr "Je bent nu in de fotoalbums!"
+
+#: brouwers/templates/nav_tabs.html:33
 msgid "Visit the kit reviews!"
 msgstr "Ga naar de kitreviews!"
 
-#: templates/pagination.html:16
+#: brouwers/templates/pagination.html:16
 msgid "of"
 msgstr "van"
 
-#: templates/admin/base_site.html:4
+#: brouwers/templates/search_form.html:16
+msgid "Search"
+msgstr ""
+
+#: builds/admin.py:14
+msgid "General information"
+msgstr ""
+
+#: builds/admin.py:23
+msgid "Kit information"
+msgstr ""
+
+#: builds/forms.py:22
+msgid "Enter a keyword or the name of the builder"
+msgstr ""
+
+#: builds/forms.py:30
+msgid "Start date"
+msgstr ""
+
+#: builds/forms.py:33
+msgid "End date"
+msgstr ""
+
+#: builds/forms.py:67
+msgid "This URL doesn't point to a forum topic."
+msgstr ""
+
+#: builds/models.py:27
+msgid "slug"
+msgstr ""
+
+#: builds/models.py:31
+msgid "link to the build report"
+msgstr ""
+
+#: builds/models.py:33
+msgid "Topic ID"
+msgstr ""
+
+#: builds/models.py:35
+msgid "PHPBB topic id, used to build the link to the topic."
+msgstr ""
+
+#: builds/models.py:38
+msgid "Forum ID"
+msgstr ""
+
+#: builds/models.py:40
+msgid "Used to determine the 'category'."
+msgstr ""
+
+#: builds/models.py:44
+msgid "title"
+msgstr ""
+
+#: builds/models.py:45
+msgid "Enter a descriptive build title."
+msgstr ""
+
+#: builds/models.py:46 kitreviews/models.py:42 kitreviews/models.py:45
+#: kitreviews/models.py:81
+msgid "scale"
+msgstr ""
+
+#: builds/models.py:47
+msgid "Enter the number after the \"1:\" or \"1/\". E.g. 1/48 --> enter 48."
+msgstr ""
+
+#: builds/models.py:48 kitreviews/models.py:23 kitreviews/models.py:32
+#: kitreviews/models.py:74
+msgid "brand"
+msgstr ""
+
+#: builds/models.py:51
+msgid "start date"
+msgstr ""
+
+#: builds/models.py:52
+msgid "end date"
+msgstr ""
+
+#: builds/models.py:56
+msgid "build reports"
+msgstr ""
+
+#: builds/models.py:60
+#, python-format
+msgid "%(nickname)s - %(title)s"
+msgstr "%(nickname)s - %(title)s"
+
+#: builds/models.py:113
+msgid "build"
+msgstr ""
+
+#: builds/models.py:115
+msgid "Link to an image"
+msgstr ""
+
+#: builds/models.py:116
+msgid "Order in which photos are shown"
+msgstr ""
+
+#: builds/models.py:119
+msgid "build photo"
+msgstr ""
+
+#: builds/models.py:120
+msgid "build photos"
+msgstr ""
+
+#: builds/models.py:124
+#, python-format
+msgid "Photo for build %(build)s"
+msgstr ""
+
+#: builds/models.py:128
+msgid "Provide either an album photo or a link to a photo."
+msgstr ""
+
+#: builds/templates/builds/add.html:19
+msgid "Add a build report"
+msgstr ""
+
+#: builds/templates/builds/add.html:23 builds/templates/builds/add.html:33
+msgid "Last 20 builds"
+msgstr ""
+
+#: builds/templates/builds/add.html:48
+msgid ""
+"Use this page to link your projects to your profile. Caution, everything you "
+"enter here is public for all visitors!"
+msgstr ""
+
+#: builds/templates/builds/add.html:73
+msgid "loading"
+msgstr ""
+
+#: builds/templates/builds/add.html:83
+msgid "Sign in to add your own build reports!"
+msgstr ""
+
+#: builds/templates/builds/base.html:6
+msgid "Build reports"
+msgstr ""
+
+#: builds/templates/builds/base.html:34
+msgid "Overview / Add build report"
+msgstr ""
+
+#: builds/templates/builds/base.html:40
+msgid "My builds"
+msgstr ""
+
+#: builds/templates/builds/build.html:24
+msgid "View topic"
+msgstr ""
+
+#: builds/templates/builds/builds_list.html:8
+#: builds/templates/builds/profile_builds.html:18
+msgid "Title"
+msgstr ""
+
+#: builds/templates/builds/builds_list.html:9
+#: builds/templates/builds/profile_builds.html:19 kitreviews/forms.py:14
+msgid "Brand"
+msgstr ""
+
+#: builds/templates/builds/builds_list.html:10
+#: builds/templates/builds/profile_builds.html:20 kitreviews/forms.py:17
+msgid "Scale"
+msgstr ""
+
+#: builds/templates/builds/builds_list.html:31
+#: builds/templates/builds/profile_builds.html:38
+msgid "Unknown"
+msgstr ""
+
+#: builds/templates/builds/builds_list.html:37
+#: builds/templates/builds/profile_builds.html:49
+msgid "No build reports were found for this user!"
+msgstr ""
+
+#: builds/templates/builds/edit.html:6
+msgid "Edit build report"
+msgstr ""
+
+#: builds/templates/builds/photos_formset.html:8
+msgid "Build photos"
+msgstr ""
+
+#: builds/templates/builds/photos_formset.html:10
+msgid "From albums"
+msgstr ""
+
+#: builds/templates/builds/photos_formset.html:12
+msgid "URL"
+msgstr ""
+
+#: builds/templates/builds/photos_formset.html:32
+msgid "Check to delete photo"
+msgstr ""
+
+#: builds/templates/builds/profile_builds.html:6
+msgid "Build reports overview"
+msgstr ""
+
+#: builds/templates/builds/profile_builds.html:21
+msgid "Topic url"
+msgstr ""
+
+#: builds/templates/builds/profile_builds.html:43
+msgid "Go to topic..."
+msgstr ""
+
+#: forum_tools/admin.py:30
+#, fuzzy
+msgid "forum profile"
+msgstr "Profiel"
+
+#: forum_tools/admin.py:33
+msgid "Link"
+msgstr ""
+
+#: forum_tools/forms.py:18
+msgid "Provide a set of IDS separated by ';'"
+msgstr ""
+
+#: forum_tools/models.py:8 forum_tools/models.py:29
+msgid "link id"
+msgstr ""
+
+#: forum_tools/models.py:8
+msgid "HTML id of the base anchor."
+msgstr ""
+
+#: forum_tools/models.py:9
+msgid "short description"
+msgstr ""
+
+#: forum_tools/models.py:11
+msgid "enabled"
+msgstr ""
+
+#: forum_tools/models.py:12
+msgid "Enable the syncing of this link."
+msgstr ""
+
+#: forum_tools/models.py:14
+msgid "from date"
+msgstr ""
+
+#: forum_tools/models.py:14
+msgid "Start date from when this link is enabled."
+msgstr ""
+
+#: forum_tools/models.py:15
+msgid "to date"
+msgstr ""
+
+#: forum_tools/models.py:15
+msgid "End date from when this link is enabled, this date included."
+msgstr ""
+
+#: forum_tools/models.py:18
+msgid "base forum link"
+msgstr ""
+
+#: forum_tools/models.py:19
+msgid "base forum links"
+msgstr ""
+
+#: forum_tools/models.py:23
+#, python-format
+msgid "base forum link: %(desc)s"
+msgstr ""
+
+#: forum_tools/models.py:25
+#, python-format
+msgid "base forum link: %(id)s"
+msgstr ""
+
+#: forum_tools/models.py:28
+msgid "base link"
+msgstr ""
+
+#: forum_tools/models.py:28
+msgid "Link this link syncs with."
+msgstr ""
+
+#: forum_tools/models.py:29
+msgid "HTML id of the anchor to be synced."
+msgstr ""
+
+#: forum_tools/models.py:32
+msgid "synced forum link"
+msgstr ""
+
+#: forum_tools/models.py:33
+msgid "synced forum links"
+msgstr ""
+
+#: forum_tools/models.py:44
+msgid "build report forum"
+msgstr ""
+
+#: forum_tools/models.py:45
+msgid "build report forums"
+msgstr ""
+
+#: forum_tools/models.py:66
+msgid "Primary key"
+msgstr ""
+
+#: forum_tools/models.py:68 forum_tools/models.py:69 general/models.py:102
+msgid "username"
+msgstr ""
+
+#: forum_tools/models.py:71
+msgid "email"
+msgstr ""
+
+#: forum_tools/models.py:75
+msgid "A hash of the user's email address."
+msgstr ""
+
+#: forum_tools/models.py:80
+msgid "forum user"
+msgstr ""
+
+#: forum_tools/models.py:81
+msgid "forum users"
+msgstr ""
+
+#: forum_tools/models.py:139
+msgid "Topic"
+msgstr ""
+
+#: forum_tools/models.py:140
+msgid "Reply"
+msgstr ""
+
+#: forum_tools/models.py:144
+msgid "minimum number of posts"
+msgstr ""
+
+#: forum_tools/models.py:145
+msgid "posting level"
+msgstr ""
+
+#: forum_tools/models.py:150
+msgid "forum post count restriction"
+msgstr ""
+
+#: forum_tools/models.py:151
+msgid "forum post count restrictions"
+msgstr ""
+
+#: forum_tools/models.py:155
+#, python-format
+msgid "Restriction for %(forum)s"
+msgstr ""
+
+#: forum_tools/models.py:165
+msgid "closed"
+msgstr ""
+
+#: forum_tools/models.py:165
+msgid "Closed reports need no more attention."
+msgstr ""
+
+#: forum_tools/models.py:166
+msgid "time"
+msgstr ""
+
+#: forum_tools/models.py:166
+msgid "UNIX time when the report was added."
+msgstr ""
+
+#: forum_tools/models.py:171
+msgid "report"
+msgstr ""
+
+#: forum_tools/models.py:172
+msgid "reports"
+msgstr ""
+
+#: forum_tools/models.py:175
+msgid "Can see (number of) open reports"
+msgstr ""
+
+#: forum_tools/models.py:179
+#, python-format
+msgid "Report %(id)s"
+msgstr ""
+
+#: forum_tools/views.py:116
+msgid "Add build report"
+msgstr ""
+
+#: forum_tools/views.py:117
+msgid "Nominate for award"
+msgstr ""
+
+#: forum_tools/templates/forum_tools/sharing_allowed.html:2
+#: forum_tools/templates/forum_tools/sharing_not_allowed.html:2
+msgid "Content sharing"
+msgstr ""
+
+#: forum_tools/templates/forum_tools/sharing_allowed.html:2
+msgid "allowed"
+msgstr ""
+
+#: forum_tools/templates/forum_tools/sharing_not_allowed.html:2
+msgid "not allowed"
+msgstr ""
+
+#: general/ajax_views.py:46
+msgid "Your password was successfully changed."
+msgstr ""
+
+#: general/forms.py:18
+msgid "E-mail"
+msgstr ""
+
+#: general/forms.py:24 general/forms.py:43
+msgid "A user with that username already exists."
+msgstr ""
+
+#: general/forms.py:44 general/forms.py:130 general/forms.py:224
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: general/forms.py:47 general/forms.py:168
+msgid "Username"
+msgstr ""
+
+#: general/forms.py:48 general/forms.py:171
+msgid "E-mail address"
+msgstr ""
+
+#: general/forms.py:49 general/forms.py:119 general/forms.py:213
+msgid "Password"
+msgstr ""
+
+#: general/forms.py:51 general/forms.py:121 general/forms.py:215
+msgid "Password confirmation"
+msgstr ""
+
+#: general/forms.py:53 general/forms.py:123 general/forms.py:217
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: general/forms.py:63
+msgid "This e-mail address is already registered."
+msgstr ""
+
+#: general/forms.py:103 general/models.py:104
+msgid "answer"
+msgstr ""
+
+#: general/forms.py:117
+msgid "Forum name"
+msgstr ""
+
+#: general/forms.py:118
+msgid "Code"
+msgstr ""
+
+#: general/forms.py:136
+msgid "This user doesn't exist on the board, check for typos."
+msgstr ""
+
+#: general/forms.py:144
+msgid "You entered the wrong code."
+msgstr ""
+
+#: general/forms.py:159
+msgid "The username entered was not correct."
+msgstr ""
+
+#: general/forms.py:172
+msgid ""
+"If you forgot your username, you can enter the e-mail address you registered "
+"with."
+msgstr ""
+
+#: general/forms.py:179
+msgid "This user is unknown in the database."
+msgstr ""
+
+#: general/forms.py:186
+msgid "This email adress is unknown in the database"
+msgstr ""
+
+#: general/forms.py:193
+msgid "Enter your username or e-mail address."
+msgstr ""
+
+#: general/models.py:12
+msgid "The Netherlands"
+msgstr ""
+
+#: general/models.py:13
+msgid "Belgium"
+msgstr ""
+
+#: general/models.py:14
+msgid "Germany"
+msgstr ""
+
+#: general/models.py:15
+msgid "France"
+msgstr ""
+
+#: general/models.py:33
+msgid "added by"
+msgstr ""
+
+#: general/models.py:33
+msgid "User who added the object."
+msgstr ""
+
+#: general/models.py:34
+msgid "added on"
+msgstr ""
+
+#: general/models.py:44
+msgid "exclude me from nominations"
+msgstr ""
+
+#: general/models.py:44
+msgid "If checked, you will be excluded from Awards-nominations."
+msgstr ""
+
+#: general/models.py:47
+msgid "Aanvinken als je meedoet"
+msgstr ""
+
+#: general/models.py:49
+msgid "street name"
+msgstr ""
+
+#: general/models.py:51
+msgid "number"
+msgstr ""
+
+#: general/models.py:52
+msgid "house number (+ PO box if applicable)"
+msgstr ""
+
+#: general/models.py:55
+msgid "postal code"
+msgstr ""
+
+#: general/models.py:56
+msgid "city"
+msgstr ""
+
+#: general/models.py:57
+msgid "province"
+msgstr ""
+
+#: general/models.py:58
+msgid "country"
+msgstr ""
+
+#: general/models.py:61
+msgid "Dit wil ik graag"
+msgstr ""
+
+#: general/models.py:62
+msgid "Dit wil ik absoluut niet"
+msgstr ""
+
+#: general/models.py:65
+msgid "allow social sharing"
+msgstr ""
+
+#: general/models.py:66
+msgid ""
+"Checking this gives us permission to share your topics and albums on social "
+"media. Uncheck if you don't want to share."
+msgstr ""
+
+#: general/models.py:76
+#, fuzzy
+msgid "userprofile"
+msgstr "Profiel"
+
+#: general/models.py:77
+#, fuzzy
+msgid "userprofiles"
+msgstr "Profiel"
+
+#: general/models.py:94
+msgid "Question which must be answered for registration."
+msgstr ""
+
+#: general/models.py:103
+msgid "registration question"
+msgstr ""
+
+#: general/models.py:107
+msgid "IP address"
+msgstr ""
+
+#: general/models.py:108
+msgid "success"
+msgstr ""
+
+#: general/models.py:112
+msgid "type of visitor"
+msgstr ""
+
+#: general/models.py:112
+msgid "normal user"
+msgstr ""
+
+#: general/models.py:116
+msgid "registration attempt"
+msgstr ""
+
+#: general/models.py:117
+msgid "registration attempts"
+msgstr ""
+
+#: general/models.py:189
+#, python-format
+msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
+msgstr ""
+
+#: general/models.py:233
+msgid "hash"
+msgstr ""
+
+#: general/models.py:234
+msgid "expire datetime"
+msgstr ""
+
+#: general/models.py:237
+msgid "password reset"
+msgstr ""
+
+#: general/models.py:238
+msgid "password resets"
+msgstr ""
+
+#: general/models.py:243
+#, python-format
+msgid "Password reset for %(user)s"
+msgstr ""
+
+#: general/models.py:247
+msgid "path from"
+msgstr ""
+
+#: general/models.py:249
+msgid ""
+"path from where to redirect, without leading slash.                         "
+"E.g. '/shop/' becomse 'shop/'."
+msgstr ""
+
+#: general/models.py:253
+msgid "redirect to"
+msgstr ""
+
+#: general/models.py:254
+msgid "Path (relative or absolute to the docroot) or url."
+msgstr ""
+
+#: general/models.py:258
+msgid "redirect"
+msgstr ""
+
+#: general/models.py:259
+msgid "redirects"
+msgstr ""
+
+#: general/views.py:248
+msgid "Your profile data has been updated."
+msgstr ""
+
+#: general/views.py:251
+msgid "Some fields were not valid, please fix the errors."
+msgstr ""
+
+#: general/views.py:310
+msgid ""
+"Your account is still inactive! You won't be able to log in until you "
+"reactivate with the link sent by e-mail."
+msgstr ""
+
+#: general/views.py:337
+#, python-format
+msgid ""
+"Hello %(nickname)s, \n"
+"\n"
+"You or someone else has requested a password reset for your Modelbrouwers.nl "
+"account.\n"
+"This request will expire after 24 hours.\n"
+"\n"
+"Go to %(url)s to complete your password reset.\n"
+"\n"
+"Sincerely,\n"
+"\n"
+"The Modelbrouwers.nl staff"
+msgstr ""
+
+#: general/views.py:349
+msgid "nickname"
+msgstr ""
+
+#: general/views.py:353
+#, fuzzy
+msgid "Modelbrouwers.nl password reset"
+msgstr "Modelbrouwers.nl administratie"
+
+#: general/views.py:357
+#, python-format
+msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
+msgstr ""
+
+#: general/templates/general/do_password_reset.html:5
+msgid "Enter your new password"
+msgstr ""
+
+#: general/templates/general/do_password_reset.html:10
+#: general/templates/general/password_reset.html:13
+msgid "confirm"
+msgstr ""
+
+#: general/templates/general/login.html:30
+msgid "Forgot your password?"
+msgstr ""
+
+#: general/templates/general/login.html:32
+msgid "Request a password reset"
+msgstr ""
+
+#: general/templates/general/password.html:5
+#: general/templates/general/password.html:9
+#: general/templates/general/password.html:13
+#: general/templates/general/profile.html:9
+#: general/templates/general/profile.html:20
+msgid "Change password"
+msgstr ""
+
+#: general/templates/general/password_reset.html:6
+msgid "Enter your username or e-mail address to request a password reset."
+msgstr ""
+
+#: general/templates/general/password_reset.html:8
+msgid "An e-mail will be sent to you with a link to reset your password."
+msgstr ""
+
+#: general/templates/general/profile.html:3
+#, fuzzy
+msgid "Modelbrouwers.nl &bull; Edit profile"
+msgstr "Modelbrouwers.nl administratie"
+
+#: general/templates/general/profile.html:19
+msgid "Account details"
+msgstr ""
+
+#: general/templates/general/profile.html:23
+msgid "Introduce yourself!"
+msgstr ""
+
+#: general/templates/general/profile.html:31
+msgid "Your username"
+msgstr ""
+
+#: general/templates/general/profile.html:40
+msgid "Address details"
+msgstr ""
+
+#: general/templates/general/profile.html:50
+msgid "Social sharing"
+msgstr ""
+
+#: general/templates/general/profile.html:62
+msgid "Language settings"
+msgstr ""
+
+#: general/templates/general/profile.html:64
+msgid ""
+"Set your preferred language here. Note that this setting is stored in your "
+"cookies, so if you clear those, the default language according to your "
+"browser preferences will be used."
+msgstr ""
+
+#: general/templates/general/profile.html:77
+msgid ""
+"Contact admins@modelbrouwers.nl if you are interested in helping with "
+"translations."
+msgstr ""
+
+#: general/templates/general/register.html:4
+#: general/templates/general/registration_terms.html:6
+#, fuzzy
+msgid "Registration"
+msgstr "administratie"
+
+#: general/templates/general/register.html:24
+msgid "Anti-Spambot question"
+msgstr ""
+
+#: general/templates/general/register.html:31
+msgid "Answer"
+msgstr ""
+
+#: general/templates/general/register.html:40
+msgid "By registering, you agree to the terms below."
+msgstr ""
+
+#: general/templates/general/register.html:44
+msgid "Registration terms"
+msgstr ""
+
+#: general/templates/general/registration_terms.html:8
+#, python-format
+msgid ""
+"By registering on %(site)s and creating an account and profile,you get "
+"access to the forums and albums. Single sign on for all partsof %(site)s "
+"will be implemented in the future. Registration automatically implies "
+"agreement on these terms."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:11
+msgid ""
+"You agree to keep your credentials safe. Furthermore, you will keep one, and "
+"<strong>only one</strong> account. Multiple accounts are strictly forbidden. "
+"You will not impersonate other users or try to gain access to other users "
+"accounts."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:14
+#, python-format
+msgid ""
+"Some parts of %(site)s contain (extra) rules. It's your responsibility to "
+"have read them. The admins and moderators (= the staff) will always assume "
+"you are aware of the relevant rules."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:18
+msgid "Content"
+msgstr ""
+
+#: general/templates/general/registration_terms.html:20
+#, python-format
+msgid ""
+"All content posted on %(site)s becomes property of %(site)s as soon as it's "
+"posted. You do, however, maintain the copyright and will be cited as the "
+"author where possible. We don't fulfill requests for deletion of content, "
+"unless a strong reason can be provided (e.g.work related privacy issues)."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:23
+msgid ""
+"On the forums, you are allowed to edit your posts, unless that right has "
+"been taken away by the staff. You can delete your latest post, if no-one "
+"replied to it. In special cases, an exception can be made, contact the staff "
+"if your case needs an exception."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:26
+msgid ""
+"All images added to the albums stay on our server. Even if you delete an "
+"image from your album, the file is still on the hard drive. This is to "
+"prevent discontinuity in forum topics, we try to avoid as few missing images "
+"as possible."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:29
+#, python-format
+msgid ""
+"Posted content is subject to Dutch and Belgian legislation. Furthermore, "
+"people of all ages visit %(site)s. Pornographic, racist, blasphemous or "
+"offensive content is not allowed. When in doubt, contact the staff."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:34
+msgid "Stored data"
+msgstr ""
+
+#: general/templates/general/registration_terms.html:36
+#, python-format
+msgid ""
+"%(site)s makes use of cookies to keep you logged in. Furthermore, certain "
+"cookies are used to enhance the safety of the website. These cookies are "
+"essential to provide a well functioning website."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:39
+#, python-format
+msgid ""
+"%(site)s also makes use of Google Analytics cookies. These cookies generate "
+"anonymous statistics of %(site)s usage. We use them to improve your "
+"experience and create better quality."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:42
+#, python-format
+msgid ""
+"%(site)s values your privacy highly. Your password is hashed and can not be "
+"retrieved from the hash. All personal information is kept private. We don't "
+"sell or give away your personal information. Certain privacy settings are "
+"available in your profile (e.g. content sharing on social media)."
+msgstr ""
+
+#: general/templates/general/registration_terms.html:47
+msgid "Terms violations"
+msgstr ""
+
+#: general/templates/general/registration_terms.html:49
+#, python-format
+msgid ""
+"Violation of these terms will be looked at case-per-case by the staff. The "
+"staff decides on sending Official Warnings, temporary or permanent bans. "
+"Bans apply per component of %(site)s, but can be extended to the entire "
+"website. Decisions made by the staff are final and need no further "
+"discussion. The staff will always treat you respectfully, unless you give "
+"them reason not too. Remember, the staff are people too!"
+msgstr ""
+
+#: general/templates/general/registration_terms.html:52
+msgid ""
+"Mistakes occur. If you feel like an error is in place, don't hesitate to "
+"contact the admins. The e-mail address is in the footer of this page."
+msgstr ""
+
+#: kitreviews/forms.py:15
+msgid "Kit number"
+msgstr ""
+
+#: kitreviews/forms.py:16
+msgid "Kit name"
+msgstr ""
+
+#: kitreviews/forms.py:18 kitreviews/models.py:64
+msgid "Category"
+msgstr ""
+
+#: kitreviews/models.py:24
+#, fuzzy
+msgid "logo"
+msgstr "uitloggen"
+
+#: kitreviews/models.py:26
+msgid "is active?"
+msgstr ""
+
+#: kitreviews/models.py:27
+msgid "Does the brand still exist?"
+msgstr ""
+
+#: kitreviews/models.py:33
+msgid "brands"
+msgstr ""
+
+#: kitreviews/models.py:46
+msgid "scales"
+msgstr ""
+
+#: kitreviews/models.py:65
+msgid "Categories"
+msgstr ""
+
+#: kitreviews/models.py:76
+msgid "kit number"
+msgstr ""
+
+#: kitreviews/models.py:77
+msgid "Kit number as found on the box."
+msgstr ""
+
+#: kitreviews/models.py:80
+msgid "kit name"
+msgstr ""
+
+#: kitreviews/models.py:83
+msgid "difficulty"
+msgstr ""
+
+#: kitreviews/models.py:86
+msgid "box image"
+msgstr ""
+
+#: kitreviews/models.py:90
+msgid "duplicates"
+msgstr ""
+
+#: kitreviews/models.py:91
+msgid "Kits that are the same but have another producer."
+msgstr ""
+
+#: kitreviews/models.py:99
+msgid "model kit"
+msgstr ""
+
+#: kitreviews/models.py:100
+msgid "model kits"
+msgstr ""
+
+#: kitreviews/models.py:122
+#, python-format
+msgid "A kit from %(brand)s with kit number '%(kit_number)s' already exists"
+msgstr ""
+
+#: kitreviews/models.py:133
+msgid "review"
+msgstr ""
+
+#: kitreviews/models.py:134
+msgid "This is your review. You can use BBCode here."
+msgstr ""
+
+#: kitreviews/models.py:137
+msgid "positive points"
+msgstr ""
+
+#: kitreviews/models.py:138
+msgid "negative points"
+msgstr ""
+
+#: kitreviews/models.py:139
+#, fuzzy
+msgid "rating"
+msgstr "Migraties"
+
+#: kitreviews/models.py:144
+msgid "topic"
+msgstr ""
+
+#: kitreviews/models.py:145
+#, fuzzy
+msgid "ID of the topic on Modelbrouwers."
+msgstr "Terug naar de Modelbrouwers.nl homepage"
+
+#: kitreviews/models.py:148
+msgid "topic url"
+msgstr ""
+
+#: kitreviews/models.py:149
+msgid "URL to the topic not hosted on Modelbrouwers"
+msgstr ""
+
+#: kitreviews/models.py:154
+msgid "show real name?"
+msgstr ""
+
+#: kitreviews/models.py:155
+msgid ""
+"Checking this option will display your real name as reviewer. Uncheck to use "
+"your nickname."
+msgstr ""
+
+#: kitreviews/models.py:164
+#, fuzzy
+msgid "kit review"
+msgstr "Ga naar de kitreviews!"
+
+#: kitreviews/models.py:165
+#, fuzzy
+msgid "kit reviews"
+msgstr "Ga naar de kitreviews!"
+
+#: kitreviews/models.py:168
+#, python-format
+msgid "Review: %(kit)s by %(user)s"
+msgstr ""
+
+#: kitreviews/models.py:211
+msgid "vote"
+msgstr ""
+
+#: kitreviews/models.py:215
+msgid "kit review vote"
+msgstr ""
+
+#: kitreviews/models.py:216
+msgid "kit review votes"
+msgstr ""
+
+#: kitreviews/models.py:220
+#, python-format
+msgid "Vote for review by %(review_submitter)s"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/add_review.html:12
+msgid "Model kit"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/add_review.html:14
+#: kitreviews/templates/kitreviews/add_review.html:45
+msgid "Review"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/add_review.html:21
+#, python-format
+msgid ""
+"\n"
+"                    It appears you don't have Javascript enabled. Adding "
+"kits and/or reviews is still possible\n"
+"                    by <a href=\"%(search_url)s\">searching</a> for kits.\n"
+"                "
+msgstr ""
+
+#: kitreviews/templates/kitreviews/add_review.html:34
+#: kitreviews/templates/kitreviews/find_kit.html:14
+msgid "Find kits"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/add_review.html:51
+msgid "Add"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/base.html:12
+#, fuzzy
+msgid "Find kits/reviews"
+msgstr "Ga naar de kitreviews!"
+
+#: kitreviews/templates/kitreviews/base.html:13
+#: kitreviews/templates/kitreviews/find_kit.html:47
+#: kitreviews/templates/kitreviews/kit_detail.html:20
+#: kitreviews/templates/kitreviews/kit_detail.html:34
+msgid "Add review"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/find_kit.html:6
+msgid "Find model kit(s) &dash; Enter your search parameters"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/find_kit.html:19
+#, python-format
+msgid ""
+"\n"
+"               Search results (%(num_kits)s)\n"
+"            "
+msgstr ""
+
+#: kitreviews/templates/kitreviews/find_kit.html:46
+#, python-format
+msgid "%(counter)s review"
+msgid_plural "%(counter)s reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: kitreviews/templates/kitreviews/kit_detail.html:17
+#: kitreviews/templates/kitreviews/kit_detail.html:33
+msgid "Reviews"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/kit_detail.html:22
+#, python-format
+msgid ""
+"Submitted by <a href=\"%(user_url)s\">%(submitter)s</a> on %(submitted_on)s."
+msgstr ""
+
+#: kitreviews/templates/kitreviews/kit_detail.html:37
+msgid "Related forum topics"
+msgstr ""
+
+#: kitreviews/templates/kitreviews/review_form.html:34
+msgid "Album, build report(s)"
+msgstr ""
+
+#: migration/models.py:36
+msgid "album user migration"
+msgstr "albumgebruikermigratie"
+
+#: migration/models.py:37
+msgid "album user migrations"
+msgstr "albumgebruikermigraties"
+
+#: online_users/models.py:13
+msgid "last seen online"
+msgstr ""
+
+#: online_users/models.py:16
+msgid "notificate"
+msgstr ""
+
+#: online_users/models.py:18
+msgid "Send a notification to the online moderators when this user is online."
+msgstr ""
+
+#: online_users/models.py:24
+msgid "tracked user"
+msgstr ""
+
+#: online_users/models.py:25
+msgid "tracked users"
+msgstr ""
+
+#: secret_santa/models.py:8
+msgid "year"
+msgstr ""
+
+#: secret_santa/models.py:8
+msgid "Year the lottery starts."
+msgstr ""
+
+#: secret_santa/models.py:9
+msgid "enrollment start"
+msgstr ""
+
+#: secret_santa/models.py:9
+msgid "From when can people enroll."
+msgstr ""
+
+#: secret_santa/models.py:10
+msgid "enrollment end"
+msgstr ""
+
+#: secret_santa/models.py:10
+msgid "Until when can people enroll."
+msgstr ""
+
+#: secret_santa/models.py:11
+msgid "lottery date"
+msgstr ""
+
+#: secret_santa/models.py:11
+msgid "When will the lottery happen?"
+msgstr ""
+
+#: secret_santa/models.py:12
+msgid "Lottery done?"
+msgstr ""
+
+#: secret_santa/models.py:14
+msgid "price class"
+msgstr ""
+
+#: secret_santa/models.py:16
+msgid "Enter a value here for the estimated price class of the gift."
+msgstr ""
+
+#: secret_santa/models.py:20
+msgid "secret santa"
+msgstr ""
+
+#: secret_santa/models.py:21
+msgid "secret santas"
+msgstr ""
+
+#: secret_santa/models.py:52 secret_santa/models.py:68
+msgid "secret santa edition"
+msgstr ""
+
+#: secret_santa/models.py:56
+msgid "participant"
+msgstr ""
+
+#: secret_santa/models.py:57
+msgid "participants"
+msgstr ""
+
+#: secret_santa/views.py:44 secret_santa/templates/secret_santa/base.html:58
+msgid "Your address details are incomplete."
+msgstr ""
+
+#: secret_santa/views.py:46 secret_santa/templates/secret_santa/base.html:64
+msgid "Signing up is not possible at this time."
+msgstr ""
+
+#: secret_santa/views.py:77
+msgid "The lottery is done."
+msgstr ""
+
+#: secret_santa/views.py:94
+msgid "Your match does not exist."
+msgstr ""
+
+#: secret_santa/views.py:96
+msgid "You're not a participant!"
+msgstr ""
+
+#: secret_santa/views.py:98
+msgid "You can't view the lottery results yet."
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:24
+#: secret_santa/templates/secret_santa/base.html:73
+msgid "Participants"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:24
+msgid "My Secret Santa"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:28
+#, python-format
+msgid ""
+"\n"
+"&quot;Secret Santa is a Western Christmas tradition in which members of a "
+"group or community are randomly assigned a person to whom they anonymously "
+"give a gift.&quot; <sup>[<a href=\"http://en.wikipedia.org/wiki/Secret_Santa"
+"\">Wikipedia</a>]</sup> Since we're a scale modelling website, the gift is "
+"in the form of a modelling kit. The intent is to finish the model by the end "
+"of %(year_later)s (and we really hope everybody succeeds). You're supposed "
+"to put the build report in the normal subforum, provided with the tag "
+"<code>[SS %(year)s]</code>.\n"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:32
+#, python-format
+msgid ""
+"\n"
+"The price class is %(price)s euros. You can always buy a more expensive kit, "
+"but expect your Secret Santa to stick with the price range. It would be fun "
+"to include a poem with the gift, since that is tradition, but it's no "
+"obligation to do so.\n"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:36
+#, python-format
+msgid ""
+"\n"
+"Signing up is possible from %(enrollment_start)s <strong>until "
+"%(enrollment_end)s</strong>. After this date (on %(lottery_date)s) the "
+"random assignment will be executed. After that, you're all set to buy your "
+"Secret Santa a nice present! An e-mail notification will be sent when the "
+"assignment is done.</p>"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:39
+msgid "Sign up"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:43
+#, python-format
+msgid ""
+"To be able to sign up, you must make sure that your address\n"
+"    details are complete in your <a href=\"%(profile_url)s\">profile</a>."
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:51
+#: secret_santa/templates/secret_santa/base.html:58
+msgid "Sign up!"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:60
+msgid "You have signed up already."
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:68
+msgid "Who's my Secret Santa?"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:70
+#, python-format
+msgid ""
+"Click <a href=\"%(receiver_url)s\">here</a> to find out. You should have "
+"received the information by e-mail too, though.\n"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:83
+#: secret_santa/templates/secret_santa/base.html:87
+msgid "Do the lottery"
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:89
+#, python-format
+msgid "The lottery can only be done on %(date)s or later."
+msgstr ""
+
+#: secret_santa/templates/secret_santa/base.html:92
+msgid "Done already!"
+msgstr ""
+
+#: shirts/models.py:18
+msgid "Standard"
+msgstr ""
+
+#: shirts/models.py:19
+msgid "Girlie"
+msgstr ""
+
+#: shirts/models.py:27
+msgid "size"
+msgstr ""
+
+#: shirts/models.py:28
+msgid "type"
+msgstr ""
+
+#: shirts/models.py:29
+msgid "color"
+msgstr ""
+
+#: shirts/models.py:30
+msgid "mail the shirt"
+msgstr ""
+
+#: shirts/models.py:30
+#, python-format
+msgid ""
+"Mailing the shirt will add %(shipping_cost)s euros to the costs and you need "
+"to fill in your address data in your profile."
+msgstr ""
+
+#: shirts/models.py:31
+msgid "moderator shirt"
+msgstr ""
+
+#: shirts/models.py:31
+msgid "Check this box if you want the moderator shirt. Moderators only!"
+msgstr ""
+
+#: shirts/models.py:34
+msgid "order time"
+msgstr ""
+
+#: shirts/models.py:35
+msgid "payment received"
+msgstr ""
+
+#: shirts/models.py:36
+msgid "delivered?"
+msgstr ""
+
+#: shirts/models.py:39
+msgid "shirt order"
+msgstr ""
+
+#: shirts/models.py:40
+msgid "shirt orders"
+msgstr ""
+
+#: shirts/views.py:11
+#, python-format
+msgid ""
+"Dear %(username)s,\n"
+"\n"
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: color %(color)s; size %(size)s; type %(type)s. The order "
+"was placed on %(date)s.\n"
+"\n"
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account: \n"
+"IBAN: BE47 1325 1771 2380\n"
+"BIC: BNAG BE BB.\n"
+"Be sure to mention your order ID: %(orderid)s.\n"
+"\n"
+"The price for this order is %(price)s euros.\n"
+"\n"
+"\n"
+"Sincerely,\n"
+"Sergei Maertens\n"
+msgstr ""
+
+#: shirts/views.py:26
+#, fuzzy
+msgid "Modelbrouwers.nl shirt order"
+msgstr "Modelbrouwers.nl administratie"
+
+#: shirts/views.py:42
+#, python-format
+msgid "You have placed order %(orderid)s"
+msgstr ""
+
+#: shirts/templates/shirts/base.html:43
+msgid "Shirt ordering"
+msgstr ""
+
+#: shirts/templates/shirts/base.html:46
+msgid ""
+"With this form, you can order a Modelbrouwers.nl shirt. After ordering, you "
+"will receive an e-mail with account details. You must pay the shirt to "
+"complete the order."
+msgstr ""
+
+#: shirts/templates/shirts/base.html:47
+msgid ""
+"If you don't wish the shirt to be mailed, the delivery of the shirt will "
+"happen on some meeting. You will be contacted for this through your e-mail.\n"
+"    "
+msgstr ""
+
+#: shirts/templates/shirts/base.html:49
+#, python-format
+msgid ""
+"The price of a shirt is %(price)s euros + %(shipping_cost)s if you want it "
+"to be mailed."
+msgstr ""
+
+#: shirts/templates/shirts/base.html:53
+msgid "Place order"
+msgstr ""
+
+#: shirts/templates/shirts/base.html:57
+msgid ""
+"Note: the preview of the shirt is a mock-up. The actual shirt may be "
+"slightly different."
+msgstr ""
+
+#: shirts/templates/shirts/mail.html:2
+#, python-format
+msgid "Dear %(username)s,"
+msgstr ""
+
+#: shirts/templates/shirts/mail.html:3
+#, python-format
+msgid ""
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: \n"
+"color %(color)s; size %(size)s; type %(type)s. The order was placed on "
+"%(date)s"
+msgstr ""
+
+#: shirts/templates/shirts/mail.html:5
+#, python-format
+msgid ""
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br "
+"><br >Be sure to mention your order ID: %(orderid)s.\n"
+"<br >\n"
+"The price for this order is %(price)s euros."
+msgstr ""
+
+#: shirts/templates/shirts/mail.html:9
+msgid "Sincerely,<br >Sergei Maertens"
+msgstr ""
+
+#: templates/admin/base_site.html:5
 msgid "Modelbrouwers.nl admin"
 msgstr "Modelbrouwers.nl administratie"
 
-#: templates/admin/base_site.html:7
+#: templates/admin/base_site.html:8
 msgid "administration"
 msgstr "administratie"
 
-#: templates/admin/base_site.html:17
+#: templates/admin/base_site.html:23
 msgid "Find a member"
 msgstr "Zoek een forumlid"
