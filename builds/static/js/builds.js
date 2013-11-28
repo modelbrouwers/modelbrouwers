@@ -30,7 +30,11 @@ $(document).ready(function(){
 	$('#radio').buttonset();
 	$('#add-albumphoto').click(show_photos_selector);
 	$('#add-urlphoto').click(function(){
-		$('input.photo-url').show();
+		$('input.photo-url').filter(function(){
+			var preview = $(this).closest('fieldset').siblings('div.preview');
+			return !preview.find('img').length;
+		}).show();
+		$('#photos-dropzone').hide();
 	});
 	$('#photos-list').on('change', '#id_album', function(){
 		$('#photos-list').data('current-album', $(this).val());
@@ -40,7 +44,8 @@ $(document).ready(function(){
 	/* links to photos */
 	// hide last 9 blocks if they're empty
 	$('li.photo-form:not(:first)').filter(function(index){
-		return !$(this).find('.photo-url').val();
+		var url_value = $(this).find('.photo-url').val();
+		return !url_value;
 	}).hide();
 
 	// update preview & do validation
@@ -90,7 +95,6 @@ $(document).ready(function(){
 	// trigger event, just in case it's filled in and we're re-displaying the form
 	$('#photos-formset input.photo-url:visible').keyup();
 
-	// FIXME: edit
 	$('#photos-dropzone').droppable({
 		accept: 'li.photo',
 		activeClass: 'highlight',
@@ -114,6 +118,30 @@ $(document).ready(function(){
 			ui.draggable.remove();
 		}
 	});
+
+	// update previews in edit mode
+	if (photo_urls){
+		$('input.album-photo').each(function(i, e){
+			var photo_id = $(this).val();
+			var img_src = photo_urls[photo_id];
+			if (img_src) {
+				var preview = $(this).closest('fieldset').siblings('div.preview');
+
+				var tpl = load_template('photo_preview');
+				var context = {'img_src': img_src};
+				var rendered_tpl = tpl(context);
+
+				preview.html(rendered_tpl);
+				$(this).closest('li.photo-form').show();
+				$(this).siblings('input.photo-url, span.delete.checkbox').hide();
+
+				update_photo_fields($(this), true);
+			}
+		});
+	}
+
+	// TODO: photo removed -> show url form
+	// completely empty ->  check deleted checkbox
 });
 
 function update_photo_fields(input, show_next){
@@ -135,7 +163,7 @@ function update_photo_fields(input, show_next){
 }
 
 function show_photos_selector(){
-	$('#builds-overview, input.photo-url').hide();
+	$('#builds-overview, input.photo-url, span.delete.checkbox').hide();
 	$('#div-loading').show();
 
 	// ophalen albums via JSON call, via tastypie API!

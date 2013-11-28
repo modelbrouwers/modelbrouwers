@@ -286,4 +286,11 @@ class BuildUpdate(UpdateView): # TODO
 
         if not context.get('photos_formset', False):
             context['photos_formset'] = self.get_formset(instance=self.object)
+
+        # get the image urls for each photo
+        photos_data = {}
+        for photo in self.object.buildphoto_set.all():
+            photos_data[photo.photo.id] = photo.image_url
+            context['photo_urls'] = json.dumps(photos_data)
+
         return super(BuildUpdate, self).get_context_data(**context)
