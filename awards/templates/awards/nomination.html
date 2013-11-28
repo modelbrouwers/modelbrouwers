@@ -10,17 +10,24 @@ BrouwersAwards &bull; Nominaties
 <div class="important">Enkel projecten in {{current_year}} <strong>afgewerkt</strong>  zijn geldige nominaties!</div>
 
 <form action="." method="post" id="nomination_form">
+
 	{% for error in form.non_field_errors %}
 		<p class="error"><strong>{{ error|escape }}</strong></p>
 	{% endfor %}
+
 	<table class="table">
-	{% include "2_col_form.html" %}
-		<tr><td colspan="2" class="submit"><input type = "submit" value="Nomineren"/></td></tr>
+		{% include "form_in_table.html" %}
 	</table>
+
+	<div class="center" style="text-align:center;">
+		<input type = "submit" value="Nomineren"/>
+	</div>
 </form>
+
 <br />
 <br />
 <br />
+
 <div id="latest_nominations">
 	<div class="subtitle">Laatste vijf nominaties</div>
 	{% for project in last_nominations %}
