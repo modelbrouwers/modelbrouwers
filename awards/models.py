@@ -1,17 +1,18 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext as _
 from datetime import date
 
 class Category(models.Model):
 	name = models.CharField(max_length=100)
-	
+
 	def __unicode__(self):
 		return self.name
-	
+
 	class Meta:
 		verbose_name = _("Categorie")
 		verbose_name_plural = _(u'Categorie\u00EBn')
-	
+
 	def latest(self):
 		'''
 		returns latest five nominations in this category
@@ -28,22 +29,25 @@ class Project(models.Model):
 	category = models.ForeignKey(Category, verbose_name="categorie")
 	#TODO: allow for an image to be shown
 	#image = models.ImageField()
-	
+
 	nomination_date = models.DateField(default=date.today)
 	nominator = models.ForeignKey('general.UserProfile', null=True)
-	
+
 	votes = models.IntegerField(null=True, blank=True, default=0)
 	rejected = models.BooleanField(default=False)
-	
+
+	last_reviewer = models.ForeignKey(User, blank=True, null=True, verbose_name=_('last reviewer'))
+	last_review = models.DateTimeField(_('last review'), auto_now=True, blank=True, null=True)
+
 	def __unicode__(self):
 		return self.name + ' - ' + self.brouwer
-	
+
 	class Meta:
 		verbose_name = _("Nominatie")
 		verbose_name_plural = _("Nominaties")
 		ordering = ['category', 'votes']
 		unique_together = (("category", "url"),)
-	
+
 	def save(self, *args, **kwargs):
 		if not self.id:
 			self.year = self.nomination_date.year
