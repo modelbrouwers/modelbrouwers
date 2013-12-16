@@ -1,15 +1,17 @@
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.views.generic.edit import CreateView
 
 from general.models import UserProfile
 from general.shortcuts import voting_enabled
-from models import *
-from forms import ProjectForm, CategoryForm, YearForm
+
+from .models import *
+from .forms import ProjectForm, CategoryForm, YearForm
 from datetime import date
 import re
 
@@ -25,31 +27,42 @@ def category(request):
 	categories = Category.objects.all()
 	return render(request, 'awards/category.html', {'categories': categories})
 
-@login_required
-def nomination(request):
-	year = date.today().year
-	last_nominations = Project.objects.filter(Q(nomination_date__year=date.today().year-1) | Q(nomination_date__year = date.today().year), rejected=False).order_by('-pk')[:15]
-	if request.method == 'POST':
-		form = ProjectForm(request.POST)
-		if form.is_valid():
-			new_nomination = form.save(commit=False)
-			new_nomination.nominator = request.user.get_profile()
-			new_nomination.save()
+class NominationView(CreateView):
+	model = Project
+	form_class = ProjectForm
+	template_name = 'awards/nomination.html'
+	success_url = reverse_lazy('add_nomination')
 
-			if new_nomination.rejected:
-				messages.info(request, "De nominatie zal niet stembaar zijn op verzoek van de brouwer zelf.")
-			else:
-				messages.success(request, "De nominatie is toegevoegd.")
-			return HttpResponseRedirect(reverse(nomination))
-	else:
-		form = ProjectForm(initial=request.GET.items())
-	return render(request, 'awards/nomination.html', {'form': form, 'last_nominations': last_nominations, 'current_year': year})
+	def get_initial(self):
+		initial = super(NominationView, self).get_initial()
+		initial.update(dict(self.request.GET.items()))
+		return initial
+
+	def form_valid(self, form):
+		self.object = form.save(commit=False)
+		self.object.submitter = self.request.user
+		self.object.nominator = self.request.user.get_profile()
+		self.object.save()
+		if self.object.rejected:
+			messages.info(request, _("The builder of this project doesn't participate in the awards."
+									 " Voting for this project will not be possible."))
+		else:
+			messages.success(self.request, _("The nomination was added."))
+		return HttpResponseRedirect(self.get_success_url())
+
+	def get_context_data(self, **kwargs):
+		kwargs['last_nominations'] = Nomination.latest.all()[:15]
+		kwargs['current_year'] = date.today().year
+		return super(NominationView, self).get_context_data(**kwargs)
+
+
 
 def category_list_nominations(request, id_):
 	category = get_object_or_404(Category, pk = id_)
 	projects = category.project_set.all().filter(nomination_date__year = date.today().year)
 	projects = projects.exclude(rejected=True)
 	return render(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})
+
 
 @login_required
 def vote(request):

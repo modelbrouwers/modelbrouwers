@@ -1,8 +1,9 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, url
+from django.contrib.auth.decorators import login_required
+
+from .views import NominationView
 
 urlpatterns = patterns('awards.views',
-    (r'^nomination/$', 'nomination'),
-#    (r'^nomination/(\d+)/$', 'nomination_detail'),
     (r'^vote/$', 'vote'),
     (r'^vote/overview/$', 'vote_overview'),
     (r'^vote/scores/$', 'scores'),
@@ -14,3 +15,7 @@ urlpatterns = patterns('awards.views',
 urlpatterns += patterns('django.views.generic.simple',
     url(r'^$', 'direct_to_template', {'template': 'awards/base.html'}, name='awards_index'),
     )
+
+urlpatterns += patterns('',
+    url(r'^nomination/', login_required(NominationView.as_view()), name='add_nomination'),
+)
