@@ -1,13 +1,25 @@
-from django import forms
-from models import Project, Category
-from general.models import UserProfile
 import re
-from datetime import date
+
+from django import forms
+from django.utils.translation import ugettext as _
+
+from general.models import UserProfile
+from .models import Project, Category
+
 
 class ProjectForm(forms.ModelForm):
+	url_pattern = 'modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)'
+
 	class Meta:
 		model = Project
-		exclude = ('votes', 'nomination_date', 'nominator', 'rejected')
+		exclude = (
+			'votes',
+			'nomination_date',
+			'nominator',
+			'rejected',
+			'submitter',
+			'last_reviewer'
+		)
 		widgets = {
 			'url': forms.TextInput(attrs={'size':60}),
 			'name': forms.TextInput(attrs={'size':60}),
@@ -19,13 +31,17 @@ class ProjectForm(forms.ModelForm):
 		forum_id = self.initial.get('forum_id', None)
 		topic_id = self.initial.get('topic_id', None)
 		if forum_id and topic_id:
-			url = 'http://modelbrouwers.nl/phpBB3/viewtopic.php?f={0}&t={1}'
+			url = 'http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f={0}&t={1}'
 			url = url.format(forum_id, topic_id)
 			self.fields['url'].initial = url
 
+			# check if this one exists
+			if Project.objects.filter(url=url).exists():
+				self.errors['url'] = [_("This project was already nominated.")]
+
 	def clean_url(self):
 		url = self.cleaned_data['url']
-		match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
+		match = re.search(self.url_pattern, url)
 		if not match:
 			raise forms.ValidationError("Deze url wijst niet naar een forumtopic.")
 		url = "http://www.%s" % match.group(0)

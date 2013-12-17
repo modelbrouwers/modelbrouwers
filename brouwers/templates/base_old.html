@@ -5,7 +5,7 @@
 	<head>
 		<title>{% block title %}Brouwersapps &bull; Modelbrouwers.nl{% endblock %}</title>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/base_old.css' %}" charset="utf-8"/>
-		<link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" /> 
+		<link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" />
 		{% block extrastyle %}
 		{% endblock %}
 		{% block extrascript %}
@@ -21,7 +21,7 @@
 			<a href="/">
 			    <img src="{{ STATIC_URL }}images/logo/logo_modelbrouwers.png" width="395" height="75" alt="logo"/>
 			</a>{% endspaceless %}
-			
+
 			{% block extra_logo %}
 			{% endblock %}
 			<!-- menu -->
@@ -35,24 +35,26 @@
 			<!-- end menu -->
 		</div>
 		<!-- end header -->
-		
-		
+
+
 		<!-- actual content -->
 		<div id="content">
 			<ul id="submenu">
 			{% block submenu %}
 			{% endblock submenu %}
 			</ul>
-			
+
 			{% block messages %}
-				{% include "messages.html" %}
+				{% if messages %}
+					{% include "messages.html" %}
+				{% endif %}
 			{% endblock %}
-			
+
 			{% block content %}
 			{% endblock %}
 		</div>
 		<!-- end content -->
-		
+
 		<div id="sidebar">
 			{% if not user.is_authenticated %}
 			<div id="login">
@@ -74,14 +76,14 @@
 				{% endif %}
 			</div>
 			{% endif %}
-			
+
 		</div>
 	</div>
 	<!-- end container -->
-	
+
 	<div id="footer">
 		<div id="real_footer">
-			Modelbrouwers {% block appname %}applicaties{% endblock %} - 
+			Modelbrouwers {% block appname %}applicaties{% endblock %} -
 			<a href="{{STATIC_URL}}privacy.html" target="_blank">Privacyverklaring</a>
 			<br />
 			&copy; 2010 - 2011 Sergei Maertens en Modelbrouwers.nl
