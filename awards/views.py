@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
+
 
 from general.models import UserProfile
 from general.shortcuts import voting_enabled
@@ -55,14 +57,20 @@ class NominationView(CreateView):
 		kwargs['current_year'] = date.today().year
 		return super(NominationView, self).get_context_data(**kwargs)
 
+class NominationListView(ListView):
+	template_name = 'awards/category_list_nominations.html'
+	context_object_name = 'projects'
 
+	def get_queryset(self):
+		return Nomination.objects.filter(
+				category__id = self.kwargs.get('pk'),
+				nomination_date__year = date.today().year
+			).exclude(rejected=True)
 
-def category_list_nominations(request, id_):
-	category = get_object_or_404(Category, pk = id_)
-	projects = category.project_set.all().filter(nomination_date__year = date.today().year)
-	projects = projects.exclude(rejected=True)
-	return render(request, 'awards/category_list_nominations.html', {'category': category, 'projects': projects})
-
+	def get_context_data(self, **kwargs):
+		pk = self.kwargs.get('pk', None)
+		kwargs['category'] = Category.objects.get(pk=pk)
+		return super(NominationListView, self).get_context_data(**kwargs)
 
 @login_required
 def vote(request):
