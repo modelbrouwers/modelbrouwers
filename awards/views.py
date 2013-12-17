@@ -1,5 +1,5 @@
-from django.db.models import Q
-from django.core.exceptions import ObjectDoesNotExist
+from datetime import date
+
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -11,23 +11,15 @@ from django.views.generic.list import ListView
 
 from general.models import UserProfile
 from general.shortcuts import voting_enabled
-
 from .models import *
-from .forms import ProjectForm, CategoryForm, YearForm
-from datetime import date
-import re
+from .forms import ProjectForm, YearForm
 
-#TODO: link the user submitted in a nomination to an existing profile on the site
-def find_profile(brouwer):
-	try:
-		profile = UserProfile.objects.get(forum_nickname__iexact=brouwer)
-		return profile
-	except ObjectDoesNotExist:
-		return False
 
-def category(request):
-	categories = Category.objects.all()
-	return render(request, 'awards/category.html', {'categories': categories})
+class CategoryListView(ListView):
+	model = Category
+	template_name = 'awards/category.html'
+	context_object_name = 'categories'
+
 
 class NominationView(CreateView):
 	model = Project
@@ -57,6 +49,7 @@ class NominationView(CreateView):
 		kwargs['current_year'] = date.today().year
 		return super(NominationView, self).get_context_data(**kwargs)
 
+
 class NominationListView(ListView):
 	template_name = 'awards/category_list_nominations.html'
 	context_object_name = 'projects'
@@ -71,6 +64,7 @@ class NominationListView(ListView):
 		pk = self.kwargs.get('pk', None)
 		kwargs['category'] = Category.objects.get(pk=pk)
 		return super(NominationListView, self).get_context_data(**kwargs)
+
 
 @login_required
 def vote(request):
