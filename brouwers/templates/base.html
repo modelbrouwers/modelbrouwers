@@ -9,9 +9,9 @@
 	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Pragma" content="no-cache" />
-	<meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" /> 
+	<meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" />
 	<meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
-	
+
 	{% block style %}
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" charset="utf-8"/>
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" charset="utf-8"/>
@@ -35,7 +35,7 @@
         {% block extrastyle %}
 	    {% endblock extrastyle %}
 	{% endblock style %}
-	
+
     {% block scripts %}
 	    <!-- use googles jquery, loads faster and relieves own server -->
 	    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -61,7 +61,7 @@
         {% block extrascript %}
 	    {% endblock %}
 	{% endblock scripts %}
-    <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" /> 
+    <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" />
 </head>
 
 <body>
@@ -72,9 +72,9 @@
                     {% include "nav_tabs.html" %}
                 {% endblock %}
             </ul>
-        </div> 
+        </div>
         <!-- end navigation -->
-        
+
         <div id="shop_banner">
             <ul>
                 {% include "shop_banner.html" %}
@@ -83,7 +83,7 @@
         <!-- end shop products banner -->
     </div>
     <!-- end top div -->
-    
+
     <!-- start container -->
     <div id="container">
         <!-- div with logos and misc -->
@@ -102,26 +102,26 @@
 
             <div class="right">{% spaceless %}
                 <a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank">
-                    <img class="rounded" src="{% static 'images/varia/MM-actie.gif' %}" 
+                    <img class="rounded" src="{% static 'images/varia/MM-actie.gif' %}"
                         alt="Modelbouwmagazine / Modelbrouwers ACTIE" width="308" height="60" />
                 </a>
                 <a href="http://www.flexwebhosting.nl/" target="_blank">
-                    <img class="rounded" src="{% static 'images/varia/flex_webhosting.gif' %}" 
+                    <img class="rounded" src="{% static 'images/varia/flex_webhosting.gif' %}"
                         width="234" height="60" alt="Flexwebhosting.nl" />
                 </a>{% endspaceless %}
             </div>
         </div>
         <!-- end logo div -->
-        
+
         <!-- start content wrapper -->
         <div id="content_wrapper">
             {% block important_message %}
             {% endblock %}
-            
+
             {% block messages %}
                 {% include "messages.html" %}
             {% endblock %}
-            
+
             <div id="menu_wrapper">
                 <ul id="menu">{% spaceless %}
                     {% block menu %}
@@ -133,7 +133,7 @@
                             <li><a href="{% url 'migration.views.index' %}">{% trans 'Migrations' %}</a></li>
                         {% endif %}
                     {% endblock %}
-                    
+
                     {% block user_auth %}
                         {% if not user.is_authenticated %}
                             <li class="user-auth">
@@ -157,29 +157,31 @@
                     {% endblock %}
                 {% endspaceless %}</ul>
             </div>
-            
+
             {% block above_content %}{% endblock %}
             <!-- start content -->
             <div id="content">
             {% block content %}{% endblock content %}
             </div>
             <!-- end content -->
-            
-            {% if debug %}
-                <div id="debug">
-                    {% block queries %}
-                        Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
-                        <ol>
-        	            {% for query in connection.queries %}
-        		            <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
-        	            {% endfor %}
-        	            </ol>
-                    {% endblock %}
-                </div>
-            {% endif %}
+
+            {% comment %}
+                {% if debug %}
+                        <div id="debug">
+                            {% block queries %}
+                                Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
+                                <ol>
+                                {% for query in connection.queries %}
+                                    <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
+                                {% endfor %}
+                                </ol>
+                            {% endblock %}
+                        </div>
+                    {% endif %}
+            {% endcomment %}
         </div>
         <!-- end content wrapper -->
-        
+
         <!-- start footer -->
         <div id="footer">
             {% block footer %}
@@ -201,7 +203,7 @@
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
     </script>
-    
+
     <script type="text/javascript">
     try {
     var pageTracker = _gat._getTracker("UA-385491-1");
