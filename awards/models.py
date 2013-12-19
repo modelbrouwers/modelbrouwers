@@ -3,10 +3,17 @@ from datetime import date
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
 class Category(models.Model):
 	name = models.CharField(max_length=100)
+	slug = models.SlugField()
+
+	def save(self, *args, **kwargs):
+		if not self.slug:
+			self.slug = slugify(self.name)
+		super(Category, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.name
@@ -16,7 +23,7 @@ class Category(models.Model):
 		verbose_name_plural = _(u'Categorie\u00EBn')
 
 	def get_absolute_url(self):
-		return reverse('nominations-list', kwargs={'name': self.name.lower()})
+		return reverse('nominations-list', kwargs={'slug': self.slug})
 
 	def latest(self):
 		'''

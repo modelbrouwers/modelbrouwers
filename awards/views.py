@@ -67,8 +67,8 @@ class NominationListView(ListView):
 		filter_kwargs = {'pk': pk}
 
 		if not pk:
-			name = self.kwargs.get('name', None)
-			filter_kwargs = {'name__iexact': name}
+			slug = self.kwargs.get('slug', None)
+			filter_kwargs = {'slug__iexact': slug}
 
 		self.category = get_object_or_404(Category, **filter_kwargs)
 
