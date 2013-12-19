@@ -1,1 +1,0 @@
-/home/bbt/coding/brouwers/brouwers/templates/php_templates/shop_banner.php
