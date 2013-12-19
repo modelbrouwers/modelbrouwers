@@ -73,7 +73,7 @@ div.category{
     width: 31%;
     margin: 1em 1%;
     padding: 0.5em 1em 0;
-    min-height: 15em;
+    height: 16em;
     box-sizing: border-box;
     border: solid 1px #DDD;
     float: left;
