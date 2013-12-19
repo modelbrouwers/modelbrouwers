@@ -15,6 +15,6 @@ urlpatterns += patterns('',
     url(r'^$', TemplateView.as_view(template_name='awards/base.html'), name='awards_index'),
     url(r'^categories/$', CategoryListView.as_view(), name='category-list'),
     url(r'^categories/(?P<pk>\d+)/$', NominationListView.as_view()),
-    url(r'^categories/(?P<name>[\w\+]+)/$', NominationListView.as_view(), name='nominations-list'),
+    url(r'^categories/(?P<name>[\w\+ ]+)/$', NominationListView.as_view(), name='nominations-list'),
     url(r'^nomination/', login_required(NominationView.as_view()), name='add_nomination'),
 )

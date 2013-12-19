@@ -1,17 +1,10 @@
 {% extends "awards/base.html" %}
 
-{% block title %}
-Nominaties in de categorie {{ category.name }}
-{% endblock %}
 
 {% block content %}
 <h1>Nominaties in de categorie "{{ category.name }}"</h1>
 <hr />
-<br />
-<br />
-<p>Klik op de titel van het project om het brouwverslag te bekijken.</p>
-<p style="font-size: 80%;">Bij waarschuwingsbordjes: laat je muis eens even op de afbeelding staan en kijk wat er gebeurt...</p>
-<br />
+
 <br />
 {% if projects %}
 	{% for project in projects %}
