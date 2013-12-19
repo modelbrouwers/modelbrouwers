@@ -16,7 +16,6 @@ class Category(models.Model):
 		verbose_name_plural = _(u'Categorie\u00EBn')
 
 	def get_absolute_url(self):
-		import pdb; pdb.set_trace()
 		return reverse('nominations-list', kwargs={'name': self.name.lower()})
 
 	def latest(self):
