@@ -20,6 +20,10 @@ class CategoryListView(ListView):
 	template_name = 'awards/category.html'
 	context_object_name = 'categories'
 
+	def get_queryset(self):
+		qs = super(CategoryListView, self).get_queryset()
+		return qs.order_by('?')
+
 
 class NominationView(CreateView):
 	model = Project
@@ -53,16 +57,32 @@ class NominationView(CreateView):
 class NominationListView(ListView):
 	template_name = 'awards/category_list_nominations.html'
 	context_object_name = 'projects'
+	category = None
+
+	def get_category(self):
+		if self.category:
+			return self.category
+
+		pk = self.kwargs.get('pk', None)
+		filter_kwargs = {'pk': pk}
+
+		if not pk:
+			name = self.kwargs.get('name', None)
+			filter_kwargs = {'name__iexact': name}
+
+		self.category = get_object_or_404(Category, **filter_kwargs)
+
+		return self.category
 
 	def get_queryset(self):
+		category = self.get_category()
 		return Nomination.objects.filter(
-				category__id = self.kwargs.get('pk'),
+				category__id = category.id,
 				nomination_date__year = date.today().year
 			).exclude(rejected=True)
 
 	def get_context_data(self, **kwargs):
-		pk = self.kwargs.get('pk', None)
-		kwargs['category'] = Category.objects.get(pk=pk)
+		kwargs['category'] = self.get_category()
 		return super(NominationListView, self).get_context_data(**kwargs)
 
 

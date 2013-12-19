@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext as _
 
@@ -14,6 +15,9 @@ class Category(models.Model):
 		verbose_name = _("Categorie")
 		verbose_name_plural = _(u'Categorie\u00EBn')
 
+	def get_absolute_url(self):
+		return reverse('nominations-list', kwargs={'name': self.name.lower()})
+
 	def latest(self):
 		'''
 		returns latest five nominations in this category
@@ -22,6 +26,11 @@ class Category(models.Model):
 		start_date = date(year, 1, 1)
 		projects = self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).order_by('-nomination_date', '-id')[:5]
 		return projects
+
+	def num_nominations(self):
+		year = date.today().year
+		start_date = date(year, 1, 1)
+		return self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).count()
 
 class LatestNominationsManager(models.Manager):
 	def get_query_set(self):

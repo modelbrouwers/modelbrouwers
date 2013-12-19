@@ -1,23 +1,50 @@
 {% extends "awards/base.html" %}
-
-{% block title %}
-BrouwersAwards
-{% endblock %}
+{% load i18n %}
 
 {% block content %}
-<div class="title">Categorieën</div>
-{% for category in categories %}
-	<div class="category">
-		<div class="subtitle"><a href="/awards/categories/{{category.id}}/">{{category.name}}</a></div>
-		<p>Laatste {{category.latest.count}} nominaties:</p>
-		<ul class="latest_nominations">
-		{% for nomination in category.latest %}
-			<li><a href="{{nomination.url}}" target="_blank">{{nomination.name}}</a></li>
+	<div class="tab">{% trans "Categories" %}</div>
+
+	<div id="categories-list">
+
+		{% for category in categories %}
+			<div class="category">
+				<h1>
+					<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+				</h1>
+
+				{% with category.latest.count as num_nominations %}
+
+					{% if num_nominations %}
+
+						{% blocktrans count num_nominations=num_nominations %}
+							Latest nomination:
+						{% plural %}
+							Latest {{ num_nominations }} nominations:
+						{% endblocktrans %}
+
+						<ul class="latest_nominations">
+							{% for nomination in category.latest %}
+								<li class="{% cycle 'light' 'dark' %}">
+									<a href="{{ nomination.url }}" target="_blank">{{ nomination.name }}</a>
+								</li>
+							{% endfor %}
+
+							{% if category.num_nominations > num_nominations %}
+								<li><a href="{{ category.get_absolute_url }}">{% trans "more&hellip;" %}</a>
+							{% endif %}
+						</ul>
+
+					{% else %}
+						<span class="no-nominations">{% trans "No nominations yet! Maybe you could submit the first one?" %}</span>
+					{% endif %}
+
+				{% endwith %}
+
+			</div>
 		{% endfor %}
-		{% if category.latest.count != 0 %}
-			<li><a class="overview" href="/awards/categories/{{category.id}}/">meer</a>...
-		{% endif %}
-		</ul>
-	</div>
-{% endfor %}
+
+	</li>
+
+	<div class="clear"></div>
+
 {% endblock %}

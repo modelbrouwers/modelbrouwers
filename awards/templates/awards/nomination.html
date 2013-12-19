@@ -23,10 +23,30 @@
 
 	<div class="tab midpage">{% trans "Latest nominations" %}</div>
 
-	<div id="latest_nominations">
-		{% for project in last_nominations %}
-			{% include "awards/project.html" %}
-		{% endfor %}
+	<div id="latest-nominations">
+		<table>
+			<tr id="table-header">
+				<th>{% trans "Topic" %}</th>
+				<th>{% trans "Author" %}</th>
+				<th>{% trans "Nomination date" %}</th>
+			</tr>
+			{% for project in last_nominations %}
+				<tr class="{% cycle 'light' 'dark' %}
+					{% if project.brouwer|lower == project.nominator.forum_nickname|lower %} self-nomination{% endif %}
+					">
+					<td>
+						<a href="{{ project.url }}" target="_blank" class="title link-project">
+							{{ project.name }}
+						</a>
+					</td>
+					<td class="author">
+						<strong>{{ project.brouwer }}</strong>
+						{# TODO: linking #}
+					</td>
+					<td class="date">{{ project.nomination_date|date }}</td>
+				</tr>
+			{% endfor %}
+		</table>
 	</div>
 
 {% endblock %}
