@@ -1,38 +1,32 @@
 {% extends "awards/base.html" %}
-
-{% block title %}
-BrouwersAwards &bull; Nominaties
-{% endblock %}
+{% load i18n %}
 
 {% block content %}
-<p>Op deze pagina kan je nominaties invoeren. Alle velden zijn verplicht. Geef de <b>volledige</b> URL op, die is van de vorm: <u>http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=<i>[getal]</i>&t=<i>[getal]</i></u></p>
+	<div class="tab">{% trans "New nomination" %}</div>
 
-<div class="important">Enkel projecten in {{current_year}} <strong>afgewerkt</strong>  zijn geldige nominaties!</div>
-
-<form action="." method="post" id="nomination_form">
-
-	{% for error in form.non_field_errors %}
-		<p class="error"><strong>{{ error|escape }}</strong></p>
-	{% endfor %}
-
-	<table class="table">
-		{% include "form_in_table.html" %}
-	</table>
-
-	<div class="center" style="text-align:center;">
-		<input type = "submit" value="Nomineren"/>
+	<div class="warning">
+		Enkel projecten die in {{ current_year }} <strong>afgewerkt</strong> werden, zijn geldige nominaties!
 	</div>
-</form>
 
-<br />
-<br />
-<br />
+	<form action="." method="post" id="nomination_form">
 
-<div id="latest_nominations">
-	<div class="subtitle">Laatste vijf nominaties</div>
-	{% for project in last_nominations %}
-		{% include "awards/project.html" %}
-	{% endfor %}
-</div>
+		{% for error in form.non_field_errors %}
+			<p class="error"><strong>{{ error|escape }}</strong></p>
+		{% endfor %}
+
+		{% include "form_in_table.html" %}
+
+		<div class="center">
+			<input type="submit" value="{% trans "Nominate" %}" class="submit-button" />
+		</div>
+	</form>
+
+	<div class="tab midpage">{% trans "Latest nominations" %}</div>
+
+	<div id="latest_nominations">
+		{% for project in last_nominations %}
+			{% include "awards/project.html" %}
+		{% endfor %}
+	</div>
 
 {% endblock %}

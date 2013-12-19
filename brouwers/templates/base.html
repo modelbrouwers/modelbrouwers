@@ -69,7 +69,7 @@
     <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" />
 </head>
 
-<body>
+<body{% block body-attrs %}{% endblock %}>
     <div id="top">
         <div id="navigation">
             <ul id="tabs">

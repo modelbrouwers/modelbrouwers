@@ -1,45 +1,38 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% load compress i18n %}
+{% load compress i18n static %}
 
 {% block title %}
 Modelbrouwers.nl &bull; Awards
 {% endblock %}
 
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/awards.css" %}" charset="utf-8" />
+{% endblock %}
 
 {% block menu %}
-    <li>
-    	<a href="{% url 'awards_index' %}">
-    		{% trans "Awards home" %}
-    	</a>
-	</li>
-
-    <li>
-    	<a href="{% url 'add_nomination' %}">
-	    	{% trans "Nominations" %}
-		</a>
-	</li>
-    <li>
-    	<a href="{% url 'category-list' %}">
-    		{% trans "Categories" %}
-    	</a>
-    </li>
-    <li>
-    	<a href="{% url 'vote' %}">
-	    	{% trans "Voting" %}
-	    </a>
-	</li>
-	<li>
-		<a href="{% url 'awards.views.scores' %}">
-			{% trans 'Interim scores' %}
-		</a>
-	</li>
-	<li>
-		<a href="{% url 'awards.views.winners' %}">
-			{% trans "Winners" %}
-		</a>
-	</li>
+    <li><a href="{% url 'awards_index' %}">
+		{% trans "Awards home" %}
+	</a></li>
+    <li><a href="{% url 'add_nomination' %}">
+    	{% trans "Nominations" %}
+	</a></li>
+    <li><a href="{% url 'category-list' %}">
+		{% trans "Categories" %}
+	</a></li>
+    <li><a href="{% url 'vote' %}">
+    	{% trans "Voting" %}
+    </a></li>
+	<li><a href="{% url 'awards.views.scores' %}">
+		{% trans 'Interim scores' %}
+	</a></li>
+	<li><a href="{% url 'awards.views.winners' %}">
+		{% trans "Winners" %}
+	</a></li>
 {% endblock %}
+
+{% block body-attrs %} id="awards"{% endblock %}
 
 {% block content %}
 <div id="algemene_info">
