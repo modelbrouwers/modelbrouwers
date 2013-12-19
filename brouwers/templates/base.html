@@ -5,6 +5,7 @@
 {% load staticfiles %}
 {% load forum_tools %}
 {% load url from future %}
+{% load compress %}
 <head>
 	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,7 +13,8 @@
 	<meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" />
 	<meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
 
-	{% block style %}
+	{% compress css %}
+    {% block style %}
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" charset="utf-8"/>
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/uploadify.css' %}" />
@@ -35,16 +37,18 @@
         {% block extrastyle %}
 	    {% endblock extrastyle %}
 	{% endblock style %}
+    {% endcompress %}
 
+    <!-- use googles jquery, loads faster and relieves own server -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    {% compress js %}
     {% block scripts %}
-	    <!-- use googles jquery, loads faster and relieves own server -->
-	    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <!-- fallback -->
         <script type="text/javascript">
-        if (typeof jQuery == 'undefined')
-        {
-            document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
-        }
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
+            }
         </script>
         <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
         <script type="text/javascript">
@@ -58,13 +62,14 @@
             <script type="text/javascript" src="{% static 'scripts/jquery.ui.datepicker-nl.js' %}" ></script>
         {% endifnotequal %}
         <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
-        {% block extrascript %}
-	    {% endblock %}
+
+        {% block extrascript %}{% endblock %}
 	{% endblock scripts %}
+    {% endcompress %}
     <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" />
 </head>
 
-<body>
+<body{% block body-attrs %}{% endblock %}>
     <div id="top">
         <div id="navigation">
             <ul id="tabs">
@@ -96,8 +101,7 @@
                  </a>{% endspaceless %}
             </div>
             <div id="announcement">
-                {% block announcement %}
-                {% endblock %}
+                {% block announcement %}{% endblock %}
             </div>
 
             <div class="right">{% spaceless %}

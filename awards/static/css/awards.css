@@ -1,0 +1,8 @@
+#awards #content {
+    background: url(../images/awards.png) no-repeat;
+    background-position: right -3em bottom 0;
+}
+
+#id_url, #id_name{
+    width: 30em;
+}

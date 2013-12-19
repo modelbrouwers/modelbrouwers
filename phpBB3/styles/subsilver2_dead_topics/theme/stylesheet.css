@@ -72,7 +72,7 @@ a.subforum.unread {
 #logodesc {
 	background-repeat: repeat-x;
 	background-position: center bottom;
-	padding: 0 25px 0 25px;
+	padding: 0 25px 15px;
 }
 
 #menubar {
@@ -197,7 +197,7 @@ p.datetime {
 p.searchbar {
 	padding: 2px 0;
 	white-space: nowrap;
-} 
+}
 
 p.searchbarreg {
 	margin: 0;
@@ -474,7 +474,7 @@ textarea {
 	background-color: #FAFAFA;
 	color: #333333;
 	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-	font-size: 1.3em; 
+	font-size: 1.3em;
 	line-height: 1.4em;
 	font-weight: normal;
 	border: 1px solid #A9B8C2;
@@ -717,7 +717,7 @@ div#dead_topic{
 	top: 50%;
 	margin-left: -20%;
 	margin-top: -60px;
-	
+
 	border: solid 2px #444;
 	border-radius: 15px;
 	-moz-border-radius: 15px;
@@ -734,4 +734,12 @@ a.subforum{
 }
 a.subforum.unread{
 	background-image: url('/phpBB3/styles/subsilver2_dead_topics/imageset/icon_post_target_unread.gif');
+}
+.signature{
+	max-height: 175px;
+	overflow: hidden;
+}
+.signature img{
+    max-height: 100px;
+    max-width: 800px;
 }

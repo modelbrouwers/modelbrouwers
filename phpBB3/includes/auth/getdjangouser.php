@@ -14,7 +14,10 @@ function GetDBSession()
 
 function GetDjangoUser()
 {
-    $djangoSessionID = $_COOKIE['sessionid'];
+    $djangoSessionID = $_COOKIE['mbsessionid'];
+    if(!$djangoSessionID){
+      $djangoSessionID = $_COOKIE['sessionid'];
+    }
 
     $dbSession = GetDBSession();
     $query =
@@ -35,7 +38,7 @@ function GetDjangoUser()
     {
       return $row;
     }
-    
+
     pg_close($dbSession);
 
     return null;

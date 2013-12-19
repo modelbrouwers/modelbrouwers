@@ -39,6 +39,8 @@ class ProjectForm(forms.ModelForm):
 			if Project.objects.filter(url=url).exists():
 				self.errors['url'] = [_("This project was already nominated.")]
 
+		self.fields['url'].widget.attrs['placeholder'] = 'http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f=42&t=10'
+
 	def clean_url(self):
 		url = self.cleaned_data['url']
 		match = re.search(self.url_pattern, url)
