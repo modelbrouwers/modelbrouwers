@@ -736,7 +736,7 @@ a.subforum.unread{
 	background-image: url('/phpBB3/styles/subsilver2_dead_topics/imageset/icon_post_target_unread.gif');
 }
 .signature{
-	height: 175px;
+	max-height: 175px;
 	overflow: hidden;
 }
 .signature img{
