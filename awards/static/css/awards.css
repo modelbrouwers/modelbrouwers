@@ -77,6 +77,7 @@ div.category{
     box-sizing: border-box;
     border: solid 1px #DDD;
     float: left;
+    overflow: auto;
 }
 div.category h1{
     font-size: 150%;
