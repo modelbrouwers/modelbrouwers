@@ -70,6 +70,11 @@ class ProjectAdmin(admin.ModelAdmin):
     reviewed.short_description = _('reviewed?')
     reviewed.boolean = True
 
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.submitter = request.user
+        super(ProjectAdmin, self).save_model(request, obj, form, change)
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category)
 
