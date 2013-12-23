@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
@@ -190,3 +191,15 @@ def winners(request):
 				top_three = [None, top_three[0], None]
 			data.append({'category': category, 'top_three': top_three})
 	return render(request, 'awards/winners.html', {'year': year, 'data': data, 'form': form})
+
+
+
+class WinnersView(TemplateView):
+
+	template_name = 'awards/winners.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(WinnersView, self).get_context_data(**kwargs)
+		context['year'] = self.kwargs.get('year', date.today().year)
+
+		return context

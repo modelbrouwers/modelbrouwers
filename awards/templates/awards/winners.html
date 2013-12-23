@@ -1,32 +1,10 @@
 {% extends "awards/base.html" %}
+{% load i18n %}
 
 {% block content %}
-<form action="." method="get" id="yearform">
-	{{form.year}}
-	<input type="submit" value="Bekijk jaar" id="submit_year" />
-	{% for error in form.year.errors %}
-		<p class="error"><strong>{{error}}</strong></p>
-	{% endfor %}
-</form>
-<div class="title">Winaars editie {{year}}</div>
-{% for dict in data %}
-	<div class="top_three">
-		<div class="subtitle">{{dict.category}}</div>
-		<div class="winners">
-		{% for project in dict.top_three %}
-			<div class="pos_{{forloop.counter}}">
-			{% if project %}
-				<span class="brouwer">{{project.brouwer}}</span>
-				<br />
-				<a href="{{project.url}}" target="_blank">{{project.name}}</a>
-				<br />
-				<span class="votes">{{project.votes}} stemmen</span>
-			{% endif %}
-			</div>
-		{% endfor %}
-		</div>
+	<div class="tab" id="winners-title">
+		<span class="trophy"></span>
+		<span>{% blocktrans %}Hall of fame &bull; Edition {{ year }}{% endblocktrans %}</span>
+		<span class="trophy"></span>
 	</div>
-{% empty %}
-Er zijn geen resultaten voor dit jaar.
-{% endfor %}
 {% endblock %}

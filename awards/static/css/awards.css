@@ -105,3 +105,19 @@ span.no-nominations{
     top: 4em;
     left: 0;
 }
+
+/*** winners ***/
+#winners-title{
+    text-align: center;
+}
+#winners-title span{
+    font-size: 150%;
+    padding: 0 ;
+}
+#winners-title span.trophy{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../images/trophy-icons.png) no-repeat -80px -32px;
+    margin: 0 1em;
+}
