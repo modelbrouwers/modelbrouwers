@@ -202,7 +202,7 @@ class WinnersView(TemplateView):
 		for nomination in nominations:
 			category = nomination.category
 
-			if prev_nomination and nomination.votes == prev_nomination.votes:
+			if prev_nomination and winners_data.get(category, False) and nomination.votes == prev_nomination.votes:
 				winners_data[category][position].append(nomination)
 			else:
 				if category not in winners_data:
