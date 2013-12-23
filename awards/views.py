@@ -198,7 +198,7 @@ class WinnersView(TemplateView):
 					  ).select_related(
 					      'category'
 					  ).order_by('category', '-votes')
-		import pdb; pdb.set_trace()
+
 		for nomination in nominations:
 			category = nomination.category
 
