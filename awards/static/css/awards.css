@@ -107,6 +107,14 @@ span.no-nominations{
 }
 
 /*** winners ***/
+#winners{
+    position: relative;
+}
+li.clearfix{
+    width: 0;
+    height: 0;
+    clear: both;
+}
 #winners-title{
     text-align: center;
 }
@@ -120,4 +128,78 @@ span.no-nominations{
     height: 16px;
     background: url(../images/trophy-icons.png) no-repeat -80px -32px;
     margin: 0 1em;
+}
+
+#dates-sidebar{
+    width: 10em;
+    min-height: 100px;
+    border-left: solid 1px #CCC;
+    border-bottom: solid 1px #CCC;
+    position: absolute;
+    top: -1em;
+    right: -1em;
+    padding: 2em 1em 1em 0.5em;
+    background: #EEE;
+}
+#dates-sidebar h2{
+    font-size: 90%;
+    margin-bottom: 0.5em;
+    margin-top: 0;
+}
+#dates-sidebar li{
+    margin-left: 1.5em;
+    font-weight: bolder;
+}
+
+#results{
+    margin-right: 9em;
+}
+
+#winners div.category{
+    width: 95%;
+    margin: 1em auto;
+    float: none;
+    height: auto;
+    overflow: auto;
+}
+#winners div.category h1{
+    color: #333;
+    text-transform: uppercase;
+    font-size: 110%;
+}
+
+ul.winners-list {
+    margin-bottom: 1em;
+}
+
+ul.winners-list li.trophy-container{
+    float: left;
+    width: 31%;
+    margin: 0 1%;
+    box-sizing: border-box;
+    text-align: center;
+    color: #333;
+}
+ul.winners-list li.trophy-container em{
+    background: url(../images/trophy-icons.png) no-repeat -100px 0;
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0.5em auto;
+}
+ul.winners-list li.trophy-container.first em{
+    background-position: 0 -100px;
+}
+ul.winners-list li.trophy-container.second em{
+    background-position: -100px -100px;
+}
+ul.winners-list li.trophy-container .votes{
+    font-style: italic;
+    font-size: 80%;
+}
+ul.winners-list li.trophy-container li{
+    border-top: solid 1px #EEE;
+}
+ul.winners-list li.trophy-container a.topic-url{
+    font-size: 121%;
 }

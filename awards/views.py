@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView
@@ -15,7 +15,7 @@ from django.views.generic.list import ListView
 from general.models import UserProfile
 from general.shortcuts import voting_enabled
 from .models import *
-from .forms import ProjectForm, YearForm
+from .forms import ProjectForm
 
 
 class CategoryListView(ListView):
@@ -161,37 +161,9 @@ def scores(request):
 	return render(request, 'awards/vote_scores.html', {'data': data, 'year': year, 'voters': voters})
 
 def winners(request):
-	form = YearForm(request.GET)
-	today = date.today()
-	last_year = today.year-1
-	if form.is_valid():
-		year = form.cleaned_data['year']
-	if not year or not form.is_valid():
-		year = last_year
-	#year redirects
-	if year >= today.year-1:
-		if voting_enabled() and year == today.year-1:
-			messages.info(request, "Het stemmen loopt nog, u kan nog geen winnaars voor dit jaar bekijken.")
-			return render(request, 'awards/winners.html', {'year': year, 'data': None, 'form': form})
-		elif year > today.year-1:
-			messages.info(request, "Ook wij kunnen helaas niet in de toekomst kijken... u ziet dus de resultaten van editie %s." % year)
-			return HttpResponseRedirect("%s?year=%s" % (reverse(winners), year))
-		#actual data fetching
-	data = []
-	categories = Category.objects.all()
-	for category in categories:
-		projects = Project.objects.filter(category=category, nomination_date__year=year).order_by('-votes')
-		if projects.exists():
-			top_three = list(projects[:3])
-			#ordering: first in the middle, second left, third right
-			try:
-				top_three[1], top_three[0] = top_three[0], top_three[1]
-			except IndexError:
-				#there's only one element (since the second is an index out of range)
-				#do nothing
-				top_three = [None, top_three[0], None]
-			data.append({'category': category, 'top_three': top_three})
-	return render(request, 'awards/winners.html', {'year': year, 'data': data, 'form': form})
+	last_year = date.today().year-1
+	url = reverse('winners', kwargs={'year': last_year})
+	return redirect(url)
 
 
 
@@ -206,8 +178,15 @@ class WinnersView(TemplateView):
 		context['year'] = year
 
 		# get the winners per category
-		context['winners_data'] = self.get_winners(year)
+		if not voting_enabled() or year != date.today().year:
+			context['winners_data'] = self.get_winners(year)
 
+		# list of years
+		context['years'] = set(Nomination.objects.exclude(
+								rejected=True
+							).filter(votes__gt=0).dates(
+								'nomination_date', 'year'
+							).order_by('-nomination_date'))
 		return context
 
 	def get_winners(self, year):

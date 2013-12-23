@@ -1,12 +1,57 @@
 {% extends "awards/base.html" %}
+{% load url from future %}
 {% load i18n %}
 
 {% block content %}
-	<div class="tab" id="winners-title">
-		<span class="trophy"></span>
-		<span>{% blocktrans %}Hall of fame &bull; Edition {{ year }}{% endblocktrans %}</span>
-		<span class="trophy"></span>
+<div class="tab" id="winners-title">
+	<span class="trophy"></span>
+	<span>{% blocktrans %}Hall of fame &bull; Edition {{ year }}{% endblocktrans %}</span>
+	<span class="trophy"></span>
+</div>
+
+<div id="winners">
+
+	<div id="dates-sidebar">
+		<h2>{% trans "Other editions" %}</h2>
+		<ul>
+			{% for date in years %}
+				<li><a href="{% url 'winners' year=date.year %}">{{ date.year }}</a></li>
+			{% endfor %}
+		</ul>
 	</div>
 
-	{{ winners_data }}
+	<div id="results">
+		{% for category, winners in winners_data.items %}
+			<div class="category">
+				<h1>{{ category.name }}</h1>
+
+				<ul class="winners-list">
+
+					<li class="second trophy-container">
+						<em></em>
+						{% with winners.second as winners_list %}
+							{% include "awards/category_winner_content.html" %}
+						{% endwith %}
+					</li>
+
+					<li class="first trophy-container">
+						<em></em>
+						{% with winners.first as winners_list %}
+							{% include "awards/category_winner_content.html" %}
+						{% endwith %}
+					</li>
+
+					<li class="third trophy-container">
+						<em></em>
+						{% with winners.third as winners_list %}
+							{% include "awards/category_winner_content.html" %}
+						{% endwith %}
+					</li>
+					<li class="clearfix"></li>
+				</ul>
+
+			</div>
+		{% endfor %}
+	</div>
+</div>
 {% endblock %}
