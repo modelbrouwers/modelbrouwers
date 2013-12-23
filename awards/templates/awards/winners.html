@@ -51,6 +51,10 @@
 				</ul>
 
 			</div>
+		{% empty %}
+			<div style="text-align:center;margin: 1em 5em;">
+				{% trans "Are you trying to beat the system? This edition's results page is not available. Either it doesn't exist, or you don't have access." %}
+			</div>
 		{% endfor %}
 	</div>
 </div>
