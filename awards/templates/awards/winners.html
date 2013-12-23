@@ -15,7 +15,7 @@
 		<h2>{% trans "Other editions" %}</h2>
 		<ul>
 			{% for date in years %}
-				<li><a href="{% url 'winners' year=date.year %}">{{ date.year }}</a></li>
+				<li><a href="{% url 'winners' year=date.year %}"{% ifequal year date.year %} class="active"{% endifequal %}>{{ date.year }}</a></li>
 			{% endfor %}
 		</ul>
 	</div>

@@ -3,6 +3,11 @@
     background-position: 100% 40%;
 }*/
 
+a.active{
+    font-weight: bold;
+    color: #DD6900;;
+}
+
 #id_url, #id_name{
     width: 30em;
 }
@@ -138,7 +143,7 @@ li.clearfix{
     position: absolute;
     top: -1em;
     right: -1em;
-    padding: 2em 1em 1em 0.5em;
+    padding: 1em 1em 1em 0.5em;
     background: #EEE;
 }
 #dates-sidebar h2{

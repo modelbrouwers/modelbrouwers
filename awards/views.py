@@ -174,11 +174,12 @@ class WinnersView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(WinnersView, self).get_context_data(**kwargs)
 
-		year = self.kwargs.get('year', date.today().year)
+		this_year = date.today().year
+		year = int(self.kwargs.get('year', date.today().year))
 		context['year'] = year
 
 		# get the winners per category
-		if not voting_enabled() or year != date.today().year:
+		if (not voting_enabled() and year < this_year) or self.request.user.is_superuser:
 			context['winners_data'] = self.get_winners(year)
 
 		# list of years
@@ -190,26 +191,31 @@ class WinnersView(TemplateView):
 		return context
 
 	def get_winners(self, year):
-		winners_data = SortedDict()
+		winners_data, prev_nomination = SortedDict(), None
 		nominations = Nomination.objects.filter(
 					      nomination_date__year = year,
 					      rejected = False
 					  ).select_related(
 					      'category'
 					  ).order_by('category', '-votes')
+		import pdb; pdb.set_trace()
 		for nomination in nominations:
 			category = nomination.category
-			if category not in winners_data:
-				position = 'first'
-				winners_data[category] = SortedDict()
-			else:
-				if 'second' not in winners_data[category]:
-					position = 'second'
-				elif 'third' not in winners_data[category]:
-					position = 'third'
-				else:
-					continue
 
-			# TODO: fetch those with equal points
-			winners_data[category][position] = [nomination]
+			if prev_nomination and nomination.votes == prev_nomination.votes:
+				winners_data[category][position].append(nomination)
+			else:
+				if category not in winners_data:
+					position, prev_nomination = 'first', None
+					winners_data[category] = SortedDict()
+				else:
+
+					if 'second' not in winners_data[category]:
+						position = 'second'
+					elif 'third' not in winners_data[category]:
+						position = 'third'
+					else:
+						continue
+				winners_data[category][position] = [nomination]
+			prev_nomination = nomination
 		return winners_data
