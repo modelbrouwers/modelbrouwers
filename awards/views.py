@@ -182,11 +182,11 @@ class WinnersView(TemplateView):
 			context['winners_data'] = self.get_winners(year)
 
 		# list of years
-		context['years'] = set(Nomination.objects.exclude(
+		context['years'] = Nomination.objects.exclude(
 								rejected=True
 							).filter(votes__gt=0).dates(
 								'nomination_date', 'year'
-							).order_by('-nomination_date'))
+							).reverse()
 		return context
 
 	def get_winners(self, year):
