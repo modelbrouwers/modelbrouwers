@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
@@ -200,6 +201,36 @@ class WinnersView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(WinnersView, self).get_context_data(**kwargs)
-		context['year'] = self.kwargs.get('year', date.today().year)
+
+		year = self.kwargs.get('year', date.today().year)
+		context['year'] = year
+
+		# get the winners per category
+		context['winners_data'] = self.get_winners(year)
 
 		return context
+
+	def get_winners(self, year):
+		winners_data = SortedDict()
+		nominations = Nomination.objects.filter(
+					      nomination_date__year = year,
+					      rejected = False
+					  ).select_related(
+					      'category'
+					  ).order_by('category', '-votes')
+		for nomination in nominations:
+			category = nomination.category
+			if category not in winners_data:
+				position = 'first'
+				winners_data[category] = SortedDict()
+			else:
+				if 'second' not in winners_data[category]:
+					position = 'second'
+				elif 'third' not in winners_data[category]:
+					position = 'third'
+				else:
+					continue
+
+			# TODO: fetch those with equal points
+			winners_data[category][position] = [nomination]
+		return winners_data
