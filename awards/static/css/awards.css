@@ -1,7 +1,7 @@
-#awards #content {
+/*#awards #content {
     background: url(../images/awards.png) no-repeat;
-    background-position: 108% 40%;
-}
+    background-position: 100% 40%;
+}*/
 
 #id_url, #id_name{
     width: 30em;
@@ -91,6 +91,13 @@ div.category ul{
 div.category ul li{
     padding: 0.2em 0.5em;
     font-weight: bolder;
+}
+div.category ul li a{
+    display: inline-block;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis ;
 }
 span.no-nominations{
     display: inline-block;
