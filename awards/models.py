@@ -6,6 +6,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
+
 class Category(models.Model):
 	name = models.CharField(max_length=100)
 	slug = models.SlugField()
@@ -26,9 +27,9 @@ class Category(models.Model):
 		return reverse('nominations-list', kwargs={'slug': self.slug})
 
 	def latest(self):
-		'''
-		returns latest five nominations in this category
-		'''
+		"""
+		Returns latest five nominations in this category
+		"""
 		year = date.today().year
 		start_date = date(year, 1, 1)
 		projects = self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).order_by('-nomination_date', '-id')[:5]
@@ -39,6 +40,7 @@ class Category(models.Model):
 		start_date = date(year, 1, 1)
 		return self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).count()
 
+
 class LatestNominationsManager(models.Manager):
 	def get_query_set(self):
 		qs = super(LatestNominationsManager, self).get_query_set()
@@ -46,6 +48,7 @@ class LatestNominationsManager(models.Manager):
 		q = models.Q(nomination_date__year = this_year - 1)
 		q |= models.Q(nomination_date__year = this_year)
 		return qs.filter(q).exclude(rejected=True).order_by('-pk')
+
 
 class Project(models.Model):
 	url = models.URLField(max_length=500, help_text="link naar het verslag")
@@ -55,7 +58,7 @@ class Project(models.Model):
 	#TODO: allow for an image to be shown
 	#image = models.ImageField()
 
-	nomination_date = models.DateField(default=date.today)
+	nomination_date = models.DateField(default=date.today, db_index=True)
 	nominator = models.ForeignKey('general.UserProfile', null=True)
 
 	votes = models.IntegerField(null=True, blank=True, default=0)
@@ -84,3 +87,21 @@ class Project(models.Model):
 		super(Project, self).save(*args, **kwargs)
 
 Nomination = Project
+
+
+class Vote(models.Model):
+	user = models.ForeignKey(User)
+	category = models.ForeignKey(Category)
+
+	project1 = models.ForeignKey(Project, related_name='+')
+	project2 = models.ForeignKey(Project, related_name='+', blank=True, null=True)
+	project3 = models.ForeignKey(Project, related_name='+', blank=True, null=True)
+
+	submitted = models.DateTimeField(auto_now_add=True)
+
+	def __unicode__(self):
+		return _(u"Vote by %(user)s in %(category)s") % {'user': self.user.username, 'category': self.category.name}
+
+	# TODO:
+	# validate unique constraints: category and year should be unique together
+	# validate that project1, 2 and 3 are different

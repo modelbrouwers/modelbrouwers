@@ -1,0 +1,18 @@
+{% extends "awards/base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+
+{% block content %}
+<div id="voting">
+    <form action="." method="post">
+
+        {% for category, form in forms.items %}
+            <p style="margin-top: 2em;">{{ category }}</p>
+            {{ form.as_p }}
+        {% endfor %}
+
+    </form>
+
+</div>
+{% endblock content %}
