@@ -1,11 +1,6 @@
-/*#awards #content {
-    background: url(../images/awards.png) no-repeat;
-    background-position: 100% 40%;
-}*/
-
 a.active{
     font-weight: bold;
-    color: #DD6900;;
+    color: #DD6900;
 }
 
 #id_url, #id_name{
@@ -212,21 +207,23 @@ ul.winners-list li.trophy-container a.topic-url{
 .vote-blocks .vote{
     width: 31%;
     margin: 1em 1%;
-    padding: 1em 0;
     box-sizing: border-box;
     float: left;
     text-align: center;
     border: dashed 2px #999;
+    position: relative;
 }
-.vote-blocks .vote span{
+.vote-blocks .vote > span{
     font-size: 5em;
+    line-height: 1.5em;
     color: #999;
     opacity: 0.5;
 }
 .vote-blocks .vote:last-child:after{
     clear: both;
 }
-ul.projects-list li.project{
+ul.projects-list li.project,
+ul.vote-accept li.project{
     text-align: center;
     background-color: #427C99;
     background: -moz-linear-gradient(top, #427C99 0%, #9EC2D5 100%);
@@ -239,19 +236,51 @@ ul.projects-list li.project{
     border-radius: 0.5em;
     opacity: 0.8;
 
-    width: 48%;
     box-sizing: border-box;
+    border: solid 1px #333;
+}
+ul.projects-list li.project{
+    width: 48%;
     float: left;
 }
+.voteable:hover{
+    background: url(../images/draggable.png) no-repeat center left;
+    cursor: move;
+}
 
-ul.projects-list li.project a{
+ul.projects-list li.project a,
+ul.vote-accept li.project a {
     color: white;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1.1em;
+    width: auto;
+    min-width: 50%;
 }
 
-ul.projects-list li.project p.author{
+ul.projects-list li.project p.author,
+ul.vote-accept li.project p.author{
     color: #333;
     font-size: 0.9em;
+}
+
+ul.projects-list li.project.ui-draggable-dragging{
+    border-color: #DD6900;
+    width: 30%;
+}
+ul.projects-list li.project.ui-draggable-dragging{
+    border-width: 2px;
+}
+.vote-blocks .vote.highlight-border{
+    border-color: #DD6900;
+}
+ul.vote-accept{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 98%;
+}
+ul.vote-accept li.project.dropped{
+    border-color: #DD6900;
+    width: 100%;
 }

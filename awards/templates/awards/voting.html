@@ -18,12 +18,15 @@
                 <div class="vote-blocks">
                     <div class="vote first">
                         <span>{% trans "1st." %}</span>
+                        <ul class="vote-accept"></ul>
                     </div>
                     <div class="vote second">
                         <span>{% trans "2nd." %}</span>
+                        <ul class="vote-accept"></ul>
                     </div>
                     <div class="vote third">
                         <span>{% trans "3rd." %}</span>
+                        <ul class="vote-accept"></ul>
                     </div>
                     <div class="clear clearfix"></div>
                 </div>
@@ -31,14 +34,17 @@
                 <ul class="projects-list">
                     {% for project in formdata.projects %}
                         <li class="project">
-                            <p>
-                                <a href="{{ project.url }}" target="_blank">
-                                    {{ project.name }}
-                                </a>
-                            </p>
-                            <p class="author">{% blocktrans with brouwer=project.brouwer %}by <span>{{ brouwer }}</span>{% endblocktrans %}</p>
+                            <div class="voteable">
+                                <p>
+                                    <a href="{{ project.url }}" target="_blank">
+                                        {{ project.name }}
+                                    </a>
+                                </p>
+                                <p class="author">{% blocktrans with brouwer=project.brouwer %}by <span>{{ brouwer }}</span>{% endblocktrans %}</p>
+                            </div>
                         </li>
                     {% endfor %}
+                    <li class="clear"></li>
                 </ul>
 
 

@@ -11,6 +11,11 @@ Modelbrouwers.nl &bull; Awards
     <link rel="stylesheet" type="text/css" href="{% static "css/awards.css" %}" charset="utf-8" />
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "js/awards.js" %}"></script>
+{% endblock scripts %}
+
 {% block menu %}
     <li><a href="{% url 'awards_index' %}">
 		{% trans "Awards home" %}
