@@ -33,7 +33,7 @@
 
                 <ul class="projects-list">
                     {% for project in formdata.projects %}
-                        <li class="project">
+                        <li class="project" data-id="{{ project.id }}">
                             <div class="voteable">
                                 <p>
                                     <a href="{{ project.url }}" target="_blank">

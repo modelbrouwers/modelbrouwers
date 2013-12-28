@@ -13,6 +13,8 @@ $(function(){
 			ui.draggable.css('top', '0').css('left', '0');
 			// prevent other elements to be dropped
 			$(this).droppable('option', 'accept', ui.draggable);
+
+			setVote(ui.draggable.data('id'), $(this));
 		},
 		out: function(event, ui){
 	        $(this).droppable('option', 'accept', 'li.project');
@@ -20,3 +22,17 @@ $(function(){
 		// TODO: scope
 	});
 });
+
+function setVote(projectId, droppable){
+	var destClass;
+	if(droppable.hasClass('first')){
+		destClass = 'project1';
+	} else if(droppable.hasClass('second')) {
+		destClass = 'project2';
+	} else if(droppable.hasClass('third')) {
+		destClass = 'project3';
+	}
+
+	// set the value
+	droppable.closest('div.vote-blocks').siblings('input.'+destClass).val(projectId);
+}
