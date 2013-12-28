@@ -4,7 +4,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 
 from general.models import UserProfile
-from .models import Project, Category
+from .models import Project, Category, Vote
 
 
 class ProjectForm(forms.ModelForm):
@@ -68,5 +68,33 @@ class CategoryForm(forms.ModelForm):
 class YearForm(forms.Form):
 	year = forms.IntegerField(required=False, label="Bekijk jaar")
 
-#class VoteForm(forms.Form):
-#	category = forms.ChoiceField()
+class VoteForm(forms.ModelForm):
+	class Meta:
+		model = Vote
+		exclude = ('user',)
+		widgets = {
+			'category': forms.HiddenInput(),
+			'project1': forms.HiddenInput(attrs={'class': 'project1'}),
+			'project2': forms.HiddenInput(attrs={'class': 'project2'}),
+			'project3': forms.HiddenInput(attrs={'class': 'project3'}),
+		}
+
+	def __init__(self, *args, **kwargs):
+		""" Improve performance by reducing the number of queries """
+		queryset = kwargs.pop('queryset', None)
+		super(VoteForm, self).__init__(*args, **kwargs)
+		if queryset:
+			choices = [(project.id, project) for project in queryset]
+			choices.insert(0, (0, '-------'))
+
+			self.fields['project1'].choices = choices
+
+			if len(choices)-1 >= 2:
+				self.fields['project2'].choices = choices
+			else:
+				self.fields['project2'].choices = choices[:1]
+
+			if len(choices)-1 >= 3:
+				self.fields['project3'].choices = choices
+			else:
+				self.fields['project3'].choices = choices[:1]

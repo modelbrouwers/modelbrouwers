@@ -1,11 +1,6 @@
-/*#awards #content {
-    background: url(../images/awards.png) no-repeat;
-    background-position: 100% 40%;
-}*/
-
 a.active{
     font-weight: bold;
-    color: #DD6900;;
+    color: #DD6900;
 }
 
 #id_url, #id_name{
@@ -160,14 +155,14 @@ li.clearfix{
     margin-right: 9em;
 }
 
-#winners div.category{
+#winners div.category, #voting div.category{
     width: 95%;
     margin: 1em auto;
     float: none;
     height: auto;
     overflow: auto;
 }
-#winners div.category h1{
+#winners div.category h1, #voting div.category h1{
     color: #333;
     text-transform: uppercase;
     font-size: 110%;
@@ -207,4 +202,85 @@ ul.winners-list li.trophy-container li{
 }
 ul.winners-list li.trophy-container a.topic-url{
     font-size: 121%;
+}
+/*** voting ***/
+.vote-blocks .vote{
+    width: 31%;
+    margin: 1em 1%;
+    box-sizing: border-box;
+    float: left;
+    text-align: center;
+    border: dashed 2px #999;
+    position: relative;
+}
+.vote-blocks .vote > span{
+    font-size: 5em;
+    line-height: 1.5em;
+    color: #999;
+    opacity: 0.5;
+}
+.vote-blocks .vote:last-child:after{
+    clear: both;
+}
+ul.projects-list li.project,
+ul.vote-accept li.project{
+    text-align: center;
+    background-color: #427C99;
+    background: -moz-linear-gradient(top, #427C99 0%, #9EC2D5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#427C99), color-stop(100%,#9EC2D5));
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#427C99', endColorstr='#9EC2D5',GradientType=0 );
+    background: linear-gradient(#427C99, #9EC2D5);
+    zoom: 1;
+
+    margin: 0.5em 1%;
+    border-radius: 0.5em;
+    opacity: 0.8;
+
+    box-sizing: border-box;
+    border: solid 1px #333;
+}
+ul.projects-list li.project{
+    width: 48%;
+    float: left;
+}
+.voteable:hover{
+    background: url(../images/draggable.png) no-repeat center left;
+    cursor: move;
+}
+
+ul.projects-list li.project a,
+ul.vote-accept li.project a {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    width: auto;
+    min-width: 50%;
+}
+
+ul.projects-list li.project p.author,
+ul.vote-accept li.project p.author{
+    color: #333;
+    font-size: 0.9em;
+}
+
+ul.projects-list li.project.ui-draggable-dragging{
+    border-color: #DD6900;
+    width: 30%;
+}
+ul.projects-list li.project.ui-draggable-dragging{
+    border-width: 2px;
+}
+.vote-blocks .vote.highlight-border{
+    border-color: #DD6900;
+}
+ul.vote-accept{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 98%;
+}
+ul.vote-accept li.project.dropped{
+    border-color: #DD6900;
+    width: 100%;
 }

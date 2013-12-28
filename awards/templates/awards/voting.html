@@ -1,0 +1,57 @@
+{% extends "awards/base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+
+{% block content %}
+<div class="tab">{% trans "Vote your favourite projects" %}</div>
+<noscript>{% trans "You need to enable javascript to be able to cast your votes" %}</noscript>
+<div id="voting">
+    <form action="." method="post">
+        {% csrf_token %}
+
+        {% for category, formdata in forms.items %}
+            <div class="category">
+                <h1>{{ category }}</h1>
+                {{ formdata.form }}
+
+                <div class="vote-blocks">
+                    <div class="vote first">
+                        <span>{% trans "1st." %}</span>
+                        <ul class="vote-accept"></ul>
+                    </div>
+                    <div class="vote second">
+                        <span>{% trans "2nd." %}</span>
+                        <ul class="vote-accept"></ul>
+                    </div>
+                    <div class="vote third">
+                        <span>{% trans "3rd." %}</span>
+                        <ul class="vote-accept"></ul>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <ul class="projects-list">
+                    {% for project in formdata.projects %}
+                        <li class="project" data-id="{{ project.id }}">
+                            <div class="voteable">
+                                <p>
+                                    <a href="{{ project.url }}" target="_blank">
+                                        {{ project.name }}
+                                    </a>
+                                </p>
+                                <p class="author">{% blocktrans with brouwer=project.brouwer %}by <span>{{ brouwer }}</span>{% endblocktrans %}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    <li class="clear"></li>
+                </ul>
+
+
+            </div>
+        {% endfor %}
+
+    </form>
+
+</div>
+{% endblock content %}

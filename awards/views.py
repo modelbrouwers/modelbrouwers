@@ -15,7 +15,7 @@ from django.views.generic.list import ListView
 from general.models import UserProfile
 from general.shortcuts import voting_enabled
 from .models import *
-from .forms import ProjectForm
+from .forms import ProjectForm, VoteForm
 
 
 class CategoryListView(ListView):
@@ -160,11 +160,50 @@ def scores(request):
 			data.append({'category': category, 'projects': projects[:5], 'total': votes_total})
 	return render(request, 'awards/vote_scores.html', {'data': data, 'year': year, 'voters': voters})
 
-def winners(request):
-	last_year = date.today().year-1
-	url = reverse('winners', kwargs={'year': last_year})
-	return redirect(url)
 
+class VoteView(TemplateView):
+	""" View dealing with multiple forms per category to bring out the vote. """
+	template_name = 'awards/voting.html'
+
+	def get_forms(self, data=None):
+		""" Get the forms for the categories the user hasn't voted for yet """
+		year = date.today().year - 1
+		projects = Project.objects.filter(nomination_date__year=year, rejected=False)
+
+		categories = projects.select_related('category').distinct('category').order_by(
+						'category'
+					 ).values(
+					 	'category_id', 'category__name'
+					 )
+
+		forms = SortedDict()
+		for category in categories:
+			category_id, category_name = category['category_id'], category['category__name']
+
+			qs = projects.filter(category_id=category_id).order_by('?')
+			initial = {'category_id': category_id}
+
+			form_kwargs = {
+				'initial': initial,
+				'prefix': category_id,
+				'queryset': qs
+			}
+
+			if data:
+				form_kwargs.update({'data': data})
+
+			forms[category_name] = {
+				'form': VoteForm(**form_kwargs),
+				'projects': qs,
+			}
+
+		return forms
+
+
+	def get_context_data(self, **kwargs):
+		context = super(VoteView, self).get_context_data(**kwargs)
+		context['forms'] = self.get_forms()
+		return context
 
 
 class WinnersView(TemplateView):
@@ -175,7 +214,7 @@ class WinnersView(TemplateView):
 		context = super(WinnersView, self).get_context_data(**kwargs)
 
 		this_year = date.today().year
-		year = int(self.kwargs.get('year', date.today().year))
+		year = int(self.kwargs.get('year', date.today().year-1))
 		context['year'] = year
 
 		# get the winners per category
@@ -186,8 +225,9 @@ class WinnersView(TemplateView):
 		context['years'] = Nomination.objects.exclude(
 								rejected=True
 							).filter(votes__gt=0).dates(
-								'nomination_date', 'year'
-							).reverse()
+								'nomination_date', 'year',
+								order='DESC'
+							)
 		return context
 
 	def get_winners(self, year):
