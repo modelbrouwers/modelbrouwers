@@ -165,25 +165,37 @@ class VoteView(TemplateView):
 	""" View dealing with multiple forms per category to bring out the vote. """
 	template_name = 'awards/voting.html'
 
-	def get_forms(self):
+	def get_forms(self, data=None):
 		""" Get the forms for the categories the user hasn't voted for yet """
 		year = date.today().year - 1
 		projects = Project.objects.filter(nomination_date__year=year, rejected=False)
 
-		categories = projects.select_related('category').distinct('category').values(
+		categories = projects.select_related('category').distinct('category').order_by(
+						'category'
+					 ).values(
 					 	'category_id', 'category__name'
-					 ).order_by('category')
+					 )
 
 		forms = SortedDict()
 		for category in categories:
 			category_id, category_name = category['category_id'], category['category__name']
-			initial = {
-				'category_id': category_id
+
+			qs = projects.filter(category_id=category_id).order_by('?')
+			initial = {'category_id': category_id}
+
+			form_kwargs = {
+				'initial': initial,
+				'prefix': category_id,
+				'queryset': qs
 			}
 
-			qs = projects.filter(category_id=category_id)
-			form = VoteForm(initial=initial, prefix=category_id, queryset=qs)
-			forms[category_name] = form
+			if data:
+				form_kwargs.update({'data': data})
+
+			forms[category_name] = {
+				'form': VoteForm(**form_kwargs),
+				'projects': qs,
+			}
 
 		return forms
 

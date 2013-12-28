@@ -4,12 +4,45 @@
 
 
 {% block content %}
+<div class="tab">{% trans "Vote your favourite projects" %}</div>
+<noscript>{% trans "You need to enable javascript to be able to cast your votes" %}</noscript>
 <div id="voting">
     <form action="." method="post">
+        {% csrf_token %}
 
-        {% for category, form in forms.items %}
-            <p style="margin-top: 2em;">{{ category }}</p>
-            {{ form.as_p }}
+        {% for category, formdata in forms.items %}
+            <div class="category">
+                <h1>{{ category }}</h1>
+                {{ formdata.form }}
+
+                <div class="vote-blocks">
+                    <div class="vote first">
+                        <span>{% trans "1st." %}</span>
+                    </div>
+                    <div class="vote second">
+                        <span>{% trans "2nd." %}</span>
+                    </div>
+                    <div class="vote third">
+                        <span>{% trans "3rd." %}</span>
+                    </div>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <ul class="projects-list">
+                    {% for project in formdata.projects %}
+                        <li class="project">
+                            <p>
+                                <a href="{{ project.url }}" target="_blank">
+                                    {{ project.name }}
+                                </a>
+                            </p>
+                            <p class="author">{% blocktrans with brouwer=project.brouwer %}by <span>{{ brouwer }}</span>{% endblocktrans %}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
         {% endfor %}
 
     </form>
