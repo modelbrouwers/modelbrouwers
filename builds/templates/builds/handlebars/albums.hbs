@@ -10,12 +10,12 @@
 
 <ul class="photos">
     {{#each photos}}
-    <li class="photo">
+    <li class="photo" data-id="{{id}}">
         <a href="#" class="photo popup">
-            <img src="{{this.thumb_url}}" class="thumb" alt="thumb"/>
+            <img src="{{thumb_url}}" class="thumb" alt="thumb"/>
         </a>
         <div class="full-image">
-            <img src="{{this.image}}" width="{{this.width}}" height="{{this.height}}" />
+            <img src="{{image}}" width="{{width}}" height="{{height}}" />
         </div>
     </li>
     {{/each}}
