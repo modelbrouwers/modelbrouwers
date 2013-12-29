@@ -1,3 +1,4 @@
+
 $(function(){
 	$('.voteable').closest('li.project').each(function(){
 		var scope = $(this).closest('div.category').find('input.category').attr('name');
@@ -15,6 +16,7 @@ $(function(){
 
 	$('div.vote').each(function(){
 		var scope = $(this).closest('div.category').find('input.category').attr('name');
+		// TODO: prevent extra projects to be dropped on existing droppable (pre-populated)
 		$(this).droppable({
 			accept: 'li.project',
 			hoverClass: 'highlight-border',
@@ -53,5 +55,9 @@ $(function(){
 function setVote(projectId, droppable){
 	var destClass = droppable.data('inputClass');
 	// set the value
-	droppable.closest('div.vote-blocks').siblings('input.'+destClass).val(projectId);
+	var destination = droppable.closest('div.vote-blocks').siblings('input.'+destClass);
+	destination.val(projectId);
+
+	// remove old votes with same value
+	destination.siblings('input[value="'+projectId+'"].project').val('');
 }

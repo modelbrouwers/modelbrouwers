@@ -74,9 +74,9 @@ class VoteForm(forms.ModelForm):
 		exclude = ('user',)
 		widgets = {
 			'category': forms.HiddenInput(attrs={'class': 'category'}),
-			'project1': forms.HiddenInput(attrs={'class': 'project1'}),
-			'project2': forms.HiddenInput(attrs={'class': 'project2'}),
-			'project3': forms.HiddenInput(attrs={'class': 'project3'}),
+			'project1': forms.HiddenInput(attrs={'class': 'project project1'}),
+			'project2': forms.HiddenInput(attrs={'class': 'project project2'}),
+			'project3': forms.HiddenInput(attrs={'class': 'project project3'}),
 		}
 
 	def __init__(self, *args, **kwargs):

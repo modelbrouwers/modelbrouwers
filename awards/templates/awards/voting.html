@@ -36,18 +36,12 @@
 
                 <ul class="projects-list">
                     {% for project in formdata.projects %}
-                        <li class="project" data-id="{{ project.id }}">
-                            <div class="voteable">
-                                <p>
-                                    <a href="{{ project.url }}" target="_blank">
-                                        {{ project.name }}
-                                    </a>
-                                </p>
-                                <p class="author">{% blocktrans with brouwer=project.brouwer %}by <span>{{ brouwer }}</span>{% endblocktrans %}</p>
-                            </div>
-                        </li>
+                        {% include "awards/voting_project.html" %}
                     {% endfor %}
                 </ul>
+                <div class="center clear submit">
+                    <input type="submit" value="{% trans "Submit vote" %}" class="submit-button" />
+                </div>
             </div>
         {% endfor %}
 
