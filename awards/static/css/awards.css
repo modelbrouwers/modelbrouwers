@@ -300,3 +300,12 @@ ul.vote-accept li.project.dropped{
     border-color: #DD6900;
     width: 100%;
 }
+div.submit{
+    margin: 1em;
+    padding-top: 1em;
+}
+div.vote ul.errors{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
