@@ -1,5 +1,5 @@
 {% extends "awards/base.html" %}
-{% load i18n %}
+{% load i18n awards %}
 {% load url from future %}
 
 
@@ -18,34 +18,43 @@
                 <div class="vote-blocks">
                     <div class="vote first" data-input-class='project1'>
                         <span>{% trans "1st." %}</span>
-                        <ul class="vote-accept"></ul>
+                        <ul class="vote-accept">
+                            {% if formdata.form.cleaned_data and formdata.form.cleaned_data.project1 %}
+                                {% with project=formdata.form.cleaned_data.project1 extra_class='dropped' %}
+                                    {% include "awards/voting_project.html" %}
+                                {% endwith %}
+                            {% endif %}
+                        </ul>
                         <a href="#" class="reset"></a>
                     </div>
                     <div class="vote second" data-input-class='project2'>
                         <span>{% trans "2nd." %}</span>
-                        <ul class="vote-accept"></ul>
+                        <ul class="vote-accept">
+                            {% if formdata.form.cleaned_data and formdata.form.cleaned_data.project2 %}
+                                {% with project=formdata.form.cleaned_data.project2 extra_class='dropped' %}
+                                    {% include "awards/voting_project.html" %}
+                                {% endwith %}
+                            {% endif %}
+                        </ul>
                         <a href="#" class="reset"></a>
                     </div>
                     <div class="vote third" data-input-class='project3'>
                         <span>{% trans "3rd." %}</span>
-                        <ul class="vote-accept"></ul>
+                        <ul class="vote-accept">
+                            {% if formdata.form.cleaned_data and formdata.form.cleaned_data.project3 %}
+                                {% with project=formdata.form.cleaned_data.project3 extra_class='dropped' %}
+                                    {% include "awards/voting_project.html" %}
+                                {% endwith %}
+                            {% endif %}
+                        </ul>
                         <a class="reset"></a>
                     </div>
                     <div href="#" class="clear clearfix"></div>
                 </div>
 
                 <ul class="projects-list">
-                    {% for project in formdata.projects %}
-                        <li class="project" data-id="{{ project.id }}">
-                            <div class="voteable">
-                                <p>
-                                    <a href="{{ project.url }}" target="_blank">
-                                        {{ project.name }}
-                                    </a>
-                                </p>
-                                <p class="author">{% blocktrans with brouwer=project.brouwer %}by <span>{{ brouwer }}</span>{% endblocktrans %}</p>
-                            </div>
-                        </li>
+                    {% for project in formdata.projects|exclude_selected:formdata.form %}
+                        {% include "awards/voting_project.html" %}
                     {% endfor %}
                 </ul>
                 <div class="center clear submit">

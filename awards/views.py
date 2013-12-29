@@ -182,16 +182,17 @@ class VoteView(TemplateView):
                      ).exclude(category__id__in=categories_voted)
 
         forms = SortedDict()
-        for defered_project in categories[:1]:
+        for defered_project in categories:
             category = defered_project.category
             qs = projects.filter(category_id=category.id).order_by('?')
-            initial = {'category': category, 'user': self.request.user}
+            # initial = {'category': category, 'user': self.request.user}
 
             form_kwargs = {
-                'initial': initial,
+                # 'initial': initial,
                 'prefix': category.id,
                 'queryset': qs,
-                'user': self.request.user
+                # 'user': self.request.user,
+                'instance': Vote(category=category, user=self.request.user)
             }
 
             if data:
@@ -206,12 +207,33 @@ class VoteView(TemplateView):
 
 
     def get_context_data(self, form_data=None, **kwargs):
-        context = super(VoteView, self).get_context_data(**kwargs)
-        context['forms'] = self.get_forms(data=form_data)
+        context = super(VoteView, self).get_context_data()
+        context.update(**kwargs)
+        if not context.get('forms', False):
+            context['forms'] = self.get_forms(data=form_data)
         return context
 
+    def forms_valid(self, forms):
+        has_errors = False
+        for category_name, formdata in forms.items():
+            form = formdata.get('form')
+            if not form.has_changed():
+                continue
+
+            if form.is_valid():
+                form.save()
+            else:
+                has_errors = True
+        return not has_errors
+
     def post(self, request, *args, **kwargs):
-        context = self.get_context_data(form_data=request.POST)
+        forms = self.get_forms(data=request.POST)
+
+        if self.forms_valid(forms):
+            return redirect('/awards/voting/') # TODO
+
+        kwargs.update({'forms': forms})
+        context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
 
 
