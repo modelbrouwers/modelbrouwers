@@ -172,27 +172,24 @@ class VoteView(TemplateView):
 
 		categories = projects.select_related('category').distinct('category').order_by(
 						'category'
-					 ).values(
-					 	'category_id', 'category__name'
-					 )
+					 ).only('category__id', 'category__name')
 
 		forms = SortedDict()
-		for category in categories:
-			category_id, category_name = category['category_id'], category['category__name']
-
-			qs = projects.filter(category_id=category_id).order_by('?')
-			initial = {'category_id': category_id}
+		for deferred_project in categories:
+			category = deferred_project.category
+			qs = projects.filter(category_id=category.id).order_by('?')
+			initial = {'category': category}
 
 			form_kwargs = {
 				'initial': initial,
-				'prefix': category_id,
+				'prefix': category.id,
 				'queryset': qs
 			}
 
 			if data:
 				form_kwargs.update({'data': data})
 
-			forms[category_name] = {
+			forms[category.name] = {
 				'form': VoteForm(**form_kwargs),
 				'projects': qs,
 			}
