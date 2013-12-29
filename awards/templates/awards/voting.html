@@ -16,19 +16,22 @@
                 {{ formdata.form }}
 
                 <div class="vote-blocks">
-                    <div class="vote first">
+                    <div class="vote first" data-input-class='project1'>
                         <span>{% trans "1st." %}</span>
                         <ul class="vote-accept"></ul>
+                        <a href="#" class="reset"></a>
                     </div>
-                    <div class="vote second">
+                    <div class="vote second" data-input-class='project2'>
                         <span>{% trans "2nd." %}</span>
                         <ul class="vote-accept"></ul>
+                        <a href="#" class="reset"></a>
                     </div>
-                    <div class="vote third">
+                    <div class="vote third" data-input-class='project3'>
                         <span>{% trans "3rd." %}</span>
                         <ul class="vote-accept"></ul>
+                        <a class="reset"></a>
                     </div>
-                    <div class="clear clearfix"></div>
+                    <div href="#" class="clear clearfix"></div>
                 </div>
 
                 <ul class="projects-list">
@@ -44,10 +47,7 @@
                             </div>
                         </li>
                     {% endfor %}
-                    <li class="clear"></li>
                 </ul>
-
-
             </div>
         {% endfor %}
 

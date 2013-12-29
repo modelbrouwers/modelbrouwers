@@ -222,6 +222,22 @@ ul.winners-list li.trophy-container a.topic-url{
 .vote-blocks .vote:last-child:after{
     clear: both;
 }
+.vote-blocks .vote a.reset{
+    background: url('../images/awards-iconset.png') no-repeat center center;
+    background-position: -24px 0;
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 2px 6px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    opacity: 0.8;
+}
+.vote-blocks .vote a.reset:hover{
+    background-position: 0 0;
+    opacity: 1;
+}
 ul.projects-list li.project,
 ul.vote-accept li.project{
     text-align: center;
@@ -254,8 +270,8 @@ ul.vote-accept li.project a {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1.1em;
-    width: auto;
     min-width: 50%;
+    max-width: 90%;
 }
 
 ul.projects-list li.project p.author,
