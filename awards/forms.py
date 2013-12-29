@@ -1,6 +1,7 @@
 import re
 
 from django import forms
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import ugettext as _
 
 from general.models import UserProfile
@@ -71,8 +72,8 @@ class YearForm(forms.Form):
 class VoteForm(forms.ModelForm):
 	class Meta:
 		model = Vote
-		exclude = ('user',)
 		widgets = {
+			'user': forms.HiddenInput(),
 			'category': forms.HiddenInput(attrs={'class': 'category'}),
 			'project1': forms.HiddenInput(attrs={'class': 'project1'}),
 			'project2': forms.HiddenInput(attrs={'class': 'project2'}),
@@ -82,7 +83,9 @@ class VoteForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		""" Improve performance by reducing the number of queries """
 		queryset = kwargs.pop('queryset', None)
+		self.user = kwargs.pop('user', None)
 		super(VoteForm, self).__init__(*args, **kwargs)
+
 		if queryset:
 			choices = [(project.id, project) for project in queryset]
 			choices.insert(0, (0, '-------'))
@@ -98,3 +101,10 @@ class VoteForm(forms.ModelForm):
 				self.fields['project3'].choices = choices
 			else:
 				self.fields['project3'].choices = choices[:1]
+
+	def clean_user(self):
+		user = self.cleaned_data.get('user')
+		if user and user.id != self.user.id:
+			# voting with someone else's id through post requests, big no-no
+			raise PermissionDenied()
+		return user

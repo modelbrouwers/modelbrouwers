@@ -1,11 +1,13 @@
-from models import *
+from datetime import datetime
+
 from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from datetime import datetime
+from models import *
+
 
 def reject(modeladmin, request, queryset):
     queryset.update(rejected=True, last_reviewer=request.user)
@@ -75,10 +77,24 @@ class ProjectAdmin(admin.ModelAdmin):
             obj.submitter = request.user
         super(ProjectAdmin, self).save_model(request, obj, form, change)
 
+
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ('user', 'category', 'submitted')
+    raw_id_fields = ('project1', 'project2', 'project3', 'user')
+    list_filter = ('submitted', 'category')
+
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category)
+admin.site.register(Vote, VoteAdmin)
 
-UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name', 'date_joined', 'is_staff', 'is_superuser')
+
+UserAdmin.list_display = (
+        'username', 'email',
+        'first_name', 'last_name',
+        'date_joined', 'is_staff',
+        'is_superuser'
+    )
 UserAdmin.ordering = ['-date_joined', 'username']
 
 admin.site.unregister(User)

@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist, ValidationError, NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -102,6 +103,39 @@ class Vote(models.Model):
 	def __unicode__(self):
 		return _(u"Vote by %(user)s in %(category)s") % {'user': self.user.username, 'category': self.category.name}
 
-	# TODO:
-	# validate unique constraints: category and year should be unique together
-	# validate that project1, 2 and 3 are different
+	def validate_unique(self, exclude=None):
+		super(Vote, self).validate_unique(exclude=exclude)
+
+		# validate that a user can't cast multiple votes in the same year and category
+		user, category, year = self.user, self.category, date.today().year
+		if Vote.objects.filter(user=user, category=category, submitted__year=year).exclude(id=self.id).exists():
+			error = _("User `%(user)s` already voted for `%(category)s` in `%(year)d`") % {
+					'user': user.username,
+					'category': category.name,
+					'year': year
+				}
+			errors = {NON_FIELD_ERRORS: [error]}
+			raise ValidationError(errors)
+
+	def clean(self):
+		_projects = list()
+		for field in ('project1', 'project2', 'project3'):
+			try:
+				project = getattr(self, field, None)
+				if not project:
+					continue
+			except ObjectDoesNotExist:
+				continue
+
+			_projects.append(project)
+
+			if project.category != self.category:
+				raise ValidationError(_("A project from `%(project_category)s` can't be voted in `%(category)s`") % {
+						'project_category': project.category.name,
+						'category': self.category.name
+					})
+
+		# validate that the projects are different
+		# TODO: unittest
+		if len(_projects) > len(set(_projects)):
+			raise ValidationError(_('No duplicate projects are allowed'))
