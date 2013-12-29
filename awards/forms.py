@@ -84,6 +84,9 @@ class VoteForm(forms.ModelForm):
 		queryset = kwargs.pop('queryset', None)
 		super(VoteForm, self).__init__(*args, **kwargs)
 
+		self.fields['project1'].error_messages['required'] = _("When voting,"
+															   " you cannot leave the first place blank.")
+
 		if queryset:
 			choices = [(project.id, project) for project in queryset]
 			choices.insert(0, (0, '-------'))
@@ -99,3 +102,12 @@ class VoteForm(forms.ModelForm):
 				self.fields['project3'].choices = choices
 			else:
 				self.fields['project3'].choices = choices[:1]
+
+	def clean(self):
+		cleaned_data = super(VoteForm, self).clean()
+		project1 = cleaned_data.get('project1', None)
+		project2 = cleaned_data.get('project2', None)
+		project3 = cleaned_data.get('project3', None)
+		if project1 and project3 and not project2:
+			raise forms.ValidationError(_("The order of votes must be logical. Omitting the second place is not allowed."))
+		return cleaned_data

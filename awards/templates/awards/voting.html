@@ -11,56 +11,49 @@
         {% csrf_token %}
 
         {% for category, formdata in forms.items %}
-            <div class="category">
-                <h1>{{ category }}</h1>
-                {{ formdata.form }}
+            {% with formdata.form as form %}
+                {% if not form.instance.id %}
+                    <div class="category">
+                        <h1>{{ category }}</h1>
 
-                <div class="vote-blocks">
-                    <div class="vote first" data-input-class='project1'>
-                        <span>{% trans "1st." %}</span>
-                        <ul class="vote-accept">
-                            {% if formdata.form.cleaned_data and formdata.form.cleaned_data.project1 %}
-                                {% with project=formdata.form.cleaned_data.project1 extra_class='dropped' %}
-                                    {% include "awards/voting_project.html" %}
-                                {% endwith %}
-                            {% endif %}
-                        </ul>
-                        <a href="#" class="reset"></a>
-                    </div>
-                    <div class="vote second" data-input-class='project2'>
-                        <span>{% trans "2nd." %}</span>
-                        <ul class="vote-accept">
-                            {% if formdata.form.cleaned_data and formdata.form.cleaned_data.project2 %}
-                                {% with project=formdata.form.cleaned_data.project2 extra_class='dropped' %}
-                                    {% include "awards/voting_project.html" %}
-                                {% endwith %}
-                            {% endif %}
-                        </ul>
-                        <a href="#" class="reset"></a>
-                    </div>
-                    <div class="vote third" data-input-class='project3'>
-                        <span>{% trans "3rd." %}</span>
-                        <ul class="vote-accept">
-                            {% if formdata.form.cleaned_data and formdata.form.cleaned_data.project3 %}
-                                {% with project=formdata.form.cleaned_data.project3 extra_class='dropped' %}
-                                    {% include "awards/voting_project.html" %}
-                                {% endwith %}
-                            {% endif %}
-                        </ul>
-                        <a class="reset"></a>
-                    </div>
-                    <div href="#" class="clear clearfix"></div>
-                </div>
+                        {% for field in form %}{{ field }}{% endfor %}
 
-                <ul class="projects-list">
-                    {% for project in formdata.projects|exclude_selected:formdata.form %}
-                        {% include "awards/voting_project.html" %}
-                    {% endfor %}
-                </ul>
-                <div class="center clear submit">
-                    <input type="submit" value="{% trans "Submit vote" %}" class="submit-button" />
-                </div>
-            </div>
+                        {% if form.has_changed and form.non_field_errors %}
+                            <ul class="errors">
+                                {% for error in form.non_field_errors %}
+                                    <li class="error">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                        <div class="vote-blocks">
+
+                            {% with position='first' position_n=1 position_str='1st.' field=form.project1 instance_field=form.instance.project1 %}
+                                {% include "awards/vote_block.html" %}
+                            {% endwith %}
+
+                            {% with position='second' position_n=2 position_str='2nd.' field=form.project2 instance_field=form.instance.project2 %}
+                                {% include "awards/vote_block.html" %}
+                            {% endwith %}
+
+                            {% with position='third' position_n=3 position_str='3rd.' field=form.project3 instance_field=form.instance.project3 %}
+                                {% include "awards/vote_block.html" %}
+                            {% endwith %}
+
+                            <div href="#" class="clear clearfix"></div>
+                        </div>
+
+                        <ul class="projects-list">
+                            {% for project in formdata.projects|exclude_selected:form %}
+                                {% include "awards/voting_project.html" %}
+                            {% endfor %}
+                        </ul>
+                        <div class="center clear submit">
+                            <input type="submit" value="{% trans "Submit vote" %}" class="submit-button" />
+                        </div>
+                    </div>
+                {% endif %}
+            {% endwith %}
         {% endfor %}
 
     </form>

@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="vote {{ position }}" data-input-class='project{{ position_n }}'>
+    <span>{% blocktrans %}{{ position_str }}{% endblocktrans %}</span>
+    <ul class="vote-accept">
+        {% if instance_field %}
+            {% with project=instance_field extra_class='dropped' %}
+                {% include "awards/voting_project.html" %}
+            {% endwith %}
+        {% endif %}
+    </ul>
+    {% if form.has_changed and field.errors %}
+        <ul class="errors">
+            {% for error in field.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="#" class="reset"></a>
+</div>

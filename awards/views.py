@@ -185,13 +185,10 @@ class VoteView(TemplateView):
         for defered_project in categories:
             category = defered_project.category
             qs = projects.filter(category_id=category.id).order_by('?')
-            # initial = {'category': category, 'user': self.request.user}
 
             form_kwargs = {
-                # 'initial': initial,
                 'prefix': category.id,
                 'queryset': qs,
-                # 'user': self.request.user,
                 'instance': Vote(category=category, user=self.request.user)
             }
 
@@ -221,9 +218,16 @@ class VoteView(TemplateView):
                 continue
 
             if form.is_valid():
-                form.save()
+                vote = form.save()
+                messages.success(self.request, _('Your vote for `%(category)s` was saved.') % {
+                        'category': vote.category.name
+                    })
             else:
                 has_errors = True
+
+        if has_errors:
+            messages.error(self.request, _('One or multiple category votes could not be saved. '
+                                           'Please correct the errors below.'))
         return not has_errors
 
     def post(self, request, *args, **kwargs):
