@@ -40,7 +40,7 @@ $(function(){
 		event.preventDefault();
 		var container = $(this).closest('div.category');
 		var voteDiv = $(this).closest('.vote');
-		var destClass = container.data('input-class');
+		var destClass = voteDiv.data('input-class');
 		var projectList = container.find('ul.projects-list');
 
 		container.find('input.'+destClass).val('');

@@ -29,6 +29,13 @@ $(document).ready(function(){
 	// drag and drop photos
 	$('#radio').buttonset();
 	$('#add-albumphoto').click(show_photos_selector);
+	$('#add-urlphoto').click(function(){
+		$('input.photo-url').filter(function(){
+			var preview = $(this).closest('fieldset').siblings('div.preview');
+			return !preview.find('img').length;
+		}).show();
+		$('#photos-dropzone').hide();
+	});
 	$('#photos-list').on('change', '#id_album', function(){
 		$('#photos-list').data('current-album', $(this).val());
 		update_photos_selector();
@@ -37,7 +44,8 @@ $(document).ready(function(){
 	/* links to photos */
 	// hide last 9 blocks if they're empty
 	$('li.photo-form:not(:first)').filter(function(index){
-		return !$(this).find('.photo-url').val();
+		var url_value = $(this).find('.photo-url').val();
+		return !url_value;
 	}).hide();
 
 	// update preview & do validation
@@ -86,13 +94,61 @@ $(document).ready(function(){
 	});
 	// trigger event, just in case it's filled in and we're re-displaying the form
 	$('#photos-formset input.photo-url:visible').keyup();
+
+	$('#photos-dropzone').droppable({
+		accept: 'li.photo',
+		activeClass: 'highlight',
+		tolerance: 'intersect',
+		drop: function(event, ui) {
+			var photo = ui.draggable.data('id');
+			var img_src = ui.draggable.find('div.full-image img').attr('src');
+
+			var fieldset = $('fieldset:visible:last');
+			var input_photo = fieldset.find('input.album-photo')
+			input_photo.val(photo);
+
+			var tpl = load_template('photo_preview');
+			var context = {'img_src': img_src};
+			var rendered_tpl = tpl(context);
+
+			fieldset.siblings('div.preview').html(rendered_tpl);
+			fieldset.closest('li').data('used', true);
+
+			update_photo_fields(input_photo, true);
+			ui.draggable.remove();
+		}
+	});
+
+	// update previews in edit mode
+	if (photo_urls){
+		$('input.album-photo').each(function(i, e){
+			var photo_id = $(this).val();
+			var img_src = photo_urls[photo_id];
+			if (img_src) {
+				var preview = $(this).closest('fieldset').siblings('div.preview');
+
+				var tpl = load_template('photo_preview');
+				var context = {'img_src': img_src};
+				var rendered_tpl = tpl(context);
+
+				preview.html(rendered_tpl);
+				$(this).closest('li.photo-form').show();
+				$(this).siblings('input.photo-url, span.delete.checkbox').hide();
+
+				update_photo_fields($(this), true);
+			}
+		});
+	}
+
+	// TODO: photo removed -> show url form
+	// completely empty ->  check deleted checkbox
 });
 
-function update_photo_fields(url_input, show_next){
-	var li_item = url_input.closest('li.photo-form');
+function update_photo_fields(input, show_next){
+	var li_item = input.closest('li.photo-form');
 	var next_li = li_item.next();
 
-	if(url_input.val()){
+	if(input.val()){
 		// something is filled in, so we add a line
 		li_item.data('used', true);
 		if(!next_li.is(':visible') && show_next){
@@ -107,7 +163,7 @@ function update_photo_fields(url_input, show_next){
 }
 
 function show_photos_selector(){
-	$('#builds-overview').hide();
+	$('#builds-overview, input.photo-url, span.delete.checkbox').hide();
 	$('#div-loading').show();
 
 	// ophalen albums via JSON call, via tastypie API!
@@ -119,6 +175,8 @@ function show_photos_selector(){
 			}
 		});
 	}
+
+	// TODO: hide photos which have been selected already
 
 	var tpl = load_template('albums');
 	var context = {
@@ -153,6 +211,16 @@ function update_photos_selector(){
 
 	render_photos_tpl(context);
 	$('#div-loading').hide();
+
+	// initialize draggable
+	$('#photos-list li.photo').draggable({
+		containment: '#builds',
+		// cursor: 'move',
+		opacity: 0.7,
+		revert: 'invalid',
+		revertDuration: 200,
+		helper: 'clone'
+	});
 }
 
 function render_photos_tpl(context){

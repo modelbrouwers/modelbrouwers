@@ -1,9 +1,14 @@
 {% extends "builds/add.html" %}
 {% load i18n %}
 
+{% block extrascript %}
+<script type="text/javascript">
+    var photo_urls = {{ photo_urls|safe }};
+</script>
+{% endblock extrascript %}
 
 {% block header %}
-    {% trans "Edit build report" %} 
+    {% trans "Edit build report" %}
     &bull;
     <span class="title"><a href="{{ build.get_absolute_url }}">{{ build.title }}</a></span>
 {% endblock header %}

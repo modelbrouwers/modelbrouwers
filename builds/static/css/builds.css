@@ -154,7 +154,14 @@ div.tab div.column{
 }
 #photos-formset div.preview{
     text-align: center;
-    margin: 0.2em;
+    margin: 0.3em;
+}
+#photos-formset li.photo-form{
+    padding: 0.3em;
+    border-top: solid 1px #BBB;
+}
+#photos-formset li.photo-form:first-child{
+    border-top: none;
 }
 #photos-formset fieldset{
     border:none;
@@ -382,8 +389,4 @@ div.handle{
 #button_left img{
 	float: left;
 	padding-right: 25px;
-}
-
-.photo-form fieldset select{
-    display: none; /* FIXME: temp solution */
 }

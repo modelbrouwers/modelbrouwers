@@ -1,0 +1,11 @@
+{% load i18n %}
+<li class="project{% if extra_class %} {{ extra_class }}{% endif %}" data-id="{{ project.id }}">
+    <div class="voteable">
+        <p>
+            <a href="{{ project.url }}" target="_blank">
+                {{ project.name }}
+            </a>
+        </p>
+        <p class="author">{% blocktrans with brouwer=project.brouwer %}by <span>{{ brouwer }}</span>{% endblocktrans %}</p>
+    </div>
+</li>
