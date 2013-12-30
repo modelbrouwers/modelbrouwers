@@ -10,7 +10,6 @@
     <p class="warning">{% trans "You can leave categories blank, and vote them later. However, as soon as you vote <em>one</em> project in a category, you can no longer change that vote." %}</p>
     <form action="." method="post">
         {% csrf_token %}
-
         {% for category, formdata in forms.items %}
             {% with formdata.form as form %}
                 {% if not form.instance.id %}

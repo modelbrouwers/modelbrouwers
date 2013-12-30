@@ -10,7 +10,12 @@ $(function(){
 				bottom: 0,
 				right: 0
 			},
-			scope: scope
+			scope: scope,
+			scrollSensitivity: 100,
+			drag: checkScrollTop,
+			stop: function(event, ui) {
+				$('body').stop(true);
+			}
 		});
 	});
 
@@ -65,4 +70,14 @@ function setVote(projectId, droppable){
 
 	// remove old votes with same value
 	destination.siblings('input[value="'+projectId+'"].project').val('');
+}
+
+function checkScrollTop(event, ui) {
+	var voteBlocks = $(this).closest('div.category');
+	var offsetVoteBlocks = voteBlocks.offset().top;
+	var bodyScrollTop = $('body').scrollTop();
+
+	if(bodyScrollTop - offsetVoteBlocks > 100) {
+		$('body').animate({scrollTop: offsetVoteBlocks}, 200);
+	}
 }
