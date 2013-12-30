@@ -289,7 +289,7 @@ class BuildUpdate(UpdateView): # TODO
 
         # get the image urls for each photo
         photos_data = {}
-        for photo in self.object.buildphoto_set.all():
+        for photo in self.object.buildphoto_set.select_related('photo').exclude(photo_id=None):
             photos_data[photo.photo.id] = photo.image_url
             context['photo_urls'] = json.dumps(photos_data)
 
