@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.datastructures import SortedDict
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
@@ -13,7 +14,8 @@ from django.views.generic.list import ListView
 
 
 from general.models import UserProfile
-from general.shortcuts import voting_enabled
+from general.shortcuts import voting_enabled as _voting_enabled
+from .decorators import voting_enabled
 from .models import *
 from .forms import ProjectForm, VoteForm
 
@@ -109,7 +111,7 @@ def vote(request):
         profile.save()
         return HttpResponseRedirect('/awards/vote/scores/')
     else:
-        if voting_enabled():
+        if _voting_enabled():
             if profile.last_vote.year < date.today().year:
                 profile.categories_voted.clear()
             if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
@@ -163,7 +165,12 @@ def scores(request):
 
 class VoteView(TemplateView):
     """ View dealing with multiple forms per category to bring out the vote. """
+
     template_name = 'awards/voting.html'
+
+    @method_decorator(voting_enabled)
+    def dispatch(self, *args, **kwargs):
+        return super(VoteView, self).dispatch(*args, **kwargs)
 
     def get_forms(self, data=None):
         """ Get the forms for the categories the user hasn't voted for yet """
@@ -234,7 +241,7 @@ class VoteView(TemplateView):
         forms = self.get_forms(data=request.POST)
 
         if self.forms_valid(forms):
-            return redirect('/awards/voting/') # TODO
+            return redirect(reverse('awards_index')) # TODO
 
         kwargs.update({'forms': forms})
         context = self.get_context_data(**kwargs)
@@ -253,7 +260,7 @@ class WinnersView(TemplateView):
         context['year'] = year
 
         # get the winners per category
-        if (not voting_enabled() and year < this_year) or self.request.user.is_superuser:
+        if (not _voting_enabled() and year < this_year) or self.request.user.is_superuser:
             context['winners_data'] = self.get_winners(year)
 
         # list of years

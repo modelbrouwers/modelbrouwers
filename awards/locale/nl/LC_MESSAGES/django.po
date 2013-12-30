@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-30 23:34+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: admin.py:14
+msgid "Mark nominations as invalid"
+msgstr ""
+
+#: admin.py:18
+msgid "Mark nominations as reviewed"
+msgstr ""
+
+#: admin.py:68
+msgid "Topic url"
+msgstr ""
+
+#: admin.py:72
+msgid "reviewed?"
+msgstr ""
+
+#: forms.py:40
+msgid "This project was already nominated."
+msgstr ""
+
+#: forms.py:87
+msgid "When voting, you cannot leave the first place blank."
+msgstr ""
+
+#: forms.py:112
+msgid ""
+"The order of votes must be logical. Omitting the second place is not allowed."
+msgstr ""
+
+#: models.py:24
+msgid "Categorie"
+msgstr ""
+
+#: models.py:25
+msgid "Categorieën"
+msgstr ""
+
+#: models.py:70
+msgid "last reviewer"
+msgstr ""
+
+#: models.py:71
+msgid "last review"
+msgstr ""
+
+#: models.py:80
+msgid "Nominatie"
+msgstr ""
+
+#: models.py:81
+msgid "Nominaties"
+msgstr ""
+
+#: models.py:104
+#, python-format
+msgid "Vote by %(user)s in %(category)s"
+msgstr ""
+
+#: models.py:112
+#, python-format
+msgid "User `%(user)s` already voted for `%(category)s` in `%(year)d`"
+msgstr ""
+
+#: models.py:133
+#, python-format
+msgid "A project from `%(project_category)s` can't be voted in `%(category)s`"
+msgstr ""
+
+#: models.py:141
+msgid "No duplicate projects are allowed"
+msgstr ""
+
+#: views.py:48
+msgid ""
+"The builder of this project doesn't participate in the awards. Voting for "
+"this project will not be possible."
+msgstr ""
+
+#: views.py:51
+msgid "The nomination was added."
+msgstr ""
+
+#: views.py:222
+#, python-format
+msgid "Your vote for `%(category)s` was saved."
+msgstr ""
+
+#: views.py:229
+msgid ""
+"One or multiple category votes could not be saved. Please correct the errors "
+"below."
+msgstr ""
+
+#: templates/awards/base.html:21
+msgid "Awards home"
+msgstr ""
+
+#: templates/awards/base.html:24
+msgid "Nominations"
+msgstr ""
+
+#: templates/awards/base.html:27 templates/awards/category.html:5
+msgid "Categories"
+msgstr ""
+
+#: templates/awards/base.html:30
+msgid "Voting"
+msgstr ""
+
+#: templates/awards/base.html:33
+msgid "Interim scores"
+msgstr ""
+
+#: templates/awards/base.html:36
+msgid "Winners"
+msgstr ""
+
+#: templates/awards/category.html:19
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tLatest nomination:\n"
+"\t\t\t\t\t\t"
+msgid_plural ""
+"\n"
+"\t\t\t\t\t\t\tLatest %(num_nominations)s nominations:\n"
+"\t\t\t\t\t\t"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/awards/category.html:33
+msgid "more&hellip;"
+msgstr ""
+
+#: templates/awards/category.html:38
+msgid "No nominations yet! Maybe you could submit the first one?"
+msgstr ""
+
+#: templates/awards/category_winner_content.html:5
+#, python-format
+msgid "1 vote"
+msgid_plural "%(counter)s votes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/awards/category_winner_content.html:7
+msgid "No-one grabbed this spot!"
+msgstr ""
+
+#: templates/awards/nomination.html:5
+msgid "New nomination"
+msgstr ""
+
+#: templates/awards/nomination.html:20
+msgid "Nominate"
+msgstr ""
+
+#: templates/awards/nomination.html:24
+msgid "Latest nominations"
+msgstr ""
+
+#: templates/awards/nomination.html:29
+msgid "Topic"
+msgstr ""
+
+#: templates/awards/nomination.html:30
+msgid "Author"
+msgstr ""
+
+#: templates/awards/nomination.html:31
+msgid "Nomination date"
+msgstr ""
+
+#: templates/awards/vote_block.html:3
+#, python-format
+msgid "%(position_str)s"
+msgstr ""
+
+#: templates/awards/voting.html:7
+msgid "Vote your favourite projects"
+msgstr ""
+
+#: templates/awards/voting.html:8
+msgid "You need to enable javascript to be able to cast your votes"
+msgstr ""
+
+#: templates/awards/voting.html:10
+msgid ""
+"You can leave categories blank, and vote them later. However, as soon as you "
+"vote <em>one</em> project in a category, you can no longer change that vote."
+msgstr ""
+
+#: templates/awards/voting.html:53
+msgid "Submit vote"
+msgstr ""
+
+#: templates/awards/voting_project.html:9
+#, python-format
+msgid "by <span>%(brouwer)s</span>"
+msgstr ""
+
+#: templates/awards/winners.html:8
+#, python-format
+msgid "Hall of fame &bull; Edition %(year)s"
+msgstr ""
+
+#: templates/awards/winners.html:15
+msgid "Other editions"
+msgstr ""
+
+#: templates/awards/winners.html:56
+msgid ""
+"Are you trying to beat the system? This edition's results page is not "
+"available. Either it doesn't exist, or you don't have access."
+msgstr ""
