@@ -16,9 +16,14 @@ $(function(){
 
 	$('div.vote').each(function(){
 		var scope = $(this).closest('div.category').find('input.category').attr('name');
-		// TODO: prevent extra projects to be dropped on existing droppable (pre-populated)
+		var accept = 'li.project';
+		var votes = $(this).find('ul.vote-accept li.project.dropped');
+		if(votes.length) {
+			accept = votes;
+		}
+
 		$(this).droppable({
-			accept: 'li.project',
+			accept: accept,
 			hoverClass: 'highlight-border',
 			drop: function(event, ui){
 				ui.draggable.addClass('dropped');
