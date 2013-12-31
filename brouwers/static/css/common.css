@@ -113,6 +113,58 @@ div#shop_banner, #shop_banner ul{
     width: 62px;
     background-position: -156px -293px;
 }
+#shop-alclad{
+    width: 65px;
+    background-position: -218px -293px;
+}
+#shop-bmf{
+    width: 66px;
+    background-position: -283px -293px;
+}
+#shop-birchwood{
+    width: 52px;
+    background-position: -349px -293px;
+}
+#shop-evergreen{
+    width: 50px;
+    background-position: -442px -318px;
+}
+#shop-bb{
+    width: 41px;
+    background-position: -401px -293px;
+}
+#shop-excel{
+    width: 56px;
+    background-position: -442px -293px;
+}
+#shop-intech{
+    width: 86px;
+    background-position: -498px -293px;
+}
+#shop-microscale{
+    width: 62px;
+    background-position: 0 -318px;
+}
+#shop-miliput{
+    width: 93px;
+    background-position: ;
+}
+#shop-mb{
+    width: 127px;
+    background-position: ;
+}
+#shop-rustall{
+    width: 93px;
+    background-position: ;
+}
+#shop-sms{
+    width: 25px;
+    background-position: ;
+}
+#shop-vallejo{
+    width: 42px;
+    background-position: ;
+}
 
 /*** LOGO + AANKONDIGINGEN + FLEX + MM ***/
 div#logo, div#logo div{
