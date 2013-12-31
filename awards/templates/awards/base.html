@@ -7,13 +7,17 @@ Modelbrouwers.nl &bull; Awards
 {% endblock %}
 
 {% block style %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static "css/awards.css" %}" charset="utf-8" />
+    {% compress css %}
+        {{ block.super }}
+        <link rel="stylesheet" type="text/css" href="{% static "css/awards.css" %}" charset="utf-8" />
+    {% endcompress %}
 {% endblock %}
 
 {% block scripts %}
-    {{ block.super }}
-    <script type="text/javascript" src="{% static "js/awards.js" %}"></script>
+    {% compress js %}
+        {{ block.super }}
+        <script type="text/javascript" src="{% static "js/awards.js" %}"></script>
+    {% endcompress %}
 {% endblock scripts %}
 
 {% block menu %}
