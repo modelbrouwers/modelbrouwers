@@ -1,13 +1,12 @@
-img     {border: none;}
-.left   {float: left;}
-.right  {float: right;}
-.clear  {clear: both;}
-.center {text-align: center;}
+img, a img  {border: none;}
+.left       {float: left;}
+.right      {float: right;}
+.clear      {clear: both;}
+.center     {text-align: center;}
 .small-text {font-size: 0.8em;}
 
 div#top, div#logo       {min-width: 1340px;}
-div#container             {padding: 5px 5px 0 5px;}
-a img                             {border: none;}
+div#container           {padding: 5px 5px 0 5px;}
 
 button.ui-button        {padding: 0.3em;}
 div.ui-widget-header{
@@ -27,7 +26,7 @@ div#navigation, div#shop_banner{
     text-align: center;
     min-width: 1200px;
     height: 38px;
-    background-image: url("/static/images/nav/nav_bg.gif");
+    background-image: url("../images/nav/nav_bg.gif");
     background-repeat: repeat-x;
 }
 #navigation ul, #shop_banner ul{
@@ -48,6 +47,11 @@ div#navigation, div#shop_banner{
 }
 #navigation li a, #shop_banner li a{
     display: inline-block;
+}
+#shop_banner li a{
+    height: 25px;
+    background-image: url('../images/shop/products_sprite.png');
+    background-repeat: no-repeat;
 }
 #navigation li img{
     width: 130px;
@@ -96,9 +100,72 @@ div#shop_banner, #shop_banner ul{
 	margin: 0;
 	padding: 0;
 }
-#shop_banner li img{
-	height: 25px;
+/* brands, individual */
+#shop-uhu{
+    width: 54px;
+    background-position: 0px -293px;
 }
+#shop-xuron{
+    width: 102px;
+    background-position: -54px -293px;
+}
+#shop-revell{
+    width: 62px;
+    background-position: -156px -293px;
+}
+#shop-alclad{
+    width: 65px;
+    background-position: -218px -293px;
+}
+#shop-bmf{
+    width: 66px;
+    background-position: -283px -293px;
+}
+#shop-birchwood{
+    width: 52px;
+    background-position: -349px -293px;
+}
+#shop-evergreen{
+    width: 50px;
+    background-position: -442px -318px;
+}
+#shop-bb{
+    width: 41px;
+    background-position: -401px -293px;
+}
+#shop-excel{
+    width: 56px;
+    background-position: -442px -293px;
+}
+#shop-intech{
+    width: 86px;
+    background-position: -498px -293px;
+}
+#shop-microscale{
+    width: 62px;
+    background-position: 0 -318px;
+}
+#shop-miliput{
+    width: 93px;
+    background-position: -62px -318px;
+}
+#shop-mb{
+    width: 127px;
+    background-position: -155px -318px;
+}
+#shop-rustall{
+    width: 93px;
+    background-position: -282px -318px;
+}
+#shop-sms{
+    width: 25px;
+    background-position: -375px -318px;
+}
+#shop-vallejo{
+    width: 42px;
+    background-position: -400px -318px;
+}
+
 /*** LOGO + AANKONDIGINGEN + FLEX + MM ***/
 div#logo, div#logo div{
 	height: 75px;
@@ -142,20 +209,26 @@ div#shop-footer li, div#shop-footer a.aankeiler, div#shop-footer a.div_link{
     display: inline-block;
     width: 156px;
     text-align: center;
-    /* IE 7 hack */zoom: 1;
+    /* IE 7 hack */
+    zoom: 1;
     *display: inline;
 }
-div#shop-footer a.div_link{width:100%;height:100%;}
+div#shop-footer a.div_link  {width:100%;height:100%;}
 /*div#shop-footer li#new_product{position:relative;top:156px;}*/
-div#shop-footer div.blokje{width: 156px;height: 146px;margin: 0 auto;}
-#footer-decals              {background: url('/static/images/shop/decal_onder.jpg');}
-#footer-decals:hover        {background: url('/static/images/shop/decal_boven.gif');}
-#footer-schuur-polijst      {background: url('/static/images/shop/schuur-polijst_onder.jpg');}
-#footer-schuur-polijst:hover{background: url('/static/images/shop/schuur-polijst_boven.jpg');}
-#footer-gieten              {background: url('/static/images/shop/gietprod_onder.gif')}
-#footer-gieten:hover        {background: url('/static/images/shop/gietprod_boven.gif')}
-#footer-verlichting         {background: url('/static/images/shop/verlichting_onder.gif')}
-#footer-verlichting:hover   {background: url('/static/images/shop/verlichting_boven.gif')}
+div#shop-footer div.blokje  {
+    width: 156px;
+    height: 146px;
+    margin: 0 auto;
+    background-image: url('../images/shop/products_sprite.png');
+}
+#footer-decals              {background-position: 0 top;}
+#footer-decals:hover        {background-position: 0 -146px;}
+#footer-schuur-polijst      {background-position: -156px top;}
+#footer-schuur-polijst:hover{background-position: -156px -146px;}
+#footer-gieten              {background-position: -312px top;}
+#footer-gieten:hover        {background-position: -312px -146px;}
+#footer-verlichting         {background-position: -468px top;}
+#footer-verlichting:hover   {background-position: -468px -146px;}
 
 /*** CHAT ***/
 #chat-window{
@@ -165,7 +238,7 @@ div#shop-footer div.blokje{width: 156px;height: 146px;margin: 0 auto;}
     overflow: hidden;
 }
 /*** MODS ***/
-#open_reports{color: red;}
+#open_reports               {color: red;}
 
 /*** TOPIC CONTROL ***/
 button.open-popup{
