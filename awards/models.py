@@ -21,8 +21,8 @@ class Category(models.Model):
 		return self.name
 
 	class Meta:
-		verbose_name = _("Categorie")
-		verbose_name_plural = _(u'Categorie\u00EBn')
+		verbose_name = _("category")
+		verbose_name_plural = _(u'categories')
 
 	def get_absolute_url(self):
 		return reverse('nominations-list', kwargs={'slug': self.slug})
@@ -77,8 +77,8 @@ class Project(models.Model):
 		return self.name + ' - ' + self.brouwer
 
 	class Meta:
-		verbose_name = _("Nominatie")
-		verbose_name_plural = _("Nominaties")
+		verbose_name = _("nomination")
+		verbose_name_plural = _("nominations")
 		ordering = ['category', 'votes']
 		unique_together = (("category", "url"),)
 
