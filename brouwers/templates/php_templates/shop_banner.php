@@ -1,66 +1,50 @@
 <ul>
 <li>
-    <a href="/winkel/uhu">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/uhu.gif" alt="UHU" width="54" /></a>
+    <a href="/winkel/uhu" id="shop-uhu"></a>
 </li>
 <li>
-    <a href="/winkel/xuron">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/xuron.gif" alt="Xuron" width="102" /></a>
+    <a href="/winkel/xuron" id="shop-xuron"></a>
 </li>
 <li>
-    <a href="/winkel/revell">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/revell.gif" alt="Revell" width="62" /></a>
+    <a href="/winkel/revell" id="shop-revell"></a>
 </li>
 <li>
-    <a href="/winkel/alclad2">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/alclad.gif" alt="Alclad" width="65" /></a>
+    <a href="/winkel/alclad2" id="shop-alclad"></a>
 </li>
 <li>
-    <a href="/winkel/bare-metail-foil">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/bmf.gif" alt="Bare Metal Foil" width="66" /></a>
+    <a href="/winkel/bare-metal-foil" id="shop-bmf"></a>
 </li>
 <li>
-    <a href="/winkel/birchwood-casey">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/birchwood_casey.gif" alt="Birchwood Casey" width="52" /></a>
+    <a href="/winkel/birchwood-casey" id="shop-birchwood"></a>
 </li>
 <li>
-    <a href="/winkel/evergreen">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/evergreen.gif" alt="Evergreen" width="50" /></a>
+    <a href="/winkel/evergreen" id="shop-evergreen"></a>
 </li>
 <li>
-    <a href="/winkel/billing-boats">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/billing.gif" alt="Billing Boats" width="41" /></a>
+    <a href="/winkel/billing-boats" id="shop-bb"></a>
 </li>
 <li>
-    <a href="/winkel/excel">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/excel.gif" alt="Excel" width="56" /></a>
+    <a href="/winkel/excel" id="shop-excel"></a>
 </li>
 <li>
-    <a href="/winkel/intech">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/intech.gif" alt="Intech" width="86" /></a>
+    <a href="/winkel/intech" id="shop-intech"></a>
 </li>
 <li>
-    <a href="/winkel/microscale">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/microscale.gif" alt="Microscale" width="62" /></a>
+    <a href="/winkel/microscale" id="shop-microscale"></a>
 </li>
 <li>
-    <a href="/winkel/milliput">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/milliput.gif" alt="Milliput" width="93" /></a>
+    <a href="/winkel/milliput" id="shop-miliput"></a>
 </li>
 <li>
-    <a href="/winkel/modelbrouwers">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/modelbrouwers.gif" alt="Modelbrouwers" width="127" /></a>
+    <a href="/winkel/modelbrouwers" id="shop-mb"></a>
 </li>
 <li>
-    <a href="/winkel/rustall">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/rustall.gif" alt="Rustall" width="93" /></a>
+    <a href="/winkel/rustall" id="shop-rustall"></a>
 </li>
 <li>
-    <a href="/winkel/scalemotorsport">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/scalemotorsport.gif" alt="Scale Motorsport" width="25" /></a>
+    <a href="/winkel/scalemotorsport" id="shop-sms"></a>
 </li>
 <li>
-    <a href="/winkel/vallejo">
-        <img src="<?php echo $settings['STATIC_URL']; ?>images/shop/vallejo.gif" alt="Vallejo" width="42" /></a>
+    <a href="/winkel/vallejo" id="shop-vallejo"></a>
 </li>
 </ul>
