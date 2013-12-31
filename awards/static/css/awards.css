@@ -74,6 +74,7 @@ div.category{
     margin: 1em 1%;
     padding: 0.5em 1em 0;
     height: 16em;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: solid 1px #DDD;
     float: left;
@@ -176,6 +177,7 @@ ul.winners-list li.trophy-container{
     float: left;
     width: 31%;
     margin: 0 1%;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     text-align: center;
     color: #333;
@@ -207,6 +209,7 @@ ul.winners-list li.trophy-container a.topic-url{
 .vote-blocks .vote{
     width: 31%;
     margin: 1em 1%;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     float: left;
     text-align: center;
@@ -252,6 +255,7 @@ ul.vote-accept li.project{
     border-radius: 0.5em;
     opacity: 0.8;
 
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: solid 1px #333;
 }
