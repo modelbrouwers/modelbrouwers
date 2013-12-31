@@ -73,11 +73,16 @@ function setVote(projectId, droppable){
 }
 
 function checkScrollTop(event, ui) {
+	var body;
 	var voteBlocks = $(this).closest('div.category');
 	var offsetVoteBlocks = voteBlocks.offset().top;
-	var bodyScrollTop = $('body').scrollTop();
+	body = $('html');
+	if ($.browser.chrome) {
+		body = $('body');
+	}
+	var bodyScrollTop = body.scrollTop();
 
 	if(bodyScrollTop - offsetVoteBlocks > 100) {
-		$('body').animate({scrollTop: offsetVoteBlocks}, 200);
+		body.animate({scrollTop: offsetVoteBlocks}, 200);
 	}
 }
