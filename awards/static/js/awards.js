@@ -77,7 +77,7 @@ function checkScrollTop(event, ui) {
 	var voteBlocks = $(this).closest('div.category');
 	var offsetVoteBlocks = voteBlocks.offset().top;
 	body = $('html');
-	if ($.browser.chrome) {
+	if ($.browser.chrome || $.browser.safari) { // webkit has slightly different behaviour
 		body = $('body');
 	}
 	var bodyScrollTop = body.scrollTop();
