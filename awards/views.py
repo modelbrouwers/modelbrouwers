@@ -168,7 +168,7 @@ class VoteView(TemplateView):
 
     template_name = 'awards/voting.html'
 
-    # @method_decorator(voting_enabled)
+    @method_decorator(voting_enabled)
     def dispatch(self, *args, **kwargs):
         return super(VoteView, self).dispatch(*args, **kwargs)
 

@@ -6,7 +6,7 @@ from .views import (CategoryListView, NominationView, NominationListView,
                     VoteView, WinnersView)
 
 urlpatterns = patterns('awards.views',
-    url(r'^vote_old/$', 'vote', name='vote'),
+    # url(r'^vote_old/$', 'vote', name='vote'),
     (r'^vote/overview/$', 'vote_overview'),
     (r'^vote/scores/$', 'scores'),
     )
