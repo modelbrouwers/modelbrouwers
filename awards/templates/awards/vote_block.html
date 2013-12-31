@@ -1,6 +1,10 @@
 {% load i18n %}
 <div class="vote {{ position }}" data-input-class='project{{ position_n }}'>
-    <span>{% blocktrans %}{{ position_str }}{% endblocktrans %}</span>
+    <span>
+        {% if position == 1 %}{% trans "1st." %}{% endif %}
+        {% if position == 2 %}{% trans "2nd." %}{% endif %}
+        {% if position == 3 %}{% trans "3rd." %}{% endif %}
+    </span>
     <ul class="vote-accept">
         {% if instance_field %}
             {% with project=instance_field extra_class='dropped' %}

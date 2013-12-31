@@ -29,15 +29,15 @@
 
                         <div class="vote-blocks">
 
-                            {% with position='first' position_n=1 position_str='1st.' field=form.project1 instance_field=form.instance.project1 %}
+                            {% with position='first' position_n=1 field=form.project1 instance_field=form.instance.project1 %}
                                 {% include "awards/vote_block.html" %}
                             {% endwith %}
 
-                            {% with position='second' position_n=2 position_str='2nd.' field=form.project2 instance_field=form.instance.project2 %}
+                            {% with position='second' position_n=2 field=form.project2 instance_field=form.instance.project2 %}
                                 {% include "awards/vote_block.html" %}
                             {% endwith %}
 
-                            {% with position='third' position_n=3 position_str='3rd.' field=form.project3 instance_field=form.instance.project3 %}
+                            {% with position='third' position_n=3 field=form.project3 instance_field=form.instance.project3 %}
                                 {% include "awards/vote_block.html" %}
                             {% endwith %}
 

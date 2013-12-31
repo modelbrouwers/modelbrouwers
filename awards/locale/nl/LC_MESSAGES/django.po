@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-30 23:34+0100\n"
+"POT-Creation-Date: 2013-12-31 09:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,21 +34,27 @@ msgstr "Topiclink"
 msgid "reviewed?"
 msgstr "gereviewed?"
 
+#: decorators.py:27
+#, python-format
+msgid "Voting is enabled from %(start_date)s until %(end_date)s."
+msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
+
 #: forms.py:40
 msgid "This project was already nominated."
 msgstr "Dit project werd eerder al genomineerd."
 
 #: forms.py:87
 msgid "When voting, you cannot leave the first place blank."
-msgstr "Als je een stem uitbrengt in een categorie mag je de eerste plaats niet"
-" open laten."
+msgstr ""
+"Als je een stem uitbrengt in een categorie mag je de eerste plaats niet open "
+"laten."
 
 #: forms.py:112
 msgid ""
 "The order of votes must be logical. Omitting the second place is not allowed."
 msgstr ""
-"De volgorde van de stemmen moet logisch zijn. Je mag de tweede plaats niet"
-" open laten."
+"De volgorde van de stemmen moet logisch zijn. Je mag de tweede plaats niet "
+"open laten."
 
 #: models.py:24
 msgid "category"
@@ -87,14 +93,15 @@ msgstr "Gebruiker `%(user)s` stemde al voor `%(category)s` in %(year)d"
 #: models.py:133
 #, python-format
 msgid "A project from `%(project_category)s` can't be voted in `%(category)s`"
-msgstr "Een project uit de categorie `%(project_category)s` kan niet gestemd "
-"worden in `%(category)s`"
+msgstr ""
+"Een project uit de categorie `%(project_category)s` kan niet gestemd worden "
+"in `%(category)s`"
 
 #: models.py:141
 msgid "No duplicate projects are allowed"
 msgstr "De stemmen moeten van elkaar verschillen"
 
-#: views.py:48
+#: views.py:50
 msgid ""
 "The builder of this project doesn't participate in the awards. Voting for "
 "this project will not be possible."
@@ -102,16 +109,16 @@ msgstr ""
 "The brouwer van dit project neemt niet deel aan de awards. Stemmen voor dit "
 "project zal niet mogelijk zijn."
 
-#: views.py:51
+#: views.py:53
 msgid "The nomination was added."
 msgstr "De nominatie werd toegevoegd"
 
-#: views.py:222
+#: views.py:229
 #, python-format
 msgid "Your vote for `%(category)s` was saved."
 msgstr "Je stem in `%(category)s` werd bewaard."
 
-#: views.py:229
+#: views.py:236
 msgid ""
 "One or multiple category votes could not be saved. Please correct the errors "
 "below."
@@ -205,10 +212,17 @@ msgstr "Auteur"
 msgid "Nomination date"
 msgstr "Nominatiedatum"
 
-#: templates/awards/vote_block.html:3
-#, python-format
-msgid "%(position_str)s"
-msgstr "%(position_str)s"
+#: templates/awards/vote_block.html:4
+msgid "1st."
+msgstr "1ste."
+
+#: templates/awards/vote_block.html:5
+msgid "2nd."
+msgstr "2de."
+
+#: templates/awards/vote_block.html:6
+msgid "3rd."
+msgstr "3de."
 
 #: templates/awards/voting.html:7
 msgid "Vote your favourite projects"
@@ -223,9 +237,9 @@ msgid ""
 "You can leave categories blank, and vote them later. However, as soon as you "
 "vote <em>one</em> project in a category, you can no longer change that vote."
 msgstr ""
-"Je kan categorieën leeg laten, en later een stem uitbrengen. Echter, zodra je "
-"<em>1</em> project stemt in een categorie, kan je de stem voor die categorie "
-"niet meer wijzigen."
+"Je kan categorieën leeg laten, en later een stem uitbrengen. Echter, zodra "
+"je <em>1</em> project stemt in een categorie, kan je de stem voor die "
+"categorie niet meer wijzigen."
 
 #: templates/awards/voting.html:53
 msgid "Submit vote"
