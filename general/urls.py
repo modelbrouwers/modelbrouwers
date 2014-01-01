@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, url, include
 from .views import ServeHbsTemplateView
+from .ajax_views import AnnouncementView
 
 urlpatterns = patterns('general.views',
     (r'^$', 'index'),
@@ -24,6 +25,7 @@ urlpatterns += patterns('general.views2',
 urlpatterns += patterns('general.ajax_views',
     (r'^user/search/$',    'search_users'),
     (r'^profile/ajax/change_password/$', 'password_change'),
+    url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
     )
 
 urlpatterns += patterns('django.contrib.auth.views',

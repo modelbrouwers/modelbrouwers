@@ -1,14 +1,16 @@
+import json
+
 from django.db.models import Q
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
-import json
+from django.views.generic.base import View
 
 
 from general.decorators import login_required_403
-from models import UserProfile
+from .models import UserProfile, Announcement
 
 @login_required_403
 def search_users(request):
@@ -21,7 +23,7 @@ def search_users(request):
         query.append(q)
     if len(query) > 0 and len(query) < 6: #TODO: return message that the search terms aren't ok
         profiles = UserProfile.objects.filter(*query).select_related('user').order_by('forum_nickname')
-    
+
     output = []
     for profile in profiles:
         label = profile.forum_nickname
@@ -42,12 +44,12 @@ def password_change(request):
             data = {
                 'success': True,
                 'msg': {
-                    'tag': 'success', 
+                    'tag': 'success',
                     'text': _("Your password was successfully changed.")
                     },
                 }
             return HttpResponse(json.dumps(data))
-    
+
     from django.template import RequestContext
     from django.template.loader import get_template
     c = RequestContext(request, {'form': form})
@@ -55,3 +57,11 @@ def password_change(request):
     html = t.render(c)
     data = {'success': False, 'html': html}
     return HttpResponse(json.dumps(data))
+
+class AnnouncementView(View):
+    def get(self, request, *args, **kwargs):
+        data = {'html': None}
+        announcement = Announcement.objects.get_current()
+        if announcement is not None:
+            data['html'] = announcement.text
+        return HttpResponse(json.dumps(data), mimetype="application/json")

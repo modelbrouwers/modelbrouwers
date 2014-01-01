@@ -192,12 +192,21 @@ function marklist(id, name, state)
                             </td> -->
                         <td>
                             <center>
+                                <div id="announcement"></div>
+                                <script type="text/javascript">
+                                    $.get('/utils/get-announcement', function(response){
+                                        if (response.html.length) {
+                                            $('#announcement').html(response.html);
+                                        }
+                                    });
+                                </script>
                                 <!-- <a href="/shirts/">
                                     <img src="http://modelbrouwers.nl/static/images/shirts/white.jpg" alt="img_shirt" width="75" />
                                 </a>
                                 <br />
                                 <a href="/shirts/">Modelbrouwers.nl shirts!</a> -->
                                 <!--<a href="http://www.brouwersdag.nl" target="_blank" style="font-size: 180%;font-weight:bold;text-decoration:underline;">Modelbouwdag 2013!</a>-->
+
                             </center>
                         </td>
                         <td>
