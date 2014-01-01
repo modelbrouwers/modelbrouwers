@@ -8,6 +8,17 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
 
+POINTS_FIRST = 3
+POINTS_SECOND = 2
+POINTS_THIRD = 1
+
+FIELD_2_POINTS = {
+	'project1': POINTS_FIRST,
+	'project2': POINTS_SECOND,
+	'project3': POINTS_THIRD,
+}
+
+
 class Category(models.Model):
 	name = models.CharField(max_length=100)
 	slug = models.SlugField()
@@ -86,6 +97,21 @@ class Project(models.Model):
 		if not self.id:
 			self.year = self.nomination_date.year
 		super(Project, self).save(*args, **kwargs)
+
+	def sync_votes(self):
+		"""
+		Resync the points based on the votes brought out in the following year.
+
+		Nominated in year 20xy means votes are cast in year 20xz, where z = y +1.
+		"""
+		year = self.nomination_date.year + 1
+		base_qs = Vote.objects.filter(submitted__year=year)
+
+		self.votes = 0
+		for field, _points in FIELD_2_POINTS.items():
+			f = {field: self}
+			self.votes += (base_qs.filter(**f).count() * _points)
+		self.save()
 
 Nomination = Project
 

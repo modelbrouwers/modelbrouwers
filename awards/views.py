@@ -90,48 +90,6 @@ class NominationListView(ListView):
         kwargs['category'] = self.get_category()
         return super(NominationListView, self).get_context_data(**kwargs)
 
-
-@login_required
-def vote(request):
-    data = {}
-    categories = Category.objects.all()
-    year = date.today().year-1
-    profile = request.user.get_profile()
-    if request.method=='POST':
-        for cat in categories:
-            try:
-                project = get_object_or_404(Project, pk=request.POST[unicode(cat)])
-                project.votes += 1
-                project.save()
-                profile.categories_voted.add(cat)
-                profile.save()
-            except (ValueError, KeyError):
-                pass
-        profile.last_vote = date.today()
-        profile.save()
-        return HttpResponseRedirect('/awards/vote/scores/')
-    else:
-        if _voting_enabled():
-            if profile.last_vote.year < date.today().year:
-                profile.categories_voted.clear()
-            if (profile.last_vote.year == date.today().year) and (categories.count() == profile.categories_voted.count()):
-                return HttpResponseRedirect('/awards/vote/scores/')
-            else:
-                categories_voted = profile.categories_voted.all()
-                categories = categories.exclude(id__in=categories_voted)
-                voted = False;
-                for cat in categories:
-                    projects = Project.objects.filter(category__exact=cat)
-                    projects_valid = projects.filter(nomination_date__year = year).exclude(rejected=True)
-                    if not projects_valid.exists():
-                        profile.categories_voted.add(cat)
-                        profile.save()
-                    data[cat] = projects_valid
-                return render(request, 'awards/vote.html', {'data': data, 'voted': voted, 'year': year})
-        else:
-            status = "De editie van %s is afgelopen, er kan niet meer gestemd worden" % year
-            return render(request, 'awards/vote.html', {'status': status, 'voted': True, 'year': year})
-
 def vote_overview(request):
     data = {}
     categories = Category.objects.all()
@@ -255,13 +213,21 @@ class WinnersView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(WinnersView, self).get_context_data(**kwargs)
+        requested_year = self.kwargs.get('year', None)
+        voting_enabled = _voting_enabled()
 
         this_year = date.today().year
-        year = int(self.kwargs.get('year', date.today().year-1))
+        if requested_year is not None:
+            year = int(requested_year)
+        else:
+            year = this_year - 1
+            if voting_enabled:
+                year -= 1
+
         context['year'] = year
 
         # get the winners per category
-        if (not _voting_enabled() and year < this_year) or self.request.user.is_superuser:
+        if not voting_enabled or (voting_enabled and year < this_year - 1) or self.request.user.is_superuser:
             context['winners_data'] = self.get_winners(year)
 
         # list of years

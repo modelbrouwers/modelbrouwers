@@ -17,6 +17,11 @@ def mark_reviewed(modeladmin, request, queryset):
     queryset.update(last_reviewer=request.user, last_review=datetime.now())
 mark_reviewed.short_description = _('Mark nominations as reviewed')
 
+def resync_score(modeladmin, request, queryset):
+    for nomination in queryset:
+        nomination.sync_votes()
+resync_score.short_description = _('Re-sync the score based on the cast votes')
+
 
 class NominationDateFilter(DateFieldListFilter):
     pass
@@ -47,6 +52,7 @@ class ProjectAdmin(admin.ModelAdmin):
         'category',
         ('nomination_date', NominationDateFilter),
     )
+    search_fields = ('name', 'nomination_date', 'brouwer')
 
     readonly_fields = ('last_reviewer', 'last_review')
     fields = (
@@ -60,7 +66,7 @@ class ProjectAdmin(admin.ModelAdmin):
         'votes'
         ) + readonly_fields
 
-    actions = [reject, mark_reviewed]
+    actions = [reject, mark_reviewed, resync_score]
 
     def show_url(self, obj):
         return '<a href="%s">topic</a>' % obj.url
