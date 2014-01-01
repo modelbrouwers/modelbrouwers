@@ -167,6 +167,7 @@ class VoteView(TemplateView):
     """ View dealing with multiple forms per category to bring out the vote. """
 
     template_name = 'awards/voting.html'
+    success_url = reverse_lazy('voting')
 
     @method_decorator(voting_enabled)
     def dispatch(self, *args, **kwargs):
@@ -241,7 +242,7 @@ class VoteView(TemplateView):
         forms = self.get_forms(data=request.POST)
 
         if self.forms_valid(forms):
-            return redirect(reverse('awards_index')) # TODO
+            return redirect(self.success_url)
 
         kwargs.update({'forms': forms})
         context = self.get_context_data(**kwargs)
