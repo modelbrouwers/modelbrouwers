@@ -2,7 +2,7 @@
 
 <span class="votes">
     {% if winners_list.0 %}
-            {% blocktrans count winners_list.0.votes as counter %}1 vote{% plural %}{{ counter }} votes{% endblocktrans %}
+            {% blocktrans count winners_list.0.votes as counter %}1 point{% plural %}{{ counter }} points{% endblocktrans %}
     {% else %}
         {% trans "No-one grabbed this spot!" %}
     {% endif %}

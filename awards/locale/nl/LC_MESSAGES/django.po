@@ -179,10 +179,10 @@ msgstr "Er zijn nog geen nominaties! Misschien kan jij de eerste toevoegen?"
 
 #: templates/awards/category_winner_content.html:5
 #, python-format
-msgid "1 vote"
-msgid_plural "%(counter)s votes"
-msgstr[0] "1 stem"
-msgstr[1] "%(counter)s stemmen"
+msgid "1 point"
+msgid_plural "%(counter)s points"
+msgstr[0] "1 punt"
+msgstr[1] "%(counter)s punten"
 
 #: templates/awards/category_winner_content.html:7
 msgid "No-one grabbed this spot!"
