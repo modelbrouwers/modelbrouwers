@@ -5,7 +5,26 @@ img, a img  {border: none;}
 .center     {text-align: center;}
 .small-text {font-size: 0.8em;}
 
-div#top, div#logo       {min-width: 1340px;}
+/* responsive design */
+@media all and (min-width: 1340px) {
+    div#top, div#logo       {min-width: 1340px;}
+}
+@media all and (min-width: 400px) and (max-width:1340px){
+    div#top, div#logo       {min-width: 700px;}
+}
+@media all and (max-width: 400px){
+    div#top, div#logo       {max-width: 600px;}
+}
+
+#anniversary{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 100px;
+    height: 94px;
+    background: url(../images/varia/modelbrouwers10jaar.png);
+}
+
 div#container           {padding: 5px 5px 0 5px;}
 
 button.ui-button        {padding: 0.3em;}
