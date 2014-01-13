@@ -1,4 +1,4 @@
-<?php 
+<?php
     //echo 'foo';
     $root = dirname(__FILE__).'/';
     //echo $root;
@@ -14,4 +14,5 @@
     <div id="shop_banner">
         <?php include($root.'shop_banner.php'); ?>
     </div>
+    <div id="anniversary"></div>
 </div>
