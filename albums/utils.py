@@ -2,9 +2,13 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 import itertools
-import Image
 import shutil
 import os
+
+try: # PIL
+    import Image
+except ImportError: # Pillow 2.3.0
+    from PIL import Image
 
 ORIGINALS_FOLDER_NAME = 'originals'
 
