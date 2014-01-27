@@ -16,10 +16,13 @@ img, a img  {border: none;}
     div#top, div#logo       {max-width: 600px;}
 }
 
+#top{
+    position: relative;
+}
 #anniversary{
-    position: fixed;
-    top: 15px;
-    right: 15px;
+    position: absolute;
+    top: 0;
+    right: 5px;
     width: 100px;
     height: 94px;
     background: url(../images/varia/modelbrouwers10jaar.png);
