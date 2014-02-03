@@ -1,4 +1,12 @@
 <?php
+
+require_once 'cache.php';
+$DEBUG = true;
+
+// initialize the cache
+$cache = new Cache();
+$cache->init();
+
 /**
  * This class builds the hashed filenames similar to Django's cached storage.
  * Because PHP is a lot dumber and I don't want to spend too much effor,
@@ -10,17 +18,21 @@ class CachedFilesStorage {
 
 	private static $static_root;
 	private static $static_url;
-	/**
-	 * Structure: key: raw filename (relative to the static root), value filename with md5 hash
-	 */
-	public $m_processed_files;
+	private static $cache_key_prefix;
 
-	function __construct() {
+	protected $cache = null;
+	protected $DEBUG;
+
+	function __construct($cache, $DEBUG=false) {
 		$this->static_url = '/static/';
+		$this->cache_key_prefix = 'staticfiles:';
 		$this->static_root = realpath(dirname(dirname(__FILE__)) . $this->static_url);
+		$this->cache = $cache;
+		$this->DEBUG = $DEBUG;
 	}
 
 	function get_hashed_name($file) {
+		if($this->DEBUG) return $file;
 		$abs_path = realpath($this->static_root . '/' . $file);
 
 		$pathinfo = pathinfo($file);
@@ -32,19 +44,37 @@ class CachedFilesStorage {
 		$hash = substr($md5, 0, 12);
 
 		$hashed_filename = $filename . '.' . $hash . '.' . $extension;
-		$result = $this->static_url . $dirname . '/'. $hashed_filename;
-
-		$this->m_processed_files[$file] = $result;
-
+		$result = $dirname . '/'. $hashed_filename;
 		return $result;
+	}
+
+	/**
+	 * @param $name is the filename relative to the static root
+	 */
+	function cache_key($name) {
+		// don't do utf8 encoding, the hashes differ, even with utf8-strings
+		return $this->cache_key_prefix.md5($name);
+	}
+
+	/**
+	 * Get the url to the static file, either from cache or calculate the hashed path.
+	 */
+	function url($file) {
+		$cache_key = $this->cache_key($file);
+		$hashed_name = ($this->DEBUG) ? false : $this->cache->get($cache_key);
+
+		if($hashed_name === false) {
+			$hashed_name = $this->get_hashed_name($file);
+			if(!$this->DEBUG) $this->cache->set($cache_key, $hashed_name);
+		}
+
+		return $this->static_url . $hashed_name;
 	}
 }
 
 
-$storage = new CachedFilesStorage();
-echo $storage->get_hashed_name('css/common.css').PHP_EOL;
-
-print_r($storage->m_processed_files);
+$storage = new CachedFilesStorage($cache, $DEBUG);
+echo $storage->url('css/albums.css').PHP_EOL;
 
 
 ?>
