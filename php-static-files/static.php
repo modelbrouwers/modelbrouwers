@@ -9,10 +9,11 @@ $cache->init();
 
 /**
  * This class builds the hashed filenames similar to Django's cached storage.
- * Because PHP is a lot dumber and I don't want to spend too much effor,
+ * Because PHP is a lot dumber and I don't want to spend too much effort,
  * we assume Django's collectstatic has been run and the files are present.
  * For when a file is thus requested, we calculate the hash and cache it in
  * Memcached. If the hashed file doesn't exist, return the unchanged URL.
+ * Django updates the cached filenames as part of the collectstatic command.
  */
 class CachedFilesStorage {
 
