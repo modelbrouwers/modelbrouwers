@@ -53,6 +53,23 @@ class Category(models.Model):
 		return self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).count()
 
 
+from general.shortcuts import voting_enabled
+class NominationsManager(models.Manager):
+	def winners(self, year=date.today().year-1):
+		""" Get the latest set of winners """
+		if voting_enabled(year+1):
+			year -= 1
+		qs = super(NominationsManager, self).get_query_set().filter(nomination_date__year=year)
+
+		winners = {}
+		for project in qs.order_by('category', '-votes'):
+			if project.category in winners:
+				if project.votes != winners[project.category].votes:
+					continue
+			winners[project.category] = project
+		return [value for key, value in winners.items()]
+
+
 class LatestNominationsManager(models.Manager):
 	def get_query_set(self):
 		qs = super(LatestNominationsManager, self).get_query_set()
@@ -81,7 +98,7 @@ class Project(models.Model):
 	last_reviewer = models.ForeignKey(User, blank=True, null=True, verbose_name=_('last reviewer'))
 	last_review = models.DateTimeField(_('last review'), auto_now=True, blank=True, null=True)
 
-	objects = models.Manager()
+	objects = NominationsManager()
 	latest = LatestNominationsManager()
 
 	def __unicode__(self):

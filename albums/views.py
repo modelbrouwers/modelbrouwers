@@ -21,10 +21,15 @@ import os
 #          BASE           #
 ###########################
 def index(request):
+    # spotlight: awards winners
     albums = Album.objects.select_related('user', 'cover').filter(trash=False, public=True).order_by('-last_upload')[:20]
     spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
     if spotlight_albums.count() > 2:
         spotlight_albums = spotlight_albums[:3]
+
+
+
+
 
     needs_closing_tag_row_albums = False
     if len(albums) % 4 != 0:

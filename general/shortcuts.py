@@ -11,8 +11,10 @@ def render_to_response(request, template, data = {}): #DEPRECATED - use django.s
 	response = real_render_to_response(template, data, context_instance = RequestContext(request))
 	return response
 
-def voting_enabled(test_date=date.today()):
+def voting_enabled(test_date=date.today(), year=None):
 	this_year = date.today().year
+	if year < this_year -1:
+		return False
 	vote_start_date = date(this_year, 1, 1)
 	vote_end_date = date(this_year, settings.VOTE_END_MONTH, settings.VOTE_END_DAY)
 	if test_date <= vote_end_date and test_date >= vote_start_date:
