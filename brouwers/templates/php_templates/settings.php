@@ -7,7 +7,7 @@
         'STATIC_URL'        => '/static/',
         'HONEYPOT_URL'      => '/scratchy.php',
     );
-    
+
     // options: 'achter' or 'voor' in the filename. voor <==> highlighted image
     // use this for the active page
     // CAUTION: due to the preg_match searching, place the most specific urls LAST
@@ -33,13 +33,13 @@
                             'url' => '/kitreviews/',
                             ),
     );
-    
+
     $best_match = '';
     foreach($nav as $k => $tab)
     {
         $uri = $tab['url'];
         $request_uri = $_SERVER['REQUEST_URI'];
-        
+
         $pattern = "%^".$uri.'%';
         preg_match($pattern, $request_uri, $m);
         if (count($m) > 0){
@@ -48,7 +48,7 @@
             }
         }
     }
-    
+
     // hightlightsettings doen
     if ($best_match){
         $nav[$best_match]['classes'] = 'nav active';
@@ -58,11 +58,11 @@
     // footer links
     $footer_shop = array(
         'decals'        => array(
-                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/decals-en-benodigdheden-c-66.html?language=nl',
+                            'url' => 'http://www.modelbrouwers.nl/winkel/decals-en-benodigdheden',
                             'text' => 'decalbenodigdheden',
                             ),
         'schuur-polijst'=> array(
-                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/advanced_search_result.php/keywords/mba0/sort/3d/page/1/language/nl',
+                            'url' => 'http://www.modelbrouwers.nl/winkel/schuren-en-polijsten',
                             'text' => 'schuur- en polijstmaterialen',
                             ),
         // 'new-product'   => array(
@@ -70,12 +70,12 @@
         //                         'iframe_src' => 'TODO'
         //                         ),
         'gieten'        => array(
-                            'url' => 'http://www.modelbrouwers.nl/shop/catalog/mal-en-resinproducten-c-105.html?language=nl&amp;page=1&amp;sort=3a',
+                            'url' => 'http://www.modelbrouwers.nl/winkel/mal-en-kunstharsproducten',
                             'text' => 'mal- en gietproducten',
                             ),
         'verlichting'   => array(
-                            'url' => 'ttp://www.modelbrouwers.nl/shop/catalog/verlichtingsets-c-117.html?language=nl&amp;sort=2a',
-                            'text' => 'erlichtingsmaterialen',
+                            'url' => 'http://www.modelbrouwers.nl/winkel/verlichtingsets',
+                            'text' => 'verlichtingsmaterialen',
                             ),
     );
 ?>

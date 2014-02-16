@@ -1,1 +1,1 @@
-/home/bbt/coding/.virtualenvs/brouwers/brouwers/brouwers/templates/php_templates/bottom.php
+../../../../../brouwers/templates/php_templates/bottom.php

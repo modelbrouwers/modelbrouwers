@@ -1,6 +1,6 @@
 <?php
 
-class Cache extends Memcached {
+class StaticCache extends Memcached {
 	protected $TIMEOUT = 900; // 15 minutes
 
 	/**
@@ -21,9 +21,4 @@ class Cache extends Memcached {
 	}
 
 }
-
-
-$cache = new Cache();
-$cache->init();
-
 ?>

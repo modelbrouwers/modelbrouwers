@@ -1,6 +1,1 @@
-<?php
-echo current_location;
-print_r ($_ENV);
-print_r($_SERVER);
-
-?>
+<?php header('Location: http://modelbrouwers.nl/');?>

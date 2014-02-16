@@ -23,10 +23,31 @@
         <!-- IF S_ENABLE_FEEDS_FORUM and S_FORUM_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_FORUM} - {FORUM_NAME}" href="{U_FEED}?f={S_FORUM_ID}" /><!-- ENDIF -->
         <!-- IF S_ENABLE_FEEDS_TOPIC and S_TOPIC_ID --><link rel="alternate" type="application/atom+xml" title="{L_FEED} - {L_TOPIC} - {TOPIC_TITLE}" href="{U_FEED}?f={S_FORUM_ID}&amp;t={S_TOPIC_ID}" /><!-- ENDIF -->
     <!-- ENDIF -->
+
+    <!-- static backend, provides the $storage variable -->
+    <!-- INCLUDEPHP styles/subsilver2_dead_topics/template/common/static.php -->
+    <!-- PHP -->
+        $cache = new StaticCache();
+        $cache->init();
+        $storage = new CachedFilesStorage($cache, $debug=false);
+    <!-- ENDPHP -->
+
+    <!-- PHPBB style -->
     <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/common.ac4686656597.css" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/jquery-ui-1.10.2.custom.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/albums_forum.9e63e4da6f19.css" charset="utf-8"/>
+
+    <!-- use googles jquery, loads faster and relieves own server -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- fallback -->
+    <script type="text/javascript">
+        if (typeof jQuery == 'undefined'){
+            document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage->url('scripts/jquery.js');<!-- ENDPHP -->' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/common.css');<!-- ENDPHP -->" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/jquery-ui-1.10.2.custom.css');<!-- ENDPHP -->" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/albums_forum.css');<!-- ENDPHP -->" charset="utf-8"/>
+
     <style type="text/css">
         div#___gcse_0 input.gsc-input, form.gsc-search-box{font-size: 0.9em;}
         div.gsc-input-box, input.gsc-search-button.gsc-search-button-v2 {height: 18px;}
@@ -34,19 +55,15 @@
         div.gsc-control-cse.gsc-control-cse-nl{padding: 0;}
         input.gsc-search-button.gsc-search-button-v2{padding: 3px 27px;height: 12px;margin-top: 0;}
     </style>
-<!-- use googles jquery, loads faster and relieves own server -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <!-- fallback -->
-    <script type="text/javascript">
-        if (typeof jQuery == 'undefined'){
-            document.write(unescape("%3Cscript src='/static/scripts/jquery.js' type='text/javascript'%3E%3C/script%3E"));
-        }
-    </script>
-    <script type="text/javascript" src="/static/scripts/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="/static/scripts/purl.js"></script>
-    <script type="text/javascript" src="/static/scripts/forum.js?v=1.3.0"></script>
-    <script type="text/javascript" src="/static/scripts/albums_forum.js?v=1.1.2"></script>
-    <!-- IF U_MCP || U_ACP --><script type="text/javascript" src="/static/scripts/mods.js?v=1.1.4"></script><!-- ENDIF -->
+
+    <script type="text/javascript"
+        src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
+    <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/purl.js');<!-- ENDPHP -->"></script>
+    <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/forum.js');<!-- ENDPHP -->"></script>
+    <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/albums_forum.js');<!-- ENDPHP -->"></script>
+    <!-- IF U_MCP || U_ACP -->
+        <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>
+    <!-- ENDIF -->
 
 <script type="text/javascript">
 // <![CDATA[
@@ -195,28 +212,22 @@ function marklist(id, name, state)
                                 <div id="announcement"></div>
                                 <script type="text/javascript">
                                     $.get('/utils/get-announcement', function(response){
-                                        if (response.html.length) {
+                                        if (response.html) {
                                             $('#announcement').html(response.html);
                                         }
                                     });
                                 </script>
-                                <!-- <a href="/shirts/">
-                                    <img src="http://modelbrouwers.nl/static/images/shirts/white.jpg" alt="img_shirt" width="75" />
-                                </a>
-                                <br />
-                                <a href="/shirts/">Modelbrouwers.nl shirts!</a> -->
-                                <!--<a href="http://www.brouwersdag.nl" target="_blank" style="font-size: 180%;font-weight:bold;text-decoration:underline;">Modelbouwdag 2013!</a>-->
-
                             </center>
                         </td>
                         <td>
                             <div align="right">
                                 <table width="475"  border="0" cellspacing="0" cellpadding="3">
                                     <tr>
-                                        <td><a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank"><img src="images/banners/modelbouwmagazine-modelbrouwers-actie.gif" alt="Modelbouwmagazine / Modelbrouwers Actie" border="0" align="right" /></a></td>
+                                        <td><a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank">
+                                            <img src="<!-- PHP --> echo $storage->url('images/varia/MM-actie.gif');<!-- ENDPHP -->" alt="Modelbouwmagazine / Modelbrouwers Actie" border="0" align="right" /></a></td>
                                         <td>&nbsp;</td>
 
-                                        <td><a href="http://www.flexwebhosting.nl" target="_blank"><img src="images/banners/flex_webhosting.gif" width="234" height="60" align="right" border="0" alt="Flexwebhosting" /></a></td>
+                                        <td><a href="http://www.flexwebhosting.nl" target="_blank"><img src="<!-- PHP --> echo $storage->url('images/varia/flex_webhosting.gif');<!-- ENDPHP -->" width="234" height="60" align="right" border="0" alt="Flexwebhosting" /></a></td>
                                         <td>&nbsp;</td>
                                     </tr>
                                 </table>
@@ -283,7 +294,8 @@ function marklist(id, name, state)
                                 </a>
                                 &nbsp;
                                 <a href="https://www.facebook.com/pages/Modelbrouwers/148511201908850" target="_blank" class="mainmenu">
-                                    <img src="/static/images/icons/fb_16.jpg"  border="0" alt="Facebook" hspace="3" height="16" width="16"/>
+
+                                    <img src="<!-- PHP --> echo $storage->url('images/icons/fb_16.jpg');<!-- ENDPHP -->"  border="0" alt="Facebook" hspace="3" height="16" width="16"/>
                                     Facebook
                                 </a>
                                 &nbsp;
@@ -304,7 +316,7 @@ function marklist(id, name, state)
                                 </a>
                                &nbsp;
                                <a href="/shirts/" class="mainmenu">
-                                    <img src="/static/icons/shirt.png" width="16" height="16" alt="icon_shirt"/>
+                                    <img src="<!-- PHP --> echo $storage->url('icons/shirt.png');<!-- ENDPHP -->" width="16" height="16" alt="icon_shirt"/>
                                     Shirts!
                                 </a>
                             </td>

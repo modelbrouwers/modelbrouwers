@@ -9,11 +9,11 @@
     <?php } ?>
         <!-- <li id="new_product">
             <div>
-                <iframe src="/shop/catalog/products_new_small2.php" 
-                name="whats_new" scrolling="no" 
+                <iframe src="/shop/catalog/products_new_small2.php"
+                name="whats_new" scrolling="no"
                 frameborder="0" width="135px" height="163px">
                 </iframe>
             </div>
         </li> -->
 </ul>
-<img src="/static/images/logo/tekst.gif" width="773" height="52" alt="logo Modelbrouwers" />
+<img src="<?php echo $storage->url('images/logo/tekst.gif');?>" width="773" height="52" alt="logo Modelbrouwers" />

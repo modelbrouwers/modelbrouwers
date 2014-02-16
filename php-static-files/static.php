@@ -1,11 +1,12 @@
 <?php
+$dir = dirname(__FILE__).'/';
+require_once($dir.'cache.php');
 
-require_once 'cache.php';
-$DEBUG = true;
+$DEBUG = false;
 
 // initialize the cache
-$cache = new Cache();
-$cache->init();
+// $cache = new StaticCache();
+// $cache->init();
 
 /**
  * This class builds the hashed filenames similar to Django's cached storage.
@@ -71,11 +72,12 @@ class CachedFilesStorage {
 
 		return $this->static_url . $hashed_name;
 	}
+
+	function test() {
+		echo 'foo';
+	}
 }
 
-
-$storage = new CachedFilesStorage($cache, $DEBUG);
-echo $storage->url('css/albums.css').PHP_EOL;
-
+// $storage = new CachedFilesStorage($cache, $DEBUG);
 
 ?>
