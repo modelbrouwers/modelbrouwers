@@ -4,7 +4,7 @@
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
-{% cache 300 albums_index LANGUAGE_CODE %}	
+{% cache 300 albums_index LANGUAGE_CODE %}
 {% block style %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/albums.css' %}" charset="utf-8"/>
@@ -53,14 +53,15 @@
 <!-- start spotlight banner -->
 <div id="spotlight">
     <ul class="albums-list">
-        {% for album in spotlight_albums %}
+        {# TODO #}
+        {% for project in awards_winners %}
             <li class="photo album" id="album_{{ album.id }}">
                 <div class="album-link">
                     {% spaceless %}
                     <a class="photo album" href="{{ album.get_absolute_url }}">
                         {% if album.cover_thumb_url %}
-                            <img class="thumb" src="{{ album.cover_thumb_url }}" 
-                            width="{{ album.get_cover.get_thumb_width }}" 
+                            <img class="thumb" src="{{ album.cover_thumb_url }}"
+                            width="{{ album.get_cover.get_thumb_width }}"
                             height="{{ album.get_cover.get_thumb_height }}" alt="thumb"/>
                         {% endif %}
                     </a>
@@ -98,14 +99,14 @@
 	<div class="tab">{% trans 'Last modified albums' %}</div>
 	<div id="albums-list-homepage">
     	{% include "albums/albums_list/public_albums_rows.html" %}
-        
+
 		{% if needs_closing_tag_row_albums %}
 	        </div>
 		{% endif %}
 		<div class="clear"></div>
 		<br />
     </div>
-	
+
 	<div class="tab">{% trans 'Last uploads' %}</div>
 	<div id="last_uploads">
 		{% for photo in last_uploads %}
@@ -114,10 +115,10 @@
 				<div class="photo">
 					<a class="photo" href="{{ photo.get_absolute_url }}">
 						<img class="thumb" src="{{ photo.thumb_url }}" alt="thumb"
-						width="{{ photo.get_thumb_width }}" 
+						width="{{ photo.get_thumb_width }}"
 						height="{{ photo.get_thumb_height }}"/>
 					</a>
-					
+
 					<div class="properties">
 						{{ photo.views }} views
 						<br />

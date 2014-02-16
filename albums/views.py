@@ -10,26 +10,27 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
+from awards.models import Nomination
+
 from models import *
 from forms import *
 from utils import resize, admin_mode, can_switch_admin_mode
 from datetime import datetime
 from zipfile import ZipFile
+
 import os
+import random
 
 ###########################
 #          BASE           #
 ###########################
 def index(request):
-    # spotlight: awards winners
-    albums = Album.objects.select_related('user', 'cover').filter(trash=False, public=True).order_by('-last_upload')[:20]
-    spotlight_albums = Album.objects.filter(trash=False, public=True, category__public=False).order_by('-created')
-    if spotlight_albums.count() > 2:
-        spotlight_albums = spotlight_albums[:3]
-
-
-
-
+    # spotlight: awards winners, select 3 random categories
+    awards_winners = Nomination.objects.winners()
+    try:
+        awards_winners = random.sample(winners, 3)
+    except ValueError: #sample greater than population, use entire set
+        pass
 
     needs_closing_tag_row_albums = False
     if len(albums) % 4 != 0:
@@ -47,7 +48,7 @@ def index(request):
                 'last_uploads': last_uploads,
                 'needs_closing_tag_row': needs_closing_tag_row,
                 'albums': albums,
-                'spotlight_albums': spotlight_albums,
+                'awards_winners': awards_winners,
                 'needs_closing_tag_row_albums': needs_closing_tag_row_albums,
             }
         )
