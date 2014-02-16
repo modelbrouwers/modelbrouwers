@@ -1,8 +1,10 @@
 <?php
 
+
 function GetDBSession()
 {
-  $dbSession = pg_connect("dbname=brouwers user=brouwers password=brouwers");
+  global $django_dbname, $django_dbuser, $django_dbpasswd;
+  $dbSession = pg_connect("dbname={$django_dbname} user=${django_dbuser} password={$django_dbpasswd}");
   if (!$dbSession)
   {
     throw new Exception("cannot connect to DBMS: " . pg_last_error());
