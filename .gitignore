@@ -4,8 +4,6 @@
 *.sublime*
 
 # [phpBB3 symlinks]
-phpBB3/styles/subsilver2_dead_topics/template/common/top.php
-phpBB3/styles/subsilver2_dead_topics/template/common/bottom.php
 phpBB3/styles/subsilver2_dead_topics/template/common/_settings.php
 phpBB3/styles/subsilver2_dead_topics/template/common/_nav_tabs.php
 
