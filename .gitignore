@@ -13,3 +13,6 @@ brouwers/local_settings.py
 /media
 /static
 /mails
+
+# Annoying windows files
+Thumbs.db
