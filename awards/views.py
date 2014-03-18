@@ -128,6 +128,7 @@ class VoteView(TemplateView):
     success_url = reverse_lazy('voting')
 
     @method_decorator(voting_enabled)
+    # @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(VoteView, self).dispatch(*args, **kwargs)
 
