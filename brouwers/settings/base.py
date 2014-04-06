@@ -214,8 +214,3 @@ COMPRESS_CSS_FILTERS = [
 # NOSE
 #
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-try:
-    from .secrets import *
-except ImportError:
-    sys.stderr.write("Create your secrets.py file with the secret settings.")
