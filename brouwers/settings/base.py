@@ -3,7 +3,7 @@ import sys
 # import django.conf.global_settings as DEFAULT_SETTINGS
 
 # Automatically figure out the PROJECT DIR
-PROJECT_ROOT = os.path.dirname(os.path.realpath(os.path.join('..', '..', __file__)))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 #
 # GENERAL
@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'django_extensions',
+    'django_nose',
 
     # Modelbrouwers
     'albums',
@@ -208,6 +209,11 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter',
 ]
+
+#
+# NOSE
+#
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 try:
     from .secrets import *
