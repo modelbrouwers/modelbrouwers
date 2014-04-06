@@ -7,12 +7,17 @@
 phpBB3/styles/subsilver2_dead_topics/template/common/_settings.php
 phpBB3/styles/subsilver2_dead_topics/template/common/_nav_tabs.php
 
+# settings
 apache
-brouwers/settings.py
-brouwers/local_settings.py
+/brouwers/settings/local_settings.py
+
+# Collection directories
 /media
 /static
 /mails
 
 # Annoying windows files
 Thumbs.db
+
+# Random
+/failed_migrations.txt
