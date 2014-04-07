@@ -1,23 +1,25 @@
 from django.conf import settings
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic.base import TemplateView
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^admin/',        include(admin.site.urls)),
-    (r'^albums/',       include('albums.urls')),
-    (r'^awards/',       include('awards.urls')),
-    (r'^forum_tools/',  include('forum_tools.urls')),
-    (r'^kitreviews/',   include('kitreviews.urls', namespace='kitreviews')),
-    (r'^secret_santa/', include('secret_santa.urls')),
-    (r'^shirts/',       include('shirts.urls')),
-    (r'^builds/',       include('builds.urls', namespace='builds')),
-    (r'^ou/',           include('online_users.urls')),
-    (r'^migration/',    include('migration.urls')),
-    (r'^i18n/',         include('django.conf.urls.i18n')),
-    (r'^',              include('general.urls')),
-    )
+    url(r'^admin/',        include(admin.site.urls)),
+    url(r'^albums/',       include('albums.urls')),
+    url(r'^awards/',       include('awards.urls')),
+    url(r'^forum_tools/',  include('forum_tools.urls')),
+    url(r'^kitreviews/',   include('kitreviews.urls', namespace='kitreviews')),
+    url(r'^secret_santa/', include('secret_santa.urls')),
+    url(r'^shirts/',       include('shirts.urls')),
+    url(r'^builds/',       include('builds.urls', namespace='builds')),
+    url(r'^ou/',           include('online_users.urls')),
+    url(r'^migration/',    include('migration.urls')),
+    url(r'^i18n/',         include('django.conf.urls.i18n')),
+    url(r'^',              include('general.urls')),
+)
 
 urlpatterns += staticfiles_urlpatterns()
 
@@ -34,9 +36,8 @@ urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG:
 	urlpatterns += patterns('',
-#		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-		(r'^404/$', 'django.views.generic.simple.direct_to_template', {'template': '404.html'}),
+		(r'^404/$', TemplateView.as_view(template_name='404.html')),
 	)
 
 # some sort of catchall, check the database if redirects exist, else return a 404
