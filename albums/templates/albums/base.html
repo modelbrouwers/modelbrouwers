@@ -4,7 +4,7 @@
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
-{% cache 300 albums_index LANGUAGE_CODE %}	
+{% cache 300 albums_index LANGUAGE_CODE %}
 {% block style %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/albums.css' %}" charset="utf-8"/>
@@ -36,16 +36,16 @@
 {% block menu %}
 	<li><a href="
 		{% if album_preferences.default_uploader == 'F' %}
-    		{% url albums.views.uploadify %}
+    		{% url 'albums.views.uploadify' %}
 		{% else %}
-			{% url albums.views.upload %}
+			{% url 'albums.views.upload' %}
 		{% endif %}
 		">{% trans 'Add photos' %}</a>
 	</li>
-	<li><a href="{% url albums.views.my_albums_list %}">{% trans 'My albums' %}</a></li>
-	<li><a href="{% url albums.views.albums_list %}">{% trans 'All albums' %}</a></li>
-	<li><a href="{% url albums.views.my_last_uploads %}?page=1">{% trans 'My last uploads' %}</a></li>
-	<li><a href="{% url albums.views.preferences %}">{% trans 'Preferences' %}</a></li>
+	<li><a href="{% url 'albums.views.my_albums_list' %}">{% trans 'My albums' %}</a></li>
+	<li><a href="{% url 'albums.views.albums_list' %}">{% trans 'All albums' %}</a></li>
+	<li><a href="{% url 'albums.views.my_last_uploads' %}?page=1">{% trans 'My last uploads' %}</a></li>
+	<li><a href="{% url 'albums.views.preferences' %}">{% trans 'Preferences' %}</a></li>
 {% endblock %}
 
 {% block above_content %}
@@ -59,8 +59,8 @@
                     {% spaceless %}
                     <a class="photo album" href="{{ album.get_absolute_url }}">
                         {% if album.cover_thumb_url %}
-                            <img class="thumb" src="{{ album.cover_thumb_url }}" 
-                            width="{{ album.get_cover.get_thumb_width }}" 
+                            <img class="thumb" src="{{ album.cover_thumb_url }}"
+                            width="{{ album.get_cover.get_thumb_width }}"
                             height="{{ album.get_cover.get_thumb_height }}" alt="thumb"/>
                         {% endif %}
                     </a>
@@ -98,14 +98,14 @@
 	<div class="tab">{% trans 'Last modified albums' %}</div>
 	<div id="albums-list-homepage">
     	{% include "albums/albums_list/public_albums_rows.html" %}
-        
+
 		{% if needs_closing_tag_row_albums %}
 	        </div>
 		{% endif %}
 		<div class="clear"></div>
 		<br />
     </div>
-	
+
 	<div class="tab">{% trans 'Last uploads' %}</div>
 	<div id="last_uploads">
 		{% for photo in last_uploads %}
@@ -114,10 +114,10 @@
 				<div class="photo">
 					<a class="photo" href="{{ photo.get_absolute_url }}">
 						<img class="thumb" src="{{ photo.thumb_url }}" alt="thumb"
-						width="{{ photo.get_thumb_width }}" 
+						width="{{ photo.get_thumb_width }}"
 						height="{{ photo.get_thumb_height }}"/>
 					</a>
-					
+
 					<div class="properties">
 						{{ photo.views }} views
 						<br />

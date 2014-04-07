@@ -25,7 +25,7 @@ td span.help_text{display: inline-block; max-width:500px;}
 {% block extrascript %}
 <script type="text/javascript" src="{% static 'scripts/jquery.uploadify-3.1.min.js' %}"></script>
 <script type="text/javascript">
-var url_new = "{% url albums.ajax_views.new_album_jquery_ui %}";
+var url_new = "{% url 'albums.ajax_views.new_album_jquery_ui' %}";
 var success_icon = '&nbsp;<img src="{% static "admin/img/icon-yes.gif" %}" width="10" height="10" alt="ok"></img>';
 var msg_error = "{% trans 'Something went wrong, the admins have been notified.' %}";
 
@@ -46,10 +46,10 @@ $(document).ready(function() {
     var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Extra info</button>';
     var button2 = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">{% trans "complete" %}</button>';
 	var photo_ids = "";
-    
+
     $('#uploadify_input').uploadify({
         'swf'       : '{% static "scripts/uploadify.swf" %}',
-        'uploader'  : '{% url albums.ajax_views.uploadify %}',
+        'uploader'  : '{% url 'albums.ajax_views.uploadify' %}',
         'auto'      : {% if album_preferences.auto_start_uploading %}true{% else %}false{% endif %},
         'buttonText': '{% trans "Browse" %}',
         'queueID'   : 'upload_queue',
@@ -63,11 +63,11 @@ $(document).ready(function() {
         'onUploadStart' : function(file) {
             albumId = $('#id_album').val();
             $("#uploadify_input").uploadify(
-                "settings", 
-                "formData", 
+                "settings",
+                "formData",
                 {
-                    'album': albumId, 
-                    '{{ session_cookie_name }}': '{{ session_key }}', 
+                    'album': albumId,
+                    '{{ session_cookie_name }}': '{{ session_key }}',
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 }
             );
@@ -84,8 +84,8 @@ $(document).ready(function() {
             $('a#next_step').html(button);
             $('a#next_step').attr("href", href);
             $('a#next_step').show();
-            
-            var href2 = '{% url albums.views.browse_album "0" %}';
+
+            var href2 = '{% url 'albums.views.browse_album' "0" %}';
             href2 = href2.replace('0', albumId);
             $('a#end-upload').html(button2);
             $('a#end-upload').attr("href", href2);
@@ -96,7 +96,7 @@ $(document).ready(function() {
             $('a#next_step').hide();
         }
     });
-    
+
     $('#new-album-upload').dialog({
 	    autoOpen: false,
 		width: 800,
@@ -115,7 +115,7 @@ $(document).ready(function() {
 		                	$('#id_album').prepend(response.option);
 		                    $('#new-album-upload').dialog('close');
 		                }
-		                
+
 		                $('#new-album-upload').html(response.form);
 		                $('img').tooltip({
 							track: true
@@ -128,20 +128,20 @@ $(document).ready(function() {
 		    }
 		}
 	});
-    
+
     $('a#create_new_album').click(function(e){
         e.preventDefault();
         $('#new-album-upload').dialog('open');
         return false;
     });
-    
+
     $('#start_upload').click(function (){
         var form = $('form#special-form');
         albumId = $('#id_album').val();
-        
+
         if ($('#id_url').val() != ''){
             $.post(
-                '{% url albums.ajax_views.upload_url %}',
+                '{% url "albums.ajax_views.upload_url" %}',
                 form.serialize(),
                 function (response){
                     var intRegex = /^\d+$/;
@@ -149,10 +149,10 @@ $(document).ready(function() {
                         $('#url-errors').remove();
                         $('#id_url').after(success_icon);
                         var next = $('a#next_step');
-                        
+
                         if (next.html() == ''){
                             next.html(button);
-                            href = '{% url albums.views.pre_extra_info_uploadify %}?album=';
+                            href = '{% url "albums.views.pre_extra_info_uploadify" %}?album=';
                             href += albumId + '&photo_ids=' + response + '+';
                             next.attr("href", href);
                             next.show();
@@ -176,7 +176,7 @@ $(document).ready(function() {
 <div class="tab">{% trans 'Upload images' %}</div>
 <noscript>
     <div class="no-javascript" class="margin">
-        {% url albums.views.upload as upload_url %}
+        {% url 'albums.views.upload' as upload_url %}
         {% blocktrans  %}Your browser doesn't support javascript, which is required for this uploader to work. You can use an <a href="{{ upload_url }}">alternative uploader</a>.{% endblocktrans %}
     </div>
 </noscript>
@@ -192,7 +192,7 @@ $(document).ready(function() {
         <tr>
             <th class="label">{% trans 'Upload to' %}</th>
             {% spaceless %}
-			<td class="field">{{ albumform.album }} 
+			<td class="field">{{ albumform.album }}
                 <a href="/albums/manage/#new" id="create_new_album" >
                     <button>{% trans 'New album' %}</button>
                 </a>

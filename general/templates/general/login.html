@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load url from future %}
 
 {% block content %}
 <div id="login">
@@ -15,7 +14,7 @@
 
 	<form method="post" action=".">
 		{{ redirect_form.as_p }}
-			
+
 		{% include "form_in_table.html" %}
 
 		{% if next %}

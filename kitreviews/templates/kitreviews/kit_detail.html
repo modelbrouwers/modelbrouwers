@@ -1,6 +1,5 @@
 {% extends "kitreviews/base.html" %}
 {% load i18n forum_tools %}
-{% load url from future %}
 
 {% block content %}{% with kit.kitreview_set.count as num_reviews %}
     <div id="kit-detail">
@@ -15,7 +14,7 @@
             &bull; {{ kit.kit_number }}
         {% endif %}
         &bull; <a href="#reviews"><strong>{% trans "Reviews" %} ({{ num_reviews }})</strong></a>
-        
+
         <span class="small-text right">
             <a href="{% url 'kitreviews:kit_add_review' kit.id %}"><button class="add-review-button">{% trans "Add review" %}</button></a>
             &bull;

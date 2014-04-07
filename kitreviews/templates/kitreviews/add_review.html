@@ -1,12 +1,9 @@
 {% extends "kitreviews/base.html" %}
 {% load i18n %}
-{% load url from future %}
-
-
 
 {% block content %}
     {% url 'kitreviews:find_kit' as search_url %}
-    
+
     <div class="tab">
         {% if kitform %}
             {% trans 'Model kit' %}
@@ -44,9 +41,9 @@
         {% if kitform %}
             <div class="tab midpage">{% trans "Review" %}</div>
         {% endif %}
-        
+
         {% include "kitreviews/review_form.html" %}
-        
+
         <div class="center">
             <input type="submit" value="{% trans 'Add' %}" class="submit-button" />
         </div>

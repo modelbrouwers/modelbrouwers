@@ -17,9 +17,9 @@
         </li>
     {% empty %}
         {% if album_preferences.default_uploader == 'F' %}
-    		{% url albums.views.uploadify as upload_url %}
+    		{% url 'albums.views.uploadify' as upload_url %}
 		{% else %}
-			{% url albums.views.upload as upload_url %}
+			{% url 'albums.views.upload' as upload_url %}
 		{% endif %}
         <li>{% blocktrans %}You don't seem to have photos here. Upload some in <a href="{{ upload_url }}">our albums</a>!{% endblocktrans %}</li>
     {% endfor %}

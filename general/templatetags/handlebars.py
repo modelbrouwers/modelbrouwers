@@ -1,10 +1,8 @@
 from django.conf import settings
 from django import template
-from django.conf import settings
 
 
 register = template.Library()
-
 
 @register.simple_tag
 def handlebars_js():
@@ -16,7 +14,7 @@ def verbatim_tags(parser, token, endtagname):
     Javascript templates (jquery, handlebars.js, mustache.js) use constructs like:
 
     ::
-    
+
         {{if condition}} print something{{/if}}
 
     This, of course, completely screws up Django templates,
@@ -68,21 +66,21 @@ class VerbatimNode(template.Node):
     Wrap {% verbatim %} and {% endverbatim %} around a
     block of javascript template and this will try its best
     to output the contents with no changes.
-    
+
     ::
-    
+
         {% verbatim %}
             {% trans "Your name is" %} {{first}} {{last}}
         {% endverbatim %}
     """
     def __init__(self, text_and_nodes):
         self.text_and_nodes = text_and_nodes
-    
+
     def render(self, context):
         output = ""
         # If its text we concatenate it, otherwise it's a node and we render it
         for bit in self.text_and_nodes:
-            if isinstance(bit, basestring): 
+            if isinstance(bit, basestring):
                 output += bit
             else:
                 output += bit.render(context)
