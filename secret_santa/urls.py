@@ -1,10 +1,8 @@
-from django.conf.urls.defaults import *
-from models import Participant
-from datetime import date
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('secret_santa.views',
-    (r'^$',             'index'),
-    (r'^enroll/$',      'enroll'),
-    (r'^do_lottery/$',  'lottery'),
-    (r'^receiver/$',    'receiver'),
+    url(r'^$',             'index'),
+    url(r'^enroll/$',      'enroll'),
+    url(r'^do_lottery/$',  'lottery'),
+    url(r'^receiver/$',    'receiver'),
 )

@@ -1,10 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-{% load i18n %}
-{% load staticfiles %}
-{% load forum_tools %}
-{% load compress %}
+{% load i18n staticfiles forum_tools compress %}
 <head>
 	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -96,7 +93,7 @@
         <div id="logo">
              <div class="left">
                 {% spaceless %}
-                 <a href="{% url 'general.views.index' %}" id="main-logo">
+                 <a href="{% url 'index' %}" id="main-logo">
                     <img src="{% static 'images/logo/logo_modelbrouwers.png' %}"
                     alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
                  </a>{% endspaceless %}

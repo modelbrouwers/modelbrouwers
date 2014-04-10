@@ -44,4 +44,4 @@ if settings.DEBUG:
 # this MUST come as last option
 urlpatterns += patterns('general.views',
     (r'^([a-z,A-z,/,0-9,-,_]+(?!\.php$))/$', 'test_redirects'),
-    )
+)

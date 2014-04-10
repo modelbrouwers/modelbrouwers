@@ -4,17 +4,17 @@ from .views import ServeHbsTemplateView
 from .ajax_views import AnnouncementView
 
 urlpatterns = patterns('general.views',
-    (r'^$', 'index'),
+    url(r'^$', 'index', name='index'),
     url(r'^login/$', 'custom_login', name='custom_login'),
-    (r'^logout/$', 'custom_logout'),
-    (r'^register/$', 'register'),
-    (r'^profile/$', 'profile'),
-    (r'^users/(\w+)/$', 'user_profile'),
-    (r'^confirm_account/$', 'confirm_account'),
-    (r'^reset_pw/$', 'password_reset'),
-    (r'^do_reset_pw/$', 'do_password_reset'),
+    url(r'^logout/$', 'custom_logout'),
+    url(r'^register/$', 'register'),
+    url(r'^profile/$', 'profile'),
+    url(r'^users/(\w+)/$', 'user_profile'),
+    url(r'^confirm_account/$', 'confirm_account'),
+    url(r'^reset_pw/$', 'password_reset'),
+    url(r'^do_reset_pw/$', 'do_password_reset'),
     url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w]+)/$', ServeHbsTemplateView.as_view(), name='hbs_template') # get handlebars templates
-    )
+)
 
 # new auth backend
 urlpatterns += patterns('general.views2',

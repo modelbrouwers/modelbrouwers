@@ -55,9 +55,9 @@ TEMPLATE_RESET_PW_HTML = """
 """
 
 def index(request):
-    if not settings.DEBUG:
-        return HttpResponseRedirect('/index.php')
-    return render(request, 'base.html')
+    if request.GET.get('django') or settings.DEBUG:
+        return render(request, 'base.html')
+    return HttpResponseRedirect('/index.php')
 
 def register(request):
     error = ''

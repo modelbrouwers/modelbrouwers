@@ -5,6 +5,7 @@ try:
 except ImportError:
     sys.stderr.write("Create your secrets.py file with the secret settings.")
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
 DEBUG = True
 TEMPLATE_DEBUG = True

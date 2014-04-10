@@ -41,10 +41,10 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 # STATIC FILES
 #
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'brouwers', 'static'),
 )
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -213,4 +213,4 @@ COMPRESS_CSS_FILTERS = [
 #
 # NOSE
 #
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+TEST_RUNNER = 'general.tests.utils.UnmanagedTablesTestRunner'

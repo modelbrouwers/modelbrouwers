@@ -1,7 +1,12 @@
 # -*- coding: UTF-8 -*-
-
+from django.conf import settings
 from django.test import TestCase
-from utils import get_username, clean_username, clean_username_fallback
+
+from forum_tools.tests.factory_models import ForumUserFactory
+from general.utils import get_username, clean_username, clean_username_fallback
+
+from .factory_models import UserFactory
+
 
 class UsernameTest(TestCase):
     def setUp(self):
@@ -32,3 +37,19 @@ class UsernameTest(TestCase):
         username = self.object3.user.username
         self.assertEqual(clean_username(username), 'myʹuser')
         self.assertEqual(clean_username_fallback(username), 'my user')
+
+
+class LoginTestCase(TestCase):
+    def setUp(self):
+        self.user = UserFactory(username='my_user')
+        self.forum_user = ForumUserFactory()
+
+    def test_login(self):
+        """ Test that we can log in with the forum name containing spaces """
+        # production -> redirect to php index
+        response = self.client.get('/')
+        self.assertRedirects(response, '/index.php', target_status_code=404) # we don't serve php obviously
+
+        # test login
+        response = self.client.get(settings.LOGIN_URL)
+        self.assertEqual(response.status_code, 200)

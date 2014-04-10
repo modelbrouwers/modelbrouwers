@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('kitreviews.views',
     url(r'^$',                      'index',        name='index'),
@@ -7,4 +7,4 @@ urlpatterns = patterns('kitreviews.views',
     url(r'^kit/$',                  'kit_detail'),
     url(r'^kit/(\d+)/$',            'kit_detail',   name='kit_detail'), #TODO: switch to generic view maybe
     url(r'^kit/(\d+)/add_review/$', 'add_review', name='kit_add_review'),
-    )
+)
