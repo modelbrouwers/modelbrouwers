@@ -1,3 +1,6 @@
+import hashlib
+import random
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -13,7 +16,6 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader, Context
-from django.utils.hashcompat import sha_constructor
 from django.utils.translation import ugettext as _
 from django.views.generic import View
 
@@ -24,7 +26,6 @@ from forms import *
 from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset, RegistrationAttempt
 from utils import send_inactive_user_mail
 from datetime import datetime, timedelta
-import random
 
 try:
     from migration.models import UserMigration
@@ -165,7 +166,7 @@ def custom_login(request):
 
                         #ok, user created, now compose email etc.
                         u = username.encode('ascii', 'ignore')
-                        h = sha_constructor(settings.SECRET_KEY + u).hexdigest()[:24]
+                        h = hashlib.sha1(settings.SECRET_KEY + u).hexdigest()[:24]
                         migration_user.hash = h
                         migration_user.save()
                         domain = Site.objects.get_current().domain

@@ -41,8 +41,9 @@ class UsernameTest(TestCase):
 
 class LoginTestCase(TestCase):
     def setUp(self):
-        self.user = UserFactory(username='my_user')
-        self.forum_user = ForumUserFactory()
+        username = 'My user'
+        self.user = UserFactory(username=username.replace(' ', '_'))
+        self.forum_user = ForumUserFactory(username=username)
 
     def test_login(self):
         """ Test that we can log in with the forum name containing spaces """
@@ -53,3 +54,13 @@ class LoginTestCase(TestCase):
         # test login
         response = self.client.get(settings.LOGIN_URL)
         self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(response.context['form'])
+
+        post_data = {
+            'username': self.forum_user.username,
+            'password': 'password',
+            'next': '/index.php',
+        }
+        response = self.client.post(settings.LOGIN_URL, post_data)
+        # redirects
+        self.assertRedirects(response, '/index.php', target_status_code=404)
