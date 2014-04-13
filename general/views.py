@@ -115,7 +115,7 @@ def register(request):
                         attempt.set_ban()
     else:
         form = RegistrationForm()
-        question = RegistrationQuestion.objects.all().order_by('?')[0]
+        question = RegistrationQuestion.objects.filter(in_use=True).order_by('?')[0]
         questionform = QuestionForm(initial = {'question':question})
         answerform = AnswerForm()
     return render(request, 'general/register.html',

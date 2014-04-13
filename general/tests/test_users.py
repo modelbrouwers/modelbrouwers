@@ -5,7 +5,7 @@ from django.test import TestCase
 from forum_tools.tests.factory_models import ForumUserFactory
 from general.utils import get_username, clean_username, clean_username_fallback
 
-from .factory_models import UserFactory
+from .factory_models import UserFactory, RegistrationQuestionFactory
 
 
 class UsernameTest(TestCase):
@@ -64,3 +64,30 @@ class LoginTestCase(TestCase):
         response = self.client.post(settings.LOGIN_URL, post_data)
         # redirects
         self.assertRedirects(response, '/index.php', target_status_code=404)
+
+    def test_register(self):
+        url = '/register/'
+
+        # create a registration question that has to be answered
+        question = RegistrationQuestionFactory()
+        answer = 'answer' # default answer from the factory model
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+
+        post_data = {
+            'forum_nickname': 'My user2',
+            'email': 'myuser@dummy.com',
+            'password1': 'password',
+            'password2': 'password',
+            'question': question.id,
+            'answer': answer
+        }
+
+        response = self.client.post(url, post_data)
+        # test that the registration was succesful and a redirect
+        # to the profile occurs
+        self.assertRedirects(response, '/profile/')
+        # test that the user is logged in
+        self.assertIn('_auth_user_id', self.client.session)
