@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from django.conf import settings
-from django.contrib.auth.models import User
+from users.models import User
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _, ungettext as _n, get_language
 from datetime import date, datetime, timedelta
@@ -21,14 +21,6 @@ COUNTRY_CHOICES = (
 MAX_REGISTRATION_ATTEMPTS = 3
 STANDARD_BAN_TIME_HOURS = 12
 
-
-class OrderedUser(User):
-    class Meta:
-        ordering = ["username"]
-        proxy = True
-
-    def __unicode__(self):
-        return u"%s" % self.username.replace('_', ' ')
 
 class LoggedModel(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u'added by'), help_text=_(u'User who added the object.'))
@@ -230,7 +222,7 @@ class SoftwareVersion(models.Model):
         return u"%s%s.%s%s" % (prefix, self.major, self.minor, detail)
 
 class PasswordReset(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     h = models.CharField(_("hash"), max_length=256)
     expire = models.DateTimeField(_("expire datetime"))
 

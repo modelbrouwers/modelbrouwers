@@ -1,14 +1,14 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext as _
 
-
-from general.models import OrderedUser
 from datetime import datetime, timedelta
 
 MINUTES_FOR_ONLINE = 5
 
+
 class TrackedUser(models.Model):
-    user = models.ForeignKey(OrderedUser, unique=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     last_seen = models.DateTimeField(_("last seen online"), auto_now=True)
     tracking_since = models.DateTimeField(auto_now_add=True)
     notificate = models.BooleanField(

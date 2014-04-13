@@ -102,5 +102,4 @@ UserAdmin.list_display = (
     )
 UserAdmin.ordering = ['-date_joined', 'username']
 
-admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
