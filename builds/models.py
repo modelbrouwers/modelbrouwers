@@ -1,27 +1,23 @@
+import urllib
+import os
+
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 
-
-from awards.models import Project, Category
 from brouwers.utils.slugify import unique_slugify
 from general.models import UserProfile
 from kitreviews.models import Brand #TODO: FK to scale
-
-
-import urllib
-import os
 
 
 class Build(models.Model):
     """ Model to hold all information on a particular build of a user """
     # owner
     profile = models.ForeignKey(UserProfile)
-    user = models.ForeignKey(User, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
 
     # slug based on user-brand-scale-title
     slug = models.SlugField(_('slug'), unique=True)

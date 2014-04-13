@@ -1,21 +1,19 @@
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from django.conf.urls import url
+from django.contrib.auth import get_user_model
 
-
-from tastypie.authentication import BasicAuthentication, SessionAuthentication
+from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
-from tastypie.http import HttpUnauthorized, HttpForbidden
 from tastypie.resources import ModelResource
-from tastypie.utils import trailing_slash
-
 
 from general.utils import get_forumname_for_username
 from general.models import UserProfile
 
+User = get_user_model()
+
+
 class UserAuthorization(ReadOnlyAuthorization):
     def read_list(self, object_list, bundle):
         return object_list.filter(id=bundle.request.user.id)
+
 
 class UserResource(ModelResource):
     class Meta:

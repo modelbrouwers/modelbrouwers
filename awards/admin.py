@@ -3,11 +3,13 @@ from datetime import datetime
 from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext as _
 
 from models import *
 
+
+User = get_user_model()
 
 def reject(modeladmin, request, queryset):
     queryset.update(rejected=True, last_reviewer=request.user)
@@ -35,9 +37,6 @@ class NominationDateFilter(DateFieldListFilter):
     #         }
 
     # def queryset(self, request, queryset):
-
-    #     import pdb; pdb.set_trace()
-
     #     return super(NominationDateFilter, self).queryset(request, queryset)
 
     #     # if self.value() in DonationStatuses.values:

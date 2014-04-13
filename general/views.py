@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -40,6 +40,8 @@ except AttributeError:
 
 
 EMPTY_CONTEXT = Context()
+
+User = get_user_model()
 
 
 ######## EMAIL TEMPLATES ############

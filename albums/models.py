@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import Max
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -41,8 +40,9 @@ class Category(models.Model):
     def get_absolute_url(self):
         return "/albums/category/%s" % self.id
 
+
 class Album(models.Model):
-    user = models.ForeignKey(User, db_index=True, verbose_name=_("user")) #owner of the album
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user")) #owner of the album
     title = models.CharField(_("album title"), max_length="256",
             default="album %s" % datetime.now().strftime("%d-%m-%Y"), db_index=True)
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
@@ -162,6 +162,7 @@ class Album(models.Model):
         self.order = max_order+1
         return self
 
+
 class AlbumGroup(models.Model):
     album = models.ForeignKey(
             Album,
@@ -169,7 +170,7 @@ class AlbumGroup(models.Model):
             help_text=_("Album for which the group has write permissions."),
             unique=True
             )
-    users = models.ManyToManyField(User, verbose_name=_("users"), help_text=_("Users who can write in this album."), blank=True, null=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name=_("users"), help_text=_("Users who can write in this album."), blank=True, null=True)
 
     class Meta:
         verbose_name = _("album group")
@@ -178,6 +179,7 @@ class AlbumGroup(models.Model):
 
     def __unicode__(self):
         return _(u"Write permissions for '%(album)s'") % {'album': self.album.__unicode__()}
+
 
 class Photo(models.Model):
     """ Helper functions """
@@ -188,7 +190,7 @@ class Photo(models.Model):
 
     """ Model Fields """
     #image properties
-    user = models.ForeignKey(User, db_index=True) #we need to know the owner (public albums)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True) #we need to know the owner (public albums)
     album = models.ForeignKey(Album, db_index=True)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
@@ -361,8 +363,10 @@ BACKGROUND_CHOICES = (
     ("EEE", _("Light grey")),
     ("333", _("Dark grey")),
 )
+
+
 class Preferences(models.Model): #only create this object when user visits preferences page first time, otherwise go with the defaults
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     default_img_size = models.PositiveSmallIntegerField(
         _("default image dimensions"),
         choices=IMG_SIZES,
@@ -437,9 +441,10 @@ The basic uploader has a file field for each image."""
         }
         return d[self.default_img_size]
 
+
 class AlbumDownload(models.Model):
     album = models.ForeignKey(Album)
-    downloader = models.ForeignKey(User, help_text=_("user who downloaded the album"))
+    downloader = models.ForeignKey(settings.AUTH_USER_MODEL, help_text=_("user who downloaded the album"))
     timestamp = models.DateTimeField(_("timestamp"), auto_now_add=True)
     failed = models.BooleanField(default=False)
 

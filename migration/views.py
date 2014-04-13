@@ -1,15 +1,18 @@
+import os
+
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from django.db import IntegrityError
 from django.shortcuts import redirect, render
-from general.models import UserProfile
+
+from albums.models import Album, Photo
+
 from models import *
 from forms import PhotoMigrationForm
-from albums.models import Album, Photo
-import os
+
+User = get_user_model()
 
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
@@ -76,7 +79,7 @@ def migrate_albums(request):
 def migrate_pictures(request):
     p = None
     failed_migrations = []
-    
+
     if request.method == "POST":
         form = PhotoMigrationForm(request.POST)
         if form.is_valid():
@@ -85,7 +88,7 @@ def migrate_pictures(request):
             pictures = PhotoMigration.objects.filter(album__migrated=True, migrated=False).exclude(owner__django_user=None).select_related('album', 'album__new_album', 'owner', 'owner__django_user')[start:end]
             p = []
             albums = []
-            
+
             import unicodedata
             for picture in pictures:
                 album = picture.album.new_album
@@ -102,7 +105,7 @@ def migrate_pictures(request):
                             description = picture.caption
                     if len(description) > 500:
                         description = description[:500]
-                
+
                     # media/albums/<userid>/<albumid>/filename
                     base = "albums/%(userid)s/%(albumid)s/%(filename)s"
                     cleaned_filename = ''.join((c for c in unicodedata.normalize('NFD', picture.filename) if unicodedata.category(c) != 'Mn'))
@@ -116,19 +119,19 @@ def migrate_pictures(request):
                         'albumid': album.id,
                         'filename': "thumb_" + cleaned_filename
                     }
-                
+
                     src = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + cleaned_filename
                     src2 = "/home/modelbrouw/domains/modelbrouwers.nl/public_html/albums/coppermine/albums/" + picture.filepath + "thumb_" + cleaned_filename
                     #src = settings.MEDIA_ROOT + 'albums/test.jpg'
                     #src2 = settings.MEDIA_ROOT + 'albums/thumb_test.jpg'
                     target = settings.MEDIA_ROOT + filepath
                     target2 = settings.MEDIA_ROOT + filepath2
-                    
+
                     try:
                         if not os.path.lexists(target):
                             if not os.path.isdir(os.path.dirname(target)):
                                 os.makedirs(os.path.dirname(target))
-                            
+
                             os.symlink(src, target)
                             os.symlink(src2, target2)
                     except UnicodeEncodeError:
@@ -138,7 +141,7 @@ def migrate_pictures(request):
                             'cleaned_filename': cleaned_filename,
                             'new_filename': filepath
                         })
-                    
+
                     new_photo = Photo(
                         user = user,
                         album = album,
@@ -153,7 +156,7 @@ def migrate_pictures(request):
                     p.append(new_photo)
                     if album not in albums:
                         albums.append(album)
-            
+
             for album in albums:
                 # order in orde zetten
                 i = 1
@@ -163,6 +166,6 @@ def migrate_pictures(request):
                     i += 1
     else:
         form = PhotoMigrationForm()
-    
+
     cnt = PhotoMigration.objects.filter(album__migrated=True, migrated=False).exclude(owner__django_user=None).count()
     return render(request, 'migration/photos.html', {'photos': p, 'form': form, 'count': cnt, 'failed_migrations': failed_migrations})

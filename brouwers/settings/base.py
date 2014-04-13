@@ -160,6 +160,7 @@ SESSION_COOKIE_AGE = 6048000
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+AUTH_USER_MODEL = 'auth.User'
 AUTH_PROFILE_MODULE = 'general.UserProfile'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'

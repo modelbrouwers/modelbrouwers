@@ -1,8 +1,11 @@
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+
 from models import *
+
+User = get_user_model()
 
 
 class UserAdmin2(UserAdmin):
@@ -15,11 +18,9 @@ class UserProfileAdmin(admin.ModelAdmin):
             'fields': ('user', 'forum_nickname')
           }),
         ('Awards', {
-#           'classes': ['collapse'],
             'fields': (('last_vote', 'exclude_from_nomination'), 'categories_voted')
         }),
         ('Secret Santa', {
-#           'classes': ['collapse'],
             'fields': ('secret_santa', ('street','number'),('postal', 'city'),('province','country'), 'preference', 'refuse')
         })
     )
@@ -44,6 +45,7 @@ class RegistrationAttemptAdmin(admin.ModelAdmin):
     search_fields = ('username',)
     if not settings.DEBUG:
         actions = None
+
 
 class SoftwareVersionAdmin(admin.ModelAdmin):
     list_diplsay = ('__unicode__', 'start', 'end')

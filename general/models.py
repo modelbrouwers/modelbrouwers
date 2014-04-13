@@ -31,14 +31,14 @@ class OrderedUser(User):
         return u"%s" % self.username.replace('_', ' ')
 
 class LoggedModel(models.Model):
-    user = models.ForeignKey(User, verbose_name=_(u'added by'), help_text=_(u'User who added the object.'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u'added by'), help_text=_(u'User who added the object.'))
     timestamp_added = models.DateTimeField(_('added on'), auto_now_add=True)
 
     class Meta:
         abstract = True
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     #awardsinfo
     last_vote = models.DateField(default=date(2010,1,1))
     forum_nickname = models.CharField(max_length=30, unique=True)
