@@ -16,22 +16,18 @@ urlpatterns = patterns('general.views',
     url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w]+)/$', ServeHbsTemplateView.as_view(), name='hbs_template') # get handlebars templates
 )
 
-# new auth backend
-urlpatterns += patterns('general.views2',
-    (r'^new_login/$',     'custom_login'),
-    )
 
 # AJAX
 urlpatterns += patterns('general.ajax_views',
-    (r'^user/search/$',    'search_users'),
-    (r'^profile/ajax/change_password/$', 'password_change'),
+    url(r'^user/search/$',    'search_users'),
+    url(r'^profile/ajax/change_password/$', 'password_change'),
     url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
-    )
+)
 
 urlpatterns += patterns('django.contrib.auth.views',
-    (r'^profile/change_password/$', 'password_change', {'template_name':'general/password.html'}),
-    (r'^password_change_done/$','password_change_done', {'template_name': 'general/password_change_done.html'}),
-    )
+    url(r'^profile/change_password/$', 'password_change', {'template_name':'general/password.html'}),
+    url(r'^password_change_done/$','password_change_done', {'template_name': 'general/password_change_done.html'}),
+)
 
 # API
 if 'tastypie' in settings.INSTALLED_APPS:
@@ -43,5 +39,5 @@ if 'tastypie' in settings.INSTALLED_APPS:
     v1_api.register(UserResource())
 
     urlpatterns += patterns('',
-        (r'^api/', include(v1_api.urls)),
-        )
+        url(r'^api/', include(v1_api.urls)),
+    )

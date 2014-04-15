@@ -1,9 +1,13 @@
 from django import forms
-from django.utils.translation import ugettext as _
-from models import Forum
+from django.utils.translation import ugettext_lazy as _
+
+from general.utils import clean_username as _clean_username
+from .models import Forum, ForumUser
+
 
 class ForumForm(forms.Form):
     forum = forms.ModelChoiceField(queryset=Forum.objects.all(), empty_label=None)
+
 
 class PosterIDsForm(forms.Form):
     poster_ids = forms.CharField()
@@ -17,3 +21,22 @@ class PosterIDsForm(forms.Form):
         except ValueError:
             raise forms.ValidationError(_('Provide a set of IDS separated by \';\''))
         return poster_ids
+
+
+class ForumUserForm(forms.Form):
+    username = forms.CharField(max_length=254)
+
+    error_messages = {
+        'invalid_login': _("Please enter a correct %(username)s and password."),
+    }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        return _clean_username(username)
+
+    def get_user(self):
+        """ Query the database for the user. """
+        try:
+            return ForumUser.objects.get(username_clean=self.cleaned_data['username'])
+        except ForumUser.DoesNotExist:
+            return None

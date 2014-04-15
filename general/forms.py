@@ -1,11 +1,11 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
 from migration.models import UserMigration
-from models import UserProfile, RegistrationQuestion, PasswordReset
+from models import UserProfile, RegistrationQuestion
 from forum_tools.models import ForumUser
 from awards.models import Project
 
@@ -109,14 +109,6 @@ class AnswerForm(forms.Form):
 
 class QuestionForm(forms.Form):
     question = forms.ModelChoiceField(queryset=RegistrationQuestion.objects.filter(in_use=True), empty_label=None, widget=forms.HiddenInput())
-
-
-# logging in
-class CustomAuthenticationForm(AuthenticationForm):
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        username = username.replace(" ", "_")
-        return username
 
 
 class ForumAccountForm(forms.Form):
@@ -306,10 +298,16 @@ class SharingForm(forms.ModelForm):
 ######################################
 class RedirectForm(forms.Form):
     redirect = forms.CharField(required=False, widget=forms.HiddenInput())
+    next = forms.CharField(required=False, widget=forms.HiddenInput())
 
     def clean_redirect(self):
-        path = self.cleaned_data['redirect']
+        path = self.cleaned_data.get('redirect')
         if path:
             return "%s%s" % (settings.PHPBB_URL, path[1:])
-        else:
-            return ""
+        return None
+
+    def clean_next(self):
+        path = self.cleaned_data.get('next')
+        if path and not ' ' in path:
+            return path
+        return settings.LOGIN_REDIRECT_URL

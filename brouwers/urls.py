@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^ou/',           include('online_users.urls')),
     url(r'^migration/',    include('migration.urls')),
     url(r'^i18n/',         include('django.conf.urls.i18n')),
+    url(r'^',              include('users.urls', namespace='users')),
     url(r'^',              include('general.urls')),
 )
 

@@ -6,7 +6,10 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+
+from forum_tools.models import ForumUser
 
 
 class UserManager(BaseUserManager):
@@ -35,6 +38,20 @@ class UserManager(BaseUserManager):
         u.save(using=self._db)
         return u
 
+    def create_from_forum(self, forum_user):
+        extra_fields = {
+            'is_active': False,
+            'forumuser_id': forum_user.user_id
+        }
+        user = self.create_user(forum_user.username, forum_user.user_email, **extra_fields)
+        # populate cache
+        user.forumuser = forum_user
+        return user
+
+    def user_exists(self, username):
+        qs = self.get_queryset().filter(username__iexact=username)
+        return qs.exists()
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """
@@ -55,6 +72,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    # cross db-relation
+    forumuser_id = models.IntegerField(_('forum user id'), blank=True, null=True)
 
     objects = UserManager()
 
@@ -85,6 +105,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email])
+
+    @cached_property
+    def forumuser(self):
+        try:
+            return ForumUser.objects.get(pk=self.forumuser_id)
+        except ForumUser.DoesNotExist:
+            return None
+
 
     def get_profile(self):
         """
