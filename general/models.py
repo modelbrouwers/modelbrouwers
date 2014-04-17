@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import Q
 from django.conf import settings
-from users.models import User
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _, ungettext as _n, get_language
 from datetime import date, datetime, timedelta

@@ -59,3 +59,9 @@ class LoginTestCase(TestCase):
         self.assertRedirects(response, '/profile/')
         # test that the user is logged in
         self.assertIn('_auth_user_id', self.client.session)
+
+        # test that we are effectively able to log in
+        self.client.logout()
+        self.assertNotIn('_auth_user_id', self.client.session)
+        self.client.login(username='My user2', password='password')
+        self.assertIn('_auth_user_id', self.client.session)
