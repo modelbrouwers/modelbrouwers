@@ -56,7 +56,7 @@ class UserManager(BaseUserManager):
         return user
 
     def user_exists(self, username):
-        qs = self.get_queryset().filter(username__iexact=username)
+        qs = self.get_query_set().filter(username__iexact=username)
         return qs.exists()
 
 

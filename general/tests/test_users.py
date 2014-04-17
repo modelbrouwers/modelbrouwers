@@ -35,14 +35,14 @@ class UsernameTest(TestCase):
 
     def test_clean_username(self):
         username = self.object3.user.username
-        self.assertEqual(clean_username(username), 'myʹuser')
+        self.assertEqual(clean_username(username), u'myʹuser')
         self.assertEqual(clean_username_fallback(username), 'my user')
 
 
 class LoginTestCase(TestCase):
     def setUp(self):
         username = 'My user'
-        self.user = UserFactory(username=username.replace(' ', '_'))
+        self.user = UserFactory(username=username)
         self.forum_user = ForumUserFactory(username=username)
 
     def test_login(self):
@@ -74,7 +74,6 @@ class LoginTestCase(TestCase):
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-
 
         post_data = {
             'forum_nickname': 'My user2',

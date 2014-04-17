@@ -91,15 +91,11 @@ class RegistrationForm(forms.ModelForm):
 
     def save(self, commit=True):
         forum_nickname = self.cleaned_data['forum_nickname']
-        username = forum_nickname.replace(" ", "_")
-        user = User(username=username)
+        user = User(username=forum_nickname)
         user.email = self.cleaned_data['email']
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
-            profile = UserProfile(user=user)
-            profile.forum_nickname = forum_nickname
-            profile.save()
         return user
 
 
