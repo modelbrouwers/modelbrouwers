@@ -108,7 +108,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         "Returns the short name for the user."
-        return self.short_name or self.username
+        return self.first_name or self.username
 
     @cached_property
     def forumuser(self):

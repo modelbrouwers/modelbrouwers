@@ -8,7 +8,7 @@ from general.tests.factory_models import RegistrationQuestionFactory
 from .factory_models import UserFactory
 
 
-class LoginTestCase(TestCase):
+class LoginRegisterTestCase(TestCase):
     def setUp(self):
         username = 'My user'
         self.user = UserFactory(username=username)

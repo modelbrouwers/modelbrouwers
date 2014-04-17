@@ -1,15 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin
 
 from models import *
-
-User = get_user_model()
-
-
-class UserAdmin2(UserAdmin):
-    list_editable = ('email',)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -68,9 +60,6 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_editable = ('from_date', 'to_date')
     search_fields = ('text',)
 
-
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin2)
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)

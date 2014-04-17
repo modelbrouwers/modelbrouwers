@@ -28,6 +28,7 @@ class LoggedModel(models.Model):
     class Meta:
         abstract = True
 
+
 class UserProfile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     #awardsinfo
@@ -76,11 +77,13 @@ class UserProfile(models.Model):
             ok = True
         return ok
 
+
 class QuestionAnswer(models.Model):
     answer = models.CharField(max_length=255)
 
     def __unicode__(self):
         return u"%s" % self.answer
+
 
 class RegistrationQuestion(models.Model):
     question = models.CharField(max_length=255, help_text=_("Question which must be answered for registration."))
@@ -89,6 +92,7 @@ class RegistrationQuestion(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.question
+
 
 class RegistrationAttempt(models.Model):
     username = models.CharField(_('username'), max_length=512, db_index=True, default='_not_filled_in_') # same as forum_nickname
@@ -220,6 +224,7 @@ class SoftwareVersion(models.Model):
         detail = '.' + str(self.detail) or ''
         return u"%s%s.%s%s" % (prefix, self.major, self.minor, detail)
 
+
 class PasswordReset(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     h = models.CharField(_("hash"), max_length=256)
@@ -233,6 +238,7 @@ class PasswordReset(models.Model):
 
     def __unicode__(self):
         return _("Password reset for %(user)s") % {'user': self.user.get_profile().__unicode__()}
+
 
 class Redirect(models.Model):
     path_from = models.CharField(
@@ -256,7 +262,6 @@ class Redirect(models.Model):
 
 
 class AnnouncementManager(models.Manager):
-
     def get_current(self):
         now = datetime.now()
         lang_code = get_language()[:2]
