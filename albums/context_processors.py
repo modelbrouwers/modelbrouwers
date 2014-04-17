@@ -13,7 +13,7 @@ def preferences(request):
 def user_is_album_admin(request):
     p = None
     if request.user.is_authenticated():
-        key = 'album-preferences:%s' % request.user.username
+        key = 'album-preferences:%s' % request.user.id
         p = cache.get(key)
         if p is None:
             p = Preferences.get_or_create(request.user)

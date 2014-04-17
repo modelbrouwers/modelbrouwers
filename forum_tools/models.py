@@ -78,6 +78,11 @@ class ForumUser(models.Model):
         default=0,
         help_text=_("A hash of the user's email address.")
     )
+    user_permissions = models.TextField(blank=True)
+    user_sig = models.TextField(blank=True)
+    user_interests = models.TextField(blank=True)
+    user_actkey = models.TextField(blank=True)
+    user_occ = models.TextField(blank=True)
 
     class Meta:
         managed = False
@@ -99,10 +104,12 @@ class ForumUser(models.Model):
 
     def save(self, *args, **kwargs):
         self.user_email_hash = self.get_email_hash()
+        if not self.username_clean:
+            self._clean_username()
         super(ForumUser, self).save(*args, **kwargs)
 
     def _clean_username(self):
-        return clean_username(self.username)
+        self.username_clean = clean_username(self.username)
 
 
 class Forum(models.Model):

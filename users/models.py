@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from forum_tools.models import ForumUser
 
+from .mail import UserCreatedFromForumEmail
+
 
 class UserManager(BaseUserManager):
 
@@ -40,12 +42,17 @@ class UserManager(BaseUserManager):
 
     def create_from_forum(self, forum_user):
         extra_fields = {
-            'is_active': False,
             'forumuser_id': forum_user.user_id
         }
         user = self.create_user(forum_user.username, forum_user.user_email, **extra_fields)
+        user.is_active = False
+        user.save(using=self._db)
+
         # populate cache
         user.forumuser = forum_user
+        # Send e-mail
+        mail = UserCreatedFromForumEmail(**{'user': user})
+        mail.send()
         return user
 
     def user_exists(self, username):
@@ -85,6 +92,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
+    def __unicode__(self):
+        return self.username
+
     def get_absolute_url(self):
         # TODO
         return "/users/%d/" % self.id
@@ -98,13 +108,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         "Returns the short name for the user."
-        return self.first_name
-
-    def email_user(self, subject, message, from_email=None):
-        """
-        Sends an email to this User.
-        """
-        send_mail(subject, message, from_email, [self.email])
+        return self.short_name or self.username
 
     @cached_property
     def forumuser(self):
@@ -112,7 +116,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             return ForumUser.objects.get(pk=self.forumuser_id)
         except ForumUser.DoesNotExist:
             return None
-
 
     def get_profile(self):
         """
@@ -145,3 +148,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             except (ImportError, ImproperlyConfigured):
                 raise SiteProfileNotAvailable
         return self._profile_cache
+
+# Circular imports happen otherwise
+import signals
