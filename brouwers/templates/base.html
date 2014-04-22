@@ -139,14 +139,14 @@
                     {% block user_auth %}
                         {% if not user.is_authenticated %}
                             <li class="user-auth">
-                                <a href="{% url 'general.views.custom_login' %}?next={{ request.path }}">{% trans 'Login' %}</a>
+                                <a href="{% url 'users:login' %}?next={{ request.path }}">{% trans 'Login' %}</a>
                             </li>
                             <li class="user-auth">
                                 <a href="{% url 'general.views.register' %}">{% trans 'Register' %}</a>
                             </li>
                         {% else %}
                             <li class="user-auth">
-                                <a href="{% url 'general.views.custom_logout' %}">
+                                <a href="{% url 'users:logout' %}">
                                     <span>&nbsp;</span><!-- hack for proper height display in chrome -->
                                     <img id="img-logout" src="{% static 'images/icons/door.png' %}" title="{% trans 'logout' %}" alt="{% trans 'logout' %}"/>
                                     <span>&nbsp;</span>

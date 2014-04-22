@@ -65,3 +65,21 @@ class LoginRegisterTestCase(TestCase):
         self.assertNotIn('_auth_user_id', self.client.session)
         self.client.login(username='My user2', password='password')
         self.assertIn('_auth_user_id', self.client.session)
+
+
+class LogoutTestCase(TestCase):
+    def setUp(self):
+        self.user = UserFactory()
+        self.logout_url = '/logout/'
+
+    def test_logout_authenticated(self):
+        self.client.login(username=self.user.username, password='password')
+        response = self.client.get(self.logout_url)
+        self.assertRedirects(response, '/', target_status_code=302) # / issues a redirect to /index.php
+        self.assertNotIn('_auth_user_id', self.client.session)
+
+    def test_logout_not_authenticated(self):
+        # not logged in, should just work too
+        response = self.client.get(self.logout_url)
+        self.assertRedirects(response, '/', target_status_code=302) # / issues a redirect to /index.php
+        self.assertNotIn('_auth_user_id', self.client.session)

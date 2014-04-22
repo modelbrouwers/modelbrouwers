@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
 from django.utils.http import base36_to_int
 from django.utils.translation import ugettext as _
-from django.views.generic import FormView, RedirectView
+from django.views import generic
 
 from forum_tools.forms import ForumUserForm
 from general.forms import RedirectForm
@@ -16,8 +16,20 @@ from .tokens import activation_token_generator
 
 User = get_user_model()
 
+class RedirectFormMixin(object):
+    """ Mixin to determine the next page after an authentication step. """
+    default_redirect_url = settings.LOGIN_REDIRECT_URL
 
-class LoginView(FormView):
+    def get_redirect_url(self):
+        redirectform = RedirectForm(data=self.request.REQUEST)
+        if redirectform.is_valid():
+            next = redirectform.cleaned_data['redirect'] or redirectform.cleaned_data['next']
+        else:
+            next = self.default_redirect_url
+        return next
+
+
+class LoginView(RedirectFormMixin, generic.FormView):
     form_class = AuthenticationForm
     template_name = 'users/login.html'
 
@@ -29,12 +41,7 @@ class LoginView(FormView):
         return kwargs
 
     def get_success_url(self):
-        redirectform = RedirectForm(data=self.request.REQUEST)
-        if redirectform.is_valid():
-            next = redirectform.cleaned_data['redirect'] or redirectform.cleaned_data['next']
-        else:
-            next = settings.LOGIN_REDIRECT_URL
-        return next
+        return self.get_redirect_url()
 
     def form_valid(self, form):
         user = form.get_user()
@@ -80,7 +87,21 @@ class LoginView(FormView):
         return super(LoginView, self).get_context_data(**context)
 
 
-class ActivationView(RedirectView):
+class LogoutView(RedirectFormMixin, generic.RedirectView):
+    default_redirect_url = '/'
+    permanent = False
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            logout(request)
+            msg = _('You have been logged out.')
+        else:
+            msg =  _('Can\'t log you out, you weren\'t logged in!')
+        messages.info(request, msg)
+        return super(LogoutView, self).get(request, *args, **kwargs)
+
+
+class ActivationView(generic.RedirectView):
     """ Check that a valid token is used and activate the user """
     url = reverse_lazy('profile')
     permanent = False
@@ -111,3 +132,7 @@ class ActivationView(RedirectView):
 
         user.is_active = True
         user.save()
+
+
+class RegistrationView(generic.CreateView):
+    pass

@@ -5,8 +5,6 @@ from .ajax_views import AnnouncementView
 
 urlpatterns = patterns('general.views',
     url(r'^$', 'index', name='index'),
-    url(r'^login/$', 'custom_login', name='custom_login'),
-    url(r'^logout/$', 'custom_logout'),
     url(r'^register/$', 'register'),
     url(r'^profile/$', 'profile', name='profile'),
     url(r'^users/(\w+)/$', 'user_profile'),

@@ -32,11 +32,8 @@ try:
 except ImportError:
     UserMigration = None
 
-try:
-    LOG_REGISTRATION_ATTEMPTS = settings.LOG_REGISTRATION_ATTEMPTS
-except AttributeError:
-    # setting not yet defined
-    LOG_REGISTRATION_ATTEMPTS = True
+
+LOG_REGISTRATION_ATTEMPTS = getattr(settings, 'LOG_REGISTRATION_ATTEMPTS', True)
 
 
 EMPTY_CONTEXT = Context()
@@ -129,80 +126,6 @@ def register(request):
                 'answerform': answerform
                 }
             )
-
-def custom_login(request):
-    next_page = request.REQUEST.get('next')
-    redirect_form = RedirectForm(request.REQUEST) #phpBB3 returns a 'redirect' key
-    if redirect_form.is_valid():
-        next_page = redirect_form.cleaned_data['redirect'] or next_page
-
-    if request.method == "POST":
-        form = CustomAuthenticationForm(data=request.POST)
-        if form.is_valid():
-            # Light security check -- make sure next_page isn't garbage.
-            if not next_page or ' ' in next_page:
-                next_page = settings.LOGIN_REDIRECT_URL
-
-            user = form.get_user()
-            login(request, user)
-            return HttpResponseRedirect(next_page)
-        else:
-            #ok, maybe an existing forumuser trying to login, but the accounts aren't coupled yet
-            username = request.POST.get('username', '') #make it empty if it isn't set
-            username_ = username.replace(" ", "_")
-            users = User.objects.filter(username__iexact = username_)
-            if UserMigration:
-                try:
-                    migration_user = UserMigration.objects.get(username=username)
-                    if not users: #user exists on the forum, but not in our db
-                        # save user, set user inactive and generate + send the key
-                        email = migration_user.email
-                        password = User.objects.make_random_password(length=8)
-
-                        #set the password later, when validating the hash
-                        user = User.objects.create_user(username_, email, password)
-                        user.is_active = False
-                        user.save()
-                        profile = UserProfile(user=user, forum_nickname=username)
-                        profile.save()
-
-                        #ok, user created, now compose email etc.
-                        u = username.encode('ascii', 'ignore')
-                        h = hashlib.sha1(settings.SECRET_KEY + u).hexdigest()[:24]
-                        migration_user.hash = h
-                        migration_user.save()
-                        domain = Site.objects.get_current().domain
-
-                        url = "http://%s%s"% (domain, reverse(confirm_account))
-                        url_a = "<a href=\"%s\">%s?hash=%s&forum_nickname=%s</a>" % (url, url, h, username)
-                        text_content = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
-                        html_content = "<p>Beste %s,</p><br >" % username
-                        html_content += "<p>Uw code is: <strong>%s</strong>.</p>" % h
-                        html_content += "<p>Geef deze code in op: %s</p><br >" % url_a
-                        html_content += "<p>Mvg,</p><p>Het beheer</p>"
-                        subject, from_email = 'Modelbrouwersaccount', 'admins@modelbrouwers.nl'
-
-                        msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
-                        msg.attach_alternative(html_content, "text/html")
-                        msg.send()
-                        #send_mail(subject, mailtext, from_email, [to], fail_silently=True)
-                        return render(request, 'general/user_migration.html', {'username': username})
-                except UserMigration.DoesNotExist: #unknown on the forum
-                    pass
-    else:
-        form = AuthenticationForm(request)
-    return render(request, 'general/login.html', {
-        'form': form,
-        'next': next_page,
-        'redirect_form': redirect_form,
-    })
-
-def custom_logout(request):
-    next_page = request.GET.get('next')
-    if not next_page or ' ' in next_page:
-        next_page = "/"
-    logout(request)
-    return HttpResponseRedirect(next_page)
 
 def confirm_account(request):
     if request.method == "POST":

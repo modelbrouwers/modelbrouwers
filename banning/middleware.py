@@ -14,17 +14,17 @@ from datetime import datetime
 class BanningMiddleware(object):
     def process_request(self, request):
         # allow logins
-        if request.path == reverse('general.views.custom_login'):
+        if request.path == reverse('users:login'):
             return None
         u = request.user
         ip = get_client_ip(request)
-        
+
         ban_list = cache.get(CACHE_KEY)
-                
+
         if ban_list is None:
             bans = Ban.get_bans_queryset()
             qs = bans
-            
+
             if u.is_authenticated():
                 bans = bans.filter(Q(user_id=u.id) | Q(ip=ip))
             else:
@@ -43,10 +43,10 @@ class BanningMiddleware(object):
             else:
                 ban_list = [ban for ban in ban_list if ban.ip==ip]
 
-            ban_list = [ban for ban in ban_list 
+            ban_list = [ban for ban in ban_list
                         if ban.expiry_date is None
                         or ban.expiry_date >= datetime.now()]
-        
+
         # NEVER ban superusers
         if ban_list and not (u.is_authenticated() and u.is_superuser):
             logout(request)
