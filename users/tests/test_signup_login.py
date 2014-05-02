@@ -8,11 +8,9 @@ from general.tests.factory_models import RegistrationQuestionFactory
 from .factory_models import UserFactory
 
 
-class LoginRegisterTestCase(TestCase):
+class LoginRegisterTests(TestCase):
     # TODO:
     #   - succesful registration
-    #   - wrong answer blocks registration
-    #   - test logged in after normal registration
     #   - test e-mail suspicous registration and not logged in
     #   - test registration logging
     #   - test registration e-mail is sent
@@ -40,6 +38,32 @@ class LoginRegisterTestCase(TestCase):
         response = self.client.post(settings.LOGIN_URL, post_data)
         # redirects
         self.assertRedirects(response, '/index.php', target_status_code=404)
+        self.assertIn('_auth_user_id', self.client.session)
+
+    def test_email_login(self):
+        """ Test that we can also login with the e-mail address """
+        post_data = {
+            'username': self.user.email,
+            'password': 'password',
+            'next': '/index.php',
+        }
+        response = self.client.post(settings.LOGIN_URL, post_data)
+        self.assertRedirects(response, '/index.php', target_status_code=404)
+        self.assertIn('_auth_user_id', self.client.session)
+
+    def test_email_not_logged_in_duplicate(self):
+        """ Test that duplicate e-mail users are not logged in """
+        user2 = UserFactory(email=self.user.email)
+        self.assertEqual(user2.email, self.user.email)
+
+        post_data = {
+           'username': self.user.email,
+            'password': 'password',
+            'next': '/index.php',
+        }
+        response = self.client.post(settings.LOGIN_URL, post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(self.client.session.get('_auth_user_id'))
 
     def test_register(self):
         url = '/register/'
@@ -72,6 +96,33 @@ class LoginRegisterTestCase(TestCase):
         self.assertNotIn('_auth_user_id', self.client.session)
         self.client.login(username='My user2', password='password')
         self.assertIn('_auth_user_id', self.client.session)
+
+
+class RegistrationTests(TestCase):
+    def setUp(self):
+        self.UserModel = UserFactory.FACTORY_FOR
+        self.url = '/register/'
+
+    def test_anti_spambot_question(self):
+        """ Test that wrong answers block registration """
+        self.assertEqual(self.UserModel.objects.count(), 0)
+
+        question = RegistrationQuestionFactory()
+        answer = 'not-answer' # 'answer' is the default answer from the factory model
+
+        post_data = {
+            'username': 'My user2',
+            'email': 'myuser@dummy.com',
+            'password1': 'password',
+            'password2': 'password',
+            'question': question.id,
+            'answer': answer
+        }
+
+        response = self.client.post(self.url, post_data)
+        self.assertEqual(response.status_code, 200)
+        # Test that no user account was created
+        self.assertEqual(self.UserModel.objects.count(), 0)
 
 
 class LogoutTestCase(TestCase):

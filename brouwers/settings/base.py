@@ -81,7 +81,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'sessionprofile.middleware.SessionProfileMiddleware',
+    # 'sessionprofile.middleware.SessionProfileMiddleware',
     'albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -160,6 +160,7 @@ SESSION_COOKIE_AGE = 6048000
 #
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+    'users.backends.EmailModelBackend',
 )
 AUTH_USER_MODEL = 'users.User'
 AUTH_PROFILE_MODULE = 'general.UserProfile'
