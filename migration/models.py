@@ -27,7 +27,7 @@ class UserMigration(models.Model):
     @property
     def url(self):
         params = {'hash': self.hash, 'forum_nickname': self.username}
-        query_string = urllib.urlencode(dict([k, v.encode('utf-8')] for k, v in params.items()))
+        query_string = urllib.urlencode(dict([k, v] for k, v in params.items()))
         return u"http://modelbrouwers.nl/confirm_account/?%s" % (query_string)
 
 class AlbumUserMigration(models.Model):
