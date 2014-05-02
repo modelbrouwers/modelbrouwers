@@ -2,7 +2,6 @@ from django.contrib.auth import logout
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import HttpResponseForbidden
 from django.shortcuts import render
 
 from general.utils import get_client_ip

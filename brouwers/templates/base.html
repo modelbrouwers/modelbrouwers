@@ -127,7 +127,7 @@
             <div id="menu_wrapper">
                 <ul id="menu">{% spaceless %}
                     {% block menu %}
-                        <li><a href="{% url 'general.views.index' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'index' %}">{% trans "Home" %}</a></li>
                         <li><a href="{% url 'builds:index' %}">{% trans "Builds" %}</a></li>
                         <li><a href="{% url 'awards_index' %}">{% trans "Awards" %}</a></li>
                         <li><a href="{% url 'secret_santa.views.index' %}">{% trans "Secret Santa" %}</a></li>
@@ -142,7 +142,7 @@
                                 <a href="{% url 'users:login' %}?next={{ request.path }}">{% trans 'Login' %}</a>
                             </li>
                             <li class="user-auth">
-                                <a href="{% url 'general.views.register' %}">{% trans 'Register' %}</a>
+                                <a href="{% url 'users:register' %}">{% trans 'Register' %}</a>
                             </li>
                         {% else %}
                             <li class="user-auth">

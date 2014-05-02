@@ -1,14 +1,12 @@
-import hashlib
 import random
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
@@ -23,18 +21,11 @@ from albums.models import Album
 from albums.utils import admin_mode
 
 from forms import *
-from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset, RegistrationAttempt
-from utils import send_inactive_user_mail
+from models import UserProfile, Redirect, PasswordReset
 from datetime import datetime, timedelta
-
-try:
-    from migration.models import UserMigration
-except ImportError:
-    UserMigration = None
 
 
 LOG_REGISTRATION_ATTEMPTS = getattr(settings, 'LOG_REGISTRATION_ATTEMPTS', True)
-
 
 EMPTY_CONTEXT = Context()
 
@@ -58,97 +49,6 @@ def index(request):
     if request.GET.get('django') or settings.DEBUG:
         return render(request, 'base.html')
     return HttpResponseRedirect('/index.php')
-
-def register(request):
-    error = ''
-    question, attempt = None, None
-    if request.method=='POST':
-        form = RegistrationForm(request.POST)
-        answerform = AnswerForm(request.POST)
-        questionform = QuestionForm(request.POST)
-        if LOG_REGISTRATION_ATTEMPTS:
-            attempt = RegistrationAttempt.add(request)
-
-        if questionform.is_valid():
-            question = questionform.cleaned_data['question']
-        if form.is_valid():
-            #check anti spam question
-            if answerform.is_valid() and questionform.is_valid():
-                answer = answerform.cleaned_data['answer']
-                valid_answers = question.answers.filter(answer__iexact=answer)
-                if valid_answers:
-                    user = form.save()
-                    username = user.username
-                    nickname = form.cleaned_data['forum_nickname']
-                    password = form.cleaned_data['password1']
-                    new_user = authenticate(username = username, password = password)
-
-                    if LOG_REGISTRATION_ATTEMPTS:
-                        # do not log in potential spammers
-                        if attempt.potential_spammer:
-                            new_user.is_active = False
-                            new_user.save()
-                            send_inactive_user_mail(new_user)
-                        else:
-                            login(request, new_user)
-
-                    # TODO: move to template + add translations
-                    subject = 'Registratie op modelbrouwers.nl'
-                    message = 'Bedankt voor uw registratie op http://modelbrouwers.nl.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
-                    sender = 'admins@modelbrouwers.nl'
-                    receiver = [form.cleaned_data['email']]
-                    send_mail(subject, message, sender, receiver, fail_silently=True)
-
-                    next_page = request.GET.get('next', reverse(profile))
-                    if ' ' in next_page:
-                    	next_page = reverse(profile)
-
-                    if LOG_REGISTRATION_ATTEMPTS:
-                        attempt.success = True
-                        attempt.save()
-                    return HttpResponseRedirect(next_page)
-                else:
-                    # wrong answer, test if same ip has tried registrations before
-                    error = "Fout antwoord."
-                    if LOG_REGISTRATION_ATTEMPTS:
-                        attempt.set_ban()
-    else:
-        form = RegistrationForm()
-        question = RegistrationQuestion.objects.filter(in_use=True).order_by('?')[0]
-        questionform = QuestionForm(initial = {'question':question})
-        answerform = AnswerForm()
-    return render(request, 'general/register.html',
-                {
-                'error': error,
-                'form': form,
-                'questionform': questionform,
-                'question': question,
-                'answerform': answerform
-                }
-            )
-
-def confirm_account(request):
-    if request.method == "POST":
-        initial = False
-        # takes the forumnickname, two password fields and the hash
-        form = ForumAccountForm(request.POST)
-        if form.is_valid():
-            nickname = form.cleaned_data["forum_nickname"]
-            username_ = nickname.replace(" ", "_")
-            user = get_object_or_404(User, username=username_, is_active=False)
-            user.is_active = True
-            password = form.cleaned_data['password1']
-            user.set_password(password)
-            user.save()
-
-            #logging in
-            user = authenticate(username=username_, password=password)
-            login(request, user)
-            return HttpResponseRedirect('/phpBB3/')
-    else:
-        form = ForumAccountForm(request.GET)
-        initial = True
-    return render(request, 'general/confirm_account.html', {'form': form, 'initial':initial})
 
 
 #############################
@@ -314,7 +214,6 @@ def do_password_reset(request):
 
 
 class ServeHbsTemplateView(View):
-
     def get(self, request, *args, **kwargs):
         app_name = kwargs.get('app_name')
         template_name = "{template_name}.hbs".format(template_name=kwargs.get('template_name'))
@@ -325,5 +224,4 @@ class ServeHbsTemplateView(View):
                         )
         template = loader.get_template(template_path)
         tpl_source = template.render(EMPTY_CONTEXT)
-        response = HttpResponse(tpl_source)
-        return response
+        return HttpResponse(tpl_source)

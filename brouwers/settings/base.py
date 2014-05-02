@@ -185,7 +185,7 @@ SOUTH_TESTS_MIGRATE = False
 #
 # Registration logging + bans
 #
-LOG_REGISTRATION_ATTEMPS = True
+LOG_REGISTRATION_ATTEMPTS = True
 
 #
 # AWARDS

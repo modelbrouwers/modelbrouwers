@@ -5,10 +5,8 @@ from .ajax_views import AnnouncementView
 
 urlpatterns = patterns('general.views',
     url(r'^$', 'index', name='index'),
-    url(r'^register/$', 'register'),
     url(r'^profile/$', 'profile', name='profile'),
     url(r'^users/(\w+)/$', 'user_profile'),
-    url(r'^confirm_account/$', 'confirm_account'),
     url(r'^reset_pw/$', 'password_reset'),
     url(r'^do_reset_pw/$', 'do_password_reset'),
     url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w]+)/$', ServeHbsTemplateView.as_view(), name='hbs_template') # get handlebars templates

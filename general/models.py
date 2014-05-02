@@ -85,28 +85,61 @@ class QuestionAnswer(models.Model):
         return u"%s" % self.answer
 
 
+class ActiveQuestionsManager(models.Manager):
+    def get_query_set(self):
+        return super(ActiveQuestionsManager, self).get_query_set().filter(in_use=True)
+
+
 class RegistrationQuestion(models.Model):
-    question = models.CharField(max_length=255, help_text=_("Question which must be answered for registration."))
+    question = models.CharField(
+        _('Anti-spambot question'), max_length=255,
+        help_text=_("Question which must be answered for registration."))
     answers = models.ManyToManyField(QuestionAnswer, blank=True, null=True)
     in_use = models.BooleanField(default=True)
+
+    objects = models.Manager()
+    active = ActiveQuestionsManager()
 
     def __unicode__(self):
         return u"%s" % self.question
 
 
+class RegistrationAttemptManager(models.Manager):
+    def create_from_form(self, request, form_data):
+        ip = get_client_ip(request) #FIXME: clean format?
+        kwargs = {
+            'username': form_data.get('username') or request.POST.get('username') or '__blank',
+            'question': form_data.get('question'),
+            'answer': form_data.get('answer') or request.POST.get('answer'),
+            'ip_address': ip,
+            'email': form_data.get('email') or ''
+        }
+
+        type_of_visitor, potential_spammer = lookup_http_blacklist(ip)
+        if type_of_visitor is not None and potential_spammer is not None:
+            kwargs.update({
+                'potential_spammer': potential_spammer,
+                'type_of_visitor': type_of_visitor,
+            })
+
+        return self.create(**kwargs)
+
+
 class RegistrationAttempt(models.Model):
     username = models.CharField(_('username'), max_length=512, db_index=True, default='_not_filled_in_') # same as forum_nickname
+    email = models.EmailField(_('email'), max_length=255, blank=True)
     question = models.ForeignKey(RegistrationQuestion, verbose_name=_('registration question'))
-    answer = models.CharField(_('answer'), max_length=255)
-    # answer_correct = models.BooleanField(_('correct answer?'))
+    answer = models.CharField(_('answer'), max_length=255, blank=True)
     timestamp = models.DateTimeField(_('timestamp'), auto_now_add=True)
     ip_address = models.IPAddressField(_('IP address'), db_index=True)
     success = models.BooleanField(_('success'))
 
     # keeping spam out
     potential_spammer = False
-    type_of_visitor = models.CharField(_('type of visitor'), max_length=255, default=_('normal user'))
+    type_of_visitor = models.CharField(_('type of visitor'), max_length=255, default='normal user')
     ban = models.OneToOneField('banning.Ban', blank=True, null=True)
+
+    objects = RegistrationAttemptManager()
 
     class Meta:
         verbose_name = _('registration attempt')
@@ -116,36 +149,12 @@ class RegistrationAttempt(models.Model):
     def __unicode__(self):
         return u"%s" % self.username
 
-    @classmethod
-    def add(cls, request):
-        ip = get_client_ip(request)
-        instance = cls(
-            username = request.POST.get('forum_nickname') or '__no_username',
-            question_id = request.POST.get('question'),
-            answer = request.POST.get('answer') or '__empty_answer',
-            ip_address = ip
-            )
-
-        type_of_visitor, potential_spammer = lookup_http_blacklist(ip)
-        if type_of_visitor is not None and potential_spammer is not None:
-            instance.potential_spammer = potential_spammer
-            instance.type_of_visitor = type_of_visitor
-
-        instance.save()
-        return instance
-
     @property
     def question_short(self):
         return self.question.__unicode__()[:15]
 
-    #@property
-    # def is_banned(self):
-    #     return self.ban_id is not None
-
     def _is_banned(self):
-        if self.ban_id is not None:
-            return True
-        return False
+        return self.ban_id is not None
     _is_banned.boolean = True
     is_banned = property(_is_banned)
 

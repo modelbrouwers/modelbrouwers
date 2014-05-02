@@ -33,8 +33,9 @@ class QuestionAnswerAdmin(admin.ModelAdmin):
 
 class RegistrationAttemptAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'question_short', 'answer', 'timestamp', 'ip_address', 'success', '_is_banned', 'type_of_visitor')
-    list_filter = ('success', 'timestamp', 'type_of_visitor', 'ip_address', 'username')
+    list_filter = ('success', 'timestamp', 'type_of_visitor')
     search_fields = ('username',)
+
     if not settings.DEBUG:
         actions = None
 

@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login, logout, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
@@ -10,23 +10,28 @@ from django.views import generic
 
 from forum_tools.forms import ForumUserForm
 from general.forms import RedirectForm
+from general.models import RegistrationQuestion, RegistrationAttempt
 
+from .forms import UserCreationForm
+from .mail import UserRegistrationEmail
 from .tokens import activation_token_generator
 
 
 User = get_user_model()
 
+
 class RedirectFormMixin(object):
     """ Mixin to determine the next page after an authentication step. """
     default_redirect_url = settings.LOGIN_REDIRECT_URL
+    permanent = False
 
     def get_redirect_url(self):
         redirectform = RedirectForm(data=self.request.REQUEST)
         if redirectform.is_valid():
-            next = redirectform.cleaned_data['redirect'] or redirectform.cleaned_data['next']
-        else:
-            next = self.default_redirect_url
-        return next
+            return redirectform.cleaned_data['redirect'] or redirectform.cleaned_data['next']
+        if self.success_url:
+            return super(RedirectFormMixin, self).get_redirect_url()
+        return self.default_redirect_url
 
 
 class LoginView(RedirectFormMixin, generic.FormView):
@@ -89,7 +94,6 @@ class LoginView(RedirectFormMixin, generic.FormView):
 
 class LogoutView(RedirectFormMixin, generic.RedirectView):
     default_redirect_url = '/'
-    permanent = False
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -107,9 +111,7 @@ class ActivationView(generic.RedirectView):
     permanent = False
 
     def get(self, request, *args, **kwargs):
-        """
-        Check token raises a 403 if the token is invalid.
-        """
+        """ Check token raises a 403 if the token is invalid. """
         self.check_token()
         return super(ActivationView, self).get(request, *args, **kwargs)
 
@@ -117,7 +119,6 @@ class ActivationView(generic.RedirectView):
         uidb36 = self.kwargs.get('uidb36')
         token = self.kwargs.get('token')
         assert uidb36 is not None and token is not None
-
         user_id = base36_to_int(uidb36)
         user = User._default_manager.get(pk=user_id)
 
@@ -125,14 +126,62 @@ class ActivationView(generic.RedirectView):
         if not valid:
             raise PermissionDenied
 
+        user.is_active = True
+        user.save()
         # backend attribute needed to log user in
-        # NOTE: check safety options here
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(self.request, user)
 
-        user.is_active = True
-        user.save()
 
+class RegistrationView(RedirectFormMixin, generic.CreateView):
+    model = User
+    form_class = UserCreationForm
+    template_name = 'users/register.html'
+    success_url = reverse_lazy('profile')
+    registration_attempt = None
 
-class RegistrationView(generic.CreateView):
-    pass
+    def get_initial(self):
+        initial = super(RegistrationView, self).get_initial()
+        initial['question'] = RegistrationQuestion.active.all().order_by('?')[0]
+        return initial
+
+    def log_registration(self, form):
+        if settings.LOG_REGISTRATION_ATTEMPTS:
+            self.registration_attempt = RegistrationAttempt.objects.create_from_form(self.request, form.cleaned_data)
+
+    def form_invalid(self, form):
+        """ Log the registration attempts before handling the form """
+        self.log_registration(form)
+        if self.registration_attempt:
+            self.registration_attempt.set_ban() # FIXME
+        return super(RegistrationView, self).form_invalid(form)
+
+    def form_valid(self, form):
+        """
+        If the user is consider trustworthy, log him/her in. Else,
+        make the account inactive and send an e-mail to the admins.
+        """
+        self.log_registration(form)
+        response = super(RegistrationView, self).form_valid(form)
+
+        mail = UserRegistrationEmail(user=self.object)
+        mail.send()
+
+        if self.registration_attempt:
+            # possible spammer: log attemt, send e-mail
+            if self.registration_attempt.potential_spammer:
+                self.object.is_active = False
+                self.object.save()
+                # TODO: e-mail send_inactive_user_mail(new_user)
+            else:
+                self.do_login(form)
+                self.registration_attempt.success = True
+                self.registration_attempt.save()
+        else:
+            self.do_login(form)
+        return response
+
+    def do_login(self, form):
+        pw = form.cleaned_data['password1']
+        user = authenticate(username=self.object.username, password=pw)
+        login(self.request, user)

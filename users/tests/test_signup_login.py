@@ -9,6 +9,13 @@ from .factory_models import UserFactory
 
 
 class LoginRegisterTestCase(TestCase):
+    # TODO:
+    #   - succesful registration
+    #   - wrong answer blocks registration
+    #   - test logged in after normal registration
+    #   - test e-mail suspicous registration and not logged in
+    #   - test registration logging
+    #   - test registration e-mail is sent
     def setUp(self):
         username = 'My user'
         self.user = UserFactory(username=username)
@@ -45,7 +52,7 @@ class LoginRegisterTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
         post_data = {
-            'forum_nickname': 'My user2',
+            'username': 'My user2',
             'email': 'myuser@dummy.com',
             'password1': 'password',
             'password2': 'password',
