@@ -14,3 +14,11 @@ def create_userprofile(sender, **kwargs):
             'forum_nickname': user.username,
         }
         UserProfile.objects.create(**fields)
+
+@receiver(post_save, sender=User)
+def sync_email(sender, **kwargs):
+    user = kwargs.get('instance')
+    forum_user = user.forumuser
+    if forum_user and user.email != forum_user.user_email:
+        forum_user.user_email = user.email
+        forum_user.save()
