@@ -73,23 +73,21 @@ $.ajaxSetup({
     }
 });
 
-
-
-function load_template(tpl_name){
-    // keep the templates in an objects
-    if(Handlebars.templates === undefined){
-        Handlebars.templates = {};
-    }
-    // see if we have it cached
-    if(Handlebars.templates[tpl_name] === undefined){
-        // nope, get it via json
-        tpl_url = hbs_templates[tpl_name];
-        $.ajax(tpl_url, {
-            async: false,
-            success: function(tpl, status, jqXHR){
-                Handlebars.templates[tpl_name] = Handlebars.compile(tpl);
-            }
-        });
-    }
-    return Handlebars.templates[tpl_name];
-}
+// function load_template(tpl_name){
+//     // keep the templates in an objects
+//     if(Handlebars.templates === undefined){
+//         Handlebars.templates = {};
+//     }
+//     // see if we have it cached
+//     if(Handlebars.templates[tpl_name] === undefined){
+//         // nope, get it via json
+//         var tpl_url = hbs_templates[tpl_name];
+//         $.ajax(tpl_url, {
+//             async: false,
+//             success: function(tpl, status, jqXHR){
+//                 Handlebars.templates[tpl_name] = Handlebars.compile(tpl);
+//             }
+//         });
+//     }
+//     return Handlebars.templates[tpl_name];
+// }
