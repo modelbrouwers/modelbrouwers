@@ -53,6 +53,9 @@ def uploadify(request):
     # Processing of each uploaded image
     albumform = PickAlbumForm(request.user, request.POST)
     # import pdb; pdb.set_trace()
+    
+    import logging
+    logging.info(request.FILES)
 
     if albumform.is_valid():
         album = albumform.cleaned_data['album']
