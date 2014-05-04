@@ -33,11 +33,17 @@ urlpatterns += staticfiles_urlpatterns()
 #)
 
 if settings.DEBUG:
+    urlpatterns += patterns('',
+#       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+        (r'^404/$', 'django.views.generic.simple.direct_to_template', {'template': '404.html'}),
+    )
+
+if settings.DEVELOPMENT and not settings.DEBUG:
 	urlpatterns += patterns('',
-#		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-		(r'^404/$', 'django.views.generic.simple.direct_to_template', {'template': '404.html'}),
-	)
+		(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )
+
 
 # some sort of catchall, check the database if redirects exist, else return a 404
 # this MUST come as last option
