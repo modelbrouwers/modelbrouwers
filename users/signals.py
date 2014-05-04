@@ -22,3 +22,19 @@ def sync_email(sender, **kwargs):
     if forum_user and user.email != forum_user.user_email:
         forum_user.user_email = user.email
         forum_user.save()
+
+@receiver(post_save, sender=User)
+def sync_userprofile(sender, **kwargs):
+    user = kwargs.get('instance')
+    profile = user.get_profile()
+    if not kwargs.get('created') and profile.forum_nickname != user.username:
+        profile.forum_nickname = user.username
+        profile.save()
+
+@receiver(post_save, sender=User)
+def sync_forumuser_username(sender, **kwargs):
+    user = kwargs.get('instance')
+    forum_user = user.forumuser
+    if forum_user and user.username != forum_user.username:
+        forum_user.username = user.username
+        forum_user.save()

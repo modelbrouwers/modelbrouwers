@@ -97,6 +97,15 @@ class LoginRegisterTests(TestCase):
         self.client.login(username='My user2', password='password')
         self.assertIn('_auth_user_id', self.client.session)
 
+    def test_register_invisible_if_logged_in(self):
+        """ Test that the registration page is not accessible if the user is logged in"""
+        url = '/register/'
+        self.client.login(username=self.user.username, password='password')
+        self.assertIn('_auth_user_id', self.client.session)
+
+        response = self.client.get(url)
+        self.assertRedirects(response, '/', target_status_code=302)
+
 
 class RegistrationTests(TestCase):
     def setUp(self):

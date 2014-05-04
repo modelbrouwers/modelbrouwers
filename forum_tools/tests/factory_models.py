@@ -3,6 +3,17 @@ import factory
 from ..models import ForumUser
 
 
+def create_from_user(user):
+    forum_user = ForumUserFactory(
+        username=user.username,
+        user_email=user.email,
+    )
+    user.forumuser_id = forum_user.user_id
+    user.save()
+    user.forumuser = forum_user
+    return forum_user
+
+
 class ForumUserFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = ForumUser
 

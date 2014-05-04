@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import redirect
 from django.utils.http import base36_to_int
 from django.utils.translation import ugettext as _
 from django.views import generic
@@ -139,6 +140,11 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
     template_name = 'users/register.html'
     success_url = reverse_lazy('profile')
     registration_attempt = None
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect('index')
+        return super(RegistrationView, self).get(request, *args, **kwargs)
 
     def get_initial(self):
         initial = super(RegistrationView, self).get_initial()
