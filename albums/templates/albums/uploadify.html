@@ -24,156 +24,153 @@ td span.help_text{display: inline-block; max-width:500px;}
 
 {% block vendor_js %}
     <script type="text/javascript" src="{% static 'scripts/jquery.uploadify-3.1.min.js' %}"></script>
-{% endblock vendor_js %}
+    <script type="text/javascript">
+    var url_new = "{% url 'albums.ajax_views.new_album_jquery_ui' %}";
+    var success_icon = '&nbsp;<img src="{% static "admin/img/icon-yes.gif" %}" width="10" height="10" alt="ok"></img>';
+    var msg_error = "{% trans 'Something went wrong, the admins have been notified.' %}";
 
-{% block extrascript %}
-<script type="text/javascript">
-var url_new = "{% url 'albums.ajax_views.new_album_jquery_ui' %}";
-var success_icon = '&nbsp;<img src="{% static "admin/img/icon-yes.gif" %}" width="10" height="10" alt="ok"></img>';
-var msg_error = "{% trans 'Something went wrong, the admins have been notified.' %}";
-
-$(document).ready(function() {
-    var hasFlash = false;
-    try {
-      var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
-      if(fo) hasFlash = true;
-    }catch(e){
-      if(navigator.mimeTypes ["application/x-shockwave-flash"] != undefined) hasFlash = true;
-    }
-    if (!hasFlash){
-        alert('{% trans "You need (Adobe) Flash to use this uploader." %}');
-    }
-
-    /* uploadify */
-    var albumId;
-    var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Extra info</button>';
-    var button2 = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">{% trans "complete" %}</button>';
-	var photo_ids = "";
-
-    $('#uploadify_input').uploadify({
-        'swf'       : '{% static "scripts/uploadify.swf" %}',
-        'uploader'  : '{% url 'albums.ajax_views.uploadify' %}',
-        'auto'      : {% if album_preferences.auto_start_uploading %}true{% else %}false{% endif %},
-        'buttonText': '{% trans "Browse" %}',
-        'queueID'   : 'upload_queue',
-        'preventCaching': true,
-        'fileSizeLimit' : '15MB',
-        'fileTypeDesc'  : '{% trans "Images..." %}',
-        'fileTypeExts'  : '*.jpeg; *.jpg; *.png; *.PNG; *.JPG; *.JPEG',
-        'formData'  : {'album': 'nope'},
-        'method'    : 'post',
-        'removeCompleted'   : false,
-        'onUploadStart' : function(file) {
-            albumId = $('#id_album').val();
-            $("#uploadify_input").uploadify(
-                "settings",
-                "formData",
-                {
-                    'album': albumId,
-                    '{{ session_cookie_name }}': '{{ session_key }}',
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                }
-            );
-        },
-        'onUploadSuccess': function(file, data, response) {
-            photo_ids += data + "+";
-        },
-        'onUploadError' : function(file, errorCode, errorMsg, errorString) {
-            alert(msg_error);
-        },
-        'onQueueComplete' : function(queueData) {
-            //remove the previous button
-            var href = '/albums/upload/uploadify/complete/?album='+albumId+'&photo_ids='+photo_ids;
-            $('a#next_step').html(button);
-            $('a#next_step').attr("href", href);
-            $('a#next_step').show();
-
-            var href2 = '{% url 'albums.views.browse_album' "0" %}';
-            href2 = href2.replace('0', albumId); // FIXME
-            $('a#end-upload').html(button2);
-            $('a#end-upload').attr("href", href2);
-            $('a#end-upload').show();
-        },
-        'onDialogOpen' : function() {
-            $('#queue-title').show();
-            $('a#next_step').hide();
+    $(document).ready(function() {
+        var hasFlash = false;
+        try {
+          var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+          if(fo) hasFlash = true;
+        }catch(e){
+          if(navigator.mimeTypes ["application/x-shockwave-flash"] != undefined) hasFlash = true;
         }
-    });
+        if (!hasFlash){
+            alert('{% trans "You need (Adobe) Flash to use this uploader." %}');
+        }
 
-    $('#new-album-upload').dialog({
-	    autoOpen: false,
-		width: 800,
-		modal: true,
-		title: "{% trans 'New album' %}",
-		buttons: {
-		    "{% trans 'Save' %}": function(){
-		        data = $('form#new-album').serializeArray();
-		        $.post(
-		            url_new,
-		            data,
-		            function (response){
-		                var status = response.status
-		                if (status == '1'){
-		                	$('#id_album:selected').attr('selected', '');
-		                	$('#id_album').prepend(response.option);
-		                    $('#new-album-upload').dialog('close');
-		                }
+        /* uploadify */
+        var albumId;
+        var button = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">Extra info</button>';
+        var button2 = '<button class="uploadify-button" style="height: 34px; line-height: 30px; width: 124px;">{% trans "complete" %}</button>';
+    	var photo_ids = "";
 
-		                $('#new-album-upload').html(response.form);
-		                $('img').tooltip({
-							track: true
-						});
-		            }
-		        );
-		    },
-		    "{% trans 'Cancel' %}": function() {
-		        $(this).dialog("close");
-		    }
-		}
-	});
-
-    $('a#create_new_album').click(function(e){
-        e.preventDefault();
-        $('#new-album-upload').dialog('open');
-        return false;
-    });
-
-    $('#start_upload').click(function (){
-        var form = $('form#special-form');
-        albumId = $('#id_album').val();
-
-        if ($('#id_url').val() != ''){
-            $.post(
-                '{% url "albums.ajax_views.upload_url" %}',
-                form.serialize(),
-                function (response){
-                    var intRegex = /^\d+$/;
-                    if(intRegex.test(response)) { // integer? (photo id)
-                        $('#url-errors').remove();
-                        $('#id_url').after(success_icon);
-                        var next = $('a#next_step');
-
-                        if (next.html() == ''){
-                            next.html(button);
-                            href = '{% url "albums.views.pre_extra_info_uploadify" %}?album=';
-                            href += albumId + '&photo_ids=' + response + '+';
-                            next.attr("href", href);
-                            next.show();
-                        } else {
-                            href = next.attr("href") + response + '+';
-                            next.attr("href", href);
-                        }
-                    } else { // real response -> errors have occured
-                        $('#url-row').replaceWith(response);
-                        $('#url-row td.help_text div').hide();
+        $('#uploadify_input').uploadify({
+            'swf'       : '{% static "scripts/uploadify.swf" %}',
+            'uploader'  : '{% url 'albums.ajax_views.uploadify' %}',
+            'auto'      : {% if album_preferences.auto_start_uploading %}true{% else %}false{% endif %},
+            'buttonText': '{% trans "Browse" %}',
+            'queueID'   : 'upload_queue',
+            'preventCaching': true,
+            'fileSizeLimit' : '15MB',
+            'fileTypeDesc'  : '{% trans "Images..." %}',
+            'fileTypeExts'  : '*.jpeg; *.jpg; *.png; *.PNG; *.JPG; *.JPEG',
+            'formData'  : {'album': 'nope'},
+            'method'    : 'post',
+            'removeCompleted'   : false,
+            'onUploadStart' : function(file) {
+                albumId = $('#id_album').val();
+                $("#uploadify_input").uploadify(
+                    "settings",
+                    "formData",
+                    {
+                        'album': albumId,
+                        '{{ session_cookie_name }}': '{{ session_key }}',
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
                     }
-                }
-            );
-        }
+                );
+            },
+            'onUploadSuccess': function(file, data, response) {
+                photo_ids += data + "+";
+            },
+            'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+                alert(msg_error);
+            },
+            'onQueueComplete' : function(queueData) {
+                //remove the previous button
+                var href = '/albums/upload/uploadify/complete/?album='+albumId+'&photo_ids='+photo_ids;
+                $('a#next_step').html(button);
+                $('a#next_step').attr("href", href);
+                $('a#next_step').show();
+
+                var href2 = '{% url 'albums.views.browse_album' "0" %}';
+                href2 = href2.replace('0', albumId); // FIXME
+                $('a#end-upload').html(button2);
+                $('a#end-upload').attr("href", href2);
+                $('a#end-upload').show();
+            },
+            'onDialogOpen' : function() {
+                $('#queue-title').show();
+                $('a#next_step').hide();
+            }
+        });
+
+        $('#new-album-upload').dialog({
+    	    autoOpen: false,
+    		width: 800,
+    		modal: true,
+    		title: "{% trans 'New album' %}",
+    		buttons: {
+    		    "{% trans 'Save' %}": function(){
+    		        data = $('form#new-album').serializeArray();
+    		        $.post(
+    		            url_new,
+    		            data,
+    		            function (response){
+    		                var status = response.status
+    		                if (status == '1'){
+    		                	$('#id_album:selected').attr('selected', '');
+    		                	$('#id_album').prepend(response.option);
+    		                    $('#new-album-upload').dialog('close');
+    		                }
+
+    		                $('#new-album-upload').html(response.form);
+    		                $('img').tooltip({
+    							track: true
+    						});
+    		            }
+    		        );
+    		    },
+    		    "{% trans 'Cancel' %}": function() {
+    		        $(this).dialog("close");
+    		    }
+    		}
+    	});
+
+        $('a#create_new_album').click(function(e){
+            e.preventDefault();
+            $('#new-album-upload').dialog('open');
+            return false;
+        });
+
+        $('#start_upload').click(function (){
+            var form = $('form#special-form');
+            albumId = $('#id_album').val();
+
+            if ($('#id_url').val() != ''){
+                $.post(
+                    "{% url 'albums.ajax_views.upload_url' %}",
+                    form.serialize(),
+                    function (response){
+                        var intRegex = /^\d+$/;
+                        if(intRegex.test(response)) { // integer? (photo id)
+                            $('#url-errors').remove();
+                            $('#id_url').after(success_icon);
+                            var next = $('a#next_step');
+
+                            if (next.html() == '') {
+                                next.html(button);
+                                href = '{% url "albums.views.pre_extra_info_uploadify" %}?album=';
+                                href += albumId + '&amp;photo_ids=' + response + '+';
+                                next.attr("href", href);
+                                next.show();
+                            } else {
+                                href = next.attr("href") + response + '+';
+                                next.attr("href", href);
+                            }
+                        } else { // real response -> errors have occured
+                            $('#url-row').replaceWith(response);
+                            $('#url-row td.help_text div').hide();
+                        }
+                    }
+                );
+            }
+        });
     });
-});
-</script>
-{% endblock extrascript %}
+    </script>
+{% endblock vendor_js %}
 
 {% block content %}
 <div class="tab">{% trans 'Upload images' %}</div>
