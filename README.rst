@@ -1,4 +1,4 @@
-.. image:: https://travis-ci.org/modelbrouwers/modelbrouwers.png?branch=master   :target: https://travis-ci.org/modelbrouwers/modelbrouwers
+.. image:: https://travis-ci.org/modelbrouwers/modelbrouwers.svg?branch=master   :target: https://travis-ci.org/modelbrouwers/modelbrouwers
 
 ######################################
 Modelbrouwers Apps & phpBB integration
