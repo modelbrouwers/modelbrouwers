@@ -37,21 +37,21 @@
 
     <!-- use googles jquery, loads faster and relieves own server -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        <!-- fallback -->
+        if (typeof jQuery === 'undefined') {
+            document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
 
     {% compress js %}
     {% block scripts %}
-        <!-- fallback -->
-        <script type="text/javascript">
-            if (typeof jQuery == 'undefined') {
-                document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
-            }
-        </script>
-        <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
         <script type="text/javascript">
             // set the default date format, corresponding to Django's en
             jQuery(function($){
-                $.datepicker.regional['en'] = {dateFormat: 'yy-mm-dd'};
-                $.datepicker.setDefaults($.datepicker.regional['en']);
+                $.datepicker.regional.en = {dateFormat: 'yy-mm-dd'};
+                $.datepicker.setDefaults($.datepicker.regional.en);
             });
         </script>
         {% ifnotequal LANGUAGE_CODE 'en' %}
