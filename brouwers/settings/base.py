@@ -82,7 +82,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'sessionprofile.middleware.SessionProfileMiddleware',
+    'sessionprofile.middleware.SessionProfileMiddleware',
     'albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
