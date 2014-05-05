@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load staticfiles %}
-{% load url from future %}
 {% load brouwers %}
 
 {% url 'general.views.index' as url_home %}
@@ -24,7 +23,7 @@
 
     <li id="tab-albums" class="tab">
         <a href="{{ url_albums }}"
-            {% if request.path|startswith:url_albums %} class="nav active"{% endif %} 
+            {% if request.path|startswith:url_albums %} class="nav active"{% endif %}
             title="{% if request.path|startswith:url_albums %}{% trans 'You are now in the photo albums!' %}{% else %}{% trans 'Go to the albums!' %}{% endif %}"></a>
     </li>
 

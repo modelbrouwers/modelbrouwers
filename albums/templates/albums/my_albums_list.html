@@ -3,14 +3,14 @@
 
 {% block extrascript %}
 <script type="text/javascript">
-	var url_covers = "{% url albums.ajax_views.get_covers %}";
-	var url_edit = "{% url albums.ajax_views.edit_album %}";
-	var url_remove = "{% url albums.ajax_views.remove_album %}";
-	var url_restore = "{% url albums.ajax_views.restore_album %}";
-	var url_get_title = "{% url albums.ajax_views.get_title %}";
-	var url_get_group = "{% url albums.ajax_views.edit_albumgroup %}";
-	var url_new = "{% url albums.ajax_views.new_album_jquery_ui %}";
-    var user_search_url = "{% url general.ajax_views.search_users %}";
+	var url_covers = "{% url 'albums.ajax_views.get_covers' %}";
+	var url_edit = "{% url 'albums.ajax_views.edit_album' %}";
+	var url_remove = "{% url 'albums.ajax_views.remove_album' %}";
+	var url_restore = "{% url 'albums.ajax_views.restore_album' %}";
+	var url_get_title = "{% url 'albums.ajax_views.get_title' %}";
+	var url_get_group = "{% url 'albums.ajax_views.edit_albumgroup' %}";
+	var url_new = "{% url 'albums.ajax_views.new_album_jquery_ui' %}";
+    var user_search_url = "{% url 'general.ajax_views.search_users' %}";
 </script>
 {% endblock %}
 
@@ -18,15 +18,15 @@
 <div id="album_list">
     {% spaceless %}
     <div class="tab">
-        {% trans 'My personal albums' %} &bull; 
+        {% trans 'My personal albums' %} &bull;
         <a href="#" id="new-album-popup">
             <strong>{% trans 'New album' %}</strong>
         </a>
         &bull;
-        <a href="{% url albums.views.manage %}">
+        <a href="{% url 'albums.views.manage' %}">
             {% trans 'Manage' %}
         </a>
-        &bull; 
+        &bull;
         {% if trash %}
             <a href="." class="highlight" title="Klik nogmaals om te verlaten">
                 {% trans 'Trash' %}
@@ -37,23 +37,23 @@
             </a>
         {% endif %}
         <span class="right small-text">
-            <a id="ShowAllAlbums" href="{% url albums.views.my_albums_list %}?all=1">
+            <a id="ShowAllAlbums" href="{% url 'albums.views.my_albums_list' %}?all=1">
                 {% trans 'Show all my personal albums' %}
             </a>
         </span>
     </div>
     {% endspaceless %}
     <noscript>
-        {% url albums.views.manage as manage_url %}
+        {% url 'albums.views.manage' as manage_url %}
         {% blocktrans %}Your browser has no javascript. You can reorganize your albums on an <a href="{{ manage_url }}">alternative page</a>.{% endblocktrans %}
     </noscript>
-    
+
     <div class="albums_container">
         {% with albums=albums_data.0.albums %}
             <ul id="personal-albums" class="my-albums-list">
                 {% include "albums/albums_list/albums_li.html" %}
-            </ul>    
-            
+            </ul>
+
             {% if albums %}
                 {% with page="page_own" objects=albums %}
                     {% include "pagination.html" %}
@@ -61,14 +61,14 @@
             {% endif %}
         {% endwith %}
     </div>
-    
+
     <div class="tab clear">{% trans 'My public albums &#45; others can add photos' %}</div>
     <div class="albums_container">
         {% with albums_data.1.albums as albums %}
             <ul id="public-albums" class="my-albums-list">
                 {% include "albums/albums_list/albums_li.html" %}
             </ul>
-            
+
             {% if albums %}
                 {% with page="page_pub" objects=albums %}
                     {% include "pagination.html" %}
@@ -76,14 +76,14 @@
             {% endif %}
         {% endwith %}
     </div>
-    
+
     <div class="tab clear">{% trans 'Public albums &#45; writable for me' %}</div>
     <div class="albums_container">
         {% with albums_data.2.albums as albums %}
             <ul id="public-albums-others" class="other-albums-list">
                 {% include "albums/albums_list/albums_li.html" %}
             </ul>
-            
+
             {% if albums %}
                 {% with page="page_other" objects=albums %}
                     {% include "pagination.html" %}
@@ -91,7 +91,7 @@
             {% endif %}
         {% endwith %}
     </div>
-    
+
     <div id="new-album-dialog">
         <form id="new-album" method="post" action=".">
             {% include "form_in_table_jquery-ui.html" %}

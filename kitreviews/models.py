@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -19,11 +18,11 @@ DEFAULT_DIFFICULTY = 3
 
 class Brand(models.Model):
     """ Model for scale model brands, e.g. Revell"""
-    
+
     name = models.CharField(_(u'brand'), max_length=100, db_index=True)
     logo = models.ImageField(_(u'logo'), upload_to='images/brand_logos/', blank=True, null=True)
     #TODO: clean for uniqueness in kitreviews/sql/brand.sql
-    is_active = models.BooleanField(_(u'is active?'), default=True, 
+    is_active = models.BooleanField(_(u'is active?'), default=True,
                 help_text=_(u'Does the brand still exist?'),
                 db_index=True
                 )
@@ -38,7 +37,7 @@ class Brand(models.Model):
 
 class Scale(models.Model):
     """ Possible scales a model kit can be in"""
-    
+
     scale = models.PositiveSmallIntegerField(_(u'scale'), db_index=True)
 
     class Meta:
@@ -66,11 +65,11 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
 
 class ModelKit(models.Model):
     """ Model containing all the data about kits, to be linked with kitreviews """
-    
+
     brand = models.ForeignKey(Brand, verbose_name=_(u'brand'))
     kit_number = models.CharField(
                 _(u'kit number'), max_length=50,
@@ -83,7 +82,7 @@ class ModelKit(models.Model):
     difficulty = models.PositiveSmallIntegerField(_(u'difficulty'), default=DEFAULT_DIFFICULTY)
 
     box_image = models.ImageField(
-        _('box image'), upload_to='kits/box_images/%Y/%m', 
+        _('box image'), upload_to='kits/box_images/%Y/%m',
         blank=True, null=True)
     duplicates = models.ManyToManyField(
                 "self", blank=True, null=True,
@@ -91,9 +90,8 @@ class ModelKit(models.Model):
                 help_text=_(u'Kits that are the same but have another producer.'),
                 )
 
-    submitter = models.ForeignKey(User)
+    submitter = models.ForeignKey(settings.AUTH_USER_MODEL)
     submitted_on = models.DateTimeField(auto_now_add=True)
-
 
     class Meta:
         verbose_name = _(u'model kit')
@@ -125,27 +123,28 @@ class ModelKit(models.Model):
                         }
                     )
 
+
 class KitReview(models.Model):
     """ Model holding the review information for a model kit """
 
     model_kit = models.ForeignKey(ModelKit)
     raw_text = models.TextField(
-        _(u'review'), 
+        _(u'review'),
         help_text=_('This is your review. You can use BBCode here.')
         )
     html = models.TextField(blank=True, help_text=u'raw_text with BBCode rendered as html')
     positive_points = models.TextField(_('positive points'), blank=True)
     negative_points = models.TextField(_('negative points'), blank=True)
     rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING)
-    
+
     # linking to extra information
     album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
     topic_id = models.PositiveIntegerField(
-            _('topic'), blank=True, 
+            _('topic'), blank=True,
             null=True, help_text=_('ID of the topic on Modelbrouwers.')
             )
     external_topic_url = models.URLField(
-        _('topic url'), blank=True, 
+        _('topic url'), blank=True,
         help_text=_('URL to the topic not hosted on Modelbrouwers')
         )
 
@@ -154,9 +153,9 @@ class KitReview(models.Model):
         _('show real name?'), default=True,
         help_text=_('Checking this option will display your real name as reviewer. Uncheck to use your nickname.'),
         )
-    
+
     # internal information
-    reviewer = models.ForeignKey(User)
+    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL)
     submitted_on = models.DateTimeField(auto_now_add=True)
     last_edited_on = models.DateTimeField(auto_now=True)
 
@@ -199,6 +198,7 @@ class KitReview(models.Model):
         rating_scaled = round(factor*rating_scaled) / factor
         return rating_scaled
 
+
 class KitReviewVote(models.Model):
     """ Model holding the votes for kitreviews, showing the quality of the review """
 
@@ -206,10 +206,10 @@ class KitReviewVote(models.Model):
         ('+', '+'),
         ('-', '-'),
         )
-    
+
     kit_review = models.ForeignKey(KitReview)
     vote = models.CharField(_('vote'), max_length=1, db_index=True)
-    voter = models.ForeignKey(User)
+    voter = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     class Meta:
         verbose_name = _(u'kit review vote')
@@ -218,5 +218,5 @@ class KitReviewVote(models.Model):
 
     def __unicode__(self):
         return _(u"Vote for review by %(review_submitter)s") % {
-                    'review_submitter': get_username(self.kit_review, field=reviewer)
+                    'review_submitter': get_username(self.kit_review, field='reviewer')
                     }

@@ -16,8 +16,8 @@
 <!-- content -->
 {% block content %}
 <div class="tab">
-    {% trans 'Account details' %} &bull; 
-    <a href="{% url django.contrib.auth.views.password_change %}" id="change-password-link">{% trans 'Change password' %}</a>
+    {% trans 'Account details' %} &bull;
+    <a href="{% url 'django.contrib.auth.views.password_change' %}" id="change-password-link">{% trans 'Change password' %}</a>
     {% if user_is_new %}
         &bull;
         <a href="/introduce_yourself" style="color:red;"><strong>{% trans 'Introduce yourself!' %}</strong></a>
@@ -36,12 +36,12 @@
         {% include "form_in_table.html" %}
     {% endwith %}
     </table>
-    
+
     <div class="tab midpage">{% trans 'Address details' %}</div>
     {% with form=addressform %}
         {% include "form_in_table.html" %}
     {% endwith %}
-    
+
     <div class="tab midpage">{% trans 'Awards' %}</div>
     {% with form=awardsform %}
         {% include "form_in_table.html" %}

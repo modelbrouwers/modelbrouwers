@@ -1,32 +1,24 @@
-from django import forms
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
+from functools import partial
+import json
+
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from django.forms.models import inlineformset_factory
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.safestring import mark_safe
 from django.views.generic import DetailView, ListView, RedirectView, View
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import UpdateView
 
-
-from awards.models import Project
-from albums.models import Photo
 from general.models import UserProfile
-
 
 from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm,
                     buildphoto_formfield_callback)
 from .models import Build, BuildPhoto
 from .utils import get_search_queryset
 
-
-from functools import partial
-import json
-
+User = get_user_model()
 
 """ Views responsible for displaying data """
 
@@ -39,7 +31,6 @@ class BuildDetailView(DetailView):
     def get_context_data(self, **kwargs):
         kwargs['photos'] = self.object.buildphoto_set.all().order_by('order', 'id')
         return super(BuildDetailView, self).get_context_data(**kwargs)
-
 
 
 class BuildRedirectView(SingleObjectMixin, RedirectView):
