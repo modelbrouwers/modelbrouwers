@@ -7,6 +7,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
+from general.shortcuts import voting_enabled
+
 
 POINTS_FIRST = 3
 POINTS_SECOND = 2
@@ -53,10 +55,9 @@ class Category(models.Model):
 		return self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).count()
 
 
-from general.shortcuts import voting_enabled
 class NominationsManager(models.Manager):
 	def winners(self, year=date.today().year-1):
-		""" Get the latest set of winners """
+		""" Get the set of winning projects over all categories for ``year`` """
 		if voting_enabled(year+1):
 			year -= 1
 		qs = super(NominationsManager, self).get_query_set().filter(nomination_date__year=year)
@@ -64,10 +65,11 @@ class NominationsManager(models.Manager):
 		winners = {}
 		for project in qs.order_by('category', '-votes'):
 			if project.category in winners:
-				if project.votes != winners[project.category].votes:
+				if project.votes != winners[project.category][0].votes:
 					continue
-			winners[project.category] = project
-		return [value for key, value in winners.items()]
+			winners.setdefault(project.category, []).append(project)
+		shallow = [project_list for key, project_list in winners.items()]
+		return [project for sublist in shallow for project in sublist]
 
 
 class LatestNominationsManager(models.Manager):

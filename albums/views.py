@@ -32,7 +32,9 @@ def index(request):
     except ValueError: #sample greater than population, use entire set
         pass
 
-
+    albums = Album.objects.select_related('user', 'cover'
+        ).filter(trash=False, public=True
+        ).order_by('-last_upload')[:20]
 
     needs_closing_tag_row_albums = False
     if len(albums) % 4 != 0:
