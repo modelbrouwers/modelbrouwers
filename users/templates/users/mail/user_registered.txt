@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% blocktrans with username=user.username domain=site.domain name=site.name %}
+Thank you for your registration on {{ domain }}!
+
+You registered with the username: {{ username }}. Your password is safely stored in our database and can not be retrieved. You can always reset your password if you can't remember it.
+
+See you on the forum!
+
+Sincerely,
+The {{ name }} staff.
+{% endblocktrans %}

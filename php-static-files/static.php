@@ -1,18 +1,20 @@
 <?php
+$dir = dirname(__FILE__).'/';
+require_once($dir.'cache.php');
 
-require_once 'cache.php';
-$DEBUG = true;
+$DEBUG = false;
 
 // initialize the cache
-$cache = new Cache();
-$cache->init();
+// $cache = new StaticCache();
+// $cache->init();
 
 /**
  * This class builds the hashed filenames similar to Django's cached storage.
- * Because PHP is a lot dumber and I don't want to spend too much effor,
+ * Because PHP is a lot dumber and I don't want to spend too much effort,
  * we assume Django's collectstatic has been run and the files are present.
  * For when a file is thus requested, we calculate the hash and cache it in
  * Memcached. If the hashed file doesn't exist, return the unchanged URL.
+ * Django updates the cached filenames as part of the collectstatic command.
  */
 class CachedFilesStorage {
 
@@ -70,11 +72,12 @@ class CachedFilesStorage {
 
 		return $this->static_url . $hashed_name;
 	}
+
+	function test() {
+		echo 'foo';
+	}
 }
 
-
-$storage = new CachedFilesStorage($cache, $DEBUG);
-echo $storage->url('css/albums.css').PHP_EOL;
-
+// $storage = new CachedFilesStorage($cache, $DEBUG);
 
 ?>

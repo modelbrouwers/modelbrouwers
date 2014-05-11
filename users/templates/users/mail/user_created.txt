@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% url 'users:activate' uidb36=uidb36 token=token as activation_url %}
+
+{% blocktrans with username=user.username domain=site.domain site_name=site.name %}
+Hi {{ username }},
+
+You just attempted to login, but your account is not activated. You can activate on the following link: {{ protocol }}://{{ domain }}{{ activation_url }} (copy and paste this link in your browser).
+
+After activation, you will be logged in automagically and redirected to the pagewhere you can set/change your password.
+
+The account you're activating, is a single-sign-on account. With the same account you will have access to the forums, albums and all future modules of the website! Eventually the kit-reviews module and the shop will be integrated with this account.
+
+If you run into problems, just reply to this e-mail.
+
+Happy modelling,
+your faithful {{ site_name }} administrators
+{% endblocktrans %}

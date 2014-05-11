@@ -1,6 +1,6 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('online_users.views',
-    (r'^so/$', 'set_online'),
-    (r'^ous/$', 'get_online_users')
+    url(r'^so/$', 'set_online'),
+    url(r'^ous/$', 'get_online_users')
 )

@@ -1,6 +1,6 @@
 from datetime import date
 
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ValidationError, NON_FIELD_ERRORS
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -93,9 +93,9 @@ class Project(models.Model):
 	votes = models.IntegerField(null=True, blank=True, default=0)
 	rejected = models.BooleanField(default=False)
 
-	submitter = models.ForeignKey(User, related_name='nominations')
+	submitter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='nominations')
 
-	last_reviewer = models.ForeignKey(User, blank=True, null=True, verbose_name=_('last reviewer'))
+	last_reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('last reviewer'))
 	last_review = models.DateTimeField(_('last review'), auto_now=True, blank=True, null=True)
 
 	objects = NominationsManager()
@@ -134,7 +134,7 @@ Nomination = Project
 
 
 class Vote(models.Model):
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	category = models.ForeignKey(Category)
 
 	project1 = models.ForeignKey(Project, related_name='+')

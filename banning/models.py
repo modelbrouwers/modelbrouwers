@@ -1,27 +1,28 @@
-from django.contrib.auth.models import User
+from datetime import datetime
+
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-
 from general.utils import get_username
-from datetime import datetime
+
 
 class Ban(models.Model):
     """ Model to hold bans. Middleware grabs the bans from the database. """
     # TODO: lighten the load on the database: cache the bans, invalidate the
     # cache when bans are added, deleted or modified (on delete() and save())
     # Be carefull, queryset.delete() might not fire signals...
-    
-    user = models.ForeignKey(User, verbose_name=_(u'user'), blank=True, null=True)
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u'user'), blank=True, null=True)
     ip = models.IPAddressField(
-        _(u'ip'), 
-        help_text = _(u'Ip address to ban.'), 
+        _(u'ip'),
+        help_text = _(u'Ip address to ban.'),
         blank = True
         )
     expiry_date = models.DateTimeField(
-        _(u'expiry date'), 
+        _(u'expiry date'),
         blank = True, null = True,
         help_text = _('Date the ban expires. Leave blank for permabans.')
         )

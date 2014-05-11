@@ -2,8 +2,6 @@ from datetime import datetime
 
 from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
 from models import *
@@ -35,9 +33,6 @@ class NominationDateFilter(DateFieldListFilter):
     #         }
 
     # def queryset(self, request, queryset):
-
-    #     import pdb; pdb.set_trace()
-
     #     return super(NominationDateFilter, self).queryset(request, queryset)
 
     #     # if self.value() in DonationStatuses.values:
@@ -93,15 +88,3 @@ class VoteAdmin(admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category)
 admin.site.register(Vote, VoteAdmin)
-
-
-UserAdmin.list_display = (
-        'username', 'email',
-        'first_name', 'last_name',
-        'date_joined', 'is_staff',
-        'is_superuser'
-    )
-UserAdmin.ordering = ['-date_joined', 'username']
-
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)

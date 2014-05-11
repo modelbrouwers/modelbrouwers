@@ -21,7 +21,7 @@ Modelbrouwers.nl &bull; {{ secret_santa }}
 
 {% block content %}
 <div class="tab">
-    {{ secret_santa }} &bull; <a href="#participants">{% trans 'Participants' %}</a> {% if is_participant %}&bull; <a href="{% url secret_santa.views.receiver %}">{% trans 'My Secret Santa' %}</a>{% endif %}
+    {{ secret_santa }} &bull; <a href="#participants">{% trans 'Participants' %}</a> {% if is_participant %}&bull; <a href="{% url 'secret_santa.views.receiver' %}">{% trans 'My Secret Santa' %}</a>{% endif %}
 </div>
 <img class="right" src="{{STATIC_URL}}images/santa.jpg" alt="Santa Image">
 
@@ -38,7 +38,7 @@ Signing up is possible from {{ enrollment_start }} <strong>until {{ enrollment_e
 
 <div class="tab midpage">{% trans 'Sign up' %}</div>
 <p>
-{% url general.views.profile as profile_url %}
+{% url 'general.views.profile' as profile_url %}
 {% if secret_santa.enrollment_open %}
     {% blocktrans %}To be able to sign up, you must make sure that your address
     details are complete in your <a href="{{ profile_url }}">profile</a>.{% endblocktrans %}
@@ -46,7 +46,7 @@ Signing up is possible from {{ enrollment_start }} <strong>until {{ enrollment_e
     <br />
     {% if user.get_profile.is_address_ok %}
         {% if not is_participant %}
-            <form action="{% url secret_santa.views.enroll %}" method="post">{% csrf_token %}
+            <form action="{% url 'secret_santa.views.enroll' %}" method="post">{% csrf_token %}
                 {{ form.as_p }}
                 <input class="submit-button" type="submit" value="{% trans 'Sign up!' %}" />
             </form>
@@ -66,7 +66,7 @@ Signing up is possible from {{ enrollment_start }} <strong>until {{ enrollment_e
 </p>
 
 <div class="midpage tab">{% trans "Who's my Secret Santa?" %}</div>
-{% url secret_santa.views.receiver as receiver_url %}
+{% url 'secret_santa.views.receiver' as receiver_url %}
 <p>{% blocktrans %}Click <a href="{{ receiver_url }}">here</a> to find out. You should have received the information by e-mail too, though.
 {% endblocktrans %}</p>
 

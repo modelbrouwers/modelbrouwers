@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="login">
+    <form method="post" action=".">
+
+        <p class="info">
+            {% blocktrans %}
+                If you're having login issues, please don't hesitate to contact the administrators. You can find the e-mail address on the bottom of this page.
+            {% endblocktrans %}
+        </p>
+
+        {{ redirectform.as_p }}
+
+        {% include "form_in_table.html" %}
+
+        <div class="center">
+            <input type="submit" value="inloggen" />
+            <p>
+                {% trans 'Forgot your password?' %}
+                <br />
+                <a href="{% url 'general.views.password_reset' %}">{% trans 'Request a password reset' %}</a>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}

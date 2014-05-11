@@ -1,9 +1,9 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('migration.views',
-    (r'^$', 'index'),
-    (r'^albumusers/$', 'albumusers'),
-    (r'^find_django_user/$', 'find_django_user'),
-    (r'^migrate_albums/$', 'migrate_albums'),
-    (r'^migrate_pictures/$', 'migrate_pictures'),
-    )
+    url(r'^$', 'index'),
+    url(r'^albumusers/$', 'albumusers'),
+    url(r'^find_django_user/$', 'find_django_user'),
+    url(r'^migrate_albums/$', 'migrate_albums'),
+    url(r'^migrate_pictures/$', 'migrate_pictures'),
+)

@@ -1,11 +1,12 @@
+import random
+
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
@@ -13,7 +14,6 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader, Context
-from django.utils.hashcompat import sha_constructor
 from django.utils.translation import ugettext as _
 from django.views.generic import View
 
@@ -21,24 +21,15 @@ from albums.models import Album
 from albums.utils import admin_mode
 
 from forms import *
-from models import UserProfile, RegistrationQuestion, Redirect, PasswordReset, RegistrationAttempt
-from utils import send_inactive_user_mail
+from models import UserProfile, Redirect, PasswordReset
 from datetime import datetime, timedelta
-import random
 
-try:
-    from migration.models import UserMigration
-except ImportError:
-    UserMigration = None
 
-try:
-    LOG_REGISTRATION_ATTEMPTS = settings.LOG_REGISTRATION_ATTEMPTS
-except AttributeError:
-    # setting not yet defined
-    LOG_REGISTRATION_ATTEMPTS = True
-
+LOG_REGISTRATION_ATTEMPTS = getattr(settings, 'LOG_REGISTRATION_ATTEMPTS', True)
 
 EMPTY_CONTEXT = Context()
+
+User = get_user_model()
 
 
 ######## EMAIL TEMPLATES ############
@@ -55,174 +46,9 @@ TEMPLATE_RESET_PW_HTML = """
 """
 
 def index(request):
-    if not settings.DEBUG:
-        return HttpResponseRedirect('/index.php')
-    return render(request, 'base.html')
-
-def register(request):
-    error = ''
-    question, attempt = None, None
-    if request.method=='POST':
-        form = RegistrationForm(request.POST)
-        answerform = AnswerForm(request.POST)
-        questionform = QuestionForm(request.POST)
-        if LOG_REGISTRATION_ATTEMPTS:
-            attempt = RegistrationAttempt.add(request)
-
-        if questionform.is_valid():
-            question = questionform.cleaned_data['question']
-        if form.is_valid():
-            #check anti spam question
-            if answerform.is_valid() and questionform.is_valid():
-                answer = answerform.cleaned_data['answer']
-                valid_answers = question.answers.filter(answer__iexact=answer)
-                if valid_answers:
-                    user = form.save()
-                    username = user.username
-                    nickname = form.cleaned_data['forum_nickname']
-                    password = form.cleaned_data['password1']
-                    new_user = authenticate(username = username, password = password)
-
-                    if LOG_REGISTRATION_ATTEMPTS:
-                        # do not log in potential spammers
-                        if attempt.potential_spammer:
-                            new_user.is_active = False
-                            new_user.save()
-                            send_inactive_user_mail(new_user)
-                        else:
-                            login(request, new_user)
-
-                    # TODO: move to template + add translations
-                    subject = 'Registratie op modelbrouwers.nl'
-                    message = 'Bedankt voor uw registratie op http://modelbrouwers.nl.\n\nU hebt geregistreerd met de volgende gegevens:\n\nGebruikersnaam: %s\nWachtwoord: %s\n\nBewaar deze gegevens voor als u uw login en/of wachtwoord mocht vergeten.' % (nickname, password)
-                    sender = 'admins@modelbrouwers.nl'
-                    receiver = [form.cleaned_data['email']]
-                    send_mail(subject, message, sender, receiver, fail_silently=True)
-
-                    next_page = request.GET.get('next', reverse(profile))
-                    if ' ' in next_page:
-                    	next_page = reverse(profile)
-
-                    if LOG_REGISTRATION_ATTEMPTS:
-                        attempt.success = True
-                        attempt.save()
-                    return HttpResponseRedirect(next_page)
-                else:
-                    # wrong answer, test if same ip has tried registrations before
-                    error = "Fout antwoord."
-                    if LOG_REGISTRATION_ATTEMPTS:
-                        attempt.set_ban()
-    else:
-        form = RegistrationForm()
-        question = RegistrationQuestion.objects.all().order_by('?')[0]
-        questionform = QuestionForm(initial = {'question':question})
-        answerform = AnswerForm()
-    return render(request, 'general/register.html',
-                {
-                'error': error,
-                'form': form,
-                'questionform': questionform,
-                'question': question,
-                'answerform': answerform
-                }
-            )
-
-def custom_login(request):
-    next_page = request.REQUEST.get('next')
-    redirect_form = RedirectForm(request.REQUEST) #phpBB3 returns a 'redirect' key
-    if redirect_form.is_valid():
-        next_page = redirect_form.cleaned_data['redirect'] or next_page
-
-    if request.method == "POST":
-        form = CustomAuthenticationForm(data=request.POST)
-        if form.is_valid():
-            # Light security check -- make sure next_page isn't garbage.
-            if not next_page or ' ' in next_page:
-                next_page = settings.LOGIN_REDIRECT_URL
-
-            user = form.get_user()
-            login(request, user)
-            return HttpResponseRedirect(next_page)
-        else:
-            #ok, maybe an existing forumuser trying to login, but the accounts aren't coupled yet
-            username = request.POST.get('username', '') #make it empty if it isn't set
-            username_ = username.replace(" ", "_")
-            users = User.objects.filter(username__iexact = username_)
-            if UserMigration:
-                try:
-                    migration_user = UserMigration.objects.get(username=username)
-                    if not users: #user exists on the forum, but not in our db
-                        # save user, set user inactive and generate + send the key
-                        email = migration_user.email
-                        password = User.objects.make_random_password(length=8)
-
-                        #set the password later, when validating the hash
-                        user = User.objects.create_user(username_, email, password)
-                        user.is_active = False
-                        user.save()
-                        profile = UserProfile(user=user, forum_nickname=username)
-                        profile.save()
-
-                        #ok, user created, now compose email etc.
-                        u = username.encode('ascii', 'ignore')
-                        h = sha_constructor(settings.SECRET_KEY + u).hexdigest()[:24]
-                        migration_user.hash = h
-                        migration_user.save()
-                        domain = Site.objects.get_current().domain
-
-                        url = "http://%s%s"% (domain, reverse(confirm_account))
-                        url_a = "<a href=\"%s\">%s?hash=%s&forum_nickname=%s</a>" % (url, url, h, username)
-                        text_content = "Beste %s,\n\nUw code is: %s.\nGeef deze code in op: %s\n\nMvg,\nHet beheer" % (username, h, url)
-                        html_content = "<p>Beste %s,</p><br >" % username
-                        html_content += "<p>Uw code is: <strong>%s</strong>.</p>" % h
-                        html_content += "<p>Geef deze code in op: %s</p><br >" % url_a
-                        html_content += "<p>Mvg,</p><p>Het beheer</p>"
-                        subject, from_email = 'Modelbrouwersaccount', 'admins@modelbrouwers.nl'
-
-                        msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
-                        msg.attach_alternative(html_content, "text/html")
-                        msg.send()
-                        #send_mail(subject, mailtext, from_email, [to], fail_silently=True)
-                        return render(request, 'general/user_migration.html', {'username': username})
-                except UserMigration.DoesNotExist: #unknown on the forum
-                    pass
-    else:
-        form = AuthenticationForm(request)
-    return render(request, 'general/login.html', {
-        'form': form,
-        'next': next_page,
-        'redirect_form': redirect_form,
-    })
-
-def custom_logout(request):
-    next_page = request.GET.get('next')
-    if not next_page or ' ' in next_page:
-        next_page = "/"
-    logout(request)
-    return HttpResponseRedirect(next_page)
-
-def confirm_account(request):
-    if request.method == "POST":
-        initial = False
-        # takes the forumnickname, two password fields and the hash
-        form = ForumAccountForm(request.POST)
-        if form.is_valid():
-            nickname = form.cleaned_data["forum_nickname"]
-            username_ = nickname.replace(" ", "_")
-            user = get_object_or_404(User, username=username_, is_active=False)
-            user.is_active = True
-            password = form.cleaned_data['password1']
-            user.set_password(password)
-            user.save()
-
-            #logging in
-            user = authenticate(username=username_, password=password)
-            login(request, user)
-            return HttpResponseRedirect('/phpBB3/')
-    else:
-        form = ForumAccountForm(request.GET)
-        initial = True
-    return render(request, 'general/confirm_account.html', {'form': form, 'initial':initial})
+    if request.GET.get('django') or settings.DEBUG:
+        return render(request, 'base.html')
+    return HttpResponseRedirect('/index.php')
 
 
 #############################
@@ -388,7 +214,6 @@ def do_password_reset(request):
 
 
 class ServeHbsTemplateView(View):
-
     def get(self, request, *args, **kwargs):
         app_name = kwargs.get('app_name')
         template_name = "{template_name}.hbs".format(template_name=kwargs.get('template_name'))
@@ -399,5 +224,4 @@ class ServeHbsTemplateView(View):
                         )
         template = loader.get_template(template_path)
         tpl_source = template.render(EMPTY_CONTEXT)
-        response = HttpResponse(tpl_source)
-        return response
+        return HttpResponse(tpl_source)

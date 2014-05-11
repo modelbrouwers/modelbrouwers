@@ -1,12 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+
 from models import *
-
-
-class UserAdmin2(UserAdmin):
-    list_editable = ('email',)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -15,11 +10,9 @@ class UserProfileAdmin(admin.ModelAdmin):
             'fields': ('user', 'forum_nickname')
           }),
         ('Awards', {
-#           'classes': ['collapse'],
             'fields': (('last_vote', 'exclude_from_nomination'), 'categories_voted')
         }),
         ('Secret Santa', {
-#           'classes': ['collapse'],
             'fields': ('secret_santa', ('street','number'),('postal', 'city'),('province','country'), 'preference', 'refuse')
         })
     )
@@ -40,10 +33,12 @@ class QuestionAnswerAdmin(admin.ModelAdmin):
 
 class RegistrationAttemptAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'question_short', 'answer', 'timestamp', 'ip_address', 'success', '_is_banned', 'type_of_visitor')
-    list_filter = ('success', 'timestamp', 'type_of_visitor', 'ip_address', 'username')
+    list_filter = ('success', 'timestamp', 'type_of_visitor')
     search_fields = ('username',)
+
     if not settings.DEBUG:
         actions = None
+
 
 class SoftwareVersionAdmin(admin.ModelAdmin):
     list_diplsay = ('__unicode__', 'start', 'end')
@@ -66,9 +61,6 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_editable = ('from_date', 'to_date')
     search_fields = ('text',)
 
-
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin2)
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Modelbrouwers.nl &bull; {% trans 'Registration' %}{% endblock %}
+
+
+{% block style %}
+    {{ block.super }}
+    <style type="text/css">
+        #registration-form  {margin-bottom: 2em;}
+        #registration-terms {margin: 1em;}
+        #terms-list li      {margin-bottom: 1em;}
+        .p-title            {font-weight: bold;}
+        p.term              {margin-bottom: 0.5em;}
+    </style>
+{% endblock style %}
+
+
+{% block content %}
+<div class="tab">
+{% trans "Registration: fill out the form below. All fields are required." %}
+</div>
+
+<div id="register">
+    <form action="" method="post">
+
+        {% include "form_in_table.html" %}
+
+        <div class="center">
+            <input class="submit-button" type="submit" value="{% trans 'Register' %}"/>
+            <br />
+            <span class="small-text">{% trans "By registering, you agree to the terms below." %}</span>
+        </div>
+    </form>
+
+    <div class="tab midpage">{% trans "Registration terms" %}</div>
+    <div id="registration-terms">
+        {% include "general/registration_terms.html" %}
+    </div>
+</div>
+{% endblock %}

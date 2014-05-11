@@ -1,11 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-{% load i18n %}
-{% load staticfiles %}
-{% load forum_tools %}
-{% load url from future %}
-{% load compress %}
+{% load i18n staticfiles forum_tools compress %}
 <head>
 	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,21 +37,21 @@
 
     <!-- use googles jquery, loads faster and relieves own server -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        <!-- fallback -->
+        if (typeof jQuery === 'undefined') {
+            document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
 
     {% compress js %}
     {% block scripts %}
-        <!-- fallback -->
-        <script type="text/javascript">
-            if (typeof jQuery == 'undefined') {
-                document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
-            }
-        </script>
-        <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
         <script type="text/javascript">
             // set the default date format, corresponding to Django's en
             jQuery(function($){
-                $.datepicker.regional['en'] = {dateFormat: 'yy-mm-dd'};
-                $.datepicker.setDefaults($.datepicker.regional['en']);
+                $.datepicker.regional.en = {dateFormat: 'yy-mm-dd'};
+                $.datepicker.setDefaults($.datepicker.regional.en);
             });
         </script>
         {% ifnotequal LANGUAGE_CODE 'en' %}
@@ -66,6 +62,7 @@
         {% block extrascript %}{% endblock %}
 	{% endblock scripts %}
     {% endcompress %}
+    {% block vendor_js %}{% endblock vendor_js %}
     <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" />
 </head>
 
@@ -97,7 +94,7 @@
         <div id="logo">
              <div class="left">
                 {% spaceless %}
-                 <a href="{% url 'general.views.index' %}" id="main-logo">
+                 <a href="{% url 'index' %}" id="main-logo">
                     <img src="{% static 'images/logo/logo_modelbrouwers.png' %}"
                     alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
                  </a>{% endspaceless %}
@@ -131,7 +128,7 @@
             <div id="menu_wrapper">
                 <ul id="menu">{% spaceless %}
                     {% block menu %}
-                        <li><a href="{% url 'general.views.index' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'index' %}">{% trans "Home" %}</a></li>
                         <li><a href="{% url 'builds:index' %}">{% trans "Builds" %}</a></li>
                         <li><a href="{% url 'awards_index' %}">{% trans "Awards" %}</a></li>
                         <li><a href="{% url 'secret_santa.views.index' %}">{% trans "Secret Santa" %}</a></li>
@@ -143,14 +140,14 @@
                     {% block user_auth %}
                         {% if not user.is_authenticated %}
                             <li class="user-auth">
-                                <a href="{% url 'general.views.custom_login' %}?next={{ request.path }}">{% trans 'Login' %}</a>
+                                <a href="{% url 'users:login' %}?next={{ request.path }}">{% trans 'Login' %}</a>
                             </li>
                             <li class="user-auth">
-                                <a href="{% url 'general.views.register' %}">{% trans 'Register' %}</a>
+                                <a href="{% url 'users:register' %}">{% trans 'Register' %}</a>
                             </li>
                         {% else %}
                             <li class="user-auth">
-                                <a href="{% url 'general.views.custom_logout' %}">
+                                <a href="{% url 'users:logout' %}">
                                     <span>&nbsp;</span><!-- hack for proper height display in chrome -->
                                     <img id="img-logout" src="{% static 'images/icons/door.png' %}" title="{% trans 'logout' %}" alt="{% trans 'logout' %}"/>
                                     <span>&nbsp;</span>
