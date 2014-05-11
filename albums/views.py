@@ -28,9 +28,11 @@ def index(request):
     # spotlight: awards winners, select 3 random categories
     awards_winners = Nomination.objects.winners()
     try:
-        awards_winners = random.sample(winners, 3)
+        awards_winners = random.sample(awards_winners, 3)
     except ValueError: #sample greater than population, use entire set
         pass
+
+
 
     needs_closing_tag_row_albums = False
     if len(albums) % 4 != 0:

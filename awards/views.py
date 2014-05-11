@@ -123,14 +123,8 @@ def scores(request):
 
 class VoteView(TemplateView):
     """ View dealing with multiple forms per category to bring out the vote. """
-
     template_name = 'awards/voting.html'
     success_url = reverse_lazy('voting')
-
-    @method_decorator(voting_enabled)
-    # @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(VoteView, self).dispatch(*args, **kwargs)
 
     def get_forms(self, data=None):
         """ Get the forms for the categories the user hasn't voted for yet """
