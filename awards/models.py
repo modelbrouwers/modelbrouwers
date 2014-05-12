@@ -69,7 +69,7 @@ class NominationsManager(models.Manager):
 					continue
 			winners.setdefault(project.category, []).append(project)
 		shallow = [project_list for key, project_list in winners.items()]
-		return [project for sublist in shallow for project in sublist]
+		return set([project for sublist in shallow for project in sublist])
 
 
 class LatestNominationsManager(models.Manager):
