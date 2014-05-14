@@ -201,7 +201,7 @@ def edit_photo(request, photo_id=None):
 
 @login_required
 def preferences(request):
-    p = Preferences.get_or_create(request.user)
+    p = Preferences.objects.get_or_create(user=request.user)
     if request.method == "POST":
         form = PreferencesForm(request.POST, instance=p)
         if form.is_valid():
