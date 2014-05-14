@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Max
@@ -417,17 +418,43 @@ The basic uploader has a file field for each image."""
         verbose_name_plural = verbose_name
         ordering = ('user',)
 
+    def save(self, *args, **kwargs):
+        from .serializers import PreferencesSerializer
+        super(Preferences, self).save(*args, **kwargs)
+        # update the cache
+        if kwargs.get('commit', True):
+            key = self.get_cache_key()
+            cache.set(key, PreferencesSerializer(self).data)
+
     def __unicode__(self):
         if self.id:
             user = self.user.get_full_name()
         else:
             user = 'Anonymous user'
-        return u"Preferences for %s" % user
+        return _(u"Preferences for %(user)s") % user
 
     @classmethod
     def get_or_create(cls, user):
-        p = cls.objects.get_or_create(user=user)
-        return p[0]
+        """ Get the preferences from the cache or fall back to the database """
+        from .serializers import PreferencesSerializer
+
+        # anonymous users get the defaults
+        if not user.is_authenticated():
+            prefs_obj = Preferences()
+            return PreferencesSerializer(prefs_obj).data
+
+        key = 'album-preferences:%d' % user.id
+        prefs = cache.get(key)
+        if prefs is None:
+            prefs_obj, created = Preferences.objects.get_or_create(user=user)
+            prefs = PreferencesSerializer(prefs_obj).data
+            cache.set(key, prefs, 24*60*60) # cache a whole day
+        return prefs
+
+    def get_cache_key(self, user_id=None):
+        """ FIXME: remove DRY violation """
+        user_id = user_id or self.user_id
+        return 'album-preferences:%d' % user_id
 
     def get_default_img_size(self):
         """

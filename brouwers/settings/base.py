@@ -1,6 +1,4 @@
 import os
-import sys
-# import django.conf.global_settings as DEFAULT_SETTINGS
 
 # Automatically figure out the PROJECT DIR
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
