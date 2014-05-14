@@ -142,7 +142,7 @@ def admin_mode(user, preferences=None):
     else:
         from .models import Preferences
         p = Preferences.get_or_create(user)
-    if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.apply_admin_permissions:
+    if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.get('apply_admin_permissions'):
         return True
     return False
 
