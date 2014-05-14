@@ -29,12 +29,12 @@ def get_sidebar(request):
 def get_sidebar_options(request):
     p = Preferences.get_or_create(request.user)
     options = {}
-    options['collapse'] = p.collapse_sidebar
-    options['hide'] = p.hide_sidebar
-    options['transparent'] = p.sidebar_transparent
-    options['text_color'] = p.text_color
-    options['background_color'] = p.sidebar_bg_color
-    options['width'] = p.width
+    options['collapse'] = p.get('collapse_sidebar')
+    options['hide'] = p.get('hide_sidebar')
+    options['transparent'] = p.get('sidebar_transparent')
+    options['text_color'] = p.get('text_color')
+    options['background_color'] = p.get('sidebar_bg_color')
+    options['width'] = p.get('width')
     return HttpResponse(json.dumps(options))
 
 def is_beta_tester(request):
@@ -54,7 +54,7 @@ def search(request):
         albums = Album.objects.filter(user=request.user, trash=False, *query).order_by('title')
     else:
         return HttpResponse()
-    
+
     output = []
     for album in albums:
         label = album.__unicode__()
