@@ -1,0 +1,42 @@
+<!-- start spotlight banner -->
+<div id="spotlight">
+    <ul class="albums-list">
+        {# TODO #}
+        {% for project in awards_winners %}
+            <li class="photo album" id="album_{{ album.id }}">
+                <div class="album-link">
+                    {% spaceless %}
+                    <a class="photo album" href="{{ album.get_absolute_url }}">
+                        {% if album.cover_thumb_url %}
+                            <img class="thumb" src="{{ album.cover_thumb_url }}"
+                            width="{{ album.get_cover.get_thumb_width }}"
+                            height="{{ album.get_cover.get_thumb_height }}" alt="thumb"/>
+                        {% endif %}
+                    </a>
+                    {% endspaceless %}
+                </div>
+                <div class="description">
+                    <a href="{{ album.get_absolute_url }}" title="{{ album.title }}">
+                        <strong>
+                        {% if album.clean_title|length > 38 %}
+                            {{ album.clean_title|truncatechars:38 }}
+                        {% else %}
+                            {{ album.clean_title }}
+                        {% endif %}
+                        </strong>
+                    </a>
+                    <br />
+                    <span class="description" title="{{ album.description }}">
+                        {% if album.description|length > 100 %}
+                            {{ album.description|truncatechars:100 }}
+                        {% else %}
+                            {{ album.description }}
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="clear"></div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<!-- end spotlight banner -->

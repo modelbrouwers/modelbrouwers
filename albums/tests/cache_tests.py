@@ -8,7 +8,7 @@ from ..models import Preferences
 
 class CacheTests(TestCase):
     """ Test that the cache functions correctly """
-    def tearDown(self):
+    def setUp(self):
         cache.clear()
 
     def test_preferences_cache(self):
