@@ -456,18 +456,6 @@ The basic uploader has a file field for each image."""
         user_id = user_id or self.user_id
         return 'album-preferences:%d' % user_id
 
-    def get_default_img_size(self):
-        """
-            Returns a tupple (max_width, max_height, prefix) for scaling.
-        """
-        d = {
-            0: (1024, 768, ''),
-            1: (800, 600, ''),
-            2: (1024, 1024, ''),
-            3: (800, 800, '')
-        }
-        return d[self.default_img_size]
-
 
 class AlbumDownload(models.Model):
     album = models.ForeignKey(Album)

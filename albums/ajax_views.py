@@ -17,7 +17,7 @@ from django.utils.translation import ugettext as _
 from general.decorators import login_required_403
 from models import *
 from forms import AlbumForm, AlbumGroupForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
-from utils import resize, admin_mode
+from utils import resize, admin_mode, get_default_img_size
 
 
 import itertools
@@ -53,7 +53,7 @@ def uploadify(request):
     # Processing of each uploaded image
     albumform = PickAlbumForm(request.user, request.POST)
     # import pdb; pdb.set_trace()
-    
+
     import logging
     logging.info(request.FILES)
 
@@ -64,7 +64,7 @@ def uploadify(request):
         path = 'albums/%s/%s/' % (request.user.id, album.id) #/media/albums/<userid>/<albumid>/<img>.jpg
         # get the resizing dimensions from the preferences #TODO this might move to utils in the future
         preferences = Preferences.get_or_create(request.user)
-        resize_dimensions = preferences.get_default_img_size()
+        resize_dimensions = get_default_img_size(preferences)
         img_data = resize(img, upload_to=path, sizes_data=[resize_dimensions])
 
         # if img_data is not None:
@@ -106,7 +106,7 @@ def upload_url(request):
 
         # get the resizing dimensions from the preferences #TODO this might move to utils in the future
         preferences = Preferences.get_or_create(request.user)
-        resize_dimensions = preferences.get_default_img_size()
+        resize_dimensions = get_default_img_size(preferences)
         img_data = resize(photo.image, upload_to=path, sizes_data=[resize_dimensions], overwrite=True)
 
         for data in img_data:
