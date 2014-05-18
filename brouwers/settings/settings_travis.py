@@ -9,9 +9,21 @@ SECRET_KEY = 'uz1k)y8-)wxf5-(o43!(*+cnk6yd1ci1e4*@x$tad+0!dy)58+'
 # CACHE
 #
 CACHES = {
+    # 'default': {
+    #     'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    # },
     'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
     },
+    # 'default': {
+    #     'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+    #     'LOCATION': 'django_cache',
+    # },
+    # 'default': {
+    #     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    #     'LOCATION': 'mb-django-cache',
+    # }
 }
 
 # SESSION

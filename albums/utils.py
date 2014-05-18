@@ -142,7 +142,7 @@ def admin_mode(user, preferences=None):
     else:
         from .models import Preferences
         p = Preferences.get_or_create(user)
-    if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.apply_admin_permissions:
+    if (user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album')) and p.get('apply_admin_permissions'):
         return True
     return False
 
@@ -150,3 +150,16 @@ def can_switch_admin_mode(user):
     if user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album') or user.is_superuser:
         return True
     return False
+
+
+def get_default_img_size(preferences):
+        """
+            Returns a tupple (max_width, max_height, prefix) for scaling.
+        """
+        d = {
+            0: (1024, 768, ''),
+            1: (800, 600, ''),
+            2: (1024, 1024, ''),
+            3: (800, 800, '')
+        }
+        return d[preferences.get('default_img_size', 0)]

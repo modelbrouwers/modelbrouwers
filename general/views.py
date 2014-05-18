@@ -1,4 +1,5 @@
 import random
+import hashlib
 
 from django.conf import settings
 from django.contrib import messages
@@ -127,6 +128,7 @@ def test_redirects(request, path):
     redirect = get_object_or_404(Redirect, path_from__iexact=path)
     return HttpResponseRedirect(redirect.path_to)
 
+# FIXME use django built ins
 def password_reset(request):
     if request.method == "POST":
         form = RequestPasswordResetForm(request.POST)
@@ -136,7 +138,7 @@ def password_reset(request):
                 messages.warning(request, _("Your account is still inactive! You won't be able to log in until you reactivate with the link sent by e-mail."))
             expire = datetime.now() + timedelta(days=1)
             variable_part = expire.strftime("%Y-%m-%d %H:%i:%s") + str(int(random.random() * 10))
-            h = sha_constructor(settings.SECRET_KEY + variable_part).hexdigest()[:24]
+            h = hashlib.sha1(settings.SECRET_KEY + variable_part).hexdigest()[:24]
 
             # make sure the hash is unique enough
             reset = PasswordReset(user=user, expire=expire, h=h)
@@ -144,7 +146,7 @@ def password_reset(request):
                 reset.save()
             except IntegrityError:
                 extrapart = int(random.random() * 10)
-                h = sha_constructor(settings.SECRET_KEY + variable_part + extrapart).hexdigest()[:24]
+                h = hashlib.sha1(settings.SECRET_KEY + variable_part + extrapart).hexdigest()[:24]
                 reset = PasswordReset(user=user, expire=expire, h=h)
                 reset.save()
 
@@ -181,7 +183,7 @@ The Modelbrouwers.nl staff""" % {
             msg.attach_alternative(html_content, "text/html")
             msg.send()
             messages.success(request, _("An e-mail was sent to '%(email)s' with a link to reset your pasword.") % {'email': email})
-            return HttpResponseRedirect(reverse(custom_login))
+            return HttpResponseRedirect(reverse('users:login'))
     else:
         form = RequestPasswordResetForm()
     return render(request, 'general/password_reset.html', {'form': form})
@@ -200,7 +202,7 @@ def do_password_reset(request):
                     user.set_password(pw)
                     user.save()
                     pr.delete()
-                    return HttpResponseRedirect(reverse(custom_login))
+                    return HttpResponseRedirect(reverse('users:login'))
                 else:
                     pass #TODO: messages tonen & loggen
     else:
