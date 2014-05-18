@@ -431,7 +431,7 @@ The basic uploader has a file field for each image."""
             user = self.user.get_full_name()
         else:
             user = 'Anonymous user'
-        return _(u"Preferences for %(user)s") % user
+        return _(u"Preferences for %(user)s") % {'user': user}
 
     @classmethod
     def get_or_create(cls, user):
