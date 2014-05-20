@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 
 from models import *
 from forms import *
-from utils import resize, admin_mode, can_switch_admin_mode
+from utils import resize, admin_mode, can_switch_admin_mode, get_default_img_size
 from datetime import datetime
 from zipfile import ZipFile
 import os
@@ -246,7 +246,7 @@ def upload(request):
             path = 'albums/%s/%s/' % (request.user.id, album.id)
             # get the resizing dimensions from the preferences
             preferences = Preferences.get_or_create(request.user)
-            resize_dimensions = preferences.get_default_img_size()
+            resize_dimensions = get_default_img_size(preferences)
             i = 0 # to access the file in request.FILES
             for form in formset:
                 if form.has_changed():
