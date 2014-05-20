@@ -1,3 +1,5 @@
+import sys
+
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
@@ -37,12 +39,18 @@ urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-        (r'^404/$', TemplateView.as_view(template_name='404.html')),
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+        url(r'^404/$', TemplateView.as_view(template_name='404.html')),
     )
+
+if 'test' in sys.argv:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+    )
+
 if settings.DEVELOPMENT and not settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+        url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     )
 
 # some sort of catchall, check the database if redirects exist, else return a 404

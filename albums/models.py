@@ -91,7 +91,7 @@ class Album(models.Model):
     #albums can be voted, so we can have an 'album of the month' feature
     writable_to = models.CharField(_("writable to"), max_length=1, choices=WRITABLE_CHOICES, default="u")
     #writable to only user, group or everyone (unix like permissions)
-    trash = models.BooleanField() #put in trash before removing from db
+    trash = models.BooleanField(default=False) #put in trash before removing from db
 
     # custom managers
     # FIXME custom managers give import errors? wtf
