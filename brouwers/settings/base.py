@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'awards',
     'banning',
     'builds',
+    'brouwersdag',
     'forum_tools',
     'general',
     'kitreviews',
