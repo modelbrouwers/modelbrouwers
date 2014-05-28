@@ -7,8 +7,8 @@ from .views import (CategoryListView, NominationView, NominationListView,
 
 urlpatterns = patterns('awards.views',
     # url(r'^vote_old/$', 'vote', name='vote'),
-    (r'^vote/overview/$', 'vote_overview'),
-    (r'^vote/scores/$', 'scores'),
+    url(r'^vote/overview/$', 'vote_overview'),
+    url(r'^vote/scores/$', 'scores'),
     )
 
 urlpatterns += patterns('',

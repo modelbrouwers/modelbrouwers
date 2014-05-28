@@ -1,0 +1,98 @@
+{% load compress static i18n %}<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Brouwersdag 2014{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link href="{% static 'bootstrap-3.1.1/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'bootstrap-3.1.1/css/bootstrap-theme.min.css' %}" rel="stylesheet">
+        {% compress css %}
+            <link href="{% static 'css/screen.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
+            <link href="{% static 'css/print.css' %}" media="print" rel="stylesheet" type="text/css" />
+
+            {% block extrastyle %}{% endblock %}
+        {% endcompress %}
+        <!--[if IE]>
+            <link href="{% static 'css/ie.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
+        <![endif]-->
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <!-- use googles jquery, loads faster and relieves own server -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+            <!-- fallback -->
+            if (typeof jQuery === 'undefined') {
+                document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
+            }
+        </script>
+        <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
+
+        <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+    </head>
+
+    <body class="{% block body-class %}{% endblock %}">
+        <header class="container">
+            {# FIXME #}
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">{% trans "Toggle navigation" %}</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">{% trans "BF4 Europe" %}</a>
+                    </div>
+
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">{% trans "Tournaments" %}</a></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="http://www.reddit.com/r/bf4_EU">{% trans "r/BF4_EU" %}</a></li>
+                            <li><a href="ts3server://ts27.gameservers.com?port=9326">{% trans "Teamspeak" %}</a></li>
+                            <li><a href="{% url 'admin:index' %}">{% trans "Login/admin" %}</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div><!--/.container-fluid -->
+            </div>
+        </header>
+
+        {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>Welcome!</h1>
+                    <p>This is the default project page for Bfeu.</p>
+                </div>
+                <div class="col-md-4">
+                    <h2>What now?</h2>
+                    <p>How about:</p>
+                    <ul>
+                        <li>Looking around <a href='/admin/'>the admin</a></li>
+                        <li>Adding your apps for <em>Bfeu</em></li>
+                        <li>Hooking them up to your <em>urls.py</em></li>
+                        <li>Styling this page using Bootstrap!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endblock content %}
+
+        <script src="{% static 'bootstrap-3.1.1/js/bootstrap.min.js' %}"></script>
+
+        {% compress js %}
+        <script src="{% static 'scripts/common.js' %}"></script>
+        {% endcompress %}
+
+        {% block extrascript %}{% endblock %}
+    </body>
+</html>

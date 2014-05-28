@@ -1,0 +1,31 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/*
+* Hide the dotted lines around an element when it receives focus.
+*/
+/* line 5, ../../../sass/partials/_utils.scss */
+* {
+  _noFocusLine: expression(this.hideFocus=true);
+}
+
+/* ie7 */
+/* line 6, ../../../sass/partials/_utils.scss */
+::-moz-focus-inner {
+  border: 0;
+}
+
+/* firefox */
+/* line 7, ../../../sass/partials/_utils.scss */
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+/* line 11, ../../../sass/partials/_utils.scss */
+:focus, a:focus {
+  outline: none;
+}
+
+/* ie8, chrome, etc */
