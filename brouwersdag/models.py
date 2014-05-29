@@ -5,11 +5,17 @@ from django.utils.translation import ugettext_lazy as _
 
 class ShowCasedModel(models.Model):
     """ Model to track showcased scale models by users. """
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('brouwer'))
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('brouwer'), blank=True, null=True)
+    owner_name = models.CharField(_('real name'), max_length=254)
+    email = models.EmailField(_('e-mail address'))
+
     name = models.CharField(_('model name'), max_length=254)
     brand = models.ForeignKey('kitreviews.Brand', verbose_name=_('brand'), blank=True, null=True)
     scale = models.PositiveSmallIntegerField(_("scale"),
         help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
+    remarks = models.TextField(_('remarkable elements'), blank=True,
+        help_text=_('Add the features that make this model special here, e.g. "scratch built cockpit"'))
+
     topic = models.URLField(_('topic url'), blank=True)
 
     # dimensions

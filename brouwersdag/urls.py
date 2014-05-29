@@ -5,5 +5,5 @@ import views
 
 
 urlpatterns = patterns('',
-    url('^sign-up/$', login_required(views.SignupView.as_view()), name='model-signup'),
+    url('^sign-up/$', views.SignupView.as_view(), name='model-signup'),
 )

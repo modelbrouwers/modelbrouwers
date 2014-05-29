@@ -4,27 +4,53 @@
 {% block content %}
 <div class="container main-content">
 
-    <h1 class="text-primary">
-        {% trans "Brouwersdag 2014" %}
-        <small>{% trans "Time to do your models sign-up!" %}</small>
-    </h1>
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="text-primary">
+                {% trans "Brouwersdag 2014" %}
+                <small>{% trans "Time to do your models sign-up!" %}</small>
+            </h1>
 
-    <div class="text-muted">
-        {% trans "If you want to display multiple models, just fill in the form again for each extra model." %}
+            <p class="text-muted">
+                {% trans "If you want to display multiple models, just fill in the form again for each extra model." %}
+            </p>
+        </div>
+
+        <h2 class="text-muted col-sm-4">{% trans "Competition information" %}</h2>
     </div>
 
     <div class="row">
         {% form 'horizontal.form' %}
-        <form action="." method="post" class="form-horizontal col-lg-8" role="form">
+        <form action="." method="post" class="form-horizontal col-sm-8" role="form">
             {% for field in form %}
                 {% field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
             {% endfor %}
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
                     <button type="submit" class="btn btn-primary">{% trans "Add model" %}</button>
+                </div>
             </div>
         </form>
         {% endform %}
+
+        <aside class="col-sm-4">
+            {% if not form.competition %}
+                {% trans "There's no competition planned (yet)." %}
+            {% else %}
+            <p>
+                {% blocktrans with fee=form.competition.price|floatformat:'-2' %}
+                    There will be a competition during this edition.
+                    The competition entry fee is &euro; {{ fee }}, to be paid when entering the venue.
+                {% endblocktrans %}
+            </p>
+
+            {% if form.competition.max_num_models %}
+            <p class="text-warning">{% blocktrans with n=form.competition.max_num_models %}
+                Attention! You can enter up to <strong>{{ n }}</strong> model(s). Extra models will be rejected.
+            {% endblocktrans %}
+            {% endif %}
+            {% endif %}
+        </aside>
     </div>
 
 </div>

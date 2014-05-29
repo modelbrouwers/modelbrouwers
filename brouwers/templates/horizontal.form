@@ -83,3 +83,24 @@
     </div>
 </div>
 {% endblock %}
+
+
+{% block Textarea %}
+
+<div class="form-group">
+    {% use "_label" %}
+    <div class="{{ field_grid|default:'col-sm-10' }}">
+        {% if help_text %}<div class="input-group">{% endif %}
+        <textarea name="{{ html_name }}" id="{{ id }}"
+            class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
+            {{ required|yesno:"required," }}
+            {{ autofocus|yesno:"autofocus," }}
+            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+            {{ widget.attrs|flat_attrs }}
+        >{{ value|default:'' }}</textarea>
+        {% use "_help" %}
+        {% if help_text %}</div>{% endif %}
+        {% use "_errors" %}
+    </div>
+</div>
+{% endblock %}
