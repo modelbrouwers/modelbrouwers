@@ -74,7 +74,7 @@
     <div class="{{ label_grid_offset|default:'col-sm-offset-3' }} {{ field_grid|default:'col-sm-10' }}">
         <div class="checkbox">
             <label for="{{ form_field.id_for_label }}" class="{{ css_classes }}">
-                <input name="{{ html_name }}" id="{{ id }}" type="checkbox" value="{{ form_field.value }}" {{ form_field.value|yesno:'checked,' }}>
+                <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ form_field.value|yesno:'checked,' }}>
                 {{ form_field.label }}
             </label>
         </div>
@@ -86,7 +86,6 @@
 
 
 {% block Textarea %}
-
 <div class="form-group">
     {% use "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">

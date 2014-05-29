@@ -1,0 +1,18 @@
+{% extends "brouwersdag/base.html" %}
+{% load i18n %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{% trans "Coming soon!" %}</h1>
+
+            <p>{% trans "Soon, you will be able to find out which models will be on display. The list is updated after every model sign-up!" %}</p>
+
+            <p>{% trans "What are you waiting for? If you're coming, bring a model!" %}</p>
+
+            <p><a class="btn btn-primary btn-lg" role="button" href="{% url 'brouwersdag:model-signup' %}">{% trans "Add your models" %}</a></p>
+        </div>
+        <p class="text-muted">{% trans "Click the above button to sign up for the competition" %}</p>
+    </div>
+{% endblock content %}

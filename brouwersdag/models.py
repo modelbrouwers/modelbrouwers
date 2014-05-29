@@ -19,9 +19,9 @@ class ShowCasedModel(models.Model):
     topic = models.URLField(_('topic url'), blank=True)
 
     # dimensions
-    length = models.PositiveSmallIntegerField(_('length'), null=True, blank=True)
-    width = models.PositiveSmallIntegerField(_('width'), null=True, blank=True)
-    height = models.PositiveSmallIntegerField(_('height'), null=True, blank=True)
+    length = models.PositiveSmallIntegerField(_('length'), null=True, blank=True, help_text=_('In cm.'))
+    width = models.PositiveSmallIntegerField(_('width'), null=True, blank=True, help_text=_('In cm.'))
+    height = models.PositiveSmallIntegerField(_('height'), null=True, blank=True, help_text=_('In cm.'))
 
     # competition?
     competition = models.ForeignKey('brouwersdag.Competition',

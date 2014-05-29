@@ -43,6 +43,14 @@ select:-moz-focusring {
 }
 
 /* ie8, chrome, etc */
+/*
+ * Messages
+ */
+/* line 4, ../../../sass/partials/_base.scss */
+ul.messages {
+  margin-top: 15px;
+}
+
 /* line 3, ../../../sass/partials/_header.scss */
 .navbar-center .navbar-nav {
   display: inline-block;

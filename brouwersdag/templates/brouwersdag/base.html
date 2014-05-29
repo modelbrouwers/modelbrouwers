@@ -39,25 +39,18 @@
     <body class="{% block body-class %}{% endblock %}">
         {% include "brouwersdag/nav_top.html" %}
 
+        {% block messages %}
+            {% if messages %}
+            <div class="container"><ul class="messages list-group">
+                {% for message in messages %}
+                    <li class="list-group-item list-group-item-{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul></div>
+            {% endif %}
+        {% endblock messages %}
+
         {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h1>Welcome!</h1>
-                    <p>This is the default project page for Bfeu.</p>
-                </div>
-                <div class="col-md-4">
-                    <h2>What now?</h2>
-                    <p>How about:</p>
-                    <ul>
-                        <li>Looking around <a href='/admin/'>the admin</a></li>
-                        <li>Adding your apps for <em>Bfeu</em></li>
-                        <li>Hooking them up to your <em>urls.py</em></li>
-                        <li>Styling this page using Bootstrap!</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <div class="container"></div>
         {% endblock content %}
 
         <script src="{% static 'bootstrap-3.1.1/js/bootstrap.min.js' %}"></script>

@@ -22,6 +22,15 @@
     <div class="row">
         {% form 'horizontal.form' %}
         <form action="." method="post" class="form-horizontal col-sm-8" role="form">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <ul class="errorlist">
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
             {% for field in form %}
                 {% field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
             {% endfor %}

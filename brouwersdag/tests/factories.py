@@ -1,6 +1,8 @@
 import factory
 
-from ..models import Competition
+from kitreviews.tests.factories import BrandFactory
+
+from ..models import Competition, ShowCasedModel
 
 
 class CompetitionFactory(factory.django.DjangoModelFactory):
@@ -8,3 +10,13 @@ class CompetitionFactory(factory.django.DjangoModelFactory):
 
     name = factory.Sequence(lambda n: 'Competition {0}'.format(n))
     is_current = False
+
+
+class ShowCasedModelFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = ShowCasedModel
+
+    owner_name = factory.Sequence(lambda n: 'Owner {0}'.format(n))
+    email = factory.Sequence(lambda n: 'Owner {0}'.format(n))
+    name = factory.Sequence(lambda n: 'Model {0}'.format(n))
+    brand = factory.SubFactory(BrandFactory)
+    scale = 48
