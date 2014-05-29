@@ -1,0 +1,20 @@
+#main-nav {
+  li.tab {
+    @include background($nav-gradient);
+    font-family: $font-header-nav;
+    overflow: hidden; // bottom shadow
+  }
+  li.tab > a {
+    display: block;
+    padding: 3px 20px 6px;
+    margin: 5px 10px 0;
+    background-color: $nav-tab;
+    color: $nav-tab-text;
+    font-size: 115%;
+    @include border-top-radius(10px);
+    @include text-shadow(#AAA 1px 1px 3px, #AAA 1px 1px 1px, #BBB 1px 1px 0, #BBB 0 0 1px);
+    border: solid 1px #c8c8c8;
+    border-bottom: none;
+    @include box-shadow(#AAA 0 0 1px, rgba(0,0,0,0.1) 3px 3px 4px, inset $white 0 2px 1px);
+  }
+}
