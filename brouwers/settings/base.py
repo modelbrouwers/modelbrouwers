@@ -110,6 +110,7 @@ INSTALLED_APPS = (
 
     # Third party
     'compressor',
+    'formulation',
     'sessionprofile',
     'south',
     'tastypie',

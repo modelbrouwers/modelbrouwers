@@ -14,6 +14,19 @@
 }
 
 @media (min-width:768px) { // show the tabs
+  .navbar-brand {
+    position: absolute;
+    padding: 0;
+    top: 0;
+    left: 30px;
+    img {
+      height: 35px;
+      width: 184px;
+    }
+  }
+  .navbar-collapse.collapse {
+    height: 35px !important;
+  }
   .sprue-tabs {
     // hide all the default styling from bootstrap
     @include background($nav-gradient);
@@ -48,6 +61,14 @@
 }
 
 @media (max-width: 768px) { // collapsed, take up the entire width with the background
+  .navbar-brand {
+    height: 50px;
+    padding: 7.5px 15px;
+    img {
+      height: 35px;
+      width: 184px;
+    }
+  }
   .navbar-center {
     .navbar-collapse {
       text-align: left;
@@ -71,7 +92,7 @@
 /*
  * Shop banner
  */
-@media (min-width:768px) {
+@media (min-width:650px) {
   #shop-banner {
     text-align: center;
     padding: 5px 15px 0;
@@ -158,4 +179,19 @@
 #shop-vallejo{
     width: 42px;
     background-position: -400px -318px;
+}
+
+#anniversary{
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 5px;
+    width: 100px;
+    height: 94px;
+    background: url(../images/varia/modelbrouwers10jaar.png);
+}
+@media (max-width: 768px) {
+  #anniversary {
+    display: none;
+  }
 }

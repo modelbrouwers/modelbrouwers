@@ -15,5 +15,6 @@ django-compressor==1.3
 factory_boy==2.3.1
 formulation==2.0.7.2
 djangorestframework==2.3.13
-# django-choices==
+django-choices==1.1.12
 mock==1.0.1
+sorl-thumbnail==11.12

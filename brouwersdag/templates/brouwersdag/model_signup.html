@@ -1,1 +1,31 @@
 {% extends "brouwersdag/base.html" %}
+{% load i18n formulation %}
+
+{% block content %}
+<div class="container main-content">
+
+    <h1 class="text-primary">
+        {% trans "Brouwersdag 2014" %}
+        <small>{% trans "Time to do your models sign-up!" %}</small>
+    </h1>
+
+    <div class="text-muted">
+        {% trans "If you want to display multiple models, just fill in the form again for each extra model." %}
+    </div>
+
+    <div class="row">
+        {% form 'horizontal.form' %}
+        <form action="." method="post" class="form-horizontal col-lg-8" role="form">
+            {% for field in form %}
+                {% field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
+            {% endfor %}
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-primary">{% trans "Add model" %}</button>
+            </div>
+        </form>
+        {% endform %}
+    </div>
+
+</div>
+{% endblock content %}
