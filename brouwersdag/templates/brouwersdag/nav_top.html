@@ -1,8 +1,7 @@
 {% load i18n static %}
 
-<header class="container">
-    {# FIXME #}
-    <div class="navbar navbar-default" role="navigation">
+<header class="container-fluid">
+    <div class="navbar navbar-default navbar-center sprue-tabs" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,4 +19,8 @@
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </div>
+
+    <ul id="shop-banner">
+        {% include "shop_banner.html" %}
+    </ul>
 </header>

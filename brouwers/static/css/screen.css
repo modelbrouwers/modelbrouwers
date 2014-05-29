@@ -11,6 +11,9 @@
 }
 
 /*
+ * Navigation bar
+ */
+/*
 * Hide the dotted lines around an element when it receives focus.
 */
 /* line 5, ../../../sass/partials/_utils.scss */
@@ -37,33 +40,218 @@ select:-moz-focusring {
 }
 
 /* ie8, chrome, etc */
-/* line 2, ../../../sass/partials/_header.scss */
-#main-nav li.tab {
-  background: -webkit-linear-gradient(180deg, #ececec, #f8f8f8);
-  background: -moz-linear-gradient(180deg, #ececec, #f8f8f8);
-  background: -o-linear-gradient(180deg, #ececec, #f8f8f8);
-  background: linear-gradient(180deg, #ececec, #f8f8f8);
-  font-family: "SINKIN Medium", sans-serif;
-  overflow: hidden;
+/* line 3, ../../../sass/partials/_header.scss */
+.navbar-center .navbar-nav {
+  display: inline-block;
+  float: none;
 }
 /* line 7, ../../../sass/partials/_header.scss */
-#main-nav li.tab > a {
-  display: block;
-  padding: 3px 20px 6px;
-  margin: 5px 10px 0;
-  background-color: #e5e5e5;
-  color: #f4f4f4;
-  font-size: 115%;
-  -moz-border-radius-topleft: 10px;
-  -webkit-border-top-left-radius: 10px;
-  border-top-left-radius: 10px;
-  -moz-border-radius-topright: 10px;
-  -webkit-border-top-right-radius: 10px;
-  border-top-right-radius: 10px;
-  text-shadow: #aaaaaa 1px 1px 3px, #aaaaaa 1px 1px 1px, #bbbbbb 1px 1px 0, #bbbbbb 0 0 1px;
-  border: solid 1px #c8c8c8;
-  border-bottom: none;
-  -webkit-box-shadow: #aaaaaa 0 0 1px, rgba(0, 0, 0, 0.1) 3px 3px 4px, inset rgba(255, 255, 255, 0.5) 0 2px 1px;
-  -moz-box-shadow: #aaaaaa 0 0 1px, rgba(0, 0, 0, 0.1) 3px 3px 4px, inset rgba(255, 255, 255, 0.5) 0 2px 1px;
-  box-shadow: #aaaaaa 0 0 1px, rgba(0, 0, 0, 0.1) 3px 3px 4px, inset rgba(255, 255, 255, 0.5) 0 2px 1px;
+.navbar-center .navbar-collapse {
+  text-align: center;
+}
+
+/* line 12, ../../../sass/partials/_header.scss */
+#main-nav li.tab {
+  font-family: "SINKIN Medium", sans-serif;
+}
+
+@media (min-width: 768px) {
+  /* line 17, ../../../sass/partials/_header.scss */
+  .sprue-tabs {
+    background: -webkit-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: -moz-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: -o-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: linear-gradient(180deg, #ececec, #f8f8f8);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    min-height: 35px;
+    max-height: 35px;
+    margin: 0 -15px;
+  }
+  /* line 26, ../../../sass/partials/_header.scss */
+  .sprue-tabs li.tab > a {
+    color: #f4f4f4;
+    background-color: #e5e5e5;
+    display: block;
+    padding: 3px 20px 6px;
+    margin: 5px 10px 0;
+    font-size: 115%;
+    -moz-border-radius-topleft: 10px;
+    -webkit-border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -webkit-border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
+    text-shadow: #aaaaaa 1px 1px 3px, #aaaaaa 1px 1px 1px, #bbbbbb 1px 1px 0, #bbbbbb 0 0 1px;
+    border: solid 1px #c8c8c8;
+    border-bottom: none;
+    -webkit-box-shadow: #aaaaaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
+    -moz-box-shadow: #aaaaaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
+    box-shadow: #aaaaaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
+    overflow: hidden;
+  }
+  /* line 40, ../../../sass/partials/_header.scss */
+  .sprue-tabs li.tab > a:hover, .sprue-tabs li.tab > a:focus, .sprue-tabs li.tab > a:active, .sprue-tabs li.tab > a.active {
+    background-color: #fafafa;
+    color: #fafafa;
+    padding-top: 5px;
+    margin-top: 3px;
+  }
+}
+@media (max-width: 768px) {
+  /* line 52, ../../../sass/partials/_header.scss */
+  .navbar-center .navbar-collapse {
+    text-align: left;
+    padding: 0;
+  }
+  /* line 56, ../../../sass/partials/_header.scss */
+  .navbar-center .navbar-nav {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* line 61, ../../../sass/partials/_header.scss */
+  li.tab {
+    border: solid 1px #e5e5e5;
+    background: -webkit-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: -moz-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: -o-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: linear-gradient(180deg, #ececec, #f8f8f8);
+  }
+  /* line 64, ../../../sass/partials/_header.scss */
+  li.tab:hover, li.tab.active, li.tab:focus, li.tab:active {
+    background: -webkit-linear-gradient(0deg, #ececec, #f8f8f8);
+    background: -moz-linear-gradient(0deg, #ececec, #f8f8f8);
+    background: -o-linear-gradient(0deg, #ececec, #f8f8f8);
+    background: linear-gradient(0deg, #ececec, #f8f8f8);
+  }
+}
+/*
+ * Shop banner
+ */
+@media (min-width: 768px) {
+  /* line 75, ../../../sass/partials/_header.scss */
+  #shop-banner {
+    text-align: center;
+    padding: 5px 15px 0;
+    -webkit-box-shadow: inset #c8c8c8 0 5px 5px -5px;
+    -moz-box-shadow: inset #c8c8c8 0 5px 5px -5px;
+    box-shadow: inset #c8c8c8 0 5px 5px -5px;
+    margin: 0 -15px;
+  }
+  /* line 80, ../../../sass/partials/_header.scss */
+  #shop-banner li {
+    display: inline-block;
+  }
+  /* line 82, ../../../sass/partials/_header.scss */
+  #shop-banner li a {
+    display: block;
+    height: 25px;
+    background-image: url("../images/shop/products_sprite.png");
+    background-repeat: no-repeat;
+  }
+}
+@media (max-width: 650px) {
+  /* line 92, ../../../sass/partials/_header.scss */
+  #shop-banner {
+    display: none;
+  }
+}
+/* brands, individual */
+/* line 98, ../../../sass/partials/_header.scss */
+#shop-uhu {
+  width: 54px;
+  background-position: 0px -293px;
+}
+
+/* line 102, ../../../sass/partials/_header.scss */
+#shop-xuron {
+  width: 102px;
+  background-position: -54px -293px;
+}
+
+/* line 106, ../../../sass/partials/_header.scss */
+#shop-revell {
+  width: 62px;
+  background-position: -156px -293px;
+}
+
+/* line 110, ../../../sass/partials/_header.scss */
+#shop-alclad {
+  width: 65px;
+  background-position: -218px -293px;
+}
+
+/* line 114, ../../../sass/partials/_header.scss */
+#shop-bmf {
+  width: 66px;
+  background-position: -283px -293px;
+}
+
+/* line 118, ../../../sass/partials/_header.scss */
+#shop-birchwood {
+  width: 52px;
+  background-position: -349px -293px;
+}
+
+/* line 122, ../../../sass/partials/_header.scss */
+#shop-evergreen {
+  width: 50px;
+  background-position: -442px -318px;
+}
+
+/* line 126, ../../../sass/partials/_header.scss */
+#shop-bb {
+  width: 41px;
+  background-position: -401px -293px;
+}
+
+/* line 130, ../../../sass/partials/_header.scss */
+#shop-excel {
+  width: 56px;
+  background-position: -442px -293px;
+}
+
+/* line 134, ../../../sass/partials/_header.scss */
+#shop-intech {
+  width: 86px;
+  background-position: -498px -293px;
+}
+
+/* line 138, ../../../sass/partials/_header.scss */
+#shop-microscale {
+  width: 62px;
+  background-position: 0 -318px;
+}
+
+/* line 142, ../../../sass/partials/_header.scss */
+#shop-miliput {
+  width: 93px;
+  background-position: -62px -318px;
+}
+
+/* line 146, ../../../sass/partials/_header.scss */
+#shop-mb {
+  width: 127px;
+  background-position: -155px -318px;
+}
+
+/* line 150, ../../../sass/partials/_header.scss */
+#shop-rustall {
+  width: 93px;
+  background-position: -282px -318px;
+}
+
+/* line 154, ../../../sass/partials/_header.scss */
+#shop-sms {
+  width: 25px;
+  background-position: -375px -318px;
+}
+
+/* line 158, ../../../sass/partials/_header.scss */
+#shop-vallejo {
+  width: 42px;
+  background-position: -400px -318px;
 }

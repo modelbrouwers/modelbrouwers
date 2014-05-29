@@ -7,7 +7,7 @@
 {% spaceless %}
     <li id="tab-home" class="tab">
         <a href="{{ url_home }}"
-            {% ifequal request.path url_home %} class="nav active"{% endifequal %}
+            {% ifequal request.path url_home %} class="active"{% endifequal %}
             title="{% if not request.path|startswith:url_home %}{% trans 'Visit the homepage!' %}{% endif %}">{% trans "home" %}</a>
     </li>
 
@@ -21,12 +21,12 @@
 
     <li id="tab-albums" class="tab">
         <a href="{{ url_albums }}"
-            {% if request.path|startswith:url_albums %} class="nav active"{% endif %}
+            {% if request.path|startswith:url_albums %} class="active"{% endif %}
             title="{% if request.path|startswith:url_albums %}{% trans 'You are now in the photo albums!' %}{% else %}{% trans 'Go to the albums!' %}{% endif %}">{% trans "albums" %}</a>
     </li>
 
     <li id="tab-kitreviews" class="tab">
-        <a href="{{ url_kitreviews }}"{% if request.path|startswith:url_kitreviews %} class="nav active"{% endif %}
+        <a href="{{ url_kitreviews }}"{% if request.path|startswith:url_kitreviews %} class="active"{% endif %}
             title="{% if not request.path|startswith:url_kitreviews %}{% trans 'Visit the kit reviews!' %}{% endif %}">{% trans "kit reviews" %}</a>
     </li>
     <!--<li>
