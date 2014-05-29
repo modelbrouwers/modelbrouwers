@@ -9,6 +9,7 @@ from django.views.generic.base import TemplateView
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^admin/',        include(admin.site.urls)),
     url(r'^albums/',       include('albums.urls')),
     url(r'^awards/',       include('awards.urls')),

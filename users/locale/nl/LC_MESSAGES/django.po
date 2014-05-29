@@ -1,0 +1,249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-29 21:33+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:14
+msgid "A user with that username already exists."
+msgstr ""
+
+#: forms.py:15
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: forms.py:17
+msgid "Password"
+msgstr ""
+
+#: forms.py:19
+msgid "Password confirmation"
+msgstr ""
+
+#: forms.py:21
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: forms.py:55
+msgid "Answer"
+msgstr ""
+
+#: forms.py:69
+msgid "Invalid answer. Make sure to read the entire question!"
+msgstr ""
+
+#: forms.py:71
+msgid "You provided an incorrect answer to the anti-bot question."
+msgstr ""
+
+#: mail.py:11
+#, python-brace-format
+msgid "Your registration on {domain}"
+msgstr ""
+
+#: mail.py:30
+#, python-brace-format
+msgid "{domain} account creation - activation required"
+msgstr ""
+
+#: models.py:69
+msgid "username"
+msgstr ""
+
+#: models.py:70
+msgid "Required. 30 characters or fewer. All characters allowed."
+msgstr ""
+
+#: models.py:71
+msgid "first name"
+msgstr ""
+
+#: models.py:72
+msgid "last name"
+msgstr ""
+
+#: models.py:73
+msgid "email address"
+msgstr ""
+
+#: models.py:74
+msgid "staff status"
+msgstr ""
+
+#: models.py:75
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+#: models.py:77
+msgid "active"
+msgstr ""
+
+#: models.py:78
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: models.py:80
+msgid "date joined"
+msgstr ""
+
+#: models.py:83
+msgid "forum user id"
+msgstr ""
+
+#: models.py:91
+msgid "user"
+msgstr ""
+
+#: models.py:92
+msgid "users"
+msgstr ""
+
+#: views.py:76
+msgid ""
+"We found an existing forum account for this username, but it appears that "
+"were was no coupling account yet. We automatically created a coupling "
+"account, which is not activated yet. You should receive an e-mail soon with "
+"a link to activate your account. Coupling accounts were added to introduce "
+"SSO (single sign on) in the future for the entire domain."
+msgstr ""
+
+#: views.py:102
+msgid "You have been logged out."
+msgstr ""
+
+#: views.py:104
+msgid "Can't log you out, you weren't logged in!"
+msgstr ""
+
+#: templates/users/login.html:9
+msgid ""
+"\n"
+"                If you're having login issues, please don't hesitate to "
+"contact the administrators. You can find the e-mail address on the bottom of "
+"this page.\n"
+"            "
+msgstr ""
+
+#: templates/users/login.html:21
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/users/login.html:23
+msgid "Request a password reset"
+msgstr ""
+
+#: templates/users/register.html:4
+msgid "Registration"
+msgstr ""
+
+#: templates/users/register.html:21
+msgid "Registration: fill out the form below. All fields are required."
+msgstr ""
+
+#: templates/users/register.html:30
+msgid "Register"
+msgstr ""
+
+#: templates/users/register.html:32
+msgid "By registering, you agree to the terms below."
+msgstr ""
+
+#: templates/users/register.html:36
+msgid "Registration terms"
+msgstr ""
+
+#: templates/users/mail/user_created.html:5
+#, python-format
+msgid ""
+"\n"
+"<p>Hi %(username)s,</p>\n"
+"<br />\n"
+"<p>You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).</p>\n"
+"<br />\n"
+"<p>After activation, you will be logged in automagically and redirected to "
+"the pagewhere you can set/change your password.</p>\n"
+"<br />\n"
+"<p>The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.</p>\n"
+"<br />\n"
+"<p>If you run into problems, just reply to this e-mail.</p>\n"
+"<br />\n"
+"<p>Happy modelling,<br />\n"
+"your faithful %(site_name)s administrators</p>\n"
+msgstr ""
+
+#: templates/users/mail/user_created.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(username)s,\n"
+"\n"
+"You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).\n"
+"\n"
+"After activation, you will be logged in automagically and redirected to the "
+"pagewhere you can set/change your password.\n"
+"\n"
+"The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.\n"
+"\n"
+"If you run into problems, just reply to this e-mail.\n"
+"\n"
+"Happy modelling,\n"
+"your faithful %(site_name)s administrators\n"
+msgstr ""
+
+#: templates/users/mail/user_registered.html:3
+#, python-format
+msgid ""
+"\n"
+"<p>Thank you for your registration on %(domain)s!</p>\n"
+"<br>\n"
+"<p>You registered with the username: %(username)s.\n"
+"Your password is safely stored in our database and can not be retrieved.\n"
+"You can always reset your password if you can't remember it.</p>\n"
+"<br>\n"
+"<p>See you on the forum!</p>\n"
+"<br>\n"
+"<p>Sincerely,<br>\n"
+"The %(name)s staff.</p>\n"
+msgstr ""
+
+#: templates/users/mail/user_registered.txt:3
+#, python-format
+msgid ""
+"\n"
+"Thank you for your registration on %(domain)s!\n"
+"\n"
+"You registered with the username: %(username)s. Your password is safely "
+"stored in our database and can not be retrieved. You can always reset your "
+"password if you can't remember it.\n"
+"\n"
+"See you on the forum!\n"
+"\n"
+"Sincerely,\n"
+"The %(name)s staff.\n"
+msgstr ""

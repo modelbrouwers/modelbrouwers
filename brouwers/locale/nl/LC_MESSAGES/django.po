@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-29 21:32+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: settings/base.py:25
+msgid "English"
+msgstr ""
+
+#: settings/base.py:26
+msgid "Dutch"
+msgstr ""
+
+#: templates/403.html:4
+msgid "Access denied"
+msgstr ""
+
+#: templates/403.html:7
+msgid "Oops... you don't have access to this page!"
+msgstr ""
+
+#: templates/403.html:11
+msgid ""
+"The requested page cannot be shown, you have insufficient permissions. You "
+"might need to log in to view the content."
+msgstr ""
+
+#: templates/404.html:39
+msgid "Oops... a 404!"
+msgstr ""
+
+#: templates/404.html:46
+#, python-format
+msgid ""
+"The requested page could not be found or isn't accessible because of limited "
+"user rights. Click on the big logo above or click <a href=\"/\">here</a> to "
+"return to the homepage. Alternatively, use the back button in your browser "
+"or click <a href=\"%(return)s\">here</a> to return to the previous page."
+msgstr ""
+
+#: templates/base.html:6
+msgid "Materials and knowledge for scale modelling."
+msgstr ""
+
+#: templates/base.html:99
+msgid "Back to the Modelbrouwers.nl homepage"
+msgstr ""
+
+#: templates/base.html:131
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:132
+msgid "Builds"
+msgstr ""
+
+#: templates/base.html:133
+msgid "Awards"
+msgstr ""
+
+#: templates/base.html:134
+msgid "Secret Santa"
+msgstr ""
+
+#: templates/base.html:136
+msgid "Migrations"
+msgstr ""
+
+#: templates/base.html:143
+msgid "Login"
+msgstr ""
+
+#: templates/base.html:146
+msgid "Register"
+msgstr ""
+
+#: templates/base.html:152
+msgid "logout"
+msgstr ""
+
+#: templates/base.html:157
+msgid "Profile"
+msgstr ""
+
+#: templates/form_in_table.html:35 templates/form_in_table_rows.html:19
+msgid "Fix the error:"
+msgstr ""
+
+#: templates/nav_tabs.html:11 templates/nav_tabs_text.html:11
+msgid "Visit the homepage!"
+msgstr ""
+
+#: templates/nav_tabs.html:15 templates/nav_tabs_text.html:15
+msgid "Visit the forums!"
+msgstr ""
+
+#: templates/nav_tabs.html:19 templates/nav_tabs_text.html:19
+msgid "Visit the shop!"
+msgstr ""
+
+#: templates/nav_tabs.html:25 templates/nav_tabs_text.html:25
+msgid "You are now in the photo albums!"
+msgstr ""
+
+#: templates/nav_tabs.html:25 templates/nav_tabs_text.html:25
+msgid "Go to the albums!"
+msgstr ""
+
+#: templates/nav_tabs.html:30 templates/nav_tabs_text.html:30
+msgid "Visit the kit reviews!"
+msgstr ""
+
+#: templates/nav_tabs_text.html:11
+msgid "home"
+msgstr ""
+
+#: templates/nav_tabs_text.html:15
+msgid "forum"
+msgstr ""
+
+#: templates/nav_tabs_text.html:19
+msgid "shop"
+msgstr ""
+
+#: templates/nav_tabs_text.html:25
+msgid "albums"
+msgstr ""
+
+#: templates/nav_tabs_text.html:30
+msgid "kit reviews"
+msgstr ""
+
+#: templates/pagination.html:5
+msgid "First page"
+msgstr ""
+
+#: templates/pagination.html:16
+msgid "of"
+msgstr ""
+
+#: templates/pagination.html:25
+msgid "Last page"
+msgstr ""
+
+#: templates/search_form.html:16
+msgid "Search"
+msgstr ""

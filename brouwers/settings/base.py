@@ -116,6 +116,7 @@ INSTALLED_APPS = (
     'tastypie',
     'django_extensions',
     'django_nose',
+    'rosetta',
 
     # Modelbrouwers
     'users',

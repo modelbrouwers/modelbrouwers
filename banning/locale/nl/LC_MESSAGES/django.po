@@ -2,87 +2,97 @@
 # Copyright (C) 2013 Sergei Maertens
 # This file is distributed under the same license as the django package.
 # Sergei Maertens <sergeimaertens@gmail.com>, 2013.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-20 19:20+0200\n"
-"PO-Revision-Date: 2013-06-20 19:20+0200\n"
+"POT-Creation-Date: 2014-05-29 21:32+0200\n"
+"PO-Revision-Date: 2014-05-29 21:57+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: Nederlands <LL@li.org>\n"
-"Language: Nederlands\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: Nederlands\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: models.py:17
+#: models.py:18
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:19
+#: models.py:20
 msgid "ip"
 msgstr "ip-adres"
 
-#: models.py:20
+#: models.py:21
 msgid "Ip address to ban."
 msgstr "IP-adres om te verbannen."
 
-#: models.py:24
+#: models.py:25
 msgid "expiry date"
 msgstr "vervaldatum"
 
-#: models.py:26
+#: models.py:27
 msgid "Date the ban expires. Leave blank for permabans."
-msgstr "Datum waarop de ban vervalt. Laat leeg om permanente bans in te steken."
+msgstr ""
+"Datum waarop de ban vervalt. Laat leeg om permanente bans in te steken."
 
-#: models.py:28
+#: models.py:29
 msgid "reason (internal)"
 msgstr "reden (intern)"
 
-#: models.py:30
+#: models.py:31
 msgid "reason"
 msgstr "reden"
 
-#: models.py:31
+#: models.py:32
 msgid "This reason will be shown to the banned user."
 msgstr "Deze reden is zichtbaar voor de verbannen gebruiker."
 
-#: models.py:35
+#: models.py:34
+msgid "automatically created?"
+msgstr "automatisch aangemaakt?"
+
+#: models.py:37
 msgid "ban"
 msgstr "verbanning"
 
-#: models.py:36
+#: models.py:38
 msgid "bans"
 msgstr "verbanningen"
 
-#: models.py:41
+#: models.py:43
 msgid "never"
 msgstr "nooit"
 
-#: models.py:47
+#: models.py:49
 msgid "ip ban"
 msgstr "IP-verbanning"
 
-#: models.py:48
+#: models.py:50
 msgid "account ban"
 msgstr "accountverbanning"
 
-#: models.py:52
+#: models.py:54
 #, python-format
 msgid "Ban: %(username)s"
 msgstr "Verbanning: %(username)s"
 
-#: models.py:54
+#: models.py:56
 #, python-format
 msgid "Ban: %(ip)s"
 msgstr "Verbanning: %(ip)s"
 
-#: models.py:59
+#: models.py:61
 msgid "Submit either an user or IP address."
 msgstr "Geef ofwel een gebruiker in, ofwel een IP-adres"
+
+#: templates/banning/banned.html:4
+msgid "You are banned"
+msgstr "Je bent verbannen"
 
 #: templates/banning/banned.html:13
 msgid "Oops... you've been naughty!"
@@ -90,11 +100,11 @@ msgstr "Oeps... je bent stout geweest!"
 
 #: templates/banning/banned.html:17
 msgid ""
-"The requested page cannot be shown since you have been <span class=\"error"
-"\">banned</span>."
+"The requested page cannot be shown since you have been <span "
+"class=\"error\">banned</span>."
 msgstr ""
-"De opgevraagde pagina kan niet getoond worden omdat je <span class=\"error"
-"\">verbannen</span> bent."
+"De opgevraagde pagina kan niet getoond worden omdat je <span "
+"class=\"error\">verbannen</span> bent."
 
 #: templates/banning/banned.html:22
 msgid "Ban type"

@@ -18,3 +18,4 @@ djangorestframework==2.3.13
 django-choices==1.1.12
 mock==1.0.1
 sorl-thumbnail==11.12
+django-rosetta==0.7.4
