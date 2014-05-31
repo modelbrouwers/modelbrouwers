@@ -1,5 +1,5 @@
 {% extends "default.form" %}
-{% load formulation %}
+{% load i18n formulation %}
 
 
 {% block _label %}
@@ -13,7 +13,7 @@
 {% block _help %}
 {% if help_text %}
 <span class="input-group-addon">
-    <span class="help glyphicon glyphicon-question-sign" title="{{ help_text }}"></span>
+    <span class="help glyphicon glyphicon-question-sign" data-trigger="hover focus click" data-toggle="popover" data-content="{{ help_text }}"></span>
 </span>
 {% endif %}
 {% endblock _help %}

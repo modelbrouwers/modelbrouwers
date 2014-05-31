@@ -57,6 +57,13 @@
 
         {% compress js %}
         <script src="{% static 'scripts/common.js' %}"></script>
+        <script>
+        $(function() {
+            $('.help').popover({
+                'placement': 'auto right'
+            });
+        });
+        </script>
         {% endcompress %}
 
         {% block extrascript %}{% endblock %}
