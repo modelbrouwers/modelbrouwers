@@ -1,11 +1,20 @@
-from django.core.urlresolvers import reverse
+# TODO: filter queryset on models on future bd's
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
+from django.views.generic import DeleteView, TemplateView, ListView
 from django.views.generic.edit import CreateView
 
 from .forms import ShowCasedModelSignUpForm
 from .models import ShowCasedModel, Competition
+
+
+class OwnModelsMixin(object):
+    def get_queryset(self):
+        qs = super(OwnModelsMixin, self).get_queryset()
+        return qs.filter(owner=self.request.user).order_by('-id')
 
 
 class IndexView(TemplateView):
@@ -50,3 +59,21 @@ class SignupView(CreateView):
         self.form = form
         messages.success(self.request, _('Your model has been submitted'))
         return super(SignupView, self).form_valid(form)
+
+
+class MyModelsView(OwnModelsMixin, ListView):
+    model = ShowCasedModel
+    template_name = 'brouwersdag/my_models.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MyModelsView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        qs = super(MyModelsView, self).get_queryset()
+        return qs.filter(owner=self.request.user).order_by('-id')
+
+
+class CancelSignupView(OwnModelsMixin, DeleteView):
+    model = ShowCasedModel
+    success_url = reverse_lazy('brouwersdag:my-models')

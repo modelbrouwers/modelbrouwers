@@ -1,0 +1,13 @@
+{% extends "brouwersdag/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<form action="." method="post" class="container">
+    {% csrf_token %}
+    {% trans "Are you sure you want to cancel this signup? This action is irreversible." %}
+    <ul>
+        <li>{{ object }}</li>
+    </ul>
+    <div><button class="btn btn-warning">{% trans "Confirm" %}</button></div>
+</form>
+{% endblock content %}

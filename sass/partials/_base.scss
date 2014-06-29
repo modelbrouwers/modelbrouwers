@@ -5,6 +5,15 @@
     margin-top: 15px;
  }
 
+.nav-pills {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    @include opacity(0.8);
+}
+.nav > li > a {
+    padding: 5px 15px;
+}
+
 .main-content {
     // @include box-shadow($box-shadow-color 10px 0 10px -10px, $box-shadow-color -10px 0 10px -10px);
 }

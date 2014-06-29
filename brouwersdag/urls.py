@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, url
-# from django.contrib.auth.decorators import login_required
-
 import views
 
 
 urlpatterns = patterns('',
     url('^$', views.IndexView.as_view(), name='index'),
     url('^sign-up/$', views.SignupView.as_view(), name='model-signup'),
+    url('^sign-up/(?P<pk>\d+)/cancel/$', views.CancelSignupView.as_view(), name='cancel-signup'),
+    url('^my-models/$', views.MyModelsView.as_view(), name='my-models'),
 )

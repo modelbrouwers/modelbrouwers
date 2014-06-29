@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 13:12+0200\n"
-"PO-Revision-Date: 2014-05-31 13:14+0200\n"
+"POT-Creation-Date: 2014-06-29 18:38+0200\n"
+"PO-Revision-Date: 2014-06-29 18:39+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,7 @@ msgstr "breedte"
 msgid "height"
 msgstr "hoogte"
 
-#: models.py:28 models.py:56
+#: models.py:28 models.py:59
 msgid "competition"
 msgstr "wedstrijd"
 
@@ -119,80 +119,88 @@ msgstr "tentoongesteld model"
 msgid "showcased models"
 msgstr "tentoongestelde modellen"
 
-#: models.py:44 models.py:72 models.py:86
+#: models.py:47 models.py:75 models.py:89
 msgid "name"
 msgstr "naam"
 
-#: models.py:45
+#: models.py:48
 msgid "price per model"
 msgstr "prijs per model"
 
-#: models.py:47
+#: models.py:50
 msgid "models per participant"
 msgstr "modellen per deelnemer"
 
-#: models.py:48
+#: models.py:51
 msgid "Maximum number of models per participant, enter 0 for unlimited."
 msgstr "Maximum aantal modellen per deelnemer, vul 0 in voor ongelimiteerd."
 
-#: models.py:49
+#: models.py:52
 msgid "maximum number of participants"
 msgstr "maximum aantal deelnemers"
 
-#: models.py:50
+#: models.py:53
 msgid "Maximum number of participants, enter 0 for unlimited."
 msgstr "Maximum aantal deelnemers, vul 0 in voor ongelimiteerd."
 
-#: models.py:52
+#: models.py:55
 msgid "current open competition?"
 msgstr "huidige open wedstrijd?"
 
-#: models.py:53
+#: models.py:56
 msgid ""
 "Marking this competition as active will deactivate all other competitions."
 msgstr ""
 "Het markeren van de wedstrijd als 'huidige' zal alle andere wedstrijden als "
 "inactief markeren."
 
-#: models.py:57
+#: models.py:60
 msgid "competitions"
 msgstr "wedstrijden"
 
-#: models.py:73
+#: models.py:76
 msgid "date"
 msgstr "datum"
 
-#: models.py:77
+#: models.py:80
 msgid "brouwersdag"
 msgstr "brouwersdag"
 
-#: models.py:78
+#: models.py:81
 msgid "brouwersdagen"
 msgstr "brouwersdagen"
 
-#: models.py:87
+#: models.py:90
 msgid "website"
 msgstr "website"
 
-#: models.py:90
+#: models.py:93
 msgid "space needed"
 msgstr "benodigde ruimte"
 
-#: models.py:91
+#: models.py:94
 msgid "Amount of space needed. 100 characters or less."
 msgstr "Benodigde ruimte, 100 of minder karakters."
 
-#: models.py:94
+#: models.py:97
 msgid "exhibitor"
 msgstr "exposant"
 
-#: models.py:95
+#: models.py:98
 msgid "exhibitors"
 msgstr "exposanten"
 
-#: views.py:51
+#: views.py:60
 msgid "Your model has been submitted"
 msgstr "Je model werd toegevoegd."
+
+#: templates/brouwersdag/base.html:58
+msgid "Signup"
+msgstr "Inschrijving"
+
+#: templates/brouwersdag/base.html:59
+msgid "My models"
+msgstr "Mijn modellen"
 
 #: templates/brouwersdag/index.html:8
 msgid "Coming soon!"
@@ -282,6 +290,18 @@ msgstr ""
 "Deze beperking geldt <strong>enkel voor de wedstrijd</strong> Buiten de "
 "wedstrijd om mag je zoveel modellen als je wenst meebrengen!"
 
+#: templates/brouwersdag/my_models.html:6
+msgid "My submitted models"
+msgstr "Mijn ingeschreven modellen"
+
+#: templates/brouwersdag/my_models.html:11
+msgid "Entered for competition"
+msgstr "Ingeschreven voor de wedstrijd"
+
+#: templates/brouwersdag/my_models.html:22
+msgid "Cancel signup"
+msgstr "Inschrijving annuleren"
+
 #: templates/brouwersdag/nav_top.html:8
 msgid "Toggle navigation"
 msgstr "Toon/verberg navigatie"
@@ -289,3 +309,14 @@ msgstr "Toon/verberg navigatie"
 #: templates/brouwersdag/nav_top.html:14
 msgid "Back to the Modelbrouwers.nl homepage"
 msgstr "Terug naar de Modelbrouwers.nl homepage"
+
+#: templates/brouwersdag/showcasedmodel_confirm_delete.html:7
+msgid ""
+"Are you sure you want to cancel this signup? This action is irreversible."
+msgstr ""
+"Ben je zeker dat je deze inschrijving wil annuleren? Deze actie is "
+"onomkeerbaar."
+
+#: templates/brouwersdag/showcasedmodel_confirm_delete.html:11
+msgid "Confirm"
+msgstr "Bevestigen"

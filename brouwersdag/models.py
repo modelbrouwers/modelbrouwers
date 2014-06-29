@@ -39,6 +39,9 @@ class ShowCasedModel(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_scale(self):
+        return "1:{0}".format(self.scale) if self.scale else ''
+
 
 class Competition(models.Model):
     name = models.CharField(_('name'), max_length=100)

@@ -51,6 +51,19 @@ ul.messages {
   margin-top: 15px;
 }
 
+/* line 8, ../../../sass/partials/_base.scss */
+.nav-pills {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+}
+
+/* line 13, ../../../sass/partials/_base.scss */
+.nav > li > a {
+  padding: 5px 15px;
+}
+
 /* line 3, ../../../sass/partials/_header.scss */
 .navbar-center .navbar-nav {
   display: inline-block;
