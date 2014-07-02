@@ -2,6 +2,7 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DeleteView, TemplateView, ListView
@@ -14,7 +15,8 @@ from .models import ShowCasedModel, Competition
 class OwnModelsMixin(object):
     def get_queryset(self):
         qs = super(OwnModelsMixin, self).get_queryset()
-        return qs.filter(owner=self.request.user).order_by('-id')
+        user = self.request.user
+        return qs.filter(Q(owner=user) | Q(email=user.email)).order_by('-id')
 
 
 class IndexView(TemplateView):
@@ -70,8 +72,7 @@ class MyModelsView(OwnModelsMixin, ListView):
         return super(MyModelsView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        qs = super(MyModelsView, self).get_queryset()
-        return qs.filter(owner=self.request.user).order_by('-id')
+        return super(MyModelsView, self).get_queryset().order_by('-id')
 
 
 class CancelSignupView(OwnModelsMixin, DeleteView):
