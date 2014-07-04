@@ -1,0 +1,8 @@
+<div class="well confirmed-model r">
+    <h3 class="text-primary">
+        {% if model.topic %}<a href="{{ model.topic }}">{% endif %}{{ model.name }}{% if model.topic %}</a>{% endif %}
+        <small>{% if model.brand %}{{ model.brand }}, {% endif %}
+        {{ model.get_scale }}</small>
+    </h3>
+    {% if model.remarks %}<p><i>{{ model.remarks }}</i></p>{% endif %}
+</div>

@@ -64,6 +64,17 @@ ul.messages {
   padding: 5px 15px;
 }
 
+/* line 21, ../../../sass/partials/_base.scss */
+.r {
+  background: url("../images/logo/mb_r.png") no-repeat top right;
+  background-size: 25px 42px;
+}
+
+/* line 27, ../../../sass/partials/_base.scss */
+.confirmed-model h2, .confirmed-model h3, .confirmed-model h4 {
+  margin-top: 10px;
+}
+
 /* line 3, ../../../sass/partials/_header.scss */
 .navbar-center .navbar-nav {
   display: inline-block;

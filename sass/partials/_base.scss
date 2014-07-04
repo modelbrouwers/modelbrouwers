@@ -17,3 +17,14 @@
 .main-content {
     // @include box-shadow($box-shadow-color 10px 0 10px -10px, $box-shadow-color -10px 0 10px -10px);
 }
+
+.r {
+    background: url('../images/logo/mb_r.png') no-repeat top right;
+    background-size: 25px 42px;
+}
+
+.confirmed-model {
+    h2, h3, h4 {
+        margin-top: 10px;
+    }
+}

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import DeleteView, TemplateView, ListView
+from django.views.generic import DeleteView, ListView
 from django.views.generic.edit import CreateView
 
 from .forms import ShowCasedModelSignUpForm
@@ -19,8 +19,11 @@ class OwnModelsMixin(object):
         return qs.filter(Q(owner=user) | Q(email=user.email)).order_by('-id')
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
     template_name = 'brouwersdag/index.html'
+
+    def get_queryset(self):
+        return ShowCasedModel.objects.all().order_by('?')
 
 
 class SignupView(CreateView):
