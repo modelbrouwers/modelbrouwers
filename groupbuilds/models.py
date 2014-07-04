@@ -35,12 +35,16 @@ class GroupBuild(ForumMixin, models.Model):
     admins = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name=_('admins'),
         help_text=_('Users who manage the group build.'), related_name='admin_groupbuilds') # role maybe with through table
 
-    start = models.DateField(_('start date'), help_text=_('Date when you want to start building.'))
-    end = models.DateField(_('end date'), blank=True, null=True, help_text=_('Date this build ends.'))
-    duration = models.PositiveSmallIntegerField(_('duration'), choices=GroupbuildDurations.choices, default=GroupbuildDurations.three_months)
+    start = models.DateField(_('start date'), blank=True, null=True,
+        help_text=_('Date when you want to start building.'))
+    end = models.DateField(_('end date'), blank=True, null=True,
+        help_text=_('Date this build ends.'))
+    duration = models.PositiveSmallIntegerField(_('duration'),
+        choices=GroupbuildDurations.choices, default=GroupbuildDurations.three_months)
 
     # motivation, approval, voting popularity...
-    status = models.CharField(_('status'), max_length=10)
+    status = models.CharField(_('status'), max_length=10,
+        choices=GroupbuildStatuses.choices, default=GroupbuildStatuses.concept)
     users_can_vote = models.BooleanField(_('users can vote'), default=False,
         help_text=_('Let users vote to determine the build popularity'))
     upvotes = models.PositiveSmallIntegerField(_('upvotes'), blank=True, null=True)
@@ -57,7 +61,7 @@ class GroupBuild(ForumMixin, models.Model):
     introduction_topic_id = models.PositiveIntegerField(_('introduction topic'), blank=True, null=True)
 
     # logging
-    applicant = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='groupbuilds_applied')
+    applicant = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='groupbuilds_applied') # pretty much the owner
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -71,7 +75,11 @@ class GroupBuild(ForumMixin, models.Model):
         ordering = ('-modified', '-created') # most recently changed first
 
     def __unicode__(self):
-        return _("{name}: {status}").format(name=self.name, status=self.get_status_display())
+        return _("{name}: {status}").format(name=self.theme, status=self.get_status_display())
+
+    def num_participants(self):
+        return self.participants.count()
+    num_participants.short_description = _('# participants')
 
 
 class Participant(models.Model):
@@ -93,6 +101,6 @@ class Participant(models.Model):
 
     def __unicode__(self):
         return _("{build} participant: {user}").format(
-            build=self.groupbuild.name,
+            build=self.groupbuild.theme,
             user=self.user.username
         )

@@ -71,8 +71,17 @@ class ForumCategory(ForumMixin, models.Model):
     name = models.CharField(_('name'), max_length=255)
     forum_id = models.PositiveIntegerField(_('phpBB forum id'), blank=True, null=True)
 
+    class Meta:
+        verbose_name = _(u'forum category')
+        verbose_name_plural = _(u'forum categories')
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name
+
 
 ########## Models to interact with the MYSQL database #############################
+
 
 class ForumUser(models.Model):
     """ MySQL phpBB3 user, managed by phpBB3 """

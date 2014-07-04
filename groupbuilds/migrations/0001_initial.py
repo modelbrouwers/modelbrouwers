@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('theme', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['forum_tools.ForumCategory'])),
             ('description', self.gf('django.db.models.fields.TextField')()),
-            ('start', self.gf('django.db.models.fields.DateField')()),
+            ('start', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('end', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('duration', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=92)),
             ('status', self.gf('django.db.models.fields.CharField')(max_length=10)),
@@ -89,7 +89,7 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'forum_tools.forumcategory': {
-            'Meta': {'object_name': 'ForumCategory'},
+            'Meta': {'ordering': "('name',)", 'object_name': 'ForumCategory'},
             'forum_id': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
@@ -113,7 +113,7 @@ class Migration(SchemaMigration):
             'reason_denied': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'rules': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'rules_topic_id': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'start': ('django.db.models.fields.DateField', [], {}),
+            'start': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'theme': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'upvotes': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
