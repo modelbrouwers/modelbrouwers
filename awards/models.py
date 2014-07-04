@@ -86,8 +86,7 @@ class Project(models.Model):
 	name = models.CharField("titel verslag", max_length=100)
 	brouwer = models.CharField(max_length=30) #this should be able to be linked to an (existing) user
 	category = models.ForeignKey(Category, verbose_name="categorie")
-	#TODO: allow for an image to be shown
-	#image = models.ImageField()
+	image = models.ImageField(upload_to='awards/', blank=True, null=True)
 
 	nomination_date = models.DateField(default=date.today, db_index=True)
 	nominator = models.ForeignKey('general.UserProfile', null=True)
