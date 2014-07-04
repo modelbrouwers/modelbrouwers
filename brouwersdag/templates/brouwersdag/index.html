@@ -16,7 +16,11 @@
         <p class="text-muted">{% trans "Click the above button to sign up for the competition" %}</p>
 
         <section>
-            <h2>{% trans "Confirmed models" %}</h2>
+            <h2>{% trans "Confirmed models" %}
+                <small class="pull-right">
+                    {% blocktrans %}{{ n_total }} total, {{ n_competition }} competition{% endblocktrans %}
+                </small>
+            </h2>
             <div class="row">
                 {% with rows=object_list|rows:3 %}
                     <div class="col-md-4 col-xs-12">

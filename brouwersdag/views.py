@@ -2,7 +2,7 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DeleteView, ListView
@@ -24,6 +24,15 @@ class IndexView(ListView):
 
     def get_queryset(self):
         return ShowCasedModel.objects.all().order_by('?')
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        stats = self.get_queryset().aggregate(
+                n_total=Count('id'),
+                n_competition=Count('competition')
+            )
+        context.update(stats)
+        return context
 
 
 class SignupView(CreateView):
