@@ -3,9 +3,23 @@ import zlib
 
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from general.utils import clean_username
+
+
+class ForumMixin(object):
+    @cached_property
+    def forum(self):
+        try:
+            return Forum.objects.get(pk=self.forum_id)
+        except Forum.DoesNotExist:
+            return None
+
+    @property
+    def forum_name(self):
+        return self.forum.forum_name
 
 
 class ForumLinkBase(models.Model):
@@ -40,7 +54,7 @@ class ForumLinkSynced(models.Model):
         return u"%s -- %s" % (self.base.__unicode__(), self.link_id)
 
 
-class BuildReportsForum(models.Model):
+class BuildReportsForum(ForumMixin, models.Model):
     """ Model which tells us which forums hold build reports """
     forum_id = models.PositiveIntegerField()
 
@@ -52,13 +66,10 @@ class BuildReportsForum(models.Model):
     def __unicode__(self):
         return self.forum_name
 
-    @property
-    def forum(self):
-        return Forum.objects.get(pk=self.forum_id)
 
-    @property
-    def forum_name(self):
-        return self.forum.forum_name
+class ForumCategory(ForumMixin, models.Model):
+    name = models.CharField(_('name'), max_length=255)
+    forum_id = models.PositiveIntegerField(_('phpBB forum id'), blank=True, null=True)
 
 
 ########## Models to interact with the MYSQL database #############################

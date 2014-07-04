@@ -127,6 +127,7 @@ INSTALLED_APPS = (
     'brouwersdag',
     'forum_tools',
     'general',
+    'groupbuilds',
     'kitreviews',
     'migration',
     'online_users',
