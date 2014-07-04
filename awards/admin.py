@@ -58,7 +58,8 @@ class ProjectAdmin(admin.ModelAdmin):
         'nomination_date',
         'nominator',
         'rejected',
-        'votes'
+        'votes',
+        'image',
         ) + readonly_fields
 
     actions = [reject, mark_reviewed, resync_score]
