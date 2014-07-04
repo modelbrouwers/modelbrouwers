@@ -49,6 +49,7 @@
             {% endif %}
         {% endblock messages %}
 
+        {% block sub-nav %}
         <div class="container">
             {% url 'brouwersdag:index' as url_bd_index %}
             {% url 'brouwersdag:model-signup' as url_bd_signup %}
@@ -59,6 +60,7 @@
               <li{% if request.path == url_bd_my_models %} class="active"{% endif %}><a href="{{ url_bd_my_models }}">{% trans "My models" %}</a></li>
             </ul></div>
         </div>
+        {% endblock %}
 
         {% block content %}
         <div class="container"></div>
