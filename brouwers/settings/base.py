@@ -110,11 +110,13 @@ INSTALLED_APPS = (
 
     # Third party
     'compressor',
+    'formulation',
     'sessionprofile',
     'south',
     'tastypie',
     'django_extensions',
     'django_nose',
+    'rosetta',
 
     # Modelbrouwers
     'users',
@@ -122,6 +124,7 @@ INSTALLED_APPS = (
     'awards',
     'banning',
     'builds',
+    'brouwersdag',
     'forum_tools',
     'general',
     'kitreviews',

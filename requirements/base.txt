@@ -7,7 +7,7 @@ django-tastypie==0.9.15
 mimeparse==0.1.3
 nose==1.3.0
 python-dateutil==2.1
-git+https://github.com/modelbrouwers/django-login-for-phpbb.git@1.0.2#egg=sessionprofile-1.0.2
+git+https://github.com/modelbrouwers/django-login-for-phpbb.git@1.0.4#egg=sessionprofile-1.0.4
 six==1.4.1
 sqlparse==0.1.10
 wsgiref==0.1.2
@@ -15,5 +15,7 @@ django-compressor==1.3
 factory_boy==2.3.1
 formulation==2.0.7.2
 djangorestframework==2.3.13
-# django-choices==
+django-choices==1.1.12
 mock==1.0.1
+sorl-thumbnail==11.12
+django-rosetta==0.7.4

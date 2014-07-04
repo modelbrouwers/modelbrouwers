@@ -2,169 +2,184 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-17 20:24+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-05-29 21:33+0200\n"
+"PO-Revision-Date: 2014-05-29 21:59+0200\n"
+"Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: admin.py:11
+#: admin.py:14
 msgid "General information"
 msgstr "Algemene informatie"
 
-#: admin.py:20
+#: admin.py:23
 msgid "Kit information"
 msgstr "Kitinformatie"
 
-#: forms.py:20
+#: forms.py:22
 msgid "Enter a keyword or the name of the builder"
 msgstr "Geef een zoekterm of de naam van de bouwer"
 
-#: forms.py:28
+#: forms.py:30
 msgid "Start date"
 msgstr "Begindatum"
 
-#: forms.py:31
+#: forms.py:33
 msgid "End date"
 msgstr "Einddatum"
 
-#: forms.py:65
+#: forms.py:67
 msgid "This URL doesn't point to a forum topic."
 msgstr "Deze URL wijst niet naar een forum brouwverslag."
 
-#: models.py:26
+#: models.py:23
 msgid "slug"
 msgstr "slug"
 
-#: models.py:30
+#: models.py:27
 msgid "link to the build report"
 msgstr "link naar het brouwverslag"
 
-#: models.py:32
+#: models.py:29
 msgid "Topic ID"
 msgstr "Topic id"
 
-#: models.py:34
+#: models.py:31
 msgid "PHPBB topic id, used to build the link to the topic."
 msgstr ""
-"PHPBB topic id, wordt gebruikt om de link naar het brouwverslag te genereren."
+"PHPBB topic id, wordt gebruikt om de link naar het brouwverslag te "
+"genereren."
 
-#: models.py:37
+#: models.py:34
 msgid "Forum ID"
 msgstr "Forum id"
 
-#: models.py:39
+#: models.py:36
 msgid "Used to determine the 'category'."
 msgstr "Wordt gebruikt om de categorie te bepalen."
 
-#: models.py:43
+#: models.py:40
 msgid "title"
 msgstr "titel"
 
-#: models.py:44
+#: models.py:41
 msgid "Enter a descriptive build title."
 msgstr "Geef een duidelijke omschrijving."
 
-#: models.py:45
+#: models.py:42
 msgid "scale"
 msgstr "schaal"
 
-#: models.py:46
+#: models.py:43
 msgid "Enter the number after the \"1:\" or \"1/\". E.g. 1/48 --> enter 48."
 msgstr "Geef de schaal (bv voor 1/48 geef je 48)."
 
-#: models.py:47
+#: models.py:44
 msgid "brand"
 msgstr "merk"
 
-#: models.py:48
-msgid "brand name (old)"
-msgstr "merk"
-
-#: models.py:51
+#: models.py:47
 msgid "start date"
 msgstr "begindatum"
 
-#: models.py:52
+#: models.py:48
 msgid "end date"
 msgstr "einddatum"
 
-#: models.py:56
-msgid "Photo 1"
-msgstr "Foto 1"
-
-#: models.py:56 models.py:57 models.py:58
-msgid "Enter a link to a photo"
-msgstr "Geef de URL van een foto"
-
-#: models.py:57
-msgid "Photo 2"
-msgstr "Foto 2"
-
-#: models.py:58
-msgid "Photo 3"
-msgstr "Foto 3"
-
-#: models.py:62
+#: models.py:51
 msgid "build report"
 msgstr "brouwverslag"
 
-#: models.py:63
+#: models.py:52
 msgid "build reports"
 msgstr "brouwverslagen"
 
-#: models.py:67
+#: models.py:56
 #, python-format
 msgid "%(nickname)s - %(title)s"
 msgstr "%(nickname)s - %(title)s"
 
-#: templates/builds/add.html:18
+#: models.py:109
+msgid "build"
+msgstr "bouw"
+
+#: models.py:111
+msgid "Link to an image"
+msgstr "Link naar een foto"
+
+#: models.py:112
+msgid "Order in which photos are shown"
+msgstr "Volgorde waarin de foto's getoond worden"
+
+#: models.py:115
+msgid "build photo"
+msgstr "bouwfoto"
+
+#: models.py:116
+msgid "build photos"
+msgstr "bouwfoto's"
+
+#: models.py:120
+#, python-format
+msgid "Photo for build %(build)s"
+msgstr "Foto voor bouw %(build)s"
+
+#: models.py:124
+msgid "Provide either an album photo or a link to a photo."
+msgstr "Geef een albumfoto of een link naar een foto op."
+
+#: templates/builds/add.html:19
 msgid "Add a build report"
 msgstr "Voeg een brouwverslag toe"
 
-#: templates/builds/add.html:22 templates/builds/add.html.py:32
+#: templates/builds/add.html:23 templates/builds/add.html.py:33
 msgid "Last 20 builds"
 msgstr "Laatste 20 verslagen"
 
-#: templates/builds/add.html:47
+#: templates/builds/add.html:48
 msgid ""
-"Use this page to link your projects to your profile. Caution, everything you "
-"enter here is public for all visitors!"
+"Use this page to link your projects to your profile. Caution, everything you"
+" enter here is public for all visitors!"
 msgstr ""
-"Gebruik deze pagina om je projecten te linken naar je profiel. PAS OP: alles "
-"wat je hier opgeeft is voor alle bezoekers zichtbaar!"
+"Gebruik deze pagina om je projecten te linken naar je profiel. PAS OP: alles"
+" wat je hier opgeeft is voor alle bezoekers zichtbaar!"
 
-#: templates/builds/add.html:54
+#: templates/builds/add.html:56
 msgid "Save"
 msgstr "Opslaan"
 
-#: templates/builds/add.html:74
+#: templates/builds/add.html:73
+msgid "loading"
+msgstr "laden"
+
+#: templates/builds/add.html:83
 msgid "Sign in to add your own build reports!"
 msgstr "Log in om brouwverslagen toe te voegen!"
 
-#: templates/builds/base.html:6
+#: templates/builds/base.html:5
 msgid "Build reports"
 msgstr "Brouwverslagen"
 
-#: templates/builds/base.html:25
+#: templates/builds/base.html:33
 msgid "Overview / Add build report"
 msgstr "Overzicht / Voeg brouwverslag toe"
 
-#: templates/builds/base.html:31
+#: templates/builds/base.html:39
 msgid "My builds"
 msgstr "Mijn projecten"
 
-#: templates/builds/build.html:24
+#: templates/builds/build.html:23
 msgid "View topic"
 msgstr "Bekijk brouwverslag"
 
@@ -191,9 +206,25 @@ msgstr "Onbekend"
 msgid "No build reports were found for this user!"
 msgstr "Van deze gebruiker zijn geen brouwverslagen gevonden!"
 
-#: templates/builds/edit.html:6
+#: templates/builds/edit.html:11
 msgid "Edit build report"
 msgstr "Brouwverslag bewerken"
+
+#: templates/builds/photos_formset.html:8
+msgid "Build photos"
+msgstr "Bouwfoto's"
+
+#: templates/builds/photos_formset.html:10
+msgid "From albums"
+msgstr "Vanuit de albums"
+
+#: templates/builds/photos_formset.html:12
+msgid "URL"
+msgstr "URL"
+
+#: templates/builds/photos_formset.html:32
+msgid "Check to delete photo"
+msgstr "Vink aan om de foto te verwijderen"
 
 #: templates/builds/profile_builds.html:6
 msgid "Build reports overview"
@@ -206,3 +237,18 @@ msgstr "URL van het verslag"
 #: templates/builds/profile_builds.html:43
 msgid "Go to topic..."
 msgstr "Ga naar dit verslag"
+
+#~ msgid "brand name (old)"
+#~ msgstr "merk"
+
+#~ msgid "Photo 1"
+#~ msgstr "Foto 1"
+
+#~ msgid "Enter a link to a photo"
+#~ msgstr "Geef de URL van een foto"
+
+#~ msgid "Photo 2"
+#~ msgstr "Foto 2"
+
+#~ msgid "Photo 3"
+#~ msgstr "Foto 3"

@@ -1,0 +1,11 @@
+/*
+* Hide the dotted lines around an element when it receives focus.
+*/
+
+* { _noFocusLine: expression(this.hideFocus=true); } /* ie7 */
+::-moz-focus-inner {border:0;}                       /* firefox */
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+:focus, a:focus {outline:none;}                      /* ie8, chrome, etc */

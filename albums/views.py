@@ -14,7 +14,7 @@ from awards.models import Nomination
 
 from models import *
 from forms import *
-from utils import resize, admin_mode, can_switch_admin_mode
+from utils import resize, admin_mode, can_switch_admin_mode, get_default_img_size
 from datetime import datetime
 from zipfile import ZipFile
 
@@ -156,19 +156,13 @@ def download_album(request, album_id=None):
     #log download
     album_download = AlbumDownload(album=album, downloader=request.user)
 
-    rel_path = "albums/%(userid)s/%(albumid)s/%(albumid)s.zip" % {
-            'userid': album.user.id,
-            'albumid': album.id,
-            }
+    rel_path = os.path.join('albums', str(album.user_id), str(album.id), '{0}.zip'.format(album.id))
 
     if downloads == 0:
         photos = album.photo_set.filter(trash=False)
         if photos.count() > 0:
             #create zip file
-            filename = "%(media_root)s%(url)s" % {
-                        'media_root': settings.MEDIA_ROOT,
-                        'url': rel_path
-                        }
+            filename = os.path.join(settings.MEDIA_ROOT, rel_path)
             zf = ZipFile(filename, mode='w')
             try:
                 for photo in photos:
@@ -185,11 +179,7 @@ def download_album(request, album_id=None):
             messages.warning(request, _("This album could not be downloaded because it has no photos yet."))
             return HttpResponseRedirect(reverse(browse_album, args=[album.id]))
 
-    url = "%(media_url)s%(rel_path)s" % {
-        'media_url': settings.MEDIA_URL,
-        'rel_path': rel_path
-        }
-
+    url = os.path.join(settings.MEDIA_URL, rel_path)
     album_download.save()
     return HttpResponseRedirect(url)
 
@@ -266,7 +256,7 @@ def upload(request):
             path = 'albums/%s/%s/' % (request.user.id, album.id)
             # get the resizing dimensions from the preferences
             preferences = Preferences.get_or_create(request.user)
-            resize_dimensions = preferences.get_default_img_size()
+            resize_dimensions = get_default_img_size(preferences)
             i = 0 # to access the file in request.FILES
             for form in formset:
                 if form.has_changed():

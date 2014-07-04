@@ -3,7 +3,6 @@ import warnings
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin, SiteProfileNotAvailable)
 from django.core.exceptions import ImproperlyConfigured
-from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property

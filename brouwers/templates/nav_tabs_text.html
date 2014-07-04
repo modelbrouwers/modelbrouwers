@@ -1,0 +1,35 @@
+{% load i18n staticfiles brouwers %}
+
+{% url 'general.views.index' as url_home %}
+{% url 'albums.views.index' as url_albums %}
+{% url 'kitreviews:index' as url_kitreviews %}
+
+{% spaceless %}
+    <li id="tab-home" class="tab">
+        <a href="{{ url_home }}"
+            {% ifequal request.path url_home %} class="active"{% endifequal %}
+            title="{% if not request.path|startswith:url_home %}{% trans 'Visit the homepage!' %}{% endif %}">{% trans "home" %}</a>
+    </li>
+
+    <li id="tab-forum" class="tab">
+        <a href="/phpBB3/" title="{% trans 'Visit the forums!' %}">{% trans "forum" %}</a>
+    </li>
+
+    <li id="tab-shop" class="tab">
+        <a href="/winkel/" title="{% trans 'Visit the shop!' %}">{% trans "shop" %}</a>
+    </li>
+
+    <li id="tab-albums" class="tab">
+        <a href="{{ url_albums }}"
+            {% if request.path|startswith:url_albums %} class="active"{% endif %}
+            title="{% if request.path|startswith:url_albums %}{% trans 'You are now in the photo albums!' %}{% else %}{% trans 'Go to the albums!' %}{% endif %}">{% trans "albums" %}</a>
+    </li>
+
+    <li id="tab-kitreviews" class="tab">
+        <a href="{{ url_kitreviews }}"{% if request.path|startswith:url_kitreviews %} class="active"{% endif %}
+            title="{% if not request.path|startswith:url_kitreviews %}{% trans 'Visit the kit reviews!' %}{% endif %}">{% trans "kit reviews" %}</a>
+    </li>
+    <!--<li>
+        <img src="{% static 'images/nav/modelbouw_wiki.png' %}" alt="Modelbouw Wiki"/>
+    </li>-->
+{% endspaceless %}
