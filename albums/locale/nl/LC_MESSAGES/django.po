@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-29 21:40+0200\n"
-"PO-Revision-Date: 2014-05-29 21:56+0200\n"
+"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"PO-Revision-Date: 2014-07-06 16:46+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -377,7 +377,7 @@ msgstr "albumdownloads"
 msgid "Download of %(album)s by %(username)s"
 msgstr "Download van %(album)s door %(username)s"
 
-#: views.py:169
+#: views.py:179
 msgid "This album could not be downloaded because it has no photos yet."
 msgstr "Dit album kon niet gedownload worden, het bevat nog geen foto's."
 
@@ -485,11 +485,11 @@ msgstr "Mijn laatste uploads"
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: templates/albums/base.html:98
+#: templates/albums/base.html:58
 msgid "Last modified albums"
 msgstr "Laatst gewijzigde albums"
 
-#: templates/albums/base.html:109
+#: templates/albums/base.html:69
 msgid "Last uploads"
 msgstr "Laatste uploads"
 
@@ -646,6 +646,16 @@ msgstr "Directe link kopiëren"
 #: templates/albums/preferences.html:5
 msgid "Here you can configure your preferences"
 msgstr "Stel hier je voorkeuren in"
+
+#: templates/albums/spotlight.html:31
+#, python-format
+msgid ""
+"\n"
+"                            Built by '%(builder)s', this project won first place in the category '%(category)s'.\n"
+"                        "
+msgstr ""
+"\n"
+"Gebouwd door '%(builder)s', won dit project de eerste plaats in de categorie '%(category)s'."
 
 #: templates/albums/upload.html:15 templates/albums/uploadify.html:176
 msgid "Upload images"

@@ -2,161 +2,169 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-29 21:32+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"PO-Revision-Date: 2014-07-06 16:45+0200\n"
+"Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: settings/base.py:25
 msgid "English"
-msgstr ""
+msgstr "Engels"
 
 #: settings/base.py:26
 msgid "Dutch"
-msgstr ""
+msgstr "Nederlands"
 
 #: templates/403.html:4
 msgid "Access denied"
-msgstr ""
+msgstr "Geen toegang"
 
 #: templates/403.html:7
 msgid "Oops... you don't have access to this page!"
-msgstr ""
+msgstr "Oeps... je hebt geen toegang tot deze pagina!"
 
 #: templates/403.html:11
 msgid ""
 "The requested page cannot be shown, you have insufficient permissions. You "
 "might need to log in to view the content."
 msgstr ""
+"De opgevraagde pagina kan niet getoond worden, je hebt onvoldoende rechten. "
+"Mogelijk moet je inloggen om de inhoud te kunnen zien."
 
 #: templates/404.html:39
 msgid "Oops... a 404!"
-msgstr ""
+msgstr "Oeps... een 404!"
 
 #: templates/404.html:46
 #, python-format
 msgid ""
-"The requested page could not be found or isn't accessible because of limited "
-"user rights. Click on the big logo above or click <a href=\"/\">here</a> to "
-"return to the homepage. Alternatively, use the back button in your browser "
+"The requested page could not be found or isn't accessible because of limited"
+" user rights. Click on the big logo above or click <a href=\"/\">here</a> to"
+" return to the homepage. Alternatively, use the back button in your browser "
 "or click <a href=\"%(return)s\">here</a> to return to the previous page."
 msgstr ""
+"De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
+"doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
+"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik"
+" de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om "
+"terug te gaan naar de vorige pagina."
 
 #: templates/base.html:6
 msgid "Materials and knowledge for scale modelling."
-msgstr ""
+msgstr "Materialen en kennisbank voor de modelbouw."
 
 #: templates/base.html:99
 msgid "Back to the Modelbrouwers.nl homepage"
-msgstr ""
+msgstr "Terug naar de Modelbrouwers.nl homepage"
 
 #: templates/base.html:131
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: templates/base.html:132
 msgid "Builds"
-msgstr ""
+msgstr "Brouwverslagen"
 
 #: templates/base.html:133
 msgid "Awards"
-msgstr ""
+msgstr "Awards"
 
 #: templates/base.html:134
 msgid "Secret Santa"
-msgstr ""
+msgstr "Secret Santa"
 
 #: templates/base.html:136
 msgid "Migrations"
-msgstr ""
+msgstr "Migraties"
 
 #: templates/base.html:143
 msgid "Login"
-msgstr ""
+msgstr "Inloggen"
 
 #: templates/base.html:146
 msgid "Register"
-msgstr ""
+msgstr "Registreren"
 
 #: templates/base.html:152
 msgid "logout"
-msgstr ""
+msgstr "uitloggen"
 
 #: templates/base.html:157
 msgid "Profile"
-msgstr ""
+msgstr "Profiel"
 
 #: templates/form_in_table.html:35 templates/form_in_table_rows.html:19
 msgid "Fix the error:"
-msgstr ""
+msgstr "Los het probleem op:"
 
 #: templates/nav_tabs.html:11 templates/nav_tabs_text.html:11
 msgid "Visit the homepage!"
-msgstr ""
+msgstr "Ga naar de homepage!"
 
 #: templates/nav_tabs.html:15 templates/nav_tabs_text.html:15
 msgid "Visit the forums!"
-msgstr ""
+msgstr "Ga naar het forum!"
 
 #: templates/nav_tabs.html:19 templates/nav_tabs_text.html:19
 msgid "Visit the shop!"
-msgstr ""
+msgstr "Ga naar de shop!"
 
 #: templates/nav_tabs.html:25 templates/nav_tabs_text.html:25
 msgid "You are now in the photo albums!"
-msgstr ""
+msgstr "Je bent nu in de albums!"
 
 #: templates/nav_tabs.html:25 templates/nav_tabs_text.html:25
 msgid "Go to the albums!"
-msgstr ""
+msgstr "Ga naar de albums!"
 
 #: templates/nav_tabs.html:30 templates/nav_tabs_text.html:30
 msgid "Visit the kit reviews!"
-msgstr ""
+msgstr "Ga naar de kitreviews!"
 
 #: templates/nav_tabs_text.html:11
 msgid "home"
-msgstr ""
+msgstr "home"
 
 #: templates/nav_tabs_text.html:15
 msgid "forum"
-msgstr ""
+msgstr "forum"
 
 #: templates/nav_tabs_text.html:19
 msgid "shop"
-msgstr ""
+msgstr "shop"
 
 #: templates/nav_tabs_text.html:25
 msgid "albums"
-msgstr ""
+msgstr "albums"
 
 #: templates/nav_tabs_text.html:30
 msgid "kit reviews"
-msgstr ""
+msgstr "kitreviews"
 
 #: templates/pagination.html:5
 msgid "First page"
-msgstr ""
+msgstr "Eerste pagina"
 
 #: templates/pagination.html:16
 msgid "of"
-msgstr ""
+msgstr "van"
 
 #: templates/pagination.html:25
 msgid "Last page"
-msgstr ""
+msgstr "Laatste pagina"
 
 #: templates/search_form.html:16
 msgid "Search"
-msgstr ""
+msgstr "Zoek"

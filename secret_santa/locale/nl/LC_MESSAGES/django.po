@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-06 02:56+0100\n"
+"POT-Creation-Date: 2014-07-06 16:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sergei Maertens <sergei@modelbrouwers.nl>\n"
 "Language-Team: nl <sergei@modelbrouwers.nl>\n"
@@ -18,71 +18,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:8
+#: models.py:11
 msgid "year"
 msgstr "jaar"
 
-#: models.py:8
+#: models.py:11
 msgid "Year the lottery starts."
 msgstr "Jaar waarin de lootjesverdeling plaatsvindt."
 
-#: models.py:9
+#: models.py:12
 msgid "enrollment start"
 msgstr "start inschrijvingen"
 
-#: models.py:9
+#: models.py:12
 msgid "From when can people enroll."
 msgstr "Tijdstip vanaf wanneer mensen mogen inschrijven."
 
-#: models.py:10
+#: models.py:13
 msgid "enrollment end"
 msgstr "einde inschrijvingen"
 
-#: models.py:10
+#: models.py:13
 msgid "Until when can people enroll."
 msgstr "Tijdstip tot wanneer mensen mogen inschrijven."
 
-#: models.py:11
+#: models.py:14
 msgid "lottery date"
 msgstr "datum lootjesverdeling"
 
-#: models.py:11
+#: models.py:14
 msgid "When will the lottery happen?"
 msgstr "Wanneer gebeurt de lootjesverdeling?"
 
-#: models.py:12
+#: models.py:15
 msgid "Lottery done?"
 msgstr "Lootjes verdeeld?"
 
-#: models.py:14
+#: models.py:17
 msgid "price class"
 msgstr "prijsklasse"
 
-#: models.py:16
+#: models.py:19
 msgid "Enter a value here for the estimated price class of the gift."
 msgstr "Vul hier de prijsklasse van het cadeautje in."
 
-#: models.py:20
+#: models.py:23
 msgid "secret santa"
 msgstr "secret santa"
 
-#: models.py:21
+#: models.py:24
 msgid "secret santas"
 msgstr "secret santas"
 
-#: models.py:52 models.py:68
+#: models.py:55 models.py:71
 msgid "secret santa edition"
 msgstr "secret santa editie"
 
-#: models.py:53
+#: models.py:56
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:56
+#: models.py:59
 msgid "participant"
 msgstr "deelnemer"
 
-#: models.py:57
+#: models.py:60
 msgid "participants"
 msgstr "deelnemers"
 
@@ -166,10 +166,10 @@ msgid ""
 "assignment is done.</p>"
 msgstr ""
 "\n"
-"Aanmelden kan van %(enrollment_start)s <strong>tot %(enrollment_end)s"
-"</strong>, daarna (op %(lottery_date)s) worden de lootjes verdeeld en kan "
-"iedereen een cadeautje kopen voor degene die op z'n lootje staat... "
-"Je krijgt een notificatie per e-mail als de lootjes verdeeld zijn."
+"Aanmelden kan van %(enrollment_start)s <strong>tot %(enrollment_end)s</"
+"strong>, daarna (op %(lottery_date)s) worden de lootjes verdeeld en kan "
+"iedereen een cadeautje kopen voor degene die op z'n lootje staat... Je "
+"krijgt een notificatie per e-mail als de lootjes verdeeld zijn."
 
 #: templates/secret_santa/base.html:39
 msgid "Sign up"

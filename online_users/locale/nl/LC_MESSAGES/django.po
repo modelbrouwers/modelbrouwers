@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-04 03:24+0100\n"
+"POT-Creation-Date: 2014-07-06 16:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:11
+#: models.py:12
 msgid "last seen online"
 msgstr "laatst online gezien"
 
-#: models.py:14
+#: models.py:15
 msgid "notificate"
 msgstr "verwittig"
 
-#: models.py:16
+#: models.py:17
 msgid "Send a notification to the online moderators when this user is online."
 msgstr ""
 "Stuur een verwittiging naar de online moderators als de gebruiker online is."
 
-#: models.py:21
+#: models.py:22
 msgid "tracked user"
 msgstr "gevolgde gebruiker"
 
-#: models.py:22
+#: models.py:23
 msgid "tracked users"
 msgstr "gevolgde gebruikers"

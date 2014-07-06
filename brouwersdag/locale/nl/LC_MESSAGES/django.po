@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-29 18:38+0200\n"
-"PO-Revision-Date: 2014-06-29 18:39+0200\n"
+"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"PO-Revision-Date: 2014-07-06 16:39+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -190,26 +190,26 @@ msgstr "exposant"
 msgid "exhibitors"
 msgstr "exposanten"
 
-#: views.py:60
+#: views.py:74
 msgid "Your model has been submitted"
 msgstr "Je model werd toegevoegd."
 
-#: templates/brouwersdag/base.html:58
+#: templates/brouwersdag/base.html:59
 msgid "Signup"
 msgstr "Inschrijving"
 
-#: templates/brouwersdag/base.html:59
+#: templates/brouwersdag/base.html:60
 msgid "My models"
 msgstr "Mijn modellen"
 
 #: templates/brouwersdag/index.html:8
-msgid "Coming soon!"
-msgstr "Binnenkort beschikbaar!"
+msgid "Brouwersdag model signup"
+msgstr "Inschrijven modellen Brouwersdag"
 
 #: templates/brouwersdag/index.html:10
 msgid ""
-"Soon, you will be able to find out which models will be on display. The list"
-" is updated after every model sign-up!"
+"Below you can find out which models will be on display. The list is updated "
+"after every model sign-up!"
 msgstr ""
 "Binnenkort zal je hier kunnen ontdekken welke modellen er aanwezig zijn. "
 "Deze lijst wordt bijgewerkt na ieder toegevoegd model."
@@ -225,6 +225,19 @@ msgstr "Voeg je modellen toe"
 #: templates/brouwersdag/index.html:16
 msgid "Click the above button to sign up for the competition"
 msgstr "Klik op de knop hierboven om je aan te melden voor de wedstrijd"
+
+#: templates/brouwersdag/index.html:19
+msgid "Confirmed models"
+msgstr "Bevestigde modellen"
+
+#: templates/brouwersdag/index.html:21
+#, python-format
+msgid "%(n_total)s total, %(n_competition)s competition"
+msgstr "%(n_total)s totaal, %(n_competition)s wedstrijd"
+
+#: templates/brouwersdag/index.html:44
+msgid "Back to top"
+msgstr "Terug naar boven"
 
 #: templates/brouwersdag/model_signup.html:10
 msgid "Brouwersdag 2014"
@@ -320,3 +333,6 @@ msgstr ""
 #: templates/brouwersdag/showcasedmodel_confirm_delete.html:11
 msgid "Confirm"
 msgstr "Bevestigen"
+
+#~ msgid "Coming soon!"
+#~ msgstr "Binnenkort beschikbaar!"
