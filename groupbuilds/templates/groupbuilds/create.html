@@ -1,0 +1,12 @@
+{% extends "groupbuilds/base.html" %}
+{% load i18n formulation %}
+
+{% block content %}
+{% form 'default.form' %}
+    <section class="create-form container">
+        <form action="." method="post">{% csrf_token %}
+            {{ form.as_p }}
+        </form>
+    </section>
+{% endform %}
+{% endblock %}

@@ -1,7 +1,10 @@
-from django.views.generic import ListView
-from django.utils import timezone
+from django.core.urlresolvers import reverse
+from django.views.generic import ListView, CreateView
+
+from utils.views import LoginRequiredMixin
 
 from .models import GroupBuild, GroupbuildStatuses as GBStatuses
+from .forms import GroupBuildForm
 
 
 class GroupBuildListView(ListView):
@@ -15,3 +18,12 @@ class GroupBuildListView(ListView):
             'statuses': GBStatuses.choices
         })
         return super(GroupBuildListView, self).get_context_data(**kwargs)
+
+
+class GroupBuildCreateView(LoginRequiredMixin, CreateView):
+    model = GroupBuild
+    template_name = 'groupbuilds/create.html'
+    form_class = GroupBuildForm
+
+    def get_success_url(self):
+        return reverse('groupbuilds:edit', kwargs={'slug': self.object.slug})

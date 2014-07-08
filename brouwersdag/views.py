@@ -1,12 +1,12 @@
 # TODO: filter queryset on models on future bd's
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DeleteView, ListView
 from django.views.generic.edit import CreateView
+
+from utils.views import LoginRequiredMixin
 
 from .forms import ShowCasedModelSignUpForm
 from .models import ShowCasedModel, Competition
@@ -75,13 +75,9 @@ class SignupView(CreateView):
         return super(SignupView, self).form_valid(form)
 
 
-class MyModelsView(OwnModelsMixin, ListView):
+class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):
     model = ShowCasedModel
     template_name = 'brouwersdag/my_models.html'
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(MyModelsView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         return super(MyModelsView, self).get_queryset().order_by('-id')

@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from djchoices import DjangoChoices, ChoiceItem
+from autoslug import AutoSlugField
 
 from forum_tools.models import ForumCategory, ForumMixin
 from .managers import PublicGroupBuildsManager
@@ -37,6 +38,8 @@ class GroupBuild(ForumMixin, models.Model):
     # core information
     theme = models.CharField(_('theme'), max_length=100,
                              help_text=_('Theme/name of the group build'))
+    slug = AutoSlugField(_('slug'), editable=True, unique=True, populate_from='theme')
+
     category = models.ForeignKey(
         ForumCategory, verbose_name=_('forum category'))
     description = models.TextField(
