@@ -2,11 +2,105 @@
 {% load i18n formulation %}
 
 {% block content %}
-{% form 'default.form' %}
+{% form 'horizontal.form' %}{% with field_grid="col-md-6" label_grid="col-md-6" %}
     <section class="create-form container">
-        <form action="." method="post">{% csrf_token %}
-            {{ form.as_p }}
+        <form action="." method="post" class="form-horizontal">{% csrf_token %}
+        {% with label_grid='col-md-3' field_grid='col-md-8' %}
+
+            <h2>{% trans "Submit a new group build" %}</h2>
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    <fieldset class="well">
+                        <h3>
+                            {% trans "Theme" %}
+                            <br>
+                            <small>{% trans "What's it all about?" %}</small>
+                        </h3>
+                        {% field form.theme %}
+                        {% field form.category %}
+                        {% field form.description %}
+                    </fieldset>
+
+                    <fieldset class="well">
+                        <h3>
+                            {% trans "Planning" %}
+                            <br>
+                            <small>{% trans "When should it all start and end?" %}</small>
+                        </h3>
+                        {% field form.start %}
+                        {% field form.duration %}
+                    </fieldset>
+
+                    <fieldset class="well">
+                        <h3>
+                            {% trans "Management" %}
+                            <br>
+                            <small>{% trans "Who can edit this information?" %}</small></h3>
+                        {% field form.admins placeholder=_('Enter the forum names') %}
+                    </fieldset>
+
+                    <fieldset class="well">
+                        <h3>
+                            {% trans "Rules &amp; misc" %}
+                            <br>
+                            <small>{% trans "Less important, but nice to have!" %}</small>
+                        </h3>
+
+                        {% field form.rules %}
+
+                        <strong class="text-danger">NOTE: the fields below don't work yet, they expect topic IDs and not urls.</strong>
+
+                        {% field form.rules_topic_id %}
+                        {% field form.homepage_topic_id %}
+                        {% field form.introduction_topic_id %}
+                    </fieldset>
+
+                    <div class="form-group pull-right">
+                        {% block submit_button %}
+                            <button type="submit" class="btn btn-primary">{% trans "Create group build" %}</button>
+                        {% endblock %}
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <aside class="rules">
+                        {# TODO: should be CMS content #}
+                        <h3 class="text-warning">{% trans "Rules &amp; guidelines" %}</h3>
+                        {% blocktrans %}
+                            <p>You can submit your group build ideas here, find interested
+                            people, and tweak the subject/data as much as you want.</p>
+
+                            <p>When you're happy with the result, check the calendar and make sure your start-date/duration are reasonable. Then you can submit the group build to the board moderators.</p>
+
+                            <p>The moderators will then review the group build and assign a start date and duration. If needed, they will communicate to you about potential changes.</p>
+
+                            <p>Some general rules apply. The staff can always decide to divert from them if there's a reason for diversion.</p>
+
+                            <ul>
+                                <li>No more than <strong>one</strong> group build per discipline. A discipline is roughly equal with a forum (like cars, military aviation, &hellip;)</li>
+
+                                <li>A 'minimum' of <strong>10</strong> participants. Make sure your potential participants have subscribed to the group build, this will be used to check if the quota are met. 'Minimum' is quoted, because 9 participants is usually not a big issue.</li>
+
+                                <li>Think about the duration and make a reasonable estimate. The default duration is three months, this is for a reason. Extensions are possible, but you need a strong case to get it - especially if different group builds in the same forum section are planned!</li>
+
+                                <li>Group builds can be closed at any time if the activity died out. It's your responsibility as admin/gb moderator to keep it active and interesting.</li>
+
+                                <li>Any other rules (like starting with an unoped kit, amount of kits you can participante with, &hellip;) are up to the organisers. Please take care to mention these rules the rules field or in your rules topic.</li>
+                            </ul>
+
+                            <p>And most of all, have fun! Group builds are a valuable and popular aspect of scale modelling communities!</p>
+
+
+                        {% endblocktrans %}
+                    </aside>
+                </div>
+            </div>
+
+        {% endwith %}
         </form>
     </section>
-{% endform %}
+{% endwith %}{% endform %}
 {% endblock %}

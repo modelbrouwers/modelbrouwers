@@ -27,3 +27,8 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('groupbuilds:edit', kwargs={'slug': self.object.slug})
+
+    def get_initial(self):
+        initial = super(GroupBuildCreateView, self).get_initial()
+        initial['admins'] = self.request.user
+        return initial

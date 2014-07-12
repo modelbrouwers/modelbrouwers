@@ -337,3 +337,15 @@ ul.messages {
     display: none;
   }
 }
+/* line 1, ../../../sass/partials/_forms.scss */
+label {
+  font-weight: 500;
+}
+/* line 4, ../../../sass/partials/_forms.scss */
+label.required {
+  font-weight: 700;
+}
+/* line 6, ../../../sass/partials/_forms.scss */
+label.required:after {
+  content: "*";
+}

@@ -8,7 +8,9 @@
         <meta name="author" content="">
 
         <link href="{% static 'bootstrap-3.1.1/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static 'bootstrap-3.1.1/css/bootstrap-theme.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet">
+        {# <link href="{% static 'bootstrap-3.1.1/css/bootstrap-theme.min.css' %}" rel="stylesheet"> #}
+
         {% compress css %}
             <link href="{% static 'css/screen.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
             <link href="{% static 'css/print.css' %}" media="print" rel="stylesheet" type="text/css" />
@@ -67,6 +69,7 @@
         {% endblock content %}
 
         <script src="{% static 'bootstrap-3.1.1/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'scripts/bootstrap-select.min.js' %}"></script>
 
         {% compress js %}
         <script src="{% static 'scripts/common.js' %}"></script>

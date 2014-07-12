@@ -46,7 +46,8 @@ class GroupBuild(ForumMixin, models.Model):
         _('description'), help_text=_('Short description'))
     admins = models.ManyToManyField(
         settings.AUTH_USER_MODEL, verbose_name=_('admins'),
-        help_text=_('Users who manage the group build.'), related_name='admin_groupbuilds')  # role maybe with through table
+        help_text=_('Users who manage the group build.'), related_name='admin_groupbuilds',
+        limit_choices_to={'is_active': True})  # role maybe with through table
 
     start = models.DateField(_('start date'), blank=True, null=True,
                              help_text=_('Date when you want to start building.'))

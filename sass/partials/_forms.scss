@@ -1,0 +1,10 @@
+label {
+    font-weight: 500;
+
+    &.required {
+        font-weight: 700;
+        &:after {
+            content: "*";
+        }
+    }
+}
