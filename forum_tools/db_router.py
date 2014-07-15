@@ -15,6 +15,12 @@ MYSQL_MODELS_NO_SYNCDB = [
     'ForumLinkSynced',
     ]
 
+SYNCDB_MODELS = [
+    'ForumLinkBase',
+    'ForumLinkSynced',
+    'ForumCategory',
+]
+
 class ForumToolsRouter(object):
     def db_for_read(self, model, **hints):
         "ForumUser -> use the MySQL db"
@@ -47,6 +53,6 @@ class ForumToolsRouter(object):
                     ) or model._meta.app_label != 'forum_tools':
                 return False
         elif db == 'default':
-            if model._meta.app_label == 'forum_tools' and model.__name__ not in ['ForumLinkBase', 'ForumLinkSynced']:
+            if model._meta.app_label == 'forum_tools' and model.__name__ not in SYNCDB_MODELS:
                 return False
         return True

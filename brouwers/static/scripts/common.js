@@ -8,8 +8,6 @@ $(document).ready(function(){
     });
 
     $('input.date').datepicker();
-
-    $('.selectpicker').selectpicker();
 });
 
 function showHelp(e){

@@ -222,3 +222,4 @@ COMPRESS_CSS_FILTERS = [
 # NOSE
 #
 TEST_RUNNER = 'general.tests.utils.UnmanagedTablesTestRunner'
+NOSE_ARGS = ['-s']

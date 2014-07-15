@@ -349,3 +349,8 @@ label.required {
 label.required:after {
   content: "*";
 }
+
+/* line 12, ../../../sass/partials/_forms.scss */
+textarea.form-control {
+  height: 100px;
+}
