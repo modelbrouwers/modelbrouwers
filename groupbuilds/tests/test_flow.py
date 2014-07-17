@@ -7,6 +7,9 @@ from django.test import TestCase
 #     def test_user_concept(self):
 #         """ Test that a regular user can create a concept """
 
+#     def test_user_can_see_administrated_detail(self):
+#         pass
+
 #     def test_user_participant(self):
 #         pass
 

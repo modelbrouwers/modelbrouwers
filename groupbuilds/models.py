@@ -26,10 +26,13 @@ class GroupbuildStatuses(DjangoChoices):
     denied = ChoiceItem('denied', _('denied'))
     extended = ChoiceItem('extended', _('extended'))
 
-GroupbuildStatuses.public_statuses = [GroupbuildStatuses.concept,
-                                      GroupbuildStatuses.submitted,
-                                      GroupbuildStatuses.accepted,
-                                      GroupbuildStatuses.extended]
+# public statuses
+date_bound_statuses = [GroupbuildStatuses.accepted, GroupbuildStatuses.extended]
+non_date_bound_statuses = [GroupbuildStatuses.concept, GroupbuildStatuses.submitted]
+
+GroupbuildStatuses.date_bound_statuses = date_bound_statuses
+GroupbuildStatuses.non_date_bound_statuses = non_date_bound_statuses
+GroupbuildStatuses.public_statuses = non_date_bound_statuses + date_bound_statuses
 
 
 class GroupBuild(ForumMixin, models.Model):

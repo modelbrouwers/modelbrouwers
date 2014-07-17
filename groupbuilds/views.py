@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 
 from utils.views import LoginRequiredMixin
 
@@ -33,9 +33,21 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('groupbuilds:edit', kwargs={'slug': self.object.slug})
+        return reverse('groupbuilds:detail', kwargs={'slug': self.object.slug})
 
     def get_initial(self):
         initial = super(GroupBuildCreateView, self).get_initial()
         initial['admins'] = self.request.user
         return initial
+
+
+class GroupBuildDetailView(DetailView):
+    model = GroupBuild
+    queryset = GroupBuild.public.all()
+    context_object_name = 'gb'
+
+    def get_queryset(self): # TODO: unit test
+        user = self.request.user
+        if user.is_authenticated(): # TODO: add staff permissions
+            return (user.admin_groupbuilds.all() | self.queryset).distinct()
+        return super(GroupBuildDetailView, self).get_queryset()
