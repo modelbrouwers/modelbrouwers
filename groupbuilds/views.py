@@ -33,7 +33,7 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('groupbuilds:detail', kwargs={'slug': self.object.slug})
+        return self.object.get_absolute_url()
 
     def get_initial(self):
         initial = super(GroupBuildCreateView, self).get_initial()

@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -115,6 +116,9 @@ class GroupBuild(ForumMixin, models.Model):
 
     def __unicode__(self):
         return _("{name}: {status}").format(name=self.theme, status=self.get_status_display())
+
+    def get_absolute_url(self):
+        return reverse('groupbuilds:detail', kwargs={'slug': self.slug})
 
     def num_participants(self):
         return self.participants.count()

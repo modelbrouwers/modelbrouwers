@@ -13,5 +13,5 @@ class GroupBuildFactory(factory.django.DjangoModelFactory):
     category = factory.SubFactory(ForumCategoryFactory)
     description = 'Groupbuild with [b]BBCode[/b]'
     rules = 'Groupbuild rules with [i]BBCode[/i]'
-    applicant = UserFactory()
+    applicant = factory.SubFactory(UserFactory)
     reason_denied = 'Denied: [quote="admin"]BBCode[/quote]'

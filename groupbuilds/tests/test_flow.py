@@ -1,14 +1,33 @@
 """ Test all the flow components"""
 from django.test import TestCase
 
+from users.tests.factory_models import UserFactory
+
+from .factories import GroupBuildFactory
+from ..models import GroupbuildStatuses, GroupBuild
+
 # TODO: use webtest
 
-# class FlowTest(TestCase):
+class FlowTest(TestCase):
 #     def test_user_concept(self):
 #         """ Test that a regular user can create a concept """
 
-#     def test_user_can_see_administrated_detail(self):
-#         pass
+    def test_user_can_see_administrated_detail(self):
+        """ GB admins must be able to (pre)view the detail page of a GB """
+        # create groupbuild with not publicly visible status
+        groupbuild = GroupBuildFactory(status=GroupbuildStatuses.denied)
+        self.assertNotIn(groupbuild, GroupBuild.public.all())
+
+        user = UserFactory(username='testuser', password='password')
+        groupbuild.admins.add(user)
+
+        response = self.client.get(groupbuild.get_absolute_url())
+        self.assertEqual(response.status_code, 404)
+
+        # log in
+        self.client.login(username='testuser', password='password')
+        response = self.client.get(groupbuild.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
 
 #     def test_user_participant(self):
 #         pass

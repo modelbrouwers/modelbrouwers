@@ -111,7 +111,6 @@ class RegistrationTests(TestCase):
     def setUp(self):
         self.UserModel = UserFactory.FACTORY_FOR
         self.url = '/register/'
-        self.UserModel.objects.all().delete() # WTF? why are the tables not truncated FIXME
 
     def test_anti_spambot_question(self):
         """ Test that wrong answers block registration """
