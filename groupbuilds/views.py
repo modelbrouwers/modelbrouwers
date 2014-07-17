@@ -25,6 +25,13 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
     template_name = 'groupbuilds/create.html'
     form_class = GroupBuildForm
 
+    def get_form_kwargs(self):
+        kwargs = super(GroupBuildCreateView, self).get_form_kwargs()
+        kwargs.update({
+            'request': self.request
+        })
+        return kwargs
+
     def get_success_url(self):
         return reverse('groupbuilds:edit', kwargs={'slug': self.object.slug})
 

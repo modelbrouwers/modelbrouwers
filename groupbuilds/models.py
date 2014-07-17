@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -94,10 +96,19 @@ class GroupBuild(ForumMixin, models.Model):
     objects = models.Manager()
     public = PublicGroupBuildsManager()
 
+    _created = False
+
     class Meta:
         verbose_name = _(u'group build')
         verbose_name_plural = _(u'group builds')
         ordering = ('-modified', '-created')  # most recently changed first
+
+    def save(self, *args, **kwargs):
+        if self.start and not self.end:
+            self.end = self.start + timedelta(days=self.duration)
+        if not self.id:
+            self._created = True
+        super(GroupBuild, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return _("{name}: {status}").format(name=self.theme, status=self.get_status_display())
