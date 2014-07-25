@@ -1,18 +1,73 @@
 {% extends "groupbuilds/base.html" %}
+{% load i18n bbcode_tags %}
+
+{% block title %}{{ block.super }}: {{ gb.theme }}{% endblock %}
+
 
 {% block content %}
 <div class="container detail">
 
     <div class="row">
-        <div class="col-md-10">
+        <h1 class="col-md-8">
+            {{ gb.theme }}
+            <small>{{ gb.category }}</small>
+        </h1>
+
+        <div class="col-md-4">
+            <p class="h1"><small>
+                {% blocktrans with status=gb.get_status_display %}
+                    Status: {{ status }}
+                {% endblocktrans %}</small>
+                {% if request.user in gb.admins.all %}
+                    <a class="pull-right" href="{% url 'groupbuilds:edit' slug=gb.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-9">
             <article class="gb">
-                {{ gb }}
+                <h3>{% trans "Information" %}</h3>
+                <!-- practical information -->
+                <section class="row">
+                    <p class="col-md-6">
+                        <strong>Time period</strong>: {{ gb.start|default:_('to be determined') }} - {{ gb.end|default:_('to be determined') }}
+                    </p>
+                    {% if gb.forum %}<p class="col-md-6">
+                        {% trans "Group build forum: " %}
+                        <a href="{{ gb.forum.get_absolute_url }}">{{ gb.forum }}</a>
+                    </p>{% endif %}
+                </section>
+
+                <section class="well">
+                    {{ gb.description|bbcode|safe }}
+                </section>
+
+                {% if gb.rules %}
+                    <h3>{% trans "Rules" %}</h3>
+                    <section class="bg-warning">
+                        <blockquote>{{ gb.rules|bbcode|safe }}</blockquote>
+                    </section>
+                {% endif %}
+
+
             </article>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-3 text-right">
+            <aside>
+                <h3>{% blocktrans count n_admins=gb.admins.all %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
+                <ul class="list-inline">
+                    {% for user in gb.admins.all %}
+                        <li class="text-primary">{{ user }}</li>
+                    {% endfor %}
+                </ul>
+            </aside>
             <aside class="filters">
-                ASIDE
+                {# TODO #}
             </aside>
         </div>
     </div>

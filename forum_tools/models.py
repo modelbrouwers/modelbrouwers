@@ -150,8 +150,8 @@ class Forum(models.Model):
     def __unicode__(self):
         return u"%s" % self.forum_name
 
-    # def get_absolute_url(self):
-    #     return u"/archiwum/%s/%s/" % (self.forum_id, self.get_slug())
+    def get_absolute_url(self):
+        return "{prefix}viewforum.php?f={id}".format(prefix=settings.PHPBB_URL, id=self.forum_id)
 
     # def get_slug(self):
     #     return slugify(self.forum_name)
@@ -160,9 +160,6 @@ class Forum(models.Model):
         managed = False
         db_table = settings.PHPBB_TABLE_PREFIX + 'forums'
         ordering = ['forum_name']
-
-    def get_django_username(self):
-        return self.forum_name.replace(' ', '_')
 
 
 class ForumPostCountRestriction(models.Model):

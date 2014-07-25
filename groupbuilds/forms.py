@@ -6,13 +6,14 @@ from .models import GroupBuild
 class GroupBuildForm(forms.ModelForm):
     class Meta:
         model = GroupBuild
-        fields = ('id', 'theme', 'category', 'description', 'admins',
+        fields = ('theme', 'category', 'description', 'admins',
                   'start', 'duration', 'rules', 'rules_topic_id',
                   'homepage_topic_id', 'introduction_topic_id')
 
     def __init__(self, request, *args, **kwargs):
         super(GroupBuildForm, self).__init__(*args, **kwargs)
-        self.instance.applicant = request.user
+        if not self.instance.applicant:
+            self.instance.applicant = request.user
 
     def save(self, *args, **kwargs):
         _created = self.instance.id is None and kwargs.get('commit', True)
