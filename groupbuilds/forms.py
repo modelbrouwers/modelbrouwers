@@ -12,7 +12,7 @@ class GroupBuildForm(forms.ModelForm):
 
     def __init__(self, request, *args, **kwargs):
         super(GroupBuildForm, self).__init__(*args, **kwargs)
-        if not self.instance.applicant:
+        if not self.instance.applicant_id:
             self.instance.applicant = request.user
 
     def save(self, *args, **kwargs):
