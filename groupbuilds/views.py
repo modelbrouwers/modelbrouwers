@@ -49,6 +49,11 @@ class GroupBuildDetailView(DetailView):
             return (user.admin_groupbuilds.all() | self.queryset).distinct()
         return super(GroupBuildDetailView, self).get_queryset()
 
+    def get_context_data(self, **kwargs):
+        ctx = super(GroupBuildDetailView, self).get_context_data(**kwargs)
+        ctx['participants'] = self.object.participant_set.all().order_by('id')
+        return ctx
+
 
 class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
     model = GroupBuild
