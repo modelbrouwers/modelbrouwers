@@ -20,5 +20,5 @@ class UnmanagedTablesTestRunner(NoseTestSuiteRunner):
             m._meta.managed = False
 
 
-# turn of factory boy loggin
+# turn of factory boy logging
 logging.getLogger("factory").setLevel(logging.WARN)

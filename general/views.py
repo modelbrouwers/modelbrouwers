@@ -138,7 +138,7 @@ def password_reset(request):
                 messages.warning(request, _("Your account is still inactive! You won't be able to log in until you reactivate with the link sent by e-mail."))
             expire = datetime.now() + timedelta(days=1)
             variable_part = expire.strftime("%Y-%m-%d %H:%i:%s") + str(int(random.random() * 10))
-            h = hashlib.sha1(settings.SECRET_KEY + variable_part).hexdigest()[:24]
+            h = hashlib.sha1("%s%s" % (settings.SECRET_KEY, variable_part)).hexdigest()[:24]
 
             # make sure the hash is unique enough
             reset = PasswordReset(user=user, expire=expire, h=h)
@@ -146,7 +146,7 @@ def password_reset(request):
                 reset.save()
             except IntegrityError:
                 extrapart = int(random.random() * 10)
-                h = hashlib.sha1(settings.SECRET_KEY + variable_part + extrapart).hexdigest()[:24]
+                h = hashlib.sha1("%s%s%s" % (settings.SECRET_KEY, variable_part, extrapart)).hexdigest()[:24]
                 reset = PasswordReset(user=user, expire=expire, h=h)
                 reset.save()
 

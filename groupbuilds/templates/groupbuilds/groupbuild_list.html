@@ -1,0 +1,45 @@
+{% extends "groupbuilds/base.html" %}
+{% load i18n brouwers %}
+
+
+{% block extrastyle %}
+<style>
+    .gb {border: solid 1px #CCC; padding: 0 10px; margin-top: 15px;}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container list">
+
+    <div class="row">
+        <div class="col-md-10">
+            <section class="object-list">
+                <div class="row">
+                    {% for gb in object_list %}
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="gb">
+                                <h2>{{ gb.theme }} <small class="pull-right">{{ gb.get_status_display }}</small></h2>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+        <div class="col-md-2">
+            <aside class="filters">
+                {# FIXME: layout #}
+                <div class="list-group">
+                    <a href="#" class="list-group-item disabled">{% trans "Status" %}</a>
+                    {% for vaue, status in statuses %}
+                        <a href="#{{ value }}" class="list-group-item">{{ status }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

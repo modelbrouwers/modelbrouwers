@@ -1,0 +1,14 @@
+label {
+    font-weight: 500;
+
+    &.required {
+        font-weight: 700;
+        &:after {
+            content: "*";
+        }
+    }
+}
+
+textarea.form-control {
+    height: 100px;
+}

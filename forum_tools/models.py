@@ -3,9 +3,23 @@ import zlib
 
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from general.utils import clean_username
+
+
+class ForumMixin(object):
+    @cached_property
+    def forum(self):
+        try:
+            return Forum.objects.get(pk=self.forum_id)
+        except Forum.DoesNotExist:
+            return None
+
+    @property
+    def forum_name(self):
+        return self.forum.forum_name
 
 
 class ForumLinkBase(models.Model):
@@ -40,7 +54,7 @@ class ForumLinkSynced(models.Model):
         return u"%s -- %s" % (self.base.__unicode__(), self.link_id)
 
 
-class BuildReportsForum(models.Model):
+class BuildReportsForum(ForumMixin, models.Model):
     """ Model which tells us which forums hold build reports """
     forum_id = models.PositiveIntegerField()
 
@@ -52,16 +66,22 @@ class BuildReportsForum(models.Model):
     def __unicode__(self):
         return self.forum_name
 
-    @property
-    def forum(self):
-        return Forum.objects.get(pk=self.forum_id)
 
-    @property
-    def forum_name(self):
-        return self.forum.forum_name
+class ForumCategory(ForumMixin, models.Model):
+    name = models.CharField(_('name'), max_length=255)
+    forum_id = models.PositiveIntegerField(_('phpBB forum id'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _(u'forum category')
+        verbose_name_plural = _(u'forum categories')
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name
 
 
 ########## Models to interact with the MYSQL database #############################
+
 
 class ForumUser(models.Model):
     """ MySQL phpBB3 user, managed by phpBB3 """
@@ -130,8 +150,8 @@ class Forum(models.Model):
     def __unicode__(self):
         return u"%s" % self.forum_name
 
-    # def get_absolute_url(self):
-    #     return u"/archiwum/%s/%s/" % (self.forum_id, self.get_slug())
+    def get_absolute_url(self):
+        return "{prefix}viewforum.php?f={id}".format(prefix=settings.PHPBB_URL, id=self.forum_id)
 
     # def get_slug(self):
     #     return slugify(self.forum_name)
@@ -140,9 +160,6 @@ class Forum(models.Model):
         managed = False
         db_table = settings.PHPBB_TABLE_PREFIX + 'forums'
         ordering = ['forum_name']
-
-    def get_django_username(self):
-        return self.forum_name.replace(' ', '_')
 
 
 class ForumPostCountRestriction(models.Model):

@@ -1,6 +1,6 @@
 import factory
 
-from ..models import ForumUser
+from ..models import ForumUser, ForumCategory
 
 
 def create_from_user(user):
@@ -23,3 +23,9 @@ class ForumUserFactory(factory.django.DjangoModelFactory):
     user_email = factory.Sequence(lambda n: 'user{n}@domain.com'.format(n=n))
     user_email_hash = factory.PostGenerationMethodCall('get_email_hash')
     user_posts = 10
+
+
+class ForumCategoryFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = ForumCategory
+
+    name = factory.Sequence(lambda n: 'Category {0}'.format(n))

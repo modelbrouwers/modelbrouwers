@@ -4,7 +4,7 @@ $(document).ready(function(){
     $('td.help_text div').hide(); // hide the help texts
 
     $('img').tooltip({
-    	track: true
+        track: true
     });
 
     $('input.date').datepicker();
@@ -12,8 +12,7 @@ $(document).ready(function(){
 
 function showHelp(e){
     //close all (the others)
-    if ($(e).css('display') == 'none')
-    {
+    if ($(e).css('display') == 'none') {
         $('span.help_text').hide();
     }
     $('td.help_text div').hide();
@@ -46,7 +45,7 @@ function fixVerticalCenter(){
 // CSRF protection, code from Django docs
 function getCookie(name) {
     var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
+    if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);

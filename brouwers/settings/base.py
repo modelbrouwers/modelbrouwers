@@ -117,6 +117,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'django_nose',
     'rosetta',
+    'precise_bbcode',
 
     # Modelbrouwers
     'users',
@@ -127,6 +128,7 @@ INSTALLED_APPS = (
     'brouwersdag',
     'forum_tools',
     'general',
+    'groupbuilds',
     'kitreviews',
     'migration',
     'online_users',
@@ -221,3 +223,4 @@ COMPRESS_CSS_FILTERS = [
 # NOSE
 #
 TEST_RUNNER = 'general.tests.utils.UnmanagedTablesTestRunner'
+NOSE_ARGS = ['-s']
