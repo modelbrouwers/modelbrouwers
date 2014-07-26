@@ -151,7 +151,7 @@ class Forum(models.Model):
         return u"%s" % self.forum_name
 
     def get_absolute_url(self):
-        return "{prefix}viewforum.php?f={id}".format(prefix=settings.PHPBB_URL, id=self.forum_id)
+        return "{prefix}/viewforum.php?f={id}".format(prefix=settings.PHPBB_URL, id=self.forum_id)
 
     # def get_slug(self):
     #     return slugify(self.forum_name)
