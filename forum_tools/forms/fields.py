@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 from django.forms.fields import IntegerField
 from django.utils.translation import ugettext_lazy as _
 
+from .widgets import ForumToolsIDFieldWidget
+
 
 __all__ = ['ForumIDField', 'TopicIDField']
 
@@ -13,6 +15,12 @@ class IDField(IntegerField):
         'invalid_url': _('Enter a valid url'),
     }
     urlparam = None
+    widget = ForumToolsIDFieldWidget
+
+    def __init__(self, *args, **kwargs):
+        if not kwargs.get('widget'):
+            kwargs['widget'] = ForumToolsIDFieldWidget(urlparam=self.urlparam, type_=self.type_)
+        super(IDField, self).__init__(*args, **kwargs)
 
     def to_python(self, value):
         try: # check if it's integer or not
@@ -30,12 +38,16 @@ class IDField(IntegerField):
 
 
 class ForumIDField(IDField):
+    type_ = 'forum'
+
     def __init__(self, urlparam='f', *args, **kwargs):
         self.urlparam = urlparam
         super(ForumIDField, self).__init__(*args, **kwargs)
 
 
 class TopicIDField(IDField):
+    type_ = 'topic'
+
     def __init__(self, urlparam='t', *args, **kwargs):
         self.urlparam = urlparam
         super(TopicIDField, self).__init__(*args, **kwargs)
