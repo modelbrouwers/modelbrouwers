@@ -68,6 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     username = models.CharField(_('username'), max_length=30, unique=True,
         help_text=_('Required. 30 characters or fewer. All characters allowed.'))
+    username_clean = models.CharField(_('cleaned username'), max_length=30, blank=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     email = models.EmailField(_('email address'))
@@ -90,9 +91,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+        ordering = ['username_clean']
 
     def __unicode__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        if self.username and not self.username_clean:
+            self.username_clean = self.username.lower()
+        super(User, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         # TODO

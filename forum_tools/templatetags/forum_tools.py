@@ -4,6 +4,7 @@ from general.utils import get_forumname_for_username
 
 register = template.Library()
 
+
 @register.filter(is_safe=True)
 @stringfilter
 def forum_name(value):
