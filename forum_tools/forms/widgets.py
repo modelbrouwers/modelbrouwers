@@ -34,6 +34,10 @@ class ForumToolsIDFieldWidget(forms.TextInput):
     def get_url(self, value):
         if not value:
             return None
+        try:
+            int(value)
+        except ValueError: # we're dealing with the url itself
+            return value
         return '{scheme}://{domain}{prefix}/view{type}.php?{qs}'.format(
             scheme='http',
             domain=Site.objects.get_current().domain,
