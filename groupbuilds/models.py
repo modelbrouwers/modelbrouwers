@@ -9,6 +9,7 @@ from djchoices import DjangoChoices, ChoiceItem
 from autoslug import AutoSlugField
 
 from forum_tools.models import ForumCategory, ForumMixin
+from forum_tools.fields import ForumToolsIDField
 from .managers import PublicGroupBuildsManager
 
 
@@ -37,8 +38,7 @@ GroupbuildStatuses.public_statuses = non_date_bound_statuses + date_bound_status
 
 
 class GroupBuild(ForumMixin, models.Model):
-    forum_id = models.PositiveIntegerField(
-        _('forum id'), blank=True, null=True,
+    forum_id = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
         help_text=_('Forum id of the group build subforum'))
 
     # core information
@@ -79,12 +79,11 @@ class GroupBuild(ForumMixin, models.Model):
 
     # optional 'experience enhancing' fields
     rules = models.TextField(blank=True)
-    rules_topic_id = models.PositiveIntegerField(
-        _('rules topic'), blank=True, null=True)
-    homepage_topic_id = models.PositiveIntegerField(
-        _('topic to direct to from calendar'), blank=True, null=True)
-    introduction_topic_id = models.PositiveIntegerField(
-        _('introduction topic'), blank=True, null=True)
+    rules_topic_id = ForumToolsIDField(_('rules topic'), blank=True, null=True, type='topic')
+    homepage_topic_id = ForumToolsIDField(_('topic to direct to from calendar'),
+        blank=True, null=True, type='topic')
+    introduction_topic_id = ForumToolsIDField(_('introduction topic'),
+        blank=True, null=True, type='topic')
 
     # logging
     # pretty much the owner

@@ -55,4 +55,3 @@ class FormFieldTests(SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             self.topic_field.to_python(self.invalid_url2)
-

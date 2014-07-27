@@ -5,6 +5,9 @@ from django.forms.fields import IntegerField
 from django.utils.translation import ugettext_lazy as _
 
 
+__all__ = ['ForumIDField', 'TopicIDField']
+
+
 class IDField(IntegerField):
     default_error_messages = {
         'invalid_url': _('Enter a valid url'),
