@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q, Count
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DeleteView, ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from utils.views import LoginRequiredMixin
 
@@ -35,12 +35,7 @@ class IndexView(ListView):
         return context
 
 
-class SignupView(CreateView):
-    """ View to enlist models """
-    model = ShowCasedModel
-    template_name = 'brouwersdag/model_signup.html'
-    form_class = ShowCasedModelSignUpForm
-
+class CompetitionMixin(object):
     def get_competition(self):
         if not hasattr(self, '_competition'):
             try:
@@ -48,6 +43,23 @@ class SignupView(CreateView):
             except Competition.DoesNotExist: # no competition active
                 self._competition = None
         return self._competition
+
+    def get_form_kwargs(self):
+        kwargs = super(CompetitionMixin, self).get_form_kwargs()
+        kwargs['competition'] = self.get_competition()
+        return kwargs
+
+    def get_success_url(self):
+        if self.form.cleaned_data['add_another']:
+            return reverse('brouwersdag:model-signup')
+        return reverse('brouwersdag:index')
+
+
+class SignupView(CompetitionMixin, CreateView):
+    """ View to enlist models """
+    model = ShowCasedModel
+    template_name = 'brouwersdag/model_signup.html'
+    form_class = ShowCasedModelSignUpForm
 
     def get_initial(self):
         initial = super(SignupView, self).get_initial()
@@ -59,20 +71,21 @@ class SignupView(CreateView):
             })
         return initial
 
-    def get_form_kwargs(self):
-        kwargs = super(SignupView, self).get_form_kwargs()
-        kwargs['competition'] = self.get_competition()
-        return kwargs
-
-    def get_success_url(self):
-        if self.form.cleaned_data['add_another']:
-            return reverse('brouwersdag:model-signup')
-        return reverse('brouwersdag:index')
-
     def form_valid(self, form):
         self.form = form
         messages.success(self.request, _('Your model has been submitted'))
         return super(SignupView, self).form_valid(form)
+
+
+class EditModelView(CompetitionMixin, UpdateView):
+    model = ShowCasedModel
+    template_name = 'brouwersdag/model_signup_edit.html'
+    form_class = ShowCasedModelSignUpForm
+
+    def form_valid(self, form):
+        self.form = form
+        messages.success(self.request, _('Your model has been edited'))
+        return super(EditModelView, self).form_valid(form)
 
 
 class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):

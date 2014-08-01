@@ -360,3 +360,9 @@ label.required:after {
 textarea.form-control {
   height: 100px;
 }
+
+/* line 16, ../../../sass/partials/_forms.scss */
+li.error {
+  color: red;
+  font-weight: bolder;
+}

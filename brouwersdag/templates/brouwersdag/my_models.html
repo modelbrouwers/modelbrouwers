@@ -15,6 +15,7 @@
 
                 <div class="row">
                     <div class="col-md-9">
+                        <a href="{% url 'brouwersdag:edit-model' pk=model.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
                         <strong>{{ model.name }}</strong>
                         ({{ model.brand }}{% if model.get_scale %}, {% endif %}{{ model.get_scale }})
                     </div>
