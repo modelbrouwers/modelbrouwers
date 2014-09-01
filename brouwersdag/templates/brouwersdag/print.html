@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Print aanmeldingen Brouwersdag 2014</title>
+
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+        div.model {
+            float: left;
+            width: 31%;
+            border: solid 1px #EEE;
+            height: 200px;
+            margin: 1em 1%;
+            padding: 1em;
+            color: #333;
+        }
+        div.clearfix {
+            clear: both;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+{% for model in regular %}
+<div class="model">
+    <div>Model:  {{ model.name }}</div>
+    <div>Naam:   {{ model.owner_name }}{% if model.owner %} ({{ model.owner.username }}){% endif %}</div>
+    <div>Schaal: 1/{{ model.scale }}</div>
+    <div>Merk:   {{ model.brand|default:'onbekend' }}</div>
+    <div>{% if model.topic %}Verslag: {{ model.topic }}{% endif %}</div>
+</div>
+{% endfor %}
+<div class="clearfix"></div>
+</div>
+
+<hr>
+
+<div>
+{% for model in competition %}
+<div class="model">
+    <div>Model:  {{ model.name }}</div>
+    <div>Nr:   {{ model.id }}</div>
+    <div>Schaal: 1/{{ model.scale }}</div>
+    <div>Merk:   {{ model.brand|default:'onbekend' }}</div>
+</div>
+{% endfor %}
+<div class="clearfix"></div>
+</div>
+
+
+</body>
+</html>

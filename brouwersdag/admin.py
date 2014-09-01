@@ -4,7 +4,7 @@ from .models import Competition, ShowCasedModel, Brouwersdag, Exhibitor
 
 
 class ShowCasedModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'owner', 'scale', 'length', 'width', 'height', 'is_competitor')
+    list_display = ('name', 'owner', 'scale', 'length', 'width', 'height', 'is_competitor', 'id')
     list_filter = ('competition', 'is_competitor', 'is_paid', 'scale')
     search_fields = ('competition__name', 'name', 'owner__username')
 

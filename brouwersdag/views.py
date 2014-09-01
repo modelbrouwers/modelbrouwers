@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.db.models import Q, Count
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import DeleteView, ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import (TemplateView, DeleteView, ListView,
+                                  CreateView, UpdateView)
 
 from utils.views import LoginRequiredMixin
 
@@ -99,3 +99,12 @@ class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):
 class CancelSignupView(OwnModelsMixin, DeleteView):
     model = ShowCasedModel
     success_url = reverse_lazy('brouwersdag:my-models')
+
+
+class PrintSignupsView(TemplateView):
+    template_name = 'brouwersdag/print.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['regular'] = ShowCasedModel.objects.exclude(is_competitor=True).order_by('id')
+        kwargs['competition'] = ShowCasedModel.objects.filter(is_competitor=True).order_by('id')
+        return super(PrintSignupsView, self).get_context_data(**kwargs)
