@@ -1,0 +1,70 @@
+@import "compass";
+
+@import "partials/fonts";
+@import "partials/colors";
+@import "partials/utils";
+
+* {
+    box-sizing: border-box;
+}
+
+div.model {
+    float: left;
+    width: 31%;
+    border: solid 1px #DDD;
+    height: 11.5em;
+    margin: 1em 1%;
+    padding: 1.5em 1em;
+    color: #333;
+
+    position: relative;
+
+    // background: white url('../images/logo/mb_r.png') no-repeat;
+    // background-position: bottom 1em right 1em;
+
+    .watermark {
+        background: url('../images/logo/logo_modelbrouwers.png') no-repeat center center;
+        position: absolute;
+        top: 6.5em;
+        left: 0;
+        width: 100%;
+        height: 5em;
+        @include opacity(0.2);
+    }
+
+    .row {
+        margin-bottom: 0.5em;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    label {
+        display: inline-block;
+        min-width: 30%;
+        color: $main-blue;
+        &:after {
+            content: ":";
+        }
+    }
+
+    .model-name {
+        font-weight: 700;
+    }
+}
+div.clearfix {
+    clear: both;
+    height: 0;
+}
+.pull-right {
+    float: right;
+}
+.circle {
+    color: $main-blue;
+    font-weight: bold;
+    border: solid 1px $main-blue;
+    border-radius: 13px;
+    min-width: 27px;
+    text-align: center;
+    padding: 3px;
+}
