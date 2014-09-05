@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (DeleteView, ListView, CreateView, UpdateView,
                                   RedirectView)
 
-from utils.views import LoginRequiredMixin
+from utils.views import LoginRequiredMixin, StaffRequiredMixin
 from utils.pdf import PDFTemplateView
 
 from .forms import ShowCasedModelSignUpForm
@@ -103,9 +103,7 @@ class CancelSignupView(OwnModelsMixin, DeleteView):
     success_url = reverse_lazy('brouwersdag:my-models')
 
 
-# class PrintSignupsView(PDFTemplateView):
-from django.views.generic import TemplateView
-class PrintSignupsView(TemplateView):
+class PrintSignupsView(StaffRequiredMixin, PDFTemplateView):
     template_name = 'brouwersdag/print.html'
 
     def get_context_data(self, **kwargs):
