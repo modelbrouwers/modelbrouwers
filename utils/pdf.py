@@ -1,8 +1,6 @@
 from django.template.response import TemplateResponse
 from django.views.generic.base import TemplateResponseMixin, TemplateView
 
-import weasyprint
-
 
 class PDFTemplateResponse(TemplateResponse):
     def __init__(self, filename=None, *args, **kwargs):
@@ -16,6 +14,7 @@ class PDFTemplateResponse(TemplateResponse):
     @property
     def rendered_content(self):
         """Returns the rendered pdf"""
+        import weasyprint
         html = super(PDFTemplateResponse, self).rendered_content
         base_url = self._request.build_absolute_uri("/")
         pdf = weasyprint.HTML(string=html, base_url=base_url).write_pdf()
