@@ -4,10 +4,11 @@ from django.contrib import messages
 from django.db.models import Q, Count
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import (TemplateView, DeleteView, ListView,
-                                  CreateView, UpdateView, RedirectView)
+from django.views.generic import (DeleteView, ListView, CreateView, UpdateView,
+                                  RedirectView)
 
 from utils.views import LoginRequiredMixin
+from utils.pdf import PDFTemplateView
 
 from .forms import ShowCasedModelSignUpForm
 from .models import ShowCasedModel, Competition
@@ -102,6 +103,8 @@ class CancelSignupView(OwnModelsMixin, DeleteView):
     success_url = reverse_lazy('brouwersdag:my-models')
 
 
+# class PrintSignupsView(PDFTemplateView):
+from django.views.generic import TemplateView
 class PrintSignupsView(TemplateView):
     template_name = 'brouwersdag/print.html'
 
@@ -109,7 +112,6 @@ class PrintSignupsView(TemplateView):
         kwargs['regular'] = ShowCasedModel.objects.exclude(is_competitor=True).order_by('id')
         kwargs['competition'] = ShowCasedModel.objects.filter(is_competitor=True).order_by('id')
         return super(PrintSignupsView, self).get_context_data(**kwargs)
-
 
 
 class GoToBuildReportView(RedirectView):

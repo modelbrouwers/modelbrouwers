@@ -49,7 +49,7 @@ class ShowCasedModel(models.Model):
 
     def get_url(self):
         domain = Site.objects.get_current().domain
-        return u'http://{0}{1}'.format(domain, self.get_absolute_url())
+        return u'{0}{1}'.format(domain, self.get_absolute_url())
 
 
 class Competition(models.Model):

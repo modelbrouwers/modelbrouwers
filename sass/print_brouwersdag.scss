@@ -8,22 +8,30 @@
     box-sizing: border-box;
 }
 
+@page {
+    size: A4;
+    margin: 0;
+}
+
+html {
+    font-size: 12px;
+}
+
 div.model {
     float: left;
-    width: 48%;
+    width: 48.2%;
     border: solid 1px #DDD;
     height: 11.5em;
-    margin: 1em 1%;
+    margin: 0.5em 0.5%;
     padding: 1.5em 1em;
     color: #333;
 
     position: relative;
-
-    // background: white url('../images/logo/mb_r.png') no-repeat;
-    // background-position: bottom 1em right 1em;
+    overflow: hidden;
 
     .watermark {
         background: url('../images/logo/logo_modelbrouwers.png') no-repeat center center;
+        background-size: 80%;
         position: absolute;
         top: 6.5em;
         left: 0;
@@ -32,24 +40,39 @@ div.model {
         @include opacity(0.2);
     }
 
+    &.competition {
+        height: 8em;
+
+        .watermark {
+            top: 3em;
+        }
+    }
+
     .row {
         margin-bottom: 0.5em;
         &:last-child {
             margin-bottom: 0;
         }
-    }
 
-    label {
-        display: inline-block;
-        min-width: 20%;
-        color: $main-blue;
-        &:after {
-            content: ":";
+        label {
+            display: inline-block;
+            width: 18%;
+            color: $main-blue;
+            &:after {
+                content: ":";
+            }
+        }
+
+        &.float label {
+            float: left;
         }
     }
 
+
     .model-name {
         font-weight: 700;
+        display: block;
+        margin-left: 18%;
     }
 }
 div.clearfix {
@@ -64,7 +87,7 @@ div.clearfix {
     font-weight: bold;
     border: solid 1px $main-blue;
     border-radius: 13px;
-    min-width: 27px;
+    min-width: 22px;
     text-align: center;
     padding: 3px;
 }

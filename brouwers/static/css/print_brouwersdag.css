@@ -44,20 +44,32 @@ select:-moz-focusring {
   box-sizing: border-box;
 }
 
-/* line 11, ../../../sass/print_brouwersdag.scss */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* line 16, ../../../sass/print_brouwersdag.scss */
+html {
+  font-size: 12px;
+}
+
+/* line 20, ../../../sass/print_brouwersdag.scss */
 div.model {
   float: left;
-  width: 48%;
+  width: 48.2%;
   border: solid 1px #DDD;
   height: 11.5em;
-  margin: 1em 1%;
+  margin: 0.5em 0.5%;
   padding: 1.5em 1em;
   color: #333;
   position: relative;
+  overflow: hidden;
 }
-/* line 25, ../../../sass/print_brouwersdag.scss */
+/* line 32, ../../../sass/print_brouwersdag.scss */
 div.model .watermark {
   background: url("../images/logo/logo_modelbrouwers.png") no-repeat center center;
+  background-size: 80%;
   position: absolute;
   top: 6.5em;
   left: 0;
@@ -66,47 +78,61 @@ div.model .watermark {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
   opacity: 0.2;
 }
-/* line 35, ../../../sass/print_brouwersdag.scss */
+/* line 43, ../../../sass/print_brouwersdag.scss */
+div.model.competition {
+  height: 8em;
+}
+/* line 46, ../../../sass/print_brouwersdag.scss */
+div.model.competition .watermark {
+  top: 3em;
+}
+/* line 51, ../../../sass/print_brouwersdag.scss */
 div.model .row {
   margin-bottom: 0.5em;
 }
-/* line 37, ../../../sass/print_brouwersdag.scss */
+/* line 53, ../../../sass/print_brouwersdag.scss */
 div.model .row:last-child {
   margin-bottom: 0;
 }
-/* line 42, ../../../sass/print_brouwersdag.scss */
-div.model label {
+/* line 57, ../../../sass/print_brouwersdag.scss */
+div.model .row label {
   display: inline-block;
-  min-width: 20%;
+  width: 18%;
   color: #006699;
 }
-/* line 46, ../../../sass/print_brouwersdag.scss */
-div.model label:after {
+/* line 61, ../../../sass/print_brouwersdag.scss */
+div.model .row label:after {
   content: ":";
 }
-/* line 51, ../../../sass/print_brouwersdag.scss */
+/* line 66, ../../../sass/print_brouwersdag.scss */
+div.model .row.float label {
+  float: left;
+}
+/* line 72, ../../../sass/print_brouwersdag.scss */
 div.model .model-name {
   font-weight: 700;
+  display: block;
+  margin-left: 18%;
 }
 
-/* line 55, ../../../sass/print_brouwersdag.scss */
+/* line 78, ../../../sass/print_brouwersdag.scss */
 div.clearfix {
   clear: both;
   height: 0;
 }
 
-/* line 59, ../../../sass/print_brouwersdag.scss */
+/* line 82, ../../../sass/print_brouwersdag.scss */
 .pull-right {
   float: right;
 }
 
-/* line 62, ../../../sass/print_brouwersdag.scss */
+/* line 85, ../../../sass/print_brouwersdag.scss */
 .circle {
   color: #006699;
   font-weight: bold;
   border: solid 1px #006699;
   border-radius: 13px;
-  min-width: 27px;
+  min-width: 22px;
   text-align: center;
   padding: 3px;
 }
