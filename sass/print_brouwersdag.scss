@@ -10,7 +10,7 @@
 
 div.model {
     float: left;
-    width: 31%;
+    width: 48%;
     border: solid 1px #DDD;
     height: 11.5em;
     margin: 1em 1%;
@@ -41,7 +41,7 @@ div.model {
 
     label {
         display: inline-block;
-        min-width: 30%;
+        min-width: 20%;
         color: $main-blue;
         &:after {
             content: ":";

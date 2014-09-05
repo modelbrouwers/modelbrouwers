@@ -47,7 +47,7 @@ select:-moz-focusring {
 /* line 11, ../../../sass/print_brouwersdag.scss */
 div.model {
   float: left;
-  width: 31%;
+  width: 48%;
   border: solid 1px #DDD;
   height: 11.5em;
   margin: 1em 1%;
@@ -77,7 +77,7 @@ div.model .row:last-child {
 /* line 42, ../../../sass/print_brouwersdag.scss */
 div.model label {
   display: inline-block;
-  min-width: 30%;
+  min-width: 20%;
   color: #006699;
 }
 /* line 46, ../../../sass/print_brouwersdag.scss */

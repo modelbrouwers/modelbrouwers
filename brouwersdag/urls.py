@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     url('^sign-up/(?P<pk>\d+)/cancel/$', views.CancelSignupView.as_view(), name='cancel-signup'),
     url('^my-models/$', views.MyModelsView.as_view(), name='my-models'),
     url('^my-models/(?P<pk>\d+)/$', views.EditModelView.as_view(), name='edit-model'),
+    url('^models/(?P<pk>\d+)/$', views.GoToBuildReportView.as_view(), name='model-detail'),
     url('^print/$', views.PrintSignupsView.as_view(), name='print-signups'),
 )

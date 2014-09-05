@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -41,6 +43,13 @@ class ShowCasedModel(models.Model):
 
     def get_scale(self):
         return "1:{0}".format(self.scale) if self.scale else ''
+
+    def get_absolute_url(self):
+        return reverse('brouwersdag:model-detail', kwargs={'pk': self.pk})
+
+    def get_url(self):
+        domain = Site.objects.get_current().domain
+        return u'http://{0}{1}'.format(domain, self.get_absolute_url())
 
 
 class Competition(models.Model):

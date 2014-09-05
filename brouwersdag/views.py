@@ -2,9 +2,10 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.db.models import Q, Count
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (TemplateView, DeleteView, ListView,
-                                  CreateView, UpdateView)
+                                  CreateView, UpdateView, RedirectView)
 
 from utils.views import LoginRequiredMixin
 
@@ -108,3 +109,11 @@ class PrintSignupsView(TemplateView):
         kwargs['regular'] = ShowCasedModel.objects.exclude(is_competitor=True).order_by('id')
         kwargs['competition'] = ShowCasedModel.objects.filter(is_competitor=True).order_by('id')
         return super(PrintSignupsView, self).get_context_data(**kwargs)
+
+
+
+class GoToBuildReportView(RedirectView):
+    def get_redirect_url(self, **kwargs):
+        q = Q(is_competitor=False) & ~Q(topic='')
+        model = get_object_or_404(ShowCasedModel, q, pk=self.kwargs.get('pk'))
+        return model.topic
