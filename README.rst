@@ -84,25 +84,33 @@ or use the Windows Git client (recommended for inexperienced users)
 
 Installing ``django`` and the project dependencies
 ==================================================
-All dependencies are in `requirements.txt`. Install with::
+All dependencies are in the `requirements` folder, grouped by the environment type (development, staging, production). Install with::
 
-    (brouwers)[user@host]$ pip install -r requirements.txt
+    (brouwers)[user@host]$ pip install -r requirements/development.txt
 
 These will be installed in your virtualenv.
 
 Create the settings
 ===================
-The settings module is still WIP and needs proper testing. For now you can create
-the required settings this way::
+The settings follow a more logical approach and live in brouwers/brouwers/settings. 
+The base file is base.py, and is included by the settings_development for instance.
+For security reasons, passwords and secret keys should live in a secrets.py file on the same level as base.py
+You can copy secrets.py_example to secrets.py and edit the file
 
-    (brouwers)[user@host]$ cd C:\User\my-user\brouwers\brouwers
-    (brouwers)[user@host]$ python create_local_settings.py
-    (brouwers)[user@host]$ python create_settings.py
+    (brouwers)[user@host]$ cd C:\User\my-user\brouwers\brouwers\settings
+    (brouwers)[user@host]$ cp secrets.py_example secrets.py
 
-And verify the files ``settings.py`` and ``local_settings.py``. Make sure to use
-the ``sqlite3`` database backend if you have no MySQL or Postgres database running.
+Edit secrets.py to include your own settings. You can generate a secret key here: `SecretKey`_.
 
-Only the 'default' database is required, unless you need to test the phpBB3 integration.
+.. _SecretKey: http://www.miniwebtool.com/django-secret-key-generator/
+
+All available database backends are in the example file, for local development it's easiest if 
+everything is changed to sqlite3 (like the DATABASES['sqlite3'] example). You need at least the 'default' database.
+If you're browsing through phpBB3 tables, you also need the 'mysql' database.
+
+In production the Django tables live in a postgresql database, while the phpBB3 tables live in MySQL. Replicating this
+environment is probably the most robust during development.
+
 
 Creating the database
 =====================
@@ -115,6 +123,9 @@ This creates the database and runs all required migrations.
 Load the testdata by executing::
 
     (brouwers)[user@host]$ python manage.py loaddata testdata.json
+
+Be advised - the testdata.json fixture can be stale. 
+If it fails, give BBT a heads-up to fix it. You don't really need it, but it is practical.
 
 Finally, create a superuser account::
 
@@ -139,4 +150,4 @@ Setting up local ``phpBB3``-installation
 
 Tests
 =====
-WIP
+Run the tests 
