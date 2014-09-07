@@ -1,14 +1,37 @@
 {% extends "admin/base.html" %}
-{% load i18n %}{% load staticfiles %}
+{% load i18n staticfiles admin_tools_menu_tags %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style type="text/css">
+    #header #branding h1 {
+        text-indent: 0 !important;
+        background: none !important;
+    }
+    </style>
+    {% if user.is_active and user.is_staff %}
+        {% if not is_popup %}
+            {% admin_tools_render_menu_css %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
 
 {% block title %}{{ title }} | {% trans 'Modelbrouwers.nl admin' %}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="/"><img src="{% static 'images/logo/logo_modelbrouwers.png' %}" alt="Modelbrouwers.nl" width="182" height="30"/></a> {% trans 'administration' %}</h1>
+<h1 id="site-name"><a href="/"><img src="{% static 'images/logo/logo_modelbrouwers.png' %}" alt="Modelbrouwers.nl" width="182" height="30"/></a></h1>
 {% endblock %}
 
 {% block extrahead %}
 <link rel="shortcut icon" href="{{ STATIC_URL }}images/icons/favicon.ico" />
+{% endblock %}
+
+{% block nav-global %}
+    {% if user.is_active and user.is_staff %}
+        {% if not is_popup %}
+            {% admin_tools_render_menu %}
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 {% block userlinks %}
@@ -21,5 +44,3 @@
     <a href="{% url 'builds:add_build' %}">{% trans "Builds" %}</a> &bull;
     <a href="/phpBB3/memberlist.php?mode=searchuser" target="_blank">{% trans 'Find a member' %}</a>
 {% endblock %}
-
-{% block nav-global %}{% endblock %}
