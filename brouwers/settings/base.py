@@ -232,3 +232,9 @@ COMPRESS_CSS_FILTERS = [
 #
 TEST_RUNNER = 'general.tests.utils.UnmanagedTablesTestRunner'
 NOSE_ARGS = ['-s']
+
+#
+# ADMIN TOOLS
+#
+ADMIN_TOOLS_INDEX_DASHBOARD = 'brouwers.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'brouwers.dashboard.CustomAppIndexDashboard'
