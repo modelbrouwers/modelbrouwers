@@ -119,9 +119,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @cached_property
     def forumuser(self):
+        from django.db import DatabaseError
         try:
             return ForumUser.objects.get(pk=self.forumuser_id)
-        except ForumUser.DoesNotExist:
+        except (ForumUser.DoesNotExist, DatabaseError):
             return None
 
     def get_profile(self):
