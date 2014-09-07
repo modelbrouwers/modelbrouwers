@@ -28,6 +28,7 @@ class UserManager(BaseUserManager):
                           last_login=now, date_joined=now, **extra_fields)
 
         user.set_password(password)
+        import pdb; pdb.set_trace()
         user.save(using=self._db)
         return user
 

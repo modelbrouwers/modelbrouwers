@@ -7,7 +7,7 @@ from .models import User
 
 @receiver(post_save, sender=User)
 def create_userprofile(sender, **kwargs):
-    if kwargs.get('created'):
+    if kwargs.get('created') and not kwargs.get('raw'):
         user = kwargs.get('instance')
         fields = {
             'user': user,
@@ -17,24 +17,27 @@ def create_userprofile(sender, **kwargs):
 
 @receiver(post_save, sender=User)
 def sync_email(sender, **kwargs):
-    user = kwargs.get('instance')
-    forum_user = user.forumuser
-    if forum_user and user.email != forum_user.user_email:
-        forum_user.user_email = user.email
-        forum_user.save()
+    if not kwargs.get('raw'):
+        user = kwargs.get('instance')
+        forum_user = user.forumuser
+        if forum_user and user.email != forum_user.user_email:
+            forum_user.user_email = user.email
+            forum_user.save()
 
 @receiver(post_save, sender=User)
 def sync_userprofile(sender, **kwargs):
-    user = kwargs.get('instance')
-    profile = user.get_profile()
-    if not kwargs.get('created') and profile.forum_nickname != user.username:
-        profile.forum_nickname = user.username
-        profile.save()
+    if not kwargs.get('raw'):
+        user = kwargs.get('instance')
+        profile = user.get_profile()
+        if not kwargs.get('created') and profile.forum_nickname != user.username:
+            profile.forum_nickname = user.username
+            profile.save()
 
 @receiver(post_save, sender=User)
 def sync_forumuser_username(sender, **kwargs):
-    user = kwargs.get('instance')
-    forum_user = user.forumuser
-    if forum_user and user.username != forum_user.username:
-        forum_user.username = user.username
-        forum_user.save()
+    if not kwargs.get('raw'):
+        user = kwargs.get('instance')
+        forum_user = user.forumuser
+        if forum_user and user.username != forum_user.username:
+            forum_user.username = user.username
+            forum_user.save()
