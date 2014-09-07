@@ -25,3 +25,4 @@ WebTest==2.0.15
 django-precise-bbcode==0.4.2
 WeasyPrint==0.22
 BeautifulSoup
+django-admin-tools==0.5.2

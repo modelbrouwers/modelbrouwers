@@ -11,6 +11,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^admin/',        include(admin.site.urls)),
+    url(r'^admin_tools/', include('admin_tools.urls')),
+
     url(r'^albums/',       include('albums.urls')),
     url(r'^awards/',       include('awards.urls')),
     url(r'^brouwersdag/',  include('brouwersdag.urls', namespace='brouwersdag')),
