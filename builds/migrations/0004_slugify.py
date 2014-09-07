@@ -4,27 +4,29 @@ from south.db import db
 from south.v2 import DataMigration
 from django.db import models
 from brouwers.utils.slugify import unique_slugify
+from django.conf import settings
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
         "Just save all the objects. The save method will generate an unique slug."
-        for build in orm.Build.objects.all():
-            value = "%(username)s %(brand)s %(scale)s %(title)s" % {
-                'username': build.profile.user.username,
-                'brand': build.brand,
-                'scale': "1-%s" % build.scale,
-                'title': build.title
-            }
-            unique_slugify(build, value)
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            for build in orm.Build.objects.all():
+                value = "%(username)s %(brand)s %(scale)s %(title)s" % {
+                    'username': build.profile.user.username,
+                    'brand': build.brand,
+                    'scale': "1-%s" % build.scale,
+                    'title': build.title
+                }
+                unique_slugify(build, value)
 
-            # profile -> user migration
-            build.user = build.profile.user
+                # profile -> user migration
+                build.user = build.profile.user
 
-            # brand & brand_name
-            build.brand_name = build.brand
-            
-            build.save()
+                # brand & brand_name
+                build.brand_name = build.brand
+
+                build.save()
 
     def backwards(self, orm):
         pass

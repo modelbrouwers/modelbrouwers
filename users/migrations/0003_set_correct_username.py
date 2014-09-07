@@ -3,6 +3,7 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(DataMigration):
 
@@ -10,10 +11,11 @@ class Migration(DataMigration):
         """
         Replace the underscored usernames with the usernames in the UserProfile.
         """
-        for profile in orm['general.UserProfile'].objects.select_related('user').all():
-            user = profile.user
-            user.username = profile.forum_nickname
-            user.save()
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            for profile in orm['general.UserProfile'].objects.select_related('user').all():
+                user = profile.user
+                user.username = profile.forum_nickname
+                user.save()
 
     def backwards(self, orm):
         """

@@ -3,15 +3,17 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        for build in orm.Build.objects.all():
-            for attr in ['img1', 'img2', 'img3']:
-                if getattr(build, attr, False):
-                    url = getattr(build, attr)
-                    orm.BuildPhoto.objects.create(build=build, photo_url=url)
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            for build in orm.Build.objects.all():
+                for attr in ['img1', 'img2', 'img3']:
+                    if getattr(build, attr, False):
+                        url = getattr(build, attr)
+                        orm.BuildPhoto.objects.create(build=build, photo_url=url)
 
     def backwards(self, orm):
         attrs = ['img1', 'img2', 'img3']
@@ -23,7 +25,7 @@ class Migration(DataMigration):
                     url = buildphoto.photo.image.url
                 else:
                     url = buildphoto.photo_url
-                
+
                 setattr(build, attr, url)
             build.save()
 

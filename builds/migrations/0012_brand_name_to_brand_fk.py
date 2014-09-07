@@ -3,24 +3,26 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
         "Look up the brands and map the names to the objects"
-        brands_mapping = {}
-        brands = orm['kitreviews.Brand'].objects.all()
-        for brand in brands:
-            k = brand.name.lower()
-            brands_mapping[k] = brand.id
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            brands_mapping = {}
+            brands = orm['kitreviews.Brand'].objects.all()
+            for brand in brands:
+                k = brand.name.lower()
+                brands_mapping[k] = brand.id
 
-        for build in orm.Build.objects.all():
-            try:
-                k = build.brand_name.lower()
-                build.brand_id = brands_mapping[k]
-                build.save()
-            except KeyError: # brand is not in our database or mistyped... too bad!
-                pass
+            for build in orm.Build.objects.all():
+                try:
+                    k = build.brand_name.lower()
+                    build.brand_id = brands_mapping[k]
+                    build.save()
+                except KeyError: # brand is not in our database or mistyped... too bad!
+                    pass
 
     def backwards(self, orm):
         for build in orm.Build.objects.all():

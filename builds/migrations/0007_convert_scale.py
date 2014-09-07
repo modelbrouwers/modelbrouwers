@@ -3,17 +3,19 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
         """Strip the 1: or 1/ portion of the scale"""
-        for build in orm.Build.objects.all():
-            scale = build.scale
-            if scale[:2] in ('1:', '1/'):
-                build.scale = scale[2:]
-                build.save()
-        
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            for build in orm.Build.objects.all():
+                scale = build.scale
+                if scale[:2] in ('1:', '1/'):
+                    build.scale = scale[2:]
+                    build.save()
+
 
     def backwards(self, orm):
         """Prepend 1: to the scale"""

@@ -3,15 +3,17 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from django.conf import settings
 
 
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding field 'User.username_clean'
-        db.add_column(u'users_user', 'username_clean',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=30, blank=True),
-                      keep_default=False)
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            db.add_column(u'users_user', 'username_clean',
+                          self.gf('django.db.models.fields.CharField')(default='', max_length=30, blank=True),
+                          keep_default=False)
 
 
     def backwards(self, orm):

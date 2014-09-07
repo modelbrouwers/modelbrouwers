@@ -3,13 +3,15 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        for u in orm.User.objects.all():
-            u.username_clean = u.username.lower()
-            u.save()
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            for u in orm.User.objects.all():
+                u.username_clean = u.username.lower()
+                u.save()
 
     def backwards(self, orm):
         "Write your backwards methods here."

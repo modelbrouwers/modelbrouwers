@@ -3,18 +3,20 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.conf import settings
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
         "Integer value for scale"
-        for build in orm.Build.objects.all():
-            try:
-                scale = int(build.scale)
-            except ValueError:
-                scale = 0
-            build.scale_int = scale
-            build.save()
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            for build in orm.Build.objects.all():
+                try:
+                    scale = int(build.scale)
+                except ValueError:
+                    scale = 0
+                build.scale_int = scale
+                build.save()
 
     def backwards(self, orm):
         for build in orm.Build.objects.all():

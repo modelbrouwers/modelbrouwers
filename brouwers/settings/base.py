@@ -173,6 +173,8 @@ AUTH_PROFILE_MODULE = 'general.UserProfile'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
+SKIP_AUTH_USER_MODEL_MIGRATIONS = True
+
 #
 # MIBBIT
 #

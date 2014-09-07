@@ -3,16 +3,17 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from django.conf import settings
 
 
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'User.forumuser_id'
-        db.add_column(u'users_user', 'forumuser_id',
-                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
-                      keep_default=False)
-
+        if not settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
+            # Adding field 'User.forumuser_id'
+            db.add_column(u'users_user', 'forumuser_id',
+                          self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
+                          keep_default=False)
 
     def backwards(self, orm):
         # Deleting field 'User.forumuser_id'
