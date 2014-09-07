@@ -95,7 +95,7 @@ Create the settings
 The settings follow a more logical approach and live in brouwers/brouwers/settings. 
 The base file is base.py, and is included by the settings_development for instance.
 For security reasons, passwords and secret keys should live in a secrets.py file on the same level as base.py
-You can copy secrets.py_example to secrets.py and edit the file
+You can copy secrets.py_example to secrets.py and edit the file::
 
     (brouwers)[user@host]$ cd C:\User\my-user\brouwers\brouwers\settings
     (brouwers)[user@host]$ cp secrets.py_example secrets.py
