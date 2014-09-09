@@ -1,4 +1,6 @@
+from datetime import timedelta
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.utils import timezone
 
 from utils.views import LoginRequiredMixin
 
@@ -13,8 +15,19 @@ class GroupBuildListView(ListView):
         return GroupBuild.public.all()
 
     def get_context_data(self, **kwargs):
+        now = timezone.now()
+
+        new_concepts = self.object_list.filter(status=GBStatuses.concept).order_by('?')[:5]
+        starting_soon = self.object_list.filter(
+            status=GBStatuses.accepted,
+            start__gte=now + timedelta(days=3),
+            start__lte=now + timedelta(weeks=6)
+        ).order_by('start')
+
         kwargs.update({
-            'statuses': GBStatuses.choices
+            'statuses': GBStatuses.choices,
+            'new_concepts': new_concepts,
+            'starting_soon': starting_soon,
         })
         return super(GroupBuildListView, self).get_context_data(**kwargs)
 

@@ -9,8 +9,50 @@
 {% endblock %}
 
 
+{% block page-title %}<h1 class="pull-left page-title">{% trans "Group builds dashboard" %}</h1>{% endblock %}
+
+
 {% block content %}
 <div class="container list">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>{% trans "New concepts" %}</h2>
+            <div class="list-group">
+                {% for gb in new_concepts %}
+                    <a href="{{ gb.get_absolute_url }}" class="list-group-item">
+                        <strong>{{ gb.theme }}</strong>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>{% trans "Starting soon" %}</h2>
+            <div class="list-group">
+                {% for gb in starting_soon %}
+                    <a href="{{ gb.get_absolute_url }}" class="list-group-item">
+                        {{ gb.start|date }} &bull; <strong>{{ gb.theme }}</strong>
+                        ({% blocktrans count n_participants=gb.participants.count %}1 participant{% plural %}{{ n_participants }} participants{% endblocktrans %})
+                    </a>
+                {% empty %}
+                {% url 'groupbuilds:create' as url_gb_concept %}
+                {% blocktrans %}
+                    Nothing new planned for the next 6 weeks! Maybe you can
+                    <a href="{{ url_gb_concept }}">submit your own idea?</a>
+                {% endblocktrans %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-12">Calendar</div>
+    </div>
+
+
 
     <div class="row">
         <div class="col-md-10">
