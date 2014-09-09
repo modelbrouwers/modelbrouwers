@@ -5,6 +5,17 @@
 {% block extrastyle %}
 <style>
     .gb {border: solid 1px #CCC; padding: 0 10px; margin-top: 15px;}
+    .cal-month {
+        min-height: 50px;
+        border-top: solid 1px #AAA;
+        border-bottom: solid 1px #AAA;
+    }
+    .cal-month:first-child {
+        border-left: solid 1px #AAA;
+    }
+    .cal-month:last-child {
+        border-right: solid 1px #AAA;
+    }
 </style>
 {% endblock %}
 
@@ -49,12 +60,30 @@
     <hr>
 
     <div class="row">
-        <div class="col-md-12">Calendar</div>
+        <div class="col-md-12">
+            <h2>{% trans "Calendar" %}</h2>
+            <div class="row">
+                {% for date in dates %}
+                    <div class="month-name col-xs-2">{{ date|date:"F"|capfirst }}</div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="cal-month col-xs-2"></div>
+                <div class="cal-month col-xs-2"></div>
+                <div class="cal-month col-xs-2"></div>
+                <div class="cal-month col-xs-2"></div>
+                <div class="cal-month col-xs-2"></div>
+                <div class="cal-month col-xs-2"></div>
+            </div>
+        </div>
     </div>
 
 
 
-    <div class="row">
+
+
+
+    <div class="row" style="margin-top: 200px;">
         <div class="col-md-10">
             <section class="object-list">
                 <div class="row">

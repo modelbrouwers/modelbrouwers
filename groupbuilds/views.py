@@ -24,10 +24,18 @@ class GroupBuildListView(ListView):
             start__lte=now + timedelta(weeks=6)
         ).order_by('start')
 
+        calender_builds = self.object_list.filter(
+            status__in=GBStatuses.date_bound_statuses
+        )
+
+        dates = [now.date()]
+
         kwargs.update({
             'statuses': GBStatuses.choices,
             'new_concepts': new_concepts,
             'starting_soon': starting_soon,
+            'calender_builds': calender_builds,
+            'dates': dates,
         })
         return super(GroupBuildListView, self).get_context_data(**kwargs)
 
