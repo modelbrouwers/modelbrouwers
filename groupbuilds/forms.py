@@ -21,3 +21,12 @@ class GroupBuildForm(forms.ModelForm):
         if _created and gb.applicant not in gb.admins.all():
             gb.admins.add(gb.applicant)
         return gb
+
+
+class DateForm(forms.Form):
+    date = forms.DateField(required=False)
+
+    def get_date(self):
+        if self.is_valid():
+            return self.cleaned_data['date']
+        return None

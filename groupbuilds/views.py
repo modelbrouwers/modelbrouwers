@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from utils.views import LoginRequiredMixin
 from .models import GroupBuild, GroupbuildStatuses as GBStatuses
-from .forms import GroupBuildForm
+from .forms import GroupBuildForm, DateForm
 
 
 class GroupBuildListView(ListView):
@@ -28,7 +28,8 @@ class GroupBuildListView(ListView):
         ).order_by('start')
 
         dates = []
-        today = now.date()
+        form = DateForm(self.request.GET)
+        today = form.get_date() or now.date()
         for i in range(0, 6):
             dates.append(today + relativedelta(months=i))
 
