@@ -147,13 +147,14 @@ class GroupBuild(ForumMixin, models.Model):
             pct_last_month = 0.0
 
         width = (pct_first_month + pct_last_month + max(n_months - 2, 0)) / float(num_months)
+        width = min(1.0, width)
         if offset_start < 0:
             width += offset_start
             offset_start = 0.0
 
         self._dimensions = {
             'offset': offset_start * 100,
-            'width': min(width, 1.0) * 100,
+            'width': width * 100,
         }
 
     @property
