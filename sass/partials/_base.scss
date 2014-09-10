@@ -44,3 +44,9 @@
 h2, .h2, h3, .h3, h4, .h4 {
   color: rgba($main-blue, 0.9);
 }
+
+
+a.list-group-item:hover {
+  background-color: rgba($main-light-blue, 0.5);
+  color: white;
+}

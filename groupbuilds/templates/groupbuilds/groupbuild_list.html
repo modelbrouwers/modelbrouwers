@@ -10,48 +10,58 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h2>{% trans "New concepts" %}</h2>
-            <div class="list-group">
-                {% for gb in new_concepts %}
-                    <a href="{{ gb.get_absolute_url }}" class="list-group-item">
-                        <strong>{{ gb.theme }}</strong>
-                    </a>
-                {% endfor %}
+            <div class="well">
+                <h2>{% trans "New concepts" %}</h2>
+                <div class="list-group">
+                    {% for gb in new_concepts %}
+                        <a href="{{ gb.get_absolute_url }}" class="list-group-item">
+                            <strong>{{ gb.theme }}</strong>
+                        </a>
+                    {% empty %}
+                        {% url 'groupbuilds:create' as url_gb_concept %}
+                        {% blocktrans %}
+                            Nobody seems to have a clue! Maybe you can
+                            <a href="{{ url_gb_concept }}">submit your own idea?</a>
+                        {% endblocktrans %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
         <div class="col-md-6">
-            <h2>{% trans "Starting soon" %}</h2>
-            <div class="list-group">
-                {% for gb in starting_soon %}
-                    <a href="{{ gb.get_absolute_url }}" class="list-group-item">
-                        {{ gb.start|date }} &bull; <strong>{{ gb.theme }}</strong>
-                        ({% blocktrans count n_participants=gb.participants.count %}1 participant{% plural %}{{ n_participants }} participants{% endblocktrans %})
-                    </a>
-                {% empty %}
-                {% url 'groupbuilds:create' as url_gb_concept %}
-                {% blocktrans %}
-                    Nothing new planned for the next 6 weeks! Maybe you can
-                    <a href="{{ url_gb_concept }}">submit your own idea?</a>
-                {% endblocktrans %}
-                {% endfor %}
+            <div class="well">
+                <h2>{% trans "Starting soon" %}</h2>
+                <div class="list-group">
+                    {% for gb in starting_soon %}
+                        <a href="{{ gb.get_absolute_url }}" class="list-group-item">
+                            {{ gb.start|date }} &bull; <strong>{{ gb.theme }}</strong>
+                            ({% blocktrans count n_participants=gb.participants.count %}1 participant{% plural %}{{ n_participants }} participants{% endblocktrans %})
+                        </a>
+                    {% empty %}
+                    {% blocktrans %}
+                        Nothing starting in the next six weeks. Maybe there's something further
+                        down the road in the <a href="#calendar">calendar</a>?
+                    {% endblocktrans %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <section class="calendar col-md-12">
+    <div id="calendar">
+        <section class="calendar">
             <h2>{% trans "Calendar" %}</h2>
 
-            <div class="row">
+            <div class="row month-names">
                 {% for date in dates %}
-                    <div class="month-name col-xs-2 text-center">{{ date|date:"F" }}</div>
+                    <div class="month-name col-xs-2 text-center">{{ date|date:"F"|capfirst }}</div>
                 {% endfor %}
             </div>
 
             {% for gb in calendar_gbs %}
-            <div class="row gb-wrapper">
-                <div class="col-md-12 calendar-gb {% cycle 'bg-main-green' 'bg-main-red' 'bg-main-blue' 'bg-main-pink' 'bg-main-grey' 'bg-main-orange' %}"
+            <div class="row gb-wrapper {% if forloop.last %}last{% endif %}">
+                <div class="today-marker" style="left: {{ offset_today }}%;">&nbsp;</div>
+                <div class="col-md-12 calendar-gb soft {% cycle 'bg-main-green' 'bg-main-red' 'bg-main-blue' 'bg-main-pink' 'bg-main-grey' 'bg-main-orange' %}"
                     style="width: {{ gb.calendar_dimensions.width|unlocalize }}%; margin-left: {{ gb.calendar_dimensions.offset|unlocalize }}%;"
                     title="Start: {{ gb.start }}, End: {{ gb.end }}">
                     <a href="{{ gb.get_absolute_url }}" title="{{ gb.theme }}, {{ gb.start|date }} - {{ gb.end|date }}">
@@ -62,6 +72,7 @@
             {% endfor %}
         </section>
     </div>
+
 
 
 </div>

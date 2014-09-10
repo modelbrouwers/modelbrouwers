@@ -14,35 +14,63 @@
 .bg-main-blue {
   background-color: #006699;
 }
-
-/* line 10, ../../../sass/partials/_colors.scss */
-.bg-main-red {
-  background-color: #e91d1d;
-}
-
 /* line 11, ../../../sass/partials/_colors.scss */
-.bg-main-green {
-  background-color: #32bb5b;
-}
-
-/* line 12, ../../../sass/partials/_colors.scss */
-.bg-main-light-blue {
-  background-color: #4095fd;
-}
-
-/* line 13, ../../../sass/partials/_colors.scss */
-.bg-main-pink {
-  background-color: #df4ac5;
-}
-
-/* line 14, ../../../sass/partials/_colors.scss */
-.bg-main-grey {
-  background-color: #919291;
+.bg-main-blue.soft {
+  background-color: rgba(0, 102, 153, 0.7);
 }
 
 /* line 15, ../../../sass/partials/_colors.scss */
+.bg-main-red {
+  background-color: #e91d1d;
+}
+/* line 17, ../../../sass/partials/_colors.scss */
+.bg-main-red.soft {
+  background-color: rgba(233, 29, 29, 0.7);
+}
+
+/* line 21, ../../../sass/partials/_colors.scss */
+.bg-main-green {
+  background-color: #32bb5b;
+}
+/* line 23, ../../../sass/partials/_colors.scss */
+.bg-main-green.soft {
+  background-color: rgba(50, 187, 91, 0.7);
+}
+
+/* line 27, ../../../sass/partials/_colors.scss */
+.bg-main-light-blue {
+  background-color: #4095fd;
+}
+/* line 29, ../../../sass/partials/_colors.scss */
+.bg-main-light-blue.soft {
+  background-color: rgba(64, 149, 253, 0.7);
+}
+
+/* line 33, ../../../sass/partials/_colors.scss */
+.bg-main-pink {
+  background-color: #df4ac5;
+}
+/* line 35, ../../../sass/partials/_colors.scss */
+.bg-main-pink.soft {
+  background-color: rgba(223, 74, 197, 0.7);
+}
+
+/* line 39, ../../../sass/partials/_colors.scss */
+.bg-main-grey {
+  background-color: #919291;
+}
+/* line 41, ../../../sass/partials/_colors.scss */
+.bg-main-grey.soft {
+  background-color: rgba(145, 146, 145, 0.7);
+}
+
+/* line 45, ../../../sass/partials/_colors.scss */
 .bg-main-orange {
   background-color: #d46400;
+}
+/* line 47, ../../../sass/partials/_colors.scss */
+.bg-main-orange.soft {
+  background-color: rgba(212, 100, 0, 0.7);
 }
 
 /*
@@ -130,6 +158,12 @@ h1, .h1 {
 /* line 44, ../../../sass/partials/_base.scss */
 h2, .h2, h3, .h3, h4, .h4 {
   color: rgba(0, 102, 153, 0.9);
+}
+
+/* line 49, ../../../sass/partials/_base.scss */
+a.list-group-item:hover {
+  background-color: rgba(64, 149, 253, 0.5);
+  color: white;
 }
 
 /* line 3, ../../../sass/partials/_header.scss */
@@ -419,31 +453,83 @@ li.error {
 }
 
 /* line 3, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds #calendar {
+  margin-top: 15px;
+  background-color: #f5f5f5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border: solid 1px #e3e3e3;
+  padding: 0 15px;
+}
+/* line 11, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar {
-  border-bottom: solid 1px #aaaaaa;
   margin-bottom: 15px;
 }
-/* line 8, ../../../sass/partials/apps/_groupbuilds.scss */
-body.groupbuilds .calendar .month-name {
+/* line 15, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .calendar .month-names {
+  margin-left: 0;
+  margin-right: 0;
+}
+/* line 19, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .calendar .month-names .month-name {
   background-color: rgba(0, 102, 153, 0.6);
   padding: 5px inherit;
   color: white;
-  font-weight: bold;
 }
-/* line 15, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 24, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .calendar .month-names .month-name:first-child {
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+/* line 27, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .calendar .month-names .month-name:last-child {
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+/* line 33, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .calendar > div:last-child {
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+/* line 39, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .calendar .today-marker {
+  width: 3px;
+  position: absolute;
+  top: -5px;
+  height: 100px;
+  border: dotted 1px rgba(0, 102, 153, 0.3);
+  border-top: none;
+  border-bottom: none;
+  margin-bottom: -10px;
+  z-index: 2;
+}
+/* line 51, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper {
   overflow: hidden;
-  padding: 5px 0;
-  border-left: solid 1px #aaaaaa;
-  border-right: solid 1px #aaaaaa;
+  padding: 20px 0 0;
+  border-left: solid 1px #cccccc;
+  border-right: solid 1px #cccccc;
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: white;
 }
-/* line 21, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 62, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb {
-  border: solid 1px #aaaaaa;
+  border: solid 1px #cccccc;
   text-align: center;
   padding: 0;
 }
-/* line 26, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 67, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb a {
   display: block;
   padding: 5px;
@@ -453,9 +539,14 @@ body.groupbuilds .calendar .gb-wrapper .calendar-gb a {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 33, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 74, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb a span.end {
   font-size: 80%;
   line-height: 20px;
   float: right;
+}
+/* line 82, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .calendar .gb-wrapper.last {
+  padding-bottom: 20px;
+  border-bottom: solid 1px #cccccc;
 }

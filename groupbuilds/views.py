@@ -33,12 +33,15 @@ class GroupBuildListView(ListView):
         for i in range(0, 6):
             dates.append(today + relativedelta(months=i))
 
+        offset_today = 100 / 6.0 * today.day / calendar.monthrange(today.year, today.month)[1]
+
         kwargs.update({
             'statuses': GBStatuses.choices,
             'new_concepts': new_concepts,
             'starting_soon': starting_soon,
             'calendar_gbs': self.get_calendar_builds(dates),
             'dates': dates,
+            'offset_today': offset_today,
         })
         return super(GroupBuildListView, self).get_context_data(**kwargs)
 

@@ -6,13 +6,48 @@ $main-pink: #DF4AC5;
 $main-grey: #919291;
 $main-orange: #D46400;
 
-.bg-main-blue       {background-color: $main-blue; }
-.bg-main-red        {background-color: $main-red; }
-.bg-main-green      {background-color: $main-green; }
-.bg-main-light-blue {background-color: $main-light-blue; }
-.bg-main-pink       {background-color: $main-pink; }
-.bg-main-grey       {background-color: $main-grey; }
-.bg-main-orange     {background-color: $main-orange; }
+.bg-main-blue       {
+    background-color: $main-blue;
+    &.soft {
+        background-color: rgba($main-blue, 0.7);
+    }
+}
+.bg-main-red        {
+    background-color: $main-red;
+    &.soft {
+        background-color: rgba($main-red, 0.7);
+    }
+}
+.bg-main-green      {
+    background-color: $main-green;
+    &.soft {
+        background-color: rgba($main-green, 0.7);
+    }
+}
+.bg-main-light-blue {
+    background-color: $main-light-blue;
+    &.soft {
+        background-color: rgba($main-light-blue, 0.7);
+    }
+}
+.bg-main-pink       {
+    background-color: $main-pink;
+    &.soft {
+        background-color: rgba($main-pink, 0.7);
+    }
+}
+.bg-main-grey       {
+    background-color: $main-grey;
+    &.soft {
+        background-color: rgba($main-grey, 0.7);
+    }
+}
+.bg-main-orange     {
+    background-color: $main-orange;
+    &.soft {
+        background-color: rgba($main-orange, 0.7);
+    }
+}
 
 $white: #FFFFFF;
 $black: #000000;

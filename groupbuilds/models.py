@@ -126,34 +126,36 @@ class GroupBuild(ForumMixin, models.Model):
     num_participants.short_description = _('# participants')
 
     def set_calendar_dimensions(self, start, end, num_months=6):
+        num_months = float(num_months)
         # number of months
-        days_last_month = calendar.monthrange(self.end.year, self.end.month)[1]
-        days_first_month = calendar.monthrange(self.start.year, self.start.month)[1]
+        days_first_month = float(calendar.monthrange(self.start.year, self.start.month)[1])
+        days_last_month = float(calendar.monthrange(self.end.year, self.end.month)[1])
 
-        n_months = (self.end.year - self.start.year) * 12 + self.end.month - self.start.month + 1
-        n_full_months = n_months
-        if self.start.day != 1:
-            n_full_months -= 1
-        if self.end.day != days_last_month:
-            n_full_months -= 1
+        # calculate the offset
+        if self.start <= start:
+            offset = 0.0
+        else:
+            # check the number of months difference
+            diff_months = self.start.month - start.month
+            # calculate in the started month percentage
+            ratio_days = self.start.day / days_first_month
+            offset = (diff_months + ratio_days) / num_months
 
-        # percentages
-        offset_start = ((self.start.day-1) / float(days_first_month) + (self.start.month - start.month)) / float(num_months)
-        pct_last_month = self.end.day / float(days_last_month)
-        pct_first_month = 1-(offset_start) if n_months > 1 else pct_last_month
 
-        # calculated width
-        if n_months < 2:
-            pct_last_month = 0.0
-
-        width = (pct_first_month + pct_last_month + max(n_months - 2, 0)) / float(num_months)
-        width = min(1.0, width)
-        if offset_start < 0:
-            width += offset_start
-            offset_start = 0.0
+        # calculate the width
+        if self.end >= end:
+            width = 1.0 - offset
+        else:
+            # check number of months until end
+            diff_years = 12 * (self.end.year - self.start.year)
+            diff_months = min(self.end.month - start.month, self.end.month - self.start.month + diff_years)
+            # calculate in the percentage of the last month
+            ratio_days1 = (self.start.day - 1) / days_first_month
+            ratio_days2 = self.end.day / days_last_month
+            width = (diff_months + ratio_days2 - ratio_days1) / num_months
 
         self._dimensions = {
-            'offset': offset_start * 100,
+            'offset': offset * 100,
             'width': width * 100,
         }
 

@@ -1,22 +1,63 @@
 body.groupbuilds {
 
+  #calendar {
+    margin-top: 15px;
+    background-color: #f5f5f5;
+    @include border-radius(5px);
+    border: solid 1px #e3e3e3;
+    padding: 0 15px;
+  }
+
   .calendar {
-    $cal-border: solid 1px #AAA;
-    border-bottom: $cal-border;
+    $cal-border: solid 1px $default-border-color;
     margin-bottom: 15px;
 
-    .month-name {
-      background-color: rgba($main-blue, 0.6);
-      padding: 5px inherit;
-      color: $white;
-      font-weight: bold;
+    .month-names {
+      margin-left: 0;
+      margin-right: 0;
+
+      .month-name {
+        background-color: rgba($main-blue, 0.6);
+        padding: 5px inherit;
+        color: $white;
+
+        &:first-child {
+          @include border-top-left-radius(5px);
+        }
+        &:last-child {
+          @include border-top-right-radius(5px);
+        }
+      }
+    }
+
+    > div:last-child {
+      @include border-bottom-left-radius(5px);
+      @include border-bottom-right-radius(5px);
+    }
+
+
+    .today-marker {
+      width: 3px;
+      position: absolute;
+      top: -5px;
+      height: 100px;
+      border: dotted 1px rgba($main-blue, 0.3);
+      border-top: none;
+      border-bottom: none;
+      margin-bottom: -10px;
+      z-index: 2;
     }
 
     .gb-wrapper {
+      $spacing: 20px;
       overflow: hidden;
-      padding: 5px 0;
+      padding: $spacing 0 0;
       border-left: $cal-border;
       border-right: $cal-border;
+      position: relative;
+      margin-left: 0;
+      margin-right: 0;
+      background-color: $white;
 
       .calendar-gb {
         border: $cal-border;
@@ -36,6 +77,11 @@ body.groupbuilds {
             float:right;
           }
         }
+      }
+
+      &.last {
+        padding-bottom: $spacing;
+        border-bottom: $cal-border;
       }
     }
 
