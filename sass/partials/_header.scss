@@ -47,8 +47,7 @@
       @include text-shadow(#AAA 1px 1px 3px, #AAA 1px 1px 1px, #BBB 1px 1px 0, #BBB 0 0 1px);
       border: solid 1px #c8c8c8;
       border-bottom: none;
-      // @include box-shadow(#AAA 0 0 1px, rgba(0,0,0,0.1) 3px 3px 4px, inset $white 0 2px 1px);
-      @include box-shadow(#AAA 0 -1px 1px -1px, 3px 0 4px rgba(0,0,0,0.1), inset $white 0 2px 1px);
+      @include box-shadow(#AAA 0 -1px 1px -1px, 3px 0 4px rgba(0,0,0,0.1), inset $broken-white 0 2px 1px);
       overflow: hidden; // cut off bottom shadow
       &:hover, &:focus, &:active, &.active {
         background-color: $nav-tab-highlight;

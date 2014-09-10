@@ -1,35 +1,46 @@
 .h1-margin {
-    margin-top: 34px;
-    margin-bottom: 10px;
+  margin-top: 34px;
+  margin-bottom: 10px;
 }
 
 /*
  * Messages
  */
  ul.messages {
-    margin-top: 15px;
- }
+  margin-top: 15px;
+}
 
 .nav-pills {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    @include opacity(0.8);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  @include opacity(0.8);
 }
 .nav > li > a {
-    padding: 5px 15px;
+  padding: 5px 15px;
 }
 
 .main-content {
     // @include box-shadow($box-shadow-color 10px 0 10px -10px, $box-shadow-color -10px 0 10px -10px);
-}
+  }
 
-.r {
+  .r {
     background: url('../images/logo/mb_r.png') no-repeat top right;
     background-size: 25px 42px;
+  }
+
+  .confirmed-model {
+    h2, h3, h4 {
+      margin-top: 10px;
+    }
+  }
+
+/*
+ * Headers
+ */
+ h1, .h1 {
+  color: $main-blue;
 }
 
-.confirmed-model {
-    h2, h3, h4 {
-        margin-top: 10px;
-    }
+h2, .h2, h3, .h3, h4, .h4 {
+  color: rgba($main-blue, 0.9);
 }

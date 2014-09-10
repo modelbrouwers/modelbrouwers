@@ -1,23 +1,5 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n brouwers %}
-
-
-{% block extrastyle %}
-<style>
-    .gb {border: solid 1px #CCC; padding: 0 10px; margin-top: 15px;}
-    .cal-month {
-        min-height: 50px;
-        border-top: solid 1px #AAA;
-        border-bottom: solid 1px #AAA;
-    }
-    .cal-month:first-child {
-        border-left: solid 1px #AAA;
-    }
-    .cal-month:last-child {
-        border-right: solid 1px #AAA;
-    }
-</style>
-{% endblock %}
+{% load i18n brouwers l10n %}
 
 
 {% block page-title %}<h1 class="pull-left page-title">{% trans "Group builds dashboard" %}</h1>{% endblock %}
@@ -57,60 +39,30 @@
         </div>
     </div>
 
-    <hr>
-
     <div class="row">
-        <div class="col-md-12">
+        <section class="calendar col-md-12">
             <h2>{% trans "Calendar" %}</h2>
+
             <div class="row">
                 {% for date in dates %}
-                    <div class="month-name col-xs-2">{{ date|date:"F"|capfirst }}</div>
+                    <div class="month-name col-xs-2 text-center">{{ date|date:"F" }}</div>
                 {% endfor %}
             </div>
-            <div class="row">
-                <div class="cal-month col-xs-2"></div>
-                <div class="cal-month col-xs-2"></div>
-                <div class="cal-month col-xs-2"></div>
-                <div class="cal-month col-xs-2"></div>
-                <div class="cal-month col-xs-2"></div>
-                <div class="cal-month col-xs-2"></div>
+
+            {% for gb in calendar_gbs %}
+            <div class="row gb-wrapper">
+                <div class="col-md-12 calendar-gb {% cycle 'bg-main-green' 'bg-main-red' 'bg-main-blue' 'bg-main-pink' 'bg-main-grey' 'bg-main-orange' %}"
+                    style="width: {{ gb.calendar_dimensions.width|unlocalize }}%; margin-left: {{ gb.calendar_dimensions.offset|unlocalize }}%;"
+                    title="Start: {{ gb.start }}, End: {{ gb.end }}">
+                    <a href="{{ gb.get_absolute_url }}" title="{{ gb.theme }}, {{ gb.start|date }} - {{ gb.end|date }}">
+                        {{ gb.theme }} <span class="end">{{ gb.end|date:"d/m" }}</span>
+                    </a>
+                </div>
             </div>
-        </div>
+            {% endfor %}
+        </section>
     </div>
 
-
-
-
-
-
-    <div class="row" style="margin-top: 200px;">
-        <div class="col-md-10">
-            <section class="object-list">
-                <div class="row">
-                    {% for gb in object_list %}
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="gb">
-                                <h2>{{ gb.theme }} <small class="pull-right">{{ gb.get_status_display }}</small></h2>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </section>
-        </div>
-
-        <div class="col-md-2">
-            <aside class="filters">
-                {# FIXME: layout #}
-                <div class="list-group">
-                    <a href="#" class="list-group-item disabled">{% trans "Status" %}</a>
-                    {% for vaue, status in statuses %}
-                        <a href="#{{ value }}" class="list-group-item">{{ status }}</a>
-                    {% endfor %}
-                  </div>
-                </div>
-            </aside>
-        </div>
-    </div>
 
 </div>
 {% endblock content %}

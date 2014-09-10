@@ -1,9 +1,12 @@
-from datetime import timedelta
+from datetime import timedelta, date
+import calendar
+
+from dateutil.relativedelta import relativedelta
+
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.utils import timezone
 
 from utils.views import LoginRequiredMixin
-
 from .models import GroupBuild, GroupbuildStatuses as GBStatuses
 from .forms import GroupBuildForm
 
@@ -24,20 +27,33 @@ class GroupBuildListView(ListView):
             start__lte=now + timedelta(weeks=6)
         ).order_by('start')
 
-        calender_builds = self.object_list.filter(
-            status__in=GBStatuses.date_bound_statuses
-        )
-
-        dates = [now.date()]
+        dates = []
+        today = now.date()
+        for i in range(0, 6):
+            dates.append(today + relativedelta(months=i))
 
         kwargs.update({
             'statuses': GBStatuses.choices,
             'new_concepts': new_concepts,
             'starting_soon': starting_soon,
-            'calender_builds': calender_builds,
+            'calendar_gbs': self.get_calendar_builds(dates),
             'dates': dates,
         })
         return super(GroupBuildListView, self).get_context_data(**kwargs)
+
+    def get_calendar_builds(self, dates):
+        start_date = date(dates[0].year, dates[0].month, 1)
+        year, month = dates[-1].year, dates[-1].month
+        end_date = date(year, month, calendar.monthrange(year, month)[1])
+
+        qs = self.object_list.filter(
+            status__in=GBStatuses.date_bound_statuses,
+            end__gt=start_date,
+            start__lt=end_date
+        ).order_by('start', '-duration', '-end')
+        for gb in qs:
+            gb.set_calendar_dimensions(start_date, end_date, num_months=len(dates))
+        return qs
 
 
 class GroupBuildCreateView(LoginRequiredMixin, CreateView):

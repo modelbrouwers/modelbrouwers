@@ -6,6 +6,17 @@ $main-pink: #DF4AC5;
 $main-grey: #919291;
 $main-orange: #D46400;
 
+.bg-main-blue       {background-color: $main-blue; }
+.bg-main-red        {background-color: $main-red; }
+.bg-main-green      {background-color: $main-green; }
+.bg-main-light-blue {background-color: $main-light-blue; }
+.bg-main-pink       {background-color: $main-pink; }
+.bg-main-grey       {background-color: $main-grey; }
+.bg-main-orange     {background-color: $main-orange; }
+
+$white: #FFFFFF;
+$black: #000000;
+
 /*
  * Navigation bar
  */
@@ -15,9 +26,14 @@ $nav-tab: #e5e5e5;
 $nav-tab-highlight: #fafafa;
 $nav-tab-text: #f4f4f4;
 $nav-tab-text-highlight: #fafafa;
-$white: rgba(255,255,255,0.5);
+$broken-white: rgba(255,255,255, 0.5);
 
 /*
  * Main content
  */
 $box-shadow-color: rgba(0,0,0,0.1);
+
+/*
+ * Borders
+ */
+$default-border-color: #CCC;

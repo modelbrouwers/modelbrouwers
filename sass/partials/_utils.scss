@@ -9,3 +9,9 @@ select:-moz-focusring {
     text-shadow: 0 0 0 #000;
 }
 :focus, a:focus {outline:none;}                      /* ie8, chrome, etc */
+
+@mixin ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

@@ -1,4 +1,5 @@
 from datetime import timedelta
+import calendar
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -100,6 +101,7 @@ class GroupBuild(ForumMixin, models.Model):
     public = PublicGroupBuildsManager()
 
     _created = False
+    _dimensions = None
 
     class Meta:
         verbose_name = _(u'group build')
@@ -122,6 +124,41 @@ class GroupBuild(ForumMixin, models.Model):
     def num_participants(self):
         return self.participants.count()
     num_participants.short_description = _('# participants')
+
+    def set_calendar_dimensions(self, start, end, num_months=6):
+        # number of months
+        days_last_month = calendar.monthrange(self.end.year, self.end.month)[1]
+        days_first_month = calendar.monthrange(self.start.year, self.start.month)[1]
+
+        n_months = (self.end.year - self.start.year) * 12 + self.end.month - self.start.month + 1
+        n_full_months = n_months
+        if self.start.day != 1:
+            n_full_months -= 1
+        if self.end.day != days_last_month:
+            n_full_months -= 1
+
+        # percentages
+        offset_start = ((self.start.day-1) / float(days_first_month) + (self.start.month - start.month)) / float(num_months)
+        pct_last_month = self.end.day / float(days_last_month)
+        pct_first_month = 1-(offset_start) if n_months > 1 else pct_last_month
+
+        # calculated width
+        if n_months < 2:
+            pct_last_month = 0.0
+
+        width = (pct_first_month + pct_last_month + max(n_months - 2, 0)) / float(num_months)
+        if offset_start < 0:
+            width += offset_start
+            offset_start = 0.0
+
+        self._dimensions = {
+            'offset': offset_start * 100,
+            'width': min(width, 1.0) * 100,
+        }
+
+    @property
+    def calendar_dimensions(self):
+        return self._dimensions
 
 
 class Participant(models.Model):

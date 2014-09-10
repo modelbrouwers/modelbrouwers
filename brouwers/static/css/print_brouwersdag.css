@@ -6,11 +6,49 @@
   font-style: normal;
 }
 
+/* line 9, ../../../sass/partials/_colors.scss */
+.bg-main-blue {
+  background-color: #006699;
+}
+
+/* line 10, ../../../sass/partials/_colors.scss */
+.bg-main-red {
+  background-color: #e91d1d;
+}
+
+/* line 11, ../../../sass/partials/_colors.scss */
+.bg-main-green {
+  background-color: #32bb5b;
+}
+
+/* line 12, ../../../sass/partials/_colors.scss */
+.bg-main-light-blue {
+  background-color: #4095fd;
+}
+
+/* line 13, ../../../sass/partials/_colors.scss */
+.bg-main-pink {
+  background-color: #df4ac5;
+}
+
+/* line 14, ../../../sass/partials/_colors.scss */
+.bg-main-grey {
+  background-color: #919291;
+}
+
+/* line 15, ../../../sass/partials/_colors.scss */
+.bg-main-orange {
+  background-color: #d46400;
+}
+
 /*
  * Navigation bar
  */
 /*
  * Main content
+ */
+/*
+ * Borders
  */
 /*
 * Hide the dotted lines around an element when it receives focus.
