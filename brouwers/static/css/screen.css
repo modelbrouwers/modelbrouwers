@@ -453,6 +453,16 @@ li.error {
 }
 
 /* line 3, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds a.bg-main-orange {
+  color: white;
+  font-weight: bolder;
+}
+/* line 7, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds a.bg-main-orange:hover {
+  background-color: #d46400;
+  text-decoration: underline;
+}
+/* line 13, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds #calendar {
   margin-top: 15px;
   background-color: #f5f5f5;
@@ -464,34 +474,34 @@ body.groupbuilds #calendar {
   border: solid 1px #e3e3e3;
   padding: 0 15px;
 }
-/* line 11, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 21, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar {
   margin-bottom: 15px;
 }
-/* line 15, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 25, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names {
   margin-left: 0;
   margin-right: 0;
 }
-/* line 19, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 29, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names .month-name {
   background-color: rgba(0, 102, 153, 0.6);
   padding: 5px inherit;
   color: white;
 }
-/* line 24, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 34, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names .month-name:first-child {
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
 }
-/* line 27, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 37, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names .month-name:last-child {
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-/* line 33, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 43, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar > div:last-child {
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
@@ -500,7 +510,7 @@ body.groupbuilds .calendar > div:last-child {
   -webkit-border-bottom-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-/* line 39, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 49, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .today-marker {
   width: 3px;
   position: absolute;
@@ -512,7 +522,7 @@ body.groupbuilds .calendar .today-marker {
   margin-bottom: -10px;
   z-index: 2;
 }
-/* line 51, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 61, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper {
   overflow: hidden;
   padding: 20px 0 0;
@@ -523,13 +533,13 @@ body.groupbuilds .calendar .gb-wrapper {
   margin-right: 0;
   background-color: white;
 }
-/* line 62, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 72, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb {
   border: solid 1px #cccccc;
   text-align: center;
   padding: 0;
 }
-/* line 67, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 77, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb a {
   display: block;
   padding: 5px;
@@ -539,13 +549,13 @@ body.groupbuilds .calendar .gb-wrapper .calendar-gb a {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 74, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 84, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb a span.end {
   font-size: 80%;
   line-height: 20px;
   float: right;
 }
-/* line 82, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 92, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper.last {
   padding-bottom: 20px;
   border-bottom: solid 1px #cccccc;
