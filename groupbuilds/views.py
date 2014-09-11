@@ -3,6 +3,7 @@ import calendar
 
 from dateutil.relativedelta import relativedelta
 
+from django.db.models import Count
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.utils import timezone
 
@@ -15,7 +16,7 @@ class GroupBuildListView(ListView):
     model = GroupBuild
 
     def get_queryset(self):
-        return GroupBuild.public.all()
+        return GroupBuild.public.all().annotate(n_participants=Count('participants'))
 
     def get_context_data(self, **kwargs):
         now = timezone.now()

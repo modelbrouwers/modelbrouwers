@@ -14,7 +14,10 @@ class GroupbuildTests(TestCase):
         april_1st = date(2014, 4, 1)
         may_15th = date(2014, 5, 15)
         jul_1st = date(2014, 7, 1)
+
         oct_1st2 = date(2014, 10, 1)
+        jan_1st2 = date(2015, 1, 1)
+        jul_1st2 = date(2015, 7, 1)
 
         start = jan_1st
         end = jul_1st
@@ -60,4 +63,11 @@ class GroupbuildTests(TestCase):
         dimensions = build6.calendar_dimensions
         self.assertAlmostEqual(dimensions['width'], 100.0, places=2)
         self.assertAlmostEqual(dimensions['offset'], 0.0, places=2)
+
+        # test stuff in the next year
+        build7 = GroupBuildFactory.create(start=jan_1st2, end=jul_1st2)
+        build7.set_calendar_dimensions(date(2014, 9, 1), date(2015, 3, 1), num_months=6)
+        dimensions = build7.calendar_dimensions
+        self.assertAlmostEqual(dimensions['width'], 33.33, places=2)
+        self.assertAlmostEqual(dimensions['offset'], 66.67, places=2)
 

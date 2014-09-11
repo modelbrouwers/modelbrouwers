@@ -136,9 +136,9 @@ class GroupBuild(ForumMixin, models.Model):
             offset = 0.0
         else:
             # check the number of months difference
-            diff_months = self.start.month - start.month
+            diff_months = (self.start.month - start.month) + 12 * (self.start.year - start.year)
             # calculate in the started month percentage
-            ratio_days = self.start.day / days_first_month
+            ratio_days = (self.start.day - 1) / days_first_month
             offset = (diff_months + ratio_days) / num_months
 
 

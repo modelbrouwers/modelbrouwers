@@ -11,11 +11,12 @@
     <div class="row">
         <div class="col-md-6">
             <div class="well">
-                <h2>{% trans "New concepts" %}</h2>
+                <h2><i class="fa fa-newspaper-o"></i> {% trans "New concepts" %}</h2>
                 <div class="list-group">
                     {% for gb in new_concepts %}
                         <a href="{{ gb.get_absolute_url }}" class="list-group-item">
                             <strong>{{ gb.theme }}</strong>
+                            <span class="badge">{{ gb.n_participants }}</span>
                         </a>
                     {% empty %}
                         {% url 'groupbuilds:create' as url_gb_concept %}
@@ -35,7 +36,7 @@
                     {% for gb in starting_soon %}
                         <a href="{{ gb.get_absolute_url }}" class="list-group-item">
                             {{ gb.start|date }} &bull; <strong>{{ gb.theme }}</strong>
-                            ({% blocktrans count n_participants=gb.participants.count %}1 participant{% plural %}{{ n_participants }} participants{% endblocktrans %})
+                            <span class="badge">{{ gb.n_participants }}</span>
                         </a>
                     {% empty %}
                     {% blocktrans %}
@@ -50,7 +51,7 @@
 
     <div id="calendar">
         <section class="calendar">
-            <h2>{% trans "Calendar" %}</h2>
+            <h2>{% trans "Calendar" %} <i class="fa fa-calendar pull-right"></i></h2>
 
             <div class="row month-names">
                 {% for date in dates %}
@@ -60,8 +61,8 @@
 
             {% for gb in calendar_gbs %}
             <div class="row gb-wrapper {% if forloop.last %}last{% endif %}">
-                <div class="today-marker" style="left: {{ offset_today }}%;">&nbsp;</div>
-                <div class="col-md-12 calendar-gb soft {% cycle 'bg-main-green' 'bg-main-red' 'bg-main-blue' 'bg-main-pink' 'bg-main-grey' 'bg-main-orange' %}"
+                <div class="today-marker" style="left: {{ offset_today|unlocalize }}%;">&nbsp;</div>
+                <div class="col-md-12 calendar-gb soft {% cycle 'bg-main-green' 'bg-main-red' 'bg-main-pink' 'bg-main-grey' 'bg-main-orange' %}"
                     style="width: {{ gb.calendar_dimensions.width|unlocalize }}%; margin-left: {{ gb.calendar_dimensions.offset|unlocalize }}%;"
                     title="Start: {{ gb.start }}, End: {{ gb.end }}">
                     <a href="{{ gb.get_absolute_url }}" title="{{ gb.theme }}, {{ gb.start|date }} - {{ gb.end|date }}">
