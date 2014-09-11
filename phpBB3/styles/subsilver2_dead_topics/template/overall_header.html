@@ -29,7 +29,7 @@
     <!-- PHP -->
         $cache = new StaticCache();
         $cache->init();
-        $storage = new CachedFilesStorage($cache, $debug=false);
+        $storage = new CachedFilesStorage($cache, $debug=true);
     <!-- ENDPHP -->
 
     <!-- PHPBB style -->
@@ -47,6 +47,7 @@
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/common.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/jquery-ui-1.10.2.custom.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/albums_forum.css');<!-- ENDPHP -->" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/groupbuilds.css');<!-- ENDPHP -->" charset="utf-8"/>
 
     <style type="text/css">
         div#___gcse_0 input.gsc-input, form.gsc-search-box{font-size: 0.9em;}
@@ -61,6 +62,7 @@
     <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/purl.js');<!-- ENDPHP -->"></script>
     <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/forum.js');<!-- ENDPHP -->"></script>
     <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/albums_forum.js');<!-- ENDPHP -->"></script>
+    <script type="text/javascript" src="<!-- PHP --> echo $storage->url('js/groupbuilds.js');<!-- ENDPHP -->"></script>
     <!-- IF U_MCP || U_ACP -->
         <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>
     <!-- ENDIF -->
