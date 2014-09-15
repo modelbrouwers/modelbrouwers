@@ -231,7 +231,15 @@ COMPRESS_CSS_FILTERS = [
 # NOSE
 #
 TEST_RUNNER = 'general.tests.utils.UnmanagedTablesTestRunner'
-NOSE_ARGS = ['-s']
+NOSE_ARGS = [
+    '-s',
+    '--with-coverage',
+    '--cover-branches',
+    '--cover-package=users,albums,awards,banning,builds,'
+                     'brouwersdag,forum_tools,general,groupbuilds,kitreviews'
+                     ',migration,online_users,secret_santa,shirts',
+    '--cover-xml',
+]
 
 #
 # ADMIN TOOLS

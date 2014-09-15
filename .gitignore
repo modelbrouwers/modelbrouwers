@@ -23,3 +23,7 @@ Thumbs.db
 # Random
 /failed_migrations.txt
 .sass-cache
+
+# Tests & coverage
+.coverage
+coverage.xml
