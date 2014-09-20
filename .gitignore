@@ -25,5 +25,6 @@ Thumbs.db
 .sass-cache
 
 # Tests & coverage
-.coverage
-coverage.xml
+/.coverage
+/coverage.xml
+cover/
