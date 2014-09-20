@@ -1,0 +1,413 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-21 00:20+0200\n"
+"PO-Revision-Date: 2014-09-21 00:38+0200\n"
+"Last-Translator: Sergei Maertens <user+2@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
+
+#: models.py:18
+msgid "30 days"
+msgstr "30 dagen"
+
+#: models.py:19
+msgid "2 months"
+msgstr "2 maanden"
+
+#: models.py:20
+msgid "3 months"
+msgstr "3 maanden"
+
+#: models.py:21
+msgid "6 months"
+msgstr "6 maanden"
+
+#: models.py:26
+msgid "concept/idea"
+msgstr "concept/idee"
+
+#: models.py:27
+msgid "submitted"
+msgstr "toegevoegd"
+
+#: models.py:28
+msgid "accepted"
+msgstr "goedgekeurd"
+
+#: models.py:29
+msgid "denied"
+msgstr "afgekeurd"
+
+#: models.py:30
+msgid "extended"
+msgstr "verlengd"
+
+#: models.py:42
+msgid "forum id"
+msgstr "forumid"
+
+#: models.py:43
+msgid "Forum id of the group build subforum"
+msgstr "Forumid van het groepsbouwforum"
+
+#: models.py:46
+msgid "theme"
+msgstr "thema"
+
+#: models.py:47
+msgid "Theme/name of the group build"
+msgstr "Thema/naam van de groepsbouw"
+
+#: models.py:48
+msgid "slug"
+msgstr "slug"
+
+#: models.py:51
+msgid "forum category"
+msgstr "forumcategorie"
+
+#: models.py:53
+msgid "description"
+msgstr "beschrijving"
+
+#: models.py:53
+msgid "Short description"
+msgstr "Korte beschrijving"
+
+#: models.py:55
+msgid "admins"
+msgstr "verantwoordelijken"
+
+#: models.py:56
+msgid "Users who manage the group build."
+msgstr "Gebruikers die de groepsbouw beheren."
+
+#: models.py:59
+msgid "start date"
+msgstr "startdatum"
+
+#: models.py:60
+msgid "Date when you want to start building."
+msgstr "Datum waarop het bouwen zou beginnen."
+
+#: models.py:61
+msgid "end date"
+msgstr "einddatum"
+
+#: models.py:62
+msgid "Date this build ends."
+msgstr "Datum waarop het bouwen stopt."
+
+#: models.py:63
+msgid "duration"
+msgstr "duur"
+
+#: models.py:67
+msgid "status"
+msgstr "status"
+
+#: models.py:69
+msgid "users can vote"
+msgstr "mogelijheid tot stemmen"
+
+#: models.py:70
+msgid "Let users vote to determine the build popularity"
+msgstr "Laat de gebruikers stemmen of de groepsbouw moet doorgaan of niet"
+
+#: models.py:72
+msgid "upvotes"
+msgstr "positieve stemmen"
+
+#: models.py:74
+msgid "downvotes"
+msgstr "negatieve stemmen"
+
+#: models.py:83
+msgid "rules topic"
+msgstr "topic met regels"
+
+#: models.py:84
+msgid "topic to direct to from calendar"
+msgstr "topic om naar te verwijzen vanaf de kalender"
+
+#: models.py:86
+msgid "introduction topic"
+msgstr "inleidingstopic"
+
+#: models.py:107
+msgid "group build"
+msgstr "groepsbouw"
+
+#: models.py:108
+msgid "group builds"
+msgstr "groepsbouwen"
+
+#: models.py:119
+#, python-brace-format
+msgid "{name}: {status}"
+msgstr "{name}: {status}"
+
+#: models.py:126
+msgid "# participants"
+msgstr "# deelnemers"
+
+#: models.py:171
+msgid "model name"
+msgstr "naam model"
+
+#: models.py:173
+msgid "finished"
+msgstr "afgewerkt"
+
+#: models.py:174
+msgid "topic"
+msgstr "topic"
+
+#: models.py:177
+msgid "points"
+msgstr "punten"
+
+#: models.py:182
+msgid "group build participant"
+msgstr "groepsbouwdeelnemer"
+
+#: models.py:183
+msgid "group build participants"
+msgstr "groepsbouwdeelnemers"
+
+#: models.py:186
+#, python-brace-format
+msgid "{build} participant: {user}"
+msgstr "{build} deelnemer: {user}"
+
+#: templates/groupbuilds/base.html:3
+msgid "Modelbrouwers.nl &bull; Group builds"
+msgstr "Modelbrouwers.nl &bull; Groepsbouwen"
+
+#: templates/groupbuilds/create.html:4
+msgid "Submit a new group build"
+msgstr "Voeg een nieuwe groepsbouw toe"
+
+#: templates/groupbuilds/create.html:5
+msgid "Create group build"
+msgstr "Maak nieuwe groepsbouw"
+
+#: templates/groupbuilds/edit.html:12
+msgid "Edit the details"
+msgstr "Bewerk de gegevens"
+
+#: templates/groupbuilds/edit.html:16
+msgid "Theme"
+msgstr "Thema"
+
+#: templates/groupbuilds/edit.html:18
+msgid "What's it all about?"
+msgstr "Waar gaat het over?"
+
+#: templates/groupbuilds/edit.html:27
+msgid "Planning"
+msgstr "Planning"
+
+#: templates/groupbuilds/edit.html:29
+msgid "When should it all start and end?"
+msgstr "Wanneer moet alles beginnen en klaar zijn?"
+
+#: templates/groupbuilds/edit.html:37
+msgid "Management"
+msgstr "Beheer"
+
+#: templates/groupbuilds/edit.html:39
+msgid "Who can edit this information?"
+msgstr "Wie kan deze informatie bewerken?"
+
+#: templates/groupbuilds/edit.html:40
+msgid "Enter the forum names"
+msgstr "Voeg de forumnamen toe"
+
+#: templates/groupbuilds/edit.html:45
+msgid "Rules &amp; misc"
+msgstr "Regels &amp; overige"
+
+#: templates/groupbuilds/edit.html:47
+msgid "Less important, but nice to have!"
+msgstr "Minder belangrijk, maar leuk om te hebben!"
+
+#: templates/groupbuilds/edit.html:59
+msgid "Save changes"
+msgstr "Wijzigingen bewaren"
+
+#: templates/groupbuilds/edit.html:66
+msgid "Rules &amp; guidelines"
+msgstr "Regels & richtlijnen"
+
+#: templates/groupbuilds/edit.html:68
+msgid ""
+"\n"
+"                            <p>You can submit your group build ideas here, find interested\n"
+"                            people, and tweak the subject/data as much as you want.</p>\n"
+"\n"
+"                            <p>When you're happy with the result, check the calendar and make sure your start-date/duration are reasonable. Then you can submit the group build to the board moderators.</p>\n"
+"\n"
+"                            <p>The moderators will then review the group build and assign a start date and duration. If needed, they will communicate to you about potential changes.</p>\n"
+"\n"
+"                            <p>Some general rules apply. The staff can always decide to divert from them if there's a reason for diversion.</p>\n"
+"\n"
+"                            <ul>\n"
+"                                <li>No more than <strong>one</strong> group build per discipline. A discipline is roughly equal with a forum (like cars, military aviation, &hellip;)</li>\n"
+"\n"
+"                                <li>A 'minimum' of <strong>10</strong> participants. Make sure your potential participants have subscribed to the group build, this will be used to check if the quota are met. 'Minimum' is quoted, because 9 participants is usually not a big issue.</li>\n"
+"\n"
+"                                <li>Think about the duration and make a reasonable estimate. The default duration is three months, this is for a reason. Extensions are possible, but you need a strong case to get it - especially if different group builds in the same forum section are planned!</li>\n"
+"\n"
+"                                <li>Group builds can be closed at any time if the activity died out. It's your responsibility as admin/gb moderator to keep it active and interesting.</li>\n"
+"\n"
+"                                <li>Any other rules (like starting with an unoped kit, amount of kits you can participante with, &hellip;) are up to the organisers. Please take care to mention these rules the rules field or in your rules topic.</li>\n"
+"                            </ul>\n"
+"\n"
+"                            <p>And most of all, have fun! Group builds are a valuable and popular aspect of scale modelling communities!</p>\n"
+"\n"
+"\n"
+"                        "
+msgstr ""
+
+#: templates/groupbuilds/groupbuild_detail.html:18
+#, python-format
+msgid ""
+"\n"
+"                    Status: %(status)s\n"
+"                "
+msgstr ""
+"\n"
+"Status: %(status)s"
+
+#: templates/groupbuilds/groupbuild_detail.html:33
+msgid "Information"
+msgstr "Informatie"
+
+#: templates/groupbuilds/groupbuild_detail.html:37
+msgid "to be determined"
+msgstr "nog te bepalen"
+
+#: templates/groupbuilds/groupbuild_detail.html:40
+msgid "Group build forum: "
+msgstr "Groepsbouwforum:"
+
+#: templates/groupbuilds/groupbuild_detail.html:51
+msgid "Rules"
+msgstr "Regels"
+
+#: templates/groupbuilds/groupbuild_detail.html:60
+#, python-format
+msgid ""
+"\n"
+"                        %(n_part)s participant\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        %(n_part)s participants\n"
+"                    "
+msgstr[0] ""
+"\n"
+"%(n_part)s deelnemer"
+msgstr[1] ""
+"\n"
+"%(n_part)s deelnemers"
+
+#: templates/groupbuilds/groupbuild_detail.html:70
+msgid "#"
+msgstr "#"
+
+#: templates/groupbuilds/groupbuild_detail.html:71
+msgid "Builder"
+msgstr "Brouwer"
+
+#: templates/groupbuilds/groupbuild_detail.html:72
+msgid "Model"
+msgstr "Model"
+
+#: templates/groupbuilds/groupbuild_detail.html:94
+msgid "Organiser"
+msgid_plural "Organisers"
+msgstr[0] "Organisator"
+msgstr[1] "Organisatoren"
+
+#: templates/groupbuilds/groupbuild_list.html:12
+msgid "Group builds - some information"
+msgstr "Groepsbouwen - wat informatie"
+
+#: templates/groupbuilds/groupbuild_list.html:14
+msgid ""
+"A group build is basically a themed build with a set start\n"
+"            and end date. Builders who share interests for a certain theme can poll other\n"
+"            forum members if they are interested to take part in a group build. Group builds\n"
+"            usually result in tight groups of builders around a narrow field, providing\n"
+"            valuable theme-specific reference documentation and small facts.\n"
+"        "
+msgstr ""
+"Een groepsbouw is in essentie een bouw rond een bepaald thema met een "
+"vastgelegde start- en eindtijd. Brouwers die interesse hebben in een bepaald"
+" thema kunnen nagaan of andere brouwers die interesse delen en zin hebben om"
+" deel te nemen aan een groepsbouw. Groepsbouwen werken meestal rond een "
+"afgebakend gebied, waarbij waardevolle referenties en weetjes gedeeld "
+"worden."
+
+#: templates/groupbuilds/groupbuild_list.html:21
+msgid ""
+"'Ok, sounds cool and all' I hear you think. But what if you have your\n"
+"            own idea? Just click the button below to submit your idea! We provide the\n"
+"            platform and forum-integration to get your idea going!\n"
+"        "
+msgstr ""
+"'Ok, dat klinkt allemaal wel leuk enzo' hoor ik je denken. Maar wat als jij "
+"nu een idee hebt? Klik dan op de knop hieronder om je idee in te voeren, en "
+"wij zorgen voor het platform en de forumintegratie om je idee op te starten!"
+
+#: templates/groupbuilds/groupbuild_list.html:27
+msgid "New concept/idea"
+msgstr "Nieuw concept/idee"
+
+#: templates/groupbuilds/groupbuild_list.html:37
+msgid "New concepts"
+msgstr "Nieuwe concepten"
+
+#: templates/groupbuilds/groupbuild_list.html:46
+#, python-format
+msgid ""
+"\n"
+"                            Nobody seems to have a clue! Maybe you can\n"
+"                            <a href=\"%(url_gb_concept)s\">submit your own idea?</a>\n"
+"                        "
+msgstr ""
+"\n"
+"Niemand lijkt inspiratie te hebben! Misschien kan je <a href=\"%(url_gb_concept)s\">zelf een idee toevoegen?</a>"
+
+#: templates/groupbuilds/groupbuild_list.html:57
+msgid "Starting soon"
+msgstr "Wordt binnenkort gestart"
+
+#: templates/groupbuilds/groupbuild_list.html:65
+msgid ""
+"\n"
+"                        Nothing starting in the next six weeks. Maybe there's something further\n"
+"                        down the road in the <a href=\"#calendar\">calendar</a>?\n"
+"                    "
+msgstr ""
+"\n"
+"In de komende zes weken starten geen groepsbouwen. Misschien is er iets later geplanned, check de <a href=\"#calendar\">kalender</a>."
+
+#: templates/groupbuilds/groupbuild_list.html:77
+msgid "Calendar"
+msgstr "Kalender"
