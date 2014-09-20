@@ -3,6 +3,7 @@
 {% url 'general.views.index' as url_home %}
 {% url 'albums.views.index' as url_albums %}
 {% url 'kitreviews:index' as url_kitreviews %}
+{% url 'groupbuilds:index' as url_groupbuilds %}
 
 {% spaceless %}
     <li id="tab-home" class="tab">
@@ -28,6 +29,10 @@
     <li id="tab-kitreviews" class="tab">
         <a href="{{ url_kitreviews }}"{% if request.path|startswith:url_kitreviews %} class="active"{% endif %}
             title="{% if not request.path|startswith:url_kitreviews %}{% trans 'Visit the kit reviews!' %}{% endif %}">{% trans "kit reviews" %}</a>
+    </li>
+
+    <li id="group-builds" class="tab">
+        <a href="{{ url_groupbuilds }}"{% if request.path|startswith:url_groupbuilds %} class="active"{% endif %} title="{% trans "Manage group builds!" %}">{% trans "Group builds" %}</a>
     </li>
     <!--<li>
         <img src="{% static 'images/nav/modelbouw_wiki.png' %}" alt="Modelbouw Wiki"/>

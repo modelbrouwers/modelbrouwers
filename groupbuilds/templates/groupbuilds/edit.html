@@ -7,11 +7,9 @@
         <form action="." method="post" class="form-horizontal">{% csrf_token %}
 
         {% with label_grid='col-md-3' field_grid='col-md-8' %}
-
-            <h2>{% block form_title %}{% trans "Edit the details" %}{% endblock %}</h2>
-
             <div class="row">
                 <div class="col-md-8">
+                    <h2>{% block form_title %}{% trans "Edit the details" %}{% endblock %}</h2>
 
                     <fieldset class="well">
                         <h3>
@@ -65,9 +63,8 @@
                 </div>
 
                 <div class="col-md-4">
+                    <h3 class="text-warning">{% trans "Rules &amp; guidelines" %}</h3>
                     <aside class="rules">
-                        {# TODO: should be CMS content #}
-                        <h3 class="text-warning">{% trans "Rules &amp; guidelines" %}</h3>
                         {% blocktrans %}
                             <p>You can submit your group build ideas here, find interested
                             people, and tweak the subject/data as much as you want.</p>

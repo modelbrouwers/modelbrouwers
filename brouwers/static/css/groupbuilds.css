@@ -106,7 +106,7 @@ select:-moz-focusring {
 }
 
 /* ie8, chrome, etc */
-/* line 1, ../../../sass/partials/forum/groupbuilds.scss */
+/* line 1, ../../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset {
   border: solid 1px #006699;
   min-height: 50px;

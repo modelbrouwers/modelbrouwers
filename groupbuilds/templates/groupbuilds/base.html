@@ -1,22 +1,5 @@
-{% extends "brouwersdag/base.html" %}
-{% load i18n brouwers %}
+{% extends "base_html5.html" %}{% load i18n brouwers %}
 
 {% block title %}{% trans "Modelbrouwers.nl &bull; Group builds" %}{% endblock %}
 
 {% block body-class %}groupbuilds{% endblock %}
-
-{% block sub-nav-links %}
-    {% url 'groupbuilds:groupbuild-list' as url_gb_index %}
-    {% url 'groupbuilds:create' as url_gb_concept %}
-
-<div class="pull-right">
-    <ul class="nav nav-pills">
-        <li{% if request.path == url_gb_index %} class="active"{% endif %}>
-            <a href="{{ url_gb_index }}">{% trans "Overview" %}</a>
-        </li>
-        <li{% if request.path == url_gb_concept %} class="active"{% endif %}>
-            <a href="{{ url_gb_concept }}" class="bg-main-orange">{% trans "New concept/idea" %}</a>
-        </li>
-    </ul>
-</div>
-{% endblock %}

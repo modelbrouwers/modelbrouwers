@@ -1,0 +1,30 @@
+{% load i18n static %}
+
+<header class="container-fluid">
+    <div class="navbar navbar-default navbar-center sprue-tabs" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">{% trans "Toggle navigation" %}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'images/logo/logo_modelbrouwers.png' %}" alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}">
+                </a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" id="main-nav">
+                    {% include "nav_tabs_text.html" %}
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </div>
+
+    <ul id="shop-banner">
+        {% include "shop_banner.html" %}
+    </ul>
+</header>
+<span id="anniversary"></span>

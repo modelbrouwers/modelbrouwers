@@ -37,7 +37,7 @@
 /*
  * Headers
  */
- h1, .h1 {
+h1, .h1 {
   color: $main-blue;
 }
 
@@ -49,4 +49,22 @@ h2, .h2, h3, .h3, h4, .h4 {
 a.list-group-item:hover {
   background-color: rgba($main-light-blue, 0.5);
   color: white;
+}
+
+
+.eye-catcher {
+  background-color: $main-light-blue;
+  color: rgba($white, 0.9);
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  padding-bottom: 20px;
+
+  border-top: solid 2px $main-grey;
+  border-bottom: solid 2px $main-grey;
+
+  h1, .h1 {
+    color: rgba($white, 0.95);
+  }
 }
