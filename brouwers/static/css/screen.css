@@ -170,15 +170,24 @@ a.list-group-item:hover {
 .eye-catcher {
   background-color: #4095fd;
   color: rgba(255, 255, 255, 0.9);
-  margin-top: 20px;
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-top: solid 2px #919291;
   border-bottom: solid 2px #919291;
 }
-/* line 67, ../../../sass/partials/_base.scss */
+/* line 66, ../../../sass/partials/_base.scss */
 .eye-catcher h1, .eye-catcher .h1 {
   color: rgba(255, 255, 255, 0.95);
+}
+/* line 71, ../../../sass/partials/_base.scss */
+.eye-catcher a {
+  color: #d46400;
+  font-weight: bold;
+}
+
+/* line 78, ../../../sass/partials/_base.scss */
+p {
+  margin-top: 10px;
 }
 
 /* line 3, ../../../sass/partials/_header.scss */

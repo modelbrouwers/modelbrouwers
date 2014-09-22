@@ -56,7 +56,6 @@ a.list-group-item:hover {
   background-color: $main-light-blue;
   color: rgba($white, 0.9);
 
-  margin-top: 20px;
   margin-bottom: 20px;
 
   padding-bottom: 20px;
@@ -67,4 +66,15 @@ a.list-group-item:hover {
   h1, .h1 {
     color: rgba($white, 0.95);
   }
+
+
+  a {
+    color: $main-orange;
+    font-weight: bold;
+  }
+
+}
+
+p {
+  margin-top: 10px;
 }
