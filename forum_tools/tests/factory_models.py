@@ -1,6 +1,6 @@
 import factory
 
-from ..models import ForumUser, ForumCategory
+from ..models import ForumUser, ForumCategory, Forum, Topic
 
 
 def create_from_user(user):
@@ -29,3 +29,18 @@ class ForumCategoryFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = ForumCategory
 
     name = factory.Sequence(lambda n: 'Category {0}'.format(n))
+
+
+class ForumFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = Forum
+
+    forum_id = factory.Sequence(lambda n: n)
+    forum_name = factory.Sequence(lambda n: 'Forum {0}'.format(n))
+
+
+class TopicFactory(factory.django.DjangoModelFactory):
+    FACTORY_FOR = Topic
+
+    topic_id = factory.Sequence(lambda n: n)
+    forum = factory.SubFactory(ForumFactory)
+    topic_title = factory.Sequence(lambda n: 'Topic {0}'.format(n))

@@ -1,3 +1,4 @@
+import warnings
 from datetime import datetime
 import zlib
 
@@ -10,6 +11,14 @@ from general.utils import clean_username
 
 
 class ForumMixin(object):
+    """ Depcreated """
+
+    def __init__(self, *args, **kwargs):
+        super(ForumMixin, self).__init__(*args, **kwargs)
+        warnings.warn("brouwers.forum_tools.models.ForumMixin is deprecated, "
+                      "use brouwers.forum_tools.fields.ForumToolsIDField instead",
+              DeprecationWarning)
+
     @cached_property
     def forum(self):
         try:
@@ -136,16 +145,16 @@ class Forum(models.Model):
     """ MySQL Forum, managed by phpBB3 """
     forum_id = models.IntegerField(primary_key=True)
     forum_name = models.CharField(max_length=60)
-    forum_topics = models.IntegerField()
-    forum_posts = models.IntegerField()
+    forum_topics = models.IntegerField(default=0)
+    forum_posts = models.IntegerField(default=0)
     # forum_last_post = models.OneToOneField(
     #         'PhpbbPost',
     #         db_column='forum_last_post_id',
     #         related_name="last_post_of_forum")
     forum_desc = models.TextField()
-    parent = models.ForeignKey('self', related_name="child")
-    left = models.OneToOneField('self', related_name="right_of")
-    right = models.OneToOneField('self', related_name="left_of")
+    parent = models.ForeignKey('self', related_name="child", default=0)
+    # left = models.OneToOneField('self', related_name="right_of")
+    # right = models.OneToOneField('self', related_name="left_of")
 
     def __unicode__(self):
         return u"%s" % self.forum_name
@@ -160,6 +169,17 @@ class Forum(models.Model):
         managed = False
         db_table = settings.PHPBB_TABLE_PREFIX + 'forums'
         ordering = ['forum_name']
+
+
+class Topic(models.Model):
+    topic_id = models.IntegerField(primary_key=True)
+    forum = models.ForeignKey(Forum)
+    topic_title = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = settings.PHPBB_TABLE_PREFIX + 'topics'
+        ordering = ['topic_id']
 
 
 class ForumPostCountRestriction(models.Model):

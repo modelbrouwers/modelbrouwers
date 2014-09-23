@@ -5,6 +5,7 @@ MYSQL_MODELS = [
     'ForumPostCountRestriction',
     'ForumUser',
     'Report',
+    'Topic',
     ]
 
 MYSQL_MODELS_NO_SYNCDB = [
@@ -13,6 +14,7 @@ MYSQL_MODELS_NO_SYNCDB = [
     'Report',
     'ForumLinkBase',
     'ForumLinkSynced',
+    'Topic',
     ]
 
 SYNCDB_MODELS = [

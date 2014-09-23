@@ -7,8 +7,8 @@ class GroupBuildForm(forms.ModelForm):
     class Meta:
         model = GroupBuild
         fields = ('theme', 'category', 'description', 'admins',
-                  'start', 'duration', 'rules', 'rules_topic_id',
-                  'homepage_topic_id', 'introduction_topic_id')
+                  'start', 'duration', 'rules', 'rules_topic',
+                  'homepage_topic', 'introduction_topic')
 
     def __init__(self, request, *args, **kwargs):
         super(GroupBuildForm, self).__init__(*args, **kwargs)
