@@ -29,6 +29,10 @@ class ForumToolsIDField(PositiveIntegerField):
     def get_attname(self):
         return "{0}_id".format(self.name)
 
+    def get_attname_column(self):
+        attname, column = super(ForumToolsIDField, self).get_attname_column()
+        return attname, column
+
 
 class ForumToolsDescriptor(object):
 
