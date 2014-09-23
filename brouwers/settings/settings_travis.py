@@ -56,3 +56,7 @@ HTTPBL_MIN_THREAT_LEVEL = 10
 PHPBB_TABLE_PREFIX = 'phpbb3_'
 PHPBB_URL = '/forum'
 PHPBB_UID_COOKIE = 'phpbb3_u'
+
+
+
+INSTALLED_APPS = INSTALLED_APPS + ('forum_tools.tests.custom_fields',)

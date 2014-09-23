@@ -145,16 +145,16 @@ class Forum(models.Model):
     """ MySQL Forum, managed by phpBB3 """
     forum_id = models.IntegerField(primary_key=True)
     forum_name = models.CharField(max_length=60)
-    forum_topics = models.IntegerField()
-    forum_posts = models.IntegerField()
+    forum_topics = models.IntegerField(default=0)
+    forum_posts = models.IntegerField(default=0)
     # forum_last_post = models.OneToOneField(
     #         'PhpbbPost',
     #         db_column='forum_last_post_id',
     #         related_name="last_post_of_forum")
     forum_desc = models.TextField()
-    parent = models.ForeignKey('self', related_name="child")
-    left = models.OneToOneField('self', related_name="right_of")
-    right = models.OneToOneField('self', related_name="left_of")
+    parent = models.ForeignKey('self', related_name="child", default=0)
+    # left = models.OneToOneField('self', related_name="right_of")
+    # right = models.OneToOneField('self', related_name="left_of")
 
     def __unicode__(self):
         return u"%s" % self.forum_name

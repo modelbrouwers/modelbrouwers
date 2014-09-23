@@ -1,8 +1,11 @@
 from django.core.exceptions import ValidationError
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 
 from ..forms.fields import ForumIDField, TopicIDField
+from ..models import Forum
 
+from .custom_fields.models import MyModel
+from .factory_models import ForumFactory, TopicFactory
 
 class FormFieldTests(SimpleTestCase):
 
@@ -55,3 +58,45 @@ class FormFieldTests(SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             self.topic_field.to_python(self.invalid_url2)
+
+
+class ModelFieldTests(TestCase):
+
+    def setUp(self):
+        self.forum = ForumFactory()
+        self.topic1 = TopicFactory()
+        self.topic2 = TopicFactory(forum=self.forum)
+
+        max_forum = Forum.objects.values_list('pk', flat=True).order_by('-pk')[0]
+
+        self.mm1 = MyModel.objects.create(forum_id=self.forum.pk, forum2_id=max_forum+1)
+        # tests creation with nullable fields
+        self.mm2 = MyModel.objects.create(forum_id=1, forum2_id=None)
+        self.mm3 = MyModel.objects.create(forum_id=1)
+
+    def test_creation(self):
+        self.assertEqual(MyModel.objects.count(), 3)
+
+    def test_getter(self):
+        self.assertIsNotNone(self.mm1.forum_id)
+        self.assertEqual(self.mm1.forum, self.forum)
+
+        forums = Forum.objects.filter(pk=self.mm1.forum2_id).count()
+        self.assertEqual(forums, 0)
+        self.assertIsNone(self.mm1.forum2)
+
+    def test_setter(self):
+        self.assertIsNone(self.mm3.topic)
+
+        self.mm3.topic = self.topic1
+        self.assertEqual(self.mm3.topic_id, self.topic1.pk)
+        self.mm3.save()
+
+        mm3 = MyModel.objects.get(pk=self.mm3.pk)
+        self.assertEqual(mm3.topic_id, self.topic1.pk)
+        self.assertEqual(mm3.topic, self.topic1)
+
+        mm3.topic = None
+        mm3.save()
+        self.assertNotEqual(mm3.topic_id, self.topic1.pk)
+        self.assertIsNone(mm3.topic)

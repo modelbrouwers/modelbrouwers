@@ -56,12 +56,15 @@ class ForumToolsDescriptor(object):
     def __set__(self, instance, value):
         if value is None and self.related.null == False:
             value = 0
+        elif value is None:
+            setattr(instance, self.related.attname, None)
+            setattr(instance, self.cache_name, None)
         elif value is not None:
             self.check_type(instance, value)
 
         if value is not None:
             setattr(instance, self.cache_name, value)
-            setattr(self.related.attname, value.pk)
+            setattr(instance, self.related.attname, value.pk)
 
     def get_object(self, pk):
         if self.type == 'topic':
@@ -85,10 +88,8 @@ class ForumToolsDescriptor(object):
             raise ValueError('Cannot assign "%r": "%s.%s" must be a "%s" instance.' %
                                 (value, instance._meta.object_name,
                                     self.related.name, Forum._meta.object_name))
-        else:
+        elif self.type not in ['topic', 'forum']:
             raise ValueError('Unknown type: %s' % self.type)
-
-
 
 
 
