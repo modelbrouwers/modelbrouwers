@@ -1,3 +1,4 @@
+import warnings
 from datetime import datetime
 import zlib
 
@@ -10,9 +11,12 @@ from general.utils import clean_username
 
 
 class ForumMixin(object):
-    _attribute_to_field = {
-        'forum': 'forum_id',
-    }
+    """ Depcreated """
+
+    def __new__(cls):
+        warnings.warn("brouwers.forum_tools.models.ForumMixin is deprecated, "
+                      "use brouwers.forum_tools.fields.ForumToolsIDField instead",
+              DeprecationWarning)
 
     @cached_property
     def forum(self):

@@ -42,9 +42,6 @@ class GroupBuild(models.Model):
     forum = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
         help_text=_('Forum id of the group build subforum'))
 
-    forum2 = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
-        help_text=_('Forum2 id of the group build subforum'))
-
     # core information
     theme = models.CharField(_('theme'), max_length=100,
                              help_text=_('Theme/name of the group build'))
