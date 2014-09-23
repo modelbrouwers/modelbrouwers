@@ -10,6 +10,10 @@ from general.utils import clean_username
 
 
 class ForumMixin(object):
+    _attribute_to_field = {
+        'forum': 'forum_id',
+    }
+
     @cached_property
     def forum(self):
         try:
@@ -160,6 +164,17 @@ class Forum(models.Model):
         managed = False
         db_table = settings.PHPBB_TABLE_PREFIX + 'forums'
         ordering = ['forum_name']
+
+
+class Topic(models.Model):
+    topic_id = models.IntegerField(primary_key=True)
+    forum = models.ForeignKey(Forum)
+    topic_title = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = settings.PHPBB_TABLE_PREFIX + 'topics'
+        ordering = ['topic_id']
 
 
 class ForumPostCountRestriction(models.Model):

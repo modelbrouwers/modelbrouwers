@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from djchoices import DjangoChoices, ChoiceItem
 from autoslug import AutoSlugField
 
-from forum_tools.models import ForumCategory, ForumMixin
+from forum_tools.models import ForumCategory
 from forum_tools.fields import ForumToolsIDField
 from .managers import PublicGroupBuildsManager
 
@@ -38,8 +38,8 @@ GroupbuildStatuses.non_date_bound_statuses = non_date_bound_statuses
 GroupbuildStatuses.public_statuses = non_date_bound_statuses + date_bound_statuses
 
 
-class GroupBuild(ForumMixin, models.Model):
-    forum_id = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
+class GroupBuild(models.Model):
+    forum = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
         help_text=_('Forum id of the group build subforum'))
 
     # core information
@@ -80,10 +80,10 @@ class GroupBuild(ForumMixin, models.Model):
 
     # optional 'experience enhancing' fields
     rules = models.TextField(blank=True)
-    rules_topic_id = ForumToolsIDField(_('rules topic'), blank=True, null=True, type='topic')
-    homepage_topic_id = ForumToolsIDField(_('topic to direct to from calendar'),
+    rules_topic = ForumToolsIDField(_('rules topic'), blank=True, null=True, type='topic')
+    homepage_topic = ForumToolsIDField(_('topic to direct to from calendar'),
         blank=True, null=True, type='topic')
-    introduction_topic_id = ForumToolsIDField(_('introduction topic'),
+    introduction_topic = ForumToolsIDField(_('introduction topic'),
         blank=True, null=True, type='topic')
 
     # logging
