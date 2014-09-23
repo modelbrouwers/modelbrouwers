@@ -13,7 +13,8 @@ from general.utils import clean_username
 class ForumMixin(object):
     """ Depcreated """
 
-    def __new__(cls):
+    def __init__(self, *args, **kwargs):
+        super(ForumMixin, self).__init__(*args, **kwargs)
         warnings.warn("brouwers.forum_tools.models.ForumMixin is deprecated, "
                       "use brouwers.forum_tools.fields.ForumToolsIDField instead",
               DeprecationWarning)

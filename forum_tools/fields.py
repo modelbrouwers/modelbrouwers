@@ -42,7 +42,6 @@ class ForumToolsDescriptor(object):
         self.cache_name = related.get_cache_name() # TODO: strip of the ID
 
     def __get__(self, instance, instance_type=None):
-        # import pdb; pdb.set_trace()
         if instance is None:
             return self
 
@@ -55,14 +54,14 @@ class ForumToolsDescriptor(object):
         return rel_obj
 
     def __set__(self, instance, value):
-        # import pdb; pdb.set_trace()
         if value is None and self.related.null == False:
             value = 0
         elif value is not None:
             self.check_type(instance, value)
 
-        setattr(instance, self.cache_name, value)
-        setattr(self.related.attname, value.pk)
+        if value is not None:
+            setattr(instance, self.cache_name, value)
+            setattr(self.related.attname, value.pk)
 
     def get_object(self, pk):
         if self.type == 'topic':

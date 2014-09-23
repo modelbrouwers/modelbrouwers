@@ -8,7 +8,6 @@ class ManagerTests(TestCase):
 
     def setUp(self):
         # create some groupbuilds
-        import pdb; pdb.set_trace()
         self.gb_concept = GroupBuildFactory(status=GroupbuildStatuses.concept)
         self.gb_submitted = GroupBuildFactory(status=GroupbuildStatuses.submitted)
         self.gb_accepted = GroupBuildFactory(status=GroupbuildStatuses.accepted)
