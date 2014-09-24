@@ -18,13 +18,6 @@
                         Status: {{ status }}
                     {% endblocktrans %}</small>
                     </h2>
-
-                    {% if gb.forum %}
-                    <p>
-                        {% trans "Forum " %}
-                        <a href="{{ gb.forum.get_absolute_url }}">{{ gb.forum }}</a>
-                    </p>
-                    {% endif %}
                 </div>
 
                 <div class="col-md-9">
@@ -72,29 +65,42 @@
                         {% if gb.rules %}
                             <p>{{ gb.rules|bbcode|safe }}</p>
                         {% else %}
-                            {# TODO: check if a rules topic was given #}
-                            {% trans "No specific rules, which means the default rules apply!" %}
+                            {% if self.rules_topic %}
+                                {% blocktrans with url=self.rules_topic.get_absolute_url %}
+                                    <p>Go read the <a href="{{ url }}">rules topic</a> {{ ';)'|bbcode|safe }}</p>
+                                {% endblocktrans %}
+                            {% else %}
+                                {% trans "No specific rules, which means the default rules apply!" %}
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <h3>{% trans "Links" %}</h3>
-                <aside>
-                    <ul class="list-group">
-                        {# TODO: test #}
-                        {% if gb.introduction_topic %}
-                        <li class="list-group-item">
-                            <a href="{{ gb.introduction_topic.get_absolute_url }}">{{ gb.introduction_topic }}</a>
-                        </li>
-                        {% endif %}
-
-                        <li class="list-group-item">
-                            <span>{% trans "No links yet... sorry!" %}</span>
-                        </li>
-                    </ul>
-                </aside>
+                {% if gb.has_links %}
+                    <h3>{% trans "Links" %}</h3>
+                    <aside>
+                        <div class="list-group">
+                            {% if gb.forum %}
+                                <a class="list-group-item" href="{{ gb.forum.get_absolute_url }}">
+                                    {% trans "Go to forum" %}</a>
+                            {% endif %}
+                            {% if gb.introduction_topic %}
+                                <a class="list-group-item" href="{{ gb.introduction_topic.get_absolute_url }}">
+                                    {{ gb.introduction_topic }}</a>
+                            {% endif %}
+                            {% if gb.rules_topic %}
+                                <a class="list-group-item" href="{{ gb.rules_topic.get_absolute_url }}">
+                                    {{ gb.rules_topic }}</a>
+                            {% endif %}
+                            {% if gb.homepage_topic %}
+                                <a class="list-group-item" href="{{ gb.homepage_topic.get_absolute_url }}">
+                                    {{ gb.homepage_topic }}</a>
+                            {% endif %}
+                        </div>
+                    </aside>
+                {% endif %}
 
                 <h3>{% blocktrans count n_admins=gb.admins.all %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
                 <aside>

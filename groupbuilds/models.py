@@ -29,6 +29,7 @@ class GroupbuildStatuses(DjangoChoices):
     denied = ChoiceItem('denied', _('denied'))
     extended = ChoiceItem('extended', _('extended'))
 
+
 # public statuses
 date_bound_statuses = [GroupbuildStatuses.accepted, GroupbuildStatuses.extended]
 non_date_bound_statuses = [GroupbuildStatuses.concept, GroupbuildStatuses.submitted]
@@ -162,6 +163,10 @@ class GroupBuild(models.Model):
     @property
     def calendar_dimensions(self):
         return self._dimensions
+
+    @property
+    def has_links(self):
+        return self.forum or self.introduction_topic or self.homepage_topic or self.rules_topic
 
 
 class Participant(models.Model):
