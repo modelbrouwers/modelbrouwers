@@ -1,6 +1,6 @@
 
 .. image:: https://travis-ci.org/modelbrouwers/modelbrouwers.svg?branch=master
-    :target: https://travis-ci.org/modelbrouwers/modelbrouwe
+    :target: https://travis-ci.org/modelbrouwers/modelbrouwers
 
 
 ######################################
