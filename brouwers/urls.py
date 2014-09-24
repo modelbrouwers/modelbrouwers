@@ -8,6 +8,12 @@ from django.views.generic.base import TemplateView
 
 admin.autodiscover()
 
+FORUM_URL = settings.PHPBB_URL
+if FORUM_URL.startswith('/'):
+    FORUM_URL = FORUM_URL[1:]
+if not FORUM_URL.endswith('/'):
+    FORUM_URL = FORUM_URL+'/'
+
 urlpatterns = patterns('',
     url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^admin/',        include(admin.site.urls)),
@@ -17,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^awards/',       include('awards.urls')),
     url(r'^brouwersdag/',  include('brouwersdag.urls', namespace='brouwersdag')),
     url(r'^forum_tools/',  include('forum_tools.urls')),
+    url(r'^%s' % FORUM_URL,include('forum_tools.urls_phpbb', namespace='phpBB')),
     url(r'^group-builds/', include('groupbuilds.urls', namespace='groupbuilds')),
     url(r'^kitreviews/',   include('kitreviews.urls', namespace='kitreviews')),
     url(r'^secret_santa/', include('secret_santa.urls')),

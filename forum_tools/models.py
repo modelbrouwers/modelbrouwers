@@ -1,8 +1,10 @@
 import warnings
 from datetime import datetime
 import zlib
+import urllib
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
@@ -124,7 +126,11 @@ class ForumUser(models.Model):
         return u"%s" % self.username
 
     def get_absolute_url(self):
-        return "%s/memberlist.php?mode=viewprofile&u=%s" % (settings.PHPBB_URL, self.user_id)
+        qs = {
+            'mode': 'viewprofile',
+            'u': self.user_id,
+        }
+        return "{0}?{1}".format(reverse('phpBB:memberlist'), urllib.urlencode(qs))
 
     def get_email_hash(self):
         email = self.user_email
@@ -157,13 +163,11 @@ class Forum(models.Model):
     # right = models.OneToOneField('self', related_name="left_of")
 
     def __unicode__(self):
-        return u"%s" % self.forum_name
+        return u"{0}".format(self.forum_name)
 
     def get_absolute_url(self):
-        return "{prefix}/viewforum.php?f={id}".format(prefix=settings.PHPBB_URL, id=self.forum_id)
-
-    # def get_slug(self):
-    #     return slugify(self.forum_name)
+        qs = {'f': self.forum_id}
+        return "{0}?{1}".format(reverse('phpBB:viewforum'), urllib.urlencode(qs))
 
     class Meta:
         managed = False
@@ -180,6 +184,15 @@ class Topic(models.Model):
         managed = False
         db_table = settings.PHPBB_TABLE_PREFIX + 'topics'
         ordering = ['topic_id']
+
+    def __unicode__(self):
+        return self.topic_title
+
+    def get_absolute_url(self):
+        qs = {'t': self.topic_id}
+        if self.forum.pk:
+            qs['f'] = self.forum.pk
+        return "{0}?{1}".format(reverse('phpBB:viewtopic'), urllib.urlencode(qs))
 
 
 class ForumPostCountRestriction(models.Model):
