@@ -50,8 +50,8 @@ class ReportAdmin(admin.ModelAdmin):
 
 
 class ForumCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'forum_id')
-    list_editable = ('forum_id',)
+    list_display = ('name', 'forum_id', 'icon_class')
+    list_editable = ('forum_id', 'icon_class')
     search_fields = ('name',)
 
 

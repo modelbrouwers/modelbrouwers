@@ -81,6 +81,7 @@ class BuildReportsForum(ForumMixin, models.Model):
 class ForumCategory(ForumMixin, models.Model):
     name = models.CharField(_('name'), max_length=255)
     forum_id = models.PositiveIntegerField(_('phpBB forum id'), blank=True, null=True)
+    icon_class = models.CharField(_('icon class'), max_length=50, blank=True)
 
     class Meta:
         verbose_name = _(u'forum category')

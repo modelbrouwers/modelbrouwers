@@ -10,8 +10,18 @@ select:-moz-focusring {
 }
 :focus, a:focus {outline:none;}                      /* ie8, chrome, etc */
 
+
 @mixin ellipsis {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.r {
+  background: url('../images/logo/mb_r.png') no-repeat top right;
+  background-size: 25px 42px;
+}
+
+.relative {
+    position: relative;
 }

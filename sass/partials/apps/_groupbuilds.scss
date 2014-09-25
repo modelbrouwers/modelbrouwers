@@ -10,6 +10,11 @@ body.groupbuilds {
     }
   }
 
+  .tab-content {
+    min-height: 100px;
+    margin-bottom: 25px;
+  }
+
   #calendar {
     margin-top: 15px;
     background-color: #f5f5f5;
@@ -94,6 +99,14 @@ body.groupbuilds {
         border-bottom: $cal-border;
       }
     }
+  }
+
+  .category-icon {
+    position: absolute;
+    top: 25px;
+    right: 50px;
+    font-size: 500%;
+    color: rgba($main-blue, 0.3);
   }
 
 

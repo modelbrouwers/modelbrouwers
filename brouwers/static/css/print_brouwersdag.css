@@ -105,6 +105,17 @@ select:-moz-focusring {
 }
 
 /* ie8, chrome, etc */
+/* line 20, ../../../sass/partials/_utils.scss */
+.r {
+  background: url("../images/logo/mb_r.png") no-repeat top right;
+  background-size: 25px 42px;
+}
+
+/* line 25, ../../../sass/partials/_utils.scss */
+.relative {
+  position: relative;
+}
+
 /* line 7, ../../../sass/print_brouwersdag.scss */
 * {
   box-sizing: border-box;

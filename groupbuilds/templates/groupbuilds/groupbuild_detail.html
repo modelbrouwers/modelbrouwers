@@ -9,7 +9,8 @@
 {# TODO: visual cue if it's ongoing #}
     <header class="eye-catcher container-fluid">
         <div class="container">
-            <div class="row">
+            <div class="row relative">
+                {% if gb.category.icon_class %}<i class="category-icon fa {{ gb.category.icon_class }}"></i>{% endif %}
                 <div class="col-md-3">
                     <h2>
                         {{ gb.category }}
@@ -21,12 +22,18 @@
                 </div>
 
                 <div class="col-md-9">
+
                     <h1> {{ gb.theme }} </h1>
                     <p>
                         <i class="fa fa-calendar"></i>
                         {{ gb.start|default:_('to be determined') }}
                         &bull;
                         {{ gb.end|default:_('to be determined') }}
+
+                        {% if gb.forum %}
+                            &bull;
+                            <a href="{{ gb.forum.get_absolute_url }}">{% trans "Go to forum" %}</a>
+                        {% endif %}
                     </p>
                 </div>
             </div>
@@ -76,13 +83,9 @@
                     </div>
                 </div>
 
-                <h3>
-                    {% blocktrans count n_part=participants|length %}
-                        {{ n_part }} participant
-                    {% plural %}
-                        {{ n_part }} participants
-                    {% endblocktrans %}
-                </h3>
+                <hr>
+
+                <h3>{% blocktrans count n_part=participants|length %}1 participant{% plural %}{{ n_part }} participants{% endblocktrans %}</h3>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -105,6 +108,28 @@
             </div>
 
             <div class="col-md-3">
+                {% if gb.is_open %}
+                    <h3>
+                        {% if gb.is_ongoing %}
+                            {% trans "Join us!" %}
+                        {% else %}
+                            {% trans "Show your interest!" %}
+                        {% endif %}
+                    </h3>
+                    <form action="{% url 'groupbuilds:participate' slug=gb.slug %}" method="post" class="well">
+                        {% csrf_token %}
+                        {% form 'stacked.form' %}
+                            {% for field in participate_form %}
+                                {% field field %}
+                            {% endfor %}
+                        {% endform %}
+                        <button type="submit" class="btn bg-main-orange">{% trans "Submit!" %}</button>
+                        <p>
+                            <small>{% trans "Hitting the button is enough, but providing more information is always nice!" %}</small>
+                        </p>
+                    </form>
+                {% endif %}
+
                 {% if gb.has_links %}
                     <h3>{% trans "Links" %}</h3>
                     <aside>
@@ -127,28 +152,6 @@
                             {% endif %}
                         </div>
                     </aside>
-                {% endif %}
-
-                {% if gb.is_open %}
-                    <h3>
-                        {% if gb.is_ongoing %}
-                            {% trans "Join us!" %}
-                        {% else %}
-                            {% trans "Show your interest!" %}
-                        {% endif %}
-                    </h3>
-                    <form action="{% url 'groupbuilds:participate' slug=gb.slug %}" method="post" class="well">
-                        {% csrf_token %}
-                        {% form 'stacked.form' %}
-                            {% for field in participate_form %}
-                                {% field field %}
-                            {% endfor %}
-                        {% endform %}
-                        <button type="submit" class="btn bg-main-orange">{% trans "Submit!" %}</button>
-                        <p>
-                            <small>{% trans "Hitting the button is enough, but providing more information is always nice!" %}</small>
-                        </p>
-                    </form>
                 {% endif %}
 
                 <h3>{% blocktrans count n_admins=gb.admins.all %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
