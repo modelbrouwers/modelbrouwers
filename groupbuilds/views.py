@@ -92,7 +92,7 @@ class GroupBuildDetailMixin(object):
         user = self.request.user
         if user.is_authenticated(): # TODO: add staff permissions
             return (user.admin_groupbuilds.all() | self.queryset).distinct()
-        return super(GroupBuildDetailView, self).get_queryset()
+        return super(GroupBuildDetailMixin, self).get_queryset()
 
 
 class GroupBuildDetailView(GroupBuildDetailMixin, DetailView):

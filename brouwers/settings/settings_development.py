@@ -58,3 +58,7 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+
+if 'test' in sys.argv:
+    INSTALLED_APPS = INSTALLED_APPS + ('forum_tools.tests.custom_fields',)
