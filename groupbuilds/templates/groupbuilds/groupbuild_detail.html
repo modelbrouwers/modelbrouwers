@@ -75,6 +75,33 @@
                         {% endif %}
                     </div>
                 </div>
+
+                <h3>
+                    {% blocktrans count n_part=participants|length %}
+                        {{ n_part }} participant
+                    {% plural %}
+                        {{ n_part }} participants
+                    {% endblocktrans %}
+                </h3>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans "#" %}</th>
+                            <th>{% trans "Builder" %}</th>
+                            <th>{% trans "Model" %}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for participant in participants %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ participant.user }}</td>
+                            <td>{{ participant.model_name }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
             <div class="col-md-3">
@@ -137,33 +164,6 @@
                 </aside>
             </div>
         </div>
-
-        <h3>
-            {% blocktrans count n_part=participants|length %}
-                {{ n_part }} participant
-            {% plural %}
-                {{ n_part }} participants
-            {% endblocktrans %}
-        </h3>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>{% trans "#" %}</th>
-                    <th>{% trans "Builder" %}</th>
-                    <th>{% trans "Model" %}</th>
-                </tr>
-            </thead>
-
-            <tbody>
-            {% for participant in participants %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ participant.user }}</td>
-                    <td>{{ participant.model_name }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
     </div>
 
     <footer></footer>
