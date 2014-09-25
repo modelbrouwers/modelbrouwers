@@ -4,7 +4,7 @@
 {% block content %}
 {% form 'horizontal.form' %}{% with field_grid="col-md-6" label_grid="col-md-6" %}
     <section class="create-form container">
-        <form action="." method="post" class="form-horizontal">{% csrf_token %}
+        <form action="." method="post">{% csrf_token %}
 
         {% with label_grid='col-md-3' field_grid='col-md-8' %}
             <div class="row">
@@ -49,9 +49,9 @@
 
                         {% field form.rules %}
 
-                        {% field form.rules_topic_id %}
-                        {% field form.homepage_topic_id %}
-                        {% field form.introduction_topic_id %}
+                        {% field form.rules_topic %}
+                        {% field form.homepage_topic %}
+                        {% field form.introduction_topic %}
                     </fieldset>
 
                     <div class="form-group pull-right">

@@ -1,5 +1,5 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n bbcode_tags %}
+{% load i18n bbcode_tags formulation %}
 
 {% block title %}{{ block.super }}: {{ gb.theme }}{% endblock %}
 
@@ -100,6 +100,28 @@
                             {% endif %}
                         </div>
                     </aside>
+                {% endif %}
+
+                {% if gb.is_open %}
+                    <h3>
+                        {% if gb.is_ongoing %}
+                            {% trans "Join us!" %}
+                        {% else %}
+                            {% trans "Show your interest!" %}
+                        {% endif %}
+                    </h3>
+                    <form action="{% url 'groupbuilds:participate' slug=gb.slug %}" method="post" class="well">
+                        {% csrf_token %}
+                        {% form 'stacked.form' %}
+                            {% for field in participate_form %}
+                                {% field field %}
+                            {% endfor %}
+                        {% endform %}
+                        <button type="submit" class="btn bg-main-orange">{% trans "Submit!" %}</button>
+                        <p>
+                            <small>{% trans "Hitting the button is enough, but providing more information is always nice!" %}</small>
+                        </p>
+                    </form>
                 {% endif %}
 
                 <h3>{% blocktrans count n_admins=gb.admins.all %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>

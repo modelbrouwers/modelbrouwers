@@ -476,6 +476,12 @@ li.error {
   font-weight: bolder;
 }
 
+/* buttons */
+/* line 24, ../../../sass/partials/_forms.scss */
+.btn.bg-main-orange {
+  color: white;
+}
+
 /* line 3, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds a.bg-main-orange {
   color: white;

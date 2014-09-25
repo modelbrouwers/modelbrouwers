@@ -4,6 +4,7 @@ import calendar
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from djchoices import DjangoChoices, ChoiceItem
@@ -167,6 +168,22 @@ class GroupBuild(models.Model):
     @property
     def has_links(self):
         return self.forum or self.introduction_topic or self.homepage_topic or self.rules_topic
+
+    @property
+    def is_ongoing(self):
+        """ TODO: unittest """
+        now = timezone.now().date()
+        return self.start and self.end and self.start <= now <= self.end
+
+    @property
+    def is_open(self):
+        """ TODO: unit test """
+        now = timezone.now().date()
+        if self.status == GroupbuildStatuses.denied:
+            return False
+        if self.end and self.end <= now: # ended
+            return False
+        return True
 
 
 class Participant(models.Model):

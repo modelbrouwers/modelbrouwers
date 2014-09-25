@@ -100,3 +100,9 @@ class ModelFieldTests(TestCase):
         mm3.save()
         self.assertNotEqual(mm3.topic_id, self.topic1.pk)
         self.assertIsNone(mm3.topic)
+
+    def test_set_int(self):
+        self.mm3.topic = 100
+        self.mm3.save()
+        self.assertEqual(self.mm3.topic_id, 100)
+

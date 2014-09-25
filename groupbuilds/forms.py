@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import GroupBuild
+from .models import GroupBuild, Participant
 
 
 class GroupBuildForm(forms.ModelForm):
@@ -30,3 +30,9 @@ class DateForm(forms.Form):
         if self.is_valid():
             return self.cleaned_data['date']
         return None
+
+
+class ParticipantForm(forms.ModelForm):
+    class Meta:
+        model = Participant
+        fields = ('model_name', 'topic')

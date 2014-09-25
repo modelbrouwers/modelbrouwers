@@ -1,0 +1,64 @@
+{% extends "default.form" %}
+{% load i18n formulation forum_tools %}
+
+
+{% block _label %}
+{% if label %}
+    <label id="{{ id_for_label }}" for="{{ id }}" class="control-label {{ required|yesno:"required," }}">
+        {{ label }}
+    </label>
+{% endif %}
+{% endblock %}
+
+
+{% block input %}
+<div class="form-group">
+    {% use "_label" %}
+    <div>
+        {% if help_text %}<div class="input-group">{% endif %}
+        {% with field_type=field_type|default:"text" %}
+        <input type="{{ field_type }}"
+            name="{{ html_name }}"
+            id="{{ id }}"
+            value="{{ value|default:"" }}"
+            class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
+            {{ widget.attrs|flat_attrs }}
+            {{ required|yesno:"required," }}
+            {{ autofocus|yesno:"autofocus," }}
+            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+        >
+        {% endwith %}
+        {% use "_help" %}
+        {% if help_text %}</div>{% endif %}
+        {% use "_errors" %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block ForumToolsIDFieldWidget %}
+<div class="form-group">
+    {% use "_label" %}
+    <div>
+        {% if help_text %}<div class="input-group">{% endif %}
+        <input type="text"
+            name="{{ html_name }}"
+            id="{{ id }}"
+            value="{{ widget|idfield_url:value|default:"" }}"
+            class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
+            {{ widget.attrs|flat_attrs }}
+            {{ required|yesno:"required," }}
+            {{ autofocus|yesno:"autofocus," }}
+            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+        >
+        {% if value %}
+            {% blocktrans with url=widget|idfield_url:value %}
+                Current: <a href="{{ url }}">{{ url }}</a>
+            {% endblocktrans %}
+        {% endif %}
+        {% use "_help" %}
+        {% if help_text %}</div>{% endif %}
+        {% use "_errors" %}
+    </div>
+</div>
+{% endblock %}

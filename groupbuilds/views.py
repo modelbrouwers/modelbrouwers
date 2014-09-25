@@ -4,12 +4,15 @@ import calendar
 from dateutil.relativedelta import relativedelta
 
 from django.db.models import Count
-from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.contrib import messages
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.views.generic.detail import SingleObjectMixin
 
 from utils.views import LoginRequiredMixin
-from .models import GroupBuild, GroupbuildStatuses as GBStatuses
-from .forms import GroupBuildForm, DateForm
+from .models import GroupBuild, GroupbuildStatuses as GBStatuses, Participant
+from .forms import GroupBuildForm, DateForm, ParticipantForm
 
 
 class GroupBuildListView(ListView):
@@ -62,6 +65,7 @@ class GroupBuildListView(ListView):
 
 
 class GroupBuildCreateView(LoginRequiredMixin, CreateView):
+    """ TODO: webtest """
     model = GroupBuild
     template_name = 'groupbuilds/create.html'
     form_class = GroupBuildForm
@@ -80,10 +84,9 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
         return initial
 
 
-class GroupBuildDetailView(DetailView):
-    model = GroupBuild
+class GroupBuildDetailMixin(object):
+    """ Mixin that checks the queryset for detail-related views """
     queryset = GroupBuild.public.all()
-    context_object_name = 'gb'
 
     def get_queryset(self): # TODO: unit test
         user = self.request.user
@@ -91,9 +94,15 @@ class GroupBuildDetailView(DetailView):
             return (user.admin_groupbuilds.all() | self.queryset).distinct()
         return super(GroupBuildDetailView, self).get_queryset()
 
+
+class GroupBuildDetailView(GroupBuildDetailMixin, DetailView):
+    model = GroupBuild
+    context_object_name = 'gb'
+
     def get_context_data(self, **kwargs):
         ctx = super(GroupBuildDetailView, self).get_context_data(**kwargs)
         ctx['participants'] = self.object.participant_set.all().order_by('id')
+        ctx['participate_form'] = ParticipantForm()
         return ctx
 
 
@@ -111,3 +120,21 @@ class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
         if self.request.user.is_superuser:
             return GroupBuild.objects.all()
         return self.request.user.admin_groupbuilds.all()
+
+
+
+class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
+                                CreateView, SingleObjectMixin):
+    """ TODO: re-render template if there are errors """
+    model = Participant
+    form_class = ParticipantForm
+
+    def get_success_url(self):
+        return self.get_object().get_absolute_url()
+
+    def form_valid(self, form):
+        form.instance.groupbuild = self.get_object()
+        form.instance.user = self.request.user
+        response = super(GroupBuildParticipateView, self).form_valid(form)
+        messages.success(self.request, _('You\'re now listed as participant!'))
+        return response

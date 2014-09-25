@@ -60,11 +60,12 @@ class ForumToolsDescriptor(object):
             setattr(instance, self.related.attname, None)
             setattr(instance, self.cache_name, None)
         elif value is not None:
-            self.check_type(instance, value)
-
-        if value is not None:
-            setattr(instance, self.cache_name, value)
-            setattr(instance, self.related.attname, value.pk)
+            if isinstance(value, int):
+                setattr(instance, self.related.attname, value)
+            else:
+                self.check_type(instance, value)
+                setattr(instance, self.cache_name, value)
+                setattr(instance, self.related.attname, value.pk)
 
     def get_object(self, pk):
         if self.type == 'topic':

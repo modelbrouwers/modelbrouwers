@@ -17,3 +17,11 @@ li.error {
     color: red;
     font-weight: bolder;
 }
+
+
+/* buttons */
+.btn {
+    &.bg-main-orange {
+        color: white;
+    }
+}
