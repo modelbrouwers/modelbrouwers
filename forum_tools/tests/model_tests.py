@@ -1,14 +1,24 @@
 import urllib
+import sys
 
+from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.utils.importlib import import_module
 
 from .factory_models import ForumFactory, TopicFactory
+
+
+def reload_urlconf():
+    if settings.ROOT_URLCONF in sys.modules:
+        reload(sys.modules[settings.ROOT_URLCONF])
+    return import_module(settings.ROOT_URLCONF)
 
 
 @override_settings(PHPBB_URL='/forum/')
 class URLTests(TestCase):
     def setUp(self):
+        reload_urlconf()
         self.forum = ForumFactory()
         self.topic = TopicFactory(forum=self.forum)
 

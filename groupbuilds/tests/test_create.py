@@ -12,7 +12,7 @@ from ..forms import GroupBuildForm
 from ..models import GroupbuildStatuses, GroupBuild
 
 
-class CreateTests(TestCase):
+class CreateTests(TestCase): # TODO: conver to webtest
 
     def setUp(self):
         self.user = UserFactory()

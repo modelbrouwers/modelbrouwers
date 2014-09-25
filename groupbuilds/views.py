@@ -128,6 +128,7 @@ class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
     """ TODO: re-render template if there are errors """
     model = Participant
     form_class = ParticipantForm
+    template_name = 'groupbuilds/groupbuild_detail.html'
 
     def get_success_url(self):
         return self.get_object().get_absolute_url()
@@ -138,3 +139,8 @@ class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
         response = super(GroupBuildParticipateView, self).form_valid(form)
         messages.success(self.request, _('You\'re now listed as participant!'))
         return response
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupBuildParticipateView, self).get_context_data(**kwargs)
+        # import pdb; pdb.set_trace()
+        return context
