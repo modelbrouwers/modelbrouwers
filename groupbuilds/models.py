@@ -176,7 +176,7 @@ class Participant(models.Model):
     model_name = models.CharField(_('model name'), max_length=255, blank=True)
 
     finished = models.BooleanField(_('finished'), default=False)
-    topic_id = models.PositiveIntegerField(_('topic'), blank=True, null=True)
+    topic = ForumToolsIDField(_('topic'), blank=True, null=True, type='topic')
 
     # competition element
     points = models.SmallIntegerField(_('points'), blank=True, null=True)
