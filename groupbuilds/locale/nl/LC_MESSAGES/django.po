@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-21 00:20+0200\n"
-"PO-Revision-Date: 2014-09-21 00:38+0200\n"
+"POT-Creation-Date: 2014-09-25 23:41+0200\n"
+"PO-Revision-Date: 2014-09-25 23:42+0200\n"
 "Last-Translator: Sergei Maertens <user+2@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,179 +19,183 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: models.py:18
+#: models.py:19
 msgid "30 days"
 msgstr "30 dagen"
 
-#: models.py:19
+#: models.py:20
 msgid "2 months"
 msgstr "2 maanden"
 
-#: models.py:20
+#: models.py:21
 msgid "3 months"
 msgstr "3 maanden"
 
-#: models.py:21
+#: models.py:22
 msgid "6 months"
 msgstr "6 maanden"
 
-#: models.py:26
+#: models.py:27
 msgid "concept/idea"
 msgstr "concept/idee"
 
-#: models.py:27
+#: models.py:28
 msgid "submitted"
 msgstr "toegevoegd"
 
-#: models.py:28
+#: models.py:29
 msgid "accepted"
 msgstr "goedgekeurd"
 
-#: models.py:29
+#: models.py:30
 msgid "denied"
 msgstr "afgekeurd"
 
-#: models.py:30
+#: models.py:31
 msgid "extended"
 msgstr "verlengd"
 
-#: models.py:42
+#: models.py:44
 msgid "forum id"
 msgstr "forumid"
 
-#: models.py:43
+#: models.py:45
 msgid "Forum id of the group build subforum"
 msgstr "Forumid van het groepsbouwforum"
 
-#: models.py:46
+#: models.py:48
 msgid "theme"
 msgstr "thema"
 
-#: models.py:47
+#: models.py:49
 msgid "Theme/name of the group build"
 msgstr "Thema/naam van de groepsbouw"
 
-#: models.py:48
+#: models.py:50
 msgid "slug"
 msgstr "slug"
 
-#: models.py:51
+#: models.py:53
 msgid "forum category"
 msgstr "forumcategorie"
 
-#: models.py:53
+#: models.py:55
 msgid "description"
 msgstr "beschrijving"
 
-#: models.py:53
+#: models.py:55
 msgid "Short description"
 msgstr "Korte beschrijving"
 
-#: models.py:55
+#: models.py:57
 msgid "admins"
 msgstr "verantwoordelijken"
 
-#: models.py:56
+#: models.py:58
 msgid "Users who manage the group build."
 msgstr "Gebruikers die de groepsbouw beheren."
 
-#: models.py:59
+#: models.py:61
 msgid "start date"
 msgstr "startdatum"
 
-#: models.py:60
+#: models.py:62
 msgid "Date when you want to start building."
 msgstr "Datum waarop het bouwen zou beginnen."
 
-#: models.py:61
+#: models.py:63
 msgid "end date"
 msgstr "einddatum"
 
-#: models.py:62
+#: models.py:64
 msgid "Date this build ends."
 msgstr "Datum waarop het bouwen stopt."
 
-#: models.py:63
+#: models.py:65
 msgid "duration"
 msgstr "duur"
 
-#: models.py:67
+#: models.py:69
 msgid "status"
 msgstr "status"
 
-#: models.py:69
+#: models.py:71
 msgid "users can vote"
 msgstr "mogelijheid tot stemmen"
 
-#: models.py:70
+#: models.py:72
 msgid "Let users vote to determine the build popularity"
 msgstr "Laat de gebruikers stemmen of de groepsbouw moet doorgaan of niet"
 
-#: models.py:72
+#: models.py:74
 msgid "upvotes"
 msgstr "positieve stemmen"
 
-#: models.py:74
+#: models.py:76
 msgid "downvotes"
 msgstr "negatieve stemmen"
 
-#: models.py:83
+#: models.py:85
 msgid "rules topic"
 msgstr "topic met regels"
 
-#: models.py:84
+#: models.py:86
 msgid "topic to direct to from calendar"
 msgstr "topic om naar te verwijzen vanaf de kalender"
 
-#: models.py:86
+#: models.py:88
 msgid "introduction topic"
 msgstr "inleidingstopic"
 
-#: models.py:107
+#: models.py:109
 msgid "group build"
 msgstr "groepsbouw"
 
-#: models.py:108
+#: models.py:110
 msgid "group builds"
 msgstr "groepsbouwen"
 
-#: models.py:119
+#: models.py:121
 #, python-brace-format
 msgid "{name}: {status}"
 msgstr "{name}: {status}"
 
-#: models.py:126
+#: models.py:128
 msgid "# participants"
 msgstr "# deelnemers"
 
-#: models.py:171
+#: models.py:205
 msgid "model name"
 msgstr "naam model"
 
-#: models.py:173
+#: models.py:207
 msgid "finished"
 msgstr "afgewerkt"
 
-#: models.py:174
+#: models.py:208
 msgid "topic"
 msgstr "topic"
 
-#: models.py:177
+#: models.py:211
 msgid "points"
 msgstr "punten"
 
-#: models.py:182
+#: models.py:216
 msgid "group build participant"
 msgstr "groepsbouwdeelnemer"
 
-#: models.py:183
+#: models.py:217
 msgid "group build participants"
 msgstr "groepsbouwdeelnemers"
 
-#: models.py:186
+#: models.py:220
 #, python-brace-format
 msgid "{build} participant: {user}"
 msgstr "{build} deelnemer: {user}"
+
+#: views.py:141
+msgid "You're now listed as participant!"
+msgstr "Je staat nu op de deelnemerslijst!"
 
 #: templates/groupbuilds/base.html:3
 msgid "Modelbrouwers.nl &bull; Group builds"
@@ -283,62 +287,108 @@ msgid ""
 "                        "
 msgstr ""
 
-#: templates/groupbuilds/groupbuild_detail.html:18
+#: templates/groupbuilds/groupbuild_detail.html:17
 #, python-format
 msgid ""
 "\n"
-"                    Status: %(status)s\n"
-"                "
+"                        Status: %(status)s\n"
+"                    "
 msgstr ""
 "\n"
 "Status: %(status)s"
 
-#: templates/groupbuilds/groupbuild_detail.html:33
-msgid "Information"
-msgstr "Informatie"
+#: templates/groupbuilds/groupbuild_detail.html:25
+msgid "Ongoing"
+msgstr "Bezig"
 
-#: templates/groupbuilds/groupbuild_detail.html:37
+#: templates/groupbuilds/groupbuild_detail.html:28
+#: templates/groupbuilds/groupbuild_detail.html:30
 msgid "to be determined"
 msgstr "nog te bepalen"
 
-#: templates/groupbuilds/groupbuild_detail.html:40
-msgid "Group build forum: "
-msgstr "Groepsbouwforum:"
+#: templates/groupbuilds/groupbuild_detail.html:34
+#: templates/groupbuilds/groupbuild_detail.html:153
+msgid "Go to forum"
+msgstr "Ga naar het forum"
 
-#: templates/groupbuilds/groupbuild_detail.html:51
+#: templates/groupbuilds/groupbuild_detail.html:48
+msgid "All you need to know..."
+msgstr "Alles wat je moet weten..."
+
+#: templates/groupbuilds/groupbuild_detail.html:58
+msgid "Introduction"
+msgstr "Inleiding"
+
+#: templates/groupbuilds/groupbuild_detail.html:61
 msgid "Rules"
 msgstr "Regels"
 
-#: templates/groupbuilds/groupbuild_detail.html:60
+#: templates/groupbuilds/groupbuild_detail.html:76
 #, python-format
 msgid ""
 "\n"
-"                        %(n_part)s participant\n"
-"                    "
-msgid_plural ""
+"                                    Go read the <a href=\"%(url)s\">rules topic</a>\n"
+"                                "
+msgstr ""
 "\n"
-"                        %(n_part)s participants\n"
-"                    "
-msgstr[0] ""
-"\n"
-"%(n_part)s deelnemer"
-msgstr[1] ""
-"\n"
-"%(n_part)s deelnemers"
+"Lees het <a href=\"%(url)s\">regelstopic</a>."
 
-#: templates/groupbuilds/groupbuild_detail.html:70
+#: templates/groupbuilds/groupbuild_detail.html:82
+msgid "No specific rules, which means the default rules apply!"
+msgstr ""
+"Er zijn geen concrete regels, wat betekent dat de standaarregels van "
+"toepassing zijn!"
+
+#: templates/groupbuilds/groupbuild_detail.html:90
+#, python-format
+msgid "1 participant"
+msgid_plural "%(n_part)s participants"
+msgstr[0] "1 deelnemer"
+msgstr[1] "%(n_part)s deelnemers"
+
+#: templates/groupbuilds/groupbuild_detail.html:94
 msgid "#"
 msgstr "#"
 
-#: templates/groupbuilds/groupbuild_detail.html:71
+#: templates/groupbuilds/groupbuild_detail.html:95
 msgid "Builder"
 msgstr "Brouwer"
 
-#: templates/groupbuilds/groupbuild_detail.html:72
+#: templates/groupbuilds/groupbuild_detail.html:96
 msgid "Model"
 msgstr "Model"
 
-#: templates/groupbuilds/groupbuild_detail.html:94
+#: templates/groupbuilds/groupbuild_detail.html:119
+msgid "Join us!"
+msgstr "Doe mee!"
+
+#: templates/groupbuilds/groupbuild_detail.html:121
+msgid "Show your interest!"
+msgstr "Toon je interesse!"
+
+#: templates/groupbuilds/groupbuild_detail.html:131
+msgid "Submit!"
+msgstr "Bevestig!"
+
+#: templates/groupbuilds/groupbuild_detail.html:133
+msgid ""
+"Hitting the button is enough, but providing more information is always nice!"
+msgstr ""
+"Op de knop klikken is voldoende, maar we houden van wat meer informatie!"
+
+#: templates/groupbuilds/groupbuild_detail.html:138
+msgid "Progress"
+msgstr "Voortgang"
+
+#: templates/groupbuilds/groupbuild_detail.html:138
+msgid "See how much time is left"
+msgstr "Zie hoeveel tijd er nog is"
+
+#: templates/groupbuilds/groupbuild_detail.html:148
+msgid "Links"
+msgstr "Links"
+
+#: templates/groupbuilds/groupbuild_detail.html:171
 msgid "Organiser"
 msgid_plural "Organisers"
 msgstr[0] "Organisator"
@@ -411,3 +461,21 @@ msgstr ""
 #: templates/groupbuilds/groupbuild_list.html:77
 msgid "Calendar"
 msgstr "Kalender"
+
+#~ msgid "Information"
+#~ msgstr "Informatie"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        %(n_part)s participant\n"
+#~ "                    "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                        %(n_part)s participants\n"
+#~ "                    "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "%(n_part)s deelnemer"
+#~ msgstr[1] ""
+#~ "\n"
+#~ "%(n_part)s deelnemers"

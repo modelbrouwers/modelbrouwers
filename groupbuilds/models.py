@@ -171,8 +171,10 @@ class GroupBuild(models.Model):
 
     @property
     def is_ongoing(self):
-        now = timezone.now().date()
-        return self.start and self.end and self.start <= now <= self.end
+        if not hasattr(self, '_is_ongoing'):
+            now = timezone.now().date()
+            self._is_ongoing = self.start and self.end and self.start <= now <= self.end
+        return self._is_ongoing
 
     @property
     def is_open(self):
@@ -188,10 +190,12 @@ class GroupBuild(models.Model):
         if not self.is_ongoing:
             return 0
 
-        today = timezone.now().date()
-        total_delta = (self.end - self.start) or 1
-        delta = today - self.start
-        return float(delta.days) / total_delta.days
+        if not hasattr(self, '_progress'):
+            today = timezone.now().date()
+            total_delta = (self.end - self.start) or 1
+            delta = today - self.start
+            self._progress = float(delta.days) / total_delta.days
+        return self._progress
 
 
 class Participant(models.Model):
