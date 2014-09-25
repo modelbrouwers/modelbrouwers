@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.detail import SingleObjectMixin, SingleObjectTemplateResponseMixin
 
 from utils.views import LoginRequiredMixin
 from .models import GroupBuild, GroupbuildStatuses as GBStatuses, Participant
@@ -124,10 +124,11 @@ class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
-                                CreateView, SingleObjectMixin):
-    """ TODO: re-render template if there are errors """
+                                CreateView, SingleObjectTemplateResponseMixin,
+                                SingleObjectMixin):
     model = Participant
     form_class = ParticipantForm
+    context_object_name = 'gb'
     template_name = 'groupbuilds/groupbuild_detail.html'
 
     def get_success_url(self):
@@ -141,6 +142,7 @@ class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
         return response
 
     def get_context_data(self, **kwargs):
+        self.object = self.get_object()
         context = super(GroupBuildParticipateView, self).get_context_data(**kwargs)
-        # import pdb; pdb.set_trace()
+        context['participate_form'] = context['form']
         return context
