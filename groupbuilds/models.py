@@ -171,19 +171,27 @@ class GroupBuild(models.Model):
 
     @property
     def is_ongoing(self):
-        """ TODO: unittest """
         now = timezone.now().date()
         return self.start and self.end and self.start <= now <= self.end
 
     @property
     def is_open(self):
-        """ TODO: unit test """
         now = timezone.now().date()
         if self.status == GroupbuildStatuses.denied:
             return False
         if self.end and self.end <= now: # ended
             return False
         return True
+
+    @property
+    def progress(self):
+        if not self.is_ongoing:
+            return 0
+
+        today = timezone.now().date()
+        total_delta = (self.end - self.start) or 1
+        delta = today - self.start
+        return float(delta.days) / total_delta.days
 
 
 class Participant(models.Model):

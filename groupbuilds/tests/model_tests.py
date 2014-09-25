@@ -1,8 +1,9 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.test import TestCase
 
 from .factories import GroupBuildFactory
+from ..models import GroupbuildStatuses
 
 
 class GroupbuildTests(TestCase):
@@ -71,3 +72,53 @@ class GroupbuildTests(TestCase):
         self.assertAlmostEqual(dimensions['width'], 33.33, places=2)
         self.assertAlmostEqual(dimensions['offset'], 66.67, places=2)
 
+    def test_is_ongoing(self):
+        """ Test that the model correctly returns the 'ongoing' status """
+        start1 = date.today() - timedelta(hours=24)
+        end1 = date.today() + timedelta(hours=24)
+        gb1 = GroupBuildFactory.create(start=start1, end=end1)
+        self.assertTrue(gb1.is_ongoing)
+
+        end2 = date.today() - timedelta(hours=24)
+        gb2 = GroupBuildFactory.create(end=end2)
+        self.assertFalse(gb2.is_ongoing)
+
+        start3 = date.today() + timedelta(hours=24)
+        gb3 = GroupBuildFactory.create(start=start3)
+        self.assertFalse(gb3.is_ongoing)
+
+        gb4 = GroupBuildFactory.create(start=None, end=None)
+        self.assertFalse(gb4.is_ongoing)
+
+    def test_is_open(self):
+        gb1 = GroupBuildFactory.create(status=GroupbuildStatuses.denied)
+        self.assertFalse(gb1.is_open)
+
+        gb2 = GroupBuildFactory(end=date.today()-timedelta(hours=24))
+        self.assertFalse(gb2.is_open)
+
+        for status, label in GroupbuildStatuses.choices:
+            if status != GroupbuildStatuses.denied:
+                gb = GroupBuildFactory.create(status=status)
+                self.assertTrue(gb.is_open)
+
+    def test_progress(self):
+        start1 = date.today() - timedelta(hours=24)
+        end1 = date.today() + timedelta(hours=24)
+
+        gb1 = GroupBuildFactory.create(start=start1, end=end1)
+        self.assertAlmostEqual(gb1.progress, 0.5, delta=0.01)
+
+        # no start or end date
+        gb2 = GroupBuildFactory.create(start=None)
+        self.assertEquals(gb2.progress, 0)
+
+        gb3 = GroupBuildFactory.create(end=None)
+        self.assertEquals(gb3.progress, 0)
+
+        # ratio's
+        start4 = date.today() - timedelta(hours=24*42)
+        end4 = date.today() + timedelta(hours=24*21)
+        gb4 = GroupBuildFactory.create(start=start4, end=end4)
+        progress = 2.0 / 3
+        self.assertAlmostEqual(gb4.progress, progress, delta=0.1)
