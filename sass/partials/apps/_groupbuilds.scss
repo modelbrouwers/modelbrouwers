@@ -35,6 +35,10 @@ body.groupbuilds {
         background-color: rgba($main-blue, 0.6);
         padding: 5px inherit;
         color: $white;
+        
+        &:nth-child(odd) {
+          background-color: rgba($main-blue,0.68);
+        }
 
         &:first-child {
           @include border-top-left-radius(5px);
