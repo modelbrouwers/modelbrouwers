@@ -86,7 +86,7 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
 
 class GroupBuildDetailMixin(object):
     """ Mixin that checks the queryset for detail-related views """
-    queryset = GroupBuild.public.all()
+    queryset = GroupBuild.public.all().annotate(n_admins=Count('admins'))
 
     def get_queryset(self): # TODO: unit test
         user = self.request.user
@@ -94,15 +94,24 @@ class GroupBuildDetailMixin(object):
             return (user.admin_groupbuilds.all() | self.queryset).distinct()
         return super(GroupBuildDetailMixin, self).get_queryset()
 
+    def get_context_data(self, **kwargs):
+        ctx = super(GroupBuildDetailMixin, self).get_context_data(**kwargs)
+        ctx.update({
+            'admins': self.object.admins.all(),
+            'participants': self.object.participant_set.all().order_by('id'),
+        })
+        return ctx
+
 
 class GroupBuildDetailView(GroupBuildDetailMixin, DetailView):
     model = GroupBuild
+    queryset = GroupBuild.objects.all()
     context_object_name = 'gb'
 
     def get_context_data(self, **kwargs):
         ctx = super(GroupBuildDetailView, self).get_context_data(**kwargs)
-        ctx['participants'] = self.object.participant_set.all().order_by('id')
-        ctx['participate_form'] = ParticipantForm()
+        if self.object.is_open:
+            ctx['participate_form'] = ParticipantForm()
         return ctx
 
 
@@ -126,6 +135,8 @@ class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
 class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
                                 CreateView, SingleObjectTemplateResponseMixin,
                                 SingleObjectMixin):
+    """ GroupBuildDetailMixin makes this almost a GroupBuild DetailView. """
+
     model = Participant
     form_class = ParticipantForm
     context_object_name = 'gb'
@@ -135,7 +146,7 @@ class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
         return self.get_object().get_absolute_url()
 
     def form_valid(self, form):
-        form.instance.groupbuild = self.get_object()
+        form.instance.groupbuild = self.get_object() # TODO: limit queryset to open groupbuilds
         form.instance.user = self.request.user
         response = super(GroupBuildParticipateView, self).form_valid(form)
         messages.success(self.request, _('You\'re now listed as participant!'))
