@@ -30,7 +30,7 @@ if 'tastypie' in settings.INSTALLED_APPS:
     from tastypie.api import Api
     from general.api.resources import UserResource
 
-    v1_api = Api(api_name='v1')
+    v1_api = Api(api_name='legacy')
 
     v1_api.register(UserResource())
 
