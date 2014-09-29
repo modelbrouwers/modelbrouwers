@@ -2,7 +2,7 @@
 (function (doc, win, $) {
 	'use strict';
 
-	var hbsHelpers;
+	var hbsHelpers = [];
 	var _urlconf = {
 		templates: '/templates/{0}/{1}/'
 	};
@@ -45,10 +45,12 @@
 			return rendered;
 		});
 	}
+	var render = renderTemplate;
 	if(win.Handlebars.renderTemplate) {
 		console.warn('Warning: overwriting renderTemplate');
 	}
 	win.Handlebars.renderTemplate = renderTemplate;
+	win.Handlebars.render = render;
 
 
 
@@ -85,10 +87,6 @@
 		}
 
 	}
-
-	// function _partial() {
-		//
-	// }
 
 	hbsHelpers.push({name: 'compare', fn: _compare});
 
