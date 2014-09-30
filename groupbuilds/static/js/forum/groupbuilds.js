@@ -4,7 +4,7 @@ var urlconf = urlconf || {};
 	var _urlconf = {
 		groupbuilds: {
 			groupbuild: {
-				detail: '/api/v1/groupbuilds/groupbuild/{0}/'
+				detail: 'groupbuilds/groupbuild/{0}/'
 			}
 		}
 	};
@@ -16,7 +16,9 @@ var urlconf = urlconf || {};
 	}
 
 	GroupBuild.prototype.render = function($container) {
-		Q($.getJSON(urlconf.groupbuilds.groupbuild.detail.format(this.id)))
+		var endpoint = urlconf.groupbuilds.groupbuild.detail.format(this.id);
+		Api.request(endpoint)
+			.get()
 			.then(function(data) {
 				hbs.render('groupbuilds::inset', data, $container);
 			});
