@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'sessionprofile',
     'south',
     'tastypie',
+    'rest_framework',
     'django_extensions',
     'django_nose',
     'rosetta',

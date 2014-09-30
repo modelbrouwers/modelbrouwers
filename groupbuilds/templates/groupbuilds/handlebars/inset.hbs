@@ -1,0 +1,39 @@
+{% load i18n handlebars %}
+{% hbs_verbatim %}
+
+
+
+<h1>{{theme}}</h1>
+<h2>{{status}}</h2>
+
+<p>{{description}}</p>
+
+{{#if participants}}
+<div class="participants">
+    <h3>{% trans 'Participants' %}</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Brouwer" %}</th>
+                <th>{% trans "Model" %}</th>
+                <th>{% trans "Finished?" %}</th>
+                <th>{% trans "Topic" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each participants}}
+                <tr>
+                    <td class="brouwer">{{username}}</td>
+                    <td>{{model_name}}</td>
+                    <td>{{finished}}</td>
+                    <td>{{#if topic}}<a href="{{topic.url}}">{{topic.title}}</a>{{/if}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/if}}
+
+{% hbs_endverbatim %}

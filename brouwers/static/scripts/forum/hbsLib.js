@@ -2,6 +2,7 @@
 (function (doc, win, $) {
 	'use strict';
 
+	var hbsHelpers = [];
 	var _urlconf = {
 		templates: '/templates/{0}/{1}/'
 	};
@@ -44,12 +45,56 @@
 			return rendered;
 		});
 	}
-
-
+	var render = renderTemplate;
 	if(win.Handlebars.renderTemplate) {
 		console.warn('Warning: overwriting renderTemplate');
 	}
 	win.Handlebars.renderTemplate = renderTemplate;
+	win.Handlebars.render = render;
+
+
+
+	/**
+	 *	Handlebars helpers
+	 */
+
+	function _compare(lvalue, rvalue, options) {
+		if (arguments.length < 3)
+			throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+
+		operator = options.hash.operator || "==";
+		var operators = {
+			'==':       function(l,r) { return l == r; },
+			'===':      function(l,r) { return l === r; },
+			'!=':       function(l,r) { return l != r; },
+			'<':        function(l,r) { return l < r; },
+			'>':        function(l,r) { return l > r; },
+			'<=':       function(l,r) { return l <= r; },
+			'>=':       function(l,r) { return l >= r; },
+			'typeof':   function(l,r) { return typeof l == r; }
+		};
+
+		if (!operators[operator])
+			throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+
+		var result = operators[operator](lvalue, rvalue);
+
+		// TODO: check 'this'
+		if( result ) {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+
+	}
+
+	hbsHelpers.push({name: 'compare', fn: _compare});
+
+
+	for (var i=0; i<hbsHelpers.length; i++) {
+		var helper = hbsHelpers[i];
+		Handlebars.registerHelper(helper.name, helper.fn);
+	}
 
 	// shorter
 	win.hbs = win.Handlebars;

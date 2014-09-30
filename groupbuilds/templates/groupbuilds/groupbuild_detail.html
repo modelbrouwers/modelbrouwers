@@ -111,8 +111,6 @@
 
             <div class="col-md-3">
 
-
-
                 {% if gb.is_open %}
                     <h3>
                         {% if gb.is_ongoing %}
@@ -170,10 +168,10 @@
                     </aside>
                 {% endif %}
 
-                <h3>{% blocktrans count n_admins=gb.admins.all %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
+                <h3>{% blocktrans count count=gb.n_admins %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
                 <aside>
                     <ul class="list-group">
-                    {% for user in gb.admins.all %}
+                    {% for user in admins %}
                         <li class="list-group-item">
                             <a href="{{ user.get_absolute_url }}">{{ user }}</a>
                             {# TODO: button to pm #}
@@ -181,6 +179,17 @@
                     {% endfor %}
                     </ul>
                 </aside>
+
+                {% if request.user in admins or request.user.is_superuser %}
+                    <h3>{% trans "BBCode" %}
+                        <br>
+                        <small>{% trans "Use this to embed the group build in the forum" %}</small>
+                    </h3>
+                    <p class="well">
+                        <input value="{{ gb.get_bbcode }}" class="form-control">
+                    </p>
+                {% endif %}
+
             </div>
         </div>
     </div>

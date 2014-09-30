@@ -127,6 +127,11 @@ class GroupBuild(models.Model):
         return self.participants.count()
     num_participants.short_description = _('# participants')
 
+    def get_bbcode(self):
+        if self.pk:
+            return u'[gb={0}][/gb]'.format(self.pk)
+        return None
+
     def set_calendar_dimensions(self, start, end, num_months=6):
         num_months = float(num_months)
         # number of months
