@@ -1,5 +1,5 @@
 // TODO: find a way to fetch/register/render partials
-(function (doc, win, $) {
+(function (doc, win, $, hbs) {
 	'use strict';
 
 	var hbsHelpers = [];
@@ -11,19 +11,19 @@
 
 	function _loadTemplate(app, name){
 		// keep the templates in an object
-		win.Handlebars.templates = win.Handlebars.templates || {};
+		hbs.templates = hbs.templates || {};
 
 		var deferred = Q.defer();
 		var tplName = '{0}::{1}'.format(app, name);
 
 		// check the local cache first
-		if (Handlebars.templates[tplName] !== undefined) {
-			deferred.resolve(Handlebars.templates[tplName]);
+		if (hbs.templates[tplName] !== undefined) {
+			deferred.resolve(hbs.templates[tplName]);
 		} else { // fetch from the server
 			var tplUrl = win.urlconf.templates.format(app, name);
 			$.get(tplUrl, function(tpl) {
-				Handlebars.templates[tplName] = Handlebars.compile(tpl);
-				deferred.resolve(Handlebars.templates[tplName]);
+				hbs.templates[tplName] = hbs.compile(tpl);
+				deferred.resolve(hbs.templates[tplName]);
 			});
 		}
 		return deferred.promise;
@@ -46,56 +46,64 @@
 		});
 	}
 	var render = renderTemplate;
-	if(win.Handlebars.renderTemplate) {
+	if(hbs.renderTemplate) {
 		console.warn('Warning: overwriting renderTemplate');
 	}
-	win.Handlebars.renderTemplate = renderTemplate;
-	win.Handlebars.render = render;
+	hbs.renderTemplate = renderTemplate;
+	hbs.render = render;
 
 
 
 	/**
 	 *	Handlebars helpers
 	 */
-
-	function _compare(lvalue, rvalue, options) {
-		if (arguments.length < 3)
-			throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-
-		operator = options.hash.operator || "==";
-		var operators = {
-			'==':       function(l,r) { return l == r; },
-			'===':      function(l,r) { return l === r; },
-			'!=':       function(l,r) { return l != r; },
-			'<':        function(l,r) { return l < r; },
-			'>':        function(l,r) { return l > r; },
-			'<=':       function(l,r) { return l <= r; },
-			'>=':       function(l,r) { return l >= r; },
-			'typeof':   function(l,r) { return typeof l == r; }
+	var _yesno = function(bool, options) {
+		var _defaults = {
+			yes: '<span class="fa fa-check"></span>',
+			no: '<span class="fa fa-times"></span>'
 		};
+		var hash = $.extend(_defaults, options.hash);
+		var result;
 
-		if (!operators[operator])
-			throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+		if (hbs.Utils.isFunction(bool)) {
+			bool = bool.call(this);
+		}
 
-		var result = operators[operator](lvalue, rvalue);
+		if (!bool || hbs.Utils.isEmpty(bool)) {
+			result = hash.no;
+		} else {
+			result = hash.yes;
+		}
+		if (hbs.Utils.isFunction(result)) {
+			result = result.call(this);
+		}
+		return new hbs.SafeString(result);
+	};
+	hbsHelpers.push({name: 'yesno', fn: _yesno});
 
-		// TODO: check 'this'
-		if( result ) {
+	var _isEven = function(number, options) {
+		if((number % 2) === 0) {
 			return options.fn(this);
 		} else {
 			return options.inverse(this);
 		}
+	};
+	hbsHelpers.push({name: 'if_even', fn: _isEven});
 
-	}
+	var _add = function(number, number2, options) {
+		return number+number2;
+	};
+	hbsHelpers.push({name: 'add', fn: _add});
 
-	hbsHelpers.push({name: 'compare', fn: _compare});
 
-
+	/**
+	 * Register the helpers
+	 */
 	for (var i=0; i<hbsHelpers.length; i++) {
 		var helper = hbsHelpers[i];
-		Handlebars.registerHelper(helper.name, helper.fn);
+		hbs.registerHelper(helper.name, helper.fn);
 	}
 
 	// shorter
-	win.hbs = win.Handlebars;
-} (document, window, jQuery));
+	win.hbs = hbs;
+} (document, window, jQuery, Handlebars));

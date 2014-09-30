@@ -3,18 +3,31 @@
 
 
 
-<h1>{{theme}}</h1>
-<h2>{{status}}</h2>
+<h2>{{theme}} <span class="status">({{status}})</span></h2>
+<a href="{{url}}">{% trans "View outside of forum" %}</a>
 
-<p>{{description}}</p>
+<h4>{% trans "Description" %}</h4>
+<p class="description"><strong>{% trans "Start" %}: {{start}}, {% trans "end" %}: {{end}}</strong></p>
+<p class="description">{{description}}</p>
+
+{{#if rules}}
+<h4>{% trans "Rules" %}</h4>
+<div class="rules">{{rules}}</div>
+{{/if}}
+
+{{#if rules_topic}}
+<h4>{% trans "Rules topic" %}</h4>
+<a href="{{rules_topic.url}}" class="rules">{{rules_topic.title}}</a>
+{{/if}}
 
 {{#if participants}}
+<h4>{% trans 'Participants' %}</h4>
 <div class="participants">
-    <h3>{% trans 'Participants' %}</h3>
 
-    <table>
+    <table class="tablebg">
         <thead>
             <tr>
+                <th>#</th>
                 <th>{% trans "Brouwer" %}</th>
                 <th>{% trans "Model" %}</th>
                 <th>{% trans "Finished?" %}</th>
@@ -24,16 +37,19 @@
 
         <tbody>
             {{#each participants}}
-                <tr>
+                <tr class="{{#if_even @index}}row2{{else}}row1{{/if_even}}">
+                    <td class="num">{{add @index 1}}</td>
                     <td class="brouwer">{{username}}</td>
-                    <td>{{model_name}}</td>
-                    <td>{{finished}}</td>
-                    <td>{{#if topic}}<a href="{{topic.url}}">{{topic.title}}</a>{{/if}}</td>
+                    <td class="model-name">{{model_name}}</td>
+                    <td class="completed {{#if finished}}finished{{/if}}">{{yesno finished}}</td>
+                    <td class="topic">{{#if topic}}<a href="{{topic.url}}">{{topic.title}}</a>{{/if}}</td>
                 </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
 {{/if}}
+
+{# TODO: admins, participate form #}
 
 {% hbs_endverbatim %}

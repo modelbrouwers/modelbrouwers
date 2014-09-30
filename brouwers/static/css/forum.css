@@ -295,6 +295,75 @@ li.photo a.photo.selected {
 
 /* line 1, ../../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset {
-  border: solid 1px #006699;
-  min-height: 50px;
+  padding: 10px;
+  max-width: 1200px;
+}
+/* line 5, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset h2 {
+  color: #006699;
+}
+/* line 8, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset h2 .status {
+  color: #919291;
+  font-size: 80%;
+}
+/* line 14, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset h4 {
+  margin-top: 10px;
+  color: #006699;
+}
+/* line 19, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset p.description {
+  margin-bottom: 5px;
+}
+/* line 23, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset .rules {
+  background-color: rgba(233, 29, 29, 0.2);
+  border: solid 2px #d46400;
+}
+/* line 27, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset div.rules {
+  padding: 10px;
+}
+/* line 30, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset a.rules {
+  border-width: 1px;
+  padding: 0 10px;
+}
+/* line 35, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg {
+  min-width: 60%;
+  border-spacing: 1px;
+}
+/* line 39, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td {
+  padding: 3px 5px;
+}
+/* line 42, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td.num {
+  text-align: right;
+  width: 1%;
+}
+/* line 47, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td.completed {
+  text-align: center;
+  width: 1%;
+  color: rgba(233, 29, 29, 0.8);
+}
+/* line 52, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td.completed:hover {
+  color: #e91d1d;
+}
+/* line 56, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td.completed.finished, div.gb-inset table.tablebg td.completed.finished:hover {
+  color: #32bb5b;
+}
+/* line 61, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td.brouwer {
+  color: #006699;
+  font-weight: bold;
+}
+/* line 66, ../../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td.model-name {
+  font-weight: bold;
 }

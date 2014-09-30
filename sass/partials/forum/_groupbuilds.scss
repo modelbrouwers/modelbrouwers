@@ -1,4 +1,72 @@
 div.gb-inset {
-  border: solid 1px $main-blue;
-  min-height: 50px;
+  padding: 10px;
+  max-width: 1200px;
+
+  h2 {
+    color: $main-blue;
+
+    .status {
+      color: $main-grey;
+      font-size: 80%;
+    }
+  }
+
+  h4 {
+    margin-top: 10px;
+    color: $main-blue;
+  }
+
+  p.description {
+    margin-bottom: 5px;
+  }
+
+  .rules {
+    background-color: rgba($main-red, 0.2);
+    border: solid 2px $main-orange;
+  }
+  div.rules {
+    padding: 10px;
+  }
+  a.rules {
+    border-width: 1px;
+    padding: 0 10px;
+  }
+
+  table.tablebg {
+    min-width: 60%;
+    border-spacing: 1px;
+
+    td {
+      padding: 3px 5px;
+
+      &.num {
+        text-align: right;
+        width: 1%;
+      }
+
+      &.completed {
+        text-align: center;
+        width: 1%; // make it the minimum possible width
+        color: rgba($main-red, 0.8);
+
+        &:hover {
+          color: $main-red;
+        }
+
+        &.finished, &.finished:hover {
+          color: $main-green;
+        }
+      }
+
+      &.brouwer {
+        color: $main-blue;
+        font-weight: bold;
+      }
+
+      &.model-name {
+        font-weight: bold;
+      }
+    }
+
+  }
 }
