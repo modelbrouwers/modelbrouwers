@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 23:41+0200\n"
-"PO-Revision-Date: 2014-09-25 23:42+0200\n"
+"POT-Creation-Date: 2014-09-30 22:14+0200\n"
+"PO-Revision-Date: 2014-09-30 22:16+0200\n"
 "Last-Translator: Sergei Maertens <user+2@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -164,36 +164,36 @@ msgstr "{name}: {status}"
 msgid "# participants"
 msgstr "# deelnemers"
 
-#: models.py:205
+#: models.py:210
 msgid "model name"
 msgstr "naam model"
 
-#: models.py:207
+#: models.py:212
 msgid "finished"
 msgstr "afgewerkt"
 
-#: models.py:208
+#: models.py:213
 msgid "topic"
 msgstr "topic"
 
-#: models.py:211
+#: models.py:216
 msgid "points"
 msgstr "punten"
 
-#: models.py:216
+#: models.py:221
 msgid "group build participant"
 msgstr "groepsbouwdeelnemer"
 
-#: models.py:217
+#: models.py:222
 msgid "group build participants"
 msgstr "groepsbouwdeelnemers"
 
-#: models.py:220
+#: models.py:225
 #, python-brace-format
 msgid "{build} participant: {user}"
 msgstr "{build} deelnemer: {user}"
 
-#: views.py:141
+#: views.py:152
 msgid "You're now listed as participant!"
 msgstr "Je staat nu op de deelnemerslijst!"
 
@@ -320,6 +320,7 @@ msgid "Introduction"
 msgstr "Inleiding"
 
 #: templates/groupbuilds/groupbuild_detail.html:61
+#: templates/groupbuilds/handlebars/inset.hbs:14
 msgid "Rules"
 msgstr "Regels"
 
@@ -355,32 +356,33 @@ msgid "Builder"
 msgstr "Brouwer"
 
 #: templates/groupbuilds/groupbuild_detail.html:96
+#: templates/groupbuilds/handlebars/inset.hbs:32
 msgid "Model"
 msgstr "Model"
 
-#: templates/groupbuilds/groupbuild_detail.html:119
+#: templates/groupbuilds/groupbuild_detail.html:117
 msgid "Join us!"
 msgstr "Doe mee!"
 
-#: templates/groupbuilds/groupbuild_detail.html:121
+#: templates/groupbuilds/groupbuild_detail.html:119
 msgid "Show your interest!"
 msgstr "Toon je interesse!"
 
-#: templates/groupbuilds/groupbuild_detail.html:131
+#: templates/groupbuilds/groupbuild_detail.html:129
 msgid "Submit!"
 msgstr "Bevestig!"
 
-#: templates/groupbuilds/groupbuild_detail.html:133
+#: templates/groupbuilds/groupbuild_detail.html:131
 msgid ""
 "Hitting the button is enough, but providing more information is always nice!"
 msgstr ""
 "Op de knop klikken is voldoende, maar we houden van wat meer informatie!"
 
-#: templates/groupbuilds/groupbuild_detail.html:138
+#: templates/groupbuilds/groupbuild_detail.html:137
 msgid "Progress"
 msgstr "Voortgang"
 
-#: templates/groupbuilds/groupbuild_detail.html:138
+#: templates/groupbuilds/groupbuild_detail.html:137
 msgid "See how much time is left"
 msgstr "Zie hoeveel tijd er nog is"
 
@@ -393,6 +395,14 @@ msgid "Organiser"
 msgid_plural "Organisers"
 msgstr[0] "Organisator"
 msgstr[1] "Organisatoren"
+
+#: templates/groupbuilds/groupbuild_detail.html:184
+msgid "BBCode"
+msgstr "BBCode"
+
+#: templates/groupbuilds/groupbuild_detail.html:186
+msgid "Use this to embed the group build in the forum"
+msgstr "Gebruik dit om de groepsbouw in een post te integreren."
 
 #: templates/groupbuilds/groupbuild_list.html:12
 msgid "Group builds - some information"
@@ -461,6 +471,42 @@ msgstr ""
 #: templates/groupbuilds/groupbuild_list.html:77
 msgid "Calendar"
 msgstr "Kalender"
+
+#: templates/groupbuilds/handlebars/inset.hbs:7
+msgid "View outside of forum"
+msgstr "Bekijk eigen groepsbouwpagina"
+
+#: templates/groupbuilds/handlebars/inset.hbs:9
+msgid "Description"
+msgstr "Beschrijving"
+
+#: templates/groupbuilds/handlebars/inset.hbs:10
+msgid "Start"
+msgstr "Start"
+
+#: templates/groupbuilds/handlebars/inset.hbs:10
+msgid "end"
+msgstr "einde"
+
+#: templates/groupbuilds/handlebars/inset.hbs:19
+msgid "Rules topic"
+msgstr "Topic met regels"
+
+#: templates/groupbuilds/handlebars/inset.hbs:24
+msgid "Participants"
+msgstr "Deelnemers"
+
+#: templates/groupbuilds/handlebars/inset.hbs:31
+msgid "Brouwer"
+msgstr "Brouwer"
+
+#: templates/groupbuilds/handlebars/inset.hbs:33
+msgid "Finished?"
+msgstr "Klaar?"
+
+#: templates/groupbuilds/handlebars/inset.hbs:34
+msgid "Topic"
+msgstr "Topic"
 
 #~ msgid "Information"
 #~ msgstr "Informatie"
