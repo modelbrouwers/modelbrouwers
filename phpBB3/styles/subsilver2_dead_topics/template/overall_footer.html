@@ -28,7 +28,7 @@ pageTracker._trackPageview();
 <!-- PHP -->
     $cache = new StaticCache();
     $cache->init();
-    $storage = new CachedFilesStorage($cache, $debug=true);
+    $storage = new CachedFilesStorage($cache, $debug=false);
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
