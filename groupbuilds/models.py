@@ -20,7 +20,7 @@ class GroupbuildDurations(DjangoChoices):
     two_months = ChoiceItem(61, _('2 months'))
     three_months = ChoiceItem(92, _('3 months'))
     six_months = ChoiceItem(183, _('6 months'))
-    twelve_months = ChoiceItem(365, ('one year'))
+    twelve_months = ChoiceItem(365, _('one year'))
 
 
 class GroupbuildStatuses(DjangoChoices):
