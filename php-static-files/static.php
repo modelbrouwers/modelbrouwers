@@ -16,8 +16,8 @@ $DEBUG = false;
  * Memcached. If the hashed file doesn't exist, return the unchanged URL.
  * Django updates the cached filenames as part of the collectstatic command.
  */
-class CachedFilesStorage {
-
+class CachedFilesStorage
+{
 	private static $static_root;
 	private static $static_url;
 	private static $cache_key_prefix;
@@ -25,15 +25,23 @@ class CachedFilesStorage {
 	protected $cache = null;
 	protected $DEBUG;
 
-	function __construct($cache, $DEBUG=false) {
-		$this->static_url = '/static/';
+	public function __construct($cache, $DEBUG=false) {
+		$this->static_url = '/static/'; // TODO: fetch from env variables
 		$this->cache_key_prefix = 'staticfiles:';
 		$this->static_root = realpath(dirname(dirname(__FILE__)) . $this->static_url);
 		$this->cache = $cache;
 		$this->DEBUG = $DEBUG;
 	}
 
-	function get_hashed_name($file) {
+	protected function get_static_root() {
+		return $this->static_root;
+	}
+
+	protected function get_static_url() {
+		return $this->static_url;
+	}
+
+	protected function get_hashed_name($file) {
 		if($this->DEBUG) return $file;
 		$abs_path = realpath($this->static_root . '/' . $file);
 
@@ -53,7 +61,7 @@ class CachedFilesStorage {
 	/**
 	 * @param $name is the filename relative to the static root
 	 */
-	function cache_key($name) {
+	protected function cache_key($name) {
 		// don't do utf8 encoding, the hashes differ, even with utf8-strings
 		return $this->cache_key_prefix.md5($name);
 	}
@@ -61,7 +69,7 @@ class CachedFilesStorage {
 	/**
 	 * Get the url to the static file, either from cache or calculate the hashed path.
 	 */
-	function url($file) {
+	public function url($file) {
 		$cache_key = $this->cache_key($file);
 		$hashed_name = ($this->DEBUG) ? false : $this->cache->get($cache_key);
 
@@ -72,12 +80,50 @@ class CachedFilesStorage {
 
 		return $this->static_url . $hashed_name;
 	}
-
-	function test() {
-		echo 'foo';
-	}
 }
 
-// $storage = new CachedFilesStorage($cache, $DEBUG);
+/**
+ * Combines an array of static files into one (minified) file.
+ * Similar to the 'compress' tag.
+ */
+class CombinedStaticFilesStorage extends CachedFilesStorage
+{
+	protected $CACHE_DIR = 'PHP_CACHE';
+
+	protected function get_cache_dir() {
+		$dirname = $this->get_static_root().'/'.$this->CACHE_DIR;
+		if (!is_dir($dirname)) {
+			mkdir($dirname);
+			chmod($dirname, 0755);
+		}
+		return $dirname;
+	}
+
+	public function url($files, $ext='js') {
+		$root = $this->get_static_root();
+		$file_paths = array();
+		$_output = array();
+
+		// calculate all the file hashes to definitely use the latest file
+		foreach ($files as $file) {
+			$filename = $root.'/'.$this->get_hashed_name($file);
+			$file_paths[] = $filename;
+		}
+		$md5_result = md5(implode("::", $file_paths));
+		$destDir = $this->get_cache_dir();
+		$dest_file = $destDir.'/'.$md5_result.'.'.$ext;
+
+		if(!is_file($dest_file)) {
+			foreach ($file_paths as $filename) {
+				$_output[] = file_get_contents($filename);
+			}
+			file_put_contents($dest_file, implode(";", $_output));
+			// TODO: minify
+		}
+
+		$url = substr($dest_file, strlen($root)+1);
+		return $this->get_static_url().$url;
+	}
+}
 
 ?>

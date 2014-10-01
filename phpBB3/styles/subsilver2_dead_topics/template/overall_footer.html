@@ -29,22 +29,29 @@ pageTracker._trackPageview();
     $cache = new StaticCache();
     $cache->init();
     $storage = new CachedFilesStorage($cache, $debug=false);
+    $storage2 = new CombinedStaticFilesStorage($cache);
+<!-- ENDPHP -->
+
+<!-- PHP -->
+    $js = array(
+        'scripts/forum/hbsLib.js',
+        'scripts/api.js',
+        'scripts/purl.js',
+        'scripts/forum/forum.js',
+        'scripts/forum/chat.js',
+        'scripts/forum/albums.js',
+        'js/forum/groupbuilds.js',
+    );
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/api.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/handlebars-v2.0.0.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/forum/hbsLib.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/purl.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/forum/forum.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/forum/chat.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/forum/albums.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('js/forum/groupbuilds.js');<!-- ENDPHP -->"></script>
+<script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
+
 <!-- IF U_MCP || U_ACP -->
     <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>
 <!-- ENDIF -->
-
 
 </body>
 </html>
