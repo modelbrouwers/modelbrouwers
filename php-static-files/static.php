@@ -1,6 +1,7 @@
 <?php
 $dir = dirname(__FILE__).'/';
 require_once($dir.'cache.php');
+require_once ($dir.'vendor_autoload.php');
 
 $DEBUG = false;
 
@@ -117,8 +118,11 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 			foreach ($file_paths as $filename) {
 				$_output[] = file_get_contents($filename);
 			}
-			file_put_contents($dest_file, implode(";", $_output));
-			// TODO: minify
+			$output = implode("\n;", $_output);
+			if ($ext == 'js') {
+				// $output = \JShrink\Minifier::minify($output);
+			}
+			file_put_contents($dest_file, $output);
 		}
 
 		$url = substr($dest_file, strlen($root)+1);
