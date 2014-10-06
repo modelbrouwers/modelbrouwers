@@ -47,7 +47,7 @@
                 {% block gb-content %}
                     <h3>
                         {% trans "All you need to know..." %}
-                        {% if request.user in gb.admins.all %}
+                        {% if can_edit %}
                         <small>
                             <a class="pull-right" href="{% url 'groupbuilds:edit' slug=gb.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
                         </small>

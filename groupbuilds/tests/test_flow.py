@@ -1,11 +1,14 @@
 """ Test all the flow components"""
+from datetime import date, timedelta
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from users.tests.factory_models import UserFactory
 
 from .factories import GroupBuildFactory
-from ..models import GroupbuildStatuses, GroupBuild
+from ..models import GroupbuildStatuses, GroupbuildDurations, GroupBuild
 
 # TODO: use webtest
 
@@ -63,8 +66,15 @@ class FlowTest(TestCase):
         self.assertEquals(groupbuild.status, GroupbuildStatuses.submitted)
 
 
-#     def test_submitted_concept_not_editable(self):
-#         pass
+    def test_submitted_concept_not_editable(self):
+        groupbuild = GroupBuildFactory.create(status=GroupbuildStatuses.submitted)
+        groupbuild.admins.add(groupbuild.applicant)
+
+        self.client.login(username=groupbuild.applicant.username, password='password')
+        url = reverse('groupbuilds:edit', kwargs={'slug': groupbuild.slug})
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 404)
+
 
 #     def test_pm_sent_after_submit(self):
 #         """ Test that a pm is sent to the mods/post is made in mod forum """
@@ -75,11 +85,32 @@ class FlowTest(TestCase):
 #     def test_approval(self):
 #         """ Test that mods can approve group builds and that confirmation is sent """
 
-#     def test_dates_locked_for_non_staff(self):
-#         """
-#         Test that the dates are not editable when the groupbuild is out of the
-#         concept state
-#         """
+    def test_dates_locked_for_non_staff(self):
+        """
+        Test that the dates are not editable when the groupbuild is out of the
+        concept state
+        """
+        groupbuild = GroupBuildFactory.create(
+            start=date.today(), duration=GroupbuildDurations.one_month,
+            status=GroupbuildStatuses.accepted)
+        groupbuild.admins.add(groupbuild.applicant)
+
+        self.client.login(username=groupbuild.applicant.username, password='password')
+        url = reverse('groupbuilds:edit', kwargs={'slug': groupbuild.slug})
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+        post_data = {
+            'start': date.today() + timedelta(days=2),
+            'duration': GroupbuildDurations.two_months
+        }
+        response = self.client.post(url, post_data)
+        self.assertEquals(response.status_code, 200)
+
+        error_start = _('The start date cannot be edited if the build is outside of the concept state.')
+        error_duration = _('The duration cannot be edited if the build is outside of the concept state.')
+        self.assertFormError(response, 'form', 'start', [error_start])
+        self.assertFormError(response, 'form', 'duration', [error_duration])
 
 #     def test_user_can_edit_approved_and_denied(self):
 #         """ Users can edit in all states, and resubmit """

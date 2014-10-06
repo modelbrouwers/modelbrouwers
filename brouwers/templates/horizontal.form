@@ -12,7 +12,7 @@
 
 
 {% block input %}
-<div class="form-group">
+<div class="form-group clearfix">
     {% use "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
@@ -42,7 +42,7 @@
 
 
 {% block Select %}
-<div class="form-group">
+<div class="form-group clearfix">
     {% use "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
@@ -62,7 +62,7 @@
 
 
 {% block SelectMultiple %}
-<div class="form-group">
+<div class="form-group clearfix">
     {% use "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
@@ -85,7 +85,7 @@
 
 
 {% block CheckboxInput %}
-<div class="form-group">
+<div class="form-group clearfix">
     <div class="{{ label_grid_offset|default:'col-sm-offset-3' }} {{ field_grid|default:'col-sm-10' }}">
         <div class="checkbox">
             <label for="{{ form_field.id_for_label }}" class="{{ css_classes }}">
@@ -101,7 +101,7 @@
 
 
 {% block Textarea %}
-<div class="form-group">
+<div class="form-group clearfix">
     {% use "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
@@ -121,7 +121,7 @@
 
 
 {% block ForumToolsIDFieldWidget %}
-<div class="form-group">
+<div class="form-group clearfix">
     {% use "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}

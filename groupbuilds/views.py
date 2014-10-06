@@ -96,9 +96,14 @@ class GroupBuildDetailMixin(object):
 
     def get_context_data(self, **kwargs):
         ctx = super(GroupBuildDetailMixin, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        can_edit = self.object.status != GBStatuses.submitted and \
+                   (user.is_superuser or self.object in user.admin_groupbuilds.all())
         ctx.update({
             'admins': self.object.admins.all(),
             'participants': self.object.participant_set.all().order_by('id'),
+            'can_edit': can_edit
         })
         return ctx
 
@@ -128,7 +133,7 @@ class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self):
         if self.request.user.is_superuser:
             return GroupBuild.objects.all()
-        return self.request.user.admin_groupbuilds.all()
+        return self.request.user.admin_groupbuilds.exclude(status=GBStatuses.submitted)
 
 
 class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
