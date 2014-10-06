@@ -31,3 +31,4 @@ cover/
 
 # PHP composer
 composer.lock
+/vendor/
