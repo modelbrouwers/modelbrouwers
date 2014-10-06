@@ -131,7 +131,6 @@ class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.user.admin_groupbuilds.all()
 
 
-
 class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
                                 CreateView, SingleObjectTemplateResponseMixin,
                                 SingleObjectMixin):
@@ -157,3 +156,15 @@ class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
         context = super(GroupBuildParticipateView, self).get_context_data(**kwargs)
         context['participate_form'] = context['form']
         return context
+
+
+class GroupBuildSubmitView(LoginRequiredMixin, GroupBuildDetailMixin, UpdateView):
+    """ View to submit the group build to the staff """
+    model = GroupBuild
+    context_object_name = 'gb'
+    template_name = 'groupbuilds/groupbuild_submit.html'
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return super(GroupBuildSubmitView, self).get_queryset()
+        return self.request.user.admin_groupbuilds.all()

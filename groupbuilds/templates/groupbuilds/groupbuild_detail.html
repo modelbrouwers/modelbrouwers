@@ -44,46 +44,48 @@
         <div class="row">
             <div class="col-md-9">
 
-                <h3>
-                    {% trans "All you need to know..." %}
-                    {% if request.user in gb.admins.all %}
-                    <small>
-                        <a class="pull-right" href="{% url 'groupbuilds:edit' slug=gb.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                    </small>
-                    {% endif %}
-                </h3>
-
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="active">
-                        <a href="#desc" role="tab" data-toggle="tab">{% trans "Introduction" %}</a>
-                    </li>
-                    <li>
-                        <a href="#rules" role="tab" data-toggle="tab">{% trans "Rules" %}</a>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="desc">
-                        <p>{{ gb.description|bbcode|safe }}</p>
-                    </div>
-
-                    <div class="tab-pane" id="rules">
-                        {% if gb.rules %}
-                            <p>{{ gb.rules|bbcode|safe }}</p>
-                        {% else %}
-                            {% if self.rules_topic %}
-                            <p>
-                                {% blocktrans with url=self.rules_topic.get_absolute_url %}
-                                    Go read the <a href="{{ url }}">rules topic</a>
-                                {% endblocktrans %}
-                                {{ ';)'|bbcode|safe }}
-                            </p>
-                            {% else %}
-                                <p>{% trans "No specific rules, which means the default rules apply!" %}</p>
-                            {% endif %}
+                {% block gb-content %}
+                    <h3>
+                        {% trans "All you need to know..." %}
+                        {% if request.user in gb.admins.all %}
+                        <small>
+                            <a class="pull-right" href="{% url 'groupbuilds:edit' slug=gb.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        </small>
                         {% endif %}
+                    </h3>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active">
+                            <a href="#desc" role="tab" data-toggle="tab">{% trans "Introduction" %}</a>
+                        </li>
+                        <li>
+                            <a href="#rules" role="tab" data-toggle="tab">{% trans "Rules" %}</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="desc">
+                            <p>{{ gb.description|bbcode|safe }}</p>
+                        </div>
+
+                        <div class="tab-pane" id="rules">
+                            {% if gb.rules %}
+                                <p>{{ gb.rules|bbcode|safe }}</p>
+                            {% else %}
+                                {% if self.rules_topic %}
+                                <p>
+                                    {% blocktrans with url=self.rules_topic.get_absolute_url %}
+                                        Go read the <a href="{{ url }}">rules topic</a>
+                                    {% endblocktrans %}
+                                    {{ ';)'|bbcode|safe }}
+                                </p>
+                                {% else %}
+                                    <p>{% trans "No specific rules, which means the default rules apply!" %}</p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
+                {% endblock %}
 
                 <hr>
 
@@ -188,6 +190,10 @@
                     <p class="well">
                         <input value="{{ gb.get_bbcode }}" class="form-control">
                     </p>
+                    {% url 'groupbuilds:submit' slug=gb.slug as submit_url %}
+                    {% if gb.is_submittable and request.path != submit_url %}
+                        <a href="{{ submit_url }}" class="btn bg-main-orange btn-big">{% trans "Submit request" %}</a>
+                    {% endif %}
                 {% endif %}
 
             </div>

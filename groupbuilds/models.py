@@ -191,6 +191,11 @@ class GroupBuild(models.Model):
         return True
 
     @property
+    def is_submittable(self):
+        has_dates = self.start is not None and self.end is not None
+        return has_dates and self.status == GroupbuildStatuses.concept
+
+    @property
     def progress(self):
         if not self.is_ongoing:
             return 0

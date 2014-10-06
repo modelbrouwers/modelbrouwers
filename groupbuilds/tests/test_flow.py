@@ -1,5 +1,6 @@
 """ Test all the flow components"""
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 
 from users.tests.factory_models import UserFactory
 
@@ -35,8 +36,34 @@ class FlowTest(TestCase):
 #     def test_user_edit(self):
 #         pass
 
-#     def test_user_submit(self):
-#         """ Test that the user can submit the concept """
+    def test_user_submit(self):
+        """ Test that the user can submit the concept """
+        user1 = UserFactory.create()
+        user2 = UserFactory.create()
+
+        groupbuild = GroupBuildFactory.create(status=GroupbuildStatuses.concept)
+        groupbuild.admins.add(user1, groupbuild.applicant)
+        self.assertEqual(groupbuild.admins.count(), 2)
+
+        # test that user2 cannot submit the groupbuilds
+        self.client.login(username=user2.username, password='password')
+        url = reverse('groupbuilds:submit', kwargs={'slug': groupbuild.slug})
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 404)
+        self.client.logout
+
+        self.client.login(username=user1, password='password')
+        url = reverse('groupbuilds:submit', kwargs={'slug': groupbuild.slug})
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+        post_data = {
+
+        }
+        response = self.client.post(url, post_data)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(groupbuild.status, GroupbuildStatuses.submitted)
+
 
 #     def test_submitted_concept_not_editable(self):
 #         pass

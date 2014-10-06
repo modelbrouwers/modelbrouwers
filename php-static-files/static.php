@@ -120,7 +120,7 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 			}
 			$output = implode("\n;", $_output);
 			if ($ext == 'js') {
-				// $output = \JShrink\Minifier::minify($output);
+				$output = \JShrink\Minifier::minify($output);
 			}
 			file_put_contents($dest_file, $output);
 		}
