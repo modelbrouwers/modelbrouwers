@@ -16,13 +16,20 @@
         If you confirm to submit the groupbuild, the moderators take a look if all
         requirements are met and if so, put it on the calendar. If not all requirements
         are met, you will receive feedback about this.
-    {% endblocktrans %} </p>
+    {% endblocktrans %}</p>
 
     {% if gb.is_submittable %}
-        <button class="btn bg-main-orange">{% trans "Confirm submission" %}</button>
+        <form action="." method="post">{% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn bg-main-orange">{% trans "Confirm submission" %}</button>
     {% else %}
-        <p>{% trans "This groupbuild cannot be submitted!" %}</p>
+        <p>
+            {% trans "This groupbuild cannot be submitted. Make sure you meet all the requirements." %}
+        </p>
     {% endif %}
 
+    <a href="{% url 'groupbuilds:edit' slug=gb.slug %}" class="btn btn-default">{% trans "Go to edit page" %}</a>
+
+    {% if gb.is_submittable %}</form>{% endif %}
 
 {% endblock %}

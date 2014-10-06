@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import GroupBuild, Participant
+from .models import GroupBuild, Participant, GroupbuildStatuses
 
 
 class GroupBuildForm(forms.ModelForm):
@@ -36,3 +36,13 @@ class ParticipantForm(forms.ModelForm):
     class Meta:
         model = Participant
         fields = ('model_name', 'topic')
+
+
+class SubmitForm(forms.ModelForm):
+    class Meta:
+        model = GroupBuild
+        fields = ()
+
+    def save(self, *args, **kwargs):
+        self.instance.status = GroupbuildStatuses.submitted
+        return super(SubmitForm, self).save(*args, **kwargs)

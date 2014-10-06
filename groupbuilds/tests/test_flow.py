@@ -57,11 +57,9 @@ class FlowTest(TestCase):
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
 
-        post_data = {
-
-        }
-        response = self.client.post(url, post_data)
-        self.assertEquals(response.status_code, 200)
+        response = self.client.post(url)
+        self.assertEquals(response.status_code, 302)
+        groupbuild = GroupBuild.objects.get(slug=groupbuild.slug)
         self.assertEquals(groupbuild.status, GroupbuildStatuses.submitted)
 
 

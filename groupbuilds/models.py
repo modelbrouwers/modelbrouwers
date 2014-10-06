@@ -25,7 +25,7 @@ class GroupbuildDurations(DjangoChoices):
 
 class GroupbuildStatuses(DjangoChoices):
     concept = ChoiceItem('concept', _('concept/idea'))
-    submitted = ChoiceItem('submitted', _('submitted'))
+    submitted = ChoiceItem('submitted', _('submitted for review'))
     accepted = ChoiceItem('accepted', _('accepted'))
     denied = ChoiceItem('denied', _('denied'))
     extended = ChoiceItem('extended', _('extended'))
