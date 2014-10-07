@@ -14,7 +14,7 @@ var _urlconf = {
 		check_topic_dead: './ajax/topic_dead.php', // FIXME
 
 		mods: {
-			get_sharing_perms: '/forum_tools/mods/get_sharing_perms/',
+			get_sharing_perms: '/forum_tools/mods/get_sharing_perms/'
 		}
 	}
 };
