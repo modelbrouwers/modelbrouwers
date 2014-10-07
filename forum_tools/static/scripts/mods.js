@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 		forum_tools: {
 			mods: {
-				get_sharing_perms: '/forum_tools/mods/get_sharing_perms/',
+				get_sharing_perms: '/forum_tools/mods/get_sharing_perms/'
 			}
 		}
 	});
