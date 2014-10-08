@@ -19,7 +19,10 @@ class DownloadTests(TestCase):
         self.test_file = os.path.join(os.path.dirname(__file__), 'files/users.png')
 
     def tearDown(self):
-        shutil.rmtree(self.temp_dir)
+        try:
+            shutil.rmtree(self.temp_dir)
+        except WindowsError:
+            pass
 
     def test_zip_download(self):
         """ Test that zipfiles are correctly generated and downloaded """
@@ -55,5 +58,5 @@ class DownloadTests(TestCase):
             self.client.login(username=user.username, password='password')
 
             response = self.client.get(url)
-            zf = os.path.join(settings.MEDIA_URL, 'albums', str(album.user_id), str(album.id), '{0}.zip'.format(album.id))
+            zf = '{0}albums/{1}/{2}/{2}.zip'.format(settings.MEDIA_URL, album.user_id, album.id)
             self.assertRedirects(response, zf)

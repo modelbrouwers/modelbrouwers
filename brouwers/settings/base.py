@@ -233,15 +233,7 @@ COMPRESS_CSS_FILTERS = [
 #
 TEST_RUNNER = 'general.tests.utils.UnmanagedTablesTestRunner'
 NOSE_ARGS = [
-    '-s',
-    # '--with-coverage',
-    # '--cover-branches',
-    # '--cover-package=users,albums,awards,banning,builds,'
-                     # 'brouwersdag,forum_tools,general,groupbuilds,kitreviews'
-                     # ',migration,online_users,secret_santa,shirts',
-    # '--cover-xml',
-    # '--cover-html',
-    # '--cover-inclusive',
+    '-s'
 ]
 
 #

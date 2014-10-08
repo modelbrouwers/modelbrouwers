@@ -137,7 +137,7 @@ def password_reset(request):
             if not user.is_active:
                 messages.warning(request, _("Your account is still inactive! You won't be able to log in until you reactivate with the link sent by e-mail."))
             expire = datetime.now() + timedelta(days=1)
-            variable_part = expire.strftime("%Y-%m-%d %H:%i:%s") + str(int(random.random() * 10))
+            variable_part = expire.strftime("%Y-%m-%d %H:%M:%S") + str(int(random.random() * 10))
             h = hashlib.sha1("%s%s" % (settings.SECRET_KEY, variable_part)).hexdigest()[:24]
 
             # make sure the hash is unique enough

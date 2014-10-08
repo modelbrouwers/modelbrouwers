@@ -179,7 +179,7 @@ def download_album(request, album_id=None):
             messages.warning(request, _("This album could not be downloaded because it has no photos yet."))
             return HttpResponseRedirect(reverse(browse_album, args=[album.id]))
 
-    url = os.path.join(settings.MEDIA_URL, rel_path)
+    url = '{0}albums/{1}/{2}/{2}.zip'.format(settings.MEDIA_URL, album.user_id, album.id)
     album_download.save()
     return HttpResponseRedirect(url)
 
