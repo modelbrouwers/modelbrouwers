@@ -3,7 +3,7 @@ branch = True
 source = albums,awards,banning,builds,brouwersdag,forum_tools,general,groupbuilds,kitreviews,migration,online_users,secret_santa,shirts,users,utils
 
 [report]
-omit = *migrations*,*tests*
+omit = */migrations/*,*/tests/*
 exclude_lines =
 	pragma: no cover
 

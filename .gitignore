@@ -28,6 +28,7 @@ Thumbs.db
 /.coverage
 /coverage.xml
 cover/
+_codecov_coverage.xml
 
 # PHP composer
 composer.lock

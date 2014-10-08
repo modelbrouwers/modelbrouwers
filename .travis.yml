@@ -13,6 +13,7 @@ install:
   - pip install --upgrade setuptools --use-mirrors
   - pip install -r requirements/travis.txt --use-mirrors
   - pip install coveralls
+  - pip install codecov
 
 matrix:
   allow_failures:
@@ -23,3 +24,4 @@ script:
 
 after_success:
   coveralls
+  codecov

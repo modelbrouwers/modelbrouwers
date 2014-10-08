@@ -5,6 +5,9 @@
 .. image:: https://coveralls.io/repos/modelbrouwers/modelbrouwers/badge.png
     :target: https://coveralls.io/r/modelbrouwers/modelbrouwers
 
+.. image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=master
+    :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=master
+
 
 ######################################
 Modelbrouwers Apps & phpBB integration
