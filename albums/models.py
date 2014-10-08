@@ -27,7 +27,11 @@ class Category(models.Model):
 
     url = models.URLField(_("url"), max_length=500, blank=True)
     on_frontpage = models.BooleanField(_("on frontpage"), default=False)
-    public = models.BooleanField(_("public"), default=True, help_text=_("If the category is public, regular users can add their albums to the category. If it isn't, only people with admin permissions can do so."))
+    public = models.BooleanField(_("public"), default=True,
+                                 help_text=_("If the category is public, regular"
+                                             " users can add their albums to the"
+                                             " category. If it isn't, only people"
+                                             " with admin permissions can do so."))
 
     class Meta:
         verbose_name = _("category")
@@ -142,6 +146,7 @@ class Album(models.Model):
             return img.thumb_url
         return None
 
+    # TODO: replace with sorl/easythumbnails
     def get_cover_data(self):
         cover = self.get_cover()
         data = {'cover': cover}
@@ -242,7 +247,13 @@ class Photo(models.Model):
         self.save()
 
     def get_next(self):
-    	photos = Photo.objects.filter(album=self.album, order__gt=self.order, trash=False)
+        # see if there are photos with a greater order
+        base = Photo.objects.filter(album=self.album, trash=False)
+        photos = base.filter(order__gt=self.order).order_by('order', 'id')
+        if photos.exists():
+            return photos[0]
+
+        photos = Photo.objects.filter(album=self.album, order__gte=self.order, trash=False).exclude(id=self.id)
     	photos = photos.order_by('order', 'id')
     	if photos:
     		return photos[0]
@@ -250,20 +261,20 @@ class Photo(models.Model):
 
     def get_previous(self):
         #TODO: order can be None, throws error
-        photos = Photo.objects.filter(album=self.album, order__lt=self.order, trash=False)
+        photos = Photo.objects.filter(album=self.album, order__lte=self.order, trash=False).exclude(id=self.id)
         photos = photos.order_by('-order', '-id')
         if photos:
             return photos[0]
         return None
 
     def get_next_3(self):
-        photos = Photo.objects.filter(album=self.album, order__gt=self.order, trash=False).order_by('order', 'id')
+        photos = Photo.objects.filter(album=self.album, order__gte=self.order, trash=False).exclude(id=self.id).order_by('order', 'id')
         if photos:
             return photos[:3]
         return None
 
     def get_previous_3(self):
-        photos = Photo.objects.filter(order__lt=self.order, album=self.album, trash=False).order_by('-order', '-id')
+        photos = Photo.objects.filter(order__lte=self.order, album=self.album, trash=False).exclude(id=self.id).order_by('-order', '-id')
         if photos:
             return photos[:3] #previous three, most recent first (use reversed in template)
         return None

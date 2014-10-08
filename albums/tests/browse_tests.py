@@ -2,7 +2,6 @@
 import tempfile
 import os
 import shutil
-import zipfile
 
 from django.conf import settings
 from django.test import TestCase
@@ -18,6 +17,9 @@ class DownloadTests(TestCase):
         self.extract_path = os.path.join(self.temp_dir, 'extracted')
         os.makedirs(self.extract_path)
         self.test_file = os.path.join(os.path.dirname(__file__), 'files/users.png')
+
+    def tearDown(self):
+        shutil.rmtree(self.temp_dir)
 
     def test_zip_download(self):
         """ Test that zipfiles are correctly generated and downloaded """
@@ -55,11 +57,3 @@ class DownloadTests(TestCase):
             response = self.client.get(url)
             zf = os.path.join(settings.MEDIA_URL, 'albums', str(album.user_id), str(album.id), '{0}.zip'.format(album.id))
             self.assertRedirects(response, zf)
-
-            # get the zipfile itself
-            # f = self.client.get(zipfile)
-            # z = zipfile.ZipFile(f)
-            # import pdb; pdb.set_trace()
-
-    def tearDown(self):
-        shutil.rmtree(self.temp_dir)
