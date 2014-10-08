@@ -1,6 +1,9 @@
 
 .. image:: https://travis-ci.org/modelbrouwers/modelbrouwers.svg?branch=master
-    :target: https://travis-ci.org/modelbrouwers/modelbrouwers
+:target: https://travis-ci.org/modelbrouwers/modelbrouwers
+
+.. image:: https://coveralls.io/repos/modelbrouwers/modelbrouwers/badge.png
+:target: https://coveralls.io/r/modelbrouwers/modelbrouwers
 
 
 ######################################
@@ -95,7 +98,7 @@ These will be installed in your virtualenv.
 
 Create the settings
 ===================
-The settings follow a more logical approach and live in brouwers/brouwers/settings. 
+The settings follow a more logical approach and live in brouwers/brouwers/settings.
 The base file is base.py, and is included by the settings_development for instance.
 For security reasons, passwords and secret keys should live in a secrets.py file on the same level as base.py
 You can copy secrets.py_example to secrets.py and edit the file::
@@ -107,7 +110,7 @@ Edit secrets.py to include your own settings. You can generate a secret key here
 
 .. _SecretKey: http://www.miniwebtool.com/django-secret-key-generator/
 
-All available database backends are in the example file, for local development it's easiest if 
+All available database backends are in the example file, for local development it's easiest if
 everything is changed to sqlite3 (like the DATABASES['sqlite3'] example). You need at least the 'default' database.
 If you're browsing through phpBB3 tables, you also need the 'mysql' database.
 
@@ -127,7 +130,7 @@ Load the testdata by executing::
 
     (brouwers)[user@host]$ python manage.py loaddata testdata.json
 
-Be advised - the testdata.json fixture can be stale. 
+Be advised - the testdata.json fixture can be stale.
 If it fails, give BBT a heads-up to fix it. You don't really need it, but it is practical.
 
 Finally, create a superuser account::
@@ -153,4 +156,4 @@ Setting up local ``phpBB3``-installation
 
 Tests
 =====
-Run the tests 
+Run the tests

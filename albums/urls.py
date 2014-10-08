@@ -21,7 +21,7 @@ urlpatterns = patterns('albums.views',
     (r'^upload/extra_info/$', 'set_extra_info'),
     (r'^upload/uploadify/complete/$', 'pre_extra_info_uploadify'),
     (r'^manage/$',          'manage'),
-    )
+)
 
 # AJAX
 urlpatterns += patterns('albums.ajax_views',
@@ -41,7 +41,7 @@ urlpatterns += patterns('albums.ajax_views',
     (r'^reorder/$',             'reorder'),
     (r'^search/$',              'search'),
     (r'^set_cover/$',           'set_cover'),
-    )
+)
 
 urlpatterns += patterns('albums.ajax_views_forum',
     (r'^get_photos/(\d+)/$',    'get_photos'),
@@ -49,7 +49,7 @@ urlpatterns += patterns('albums.ajax_views_forum',
     (r'^search_own_albums/$',   'search'),
     (r'^sidebar/$',             'get_sidebar'),
     (r'^sidebar_options/$',     'get_sidebar_options'),
-    )
+)
 
 # API
 if 'tastypie' in settings.INSTALLED_APPS:
@@ -63,5 +63,5 @@ if 'tastypie' in settings.INSTALLED_APPS:
     v1_api.register(PhotoResource())
 
     urlpatterns += patterns('',
-        (r'^api/', include(v1_api.urls)),
-        )
+        url(r'^api/', include(v1_api.urls)),
+    )

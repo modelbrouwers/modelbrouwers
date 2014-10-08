@@ -246,57 +246,53 @@ class Photo(models.Model):
         rotate_img(self.image, degrees=-90)
         self.save()
 
-    def get_next(self):
-        # see if there are photos with a greater order
-        base = Photo.objects.filter(album=self.album, trash=False)
-        photos = base.filter(order__gt=self.order).order_by('order', 'id')
-        if photos.exists():
+    def get_next_previous(self, cmp='gt', order=['order', 'id']):
+        filter_order = {'order__{0}'.format(cmp): self.order}
+        filter_pk = {'pk__{0}'.format(cmp): self.pk}
+
+        # see if there are photos with a different order
+        base = Photo.objects.filter(album=self.album, trash=False).exclude(id=self.id)
+        photos = base.filter(**filter_order).order_by(*order)[:1]
+        if photos:
             return photos[0]
 
-        photos = Photo.objects.filter(album=self.album, order__gte=self.order, trash=False).exclude(id=self.id)
-    	photos = photos.order_by('order', 'id')
-    	if photos:
-    		return photos[0]
-    	return None
+        photos = base.filter(order=self.order, **filter_pk).order_by(*order)[:1]
+        if photos:
+            return photos[0]
+        return None
+
+    def get_next(self):
+        return self.get_next_previous(cmp='gt', order=['order', 'id'])
 
     def get_previous(self):
-        #TODO: order can be None, throws error
-        photos = Photo.objects.filter(album=self.album, order__lte=self.order, trash=False).exclude(id=self.id)
-        photos = photos.order_by('-order', '-id')
-        if photos:
-            return photos[0]
-        return None
+        return self.get_next_previous(cmp='lt', order=['-order', '-id'])
+
+    def get_next_previous_batch(self, batch_size, cmp='gt'):
+        assert cmp in ['gte', 'lte']
+        filters = {
+            'album': self.album,
+            'order__{0}'.format(cmp): self.order,
+            'trash': False
+        }
+        ordering = ['order', 'id'] if cmp == 'gte' else ['-order', '-id']
+        return Photo.objects.filter(**filters).exclude(id=self.id).order_by(*ordering)[:batch_size] or None
 
     def get_next_3(self):
-        photos = Photo.objects.filter(album=self.album, order__gte=self.order, trash=False).exclude(id=self.id).order_by('order', 'id')
-        if photos:
-            return photos[:3]
-        return None
+        return self.get_next_previous_batch(3, cmp='gte')
 
     def get_previous_3(self):
-        photos = Photo.objects.filter(order__lte=self.order, album=self.album, trash=False).exclude(id=self.id).order_by('-order', '-id')
-        if photos:
-            return photos[:3] #previous three, most recent first (use reversed in template)
-        return None
+        return self.get_next_previous_batch(3, cmp='lte')
 
-    #TODO optimaliseren
     def url_back_3(self):
-        photos = Photo.objects.filter(id__lt=self.id, album=self.album, trash=False).order_by('-order', '-id')
-        if photos:
-            try:
-                return photos[3].get_absolute_url() #previous three, most recent first (use reversed in template)
-            except IndexError:
-                pass
+        photos = self.get_next_previous_batch(4, cmp='lte')
+        if len(photos) == 4:
+            return photos[3].get_absolute_url()
         return None
 
-    #TODO optimaliseren
     def url_forward_3(self):
-        photos = Photo.objects.filter(id__gt=self.id, album=self.album, trash=False).order_by('order', 'id')
-        if photos:
-            try:
-                return photos[3].get_absolute_url() #previous three, most recent first (use reversed in template)
-            except IndexError:
-                pass
+        photos = self.get_next_previous_batch(4, cmp='gte')
+        if len(photos) == 4:
+            return photos[3].get_absolute_url()
         return None
 
     @property
@@ -317,6 +313,7 @@ class Photo(models.Model):
 
     @property
     def thumb_url(self):
+        # TODO: replace with sorl/easy thumbnail
         path, f = os.path.split(self.image.url)
         thumb_prefix = settings.THUMB_DIMENSIONS[2]
         if self.width < settings.THUMB_DIMENSIONS[0] or self.height < settings.THUMB_DIMENSIONS[1]:
@@ -367,7 +364,6 @@ IMG_SIZES = (
 UPLOADER_CHOICES = (
     ("F", _("Multiple files at once")),
     ("H", _("Basic")),
-    #("J", "Javascript")
 )
 BACKGROUND_CHOICES = (
     ("black", _("Black")),
@@ -447,6 +443,7 @@ The basic uploader has a file field for each image."""
     @classmethod
     def get_or_create(cls, user):
         """ Get the preferences from the cache or fall back to the database """
+        # TODO: move to manager
         from .serializers import PreferencesSerializer
 
         # anonymous users get the defaults

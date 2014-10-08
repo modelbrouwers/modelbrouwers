@@ -66,6 +66,41 @@ class PhotoTests(TestCase):
         photos = PhotoFactory.create_batch(5, album=album)
         for i, photo in enumerate(photos):
             if (i+1) == len(photos):
-                continue
-            expected_next = photos[i+1]
+                expected_next = None
+            else:
+                expected_next = photos[i+1]
             self.assertEquals(photo.get_next(), expected_next)
+
+        # test with different orders
+        photos[-1].order = 2
+        photos[-1].save()
+
+        self.assertEquals(photos[0].get_next(), photos[-1])
+
+    def test_get_prev(self):
+        album = AlbumFactory.create()
+
+        # all photos have order = 1
+        photos = PhotoFactory.create_batch(5, album=album)
+        photos.reverse()
+        for i, photo in enumerate(photos):
+            if (i+1) == len(photos):
+                expected_prev = None
+            else:
+                expected_prev = photos[i+1]
+            self.assertEquals(photo.get_previous(), expected_prev)
+
+        # test with different orders
+        photos[-1].order = 0
+        photos[-1].save()
+
+        self.assertEquals(photos[0].get_previous(), photos[-1])
+
+    def test_get_next_previous_3(self):
+        album = AlbumFactory.create()
+
+        photos = PhotoFactory.create_batch(4, album=album)
+        self.assertEquals(list(photos[0].get_next_3()), photos[1:4])
+        previous = photos[0:3]
+        previous.reverse()
+        self.assertEquals(list(photos[-1].get_previous_3()), previous)

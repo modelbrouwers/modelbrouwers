@@ -10,12 +10,16 @@ env:
   - DJANGO=django==1.5
 
 install:
-  - "pip install --upgrade setuptools --use-mirrors"
-  - "pip install -r requirements/travis.txt --use-mirrors"
+  - pip install --upgrade setuptools --use-mirrors
+  - pip install -r requirements/travis.txt --use-mirrors
+  - pip install coveralls
 
 matrix:
   allow_failures:
     - env: DJANGO=https://github.com/django/django/archive/master.zip
 
 script:
-  - python ./manage.py test --settings=brouwers.settings.settings_travis -v 2
+  coverage run manage.py test --settings=brouwers.settings.settings_travis -v 2
+
+after_success:
+  coveralls
