@@ -1,5 +1,6 @@
 -r base.txt
 
 python-memcached==1.53
+webtest
 django-webtest
 coverage
