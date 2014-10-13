@@ -101,11 +101,15 @@ class GroupBuildDetailMixin(object):
         can_edit = user.is_authenticated() and \
                    self.object.status != GBStatuses.submitted and \
                    (user.is_superuser or self.object in user.admin_groupbuilds.all())
+        participants = self.object.participant_set.select_related('user').order_by('id')
         ctx.update({
             'admins': self.object.admins.all(),
-            'participants': self.object.participant_set.all().order_by('id'),
-            'can_edit': can_edit
+            'participants': participants,
+            'can_edit': can_edit,
         })
+
+        if user.is_authenticated():
+            ctx['own_models'] = [p for p in participants if p.user_id == user.id]
         return ctx
 
 

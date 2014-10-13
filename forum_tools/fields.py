@@ -75,6 +75,9 @@ class ForumToolsDescriptor(object):
         else:
             raise ValueError('Unknown type: %s' % self.type)
 
+        if not pk:
+            return None
+
         try:
             return model.objects.get(pk=pk)
         except model.DoesNotExist:
