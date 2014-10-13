@@ -12,6 +12,9 @@
                     <h2>{% block form_title %}{% trans "Edit the details" %}{% endblock %}</h2>
 
                     <fieldset class="well">
+                        {% if form.instance.pk %}
+                            <a href="{{ form.instance.get_absolute_url }}" class="pull-right">{% trans "Return to detail page" %}</a>
+                        {% endif %}
                         <h3>
                             {% trans "Theme" %}
                             <br>
@@ -54,7 +57,7 @@
                         {% field form.introduction_topic %}
                     </fieldset>
 
-                    <div class="form-group pull-right">
+                    <div class="submit-wrapper">
                         {% block submit_button %}
                             <button type="submit" class="btn btn-primary">{% block submit-btn %}{% trans "Save changes" %}{% endblock %}</button>
                         {% endblock %}

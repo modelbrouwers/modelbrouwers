@@ -202,3 +202,6 @@ class ParticipantUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         kwargs['gb'] = self.object.groupbuild
         return super(ParticipantUpdateView, self).get_context_data(**kwargs)
+
+    def get_success_url(self):
+        return self.object.groupbuild.get_absolute_url()

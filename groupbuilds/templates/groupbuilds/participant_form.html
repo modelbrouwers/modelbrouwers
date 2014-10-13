@@ -5,14 +5,19 @@
 <div class="row">
     <div class="col-xs-12 col-md-8">
         <h3>{% trans "Edit your build details" %}</h3>
-        <form action="." method="post" class="form-horizontal ">
-        {% form "horizontal.form" %}{% with field_grid='col-md-9' label_grid='col-md-3' %}
-            <fieldset class="well">
-                {% for field in form %}
-                    {% field field %}
-                {% endfor %}
-            </fieldset>
-        {% endwith %}{% endform %}
+        <form action="." method="post" class="form-horizontal">{% csrf_token %}
+            {% form "horizontal.form" %}{% with field_grid='col-md-9' label_grid='col-md-3' %}
+                <fieldset class="well">
+                    {% for field in form %}
+                        {% field field %}
+                    {% endfor %}
+                </fieldset>
+            {% endwith %}{% endform %}
+
+            <div class="submit-wrapper">
+                <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
+            </div>
+
         </form>
     </div>
 

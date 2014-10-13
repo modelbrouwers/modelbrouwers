@@ -1,27 +1,40 @@
 label {
-    font-weight: 500;
+  font-weight: 500;
 
-    &.required {
-        font-weight: 700;
-        &:after {
-            content: "*";
-        }
+  &.required {
+    font-weight: 700;
+    &:after {
+      content: "*";
     }
+  }
 }
 
 textarea.form-control {
-    height: 100px;
+  height: 100px;
 }
 
 li.error {
-    color: red;
-    font-weight: bolder;
+  color: red;
+  font-weight: bolder;
+}
+
+form {
+  .submit-wrapper {
+    text-align: right;
+    margin-bottom: 30px;
+  }
+
+  fieldset.well {
+    h3 {
+      margin-top: 0;
+    }
+  }
 }
 
 
 /* buttons */
 .btn {
-    &.bg-main-orange {
-        color: white;
-    }
+  &.bg-main-orange {
+    color: white;
+  }
 }

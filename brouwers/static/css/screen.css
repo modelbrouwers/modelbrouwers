@@ -485,8 +485,18 @@ li.error {
   font-weight: bolder;
 }
 
+/* line 22, ../../../sass/partials/_forms.scss */
+form .submit-wrapper {
+  text-align: right;
+  margin-bottom: 30px;
+}
+/* line 28, ../../../sass/partials/_forms.scss */
+form fieldset.well h3 {
+  margin-top: 0;
+}
+
 /* buttons */
-/* line 24, ../../../sass/partials/_forms.scss */
+/* line 37, ../../../sass/partials/_forms.scss */
 .btn.bg-main-orange {
   color: white;
 }
