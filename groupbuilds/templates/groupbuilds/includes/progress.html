@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if gb.is_ongoing %}
+    <h3>{% trans "Progress" %}<br><small>{% trans "See how much time is left" %}</small></h3>
+    <div class="progress">
+        <div class="progress-bar
+            {% if gb.progress >= 0.6 and gb.progress <= 0.75 %}progress-bar-warning{% elif gb.progress >= 0.75 %}progress-bar-danger{% endif %}"
+            role="progressbar" aria-valuenow="{% widthratio gb.progress 1.0 100 %}" aria-valuemin="0" aria-valuemax="100" style="width: {% widthratio gb.progress 1.0 100 %}%;">
+            <span>{% widthratio gb.progress 1.0 100 %}%</span>
+        </div>
+    </div>
+    {{ gb.end|timeuntil }}
+{% endif %}

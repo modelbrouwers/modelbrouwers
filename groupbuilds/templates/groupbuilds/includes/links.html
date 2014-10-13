@@ -1,0 +1,24 @@
+{% load i18n %}
+{% if gb.has_links %}
+    <h3>{% trans "Links" %}</h3>
+    <aside>
+        <div class="list-group">
+            {% if gb.forum %}
+                <a class="list-group-item" href="{{ gb.forum.get_absolute_url }}">
+                    {% trans "Go to forum" %}</a>
+            {% endif %}
+            {% if gb.introduction_topic %}
+                <a class="list-group-item" href="{{ gb.introduction_topic.get_absolute_url }}">
+                    {{ gb.introduction_topic }}</a>
+            {% endif %}
+            {% if gb.rules_topic %}
+                <a class="list-group-item" href="{{ gb.rules_topic.get_absolute_url }}">
+                    {{ gb.rules_topic }}</a>
+            {% endif %}
+            {% if gb.homepage_topic %}
+                <a class="list-group-item" href="{{ gb.homepage_topic.get_absolute_url }}">
+                    {{ gb.homepage_topic }}</a>
+            {% endif %}
+        </div>
+    </aside>
+{% endif %}

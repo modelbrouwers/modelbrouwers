@@ -4,7 +4,7 @@
 {% block content %}
 {% form 'horizontal.form' %}{% with field_grid="col-md-6" label_grid="col-md-6" %}
     <section class="create-form container">
-        <form action="." method="post">{% csrf_token %}
+        <form action="." method="post" class="form-horizontal">{% csrf_token %}
 
         {% with label_grid='col-md-3' field_grid='col-md-8' %}
             <div class="row">

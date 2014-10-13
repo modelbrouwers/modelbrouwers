@@ -3,7 +3,7 @@ import calendar
 
 from dateutil.relativedelta import relativedelta
 
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.contrib import messages
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -184,3 +184,21 @@ class GroupBuildSubmitView(LoginRequiredMixin, GroupBuildDetailMixin, UpdateView
         response = super(GroupBuildSubmitView, self).form_valid(form)
         messages.success(self.request, _('Your group build has been submitted to the moderator team.'))
         return response
+
+
+class ParticipantUpdateView(LoginRequiredMixin, UpdateView):
+    model = Participant
+    form_class = ParticipantForm
+
+    def get_queryset(self):
+        filters = {
+            'groupbuild__slug': self.kwargs.get('slug'),
+            'user': self.request.user
+        }
+        today = date.today()
+        q_end = Q(groupbuild__end__gt=today) | Q(groupbuild__end=None)
+        return Participant.objects.select_related('groupbuild').filter(q_end, **filters)
+
+    def get_context_data(self, **kwargs):
+        kwargs['gb'] = self.object.groupbuild
+        return super(ParticipantUpdateView, self).get_context_data(**kwargs)
