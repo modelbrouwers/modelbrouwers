@@ -23,5 +23,5 @@ script:
   coverage run manage.py test --settings=brouwers.settings.settings_travis -v 2
 
 after_success:
-  coveralls
-  codecov
+  - coveralls
+  - codecov
