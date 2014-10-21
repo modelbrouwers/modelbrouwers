@@ -16,6 +16,7 @@ secrets.py
 /media
 /static
 /mails
+/test_media
 
 # Annoying windows files
 Thumbs.db

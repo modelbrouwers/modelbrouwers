@@ -41,10 +41,6 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
-    #TODO: reversen
-    def get_absolute_url(self):
-        return "/albums/category/%s" % self.id
-
 
 class Album(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user")) #owner of the album

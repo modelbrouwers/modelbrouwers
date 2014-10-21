@@ -1,7 +1,13 @@
 from django.test import TestCase
 
-from .factory_models import AlbumFactory, PhotoFactory
+from .factories import AlbumFactory, PhotoFactory
 from users.tests.factory_models import UserFactory
+
+
+class CategoryTests(TestCase):
+    def test_unicode(self):
+        album = AlbumFactory.create()
+        self.assertEquals(unicode(album.category), album.category.name)
 
 
 class AlbumTests(TestCase):
