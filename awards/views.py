@@ -1,12 +1,14 @@
+from __future__ import absolute_import
 from datetime import date
 
+from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.datastructures import SortedDict
-from django.utils.decorators import method_decorator
+from django.utils.formats import date_format
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
@@ -15,7 +17,8 @@ from django.views.generic.list import ListView
 
 from general.models import UserProfile
 from general.shortcuts import voting_enabled as _voting_enabled
-from .decorators import voting_enabled
+from utils.views import LoginRequiredMixin
+
 from .models import *
 from .forms import ProjectForm, VoteForm
 
@@ -30,7 +33,7 @@ class CategoryListView(ListView):
         return qs.order_by('?')
 
 
-class NominationView(CreateView):
+class NominationView(LoginRequiredMixin, CreateView):
     model = Project
     form_class = ProjectForm
     template_name = 'awards/nomination.html'
@@ -90,6 +93,7 @@ class NominationListView(ListView):
         kwargs['category'] = self.get_category()
         return super(NominationListView, self).get_context_data(**kwargs)
 
+
 def vote_overview(request):
     data = {}
     categories = Category.objects.all()
@@ -99,6 +103,7 @@ def vote_overview(request):
         projects_valid = projects.filter(nomination_date__year = year)
         data[cat] = projects_valid.exclude(rejected=True)
     return render(request, 'awards/vote_listing.html', {'data': data, 'year': year})
+
 
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def scores(request):
@@ -121,7 +126,8 @@ def scores(request):
     return render(request, 'awards/vote_scores.html', {'data': data, 'year': year, 'voters': voters})
 
 
-class VoteView(TemplateView):
+# TODO: solve this mess
+class VoteView(LoginRequiredMixin, TemplateView):
     """ View dealing with multiple forms per category to bring out the vote. """
     template_name = 'awards/voting.html'
     success_url = reverse_lazy('voting')
@@ -163,7 +169,6 @@ class VoteView(TemplateView):
 
         return forms
 
-
     def get_context_data(self, form_data=None, **kwargs):
         context = super(VoteView, self).get_context_data()
         context.update(**kwargs)
@@ -190,6 +195,21 @@ class VoteView(TemplateView):
             messages.error(self.request, _('One or multiple category votes could not be saved. '
                                            'Please correct the errors below.'))
         return not has_errors
+
+    def get(self, request, *args, **kwargs):
+        # check if voting is enabled
+        if not _voting_enabled():
+            this_year = date.today().year
+            vote_start_date = date(this_year+1, 1, 1)
+            vote_end_date = date(this_year+1, settings.VOTE_END_MONTH, settings.VOTE_END_DAY)
+            message = _("Voting is enabled from %(start_date)s until %(end_date)s.") % {
+                'start_date': date_format(vote_start_date),
+                'end_date': date_format(vote_end_date),
+            }
+            messages.error(request, message)
+        return redirect(reverse('awards_index'))
+
+        return super(VoteView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         forms = self.get_forms(data=request.POST)

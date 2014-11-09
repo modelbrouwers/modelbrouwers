@@ -58,7 +58,7 @@ class Category(models.Model):
 class NominationsManager(models.Manager):
 	def winners(self, year=date.today().year-1):
 		""" Get the set of winning projects over all categories for ``year`` """
-		if voting_enabled(year+1):
+		if voting_enabled(year=year+1):
 			year -= 1
 		qs = super(NominationsManager, self).get_query_set().filter(nomination_date__year=year)
 

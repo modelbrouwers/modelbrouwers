@@ -1,5 +1,6 @@
 -r base.txt
 
+freezegun==0.2.2
 django-debug-toolbar==0.10.2
 webtest
 django-webtest

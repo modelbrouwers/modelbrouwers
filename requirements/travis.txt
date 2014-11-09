@@ -1,5 +1,6 @@
 -r base.txt
 
+freezegun==0.2.2
 python-memcached==1.53
 webtest
 django-webtest
