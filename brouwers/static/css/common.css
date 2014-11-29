@@ -109,6 +109,7 @@ header.container-fluid {
 }
 .navbar-nav > li > a {
     line-height: 20px;
+    font-weight: normal;
 }
 .navbar-nav a:hover {
     text-decoration: none;
