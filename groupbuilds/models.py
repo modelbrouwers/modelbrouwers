@@ -5,10 +5,12 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
+from django.utils.html import escape
 from django.utils.translation import ugettext_lazy as _
 
 from djchoices import DjangoChoices, ChoiceItem
 from autoslug import AutoSlugField
+from precise_bbcode.parser import get_parser
 
 from forum_tools.models import ForumCategory
 from forum_tools.fields import ForumToolsIDField
@@ -206,6 +208,17 @@ class GroupBuild(models.Model):
             delta = today - self.start
             self._progress = float(delta.days) / total_delta.days
         return self._progress
+
+    def get_field_rendered(self, field):
+        parser = get_parser()
+        bbcode = getattr(self, field)
+        return parser.render(escape(bbcode))
+
+    def get_description_rendered(self):
+        return self.get_field_rendered('description')
+
+    def get_rules_rendered(self):
+        return self.get_field_rendered('rules')
 
 
 class Participant(models.Model):

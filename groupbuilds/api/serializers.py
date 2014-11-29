@@ -18,6 +18,9 @@ class GroupBuildSerializer(serializers.ModelSerializer):
     url = serializers.CharField(source='get_absolute_url', read_only=True)
     status = serializers.CharField(source='get_status_display', read_only=True)
 
+    description = serializers.CharField(source='get_description_rendered', read_only=True)
+    rules = serializers.CharField(source='get_rules_rendered', read_only=True)
+
     rules_topic = IDFieldSerializer()
     forum = IDFieldSerializer()
 

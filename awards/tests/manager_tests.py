@@ -50,4 +50,4 @@ class NominationManagerTests(TestCase):
         self.assertIn(nom3, winners)
         self.assertNotIn(nom1, winners)
 
-    # TODO: test default year, voting_enabled False/True
+    # TODO: test default year

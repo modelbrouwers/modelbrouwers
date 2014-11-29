@@ -28,7 +28,7 @@ pageTracker._trackPageview();
 <!-- PHP -->
     $cache = new StaticCache();
     $cache->init();
-    $storage = new CachedFilesStorage($cache, $debug=false);
+    $storage = new CachedFilesStorage($cache);
     $storage2 = new CombinedStaticFilesStorage($cache);
 <!-- ENDPHP -->
 

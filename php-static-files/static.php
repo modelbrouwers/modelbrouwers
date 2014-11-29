@@ -26,12 +26,12 @@ class CachedFilesStorage
 	protected $cache = null;
 	protected $DEBUG;
 
-	public function __construct($cache, $DEBUG=false) {
-		$this->static_url = '/static/'; // TODO: fetch from env variables
+	public function __construct($cache) {
+		$this->static_url = getenv('STATIC_URL') ?: '/static/';
 		$this->cache_key_prefix = 'staticfiles:';
 		$this->static_root = realpath(dirname(dirname(__FILE__)) . $this->static_url);
 		$this->cache = $cache;
-		$this->DEBUG = $DEBUG;
+		$this->DEBUG = (bool) getenv('DEBUG');
 	}
 
 	protected function get_static_root() {
