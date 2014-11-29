@@ -107,7 +107,7 @@ header.container-fluid {
 .navbar-nav > li {
     float: left;
 }
-.navbar-nav > li > a {
+.navbar-nav.nav > li > a {
     line-height: 20px;
     font-weight: normal;
 }
