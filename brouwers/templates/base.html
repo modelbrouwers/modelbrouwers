@@ -11,8 +11,9 @@
 
 	{% compress css %}
     {% block style %}
-	    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" charset="utf-8"/>
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" charset="utf-8"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/screen.css' %}" charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/uploadify.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-1.10.2.custom.css' %}" />
         <!--[if IE 9]>
@@ -67,26 +68,7 @@
 </head>
 
 <body{% block body-attrs %}{% endblock %}>
-    <div id="top">
-        <div id="navigation">
-            <ul id="tabs">
-                {% block nav_tabs %}
-                    {% include "nav_tabs.html" %}
-                {% endblock %}
-            </ul>
-        </div>
-        <!-- end navigation -->
-
-        <div id="shop_banner">
-            <ul>
-                {% include "shop_banner.html" %}
-            </ul>
-        </div>
-        <!-- end shop products banner -->
-
-        <div id="anniversary"></div>
-    </div>
-    <!-- end top div -->
+    {% include "nav_top.html" %}
 
     <!-- start container -->
     <div id="container">

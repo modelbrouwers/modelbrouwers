@@ -7,9 +7,9 @@
 
     $cache = new StaticCache();
 	$cache->init();
-	$storage = new CachedFilesStorage($cache, $debug=false);
+	$storage = new CachedFilesStorage($cache);
 
-    // TODO: look into H2O templating so we can reuse django templates
+    // TODO: look into Twig templating so we can reuse django templates
 ?>
 
 <div id="shop-footer">
