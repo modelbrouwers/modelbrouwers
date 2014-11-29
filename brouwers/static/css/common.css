@@ -41,7 +41,9 @@ div.ui-widget-header{
     background: linear-gradient(rgb(0,102,153),rgb(10,24,113));
 }
 body .ui-tooltip        {font-size: 80%;}
-
+body.forum p{
+    margin-top: 0;
+}
 /*** LOGO + AANKONDIGINGEN + FLEX + MM ***/
 div#logo, div#logo div{
 	height: 75px;
