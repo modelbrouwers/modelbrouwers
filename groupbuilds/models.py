@@ -5,9 +5,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
-from django.utils.html import escape
 from django.utils.translation import ugettext_lazy as _
 
+import bleach
 from djchoices import DjangoChoices, ChoiceItem
 from autoslug import AutoSlugField
 from precise_bbcode.parser import get_parser
@@ -125,6 +125,10 @@ class GroupBuild(models.Model):
     def get_absolute_url(self):
         return reverse('groupbuilds:detail', kwargs={'slug': self.slug})
 
+    def clean(self):
+        self.rules = bleach.clean(self.rules)
+        self.description = bleach.clean(self.description)
+
     def num_participants(self):
         return self.participants.count()
     num_participants.short_description = _('# participants')
@@ -212,7 +216,7 @@ class GroupBuild(models.Model):
     def get_field_rendered(self, field):
         parser = get_parser()
         bbcode = getattr(self, field)
-        return parser.render(escape(bbcode))
+        return parser.render(bbcode)
 
     def get_description_rendered(self):
         return self.get_field_rendered('description')
