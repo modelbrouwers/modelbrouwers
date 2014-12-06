@@ -27,20 +27,20 @@ class SearchForm(forms.Form):
 
 class BuildForm(forms.ModelForm):
     # blerg #FIXME: update to 1.6...
-    start_date = forms.DateField(label=_('Start date'), required=False, 
+    start_date = forms.DateField(label=_('Start date'), required=False,
                             localize=True, widget=forms.TextInput(attrs={'class': 'date'})
                             )
-    end_date = forms.DateField(label=_('End date'), required=False, 
+    end_date = forms.DateField(label=_('End date'), required=False,
                             localize=True, widget=forms.TextInput(attrs={'class': 'date'})
                             )
 
     class Meta:
         model = Build
         exclude = (
-            'profile', 
-            'nomination', 
-            'user', 
-            'slug', 
+            'profile',
+            'nomination',
+            'user',
+            'slug',
             'brand_name',
             )
         widgets = {
@@ -51,7 +51,7 @@ class BuildForm(forms.ModelForm):
         }
         # available in 1.6
         # localized_fields = ('start_date', 'end_date')
-    
+
     def __init__(self, *args, **kwargs):
         is_edit = kwargs.pop('is_edit', False)
         super(BuildForm, self).__init__(*args, **kwargs)
@@ -72,10 +72,10 @@ class BuildForm(forms.ModelForm):
 class EditBuildForm(BuildForm):
     class Meta(BuildForm.Meta):
         exclude = (
-            'profile', 
-            'nomination', 
-            'user', 
-            'slug', 
+            'profile',
+            'nomination',
+            'user',
+            'slug',
             'brand_name',
             'url'
             )
@@ -98,10 +98,10 @@ class BuildFormForum(forms.ModelForm):
             forum_id = self.cleaned_data['forum_id'],
             topic_id = self.cleaned_data['topic_id'],
             user_id = self.request.user.id,
-            profile_id = self.request.user.get_profile().id,
+            profile_id = self.request.user.profile.id,
             title = self.cleaned_data['title'],
             )
-        
+
         # create url
         current_site = get_current_site(self.request)
         build.url = "http://%s%s" % (current_site.domain, build.topic_url)
@@ -123,7 +123,7 @@ class BuildFormForum(forms.ModelForm):
 
 def buildphoto_formfield_callback(field, request, **kwargs):
     qs = request.user.photo_set.filter(
-            trash = False, 
+            trash = False,
             album__trash = False
         ).select_related('album', 'user')
 
@@ -141,7 +141,7 @@ def buildphoto_formfield_callback(field, request, **kwargs):
                 formfield.widget.attrs['class'] = "%s %s" % (cls_name, cls)
             else:
                 formfield.widget.attrs['class'] = cls_name
-            
+
             formfield.widget.attrs['placeholder'] = field.verbose_name.capitalize()
             formfield.widget.attrs['title'] = field.help_text
         except AttributeError:

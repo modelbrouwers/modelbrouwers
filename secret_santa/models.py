@@ -65,7 +65,7 @@ class Participant(models.Model):
         return self.secret_santa.year
 
     def __unicode__(self):
-        return u"%s" % self.user.get_profile().forum_nickname
+        return self.user.username
 
 class Couple(models.Model):
     secret_santa = models.ForeignKey(SecretSanta, verbose_name=_("secret santa edition"), null=True)

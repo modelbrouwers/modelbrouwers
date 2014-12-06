@@ -36,7 +36,7 @@ Het beheer
 def do_lottery_mailing(couples):
     ss = couples[0].secret_santa
     for couple in couples:
-        profile = couple.receiver.user.get_profile()
+        profile = couple.receiver.user.profile
         subject, sender = 'Secret Santa', 'admins@modelbrouwers.nl'
         receivers = [couple.sender.user.email]
         message = MAIL_TEMPLATE_PLAIN % {
@@ -51,5 +51,5 @@ def do_lottery_mailing(couples):
             'province': profile.province,
             'country': profile.get_country_display(),
         }
-        send_mail(subject, message, sender, receivers, fail_silently=True)  
+        send_mail(subject, message, sender, receivers, fail_silently=True)
     return None

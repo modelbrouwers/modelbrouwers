@@ -172,7 +172,7 @@ def index_and_add(request):
             if photos_formset.is_valid():
                 # commit the changes
                 build.user = request.user
-                build.profile = request.user.get_profile()
+                build.profile = request.user.profile
                 build.save()
                 photos_formset.save()
                 return redirect(build.get_absolute_url())

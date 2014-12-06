@@ -25,7 +25,7 @@ def index(request):
             # mailing
             subject, from_email = _('Modelbrouwers.nl shirt order'), 'admins@modelbrouwers.nl'
             text_content = TEXT_TEMPLATE % {
-                'username': order.user.get_profile().forum_nickname,
+                'username': order.user.username,
                 'color': order.get_color_display(),
                 'size': order.get_size_display(),
                 'type': order.get_type_display(),
@@ -34,11 +34,11 @@ def index(request):
                 'orderid': order.id,
             }
             html_content = render(request, 'shirts/mail.html', {'order': order}) #TODO: don't render to response, just render template
-            
+
             msg = EmailMultiAlternatives(subject, text_content, from_email, [order.user.email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
-            
+
             messages.success(request, _("You have placed order %(orderid)s") % {'orderid':order.id})
             return redirect(reverse(index))
     else:

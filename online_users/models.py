@@ -24,7 +24,7 @@ class TrackedUser(models.Model):
         ordering = ('-last_seen',)
 
     def __unicode__(self):
-        return u"%s" % self.user.get_profile().forum_nickname
+        return u"%s" % self.user.username
 
     @property
     def is_online(self):

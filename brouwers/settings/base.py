@@ -176,7 +176,6 @@ AUTHENTICATION_BACKENDS = (
     'users.backends.EmailModelBackend',
 )
 AUTH_USER_MODEL = 'users.User'
-AUTH_PROFILE_MODULE = 'general.UserProfile'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 

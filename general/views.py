@@ -59,7 +59,7 @@ def index(request):
 @login_required
 def profile(request):
     forms = {}
-    profile = request.user.get_profile()
+    profile = request.user.profile
     if request.method=='POST':
         err = False
         forms['addressform'] = AddressForm(request.POST, instance=profile)
@@ -151,7 +151,7 @@ def password_reset(request):
                 reset.save()
 
             #send email
-            nickname = user.get_profile().forum_nickname
+            nickname = user.username
             email = user.email
             if not email:
                 email = 'admins@modelbrouwers.nl'

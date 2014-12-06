@@ -107,13 +107,13 @@ def vote_overview(request):
 @user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
 def scores(request):
     year = date.today().year
-    if request.user.get_profile().last_vote.year != year:
+    if request.user.profile.last_vote.year != year:
         return HttpResponseRedirect('/awards/vote/')
     data = []
     voters = UserProfile.objects.filter(last_vote__year = year).count()
     year = date.today().year-1
     categories = Category.objects.all()
-    categories_voted = request.user.get_profile().categories_voted.all()
+    categories_voted = request.user.profile.categories_voted.all()
     categories = categories.filter(id__in=categories_voted)
     for category in categories:
         projects = Project.objects.filter(category__exact=category, nomination_date__year = year).exclude(rejected=True).order_by('-votes')

@@ -12,8 +12,8 @@ class LinkedModelsTests(TestCase):
     def test_username_changes(self):
         """ If the username changes, test that the forumprofile and forumuser change """
         self.assertEqual(self.user.username, self.forum_user.username)
-        self.assertIsNotNone(self.user.get_profile())
-        self.assertEqual(self.user.get_profile().forum_nickname, self.forum_user.username)
+        self.assertIsNotNone(self.user.profile)
+        self.assertEqual(self.user.profile.forum_nickname, self.forum_user.username)
 
         new_username = 'changed username'
 
@@ -24,4 +24,4 @@ class LinkedModelsTests(TestCase):
         user = self.user.__class__._default_manager.get(pk=self.user.pk)
         self.assertEqual(user.username, new_username)
         self.assertEqual(user.forumuser.username, new_username)
-        self.assertEqual(user.get_profile().forum_nickname, new_username)
+        self.assertEqual(user.profile.forum_nickname, new_username)

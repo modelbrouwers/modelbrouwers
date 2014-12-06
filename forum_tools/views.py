@@ -86,7 +86,7 @@ def get_posting_level(request):
     form = ForumForm(request.GET)
     if form.is_valid():
         forum = form.cleaned_data['forum']
-        username = request.user.get_profile().forum_nickname
+        username = request.user.username
         # iexact doesn't work because MySQL tables are utf8_bin collated...
         try:
             username_cleaned = clean_username(username)

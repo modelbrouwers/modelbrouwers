@@ -4,8 +4,6 @@ from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
 from tastypie.resources import ModelResource
 
-from general.utils import get_forumname_for_username
-from general.models import UserProfile
 
 User = get_user_model()
 
@@ -26,8 +24,4 @@ class UserResource(ModelResource):
         authorization = UserAuthorization()
 
     def dehydrate_username(self, bundle):
-        try:
-            return bundle.obj.get_profile().forum_nickname # get_profile is deprecated
-        except UserProfile.DoesNotExist:
-            pass
-        return get_forumname_for_username(bundle.data['username'])
+        return bundle.obj.username # get_profile is deprecated

@@ -1,16 +1,14 @@
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.db import IntegrityError
-from django.template import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.utils.translation import ugettext as _
 
 from models import Couple, Participant, SecretSanta
 from forms import EnrollForm
 from utils import get_current_ss
-from datetime import date, datetime
+from datetime import datetime
 
 def index(request):
     secret_santa = get_current_ss(SecretSanta)
@@ -19,8 +17,8 @@ def index(request):
     participants = Participant.objects.filter(secret_santa=secret_santa).select_related('user').order_by('id')
     can_do_lottery = datetime.now() >= secret_santa.lottery_date
     return render(request, 'secret_santa/base.html', {
-        'secret_santa': secret_santa, 
-        'form': form, 
+        'secret_santa': secret_santa,
+        'form': form,
         'participants': participants,
         'can_do_lottery': can_do_lottery,
         'is_participant': secret_santa.is_participant(request.user),
@@ -35,7 +33,7 @@ def enroll(request):
         if secret_santa.enrollment_open:
             initial = {'secret_santa': secret_santa, 'user': request.user}
             form = EnrollForm(request.POST, initial=initial)
-            address_complete = request.user.get_profile().is_address_ok
+            address_complete = request.user.profile.is_address_ok
             if form.is_valid() and  address_complete and not secret_santa.is_participant(request.user):
                 participant = form.save(commit=False)
                 participant.year = participant.secret_santa.year
@@ -51,13 +49,13 @@ def lottery(request):
     #clear old entries
     secret_santa = get_current_ss(SecretSanta)
     couples = []
-    
+
     sending_participants = Participant.objects.filter(secret_santa=secret_santa).order_by('pk')
     receivers = list(sending_participants.order_by('?')) #randomize list of participants
     sending_participants2 = list(sending_participants)
     if sending_participants2[-1] == receivers[-1]:
         receivers[-1], receivers[-2] = receivers[-2], receivers[-1]
-    
+
     already_sender = set()
     if sending_participants and not secret_santa.lottery_done:
         for receiver in receivers:
@@ -70,7 +68,7 @@ def lottery(request):
                     break    #break once a sender has been determined
             couple.save()
             couples.append(couple.id)
-        
+
         secret_santa.lottery_done = True
         secret_santa.save()
         secret_santa.do_mailing()

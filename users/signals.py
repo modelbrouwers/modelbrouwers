@@ -28,7 +28,7 @@ def sync_email(sender, **kwargs):
 def sync_userprofile(sender, **kwargs):
     if not kwargs.get('raw'):
         user = kwargs.get('instance')
-        profile = user.get_profile()
+        profile = user.profile
         if not kwargs.get('created') and profile.forum_nickname != user.username:
             profile.forum_nickname = user.username
             profile.save()
