@@ -34,10 +34,13 @@ class UserProfile(models.Model):
     #awardsinfo
     last_vote = models.DateField(default=date(2010,1,1))
     forum_nickname = models.CharField(max_length=30, unique=True)
-    exclude_from_nomination = models.BooleanField(_("exclude me from nominations"), help_text=_("If checked, you will be excluded from Awards-nominations."))
+    exclude_from_nomination = models.BooleanField(
+        _("exclude me from nominations"),
+        help_text=_("If checked, you will be excluded from Awards-nominations."),
+        default=False)
     categories_voted = models.ManyToManyField(Category, blank=True, null=True)
 
-    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet")) # No longer used TODO remove
+    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet"), default=False) # No longer used TODO remove
     #adres
     street = models.CharField(_("street name"), max_length=255, blank=True, null=True)
     number = models.CharField(
@@ -132,7 +135,7 @@ class RegistrationAttempt(models.Model):
     answer = models.CharField(_('answer'), max_length=255, blank=True)
     timestamp = models.DateTimeField(_('timestamp'), auto_now_add=True)
     ip_address = models.IPAddressField(_('IP address'), db_index=True)
-    success = models.BooleanField(_('success'))
+    success = models.BooleanField(_('success'), default=False)
 
     # keeping spam out
     potential_spammer = False

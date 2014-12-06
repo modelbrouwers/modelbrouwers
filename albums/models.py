@@ -205,7 +205,7 @@ class Photo(models.Model):
     views = models.PositiveIntegerField(default=0)
 
     order = models.PositiveSmallIntegerField(default=1, blank=True, null=True, db_index=True)
-    trash = models.BooleanField()
+    trash = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _("Photo")
@@ -387,11 +387,16 @@ The basic uploader has a file field for each image."""
         )
     )
     #options for uploadify
-    auto_start_uploading = models.BooleanField(_("start uploading automatically?"), help_text=_("Start upload automatically when files are selected"))
+    auto_start_uploading = models.BooleanField(
+        _("start uploading automatically?"),
+        help_text=_("Start upload automatically when files are selected"),
+        default=False)
     show_direct_link = models.BooleanField(_("Show direct links under the photo"), default=False)
 
     #admin options
-    apply_admin_permissions = models.BooleanField(help_text=_("When checked, you will see all the albums and be able to edit them."))
+    apply_admin_permissions = models.BooleanField(
+        help_text=_("When checked, you will see all the albums and be able to edit them."),
+        default=False)
 
     #sidebar settings
     collapse_sidebar = models.BooleanField(

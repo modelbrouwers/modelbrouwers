@@ -227,7 +227,7 @@ class Report(models.Model):
         help_text="Primary key"
     )
     #reason_id = FK to reasons, not implement in Django yet
-    report_closed = models.BooleanField(_('closed'), help_text=_('Closed reports need no more attention.'))
+    report_closed = models.BooleanField(_('closed'), help_text=_('Closed reports need no more attention.'), default=False)
     report_time_int = models.IntegerField(_('time'), db_column="report_time", help_text=_('UNIX time when the report was added.'))
     report_text = models.TextField('text', blank=True)
 

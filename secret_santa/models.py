@@ -12,7 +12,7 @@ class SecretSanta(models.Model):
     enrollment_start = models.DateTimeField(_("enrollment start"), help_text=_("From when can people enroll."))
     enrollment_end = models.DateTimeField(_("enrollment end"), help_text=_("Until when can people enroll."))
     lottery_date = models.DateTimeField(_("lottery date"), help_text=_("When will the lottery happen?"))
-    lottery_done = models.BooleanField(_("Lottery done?"))
+    lottery_done = models.BooleanField(_("Lottery done?"), default=False)
     price_class = models.PositiveSmallIntegerField(
             _("price class"),
             blank = True, null = True,

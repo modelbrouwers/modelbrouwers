@@ -7,9 +7,11 @@ try:
 except ImportError:
     sys.stderr.write("Create your secrets.py file with the secret settings.")
 
+DATABASES['default']['CONN_MAX_AGE'] = 60*15  # a test
+
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
 DEBUG = True
 TEMPLATE_DEBUG = True
 
-SESSION_COOKIE_NAME = 'mbsessionid'
+SESSION_COOKIE_NAME = 'mb-staging-sessionid'
