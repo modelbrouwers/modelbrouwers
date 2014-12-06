@@ -124,6 +124,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         except (ForumUser.DoesNotExist, DatabaseError):
             return None
 
+    @cached_property
+    def profile(self):
+        return self.userprofile
+
     def get_profile(self):
         """
         Returns site-specific profile for this user. Raises

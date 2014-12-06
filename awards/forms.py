@@ -15,7 +15,6 @@ class ProjectForm(forms.ModelForm):
 		exclude = (
 			'votes',
 			'nomination_date',
-			'nominator',
 			'rejected',
 			'submitter',
 			'last_reviewer'

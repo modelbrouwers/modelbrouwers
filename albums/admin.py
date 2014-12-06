@@ -26,7 +26,7 @@ class PreferencesAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
 
 class AlbumDownloadAdmin(admin.ModelAdmin):
-    list_display = ('album', 'downloader', 'timestamp', 'failed')
+    list_display = ('__unicode__', 'album', 'downloader', 'timestamp', 'failed')
     list_filter = ('timestamp', 'failed')
     search_fields = ('album__title', 'downloader__username')
     raw_id_fields = ('downloader', 'album')

@@ -133,7 +133,7 @@ def search(request):
         return HttpResponse()
     output = []
     for album in albums:
-        label = mark_safe(u"%s \u2022 %s" % (album.__unicode__(), album.user.get_profile().forum_nickname))
+        label = mark_safe(u"%s \u2022 %s" % (album.__unicode__(), album.user.username))
         output.append({
             "id": album.id,
             "label": label,

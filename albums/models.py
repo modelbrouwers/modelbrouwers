@@ -475,6 +475,6 @@ class AlbumDownload(models.Model):
     def __unicode__(self):
         return u"%s" % _("Download of %(album)s by %(username)s" % {
                 'album': self.album.title,
-                'username': self.downloader.get_profile().forum_nickname
+                'username': self.downloader.username
                 }
             )

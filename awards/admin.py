@@ -42,7 +42,7 @@ class NominationDateFilter(DateFieldListFilter):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'show_url', 'reviewed', 'brouwer','category','nomination_date', 'nominator', 'rejected', 'votes')
+    list_display = ('name', 'show_url', 'reviewed', 'brouwer','category','nomination_date', 'rejected', 'votes')
     list_filter = (
         'category',
         ('nomination_date', NominationDateFilter),
@@ -56,7 +56,6 @@ class ProjectAdmin(admin.ModelAdmin):
         'name',
         'category',
         'nomination_date',
-        'nominator',
         'rejected',
         'votes',
         'image',

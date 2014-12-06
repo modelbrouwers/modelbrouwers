@@ -89,7 +89,6 @@ class Project(models.Model):
 	image = models.ImageField(upload_to='awards/', blank=True, null=True)
 
 	nomination_date = models.DateField(default=date.today, db_index=True)
-	nominator = models.ForeignKey('general.UserProfile', null=True)
 
 	votes = models.IntegerField(null=True, blank=True, default=0)
 	rejected = models.BooleanField(default=False)
