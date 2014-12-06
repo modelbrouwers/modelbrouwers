@@ -7,7 +7,7 @@ from django.db import models
 class Migration(DataMigration):
 
     def forwards(self, orm):
-        qs = orm.Project.objects.filter(submitter_id=1).exclude(nominator__user_id=1)
+        qs = orm.Project.objects.filter(submitter_id=1).exclude(nominator__user_id=1).exclude(nominator_id=None)
         for nomination in qs:
             nomination.submitter_id = nomination.nominator.user_id
             nomination.save()
