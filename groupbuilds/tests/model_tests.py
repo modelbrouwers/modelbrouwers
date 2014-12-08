@@ -16,8 +16,10 @@ class GroupbuildTests(TestCase):
         may_15th = date(2014, 5, 15)
         jul_1st = date(2014, 7, 1)
 
+        sept_1st = date(2014, 9, 1)
         oct_1st2 = date(2014, 10, 1)
         jan_1st2 = date(2015, 1, 1)
+        march_1st = date(2015, 3, 1)
         jul_1st2 = date(2015, 7, 1)
 
         start = jan_1st
@@ -71,6 +73,12 @@ class GroupbuildTests(TestCase):
         dimensions = build7.calendar_dimensions
         self.assertAlmostEqual(dimensions['width'], 33.33, places=2)
         self.assertAlmostEqual(dimensions['offset'], 66.67, places=2)
+
+        build8 = GroupBuildFactory.create(start=sept_1st, end=march_1st, theme='foo')
+        build8.set_calendar_dimensions(date(2014, 12, 1), date(2015, 5, 30), num_months=6)
+        dimensions = build8.calendar_dimensions
+        self.assertAlmostEqual(dimensions['width'], 50.5, delta=0.5)
+        self.assertAlmostEqual(dimensions['offset'], 0.0, places=2)
 
     def test_is_ongoing(self):
         """ Test that the model correctly returns the 'ongoing' status """

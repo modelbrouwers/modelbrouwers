@@ -154,14 +154,15 @@ class GroupBuild(models.Model):
             ratio_days = (self.start.day - 1) / days_first_month
             offset = (diff_months + ratio_days) / num_months
 
-
         # calculate the width
         if self.end >= end:
             width = 1.0 - offset
         else:
             # check number of months until end
             diff_years = 12 * (self.end.year - self.start.year)
-            diff_months = min(self.end.month - start.month, self.end.month - self.start.month + diff_years)
+            duration_gb = self.end.month - self.start.month + diff_years
+            duration_left = 12 * (self.end.year - start.year) + self.end.month - start.month
+            diff_months = min(duration_left, duration_gb)
             # calculate in the percentage of the last month
             ratio_days1 = (self.start.day - 1) / days_first_month
             ratio_days2 = self.end.day / days_last_month
