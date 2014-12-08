@@ -191,9 +191,13 @@
                 <h3>{% blocktrans count count=gb.n_admins %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
                 <aside>
                     <ul class="list-group">
-                    {% for user in admins %}
+                    {% for profile in admins %}
                         <li class="list-group-item">
-                            <a href="{{ user.get_absolute_url }}">{{ user }}</a>
+                            <a href="{{ profile.get_absolute_url }}">
+                                {% if profile == request.user %}{% trans "You!" %}
+                                {% else %}{{ profile }}
+                                {% endif %}
+                            </a>
                             {# TODO: button to pm #}
                         </li>
                     {% endfor %}
@@ -210,6 +214,7 @@
                     </p>
                     {% url 'groupbuilds:submit' slug=gb.slug as submit_url %}
                     {% if gb.is_submittable and request.path != submit_url %}
+                        <h3>{% trans "Set it in stone!" %}</h3>
                         <a href="{{ submit_url }}" class="btn bg-main-orange btn-big">{% trans "Submit request" %}</a>
                     {% endif %}
                 {% endif %}

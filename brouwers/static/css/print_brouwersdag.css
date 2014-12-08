@@ -5,7 +5,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 /* line 9, ../../../sass/partials/_colors.scss */
 .bg-main-blue {
   background-color: #006699;
@@ -17,7 +16,7 @@
 
 /* line 15, ../../../sass/partials/_colors.scss */
 .bg-main-red {
-  background-color: #e91d1d;
+  background-color: #E91D1D;
 }
 /* line 17, ../../../sass/partials/_colors.scss */
 .bg-main-red.soft {
@@ -26,7 +25,7 @@
 
 /* line 21, ../../../sass/partials/_colors.scss */
 .bg-main-green {
-  background-color: #32bb5b;
+  background-color: #32BB5B;
 }
 /* line 23, ../../../sass/partials/_colors.scss */
 .bg-main-green.soft {
@@ -35,7 +34,7 @@
 
 /* line 27, ../../../sass/partials/_colors.scss */
 .bg-main-light-blue {
-  background-color: #4095fd;
+  background-color: #4095FD;
 }
 /* line 29, ../../../sass/partials/_colors.scss */
 .bg-main-light-blue.soft {
@@ -44,7 +43,7 @@
 
 /* line 33, ../../../sass/partials/_colors.scss */
 .bg-main-pink {
-  background-color: #df4ac5;
+  background-color: #DF4AC5;
 }
 /* line 35, ../../../sass/partials/_colors.scss */
 .bg-main-pink.soft {
@@ -62,7 +61,7 @@
 
 /* line 45, ../../../sass/partials/_colors.scss */
 .bg-main-orange {
-  background-color: #d46400;
+  background-color: #D46400;
 }
 /* line 47, ../../../sass/partials/_colors.scss */
 .bg-main-orange.soft {
@@ -125,7 +124,6 @@ select:-moz-focusring {
   size: A4;
   margin: 0;
 }
-
 /* line 16, ../../../sass/print_brouwersdag.scss */
 html {
   font-size: 12px;

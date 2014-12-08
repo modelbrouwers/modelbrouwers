@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from django.test import TestCase
 
 from .factories import GroupBuildFactory
-from ..models import GroupbuildStatuses
+from ..models import GroupbuildStatuses, GroupbuildDurations
 
 
 class GroupbuildTests(TestCase):
@@ -130,3 +130,22 @@ class GroupbuildTests(TestCase):
         gb4 = GroupBuildFactory.create(start=start4, end=end4)
         progress = 2.0 / 3
         self.assertAlmostEqual(gb4.progress, progress, delta=0.1)
+
+
+    def test_is_submittable(self):
+        """ Test if the groupbuild is submittable """
+        build1 = GroupBuildFactory.create(start=None)
+        self.assertFalse(build1.is_submittable)
+
+        build2 = GroupBuildFactory.create(end=None)
+        self.assertFalse(build2.is_submittable)
+
+        for status in GroupbuildStatuses.values.keys():
+            build = GroupBuildFactory.create(
+                start=date(2014, 10, 1),
+                duration=GroupbuildDurations.one_month,
+                status=status)
+            if status == GroupbuildStatuses.concept:
+                self.assertTrue(build.is_submittable)
+            else:
+                self.assertFalse(build.is_submittable)

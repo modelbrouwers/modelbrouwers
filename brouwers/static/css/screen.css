@@ -9,7 +9,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 /* line 9, ../../../sass/partials/_colors.scss */
 .bg-main-blue {
   background-color: #006699;
@@ -21,7 +20,7 @@
 
 /* line 15, ../../../sass/partials/_colors.scss */
 .bg-main-red {
-  background-color: #e91d1d;
+  background-color: #E91D1D;
 }
 /* line 17, ../../../sass/partials/_colors.scss */
 .bg-main-red.soft {
@@ -30,7 +29,7 @@
 
 /* line 21, ../../../sass/partials/_colors.scss */
 .bg-main-green {
-  background-color: #32bb5b;
+  background-color: #32BB5B;
 }
 /* line 23, ../../../sass/partials/_colors.scss */
 .bg-main-green.soft {
@@ -39,7 +38,7 @@
 
 /* line 27, ../../../sass/partials/_colors.scss */
 .bg-main-light-blue {
-  background-color: #4095fd;
+  background-color: #4095FD;
 }
 /* line 29, ../../../sass/partials/_colors.scss */
 .bg-main-light-blue.soft {
@@ -48,7 +47,7 @@
 
 /* line 33, ../../../sass/partials/_colors.scss */
 .bg-main-pink {
-  background-color: #df4ac5;
+  background-color: #DF4AC5;
 }
 /* line 35, ../../../sass/partials/_colors.scss */
 .bg-main-pink.soft {
@@ -66,7 +65,7 @@
 
 /* line 45, ../../../sass/partials/_colors.scss */
 .bg-main-orange {
-  background-color: #d46400;
+  background-color: #D46400;
 }
 /* line 47, ../../../sass/partials/_colors.scss */
 .bg-main-orange.soft {
@@ -160,7 +159,7 @@ a.list-group-item:hover {
 
 /* line 36, ../../../sass/partials/_base.scss */
 .eye-catcher {
-  background-color: #4095fd;
+  background-color: #4095FD;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 20px;
   padding-bottom: 20px;
@@ -222,12 +221,12 @@ p {
 
   /* line 30, ../../../sass/partials/_header.scss */
   .sprue-tabs {
-    background: -webkit-linear-gradient(180deg, #ececec, #f8f8f8);
-    background: -moz-linear-gradient(180deg, #ececec, #f8f8f8);
-    background: -o-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VjZWNlYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background: -moz-linear-gradient(270deg, #ececec, #f8f8f8);
+    background: -webkit-linear-gradient(270deg, #ececec, #f8f8f8);
     background: linear-gradient(180deg, #ececec, #f8f8f8);
-    -webkit-box-shadow: none;
     -moz-box-shadow: none;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     min-height: 35px;
@@ -248,12 +247,12 @@ p {
     -moz-border-radius-topright: 10px;
     -webkit-border-top-right-radius: 10px;
     border-top-right-radius: 10px;
-    text-shadow: #aaaaaa 1px 1px 3px, #aaaaaa 1px 1px 1px, #bbbbbb 1px 1px 0, #bbbbbb 0 0 1px;
+    text-shadow: #AAA 1px 1px 3px, #AAA 1px 1px 1px, #BBB 1px 1px 0, #BBB 0 0 1px;
     border: solid 1px #c8c8c8;
     border-bottom: none;
-    -webkit-box-shadow: #aaaaaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
-    -moz-box-shadow: #aaaaaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
-    box-shadow: #aaaaaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
+    -moz-box-shadow: #AAA 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
+    -webkit-box-shadow: #AAA 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
+    box-shadow: #AAA 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1), inset rgba(255, 255, 255, 0.5) 0 2px 1px;
     overflow: hidden;
   }
   /* line 52, ../../../sass/partials/_header.scss */
@@ -290,16 +289,16 @@ p {
   /* line 81, ../../../sass/partials/_header.scss */
   li.tab {
     border: solid 1px #e5e5e5;
-    background: -webkit-linear-gradient(180deg, #ececec, #f8f8f8);
-    background: -moz-linear-gradient(180deg, #ececec, #f8f8f8);
-    background: -o-linear-gradient(180deg, #ececec, #f8f8f8);
+    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VjZWNlYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background: -moz-linear-gradient(270deg, #ececec, #f8f8f8);
+    background: -webkit-linear-gradient(270deg, #ececec, #f8f8f8);
     background: linear-gradient(180deg, #ececec, #f8f8f8);
   }
   /* line 84, ../../../sass/partials/_header.scss */
   li.tab:hover, li.tab.active, li.tab:focus, li.tab:active {
-    background: -webkit-linear-gradient(0deg, #ececec, #f8f8f8);
-    background: -moz-linear-gradient(0deg, #ececec, #f8f8f8);
-    background: -o-linear-gradient(0deg, #ececec, #f8f8f8);
+    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VjZWNlYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background: -moz-linear-gradient(90deg, #ececec, #f8f8f8);
+    background: -webkit-linear-gradient(90deg, #ececec, #f8f8f8);
     background: linear-gradient(0deg, #ececec, #f8f8f8);
   }
 }
@@ -311,8 +310,8 @@ p {
   #shop-banner {
     text-align: center;
     padding: 5px 15px 0;
-    -webkit-box-shadow: inset #c8c8c8 0 5px 5px -5px;
     -moz-box-shadow: inset #c8c8c8 0 5px 5px -5px;
+    -webkit-box-shadow: inset #c8c8c8 0 5px 5px -5px;
     box-shadow: inset #c8c8c8 0 5px 5px -5px;
     margin: 0 -15px;
   }
@@ -502,64 +501,66 @@ form fieldset.well h3 {
 }
 
 /* line 3, ../../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .detail {
+  margin-bottom: 25px;
+}
+/* line 7, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds a.bg-main-orange {
   color: white;
   font-weight: bolder;
 }
-/* line 7, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 11, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds a.bg-main-orange:hover {
-  background-color: #d46400;
+  background-color: #D46400;
   text-decoration: underline;
 }
-/* line 13, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 17, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .tab-content {
   min-height: 100px;
   margin-bottom: 25px;
 }
-/* line 18, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 22, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds #calendar {
   margin-top: 15px;
   background-color: #f5f5f5;
-  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
   border-radius: 5px;
   border: solid 1px #e3e3e3;
   padding: 0 15px;
 }
-/* line 26, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 30, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar {
   margin-bottom: 15px;
 }
-/* line 30, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 34, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names {
   margin-left: 0;
   margin-right: 0;
 }
-/* line 34, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 38, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names .month-name {
   background-color: rgba(0, 102, 153, 0.6);
   padding: 5px inherit;
-  color: white;
+  color: #FFFFFF;
 }
-/* line 39, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 43, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names .month-name:nth-child(odd) {
   background-color: rgba(0, 102, 153, 0.68);
 }
-/* line 43, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 47, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names .month-name:first-child {
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
 }
-/* line 46, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 50, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .month-names .month-name:last-child {
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-/* line 52, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 56, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar > div:last-child {
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
@@ -568,7 +569,7 @@ body.groupbuilds .calendar > div:last-child {
   -webkit-border-bottom-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-/* line 58, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 62, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .today-marker {
   width: 3px;
   position: absolute;
@@ -580,45 +581,45 @@ body.groupbuilds .calendar .today-marker {
   margin-bottom: -10px;
   z-index: 2;
 }
-/* line 70, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 74, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper {
   overflow: hidden;
   padding: 20px 0 0;
-  border-left: solid 1px #cccccc;
-  border-right: solid 1px #cccccc;
+  border-left: solid 1px #CCC;
+  border-right: solid 1px #CCC;
   position: relative;
   margin-left: 0;
   margin-right: 0;
-  background-color: white;
+  background-color: #FFFFFF;
 }
-/* line 81, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 85, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb {
-  border: solid 1px #cccccc;
+  border: solid 1px #CCC;
   text-align: center;
   padding: 0;
 }
-/* line 86, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 90, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb a {
   display: block;
   padding: 5px;
-  color: white;
+  color: #FFFFFF;
   font-weight: bold;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 93, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 97, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper .calendar-gb a span.end {
   font-size: 80%;
   line-height: 20px;
   float: right;
 }
-/* line 101, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 105, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .calendar .gb-wrapper.last {
   padding-bottom: 20px;
-  border-bottom: solid 1px #cccccc;
+  border-bottom: solid 1px #CCC;
 }
-/* line 108, ../../../sass/partials/apps/_groupbuilds.scss */
+/* line 112, ../../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .category-icon {
   position: absolute;
   top: 25px;

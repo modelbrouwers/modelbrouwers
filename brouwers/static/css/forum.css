@@ -6,7 +6,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 /* line 9, ../../../sass/partials/_colors.scss */
 .bg-main-blue {
   background-color: #006699;
@@ -18,7 +17,7 @@
 
 /* line 15, ../../../sass/partials/_colors.scss */
 .bg-main-red {
-  background-color: #e91d1d;
+  background-color: #E91D1D;
 }
 /* line 17, ../../../sass/partials/_colors.scss */
 .bg-main-red.soft {
@@ -27,7 +26,7 @@
 
 /* line 21, ../../../sass/partials/_colors.scss */
 .bg-main-green {
-  background-color: #32bb5b;
+  background-color: #32BB5B;
 }
 /* line 23, ../../../sass/partials/_colors.scss */
 .bg-main-green.soft {
@@ -36,7 +35,7 @@
 
 /* line 27, ../../../sass/partials/_colors.scss */
 .bg-main-light-blue {
-  background-color: #4095fd;
+  background-color: #4095FD;
 }
 /* line 29, ../../../sass/partials/_colors.scss */
 .bg-main-light-blue.soft {
@@ -45,7 +44,7 @@
 
 /* line 33, ../../../sass/partials/_colors.scss */
 .bg-main-pink {
-  background-color: #df4ac5;
+  background-color: #DF4AC5;
 }
 /* line 35, ../../../sass/partials/_colors.scss */
 .bg-main-pink.soft {
@@ -63,7 +62,7 @@
 
 /* line 45, ../../../sass/partials/_colors.scss */
 .bg-main-orange {
-  background-color: #d46400;
+  background-color: #D46400;
 }
 /* line 47, ../../../sass/partials/_colors.scss */
 .bg-main-orange.soft {
@@ -149,7 +148,7 @@ select:-moz-focusring {
 }
 
 /*#sidebar-header{position:absolute; left:0;top:0;}*/
-/* line 29, ../../../sass/partials/forum/_albums.scss */
+/* line 26, ../../../sass/partials/forum/_albums.scss */
 #albums-sidebar.closed #albums-list,
 #albums-sidebar.closed #photos-list,
 #albums-sidebar.closed div.helptext,
@@ -163,11 +162,11 @@ div.tab {
   padding: 0.2em 1em 0.2em 1em;
   margin: -0.5em -0.5em 0.5em -0.5em;
   background-color: #EEE;
-  background: -moz-linear-gradient(top, #c7d0d7 92%, #6f8698 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(92%, #c7d0d7), color-stop(100%, #6f8698));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#C7D0D7', endColorstr='#C7D0D7',GradientType=0 );
+  background: -moz-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(92%, #C7D0D7), color-stop(100%, #6F8698));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C7D0D7', endColorstr='#C7D0D7',GradientType=0 );
   zoom: 1;
-  background-image: -o-linear-gradient(top, #c7d0d7 92%, #6f8698 100%);
+  background-image: -o-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
   border-right: solid 1px #CCC;
   border-left: solid 1px #CCC;
   color: #222;
@@ -319,7 +318,7 @@ div.gb-inset p.description {
 /* line 23, ../../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset .rules {
   background-color: rgba(233, 29, 29, 0.2);
-  border: solid 2px #d46400;
+  border: solid 2px #D46400;
 }
 /* line 27, ../../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset div.rules {
@@ -352,11 +351,11 @@ div.gb-inset table.tablebg td.completed {
 }
 /* line 52, ../../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset table.tablebg td.completed:hover {
-  color: #e91d1d;
+  color: #E91D1D;
 }
 /* line 56, ../../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset table.tablebg td.completed.finished, div.gb-inset table.tablebg td.completed.finished:hover {
-  color: #32bb5b;
+  color: #32BB5B;
 }
 /* line 61, ../../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset table.tablebg td.brouwer {

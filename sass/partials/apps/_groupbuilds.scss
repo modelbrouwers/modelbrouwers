@@ -1,5 +1,9 @@
 body.groupbuilds {
 
+  .detail {
+    margin-bottom: 25px;
+  }
+
   a.bg-main-orange {
     color: white;
     font-weight: bolder;
@@ -35,7 +39,7 @@ body.groupbuilds {
         background-color: rgba($main-blue, 0.6);
         padding: 5px inherit;
         color: $white;
-        
+
         &:nth-child(odd) {
           background-color: rgba($main-blue,0.68);
         }
