@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, url
 
-from .views import (GroupBuildListView, GroupBuildCreateView, GroupBuildDetailView,
-                    GroupBuildUpdateView, GroupBuildParticipateView,
-                    GroupBuildSubmitView, ParticipantUpdateView)
+from .views.admin import GroupBuildCreateView, GroupBuildUpdateView, GroupBuildSubmitView
+from .views.participant import GroupBuildParticipateView,  ParticipantUpdateView
+from .views.public import GroupBuildListView, GroupBuildDetailView
+
 
 urlpatterns = patterns('',
     url(r'^$', GroupBuildListView.as_view(), name='groupbuild-list'),
