@@ -112,6 +112,7 @@ class FlowTest(TestCase):
         self.assertFormError(response, 'form', 'start', [error_start])
         self.assertFormError(response, 'form', 'duration', [error_duration])
 
+
 #     def test_user_can_edit_approved_and_denied(self):
 #         """ Users can edit in all states, and resubmit """
 

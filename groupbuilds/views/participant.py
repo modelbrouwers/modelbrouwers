@@ -1,15 +1,15 @@
 """ Groupbuild participant views """
 from datetime import date
 
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 from django.views.generic.detail import SingleObjectMixin, SingleObjectTemplateResponseMixin
 
 from utils.views import LoginRequiredMixin
 from .mixins import GroupBuildDetailMixin
-from ..models import Participant
+from ..models import Participant, GroupBuild
 from ..forms import ParticipantForm
 
 
@@ -59,3 +59,21 @@ class ParticipantUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return self.object.groupbuild.get_absolute_url()
+
+
+
+class MyGroupbuildsListView(LoginRequiredMixin, ListView):
+    model = GroupBuild
+    template_name = 'groupbuilds/dashboard.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        self.admin_gbs = user.admin_groupbuilds.all().annotate(n_participants=Count('participants'))
+        self.participant_gbs = user.groupbuilds.all().annotate(n_participants=Count('participants'))
+        return (self.admin_gbs | self.participant_gbs).distinct().order_by('start')
+
+    def get_context_data(self, **kwargs):
+        context = super(MyGroupbuildsListView, self).get_context_data(**kwargs)
+        context['admin_gbs'] = self.admin_gbs
+        context['participant_gbs'] = self.participant_gbs
+        return context

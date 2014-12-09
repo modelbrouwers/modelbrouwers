@@ -61,3 +61,4 @@ class GroupBuildSubmitView(LoginRequiredMixin, GroupBuildDetailMixin, UpdateView
         response = super(GroupBuildSubmitView, self).form_valid(form)
         messages.success(self.request, _('Your group build has been submitted to the moderator team.'))
         return response
+

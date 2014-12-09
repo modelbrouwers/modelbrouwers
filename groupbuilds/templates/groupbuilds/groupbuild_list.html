@@ -2,9 +2,6 @@
 {% load i18n brouwers l10n %}
 
 
-{# {% block page-title %}<h1 class="pull-left page-title">{% trans "Group builds dashboard" %}</h1>{% endblock %} #}
-
-
 {% block content %}
 <header class="container-fluid eye-catcher">
     <div class="container">
@@ -25,6 +22,7 @@
 
         <div class="text-center">
             <a href="{% url 'groupbuilds:create' %}" class="btn bg-main-orange">{% trans "New concept/idea" %}</a>
+            <a href="{% url 'groupbuilds:dashboard' %}" class="pull-right btn bg-main-blue">{% trans "My groupbuilds" %}</a>
         </div>
     </div>
 </header>

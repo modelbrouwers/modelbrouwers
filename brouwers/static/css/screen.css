@@ -505,12 +505,12 @@ body.groupbuilds .detail {
   margin-bottom: 25px;
 }
 /* line 7, ../../../sass/partials/apps/_groupbuilds.scss */
-body.groupbuilds a.bg-main-orange {
+body.groupbuilds a.btn {
   color: white;
   font-weight: bolder;
 }
 /* line 11, ../../../sass/partials/apps/_groupbuilds.scss */
-body.groupbuilds a.bg-main-orange:hover {
+body.groupbuilds a.btn:hover {
   background-color: #D46400;
   text-decoration: underline;
 }

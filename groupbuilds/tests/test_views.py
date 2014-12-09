@@ -1,11 +1,13 @@
 from datetime import date, timedelta
+
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from django_webtest import WebTest
 
 from users.tests.factory_models import UserFactory
 from .factories import GroupBuildFactory, ParticipantFactory
-from ..models import Participant
+from ..models import Participant, GroupbuildStatuses
 
 
 class ViewTests(WebTest):
@@ -77,3 +79,25 @@ class ViewTests(WebTest):
         gb.end = date.today() - timedelta(days=1)
         gb.save()
         p_form = self.app.get(url, user=user, status=404)
+
+    def test_dashboard(self):
+        """ Test that the correct groupbuilds are visible in the dashboard """
+        url = reverse('groupbuilds:dashboard')
+
+        user = UserFactory.create()
+        gb = GroupBuildFactory.create(
+            applicant=user,
+            status=GroupbuildStatuses.concept,
+            reason_denied='My valid reason',
+        )
+        gb.admins.add(user)
+
+        participant = ParticipantFactory.create(user=user, groupbuild__status=GroupbuildStatuses.accepted)
+
+        dashboard = self.app.get(url)
+        self.assertRedirects(dashboard, settings.LOGIN_URL+u'?next={}'.format(url))
+
+        dashboard = self.app.get(url, user=user)
+        self.assertEqual(dashboard.status_code, 200)
+        qs = dashboard.context['view'].get_queryset()
+        self.assertQuerysetEqual(qs, [repr(gb), repr(participant.groupbuild)], ordered=False)
