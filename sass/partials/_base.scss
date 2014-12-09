@@ -60,3 +60,12 @@ a.list-group-item:hover {
 p {
   margin-top: 10px;
 }
+
+.feedback {
+  p {
+    background-color: rgba($main-pink, 0.4);
+    margin-left: -5px;
+    margin-right: -5px;
+    padding: 5px;
+  }
+}

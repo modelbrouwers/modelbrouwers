@@ -45,6 +45,15 @@
             <div class="col-md-9">
 
                 {% block gb-content %}
+                    {% if request.user in admins or request.user.is_superuser %}
+                    <div class="feedback text-danger">
+                        {% if gb.reason_denied %}
+                            <h3 class="text-danger">{% trans "Uh-oh, problems!" %}</h3>
+                            <p>{{ gb.reason_denied }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
                     <h3>
                         {% trans "All you need to know..." %}
                         {% if can_edit %}

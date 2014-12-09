@@ -185,6 +185,14 @@ p {
   margin-top: 10px;
 }
 
+/* line 65, ../../../sass/partials/_base.scss */
+.feedback p {
+  background-color: rgba(223, 74, 197, 0.4);
+  margin-left: -5px;
+  margin-right: -5px;
+  padding: 5px;
+}
+
 /* line 3, ../../../sass/partials/_header.scss */
 .navbar-center .navbar-nav {
   display: inline-block;
