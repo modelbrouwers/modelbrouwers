@@ -1,21 +1,19 @@
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse_lazy
-from django.conf import settings
 
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
-from admin_tools.utils import get_admin_site_name
+
+from groupbuilds.dashboard import ModerationQueue, CreateForumQueue
 
 
 class CustomIndexDashboard(Dashboard):
     title = _('Control panel')
+    columns = 2
 
     """
     Custom index dashboard for nudge-website.
     """
-    def init_with_context(self, context):
-        site_name = get_admin_site_name(context)
-
-        # append a link list module for "quick links"
+    def __init__(self):
+        super(CustomIndexDashboard, self).__init__()
 
         self.children.append(modules.ModelList(
             _('User management'),
@@ -86,6 +84,9 @@ class CustomIndexDashboard(Dashboard):
             title=_('Recent Actions'),
             limit=15
         ))
+
+        self.children.append(ModerationQueue())
+        self.children.append(CreateForumQueue())
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):

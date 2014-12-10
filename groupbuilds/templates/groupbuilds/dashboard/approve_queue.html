@@ -1,0 +1,15 @@
+{% extends "admin_tools/dashboard/module.html" %} {% load i18n %}
+{% block module_content %}
+<ul>
+    {% spaceless %}
+    {% for gb in module.children %}
+    <li class="{% cycle 'odd' 'even' %}">
+        <span class="float-right">{{ gb.start }}</span>
+        <a href="{% url 'admin:groupbuilds_groupbuild_change' gb.pk %}" >{{ gb.theme }}</a>
+        ({{ gb.applicant.username }})
+        &bull; {{ gb.category }}
+    </li>
+    {% endfor %}
+    {% endspaceless %}
+</ul>
+{% endblock %}
