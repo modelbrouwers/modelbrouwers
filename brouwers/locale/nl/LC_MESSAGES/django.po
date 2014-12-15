@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 16:35+0200\n"
-"PO-Revision-Date: 2014-07-06 16:45+0200\n"
+"POT-Creation-Date: 2014-12-10 09:32+0100\n"
+"PO-Revision-Date: 2014-12-15 18:35+0100\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,50 @@ msgstr ""
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
+
+#: dashboard.py:9
+msgid "Control panel"
+msgstr "Controlepaneel"
+
+#: dashboard.py:19
+msgid "User management"
+msgstr "Gebruikersbeheer"
+
+#: dashboard.py:33
+msgid "Group builds"
+msgstr "Groepsbouwen"
+
+#: dashboard.py:41
+msgid "Brouwersdag"
+msgstr "Brouwersdag"
+
+#: dashboard.py:46
+msgid "Registrations"
+msgstr "Registraties"
+
+#: dashboard.py:55
+msgid "Forum"
+msgstr "Forum"
+
+#: dashboard.py:64
+msgid "Albums"
+msgstr "Albums"
+
+#: dashboard.py:69 templates/base.html:115
+msgid "Awards"
+msgstr "Awards"
+
+#: dashboard.py:74
+msgid "Misc"
+msgstr "Varia"
+
+#: dashboard.py:79
+msgid "Shirts"
+msgstr "Shirts"
+
+#: dashboard.py:84 dashboard.py:107
+msgid "Recent Actions"
+msgstr "Recente acties"
 
 #: settings/base.py:25
 msgid "English"
@@ -65,43 +109,39 @@ msgstr ""
 msgid "Materials and knowledge for scale modelling."
 msgstr "Materialen en kennisbank voor de modelbouw."
 
-#: templates/base.html:99
+#: templates/base.html:81 templates/nav_top.html:14
 msgid "Back to the Modelbrouwers.nl homepage"
 msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#: templates/base.html:131
+#: templates/base.html:113
 msgid "Home"
 msgstr "Home"
 
-#: templates/base.html:132
+#: templates/base.html:114
 msgid "Builds"
 msgstr "Brouwverslagen"
 
-#: templates/base.html:133
-msgid "Awards"
-msgstr "Awards"
-
-#: templates/base.html:134
+#: templates/base.html:116
 msgid "Secret Santa"
 msgstr "Secret Santa"
 
-#: templates/base.html:136
+#: templates/base.html:118
 msgid "Migrations"
 msgstr "Migraties"
 
-#: templates/base.html:143
+#: templates/base.html:125
 msgid "Login"
 msgstr "Inloggen"
 
-#: templates/base.html:146
+#: templates/base.html:128
 msgid "Register"
 msgstr "Registreren"
 
-#: templates/base.html:152
+#: templates/base.html:134
 msgid "logout"
 msgstr "uitloggen"
 
-#: templates/base.html:157
+#: templates/base.html:139
 msgid "Profile"
 msgstr "Profiel"
 
@@ -109,49 +149,61 @@ msgstr "Profiel"
 msgid "Fix the error:"
 msgstr "Los het probleem op:"
 
-#: templates/nav_tabs.html:11 templates/nav_tabs_text.html:11
+#: templates/nav_tabs.html:11 templates/nav_tabs_text.html:12
 msgid "Visit the homepage!"
 msgstr "Ga naar de homepage!"
 
-#: templates/nav_tabs.html:15 templates/nav_tabs_text.html:15
+#: templates/nav_tabs.html:15 templates/nav_tabs_text.html:16
 msgid "Visit the forums!"
 msgstr "Ga naar het forum!"
 
-#: templates/nav_tabs.html:19 templates/nav_tabs_text.html:19
+#: templates/nav_tabs.html:19 templates/nav_tabs_text.html:20
 msgid "Visit the shop!"
 msgstr "Ga naar de shop!"
 
-#: templates/nav_tabs.html:25 templates/nav_tabs_text.html:25
+#: templates/nav_tabs.html:25 templates/nav_tabs_text.html:26
 msgid "You are now in the photo albums!"
 msgstr "Je bent nu in de albums!"
 
-#: templates/nav_tabs.html:25 templates/nav_tabs_text.html:25
+#: templates/nav_tabs.html:25 templates/nav_tabs_text.html:26
 msgid "Go to the albums!"
 msgstr "Ga naar de albums!"
 
-#: templates/nav_tabs.html:30 templates/nav_tabs_text.html:30
+#: templates/nav_tabs.html:30 templates/nav_tabs_text.html:31
 msgid "Visit the kit reviews!"
 msgstr "Ga naar de kitreviews!"
 
-#: templates/nav_tabs_text.html:11
+#: templates/nav_tabs_text.html:12
 msgid "home"
 msgstr "home"
 
-#: templates/nav_tabs_text.html:15
+#: templates/nav_tabs_text.html:16
 msgid "forum"
 msgstr "forum"
 
-#: templates/nav_tabs_text.html:19
+#: templates/nav_tabs_text.html:20
 msgid "shop"
 msgstr "shop"
 
-#: templates/nav_tabs_text.html:25
+#: templates/nav_tabs_text.html:26
 msgid "albums"
 msgstr "albums"
 
-#: templates/nav_tabs_text.html:30
+#: templates/nav_tabs_text.html:31
 msgid "kit reviews"
 msgstr "kitreviews"
+
+#: templates/nav_tabs_text.html:35
+msgid "Manage group builds!"
+msgstr "Beheer groepsbouwen!"
+
+#: templates/nav_tabs_text.html:35
+msgid "group builds"
+msgstr "groepsbouwen"
+
+#: templates/nav_top.html:8
+msgid "Toggle navigation"
+msgstr "Schakel de navigatie aan of uit"
 
 #: templates/pagination.html:5
 msgid "First page"
