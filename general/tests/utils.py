@@ -1,11 +1,10 @@
 import logging
 
 from django.db.models.loading import get_models
+from django.test.runner import DiscoverRunner
 
-from django_nose import NoseTestSuiteRunner
 
-
-class UnmanagedTablesTestRunner(NoseTestSuiteRunner):
+class UnmanagedTablesTestRunner(DiscoverRunner):
     """ Mixin that makes sure that unmanaged tables get created in tests. """
     def setup_test_environment(self, *args, **kwargs):
         self.unmanaged_models = [m for m in get_models() if not m._meta.managed]
