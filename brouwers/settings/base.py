@@ -122,7 +122,6 @@ INSTALLED_APPS = (
     'tastypie',
     'rest_framework',
     'django_extensions',
-    'django_nose',
     'rosetta',
     'precise_bbcode',
 
