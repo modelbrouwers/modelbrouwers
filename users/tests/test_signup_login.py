@@ -1,6 +1,10 @@
 # -*- coding: UTF-8 -*-
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils.translation import ugettext_lazy as _
+
+from django_webtest import WebTest
 
 from forum_tools.tests.factory_models import ForumUserFactory
 from general.tests.factory_models import RegistrationQuestionFactory
@@ -8,7 +12,7 @@ from general.tests.factory_models import RegistrationQuestionFactory
 from .factory_models import UserFactory
 
 
-class LoginRegisterTests(TestCase):
+class LoginRegisterTests(WebTest):
     # TODO:
     #   - succesful registration
     #   - test e-mail suspicous registration and not logged in
@@ -96,6 +100,27 @@ class LoginRegisterTests(TestCase):
         self.assertNotIn('_auth_user_id', self.client.session)
         self.client.login(username='My user2', password='password')
         self.assertIn('_auth_user_id', self.client.session)
+
+    def test_username_case_insensitive(self):
+        """
+        Test that duplicate usernames (case insensitive) trigger form validation.
+        """
+        question = RegistrationQuestionFactory.create()
+        UserFactory.create(username='John Doe')
+
+        registration = self.app.get(reverse('users:register'))
+        self.assertEqual(registration.status_code, 200)
+
+        form = registration.form
+        form['username'] = 'john doe'
+        form['email'] = 'myuser@dummy.com'
+        form['password1'] = 'secret'
+        form['password2'] = 'secret'
+        form['answer'] = 'answer'
+
+        response = form.submit()
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response, 'form', 'username', _("A user with that username already exists."))
 
     def test_register_invisible_if_logged_in(self):
         """ Test that the registration page is not accessible if the user is logged in"""

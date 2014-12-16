@@ -25,11 +25,12 @@ class AdminUserCreationForm(forms.ModelForm):
         fields = ("username",)
 
     def clean_username(self):
-        # Since User.username is unique, this check is redundant,
-        # but it sets a nicer error message than the ORM. See #13147.
+        """
+        user.username is unique on db level, BUT not on a case-insensitive base.
+        """
         username = self.cleaned_data["username"]
         try:
-            User._default_manager.get(username=username)
+            User._default_manager.get(username__iexact=username)
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
