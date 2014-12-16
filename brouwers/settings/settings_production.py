@@ -2,6 +2,13 @@ import sys
 
 from .base import *
 
+#
+# SENTRY
+#
+INSTALLED_APPS += (
+    'raven.contrib.django.raven_compat',
+)
+
 try:
     from .secrets import *
 except ImportError:
