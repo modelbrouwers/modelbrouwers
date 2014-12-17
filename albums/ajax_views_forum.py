@@ -1,17 +1,12 @@
-from django.db.models import F, Q, Max
-from django.conf import settings
-# from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+import json
+
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.utils.safestring import mark_safe
-import django.utils.simplejson as json
-
 
 from general.decorators import login_required_403
 from models import *
 from forms import PickOwnAlbumForm
-from utils import admin_mode
 
 @login_required_403
 def get_photos(request, album_id=None):

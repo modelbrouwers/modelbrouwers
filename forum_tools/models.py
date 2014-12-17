@@ -1,4 +1,3 @@
-import warnings
 from datetime import datetime
 import zlib
 import urllib
@@ -6,31 +5,10 @@ import urllib
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from general.utils import clean_username
-
-
-class ForumMixin(object):
-    """ Depcreated """
-
-    def __init__(self, *args, **kwargs):
-        super(ForumMixin, self).__init__(*args, **kwargs)
-        warnings.warn("brouwers.forum_tools.models.ForumMixin is deprecated, "
-                      "use brouwers.forum_tools.fields.ForumToolsIDField instead",
-              DeprecationWarning)
-
-    @cached_property
-    def forum(self):
-        try:
-            return Forum.objects.get(pk=self.forum_id)
-        except Forum.DoesNotExist:
-            return None
-
-    @property
-    def forum_name(self):
-        return self.forum.forum_name
+from .fields import ForumToolsIDField
 
 
 class ForumLinkBase(models.Model):
@@ -65,22 +43,23 @@ class ForumLinkSynced(models.Model):
         return u"%s -- %s" % (self.base.__unicode__(), self.link_id)
 
 
-class BuildReportsForum(ForumMixin, models.Model):
+class BuildReportsForum(models.Model):
     """ Model which tells us which forums hold build reports """
-    forum_id = models.PositiveIntegerField()
+    forum = ForumToolsIDField(_('forum'), type='forum', help_text=_('Forum id of the group build subforum'))
 
     class Meta:
         verbose_name = _(u'build report forum')
         verbose_name_plural = _(u'build report forums')
-        ordering = ['forum_id']
+        ordering = ['forum']
 
     def __unicode__(self):
-        return self.forum_name
+        return self.forum.name if self.forum else _('(forum does not exist)')
 
 
-class ForumCategory(ForumMixin, models.Model):
+class ForumCategory(models.Model):
     name = models.CharField(_('name'), max_length=255)
-    forum_id = models.PositiveIntegerField(_('phpBB forum id'), blank=True, null=True)
+    forum = ForumToolsIDField(_('forum'), type='forum', blank=True, null=True,
+                              help_text=_('Forum id of the group build subforum'))
     icon_class = models.CharField(_('icon class'), max_length=50, blank=True)
 
     class Meta:

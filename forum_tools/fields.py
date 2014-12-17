@@ -1,8 +1,5 @@
 from django.db.models.fields import PositiveIntegerField
 
-from forum_tools.models import Forum, Topic
-from .forms import ForumIDField, TopicIDField
-
 
 class ForumToolsIDField(PositiveIntegerField):
 
@@ -13,6 +10,7 @@ class ForumToolsIDField(PositiveIntegerField):
         super(ForumToolsIDField, self).__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):
+        from .forms import ForumIDField, TopicIDField
         if self._type == 'forum':
             form_class = ForumIDField
         elif self._type == 'topic':
@@ -68,6 +66,7 @@ class ForumToolsDescriptor(object):
                 setattr(instance, self.related.attname, value.pk)
 
     def get_object(self, pk):
+        from forum_tools.models import Forum, Topic
         if self.type == 'topic':
             model = Topic
         elif self.type == 'forum':
@@ -84,6 +83,7 @@ class ForumToolsDescriptor(object):
             return None
 
     def check_type(self, instance, value):
+        from forum_tools.models import Forum, Topic
         if self.type == 'topic' and not isinstance(value, Topic):
             raise ValueError('Cannot assign "%r": "%s.%s" must be a "%s" instance.' %
                                 (value, instance._meta.object_name,

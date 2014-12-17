@@ -7,7 +7,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 
-from general.shortcuts import voting_enabled
+from .utils import voting_enabled
 
 
 POINTS_FIRST = 3

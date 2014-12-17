@@ -14,13 +14,12 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-
 from general.models import UserProfile
-from general.shortcuts import voting_enabled as _voting_enabled
 from utils.views import LoginRequiredMixin
 
 from .models import *
 from .forms import ProjectForm, VoteForm
+from .utils import voting_enabled as _voting_enabled
 
 
 class CategoryListView(ListView):
