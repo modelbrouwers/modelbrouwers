@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('migration.views',
+urlpatterns = patterns('brouwers.migration.views',
     url(r'^$', 'index'),
     url(r'^albumusers/$', 'albumusers'),
     url(r'^find_django_user/$', 'find_django_user'),

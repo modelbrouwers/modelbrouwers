@@ -4,9 +4,9 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
-from general.decorators import login_required_403
-from models import *
-from forms import PickOwnAlbumForm
+from brouwers.general.decorators import login_required_403
+from .models import *
+from .forms import PickOwnAlbumForm
 
 @login_required_403
 def get_photos(request, album_id=None):

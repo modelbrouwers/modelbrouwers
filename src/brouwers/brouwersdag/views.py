@@ -7,9 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (DeleteView, ListView, CreateView, UpdateView,
                                   RedirectView)
 
-from utils.views import LoginRequiredMixin, StaffRequiredMixin
-from utils.pdf import PDFTemplateView
-
+from brouwers.utils.views import LoginRequiredMixin, StaffRequiredMixin
+from brouwers.utils.pdf import PDFTemplateView
 from .forms import ShowCasedModelSignUpForm
 from .models import ShowCasedModel, Competition
 

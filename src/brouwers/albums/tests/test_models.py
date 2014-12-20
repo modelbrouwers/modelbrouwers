@@ -1,7 +1,7 @@
 from django.test import TestCase
 
+from brouwers.users.tests.factory_models import UserFactory
 from .factories import AlbumFactory, PhotoFactory
-from users.tests.factory_models import UserFactory
 
 
 class CategoryTests(TestCase):

@@ -38,16 +38,16 @@
 {% block menu %}
 	<li><a href="
 		{% if album_preferences.default_uploader == 'F' %}
-    		{% url 'albums.views.uploadify' %}
+    		{% url 'brouwers.albums.views.uploadify' %}
 		{% else %}
-			{% url 'albums.views.upload' %}
+			{% url 'brouwers.albums.views.upload' %}
 		{% endif %}
 		">{% trans 'Add photos' %}</a>
 	</li>
-	<li><a href="{% url 'albums.views.my_albums_list' %}">{% trans 'My albums' %}</a></li>
-	<li><a href="{% url 'albums.views.albums_list' %}">{% trans 'All albums' %}</a></li>
-	<li><a href="{% url 'albums.views.my_last_uploads' %}?page=1">{% trans 'My last uploads' %}</a></li>
-	<li><a href="{% url 'albums.views.preferences' %}">{% trans 'Preferences' %}</a></li>
+	<li><a href="{% url 'brouwers.albums.views.my_albums_list' %}">{% trans 'My albums' %}</a></li>
+	<li><a href="{% url 'brouwers.albums.views.albums_list' %}">{% trans 'All albums' %}</a></li>
+	<li><a href="{% url 'brouwers.albums.views.my_last_uploads' %}?page=1">{% trans 'My last uploads' %}</a></li>
+	<li><a href="{% url 'brouwers.albums.views.preferences' %}">{% trans 'Preferences' %}</a></li>
 {% endblock %}
 
 {% block above_content %}

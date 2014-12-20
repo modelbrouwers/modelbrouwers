@@ -1,8 +1,8 @@
 {% load i18n staticfiles brouwers %}
 
-{% url 'general.views.index' as url_home %}
-{% url 'albums.views.index' as url_albums %}
-{% url 'kitreviews:index' as url_kitreviews %}
+{% url 'brouwers.general.views.index' as url_home %}
+{% url 'brouwers.albums.views.index' as url_albums %}
+{% url 'brouwers.kitreviews:index' as url_kitreviews %}
 
 {% spaceless %}
     <li id="tab-home" class="tab">

@@ -113,9 +113,9 @@
                         <li><a href="{% url 'index' %}">{% trans "Home" %}</a></li>
                         <li><a href="{% url 'builds:index' %}">{% trans "Builds" %}</a></li>
                         <li><a href="{% url 'awards_index' %}">{% trans "Awards" %}</a></li>
-                        <li><a href="{% url 'secret_santa.views.index' %}">{% trans "Secret Santa" %}</a></li>
+                        <li><a href="{% url 'brouwers.secret_santa.views.index' %}">{% trans "Secret Santa" %}</a></li>
                         {% if user.is_superuser %}
-                            <li><a href="{% url 'migration.views.index' %}">{% trans 'Migrations' %}</a></li>
+                            <li><a href="{% url 'brouwers.migration.views.index' %}">{% trans 'Migrations' %}</a></li>
                         {% endif %}
                     {% endblock %}
 
@@ -136,7 +136,7 @@
                                 </a>
                             </li>
                             <li class="user-auth">
-                                <a href="{% url 'general.views.profile' %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
+                                <a href="{% url 'brouwers.general.views.profile' %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
                             </li>
                         {% endif %}
                     {% endblock %}

@@ -1,6 +1,6 @@
 from django.db import models
 
-from forum_tools.fields import ForumToolsIDField
+from brouwers.forum_tools.fields import ForumToolsIDField
 
 
 class MyModel(models.Model):

@@ -31,7 +31,7 @@
 
     <span class="photo-stats">
         {% if user.id == photo.user.id or user_is_album_admin %}
-            <a href="{% url 'albums.views.edit_photo' photo.id %}">{% trans 'edit' %}</a> &#124;
+            <a href="{% url 'brouwers.albums.views.edit_photo' photo.id %}">{% trans 'edit' %}</a> &#124;
         {% endif %}
         {{ photo.views }} views &#124; {% trans 'uploaded' %} {{ photo.uploaded|date:"d b Y, H:i" }}
         &#124; <a href="{{ photo.image.url }}" target="_blank"><img src="{% static 'images/icons/save.png' %}" height="12" width="12" title="{% trans 'Download photo' %}" alt="download"/></a>

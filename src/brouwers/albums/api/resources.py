@@ -1,11 +1,9 @@
 from django.db.models import Q
 
-
 from tastypie import fields
 from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import ReadOnlyAuthorization
 from tastypie.resources import ModelResource, ALL_WITH_RELATIONS
-
 
 from ..models import Album, Photo
 # for the availble fields, look in albums/models.py!
@@ -28,7 +26,7 @@ class OwnAlbumAuthorization(AlbumAuthorization):
 ### RESOURCES ##################################################################
 
 class AlbumResource(ModelResource):
-    cover = fields.ForeignKey('albums.api.resources.PhotoResource', 'cover', null=True)
+    cover = fields.ForeignKey('brouwers.albums.api.resources.PhotoResource', 'cover', null=True)
 
     class Meta:
         queryset = Album.objects.filter(trash=False).order_by('-last_upload')

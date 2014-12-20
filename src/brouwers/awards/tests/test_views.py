@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django_webtest import WebTest
 from freezegun import freeze_time
 
-from users.tests.factory_models import UserFactory
+from brouwers.users.tests.factory_models import UserFactory
 
 
 class ViewTests(WebTest):

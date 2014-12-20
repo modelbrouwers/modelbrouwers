@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url, include
 from .views import ServeHbsTemplateView
 from .ajax_views import AnnouncementView
 
-urlpatterns = patterns('general.views',
+urlpatterns = patterns('brouwers.general.views',
     url(r'^$', 'index', name='index'),
     url(r'^profile/$', 'profile', name='profile'),
     url(r'^users/(\w+)/$', 'user_profile'),
@@ -14,7 +14,7 @@ urlpatterns = patterns('general.views',
 
 
 # AJAX
-urlpatterns += patterns('general.ajax_views',
+urlpatterns += patterns('brouwers.general.ajax_views',
     url(r'^user/search/$',    'search_users'),
     url(r'^profile/ajax/change_password/$', 'password_change'),
     url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
@@ -28,7 +28,7 @@ urlpatterns += patterns('django.contrib.auth.views',
 # API
 if 'tastypie' in settings.INSTALLED_APPS:
     from tastypie.api import Api
-    from general.api.resources import UserResource
+    from brouwers.general.api.resources import UserResource
 
     v1_api = Api(api_name='legacy')
 

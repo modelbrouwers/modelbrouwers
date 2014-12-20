@@ -1,13 +1,13 @@
 from django.test import TestCase
 
-from albums.models import Category
-from users.tests.factory_models import UserFactory
+from brouwers.albums.models import Category
+from brouwers.users.tests.factory_models import UserFactory
 
 
 class FormTests(TestCase):
 
     def test_album_form(self):
-        from albums.forms import AlbumForm
+        from ..forms import AlbumForm
 
         user = UserFactory.create()
 

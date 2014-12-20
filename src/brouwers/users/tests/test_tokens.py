@@ -1,9 +1,9 @@
 from django.test import TestCase
 
-from forum_tools.tests.factory_models import ForumUserFactory
-
+from brouwers.forum_tools.tests.factory_models import ForumUserFactory
 from ..tokens import activation_token_generator
 from .factory_models import UserFactory
+
 
 class ActivationTokenTests(TestCase):
     def setUp(self):

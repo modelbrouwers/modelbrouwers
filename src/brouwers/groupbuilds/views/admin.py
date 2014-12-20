@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, UpdateView
 
-from utils.views import LoginRequiredMixin
+from brouwers.utils.views import LoginRequiredMixin
 from .mixins import GroupBuildDetailMixin
 from ..models import GroupBuild, GroupbuildStatuses as GBStatuses
 from ..forms import GroupBuildForm, SubmitForm

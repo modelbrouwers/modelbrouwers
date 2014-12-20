@@ -3,14 +3,14 @@
 
 {% block extrascript %}
 <script type="text/javascript">
-	var url_covers = "{% url 'albums.ajax_views.get_covers' %}";
-	var url_edit = "{% url 'albums.ajax_views.edit_album' %}";
-	var url_remove = "{% url 'albums.ajax_views.remove_album' %}";
-	var url_restore = "{% url 'albums.ajax_views.restore_album' %}";
-	var url_get_title = "{% url 'albums.ajax_views.get_title' %}";
-	var url_get_group = "{% url 'albums.ajax_views.edit_albumgroup' %}";
-	var url_new = "{% url 'albums.ajax_views.new_album_jquery_ui' %}";
-    var user_search_url = "{% url 'general.ajax_views.search_users' %}";
+	var url_covers = "{% url 'brouwers.albums.ajax_views.get_covers' %}";
+	var url_edit = "{% url 'brouwers.albums.ajax_views.edit_album' %}";
+	var url_remove = "{% url 'brouwers.albums.ajax_views.remove_album' %}";
+	var url_restore = "{% url 'brouwers.albums.ajax_views.restore_album' %}";
+	var url_get_title = "{% url 'brouwers.albums.ajax_views.get_title' %}";
+	var url_get_group = "{% url 'brouwers.albums.ajax_views.edit_albumgroup' %}";
+	var url_new = "{% url 'brouwers.albums.ajax_views.new_album_jquery_ui' %}";
+    var user_search_url = "{% url 'brouwers.general.ajax_views.search_users' %}";
 </script>
 {% endblock %}
 
@@ -23,7 +23,7 @@
             <strong>{% trans 'New album' %}</strong>
         </a>
         &bull;
-        <a href="{% url 'albums.views.manage' %}">
+        <a href="{% url 'brouwers.albums.views.manage' %}">
             {% trans 'Manage' %}
         </a>
         &bull;
@@ -37,14 +37,14 @@
             </a>
         {% endif %}
         <span class="right small-text">
-            <a id="ShowAllAlbums" href="{% url 'albums.views.my_albums_list' %}?all=1">
+            <a id="ShowAllAlbums" href="{% url 'brouwes.albums.views.my_albums_list' %}?all=1">
                 {% trans 'Show all my personal albums' %}
             </a>
         </span>
     </div>
     {% endspaceless %}
     <noscript>
-        {% url 'albums.views.manage' as manage_url %}
+        {% url 'brouwes.albums.views.manage' as manage_url %}
         {% blocktrans %}Your browser has no javascript. You can reorganize your albums on an <a href="{{ manage_url }}">alternative page</a>.{% endblocktrans %}
     </noscript>
 

@@ -1,8 +1,9 @@
 """ Tests the integration with linked models like ForumUser and UserProfile """
 from django.test import TestCase
 
-from forum_tools.tests.factory_models import create_from_user
+from brouwers.forum_tools.tests.factory_models import create_from_user
 from .factory_models import UserFactory
+
 
 class LinkedModelsTests(TestCase):
     def setUp(self):

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from users.api.serializers import UserSerializer
-from forum_tools.api.serializers import IDFieldSerializer
+from brouwers.users.api.serializers import UserSerializer
+from brouwers.forum_tools.api.serializers import IDFieldSerializer
 from ..models import GroupBuild, Participant
 
 

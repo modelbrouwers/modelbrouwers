@@ -1,3 +1,8 @@
+import itertools
+import json
+import urllib2
+from urlparse import urlparse
+
 from django.db import IntegrityError
 from django.db.models import F, Q, Max
 from django.core.files import File
@@ -11,17 +16,11 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
+from brouwers.general.decorators import login_required_403
+from .models import *
+from .forms import AlbumForm, AlbumGroupForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
+from .utils import resize, admin_mode, get_default_img_size
 
-from general.decorators import login_required_403
-from models import *
-from forms import AlbumForm, AlbumGroupForm, EditAlbumFormAjax, PickAlbumForm, OrderAlbumForm, UploadFromURLForm
-from utils import resize, admin_mode, get_default_img_size
-
-
-import itertools
-import json
-import urllib2
-from urlparse import urlparse
 
 GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
 

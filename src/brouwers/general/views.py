@@ -1,5 +1,6 @@
 import random
 import hashlib
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib import messages
@@ -23,7 +24,6 @@ from brouwers.albums.models import Album
 from brouwers.albums.utils import admin_mode
 from .forms import *
 from .models import UserProfile, Redirect, PasswordReset
-from .datetime import datetime, timedelta
 
 
 LOG_REGISTRATION_ATTEMPTS = getattr(settings, 'LOG_REGISTRATION_ATTEMPTS', True)
@@ -73,7 +73,7 @@ def profile(request):
                 err = True
         if not err:
             messages.success(request, _("Your profile data has been updated."))
-            return redirect(reverse('general.views.profile'))
+            return redirect(reverse('brouwers.general.views.profile'))
         else:
             messages.error(request, _("Some fields were not valid, please fix the errors."))
     else:

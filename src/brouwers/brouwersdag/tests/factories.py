@@ -1,6 +1,6 @@
 import factory
 
-from kitreviews.tests.factories import BrandFactory
+from brouwers.kitreviews.tests.factories import BrandFactory
 
 from ..models import Competition, ShowCasedModel
 

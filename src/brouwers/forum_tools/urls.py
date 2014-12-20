@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 # Everything is AJAX
-urlpatterns = patterns('forum_tools.views',
+urlpatterns = patterns('brouwers.forum_tools.views',
 	url(r'^get_sync_data/$',  'get_sync_data'),
 	url(r'^get_chat/$',       'get_chat'),
     url(r'^get_post_perm/$',  'get_posting_level'),

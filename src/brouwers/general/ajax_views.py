@@ -2,15 +2,14 @@ import json
 
 from django.db.models import Q
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import View
 
-
-from general.decorators import login_required_403
+from brouwers.general.decorators import login_required_403
 from .models import UserProfile, Announcement
+
 
 @login_required_403
 def search_users(request):

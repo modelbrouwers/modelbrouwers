@@ -1,11 +1,12 @@
-from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from datetime import datetime, timedelta
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-from models import *
-from datetime import timedelta
 
-from general.decorators import login_required_403
+from brouwers.general.decorators import login_required_403
+from .models import *
+
 
 @login_required_403
 def set_online(request):

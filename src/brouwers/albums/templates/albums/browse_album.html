@@ -5,10 +5,10 @@
 
 {% block extrascript %}
 <script type="text/javascript">
-	var url_edit = "{% url 'albums.ajax_views.edit_album' %}";
-	var url_covers = "{% url 'albums.ajax_views.get_covers' %}";
-	var url_get_group = "{% url 'albums.ajax_views.edit_albumgroup' %}";
-	var user_search_url = "{% url 'general.ajax_views.search_users' %}";
+	var url_edit = "{% url 'brouwers.albums.ajax_views.edit_album' %}";
+	var url_covers = "{% url 'brouwers.albums.ajax_views.get_covers' %}";
+	var url_get_group = "{% url 'brouwers.albums.ajax_views.edit_albumgroup' %}";
+	var user_search_url = "{% url 'brouwers.general.ajax_views.search_users' %}";
 </script>
 {% endblock %}
 
@@ -22,7 +22,7 @@
         {% endif %}
         <span class="album-stats">
             {% if user.id == album.user.id or user_is_album_admin %}
-                <a href="{% url 'albums.views.edit_album' album.id %}" onclick="openEditDialog(event, null, {{ album.id }});return false;">bewerken</a> &#124;
+                <a href="{% url 'brouwers.albums.views.edit_album' album.id %}" onclick="openEditDialog(event, null, {{ album.id }});return false;">bewerken</a> &#124;
             {% endif %}
             {{ album.views }} views &#124; {% trans 'modified' %} {{ album.last_upload|date:"d b Y, H:i" }} &#124; {% trans 'created' %} {{ album.created|date:"d b Y, H:i" }}
         </span>
@@ -67,7 +67,7 @@
         {% include "pagination.html" %}
     {% endwith %}
     <div class="center">
-        <a class="download-link" href="{% url 'albums.views.download_album' album.id %}" target="_blank">{% trans 'download album (.zip)' %}</a>
+        <a class="download-link" href="{% url 'brouwers.albums.views.download_album' album.id %}" target="_blank">{% trans 'download album (.zip)' %}</a>
     </div>
 </div>
 <div id="edit-dialog"></div>

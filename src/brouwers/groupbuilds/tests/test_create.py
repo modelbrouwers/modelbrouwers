@@ -5,8 +5,8 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpRequest
 
-from forum_tools.tests.factory_models import ForumCategoryFactory
-from users.tests.factory_models import UserFactory
+from brouwers.forum_tools.tests.factory_models import ForumCategoryFactory
+from brouwers.users.tests.factory_models import UserFactory
 
 from ..forms import GroupBuildForm
 from ..models import GroupbuildStatuses, GroupBuild

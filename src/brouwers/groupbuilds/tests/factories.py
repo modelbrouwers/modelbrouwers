@@ -1,8 +1,7 @@
 import factory
 
-from forum_tools.tests.factory_models import ForumCategoryFactory
-from users.tests.factory_models import UserFactory
-
+from brouwers.forum_tools.tests.factory_models import ForumCategoryFactory
+from brouwers.users.tests.factory_models import UserFactory
 from ..models import GroupBuild, Participant
 
 

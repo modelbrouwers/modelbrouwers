@@ -6,9 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from django_webtest import WebTest
 
-from forum_tools.tests.factory_models import ForumUserFactory
-from general.tests.factory_models import RegistrationQuestionFactory
-
+from brouwers.forum_tools.tests.factory_models import ForumUserFactory
+from brouwers.general.tests.factory_models import RegistrationQuestionFactory
 from .factory_models import UserFactory
 
 

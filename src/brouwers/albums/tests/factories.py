@@ -1,8 +1,7 @@
 import factory
 import factory.fuzzy
 
-from users.tests.factory_models import UserFactory
-
+from brouwers.users.tests.factory_models import UserFactory
 from ..models import Album, Photo, Category
 
 

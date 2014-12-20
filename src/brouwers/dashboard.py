@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
 
-from groupbuilds.dashboard import ModerationQueue, CreateForumQueue
+from brouwers.groupbuilds.dashboard import ModerationQueue, CreateForumQueue
 
 
 class CustomIndexDashboard(Dashboard):
@@ -18,13 +18,13 @@ class CustomIndexDashboard(Dashboard):
         self.children.append(modules.ModelList(
             _('User management'),
             models=(
-                'users.*',
-                'general.models.UserProfile',
-                'django.contrib.auth.models.Group',
-                'forum_tools.models.ForumUser',
-                'banning.*',
-                'online_users.*',
-                'general.models.PasswordReset',
+                'brouwers.users.*',
+                'brouwers.general.models.UserProfile',
+                'brouwers.django.contrib.auth.models.Group',
+                'brouwers.forum_tools.models.ForumUser',
+                'brouwers.banning.*',
+                'brouwers.online_users.*',
+                'brouwers.general.models.PasswordReset',
 
             ),
         ))
@@ -32,42 +32,42 @@ class CustomIndexDashboard(Dashboard):
         self.children.append(modules.ModelList(
             _('Group builds'),
             models=(
-                'groupbuilds.*',
-                'forum_tools.models.ForumLinkBase',
+                'brouwers.groupbuilds.*',
+                'brouwers.forum_tools.models.ForumLinkBase',
             )
         ))
 
         self.children.append(modules.ModelList(
             _('Brouwersdag'),
-            models=('brouwersdag.*',)
+            models=('brouwers.brouwersdag.*',)
         ))
 
         self.children.append(modules.ModelList(
             _('Registrations'),
             models=(
-                'general.models.RegistrationAttempt',
-                'general.models.RegistrationQuestion',
-                'general.models.QuestionAnswer',
+                'brouwers.general.models.RegistrationAttempt',
+                'brouwers.general.models.RegistrationQuestion',
+                'brouwers.general.models.QuestionAnswer',
             )
         ))
 
         self.children.append(modules.ModelList(
             _('Forum'),
-            models=('forum_tools.*',),
+            models=('brouwers.forum_tools.*',),
             exclude=(
-                'forum_tools.models.ForumLinkBase',
-                'forum_tools.models.ForumUser',
+                'brouwers.forum_tools.models.ForumLinkBase',
+                'brouwers.forum_tools.models.ForumUser',
             )
         ))
 
         self.children.append(modules.ModelList(
             _('Albums'),
-            models=('albums.*',)
+            models=('brouwers.albums.*',)
         ))
 
         self.children.append(modules.ModelList(
             _('Awards'),
-            models=('awards.*',)
+            models=('brouwers.awards.*',)
         ))
 
         self.children.append(modules.ModelList(
@@ -77,7 +77,7 @@ class CustomIndexDashboard(Dashboard):
 
         self.children.append(modules.ModelList(
             _('Shirts'),
-            models=('shirts.*',)
+            models=('brouwers.shirts.*',)
         ))
 
         self.children.append(modules.RecentActions(

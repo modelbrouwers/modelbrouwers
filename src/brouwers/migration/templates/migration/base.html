@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block menu %}
-    <li><a href="{% url 'general.views.index' %}">Home</a></li>
+    <li><a href="{% url 'brouwers.general.views.index' %}">Home</a></li>
     {% if user.is_superuser %}
-        <li><a href="{% url 'migration.views.find_django_user' %}">Migratie albumgebruikers</a></li>
-        <li><a href="{% url 'migration.views.migrate_albums' %}">Migratie albums</a></li>
-        <li><a href="{% url 'migration.views.migrate_pictures' %}">Migratie foto's</a></li>
+        <li><a href="{% url 'brouwers.migration.views.find_django_user' %}">Migratie albumgebruikers</a></li>
+        <li><a href="{% url 'brouwers.migration.views.migrate_albums' %}">Migratie albums</a></li>
+        <li><a href="{% url 'brouwers.migration.views.migrate_pictures' %}">Migratie foto's</a></li>
     {% endif %}
 {% endblock %}

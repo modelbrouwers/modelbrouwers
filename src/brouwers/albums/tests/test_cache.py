@@ -1,8 +1,7 @@
+from django.core.cache import cache
 from django.test import TestCase
 
-from django.core.cache import cache
-
-from users.tests.factory_models import UserFactory
+from brouwers.users.tests.factory_models import UserFactory
 from ..models import Preferences
 
 

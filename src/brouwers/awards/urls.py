@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from .views import (CategoryListView, NominationView, NominationListView,
                     VoteView, WinnersView)
 
-urlpatterns = patterns('awards.views',
+urlpatterns = patterns('brouwers.awards.views',
     url(r'^vote/overview/$', 'vote_overview'),
     url(r'^vote/scores/$', 'scores'),
 )

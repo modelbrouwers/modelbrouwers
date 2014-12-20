@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 
 from django_webtest import WebTest
 
-from users.tests.factory_models import UserFactory
+from brouwers.users.tests.factory_models import UserFactory
 from .factory_models import AlbumFactory, PhotoFactory
 
 
@@ -46,7 +46,7 @@ class ViewTests(WebTest):
             PhotoFactory.create_batch(3, album=album)
 
     def test_homepage(self):
-        albums_home = self.app.get(reverse('albums.views.index'))
+        albums_home = self.app.get(reverse('brouwers.albums.views.index'))
         self.assertEquals(albums_home.status_code, 200)
 
         expected_albums = [repr(album) for album in self.albums]
