@@ -5,6 +5,8 @@ python:
 
 services:
   - memcached
+  # - redis-server
+  # - elasticsearch
 
 env:
   - DJANGO=django<1.7
@@ -21,7 +23,7 @@ before_script:
   - mkdir log
 
 script:
-  - coverage run manage.py test --settings=brouwers.settings.settings_travis -v 2
+  - coverage run src/manage.py test src/ --settings=conf.settings.travis -v 2
 
 after_success:
   - coveralls

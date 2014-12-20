@@ -28,7 +28,7 @@ LANGUAGES = (
     ('nl', gettext_noop('Dutch')),
 )
 LOCALE_PATHS = (
-    os.path.join(PROJECT_DIR, 'brouwers', 'brouwers', 'locale'),
+    os.path.join(PROJECT_DIR, 'locale'),
 )
 
 USE_L10N = True
