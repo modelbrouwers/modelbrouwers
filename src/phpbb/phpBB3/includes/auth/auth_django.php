@@ -136,12 +136,6 @@ function autologin_django()
     return array();
   }
   $php_auth_user = $djangoUser['username'];
-  //$php_auth_user = iconv("UTF-8", "ascii//tranlit", $php_auth_user);
-  
-
-
-  //echo $php_auth_user;
-  
   $php_auth_email = $djangoUser['email'];
   $php_auth_pw = "pretend password";
 
@@ -176,7 +170,7 @@ function autologin_django()
     $sql = 'SELECT *
       FROM ' . USERS_TABLE . "
       WHERE username_clean = '" . $db->sql_escape(utf8_clean_string($php_auth_user)) . "'";
-    
+
     $result = $db->sql_query($sql);
     $row = $db->sql_fetchrow($result);
     $db->sql_freeresult($result);

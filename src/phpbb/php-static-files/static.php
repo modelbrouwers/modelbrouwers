@@ -1,7 +1,9 @@
 <?php
-$dir = dirname(__FILE__).'/';
-require_once($dir.'cache.php');
-require_once ($dir.'vendor_autoload.php');
+
+$settingsFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'settings.php';
+require_once $settingsFile;
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'cache.php';
+require_once $settings->COMPOSER_AUTOLOADER;
 
 $DEBUG = false;
 
@@ -27,9 +29,10 @@ class CachedFilesStorage
 	protected $DEBUG;
 
 	public function __construct($cache) {
-		$this->static_url = getenv('STATIC_URL') ?: '/static/';
+		global $settings;
+		$this->static_url = $settings->STATIC_URL;
 		$this->cache_key_prefix = 'staticfiles:';
-		$this->static_root = realpath(dirname(dirname(__FILE__)) . $this->static_url);
+		$this->static_root = $settings->STATIC_ROOT;
 		$this->cache = $cache;
 		$this->DEBUG = (bool) getenv('DEBUG');
 	}
@@ -44,7 +47,7 @@ class CachedFilesStorage
 
 	protected function get_hashed_name($file) {
 		if($this->DEBUG) return $file;
-		$abs_path = realpath($this->static_root . '/' . $file);
+		$abs_path = realpath($this->static_root . DIRECTORY_SEPARATOR . $file);
 
 		$pathinfo = pathinfo($file);
 		$dirname = $pathinfo['dirname'];
@@ -55,7 +58,7 @@ class CachedFilesStorage
 		$hash = substr($md5, 0, 12);
 
 		$hashed_filename = $filename . '.' . $hash . '.' . $extension;
-		$result = $dirname . '/'. $hashed_filename;
+		$result = $dirname . DIRECTORY_SEPARATOR. $hashed_filename;
 		return $result;
 	}
 
@@ -78,7 +81,6 @@ class CachedFilesStorage
 			$hashed_name = $this->get_hashed_name($file);
 			if(!$this->DEBUG) $this->cache->set($cache_key, $hashed_name);
 		}
-
 		return $this->static_url . $hashed_name;
 	}
 }
@@ -92,7 +94,7 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 	protected $CACHE_DIR = 'PHP_CACHE';
 
 	protected function get_cache_dir() {
-		$dirname = $this->get_static_root().'/'.$this->CACHE_DIR;
+		$dirname = $this->get_static_root() . DIRECTORY_SEPARATOR . $this->CACHE_DIR;
 		if (!is_dir($dirname)) {
 			mkdir($dirname);
 			chmod($dirname, 0755);
@@ -118,12 +120,12 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 
 		// calculate all the file hashes to definitely use the latest file
 		foreach ($files as $file) {
-			$filename = $root.'/'.$this->get_hashed_name($file);
+			$filename = $root . DIRECTORY_SEPARATOR . $this->get_hashed_name($file);
 			$file_paths[] = $filename;
 		}
 		$md5_result = md5(implode("::", $file_paths));
 		$destDir = $this->get_cache_dir();
-		$dest_file = $destDir.'/'.$md5_result.'.'.$ext;
+		$dest_file = $destDir . DIRECTORY_SEPARATOR . $md5_result.'.'.$ext;
 
 		if(!is_file($dest_file)) {
 			foreach ($file_paths as $filename) {

@@ -1,1 +1,1 @@
-../../../../../brouwers/templates/php_templates/bottom.php
+../../../../../../templates/php_templates/bottom.php
