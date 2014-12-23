@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.general.models import RegistrationQuestion
@@ -72,3 +73,9 @@ class UserCreationForm(AdminUserCreationForm):
                 raise forms.ValidationError(_('You provided an incorrect answer to the anti-bot question.'))
 
         return cleaned_data
+
+
+class AuthForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(AuthForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = _('Username or email')

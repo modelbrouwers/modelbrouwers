@@ -37,12 +37,10 @@ class LoginView(RedirectFormMixin, generic.FormView):
     form_class = AuthenticationForm
     template_name = 'users/login.html'
 
-    # def get_form_kwargs(self):
-        # kwargs = super(LoginView, self).get_form_kwargs()
-        # kwargs.update({
-            # 'request': self.request, # FIXME Chrome incognito
-        # })
-        # return kwargs
+    def get_form_kwargs(self):
+        kwargs = super(LoginView, self).get_form_kwargs()
+        kwargs.update(dict(request=self.request))
+        return kwargs
 
     def get_success_url(self):
         return self.get_redirect_url()

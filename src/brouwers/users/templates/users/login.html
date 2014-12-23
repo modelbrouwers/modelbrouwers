@@ -1,28 +1,65 @@
-{% extends "base.html" %}
-{% load i18n %}
+{% extends "base_html5.html" %}
+{% load i18n formulation %}
+
+{% block body-class %}users{% endblock %}
+{% block title %}{% trans "Modelbrouwers.nl &bull; login" %}{% endblock %}
 
 {% block content %}
-<div id="login">
-    <form method="post" action=".">
 
-        <p class="info">
+<header class="eye-catcher container-fluid">
+    <div class="container">
+        <h1>
+            {% trans "Login" %}
+            <span class="pull-right"><i class="fa fa-globe"></i></span>
+        </h1>
+
+        <p>
             {% blocktrans %}
-                If you're having login issues, please don't hesitate to contact the administrators. You can find the e-mail address on the bottom of this page.
+                If you're running into login issues, please don't hesitate to contact the administrators. You can find the e-mail address on the bottom of this page.
             {% endblocktrans %}
         </p>
+    </div>
+</header>
+
+
+<div class="container">
+
+    <form method="post" action="." class="form-horizontal">{% form 'horizontal.form' %}
 
         {{ redirectform.as_p }}
 
-        {% include "form_in_table.html" %}
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-xl-6">
+                {% with label_grid='col-sm-4' field_grid='col-sm-8' %}
+                {% for field in form %}
+                    {% field field %}
+                {% endfor %}
+                {% endwith %}
+                <div class="submit-wrapper">
+                    {% block submit_button %}
+                        <button type="submit" class="btn btn-primary">{% trans "Come on in" %}</button>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
 
-        <div class="center">
-            <input type="submit" value="inloggen" />
-            <p>
-                {% trans 'Forgot your password?' %}
-                <br />
+        <div class="row">
+            <p cass="col-xs-12 col-md-4 col-md-4-offset">
+                {% trans 'Forgot your password?' %}<br>
                 <a href="{% url 'brouwers.general.views.password_reset' %}">{% trans 'Request a password reset' %}</a>
             </p>
         </div>
-    </form>
+
+
+            <p>
+                <br />
+            </p>
+    {% endform %}</form>
+
+
+
+
 </div>
+
+
 {% endblock %}
