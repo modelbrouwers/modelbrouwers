@@ -34,7 +34,10 @@ form {
 
 /* buttons */
 .btn {
-  &.bg-main-orange {
-    color: white;
+
+  color: $white;
+  &:hover, &:active, &:focus {
+    color: $white;
+    text-decoration: underline;
   }
 }

@@ -193,6 +193,11 @@ p {
   padding: 5px;
 }
 
+/* line 73, ../../sass/partials/_base.scss */
+body > footer {
+  margin-top: 50px;
+}
+
 /* line 3, ../../sass/partials/_header.scss */
 .navbar-center .navbar-nav {
   display: inline-block;
@@ -496,9 +501,14 @@ form fieldset.well h3 {
 }
 
 /* buttons */
-/* line 37, ../../sass/partials/_forms.scss */
-.btn.bg-main-orange {
-  color: white;
+/* line 36, ../../sass/partials/_forms.scss */
+.btn {
+  color: #FFFFFF;
+}
+/* line 39, ../../sass/partials/_forms.scss */
+.btn:hover, .btn:active, .btn:focus {
+  color: #FFFFFF;
+  text-decoration: underline;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
@@ -627,4 +637,9 @@ body.groupbuilds .category-icon {
   right: 50px;
   font-size: 500%;
   color: rgba(0, 102, 153, 0.3);
+}
+
+/* line 3, ../../sass/partials/apps/_users.scss */
+body.users #form-login {
+  margin-top: 75px;
 }

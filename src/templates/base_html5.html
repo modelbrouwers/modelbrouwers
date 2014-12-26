@@ -69,6 +69,23 @@
         <div class="container"></div>
         {% endblock content %}
 
+
+        <footer>
+            <div class="container-fluid text-center">{% block footer %}
+                {# {% include "footer_banner.html" %} #}
+                <p class="text-muted">
+                    <img src="{% static 'images/varia/email.png' %}" width="158" height="15" alt="admins[[@]]modelbrouwers.nl" />
+                    <br />
+                    &copy; 2005-{% now "Y" %} Modelbrouwers.nl &amp; Sergei Maertens
+
+                    {% if user.is_superuser %}<br />[ <a href="/admin/">Django admin</a> ]{% endif %}
+
+                    <a href="{{ HONEYPOT_URL }}" style="display: none;">ozone-inevitable</a>
+                </p>
+            {% endblock %}</div>
+        </footer>
+
+
         <script src="{% static 'bootstrap-3.1.1/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'scripts/bootstrap-select.min.js' %}"></script>
 
@@ -89,4 +106,6 @@
 
         {% block extrascript %}{% endblock %}
     </body>
+
+
 </html>
