@@ -25,6 +25,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('question', 'in_use')
     search_fields = ('question',)
+    filter_horizontal = ('answers',)
 
 
 class QuestionAnswerAdmin(admin.ModelAdmin):

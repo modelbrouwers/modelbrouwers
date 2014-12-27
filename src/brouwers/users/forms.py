@@ -55,6 +55,7 @@ class AdminUserCreationForm(forms.ModelForm):
 class UserCreationForm(AdminUserCreationForm):
     question = forms.ModelChoiceField(queryset=RegistrationQuestion.active.all(), empty_label=None)
     answer = forms.CharField(label=_('Answer'), max_length=255)
+    accept_terms = forms.BooleanField(label=_('I have read and accepted the registration terms'), required=True)
 
     class Meta:
         model = User

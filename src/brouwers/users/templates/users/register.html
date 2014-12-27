@@ -1,41 +1,75 @@
-{% extends "base.html" %}
-{% load i18n %}
-
-{% block title %}Modelbrouwers.nl &bull; {% trans 'Registration' %}{% endblock %}
+{% extends "base_html5.html" %} {% load i18n formulation %}
 
 
-{% block style %}
-    {{ block.super }}
-    <style type="text/css">
-        #registration-form  {margin-bottom: 2em;}
-        #registration-terms {margin: 1em;}
-        #terms-list li      {margin-bottom: 1em;}
-        .p-title            {font-weight: bold;}
-        p.term              {margin-bottom: 0.5em;}
-    </style>
-{% endblock style %}
+{% block title %}Modelbrouwers.nl &bull; {% trans 'registration' %}{% endblock %}
 
 
 {% block content %}
-<div class="tab">
-{% trans "Registration: fill out the form below. All fields are required." %}
-</div>
 
-<div id="register">
-    <form action="" method="post">
+<header class="eye-catcher">
+    <div class="container">
+        <h1>{% trans "Create an account" %}
+            <small>{% trans "you're just a step away from your personal account" %}</small>
+        </h1>
 
-        {% include "form_in_table.html" %}
+        <p>{% blocktrans %}
+            We're happy to see you join our beautiful hobby hub where you can exchange tips and tricks
+            and participate in the community!
+        {% endblocktrans %}</p>
 
-        <div class="center">
-            <input class="submit-button" type="submit" value="{% trans 'Register' %}"/>
-            <br />
-            <span class="small-text">{% trans "By registering, you agree to the terms below." %}</span>
-        </div>
-    </form>
-
-    <div class="tab midpage">{% trans "Registration terms" %}</div>
-    <div id="registration-terms">
-        {% include "general/registration_terms.html" %}
+        <p>{% blocktrans %}When you're done, don't forget to introduce yourself in the appropriate forum,
+        and make yourself familiar with our rules. If you run into any trouble, you can contact the
+        staff via PM (personal message), or contact the admins via the e-mail address below.
+        {% endblocktrans %}</p>
     </div>
+</header>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <form action="." method="post" class="form-horizontal col-xs-12 col-md-7 col-xl-5" id="form-register">
+        {% form 'horizontal.form' %}
+            {% csrf_token %}
+            <h2>{% trans "Enter your account details" %}</h2>
+            {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
+            <fieldset class="well">
+                {% field form.username %}
+                {% field form.email %}
+                {% field form.password1 %}
+                {% field form.password2 %}
+            </fieldset>
+
+            <h2>{% trans "Anti-spam question" %}</h2>
+            <fieldset class="well">
+                {% field form.question %}
+                {% field form.answer %}
+                {% field form.accept_terms %}
+            </fieldset>
+            {% endwith %}
+
+            <div class="submit-wrapper">
+                <button type="submit" class="btn bg-main-orange">{% trans "Create your account" %}</button>
+                <p>
+                    <a href="{% url 'users:login' %}">{% trans "Already have an account?" %}</a>
+                </p>
+            </div>
+        {% endform %}
+        </form>
+
+
+        <div class="col-xs-12 col-md-4 col-md-offset-1 col-xl-6 col-xl-offset-1">
+            <h2>{% trans "Terms and conditions" %}</h2>
+            <p>{% blocktrans %}
+                Unfortunately, some people need strong and clear rules to behave. When you create an account,
+                you agree with these terms and conditions.
+            {% endblocktrans %}
+            {% include "general/registration_terms.html" %}
+        </div>
+
+    </div>
+
 </div>
+
 {% endblock %}
