@@ -510,6 +510,25 @@ form fieldset.well h3 {
   color: #FFFFFF;
   text-decoration: underline;
 }
+/* line 44, ../../sass/partials/_forms.scss */
+.btn.btn-default {
+  background-color: #919291;
+}
+
+/* line 49, ../../sass/partials/_forms.scss */
+.selectpicker {
+  color: #333333;
+}
+/* line 52, ../../sass/partials/_forms.scss */
+.selectpicker.btn-default {
+  background-color: transparent;
+}
+/* line 56, ../../sass/partials/_forms.scss */
+.selectpicker:hover {
+  background-color: inherit;
+  color: inherit;
+  text-decoration: none;
+}
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {

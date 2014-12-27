@@ -34,10 +34,28 @@ form {
 
 /* buttons */
 .btn {
-
   color: $white;
+
   &:hover, &:active, &:focus {
     color: $white;
     text-decoration: underline;
+  }
+
+  &.btn-default {
+    background-color: $main-grey;
+  }
+}
+
+.selectpicker {
+  color: $text-color;
+
+  &.btn-default {
+    background-color: transparent;
+  }
+
+  &:hover {
+    background-color: inherit;
+    color: inherit;
+    text-decoration: none;
   }
 }
