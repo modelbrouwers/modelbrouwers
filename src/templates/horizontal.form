@@ -51,15 +51,27 @@
     {% use "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
-        {% with field_type=field_type|default:"text" %}
         <select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flat_attrs }} class="form-control">
         {% for val, display in choices %}
             <option value="{{ val }}" {% if val == value|default:None %}selected{% endif %}>{{ display }}</option>
         {% endfor %}
         </select>
-        {% endwith %}
         {% use "_help" %}
         {% if help_text %}</div>{% endif %}
+        {% use "_errors" %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block HiddenSelect %}
+<div class="form-group">
+    {% use "_label" %}
+    <div class="{{ field_grid|default:'col-sm-10' }}">
+        <input type="hidden" name="{{ html_name }}" value="{{ value }}">
+        {% for val, display in choices %}
+            <div class="form-control-static">{{ display }}</div>
+        {% endfor %}
         {% use "_errors" %}
     </div>
 </div>

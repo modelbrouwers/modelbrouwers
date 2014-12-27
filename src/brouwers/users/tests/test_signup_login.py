@@ -84,7 +84,8 @@ class LoginRegisterTests(WebTest):
             'password1': 'password',
             'password2': 'password',
             'question': question.id,
-            'answer': answer
+            'answer': answer,
+            'accept_terms': True
         }
 
         response = self.client.post(url, post_data)

@@ -43,7 +43,7 @@
 
             <h2>{% trans "Anti-spam question" %}</h2>
             <fieldset class="well">
-                {% field form.question %}
+                {% field form.question 'HiddenSelect' %}
                 {% field form.answer %}
                 {% field form.accept_terms %}
             </fieldset>
