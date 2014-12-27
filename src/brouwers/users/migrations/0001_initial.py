@@ -3,27 +3,15 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
-from django.conf import settings
 
 
 class Migration(SchemaMigration):
 
+    needed_by = (
+        ('menu', '0001_initial'),
+    )
+
     def forwards(self, orm):
-        if settings.SKIP_AUTH_USER_MODEL_MIGRATIONS:
-            self.create_tables(orm)
-        else:
-            self.rename_tables_fwd(orm)
-
-    def backwards(self, orm):
-        # renaming table from contrib.auth to users app
-        db.rename_table(u'users_user', u'auth_user')
-        db.send_create_signal(u'auth', ['User'])
-
-        # renaming m2m tables
-        db.rename_table(u'users_user_groups', u'auth_user_groups')
-        db.rename_table(u'users_user_user_permissions', u'auth_user_user_permissions')
-
-    def create_tables(self, orm):
         # Adding model 'User'
         db.create_table(u'users_user', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -60,15 +48,16 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(m2m_table_name, ['user_id', 'permission_id'])
 
-    def rename_tables_fwd(self, orm):
-        # renaming table from contrib.auth to users app
-        db.rename_table(u'auth_user', u'users_user')
-        db.send_create_signal(u'users', ['User'])
 
-        # renaming m2m tables
-        db.rename_table(u'auth_user_groups', u'users_user_groups')
-        db.rename_table(u'auth_user_user_permissions', u'users_user_user_permissions')
+    def backwards(self, orm):
+        # Deleting model 'User'
+        db.delete_table(u'users_user')
 
+        # Removing M2M table for field groups on 'User'
+        db.delete_table(db.shorten_name(u'users_user_groups'))
+
+        # Removing M2M table for field user_permissions on 'User'
+        db.delete_table(db.shorten_name(u'users_user_user_permissions'))
 
 
     models = {
@@ -93,11 +82,12 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'users.user': {
-            'Meta': {'object_name': 'User'},
+            'Meta': {'ordering': "['username_clean']", 'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
+            'forumuser_id': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -105,9 +95,10 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
+            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
+            'username_clean': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'})
         }
     }
 
-    complete_apps = ['auth', 'users']
+    complete_apps = ['users']

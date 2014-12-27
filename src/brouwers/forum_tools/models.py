@@ -212,7 +212,8 @@ class ForumPostCountRestriction(models.Model):
         ('R', _('Reply')),
         )
 
-    forum = models.ForeignKey(Forum)
+    forum = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
+        help_text=_('Forum id of the group build subforum'))
     min_posts = models.PositiveSmallIntegerField(_('minimum number of posts'))
     posting_level = models.CharField(_('posting level'), max_length=1,
                     choices=POSTING_LEVELS

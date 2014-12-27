@@ -99,12 +99,13 @@ class ForumToolsDescriptor(object):
 
 
 from south.modelsinspector import add_introspection_rules
-rules = [(
-        [ForumToolsIDField],
+rules = [
+    (
+        (ForumToolsIDField, ),
         [],
         {
             'type': ['_type', {'default': None}]
-        }
+        },
     )
 ]
-add_introspection_rules(rules, ["^forum_tools\.fields\.ForumToolsIDField"])
+add_introspection_rules(rules, ["^brouwers.forum_tools\.fields\.ForumToolsIDField"])
