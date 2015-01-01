@@ -16,7 +16,7 @@ class BuildAdmin(admin.ModelAdmin):
                 ('profile', 'user'),
                 'title',
                 'url',
-                ('topic_id', 'forum_id'),
+                ('topic_id', 'forum'),
                 )
             }
         ),
@@ -29,7 +29,7 @@ class BuildAdmin(admin.ModelAdmin):
         ),
         ('Varia', {
             'fields': (
-                ('start_date', 'end_date'), 
+                ('start_date', 'end_date'),
                 ),
             'classes': ['collapse'],
         }),
@@ -38,7 +38,7 @@ class BuildAdmin(admin.ModelAdmin):
             }
         )
     )
-    
+
     prepopulated_fields = {
         'slug': ('title',),
         }

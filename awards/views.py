@@ -196,6 +196,7 @@ class VoteView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         # check if voting is enabled
+        # TODO: unit test
         if not _voting_enabled():
             this_year = date.today().year
             vote_start_date = date(this_year+1, 1, 1)
@@ -205,7 +206,7 @@ class VoteView(LoginRequiredMixin, TemplateView):
                 'end_date': date_format(vote_end_date),
             }
             messages.error(request, message)
-        return redirect(reverse('awards_index'))
+            return redirect(reverse('awards_index'))
 
         return super(VoteView, self).get(request, *args, **kwargs)
 

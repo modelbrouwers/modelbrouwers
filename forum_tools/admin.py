@@ -21,7 +21,7 @@ class ForumAdmin(admin.ModelAdmin):
 
 
 class BuildReportsForumAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'forum_id')
+    list_display = ('__unicode__', 'forum')
 
 
 class ForumUserAdmin(admin.ModelAdmin):
@@ -50,8 +50,8 @@ class ReportAdmin(admin.ModelAdmin):
 
 
 class ForumCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'forum_id', 'icon_class')
-    list_editable = ('forum_id', 'icon_class')
+    list_display = ('name', 'forum', 'icon_class')
+    list_editable = ('forum', 'icon_class')
     search_fields = ('name',)
 
 
