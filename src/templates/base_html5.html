@@ -29,8 +29,8 @@
         <![endif]-->
         <!-- use googles jquery, loads faster and relieves own server -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        {# fallback #}
         <script>
-            <!-- fallback -->
             if (typeof jQuery === 'undefined') {
                 document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
             }
@@ -65,12 +65,24 @@
         </div>
         {% endblock %}
 
-        {% block content %}
-        <div class="container"></div>
-        {% endblock content %}
-
+        {% block content %} <div class="container"></div> {% endblock content %}
 
         <footer>
+
+            <div class="container text-right text-muted">
+                {% if user.is_authenticated %}
+                    {% url 'profile' as profile_url %}
+                    <i class="fa fa-user"></i>
+                    {% blocktrans %}logged in as <a href="{{ profile_url }}">{{ user }}</a>{% endblocktrans %}
+                    &bull;
+                    <a href="{% url 'users:logout' %}">{% trans "logout" %}</a>
+                {% else %}
+                    <a href="{% url 'users:login' %}?next={{ request.path }}">{% trans "Login" %}</a>
+                    &bull;
+                    <a href="{% url 'users:register' %}">{% trans "Register" %}</a>
+                {% endif %}
+            </div>
+
             <div class="container-fluid text-center">{% block footer %}
                 {# {% include "footer_banner.html" %} #}
                 <p class="text-muted">
