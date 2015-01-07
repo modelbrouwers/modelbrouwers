@@ -58,6 +58,9 @@ def index(request):
 
 @login_required
 def profile(request):
+    return redirect('users:profile')
+
+
     forms = {}
     profile = request.user.profile
     if request.method=='POST':

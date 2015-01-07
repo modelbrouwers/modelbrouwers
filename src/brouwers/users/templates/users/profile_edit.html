@@ -1,0 +1,33 @@
+{% extends "base_html5.html" %}{% load i18n formulation %}
+
+{% block content %}
+<div class="container">
+	<form action="." method="post">
+	{% form 'horizontal.form' %}
+
+		<fieldset class="well">
+			{% field forms.user.email %}
+			{% field forms.user.first_name %}
+			{% field forms.user.last_name %}
+		</fieldset>
+
+		<fieldset class="well">
+			{% field forms.profile.street %}
+			{% field forms.profile.number %}
+			{% field forms.profile.postal %}
+			{% field forms.profile.city %}
+			{% field forms.profile.province %}
+		</fieldset>
+
+		<fieldset class="well">
+			{% field forms.profile.exclude_from_nomination %}
+		</fieldset>
+
+		<fieldset class="well">
+			{% field forms.profile.allow_sharing %}
+		</fieldset>
+
+	{% endform %}
+	</form>
+</div>
+{% endblock content %}

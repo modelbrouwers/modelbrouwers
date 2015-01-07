@@ -5,8 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.migration.models import UserMigration
-from brouwers.forum_tools.models import ForumUser
-from brouwers.awards.models import Project
 from .models import UserProfile, RegistrationQuestion
 
 User = get_user_model()
@@ -221,72 +219,6 @@ class PasswordResetForm(forms.Form):
             raise forms.ValidationError(
                 _("The two password fields didn't match."))
         return password2
-
-
-######################################
-#            Profile stuff           #
-######################################
-class UserForm(forms.ModelForm):
-    _original_email = None
-    _profile = None
-
-    class Meta:
-        model = User
-        fields =('email', 'first_name', 'last_name')
-        widgets = {
-            'email': forms.TextInput(attrs={'size':30})
-        }
-
-    def __init__(self, profile=None, *args, **kwargs):
-        user = kwargs['instance']
-        self._original_email = user.email
-        if profile:
-            self._profile = profile
-        super(UserForm, self).__init__(*args, **kwargs)
-
-    def save(self, *args, **kwargs):
-        if self._original_email != self.cleaned_data['email']:
-            new_email = self.cleaned_data['email']
-            try:
-                forum_user = ForumUser.objects.get(username=self._profile.forum_nickname)
-                forum_user.user_email = new_email
-                forum_user.save()
-            except ForumUser.DoesNotExist: # user hasn't been on the forum yet, so no record exists
-                pass
-            finally:
-                super(UserForm, self).save(*args, **kwargs)
-
-
-class AddressForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('street', 'number', 'postal', 'city', 'province', 'country')
-
-
-class AwardsForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('exclude_from_nomination',)
-
-    def save(self, *args, **kwargs):
-        profile = super(AwardsForm, self).save(*args, **kwargs)
-        if profile.exclude_from_nomination:
-            projects = Project.objects.filter(brouwer__iexact=profile.forum_nickname)
-            for project in projects:
-                project.rejected = True
-                project.save()
-
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ('user', 'last_vote', 'forum_nickname', 'secret_santa')
-
-
-class SharingForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('allow_sharing',)
 
 
 ######################################

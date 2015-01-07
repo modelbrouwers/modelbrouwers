@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.general.models import RegistrationQuestion
-from .models import User
+from ..models import User
 
 
 class AdminUserCreationForm(forms.ModelForm):
