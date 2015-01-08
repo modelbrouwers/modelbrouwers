@@ -26,3 +26,4 @@ BeautifulSoup
 django-admin-tools==0.5.2
 bleach==1.4
 pytz
+django-extra-views==0.6.5

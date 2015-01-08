@@ -1,0 +1,32 @@
+{% extends "base_html5.html" %}{% load i18n %}
+
+
+{% block title %}{% trans 'Modelbrouwers.nl &bull; View profile' %}{% endblock %}
+
+
+{% block content %}
+<header class="container-fluid eye-catcher">
+    <div class="container">
+
+        <h1>{{ profile.username }}</h1>
+    </div>
+</header>
+
+
+<div class="container">
+
+	<div role="tabpanel">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a href="#tab-user" data-toggle="tab">{% trans "Albums" %}</a></li>
+			<li><a href="#tab-address" data-toggle="tab">{% trans "Builds" %}</a></li>
+			<li><a href="#tab-awards" data-toggle="tab">{% trans "Groupbuilds" %}</a></li>
+		</ul>
+
+		<div class="tab-content">
+		</div>
+	</div>
+
+</div>
+
+
+{% endblock %}

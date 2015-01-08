@@ -24,9 +24,19 @@ form {
     margin-bottom: 30px;
   }
 
-  fieldset.well {
-    h3 {
-      margin-top: 0;
+  fieldset {
+
+    &.well {
+      h3 {
+        margin-top: 0;
+      }
+    }
+
+    &.tab-pane {
+      border: solid 1px #DDD;
+      border-top: none;
+      padding: 15px;
+      margin-bottom: 15px;
     }
   }
 }

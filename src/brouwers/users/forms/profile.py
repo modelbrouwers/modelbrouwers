@@ -2,13 +2,6 @@ from django import forms
 
 from brouwers.awards.models import Project
 from brouwers.general.models import UserProfile
-from ..models import User
-
-
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email')
 
 
 class UserProfileForm(forms.ModelForm):

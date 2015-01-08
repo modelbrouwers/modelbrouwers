@@ -1,33 +1,81 @@
 {% extends "base_html5.html" %}{% load i18n formulation %}
 
+{% block title %}{% trans 'Modelbrouwers.nl &bull; Edit profile' %}{% endblock %}
+
 {% block content %}
+<header class="container-fluid eye-catcher">
+    <div class="container">
+
+        <h1>{% trans "Your profile" %}</h1>
+
+        <p>{% blocktrans %}
+            Here you can configure various site-wide settings.
+        {% endblocktrans %}</p>
+
+        <a href="{% url 'django.contrib.auth.views.password_change' %}" id="change-password" class="btn bg-main-orange">{% trans "Change password" %}</a>
+    </div>
+</header>
+
+
 <div class="container">
-	<form action="." method="post">
-	{% form 'horizontal.form' %}
 
-		<fieldset class="well">
-			{% field forms.user.email %}
-			{% field forms.user.first_name %}
-			{% field forms.user.last_name %}
-		</fieldset>
+	<div class="row">
 
-		<fieldset class="well">
-			{% field forms.profile.street %}
-			{% field forms.profile.number %}
-			{% field forms.profile.postal %}
-			{% field forms.profile.city %}
-			{% field forms.profile.province %}
-		</fieldset>
+		<form action="." method="post" class="form-horizontal col-md-8 col-xs-12">
+		{% form 'horizontal.form' %}{% with label_grid='col-sm-4' field_grid='col-sm-8' %}
+			{% csrf_token %}
 
-		<fieldset class="well">
-			{% field forms.profile.exclude_from_nomination %}
-		</fieldset>
+			{{ profiles.management_form }}
+			{{ profiles.0.id }}
 
-		<fieldset class="well">
-			{% field forms.profile.allow_sharing %}
-		</fieldset>
+			{% if form.errors or profiles.0.errors %}
+				<div class="text-danger">{% trans "You have form errors, check the tabs below" %}</div>
+			{% endif %}
 
-	{% endform %}
-	</form>
+			<div role="tabpanel">
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="active"><a href="#tab-user" data-toggle="tab">{% trans "User details" %}</a></li>
+					<li><a href="#tab-address" data-toggle="tab">{% trans "Address" %}</a></li>
+					<li><a href="#tab-awards" data-toggle="tab">{% trans "Awards" %}</a></li>
+					<li><a href="#tab-privacy" data-toggle="tab">{% trans "Social settings" %}</a></li>
+					<li><a href="{{ PHPBB_URL }}ucp.php?i=profile&amp;mode=profile_info">{% trans "Forum profile" %}</a></li>
+				</ul>
+
+				<div class="tab-content">
+
+					<fieldset class="tab-pane active" id="tab-user">
+						{% field form.email %}
+						{% field form.first_name %}
+						{% field form.last_name %}
+					</fieldset>
+
+					<fieldset class="tab-pane" id="tab-address">
+						{% field profiles.0.street %}
+						{% field profiles.0.number %}
+						{% field profiles.0.postal %}
+						{% field profiles.0.city %}
+						{% field profiles.0.province %}
+					</fieldset>
+
+					<fieldset class="tab-pane" id="tab-awards">
+						{% field profiles.0.exclude_from_nomination %}
+					</fieldset>
+
+					<fieldset class="tab-pane" id="tab-privacy">
+						{% field profiles.0.allow_sharing %}
+					</fieldset>
+
+				</div>
+			</div>
+
+			<div class="submit-wrapper">
+			    {% block submit_button %}
+			        <button type="submit" class="btn btn-primary">{% block submit-btn %}{% trans "Save changes" %}{% endblock %}</button>
+			    {% endblock %}
+			</div>
+		{% endwith %}{% endform %}
+		</form>
+
+	</div>
 </div>
 {% endblock content %}

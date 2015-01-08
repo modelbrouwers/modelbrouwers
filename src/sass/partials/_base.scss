@@ -54,6 +54,10 @@ a.list-group-item:hover {
   a {
     color: $main-blue;
     font-weight: bold;
+
+    &.btn {
+      color: $white;
+    }
   }
 }
 

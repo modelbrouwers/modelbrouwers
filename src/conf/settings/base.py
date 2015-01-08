@@ -149,6 +149,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     "brouwers.albums.context_processors.user_is_album_admin",
     "brouwers.general.context_processors.connection",
+    "brouwers.general.context_processors.djsettings",
 )
 
 #

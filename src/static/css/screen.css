@@ -179,13 +179,17 @@ a.list-group-item:hover {
   color: #006699;
   font-weight: bold;
 }
+/* line 58, ../../sass/partials/_base.scss */
+.eye-catcher a.btn {
+  color: #FFFFFF;
+}
 
-/* line 60, ../../sass/partials/_base.scss */
+/* line 64, ../../sass/partials/_base.scss */
 p {
   margin-top: 10px;
 }
 
-/* line 65, ../../sass/partials/_base.scss */
+/* line 69, ../../sass/partials/_base.scss */
 .feedback p {
   background-color: rgba(223, 74, 197, 0.4);
   margin-left: -5px;
@@ -193,7 +197,7 @@ p {
   padding: 5px;
 }
 
-/* line 73, ../../sass/partials/_base.scss */
+/* line 77, ../../sass/partials/_base.scss */
 body > footer {
   margin-top: 50px;
 }
@@ -495,35 +499,42 @@ form .submit-wrapper {
   text-align: right;
   margin-bottom: 30px;
 }
-/* line 28, ../../sass/partials/_forms.scss */
+/* line 30, ../../sass/partials/_forms.scss */
 form fieldset.well h3 {
   margin-top: 0;
 }
+/* line 35, ../../sass/partials/_forms.scss */
+form fieldset.tab-pane {
+  border: solid 1px #DDD;
+  border-top: none;
+  padding: 15px;
+  margin-bottom: 15px;
+}
 
 /* buttons */
-/* line 36, ../../sass/partials/_forms.scss */
+/* line 46, ../../sass/partials/_forms.scss */
 .btn {
   color: #FFFFFF;
 }
-/* line 39, ../../sass/partials/_forms.scss */
+/* line 49, ../../sass/partials/_forms.scss */
 .btn:hover, .btn:active, .btn:focus {
   color: #FFFFFF;
   text-decoration: underline;
 }
-/* line 44, ../../sass/partials/_forms.scss */
+/* line 54, ../../sass/partials/_forms.scss */
 .btn.btn-default {
   background-color: #919291;
 }
 
-/* line 49, ../../sass/partials/_forms.scss */
+/* line 59, ../../sass/partials/_forms.scss */
 .selectpicker {
   color: #333333;
 }
-/* line 52, ../../sass/partials/_forms.scss */
+/* line 62, ../../sass/partials/_forms.scss */
 .selectpicker.btn-default {
   background-color: transparent;
 }
-/* line 56, ../../sass/partials/_forms.scss */
+/* line 66, ../../sass/partials/_forms.scss */
 .selectpicker:hover {
   background-color: inherit;
   color: inherit;

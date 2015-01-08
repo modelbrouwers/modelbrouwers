@@ -11,11 +11,13 @@ from django.utils.translation import ugettext as _
 from django.views import generic
 from django.views.generic.base import TemplateResponseMixin, ContextMixin
 
+from extra_views import UpdateWithInlinesView, NamedFormsetsMixin, InlineFormSet
+
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
-from brouwers.general.models import RegistrationQuestion, RegistrationAttempt
+from brouwers.general.models import RegistrationQuestion, RegistrationAttempt, UserProfile
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import UserCreationForm, UserProfileForm, UserForm
+from .forms import UserCreationForm, UserProfileForm
 from .mail import UserRegistrationEmail
 from .tokens import activation_token_generator
 
@@ -192,40 +194,33 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
         login(self.request, user)
 
 
+class ProfileInline(InlineFormSet):
+    model = UserProfile
+    form_class = UserProfileForm
+    can_delete = False
+    extra = 0
+    max_num = 1
 
-class ProfileView(LoginRequiredMixin, TemplateResponseMixin, ContextMixin, generic.View):
+
+class ProfileView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesView):
+    model = User
+    fields = ('first_name', 'last_name', 'email')
     template_name = 'users/profile_edit.html'
-    form_classes = (
-        ('user', UserForm),
-        ('profile', UserProfileForm),
-    )
 
-    def get_form_kwargs(self, label):
-        """
-        Returns the keyword arguments for instantiating the form.
-        """
-        kwargs = {
-            'prefix': label
-        }
-        if self.request.method in ('POST', 'PUT'):
-            kwargs.update({
-                'data': self.request.POST,
-                'files': self.request.FILES,
-            })
-        return kwargs
+    inlines = [ProfileInline]
+    inlines_names = ['profiles']
 
-    def get_form(self, form_class, label):
-        return form_class(**self.get_form_kwargs(label))
+    def get_object(self):
+        return self.request.user
 
-    def get_forms(self, form_classes):
-        forms = SortedDict()
-        for label, form_class in form_classes:
-            if hasattr(self, 'get_{0}_form'.format(label)):
-                forms[label] = getattr(self, 'get_{0}_form'.format(label))(form_class)
-            else:
-                forms[label] = self.get_form(form_class, label)
-        return forms
 
-    def get(self, request, *args, **kwargs):
-        forms = self.get_forms(self.form_classes)
-        return self.render_to_response(self.get_context_data(forms=forms))
+    def forms_valid(self, form, inlines):
+        response = super(ProfileView, self).forms_valid(form, inlines)
+        messages.success(self.request, _('Your profile data has been updated.'))
+        return response
+
+
+class UserProfileDetailView(LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = 'users/profile.html'
+    context_object_name = 'profile'
