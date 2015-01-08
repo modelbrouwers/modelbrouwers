@@ -31,4 +31,3 @@
         <?php include($root.'shop_banner.php'); ?>
     </ul>
 </header>
-<span id="anniversary"></span>

@@ -179,18 +179,3 @@
     width: 42px;
     background-position: -400px -318px;
 }
-
-#anniversary{
-    position: absolute;
-    display: block;
-    top: 0;
-    right: 5px;
-    width: 100px;
-    height: 94px;
-    background: url(../images/varia/modelbrouwers10jaar.png);
-}
-@media (max-width: 768px) {
-  #anniversary {
-    display: none;
-  }
-}

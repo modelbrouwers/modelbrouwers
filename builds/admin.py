@@ -16,7 +16,7 @@ class BuildAdmin(admin.ModelAdmin):
                 ('profile', 'user'),
                 'title',
                 'url',
-                ('topic_id', 'forum'),
+                ('topic_id', 'forum_id'),
                 )
             }
         ),
