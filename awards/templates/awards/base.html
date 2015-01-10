@@ -5,8 +5,6 @@
 Modelbrouwers.nl &bull; Awards
 {% endblock %}
 
-{% block body-attrs %} class="fade-small-logo"{% endblock %}
-
 {% block style %}
     {% compress css %}
         {{ block.super }}
@@ -42,7 +40,7 @@ Modelbrouwers.nl &bull; Awards
 	</a></li>
 {% endblock %}
 
-{% block body-attrs %} id="awards"{% endblock %}
+{% block body-attrs %} id="awards" class="fade-small-logo"{% endblock %}
 
 {% block content %}
 <div id="algemene_info">
