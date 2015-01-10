@@ -4,6 +4,8 @@
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
 
+{% block body-attrs %} class="fade-small-logo"{% endblock %}
+
 {% cache 300 albums_index LANGUAGE_CODE %}
 {% block style %}
     {{ block.super }}

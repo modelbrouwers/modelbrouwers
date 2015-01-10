@@ -19,14 +19,6 @@ img, a img  {border: none;}
 #top{
     position: relative;
 }
-#anniversary{
-    position: absolute;
-    top: 0;
-    right: 5px;
-    width: 100px;
-    height: 94px;
-    background: url(../images/varia/modelbrouwers10jaar.png);
-}
 
 div#container           {padding: 5px 5px 0 5px;}
 

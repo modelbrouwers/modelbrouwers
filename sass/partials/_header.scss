@@ -13,6 +13,11 @@
   font-family: $font-header-nav;
 }
 
+body.fade-small-logo .navbar-brand img {
+  @include bw();
+  @include opacity(0.7);
+}
+
 @media (min-width:768px) { // show the tabs
   .navbar-brand {
     position: absolute;

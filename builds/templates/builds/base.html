@@ -5,6 +5,8 @@
 Modelbrouwers.nl &bull; {% trans "Build reports" %}
 {% endblock %}
 
+{% block body-attrs %} class="fade-small-logo"{% endblock %}
+
 {% block style %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static "css/builds.css" %}" charset="utf-8"/>
