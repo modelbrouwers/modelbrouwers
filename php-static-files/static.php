@@ -101,6 +101,17 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 	}
 
 	public function url($files, $ext='js') {
+
+		if ($this->DEBUG) {
+			$urls = array_map(function($path) {
+				return $this->get_static_url() . $path;
+			}, $files);
+			if ($ext == 'js') {
+				$glue = "\"></script>\n<script src=\"";
+				return implode($glue, $urls);
+			}
+		}
+
 		$root = $this->get_static_root();
 		$file_paths = array();
 		$_output = array();
