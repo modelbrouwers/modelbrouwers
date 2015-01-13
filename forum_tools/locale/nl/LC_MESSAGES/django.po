@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"POT-Creation-Date: 2015-01-13 19:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,210 +26,244 @@ msgstr "forumprofiel"
 msgid "Link"
 msgstr "Link"
 
-#: forms.py:22
-msgid "Provide a set of IDS separated by ';'"
-msgstr "Geef een set van IDs op, gescheiden door ';'"
-
-#: forms.py:30
-#, python-format
-msgid "Please enter a correct %(username)s and password."
-msgstr ""
-
-#: models.py:26 models.py:47
+#: models.py:19 models.py:40
 msgid "link id"
 msgstr "linkid"
 
-#: models.py:26
+#: models.py:19
 msgid "HTML id of the base anchor."
 msgstr "HTML-id van de basislink"
 
-#: models.py:27
+#: models.py:20
 msgid "short description"
 msgstr "korte beschrijving"
 
-#: models.py:29
+#: models.py:22
 msgid "enabled"
 msgstr "ingeschakeld"
 
-#: models.py:30
+#: models.py:23
 msgid "Enable the syncing of this link."
 msgstr "Schakel synchronisatie van deze link in."
 
-#: models.py:32
+#: models.py:25
 msgid "from date"
 msgstr "vanaf datum"
 
-#: models.py:32
+#: models.py:25
 msgid "Start date from when this link is enabled."
 msgstr "Startdatum wanneer deze link begint te synchroniseren."
 
-#: models.py:33
+#: models.py:26
 msgid "to date"
 msgstr "tot datum"
 
-#: models.py:33
+#: models.py:26
 msgid "End date from when this link is enabled, this date included."
 msgstr ""
 "Einddatum tot wanneer deze link gesynchroniseerd wordt, datum inbegrepen."
 
-#: models.py:36
+#: models.py:29
 msgid "base forum link"
 msgstr "basis forumlink"
 
-#: models.py:37
+#: models.py:30
 msgid "base forum links"
 msgstr "basis forumlinks"
 
-#: models.py:41
+#: models.py:34
 #, python-format
 msgid "base forum link: %(desc)s"
 msgstr "basis forumlink: %(desc)s"
 
-#: models.py:43
+#: models.py:36
 #, python-format
 msgid "base forum link: %(id)s"
 msgstr "basis forumlink: %(id)s"
 
-#: models.py:46
+#: models.py:39
 msgid "base link"
 msgstr "basislink"
 
-#: models.py:46
+#: models.py:39
 msgid "Link this link syncs with."
 msgstr "Link waarmee deze link synchroniseert."
 
-#: models.py:47
+#: models.py:40
 msgid "HTML id of the anchor to be synced."
 msgstr "HTML id van het link element dat gesynchroniseerd wordt."
 
-#: models.py:50
+#: models.py:43
 msgid "synced forum link"
 msgstr "gesynchroniseerde forumlink"
 
-#: models.py:51
+#: models.py:44
 msgid "synced forum links"
 msgstr "gesynchroniseerde forumlinks"
 
-#: models.py:62
+#: models.py:52 models.py:65
+#, fuzzy
+msgid "forum"
+msgstr "forumgebruiker"
+
+#: models.py:52 models.py:66
+msgid "Forum id of the group build subforum"
+msgstr ""
+
+#: models.py:55
 msgid "build report forum"
 msgstr "brouwverslagforum"
 
-#: models.py:63
+#: models.py:56
 msgid "build report forums"
 msgstr "brouwverslagfora"
 
-#: models.py:71
+#: models.py:60
+msgid "(forum does not exist)"
+msgstr ""
+
+#: models.py:64
 #, fuzzy
 msgid "name"
 msgstr "gebruikersnaam"
 
-#: models.py:72
-msgid "phpBB forum id"
+#: models.py:67
+msgid "icon class"
 msgstr ""
 
-#: models.py:75
+#: models.py:70
 #, fuzzy
 msgid "forum category"
 msgstr "forumgebruiker"
 
-#: models.py:76
+#: models.py:71
 #, fuzzy
 msgid "forum categories"
 msgstr "forumgebruikers"
 
-#: models.py:90
+#: models.py:85
 msgid "Primary key"
 msgstr "Primary key"
 
-#: models.py:92 models.py:93
+#: models.py:87 models.py:88
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:95
+#: models.py:90
 msgid "email"
 msgstr "emails"
 
-#: models.py:99
+#: models.py:94
 msgid "A hash of the user's email address."
 msgstr "Hash van de gebruikers e-mailadres."
 
-#: models.py:109
+#: models.py:104
 msgid "forum user"
 msgstr "forumgebruiker"
 
-#: models.py:110
+#: models.py:105
 msgid "forum users"
 msgstr "forumgebruikers"
 
-#: models.py:173
+#: models.py:201
+#, python-brace-format
+msgid ""
+"This topic has been inactive for: {0}. Please consider sending the author a "
+"private message instead of replying and thus bumping the topic."
+msgstr ""
+"Dit topic is inactief sinds: {0}. Overweeg om de auteur een PB te sturen in "
+"plaats van te reageren en het topic onnodig omhoog te schoppen."
+
+#: models.py:211
 msgid "Topic"
 msgstr "Topic"
 
-#: models.py:174
+#: models.py:212
 msgid "Reply"
 msgstr "Antwoord"
 
-#: models.py:178
+#: models.py:216
 msgid "minimum number of posts"
 msgstr "minimum aantal posts"
 
-#: models.py:179
+#: models.py:217
 msgid "posting level"
 msgstr ""
 
-#: models.py:184
+#: models.py:222
 msgid "forum post count restriction"
 msgstr ""
 
-#: models.py:185
+#: models.py:223
 msgid "forum post count restrictions"
 msgstr ""
 
-#: models.py:189
+#: models.py:227
 #, python-format
 msgid "Restriction for %(forum)s"
 msgstr ""
 
-#: models.py:199
+#: models.py:237
 msgid "closed"
-msgstr ""
+msgstr "gesloten"
 
-#: models.py:199
+#: models.py:237
 msgid "Closed reports need no more attention."
 msgstr ""
 
-#: models.py:200
+#: models.py:238
 msgid "time"
 msgstr ""
 
-#: models.py:200
+#: models.py:238
 msgid "UNIX time when the report was added."
 msgstr ""
 
-#: models.py:205
+#: models.py:243
 msgid "report"
 msgstr ""
 
-#: models.py:206
+#: models.py:244
 msgid "reports"
 msgstr ""
 
-#: models.py:209
+#: models.py:247
 msgid "Can see (number of) open reports"
 msgstr ""
 
-#: models.py:213
+#: models.py:251
 #, python-format
 msgid "Report %(id)s"
 msgstr ""
 
-#: views.py:116
+#: views.py:114
 msgid "Add build report"
 msgstr "Brouwverslag toevoegen"
 
-#: views.py:117
+#: views.py:115
 msgid "Nominate for award"
 msgstr "Nomineer voor award"
+
+#: forms/fields.py:15
+msgid "Enter a valid url"
+msgstr ""
+
+#: forms/forms.py:25
+msgid "Provide a set of IDS separated by ';'"
+msgstr "Geef een set van IDs op, gescheiden door ';'"
+
+#: forms/forms.py:33
+#, python-format
+msgid "Please enter a correct %(username)s and password."
+msgstr ""
+
+#: forms/widgets.py:29
+msgid "Currently:"
+msgstr ""
+
+#: forms/widgets.py:30
+msgid "Change:"
+msgstr ""
 
 #: templates/forum_tools/sharing_allowed.html:2
 #: templates/forum_tools/sharing_not_allowed.html:2

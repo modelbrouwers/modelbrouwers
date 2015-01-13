@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"POT-Creation-Date: 2015-01-13 19:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,11 +46,11 @@ msgstr "type"
 msgid "color"
 msgstr "kleur"
 
-#: models.py:30
+#: models.py:31
 msgid "mail the shirt"
 msgstr "shirt opsturen"
 
-#: models.py:30
+#: models.py:32
 #, python-format
 msgid ""
 "Mailing the shirt will add %(shipping_cost)s euros to the costs and you need "
@@ -59,32 +59,32 @@ msgstr ""
 "Opsturen van het shirt voegt %(shipping_cost)s euro verzendkosten toe aan de "
 "totaalprijs. Je moet ook je adresgegevens in je profiel invullen!"
 
-#: models.py:31
+#: models.py:35
 msgid "moderator shirt"
 msgstr "moderatorshirt"
 
-#: models.py:31
+#: models.py:36
 msgid "Check this box if you want the moderator shirt. Moderators only!"
 msgstr ""
 "Aanvinken als je een shirt voor de moderators wil. Enkel voor moderators!"
 
-#: models.py:34
+#: models.py:39
 msgid "order time"
 msgstr "besteltijd"
 
-#: models.py:35
+#: models.py:40
 msgid "payment received"
 msgstr "betaling ontvangen"
 
-#: models.py:36
+#: models.py:41
 msgid "delivered?"
 msgstr "bezorgd?"
 
-#: models.py:39
+#: models.py:44
 msgid "shirt order"
 msgstr "shirtbestelling"
 
-#: models.py:40
+#: models.py:45
 msgid "shirt orders"
 msgstr "shirtbestellingen"
 

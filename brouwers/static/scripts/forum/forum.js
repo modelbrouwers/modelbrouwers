@@ -11,7 +11,7 @@ var _urlconf = {
 		sync_data: '/forum_tools/get_sync_data/',
 		get_build_report_forums: '/forum_tools/get_build_report_forums/',
 		get_post_perm: '/forum_tools/get_post_perm/',
-		check_topic_dead: './ajax/topic_dead.php', // FIXME
+		check_topic_dead: 'forum_tools/topic/{0}/',
 
 		mods: {
 			get_sharing_perms: '/forum_tools/mods/get_sharing_perms/'
@@ -82,20 +82,24 @@ $(function() {
 	}
 
 	// dead topics
-	function test_url(){
+	function test_url(e) {
+		e.preventDefault();
 		var a = $(this);
 		var topic_id = a.data('topic-id');
-		$.get(urlconf.forum_tools.check_topic_dead, {t: topic_id}, function(data){
-			if (data === "") {
-				var url = "" + a.attr('href');
-				window.location=url;
-			} else {
-				$('body').css('overflow-y','hidden');
-				$('div#blanket').show();
-				$('div#dead_topic').show();
-				$('div#message_topic_dead').html(data);
-			}
-		});
+
+		var endpoint = urlconf.forum_tools.check_topic_dead.format(topic_id);
+		Api.request(endpoint)
+			.get()
+			.done(function(data) {
+				if (!data.is_dead) {
+					window.location = a.attr('href');
+				} else {
+					$('body').css('overflow-y','hidden');
+					$('#blanket, #dead_topic').show();
+					$('#message_topic_dead').text(data.text_dead);
+				}
+			});
+		return false;
 	}
 });
 

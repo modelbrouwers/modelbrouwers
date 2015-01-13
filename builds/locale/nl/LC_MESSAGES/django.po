@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"POT-Creation-Date: 2015-01-13 19:51+0100\n"
 "PO-Revision-Date: 2014-05-29 21:59+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,11 +170,11 @@ msgstr "Log in om brouwverslagen toe te voegen!"
 msgid "Build reports"
 msgstr "Brouwverslagen"
 
-#: templates/builds/base.html:33
+#: templates/builds/base.html:35
 msgid "Overview / Add build report"
 msgstr "Overzicht / Voeg brouwverslag toe"
 
-#: templates/builds/base.html:39
+#: templates/builds/base.html:41
 msgid "My builds"
 msgstr "Mijn projecten"
 

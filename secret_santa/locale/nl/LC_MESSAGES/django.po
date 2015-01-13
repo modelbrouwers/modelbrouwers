@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"POT-Creation-Date: 2015-01-13 19:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sergei Maertens <sergei@modelbrouwers.nl>\n"
 "Language-Team: nl <sergei@modelbrouwers.nl>\n"
@@ -86,27 +86,27 @@ msgstr "deelnemer"
 msgid "participants"
 msgstr "deelnemers"
 
-#: views.py:44 templates/secret_santa/base.html:58
+#: views.py:42 templates/secret_santa/base.html:58
 msgid "Your address details are incomplete."
 msgstr "Je adresgegevens zijn onvolledig."
 
-#: views.py:46 templates/secret_santa/base.html:64
+#: views.py:44 templates/secret_santa/base.html:64
 msgid "Signing up is not possible at this time."
 msgstr "Inschrijven is niet mogelijk op dit moment."
 
-#: views.py:77
+#: views.py:75
 msgid "The lottery is done."
 msgstr "De lootjes zijn verdeeld."
 
-#: views.py:94
+#: views.py:92
 msgid "Your match does not exist."
 msgstr "Je Secret Santa bestaat niet. Paniek!"
 
-#: views.py:96
+#: views.py:94
 msgid "You're not a participant!"
 msgstr "Je bent niet ingeschreven!"
 
-#: views.py:98
+#: views.py:96
 msgid "You can't view the lottery results yet."
 msgstr "De lootjesverdeling is nog niet beschikbaar."
 

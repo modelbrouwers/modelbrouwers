@@ -2,28 +2,27 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"POT-Creation-Date: 2015-01-13 19:51+0100\n"
 "PO-Revision-Date: 2014-07-06 16:39+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: forms.py:9
 #, python-brace-format
 msgid "There is a limit of {limit} model(s) per person for this competition."
-msgstr ""
-"Er is een limiet van {limit} modellen per persoon voor deze wedstrijd."
+msgstr "Er is een limiet van {limit} modellen per persoon voor deze wedstrijd."
 
 #: forms.py:10
 msgid ""
@@ -37,168 +36,175 @@ msgstr ""
 msgid "Add another model"
 msgstr "Voeg nog een model toe"
 
-#: models.py:8
+#: models.py:10
 msgid "brouwer"
 msgstr "brouwer"
 
-#: models.py:9
+#: models.py:11
 msgid "real name"
 msgstr "echte naam"
 
-#: models.py:10
+#: models.py:12
 msgid "e-mail address"
 msgstr "e-mailadres"
 
-#: models.py:12
+#: models.py:14
 msgid "model name"
 msgstr "naam model"
 
-#: models.py:13
+#: models.py:15
 msgid "brand"
 msgstr "merk"
 
-#: models.py:14
+#: models.py:16
 msgid "scale"
 msgstr "schaal"
 
-#: models.py:15
+#: models.py:17
 msgid "Enter the number after the \"1:\" or \"1/\". E.g. 1/48 --> enter 48."
-msgstr "Voeg het getal na de \"1:\" of \"1/\" toe. Bijvoorbeeld \"1/48\" --> vul 48 in."
+msgstr ""
+"Voeg het getal na de \"1:\" of \"1/\" toe. Bijvoorbeeld \"1/48\" --> vul 48 "
+"in."
 
-#: models.py:16
+#: models.py:18
 msgid "remarkable elements"
 msgstr "bijzonderheden"
 
-#: models.py:17
+#: models.py:19
 msgid ""
 "Add the features that make this model special here, e.g. \"scratch built "
 "cockpit\""
 msgstr "Voeg de bijzonderheden toe, bijvoorbeeld 'piloot 100% scratch'"
 
-#: models.py:19
+#: models.py:21
 msgid "topic url"
 msgstr "topiclink"
 
-#: models.py:22
+#: models.py:24
 msgid "length"
 msgstr "lengte"
 
-#: models.py:22 models.py:23 models.py:24
+#: models.py:24 models.py:25 models.py:26
 msgid "In cm."
 msgstr "In centimer."
 
-#: models.py:23
+#: models.py:25
 msgid "width"
 msgstr "breedte"
 
-#: models.py:24
+#: models.py:26
 msgid "height"
 msgstr "hoogte"
 
-#: models.py:28 models.py:59
+#: models.py:30 models.py:68
 msgid "competition"
 msgstr "wedstrijd"
 
-#: models.py:29
+#: models.py:31
 msgid "enter competition?"
 msgstr "inschrijven voor de wedstrijd?"
 
-#: models.py:30
+#: models.py:32
 msgid "competition fee paid?"
 msgstr "inschrijvingsgeld betaald?"
 
-#: models.py:33
+#: models.py:35
 msgid "added"
 msgstr "toegevoegd"
 
-#: models.py:36
+#: models.py:38
 msgid "showcased model"
 msgstr "tentoongesteld model"
 
-#: models.py:37
+#: models.py:39
 msgid "showcased models"
 msgstr "tentoongestelde modellen"
 
-#: models.py:47 models.py:75 models.py:89
+#: models.py:56 models.py:84 models.py:98
 msgid "name"
 msgstr "naam"
 
-#: models.py:48
+#: models.py:57
 msgid "price per model"
 msgstr "prijs per model"
 
-#: models.py:50
+#: models.py:59
 msgid "models per participant"
 msgstr "modellen per deelnemer"
 
-#: models.py:51
+#: models.py:60
 msgid "Maximum number of models per participant, enter 0 for unlimited."
 msgstr "Maximum aantal modellen per deelnemer, vul 0 in voor ongelimiteerd."
 
-#: models.py:52
+#: models.py:61
 msgid "maximum number of participants"
 msgstr "maximum aantal deelnemers"
 
-#: models.py:53
+#: models.py:62
 msgid "Maximum number of participants, enter 0 for unlimited."
 msgstr "Maximum aantal deelnemers, vul 0 in voor ongelimiteerd."
 
-#: models.py:55
+#: models.py:64
 msgid "current open competition?"
 msgstr "huidige open wedstrijd?"
 
-#: models.py:56
+#: models.py:65
 msgid ""
 "Marking this competition as active will deactivate all other competitions."
 msgstr ""
 "Het markeren van de wedstrijd als 'huidige' zal alle andere wedstrijden als "
 "inactief markeren."
 
-#: models.py:60
+#: models.py:69
 msgid "competitions"
 msgstr "wedstrijden"
 
-#: models.py:76
+#: models.py:85
 msgid "date"
 msgstr "datum"
 
-#: models.py:80
+#: models.py:89
 msgid "brouwersdag"
 msgstr "brouwersdag"
 
-#: models.py:81
+#: models.py:90
 msgid "brouwersdagen"
 msgstr "brouwersdagen"
 
-#: models.py:90
+#: models.py:99
 msgid "website"
 msgstr "website"
 
-#: models.py:93
+#: models.py:102
 msgid "space needed"
 msgstr "benodigde ruimte"
 
-#: models.py:94
+#: models.py:103
 msgid "Amount of space needed. 100 characters or less."
 msgstr "Benodigde ruimte, 100 of minder karakters."
 
-#: models.py:97
+#: models.py:106
 msgid "exhibitor"
 msgstr "exposant"
 
-#: models.py:98
+#: models.py:107
 msgid "exhibitors"
 msgstr "exposanten"
 
-#: views.py:74
+#: views.py:78
 msgid "Your model has been submitted"
 msgstr "Je model werd toegevoegd."
 
-#: templates/brouwersdag/base.html:59
+#: views.py:89
+#, fuzzy
+msgid "Your model has been edited"
+msgstr "Je model werd toegevoegd."
+
+#: templates/brouwersdag/base.html:9
 msgid "Signup"
 msgstr "Inschrijving"
 
-#: templates/brouwersdag/base.html:60
+#: templates/brouwersdag/base.html:10
 msgid "My models"
 msgstr "Mijn modellen"
 
@@ -249,8 +255,8 @@ msgstr "Tijd om je modellen aan te melden!"
 
 #: templates/brouwersdag/model_signup.html:15
 msgid ""
-"If you want to display multiple models, just fill in the form again for each"
-" extra model."
+"If you want to display multiple models, just fill in the form again for each "
+"extra model."
 msgstr ""
 "Indien je met meerdere modellen wenst deel te nemen, vul het formulier dan "
 "in voor elk model."
@@ -272,28 +278,35 @@ msgstr "Er is (nog) geen wedstrijd geplanned."
 msgid ""
 "\n"
 "                        There will be a competition during this edition.\n"
-"                        The competition entry fee per model is &euro;%(fee)s, to be paid when entering the venue.\n"
+"                        The competition entry fee per model is &euro;"
+"%(fee)s, to be paid when entering the venue.\n"
 "                    "
 msgstr ""
 "\n"
-"Tijdens deze editie vindt er een wedstrijd plaats. De kosten om deel te nemen bedragen &euro;%(fee)s per model, wat betaald moet worden bij het binnenkomen van de zaal."
+"Tijdens deze editie vindt er een wedstrijd plaats. De kosten om deel te "
+"nemen bedragen &euro;%(fee)s per model, wat betaald moet worden bij het "
+"binnenkomen van de zaal."
 
 #: templates/brouwersdag/model_signup.html:55
 #, python-format
 msgid ""
 "\n"
-"                    Attention! You can enter only one model in the competition. Extra models will be rejected.\n"
+"                    Attention! You can enter only one model in the "
+"competition. Extra models will be rejected.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                    Attention! You can enter a maximum of <strong>%(n)s</strong> models in the competition. Extra models will be rejected.\n"
+"                    Attention! You can enter a maximum of <strong>%(n)s</"
+"strong> models in the competition. Extra models will be rejected.\n"
 "                "
 msgstr[0] ""
 "\n"
-"Opgelet! Je kan slechts één model aanmelden voor de wedstrijd. Extra modellen zullen geweigerd worden."
+"Opgelet! Je kan slechts één model aanmelden voor de wedstrijd. Extra "
+"modellen zullen geweigerd worden."
 msgstr[1] ""
 "\n"
-"Opgelet! Je kan maximaal <strong>%(n)s</strong> model(len) aanmelden voor de wedstrijd. Extra modellen zullen geweigerd worden."
+"Opgelet! Je kan maximaal <strong>%(n)s</strong> model(len) aanmelden voor de "
+"wedstrijd. Extra modellen zullen geweigerd worden."
 
 #: templates/brouwersdag/model_signup.html:61
 msgid ""
@@ -303,6 +316,11 @@ msgstr ""
 "Deze beperking geldt <strong>enkel voor de wedstrijd</strong> Buiten de "
 "wedstrijd om mag je zoveel modellen als je wenst meebrengen!"
 
+#: templates/brouwersdag/model_signup_edit.html:5
+#, fuzzy
+msgid "Edit model"
+msgstr "Model aanmelden"
+
 #: templates/brouwersdag/my_models.html:6
 msgid "My submitted models"
 msgstr "Mijn ingeschreven modellen"
@@ -311,7 +329,7 @@ msgstr "Mijn ingeschreven modellen"
 msgid "Entered for competition"
 msgstr "Ingeschreven voor de wedstrijd"
 
-#: templates/brouwersdag/my_models.html:22
+#: templates/brouwersdag/my_models.html:23
 msgid "Cancel signup"
 msgstr "Inschrijving annuleren"
 

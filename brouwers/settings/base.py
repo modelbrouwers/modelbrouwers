@@ -19,6 +19,7 @@ ADMINS = ()
 gettext_noop = lambda s: s
 
 TIME_ZONE = 'Europe/Amsterdam'
+USE_TZ = True
 
 USE_I18N = True
 LANGUAGES = (
@@ -217,6 +218,7 @@ THUMB_DIMENSIONS = (200, 150, 'thumb_')
 # FORUM_TOOLS
 #
 # in .secrets.py
+TOPIC_DEAD_TIME = 1 # months
 
 #
 # COMPRESS

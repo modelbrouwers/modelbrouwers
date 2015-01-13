@@ -5,7 +5,11 @@ import urllib
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import timezone
+from django.utils.timesince import timesince
 from django.utils.translation import ugettext_lazy as _
+
+from dateutil.relativedelta import relativedelta
 
 from general.utils import clean_username
 from .fields import ForumToolsIDField
@@ -159,6 +163,7 @@ class Topic(models.Model):
     topic_id = models.IntegerField(primary_key=True)
     forum = models.ForeignKey(Forum)
     topic_title = models.CharField(max_length=255)
+    last_post_time = models.BigIntegerField(db_column='topic_last_post_time')
 
     class Meta:
         managed = False
@@ -173,6 +178,29 @@ class Topic(models.Model):
         if self.forum.pk:
             qs['f'] = self.forum.pk
         return "{0}?{1}".format(reverse('phpBB:viewtopic'), urllib.urlencode(qs))
+
+    def get_last_post_time(self):
+        return datetime.utcfromtimestamp(self.last_post_time).replace(tzinfo=timezone.utc)
+
+    @property
+    def is_dead(self):
+        """
+        If the last post is older than settings.TOPIC_DEAD_TIME, it's considered
+        dead.
+        """
+        last = self.get_last_post_time()
+        lower = timezone.now() - relativedelta(months=settings.TOPIC_DEAD_TIME)
+        return last <= lower
+
+    @property
+    def age(self):
+        return timesince(self.get_last_post_time())
+
+    @property
+    def text_dead(self):
+        return _('This topic has been inactive for: {0}. Please consider '
+                 'sending the author a private message instead of replying '
+                 'and thus bumping the topic.').format(self.age)
 
 
 class ForumPostCountRestriction(models.Model):

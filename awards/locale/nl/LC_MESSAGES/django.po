@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-06 16:35+0200\n"
+"POT-Creation-Date: 2015-01-13 19:51+0100\n"
 "PO-Revision-Date: 2014-05-29 21:56+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,22 +39,17 @@ msgstr "Topiclink"
 msgid "reviewed?"
 msgstr "gereviewed?"
 
-#: decorators.py:28
-#, python-format
-msgid "Voting is enabled from %(start_date)s until %(end_date)s."
-msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
-
-#: forms.py:40
+#: forms.py:39
 msgid "This project was already nominated."
 msgstr "Dit project werd eerder al genomineerd."
 
-#: forms.py:87
+#: forms.py:86
 msgid "When voting, you cannot leave the first place blank."
 msgstr ""
 "Als je een stem uitbrengt in een categorie mag je de eerste plaats niet open "
 "laten."
 
-#: forms.py:112
+#: forms.py:111
 msgid ""
 "The order of votes must be logical. Omitting the second place is not allowed."
 msgstr ""
@@ -69,44 +64,44 @@ msgstr "categorie"
 msgid "categories"
 msgstr "categorieën"
 
-#: models.py:99
+#: models.py:98
 msgid "last reviewer"
 msgstr "laatste reviewer"
 
-#: models.py:100
+#: models.py:99
 msgid "last review"
 msgstr "laatste review"
 
-#: models.py:109
+#: models.py:108
 msgid "nomination"
 msgstr "nominatie"
 
-#: models.py:110
+#: models.py:109
 msgid "nominations"
 msgstr "nominaties"
 
-#: models.py:148
+#: models.py:147
 #, python-format
 msgid "Vote by %(user)s in %(category)s"
 msgstr "Stem van %(user)s in %(category)s"
 
-#: models.py:156
+#: models.py:155
 #, python-format
 msgid "User `%(user)s` already voted for `%(category)s` in `%(year)d`"
 msgstr "Gebruiker `%(user)s` stemde al voor `%(category)s` in %(year)d"
 
-#: models.py:177
+#: models.py:176
 #, python-format
 msgid "A project from `%(project_category)s` can't be voted in `%(category)s`"
 msgstr ""
 "Een project uit de categorie `%(project_category)s` kan niet gestemd worden "
 "in `%(category)s`"
 
-#: models.py:185
+#: models.py:184
 msgid "No duplicate projects are allowed"
 msgstr "De stemmen moeten van elkaar verschillen"
 
-#: views.py:50
+#: views.py:51
 msgid ""
 "The builder of this project doesn't participate in the awards. Voting for "
 "this project will not be possible."
@@ -114,22 +109,27 @@ msgstr ""
 "The brouwer van dit project neemt niet deel aan de awards. Stemmen voor dit "
 "project zal niet mogelijk zijn."
 
-#: views.py:53
+#: views.py:54
 msgid "The nomination was added."
 msgstr "De nominatie werd toegevoegd"
 
-#: views.py:183
+#: views.py:186
 #, python-format
 msgid "Your vote for `%(category)s` was saved."
 msgstr "Je stem in `%(category)s` werd bewaard."
 
-#: views.py:190
+#: views.py:193
 msgid ""
 "One or multiple category votes could not be saved. Please correct the errors "
 "below."
 msgstr ""
 "Een of meerdere categorie-stemmen konden niet bewaard worden. Los de fouten "
 "hierbeneden op."
+
+#: views.py:204
+#, python-format
+msgid "Voting is enabled from %(start_date)s until %(end_date)s."
+msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
 
 #: templates/awards/base.html:24
 msgid "Awards home"

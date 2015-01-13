@@ -15,5 +15,9 @@ class ForumSerializer(serializers.ModelSerializer):
 
 
 class TopicSerializer(serializers.ModelSerializer):
+    is_dead = fields.BooleanField(read_only=True)
+    age = fields.CharField(read_only=True)
+    text_dead = fields.CharField(read_only=True)
+
     class Meta:
         model = Topic
