@@ -8,6 +8,7 @@ from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from awards.models import Nomination
@@ -15,7 +16,6 @@ from awards.models import Nomination
 from models import *
 from forms import *
 from utils import resize, admin_mode, can_switch_admin_mode, get_default_img_size
-from datetime import datetime
 from zipfile import ZipFile
 
 import os
@@ -102,7 +102,7 @@ def manage(request, album_id=None):
                 for form in album_formset.deleted_forms:
                     form.instance.trash = True
                     form.instance.clean_title=form.instance.title
-                    form.instance.title = "trash_%s_%s" % (datetime.now().strftime('%d%m%Y_%H.%M.%s'), form.instance.title)
+                    form.instance.title = "trash_%s_%s" % (timezone.now().strftime('%d%m%Y_%H.%M.%s'), form.instance.title)
                     form.instance.save()
                 return HttpResponseRedirect(reverse(manage))
     else:

@@ -4,8 +4,8 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Max
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import pgettext_lazy
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
 from general.utils import get_username as _get_username
 from .utils import rotate_img
@@ -45,7 +45,7 @@ class Category(models.Model):
 class Album(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user")) #owner of the album
     title = models.CharField(_("album title"), max_length="256",
-            default="album %s" % datetime.now().strftime("%d-%m-%Y"), db_index=True)
+            default="album %s" % timezone.now().strftime("%d-%m-%Y"), db_index=True)
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
     description = models.CharField(_("album description"),
             max_length=500, blank=True)

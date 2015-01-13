@@ -2,8 +2,9 @@ from django.db import models
 from django.db.models import Q
 from django.conf import settings
 from django.utils.html import strip_tags
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, ungettext as _n, get_language
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
 from awards.models import Category
 from utils import get_client_ip, lookup_http_blacklist
@@ -183,10 +184,10 @@ class RegistrationAttempt(models.Model):
                 i = num_attempts - MAX_REGISTRATION_ATTEMPTS
                 num_weeks = round(math.exp(i))
                 if num_weeks <= 52:
-                    kwargs['expiry_date'] = datetime.now() + timedelta(weeks=num_weeks)
+                    kwargs['expiry_date'] = timezone.now() + timedelta(weeks=num_weeks)
                 # else kwarg not set -> permaban
             else:
-                kwargs['expiry_date'] = datetime.now() + timedelta(hours=STANDARD_BAN_TIME_HOURS)
+                kwargs['expiry_date'] = timezone.now() + timedelta(hours=STANDARD_BAN_TIME_HOURS)
 
 
             kwargs['reason'] = _n('The system flagged you as a bot or your registration attempt was not valid.',
@@ -222,8 +223,8 @@ class SoftwareVersion(models.Model):
     major = models.PositiveSmallIntegerField(default=1)
     minor = models.PositiveSmallIntegerField(default=0)
     detail = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
-    start = models.DateTimeField(default=datetime.now)
-    end = models.DateTimeField(default=datetime.now)
+    start = models.DateTimeField(default=timezone.now)
+    end = models.DateTimeField(default=timezone.now)
     changelog = models.TextField(blank=True)
 
     class Meta:
@@ -275,7 +276,7 @@ class Redirect(models.Model):
 
 class AnnouncementManager(models.Manager):
     def get_current(self):
-        now = datetime.now()
+        now = timezone.now()
         lang_code = get_language()[:2]
         q = Q(to_date__lt=now) |  Q(from_date__gt=now)
         qs = super(AnnouncementManager, self).get_query_set().filter(language=lang_code).exclude(q)

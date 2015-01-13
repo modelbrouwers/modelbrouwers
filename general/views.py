@@ -17,13 +17,14 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template import loader, Context
 from django.utils.translation import ugettext as _
 from django.views.generic import View
+from django.utils import timezone
 
 from albums.models import Album
 from albums.utils import admin_mode
 
 from forms import *
 from models import UserProfile, Redirect, PasswordReset
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 
 LOG_REGISTRATION_ATTEMPTS = getattr(settings, 'LOG_REGISTRATION_ATTEMPTS', True)
@@ -83,8 +84,8 @@ def profile(request):
         forms['passwordform'] = PasswordChangeForm(user=request.user)
         forms['sharingform'] = SharingForm(instance=profile)
 
-    min_date = datetime.now() - timedelta(weeks=1)
-    if min_date <= request.user.date_joined < datetime.now():
+    min_date = timezone.now() - timedelta(weeks=1)
+    if min_date <= request.user.date_joined < timezone.now():
         forms['user_is_new'] = True
     else:
         forms['user_is_new'] = False
@@ -136,7 +137,7 @@ def password_reset(request):
             user = form.get_user()
             if not user.is_active:
                 messages.warning(request, _("Your account is still inactive! You won't be able to log in until you reactivate with the link sent by e-mail."))
-            expire = datetime.now() + timedelta(days=1)
+            expire = timezone.now() + timedelta(days=1)
             variable_part = expire.strftime("%Y-%m-%d %H:%M:%S") + str(int(random.random() * 10))
             h = hashlib.sha1("%s%s" % (settings.SECRET_KEY, variable_part)).hexdigest()[:24]
 

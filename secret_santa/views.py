@@ -3,19 +3,20 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test, login_required
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from models import Couple, Participant, SecretSanta
 from forms import EnrollForm
 from utils import get_current_ss
-from datetime import datetime
+
 
 def index(request):
     secret_santa = get_current_ss(SecretSanta)
     initial = {'secret_santa': secret_santa, 'user': request.user}
     form = EnrollForm(initial=initial)
     participants = Participant.objects.filter(secret_santa=secret_santa).select_related('user').order_by('id')
-    can_do_lottery = datetime.now() >= secret_santa.lottery_date
+    can_do_lottery = timezone.now() >= secret_santa.lottery_date
     return render(request, 'secret_santa/base.html', {
         'secret_santa': secret_santa,
         'form': form,
@@ -79,11 +80,11 @@ def lottery(request):
 def receiver(request):
     secret_santa = get_current_ss(SecretSanta)
     receiver = None
-    if datetime.now() >= secret_santa.lottery_date:
+    if timezone.now() >= secret_santa.lottery_date:
         if secret_santa.is_participant(request.user):
             try:
                 # couple where user is the sender
-                couple = Couple.objects.select_related('participant').get(
+                Couple.objects.select_related('participant').get(
                     sender__user_id = request.user.id,
                     secret_santa = secret_santa
                     )

@@ -163,7 +163,7 @@ class Topic(models.Model):
     topic_id = models.IntegerField(primary_key=True)
     forum = models.ForeignKey(Forum)
     topic_title = models.CharField(max_length=255)
-    last_post_time = models.BigIntegerField(db_column='topic_last_post_time')
+    last_post_time = models.BigIntegerField(db_column='topic_last_post_time', default=0)
 
     class Meta:
         managed = False

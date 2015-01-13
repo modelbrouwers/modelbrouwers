@@ -1,12 +1,13 @@
 from django import forms
 from django.conf import settings
 from django.db.models import Q
+from django.utils import timezone
 from django.utils.translation import ugettext as _
+
 from models import *
 from utils import admin_mode
 
 import re, urllib2
-from datetime import datetime
 
 def cln_build_report(form):
     url = form.cleaned_data['build_report']
@@ -65,7 +66,7 @@ class EditAlbumForm(AlbumForm):
 
     def save(self, *args, **kwargs):
         if self.instance.trash:
-            self.instance.title = "trash_%s_%s" % (datetime.now().strftime('%d%m%Y_%H.%M.%s'), self.instance.title)
+            self.instance.title = "trash_%s_%s" % (timezone.now().strftime('%d%m%Y_%H.%M.%s'), self.instance.title)
         super(EditAlbumForm, self).save(*args, **kwargs)
 
     def clean_build_report(self):

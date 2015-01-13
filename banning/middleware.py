@@ -3,12 +3,12 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import render
+from django.utils import timezone
 
 from general.utils import get_client_ip
 
 from models import Ban
 from utils import CACHE_KEY, set_banning_cache
-from datetime import datetime
 
 class BanningMiddleware(object):
     def process_request(self, request):
@@ -44,7 +44,7 @@ class BanningMiddleware(object):
 
             ban_list = [ban for ban in ban_list
                         if ban.expiry_date is None
-                        or ban.expiry_date >= datetime.now()]
+                        or ban.expiry_date >= timezone.now()]
 
         # NEVER ban superusers
         if ban_list and not (u.is_authenticated() and u.is_superuser):

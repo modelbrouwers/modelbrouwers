@@ -1,7 +1,6 @@
-from datetime import datetime
-
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from utils import do_lottery_mailing
@@ -46,7 +45,7 @@ class SecretSanta(models.Model):
 
     @property
     def enrollment_open(self):
-        now = datetime.now()
+        now = timezone.now()
         if self.enrollment_start <= now <= self.enrollment_end:
             return True
         return False

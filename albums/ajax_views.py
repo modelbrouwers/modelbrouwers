@@ -1,8 +1,5 @@
 from django.db import IntegrityError
 from django.db.models import F, Q, Max
-from django.conf import settings
-from django.core import serializers
-from django.core.urlresolvers import reverse
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.forms import ValidationError
@@ -10,6 +7,7 @@ from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext, loader
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
@@ -292,7 +290,7 @@ def remove_album(request):
     if form.is_valid():
         album = form.cleaned_data["album"]
         album.trash = True
-        album.title = "trash_%s_%s" % (datetime.now().strftime('%d%m%Y_%H.%M.%s'), album.title)
+        album.title = "trash_%s_%s" % (timezone.now().strftime('%d%m%Y_%H.%M.%s'), album.title)
         album.save()
         status = 'ok'
     return HttpResponse(status)

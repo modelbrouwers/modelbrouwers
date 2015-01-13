@@ -1,9 +1,8 @@
-from datetime import datetime
-
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.forms import ValidationError
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from general.utils import get_username
@@ -68,6 +67,6 @@ class Ban(models.Model):
 
     @classmethod
     def get_bans_queryset(cls):
-        q_date = Q(expiry_date__gte=datetime.now()) | Q(expiry_date=None)
+        q_date = Q(expiry_date__gte=timezone.now()) | Q(expiry_date=None)
         qs = cls.objects.filter(q_date)
         return qs

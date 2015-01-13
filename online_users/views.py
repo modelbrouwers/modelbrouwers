@@ -1,13 +1,14 @@
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
 from models import *
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from general.decorators import login_required_403
 
 @login_required_403
-def set_online(request): 
+def set_online(request):
     # less awareness = better
     try:
         tracked_user = TrackedUser.objects.get(user=request.user)
@@ -20,7 +21,7 @@ def set_online(request):
 #TODO: switch to permission required!
 def get_online_users(request):
     if request.user.has_perms('online_users.add_trackeduser'):
-        now = datetime.now()
+        now = timezone.now()
         past = now - timedelta(minutes = MINUTES_FOR_ONLINE)
         users = TrackedUser.objects.filter(notificate=True, last_seen__gte=past)
         if users:

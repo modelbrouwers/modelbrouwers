@@ -1,8 +1,9 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 MINUTES_FOR_ONLINE = 5
 
@@ -28,7 +29,7 @@ class TrackedUser(models.Model):
 
     @property
     def is_online(self):
-        now = datetime.now()
+        now = timezone.now()
         past = now - timedelta(minutes = MINUTES_FOR_ONLINE)
         if self.last_seen > past:
             return True
