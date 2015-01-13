@@ -43,7 +43,7 @@
 		<td align="{S_CONTENT_FLOW_BEGIN}" valign="middle" nowrap="nowrap">
 		<!-- IF not S_IS_BOT -->
 			<!-- IF S_DISPLAY_POST_INFO --><a href="{U_POST_NEW_TOPIC}" class="new-topic">{POST_IMG}</a>&nbsp;<!-- ENDIF -->
-			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}" onclick="test_url({TOPIC_ID}, $(this)); return false;">{REPLY_IMG}</a><!-- ENDIF -->
+			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}" class="new-post" data-topic-id="{TOPIC_ID}">{REPLY_IMG}</a><!-- ENDIF -->
 		<!-- ENDIF -->
 
 		</td>
@@ -332,7 +332,7 @@
 			<td class="profile"><strong><a href="#wrapheader">{L_BACK_TO_TOP}</a></strong></td>
 			<td><div class="gensmall" style="float: {S_CONTENT_FLOW_BEGIN};">&nbsp;<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}">{PROFILE_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_PM --><a href="{postrow.U_PM}">{PM_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_EMAIL --><a href="{postrow.U_EMAIL}">{EMAIL_IMG}</a> <!-- ENDIF -->&nbsp;</div> <div class="gensmall" style="float: {S_CONTENT_FLOW_END};"><!-- IF not S_IS_BOT -->
 
-<!-- IF postrow.U_EDIT --><a href="{postrow.U_EDIT}">{EDIT_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_QUOTE --><a href="{postrow.U_QUOTE}" onclick="test_url({TOPIC_ID}, $(this)); return false;">{QUOTE_IMG}</a> <!-- ENDIF --> <!-- ENDIF -->&nbsp;</div>
+<!-- IF postrow.U_EDIT --><a href="{postrow.U_EDIT}">{EDIT_IMG}</a> <!-- ENDIF --> <!-- IF postrow.U_QUOTE --><a href="{postrow.U_QUOTE}" class="new-post" data-topic-id="{TOPIC_ID}">{QUOTE_IMG}</a> <!-- ENDIF --> <!-- ENDIF -->&nbsp;</div>
 
 
 </td>
@@ -358,7 +358,7 @@
 		<td align="{S_CONTENT_FLOW_BEGIN}" valign="middle" nowrap="nowrap">
 		<!-- IF not S_IS_BOT -->
 			<!-- IF S_DISPLAY_POST_INFO --><a href="{U_POST_NEW_TOPIC}" class="new-topic">{POST_IMG}</a>&nbsp;<!-- ENDIF -->
-			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}" onclick="test_url({TOPIC_ID}, $(this)); return false;">{REPLY_IMG}</a><!-- ENDIF -->
+			<!-- IF S_DISPLAY_REPLY_INFO --><a href="{U_POST_REPLY_TOPIC}" class="new-post" data-topic-id="{TOPIC_ID}">{REPLY_IMG}</a><!-- ENDIF -->
 		<!-- ENDIF -->
 		</td>
 		<!-- IF TOTAL_POSTS -->

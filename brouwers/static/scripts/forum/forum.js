@@ -20,9 +20,11 @@ var _urlconf = {
 };
 
 
-$(document).ready(function() {
+$(function() {
 	// include the full urlconf from other javascript files
 	urlconf = $.extend(true, urlconf, _urlconf);
+
+	$('a.new-post').click(test_url);
 
 	$.get(urlconf.ou.so);
 
@@ -80,7 +82,9 @@ $(document).ready(function() {
 	}
 
 	// dead topics
-	function test_url(topic_id, a){
+	function test_url(){
+		var a = $(this);
+		var topic_id = a.data('topic-id');
 		$.get(urlconf.forum_tools.check_topic_dead, {t: topic_id}, function(data){
 			if (data === "") {
 				var url = "" + a.attr('href');
