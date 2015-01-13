@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^admin/',        include(admin.site.urls)),
     url(r'^admin_tools/',  include('admin_tools.urls')),
 
-    url(r'^api/v1/',        include('api.urls', namespace='api')),
+    url(r'^api/v1/',       include('api.urls', namespace='api')),
 
     url(r'^albums/',       include('albums.urls')),
     url(r'^awards/',       include('awards.urls')),

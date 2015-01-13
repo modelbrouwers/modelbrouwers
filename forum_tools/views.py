@@ -6,11 +6,9 @@ from django.template.loader import get_template
 from django.utils.translation import ungettext as _n, ugettext as _
 from django.views.decorators.cache import cache_page
 
-
 from general.decorators import login_required_403, permission_required_ajax, user_passes_test_403
 from general.models import UserProfile
 from general.utils import get_username_for_user, clean_username, clean_username_fallback
-
 
 from models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser, BuildReportsForum
 from forms import ForumForm, PosterIDsForm
