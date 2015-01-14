@@ -42,9 +42,10 @@ class BanningMiddleware(object):
             else:
                 ban_list = [ban for ban in ban_list if ban.ip==ip]
 
+            now = timezone.now()
             ban_list = [ban for ban in ban_list
                         if ban.expiry_date is None
-                        or ban.expiry_date >= timezone.now()]
+                        or ban.expiry_date >= now]
 
         # NEVER ban superusers
         if ban_list and not (u.is_authenticated() and u.is_superuser):
