@@ -32,6 +32,80 @@ USE_L10N = True
 DATE_FORMAT = 'd-m-Y'
 
 #
+# LOGGING
+#
+LOGGING_DIR = os.path.join(PROJECT_ROOT, 'log')
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s %(name)s %(module)s %(process)d %(thread)d  %(message)s'
+        },
+        'timestamped': {
+            'format': '%(asctime)s %(levelname)s %(name)s  %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s  %(message)s'
+        },
+        'performance': {
+            'format': '%(asctime)s %(process)d | %(thread)d | %(message)s',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'timestamped'
+        },
+        'django': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'django.log'),
+            'formatter': 'verbose'
+        },
+        'project': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'brouwers.log'),
+            'formatter': 'verbose'
+        },
+        'performance': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'performance.log'),
+            'formatter': 'performance'
+        },
+    },
+    'loggers': {
+        'brouwers': {
+            'handlers': ['project'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+#
 # MEDIA
 #
 MEDIA_URL = '/media/'

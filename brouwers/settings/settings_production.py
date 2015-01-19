@@ -9,6 +9,23 @@ INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
 )
 
+#
+# LOGGING
+#
+# Production logging facility.
+LOGGING['loggers'].update({
+    'brouwers': {
+        'handlers': ['project'],
+        'level': 'WARNING',
+        'propagate': True,
+    },
+    'django': {
+        'handlers': ['django'],
+        'level': 'WARNING',
+        'propagate': True,
+    },
+})
+
 try:
     from .secrets import *
 except ImportError:
