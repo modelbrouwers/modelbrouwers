@@ -12,15 +12,16 @@ env:
 install:
   - pip install --upgrade setuptools --use-mirrors
   - pip install -r requirements/travis.txt --use-mirrors
-  - pip install coveralls
-  - pip install codecov
 
 matrix:
   allow_failures:
     - env: DJANGO=https://github.com/django/django/archive/master.zip
 
+before_script:
+  - mkdir log
+
 script:
-  coverage run manage.py test --settings=brouwers.settings.settings_travis -v 2
+  - coverage run manage.py test --settings=brouwers.settings.settings_travis -v 2
 
 after_success:
   - coveralls

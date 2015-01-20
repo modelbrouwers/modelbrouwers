@@ -5,3 +5,5 @@ python-memcached==1.53
 webtest
 django-webtest
 coverage
+coveralls
+codecov
