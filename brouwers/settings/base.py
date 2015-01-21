@@ -223,7 +223,7 @@ INSTALLED_APPS = (
 DATABASE_ROUTERS = [
     'forum_tools.db_router.ForumToolsRouter'
 ]
-#db config -> secrets.py
+# db config -> secrets.py
 
 #
 # CACHE
@@ -240,7 +240,7 @@ CACHES = {
 #
 SESSION_COOKIE_NAME = 'mbsessionid'
 SESSION_SAVE_EVERY_REQUEST = False
-SESSION_COOKIE_AGE = 60*60*24*7*365 # one year
+SESSION_COOKIE_AGE = 60*60*24*7*365  # one year
 
 #
 # AUTH
@@ -292,7 +292,7 @@ THUMB_DIMENSIONS = (200, 150, 'thumb_')
 # FORUM_TOOLS
 #
 # in .secrets.py
-TOPIC_DEAD_TIME = 1 # months
+TOPIC_DEAD_TIME = 1  # months
 
 #
 # COMPRESS

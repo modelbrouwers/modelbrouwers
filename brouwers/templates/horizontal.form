@@ -4,7 +4,7 @@
 
 {% block _label %}
 {% if label %}
-    <label id="{{ id_for_label }}" for="{{ id }}" class="control-label {{ label_grid|default:'col-sm-2' }} {{ required|yesno:"required," }}">
+    <label id="label_{{ id_for_label }}" for="{{ id }}" class="control-label {{ label_grid|default:'col-sm-2' }} {{ required|yesno:"required," }}">
         {{ label }}
     </label>
 {% endif %}
@@ -21,7 +21,7 @@
             name="{{ html_name }}"
             id="{{ id }}"
             value="{{ value|default:"" }}"
-            class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
+            class="form-control {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
             {{ widget.attrs|flat_attrs }}
             {{ required|yesno:"required," }}
             {{ autofocus|yesno:"autofocus," }}
@@ -39,6 +39,11 @@
 {% block HiddenInput %}
 <input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ value|default:"" }}">
 {% endblock HiddenInput %}
+
+
+{% block DateInput %}
+    {% use 'input' field_type='text' extra_css_classes='date' %}
+{% endblock %}
 
 
 {% block Select %}

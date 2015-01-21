@@ -15,6 +15,7 @@ class GroupBuildForm(forms.ModelForm):
         fields = ('theme', 'category', 'description', 'admins',
                   'start', 'duration', 'rules', 'rules_topic',
                   'homepage_topic', 'introduction_topic')
+        localized_fields = '__all__'
 
     def __init__(self, request, *args, **kwargs):
         super(GroupBuildForm, self).__init__(*args, **kwargs)
@@ -31,14 +32,14 @@ class GroupBuildForm(forms.ModelForm):
     def clean_start(self):
         start = self.cleaned_data.get('start')
         if self.instance.status != GroupbuildStatuses.concept and \
-            start != self.instance.start:
+                start != self.instance.start:
             raise forms.ValidationError(self.error_messages['start_pinned'])
         return start
 
     def clean_duration(self):
         duration = self.cleaned_data.get('duration')
         if self.instance.status != GroupbuildStatuses.concept and \
-            duration != self.instance.duration:
+                duration != self.instance.duration:
             raise forms.ValidationError(self.error_messages['duration_pinned'])
         return duration
 
@@ -61,7 +62,7 @@ class ParticipantForm(forms.ModelForm):
 class SubmitForm(forms.ModelForm):
     class Meta:
         model = GroupBuild
-        fields = () # no fields
+        fields = ()  # no fields
 
     def save(self, *args, **kwargs):
         self.instance.status = GroupbuildStatuses.submitted
