@@ -18,6 +18,9 @@
             {% form 'horizontal.form' %}
             <form action="." method="post" class="form-horizontal" role="form">
                 {% csrf_token %}
+
+                {{ form.errors }}
+
                 {% if form.non_field_errors %}
                 <ul class="errorlist">
                     {% for error in form.non_field_errors %}

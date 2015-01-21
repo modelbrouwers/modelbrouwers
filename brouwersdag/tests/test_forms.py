@@ -1,6 +1,9 @@
-from django.test import TestCase
-from django.contrib.auth import get_user_model # otherwise we run intro troubles with the modelform
+from django.contrib.auth import get_user_model  # otherwise we run intro troubles with the modelform
+from django.core.urlresolvers import reverse
 User = get_user_model()
+
+
+from django_webtest import WebTest
 
 from kitreviews.tests.factories import BrandFactory
 from users.tests.factory_models import UserFactory
@@ -8,13 +11,12 @@ from users.tests.factory_models import UserFactory
 from .factories import CompetitionFactory, ShowCasedModelFactory
 from ..forms import ShowCasedModelSignUpForm
 
-from unittest import skip
 
+class CompetitionSignUpTests(WebTest):
 
-class CompetitionSignUpTests    (TestCase):
     def setUp(self):
         self.competition = CompetitionFactory(max_num_models=1, is_current=True)
-        self.brand = BrandFactory()
+        self.brand = BrandFactory.create()
         self.form_data = {
             'owner_name': 'John Johnson',
             'brand': self.brand.pk,
@@ -84,9 +86,14 @@ class CompetitionSignUpTests    (TestCase):
 
     def test_form_submit(self):
         """ Integration test: Test the url and submit data """
-        url = '/brouwersdag/sign-up/'
+        url = reverse('brouwersdag:model-signup')
 
         self.assertEqual(self.competition.showcasedmodel_set.all().count(), 0)
-        response = self.client.post(url, self.form_data)
+
+        signup = self.app.get(url)
+        for key, value in self.form_data.items():
+            signup.form[key] = value
+
+        response = signup.form.submit()
         self.assertRedirects(response, url)
         self.assertEqual(self.competition.showcasedmodel_set.all().count(), 1)
