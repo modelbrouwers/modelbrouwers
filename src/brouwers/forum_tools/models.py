@@ -164,6 +164,7 @@ class Topic(models.Model):
     forum = models.ForeignKey(Forum)
     topic_title = models.CharField(max_length=255)
     last_post_time = models.BigIntegerField(db_column='topic_last_post_time', default=0)
+    create_time = models.BigIntegerField(db_column='topic_time', default=0)
 
     class Meta:
         managed = False
@@ -178,6 +179,10 @@ class Topic(models.Model):
         if self.forum.pk:
             qs['f'] = self.forum.pk
         return "{0}?{1}".format(reverse('phpBB:viewtopic'), urllib.urlencode(qs))
+
+    @property
+    def created(self):
+        return datetime.utcfromtimestamp(self.create_time).replace(tzinfo=timezone.utc)
 
     def get_last_post_time(self):
         return datetime.utcfromtimestamp(self.last_post_time).replace(tzinfo=timezone.utc)
