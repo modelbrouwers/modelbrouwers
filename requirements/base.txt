@@ -11,7 +11,9 @@ sqlparse==0.1.10
 wsgiref==0.1.2
 django-compressor==1.4
 factory_boy==2.3.1
-formulation==2.0.12
+# disabled until some bugs are fixed, use fork for now
+# formulation==2.0.12
+git+https://github.com/sergei-maertens/formulation.git@patch/fix-too-aggressive-force_text
 djangorestframework==2.4.3
 django-choices==1.1.12
 mock==1.0.1
