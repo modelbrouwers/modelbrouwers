@@ -33,5 +33,4 @@ cover/
 _codecov_coverage.xml
 
 # PHP composer
-composer.lock
 /vendor/
