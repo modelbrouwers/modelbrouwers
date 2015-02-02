@@ -37,7 +37,7 @@ DATE_FORMAT = 'd-m-Y'
 #
 # LOGGING
 #
-LOGGING_DIR = os.path.join(PROJECT_ROOT, 'log')
+LOGGING_DIR = os.path.join(ROOT_DIR, 'log')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
