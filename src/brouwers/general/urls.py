@@ -17,7 +17,6 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'brouwers.general.ajax_views',
     url(r'^user/search/$',    'search_users'),
-    url(r'^profile/ajax/change_password/$', 'password_change'),
     url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
 )
 

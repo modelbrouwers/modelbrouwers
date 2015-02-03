@@ -177,7 +177,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
             if self.registration_attempt.potential_spammer:
                 self.object.is_active = False
                 self.object.save()
-                # TODO: e-mail send_inactive_user_mail(new_user)
+                # TODO: e-mail send_inactive_user_mail(new_user), template is in general app
             else:
                 self.do_login(form)
                 self.registration_attempt.success = True

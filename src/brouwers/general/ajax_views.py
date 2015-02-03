@@ -1,10 +1,7 @@
 import json
 
 from django.db.models import Q
-from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse
-from django.utils.translation import ugettext as _
-from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import View
 
 from brouwers.general.decorators import login_required_403
@@ -20,7 +17,7 @@ def search_users(request):
             Q(user__first_name__icontains=value) | \
             Q(user__last_name__icontains=value)
         query.append(q)
-    if len(query) > 0 and len(query) < 6: #TODO: return message that the search terms aren't ok
+    if len(query) > 0 and len(query) < 6:  # TODO: return message that the search terms aren't ok
         profiles = UserProfile.objects.filter(*query).select_related('user').order_by('forum_nickname')
 
     output = []
@@ -33,29 +30,6 @@ def search_users(request):
         })
     return HttpResponse(json.dumps(output))
 
-@sensitive_post_parameters()
-@login_required_403
-def password_change(request):
-    if request.method == "POST":
-        form = PasswordChangeForm(user=request.user, data=request.POST)
-        if form.is_valid():
-            form.save()
-            data = {
-                'success': True,
-                'msg': {
-                    'tag': 'success',
-                    'text': _("Your password was successfully changed.")
-                    },
-                }
-            return HttpResponse(json.dumps(data))
-
-    from django.template import RequestContext
-    from django.template.loader import get_template
-    c = RequestContext(request, {'form': form})
-    t = get_template('general/ajax/password_change.html')
-    html = t.render(c)
-    data = {'success': False, 'html': html}
-    return HttpResponse(json.dumps(data))
 
 class AnnouncementView(View):
     def get(self, request, *args, **kwargs):

@@ -75,6 +75,7 @@ def lookup_http_blacklist(ip):
         return (BLOCKING_LEVELS.get(type_of_visitor), potential_spammer)
     return (None, None) # something went wrong
 
+
 def send_inactive_user_mail(user):
     c = Context({'user': user})
     template_name = 'mails/new_inactive_user'
@@ -85,7 +86,7 @@ def send_inactive_user_mail(user):
     html_content = t.render(c)
 
     msg = EmailMultiAlternatives('Nieuwe inactieve gebruiker', text_content)
-    msg.to = [admin[1] for admin in settings.ADMINS] # email addresses
+    msg.to = [admin[1] for admin in settings.ADMINS]  # email addresses
     msg.attach_alternative(html_content, "text/html")
     msg.send()
     return
