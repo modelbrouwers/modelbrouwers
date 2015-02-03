@@ -7,9 +7,9 @@ urlpatterns = patterns(
     'brouwers.general.views',
     url(r'^$', 'index', name='index'),
     url(r'^profile/$', 'profile', name='profile'),
-    url(r'^reset_pw/$', 'password_reset', name='reset-pw'),
-    url(r'^do_reset_pw/$', 'do_password_reset'),
-    url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w]+)/$', ServeHbsTemplateView.as_view(), name='hbs_template') # get handlebars templates
+    url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w]+)/$',
+        ServeHbsTemplateView.as_view(),
+        name='hbs_template')  # get handlebars templates
 )
 
 
@@ -27,9 +27,5 @@ if 'tastypie' in settings.INSTALLED_APPS:
     from brouwers.general.api.resources import UserResource
 
     v1_api = Api(api_name='legacy')
-
     v1_api.register(UserResource())
-
-    urlpatterns += patterns('',
-        url(r'^api/', include(v1_api.urls)),
-    )
+    urlpatterns += patterns('', url(r'^api/', include(v1_api.urls)))

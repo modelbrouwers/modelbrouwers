@@ -1,5 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.core.mail import send_mail
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib.sites.models import get_current_site
+from django.template import loader
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.general.models import RegistrationQuestion
@@ -82,3 +89,75 @@ class AuthForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(AuthForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = _('Username or email')
+
+
+class PasswordResetForm(PasswordResetForm):
+    username = forms.CharField(label=_('Username'), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = False
+
+    def clean(self):
+        cleaned_data = super(PasswordResetForm, self).clean()
+        if not cleaned_data.get('username') and not cleaned_data.get('email'):
+            raise forms.ValidationError(_('Fill at least one field.'))
+        return cleaned_data
+
+    def save(self, **kwargs):
+        """
+        Generates a one-use only link for resetting password and sends to the
+        user.
+        """
+        request = kwargs.get('request')
+        token_generator = kwargs.get('token_generator')
+        use_https = kwargs.get('use_https')
+        subject_template_name = kwargs.get('subject_template_name')
+        email_template_name = kwargs.get('email_template_name')
+
+        UserModel = get_user_model()
+        email, username = self.cleaned_data.get("email"), self.cleaned_data.get('username')
+        query = {}
+        if email:
+            query['email__iexact'] = email
+        if username:
+            query['username__iexact'] = username
+
+        # retrieve the relevant user, username and email should be unique
+        active_users = UserModel._default_manager.filter(**query)
+        if active_users.count() > 1:
+            messages.warning(
+                request,
+                _('Multiple accounts were found, this shouldn\'t happen. '
+                  'Please contact the admins (see e-mail in the page footer).')
+            )
+            return
+
+        user = active_users.get()
+        if not user.is_active:
+            messages.warning(
+                request,
+                _('Your account is still inactive! You won\'t be able to '
+                  'log in until you reactivate with the link sent by e-mail. '
+                  'Check your spamfolder to see if you missed an e-mail.')
+            )
+            return
+
+        current_site = get_current_site(request)
+        site_name = current_site.name
+        domain = current_site.domain
+        c = {
+            'email': user.email,
+            'domain': domain,
+            'site_name': site_name,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'user': user,
+            'token': token_generator.make_token(user),
+            'protocol': 'https' if use_https else 'http',
+        }
+        subject = loader.render_to_string(subject_template_name, c)
+        # Email subject *must not* contain newlines
+        subject = ''.join(subject.splitlines())
+        email = loader.render_to_string(email_template_name, c)
+        send_mail(subject, email, None, [user.email])
+        messages.success(request, _('An e-mail was sent with a link to reset your password.'))

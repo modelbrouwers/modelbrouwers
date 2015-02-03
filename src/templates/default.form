@@ -16,3 +16,12 @@
 </span>
 {% endif %}
 {% endblock _help %}
+
+
+{% block non_field_errors %}{% if form.non_field_errors %}
+<div class="text-center">
+<ul class="text-danger">
+    {% for error in form.non_field_errors %}<li class="error">{{ error }}</li>{% endfor %}
+</ul>
+</div>
+{% endif %}{% endblock %}
