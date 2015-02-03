@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, date
 import calendar
 
 from django.conf import settings
@@ -208,7 +208,7 @@ class GroupBuild(models.Model):
             return 0
 
         if not hasattr(self, '_progress'):
-            today = timezone.now().date()
+            today = date.today()
             total_delta = (self.end - self.start) or 1
             delta = today - self.start
             self._progress = float(delta.days) / total_delta.days
