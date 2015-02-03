@@ -138,26 +138,31 @@ h2, .h2, h3, .h3, h4, .h4 {
   color: rgba(0, 102, 153, 0.9);
 }
 
+/* line 18, ../../sass/partials/_base.scss */
+h1.align-tabs, h2.align-tabs, h3.align-tabs, h4.align-tabs, h5.align-tabs, h6.align-tabs {
+  margin-top: -5px;
+}
+
 /*
  * Messages
  */
-/* line 20, ../../sass/partials/_base.scss */
+/* line 26, ../../sass/partials/_base.scss */
 ul.messages {
   margin-top: 15px;
 }
 
-/* line 25, ../../sass/partials/_base.scss */
+/* line 31, ../../sass/partials/_base.scss */
 .confirmed-model h2, .confirmed-model h3, .confirmed-model h4 {
   margin-top: 10px;
 }
 
-/* line 31, ../../sass/partials/_base.scss */
+/* line 37, ../../sass/partials/_base.scss */
 a.list-group-item:hover {
   background-color: rgba(64, 149, 253, 0.5);
   color: white;
 }
 
-/* line 36, ../../sass/partials/_base.scss */
+/* line 42, ../../sass/partials/_base.scss */
 .eye-catcher {
   background-color: #4095FD;
   color: rgba(255, 255, 255, 0.9);
@@ -166,30 +171,30 @@ a.list-group-item:hover {
   border-top: solid 2px #919291;
   border-bottom: solid 2px #919291;
 }
-/* line 45, ../../sass/partials/_base.scss */
+/* line 51, ../../sass/partials/_base.scss */
 .eye-catcher h1 small, .eye-catcher h2 small, .eye-catcher h3 small, .eye-catcher h4 small, .eye-catcher h5 small, .eye-catcher h6 small {
   color: rgba(255, 255, 255, 0.4);
 }
-/* line 50, ../../sass/partials/_base.scss */
+/* line 56, ../../sass/partials/_base.scss */
 .eye-catcher h1, .eye-catcher .h1 {
   color: rgba(255, 255, 255, 0.95);
 }
-/* line 54, ../../sass/partials/_base.scss */
+/* line 60, ../../sass/partials/_base.scss */
 .eye-catcher a {
   color: #006699;
   font-weight: bold;
 }
-/* line 58, ../../sass/partials/_base.scss */
+/* line 64, ../../sass/partials/_base.scss */
 .eye-catcher a.btn {
   color: #FFFFFF;
 }
 
-/* line 64, ../../sass/partials/_base.scss */
+/* line 70, ../../sass/partials/_base.scss */
 p {
   margin-top: 10px;
 }
 
-/* line 69, ../../sass/partials/_base.scss */
+/* line 75, ../../sass/partials/_base.scss */
 .feedback p {
   background-color: rgba(223, 74, 197, 0.4);
   margin-left: -5px;
@@ -197,7 +202,7 @@ p {
   padding: 5px;
 }
 
-/* line 77, ../../sass/partials/_base.scss */
+/* line 83, ../../sass/partials/_base.scss */
 body > footer {
   margin-top: 50px;
 }

@@ -109,8 +109,8 @@
                 <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ form_field.value|yesno:'checked,' }}>
                 {{ form_field.label }}
             </label>
+            {% use '__help' %}
         </div>
-        {% use '_help' %}
         {% use '_errors' %}
     </div>
 </div>

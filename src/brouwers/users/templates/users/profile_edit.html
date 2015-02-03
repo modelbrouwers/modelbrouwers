@@ -11,14 +11,12 @@
         <p>{% blocktrans %}
             Here you can configure various site-wide settings.
         {% endblocktrans %}</p>
-
-        <a href="{% url 'django.contrib.auth.views.password_change' %}" id="change-password" class="btn bg-main-orange">{% trans "Change password" %}</a>
     </div>
 </header>
 
 
 <div class="container">
-
+	{% block container %}
 	<div class="row">
 
 		<form action="." method="post" class="form-horizontal col-md-8 col-xs-12">
@@ -33,6 +31,7 @@
 			{% endif %}
 
 			<div role="tabpanel">
+
 				<ul class="nav nav-tabs" role="tablist">
 					<li class="active"><a href="#tab-user" data-toggle="tab">{% trans "User details" %}</a></li>
 					<li><a href="#tab-address" data-toggle="tab">{% trans "Address" %}</a></li>
@@ -76,6 +75,24 @@
 		{% endwith %}{% endform %}
 		</form>
 
+		<aside class="col-xs-12 col-md-4">
+			<h3 class="align-tabs">{% trans "Change password" %}</h3>
+			<form action="{% url 'users:change_pw' %}" class="form-horizontal well" method="post">
+			{% form 'horizontal.form' %}{% with label_grid='col-md-6 col-xs-12' field_grid='col-md-6 col-xs-12' %}
+				{% csrf_token %}
+
+				{% field pw_form.old_password %}
+				{% field pw_form.new_password1 %}
+				{% field pw_form.new_password2 %}
+
+				<div class="submit-wrapper">
+				    <button type="submit" class="btn bg-main-orange">{% trans "Change password" %}</button>
+				</div>
+			{% endwith %}{% endform %}
+			</form>
+		</aside>
+
 	</div>
+	{% endblock container %}
 </div>
 {% endblock content %}

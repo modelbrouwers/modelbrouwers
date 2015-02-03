@@ -3,7 +3,8 @@ from django.conf.urls import patterns, url, include
 from .views import ServeHbsTemplateView
 from .ajax_views import AnnouncementView
 
-urlpatterns = patterns('brouwers.general.views',
+urlpatterns = patterns(
+    'brouwers.general.views',
     url(r'^$', 'index', name='index'),
     url(r'^profile/$', 'profile', name='profile'),
     url(r'^reset_pw/$', 'password_reset', name='reset-pw'),
@@ -13,15 +14,11 @@ urlpatterns = patterns('brouwers.general.views',
 
 
 # AJAX
-urlpatterns += patterns('brouwers.general.ajax_views',
+urlpatterns += patterns(
+    'brouwers.general.ajax_views',
     url(r'^user/search/$',    'search_users'),
     url(r'^profile/ajax/change_password/$', 'password_change'),
     url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
-)
-
-urlpatterns += patterns('django.contrib.auth.views',
-    url(r'^profile/change_password/$', 'password_change', {'template_name':'general/password.html'}),
-    url(r'^password_change_done/$','password_change_done', {'template_name': 'general/password_change_done.html'}),
 )
 
 # API

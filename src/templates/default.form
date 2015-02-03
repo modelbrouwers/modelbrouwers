@@ -2,10 +2,17 @@
 {% load formulation %}
 
 
+{% block __help %}
+{% if help_text %}
+<span class="help glyphicon glyphicon-question-sign" data-trigger="hover focus click" data-toggle="popover" data-content="{{ help_text }}"></span>
+{% endif %}
+{% endblock %}
+
+
 {% block _help %}
 {% if help_text %}
 <span class="input-group-addon">
-    <span class="help glyphicon glyphicon-question-sign" data-trigger="hover focus click" data-toggle="popover" data-content="{{ help_text }}"></span>
+    {% use '__help' %}
 </span>
 {% endif %}
 {% endblock _help %}

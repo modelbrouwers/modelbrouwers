@@ -1,15 +1,13 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
-from django.utils.datastructures import SortedDict
 from django.utils.http import base36_to_int
 from django.utils.translation import ugettext as _
 from django.views import generic
-from django.views.generic.base import TemplateResponseMixin, ContextMixin
 
 from extra_views import UpdateWithInlinesView, NamedFormsetsMixin, InlineFormSet
 
@@ -81,7 +79,7 @@ class LoginView(RedirectFormMixin, generic.FormView):
                 'with a link to activate your account. '
                 'Coupling accounts were added to introduce SSO (single '
                 'sign on) in the future for the entire domain.'
-        )
+                )
         messages.warning(self.request, msg)
         context = self.get_context_data(**{'forum_user': forum_user})
         return self.render_to_response(context)
@@ -102,7 +100,7 @@ class LogoutView(RedirectFormMixin, generic.RedirectView):
             logout(request)
             msg = _('You have been logged out.')
         else:
-            msg =  _('Can\'t log you out, you weren\'t logged in!')
+            msg = _('Can\'t log you out, you weren\'t logged in!')
         messages.info(request, msg)
         return super(LogoutView, self).get(request, *args, **kwargs)
 
@@ -160,7 +158,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
         """ Log the registration attempts before handling the form """
         self.log_registration(form)
         if self.registration_attempt:
-            self.registration_attempt.set_ban() # FIXME
+            self.registration_attempt.set_ban()  # FIXME
         return super(RegistrationView, self).form_invalid(form)
 
     def form_valid(self, form):
@@ -213,14 +211,27 @@ class ProfileView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesView)
     def get_object(self):
         return self.request.user
 
-
     def forms_valid(self, form, inlines):
         response = super(ProfileView, self).forms_valid(form, inlines)
         messages.success(self.request, _('Your profile data has been updated.'))
         return response
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['pw_form'] = PasswordChangeForm(self.request.user)
+        return context
 
 
 class UserProfileDetailView(LoginRequiredMixin, generic.DetailView):
     model = User
     template_name = 'users/profile.html'
     context_object_name = 'profile'
+
+
+class PasswordChangedView(generic.RedirectView):
+
+    url = reverse_lazy('users:profile')
+
+    def get(self, request, *args, **kwargs):
+        messages.success(request, _('Your password was changed.'))
+        return super(PasswordChangedView, self).get(request, *args, **kwargs)
