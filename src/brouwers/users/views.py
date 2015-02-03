@@ -227,6 +227,10 @@ class UserProfileDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'users/profile.html'
     context_object_name = 'profile'
 
+    def get_context_data(self, **kwargs):
+        ctx = super(UserProfileDetailView, self).get_context_data(**kwargs)
+        return ctx
+
 
 class PasswordChangedView(generic.RedirectView):
 
