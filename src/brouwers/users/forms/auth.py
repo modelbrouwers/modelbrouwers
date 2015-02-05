@@ -9,7 +9,9 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 
+from brouwers.forum_tools.models import ForumUser
 from brouwers.general.models import RegistrationQuestion
+from brouwers.general.utils import clean_username
 from ..models import User
 
 
@@ -21,6 +23,7 @@ class AdminUserCreationForm(forms.ModelForm):
     error_messages = {
         'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),
+        'duplicate_email': _("This e-mail address is already in use."),
     }
     password1 = forms.CharField(label=_("Password"),
                                 widget=forms.PasswordInput)
@@ -34,6 +37,12 @@ class AdminUserCreationForm(forms.ModelForm):
         model = User
         fields = ("username",)
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User._default_manager.filter(email__iexact=email).exists():
+            raise forms.ValidationError(self.error_messages['duplicate_email'])
+        return email
+
     def clean_username(self):
         """
         user.username is unique on db level, BUT not on a case-insensitive base.
@@ -42,15 +51,19 @@ class AdminUserCreationForm(forms.ModelForm):
         try:
             User._default_manager.get(username__iexact=username)
         except User.DoesNotExist:
-            return username
+            try:
+                # check ForumUsers that haven't migrated!
+                ForumUser.objects.get(username_clean=clean_username(username))
+            except ForumUser.DoesNotExist:
+                return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
+        return username
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
         password2 = self.cleaned_data["password2"]
         if password1 != password2:
-            raise forms.ValidationError(
-                self.error_messages['password_mismatch'])
+            raise forms.ValidationError(self.error_messages['password_mismatch'])
         return password2
 
     def save(self, commit=True):

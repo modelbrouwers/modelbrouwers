@@ -32,6 +32,9 @@
         <form action="." method="post" class="form-horizontal col-xs-12 col-md-7 col-xl-5" id="form-register">
         {% form 'horizontal.form' %}
             {% csrf_token %}
+
+            {% use 'non_field_errors' %}
+
             <h2>{% trans "Enter your account details" %}</h2>
             {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
             <fieldset class="well">

@@ -156,7 +156,9 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
 
     def form_invalid(self, form):
         """ Log the registration attempts before handling the form """
-        self.log_registration(form)
+        rest_valid = set(form.errors.keys()).issubset(set(['question', 'answer', '__all__']))
+        if (form.errors.get('answer') or form.errors.get('question')) and rest_valid:
+            self.log_registration(form)
         if self.registration_attempt:
             self.registration_attempt.set_ban()  # FIXME
         return super(RegistrationView, self).form_invalid(form)

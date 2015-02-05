@@ -19,11 +19,13 @@ class ForumLinkBase(models.Model):
     link_id = models.CharField(_('link id'), max_length=128, help_text=_('HTML id of the base anchor.'))
     short_description = models.CharField(_('short description'), max_length=64, blank=True)
     enabled = models.BooleanField(
-                _('enabled'), default=True,
-                help_text=_('Enable the syncing of this link.')
-                )
+        _('enabled'), default=True,
+        help_text=_('Enable the syncing of this link.')
+    )
     from_date = models.DateField(_('from date'), help_text=_('Start date from when this link is enabled.'))
-    to_date = models.DateField(_('to date'), help_text=_('End date from when this link is enabled, this date included.'))
+    to_date = models.DateField(
+        _('to date'),
+        help_text=_('End date from when this link is enabled, this date included.'))
 
     class Meta:
         verbose_name = _('base forum link')
@@ -34,6 +36,7 @@ class ForumLinkBase(models.Model):
             return _(u'base forum link: %(desc)s') % {'desc': self.short_description}
         else:
             return _(u'base forum link: %(id)s') % {'id': self.link_id}
+
 
 class ForumLinkSynced(models.Model):
     base = models.ForeignKey(ForumLinkBase, verbose_name=_('base link'), help_text=_('Link this link syncs with.'))
@@ -75,22 +78,20 @@ class ForumCategory(models.Model):
         return self.name
 
 
-########## Models to interact with the MYSQL database #############################
+# Models to interact with the MYSQL database #############################
 
 
 class ForumUser(models.Model):
     """ MySQL phpBB3 user, managed by phpBB3 """
-    user_id = models.PositiveIntegerField(primary_key=True,
-        # mediumint(8) unsigned
-        help_text=_("Primary key")
-    )
+    # mediumint(8) unsigned
+    user_id = models.PositiveIntegerField(primary_key=True, help_text=_("Primary key"))
     username = models.CharField(_("username"), max_length=255)
     username_clean = models.CharField(_("username"), max_length=255)
     user_posts = models.IntegerField()
     user_email = models.CharField(_("email"), max_length=100)
-    user_email_hash = models.BigIntegerField(db_column="user_email_hash",
-        # bigint(20)
-        default=0,
+    # bigint(20)
+    user_email_hash = models.BigIntegerField(
+        db_column="user_email_hash", default=0,
         help_text=_("A hash of the user's email address.")
     )
     user_permissions = models.TextField(blank=True)
@@ -212,12 +213,13 @@ class ForumPostCountRestriction(models.Model):
         ('R', _('Reply')),
         )
 
-    forum = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
+    forum = ForumToolsIDField(
+        _('forum id'), type='forum', blank=True, null=True,
         help_text=_('Forum id of the group build subforum'))
     min_posts = models.PositiveSmallIntegerField(_('minimum number of posts'))
-    posting_level = models.CharField(_('posting level'), max_length=1,
-                    choices=POSTING_LEVELS
-                )
+    posting_level = models.CharField(
+        _('posting level'), max_length=1, choices=POSTING_LEVELS
+    )
 
     class Meta:
         verbose_name = _('forum post count restriction')
@@ -230,13 +232,17 @@ class ForumPostCountRestriction(models.Model):
 
 class Report(models.Model):
     """ MySQL Report model, managed by phpBB3 """
-    report_id = models.PositiveIntegerField(primary_key=True,
-        # mediumint(8) unsigned
-        help_text="Primary key"
+    # mediumint(8) unsigned
+    report_id = models.PositiveIntegerField(primary_key=True, help_text="Primary key")
+    # reason_id = FK to reasons, not implement in Django yet
+    report_closed = models.BooleanField(
+        _('closed'), default=False,
+        help_text=_('Closed reports need no more attention.')
     )
-    #reason_id = FK to reasons, not implement in Django yet
-    report_closed = models.BooleanField(_('closed'), help_text=_('Closed reports need no more attention.'), default=False)
-    report_time_int = models.IntegerField(_('time'), db_column="report_time", help_text=_('UNIX time when the report was added.'))
+    report_time_int = models.IntegerField(
+        _('time'), db_column="report_time",
+        help_text=_('UNIX time when the report was added.')
+    )
     report_text = models.TextField('text', blank=True)
 
     class Meta:
