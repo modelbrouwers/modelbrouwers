@@ -1,4 +1,4 @@
-Django<1.7
+Django==1.6.10
 Pillow==2.4.0
 South==0.8.4
 django-extensions==1.2.5
@@ -11,9 +11,8 @@ sqlparse==0.1.10
 wsgiref==0.1.2
 django-compressor==1.4
 factory_boy==2.3.1
-# disabled until some bugs are fixed, use fork for now
-# formulation==2.0.12
-git+https://github.com/sergei-maertens/formulation.git@patch/fix-too-aggressive-force_text
+formulation==2.0.13
+# git+https://github.com/sergei-maertens/formulation.git@patch/fix-too-aggressive-force_text
 djangorestframework==2.4.3
 django-choices==1.1.12
 mock==1.0.1
