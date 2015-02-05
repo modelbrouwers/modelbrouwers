@@ -70,7 +70,9 @@
     <div class="{{ field_grid|default:'col-sm-10' }}">
         <input type="hidden" name="{{ html_name }}" value="{{ value }}">
         {% for val, display in choices %}
-            <div class="form-control-static">{{ display }}</div>
+            {% if val == value %}
+                <div class="form-control-static">{{ display }}</div>
+            {% endif %}
         {% endfor %}
         {% use "_errors" %}
     </div>
