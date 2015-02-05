@@ -10,17 +10,16 @@ except ImportError:
 
 DEBUG = True
 TEMPLATE_DEBUG = True
-DEVELOPMENT = True
 
 #
 # Debug toolbar
 #
 MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 INSTALLED_APPS = INSTALLED_APPS + (
-    # 'debug_toolbar',
+    'debug_toolbar',
 )
 
 #
@@ -30,18 +29,18 @@ CACHES = {
     # 'default': {
     #     'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     # },
-    # 'default': {
-    #     'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-    #     'LOCATION': '127.0.0.1:11211',
-    # },
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    },
     # # 'database': {
     # #     'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
     # #     'LOCATION': 'django_cache',
     # # },
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'mb-django-cache',
-    }
+    # 'default': {
+    #     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    #     'LOCATION': 'mb-django-cache',
+    # }
 }
 
 #

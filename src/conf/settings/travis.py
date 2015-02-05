@@ -56,9 +56,6 @@ PHPBB_TABLE_PREFIX = 'phpbb3_'
 PHPBB_URL = '/forum'
 PHPBB_UID_COOKIE = 'phpbb3_u'
 
-
-
 INSTALLED_APPS = INSTALLED_APPS + ('brouwers.forum_tools.tests.custom_fields',)
-
 
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'test_media')

@@ -6,29 +6,36 @@ from django.template import Context, loader
 
 import socket
 
+
 def get_forumname_for_username(username):
-    return username.replace("_", " ") # FIXME NOT always valid, users can have underscores!
+    return username.replace("_", " ")  # FIXME NOT always valid, users can have underscores!
+
 
 def get_username_for_user(user):
     return get_forumname_for_username(user.username)
+
 
 def get_username(obj, field='user'):
     user = getattr(obj, field)
     username = get_username_for_user(user)
     return username
 
+
 def clean_username(username):
     return username.replace(u"'", u'ʹ').lower()
+
 
 def clean_username_fallback(username):
     return username.replace('\'', ' ').lower()
 
-###### KEEPING SPAMMERS OUT ####################
+
+# KEEPING SPAMMERS OUT ####################
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         return x_forwarded_for.split(',')[0]
     return request.META.get('REMOTE_ADDR')
+
 
 BLOCKING_LEVELS = {
     u'1': u'suspicious',
@@ -40,12 +47,13 @@ BLOCKING_LEVELS = {
     u'7': u'suspicious & harvester & comment spammer'
 }
 
+
 def lookup_http_blacklist(ip):
     """ Checks if an ip is a potential spammer.
 
         Returns a tupple (type_of_visitor, potential_spammer), e.g. ('comment spammer', True)
     """
-    return (None, None) # disable lookups for now, not thread safe
+    return (None, None)  # disable lookups for now, not thread safe, TODO: celery
     # FIXME
 
     if settings.DEVELOPMENT:
@@ -73,7 +81,7 @@ def lookup_http_blacklist(ip):
             potential_spammer = False
 
         return (BLOCKING_LEVELS.get(type_of_visitor), potential_spammer)
-    return (None, None) # something went wrong
+    return (None, None)  # something went wrong
 
 
 def send_inactive_user_mail(user):
