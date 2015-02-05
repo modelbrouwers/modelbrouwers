@@ -315,3 +315,8 @@ TEST_RUNNER = 'brouwers.general.tests.utils.UnmanagedTablesTestRunner'
 #
 ADMIN_TOOLS_INDEX_DASHBOARD = 'brouwers.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'brouwers.dashboard.CustomAppIndexDashboard'
+
+#
+# WSGI conf
+#
+WSGI_APPLICATION = 'conf.wsgi.application'
