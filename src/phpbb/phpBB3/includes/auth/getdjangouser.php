@@ -16,7 +16,8 @@ function GetDBSession()
 
 function GetDjangoUser()
 {
-    $djangoSessionID = $_COOKIE['mbsessionid'];
+    global $django_session_cookie;
+    $djangoSessionID = $_COOKIE[$django_session_cookie];
     if(!$djangoSessionID){
       $djangoSessionID = $_COOKIE['sessionid'];
     }

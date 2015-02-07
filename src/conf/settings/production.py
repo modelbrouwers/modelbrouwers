@@ -31,16 +31,20 @@ try:
 except ImportError:
     sys.stderr.write("Create your secrets.py file with the secret settings.")
 
+#
+# STATICFILES
+#
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
-
-DEBUG = False
-TEMPLATE_DEBUG = False
-DEVELOPMENT = False
 
 #
 # SESSION
 #
 SESSION_COOKIE_DOMAIN = '.modelbrouwers.nl'
+
+#
+# CACHE
+#
+CACHES['default']['KEY_PREFIX'] = 'production'
 
 #
 # EMAIL
