@@ -19,6 +19,8 @@ $settings->STATIC_URL = getenv('STATIC_URL') ?: '/static/';
 
 $settings->MEDIA_ROOT = realpath(joinPath($ROOT_DIR, 'media'));
 
+$settings->KEY_PREFIX = getenv('KEY_PREFIX') ?: '';
+
 $settings->COMPOSER_AUTOLOADER = realpath(joinPath($ROOT_DIR, 'vendor', 'autoload.php'));
 
 ?>
