@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-13 19:51+0100\n"
+"POT-Creation-Date: 2015-02-10 19:59+0100\n"
 "PO-Revision-Date: 2014-07-06 16:54+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,38 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-
-#: forms.py:14 tests/test_signup_login.py:123
-msgid "A user with that username already exists."
-msgstr "Deze gebruikersnaam is al bezet."
-
-#: forms.py:15
-msgid "The two password fields didn't match."
-msgstr "De twee wachtwoordvelden kwamen niet overeen."
-
-#: forms.py:17
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: forms.py:19
-msgid "Password confirmation"
-msgstr "Wachtwoord (bevestiging)"
-
-#: forms.py:21
-msgid "Enter the same password as above, for verification."
-msgstr "Vul hetzelfde wachtwoord als hierboven in, ter bevestiging."
-
-#: forms.py:56
-msgid "Answer"
-msgstr "Antwoord"
-
-#: forms.py:70
-msgid "Invalid answer. Make sure to read the entire question!"
-msgstr "Ongeldig antwoord. Lees de volledige vraag!"
-
-#: forms.py:72
-msgid "You provided an incorrect answer to the anti-bot question."
-msgstr "Je gaf een ongeldig antwoord op de anti-bot vraag."
 
 #: mail.py:11
 #, python-brace-format
@@ -61,44 +29,44 @@ msgstr "Je registratie op {domain}"
 msgid "{domain} account creation - activation required"
 msgstr "{domain} account aangemaakt - activatie nodig"
 
-#: models.py:69
+#: models.py:65
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:70
+#: models.py:66
 msgid "Required. 30 characters or fewer. All characters allowed."
 msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
 
-#: models.py:71
+#: models.py:67
 #, fuzzy
 msgid "cleaned username"
 msgstr "gebruikersnaam"
 
-#: models.py:72
+#: models.py:68
 msgid "first name"
 msgstr "voornaam"
 
-#: models.py:73
+#: models.py:69
 msgid "last name"
 msgstr "familienaam"
 
-#: models.py:74
+#: models.py:70
 msgid "email address"
 msgstr "e-mailadres"
 
-#: models.py:75
+#: models.py:71
 msgid "staff status"
 msgstr "stafstatus"
 
-#: models.py:76
+#: models.py:72
 msgid "Designates whether the user can log into this admin site."
 msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
 
-#: models.py:78
+#: models.py:74
 msgid "active"
 msgstr "actief"
 
-#: models.py:79
+#: models.py:75
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -106,23 +74,23 @@ msgstr ""
 "Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
 "van gebruikers te verwijderen."
 
-#: models.py:81
+#: models.py:77
 msgid "date joined"
 msgstr "toegetreden"
 
-#: models.py:84
+#: models.py:80
 msgid "forum user id"
 msgstr "forumgebruikerid"
 
-#: models.py:92
+#: models.py:88
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:93
+#: models.py:89
 msgid "users"
 msgstr "gebruikers"
 
-#: views.py:76
+#: views.py:75
 msgid ""
 "We found an existing forum account for this username, but it appears that "
 "were was no coupling account yet. We automatically created a coupling "
@@ -137,53 +105,317 @@ msgstr ""
 "gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
 "mogelijk te maken voor de volledige website."
 
-#: views.py:102
+#: views.py:101
 msgid "You have been logged out."
 msgstr "Je bent uitgelogd."
 
-#: views.py:104
+#: views.py:103
 msgid "Can't log you out, you weren't logged in!"
 msgstr "Je kan niet uitloggen, je was niet ingelogd!"
 
-#: templates/users/login.html:9
+#: views.py:218 tests/test_views.py:43
+msgid "Your profile data has been updated."
+msgstr ""
+
+#: views.py:242
+msgid "Your password was changed."
+msgstr ""
+
+#: forms/auth.py:24 tests/test_signup_login.py:123
+msgid "A user with that username already exists."
+msgstr "Deze gebruikersnaam is al bezet."
+
+#: forms/auth.py:25
+msgid "The two password fields didn't match."
+msgstr "De twee wachtwoordvelden kwamen niet overeen."
+
+#: forms/auth.py:26
+msgid "This e-mail address is already in use."
+msgstr ""
+
+#: forms/auth.py:28
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: forms/auth.py:31
+msgid "Password confirmation"
+msgstr "Wachtwoord (bevestiging)"
+
+#: forms/auth.py:33
+msgid "Enter the same password as above, for verification."
+msgstr "Vul hetzelfde wachtwoord als hierboven in, ter bevestiging."
+
+#: forms/auth.py:79
+msgid "Answer"
+msgstr "Antwoord"
+
+#: forms/auth.py:80
+msgid "I have read and accepted the registration terms"
+msgstr ""
+
+#: forms/auth.py:94
+msgid "Invalid answer. Make sure to read the entire question!"
+msgstr "Ongeldig antwoord. Lees de volledige vraag!"
+
+#: forms/auth.py:96
+msgid "You provided an incorrect answer to the anti-bot question."
+msgstr "Je gaf een ongeldig antwoord op de anti-bot vraag."
+
+#: forms/auth.py:104
+msgid "Username or email"
+msgstr ""
+
+#: forms/auth.py:108
+#, fuzzy
+msgid "Username"
+msgstr "gebruikersnaam"
+
+#: forms/auth.py:117
+msgid "Fill at least one field."
+msgstr ""
+
+#: forms/auth.py:144
+msgid ""
+"Multiple accounts were found, this shouldn't happen. Please contact the "
+"admins (see e-mail in the page footer)."
+msgstr ""
+
+#: forms/auth.py:153
+msgid ""
+"Your account is still inactive! You won't be able to log in until you "
+"reactivate with the link sent by e-mail. Check your spamfolder to see if you "
+"missed an e-mail."
+msgstr ""
+
+#: forms/auth.py:176
+msgid "An e-mail was sent with a link to reset your password."
+msgstr ""
+
+#: templates/users/change_password.html:6
+#: templates/users/change_password.html:16
+#: templates/users/password_reset.html:20 templates/users/profile_edit.html:79
+#: templates/users/profile_edit.html:89 tests/test_views.py:30
+#, fuzzy
+msgid "Change password"
+msgstr "Wachtwoord"
+
+#: templates/users/login.html:5
+msgid "login"
+msgstr ""
+
+#: templates/users/login.html:12
+msgid "Login"
+msgstr ""
+
+#: templates/users/login.html:17
+#, fuzzy
 msgid ""
 "\n"
-"                If you're having login issues, please don't hesitate to "
-"contact the administrators. You can find the e-mail address on the bottom of "
-"this page.\n"
+"                If you're running into login issues, please don't hesitate "
+"to contact the administrators. You can find the e-mail address on the bottom "
+"of this page.\n"
 "            "
 msgstr ""
 "\n"
 "Indien je inlogproblemen hebt, aarzel niet om de beheerders te contacteren. "
 "Je vindt het e-mailadres onderaan deze pagina."
 
-#: templates/users/login.html:21
-msgid "Forgot your password?"
+#: templates/users/login.html:39
+msgid "Come on in"
+msgstr ""
+
+#: templates/users/login.html:41
+#, fuzzy
+msgid "I forgot my password"
 msgstr "Wachtwoord vergeten?"
 
-#: templates/users/login.html:23
-msgid "Request a password reset"
+#: templates/users/login.html:49
+msgid ""
+"\n"
+"                    No account yet? Signing up is free and you can "
+"immediately\n"
+"                    participate in the community!\n"
+"                "
+msgstr ""
+
+#: templates/users/login.html:55
+msgid "Sign up"
+msgstr ""
+
+#: templates/users/login.html:58
+msgid "Why create an account?"
+msgstr ""
+
+#: templates/users/login.html:60
+msgid "Exchange hobby tips and tricks on the forum"
+msgstr ""
+
+#: templates/users/login.html:61
+msgid "Showcase your projects and receive feedback on the forum"
+msgstr ""
+
+#: templates/users/login.html:62
+msgid "Upload your photos in our integrated albums"
+msgstr ""
+
+#: templates/users/login.html:63
+msgid "Participate in groupbuilds focused on a narrow theme"
+msgstr ""
+
+#: templates/users/password_reset.html:3
+msgid "Modelbrouwers.nl &bull; Reset password"
+msgstr ""
+
+#: templates/users/password_reset.html:8
+#: templates/users/password_reset_confirm.html:7
+#: templates/users/password_reset_confirm.html:16
+#, fuzzy
+msgid "Reset password"
 msgstr "Wachtwoordreset aanvragen"
 
+#: templates/users/password_reset.html:9
+msgid "Enter either your username or e-mail address to reset your password"
+msgstr ""
+
+#: templates/users/password_reset_confirm.html:22
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: templates/users/password_reset_confirm.html:24
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: templates/users/profile.html:4
+msgid "Modelbrouwers.nl &bull; View profile"
+msgstr ""
+
+#: templates/users/profile.html:20
+msgid "Albums"
+msgstr ""
+
+#: templates/users/profile.html:21
+msgid "Builds"
+msgstr ""
+
+#: templates/users/profile.html:22
+msgid "Groupbuilds"
+msgstr ""
+
+#: templates/users/profile.html:26
+msgid "Work in progress"
+msgstr ""
+
+#: templates/users/profile_edit.html:3
+msgid "Modelbrouwers.nl &bull; Edit profile"
+msgstr ""
+
+#: templates/users/profile_edit.html:9
+msgid "Your profile"
+msgstr ""
+
+#: templates/users/profile_edit.html:11
+msgid ""
+"\n"
+"            Here you can configure various site-wide settings.\n"
+"        "
+msgstr ""
+
+#: templates/users/profile_edit.html:30
+msgid "You have form errors, check the tabs below"
+msgstr ""
+
+#: templates/users/profile_edit.html:36
+msgid "User details"
+msgstr ""
+
+#: templates/users/profile_edit.html:37
+#, fuzzy
+msgid "Address"
+msgstr "e-mailadres"
+
+#: templates/users/profile_edit.html:38
+msgid "Awards"
+msgstr ""
+
+#: templates/users/profile_edit.html:39
+msgid "Social settings"
+msgstr ""
+
+#: templates/users/profile_edit.html:40
+msgid "Forum profile"
+msgstr ""
+
+#: templates/users/profile_edit.html:72
+msgid "Save changes"
+msgstr ""
+
 #: templates/users/register.html:4
-msgid "Registration"
+#, fuzzy
+msgid "registration"
 msgstr "Registratie"
 
-#: templates/users/register.html:21
-msgid "Registration: fill out the form below. All fields are required."
-msgstr "Registratie: vul het formulier in. Alle velden zijn verplicht."
+#: templates/users/register.html:11
+msgid "Create an account"
+msgstr ""
 
-#: templates/users/register.html:30
-msgid "Register"
-msgstr "Registreren"
+#: templates/users/register.html:12
+msgid "you're just a step away from your personal account"
+msgstr ""
 
-#: templates/users/register.html:32
-msgid "By registering, you agree to the terms below."
-msgstr "Door te registreren ga je akkoord met de onderstaande voorwaarden."
+#: templates/users/register.html:15
+msgid ""
+"\n"
+"            We're happy to see you join our beautiful hobby hub where you "
+"can exchange tips and tricks\n"
+"            and participate in the community!\n"
+"        "
+msgstr ""
 
-#: templates/users/register.html:36
-msgid "Registration terms"
-msgstr "Registratievoorwaarden"
+#: templates/users/register.html:20
+msgid ""
+"When you're done, don't forget to introduce yourself in the appropriate "
+"forum,\n"
+"        and make yourself familiar with our rules. If you run into any "
+"trouble, you can contact the\n"
+"        staff via PM (personal message), or contact the admins via the e-"
+"mail address below.\n"
+"        "
+msgstr ""
+
+#: templates/users/register.html:38
+msgid "Enter your account details"
+msgstr ""
+
+#: templates/users/register.html:47
+msgid "Anti-spam question"
+msgstr ""
+
+#: templates/users/register.html:48
+msgid "Carefully read the question, the answer is often literally in there!"
+msgstr ""
+
+#: templates/users/register.html:57
+msgid "Create your account"
+msgstr ""
+
+#: templates/users/register.html:59
+msgid "Already have an account?"
+msgstr ""
+
+#: templates/users/register.html:67
+msgid "Terms and conditions"
+msgstr ""
+
+#: templates/users/register.html:68
+msgid ""
+"\n"
+"                Unfortunately, some people need strong and clear rules to "
+"behave. When you create an account,\n"
+"                you agree with these terms and conditions.\n"
+"            "
+msgstr ""
 
 #: templates/users/mail/user_created.html:5
 #, python-format
@@ -264,3 +496,15 @@ msgid ""
 "Sincerely,\n"
 "The %(name)s staff.\n"
 msgstr ""
+
+#~ msgid "Registration: fill out the form below. All fields are required."
+#~ msgstr "Registratie: vul het formulier in. Alle velden zijn verplicht."
+
+#~ msgid "Register"
+#~ msgstr "Registreren"
+
+#~ msgid "By registering, you agree to the terms below."
+#~ msgstr "Door te registreren ga je akkoord met de onderstaande voorwaarden."
+
+#~ msgid "Registration terms"
+#~ msgstr "Registratievoorwaarden"

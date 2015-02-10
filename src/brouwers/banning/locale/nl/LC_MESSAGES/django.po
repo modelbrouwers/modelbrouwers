@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-13 19:51+0100\n"
+"POT-Creation-Date: 2015-02-10 19:59+0100\n"
 "PO-Revision-Date: 2014-05-29 21:57+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: Nederlands <LL@li.org>\n"
@@ -19,74 +19,74 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: models.py:18
+#: models.py:17
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:20
+#: models.py:19
 msgid "ip"
 msgstr "ip-adres"
 
-#: models.py:21
+#: models.py:20
 msgid "Ip address to ban."
 msgstr "IP-adres om te verbannen."
 
-#: models.py:25
+#: models.py:24
 msgid "expiry date"
 msgstr "vervaldatum"
 
-#: models.py:27
+#: models.py:26
 msgid "Date the ban expires. Leave blank for permabans."
 msgstr ""
 "Datum waarop de ban vervalt. Laat leeg om permanente bans in te steken."
 
-#: models.py:29
+#: models.py:28
 msgid "reason (internal)"
 msgstr "reden (intern)"
 
-#: models.py:31
+#: models.py:30
 msgid "reason"
 msgstr "reden"
 
-#: models.py:32
+#: models.py:31
 msgid "This reason will be shown to the banned user."
 msgstr "Deze reden is zichtbaar voor de verbannen gebruiker."
 
-#: models.py:34
+#: models.py:33
 msgid "automatically created?"
 msgstr "automatisch aangemaakt?"
 
-#: models.py:37
+#: models.py:36
 msgid "ban"
 msgstr "verbanning"
 
-#: models.py:38
+#: models.py:37
 msgid "bans"
 msgstr "verbanningen"
 
-#: models.py:43
+#: models.py:42
 msgid "never"
 msgstr "nooit"
 
-#: models.py:49
+#: models.py:48
 msgid "ip ban"
 msgstr "IP-verbanning"
 
-#: models.py:50
+#: models.py:49
 msgid "account ban"
 msgstr "accountverbanning"
 
-#: models.py:54
+#: models.py:53
 #, python-format
 msgid "Ban: %(username)s"
 msgstr "Verbanning: %(username)s"
 
-#: models.py:56
+#: models.py:55
 #, python-format
 msgid "Ban: %(ip)s"
 msgstr "Verbanning: %(ip)s"
 
-#: models.py:61
+#: models.py:60
 msgid "Submit either an user or IP address."
 msgstr "Geef ofwel een gebruiker in, ofwel een IP-adres"
 

@@ -218,6 +218,7 @@ INSTALLED_APPS = (
     'brouwers.online_users',
     'brouwers.secret_santa',
     'brouwers.shirts',
+    'brouwers.utils',
 )
 
 #

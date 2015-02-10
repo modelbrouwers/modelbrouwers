@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-13 19:51+0100\n"
+"POT-Creation-Date: 2015-02-10 19:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,71 +18,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ajax_views.py:48
-msgid "Your password was successfully changed."
-msgstr "Je wachtwoord werd succesvol aangepast."
-
-#: forms.py:21
+#: forms.py:19
 msgid "E-mail"
 msgstr "E-mailadres"
 
-#: forms.py:27 forms.py:46
+#: forms.py:25 forms.py:44
 msgid "A user with that username already exists."
 msgstr "Er bestaat al iemand met deze gebruikersnaam."
 
-#: forms.py:47 forms.py:125 forms.py:222
+#: forms.py:45 forms.py:123 forms.py:220
 msgid "The two password fields didn't match."
 msgstr "De wachtwoordvelden zijn niet identiek."
 
-#: forms.py:50 forms.py:164
+#: forms.py:48 forms.py:162
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: forms.py:51 forms.py:167
+#: forms.py:49 forms.py:165
 msgid "E-mail address"
 msgstr "E-mailadres"
 
-#: forms.py:52 forms.py:114 forms.py:211
+#: forms.py:50 forms.py:112 forms.py:209
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: forms.py:54 forms.py:116 forms.py:213
+#: forms.py:52 forms.py:114 forms.py:211
 msgid "Password confirmation"
 msgstr "Wachtwoord - bevestig"
 
-#: forms.py:56 forms.py:118 forms.py:215
+#: forms.py:54 forms.py:116 forms.py:213
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 
-#: forms.py:66
+#: forms.py:64
 msgid "This e-mail address is already registered."
 msgstr "Dit e-mailadres is al geregistreerd."
 
-#: forms.py:103 models.py:135
+#: forms.py:101 models.py:137
 msgid "answer"
 msgstr "antwoord"
 
-#: forms.py:112
+#: forms.py:110
 msgid "Forum name"
 msgstr "Forumnaam"
 
-#: forms.py:113
+#: forms.py:111
 msgid "Code"
 msgstr "Code"
 
-#: forms.py:131
+#: forms.py:129
 msgid "This user doesn't exist on the board, check for typos."
 msgstr "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
 
-#: forms.py:139
+#: forms.py:137
 msgid "You entered the wrong code."
 msgstr "Je hebt een foutieve code ingegeven."
 
-#: forms.py:154
+#: forms.py:152
 msgid "The username entered was not correct."
 msgstr "De ingegeven gebruikersnaam was niet correct."
 
-#: forms.py:168
+#: forms.py:166
 msgid ""
 "If you forgot your username, you can enter the e-mail address you registered "
 "with."
@@ -90,99 +86,99 @@ msgstr ""
 "Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee "
 "je registreerde ingeven."
 
-#: forms.py:175
+#: forms.py:173
 msgid "This user is unknown in the database."
 msgstr "Deze gebruiker komt niet in de databank voor."
 
-#: forms.py:182
+#: forms.py:180
 msgid "This email adress is unknown in the database"
 msgstr "Dit e-mailadres komt niet in de databank voor."
 
-#: forms.py:189
+#: forms.py:187
 msgid "Enter your username or e-mail address."
 msgstr "Voer je gebruikersnaam of e-mailadres in."
 
-#: models.py:12
+#: models.py:14
 msgid "The Netherlands"
 msgstr "Nederland"
 
-#: models.py:13
+#: models.py:15
 msgid "Belgium"
 msgstr "België"
 
-#: models.py:14
+#: models.py:16
 msgid "Germany"
 msgstr "Duitsland"
 
-#: models.py:15
+#: models.py:17
 msgid "France"
 msgstr "Frankrijk"
 
-#: models.py:25
+#: models.py:27
 msgid "added by"
 msgstr ""
 
-#: models.py:25
+#: models.py:27
 msgid "User who added the object."
 msgstr ""
 
-#: models.py:26
+#: models.py:28
 msgid "added on"
 msgstr ""
 
-#: models.py:38
+#: models.py:40
 msgid "exclude me from nominations"
 msgstr "sluit me uit van nominaties"
 
-#: models.py:39
+#: models.py:41
 msgid "If checked, you will be excluded from Awards-nominations."
 msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
 
-#: models.py:43
+#: models.py:45
 msgid "Aanvinken als je meedoet"
 msgstr ""
 
-#: models.py:45
+#: models.py:47
 msgid "street name"
 msgstr "straatnaam"
 
-#: models.py:47
+#: models.py:49
 msgid "number"
 msgstr "nummer"
 
-#: models.py:48
+#: models.py:50
 msgid "house number (+ PO box if applicable)"
 msgstr "huisnummer (+ postbus indien van toepassing)"
 
-#: models.py:51
+#: models.py:53
 msgid "postal code"
 msgstr "postcode"
 
-#: models.py:52
+#: models.py:54
 msgid "city"
 msgstr "stad"
 
-#: models.py:53
+#: models.py:55
 msgid "province"
 msgstr "provincie"
 
-#: models.py:54
+#: models.py:56
 msgid "country"
 msgstr "land"
 
-#: models.py:57
+#: models.py:59
 msgid "Dit wil ik graag"
 msgstr ""
 
-#: models.py:58
+#: models.py:60
 msgid "Dit wil ik absoluut niet"
 msgstr ""
 
-#: models.py:61
+#: models.py:63
 msgid "allow social sharing"
 msgstr "sociaal delen toestaan"
 
-#: models.py:62
+#: models.py:64
 msgid ""
 "Checking this gives us permission to share your topics and albums on social "
 "media. Uncheck if you don't want to share."
@@ -190,93 +186,93 @@ msgstr ""
 "Als je dit aanvinkt, dan geef je toestemming om je topics en albums te delen "
 "op sociale media zoals Facebook. Vink dit uit als je dit niet wil."
 
-#: models.py:72
+#: models.py:74
 msgid "userprofile"
 msgstr "gebruikersprofiel"
 
-#: models.py:73
+#: models.py:75
 msgid "userprofiles"
 msgstr "gebruikersprofielen"
 
-#: models.py:98
+#: models.py:100
 #, fuzzy
 msgid "Anti-spambot question"
 msgstr "Anti-spambot vraag"
 
-#: models.py:99
+#: models.py:101
 msgid "Question which must be answered for registration."
 msgstr "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
 
-#: models.py:132
+#: models.py:134
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:133
+#: models.py:135
 #, fuzzy
 msgid "email"
 msgstr "E-mailadres"
 
-#: models.py:134
+#: models.py:136
 #, fuzzy
 msgid "registration question"
 msgstr "Registratie"
 
-#: models.py:136
+#: models.py:138
 msgid "timestamp"
 msgstr "timestamp"
 
-#: models.py:137
+#: models.py:139
 #, fuzzy
 msgid "IP address"
 msgstr "E-mailadres"
 
-#: models.py:138
+#: models.py:140
 msgid "success"
 msgstr "geslaagd"
 
-#: models.py:142
+#: models.py:144
 msgid "type of visitor"
 msgstr "type bezoeker"
 
-#: models.py:148
+#: models.py:150
 msgid "registration attempt"
 msgstr "registratiepoging"
 
-#: models.py:149
+#: models.py:151
 msgid "registration attempts"
 msgstr "registratiepogingen"
 
-#: models.py:197
+#: models.py:199
 #, python-format
 msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
 msgstr ""
 
-#: models.py:242
+#: models.py:244
 msgid "hash"
 msgstr "hash"
 
-#: models.py:243
+#: models.py:245
 msgid "expire datetime"
 msgstr "vervaldatum"
 
-#: models.py:246
+#: models.py:248
 msgid "password reset"
 msgstr "Wachtwoordreset"
 
-#: models.py:247
+#: models.py:249
 msgid "password resets"
 msgstr "Wachtwoordresets"
 
-#: models.py:252
+#: models.py:254
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr "Wachtwoordreset voor %(user)s"
 
-#: models.py:257
+#: models.py:259
 msgid "path from"
 msgstr "pad van"
 
-#: models.py:259
+#: models.py:261
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
@@ -284,214 +280,43 @@ msgstr ""
 "pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
 "shop/' wordt 'shop/'"
 
-#: models.py:263
+#: models.py:265
 msgid "redirect to"
 msgstr "redirect naar"
 
-#: models.py:264
+#: models.py:266
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr "Pad (relatief of absoluut tot de website root) of url."
 
-#: models.py:268
+#: models.py:270
 msgid "redirect"
 msgstr "omleiding"
 
-#: models.py:269
+#: models.py:271
 msgid "redirects"
 msgstr "omleidingen"
 
-#: models.py:289
+#: models.py:291
 msgid "language"
 msgstr ""
 
-#: models.py:296
+#: models.py:298
 msgid "announcement"
 msgstr ""
 
-#: models.py:297
+#: models.py:299
 msgid "announcements"
 msgstr ""
 
-#: views.py:75
-msgid "Your profile data has been updated."
-msgstr "Je profielgegevens werden bijgewerkt."
-
-#: views.py:78
-msgid "Some fields were not valid, please fix the errors."
-msgstr "Sommige gegevens waren ongeldig, pas a.u.b. de problemen aan."
-
-#: views.py:138
-msgid ""
-"Your account is still inactive! You won't be able to log in until you "
-"reactivate with the link sent by e-mail."
-msgstr ""
-"Je account is nog inactief! Je zal niet kunnen inloggen tot je je account "
-"geheractiveerd hebt via de link die gemaild werd."
-
-#: views.py:165
-#, python-format
-msgid ""
-"Hello %(nickname)s, \n"
-"\n"
-"You or someone else has requested a password reset for your Modelbrouwers.nl "
-"account.\n"
-"This request will expire after 24 hours.\n"
-"\n"
-"Go to %(url)s to complete your password reset.\n"
-"\n"
-"Sincerely,\n"
-"\n"
-"The Modelbrouwers.nl staff"
-msgstr ""
-"Hallo %(nickname)s, \n"
-"\n"
-"Jijzelf of iemand anders heeft een wachtwoordreset aangevraagd voor je "
-"Modelbrouwers.nl account.\n"
-"Deze aanvraag vervalt na 24 uur.\n"
-"\n"
-"Ga naar %(url)s om je wachtwoordreset uit te voeren.\n"
-"\n"
-"Met vriendelijke groet,\n"
-"\n"
-"Het Modelbrouwers.nl beheer"
-
-#: views.py:177
-msgid "nickname"
-msgstr "gebruikersnaam"
-
-#: views.py:181
-msgid "Modelbrouwers.nl password reset"
-msgstr "Modelbrouwers.nl wachtwoordreset"
-
-#: views.py:185
-#, python-format
-msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
-msgstr ""
-"Er werd een e-mail verstuurd naar '%(email)s' met een link om je wachtwoord "
-"te resetten."
-
-#: templates/general/confirm_account.html:24 templates/general/profile.html:10
+#: templates/general/confirm_account.html:24
 msgid "Confirm"
 msgstr "Bevestigen"
 
-#: templates/general/do_password_reset.html:5
-msgid "Enter your new password"
-msgstr "Vul je nieuwe wachtwoord in"
-
-#: templates/general/do_password_reset.html:10
-#: templates/general/password_reset.html:13
-msgid "confirm"
-msgstr "bevestigen"
-
-#: templates/general/login.html:29
-msgid "Forgot your password?"
-msgstr "Wachtwoord vergeten?"
-
-#: templates/general/login.html:31
-msgid "Request a password reset"
-msgstr "Vraag om een wachtwoord reset"
-
-#: templates/general/password.html:5 templates/general/password.html.py:9
-#: templates/general/password.html:13 templates/general/profile.html:9
-#: templates/general/profile.html.py:20
-msgid "Change password"
-msgstr "Wachtwoord wijzigen"
-
-#: templates/general/password_reset.html:6
-msgid "Enter your username or e-mail address to request a password reset."
-msgstr ""
-"Voer je gebruikersnaam of e-mailadres in om een wachtwoordreset aan te "
-"vragen."
-
-#: templates/general/password_reset.html:8
-msgid "An e-mail will be sent to you with a link to reset your password."
-msgstr ""
-"Er wordt een e-mail verstuurd met een link om je wachtwoord te resetten."
-
-#: templates/general/profile.html:3
-msgid "Modelbrouwers.nl &bull; Edit profile"
-msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
-
-#: templates/general/profile.html:11
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: templates/general/profile.html:19
-msgid "Account details"
-msgstr "Accountdetails"
-
-#: templates/general/profile.html:23
-msgid "Introduce yourself!"
-msgstr "Introduceer jezelf!"
-
-#: templates/general/profile.html:31
-msgid "Your username"
-msgstr "Je gebruikersnaam"
-
-#: templates/general/profile.html:40
-msgid "Address details"
-msgstr "Adresdetails"
-
-#: templates/general/profile.html:45
-msgid "Awards"
-msgstr "Awards"
-
-#: templates/general/profile.html:50
-msgid "Social sharing"
-msgstr "Delen op sociale media"
-
-#: templates/general/profile.html:56
-msgid "Save"
-msgstr "Bewaren"
-
-#: templates/general/profile.html:62
-msgid "Language settings"
-msgstr "Taalinstellingen"
-
-#: templates/general/profile.html:64
-msgid ""
-"Set your preferred language here. Note that this setting is stored in your "
-"cookies, so if you clear those, the default language according to your "
-"browser preferences will be used."
-msgstr ""
-"Stel hier je voorkeurstaal in. Let op, de instellingen worden in je cookies "
-"bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
-"browserinstellingen gekozen."
-
-#: templates/general/profile.html:77
-msgid ""
-"Contact admins@modelbrouwers.nl if you are interested in helping with "
-"translations."
-msgstr ""
-"Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen "
-"met vertalingen."
-
-#: templates/general/register.html:4
-#: templates/general/registration_terms.html:6
+#: templates/general/registration_terms.html:4
 msgid "Registration"
 msgstr "Registratie"
 
-#: templates/general/register.html:24
-msgid "Anti-Spambot question"
-msgstr "Anti-spambot vraag"
-
-#: templates/general/register.html:31
-msgid "Answer"
-msgstr "Antwoord"
-
-#: templates/general/register.html:38
-msgid "Register"
-msgstr "Registreren"
-
-#: templates/general/register.html:40
-msgid "By registering, you agree to the terms below."
-msgstr "Bij registratie ga je akkoord met de voorwaarden hieronder."
-
-#: templates/general/register.html:44
-msgid "Registration terms"
-msgstr "Registratievoorwaarden"
-
-#: templates/general/registration_terms.html:8
+#: templates/general/registration_terms.html:6
 #, python-format
 msgid ""
 "By registering on %(site)s and creating an account and profile,you get "
@@ -504,7 +329,7 @@ msgstr ""
 "van %(site)s wordt in de toekomst toegevoegd. Registratie houdt in dat je "
 "automatisch akkoord gaat met de voorwaarden."
 
-#: templates/general/registration_terms.html:11
+#: templates/general/registration_terms.html:9
 msgid ""
 "You agree to keep your credentials safe. Furthermore, you will keep one, and "
 "<strong>only one</strong> account. Multiple accounts are strictly forbidden. "
@@ -516,7 +341,7 @@ msgstr ""
 "zijn niet toegelaten. Je zal je ook niet voordoen als een ander forumlid of "
 "proberen onrechtmatige toegang te krijgen tot de account van een ander lid."
 
-#: templates/general/registration_terms.html:14
+#: templates/general/registration_terms.html:12
 #, python-format
 msgid ""
 "Some parts of %(site)s contain (extra) rules. It's your responsibility to "
@@ -527,11 +352,11 @@ msgstr ""
 "verantwoordelijkheid om deze te lezen. De admins en moderators (= het "
 "modteam) gaat er altijd van uit dat je op de hoogte bent van de regels."
 
-#: templates/general/registration_terms.html:18
+#: templates/general/registration_terms.html:16
 msgid "Content"
 msgstr "Inhoud"
 
-#: templates/general/registration_terms.html:20
+#: templates/general/registration_terms.html:18
 #, python-format
 msgid ""
 "All content posted on %(site)s becomes property of %(site)s as soon as it's "
@@ -545,7 +370,7 @@ msgstr ""
 "verwijderen, tenzij een geldige reden opgegeven wordt (bijvoorbeeld werk-"
 "gerelateerde privacy)."
 
-#: templates/general/registration_terms.html:23
+#: templates/general/registration_terms.html:21
 msgid ""
 "On the forums, you are allowed to edit your posts, unless that right has "
 "been taken away by the staff. You can delete your latest post, if no-one "
@@ -557,7 +382,7 @@ msgstr ""
 "reactie op gekomen is. Soms is een uitzondering op zijn plaats, contacteer "
 "het modteam als je denkt dat een uitzondering vereist is."
 
-#: templates/general/registration_terms.html:26
+#: templates/general/registration_terms.html:24
 msgid ""
 "All images added to the albums stay on our server. Even if you delete an "
 "image from your album, the file is still on the hard drive. This is to "
@@ -569,7 +394,7 @@ msgstr ""
 "de harde schijf. Op deze manier proberen we continu&iuml;teit in de topics "
 "te verzekeren door rode kruisjes te vermijden."
 
-#: templates/general/registration_terms.html:29
+#: templates/general/registration_terms.html:27
 #, python-format
 msgid ""
 "Posted content is subject to Dutch and Belgian legislation. Furthermore, "
@@ -581,11 +406,11 @@ msgstr ""
 "Pornografische, racistische, godslasterlijke of grievende inhoud is niet "
 "toegestaan. Bij twijfel, contacteer het modteam."
 
-#: templates/general/registration_terms.html:34
+#: templates/general/registration_terms.html:32
 msgid "Stored data"
 msgstr "Bewaarde gegevens"
 
-#: templates/general/registration_terms.html:36
+#: templates/general/registration_terms.html:34
 #, python-format
 msgid ""
 "%(site)s makes use of cookies to keep you logged in. Furthermore, certain "
@@ -596,7 +421,7 @@ msgstr ""
 "cookies gebruikt om de veiligheid van de site hoog te houden. Deze cookies "
 "zijn essentieel om %(site)s goed te laten werken."
 
-#: templates/general/registration_terms.html:39
+#: templates/general/registration_terms.html:37
 #, python-format
 msgid ""
 "%(site)s also makes use of Google Analytics cookies. These cookies generate "
@@ -607,7 +432,7 @@ msgstr ""
 "genereren anonieme statistieken over het gebruik van %(site)s. We gebruiken "
 "ze om jouw ervaring op %(site)s te verbeteren en de kwaliteit hoog te houden."
 
-#: templates/general/registration_terms.html:42
+#: templates/general/registration_terms.html:40
 #, python-format
 msgid ""
 "%(site)s values your privacy highly. Your password is hashed and can not be "
@@ -621,11 +446,11 @@ msgstr ""
 "opties kunnen ingesteld worden in je profiel, zoals het <i>sharen</i> op "
 "social media."
 
-#: templates/general/registration_terms.html:47
+#: templates/general/registration_terms.html:45
 msgid "Terms violations"
 msgstr "Overtredingen van de voorwaarden"
 
-#: templates/general/registration_terms.html:49
+#: templates/general/registration_terms.html:47
 #, python-format
 msgid ""
 "Violation of these terms will be looked at case-per-case by the staff. The "
@@ -643,7 +468,7 @@ msgstr ""
 "gediscussieerd. Het modteam zal je altijd met respect behandelen. Vergeet "
 "echter niet, ook het modteam bestaat uit gewone mensen!"
 
-#: templates/general/registration_terms.html:52
+#: templates/general/registration_terms.html:50
 msgid ""
 "Mistakes occur. If you feel like an error is in place, don't hesitate to "
 "contact the admins. The e-mail address is in the footer of this page."
@@ -651,6 +476,143 @@ msgstr ""
 "Foutjes kunnen gebeuren. Als je denkt dat er een fout in het spel is, aarzel "
 "dan niet om de admins te contacteren. Het e-mailadres staat onderaan deze "
 "pagina."
+
+#~ msgid "Your password was successfully changed."
+#~ msgstr "Je wachtwoord werd succesvol aangepast."
+
+#~ msgid "Your profile data has been updated."
+#~ msgstr "Je profielgegevens werden bijgewerkt."
+
+#~ msgid "Some fields were not valid, please fix the errors."
+#~ msgstr "Sommige gegevens waren ongeldig, pas a.u.b. de problemen aan."
+
+#~ msgid ""
+#~ "Your account is still inactive! You won't be able to log in until you "
+#~ "reactivate with the link sent by e-mail."
+#~ msgstr ""
+#~ "Je account is nog inactief! Je zal niet kunnen inloggen tot je je account "
+#~ "geheractiveerd hebt via de link die gemaild werd."
+
+#~ msgid ""
+#~ "Hello %(nickname)s, \n"
+#~ "\n"
+#~ "You or someone else has requested a password reset for your Modelbrouwers."
+#~ "nl account.\n"
+#~ "This request will expire after 24 hours.\n"
+#~ "\n"
+#~ "Go to %(url)s to complete your password reset.\n"
+#~ "\n"
+#~ "Sincerely,\n"
+#~ "\n"
+#~ "The Modelbrouwers.nl staff"
+#~ msgstr ""
+#~ "Hallo %(nickname)s, \n"
+#~ "\n"
+#~ "Jijzelf of iemand anders heeft een wachtwoordreset aangevraagd voor je "
+#~ "Modelbrouwers.nl account.\n"
+#~ "Deze aanvraag vervalt na 24 uur.\n"
+#~ "\n"
+#~ "Ga naar %(url)s om je wachtwoordreset uit te voeren.\n"
+#~ "\n"
+#~ "Met vriendelijke groet,\n"
+#~ "\n"
+#~ "Het Modelbrouwers.nl beheer"
+
+#~ msgid "nickname"
+#~ msgstr "gebruikersnaam"
+
+#~ msgid "Modelbrouwers.nl password reset"
+#~ msgstr "Modelbrouwers.nl wachtwoordreset"
+
+#~ msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
+#~ msgstr ""
+#~ "Er werd een e-mail verstuurd naar '%(email)s' met een link om je "
+#~ "wachtwoord te resetten."
+
+#~ msgid "Enter your new password"
+#~ msgstr "Vul je nieuwe wachtwoord in"
+
+#~ msgid "confirm"
+#~ msgstr "bevestigen"
+
+#~ msgid "Forgot your password?"
+#~ msgstr "Wachtwoord vergeten?"
+
+#~ msgid "Request a password reset"
+#~ msgstr "Vraag om een wachtwoord reset"
+
+#~ msgid "Change password"
+#~ msgstr "Wachtwoord wijzigen"
+
+#~ msgid "Enter your username or e-mail address to request a password reset."
+#~ msgstr ""
+#~ "Voer je gebruikersnaam of e-mailadres in om een wachtwoordreset aan te "
+#~ "vragen."
+
+#~ msgid "An e-mail will be sent to you with a link to reset your password."
+#~ msgstr ""
+#~ "Er wordt een e-mail verstuurd met een link om je wachtwoord te resetten."
+
+#~ msgid "Modelbrouwers.nl &bull; Edit profile"
+#~ msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuleren"
+
+#~ msgid "Account details"
+#~ msgstr "Accountdetails"
+
+#~ msgid "Introduce yourself!"
+#~ msgstr "Introduceer jezelf!"
+
+#~ msgid "Your username"
+#~ msgstr "Je gebruikersnaam"
+
+#~ msgid "Address details"
+#~ msgstr "Adresdetails"
+
+#~ msgid "Awards"
+#~ msgstr "Awards"
+
+#~ msgid "Social sharing"
+#~ msgstr "Delen op sociale media"
+
+#~ msgid "Save"
+#~ msgstr "Bewaren"
+
+#~ msgid "Language settings"
+#~ msgstr "Taalinstellingen"
+
+#~ msgid ""
+#~ "Set your preferred language here. Note that this setting is stored in "
+#~ "your cookies, so if you clear those, the default language according to "
+#~ "your browser preferences will be used."
+#~ msgstr ""
+#~ "Stel hier je voorkeurstaal in. Let op, de instellingen worden in je "
+#~ "cookies bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
+#~ "browserinstellingen gekozen."
+
+#~ msgid ""
+#~ "Contact admins@modelbrouwers.nl if you are interested in helping with "
+#~ "translations."
+#~ msgstr ""
+#~ "Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen "
+#~ "met vertalingen."
+
+#~ msgid "Anti-Spambot question"
+#~ msgstr "Anti-spambot vraag"
+
+#~ msgid "Answer"
+#~ msgstr "Antwoord"
+
+#~ msgid "Register"
+#~ msgstr "Registreren"
+
+#~ msgid "By registering, you agree to the terms below."
+#~ msgstr "Bij registratie ga je akkoord met de voorwaarden hieronder."
+
+#~ msgid "Registration terms"
+#~ msgstr "Registratievoorwaarden"
 
 #~ msgid "normal user"
 #~ msgstr "normale gebruiker"

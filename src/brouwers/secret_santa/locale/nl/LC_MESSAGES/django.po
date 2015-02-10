@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-13 19:51+0100\n"
+"POT-Creation-Date: 2015-02-10 19:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sergei Maertens <sergei@modelbrouwers.nl>\n"
 "Language-Team: nl <sergei@modelbrouwers.nl>\n"
@@ -18,95 +18,95 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: models.py:11
+#: models.py:10
 msgid "year"
 msgstr "jaar"
 
-#: models.py:11
+#: models.py:10
 msgid "Year the lottery starts."
 msgstr "Jaar waarin de lootjesverdeling plaatsvindt."
 
-#: models.py:12
+#: models.py:11
 msgid "enrollment start"
 msgstr "start inschrijvingen"
 
-#: models.py:12
+#: models.py:11
 msgid "From when can people enroll."
 msgstr "Tijdstip vanaf wanneer mensen mogen inschrijven."
 
-#: models.py:13
+#: models.py:12
 msgid "enrollment end"
 msgstr "einde inschrijvingen"
 
-#: models.py:13
+#: models.py:12
 msgid "Until when can people enroll."
 msgstr "Tijdstip tot wanneer mensen mogen inschrijven."
 
-#: models.py:14
+#: models.py:13
 msgid "lottery date"
 msgstr "datum lootjesverdeling"
 
-#: models.py:14
+#: models.py:13
 msgid "When will the lottery happen?"
 msgstr "Wanneer gebeurt de lootjesverdeling?"
 
-#: models.py:15
+#: models.py:14
 msgid "Lottery done?"
 msgstr "Lootjes verdeeld?"
 
-#: models.py:17
+#: models.py:16
 msgid "price class"
 msgstr "prijsklasse"
 
-#: models.py:19
+#: models.py:18
 msgid "Enter a value here for the estimated price class of the gift."
 msgstr "Vul hier de prijsklasse van het cadeautje in."
 
-#: models.py:23
+#: models.py:22
 msgid "secret santa"
 msgstr "secret santa"
 
-#: models.py:24
+#: models.py:23
 msgid "secret santas"
 msgstr "secret santas"
 
-#: models.py:55 models.py:71
+#: models.py:54 models.py:70
 msgid "secret santa edition"
 msgstr "secret santa editie"
 
-#: models.py:56
+#: models.py:55
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:59
+#: models.py:58
 msgid "participant"
 msgstr "deelnemer"
 
-#: models.py:60
+#: models.py:59
 msgid "participants"
 msgstr "deelnemers"
 
-#: views.py:42 templates/secret_santa/base.html:58
+#: views.py:43 templates/secret_santa/base.html:58
 msgid "Your address details are incomplete."
 msgstr "Je adresgegevens zijn onvolledig."
 
-#: views.py:44 templates/secret_santa/base.html:64
+#: views.py:45 templates/secret_santa/base.html:64
 msgid "Signing up is not possible at this time."
 msgstr "Inschrijven is niet mogelijk op dit moment."
 
-#: views.py:75
+#: views.py:76
 msgid "The lottery is done."
 msgstr "De lootjes zijn verdeeld."
 
-#: views.py:92
+#: views.py:93
 msgid "Your match does not exist."
 msgstr "Je Secret Santa bestaat niet. Paniek!"
 
-#: views.py:94
+#: views.py:95
 msgid "You're not a participant!"
 msgstr "Je bent niet ingeschreven!"
 
-#: views.py:96
+#: views.py:97
 msgid "You can't view the lottery results yet."
 msgstr "De lootjesverdeling is nog niet beschikbaar."
 

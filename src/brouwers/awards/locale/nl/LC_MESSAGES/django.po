@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-13 19:51+0100\n"
+"POT-Creation-Date: 2015-02-10 19:59+0100\n"
 "PO-Revision-Date: 2014-05-29 21:56+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,7 +101,7 @@ msgstr ""
 msgid "No duplicate projects are allowed"
 msgstr "De stemmen moeten van elkaar verschillen"
 
-#: views.py:51
+#: views.py:50
 msgid ""
 "The builder of this project doesn't participate in the awards. Voting for "
 "this project will not be possible."
@@ -109,16 +109,16 @@ msgstr ""
 "The brouwer van dit project neemt niet deel aan de awards. Stemmen voor dit "
 "project zal niet mogelijk zijn."
 
-#: views.py:54
+#: views.py:53
 msgid "The nomination was added."
 msgstr "De nominatie werd toegevoegd"
 
-#: views.py:186
+#: views.py:185
 #, python-format
 msgid "Your vote for `%(category)s` was saved."
 msgstr "Je stem in `%(category)s` werd bewaard."
 
-#: views.py:193
+#: views.py:192
 msgid ""
 "One or multiple category votes could not be saved. Please correct the errors "
 "below."
@@ -126,7 +126,7 @@ msgstr ""
 "Een of meerdere categorie-stemmen konden niet bewaard worden. Los de fouten "
 "hierbeneden op."
 
-#: views.py:204
+#: views.py:203
 #, python-format
 msgid "Voting is enabled from %(start_date)s until %(end_date)s."
 msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
@@ -147,7 +147,7 @@ msgstr "Categorieën"
 msgid "Voting"
 msgstr "Stemmen"
 
-#: templates/awards/base.html:39
+#: templates/awards/base.html:36
 msgid "Winners"
 msgstr "Winnaars"
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-13 19:51+0100\n"
-"PO-Revision-Date: 2014-07-06 16:39+0200\n"
+"POT-Creation-Date: 2015-02-10 19:59+0100\n"
+"PO-Revision-Date: 2015-02-10 19:52+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -191,14 +191,13 @@ msgstr "exposant"
 msgid "exhibitors"
 msgstr "exposanten"
 
-#: views.py:78
+#: views.py:77
 msgid "Your model has been submitted"
 msgstr "Je model werd toegevoegd."
 
-#: views.py:89
-#, fuzzy
+#: views.py:88
 msgid "Your model has been edited"
-msgstr "Je model werd toegevoegd."
+msgstr "Je model werd bijgewerkt"
 
 #: templates/brouwersdag/base.html:9
 msgid "Signup"
@@ -261,19 +260,19 @@ msgstr ""
 "Indien je met meerdere modellen wenst deel te nemen, vul het formulier dan "
 "in voor elk model."
 
-#: templates/brouwersdag/model_signup.html:34
+#: templates/brouwersdag/model_signup.html:37
 msgid "Add model"
 msgstr "Model aanmelden"
 
-#: templates/brouwersdag/model_signup.html:42
+#: templates/brouwersdag/model_signup.html:45
 msgid "Competition information"
 msgstr "Wedstrijdinformatie"
 
-#: templates/brouwersdag/model_signup.html:45
+#: templates/brouwersdag/model_signup.html:48
 msgid "There's no competition planned (yet)."
 msgstr "Er is (nog) geen wedstrijd geplanned."
 
-#: templates/brouwersdag/model_signup.html:48
+#: templates/brouwersdag/model_signup.html:51
 #, python-format
 msgid ""
 "\n"
@@ -287,7 +286,7 @@ msgstr ""
 "nemen bedragen &euro;%(fee)s per model, wat betaald moet worden bij het "
 "binnenkomen van de zaal."
 
-#: templates/brouwersdag/model_signup.html:55
+#: templates/brouwersdag/model_signup.html:58
 #, python-format
 msgid ""
 "\n"
@@ -308,7 +307,7 @@ msgstr[1] ""
 "Opgelet! Je kan maximaal <strong>%(n)s</strong> model(len) aanmelden voor de "
 "wedstrijd. Extra modellen zullen geweigerd worden."
 
-#: templates/brouwersdag/model_signup.html:61
+#: templates/brouwersdag/model_signup.html:64
 msgid ""
 "This restriction is <strong>only for competition models</strong>. You can "
 "bring as many models as you want outside of the competition!"
@@ -317,9 +316,8 @@ msgstr ""
 "wedstrijd om mag je zoveel modellen als je wenst meebrengen!"
 
 #: templates/brouwersdag/model_signup_edit.html:5
-#, fuzzy
 msgid "Edit model"
-msgstr "Model aanmelden"
+msgstr "Model bewerken"
 
 #: templates/brouwersdag/my_models.html:6
 msgid "My submitted models"

@@ -30,7 +30,7 @@ class ForumUserForm(forms.Form):
     username = forms.CharField(max_length=254)
 
     error_messages = {
-        'invalid_login': _("Please enter a correct %(username)s and password."),
+        'invalid_login': _("Please enter a correct username and password."),
     }
 
     def clean_username(self):

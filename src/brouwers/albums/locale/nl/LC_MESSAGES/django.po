@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-13 19:51+0100\n"
+"POT-Creation-Date: 2015-02-10 19:59+0100\n"
 "PO-Revision-Date: 2014-07-06 16:46+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,49 +19,49 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: ajax_views.py:45
+#: ajax_views.py:42
 msgid ""
 "You have used this album title before. Make sure to pick an unique title."
 msgstr "Je hebt deze albumtitel al eerder gebruikt. Kies een unieke titel."
 
-#: ajax_views.py:268
+#: ajax_views.py:265
 msgid "This event has been logged"
 msgstr "Deze gebeurtenis werd gelogged."
 
-#: forms.py:17
+#: forms.py:18
 msgid ""
 "This link doesn't point to a valid forum topic. Please correct the error"
 msgstr "Deze link wijst niet naar een forumtopic. Pas a.u.b. de fout aan."
 
-#: forms.py:149 forms.py:171
+#: forms.py:150 forms.py:172
 msgid "Own albums"
 msgstr "Eigen albums"
 
-#: forms.py:150 forms.py:172
+#: forms.py:151 forms.py:173
 msgid "Group albums"
 msgstr "Groepalbums"
 
-#: forms.py:151
+#: forms.py:152
 msgid "Public albums"
 msgstr "Publieke albums"
 
-#: forms.py:225
+#: forms.py:226
 msgid "link"
 msgstr "link"
 
-#: forms.py:225
+#: forms.py:226
 msgid "Upload a picture from url"
 msgstr "Foto uploaden vanaf een link"
 
-#: forms.py:240
+#: forms.py:241
 msgid "Make sure the link points to a jpg or png image."
 msgstr "Zorg dat de link naar een .jpg of .png afbeelding verwijst."
 
-#: forms.py:242
+#: forms.py:243
 msgid "Could not download the image from the url"
 msgstr "De afbeelding kon niet gedownload worden"
 
-#: forms.py:253
+#: forms.py:254
 msgid "Keywords"
 msgstr "Zoektermen"
 
@@ -376,7 +376,7 @@ msgstr "albumdownloads"
 msgid "Download of %(album)s by %(username)s"
 msgstr "Download van %(album)s door %(username)s"
 
-#: views.py:179
+#: views.py:180
 msgid "This album could not be downloaded because it has no photos yet."
 msgstr "Dit album kon niet gedownload worden, het bevat nog geen foto's."
 

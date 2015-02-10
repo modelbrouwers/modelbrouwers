@@ -52,7 +52,7 @@ class ForumLinkSynced(models.Model):
 
 class BuildReportsForum(models.Model):
     """ Model which tells us which forums hold build reports """
-    forum = ForumToolsIDField(_('forum'), type='forum', help_text=_('Forum id of the group build subforum'))
+    forum = ForumToolsIDField(_('forum'), type='forum')
 
     class Meta:
         verbose_name = _(u'build report forum')
@@ -65,8 +65,7 @@ class BuildReportsForum(models.Model):
 
 class ForumCategory(models.Model):
     name = models.CharField(_('name'), max_length=255)
-    forum = ForumToolsIDField(_('forum'), type='forum', blank=True, null=True,
-                              help_text=_('Forum id of the group build subforum'))
+    forum = ForumToolsIDField(_('forum'), type='forum', blank=True, null=True)
     icon_class = models.CharField(_('icon class'), max_length=50, blank=True)
 
     class Meta:
@@ -213,9 +212,7 @@ class ForumPostCountRestriction(models.Model):
         ('R', _('Reply')),
         )
 
-    forum = ForumToolsIDField(
-        _('forum id'), type='forum', blank=True, null=True,
-        help_text=_('Forum id of the group build subforum'))
+    forum = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True)
     min_posts = models.PositiveSmallIntegerField(_('minimum number of posts'))
     posting_level = models.CharField(
         _('posting level'), max_length=1, choices=POSTING_LEVELS
