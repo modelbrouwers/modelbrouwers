@@ -284,7 +284,7 @@ msgid ""
 msgstr ""
 "\n"
 "Je hebt nog geen groepsbouwen georganiseerd. Als je een geweldig idee hebt, "
-"deel het dan met ons door je <a href=\"%(url_gb_concepts)s\">idee in te "
+"deel het dan met ons door je <a href=\"%(url_gb_concept)s\">idee in te "
 "voeren</a>."
 
 #: templates/groupbuilds/dashboard.html:66
