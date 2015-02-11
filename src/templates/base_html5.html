@@ -4,8 +4,9 @@
         <meta charset="utf-8">
         <title>{% block title %}Brouwersdag 2014{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
         <meta name="author" content="">
+        <meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" />
+        <meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
 
         <link href="{% static 'bootstrap-3.1.1/css/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet">
@@ -67,8 +68,13 @@
 
         {% block eye-catcher %}{% endblock %}
 
-        <div class="container">
-            {% block content %}{% endblock content %}
+        <div class="ad-container">
+            <div class="container">
+                {% block content %}{% endblock content %}
+                {% block ads %}
+                    {% include "includes/ads.html" %}
+                {% endblock %}
+            </div>
         </div>
 
         <footer>

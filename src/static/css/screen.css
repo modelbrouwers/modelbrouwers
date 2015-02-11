@@ -546,6 +546,32 @@ form fieldset.tab-pane {
   text-decoration: none;
 }
 
+/* line 2, ../../sass/partials/_ads.scss */
+.ad-container {
+  position: relative;
+}
+
+/* line 6, ../../sass/partials/_ads.scss */
+#ads {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+@media (min-width: 1600px) {
+  /* line 6, ../../sass/partials/_ads.scss */
+  #ads {
+    right: 30px;
+  }
+}
+/* line 15, ../../sass/partials/_ads.scss */
+#ads a {
+  display: block;
+  width: 90px;
+  height: 400px;
+  background-color: transparent;
+  margin-bottom: 15px;
+}
+
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {
   margin-bottom: 25px;

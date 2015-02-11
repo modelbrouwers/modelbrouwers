@@ -1,0 +1,22 @@
+
+.ad-container {
+  position: relative;
+}
+
+#ads {
+  $width: 90px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  @media (min-width: 1600px) {
+    right: 30px;
+  }
+
+  a {
+    display: block;
+    width: $width;
+    height: 400px;
+    background-color: transparent; // #DDD;
+    margin-bottom: 15px;
+  }
+}
