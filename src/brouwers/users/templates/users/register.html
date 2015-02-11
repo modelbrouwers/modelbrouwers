@@ -4,8 +4,7 @@
 {% block title %}Modelbrouwers.nl &bull; {% trans 'registration' %}{% endblock %}
 
 
-{% block content %}
-
+{% block eye-catcher %}
 <header class="eye-catcher">
     <div class="container">
         <h1>{% trans "Create an account" %}
@@ -23,57 +22,54 @@
         {% endblocktrans %}</p>
     </div>
 </header>
+{% endblock %}
 
 
-<div class="container">
+{% block content %}
+<div class="row">
 
-    <div class="row">
+    <form action="." method="post" class="form-horizontal col-xs-12 col-md-7 col-xl-5" id="form-register">
+    {% form 'horizontal.form' %}
+        {% csrf_token %}
 
-        <form action="." method="post" class="form-horizontal col-xs-12 col-md-7 col-xl-5" id="form-register">
-        {% form 'horizontal.form' %}
-            {% csrf_token %}
+        {% use 'non_field_errors' %}
 
-            {% use 'non_field_errors' %}
+        <h2>{% trans "Enter your account details" %}</h2>
+        {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
+        <fieldset class="well">
+            {% field form.username %}
+            {% field form.email %}
+            {% field form.password1 %}
+            {% field form.password2 %}
+        </fieldset>
 
-            <h2>{% trans "Enter your account details" %}</h2>
-            {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
-            <fieldset class="well">
-                {% field form.username %}
-                {% field form.email %}
-                {% field form.password1 %}
-                {% field form.password2 %}
-            </fieldset>
+        <h2>{% trans "Anti-spam question" %}</h2>
+        <p>{% trans "Carefully read the question, the answer is often literally in there!" %}</p>
+        <fieldset class="well">
+            {% field form.question 'HiddenSelect' %}
+            {% field form.answer %}
+            {% field form.accept_terms %}
+        </fieldset>
+        {% endwith %}
 
-            <h2>{% trans "Anti-spam question" %}</h2>
-            <p>{% trans "Carefully read the question, the answer is often literally in there!" %}</p>
-            <fieldset class="well">
-                {% field form.question 'HiddenSelect' %}
-                {% field form.answer %}
-                {% field form.accept_terms %}
-            </fieldset>
-            {% endwith %}
-
-            <div class="submit-wrapper">
-                <button type="submit" class="btn bg-main-orange">{% trans "Create your account" %}</button>
-                <p>
-                    <a href="{% url 'users:login' %}">{% trans "Already have an account?" %}</a>
-                </p>
-            </div>
-        {% endform %}
-        </form>
-
-
-        <div class="col-xs-12 col-md-4 col-md-offset-1 col-xl-6 col-xl-offset-1">
-            <h2>{% trans "Terms and conditions" %}</h2>
-            <p>{% blocktrans %}
-                Unfortunately, some people need strong and clear rules to behave. When you create an account,
-                you agree with these terms and conditions.
-            {% endblocktrans %}
-            {% include "general/registration_terms.html" %}
+        <div class="submit-wrapper">
+            <button type="submit" class="btn bg-main-orange">{% trans "Create your account" %}</button>
+            <p>
+                <a href="{% url 'users:login' %}">{% trans "Already have an account?" %}</a>
+            </p>
         </div>
+    {% endform %}
+    </form>
 
+
+    <div class="col-xs-12 col-md-4 col-md-offset-1 col-xl-6 col-xl-offset-1">
+        <h2>{% trans "Terms and conditions" %}</h2>
+        <p>{% blocktrans %}
+            Unfortunately, some people need strong and clear rules to behave. When you create an account,
+            you agree with these terms and conditions.
+        {% endblocktrans %}
+        {% include "general/registration_terms.html" %}
     </div>
 
 </div>
-
 {% endblock %}

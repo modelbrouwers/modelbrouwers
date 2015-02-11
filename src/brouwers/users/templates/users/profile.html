@@ -4,30 +4,26 @@
 {% block title %}{% trans 'Modelbrouwers.nl &bull; View profile' %}{% endblock %}
 
 
-{% block content %}
+{% block eye-catcher %}
 <header class="container-fluid eye-catcher">
     <div class="container">
 
         <h1>{{ profile.username }}</h1>
     </div>
 </header>
+{% endblock %}
 
 
-<div class="container">
+{% block content %}
+<div role="tabpanel">
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="active"><a href="#tab-user" data-toggle="tab">{% trans "Albums" %}</a></li>
+		<li><a href="#tab-address" data-toggle="tab">{% trans "Builds" %}</a></li>
+		<li><a href="#tab-awards" data-toggle="tab">{% trans "Groupbuilds" %}</a></li>
+	</ul>
 
-	<div role="tabpanel">
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#tab-user" data-toggle="tab">{% trans "Albums" %}</a></li>
-			<li><a href="#tab-address" data-toggle="tab">{% trans "Builds" %}</a></li>
-			<li><a href="#tab-awards" data-toggle="tab">{% trans "Groupbuilds" %}</a></li>
-		</ul>
-
-		<div class="tab-content">
-            <h1>{% trans "Work in progress" %}</h1>
-		</div>
+	<div class="tab-content">
+        <h1>{% trans "Work in progress" %}</h1>
 	</div>
-
 </div>
-
-
 {% endblock %}

@@ -2,7 +2,8 @@
 
 {% block title %}{% trans 'Modelbrouwers.nl &bull; Edit profile' %}{% endblock %}
 
-{% block content %}
+
+{% block eye-catcher %}
 <header class="container-fluid eye-catcher">
     <div class="container">
 
@@ -13,9 +14,10 @@
         {% endblocktrans %}</p>
     </div>
 </header>
+{% endblock %}
 
 
-<div class="container">
+{% block content %}
 	{% block container %}
 	<div class="row">
 
@@ -94,5 +96,4 @@
 
 	</div>
 	{% endblock container %}
-</div>
 {% endblock content %}

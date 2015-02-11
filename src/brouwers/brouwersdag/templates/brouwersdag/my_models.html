@@ -2,29 +2,27 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container">
-    <h1>{% trans "My submitted models" %}</h1>
-    <ul class="list-group">
-        {% for model in object_list %}
-            <li class="list-group-item">
-                {% if model.is_competitor %}
-                    <span class="badge" data-trigger="hover focus click" data-toggle="tooltip" title="{% trans "Entered for competition" %}: {{ model.competition }}" >
-                        <span class="glyphicon glyphicon-star"></span>
-                    </span>
-                {% endif %}
+<h1>{% trans "My submitted models" %}</h1>
+<ul class="list-group">
+    {% for model in object_list %}
+        <li class="list-group-item">
+            {% if model.is_competitor %}
+                <span class="badge" data-trigger="hover focus click" data-toggle="tooltip" title="{% trans "Entered for competition" %}: {{ model.competition }}" >
+                    <span class="glyphicon glyphicon-star"></span>
+                </span>
+            {% endif %}
 
-                <div class="row">
-                    <div class="col-md-9">
-                        <a href="{% url 'brouwersdag:edit-model' pk=model.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <strong>{{ model.name }}</strong>
-                        ({{ model.brand }}{% if model.get_scale %}, {% endif %}{{ model.get_scale }})
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{% url 'brouwersdag:cancel-signup' pk=model.id %}" class="">{% trans "Cancel signup" %}</a>
-                    </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <a href="{% url 'brouwersdag:edit-model' pk=model.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <strong>{{ model.name }}</strong>
+                    ({{ model.brand }}{% if model.get_scale %}, {% endif %}{{ model.get_scale }})
                 </div>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
+                <div class="col-md-2">
+                    <a href="{% url 'brouwersdag:cancel-signup' pk=model.id %}" class="">{% trans "Cancel signup" %}</a>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}

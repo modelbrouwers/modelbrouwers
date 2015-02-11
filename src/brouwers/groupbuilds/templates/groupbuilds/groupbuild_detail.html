@@ -4,42 +4,44 @@
 {% block title %}{{ block.super }}: {{ gb.theme }}{% endblock %}
 
 
-{% block content %}
-<article class="gb detail">
-    <header class="eye-catcher container-fluid">
-        <div class="container">
-            <div class="row relative">
-                {% if gb.category.icon_class %}<i class="category-icon fa {{ gb.category.icon_class }}"></i>{% endif %}
-                <div class="col-md-3">
-                    <h2>
-                        {{ gb.category }}
-                    <small><br>
-                    {% blocktrans with status=gb.get_status_display %}
-                        Status: {{ status }}
-                    {% endblocktrans %}</small>
-                    </h2>
-                </div>
+{% block eye-catcher %}
+<header class="eye-catcher">
+    <div class="container">
+        <div class="row relative">
+            {% if gb.category.icon_class %}<i class="category-icon fa {{ gb.category.icon_class }}"></i>{% endif %}
+            <div class="col-md-3">
+                <h2>
+                    {{ gb.category }}
+                <small><br>
+                {% blocktrans with status=gb.get_status_display %}
+                    Status: {{ status }}
+                {% endblocktrans %}</small>
+                </h2>
+            </div>
 
-                <div class="col-md-9">
-                    <h1>{{ gb.theme }}
-                        {% if gb.is_ongoing %}<sup><small title="{% trans "Ongoing" %}"><i class="fa fa-forward"></i></small></sup>{% endif %}</h1>
-                    <p>
-                        <i class="fa fa-calendar"></i>
-                        {{ gb.start|default:_('to be determined') }}
+            <div class="col-md-9">
+                <h1>{{ gb.theme }}
+                    {% if gb.is_ongoing %}<sup><small title="{% trans "Ongoing" %}"><i class="fa fa-forward"></i></small></sup>{% endif %}</h1>
+                <p>
+                    <i class="fa fa-calendar"></i>
+                    {{ gb.start|default:_('to be determined') }}
+                    &bull;
+                    {{ gb.end|default:_('to be determined') }}
+
+                    {% if gb.forum %}
                         &bull;
-                        {{ gb.end|default:_('to be determined') }}
-
-                        {% if gb.forum %}
-                            &bull;
-                            <a href="{{ gb.forum.get_absolute_url }}">{% trans "Go to forum" %}</a>
-                        {% endif %}
-                    </p>
-                </div>
+                        <a href="{{ gb.forum.get_absolute_url }}">{% trans "Go to forum" %}</a>
+                    {% endif %}
+                </p>
             </div>
         </div>
-    </header>
+    </div>
+</header>
+{% endblock %}
 
 
+{% block content %}
+<article class="gb detail">
     <div class="container">{% block content-body %}
         <div class="row">
             <div class="col-md-9">

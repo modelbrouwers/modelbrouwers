@@ -4,8 +4,8 @@
 {% block body-class %}users{% endblock %}
 {% block title %}Modelbrouwers.nl &bull; {% trans "login" %}{% endblock %}
 
-{% block content %}
 
+{% block eye-catcher %}
 <header class="eye-catcher container-fluid">
     <div class="container">
         <h1>
@@ -20,52 +20,49 @@
         </p>
     </div>
 </header>
+{% endblock %}
 
 
-<div class="container">
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 col-md-7 col-xl-5">
+        <form method="post" action="." class="form-horizontal" id="form-login">{% form 'horizontal.form' %}
+            {% csrf_token %}
+            {{ redirectform.as_p }}
 
-    <div class="row">
-        <div class="col-xs-12 col-md-7 col-xl-5">
-            <form method="post" action="." class="form-horizontal" id="form-login">{% form 'horizontal.form' %}
-                {% csrf_token %}
-                {{ redirectform.as_p }}
-
-                {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
-                {% for field in form %}
-                    {% field field %}
-                {% endfor %}
-                {% endwith %}
-                <div class="submit-wrapper">
-                    <button type="submit" class="btn bg-main-orange">{% trans "Come on in" %}</button>
-                    <p>
-                        <a href="{% url 'users:pw_reset' %}">{% trans "I forgot my password" %}</a>
-                    </p>
-                </div>
-            {% endform %}</form>
-        </div>
-
-        <div class="col-xs-12 col-md-4 col-xl-6 col-md-offset-1 col-xl-offset-1">
-            <div class="well">
-                <p>{% blocktrans %}
-                    No account yet? Signing up is free and you can immediately
-                    participate in the community!
-                {% endblocktrans %}</p>
-
+            {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
+            {% for field in form %}
+                {% field field %}
+            {% endfor %}
+            {% endwith %}
+            <div class="submit-wrapper">
+                <button type="submit" class="btn bg-main-orange">{% trans "Come on in" %}</button>
                 <p>
-                    <a class="btn bg-main-blue" href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
+                    <a href="{% url 'users:pw_reset' %}">{% trans "I forgot my password" %}</a>
                 </p>
-
-                <h5>{% trans "Why create an account?" %}</h5>
-                <ul>
-                    <li>{% trans "Exchange hobby tips and tricks on the forum" %}</li>
-                    <li>{% trans "Showcase your projects and receive feedback on the forum" %}</li>
-                    <li>{% trans "Upload your photos in our integrated albums" %}</li>
-                    <li>{% trans "Participate in groupbuilds focused on a narrow theme" %}</li>
-                </ul>
             </div>
+        {% endform %}</form>
+    </div>
+
+    <div class="col-xs-12 col-md-4 col-xl-6 col-md-offset-1 col-xl-offset-1">
+        <div class="well">
+            <p>{% blocktrans %}
+                No account yet? Signing up is free and you can immediately
+                participate in the community!
+            {% endblocktrans %}</p>
+
+            <p>
+                <a class="btn bg-main-blue" href="{% url 'users:register' %}">{% trans "Sign up" %}</a>
+            </p>
+
+            <h5>{% trans "Why create an account?" %}</h5>
+            <ul>
+                <li>{% trans "Exchange hobby tips and tricks on the forum" %}</li>
+                <li>{% trans "Showcase your projects and receive feedback on the forum" %}</li>
+                <li>{% trans "Upload your photos in our integrated albums" %}</li>
+                <li>{% trans "Participate in groupbuilds focused on a narrow theme" %}</li>
+            </ul>
         </div>
     </div>
 </div>
-
-
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load i18n brouwers l10n %}
 
 
-{% block content %}
+{% block eye-catcher %}
 <header class="container-fluid eye-catcher">
     <div class="container">
 
@@ -26,9 +26,11 @@
         </div>
     </div>
 </header>
+{% endblock %}
 
-<div class="container list">
 
+{% block content %}
+<div class="list">
     <div class="row">
         <div class="col-md-6">
             <div class="well">
@@ -94,8 +96,5 @@
             {% endfor %}
         </section>
     </div>
-
-
-
 </div>
 {% endblock content %}
