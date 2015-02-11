@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
@@ -248,7 +248,7 @@ msgstr "Waarom registreren?"
 
 #: templates/users/login.html:60
 msgid "Exchange hobby tips and tricks on the forum"
-msgstr "Wissen tips & tricks uit op het forum"
+msgstr "Wissel tips & tricks uit op het forum"
 
 #: templates/users/login.html:61
 msgid "Showcase your projects and receive feedback on the forum"
