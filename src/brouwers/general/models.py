@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
 from django.db import models
 from django.db.models import Q
@@ -11,13 +11,11 @@ from brouwers.awards.models import Category
 from .utils import get_client_ip, lookup_http_blacklist
 
 COUNTRY_CHOICES = (
-    ("N",_("The Netherlands")),
-    ("B",_("Belgium")),
-    ("D",_("Germany")),
-    ("F",_("France")),
+    ("N", _("The Netherlands")),
+    ("B", _("Belgium")),
+    ("D", _("Germany")),
+    ("F", _("France")),
 )
-
-#TODO: change this to list of all countries, order by most common
 
 MAX_REGISTRATION_ATTEMPTS = 3
 STANDARD_BAN_TIME_HOURS = 12
@@ -33,8 +31,8 @@ class LoggedModel(models.Model):
 
 class UserProfile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
-    #awardsinfo
-    last_vote = models.DateField(default=date(2010,1,1))
+    # awardsinfo
+    last_vote = models.DateField(default=date(2010, 1, 1))
     forum_nickname = models.CharField(max_length=30, unique=True)
     exclude_from_nomination = models.BooleanField(
         _("exclude me from nominations"),
@@ -42,8 +40,9 @@ class UserProfile(models.Model):
         default=False)
     categories_voted = models.ManyToManyField(Category, blank=True, null=True)
 
-    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet"), default=False) # No longer used TODO remove
-    #adres
+    # No longer used TODO remove
+    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet"), default=False)
+    # adres
     street = models.CharField(_("street name"), max_length=255, blank=True, null=True)
     number = models.CharField(
             _("number"), max_length=10,
@@ -91,8 +90,8 @@ class QuestionAnswer(models.Model):
 
 
 class ActiveQuestionsManager(models.Manager):
-    def get_query_set(self):
-        return super(ActiveQuestionsManager, self).get_query_set().filter(in_use=True)
+    def get_queryset(self):
+        return super(ActiveQuestionsManager, self).get_queryset().filter(in_use=True)
 
 
 class RegistrationQuestion(models.Model):
@@ -280,7 +279,7 @@ class AnnouncementManager(models.Manager):
         now = timezone.now()
         lang_code = get_language()[:2]
         q = Q(to_date__lt=now) |  Q(from_date__gt=now)
-        qs = super(AnnouncementManager, self).get_query_set().filter(language=lang_code).exclude(q)
+        qs = super(AnnouncementManager, self).get_queryset().filter(language=lang_code).exclude(q)
         if qs.exists():
             return qs[0]
         return None
