@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 19:59+0100\n"
+"POT-Creation-Date: 2015-02-13 23:31+0100\n"
 "PO-Revision-Date: 2015-02-10 19:52+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,11 +207,11 @@ msgstr "Inschrijving"
 msgid "My models"
 msgstr "Mijn modellen"
 
-#: templates/brouwersdag/index.html:8
+#: templates/brouwersdag/index.html:7
 msgid "Brouwersdag model signup"
 msgstr "Inschrijven modellen Brouwersdag"
 
-#: templates/brouwersdag/index.html:10
+#: templates/brouwersdag/index.html:9
 msgid ""
 "Below you can find out which models will be on display. The list is updated "
 "after every model sign-up!"
@@ -219,28 +219,28 @@ msgstr ""
 "Binnenkort zal je hier kunnen ontdekken welke modellen er aanwezig zijn. "
 "Deze lijst wordt bijgewerkt na ieder toegevoegd model."
 
-#: templates/brouwersdag/index.html:12
+#: templates/brouwersdag/index.html:11
 msgid "What are you waiting for? If you're coming, bring a model!"
 msgstr "Waarop wacht je nog? Als je komt, breng een model mee!"
 
-#: templates/brouwersdag/index.html:14
+#: templates/brouwersdag/index.html:13
 msgid "Add your models"
 msgstr "Voeg je modellen toe"
 
-#: templates/brouwersdag/index.html:16
+#: templates/brouwersdag/index.html:15
 msgid "Click the above button to sign up for the competition"
 msgstr "Klik op de knop hierboven om je aan te melden voor de wedstrijd"
 
-#: templates/brouwersdag/index.html:19
+#: templates/brouwersdag/index.html:18
 msgid "Confirmed models"
 msgstr "Bevestigde modellen"
 
-#: templates/brouwersdag/index.html:21
+#: templates/brouwersdag/index.html:20
 #, python-format
 msgid "%(n_total)s total, %(n_competition)s competition"
 msgstr "%(n_total)s totaal, %(n_competition)s wedstrijd"
 
-#: templates/brouwersdag/index.html:44
+#: templates/brouwersdag/index.html:43
 msgid "Back to top"
 msgstr "Terug naar boven"
 
@@ -319,15 +319,15 @@ msgstr ""
 msgid "Edit model"
 msgstr "Model bewerken"
 
-#: templates/brouwersdag/my_models.html:6
+#: templates/brouwersdag/my_models.html:5
 msgid "My submitted models"
 msgstr "Mijn ingeschreven modellen"
 
-#: templates/brouwersdag/my_models.html:11
+#: templates/brouwersdag/my_models.html:10
 msgid "Entered for competition"
 msgstr "Ingeschreven voor de wedstrijd"
 
-#: templates/brouwersdag/my_models.html:23
+#: templates/brouwersdag/my_models.html:22
 msgid "Cancel signup"
 msgstr "Inschrijving annuleren"
 

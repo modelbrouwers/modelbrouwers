@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 19:59+0100\n"
-"PO-Revision-Date: 2015-02-11 09:22+0020\n"
+"POT-Creation-Date: 2015-02-13 23:31+0100\n"
+"PO-Revision-Date: 2015-02-13 23:43+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -198,8 +198,8 @@ msgstr ""
 
 #: templates/users/change_password.html:6
 #: templates/users/change_password.html:16
-#: templates/users/password_reset.html:20 templates/users/profile_edit.html:79
-#: templates/users/profile_edit.html:89 tests/test_views.py:30
+#: templates/users/password_reset.html:20 templates/users/profile_edit.html:81
+#: templates/users/profile_edit.html:91 tests/test_views.py:30
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
@@ -222,7 +222,7 @@ msgstr ""
 
 #: templates/users/login.html:39
 msgid "Come on in"
-msgstr "Kom maar binnen"
+msgstr "Doorgaan"
 
 #: templates/users/login.html:41
 msgid "I forgot my password"
@@ -231,9 +231,9 @@ msgstr "Ik ben mijn wachtwoord vergeten"
 #: templates/users/login.html:49
 msgid ""
 "\n"
-"                    No account yet? Signing up is free and you can immediately\n"
-"                    participate in the community!\n"
-"                "
+"                No account yet? Signing up is free and you can immediately\n"
+"                participate in the community!\n"
+"            "
 msgstr ""
 "\n"
 "Nog geen account? Registreren is gratis en je kan meteen deelnemen in de community!"
@@ -313,11 +313,11 @@ msgstr "Work in progress"
 msgid "Modelbrouwers.nl &bull; Edit profile"
 msgstr "Modelbrouwers.nl &bull; Bewerk profiel"
 
-#: templates/users/profile_edit.html:9
+#: templates/users/profile_edit.html:10
 msgid "Your profile"
 msgstr "Jouw profiel"
 
-#: templates/users/profile_edit.html:11
+#: templates/users/profile_edit.html:12
 msgid ""
 "\n"
 "            Here you can configure various site-wide settings.\n"
@@ -326,31 +326,31 @@ msgstr ""
 "\n"
 "Hier kan je verschillende site-brede instellingen aanpassen."
 
-#: templates/users/profile_edit.html:30
+#: templates/users/profile_edit.html:32
 msgid "You have form errors, check the tabs below"
 msgstr "Je hebt fouten in het formulier, controleer de onderstaande tabs"
 
-#: templates/users/profile_edit.html:36
+#: templates/users/profile_edit.html:38
 msgid "User details"
 msgstr "Gebruikersdetails"
 
-#: templates/users/profile_edit.html:37
+#: templates/users/profile_edit.html:39
 msgid "Address"
 msgstr "adres"
 
-#: templates/users/profile_edit.html:38
+#: templates/users/profile_edit.html:40
 msgid "Awards"
 msgstr "Awards"
 
-#: templates/users/profile_edit.html:39
+#: templates/users/profile_edit.html:41
 msgid "Social settings"
 msgstr "Social instellingen"
 
-#: templates/users/profile_edit.html:40
+#: templates/users/profile_edit.html:42
 msgid "Forum profile"
 msgstr "Forumprofiel"
 
-#: templates/users/profile_edit.html:72
+#: templates/users/profile_edit.html:74
 msgid "Save changes"
 msgstr "Bewaar de veranderingen"
 
@@ -358,15 +358,15 @@ msgstr "Bewaar de veranderingen"
 msgid "registration"
 msgstr "registratie"
 
-#: templates/users/register.html:11
+#: templates/users/register.html:10
 msgid "Create an account"
 msgstr "Maak een account aan"
 
-#: templates/users/register.html:12
+#: templates/users/register.html:11
 msgid "you're just a step away from your personal account"
 msgstr "je bent maar een stap verwijderd van je eigen account"
 
-#: templates/users/register.html:15
+#: templates/users/register.html:14
 msgid ""
 "\n"
 "            We're happy to see you join our beautiful hobby hub where you can exchange tips and tricks\n"
@@ -376,7 +376,7 @@ msgstr ""
 "\n"
 "We zijn blij dat we je in onze 'hobby hub' mogen verwelkomen, waar je tips en tricks kan uitwisselen en deel kan nemen in de community!"
 
-#: templates/users/register.html:20
+#: templates/users/register.html:19
 msgid ""
 "When you're done, don't forget to introduce yourself in the appropriate forum,\n"
 "        and make yourself familiar with our rules. If you run into any trouble, you can contact the\n"
@@ -388,36 +388,36 @@ msgstr ""
 "moderators via PB (persoonlijk bericht) contacteren, of je kan de beheerders"
 " mailen via het e-mailadres onderaan de pagina."
 
-#: templates/users/register.html:38
+#: templates/users/register.html:37
 msgid "Enter your account details"
 msgstr "Voeg je contactgegevens toe"
 
-#: templates/users/register.html:47
+#: templates/users/register.html:46
 msgid "Anti-spam question"
 msgstr "Anti-spambot vraag"
 
-#: templates/users/register.html:48
+#: templates/users/register.html:47
 msgid "Carefully read the question, the answer is often literally in there!"
 msgstr "Lees de vraag zorgvuldig, het antwoord staat er vaak letterlijk in!"
 
-#: templates/users/register.html:57
+#: templates/users/register.html:56
 msgid "Create your account"
 msgstr "Account aanmaken"
 
-#: templates/users/register.html:59
+#: templates/users/register.html:58
 msgid "Already have an account?"
 msgstr "Heb je al een account?"
 
-#: templates/users/register.html:67
+#: templates/users/register.html:66
 msgid "Terms and conditions"
 msgstr "Regels en voorwaarden"
 
-#: templates/users/register.html:68
+#: templates/users/register.html:67
 msgid ""
 "\n"
-"                Unfortunately, some people need strong and clear rules to behave. When you create an account,\n"
-"                you agree with these terms and conditions.\n"
-"            "
+"            Unfortunately, some people need strong and clear rules to behave. When you create an account,\n"
+"            you agree with these terms and conditions.\n"
+"        "
 msgstr ""
 "\n"
 "Helaas hebben sommige mensen sterke en duidelijke regels nodig om zich te gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels en voorwaarden."

@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 19:59+0100\n"
-"PO-Revision-Date: 2015-02-11 09:28+0020\n"
+"POT-Creation-Date: 2015-02-13 23:31+0100\n"
+"PO-Revision-Date: 2015-02-13 23:30+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
@@ -48,7 +48,7 @@ msgid "Albums"
 msgstr "Albums"
 
 #: brouwers/dashboard.py:70
-#: brouwers/users/templates/users/profile_edit.html:38 templates/base.html:115
+#: brouwers/users/templates/users/profile_edit.html:40 templates/base.html:115
 msgid "Awards"
 msgstr "Awards"
 
@@ -359,8 +359,7 @@ msgstr ""
 
 #: brouwers/albums/models.py:408
 msgid ""
-"Hide the sidebar completely when typing a post and activate it with a "
-"button."
+"Hide the sidebar completely when typing a post and activate it with a button."
 msgstr ""
 
 #: brouwers/albums/models.py:411
@@ -404,7 +403,7 @@ msgstr ""
 msgid "user who downloaded the album"
 msgstr ""
 
-#: brouwers/albums/models.py:472 brouwers/general/models.py:138
+#: brouwers/albums/models.py:472 brouwers/general/models.py:137
 msgid "timestamp"
 msgstr ""
 
@@ -564,7 +563,7 @@ msgstr "Albums"
 
 #: brouwers/albums/templates/albums/browse_album.html:21
 #: brouwers/albums/templates/albums/photo.html:28
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:108
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:110
 msgid "Build report"
 msgstr ""
 
@@ -642,8 +641,8 @@ msgstr ""
 #: brouwers/albums/templates/albums/my_albums_list.html:48
 #, python-format
 msgid ""
-"Your browser has no javascript. You can reorganize your albums on an <a "
-"href=\"%(manage_url)s\">alternative page</a>."
+"Your browser has no javascript. You can reorganize your albums on an <a href="
+"\"%(manage_url)s\">alternative page</a>."
 msgstr ""
 
 #: brouwers/albums/templates/albums/my_albums_list.html:65
@@ -656,8 +655,8 @@ msgstr ""
 
 #: brouwers/albums/templates/albums/my_albums_list.html:103
 msgid ""
-"Are you sure you want to move the album &lsquo;<span id=\"id-album-"
-"title\"></span>&rsquo; to the trash?"
+"Are you sure you want to move the album &lsquo;<span id=\"id-album-title\"></"
+"span>&rsquo; to the trash?"
 msgstr ""
 
 #: brouwers/albums/templates/albums/my_last_uploads.html:5
@@ -716,7 +715,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                            Built by '%(builder)s', this project won first place in the category '%(category)s'.\n"
+"                            Built by '%(builder)s', this project won first "
+"place in the category '%(category)s'.\n"
 "                        "
 msgstr ""
 
@@ -765,9 +765,8 @@ msgstr ""
 #: brouwers/albums/templates/albums/uploadify.html:180
 #, python-format
 msgid ""
-"Your browser doesn't support javascript, which is required for this uploader"
-" to work. You can use an <a href=\"%(upload_url)s\">alternative "
-"uploader</a>."
+"Your browser doesn't support javascript, which is required for this uploader "
+"to work. You can use an <a href=\"%(upload_url)s\">alternative uploader</a>."
 msgstr ""
 
 #: brouwers/albums/templates/albums/uploadify.html:185
@@ -796,8 +795,8 @@ msgstr ""
 #: brouwers/albums/templates/albums/ajax/forum/album_photos.html:24
 #, python-format
 msgid ""
-"You don't seem to have photos here. Upload some in <a "
-"href=\"%(upload_url)s\">our albums</a>!"
+"You don't seem to have photos here. Upload some in <a href=\"%(upload_url)s"
+"\">our albums</a>!"
 msgstr ""
 
 #: brouwers/albums/templates/albums/ajax/forum/sidebar.html:18
@@ -837,8 +836,7 @@ msgstr ""
 
 #: brouwers/awards/forms.py:111
 msgid ""
-"The order of votes must be logical. Omitting the second place is not "
-"allowed."
+"The order of votes must be logical. Omitting the second place is not allowed."
 msgstr ""
 
 #: brouwers/awards/models.py:98
@@ -897,8 +895,8 @@ msgstr ""
 
 #: brouwers/awards/views.py:192
 msgid ""
-"One or multiple category votes could not be saved. Please correct the errors"
-" below."
+"One or multiple category votes could not be saved. Please correct the errors "
+"below."
 msgstr ""
 
 #: brouwers/awards/views.py:203
@@ -976,7 +974,7 @@ msgstr ""
 
 #: brouwers/awards/templates/awards/nomination.html:29
 #: brouwers/forum_tools/models.py:211
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:150
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:152
 msgid "Topic"
 msgstr ""
 
@@ -1010,9 +1008,8 @@ msgstr ""
 
 #: brouwers/awards/templates/awards/voting.html:10
 msgid ""
-"You can leave categories blank, and vote them later. However, as soon as you"
-" vote <em>one</em> project in a category, you can no longer change that "
-"vote."
+"You can leave categories blank, and vote them later. However, as soon as you "
+"vote <em>one</em> project in a category, you can no longer change that vote."
 msgstr ""
 
 #: brouwers/awards/templates/awards/voting.html:53
@@ -1115,8 +1112,8 @@ msgstr ""
 
 #: brouwers/banning/templates/banning/banned.html:17
 msgid ""
-"The requested page cannot be shown since you have been <span "
-"class=\"error\">banned</span>."
+"The requested page cannot be shown since you have been <span class=\"error"
+"\">banned</span>."
 msgstr ""
 
 #: brouwers/banning/templates/banning/banned.html:22
@@ -1311,43 +1308,43 @@ msgid "Signup"
 msgstr ""
 
 #: brouwers/brouwersdag/templates/brouwersdag/base.html:10
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:74
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:76
 msgid "My models"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:8
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:7
 #, fuzzy
 msgid "Brouwersdag model signup"
 msgstr "Brouwersdag"
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:10
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:9
 msgid ""
 "Below you can find out which models will be on display. The list is updated "
 "after every model sign-up!"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:12
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:11
 msgid "What are you waiting for? If you're coming, bring a model!"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:14
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:13
 msgid "Add your models"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:16
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:15
 msgid "Click the above button to sign up for the competition"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:19
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:18
 msgid "Confirmed models"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:21
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:20
 #, python-format
 msgid "%(n_total)s total, %(n_competition)s competition"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/index.html:44
+#: brouwers/brouwersdag/templates/brouwersdag/index.html:43
 msgid "Back to top"
 msgstr ""
 
@@ -1362,8 +1359,8 @@ msgstr ""
 
 #: brouwers/brouwersdag/templates/brouwersdag/model_signup.html:15
 msgid ""
-"If you want to display multiple models, just fill in the form again for each"
-" extra model."
+"If you want to display multiple models, just fill in the form again for each "
+"extra model."
 msgstr ""
 
 #: brouwers/brouwersdag/templates/brouwersdag/model_signup.html:37
@@ -1383,7 +1380,8 @@ msgstr ""
 msgid ""
 "\n"
 "                        There will be a competition during this edition.\n"
-"                        The competition entry fee per model is &euro;%(fee)s, to be paid when entering the venue.\n"
+"                        The competition entry fee per model is &euro;"
+"%(fee)s, to be paid when entering the venue.\n"
 "                    "
 msgstr ""
 
@@ -1391,11 +1389,13 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    Attention! You can enter only one model in the competition. Extra models will be rejected.\n"
+"                    Attention! You can enter only one model in the "
+"competition. Extra models will be rejected.\n"
 "                    "
 msgid_plural ""
 "\n"
-"                    Attention! You can enter a maximum of <strong>%(n)s</strong> models in the competition. Extra models will be rejected.\n"
+"                    Attention! You can enter a maximum of <strong>%(n)s</"
+"strong> models in the competition. Extra models will be rejected.\n"
 "                "
 msgstr[0] ""
 msgstr[1] ""
@@ -1410,15 +1410,15 @@ msgstr ""
 msgid "Edit model"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/my_models.html:6
+#: brouwers/brouwersdag/templates/brouwersdag/my_models.html:5
 msgid "My submitted models"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/my_models.html:11
+#: brouwers/brouwersdag/templates/brouwersdag/my_models.html:10
 msgid "Entered for competition"
 msgstr ""
 
-#: brouwers/brouwersdag/templates/brouwersdag/my_models.html:23
+#: brouwers/brouwersdag/templates/brouwersdag/my_models.html:22
 msgid "Cancel signup"
 msgstr ""
 
@@ -1552,8 +1552,8 @@ msgstr ""
 
 #: brouwers/builds/templates/builds/add.html:48
 msgid ""
-"Use this page to link your projects to your profile. Caution, everything you"
-" enter here is public for all visitors!"
+"Use this page to link your projects to your profile. Caution, everything you "
+"enter here is public for all visitors!"
 msgstr ""
 
 #: brouwers/builds/templates/builds/add.html:73
@@ -1756,11 +1756,11 @@ msgid "Primary key"
 msgstr ""
 
 #: brouwers/forum_tools/models.py:87 brouwers/forum_tools/models.py:88
-#: brouwers/general/models.py:134 brouwers/users/models.py:65
+#: brouwers/general/models.py:133 brouwers/users/models.py:65
 msgid "username"
 msgstr ""
 
-#: brouwers/forum_tools/models.py:90 brouwers/general/models.py:135
+#: brouwers/forum_tools/models.py:90 brouwers/general/models.py:134
 msgid "email"
 msgstr ""
 
@@ -1933,7 +1933,7 @@ msgstr ""
 msgid "This e-mail address is already registered."
 msgstr ""
 
-#: brouwers/general/forms.py:101 brouwers/general/models.py:137
+#: brouwers/general/forms.py:101 brouwers/general/models.py:136
 msgid "answer"
 msgstr ""
 
@@ -1960,8 +1960,8 @@ msgstr ""
 
 #: brouwers/general/forms.py:166
 msgid ""
-"If you forgot your username, you can enter the e-mail address you registered"
-" with."
+"If you forgot your username, you can enter the e-mail address you registered "
+"with."
 msgstr ""
 
 #: brouwers/general/forms.py:173
@@ -1992,182 +1992,182 @@ msgstr ""
 msgid "France"
 msgstr ""
 
-#: brouwers/general/models.py:27
+#: brouwers/general/models.py:25
 msgid "added by"
 msgstr ""
 
-#: brouwers/general/models.py:27
+#: brouwers/general/models.py:25
 msgid "User who added the object."
 msgstr ""
 
-#: brouwers/general/models.py:28
+#: brouwers/general/models.py:26
 msgid "added on"
 msgstr ""
 
-#: brouwers/general/models.py:40
+#: brouwers/general/models.py:38
 msgid "exclude me from nominations"
 msgstr ""
 
-#: brouwers/general/models.py:41
+#: brouwers/general/models.py:39
 msgid "If checked, you will be excluded from Awards-nominations."
 msgstr ""
 
-#: brouwers/general/models.py:45
+#: brouwers/general/models.py:44
 msgid "Aanvinken als je meedoet"
 msgstr ""
 
-#: brouwers/general/models.py:47
+#: brouwers/general/models.py:46
 msgid "street name"
 msgstr ""
 
-#: brouwers/general/models.py:49
+#: brouwers/general/models.py:48
 msgid "number"
 msgstr ""
 
-#: brouwers/general/models.py:50
+#: brouwers/general/models.py:49
 msgid "house number (+ PO box if applicable)"
 msgstr ""
 
-#: brouwers/general/models.py:53
+#: brouwers/general/models.py:52
 msgid "postal code"
 msgstr ""
 
-#: brouwers/general/models.py:54
+#: brouwers/general/models.py:53
 msgid "city"
 msgstr ""
 
-#: brouwers/general/models.py:55
+#: brouwers/general/models.py:54
 msgid "province"
 msgstr ""
 
-#: brouwers/general/models.py:56
+#: brouwers/general/models.py:55
 msgid "country"
 msgstr ""
 
-#: brouwers/general/models.py:59
+#: brouwers/general/models.py:58
 msgid "Dit wil ik graag"
 msgstr ""
 
-#: brouwers/general/models.py:60
+#: brouwers/general/models.py:59
 msgid "Dit wil ik absoluut niet"
 msgstr ""
 
-#: brouwers/general/models.py:63
+#: brouwers/general/models.py:62
 msgid "allow social sharing"
 msgstr ""
 
-#: brouwers/general/models.py:64
+#: brouwers/general/models.py:63
 msgid ""
 "Checking this gives us permission to share your topics and albums on social "
 "media. Uncheck if you don't want to share."
 msgstr ""
 
-#: brouwers/general/models.py:74
+#: brouwers/general/models.py:73
 #, fuzzy
 msgid "userprofile"
 msgstr "Profiel"
 
-#: brouwers/general/models.py:75
+#: brouwers/general/models.py:74
 #, fuzzy
 msgid "userprofiles"
 msgstr "Profiel"
 
-#: brouwers/general/models.py:100
+#: brouwers/general/models.py:99
 msgid "Anti-spambot question"
 msgstr ""
 
-#: brouwers/general/models.py:101
+#: brouwers/general/models.py:100
 msgid "Question which must be answered for registration."
 msgstr ""
 
-#: brouwers/general/models.py:136
+#: brouwers/general/models.py:135
 #, fuzzy
 msgid "registration question"
 msgstr "Registraties"
 
-#: brouwers/general/models.py:139
+#: brouwers/general/models.py:138
 msgid "IP address"
 msgstr ""
 
-#: brouwers/general/models.py:140
+#: brouwers/general/models.py:139
 msgid "success"
 msgstr ""
 
-#: brouwers/general/models.py:144
+#: brouwers/general/models.py:143
 msgid "type of visitor"
 msgstr ""
 
-#: brouwers/general/models.py:150
+#: brouwers/general/models.py:149
 #, fuzzy
 msgid "registration attempt"
 msgstr "Registraties"
 
-#: brouwers/general/models.py:151
+#: brouwers/general/models.py:150
 #, fuzzy
 msgid "registration attempts"
 msgstr "Registraties"
 
-#: brouwers/general/models.py:199
+#: brouwers/general/models.py:198
 #, python-format
 msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
 msgstr ""
 
-#: brouwers/general/models.py:244
+#: brouwers/general/models.py:243
 msgid "hash"
 msgstr ""
 
-#: brouwers/general/models.py:245
+#: brouwers/general/models.py:244
 msgid "expire datetime"
 msgstr ""
 
-#: brouwers/general/models.py:248
+#: brouwers/general/models.py:247
 msgid "password reset"
 msgstr ""
 
-#: brouwers/general/models.py:249
+#: brouwers/general/models.py:248
 msgid "password resets"
 msgstr ""
 
-#: brouwers/general/models.py:254
+#: brouwers/general/models.py:253
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr ""
 
-#: brouwers/general/models.py:259
+#: brouwers/general/models.py:258
 msgid "path from"
 msgstr ""
 
-#: brouwers/general/models.py:261
+#: brouwers/general/models.py:260
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
 msgstr ""
 
-#: brouwers/general/models.py:265
+#: brouwers/general/models.py:264
 msgid "redirect to"
 msgstr ""
 
-#: brouwers/general/models.py:266
+#: brouwers/general/models.py:265
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr ""
 
-#: brouwers/general/models.py:270
+#: brouwers/general/models.py:269
 msgid "redirect"
 msgstr ""
 
-#: brouwers/general/models.py:271
+#: brouwers/general/models.py:270
 msgid "redirects"
 msgstr ""
 
-#: brouwers/general/models.py:291
+#: brouwers/general/models.py:290
 msgid "language"
 msgstr ""
 
-#: brouwers/general/models.py:298
+#: brouwers/general/models.py:297
 msgid "announcement"
 msgstr ""
 
-#: brouwers/general/models.py:299
+#: brouwers/general/models.py:298
 msgid "announcements"
 msgstr ""
 
@@ -2187,10 +2187,10 @@ msgstr ""
 
 #: brouwers/general/templates/general/registration_terms.html:9
 msgid ""
-"You agree to keep your credentials safe. Furthermore, you will keep one, and"
-" <strong>only one</strong> account. Multiple accounts are strictly "
-"forbidden. You will not impersonate other users or try to gain access to "
-"other users accounts."
+"You agree to keep your credentials safe. Furthermore, you will keep one, and "
+"<strong>only one</strong> account. Multiple accounts are strictly forbidden. "
+"You will not impersonate other users or try to gain access to other users "
+"accounts."
 msgstr ""
 
 #: brouwers/general/templates/general/registration_terms.html:12
@@ -2218,16 +2218,16 @@ msgstr ""
 msgid ""
 "On the forums, you are allowed to edit your posts, unless that right has "
 "been taken away by the staff. You can delete your latest post, if no-one "
-"replied to it. In special cases, an exception can be made, contact the staff"
-" if your case needs an exception."
+"replied to it. In special cases, an exception can be made, contact the staff "
+"if your case needs an exception."
 msgstr ""
 
 #: brouwers/general/templates/general/registration_terms.html:24
 msgid ""
 "All images added to the albums stay on our server. Even if you delete an "
 "image from your album, the file is still on the hard drive. This is to "
-"prevent discontinuity in forum topics, we try to avoid as few missing images"
-" as possible."
+"prevent discontinuity in forum topics, we try to avoid as few missing images "
+"as possible."
 msgstr ""
 
 #: brouwers/general/templates/general/registration_terms.html:27
@@ -2303,8 +2303,7 @@ msgstr ""
 
 #: brouwers/groupbuilds/forms.py:9 brouwers/groupbuilds/tests/test_flow.py:110
 msgid ""
-"The start date cannot be edited if the build is outside of the concept "
-"state."
+"The start date cannot be edited if the build is outside of the concept state."
 msgstr ""
 
 #: brouwers/groupbuilds/forms.py:10
@@ -2497,7 +2496,9 @@ msgstr "Groepsbouwen"
 #: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:10
 msgid ""
 "\n"
-"            In this section you can manage your group builds. Your group builds are split in a set of group builds that you manage, and a set of builds where you're a regular participant.\n"
+"            In this section you can manage your group builds. Your group "
+"builds are split in a set of group builds that you manage, and a set of "
+"builds where you're a regular participant.\n"
 "        "
 msgstr ""
 
@@ -2506,51 +2507,55 @@ msgstr ""
 msgid "New concept/idea"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:27
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:29
 msgid "Organized by you"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:34
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:36
 #, fuzzy
 msgid "Request denied"
 msgstr "Geen toegang"
 
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:46
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:75
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:48
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:77
 #, python-format
 msgid "%(time_left)s left"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:52
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:54
 #, python-format
 msgid ""
 "\n"
-"                            You haven't organized any groupbuilds yet. If you have\n"
+"                            You haven't organized any groupbuilds yet. If "
+"you have\n"
 "                            a brilliant idea, share it with us by\n"
-"                            <a href=\"%(url_gb_concept)s\">submitting your idea</a>.\n"
+"                            <a href=\"%(url_gb_concept)s\">submitting your "
+"idea</a>.\n"
 "                        "
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:66
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:68
 msgid "Builds you participate in"
-msgstr ""
-
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:79
-#, python-format
-msgid "Started %(start)s"
 msgstr ""
 
 #: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:81
 #, python-format
+msgid "Started %(start)s"
+msgstr ""
+
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:83
+#, python-format
 msgid "Starts %(start)s (%(time_until)s from now)"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:87
+#: brouwers/groupbuilds/templates/groupbuilds/dashboard.html:89
 #, python-format
 msgid ""
 "\n"
-"                            You haven't joined a build yet. Maybe you can browse\n"
-"                            the <a href=\"%(url_gb_list)s\">list</a> to find something interesting?\n"
+"                            You haven't joined a build yet. Maybe you can "
+"browse\n"
+"                            the <a href=\"%(url_gb_list)s\">list</a> to find "
+"something interesting?\n"
 "                        "
 msgstr ""
 
@@ -2602,7 +2607,7 @@ msgstr ""
 
 #: brouwers/groupbuilds/templates/groupbuilds/edit.html:62
 #: brouwers/groupbuilds/templates/groupbuilds/participant_form.html:18
-#: brouwers/users/templates/users/profile_edit.html:72
+#: brouwers/users/templates/users/profile_edit.html:74
 msgid "Save changes"
 msgstr ""
 
@@ -2613,155 +2618,178 @@ msgstr ""
 #: brouwers/groupbuilds/templates/groupbuilds/edit.html:71
 msgid ""
 "\n"
-"                            <p>You can submit your group build ideas here, find interested\n"
-"                            people, and tweak the subject/data as much as you want.</p>\n"
+"                            <p>You can submit your group build ideas here, "
+"find interested\n"
+"                            people, and tweak the subject/data as much as "
+"you want.</p>\n"
 "\n"
-"                            <p>When you're happy with the result, check the calendar and make sure your start-date/duration are reasonable. Then you can submit the group build to the board moderators.</p>\n"
+"                            <p>When you're happy with the result, check the "
+"calendar and make sure your start-date/duration are reasonable. Then you can "
+"submit the group build to the board moderators.</p>\n"
 "\n"
-"                            <p>The moderators will then review the group build and assign a start date and duration. If needed, they will communicate to you about potential changes.</p>\n"
+"                            <p>The moderators will then review the group "
+"build and assign a start date and duration. If needed, they will communicate "
+"to you about potential changes.</p>\n"
 "\n"
-"                            <p>Some general rules apply. The staff can always decide to divert from them if there's a reason for diversion.</p>\n"
+"                            <p>Some general rules apply. The staff can "
+"always decide to divert from them if there's a reason for diversion.</p>\n"
 "\n"
 "                            <ul>\n"
-"                                <li>No more than <strong>one</strong> group build per discipline. A discipline is roughly equal with a forum (like cars, military aviation, &hellip;)</li>\n"
+"                                <li>No more than <strong>one</strong> group "
+"build per discipline. A discipline is roughly equal with a forum (like cars, "
+"military aviation, &hellip;)</li>\n"
 "\n"
-"                                <li>A 'minimum' of <strong>10</strong> participants. Make sure your potential participants have subscribed to the group build, this will be used to check if the quota are met. 'Minimum' is quoted, because 9 participants is usually not a big issue.</li>\n"
+"                                <li>A 'minimum' of <strong>10</strong> "
+"participants. Make sure your potential participants have subscribed to the "
+"group build, this will be used to check if the quota are met. 'Minimum' is "
+"quoted, because 9 participants is usually not a big issue.</li>\n"
 "\n"
-"                                <li>Think about the duration and make a reasonable estimate. The default duration is three months, this is for a reason. Extensions are possible, but you need a strong case to get it - especially if different group builds in the same forum section are planned!</li>\n"
+"                                <li>Think about the duration and make a "
+"reasonable estimate. The default duration is three months, this is for a "
+"reason. Extensions are possible, but you need a strong case to get it - "
+"especially if different group builds in the same forum section are planned!</"
+"li>\n"
 "\n"
-"                                <li>Group builds can be closed at any time if the activity died out. It's your responsibility as admin/gb moderator to keep it active and interesting.</li>\n"
+"                                <li>Group builds can be closed at any time "
+"if the activity died out. It's your responsibility as admin/gb moderator to "
+"keep it active and interesting.</li>\n"
 "\n"
-"                                <li>Any other rules (like starting with an unoped kit, amount of kits you can participante with, &hellip;) are up to the organisers. Please take care to mention these rules the rules field or in your rules topic.</li>\n"
+"                                <li>Any other rules (like starting with an "
+"unoped kit, amount of kits you can participante with, &hellip;) are up to "
+"the organisers. Please take care to mention these rules the rules field or "
+"in your rules topic.</li>\n"
 "                            </ul>\n"
 "\n"
-"                            <p>And most of all, have fun! Group builds are a valuable and popular aspect of scale modelling communities!</p>\n"
+"                            <p>And most of all, have fun! Group builds are a "
+"valuable and popular aspect of scale modelling communities!</p>\n"
 "\n"
 "\n"
 "                        "
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:17
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:16
 #, python-format
 msgid ""
 "\n"
-"                        Status: %(status)s\n"
-"                    "
+"                    Status: %(status)s\n"
+"                "
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:25
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:24
 msgid "Ongoing"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:28
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:30
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:27
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:29
 msgid "to be determined"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:34
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:33
 #: brouwers/groupbuilds/templates/groupbuilds/includes/links.html:8
 #, fuzzy
 msgid "Go to forum"
 msgstr "forum"
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:51
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:53
 msgid "Uh-oh, problems!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:58
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:60
 msgid "All you need to know..."
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:68
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:70
 msgid "Introduction"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:71
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:73
 msgid "Rules"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:89
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:91
 #, python-format
 msgid ""
 "\n"
-"                                        Go read the <a href=\"%(url)s\">rules topic</a>\n"
+"                                        Go read the <a href=\"%(url)s"
+"\">rules topic</a>\n"
 "                                    "
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:95
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:97
 msgid "No specific rules, which means the default rules apply!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:106
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:147
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:108
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:149
 msgid "#"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:107
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:149
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:109
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:151
 msgid "Model"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:109
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:111
 #, fuzzy
 msgid "Actions"
 msgstr "Recente acties"
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:134
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:136
 msgid "Login to view your models"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:143
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:145
 #, python-format
 msgid "1 participant"
 msgid_plural "%(n_part)s participants"
 msgstr[0] ""
 msgstr[1] ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:148
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:150
 #, fuzzy
 msgid "Builder"
 msgstr "Brouwverslagen"
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:176
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:178
 msgid "Join us!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:178
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:180
 msgid "Show your interest!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:188
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:190
 msgid "Submit!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:190
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:192
 msgid ""
 "Hitting the button is enough, but providing more information is always nice!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:200
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:202
 msgid "Organiser"
 msgid_plural "Organisers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:206
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:208
 msgid "You!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:217
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:219
 msgid "BBCode"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:219
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:221
 msgid "Use this to embed the group build in the forum"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:226
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:228
 msgid "Set it in stone!"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:227
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:229
 msgid "Submit request"
 msgstr ""
 
@@ -2772,17 +2800,22 @@ msgstr ""
 #: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:11
 msgid ""
 "A group build is basically a themed build with a set start\n"
-"            and end date. Builders who share interests for a certain theme can poll other\n"
-"            forum members if they are interested to take part in a group build. Group builds\n"
-"            usually result in tight groups of builders around a narrow field, providing\n"
-"            valuable theme-specific reference documentation and small facts.\n"
+"            and end date. Builders who share interests for a certain theme "
+"can poll other\n"
+"            forum members if they are interested to take part in a group "
+"build. Group builds\n"
+"            usually result in tight groups of builders around a narrow "
+"field, providing\n"
+"            valuable theme-specific reference documentation and small "
+"facts.\n"
 "        "
 msgstr ""
 
 #: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:18
 msgid ""
 "'Ok, sounds cool and all' I hear you think. But what if you have your\n"
-"            own idea? Just click the button below to submit your idea! We provide the\n"
+"            own idea? Just click the button below to submit your idea! We "
+"provide the\n"
 "            platform and forum-integration to get your idea going!\n"
 "        "
 msgstr ""
@@ -2792,32 +2825,35 @@ msgstr ""
 msgid "My groupbuilds"
 msgstr "groepsbouwen"
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:35
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:37
 msgid "New concepts"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:44
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:46
 #, python-format
 msgid ""
 "\n"
 "                            Nobody seems to have a clue! Maybe you can\n"
-"                            <a href=\"%(url_gb_concept)s\">submit your own idea?</a>\n"
+"                            <a href=\"%(url_gb_concept)s\">submit your own "
+"idea?</a>\n"
 "                        "
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:55
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:57
 msgid "Starting soon"
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:63
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:65
 msgid ""
 "\n"
-"                        Nothing starting in the next six weeks. Maybe there's something further\n"
-"                        down the road in the <a href=\"#calendar\">calendar</a>?\n"
+"                        Nothing starting in the next six weeks. Maybe "
+"there's something further\n"
+"                        down the road in the <a href=\"#calendar\">calendar</"
+"a>?\n"
 "                    "
 msgstr ""
 
-#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:75
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:77
 msgid "Calendar"
 msgstr ""
 
@@ -2829,9 +2865,12 @@ msgstr "Beheer groepsbouwen!"
 #: brouwers/groupbuilds/templates/groupbuilds/groupbuild_submit.html:14
 msgid ""
 "\n"
-"        To submit the groupbuild you need to have set a start date and duration.\n"
-"        If you confirm to submit the groupbuild, the moderators take a look if all\n"
-"        requirements are met and if so, put it on the calendar. If not all requirements\n"
+"        To submit the groupbuild you need to have set a start date and "
+"duration.\n"
+"        If you confirm to submit the groupbuild, the moderators take a look "
+"if all\n"
+"        requirements are met and if so, put it on the calendar. If not all "
+"requirements\n"
 "        are met, you will receive feedback about this.\n"
 "    "
 msgstr ""
@@ -2842,8 +2881,7 @@ msgstr ""
 
 #: brouwers/groupbuilds/templates/groupbuilds/groupbuild_submit.html:27
 msgid ""
-"This groupbuild cannot be submitted. Make sure you meet all the "
-"requirements."
+"This groupbuild cannot be submitted. Make sure you meet all the requirements."
 msgstr ""
 
 #: brouwers/groupbuilds/templates/groupbuilds/groupbuild_submit.html:31
@@ -2985,8 +3023,8 @@ msgstr ""
 
 #: brouwers/kitreviews/models.py:153
 msgid ""
-"Checking this option will display your real name as reviewer. Uncheck to use"
-" your nickname."
+"Checking this option will display your real name as reviewer. Uncheck to use "
+"your nickname."
 msgstr ""
 
 #: brouwers/kitreviews/models.py:162
@@ -3035,7 +3073,8 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                    It appears you don't have Javascript enabled. Adding kits and/or reviews is still possible\n"
+"                    It appears you don't have Javascript enabled. Adding "
+"kits and/or reviews is still possible\n"
 "                    by <a href=\"%(search_url)s\">searching</a> for kits.\n"
 "                "
 msgstr ""
@@ -3241,21 +3280,35 @@ msgstr "Secret Santa"
 #, python-format
 msgid ""
 "\n"
-"&quot;Secret Santa is a Western Christmas tradition in which members of a group or community are randomly assigned a person to whom they anonymously give a gift.&quot; <sup>[<a href=\"http://en.wikipedia.org/wiki/Secret_Santa\">Wikipedia</a>]</sup> Since we're a scale modelling website, the gift is in the form of a modelling kit. The intent is to finish the model by the end of %(year_later)s (and we really hope everybody succeeds). You're supposed to put the build report in the normal subforum, provided with the tag <code>[SS %(year)s]</code>.\n"
+"&quot;Secret Santa is a Western Christmas tradition in which members of a "
+"group or community are randomly assigned a person to whom they anonymously "
+"give a gift.&quot; <sup>[<a href=\"http://en.wikipedia.org/wiki/Secret_Santa"
+"\">Wikipedia</a>]</sup> Since we're a scale modelling website, the gift is "
+"in the form of a modelling kit. The intent is to finish the model by the end "
+"of %(year_later)s (and we really hope everybody succeeds). You're supposed "
+"to put the build report in the normal subforum, provided with the tag "
+"<code>[SS %(year)s]</code>.\n"
 msgstr ""
 
 #: brouwers/secret_santa/templates/secret_santa/base.html:32
 #, python-format
 msgid ""
 "\n"
-"The price class is %(price)s euros. You can always buy a more expensive kit, but expect your Secret Santa to stick with the price range. It would be fun to include a poem with the gift, since that is tradition, but it's no obligation to do so.\n"
+"The price class is %(price)s euros. You can always buy a more expensive kit, "
+"but expect your Secret Santa to stick with the price range. It would be fun "
+"to include a poem with the gift, since that is tradition, but it's no "
+"obligation to do so.\n"
 msgstr ""
 
 #: brouwers/secret_santa/templates/secret_santa/base.html:36
 #, python-format
 msgid ""
 "\n"
-"Signing up is possible from %(enrollment_start)s <strong>until %(enrollment_end)s</strong>. After this date (on %(lottery_date)s) the random assignment will be executed. After that, you're all set to buy your Secret Santa a nice present! An e-mail notification will be sent when the assignment is done.</p>"
+"Signing up is possible from %(enrollment_start)s <strong>until "
+"%(enrollment_end)s</strong>. After this date (on %(lottery_date)s) the "
+"random assignment will be executed. After that, you're all set to buy your "
+"Secret Santa a nice present! An e-mail notification will be sent when the "
+"assignment is done.</p>"
 msgstr ""
 
 #: brouwers/secret_santa/templates/secret_santa/base.html:39
@@ -3332,8 +3385,8 @@ msgstr ""
 #: brouwers/shirts/models.py:32
 #, python-format
 msgid ""
-"Mailing the shirt will add %(shipping_cost)s euros to the costs and you need"
-" to fill in your address data in your profile."
+"Mailing the shirt will add %(shipping_cost)s euros to the costs and you need "
+"to fill in your address data in your profile."
 msgstr ""
 
 #: brouwers/shirts/models.py:35
@@ -3369,9 +3422,12 @@ msgstr ""
 msgid ""
 "Dear %(username)s,\n"
 "\n"
-"This is an order confirmation for a Modelbrouwers.nl shirt with the following options: color %(color)s; size %(size)s; type %(type)s. The order was placed on %(date)s.\n"
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: color %(color)s; size %(size)s; type %(type)s. The order "
+"was placed on %(date)s.\n"
 "\n"
-"To complete this order, please make a payment to Sergei Maertens on the following account: \n"
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account: \n"
 "IBAN: BE47 1325 1771 2380\n"
 "BIC: BNAG BE BB.\n"
 "Be sure to mention your order ID: %(orderid)s.\n"
@@ -3406,7 +3462,8 @@ msgstr ""
 
 #: brouwers/shirts/templates/shirts/base.html:47
 msgid ""
-"If you don't wish the shirt to be mailed, the delivery of the shirt will happen on some meeting. You will be contacted for this through your e-mail.\n"
+"If you don't wish the shirt to be mailed, the delivery of the shirt will "
+"happen on some meeting. You will be contacted for this through your e-mail.\n"
 "    "
 msgstr ""
 
@@ -3435,14 +3492,18 @@ msgstr ""
 #: brouwers/shirts/templates/shirts/mail.html:3
 #, python-format
 msgid ""
-"This is an order confirmation for a Modelbrouwers.nl shirt with the following options: \n"
-"color %(color)s; size %(size)s; type %(type)s. The order was placed on %(date)s"
+"This is an order confirmation for a Modelbrouwers.nl shirt with the "
+"following options: \n"
+"color %(color)s; size %(size)s; type %(type)s. The order was placed on "
+"%(date)s"
 msgstr ""
 
 #: brouwers/shirts/templates/shirts/mail.html:5
 #, python-format
 msgid ""
-"To complete this order, please make a payment to Sergei Maertens on the following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br ><br >Be sure to mention your order ID: %(orderid)s.\n"
+"To complete this order, please make a payment to Sergei Maertens on the "
+"following account:<br >IBAN: BE47 1325 1771 2380<br >BIC: BNAG BE BB.<br "
+"><br >Be sure to mention your order ID: %(orderid)s.\n"
 "<br >\n"
 "The price for this order is %(price)s euros."
 msgstr ""
@@ -3571,8 +3632,8 @@ msgstr ""
 #: brouwers/users/forms/auth.py:153
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
-"reactivate with the link sent by e-mail. Check your spamfolder to see if you"
-" missed an e-mail."
+"reactivate with the link sent by e-mail. Check your spamfolder to see if you "
+"missed an e-mail."
 msgstr ""
 
 #: brouwers/users/forms/auth.py:176
@@ -3582,8 +3643,8 @@ msgstr ""
 #: brouwers/users/templates/users/change_password.html:6
 #: brouwers/users/templates/users/change_password.html:16
 #: brouwers/users/templates/users/password_reset.html:20
-#: brouwers/users/templates/users/profile_edit.html:79
-#: brouwers/users/templates/users/profile_edit.html:89
+#: brouwers/users/templates/users/profile_edit.html:81
+#: brouwers/users/templates/users/profile_edit.html:91
 #: brouwers/users/tests/test_views.py:30
 msgid "Change password"
 msgstr ""
@@ -3594,14 +3655,16 @@ msgid "login"
 msgstr "Inloggen"
 
 #: brouwers/users/templates/users/login.html:12 templates/base.html:125
-#: templates/base_html5.html:80
+#: templates/base_html5.html:90
 msgid "Login"
 msgstr "Inloggen"
 
 #: brouwers/users/templates/users/login.html:17
 msgid ""
 "\n"
-"                If you're running into login issues, please don't hesitate to contact the administrators. You can find the e-mail address on the bottom of this page.\n"
+"                If you're running into login issues, please don't hesitate "
+"to contact the administrators. You can find the e-mail address on the bottom "
+"of this page.\n"
 "            "
 msgstr ""
 
@@ -3616,9 +3679,9 @@ msgstr ""
 #: brouwers/users/templates/users/login.html:49
 msgid ""
 "\n"
-"                    No account yet? Signing up is free and you can immediately\n"
-"                    participate in the community!\n"
-"                "
+"                No account yet? Signing up is free and you can immediately\n"
+"                participate in the community!\n"
+"            "
 msgstr ""
 
 #: brouwers/users/templates/users/login.html:58
@@ -3687,35 +3750,35 @@ msgstr ""
 msgid "Modelbrouwers.nl &bull; Edit profile"
 msgstr ""
 
-#: brouwers/users/templates/users/profile_edit.html:9
+#: brouwers/users/templates/users/profile_edit.html:10
 #, fuzzy
 msgid "Your profile"
 msgstr "Profiel"
 
-#: brouwers/users/templates/users/profile_edit.html:11
+#: brouwers/users/templates/users/profile_edit.html:12
 msgid ""
 "\n"
 "            Here you can configure various site-wide settings.\n"
 "        "
 msgstr ""
 
-#: brouwers/users/templates/users/profile_edit.html:30
+#: brouwers/users/templates/users/profile_edit.html:32
 msgid "You have form errors, check the tabs below"
 msgstr ""
 
-#: brouwers/users/templates/users/profile_edit.html:36
+#: brouwers/users/templates/users/profile_edit.html:38
 msgid "User details"
 msgstr ""
 
-#: brouwers/users/templates/users/profile_edit.html:37
+#: brouwers/users/templates/users/profile_edit.html:39
 msgid "Address"
 msgstr ""
 
-#: brouwers/users/templates/users/profile_edit.html:39
+#: brouwers/users/templates/users/profile_edit.html:41
 msgid "Social settings"
 msgstr ""
 
-#: brouwers/users/templates/users/profile_edit.html:40
+#: brouwers/users/templates/users/profile_edit.html:42
 #, fuzzy
 msgid "Forum profile"
 msgstr "Profiel"
@@ -3725,60 +3788,65 @@ msgstr "Profiel"
 msgid "registration"
 msgstr "Registraties"
 
-#: brouwers/users/templates/users/register.html:11
+#: brouwers/users/templates/users/register.html:10
 msgid "Create an account"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:12
+#: brouwers/users/templates/users/register.html:11
 msgid "you're just a step away from your personal account"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:15
+#: brouwers/users/templates/users/register.html:14
 msgid ""
 "\n"
-"            We're happy to see you join our beautiful hobby hub where you can exchange tips and tricks\n"
+"            We're happy to see you join our beautiful hobby hub where you "
+"can exchange tips and tricks\n"
 "            and participate in the community!\n"
 "        "
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:20
+#: brouwers/users/templates/users/register.html:19
 msgid ""
-"When you're done, don't forget to introduce yourself in the appropriate forum,\n"
-"        and make yourself familiar with our rules. If you run into any trouble, you can contact the\n"
-"        staff via PM (personal message), or contact the admins via the e-mail address below.\n"
+"When you're done, don't forget to introduce yourself in the appropriate "
+"forum,\n"
+"        and make yourself familiar with our rules. If you run into any "
+"trouble, you can contact the\n"
+"        staff via PM (personal message), or contact the admins via the e-"
+"mail address below.\n"
 "        "
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:38
+#: brouwers/users/templates/users/register.html:37
 msgid "Enter your account details"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:47
+#: brouwers/users/templates/users/register.html:46
 msgid "Anti-spam question"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:48
+#: brouwers/users/templates/users/register.html:47
 msgid "Carefully read the question, the answer is often literally in there!"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:57
+#: brouwers/users/templates/users/register.html:56
 msgid "Create your account"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:59
+#: brouwers/users/templates/users/register.html:58
 msgid "Already have an account?"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:67
+#: brouwers/users/templates/users/register.html:66
 msgid "Terms and conditions"
 msgstr ""
 
-#: brouwers/users/templates/users/register.html:68
+#: brouwers/users/templates/users/register.html:67
 msgid ""
 "\n"
-"                Unfortunately, some people need strong and clear rules to behave. When you create an account,\n"
-"                you agree with these terms and conditions.\n"
-"            "
+"            Unfortunately, some people need strong and clear rules to "
+"behave. When you create an account,\n"
+"            you agree with these terms and conditions.\n"
+"        "
 msgstr ""
 
 #: brouwers/users/templates/users/mail/user_created.html:5
@@ -3787,11 +3855,17 @@ msgid ""
 "\n"
 "<p>Hi %(username)s,</p>\n"
 "<br />\n"
-"<p>You just attempted to login, but your account is not activated. You can activate on the following link: %(protocol)s://%(domain)s%(activation_url)s (copy and paste this link in your browser).</p>\n"
+"<p>You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).</p>\n"
 "<br />\n"
-"<p>After activation, you will be logged in automagically and redirected to the pagewhere you can set/change your password.</p>\n"
+"<p>After activation, you will be logged in automagically and redirected to "
+"the pagewhere you can set/change your password.</p>\n"
 "<br />\n"
-"<p>The account you're activating, is a single-sign-on account. With the same account you will have access to the forums, albums and all future modules of the website! Eventually the kit-reviews module and the shop will be integrated with this account.</p>\n"
+"<p>The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.</p>\n"
 "<br />\n"
 "<p>If you run into problems, just reply to this e-mail.</p>\n"
 "<br />\n"
@@ -3805,11 +3879,17 @@ msgid ""
 "\n"
 "Hi %(username)s,\n"
 "\n"
-"You just attempted to login, but your account is not activated. You can activate on the following link: %(protocol)s://%(domain)s%(activation_url)s (copy and paste this link in your browser).\n"
+"You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).\n"
 "\n"
-"After activation, you will be logged in automagically and redirected to the pagewhere you can set/change your password.\n"
+"After activation, you will be logged in automagically and redirected to the "
+"pagewhere you can set/change your password.\n"
 "\n"
-"The account you're activating, is a single-sign-on account. With the same account you will have access to the forums, albums and all future modules of the website! Eventually the kit-reviews module and the shop will be integrated with this account.\n"
+"The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.\n"
 "\n"
 "If you run into problems, just reply to this e-mail.\n"
 "\n"
@@ -3839,7 +3919,9 @@ msgid ""
 "\n"
 "Thank you for your registration on %(domain)s!\n"
 "\n"
-"You registered with the username: %(username)s. Your password is safely stored in our database and can not be retrieved. You can always reset your password if you can't remember it.\n"
+"You registered with the username: %(username)s. Your password is safely "
+"stored in our database and can not be retrieved. You can always reset your "
+"password if you can't remember it.\n"
 "\n"
 "See you on the forum!\n"
 "\n"
@@ -3878,16 +3960,16 @@ msgstr "Oeps... een 404!"
 #: templates/404.html:46
 #, python-format
 msgid ""
-"The requested page could not be found or isn't accessible because of limited"
-" user rights. Click on the big logo above or click <a href=\"/\">here</a> to"
-" return to the homepage. Alternatively, use the back button in your browser "
+"The requested page could not be found or isn't accessible because of limited "
+"user rights. Click on the big logo above or click <a href=\"/\">here</a> to "
+"return to the homepage. Alternatively, use the back button in your browser "
 "or click <a href=\"%(return)s\">here</a> to return to the previous page."
 msgstr ""
 "De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
 "doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
-"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik"
-" de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om "
-"terug te gaan naar de vorige pagina."
+"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
+"de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
+"te gaan naar de vorige pagina."
 
 #: templates/base.html:6
 msgid "Materials and knowledge for scale modelling."
@@ -3901,11 +3983,11 @@ msgstr "Secret Santa"
 msgid "Migrations"
 msgstr "Migraties"
 
-#: templates/base.html:128 templates/base_html5.html:82
+#: templates/base.html:128 templates/base_html5.html:92
 msgid "Register"
 msgstr "Registreren"
 
-#: templates/base.html:134 templates/base_html5.html:78
+#: templates/base.html:134 templates/base_html5.html:88
 msgid "logout"
 msgstr "uitloggen"
 
@@ -3913,7 +3995,7 @@ msgstr "uitloggen"
 msgid "Profile"
 msgstr "Profiel"
 
-#: templates/base_html5.html:76
+#: templates/base_html5.html:86
 #, python-format
 msgid "logged in as <a href=\"%(profile_url)s\">%(user)s</a>"
 msgstr "ingelogd als <a href=\"%(profile_url)s\">%(user)s</a>"

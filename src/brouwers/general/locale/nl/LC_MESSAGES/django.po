@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 19:59+0100\n"
+"POT-Creation-Date: 2015-02-13 23:31+0100\n"
 "PO-Revision-Date: 2015-02-10 20:02+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
@@ -55,7 +55,7 @@ msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 msgid "This e-mail address is already registered."
 msgstr "Dit e-mailadres is al geregistreerd."
 
-#: forms.py:101 models.py:137
+#: forms.py:101 models.py:136
 msgid "answer"
 msgstr "antwoord"
 
@@ -81,8 +81,8 @@ msgstr "De ingegeven gebruikersnaam was niet correct."
 
 #: forms.py:166
 msgid ""
-"If you forgot your username, you can enter the e-mail address you registered"
-" with."
+"If you forgot your username, you can enter the e-mail address you registered "
+"with."
 msgstr ""
 "Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee "
 "je registreerde ingeven."
@@ -115,196 +115,194 @@ msgstr "Duitsland"
 msgid "France"
 msgstr "Frankrijk"
 
-#: models.py:27
+#: models.py:25
 msgid "added by"
 msgstr "toegevoegd door"
 
-#: models.py:27
+#: models.py:25
 msgid "User who added the object."
 msgstr "Gebruiker die het object toevoegde."
 
-#: models.py:28
+#: models.py:26
 msgid "added on"
 msgstr "toegevoegd op"
 
-#: models.py:40
+#: models.py:38
 msgid "exclude me from nominations"
 msgstr "sluit me uit van nominaties"
 
-#: models.py:41
+#: models.py:39
 msgid "If checked, you will be excluded from Awards-nominations."
 msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
 
-#: models.py:45
+#: models.py:44
 msgid "Aanvinken als je meedoet"
 msgstr ""
 
-#: models.py:47
+#: models.py:46
 msgid "street name"
 msgstr "straatnaam"
 
-#: models.py:49
+#: models.py:48
 msgid "number"
 msgstr "nummer"
 
-#: models.py:50
+#: models.py:49
 msgid "house number (+ PO box if applicable)"
 msgstr "huisnummer (+ postbus indien van toepassing)"
 
-#: models.py:53
+#: models.py:52
 msgid "postal code"
 msgstr "postcode"
 
-#: models.py:54
+#: models.py:53
 msgid "city"
 msgstr "stad"
 
-#: models.py:55
+#: models.py:54
 msgid "province"
 msgstr "provincie"
 
-#: models.py:56
+#: models.py:55
 msgid "country"
 msgstr "land"
 
-#: models.py:59
+#: models.py:58
 msgid "Dit wil ik graag"
 msgstr ""
 
-#: models.py:60
+#: models.py:59
 msgid "Dit wil ik absoluut niet"
 msgstr ""
 
-#: models.py:63
+#: models.py:62
 msgid "allow social sharing"
 msgstr "sociaal delen toestaan"
 
-#: models.py:64
+#: models.py:63
 msgid ""
 "Checking this gives us permission to share your topics and albums on social "
 "media. Uncheck if you don't want to share."
 msgstr ""
-"Als je dit aanvinkt, dan geef je toestemming om je topics en albums te delen"
-" op sociale media zoals Facebook. Vink dit uit als je dit niet wil."
+"Als je dit aanvinkt, dan geef je toestemming om je topics en albums te delen "
+"op sociale media zoals Facebook. Vink dit uit als je dit niet wil."
 
-#: models.py:74
+#: models.py:73
 msgid "userprofile"
 msgstr "gebruikersprofiel"
 
-#: models.py:75
+#: models.py:74
 msgid "userprofiles"
 msgstr "gebruikersprofielen"
 
-#: models.py:100
+#: models.py:99
 msgid "Anti-spambot question"
 msgstr "Anti-spambot vraag"
 
-#: models.py:101
+#: models.py:100
 msgid "Question which must be answered for registration."
-msgstr ""
-"Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
+msgstr "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
 
-#: models.py:134
+#: models.py:133
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:135
+#: models.py:134
 msgid "email"
 msgstr "E-mailadres"
 
-#: models.py:136
+#: models.py:135
 msgid "registration question"
 msgstr "Registratievraag"
 
-#: models.py:138
+#: models.py:137
 msgid "timestamp"
 msgstr "timestamp"
 
-#: models.py:139
+#: models.py:138
 msgid "IP address"
 msgstr "IP adres"
 
-#: models.py:140
+#: models.py:139
 msgid "success"
 msgstr "geslaagd"
 
-#: models.py:144
+#: models.py:143
 msgid "type of visitor"
 msgstr "type bezoeker"
 
-#: models.py:150
+#: models.py:149
 msgid "registration attempt"
 msgstr "registratiepoging"
 
-#: models.py:151
+#: models.py:150
 msgid "registration attempts"
 msgstr "registratiepogingen"
 
-#: models.py:199
+#: models.py:198
 #, python-format
 msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
 msgstr ""
-"Waarschijnlijk spambot, %(num_attempts)s tegenover maximaal %(max)s "
-"pogingen."
+"Waarschijnlijk spambot, %(num_attempts)s tegenover maximaal %(max)s pogingen."
 
-#: models.py:244
+#: models.py:243
 msgid "hash"
 msgstr "hash"
 
-#: models.py:245
+#: models.py:244
 msgid "expire datetime"
 msgstr "vervaldatum"
 
-#: models.py:248
+#: models.py:247
 msgid "password reset"
 msgstr "Wachtwoordreset"
 
-#: models.py:249
+#: models.py:248
 msgid "password resets"
 msgstr "Wachtwoordresets"
 
-#: models.py:254
+#: models.py:253
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr "Wachtwoordreset voor %(user)s"
 
-#: models.py:259
+#: models.py:258
 msgid "path from"
 msgstr "pad van"
 
-#: models.py:261
+#: models.py:260
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
 msgstr ""
-"pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: "
-"'/shop/' wordt 'shop/'"
+"pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
+"shop/' wordt 'shop/'"
 
-#: models.py:265
+#: models.py:264
 msgid "redirect to"
 msgstr "redirect naar"
 
-#: models.py:266
+#: models.py:265
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr "Pad (relatief of absoluut tot de website root) of url."
 
-#: models.py:270
+#: models.py:269
 msgid "redirect"
 msgstr "omleiding"
 
-#: models.py:271
+#: models.py:270
 msgid "redirects"
 msgstr "omleidingen"
 
-#: models.py:291
+#: models.py:290
 msgid "language"
 msgstr "taal"
 
-#: models.py:298
+#: models.py:297
 msgid "announcement"
 msgstr "aankondiging"
 
-#: models.py:299
+#: models.py:298
 msgid "announcements"
 msgstr "aankondigingen"
 
@@ -331,10 +329,10 @@ msgstr ""
 
 #: templates/general/registration_terms.html:9
 msgid ""
-"You agree to keep your credentials safe. Furthermore, you will keep one, and"
-" <strong>only one</strong> account. Multiple accounts are strictly "
-"forbidden. You will not impersonate other users or try to gain access to "
-"other users accounts."
+"You agree to keep your credentials safe. Furthermore, you will keep one, and "
+"<strong>only one</strong> account. Multiple accounts are strictly forbidden. "
+"You will not impersonate other users or try to gain access to other users "
+"accounts."
 msgstr ""
 "Je zorgt ervoor om je inloggegevens veilig te houden. Verder zal je "
 "<strong>slechts &eacute;&eacute;n</strong> account hebben. Dubbelaccounts "
@@ -374,8 +372,8 @@ msgstr ""
 msgid ""
 "On the forums, you are allowed to edit your posts, unless that right has "
 "been taken away by the staff. You can delete your latest post, if no-one "
-"replied to it. In special cases, an exception can be made, contact the staff"
-" if your case needs an exception."
+"replied to it. In special cases, an exception can be made, contact the staff "
+"if your case needs an exception."
 msgstr ""
 "Op het forum kan je je posts bewerken, tenzij het modteam dit recht "
 "afgenomen heeft. Je kan ook je laatste post verwijderen, tenzij er al een "
@@ -386,12 +384,12 @@ msgstr ""
 msgid ""
 "All images added to the albums stay on our server. Even if you delete an "
 "image from your album, the file is still on the hard drive. This is to "
-"prevent discontinuity in forum topics, we try to avoid as few missing images"
-" as possible."
+"prevent discontinuity in forum topics, we try to avoid as few missing images "
+"as possible."
 msgstr ""
 "Alle afbeeldingen die toegevoegd worden aan de albums blijven op onze "
-"server. Zelfs als je een foto uit je album verwijdert, blijft het bestand op"
-" de harde schijf. Op deze manier proberen we continu&iuml;teit in de topics "
+"server. Zelfs als je een foto uit je album verwijdert, blijft het bestand op "
+"de harde schijf. Op deze manier proberen we continu&iuml;teit in de topics "
 "te verzekeren door rode kruisjes te vermijden."
 
 #: templates/general/registration_terms.html:27
@@ -430,8 +428,7 @@ msgid ""
 msgstr ""
 "%(site)s gebruikt verder ook Google Analytics cookies. Deze cookies "
 "genereren anonieme statistieken over het gebruik van %(site)s. We gebruiken "
-"ze om jouw ervaring op %(site)s te verbeteren en de kwaliteit hoog te "
-"houden."
+"ze om jouw ervaring op %(site)s te verbeteren en de kwaliteit hoog te houden."
 
 #: templates/general/registration_terms.html:40
 #, python-format
@@ -442,8 +439,8 @@ msgid ""
 "available in your profile (e.g. content sharing on social media)."
 msgstr ""
 "%(site)s hecht belang aan jouw privacy. Je wachtwoord is ge&euml;crypteerd "
-"opgeslagen en kan niet gedecodeerd worden. Alle persoonlijke gegevens worden"
-" veilig bewaard. We verkopen of geven geen gegevens weg. Enkele privacy-"
+"opgeslagen en kan niet gedecodeerd worden. Alle persoonlijke gegevens worden "
+"veilig bewaard. We verkopen of geven geen gegevens weg. Enkele privacy-"
 "opties kunnen ingesteld worden in je profiel, zoals het <i>sharen</i> op "
 "social media."
 
@@ -474,8 +471,8 @@ msgid ""
 "Mistakes occur. If you feel like an error is in place, don't hesitate to "
 "contact the admins. The e-mail address is in the footer of this page."
 msgstr ""
-"Foutjes kunnen gebeuren. Als je denkt dat er een fout in het spel is, aarzel"
-" dan niet om de admins te contacteren. Het e-mailadres staat onderaan deze "
+"Foutjes kunnen gebeuren. Als je denkt dat er een fout in het spel is, aarzel "
+"dan niet om de admins te contacteren. Het e-mailadres staat onderaan deze "
 "pagina."
 
 #~ msgid "Your password was successfully changed."
@@ -497,7 +494,8 @@ msgstr ""
 #~ msgid ""
 #~ "Hello %(nickname)s, \n"
 #~ "\n"
-#~ "You or someone else has requested a password reset for your Modelbrouwers.nl account.\n"
+#~ "You or someone else has requested a password reset for your Modelbrouwers."
+#~ "nl account.\n"
 #~ "This request will expire after 24 hours.\n"
 #~ "\n"
 #~ "Go to %(url)s to complete your password reset.\n"
@@ -508,7 +506,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Hallo %(nickname)s, \n"
 #~ "\n"
-#~ "Jijzelf of iemand anders heeft een wachtwoordreset aangevraagd voor je Modelbrouwers.nl account.\n"
+#~ "Jijzelf of iemand anders heeft een wachtwoordreset aangevraagd voor je "
+#~ "Modelbrouwers.nl account.\n"
 #~ "Deze aanvraag vervalt na 24 uur.\n"
 #~ "\n"
 #~ "Ga naar %(url)s om je wachtwoordreset uit te voeren.\n"
@@ -525,8 +524,8 @@ msgstr ""
 
 #~ msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
 #~ msgstr ""
-#~ "Er werd een e-mail verstuurd naar '%(email)s' met een link om je wachtwoord "
-#~ "te resetten."
+#~ "Er werd een e-mail verstuurd naar '%(email)s' met een link om je "
+#~ "wachtwoord te resetten."
 
 #~ msgid "Enter your new password"
 #~ msgstr "Vul je nieuwe wachtwoord in"
@@ -583,12 +582,12 @@ msgstr ""
 #~ msgstr "Taalinstellingen"
 
 #~ msgid ""
-#~ "Set your preferred language here. Note that this setting is stored in your "
-#~ "cookies, so if you clear those, the default language according to your "
-#~ "browser preferences will be used."
+#~ "Set your preferred language here. Note that this setting is stored in "
+#~ "your cookies, so if you clear those, the default language according to "
+#~ "your browser preferences will be used."
 #~ msgstr ""
-#~ "Stel hier je voorkeurstaal in. Let op, de instellingen worden in je cookies "
-#~ "bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
+#~ "Stel hier je voorkeurstaal in. Let op, de instellingen worden in je "
+#~ "cookies bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
 #~ "browserinstellingen gekozen."
 
 #~ msgid ""
