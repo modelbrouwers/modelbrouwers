@@ -19,7 +19,7 @@ from brouwers.general.utils import (get_username_for_user, clean_username,
 from .models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser, BuildReportsForum
 from .forms import ForumForm, PosterIDsForm
 
-#@login_required
+
 @cache_page(60*60*24)
 def get_sync_data(request):
     response_data = {}
@@ -28,6 +28,7 @@ def get_sync_data(request):
     for link in links_to_be_synced:
         response_data[link.link_id] = [l.link_id for l in link.forumlinksynced_set.all()]
     return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
 
 def get_chat(request):
     t = get_template('chat.html')
@@ -50,6 +51,7 @@ def get_chat(request):
     }
     return HttpResponse(json.dumps(json_data), mimetype='application/json')
 
+
 @permission_required_ajax('forum_tools.can_see_reports')
 def get_mod_data(request):
     data = {}
@@ -57,6 +59,7 @@ def get_mod_data(request):
     data['open_reports'] = num_open_reports
     data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports) % {'num': num_open_reports}
     return HttpResponse(json.dumps(data), mimetype="application/json")
+
 
 @user_passes_test_403(lambda u: u.groups.filter(name__iexact='content sharing').exists())
 def get_sharing_perms(request):
@@ -82,6 +85,7 @@ def get_sharing_perms(request):
                     data[forumuser.user_id] = template_sharing_not_allowed
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
+
 @login_required_403
 def get_posting_level(request):
     data = {}
@@ -105,11 +109,12 @@ def get_posting_level(request):
         # TODO: find a way to cache this... or find it out client side
         num_posts = forum_user.user_posts
 
-        restrictions = ForumPostCountRestriction.objects.filter(forum=forum)
+        restrictions = ForumPostCountRestriction.objects.filter(forum_id=forum.forum_id)
         data['restrictions'] = [restr.posting_level for restr in restrictions if restr.min_posts > num_posts]
     return HttpResponse(json.dumps(data), mimetype="application/json")
 
-@cache_page(60*60*24*7*2) # two weeks, cache is language based already
+
+@cache_page(60*60*24*7*2)  # two weeks, cache is language based already
 def get_build_report_forums(self):
     # TODO: return data if the build report was added already
     forum_ids = BuildReportsForum.objects.values_list('forum_id', flat=True)
