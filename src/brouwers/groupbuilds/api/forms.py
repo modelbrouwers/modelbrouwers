@@ -1,6 +1,6 @@
 from django import forms
 
-from forum_tools.forms.fields import ForumIDField, TopicIDField
+from brouwers.forum_tools.forms.fields import ForumIDField, TopicIDField
 
 
 class TopicDetailsForm(forms.Form):

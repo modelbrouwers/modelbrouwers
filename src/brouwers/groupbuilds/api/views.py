@@ -3,8 +3,8 @@ from django.utils import timezone
 from rest_framework import generics, views
 from rest_framework.response import Response
 
-from forum_tools.models import Topic
-from forum_tools.api.serializers import TopicSerializer
+from brouwers.forum_tools.models import Topic
+from brouwers.forum_tools.api.serializers import TopicSerializer
 
 from ..models import GroupBuild, Participant
 from .serializers import GroupBuildSerializer
