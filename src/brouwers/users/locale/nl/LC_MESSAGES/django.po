@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-13 23:31+0100\n"
+"POT-Creation-Date: 2015-02-15 00:22+0100\n"
 "PO-Revision-Date: 2015-02-13 23:43+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
@@ -70,8 +70,8 @@ msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
-"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats"
-" van gebruikers te verwijderen."
+"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
+"van gebruikers te verwijderen."
 
 #: models.py:77
 msgid "date joined"
@@ -98,9 +98,9 @@ msgid ""
 "SSO (single sign on) in the future for the entire domain."
 msgstr ""
 "We vonden een bestaande forumaccount voor deze gebruikersnaam, maar het "
-"lijkt erop dat er nog geen gekoppelde account bestaat. Deze werd automatisch"
-" aangemaakt maar moet nog geactiveerd worden. Je zou ieder moment een e-mail"
-" moeten ontvangen waarin een link staat om je account te activeren. Deze "
+"lijkt erop dat er nog geen gekoppelde account bestaat. Deze werd automatisch "
+"aangemaakt maar moet nog geactiveerd worden. Je zou ieder moment een e-mail "
+"moeten ontvangen waarin een link staat om je account te activeren. Deze "
 "gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
 "mogelijk te maken voor de volledige website."
 
@@ -178,14 +178,13 @@ msgid ""
 "admins (see e-mail in the page footer)."
 msgstr ""
 "Er werden meerdere accounts gevonden, dit zou niet mogen gebeuren. Gelieve "
-"contact op te nemen met de beheerders (e-mailadres staat onderaan de "
-"pagina)."
+"contact op te nemen met de beheerders (e-mailadres staat onderaan de pagina)."
 
 #: forms/auth.py:153
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
-"reactivate with the link sent by e-mail. Check your spamfolder to see if you"
-" missed an e-mail."
+"reactivate with the link sent by e-mail. Check your spamfolder to see if you "
+"missed an e-mail."
 msgstr ""
 "Je accout is nog inactief! Je zal niet kunnen inloggen tot je opnieuw "
 "activeert met de link verstuurd via e-mail. Controleer je 'ongewenste "
@@ -198,8 +197,10 @@ msgstr ""
 
 #: templates/users/change_password.html:6
 #: templates/users/change_password.html:16
-#: templates/users/password_reset.html:20 templates/users/profile_edit.html:81
-#: templates/users/profile_edit.html:91 tests/test_views.py:30
+#: templates/users/password_reset_confirm.html:7
+#: templates/users/password_reset_confirm.html:18
+#: templates/users/profile_edit.html:81 templates/users/profile_edit.html:91
+#: tests/test_views.py:30
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
@@ -214,21 +215,24 @@ msgstr "Inloggen"
 #: templates/users/login.html:17
 msgid ""
 "\n"
-"                If you're running into login issues, please don't hesitate to contact the administrators. You can find the e-mail address on the bottom of this page.\n"
+"                If you're running into login issues, please don't hesitate "
+"to contact the administrators. You can find the e-mail address on the bottom "
+"of this page.\n"
 "            "
 msgstr ""
 "\n"
-"Indien je inlogproblemen hebt, aarzel niet om de beheerders te contacteren. Je vindt het e-mailadres onderaan deze pagina."
+"Indien je inlogproblemen hebt, aarzel niet om de beheerders te contacteren. "
+"Je vindt het e-mailadres onderaan deze pagina."
 
-#: templates/users/login.html:39
+#: templates/users/login.html:41
 msgid "Come on in"
 msgstr "Doorgaan"
 
-#: templates/users/login.html:41
+#: templates/users/login.html:43
 msgid "I forgot my password"
 msgstr "Ik ben mijn wachtwoord vergeten"
 
-#: templates/users/login.html:49
+#: templates/users/login.html:51
 msgid ""
 "\n"
 "                No account yet? Signing up is free and you can immediately\n"
@@ -236,29 +240,30 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Nog geen account? Registreren is gratis en je kan meteen deelnemen in de community!"
+"Nog geen account? Registreren is gratis en je kan meteen deelnemen in de "
+"community!"
 
-#: templates/users/login.html:55
+#: templates/users/login.html:57
 msgid "Sign up"
 msgstr "Registreren"
 
-#: templates/users/login.html:58
+#: templates/users/login.html:60
 msgid "Why create an account?"
 msgstr "Waarom registreren?"
 
-#: templates/users/login.html:60
+#: templates/users/login.html:62
 msgid "Exchange hobby tips and tricks on the forum"
 msgstr "Wissel tips & tricks uit op het forum"
 
-#: templates/users/login.html:61
+#: templates/users/login.html:63
 msgid "Showcase your projects and receive feedback on the forum"
 msgstr "Stel je projecten tentoon en ontvang feedback op het forum"
 
-#: templates/users/login.html:62
+#: templates/users/login.html:64
 msgid "Upload your photos in our integrated albums"
 msgstr "Voeg je foto's toe aan onze geintegreerde albums"
 
-#: templates/users/login.html:63
+#: templates/users/login.html:65
 msgid "Participate in groupbuilds focused on a narrow theme"
 msgstr "Neem deel aan groepsbouwen rond een duidelijk thema"
 
@@ -267,8 +272,7 @@ msgid "Modelbrouwers.nl &bull; Reset password"
 msgstr "Modelbrouwers.nl &bull; Reset wachtwoord"
 
 #: templates/users/password_reset.html:8
-#: templates/users/password_reset_confirm.html:7
-#: templates/users/password_reset_confirm.html:16
+#: templates/users/password_reset.html:20
 msgid "Reset password"
 msgstr "Wachtwoordreset aanvragen"
 
@@ -277,11 +281,11 @@ msgid "Enter either your username or e-mail address to reset your password"
 msgstr ""
 "Vul je gebruikersnaam en/of e-mailadres in om je wachtwoord te resetten"
 
-#: templates/users/password_reset_confirm.html:22
+#: templates/users/password_reset_confirm.html:24
 msgid "Password reset unsuccessful"
 msgstr "Wachtwoordreset niet geslaagd"
 
-#: templates/users/password_reset_confirm.html:24
+#: templates/users/password_reset_confirm.html:26
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -369,24 +373,29 @@ msgstr "je bent maar een stap verwijderd van je eigen account"
 #: templates/users/register.html:14
 msgid ""
 "\n"
-"            We're happy to see you join our beautiful hobby hub where you can exchange tips and tricks\n"
+"            We're happy to see you join our beautiful hobby hub where you "
+"can exchange tips and tricks\n"
 "            and participate in the community!\n"
 "        "
 msgstr ""
 "\n"
-"We zijn blij dat we je in onze 'hobby hub' mogen verwelkomen, waar je tips en tricks kan uitwisselen en deel kan nemen in de community!"
+"We zijn blij dat we je in onze 'hobby hub' mogen verwelkomen, waar je tips "
+"en tricks kan uitwisselen en deel kan nemen in de community!"
 
 #: templates/users/register.html:19
 msgid ""
-"When you're done, don't forget to introduce yourself in the appropriate forum,\n"
-"        and make yourself familiar with our rules. If you run into any trouble, you can contact the\n"
-"        staff via PM (personal message), or contact the admins via the e-mail address below.\n"
+"When you're done, don't forget to introduce yourself in the appropriate "
+"forum,\n"
+"        and make yourself familiar with our rules. If you run into any "
+"trouble, you can contact the\n"
+"        staff via PM (personal message), or contact the admins via the e-"
+"mail address below.\n"
 "        "
 msgstr ""
 "Vergeet niet om jezelf op het forum voor te stellen als je klaar bent, en "
 "lees de forumregels. Indien je tegen problemen aan loopt, dan kan je de "
-"moderators via PB (persoonlijk bericht) contacteren, of je kan de beheerders"
-" mailen via het e-mailadres onderaan de pagina."
+"moderators via PB (persoonlijk bericht) contacteren, of je kan de beheerders "
+"mailen via het e-mailadres onderaan de pagina."
 
 #: templates/users/register.html:37
 msgid "Enter your account details"
@@ -415,12 +424,15 @@ msgstr "Regels en voorwaarden"
 #: templates/users/register.html:67
 msgid ""
 "\n"
-"            Unfortunately, some people need strong and clear rules to behave. When you create an account,\n"
+"            Unfortunately, some people need strong and clear rules to "
+"behave. When you create an account,\n"
 "            you agree with these terms and conditions.\n"
 "        "
 msgstr ""
 "\n"
-"Helaas hebben sommige mensen sterke en duidelijke regels nodig om zich te gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels en voorwaarden."
+"Helaas hebben sommige mensen sterke en duidelijke regels nodig om zich te "
+"gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels "
+"en voorwaarden."
 
 #: templates/users/mail/user_created.html:5
 #, python-format
@@ -428,11 +440,17 @@ msgid ""
 "\n"
 "<p>Hi %(username)s,</p>\n"
 "<br />\n"
-"<p>You just attempted to login, but your account is not activated. You can activate on the following link: %(protocol)s://%(domain)s%(activation_url)s (copy and paste this link in your browser).</p>\n"
+"<p>You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).</p>\n"
 "<br />\n"
-"<p>After activation, you will be logged in automagically and redirected to the pagewhere you can set/change your password.</p>\n"
+"<p>After activation, you will be logged in automagically and redirected to "
+"the pagewhere you can set/change your password.</p>\n"
 "<br />\n"
-"<p>The account you're activating, is a single-sign-on account. With the same account you will have access to the forums, albums and all future modules of the website! Eventually the kit-reviews module and the shop will be integrated with this account.</p>\n"
+"<p>The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.</p>\n"
 "<br />\n"
 "<p>If you run into problems, just reply to this e-mail.</p>\n"
 "<br />\n"
@@ -442,13 +460,19 @@ msgstr ""
 "\n"
 "<p>Hoi %(username)s,</p>\n"
 "<br />\n"
-"<p>Je hebt net proberen in te loggen, maar je account is niet actief. Je kan activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s (kopieer en plak deze link in je browser indien deze niet klikbaar is).</p>\n"
+"<p>Je hebt net proberen in te loggen, maar je account is niet actief. Je kan "
+"activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s "
+"(kopieer en plak deze link in je browser indien deze niet klikbaar is).</p>\n"
 "<br />\n"
-"<p>Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord opnieuw instellen.</p>\n"
+"<p>Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
+"opnieuw instellen.</p>\n"
 "<br />\n"
-"<p>De account die je activeert is een Single-Sign-On (SSO) account. Dit betekent dat je met dezelfde account toegang hebt tot het forum en de albums en toekomstige delen van de website.</p>\n"
+"<p>De account die je activeert is een Single-Sign-On (SSO) account. Dit "
+"betekent dat je met dezelfde account toegang hebt tot het forum en de albums "
+"en toekomstige delen van de website.</p>\n"
 "<br />\n"
-"<p>Indien je tegen problemen aanloopt, dan kan je gewoon deze mail beantwoorden.</p>\n"
+"<p>Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
+"beantwoorden.</p>\n"
 "<br />\n"
 "<p>Happy modelling,<br />\n"
 "de %(site_name)s beheerders</p>\n"
@@ -459,11 +483,17 @@ msgid ""
 "\n"
 "Hi %(username)s,\n"
 "\n"
-"You just attempted to login, but your account is not activated. You can activate on the following link: %(protocol)s://%(domain)s%(activation_url)s (copy and paste this link in your browser).\n"
+"You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).\n"
 "\n"
-"After activation, you will be logged in automagically and redirected to the pagewhere you can set/change your password.\n"
+"After activation, you will be logged in automagically and redirected to the "
+"pagewhere you can set/change your password.\n"
 "\n"
-"The account you're activating, is a single-sign-on account. With the same account you will have access to the forums, albums and all future modules of the website! Eventually the kit-reviews module and the shop will be integrated with this account.\n"
+"The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.\n"
 "\n"
 "If you run into problems, just reply to this e-mail.\n"
 "\n"
@@ -473,13 +503,19 @@ msgstr ""
 "\n"
 "Hoi %(username)s,\n"
 "\n"
-"Je hebt net proberen in te loggen, maar je account is niet actief. Je kan activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s (kopieer en plak deze link in je browser indien deze niet klikbaar is).\n"
+"Je hebt net proberen in te loggen, maar je account is niet actief. Je kan "
+"activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s "
+"(kopieer en plak deze link in je browser indien deze niet klikbaar is).\n"
 "\n"
-"Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord opnieuw instellen.\n"
+"Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
+"opnieuw instellen.\n"
 "\n"
-"De account die je activeert is een single-sign-on (SSO) account. Dit betekent dat je met dezelfde account toegang hebt tot het forum en de albums en toekomstige delen van de website.\n"
+"De account die je activeert is een single-sign-on (SSO) account. Dit "
+"betekent dat je met dezelfde account toegang hebt tot het forum en de albums "
+"en toekomstige delen van de website.\n"
 "\n"
-"Indien je tegen problemen aanloopt, dan kan je gewoon deze mail beantwoorden\n"
+"Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
+"beantwoorden\n"
 "\n"
 "Happy modelling,\n"
 "de %(site_name)s beheerders\n"
@@ -502,7 +538,9 @@ msgstr ""
 "\n"
 "<p>Bedankt voor je registratie op %(domain)s!</p>\n"
 "<br>\n"
-"<p>Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je wachtwoord resetten indien je dit vergeten bent.</p>\n"
+"<p>Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is "
+"veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan "
+"altijd je wachtwoord resetten indien je dit vergeten bent.</p>\n"
 "<br>\n"
 "<p>Tot op het forum!</p>\n"
 "<br>\n"
@@ -515,7 +553,9 @@ msgid ""
 "\n"
 "Thank you for your registration on %(domain)s!\n"
 "\n"
-"You registered with the username: %(username)s. Your password is safely stored in our database and can not be retrieved. You can always reset your password if you can't remember it.\n"
+"You registered with the username: %(username)s. Your password is safely "
+"stored in our database and can not be retrieved. You can always reset your "
+"password if you can't remember it.\n"
 "\n"
 "See you on the forum!\n"
 "\n"
@@ -525,7 +565,9 @@ msgstr ""
 "\n"
 "Bedankt voor je registratie op %(domain)s!\n"
 "\n"
-"Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je wachtwoord resetten indien je dit vergeten bent.\n"
+"Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig "
+"opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je "
+"wachtwoord resetten indien je dit vergeten bent.\n"
 "\n"
 "Tot op het forum!\n"
 "\n"
