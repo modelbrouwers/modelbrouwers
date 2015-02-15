@@ -24,7 +24,7 @@ urlpatterns = patterns(
     url(r'^forum_tools/',  include('brouwers.forum_tools.urls')),
     url(r'^%s' % FORUM_URL, include('brouwers.forum_tools.urls_phpbb', namespace='phpBB')),
     url(r'^group-builds/', include('brouwers.groupbuilds.urls', namespace='groupbuilds')),
-    url(r'^_kitreviews/',   include('brouwers.kitreviews.urls', namespace='kitreviews')),
+    url(r'^kitreviews/',   include('brouwers.kitreviews.urls', namespace='kitreviews')),
     url(r'^secret_santa/', include('brouwers.secret_santa.urls')),
     url(r'^shirts/',       include('brouwers.shirts.urls')),
     url(r'^builds/',       include('brouwers.builds.urls', namespace='builds')),
