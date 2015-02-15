@@ -553,6 +553,7 @@ form fieldset.tab-pane {
 
 /* line 6, ../../sass/partials/_ads.scss */
 #ads {
+  z-index: -1;
   position: absolute;
   top: 0;
   right: 0;
@@ -563,13 +564,14 @@ form fieldset.tab-pane {
     right: 30px;
   }
 }
-/* line 15, ../../sass/partials/_ads.scss */
+/* line 16, ../../sass/partials/_ads.scss */
 #ads a {
   display: block;
   width: 90px;
   height: 400px;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.01);
   margin-bottom: 15px;
+  border: dotted 1px #EEE;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */

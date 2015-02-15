@@ -5,6 +5,7 @@
 
 #ads {
   $width: 90px;
+  z-index: -1;
   position: absolute;
   top: 0;
   right: 0;
@@ -16,7 +17,8 @@
     display: block;
     width: $width;
     height: 400px;
-    background-color: transparent; // #DDD;
+    background-color: rgba($black, 0.01); // #DDD;
     margin-bottom: 15px;
+    border: dotted 1px #EEE;
   }
 }
