@@ -37,14 +37,14 @@
             </a>
         {% endif %}
         <span class="right small-text">
-            <a id="ShowAllAlbums" href="{% url 'brouwes.albums.views.my_albums_list' %}?all=1">
+            <a id="ShowAllAlbums" href="{% url 'brouwers.albums.views.my_albums_list' %}?all=1">
                 {% trans 'Show all my personal albums' %}
             </a>
         </span>
     </div>
     {% endspaceless %}
     <noscript>
-        {% url 'brouwes.albums.views.manage' as manage_url %}
+        {% url 'brouwers.albums.views.manage' as manage_url %}
         {% blocktrans %}Your browser has no javascript. You can reorganize your albums on an <a href="{{ manage_url }}">alternative page</a>.{% endblocktrans %}
     </noscript>
 
