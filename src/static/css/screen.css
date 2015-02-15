@@ -553,10 +553,15 @@ form fieldset.tab-pane {
 
 /* line 6, ../../sass/partials/_ads.scss */
 #ads {
-  z-index: -1;
   position: absolute;
   top: 0;
   right: 0;
+}
+@media (max-width: 1340px) {
+  /* line 6, ../../sass/partials/_ads.scss */
+  #ads {
+    z-index: -1;
+  }
 }
 @media (min-width: 1600px) {
   /* line 6, ../../sass/partials/_ads.scss */
@@ -564,7 +569,7 @@ form fieldset.tab-pane {
     right: 30px;
   }
 }
-/* line 16, ../../sass/partials/_ads.scss */
+/* line 18, ../../sass/partials/_ads.scss */
 #ads a {
   display: block;
   width: 90px;

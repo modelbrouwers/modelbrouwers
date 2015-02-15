@@ -5,7 +5,9 @@
 
 #ads {
   $width: 90px;
-  z-index: -1;
+  @media (max-width: 1340px) {
+    z-index: -1;
+  }
   position: absolute;
   top: 0;
   right: 0;
