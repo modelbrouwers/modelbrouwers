@@ -1,0 +1,26 @@
+{% load i18n handlebars %}
+{% hbs_verbatim %}
+
+<script>
+    var dialogTranslations = {
+        title: '{% trans "Add your project" %}',
+        btnCancel: '{% trans "No, thanks" %}',
+        btnSubmit: '{% trans "Sure, sign me up" %}',
+    };
+</script>
+
+<h2>{{build.theme}}</h2>
+<p>{% trans "You've just created a new topic in this groupbuild. Would you like to add it to the groupbuild's participants list?" %}</p>
+<br />
+<form id="add-participant" method="post">
+    <input type="hidden" name="groupbuild" value="{{build.id}}" />
+    <input type="hidden" name="topic" value="{{topic.topic_id}}" />
+    <p>
+        <label>
+            {% filter capfirst %}{% trans "model name" %}{% endfilter %}
+            <input type="text" name="model_name" value="{{topic.topic_title}}" />
+        </label>
+    </p>
+</form>
+
+{% hbs_endverbatim %}

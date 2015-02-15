@@ -12,8 +12,11 @@ var urlconf = urlconf || {};
 	win.urlconf = $.extend(true, win.urlconf || {}, _urlconf);
 
 
-	function GroupBuild(id) {
+	function GroupBuild(id, fields) {
 		this.id = id;
+		for ( var key in fields||{} ) {
+			this[key] = fields[key];
+		}
 	}
 
 	GroupBuild.prototype.render = function($container) {
@@ -23,6 +26,36 @@ var urlconf = urlconf || {};
 			.then(function(data) {
 				hbs.render('groupbuilds::inset', data, $container);
 			});
+	};
+
+	GroupBuild.prototype.showParticipantPopup = function(topic) {
+		var context = {build: this, topic: topic}
+		hbs.render('groupbuilds::participant', context).done(function(html) {
+			var _dialog = $('<div>').html(html);
+			_dialog.dialog({
+				autoOpen: true,
+				modal: true,
+				draggable: false,
+				resizable: false,
+				width: 400
+			});
+			// set the translation dependent options
+			_dialog.dialog('option', {
+				title: dialogTranslations.title,
+				buttons: [
+				{
+					text: dialogTranslations.btnSubmit,
+					class: 'ui-priority-primary',
+					click: function() {
+						console.log('foo');
+					}
+				}, {
+					text: dialogTranslations.btnCancel,
+					class: 'ui-priority-secondary',
+					click: function() {$(this).dialog("destroy");}
+				}]
+			});
+		});
 	};
 
 	/**
@@ -43,8 +76,12 @@ var urlconf = urlconf || {};
 				'forum_id': $referrer.param('f'),
 				'topic_id': $.url().param('t') || null
 			}
-			Api.request(endpoint, requestData).get().done(function(data) {
-				console.log(data);
+			Api.request(endpoint, requestData).get().done(function(response) {
+				// groupbuild and topic keys are only present if it's just created
+				if (response.topic_created) {
+					build = new GroupBuild(response.groupbuild.id, response.groupbuild);
+					build.showParticipantPopup(response.topic);
+				}
 			});
 		}
 	}

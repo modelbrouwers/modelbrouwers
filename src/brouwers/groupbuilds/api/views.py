@@ -36,7 +36,7 @@ class GroupBuildParticipantCheckView(views.APIView):
         topic_id = form.cleaned_data.get('topic_id')
         if topic_id:
             topic = Topic.objects.get(topic_id=topic_id)
-            topic_created = (topic.created - timezone.now()).seconds < (3 * 60)
+            topic_created = (timezone.now() - topic.created).seconds < (3 * 60)
             response['topic_created'] = topic_created
             if topic_created:  # include gb and topic data
                 response['groupbuild'] = GroupBuildSerializer(gb).data
