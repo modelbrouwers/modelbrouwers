@@ -31,3 +31,14 @@ class GroupBuildSerializer(serializers.ModelSerializer):
         model = GroupBuild
         fields = ('id', 'theme', 'url', 'forum', 'description', 'start', 'end',
                   'status', 'rules', 'rules_topic', 'participants', 'admins')
+
+
+class ParticipantCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Participant
+        fields = ('groupbuild', 'model_name', 'topic')
+
+    def __init__(self, *args, **kwargs):
+        super(ParticipantCreateSerializer, self).__init__(*args, **kwargs)
+        self.fields['model_name'].required = True
+        self.fields['topic'].required = True

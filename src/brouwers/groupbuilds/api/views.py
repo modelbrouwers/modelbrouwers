@@ -7,7 +7,7 @@ from brouwers.forum_tools.models import Topic
 from brouwers.forum_tools.api.serializers import TopicSerializer
 
 from ..models import GroupBuild, Participant
-from .serializers import GroupBuildSerializer
+from .serializers import GroupBuildSerializer, ParticipantCreateSerializer
 from .forms import TopicDetailsForm
 
 
@@ -43,3 +43,16 @@ class GroupBuildParticipantCheckView(views.APIView):
                 response['topic'] = TopicSerializer(topic).data
 
         return Response(response)
+
+
+class ParticipantListCreateView(generics.ListCreateAPIView):
+    model = Participant
+    serializer_class = ParticipantCreateSerializer
+
+    def get_queryset(self):
+        qs = super(ParticipantListCreateView, self).get_queryset()
+        return qs.filter(groupbuild_id=self.kwargs['pk'])
+
+    def pre_save(self, obj):
+        super(ParticipantListCreateView, self).pre_save(obj)
+        obj.user = self.request.user

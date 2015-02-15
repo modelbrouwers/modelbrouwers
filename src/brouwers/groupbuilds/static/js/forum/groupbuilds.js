@@ -6,7 +6,10 @@ var urlconf = urlconf || {};
 			groupbuild: {
 				detail: 'groupbuilds/groupbuild/{0}/'
 			},
-			participant_check: 'groupbuilds/participant/check/'
+			participant: {
+				check: 'groupbuilds/participant/check/',
+				add: 'groupbuilds/groupbuild/{0}/participant/',
+			}
 		}
 	};
 	win.urlconf = $.extend(true, win.urlconf || {}, _urlconf);
@@ -23,15 +26,17 @@ var urlconf = urlconf || {};
 		var endpoint = urlconf.groupbuilds.groupbuild.detail.format(this.id);
 		Api.request(endpoint)
 			.get()
-			.then(function(data) {
+			.done(function(data) {
 				hbs.render('groupbuilds::inset', data, $container);
 			});
 	};
 
-	GroupBuild.prototype.showParticipantPopup = function(topic) {
-		var context = {build: this, topic: topic}
+	GroupBuild.prototype.showParticipantPopup = function(topic, errors) {
+		var self = this;
+		self.topic = topic;
+		var context = {build: self, topic: topic, errors: errors}
 		hbs.render('groupbuilds::participant', context).done(function(html) {
-			var _dialog = $('<div>').html(html);
+			var _dialog = $('<div id="add-participant"></div>').html(html);
 			_dialog.dialog({
 				autoOpen: true,
 				modal: true,
@@ -47,7 +52,8 @@ var urlconf = urlconf || {};
 					text: dialogTranslations.btnSubmit,
 					class: 'ui-priority-primary',
 					click: function() {
-						console.log('foo');
+						var data = $(this).find('form').serializeObject();
+						self.submitParticipant(data);
 					}
 				}, {
 					text: dialogTranslations.btnCancel,
@@ -56,6 +62,27 @@ var urlconf = urlconf || {};
 				}]
 			});
 		});
+	};
+
+	GroupBuild.prototype.submitParticipant = function(data) {
+		var self = this;
+		var endpoint = urlconf.groupbuilds.participant.add.format(self.id);
+		Api.request(endpoint, data)
+			.post()
+			.done(function(response) {
+				$('#add-participant').dialog('destroy');
+			}, function(response) {
+				// error handler
+				if (response.status === 400) {
+					// render errors
+					var context = {
+						build: self,
+						topic: self.topic,
+						errors: JSON.parse(response.responseText)
+					};
+					hbs.render('groupbuilds::participant', context, $('#add-participant'));
+				}
+			});
 	};
 
 	/**
@@ -71,7 +98,7 @@ var urlconf = urlconf || {};
 
 		// we're coming from the posting page, so check if the topic was created
 		if ( postCreated ) {
-			var endpoint = urlconf.groupbuilds.participant_check;
+			var endpoint = urlconf.groupbuilds.participant.check;
 			var requestData = {
 				'forum_id': $referrer.param('f'),
 				'topic_id': $.url().param('t') || null

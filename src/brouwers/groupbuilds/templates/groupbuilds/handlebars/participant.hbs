@@ -20,6 +20,13 @@
             {% filter capfirst %}{% trans "model name" %}{% endfilter %}
             <input type="text" name="model_name" value="{{topic.topic_title}}" />
         </label>
+        {{#if errors.model_name}}
+        <ul class="errors">
+            {{#each errors.model_name}}
+                <li class="error">{{this}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
     </p>
 </form>
 
