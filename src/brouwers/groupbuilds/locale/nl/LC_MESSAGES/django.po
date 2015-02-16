@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-15 00:22+0100\n"
-"PO-Revision-Date: 2015-02-13 23:42+0020\n"
+"POT-Creation-Date: 2015-02-16 19:42+0100\n"
+"PO-Revision-Date: 2015-02-16 19:41+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -194,7 +194,7 @@ msgstr "{name}: {status}"
 msgid "# participants"
 msgstr "# deelnemers"
 
-#: models.py:233
+#: models.py:233 templates/groupbuilds/handlebars/participant.hbs:20
 msgid "model name"
 msgstr "naam model"
 
@@ -500,6 +500,7 @@ msgid "Introduction"
 msgstr "Inleiding"
 
 #: templates/groupbuilds/groupbuild_detail.html:73
+#: templates/groupbuilds/handlebars/inset.hbs:14
 msgid "Rules"
 msgstr "Regels"
 
@@ -531,6 +532,7 @@ msgstr "#"
 
 #: templates/groupbuilds/groupbuild_detail.html:109
 #: templates/groupbuilds/groupbuild_detail.html:151
+#: templates/groupbuilds/handlebars/inset.hbs:32
 msgid "Model"
 msgstr "Model"
 
@@ -558,6 +560,7 @@ msgid "Builder"
 msgstr "Brouwer"
 
 #: templates/groupbuilds/groupbuild_detail.html:152
+#: templates/groupbuilds/handlebars/inset.hbs:34
 msgid "Topic"
 msgstr "Topic"
 
@@ -724,6 +727,58 @@ msgstr "Ga naar de bewerkpagina"
 msgid "Edit your build details"
 msgstr "Bewerk je deelnamedetails"
 
+#: templates/groupbuilds/handlebars/inset.hbs:7
+msgid "View outside of forum"
+msgstr "Bekijk eigen groepsbouwpagina"
+
+#: templates/groupbuilds/handlebars/inset.hbs:9
+msgid "Description"
+msgstr "Beschrijving"
+
+#: templates/groupbuilds/handlebars/inset.hbs:10
+msgid "Start"
+msgstr "Start"
+
+#: templates/groupbuilds/handlebars/inset.hbs:10
+msgid "end"
+msgstr "einde"
+
+#: templates/groupbuilds/handlebars/inset.hbs:19
+msgid "Rules topic"
+msgstr "Topic met regels"
+
+#: templates/groupbuilds/handlebars/inset.hbs:24
+msgid "Participants"
+msgstr "Deelnemers"
+
+#: templates/groupbuilds/handlebars/inset.hbs:31
+msgid "Brouwer"
+msgstr "Brouwer"
+
+#: templates/groupbuilds/handlebars/inset.hbs:33
+msgid "Finished?"
+msgstr "Klaar?"
+
+#: templates/groupbuilds/handlebars/participant.hbs:6
+msgid "Add your project"
+msgstr "Voeg je project toe"
+
+#: templates/groupbuilds/handlebars/participant.hbs:7
+msgid "No, thanks"
+msgstr "Nee, bedankt"
+
+#: templates/groupbuilds/handlebars/participant.hbs:8
+msgid "Sure, sign me up"
+msgstr "Ja, doe maar"
+
+#: templates/groupbuilds/handlebars/participant.hbs:13
+msgid ""
+"You've just created a new topic in this groupbuild. Would you like to add it "
+"to the groupbuild's participants list?"
+msgstr ""
+"Je hebt net een nieuwe topic aangemaakt binnen deze groepsbouw. Wil je het "
+"toevoegen aan de lijst met deelnemers?"
+
 #: templates/groupbuilds/includes/links.html:3
 msgid "Links"
 msgstr "Links"
@@ -743,30 +798,6 @@ msgstr "Je groepsbouw is aan het moderatorteam voorgelegd ter goedkeuring."
 #: views/participant.py:33
 msgid "You're now listed as participant!"
 msgstr "Je staat nu op de deelnemerslijst!"
-
-#~ msgid "View outside of forum"
-#~ msgstr "Bekijk eigen groepsbouwpagina"
-
-#~ msgid "Description"
-#~ msgstr "Beschrijving"
-
-#~ msgid "Start"
-#~ msgstr "Start"
-
-#~ msgid "end"
-#~ msgstr "einde"
-
-#~ msgid "Rules topic"
-#~ msgstr "Topic met regels"
-
-#~ msgid "Participants"
-#~ msgstr "Deelnemers"
-
-#~ msgid "Brouwer"
-#~ msgstr "Brouwer"
-
-#~ msgid "Finished?"
-#~ msgstr "Klaar?"
 
 #~ msgid "Information"
 #~ msgstr "Informatie"

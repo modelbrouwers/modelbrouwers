@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-15 00:22+0100\n"
+"POT-Creation-Date: 2015-02-16 19:42+0100\n"
 "PO-Revision-Date: 2015-02-10 19:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -158,7 +158,7 @@ msgstr "forumgebruiker"
 msgid "forum users"
 msgstr "forumgebruikers"
 
-#: models.py:201
+#: models.py:206
 #, python-brace-format
 msgid ""
 "This topic has been inactive for: {0}. Please consider sending the author a "
@@ -167,77 +167,77 @@ msgstr ""
 "Dit topic is inactief sinds: {0}. Overweeg om de auteur een PB te sturen in "
 "plaats van te reageren en het topic onnodig omhoog te schoppen."
 
-#: models.py:211
+#: models.py:216
 msgid "Topic"
 msgstr "Topic"
 
-#: models.py:212
+#: models.py:217
 msgid "Reply"
 msgstr "Antwoord"
 
-#: models.py:215
+#: models.py:220
 msgid "forum id"
 msgstr "forum id"
 
-#: models.py:216
+#: models.py:221
 msgid "minimum number of posts"
 msgstr "minimum aantal posts"
 
-#: models.py:218
+#: models.py:223
 msgid "posting level"
 msgstr "postniveau"
 
-#: models.py:222
+#: models.py:227
 msgid "forum post count restriction"
 msgstr "forum postcount beperking"
 
-#: models.py:223
+#: models.py:228
 msgid "forum post count restrictions"
 msgstr "forum postcount beperkingen"
 
-#: models.py:227
+#: models.py:232
 #, python-format
 msgid "Restriction for %(forum)s"
 msgstr "Beperking voor %(forum)s"
 
-#: models.py:236
+#: models.py:241
 msgid "closed"
 msgstr "gesloten"
 
-#: models.py:237
+#: models.py:242
 msgid "Closed reports need no more attention."
 msgstr "Gesloten reports hebben geen aandacht meer nodig."
 
-#: models.py:240
+#: models.py:245
 msgid "time"
 msgstr "tijd"
 
-#: models.py:241
+#: models.py:246
 msgid "UNIX time when the report was added."
 msgstr "Unix tijdsstempel waarop het report toegevoegd werd."
 
-#: models.py:247
+#: models.py:252
 msgid "report"
 msgstr "report"
 
-#: models.py:248
+#: models.py:253
 msgid "reports"
 msgstr "reports"
 
-#: models.py:251
+#: models.py:256
 msgid "Can see (number of) open reports"
 msgstr "Kan (het aantal) open reports zien"
 
-#: models.py:255
+#: models.py:260
 #, python-format
 msgid "Report %(id)s"
 msgstr "Report %(id)s"
 
-#: views.py:118
+#: views.py:123
 msgid "Add build report"
 msgstr "Brouwverslag toevoegen"
 
-#: views.py:119
+#: views.py:124
 msgid "Nominate for award"
 msgstr "Nomineer voor award"
 

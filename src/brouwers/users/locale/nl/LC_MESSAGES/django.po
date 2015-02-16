@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-15 00:22+0100\n"
-"PO-Revision-Date: 2015-02-13 23:43+0020\n"
+"POT-Creation-Date: 2015-02-16 19:42+0100\n"
+"PO-Revision-Date: 2015-02-16 19:37+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -168,11 +168,15 @@ msgstr "Gebruikersnaam of e-mail"
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: forms/auth.py:117
+#: forms/auth.py:127
 msgid "Fill at least one field."
 msgstr "Vul minstens een veld in."
 
-#: forms/auth.py:144
+#: forms/auth.py:129
+msgid "We couldn't find a matching user"
+msgstr "Er kon geen overeenkomstige gebruiker gevonden worden"
+
+#: forms/auth.py:148
 msgid ""
 "Multiple accounts were found, this shouldn't happen. Please contact the "
 "admins (see e-mail in the page footer)."
@@ -180,7 +184,7 @@ msgstr ""
 "Er werden meerdere accounts gevonden, dit zou niet mogen gebeuren. Gelieve "
 "contact op te nemen met de beheerders (e-mailadres staat onderaan de pagina)."
 
-#: forms/auth.py:153
+#: forms/auth.py:157
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
 "reactivate with the link sent by e-mail. Check your spamfolder to see if you "
@@ -190,7 +194,7 @@ msgstr ""
 "activeert met de link verstuurd via e-mail. Controleer je 'ongewenste "
 "berichten' om te zien of je een e-mail gemist hebt."
 
-#: forms/auth.py:176
+#: forms/auth.py:180
 msgid "An e-mail was sent with a link to reset your password."
 msgstr ""
 "Er werd een e-mail verstuurd met een link om je wachtwoord te resetten."
