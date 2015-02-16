@@ -31,14 +31,14 @@ class GroupBuildParticipantCheckView(views.APIView):
         try:
             gb = GroupBuild.objects.get(forum=forum_id)
         except GroupBuild.DoesNotExist:
-            pass
+            gb = None
 
         topic_id = form.cleaned_data.get('topic_id')
         if topic_id:
             topic = Topic.objects.get(topic_id=topic_id)
             topic_created = (timezone.now() - topic.created).seconds < (3 * 60)
             response['topic_created'] = topic_created
-            if topic_created:  # include gb and topic data
+            if topic_created and gb is not None:  # include gb and topic data
                 response['groupbuild'] = GroupBuildSerializer(gb).data
                 response['topic'] = TopicSerializer(topic).data
 

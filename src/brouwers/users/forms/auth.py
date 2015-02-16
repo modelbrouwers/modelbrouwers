@@ -111,10 +111,22 @@ class PasswordResetForm(PasswordResetForm):
         super(PasswordResetForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = False
 
+    def get_queryset(self, cleaned_data):
+        UserModel = get_user_model()
+        email, username = cleaned_data.get("email"), cleaned_data.get('username')
+        query = {}
+        if email:
+            query['email__iexact'] = email
+        if username:
+            query['username__iexact'] = username
+        return UserModel._default_manager.filter(**query)
+
     def clean(self):
         cleaned_data = super(PasswordResetForm, self).clean()
         if not cleaned_data.get('username') and not cleaned_data.get('email'):
             raise forms.ValidationError(_('Fill at least one field.'))
+        if not self.get_queryset(cleaned_data).exists():
+            raise forms.ValidationError(_('We couldn\'t find a matching user'))
         return cleaned_data
 
     def save(self, **kwargs):
@@ -128,17 +140,9 @@ class PasswordResetForm(PasswordResetForm):
         subject_template_name = kwargs.get('subject_template_name')
         email_template_name = kwargs.get('email_template_name')
 
-        UserModel = get_user_model()
-        email, username = self.cleaned_data.get("email"), self.cleaned_data.get('username')
-        query = {}
-        if email:
-            query['email__iexact'] = email
-        if username:
-            query['username__iexact'] = username
-
         # retrieve the relevant user, username and email should be unique
-        active_users = UserModel._default_manager.filter(**query)
-        if active_users.count() > 1:
+        users = self.get_queryset(self.cleaned_data)
+        if users.count() > 1:
             messages.warning(
                 request,
                 _('Multiple accounts were found, this shouldn\'t happen. '
@@ -146,7 +150,7 @@ class PasswordResetForm(PasswordResetForm):
             )
             return
 
-        user = active_users.get()
+        user = users.get()
         if not user.is_active:
             messages.warning(
                 request,
