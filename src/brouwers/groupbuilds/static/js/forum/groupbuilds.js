@@ -98,18 +98,27 @@ var urlconf = urlconf || {};
 
 		// we're coming from the posting page, so check if the topic was created
 		if ( postCreated ) {
-			var endpoint = urlconf.groupbuilds.participant.check;
-			var requestData = {
-				'forum_id': $referrer.param('f'),
-				'topic_id': $.url().param('t') || null
-			}
-			Api.request(endpoint, requestData).get().done(function(response) {
-				// groupbuild and topic keys are only present if it's just created
-				if (response.topic_created) {
-					build = new GroupBuild(response.groupbuild.id, response.groupbuild);
-					build.showParticipantPopup(response.topic);
+			// check if we're on the meta refresh page, if so, set a cookie with the topic id
+			var cookieName = 'createdtopicid';
+			var refresh = $('meta[http-equiv="refresh"]');
+			if (refresh.length) {
+				var url = $.url(refresh.attr('content').split('; ')[1]);
+				setCookie(cookieName, url.param('t'), 1 / 24); // expires after 1 hour
+			} else {
+				var endpoint = urlconf.groupbuilds.participant.check;
+				var requestData = {
+					'forum_id': $referrer.param('f'),
+					'topic_id': $.url().param('t') || getCookie(cookieName)
 				}
-			});
+				Api.request(endpoint, requestData).get().done(function(response) {
+					// groupbuild and topic keys are only present if it's just created
+					if (response.topic_created) {
+						build = new GroupBuild(response.groupbuild.id, response.groupbuild);
+						build.showParticipantPopup(response.topic);
+						deleteCookie(cookieName);
+					}
+				});
+			}
 		}
 	}
 

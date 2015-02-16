@@ -165,6 +165,21 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+function setCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function deleteCookie(name) {
+    setCookie(name, '', -1);
+}
+
 var csrf_token = getCookie('csrftoken');
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
