@@ -5,7 +5,7 @@
 {% endif %}
 
 <script type="text/javascript">
-    var user_search_url = "{% url 'general.ajax_views.search_users' %}";
+    var user_search_url = "{% url 'brouwers.general.ajax_views.search_users' %}";
 </script>
 
 <form id="form-edit-album">
@@ -17,16 +17,3 @@
 <ul id="photo-navigation" class="not-downloaded">
     {% include "albums/ajax/album_covers.html" %}
 </ul>
-
-            {% if user.is_superuser and False %}
-            <div id="debug" style="text-align:left">
-            {% block queries %}
-                Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
-                <ol>
-	            {% for query in connection.queries %}
-		            <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
-	            {% endfor %}
-	            </ol>
-            {% endblock %}
-            </div>
-            {% endif %}
