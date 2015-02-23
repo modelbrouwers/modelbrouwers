@@ -42,7 +42,7 @@
 
 
 {% block DateInput %}
-    {% use 'input' field_type='text' extra_css_classes='date' %}
+    {% use 'input' field_type='text' extra_css_classes='date' value=value|date:'SHORT_DATE_FORMAT' %}
 {% endblock %}
 
 
