@@ -21,7 +21,7 @@
     <a href="/winkel/evergreen" id="shop-evergreen"></a>
 </li>
 <li>
-    <a href="/winkel/billing-boats" id="shop-bb"></a>
+    <a href="/winkel/scale-productions-nl" id="shop-sp"></a>
 </li>
 <li>
     <a href="/winkel/excel" id="shop-excel"></a>
