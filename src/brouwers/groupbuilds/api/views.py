@@ -1,6 +1,7 @@
 from django.utils import timezone
 
 from rest_framework import generics, views
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from brouwers.forum_tools.models import Topic
@@ -20,6 +21,8 @@ class GroupBuildParticipantCheckView(views.APIView):
     """
     View that checks if a topic belongs to a group build and was just created.
     """
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, *args, **kwargs):
         form = TopicDetailsForm(request.GET)
         if not form.is_valid():
@@ -48,6 +51,7 @@ class GroupBuildParticipantCheckView(views.APIView):
 class ParticipantListCreateView(generics.ListCreateAPIView):
     model = Participant
     serializer_class = ParticipantCreateSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         qs = super(ParticipantListCreateView, self).get_queryset()
