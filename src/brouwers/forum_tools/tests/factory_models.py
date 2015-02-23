@@ -1,3 +1,5 @@
+import time
+
 import factory
 
 from ..models import ForumUser, ForumCategory, Forum, Topic
@@ -44,3 +46,4 @@ class TopicFactory(factory.django.DjangoModelFactory):
     topic_id = factory.Sequence(lambda n: n)
     forum = factory.SubFactory(ForumFactory)
     topic_title = factory.Sequence(lambda n: 'Topic {0}'.format(n))
+    create_time = factory.LazyAttribute(lambda *args: int(time.time()))
