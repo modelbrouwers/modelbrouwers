@@ -7,6 +7,6 @@ urlpatterns = patterns(
     '',
     url(r'^groupbuild/(?P<pk>\d+)/$', GroupBuildDetail.as_view(), name='groupbuild-detail'),
     url(r'^groupbuild/(?P<slug>[\w\-_]+)/$', GroupBuildDetail.as_view(), name='groupbuild-detail'),
-    url(r'^groupbuild/(?P<pk>\d+)/participant/$', ParticipantListCreateView.as_view(), name='groupbuild-detail'),
+    url(r'^groupbuild/(?P<pk>\d+)/participant/$', ParticipantListCreateView.as_view(), name='groupbuild-participant'),
     url(r'^participant/check/$', GroupBuildParticipantCheckView.as_view(), name='participant-check'),
 )

@@ -43,7 +43,8 @@ GroupbuildStatuses.public_statuses = non_date_bound_statuses + date_bound_status
 
 
 class GroupBuild(models.Model):
-    forum = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True,
+    forum = ForumToolsIDField(
+        _('forum id'), type='forum', blank=True, null=True,
         help_text=_('Forum id of the group build subforum'))
 
     # core information
@@ -64,8 +65,9 @@ class GroupBuild(models.Model):
                              help_text=_('Date when you want to start building.'))
     end = models.DateField(_('end date'), blank=True, null=True,
                            help_text=_('Date this build ends.'))
-    duration = models.PositiveSmallIntegerField(_('duration'),
-                                                choices=GroupbuildDurations.choices, default=GroupbuildDurations.three_months)
+    duration = models.PositiveSmallIntegerField(
+        _('duration'), choices=GroupbuildDurations.choices,
+        default=GroupbuildDurations.three_months)
 
     # motivation, approval, voting popularity...
     status = models.CharField(_('status'), max_length=10,
@@ -85,9 +87,11 @@ class GroupBuild(models.Model):
     # optional 'experience enhancing' fields
     rules = models.TextField(blank=True)
     rules_topic = ForumToolsIDField(_('rules topic'), blank=True, null=True, type='topic')
-    homepage_topic = ForumToolsIDField(_('topic to direct to from calendar'),
+    homepage_topic = ForumToolsIDField(
+        _('topic to direct to from calendar'),
         blank=True, null=True, type='topic')
-    introduction_topic = ForumToolsIDField(_('introduction topic'),
+    introduction_topic = ForumToolsIDField(
+        _('introduction topic'),
         blank=True, null=True, type='topic')
 
     # logging
@@ -193,7 +197,7 @@ class GroupBuild(models.Model):
         now = timezone.now().date()
         if self.status == GroupbuildStatuses.denied:
             return False
-        if self.end and self.end <= now: # ended
+        if self.end and self.end <= now:  # ended
             return False
         return True
 
