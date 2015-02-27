@@ -1,0 +1,94 @@
+{% extends "base_html5.html" %}{% load i18n staticfiles cache thumbnail %}
+
+{% block title %}{% trans "Albums" %}{% endblock %}
+
+
+{% block eye-catcher %}
+<header class="container-fluid eye-catcher">
+    <div class="container">
+
+        <h1>
+            {% trans "Albums" %}
+            <i class="pull-right fa fa-camera-retro fa-2x"></i>
+        </h1>
+
+        <p>{% blocktrans %}
+            The 'BrouwersAlbums' are a section where you can create your own, personal
+            albums and upload photos to them. The amount of albums or photos is unlimited.
+        {% endblocktrans %}</p>
+
+        <div class="row">
+            {% for project in awards_winners %}
+                <div class="col-md-4">
+                    <a class="photo album" href="{{ project.url }}">
+                        {% if project.image %}
+                            <img class="thumb" src="{{ project.image.url }}" alt="thumb"/>
+                        {% endif %}
+                    </a>
+                    <strong>{{ project.name }}</strong>
+                    <div>
+                        {% blocktrans with builder=project.brouwer category=project.category.name %}
+                            Built by &lsquo;{{ builder }}&rsquo;, this project won first place in the category &lsquo;{{ category }}&rsquo;.
+                        {% endblocktrans %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div>
+            <a href="{% url 'groupbuilds:create' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+
+{% block content %}
+<section>
+    <h2>
+        {% trans "Most recently changed albums" %}
+        <i class="pull-right fa fa-folder-open-o"></i>
+    </h2>
+    <div class="row">
+        {% for album in albums %}
+            <article class="col-sm-6 col-md-3">
+                <h3><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></h3>
+                {% if album.cover.image %}
+                    <a href="{{ album.get_absolute_url }}" class="thumbnail">
+                        {% thumbnail album.cover.image "200x150" crop="center" as im %}
+                            <img src="{{ im.url }}" class="img-responsive img-thumbnail">
+                        {% endthumbnail %}
+                    </a>
+                {% endif %}
+            </article>
+
+            {% cycle '' '' '' '</div><div class="row">' %}
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>
+        {% trans "Latest uploads" %}
+        <i class="pull-right fa fa-file-image-o"></i>
+    </h2>
+    <div class="row">
+        {% for photo in latest_uploads %}
+            <article class="col-sm-6 col-md-3">
+                {% if photo.image %}
+                    <a href="{{ photo.get_absolute_url }}" class="thumbnail">
+                        {% thumbnail photo.image "200x150" crop="center" as im %}
+                            <img src="{{ im.url }}" class="img-responsive img-thumbnail">
+                        {% endthumbnail %}
+                    </a>
+                {% endif %}
+            </article>
+
+            {% cycle '' '' '' '</div><div class="row">' %}
+        {% endfor %}
+    </div>
+</section>
+
+
+{% endblock content %}

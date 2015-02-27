@@ -202,6 +202,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'rosetta',
     'precise_bbcode',
+    'sorl.thumbnail',
 
     # Modelbrouwers
     'brouwers.users',
@@ -321,3 +322,8 @@ ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'brouwers.dashboard.CustomAppIndexDashboard'
 # WSGI conf
 #
 WSGI_APPLICATION = 'conf.wsgi.application'
+
+#
+# SORL THUMBNAIL
+#
+THUMBNAIL_DEBUG = False

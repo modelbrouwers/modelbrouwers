@@ -23,42 +23,26 @@ from .utils import resize, admin_mode, can_switch_admin_mode, get_default_img_si
 
 
 class IndexView(ListView):
-    queryset = Album.objects.select_related('user', 'cover').filter(trash=False, public=True).order_by('-last_upload')[:20]
+    queryset = Album.objects.for_index()
+    template_name = 'albums/index.html'
+    context_object_name = 'albums'
+    paginate_by = 12
 
+    def get_awards_winners(self):
+        awards_winners = Nomination.objects.winners()
+        try:
+            awards_winners = random.sample(awards_winners, 3)
+        except ValueError:  # sample greater than population, use entire set
+            pass
+        return awards_winners
 
+    def get_context_data(self, **kwargs):
+        # spotlight: awards winners, select 3 random categories
+        kwargs['awards_winners'] = self.get_awards_winners()
+        kwargs['latest_uploads'] = Photo.objects.select_related('user').filter(
+                                       album__public=True).order_by('-uploaded')[:20]
+        return super(IndexView, self).get_context_data(**kwargs)
 
-
-
-
-###########################
-#          BASE           #
-###########################
-def index(request):
-    # spotlight: awards winners, select 3 random categories
-    awards_winners = Nomination.objects.winners()
-    try:
-        awards_winners = random.sample(awards_winners, 3)
-    except ValueError: #sample greater than population, use entire set
-        pass
-
-
-
-    last_uploads = Photo.objects.select_related('user').filter(album__public=True).order_by('-uploaded')[:20]
-    amount_last_uploads = len(last_uploads)
-    if  amount_last_uploads < 20 and amount_last_uploads % 5 != 0:
-        needs_closing_tag_row = True
-    else:
-        last_uploads = last_uploads[:20]
-        needs_closing_tag_row = False
-    return render(request, 'albums/base.html',
-            {
-                'last_uploads': last_uploads,
-                'needs_closing_tag_row': needs_closing_tag_row,
-                'albums': albums,
-                'awards_winners': awards_winners,
-                'needs_closing_tag_row_albums': needs_closing_tag_row_albums,
-            }
-        )
 
 ###########################
 #        MANAGING         #

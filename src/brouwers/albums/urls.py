@@ -1,4 +1,4 @@
-from django.conf.urls import *
+from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
 from tastypie.api import Api
@@ -10,7 +10,7 @@ from .views import IndexView
 
 urlpatterns = patterns(
     'brouwers.albums.views',
-    (r'^$', 'index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     (r'^album/(\d+)/$',     'browse_album'),
     (r'^album/(\d+)/edit/', 'edit_album'),
     (r'^album/(\d+)/download/', 'download_album'),
