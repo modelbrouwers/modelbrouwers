@@ -27,7 +27,7 @@ class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
         return self.get_object().get_absolute_url()
 
     def form_valid(self, form):
-        form.instance.groupbuild = self.get_object() # TODO: limit queryset to open groupbuilds
+        form.instance.groupbuild = self.get_object()  # TODO: limit queryset to open groupbuilds
         form.instance.user = self.request.user
         response = super(GroupBuildParticipateView, self).form_valid(form)
         messages.success(self.request, _('You\'re now listed as participant!'))
@@ -59,7 +59,6 @@ class ParticipantUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return self.object.groupbuild.get_absolute_url()
-
 
 
 class MyGroupbuildsListView(LoginRequiredMixin, ListView):
