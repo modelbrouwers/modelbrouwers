@@ -346,12 +346,13 @@ body.fade-small-logo .navbar-brand img {
     -webkit-box-shadow: inset #c8c8c8 0 5px 5px -5px;
     box-shadow: inset #c8c8c8 0 5px 5px -5px;
     margin: 0 -15px;
+    font-size: 0;
   }
-  /* line 105, ../../sass/partials/_header.scss */
+  /* line 106, ../../sass/partials/_header.scss */
   #shop-banner li {
     display: inline-block;
   }
-  /* line 107, ../../sass/partials/_header.scss */
+  /* line 108, ../../sass/partials/_header.scss */
   #shop-banner li a {
     display: block;
     height: 25px;
@@ -360,103 +361,103 @@ body.fade-small-logo .navbar-brand img {
   }
 }
 @media (max-width: 650px) {
-  /* line 117, ../../sass/partials/_header.scss */
+  /* line 118, ../../sass/partials/_header.scss */
   #shop-banner {
     display: none;
   }
 }
 /* brands, individual */
-/* line 123, ../../sass/partials/_header.scss */
+/* line 124, ../../sass/partials/_header.scss */
 #shop-uhu {
   width: 54px;
   background-position: 0px -293px;
 }
 
-/* line 127, ../../sass/partials/_header.scss */
+/* line 128, ../../sass/partials/_header.scss */
 #shop-xuron {
   width: 102px;
   background-position: -54px -293px;
 }
 
-/* line 131, ../../sass/partials/_header.scss */
+/* line 132, ../../sass/partials/_header.scss */
 #shop-revell {
   width: 62px;
   background-position: -156px -293px;
 }
 
-/* line 135, ../../sass/partials/_header.scss */
+/* line 136, ../../sass/partials/_header.scss */
 #shop-alclad {
   width: 65px;
   background-position: -218px -293px;
 }
 
-/* line 139, ../../sass/partials/_header.scss */
+/* line 140, ../../sass/partials/_header.scss */
 #shop-bmf {
   width: 66px;
   background-position: -283px -293px;
 }
 
-/* line 143, ../../sass/partials/_header.scss */
+/* line 144, ../../sass/partials/_header.scss */
 #shop-birchwood {
   width: 52px;
   background-position: -349px -293px;
 }
 
-/* line 147, ../../sass/partials/_header.scss */
+/* line 148, ../../sass/partials/_header.scss */
 #shop-evergreen {
   width: 50px;
+  background-position: -516px -318px;
+}
+
+/* line 152, ../../sass/partials/_header.scss */
+#shop-sp {
+  width: 74px;
   background-position: -442px -318px;
 }
 
-/* line 151, ../../sass/partials/_header.scss */
-#shop-bb {
-  width: 41px;
-  background-position: -401px -293px;
-}
-
-/* line 155, ../../sass/partials/_header.scss */
+/* line 156, ../../sass/partials/_header.scss */
 #shop-excel {
   width: 56px;
   background-position: -442px -293px;
 }
 
-/* line 159, ../../sass/partials/_header.scss */
+/* line 160, ../../sass/partials/_header.scss */
 #shop-intech {
   width: 86px;
   background-position: -498px -293px;
 }
 
-/* line 163, ../../sass/partials/_header.scss */
+/* line 164, ../../sass/partials/_header.scss */
 #shop-microscale {
   width: 62px;
   background-position: 0 -318px;
 }
 
-/* line 167, ../../sass/partials/_header.scss */
+/* line 168, ../../sass/partials/_header.scss */
 #shop-miliput {
   width: 93px;
   background-position: -62px -318px;
 }
 
-/* line 171, ../../sass/partials/_header.scss */
+/* line 172, ../../sass/partials/_header.scss */
 #shop-mb {
   width: 127px;
   background-position: -155px -318px;
 }
 
-/* line 175, ../../sass/partials/_header.scss */
+/* line 176, ../../sass/partials/_header.scss */
 #shop-rustall {
   width: 93px;
   background-position: -282px -318px;
 }
 
-/* line 179, ../../sass/partials/_header.scss */
+/* line 180, ../../sass/partials/_header.scss */
 #shop-sms {
   width: 25px;
   background-position: -375px -318px;
 }
 
-/* line 183, ../../sass/partials/_header.scss */
+/* line 184, ../../sass/partials/_header.scss */
 #shop-vallejo {
   width: 42px;
   background-position: -400px -318px;

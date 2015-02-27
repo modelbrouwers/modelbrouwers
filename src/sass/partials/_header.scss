@@ -102,6 +102,7 @@ body.fade-small-logo .navbar-brand img {
     padding: 5px 15px 0;
     @include box-shadow(inset #c8c8c8 0 5px 5px -5px);
     margin: 0 -15px;
+    font-size: 0;
     li {
       display: inline-block;
       a {
@@ -146,11 +147,11 @@ body.fade-small-logo .navbar-brand img {
 }
 #shop-evergreen{
     width: 50px;
-    background-position: -442px -318px;
+    background-position: -516px -318px;
 }
-#shop-bb{
-    width: 41px;
-    background-position: -401px -293px;
+#shop-sp{
+    width: 74px;
+    background-position: -442px -318px;
 }
 #shop-excel{
     width: 56px;
