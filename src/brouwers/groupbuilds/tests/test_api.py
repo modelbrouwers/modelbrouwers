@@ -36,7 +36,7 @@ class ApiTests(APITestCase):
             'status': gb.get_status_display(),
             'rules_topic': gb.rules_topic,
             'participants': [],
-            'admins': []
+            'admins': [{'username': gb.applicant.username}]
         })
 
     def test_participant_create(self):

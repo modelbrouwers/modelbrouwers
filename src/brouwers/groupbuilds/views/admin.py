@@ -10,7 +10,6 @@ from ..forms import GroupBuildForm, SubmitForm
 
 
 class GroupBuildCreateView(LoginRequiredMixin, CreateView):
-    """ TODO: webtest """
     model = GroupBuild
     template_name = 'groupbuilds/create.html'
     form_class = GroupBuildForm
@@ -61,4 +60,3 @@ class GroupBuildSubmitView(LoginRequiredMixin, GroupBuildDetailMixin, UpdateView
         response = super(GroupBuildSubmitView, self).form_valid(form)
         messages.success(self.request, _('Your group build has been submitted to the moderator team.'))
         return response
-

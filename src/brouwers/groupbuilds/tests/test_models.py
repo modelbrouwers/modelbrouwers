@@ -2,6 +2,7 @@ from datetime import date, timedelta
 
 from django.test import TestCase
 
+from brouwers.users.tests.factories import UserFactory
 from .factories import GroupBuildFactory
 from ..models import GroupbuildStatuses, GroupbuildDurations
 
@@ -131,7 +132,6 @@ class GroupbuildTests(TestCase):
         progress = 2.0 / 3
         self.assertAlmostEqual(gb4.progress, progress, delta=0.1)
 
-
     def test_is_submittable(self):
         """ Test if the groupbuild is submittable """
         build1 = GroupBuildFactory.create(start=None)
@@ -149,3 +149,19 @@ class GroupbuildTests(TestCase):
                 self.assertTrue(build.is_submittable)
             else:
                 self.assertFalse(build.is_submittable)
+
+    def test_submitter_is_admin(self):
+        """
+        Test that the applicant is an admin of the build.
+        """
+        user = UserFactory.create()
+        gb = GroupBuildFactory.create(applicant=user)
+        self.assertQuerysetEqual(gb.admins.all(), [repr(user)], ordered=False)
+
+        gb.save()  # trigger signal
+        self.assertEqual(gb.admins.count(), 1)
+
+        # test that existing groupbuilds aren't forced
+        gb = gb.__class__.objects.get(pk=gb.pk)
+        gb.admins.remove(gb.applicant)
+        self.assertQuerysetEqual(gb.admins.all(), [], ordered=False)
