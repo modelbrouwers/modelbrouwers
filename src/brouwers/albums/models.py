@@ -9,17 +9,18 @@ from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
 from brouwers.general.utils import get_username as _get_username
 from .utils import rotate_img
+from .managers import AlbumsManager
 
 from datetime import datetime
 import os
 
-#TODO: comments on albums/photos
 
 WRITABLE_CHOICES = (
     ("u", pgettext_lazy("write permissions for owner", "owner")),
     ("g", _("group")),
-    ("o", _("everyone")), #everyone = every logged in user
+    ("o", _("everyone")),  # everyone = every logged in user
     )
+
 
 class Category(models.Model):
     name = models.CharField(_("name"), max_length=256, unique=True)
@@ -43,19 +44,18 @@ class Category(models.Model):
 
 
 class Album(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user")) #owner of the album
-    title = models.CharField(_("album title"), max_length="256",
-            default="album %s" % timezone.now().strftime("%d-%m-%Y"), db_index=True)
+    # owner of the album
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user"))
+    title = models.CharField(
+        _("album title"), max_length="256",
+        default="album %s" % timezone.now().strftime("%d-%m-%Y"), db_index=True
+    )
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
-    description = models.CharField(_("album description"),
-            max_length=500, blank=True)
+    description = models.CharField(_("album description"), max_length=500, blank=True)
     category = models.ForeignKey(
-            Category,
-            blank=True,
-            null=True,
-            default=1 or None,
-            verbose_name=_("category"),
-            )
+        Category, blank=True, null=True,
+        default=1, verbose_name=_("category"),
+    )
     cover = models.ForeignKey(
         'Photo',
         blank=True,
@@ -64,15 +64,14 @@ class Album(models.Model):
         related_name='cover',
         verbose_name=_("cover")
     )
-    # limit choices in form
 
-    #Logging and statistics
+    # Logging and statistics
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
-    last_upload = models.DateTimeField(default=datetime(1970,1,1,0,0,0), db_index=True)
+    last_upload = models.DateTimeField(default=datetime(1970, 1, 1, 0, 0, 0), db_index=True)
     views = models.PositiveIntegerField(default=0)
 
-    #User preferences
+    # User preferences
     order = models.PositiveSmallIntegerField(_("order"), default=1, blank=True, null=True, db_index=True)
     public = models.BooleanField(
             _("Public?"),
@@ -80,7 +79,7 @@ class Album(models.Model):
             default=True
         )
 
-    #Misc features
+    # Misc features
     build_report = models.URLField(
             _("build report"),
             max_length=500,
@@ -88,18 +87,17 @@ class Album(models.Model):
             blank=True
         )
     votes = models.IntegerField(_("appreciation"), default=0)
-    #albums can be voted, so we can have an 'album of the month' feature
+    # albums can be voted, so we can have an 'album of the month' feature
     writable_to = models.CharField(_("writable to"), max_length=1, choices=WRITABLE_CHOICES, default="u")
-    #writable to only user, group or everyone (unix like permissions)
-    trash = models.BooleanField(default=False) #put in trash before removing from db
+    # writable to only user, group or everyone (unix like permissions)
+    trash = models.BooleanField(default=False)  # put in trash before removing from db
 
-    # custom managers
-    # FIXME custom managers give import errors? wtf
+    objects = AlbumsManager()
 
     class Meta:
         verbose_name = _("album")
         verbose_name_plural = _("albums")
-        #order_with_respect_to = "user"
+        # order_with_respect_to = "user"
         ordering = ('order', 'title')
         unique_together = (('user', 'title'),)
         permissions = (
@@ -123,18 +121,18 @@ class Album(models.Model):
         if self.cover:
             return self.cover
         else:
-    	    imgs = self.photo_set.filter(trash=False).order_by('order')[:1]
-       	    if imgs:
-       	        img = imgs[0]
-       	        self.cover = img # save the cover to perform optimalization if no cover is set
-       	        self.save()
-       	        return img
+            imgs = self.photo_set.filter(trash=False).order_by('order')[:1]
+            if imgs:
+                img = imgs[0]
+                self.cover = img  # save the cover to perform optimalization if no cover is set
+                self.save()
+                return img
         return None
 
     def get_username(self):
         return _get_username(self)
 
-    #TODO: fix in templates with get_cover_data, now deprecated
+    # TODO: fix in templates with get_cover_data, now deprecated
     @property
     def cover_thumb_url(self):
         img = self.get_cover()
@@ -172,7 +170,11 @@ class AlbumGroup(models.Model):
             help_text=_("Album for which the group has write permissions."),
             unique=True
             )
-    users = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name=_("users"), help_text=_("Users who can write in this album."), blank=True, null=True)
+    users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, verbose_name=_("users"),
+        help_text=_("Users who can write in this album."),
+        blank=True, null=True
+    )
 
     class Meta:
         verbose_name = _("album group")
@@ -191,15 +193,18 @@ class Photo(models.Model):
         return os.path.join('albums', str(instance.album.user.id), str(instance.album.id), filename)
 
     """ Model Fields """
-    #image properties
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True) #we need to know the owner (public albums)
+    # image properties
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)  # we need to know the owner (public albums)
     album = models.ForeignKey(Album, db_index=True)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
-    image = models.ImageField(_("image"), max_length=200, upload_to=get_image_path, height_field='height', width_field='width')
+    image = models.ImageField(
+        _("image"), max_length=200, upload_to=get_image_path,
+        height_field='height', width_field='width'
+    )
     description = models.CharField(_("photo description"), max_length=500, blank=True)
 
-    #Logging and statistics
+    # Logging and statistics
     uploaded = models.DateTimeField(auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
     views = models.PositiveIntegerField(default=0)
@@ -213,7 +218,7 @@ class Photo(models.Model):
         ordering = ['album', 'order', 'pk']
 
     def save(self, *args, **kwargs):
-        #also save the album, so the last modified date gets set
+        # also save the album, so the last modified date gets set
         new = False
         if not self.id:
             new = True
@@ -231,7 +236,7 @@ class Photo(models.Model):
     def get_username(self):
         return _get_username(self)
 
-    ### TRANSFORMING OF IMAGE #################################
+    # TRANSFORMING OF IMAGE #################################
     def rotate_left(self):
         """ Rotate 90 degrees counter clock wise """
         rotate_img(self.image, degrees=90)
@@ -334,7 +339,7 @@ class Photo(models.Model):
     def get_thumb_width(self, width=140, height=105):
         if self.width and self.width < width:
             width = self.width
-        elif not self.is_wider_than_higher :
+        elif not self.is_wider_than_higher:
             ratio = float(self.width) / float(self.height)
             width = int(ratio*height)
         return width
@@ -369,7 +374,8 @@ BACKGROUND_CHOICES = (
 )
 
 
-class Preferences(models.Model): #only create this object when user visits preferences page first time, otherwise go with the defaults
+# only create this object when user visits preferences page first time, otherwise go with the defaults
+class Preferences(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
     default_img_size = models.PositiveSmallIntegerField(
         _("default image dimensions"),
@@ -383,22 +389,21 @@ class Preferences(models.Model): #only create this object when user visits prefe
         choices=UPLOADER_CHOICES, default="F",
         help_text=_("""Multiple files at once makes use of a Flash uploader,
 you select all your files without having to click too much buttons.
-The basic uploader has a file field for each image."""
-        )
+The basic uploader has a file field for each image.""")
     )
-    #options for uploadify
+    # options for uploadify
     auto_start_uploading = models.BooleanField(
         _("start uploading automatically?"),
         help_text=_("Start upload automatically when files are selected"),
         default=False)
     show_direct_link = models.BooleanField(_("Show direct links under the photo"), default=False)
 
-    #admin options
+    # admin options
     apply_admin_permissions = models.BooleanField(
         help_text=_("When checked, you will see all the albums and be able to edit them."),
         default=False)
 
-    #sidebar settings
+    # sidebar settings
     collapse_sidebar = models.BooleanField(
         _("collapse sidebar"), default=True,
         help_text=_("Show the sidebar as closed when typing a post.")
@@ -414,10 +419,12 @@ The basic uploader has a file field for each image."""
         choices=BACKGROUND_CHOICES, default='black'
     )
     sidebar_transparent = models.BooleanField(_("transparent background?"), default=True)
-    text_color = models.CharField(_("sidebar text color"), max_length=7, blank=True,
+    text_color = models.CharField(
+        _("sidebar text color"), max_length=7, blank=True,
         help_text=_("Text color in the overlay. HTML color format #xxxxxx or #xxx.")
     )
-    width = models.CharField(_("sidebar width"), max_length=6, blank=True,
+    width = models.CharField(
+        _("sidebar width"), max_length=6, blank=True,
         help_text=_("Width of the sidebar. E.g. '30%' or '300px'.")
     )
 
@@ -457,7 +464,7 @@ The basic uploader has a file field for each image."""
         if prefs is None:
             prefs_obj, created = Preferences.objects.get_or_create(user=user)
             prefs = PreferencesSerializer(prefs_obj).data
-            cache.set(key, prefs, 24*60*60) # cache a whole day
+            cache.set(key, prefs, 24*60*60)  # cache a whole day
         return prefs
 
     def get_cache_key(self, user_id=None):

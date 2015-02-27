@@ -1,4 +1,3 @@
-from datetime import datetime
 from zipfile import ZipFile
 import os
 import random
@@ -15,11 +14,20 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django.views.generic import ListView, DetailView, TemplateView
 
 from brouwers.awards.models import Nomination
 from .models import *
 from .forms import *
 from .utils import resize, admin_mode, can_switch_admin_mode, get_default_img_size
+
+
+class IndexView(ListView):
+    queryset = Album.objects.select_related('user', 'cover').filter(trash=False, public=True).order_by('-last_upload')[:20]
+
+
+
+
 
 
 ###########################
@@ -33,13 +41,7 @@ def index(request):
     except ValueError: #sample greater than population, use entire set
         pass
 
-    albums = Album.objects.select_related('user', 'cover'
-        ).filter(trash=False, public=True
-        ).order_by('-last_upload')[:20]
 
-    needs_closing_tag_row_albums = False
-    if len(albums) % 4 != 0:
-        needs_closing_tag_row_albums = True
 
     last_uploads = Photo.objects.select_related('user').filter(album__public=True).order_by('-uploaded')[:20]
     amount_last_uploads = len(last_uploads)
@@ -481,4 +483,3 @@ def photo(request, photo_id=None):
     photo.save()
     photo = get_object_or_404(Photo, pk=photo_id)
     return render(request, 'albums/photo.html', {'photo': photo})
-

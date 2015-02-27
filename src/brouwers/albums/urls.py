@@ -1,10 +1,15 @@
-from django.conf import settings
 from django.conf.urls import *
 from django.contrib.auth.decorators import login_required
 
-from .ajax_views import RotateView
+from tastypie.api import Api
 
-urlpatterns = patterns('brouwers.albums.views',
+from .api.resources import AlbumResource, OwnAlbumsResource, PhotoResource
+from .ajax_views import RotateView
+from .views import IndexView
+
+
+urlpatterns = patterns(
+    'brouwers.albums.views',
     (r'^$', 'index'),
     (r'^album/(\d+)/$',     'browse_album'),
     (r'^album/(\d+)/edit/', 'edit_album'),
@@ -24,7 +29,8 @@ urlpatterns = patterns('brouwers.albums.views',
 )
 
 # AJAX
-urlpatterns += patterns('brouwers.albums.ajax_views',
+urlpatterns += patterns(
+    'brouwers.albums.ajax_views',
     (r'^album/edit/$',          'edit_album'),
     (r'^album/get_covers/$',    'get_covers'),
     (r'^album/get_title/$',     'get_title'),
@@ -43,7 +49,8 @@ urlpatterns += patterns('brouwers.albums.ajax_views',
     (r'^set_cover/$',           'set_cover'),
 )
 
-urlpatterns += patterns('brouwers.albums.ajax_views_forum',
+urlpatterns += patterns(
+    'brouwers.albums.ajax_views_forum',
     (r'^get_photos/(\d+)/$',    'get_photos'),
     (r'^is_beta_tester/$',      'is_beta_tester'),
     (r'^search_own_albums/$',   'search'),
@@ -52,16 +59,14 @@ urlpatterns += patterns('brouwers.albums.ajax_views_forum',
 )
 
 # API
-if 'tastypie' in settings.INSTALLED_APPS:
-    from tastypie.api import Api
-    from brouwers.albums.api.resources import AlbumResource, OwnAlbumsResource, PhotoResource
 
-    v1_api = Api(api_name='v1')
+v1_api = Api(api_name='v1')
 
-    v1_api.register(AlbumResource())
-    v1_api.register(OwnAlbumsResource())
-    v1_api.register(PhotoResource())
+v1_api.register(AlbumResource())
+v1_api.register(OwnAlbumsResource())
+v1_api.register(PhotoResource())
 
-    urlpatterns += patterns('',
-        url(r'^api/', include(v1_api.urls)),
-    )
+urlpatterns += patterns(
+    '',
+    url(r'^api/', include(v1_api.urls)),
+)
