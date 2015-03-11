@@ -11,15 +11,15 @@ from .views import IndexView
 urlpatterns = patterns(
     'brouwers.albums.views',
     url(r'^$', IndexView.as_view(), name='index'),
-    (r'^album/(\d+)/$',     'browse_album'),
+    url(r'^album/(\d+)/$',     'browse_album', name='album_detail'),
     (r'^album/(\d+)/edit/', 'edit_album'),
     (r'^album/(\d+)/download/', 'download_album'),
-    (r'^list/$',             'albums_list'), #all albums
+    (r'^list/$',             'albums_list'),  # all albums
     (r'^manage/(\d+)/$',    'manage'),
     (r'^my_gallery/$',      'my_albums_list'),
     (r'^my_gallery/last_uploads/$', 'my_last_uploads'),
-    (r'^photo/(\d+)/$',     'photo'),
-    (r'^photo/(\d+)/edit/$','edit_photo'),
+    url(r'^photo/(\d+)/$', 'photo', name='photo_detail'),
+    (r'^photo/(\d+)/edit/$', 'edit_photo'),
     (r'^preferences/$',     'preferences'),
     (r'^upload/$',          'uploadify'),
     (r'^upload/basic/$',    'upload'),

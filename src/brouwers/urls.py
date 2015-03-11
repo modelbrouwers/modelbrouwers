@@ -18,7 +18,7 @@ urlpatterns = patterns(
 
     url(r'^api/v1/',        include('brouwers.api.urls', namespace='api')),
 
-    url(r'^albums/',       include('brouwers.albums.urls')),
+    url(r'^albums/',       include('brouwers.albums.urls', namespace='albums')),
     url(r'^awards/',       include('brouwers.awards.urls')),
     url(r'^brouwersdag/',  include('brouwers.brouwersdag.urls', namespace='brouwersdag')),
     url(r'^forum_tools/',  include('brouwers.forum_tools.urls')),

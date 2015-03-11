@@ -115,7 +115,7 @@ class Album(models.Model):
         super(Album, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('brouwers.albums.views.browse_album', args=[self.id])
+        return reverse('albums:album_detail', args=[self.id])
 
     def get_cover(self):
         if self.cover:
@@ -231,7 +231,7 @@ class Photo(models.Model):
         return u'albumphoto %d' % self.id
 
     def get_absolute_url(self):
-        return reverse('brouwers.albums.views.photo', args=[self.id])
+        return reverse('albums:photo_detail', args=[self.id])
 
     def get_username(self):
         return _get_username(self)
