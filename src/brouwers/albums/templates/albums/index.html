@@ -17,23 +17,7 @@
             albums and upload photos to them. The amount of albums or photos is unlimited.
         {% endblocktrans %}</p>
 
-        <div class="row">
-            {% for project in awards_winners %}
-                <div class="col-md-4">
-                    <a class="photo album" href="{{ project.url }}">
-                        {% if project.image %}
-                            <img class="thumb" src="{{ project.image.url }}" alt="thumb"/>
-                        {% endif %}
-                    </a>
-                    <strong>{{ project.name }}</strong>
-                    <div>
-                        {% blocktrans with builder=project.brouwer category=project.category.name %}
-                            Built by &lsquo;{{ builder }}&rsquo;, this project won first place in the category &lsquo;{{ category }}&rsquo;.
-                        {% endblocktrans %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {# {% include "albums/winners_carousel.html" %} #}
 
         <div>
             <a href="{% url 'groupbuilds:create' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
