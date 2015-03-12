@@ -1,0 +1,26 @@
+{
+  "name": "modelbrouwers",
+  "version": "0.5.1",
+  "homepage": "https://github.com/modelbrouwers/modelbrouwers",
+  "authors": [
+    "Sergei Maertens <sergeimaertens@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "forum",
+    "django",
+    "phpbb"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

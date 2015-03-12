@@ -1,0 +1,30 @@
+{
+  "name": "modelbrouwers",
+  "version": "0.5.1",
+  "description": "Bundle for Modelbrouwers.nl community website",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modelbrouwers/modelbrouwers.git"
+  },
+  "keywords": [
+    "phpbb",
+    "django",
+    "forum"
+  ],
+  "author": "Sergei Maertens <sergeimaertens@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/modelbrouwers/modelbrouwers/issues"
+  },
+  "homepage": "https://github.com/modelbrouwers/modelbrouwers",
+  "dependencies": {
+    "fine-uploader": "^5.1.3"
+  }
+}

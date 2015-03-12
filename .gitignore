@@ -35,3 +35,8 @@ _codecov_coverage.xml
 
 # PHP composer
 /vendor/
+
+# Node & Bower packages
+src/static/bower_components
+node_modules
+
