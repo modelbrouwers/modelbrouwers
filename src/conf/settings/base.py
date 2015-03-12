@@ -197,7 +197,6 @@ INSTALLED_APPS = (
     'formulation',
     'sessionprofile',
     'south',
-    'tastypie',
     'rest_framework',
     'django_extensions',
     'rosetta',
@@ -326,4 +325,4 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 #
 # SORL THUMBNAIL
 #
-THUMBNAIL_DEBUG = False
+THUMBNAIL_DEBUG = True

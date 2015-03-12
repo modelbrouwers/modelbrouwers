@@ -54,13 +54,15 @@
         {% for album in albums %}
             <article class="col-sm-6 col-md-3">
                 <h3><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></h3>
-                {% if album.cover.image %}
-                    <a href="{{ album.get_absolute_url }}" class="thumbnail">
-                        {% thumbnail album.cover.image "200x150" crop="center" as im %}
-                            <img src="{{ im.url }}" class="img-responsive img-thumbnail">
+                <a href="{{ album.get_absolute_url }}" class="thumbnail">
+                    {% if album.cover.exists %}
+                        {% thumbnail album.cover.image "300x225" crop="center" as im %}
+                            <img src="{{ im.url }}" class="img-responsive">
                         {% endthumbnail %}
-                    </a>
-                {% endif %}
+                    {% else %}
+                        <img src="{% static "images/thumb.png" %}" class="img-responsive">
+                    {% endif %}
+                </a>
             </article>
 
             {% cycle '' '' '' '</div><div class="row">' %}
@@ -76,13 +78,15 @@
     <div class="row">
         {% for photo in latest_uploads %}
             <article class="col-sm-6 col-md-3">
-                {% if photo.image %}
-                    <a href="{{ photo.get_absolute_url }}" class="thumbnail">
-                        {% thumbnail photo.image "200x150" crop="center" as im %}
-                            <img src="{{ im.url }}" class="img-responsive img-thumbnail">
+                <a href="{{ photo.get_absolute_url }}" class="thumbnail">
+                    {% if photo.exists %}
+                        {% thumbnail photo.image "300x225" crop="center" as im %}
+                            <img src="{{ im.url }}" class="img-responsive">
                         {% endthumbnail %}
-                    </a>
-                {% endif %}
+                    {% else %}
+                        <img src="{% static "images/thumb.png" %}" class="img-responsive">
+                    {% endif %}
+                </a>
             </article>
 
             {% cycle '' '' '' '</div><div class="row">' %}

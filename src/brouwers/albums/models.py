@@ -233,6 +233,13 @@ class Photo(models.Model):
     def get_absolute_url(self):
         return reverse('albums:photo_detail', args=[self.id])
 
+    @property
+    def exists(self):
+        """
+        If a network storage is used, this can cause latency/slow pages.
+        """
+        return self.image.storage.exists(self.image.name)
+
     def get_username(self):
         return _get_username(self)
 

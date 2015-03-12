@@ -1,8 +1,6 @@
 from django.conf.urls import patterns, url, include
 from django.contrib.auth.decorators import login_required
 
-from tastypie.api import Api
-
 from .api.resources import AlbumResource, OwnAlbumsResource, PhotoResource
 from .ajax_views import RotateView
 from .views import IndexView
@@ -56,17 +54,4 @@ urlpatterns += patterns(
     (r'^search_own_albums/$',   'search'),
     (r'^sidebar/$',             'get_sidebar'),
     (r'^sidebar_options/$',     'get_sidebar_options'),
-)
-
-# API
-
-v1_api = Api(api_name='v1')
-
-v1_api.register(AlbumResource())
-v1_api.register(OwnAlbumsResource())
-v1_api.register(PhotoResource())
-
-urlpatterns += patterns(
-    '',
-    url(r'^api/', include(v1_api.urls)),
 )
