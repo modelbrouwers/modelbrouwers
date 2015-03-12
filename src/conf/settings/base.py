@@ -159,7 +159,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'sessionprofile.middleware.SessionProfileMiddleware',
-    'brouwers.albums.middleware.UploadifyMiddleware',
+    # 'brouwers.albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
