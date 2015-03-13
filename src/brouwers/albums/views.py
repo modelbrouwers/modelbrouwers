@@ -14,9 +14,10 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView
 
 from brouwers.awards.models import Nomination
+from brouwers.utils.views import LoginRequiredMixin
 from .models import *
 from .forms import *
 from .utils import resize, admin_mode, can_switch_admin_mode, get_default_img_size
@@ -38,10 +39,17 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         # spotlight: awards winners, select 3 random categories
-        kwargs['awards_winners'] = self.get_awards_winners()
+        # kwargs['awards_winners'] = self.get_awards_winners()
         kwargs['latest_uploads'] = Photo.objects.select_related('user').filter(
                                        album__public=True).order_by('-uploaded')[:20]
         return super(IndexView, self).get_context_data(**kwargs)
+
+
+class AlbumCreateView(LoginRequiredMixin, CreateView):
+    model = Album
+    form_class = CreateAlbumForm
+
+
 
 
 ###########################

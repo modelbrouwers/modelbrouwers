@@ -1,3 +1,6 @@
+import os
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.cache import cache
@@ -7,19 +10,12 @@ from django.db.models import Max
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
+from djchoices import DjangoChoices, ChoiceItem
+
+from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.general.utils import get_username as _get_username
 from .utils import rotate_img
 from .managers import AlbumsManager
-
-from datetime import datetime
-import os
-
-
-WRITABLE_CHOICES = (
-    ("u", pgettext_lazy("write permissions for owner", "owner")),
-    ("g", _("group")),
-    ("o", _("everyone")),  # everyone = every logged in user
-    )
 
 
 class Category(models.Model):
@@ -44,6 +40,12 @@ class Category(models.Model):
 
 
 class Album(models.Model):
+
+    class WritePermissions(DjangoChoices):
+        owner = ChoiceItem('u', pgettext_lazy("write permissions for owner", "owner"))
+        group = ChoiceItem('g', _('group'))
+        everyone = ChoiceItem('o', _('everyone'))  # auth required
+
     # owner of the album
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user"))
     title = models.CharField(
@@ -80,6 +82,7 @@ class Album(models.Model):
         )
 
     # Misc features
+    topic = ForumToolsIDField(_('build report topic'), blank=True, null=True, type='topic')
     build_report = models.URLField(
             _("build report"),
             max_length=500,
@@ -88,7 +91,9 @@ class Album(models.Model):
         )
     votes = models.IntegerField(_("appreciation"), default=0)
     # albums can be voted, so we can have an 'album of the month' feature
-    writable_to = models.CharField(_("writable to"), max_length=1, choices=WRITABLE_CHOICES, default="u")
+    writable_to = models.CharField(
+        _("writable to"), max_length=1,
+        choices=WritePermissions.choices, default=WritePermissions.owner)
     # writable to only user, group or everyone (unix like permissions)
     trash = models.BooleanField(default=False)  # put in trash before removing from db
 

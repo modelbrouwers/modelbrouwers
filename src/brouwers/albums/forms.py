@@ -9,6 +9,7 @@ from utils import admin_mode
 
 import re, urllib2
 
+
 def cln_build_report(form):
     url = form.cleaned_data['build_report']
     if not url:
@@ -19,10 +20,25 @@ def cln_build_report(form):
     url = "http://www.%s" % match.group(0)
     return url
 
+
+class CreateAlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = (
+            'title',
+            'description',
+            'category',
+            'public',
+            'build_report',
+        )
+
+
+
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        exclude = ('created', 'modified', 'last_upload', 'views', 'votes', 'order', 'trash', 'cover', 'clean_title')
+        exclude = ('created', 'modified', 'last_upload', 'views', 'votes',
+                   'order', 'trash', 'cover', 'clean_title')
         widgets = {
             'user': forms.HiddenInput(),
         }
@@ -50,6 +66,7 @@ class AlbumForm(forms.ModelForm):
         # limit visible categories for regular users
         if not self.user or not admin:
             self.fields['category'].queryset = Category.objects.filter(public=True)
+
 
 class EditAlbumForm(AlbumForm):
     class Meta:
