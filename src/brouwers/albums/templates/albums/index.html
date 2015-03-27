@@ -3,25 +3,29 @@
 {% block title %}{% trans "Albums" %}{% endblock %}
 
 
+{% block body-class %}albums{% endblock body-class %}
+
+
 {% block eye-catcher %}
 <header class="container-fluid eye-catcher">
     <div class="container">
+        {% block eye-catcher-content %}
+            <h1>
+                {% trans "Albums" %}
+                <i class="pull-right fa fa-camera-retro fa-2x"></i>
+            </h1>
 
-        <h1>
-            {% trans "Albums" %}
-            <i class="pull-right fa fa-camera-retro fa-2x"></i>
-        </h1>
+            <p>{% blocktrans %}
+                The 'BrouwersAlbums' are a section where you can create your own, personal
+                albums and upload photos to them. The amount of albums or photos is unlimited.
+            {% endblocktrans %}</p>
 
-        <p>{% blocktrans %}
-            The 'BrouwersAlbums' are a section where you can create your own, personal
-            albums and upload photos to them. The amount of albums or photos is unlimited.
-        {% endblocktrans %}</p>
+            {# {% include "albums/winners_carousel.html" %} #}
 
-        {# {% include "albums/winners_carousel.html" %} #}
-
-        <div>
-            <a href="{% url 'groupbuilds:create' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
-        </div>
+            <div>
+                <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
+            </div>
+        {% endblock %}
     </div>
 </header>
 {% endblock %}
@@ -39,7 +43,7 @@
             <article class="col-sm-6 col-md-3">
                 <h3><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></h3>
                 <a href="{{ album.get_absolute_url }}" class="thumbnail">
-                    {% if album.cover.exists %}
+                    {% if album.get_cover.exists %}
                         {% thumbnail album.cover.image "300x225" crop="center" as im %}
                             <img src="{{ im.url }}" class="img-responsive">
                         {% endthumbnail %}

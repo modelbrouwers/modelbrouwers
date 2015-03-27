@@ -38,5 +38,5 @@ _codecov_coverage.xml
 
 # Node & Bower packages
 src/static/bower_components
-node_modules
+/node_modules
 

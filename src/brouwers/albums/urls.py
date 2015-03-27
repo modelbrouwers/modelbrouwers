@@ -1,14 +1,18 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
-from .api.resources import AlbumResource, OwnAlbumsResource, PhotoResource
 from .ajax_views import RotateView
-from .views import IndexView
+from .views import IndexView, UploadView
 
 
 urlpatterns = patterns(
     'brouwers.albums.views',
     url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^upload/$', UploadView.as_view(), name='upload'),
+
+
+
+
     url(r'^album/(\d+)/$',     'browse_album', name='album_detail'),
     (r'^album/(\d+)/edit/', 'edit_album'),
     (r'^album/(\d+)/download/', 'download_album'),
@@ -19,10 +23,6 @@ urlpatterns = patterns(
     url(r'^photo/(\d+)/$', 'photo', name='photo_detail'),
     (r'^photo/(\d+)/edit/$', 'edit_photo'),
     (r'^preferences/$',     'preferences'),
-    (r'^upload/$',          'uploadify'),
-    (r'^upload/basic/$',    'upload'),
-    (r'^upload/extra_info/$', 'set_extra_info'),
-    (r'^upload/uploadify/complete/$', 'pre_extra_info_uploadify'),
     (r'^manage/$',          'manage'),
 )
 

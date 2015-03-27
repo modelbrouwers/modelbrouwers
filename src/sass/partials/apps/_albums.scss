@@ -1,0 +1,84 @@
+body.albums {
+
+.qq-upload-drop-area {
+  position: static;
+  min-height: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: dashed 2px $main-grey;
+  background: rgba($main-grey, 0.2);
+
+  > span {
+    text-transform: uppercase;
+    font-weight: bolder;
+    color: rgba($main-grey, 0.8);
+    position: static;
+    margin-top: 0;
+    line-height: 100px;
+  }
+
+  &.qq-upload-drop-area-active {
+    border-color: $main-orange;
+  }
+}
+
+.qq-upload-list {
+  margin-top: 10px;
+}
+
+
+#carousel-album {
+  margin-bottom: 20px;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .carousel-control {
+    max-width: 50px;
+
+    > .fa {
+      position: absolute;
+      top: 50%;
+      display: inline-block;
+      margin-top: -20px;
+    }
+
+    > .fa-arrow-left {
+      left: 5px;
+    }
+
+    > .fa-arrow-right {
+      right: 5px;
+    }
+  }
+
+  input {
+    + label {
+      margin-bottom: 0;
+
+      &:hover,
+      &:active,
+      &:focus {
+        cursor: pointer;
+        border-color: $main-light-blue;
+      }
+
+      span.h4 {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 5px;
+        margin-bottom: 2px;
+      }
+    }
+
+    &:checked + label {
+      border-color: $main-blue;
+    }
+  }
+
+}
+
+}

@@ -4,10 +4,44 @@ from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
-from models import *
-from utils import admin_mode
+from .models import *
+from .utils import admin_mode
 
 import re, urllib2
+
+
+class UploadForm(forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.none(), empty_label=None)
+    image_url = forms.URLField(label=_('image url'), required=False)
+
+    def __init__(self, request, *args, **kwargs):
+        super(UploadForm, self).__init__(*args, **kwargs)
+        # TODO: add albums that are shared
+        self.fields['album'].queryset = Album.objects.select_related(
+            'cover'
+        ).filter(
+            user=request.user, trash=False
+        ).order_by('-last_upload')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def cln_build_report(form):
@@ -31,6 +65,12 @@ class CreateAlbumForm(forms.ModelForm):
             'public',
             'build_report',
         )
+
+
+
+
+
+
 
 
 
@@ -260,11 +300,14 @@ class UploadFromURLForm(forms.Form):
                 raise forms.ValidationError(_("Could not download the image from the url"))
         return url
 
+
 class PreferencesForm(forms.ModelForm):
     class Meta:
         model = Preferences
+        fields = '__all__'
         widgets = {
             'user': forms.HiddenInput(),
+            'default_uploader': forms.HiddenInput(),
         }
 
 class SearchForm(forms.Form):

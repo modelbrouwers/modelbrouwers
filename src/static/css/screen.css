@@ -580,6 +580,82 @@ form fieldset.tab-pane {
   border: dotted 1px #EEE;
 }
 
+/* line 3, ../../sass/partials/apps/_albums.scss */
+body.albums .qq-upload-drop-area {
+  position: static;
+  min-height: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: dashed 2px #919291;
+  background: rgba(145, 146, 145, 0.2);
+}
+/* line 11, ../../sass/partials/apps/_albums.scss */
+body.albums .qq-upload-drop-area > span {
+  text-transform: uppercase;
+  font-weight: bolder;
+  color: rgba(145, 146, 145, 0.8);
+  position: static;
+  margin-top: 0;
+  line-height: 100px;
+}
+/* line 20, ../../sass/partials/apps/_albums.scss */
+body.albums .qq-upload-drop-area.qq-upload-drop-area-active {
+  border-color: #D46400;
+}
+/* line 25, ../../sass/partials/apps/_albums.scss */
+body.albums .qq-upload-list {
+  margin-top: 10px;
+}
+/* line 30, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album {
+  margin-bottom: 20px;
+}
+/* line 33, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album input[type="checkbox"] {
+  display: none;
+}
+/* line 37, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album .carousel-control {
+  max-width: 50px;
+}
+/* line 40, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album .carousel-control > .fa {
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  margin-top: -20px;
+}
+/* line 47, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album .carousel-control > .fa-arrow-left {
+  left: 5px;
+}
+/* line 51, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album .carousel-control > .fa-arrow-right {
+  right: 5px;
+}
+/* line 57, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album input + label {
+  margin-bottom: 0;
+}
+/* line 60, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album input + label:hover, body.albums #carousel-album input + label:active, body.albums #carousel-album input + label:focus {
+  cursor: pointer;
+  border-color: #4095FD;
+}
+/* line 67, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album input + label span.h4 {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+/* line 77, ../../sass/partials/apps/_albums.scss */
+body.albums #carousel-album input:checked + label {
+  border-color: #006699;
+}
+
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {
   margin-bottom: 25px;

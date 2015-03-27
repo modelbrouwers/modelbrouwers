@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 
 from brouwers.awards.models import Nomination
 from brouwers.utils.views import LoginRequiredMixin
@@ -43,6 +43,14 @@ class IndexView(ListView):
         kwargs['latest_uploads'] = Photo.objects.select_related('user').filter(
                                        album__public=True).order_by('-uploaded')[:20]
         return super(IndexView, self).get_context_data(**kwargs)
+
+
+class UploadView(LoginRequiredMixin, TemplateView):
+    template_name = 'albums/upload.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['form'] = UploadForm(self.request)
+        return super(UploadView, self).get_context_data(**kwargs)
 
 
 class AlbumCreateView(LoginRequiredMixin, CreateView):
@@ -201,7 +209,7 @@ def preferences(request):
         form = PreferencesForm(request.POST, instance=p)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse(index))
+            return HttpResponseRedirect(reverse('albums:index'))
     else:
         form = PreferencesForm(instance=p)
         if not can_switch_admin_mode(request.user):
@@ -228,53 +236,6 @@ def uploadify(request):
             }
         )
 
-@login_required
-def upload(request):
-    """
-    Pure HTTP based upload, if you don't want to or can't use Flash and/or javascript.
-    """
-    amountform = AmountForm(request.GET)
-    if amountform.is_valid():
-        amount = amountform.cleaned_data['amount'] or 20
-    else:
-        amount = 20
-    PhotoFormSet = modelformset_factory(Photo, fields=('image',), extra=amount)
-
-    if request.method == "POST":
-        albumform = PickAlbumForm(request.user, request.POST)
-        formset = PhotoFormSet(request.POST, request.FILES)
-        if albumform.is_valid() and formset.is_valid():
-            album = albumform.cleaned_data['album']
-            photo_ids = []
-            max_order = Photo.objects.filter(album=album).aggregate(Max('order'))['order__max'] or 0
-            order = max_order + 1
-            path = 'albums/%s/%s/' % (request.user.id, album.id)
-            # get the resizing dimensions from the preferences
-            preferences = Preferences.get_or_create(request.user)
-            resize_dimensions = get_default_img_size(preferences)
-            i = 0 # to access the file in request.FILES
-            for form in formset:
-                if form.has_changed():
-                    instance = form.save(commit=False)
-                    instance.user, instance.album = request.user, album
-                    instance.order = order
-                    img = request.FILES['form-%s-image' % i]
-                    img_data = resize(img, upload_to=path, sizes_data=[resize_dimensions])
-                    for data in img_data:
-                        instance.width = data[1]
-                        instance.height = data[2]
-                        instance.image = data[0]
-                        instance.save()
-                    photo_ids.append(instance.id)
-                    order += 1
-                i += 1
-                #make it a GET request again to pass it to the next function
-            request.method = "GET"
-            return set_extra_info(request, photo_ids, album)
-    else:
-        albumform = PickAlbumForm(request.user)
-        formset = PhotoFormSet(queryset=Photo.objects.none())
-    return render(request, 'albums/upload.html', {'amountform': amountform, 'albumform': albumform, 'formset': formset})
 
 @login_required
 def pre_extra_info_uploadify(request):

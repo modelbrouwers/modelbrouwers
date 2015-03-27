@@ -1,34 +1,100 @@
-{% extends "albums/base.html" %}{% load i18n %}
+{% extends "albums/index.html" %}{% load i18n staticfiles formulation %}
 
-{% block extrastyle %}<style type="text/css">
-#id_amount{width:3em;}
-#refresh-page{margin-left:-6px;}
-#upload-form{padding:0.5em;}
-div#file-inputs{margin-top:0.5em;}
-div.file-input{padding-top:0.2em;padding-bottom:0.2em;width:50%;float:left;}
-div.clear{margin-bottom:1em;}
-</style>{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link href="{% static 'node_modules/fine-uploader/jquery.fine-uploader/fine-uploader.min.css' %}" media="screen, projection" rel="stylesheet">
+{% endblock extrastyle %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Upload new pictures" %}
+        <i class="pull-right fa fa-upload fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        You can upload new pictures here. Select the album to upload to, and then
+        drag your images in the drop zone!
+    {% endblocktrans %}</p>
+{% endblock %}
+
 
 {% block content %}
-<div class="tab">
-    <form action="." method="get">
-        {% trans 'Upload images' %} &bull;
-		{% trans 'Specify the number of pictures you want to upload' %}: {{ amountform.amount }}
-		<input type="submit" value="{% trans 'Refresh' %}" id="refresh-page"/>
-	</form>
-</div>
-<div id="uploading">
-	<form action="." method="post" enctype="multipart/form-data" id="upload-form">
-	    {% csrf_token %}
-		{% trans 'Upload to' %}: {{ albumform.album }}
-		{{ formset.management_form }}
-		<div id="file-inputs"><div>
-		{% for form in formset %}
-			<div class="file-input">{{ form }}</div>
-		{% endfor %}
-		</div></div>
-		<div class="clear"></div>
-		<div class="center"><input class="submit-button" type="submit" value="{% trans 'add photos' %}" /></div>
-	</form>
-</div>
+<form action="#" id="upload-form" class="form-horizontal">
+    {% csrf_token %}
+
+    {% form 'albums/albums.form' %}
+        {% field form.album 'AlbumCarousel' %}
+    {% endform %}
+
+    <div id="uploader"></div>
+</form>
+{% endblock %}
+
+
+
+{% block extrascript %}
+{{ block.super }}
+<script src="{% static "node_modules/fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js" %}"></script>
+
+<script>
+$(function(){
+    $('#uploader').fineUploader({
+        debug: true,
+        request: {
+            endpoint: '/api/albums/upload'
+        },
+        deleteFile: {
+            enabled: true,
+            endpoint: '/api/albums/upload'
+        },
+        retry: {
+           enableAuto: true
+        },
+        validation: {
+            allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'] // only images
+        },
+        autoUpload: {{ album_preferences.auto_start_uploading|yesno:'true,false' }}
+    });
+});
+</script>
+
+<script type="text/template" id="qq-template">
+    <div class="qq-uploader-selector qq-uploader">
+
+        <div class="qq-upload-button-selector qq-upload-button">
+            <div>{% trans "Pick files&hellip;" %}</div>
+        </div>
+        <div class="qq-upload-drop-area-selector qq-upload-drop-area">
+            <span>{% trans "&hellip;or drop files here to upload" %}</span>
+        </div>
+        <span class="qq-drop-processing-selector qq-drop-processing">
+            <span>{% trans "Processing dropped files..." %}</span>
+            <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+        </span>
+
+        <button class="btn bg-main-orange btn-lg">{% trans "Upload" %}</button>
+
+        <ul class="qq-upload-list-selector qq-upload-list">
+            <li>
+                <div class="qq-progress-bar-container-selector">
+                    <div class="qq-progress-bar-selector qq-progress-bar"></div>
+                </div>
+                <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
+                <span class="qq-upload-file-selector qq-upload-file"></span>
+                <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                <span class="qq-upload-size-selector qq-upload-size"></span>
+                <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">
+                    <i class="fa fa-times" title="{% trans "Cancel" %}"></i>
+                </a>
+                <a class="qq-upload-retry-selector qq-upload-retry" href="#">{% trans "Retry" %}</a>
+                {# <a class="qq-upload-delete-selector qq-upload-delete" href="#">{% trans "Delete" %}</a> #}
+                <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+            </li>
+        </ul>
+
+    </div>
+</script>
 {% endblock %}

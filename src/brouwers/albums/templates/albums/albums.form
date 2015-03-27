@@ -1,0 +1,38 @@
+{% extends "horizontal.form" %}{% load thumbnail i18n staticfiles %}
+
+
+{% block AlbumCarousel %}
+<label><strong>{% trans "Pick one or more albums" %}</strong></label>
+<div class="carousel slide" data-interval="false" id="carousel-{{ name }}">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="row">
+                {% for album in field.queryset %}
+                    <div class="col-sm-2">
+                        <input type="checkbox" name="album" value="{{ album.id }}" id="id_album_{{ album.id }}">
+                        <label for="id_album_{{ album.id }}" class="thumbnail text-center">
+                            {% if album.get_cover.exists %}
+                                {% thumbnail album.cover.image "200x150" crop="center" as im %}
+                                    <img src="{{ im.url }}" class="img-responsive" alt="album">
+                                {% endthumbnail %}
+                            {% else %}
+                                <img src="{% static "images/thumb.png" %}" class="img-responsive" alt="album">
+                            {% endif %}
+                            <span class="h4">{{ album.title }}</span>
+                        </label>
+                    </div>
+                {% cycle '' '' '' '' '' '</div></div><div class="item"><div class="row">'  %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#carousel-{{ name }}" role="button" data-slide="prev">
+        <i class="fa fa-arrow-left fa-2x"></i>
+    </a>
+    <a class="right carousel-control" href="#carousel-{{ name }}" role="button" data-slide="next">
+        <i class="fa fa-arrow-right fa-2x"></i>
+    </a>
+</div>
+{% endblock %}

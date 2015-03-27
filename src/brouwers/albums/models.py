@@ -125,14 +125,12 @@ class Album(models.Model):
     def get_cover(self):
         if self.cover:
             return self.cover
-        else:
-            imgs = self.photo_set.filter(trash=False).order_by('order')[:1]
-            if imgs:
-                img = imgs[0]
-                self.cover = img  # save the cover to perform optimalization if no cover is set
-                self.save()
-                return img
-        return None
+
+        img = self.photo_set.filter(trash=False).order_by('order').first()
+        if img is not None:
+            self.cover = img  # save the cover to perform optimalization if no cover is set
+            self.save()
+        return img
 
     def get_username(self):
         return _get_username(self)
