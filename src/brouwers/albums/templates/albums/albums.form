@@ -2,7 +2,7 @@
 
 
 {% block AlbumCarousel %}
-<label><strong>{% trans "Pick one or more albums" %}</strong></label>
+<label><strong>{% trans "Select one or more albums" %}</strong></label>
 <div class="carousel slide" data-interval="false" id="carousel-{{ name }}">
     <!-- Carousel items -->
     <div class="carousel-inner">

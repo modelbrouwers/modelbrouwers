@@ -40,14 +40,15 @@
 
 <script>
 $(function(){
-    $('#uploader').fineUploader({
+    var uploader = $('#uploader');
+    uploader.fineUploader({
         debug: true,
         request: {
-            endpoint: '/api/albums/upload'
+            endpoint: '/api/albums/upload/'
         },
         deleteFile: {
             enabled: true,
-            endpoint: '/api/albums/upload'
+            endpoint: '/api/albums/upload/'
         },
         retry: {
            enableAuto: true
@@ -57,13 +58,17 @@ $(function(){
         },
         autoUpload: {{ album_preferences.auto_start_uploading|yesno:'true,false' }}
     });
+
+    $('#trigger-upload').click(function() {
+        uploader.fineUploader('setParams', {foo: 'bar'});
+        uploader.fineUploader('uploadStoredFiles');
+    });
 });
 </script>
 
 <script type="text/template" id="qq-template">
     <div class="qq-uploader-selector qq-uploader">
-
-        <div class="qq-upload-button-selector qq-upload-button">
+        <div class="qq-upload-button-selector qq-upload-button btn">
             <div>{% trans "Pick files&hellip;" %}</div>
         </div>
         <div class="qq-upload-drop-area-selector qq-upload-drop-area">
@@ -74,7 +79,7 @@ $(function(){
             <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
         </span>
 
-        <button class="btn bg-main-orange btn-lg">{% trans "Upload" %}</button>
+        <button class="btn bg-main-orange btn-lg" id="trigger-upload">{% trans "Upload" %}</button>
 
         <ul class="qq-upload-list-selector qq-upload-list">
             <li>
