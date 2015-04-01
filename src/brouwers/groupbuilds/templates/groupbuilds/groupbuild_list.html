@@ -96,5 +96,38 @@
             {% endfor %}
         </section>
     </div>
+
+    <section id="build-list">
+        <h2>{% trans "All unfinished group builds" %}</h2>
+
+        {% regroup upcoming_builds by category as grouped %}
+
+        <ul class="nav nav-tabs" role="tablist">
+            {% for group in grouped %}
+                <li class="{{ forloop.first|yesno:"active," }}">
+                    <a href="#category-{{ group.grouper.id }}" role="tab" data-toggle="tab">
+                        {% if group.grouper.icon_class %}<i class="fa {{ group.grouper.icon_class }}"></i>{% endif %}
+                        {{ group.grouper.name }} <span class="badge">{{ group.list|length }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content">
+            {% for group in grouped %}
+            <div class="tab-pane {{ forloop.first|yesno:"active," }}" id="category-{{ group.grouper.id }}">
+                <div class="list-group">
+                    {% for gb in group.list %}
+                        <a href="{{ gb.get_absolute_url }}" class="list-group-item">
+                            <strong>{{ gb.theme }}</strong>
+                            <span class="badge">{{ gb.n_participants }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
 </div>
 {% endblock content %}

@@ -3,7 +3,7 @@ import calendar
 
 from dateutil.relativedelta import relativedelta
 
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
 
@@ -14,9 +14,14 @@ from ..forms import DateForm, ParticipantForm
 
 class GroupBuildListView(ListView):
     model = GroupBuild
+    context_object_name = 'upcoming_builds'
 
     def get_queryset(self):
-        return GroupBuild.public.all().annotate(n_participants=Count('participants'))
+        return GroupBuild.public.filter(
+            Q(end__gte=date.today()) | Q(end=None),
+        ).annotate(
+            n_participants=Count('participants')
+        ).order_by('category', 'start')
 
     def get_context_data(self, **kwargs):
         now = timezone.now()

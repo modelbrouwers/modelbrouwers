@@ -676,7 +676,7 @@ body.groupbuilds .tab-content {
   margin-bottom: 25px;
 }
 /* line 22, ../../sass/partials/apps/_groupbuilds.scss */
-body.groupbuilds #calendar {
+body.groupbuilds #calendar, body.groupbuilds #build-list {
   margin-top: 15px;
   background-color: #f5f5f5;
   -moz-border-radius: 5px;
@@ -782,6 +782,13 @@ body.groupbuilds .category-icon {
   right: 50px;
   font-size: 500%;
   color: rgba(0, 102, 153, 0.3);
+}
+/* line 120, ../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds #build-list .tab-content {
+  padding: 15px;
+  background-color: #FFFFFF;
+  border: solid 1px #DDD;
+  border-top: none;
 }
 
 /* line 3, ../../sass/partials/apps/_users.scss */
