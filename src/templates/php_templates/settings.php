@@ -16,31 +16,37 @@
                             'label' => 'home',
                             'title' => 'Ga naar de startpagina!',
                             'url' => '/',
+                            'classes' => '',
                             ),
         'forum'         => array(
                             'label' => 'forum',
                             'title' => 'Ga naar het forum!',
                             'url' => '/phpBB3/',
+                            'classes' => '',
                             ),
         'shop'          => array(
                             'label' => 'shop',
                             'title' => 'Ga naar de shop!',
                             'url' => '/winkel/',
+                            'classes' => '',
                             ),
         'albums'        => array(
                             'label' => 'albums',
                             'title' => 'Ga naar de albums!',
                             'url' => '/albums/',
+                            'classes' => '',
                             ),
         'kitreviews'    => array(
                             'label' => 'kitreviews',
                             'title' => 'Ga naar de kitreviews!',
                             'url' => '/kitreviews/',
+                            'classes' => '',
                             ),
         'group-builds' => array(
                             'label' => 'groepsbouwen',
                             'title' => 'Ga naar de groepsbouwen!',
                             'url' => '/group-builds/',
+                            'classes' => '',
                             ),
     );
 
