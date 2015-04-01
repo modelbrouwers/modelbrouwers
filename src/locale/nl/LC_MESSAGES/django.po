@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-16 19:42+0100\n"
+"POT-Creation-Date: 2015-04-01 09:31+0200\n"
 "PO-Revision-Date: 2015-02-15 00:26+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1161,7 +1161,7 @@ msgstr ""
 msgid "e-mail address"
 msgstr ""
 
-#: brouwers/brouwersdag/models.py:14 brouwers/groupbuilds/models.py:233
+#: brouwers/brouwersdag/models.py:14 brouwers/groupbuilds/models.py:237
 #: brouwers/groupbuilds/templates/groupbuilds/handlebars/participant.hbs:20
 msgid "model name"
 msgstr ""
@@ -1463,7 +1463,7 @@ msgstr ""
 msgid "This URL doesn't point to a forum topic."
 msgstr ""
 
-#: brouwers/builds/models.py:23 brouwers/groupbuilds/models.py:52
+#: brouwers/builds/models.py:23 brouwers/groupbuilds/models.py:53
 msgid "slug"
 msgstr ""
 
@@ -1496,11 +1496,11 @@ msgstr ""
 msgid "Enter a descriptive build title."
 msgstr ""
 
-#: brouwers/builds/models.py:47 brouwers/groupbuilds/models.py:63
+#: brouwers/builds/models.py:47 brouwers/groupbuilds/models.py:64
 msgid "start date"
 msgstr ""
 
-#: brouwers/builds/models.py:48 brouwers/groupbuilds/models.py:65
+#: brouwers/builds/models.py:48 brouwers/groupbuilds/models.py:66
 msgid "end date"
 msgstr ""
 
@@ -1745,7 +1745,7 @@ msgstr ""
 msgid "icon class"
 msgstr ""
 
-#: brouwers/forum_tools/models.py:72 brouwers/groupbuilds/models.py:55
+#: brouwers/forum_tools/models.py:72 brouwers/groupbuilds/models.py:56
 msgid "forum category"
 msgstr ""
 
@@ -1791,7 +1791,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: brouwers/forum_tools/models.py:220 brouwers/groupbuilds/models.py:46
+#: brouwers/forum_tools/models.py:220 brouwers/groupbuilds/models.py:47
 #, fuzzy
 msgid "forum id"
 msgstr "forum"
@@ -2356,122 +2356,122 @@ msgstr "Geen toegang"
 msgid "extended"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:47
+#: brouwers/groupbuilds/models.py:48
 msgid "Forum id of the group build subforum"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:50
+#: brouwers/groupbuilds/models.py:51
 msgid "theme"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:51
+#: brouwers/groupbuilds/models.py:52
 #, fuzzy
 msgid "Theme/name of the group build"
 msgstr "Beheer groepsbouwen!"
 
-#: brouwers/groupbuilds/models.py:57
+#: brouwers/groupbuilds/models.py:58
 msgid "description"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:57
+#: brouwers/groupbuilds/models.py:58
 msgid "Short description"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:59
+#: brouwers/groupbuilds/models.py:60
 msgid "admins"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:60
+#: brouwers/groupbuilds/models.py:61
 #, fuzzy
 msgid "Users who manage the group build."
 msgstr "Beheer groepsbouwen!"
 
-#: brouwers/groupbuilds/models.py:64
+#: brouwers/groupbuilds/models.py:65
 msgid "Date when you want to start building."
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:66
+#: brouwers/groupbuilds/models.py:67
 msgid "Date this build ends."
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:67
+#: brouwers/groupbuilds/models.py:69
 #, fuzzy
 msgid "duration"
 msgstr "Migraties"
 
-#: brouwers/groupbuilds/models.py:71
+#: brouwers/groupbuilds/models.py:73
 msgid "status"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:73
+#: brouwers/groupbuilds/models.py:75
 msgid "users can vote"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:74
+#: brouwers/groupbuilds/models.py:76
 msgid "Let users vote to determine the build popularity"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:76
+#: brouwers/groupbuilds/models.py:78
 msgid "upvotes"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:78
+#: brouwers/groupbuilds/models.py:80
 msgid "downvotes"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:87
+#: brouwers/groupbuilds/models.py:89
 msgid "rules topic"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:88
+#: brouwers/groupbuilds/models.py:91
 msgid "topic to direct to from calendar"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:90
+#: brouwers/groupbuilds/models.py:94
 msgid "introduction topic"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:111
+#: brouwers/groupbuilds/models.py:115
 #, fuzzy
 msgid "group build"
 msgstr "groepsbouwen"
 
-#: brouwers/groupbuilds/models.py:112 templates/nav_tabs_text.html:35
+#: brouwers/groupbuilds/models.py:116 templates/nav_tabs_text.html:35
 msgid "group builds"
 msgstr "groepsbouwen"
 
-#: brouwers/groupbuilds/models.py:123
+#: brouwers/groupbuilds/models.py:127
 #, python-brace-format
 msgid "{name}: {status}"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:134
+#: brouwers/groupbuilds/models.py:138
 msgid "# participants"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:235
+#: brouwers/groupbuilds/models.py:239
 msgid "finished"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:236 brouwers/kitreviews/models.py:142
+#: brouwers/groupbuilds/models.py:240 brouwers/kitreviews/models.py:142
 msgid "topic"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:239
+#: brouwers/groupbuilds/models.py:243
 msgid "points"
 msgstr ""
 
-#: brouwers/groupbuilds/models.py:244
+#: brouwers/groupbuilds/models.py:248
 #, fuzzy
 msgid "group build participant"
 msgstr "groepsbouwen"
 
-#: brouwers/groupbuilds/models.py:245
+#: brouwers/groupbuilds/models.py:249
 #, fuzzy
 msgid "group build participants"
 msgstr "groepsbouwen"
 
-#: brouwers/groupbuilds/models.py:248
+#: brouwers/groupbuilds/models.py:252
 #, python-brace-format
 msgid "{build} participant: {user}"
 msgstr ""
@@ -2861,6 +2861,11 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
+#: brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:101
+#, fuzzy
+msgid "All unfinished group builds"
+msgstr "Beheer groepsbouwen!"
+
 #: brouwers/groupbuilds/templates/groupbuilds/groupbuild_submit.html:6
 #, fuzzy
 msgid "Submitting the group build"
@@ -2963,7 +2968,7 @@ msgstr ""
 msgid "See how much time is left"
 msgstr ""
 
-#: brouwers/groupbuilds/views/admin.py:62
+#: brouwers/groupbuilds/views/admin.py:61
 msgid "Your group build has been submitted to the moderator team."
 msgstr ""
 
