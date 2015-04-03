@@ -34,7 +34,6 @@ class CreateAlbumForm(forms.ModelForm):
             'public',
             'topic',
             'writable_to',
-            'build_report',
         )
 
     def __init__(self, *args, **kwargs):
@@ -83,7 +82,7 @@ class AlbumForm(forms.ModelForm):
 class EditAlbumForm(AlbumForm):
     class Meta:
         model = Album
-        fields = ('title', 'description', 'build_report', 'category', 'cover', 'order', 'public', 'writable_to', 'trash')
+        fields = ('title', 'description', 'category', 'cover', 'order', 'public', 'writable_to', 'trash')
         widgets = {
             'description': forms.Textarea(),
         }
@@ -103,7 +102,7 @@ class EditAlbumFormAjax(EditAlbumForm):
     class Meta:
         model = Album
         fields = (
-            'title', 'description', 'build_report',
+            'title', 'description',
             'category', 'public', 'writable_to', 'cover',
             'user'
             )

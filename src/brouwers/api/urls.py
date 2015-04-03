@@ -1,7 +1,14 @@
 from django.conf.urls import patterns, url, include
 
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = patterns('',
+from brouwers.albums.api.views import PhotoViewSet
+
+router = DefaultRouter()
+router.register(r'albums/photo', PhotoViewSet)
+
+urlpatterns = router.urls + patterns(
+    '',
     url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
     url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
 )

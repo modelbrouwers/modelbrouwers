@@ -17,6 +17,11 @@
         You can upload new pictures here. Select the album to upload to, and then
         drag your images in the drop zone!
     {% endblocktrans %}</p>
+
+    <p>
+        {% trans "No albums yet? Add one!" %}
+        <a href="{% url 'albums:create' %}" class="btn bg-main-orange">{% trans "Create album" %}</a>
+    </p>
 {% endblock %}
 
 
@@ -41,14 +46,11 @@
 <script>
 $(function(){
     var uploader = $('#uploader');
+
     uploader.fineUploader({
         debug: true,
         request: {
-            endpoint: '/api/albums/upload/'
-        },
-        deleteFile: {
-            enabled: true,
-            endpoint: '/api/albums/upload/'
+            endpoint: '{% url 'api:photo-list' %}'
         },
         retry: {
            enableAuto: true
