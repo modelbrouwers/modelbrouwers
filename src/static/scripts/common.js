@@ -1,6 +1,6 @@
 var rotation = 0;
 
-$(document).ready(function(){
+$(document).ready(function() {
     $('td.help_text div').hide(); // hide the help texts
 
     $('img').tooltip({

@@ -83,18 +83,14 @@ class Album(models.Model):
 
     # Misc features
     topic = ForumToolsIDField(_('build report topic'), blank=True, null=True, type='topic')
-    build_report = models.URLField(
-            _("build report"),
-            max_length=500,
-            help_text=_("Link to the forumtopic of the build."),
-            blank=True
-        )
-    votes = models.IntegerField(_("appreciation"), default=0)
     # albums can be voted, so we can have an 'album of the month' feature
+    votes = models.IntegerField(_("appreciation"), default=0)
+    # writable to only user, group or everyone (unix like permissions)
     writable_to = models.CharField(
         _("writable to"), max_length=1,
-        choices=WritePermissions.choices, default=WritePermissions.owner)
-    # writable to only user, group or everyone (unix like permissions)
+        choices=WritePermissions.choices, default=WritePermissions.owner,
+        help_text=_('Specify who can upload images in this album')
+    )
     trash = models.BooleanField(default=False)  # put in trash before removing from db
 
     objects = AlbumsManager()

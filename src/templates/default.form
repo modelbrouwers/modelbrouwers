@@ -27,3 +27,12 @@
     </ul>
 </div>
 {% endif %}{% endblock %}
+
+
+{% block submit %}
+<div class="submit-wrapper">
+    <button type="submit" class="btn {{ btn_class|default:'btn-primary' }}">
+    	{{ btn_text|default:_('Submit') }}
+    </button>
+</div>
+{% endblock %}

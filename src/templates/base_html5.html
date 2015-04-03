@@ -33,7 +33,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         {# fallback #}
         <script>
-            if (typeof jQuery === 'undefined') {
+            if (typeof window.jQuery === 'undefined') {
                 document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
             }
         </script>

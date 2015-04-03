@@ -5,7 +5,7 @@ import random
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Q, Max
 from django.forms import ValidationError
@@ -56,7 +56,12 @@ class UploadView(LoginRequiredMixin, TemplateView):
 class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
     form_class = CreateAlbumForm
+    template_name = 'albums/create.html'
+    success_url = reverse_lazy('albums:upload')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(AlbumCreateView, self).form_valid(form)
 
 
 

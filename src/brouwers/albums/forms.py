@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 from .models import *
 from .utils import admin_mode
 
-import re, urllib2
+import urllib2
 
 
 class UploadForm(forms.Form):
@@ -24,37 +24,6 @@ class UploadForm(forms.Form):
         ).order_by('-last_upload')
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def cln_build_report(form):
-    url = form.cleaned_data['build_report']
-    if not url:
-        return url
-    match = re.search('modelbrouwers.nl/phpBB3/viewtopic.php\?f=(\d+)&t=(\d+)', url)
-    if not match:
-        raise forms.ValidationError(_("This link doesn't point to a valid forum topic. Please correct the error"))
-    url = "http://www.%s" % match.group(0)
-    return url
-
-
 class CreateAlbumForm(forms.ModelForm):
     class Meta:
         model = Album
@@ -63,8 +32,14 @@ class CreateAlbumForm(forms.ModelForm):
             'description',
             'category',
             'public',
+            'topic',
+            'writable_to',
             'build_report',
         )
+
+    def __init__(self, *args, **kwargs):
+        super(CreateAlbumForm, self).__init__(*args, **kwargs)
+        self.fields['category'].queryset = Category.objects.filter(public=True)
 
 
 
@@ -82,9 +57,6 @@ class AlbumForm(forms.ModelForm):
         widgets = {
             'user': forms.HiddenInput(),
         }
-
-    def clean_build_report(self):
-        return cln_build_report(self)
 
     def __init__(self, *args, **kwargs):
         self.user = None
@@ -126,8 +98,6 @@ class EditAlbumForm(AlbumForm):
             self.instance.title = "trash_%s_%s" % (timezone.now().strftime('%d%m%Y_%H.%M.%s'), self.instance.title)
         super(EditAlbumForm, self).save(*args, **kwargs)
 
-    def clean_build_report(self):
-        return cln_build_report(self)
 
 class EditAlbumFormAjax(EditAlbumForm):
     class Meta:
