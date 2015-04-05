@@ -38,6 +38,27 @@
 {% endblock %}
 
 
+{% block modals %}
+<div class="modal fade" id="modal-albums">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="{% trans "Close" %}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{% trans "Incorrect album selection" %}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% trans "You must select an album, and no more than one album." %}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 
 {% block extrascript %}
 {{ block.super }}
@@ -50,10 +71,16 @@ $(function(){
     uploader.fineUploader({
         debug: true,
         request: {
-            endpoint: '{% url 'api:photo-list' %}'
+            endpoint: '{% url 'api:photo-list' %}',
+            inputName: 'image',
+            filenameParam: 'name',
+            customHeaders: {
+                Accept: 'text/plain', // otherwise DRF complains
+                'X-CSRFToken': csrf_token
+            }
         },
         retry: {
-           enableAuto: true
+           enableAuto: false,
         },
         validation: {
             allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'] // only images
@@ -61,9 +88,18 @@ $(function(){
         autoUpload: {{ album_preferences.auto_start_uploading|yesno:'true,false' }}
     });
 
-    $('#trigger-upload').click(function() {
-        uploader.fineUploader('setParams', {foo: 'bar'});
+    $('#trigger-upload').click(function(e) {
+        e.preventDefault();
+        // TODO: multi upload
+        var checked = $('#upload-form input[name="album"]:checked');
+        if (checked.length !== 1) {
+            $('#modal-albums').modal('show');
+            return false;
+        }
+        var album = parseInt(checked.val(), 10);
+        uploader.fineUploader('setParams', {album: album});
         uploader.fineUploader('uploadStoredFiles');
+        return false;
     });
 });
 </script>
