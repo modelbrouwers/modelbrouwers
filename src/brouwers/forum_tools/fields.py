@@ -9,6 +9,11 @@ class ForumToolsIDField(PositiveIntegerField):
         self._type = type_
         super(ForumToolsIDField, self).__init__(*args, **kwargs)
 
+    def deconstruct(self):
+        name, path, args, kwargs = super(ForumToolsIDField, self).deconstruct()
+        kwargs['type'] = self._type
+        return (name, path, args, kwargs)
+
     def formfield(self, **kwargs):
         from .forms import ForumIDField, TopicIDField
         if self._type == 'forum':

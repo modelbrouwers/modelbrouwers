@@ -4,11 +4,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import TemplateView
 
-admin.autodiscover()
 
 FORUM_URL = settings.PHPBB_URL
 FORUM_URL = FORUM_URL[1:] if FORUM_URL.startswith('/') else FORUM_URL
 FORUM_URL = FORUM_URL if FORUM_URL.endswith('/') else FORUM_URL + '/'
+
 
 urlpatterns = patterns(
     '',

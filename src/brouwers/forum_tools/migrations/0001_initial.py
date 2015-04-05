@@ -1,146 +1,158 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import brouwers.forum_tools.fields
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'ForumLinkBase'
-        db.create_table(u'forum_tools_forumlinkbase', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('link_id', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('short_description', self.gf('django.db.models.fields.CharField')(max_length=64, blank=True)),
-            ('enabled', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('from_date', self.gf('django.db.models.fields.DateField')()),
-            ('to_date', self.gf('django.db.models.fields.DateField')()),
-        ))
-        db.send_create_signal(u'forum_tools', ['ForumLinkBase'])
+    dependencies = [
+    ]
 
-        # Adding model 'ForumLinkSynced'
-        db.create_table(u'forum_tools_forumlinksynced', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('base', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['forum_tools.ForumLinkBase'])),
-            ('link_id', self.gf('django.db.models.fields.CharField')(max_length=128)),
-        ))
-        db.send_create_signal(u'forum_tools', ['ForumLinkSynced'])
-
-        # Adding model 'BuildReportsForum'
-        db.create_table(u'forum_tools_buildreportsforum', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('forum', self.gf('brouwers.forum_tools.fields.ForumToolsIDField')(type='forum')),
-        ))
-        db.send_create_signal(u'forum_tools', ['BuildReportsForum'])
-
-        # Adding model 'ForumCategory'
-        db.create_table(u'forum_tools_forumcategory', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('forum', self.gf('brouwers.forum_tools.fields.ForumToolsIDField')(null=True, type='forum', blank=True)),
-            ('icon_class', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-        ))
-        db.send_create_signal(u'forum_tools', ['ForumCategory'])
-
-        # Adding model 'ForumPostCountRestriction'
-        db.create_table(u'forum_tools_forumpostcountrestriction', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('forum', self.gf('brouwers.forum_tools.fields.ForumToolsIDField')(null=True, type='forum', blank=True)),
-            ('min_posts', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
-            ('posting_level', self.gf('django.db.models.fields.CharField')(max_length=1)),
-        ))
-        db.send_create_signal(u'forum_tools', ['ForumPostCountRestriction'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'ForumLinkBase'
-        db.delete_table(u'forum_tools_forumlinkbase')
-
-        # Deleting model 'ForumLinkSynced'
-        db.delete_table(u'forum_tools_forumlinksynced')
-
-        # Deleting model 'BuildReportsForum'
-        db.delete_table(u'forum_tools_buildreportsforum')
-
-        # Deleting model 'ForumCategory'
-        db.delete_table(u'forum_tools_forumcategory')
-
-        # Deleting model 'ForumPostCountRestriction'
-        db.delete_table(u'forum_tools_forumpostcountrestriction')
-
-
-    models = {
-        u'forum_tools.buildreportsforum': {
-            'Meta': {'ordering': "['forum']", 'object_name': 'BuildReportsForum'},
-            'forum': ('brouwers.forum_tools.fields.ForumToolsIDField', [], {'type': "'forum'"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'forum_tools.forum': {
-            'Meta': {'ordering': "['forum_name']", 'object_name': 'Forum', 'db_table': "'phpbb_forums'", 'managed': 'False'},
-            'forum_desc': ('django.db.models.fields.TextField', [], {}),
-            'forum_id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'forum_name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
-            'forum_posts': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'forum_topics': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'default': '0', 'related_name': "'child'", 'to': u"orm['forum_tools.Forum']"})
-        },
-        u'forum_tools.forumcategory': {
-            'Meta': {'ordering': "('name',)", 'object_name': 'ForumCategory'},
-            'forum': ('brouwers.forum_tools.fields.ForumToolsIDField', [], {'null': 'True', 'type': "'forum'", 'blank': 'True'}),
-            'icon_class': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        u'forum_tools.forumlinkbase': {
-            'Meta': {'object_name': 'ForumLinkBase'},
-            'enabled': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'from_date': ('django.db.models.fields.DateField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'link_id': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'short_description': ('django.db.models.fields.CharField', [], {'max_length': '64', 'blank': 'True'}),
-            'to_date': ('django.db.models.fields.DateField', [], {})
-        },
-        u'forum_tools.forumlinksynced': {
-            'Meta': {'object_name': 'ForumLinkSynced'},
-            'base': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['forum_tools.ForumLinkBase']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'link_id': ('django.db.models.fields.CharField', [], {'max_length': '128'})
-        },
-        u'forum_tools.forumpostcountrestriction': {
-            'Meta': {'ordering': "['forum']", 'object_name': 'ForumPostCountRestriction'},
-            'forum': ('brouwers.forum_tools.fields.ForumToolsIDField', [], {'null': 'True', 'type': "'forum'", 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'min_posts': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
-            'posting_level': ('django.db.models.fields.CharField', [], {'max_length': '1'})
-        },
-        u'forum_tools.forumuser': {
-            'Meta': {'ordering': "('username',)", 'object_name': 'ForumUser', 'db_table': "u'phpbb_users'", 'managed': 'False'},
-            'user_actkey': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'user_email': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'user_email_hash': ('django.db.models.fields.BigIntegerField', [], {'default': '0', 'db_column': "'user_email_hash'"}),
-            'user_id': ('django.db.models.fields.PositiveIntegerField', [], {'primary_key': 'True'}),
-            'user_interests': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'user_occ': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'user_permissions': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'user_posts': ('django.db.models.fields.IntegerField', [], {}),
-            'user_sig': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'username_clean': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        u'forum_tools.report': {
-            'Meta': {'object_name': 'Report', 'db_table': "u'phpbb_reports'", 'managed': 'False'},
-            'report_closed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'report_id': ('django.db.models.fields.PositiveIntegerField', [], {'primary_key': 'True'}),
-            'report_text': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'report_time_int': ('django.db.models.fields.IntegerField', [], {'db_column': "'report_time'"})
-        },
-        u'forum_tools.topic': {
-            'Meta': {'ordering': "['topic_id']", 'object_name': 'Topic', 'db_table': "'phpbb_topics'", 'managed': 'False'},
-            'forum': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['forum_tools.Forum']"}),
-            'topic_id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'topic_title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        }
-    }
-
-    complete_apps = ['forum_tools']
+    operations = [
+        migrations.CreateModel(
+            name='Forum',
+            fields=[
+                ('forum_id', models.IntegerField(serialize=False, primary_key=True)),
+                ('forum_name', models.CharField(max_length=60)),
+                ('forum_topics', models.IntegerField(default=0)),
+                ('forum_posts', models.IntegerField(default=0)),
+                ('forum_desc', models.TextField()),
+            ],
+            options={
+                'ordering': ['forum_name'],
+                'db_table': 'phpbb_forums',
+                'managed': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ForumUser',
+            fields=[
+                ('user_id', models.PositiveIntegerField(help_text='Primary key', serialize=False, primary_key=True)),
+                ('username', models.CharField(max_length=255, verbose_name='username')),
+                ('username_clean', models.CharField(max_length=255, verbose_name='username')),
+                ('user_posts', models.IntegerField()),
+                ('user_email', models.CharField(max_length=100, verbose_name='email')),
+                ('user_email_hash', models.BigIntegerField(default=0, help_text="A hash of the user's email address.", db_column=b'user_email_hash')),
+                ('user_permissions', models.TextField(blank=True)),
+                ('user_sig', models.TextField(blank=True)),
+                ('user_interests', models.TextField(blank=True)),
+                ('user_actkey', models.TextField(blank=True)),
+                ('user_occ', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ('username',),
+                'verbose_name': 'forum user',
+                'db_table': 'phpbb_users',
+                'managed': False,
+                'verbose_name_plural': 'forum users',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Report',
+            fields=[
+                ('report_id', models.PositiveIntegerField(help_text=b'Primary key', serialize=False, primary_key=True)),
+                ('report_closed', models.BooleanField(default=False, help_text='Closed reports need no more attention.', verbose_name='closed')),
+                ('report_time_int', models.IntegerField(help_text='UNIX time when the report was added.', verbose_name='time', db_column=b'report_time')),
+                ('report_text', models.TextField(verbose_name=b'text', blank=True)),
+            ],
+            options={
+                'verbose_name': 'report',
+                'db_table': 'phpbb_reports',
+                'managed': False,
+                'verbose_name_plural': 'reports',
+                'permissions': (('can_see_reports', 'Can see (number of) open reports'),),
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Topic',
+            fields=[
+                ('topic_id', models.IntegerField(serialize=False, primary_key=True)),
+                ('topic_title', models.CharField(max_length=255)),
+                ('last_post_time', models.BigIntegerField(default=0, db_column=b'topic_last_post_time')),
+                ('create_time', models.BigIntegerField(default=0, db_column=b'topic_time')),
+            ],
+            options={
+                'ordering': ['topic_id'],
+                'db_table': 'phpbb_topics',
+                'managed': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='BuildReportsForum',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type=b'forum', verbose_name='forum')),
+            ],
+            options={
+                'ordering': ['forum'],
+                'verbose_name': 'build report forum',
+                'verbose_name_plural': 'build report forums',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ForumCategory',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=255, verbose_name='name')),
+                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type=b'forum', null=True, verbose_name='forum', blank=True)),
+                ('icon_class', models.CharField(max_length=50, verbose_name='icon class', blank=True)),
+            ],
+            options={
+                'ordering': ('name',),
+                'verbose_name': 'forum category',
+                'verbose_name_plural': 'forum categories',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ForumLinkBase',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('link_id', models.CharField(help_text='HTML id of the base anchor.', max_length=128, verbose_name='link id')),
+                ('short_description', models.CharField(max_length=64, verbose_name='short description', blank=True)),
+                ('enabled', models.BooleanField(default=True, help_text='Enable the syncing of this link.', verbose_name='enabled')),
+                ('from_date', models.DateField(help_text='Start date from when this link is enabled.', verbose_name='from date')),
+                ('to_date', models.DateField(help_text='End date from when this link is enabled, this date included.', verbose_name='to date')),
+            ],
+            options={
+                'verbose_name': 'base forum link',
+                'verbose_name_plural': 'base forum links',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ForumLinkSynced',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('link_id', models.CharField(help_text='HTML id of the anchor to be synced.', max_length=128, verbose_name='link id')),
+                ('base', models.ForeignKey(verbose_name='base link', to='forum_tools.ForumLinkBase', help_text='Link this link syncs with.')),
+            ],
+            options={
+                'verbose_name': 'synced forum link',
+                'verbose_name_plural': 'synced forum links',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ForumPostCountRestriction',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type=b'forum', null=True, verbose_name='forum id', blank=True)),
+                ('min_posts', models.PositiveSmallIntegerField(verbose_name='minimum number of posts')),
+                ('posting_level', models.CharField(max_length=1, verbose_name='posting level', choices=[(b'T', 'Topic'), (b'R', 'Reply')])),
+            ],
+            options={
+                'ordering': ['forum'],
+                'verbose_name': 'forum post count restriction',
+                'verbose_name_plural': 'forum post count restrictions',
+            },
+            bases=(models.Model,),
+        ),
+    ]

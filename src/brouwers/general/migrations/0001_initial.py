@@ -1,291 +1,143 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import django.utils.timezone
+import datetime
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table(u'general_userprofile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.User'], unique=True)),
-            ('last_vote', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2010, 1, 1, 0, 0))),
-            ('forum_nickname', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30)),
-            ('exclude_from_nomination', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('secret_santa', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('street', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('number', self.gf('django.db.models.fields.CharField')(max_length=10, null=True, blank=True)),
-            ('postal', self.gf('django.db.models.fields.CharField')(max_length=10, null=True, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('province', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('country', self.gf('django.db.models.fields.CharField')(max_length=1, null=True, blank=True)),
-            ('preference', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('refuse', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('allow_sharing', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal(u'general', ['UserProfile'])
+    dependencies = [
+        ('awards', '0001_initial'),
+    ]
 
-        # Adding M2M table for field categories_voted on 'UserProfile'
-        m2m_table_name = db.shorten_name(u'general_userprofile_categories_voted')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('userprofile', models.ForeignKey(orm[u'general.userprofile'], null=False)),
-            ('category', models.ForeignKey(orm[u'awards.category'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['userprofile_id', 'category_id'])
-
-        # Adding model 'QuestionAnswer'
-        db.create_table(u'general_questionanswer', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('answer', self.gf('django.db.models.fields.CharField')(max_length=255)),
-        ))
-        db.send_create_signal(u'general', ['QuestionAnswer'])
-
-        # Adding model 'RegistrationQuestion'
-        db.create_table(u'general_registrationquestion', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('question', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('in_use', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal(u'general', ['RegistrationQuestion'])
-
-        # Adding M2M table for field answers on 'RegistrationQuestion'
-        m2m_table_name = db.shorten_name(u'general_registrationquestion_answers')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('registrationquestion', models.ForeignKey(orm[u'general.registrationquestion'], null=False)),
-            ('questionanswer', models.ForeignKey(orm[u'general.questionanswer'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['registrationquestion_id', 'questionanswer_id'])
-
-        # Adding model 'RegistrationAttempt'
-        db.create_table(u'general_registrationattempt', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('username', self.gf('django.db.models.fields.CharField')(default='_not_filled_in_', max_length=512, db_index=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=255, blank=True)),
-            ('question', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['general.RegistrationQuestion'])),
-            ('answer', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('ip_address', self.gf('django.db.models.fields.IPAddressField')(max_length=15, db_index=True)),
-            ('success', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('type_of_visitor', self.gf('django.db.models.fields.CharField')(default='normal user', max_length=255)),
-            ('ban', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['banning.Ban'], unique=True, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'general', ['RegistrationAttempt'])
-
-        # Adding model 'SoftwareVersion'
-        db.create_table(u'general_softwareversion', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('state', self.gf('django.db.models.fields.CharField')(default='v', max_length=1)),
-            ('major', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
-            ('minor', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('detail', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0, null=True, blank=True)),
-            ('start', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('end', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('changelog', self.gf('django.db.models.fields.TextField')(blank=True)),
-        ))
-        db.send_create_signal(u'general', ['SoftwareVersion'])
-
-        # Adding model 'PasswordReset'
-        db.create_table(u'general_passwordreset', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.User'])),
-            ('h', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('expire', self.gf('django.db.models.fields.DateTimeField')()),
-        ))
-        db.send_create_signal(u'general', ['PasswordReset'])
-
-        # Adding unique constraint on 'PasswordReset', fields ['user', 'h']
-        db.create_unique(u'general_passwordreset', ['user_id', 'h'])
-
-        # Adding model 'Redirect'
-        db.create_table(u'general_redirect', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('path_from', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
-            ('path_to', self.gf('django.db.models.fields.CharField')(max_length=1024)),
-        ))
-        db.send_create_signal(u'general', ['Redirect'])
-
-        # Adding model 'Announcement'
-        db.create_table(u'general_announcement', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('text', self.gf('django.db.models.fields.TextField')()),
-            ('language', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('from_date', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('to_date', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'general', ['Announcement'])
-
-
-    def backwards(self, orm):
-        # Removing unique constraint on 'PasswordReset', fields ['user', 'h']
-        db.delete_unique(u'general_passwordreset', ['user_id', 'h'])
-
-        # Deleting model 'UserProfile'
-        db.delete_table(u'general_userprofile')
-
-        # Removing M2M table for field categories_voted on 'UserProfile'
-        db.delete_table(db.shorten_name(u'general_userprofile_categories_voted'))
-
-        # Deleting model 'QuestionAnswer'
-        db.delete_table(u'general_questionanswer')
-
-        # Deleting model 'RegistrationQuestion'
-        db.delete_table(u'general_registrationquestion')
-
-        # Removing M2M table for field answers on 'RegistrationQuestion'
-        db.delete_table(db.shorten_name(u'general_registrationquestion_answers'))
-
-        # Deleting model 'RegistrationAttempt'
-        db.delete_table(u'general_registrationattempt')
-
-        # Deleting model 'SoftwareVersion'
-        db.delete_table(u'general_softwareversion')
-
-        # Deleting model 'PasswordReset'
-        db.delete_table(u'general_passwordreset')
-
-        # Deleting model 'Redirect'
-        db.delete_table(u'general_redirect')
-
-        # Deleting model 'Announcement'
-        db.delete_table(u'general_announcement')
-
-
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'awards.category': {
-            'Meta': {'object_name': 'Category'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'})
-        },
-        u'banning.ban': {
-            'Meta': {'object_name': 'Ban'},
-            'automatic': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'expiry_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ip': ('django.db.models.fields.IPAddressField', [], {'max_length': '15', 'blank': 'True'}),
-            'reason': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'reason_internal': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']", 'null': 'True', 'blank': 'True'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'general.announcement': {
-            'Meta': {'ordering': "['-from_date']", 'object_name': 'Announcement'},
-            'from_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'language': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'text': ('django.db.models.fields.TextField', [], {}),
-            'to_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'})
-        },
-        u'general.passwordreset': {
-            'Meta': {'ordering': "('expire',)", 'unique_together': "(('user', 'h'),)", 'object_name': 'PasswordReset'},
-            'expire': ('django.db.models.fields.DateTimeField', [], {}),
-            'h': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']"})
-        },
-        u'general.questionanswer': {
-            'Meta': {'object_name': 'QuestionAnswer'},
-            'answer': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'general.redirect': {
-            'Meta': {'ordering': "('path_from',)", 'object_name': 'Redirect'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'path_from': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'path_to': ('django.db.models.fields.CharField', [], {'max_length': '1024'})
-        },
-        u'general.registrationattempt': {
-            'Meta': {'ordering': "('-timestamp',)", 'object_name': 'RegistrationAttempt'},
-            'answer': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'ban': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['banning.Ban']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '255', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ip_address': ('django.db.models.fields.IPAddressField', [], {'max_length': '15', 'db_index': 'True'}),
-            'question': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['general.RegistrationQuestion']"}),
-            'success': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'type_of_visitor': ('django.db.models.fields.CharField', [], {'default': "'normal user'", 'max_length': '255'}),
-            'username': ('django.db.models.fields.CharField', [], {'default': "'_not_filled_in_'", 'max_length': '512', 'db_index': 'True'})
-        },
-        u'general.registrationquestion': {
-            'Meta': {'object_name': 'RegistrationQuestion'},
-            'answers': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['general.QuestionAnswer']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'in_use': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'question': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        u'general.softwareversion': {
-            'Meta': {'ordering': "('-state', '-major', '-minor', '-detail')", 'object_name': 'SoftwareVersion'},
-            'changelog': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'detail': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0', 'null': 'True', 'blank': 'True'}),
-            'end': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'major': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'minor': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'start': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'state': ('django.db.models.fields.CharField', [], {'default': "'v'", 'max_length': '1'})
-        },
-        u'general.userprofile': {
-            'Meta': {'ordering': "['forum_nickname']", 'object_name': 'UserProfile'},
-            'allow_sharing': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'categories_voted': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['awards.Category']", 'null': 'True', 'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'country': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'}),
-            'exclude_from_nomination': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'forum_nickname': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_vote': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2010, 1, 1, 0, 0)'}),
-            'number': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'postal': ('django.db.models.fields.CharField', [], {'max_length': '10', 'null': 'True', 'blank': 'True'}),
-            'preference': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'province': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'refuse': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'secret_santa': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'street': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']", 'unique': 'True'})
-        },
-        u'users.user': {
-            'Meta': {'ordering': "['username_clean']", 'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'forumuser_id': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
-            'username_clean': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'})
-        }
-    }
-
-    complete_apps = ['general']
+    operations = [
+        migrations.CreateModel(
+            name='Announcement',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('text', models.TextField()),
+                ('language', models.CharField(max_length=10, verbose_name='language', choices=[(b'en', b'English'), (b'nl', b'Dutch')])),
+                ('from_date', models.DateTimeField(null=True, blank=True)),
+                ('to_date', models.DateTimeField(null=True, blank=True)),
+            ],
+            options={
+                'ordering': ['-from_date'],
+                'verbose_name': 'announcement',
+                'verbose_name_plural': 'announcements',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='PasswordReset',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('h', models.CharField(max_length=256, verbose_name='hash')),
+                ('expire', models.DateTimeField(verbose_name='expire datetime')),
+            ],
+            options={
+                'ordering': ('expire',),
+                'verbose_name': 'password reset',
+                'verbose_name_plural': 'password resets',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='QuestionAnswer',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('answer', models.CharField(max_length=255)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Redirect',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('path_from', models.CharField(help_text="path from where to redirect, without leading slash.                         E.g. '/shop/' becomse 'shop/'.", unique=True, max_length=255, verbose_name='path from')),
+                ('path_to', models.CharField(help_text='Path (relative or absolute to the docroot) or url.', max_length=1024, verbose_name='redirect to')),
+            ],
+            options={
+                'ordering': ('path_from',),
+                'verbose_name': 'redirect',
+                'verbose_name_plural': 'redirects',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='RegistrationAttempt',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('username', models.CharField(default=b'_not_filled_in_', max_length=512, verbose_name='username', db_index=True)),
+                ('email', models.EmailField(max_length=255, verbose_name='email', blank=True)),
+                ('answer', models.CharField(max_length=255, verbose_name='answer', blank=True)),
+                ('timestamp', models.DateTimeField(auto_now_add=True, verbose_name='timestamp')),
+                ('ip_address', models.IPAddressField(verbose_name='IP address', db_index=True)),
+                ('success', models.BooleanField(default=False, verbose_name='success')),
+                ('type_of_visitor', models.CharField(default=b'normal user', max_length=255, verbose_name='type of visitor')),
+            ],
+            options={
+                'ordering': ('-timestamp',),
+                'verbose_name': 'registration attempt',
+                'verbose_name_plural': 'registration attempts',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='RegistrationQuestion',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('question', models.CharField(help_text='Question which must be answered for registration.', max_length=255, verbose_name='Anti-spambot question')),
+                ('in_use', models.BooleanField(default=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='SoftwareVersion',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('state', models.CharField(default=b'v', max_length=1, choices=[(b'a', b'alpha'), (b'b', b'beta'), (b'v', b'vanilla')])),
+                ('major', models.PositiveSmallIntegerField(default=1)),
+                ('minor', models.PositiveSmallIntegerField(default=0)),
+                ('detail', models.PositiveSmallIntegerField(default=0, null=True, blank=True)),
+                ('start', models.DateTimeField(default=django.utils.timezone.now)),
+                ('end', models.DateTimeField(default=django.utils.timezone.now)),
+                ('changelog', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ('-state', '-major', '-minor', '-detail'),
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='UserProfile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('last_vote', models.DateField(default=datetime.date(2010, 1, 1))),
+                ('forum_nickname', models.CharField(unique=True, max_length=30)),
+                ('exclude_from_nomination', models.BooleanField(default=False, help_text='If checked, you will be excluded from Awards-nominations.', verbose_name='exclude me from nominations')),
+                ('secret_santa', models.BooleanField(default=False, help_text='Aanvinken als je meedoet')),
+                ('street', models.CharField(max_length=255, null=True, verbose_name='street name', blank=True)),
+                ('number', models.CharField(help_text='house number (+ PO box if applicable)', max_length=10, null=True, verbose_name='number', blank=True)),
+                ('postal', models.CharField(max_length=10, null=True, verbose_name='postal code', blank=True)),
+                ('city', models.CharField(max_length=255, null=True, verbose_name='city', blank=True)),
+                ('province', models.CharField(max_length=255, null=True, verbose_name='province', blank=True)),
+                ('country', models.CharField(blank=True, max_length=1, null=True, verbose_name='country', choices=[(b'N', 'The Netherlands'), (b'B', 'Belgium'), (b'D', 'Germany'), (b'F', 'France')])),
+                ('preference', models.TextField(help_text='Dit wil ik graag', null=True, blank=True)),
+                ('refuse', models.TextField(help_text='Dit wil ik absoluut niet', null=True, blank=True)),
+                ('allow_sharing', models.BooleanField(default=True, help_text="Checking this gives us permission to share your topics and albums on social media. Uncheck if you don't want to share.", verbose_name='allow social sharing')),
+                ('categories_voted', models.ManyToManyField(to='awards.Category', null=True, blank=True)),
+            ],
+            options={
+                'ordering': ['forum_nickname'],
+                'verbose_name': 'userprofile',
+                'verbose_name_plural': 'userprofiles',
+            },
+            bases=(models.Model,),
+        ),
+    ]

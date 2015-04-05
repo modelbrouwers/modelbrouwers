@@ -183,13 +183,13 @@ class AlbumGroup(models.Model):
         return _(u"Write permissions for '%(album)s'") % {'album': self.album.__unicode__()}
 
 
-class Photo(models.Model):
-    """ Helper functions """
-    def get_image_path(instance, filename):
-        name, extension = os.path.splitext(filename)
-        filename = name + extension
-        return os.path.join('albums', str(instance.album.user.id), str(instance.album.id), filename)
+def get_image_path(instance, filename):
+    name, extension = os.path.splitext(filename)
+    filename = name + extension
+    return os.path.join('albums', str(instance.album.user.id), str(instance.album.id), filename)
 
+
+class Photo(models.Model):
     """ Model Fields """
     #image properties
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True) #we need to know the owner (public albums)

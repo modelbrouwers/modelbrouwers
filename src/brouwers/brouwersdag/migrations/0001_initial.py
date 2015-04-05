@@ -1,168 +1,81 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'ShowCasedModel'
-        db.create_table(u'brouwersdag_showcasedmodel', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.User'], null=True, blank=True)),
-            ('owner_name', self.gf('django.db.models.fields.CharField')(max_length=254)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=254)),
-            ('brand', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['kitreviews.Brand'], null=True, blank=True)),
-            ('scale', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
-            ('remarks', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('topic', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-            ('length', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
-            ('width', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
-            ('height', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
-            ('competition', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['brouwersdag.Competition'], null=True, blank=True)),
-            ('is_competitor', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_paid', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-        ))
-        db.send_create_signal(u'brouwersdag', ['ShowCasedModel'])
+    dependencies = [
+    ]
 
-        # Adding model 'Competition'
-        db.create_table(u'brouwersdag_competition', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('price', self.gf('django.db.models.fields.DecimalField')(default='0.0', max_digits=5, decimal_places=2)),
-            ('max_num_models', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('max_participants', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('is_current', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'brouwersdag', ['Competition'])
-
-        # Adding model 'Brouwersdag'
-        db.create_table(u'brouwersdag_brouwersdag', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'brouwersdag', ['Brouwersdag'])
-
-        # Adding model 'Exhibitor'
-        db.create_table(u'brouwersdag_exhibitor', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('website', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-            ('brouwersdag', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['brouwersdag.Brouwersdag'], null=True, blank=True)),
-            ('space', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('_order', self.gf('django.db.models.fields.IntegerField')(default=0)),
-        ))
-        db.send_create_signal(u'brouwersdag', ['Exhibitor'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'ShowCasedModel'
-        db.delete_table(u'brouwersdag_showcasedmodel')
-
-        # Deleting model 'Competition'
-        db.delete_table(u'brouwersdag_competition')
-
-        # Deleting model 'Brouwersdag'
-        db.delete_table(u'brouwersdag_brouwersdag')
-
-        # Deleting model 'Exhibitor'
-        db.delete_table(u'brouwersdag_exhibitor')
-
-
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'brouwersdag.brouwersdag': {
-            'Meta': {'ordering': "('-date',)", 'object_name': 'Brouwersdag'},
-            'date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'brouwersdag.competition': {
-            'Meta': {'object_name': 'Competition'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_current': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'max_num_models': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'max_participants': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'price': ('django.db.models.fields.DecimalField', [], {'default': "'0.0'", 'max_digits': '5', 'decimal_places': '2'})
-        },
-        u'brouwersdag.exhibitor': {
-            'Meta': {'ordering': "(u'_order',)", 'object_name': 'Exhibitor'},
-            '_order': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'brouwersdag': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['brouwersdag.Brouwersdag']", 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'space': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'})
-        },
-        u'brouwersdag.showcasedmodel': {
-            'Meta': {'object_name': 'ShowCasedModel'},
-            'brand': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['kitreviews.Brand']", 'null': 'True', 'blank': 'True'}),
-            'competition': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['brouwersdag.Competition']", 'null': 'True', 'blank': 'True'}),
-            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'height': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_competitor': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_paid': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'length': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '254'}),
-            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']", 'null': 'True', 'blank': 'True'}),
-            'owner_name': ('django.db.models.fields.CharField', [], {'max_length': '254'}),
-            'remarks': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'scale': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
-            'topic': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
-            'width': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'kitreviews.brand': {
-            'Meta': {'ordering': "['name']", 'object_name': 'Brand'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'db_index': 'True'}),
-            'logo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'db_index': 'True'})
-        },
-        u'users.user': {
-            'Meta': {'ordering': "['username_clean']", 'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'forumuser_id': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
-            'username_clean': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'})
-        }
-    }
-
-    complete_apps = ['brouwersdag']
+    operations = [
+        migrations.CreateModel(
+            name='Brouwersdag',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100, verbose_name='name')),
+                ('date', models.DateField(null=True, verbose_name='date', blank=True)),
+            ],
+            options={
+                'ordering': ('-date',),
+                'verbose_name': 'brouwersdag',
+                'verbose_name_plural': 'brouwersdagen',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Competition',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100, verbose_name='name')),
+                ('price', models.DecimalField(default=b'0.0', verbose_name='price per model', max_digits=5, decimal_places=2)),
+                ('max_num_models', models.PositiveSmallIntegerField(default=0, help_text='Maximum number of models per participant, enter 0 for unlimited.', verbose_name='models per participant')),
+                ('max_participants', models.PositiveSmallIntegerField(default=0, help_text='Maximum number of participants, enter 0 for unlimited.', verbose_name='maximum number of participants')),
+                ('is_current', models.BooleanField(default=False, help_text='Marking this competition as active will deactivate all other competitions.', verbose_name='current open competition?')),
+            ],
+            options={
+                'verbose_name': 'competition',
+                'verbose_name_plural': 'competitions',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Exhibitor',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100, verbose_name='name')),
+                ('website', models.URLField(verbose_name='website', blank=True)),
+                ('space', models.CharField(help_text='Amount of space needed. 100 characters or less.', max_length=100, verbose_name='space needed', blank=True)),
+            ],
+            options={
+                'ordering': ('name',),
+                'verbose_name': 'exhibitor',
+                'verbose_name_plural': 'exhibitors',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ShowCasedModel',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('owner_name', models.CharField(max_length=254, verbose_name='real name')),
+                ('email', models.EmailField(max_length=75, verbose_name='e-mail address')),
+                ('name', models.CharField(max_length=254, verbose_name='model name')),
+                ('scale', models.PositiveSmallIntegerField(help_text='Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.', verbose_name='scale')),
+                ('remarks', models.TextField(help_text='Add the features that make this model special here, e.g. "scratch built cockpit"', verbose_name='remarkable elements', blank=True)),
+                ('topic', models.URLField(verbose_name='topic url', blank=True)),
+                ('length', models.PositiveSmallIntegerField(help_text='In cm.', null=True, verbose_name='length', blank=True)),
+                ('width', models.PositiveSmallIntegerField(help_text='In cm.', null=True, verbose_name='width', blank=True)),
+                ('height', models.PositiveSmallIntegerField(help_text='In cm.', null=True, verbose_name='height', blank=True)),
+                ('is_competitor', models.BooleanField(default=False, verbose_name='enter competition?')),
+                ('is_paid', models.BooleanField(default=False, verbose_name='competition fee paid?')),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='added')),
+            ],
+            options={
+                'verbose_name': 'showcased model',
+                'verbose_name_plural': 'showcased models',
+            },
+            bases=(models.Model,),
+        ),
+    ]

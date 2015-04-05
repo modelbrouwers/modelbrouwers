@@ -196,8 +196,6 @@ INSTALLED_APPS = (
     'compressor',
     'formulation',
     'sessionprofile',
-    'south',
-    'tastypie',
     'rest_framework',
     'django_extensions',
     'rosetta',
