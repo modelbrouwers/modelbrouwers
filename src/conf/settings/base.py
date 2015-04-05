@@ -267,11 +267,6 @@ IRC_DEFAULT_NICK = 'brouwer%3F%3F'
 #################
 # APP SPECIFICS #
 #################
-#
-# SOUTH
-#
-SKIP_SOUTH_TESTS = True
-SOUTH_TESTS_MIGRATE = False
 
 #
 # Registration logging + bans
@@ -303,11 +298,6 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter',
 ]
-
-#
-# TESTS
-#
-TEST_RUNNER = 'brouwers.general.tests.utils.UnmanagedTablesTestRunner'
 
 #
 # ADMIN TOOLS

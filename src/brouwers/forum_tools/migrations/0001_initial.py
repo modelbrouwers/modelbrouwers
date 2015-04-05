@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import sys
 
 from django.db import models, migrations
 import brouwers.forum_tools.fields
+
+
+TESTING = 'test' in sys.argv  # dirty solution
 
 
 class Migration(migrations.Migration):
@@ -11,78 +15,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Forum',
-            fields=[
-                ('forum_id', models.IntegerField(serialize=False, primary_key=True)),
-                ('forum_name', models.CharField(max_length=60)),
-                ('forum_topics', models.IntegerField(default=0)),
-                ('forum_posts', models.IntegerField(default=0)),
-                ('forum_desc', models.TextField()),
-            ],
-            options={
-                'ordering': ['forum_name'],
-                'db_table': 'phpbb_forums',
-                'managed': False,
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='ForumUser',
-            fields=[
-                ('user_id', models.PositiveIntegerField(help_text='Primary key', serialize=False, primary_key=True)),
-                ('username', models.CharField(max_length=255, verbose_name='username')),
-                ('username_clean', models.CharField(max_length=255, verbose_name='username')),
-                ('user_posts', models.IntegerField()),
-                ('user_email', models.CharField(max_length=100, verbose_name='email')),
-                ('user_email_hash', models.BigIntegerField(default=0, help_text="A hash of the user's email address.", db_column=b'user_email_hash')),
-                ('user_permissions', models.TextField(blank=True)),
-                ('user_sig', models.TextField(blank=True)),
-                ('user_interests', models.TextField(blank=True)),
-                ('user_actkey', models.TextField(blank=True)),
-                ('user_occ', models.TextField(blank=True)),
-            ],
-            options={
-                'ordering': ('username',),
-                'verbose_name': 'forum user',
-                'db_table': 'phpbb_users',
-                'managed': False,
-                'verbose_name_plural': 'forum users',
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Report',
-            fields=[
-                ('report_id', models.PositiveIntegerField(help_text=b'Primary key', serialize=False, primary_key=True)),
-                ('report_closed', models.BooleanField(default=False, help_text='Closed reports need no more attention.', verbose_name='closed')),
-                ('report_time_int', models.IntegerField(help_text='UNIX time when the report was added.', verbose_name='time', db_column=b'report_time')),
-                ('report_text', models.TextField(verbose_name=b'text', blank=True)),
-            ],
-            options={
-                'verbose_name': 'report',
-                'db_table': 'phpbb_reports',
-                'managed': False,
-                'verbose_name_plural': 'reports',
-                'permissions': (('can_see_reports', 'Can see (number of) open reports'),),
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Topic',
-            fields=[
-                ('topic_id', models.IntegerField(serialize=False, primary_key=True)),
-                ('topic_title', models.CharField(max_length=255)),
-                ('last_post_time', models.BigIntegerField(default=0, db_column=b'topic_last_post_time')),
-                ('create_time', models.BigIntegerField(default=0, db_column=b'topic_time')),
-            ],
-            options={
-                'ordering': ['topic_id'],
-                'db_table': 'phpbb_topics',
-                'managed': False,
-            },
-            bases=(models.Model,),
-        ),
         migrations.CreateModel(
             name='BuildReportsForum',
             fields=[
@@ -93,6 +25,23 @@ class Migration(migrations.Migration):
                 'ordering': ['forum'],
                 'verbose_name': 'build report forum',
                 'verbose_name_plural': 'build report forums',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Forum',
+            fields=[
+                ('forum_id', models.IntegerField(serialize=False, primary_key=True)),
+                ('forum_name', models.CharField(max_length=60)),
+                ('forum_topics', models.IntegerField(default=0)),
+                ('forum_posts', models.IntegerField(default=0)),
+                ('forum_desc', models.TextField()),
+                ('parent', models.ForeignKey(related_name='child', default=0, to='forum_tools.Forum')),
+            ],
+            options={
+                'ordering': ['forum_name'],
+                'db_table': 'phpbb_forums',
+                'managed': TESTING,
             },
             bases=(models.Model,),
         ),
@@ -152,6 +101,63 @@ class Migration(migrations.Migration):
                 'ordering': ['forum'],
                 'verbose_name': 'forum post count restriction',
                 'verbose_name_plural': 'forum post count restrictions',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ForumUser',
+            fields=[
+                ('user_id', models.PositiveIntegerField(help_text='Primary key', serialize=False, primary_key=True)),
+                ('username', models.CharField(max_length=255, verbose_name='username')),
+                ('username_clean', models.CharField(max_length=255, verbose_name='username')),
+                ('user_posts', models.IntegerField()),
+                ('user_email', models.CharField(max_length=100, verbose_name='email')),
+                ('user_email_hash', models.BigIntegerField(default=0, help_text="A hash of the user's email address.", db_column=b'user_email_hash')),
+                ('user_permissions', models.TextField(blank=True)),
+                ('user_sig', models.TextField(blank=True)),
+                ('user_interests', models.TextField(blank=True)),
+                ('user_actkey', models.TextField(blank=True)),
+                ('user_occ', models.TextField(blank=True)),
+            ],
+            options={
+                'ordering': ('username',),
+                'db_table': 'phpbb_users',
+                'verbose_name': 'forum user',
+                'verbose_name_plural': 'forum users',
+                'managed': TESTING,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Report',
+            fields=[
+                ('report_id', models.PositiveIntegerField(help_text=b'Primary key', serialize=False, primary_key=True)),
+                ('report_closed', models.BooleanField(default=False, help_text='Closed reports need no more attention.', verbose_name='closed')),
+                ('report_time_int', models.IntegerField(help_text='UNIX time when the report was added.', verbose_name='time', db_column=b'report_time')),
+                ('report_text', models.TextField(verbose_name=b'text', blank=True)),
+            ],
+            options={
+                'db_table': 'phpbb_reports',
+                'verbose_name': 'report',
+                'verbose_name_plural': 'reports',
+                'permissions': (('can_see_reports', 'Can see (number of) open reports'),),
+                'managed': TESTING,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Topic',
+            fields=[
+                ('topic_id', models.IntegerField(serialize=False, primary_key=True)),
+                ('topic_title', models.CharField(max_length=255)),
+                ('last_post_time', models.BigIntegerField(default=0, db_column=b'topic_last_post_time')),
+                ('create_time', models.BigIntegerField(default=0, db_column=b'topic_time')),
+                ('forum', models.ForeignKey(to='forum_tools.Forum')),
+            ],
+            options={
+                'ordering': ['topic_id'],
+                'db_table': 'phpbb_topics',
+                'managed': TESTING,
             },
             bases=(models.Model,),
         ),
