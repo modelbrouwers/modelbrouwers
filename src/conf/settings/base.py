@@ -264,6 +264,12 @@ IRC_SERVER = 'irc.slacknet.org'
 IRC_CHANNEL = '#modelbrouwers.nl'
 IRC_DEFAULT_NICK = 'brouwer%3F%3F'
 
+
+#
+# TESTS
+#
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 #################
 # APP SPECIFICS #
 #################
