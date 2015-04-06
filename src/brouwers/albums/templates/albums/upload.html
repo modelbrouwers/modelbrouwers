@@ -62,47 +62,14 @@
 
 {% block extrascript %}
 {{ block.super }}
-<script src="{% static "node_modules/fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js" %}"></script>
-
+<script src="{% static 'node_modules/fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js' %}"></script>
+<script src="{% static 'albums/js/upload.js' %}"></script>
 <script>
-$(function(){
-    var uploader = $('#uploader');
-
-    uploader.fineUploader({
-        debug: true,
-        request: {
-            endpoint: '{% url 'api:photo-list' %}',
-            inputName: 'image',
-            filenameParam: 'name',
-            customHeaders: {
-                Accept: 'text/plain', // otherwise DRF complains
-                'X-CSRFToken': csrf_token
-            }
-        },
-        retry: {
-           enableAuto: false,
-        },
-        validation: {
-            allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'] // only images
-        },
-        autoUpload: {{ album_preferences.auto_start_uploading|yesno:'true,false' }}
-    });
-
-    $('#trigger-upload').click(function(e) {
-        e.preventDefault();
-        // TODO: multi upload
-        var checked = $('#upload-form input[name="album"]:checked');
-        if (checked.length !== 1) {
-            $('#modal-albums').modal('show');
-            return false;
-        }
-        var album = parseInt(checked.val(), 10);
-        uploader.fineUploader('setParams', {album: album});
-        uploader.fineUploader('uploadStoredFiles');
-        return false;
-    });
-});
+    var endpoint = '{% url "api:photo-list" %}';
+    var albumDetail = '{% url "albums:detail" pk='{0}' %}';
+    var autoUpload = {{ album_preferences.auto_start_uploading|yesno:'true,false' }};
 </script>
+
 
 <script type="text/template" id="qq-template">
     <div class="qq-uploader-selector qq-uploader">

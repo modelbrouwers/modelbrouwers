@@ -48,6 +48,12 @@ class IndexView(ListView):
 class UploadView(LoginRequiredMixin, TemplateView):
     template_name = 'albums/upload.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.album_set.exists():
+            messages.warning(request, _('You need to create an album before you can upload photos'))
+            return redirect(reverse('albums:create'))
+        return super(UploadView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         kwargs['form'] = UploadForm(self.request)
         return super(UploadView, self).get_context_data(**kwargs)
@@ -62,6 +68,19 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(AlbumCreateView, self).form_valid(form)
+
+
+class AlbumDetailView(DetailView):
+    queryset = Album.objects.public()
+
+    def get_queryset(self):
+        qs = super(AlbumDetailView, self).get_queryset()
+        if self.request.user.is_authenticated():
+            groups = self.request.user.albumgroup_set.all()
+            qs2 = Album.objects.filter(Q(user=self.request.user) | Q(albumgroup__in=groups))
+            return (qs | qs2).distinct()
+        return qs
+
 
 
 
@@ -221,80 +240,6 @@ def preferences(request):
             del form.fields["apply_admin_permissions"]
     return render(request, 'albums/preferences.html', {'form': form})
 
-###########################
-#        UPLOADING        #
-###########################
-@login_required
-def uploadify(request):
-    albumform = PickAlbumForm(request.user)
-    new_album = Album(user=request.user)
-    form = AlbumForm(instance=new_album, user=request.user)
-    urlform = UploadFromURLForm()
-    return render(
-        request,
-        'albums/uploadify.html', {
-            'albumform': albumform,
-            'session_cookie_name': settings.SESSION_COOKIE_NAME,
-            'session_key': request.session.session_key,
-            'form': form,
-            'urlform': urlform
-            }
-        )
-
-
-@login_required
-def pre_extra_info_uploadify(request):
-    albumform = PickAlbumForm(request.user, request.GET)
-    if albumform.is_valid():
-        album = albumform.cleaned_data['album']
-        ids_string = request.GET['photo_ids']
-
-        # clean this string, verify these are integers
-        ids_list = ids_string[:-1].split(' ')
-        photo_ids = []
-        for entry in ids_list:
-            try:
-                photo_ids.append(int(entry))
-            except ValueError: # entry is not an integer!
-                pass #fail silently
-        return set_extra_info(request, photo_ids=photo_ids, album=album)
-    return HttpResponse() #URL is created in javascript, so the form should always validate
-
-#@login_required #bug related to outputting instead of redirecting
-def set_extra_info(request, photo_ids=None, album=None):
-    PhotoFormSet = modelformset_factory(Photo, form=PhotoForm, extra=0)
-    if request.method == "POST": # editing
-        photo_ids = request.session['photo_ids']
-        formset = PhotoFormSet(
-            request.POST,
-            queryset=Photo.objects.filter(id__in=photo_ids, user=request.user, trash=False)
-            )
-        if formset.is_valid():
-            for form in formset:
-                instance = form.save()
-            redirect = request.POST.get('next', reverse(my_last_uploads))
-            return HttpResponseRedirect(redirect)
-    else:
-        if not photo_ids:
-            return HttpResponseRedirect('/albums/upload/')
-        # avoid being ablo to edit someone else's photos
-        p = Photo.objects.filter(id__in = photo_ids, user=request.user, trash=False)
-
-        request.session['photo_ids'] = photo_ids
-        formset = PhotoFormSet(queryset=p)
-        photos_uploaded_now = p.count()
-        all_photos_album = album.photo_set.filter(trash=False).count()
-        photos_before = all_photos_album - photos_uploaded_now
-
-        album_id = p[0].album.id
-        redirect = reverse(browse_album, args=[album_id])
-    return render(request, 'albums/extra_info_uploads.html', {
-        'formset': formset,
-        'photos_before': photos_before,
-        'album': album,
-        'next': redirect
-        }
-    )
 
 ###########################
 #        BROWSING         #

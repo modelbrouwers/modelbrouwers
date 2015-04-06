@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
 from .ajax_views import RotateView
-from .views import IndexView, UploadView, AlbumCreateView
+from .views import IndexView, UploadView, AlbumCreateView, AlbumDetailView
 
 
 urlpatterns = patterns(
@@ -10,6 +10,7 @@ urlpatterns = patterns(
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
+    url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),
 
 
 
