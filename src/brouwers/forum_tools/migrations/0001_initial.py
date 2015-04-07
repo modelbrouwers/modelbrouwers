@@ -2,11 +2,9 @@
 from __future__ import unicode_literals
 import sys
 
+from django.conf import settings
 from django.db import models, migrations
 import brouwers.forum_tools.fields
-
-
-TESTING = 'test' in sys.argv  # dirty solution
 
 
 class Migration(migrations.Migration):
@@ -41,7 +39,7 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['forum_name'],
                 'db_table': 'phpbb_forums',
-                'managed': TESTING,
+                'managed': settings.TESTING,
             },
             bases=(models.Model,),
         ),
@@ -124,7 +122,7 @@ class Migration(migrations.Migration):
                 'db_table': 'phpbb_users',
                 'verbose_name': 'forum user',
                 'verbose_name_plural': 'forum users',
-                'managed': TESTING,
+                'managed': settings.TESTING,
             },
             bases=(models.Model,),
         ),
@@ -141,7 +139,7 @@ class Migration(migrations.Migration):
                 'verbose_name': 'report',
                 'verbose_name_plural': 'reports',
                 'permissions': (('can_see_reports', 'Can see (number of) open reports'),),
-                'managed': TESTING,
+                'managed': settings.TESTING,
             },
             bases=(models.Model,),
         ),
@@ -157,7 +155,7 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['topic_id'],
                 'db_table': 'phpbb_topics',
-                'managed': TESTING,
+                'managed': settings.TESTING,
             },
             bases=(models.Model,),
         ),

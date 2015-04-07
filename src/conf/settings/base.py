@@ -11,6 +11,7 @@ SITE_ID = 1
 DEBUG = False
 TEMPLATE_DEBUG = False
 DEVELOPMENT = False
+TESTING = False
 
 ADMINS = ()
 
@@ -268,7 +269,7 @@ IRC_DEFAULT_NICK = 'brouwer%3F%3F'
 #
 # TESTS
 #
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+TEST_RUNNER = 'brouwers.utils.tests.runner.TestDiscoverRunner'
 
 #################
 # APP SPECIFICS #
