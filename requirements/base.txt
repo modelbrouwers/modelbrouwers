@@ -1,4 +1,5 @@
-Django==1.7.7
+django-choices==1.3
+Django==1.7.7  # django-choices pulls in Django 1.8
 Pillow==2.4.0
 django-extensions==1.5.2
 django-tastypie==0.9.15
@@ -13,7 +14,6 @@ factory_boy==2.3.1
 formulation==2.0.13
 # git+https://github.com/sergei-maertens/formulation.git@patch/fix-too-aggressive-force_text
 djangorestframework==2.4.3
-django-choices==1.3
 mock==1.0.1
 sorl-thumbnail==12.2
 django-rosetta==0.7.4
@@ -25,4 +25,3 @@ django-admin-tools==0.5.2
 bleach==1.4
 pytz<=2015.12
 django-extra-views==0.6.5
-Django==1.7.7  # django-choices pulls in Django 1.8
