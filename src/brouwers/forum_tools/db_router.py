@@ -1,4 +1,5 @@
-import sys
+from django.conf import settings
+
 
 MYSQL_MODELS = [
     'Forum',
@@ -8,20 +9,12 @@ MYSQL_MODELS = [
     'Topic',
     ]
 
-MYSQL_MODELS_NO_SYNCDB = [
-    'Forum',
-    'ForumUser',
-    'Report',
-    'ForumLinkBase',
-    'ForumLinkSynced',
-    'Topic',
-    ]
-
 SYNCDB_MODELS = [
     'ForumLinkBase',
     'ForumLinkSynced',
     'ForumCategory',
 ]
+
 
 class ForumToolsRouter(object):
     def db_for_read(self, model, **hints):
@@ -43,18 +36,15 @@ class ForumToolsRouter(object):
                 return False
         return True
 
-    def allow_syncdb(self, db, model):
+    def allow_migrate(self, db, model):
         if db == 'mysql':
-            if model._meta.app_label == 'south':
-                return True
-            # FIXME: quick and dirty hack
-            elif model._meta.app_label == 'forum_tools' and 'test' in sys.argv:
-                return True
-            elif (model._meta.app_label == 'forum_tools' \
-                    and model.__name__ in MYSQL_MODELS_NO_SYNCDB \
-                    ) or model._meta.app_label != 'forum_tools':
-                return False
-        elif db == 'default':
+            if model._meta.app_label == 'forum_tools':
+                if model._meta.db_table.startswith(settings.PHPBB_TABLE_PREFIX):
+                    return settings.TESTING  # allow migrate if we're running tests
+                else:
+                    return True
+            return False
+        elif db == 'default':  # postgres db
             if model._meta.app_label == 'forum_tools' and model.__name__ not in SYNCDB_MODELS:
                 return False
         return True
