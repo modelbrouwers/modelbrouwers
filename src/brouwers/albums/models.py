@@ -69,7 +69,10 @@ class Album(models.Model):
     #Logging and statistics
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
-    last_upload = models.DateTimeField(default=datetime(1970,1,1,0,0,0), db_index=True)
+    last_upload = models.DateTimeField(
+        default=datetime(1970, 1, 1, 0, 0, 0).replace(tzinfo=timezone.utc),
+        db_index=True
+    )
     views = models.PositiveIntegerField(default=0)
 
     #User preferences
