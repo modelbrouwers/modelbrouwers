@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import TemplateView
 
 
@@ -33,7 +34,7 @@ urlpatterns = patterns(
     url(r'^i18n/',         include('django.conf.urls.i18n')),
     url(r'^',              include('brouwers.users.urls', namespace='users')),
     url(r'^',              include('brouwers.general.urls')),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+) + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
 
 if settings.DEBUG:
     urlpatterns += patterns(
