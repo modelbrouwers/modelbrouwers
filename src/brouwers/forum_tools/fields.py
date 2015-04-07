@@ -99,18 +99,3 @@ class ForumToolsDescriptor(object):
                                     self.related.name, Forum._meta.object_name))
         elif self.type not in ['topic', 'forum']:
             raise ValueError('Unknown type: %s' % self.type)
-
-
-
-
-from south.modelsinspector import add_introspection_rules
-rules = [
-    (
-        (ForumToolsIDField, ),
-        [],
-        {
-            'type': ['_type', {'default': None}]
-        },
-    )
-]
-add_introspection_rules(rules, ["^brouwers.forum_tools\.fields\.ForumToolsIDField"])
