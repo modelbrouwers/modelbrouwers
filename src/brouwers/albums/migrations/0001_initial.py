@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.utils.timezone import utc
 import datetime
 import brouwers.albums.models
 
@@ -21,7 +22,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=500, verbose_name='album description', blank=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='last modified')),
-                ('last_upload', models.DateTimeField(default=datetime.datetime(1970, 1, 1, 0, 0), db_index=True)),
+                ('last_upload', models.DateTimeField(default=datetime.datetime(1970, 1, 1, 0, 0).replace(tzinfo=utc), db_index=True)),
                 ('views', models.PositiveIntegerField(default=0)),
                 ('order', models.PositiveSmallIntegerField(default=1, null=True, verbose_name='order', db_index=True, blank=True)),
                 ('public', models.BooleanField(default=True, help_text='Can this album be viewed by everyone? Untick to make the album available only to yourself.', verbose_name='Public?')),
