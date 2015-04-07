@@ -1,11 +1,11 @@
 {% extends "builds/base.html" %}
-{% load i18n %}
+{% load i18n %}{% load cycle from future %}
 
 {% block content %}
     <div class="tab">
         {% trans "Build reports overview" %}
         {# TODO: remove this when this template is hooked into the profile page (next to albums) #}
-        &bull; 
+        &bull;
         <a href="{{ builds_user.get_absolute_url }}">
             {{ builds_user.get_profile.forum_nickname }}
         </a>

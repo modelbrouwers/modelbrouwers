@@ -1,22 +1,22 @@
-{% extends "albums/base.html" %}
+{% extends "albums/base.html" %}{% load cycle from future %}
 {% load i18n %}
 
 {% block content %}
 <div class="tab">{% trans 'My last uploads...' %}</div>
 <div id="last_uploads">
     {% for photo in uploads %}
-        {% cycle '<div class="row">' '' '' '' '' %}
+        {% autoescape off %}{% cycle '<div class="row">' '' '' '' '' %}{% endautoescape %}
             <div class="photo">
                 {% spaceless %}
                 <a class="photo" href="{{ photo.get_absolute_url }}">
                     {% if photo.thumb_url %}
-                        <img class="thumb" src="{{ photo.thumb_url }}" alt="thumb" 
-                        width="{{ photo.get_thumb_width }}" 
+                        <img class="thumb" src="{{ photo.thumb_url }}" alt="thumb"
+                        width="{{ photo.get_thumb_width }}"
                         height="{{ photo.get_thumb_height }}"/>
                     {% endif %}
                 </a>
                 {% endspaceless %}
-                
+
                 <div class="properties">
                     <input class="BBCode" type="text" readonly="readonly" value="{{ photo.BBCode }}"></input>
                     {% if album_preferences.show_direct_link %}
@@ -24,9 +24,9 @@
                     {% endif %}
                 </div>
             </div>
-        {% cycle '' '' '' '' '</div>' %}
+        {% autoescape off %}{% cycle '' '' '' '' '</div>' %}{% endautoescape %}
     {% endfor %}
-    
+
     {% if needs_closing_tag_row %}
         </div>
     {% endif %}
@@ -42,9 +42,9 @@
         {% else %}
             <span>&lsaquo;</span>
         {% endif %}
-        
+
         &nbsp;&nbsp;<a href="?page={{ uploads.number }}">{{ uploads.number }}</a>&nbsp;&nbsp;
-        
+
         {% if uploads.has_next %}
             <a href="?page={{ uploads.next_page_number }}">&rsaquo;</a>
         {% else %}

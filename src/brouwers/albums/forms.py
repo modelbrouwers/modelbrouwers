@@ -91,6 +91,7 @@ class EditAlbumFormAjax(EditAlbumForm):
 class AlbumGroupForm(forms.ModelForm):
     class Meta:
         model = AlbumGroup
+        fields = '__all__'
         #widgets = {'users': forms.HiddenInput()}
 
     def __init__(self, *args, **kwargs):
@@ -246,6 +247,7 @@ class UploadFromURLForm(forms.Form):
 class PreferencesForm(forms.ModelForm):
     class Meta:
         model = Preferences
+        fields = '__all__'
         widgets = {
             'user': forms.HiddenInput(),
         }

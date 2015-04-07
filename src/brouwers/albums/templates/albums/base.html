@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles cache %}
+{% load i18n staticfiles cache %}{% load cycle from future %}
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}Modelbrouwers.nl - BrouwersAlbums{% endblock %}
@@ -71,7 +71,7 @@
 	<div class="tab">{% trans 'Last uploads' %}</div>
 	<div id="last_uploads">
 		{% for photo in last_uploads %}
-			{% cycle '<div class="row">' '' '' '' '' %}
+			{% autoescape off %}{% cycle '<div class="row">' '' '' '' '' %}{% endautoescape %}
 				{% spaceless %}
 				<div class="photo">
 					<a class="photo" href="{{ photo.get_absolute_url }}">
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 				{% endspaceless %}
-			{% cycle '' '' '' '' '</div>' %}
+			{% autoescape off %}{% cycle '' '' '' '' '</div>' %}{% endautoescape %}
 		{% endfor %}
 		{% if needs_closing_tag_row %}
 			</div>
