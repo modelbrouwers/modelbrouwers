@@ -77,8 +77,15 @@ class AlbumDetailView(ListView, SingleObjectMixin):
     context_object_name = 'photos'
     template_name = 'albums/album_detail.html'
 
-    def get_album(self):
-        if self.object is None:
+    def get(self, request, *args, **kwargs):
+        album = self.get_album()
+        album.views = F('views') + 1
+        album.save()
+        self.get_album(refresh=True)
+        return super(AlbumDetailView, self).get(request, *args, **kwargs)
+
+    def get_album(self, refresh=False):
+        if self.object is None or refresh:
             self.object = self.get_object(queryset=self.get_album_queryset())
         return self.object
 
@@ -294,39 +301,6 @@ def albums_list(request):
             'searchform': searchform
             })
 
-def browse_album(request, album_id=None):
-    q = Q(pk=album_id)
-    if request.user.is_authenticated():
-        groups = request.user.albumgroup_set.all()
-        if not admin_mode(request.user):
-            q = Q(q, Q(public=True) | Q(user=request.user) | Q(albumgroup__in=groups))
-    else:
-        q = Q(q, public=True)
-    album = get_object_or_404(Album, q, trash=False)
-    # increment album views
-    album.views = F('views') + 1
-    album.save()
-    album = get_object_or_404(Album, pk=album_id)
-
-    photos = album.photo_set.filter(trash=False)
-    p = Paginator(photos, 32)
-
-    page = request.GET.get('page', 1)
-    try:
-        photos = p.page(page)
-    except (PageNotAnInteger, TypeError):
-        # If page is not an integer, deliver first page.
-        photos = p.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        photos = p.page(p.num_pages)
-
-    needs_closing_tag_row = False
-    if len(photos) % 4 != 0:
-        needs_closing_tag_row = True
-    return render(request, 'albums/browse_album.html',
-        {'album': album, 'photos': photos, 'needs_closing_tag_row': needs_closing_tag_row}
-        )
 
 @login_required
 def my_last_uploads(request):

@@ -16,7 +16,6 @@ urlpatterns = patterns(
 
 
 
-    url(r'^album/(\d+)/$',     'browse_album', name='album_detail'),
     (r'^album/(\d+)/edit/', 'edit_album'),
     (r'^album/(\d+)/download/', 'download_album'),
     (r'^list/$',             'albums_list'),  # all albums

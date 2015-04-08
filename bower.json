@@ -22,5 +22,6 @@
     "tests"
   ],
   "dependencies": {
+    "components-font-awesome": "~4.3.0"
   }
 }
