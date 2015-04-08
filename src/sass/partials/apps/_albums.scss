@@ -84,10 +84,11 @@ body.albums {
 .photo-count {
   left: 20px;
   font-size: 65%;
-  background-color: rgba($main-green, 0.85);
+  background-color: rgba($main-green, 0.90);
   line-height: 1;
   @include border-radius(15px);
-  padding: 4px 0;
+  padding: 4px 12px;
+  width: auto;
 }
 
 }

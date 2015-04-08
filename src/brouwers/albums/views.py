@@ -15,6 +15,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
+from django.views.generic.detail import SingleObjectMixin
 
 from brouwers.awards.models import Nomination
 from brouwers.utils.views import LoginRequiredMixin
@@ -70,19 +71,37 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
         return super(AlbumCreateView, self).form_valid(form)
 
 
-class AlbumDetailView(DetailView):
-    queryset = Album.objects.public().select_related(
-        'user', 'cover'
-    ).annotate(n_photos=Count('photo'))
-    context_object_name = 'album'
+class AlbumDetailView(ListView, SingleObjectMixin):
+    model = Photo
+    context_object_name = 'photos'
+    paginate_by = 24
+    object = None
+    template_name = 'albums/album_detail.html'
 
-    def get_queryset(self):
-        qs = super(AlbumDetailView, self).get_queryset()
+    def get_album(self):
+        if self.object is None:
+            self.object = self.get_object(queryset=self.get_album_queryset())
+        return self.object
+
+    def get_album_queryset(self):
+        qs = Album.objects.public()
         if self.request.user.is_authenticated():
             groups = self.request.user.albumgroup_set.all()
             qs2 = Album.objects.filter(Q(user=self.request.user) | Q(albumgroup__in=groups))
             return (qs | qs2).distinct()
         return qs
+
+    def get_queryset(self):
+        """
+        Fetch the album from the url and retrieve the photo_set to build the
+        list view.
+        """
+        return self.get_album().photo_set.filter(trash=False)
+
+    def get_context_data(self, **kwargs):
+        kwargs['album'] = self.get_album()
+        return super(AlbumDetailView, self).get_context_data(**kwargs)
+
 
 
 

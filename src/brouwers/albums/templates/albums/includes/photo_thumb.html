@@ -1,0 +1,12 @@
+{% load thumbnail staticfiles %}
+<article class="col-sm-6 col-md-3">
+    <a href="{{ photo.get_absolute_url }}" class="thumbnail">
+        {% if photo.exists %}
+            {% thumbnail photo.image "300x225" crop="center" as im %}
+                <img src="{{ im.url }}" class="img-responsive">
+            {% endthumbnail %}
+        {% else %}
+            <img src="{% static "images/thumb.png" %}" class="img-responsive">
+        {% endif %}
+    </a>
+</article>

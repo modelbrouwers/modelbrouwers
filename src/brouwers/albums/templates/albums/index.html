@@ -1,4 +1,5 @@
 {% extends "base_html5.html" %}{% load i18n staticfiles cache thumbnail %}
+{% load cycle from future %}
 
 {% block title %}{% trans "Albums" %}{% endblock %}
 
@@ -54,7 +55,7 @@
                 </a>
             </article>
 
-            {% cycle '' '' '' '</div><div class="row">' %}
+            {% autoescape off %}{% cycle '' '' '' '</div><div class="row">' %}{% endautoescape %}
         {% endfor %}
     </div>
 </section>
@@ -78,7 +79,7 @@
                 </a>
             </article>
 
-            {% cycle '' '' '' '</div><div class="row">' %}
+            {% autoescape off %}{% cycle '' '' '' '</div><div class="row">' %}{% endautoescape %}
         {% endfor %}
     </div>
 </section>

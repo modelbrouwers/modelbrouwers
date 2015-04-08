@@ -1,28 +1,41 @@
 {% extends "albums/index.html" %}{% load i18n staticfiles %}
+{% load cycle from future %}
 
 
 {% block eye-catcher-content %}
-    <h1>
-        {{ album.title }}
-        <small>&bull; {{ album.user }}</small>
-        <span class="fa-stack fa-lg pull-right">
-            <i class="fa fa-folder-open-o fa-stack-2x"></i>
-            <span class="photo-count fa fa-stack-1x">{{ album.n_photos }}</span>
-        </span>
-    </h1>
+<h1>
+    {{ album.title }}
+    <small>&bull; {{ album.user }}</small>
+    <span class="fa-stack fa-lg pull-right">
+        <i class="fa fa-folder-open-o fa-stack-2x"></i>
+        <span class="photo-count fa fa-stack-1x">{{ paginator.count }}</span>
+    </span>
+</h1>
 
-    {% if album.description %}
-        <p>
-            <i class="fa fa-quote-left"></i><br>
-            {{ album.description }}
-            <i class="fa fa-quote-right"></i>
-        </p>
-    {% endif %}
-
-    {% if album.topic %}
+{% if album.description %}
     <p>
-        {% trans "View topic" %}
-        <a href="{{ album.topic.get_absolute_url }}" class="btn bg-main-orange">{{ album.topic }}</a>
+        <i class="fa fa-quote-left"></i><br>
+        {{ album.description }}
+        <i class="fa fa-quote-right"></i>
     </p>
-    {% endif %}
+{% endif %}
 {% endblock %}
+
+
+{% block content %}
+<div class="clearfix">
+    {% if album.topic %}
+        <a href="{{ album.topic.get_absolute_url }}" class="pull-right btn bg-main-blue" title="{% trans "View topic" %}">{{ album.topic }}</a>
+    {% endif %}
+</div>
+
+<section>
+    <div class="row">
+        {% for photo in photos %}
+            {% include "albums/includes/photo_thumb.html" %}
+            {% autoescape off %}{% cycle '' '' '' '</div><div class="row">' %}{% endautoescape %}
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock content %}

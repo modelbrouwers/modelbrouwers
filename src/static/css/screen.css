@@ -659,12 +659,13 @@ body.albums #carousel-album input:checked + label {
 body.albums .photo-count {
   left: 20px;
   font-size: 65%;
-  background-color: rgba(50, 187, 91, 0.85);
+  background-color: rgba(50, 187, 91, 0.9);
   line-height: 1;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  padding: 4px 0;
+  padding: 4px 12px;
+  width: auto;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
