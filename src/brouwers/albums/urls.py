@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
     url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),
+    url(r'^album/\{?(?P<pk>\d+)\}?/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
 
 
 

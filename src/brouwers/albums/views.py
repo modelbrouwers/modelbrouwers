@@ -72,10 +72,9 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 
 
 class AlbumDetailView(ListView, SingleObjectMixin):
-    model = Photo
-    context_object_name = 'photos'
     paginate_by = 24
-    object = None
+    object = None  # SingleObjectMixin
+    context_object_name = 'photos'
     template_name = 'albums/album_detail.html'
 
     def get_album(self):

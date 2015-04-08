@@ -29,6 +29,8 @@
     {% endif %}
 </div>
 
+{% include "includes/pagination.html" %}
+
 <section>
     <div class="row">
         {% for photo in photos %}
@@ -37,5 +39,7 @@
         {% endfor %}
     </div>
 </section>
+
+{% include "includes/pagination.html" %}
 
 {% endblock content %}
