@@ -673,7 +673,11 @@ body.albums .photo-count {
   padding: 4px 12px;
   width: auto;
 }
-/* line 95, ../../sass/partials/apps/_albums.scss */
+/* line 94, ../../sass/partials/apps/_albums.scss */
+body.albums .stats {
+  color: rgba(255, 255, 255, 0.5);
+}
+/* line 99, ../../sass/partials/apps/_albums.scss */
 body.albums .pre-content .pagination {
   margin-top: 0;
 }

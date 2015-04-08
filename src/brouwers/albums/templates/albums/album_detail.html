@@ -19,6 +19,12 @@
         <i class="fa fa-quote-right"></i>
     </p>
 {% endif %}
+
+<small class="stats">
+{% blocktrans with views=album.views last_upload=album.last_upload|date:'j F Y' %}
+Statistics: {{ views }} views, last upload: {{ last_upload }}
+{% endblocktrans %}
+</small>
 {% endblock %}
 
 
