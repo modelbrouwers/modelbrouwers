@@ -122,7 +122,7 @@ class Album(models.Model):
         super(Album, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('albums:album_detail', args=[self.id])
+        return reverse('albums:detail', args=[self.id])
 
     def get_cover(self):
         if self.cover:
