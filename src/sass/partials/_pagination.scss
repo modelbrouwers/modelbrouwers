@@ -1,0 +1,6 @@
+.pagination {
+  > .active > a {
+    background-color: $main-green;
+    border-color: $main-green;
+  }
+}

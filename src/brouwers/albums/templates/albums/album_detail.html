@@ -23,13 +23,13 @@
 
 
 {% block content %}
-<div class="clearfix">
+<div class="pre-content clearfix">
     {% if album.topic %}
-        <a href="{{ album.topic.get_absolute_url }}" class="pull-right btn bg-main-blue" title="{% trans "View topic" %}">{{ album.topic }}</a>
+        <a href="{{ album.topic.get_absolute_url }}" class="pull-left btn bg-main-blue" title="{% trans "View topic" %}">{{ album.topic }}</a>
     {% endif %}
-</div>
 
-{% include "includes/pagination.html" %}
+    {% include "includes/pagination.html" %}
+</div>
 
 <section>
     <div class="row">

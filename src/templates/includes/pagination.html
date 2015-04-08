@@ -1,5 +1,5 @@
 {% if is_paginated %}{% load i18n %}
-<nav>
+<nav class="text-right">
   <ul class="pagination">
     <li class="{{ page_obj.has_previous|yesno:',disabled' }}">
         {% if page_obj.has_previous %}

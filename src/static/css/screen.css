@@ -580,6 +580,12 @@ form fieldset.tab-pane {
   border: dotted 1px #EEE;
 }
 
+/* line 2, ../../sass/partials/_pagination.scss */
+.pagination > .active > a {
+  background-color: #32BB5B;
+  border-color: #32BB5B;
+}
+
 /* line 3, ../../sass/partials/apps/_albums.scss */
 body.albums .qq-upload-drop-area {
   position: static;
@@ -666,6 +672,10 @@ body.albums .photo-count {
   border-radius: 15px;
   padding: 4px 12px;
   width: auto;
+}
+/* line 95, ../../sass/partials/apps/_albums.scss */
+body.albums .pre-content .pagination {
+  margin-top: 0;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
