@@ -37,4 +37,4 @@ class AnnouncementView(View):
         announcement = Announcement.objects.get_current()
         if announcement is not None:
             data['html'] = announcement.text
-        return HttpResponse(json.dumps(data), mimetype="application/json")
+        return HttpResponse(json.dumps(data), content_type="application/json")
