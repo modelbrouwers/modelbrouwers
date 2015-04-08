@@ -9,6 +9,11 @@ class ForumToolsIDField(PositiveIntegerField):
         self._type = type_
         super(ForumToolsIDField, self).__init__(*args, **kwargs)
 
+    def deconstruct(self):
+        name, path, args, kwargs = super(ForumToolsIDField, self).deconstruct()
+        kwargs['type'] = self._type
+        return (name, path, args, kwargs)
+
     def formfield(self, **kwargs):
         from .forms import ForumIDField, TopicIDField
         if self._type == 'forum':
@@ -94,18 +99,3 @@ class ForumToolsDescriptor(object):
                                     self.related.name, Forum._meta.object_name))
         elif self.type not in ['topic', 'forum']:
             raise ValueError('Unknown type: %s' % self.type)
-
-
-
-
-from south.modelsinspector import add_introspection_rules
-rules = [
-    (
-        (ForumToolsIDField, ),
-        [],
-        {
-            'type': ['_type', {'default': None}]
-        },
-    )
-]
-add_introspection_rules(rules, ["^brouwers.forum_tools\.fields\.ForumToolsIDField"])

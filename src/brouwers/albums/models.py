@@ -70,7 +70,10 @@ class Album(models.Model):
     # Logging and statistics
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
-    last_upload = models.DateTimeField(default=datetime(1970, 1, 1, 0, 0, 0), db_index=True)
+    last_upload = models.DateTimeField(
+        default=datetime(1970, 1, 1, 0, 0, 0).replace(tzinfo=timezone.utc),
+        db_index=True
+    )
     views = models.PositiveIntegerField(default=0)
 
     # User preferences
@@ -184,13 +187,13 @@ class AlbumGroup(models.Model):
         return _(u"Write permissions for '%(album)s'") % {'album': self.album.__unicode__()}
 
 
-class Photo(models.Model):
-    """ Helper functions """
-    def get_image_path(instance, filename):
-        name, extension = os.path.splitext(filename)
-        filename = name + extension
-        return os.path.join('albums', str(instance.album.user.id), str(instance.album.id), filename)
+def get_image_path(instance, filename):
+    name, extension = os.path.splitext(filename)
+    filename = name + extension
+    return os.path.join('albums', str(instance.album.user.id), str(instance.album.id), filename)
 
+
+class Photo(models.Model):
     """ Model Fields """
     # image properties
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)  # we need to know the owner (public albums)

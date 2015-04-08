@@ -1,7 +1,7 @@
-{% load i18n %}
+{% load i18n %}{% load cycle from future %}
 
 {% for album in albums %}
-{% cycle '<div class="row">' '' '' '' %}
+{% autoescape off %}{% cycle '<div class="row">' '' '' '' %}{% endautoescape %}
     {% spaceless %}
         <div class="homepage-album">
             <div class="album-title">
@@ -13,8 +13,8 @@
             {% with coverdata=album.get_cover_data %}
             <a class="photo album" href="{{ album.get_absolute_url }}">
                 {% if album.cover_thumb_url %}
-                    <img class="thumb" src="{{ coverdata.thumb_url }}" 
-                    width="{{ coverdata.width }}" 
+                    <img class="thumb" src="{{ coverdata.thumb_url }}"
+                    width="{{ coverdata.width }}"
                     height="{{ coverdata.height }}" alt="thumb"/>
                 {% endif %}
             </a>
@@ -28,5 +28,5 @@
             </div>
         </div>
     {% endspaceless %}
-{% cycle '' '' '' '</div>' %}
+{% autoescape off %}{% cycle '' '' '' '</div>' %}{% endautoescape %}
 {% endfor %}

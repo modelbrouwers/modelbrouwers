@@ -2,13 +2,14 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import TemplateView
 
-admin.autodiscover()
 
 FORUM_URL = settings.PHPBB_URL
 FORUM_URL = FORUM_URL[1:] if FORUM_URL.startswith('/') else FORUM_URL
 FORUM_URL = FORUM_URL if FORUM_URL.endswith('/') else FORUM_URL + '/'
+
 
 urlpatterns = patterns(
     '',
@@ -33,7 +34,7 @@ urlpatterns = patterns(
     url(r'^i18n/',         include('django.conf.urls.i18n')),
     url(r'^',              include('brouwers.users.urls', namespace='users')),
     url(r'^',              include('brouwers.general.urls')),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+) + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
 
 if settings.DEBUG:
     urlpatterns += patterns(

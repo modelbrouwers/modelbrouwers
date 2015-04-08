@@ -11,6 +11,7 @@ SITE_ID = 1
 DEBUG = False
 TEMPLATE_DEBUG = False
 DEVELOPMENT = False
+TESTING = False
 
 ADMINS = ()
 
@@ -196,7 +197,6 @@ INSTALLED_APPS = (
     'compressor',
     'formulation',
     'sessionprofile',
-    'south',
     'rest_framework',
     'django_extensions',
     'rosetta',
@@ -266,14 +266,15 @@ IRC_SERVER = 'irc.slacknet.org'
 IRC_CHANNEL = '#modelbrouwers.nl'
 IRC_DEFAULT_NICK = 'brouwer%3F%3F'
 
+
+#
+# TESTS
+#
+TEST_RUNNER = 'brouwers.utils.tests.runner.TestDiscoverRunner'
+
 #################
 # APP SPECIFICS #
 #################
-#
-# SOUTH
-#
-SKIP_SOUTH_TESTS = True
-SOUTH_TESTS_MIGRATE = False
 
 #
 # Registration logging + bans
@@ -305,11 +306,6 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter',
 ]
-
-#
-# TESTS
-#
-TEST_RUNNER = 'brouwers.general.tests.utils.UnmanagedTablesTestRunner'
 
 #
 # ADMIN TOOLS

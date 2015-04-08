@@ -27,7 +27,7 @@ def get_sync_data(request):
     links_to_be_synced = ForumLinkBase.objects.filter(enabled=True, to_date__gte=t, from_date__lte=t)
     for link in links_to_be_synced:
         response_data[link.link_id] = [l.link_id for l in link.forumlinksynced_set.all()]
-    return HttpResponse(json.dumps(response_data), mimetype="application/json")
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 def get_chat(request):
@@ -49,7 +49,7 @@ def get_chat(request):
         'html': html,
         'title': "Brouwers chat [%s, %s]" % (settings.IRC_SERVER, settings.IRC_CHANNEL)
     }
-    return HttpResponse(json.dumps(json_data), mimetype='application/json')
+    return HttpResponse(json.dumps(json_data), content_type='application/json')
 
 
 @permission_required_ajax('forum_tools.can_see_reports')
@@ -58,7 +58,7 @@ def get_mod_data(request):
     num_open_reports = Report.objects.filter(report_closed=False).count()
     data['open_reports'] = num_open_reports
     data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports) % {'num': num_open_reports}
-    return HttpResponse(json.dumps(data), mimetype="application/json")
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 @user_passes_test_403(lambda u: u.groups.filter(name__iexact='content sharing').exists())
@@ -83,7 +83,7 @@ def get_sharing_perms(request):
                         data[forumuser.user_id] = template_sharing_not_allowed
                 except UserProfile.DoesNotExist:
                     data[forumuser.user_id] = template_sharing_not_allowed
-    return HttpResponse(json.dumps(data), mimetype="application/json")
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 @login_required_403
@@ -111,7 +111,7 @@ def get_posting_level(request):
 
         restrictions = ForumPostCountRestriction.objects.filter(forum_id=forum.forum_id)
         data['restrictions'] = [restr.posting_level for restr in restrictions if restr.min_posts > num_posts]
-    return HttpResponse(json.dumps(data), mimetype="application/json")
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 @cache_page(60*60*24*7*2)  # two weeks, cache is language based already
@@ -123,4 +123,4 @@ def get_build_report_forums(self):
         'text_build_report': _('Add build report'),
         'text_nominate': _('Nominate for award'),
     }
-    return HttpResponse(json.dumps(data), mimetype="application/json")
+    return HttpResponse(json.dumps(data), content_type="application/json")

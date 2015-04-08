@@ -1,8 +1,4 @@
 """ Test related to navigating the albums pages """
-import tempfile
-import os
-import shutil
-
 from django.conf import settings
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -35,7 +31,7 @@ class DownloadTests(TestCase):
 
         response = self.client.get(url)
         zf = '{0}albums/{1}/{2}/{2}.zip'.format(settings.MEDIA_URL, album.user_id, album.id)
-        self.assertRedirects(response, zf, target_status_code=404)  # 404 because we don't serve media in tests
+        self.assertTrue(response.url.endswith(zf))
 
 
 class ViewTests(WebTest):

@@ -71,7 +71,7 @@ def uploadify(request):
             photo.order = max_order + 1
             photo.save()
             p_id = photo.id
-            return HttpResponse('%s' % p_id, mimetype="text/plain") #return the photo id
+            return HttpResponse('%s' % p_id, content_type="text/plain") #return the photo id
         # else:
         #     return HttpResponse(_('File extension not in valid extensions: "%(extensions)s".' % {
         #         'extensions': ",".join(settings.VALID_IMG_EXTENSIONS)
@@ -112,7 +112,7 @@ def upload_url(request):
             photo.order = max_order + 1
             photo.save()
             p_id = photo.id
-        return HttpResponse(p_id, mimetype="text/plain")
+        return HttpResponse(p_id, content_type="text/plain")
     return render(request, 'albums/uploadify_url.html', {'urlform': urlform})
 
 ### search function
@@ -335,7 +335,7 @@ def new_album_jquery_ui(request):
             context['form'] = form
             rendered_form = t.render(RequestContext(request, context))
             output = {'form': rendered_form, 'status': 0}
-    return HttpResponse(json.dumps(output), mimetype="application/json")
+    return HttpResponse(json.dumps(output), content_type="application/json")
 
 @login_required_403
 def get_title(request):
@@ -403,4 +403,4 @@ class RotateView(SingleObjectMixin, View):
             response = {'result': 'Invalid direction'}
 
         response = {'result': 'success', 'ok': True}
-        return HttpResponse(json.dumps(response), mimetype='application/json')
+        return HttpResponse(json.dumps(response), content_type='application/json')

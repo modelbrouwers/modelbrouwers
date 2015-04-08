@@ -1,4 +1,4 @@
-{% extends "albums/base.html" %}
+{% extends "albums/base.html" %}{% load cycle from future %}
 {% load i18n %}{% load staticfiles %}
 
 {% block title %}Modelbrouwers.nl album &bull; {{ album.title }}{% endblock %}
@@ -30,7 +30,7 @@
 
     <div class="photos-list margin">
         {% for photo in photos %}
-            {% cycle '<div class="row">' '' '' '' %}
+            {% autoescape off %}{% cycle '<div class="row">' '' '' '' %}{% endautoescape %}
                 {% spaceless %}
                 <div class="photo{% if photo == photo.album.cover %} cover{% endif %}"
                 {% if photo == photo.album.cover %}title="Album cover"{% endif %}>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 {% endspaceless %}
-            {% cycle '' '' '' '</div>' %}
+            {% autoescape off %}{% cycle '' '' '' '</div>' %}{% endautoescape %}
         {% endfor %}
 
         {% if needs_closing_tag_row %}

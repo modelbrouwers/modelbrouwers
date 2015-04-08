@@ -86,7 +86,7 @@ class AjaxSearchView(View):
 
         # serialize data
         data = self.serialize(objects)
-        return HttpResponse(json.dumps(data), mimetype="application/json")
+        return HttpResponse(json.dumps(data), content_type="application/json")
 
     def get_label(self, obj):
         """ Returns the visible label """
