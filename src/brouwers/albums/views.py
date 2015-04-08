@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F, Q, Max
+from django.db.models import F, Q, Max, Count
 from django.forms import ValidationError
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponse
@@ -71,7 +71,10 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 
 
 class AlbumDetailView(DetailView):
-    queryset = Album.objects.public()
+    queryset = Album.objects.public().select_related(
+        'user', 'cover'
+    ).annotate(n_photos=Count('photo'))
+    context_object_name = 'album'
 
     def get_queryset(self):
         qs = super(AlbumDetailView, self).get_queryset()

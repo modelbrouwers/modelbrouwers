@@ -655,6 +655,17 @@ body.albums #carousel-album input + label span.h4 {
 body.albums #carousel-album input:checked + label {
   border-color: #006699;
 }
+/* line 84, ../../sass/partials/apps/_albums.scss */
+body.albums .photo-count {
+  left: 20px;
+  font-size: 65%;
+  background-color: rgba(50, 187, 91, 0.85);
+  line-height: 1;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  padding: 4px 0;
+}
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {

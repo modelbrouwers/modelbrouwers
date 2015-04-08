@@ -1,0 +1,28 @@
+{% extends "albums/index.html" %}{% load i18n staticfiles %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {{ album.title }}
+        <small>&bull; {{ album.user }}</small>
+        <span class="fa-stack fa-lg pull-right">
+            <i class="fa fa-folder-open-o fa-stack-2x"></i>
+            <span class="photo-count fa fa-stack-1x">{{ album.n_photos }}</span>
+        </span>
+    </h1>
+
+    {% if album.description %}
+        <p>
+            <i class="fa fa-quote-left"></i><br>
+            {{ album.description }}
+            <i class="fa fa-quote-right"></i>
+        </p>
+    {% endif %}
+
+    {% if album.topic %}
+    <p>
+        {% trans "View topic" %}
+        <a href="{{ album.topic.get_absolute_url }}" class="btn bg-main-orange">{{ album.topic }}</a>
+    </p>
+    {% endif %}
+{% endblock %}
