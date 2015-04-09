@@ -17,6 +17,7 @@ def setupenv():
     """
     Borrowed and adapted from https://bitbucket.org/maykinmedia/default-project
     """
+    cur_dir = os.getcwd()
     # Remember original sys.path.
     prev_sys_path = list(sys.path)
 
@@ -40,6 +41,9 @@ def setupenv():
             new_sys_path.append(item)
             sys.path.remove(item)
     sys.path[:0] = new_sys_path
+
+    # change back to the current directory
+    os.chdir(cur_dir)
 
 setupenv()
 
