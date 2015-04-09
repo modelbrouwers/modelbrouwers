@@ -4,7 +4,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 from ..models import Photo
-from .serializers import PhotoSerializer
+from .filters import PhotoFilter
+from .serializers import PhotoSerializer, UploadPhotoSerializer
 from .renderers import FineUploaderRenderer
 
 
@@ -12,15 +13,21 @@ class PhotoViewSet(viewsets.ModelViewSet):
     """
     View to handle HTML5 file uploads.
     """
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     parser_classes = (parsers.FileUploadParser,)
-    queryset = Photo.objects.none()
+    queryset = Photo.objects.exclude(trash=True).exclude(album__public=False)
     serializer_class = PhotoSerializer
+    filter_class = PhotoFilter
 
     def get_renderers(self):
         if self.request.method == 'POST':
             return [FineUploaderRenderer()]
         return super(PhotoViewSet, self).get_renderers()
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return UploadPhotoSerializer
+        return super(PhotoViewSet, self).get_serializer_class()
 
     def create(self, request, *args, **kwargs):
         """

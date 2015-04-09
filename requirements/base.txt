@@ -13,6 +13,7 @@ factory_boy==2.3.1
 formulation==2.0.13
 # git+https://github.com/sergei-maertens/formulation.git@patch/fix-too-aggressive-force_text
 djangorestframework==3.1.1
+djangorestframework-filters==0.2.2
 mock==1.0.1
 sorl-thumbnail==12.2
 django-rosetta==0.7.4
