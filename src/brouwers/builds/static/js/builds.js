@@ -163,6 +163,8 @@ function update_photo_fields(input, show_next){
 }
 
 function show_photos_selector(){
+	alert('Disabled because of issues - this will be fixed soon.');
+	return;
 	$('#builds-overview, input.photo-url, span.delete.checkbox').hide();
 	$('#div-loading').show();
 
@@ -191,6 +193,8 @@ function show_photos_selector(){
 }
 
 function update_photos_selector(){
+	alert('Disabled because of issues - this will be fixed soon.');
+	return;
 	$('#div-loading, #photos-dropzone').show();
 	// fetch the photos of the selected album
 	var album_id = $('#photos-list').data('current-album');
