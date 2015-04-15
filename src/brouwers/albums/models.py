@@ -288,7 +288,7 @@ class Photo(models.Model):
             'trash': False
         }
         ordering = ['order', 'id'] if cmp == 'gte' else ['-order', '-id']
-        return Photo.objects.filter(**filters).exclude(id=self.id).order_by(*ordering)[:batch_size] or None
+        return Photo.objects.filter(**filters).exclude(id=self.id).order_by(*ordering)[:batch_size] or []
 
     def get_next_3(self):
         return self.get_next_previous_batch(3, cmp='gte')
