@@ -1,5 +1,7 @@
 -r base.txt
 
+-e git+https://github.com/modelbrouwers/django-login-for-phpbb.git@1.0.4#egg=sessionprofile-1.0.4
+
 freezegun==0.2.2
 django-debug-toolbar==1.3
 webtest
