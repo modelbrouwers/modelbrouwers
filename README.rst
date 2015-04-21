@@ -8,6 +8,9 @@
 .. image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=master
     :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=master
 
+.. image:: https://landscape.io/github/modelbrouwers/modelbrouwers/master/landscape.svg?style=plastic
+    :target: https://landscape.io/github/modelbrouwers/modelbrouwers/master
+    :alt: Code Health
 
 ######################################
 Modelbrouwers Apps & phpBB integration
