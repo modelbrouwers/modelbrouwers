@@ -13,7 +13,7 @@ from .forms import TopicDetailsForm
 
 
 class GroupBuildDetail(generics.RetrieveAPIView):
-    model = GroupBuild
+    queryset = GroupBuild.objects.all()
     serializer_class = GroupBuildSerializer
 
 
