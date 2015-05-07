@@ -79,5 +79,11 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 
 {% block extrascript %}
 {{ block.super }}
+<script>
+    var page = {{ page_obj.number }};
+    var album = {{ album.pk }};
+</script>
+<script src="{% static 'scripts/model.js' %}"></script>
+<script src="{% static 'albums/js/models/photo.js' %}"></script>
 <script src="{% static 'albums/js/album.js' %}"></script>
 {% endblock extrascript %}

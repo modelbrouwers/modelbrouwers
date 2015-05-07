@@ -1,0 +1,76 @@
+.
+├── apache
+│   ├── brouwers.wsgi
+│   ├── development.wsgi
+│   └── virtualenv.wsgi
+├── bower.json
+├── composer.json
+├── composer.lock
+├── config.rb
+├── doc
+│   └── deploy.md
+├── log
+│   ├── brouwers.log
+│   ├── django.log
+│   ├── performance.log
+│   ├── uwsgi_err.log
+│   └── uwsgi_out.log
+├── mails
+├── media
+├── node_modules
+│   └── fine-uploader
+├── package.json
+├── README.rst
+├── requirements
+│   ├── base.txt
+│   ├── development.txt
+│   ├── production.txt
+│   ├── staging.txt
+│   └── travis.txt
+├── src
+│   ├── brouwers
+│   │   ├── albums
+│   │   ├── api
+│   │   ├── awards
+│   │   ├── banning
+│   │   ├── brouwersdag
+│   │   ├── builds
+│   │   ├── dashboard.py
+│   │   ├── forum_tools
+│   │   ├── general
+│   │   ├── groupbuilds
+│   │   ├── __init__.py
+│   │   ├── kitreviews
+│   │   ├── locale
+│   │   ├── migration
+│   │   ├── online_users
+│   │   ├── secret_santa
+│   │   ├── shirts
+│   │   ├── tests
+│   │   ├── urls.py
+│   │   ├── users
+│   │   └── utils
+│   ├── conf
+│   │   ├── __init__.py
+│   │   ├── settings
+│   │   ├── settings.php
+│   │   ├── uwsgi.ini
+│   │   └── wsgi.py
+│   ├── locale
+│   │   └── nl
+│   ├── manage.py
+│   ├── phpbb
+│   │   ├── auth_django.php
+│   │   ├── phpBB3
+│   │   └── php-static-files
+│   ├── sass
+│   ├── static
+│   └── templates
+├── static
+└── vendor
+    ├── autoload.php
+    ├── composer
+    └── tedivm
+
+
+191 directories, 143 files
