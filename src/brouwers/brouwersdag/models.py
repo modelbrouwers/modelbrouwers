@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
@@ -19,6 +21,7 @@ class ShowCasedModel(models.Model):
         help_text=_('Add the features that make this model special here, e.g. "scratch built cockpit"'))
 
     topic = models.URLField(_('topic url'), blank=True)
+    brouwersdag = models.ForeignKey('Brouwersdag', null=True)
 
     # dimensions
     length = models.PositiveSmallIntegerField(_('length'), null=True, blank=True, help_text=_('In cm.'))
@@ -40,6 +43,11 @@ class ShowCasedModel(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.brouwersdag:
+            self.brouwersdag = Brouwersdag.objects.get_current()
+        super(ShowCasedModel, self).save(*args, **kwargs)
 
     def get_scale(self):
         return "1:{0}".format(self.scale) if self.scale else ''
@@ -80,9 +88,17 @@ class Competition(models.Model):
         return self.showcasedmodel_set.filter(is_competitor=True)
 
 
+class BrouwersdagManager(models.Manager):
+
+    def get_current(self):
+        return self.get_queryset().filter(date__gte=date.today()).first()
+
+
 class Brouwersdag(models.Model):
     name = models.CharField(_('name'), max_length=100)
-    date = models.DateField(_('date'), null=True, blank=True)
+    date = models.DateField(_('date'), blank=True)
+
+    objects = BrouwersdagManager()
 
     # TODO: open from (visitors, exhibitors), closing, special events
     class Meta:

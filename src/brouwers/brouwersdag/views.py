@@ -1,4 +1,3 @@
-# TODO: filter queryset on models on future bd's
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.db.models import Q, Count
@@ -10,7 +9,7 @@ from django.views.generic import (DeleteView, ListView, CreateView, UpdateView,
 from brouwers.utils.views import LoginRequiredMixin, StaffRequiredMixin
 from brouwers.utils.pdf import PDFTemplateView
 from .forms import ShowCasedModelSignUpForm
-from .models import ShowCasedModel, Competition
+from .models import Brouwersdag, ShowCasedModel, Competition
 
 
 class OwnModelsMixin(object):
@@ -24,7 +23,8 @@ class IndexView(ListView):
     template_name = 'brouwersdag/index.html'
 
     def get_queryset(self):
-        return ShowCasedModel.objects.all().order_by('?')
+        current_bd = Brouwersdag.objects.get_current()
+        return ShowCasedModel.objects.filter(brouwersdag=current_bd).order_by('?')
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
@@ -41,7 +41,7 @@ class CompetitionMixin(object):
         if not hasattr(self, '_competition'):
             try:
                 self._competition = Competition.objects.get(is_current=True)
-            except Competition.DoesNotExist: # no competition active
+            except Competition.DoesNotExist:  # no competition active
                 self._competition = None
         return self._competition
 
