@@ -5,7 +5,7 @@ except ImportError:
 
 from django.http import HttpResponseForbidden
 from django.utils.decorators import available_attrs
- 
+
 def user_passes_test_403(test_func):
     def decorator(view_func):
         def _wrapped_view(request, *args, **kwargs):
@@ -14,7 +14,7 @@ def user_passes_test_403(test_func):
             return HttpResponseForbidden()
         return wraps(view_func, assigned=available_attrs(view_func))(_wrapped_view)
     return decorator
- 
+
 def login_required_403(function=None):
     actual_decorator = user_passes_test_403(
         lambda u: u.is_authenticated()
@@ -32,7 +32,6 @@ def permission_required_ajax(perm, raise_exception=False):
     is raised.
     """
     def check_perms(user):
-        print user
         # First check if the user has the permission (even anon users)
         if user.has_perm(perm):
             return True
