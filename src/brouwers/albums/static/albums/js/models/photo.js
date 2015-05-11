@@ -8,10 +8,16 @@ var Photo = (function($, Model, Api, undefined) {
 
     // model
     var Photo = Model.extend({
+        Meta: {
+            app_label: 'albums',
+            name: 'Photo',
+            ordering: ['order'],
+            endpoints: {
+                list: 'albums/photo/',
+                detail: 'albums/photo/:id/'
+            }
+        },
         init: photo
     });
-
-    var photos = Photo.objects.filter({album: window.album, page: window.page});
-
     return Photo;
 })(window.jQuery, window.Model, window.Api);

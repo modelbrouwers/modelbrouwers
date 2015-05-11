@@ -67,12 +67,47 @@
 })(this);
 
 
+
+
+
+
+
+var Options = Class.extend({
+  init: function(opts) {
+    // TODO: add some validation
+    for (var key in opts) {
+      this[key] = opts[key];
+    }
+  }
+});
+
+
 var Manager = Class.extend({
-  init: function() {
-    // debugger;
+  init: function(modelClass) {
+    this.model = modelClass;
+    this._objectCache = {
+      _pages: {}
+    };
   },
-  filter: function() {
-    debugger;
+  filter: function(filters) {
+    // TODO: block until promise is resolved and return the result immediately?
+    var endpoint = this.model._meta.endpoints.list;
+    var self = this;
+    return Api.request(endpoint, filters).get().then(function(response) {
+      if (filters.page) {
+        self._objectCache._pages[filters.page] = {
+          count: response.count,
+          next: response.next,
+          previous: response.previous,
+          num_result: response.results.length
+        };
+      }
+      var objs = [];
+      for (var i in response.results) {
+        objs.push(new self.model(response.results[i]));
+      }
+      return objs;
+    });
   }
 });
 
@@ -80,9 +115,33 @@ var Manager = Class.extend({
 var Model = Class.extend({
   init: function(data) {
     for (var key in data) {
-      this[key] = data[key];
+      this[key] = data[key]; // wrap all fields to make getters/setters
     }
   }
 });
 
-Model.objects = new Manager();
+
+/* 'extend' the extend method */
+var ModelMeta = function(modelClass) {
+  var oldExtend = modelClass.extend;
+  return function(props) {
+    // extract the required meta data
+    var _meta = props.Meta;
+    delete props.Meta;
+
+    // TODO check if we passed in a manager
+
+    var Model = oldExtend.call(modelClass, props);
+
+    // deal with the meta
+    Model.Meta = _meta;
+    Model._meta = new Options(_meta);
+    Model.objects = new Manager(Model);
+
+    // re-use this extend method for subclassing
+    Model.extend = ModelMeta(Model);
+
+    return Model;
+  };
+};
+Model.extend = ModelMeta(Model);

@@ -4,8 +4,6 @@
 	function ApiRequest(endpoint, data, callback, callbackFailure) {
 		this.endpoint = apiBase.format(endpoint);
 		this.data = data || {};
-		this.callbackSuccess = callback;
-		this.callbackFailure = callbackFailure;
 	}
 
 	/**
@@ -26,7 +24,6 @@
 			type: method,
 			data: data
 		}));
-		promise.then(this.callbackSucces, this.callbackFailure); // different branch
 		return promise;
 	};
 
@@ -49,8 +46,8 @@
 	/**
 	 * Constructor
 	 */
-	function apiRequest(url, data, callback, callbackFailure) {
-		return new ApiRequest(url, data || {}, callback, callbackFailure);
+	function apiRequest(url, data) {
+		return new ApiRequest(url, data || {});
 	}
 
 	win.Api = {
