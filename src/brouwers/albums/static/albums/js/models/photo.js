@@ -6,6 +6,10 @@ var Photo = (function($, Model, Api, undefined) {
         this._super(data);
     };
 
+    var toString = function() {
+        return 'Photo by {0}'.format(this.user.username);
+    };
+
     // model
     var Photo = Model.extend({
         Meta: {
@@ -17,7 +21,8 @@ var Photo = (function($, Model, Api, undefined) {
                 detail: 'albums/photo/:id/'
             }
         },
-        init: photo
+        init: photo,
+        toString: toString
     });
     return Photo;
 })(window.jQuery, window.Model, window.Api);

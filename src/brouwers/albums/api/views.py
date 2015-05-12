@@ -7,6 +7,7 @@ from ..models import Photo
 from .filters import PhotoFilter
 from .serializers import PhotoSerializer, UploadPhotoSerializer
 from .renderers import FineUploaderRenderer
+from .pagination import PhotoPagination
 
 
 class PhotoViewSet(viewsets.ModelViewSet):
@@ -18,6 +19,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.exclude(trash=True).exclude(album__public=False)
     serializer_class = PhotoSerializer
     filter_class = PhotoFilter
+    pagination_class = PhotoPagination
 
     def get_renderers(self):
         if self.request.method == 'POST':
