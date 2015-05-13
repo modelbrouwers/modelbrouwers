@@ -23,7 +23,21 @@ $(function(){
         if (failed.length === 0) {
             window.location = decodeURI(window.albumDetail).format(album);
         }
+    }).on('submit', function(event, id, name) {
+        return setAlbum();
     });
+
+    var setAlbum = function() {
+        var checked = $('#upload-form input[name="album"]:checked');
+        if (checked.length !== 1) {
+            $('#modal-albums').modal('show');
+            return false;
+        }
+
+        album = parseInt(checked.val(), 10);
+        uploader.fineUploader('setParams', {album: album});
+        return true;
+    };
 
     $('.cancel').click(function(e) {
         uploader.fineUploader('cancel', id);
@@ -32,13 +46,7 @@ $(function(){
     $('#trigger-upload').click(function(e) {
         e.preventDefault();
         // TODO: multi upload
-        var checked = $('#upload-form input[name="album"]:checked');
-        if (checked.length !== 1) {
-            $('#modal-albums').modal('show');
-            return false;
-        }
-        album = parseInt(checked.val(), 10);
-        uploader.fineUploader('setParams', {album: album});
+        setAlbum();
         uploader.fineUploader('uploadStoredFiles');
         return false;
     });
