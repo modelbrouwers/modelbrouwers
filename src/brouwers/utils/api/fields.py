@@ -12,12 +12,12 @@ class ThumbnailField(fields.ImageField):
     def to_representation(self, value):
         thumbs = {}
         request = self.context.get('request', None)
-        for dim in self.dimensions:
+        for name, dim in self.dimensions:
             image = get_thumbnail(value, dim, **self.opts)
             if request is not None:
                 img_url = request.build_absolute_uri(image.url)
             else:
                 img_url = super(ThumbnailField, self).to_representation(image.url)
-            thumbs['%s' % dim] = img_url
+            thumbs['%s' % name] = img_url
 
         return thumbs

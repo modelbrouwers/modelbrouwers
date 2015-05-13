@@ -586,6 +586,50 @@ form fieldset.tab-pane {
   border-color: #32BB5B;
 }
 
+@-webkit-keyframes change-color {
+  0% {
+    color: #E91D1D;
+  }
+  20% {
+    color: #32BB5B;
+  }
+  40% {
+    color: #4095FD;
+  }
+  60% {
+    color: #DF4AC5;
+  }
+  80% {
+    color: #919291;
+  }
+  100% {
+    color: #006699;
+  }
+}
+@keyframes change-color {
+  0% {
+    color: #E91D1D;
+  }
+  20% {
+    color: #32BB5B;
+  }
+  40% {
+    color: #4095FD;
+  }
+  60% {
+    color: #DF4AC5;
+  }
+  80% {
+    color: #919291;
+  }
+  100% {
+    color: #006699;
+  }
+}
+/* line 1, ../../sass/partials/apps/_albums.scss */
+body.albums {
+  /* Lightbox */
+}
 /* line 3, ../../sass/partials/apps/_albums.scss */
 body.albums .qq-upload-drop-area {
   position: static;
@@ -680,6 +724,51 @@ body.albums .stats {
 /* line 99, ../../sass/partials/apps/_albums.scss */
 body.albums .pre-content .pagination {
   margin-top: 0;
+}
+/* line 108, ../../sass/partials/apps/_albums.scss */
+body.albums .modal-content .fa-spinner {
+  line-height: 90vh;
+  color: #006699;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75;
+  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+  animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+}
+/* line 115, ../../sass/partials/apps/_albums.scss */
+body.albums .lightbox .modal-dialog {
+  padding: 0;
+  overflow: hidden;
+  height: 90vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  text-align: center;
+}
+/* line 125, ../../sass/partials/apps/_albums.scss */
+body.albums .lightbox .modal-dialog .modal-content {
+  height: 90vh;
+  overflow: hidden;
+}
+/* line 130, ../../sass/partials/apps/_albums.scss */
+body.albums .lightbox .modal-dialog .modal-body {
+  padding: 0;
+}
+/* line 134, ../../sass/partials/apps/_albums.scss */
+body.albums .lightbox .modal-dialog .carousel-control {
+  line-height: 90vh;
+}
+/* line 138, ../../sass/partials/apps/_albums.scss */
+body.albums .lightbox .modal-dialog .carousel-inner {
+  background-color: #000000;
+}
+/* line 142, ../../sass/partials/apps/_albums.scss */
+body.albums .lightbox .modal-dialog .item img {
+  height: 90vh;
+  margin: 0 auto;
+}
+/* line 149, ../../sass/partials/apps/_albums.scss */
+body.albums .modal-backdrop.in {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */

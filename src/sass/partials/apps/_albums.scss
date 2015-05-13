@@ -101,4 +101,53 @@ body.albums {
   }
 }
 
+/* Lightbox */
+$lightbox-height: 90vh;
+$lightbox-margin: (100vh - $lightbox-height)/2;
+
+.modal-content .fa-spinner {
+  line-height: $lightbox-height;
+  color: $main-blue;
+  @include opacity(0.75);
+  @include spinner();
+}
+
+.lightbox .modal-dialog {
+  padding: 0;
+  overflow: hidden;
+
+  height: $lightbox-height;
+  margin-top: $lightbox-margin;
+  margin-bottom: $lightbox-margin;
+
+  text-align: center;
+
+  .modal-content {
+    height: $lightbox-height;
+    overflow: hidden;
+  }
+
+  .modal-body {
+    padding: 0;
+  }
+
+  .carousel-control {
+    line-height: $lightbox-height;
+  }
+
+  .carousel-inner {
+    background-color: $black;
+  }
+
+  .item img {
+    height: $lightbox-height;
+    margin: 0 auto;
+  }
+
+}
+
+.modal-backdrop.in {
+  @include opacity(0.75);
+}
+
 }
