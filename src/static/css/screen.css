@@ -626,10 +626,57 @@ form fieldset.tab-pane {
     color: #006699;
   }
 }
-/* line 1, ../../sass/partials/apps/_albums.scss */
-body.albums {
-  /* Lightbox */
+/* Lightbox */
+/* line 7, ../../sass/partials/_lightbox.scss */
+.lightbox .modal-dialog {
+  width: 75vw;
+  padding: 0;
 }
+/* line 12, ../../sass/partials/_lightbox.scss */
+.lightbox .modal-content {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  height: 90vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+/* line 19, ../../sass/partials/_lightbox.scss */
+.lightbox .modal-content > * {
+  padding: 0;
+  border: none;
+  max-height: 100%;
+}
+/* line 25, ../../sass/partials/_lightbox.scss */
+.lightbox .fa-spinner {
+  line-height: 90vh;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75;
+  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+  animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+}
+/* line 31, ../../sass/partials/_lightbox.scss */
+.lightbox .carousel {
+  background-color: rgba(0, 0, 0, 0.95);
+  padding: 2.5vh 0;
+}
+/* line 36, ../../sass/partials/_lightbox.scss */
+.lightbox .item {
+  text-align: center;
+  height: 85vh;
+}
+/* line 40, ../../sass/partials/_lightbox.scss */
+.lightbox .item img {
+  max-height: 100%;
+  margin: 0 auto;
+  border: solid 1px rgba(145, 146, 145, 0.25);
+  padding: 5px;
+}
+/* line 50, ../../sass/partials/_lightbox.scss */
+.lightbox .carousel-control {
+  line-height: 90vh;
+}
+
 /* line 3, ../../sass/partials/apps/_albums.scss */
 body.albums .qq-upload-drop-area {
   position: static;
@@ -725,48 +772,8 @@ body.albums .stats {
 body.albums .pre-content .pagination {
   margin-top: 0;
 }
-/* line 108, ../../sass/partials/apps/_albums.scss */
-body.albums .modal-content .fa-spinner {
-  line-height: 90vh;
-  color: #006699;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-  opacity: 0.75;
-  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
-  animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
-}
-/* line 115, ../../sass/partials/apps/_albums.scss */
-body.albums .lightbox .modal-dialog {
-  padding: 0;
-  overflow: hidden;
-  height: 90vh;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-  text-align: center;
-}
-/* line 125, ../../sass/partials/apps/_albums.scss */
-body.albums .lightbox .modal-dialog .modal-content {
-  height: 90vh;
-  overflow: hidden;
-}
-/* line 130, ../../sass/partials/apps/_albums.scss */
-body.albums .lightbox .modal-dialog .modal-body {
-  padding: 0;
-}
-/* line 134, ../../sass/partials/apps/_albums.scss */
-body.albums .lightbox .modal-dialog .carousel-control {
-  line-height: 90vh;
-}
-/* line 138, ../../sass/partials/apps/_albums.scss */
-body.albums .lightbox .modal-dialog .carousel-inner {
-  background-color: #000000;
-}
-/* line 142, ../../sass/partials/apps/_albums.scss */
-body.albums .lightbox .modal-dialog .item img {
-  height: 90vh;
-  margin: 0 auto;
-}
-/* line 149, ../../sass/partials/apps/_albums.scss */
-body.albums .modal-backdrop.in {
+/* line 104, ../../sass/partials/apps/_albums.scss */
+body.albums.modal-open .modal-backdrop.in {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
   opacity: 0.75;
 }

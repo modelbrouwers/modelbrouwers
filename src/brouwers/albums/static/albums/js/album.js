@@ -54,4 +54,8 @@ $(function() {
 
     });
 
+    $lightbox.on('slide.bs.carousel', function(event) {
+        // debugger;
+    });
+
 });

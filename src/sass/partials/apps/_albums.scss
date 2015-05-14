@@ -1,153 +1,108 @@
 body.albums {
 
-.qq-upload-drop-area {
-  position: static;
-  min-height: 100px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border: dashed 2px $main-grey;
-  background: rgba($main-grey, 0.2);
-
-  > span {
-    text-transform: uppercase;
-    font-weight: bolder;
-    color: rgba($main-grey, 0.8);
+  .qq-upload-drop-area {
     position: static;
-    margin-top: 0;
-    line-height: 100px;
-  }
+    min-height: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: dashed 2px $main-grey;
+    background: rgba($main-grey, 0.2);
 
-  &.qq-upload-drop-area-active {
-    border-color: $main-orange;
-  }
-}
-
-.qq-upload-list {
-  margin-top: 10px;
-}
-
-
-#carousel-album {
-  margin-bottom: 20px;
-
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  .carousel-control {
-    max-width: 50px;
-
-    > .fa {
-      position: absolute;
-      top: 50%;
-      display: inline-block;
-      margin-top: -20px;
+    > span {
+      text-transform: uppercase;
+      font-weight: bolder;
+      color: rgba($main-grey, 0.8);
+      position: static;
+      margin-top: 0;
+      line-height: 100px;
     }
 
-    > .fa-arrow-left {
-      left: 5px;
-    }
-
-    > .fa-arrow-right {
-      right: 5px;
+    &.qq-upload-drop-area-active {
+      border-color: $main-orange;
     }
   }
 
-  input {
-    + label {
-      margin-bottom: 0;
+  .qq-upload-list {
+    margin-top: 10px;
+  }
 
-      &:hover,
-      &:active,
-      &:focus {
-        cursor: pointer;
-        border-color: $main-light-blue;
+
+  #carousel-album {
+    margin-bottom: 20px;
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .carousel-control {
+      max-width: 50px;
+
+      > .fa {
+        position: absolute;
+        top: 50%;
+        display: inline-block;
+        margin-top: -20px;
       }
 
-      span.h4 {
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-top: 5px;
-        margin-bottom: 2px;
+      > .fa-arrow-left {
+        left: 5px;
+      }
+
+      > .fa-arrow-right {
+        right: 5px;
       }
     }
 
-    &:checked + label {
-      border-color: $main-blue;
+    input {
+      + label {
+        margin-bottom: 0;
+
+        &:hover,
+        &:active,
+        &:focus {
+          cursor: pointer;
+          border-color: $main-light-blue;
+        }
+
+        span.h4 {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-top: 5px;
+          margin-bottom: 2px;
+        }
+      }
+
+      &:checked + label {
+        border-color: $main-blue;
+      }
+    }
+
+  }
+
+  .photo-count {
+    left: 20px;
+    font-size: 65%;
+    background-color: rgba($main-green, 0.90);
+    line-height: 1;
+    @include border-radius(15px);
+    padding: 4px 12px;
+    width: auto;
+  }
+
+  .stats {
+    color: rgba($white, 0.5);
+  }
+
+  .pre-content {
+    .pagination {
+      margin-top: 0;
     }
   }
 
-}
-
-.photo-count {
-  left: 20px;
-  font-size: 65%;
-  background-color: rgba($main-green, 0.90);
-  line-height: 1;
-  @include border-radius(15px);
-  padding: 4px 12px;
-  width: auto;
-}
-
-.stats {
-  color: rgba($white, 0.5);
-}
-
-.pre-content {
-  .pagination {
-    margin-top: 0;
+  &.modal-open .modal-backdrop.in {
+    @include opacity(0.75);
   }
-}
-
-/* Lightbox */
-$lightbox-height: 90vh;
-$lightbox-margin: (100vh - $lightbox-height)/2;
-
-.modal-content .fa-spinner {
-  line-height: $lightbox-height;
-  color: $main-blue;
-  @include opacity(0.75);
-  @include spinner();
-}
-
-.lightbox .modal-dialog {
-  padding: 0;
-  overflow: hidden;
-
-  height: $lightbox-height;
-  margin-top: $lightbox-margin;
-  margin-bottom: $lightbox-margin;
-
-  text-align: center;
-
-  .modal-content {
-    height: $lightbox-height;
-    overflow: hidden;
-  }
-
-  .modal-body {
-    padding: 0;
-  }
-
-  .carousel-control {
-    line-height: $lightbox-height;
-  }
-
-  .carousel-inner {
-    background-color: $black;
-  }
-
-  .item img {
-    height: $lightbox-height;
-    margin: 0 auto;
-  }
-
-}
-
-.modal-backdrop.in {
-  @include opacity(0.75);
-}
 
 }
