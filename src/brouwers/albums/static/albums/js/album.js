@@ -16,8 +16,6 @@ $(function() {
         $lightboxBody.find('.modal-body').remove();
         $('#image-loader').show();
 
-        /* Closure to render the current photo in the lightbox */
-
         var renderLightbox = function(currentID, photos) {
             var current = photos.filter(function(e) {return e.id == currentID;})[0];
             current.state = {selected: true};
@@ -35,6 +33,7 @@ $(function() {
                 });
         };
 
+        /* Closure to render the current photo in the lightbox */
         function getLightboxRenderer(id) {
             var currentID = id;
             return function(photos) {
@@ -52,10 +51,6 @@ $(function() {
             album: window.album
         }).done(getLightboxRenderer(id));
 
-    });
-
-    $lightbox.on('slide.bs.carousel', function(event) {
-        // debugger;
     });
 
 });

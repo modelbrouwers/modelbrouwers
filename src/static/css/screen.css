@@ -672,7 +672,7 @@ form fieldset.tab-pane {
   border: solid 1px rgba(145, 146, 145, 0.25);
   padding: 5px;
 }
-/* line 50, ../../sass/partials/_lightbox.scss */
+/* line 48, ../../sass/partials/_lightbox.scss */
 .lightbox .carousel-control {
   line-height: 90vh;
 }
