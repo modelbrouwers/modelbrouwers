@@ -120,8 +120,12 @@ MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 #
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'static'),
+    # node_modules cannot be consistently installed in the 'correct place'.
+    # symlinking resuls in too many levels of symlinks
+    os.path.join(ROOT_DIR, 'node_modules'),
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
