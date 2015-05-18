@@ -20,6 +20,7 @@ def setupenv():
     cur_dir = os.getcwd()
     # Remember original sys.path.
     prev_sys_path = list(sys.path)
+    original_dir = os.getcwd()
 
     src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     venv = os.getenv('VIRTUAL_ENV')
@@ -41,6 +42,7 @@ def setupenv():
             new_sys_path.append(item)
             sys.path.remove(item)
     sys.path[:0] = new_sys_path
+    os.chdir(original_dir)
 
     # change back to the current directory
     os.chdir(cur_dir)

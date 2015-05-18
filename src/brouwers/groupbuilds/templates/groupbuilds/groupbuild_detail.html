@@ -119,7 +119,7 @@
                                             <td>{{ participant.model_name }}</td>
                                             <td>
                                                 {% if participant.topic %}
-                                                <a href="{{ participant.topic.get_absolute_url }}">{{ participant.topic }}</a>
+                                                <a href="{{ participant.topic.get_absolute_url }}">{{ participant.topic|safe }}</a>
                                                 {% endif %}
                                             </td>
                                             <td class="col-xs-1">
@@ -161,7 +161,7 @@
                             <td>{{ participant.model_name }}</td>
                             <td>
                                 {% if participant.topic %}
-                                <a href="{{ participant.topic.get_absolute_url }}">{{ participant.topic }}</a>
+                                <a href="{{ participant.topic.get_absolute_url }}">{{ participant.topic|safe }}</a>
                                 {% endif %}
                             </td>
                         </tr>
