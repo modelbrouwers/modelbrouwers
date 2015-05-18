@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-sm-8">
             <h1 class="text-primary">
-                {% trans "Brouwersdag 2014" %}
+                {% blocktrans with year=brouwersdag.date.year %}Brouwersdag {{ year }}{% endblocktrans %}
                 <small>{% trans "Time to do your models sign-up!" %}</small>
             </h1>
 

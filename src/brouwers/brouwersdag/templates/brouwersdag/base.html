@@ -1,5 +1,7 @@
 {% extends "base_html5.html" %}{% load i18n %}
 
+{% block title %}{% blocktrans with year=brouwersdag.date.year %}Brouwersdag {{ year }}{% endblocktrans %}{% endblock %}
+
 {% block sub-nav-links %}
     {% url 'brouwersdag:index' as url_bd_index %}
     {% url 'brouwersdag:model-signup' as url_bd_signup %}
