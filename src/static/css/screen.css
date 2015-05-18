@@ -768,11 +768,16 @@ body.albums .photo-count {
 body.albums .stats {
   color: rgba(255, 255, 255, 0.5);
 }
-/* line 99, ../../sass/partials/apps/_albums.scss */
+/* line 98, ../../sass/partials/apps/_albums.scss */
+body.albums .pre-content {
+  margin-bottom: 20px;
+}
+/* line 101, ../../sass/partials/apps/_albums.scss */
 body.albums .pre-content .pagination {
   margin-top: 0;
+  margin-bottom: 0;
 }
-/* line 104, ../../sass/partials/apps/_albums.scss */
+/* line 107, ../../sass/partials/apps/_albums.scss */
 body.albums.modal-open .modal-backdrop.in {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
   opacity: 0.75;
