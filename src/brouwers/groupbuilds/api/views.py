@@ -40,7 +40,7 @@ class GroupBuildParticipantCheckView(views.APIView):
         topic = Topic.objects.filter(**form.cleaned_data).first()
         topic_created = (
             topic is not None and
-            (timezone.now() - topic.created).seconds < (3 * 600)
+            (timezone.now() - topic.created).seconds < (3 * 60)
         )
         response['topic_created'] = topic_created
         if topic_created and gb is not None:  # include gb and topic data
