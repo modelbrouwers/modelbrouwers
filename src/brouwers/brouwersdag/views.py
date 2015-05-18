@@ -16,7 +16,10 @@ class OwnModelsMixin(object):
     def get_queryset(self):
         qs = super(OwnModelsMixin, self).get_queryset()
         user = self.request.user
-        return qs.filter(Q(owner=user) | Q(email=user.email)).order_by('-id')
+        current_bd = Brouwersdag.objects.get_current()
+        return qs.filter(
+            Q(owner=user) | Q(email=user.email)
+        ).filter(brouwersdag=current_bd).order_by('-id')
 
 
 class IndexView(ListView):
@@ -28,6 +31,7 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
+        context['brouwersdag'] = Brouwersdag.objects.get_current()
         stats = self.get_queryset().aggregate(
                 n_total=Count('id'),
                 n_competition=Count('competition')
@@ -77,6 +81,10 @@ class SignupView(CompetitionMixin, CreateView):
         messages.success(self.request, _('Your model has been submitted'))
         return super(SignupView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        kwargs.update(brouwersdag=Brouwersdag.objects.get_current())
+        return super(SignupView, self).get_context_data(**kwargs)
+
 
 class EditModelView(CompetitionMixin, UpdateView):
     model = ShowCasedModel
@@ -88,6 +96,10 @@ class EditModelView(CompetitionMixin, UpdateView):
         messages.success(self.request, _('Your model has been edited'))
         return super(EditModelView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        kwargs.update(brouwersdag=Brouwersdag.objects.get_current())
+        return super(EditModelView, self).get_context_data(**kwargs)
+
 
 class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):
     model = ShowCasedModel
@@ -95,6 +107,10 @@ class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):
 
     def get_queryset(self):
         return super(MyModelsView, self).get_queryset().order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        kwargs.update(brouwersdag=Brouwersdag.objects.get_current())
+        return super(MyModelsView, self).get_context_data(**kwargs)
 
 
 class CancelSignupView(OwnModelsMixin, DeleteView):
