@@ -19,11 +19,6 @@ from ..forms import *
 from ..utils import resize, admin_mode, can_switch_admin_mode, get_default_img_size
 
 
-
-
-###########################
-#        MANAGING         #
-###########################
 @login_required
 def manage(request, album_id=None):
     """
@@ -36,7 +31,7 @@ def manage(request, album_id=None):
         )
     albums = Album.objects.filter(user=request.user, trash=False)
 
-    if album_id: #fallback pure http (no AJAX)
+    if album_id:  # fallback pure http (no AJAX)
         album = get_object_or_404(Album, pk=album_id)
     else:
         album = None
@@ -77,6 +72,7 @@ def manage(request, album_id=None):
         album_formset = AlbumFormSet(queryset=albums)
     return render(request, 'albums/manage.html', {'albumformset': album_formset, 'add_album_form': add_album_form})
 
+
 @login_required
 def edit_album(request, album_id=None):
     q = Q(pk=album_id)
@@ -104,6 +100,7 @@ def edit_album(request, album_id=None):
         form = EditAlbumForm(instance=album, user=request.user)
         formset = GroupFormset(instance=album)
     return render(request, 'albums/edit_album.html', {'form': form, 'formset': formset})
+
 
 @login_required
 def download_album(request, album_id=None):
@@ -147,6 +144,7 @@ def download_album(request, album_id=None):
     album_download.save()
     return HttpResponseRedirect(url)
 
+
 @login_required
 def edit_photo(request, photo_id=None):
     q = Q(pk=photo_id)
@@ -162,6 +160,7 @@ def edit_photo(request, photo_id=None):
     else:
         form = EditPhotoForm(request.user, instance=photo)
     return render(request, 'albums/edit_photo.html', {'form': form})
+
 
 @login_required
 def preferences(request):
@@ -232,6 +231,7 @@ def my_last_uploads(request):
         needs_closing_tag_row = True
     return render(request, 'albums/my_last_uploads.html', {'uploads': uploads, 'needs_closing_tag_row': needs_closing_tag_row})
 
+
 @login_required
 def my_albums_list(request):
     trash = request.GET.get('trash', False)
@@ -276,17 +276,3 @@ def my_albums_list(request):
     new_album = Album(user=request.user)
     form = AlbumForm(instance=new_album, user=request.user)
     return render(request, 'albums/my_albums_list.html', {'albums_data': albums_data, 'trash': trash, 'extra_parameters': extra_parameters, 'form': form})
-
-def photo(request, photo_id=None):
-    q = Q(pk=photo_id, album__trash=False)
-    if request.user.is_authenticated():
-        if not admin_mode(request.user):
-            groups = request.user.albumgroup_set.all()
-            q = Q(q, Q(album__public=True) | Q(user=request.user) | Q(album__albumgroup__in=groups))
-    else:
-        q = Q(q, album__public=True)
-    photo = get_object_or_404(Photo, q)
-    photo.views = F('views') + 1
-    photo.save()
-    photo = get_object_or_404(Photo, pk=photo_id)
-    return render(request, 'albums/photo.html', {'photo': photo})

@@ -207,6 +207,29 @@ body > footer {
   margin-top: 50px;
 }
 
+/* line 87, ../../sass/partials/_base.scss */
+.popover {
+  background-color: #32BB5B;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 0 #227f3e;
+}
+/* line 93, ../../sass/partials/_base.scss */
+.popover.top > .arrow:after {
+  border-top-color: #32BB5B;
+}
+/* line 93, ../../sass/partials/_base.scss */
+.popover.bottom > .arrow:after {
+  border-bottom-color: #32BB5B;
+}
+/* line 93, ../../sass/partials/_base.scss */
+.popover.left > .arrow:after {
+  border-left-color: #32BB5B;
+}
+/* line 93, ../../sass/partials/_base.scss */
+.popover.right > .arrow:after {
+  border-right-color: #32BB5B;
+}
+
 /* line 3, ../../sass/partials/_header.scss */
 .navbar-center .navbar-nav {
   display: inline-block;
@@ -821,7 +844,7 @@ body.albums.photo-detail .photo figure img {
 }
 /* line 150, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure.compress img {
-  max-height: 100vh;
+  max-height: 98vh;
 }
 /* line 154, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure figcaption {
@@ -829,9 +852,29 @@ body.albums.photo-detail .photo figure figcaption {
   width: 90%;
 }
 /* line 163, ../../sass/partials/apps/_albums.scss */
-body.albums.photo-detail .photo .controls {
+body.albums.photo-detail .photo .controls-group {
   position: absolute;
   z-index: 10;
+}
+/* line 168, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls-group.top {
+  top: 20px;
+}
+/* line 168, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls-group.bottom {
+  bottom: 20px;
+}
+/* line 168, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls-group.left {
+  left: 20px;
+}
+/* line 168, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls-group.right {
+  right: 20px;
+}
+/* line 174, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls {
+  margin-bottom: 10px;
   background-color: rgba(255, 255, 255, 0.85);
   border: solid 1px rgba(0, 0, 0, 0.25);
   -moz-border-radius: 6px;
@@ -841,25 +884,10 @@ body.albums.photo-detail .photo .controls {
   -webkit-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
 }
-/* line 173, ../../sass/partials/apps/_albums.scss */
-body.albums.photo-detail .photo .controls.top {
-  top: 20px;
-}
-/* line 173, ../../sass/partials/apps/_albums.scss */
-body.albums.photo-detail .photo .controls.bottom {
-  bottom: 20px;
-}
-/* line 173, ../../sass/partials/apps/_albums.scss */
-body.albums.photo-detail .photo .controls.left {
-  left: 20px;
-}
-/* line 173, ../../sass/partials/apps/_albums.scss */
-body.albums.photo-detail .photo .controls.right {
-  right: 20px;
-}
-/* line 178, ../../sass/partials/apps/_albums.scss */
+/* line 181, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw {
   display: block;
+  max-height: 1.28571429em;
   line-height: 1.28571429em;
   z-index: 101;
   border-bottom: solid 1px #CCC;
@@ -870,15 +898,19 @@ body.albums.photo-detail .photo .controls > .fa-fw {
   -webkit-transition: opacity 0.5s ease;
   transition: opacity 0.5s ease;
 }
-/* line 186, ../../sass/partials/apps/_albums.scss */
+/* line 190, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw:last-child {
   border-bottom: none;
 }
-/* line 190, ../../sass/partials/apps/_albums.scss */
+/* line 194, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw:hover, body.albums.photo-detail .photo .controls > .fa-fw:active, body.albums.photo-detail .photo .controls > .fa-fw.active, body.albums.photo-detail .photo .controls > .fa-fw:focus {
   cursor: pointer;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
+}
+/* line 203, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls .popover {
+  min-width: 200px;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */

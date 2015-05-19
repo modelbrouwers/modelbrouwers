@@ -32,9 +32,34 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
             <figcaption><p>{{ photo.description }}</p></figcaption>
         {% endif %}
 
-        <div class="controls top right">
-            <i class="fa fa-fw fa-compress fa-2x" data-action="compress"></i>
-            {# <i class="fa fa-fw fa-expand fa-2x" data-action="expand"></i> #}
+        <div class="controls-group top right">
+            <div class="controls">
+                <i class="fa fa-fw fa-compress fa-2x"
+                   data-action="compress"
+                   data-trigger="hover focus"
+                   data-toggle="popover"
+                   data-placement="auto top"
+                   data-content="{% trans 'Collapses the image if it is higher than the browser window' %}"
+                ></i>
+                {# <i class="fa fa-fw fa-expand fa-2x" data-action="expand"></i> #}
+            </div>
+
+            <div class="controls">
+                <i class="fa fa-fw fa-rotate-left fa-2x"
+                   data-action="rotate-left"
+                   data-trigger="hover focus"
+                   data-toggle="popover"
+                   data-placement="auto top"
+                   data-content="{% trans 'Rotate the image to the left' %}"
+                ></i>
+                <i class="fa fa-fw fa-rotate-right fa-2x"
+                   data-action="rotate-right"
+                   data-trigger="hover focus"
+                   data-toggle="popover"
+                   data-placement="auto top"
+                   data-content="{% trans 'Rotate the image to the right' %}"
+                ></i>
+            </div>
         </div>
 
     </figure>

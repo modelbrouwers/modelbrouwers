@@ -33,6 +33,7 @@ $(function() {
         }
     };
 
+    $('.controls [data-toggle="popover"]').popover();
 
     $('.controls').on('click', '[data-action]', function(event) {
         event.preventDefault();

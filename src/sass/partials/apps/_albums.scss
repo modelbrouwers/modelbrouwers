@@ -148,7 +148,7 @@ body.albums.photo-detail {
       }
 
       &.compress img {
-        max-height: 100vh;
+        max-height: 98vh;
       }
 
       figcaption {
@@ -160,23 +160,27 @@ body.albums.photo-detail {
       }
     }
 
-    .controls {
+    .controls-group {
       position: absolute;
       z-index: 10;
-      background-color: rgba($white, 0.85);
-      border: solid 1px rgba($black, 0.25);
-      @include border-radius(6px);
-      @include box-shadow(3px 3px 10px 0 rgba($black, 0.5));
 
-      $positions: top bottom left right;
       @each $position in $positions {
         &.#{$position} {
           #{$position}: 20px;
         }
       }
+    }
+
+    .controls {
+      margin-bottom: 10px;
+      background-color: rgba($white, 0.85);
+      border: solid 1px rgba($black, 0.25);
+      @include border-radius(6px);
+      @include box-shadow(3px 3px 10px 0 rgba($black, 0.5));
 
       > .fa-fw {
         display: block;
+        max-height: 1.28571429em;
         line-height: 1.28571429em;
         z-index: 101;
         border-bottom: solid 1px $default-border-color;
@@ -194,6 +198,10 @@ body.albums.photo-detail {
           cursor: pointer;
           @include opacity(1);
         }
+      }
+
+      .popover {
+        min-width: 200px;
       }
     }
   }

@@ -83,3 +83,15 @@ p {
 body > footer {
   margin-top: 50px;
 }
+
+.popover {
+  background-color: $main-green;
+  color: $white;
+  @include text-shadow(1px 1px 0 darken($main-green, 15));
+
+  @each $position in $positions {
+    &.#{$position} > .arrow:after {
+      border-#{$position}-color: $main-green;
+    }
+  }
+}
