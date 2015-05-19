@@ -24,12 +24,12 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
 {% block content %}
 <article class="photo">
     <figure>
-        {% thumbnail photo.image "1280x720" as im %}
+        {% thumbnail photo.image "1280x1280" as im %}
             <img src="{{ im.url }}" class="img-responsive">
         {% endthumbnail %}
 
         {% if photo.description %}
-            <caption>{{ photo.description }}</caption>
+            <figcaption><p>{{ photo.description }}</p></figcaption>
         {% endif %}
     </figure>
 </article>
