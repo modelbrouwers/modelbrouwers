@@ -843,36 +843,32 @@ body.albums.photo-detail .photo figure img {
   margin: 0 auto;
 }
 /* line 150, ../../sass/partials/apps/_albums.scss */
-body.albums.photo-detail .photo figure.compress img {
-  max-height: 98vh;
-}
-/* line 154, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure figcaption {
   margin: 10px auto 0;
   width: 90%;
 }
-/* line 163, ../../sass/partials/apps/_albums.scss */
+/* line 159, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group {
   position: absolute;
   z-index: 10;
 }
-/* line 168, ../../sass/partials/apps/_albums.scss */
+/* line 164, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.top {
   top: 20px;
 }
-/* line 168, ../../sass/partials/apps/_albums.scss */
+/* line 164, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.bottom {
   bottom: 20px;
 }
-/* line 168, ../../sass/partials/apps/_albums.scss */
+/* line 164, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.left {
   left: 20px;
 }
-/* line 168, ../../sass/partials/apps/_albums.scss */
+/* line 164, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.right {
   right: 20px;
 }
-/* line 174, ../../sass/partials/apps/_albums.scss */
+/* line 170, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls {
   margin-bottom: 10px;
   background-color: rgba(255, 255, 255, 0.85);
@@ -884,7 +880,7 @@ body.albums.photo-detail .photo .controls {
   -webkit-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
 }
-/* line 181, ../../sass/partials/apps/_albums.scss */
+/* line 177, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw {
   display: block;
   max-height: 1.28571429em;
@@ -898,19 +894,44 @@ body.albums.photo-detail .photo .controls > .fa-fw {
   -webkit-transition: opacity 0.5s ease;
   transition: opacity 0.5s ease;
 }
-/* line 190, ../../sass/partials/apps/_albums.scss */
+/* line 186, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw:last-child {
   border-bottom: none;
 }
-/* line 194, ../../sass/partials/apps/_albums.scss */
+/* line 190, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw:hover, body.albums.photo-detail .photo .controls > .fa-fw:active, body.albums.photo-detail .photo .controls > .fa-fw.active, body.albums.photo-detail .photo .controls > .fa-fw:focus {
   cursor: pointer;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
-/* line 203, ../../sass/partials/apps/_albums.scss */
+/* line 199, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls .popover {
   min-width: 200px;
+}
+/* line 204, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo figure.compress img {
+  max-height: 98vh;
+}
+/* line 208, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo figure.rotate-left img {
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+/* line 212, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo figure.rotate-right img {
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+/* line 216, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo figure.rotate-180 img {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */

@@ -147,10 +147,6 @@ body.albums.photo-detail {
         margin: 0 auto;
       }
 
-      &.compress img {
-        max-height: 98vh;
-      }
-
       figcaption {
         margin: 10px auto 0;
         width: 90%;
@@ -203,6 +199,22 @@ body.albums.photo-detail {
       .popover {
         min-width: 200px;
       }
+    }
+
+    figure.compress img {
+      max-height: 98vh;
+    }
+
+    figure.rotate-left img {
+      @include rotate(-90deg);
+    }
+
+    figure.rotate-right img {
+      @include rotate(90deg);
+    }
+
+    figure.rotate-180 img {
+      @include rotate(180deg);
     }
   }
 }
