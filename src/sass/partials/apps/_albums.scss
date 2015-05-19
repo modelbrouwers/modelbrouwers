@@ -142,17 +142,21 @@ body.albums.photo-detail {
       &:active {
         @include box-shadow(3px 3px 15px 0 rgba($black, 0.75));
       }
-    }
 
-    img {
-      margin: 0 auto;
-    }
+      img {
+        margin: 0 auto;
+      }
 
-    figcaption {
-      margin: 10px auto 0;
-      width: 90%;
+      &.compress img {
+        max-height: 100vh;
+      }
 
-      p {
+      figcaption {
+        margin: 10px auto 0;
+        width: 90%;
+
+        p {
+        }
       }
     }
 

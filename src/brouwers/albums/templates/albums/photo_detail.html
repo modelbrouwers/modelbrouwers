@@ -33,10 +33,15 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
         {% endif %}
 
         <div class="controls top right">
-            <i class="fa fa-fw fa-compress fa-2x"></i>
-            <i class="fa fa-fw fa-expand fa-2x"></i>
+            <i class="fa fa-fw fa-compress fa-2x" data-action="compress"></i>
+            <i class="fa fa-fw fa-expand fa-2x" data-action="expand"></i>
         </div>
 
     </figure>
 </article>
 {% endblock content %}
+
+{% block extrascript %}
+    {{ block.super }}
+    <script src="{% static 'albums/js/photo-detail.js' %}"></script>
+{% endblock %}
