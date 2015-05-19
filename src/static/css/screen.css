@@ -800,6 +800,7 @@ body.albums.photo-detail .photo figure {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.1);
   border: solid 1px rgba(0, 0, 0, 0.25);
+  position: relative;
   -moz-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
@@ -808,20 +809,72 @@ body.albums.photo-detail .photo figure {
   -webkit-transition: box-shadow 1s ease;
   transition: box-shadow 1s ease;
 }
-/* line 137, ../../sass/partials/apps/_albums.scss */
+/* line 140, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure:hover, body.albums.photo-detail .photo figure:focus, body.albums.photo-detail .photo figure:active {
   -moz-box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
   box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
 }
-/* line 144, ../../sass/partials/apps/_albums.scss */
+/* line 147, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo img {
   margin: 0 auto;
 }
-/* line 148, ../../sass/partials/apps/_albums.scss */
+/* line 151, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figcaption {
-  margin: 15px auto 0;
+  margin: 10px auto 0;
   width: 90%;
+}
+/* line 159, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls {
+  position: absolute;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.85);
+  border: solid 1px rgba(0, 0, 0, 0.25);
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  -moz-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
+}
+/* line 169, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls.top {
+  top: 20px;
+}
+/* line 169, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls.bottom {
+  bottom: 20px;
+}
+/* line 169, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls.left {
+  left: 20px;
+}
+/* line 169, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls.right {
+  right: 20px;
+}
+/* line 174, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls > .fa-fw {
+  display: block;
+  line-height: 1.28571429em;
+  z-index: 101;
+  border-bottom: solid 1px #CCC;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  -moz-transition: opacity 0.5s ease;
+  -o-transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+/* line 182, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls > .fa-fw:last-child {
+  border-bottom: none;
+}
+/* line 186, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo .controls > .fa-fw:hover, body.albums.photo-detail .photo .controls > .fa-fw:active, body.albums.photo-detail .photo .controls > .fa-fw.active, body.albums.photo-detail .photo .controls > .fa-fw:focus {
+  cursor: pointer;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */

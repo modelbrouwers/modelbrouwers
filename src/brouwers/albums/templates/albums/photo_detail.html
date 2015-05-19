@@ -31,6 +31,12 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
         {% if photo.description %}
             <figcaption><p>{{ photo.description }}</p></figcaption>
         {% endif %}
+
+        <div class="controls top right">
+            <i class="fa fa-fw fa-compress fa-2x"></i>
+            <i class="fa fa-fw fa-expand fa-2x"></i>
+        </div>
+
     </figure>
 </article>
 {% endblock content %}

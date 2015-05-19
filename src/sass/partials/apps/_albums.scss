@@ -131,6 +131,9 @@ body.albums.photo-detail {
       padding: 10px;
       background-color: rgba($black, 0.1);
       border: solid 1px rgba($black, 0.25);
+
+      position: relative;
+
       @include box-shadow(3px 3px 10px 0 rgba($black, 0.5));
       @include transition(box-shadow 1s ease);
 
@@ -146,10 +149,47 @@ body.albums.photo-detail {
     }
 
     figcaption {
-      margin: 15px auto 0;
+      margin: 10px auto 0;
       width: 90%;
 
       p {
+      }
+    }
+
+    .controls {
+      position: absolute;
+      z-index: 10;
+      background-color: rgba($white, 0.85);
+      border: solid 1px rgba($black, 0.25);
+      @include border-radius(6px);
+      @include box-shadow(3px 3px 10px 0 rgba($black, 0.5));
+
+      $positions: top bottom left right;
+      @each $position in $positions {
+        &.#{$position} {
+          #{$position}: 20px;
+        }
+      }
+
+      > .fa-fw {
+        display: block;
+        line-height: 1.28571429em;
+        z-index: 101;
+        border-bottom: solid 1px $default-border-color;
+        @include opacity(0.5);
+        @include transition(opacity 0.5s ease);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover,
+        &:active,
+        &.active,
+        &:focus {
+          cursor: pointer;
+          @include opacity(1);
+        }
       }
     }
   }
