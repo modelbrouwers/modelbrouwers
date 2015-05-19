@@ -66,3 +66,22 @@ class AlbumDetailView(ListView, SingleObjectMixin):
     def get_context_data(self, **kwargs):
         kwargs['album'] = self.get_album()
         return super(AlbumDetailView, self).get_context_data(**kwargs)
+
+
+class PhotoDetailView(DetailView):
+    queryset = Photo.objects.filter(trash=False, album__trash=False).select_related('user', 'album')
+
+    def get_queryset(self):  # TODO: test
+        qs = super(PhotoDetailView, self).get_queryset()
+        user = self.request.user
+        if not user.is_authenticated():
+            qs = qs.filter(album__public=True)
+        else:
+            qs = qs.filter(Q(user=user) | Q(album__albumgroup__users=user))
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        obj = self.get_object()
+        obj.views = F('views') + 1
+        obj.save()
+        return super(PhotoDetailView, self).get(request, *args, **kwargs)

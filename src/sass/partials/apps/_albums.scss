@@ -109,3 +109,17 @@ body.albums {
   }
 
 }
+
+body.albums.photo-detail {
+
+  header {
+
+    h1 {
+      font-size: 24px;
+    }
+
+    a.pull-right {
+      margin-top: 20px;
+    }
+  }
+}

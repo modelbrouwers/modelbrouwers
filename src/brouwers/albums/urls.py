@@ -2,7 +2,9 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
 from .ajax_views import RotateView
-from .views import IndexView, UploadView, AlbumCreateView, AlbumDetailView
+from .views import (
+    IndexView, UploadView, AlbumCreateView, AlbumDetailView, PhotoDetailView
+)
 
 
 urlpatterns = patterns(
@@ -12,7 +14,7 @@ urlpatterns = patterns(
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
     url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^album/\{?(?P<pk>\d+)\}?/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
-
+    url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
 
 
 
@@ -22,7 +24,6 @@ urlpatterns = patterns(
     (r'^manage/(\d+)/$',    'manage'),
     (r'^my_gallery/$',      'my_albums_list'),
     (r'^my_gallery/last_uploads/$', 'my_last_uploads'),
-    url(r'^photo/(\d+)/$', 'photo', name='photo_detail'),
     (r'^photo/(\d+)/edit/$', 'edit_photo'),
     (r'^preferences/$',     'preferences'),
     (r'^manage/$',          'manage'),

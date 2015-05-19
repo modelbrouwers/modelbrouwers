@@ -783,6 +783,15 @@ body.albums.modal-open .modal-backdrop.in {
   opacity: 0.75;
 }
 
+/* line 117, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail header h1 {
+  font-size: 24px;
+}
+/* line 121, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail header a.pull-right {
+  margin-top: 20px;
+}
+
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {
   margin-bottom: 25px;

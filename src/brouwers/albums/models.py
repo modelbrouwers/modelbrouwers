@@ -236,7 +236,7 @@ class Photo(models.Model):
         return u'albumphoto %d' % self.id
 
     def get_absolute_url(self):
-        return reverse('albums:photo_detail', args=[self.id])
+        return reverse('albums:photo-detail', kwargs={'pk': self.pk})
 
     @property
     def exists(self):

@@ -1,0 +1,36 @@
+{% extends "albums/index.html" %}{% load i18n staticfiles %}
+{% load cycle from future %}
+
+{% block body-class %}{{ block.super }} photo-detail{% endblock %}
+
+{% block eye-catcher-content %}
+<a href="{{ photo.album.get_absolute_url }}" class="pull-right btn bg-main-blue" title="{% trans "View album" %}">&lt; {% trans "back to album" %}</a>
+
+<h1>
+{% blocktrans with user=photo.user.username album=photo.album.title %}
+    Photo by {{ user }} in album &lsquo;{{ album }}&rsquo;
+{% endblocktrans %}
+</h1>
+
+
+<small class="stats">
+{% blocktrans with views=photo.views uploaded=photo.uploaded|date:'j F Y' %}
+Statistics: {{ views }} views, uploaded: {{ uploaded }}
+{% endblocktrans %}
+</small>
+{% endblock %}
+
+
+{% block content %}
+
+{{ photo.image }}
+
+{% if photo.description %}
+    <p>
+        <i class="fa fa-quote-left"></i><br>
+        {{ photo.description }}
+        <i class="fa fa-quote-right"></i>
+    </p>
+{% endif %}
+
+{% endblock content %}
