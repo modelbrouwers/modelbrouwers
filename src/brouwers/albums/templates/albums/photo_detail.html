@@ -1,4 +1,4 @@
-{% extends "albums/index.html" %}{% load i18n staticfiles %}
+{% extends "albums/index.html" %}{% load i18n staticfiles thumbnail %}
 {% load cycle from future %}
 
 {% block body-class %}{{ block.super }} photo-detail{% endblock %}
@@ -22,15 +22,15 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
 
 
 {% block content %}
+<article class="photo">
+    <figure>
+        {% thumbnail photo.image "1280x720" as im %}
+            <img src="{{ im.url }}" class="img-responsive">
+        {% endthumbnail %}
 
-{{ photo.image }}
-
-{% if photo.description %}
-    <p>
-        <i class="fa fa-quote-left"></i><br>
-        {{ photo.description }}
-        <i class="fa fa-quote-right"></i>
-    </p>
-{% endif %}
-
+        {% if photo.description %}
+            <caption>{{ photo.description }}</caption>
+        {% endif %}
+    </figure>
+</article>
 {% endblock content %}

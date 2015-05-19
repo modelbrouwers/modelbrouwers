@@ -122,4 +122,20 @@ body.albums.photo-detail {
       margin-top: 20px;
     }
   }
+
+  .photo {
+
+    img {
+      margin: 0 auto;
+
+      @include box-shadow(3px 3px 10px 0 rgba($black, 0.5));
+      @include transition(box-shadow 1s ease);
+
+      &:hover,
+      &:focus,
+      &:active {
+        @include box-shadow(3px 3px 15px 0 rgba($black, 0.75));
+      }
+    }
+  }
 }

@@ -791,6 +791,23 @@ body.albums.photo-detail header h1 {
 body.albums.photo-detail header a.pull-right {
   margin-top: 20px;
 }
+/* line 128, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo img {
+  margin: 0 auto;
+  -moz-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
+  -moz-transition: box-shadow 1s ease;
+  -o-transition: box-shadow 1s ease;
+  -webkit-transition: box-shadow 1s ease;
+  transition: box-shadow 1s ease;
+}
+/* line 134, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .photo img:hover, body.albums.photo-detail .photo img:focus, body.albums.photo-detail .photo img:active {
+  -moz-box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
+}
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {
