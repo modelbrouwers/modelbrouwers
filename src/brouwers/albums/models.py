@@ -220,7 +220,7 @@ class Photo(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            max_order = Photo.objects.filter(album=self.album).aggregate(max_order=Max('order'))['max_order']
+            max_order = Photo.objects.filter(album=self.album).aggregate(max_order=Max('order'))['max_order'] or 0
             self.order = max_order + 1
         super(Photo, self).save(*args, **kwargs)
 
