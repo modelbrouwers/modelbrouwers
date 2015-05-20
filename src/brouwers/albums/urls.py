@@ -16,17 +16,14 @@ urlpatterns = patterns(
     url(r'^album/\{?(?P<pk>\d+)\}?/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
 
-
-
-    (r'^album/(\d+)/edit/', 'edit_album'),
-    (r'^album/(\d+)/download/', 'download_album'),
+    # keep
     (r'^list/$',             'albums_list'),  # all albums
-    (r'^manage/(\d+)/$',    'manage'),
+    (r'^album/(\d+)/download/', 'download_album'),
+
+
     (r'^my_gallery/$',      'my_albums_list'),
     (r'^my_gallery/last_uploads/$', 'my_last_uploads'),
-    (r'^photo/(\d+)/edit/$', 'edit_photo'),
     (r'^preferences/$',     'preferences'),
-    (r'^manage/$',          'manage'),
 )
 
 # AJAX
