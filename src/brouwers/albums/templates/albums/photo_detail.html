@@ -70,10 +70,18 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
         </div>
 
     </figure>
+
+
+    <footer>
+      <a href="#" class="btn bg-main-blue pull-left" data-load="previous">{% trans "Previous image in album" %}</a>
+      <a href="#" class="btn bg-main-blue pull-right" data-load="next">{% trans "Next image in album" %}</a>
+    </footer>
 </article>
+
 {% endblock content %}
 
 {% block extrascript %}
     {{ block.super }}
+    {% include "includes/api.html" %}
     <script src="{% static 'albums/js/photo-detail.js' %}"></script>
 {% endblock %}
