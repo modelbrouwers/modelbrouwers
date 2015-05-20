@@ -11,23 +11,32 @@
 
 body.albums {
 
+  header {
 
-  header .dropdown-toggle {
-    @include menu-feedback();
+    .dropdown-toggle {
+      @include menu-feedback();
+    }
+
+    .dropdown-menu {
+      top: auto;
+      right: 0;
+      left: auto;
+      @include border-radius(3px);
+      background-color: $main-blue;
+      padding: 0;
+
+      > li > a {
+        color: $white;
+        font-weight: bold;
+        @include menu-feedback();
+      }
+    }
   }
 
-  header .dropdown-menu {
-    top: auto;
-    right: 0;
-    left: auto;
-    @include border-radius(3px);
-    background-color: $main-blue;
-    padding: 0;
 
-    > li > a {
-      color: $white;
-      font-weight: bold;
-      @include menu-feedback();
+  .album-preview {
+    h3 {
+      @include ellipsis;
     }
   }
 
@@ -185,9 +194,6 @@ body.albums.photo-detail {
       figcaption {
         margin: 10px auto 0;
         width: 90%;
-
-        p {
-        }
       }
     }
 

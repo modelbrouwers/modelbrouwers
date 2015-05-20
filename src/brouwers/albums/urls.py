@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 
 from .ajax_views import RotateView
 from .views import (
-    IndexView, UploadView, AlbumCreateView, AlbumDetailView, PhotoDetailView
+    IndexView, AlbumListView, AlbumListRedirectView, AlbumDetailView, PhotoDetailView,
+    UploadView, AlbumCreateView
 )
 
 
@@ -12,12 +13,13 @@ urlpatterns = patterns(
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
+    url(r'^list/$', AlbumListRedirectView.as_view()),
+    url(r'^album/$', AlbumListView.as_view(), name='list'),  # all albums
     url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^album/\{?(?P<pk>\d+)\}?/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
 
     # keep
-    url(r'^list/$',             'albums_list', name='list'),  # all albums
     (r'^album/(\d+)/download/', 'download_album'),
 
 

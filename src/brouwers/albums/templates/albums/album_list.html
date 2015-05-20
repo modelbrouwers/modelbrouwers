@@ -1,0 +1,18 @@
+{% extends "albums/index.html" %}{% load i18n %}
+
+
+{% block content %}
+<section>
+    <h2>
+        {% trans "All public albums" %}
+        <i class="pull-right fa fa-folder-open-o"></i>
+    </h2>
+    <div class="row">
+        {% for album in albums %}
+            {% include "albums/includes/album_square.html" %}
+
+            {% autoescape off %}{% cycle '' '' '' '</div><div class="row">' %}{% endautoescape %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,7 +1,7 @@
 import random
 
 from django.db.models import F, Q
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 
 from brouwers.awards.models import Nomination
@@ -28,6 +28,16 @@ class IndexView(ListView):
         kwargs['latest_uploads'] = Photo.objects.select_related('user').filter(
                                        album__public=True).order_by('-uploaded')[:20]
         return super(IndexView, self).get_context_data(**kwargs)
+
+
+class AlbumListRedirectView(RedirectView):
+    pattern_name = 'albums:list'
+
+
+class AlbumListView(ListView):
+    queryset = Album.objects.for_index()
+    context_object_name = 'albums'
+    paginate_by = 16
 
 
 class AlbumDetailView(ListView, SingleObjectMixin):
