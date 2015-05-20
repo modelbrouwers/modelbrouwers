@@ -27,22 +27,20 @@
                 <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
                 <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
 
-                <div class="btn-group pull-right">
+                <div class="pull-right">
                     <a href="{% url 'albums:list' %}" class="btn bg-main-blue">{% trans "All albums" %}</a>
 
-                    <button type="button" class="btn bg-main-blue dropdown-toggle"
-                            data-toggle="dropdown" data-hover="dropdown" data-delay="100">
-                        <span class="sr-only">{% trans "Toggle navigation" %}</span>
-                        <i class="fa fa-bars"></i>
-                    </button>
+                    <div class="dropdown inline">
+                        <button type="button" class="btn bg-main-blue dropdown-toggle"
+                                data-toggle="dropdown" data-hover="dropdown" data-delay="100">
+                            <i class="fa fa-bars"></i>
+                        </button>
 
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                        </ul>
+                    </div>
                 </div>
 
             </div>

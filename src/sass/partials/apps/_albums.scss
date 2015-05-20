@@ -1,4 +1,35 @@
+@mixin menu-feedback() {
+  @include transition(all 1s ease);
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: lighten($main-blue, 10);
+    @include box-shadow(0 0 10px rgba($black, 0.1) inset);
+  }
+}
+
 body.albums {
+
+
+  header .dropdown-toggle {
+    @include menu-feedback();
+  }
+
+  header .dropdown-menu {
+    top: auto;
+    right: 0;
+    left: auto;
+    @include border-radius(3px);
+    background-color: $main-blue;
+    padding: 0;
+
+    > li > a {
+      color: $white;
+      font-weight: bold;
+      @include menu-feedback();
+    }
+  }
 
   .qq-upload-drop-area {
     position: static;
