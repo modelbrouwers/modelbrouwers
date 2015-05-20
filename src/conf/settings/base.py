@@ -115,6 +115,10 @@ LOGGING = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
+SENDFILE_BACKEND = 'sendfile.backends.nginx'
+SENDFILE_ROOT = os.path.join(ROOT_DIR, 'media_sendfile')
+SENDFILE_URL = '/protected/'
+
 #
 # STATIC FILES
 #

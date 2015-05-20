@@ -26,6 +26,8 @@ DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': '',
 }
 
+SENDFILE_BACKEND = 'sendfile.backends.development'
+
 #
 # CACHE
 #
