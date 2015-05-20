@@ -40,6 +40,16 @@ body.albums {
     }
   }
 
+  // fineuploader
+  .qq-upload-button {
+    display: inline-block;
+    padding: 6px;
+  }
+
+  #trigger-upload {
+    font-weight: bold;
+  }
+
   .qq-upload-drop-area {
     position: static;
     min-height: 100px;

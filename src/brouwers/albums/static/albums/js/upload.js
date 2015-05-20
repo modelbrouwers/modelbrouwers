@@ -24,7 +24,14 @@ $(function(){
             window.location = decodeURI(window.albumDetail).format(album);
         }
     }).on('submit', function(event, id, name) {
-        return setAlbum();
+        var ok = setAlbum();
+        if (ok) {
+            var $dest = $('#upload-form');
+            $('html, body').animate({
+                scrollTop: $dest.offset().top
+            }, 500);
+        }
+        return ok;
     });
 
     var setAlbum = function() {

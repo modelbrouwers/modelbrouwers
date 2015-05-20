@@ -751,7 +751,16 @@ body.albums .album-preview h3 {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 43, ../../sass/partials/apps/_albums.scss */
+/* line 44, ../../sass/partials/apps/_albums.scss */
+body.albums .qq-upload-button {
+  display: inline-block;
+  padding: 6px;
+}
+/* line 49, ../../sass/partials/apps/_albums.scss */
+body.albums #trigger-upload {
+  font-weight: bold;
+}
+/* line 53, ../../sass/partials/apps/_albums.scss */
 body.albums .qq-upload-drop-area {
   position: static;
   min-height: 100px;
@@ -760,7 +769,7 @@ body.albums .qq-upload-drop-area {
   border: dashed 2px #919291;
   background: rgba(145, 146, 145, 0.2);
 }
-/* line 51, ../../sass/partials/apps/_albums.scss */
+/* line 61, ../../sass/partials/apps/_albums.scss */
 body.albums .qq-upload-drop-area > span {
   text-transform: uppercase;
   font-weight: bolder;
@@ -769,51 +778,51 @@ body.albums .qq-upload-drop-area > span {
   margin-top: 0;
   line-height: 100px;
 }
-/* line 60, ../../sass/partials/apps/_albums.scss */
+/* line 70, ../../sass/partials/apps/_albums.scss */
 body.albums .qq-upload-drop-area.qq-upload-drop-area-active {
   border-color: #D46400;
 }
-/* line 65, ../../sass/partials/apps/_albums.scss */
+/* line 75, ../../sass/partials/apps/_albums.scss */
 body.albums .qq-upload-list {
   margin-top: 10px;
 }
-/* line 70, ../../sass/partials/apps/_albums.scss */
+/* line 80, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album {
   margin-bottom: 20px;
 }
-/* line 73, ../../sass/partials/apps/_albums.scss */
+/* line 83, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album input[type="checkbox"] {
   display: none;
 }
-/* line 77, ../../sass/partials/apps/_albums.scss */
+/* line 87, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album .carousel-control {
   max-width: 50px;
 }
-/* line 80, ../../sass/partials/apps/_albums.scss */
+/* line 90, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album .carousel-control > .fa {
   position: absolute;
   top: 50%;
   display: inline-block;
   margin-top: -20px;
 }
-/* line 87, ../../sass/partials/apps/_albums.scss */
+/* line 97, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album .carousel-control > .fa-arrow-left {
   left: 5px;
 }
-/* line 91, ../../sass/partials/apps/_albums.scss */
+/* line 101, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album .carousel-control > .fa-arrow-right {
   right: 5px;
 }
-/* line 97, ../../sass/partials/apps/_albums.scss */
+/* line 107, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album input + label {
   margin-bottom: 0;
 }
-/* line 100, ../../sass/partials/apps/_albums.scss */
+/* line 110, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album input + label:hover, body.albums #carousel-album input + label:active, body.albums #carousel-album input + label:focus {
   cursor: pointer;
   border-color: #4095FD;
 }
-/* line 107, ../../sass/partials/apps/_albums.scss */
+/* line 117, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album input + label span.h4 {
   display: block;
   white-space: nowrap;
@@ -822,11 +831,11 @@ body.albums #carousel-album input + label span.h4 {
   margin-top: 5px;
   margin-bottom: 2px;
 }
-/* line 117, ../../sass/partials/apps/_albums.scss */
+/* line 127, ../../sass/partials/apps/_albums.scss */
 body.albums #carousel-album input:checked + label {
   border-color: #006699;
 }
-/* line 124, ../../sass/partials/apps/_albums.scss */
+/* line 134, ../../sass/partials/apps/_albums.scss */
 body.albums .photo-count {
   left: 20px;
   font-size: 65%;
@@ -838,42 +847,42 @@ body.albums .photo-count {
   padding: 4px 12px;
   width: auto;
 }
-/* line 134, ../../sass/partials/apps/_albums.scss */
+/* line 144, ../../sass/partials/apps/_albums.scss */
 body.albums .stats {
   color: rgba(255, 255, 255, 0.5);
 }
-/* line 138, ../../sass/partials/apps/_albums.scss */
+/* line 148, ../../sass/partials/apps/_albums.scss */
 body.albums .pre-content {
   margin-bottom: 20px;
 }
-/* line 141, ../../sass/partials/apps/_albums.scss */
+/* line 151, ../../sass/partials/apps/_albums.scss */
 body.albums .pre-content .pagination {
   margin-top: 0;
   margin-bottom: 0;
 }
-/* line 147, ../../sass/partials/apps/_albums.scss */
+/* line 157, ../../sass/partials/apps/_albums.scss */
 body.albums.modal-open .modal-backdrop.in {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
   opacity: 0.75;
 }
-/* line 151, ../../sass/partials/apps/_albums.scss */
+/* line 161, ../../sass/partials/apps/_albums.scss */
 body.albums #modal-lightbox .carousel-control {
   max-width: 75px;
 }
 
-/* line 159, ../../sass/partials/apps/_albums.scss */
+/* line 169, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail header {
   margin-bottom: 10px;
 }
-/* line 163, ../../sass/partials/apps/_albums.scss */
+/* line 173, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail header h1 {
   font-size: 24px;
 }
-/* line 167, ../../sass/partials/apps/_albums.scss */
+/* line 177, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail header a.pull-right {
   margin-top: 20px;
 }
-/* line 174, ../../sass/partials/apps/_albums.scss */
+/* line 184, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.1);
@@ -887,43 +896,43 @@ body.albums.photo-detail .photo figure {
   -webkit-transition: box-shadow 1s ease;
   transition: box-shadow 1s ease;
 }
-/* line 184, ../../sass/partials/apps/_albums.scss */
+/* line 194, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure:hover, body.albums.photo-detail .photo figure:focus, body.albums.photo-detail .photo figure:active {
   -moz-box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
   box-shadow: 3px 3px 15px 0 rgba(0, 0, 0, 0.75);
 }
-/* line 190, ../../sass/partials/apps/_albums.scss */
+/* line 200, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure img {
   margin: 0 auto;
 }
-/* line 194, ../../sass/partials/apps/_albums.scss */
+/* line 204, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure figcaption {
   margin: 10px auto 0;
   width: 90%;
 }
-/* line 200, ../../sass/partials/apps/_albums.scss */
+/* line 210, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group {
   position: absolute;
   z-index: 10;
 }
-/* line 205, ../../sass/partials/apps/_albums.scss */
+/* line 215, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.top {
   top: 20px;
 }
-/* line 205, ../../sass/partials/apps/_albums.scss */
+/* line 215, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.bottom {
   bottom: 20px;
 }
-/* line 205, ../../sass/partials/apps/_albums.scss */
+/* line 215, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.left {
   left: 20px;
 }
-/* line 205, ../../sass/partials/apps/_albums.scss */
+/* line 215, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls-group.right {
   right: 20px;
 }
-/* line 211, ../../sass/partials/apps/_albums.scss */
+/* line 221, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls {
   margin-bottom: 10px;
   background-color: rgba(255, 255, 255, 0.85);
@@ -935,7 +944,7 @@ body.albums.photo-detail .photo .controls {
   -webkit-box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.5);
 }
-/* line 218, ../../sass/partials/apps/_albums.scss */
+/* line 228, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw {
   display: block;
   max-height: 1.28571429em;
@@ -949,46 +958,46 @@ body.albums.photo-detail .photo .controls > .fa-fw {
   -webkit-transition: opacity 0.5s ease;
   transition: opacity 0.5s ease;
 }
-/* line 227, ../../sass/partials/apps/_albums.scss */
+/* line 237, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw:last-child {
   border-bottom: none;
 }
-/* line 231, ../../sass/partials/apps/_albums.scss */
+/* line 241, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls > .fa-fw:hover, body.albums.photo-detail .photo .controls > .fa-fw:active, body.albums.photo-detail .photo .controls > .fa-fw.active, body.albums.photo-detail .photo .controls > .fa-fw:focus {
   cursor: pointer;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
-/* line 240, ../../sass/partials/apps/_albums.scss */
+/* line 250, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo .controls .popover {
   min-width: 200px;
 }
-/* line 245, ../../sass/partials/apps/_albums.scss */
+/* line 255, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure.compress img {
   max-height: 98vh;
 }
-/* line 249, ../../sass/partials/apps/_albums.scss */
+/* line 259, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure.rotate-left img {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-/* line 253, ../../sass/partials/apps/_albums.scss */
+/* line 263, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure.rotate-right img {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-/* line 257, ../../sass/partials/apps/_albums.scss */
+/* line 267, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo figure.rotate-180 img {
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-/* line 261, ../../sass/partials/apps/_albums.scss */
+/* line 271, ../../sass/partials/apps/_albums.scss */
 body.albums.photo-detail .photo footer {
   margin-top: 15px;
 }
