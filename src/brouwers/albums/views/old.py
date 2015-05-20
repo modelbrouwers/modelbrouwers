@@ -81,34 +81,6 @@ def preferences(request):
 #        BROWSING         #
 ###########################
 
-def albums_list(request):
-    user = request.user
-    if user.has_perm('albums.see_all_albums') or user.has_perm('albums.edit_album'):
-        q = Q(trash=False)
-    else:
-        q = Q(trash=False, public=True)
-    albums = Album.objects.select_related('user').filter(q).order_by('-last_upload')
-
-    p = Paginator(albums, 30)
-    page = request.GET.get('page', 1)
-    try:
-        albums = p.page(page)
-    except (PageNotAnInteger, TypeError):
-        albums = p.page(1)
-    except EmptyPage:
-        albums = p.page(p.num_pages)
-
-    needs_closing_tag_row = False
-    if len(albums) % 5 != 0:
-        needs_closing_tag_row = True
-
-    searchform = SearchForm()
-    return render(request, 'albums/list.html', {
-            'albums': albums,
-            'needs_closing_tag_row': needs_closing_tag_row,
-            'searchform': searchform
-            })
-
 
 @login_required
 def my_last_uploads(request):
