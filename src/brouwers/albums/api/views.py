@@ -1,6 +1,7 @@
 from rest_framework import parsers, permissions
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
 from ..models import Photo
@@ -43,3 +44,9 @@ class PhotoViewSet(viewsets.ModelViewSet):
             response_data.update({'success': True})
             return Response(response_data, status=status.HTTP_200_OK, headers=headers)
         return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+
+    @detail_route(methods=['get'])
+    def next(self, request, *args, **kwargs):
+        photo = self.get_object()
+        serializer = self.get_serializer(photo)
+        return Response(serializer.data)
