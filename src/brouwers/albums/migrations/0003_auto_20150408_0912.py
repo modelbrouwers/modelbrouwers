@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='album',
             name='title',
-            field=models.CharField(default=brouwers.albums.models.get_title, max_length=b'256', verbose_name='album title', db_index=True),
+            field=models.CharField(default=b'', max_length=b'256', verbose_name='album title', db_index=True),
             preserve_default=True,
         ),
         migrations.AlterField(

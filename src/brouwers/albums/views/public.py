@@ -85,3 +85,11 @@ class PhotoDetailView(DetailView):
         obj.views = F('views') + 1
         obj.save()
         return super(PhotoDetailView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(PhotoDetailView, self).get_context_data(**kwargs)
+        context.update({
+            'next': Photo.objects.next(self.object, user=self.request.user),
+            'previous': Photo.objects.previous(self.object, user=self.request.user)
+        })
+        return context

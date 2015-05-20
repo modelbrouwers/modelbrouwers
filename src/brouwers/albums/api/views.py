@@ -45,9 +45,18 @@ class PhotoViewSet(viewsets.ModelViewSet):
             return Response(response_data, status=status.HTTP_200_OK, headers=headers)
         return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
-    @detail_route(methods=['get'])
-    def next(self, request, *args, **kwargs):
+    def next_or_previous(self, request, next=True, *args, **kwargs):
+        attr = 'next' if next else 'previous'
         current = self.get_object()
-        photo = Photo.objects.next(current, user=self.request.user)
+        qs = getattr(Photo.objects, attr)
+        photo = qs(current, user=self.request.user)
         serializer = self.get_serializer(photo)
         return Response(serializer.data)
+
+    @detail_route(methods=['get'])
+    def next(self, request, *args, **kwargs):
+        return self.next_or_previous(request, next=True, *args, **kwargs)
+
+    @detail_route(methods=['get'])
+    def previous(self, request, *args, **kwargs):
+        return self.next_or_previous(request, next=False, *args, **kwargs)

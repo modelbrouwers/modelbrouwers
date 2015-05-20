@@ -39,10 +39,6 @@ class Category(models.Model):
         return self.name
 
 
-def get_title():
-    return "album %s" % timezone.now().strftime("%d-%m-%Y")
-
-
 class Album(models.Model):
 
     class WritePermissions(DjangoChoices):
@@ -52,9 +48,7 @@ class Album(models.Model):
 
     # owner of the album
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user"))
-    title = models.CharField(
-        _("album title"), max_length="256", default=get_title, db_index=True
-    )
+    title = models.CharField(_("album title"), max_length="256", db_index=True)
     clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
     description = models.CharField(_("album description"), max_length=500, blank=True)
     category = models.ForeignKey(
@@ -199,7 +193,7 @@ def get_image_path(instance, filename):
 class Photo(models.Model):
     """ Model Fields """
     # image properties
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)  # we need to know the owner (public albums)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)  # we need to know the owner (public albums)
     album = models.ForeignKey(Album, db_index=True)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
@@ -225,14 +219,10 @@ class Photo(models.Model):
         ordering = ['album', 'order', 'pk']
 
     def save(self, *args, **kwargs):
-        # also save the album, so the last modified date gets set
-        new = False
-        if not self.id:
-            new = True
+        if not self.pk:
+            max_order = Photo.objects.filter(album=self.album).aggregate(max_order=Max('order'))['max_order']
+            self.order = max_order + 1
         super(Photo, self).save(*args, **kwargs)
-        if new:
-            self.album.last_upload = self.uploaded
-            self.album.save()
 
     def __unicode__(self):
         return u'albumphoto %d' % self.id
@@ -504,3 +494,5 @@ class AlbumDownload(models.Model):
                 'username': self.downloader.username
                 }
             )
+
+from . import signals

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, TemplateView
 
@@ -28,6 +29,11 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
     form_class = CreateAlbumForm
     template_name = 'albums/create.html'
     success_url = reverse_lazy('albums:upload')
+
+    def get_initial(self):
+        initial = super(AlbumCreateView, self).get_initial()
+        initial.setdefault('title', "album %s" % timezone.now().strftime("%d-%m-%Y"))
+        return initial
 
     def form_valid(self, form):
         form.instance.user = self.request.user
