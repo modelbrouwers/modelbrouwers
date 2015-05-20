@@ -1,65 +1,12 @@
-from zipfile import ZipFile
-import os
-
-from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F, Q
-from django.forms import ValidationError
-from django.forms.models import modelformset_factory
+from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.shortcuts import render
 
 from ..models import *
 from ..forms import *
-from ..utils import resize, admin_mode, can_switch_admin_mode, get_default_img_size
-
-
-@login_required
-def download_album(request, album_id=None):
-    """
-    view generates zip and then redirects to the static page
-    let apache handle the file serving
-    """
-    album = get_object_or_404(Album, pk=album_id)
-
-    #previous downloads: does the file have to be generated?
-    last_upload = album.last_upload
-    downloads = AlbumDownload.objects.filter(album=album, timestamp__gte=last_upload, failed=False).count()
-
-    #log download
-    album_download = AlbumDownload(album=album, downloader=request.user)
-
-    rel_path = os.path.join('albums', str(album.user_id), str(album.id), '{0}.zip'.format(album.id))
-
-    if downloads == 0:
-        photos = album.photo_set.filter(trash=False)
-        if photos.count() > 0:
-            #create zip file
-            filename = os.path.join(settings.MEDIA_ROOT, rel_path)
-            zf = ZipFile(filename, mode='w')
-            try:
-                for photo in photos:
-                    f = photo.image.path
-                    arcname = os.path.split(f)[1]
-                    zf.write(f, arcname)
-            except:
-                album_download.failed = True
-            finally:
-                zf.close()
-        else:
-            album_download.failed = True
-            album_download.save()
-            messages.warning(request, _("This album could not be downloaded because it has no photos yet."))
-            return HttpResponseRedirect(reverse(browse_album, args=[album.id]))
-
-    url = '{0}albums/{1}/{2}/{2}.zip'.format(settings.MEDIA_URL, album.user_id, album.id)
-    album_download.save()
-    return HttpResponseRedirect(url)
 
 
 @login_required

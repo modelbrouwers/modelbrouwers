@@ -1,7 +1,7 @@
 from .edit import AlbumCreateView, UploadView  # noqa
 from .public import (  # noqa
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView,
-    AlbumListRedirectView
+    AlbumListRedirectView, AlbumDownloadView
 )
 
 from .old import *

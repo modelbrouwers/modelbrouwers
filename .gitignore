@@ -15,6 +15,7 @@ secrets.py
 
 # Collection directories
 /media
+/media_sendfile
 /static
 /mails
 /test_media

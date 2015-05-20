@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .ajax_views import RotateView
 from .views import (
     IndexView, AlbumListView, AlbumListRedirectView, AlbumDetailView, PhotoDetailView,
-    UploadView, AlbumCreateView
+    UploadView, AlbumCreateView, AlbumDownloadView
 )
 
 
@@ -15,12 +15,10 @@ urlpatterns = patterns(
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
     url(r'^list/$', AlbumListRedirectView.as_view()),
     url(r'^album/$', AlbumListView.as_view(), name='list'),  # all albums
-    url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),
-    url(r'^album/\{?(?P<pk>\d+)\}?/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
+    url(r'^album/(?P<pk>\d+)/$', AlbumDetailView.as_view(), name='detail'),
+    url(r'^album/(?P<pk>\d+)/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
+    url(r'^album/(?P<pk>\d+)/download/$', AlbumDownloadView.as_view(), name='download'),
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
-
-    # keep
-    (r'^album/(\d+)/download/', 'download_album'),
 
 
     (r'^my_gallery/$',      'my_albums_list'),
