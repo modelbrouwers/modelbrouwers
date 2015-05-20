@@ -113,6 +113,7 @@
         <script src="{% static 'scripts/bootstrap-select.min.js' %}"></script>
 
         {% compress js %}
+        {% include "includes/google-analytics.html" %}
         <script src="{% static 'scripts/common.js' %}"></script>
         <script>
         $(function() {

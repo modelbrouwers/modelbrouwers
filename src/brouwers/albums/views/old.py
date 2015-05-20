@@ -146,23 +146,6 @@ def download_album(request, album_id=None):
 
 
 @login_required
-def edit_photo(request, photo_id=None):
-    q = Q(pk=photo_id)
-    if not admin_mode(request.user):
-        q = Q(q, user=request.user)
-
-    photo = get_object_or_404(Photo, q)
-    if request.method == "POST":
-        form = EditPhotoForm(request.user, request.POST, instance=photo)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse(browse_album, args=[photo.album.id]))
-    else:
-        form = EditPhotoForm(request.user, instance=photo)
-    return render(request, 'albums/edit_photo.html', {'form': form})
-
-
-@login_required
 def preferences(request):
     p, created = Preferences.objects.get_or_create(user=request.user)
     if request.method == "POST":
