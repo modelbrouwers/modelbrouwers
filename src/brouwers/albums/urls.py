@@ -15,7 +15,7 @@ urlpatterns = patterns(
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
     url(r'^list/$', AlbumListRedirectView.as_view()),
     url(r'^album/$', AlbumListView.as_view(), name='list'),  # all albums
-    url(r'^album/(?P<pk>\d+)/$', AlbumDetailView.as_view(), name='detail'),
+    url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),  # curly braces for Javascript url
     url(r'^album/(?P<pk>\d+)/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^album/(?P<pk>\d+)/download/$', AlbumDownloadView.as_view(), name='download'),
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
