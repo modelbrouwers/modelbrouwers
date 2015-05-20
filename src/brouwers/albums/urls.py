@@ -17,7 +17,7 @@ urlpatterns = patterns(
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
 
     # keep
-    (r'^list/$',             'albums_list'),  # all albums
+    url(r'^list/$',             'albums_list', name='list'),  # all albums
     (r'^album/(\d+)/download/', 'download_album'),
 
 
