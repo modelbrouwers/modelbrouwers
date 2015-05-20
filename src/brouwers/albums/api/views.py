@@ -47,6 +47,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['get'])
     def next(self, request, *args, **kwargs):
-        photo = self.get_object()
+        current = self.get_object()
+        photo = Photo.objects.next(current, user=self.request.user)
         serializer = self.get_serializer(photo)
         return Response(serializer.data)
