@@ -19,8 +19,8 @@
     {% endblocktrans %}</p>
 
     <p>
-        {% trans "No albums yet? Add one!" %}
         <a href="{% url 'albums:create' %}" class="btn bg-main-orange">{% trans "Create album" %}</a>
+        <span class="hidden-xs">{% trans "Create an album first if you haven't any yet!" %}</span>
     </p>
 {% endblock %}
 
