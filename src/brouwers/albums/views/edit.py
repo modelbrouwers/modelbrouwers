@@ -13,11 +13,11 @@ from ..models import Album, Preferences
 class UploadView(LoginRequiredMixin, TemplateView):
     template_name = 'albums/upload.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         if not request.user.album_set.exists():
             messages.warning(request, _('You need to create an album before you can upload photos'))
             return redirect(reverse('albums:create'))
-        return super(UploadView, self).dispatch(request, *args, **kwargs)
+        return super(UploadView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         kwargs['form'] = UploadForm(self.request)
