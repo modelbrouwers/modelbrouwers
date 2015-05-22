@@ -30,6 +30,7 @@
                 <div class="pull-right">
                     <a href="{% url 'albums:all' %}" class="btn bg-main-blue">{% trans "All albums" %}</a>
 
+                    {% if user.is_authenticated %}
                     <div class="dropdown inline">
                         <button type="button" class="btn bg-main-blue dropdown-toggle"
                                 data-toggle="dropdown" data-hover="dropdown" data-delay="100">
@@ -37,16 +38,17 @@
                         </button>
 
                         <ul class="dropdown-menu">
-                            {% if user.is_authenticated %}
                             <li><a href="{% url 'albums:settings' %}">
                                 <i class="fa fa-fw fa-gear"></i>
                                 {% trans "Settings" %}
                             </a></li>
-                            {% endif %}
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
+                            <li><a href="{% url 'albums:mine' %}">
+                                <i class="fa fa-fw fa-folder"></i>
+                                {% trans "My albums" %}
+                            </a></li>
                         </ul>
                     </div>
+                    {% endif %}
                 </div>
 
             </div>

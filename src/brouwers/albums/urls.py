@@ -5,7 +5,8 @@ from django.views.generic import RedirectView
 from .ajax_views import RotateView
 from .views import (
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView,
-    UploadView, AlbumCreateView, AlbumDownloadView, PreferencesUpdateView
+    UploadView, AlbumCreateView, AlbumDownloadView, PreferencesUpdateView,
+    MyAlbumsView
 )
 
 
@@ -15,6 +16,7 @@ urlpatterns = patterns(
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
     url(r'^list/$', RedirectView.as_view(pattern_name='albums:all')),
     url(r'^all/$', AlbumListView.as_view(), name='all'),
+    url(r'^mine/$', MyAlbumsView.as_view(), name='mine'),
     url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),  # curly braces for Javascript url
     url(r'^album/(?P<pk>\d+)/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^album/(?P<pk>\d+)/download/$', AlbumDownloadView.as_view(), name='download'),
