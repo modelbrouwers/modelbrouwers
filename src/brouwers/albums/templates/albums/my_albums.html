@@ -14,5 +14,40 @@
 
 
 {% block content %}
-TODO
+
+<section role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#public" aria-controls="public" role="tab" data-toggle="tab">{% trans "Public" %}</a>
+        </li>
+        <li role="presentation">
+            <a href="#private" aria-controls="private" role="tab" data-toggle="tab">{% trans "Private" %}</a>
+        </li>
+        <li role="presentation">
+            <a href="#shared-with-me" aria-controls="shared-with-me" role="tab" data-toggle="tab">{% trans "Shared with me" %}</a>
+        </li>
+        <li role="presentation">
+            <a href="#shared-by-me" aria-controls="shared-by-me" role="tab" data-toggle="tab">{% trans "Shared by me" %}</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+    {% for key, queryset in tabcontent.items %}
+        <div role="tabpanel" class="tab-pane {{ forloop.first|yesno:'active,' }}" id="{{ key }}">
+            <div class="row">
+                {% for album in queryset %}
+                    {% include "albums/includes/album_square.html" %}
+
+                    {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+</section>
+
 {% endblock %}

@@ -11,7 +11,7 @@
         {% for album in albums %}
             {% include "albums/includes/album_square.html" %}
 
-            {% autoescape off %}{% cycle '' '' '' '</div><div class="row">' %}{% endautoescape %}
+            {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
         {% endfor %}
     </div>
 </section>

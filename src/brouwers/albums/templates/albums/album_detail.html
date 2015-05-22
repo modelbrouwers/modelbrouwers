@@ -1,5 +1,4 @@
 {% extends "albums/index.html" %}{% load i18n staticfiles %}
-{% load cycle from future %}
 
 
 {% block eye-catcher-content %}
@@ -43,7 +42,7 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
     <div class="row">
         {% for photo in photos %}
             {% include "albums/includes/photo_thumb.html" %}
-            {% autoescape off %}{% cycle '' '' '' '</div><div class="row">' %}{% endautoescape %}
+            {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
         {% endfor %}
     </div>
 </section>

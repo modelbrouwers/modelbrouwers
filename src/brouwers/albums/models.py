@@ -14,7 +14,6 @@ from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from djchoices import DjangoChoices, ChoiceItem
 
 from brouwers.forum_tools.fields import ForumToolsIDField
-from brouwers.general.utils import get_username as _get_username
 from .utils import rotate_img
 from .managers import AlbumManager, PhotoManager, PreferencesManager
 
@@ -109,7 +108,7 @@ class Album(models.Model):
         )
 
     def __unicode__(self):
-        return u"%s" % self.title
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.trash and self.clean_title != self.title:
@@ -128,31 +127,6 @@ class Album(models.Model):
             self.cover = img  # save the cover to perform optimalization if no cover is set
             self.save()
         return img
-
-    def get_username(self):
-        return _get_username(self)
-
-    # TODO: fix in templates with get_cover_data, now deprecated
-    @property
-    def cover_thumb_url(self):
-        img = self.get_cover()
-        if img:
-            return img.thumb_url
-        return None
-
-    # TODO: replace with sorl/easythumbnails
-    def get_cover_data(self):
-        cover = self.get_cover()
-        data = {'cover': cover}
-        if cover:
-            data['width'] = cover.get_thumb_width()
-            data['height'] = cover.get_thumb_height()
-            data['width_200'] = cover.get_thumb_width_200()
-            data['height_150'] = cover.get_thumb_height_150()
-            data['width_100'] = cover.get_thumb_width_100()
-            data['height_75'] = cover.get_thumb_height_75()
-            data['thumb_url'] = cover.thumb_url
-        return data
 
     def number_of_photos(self):
         return self.photo_set.filter(trash=False).count()
@@ -237,9 +211,6 @@ class Photo(models.Model):
         If a network storage is used, this can cause latency/slow pages.
         """
         return self.image.storage.exists(self.image.name)
-
-    def get_username(self):
-        return _get_username(self)
 
     # TRANSFORMING OF IMAGE #################################
     def rotate_left(self):
