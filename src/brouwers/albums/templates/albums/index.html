@@ -22,8 +22,11 @@
             {% endblocktrans %}</p>
 
             {# {% include "albums/winners_carousel.html" %} #}
+        {% endblock %}
 
+        {% block albums-nav %}
             <div>
+
                 <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
                 <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
 
