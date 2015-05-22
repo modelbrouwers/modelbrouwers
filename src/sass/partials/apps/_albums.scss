@@ -78,7 +78,27 @@ body.albums {
 
   // album picker in upload screen
   #carousel-album {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
+    .carousel-inner {
+      padding: 10px 5px;
+      margin-left: -5px;
+      margin-right: -5px;
+    }
+
+    .carousel-control {
+      background-image: none;
+      color: $main-blue;
+
+      @media (min-width: 768px) {
+        &.left {
+          margin-left: -50px;
+        }
+        &.right {
+          margin-right: -50px;
+        }
+      }
+    }
 
     input[type="checkbox"] {
       display: none;
@@ -105,7 +125,9 @@ body.albums {
 
     input {
       + label {
-        margin-bottom: 0;
+        @media(min-width:768px) {
+          margin-bottom: 0;
+        }
 
         &:hover,
         &:active,
@@ -125,7 +147,8 @@ body.albums {
       }
 
       &:checked + label {
-        border-color: $main-blue;
+        // border-color: $main-blue;
+        @include raised(1);
       }
     }
 
@@ -188,13 +211,14 @@ body.albums.photo-detail {
 
       position: relative;
 
-      @include box-shadow(3px 3px 10px 0 rgba($black, 0.5));
+      @include raised(1);
+
       @include transition(box-shadow 1s ease);
 
       &:hover,
       &:focus,
       &:active {
-        @include box-shadow(3px 3px 15px 0 rgba($black, 0.75));
+        @include raised(2);
       }
 
       img {
