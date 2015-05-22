@@ -17,11 +17,11 @@
         You can upload new pictures here. Select the album to upload to, and then
         drag your images in the drop zone!
     {% endblocktrans %}</p>
+{% endblock %}
 
-    <p>
-        <a href="{% url 'albums:create' %}" class="btn bg-main-orange">{% trans "Create album" %}</a>
-        <span class="hidden-xs">{% trans "Create an album first if you haven't done so yet!" %}</span>
-    </p>
+{% block albums-nav-left %}
+<a href="{% url 'albums:create' %}" class="btn bg-main-orange">{% trans "Create album" %}</a>
+<span class="hidden-xs">{% trans "Create an album first if you haven't done so yet!" %}</span>
 {% endblock %}
 
 

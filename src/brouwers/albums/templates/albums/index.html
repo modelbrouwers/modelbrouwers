@@ -27,8 +27,10 @@
         {% block albums-nav %}
             <div>
 
-                <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
-                <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
+                {% block albums-nav-left %}
+                    <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
+                    <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
+                {% endblock %}
 
                 <div class="pull-right">
                     <a href="{% url 'albums:all' %}" class="btn bg-main-blue">{% trans "All albums" %}</a>
@@ -59,7 +61,6 @@
     </div>
 </header>
 {% endblock %}
-
 
 
 {% block content %}
