@@ -41,6 +41,15 @@ class CreateAlbumForm(forms.ModelForm):
         self.fields['category'].queryset = Category.objects.filter(public=True)
 
 
+class PreferencesForm(forms.ModelForm):
+    class Meta:
+        model = Preferences
+        fields = ('auto_start_uploading', 'collapse_sidebar', 'hide_sidebar',
+                  'sidebar_bg_color', 'sidebar_transparent', 'text_color',
+                  'width')
+
+
+
 
 
 
@@ -270,15 +279,6 @@ class UploadFromURLForm(forms.Form):
                 raise forms.ValidationError(_("Could not download the image from the url"))
         return url
 
-
-class PreferencesForm(forms.ModelForm):
-    class Meta:
-        model = Preferences
-        fields = '__all__'
-        widgets = {
-            'user': forms.HiddenInput(),
-            'default_uploader': forms.HiddenInput(),
-        }
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=256, label=_("Keywords"))

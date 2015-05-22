@@ -1,5 +1,5 @@
-from .edit import AlbumCreateView, UploadView  # noqa
-from .public import (  # noqa
+from .edit import AlbumCreateView, PreferencesUpdateView, UploadView
+from .public import (
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView, AlbumDownloadView
 )
 

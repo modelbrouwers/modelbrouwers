@@ -1,0 +1,45 @@
+{% extends "albums/index.html" %}{% load i18n formulation %}
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Settings" %}
+        <i class="pull-right fa fa-gear fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        Here you can configure some album-specific settings. Choose how the sidebar
+        should look in the forum, or how your uploads will be dealt with.
+    {% endblocktrans %}</p>
+{% endblock %}
+
+
+{% block content %}
+<form action="." class="form-horizontal" method="post">
+    {% csrf_token %}
+    {% form 'albums/albums.form' %}{% with label_grid_offset='col-sm-offset-2' %}
+        {% use 'non_field_errors' %}
+
+        <h2>{% trans "Uploader" %}</h2>
+        <fieldset class="well">
+            {% field form.auto_start_uploading %}
+        </fieldset>
+
+        <h2>{% trans "Forum sidebar: visibility" %}</h2>
+        <fieldset class="well">
+            {% field form.collapse_sidebar %}
+            {% field form.hide_sidebar %}
+        </fieldset>
+
+        <h2>{% trans "Forum sidebar: appearance" %}</h2>
+        <fieldset class="well">
+            {% field form.sidebar_bg_color %}
+            {% field form.sidebar_transparent %}
+            {% field form.text_color %}
+            {% field form.width %}
+        </fieldset>
+
+        {% use 'submit' btn_text=_('Save changes') %}
+
+    {% endwith %}{% endform %}
+</form>
+{% endblock %}

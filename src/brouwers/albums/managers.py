@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.db import models
 
 
@@ -37,3 +38,25 @@ class PhotoManager(models.Manager):
             order__lte=current.order
         ).exclude(pk=current.pk).order_by(*ordering)
         return queryset.first()
+
+
+class PreferencesManager(models.Manager):
+
+    def get_for(self, user):
+        """
+        Get the preferences from the cache or fall back to the database.
+
+        Anonymous users get the default values, while for logged in users the
+        actual object is retrieved.
+        """
+        from .serializers import PreferencesSerializer
+
+        if not user.is_authenticated():
+            return PreferencesSerializer(self.model()).data
+
+        key = self.model._get_cache_key(user.id)
+        prefs = cache.get(key)
+        if prefs is None:
+            prefs_obj, created = self.get_or_create(user=user)
+            prefs_obj.cache()
+        return prefs

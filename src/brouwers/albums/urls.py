@@ -5,26 +5,26 @@ from django.views.generic import RedirectView
 from .ajax_views import RotateView
 from .views import (
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView,
-    UploadView, AlbumCreateView, AlbumDownloadView
+    UploadView, AlbumCreateView, AlbumDownloadView, PreferencesUpdateView
 )
 
 
 urlpatterns = patterns(
-    'brouwers.albums.views',
+    '',
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
-    url(r'^list/$', RedirectView.as_view(pattern_name='albums:list')),
-    url(r'^album/$', AlbumListView.as_view(), name='list'),  # all albums
+    url(r'^list/$', RedirectView.as_view(pattern_name='albums:all')),
+    url(r'^all/$', AlbumListView.as_view(), name='all'),
     url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),  # curly braces for Javascript url
     url(r'^album/(?P<pk>\d+)/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^album/(?P<pk>\d+)/download/$', AlbumDownloadView.as_view(), name='download'),
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
+    url(r'^upload/$', UploadView.as_view(), name='upload'),
+    url(r'^settings/$', PreferencesUpdateView.as_view(), name='settings'),
 
 
-    (r'^my_gallery/$',      'my_albums_list'),
-    (r'^my_gallery/last_uploads/$', 'my_last_uploads'),
-    (r'^preferences/$',     'preferences'),
+    # (r'^my_gallery/$',      'my_albums_list'),
+    # (r'^preferences/$',     'preferences'),
 )
 
 # AJAX

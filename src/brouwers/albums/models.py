@@ -1,4 +1,5 @@
 import os
+import warnings
 from datetime import datetime
 
 from django.conf import settings
@@ -15,7 +16,7 @@ from djchoices import DjangoChoices, ChoiceItem
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.general.utils import get_username as _get_username
 from .utils import rotate_img
-from .managers import AlbumManager, PhotoManager
+from .managers import AlbumManager, PhotoManager, PreferencesManager
 
 
 class Category(models.Model):
@@ -360,16 +361,7 @@ class Photo(models.Model):
     def get_thumb_height_75(self):
         return self.get_thumb_height(width=100, height=75)
 
-IMG_SIZES = (
-    (0, "1024x768"),
-    (1, "800x600"),
-    (2, "1024x1024"),
-    (3, "800x800"),
-)
-UPLOADER_CHOICES = (
-    ("F", _("Multiple files at once")),
-    ("H", _("Basic")),
-)
+
 BACKGROUND_CHOICES = (
     ("black", _("Black")),
     ("white", _("White")),
@@ -378,33 +370,13 @@ BACKGROUND_CHOICES = (
 )
 
 
-# only create this object when user visits preferences page first time, otherwise go with the defaults
 class Preferences(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
-    default_img_size = models.PositiveSmallIntegerField(
-        _("default image dimensions"),
-        choices=IMG_SIZES,
-        default=0,
-        help_text=_("Your pictures will be scaled to this size.")
-    )
-    default_uploader = models.CharField(
-        _("default uploader"),
-        max_length=1,
-        choices=UPLOADER_CHOICES, default="F",
-        help_text=_("""Multiple files at once makes use of a Flash uploader,
-you select all your files without having to click too much buttons.
-The basic uploader has a file field for each image.""")
-    )
+
     # options for uploadify
     auto_start_uploading = models.BooleanField(
         _("start uploading automatically?"),
         help_text=_("Start upload automatically when files are selected"),
-        default=False)
-    show_direct_link = models.BooleanField(_("Show direct links under the photo"), default=False)
-
-    # admin options
-    apply_admin_permissions = models.BooleanField(
-        help_text=_("When checked, you will see all the albums and be able to edit them."),
         default=False)
 
     # sidebar settings
@@ -432,49 +404,35 @@ The basic uploader has a file field for each image.""")
         help_text=_("Width of the sidebar. E.g. '30%' or '300px'.")
     )
 
+    objects = PreferencesManager()
+
     class Meta:
         verbose_name = _("User preferences")
         verbose_name_plural = verbose_name
         ordering = ('user',)
 
-    def save(self, *args, **kwargs):
-        from .serializers import PreferencesSerializer
-        super(Preferences, self).save(*args, **kwargs)
-        # update the cache
-        if kwargs.get('commit', True):
-            key = self.get_cache_key()
-            cache.set(key, PreferencesSerializer(self).data)
-
     def __unicode__(self):
-        if self.id:
-            user = self.user.get_full_name()
-        else:
-            user = 'Anonymous user'
+        user = self.user.get_full_name() if self.id else 'Anonymous user'
         return _(u"Preferences for %(user)s") % {'user': user}
 
     @classmethod
     def get_or_create(cls, user):
-        """ Get the preferences from the cache or fall back to the database """
-        # TODO: move to manager
-        from .serializers import PreferencesSerializer
+        warnings.warn('Preferences.get_or_create is deprecated. Use Preferences'
+                      '.objects.get_for(user)', DeprecationWarning)
+        return cls.objects.get_for(user)
 
-        # anonymous users get the defaults
-        if not user.is_authenticated():
-            prefs_obj = Preferences()
-            return PreferencesSerializer(prefs_obj).data
-
-        key = 'album-preferences:%d' % user.id
-        prefs = cache.get(key)
-        if prefs is None:
-            prefs_obj, created = Preferences.objects.get_or_create(user=user)
-            prefs = PreferencesSerializer(prefs_obj).data
-            cache.set(key, prefs, 24*60*60)  # cache a whole day
-        return prefs
-
-    def get_cache_key(self, user_id=None):
-        """ FIXME: remove DRY violation """
-        user_id = user_id or self.user_id
+    @classmethod
+    def _get_cache_key(cls, user_id):
         return 'album-preferences:%d' % user_id
+
+    def cache(self):
+        """
+        Sets the serialized data in the cache.
+        """
+        from .serializers import PreferencesSerializer
+        key = self._get_cache_key(self.user_id)
+        serialized = PreferencesSerializer(self).data
+        cache.set(key, serialized, 24*60*60)  # cache 24h
 
 
 class AlbumDownload(models.Model):

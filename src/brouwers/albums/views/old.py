@@ -30,28 +30,6 @@ def preferences(request):
 
 
 @login_required
-def my_last_uploads(request):
-    last_uploads = Photo.objects.filter(user=request.user, trash=False).order_by('-uploaded')
-    p = Paginator(last_uploads, 20)
-
-    page = request.GET.get('page', 1)
-    try:
-        uploads = p.page(page)
-    except (PageNotAnInteger, TypeError):
-        # If page is not an integer, deliver first page.
-        uploads = p.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        uploads = p.page(p.num_pages)
-    amount = len(uploads.object_list)
-
-    needs_closing_tag_row = False
-    if amount < 20 and amount % 5 != 0:
-        needs_closing_tag_row = True
-    return render(request, 'albums/my_last_uploads.html', {'uploads': uploads, 'needs_closing_tag_row': needs_closing_tag_row})
-
-
-@login_required
 def my_albums_list(request):
     trash = request.GET.get('trash', False)
     extra_parameters = ''

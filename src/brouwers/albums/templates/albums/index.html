@@ -28,7 +28,7 @@
                 <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
 
                 <div class="pull-right">
-                    <a href="{% url 'albums:list' %}" class="btn bg-main-blue">{% trans "All albums" %}</a>
+                    <a href="{% url 'albums:all' %}" class="btn bg-main-blue">{% trans "All albums" %}</a>
 
                     <div class="dropdown inline">
                         <button type="button" class="btn bg-main-blue dropdown-toggle"
@@ -37,6 +37,12 @@
                         </button>
 
                         <ul class="dropdown-menu">
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'albums:settings' %}">
+                                <i class="fa fa-fw fa-gear"></i>
+                                {% trans "Settings" %}
+                            </a></li>
+                            {% endif %}
                             <li><a href="#">Action</a></li>
                             <li><a href="#">Another action</a></li>
                         </ul>
