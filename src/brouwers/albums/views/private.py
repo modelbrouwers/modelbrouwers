@@ -11,15 +11,16 @@ class MyAlbumsView(LoginRequiredMixin, TemplateView):
     template_name = 'albums/my_albums.html'
 
     def get_queryset(self, **extra_filters):
-        return self.request.user.album_set.filter(trash=False, **extra_filters)
+        albums = self.request.user.album_set.select_related('cover')
+        return albums.filter(trash=False, **extra_filters)
 
     def get_shared_albums(self):
         user = self.request.user
-        return Album.objects.filter(albumgroup__users=user)
+        return Album.objects.select_related('cover').filter(albumgroup__users=user)
 
     def get_my_shared_albums(self):
         user = self.request.user
-        return user.album_set.exclude(albumgroup__isnull=True)
+        return user.album_set.select_related('cover').exclude(albumgroup__isnull=True)
 
     def get_context_data(self, **kwargs):
         context = super(MyAlbumsView, self).get_context_data(**kwargs)
