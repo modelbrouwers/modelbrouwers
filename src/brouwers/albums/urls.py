@@ -1,9 +1,10 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
+from django.views.generic import RedirectView
 
 from .ajax_views import RotateView
 from .views import (
-    IndexView, AlbumListView, AlbumListRedirectView, AlbumDetailView, PhotoDetailView,
+    IndexView, AlbumListView, AlbumDetailView, PhotoDetailView,
     UploadView, AlbumCreateView, AlbumDownloadView
 )
 
@@ -13,7 +14,7 @@ urlpatterns = patterns(
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
-    url(r'^list/$', AlbumListRedirectView.as_view()),
+    url(r'^list/$', RedirectView.as_view(pattern_name='albums:list')),
     url(r'^album/$', AlbumListView.as_view(), name='list'),  # all albums
     url(r'^album/\{?(?P<pk>\d+)\}?/$', AlbumDetailView.as_view(), name='detail'),  # curly braces for Javascript url
     url(r'^album/(?P<pk>\d+)/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),

@@ -51,10 +51,6 @@ class IndexView(ListView):
         return super(IndexView, self).get_context_data(**kwargs)
 
 
-class AlbumListRedirectView(RedirectView):
-    pattern_name = 'albums:list'
-
-
 class AlbumListView(ListView):
     queryset = Album.objects.for_index()
     context_object_name = 'albums'
