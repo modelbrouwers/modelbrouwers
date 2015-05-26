@@ -90,8 +90,8 @@
                     <img class="rounded" src="{% static 'images/varia/MM-actie.gif' %}"
                         alt="Modelbouwmagazine / Modelbrouwers ACTIE" width="308" height="60" />
                 </a>
-                <a href="http://www.flexwebhosting.nl/" target="_blank">
-                    <img class="rounded" src="{% static 'images/varia/flex_webhosting.gif' %}"
+                <a href="http://mediaprimair.nl/lenteactie" target="_blank">
+                    <img class="rounded" src="{% static 'images/varia/mm-action.jpg' %}"
                         width="234" height="60" alt="Flexwebhosting.nl" />
                 </a>{% endspaceless %}
             </div>
@@ -177,6 +177,10 @@
                     &copy; 2005-2013 Modelbrouwers.nl &amp; Sergei Maertens
                     {% if user.is_superuser %}<br /><a href="/admin/">[ Django admin ]</a>{% endif %}
                     <a href="{{ HONEYPOT_URL }}" style="display: none;">ozone-inevitable</a>
+                    &bull;
+                    {% blocktrans with url='http://www.flexwebhosting.nl' %}
+                        Hosting by <a href="{{ url }}">Flexwebhosting</a>
+                    {% endblocktrans %}
                 </div>
             {% endblock %}
         </div>
