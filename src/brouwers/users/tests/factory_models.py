@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 import factory
 
 from ..models import User
@@ -10,3 +12,4 @@ class UserFactory(factory.django.DjangoModelFactory):
     password = factory.PostGenerationMethodCall('set_password', 'password')
     email = factory.Sequence(lambda n: 'user-{0}@gmail.com'.format(n))
     is_active = True
+    last_login = timezone.now()
