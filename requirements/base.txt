@@ -11,7 +11,7 @@ sqlparse==0.1.14
 wsgiref==0.1.2
 django-compressor==1.4
 factory_boy==2.3.1
-formulation==2.0.13
+django-sniplates==0.3.0
 djangorestframework==2.4.3
 mock==1.0.1
 sorl-thumbnail==12.2

@@ -1,8 +1,9 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n formulation %}
+{% load i18n sniplates %}
 
 {% block content %}
-{% form 'horizontal.form' %}{% with field_grid="col-md-6" label_grid="col-md-6" %}
+{% load_widgets form='horizontal.form' %}
+{% with field_grid="col-md-6" label_grid="col-md-6" %}
     <section class="create-form">
         <form action="." method="post" class="form-horizontal">{% csrf_token %}
 
@@ -20,9 +21,9 @@
                             <br>
                             <small>{% trans "What's it all about?" %}</small>
                         </h3>
-                        {% field form.theme %}
-                        {% field form.category %}
-                        {% field form.description %}
+                        {% form_field form.theme %}
+                        {% form_field form.category %}
+                        {% form_field form.description %}
                     </fieldset>
 
                     <fieldset class="well">
@@ -31,8 +32,8 @@
                             <br>
                             <small>{% trans "When should it all start and end?" %}</small>
                         </h3>
-                        {% field form.start %}
-                        {% field form.duration %}
+                        {% form_field form.start %}
+                        {% form_field form.duration %}
                     </fieldset>
 
                     <fieldset class="well">
@@ -40,7 +41,7 @@
                             {% trans "Management" %}
                             <br>
                             <small>{% trans "Who can edit this information?" %}</small></h3>
-                        {% field form.admins placeholder=_('Enter the forum names') %}
+                        {% form_field form.admins placeholder=_('Enter the forum names') %}
                     </fieldset>
 
                     <fieldset class="well">
@@ -50,11 +51,11 @@
                             <small>{% trans "Less important, but nice to have!" %}</small>
                         </h3>
 
-                        {% field form.rules %}
+                        {% form_field form.rules %}
 
-                        {% field form.rules_topic %}
-                        {% field form.homepage_topic %}
-                        {% field form.introduction_topic %}
+                        {% form_field form.rules_topic %}
+                        {% form_field form.homepage_topic %}
+                        {% form_field form.introduction_topic %}
                     </fieldset>
 
                     <div class="submit-wrapper">
@@ -101,5 +102,5 @@
         {% endwith %}
         </form>
     </section>
-{% endwith %}{% endform %}
+{% endwith %}
 {% endblock %}

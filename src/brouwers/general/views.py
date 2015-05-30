@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import loader, Context
+from django.template.loader import get_template
 from django.views.generic import View
 
 from .forms import *
@@ -12,7 +12,7 @@ from .models import Redirect
 
 LOG_REGISTRATION_ATTEMPTS = getattr(settings, 'LOG_REGISTRATION_ATTEMPTS', True)
 
-EMPTY_CONTEXT = Context()
+EMPTY_CONTEXT = {}
 
 User = get_user_model()
 
@@ -42,6 +42,6 @@ class ServeHbsTemplateView(View):
                             app_name=app_name,
                             template_name=template_name
                         )
-        template = loader.get_template(template_path)
+        template = get_template(template_path)
         tpl_source = template.render(EMPTY_CONTEXT)
         return HttpResponse(tpl_source)

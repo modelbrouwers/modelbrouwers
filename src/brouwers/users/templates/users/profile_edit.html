@@ -1,4 +1,4 @@
-{% extends "base_html5.html" %}{% load i18n formulation %}
+{% extends "base_html5.html" %}{% load i18n sniplates %}
 
 {% block title %}{% trans 'Modelbrouwers.nl &bull; Edit profile' %}{% endblock %}
 
@@ -22,7 +22,7 @@
 	<div class="row">
 
 		<form action="." method="post" class="form-horizontal col-md-8 col-xs-12">
-		{% form 'horizontal.form' %}{% with label_grid='col-sm-4' field_grid='col-sm-8' %}
+			{% load_widgets form='horizontal.form' %}{% with label_grid='col-sm-4' field_grid='col-sm-8' %}
 			{% csrf_token %}
 
 			{{ profiles.management_form }}
@@ -45,25 +45,25 @@
 				<div class="tab-content">
 
 					<fieldset class="tab-pane active" id="tab-user">
-						{% field form.email %}
-						{% field form.first_name %}
-						{% field form.last_name %}
+						{% form_field form.email %}
+						{% form_field form.first_name %}
+						{% form_field form.last_name %}
 					</fieldset>
 
 					<fieldset class="tab-pane" id="tab-address">
-						{% field profiles.0.street %}
-						{% field profiles.0.number %}
-						{% field profiles.0.postal %}
-						{% field profiles.0.city %}
-						{% field profiles.0.province %}
+						{% form_field profiles.0.street %}
+						{% form_field profiles.0.number %}
+						{% form_field profiles.0.postal %}
+						{% form_field profiles.0.city %}
+						{% form_field profiles.0.province %}
 					</fieldset>
 
 					<fieldset class="tab-pane" id="tab-awards">
-						{% field profiles.0.exclude_from_nomination %}
+						{% form_field profiles.0.exclude_from_nomination %}
 					</fieldset>
 
 					<fieldset class="tab-pane" id="tab-privacy">
-						{% field profiles.0.allow_sharing %}
+						{% form_field profiles.0.allow_sharing %}
 					</fieldset>
 
 				</div>
@@ -74,23 +74,23 @@
 			        <button type="submit" class="btn btn-primary">{% block submit-btn %}{% trans "Save changes" %}{% endblock %}</button>
 			    {% endblock %}
 			</div>
-		{% endwith %}{% endform %}
+		{% endwith %}
 		</form>
 
 		<aside class="col-xs-12 col-md-4">
 			<h3 class="align-tabs">{% trans "Change password" %}</h3>
 			<form action="{% url 'users:change_pw' %}" class="form-horizontal well" method="post">
-			{% form 'horizontal.form' %}{% with label_grid='col-md-6 col-xs-12' field_grid='col-md-6 col-xs-12' %}
+			{% with label_grid='col-md-6 col-xs-12' field_grid='col-md-6 col-xs-12' %}
 				{% csrf_token %}
 
-				{% field pw_form.old_password %}
-				{% field pw_form.new_password1 %}
-				{% field pw_form.new_password2 %}
+				{% form_field pw_form.old_password %}
+				{% form_field pw_form.new_password1 %}
+				{% form_field pw_form.new_password2 %}
 
 				<div class="submit-wrapper">
 				    <button type="submit" class="btn bg-main-orange">{% trans "Change password" %}</button>
 				</div>
-			{% endwith %}{% endform %}
+			{% endwith %}
 			</form>
 		</aside>
 

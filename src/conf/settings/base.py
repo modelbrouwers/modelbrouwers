@@ -199,7 +199,7 @@ INSTALLED_APPS = (
 
     # Third party
     'compressor',
-    'formulation',
+    'sniplates',
     'sessionprofile',
     'rest_framework',
     'django_extensions',
