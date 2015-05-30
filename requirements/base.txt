@@ -15,7 +15,7 @@ django-sniplates==0.3.0
 djangorestframework==2.4.3
 mock==1.0.1
 sorl-thumbnail==12.2
-django-rosetta==0.7.4
+django-rosetta==0.7.6
 django-autoslug==1.7.2
 django-precise-bbcode==1.0.9
 WeasyPrint==0.22

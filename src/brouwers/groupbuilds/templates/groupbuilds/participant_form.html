@@ -6,7 +6,7 @@
     <div class="col-xs-12 col-md-8">
         <h3>{% trans "Edit your build details" %}</h3>
         <form action="." method="post" class="form-horizontal">{% csrf_token %}
-            {% load_widgets "horizontal.form" %}
+            {% load_widgets form="horizontal.form" %}
             {% with field_grid='col-md-9' label_grid='col-md-3' %}
                 <fieldset class="well">
                     {% for field in form %}
