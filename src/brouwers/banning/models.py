@@ -50,7 +50,7 @@ class Ban(models.Model):
 
     def __unicode__(self):
         if self.user:
-            return _(u'Ban: %(username)s')  % {'username': get_username(self)}
+            return _(u'Ban: %(username)s') % {'username': get_username(self)}
         else:
             return _(u'Ban: %(ip)s') % {'ip': self.ip}
 
