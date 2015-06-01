@@ -128,6 +128,8 @@ class PrintSignupsView(StaffRequiredMixin, PDFTemplateView):
 
 
 class GoToBuildReportView(RedirectView):
+    permanent = True
+
     def get_redirect_url(self, **kwargs):
         q = Q(is_competitor=False) & ~Q(topic='')
         model = get_object_or_404(ShowCasedModel, q, pk=self.kwargs.get('pk'))

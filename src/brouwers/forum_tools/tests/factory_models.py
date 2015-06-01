@@ -17,7 +17,8 @@ def create_from_user(user):
 
 
 class ForumUserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = ForumUser
+    class Meta:
+        model = ForumUser
 
     user_id = factory.Sequence(lambda n: n)
     username = factory.Sequence(lambda n: 'User {n}'.format(n=n))
@@ -28,20 +29,23 @@ class ForumUserFactory(factory.django.DjangoModelFactory):
 
 
 class ForumCategoryFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = ForumCategory
+    class Meta:
+        model = ForumCategory
 
     name = factory.Sequence(lambda n: 'Category {0}'.format(n))
 
 
 class ForumFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Forum
+    class Meta:
+        model = Forum
 
     forum_id = factory.Sequence(lambda n: n)
     forum_name = factory.Sequence(lambda n: 'Forum {0}'.format(n))
 
 
 class TopicFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Topic
+    class Meta:
+        model = Topic
 
     topic_id = factory.Sequence(lambda n: n)
     forum = factory.SubFactory(ForumFactory)

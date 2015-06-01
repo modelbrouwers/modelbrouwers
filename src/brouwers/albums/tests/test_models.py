@@ -17,7 +17,7 @@ class AlbumTests(TestCase):
         self.user = UserFactory.create()
 
     def test_album_clean_title(self):
-        album = AlbumFactory.build(title='foo', trash=False, user=self.user)
+        album = AlbumFactory.build(title='foo', trash=False, user=self.user, category=None)
         self.assertEquals(album.clean_title, '')
         album.save()
         self.assertEquals(album.clean_title, album.title)

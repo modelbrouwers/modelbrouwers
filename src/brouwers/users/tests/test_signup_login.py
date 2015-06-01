@@ -134,7 +134,7 @@ class LoginRegisterTests(WebTest):
 
 class RegistrationTests(TestCase):
     def setUp(self):
-        self.UserModel = UserFactory.FACTORY_FOR
+        self.UserModel = UserFactory._meta.model
         self.url = '/register/'
 
     def test_anti_spambot_question(self):
@@ -142,7 +142,7 @@ class RegistrationTests(TestCase):
         self.assertEqual(self.UserModel.objects.count(), 0)
 
         question = RegistrationQuestionFactory()
-        answer = 'not-answer' # 'answer' is the default answer from the factory model
+        answer = 'not-answer'  # 'answer' is the default answer from the factory model
 
         post_data = {
             'username': 'My user2',
