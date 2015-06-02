@@ -15,7 +15,7 @@ django-autoslug==1.7.2
 django-compressor==1.4
 django-extensions==1.5.2
 django-extra-views==0.6.5
-django-precise-bbcode==0.4.2
+django-precise-bbcode==1.0.9
 django-rosetta==0.7.4
 django-sendfile==0.3.7
 django-sessionprofile==0.1.1
