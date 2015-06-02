@@ -138,16 +138,14 @@ class Album(models.Model):
 
 
 class AlbumGroup(models.Model):
-    album = models.ForeignKey(
-            Album,
-            verbose_name=_("album"),
+    album = models.OneToOneField(
+            Album, verbose_name=_("album"),
             help_text=_("Album for which the group has write permissions."),
-            unique=True
-            )
+    )
     users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, verbose_name=_("users"),
         help_text=_("Users who can write in this album."),
-        blank=True, null=True
+        blank=True
     )
 
     class Meta:
@@ -342,7 +340,7 @@ BACKGROUND_CHOICES = (
 
 
 class Preferences(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
     # options for uploadify
     auto_start_uploading = models.BooleanField(

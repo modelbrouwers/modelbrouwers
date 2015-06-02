@@ -81,7 +81,7 @@ class GroupBuild(models.Model):
 
     # participants management
     participants = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, blank=True, null=True,
+        settings.AUTH_USER_MODEL, blank=True,
         through='Participant', related_name='groupbuilds')
 
     # optional 'experience enhancing' fields
