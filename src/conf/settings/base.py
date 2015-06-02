@@ -207,10 +207,10 @@ INSTALLED_APPS = (
 
     # Third party
     'compressor',
-    'formulation',
     'sessionprofile',
     'rest_framework',
     'django_extensions',
+    'sniplates',
     'rosetta',
     'precise_bbcode',
     'sorl.thumbnail',
