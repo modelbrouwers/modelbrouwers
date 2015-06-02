@@ -33,3 +33,13 @@ CACHES['default']['KEY_PREFIX'] = 'staging'
 INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
 )
+
+#
+# TEMPLATES
+#
+TEMPLATES[0]['OPTIONS']['loaders'] = [
+    ('django.template.loaders.cached.Loader', [
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    ]),
+]
