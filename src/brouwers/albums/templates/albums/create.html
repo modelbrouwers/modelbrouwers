@@ -1,4 +1,4 @@
-{% extends "albums/index.html" %}{% load i18n staticfiles formulation %}
+{% extends "albums/index.html" %}{% load i18n staticfiles sniplates %}
 
 
 {% block eye-catcher-content %}
@@ -19,17 +19,18 @@
 {% block content %}
 <form action="." class="form-horizontal" method="post">
     {% csrf_token %}
-    {% form 'albums/albums.form' %}{% with label_grid_offset='col-sm-offset-2' %}
-        {% use 'non_field_errors' %}
+    {% load_widgets form='albums/albums.form' %}
+    {% with label_grid_offset='col-sm-offset-2' %}
+        {% widget 'form:non_field_errors' %}
 
         <fieldset class="well">
             {% for field in form %}
-                {% field field %}
+                {% form_field field %}
             {% endfor %}
         </fieldset>
 
-        {% use 'submit' btn_text=_('Create album') %}
+        {% widget 'form:submit' btn_text=_('Create album') %}
 
-    {% endwith %}{% endform %}
+    {% endwith %}
 </form>
 {% endblock %}
