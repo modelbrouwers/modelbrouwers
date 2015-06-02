@@ -51,7 +51,7 @@ class ApiTests(APITestCase):
         data = {
             'groupbuild': gb.pk,
             'model_name': 'Participant 1',
-            'topic': topic.pk,
+            'topic_id': topic.pk,
         }
         self.client.login(username=user.username, password='password')
         response = self.client.post(endpoint, data, format='json')

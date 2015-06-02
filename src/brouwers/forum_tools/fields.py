@@ -42,7 +42,7 @@ class ForumToolsDescriptor(object):
     def __init__(self, related):
         self.related = related
         self.type = related._type
-        self.cache_name = related.get_cache_name() # TODO: strip of the ID
+        self.cache_name = related.get_cache_name()  # TODO: strip the ID off
 
     def __get__(self, instance, instance_type=None):
         if instance is None:
@@ -57,7 +57,7 @@ class ForumToolsDescriptor(object):
         return rel_obj
 
     def __set__(self, instance, value):
-        if value is None and self.related.null == False:
+        if value is None and self.related.null is False:
             value = 0
         elif value is None:
             setattr(instance, self.related.attname, None)

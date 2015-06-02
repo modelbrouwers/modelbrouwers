@@ -77,7 +77,7 @@ var urlconf = urlconf || {};
 					// render errors
 					var context = {
 						build: self,
-						topic: self.topic,
+						topic_id: self.topic,
 						errors: JSON.parse(response.responseText)
 					};
 					hbs.render('groupbuilds::participant', context, $('#add-participant'));
