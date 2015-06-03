@@ -54,90 +54,6 @@ class PreferencesForm(forms.ModelForm):
 
 
 
-
-
-
-class AlbumForm(forms.ModelForm):
-    class Meta:
-        model = Album
-        exclude = ('created', 'modified', 'last_upload', 'views', 'votes',
-                   'order', 'trash', 'cover', 'clean_title')
-        widgets = {
-            'user': forms.HiddenInput(),
-        }
-
-    def __init__(self, *args, **kwargs):
-        self.user = None
-        if 'user' in kwargs:
-            self.user = kwargs.pop('user')
-        else:
-            initial = kwargs.get('initial', None)
-            if initial:
-                self.user = initial.get('user', None)
-
-        if 'admin_mode' in kwargs:
-            admin = kwargs.pop('admin_mode')
-        elif self.user:
-            admin = admin_mode(self.user)
-        else:
-            admin = False
-
-        super(AlbumForm, self).__init__(*args, **kwargs)
-        # limit visible categories for regular users
-        if not self.user or not admin:
-            self.fields['category'].queryset = Category.objects.filter(public=True)
-
-
-class EditAlbumForm(AlbumForm):
-    class Meta:
-        model = Album
-        fields = ('title', 'description', 'category', 'cover', 'order', 'public', 'writable_to', 'trash')
-        widgets = {
-            'description': forms.Textarea(),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(EditAlbumForm, self).__init__(*args, **kwargs)
-        album = kwargs.pop('instance')
-        self.fields['cover'].queryset = Photo.objects.filter(album=album).select_related('user', 'album', 'album__cover')
-
-    def save(self, *args, **kwargs):
-        if self.instance.trash:
-            self.instance.title = "trash_%s_%s" % (timezone.now().strftime('%d%m%Y_%H.%M.%s'), self.instance.title)
-        super(EditAlbumForm, self).save(*args, **kwargs)
-
-
-class EditAlbumFormAjax(EditAlbumForm):
-    class Meta:
-        model = Album
-        fields = (
-            'title', 'description',
-            'category', 'public', 'writable_to', 'cover',
-            'user'
-            )
-        widgets = {
-            'user': forms.HiddenInput(),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(EditAlbumForm, self).__init__(*args, **kwargs)
-        self.fields['cover'].queryset = Photo.objects.none()
-
-class AlbumGroupForm(forms.ModelForm):
-    class Meta:
-        model = AlbumGroup
-        fields = '__all__'
-        #widgets = {'users': forms.HiddenInput()}
-
-    def __init__(self, *args, **kwargs):
-        super(AlbumGroupForm, self).__init__(*args, **kwargs)
-        queryset = self.fields['users'].queryset
-        self.fields['users'].queryset = queryset.order_by('username')
-
-
-class AmountForm(forms.Form):
-    amount = forms.IntegerField(required=False, min_value=1, max_value=50)
-
 def albums_as_choices(querysets, trash=False):
     albums = []
     for qs_dict in querysets:
@@ -149,24 +65,16 @@ def albums_as_choices(querysets, trash=False):
             albums.append([qs_dict['optgroup'], temp])
     return albums
 
+
 class PickAlbumForm(forms.Form):
     album = forms.ModelChoiceField(queryset=Album.objects.none(), empty_label=None)
 
     def __init__(self, user, *args, **kwargs):
-        try:
-            browse = kwargs.pop('browse')
-        except KeyError: #key not suplied
-            browse = False
-        try:
-            trash = kwargs.pop('trash')
-        except KeyError: #key not suplied
-            trash = False
-        try:
-            admin = kwargs.pop('admin_mode')
-        except KeyError:
-            admin = admin_mode(user)
+        browse = kwargs.pop('browse', False)
+        trash = kwargs.pop('trash', False)
+        admin = kwargs.pop('admin_mode', admin_mode(user))
         super(PickAlbumForm, self).__init__(*args, **kwargs)
-        #own_albums = Album.objects.filter(user=user, writable_to="u", trash=False).order_by('order', 'title')
+        # own_albums = Album.objects.filter(user=user, writable_to="u", trash=False).order_by('order', 'title')
 
         if admin:
             q = Q(trash=trash)
@@ -193,6 +101,7 @@ class PickAlbumForm(forms.Form):
         if browse:
             self.fields['album'].required = False
 
+
 class PickOwnAlbumForm(PickAlbumForm):
     def __init__(self, user, *args, **kwargs):
         super(PickOwnAlbumForm, self).__init__(user)
@@ -211,6 +120,7 @@ class PickOwnAlbumForm(PickAlbumForm):
         self.fields['album'].queryset = (own_albums | group_albums).select_related('user')
         self.fields['album'].choices = albums_as_choices(querysets, trash=False)
 
+
 class OrderAlbumForm(PickAlbumForm):
     album_before = forms.ModelChoiceField(queryset=Album.objects.none(), required=False)
     album_after = forms.ModelChoiceField(queryset=Album.objects.none(), required=False)
@@ -220,6 +130,7 @@ class OrderAlbumForm(PickAlbumForm):
         self.fields['album_before'].queryset = self.fields['album'].queryset
         self.fields['album_after'].queryset = self.fields['album'].queryset
 
+
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
@@ -227,6 +138,7 @@ class PhotoForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(),
         }
+
 
 class EditPhotoForm(forms.ModelForm):
     set_as_cover_photo = forms.BooleanField(required=False)

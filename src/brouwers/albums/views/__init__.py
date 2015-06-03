@@ -3,6 +3,3 @@ from .public import (
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView, AlbumDownloadView
 )
 from .private import MyAlbumsView
-
-
-from .old import *

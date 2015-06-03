@@ -5,19 +5,15 @@ from urlparse import urlparse
 from django.db.models import Max
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View
 from django.views.generic.detail import SingleObjectMixin
 
 from brouwers.general.decorators import login_required_403
-from .models import Album, Photo, Preferences, AlbumGroup
-from .forms import AlbumGroupForm, PickAlbumForm, UploadFromURLForm
+from .models import Photo, Preferences
+from .forms import PickAlbumForm, UploadFromURLForm
 from .utils import resize, admin_mode, get_default_img_size
-
-
-GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
 
 
 # uploading images from urls

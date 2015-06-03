@@ -1,0 +1,62 @@
+{% extends "base_html5.html" %}{% load i18n staticfiles cache thumbnail %}
+
+{% block title %} &bull; {% trans "Albums" %}{% endblock %}
+
+
+{% block body-class %}albums{% endblock body-class %}
+
+
+{% block eye-catcher %}
+<header class="container-fluid eye-catcher">
+    <div class="container">
+        {% block eye-catcher-content %}
+            <h1>
+                {% trans "Albums" %}
+                <i class="pull-right fa fa-camera-retro fa-2x"></i>
+            </h1>
+
+            <p>{% blocktrans %}
+                The 'BrouwersAlbums' are a section where you can create your own, personal
+                albums and upload photos to them. The amount of albums or photos is unlimited.
+            {% endblocktrans %}</p>
+
+            {# {% include "albums/winners_carousel.html" %} #}
+        {% endblock %}
+
+        {% block albums-nav %}
+            <div>
+
+                {% block albums-nav-left %}
+                    <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
+                    <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
+                {% endblock %}
+
+                <div class="pull-right">
+                    <a href="{% url 'albums:all' %}" class="btn bg-main-blue">{% trans "All albums" %}</a>
+
+                    {% if user.is_authenticated %}
+                    <div class="dropdown inline">
+                        <button type="button" class="btn bg-main-blue dropdown-toggle"
+                                data-toggle="dropdown" data-hover="dropdown" data-delay="100">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'albums:settings' %}">
+                                <i class="fa fa-fw fa-gear"></i>
+                                {% trans "Settings" %}
+                            </a></li>
+                            <li><a href="{% url 'albums:mine' %}">
+                                <i class="fa fa-fw fa-folder"></i>
+                                {% trans "My albums" %}
+                            </a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        {% endblock %}
+    </div>
+</header>
+{% endblock %}
