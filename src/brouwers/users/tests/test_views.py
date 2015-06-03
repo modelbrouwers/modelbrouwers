@@ -46,4 +46,4 @@ class ProfileTests(WebTest):
         self.assertEqual(user.email, fields['email'])
         self.assertEqual(user.first_name, fields['first_name'])
         self.assertEqual(user.last_name, fields['last_name'])
-        self.assertEqual(user.profile.street, fields['userprofile_set-0-street'])
+        self.assertEqual(user.profile.street, fields['userprofile-0-street'])
