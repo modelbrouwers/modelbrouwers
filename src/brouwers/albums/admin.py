@@ -18,7 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('user', 'album', 'views', 'uploaded', 'BBCode')
+    list_display = ('user', 'album', 'views', 'uploaded')
     list_filter = ('user', 'album')
     raw_id_fields = ('user', 'album')
 

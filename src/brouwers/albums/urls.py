@@ -27,27 +27,14 @@ urlpatterns = patterns(
     (r'^preferences/$', RedirectView.as_view(pattern_name='albums:settings', permanent=True)),
 )
 
-# AJAX
+# AJAX -> convert to API?
 urlpatterns += patterns(
     'brouwers.albums.ajax_views',
-    (r'^album/edit/$',          'edit_album'),
-    (r'^album/get_covers/$',    'get_covers'),
-    (r'^album/get_title/$',     'get_title'),
-    (r'^album/group_rights/$',  'edit_albumgroup'),
-    (r'^album/new/$',           'new_album_jquery_ui'),
-    (r'^album/remove/$',        'remove_album'),
-    (r'^album/restore/$',       'restore_album'),
-    (r'^all_own/$',             'get_all_own_albums'),
-    (r'^new_album/$',           'new_album'),
-    (r'^photo/delete',          'delete_photo'),
-    url(r'^photo/(?P<pk>\d+)/rotate', login_required(RotateView.as_view()), name='rotate_photo'),
-    (r'^upload/uploadify/$',    'uploadify'),
-    (r'^upload/from_url/$',     'upload_url'),
-    (r'^reorder/$',             'reorder'),
-    (r'^search/$',              'search'),
-    (r'^set_cover/$',           'set_cover'),
+    # (r'^upload/from_url/$',     'upload_url'),
+    # url(r'^photo/(?P<pk>\d+)/rotate/', login_required(RotateView.as_view()), name='rotate_photo'),
 )
 
+# TODO: convert to api
 urlpatterns += patterns(
     'brouwers.albums.ajax_views_forum',
     (r'^get_photos/(\d+)/$',    'get_photos'),

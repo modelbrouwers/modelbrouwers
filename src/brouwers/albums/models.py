@@ -3,7 +3,6 @@ import warnings
 from datetime import datetime
 
 from django.conf import settings
-from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -128,9 +127,6 @@ class Album(models.Model):
             self.save()
         return img
 
-    def number_of_photos(self):
-        return self.photo_set.filter(trash=False).count()
-
     def set_order(self):
         max_order = Album.objects.filter(user=self.user, trash=False).aggregate(Max('order'))['order__max'] or 0
         self.order = max_order+1
@@ -221,125 +217,15 @@ class Photo(models.Model):
         rotate_img(self.image, degrees=-90)
         self.save()
 
-    def get_next_previous(self, cmp='gt', order=['order', 'id']):
-        filter_order = {'order__{0}'.format(cmp): self.order}
-        filter_pk = {'pk__{0}'.format(cmp): self.pk}
-
-        # see if there are photos with a different order
-        base = Photo.objects.filter(album=self.album, trash=False).exclude(id=self.id)
-        photos = base.filter(**filter_order).order_by(*order)[:1]
-        if photos:
-            return photos[0]
-
-        photos = base.filter(order=self.order, **filter_pk).order_by(*order)[:1]
-        if photos:
-            return photos[0]
-        return None
-
-    def get_next(self):
-        return self.get_next_previous(cmp='gt', order=['order', 'id'])
-
-    def get_previous(self):
-        return self.get_next_previous(cmp='lt', order=['-order', '-id'])
-
-    def get_next_previous_batch(self, batch_size, cmp='gt'):
-        assert cmp in ['gte', 'lte']
-        filters = {
-            'album': self.album,
-            'order__{0}'.format(cmp): self.order,
-            'trash': False
-        }
-        ordering = ['order', 'id'] if cmp == 'gte' else ['-order', '-id']
-        return Photo.objects.filter(**filters).exclude(id=self.id).order_by(*ordering)[:batch_size] or []
-
-    def get_next_3(self):
-        return self.get_next_previous_batch(3, cmp='gte')
-
-    def get_previous_3(self):
-        return self.get_next_previous_batch(3, cmp='lte')
-
-    def url_back_3(self):
-        photos = self.get_next_previous_batch(4, cmp='lte')
-        if len(photos) == 4:
-            return photos[3].get_absolute_url()
-        return None
-
-    def url_forward_3(self):
-        photos = self.get_next_previous_batch(4, cmp='gte')
-        if len(photos) == 4:
-            return photos[3].get_absolute_url()
-        return None
-
-    @property
-    def BBCode(self):
-        domain = Site.objects.get_current().domain
-        return u'[IMG]http://%s%s[/IMG]' % (domain, self.image.url)
-
-    @property
-    def direct_link(self):
-        domain = Site.objects.get_current().domain
-        return u'http://%s%s' % (domain, self.image.url)
-
-    @property
-    def BBCode_1024(self):
-        domain = Site.objects.get_current().domain
-        path, f = os.path.split(self.image.url)
-        return u'[IMG]http://%s%s/1024_%s[/IMG]' % (domain, path, f)
-
-    @property
-    def thumb_url(self):
-        # TODO: replace with sorl/easy thumbnail
-        path, f = os.path.split(self.image.url)
-        thumb_prefix = settings.THUMB_DIMENSIONS[2]
-        if self.width < settings.THUMB_DIMENSIONS[0] or self.height < settings.THUMB_DIMENSIONS[1]:
-            thumb_prefix = ''
-        return u"%s/%s%s" % (path, thumb_prefix, f)
-
-    @property
-    def is_wider_than_higher(self):
-        ratio = float(self.width) / float(self.height)
-        if ratio >= 1.333:
-            return True
-        return False
-
-    def get_thumb_height(self, width=140, height=105):
-        if self.is_wider_than_higher:
-            ratio = float(self.width) / float(self.height)
-            height = int(width/ratio)
-        if self.height < height:
-            height = self.height
-        return height
-
-    def get_thumb_width(self, width=140, height=105):
-        if self.width and self.width < width:
-            width = self.width
-        elif not self.is_wider_than_higher:
-            ratio = float(self.width) / float(self.height)
-            width = int(ratio*height)
-        return width
-
-    def get_thumb_width_200(self):
-        return self.get_thumb_width(width=200, height=150)
-
-    def get_thumb_height_150(self):
-        return self.get_thumb_height(width=200, height=150)
-
-    def get_thumb_width_100(self):
-        return self.get_thumb_width(width=100, height=75)
-
-    def get_thumb_height_75(self):
-        return self.get_thumb_height(width=100, height=75)
-
-
-BACKGROUND_CHOICES = (
-    ("black", _("Black")),
-    ("white", _("White")),
-    ("EEE", _("Light grey")),
-    ("333", _("Dark grey")),
-)
-
 
 class Preferences(models.Model):
+
+    class Backgrounds(DjangoChoices):
+        black = ChoiceItem('black', _('Black'))
+        white = ChoiceItem('white', _('White'))
+        grey = ChoiceItem('EEE', _('Light grey'))
+        dark_grey = ChoiceItem('333', _('Dark grey'))
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
     # options for uploadify
@@ -359,9 +245,9 @@ class Preferences(models.Model):
         )
     sidebar_bg_color = models.CharField(
         _("sidebar background color"),
-        max_length=7, blank=True,
-        help_text=_("Background for the overlay in the board."),
-        choices=BACKGROUND_CHOICES, default='black'
+        max_length=7, help_text=_("Background for the overlay in the board."),
+        choices=Backgrounds.choices, default=Backgrounds.black,
+        validators=[Backgrounds.validator]
     )
     sidebar_transparent = models.BooleanField(_("transparent background?"), default=True)
     text_color = models.CharField(
