@@ -33,7 +33,7 @@ class ProfileTests(WebTest):
             'email': 'foo@bar.com',
             'first_name': 'Foo',
             'last_name': 'Bar',
-            'userprofile_set-0-street': 'StraatFoobar'
+            'userprofile-0-street': 'StraatFoobar'
         }
 
         form = edit_page.forms[0]

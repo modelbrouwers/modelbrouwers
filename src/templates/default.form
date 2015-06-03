@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% load i18n sniplates forum_tools %}
 
 
@@ -8,10 +7,6 @@
         {{ label }}
     </label>
 {% endif %}
-{% endblock %}
-
-{% block _label %}
-{% if label %}<label id="{{ id_for_label }}" for="{{ id }}">{{ label }}</label>{% endif %}
 {% endblock %}
 
 

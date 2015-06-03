@@ -62,16 +62,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     Username, password and email are required. Other fields are optional.
     """
-    username = models.CharField(_('username'), max_length=30, unique=True,
+    username = models.CharField(
+        _('username'), max_length=30, unique=True,
         help_text=_('Required. 30 characters or fewer. All characters allowed.'))
     username_clean = models.CharField(_('cleaned username'), max_length=30, blank=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     email = models.EmailField(_('email address'))
-    is_staff = models.BooleanField(_('staff status'), default=False,
+    is_staff = models.BooleanField(
+        _('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))
-    is_active = models.BooleanField(_('active'), default=True,
+    is_active = models.BooleanField(
+        _('active'), default=True,
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
@@ -122,7 +125,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @cached_property
     def profile(self):
-        return self.userprofile_set.all()[0]
+        return self.userprofile
 
 
 # Circular imports happen otherwise
