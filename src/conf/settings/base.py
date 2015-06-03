@@ -157,7 +157,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.messages.context_processors.messages",
 
-                "brouwers.albums.context_processors.user_is_album_admin",
                 "brouwers.general.context_processors.connection",
                 "brouwers.general.context_processors.djsettings",
             ],
