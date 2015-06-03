@@ -21,6 +21,7 @@ class UploadView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         kwargs['form'] = UploadForm(self.request)
+        kwargs['settings'] = Preferences.objects.get_for(self.request.user)
         return super(UploadView, self).get_context_data(**kwargs)
 
 
