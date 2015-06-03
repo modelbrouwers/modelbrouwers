@@ -1,5 +1,8 @@
 $(function(){
+    'use strict';
+
     var uploader = $('#uploader');
+    var albumChooser = $('#carousel-album');
     var album;
 
     uploader.fineUploader({
@@ -57,4 +60,13 @@ $(function(){
         uploader.fineUploader('uploadStoredFiles');
         return false;
     });
+
+    var focusActiveAlbum = function() {
+        var checked = albumChooser.find('input:checked').next();
+        var hasChecked = checked.length == 1;
+        while (hasChecked && !checked.is(':visible')) {
+            albumChooser.carousel('next');
+        }
+    };
+    focusActiveAlbum();
 });
