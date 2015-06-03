@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, url
-from django.contrib.auth.decorators import login_required
 from django.views.generic import RedirectView
 
-from .ajax_views import RotateView
+# from .ajax_views import RotateView
 from .views import (
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView,
     UploadView, AlbumCreateView, AlbumDownloadView, PreferencesUpdateView,
@@ -24,7 +23,7 @@ urlpatterns = patterns(
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
     url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^settings/$', PreferencesUpdateView.as_view(), name='settings'),
-    (r'^preferences/$', RedirectView.as_view(pattern_name='albums:settings', permanent=True)),
+    url(r'^preferences/$', RedirectView.as_view(pattern_name='albums:settings', permanent=True)),
 )
 
 # AJAX -> convert to API?

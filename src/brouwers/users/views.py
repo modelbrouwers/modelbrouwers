@@ -27,8 +27,11 @@ class RedirectFormMixin(object):
     default_redirect_url = settings.LOGIN_REDIRECT_URL
     permanent = False
 
+    def _get_request_data(self):
+        return self.request.POST if self.request.method == 'POST' else self.request.GET
+
     def get_redirect_url(self):
-        redirectform = RedirectForm(data=self.request.REQUEST)
+        redirectform = RedirectForm(data=self._get_request_data())
         if redirectform.is_valid():
             return redirectform.cleaned_data['redirect'] or redirectform.cleaned_data['next']
         if self.success_url:
@@ -86,7 +89,7 @@ class LoginView(RedirectFormMixin, generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = {
-            'redirectform': RedirectForm(data=self.request.REQUEST),
+            'redirectform': RedirectForm(data=self._get_request_data()),
         }
         context.update(**kwargs)
         return super(LoginView, self).get_context_data(**context)
