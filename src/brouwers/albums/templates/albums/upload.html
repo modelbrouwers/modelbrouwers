@@ -1,4 +1,4 @@
-{% extends "albums/index.html" %}{% load i18n staticfiles formulation %}
+{% extends "albums/index.html" %}{% load i18n staticfiles sniplates %}
 
 
 {% block extrastyle %}
@@ -29,9 +29,8 @@
 <form action="#" id="upload-form" class="form-horizontal">
     {% csrf_token %}
 
-    {% form 'albums/albums.form' %}
-        {% field form.album 'AlbumCarousel' %}
-    {% endform %}
+    {% load_widgets form='albums/albums.form' %}
+    {% form_field form.album 'form:AlbumCarousel' %}
 
     <div id="uploader"></div>
 </form>

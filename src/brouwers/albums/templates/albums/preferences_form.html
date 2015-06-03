@@ -1,4 +1,4 @@
-{% extends "albums/index.html" %}{% load i18n formulation %}
+{% extends "albums/index.html" %}{% load i18n sniplates %}
 
 {% block eye-catcher-content %}
     <h1>
@@ -16,30 +16,31 @@
 {% block content %}
 <form action="." class="form-horizontal" method="post">
     {% csrf_token %}
-    {% form 'albums/albums.form' %}{% with label_grid_offset='col-sm-offset-2' %}
-        {% use 'non_field_errors' %}
+    {% load_widgets form='albums/albums.form' %}
+    {% with label_grid_offset='col-sm-offset-2' %}
+        {% widget 'form:non_field_errors' %}
 
         <h2>{% trans "Uploader" %}</h2>
         <fieldset class="well">
-            {% field form.auto_start_uploading %}
+            {% form_field form.auto_start_uploading %}
         </fieldset>
 
         <h2>{% trans "Forum sidebar: visibility" %}</h2>
         <fieldset class="well">
-            {% field form.collapse_sidebar %}
-            {% field form.hide_sidebar %}
+            {% form_field form.collapse_sidebar %}
+            {% form_field form.hide_sidebar %}
         </fieldset>
 
         <h2>{% trans "Forum sidebar: appearance" %}</h2>
         <fieldset class="well">
-            {% field form.sidebar_bg_color %}
-            {% field form.sidebar_transparent %}
-            {% field form.text_color %}
-            {% field form.width %}
+            {% form_field form.sidebar_bg_color %}
+            {% form_field form.sidebar_transparent %}
+            {% form_field form.text_color %}
+            {% form_field form.width %}
         </fieldset>
 
-        {% use 'submit' btn_text=_('Save changes') %}
+        {% widget 'form:submit' btn_text=_('Save changes') %}
 
-    {% endwith %}{% endform %}
+    {% endwith %}
 </form>
 {% endblock %}
