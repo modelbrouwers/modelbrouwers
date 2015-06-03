@@ -20,7 +20,7 @@ class UploadView(LoginRequiredMixin, TemplateView):
         return super(UploadView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        kwargs['form'] = UploadForm(self.request)
+        kwargs['form'] = UploadForm(self.request, initial=self.request.GET)
         kwargs['settings'] = Preferences.objects.get_for(self.request.user)
         return super(UploadView, self).get_context_data(**kwargs)
 
@@ -39,6 +39,10 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(AlbumCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        url = super(AlbumCreateView, self).get_success_url()
+        return u'%s%s' % (url, '?album=%s' % self.album.id)
 
 
 class PreferencesUpdateView(LoginRequiredMixin, UpdateView):

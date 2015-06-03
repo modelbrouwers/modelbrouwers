@@ -10,7 +10,9 @@
             <div class="row">
                 {% for album in field.queryset %}
                     <div class="col-sm-2">
-                        <input type="checkbox" name="album" value="{{ album.id }}" id="id_album_{{ album.id }}">
+                        <input type="checkbox" name="album" value="{{ album.id }}"
+                            id="id_album_{{ album.id }}"
+                            {% if value == album.id|cut:'' %}checked="checked"{% endif %}>
                         <label for="id_album_{{ album.id }}" class="thumbnail text-center">
                             {% if album.get_cover.exists %}
                                 {% thumbnail album.cover.image "200x150" crop="center" as im %}
