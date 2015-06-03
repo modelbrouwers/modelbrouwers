@@ -11,7 +11,7 @@ class ParticipantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Participant
-        fields = ('model_name', 'username', 'topic', 'finished')
+        fields = ('id', 'model_name', 'username', 'topic', 'finished')
 
 
 class GroupBuildSerializer(serializers.ModelSerializer):
@@ -36,9 +36,14 @@ class GroupBuildSerializer(serializers.ModelSerializer):
 class ParticipantCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant
-        fields = ('groupbuild', 'model_name', 'topic')
+        fields = ('id', 'groupbuild', 'model_name', 'topic')
 
     def __init__(self, *args, **kwargs):
         super(ParticipantCreateSerializer, self).__init__(*args, **kwargs)
         self.fields['model_name'].required = True
         self.fields['topic'].required = True
+
+    def save(self, **kwargs):
+        if kwargs.get('force_insert'):
+            kwargs['force_insert'] = False
+        return super(ParticipantCreateSerializer, self).save(**kwargs)

@@ -31,10 +31,10 @@ var urlconf = urlconf || {};
 			});
 	};
 
-	GroupBuild.prototype.showParticipantPopup = function(topic, errors) {
+	GroupBuild.prototype.showParticipantPopup = function(topic, participant, errors) {
 		var self = this;
 		self.topic = topic;
-		var context = {build: self, topic: topic, errors: errors}
+		var context = {build: self, topic: topic, participant:participant, errors: errors}
 		hbs.render('groupbuilds::participant', context).done(function(html) {
 			var _dialog = $('<div id="add-participant"></div>').html(html);
 			_dialog.dialog({
@@ -114,7 +114,7 @@ var urlconf = urlconf || {};
 					// groupbuild and topic keys are only present if it's just created
 					if (response.topic_created) {
 						build = new GroupBuild(response.groupbuild.id, response.groupbuild);
-						build.showParticipantPopup(response.topic);
+						build.showParticipantPopup(response.topic, response.participant);
 						deleteCookie(cookieName);
 					}
 				});

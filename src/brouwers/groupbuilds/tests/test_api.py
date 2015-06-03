@@ -104,3 +104,5 @@ class ApiTests(APITestCase):
         response = self.client.get(endpoint, valid_data)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.data['topic_created'])
+
+        # TODO: test existing participant (partial match)

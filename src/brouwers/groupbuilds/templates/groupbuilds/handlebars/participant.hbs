@@ -13,12 +13,15 @@
 <p>{% trans "You've just created a new topic in this groupbuild. Would you like to add it to the groupbuild's participants list?" %}</p>
 <br />
 <form id="add-participant" method="post">
+    {{#if participant}}
+    <input type="hidden" name="id" value="{{participant.id}}" />
+    {{/if}}
     <input type="hidden" name="groupbuild" value="{{build.id}}" />
     <input type="hidden" name="topic" value="{{topic.topic_id}}" />
     <p>
         <label>
             {% filter capfirst %}{% trans "model name" %}{% endfilter %}
-            <input type="text" name="model_name" value="{{topic.topic_title}}" />
+            <input type="text" name="model_name" value="{{#if participant}}{{participant.model_name}}{{else}}{{topic.topic_title}}{{/if}}" />
         </label>
         {{#if errors.model_name}}
         <ul class="errors">
