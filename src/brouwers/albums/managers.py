@@ -58,5 +58,5 @@ class PreferencesManager(models.Manager):
         prefs = cache.get(key)
         if prefs is None:
             prefs_obj, created = self.get_or_create(user=user)
-            prefs_obj.cache()
+            prefs = prefs_obj.cache()
         return prefs

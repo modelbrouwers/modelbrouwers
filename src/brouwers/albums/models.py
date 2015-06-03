@@ -288,6 +288,7 @@ class Preferences(models.Model):
         key = self._get_cache_key(self.user_id)
         serialized = PreferencesSerializer(self).data
         cache.set(key, serialized, 24*60*60)  # cache 24h
+        return serialized
 
 
 class AlbumDownload(models.Model):
