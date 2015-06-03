@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% load i18n sniplates forum_tools %}
 
 
@@ -9,11 +10,8 @@
 {% endif %}
 {% endblock %}
 
-
-{% block __help %}
-{% if help_text %}
-<span class="help glyphicon glyphicon-question-sign" data-trigger="hover focus click" data-toggle="popover" data-content="{{ help_text }}"></span>
-{% endif %}
+{% block _label %}
+{% if label %}<label id="{{ id_for_label }}" for="{{ id }}">{{ label }}</label>{% endif %}
 {% endblock %}
 
 
@@ -40,8 +38,6 @@
     </div>
 </div>
 {% endblock %}
-
-
 
 
 {% block TextInput %}{% reuse "input" %}{% endblock %}
@@ -165,7 +161,7 @@ TODO:
                 <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ form_field.value|yesno:'checked,' }}>
                 {{ form_field.label }}
             </label>
-            {% reuse '__help' %}
+            {% reuse '_help' %}
         </div>
         {% reuse '_errors' %}
     </div>
@@ -221,14 +217,26 @@ TODO:
 {% endblock %}
 
 
+How to render help_text
 {% block _help %}
 {% if help_text %}
 <span class="input-group-addon">
-    {% reuse '__help' %}
+<span class="help glyphicon glyphicon-question-sign" data-trigger="hover focus click"
+    data-toggle="popover" data-content="{{ help_text }}"></span>
 </span>
 {% endif %}
-{% endblock _help %}
+{% endblock %}
 
+How to render errors
+{% block _errors %}
+{% if errors %}
+<ul class="errorlist">
+{% for error in errors %}
+    <li class="error">{{ error }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
 
 {% block non_field_errors %}{% if form.non_field_errors %}
 <div class="panel panel-danger">

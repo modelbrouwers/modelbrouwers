@@ -94,5 +94,6 @@ class CompetitionSignUpTests(WebTest):
             signup.form[key] = value
 
         response = signup.form.submit()
+
         self.assertRedirects(response, url)
         self.assertEqual(self.competition.showcasedmodel_set.all().count(), 1)

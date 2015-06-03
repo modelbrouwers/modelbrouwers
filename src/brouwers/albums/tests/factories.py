@@ -9,13 +9,15 @@ __all__ = ['CategoryFactory', 'AlbumFactory', 'PhotoFactory']
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Category
+    class Meta:
+        model = Category
 
     name = factory.fuzzy.FuzzyText()
 
 
 class AlbumFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Album
+    class Meta:
+        model = Album
 
     user = factory.SubFactory(UserFactory)
     category = factory.SubFactory(CategoryFactory)
@@ -23,7 +25,8 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Photo
+    class Meta:
+        model = Photo
 
     user = factory.SubFactory(UserFactory)
     album = factory.SubFactory(AlbumFactory)

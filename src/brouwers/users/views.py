@@ -235,8 +235,8 @@ class UserProfileDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class PasswordChangedView(generic.RedirectView):
-
-    url = reverse_lazy('users:profile')
+    pattern_name = 'users:profile'
+    permanent = False
 
     def get(self, request, *args, **kwargs):
         messages.success(request, _('Your password was changed.'))

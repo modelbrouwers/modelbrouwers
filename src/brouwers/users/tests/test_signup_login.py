@@ -61,8 +61,8 @@ class LoginRegisterTests(WebTest):
 
         post_data = {
            'username': self.user.email,
-            'password': 'password',
-            'next': '/index.php',
+           'password': 'password',
+           'next': '/index.php',
         }
         response = self.client.post(settings.LOGIN_URL, post_data)
         self.assertEqual(response.status_code, 200)
@@ -73,7 +73,7 @@ class LoginRegisterTests(WebTest):
 
         # create a registration question that has to be answered
         question = RegistrationQuestionFactory()
-        answer = 'answer' # default answer from the factory model
+        answer = 'answer'  # default answer from the factory model
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -105,7 +105,7 @@ class LoginRegisterTests(WebTest):
         """
         Test that duplicate usernames (case insensitive) trigger form validation.
         """
-        question = RegistrationQuestionFactory.create()
+        RegistrationQuestionFactory.create()
         UserFactory.create(username='John Doe')
 
         registration = self.app.get(reverse('users:register'))
@@ -134,7 +134,7 @@ class LoginRegisterTests(WebTest):
 
 class RegistrationTests(TestCase):
     def setUp(self):
-        self.UserModel = UserFactory.FACTORY_FOR
+        self.UserModel = UserFactory._meta.model
         self.url = '/register/'
 
     def test_anti_spambot_question(self):
@@ -142,7 +142,7 @@ class RegistrationTests(TestCase):
         self.assertEqual(self.UserModel.objects.count(), 0)
 
         question = RegistrationQuestionFactory()
-        answer = 'not-answer' # 'answer' is the default answer from the factory model
+        answer = 'not-answer'  # 'answer' is the default answer from the factory model
 
         post_data = {
             'username': 'My user2',

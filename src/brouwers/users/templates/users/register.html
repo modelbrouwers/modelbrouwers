@@ -1,4 +1,4 @@
-{% extends "base_html5.html" %} {% load i18n formulation %}
+{% extends "base_html5.html" %} {% load i18n sniplates %}
 
 
 {% block title %}Modelbrouwers.nl &bull; {% trans 'registration' %}{% endblock %}
@@ -29,26 +29,26 @@
 <div class="row">
 
     <form action="." method="post" class="form-horizontal col-xs-12 col-md-7 col-xl-5" id="form-register">
-    {% form 'horizontal.form' %}
+        {% load_widgets form='horizontal.form' %}
         {% csrf_token %}
 
-        {% use 'non_field_errors' %}
+        {% widget 'form:non_field_errors' %}
 
         <h2>{% trans "Enter your account details" %}</h2>
         {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
         <fieldset class="well">
-            {% field form.username %}
-            {% field form.email %}
-            {% field form.password1 %}
-            {% field form.password2 %}
+            {% form_field form.username %}
+            {% form_field form.email %}
+            {% form_field form.password1 %}
+            {% form_field form.password2 %}
         </fieldset>
 
         <h2>{% trans "Anti-spam question" %}</h2>
         <p>{% trans "Carefully read the question, the answer is often literally in there!" %}</p>
         <fieldset class="well">
-            {% field form.question 'HiddenSelect' %}
-            {% field form.answer %}
-            {% field form.accept_terms %}
+            {% form_field form.question 'form:HiddenSelect' %}
+            {% form_field form.answer %}
+            {% form_field form.accept_terms %}
         </fieldset>
         {% endwith %}
 
@@ -58,7 +58,6 @@
                 <a href="{% url 'users:login' %}">{% trans "Already have an account?" %}</a>
             </p>
         </div>
-    {% endform %}
     </form>
 
 

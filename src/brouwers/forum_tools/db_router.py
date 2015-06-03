@@ -36,15 +36,18 @@ class ForumToolsRouter(object):
                 return False
         return True
 
-    def allow_migrate(self, db, model):
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        """
+        forum_tools is the only app that uses the phpBB database, so all the
+        rest must sync to the default database.
+        """
+        if app_label != 'forum_tools':
+            return db == 'default'
+
+        # forum_tools app, only migrate the phpBB tables for the mysql db
         if db == 'mysql':
-            if model._meta.app_label == 'forum_tools':
-                if model._meta.db_table.startswith(settings.PHPBB_TABLE_PREFIX):
-                    return settings.TESTING  # allow migrate if we're running tests
-                else:
-                    return True
-            return False
-        elif db == 'default':  # postgres db
-            if model._meta.app_label == 'forum_tools' and model.__name__ not in SYNCDB_MODELS:
-                return False
-        return True
+            model = hints.get('model')
+            if model is not None:
+                return model._meta.db_table.startswith(settings.PHPBB_TABLE_PREFIX)
+
+        import bpdb; bpdb.set_trace()
