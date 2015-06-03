@@ -49,5 +49,5 @@ class ForumToolsRouter(object):
             model = hints.get('model')
             if model is not None:
                 return model._meta.db_table.startswith(settings.PHPBB_TABLE_PREFIX)
-
-        import bpdb; bpdb.set_trace()
+        else:
+            return True
