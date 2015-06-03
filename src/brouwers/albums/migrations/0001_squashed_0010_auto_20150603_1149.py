@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import urllib2
 from django.db import models, migrations
 import brouwers.forum_tools.fields
 import datetime
@@ -9,11 +10,36 @@ from django.conf import settings
 import brouwers.albums.models
 
 
-# Functions from the following migrations need manual copying.
-# Move them and any dependencies into this file, then update the
-# RunPython operations to refer to the local versions:
-# brouwers.albums.migrations.0004_auto_20150408_0913
-# brouwers.albums.migrations.0007_auto_20150520_1948
+def save_topic_link(apps, schema_editor):
+    Album = apps.get_model('albums', 'Album')
+    for album in Album.objects.exclude(build_report=''):
+        split = urllib2.urlparse.urlsplit(album.build_report)
+        query = urllib2.urlparse.parse_qs(split.query)
+        topic = query.get('t')
+        if topic is not None:
+            album.topic_id = int(topic[0])
+            album.save()
+
+
+def fix_ordering(apps, schema_editor):
+    seen_albums = set()
+    albums_add = seen_albums.add
+
+    orders = {}
+
+    Photo = apps.get_model('albums', 'Photo')
+    for photo in Photo.objects.all():
+        album = photo.album_id
+        if album not in seen_albums:
+            max_order = 1
+            albums_add(album)
+        orders.setdefault(max_order, [])
+        orders[max_order].append(photo.id)
+        max_order += 1
+
+    for order, id_list in orders.items():
+        Photo.objects.exclude(order=order).filter(id__in=id_list).update(order=order)
+
 
 class Migration(migrations.Migration):
 
@@ -173,19 +199,14 @@ class Migration(migrations.Migration):
             field=models.CharField(default=b'u', help_text='Specify who can upload images in this album', max_length=1, verbose_name='writable to', choices=[(b'u', 'owner'), (b'g', 'group'), (b'o', 'everyone')]),
         ),
         migrations.RunPython(
-            code=brouwers.albums.migrations.0004_auto_20150408_0913.save_topic_link,
+            code=save_topic_link,
+        ),
+        migrations.RunPython(
+            code=fix_ordering,
         ),
         migrations.RemoveField(
             model_name='album',
             name='build_report',
-        ),
-        migrations.AlterField(
-            model_name='album',
-            name='title',
-            field=models.CharField(default=b'album 07-05-2015', max_length=b'256', verbose_name='album title', db_index=True),
-        ),
-        migrations.RunPython(
-            code=brouwers.albums.migrations.0007_auto_20150520_1948.fix_ordering,
         ),
         migrations.AlterField(
             model_name='album',
