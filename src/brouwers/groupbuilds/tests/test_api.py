@@ -105,4 +105,20 @@ class ApiTests(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.data['topic_created'])
 
-        # TODO: test existing participant (partial match)
+        topic3 = TopicFactory.create(
+            forum=forums[0], topic_title='my wonderful model')
+        participant = ParticipantFactory.create(
+            groupbuild=gb, model_name='My model', user=user)
+        valid_data['topic_id'] = topic3.pk
+        valid_data['forum_id'] = forums[0].pk
+        response = self.client.get(endpoint, valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data['topic_created'])
+        self.assertEqual(response.data['participant'], {
+            'id': participant.id,
+            'model_name': 'My model',
+            'username': user.username,
+            'topic': None,
+            'finished': False,
+        })
+        self.assertEqual(response.data['groupbuild']['id'], gb.pk)
