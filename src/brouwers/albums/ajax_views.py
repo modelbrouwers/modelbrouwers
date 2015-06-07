@@ -26,7 +26,6 @@ from .utils import resize, admin_mode, get_default_img_size
 GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
 
 @login_required_403
-@csrf_exempt
 def new_album(request):
     """ Deprecated """
     error = None
@@ -48,6 +47,7 @@ def new_album(request):
     return render(request, 'albums/ajax/new_album.html', {'form': form, 'error': error})
 
 @login_required_403
+@csrf_exempt
 def uploadify(request):
     # Processing of each uploaded image
     albumform = PickAlbumForm(request.user, request.POST)
