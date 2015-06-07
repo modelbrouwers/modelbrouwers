@@ -15,6 +15,7 @@ from django.template import RequestContext, loader
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
+from django.views.decorators.csrf import csrf_exempt
 
 from brouwers.general.decorators import login_required_403
 from .models import *
@@ -25,6 +26,7 @@ from .utils import resize, admin_mode, get_default_img_size
 GroupFormset = inlineformset_factory(Album, AlbumGroup, form=AlbumGroupForm, extra=1, can_delete=False)
 
 @login_required_403
+@csrf_exempt
 def new_album(request):
     """ Deprecated """
     error = None
