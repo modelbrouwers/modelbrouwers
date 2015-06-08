@@ -218,13 +218,18 @@ class Photo(models.Model):
         self.save()
 
 
-class Preferences(models.Model):
+class Backgrounds(DjangoChoices):
+    black = ChoiceItem('black', _('Black'))
+    white = ChoiceItem('white', _('White'))
+    grey = ChoiceItem('EEE', _('Light grey'))
+    dark_grey = ChoiceItem('333', _('Dark grey'))
 
-    class Backgrounds(DjangoChoices):
-        black = ChoiceItem('black', _('Black'))
-        white = ChoiceItem('white', _('White'))
-        grey = ChoiceItem('EEE', _('Light grey'))
-        dark_grey = ChoiceItem('333', _('Dark grey'))
+
+def validate_backgrounds(value):
+    return Backgrounds.validator(value)
+
+
+class Preferences(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
@@ -247,7 +252,7 @@ class Preferences(models.Model):
         _("sidebar background color"),
         max_length=7, help_text=_("Background for the overlay in the board."),
         choices=Backgrounds.choices, default=Backgrounds.black,
-        validators=[Backgrounds.validator]
+        validators=[validate_backgrounds]
     )
     sidebar_transparent = models.BooleanField(_("transparent background?"), default=True)
     text_color = models.CharField(
