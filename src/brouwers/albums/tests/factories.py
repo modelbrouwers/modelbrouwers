@@ -2,7 +2,7 @@ import factory
 import factory.fuzzy
 
 from brouwers.users.tests.factory_models import UserFactory
-from ..models import Album, Photo, Category
+from ..models import Album, AlbumGroup, Category, Photo
 
 
 __all__ = ['CategoryFactory', 'AlbumFactory', 'PhotoFactory']
@@ -31,3 +31,17 @@ class PhotoFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     album = factory.SubFactory(AlbumFactory)
     image = factory.django.ImageField()
+
+
+class AlbumGroupFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = AlbumGroup
+
+    album = factory.SubFactory(AlbumFactory)
+
+    @factory.post_generation
+    def users(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            self.users = extracted

@@ -42,7 +42,7 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         url = super(AlbumCreateView, self).get_success_url()
-        return u'%s%s' % (url, '?album=%s' % self.album.id)
+        return u'%s%s' % (url, '?album=%s' % self.object.id)
 
 
 class PreferencesUpdateView(LoginRequiredMixin, UpdateView):

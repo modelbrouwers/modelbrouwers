@@ -5,7 +5,7 @@ import zipfile
 
 from django.conf import settings
 from django.db.models import F, Q
-from django.views.generic import ListView, DetailView, RedirectView
+from django.views.generic import DetailView, ListView
 from django.views.generic.detail import SingleObjectMixin
 
 from sendfile import sendfile
@@ -35,19 +35,22 @@ class IndexView(ListView):
     context_object_name = 'albums'
     paginate_by = 12
 
-    def get_awards_winners(self):
-        awards_winners = Nomination.objects.winners()
-        try:
-            awards_winners = random.sample(awards_winners, 3)
-        except ValueError:  # sample greater than population, use entire set
-            pass
-        return awards_winners
+    # def get_awards_winners(self):
+    #     awards_winners = Nomination.objects.winners()
+    #     try:
+    #         awards_winners = random.sample(awards_winners, 3)
+    #     except ValueError:  # sample greater than population, use entire set
+    #         pass
+    #     return awards_winners
 
     def get_context_data(self, **kwargs):
         # spotlight: awards winners, select 3 random categories
         # kwargs['awards_winners'] = self.get_awards_winners()
         kwargs['latest_uploads'] = Photo.objects.select_related('user').filter(
-                                       album__public=True).order_by('-uploaded')[:20]
+                                       trash=False,
+                                       album__public=True,
+                                       album__trash=False,
+                                    ).order_by('-uploaded')[:20]
         return super(IndexView, self).get_context_data(**kwargs)
 
 
