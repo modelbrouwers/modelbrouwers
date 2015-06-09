@@ -14,6 +14,7 @@ env:
 
 install:
   - pip install --upgrade setuptools
+  - pip install --upgrade pip
   - pip install -r requirements/travis.txt
   - sudo apt-get -y install nodejs npm
   - sudo npm install -g bower
