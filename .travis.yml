@@ -13,8 +13,8 @@ env:
   - DJANGO=django<1.8
 
 install:
-  - pip install --upgrade setuptools --use-mirrors
-  - pip install -r requirements/travis.txt --use-mirrors
+  - pip install --upgrade setuptools
+  - pip install -r requirements/travis.txt
   - sudo apt-get -y install nodejs npm
   - sudo npm install -g bower
   - sudo npm install
