@@ -60,3 +60,12 @@ class PhotoViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['get'])
     def previous(self, request, *args, **kwargs):
         return self.next_or_previous(request, next=False, *args, **kwargs)
+
+
+"""
+Viewsets for forum:
+* list of photos for an album
+* list of albums
+* sidebar options
+* search bar for albums
+"""

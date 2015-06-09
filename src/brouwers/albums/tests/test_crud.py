@@ -23,13 +23,14 @@ class CrudTests(LoginRequiredMixin, WebTest):
         url = reverse('albums:create')
         self._test_login_required(url)
 
-        topic = TopicFactory.create(topic_id=1, forum__forum_id=1)
+        topic = TopicFactory.create()
 
         create = self.app.get(url, user=self.user)
         self.assertEqual(create.status_code, 200)
         create.form['title'] = 'My first album'
         create.form['description'] = 'Dummy description'
-        create.form['topic'] = 'http://modelbrouwers.nl/phpBB3/viewtopic.php?f=1&t=1'
+        create.form['topic'] = 'http://modelbrouwers.nl/phpBB3/viewtopic.php?f=%d&t=%d' % (
+            topic.forum_id, topic.topic_id)
 
         response = create.form.submit()
 
