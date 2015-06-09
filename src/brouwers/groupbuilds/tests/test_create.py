@@ -12,19 +12,19 @@ from ..forms import GroupBuildForm
 from ..models import GroupbuildStatuses, GroupBuild
 
 
-class CreateTests(TestCase): # TODO: conver to webtest
+class CreateTests(TestCase):  # TODO: conver to webtest
 
     def setUp(self):
-        self.user = UserFactory()
-        self.user2 = UserFactory()
+        self.user = UserFactory.create()
+        self.user2 = UserFactory.create()
 
         # mock request
         _request = HttpRequest()
         _request.user = self.user
 
-        self.gb_data = { # minimal data for form
+        self.gb_data = {  # minimal data for form
             'theme': 'Pokemon',
-            'category': ForumCategoryFactory().id,
+            'category': ForumCategoryFactory.create().id,
             'description': 'Gotta catch \'em all!',
             'admins': [self.user.id, self.user2.id],
             'duration': 92,
@@ -34,7 +34,7 @@ class CreateTests(TestCase): # TODO: conver to webtest
     def test_created_concept_status(self):
         f = self.create_form
         self.assertTrue(f.is_valid())
-        gb = f.save(commit=False) # we're only interested in the instance
+        gb = f.save(commit=False)  # we're only interested in the instance
         self.assertEqual(gb.status, GroupbuildStatuses.concept)
 
     def test_create_only_authenticated_users(self):
@@ -51,7 +51,7 @@ class CreateTests(TestCase): # TODO: conver to webtest
 
         fields = self.gb_data.copy()
         fields.update({
-            'category': ForumCategoryFactory(),
+            'category': ForumCategoryFactory.create(),
             'applicant_id': self.user.id,
         })
         del fields['admins']
@@ -64,7 +64,7 @@ class CreateTests(TestCase): # TODO: conver to webtest
         _request.user = self.user
 
         data = self.gb_data.copy()
-        data['admins'] = [self.user2.id] # not self.user
+        data['admins'] = [self.user2.id]  # not self.user
 
         f = GroupBuildForm(_request, data=data)
         self.assertTrue(f.is_valid())

@@ -11,7 +11,7 @@ class CacheTests(TestCase):
         cache.clear()
 
     def test_preferences_cache(self):
-        user = UserFactory()
+        user = UserFactory.create()
 
         # log the user in
         self.client.login(username=user.username, password='password')

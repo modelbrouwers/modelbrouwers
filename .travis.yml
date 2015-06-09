@@ -15,7 +15,7 @@ env:
 install:
   - pip install --upgrade setuptools --use-mirrors
   - pip install -r requirements/travis.txt --use-mirrors
-  - sudo apt-get -y install nodejs
+  - sudo apt-get -y install nodejs npm
   - sudo npm install -g bower
   - sudo npm install
 

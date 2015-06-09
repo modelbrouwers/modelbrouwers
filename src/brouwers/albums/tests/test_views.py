@@ -69,8 +69,8 @@ class DownloadTests(LoginRequiredMixin, WebTest):
     def test_zip_download(self):
         """ Test that zipfiles are correctly generated and downloaded """
         # create the necessary objects
-        user = UserFactory()
-        album = AlbumFactory(user=user)
+        user = UserFactory.create()
+        album = AlbumFactory.create(user=user)
         PhotoFactory.create_batch(2, album=album, user=user)
 
         url = reverse('albums:download', kwargs={'pk': album.pk})
