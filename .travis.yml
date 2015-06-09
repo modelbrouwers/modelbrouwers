@@ -17,7 +17,7 @@ install:
   - pip install --upgrade pip
   - pip install -r requirements/travis.txt
   - sudo apt-get -y install nodejs npm
-  - sudo npm install -g bower
+  - sudo npm --registry http://registry.npmjs.eu/ install -g bower
   - sudo npm install
 
 matrix:
