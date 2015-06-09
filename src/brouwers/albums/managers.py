@@ -33,6 +33,15 @@ def toggle_ordering(field):
 
 class PhotoManager(models.Manager):
 
+    def for_user(self, user):
+        """
+        Retrieve all photos that :param:`user` can read.
+        """
+        return self.get_queryset().filter(
+            models.Q(album__user=user) | models.Q(user=user) | models.Q(album__albumgroup__users=user),
+            trash=False, album__trash=False
+        )
+
     def next(self, current, user=None):
         # if user.is_authenticated():
         ordering = self.model._meta.ordering

@@ -7,8 +7,8 @@ from rest_framework.response import Response
 from ..models import Album, Photo, Preferences
 from .filters import PhotoFilter
 from .serializers import (
-    AlbumSerializer, PhotoSerializer, PreferencesSerializer,
-    UploadPhotoSerializer
+    AlbumSerializer, ForumPhotoSerializer, PhotoSerializer,
+    PreferencesSerializer, UploadPhotoSerializer
 )
 from .renderers import FineUploaderRenderer
 from .pagination import PhotoPagination
@@ -65,18 +65,15 @@ class PhotoViewSet(viewsets.ModelViewSet):
         return self.next_or_previous(request, next=False, *args, **kwargs)
 
 
-"""
-Viewsets for forum:
-* list of photos for an album
-* list of albums
-* search bar for albums
-"""
-
-
 class PreferencesViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Must always return the settings for the (logged in) user making the
+    api request.
+    """
+
     queryset = Preferences.objects.none()
     serializer_class = PreferencesSerializer
-    lookup_value_regex = '\d+|self'
+    lookup_value_regex = 'self'
 
     def get_queryset(self):
         if self.request.user.is_authenticated():
@@ -100,6 +97,12 @@ class MyAlbumsViewset(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return Album.objects.for_user(self.request.user)
 
-    @detail_route(methods=['get'])
-    def photos(self):
-        pass
+
+class MyPhotosViewset(viewsets.ReadOnlyModelViewSet):
+    queryset = Photo.objects.none()
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ForumPhotoSerializer
+    filter_class = PhotoFilter
+
+    def get_queryset(self):
+        return Photo.objects.for_user(self.request.user).order_by('-uploaded')
