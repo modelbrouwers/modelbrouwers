@@ -4,9 +4,9 @@ from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
-from ..models import Photo
+from ..models import Photo, Preferences
 from .filters import PhotoFilter
-from .serializers import PhotoSerializer, UploadPhotoSerializer
+from .serializers import PhotoSerializer, PreferencesSerializer, UploadPhotoSerializer
 from .renderers import FineUploaderRenderer
 from .pagination import PhotoPagination
 
@@ -66,6 +66,23 @@ class PhotoViewSet(viewsets.ModelViewSet):
 Viewsets for forum:
 * list of photos for an album
 * list of albums
-* sidebar options
 * search bar for albums
 """
+
+
+class PreferencesViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Preferences.objects.none()
+    serializer_class = PreferencesSerializer
+    lookup_value_regex = '\d+|self'
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated():
+            return Preferences.objects.filter(user=self.request.user)
+        return super(PreferencesViewSet, self).get_queryset()
+
+    def get_object(self):
+        return Preferences.objects.get_for(self.request.user)
+
+    def retrieve(self, request, *args, **kwargs):
+        # from cache, or populates cache, thus already serialized
+        return Response(self.get_object())

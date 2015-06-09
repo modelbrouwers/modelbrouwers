@@ -3,6 +3,7 @@ from rest_framework import serializers
 from brouwers.users.api.serializers import UserSerializer
 from brouwers.utils.api.fields import ThumbnailField
 from ..models import Photo
+from ..serializers import PreferencesSerializer  # noqa
 
 
 class UploadPhotoSerializer(serializers.ModelSerializer):
