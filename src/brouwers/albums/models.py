@@ -14,7 +14,7 @@ from djchoices import DjangoChoices, ChoiceItem
 
 from brouwers.forum_tools.fields import ForumToolsIDField
 from .utils import rotate_img
-from .managers import AlbumManager, PhotoManager, PreferencesManager
+from .managers import AlbumQueryset, PhotoManager, PreferencesManager
 
 
 class Category(models.Model):
@@ -92,7 +92,7 @@ class Album(models.Model):
     )
     trash = models.BooleanField(default=False)  # put in trash before removing from db
 
-    objects = AlbumManager()
+    objects = AlbumQueryset.as_manager()
 
     class Meta:
         verbose_name = _("album")

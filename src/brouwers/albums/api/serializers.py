@@ -1,9 +1,19 @@
 from rest_framework import serializers
 
+from brouwers.forum_tools.api.serializers import TopicSerializer
 from brouwers.users.api.serializers import UserSerializer
 from brouwers.utils.api.fields import ThumbnailField
-from ..models import Photo
+from ..models import Album, Photo
 from ..serializers import PreferencesSerializer  # noqa
+
+
+class AlbumSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    topic = TopicSerializer()
+
+    class Meta:
+        model = Album
+        fields = ('id', 'user', 'title', 'description', 'public', 'topic')
 
 
 class UploadPhotoSerializer(serializers.ModelSerializer):

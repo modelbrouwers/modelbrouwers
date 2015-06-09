@@ -2,14 +2,26 @@ from django.core.cache import cache
 from django.db import models
 
 
-class AlbumManager(models.Manager):
+class AlbumQueryset(models.QuerySet):
+
+    def active(self):
+        return self.filter(trash=False)
+
+    def public(self):
+        return self.filter(public=True).active()
 
     def for_index(self):
         qs = self.public().select_related('user', 'cover')
         return qs.order_by('-last_upload')
 
-    def public(self):
-        return self.get_queryset().filter(trash=False, public=True)
+    def for_user(self, user):
+        """
+        Retrieve all albums that :param:`user` can read.
+        """
+        assert user.is_authenticated(), 'Anonymous user passed in'
+        qs = self.filter(user=user)  # private and public
+        qs2 = self.filter(albumgroup__users=user)
+        return (qs | qs2).active().distinct()
 
 
 def toggle_ordering(field):
