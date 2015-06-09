@@ -83,7 +83,7 @@ class ForumCategory(models.Model):
 class ForumUser(models.Model):
     """ MySQL phpBB3 user, managed by phpBB3 """
     # mediumint(8) unsigned
-    user_id = models.PositiveIntegerField(primary_key=True, help_text=_("Primary key"))
+    user_id = models.AutoField(primary_key=True, help_text=_("Primary key"))
     username = models.CharField(_("username"), max_length=255)
     username_clean = models.CharField(_("username"), max_length=255)
     user_posts = models.IntegerField()
@@ -133,7 +133,7 @@ class ForumUser(models.Model):
 
 class Forum(models.Model):
     """ MySQL Forum, managed by phpBB3 """
-    forum_id = models.IntegerField(primary_key=True)
+    forum_id = models.AutoField(primary_key=True)
     forum_name = models.CharField(max_length=60)
     forum_topics = models.IntegerField(default=0)
     forum_posts = models.IntegerField(default=0)
@@ -160,7 +160,7 @@ class Forum(models.Model):
 
 
 class Topic(models.Model):
-    topic_id = models.IntegerField(primary_key=True)
+    topic_id = models.AutoField(primary_key=True)
     forum = models.ForeignKey(Forum)
     topic_title = models.CharField(max_length=255)
     last_post_time = models.BigIntegerField(db_column='topic_last_post_time', default=0)
@@ -234,8 +234,7 @@ class ForumPostCountRestriction(models.Model):
 
 class Report(models.Model):
     """ MySQL Report model, managed by phpBB3 """
-    # mediumint(8) unsigned
-    report_id = models.PositiveIntegerField(primary_key=True, help_text="Primary key")
+    report_id = models.AutoField(primary_key=True, help_text="Primary key")
     # reason_id = FK to reasons, not implement in Django yet
     report_closed = models.BooleanField(
         _('closed'), default=False,
