@@ -16,7 +16,9 @@ install:
   - pip install --upgrade setuptools
   - pip install --upgrade pip
   - pip install -r requirements/travis.txt
-  - sudo apt-get -y install nodejs npm
+  - sudo add-apt-repository -y ppa:chris-lea/node.js
+  - sudo apt-get -y update
+  - sudo apt-get -y install nodejs
   - sudo npm --registry http://registry.npmjs.eu/ install -g bower
   - sudo npm install
 
