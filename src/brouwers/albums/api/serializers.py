@@ -36,9 +36,11 @@ class PhotoSerializer(serializers.ModelSerializer):
 
 class ForumPhotoSerializer(serializers.ModelSerializer):
     user = UserSerializer
-    image = ThumbnailField((('large', '1024x1024'),), opts={'crop': False, 'upscale': False})
-    thumb = ThumbnailField((('thumb', '300x225'),), source='image', opts={'crop': 'center'})
+    image = ThumbnailField(
+        (('large', '1024x1024'), ('thumb', '300x225')),
+        opts={'crop': False, 'upscale': False}
+    )
 
     class Meta:
         model = Photo
-        fields = ('id', 'user', 'description', 'image', 'thumb')
+        fields = ('id', 'user', 'description', 'image')

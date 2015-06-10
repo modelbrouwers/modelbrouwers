@@ -342,4 +342,5 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework_filters.backends.DjangoFilterBackend',
     ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
