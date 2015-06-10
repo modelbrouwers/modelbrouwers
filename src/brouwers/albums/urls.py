@@ -32,13 +32,3 @@ urlpatterns += patterns(
     # (r'^upload/from_url/$',     'upload_url'),
     # url(r'^photo/(?P<pk>\d+)/rotate/', login_required(RotateView.as_view()), name='rotate_photo'),
 )
-
-# TODO: convert to api
-urlpatterns += patterns(
-    'brouwers.albums.ajax_views_forum',
-    (r'^get_photos/(\d+)/$',    'get_photos'),
-    (r'^is_beta_tester/$',      'is_beta_tester'),
-    (r'^search_own_albums/$',   'search'),
-    (r'^sidebar/$',             'get_sidebar'),
-    (r'^sidebar_options/$',     'get_sidebar_options'),
-)

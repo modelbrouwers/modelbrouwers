@@ -4,7 +4,7 @@ from brouwers.forum_tools.api.serializers import TopicSerializer
 from brouwers.users.api.serializers import UserSerializer
 from brouwers.utils.api.fields import ThumbnailField
 from ..models import Album, Photo
-from ..serializers import PreferencesSerializer  # noqa
+from ..serializers import PreferencesSerializer  # pragma: no cover
 
 
 class AlbumSerializer(serializers.ModelSerializer):

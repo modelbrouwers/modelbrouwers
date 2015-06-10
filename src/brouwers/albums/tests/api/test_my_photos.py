@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -50,3 +51,11 @@ class MyPhotoTests(APITestCase):
             image = result['image']
             self.assertIn('large', image)
             self.assertIn('thumb', image)
+
+        # test filter
+        response = self.client.get(url, {'album': own_album.pk})
+        self.assertEqual(response.data['count'], 3)
+        results = response.data['results']
+
+        for result, photo in zip(results, photos[-3:]):
+            self.assertEqual(result['id'], photo.id)

@@ -73,6 +73,7 @@ class PreferencesViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Preferences.objects.none()
     serializer_class = PreferencesSerializer
+    pagination_class = None
     lookup_value_regex = 'self'
 
     def get_queryset(self):

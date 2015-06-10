@@ -6,7 +6,7 @@ from .models import Photo, Preferences
 
 @receiver(post_save, sender=Photo, dispatch_uid='album.set_last_upload')
 def set_last_upload(sender, instance, created, raw, **kwargs):
-    if raw:
+    if raw:  # pragma: no cover
         return
 
     if created:
@@ -16,6 +16,6 @@ def set_last_upload(sender, instance, created, raw, **kwargs):
 
 @receiver(post_save, sender=Preferences, dispatch_uid='preferences.set_cache')
 def update_cache(sender, instance, created, raw, **kwargs):
-    if raw:
+    if raw:  # pragma: no cover
         return
     instance.cache()
