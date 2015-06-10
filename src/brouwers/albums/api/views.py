@@ -46,7 +46,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
             response_data = serializer.data
             response_data.update({'success': True})
             return Response(response_data, status=status.HTTP_200_OK, headers=headers)
-        return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)  # pragma: no cover
 
     def next_or_previous(self, request, next=True, *args, **kwargs):
         attr = 'next' if next else 'previous'
