@@ -116,177 +116,80 @@ select:-moz-focusring {
   position: relative;
 }
 
-/* line 1, ../../sass/partials/forum/_albums.scss */
-#albums-sidebar ul, #albums-sidebar li {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-
-/* line 6, ../../sass/partials/forum/_albums.scss */
-#albums-sidebar.initial {
-  width: 10px;
-}
-
-/* line 7, ../../sass/partials/forum/_albums.scss */
-#albums-sidebar {
+/* line 3, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar {
+  height: 100vh;
+  padding: 5px;
+  background: rgba(0, 102, 153, 0.87);
   position: fixed;
-  left: 0;
   top: 0;
-  z-index: 100;
-  height: 100%;
-  background-color: black;
-  color: white;
-  width: 240px;
-  border-right: solid 2px #0E72A4;
-  overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: auto;
-  font-size: 1.5em;
-  padding: 0.5em;
-  text-align: center;
+  left: 0;
+  z-index: 10;
+  color: #FFFFFF;
+  -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
+  -moz-transition: width 0.5s ease;
+  -o-transition: width 0.5s ease;
+  -webkit-transition: width 0.5s ease;
+  transition: width 0.5s ease;
 }
-
-/*#sidebar-header{position:absolute; left:0;top:0;}*/
-/* line 26, ../../sass/partials/forum/_albums.scss */
-#albums-sidebar.closed #albums-list,
-#albums-sidebar.closed #photos-list,
-#albums-sidebar.closed div.helptext,
-#albums-sidebar.closed span {
-  display: none;
-}
-
-/* line 32, ../../sass/partials/forum/_albums.scss */
-div.tab {
-  /*    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
-  padding: 0.2em 1em 0.2em 1em;
-  margin: -0.5em -0.5em 0.5em -0.5em;
-  background-color: #EEE;
-  background: -moz-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(92%, #C7D0D7), color-stop(100%, #6F8698));
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C7D0D7', endColorstr='#C7D0D7',GradientType=0 );
-  zoom: 1;
-  background-image: -o-linear-gradient(top, #C7D0D7 92%, #6F8698 100%);
-  border-right: solid 1px #CCC;
-  border-left: solid 1px #CCC;
-  color: #222;
-  text-align: center;
-  font-weight: bolder;
-  min-height: 18px;
-}
-
-/* line 49, ../../sass/partials/forum/_albums.scss */
-#control_icon {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -khtml-border-radius: 4px;
-  -moz-border-radius: 4px;
-}
-
-/* line 58, ../../sass/partials/forum/_albums.scss */
-.helptext {
-  font-size: 0.7em;
-}
-
-/* line 61, ../../sass/partials/forum/_albums.scss */
-#id_album, #autocomplete-album {
+/* line 16, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar, body.forum #photo-sidebar > * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-
-/* line 66, ../../sass/partials/forum/_albums.scss */
-#id_album {
-  width: 95%;
+/* line 20, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar.open {
+  width: 20%;
 }
-
-/* line 67, ../../sass/partials/forum/_albums.scss */
-#id_album {
-  font-weight: normal;
-  font-size: 0.94em;
+/* line 23, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar.open .lid {
+  display: none;
 }
-
-/* line 68, ../../sass/partials/forum/_albums.scss */
-#autocomplete-album {
-  width: 95%;
-  margin-bottom: 0.8em;
-  font-weight: normal;
-  font-size: 1.04em;
-  padding: 0.1em 0.3em 0.1em 0.3em;
+/* line 28, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar.closed {
+  width: 0;
+  padding: 0;
 }
-
-/* line 75, ../../sass/partials/forum/_albums.scss */
-ul.ui-autocomplete .ui-menu-item a {
-  font-size: 1.5em;
+/* line 32, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar.closed > :not(.lid) {
+  display: none;
 }
-
-/* line 78, ../../sass/partials/forum/_albums.scss */
-#photos-list {
-  width: 99%;
-  margin: 0 auto;
-  padding-bottom: 1em;
+/* line 38, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar .open-close:hover {
+  cursor: pointer;
 }
-
-/* line 83, ../../sass/partials/forum/_albums.scss */
-#photos-list li.photo {
-  float: left;
-  text-align: center;
-  padding: 0.1em;
-  width: 104px;
-  height: 80px;
-}
-
-/* line 90, ../../sass/partials/forum/_albums.scss */
-li.photo a.photo {
-  display: inline-block;
-  width: 100px;
-  height: 75px;
-  border: solid 1px #555;
-  background-color: #111;
-}
-
-/* line 97, ../../sass/partials/forum/_albums.scss */
-li.photo a.photo.selected {
-  border-color: #0E72A4;
-}
-
-/* line 100, ../../sass/partials/forum/_albums.scss */
-#insert-all {
-  padding: 0.1em 0.4em 0.1em 0.4em;
-}
-
-/* line 101, ../../sass/partials/forum/_albums.scss */
-#resizer {
-  z-index: -1;
+/* line 43, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar .lid {
+  background: inherit;
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 400px;
-  border: solid 1px red;
-  margin-right: 0;
+  right: -30px;
+  top: 25vh;
+  width: 30px;
+  height: 50px;
+  margin-top: -25px;
+  padding-left: 3px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
+}
+/* line 59, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar .lid .fa {
+  line-height: 50px;
+}
+/* line 66, ../../sass/partials/forum/_albums.scss */
+body.forum h2 {
+  color: #FFFFFF;
 }
 
-/* line 111, ../../sass/partials/forum/_albums.scss */
-#resizer:hover {
-  cursor: move;
-}
-
-/** scrollbar **/
-/*
-#albums-sidebar .viewport { width: 500px; overflow: hidden; position: relative; }
-#albums-sidebar .overview { list-style: none; position: absolute; left: 0; top: 0; }
-#albums-sidebar .thumb .end,
-#albums-sidebar .thumb { background-color: #003D5D; }
-#albums-sidebar .scrollbar { position: relative; float: right; width: 15px; }
-#albums-sidebar .track { background-color: #D8EEFD; height: 100%; width:13px; position: relative; padding: 0 1px; }
-#albums-sidebar .thumb { height: 20px; width: 13px; cursor: pointer; overflow: hidden; position: absolute; top: 0; }
-#albums-sidebar .thumb .end { overflow: hidden; height: 5px; width: 13px; }
-#albums-sidebar .disable{ display: none; }
-.noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }*/
 /* line 2, ../../sass/partials/forum/_awards.scss */
 .topic-controls a {
   display: none;

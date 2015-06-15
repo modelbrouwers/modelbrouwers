@@ -89,6 +89,23 @@ var Manager = Class.extend({
       _pages: {}
     };
   },
+
+  all: function() {
+    var self = this;
+    var endpoint = self.model._meta.endpoints.list;
+
+    return Api.request(endpoint).get().then(function(response) {
+      var hasPagination = 'count' in response;
+      if (hasPagination) {
+        debugger; // TODO
+      } else { // response is a list of objects, so instatiate
+        return response.map(function(props) {
+          return new self.model(props);
+        });
+      }
+    });
+  },
+
   filter: function(filters) {
     // TODO: block until promise is resolved and return the result immediately?
     var endpoint = this.model._meta.endpoints.list;
