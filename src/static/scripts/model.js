@@ -78,6 +78,9 @@ var Options = Class.extend({
     for (var key in opts) {
       this[key] = opts[key];
     }
+  },
+  setEndpoint: function(name, path) {
+    debugger;
   }
 });
 
