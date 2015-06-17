@@ -1,4 +1,4 @@
-var Album = (function($, Model, Api, undefined) {
+var Album = (function($, Model, Api, hbs, undefined) {
     'use strict';
 
     // initializer, named function for debug purposes
@@ -8,6 +8,18 @@ var Album = (function($, Model, Api, undefined) {
 
     var toString = function() {
         return 'Album by {0}'.format(this.user.username);
+    };
+
+    var renderPhotos = function(template, target) {
+        var self = this;
+        return MyPhoto.objects.filter({album: self.id})
+            .then(function(photos) {
+                var ctx = {
+                    album: self,
+                    photos: photos
+                };
+                return hbs.render(template, ctx, target);
+            });
     };
 
     // model
@@ -22,7 +34,8 @@ var Album = (function($, Model, Api, undefined) {
             }
         },
         init: album,
-        toString: toString
+        toString: toString,
+        renderPhotos: renderPhotos
     });
     return Album;
-})(window.jQuery, window.Model, window.Api);
+})(window.jQuery, window.Model, window.Api, window.Handlebars);

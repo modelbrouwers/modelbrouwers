@@ -2,34 +2,55 @@
 
     var conf = {
         selectors: {
-            root: 'body.forum'
+            root: 'body.forum',
+            photo_list: '#photo-list',
+            albums_select: 'select[name="album"]',
         }
     };
 
-    var renderSidebar = function() {
-
-        Album.objects.all().then(function(albums) {
-            var ctx = {
-                albums: albums
-            };
-            hbs.render('albums::forum-sidebar', ctx).done(function(html) {
-                $('body').append(html);
-            });
+    var renderSidebar = function(albums) {
+        return hbs.render('albums::forum-sidebar', {albums:albums}).then(function(html) {
+            $('body').append(html);
+            if (albums.length === 0) {
+                return null;
+            }
+            return albums[0];
         });
+    };
 
+    var renderAlbumPhotos = function(album) {
+        if (album === null) {
+            return;
+        }
+        var target = $(conf.selectors.photo_list);
+        return album.renderPhotos('albums::forum-sidebar-photos', target);
+    };
+
+    var showSidebar = function() {
+        Album.objects.all()
+            .then(renderSidebar)
+            .done(renderAlbumPhotos);
+    };
+
+    var onAlbumSelectChange = function(event) {
+        var id = parseInt($(this).val(), 10);
+        Album.objects.get({id: id}).done(renderAlbumPhotos);
     };
 
 
     $(function() {
         // check if we're in posting mode
         if ($('textarea[name="message"]').length == 1) {
-            renderSidebar();
+            showSidebar();
         }
 
-        $(conf.selectors.root).on('click', '[data-open], [data-close]', function() {
-            var selector = $(this).data('open') || $(this).data('close');
-            $(selector).toggleClass('open closed');
-        });
+        $(conf.selectors.root)
+            .on('click', '[data-open], [data-close]', function() {
+                var selector = $(this).data('open') || $(this).data('close');
+                $(selector).toggleClass('open closed');
+            })
+            .on('change', conf.selectors.albums_select, onAlbumSelectChange)
+        ;
     });
 
 

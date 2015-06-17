@@ -1,4 +1,4 @@
-var Photo = (function($, Model, Api, undefined) {
+var Photo = (function(Model, undefined) {
     'use strict';
 
     // initializer, named function for debug purposes
@@ -25,4 +25,20 @@ var Photo = (function($, Model, Api, undefined) {
         toString: toString
     });
     return Photo;
-})(window.jQuery, window.Model, window.Api);
+})(window.Model);
+
+
+/**
+ * Photo class that only looks up photo's from the authenticated user
+ */
+var MyPhoto = (function(Photo, undefined) {
+    'use strict';
+
+    var MyPhoto = Photo.extend();
+    MyPhoto._meta.setEndpoints({
+        list: 'my/photos/',
+        detail: 'my/photos/:id/'
+    });
+    return MyPhoto;
+
+})(Photo);

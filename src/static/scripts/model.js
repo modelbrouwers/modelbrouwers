@@ -67,101 +67,143 @@
 })(this);
 
 
+(function(global, $, Q, undefined){
+  'use strict';
 
-
-
-
-
-var Options = Class.extend({
-  init: function(opts) {
-    // TODO: add some validation
-    for (var key in opts) {
-      this[key] = opts[key];
+  var Options = Class.extend({
+    init: function(opts) {
+      // TODO: add some validation
+      for (var key in opts) {
+        this[key] = opts[key];
+      }
+    },
+    // merge new endpoints with existing
+    setEndpoints: function(endpoints) {
+      this.endpoints = $.extend(true, this.endpoints, endpoints);
     }
-  },
-  setEndpoint: function(name, path) {
-    debugger;
-  }
-});
+  });
 
 
-var Manager = Class.extend({
-  init: function(modelClass) {
-    this.model = modelClass;
-    this._objectCache = {
-      _pages: {}
-    };
-  },
+  var Manager = Class.extend({
+    init: function(modelClass) {
+      this.model = modelClass;
+      this._objectCache = {
+        _pages: {},
+        _objects: {}
+      };
+    },
 
-  all: function() {
-    var self = this;
-    var endpoint = self.model._meta.endpoints.list;
-
-    return Api.request(endpoint).get().then(function(response) {
-      var hasPagination = 'count' in response;
-      if (hasPagination) {
-        debugger; // TODO
-      } else { // response is a list of objects, so instatiate
-        return response.map(function(props) {
-          return new self.model(props);
-        });
-      }
-    });
-  },
-
-  filter: function(filters) {
-    // TODO: block until promise is resolved and return the result immediately?
-    var endpoint = this.model._meta.endpoints.list;
-    var self = this;
-    return Api.request(endpoint, filters).get().then(function(response) {
-      if (filters.page) {
-        self._objectCache._pages[filters.page] = {
-          count: response.count,
-          next: response.next,
-          previous: response.previous,
-          num_result: response.results.length
-        };
-      }
-      var objs = [];
-      for (var i in response.results) {
-        objs.push(new self.model(response.results[i]));
-      }
+    _createObjs: function(raw_objects) {
+      var self = this;
+      var objs = raw_objects.map(function(props) {
+        var obj = new self.model(props);
+        self._objectCache._objects[obj.id] = obj;
+        return obj;
+      });
       return objs;
-    });
-  }
-});
+    },
 
+    all: function() {
+      var self = this;
+      var endpoint = self.model._meta.endpoints.list;
 
-var Model = Class.extend({
-  init: function(data) {
-    for (var key in data) {
-      this[key] = data[key]; // wrap all fields to make getters/setters
+      return Api.request(endpoint).get().then(function(response) {
+        var hasPagination = 'count' in response;
+        if (hasPagination) {
+          debugger; // TODO
+        } else { // response is a list of objects, so instatiate
+          return self._createObjs(response);
+        }
+      });
+    },
+
+    filter: function(filters) {
+      // TODO: block until promise is resolved and return the result immediately?
+      var endpoint = this.model._meta.endpoints.list;
+      var self = this;
+      return Api.request(endpoint, filters).get().then(function(response) {
+        // if (filters.page) {
+        //   self._objectCache._pages[filters.page] = {
+        //     count: response.count,
+        //     next: response.next,
+        //     previous: response.previous,
+        //     num_result: response.results.length
+        //   };
+        // }
+        return self._createObjs(response.results);
+      });
+    },
+
+    get: function(filters) {
+      var self = this;
+      var endpoint = self.model._meta.endpoints.detail;
+      if ('id' in filters) {
+        // first check the local object cache
+        var _obj = self._objectCache._objects[filters.id];
+        if (_obj !== undefined) {
+          var deferred = Q.defer();
+          deferred.resolve(_obj);
+          return deferred.promise;
+        }
+        endpoint = endpoint.replace(':id', filters.id);
+        delete filters.id;
+      }
+      return Api.request(endpoint, filters).get().then(function(response) {
+        var objs = self._createObjs([response]);
+        return objs[0];
+      });
     }
-  }
-});
+  });
 
 
-/* 'extend' the extend method */
-var ModelMeta = function(modelClass) {
-  var oldExtend = modelClass.extend;
-  return function(props) {
-    // extract the required meta data
-    var _meta = props.Meta;
-    delete props.Meta;
+  var Model = Class.extend({
+    init: function(data) {
+      for (var key in data) {
+        this[key] = data[key]; // wrap all fields to make getters/setters
+      }
+    }
+  });
 
-    // TODO check if we passed in a manager
 
-    var Model = oldExtend.call(modelClass, props);
+  /* 'extend' the extend method */
+  var ModelMeta = function(modelClass) {
+    var oldExtend = modelClass.extend;
+    return function(props) {
+      // extract the required meta data
+      if (props && props.Meta) {
+        var _meta = props.Meta;
+        delete props.Meta;
+      } else {
+        if (modelClass._meta) {
+          var _meta = $.extend(true, {}, modelClass._meta);
+        } else {
+          throw new TypeError('The model must inherit from a model class, or provide a Meta property');
+        }
+      }
 
-    // deal with the meta
-    Model.Meta = _meta;
-    Model._meta = new Options(_meta);
-    Model.objects = new Manager(Model);
+      // TODO check if we passed in a manager
 
-    // re-use this extend method for subclassing
-    Model.extend = ModelMeta(Model);
+      var Model = oldExtend.call(modelClass, props);
 
-    return Model;
+      // deal with the meta
+      Model.Meta = _meta;
+      Model._meta = new Options(_meta);
+      Model.objects = new Manager(Model);
+
+      // re-use this extend method for subclassing
+      Model.extend = ModelMeta(Model);
+
+      return Model;
+    };
   };
-};
-Model.extend = ModelMeta(Model);
+  Model.extend = ModelMeta(Model);
+
+
+  // export objects
+  global.Model = Model;
+  global.PonyJS = {
+    Model: Model,
+    Manager: Manager
+  };
+
+})(this, window.jQuery, window.Q);

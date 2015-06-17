@@ -110,6 +110,9 @@ var urlconf = urlconf || {};
 					'forum_id': $referrer.param('f'),
 					'topic_id': $.url().param('t') || getCookie(cookieName)
 				}
+				if (!requestData.topic_id > 0) {
+					return;
+				}
 				Api.request(endpoint, requestData).get().done(function(response) {
 					// groupbuild and topic keys are only present if it's just created
 					if (response.topic_created) {
