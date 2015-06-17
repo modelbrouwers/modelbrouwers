@@ -133,6 +133,7 @@ body.forum #photo-sidebar {
   left: 0;
   z-index: 10;
   color: #FFFFFF;
+  overflow-y: scroll;
   -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
@@ -141,7 +142,7 @@ body.forum #photo-sidebar {
   -webkit-transition: width 0.5s ease;
   transition: width 0.5s ease;
 }
-/* line 21, ../../sass/partials/forum/_albums.scss */
+/* line 22, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar input,
 body.forum #photo-sidebar select {
   width: 100%;
@@ -150,32 +151,29 @@ body.forum #photo-sidebar select {
   -webkit-transition: width 0.5s ease;
   transition: width 0.5s ease;
 }
-/* line 27, ../../sass/partials/forum/_albums.scss */
+/* line 28, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar.open {
   width: 20%;
 }
-/* line 30, ../../sass/partials/forum/_albums.scss */
-body.forum #photo-sidebar.open .lid {
+/* line 31, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar.open + .lid {
   display: none;
 }
-/* line 35, ../../sass/partials/forum/_albums.scss */
+/* line 36, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar.closed {
   width: 0;
   padding: 0;
 }
 /* line 39, ../../sass/partials/forum/_albums.scss */
-body.forum #photo-sidebar.closed > :not(.lid) {
+body.forum #photo-sidebar.closed > * {
   display: none;
 }
-/* line 45, ../../sass/partials/forum/_albums.scss */
-body.forum #photo-sidebar .open-close:hover {
-  cursor: pointer;
-}
-/* line 50, ../../sass/partials/forum/_albums.scss */
-body.forum #photo-sidebar .lid {
-  background: inherit;
+/* line 44, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar + .lid {
+  background: rgba(0, 102, 153, 0.87);
+  color: #FFFFFF;
   position: absolute;
-  right: -30px;
+  left: 0;
   top: 25vh;
   width: 30px;
   height: 50px;
@@ -192,19 +190,22 @@ body.forum #photo-sidebar .lid {
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
 }
-/* line 67, ../../sass/partials/forum/_albums.scss */
-body.forum #photo-sidebar .lid .fa {
+/* line 62, ../../sass/partials/forum/_albums.scss */
+body.forum #photo-sidebar + .lid .fa {
   line-height: 50px;
 }
-/* line 74, ../../sass/partials/forum/_albums.scss */
+/* line 70, ../../sass/partials/forum/_albums.scss */
+body.forum .open-close:hover {
+  cursor: pointer;
+}
+/* line 75, ../../sass/partials/forum/_albums.scss */
 body.forum h2 {
   color: #FFFFFF;
 }
-/* line 78, ../../sass/partials/forum/_albums.scss */
+/* line 79, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list {
   list-style: none;
   margin: 0;
-  overflow-y: scroll;
 }
 /* line 83, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list .album-photo {

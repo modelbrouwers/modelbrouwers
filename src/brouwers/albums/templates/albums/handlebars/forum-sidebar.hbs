@@ -5,25 +5,32 @@
     <div class="pull-right open-close" data-close="#photo-sidebar">
         <i class="fa fa-times fa-2x"></i>
     </div>
-    <div class="lid open-close" data-open="#photo-sidebar">
-        <i class="fa fa-camera fa-rotate-270 fa-2x"></i>
-    </div>
 
     <div>
-        <h2>{% trans "Albums" %}</h2>
 
-        <select name="album">
-            {{#each albums}}
-                <option value="{{id}}">{{title}}</option>
-            {{/each}}
-        </select>
+        <section>
+            <h2>{% trans "Albums" %}</h2>
 
+            <select name="album">
+                {{#each albums}}
+                    <option value="{{id}}">{{title}}</option>
+                {{/each}}
+            </select>
+        </section>
 
+        <section>
+            <h2>{% trans "Photos" %}</h2>
+            <div id="photo-list-container">
+                <ul id="photo-list"></ul>
+            </div>
+        </section>
 
-        <h2>{% trans "Photos" %}</h2>
-        <ul id="photo-list"></ul>
     </div>
 
+</div>
+
+<div class="lid open-close" data-open="#photo-sidebar">
+    <i class="fa fa-camera fa-rotate-270 fa-2x"></i>
 </div>
 
 {% hbs_endverbatim %}
