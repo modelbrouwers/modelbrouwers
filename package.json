@@ -35,12 +35,18 @@
   "jspm": {
     "directories": {
       "baseURL": "static",
-      "doc": "doc",
-      "packages": "src/static/jspm_packages"
+      "doc": "doc"
     },
     "configFile": "src/static/config.js",
-    "dependencies": {},
+    "dependencies": {
+      "handlebars": "github:components/handlebars.js@2.0.0",
+      "jquery": "github:components/jquery@^2.1.4",
+      "q": "npm:q@^2.0.3"
+    },
     "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4",
       "traceur": "github:jmcriffey/bower-traceur@0.0.88",
       "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
     }
