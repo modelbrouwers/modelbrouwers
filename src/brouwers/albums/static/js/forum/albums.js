@@ -5,6 +5,7 @@
             root: 'body.forum',
             photo_list: '#photo-list',
             albums_select: 'select[name="album"]',
+            pagination: '#photo-list-pagination'
         }
     };
 
@@ -23,7 +24,9 @@
             return;
         }
         var target = $(conf.selectors.photo_list);
-        return album.renderPhotos('albums::forum-sidebar-photos', target);
+        var pagination_target = $(conf.selectors.pagination);
+        return album
+            .renderPhotos('albums::forum-sidebar-photos', target, pagination_target);
     };
 
     var showSidebar = function() {

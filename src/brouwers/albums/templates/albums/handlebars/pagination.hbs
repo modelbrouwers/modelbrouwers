@@ -1,0 +1,35 @@
+{% load i18n handlebars %}
+{% hbs_verbatim %}
+
+<nav class="text-right">
+  <ul class="pagination">
+    <li class="{{yesno page_obj.has_previous yes='' no='disabled' }}">
+        {{#if page_obj.has_previous}}
+          <a href="#" data-page="{{page_obj.previous_page_number}}" aria-label="{% trans "Previous" %}">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        {{else}}
+            <a href="#"><span aria-hidden="true">&laquo;</span></a>
+        {{/if}}
+    </li>
+
+    {{#each page_obj.page_range }}
+        <li class="{{#ifequal ../page_obj.number this}}active{{/ifequal}}">
+            <a href="#" data-page="{{this}}">{{this}}</a>
+        </li>
+    {{/each}}
+
+    <li class="{{yesno page_obj.has_next yes='' no='disabled' }}">
+        {{#if page_obj.has_next }}
+          <a href="" data-page="{{page_obj.next_page_number}}" aria-label="{% trans "Next" %}">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        {{else}}
+            <a href="#"><span aria-hidden="true">&raquo;</span></a>
+        {{/if}}
+    </li>
+  </ul>
+</nav>
+
+
+{% hbs_endverbatim %}

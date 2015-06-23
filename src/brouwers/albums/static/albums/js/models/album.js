@@ -10,7 +10,7 @@ var Album = (function($, Model, Api, hbs, undefined) {
         return 'Album by {0}'.format(this.user.username);
     };
 
-    var renderPhotos = function(template, target) {
+    var renderPhotos = function(template, target, pagination_target) {
         var self = this;
         return MyPhoto.objects.filter({album: self.id})
             .then(function(photos) {
@@ -18,6 +18,17 @@ var Album = (function($, Model, Api, hbs, undefined) {
                     album: self,
                     photos: photos
                 };
+
+                var page_obj = {
+                    number: 1, // current page
+                    has_previous: true,
+                    previous_page_number: 1,
+                    has_next: true,
+                    next_page_number: 100,
+                    page_range: [1, 2, 3, 4, 5, 100]
+                };
+
+                hbs.render('albums::pagination', {page_obj: page_obj}, pagination_target).done();
                 return hbs.render(template, ctx, target);
             });
     };
