@@ -67,7 +67,7 @@
 })(this);
 
 
-(function(global, $, Q, undefined){
+(function(global, $, Q, undefined) {
   'use strict';
 
   var Options = Class.extend({
@@ -83,6 +83,49 @@
     }
   });
 
+
+  var Paginator = Class.extend({
+    init: function(opts) {
+      var defaults = {};
+      this.opts = $.extend(true, defaults, opts || {});
+      this.page_range = [];
+      this.previous_page_number = null;
+      this.next_page_number = null;
+      this.number = null;
+      this.next = null;
+      this.previous = null;
+    },
+    /* checks if an api response can be paginated, and does so if possible */
+    paginate: function(response, page) {
+      if (response.count === undefined) {
+        return;
+      }
+      page = page || 1;
+
+      this.next = response.next;
+      this.previous = response.previous;
+      this.number = page;
+
+      if (response.results.length > 0) {
+        var n = Math.ceil(response.count / response.results.length);
+        for (var i=1; i<=n; i++) {
+          this.page_range.push(i);
+        }
+      }
+
+      var index = this.page_range.indexOf(this.number);
+      this.previous_page_number = this.page_range[index-1] || null;
+      this.next_page_number = this.page_range[index+1] || null;
+    },
+
+    has_previous: function() {
+      return this.previous_page_number !== null;
+    },
+
+    has_next: function() {
+      return this.next_page_number !== null;
+    }
+  });
 
   var Manager = Class.extend({
     init: function(modelClass) {
@@ -122,15 +165,16 @@
       var endpoint = this.model._meta.endpoints.list;
       var self = this;
       return Api.request(endpoint, filters).get().then(function(response) {
-        // if (filters.page) {
-        //   self._objectCache._pages[filters.page] = {
-        //     count: response.count,
-        //     next: response.next,
-        //     previous: response.previous,
-        //     num_result: response.results.length
-        //   };
-        // }
-        return self._createObjs(response.results);
+        var paginator = new Paginator({obj_creator: self._createObjs});
+        paginator.paginate(response, filters.page);
+        var objects = self._createObjs(response.results);
+
+        objects.page_obj = paginator;
+        if (paginator.page) {
+          paginator.objects = objects;
+          self._objectCache._pages[paginator.number] = paginator;
+        }
+        return objects;
       });
     },
 
@@ -203,7 +247,8 @@
   global.Model = Model;
   global.PonyJS = {
     Model: Model,
-    Manager: Manager
+    Manager: Manager,
+    Paginator: Paginator,
   };
 
 })(this, window.jQuery, window.Q);

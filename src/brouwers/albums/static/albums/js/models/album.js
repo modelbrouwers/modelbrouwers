@@ -18,17 +18,7 @@ var Album = (function($, Model, Api, hbs, undefined) {
                     album: self,
                     photos: photos
                 };
-
-                var page_obj = {
-                    number: 1, // current page
-                    has_previous: true,
-                    previous_page_number: 1,
-                    has_next: true,
-                    next_page_number: 100,
-                    page_range: [1, 2, 3, 4, 5, 100]
-                };
-
-                hbs.render('albums::pagination', {page_obj: page_obj}, pagination_target).done();
+                hbs.render('albums::pagination', {page_obj: photos.page_obj}, pagination_target).done();
                 return hbs.render(template, ctx, target);
             });
     };
