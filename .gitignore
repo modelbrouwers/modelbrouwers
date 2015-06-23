@@ -41,6 +41,7 @@ _codecov_coverage.xml
 /node_modules
 /src/static/bower_components
 npm-debug.log
+/src/static/jspm_packages
 
 # Docs
 /doc/_build
