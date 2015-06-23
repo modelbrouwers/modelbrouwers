@@ -6,9 +6,10 @@ body.forum {
   }
 
   #photo-sidebar {
+    $sidebar-bg: rgba($main-blue, 0.87);
     height: 100vh;
     padding: 5px;
-    background: rgba($main-blue, 0.87);
+    background: $sidebar-bg;
     position: fixed;
     top: 0;
     left: 0;
@@ -29,7 +30,9 @@ body.forum {
       width: 20%;
 
       & + .lid {
-        display: none;
+        left: 20%;
+        visibility: hidden;
+        @include opacity(0);
       }
     }
 
@@ -42,7 +45,7 @@ body.forum {
     }
 
     & + .lid {
-      background: rgba($main-blue, 0.87);
+      background: $sidebar-bg;
       color: $white;
       $width: 30px;
       $height: 50px;
@@ -58,6 +61,7 @@ body.forum {
       overflow: hidden;
       @include border-right-radius(5px);
       @include raised(2);
+      @include transition(opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s);
 
       .fa {
         line-height: $height;
