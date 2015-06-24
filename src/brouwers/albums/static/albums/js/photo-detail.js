@@ -1,37 +1,44 @@
-$(function() {
-    'use strict';
+'use strict';
 
-    var controls = {};
+import $ from 'bootstrap';
 
-    var Control = function($node, $target) {
+
+class Control {
+    constructor($node, $target) {
         this.node = $node;
         this.target = $target;
         this.action = $node.data('action');
         this.mutualExclusiveActions = $.map($node.siblings(), function(el) {
             return $(el).data('action');
         });
-    };
+    }
 
-    Control.prototype.activate = function() {
+    activate() {
         this.node.siblings().removeClass('active');
         this.target
             .removeClass(this.mutualExclusiveActions.join(' '))
             .addClass(this.action);
         this.node.addClass('active');
-    };
+    }
 
-    Control.prototype.deactivate = function() {
+    deactivate() {
         this.node.removeClass('active');
         this.target.removeClass(this.action);
-    };
+    }
 
-    Control.prototype.toggle = function() {
+    toggle() {
         if (this.node.hasClass('active')) {
             this.deactivate();
         } else {
             this.activate();
         }
-    };
+    }
+}
+
+
+
+$(function() {
+    var controls = {};
 
     $('.controls [data-toggle="popover"]').popover();
 
