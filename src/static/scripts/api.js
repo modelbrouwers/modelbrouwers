@@ -21,7 +21,9 @@ class Api {
 
         if(!(method == 'GET' || method == 'HEAD')) {
 			data = JSON.stringify(this.data);
-		}
+		} else {
+            data = this.data;
+        }
 
 		promise = Q($.ajax({
 			url: this.endpoint,
@@ -54,9 +56,9 @@ class Api {
 }
 
 export function apiRequest(url, data) {
-    return new ApiRequest(url, data);
+    return new Api(url, data);
 };
 
 Api.request = apiRequest;
 
-export { Api };
+export default Api;

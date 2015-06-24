@@ -1,2 +1,2 @@
-import {bootstrap} from './lib';
+import { bootstrap } from './lib';
 bootstrap();

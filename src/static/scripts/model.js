@@ -1,7 +1,7 @@
 'use strict';
 
 import $ from 'jquery';
-import { Manager } from 'scripts/manager';
+import Manager from 'scripts/manager';
 
 
 class Options {
@@ -31,7 +31,7 @@ class Model {
   static Meta() {
     return {
       app_label: null,
-      name: null,
+      name: this.name,
       ordering: ['id'],
       endpoints: {}
     };
@@ -60,4 +60,4 @@ Object.defineProperty(Model, '_meta', {
 });
 
 
-export { Model };
+export default Model;

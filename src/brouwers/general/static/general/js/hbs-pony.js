@@ -123,4 +123,4 @@ for (var i=0; i < hbsHelpers.length; i++) {
 }
 
 
-export { Handlebars };
+export default Handlebars;
