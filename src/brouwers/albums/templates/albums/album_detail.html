@@ -75,18 +75,15 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 
 
 {% block extrascript %}
-
+{{ block.super }}
 <script src="{% static 'jspm_packages/system.js' %}"></script>
 <script src="{% static 'config.js' %}"></script>
 
 
-{# {{ block.super }} #}
 {# {% include "includes/api.html" %} #}
 <script>
     var page = {{ page_obj.number }};
     var album = {{ album.pk }};
     System.import('albums/js/main');
 </script>
-{# <script src="{% static 'albums/js/models/photo.js' %}"></script> #}
-{# <script src="{% static 'albums/js/album.js' %}"></script> #}
 {% endblock extrascript %}

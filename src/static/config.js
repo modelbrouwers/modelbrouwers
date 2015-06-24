@@ -1,6 +1,6 @@
 System.config({
   "baseURL": "/static/",
-  "transpiler": "babel",
+  "transpiler": "traceur",
   "babelOptions": {
     "optional": [
       "runtime"
