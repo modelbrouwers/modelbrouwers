@@ -1,4 +1,4 @@
-{% extends "albums/base.html" %}{% load i18n staticfiles %}
+{% extends "albums/base.html" %}{% load i18n staticfiles sniplates %}
 
 
 {% block eye-catcher-content %}
@@ -76,11 +76,11 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 
 {% block extrascript %}
 {{ block.super }}
-<script src="{% static 'jspm_packages/system.js' %}"></script>
-<script src="{% static 'config.js' %}"></script>
+{% load_widgets js='sniplates/js.html' %}
+{% widget 'js:systemjs-base' %}
 <script>
     var page = {{ page_obj.number }};
     var album = {{ album.pk }};
-    System.import('albums/js/main');
+    System.import('albums/js/album');
 </script>
 {% endblock extrascript %}

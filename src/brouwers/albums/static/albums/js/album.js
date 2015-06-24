@@ -1,5 +1,11 @@
+'use strict';
+
+import $ from 'bootstrap'; // bootstrap returns a jquery version
+import Handlebars from 'general/js/hbs-pony';
+import { Photo } from 'albums/js/models/photo';
+
+
 $(function() {
-    'use strict';
 
     // http://www.bootply.com/79859
 
@@ -17,7 +23,9 @@ $(function() {
         $('#image-loader').show();
 
         var renderLightbox = function(currentID, photos) {
-            var current = photos.filter(function(e) {return e.id == currentID;})[0];
+            var current = photos.filter(function(e) {
+                return e.id == currentID;
+            })[0];
             current.state = {selected: true};
             var context = {
                 photos: photos,
