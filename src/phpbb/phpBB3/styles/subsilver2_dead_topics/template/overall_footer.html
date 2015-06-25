@@ -36,23 +36,28 @@ pageTracker._trackPageview();
 
 <!-- PHP -->
     $js = array(
-        'scripts/model.js',
-        'scripts/forum/forum.js',
-        'scripts/forum/hbsLib.js',
-        'scripts/api.js',
-        'scripts/purl.js',
         'scripts/forum/chat.js',
-        'albums/js/models/album.js',
-        'albums/js/models/photo.js',
-        'js/forum/albums.js',
-        'js/forum/groupbuilds.js',
+        'jspm_packages/system.js',
+        'config.js',
+
+        // 'scripts/model.js',
+        // 'scripts/forum/forum.js',
+        // 'scripts/forum/hbsLib.js',
+        // 'scripts/api.js',
+        // 'scripts/purl.js',
+        // 'albums/js/models/album.js',
+        // 'albums/js/models/photo.js',
+        // 'js/forum/albums.js',
+        // 'js/forum/groupbuilds.js',
     );
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/handlebars-v2.0.0.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
+<script type="text/javascript">
+    System.import('albums/js/forum/app')
+</script>
 
 <!-- IF U_MCP || U_ACP -->
     <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>
