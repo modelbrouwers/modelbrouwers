@@ -36,27 +36,27 @@ pageTracker._trackPageview();
 
 <!-- PHP -->
     $js = array(
+        'scripts/purl.js',
         'scripts/forum/chat.js',
+        // 'scripts/forum/forum.js',
+
         'jspm_packages/system.js',
         'config.js',
-
-        // 'scripts/model.js',
-        // 'scripts/forum/forum.js',
-        // 'scripts/forum/hbsLib.js',
-        // 'scripts/api.js',
-        // 'scripts/purl.js',
-        // 'albums/js/models/album.js',
-        // 'albums/js/models/photo.js',
-        // 'js/forum/albums.js',
-        // 'js/forum/groupbuilds.js',
     );
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
+<script src="https://jspm.io/system@0.16.js"></script>
+<script>
+if (typeof window.System === undefined) {
+    document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage->url('jspm_packages/system.js');<!-- ENDPHP -->'%3E%3C/script%3E"));
+}
+</script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
 <script type="text/javascript">
-    System.import('albums/js/forum/app')
+    System.import('albums/js/forum/app');
+    System.import('groupbuilds/js/forum/app');
 </script>
 
 <!-- IF U_MCP || U_ACP -->

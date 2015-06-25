@@ -118,15 +118,20 @@ System.config({
 
 System.config({
   "map": {
+    "URIjs": "npm:URIjs@1.15.1",
     "babel": "npm:babel-core@5.6.4",
     "babel-runtime": "npm:babel-runtime@5.6.4",
     "bootstrap": "github:twbs/bootstrap@3.3.5",
     "core-js": "npm:core-js@0.9.18",
     "handlebars": "github:components/handlebars.js@2.0.0",
     "jquery": "github:components/jquery@2.1.4",
+    "jquery-ui": "github:components/jqueryui@1.11.4",
     "q": "npm:q@2.0.3",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
+    "github:components/jqueryui@1.11.4": {
+      "jquery": "github:components/jquery@2.1.4"
+    },
     "github:jspm/nodelibs-domain@0.1.0": {
       "domain-browser": "npm:domain-browser@1.1.4"
     },
@@ -138,6 +143,9 @@ System.config({
     },
     "github:twbs/bootstrap@3.3.5": {
       "jquery": "github:components/jquery@2.1.4"
+    },
+    "npm:URIjs@1.15.1": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:asap@2.0.3": {
       "domain": "github:jspm/nodelibs-domain@0.1.0",

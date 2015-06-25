@@ -69,10 +69,8 @@ class Manager {
       endpoint = endpoint.replace(':id', filters.id);
       delete filters.id;
     }
-    return Api.request(endpoint, filters).get().then(function(response) {
-      var objs = self._createObjs([response]);
-      return objs[0];
-    });
+    return Api.request(endpoint, filters).get()
+              .then( response => this._createObjs([response])[0] );
   }
 
 }

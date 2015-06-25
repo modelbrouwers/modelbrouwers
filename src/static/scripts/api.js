@@ -8,6 +8,7 @@ import 'scripts/csrf';
 
 var apiBase = '/api/v1/{0}';
 
+
 class Api {
     constructor(endpoint, data) {
         this.endpoint = apiBase.format(endpoint);

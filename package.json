@@ -39,9 +39,11 @@
     },
     "configFile": "src/static/config.js",
     "dependencies": {
+      "URIjs": "npm:URIjs@^1.15.1",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
       "handlebars": "github:components/handlebars.js@2.0.0",
       "jquery": "github:components/jquery@^2.1.4",
+      "jquery-ui": "github:components/jqueryui@^1.11.4",
       "q": "npm:q@^2.0.3"
     },
     "devDependencies": {
