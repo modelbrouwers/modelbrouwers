@@ -13,12 +13,13 @@ class Manager {
   }
 
   _createObjs(raw_objects) {
-    var self = this;
-    var objs = raw_objects.map(function(props) {
-      var obj = new self.model(props);
-      self._objectCache._objects[obj.id] = obj;
-      return obj;
-    });
+    var objs = raw_objects.map(
+      props => {
+        let obj = new this.model(props);
+        this._objectCache._objects[obj.id] = obj;
+        return obj;
+      }
+    );
     return objs;
   }
 

@@ -1,31 +1,14 @@
-var Album = (function($, Model, Api, hbs, undefined) {
-    'use strict';
+'use strict';
 
-    // initializer, named function for debug purposes
-    var album = function(data) {
-        this._super(data);
-    };
+import Model from 'scripts/model';
+import Handlebars from 'general/js/hbs-pony';
+import { MyPhoto } from 'albums/js/models/photo';
 
-    var toString = function() {
-        return 'Album by {0}'.format(this.user.username);
-    };
 
-    var renderPhotos = function(template, target, pagination_target) {
-        var self = this;
-        return MyPhoto.objects.filter({album: self.id})
-            .then(function(photos) {
-                var ctx = {
-                    album: self,
-                    photos: photos
-                };
-                hbs.render('albums::pagination', {page_obj: photos.page_obj}, pagination_target).done();
-                return hbs.render(template, ctx, target);
-            });
-    };
+class Album extends Model {
 
-    // model
-    var Album = Model.extend({
-        Meta: {
+    static Meta() {
+        return {
             app_label: 'albums',
             name: 'Album',
             ordering: ['order'],
@@ -33,10 +16,25 @@ var Album = (function($, Model, Api, hbs, undefined) {
                 list: 'my/albums/',
                 detail: 'my/albums/:id/'
             }
-        },
-        init: album,
-        toString: toString,
-        renderPhotos: renderPhotos
-    });
-    return Album;
-})(window.jQuery, window.Model, window.Api, window.Handlebars);
+        }
+    }
+
+    toString() {
+        return 'Album by {0}'.format(this.user.username);
+    }
+
+    renderPhotos(template, target, pagination_target) {
+        return MyPhoto.objects.filter({album: this.id})
+            .then(photos => {
+                var ctx = {
+                    album: this,
+                    photos: photos
+                };
+                Handlebars.render('albums::pagination', {page_obj: photos.page_obj}, pagination_target).done();
+                return Handlebars.render(template, ctx, target);
+            });
+    }
+
+}
+
+export { Album };
