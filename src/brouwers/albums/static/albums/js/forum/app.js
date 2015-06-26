@@ -3,6 +3,7 @@
 import 'jquery';
 import 'bootstrap';
 import 'scripts/jquery.insertAtCaret';
+import Ps from 'perfect-scrollbar';
 
 import Handlebars from 'general/js/hbs-pony';
 import { Album } from 'albums/js/models/album';
@@ -12,6 +13,7 @@ import { Photo } from 'albums/js/models/photo';
 let conf = {
 	selectors: {
 		root: 'body.forum',
+        root_sidebar: '#photo-sidebar',
 		photo_list: '#photo-list',
 		albums_select: 'select[name="album"]',
 		pagination: '#photo-list-pagination'
@@ -24,6 +26,10 @@ let renderSidebar = function(albums) {
 		.render('albums::forum-sidebar', {albums:albums})
 		.then(html => {
 			$('body').append(html);
+
+            let $sidebar = $(conf.selectors.root_sidebar);
+            Ps.initialize($sidebar[0]);
+
 			if (albums.length === 0) {
 				return null;
 			}
@@ -63,6 +69,8 @@ $(function() {
         .on('click', '[data-open], [data-close]', function() {
             var selector = $(this).data('open') || $(this).data('close');
             $(selector).toggleClass('open closed');
+            let $sidebar = $(conf.selectors.root_sidebar);
+            Ps.update($sidebar[0]);
         })
         .on('change', conf.selectors.albums_select, onAlbumSelectChange)
     ;

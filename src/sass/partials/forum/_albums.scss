@@ -8,14 +8,14 @@ body.forum {
   #photo-sidebar {
     $sidebar-bg: rgba($main-blue, 0.87);
     height: 100vh;
-    padding: 5px;
+    padding: 5px 15px 5px 5px;
     background: $sidebar-bg;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 10;
     color: $white;
-    overflow-y: scroll;
+    overflow: hidden; // required for perfect scrollbar
 
     @include raised(2);
     @include transition(width 0.5s ease);

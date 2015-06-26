@@ -116,6 +116,152 @@ select:-moz-focusring {
   position: relative;
 }
 
+/* line 64, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container {
+  overflow: hidden !important;
+}
+/* line 67, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container.ps-active-x > .ps-scrollbar-x-rail, .ps-container.ps-active-y > .ps-scrollbar-y-rail {
+  display: block;
+}
+/* line 47, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container.ps-in-scrolling {
+  pointer-events: none;
+}
+/* line 49, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail {
+  background-color: #006699;
+  opacity: 0.9;
+}
+/* line 51, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  background-color: #32BB5B;
+}
+/* line 55, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail {
+  background-color: #006699;
+  opacity: 0.9;
+}
+/* line 57, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+  background-color: #32BB5B;
+}
+/* line 74, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container > .ps-scrollbar-x-rail {
+  display: none;
+  position: absolute;
+  /* please don't change 'position' */
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
+  -moz-transition: background-color 0.2s linear, opacity 0.2s linear;
+  -o-transition: background-color 0.2s linear, opacity 0.2s linear;
+  transition: background-color 0.2s linear, opacity 0.2s linear;
+  bottom: 3px;
+  /* there must be 'bottom' for ps-scrollbar-x-rail */
+  height: 8px;
+}
+/* line 79, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  position: absolute;
+  /* please don't change 'position' */
+  background-color: #32BB5B;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+  bottom: 0;
+  /* there must be 'bottom' for ps-scrollbar-x */
+  height: 8px;
+}
+/* line 86, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container > .ps-scrollbar-y-rail {
+  display: none;
+  position: absolute;
+  /* please don't change 'position' */
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
+  -moz-transition: background-color 0.2s linear, opacity 0.2s linear;
+  -o-transition: background-color 0.2s linear, opacity 0.2s linear;
+  transition: background-color 0.2s linear, opacity 0.2s linear;
+  right: 3px;
+  /* there must be 'right' for ps-scrollbar-y-rail */
+  width: 8px;
+}
+/* line 91, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+  position: absolute;
+  /* please don't change 'position' */
+  background-color: #32BB5B;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.2s linear;
+  -moz-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+  right: 0;
+  /* there must be 'right' for ps-scrollbar-y */
+  width: 8px;
+}
+/* line 47, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover.ps-in-scrolling {
+  pointer-events: none;
+}
+/* line 49, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail {
+  background-color: #006699;
+  opacity: 0.9;
+}
+/* line 51, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+  background-color: #32BB5B;
+}
+/* line 55, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail {
+  background-color: #006699;
+  opacity: 0.9;
+}
+/* line 57, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+  background-color: #32BB5B;
+}
+/* line 101, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover > .ps-scrollbar-x-rail,
+.ps-container:hover > .ps-scrollbar-y-rail {
+  opacity: 0.6;
+}
+/* line 106, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover > .ps-scrollbar-x-rail:hover {
+  background-color: #006699;
+  opacity: 0.9;
+}
+/* line 109, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover > .ps-scrollbar-x-rail:hover > .ps-scrollbar-x {
+  background-color: #32BB5B;
+}
+/* line 114, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover > .ps-scrollbar-y-rail:hover {
+  background-color: #006699;
+  opacity: 0.9;
+}
+/* line 117, ../../sass/partials/_perfect_scrollbar.scss */
+.ps-container:hover > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y {
+  background-color: #32BB5B;
+}
+
 /* line 3, ../../sass/partials/forum/_albums.scss */
 body.forum .box-sizing,
 body.forum .box-sizing * {
@@ -126,29 +272,29 @@ body.forum .box-sizing * {
 /* line 8, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar {
   height: 100vh;
-  padding: 5px;
+  padding: 5px 15px 5px 5px;
   background: rgba(0, 102, 153, 0.87);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
   color: #FFFFFF;
-  overflow-y: scroll;
+  overflow: hidden;
   -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
+  -webkit-transition: width 0.5s ease;
   -moz-transition: width 0.5s ease;
   -o-transition: width 0.5s ease;
-  -webkit-transition: width 0.5s ease;
   transition: width 0.5s ease;
 }
 /* line 23, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar input,
 body.forum #photo-sidebar select {
   width: 100%;
+  -webkit-transition: width 0.5s ease;
   -moz-transition: width 0.5s ease;
   -o-transition: width 0.5s ease;
-  -webkit-transition: width 0.5s ease;
   transition: width 0.5s ease;
 }
 /* line 29, ../../sass/partials/forum/_albums.scss */
@@ -192,10 +338,10 @@ body.forum #photo-sidebar + .lid {
   -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
-  -moz-transition: opacity 0.5s linear, left 0.5s ease, visibility 0.5s linear;
-  -o-transition: opacity 0.5s linear, left 0.5s ease, visibility 0.5s linear;
-  -webkit-transition: opacity 0.5s linear, left 0.5s ease, visibility 0.5s linear;
-  transition: opacity 0.5s linear, left 0.5s ease, visibility 0.5s linear;
+  -webkit-transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
+  -moz-transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
+  -o-transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
+  transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
 }
 /* line 66, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar + .lid .fa {
