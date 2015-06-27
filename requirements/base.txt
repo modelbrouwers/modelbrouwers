@@ -24,3 +24,4 @@ django-admin-tools==0.5.2
 bleach==1.4
 pytz<=2015.12
 django-extra-views==0.6.5
+python-Levenshtein==0.12.0

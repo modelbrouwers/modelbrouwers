@@ -15,6 +15,7 @@ from django.template import RequestContext, loader
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
+from django.views.decorators.csrf import csrf_exempt
 
 from brouwers.general.decorators import login_required_403
 from .models import *
@@ -46,6 +47,7 @@ def new_album(request):
     return render(request, 'albums/ajax/new_album.html', {'form': form, 'error': error})
 
 @login_required_403
+@csrf_exempt
 def uploadify(request):
     # Processing of each uploaded image
     albumform = PickAlbumForm(request.user, request.POST)

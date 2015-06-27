@@ -40,6 +40,8 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStora
 # SESSION
 #
 SESSION_COOKIE_DOMAIN = '.modelbrouwers.nl'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 #
 # CACHE

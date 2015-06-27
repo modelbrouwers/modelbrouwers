@@ -4,6 +4,7 @@ $settingsFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'conf' . DIREC
 require_once $settingsFile;
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'cache.php';
 require_once $settings->COMPOSER_AUTOLOADER;
+require_once $settings->PROJECT_DIR . DIRECTORY_SEPARATOR . 'errorhandler.php';
 
 $DEBUG = false;
 
