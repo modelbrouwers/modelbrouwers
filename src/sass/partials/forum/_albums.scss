@@ -85,16 +85,36 @@ body.forum {
     margin: 0;
 
     .album-photo {
+      position: relative;
       margin: 5px 0;
 
       a {
         display: block;
         max-width: 100%;
+        text-align: center;
+        background-color: rgba($white, 0.9);
         @include raised(1);
       }
 
       img {
         max-width: 100%;
+      }
+
+      figcaption {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 2px 3px;
+        width: 100%;
+        @include text-shadow(0 0 3px $black);
+
+        &:hover {
+          padding: 2px 3px 4px;
+          @include background(rgba($black, 0.7));
+          @include raised(1);
+        }
+
       }
     }
   }
