@@ -16,8 +16,14 @@ let conf = {
         root_sidebar: '#photo-sidebar',
 		photo_list: '#photo-list',
 		albums_select: 'select[name="album"]',
-		pagination: '#photo-list-pagination'
+		pagination: '#photo-list-pagination',
+        loader: '#image-loader'
 	}
+};
+
+let updateScrollbar = function() {
+    let $sidebar = $(conf.selectors.root_sidebar);
+    Ps.update($sidebar[0]);
 };
 
 
@@ -44,7 +50,11 @@ let renderAlbumPhotos = function(album) {
     var target = $(conf.selectors.photo_list);
     var pagination_target = $(conf.selectors.pagination);
     return album
-        .renderPhotos('albums::forum-sidebar-photos', target, pagination_target);
+        .renderPhotos('albums::forum-sidebar-photos', target, pagination_target)
+        .done(html => {
+            $(conf.selectors.loader).hide();
+            updateScrollbar();
+        });
 };
 
 let showSidebar = function() {
@@ -55,6 +65,7 @@ let showSidebar = function() {
 
 let onAlbumSelectChange = function(event) {
     var id = parseInt($(this).val(), 10);
+    $(conf.selectors.loader).show();
     Album.objects.get({id: id}).done(renderAlbumPhotos);
 };
 
@@ -69,8 +80,7 @@ $(function() {
         .on('click', '[data-open], [data-close]', function() {
             var selector = $(this).data('open') || $(this).data('close');
             $(selector).toggleClass('open closed');
-            let $sidebar = $(conf.selectors.root_sidebar);
-            Ps.update($sidebar[0]);
+            updateScrollbar();
         })
         .on('change', conf.selectors.albums_select, onAlbumSelectChange)
     ;
