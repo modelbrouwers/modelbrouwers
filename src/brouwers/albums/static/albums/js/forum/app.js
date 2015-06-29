@@ -17,7 +17,9 @@ let conf = {
 		photo_list: '#photo-list',
 		albums_select: 'select[name="album"]',
 		pagination: '#photo-list-pagination',
-        loader: '#image-loader'
+        loader: '#image-loader',
+        photo: '.album-photo',
+        post_textarea: 'textarea[name="message"]'
 	}
 };
 
@@ -69,10 +71,20 @@ let onAlbumSelectChange = function(event) {
     Album.objects.get({id: id}).done(renderAlbumPhotos);
 };
 
+let insertPhotoAtCaret = function(event) {
+    event.preventDefault();
+    let id = $(this).data('id');
+    Photo.objects.get({id: id}).done(photo => {
+        let $textarea = $(conf.selectors.post_textarea);
+        $textarea.insertAtCaret(photo.bbcode());
+    });
+    return false;
+};
+
 
 $(function() {
     // check if we're in posting mode
-    if ($('textarea[name="message"]').length == 1) {
+    if ($(conf.selectors.post_textarea).length == 1) {
         showSidebar();
     }
 
@@ -83,5 +95,6 @@ $(function() {
             updateScrollbar();
         })
         .on('change', conf.selectors.albums_select, onAlbumSelectChange)
+        .on('click', conf.selectors.photo, insertPhotoAtCaret)
     ;
 });

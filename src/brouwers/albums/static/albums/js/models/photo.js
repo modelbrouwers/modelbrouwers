@@ -18,6 +18,10 @@ class Photo extends Model {
     toString() {
         return 'Photo by {0}'.format(this.user.username);
     }
+
+    bbcode() {
+        return '[img]{0}[/img]'.format(this.image.large);
+    }
 }
 
 
