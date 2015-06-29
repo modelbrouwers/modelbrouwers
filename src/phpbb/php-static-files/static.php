@@ -6,8 +6,6 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'cache.php';
 require_once $settings->COMPOSER_AUTOLOADER;
 require_once $settings->PROJECT_DIR . DIRECTORY_SEPARATOR . 'errorhandler.php';
 
-$DEBUG = false;
-
 // initialize the cache
 // $cache = new StaticCache();
 // $cache->init();
@@ -22,9 +20,9 @@ $DEBUG = false;
  */
 class CachedFilesStorage
 {
-	private static $static_root;
-	private static $static_url;
-	private static $cache_key_prefix;
+	private $static_root;
+	private $static_url;
+	private $cache_key_prefix;
 
 	protected $cache = null;
 	protected $DEBUG;
@@ -48,7 +46,7 @@ class CachedFilesStorage
 
 	protected function get_hashed_name($file) {
 		if($this->DEBUG) return $file;
-		$abs_path = realpath($this->static_root . DIRECTORY_SEPARATOR . $file);
+		$abs_path = realpath($this->get_static_root() . DIRECTORY_SEPARATOR . $file);
 
 		$pathinfo = pathinfo($file);
 		$dirname = $pathinfo['dirname'];
@@ -82,7 +80,7 @@ class CachedFilesStorage
 			$hashed_name = $this->get_hashed_name($file);
 			if(!$this->DEBUG) $this->cache->set($cache_key, $hashed_name);
 		}
-		return $this->static_url . $hashed_name;
+		return $this->get_static_url() . $hashed_name;
 	}
 }
 
