@@ -7,7 +7,7 @@ import Ps from 'perfect-scrollbar';
 
 import Handlebars from 'general/js/hbs-pony';
 import { Album } from 'albums/js/models/album';
-import { Photo } from 'albums/js/models/photo';
+import { MyPhoto } from 'albums/js/models/photo';
 
 
 let conf = {
@@ -74,9 +74,9 @@ let onAlbumSelectChange = function(event) {
 let insertPhotoAtCaret = function(event) {
     event.preventDefault();
     let id = $(this).data('id');
-    Photo.objects.get({id: id}).done(photo => {
+    MyPhoto.objects.get({id: id}).done(photo => {
         let $textarea = $(conf.selectors.post_textarea);
-        $textarea.insertAtCaret(photo.bbcode());
+        $textarea.insertAtCaret(photo.bbcode() + "\n");
     });
     return false;
 };

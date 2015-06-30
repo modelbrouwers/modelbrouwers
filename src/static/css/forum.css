@@ -399,7 +399,7 @@ body.forum #photo-sidebar.closed > * {
 body.forum #photo-sidebar + .lid {
   background: rgba(0, 102, 153, 0.87);
   color: #FFFFFF;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 25vh;
   width: 30px;

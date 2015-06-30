@@ -42,7 +42,7 @@ class Manager {
     var endpoint = this.model._meta.endpoints.list;
     var self = this;
     return Api.request(endpoint, filters).get().then(function(response) {
-      var paginator = new Paginator({obj_creator: self._createObjs});
+      var paginator = new Paginator();
       paginator.paginate(response, filters.page);
       var objects = self._createObjs(response.results);
 
