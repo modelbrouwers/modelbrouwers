@@ -1,5 +1,7 @@
 'use strict';
 
+import $ from 'jquery';
+
 import Model from 'scripts/model';
 import Handlebars from 'general/js/hbs-pony';
 import { MyPhoto } from 'albums/js/models/photo';
@@ -23,8 +25,9 @@ class Album extends Model {
         return 'Album by {0}'.format(this.user.username);
     }
 
-    renderPhotos(template, target, pagination_target) {
-        return MyPhoto.objects.filter({album: this.id})
+    renderPhotos(template, target, pagination_target, extra_filters) {
+        let filters = $.extend({album: this.id}, extra_filters);
+        return MyPhoto.objects.filter(filters)
             .then(photos => {
                 var ctx = {
                     album: this,

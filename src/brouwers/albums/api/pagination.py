@@ -1,5 +1,4 @@
-from rest_framework.pagination import PageNumberPagination
-
+from brouwers.api.pagination import PageNumberPagination
 from ..views import AlbumDetailView
 
 

@@ -36,9 +36,7 @@ pageTracker._trackPageview();
 
 <!-- PHP -->
     $js = array(
-        'scripts/purl.js',
         'scripts/forum/chat.js',
-        'scripts/forum/forum.js',
 
         'jspm_packages/system.js',
         'config.js',
@@ -55,6 +53,7 @@ if (typeof window.System === undefined) {
 </script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
 <script type="text/javascript">
+    System.import('forum_tools/js/forum/app');
     System.import('albums/js/forum/app');
     System.import('groupbuilds/js/forum/app');
 </script>

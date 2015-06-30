@@ -4,6 +4,7 @@ class Paginator {
     constructor(opts) {
         var defaults = {};
         this.opts = $.extend(true, defaults, opts || {});
+        this.paginate_by = null;
         this.page_range = [];
         this.previous_page_number = null;
         this.next_page_number = null;
@@ -19,13 +20,14 @@ class Paginator {
         }
         page = page || 1;
 
+        this.paginate_by = response.paginate_by;
         this.next = response.next;
         this.previous = response.previous;
         this.number = page;
 
         if (response.results.length > 0) {
-          var n = Math.ceil(response.count / response.results.length);
-          for (var i=1; i<=n; i++) {
+          var n = Math.ceil(response.count / this.paginate_by);
+          for (let i=1; i<=n; i++) {
             this.page_range.push(i);
           }
         }

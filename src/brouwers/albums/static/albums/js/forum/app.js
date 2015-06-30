@@ -17,6 +17,7 @@ let conf = {
 		photo_list: '#photo-list',
 		albums_select: 'select[name="album"]',
 		pagination: '#photo-list-pagination',
+        page_link: '#photo-list-pagination .pagination a',
         loader: '#image-loader',
         photo: '.album-photo',
         post_textarea: 'textarea[name="message"]'
@@ -45,14 +46,15 @@ let renderSidebar = function(albums) {
 		});
 };
 
-let renderAlbumPhotos = function(album) {
+let renderAlbumPhotos = function(album, page) {
     if (album === null) {
         return;
     }
     var target = $(conf.selectors.photo_list);
     var pagination_target = $(conf.selectors.pagination);
+    var filters = page ? {page: page} : {};
     return album
-        .renderPhotos('albums::forum-sidebar-photos', target, pagination_target)
+        .renderPhotos('albums::forum-sidebar-photos', target, pagination_target, filters)
         .done(html => {
             $(conf.selectors.loader).hide();
             updateScrollbar();
@@ -81,6 +83,16 @@ let insertPhotoAtCaret = function(event) {
     return false;
 };
 
+let loadPage = function(event) {
+    event.preventDefault();
+    let page = $(this).data('page');
+    let id = $(conf.selectors.albums_select).val();
+    Album.objects.get({id: id}).done(album => {
+        renderAlbumPhotos(album, page);
+    });
+    return false;
+};
+
 
 $(function() {
     // check if we're in posting mode
@@ -96,5 +108,6 @@ $(function() {
         })
         .on('change', conf.selectors.albums_select, onAlbumSelectChange)
         .on('click', conf.selectors.photo, insertPhotoAtCaret)
+        .on('click', conf.selectors.page_link, loadPage)
     ;
 });
