@@ -20,7 +20,7 @@ class Photo extends Model {
     }
 
     bbcode() {
-        return '[img data-id="{0}"]{1}[/img]'.format(this.id, this.image.large);
+        return '[photo data-id="{0}"]{1}[/photo]'.format(this.id, this.image.large);
     }
 }
 
