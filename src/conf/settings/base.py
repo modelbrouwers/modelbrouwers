@@ -213,6 +213,8 @@ INSTALLED_APPS = (
     'precise_bbcode',
     'sorl.thumbnail',
 
+    'ponyjs',
+
     # Modelbrouwers
     'brouwers.users',
     'brouwers.albums',
