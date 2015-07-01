@@ -1,6 +1,6 @@
 System.config({
   "baseURL": "/static/",
-  "transpiler": "traceur",
+  "transpiler": "babel",
   "babelOptions": {
     "optional": [
       "runtime"
@@ -14,14 +14,10 @@ System.config({
 });
 
 System.config({
-  "depCache": {}
-});
-
-System.config({
   "map": {
     "URIjs": "npm:URIjs@1.15.1",
-    "babel": "npm:babel-core@5.6.4",
-    "babel-runtime": "npm:babel-runtime@5.6.4",
+    "babel": "npm:babel-core@5.6.15",
+    "babel-runtime": "npm:babel-runtime@5.6.15",
     "bootstrap": "github:twbs/bootstrap@3.3.5",
     "core-js": "npm:core-js@0.9.18",
     "css": "github:systemjs/plugin-css@0.1.13",
@@ -52,6 +48,9 @@ System.config({
     },
     "npm:asap@2.0.3": {
       "domain": "github:jspm/nodelibs-domain@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:babel-runtime@5.6.15": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:babel-runtime@5.6.4": {
