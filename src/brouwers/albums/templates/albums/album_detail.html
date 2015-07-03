@@ -76,12 +76,12 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 
 {% block extrascript %}
 {{ block.super }}
-{% load_widgets js='sniplates/js.html' %}
-{% widget 'js:systemjs-base' %}
+{# {% load_widgets js='sniplates/js.html' %} #}
+{# {% widget 'js:systemjs-base' %} #}
 {% load system_tags %}
 <script>
     var page = {{ page_obj.number }};
     var album = {{ album.pk }};
 </script>
-{% system_import 'albums/js/album' %}
+{% systemjs_import 'albums/js/album' %}
 {% endblock extrascript %}

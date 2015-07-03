@@ -1,34 +1,48 @@
+import os
 import subprocess
 
 from django import template
-from django.conf import settings
+from ponyjs.conf import settings
 from django.utils.six.moves.urllib.parse import urljoin
 
 register = template.Library()
 
-JSPM_EXECUTABLE = './node_modules/.bin/jspm'
-
 
 class System(object):
 
-    def __init__(self, app, outfile, **opts):
+    def __init__(self, app, **opts):
         self.app = app
-        self.outfile = outfile
         self.opts = opts
         self.stdout = self.stdin = self.stderr = subprocess.PIPE
+        self.cwd = None
+
+    def get_outfile(self):
+        js_file = u'{app}.js'.format(app=self.app)
+        outfile = os.path.join(settings.STATIC_ROOT, settings.SYSTEMJS_OUTPUT_DIR, js_file)
+        return outfile
 
     def command(self, command):
-        proc = subprocess.Popen(
-            command, shell=True, cwd=self.cwd, stdout=self.stdout,
-            stdin=self.stdin, stderr=self.stderr)
-        result, err = proc.communicate()
+        outfile = self.get_outfile()
+        if os.path.exists(outfile):
+            return outfile  # no need to do this expensive operation again
+        options = self.opts.copy()
+        options.setdefault('jspm', settings.SYSTEMJS_JSPM_EXECUTABLE)
+        try:
+            cmd = command.format(app=self.app, outfile=outfile, **options)
+            proc = subprocess.Popen(
+                cmd, shell=True, cwd=self.cwd, stdout=self.stdout,
+                stdin=self.stdin, stderr=self.stderr)
+            result, err = proc.communicate()  # waits until it's done
+        except (IOError, OSError) as e:
+            raise OSError('Unable to apply %s (%r): %s' %
+                          (self.__class__.__name__, command, e))
         return result
 
     @classmethod
-    def bundle(cls, app, outfile, **opts):
-        system = cls(app, outfile, **opts)
+    def bundle(cls, app, **opts):
+        system = cls(app, **opts)
         cmd = u'{jspm} bundle-sfx {app} {outfile}'
-        system.command(cmd)
+        return system.command(cmd)
 
 
 class SystemImportNode(template.Node):
@@ -41,13 +55,15 @@ class SystemImportNode(template.Node):
         Build the filepath by appending the extension.
         """
         module_path = self.path.resolve(context)
-        path = u'{path}.{ext}'.format(path=module_path, ext='js')
-        if settings.DEBUG:
+        if not settings.SYSTEMJS_ENABLED:
             tpl = """<script type="text/javascript">System.import('{app}');</script>"""
             return tpl.format(app=module_path)
 
         # else: create a bundle
-        import bpdb; bpdb.set_trace()
+        path = System.bundle(module_path)
+        rel_path = os.path.relpath(path, settings.STATIC_ROOT)
+        url = urljoin(settings.STATIC_URL, rel_path)
+        return """<script type="text/javascript" src="{path}"></script>""".format(path=url)
 
     @classmethod
     def handle_token(cls, parser, token):
@@ -63,7 +79,7 @@ class SystemImportNode(template.Node):
 
 
 @register.tag
-def system_import(parser, token):
+def systemjs_import(parser, token):
     """
     Import a Javascript module via SystemJS, bundling the app.
 
