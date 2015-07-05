@@ -29,7 +29,9 @@ class System(object):
         """
         outfile = self.get_outfile()
         rel_path = os.path.relpath(outfile, settings.STATIC_ROOT)
-        if not os.path.exists(outfile):
+        check_existing = self.opts.get('check', False)
+        force = self.opts.get('force', False)
+        if force or (check_existing and not os.path.exists(outfile)):
             options = self.opts.copy()
             options.setdefault('jspm', settings.SYSTEMJS_JSPM_EXECUTABLE)
             try:
@@ -48,7 +50,7 @@ class System(object):
     def bundle(cls, app, **opts):
         system = cls(app, **opts)
         cmd = u'{jspm} bundle-sfx {app} {outfile}'
-        return staticfiles_storage.url(system.command(cmd))
+        return system.command(cmd)
 
 
 class SystemImportNode(template.Node):
@@ -66,7 +68,8 @@ class SystemImportNode(template.Node):
             return tpl.format(app=module_path)
 
         # else: create a bundle
-        url = System.bundle(module_path)
+        rel_path = System.bundle(module_path)
+        url = staticfiles_storage.url(rel_path)
         return """<script type="text/javascript" src="{url}"></script>""".format(url=url)
 
     @classmethod
