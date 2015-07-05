@@ -2,8 +2,10 @@ import os
 import subprocess
 
 from django import template
-from ponyjs.conf import settings
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils.six.moves.urllib.parse import urljoin
+
+from ponyjs.conf import settings
 
 register = template.Library()
 
@@ -17,32 +19,36 @@ class System(object):
         self.cwd = None
 
     def get_outfile(self):
-        js_file = u'{app}.js'.format(app=self.app)
-        outfile = os.path.join(settings.STATIC_ROOT, settings.SYSTEMJS_OUTPUT_DIR, js_file)
+        self.js_file = u'{app}.js'.format(app=self.app)
+        outfile = os.path.join(settings.STATIC_ROOT, settings.SYSTEMJS_OUTPUT_DIR, self.js_file)
         return outfile
 
     def command(self, command):
+        """
+        Bundle the app and return the static url to the bundle.
+        """
         outfile = self.get_outfile()
-        if os.path.exists(outfile):
-            return outfile  # no need to do this expensive operation again
-        options = self.opts.copy()
-        options.setdefault('jspm', settings.SYSTEMJS_JSPM_EXECUTABLE)
-        try:
-            cmd = command.format(app=self.app, outfile=outfile, **options)
-            proc = subprocess.Popen(
-                cmd, shell=True, cwd=self.cwd, stdout=self.stdout,
-                stdin=self.stdin, stderr=self.stderr)
-            result, err = proc.communicate()  # waits until it's done
-        except (IOError, OSError) as e:
-            raise OSError('Unable to apply %s (%r): %s' %
-                          (self.__class__.__name__, command, e))
-        return result
+        rel_path = os.path.relpath(outfile, settings.STATIC_ROOT)
+        if not os.path.exists(outfile):
+            options = self.opts.copy()
+            options.setdefault('jspm', settings.SYSTEMJS_JSPM_EXECUTABLE)
+            try:
+                cmd = command.format(app=self.app, outfile=outfile, **options)
+                proc = subprocess.Popen(
+                    cmd, shell=True, cwd=self.cwd, stdout=self.stdout,
+                    stdin=self.stdin, stderr=self.stderr)
+                result, err = proc.communicate()  # block until it's done
+                # TODO: do something with result/err
+            except (IOError, OSError) as e:
+                raise OSError('Unable to apply %s (%r): %s' %
+                              (self.__class__.__name__, command, e))
+        return rel_path
 
     @classmethod
     def bundle(cls, app, **opts):
         system = cls(app, **opts)
         cmd = u'{jspm} bundle-sfx {app} {outfile}'
-        return system.command(cmd)
+        return staticfiles_storage.url(system.command(cmd))
 
 
 class SystemImportNode(template.Node):
@@ -60,10 +66,8 @@ class SystemImportNode(template.Node):
             return tpl.format(app=module_path)
 
         # else: create a bundle
-        path = System.bundle(module_path)
-        rel_path = os.path.relpath(path, settings.STATIC_ROOT)
-        url = urljoin(settings.STATIC_URL, rel_path)
-        return """<script type="text/javascript" src="{path}"></script>""".format(path=url)
+        url = System.bundle(module_path)
+        return """<script type="text/javascript" src="{url}"></script>""".format(url=url)
 
     @classmethod
     def handle_token(cls, parser, token):
