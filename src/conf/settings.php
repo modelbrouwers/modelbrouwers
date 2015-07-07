@@ -16,6 +16,7 @@ $settings->ROOT_DIR = $ROOT_DIR;
 
 $settings->STATIC_ROOT = realpath(joinPath($ROOT_DIR, 'static'));
 $settings->STATIC_URL = getenv('STATIC_URL') ?: '/static/';
+$settings->SYSTEMJS_OUTPUT_DIR = getenv('SYSTEMJS_OUTPUT_DIR') ?: 'SYSTEMJS';
 
 $settings->MEDIA_ROOT = realpath(joinPath($ROOT_DIR, 'media'));
 

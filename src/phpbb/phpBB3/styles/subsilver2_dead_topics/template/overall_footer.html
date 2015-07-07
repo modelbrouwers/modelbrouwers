@@ -37,9 +37,13 @@ pageTracker._trackPageview();
 <!-- PHP -->
     $js = array(
         'scripts/forum/chat.js',
-
         'jspm_packages/system.js',
         'config.js',
+    );
+    $apps = array(
+        'forum_tools/js/forum/app',
+        'albums/js/forum/app',
+        'groupbuilds/js/forum/app',
     );
 <!-- ENDPHP -->
 
@@ -52,11 +56,7 @@ if (typeof window.System === undefined) {
 }
 </script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
-<script type="text/javascript">
-    System.import('forum_tools/js/forum/app');
-    System.import('albums/js/forum/app');
-    System.import('groupbuilds/js/forum/app');
-</script>
+<!-- PHP --> echo $storage2->system_import($apps);<!-- ENDPHP -->
 
 <!-- IF U_MCP || U_ACP -->
     <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>
