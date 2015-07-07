@@ -212,8 +212,7 @@ INSTALLED_APPS = (
     'rosetta',
     'precise_bbcode',
     'sorl.thumbnail',
-
-    'ponyjs',
+    'systemjs',
 
     # Modelbrouwers
     'brouwers.users',
