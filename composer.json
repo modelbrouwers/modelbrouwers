@@ -3,6 +3,7 @@
   "description": "phpBB3-django integration tools",
   "homepage": "http://github.com/modelbrouwers/brouwers",
   "require": {
-    "tedivm/jshrink": "~1.0"
+    "tedivm/jshrink": "~1.0",
+    "symfony/console": "^2.7"
   }
 }
