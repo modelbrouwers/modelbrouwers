@@ -30,13 +30,13 @@ class BundleCommand extends Command
 
         $pathBits = array($settings->PROJECT_DIR, 'phpBB3', 'styles');
         $styles = realpath(implode(DIRECTORY_SEPARATOR, $pathBits));
-        $output->writeln('Looking for styles in \'' . $styles . '\'');
+        $output->writeln('<info>Looking for styles in \'' . $styles . '\'</info>');
 
         $directory = new \RecursiveDirectoryIterator($styles);
         $iterator = new \RecursiveIteratorIterator($directory);
         $templates = new \RegexIterator($iterator, '/^.+\.html$/i', \RecursiveRegexIterator::GET_MATCH);
 
-        $output->writeln('Parsing templates for bundle markers...');
+        $output->writeln('<info>Parsing templates for bundle markers...</info>');
         $appsFound = array();
         foreach ($templates as $name => $fileObj) {
             $handle = fopen($name, 'r');
@@ -56,9 +56,9 @@ class BundleCommand extends Command
         $numApps = count($apps);
         $numTemplates = count(array_keys($appsFound));
 
-        $output->writeln("Found {$numApps} apps in {$numTemplates} templates");
+        $output->writeln("<info>Found {$numApps} apps in {$numTemplates} templates</info>");
 
-        $cmdTpl = "jspm bundle-sfx %s %s";
+        $cmdTpl = "jspm bundle-sfx %s %s 2> /dev/null";
         $systemjsDir = $settings->STATIC_ROOT . DIRECTORY_SEPARATOR . $settings->SYSTEMJS_OUTPUT_DIR;
         if (!is_dir($systemjsDir)) {
             mkdir($systemjsDir);
@@ -69,8 +69,12 @@ class BundleCommand extends Command
             $file = $systemjsDir . DIRECTORY_SEPARATOR . $app;
             $dest = $file . '.js';
             $cmd = sprintf($cmdTpl, $app, $dest);
-            $output->writeln("Bundling \"{$app}\" ...");
-            shell_exec($cmd);
+            $output->writeln("<comment>Bundling \"{$app}\" ...</comment>");
+            $_output = exec($cmd, $out, $exitCode);
+
+            if ($exitCode != 0) {
+                $output->writeln("<error>Bundle for \"$app\" failed...</error>");
+            }
 
             // post process
             $hash = md5_file($dest);
@@ -79,9 +83,9 @@ class BundleCommand extends Command
             if (!is_file($link)) {
                 symlink($dest, $link);
                 $relative = substr($link, strlen($settings->STATIC_ROOT) + 1);
-                $output->writeln("Post-processed file \"{$relative}\"");
+                $output->writeln("<info>Post-processed file \"{$relative}\"</info>");
             } else {
-                $output->writeln("Skipped post-processing: link exists");
+                $output->writeln("<info>Skipped post-processing: link exists</info>");
             }
         }
     }
