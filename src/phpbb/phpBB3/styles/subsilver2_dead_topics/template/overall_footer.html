@@ -37,19 +37,18 @@ pageTracker._trackPageview();
 <!-- PHP -->
     $js = array(
         'scripts/forum/chat.js',
-        'jspm_packages/system.js',
         'config.js',
     );
     $apps = array(
-        'forum_tools/js/forum/app',
-        'albums/js/forum/app',
-        'groupbuilds/js/forum/app',
+        'forum_tools/js/forum/app', // JSPM:SYSTEMJSAPP
+        'albums/js/forum/app', // JSPM:SYSTEMJSAPP
+        'groupbuilds/js/forum/app', // JSPM:SYSTEMJSAPP
     );
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
-<script src="https://jspm.io/system@0.16.js"></script>
+<script src="https://jspm.io/system@0.16.11.js"></script>
 <script>
 if (typeof window.System === undefined) {
     document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage->url('jspm_packages/system.js');<!-- ENDPHP -->'%3E%3C/script%3E"));

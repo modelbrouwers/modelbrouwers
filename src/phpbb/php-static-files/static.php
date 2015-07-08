@@ -35,7 +35,7 @@ class CachedFilesStorage
 		$this->cache_key_prefix = 'staticfiles:';
 		$this->static_root = $settings->STATIC_ROOT;
 		$this->cache = $cache;
-		$this->DEBUG = (bool) getenv('DEBUG');
+		$this->DEBUG = false && (bool) getenv('DEBUG');
 		$this->systemjs_output_dir = $settings->SYSTEMJS_OUTPUT_DIR;
 	}
 
