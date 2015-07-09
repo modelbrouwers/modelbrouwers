@@ -7,7 +7,9 @@ $(function() {
         track: true
     });
 
-    $('input.date').datepicker();
+    if ($.fn.datepicker) {
+        $('input.date').datepicker();
+    }
 });
 
 function showHelp(e){

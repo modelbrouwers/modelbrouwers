@@ -32,6 +32,7 @@ pageTracker._trackPageview();
     $cache->init();
     $storage = new CachedFilesStorage($cache);
     $storage2 = new CombinedStaticFilesStorage($cache);
+    $storage3 = new FileSystemStorage();
 <!-- ENDPHP -->
 
 <!-- PHP -->
@@ -50,8 +51,8 @@ pageTracker._trackPageview();
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
 <script src="https://jspm.io/system@0.16.11.js"></script>
 <script>
-if (typeof window.System === undefined) {
-    document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage->url('jspm_packages/system.js');<!-- ENDPHP -->'%3E%3C/script%3E"));
+if (typeof window.System === 'undefined') {
+    document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage3->url('jspm_packages/system.js');<!-- ENDPHP -->'%3E%3C/script%3E"));
 }
 </script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>

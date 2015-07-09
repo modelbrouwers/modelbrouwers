@@ -11,6 +11,23 @@ $DEBUG = false;
 // $cache = new StaticCache();
 // $cache->init();
 
+class FileSystemStorage
+{
+	public function __construct() {
+		global $settings;
+		$this->static_url = $settings->STATIC_URL;
+		$this->static_root = $settings->STATIC_ROOT;
+	}
+
+	/**
+	 * Get the url to the static file, either from cache or calculate the hashed path.
+	 */
+	public function url($file) {
+		return $this->static_url . $file;
+	}
+}
+
+
 /**
  * This class builds the hashed filenames similar to Django's cached storage.
  * Because PHP is a lot dumber and I don't want to spend too much effort,
@@ -19,7 +36,7 @@ $DEBUG = false;
  * Memcached. If the hashed file doesn't exist, return the unchanged URL.
  * Django updates the cached filenames as part of the collectstatic command.
  */
-class CachedFilesStorage
+class CachedFilesStorage extends FileSystemStorage
 {
 	protected $static_root;
 	protected $static_url;
@@ -30,10 +47,9 @@ class CachedFilesStorage
 	protected $DEBUG;
 
 	public function __construct($cache) {
+		parent::__construct();
 		global $settings;
-		$this->static_url = $settings->STATIC_URL;
 		$this->cache_key_prefix = 'staticfiles:';
-		$this->static_root = $settings->STATIC_ROOT;
 		$this->cache = $cache;
 		$this->DEBUG = (bool) getenv('DEBUG');
 		$this->systemjs_output_dir = $settings->SYSTEMJS_OUTPUT_DIR;

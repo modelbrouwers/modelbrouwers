@@ -117,15 +117,19 @@
         {% include "includes/google-analytics.html" %}
         <script src="{% static 'scripts/common.js' %}"></script>
         <script>
-        $(function() {
-            $('.help').popover({
-                'placement': 'auto right'
+
+        (function($) {
+            $(function() {
+                $('.help').popover({
+                    'placement': 'auto right'
+                });
+                $('.badge').tooltip({
+                    'placement': 'auto left'
+                });
+                $('.selectpicker').selectpicker();
             });
-            $('.badge').tooltip({
-                'placement': 'auto left'
-            });
-            $('.selectpicker').selectpicker();
-        });
+        })(window.jQuery);
+
         </script>
         {% endcompress %}
 
