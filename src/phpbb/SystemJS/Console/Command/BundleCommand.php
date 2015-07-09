@@ -17,6 +17,13 @@ class BundleCommand extends Command
         $this
             ->setName('jspm:bundle')
             ->setDescription('Bundle the JSPM apps used in the forum templates.')
+            ->addOption(
+               'jspm-executable',
+               null,
+               InputOption::VALUE_REQUIRED,
+               'Specify the jspm executable',
+               'jspm'
+            )
         ;
     }
 
@@ -58,7 +65,8 @@ class BundleCommand extends Command
 
         $output->writeln("<info>Found {$numApps} apps in {$numTemplates} templates</info>");
 
-        $cmdTpl = "jspm bundle-sfx %s %s 2> /dev/null";
+        $jspm = $input->getOption('jspm-executable');
+        $cmdTpl = "$jspm bundle-sfx %s %s 2> /dev/null";
         $systemjsDir = $settings->STATIC_ROOT . DIRECTORY_SEPARATOR . $settings->SYSTEMJS_OUTPUT_DIR;
         if (!is_dir($systemjsDir)) {
             mkdir($systemjsDir);
