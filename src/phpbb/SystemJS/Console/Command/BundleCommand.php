@@ -72,7 +72,7 @@ class BundleCommand extends Command
             $output->writeln("<comment>Bundling \"{$app}\" ...</comment>");
             $_output = exec($cmd, $out, $exitCode);
 
-            if ($exitCode != 0) {
+            if ($exitCode != 0 || !is_file($out)) {
                 $output->writeln("<error>Bundle for \"$app\" failed...</error>");
             }
 
