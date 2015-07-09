@@ -78,6 +78,7 @@ class BundleCommand extends Command
             $dest = $file . '.js';
             $cmd = sprintf($cmdTpl, $app, $dest);
             $output->writeln("<comment>Bundling \"{$app}\" ...</comment>");
+            $output->writeln($cmd);
             $_output = exec($cmd, $out, $exitCode);
 
             if ($exitCode != 0 || !is_file($out)) {
