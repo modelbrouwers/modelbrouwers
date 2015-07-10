@@ -1,7 +1,8 @@
-/* */
-"format global";
-"deps jquery";
-"exports $";
+import 'jquery';
+
+
+$ = jQuery.noConflict();
+
 
 +function ($) {
 	$.fn.extend({

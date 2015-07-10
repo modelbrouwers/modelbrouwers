@@ -1,4 +1,4 @@
-$(function() {
+jQuery(function($) {
 	var chat_opened = false;
 	var chat_moved = false;
 
