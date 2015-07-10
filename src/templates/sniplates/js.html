@@ -4,7 +4,7 @@
 <script src="https://jspm.io/system@0.16.js"></script>
 <script>
 if (typeof window.System === 'undefined') {
-	document.write(unescape("%3Cscript src='{% static_prefix %}jspm_packages/system.js'%3E%3C/script%3E"));
+	document.write(unescape("%3Cscript src='{{ STATIC_URL }}jspm_packages/system.js'%3E%3C/script%3E"));
 }
 </script>
 <script src="{% static 'config.js' %}"></script>
