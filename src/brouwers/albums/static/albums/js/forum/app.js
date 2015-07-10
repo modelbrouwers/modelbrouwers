@@ -1,8 +1,6 @@
 'use strict';
 
-import 'jquery';
-import 'bootstrap';
-import 'scripts/jquery.insertAtCaret';
+import $ from 'scripts/jquery.insertAtCaret';
 import Ps from 'perfect-scrollbar';
 
 import Handlebars from 'general/js/hbs-pony';
@@ -28,7 +26,6 @@ let updateScrollbar = function() {
     let $sidebar = $(conf.selectors.root_sidebar);
     Ps.update($sidebar[0]);
 };
-
 
 let renderSidebar = function(albums) {
 	return Handlebars

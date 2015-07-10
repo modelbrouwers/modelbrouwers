@@ -1,15 +1,20 @@
-import 'jquery';
+/* */
+"format global";
+"deps jquery";
+"exports $";
 
 
-$ = jQuery.noConflict();
++function ( $ ) {
 
+	'use strict';
 
-+function ($) {
-	$.fn.extend({
-	  insertAtCaret: function(myValue){
+	$.fn.insertAtCaret = function( myValue ) {
 	  var obj;
-	  if( typeof this[0].name !='undefined' ) obj = this[0];
-	  else obj = this;
+	  if( typeof this[0].name != 'undefined' ) {
+	  	obj = this[ 0 ];
+	  } else {
+	  	obj = this;
+	  }
 
 	  if (document.selection) {
 	    obj.focus();
@@ -29,7 +34,6 @@ $ = jQuery.noConflict();
 	  } else {
 	    obj.value += myValue;
 	    obj.focus();
-	   }
-	 }
-	});
-}($);
+	  }
+	};
+}( jQuery );
