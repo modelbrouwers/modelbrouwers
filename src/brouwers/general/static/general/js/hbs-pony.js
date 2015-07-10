@@ -5,11 +5,10 @@ import Handlebars from 'handlebars';
 import Q from 'q';
 
 
-var hbsHelpers = [];
-var _urlconf = {
+let hbsHelpers = [];
+let urlconf = {
     templates: '/templates/{0}/{1}/'
 };
-var urlconf = $.extend(true, window.urlconf || {}, _urlconf);
 
 
 function _loadTemplate(app, name){
@@ -117,10 +116,9 @@ hbsHelpers.push({name: 'debug', fn: _debug});
 /**
  * Register the helpers
  */
-for (var i=0; i < hbsHelpers.length; i++) {
-    var helper = hbsHelpers[i];
-    Handlebars.registerHelper(helper.name, helper.fn);
-}
 
+hbsHelpers.forEach(function(helper, i) {
+    Handlebars.registerHelper(helper.name, helper.fn);
+});
 
 export default Handlebars;
