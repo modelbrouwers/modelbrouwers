@@ -68,13 +68,16 @@ $(function(){
     var focusActiveAlbum = function() {
         var checked = albumChooser.find('input:checked').next();
         var hasChecked = checked.length == 1;
-        while (hasChecked && !checked.is(':visible')) {
-            albumChooser.carousel('next');
-        }
-    };
 
-    // try delaying it, Firefox freezes up
-    setTimeout(focusActiveAlbum, 1000);
+        var slideNext = function() {
+            if (hasChecked && !checked.is(':visible')) {
+                albumChooser.carousel('next');
+                setTimeout(slideNext, 100);
+            }
+        };
+        slideNext();
+    };
+    focusActiveAlbum();
 
     // Use the FineUploader flags to hide/show relevant DOM elements.
     var featureDetection = function() {
