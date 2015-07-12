@@ -313,5 +313,3 @@ class AlbumDownload(models.Model):
                 'username': self.downloader.username
                 }
             )
-
-from . import signals

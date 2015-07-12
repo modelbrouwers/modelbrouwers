@@ -126,7 +126,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     @cached_property
     def profile(self):
         return self.userprofile
-
-
-# Circular imports happen otherwise
-import signals  # noqa
