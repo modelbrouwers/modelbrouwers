@@ -1,4 +1,4 @@
-{% extends "base_html5.html" %}{% load i18n staticfiles cache thumbnail %}
+{% extends "base_html5.html" %}{% load i18n staticfiles cache thumbnail sniplates %}
 
 {% block title %} &bull; {% trans "Albums" %}{% endblock %}
 
@@ -31,29 +31,8 @@
                     <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
                 {% endblock %}
 
-                <div class="pull-right">
-                    <a href="{% url 'albums:all' %}" class="btn bg-main-blue">{% trans "All albums" %}</a>
-
-                    {% if user.is_authenticated %}
-                    <div class="dropdown inline">
-                        <button type="button" class="btn bg-main-blue dropdown-toggle"
-                                data-toggle="dropdown" data-hover="dropdown" data-delay="100">
-                            <i class="fa fa-bars"></i>
-                        </button>
-
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'albums:settings' %}">
-                                <i class="fa fa-fw fa-gear"></i>
-                                {% trans "Settings" %}
-                            </a></li>
-                            <li><a href="{% url 'albums:mine' %}">
-                                <i class="fa fa-fw fa-folder"></i>
-                                {% trans "My albums" %}
-                            </a></li>
-                        </ul>
-                    </div>
-                    {% endif %}
-                </div>
+                {% load_widgets albums='albums/sniplates.html' %}
+                {% widget 'albums:nav-right' %}
 
             </div>
         {% endblock %}

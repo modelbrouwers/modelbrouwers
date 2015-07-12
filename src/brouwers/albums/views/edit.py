@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, TemplateView, UpdateView
 
 from brouwers.utils.views import LoginRequiredMixin
-from ..forms import CreateAlbumForm, PreferencesForm, UploadForm
+from ..forms import AlbumForm, PreferencesForm, UploadForm
 from ..models import Album, Preferences
 
 
@@ -27,7 +27,7 @@ class UploadView(LoginRequiredMixin, TemplateView):
 
 class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
-    form_class = CreateAlbumForm
+    form_class = AlbumForm
     template_name = 'albums/create.html'
     success_url = reverse_lazy('albums:upload')
 
@@ -43,6 +43,17 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         url = super(AlbumCreateView, self).get_success_url()
         return u'%s%s' % (url, '?album=%s' % self.object.id)
+
+
+class AlbumUpdateView(LoginRequiredMixin, UpdateView):
+    model = Album
+    form_class = AlbumForm
+    template_name = 'albums/update.html'
+    success_url = reverse_lazy('albums:mine')
+
+    def get_queryset(self):
+        qs = super(AlbumUpdateView, self).get_queryset()
+        return qs.filter(user=self.request.user)
 
 
 class PreferencesUpdateView(LoginRequiredMixin, UpdateView):

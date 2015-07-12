@@ -10,4 +10,14 @@
             <img src="{% static "images/thumb.png" %}" class="img-responsive">
         {% endif %}
     </a>
+    {% if album.user == user %}
+        <ul class="list-inline text-right">
+            <li><a href="{% url 'albums:upload' %}?album={{ album.pk }}">
+                <i class="fa fa-fw fa-upload"></i>
+            </a></li>
+            <li><a href="{% url 'albums:update' pk=album.pk %}">
+                <i class="fa fa-fw fa-pencil-square-o"></i>
+            </a></li>
+        </ul>
+    {% endif %}
 </article>

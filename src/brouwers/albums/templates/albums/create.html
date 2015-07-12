@@ -29,7 +29,7 @@
             {% endfor %}
         </fieldset>
 
-        {% widget 'form:submit' btn_text=_('Create album') %}
+        {% widget 'form:submit' btn_text=btn_text|default:_('Create album') %}
 
     {% endwith %}
 </form>

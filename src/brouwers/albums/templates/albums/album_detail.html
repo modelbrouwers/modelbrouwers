@@ -26,7 +26,19 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 </small>
 {% endblock %}
 
-{% block albums-nav %}{% endblock %}
+{% block albums-nav %}{% if album.user == user %}
+<div class="controls">
+
+    {% block albums-nav-left %}
+        <a href="{% url 'albums:upload' %}?album={{ album.pk }}" class="btn bg-main-orange">{% trans "Add photos" %}</a>
+        <a href="{% url 'albums:update' pk=album.pk %}" class="btn bg-main-blue">{% trans "Edit album" %}</a>
+    {% endblock %}
+
+    {% load_widgets albums='albums/sniplates.html' %}
+    {% widget 'albums:nav-right' %}
+
+</div>
+{% endif %}{% endblock %}
 
 
 {% block content %}

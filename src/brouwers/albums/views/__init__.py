@@ -1,4 +1,6 @@
-from .edit import AlbumCreateView, PreferencesUpdateView, UploadView
+from .edit import (
+    AlbumCreateView, AlbumUpdateView, PreferencesUpdateView, UploadView
+)
 from .public import (
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView, AlbumDownloadView
 )
