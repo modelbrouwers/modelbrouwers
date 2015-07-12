@@ -72,7 +72,9 @@ $(function(){
             albumChooser.carousel('next');
         }
     };
-    focusActiveAlbum();
+
+    // try delaying it, Firefox freezes up
+    setTimeout(focusActiveAlbum, 1000);
 
     // Use the FineUploader flags to hide/show relevant DOM elements.
     var featureDetection = function() {
