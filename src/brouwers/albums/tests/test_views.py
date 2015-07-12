@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from django_webtest import WebTest
@@ -107,3 +108,38 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertQuerysetEqual(tabs['private'], [repr(album2)])
         self.assertQuerysetEqual(tabs['shared-with-me'], [repr(albumgroup1.album)])
         self.assertQuerysetEqual(tabs['shared-by-me'], [repr(albumgroup2.album)])
+
+        # assert that the edit urls are visible
+        for album in [album1, album2, albumgroup2.album]:
+            edit_url = reverse('albums:update', kwargs={'pk': album.pk})
+            self.assertContains(my_albums_list, edit_url)
+
+        # other owner, edit url may not be visible
+        edit_url = reverse('albums:update', kwargs={'pk': albumgroup1.album.pk})
+        self.assertNotContains(my_albums_list, edit_url)
+
+    def test_update_album(self):
+        album = AlbumFactory.create(user=self.user, title='Initial title')
+        url_update = reverse('albums:update', kwargs={'pk': album.pk})
+
+        # anonymous user
+        detail_page = self.app.get(album.get_absolute_url())
+        self.assertEqual(detail_page.status_code, 200)
+        self.assertNotContains(detail_page, url_update)
+        # try it anyway
+        update_page = self.app.get(url_update)
+        expected_redirect = u'%s?next=%s' % (settings.LOGIN_URL, url_update)
+        self.assertRedirects(update_page, expected_redirect)
+
+        # other user
+        other_user = UserFactory.create()
+        self.assertNotEqual(album.user, other_user)
+        update_page = self.app.get(url_update, user=other_user, status=404)
+
+        # album owner
+        update_page = self.app.get(url_update, user=self.user, status=200)
+        update_page.form['title'] = 'New title'
+        update_page.form.submit().follow()
+
+        album = Album.objects.get(pk=album.pk)
+        self.assertEqual(album.title, 'New title')
