@@ -13,10 +13,12 @@
         <i class="pull-right fa fa-upload fa-2x"></i>
     </h1>
 
-    <p>{% blocktrans %}
+    <p data-feature="fileDrop">{% blocktrans %}
         You can upload new pictures here. Select the album to upload to, and then
         drag your images in the drop zone!
     {% endblocktrans %}</p>
+    <p class="hidden" data-feature="fileDrop">{% blocktrans %}You can upload new pictures here. Select the album to upload to,
+        and then pick your files.{% endblocktrans %}</p>
 {% endblock %}
 
 {% block albums-nav-left %}
@@ -34,6 +36,14 @@
 
     <div id="uploader"></div>
 </form>
+
+<div>
+{% trans "On some browsers, some features might be disabled. Notable are:" %}
+<ul>
+    <li>{% trans "Multiple file selection: not available in IE 8 and 9 and Android" %}</li>
+    <li>{% trans "Dropping files: not available in IE 8 and 9 and mobile devices alltogether" %}</li>
+</ul>
+</div>
 {% endblock %}
 
 
@@ -78,7 +88,7 @@
 
         <button class="btn bg-main-orange" id="trigger-upload">{% trans "Upload" %}</button>
 
-        <div class="qq-upload-drop-area-selector qq-upload-drop-area">
+        <div class="qq-upload-drop-area-selector qq-upload-drop-area" data-feature="fileDrop">
             <span>{% trans "&hellip;or drop files here to upload" %}</span>
         </div>
         <span class="qq-drop-processing-selector qq-drop-processing">

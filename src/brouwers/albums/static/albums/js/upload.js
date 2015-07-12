@@ -45,7 +45,11 @@ $(function(){
         }
 
         album = parseInt(checked.val(), 10);
-        uploader.fineUploader('setParams', {album: album});
+        var params = {album: album};
+        if (!qq.supportedFeatures.uploadCustomHeaders) {
+            params.csrfmiddlewaretoken = window.csrf_token;
+        }
+        uploader.fineUploader('setParams', params);
         return true;
     };
 
@@ -69,4 +73,12 @@ $(function(){
         }
     };
     focusActiveAlbum();
+
+    // Use the FineUploader flags to hide/show relevant DOM elements.
+    var featureDetection = function() {
+        if (!qq.supportedFeatures.fileDrop) {
+            $('[data-feature="fileDrop"]').toggleClass('hidden');
+        }
+    };
+    featureDetection();
 });
