@@ -1,4 +1,4 @@
-{% load static thumbnail %}
+{% load static thumbnail i18n %}
 <article class="col-sm-6 col-md-3 album-preview">
     <h3><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></h3>
     <a href="{{ album.get_absolute_url }}" class="thumbnail">
@@ -11,13 +11,19 @@
         {% endif %}
     </a>
     {% if album.user == user %}
-        <ul class="list-inline text-right">
-            <li><a href="{% url 'albums:upload' %}?album={{ album.pk }}">
-                <i class="fa fa-fw fa-upload"></i>
-            </a></li>
-            <li><a href="{% url 'albums:update' pk=album.pk %}">
-                <i class="fa fa-fw fa-pencil-square-o"></i>
-            </a></li>
+        <ul class="list-inline controls text-right">
+            <li data-toggle="popover" data-content="{% trans 'Upload pictures' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:upload' %}?album={{ album.pk }}"><i class="fa fa-fw fa-upload"></i></a>
+            </li>
+            <li data-toggle="popover" data-content="{% trans 'Edit album' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:update' pk=album.pk %}"><i class="fa fa-fw fa-pencil-square-o"></i></a>
+            </li>
+            <li data-toggle="popover" data-content="{% trans 'Delete album' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:delete' pk=album.pk %}"><i class="fa fa-fw fa-trash"></i></a>
+            </li>
         </ul>
     {% endif %}
 </article>

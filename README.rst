@@ -177,3 +177,10 @@ Tests
 Run all tests by executing::
 
     $ python src/manage.py test src
+
+
+Thanks
+======
+Thanks to `browserstack`_ to make cross browser testing a breeze.
+
+.. _browsersstdack: https://www.browserstack.com

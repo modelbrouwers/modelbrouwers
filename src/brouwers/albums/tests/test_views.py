@@ -143,3 +143,27 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         album = Album.objects.get(pk=album.pk)
         self.assertEqual(album.title, 'New title')
+
+    def test_delete_album(self):
+        album = AlbumFactory.create(user=self.user)
+        url_delete = reverse('albums:delete', kwargs={'pk': album.pk})
+
+        # anonymous user
+        detail_page = self.app.get(album.get_absolute_url(), status=200)
+        self.assertNotContains(detail_page, url_delete)
+        # try it anyway
+        delete_page = self.app.get(url_delete)
+        expected_redirect = u'%s?next=%s' % (settings.LOGIN_URL, url_delete)
+        self.assertRedirects(delete_page, expected_redirect)
+
+        # other user
+        other_user = UserFactory.create()
+        self.assertNotEqual(album.user, other_user)
+        delete_page = self.app.get(url_delete, user=other_user, status=404)
+
+        # album owner
+        delete_page = self.app.get(url_delete, user=self.user, status=200)
+        delete_page.form.submit().follow()
+
+        album = Album.objects.get(pk=album.pk)
+        self.assertTrue(album.trash)

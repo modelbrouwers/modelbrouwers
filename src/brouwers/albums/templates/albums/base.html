@@ -39,3 +39,15 @@
     </div>
 </header>
 {% endblock %}
+
+
+{% block extrascript %}
+{{ block.super }}
+<script>
+(function($) {
+    $(function() {
+        $('.controls [data-toggle="popover"]').popover();
+    });
+})(window.jQuery);
+</script>
+{% endblock extrascript %}

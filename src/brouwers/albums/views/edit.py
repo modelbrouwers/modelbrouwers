@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, TemplateView, UpdateView
+from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
 
 from brouwers.utils.views import LoginRequiredMixin
 from ..forms import AlbumForm, PreferencesForm, UploadForm
@@ -54,6 +54,28 @@ class AlbumUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self):
         qs = super(AlbumUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)
+
+
+class AlbumDeleteView(LoginRequiredMixin, DeleteView):
+    model = Album
+    context_object_name = 'album'
+    success_url = reverse_lazy('albums:mine')
+
+    def get_queryset(self):
+        qs = super(AlbumDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        kwargs['photos'] = self.object.photo_set.filter(trash=False)
+        return super(AlbumDeleteView, self).get_context_data(**kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.trash = True
+        self.object.save()
+        messages.success(request, _('The album was deleted'))
+        return redirect(success_url)
 
 
 class PreferencesUpdateView(LoginRequiredMixin, UpdateView):

@@ -55,6 +55,17 @@ body.albums {
         @include raised(1);
       }
 
+      > li {
+        padding-left: 0;
+        padding-right: 0;
+        &:first-child {
+          padding-left: 2px;
+        }
+        &:last-child {
+          padding-right: 2px;
+        }
+      }
+
       a {
         color: $white;
       }

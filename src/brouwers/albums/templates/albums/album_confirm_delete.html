@@ -1,0 +1,40 @@
+{% extends "albums/base.html" %}{% load i18n sniplates %}
+
+
+{% block eye-catcher-content %}
+<h1>
+    {% blocktrans with album=album.title %}
+        Delete album '{{ album }}'
+    {% endblocktrans %}
+    <i class="pull-right fa fa-trash fa-2x"></i>
+</h1>
+
+<small class="stats">{% blocktrans count num_photos=photos.count with last_upload=album.last_upload|date:'j F Y' %}
+one photo, last upload {{ last_upload }}
+{% plural %}
+{{ num_photos }} photos, last upload {{ last_upload }}
+{% endblocktrans %}</small>
+{% endblock %}
+
+{% block albums-nav %}{% endblock %}
+
+{% block content %}
+<form action="." method="post" class="form-horizontal">
+    {% csrf_token %}
+    {% load_widgets form='albums/albums.form' %}
+
+    <div class="row"><div class="col-xs-12 col-md-8 col-xl-6">
+        <p>{% blocktrans %}
+            Are you sure you want to delete this album? It will no longer
+            be browsable. Deleting the album will put it in the trash bin.
+            You will be able to restore it.
+        {% endblocktrans %}</p>
+
+        <p>{% blocktrans %}
+            Note that the photos itself will always remain visible, whether the album is deleted or not.
+        {% endblocktrans %}</p>
+
+        {% widget 'form:submit' btn_text=_('Delete album') btn_class='bg-main-red' %}
+    </div></div>
+</form>
+{% endblock content %}
