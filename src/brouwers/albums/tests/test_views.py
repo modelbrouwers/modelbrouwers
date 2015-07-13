@@ -167,3 +167,31 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         album = Album.objects.get(pk=album.pk)
         self.assertTrue(album.trash)
+
+    def test_restore(self):
+        album = AlbumFactory.create(user=self.user, title='Album to restore')
+        self.assertEqual(album.clean_title, 'Album to restore')
+        album.trash = True
+        album.save()
+
+        url_restore = reverse('albums:restore', kwargs={'pk': album.pk})
+
+        # anonymous user
+        self.app.get(album.get_absolute_url(), status=404)
+        # try it anyway
+        restore_page = self.app.get(url_restore)
+        expected_redirect = u'%s?next=%s' % (settings.LOGIN_URL, url_restore)
+        self.assertRedirects(restore_page, expected_redirect)
+
+        # other user
+        other_user = UserFactory.create()
+        self.assertNotEqual(album.user, other_user)
+        restore_page = self.app.get(url_restore, user=other_user, status=404)
+
+        # album owner
+        restore_page = self.app.get(url_restore, user=self.user, status=200)
+        restore_page.form.submit().follow()
+
+        album = Album.objects.get(pk=album.pk)
+        self.assertFalse(album.trash)
+        self.assertEqual(album.title, 'Album to restore')

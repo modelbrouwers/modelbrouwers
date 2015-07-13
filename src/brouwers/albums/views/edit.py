@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
 
 from brouwers.utils.views import LoginRequiredMixin
-from ..forms import AlbumForm, PreferencesForm, UploadForm
+from ..forms import AlbumForm, AlbumRestoreForm, PreferencesForm, UploadForm
 from ..models import Album, Preferences
 
 
@@ -76,6 +76,15 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
         self.object.save()
         messages.success(request, _('The album was deleted'))
         return redirect(success_url)
+
+
+class AlbumRestoreView(AlbumUpdateView):
+    form_class = AlbumRestoreForm
+    success_url = reverse_lazy('albums:mine')
+    template_name = 'albums/restore.html'
+    initial = {
+        'trash': False,
+    }
 
 
 class PreferencesUpdateView(LoginRequiredMixin, UpdateView):

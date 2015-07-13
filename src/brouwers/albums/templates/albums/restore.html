@@ -1,0 +1,22 @@
+{% extends "albums/create.html" %}{% load i18n sniplates %}
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Restore album" %}
+        <i class="pull-right fa fa-undo fa-2x"></i>
+    </h1>
+{% endblock %}
+
+
+{% block content %}
+<form action="." class="form-horizontal" method="post">
+    {% csrf_token %}
+    {% load_widgets form='albums/albums.form' %}
+
+    <div class="row"><div class="col-xs-12 col-md-6 col-xl-6">
+        {{ form.as_p }}
+        <p>{% trans "Please confirm that you want to restore this album." %}</p>
+        {% widget 'form:submit' btn_text=_('Restore album') btn_class='btn-primary pull-left' %}
+    </div></div>
+</form>
+{% endblock %}

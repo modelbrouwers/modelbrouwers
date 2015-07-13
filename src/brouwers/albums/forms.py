@@ -35,6 +35,15 @@ class AlbumForm(forms.ModelForm):
         self.fields['category'].queryset = Category.objects.filter(public=True)
 
 
+class AlbumRestoreForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = ('trash',)
+        widgets = {
+            'trash': forms.HiddenInput
+        }
+
+
 class PreferencesForm(forms.ModelForm):
     class Meta:
         model = Preferences
