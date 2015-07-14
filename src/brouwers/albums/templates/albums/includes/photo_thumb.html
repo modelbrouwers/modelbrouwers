@@ -1,4 +1,4 @@
-{% load thumbnail staticfiles %}
+{% load thumbnail staticfiles i18n %}
 <article class="col-sm-6 col-md-3">
     <a href="{{ photo.get_absolute_url }}" class="thumbnail album-photo" data-id="{{ photo.id }}">
         {% if photo.exists %}
@@ -9,4 +9,23 @@
             <img src="{% static "images/thumb.png" %}" class="img-responsive">
         {% endif %}
     </a>
+    {% if photo.user == user %}
+        <ul class="list-inline controls text-right">
+            <li data-toggle="popover" data-content="{% trans 'Edit photo' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:photo_update' pk=photo.pk %}"><i class="fa fa-fw fa-pencil-square-o"></i></a>
+            </li>
+            {% if not photo.trash %}
+            <li data-toggle="popover" data-content="{% trans 'Delete photo' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:photo_delete' pk=photo.pk %}"><i class="fa fa-fw fa-trash"></i></a>
+            </li>
+            {% else %}
+            <li data-toggle="popover" data-content="{% trans 'Restore photo' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:photo_restore' pk=photo.pk %}"><i class="fa fa-fw fa-undo"></i></a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
 </article>

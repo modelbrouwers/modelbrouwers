@@ -195,3 +195,53 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         album = Album.objects.get(pk=album.pk)
         self.assertFalse(album.trash)
         self.assertEqual(album.title, 'Album to restore')
+
+    def test_delete_photo(self):
+        photo = PhotoFactory.create(user=self.user)
+        url_delete = reverse('albums:photo_delete', kwargs={'pk': photo.pk})
+
+        # anonymous user
+        detail_page = self.app.get(photo.get_absolute_url(), status=200)
+        self.assertNotContains(detail_page, url_delete)
+        # try it anyway
+        delete_page = self.app.get(url_delete)
+        expected_redirect = u'%s?next=%s' % (settings.LOGIN_URL, url_delete)
+        self.assertRedirects(delete_page, expected_redirect)
+
+        # other user
+        other_user = UserFactory.create()
+        self.assertNotEqual(photo.user, other_user)
+        delete_page = self.app.get(url_delete, user=other_user, status=404)
+
+        # photo owner
+        delete_page = self.app.get(url_delete, user=self.user, status=200)
+        delete_page.form.submit().follow()
+
+        photo = Photo.objects.get(pk=photo.pk)
+        self.assertTrue(photo.trash)
+
+    def test_restore_photo(self):
+        photo = PhotoFactory.create(user=self.user)
+        photo.trash = True
+        photo.save()
+
+        url_restore = reverse('albums:photo_restore', kwargs={'pk': photo.pk})
+
+        # anonymous user
+        self.app.get(photo.get_absolute_url(), status=404)
+        # try it anyway
+        restore_page = self.app.get(url_restore)
+        expected_redirect = u'%s?next=%s' % (settings.LOGIN_URL, url_restore)
+        self.assertRedirects(restore_page, expected_redirect)
+
+        # other user
+        other_user = UserFactory.create()
+        self.assertNotEqual(photo.user, other_user)
+        restore_page = self.app.get(url_restore, user=other_user, status=404)
+
+        # photo owner
+        restore_page = self.app.get(url_restore, user=self.user, status=200)
+        restore_page.form.submit().follow()
+
+        photo = Photo.objects.get(pk=photo.pk)
+        self.assertFalse(photo.trash)

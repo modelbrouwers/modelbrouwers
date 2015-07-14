@@ -6,8 +6,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
 
 from brouwers.utils.views import LoginRequiredMixin
-from ..forms import AlbumForm, AlbumRestoreForm, PreferencesForm, UploadForm
-from ..models import Album, Preferences
+from ..forms import (
+    AlbumForm, AlbumRestoreForm,
+    PhotoForm, PhotoRestoreForm,
+    PreferencesForm,
+    UploadForm
+)
+from ..models import Album, Preferences, Photo
 
 
 class UploadView(LoginRequiredMixin, TemplateView):
@@ -74,7 +79,8 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
         success_url = self.get_success_url()
         self.object.trash = True
         self.object.save()
-        messages.success(request, _('The album was deleted'))
+        restore_url = reverse('albums:restore', kwargs={'pk': self.object.pk})
+        messages.success(request, _('The album was deleted. <a href="{0}">Undo</a>').format(restore_url))
         return redirect(success_url)
 
 
@@ -82,6 +88,52 @@ class AlbumRestoreView(AlbumUpdateView):
     form_class = AlbumRestoreForm
     success_url = reverse_lazy('albums:mine')
     template_name = 'albums/restore.html'
+    initial = {
+        'trash': False,
+    }
+
+
+class PhotoSuccessURLMixin(object):
+    def get_success_url(self):
+        if not self.object.trash:
+            return self.object.get_absolute_url()
+        return reverse('albums:detail', kwargs={'pk': self.object.album.pk})
+
+
+class PhotoUpdateView(PhotoSuccessURLMixin, LoginRequiredMixin, UpdateView):
+    model = Photo
+    form_class = PhotoForm
+    template_name = 'albums/photo_update.html'
+
+    def get_queryset(self):
+        qs = super(PhotoUpdateView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
+
+class PhotoDeleteView(LoginRequiredMixin, DeleteView):
+    model = Photo
+    context_object_name = 'photo'
+
+    def get_queryset(self):
+        qs = super(PhotoDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user, trash=False)
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.trash = True
+        self.object.save()
+        restore_url = reverse('albums:photo_restore', kwargs={'pk': self.object.pk})
+        messages.success(request, _('The photo was deleted. <a href="{0}">Undo</a>').format(restore_url))
+        return redirect(success_url)
+
+    def get_success_url(self):
+        return reverse('albums:detail', kwargs={'pk': self.object.album.pk})
+
+
+class PhotoRestoreView(PhotoUpdateView):
+    form_class = PhotoRestoreForm
+    template_name = 'albums/photo_restore.html'
     initial = {
         'trash': False,
     }

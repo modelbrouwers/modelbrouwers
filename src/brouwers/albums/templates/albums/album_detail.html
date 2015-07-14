@@ -30,8 +30,12 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 <div class="controls">
 
     {% block albums-nav-left %}
-        <a href="{% url 'albums:upload' %}?album={{ album.pk }}" class="btn bg-main-orange">{% trans "Add photos" %}</a>
-        <a href="{% url 'albums:update' pk=album.pk %}" class="btn bg-main-blue">{% trans "Edit album" %}</a>
+        <a href="{% url 'albums:upload' %}?album={{ album.pk }}" class="btn bg-main-orange">
+            <i class="fa fa-upload"></i> {% trans "Add photos" %}</a>
+        <a href="{% url 'albums:update' pk=album.pk %}" class="btn bg-main-blue">
+            <i class="fa fa-pencil-square-o"></i> {% trans "Edit" %}</a>
+        <a href="{% url 'albums:delete' pk=album.pk %}" class="btn bg-main-red fade">
+            <i class="fa fa-trash"></i> {% trans "Delete" %}</a>
     {% endblock %}
 
     {% load_widgets albums='albums/sniplates.html' %}

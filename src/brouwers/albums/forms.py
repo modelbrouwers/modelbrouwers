@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext as _
 
-from .models import *
+from .models import Album, Category, Photo, Preferences
 
 
 class UploadForm(forms.Form):
@@ -50,3 +50,18 @@ class PreferencesForm(forms.ModelForm):
         fields = ('auto_start_uploading', 'collapse_sidebar', 'hide_sidebar',
                   'sidebar_bg_color', 'sidebar_transparent', 'text_color',
                   'width')
+
+
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('album', 'description')
+
+
+class PhotoRestoreForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('trash',)
+        widgets = {
+            'trash': forms.HiddenInput
+        }

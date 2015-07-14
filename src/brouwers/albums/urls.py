@@ -5,7 +5,9 @@ from django.views.generic import RedirectView
 from .views import (
     IndexView, AlbumListView, AlbumDetailView, PhotoDetailView,
     UploadView, AlbumCreateView, AlbumUpdateView, AlbumDeleteView,
-    AlbumRestoreView, AlbumDownloadView, PreferencesUpdateView, MyAlbumsView
+    AlbumRestoreView, AlbumDownloadView,
+    PhotoDeleteView, PhotoUpdateView, PhotoRestoreView,
+    PreferencesUpdateView, MyAlbumsView
 )
 
 
@@ -24,6 +26,9 @@ urlpatterns = patterns(
     url(r'^album/(?P<pk>\d+)/page/(?P<page>\d+)/$', AlbumDetailView.as_view(), name='detail'),
     url(r'^album/(?P<pk>\d+)/download/$', AlbumDownloadView.as_view(), name='download'),
     url(r'^photo/(?P<pk>\d+)/$', PhotoDetailView.as_view(), name='photo-detail'),
+    url(r'^photo/(?P<pk>\d+)/edit/$', PhotoUpdateView.as_view(), name='photo_update'),
+    url(r'^photo/(?P<pk>\d+)/delete/$', PhotoDeleteView.as_view(), name='photo_delete'),
+    url(r'^photo/(?P<pk>\d+)/restore/$', PhotoRestoreView.as_view(), name='photo_restore'),
     url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^settings/$', PreferencesUpdateView.as_view(), name='settings'),
     url(r'^preferences/$', RedirectView.as_view(pattern_name='albums:settings', permanent=True)),

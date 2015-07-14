@@ -1,4 +1,4 @@
-{% load compress static i18n %}<!DOCTYPE html>
+{% load compress staticfiles i18n %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="en">
     <head>
@@ -51,7 +51,7 @@
             {% if messages %}
             <div class="container"><ul class="messages list-group">
                 {% for message in messages %}
-                    <li class="list-group-item list-group-item-{{ message.tags }}">{{ message }}</li>
+                    <li class="list-group-item list-group-item-{{ message.tags }}">{{ message|safe }}</li>
                 {% endfor %}
             </ul></div>
             {% endif %}
