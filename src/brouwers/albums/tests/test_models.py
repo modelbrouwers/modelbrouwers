@@ -1,4 +1,6 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
+
+from sorl.thumbnail.models import KVStore
 
 from brouwers.users.tests.factory_models import UserFactory
 from .factories import AlbumFactory, PhotoFactory
@@ -55,5 +57,12 @@ class AlbumTests(TestCase):
 class PhotoTests(TestCase):
     """ Test the (custom) Photo model methods """
 
-    def setUp(self):
-        self.photo = PhotoFactory.create()
+    @override_settings(THUMBNAIL_KVSTORE='sorl.thumbnail.kvstores.cached_db_kvstore.KVStore')
+    def test_thumbs_generated(self):
+        """
+        Test that the thumbnails are generated in the post_save
+        """
+        qs = KVStore.objects.all()
+        self.assertEqual(qs.count(), 0)
+        PhotoFactory.create(image__width=1600, image__height=1200)
+        self.assertGreaterEqual(qs.count(), 3)
