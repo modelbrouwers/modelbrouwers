@@ -33,7 +33,7 @@ class UploadView(LoginRequiredMixin, TemplateView):
 class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
     form_class = AlbumForm
-    template_name = 'albums/create.html'
+    template_name = 'albums/album/create.html'
     success_url = reverse_lazy('albums:upload')
 
     def get_initial(self):
@@ -53,7 +53,7 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 class AlbumUpdateView(LoginRequiredMixin, UpdateView):
     model = Album
     form_class = AlbumForm
-    template_name = 'albums/update.html'
+    template_name = 'albums/album/update.html'
     success_url = reverse_lazy('albums:mine')
 
     def get_queryset(self):
@@ -63,6 +63,7 @@ class AlbumUpdateView(LoginRequiredMixin, UpdateView):
 
 class AlbumDeleteView(LoginRequiredMixin, DeleteView):
     model = Album
+    template_name = 'albums/album/confirm_delete.html'
     context_object_name = 'album'
     success_url = reverse_lazy('albums:mine')
 
@@ -87,7 +88,7 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
 class AlbumRestoreView(AlbumUpdateView):
     form_class = AlbumRestoreForm
     success_url = reverse_lazy('albums:mine')
-    template_name = 'albums/restore.html'
+    template_name = 'albums/album/restore.html'
     initial = {
         'trash': False,
     }
@@ -103,7 +104,7 @@ class PhotoSuccessURLMixin(object):
 class PhotoUpdateView(PhotoSuccessURLMixin, LoginRequiredMixin, UpdateView):
     model = Photo
     form_class = PhotoForm
-    template_name = 'albums/photo_update.html'
+    template_name = 'albums/photo/update.html'
 
     def get_queryset(self):
         qs = super(PhotoUpdateView, self).get_queryset()
@@ -117,6 +118,7 @@ class PhotoUpdateView(PhotoSuccessURLMixin, LoginRequiredMixin, UpdateView):
 
 class PhotoDeleteView(LoginRequiredMixin, DeleteView):
     model = Photo
+    template_name = 'albums/photo/confirm_delete.html'
     context_object_name = 'photo'
 
     def get_queryset(self):
@@ -139,7 +141,7 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
 class PhotoRestoreView(PhotoSuccessURLMixin, LoginRequiredMixin, UpdateView):
     model = Photo
     form_class = PhotoRestoreForm
-    template_name = 'albums/photo_restore.html'
+    template_name = 'albums/photo/restore.html'
     initial = {
         'trash': False,
     }

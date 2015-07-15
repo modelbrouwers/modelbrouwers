@@ -1,6 +1,6 @@
 import logging
 import os
-import random
+# import random
 import zipfile
 
 from django.conf import settings
@@ -10,7 +10,7 @@ from django.views.generic.detail import SingleObjectMixin
 
 from sendfile import sendfile
 
-from brouwers.awards.models import Nomination
+# from brouwers.awards.models import Nomination
 from brouwers.utils.views import LoginRequiredMixin
 from ..models import Album, Photo, AlbumDownload
 
@@ -56,6 +56,7 @@ class IndexView(ListView):
 
 class AlbumListView(ListView):
     queryset = Album.objects.for_index()
+    template_name = 'albums/album/list.html'
     context_object_name = 'albums'
     paginate_by = 16
 
@@ -63,8 +64,8 @@ class AlbumListView(ListView):
 class AlbumDetailView(AlbumQuerysetMixin, ListView, SingleObjectMixin):
     paginate_by = 24
     object = None  # SingleObjectMixin
+    template_name = 'albums/album/detail.html'
     context_object_name = 'photos'
-    template_name = 'albums/album_detail.html'
 
     def get(self, request, *args, **kwargs):
         album = self.get_album()
@@ -127,6 +128,7 @@ class AlbumDownloadView(LoginRequiredMixin, AlbumQuerysetMixin, DetailView):
 
 class PhotoDetailView(DetailView):
     queryset = Photo.objects.filter(trash=False, album__trash=False).select_related('user', 'album')
+    template_name = 'albums/photo/detail.html'
 
     def get_queryset(self):  # TODO: test
         qs = super(PhotoDetailView, self).get_queryset()
