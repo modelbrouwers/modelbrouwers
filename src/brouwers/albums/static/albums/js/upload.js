@@ -86,4 +86,17 @@ $(function(){
         }
     };
     featureDetection();
+
+    // scrolling through the carousel
+    $('#carousel-album').on('mousewheel', function(event) {
+        event.preventDefault();
+
+        if(event.originalEvent.wheelDelta / 120 > 0) {
+            $(this).carousel('next');
+        } else{
+            $(this).carousel('prev');
+        }
+
+        return false;
+    });
 });

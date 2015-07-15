@@ -42,7 +42,7 @@ class Album(models.Model):
 
     class WritePermissions(DjangoChoices):
         owner = ChoiceItem('u', pgettext_lazy("write permissions for owner", "owner"))
-        group = ChoiceItem('g', _('group'))
+        # group = ChoiceItem('g', _('group'))
         everyone = ChoiceItem('o', _('everyone'))  # auth required
 
     # owner of the album
