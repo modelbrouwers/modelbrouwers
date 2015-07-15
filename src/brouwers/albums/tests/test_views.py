@@ -272,16 +272,9 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         # photo owner
         update_page = self.app.get(url_update, user=self.user, status=200)
         update_page.form['description'] = 'New description'
-
-        for index, field in enumerate(update_page.form.fields['album']):
-            if field.value == albums[0].pk:
-                update_page.form.set('album', False, index)
-            elif field.value == albums[1].pk:
-                update_page.form.set('album', True, index)
-                break
-        # import bpdb; bpdb.set_trace()
+        update_page.form['album'] = [str(albums[1].pk)]
         update_page.form.submit().follow()
 
         photo = Photo.objects.get(pk=photo.pk)
         self.assertEqual(photo.description, 'New description')
-        # self.assertEqual(photo.album, albums[1])
+        self.assertEqual(photo.album, albums[1])
