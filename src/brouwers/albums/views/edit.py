@@ -109,6 +109,11 @@ class PhotoUpdateView(PhotoSuccessURLMixin, LoginRequiredMixin, UpdateView):
         qs = super(PhotoUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)
 
+    def get_form_kwargs(self):
+        kwargs = super(PhotoUpdateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
 
 class PhotoDeleteView(LoginRequiredMixin, DeleteView):
     model = Photo
@@ -131,12 +136,17 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
         return reverse('albums:detail', kwargs={'pk': self.object.album.pk})
 
 
-class PhotoRestoreView(PhotoUpdateView):
+class PhotoRestoreView(PhotoSuccessURLMixin, LoginRequiredMixin, UpdateView):
+    model = Photo
     form_class = PhotoRestoreForm
     template_name = 'albums/photo_restore.html'
     initial = {
         'trash': False,
     }
+
+    def get_queryset(self):
+        qs = super(PhotoRestoreView, self).get_queryset()
+        return qs.filter(user=self.request.user)
 
 
 class PreferencesUpdateView(LoginRequiredMixin, UpdateView):

@@ -168,7 +168,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         album = Album.objects.get(pk=album.pk)
         self.assertTrue(album.trash)
 
-    def test_restore(self):
+    def test_restore_album(self):
         album = AlbumFactory.create(user=self.user, title='Album to restore')
         self.assertEqual(album.clean_title, 'Album to restore')
         album.trash = True
@@ -245,3 +245,43 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         photo = Photo.objects.get(pk=photo.pk)
         self.assertFalse(photo.trash)
+
+    def test_update_photo(self):
+        albums = AlbumFactory.create_batch(2, user=self.user)
+        photo = PhotoFactory.create(
+            user=self.user, description='Initial description',
+            album=albums[0]
+        )
+        url_update = reverse('albums:photo_update', kwargs={'pk': photo.pk})
+
+        # anonymous user
+        album_page = self.app.get(photo.album.get_absolute_url(), status=200)
+        self.assertNotContains(album_page, url_update)
+        detail_page = self.app.get(photo.get_absolute_url(), status=200)
+        self.assertNotContains(detail_page, url_update)
+        # try it anyway
+        update_page = self.app.get(url_update)
+        expected_redirect = u'%s?next=%s' % (settings.LOGIN_URL, url_update)
+        self.assertRedirects(update_page, expected_redirect)
+
+        # other user
+        other_user = UserFactory.create()
+        self.assertNotEqual(photo.user, other_user)
+        update_page = self.app.get(url_update, user=other_user, status=404)
+
+        # photo owner
+        update_page = self.app.get(url_update, user=self.user, status=200)
+        update_page.form['description'] = 'New description'
+
+        for index, field in enumerate(update_page.form.fields['album']):
+            if field.value == albums[0].pk:
+                update_page.form.set('album', False, index)
+            elif field.value == albums[1].pk:
+                update_page.form.set('album', True, index)
+                break
+        # import bpdb; bpdb.set_trace()
+        update_page.form.submit().follow()
+
+        photo = Photo.objects.get(pk=photo.pk)
+        self.assertEqual(photo.description, 'New description')
+        # self.assertEqual(photo.album, albums[1])

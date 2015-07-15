@@ -1,0 +1,51 @@
+{% extends "albums/base.html" %}{% load i18n staticfiles sniplates %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Update photo" %}
+        <i class="pull-right fa fa-camera-retro fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        Update the photo details here. You can move the photo to a
+        different album and change the description.
+    {% endblocktrans %}</p>
+
+{% endblock %}
+
+
+{% block content %}
+<form action="." class="form-horizontal" method="post">
+    {% csrf_token %}
+    {% load_widgets form='albums/albums.form' %}
+    {% with label_grid_offset='col-sm-offset-2' %}
+        {% widget 'form:non_field_errors' %}
+
+        {% form_field form.album 'form:AlbumCarousel' label=_('Change album') %}
+
+        <fieldset class="well">
+            {% form_field form.description %}
+        </fieldset>
+
+        {% widget 'form:submit' btn_text=btn_text|default:_('Update photo') %}
+
+    {% endwith %}
+</form>
+{% endblock %}
+
+{% block extrascript %}
+{{ block.super }}
+<script>
+(function($) {
+    $(function() {
+        $( 'input[name="album"]' ).change(function( e ) {
+            // if checked, uncheck other albums
+            if ( $(this).is(':checked') ) {
+                $( 'input[name="album"]' ).not(this).prop('checked', false);
+            }
+        });
+    });
+})(window.jQuery);
+</script>
+{% endblock %}

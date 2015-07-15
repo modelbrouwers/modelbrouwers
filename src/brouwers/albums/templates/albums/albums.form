@@ -1,8 +1,9 @@
-{% extends "horizontal.form" %}{% load thumbnail i18n staticfiles %}
+{% extends "horizontal.form" %}{% load thumbnail i18n staticfiles sniplates %}
 
 
 {% block AlbumCarousel %}
-<label><strong>{% trans "Select one or more albums" %}</strong></label>
+<label><strong>{{ label |default:_("Select one or more albums") }}</strong></label>
+{% reuse "_errors" %}
 <div class="carousel slide" data-interval="false" id="carousel-{{ name }}">
     <!-- Carousel items -->
     <div class="carousel-inner">

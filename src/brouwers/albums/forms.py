@@ -4,18 +4,26 @@ from django.utils.translation import ugettext as _
 from .models import Album, Category, Photo, Preferences
 
 
-class UploadForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.none(), empty_label=None)
-    image_url = forms.URLField(label=_('image url'), required=False)
+class AlbumQuerysetFormMixin(object):
+    """
+    Mixin that limits the albums for the Carousel slider to the
+    logged in user.
+    """
 
-    def __init__(self, request, *args, **kwargs):
-        super(UploadForm, self).__init__(*args, **kwargs)
+    def __init__(self, request=None, *args, **kwargs):
+        assert request is not None
+        super(AlbumQuerysetFormMixin, self).__init__(*args, **kwargs)
         # TODO: add albums that are shared
         self.fields['album'].queryset = Album.objects.select_related(
             'cover'
         ).filter(
             user=request.user, trash=False
         ).order_by('-last_upload')
+
+
+class UploadForm(AlbumQuerysetFormMixin, forms.Form):
+    album = forms.ModelChoiceField(queryset=Album.objects.none(), empty_label=None)
+    image_url = forms.URLField(label=_('image url'), required=False)
 
 
 class AlbumForm(forms.ModelForm):
@@ -52,7 +60,7 @@ class PreferencesForm(forms.ModelForm):
                   'width')
 
 
-class PhotoForm(forms.ModelForm):
+class PhotoForm(AlbumQuerysetFormMixin, forms.ModelForm):
     class Meta:
         model = Photo
         fields = ('album', 'description')
