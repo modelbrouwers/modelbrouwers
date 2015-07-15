@@ -111,7 +111,7 @@ body.albums {
     margin-top: 10px;
   }
 
-  // album picker in upload screen
+  // album picker in upload screen and photo edit
   #carousel-album {
     margin-bottom: 10px;
 
@@ -119,6 +119,11 @@ body.albums {
       padding: 10px 5px;
       margin-left: -5px;
       margin-right: -5px;
+
+      .item.next,
+      .item.prev {
+        top: 10px;
+      }
     }
 
     .carousel-control {
