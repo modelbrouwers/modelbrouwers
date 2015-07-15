@@ -1,7 +1,0 @@
-{% for form in formset %}
-    <tr class="hide"><td colspan="3">{{ formset.management_form }}</td></tr>
-    {% for hidden in form.hidden_fields %}
-        <tr class="hide"><td colspan="3">{{ hidden }}</td></tr>
-    {% endfor %}
-    {% include "form_in_table_rows.html" %}
-{% endfor %}
