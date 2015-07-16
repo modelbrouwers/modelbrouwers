@@ -46,6 +46,7 @@ class PhotoManager(models.Manager):
         # if user.is_authenticated():
         ordering = self.model._meta.ordering
         queryset = self.get_queryset().filter(
+            trash=False,
             album=current.album,
             order__gte=current.order
         ).exclude(pk=current.pk).order_by(*ordering)
@@ -55,6 +56,7 @@ class PhotoManager(models.Manager):
         # if user.is_authenticated():
         ordering = [toggle_ordering(field) for field in self.model._meta.ordering]
         queryset = self.get_queryset().filter(
+            trash=False,
             album=current.album,
             order__lte=current.order
         ).exclude(pk=current.pk).order_by(*ordering)

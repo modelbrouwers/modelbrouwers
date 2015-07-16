@@ -64,8 +64,18 @@ class PhotoViewsetTests(APITestCase):
             self.assertEqual(photo.id, result['id'])
             self.assertEqual(set(result['image'].keys()), set(['large', 'thumb']))
 
-    # def test_detail_next_previous(self):
-    #     pass  # TODO
+    def test_detail_next_previous(self):
+        photos = PhotoFactory.create_batch(5, album=self.album)
+        next_url = reverse('api:photo-next', kwargs={'pk': photos[2].pk})
+        previous_url = reverse('api:photo-previous', kwargs={'pk': photos[2].pk})
+
+        response = self.client.get(next_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], photos[3].id)
+
+        response = self.client.get(previous_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['id'], photos[1].id)
 
     def test_unauthenticated_rotate(self):
         photo = PhotoFactory.create(album=self.album, image__width=100, image__height=50)
