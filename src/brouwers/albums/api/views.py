@@ -16,7 +16,8 @@ from .pagination import PhotoPagination
 
 class PhotoViewSet(viewsets.ModelViewSet):
     """
-    View to handle HTML5 file uploads.
+    View to handle HTML5 file uploads and photo manipulations such as
+    rotating the photo.
     """
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     parser_classes = (parsers.FileUploadParser,)
@@ -63,6 +64,10 @@ class PhotoViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['get'])
     def previous(self, request, *args, **kwargs):
         return self.next_or_previous(request, next=False, *args, **kwargs)
+
+    @detail_route(methods=['post'])
+    def rotate(self, request, *args, **kwargs):
+        import bpdb; bpdb.set_trace()
 
 
 class PreferencesViewSet(viewsets.ReadOnlyModelViewSet):

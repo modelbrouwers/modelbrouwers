@@ -63,3 +63,9 @@ class PhotoViewsetTests(APITestCase):
 
     # def test_detail_next_previous(self):
     #     pass  # TODO
+
+    def test_rotate(self):
+        photo = PhotoFactory.create(album=self.album, image__width=100, image__height=50)
+        self.client.login(username=self.user.username, password='password')
+        detail_url = reverse('api:photo-rotate', kwargs={'pk': photo.pk})
+        response = self.client.post(detail_url, {'direction': 'cw'})  # clockwise

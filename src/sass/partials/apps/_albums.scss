@@ -207,7 +207,8 @@ body.albums {
   .stats {
     color: rgba($white, 0.5);
 
-    + .controls {
+    + .controls,
+    + div {
       margin-top: 30px;
     }
   }
