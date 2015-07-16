@@ -2,7 +2,9 @@ from rest_framework import parsers, permissions
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
+from rest_framework.settings import api_settings
 
 from ..models import Album, Photo, Preferences
 from .filters import PhotoFilter
@@ -20,19 +22,19 @@ class PhotoViewSet(viewsets.ModelViewSet):
     rotating the photo.
     """
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    parser_classes = (parsers.FileUploadParser,)
+    parser_classes = api_settings.DEFAULT_PARSER_CLASSES + [parsers.FileUploadParser]
     queryset = Photo.objects.exclude(trash=True).exclude(album__public=False)
     serializer_class = PhotoSerializer
     filter_class = PhotoFilter
     pagination_class = PhotoPagination
 
     def get_renderers(self):
-        if self.request.method == 'POST':
+        if self.action == 'create':
             return [FineUploaderRenderer()]
         return super(PhotoViewSet, self).get_renderers()
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.action == 'create':
             return UploadPhotoSerializer
         return super(PhotoViewSet, self).get_serializer_class()
 
@@ -65,9 +67,16 @@ class PhotoViewSet(viewsets.ModelViewSet):
     def previous(self, request, *args, **kwargs):
         return self.next_or_previous(request, next=False, *args, **kwargs)
 
-    @detail_route(methods=['post'])
+    @detail_route(methods=['patch'])
     def rotate(self, request, *args, **kwargs):
-        import bpdb; bpdb.set_trace()
+        photo = self.get_object()
+        direction = request.DATA.get('direction')
+        if direction not in ['cw', 'ccw']:
+            raise ValidationError('The direction must be set to \'cw\' or \'ccw\'')
+        degrees = -90 if direction == 'cw' else 90
+        photo.rotate(degrees=degrees)
+        serializer = self.get_serializer(self.get_object())
+        return Response(serializer.data)
 
 
 class PreferencesViewSet(viewsets.ReadOnlyModelViewSet):

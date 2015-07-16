@@ -206,15 +206,10 @@ class Photo(models.Model):
         """
         return self.image.storage.exists(self.image.name)
 
-    # TRANSFORMING OF IMAGE #################################
-    def rotate_left(self):
-        """ Rotate 90 degrees counter clock wise """
-        rotate_img(self.image, degrees=90)
-        self.save()
-
-    def rotate_right(self):
-        """ Rotate 90 degrees clock wise """
-        rotate_img(self.image, degrees=-90)
+    def rotate(self, degrees=90):
+        assert degrees in [90, -90], 'Invalid angle provided: %s' % degrees
+        rotate_img(self.image, degrees=degrees)
+        self.width, self.height = self.height, self.width
         self.save()
 
 

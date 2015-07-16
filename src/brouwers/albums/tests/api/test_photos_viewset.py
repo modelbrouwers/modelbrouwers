@@ -4,7 +4,10 @@ from django.core.urlresolvers import reverse
 
 from rest_framework import status
 from rest_framework.test import APITestCase
-from PIL import Image
+try:  # Pillow
+    from PIL import Image
+except ImportError:  # PIL
+    import Image
 
 from brouwers.users.tests.factories import UserFactory
 from ..factories import AlbumFactory, PhotoFactory
@@ -64,8 +67,34 @@ class PhotoViewsetTests(APITestCase):
     # def test_detail_next_previous(self):
     #     pass  # TODO
 
+    def test_unauthenticated_rotate(self):
+        photo = PhotoFactory.create(album=self.album, image__width=100, image__height=50)
+        detail_url = reverse('api:photo-rotate', kwargs={'pk': photo.pk})
+        response = self.client.patch(detail_url, data={'direction': 'cw'})
+        self.assertEqual(response.status_code, 403)
+
     def test_rotate(self):
         photo = PhotoFactory.create(album=self.album, image__width=100, image__height=50)
         self.client.login(username=self.user.username, password='password')
         detail_url = reverse('api:photo-rotate', kwargs={'pk': photo.pk})
-        response = self.client.post(detail_url, {'direction': 'cw'})  # clockwise
+
+        response = self.client.patch(detail_url, data={'direction': 'cw'})  # clockwise
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['width'], 50)
+        self.assertEqual(response.data['height'], 100)
+        img = Image.open(photo.image.path)
+        self.assertEqual(img.size, (50, 100))
+
+        response = self.client.patch(detail_url, data={'direction': 'ccw'})  # counter-clockwise
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['width'], 100)
+        self.assertEqual(response.data['height'], 50)
+        img = Image.open(photo.image.path)
+        self.assertEqual(img.size, (100, 50))
+
+    def test_invalid_rotate(self):
+        photo = PhotoFactory.create(album=self.album, image__width=100, image__height=50)
+        self.client.login(username=self.user.username, password='password')
+        detail_url = reverse('api:photo-rotate', kwargs={'pk': photo.pk})
+        response = self.client.patch(detail_url, data={'direction': 'fl;asjdf'})  # clockwise
+        self.assertEqual(response.status_code, 400)
