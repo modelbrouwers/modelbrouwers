@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
@@ -233,7 +233,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Modelbrouwers die een model meenmen hebben gratis toegang. Meer info op <a class=\"btn btn-default btn-lg\" href=\"http://www.modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
+"Modelbrouwers die een model meenemen hebben gratis toegang. Meer info op <a class=\"btn btn-default btn-lg\" href=\"http://www.modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
 
 #: templates/brouwersdag/index.html:28
 msgid "Click the above button to sign up for the competition"
@@ -272,7 +272,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Modelbrouwers die een model meenmen hebben gratis toegang. Meer info op <a class=\"btn btn-xs bg-main-orange\" href=\"http://www.modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
+"Modelbrouwers die een model meenemen hebben gratis toegang. Meer info op <a class=\"btn btn-xs bg-main-orange\" href=\"http://www.modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
 
 #: templates/brouwersdag/model_signup.html:52
 msgid "Add model"
