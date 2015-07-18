@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
+"POT-Creation-Date: 2015-07-18 21:33+0200\n"
 "PO-Revision-Date: 2014-05-29 21:56+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,13 +43,13 @@ msgstr "gereviewed?"
 msgid "This project was already nominated."
 msgstr "Dit project werd eerder al genomineerd."
 
-#: forms.py:86
+#: forms.py:91
 msgid "When voting, you cannot leave the first place blank."
 msgstr ""
 "Als je een stem uitbrengt in een categorie mag je de eerste plaats niet open "
 "laten."
 
-#: forms.py:111
+#: forms.py:116
 msgid ""
 "The order of votes must be logical. Omitting the second place is not allowed."
 msgstr ""
@@ -100,36 +100,6 @@ msgstr ""
 #: models.py:184
 msgid "No duplicate projects are allowed"
 msgstr "De stemmen moeten van elkaar verschillen"
-
-#: views.py:50
-msgid ""
-"The builder of this project doesn't participate in the awards. Voting for "
-"this project will not be possible."
-msgstr ""
-"The brouwer van dit project neemt niet deel aan de awards. Stemmen voor dit "
-"project zal niet mogelijk zijn."
-
-#: views.py:53
-msgid "The nomination was added."
-msgstr "De nominatie werd toegevoegd"
-
-#: views.py:185
-#, python-format
-msgid "Your vote for `%(category)s` was saved."
-msgstr "Je stem in `%(category)s` werd bewaard."
-
-#: views.py:192
-msgid ""
-"One or multiple category votes could not be saved. Please correct the errors "
-"below."
-msgstr ""
-"Een of meerdere categorie-stemmen konden niet bewaard worden. Los de fouten "
-"hierbeneden op."
-
-#: views.py:203
-#, python-format
-msgid "Voting is enabled from %(start_date)s until %(end_date)s."
-msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
 
 #: templates/awards/base.html:24
 msgid "Awards home"
@@ -225,15 +195,15 @@ msgstr "2de."
 msgid "3rd."
 msgstr "3de."
 
-#: templates/awards/voting.html:7
+#: templates/awards/voting.html:6
 msgid "Vote your favourite projects"
 msgstr "Stem voor je favoriete projecten"
 
-#: templates/awards/voting.html:8
+#: templates/awards/voting.html:7
 msgid "You need to enable javascript to be able to cast your votes"
 msgstr "Je hebt Javascript nodig om je stemmen uit te kunnen brengen"
 
-#: templates/awards/voting.html:10
+#: templates/awards/voting.html:9
 msgid ""
 "You can leave categories blank, and vote them later. However, as soon as you "
 "vote <em>one</em> project in a category, you can no longer change that vote."
@@ -242,7 +212,7 @@ msgstr ""
 "je <em>1</em> project stemt in een categorie, kan je de stem voor die "
 "categorie niet meer wijzigen."
 
-#: templates/awards/voting.html:53
+#: templates/awards/voting.html:52
 msgid "Submit vote"
 msgstr "Stem bewaren"
 
@@ -267,6 +237,36 @@ msgid ""
 msgstr ""
 "Probeer je het systeem te verslaan? De resultatenpagina van deze editie is "
 "niet beschikbaar omdat die niet bestaat of omdat je geen toegang hebt."
+
+#: views.py:50
+msgid ""
+"The builder of this project doesn't participate in the awards. Voting for "
+"this project will not be possible."
+msgstr ""
+"The brouwer van dit project neemt niet deel aan de awards. Stemmen voor dit "
+"project zal niet mogelijk zijn."
+
+#: views.py:53
+msgid "The nomination was added."
+msgstr "De nominatie werd toegevoegd"
+
+#: views.py:185
+#, python-format
+msgid "Your vote for `%(category)s` was saved."
+msgstr "Je stem in `%(category)s` werd bewaard."
+
+#: views.py:192
+msgid ""
+"One or multiple category votes could not be saved. Please correct the errors "
+"below."
+msgstr ""
+"Een of meerdere categorie-stemmen konden niet bewaard worden. Los de fouten "
+"hierbeneden op."
+
+#: views.py:203
+#, python-format
+msgid "Voting is enabled from %(start_date)s until %(end_date)s."
+msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
 
 #~ msgid "Interim scores"
 #~ msgstr "Tussenstand"
