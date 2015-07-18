@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
+"POT-Creation-Date: 2015-07-18 21:33+0200\n"
 "PO-Revision-Date: 2014-05-29 21:59+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,11 +170,11 @@ msgstr "Log in om brouwverslagen toe te voegen!"
 msgid "Build reports"
 msgstr "Brouwverslagen"
 
-#: templates/builds/base.html:35
+#: templates/builds/base.html:37
 msgid "Overview / Add build report"
 msgstr "Overzicht / Voeg brouwverslag toe"
 
-#: templates/builds/base.html:41
+#: templates/builds/base.html:43
 msgid "My builds"
 msgstr "Mijn projecten"
 
@@ -182,25 +182,24 @@ msgstr "Mijn projecten"
 msgid "View topic"
 msgstr "Bekijk brouwverslag"
 
-#: templates/builds/builds_list.html:8 templates/builds/profile_builds.html:18
+#: templates/builds/builds_list.html:7 templates/builds/profile_builds.html:18
 msgid "Title"
 msgstr "Titel"
 
-#: templates/builds/builds_list.html:9 templates/builds/profile_builds.html:19
+#: templates/builds/builds_list.html:8 templates/builds/profile_builds.html:19
 msgid "Brand"
 msgstr "Merk"
 
-#: templates/builds/builds_list.html:10
-#: templates/builds/profile_builds.html:20
+#: templates/builds/builds_list.html:9 templates/builds/profile_builds.html:20
 msgid "Scale"
 msgstr "Schaal"
 
-#: templates/builds/builds_list.html:31
+#: templates/builds/builds_list.html:30
 #: templates/builds/profile_builds.html:38
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: templates/builds/builds_list.html:37
+#: templates/builds/builds_list.html:36
 #: templates/builds/profile_builds.html:49
 msgid "No build reports were found for this user!"
 msgstr "Van deze gebruiker zijn geen brouwverslagen gevonden!"

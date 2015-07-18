@@ -24,4 +24,6 @@ $settings->KEY_PREFIX = getenv('KEY_PREFIX') ?: '';
 
 $settings->COMPOSER_AUTOLOADER = realpath(joinPath($ROOT_DIR, 'vendor', 'autoload.php'));
 
+$settings->RAVEN_DSN = getenv('RAVEN_DSN') ?: 'http://example@foo/0';
+
 ?>

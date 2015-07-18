@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
+"POT-Creation-Date: 2015-07-18 21:33+0200\n"
 "PO-Revision-Date: 2015-02-10 19:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,26 @@ msgstr "forumprofiel"
 #: admin.py:37
 msgid "Link"
 msgstr "Link"
+
+#: forms/fields.py:15
+msgid "Enter a valid url"
+msgstr "Geef een geldige url op"
+
+#: forms/forms.py:25
+msgid "Provide a set of IDS separated by ';'"
+msgstr "Geef een set van IDs op, gescheiden door ';'"
+
+#: forms/forms.py:33
+msgid "Please enter a correct username and password."
+msgstr "Geef aub een geldige gebruikersnaam en wachtwoord op."
+
+#: forms/widgets.py:29
+msgid "Currently:"
+msgstr "Huidig:"
+
+#: forms/widgets.py:30
+msgid "Change:"
+msgstr "Wijzig:"
 
 #: models.py:19 models.py:43
 msgid "link id"
@@ -233,34 +253,6 @@ msgstr "Kan (het aantal) open reports zien"
 msgid "Report %(id)s"
 msgstr "Report %(id)s"
 
-#: views.py:123
-msgid "Add build report"
-msgstr "Brouwverslag toevoegen"
-
-#: views.py:124
-msgid "Nominate for award"
-msgstr "Nomineer voor award"
-
-#: forms/fields.py:15
-msgid "Enter a valid url"
-msgstr "Geef een geldige url op"
-
-#: forms/forms.py:25
-msgid "Provide a set of IDS separated by ';'"
-msgstr "Geef een set van IDs op, gescheiden door ';'"
-
-#: forms/forms.py:33
-msgid "Please enter a correct username and password."
-msgstr "Geef aub een geldige gebruikersnaam en wachtwoord op."
-
-#: forms/widgets.py:29
-msgid "Currently:"
-msgstr "Huidig:"
-
-#: forms/widgets.py:30
-msgid "Change:"
-msgstr "Wijzig:"
-
 #: templates/forum_tools/sharing_allowed.html:2
 #: templates/forum_tools/sharing_not_allowed.html:2
 msgid "Content sharing"
@@ -273,3 +265,11 @@ msgstr "toegestaan"
 #: templates/forum_tools/sharing_not_allowed.html:2
 msgid "not allowed"
 msgstr "niet toegestaan"
+
+#: views.py:123
+msgid "Add build report"
+msgstr "Brouwverslag toevoegen"
+
+#: views.py:124
+msgid "Nominate for award"
+msgstr "Nomineer voor award"

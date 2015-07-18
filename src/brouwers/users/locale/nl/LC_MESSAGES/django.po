@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
+"POT-Creation-Date: 2015-07-18 21:33+0200\n"
 "PO-Revision-Date: 2015-02-16 19:37+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,107 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
-
-#: mail.py:11
-#, python-brace-format
-msgid "Your registration on {domain}"
-msgstr "Je registratie op {domain}"
-
-#: mail.py:30
-#, python-brace-format
-msgid "{domain} account creation - activation required"
-msgstr "{domain} account aangemaakt - activatie nodig"
-
-#: models.py:65
-msgid "username"
-msgstr "gebruikersnaam"
-
-#: models.py:66
-msgid "Required. 30 characters or fewer. All characters allowed."
-msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
-
-#: models.py:67
-msgid "cleaned username"
-msgstr "cleane gebruikersnaam"
-
-#: models.py:68
-msgid "first name"
-msgstr "voornaam"
-
-#: models.py:69
-msgid "last name"
-msgstr "familienaam"
-
-#: models.py:70
-msgid "email address"
-msgstr "e-mailadres"
-
-#: models.py:71
-msgid "staff status"
-msgstr "stafstatus"
-
-#: models.py:72
-msgid "Designates whether the user can log into this admin site."
-msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
-
-#: models.py:74
-msgid "active"
-msgstr "actief"
-
-#: models.py:75
-msgid ""
-"Designates whether this user should be treated as active. Unselect this "
-"instead of deleting accounts."
-msgstr ""
-"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
-"van gebruikers te verwijderen."
-
-#: models.py:77
-msgid "date joined"
-msgstr "toegetreden"
-
-#: models.py:80
-msgid "forum user id"
-msgstr "forumgebruikerid"
-
-#: models.py:88
-msgid "user"
-msgstr "gebruiker"
-
-#: models.py:89
-msgid "users"
-msgstr "gebruikers"
-
-#: views.py:75
-msgid ""
-"We found an existing forum account for this username, but it appears that "
-"were was no coupling account yet. We automatically created a coupling "
-"account, which is not activated yet. You should receive an e-mail soon with "
-"a link to activate your account. Coupling accounts were added to introduce "
-"SSO (single sign on) in the future for the entire domain."
-msgstr ""
-"We vonden een bestaande forumaccount voor deze gebruikersnaam, maar het "
-"lijkt erop dat er nog geen gekoppelde account bestaat. Deze werd automatisch "
-"aangemaakt maar moet nog geactiveerd worden. Je zou ieder moment een e-mail "
-"moeten ontvangen waarin een link staat om je account te activeren. Deze "
-"gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
-"mogelijk te maken voor de volledige website."
-
-#: views.py:101
-msgid "You have been logged out."
-msgstr "Je bent uitgelogd."
-
-#: views.py:103
-msgid "Can't log you out, you weren't logged in!"
-msgstr "Je kan niet uitloggen, je was niet ingelogd!"
-
-#: views.py:218 tests/test_views.py:43
-msgid "Your profile data has been updated."
-msgstr "Je profiel is bijgewerkt."
-
-#: views.py:242
-msgid "Your password was changed."
-msgstr "Je wachtwoord is gewijzigd."
 
 #: forms/auth.py:24 tests/test_signup_login.py:123
 msgid "A user with that username already exists."
@@ -199,6 +98,76 @@ msgid "An e-mail was sent with a link to reset your password."
 msgstr ""
 "Er werd een e-mail verstuurd met een link om je wachtwoord te resetten."
 
+#: mail.py:11
+#, python-brace-format
+msgid "Your registration on {domain}"
+msgstr "Je registratie op {domain}"
+
+#: mail.py:30
+#, python-brace-format
+msgid "{domain} account creation - activation required"
+msgstr "{domain} account aangemaakt - activatie nodig"
+
+#: models.py:65
+msgid "username"
+msgstr "gebruikersnaam"
+
+#: models.py:66
+msgid "Required. 30 characters or fewer. All characters allowed."
+msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
+
+#: models.py:67
+msgid "cleaned username"
+msgstr "cleane gebruikersnaam"
+
+#: models.py:68
+msgid "first name"
+msgstr "voornaam"
+
+#: models.py:69
+msgid "last name"
+msgstr "familienaam"
+
+#: models.py:70
+msgid "email address"
+msgstr "e-mailadres"
+
+#: models.py:71
+msgid "staff status"
+msgstr "stafstatus"
+
+#: models.py:72
+msgid "Designates whether the user can log into this admin site."
+msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
+
+#: models.py:74
+msgid "active"
+msgstr "actief"
+
+#: models.py:75
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
+"van gebruikers te verwijderen."
+
+#: models.py:77
+msgid "date joined"
+msgstr "toegetreden"
+
+#: models.py:80
+msgid "forum user id"
+msgstr "forumgebruikerid"
+
+#: models.py:88
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:89
+msgid "users"
+msgstr "gebruikers"
+
 #: templates/users/change_password.html:6
 #: templates/users/change_password.html:16
 #: templates/users/password_reset_confirm.html:7
@@ -270,6 +239,146 @@ msgstr "Voeg je foto's toe aan onze geintegreerde albums"
 #: templates/users/login.html:65
 msgid "Participate in groupbuilds focused on a narrow theme"
 msgstr "Neem deel aan groepsbouwen rond een duidelijk thema"
+
+#: templates/users/mail/user_created.html:5
+#, python-format
+msgid ""
+"\n"
+"<p>Hi %(username)s,</p>\n"
+"<br />\n"
+"<p>You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).</p>\n"
+"<br />\n"
+"<p>After activation, you will be logged in automagically and redirected to "
+"the pagewhere you can set/change your password.</p>\n"
+"<br />\n"
+"<p>The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.</p>\n"
+"<br />\n"
+"<p>If you run into problems, just reply to this e-mail.</p>\n"
+"<br />\n"
+"<p>Happy modelling,<br />\n"
+"your faithful %(site_name)s administrators</p>\n"
+msgstr ""
+"\n"
+"<p>Hoi %(username)s,</p>\n"
+"<br />\n"
+"<p>Je hebt net proberen in te loggen, maar je account is niet actief. Je kan "
+"activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s "
+"(kopieer en plak deze link in je browser indien deze niet klikbaar is).</p>\n"
+"<br />\n"
+"<p>Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
+"opnieuw instellen.</p>\n"
+"<br />\n"
+"<p>De account die je activeert is een Single-Sign-On (SSO) account. Dit "
+"betekent dat je met dezelfde account toegang hebt tot het forum en de albums "
+"en toekomstige delen van de website.</p>\n"
+"<br />\n"
+"<p>Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
+"beantwoorden.</p>\n"
+"<br />\n"
+"<p>Happy modelling,<br />\n"
+"de %(site_name)s beheerders</p>\n"
+
+#: templates/users/mail/user_created.txt:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(username)s,\n"
+"\n"
+"You just attempted to login, but your account is not activated. You can "
+"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
+"(copy and paste this link in your browser).\n"
+"\n"
+"After activation, you will be logged in automagically and redirected to the "
+"pagewhere you can set/change your password.\n"
+"\n"
+"The account you're activating, is a single-sign-on account. With the same "
+"account you will have access to the forums, albums and all future modules of "
+"the website! Eventually the kit-reviews module and the shop will be "
+"integrated with this account.\n"
+"\n"
+"If you run into problems, just reply to this e-mail.\n"
+"\n"
+"Happy modelling,\n"
+"your faithful %(site_name)s administrators\n"
+msgstr ""
+"\n"
+"Hoi %(username)s,\n"
+"\n"
+"Je hebt net proberen in te loggen, maar je account is niet actief. Je kan "
+"activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s "
+"(kopieer en plak deze link in je browser indien deze niet klikbaar is).\n"
+"\n"
+"Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
+"opnieuw instellen.\n"
+"\n"
+"De account die je activeert is een single-sign-on (SSO) account. Dit "
+"betekent dat je met dezelfde account toegang hebt tot het forum en de albums "
+"en toekomstige delen van de website.\n"
+"\n"
+"Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
+"beantwoorden\n"
+"\n"
+"Happy modelling,\n"
+"de %(site_name)s beheerders\n"
+
+#: templates/users/mail/user_registered.html:3
+#, python-format
+msgid ""
+"\n"
+"<p>Thank you for your registration on %(domain)s!</p>\n"
+"<br>\n"
+"<p>You registered with the username: %(username)s.\n"
+"Your password is safely stored in our database and can not be retrieved.\n"
+"You can always reset your password if you can't remember it.</p>\n"
+"<br>\n"
+"<p>See you on the forum!</p>\n"
+"<br>\n"
+"<p>Sincerely,<br>\n"
+"The %(name)s staff.</p>\n"
+msgstr ""
+"\n"
+"<p>Bedankt voor je registratie op %(domain)s!</p>\n"
+"<br>\n"
+"<p>Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is "
+"veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan "
+"altijd je wachtwoord resetten indien je dit vergeten bent.</p>\n"
+"<br>\n"
+"<p>Tot op het forum!</p>\n"
+"<br>\n"
+"<p>Met modelbouwgroeten,<br>\n"
+"Het %(name)s beheer</p>\n"
+
+#: templates/users/mail/user_registered.txt:3
+#, python-format
+msgid ""
+"\n"
+"Thank you for your registration on %(domain)s!\n"
+"\n"
+"You registered with the username: %(username)s. Your password is safely "
+"stored in our database and can not be retrieved. You can always reset your "
+"password if you can't remember it.\n"
+"\n"
+"See you on the forum!\n"
+"\n"
+"Sincerely,\n"
+"The %(name)s staff.\n"
+msgstr ""
+"\n"
+"Bedankt voor je registratie op %(domain)s!\n"
+"\n"
+"Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig "
+"opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je "
+"wachtwoord resetten indien je dit vergeten bent.\n"
+"\n"
+"Tot op het forum!\n"
+"\n"
+"Met modelbouwgroeten,\n"
+"Het %(name)s beheer\n"
 
 #: templates/users/password_reset.html:3
 msgid "Modelbrouwers.nl &bull; Reset password"
@@ -438,145 +547,36 @@ msgstr ""
 "gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels "
 "en voorwaarden."
 
-#: templates/users/mail/user_created.html:5
-#, python-format
-msgid ""
-"\n"
-"<p>Hi %(username)s,</p>\n"
-"<br />\n"
-"<p>You just attempted to login, but your account is not activated. You can "
-"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
-"(copy and paste this link in your browser).</p>\n"
-"<br />\n"
-"<p>After activation, you will be logged in automagically and redirected to "
-"the pagewhere you can set/change your password.</p>\n"
-"<br />\n"
-"<p>The account you're activating, is a single-sign-on account. With the same "
-"account you will have access to the forums, albums and all future modules of "
-"the website! Eventually the kit-reviews module and the shop will be "
-"integrated with this account.</p>\n"
-"<br />\n"
-"<p>If you run into problems, just reply to this e-mail.</p>\n"
-"<br />\n"
-"<p>Happy modelling,<br />\n"
-"your faithful %(site_name)s administrators</p>\n"
-msgstr ""
-"\n"
-"<p>Hoi %(username)s,</p>\n"
-"<br />\n"
-"<p>Je hebt net proberen in te loggen, maar je account is niet actief. Je kan "
-"activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s "
-"(kopieer en plak deze link in je browser indien deze niet klikbaar is).</p>\n"
-"<br />\n"
-"<p>Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
-"opnieuw instellen.</p>\n"
-"<br />\n"
-"<p>De account die je activeert is een Single-Sign-On (SSO) account. Dit "
-"betekent dat je met dezelfde account toegang hebt tot het forum en de albums "
-"en toekomstige delen van de website.</p>\n"
-"<br />\n"
-"<p>Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
-"beantwoorden.</p>\n"
-"<br />\n"
-"<p>Happy modelling,<br />\n"
-"de %(site_name)s beheerders</p>\n"
+#: tests/test_views.py:43 views.py:218
+msgid "Your profile data has been updated."
+msgstr "Je profiel is bijgewerkt."
 
-#: templates/users/mail/user_created.txt:5
-#, python-format
+#: views.py:75
 msgid ""
-"\n"
-"Hi %(username)s,\n"
-"\n"
-"You just attempted to login, but your account is not activated. You can "
-"activate on the following link: %(protocol)s://%(domain)s%(activation_url)s "
-"(copy and paste this link in your browser).\n"
-"\n"
-"After activation, you will be logged in automagically and redirected to the "
-"pagewhere you can set/change your password.\n"
-"\n"
-"The account you're activating, is a single-sign-on account. With the same "
-"account you will have access to the forums, albums and all future modules of "
-"the website! Eventually the kit-reviews module and the shop will be "
-"integrated with this account.\n"
-"\n"
-"If you run into problems, just reply to this e-mail.\n"
-"\n"
-"Happy modelling,\n"
-"your faithful %(site_name)s administrators\n"
+"We found an existing forum account for this username, but it appears that "
+"were was no coupling account yet. We automatically created a coupling "
+"account, which is not activated yet. You should receive an e-mail soon with "
+"a link to activate your account. Coupling accounts were added to introduce "
+"SSO (single sign on) in the future for the entire domain."
 msgstr ""
-"\n"
-"Hoi %(username)s,\n"
-"\n"
-"Je hebt net proberen in te loggen, maar je account is niet actief. Je kan "
-"activeren op de volgende link: %(protocol)s://%(domain)s%(activation_url)s "
-"(kopieer en plak deze link in je browser indien deze niet klikbaar is).\n"
-"\n"
-"Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
-"opnieuw instellen.\n"
-"\n"
-"De account die je activeert is een single-sign-on (SSO) account. Dit "
-"betekent dat je met dezelfde account toegang hebt tot het forum en de albums "
-"en toekomstige delen van de website.\n"
-"\n"
-"Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
-"beantwoorden\n"
-"\n"
-"Happy modelling,\n"
-"de %(site_name)s beheerders\n"
+"We vonden een bestaande forumaccount voor deze gebruikersnaam, maar het "
+"lijkt erop dat er nog geen gekoppelde account bestaat. Deze werd automatisch "
+"aangemaakt maar moet nog geactiveerd worden. Je zou ieder moment een e-mail "
+"moeten ontvangen waarin een link staat om je account te activeren. Deze "
+"gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
+"mogelijk te maken voor de volledige website."
 
-#: templates/users/mail/user_registered.html:3
-#, python-format
-msgid ""
-"\n"
-"<p>Thank you for your registration on %(domain)s!</p>\n"
-"<br>\n"
-"<p>You registered with the username: %(username)s.\n"
-"Your password is safely stored in our database and can not be retrieved.\n"
-"You can always reset your password if you can't remember it.</p>\n"
-"<br>\n"
-"<p>See you on the forum!</p>\n"
-"<br>\n"
-"<p>Sincerely,<br>\n"
-"The %(name)s staff.</p>\n"
-msgstr ""
-"\n"
-"<p>Bedankt voor je registratie op %(domain)s!</p>\n"
-"<br>\n"
-"<p>Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is "
-"veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan "
-"altijd je wachtwoord resetten indien je dit vergeten bent.</p>\n"
-"<br>\n"
-"<p>Tot op het forum!</p>\n"
-"<br>\n"
-"<p>Met modelbouwgroeten,<br>\n"
-"Het %(name)s beheer</p>\n"
+#: views.py:101
+msgid "You have been logged out."
+msgstr "Je bent uitgelogd."
 
-#: templates/users/mail/user_registered.txt:3
-#, python-format
-msgid ""
-"\n"
-"Thank you for your registration on %(domain)s!\n"
-"\n"
-"You registered with the username: %(username)s. Your password is safely "
-"stored in our database and can not be retrieved. You can always reset your "
-"password if you can't remember it.\n"
-"\n"
-"See you on the forum!\n"
-"\n"
-"Sincerely,\n"
-"The %(name)s staff.\n"
-msgstr ""
-"\n"
-"Bedankt voor je registratie op %(domain)s!\n"
-"\n"
-"Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig "
-"opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je "
-"wachtwoord resetten indien je dit vergeten bent.\n"
-"\n"
-"Tot op het forum!\n"
-"\n"
-"Met modelbouwgroeten,\n"
-"Het %(name)s beheer\n"
+#: views.py:103
+msgid "Can't log you out, you weren't logged in!"
+msgstr "Je kan niet uitloggen, je was niet ingelogd!"
+
+#: views.py:242
+msgid "Your password was changed."
+msgstr "Je wachtwoord is gewijzigd."
 
 #~ msgid "Registration: fill out the form below. All fields are required."
 #~ msgstr "Registratie: vul het formulier in. Alle velden zijn verplicht."

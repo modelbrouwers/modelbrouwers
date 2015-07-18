@@ -11,7 +11,7 @@ class ParticipantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Participant
-        fields = ('model_name', 'username', 'topic', 'finished')
+        fields = ('id', 'model_name', 'username', 'topic', 'finished')
 
 
 class GroupBuildSerializer(serializers.ModelSerializer):
@@ -39,7 +39,7 @@ class ParticipantCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Participant
-        fields = ('groupbuild', 'model_name', 'topic_id')
+        fields = ('id', 'groupbuild', 'model_name', 'topic_id')
 
     def __init__(self, *args, **kwargs):
         super(ParticipantCreateSerializer, self).__init__(*args, **kwargs)

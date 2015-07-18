@@ -1,3 +1,6 @@
+import HTMLParser
+import Levenshtein
+
 from django.utils import timezone
 
 from rest_framework import generics, status, views
@@ -8,8 +11,10 @@ from brouwers.forum_tools.models import Topic
 from brouwers.forum_tools.api.serializers import TopicSerializer
 
 from ..models import GroupBuild, Participant
-from .serializers import GroupBuildSerializer, ParticipantCreateSerializer
+from .serializers import GroupBuildSerializer, ParticipantSerializer, ParticipantCreateSerializer
 from .forms import TopicDetailsForm
+
+html_parser = HTMLParser.HTMLParser()
 
 
 class GroupBuildDetail(generics.RetrieveAPIView):
@@ -42,8 +47,19 @@ class GroupBuildParticipantCheckView(views.APIView):
             topic is not None and
             (timezone.now() - topic.created).seconds < (3 * 60)
         )
+
         response['topic_created'] = topic_created
         if topic_created and gb is not None:  # include gb and topic data
+            participants = Participant.objects.filter(user=request.user, groupbuild=gb, topic_id=None)
+            matches = []
+            topic_title = html_parser.unescape(topic.topic_title).lower()
+            for participant in participants:
+                ratio = Levenshtein.ratio(participant.model_name.lower(), topic_title)
+                if ratio > 0.25:
+                    matches.append((participant, ratio))
+            matches = sorted(matches, key=lambda x: x[1])
+            if matches:
+                response['participant'] = ParticipantSerializer(matches[-1][0]).data
             response['groupbuild'] = GroupBuildSerializer(gb).data
             response['topic'] = TopicSerializer(topic).data
 

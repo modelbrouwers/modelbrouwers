@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
+"POT-Creation-Date: 2015-07-18 21:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sergei Maertens <sergei@modelbrouwers.nl>\n"
 "Language-Team: nl <sergei@modelbrouwers.nl>\n"
@@ -85,30 +85,6 @@ msgstr "deelnemer"
 #: models.py:59
 msgid "participants"
 msgstr "deelnemers"
-
-#: views.py:43 templates/secret_santa/base.html:58
-msgid "Your address details are incomplete."
-msgstr "Je adresgegevens zijn onvolledig."
-
-#: views.py:45 templates/secret_santa/base.html:64
-msgid "Signing up is not possible at this time."
-msgstr "Inschrijven is niet mogelijk op dit moment."
-
-#: views.py:76
-msgid "The lottery is done."
-msgstr "De lootjes zijn verdeeld."
-
-#: views.py:93
-msgid "Your match does not exist."
-msgstr "Je Secret Santa bestaat niet. Paniek!"
-
-#: views.py:95
-msgid "You're not a participant!"
-msgstr "Je bent niet ingeschreven!"
-
-#: views.py:97
-msgid "You can't view the lottery results yet."
-msgstr "De lootjesverdeling is nog niet beschikbaar."
 
 #: templates/secret_santa/base.html:24 templates/secret_santa/base.html:73
 msgid "Participants"
@@ -188,9 +164,17 @@ msgstr ""
 msgid "Sign up!"
 msgstr "Inschrijven!"
 
+#: templates/secret_santa/base.html:58 views.py:43
+msgid "Your address details are incomplete."
+msgstr "Je adresgegevens zijn onvolledig."
+
 #: templates/secret_santa/base.html:60
 msgid "You have signed up already."
 msgstr "Je bent al ingeschreven."
+
+#: templates/secret_santa/base.html:64 views.py:45
+msgid "Signing up is not possible at this time."
+msgstr "Inschrijven is niet mogelijk op dit moment."
 
 #: templates/secret_santa/base.html:68
 msgid "Who's my Secret Santa?"
@@ -217,3 +201,19 @@ msgstr "De lootjes kunnen pas vanaf %(date)s verdeeld worden."
 #: templates/secret_santa/base.html:92
 msgid "Done already!"
 msgstr "Is al gebeurd!"
+
+#: views.py:76
+msgid "The lottery is done."
+msgstr "De lootjes zijn verdeeld."
+
+#: views.py:93
+msgid "Your match does not exist."
+msgstr "Je Secret Santa bestaat niet. Paniek!"
+
+#: views.py:95
+msgid "You're not a participant!"
+msgstr "Je bent niet ingeschreven!"
+
+#: views.py:97
+msgid "You can't view the lottery results yet."
+msgstr "De lootjesverdeling is nog niet beschikbaar."

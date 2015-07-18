@@ -4,8 +4,7 @@ $settingsFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'conf' . DIREC
 require_once $settingsFile;
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'cache.php';
 require_once $settings->COMPOSER_AUTOLOADER;
-
-$DEBUG = false;
+require_once $settings->PROJECT_DIR . DIRECTORY_SEPARATOR . 'errorhandler.php';
 
 // initialize the cache
 // $cache = new StaticCache();
@@ -65,7 +64,7 @@ class CachedFilesStorage extends FileSystemStorage
 
 	protected function get_hashed_name($file) {
 		if($this->DEBUG) return $file;
-		$abs_path = realpath($this->static_root . DIRECTORY_SEPARATOR . $file);
+		$abs_path = realpath($this->get_static_root() . DIRECTORY_SEPARATOR . $file);
 
 		$pathinfo = pathinfo($file);
 		$dirname = $pathinfo['dirname'];
@@ -99,7 +98,7 @@ class CachedFilesStorage extends FileSystemStorage
 			$hashed_name = $this->get_hashed_name($file);
 			if(!$this->DEBUG) $this->cache->set($cache_key, $hashed_name);
 		}
-		return $this->static_url . $hashed_name;
+		return $this->get_static_url() . $hashed_name;
 	}
 
 	protected function getBundleScripts($apps) {

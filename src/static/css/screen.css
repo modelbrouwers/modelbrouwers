@@ -235,6 +235,130 @@ body > footer {
   display: inline;
 }
 
+/* line 1, ../../sass/partials/_typography.scss */
+.text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
+  text-align: left;
+}
+
+/* line 4, ../../sass/partials/_typography.scss */
+.text-center-not-xs, .text-center-not-sm, .text-center-not-md, .text-center-not-lg {
+  text-align: center;
+}
+
+/* line 7, ../../sass/partials/_typography.scss */
+.text-right-not-xs, .text-right-not-sm, .text-right-not-md, .text-right-not-lg {
+  text-align: right;
+}
+
+/* line 10, ../../sass/partials/_typography.scss */
+.text-justify-not-xs, .text-justify-not-sm, .text-justify-not-md, .text-justify-not-lg {
+  text-align: justify;
+}
+
+@media (max-width: 767px) {
+  /* line 15, ../../sass/partials/_typography.scss */
+  .text-left-not-xs, .text-center-not-xs, .text-right-not-xs, .text-justify-not-xs {
+    text-align: inherit;
+  }
+
+  /* line 18, ../../sass/partials/_typography.scss */
+  .text-left-xs {
+    text-align: left;
+  }
+
+  /* line 21, ../../sass/partials/_typography.scss */
+  .text-center-xs {
+    text-align: center;
+  }
+
+  /* line 24, ../../sass/partials/_typography.scss */
+  .text-right-xs {
+    text-align: right;
+  }
+
+  /* line 27, ../../sass/partials/_typography.scss */
+  .text-justify-xs {
+    text-align: justify;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 32, ../../sass/partials/_typography.scss */
+  .text-left-not-sm, .text-center-not-sm, .text-right-not-sm, .text-justify-not-sm {
+    text-align: inherit;
+  }
+
+  /* line 35, ../../sass/partials/_typography.scss */
+  .text-left-sm {
+    text-align: left;
+  }
+
+  /* line 38, ../../sass/partials/_typography.scss */
+  .text-center-sm {
+    text-align: center;
+  }
+
+  /* line 41, ../../sass/partials/_typography.scss */
+  .text-right-sm {
+    text-align: right;
+  }
+
+  /* line 44, ../../sass/partials/_typography.scss */
+  .text-justify-sm {
+    text-align: justify;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* line 49, ../../sass/partials/_typography.scss */
+  .text-left-not-md, .text-center-not-md, .text-right-not-md, .text-justify-not-md {
+    text-align: inherit;
+  }
+
+  /* line 52, ../../sass/partials/_typography.scss */
+  .text-left-md {
+    text-align: left;
+  }
+
+  /* line 55, ../../sass/partials/_typography.scss */
+  .text-center-md {
+    text-align: center;
+  }
+
+  /* line 58, ../../sass/partials/_typography.scss */
+  .text-right-md {
+    text-align: right;
+  }
+
+  /* line 61, ../../sass/partials/_typography.scss */
+  .text-justify-md {
+    text-align: justify;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 66, ../../sass/partials/_typography.scss */
+  .text-left-not-lg, .text-center-not-lg, .text-right-not-lg, .text-justify-not-lg {
+    text-align: inherit;
+  }
+
+  /* line 69, ../../sass/partials/_typography.scss */
+  .text-left-lg {
+    text-align: left;
+  }
+
+  /* line 72, ../../sass/partials/_typography.scss */
+  .text-center-lg {
+    text-align: center;
+  }
+
+  /* line 75, ../../sass/partials/_typography.scss */
+  .text-right-lg {
+    text-align: right;
+  }
+
+  /* line 78, ../../sass/partials/_typography.scss */
+  .text-justify-lg {
+    text-align: justify;
+  }
+}
 @media (max-width: 480px) {
   /* line 2, ../../sass/partials/_mobile.scss */
   * + .pull-right {
