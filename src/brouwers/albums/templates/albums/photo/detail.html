@@ -24,7 +24,7 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
 
 {% block content %}
 <article class="photo">
-    <figure>
+    <figure data-id="{{ photo.id }}">
         {% thumbnail photo.image "1280x1280" as im %}
             <img src="{{ im.url }}" class="img-responsive">
         {% endthumbnail %}
@@ -45,6 +45,7 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
                 {# <i class="fa fa-fw fa-expand fa-2x" data-action="expand"></i> #}
             </div>
 
+            {% if photo.user == user %}
             <div class="controls">
                 <i class="fa fa-fw fa-rotate-left fa-2x"
                    data-action="rotate-left"
@@ -60,14 +61,16 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
                    data-placement="auto top"
                    data-content="{% trans 'Rotate the image to the right' %}"
                 ></i>
+                <!--
                 <i class="fa fa-fw fa-arrows-v fa-2x"
                    data-action="rotate-180"
                    data-trigger="hover focus"
                    data-toggle="popover"
                    data-placement="auto top"
                    data-content="{% trans 'Flip the image upside down' %}"
-                ></i>
+                ></i>-->
             </div>
+            {% endif %}
         </div>
 
     </figure>

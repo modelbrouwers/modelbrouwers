@@ -73,7 +73,7 @@ class Manager {
       delete filters.id;
     }
     return Api.request(endpoint, filters).get()
-              .then( response => this._createObjs([response])[0] );
+              .then( response => this._createObjs( [response] )[0] );
   }
 
 }

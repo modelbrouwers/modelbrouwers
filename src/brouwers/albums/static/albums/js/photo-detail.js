@@ -1,6 +1,7 @@
 'use strict';
 
 import $ from 'bootstrap';
+import { Photo } from 'albums/js/models/photo';
 
 
 class Control {
@@ -36,6 +37,51 @@ class Control {
 }
 
 
+class RotateControl extends Control {
+    constructor(...args) {
+        super(...args);
+
+        let direction_mapping = {
+            'rotate-left': 'ccw',
+            'rotate-right': 'cw'
+        };
+        this.direction = direction_mapping[this.action];
+    }
+
+    activate() {
+        this.node.addClass('active');
+
+        let id = this.target.data('id');
+
+        Photo.objects.get({id: id}).then(photo => {
+            return photo.rotate(this.direction);
+        }).done(photo => {
+            let img = new Image();
+            img.src = photo.image.large;
+            this.target.find('img').attr('src', img.src);
+            this.deactivate();  // removes the highlighting
+        });
+    }
+
+    deactivate() {
+        this.node.removeClass('active');
+    };
+}
+
+let getControlClass = function(action) {
+    let cls;
+    switch(action) {
+        case 'rotate-left':
+        case 'rotate-right':
+            cls = RotateControl;
+            break;
+        default:
+            cls = Control;
+    }
+    return cls;
+}
+
+
 
 $(function() {
     var controls = {};
@@ -47,7 +93,8 @@ $(function() {
             action = $(this).data('action'),
             $figure = $(this).closest('figure');
 
-        control = controls[action] || new Control($(this), $figure);
+        let cls = getControlClass(action);
+        control = controls[action] || new cls($(this), $figure);
         control.toggle();
         return false;
     });
