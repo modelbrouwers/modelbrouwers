@@ -26,6 +26,7 @@ class Photo extends Model {
     }
 
     rotate(direction) {
+        // var endpoint = this.constructor.route('rotate', this); or something
         var endpoint = Photo._meta.endpoints.rotate.replace(':id', this.id);
         return Api.request(endpoint, {direction: direction})
                   .patch()

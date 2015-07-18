@@ -1,12 +1,15 @@
-from django.core.exceptions import ImproperlyConfigured
-
 import shutil
 import os
+
+from django.core.exceptions import ImproperlyConfigured
 
 try:  # PIL
     import Image
 except ImportError:  # Pillow 2.3.0
     from PIL import Image
+
+from sorl.thumbnail import delete as thumb_delete
+
 
 ORIGINALS_FOLDER_NAME = 'originals'
 
@@ -20,6 +23,9 @@ def rotate_img(image_field, degrees=90):
     then transformed and overwritten with PIL.
     """
     copy_original_photo(image_field.path)
+
+    # update the KV store
+    thumb_delete(image_field, delete_file=False)
 
     img = Image.open(image_field.path)
     img = img.rotate(degrees)

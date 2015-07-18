@@ -57,7 +57,7 @@ class RotateControl extends Control {
             return photo.rotate(this.direction);
         }).done(photo => {
             let img = new Image();
-            img.src = photo.image.large;
+            img.src = '{0}?cache_bust={1}'.format(photo.image.large, new Date().getTime());
             this.target.find('img').attr('src', img.src);
             this.deactivate();  // removes the highlighting
         });
