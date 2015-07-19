@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-18 21:33+0200\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
 "PO-Revision-Date: 2014-05-29 21:57+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: Nederlands <LL@li.org>\n"
@@ -19,74 +19,78 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
+#: apps.py:7
+msgid "Banning"
+msgstr ""
+
 #: models.py:17
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:19
+#: models.py:18
 msgid "ip"
 msgstr "ip-adres"
 
-#: models.py:20
+#: models.py:19
 msgid "Ip address to ban."
 msgstr "IP-adres om te verbannen."
 
-#: models.py:24
+#: models.py:21
 msgid "expiry date"
 msgstr "vervaldatum"
 
-#: models.py:26
+#: models.py:23
 msgid "Date the ban expires. Leave blank for permabans."
 msgstr ""
 "Datum waarop de ban vervalt. Laat leeg om permanente bans in te steken."
 
-#: models.py:28
+#: models.py:25
 msgid "reason (internal)"
 msgstr "reden (intern)"
 
-#: models.py:30
+#: models.py:27
 msgid "reason"
 msgstr "reden"
 
-#: models.py:31
+#: models.py:28
 msgid "This reason will be shown to the banned user."
 msgstr "Deze reden is zichtbaar voor de verbannen gebruiker."
 
-#: models.py:33
+#: models.py:30
 msgid "automatically created?"
 msgstr "automatisch aangemaakt?"
 
-#: models.py:36
+#: models.py:33
 msgid "ban"
 msgstr "verbanning"
 
-#: models.py:37
+#: models.py:34
 msgid "bans"
 msgstr "verbanningen"
 
-#: models.py:42
+#: models.py:39
 msgid "never"
 msgstr "nooit"
 
-#: models.py:48
+#: models.py:45
 msgid "ip ban"
 msgstr "IP-verbanning"
 
-#: models.py:49
+#: models.py:46
 msgid "account ban"
 msgstr "accountverbanning"
 
-#: models.py:53
+#: models.py:50
 #, python-format
 msgid "Ban: %(username)s"
 msgstr "Verbanning: %(username)s"
 
-#: models.py:55
+#: models.py:52
 #, python-format
 msgid "Ban: %(ip)s"
 msgstr "Verbanning: %(ip)s"
 
-#: models.py:60
+#: models.py:57
 msgid "Submit either an user or IP address."
 msgstr "Geef ofwel een gebruiker in, ofwel een IP-adres"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-18 21:33+0200\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
 "PO-Revision-Date: 2015-02-15 00:26+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,19 +133,12 @@ msgstr ""
 msgid "logged in as <a href=\"%(profile_url)s\">%(user)s</a>"
 msgstr "ingelogd als <a href=\"%(profile_url)s\">%(user)s</a>"
 
-#: templates/default.form:23
-msgid "The form contains errors"
-msgstr "Het formulier bevat fouten"
-
-#: templates/form_in_table.html:35 templates/form_in_table_rows.html:19
-msgid "Fix the error:"
-msgstr "Los het probleem op:"
-
-#: templates/horizontal.form:91
+#: templates/default.form:136 templates/horizontal.form:91
 msgid "Pick an option"
 msgstr "Kies een optie"
 
-#: templates/horizontal.form:158 templates/stacked.form:55
+#: templates/default.form:203 templates/horizontal.form:158
+#: templates/stacked.form:55
 #, python-format
 msgid ""
 "\n"
@@ -154,6 +147,26 @@ msgid ""
 msgstr ""
 "\n"
 "Huidige: <a href=\"%(url)s\">%(url)s</a>"
+
+#: templates/default.form:238
+msgid "The form contains errors"
+msgstr "Het formulier bevat fouten"
+
+#: templates/default.form:250
+msgid "Submit"
+msgstr ""
+
+#: templates/form_in_table.html:35 templates/form_in_table_rows.html:19
+msgid "Fix the error:"
+msgstr "Los het probleem op:"
+
+#: templates/includes/pagination.html:6
+msgid "Previous"
+msgstr ""
+
+#: templates/includes/pagination.html:22
+msgid "Next"
+msgstr ""
 
 #: templates/nav_tabs_text.html:12
 msgid "Visit the homepage!"

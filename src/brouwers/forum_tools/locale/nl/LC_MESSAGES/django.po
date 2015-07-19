@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-18 21:33+0200\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
 "PO-Revision-Date: 2015-02-10 19:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,35 +220,35 @@ msgstr "forum postcount beperkingen"
 msgid "Restriction for %(forum)s"
 msgstr "Beperking voor %(forum)s"
 
-#: models.py:241
+#: models.py:240
 msgid "closed"
 msgstr "gesloten"
 
-#: models.py:242
+#: models.py:241
 msgid "Closed reports need no more attention."
 msgstr "Gesloten reports hebben geen aandacht meer nodig."
 
-#: models.py:245
+#: models.py:244
 msgid "time"
 msgstr "tijd"
 
-#: models.py:246
+#: models.py:245
 msgid "UNIX time when the report was added."
 msgstr "Unix tijdsstempel waarop het report toegevoegd werd."
 
-#: models.py:252
+#: models.py:251
 msgid "report"
 msgstr "report"
 
-#: models.py:253
+#: models.py:252
 msgid "reports"
 msgstr "reports"
 
-#: models.py:256
+#: models.py:255
 msgid "Can see (number of) open reports"
 msgstr "Kan (het aantal) open reports zien"
 
-#: models.py:260
+#: models.py:259
 #, python-format
 msgid "Report %(id)s"
 msgstr "Report %(id)s"
