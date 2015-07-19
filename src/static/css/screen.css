@@ -1295,6 +1295,16 @@ body.albums.photo-detail .photo figure.rotate-180 img {
 body.albums.photo-detail .photo footer {
   margin-top: 15px;
 }
+/* line 345, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+/* line 348, ../../sass/partials/apps/_albums.scss */
+body.albums.photo-detail .modal-backdrop .fa-spinner {
+  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+  animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+  line-height: 100vh;
+}
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {

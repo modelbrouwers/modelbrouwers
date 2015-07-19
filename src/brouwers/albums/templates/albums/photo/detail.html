@@ -23,6 +23,10 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
 
 
 {% block content %}
+<div class="modal-backdrop text-center hidden">
+    <i class="fa fa-pulse fa-spinner fa-4x"></i>
+</div>
+
 <article class="photo">
     <figure data-id="{{ photo.id }}">
         {% thumbnail photo.image "1280x1280" as im %}

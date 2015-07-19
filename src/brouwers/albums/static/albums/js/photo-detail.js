@@ -50,6 +50,7 @@ class RotateControl extends Control {
 
     activate() {
         this.node.addClass('active');
+        $('.modal-backdrop').removeClass('hidden');
 
         let id = this.target.data('id');
 
@@ -65,6 +66,7 @@ class RotateControl extends Control {
 
     deactivate() {
         this.node.removeClass('active');
+        $('.modal-backdrop').addClass('hidden');
     };
 }
 

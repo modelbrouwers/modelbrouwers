@@ -341,4 +341,13 @@ body.albums.photo-detail {
       margin-top: 15px;
     }
   }
+
+  .modal-backdrop {
+    background-color: rgba(black, 0.75);
+
+    .fa-spinner {
+      @include spinner();
+      line-height: 100vh;
+    }
+  }
 }
