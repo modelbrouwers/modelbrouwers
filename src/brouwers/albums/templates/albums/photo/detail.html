@@ -1,4 +1,4 @@
-{% extends "albums/base.html" %}{% load i18n staticfiles thumbnail sniplates %}
+{% extends "albums/base.html" %}{% load i18n staticfiles thumbnail sniplates system_tags %}
 
 {% block body-class %}{{ block.super }} photo-detail{% endblock %}
 
@@ -92,5 +92,5 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
     {{ block.super }}
     {% load_widgets js='sniplates/js.html' %}
     {% widget 'js:systemjs-base' %}
-    <script>System.import('albums/js/photo-detail');</script>
+    {% systemjs_import 'albums/js/photo-detail' %}
 {% endblock %}

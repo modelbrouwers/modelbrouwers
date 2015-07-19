@@ -70,7 +70,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['patch'])
     def rotate(self, request, *args, **kwargs):
         photo = self.get_object()
-        direction = request.DATA.get('direction')
+        direction = request.data.get('direction')
         if direction not in ['cw', 'ccw']:
             raise ValidationError('The direction must be set to \'cw\' or \'ccw\'')
         degrees = -90 if direction == 'cw' else 90
