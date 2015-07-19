@@ -133,11 +133,10 @@ class PhotoDetailView(DetailView):
     def get_queryset(self):  # TODO: test
         qs = super(PhotoDetailView, self).get_queryset()
         user = self.request.user
-        if not user.is_authenticated():
-            qs = qs.filter(album__public=True)
-        else:
-            qs = qs.filter(Q(user=user) | Q(album__albumgroup__users=user))
-        return qs
+        q = Q(album__public=True)
+        if user.is_authenticated():
+            q |= Q(user=user) | Q(album__albumgroup__users=user)
+        return qs.filter(q)
 
     def get(self, request, *args, **kwargs):
         obj = self.get_object()
