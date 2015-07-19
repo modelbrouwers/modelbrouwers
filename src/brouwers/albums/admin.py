@@ -6,8 +6,8 @@ from models import *
 class AlbumAdmin(admin.ModelAdmin):
     list_display = ('user', 'title', 'clean_title', 'last_upload', 'created', 'public', 'writable_to', 'order')
     list_editable = ('title', 'clean_title', 'public', 'order')
-    list_filter = ('user', 'public', 'writable_to', 'created', 'trash')
-    search_fields = ('title', 'description')
+    list_filter = ('public', 'writable_to', 'created', 'trash')
+    search_fields = ('=id', 'title', 'description')
     raw_id_fields = ('user', 'cover')
 
 
@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('user', 'album', 'views', 'uploaded')
-    list_filter = ('user', 'album')
+    list_filter = ('album', 'uploaded')
     raw_id_fields = ('user', 'album')
 
 
