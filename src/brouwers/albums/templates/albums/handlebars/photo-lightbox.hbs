@@ -1,0 +1,34 @@
+{% load i18n handlebars %}
+{% hbs_verbatim %}
+<div class="modal-body">
+
+  <div id="carousel-photo" class="carousel slide" data-ride="carousel" data-interval="false">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      {{#each photos}}
+        <li data-target="#carousel-photo" data-slide-to="{{@index}}" {{#if state.selected}}class="active"{{/if}}></li>
+      {{/each}}
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      {{#each photos}}
+      <div class="item {{#if state.selected}}active{{/if}}" data-slide-number="{{@index}}">
+        <img src="{{image.large}}" class="img-responsive" alt="">
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-photo" role="button" data-slide="prev">
+      <span class="fa fa-3x fa-chevron-circle-left" aria-hidden="true"></span>
+      <span class="sr-only">{% trans 'Previous' %}</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-photo" role="button" data-slide="next">
+      <span class="fa fa-3x fa-chevron-circle-right" aria-hidden="true"></span>
+      <span class="sr-only">{% trans 'Next' %}</span>
+    </a>
+  </div>
+
+</div>
+{% hbs_endverbatim %}

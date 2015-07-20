@@ -7,6 +7,7 @@ from ..models import Forum
 from .custom_fields.models import MyModel
 from .factory_models import ForumFactory, TopicFactory
 
+
 class FormFieldTests(SimpleTestCase):
 
     def setUp(self):
@@ -63,9 +64,9 @@ class FormFieldTests(SimpleTestCase):
 class ModelFieldTests(TestCase):
 
     def setUp(self):
-        self.forum = ForumFactory()
-        self.topic1 = TopicFactory()
-        self.topic2 = TopicFactory(forum=self.forum)
+        self.forum = ForumFactory.create()
+        self.topic1 = TopicFactory.create()
+        self.topic2 = TopicFactory.create(forum=self.forum)
 
         max_forum = Forum.objects.values_list('pk', flat=True).order_by('-pk')[0]
 
@@ -105,4 +106,3 @@ class ModelFieldTests(TestCase):
         self.mm3.topic = 100
         self.mm3.save()
         self.assertEqual(self.mm3.topic_id, 100)
-

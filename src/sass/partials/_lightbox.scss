@@ -1,0 +1,51 @@
+/* Lightbox */
+$lightbox-height: 90vh;
+$lightbox-margin: (100vh - $lightbox-height)/2;
+
+.lightbox {
+
+  .modal-dialog {
+    width: 75vw;
+    padding: 0;
+  }
+
+  .modal-content {
+    @include border-radius(0);
+    height: $lightbox-height;
+    margin-top: $lightbox-margin;
+    margin-bottom: $lightbox-margin;
+  }
+
+  .modal-content > * {
+    padding: 0;
+    border: none;
+    max-height: 100%;
+  }
+
+  .fa-spinner {
+    line-height: $lightbox-height;
+    @include opacity(0.75);
+    @include spinner();
+  }
+
+  .carousel {
+    background-color: rgba($black, 0.95);
+    padding: $lightbox-margin/2 0;
+  }
+
+  .item {
+    text-align: center;
+    height: $lightbox-height - $lightbox-margin;
+
+    img {
+      max-height: 100%;
+      margin: 0 auto;
+      padding: 5px;
+    }
+  }
+
+  .carousel-control {
+    line-height: $lightbox-height;
+  }
+
+}

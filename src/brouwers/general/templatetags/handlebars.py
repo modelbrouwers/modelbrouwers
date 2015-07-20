@@ -1,10 +1,14 @@
 from django.conf import settings
 from django import template
-from django.template.base import TemplateSyntaxError, TextNode
+from django.template.base import (
+    TemplateSyntaxError, TextNode,
+    TOKEN_VAR, TOKEN_BLOCK, TOKEN_TEXT
+)
 from django.template.loader_tags import BlockNode
 
 
 register = template.Library()
+
 
 @register.simple_tag
 def handlebars_js():
@@ -49,14 +53,14 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
         #     parser.extend_nodelist(nodelist, var_node, token)
         #     import pdb; pdb.set_trace()
 
-        if token.token_type == template.TOKEN_VAR:
+        if token.token_type == TOKEN_VAR:
             parser.extend_nodelist(nodelist, TextNode('{{'), token)
             parser.extend_nodelist(nodelist, TextNode(token.contents), token)
 
-        elif token.token_type == template.TOKEN_TEXT:
+        elif token.token_type == TOKEN_TEXT:
             parser.extend_nodelist(nodelist, TextNode(token.contents), token)
 
-        elif token.token_type == template.TOKEN_BLOCK:
+        elif token.token_type == TOKEN_BLOCK:
             try:
                 command = token.contents.split()[0]
             except IndexError:
@@ -73,7 +77,7 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
                     raise
             parser.extend_nodelist(nodelist, node, token)
 
-        if token.token_type == template.TOKEN_VAR:
+        if token.token_type == TOKEN_VAR:
             parser.extend_nodelist(nodelist, TextNode('}}'), token)
     return nodelist
 

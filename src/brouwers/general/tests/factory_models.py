@@ -4,13 +4,15 @@ from ..models import RegistrationQuestion, QuestionAnswer
 
 
 class QuestionAnswerFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = QuestionAnswer
+    class Meta:
+        model = QuestionAnswer
 
     answer = 'answer'
 
 
 class RegistrationQuestionFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = RegistrationQuestion
+    class Meta:
+        model = RegistrationQuestion
 
     question = factory.Sequence(lambda n: 'Question {n}'.format(n=n))
     in_use = True

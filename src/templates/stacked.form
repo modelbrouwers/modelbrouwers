@@ -1,5 +1,5 @@
 {% extends "default.form" %}
-{% load i18n formulation forum_tools %}
+{% load i18n sniplates forum_tools %}
 
 
 {% block _label %}
@@ -13,7 +13,7 @@
 
 {% block input %}
 <div class="form-group">
-    {% use "_label" %}
+    {% reuse "_label" %}
     <div>
         {% if help_text %}<div class="input-group">{% endif %}
         {% with field_type=field_type|default:"text" %}
@@ -22,15 +22,15 @@
             id="{{ id }}"
             value="{{ value|default:"" }}"
             class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
-            {{ widget.attrs|flat_attrs }}
+            {{ widget.attrs|flatattrs }}
             {{ required|yesno:"required," }}
             {{ autofocus|yesno:"autofocus," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
         >
         {% endwith %}
-        {% use "_help" %}
+        {% reuse "_help" %}
         {% if help_text %}</div>{% endif %}
-        {% use "_errors" %}
+        {% reuse "_errors" %}
     </div>
 </div>
 {% endblock %}
@@ -38,7 +38,7 @@
 
 {% block ForumToolsIDFieldWidget %}
 <div class="form-group">
-    {% use "_label" %}
+    {% reuse "_label" %}
     <div>
         {% if help_text %}<div class="input-group">{% endif %}
         <input type="text"
@@ -46,7 +46,7 @@
             id="{{ id }}"
             value="{{ widget|idfield_url:value|default:"" }}"
             class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
-            {{ widget.attrs|flat_attrs }}
+            {{ widget.attrs|flatattrs }}
             {{ required|yesno:"required," }}
             {{ autofocus|yesno:"autofocus," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
@@ -56,9 +56,9 @@
                 Current: <a href="{{ url }}">{{ url }}</a>
             {% endblocktrans %}
         {% endif %}
-        {% use "_help" %}
+        {% reuse "_help" %}
         {% if help_text %}</div>{% endif %}
-        {% use "_errors" %}
+        {% reuse "_errors" %}
     </div>
 </div>
 {% endblock %}

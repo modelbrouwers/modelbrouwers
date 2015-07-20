@@ -1,0 +1,41 @@
+{% load i18n handlebars %}
+{% hbs_verbatim %}
+
+<div id="photo-sidebar" class="closed box-sizing">
+    <div class="pull-right open-close" data-close="#photo-sidebar">
+        <i class="fa fa-times fa-2x"></i>
+    </div>
+
+    <div>
+
+        <section>
+            <h2>{% trans "Albums" %}</h2>
+
+            <select name="album">
+                {{#each albums}}
+                    <option value="{{id}}">{{title}}</option>
+                {{/each}}
+            </select>
+        </section>
+
+        <section>
+            <h2>{% trans "Photos" %}</h2>
+            <div id="photo-list-container">
+                <div class="text-center" id="image-loader">
+                    <i class="fa fa-pulse fa-spinner fa-4x"></i>
+                </div>
+                <ul id="photo-list"></ul>
+            </div>
+
+            <div id="photo-list-pagination"></div>
+        </section>
+
+    </div>
+
+</div>
+
+<div class="lid open-close" data-open="#photo-sidebar">
+    <i class="fa fa-camera fa-rotate-270 fa-2x"></i>
+</div>
+
+{% hbs_endverbatim %}

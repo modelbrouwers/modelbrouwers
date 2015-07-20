@@ -1,13 +1,15 @@
 var rotation = 0;
 
-$(document).ready(function(){
+$(function() {
     $('td.help_text div').hide(); // hide the help texts
 
     $('img').tooltip({
         track: true
     });
 
-    $('input.date').datepicker();
+    if ($.fn.datepicker) {
+        $('input.date').datepicker();
+    }
 });
 
 function showHelp(e){
@@ -71,3 +73,13 @@ $.ajaxSetup({
         }
     }
 });
+
+/* Implement a string formatter */
+if (!String.prototype.format) {
+    String.prototype.format = function() {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function(match, number) {
+            return typeof args[number] != 'undefined'? args[number] : match ;
+        });
+    };
+}

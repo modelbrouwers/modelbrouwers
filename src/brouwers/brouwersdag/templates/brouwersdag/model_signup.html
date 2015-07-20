@@ -1,5 +1,5 @@
 {% extends "brouwersdag/base.html" %}
-{% load i18n formulation %}
+{% load i18n sniplates %}
 
 
 {% block eye-catcher %}
@@ -30,22 +30,24 @@
 
     <div class="row">
         <div class="col-sm-8">
-            {% form 'horizontal.form' %}
+            <h1 class="text-primary">
+                {% blocktrans with year=brouwersdag.date.year %}Brouwersdag {{ year }}{% endblocktrans %}
+                <small>{% trans "Time to do your models sign-up!" %}</small>
+            </h1>
+
+            <p class="text-muted">
+                {% trans "If you want to display multiple models, just fill in the form again for each extra model." %}
+            </p>
+
+            {% load_widgets form='horizontal.form' %}
+
             <form action="." method="post" class="form-horizontal" role="form">
                 {% csrf_token %}
 
-                {{ form.errors }}
-
-                {% if form.non_field_errors %}
-                <ul class="errorlist">
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
+                {% widget 'form:non_field_errors' %}
 
                 {% for field in form %}
-                    {% field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
+                    {% form_field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
                 {% endfor %}
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
@@ -53,7 +55,6 @@
                     </div>
                 </div>
             </form>
-            {% endform %}
         </div>
 
         <div class="col-sm-4">

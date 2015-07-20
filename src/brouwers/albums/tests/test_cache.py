@@ -11,7 +11,7 @@ class CacheTests(TestCase):
         cache.clear()
 
     def test_preferences_cache(self):
-        user = UserFactory()
+        user = UserFactory.create()
 
         # log the user in
         self.client.login(username=user.username, password='password')
@@ -24,7 +24,7 @@ class CacheTests(TestCase):
         self.assertIsNone(prefs)
 
         # ok, get the preferences now
-        prefs = Preferences.get_or_create(user=user)
+        prefs = Preferences.objects.get_for(user)
         self.assertTrue(isinstance(prefs, dict))
 
         cached_prefs = cache.get(cache_key)

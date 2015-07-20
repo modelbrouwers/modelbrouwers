@@ -1,28 +1,37 @@
-django-choices==1.3
-Django==1.7.8  # django-choices pulls in Django 1.8
+# Common packages
 Pillow==2.4.0
-django-extensions==1.5.2
-django-tastypie==0.9.15
 mimeparse==0.1.3
 python-dateutil==2.4.2
-git+https://github.com/modelbrouwers/django-login-for-phpbb.git@1.0.4#egg=sessionprofile-1.0.4
+python-Levenshtein==0.12.0
+pytz<=2020.12
 six==1.9.0
 sqlparse==0.1.14
 wsgiref==0.1.2
-django-compressor==1.4
-factory_boy==2.3.1
-formulation==2.0.13
-# git+https://github.com/sergei-maertens/formulation.git@patch/fix-too-aggressive-force_text
-djangorestframework==2.4.3
-mock==1.0.1
-sorl-thumbnail==12.2
-django-rosetta==0.7.4
+
+# Django packages
+django-choices==1.3
+Django==1.8.3
+django-admin-tools==0.6.0
 django-autoslug==1.7.2
-django-precise-bbcode==0.4.2
-WeasyPrint==0.22
-BeautifulSoup
-django-admin-tools==0.5.2
-bleach==1.4
-pytz<=2015.12
+django-compressor==1.5
+django-extensions==1.5.2
 django-extra-views==0.6.5
-python-Levenshtein==0.12.0
+django-precise-bbcode==1.0.9
+django-rosetta==0.7.6
+django-sendfile==0.3.7
+django-sessionprofile==0.1.1
+django-systemjs==0.2.1
+sorl-thumbnail==12.3
+git+https://github.com/sergei-maertens/django-sniplates.git@feature/19-fix-field_data-display#egg=django-sniplates
+
+# API
+djangorestframework==3.1.2
+djangorestframework-filters==0.3.0
+django-tastypie==0.9.15
+
+# Html parsing
+BeautifulSoup
+bleach==1.4
+
+# Misc
+WeasyPrint==0.22

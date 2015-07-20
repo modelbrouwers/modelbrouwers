@@ -1,7 +1,4 @@
 -r base.txt
+-r test.txt
 
-freezegun==0.2.2
-django-debug-toolbar==0.10.2
-webtest
-django-webtest
-coverage
+django-debug-toolbar==1.3.0

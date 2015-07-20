@@ -206,11 +206,10 @@ class PasswordResetForm(forms.Form):
         queryset=User.objects.filter(is_active=True),
         widget=forms.HiddenInput
     )
-    password1 = forms.CharField(label=_("Password"),
-        widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_("Password confirmation"),
-        widget=forms.PasswordInput,
-        help_text = _("Enter the same password as above, for verification."))
+    password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label=_("Password confirmation"), widget=forms.PasswordInput,
+        help_text=_("Enter the same password as above, for verification."))
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
@@ -236,6 +235,6 @@ class RedirectForm(forms.Form):
 
     def clean_next(self):
         path = self.cleaned_data.get('next')
-        if path and not ' ' in path:
+        if path and ' ' not in path:
             return path
         return settings.LOGIN_REDIRECT_URL

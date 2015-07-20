@@ -1,0 +1,43 @@
+{% load i18n thumbnail %}
+<h2>{% trans "Some awards winners" %}</h2>
+<div id="awards-carousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        {% for project in awards_winners %}
+        <li data-target="#awards-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        {% for project in awards_winners %}
+        <div class="item active">
+            {% if project.image %}
+                {% thumbnail project.image "600x200" crop="center" as im %}
+                    <img src="{{ im.url }}" class="img-responsive">
+                {% endthumbnail %}
+            {% else %}
+                <img src="{% static "images/thumb.png" %}" class="img-responsive">
+            {% endif %}
+            <div class="carousel-caption">
+                <h1>{{ project.name }}</h1>
+                <div>
+                    {% blocktrans with builder=project.brouwer category=project.category.name %}
+                    Built by &lsquo;{{ builder }}&rsquo;, this project won first place in the category &lsquo;{{ category }}&rsquo;.
+                    {% endblocktrans %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#awards-carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">{% trans "Previous" %}</span>
+    </a>
+    <a class="right carousel-control" href="#awards-carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">{% trans "Next" %}</span>
+    </a>
+</div>

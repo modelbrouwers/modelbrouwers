@@ -20,6 +20,7 @@ Modelbrouwers.nl is a scale modelling community. We couple a phpBB3 board with
 custom developed apps in `Django`_:
 
 * Album software, integrated with the board
+* Groupbuilds managed and integrated in the board
 * Awards, allowing nomination and voting of topics
 * Secret Santa app
 * Builds overview, add your build topic with metadata to a personal database.
@@ -32,13 +33,12 @@ Setting up the development environment
 **************************************
 
 For new developers, setting up the environment can be overwhelming at first. Don't
-hesitate to contact BBT on the Modelbrouwers.nl IRC chat.
+hesitate to contact BBT on the Modelbrouwers.nl IRC chat or forum itself.
 
 Installing ``Python``
 =====================
-Python is the programming language Django is written in.
-Python 2.6 is the minimum required Python version, but 2.7 is recommended,
-as the server runs this version.
+Python is the programming language Django is written in, you'll need at least
+version 2.7. Python 3.x is untested.
 
 On Windows, get Python 2.7 here: `Python installer`_.
 
@@ -77,19 +77,28 @@ You only need to do this once to configure the project environment.
 
 Start with creating a virtualenv::
 
-    [user@host]$ mkvirtualenv brouwers
+    $ mkvirtualenv brouwers
+
+Or with regular ``virtualenv``::
+
+    $ virtualenv myenv
 
 And activate it::
 
-    [user@host]$ workon brouwers
+    $ workon brouwers
+
+(regular virtualenv, Linux/OSX)::
+
+    $ source myenv/bin/activate
 
 ``cd`` to your project folder, e.g.::
 
-    (brouwers)[user@host]$ cd C:\User\my-user\brouwers
+    $ cd /home/me/code
 
-Clone the repository with your favorite tool, e.g. on the commandline::
+Fork the repository on GitHub (button is above) and clone the fork with your
+favorite tool, e.g. on the commandline::
 
-    (brouwers)[user@host]$ git clone https://github.com/modelbrouwers/modelbrouwers.git C:\User\my-user\brouwers
+    $ git clone https://github.com/<my-github-account>/modelbrouwers.git
 
 or use the Windows Git client (recommended for inexperienced users)
 
@@ -98,52 +107,48 @@ Installing ``django`` and the project dependencies
 ==================================================
 All dependencies are in the `requirements` folder, grouped by the environment type (development, staging, production). Install with::
 
-    (brouwers)[user@host]$ pip install -r requirements/development.txt
+    $ pip install -r requirements/development.txt
 
 These will be installed in your virtualenv.
 
 Create the settings
 ===================
-The settings follow a more logical approach and live in brouwers/brouwers/settings.
-The base file is base.py, and is included by the settings_development for instance.
-For security reasons, passwords and secret keys should live in a secrets.py file on the same level as base.py
-You can copy secrets.py_example to secrets.py and edit the file::
 
-    (brouwers)[user@host]$ cd C:\User\my-user\brouwers\brouwers\settings
-    (brouwers)[user@host]$ cp secrets.py_example secrets.py
+You need some settings to get the project up. For security reasons, sensitive
+data lives in ``secrets.py``
+
+Copy ``src/conf/secrets.py_example`` to ``secrets.py``.
 
 Edit secrets.py to include your own settings. You can generate a secret key here: `SecretKey`_.
 
 .. _SecretKey: http://www.miniwebtool.com/django-secret-key-generator/
 
-All available database backends are in the example file, for local development it's easiest if
-everything is changed to sqlite3 (like the DATABASES['sqlite3'] example). You need at least the 'default' database.
-If you're browsing through phpBB3 tables, you also need the 'mysql' database.
+The base file is base.py, and is included by ``settings/development.py`` for instance.
 
-In production the Django tables live in a postgresql database, while the phpBB3 tables live in MySQL. Replicating this
-environment is probably the most robust during development.
+
+All available database backends are in the example file, for local development
+it's easiest if everything is changed to sqlite3 (like the
+``DATABASES['sqlite3']`` example). Both the 'default' and 'mysql' database must
+be present.
+
+In production the Django tables live in a postgresql database, while the phpBB3
+tables live in MySQL. Replicating this environment is probably the most robust
+during development.
 
 
 Creating the database
 =====================
 Run::
 
-    (brouwers)[user@host]$ python manage.py syncdb --migrate
+    $ python src/manage.py migrate
 
-This creates the database and runs all required migrations.
-
-Load the testdata by executing::
-
-    (brouwers)[user@host]$ python manage.py loaddata testdata.json
-
-Be advised - the testdata.json fixture can be stale.
-If it fails, give BBT a heads-up to fix it. You don't really need it, but it is practical.
+This creates the database if you're running sqlite and runs all required migrations.
 
 Finally, create a superuser account::
 
-    (brouwers)[user@host]$ python manage.py createsuperuser
+    $ python src/manage.py createsuperuser
 
-Fill out the prompts. You now have a user with all access.
+Fill out the prompts. You now have a user with all permissions.
 
 Starting the development server
 ===============================
@@ -152,14 +157,30 @@ Django comes with a development server included.
 
 Start it by invoking::
 
-    (brouwers)[user@host]$ python manage.py runserver
+    $ python src/manage.py runserver
 
 Point your browser to http://127.0.0.1:8000. You should see a homepage.
 
 Setting up local ``phpBB3``-installation
 ========================================
-(TODO)
+We're currently on the 3.0.x branch. The 3.1.x versions have major backwards
+incompatible changes that our code needs adoption for.
+
+To install phpBB3, you'll need a full fledged PHP stack with a (MySQL) database.
+
+Download the installer from here: `phpBB3install`_ and follow the instructions.
+
+.. _phpBB3install: https://www.phpbb.com/downloads/3.0/
 
 Tests
 =====
-Run the tests
+Run all tests by executing::
+
+    $ python src/manage.py test src
+
+
+Thanks
+======
+Thanks to `browserstack`_ to make cross browser testing a breeze.
+
+.. _browsersstdack: https://www.browserstack.com

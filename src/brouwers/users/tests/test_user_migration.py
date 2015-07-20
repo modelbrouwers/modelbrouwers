@@ -76,7 +76,7 @@ class UserActivationFlowTestCase(TestCase):
 
         # check that the user is logged in
         user_id = self.client.session.get(SESSION_KEY)
-        self.assertEqual(user.id, user_id)
+        self.assertEqual(user.id, int(user_id))
 
         self.assertRedirects(response, dest)
 

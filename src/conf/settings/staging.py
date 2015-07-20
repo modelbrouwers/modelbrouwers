@@ -33,3 +33,16 @@ CACHES['default']['KEY_PREFIX'] = 'staging'
 INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
 )
+
+ALLOWED_HOSTS = ['staging.modelbrouwers.nl', '192.168.1.10']
+
+#
+# TEMPLATES
+#
+TEMPLATES[0]['APP_DIRS'] = False  # conflicts with explicitly specifying the loaders
+TEMPLATES[0]['OPTIONS']['loaders'] = [
+    ('django.template.loaders.cached.Loader', [
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    ]),
+]

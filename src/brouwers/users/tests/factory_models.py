@@ -1,12 +1,6 @@
-import factory
+import warnings
 
-from ..models import User
+from .factories import *
 
-
-class UserFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = User
-
-    username = factory.Sequence(lambda n: 'User {0}'.format(n))
-    password = factory.PostGenerationMethodCall('set_password', 'password')
-    email = factory.Sequence(lambda n: 'user-{0}@gmail.com'.format(n))
-    is_active = True
+warnings.warn('Import from users.tests.factories, the factory_models '
+              'module will be removed', PendingDeprecationWarning)

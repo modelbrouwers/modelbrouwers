@@ -40,3 +40,16 @@ select:-moz-focusring {
   //Standard
   filter: grayscale(100%);
 }
+
+@mixin center-vertical() {
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+@mixin raised($dp: 1) {
+  @include box-shadow(0 0 $dp*5px 0 rgba($black, 0.4), 0 $dp*5px $dp*7px 0 rgba($black, 0.3));
+}

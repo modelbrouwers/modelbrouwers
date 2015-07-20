@@ -6,16 +6,22 @@
 
 @import "partials/fonts";
 @import "partials/colors";
+@import "partials/vars";
 @import "partials/utils";
 
 @import "partials/base";
 @import "partials/typography";
+@import "partials/mobile";
 @import "partials/header";
 @import "partials/nav";
 @import "partials/footer";
 @import "partials/forms";
 @import "partials/homepage";
 @import "partials/ads";
+@import "partials/pagination";
+@import "partials/spinner";
+@import "partials/lightbox";
 
+@import "partials/apps/albums";
 @import "partials/apps/groupbuilds";
 @import "partials/apps/users";

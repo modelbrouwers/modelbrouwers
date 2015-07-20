@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 import bleach
 from djchoices import DjangoChoices, ChoiceItem
 from autoslug import AutoSlugField
-from precise_bbcode.parser import get_parser
+from precise_bbcode import render_bbcodes
 
 from brouwers.forum_tools.models import ForumCategory
 from brouwers.forum_tools.fields import ForumToolsIDField
@@ -81,7 +81,7 @@ class GroupBuild(models.Model):
 
     # participants management
     participants = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, blank=True, null=True,
+        settings.AUTH_USER_MODEL, blank=True,
         through='Participant', related_name='groupbuilds')
 
     # optional 'experience enhancing' fields
@@ -219,9 +219,7 @@ class GroupBuild(models.Model):
         return self._progress
 
     def get_field_rendered(self, field):
-        parser = get_parser()
-        bbcode = getattr(self, field)
-        return parser.render(bbcode)
+        return render_bbcodes(getattr(self, field))
 
     def get_description_rendered(self):
         return self.get_field_rendered('description')

@@ -36,17 +36,19 @@
     <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
 
     <!-- use googles jquery, loads faster and relieves own server -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- fallback -->
     <script type="text/javascript">
         if (typeof jQuery == 'undefined'){
             document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage->url('scripts/jquery.js');<!-- ENDPHP -->' type='text/javascript'%3E%3C/script%3E"));
         }
+        var jQuery = jQuery.noConflict();
+
     </script>
 
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/common.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/screen.css');<!-- ENDPHP -->" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('font-awesome-4.2.0/css/font-awesome.min.css');<!-- ENDPHP -->" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('bower_components/components-font-awesome/css/font-awesome.min.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/jquery-ui-1.10.2.custom.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/forum.css');<!-- ENDPHP -->" charset="utf-8"/>
 
@@ -204,7 +206,7 @@ function marklist(id, name, state)
                             <center>
                                 <div id="announcement"></div>
                                 <script type="text/javascript">
-                                    $.get('/utils/get-announcement', function(response){
+                                    jQuery.get('/utils/get-announcement', function(response){
                                         if (response.html) {
                                             $('#announcement').html(response.html);
                                         }

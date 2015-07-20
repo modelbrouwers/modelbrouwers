@@ -1,9 +1,4 @@
 -r base.txt
+-r test.txt
 
-freezegun==0.2.2
 python-memcached==1.53
-webtest
-django-webtest
-coverage
-coveralls
-codecov

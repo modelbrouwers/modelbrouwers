@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-18 21:33+0200\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
 "PO-Revision-Date: 2014-05-29 21:59+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,15 +138,15 @@ msgstr "Foto voor bouw %(build)s"
 msgid "Provide either an album photo or a link to a photo."
 msgstr "Geef een albumfoto of een link naar een foto op."
 
-#: templates/builds/add.html:19
+#: templates/builds/add.html:18
 msgid "Add a build report"
 msgstr "Voeg een brouwverslag toe"
 
-#: templates/builds/add.html:23 templates/builds/add.html.py:33
+#: templates/builds/add.html:22 templates/builds/add.html.py:32
 msgid "Last 20 builds"
 msgstr "Laatste 20 verslagen"
 
-#: templates/builds/add.html:48
+#: templates/builds/add.html:47
 msgid ""
 "Use this page to link your projects to your profile. Caution, everything you "
 "enter here is public for all visitors!"
@@ -154,15 +154,15 @@ msgstr ""
 "Gebruik deze pagina om je projecten te linken naar je profiel. PAS OP: alles "
 "wat je hier opgeeft is voor alle bezoekers zichtbaar!"
 
-#: templates/builds/add.html:56
+#: templates/builds/add.html:55
 msgid "Save"
 msgstr "Opslaan"
 
-#: templates/builds/add.html:73
+#: templates/builds/add.html:72
 msgid "loading"
 msgstr "laden"
 
-#: templates/builds/add.html:83
+#: templates/builds/add.html:82
 msgid "Sign in to add your own build reports!"
 msgstr "Log in om brouwverslagen toe te voegen!"
 

@@ -9,7 +9,7 @@ MINUTES_FOR_ONLINE = 5
 
 
 class TrackedUser(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
     last_seen = models.DateTimeField(_("last seen online"), auto_now=True)
     tracking_since = models.DateTimeField(auto_now_add=True)
     notificate = models.BooleanField(
@@ -30,7 +30,7 @@ class TrackedUser(models.Model):
     @property
     def is_online(self):
         now = timezone.now()
-        past = now - timedelta(minutes = MINUTES_FOR_ONLINE)
+        past = now - timedelta(minutes=MINUTES_FOR_ONLINE)
         if self.last_seen > past:
             return True
         return False

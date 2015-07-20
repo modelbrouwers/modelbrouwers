@@ -24,11 +24,11 @@ function GetDjangoUser()
 
     $dbSession = GetDBSession();
     $query =
-      "SELECT up.forum_nickname as username, users_user.email as email ".
-      "  FROM users_user, sessionprofile_sessionprofile sp, general_userprofile up" .
-      " WHERE sp.session_id = '" . pg_escape_string($djangoSessionID) . "' " .
-      "   AND users_user.id = sp.user_id
-          AND users_user.id = up.user_id";
+      "SELECT u.username as username, u.email as email ".
+      "  FROM users_user u, sessionprofile_sessionprofile sp" .
+      " WHERE sp.session_key = '" . pg_escape_string($djangoSessionID) . "' " .
+      "   AND u.id = sp.user_id
+          AND u.is_active = True";
     $queryID = pg_query($dbSession, $query);
 
     if (!$queryID)

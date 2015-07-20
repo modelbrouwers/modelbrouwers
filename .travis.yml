@@ -1,3 +1,4 @@
+# http://stackoverflow.com/questions/20127174/how-can-i-update-node-js-and-install-grunt-bower-in-a-python-project-in-travis-c
 language: python
 
 python:
@@ -9,11 +10,17 @@ services:
   # - elasticsearch
 
 env:
-  - DJANGO=django<1.7
+  - DJANGO=django<1.8
 
 install:
-  - pip install --upgrade setuptools --use-mirrors
-  - pip install -r requirements/travis.txt --use-mirrors
+  - pip install --upgrade setuptools
+  - pip install --upgrade pip
+  - pip install -r requirements/travis.txt
+  - sudo add-apt-repository -y ppa:chris-lea/node.js
+  - sudo apt-get -y update
+  - sudo apt-get -y install nodejs
+  - sudo npm --registry http://registry.npmjs.eu/ install -g bower
+  - sudo npm install
 
 matrix:
   allow_failures:
@@ -21,6 +28,7 @@ matrix:
 
 before_script:
   - mkdir log
+  - bower install
 
 script:
   - coverage run src/manage.py test src/ --settings=conf.settings.travis -v 2

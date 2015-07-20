@@ -1,0 +1,6 @@
+@media(max-width: 480px) {
+	* + .pull-right {
+		float: none !important;
+		padding-top: 5px;
+	}
+}

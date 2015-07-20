@@ -95,6 +95,21 @@
 	};
 	hbsHelpers.push({name: 'add', fn: _add});
 
+	var _ifequal = function(lhs, rhs, options) {
+		var equal;
+		if (options.strict) {
+			equal = lhs === rhs;
+		} else {
+			equal = lhs == rhs;
+		}
+		return hbs.helpers['if'].call(this, equal, options);
+	};
+	hbsHelpers.push({name: 'ifequal', fn: _ifequal});
+
+	var _debug = function(ctx, options) {
+		console.log(ctx);
+	};
+	hbsHelpers.push({name: 'debug', fn: _debug});
 
 	/**
 	 * Register the helpers

@@ -1,5 +1,5 @@
 {% extends "base_html5.html" %}
-{% load i18n formulation %}
+{% load i18n sniplates %}
 
 {% block body-class %}users{% endblock %}
 {% block title %}Modelbrouwers.nl &bull; {% trans "login" %}{% endblock %}
@@ -26,15 +26,16 @@
 {% block content %}
 <div class="row">
     <div class="col-xs-12 col-md-7 col-xl-5">
-        <form method="post" action="." class="form-horizontal" id="form-login">{% form 'horizontal.form' %}
+        <form method="post" action="." class="form-horizontal" id="form-login">
+            {% load_widgets form='horizontal.form' %}
             {% csrf_token %}
             {{ redirectform.as_p }}
 
-            {% use 'non_field_errors' %}
+            {% widget 'form:non_field_errors' %}
 
             {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
             {% for field in form %}
-                {% field field %}
+                {% form_field field %}
             {% endfor %}
             {% endwith %}
             <div class="submit-wrapper">
@@ -43,7 +44,7 @@
                     <a href="{% url 'users:pw_reset' %}">{% trans "I forgot my password" %}</a>
                 </p>
             </div>
-        {% endform %}</form>
+        </form>
     </div>
 
     <div class="col-xs-12 col-md-4 col-xl-6 col-md-offset-1 col-xl-offset-1">

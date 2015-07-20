@@ -1,0 +1,44 @@
+{% extends "albums/base.html" %}{% load i18n staticfiles cache thumbnail %}
+
+
+{% block content %}
+<section>
+    <h2>
+        {% trans "Most recently changed albums" %}
+        <i class="pull-right fa fa-folder-open-o"></i>
+    </h2>
+    <div class="row">
+        {% for album in albums %}
+            {% include "albums/includes/album_square.html" %}
+
+            {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>
+        {% trans "Latest uploads" %}
+        <i class="pull-right fa fa-file-image-o"></i>
+    </h2>
+    <div class="row">
+        {% for photo in latest_uploads %}
+            <article class="col-sm-6 col-md-3">
+                <a href="{{ photo.get_absolute_url }}" class="thumbnail">
+                    {% if photo.exists %}
+                        {% thumbnail photo.image "300x225" crop="center" as im %}
+                            <img src="{{ im.url }}" class="img-responsive">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static "images/thumb.png" %}" class="img-responsive">
+                    {% endif %}
+                </a>
+            </article>
+
+            {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+
+{% endblock content %}

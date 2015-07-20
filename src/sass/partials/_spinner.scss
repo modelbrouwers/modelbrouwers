@@ -1,0 +1,46 @@
+@-webkit-keyframes change-color {
+  0% {
+    color: $main-red;
+  }
+  20% {
+    color: $main-green;
+  }
+  40% {
+    color: $main-light-blue;
+  }
+  60% {
+    color: $main-pink;
+  }
+  80% {
+    color: $main-grey;
+  }
+  100% {
+    color: $main-blue;
+  }
+}
+
+@keyframes change-color {
+  0% {
+    color: $main-red;
+  }
+  20% {
+    color: $main-green;
+  }
+  40% {
+    color: $main-light-blue;
+  }
+  60% {
+    color: $main-pink;
+  }
+  80% {
+    color: $main-grey;
+  }
+  100% {
+    color: $main-blue;
+  }
+}
+
+@mixin spinner() {
+  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+          animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+}

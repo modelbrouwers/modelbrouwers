@@ -1,5 +1,4 @@
-from django.conf import settings
-from django.conf.urls import patterns, url, include
+from django.conf.urls import patterns, url
 from .views import ServeHbsTemplateView
 from .ajax_views import AnnouncementView
 
@@ -7,7 +6,7 @@ urlpatterns = patterns(
     'brouwers.general.views',
     url(r'^$', 'index', name='index'),
     url(r'^profile/$', 'profile', name='profile'),
-    url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w]+)/$',
+    url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w\-_]+)/$',
         ServeHbsTemplateView.as_view(),
         name='hbs_template')  # get handlebars templates
 )
@@ -19,12 +18,3 @@ urlpatterns += patterns(
     url(r'^user/search/$',    'search_users'),
     url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
 )
-
-# API
-if 'tastypie' in settings.INSTALLED_APPS:
-    from tastypie.api import Api
-    from brouwers.general.api.resources import UserResource
-
-    v1_api = Api(api_name='legacy')
-    v1_api.register(UserResource())
-    urlpatterns += patterns('', url(r'^api/', include(v1_api.urls)))
