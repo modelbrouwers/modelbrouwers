@@ -1,0 +1,36 @@
+{% extends "albums/base.html" %}{% load i18n staticfiles sniplates %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Create new album" %}
+        <i class="pull-right fa fa-folder-open-o fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        Create a new album here. By default your album is personal and nobody
+        else can upload to your album. You can give out permissions to others to
+        give them access to your albums though.
+    {% endblocktrans %}</p>
+
+{% endblock %}
+
+
+{% block content %}
+<form action="." class="form-horizontal" method="post">
+    {% csrf_token %}
+    {% load_widgets form='albums/albums.form' %}
+    {% with label_grid_offset='col-sm-offset-2' %}
+        {% widget 'form:non_field_errors' %}
+
+        <fieldset class="well">
+            {% for field in form %}
+                {% form_field field %}
+            {% endfor %}
+        </fieldset>
+
+        {% widget 'form:submit' btn_text=btn_text|default:_('Create album') %}
+
+    {% endwith %}
+</form>
+{% endblock %}

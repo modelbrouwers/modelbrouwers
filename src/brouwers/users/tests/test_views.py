@@ -33,7 +33,7 @@ class ProfileTests(WebTest):
             'email': 'foo@bar.com',
             'first_name': 'Foo',
             'last_name': 'Bar',
-            'userprofile_set-0-street': 'StraatFoobar'
+            'userprofile-0-street': 'StraatFoobar'
         }
 
         form = edit_page.forms[0]
@@ -46,4 +46,4 @@ class ProfileTests(WebTest):
         self.assertEqual(user.email, fields['email'])
         self.assertEqual(user.first_name, fields['first_name'])
         self.assertEqual(user.last_name, fields['last_name'])
-        self.assertEqual(user.profile.street, fields['userprofile_set-0-street'])
+        self.assertEqual(user.profile.street, fields['userprofile-0-street'])

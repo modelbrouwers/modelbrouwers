@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, fields
 
 from brouwers.users.api.serializers import UserSerializer
 from brouwers.forum_tools.api.serializers import IDFieldSerializer
@@ -34,16 +34,13 @@ class GroupBuildSerializer(serializers.ModelSerializer):
 
 
 class ParticipantCreateSerializer(serializers.ModelSerializer):
+
+    topic_id = fields.IntegerField(required=True)
+
     class Meta:
         model = Participant
-        fields = ('id', 'groupbuild', 'model_name', 'topic')
+        fields = ('id', 'groupbuild', 'model_name', 'topic_id')
 
     def __init__(self, *args, **kwargs):
         super(ParticipantCreateSerializer, self).__init__(*args, **kwargs)
         self.fields['model_name'].required = True
-        self.fields['topic'].required = True
-
-    def save(self, **kwargs):
-        if kwargs.get('force_insert'):
-            kwargs['force_insert'] = False
-        return super(ParticipantCreateSerializer, self).save(**kwargs)

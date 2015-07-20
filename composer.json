@@ -4,6 +4,10 @@
   "homepage": "http://github.com/modelbrouwers/brouwers",
   "require": {
     "tedivm/jshrink": "~1.0",
+    "symfony/console": "^2.7",
     "raven/raven": "^0.12.0"
+  },
+  "autoload": {
+    "psr-4": {"brouwers\\": "src/phpbb"}
   }
 }

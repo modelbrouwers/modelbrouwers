@@ -30,7 +30,7 @@ class LoggedModel(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
     # awardsinfo
     last_vote = models.DateField(default=date(2010, 1, 1))
     forum_nickname = models.CharField(max_length=30, unique=True)
@@ -38,7 +38,7 @@ class UserProfile(models.Model):
         _("exclude me from nominations"),
         help_text=_("If checked, you will be excluded from Awards-nominations."),
         default=False)
-    categories_voted = models.ManyToManyField(Category, blank=True, null=True)
+    categories_voted = models.ManyToManyField(Category, blank=True)
 
     # No longer used TODO remove
     secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet"), default=False)
@@ -98,7 +98,7 @@ class RegistrationQuestion(models.Model):
     question = models.CharField(
         _('Anti-spambot question'), max_length=255,
         help_text=_("Question which must be answered for registration."))
-    answers = models.ManyToManyField(QuestionAnswer, blank=True, null=True)
+    answers = models.ManyToManyField(QuestionAnswer, blank=True)
     in_use = models.BooleanField(default=True)
 
     objects = models.Manager()
@@ -130,12 +130,13 @@ class RegistrationAttemptManager(models.Manager):
 
 
 class RegistrationAttempt(models.Model):
-    username = models.CharField(_('username'), max_length=512, db_index=True, default='_not_filled_in_') # same as forum_nickname
+    # same as forum_nickname
+    username = models.CharField(_('username'), max_length=512, db_index=True, default='_not_filled_in_')
     email = models.EmailField(_('email'), max_length=255, blank=True)
     question = models.ForeignKey(RegistrationQuestion, verbose_name=_('registration question'))
     answer = models.CharField(_('answer'), max_length=255, blank=True)
     timestamp = models.DateTimeField(_('timestamp'), auto_now_add=True)
-    ip_address = models.IPAddressField(_('IP address'), db_index=True)
+    ip_address = models.GenericIPAddressField(_('IP address'), db_index=True)
     success = models.BooleanField(_('success'), default=False)
 
     # keeping spam out

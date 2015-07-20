@@ -6,11 +6,26 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'cache.php';
 require_once $settings->COMPOSER_AUTOLOADER;
 require_once $settings->PROJECT_DIR . DIRECTORY_SEPARATOR . 'errorhandler.php';
 
-$DEBUG = false;
-
 // initialize the cache
 // $cache = new StaticCache();
 // $cache->init();
+
+class FileSystemStorage
+{
+	public function __construct() {
+		global $settings;
+		$this->static_url = $settings->STATIC_URL;
+		$this->static_root = $settings->STATIC_ROOT;
+	}
+
+	/**
+	 * Get the url to the static file, either from cache or calculate the hashed path.
+	 */
+	public function url($file) {
+		return $this->static_url . $file;
+	}
+}
+
 
 /**
  * This class builds the hashed filenames similar to Django's cached storage.
@@ -20,22 +35,23 @@ $DEBUG = false;
  * Memcached. If the hashed file doesn't exist, return the unchanged URL.
  * Django updates the cached filenames as part of the collectstatic command.
  */
-class CachedFilesStorage
+class CachedFilesStorage extends FileSystemStorage
 {
-	private static $static_root;
-	private static $static_url;
-	private static $cache_key_prefix;
+	protected $static_root;
+	protected $static_url;
+	protected $cache_key_prefix;
+	protected $systemjs_output_dir;
 
 	protected $cache = null;
 	protected $DEBUG;
 
 	public function __construct($cache) {
+		parent::__construct();
 		global $settings;
-		$this->static_url = $settings->STATIC_URL;
 		$this->cache_key_prefix = 'staticfiles:';
-		$this->static_root = $settings->STATIC_ROOT;
 		$this->cache = $cache;
 		$this->DEBUG = (bool) getenv('DEBUG');
+		$this->systemjs_output_dir = $settings->SYSTEMJS_OUTPUT_DIR;
 	}
 
 	protected function get_static_root() {
@@ -48,7 +64,7 @@ class CachedFilesStorage
 
 	protected function get_hashed_name($file) {
 		if($this->DEBUG) return $file;
-		$abs_path = realpath($this->static_root . DIRECTORY_SEPARATOR . $file);
+		$abs_path = realpath($this->get_static_root() . DIRECTORY_SEPARATOR . $file);
 
 		$pathinfo = pathinfo($file);
 		$dirname = $pathinfo['dirname'];
@@ -82,7 +98,35 @@ class CachedFilesStorage
 			$hashed_name = $this->get_hashed_name($file);
 			if(!$this->DEBUG) $this->cache->set($cache_key, $hashed_name);
 		}
-		return $this->static_url . $hashed_name;
+		return $this->get_static_url() . $hashed_name;
+	}
+
+	protected function getBundleScripts($apps) {
+		$imports = '';
+		foreach ($apps as $app) {
+			$filename = $this->systemjs_output_dir . '/' . $app . '.js';
+			$url = $this->url($filename);
+			$imports .= "\n" . "<script type=\"text/javascript\" src=\"{$url}\"></script>";
+		}
+		return $imports;
+	}
+
+	public function system_import($appOrArray) {
+		if (!is_array($appOrArray)) {
+			$apps = array($appOrArray);
+		} else {
+			$apps = $appOrArray;
+		}
+
+		if ($this->DEBUG) {
+			$imports = array_reduce($apps, function($reduced, $app) {
+				$reduced .= "\tSystem.import('{$app}');\n";
+				return $reduced;
+			}, '');
+			return "<script type=\"text/javascript\">\n". $imports . "</script>";
+		} else {
+			return $this->getBundleScripts($apps);
+		}
 	}
 }
 
@@ -142,6 +186,15 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 
 		$url = substr($dest_file, strlen($root)+1);
 		return $this->get_static_url().$url;
+	}
+
+	protected function getBundleScripts($apps) {
+		$filenames = array();
+		foreach ($apps as $app) {
+			$filenames[] = $this->systemjs_output_dir . '/' . $app . '.js';
+		}
+		$combinedUrl = $this->url($filenames, $ext='js');
+		return "<script type=\"text/javascript\" src=\"{$combinedUrl}\"></script>";
 	}
 }
 

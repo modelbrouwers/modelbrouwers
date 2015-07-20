@@ -71,12 +71,5 @@ class ParticipantCreateView(generics.CreateAPIView):
     serializer_class = ParticipantCreateSerializer
     permission_classes = (IsAuthenticated,)
 
-    def get_serializer(self, *args, **kwargs):
-        participant_id = kwargs.get('data', {}).get('id')
-        if participant_id:
-            kwargs['instance'] = Participant.objects.filter(id=participant_id, user=self.request.user).first()
-        return super(ParticipantCreateView, self).get_serializer(*args, **kwargs)
-
-    def pre_save(self, obj):
-        super(ParticipantCreateView, self).pre_save(obj)
-        obj.user = self.request.user
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

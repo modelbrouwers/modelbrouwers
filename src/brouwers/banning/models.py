@@ -15,15 +15,12 @@ class Ban(models.Model):
     # Be carefull, queryset.delete() might not fire signals...
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u'user'), blank=True, null=True)
-    ip = models.IPAddressField(
-        _(u'ip'),
-        help_text = _(u'Ip address to ban.'),
-        blank = True
-        )
+    ip = models.GenericIPAddressField(_(u'ip'), blank=True, null=True,
+                                      help_text=_(u'Ip address to ban.'))
     expiry_date = models.DateTimeField(
         _(u'expiry date'),
-        blank = True, null = True,
-        help_text = _('Date the ban expires. Leave blank for permabans.')
+        blank=True, null=True,
+        help_text=_('Date the ban expires. Leave blank for permabans.')
         )
     reason_internal = models.TextField(_(u'reason (internal)'), blank=True)
     reason = models.TextField(
@@ -50,7 +47,7 @@ class Ban(models.Model):
 
     def __unicode__(self):
         if self.user:
-            return _(u'Ban: %(username)s')  % {'username': get_username(self)}
+            return _(u'Ban: %(username)s') % {'username': get_username(self)}
         else:
             return _(u'Ban: %(ip)s') % {'ip': self.ip}
 
@@ -62,7 +59,7 @@ class Ban(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.ip:
-            self.ip = '0.0.0.0' # bogus ip
+            self.ip = '0.0.0.0'  # bogus ip
         super(Ban, self).save(*args, **kwargs)
 
     @classmethod

@@ -1,0 +1,15 @@
+{% extends "albums/album/create.html" %}{% load i18n %}
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Update album" %}
+        <i class="pull-right fa fa-folder-open-o fa-2x"></i>
+    </h1>
+{% endblock %}
+
+
+{% block content %}
+{% with _('Update album') as btn_text %}
+    {{ block.super }}
+{% endwith %}
+{% endblock %}

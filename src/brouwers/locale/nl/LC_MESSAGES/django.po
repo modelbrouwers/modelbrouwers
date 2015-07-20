@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-20 14:32+0100\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,189 +17,399 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/pagination.html:5
-msgid "First page"
-msgstr "Eerste pagina"
-
-#: templates/pagination.html:25
-msgid "Last page"
-msgstr "Laatste pagina"
-
-#: awards/models.py:12
-msgid "Categorie"
+#: brouwers/dashboard.py:10
+msgid "Control panel"
 msgstr ""
 
-#: awards/models.py:13
-msgid "Categorieën"
+#: brouwers/dashboard.py:20
+msgid "User management"
 msgstr ""
 
-#: awards/models.py:42
-msgid "Nominatie"
+#: brouwers/dashboard.py:34
+msgid "Group builds"
 msgstr ""
 
-#: awards/models.py:43
-msgid "Nominaties"
+#: brouwers/dashboard.py:42
+msgid "Brouwersdag"
 msgstr ""
 
-#: brouwers/settings.py:19
-msgid "English"
-msgstr "Engels"
+#: brouwers/dashboard.py:47
+#, fuzzy
+#| msgid "Migrations"
+msgid "Registrations"
+msgstr "Migraties"
 
-#: brouwers/settings.py:20
-msgid "Dutch"
-msgstr "Nederlands"
-
-#: builds/models.py:9
-msgid "link naar het verslag"
+#: brouwers/dashboard.py:56
+msgid "Forum"
 msgstr ""
 
-#: builds/models.py:10
-msgid "naam model"
+#: brouwers/dashboard.py:65
+msgid "Albums"
 msgstr ""
 
-#: builds/models.py:10
-msgid "schaal en merk kan je apart opgeven"
+#: brouwers/dashboard.py:70
+msgid "Awards"
 msgstr ""
 
-#: builds/models.py:11
-msgid "categorie"
+#: brouwers/dashboard.py:75
+msgid "Misc"
 msgstr ""
 
-#: builds/models.py:12
-msgid "schaal"
+#: brouwers/dashboard.py:80
+msgid "Shirts"
 msgstr ""
 
-#: builds/models.py:13
-msgid "merk"
+#: brouwers/dashboard.py:85 brouwers/dashboard.py:108
+msgid "Recent Actions"
 msgstr ""
 
-#: builds/models.py:14
-msgid "startdatum"
+#: brouwers/kitreviews/forms.py:14
+msgid "Brand"
 msgstr ""
 
-#: builds/models.py:14 builds/models.py:15
-msgid "Formaat: jjjj-mm-dd"
+#: brouwers/kitreviews/forms.py:15
+msgid "Kit number"
 msgstr ""
 
-#: builds/models.py:15
-msgid "einddatum"
+#: brouwers/kitreviews/forms.py:16
+msgid "Kit name"
 msgstr ""
 
-#: builds/models.py:19
-msgid "Foto 1"
+#: brouwers/kitreviews/forms.py:17
+msgid "Scale"
 msgstr ""
 
-#: builds/models.py:19 builds/models.py:20 builds/models.py:21
-msgid "geef een link naar een foto op"
+#: brouwers/kitreviews/forms.py:18 brouwers/kitreviews/models.py:62
+msgid "Category"
 msgstr ""
 
-#: builds/models.py:20
-msgid "Foto 2"
+#: brouwers/kitreviews/models.py:21 brouwers/kitreviews/models.py:30
+#: brouwers/kitreviews/models.py:72
+msgid "brand"
 msgstr ""
 
-#: builds/models.py:21
-msgid "Foto 3"
+#: brouwers/kitreviews/models.py:22
+#, fuzzy
+#| msgid "logout"
+msgid "logo"
+msgstr "uitloggen"
+
+#: brouwers/kitreviews/models.py:24
+msgid "is active?"
 msgstr ""
 
-#: builds/models.py:24
+#: brouwers/kitreviews/models.py:25
+msgid "Does the brand still exist?"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:31
+msgid "brands"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:40 brouwers/kitreviews/models.py:43
+#: brouwers/kitreviews/models.py:79
+msgid "scale"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:44
+msgid "scales"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:59
+msgid "name"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:63
+msgid "Categories"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:74
+msgid "kit number"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:75
+msgid "Kit number as found on the box."
+msgstr ""
+
+#: brouwers/kitreviews/models.py:78
+msgid "kit name"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:80
+msgid "category"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:81
+msgid "difficulty"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:84
+msgid "box image"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:88
+msgid "duplicates"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:89
+msgid "Kits that are the same but have another producer."
+msgstr ""
+
+#: brouwers/kitreviews/models.py:96
+msgid "model kit"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:97
+msgid "model kits"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:119
 #, python-format
-msgid "%(nickname)s - %(title)s"
-msgstr "%(nickname)s - %(title)s"
-
-#: builds/models.py:30
-msgid "brouwverslag"
+msgid "A kit from %(brand)s with kit number '%(kit_number)s' already exists"
 msgstr ""
 
-#: builds/models.py:31
-msgid "brouwverslagen"
+#: brouwers/kitreviews/models.py:131
+msgid "review"
 msgstr ""
 
-#: migration/models.py:36
+#: brouwers/kitreviews/models.py:132
+msgid "This is your review. You can use BBCode here."
+msgstr ""
+
+#: brouwers/kitreviews/models.py:135
+msgid "positive points"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:136
+msgid "negative points"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:137
+#, fuzzy
+#| msgid "Migrations"
+msgid "rating"
+msgstr "Migraties"
+
+#: brouwers/kitreviews/models.py:140
+msgid "album"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:142
+msgid "topic"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:143
+#, fuzzy
+#| msgid "Back to the Modelbrouwers.nl homepage"
+msgid "ID of the topic on Modelbrouwers."
+msgstr "Terug naar de Modelbrouwers.nl homepage"
+
+#: brouwers/kitreviews/models.py:146
+msgid "topic url"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:147
+msgid "URL to the topic not hosted on Modelbrouwers"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:152
+msgid "show real name?"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:153
+msgid ""
+"Checking this option will display your real name as reviewer. Uncheck to use "
+"your nickname."
+msgstr ""
+
+#: brouwers/kitreviews/models.py:162
+#, fuzzy
+#| msgid "Visit the kit reviews!"
+msgid "kit review"
+msgstr "Ga naar de kitreviews!"
+
+#: brouwers/kitreviews/models.py:163
+#, fuzzy
+#| msgid "Visit the kit reviews!"
+msgid "kit reviews"
+msgstr "Ga naar de kitreviews!"
+
+#: brouwers/kitreviews/models.py:166
+#, python-format
+msgid "Review: %(kit)s by %(user)s"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:210
+msgid "vote"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:214
+msgid "kit review vote"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:215
+msgid "kit review votes"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:219
+#, python-format
+msgid "Vote for review by %(review_submitter)s"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:9
+msgid "Model kit"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:11
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:42
+msgid "Review"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:18
+#, python-format
+msgid ""
+"\n"
+"                    It appears you don't have Javascript enabled. Adding "
+"kits and/or reviews is still possible\n"
+"                    by <a href=\"%(search_url)s\">searching</a> for kits.\n"
+"                "
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:31
+#: brouwers/kitreviews/templates/kitreviews/find_kit.html:13
+msgid "Find kits"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:48
+msgid "Add"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/base.html:10
+msgid "Home"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/base.html:11
+#, fuzzy
+#| msgid "Visit the kit reviews!"
+msgid "Find kits/reviews"
+msgstr "Ga naar de kitreviews!"
+
+#: brouwers/kitreviews/templates/kitreviews/base.html:12
+#: brouwers/kitreviews/templates/kitreviews/find_kit.html:46
+#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:19
+#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:33
+msgid "Add review"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/find_kit.html:5
+msgid "Find model kit(s) &dash; Enter your search parameters"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/find_kit.html:18
+#, python-format
+msgid ""
+"\n"
+"               Search results (%(num_kits)s)\n"
+"            "
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/find_kit.html:45
+#, python-format
+msgid "%(counter)s review"
+msgid_plural "%(counter)s reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:16
+#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:32
+msgid "Reviews"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:21
+#, python-format
+msgid ""
+"Submitted by <a href=\"%(user_url)s\">%(submitter)s</a> on %(submitted_on)s."
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:36
+msgid "Related forum topics"
+msgstr ""
+
+#: brouwers/kitreviews/templates/kitreviews/review_form.html:34
+msgid "Album, build report(s)"
+msgstr ""
+
+#: brouwers/migration/models.py:39
 msgid "album user migration"
 msgstr "albumgebruikermigratie"
 
-#: migration/models.py:37
+#: brouwers/migration/models.py:40
 msgid "album user migrations"
 msgstr "albumgebruikermigraties"
 
-#: templates/404.html:35
-msgid "Oops... a 404!"
-msgstr "Oeps... een 404!"
+#~ msgid "First page"
+#~ msgstr "Eerste pagina"
 
-#: templates/404.html:39
-#, python-format
-msgid ""
-"The requested page could not be found or isn't accessible because of limited "
-"user rights. Click on the big logo above or click <a href=\"/\">here</a> to "
-"return to the homepage. Alternatively, use the back button in your browser "
-"or click <a href=\"%(return)s\">here</a> to return to the previous page."
-msgstr ""
-"De opgevraagde pagina kon niet gevonden worden of je hebt niet voldoende "
-"rechten om de pagina te bekijken. Klik op het grote logo hierboven of klik "
-"<a href=\"/\">hier</a> om naar de homepage terug te keren. Je kan ook de "
-"'terug'-knop in je browser gebruiken, of <a href=\"%(return)s\">hier</a> "
-"klikken om naar de vorige pagina terug te keren."
+#~ msgid "Last page"
+#~ msgstr "Laatste pagina"
 
-#: templates/base.html:5
-msgid "Materials and knowledge for scale modelling."
-msgstr "Materialen en kennisbank voor de modelbouw."
+#~ msgid "English"
+#~ msgstr "Engels"
 
-#: templates/base.html:61
-msgid "Back to the Modelbrouwers.nl homepage"
-msgstr "Terug naar de Modelbrouwers.nl homepage"
+#~ msgid "Dutch"
+#~ msgstr "Nederlands"
 
-#: templates/base.html:98
-msgid "Migrations"
-msgstr "Migraties"
+#~ msgid "%(nickname)s - %(title)s"
+#~ msgstr "%(nickname)s - %(title)s"
 
-#: templates/base.html:105
-msgid "Login"
-msgstr "Inloggen"
+#~ msgid "Oops... a 404!"
+#~ msgstr "Oeps... een 404!"
 
-#: templates/base.html:112
-msgid "logout"
-msgstr "uitloggen"
+#~ msgid ""
+#~ "The requested page could not be found or isn't accessible because of "
+#~ "limited user rights. Click on the big logo above or click <a href=\"/"
+#~ "\">here</a> to return to the homepage. Alternatively, use the back button "
+#~ "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
+#~ "previous page."
+#~ msgstr ""
+#~ "De opgevraagde pagina kon niet gevonden worden of je hebt niet voldoende "
+#~ "rechten om de pagina te bekijken. Klik op het grote logo hierboven of "
+#~ "klik <a href=\"/\">hier</a> om naar de homepage terug te keren. Je kan "
+#~ "ook de 'terug'-knop in je browser gebruiken, of <a href=\"%(return)s"
+#~ "\">hier</a> klikken om naar de vorige pagina terug te keren."
 
-#: templates/base.html:115
-msgid "Profile"
-msgstr "Profiel"
+#~ msgid "Materials and knowledge for scale modelling."
+#~ msgstr "Materialen en kennisbank voor de modelbouw."
 
-#: templates/form_in_table.html:38 templates/form_in_table_rows.html:19
-msgid "Fix the error:"
-msgstr "Herstel de fout:"
+#~ msgid "Login"
+#~ msgstr "Inloggen"
 
-#: templates/nav_tabs.html:5
-msgid "Visit the homepage!"
-msgstr "Ga naar de homepage!"
+#~ msgid "Profile"
+#~ msgstr "Profiel"
 
-#: templates/nav_tabs.html:11
-msgid "Visit the board!"
-msgstr "Ga naar het forum!"
+#~ msgid "Fix the error:"
+#~ msgstr "Herstel de fout:"
 
-#: templates/nav_tabs.html:17
-msgid "Visit the shop!"
-msgstr "Ga naar de shop!"
+#~ msgid "Visit the homepage!"
+#~ msgstr "Ga naar de homepage!"
 
-#: templates/nav_tabs.html:23
-msgid "You are now in the albums!"
-msgstr "Je bent nu in de fotoalbums!"
+#~ msgid "Visit the board!"
+#~ msgstr "Ga naar het forum!"
 
-#: templates/nav_tabs.html:29
-msgid "Visit the kit reviews!"
-msgstr "Ga naar de kitreviews!"
+#~ msgid "Visit the shop!"
+#~ msgstr "Ga naar de shop!"
 
-#: templates/pagination.html:16
-msgid "of"
-msgstr "van"
+#~ msgid "You are now in the albums!"
+#~ msgstr "Je bent nu in de fotoalbums!"
 
-#: templates/admin/base_site.html:4
-msgid "Modelbrouwers.nl admin"
-msgstr "Modelbrouwers.nl administratie"
+#~ msgid "of"
+#~ msgstr "van"
 
-#: templates/admin/base_site.html:7
-msgid "administration"
-msgstr "administratie"
+#~ msgid "Modelbrouwers.nl admin"
+#~ msgstr "Modelbrouwers.nl administratie"
 
-#: templates/admin/base_site.html:17
-msgid "Find a member"
-msgstr "Zoek een forumlid"
+#~ msgid "administration"
+#~ msgstr "administratie"
+
+#~ msgid "Find a member"
+#~ msgstr "Zoek een forumlid"

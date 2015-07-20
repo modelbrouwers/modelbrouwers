@@ -6,7 +6,8 @@ from ..models import GroupBuild, Participant
 
 
 class GroupBuildFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = GroupBuild
+    class Meta:
+        model = GroupBuild
 
     theme = factory.Sequence(lambda n: "Groupbuild {0}".format(n))
     category = factory.SubFactory(ForumCategoryFactory)
@@ -17,7 +18,8 @@ class GroupBuildFactory(factory.django.DjangoModelFactory):
 
 
 class ParticipantFactory(factory.django.DjangoModelFactory):
-    FACTORY_FOR = Participant
+    class Meta:
+        model = Participant
 
     groupbuild = factory.SubFactory(GroupBuildFactory)
     user = factory.SubFactory(UserFactory)

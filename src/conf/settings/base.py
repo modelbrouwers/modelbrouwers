@@ -115,13 +115,21 @@ LOGGING = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
+SENDFILE_BACKEND = 'sendfile.backends.nginx'
+SENDFILE_ROOT = os.path.join(ROOT_DIR, 'media_sendfile')
+SENDFILE_URL = '/protected'
+
 #
 # STATIC FILES
 #
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'static'),
+    # node_modules cannot be consistently installed in the 'correct place'.
+    # symlinking resuls in too many levels of symlinks
+    os.path.join(ROOT_DIR, 'node_modules'),
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -149,7 +157,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.messages.context_processors.messages",
 
-                "brouwers.albums.context_processors.user_is_album_admin",
                 "brouwers.general.context_processors.connection",
                 "brouwers.general.context_processors.djsettings",
             ],
@@ -165,7 +172,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'sessionprofile.middleware.SessionProfileMiddleware',
-    'brouwers.albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -200,12 +206,14 @@ INSTALLED_APPS = (
 
     # Third party
     'compressor',
-    'formulation',
     'sessionprofile',
     'rest_framework',
     'django_extensions',
+    'sniplates',
     'rosetta',
     'precise_bbcode',
+    'sorl.thumbnail',
+    'systemjs',
 
     # Modelbrouwers
     'brouwers.users',
@@ -321,3 +329,20 @@ ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'brouwers.dashboard.CustomAppIndexDashboard'
 # WSGI conf
 #
 WSGI_APPLICATION = 'conf.wsgi.application'
+
+#
+# SORL THUMBNAIL
+#
+THUMBNAIL_DEBUG = True
+
+#
+# DRF
+#
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'brouwers.api.pagination.PageNumberPagination',
+    'PAGE_SIZE': 25,
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_filters.backends.DjangoFilterBackend',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}

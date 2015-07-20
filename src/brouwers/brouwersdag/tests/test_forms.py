@@ -28,17 +28,17 @@ class CompetitionSignUpTests(WebTest):
 
     def test_unlimited_competition(self):
         """ Test that the number of models per participant is unlimited """
-        competition = CompetitionFactory()
+        competition = CompetitionFactory.create()
 
         form = ShowCasedModelSignUpForm(competition=competition, data=self.form_data)
         self.assertTrue(form.is_valid())
 
     def test_limit_authenticated_user(self):
         """ Test that the limit per user is respected (user authenticated)"""
-        user = UserFactory()
+        user = UserFactory.create()
 
         # create one model belonging to self.competition
-        ShowCasedModelFactory(owner=user, competition=self.competition, is_competitor=True)
+        ShowCasedModelFactory.create(owner=user, competition=self.competition, is_competitor=True)
         self.assertEqual(self.competition.showcasedmodel_set.all().count(), 1)
 
         # try to add a new one, add the user to the form data
@@ -50,7 +50,7 @@ class CompetitionSignUpTests(WebTest):
     def test_limit_anonymous(self):
         """ Test that the limit per user is respected (user not authenticated)"""
         # create one model belonging to self.competition
-        ShowCasedModelFactory(competition=self.competition, is_competitor=True, email='test@testing.com')
+        ShowCasedModelFactory.create(competition=self.competition, is_competitor=True, email='test@testing.com')
         self.assertEqual(self.competition.showcasedmodel_set.all().count(), 1)
 
         # try to add a new one, add the user to the form data
@@ -67,16 +67,16 @@ class CompetitionSignUpTests(WebTest):
 
     def test_limit_zero_is_infinite(self):
         """ Test that the limit '0' is not misinterpreted """
-        competition = CompetitionFactory(max_participants=0, max_num_models=5)
-        ShowCasedModelFactory(competition=competition, is_competitor=True, email='test@testing.com')
+        competition = CompetitionFactory.create(max_participants=0, max_num_models=5)
+        ShowCasedModelFactory.create(competition=competition, is_competitor=True, email='test@testing.com')
 
         form = ShowCasedModelSignUpForm(competition=competition, data=self.form_data)
         self.assertTrue(form.is_valid())
 
     def test_participant_limit(self):
         """ Test that the absolute participant limit is respected """
-        competition = CompetitionFactory(max_participants=1)
-        ShowCasedModelFactory(competition=competition, is_competitor=True, email='test@testing.com')
+        competition = CompetitionFactory.create(max_participants=1)
+        ShowCasedModelFactory.create(competition=competition, is_competitor=True, email='test@testing.com')
 
         self.assertEqual(competition.showcasedmodel_set.all().count(), 1)
         form = ShowCasedModelSignUpForm(competition=competition, data=self.form_data)
@@ -94,5 +94,6 @@ class CompetitionSignUpTests(WebTest):
             signup.form[key] = value
 
         response = signup.form.submit()
+
         self.assertRedirects(response, url)
         self.assertEqual(self.competition.showcasedmodel_set.all().count(), 1)

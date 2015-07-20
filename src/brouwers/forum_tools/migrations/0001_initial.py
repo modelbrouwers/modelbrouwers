@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Forum',
             fields=[
-                ('forum_id', models.IntegerField(serialize=False, primary_key=True)),
+                ('forum_id', models.AutoField(serialize=False, primary_key=True)),
                 ('forum_name', models.CharField(max_length=60)),
                 ('forum_topics', models.IntegerField(default=0)),
                 ('forum_posts', models.IntegerField(default=0)),
@@ -105,7 +105,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ForumUser',
             fields=[
-                ('user_id', models.PositiveIntegerField(help_text='Primary key', serialize=False, primary_key=True)),
+                ('user_id', models.AutoField(help_text='Primary key', serialize=False, primary_key=True)),
                 ('username', models.CharField(max_length=255, verbose_name='username')),
                 ('username_clean', models.CharField(max_length=255, verbose_name='username')),
                 ('user_posts', models.IntegerField()),
@@ -129,7 +129,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Report',
             fields=[
-                ('report_id', models.PositiveIntegerField(help_text=b'Primary key', serialize=False, primary_key=True)),
+                ('report_id', models.AutoField(help_text=b'Primary key', serialize=False, primary_key=True)),
                 ('report_closed', models.BooleanField(default=False, help_text='Closed reports need no more attention.', verbose_name='closed')),
                 ('report_time_int', models.IntegerField(help_text='UNIX time when the report was added.', verbose_name='time', db_column=b'report_time')),
                 ('report_text', models.TextField(verbose_name=b'text', blank=True)),
@@ -146,7 +146,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Topic',
             fields=[
-                ('topic_id', models.IntegerField(serialize=False, primary_key=True)),
+                ('topic_id', models.AutoField(serialize=False, primary_key=True)),
                 ('topic_title', models.CharField(max_length=255)),
                 ('last_post_time', models.BigIntegerField(default=0, db_column=b'topic_last_post_time')),
                 ('create_time', models.BigIntegerField(default=0, db_column=b'topic_time')),

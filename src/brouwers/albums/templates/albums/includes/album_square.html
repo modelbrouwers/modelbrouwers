@@ -1,0 +1,36 @@
+{% load staticfiles thumbnail i18n %}
+<article class="col-sm-6 col-md-3 album-preview">
+    <h3><a href="{{ album.get_absolute_url }}">{% if not album.trash %}{{ album.title }}{% else %}{{ album.clean_title }}{% endif %}</a></h3>
+    <a href="{{ album.get_absolute_url }}" class="thumbnail">
+        {% if album.get_cover.exists %}
+            {% thumbnail album.cover.image "300x225" crop="center" as im %}
+                <img src="{{ im.url }}" class="img-responsive">
+            {% endthumbnail %}
+        {% else %}
+            <img src="{% static "images/thumb.png" %}" class="img-responsive">
+        {% endif %}
+    </a>
+    {% if album.user == user %}
+        <ul class="list-inline controls text-right">
+            <li data-toggle="popover" data-content="{% trans 'Upload pictures' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:upload' %}?album={{ album.pk }}"><i class="fa fa-fw fa-upload"></i></a>
+            </li>
+            <li data-toggle="popover" data-content="{% trans 'Edit album' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:update' pk=album.pk %}"><i class="fa fa-fw fa-pencil-square-o"></i></a>
+            </li>
+            {% if not album.trash %}
+            <li data-toggle="popover" data-content="{% trans 'Delete album' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:delete' pk=album.pk %}"><i class="fa fa-fw fa-trash"></i></a>
+            </li>
+            {% else %}
+            <li data-toggle="popover" data-content="{% trans 'Restore album' %}"
+                data-trigger="hover" data-placement="top" data-container="body">
+                <a href="{% url 'albums:restore' pk=album.pk %}"><i class="fa fa-fw fa-undo"></i></a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</article>

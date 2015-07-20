@@ -1,0 +1,8 @@
+coverage
+coveralls
+codecov
+factory_boy==2.5.2
+freezegun==0.2.2
+django-webtest
+mock==1.0.1
+webtest

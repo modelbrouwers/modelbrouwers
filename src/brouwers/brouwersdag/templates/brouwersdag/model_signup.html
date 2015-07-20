@@ -1,8 +1,32 @@
 {% extends "brouwersdag/base.html" %}
-{% load i18n formulation %}
+{% load i18n sniplates %}
+
+
+{% block eye-catcher %}
+<header class="container-fluid eye-catcher">
+    <div class="container">
+
+        <h1>
+            {% blocktrans with year=brouwersdag.date.year %}Brouwersdag {{ year }}{% endblocktrans %}
+            <small>{% trans "Time to do your models sign-up!" %}</small>
+        </h1>
+
+        <p>{% trans "If you want to display multiple models, just fill in the form again for each extra model." %}</p>
+    </div>
+</header>
+{% endblock eye-catcher %}
+
 
 {% block content %}
 <div class="main-content">
+
+    <div class="well">
+        <i class="fa fa-info-circle fa-lg"></i>
+        {% blocktrans %}
+        If you bring a model, you get free entrance!
+        More info on <a class="btn btn-xs bg-main-orange" href="http://www.modelbouwdag.nl/">www.modelbouwdag.nl</a>
+        {% endblocktrans %}
+    </div>
 
     <div class="row">
         <div class="col-sm-8">
@@ -15,22 +39,15 @@
                 {% trans "If you want to display multiple models, just fill in the form again for each extra model." %}
             </p>
 
-            {% form 'horizontal.form' %}
+            {% load_widgets form='horizontal.form' %}
+
             <form action="." method="post" class="form-horizontal" role="form">
                 {% csrf_token %}
 
-                {{ form.errors }}
-
-                {% if form.non_field_errors %}
-                <ul class="errorlist">
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
+                {% widget 'form:non_field_errors' %}
 
                 {% for field in form %}
-                    {% field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
+                    {% form_field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
                 {% endfor %}
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
@@ -38,11 +55,10 @@
                     </div>
                 </div>
             </form>
-            {% endform %}
         </div>
 
         <div class="col-sm-4">
-            <h2 class="text-muted">{% trans "Competition information" %}</h2>
+            <h2 class="text-muted" style="margin-top: 0;">{% trans "Competition information" %}</h2>
             <aside>
                 {% if not form.competition %}
                     {% trans "There's no competition planned (yet)." %}

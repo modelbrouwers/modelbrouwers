@@ -1,0 +1,60 @@
+{
+  "name": "modelbrouwers",
+  "version": "0.5.1",
+  "description": "Bundle for Modelbrouwers.nl community website",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "baseURL": "static",
+    "packages": "src/static/jspm_packages"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modelbrouwers/modelbrouwers.git"
+  },
+  "keywords": [
+    "phpbb",
+    "django",
+    "forum"
+  ],
+  "author": "Sergei Maertens <sergeimaertens@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/modelbrouwers/modelbrouwers/issues"
+  },
+  "homepage": "https://github.com/modelbrouwers/modelbrouwers",
+  "dependencies": {
+    "fine-uploader": "^5.1.3"
+  },
+  "devDependencies": {
+    "jspm": "^0.15.7",
+    "uglify-js": "^2.4.23"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "static",
+      "doc": "doc"
+    },
+    "configFile": "src/static/config.js",
+    "dependencies": {
+      "URIjs": "npm:URIjs@^1.15.1",
+      "bootstrap": "github:twbs/bootstrap@^3.3.5",
+      "css": "github:systemjs/plugin-css@^0.1.13",
+      "handlebars": "github:components/handlebars.js@2.0.0",
+      "jquery": "github:components/jquery@^2.1.4",
+      "jquery-ui": "github:components/jqueryui@^1.11.4",
+      "perfect-scrollbar": "npm:perfect-scrollbar@^0.6.2",
+      "q": "npm:q@^2.0.3"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4",
+      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
+    }
+  }
+}

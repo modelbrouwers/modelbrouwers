@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
 "PO-Revision-Date: 2015-02-10 20:02+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
+#: apps.py:7
+msgid "General"
+msgstr ""
+
 #: forms.py:19
 msgid "E-mail"
 msgstr "E-mailadres"
@@ -27,7 +31,7 @@ msgstr "E-mailadres"
 msgid "A user with that username already exists."
 msgstr "Er bestaat al iemand met deze gebruikersnaam."
 
-#: forms.py:45 forms.py:123 forms.py:220
+#: forms.py:45 forms.py:123 forms.py:219
 msgid "The two password fields didn't match."
 msgstr "De wachtwoordvelden zijn niet identiek."
 
@@ -47,7 +51,7 @@ msgstr "Wachtwoord"
 msgid "Password confirmation"
 msgstr "Wachtwoord - bevestig"
 
-#: forms.py:54 forms.py:116 forms.py:213
+#: forms.py:54 forms.py:116 forms.py:212
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 
@@ -55,7 +59,7 @@ msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
 msgid "This e-mail address is already registered."
 msgstr "Dit e-mailadres is al geregistreerd."
 
-#: forms.py:101 models.py:136
+#: forms.py:101 models.py:137
 msgid "answer"
 msgstr "antwoord"
 
@@ -203,74 +207,74 @@ msgstr "Anti-spambot vraag"
 msgid "Question which must be answered for registration."
 msgstr "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
 
-#: models.py:133
+#: models.py:134
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:134
+#: models.py:135
 msgid "email"
 msgstr "E-mailadres"
 
-#: models.py:135
+#: models.py:136
 msgid "registration question"
 msgstr "Registratievraag"
 
-#: models.py:137
+#: models.py:138
 msgid "timestamp"
 msgstr "timestamp"
 
-#: models.py:138
+#: models.py:139
 msgid "IP address"
 msgstr "IP adres"
 
-#: models.py:139
+#: models.py:140
 msgid "success"
 msgstr "geslaagd"
 
-#: models.py:143
+#: models.py:144
 msgid "type of visitor"
 msgstr "type bezoeker"
 
-#: models.py:149
+#: models.py:150
 msgid "registration attempt"
 msgstr "registratiepoging"
 
-#: models.py:150
+#: models.py:151
 msgid "registration attempts"
 msgstr "registratiepogingen"
 
-#: models.py:198
+#: models.py:199
 #, python-format
 msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
 msgstr ""
 "Waarschijnlijk spambot, %(num_attempts)s tegenover maximaal %(max)s pogingen."
 
-#: models.py:243
+#: models.py:244
 msgid "hash"
 msgstr "hash"
 
-#: models.py:244
+#: models.py:245
 msgid "expire datetime"
 msgstr "vervaldatum"
 
-#: models.py:247
+#: models.py:248
 msgid "password reset"
 msgstr "Wachtwoordreset"
 
-#: models.py:248
+#: models.py:249
 msgid "password resets"
 msgstr "Wachtwoordresets"
 
-#: models.py:253
+#: models.py:254
 #, python-format
 msgid "Password reset for %(user)s"
 msgstr "Wachtwoordreset voor %(user)s"
 
-#: models.py:258
+#: models.py:259
 msgid "path from"
 msgstr "pad van"
 
-#: models.py:260
+#: models.py:261
 msgid ""
 "path from where to redirect, without leading slash.                         "
 "E.g. '/shop/' becomse 'shop/'."
@@ -278,31 +282,31 @@ msgstr ""
 "pad vanaf waar geredirect moet worden, zonder forward slash. Bijvoorbeeld: '/"
 "shop/' wordt 'shop/'"
 
-#: models.py:264
+#: models.py:265
 msgid "redirect to"
 msgstr "redirect naar"
 
-#: models.py:265
+#: models.py:266
 msgid "Path (relative or absolute to the docroot) or url."
 msgstr "Pad (relatief of absoluut tot de website root) of url."
 
-#: models.py:269
+#: models.py:270
 msgid "redirect"
 msgstr "omleiding"
 
-#: models.py:270
+#: models.py:271
 msgid "redirects"
 msgstr "omleidingen"
 
-#: models.py:290
+#: models.py:291
 msgid "language"
 msgstr "taal"
 
-#: models.py:297
+#: models.py:298
 msgid "announcement"
 msgstr "aankondiging"
 
-#: models.py:298
+#: models.py:299
 msgid "announcements"
 msgstr "aankondigingen"
 

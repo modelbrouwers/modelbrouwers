@@ -2,7 +2,8 @@ from django.conf.urls import patterns, url
 import views
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^sign-up/$', views.SignupView.as_view(), name='model-signup'),
     url(r'^sign-up/(?P<pk>\d+)/cancel/$', views.CancelSignupView.as_view(), name='cancel-signup'),

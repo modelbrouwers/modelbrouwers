@@ -1,0 +1,100 @@
+{% extends "albums/base.html" %}{% load i18n staticfiles thumbnail sniplates system_tags %}
+
+{% block body-class %}{{ block.super }} photo-detail{% endblock %}
+
+{% block eye-catcher-content %}
+<a href="{{ photo.album.get_absolute_url }}" class="pull-right btn bg-main-blue" title="{% trans "View album" %}">&lt; {% trans "back to album" %}</a>
+
+<h1>
+{% blocktrans with user=photo.user.username album=photo.album.title %}
+    Photo by {{ user }} in album &lsquo;{{ album }}&rsquo;
+{% endblocktrans %}
+</h1>
+
+
+<small class="stats">
+{% blocktrans with views=photo.views uploaded=photo.uploaded|date:'j F Y' %}
+Statistics: {{ views }} views, uploaded: {{ uploaded }}
+{% endblocktrans %}
+</small>
+{% endblock %}
+
+{% block albums-nav %}{% endblock %}
+
+
+{% block content %}
+<div class="modal-backdrop text-center hidden">
+    <i class="fa fa-pulse fa-spinner fa-4x"></i>
+</div>
+
+<article class="photo">
+    <figure data-id="{{ photo.id }}">
+        {% thumbnail photo.image "1280x1280" as im %}
+            <img src="{{ im.url }}" class="img-responsive">
+        {% endthumbnail %}
+
+        {% if photo.description %}
+            <figcaption><p>{{ photo.description }}</p></figcaption>
+        {% endif %}
+
+        <div class="controls-group top right">
+            <div class="controls">
+                <i class="fa fa-fw fa-compress fa-2x"
+                   data-action="compress"
+                   data-trigger="hover focus"
+                   data-toggle="popover"
+                   data-placement="auto top"
+                   data-content="{% trans 'Collapses the image if it is higher than the browser window' %}"
+                ></i>
+                {# <i class="fa fa-fw fa-expand fa-2x" data-action="expand"></i> #}
+            </div>
+
+            {% if photo.user == user %}
+            <div class="controls">
+                <i class="fa fa-fw fa-rotate-left fa-2x"
+                   data-action="rotate-left"
+                   data-trigger="hover focus"
+                   data-toggle="popover"
+                   data-placement="auto top"
+                   data-content="{% trans 'Rotate the image to the left' %}"
+                ></i>
+                <i class="fa fa-fw fa-rotate-right fa-2x"
+                   data-action="rotate-right"
+                   data-trigger="hover focus"
+                   data-toggle="popover"
+                   data-placement="auto top"
+                   data-content="{% trans 'Rotate the image to the right' %}"
+                ></i>
+                <!--
+                <i class="fa fa-fw fa-arrows-v fa-2x"
+                   data-action="rotate-180"
+                   data-trigger="hover focus"
+                   data-toggle="popover"
+                   data-placement="auto top"
+                   data-content="{% trans 'Flip the image upside down' %}"
+                ></i>-->
+            </div>
+            {% endif %}
+        </div>
+
+    </figure>
+
+
+    <footer>
+      {% if previous %}
+        <a href="{{ previous.get_absolute_url }}" class="btn bg-main-blue pull-left">{% trans "Previous image in album" %}</a>
+      {% endif %}
+      {% if next %}
+        <a href="{{ next.get_absolute_url }}" class="btn bg-main-blue pull-right">{% trans "Next image in album" %}</a>
+      {% endif %}
+    </footer>
+</article>
+
+{% endblock content %}
+
+{% block extrascript %}
+    {{ block.super }}
+    {% load_widgets js='sniplates/js.html' %}
+    {% widget 'js:systemjs-base' %}
+    {% systemjs_import 'albums/js/photo-detail' %}
+{% endblock %}

@@ -12,6 +12,8 @@
 	<!-- IF DEBUG_OUTPUT --><br /><bdo dir="ltr">[ {DEBUG_OUTPUT} ]</bdo><!-- ENDIF --></span>
     &bull;
     Hosting by <a href="http://www.flexwebhosting.nl">Flexwebhosting</a>
+    &bull;
+    Cross-browser testing via <a href="https://www.browserstack.com/">Browserstack</a>
 </div>
 <div id="popup"></div>
 <div id="chat-window"></div>
@@ -32,24 +34,31 @@ pageTracker._trackPageview();
     $cache->init();
     $storage = new CachedFilesStorage($cache);
     $storage2 = new CombinedStaticFilesStorage($cache);
+    $storage3 = new FileSystemStorage();
 <!-- ENDPHP -->
 
 <!-- PHP -->
     $js = array(
-        'scripts/forum/forum.js',
-        'scripts/forum/hbsLib.js',
-        'scripts/api.js',
-        'scripts/purl.js',
         'scripts/forum/chat.js',
-        'scripts/forum/albums.js',
-        'js/forum/groupbuilds.js',
+        'config.js',
+    );
+    $apps = array(
+        'forum_tools/js/forum/app', // JSPM:SYSTEMJSAPP
+        'albums/js/forum/app', // JSPM:SYSTEMJSAPP
+        'groupbuilds/js/forum/app', // JSPM:SYSTEMJSAPP
     );
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/handlebars-v2.0.0.js');<!-- ENDPHP -->"></script>
+<script src="https://jspm.io/system@0.16.11.js"></script>
+<script>
+if (typeof window.System === 'undefined') {
+    document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage3->url('jspm_packages/system.js');<!-- ENDPHP -->'%3E%3C/script%3E"));
+}
+</script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
+<!-- PHP --> echo $storage2->system_import($apps);<!-- ENDPHP -->
 
 <!-- IF U_MCP || U_ACP -->
     <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>

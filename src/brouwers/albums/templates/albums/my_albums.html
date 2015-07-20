@@ -1,0 +1,61 @@
+{% extends "albums/base.html" %}{% load i18n %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "My albums" %}
+        <i class="pull-right fa fa-folder-o fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        You can manage your own albums and the albums that you have access to here.
+    {% endblocktrans %}</p>
+{% endblock %}
+
+
+{% block content %}
+
+<section role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#public" aria-controls="public" role="tab" data-toggle="tab">
+                <i class="fa fa-globe"></i> {% trans "Public" %}</a>
+        </li>
+        <li role="presentation">
+            <a href="#private" aria-controls="private" role="tab" data-toggle="tab">
+                <i class="fa fa-lock"></i> {% trans "Private" %}</a>
+        </li>
+        <li role="presentation">
+            <a href="#shared-with-me" aria-controls="shared-with-me" role="tab" data-toggle="tab">
+                <i class="fa fa-share-alt"></i> {% trans "Shared with me" %}</a>
+        </li>
+        <li role="presentation">
+            <a href="#shared-by-me" aria-controls="shared-by-me" role="tab" data-toggle="tab">
+                <i class="fa fa-share-alt"></i> {% trans "Shared by me" %}</a>
+        </li>
+        <li role="presentation">
+            <a href="#trashed" aria-controls="trashed" role="tab" data-toggle="tab">
+                <i class="fa fa-trash"></i> {% trans "Trash" %}</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+    {% for key, queryset in tabcontent.items %}
+        <div role="tabpanel" class="tab-pane {{ forloop.first|yesno:'active,' }}" id="{{ key }}">
+            <div class="row">
+                {% for album in queryset %}
+                    {% include "albums/includes/album_square.html" %}
+
+                    {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

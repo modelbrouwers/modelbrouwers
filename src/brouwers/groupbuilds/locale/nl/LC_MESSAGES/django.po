@@ -8,16 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
-"PO-Revision-Date: 2015-04-01 09:32+0020\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
+"PO-Revision-Date: 2015-07-19 20:52+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
+
+#: apps.py:7
+#| msgid "group builds"
+msgid "Groupbuilds"
+msgstr "Groepsbouwen"
 
 #: dashboard.py:11
 msgid "Groupbuilds moderation queue"
@@ -195,31 +200,31 @@ msgstr "{name}: {status}"
 msgid "# participants"
 msgstr "# deelnemers"
 
-#: models.py:237 templates/groupbuilds/handlebars/participant.hbs:20
+#: models.py:235 templates/groupbuilds/handlebars/participant.hbs:23
 msgid "model name"
 msgstr "naam model"
 
-#: models.py:239
+#: models.py:237
 msgid "finished"
 msgstr "afgewerkt"
 
-#: models.py:240
+#: models.py:238
 msgid "topic"
 msgstr "topic"
 
-#: models.py:243
+#: models.py:241
 msgid "points"
 msgstr "punten"
 
-#: models.py:248
+#: models.py:246
 msgid "group build participant"
 msgstr "groepsbouwdeelnemer"
 
-#: models.py:249
+#: models.py:247
 msgid "group build participants"
 msgstr "groepsbouwdeelnemers"
 
-#: models.py:252
+#: models.py:250
 #, python-brace-format
 msgid "{build} participant: {user}"
 msgstr "{build} deelnemer: {user}"
@@ -350,7 +355,7 @@ msgid "Less important, but nice to have!"
 msgstr "Minder belangrijk, maar leuk om te hebben!"
 
 #: templates/groupbuilds/edit.html:62
-#: templates/groupbuilds/participant_form.html:18
+#: templates/groupbuilds/participant_form.html:19
 msgid "Save changes"
 msgstr "Wijzigingen bewaren"
 
@@ -518,39 +523,39 @@ msgstr "Doe mee!"
 msgid "Show your interest!"
 msgstr "Toon je interesse!"
 
-#: templates/groupbuilds/groupbuild_detail.html:190
+#: templates/groupbuilds/groupbuild_detail.html:189
 msgid "Submit!"
 msgstr "Bevestig!"
 
-#: templates/groupbuilds/groupbuild_detail.html:192
+#: templates/groupbuilds/groupbuild_detail.html:191
 msgid ""
 "Hitting the button is enough, but providing more information is always nice!"
 msgstr ""
 "Op de knop klikken is voldoende, maar we houden van wat meer informatie!"
 
-#: templates/groupbuilds/groupbuild_detail.html:202
+#: templates/groupbuilds/groupbuild_detail.html:201
 msgid "Organiser"
 msgid_plural "Organisers"
 msgstr[0] "Organisator"
 msgstr[1] "Organisatoren"
 
-#: templates/groupbuilds/groupbuild_detail.html:208
+#: templates/groupbuilds/groupbuild_detail.html:207
 msgid "You!"
 msgstr "Jij!"
 
-#: templates/groupbuilds/groupbuild_detail.html:219
+#: templates/groupbuilds/groupbuild_detail.html:218
 msgid "BBCode"
 msgstr "BBCode"
 
-#: templates/groupbuilds/groupbuild_detail.html:221
+#: templates/groupbuilds/groupbuild_detail.html:220
 msgid "Use this to embed the group build in the forum"
 msgstr "Gebruik dit om de groepsbouw in een post te integreren."
 
-#: templates/groupbuilds/groupbuild_detail.html:228
+#: templates/groupbuilds/groupbuild_detail.html:227
 msgid "Set it in stone!"
 msgstr "Leg de groepsbouw vast!"
 
-#: templates/groupbuilds/groupbuild_detail.html:229
+#: templates/groupbuilds/groupbuild_detail.html:228
 msgid "Submit request"
 msgstr "Verstuur aanvraag"
 
@@ -659,10 +664,6 @@ msgstr ""
 msgid "Go to edit page"
 msgstr "Ga naar de bewerkpagina"
 
-#: templates/groupbuilds/participant_form.html:7
-msgid "Edit your build details"
-msgstr "Bewerk je deelnamedetails"
-
 #: templates/groupbuilds/handlebars/inset.hbs:7
 msgid "View outside of forum"
 msgstr "Bekijk eigen groepsbouwpagina"
@@ -726,6 +727,10 @@ msgstr "Voortgang"
 #: templates/groupbuilds/includes/progress.html:3
 msgid "See how much time is left"
 msgstr "Zie hoeveel tijd er nog is"
+
+#: templates/groupbuilds/participant_form.html:7
+msgid "Edit your build details"
+msgstr "Bewerk je deelnamedetails"
 
 #: views/admin.py:61
 msgid "Your group build has been submitted to the moderator team."

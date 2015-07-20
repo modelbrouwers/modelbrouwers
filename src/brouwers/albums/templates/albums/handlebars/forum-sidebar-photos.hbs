@@ -1,0 +1,21 @@
+{% load i18n handlebars %}
+{% hbs_verbatim %}
+
+{{#each photos}}
+    <li>
+        <figure class="album-photo" data-id="{{ id }}">
+            <a href="#"><img src="{{ image.thumb }}" alt="{{ description }}"></a>
+            <figcaption>{{ description }}</figcaption>
+        </figure>
+    </li>
+{{else}}
+    <li>
+        {% url 'albums:upload' as upload_url %}
+        {% blocktrans %}
+            There are no photo's in this album yet. You can upload some
+            <a href="{{ upload_url }}" target="_blank">here</a>.
+        {% endblocktrans %}
+    </li>
+{{/each}}
+
+{% hbs_endverbatim %}

@@ -84,7 +84,7 @@ class ModelKit(models.Model):
         _('box image'), upload_to='kits/box_images/%Y/%m',
         blank=True, null=True)
     duplicates = models.ManyToManyField(
-                "self", blank=True, null=True,
+                "self", blank=True,
                 verbose_name=_(u'duplicates'),
                 help_text=_(u'Kits that are the same but have another producer.'),
                 )

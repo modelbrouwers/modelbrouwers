@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-01 09:31+0200\n"
+"POT-Creation-Date: 2015-07-19 20:31+0200\n"
 "PO-Revision-Date: 2015-02-16 19:37+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,106 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: mail.py:11
-#, python-brace-format
-msgid "Your registration on {domain}"
-msgstr "Je registratie op {domain}"
-
-#: mail.py:30
-#, python-brace-format
-msgid "{domain} account creation - activation required"
-msgstr "{domain} account aangemaakt - activatie nodig"
-
-#: models.py:65
-msgid "username"
-msgstr "gebruikersnaam"
-
-#: models.py:66
-msgid "Required. 30 characters or fewer. All characters allowed."
-msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
-
-#: models.py:67
-msgid "cleaned username"
-msgstr "cleane gebruikersnaam"
-
-#: models.py:68
-msgid "first name"
-msgstr "voornaam"
-
-#: models.py:69
-msgid "last name"
-msgstr "familienaam"
-
-#: models.py:70
-msgid "email address"
-msgstr "e-mailadres"
-
-#: models.py:71
-msgid "staff status"
-msgstr "stafstatus"
-
-#: models.py:72
-msgid "Designates whether the user can log into this admin site."
-msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
-
-#: models.py:74
-msgid "active"
-msgstr "actief"
-
-#: models.py:75
-msgid ""
-"Designates whether this user should be treated as active. Unselect this "
-"instead of deleting accounts."
-msgstr ""
-"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
-"van gebruikers te verwijderen."
-
-#: models.py:77
-msgid "date joined"
-msgstr "toegetreden"
-
-#: models.py:80
-msgid "forum user id"
-msgstr "forumgebruikerid"
-
-#: models.py:88
-msgid "user"
-msgstr "gebruiker"
-
-#: models.py:89
-msgid "users"
+#: apps.py:7
+#, fuzzy
+#| msgid "users"
+msgid "Users"
 msgstr "gebruikers"
-
-#: views.py:75
-msgid ""
-"We found an existing forum account for this username, but it appears that "
-"were was no coupling account yet. We automatically created a coupling "
-"account, which is not activated yet. You should receive an e-mail soon with "
-"a link to activate your account. Coupling accounts were added to introduce "
-"SSO (single sign on) in the future for the entire domain."
-msgstr ""
-"We vonden een bestaande forumaccount voor deze gebruikersnaam, maar het "
-"lijkt erop dat er nog geen gekoppelde account bestaat. Deze werd automatisch "
-"aangemaakt maar moet nog geactiveerd worden. Je zou ieder moment een e-mail "
-"moeten ontvangen waarin een link staat om je account te activeren. Deze "
-"gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
-"mogelijk te maken voor de volledige website."
-
-#: views.py:101
-msgid "You have been logged out."
-msgstr "Je bent uitgelogd."
-
-#: views.py:103
-msgid "Can't log you out, you weren't logged in!"
-msgstr "Je kan niet uitloggen, je was niet ingelogd!"
-
-#: views.py:218 tests/test_views.py:43
-msgid "Your profile data has been updated."
-msgstr "Je profiel is bijgewerkt."
-
-#: views.py:242
-msgid "Your password was changed."
-msgstr "Je wachtwoord is gewijzigd."
 
 #: forms/auth.py:24 tests/test_signup_login.py:123
 msgid "A user with that username already exists."
@@ -199,10 +104,80 @@ msgid "An e-mail was sent with a link to reset your password."
 msgstr ""
 "Er werd een e-mail verstuurd met een link om je wachtwoord te resetten."
 
+#: mail.py:11
+#, python-brace-format
+msgid "Your registration on {domain}"
+msgstr "Je registratie op {domain}"
+
+#: mail.py:30
+#, python-brace-format
+msgid "{domain} account creation - activation required"
+msgstr "{domain} account aangemaakt - activatie nodig"
+
+#: models.py:66
+msgid "username"
+msgstr "gebruikersnaam"
+
+#: models.py:67
+msgid "Required. 30 characters or fewer. All characters allowed."
+msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
+
+#: models.py:68
+msgid "cleaned username"
+msgstr "cleane gebruikersnaam"
+
+#: models.py:69
+msgid "first name"
+msgstr "voornaam"
+
+#: models.py:70
+msgid "last name"
+msgstr "familienaam"
+
+#: models.py:71
+msgid "email address"
+msgstr "e-mailadres"
+
+#: models.py:73
+msgid "staff status"
+msgstr "stafstatus"
+
+#: models.py:74
+msgid "Designates whether the user can log into this admin site."
+msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
+
+#: models.py:77
+msgid "active"
+msgstr "actief"
+
+#: models.py:78
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
+"van gebruikers te verwijderen."
+
+#: models.py:80
+msgid "date joined"
+msgstr "toegetreden"
+
+#: models.py:83
+msgid "forum user id"
+msgstr "forumgebruikerid"
+
+#: models.py:91
+msgid "user"
+msgstr "gebruiker"
+
+#: models.py:92
+msgid "users"
+msgstr "gebruikers"
+
 #: templates/users/change_password.html:6
-#: templates/users/change_password.html:16
+#: templates/users/change_password.html:17
 #: templates/users/password_reset_confirm.html:7
-#: templates/users/password_reset_confirm.html:18
+#: templates/users/password_reset_confirm.html:19
 #: templates/users/profile_edit.html:81 templates/users/profile_edit.html:91
 #: tests/test_views.py:30
 msgid "Change password"
@@ -228,15 +203,15 @@ msgstr ""
 "Indien je inlogproblemen hebt, aarzel niet om de beheerders te contacteren. "
 "Je vindt het e-mailadres onderaan deze pagina."
 
-#: templates/users/login.html:41
+#: templates/users/login.html:42
 msgid "Come on in"
 msgstr "Doorgaan"
 
-#: templates/users/login.html:43
+#: templates/users/login.html:44
 msgid "I forgot my password"
 msgstr "Ik ben mijn wachtwoord vergeten"
 
-#: templates/users/login.html:51
+#: templates/users/login.html:52
 msgid ""
 "\n"
 "                No account yet? Signing up is free and you can immediately\n"
@@ -247,196 +222,29 @@ msgstr ""
 "Nog geen account? Registreren is gratis en je kan meteen deelnemen in de "
 "community!"
 
-#: templates/users/login.html:57
+#: templates/users/login.html:58
 msgid "Sign up"
 msgstr "Registreren"
 
-#: templates/users/login.html:60
+#: templates/users/login.html:61
 msgid "Why create an account?"
 msgstr "Waarom registreren?"
 
-#: templates/users/login.html:62
+#: templates/users/login.html:63
 msgid "Exchange hobby tips and tricks on the forum"
 msgstr "Wissel tips & tricks uit op het forum"
 
-#: templates/users/login.html:63
+#: templates/users/login.html:64
 msgid "Showcase your projects and receive feedback on the forum"
 msgstr "Stel je projecten tentoon en ontvang feedback op het forum"
 
-#: templates/users/login.html:64
+#: templates/users/login.html:65
 msgid "Upload your photos in our integrated albums"
 msgstr "Voeg je foto's toe aan onze geintegreerde albums"
 
-#: templates/users/login.html:65
+#: templates/users/login.html:66
 msgid "Participate in groupbuilds focused on a narrow theme"
 msgstr "Neem deel aan groepsbouwen rond een duidelijk thema"
-
-#: templates/users/password_reset.html:3
-msgid "Modelbrouwers.nl &bull; Reset password"
-msgstr "Modelbrouwers.nl &bull; Reset wachtwoord"
-
-#: templates/users/password_reset.html:8
-#: templates/users/password_reset.html:20
-msgid "Reset password"
-msgstr "Wachtwoordreset aanvragen"
-
-#: templates/users/password_reset.html:9
-msgid "Enter either your username or e-mail address to reset your password"
-msgstr ""
-"Vul je gebruikersnaam en/of e-mailadres in om je wachtwoord te resetten"
-
-#: templates/users/password_reset_confirm.html:24
-msgid "Password reset unsuccessful"
-msgstr "Wachtwoordreset niet geslaagd"
-
-#: templates/users/password_reset_confirm.html:26
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a new password reset."
-msgstr ""
-"De wachtwoordreset link was ongeldig, waarschijnlijk omdat die al gebruikt "
-"werd. Gelieve een nieuwe wachtwoordreset aan te vragen."
-
-#: templates/users/profile.html:4
-msgid "Modelbrouwers.nl &bull; View profile"
-msgstr "Modelbrouwers.nl &bull; Bekijk profiel"
-
-#: templates/users/profile.html:20
-msgid "Albums"
-msgstr "Albums"
-
-#: templates/users/profile.html:21
-msgid "Builds"
-msgstr "Brouwsels"
-
-#: templates/users/profile.html:22
-msgid "Groupbuilds"
-msgstr "Groepsbouwen"
-
-#: templates/users/profile.html:26
-msgid "Work in progress"
-msgstr "Work in progress"
-
-#: templates/users/profile_edit.html:3
-msgid "Modelbrouwers.nl &bull; Edit profile"
-msgstr "Modelbrouwers.nl &bull; Bewerk profiel"
-
-#: templates/users/profile_edit.html:10
-msgid "Your profile"
-msgstr "Jouw profiel"
-
-#: templates/users/profile_edit.html:12
-msgid ""
-"\n"
-"            Here you can configure various site-wide settings.\n"
-"        "
-msgstr ""
-"\n"
-"Hier kan je verschillende site-brede instellingen aanpassen."
-
-#: templates/users/profile_edit.html:32
-msgid "You have form errors, check the tabs below"
-msgstr "Je hebt fouten in het formulier, controleer de onderstaande tabs"
-
-#: templates/users/profile_edit.html:38
-msgid "User details"
-msgstr "Gebruikersdetails"
-
-#: templates/users/profile_edit.html:39
-msgid "Address"
-msgstr "adres"
-
-#: templates/users/profile_edit.html:40
-msgid "Awards"
-msgstr "Awards"
-
-#: templates/users/profile_edit.html:41
-msgid "Social settings"
-msgstr "Social instellingen"
-
-#: templates/users/profile_edit.html:42
-msgid "Forum profile"
-msgstr "Forumprofiel"
-
-#: templates/users/profile_edit.html:74
-msgid "Save changes"
-msgstr "Bewaar de veranderingen"
-
-#: templates/users/register.html:4
-msgid "registration"
-msgstr "registratie"
-
-#: templates/users/register.html:10
-msgid "Create an account"
-msgstr "Maak een account aan"
-
-#: templates/users/register.html:11
-msgid "you're just a step away from your personal account"
-msgstr "je bent maar een stap verwijderd van je eigen account"
-
-#: templates/users/register.html:14
-msgid ""
-"\n"
-"            We're happy to see you join our beautiful hobby hub where you "
-"can exchange tips and tricks\n"
-"            and participate in the community!\n"
-"        "
-msgstr ""
-"\n"
-"We zijn blij dat we je in onze 'hobby hub' mogen verwelkomen, waar je tips "
-"en tricks kan uitwisselen en deel kan nemen in de community!"
-
-#: templates/users/register.html:19
-msgid ""
-"When you're done, don't forget to introduce yourself in the appropriate "
-"forum,\n"
-"        and make yourself familiar with our rules. If you run into any "
-"trouble, you can contact the\n"
-"        staff via PM (personal message), or contact the admins via the e-"
-"mail address below.\n"
-"        "
-msgstr ""
-"Vergeet niet om jezelf op het forum voor te stellen als je klaar bent, en "
-"lees de forumregels. Indien je tegen problemen aan loopt, dan kan je de "
-"moderators via PB (persoonlijk bericht) contacteren, of je kan de beheerders "
-"mailen via het e-mailadres onderaan de pagina."
-
-#: templates/users/register.html:37
-msgid "Enter your account details"
-msgstr "Voeg je contactgegevens toe"
-
-#: templates/users/register.html:46
-msgid "Anti-spam question"
-msgstr "Anti-spambot vraag"
-
-#: templates/users/register.html:47
-msgid "Carefully read the question, the answer is often literally in there!"
-msgstr "Lees de vraag zorgvuldig, het antwoord staat er vaak letterlijk in!"
-
-#: templates/users/register.html:56
-msgid "Create your account"
-msgstr "Account aanmaken"
-
-#: templates/users/register.html:58
-msgid "Already have an account?"
-msgstr "Heb je al een account?"
-
-#: templates/users/register.html:66
-msgid "Terms and conditions"
-msgstr "Regels en voorwaarden"
-
-#: templates/users/register.html:67
-msgid ""
-"\n"
-"            Unfortunately, some people need strong and clear rules to "
-"behave. When you create an account,\n"
-"            you agree with these terms and conditions.\n"
-"        "
-msgstr ""
-"\n"
-"Helaas hebben sommige mensen sterke en duidelijke regels nodig om zich te "
-"gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels "
-"en voorwaarden."
 
 #: templates/users/mail/user_created.html:5
 #, python-format
@@ -577,6 +385,204 @@ msgstr ""
 "\n"
 "Met modelbouwgroeten,\n"
 "Het %(name)s beheer\n"
+
+#: templates/users/password_reset.html:3
+msgid "Modelbrouwers.nl &bull; Reset password"
+msgstr "Modelbrouwers.nl &bull; Reset wachtwoord"
+
+#: templates/users/password_reset.html:8
+#: templates/users/password_reset.html:20
+msgid "Reset password"
+msgstr "Wachtwoordreset aanvragen"
+
+#: templates/users/password_reset.html:9
+msgid "Enter either your username or e-mail address to reset your password"
+msgstr ""
+"Vul je gebruikersnaam en/of e-mailadres in om je wachtwoord te resetten"
+
+#: templates/users/password_reset_confirm.html:25
+msgid "Password reset unsuccessful"
+msgstr "Wachtwoordreset niet geslaagd"
+
+#: templates/users/password_reset_confirm.html:27
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"De wachtwoordreset link was ongeldig, waarschijnlijk omdat die al gebruikt "
+"werd. Gelieve een nieuwe wachtwoordreset aan te vragen."
+
+#: templates/users/profile.html:4
+msgid "Modelbrouwers.nl &bull; View profile"
+msgstr "Modelbrouwers.nl &bull; Bekijk profiel"
+
+#: templates/users/profile.html:20
+msgid "Albums"
+msgstr "Albums"
+
+#: templates/users/profile.html:21
+msgid "Builds"
+msgstr "Brouwsels"
+
+#: templates/users/profile.html:22
+msgid "Groupbuilds"
+msgstr "Groepsbouwen"
+
+#: templates/users/profile.html:26
+msgid "Work in progress"
+msgstr "Work in progress"
+
+#: templates/users/profile_edit.html:3
+msgid "Modelbrouwers.nl &bull; Edit profile"
+msgstr "Modelbrouwers.nl &bull; Bewerk profiel"
+
+#: templates/users/profile_edit.html:10
+msgid "Your profile"
+msgstr "Jouw profiel"
+
+#: templates/users/profile_edit.html:12
+msgid ""
+"\n"
+"            Here you can configure various site-wide settings.\n"
+"        "
+msgstr ""
+"\n"
+"Hier kan je verschillende site-brede instellingen aanpassen."
+
+#: templates/users/profile_edit.html:32
+msgid "You have form errors, check the tabs below"
+msgstr "Je hebt fouten in het formulier, controleer de onderstaande tabs"
+
+#: templates/users/profile_edit.html:38
+msgid "User details"
+msgstr "Gebruikersdetails"
+
+#: templates/users/profile_edit.html:39
+msgid "Address"
+msgstr "adres"
+
+#: templates/users/profile_edit.html:40
+msgid "Awards"
+msgstr "Awards"
+
+#: templates/users/profile_edit.html:41
+msgid "Social settings"
+msgstr "Social instellingen"
+
+#: templates/users/profile_edit.html:42
+msgid "Forum profile"
+msgstr "Forumprofiel"
+
+#: templates/users/profile_edit.html:74
+msgid "Save changes"
+msgstr "Bewaar de veranderingen"
+
+#: templates/users/register.html:4
+msgid "registration"
+msgstr "registratie"
+
+#: templates/users/register.html:10
+msgid "Create an account"
+msgstr "Maak een account aan"
+
+#: templates/users/register.html:11
+msgid "you're just a step away from your personal account"
+msgstr "je bent maar een stap verwijderd van je eigen account"
+
+#: templates/users/register.html:14
+msgid ""
+"\n"
+"            We're happy to see you join our beautiful hobby hub where you "
+"can exchange tips and tricks\n"
+"            and participate in the community!\n"
+"        "
+msgstr ""
+"\n"
+"We zijn blij dat we je in onze 'hobby hub' mogen verwelkomen, waar je tips "
+"en tricks kan uitwisselen en deel kan nemen in de community!"
+
+#: templates/users/register.html:19
+msgid ""
+"When you're done, don't forget to introduce yourself in the appropriate "
+"forum,\n"
+"        and make yourself familiar with our rules. If you run into any "
+"trouble, you can contact the\n"
+"        staff via PM (personal message), or contact the admins via the e-"
+"mail address below.\n"
+"        "
+msgstr ""
+"Vergeet niet om jezelf op het forum voor te stellen als je klaar bent, en "
+"lees de forumregels. Indien je tegen problemen aan loopt, dan kan je de "
+"moderators via PB (persoonlijk bericht) contacteren, of je kan de beheerders "
+"mailen via het e-mailadres onderaan de pagina."
+
+#: templates/users/register.html:37
+msgid "Enter your account details"
+msgstr "Voeg je contactgegevens toe"
+
+#: templates/users/register.html:46
+msgid "Anti-spam question"
+msgstr "Anti-spambot vraag"
+
+#: templates/users/register.html:47
+msgid "Carefully read the question, the answer is often literally in there!"
+msgstr "Lees de vraag zorgvuldig, het antwoord staat er vaak letterlijk in!"
+
+#: templates/users/register.html:56
+msgid "Create your account"
+msgstr "Account aanmaken"
+
+#: templates/users/register.html:58
+msgid "Already have an account?"
+msgstr "Heb je al een account?"
+
+#: templates/users/register.html:65
+msgid "Terms and conditions"
+msgstr "Regels en voorwaarden"
+
+#: templates/users/register.html:66
+msgid ""
+"\n"
+"            Unfortunately, some people need strong and clear rules to "
+"behave. When you create an account,\n"
+"            you agree with these terms and conditions.\n"
+"        "
+msgstr ""
+"\n"
+"Helaas hebben sommige mensen sterke en duidelijke regels nodig om zich te "
+"gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels "
+"en voorwaarden."
+
+#: tests/test_views.py:43 views.py:221
+msgid "Your profile data has been updated."
+msgstr "Je profiel is bijgewerkt."
+
+#: views.py:78
+msgid ""
+"We found an existing forum account for this username, but it appears that "
+"were was no coupling account yet. We automatically created a coupling "
+"account, which is not activated yet. You should receive an e-mail soon with "
+"a link to activate your account. Coupling accounts were added to introduce "
+"SSO (single sign on) in the future for the entire domain."
+msgstr ""
+"We vonden een bestaande forumaccount voor deze gebruikersnaam, maar het "
+"lijkt erop dat er nog geen gekoppelde account bestaat. Deze werd automatisch "
+"aangemaakt maar moet nog geactiveerd worden. Je zou ieder moment een e-mail "
+"moeten ontvangen waarin een link staat om je account te activeren. Deze "
+"gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
+"mogelijk te maken voor de volledige website."
+
+#: views.py:104
+msgid "You have been logged out."
+msgstr "Je bent uitgelogd."
+
+#: views.py:106
+msgid "Can't log you out, you weren't logged in!"
+msgstr "Je kan niet uitloggen, je was niet ingelogd!"
+
+#: views.py:245
+msgid "Your password was changed."
+msgstr "Je wachtwoord is gewijzigd."
 
 #~ msgid "Registration: fill out the form below. All fields are required."
 #~ msgstr "Registratie: vul het formulier in. Alle velden zijn verplicht."
