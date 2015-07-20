@@ -95,4 +95,5 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
     var album = {{ album.pk }};
 </script>
 {% systemjs_import 'albums/js/album' %}
+<script>System.import('albums/js/album');</script>
 {% endblock extrascript %}
