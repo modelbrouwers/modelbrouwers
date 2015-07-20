@@ -34,99 +34,11 @@ class Brand(models.Model):
     def __unicode__(self):
         return self.name
 
-class Scale(models.Model):
-    """ Possible scales a model kit can be in"""
-
-    scale = models.PositiveSmallIntegerField(_(u'scale'), db_index=True)
-
-    class Meta:
-        verbose_name = _(u'scale')
-        verbose_name_plural = _(u'scales')
-        ordering = ['scale']
-    # TODO: default ordering based on amount of kits with that scale -> most popular ones on top?
-
-    def get_repr(self, separator=":"):
-        return u'1%s%d' % (separator, self.scale)
-
-    def __unicode__(self):
-        return self.get_repr()
-
-    def unicode_slash(self):
-        """ Output the scale as 1/48 instead of 1:48 """
-        return self.get_repr(separator='/')
-
-class Category(models.Model):
-    name = models.CharField(_('name'), max_length=255)
-
-    class Meta:
-        verbose_name = _('Category')
-        verbose_name_plural = _('Categories')
-
-    def __unicode__(self):
-        return self.name
-
-
-class ModelKit(models.Model):
-    """ Model containing all the data about kits, to be linked with kitreviews """
-
-    brand = models.ForeignKey(Brand, verbose_name=_(u'brand'))
-    kit_number = models.CharField(
-                _(u'kit number'), max_length=50,
-                blank=True, help_text=_(u'Kit number as found on the box.'),
-                db_index=True
-                )
-    name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
-    scale = models.ForeignKey(Scale, verbose_name=_('scale'))
-    category = models.ForeignKey(Category, verbose_name=_('category'), null=True)
-    difficulty = models.PositiveSmallIntegerField(_(u'difficulty'), default=DEFAULT_DIFFICULTY)
-
-    box_image = models.ImageField(
-        _('box image'), upload_to='kits/box_images/%Y/%m',
-        blank=True, null=True)
-    duplicates = models.ManyToManyField(
-                "self", blank=True,
-                verbose_name=_(u'duplicates'),
-                help_text=_(u'Kits that are the same but have another producer.'),
-                )
-
-    submitter = models.ForeignKey(settings.AUTH_USER_MODEL)
-    submitted_on = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = _(u'model kit')
-        verbose_name_plural = _(u'model kits')
-
-    def __unicode__(self):
-        return u"%(brand)s - %(name)s" % {
-            'brand': self.brand.__unicode__(),
-            'name': self.name,
-            }
-
-    def get_absolute_url(self):
-        return reverse('kitreviews:kit_detail', args=[self.id])
-
-    def clean(self):
-        super(ModelKit, self).clean()
-        if self.kit_number and not self.id:
-            # validate the uniqueness of kitnumber, scale and brand only if a kit number is supplied
-            reviews = ModelKit.objects.filter(
-                            brand = self.brand,
-                            kit_number = self.kit_number,
-                            scale = self.scale
-                            )
-            if reviews.exists():
-                raise ValidationError(
-                    _(u'A kit from %(brand)s with kit number \'%(kit_number)s\' already exists') % {
-                        'brand': self.brand,
-                        'kit_number': self.kit_number
-                        }
-                    )
-
 
 class KitReview(models.Model):
     """ Model holding the review information for a model kit """
 
-    model_kit = models.ForeignKey(ModelKit)
+    model_kit = models.ForeignKey('kits.ModelKit')
     raw_text = models.TextField(
         _(u'review'),
         help_text=_('This is your review. You can use BBCode here.')

@@ -225,6 +225,7 @@ INSTALLED_APPS = (
     'brouwers.forum_tools',
     'brouwers.general',
     'brouwers.groupbuilds',
+    'brouwers.kits',
     'brouwers.kitreviews',
     'brouwers.migration',
     'brouwers.online_users',
