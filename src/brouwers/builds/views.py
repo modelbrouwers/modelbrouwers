@@ -154,6 +154,7 @@ def index_and_add(request):
         # Initialize the FormSet factory with the correct callback
         BuildPhotoInlineFormSet = inlineformset_factory(
                                       Build, BuildPhoto,
+                                      fields='__all__',
                                       max_num = 10, extra = 10,
                                       can_delete = False,
                                       formfield_callback = formfield_callback
