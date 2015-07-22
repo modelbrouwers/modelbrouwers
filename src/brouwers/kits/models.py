@@ -71,7 +71,7 @@ class ModelKit(models.Model):
     brand = models.ForeignKey('Brand', verbose_name=_('brand'))
     slug = AutoSlugField(
         _('slug'), unique=True,
-        populate_from=lambda instance: u"{0}".format(instance)
+        populate_from=lambda i: u"{0} {1}".format(i.name, i.brand.name)
     )
     kit_number = models.CharField(
         _('kit number'), max_length=50,
