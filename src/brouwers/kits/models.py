@@ -62,6 +62,10 @@ def difficulty_valid(value):
     return KitDifficulties.validator(value)
 
 
+def get_kit_slug(instance):
+    return u"{0} {1}".format(instance.name, instance.brand.name)
+
+
 @python_2_unicode_compatible
 class ModelKit(models.Model):
     """
@@ -69,10 +73,7 @@ class ModelKit(models.Model):
     """
     name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
     brand = models.ForeignKey('Brand', verbose_name=_('brand'))
-    slug = AutoSlugField(
-        _('slug'), unique=True,
-        populate_from=lambda i: u"{0} {1}".format(i.name, i.brand.name)
-    )
+    slug = AutoSlugField(_('slug'), unique=True, populate_from=get_kit_slug)
     kit_number = models.CharField(
         _('kit number'), max_length=50,
         blank=True, db_index=True,
