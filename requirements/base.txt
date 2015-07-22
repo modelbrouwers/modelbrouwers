@@ -20,7 +20,7 @@ django-precise-bbcode==1.0.9
 django-rosetta==0.7.6
 django-sendfile==0.3.7
 django-sessionprofile==0.1.1
-django-systemjs==0.2.1
+django-systemjs==0.2.4
 sorl-thumbnail==12.3
 git+https://github.com/sergei-maertens/django-sniplates.git@feature/19-fix-field_data-display#egg=django-sniplates
 

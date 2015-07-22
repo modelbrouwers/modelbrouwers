@@ -84,7 +84,6 @@ let getControlClass = function(action) {
 }
 
 
-
 $(function() {
     var controls = {};
 
