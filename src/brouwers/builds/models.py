@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from brouwers.utils.slugify import unique_slugify
 from brouwers.general.models import UserProfile
-from brouwers.kitreviews.models import Brand #TODO: FK to scale
+from brouwers.kits.models import Brand
 
 
 class Build(models.Model):

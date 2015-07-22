@@ -14,7 +14,7 @@ class ShowCasedModel(models.Model):
     email = models.EmailField(_('e-mail address'))
 
     name = models.CharField(_('model name'), max_length=254)
-    brand = models.ForeignKey('kitreviews.Brand', verbose_name=_('brand'), blank=True, null=True)
+    brand = models.ForeignKey('kits.Brand', verbose_name=_('brand'), blank=True, null=True)
     scale = models.PositiveSmallIntegerField(_("scale"),
         help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
     remarks = models.TextField(_('remarkable elements'), blank=True,
