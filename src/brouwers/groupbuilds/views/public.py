@@ -21,7 +21,7 @@ class GroupBuildListView(ListView):
             Q(end__gte=date.today()) | Q(end=None),
         ).annotate(
             n_participants=Count('participants')
-        ).order_by('category', 'start')
+        ).distinct().order_by('category', 'start')
 
     def get_context_data(self, **kwargs):
         now = timezone.now()
