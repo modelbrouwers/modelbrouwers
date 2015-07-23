@@ -45,7 +45,7 @@
 
 
 <div class="tab-content">
-    {% if build.get_brand_name or build.get_scale %}
+    {% if build.brand.name or build.get_scale %}
         <div class="kit-info">
 
             <div class="column scale">
@@ -55,7 +55,7 @@
                 {% if build.brand.logo %}
                     <img src="{{ build.brand.logo.url }}" class="brand-logo" />
                 {% else %}
-                    {{ build.get_brand_name }}
+                    {{ build.brand.name }}
                 {% endif %}
             </div>
             <div class="clear"></div>

@@ -21,14 +21,6 @@ MAX_REGISTRATION_ATTEMPTS = 3
 STANDARD_BAN_TIME_HOURS = 12
 
 
-class LoggedModel(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u'added by'), help_text=_(u'User who added the object.'))
-    timestamp_added = models.DateTimeField(_('added on'), auto_now_add=True)
-
-    class Meta:
-        abstract = True
-
-
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     # awardsinfo
@@ -54,14 +46,15 @@ class UserProfile(models.Model):
     province = models.CharField(_("province"), max_length=255, blank=True, null=True)
     country = models.CharField(_("country"), max_length=1, choices=COUNTRY_CHOICES, blank=True, null=True)
 
-    #voorkeuren -> TODO: move to secret santa object
+    # voorkeuren -> TODO: move to secret santa object
     preference = models.TextField(help_text=_("Dit wil ik graag"), blank=True, null=True)
     refuse = models.TextField(help_text=_("Dit wil ik absoluut niet"), blank=True, null=True)
 
     # allow social sharing
-    allow_sharing = models.BooleanField(_("allow social sharing"), default=True,
-            help_text=_('Checking this gives us permission to share your topics and albums on social media. Uncheck if you don\'t want to share.')
-        )
+    allow_sharing = models.BooleanField(
+        _("allow social sharing"), default=True,
+        help_text=_('Checking this gives us permission to share your topics and albums on social media. Uncheck if you don\'t want to share.')
+    )
 
     def __unicode__(self):
         return u"%s" % self.forum_nickname
@@ -110,7 +103,7 @@ class RegistrationQuestion(models.Model):
 
 class RegistrationAttemptManager(models.Manager):
     def create_from_form(self, request, form_data):
-        ip = get_client_ip(request) #FIXME: clean format?
+        ip = get_client_ip(request)  # FIXME: clean format?
         kwargs = {
             'username': form_data.get('username') or request.POST.get('username') or '__blank',
             'question': form_data.get('question'),
