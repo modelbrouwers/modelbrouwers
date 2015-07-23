@@ -12,6 +12,7 @@ class BrandFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Brand
+        django_get_or_create = ('name',)
 
 
 class ScaleFactory(factory.django.DjangoModelFactory):
@@ -20,6 +21,7 @@ class ScaleFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Scale
+        django_get_or_create = ('scale',)
 
 
 class ModelKitFactory(factory.django.DjangoModelFactory):
