@@ -34,7 +34,7 @@ class Build(models.Model):
     slug = AutoSlugField(_('slug'), unique=True, populate_from=get_build_slug)
 
     # kit information
-    kit = models.ForeignKey('kits.ModelKit', null=True, verbose_name=_('kit'))
+    kits = models.ManyToManyField('kits.ModelKit', blank=True, verbose_name=_('kits'))
 
     # topic information
     topic = ForumToolsIDField(_('build report topic'), type='topic', blank=True, null=True, unique=True)
@@ -43,26 +43,10 @@ class Build(models.Model):
     start_date = models.DateField(_("start date"), blank=True, null=True)
     end_date = models.DateField(_("end date"), blank=True, null=True)
 
-    # fields to migrate
-    url = models.URLField(max_length=500, help_text=_("link to the build report"), unique=True)
-    topic_id = models.PositiveIntegerField(
-        _('Topic ID'), unique=True,
-        blank=True, null=True,
-        help_text=_('PHPBB topic id, used to build the link to the topic.')
-        )
-    forum_id = models.PositiveIntegerField(
-        _('Forum ID'),
-        blank=True, null=True,
-        help_text=_('Used to determine the \'category\'.')
-        )
-    scale = models.PositiveSmallIntegerField(_("scale"), blank=True, null=True,
-        help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
-    brand = models.ForeignKey('kits.Brand', blank=True, null=True, verbose_name=_('brand'))
-
     class Meta:
         verbose_name = _("build report")
         verbose_name_plural = _("build reports")
-        ordering = ['scale', 'brand__name']
+        ordering = ['kit__scale', 'brand__name']
 
     def __unicode__(self):
         return _("%(username)s - %(title)s") % {'username': self.user.username, 'title': self.title}

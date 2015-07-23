@@ -23,9 +23,9 @@ class IDField(IntegerField):
         super(IDField, self).__init__(*args, **kwargs)
 
     def to_python(self, value):
-        try: # check if it's integer or not
+        try:  # check if it's integer or not
             return super(IDField, self).to_python(value)
-        except ValidationError: # catch errors and check for urls
+        except ValidationError:  # catch errors and check for urls
             pass
 
         # start processing it as an url
