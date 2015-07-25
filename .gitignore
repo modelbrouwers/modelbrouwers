@@ -7,6 +7,9 @@
 phpBB3/styles/subsilver2_dead_topics/template/common/_settings.php
 phpBB3/styles/subsilver2_dead_topics/template/common/_nav_tabs.php
 
+# public html symlink (required for composer opencart)
+/public_html
+
 # settings
 apache
 /brouwers/settings/local_settings.py
@@ -36,6 +39,7 @@ _codecov_coverage.xml
 
 # PHP composer
 /vendor/
+/shop
 
 # Frontend package managers
 /node_modules

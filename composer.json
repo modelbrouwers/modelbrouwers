@@ -7,7 +7,7 @@
     "symfony/console": "^2.7",
     "raven/raven": "^0.12.0",
     "etki/opencart-core-installer": "^0.1.0",
-    "opencart/opencart": "1.5.6.3"
+    "opencart/opencart": "2.0.3.1"
   },
   "autoload": {
     "psr-4": {"brouwers\\": "src/phpbb"}
@@ -30,5 +30,8 @@
         }
       }
     }
-  ]
+  ],
+  "extra": {
+    "opencart-install-dir": "public_html/winkel"
+  }
 }

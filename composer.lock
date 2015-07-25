@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bedc6bd84dd4f7c1aab7f9982e04b880",
+    "hash": "16c86d51ae00d701eecef143ffa2658b",
     "packages": [
         {
             "name": "etki/opencart-core-installer",
@@ -57,6 +57,22 @@
                 "opencart"
             ],
             "time": "2014-09-22 04:07:44"
+        },
+        {
+            "name": "opencart/opencart",
+            "version": "2.0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opencart/opencart",
+                "reference": "2.0.3.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/opencart/opencart/archive/2.0.3.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "opencart-core"
         },
         {
             "name": "raven/raven",
