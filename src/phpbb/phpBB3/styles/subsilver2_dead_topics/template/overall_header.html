@@ -208,7 +208,7 @@ function marklist(id, name, state)
                                 <script type="text/javascript">
                                     jQuery.get('/utils/get-announcement', function(response){
                                         if (response.html) {
-                                            $('#announcement').html(response.html);
+                                            jQuery('#announcement').html(response.html);
                                         }
                                     });
                                 </script>
