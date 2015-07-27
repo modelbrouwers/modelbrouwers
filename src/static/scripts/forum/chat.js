@@ -105,7 +105,7 @@ $(function() {
 	});
 
 	function applyHtmlToDialog(dialog, htmlTitle) {
-		dialog.data("uiDialog")._title = function (title) {
+		dialog.data("ui-dialog")._title = function (title) {
 		title.html(this.options.title); };
 		dialog.dialog('option', 'title', htmlTitle);
 	}
