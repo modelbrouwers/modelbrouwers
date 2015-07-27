@@ -4,8 +4,7 @@ from django import forms
 from django.contrib.sites.models import get_current_site
 from django.utils.translation import ugettext_lazy as _
 
-from brouwers.kitreviews.models import Brand
-
+from brouwers.kits.models import Brand
 from .models import Build
 
 
@@ -38,11 +37,10 @@ class BuildForm(forms.ModelForm):
             'brand_name',
             )
         widgets = {
-            'topic_id': forms.HiddenInput(),
-            'forum_id': forms.HiddenInput(),
             'start_date': forms.DateInput(attrs={'class': 'date'}),
             'end_date': forms.DateInput(attrs={'class': 'date'}),
         }
+        localize = '__all__'
         # available in 1.6
         # localized_fields = ('start_date', 'end_date')
 
@@ -79,8 +77,7 @@ class BuildFormForum(forms.ModelForm):
     """ Form to enable quick instantiating of a Build object trough GET QueryDict """
     class Meta:
         model = Build
-        fields = ('forum_id', 'topic_id', 'title')
-
+        fields = ('topic', 'title')
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -89,12 +86,11 @@ class BuildFormForum(forms.ModelForm):
     def get_build(self):
         """ Pre-fill some build attributes based on GET parameters """
         build = Build(
-            forum_id = self.cleaned_data['forum_id'],
-            topic_id = self.cleaned_data['topic_id'],
-            user_id = self.request.user.id,
-            profile_id = self.request.user.profile.id,
-            title = self.cleaned_data['title'],
-            )
+            topic_id=self.cleaned_data['topic_id'],
+            user_id=self.request.user.id,
+            profile_id=self.request.user.profile.id,
+            title=self.cleaned_data['title'],
+        )
 
         # create url
         current_site = get_current_site(self.request)

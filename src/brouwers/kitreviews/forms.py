@@ -2,7 +2,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.albums.models import Album
-from .models import *
+from brouwers.kits.models import Brand, ModelKit, Scale
+from .models import KitReview
 
 
 class ModelKitForm(forms.ModelForm):
@@ -10,12 +11,13 @@ class ModelKitForm(forms.ModelForm):
         model = ModelKit
         exclude = ('duplicates', 'submitter')
 
+
 class FindModelKitForm(forms.Form):
     brand = forms.ModelChoiceField(queryset=Brand.objects.all(), label=_('Brand'), required=False)
     kit_number = forms.CharField(label=_('Kit number'), required=False)
     kit_name = forms.CharField(label=_('Kit name'), required=False)
     scale = forms.ModelChoiceField(queryset=Scale.objects.all(), label=_('Scale'), required=False)
-    category = forms.ModelChoiceField(queryset=Category.objects.all(), label=_('Category'), required=False)
+
 
 class KitReviewForm(forms.ModelForm):
     model_kit = forms.ModelChoiceField(queryset=ModelKit.objects.all(), required=False)
