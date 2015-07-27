@@ -2,37 +2,16 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.albums.models import Album
 from brouwers.general.utils import get_username
 
 
-RATING_BASE = 100 # store ratings relative to 100
+RATING_BASE = 100  # store ratings relative to 100
 RATING_DISPLAY_BASE = 5
 DEFAULT_RATING = 50
 DEFAULT_DIFFICULTY = 3
-
-
-class Brand(models.Model):
-    """ Model for scale model brands, e.g. Revell"""
-
-    name = models.CharField(_(u'brand'), max_length=100, db_index=True)
-    logo = models.ImageField(_(u'logo'), upload_to='images/brand_logos/', blank=True, null=True)
-    #TODO: clean for uniqueness in kitreviews/sql/brand.sql
-    is_active = models.BooleanField(_(u'is active?'), default=True,
-                help_text=_(u'Does the brand still exist?'),
-                db_index=True
-                )
-
-    class Meta:
-        verbose_name = _(u'brand')
-        verbose_name_plural = _(u'brands')
-        ordering = ['name']
-
-    def __unicode__(self):
-        return self.name
 
 
 class KitReview(models.Model):
