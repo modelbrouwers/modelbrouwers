@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('kitreviews', '0004_auto_20150722_0917'),
         ('kits', '0003_auto_20150722_2050'),
+        ('builds', '0008_auto_20150723_2048'),
     ]
 
     operations = [
