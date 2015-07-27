@@ -66,7 +66,7 @@ class BundleCommand extends Command
         $output->writeln("<info>Found {$numApps} apps in {$numTemplates} templates</info>");
 
         $jspm = $input->getOption('jspm-executable');
-        $cmdTpl = "$jspm bundle-sfx %s %s 2> /dev/null";
+        $cmdTpl = "{$jspm} bundle %s %s 2> /dev/null";
         $systemjsDir = $settings->STATIC_ROOT . DIRECTORY_SEPARATOR . $settings->SYSTEMJS_OUTPUT_DIR;
         if (!is_dir($systemjsDir)) {
             mkdir($systemjsDir);
@@ -80,6 +80,12 @@ class BundleCommand extends Command
             $output->writeln("<comment>Bundling \"{$app}\" ...</comment>");
             $output->writeln($cmd);
             $_output = exec($cmd, $out, $exitCode);
+
+            // add the System.import statement
+            // TODO: extract the last line (sourcemapping) and paste it at the end
+            $js = file_get_contents($dest);
+            $js .= "\nSystem.import('{$app}');\n";
+            file_put_contents($dest, $js);
 
             if ($exitCode != 0 || !is_file($dest)) {
                 $output->writeln("<error>Bundle for \"$app\" failed...</error>");

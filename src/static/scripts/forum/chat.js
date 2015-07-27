@@ -1,4 +1,6 @@
-jQuery(function($) {
++(function($) {
+$(function() {
+
 	var chat_opened = false;
 	var chat_moved = false;
 
@@ -48,6 +50,7 @@ jQuery(function($) {
 	});
 
 	$('#open-chat').click(function(e){
+
 		e.preventDefault();
 		if (!chat_opened){
 			$.get('/forum_tools/get_chat/', function(json){
@@ -131,4 +134,7 @@ jQuery(function($) {
 			}
 		});
 	}
+
 });
+
+})(window.jQuery);
