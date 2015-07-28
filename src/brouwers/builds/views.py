@@ -12,8 +12,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView
 
 from brouwers.general.models import UserProfile
-from .forms import (SearchForm, BuildForm, BuildFormForum, EditBuildForm,
-                    buildphoto_formfield_callback)
+from .forms import BuildForm, BuildFormForum
 from .models import Build, BuildPhoto
 from .utils import get_search_queryset
 
@@ -124,6 +123,7 @@ class BuildAjaxSearchView(AjaxSearchView):
 
 """ Views responsible for editing data """
 
+
 def index_and_add(request):
     """
     The index page displays a search field and list of recently added build
@@ -143,8 +143,7 @@ def index_and_add(request):
     builds = None
     photos_formset, form = None, None
 
-    searchform = SearchForm()
-
+    # searchform = SearchForm()
 
     if user_logged_in:
         def formfield_callback(field, **kwargs):
@@ -211,8 +210,8 @@ def index_and_add(request):
     return render(request, 'builds/add.html', context)
 
 
-class BuildUpdate(UpdateView): # TODO
-    form_class = EditBuildForm
+class BuildUpdate(UpdateView):
+    form_class = BuildForm
     template_name = 'builds/edit.html'
 
     def get_queryset(self):
