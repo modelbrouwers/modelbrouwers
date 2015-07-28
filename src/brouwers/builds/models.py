@@ -10,10 +10,8 @@ from brouwers.forum_tools.fields import ForumToolsIDField
 
 
 def get_build_slug(build):
-    return u"{username} {brand} {scale} {title}".format(**{
+    return u"{username} {title}".format(**{
         'username': build.user.username,
-        'brand': build.brand.name if build.brand else '',
-        'scale': build.get_scale('-'),
         'title': build.title
     })
 
@@ -60,7 +58,7 @@ class Build(models.Model):
             return None
 
         url = self.topic.get_absolute_url()
-        if self.topic_start_page > 1:  # TODO: verify
+        if self.topic_start_page > 1:
             offset = settings.PHPBB_POSTS_PER_PAGE * (self.topic_start_page - 1)
             url += '&start={0}'.format(offset)
         return url
