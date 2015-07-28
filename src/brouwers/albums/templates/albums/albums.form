@@ -15,7 +15,7 @@
                             id="id_album_{{ album.id }}"
                             {% if value == album.id|cut:'' %}checked="checked"{% endif %}>
                         <label for="id_album_{{ album.id }}" class="thumbnail text-center">
-                            {% if album.get_cover.exists %}
+                        {% if album.get_cover.exists %}
                                 {% thumbnail album.cover.image "200x150" crop="center" as im %}
                                     <img src="{{ im.url }}" class="img-responsive" alt="album">
                                 {% endthumbnail %}
@@ -24,6 +24,7 @@
                             {% endif %}
                             <span class="h4">{{ album.title }}</span>
                         </label>
+                        <i class="fa fa-check fa-3x"></i>
                     </div>
                 {% cycle '' '' '' '' '' '</div></div><div class="item"><div class="row">'  %}
                 {% endfor %}
