@@ -1,11 +1,7 @@
-import os
-import urllib
-
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -38,6 +34,7 @@ class Build(models.Model):
 
     # topic information
     topic = ForumToolsIDField(_('build report topic'), type='topic', blank=True, null=True, unique=True)
+    topic_start_page = models.PositiveSmallIntegerField(_('topic start page'), default=1)
 
     # build information
     start_date = models.DateField(_("start date"), blank=True, null=True)
@@ -49,34 +46,24 @@ class Build(models.Model):
         ordering = ['kit__scale', 'brand__name']
 
     def __unicode__(self):
-        return _("%(username)s - %(title)s") % {'username': self.user.username, 'title': self.title}
+        return _(u"%(username)s - %(title)s") % {'username': self.user.username, 'title': self.title}
 
     def get_absolute_url(self):
         return reverse('builds:detail', kwargs={'slug': self.slug})
 
-    # TODO
-    def get_topic_url(self):
-        """ Build the PHPBB3 url based on topic (and forum) id. """
-        query_params = SortedDict()
-        query_params['t'] = self.topic_id
-        if self.forum_id:
-            query_params['f'] = self.forum_id
-
-        query_string = urllib.urlencode(query_params)
-        return os.path.join(settings.PHPBB_URL, 'viewtopic.php?%s' % query_string)
-
     @property
     def topic_url(self):
         """
-        Return the url to the topic.
-
-        Always give precedence to the url in database, as it can point to a
-        specific post. If no url was supplied, try building the url from topic
-        and forum id.
+        Build the PHPBB3 url based on topic (and forum) id.
         """
-        if self.url:
-            return self.url
-        return self.get_topic_url()
+        if not self.topic:
+            return None
+
+        url = self.topic.get_absolute_url()
+        if self.topic_start_page > 1:  # TODO: verify
+            offset = settings.PHPBB_POSTS_PER_PAGE * (self.topic_start_page - 1)
+            url += '&start={0}'.format(offset)
+        return url
 
     def get_scale(self, separator=':'):
         if self.scale:
