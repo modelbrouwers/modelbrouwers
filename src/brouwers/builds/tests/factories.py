@@ -11,7 +11,6 @@ class BuildFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Build
-        django_get_or_create = ('slug',)
 
     @factory.post_generation
     def kits(obj, create, extracted, **kwargs):
