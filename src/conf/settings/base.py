@@ -347,3 +347,8 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+#
+# PHPBB
+#
+PHPBB_POSTS_PER_PAGE = 10

@@ -1,12 +1,15 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
-from .views import (BuildAjaxSearchView, BuildDetailView, BuildRedirectView,
-                   UserBuildListView, index_and_add, BuildUpdate,
-                   ProfileRedirectView)
+from .views import (
+    BuildAjaxSearchView, BuildDetailView, BuildRedirectView,
+    UserBuildListView, index_and_add, BuildUpdate,
+    ProfileRedirectView
+)
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # index page, give two possible names
     url(r'^$', index_and_add, name='add_build'),
     url(r'^$', index_and_add, name='index'),
@@ -20,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^profile/(?P<profile_id>\d+)/$', ProfileRedirectView.as_view(), name='profile_build_list'),
     )
 
-#### AJAX ####
-urlpatterns += patterns('',
+urlpatterns += patterns(
+    '',
     url(r'^search/', BuildAjaxSearchView.as_view(), name='search'),
-    )
+)
