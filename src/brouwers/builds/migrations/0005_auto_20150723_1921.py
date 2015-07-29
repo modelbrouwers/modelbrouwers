@@ -31,8 +31,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='build',
-            name='kit',
-            field=models.ForeignKey(verbose_name='kit', to='kits.ModelKit', null=True),
+            name='kits',
+            field=models.ManyToManyField(to='kits.ModelKit', verbose_name='kits', blank=True),
         ),
         migrations.AlterField(
             model_name='build',

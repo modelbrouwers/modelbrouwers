@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='build',
-            options={'ordering': ['kit__scale', 'brand__name'], 'verbose_name': 'build report', 'verbose_name_plural': 'build reports'},
+            options={'ordering': ['kits__scale', 'brand__name'], 'verbose_name': 'build report', 'verbose_name_plural': 'build reports'},
         ),
         migrations.RemoveField(
             model_name='build',

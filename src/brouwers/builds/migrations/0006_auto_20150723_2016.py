@@ -12,13 +12,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='build',
-            name='kit',
-        ),
-        migrations.AddField(
-            model_name='build',
-            name='kits',
-            field=models.ManyToManyField(to='kits.ModelKit', verbose_name='kits', blank=True),
-        ),
     ]
