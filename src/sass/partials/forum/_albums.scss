@@ -1,12 +1,14 @@
 body.forum {
 
+  $sidebar-width: 20%;
+  $sidebar-bg: rgba($main-blue, 0.87);
+
   .box-sizing,
   .box-sizing * {
     @include box-sizing(border-box);
   }
 
   #photo-sidebar {
-    $sidebar-bg: rgba($main-blue, 0.87);
     height: 100vh;
     padding: 5px 15px 5px 5px;
     background: $sidebar-bg;
@@ -27,12 +29,20 @@ body.forum {
     }
 
     &.open {
-      width: 20%;
+      width: $sidebar-width;
 
       & + .lid {
-        left: 20%;
+        left: $sidebar-width;
         visibility: hidden;
         @include opacity(0);
+        @include transition-delay(0s, 0s, 0s);
+      }
+
+      #close-sidebar {
+        left: 17%; // fallback
+        @include experimental-value(left, calc(20% - 2em - 10px));
+        visibility: visible;
+        @include opacity(1);
       }
     }
 
@@ -61,7 +71,7 @@ body.forum {
       overflow: hidden;
       @include border-right-radius(5px);
       @include raised(2);
-      @include transition(opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s);
+      @include transition(opacity 0.5s linear 0.5s, left 0.5s ease, visibility 0.5s linear 0.5s);
 
       .fa {
         line-height: $height;
@@ -73,6 +83,20 @@ body.forum {
   .open-close {
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  #close-sidebar {
+    left: 0;
+    position: fixed;
+    top: 2px;
+    @include text-raised(1);
+    z-index: 11;
+    visibility: hidden;
+    @include opacity(0);
+
+    &:hover {
+      @include text-raised(2);
     }
   }
 
