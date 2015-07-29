@@ -30,7 +30,7 @@ def copy_kit_data(apps, schema_editor):
                 scale=scale, brand=build.brand, name=build.title.strip(),
                 defaults={'submitter_id': 1}
             )
-            build.kit = kit
+            build.kits.add(kit)
         elif build.scale:
             pass
         elif build.brand:
@@ -39,7 +39,7 @@ def copy_kit_data(apps, schema_editor):
                 scale=scale, brand=build.brand, name=build.title,
                 defaults={'submitter_id': 1}
             )
-            build.kit = kit
+            build.kits.add(kit)
 
         with transaction.atomic():
             try:
