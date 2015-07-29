@@ -41,7 +41,7 @@ class Build(models.Model):
     class Meta:
         verbose_name = _("build report")
         verbose_name_plural = _("build reports")
-        ordering = ['kits__scale', 'brand__name']
+        ordering = ['kits__scale', 'kits__brand__name']
 
     def __unicode__(self):
         return _(u"%(username)s - %(title)s") % {'username': self.user.username, 'title': self.title}
