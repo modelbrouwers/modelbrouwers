@@ -3,11 +3,17 @@ from django.db import IntegrityError
 
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.forum_tools.tests.factories import TopicFactory
+from brouwers.utils.tests import reload_urlconf
 from .factories import BuildFactory
 
 
 @override_settings(PHPBB_URL='/forum', PHPBB_POSTS_PER_PAGE=5)
 class BuildTests(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super(BuildTests, cls).setUpClass()
+        reload_urlconf()
 
     def setUp(self):
         self.kits = ModelKitFactory.create_batch(5)

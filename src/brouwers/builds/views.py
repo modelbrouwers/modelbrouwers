@@ -18,7 +18,20 @@ from .utils import get_search_queryset
 
 User = get_user_model()
 
-""" Views responsible for displaying data """
+
+class IndexView(ListView):
+    queryset = Build.objects.select_related('user', 'kits__brand', 'kits__scale').order_by('-pk')
+    paginate_by = 25
+    context_object_name = 'builds'
+
+
+
+
+
+
+
+
+
 
 
 class BuildDetailView(DetailView):
@@ -32,14 +45,14 @@ class BuildDetailView(DetailView):
 
 
 class BuildRedirectView(SingleObjectMixin, RedirectView):
-    """ Get the build by pk, redirect to the slug url """
-    permanent = True
+    """
+    Get the build by pk, redirect to the slug url
+    """
     model = Build
-    pk_url_kwarg = 'build_id'
+    permanent = True
 
     def get_redirect_url(self, **kwargs):
-        self.build = self.get_object()
-        return self.build.get_absolute_url()
+        return self.get_object().get_absolute_url()
 
 
 class ProfileRedirectView(RedirectView):
