@@ -14,6 +14,7 @@ class BuildAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     filter_horizontal = ('kits',)
     inlines = (BuildPhotoInline,)
+    search_fields = ('title', 'user__username')
 
 
 @admin.register(BuildPhoto)

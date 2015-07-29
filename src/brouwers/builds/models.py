@@ -41,7 +41,7 @@ class Build(models.Model):
     class Meta:
         verbose_name = _("build report")
         verbose_name_plural = _("build reports")
-        ordering = ['kits__scale', 'brand__name']
+        ordering = ['kits__scale', 'kits__brand__name']
 
     def __unicode__(self):
         return _(u"%(username)s - %(title)s") % {'username': self.user.username, 'title': self.title}
@@ -62,11 +62,6 @@ class Build(models.Model):
             offset = settings.PHPBB_POSTS_PER_PAGE * (self.topic_start_page - 1)
             url += '&start={0}'.format(offset)
         return url
-
-    def get_scale(self, separator=':'):
-        if self.scale:
-            return u"1%s%s" % (separator, self.scale)
-        return ''
 
 
 class BuildPhoto(models.Model):
