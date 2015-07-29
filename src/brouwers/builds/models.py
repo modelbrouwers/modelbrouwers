@@ -63,11 +63,6 @@ class Build(models.Model):
             url += '&start={0}'.format(offset)
         return url
 
-    def get_scale(self, separator=':'):
-        if self.scale:
-            return u"1%s%s" % (separator, self.scale)
-        return ''
-
 
 class BuildPhoto(models.Model):
     build = models.ForeignKey(Build, verbose_name=_(u'build'))

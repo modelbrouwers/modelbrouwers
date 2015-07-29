@@ -17,8 +17,21 @@ class BuildTests(TestCase):
     def test_topic_url(self):
         self.assertEqual(
             self.build.topic_url,
-            '/forum/viewtopic.php?t=1&f=1&start=5'
+            '/forum/viewtopic.php?t={0}&f={1}&start=5'.format(self.topic.pk, self.topic.forum_id)
         )
+
+    def test_topic_url_no_startpage(self):
+        topic = TopicFactory.create()
+        build = BuildFactory.create(topic_id=topic.pk)
+        self.assertEqual(
+            build.topic_url,
+            '/forum/viewtopic.php?t={0}&f={1}'.format(topic.pk, topic.forum_id)
+        )
+
+    def test_topic_url_None(self):
+        build = BuildFactory.create()
+        self.assertIsNone(build.topic)
+        self.assertIsNone(build.topic_url)
 
     def test_topic_unique(self):
         with self.assertRaises(IntegrityError):
