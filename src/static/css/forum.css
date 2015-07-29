@@ -385,8 +385,12 @@ body.forum #photo-sidebar.open + .lid {
   visibility: hidden;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
+  -moz-transition-delay: 0s, 0s, 0s;
+  -o-transition-delay: 0s, 0s, 0s;
+  -webkit-transition-delay: 0s, 0s, 0s;
+  transition-delay: 0s, 0s, 0s;
 }
-/* line 40, ../../sass/partials/forum/_albums.scss */
+/* line 41, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar.open #close-sidebar {
   left: 17%;
   left: -webkit-calc(20% - 2em - 10px);
@@ -398,16 +402,16 @@ body.forum #photo-sidebar.open #close-sidebar {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
-/* line 48, ../../sass/partials/forum/_albums.scss */
+/* line 49, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar.closed {
   width: 0;
   padding: 0;
 }
-/* line 51, ../../sass/partials/forum/_albums.scss */
+/* line 52, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar.closed > * {
   display: none;
 }
-/* line 56, ../../sass/partials/forum/_albums.scss */
+/* line 57, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar + .lid {
   background: rgba(0, 102, 153, 0.87);
   color: #FFFFFF;
@@ -428,59 +432,51 @@ body.forum #photo-sidebar + .lid {
   -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
-  -webkit-transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
-  -moz-transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
-  -o-transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
-  transition: opacity 0 linear 0.5s, left 0.5s ease, visibility 0 linear 0.5s;
+  -webkit-transition: opacity 0.5s linear 0.5s, left 0.5s ease, visibility 0.5s linear 0.5s;
+  -moz-transition: opacity 0.5s linear 0.5s, left 0.5s ease, visibility 0.5s linear 0.5s;
+  -o-transition: opacity 0.5s linear 0.5s, left 0.5s ease, visibility 0.5s linear 0.5s;
+  transition: opacity 0.5s linear 0.5s, left 0.5s ease, visibility 0.5s linear 0.5s;
 }
-/* line 75, ../../sass/partials/forum/_albums.scss */
+/* line 76, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-sidebar + .lid .fa {
   line-height: 50px;
 }
-/* line 83, ../../sass/partials/forum/_albums.scss */
+/* line 84, ../../sass/partials/forum/_albums.scss */
 body.forum .open-close:hover {
   cursor: pointer;
 }
-/* line 88, ../../sass/partials/forum/_albums.scss */
+/* line 89, ../../sass/partials/forum/_albums.scss */
 body.forum #close-sidebar {
   left: 0;
   position: fixed;
   top: 2px;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.4), 0 5px 7px rgba(0, 0, 0, 0.3);
   text-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
-  -webkit-transition: opacity 0.5s ease, visibility 0.5s ease, left 0.5s ease;
-  -moz-transition: opacity 0.5s ease, visibility 0.5s ease, left 0.5s ease;
-  -o-transition: opacity 0.5s ease, visibility 0.5s ease, left 0.5s ease;
-  transition: opacity 0.5s ease, visibility 0.5s ease, left 0.5s ease;
-  -moz-transition-delay: 0.5s;
-  -o-transition-delay: 0.5s;
-  -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s;
   z-index: 11;
   visibility: hidden;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
 }
-/* line 99, ../../sass/partials/forum/_albums.scss */
+/* line 98, ../../sass/partials/forum/_albums.scss */
 body.forum #close-sidebar:hover {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.4), 0 10px 14px rgba(0, 0, 0, 0.3);
   text-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4), 0 10px 14px 0 rgba(0, 0, 0, 0.3);
 }
-/* line 104, ../../sass/partials/forum/_albums.scss */
+/* line 103, ../../sass/partials/forum/_albums.scss */
 body.forum h2 {
   color: #FFFFFF;
 }
-/* line 108, ../../sass/partials/forum/_albums.scss */
+/* line 107, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list {
   list-style: none;
   margin: 0;
 }
-/* line 112, ../../sass/partials/forum/_albums.scss */
+/* line 111, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list .album-photo {
   position: relative;
   margin: 5px 0;
 }
-/* line 116, ../../sass/partials/forum/_albums.scss */
+/* line 115, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list .album-photo a {
   display: block;
   max-width: 100%;
@@ -490,11 +486,11 @@ body.forum #photo-list .album-photo a {
   -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
 }
-/* line 124, ../../sass/partials/forum/_albums.scss */
+/* line 123, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list .album-photo img {
   max-width: 100%;
 }
-/* line 128, ../../sass/partials/forum/_albums.scss */
+/* line 127, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list .album-photo figcaption {
   display: block;
   position: absolute;
@@ -504,7 +500,7 @@ body.forum #photo-list .album-photo figcaption {
   width: 100%;
   text-shadow: 0 0 3px #000000;
 }
-/* line 137, ../../sass/partials/forum/_albums.scss */
+/* line 136, ../../sass/partials/forum/_albums.scss */
 body.forum #photo-list .album-photo figcaption:hover {
   padding: 2px 3px 4px;
   background: rgba(0, 0, 0, 0.7);
