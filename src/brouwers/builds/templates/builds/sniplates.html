@@ -1,0 +1,23 @@
+{% load i18n %}
+
+{% block nav-right %}
+<div class="pull-right">
+    <a href="{#{% url 'builds:all' %}#}" class="btn bg-main-blue">{% trans "All builds" %}</a>
+
+    {% if user.is_authenticated %}
+    <div class="dropdown inline">
+        <button type="button" class="btn bg-main-blue dropdown-toggle"
+                data-toggle="dropdown" data-hover="dropdown" data-delay="100">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <ul class="dropdown-menu">
+            <li><a href="{#{% url 'builds:mine' %}#}">
+                <i class="fa fa-fw fa-wrench"></i>
+                {% trans "My builds" %}
+            </a></li>
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -63,9 +64,17 @@ class Build(models.Model):
             url += '&start={0}'.format(offset)
         return url
 
+    @cached_property
+    def brands(self):
+        return set([kit.brand for kit in self.kits.all()])
+
+    @cached_property
+    def scales(self):
+        return set([kit.scale for kit in self.kits.all()])
+
 
 class BuildPhoto(models.Model):
-    build = models.ForeignKey(Build, verbose_name=_(u'build'))
+    build = models.ForeignKey(Build, verbose_name=_(u'build'), related_name='photos')
     photo = models.OneToOneField('albums.Photo', blank=True, null=True)
     photo_url = models.URLField(blank=True, help_text=_('Link to an image'))
     order = models.PositiveSmallIntegerField(help_text=_('Order in which photos are shown'), blank=True, null=True)
@@ -81,14 +90,3 @@ class BuildPhoto(models.Model):
     def clean(self):
         if not self.photo and not self.photo_url:
             raise ValidationError(_('Provide either an album photo or a link to a photo.'))
-
-    @property
-    def image_url(self):
-        """
-        Album photos always go before image links
-
-        # TODO: cropping
-        """
-        if self.photo:
-            return self.photo.image.url
-        return self.photo_url

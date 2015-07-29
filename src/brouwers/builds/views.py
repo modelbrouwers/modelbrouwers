@@ -3,6 +3,7 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.db.models import Prefetch
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
@@ -18,7 +19,39 @@ from .utils import get_search_queryset
 
 User = get_user_model()
 
-""" Views responsible for displaying data """
+
+class IndexView(ListView):
+    photo_qs = BuildPhoto.objects.select_related('photo').order_by('order')
+    queryset = Build.objects.select_related('user').prefetch_related(
+                    'kits__brand', 'kits__scale',
+                    Prefetch('photos', queryset=photo_qs)
+               ).order_by('-pk')
+    paginate_by = 24
+    context_object_name = 'builds'
+    show_user = True
+
+
+class UserBuildListView(IndexView):
+    context_object_name = 'builds'
+    template_name = 'builds/profile.html'
+    show_user = False
+
+    def get_queryset(self):
+        qs = super(UserBuildListView, self).get_queryset()
+        user_id = self.kwargs.get('user_id', None)
+        self.user = get_object_or_404(User, pk=user_id)
+        return qs.filter(user_id=user_id)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserBuildListView, self).get_context_data(**kwargs)
+        context['builds_user'] = self.user
+        return context
+
+
+
+
+
+
 
 
 class BuildDetailView(DetailView):
@@ -32,14 +65,14 @@ class BuildDetailView(DetailView):
 
 
 class BuildRedirectView(SingleObjectMixin, RedirectView):
-    """ Get the build by pk, redirect to the slug url """
-    permanent = True
+    """
+    Get the build by pk, redirect to the slug url
+    """
     model = Build
-    pk_url_kwarg = 'build_id'
+    permanent = True
 
     def get_redirect_url(self, **kwargs):
-        self.build = self.get_object()
-        return self.build.get_absolute_url()
+        return self.get_object().get_absolute_url()
 
 
 class ProfileRedirectView(RedirectView):
@@ -49,26 +82,6 @@ class ProfileRedirectView(RedirectView):
         profile_id = self.kwargs.get('profile_id', None)
         profile = get_object_or_404(UserProfile, pk=profile_id)
         return reverse('builds:user_build_list', kwargs={'user_id': profile.user.id})
-
-
-class UserBuildListView(ListView):
-    context_object_name = 'builds'
-    template_name = 'builds/profile_builds.html'
-    paginate_by = 50
-
-    def __init__(self, *args, **kwargs):
-        super(UserBuildListView, self).__init__(*args, **kwargs)
-        self.user_id = None
-
-    def get_queryset(self):
-        user_id = self.kwargs.get('user_id', None)
-        self.user = get_object_or_404(User, pk=user_id)
-        return Build.objects.filter(user_id=user_id)
-
-    def get_context_data(self, **kwargs):
-        context = super(UserBuildListView, self).get_context_data(**kwargs)
-        context['builds_user'] = self.user
-        return context
 
 
 class AjaxSearchView(View):

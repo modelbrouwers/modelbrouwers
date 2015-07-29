@@ -57,3 +57,22 @@ select:-moz-focusring {
 @mixin text-raised($dp: 1) {
   @include text-shadow(0 0 $dp*5px 0 rgba($black, 0.4), 0 $dp*5px $dp*7px 0 rgba($black, 0.3));
 }
+
+@mixin menu-feedback() {
+  @include transition(all 1s ease);
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: lighten($main-blue, 10);
+    @include box-shadow(0 0 10px rgba($black, 0.1) inset);
+    color: $white;
+  }
+}
+
+// top down
+@mixin text-background() {
+  $gradient: linear-gradient(180deg, rgba(white, 0.5), rgba(white, 0.15));
+  @include background($gradient);
+}
+

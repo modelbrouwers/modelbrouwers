@@ -1,0 +1,49 @@
+{% extends "builds/base.html" %}{% load i18n thumbnail staticfiles %}
+
+
+{% block content %}
+<section>
+	<h2>{% block h2 %}
+		{% trans "Latest builds" %}
+		<i class="pull-right fa fa-cube"></i>
+	{% endblock %}</h2>
+
+	<div class="row">
+		{% for build in builds %}
+			<div class="col-sm-12 col-sm-6 col-lg-4">
+				<article class="preview">
+					<h3>
+						{% if view.show_user %}
+						<a href="{% url 'builds:user_build_list' user_id=build.user.id %}">{{ build.user }}</a> &bull;
+						{% endif %}
+						<a href="{{ build.get_absolute_url }}">{{ build.title }}</a>
+					</h3>
+					<a href="{{ build.get_absolute_url }}" class="thumbnail">
+						{% if build.scales or build.brands %}
+							<div class="row"><h4>
+								<span class="col-xs-12 col-md-6">{{ build.brands|join:', ' }}</span>
+								<span class="col-xs-12 col-md-6 text-right">{{ build.scales|join:', ' }}</span>
+							</h4></div>
+						{% endif %}
+
+						{% if build.photos.all.0.photo %}
+							{% thumbnail build.photos.all.0.photo.image "400x300" crop="center" as im %}
+							    <img src="{{ im.url }}" class="img-responsive">
+							{% endthumbnail %}
+					    {% elif build.photos.all.0.photo_url %}
+				            <img src="{{ build.photos.all.0.photo_url }}" class="img-responsive">
+					    {% else %}
+					        <img src="{% static "images/thumb.400x300.png" %}" class="img-responsive">
+					    {% endif %}
+					</a>
+				</article>
+			</div>
+
+			{% if forloop.counter|divisibleby:6 %}</div><div class="row">{% endif %}
+		{% endfor %}
+	</div>
+</section>
+
+{% include "includes/pagination.html" %}
+
+{% endblock %}
