@@ -1,0 +1,36 @@
+body.builds {
+
+	.preview {
+
+	  h3 {
+	    @include ellipsis;
+	  }
+
+	  .thumbnail {
+	  	position: relative;
+
+	  	h4 {
+	  		margin-top: 0;
+	  		margin-bottom: 0;
+	  		line-height: 2em;
+	  		position: absolute;
+	  		top: 0;
+	  		left: 4px; // padding thumb
+	  		right: 4px; // padding thumb
+
+	  		@include text-background();
+	  		color: $main-light-blue;
+	  	}
+	  }
+	}
+
+	// overlay
+	.pull-right .fa-cubes {
+		position: relative;
+		right: -0.75em;
+		color: $main-pink;
+		z-index: 1;
+	}
+
+
+}

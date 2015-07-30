@@ -11,8 +11,7 @@ class BuildPhotoInline(admin.TabularInline):
 @admin.register(Build)
 class BuildAdmin(admin.ModelAdmin):
     list_display = ('user', 'title')
-    raw_id_fields = ('user',)
-    filter_horizontal = ('kits',)
+    raw_id_fields = ('user', 'kits')
     inlines = (BuildPhotoInline,)
     search_fields = ('title', 'user__username')
 

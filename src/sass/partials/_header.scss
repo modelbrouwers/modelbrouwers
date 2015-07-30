@@ -185,3 +185,26 @@ body.fade-small-logo .navbar-brand img {
     width: 42px;
     background-position: -400px -318px;
 }
+
+
+header {
+
+  .dropdown-toggle {
+    @include menu-feedback();
+  }
+
+  .dropdown-menu {
+    top: auto;
+    right: 0;
+    left: auto;
+    @include border-radius(3px);
+    background-color: $main-blue;
+    padding: 0;
+
+    > li > a {
+      color: $white;
+      font-weight: bold;
+      @include menu-feedback();
+    }
+  }
+}
