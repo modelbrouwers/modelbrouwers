@@ -5,6 +5,7 @@ from rest_framework.test import APITestCase
 
 from brouwers.users.tests.factories import UserFactory
 from ..factories import AlbumFactory, AlbumGroupFactory, PhotoFactory
+from ...models import Album
 
 
 class MyPhotoTests(APITestCase):
@@ -59,3 +60,31 @@ class MyPhotoTests(APITestCase):
 
         for result, photo in zip(results, photos[-3:]):
             self.assertEqual(result['id'], photo.id)
+
+    def test_set_cover(self):
+        own_album = AlbumFactory.create(user=self.user)
+        photos = PhotoFactory.create_batch(2, album=own_album)
+
+        other_album = AlbumFactory.create()
+        other_photos = PhotoFactory.create_batch(2, album=other_album)
+
+        self.assertIsNone(own_album.cover)
+        self.assertIsNone(other_album.cover)
+
+        url = reverse('api:my/photos-set-cover', kwargs={'pk': photos[1].pk})
+
+        # check anonymous
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # authenticated
+        self.client.login(username=self.user.username, password='password')
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        album = Album.objects.get(pk=own_album.pk)
+        self.assertEqual(album.cover, photos[1])
+
+        # other person album/photo
+        url = reverse('api:my/photos-set-cover', kwargs={'pk': other_photos[1].pk})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

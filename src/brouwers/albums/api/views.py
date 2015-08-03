@@ -121,3 +121,11 @@ class MyPhotosViewset(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         return Photo.objects.for_user(self.request.user).order_by('-uploaded')
+
+    @detail_route(methods=['post'])
+    def set_cover(self, request, *args, **kwargs):
+        photo = self.get_object()
+        photo.album.cover = photo
+        photo.album.save()
+        serializer = self.get_serializer(photo)
+        return Response(serializer.data)
