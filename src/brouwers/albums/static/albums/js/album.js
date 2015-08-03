@@ -61,4 +61,16 @@ $(function() {
 
     });
 
+    $('#photo-thumbs').on('click', '[data-action="set-cover"]', function(e) {
+        e.preventDefault();
+        var id = $(this).closest('article').data('id');
+        $('.cover').removeClass('cover');
+        MyPhoto.objects.get({id: id}).then(photo => {
+            return photo.setAsCover();
+        }).done(photo => {
+            $(this).closest('ul').siblings('a').addClass('cover');
+        });
+        return false;
+    });
+
 });

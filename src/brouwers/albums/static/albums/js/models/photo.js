@@ -47,6 +47,13 @@ class MyPhoto extends Photo {
         }
         return meta;
     }
+
+    setAsCover() {
+        var endpoint = MyPhoto._meta.endpoints.set_cover.replace(':id', this.id);
+        return Api.request(endpoint).post().then(response => {
+            return MyPhoto.objects._createObjs( [response] )[0];
+        });
+    }
 }
 
 
