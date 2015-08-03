@@ -2,7 +2,7 @@
 
 import $ from 'bootstrap'; // bootstrap returns a jquery version
 import Handlebars from 'general/js/hbs-pony';
-import { Photo } from 'albums/js/models/photo';
+import { Photo, MyPhoto } from 'albums/js/models/photo';
 
 
 $(function() {

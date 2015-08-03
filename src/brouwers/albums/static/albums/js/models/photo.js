@@ -43,6 +43,7 @@ class MyPhoto extends Photo {
         meta.endpoints = {
             list: 'my/photos/',
             detail: 'my/photos/:id/',
+            set_cover: 'my/photos/:id/set_cover/',
         }
         return meta;
     }
