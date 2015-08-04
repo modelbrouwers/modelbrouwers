@@ -15,7 +15,7 @@ from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
 from brouwers.general.models import RegistrationQuestion, RegistrationAttempt, UserProfile
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import UserCreationForm, UserProfileForm
+from .forms import UserCreationForm
 from .mail import UserRegistrationEmail
 from .tokens import activation_token_generator
 
@@ -199,7 +199,11 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
 
 class ProfileInline(InlineFormSet):
     model = UserProfile
-    form_class = UserProfileForm
+    fields = (
+        'street', 'number', 'postal', 'city', 'province', 'country',  # address
+        'exclude_from_nomination',  # awards
+        'allow_sharing',  # privacy
+    )
     can_delete = False
     extra = 0
     max_num = 1
