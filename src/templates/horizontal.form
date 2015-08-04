@@ -16,8 +16,8 @@
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
-        {% with field_type=field_type|default:"text" %}
-        <input type="{{ field_type }}"
+        {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
+        <input type="{{ input_type }}"
             name="{{ html_name }}"
             id="{{ id }}"
             value="{{ value|default:"" }}"
@@ -42,7 +42,7 @@
 
 
 {% block DateInput %}
-    {% reuse 'input' field_type='text' extra_css_classes='date' value=value|date:'SHORT_DATE_FORMAT' %}
+    {% reuse 'input' input_type='text' extra_css_classes='date' value=value|date:'SHORT_DATE_FORMAT' %}
 {% endblock %}
 
 
@@ -85,7 +85,6 @@
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
-        {% with field_type=field_type|default:"text" %}
         <select name="{{ html_name }}" id="{{ id }}"
             {{ widget.attrs|flatattrs }} class="form-control selectpicker" multiple
             data-live-search="{{ livesearch|default:True|yesno:"true,false" }}" title="{{ placeholder|default:_("Pick an option") }}"
@@ -94,7 +93,6 @@
             <option value="{{ val }}" {% if val in value %}selected{% endif %}>{{ display }}</option>
         {% endfor %}
         </select>
-        {% endwith %}
         {% reuse "_help" %}
         {% if help_text %}</div>{% endif %}
         {% reuse "_errors" %}
