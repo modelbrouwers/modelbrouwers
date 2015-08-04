@@ -75,6 +75,15 @@ body.albums {
     }
   }
 
+  .cover {
+    border-color: $main-blue;
+    @include raised(1);
+
+    & + ul .set-cover {
+      @include opacity(0.2);
+    }
+  }
+
   // fineuploader
   .qq-upload-button {
     width: auto;

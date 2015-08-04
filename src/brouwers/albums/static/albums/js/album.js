@@ -2,7 +2,7 @@
 
 import $ from 'bootstrap'; // bootstrap returns a jquery version
 import Handlebars from 'general/js/hbs-pony';
-import { Photo } from 'albums/js/models/photo';
+import { Photo, MyPhoto } from 'albums/js/models/photo';
 
 
 $(function() {
@@ -59,6 +59,18 @@ $(function() {
             album: window.album
         }).done(getLightboxRenderer(id));
 
+    });
+
+    $('#photo-thumbs').on('click', '[data-action="set-cover"]', function(e) {
+        e.preventDefault();
+        var id = $(this).closest('article').data('id');
+        $('.cover').removeClass('cover');
+        MyPhoto.objects.get({id: id}).then(photo => {
+            return photo.setAsCover();
+        }).done(photo => {
+            $(this).closest('ul').siblings('a').addClass('cover');
+        });
+        return false;
     });
 
 });

@@ -30,6 +30,8 @@
 
 			{% if form.errors or profiles.0.errors %}
 				<div class="text-danger">{% trans "You have form errors, check the tabs below" %}</div>
+				{% widget 'form:non_field_errors' %}
+				{{ profiles.0.errors }}
 			{% endif %}
 
 			<div role="tabpanel">

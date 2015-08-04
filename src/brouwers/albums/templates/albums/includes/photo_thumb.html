@@ -1,6 +1,6 @@
 {% load thumbnail staticfiles i18n %}
-<article class="col-sm-6 col-md-3">
-    <a href="{{ photo.get_absolute_url }}" class="thumbnail album-photo" data-id="{{ photo.id }}">
+<article class="col-sm-6 col-md-3" data-id="{{ photo.id }}">
+    <a href="{{ photo.get_absolute_url }}" class="thumbnail album-photo{% if album.cover == photo %} cover{% endif %}" data-id="{{ photo.id }}">
         {% if photo.exists %}
             {% thumbnail photo.image "300x225" crop="center" as im %}
                 <img src="{{ im.url }}" class="img-responsive">
@@ -11,6 +11,9 @@
     </a>
     {% if photo.user == user %}
         <ul class="list-inline controls text-right">
+            <li data-toggle="popover" data-content="{% trans "Set as cover" %}" data-trigger="hover" data-placement="top" class="set-cover">
+                <a href="#" data-action="set-cover"><i class="fa fa-fw fa-picture-o"></i></a>
+            </li>
             <li data-toggle="popover" data-content="{% trans 'Edit photo' %}"
                 data-trigger="hover" data-placement="top" data-container="body">
                 <a href="{% url 'albums:photo_update' pk=photo.pk %}"><i class="fa fa-fw fa-pencil-square-o"></i></a>

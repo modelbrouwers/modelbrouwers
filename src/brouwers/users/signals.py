@@ -15,6 +15,7 @@ def create_userprofile(sender, **kwargs):
         }
         UserProfile.objects.create(**fields)
 
+
 @receiver(post_save, sender=User)
 def sync_email(sender, **kwargs):
     if not kwargs.get('raw'):
@@ -24,6 +25,7 @@ def sync_email(sender, **kwargs):
             forum_user.user_email = user.email
             forum_user.save()
 
+
 @receiver(post_save, sender=User)
 def sync_userprofile(sender, **kwargs):
     if not kwargs.get('raw'):
@@ -32,6 +34,7 @@ def sync_userprofile(sender, **kwargs):
         if not kwargs.get('created') and profile.forum_nickname != user.username:
             profile.forum_nickname = user.username
             profile.save()
+
 
 @receiver(post_save, sender=User)
 def sync_forumuser_username(sender, **kwargs):
