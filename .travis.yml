@@ -9,9 +9,6 @@ services:
   # - redis-server
   # - elasticsearch
 
-env:
-  - DJANGO=django<1.9
-
 install:
   - pip install --upgrade setuptools
   - pip install --upgrade pip
@@ -23,10 +20,6 @@ install:
   - sudo npm install
   - jspm config endpoints.github.auth $gh-api-token
   - jspm install
-
-matrix:
-  allow_failures:
-    - env: DJANGO=https://github.com/django/django/archive/master.zip
 
 before_script:
   - mkdir log
