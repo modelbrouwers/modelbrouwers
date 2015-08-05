@@ -18,15 +18,16 @@ install:
   - sudo apt-get -y install nodejs
   - sudo npm --registry http://registry.npmjs.eu/ install -g bower
   - sudo npm install
-  - jspm config endpoints.github.auth $gh-api-token
-  - jspm install
 
 before_script:
   - mkdir log
   - bower install
+  - jspm config endpoints.github.auth $gh-api-token
+  - jspm install
+  - src/manage.py collectstatic --noinput --link --settings=conf.settings.travis
+  - src/manage.py systemjs_bundle --settings=conf.settings.travis
 
 script:
-  - src/manage.py systemjs_bundle --settings=conf.settings.travis
   - coverage run src/manage.py test src/ --settings=conf.settings.travis -v 2
 
 after_success:
