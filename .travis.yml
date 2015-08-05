@@ -10,7 +10,7 @@ services:
   # - elasticsearch
 
 env:
-  - DJANGO=django<1.8
+  - DJANGO=django<1.9
 
 install:
   - pip install --upgrade setuptools
@@ -21,6 +21,7 @@ install:
   - sudo apt-get -y install nodejs
   - sudo npm --registry http://registry.npmjs.eu/ install -g bower
   - sudo npm install
+  - jspm config endpoints.github.auth $gh-api-token
   - jspm install
 
 matrix:
