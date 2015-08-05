@@ -21,6 +21,7 @@ install:
   - sudo apt-get -y install nodejs
   - sudo npm --registry http://registry.npmjs.eu/ install -g bower
   - sudo npm install
+  - jspm install
 
 matrix:
   allow_failures:
@@ -31,6 +32,7 @@ before_script:
   - bower install
 
 script:
+  - src/manage.py systemjs_bundle --settings=conf.settings.travis
   - coverage run src/manage.py test src/ --settings=conf.settings.travis -v 2
 
 after_success:
