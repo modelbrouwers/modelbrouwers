@@ -1,4 +1,7 @@
-import $ from 'jquery';
+/* */
+"format global";
+"deps jquery";
+"exports $";
 
 /**
 * Serializes containers. Example $(".container").serializeObjectV3(); Works also with nested fields
