@@ -37,13 +37,13 @@ class Manager {
     });
   }
 
-  filter(filters) {
+  filter(filters, force_refresh) {
     // TODO: block until promise is resolved and return the result immediately?
     var endpoint = this.model._meta.endpoints.list;
     var self = this;
     var key = JSON.stringify(filters);
     var cached = self._objectCache[key];
-    if (cached !== undefined) {
+    if (cached !== undefined && !force_refresh) {
       let deferred = Q.defer();
       deferred.resolve(cached);
       return deferred.promise;

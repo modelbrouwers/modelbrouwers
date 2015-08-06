@@ -1,13 +1,14 @@
 'use strict';
 
-import $ from 'jquery';
-import 'jquery-ui';
 import URI from 'URIjs';
 
 import Api from 'scripts/api';
 import Model from 'scripts/model';
 import Handlebars from 'general/js/hbs-pony';
 import urlconf from '../forum/urlconf';
+
+import 'jquery-ui';
+import 'scripts/jquery.serializeObject';
 
 
 class GroupBuild extends Model {
