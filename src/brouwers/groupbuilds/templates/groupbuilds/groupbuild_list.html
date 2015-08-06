@@ -6,7 +6,13 @@
 <header class="container-fluid eye-catcher">
     <div class="container">
 
-        <h1>{% trans "Group builds - some information" %}</h1>
+        <h1>
+            {% trans "Group builds - some information" %}
+            <span class="fa-stack fa-lg pull-right">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-users fa-stack-1x"></i>
+            </span>
+        </h1>
 
         <p>{% blocktrans %}A group build is basically a themed build with a set start
             and end date. Builders who share interests for a certain theme can poll other
@@ -20,10 +26,19 @@
             platform and forum-integration to get your idea going!
         {% endblocktrans %}</p>
 
-        <div class="text-center">
-            <a href="{% url 'groupbuilds:create' %}" class="btn bg-main-orange">{% trans "New concept/idea" %}</a>
-            <a href="{% url 'groupbuilds:dashboard' %}" class="pull-right btn bg-main-blue">{% trans "My groupbuilds" %}</a>
-        </div>
+        {% block gb-nav %}
+            <div>
+
+                {% block gb-nav-left %}
+                    <a href="{% url 'groupbuilds:create' %}" class="btn bg-main-orange">{% trans "New concept/idea" %}</a>
+                    <a href="{% url 'groupbuilds:dashboard' %}" class="btn bg-main-blue">{% trans "My groupbuilds" %}</a>
+                {% endblock %}
+
+                {# {% load_widgets gb='gb/sniplates.html' %} #}
+                {# {% widget 'gb:nav-right' %} #}
+
+            </div>
+        {% endblock %}
     </div>
 </header>
 {% endblock %}

@@ -27,7 +27,7 @@ class Album extends Model {
 
     renderPhotos(template, target, pagination_target, extra_filters) {
         let filters = $.extend({album: this.id}, extra_filters);
-        return MyPhoto.objects.filter(filters)
+        return MyPhoto.objects.filter(filters, true)
             .then(photos => {
                 var ctx = {
                     album: this,
