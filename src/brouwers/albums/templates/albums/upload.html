@@ -69,16 +69,12 @@
 {% endblock %}
 
 
-{% block extrascript %}
-{{ block.super }}
-<script src="{% static 'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js' %}"></script>
-<script src="{% static 'albums/js/upload.js' %}"></script>
+{% block js_no_compress %}
 <script>
     var endpoint = '{% url "api:photo-list" %}';
     var albumDetail = '{% url "albums:detail" pk='{0}' %}';
     var autoUpload = {{ settings.auto_start_uploading|yesno:'true,false' }};
 </script>
-
 
 <script type="text/template" id="qq-template">
     <div class="qq-uploader-selector qq-uploader">
@@ -117,4 +113,11 @@
 
     </div>
 </script>
+{% endblock %}
+
+
+{% block extrascript %}
+    {{ block.super }}
+    <script src="{% static 'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js' %}"></script>
+    <script src="{% static 'albums/js/upload.js' %}"></script>
 {% endblock %}
