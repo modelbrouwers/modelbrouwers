@@ -115,27 +115,28 @@
         <script src="{% static 'bower_components/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"></script>
         <script src="{% static 'scripts/bootstrap-select.min.js' %}"></script>
 
+        {% block js_no_compress %}{% endblock %}
         {% compress js %}
-        {% include "includes/google-analytics.html" %}
-        <script src="{% static 'scripts/common.js' %}"></script>
-        <script>
+            {% include "includes/google-analytics.html" %}
+            <script src="{% static 'scripts/common.js' %}"></script>
+            <script>
 
-        (function($) {
-            $(function() {
-                $('.help').popover({
-                    'placement': 'auto right'
+            (function($) {
+                $(function() {
+                    $('.help').popover({
+                        'placement': 'auto right'
+                    });
+                    $('.badge').tooltip({
+                        'placement': 'auto left'
+                    });
+                    $('.selectpicker').selectpicker();
                 });
-                $('.badge').tooltip({
-                    'placement': 'auto left'
-                });
-                $('.selectpicker').selectpicker();
-            });
-        })(window.jQuery);
+            })(window.jQuery);
 
-        </script>
+            </script>
+            {% block extrascript %}{% endblock %}
         {% endcompress %}
 
-        {% block extrascript %}{% endblock %}
     </body>
 
 

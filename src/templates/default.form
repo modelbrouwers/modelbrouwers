@@ -15,8 +15,8 @@
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
-        {% with field_type=field_type|default:"text" %}
-        <input type="{{ field_type }}"
+        {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
+        <input type="{{ input_type }}"
             name="{{ html_name }}"
             id="{{ id }}"
             value="{{ value|default:"" }}"
@@ -36,13 +36,13 @@
 
 
 {% block TextInput %}{% reuse "input" %}{% endblock %}
-{% block EmailInput %}{% reuse "input" field_type="email" %}{% endblock %}
-{% block NumberInput %}{% reuse "input" field_type="number" %}{% endblock %}
-{% block URLInput %}{% reuse "input" field_type="url" %}{% endblock %}
-{% block PasswordInput %}{% reuse "input" field_type="password" value="" %}{% endblock %}
-{% block FileInput %}{% reuse "input" field_type="file" value="" %}{% endblock %}
-{% block DateTimeInput %}{% reuse "input" field_type="datetime" value=value|date:'Y-m-d H:i:s' %}{% endblock %}
-{% block TimeInput %}{% reuse "input" field_type="time" value=value|date:'H:i:s' %}{% endblock %}
+{% block EmailInput %}{% reuse "input" input_type="email" %}{% endblock %}
+{% block NumberInput %}{% reuse "input" input_type="number" %}{% endblock %}
+{% block URLInput %}{% reuse "input" input_type="url" %}{% endblock %}
+{% block PasswordInput %}{% reuse "input" input_type="password" value="" %}{% endblock %}
+{% block FileInput %}{% reuse "input" input_type="file" value="" %}{% endblock %}
+{% block DateTimeInput %}{% reuse "input" input_type="datetime" value=value|date:'Y-m-d H:i:s' %}{% endblock %}
+{% block TimeInput %}{% reuse "input" input_type="time" value=value|date:'H:i:s' %}{% endblock %}
 
 TODO:
 
@@ -86,7 +86,7 @@ TODO:
 
 
 {% block DateInput %}
-    {% reuse 'input' field_type='text' extra_css_classes='date' value=value|date:'SHORT_DATE_FORMAT' %}
+    {% reuse 'input' input_type='text' extra_css_classes='date' value=value|date:'SHORT_DATE_FORMAT' %}
 {% endblock %}
 
 
@@ -130,7 +130,7 @@ TODO:
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
-        {% with field_type=field_type|default:"text" %}
+        {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
         <select name="{{ html_name }}" id="{{ id }}"
             {{ widget.attrs|flatattrs }} class="form-control selectpicker" multiple
             data-live-search="{{ livesearch|default:True|yesno:"true,false" }}" title="{{ placeholder|default:_("Pick an option") }}"

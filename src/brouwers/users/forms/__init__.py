@@ -1,2 +1,1 @@
-from .auth import AdminUserCreationForm, UserCreationForm, AuthForm
-from .profile import UserProfileForm
+from .auth import AdminUserCreationForm, UserCreationForm, AuthForm  # noqa pragma: no cover

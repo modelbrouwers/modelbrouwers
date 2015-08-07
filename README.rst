@@ -12,6 +12,10 @@
     :target: https://landscape.io/github/modelbrouwers/modelbrouwers/master
     :alt: Code Health
 
+.. image:: https://requires.io/github/modelbrouwers/modelbrouwers/requirements.svg?branch=master
+     :target: https://requires.io/github/modelbrouwers/modelbrouwers/requirements/?branch=master
+     :alt: Requirements Status
+
 ######################################
 Modelbrouwers Apps & phpBB integration
 ######################################

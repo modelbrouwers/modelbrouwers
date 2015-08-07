@@ -19,14 +19,14 @@ class GroupBuildListView(ListView):
     def get_queryset(self):
         return GroupBuild.public.filter(
             Q(end__gte=date.today()) | Q(end=None),
-        ).annotate(
+        ).distinct().annotate(
             n_participants=Count('participants')
-        ).distinct().order_by('category', 'start')
+        ).order_by('category', 'start')
 
     def get_context_data(self, **kwargs):
         now = timezone.now()
 
-        new_concepts = self.object_list.filter(status=GBStatuses.concept).order_by('?')[:5]
+        new_concepts = self.object_list.filter(status=GBStatuses.concept).order_by('-created')
         starting_soon = self.object_list.filter(
             status=GBStatuses.accepted,
             start__gte=now + timedelta(days=3),

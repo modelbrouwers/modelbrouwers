@@ -18,7 +18,7 @@ let conf = {
         page_link: '#photo-list-pagination .pagination a',
         loader: '#image-loader',
         photo: '.album-photo',
-        post_textarea: 'textarea[name="message"]'
+        post_textarea: 'textarea[name="message"],textarea[name="signature"]'
 	}
 };
 
