@@ -55,9 +55,8 @@ class UserBuildListView(IndexView):
 
 
 class BuildDetailView(DetailView):
-    context_object_name = 'build'
-    template_name = 'builds/build.html'
     model = Build
+    context_object_name = 'build'
 
     def get_context_data(self, **kwargs):
         kwargs['photos'] = self.object.buildphoto_set.all().order_by('order', 'id')
