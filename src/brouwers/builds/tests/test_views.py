@@ -43,3 +43,8 @@ class ViewTests(WebTest):
             reversed([repr(x) for x in user_builds])
         )
         self.assertEqual(my_builds.context['request'].path, url)
+
+    def test_detail(self):
+        build = BuildFactory.create()
+        detail = self.app.get(build.get_absolute_url(), status=200)
+        self.assertEqual(detail.context['build'], build)

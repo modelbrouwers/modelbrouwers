@@ -5,17 +5,15 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.db.models import Prefetch
 from django.forms.models import inlineformset_factory
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.safestring import mark_safe
-from django.views.generic import DetailView, ListView, RedirectView, View
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView
 
 from brouwers.general.models import UserProfile
-from .forms import BuildForm, BuildFormForum
+from .forms import BuildForm
 from .models import Build, BuildPhoto
-from .utils import get_search_queryset
+
 
 User = get_user_model()
 
@@ -48,19 +46,20 @@ class UserBuildListView(IndexView):
         return context
 
 
-
-
-
-
-
-
 class BuildDetailView(DetailView):
     model = Build
     context_object_name = 'build'
 
     def get_context_data(self, **kwargs):
-        kwargs['photos'] = self.object.buildphoto_set.all().order_by('order', 'id')
+        kwargs['photos'] = self.object.photos.select_related('photo').order_by('order', 'id')
+        kwargs['kits'] = list(self.object.kits.select_related('brand', 'scale'))
         return super(BuildDetailView, self).get_context_data(**kwargs)
+
+
+
+
+
+
 
 
 class BuildRedirectView(SingleObjectMixin, RedirectView):

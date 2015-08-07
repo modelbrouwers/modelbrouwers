@@ -1362,11 +1362,8 @@ body.builds .preview .thumbnail h4 {
   color: #FFFFFF;
 }
 /* line 28, ../../sass/partials/apps/_builds.scss */
-body.builds .pull-right .fa-cubes {
-  position: relative;
-  right: -0.75em;
-  color: #DF4AC5;
-  z-index: 1;
+body.builds.detail figure img {
+  margin: 0 auto;
 }
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */

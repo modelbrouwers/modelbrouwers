@@ -24,13 +24,9 @@ body.builds {
 	  }
 	}
 
-	// overlay
-	.pull-right .fa-cubes {
-		position: relative;
-		right: -0.75em;
-		color: $main-pink;
-		z-index: 1;
+	&.detail {
+		figure img {
+			margin: 0 auto;
+		}
 	}
-
-
 }

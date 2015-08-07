@@ -90,3 +90,12 @@ class BuildPhoto(models.Model):
     def clean(self):
         if not self.photo and not self.photo_url:
             raise ValidationError(_('Provide either an album photo or a link to a photo.'))
+
+    @property
+    def image(self):
+        """
+        Returns a cropping-suitable image.
+        """
+        if self.photo:
+            return self.photo.image
+        return self.photo_url
