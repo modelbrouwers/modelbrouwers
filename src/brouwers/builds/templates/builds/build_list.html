@@ -21,8 +21,8 @@
 					<a href="{{ build.get_absolute_url }}" class="thumbnail">
 						{% if build.scales or build.brands %}
 							<div class="row"><h4>
-								<span class="col-xs-12 col-md-6">{{ build.brands|join:', ' }}</span>
-								<span class="col-xs-12 col-md-6 text-right">{{ build.scales|join:', ' }}</span>
+								<span class="col-xs-6">{{ build.brands|join:', ' }}</span>
+								<span class="col-xs-6 text-right">{{ build.scales|join:', ' }}</span>
 							</h4></div>
 						{% endif %}
 

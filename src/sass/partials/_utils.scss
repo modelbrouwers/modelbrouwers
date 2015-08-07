@@ -72,7 +72,7 @@ select:-moz-focusring {
 
 // top down
 @mixin text-background() {
-  $gradient: linear-gradient(180deg, rgba(white, 0.5), rgba(white, 0.15));
+  $gradient: linear-gradient(180deg, rgba(black, .5), rgba(black, .1));
   @include background($gradient);
 }
 
