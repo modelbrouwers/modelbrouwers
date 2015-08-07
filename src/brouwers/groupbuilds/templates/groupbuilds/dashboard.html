@@ -85,7 +85,7 @@
                             {% endif %}
                         </a>
                     {% empty %}
-                        {% url 'groupbuilds:list' as url_gb_list %}
+                        {% url 'groupbuilds:groupbuild-list' as url_gb_list %}
                         {% blocktrans %}
                             You haven't joined a build yet. Maybe you can browse
                             the <a href="{{ url_gb_list }}">list</a> to find something interesting?
