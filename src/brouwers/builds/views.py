@@ -56,12 +56,6 @@ class BuildDetailView(DetailView):
         return super(BuildDetailView, self).get_context_data(**kwargs)
 
 
-
-
-
-
-
-
 class BuildRedirectView(SingleObjectMixin, RedirectView):
     """
     Get the build by pk, redirect to the slug url
