@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 from django_webtest import WebTest
 
@@ -36,10 +36,10 @@ class ViewTests(WebTest):
         index = self.app.get(index_url, status=200, user=self.user)
         self.assertContains(index, _('My builds'))
         self.assertContains(index, url)
-
-        import bpdb; bpdb.set_trace()
-
-
-        # overview = self.app.get(url, status=200)
-
-        # import bpdb; bpdb.set_trace()
+        my_builds = index.click(_('My builds'))
+        self.assertEqual(my_builds.status_code, 200)
+        self.assertQuerysetEqual(
+            my_builds.context['builds'],
+            reversed([repr(x) for x in user_builds])
+        )
+        self.assertEqual(my_builds.context['request'].path, url)
