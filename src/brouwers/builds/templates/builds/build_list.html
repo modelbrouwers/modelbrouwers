@@ -26,12 +26,12 @@
 							</h4></div>
 						{% endif %}
 
-						{% if build.photos.all.0.photo %}
-							{% thumbnail build.photos.all.0.photo.image "400x300" crop="center" as im %}
+						{% if build.photos.all.0.image %}
+							{% thumbnail build.photos.all.0.image "400x300" crop="center" as im %}
 							    <img src="{{ im.url }}" class="img-responsive">
+							{% empty %}
+								<img src="{% static "images/thumb.400x300.png" %}" class="img-responsive">
 							{% endthumbnail %}
-					    {% elif build.photos.all.0.photo_url %}
-				            <img src="{{ build.photos.all.0.photo_url }}" class="img-responsive">
 					    {% else %}
 					        <img src="{% static "images/thumb.400x300.png" %}" class="img-responsive">
 					    {% endif %}
