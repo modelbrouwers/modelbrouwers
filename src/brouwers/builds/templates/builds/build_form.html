@@ -51,3 +51,15 @@
 	{% endwith %}
 </form>
 {% endblock %}
+
+
+{% block js_no_compress %}
+    {% load_widgets js='sniplates/js.html' %}
+    {% widget 'js:systemjs-base' %}
+{% endblock %}
+
+
+{% block extrascript %}
+    {{ block.super }}
+    {% widget 'kits:ModelKitSelectJS' %}
+{% endblock extrascript %}

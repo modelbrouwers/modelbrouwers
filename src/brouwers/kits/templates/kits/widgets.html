@@ -1,4 +1,4 @@
-{% load i18n sniplates %}
+{% load i18n sniplates system_tags %}
 
 
 
@@ -47,4 +47,9 @@
 
 </div>
 
+{% endblock %}
+
+
+{% block ModelKitSelectJS %}
+{% systemjs_import 'kits/js/modelkit.widget' %}
 {% endblock %}
