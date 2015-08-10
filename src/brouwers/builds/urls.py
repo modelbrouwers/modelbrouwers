@@ -4,13 +4,14 @@ from .views import (
     IndexView,
     BuildDetailView, BuildRedirectView,
     UserBuildListView, ProfileRedirectView,
-    # BuildUpdate,
+    BuildCreateView
 )
 
 
 urlpatterns = patterns(
     '',
     url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^new/$', BuildCreateView.as_view(), name='create'),
 
     url(r'^(?P<pk>\d+)/$', BuildRedirectView.as_view()),
     url(r'^build/(?P<slug>[-_\w]+)/$', BuildDetailView.as_view(), name='detail'),

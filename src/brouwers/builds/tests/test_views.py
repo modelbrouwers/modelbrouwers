@@ -4,10 +4,11 @@ from django.utils.translation import ugettext as _
 from django_webtest import WebTest
 
 from brouwers.users.tests.factories import UserFactory
+from brouwers.utils.tests.mixins import LoginRequiredMixin
 from .factories import BuildFactory
 
 
-class ViewTests(WebTest):
+class ViewTests(LoginRequiredMixin, WebTest):
 
     def setUp(self):
         self.user = UserFactory.create()
@@ -48,3 +49,14 @@ class ViewTests(WebTest):
         build = BuildFactory.create()
         detail = self.app.get(build.get_absolute_url(), status=200)
         self.assertEqual(detail.context['build'], build)
+
+    def test_create(self):
+        url = reverse('builds:create')
+        index = self.app.get(reverse('builds:index'), status=200)
+
+        # anonymous
+        response = index.click(_('Add build'))
+        self._test_login_required(url, response)
+
+        # authenticated
+        add = self.app.get(url, user=self.user, status=200)

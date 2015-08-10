@@ -46,19 +46,24 @@
 {% endblock %}
 
 
+{% block _Select %}
+{% if help_text %}<div class="input-group">{% endif %}
+<select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flatattrs }} class="form-control">
+{% for val, display in choices %}
+    <option value="{{ val }}" {% if val == value|default:None %}selected{% endif %}>{{ display }}</option>
+{% endfor %}
+</select>
+{% reuse "_help" %}
+{% if help_text %}</div>{% endif %}
+{% reuse "_errors" %}
+{% endblock _Select %}
+
+
 {% block Select %}
 <div class="form-group clearfix">
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
-        {% if help_text %}<div class="input-group">{% endif %}
-        <select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flatattrs }} class="form-control">
-        {% for val, display in choices %}
-            <option value="{{ val }}" {% if val == value|default:None %}selected{% endif %}>{{ display }}</option>
-        {% endfor %}
-        </select>
-        {% reuse "_help" %}
-        {% if help_text %}</div>{% endif %}
-        {% reuse "_errors" %}
+        {% reuse "_Select" %}
     </div>
 </div>
 {% endblock %}

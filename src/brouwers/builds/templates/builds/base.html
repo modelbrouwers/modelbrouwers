@@ -25,7 +25,7 @@
             <div>
 
                 {% block builds-nav-left %}
-                    <a href="{#{% url 'builds:create' %}#}" class="btn bg-main-blue">{% trans "Add build" %}</a>
+                    <a href="{% url 'builds:create' %}" class="btn bg-main-blue">{% trans "Add build" %}</a>
                 {% endblock %}
 
                 {% load_widgets builds='builds/sniplates.html' %}

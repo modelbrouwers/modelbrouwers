@@ -244,6 +244,32 @@ How to render errors
 {% endif %}{% endblock %}
 
 
+{% block non_form_errors %}{% if formset.non_form_errors %}
+<div class="panel panel-danger">
+    <div class="panel-heading">{% trans "There are errors between the forms" %}</div>
+
+    <ul class="list-group">
+        {% for error in form.non_form_errors %}<li class="list-group-item error">{{ error }}</li>{% endfor %}
+    </ul>
+</div>
+{% endif %}{% endblock %}
+
+
+{% block formset %}
+    {% reuse 'non_form_errors' %}
+
+    {% for form in formset %}
+    <div class="formset-form">
+        {% reuse 'non_field_errors' %}
+
+        {% for field in form %}
+            {% form_field field %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+{% endblock %}
+
+
 {% block submit %}
 <div class="submit-wrapper">
     <button type="submit" class="btn {{ btn_class|default:'btn-primary' }}">

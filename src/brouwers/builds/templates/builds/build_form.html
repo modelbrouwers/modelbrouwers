@@ -1,0 +1,53 @@
+{% extends "builds/base.html" %}{% load i18n sniplates %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Add a new build" %}
+        <i class="pull-right fa fa-cube fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        By adding new builds to your profile, all your creations are easily
+        retrieved without having to dig through the entire forum.
+    {% endblocktrans %}</p>
+{% endblock %}
+
+
+{% block builds-nav-left %}
+    <a href="{% url 'builds:index' %}" class="btn bg-main-blue">{% trans "Cancel" %}</a>
+{% endblock %}
+
+
+{% block content %}
+<form action="." method="post" class="form-horizontal">{% csrf_token %}
+	{% load_widgets form='builds/forms.html' %}
+	{% load_widgets kits='kits/widgets.html' %}
+	{% with label_grid_offset='col-sm-offset-2' %}
+
+		{% widget 'form:non_field_errors' %}
+
+		{{ photos.management_form }}
+
+		<fieldset class="well">
+			{% form_field form.title %}
+			{% form_field form.topic %}
+			{% form_field form.topic_start_page %}
+			{% form_field form.start_date %}
+			{% form_field form.end_date %}
+		</fieldset>
+
+		<h2>{% trans "Used kit(s)" %}</h2>
+		<fieldset class="well">
+			{% form_field form.kits widget='kits:ModelKitSelect' %}
+		</fieldset>
+
+		<h2>{% trans "Photos" %}</h2>
+		<fieldset class="well">
+			{% widget 'form:formset' formset=photos %}
+		</fieldset>
+
+		{% widget 'form:submit' btn_text=btn_text|default:_('Add build') %}
+	{% endwith %}
+</form>
+{% endblock %}
