@@ -1,6 +1,7 @@
 import { ModelKit } from 'kits/js/models/ModelKit';
 
 import 'jquery';
+import 'scripts/jquery.serializeObject';
 
 
 let conf = {
@@ -22,6 +23,18 @@ $(function() {
 });
 
 
-let refreshKits = function(event) {
-    console.log(event);
-};
+function refreshKits(event) {
+    let $container = $(this).closest('[data-filters="true"');
+    let filters = $container.serializeObject();
+
+    // strip off the prefix
+    for (let key in filters) {
+        let newKey = key.replace('{0}-'.format(conf.prefix), '');
+        filters[newKey] = filters[key];
+        delete filters[key];
+    }
+
+    ModelKit.objects.filter(filters).done(kits => {
+        console.log(kits);
+    });
+}
