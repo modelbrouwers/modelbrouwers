@@ -8,6 +8,7 @@ import Handlebars from 'general/js/hbs-pony';
 let conf = {
     prefix: '__modelkitselect',
     htmlname: 'kits',
+    minChars: 2,
 };
 
 
@@ -17,9 +18,11 @@ $(function() {
 
     let selBrand = '#id_{0}-brand'.format(conf.prefix);
     let selScale = '#id_{0}-scale'.format(conf.prefix);
+    let selName = '#id_{0}-name'.format(conf.prefix);
     let $selects = $('{0}, {1}'.format(selBrand, selScale));
 
     $selects.change(refreshKits);
+    $(selName).keyup(refreshKits);
 
 
 });
@@ -30,6 +33,10 @@ function refreshKits(event) {
     let $target = $container.siblings('.kit-suggestions');
     let filters = $container.serializeObject();
     let checkedKits = [];
+
+    if ($(this).is('input[type="text"]') && $(this).val() < conf.minChars) {
+        return;
+    }
 
     // strip off the prefix
     for (let key in filters) {

@@ -5,6 +5,9 @@ from ..models import ModelKit
 
 
 class ModelKitFilter(filters.FilterSet):
+
+    name = filters.CharFilter(name='name', lookup_type='icontains')
+
     class Meta:
         model = ModelKit
-        fields = ('brand', 'scale')
+        fields = ('brand', 'scale', 'name')

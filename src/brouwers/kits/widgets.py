@@ -6,6 +6,7 @@ from .models import Brand, Scale
 class ModelKitForm(forms.Form):
     brand = forms.ModelChoiceField(queryset=Brand.objects.all())
     scale = forms.ModelChoiceField(queryset=Scale.objects.all())
+    name = forms.CharField(required=False)
 
 
 class ModelKitSelect(forms.TextInput):

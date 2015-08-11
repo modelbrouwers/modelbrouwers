@@ -12,31 +12,25 @@
 
     <div class="{{ field_grid|default:'col-sm-10' }}">
         <div>
-            <!-- textinput with actual ids -->
-            {% if help_text %}<div class="input-group">{% endif %}
-            <input type="text" name="{{ html_name }}"
-                id="{{ id }}" value="{{ value|default:"" }}"
-                class="form-control {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
-                {{ widget.attrs|flatattrs }}
-                {{ required|yesno:"required," }}
-                {{ autofocus|yesno:"autofocus," }}
-                {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
-            >
             {% widget "fields:_help" %}
-            {% if help_text %}</div>{% endif %}
             {% widget "fields:_errors" %}
         </div>
 
         <div class="row" data-filters="true">
             {% with form=widget.form %}
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12 col-sm-4">
                     <!-- brand select -->
                     {% form_field form.brand widget='fields:_Select' %}
                 </div>
 
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12 col-sm-4">
                     <!-- scale select -->
                     {% form_field form.scale widget='fields:_Select' %}
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <!-- search box -->
+                    {% form_field form.name widget='fields:_input' placeholder=_('filter by name') %}
                 </div>
             {% endwith %}
         </div>
