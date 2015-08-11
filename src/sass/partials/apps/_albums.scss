@@ -163,23 +163,7 @@ body.albums {
         }
       }
 
-      + label + .fa {
-        display: none;
-        position: absolute;
-        top: 5px;
-        right: 0.6em;
-        color: $main-green;
-        @include text-raised(1);
-      }
-
-      &:checked + label {
-        // border-color: $main-light-blue;
-        @include raised(1);
-
-        + .fa {
-          display: block;
-        }
-      }
+      @include selected-fa();
     }
 
   }

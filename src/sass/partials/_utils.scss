@@ -75,3 +75,23 @@ select:-moz-focusring {
   $gradient: linear-gradient(180deg, rgba(black, .5), rgba(black, .1));
   @include background($gradient);
 }
+
+
+@mixin selected-fa($color: $main-green, $raise: 1) {
+  & + label + .fa {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 0.6em;
+    color: $color;
+    @include text-raised($raise);
+  }
+
+  &:checked + label {
+    @include raised($raise);
+
+    + .fa {
+      display: block;
+    }
+  }
+}

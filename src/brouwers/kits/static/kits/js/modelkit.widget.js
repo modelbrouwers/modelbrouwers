@@ -39,7 +39,7 @@ function refreshKits(event) {
     }
 
     ModelKit.objects.filter(filters).then(kits => {
-        $target.find('.kit-preview').filter((index, preview) => {
+        $target.find('.preview').filter((index, preview) => {
             let cb = $(preview).find('input[type="checkbox"]');
             let isChecked = cb.is(':checked');
             if (isChecked) {

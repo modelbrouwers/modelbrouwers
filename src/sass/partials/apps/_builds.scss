@@ -1,33 +1,50 @@
 body.builds {
 
-	.preview {
+.preview {
 
-	  h3 {
-	    @include ellipsis;
-	  }
+  h3, .h5 {
+    @include ellipsis;
+  }
 
-	  .thumbnail {
-	  	position: relative;
+  .thumbnail {
+    position: relative;
 
-	  	h4 {
-	  		margin-top: 0;
-	  		margin-bottom: 0;
-	  		line-height: 2em;
-	  		position: absolute;
-	  		top: 0;
-	  		left: 4px; // padding thumb
-	  		right: 4px; // padding thumb
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 2em;
+      position: absolute;
+      top: 0;
+      left: 4px; // padding thumb
+      right: 4px; // padding thumb
 
-	  		@include text-background();
-	  		color: $white;
-	  	}
-	  }
-	}
+      @include text-background();
+      color: $white;
+    }
+  }
 
-	&.detail {
-		figure img {
-			margin: 0 auto;
-		}
-	}
+  input[type="checkbox"] {
+    display: none;
+    @include selected-fa();
+  }
 }
 
+&.detail {
+  figure img {
+    margin: 0 auto;
+  }
+}
+
+.kit-suggestions {
+  margin-top: 15px;
+
+  .h5 {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 4px; // padding thumb
+    right: 4px; // padding thumb
+  }
+}
+
+}
