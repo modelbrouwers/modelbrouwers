@@ -6,6 +6,6 @@ from .filters import ModelKitFilter
 
 
 class ModelKitViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = ModelKit.objects.all()
+    queryset = ModelKit.objects.select_related('scale', 'brand')
     serializer_class = ModelKitSerializer
     filter_class = ModelKitFilter

@@ -1,0 +1,18 @@
+{% load handlebars staticfiles %}{% hbs_verbatim %}
+{{#each kits}}
+
+    <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 kit-preview" data-id="{{id}}">
+        <input type="checkbox" name="{{@root.htmlname}}" value="{{id}}" id="__modelkit_{{@index}}">
+        <label for="__modelkit_{{@index}}" title="{{name}}">
+            <span class="h5">{{name}} {{#if kit_number}}<small>{{kit_number}}</small>{{/if}}</span>
+
+            {{#if box_image.small}}
+                <img src="{{box_image.small}}" class="img-responsive">
+            {{else}}
+                <img src="{% static "images/thumb.png" %}" class="img-responsive">
+            {{/if}}
+        </label>
+    </div>
+
+{{/each}}
+{% hbs_endverbatim %}
