@@ -1,4 +1,4 @@
-{% load handlebars staticfiles %}{% hbs_verbatim %}
+{% load handlebars staticfiles i18n %}{% hbs_verbatim %}
 {{#each kits}}
 
     <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{id}}">
@@ -16,4 +16,11 @@
     </div>
 
 {{/each}}
+
+{{#if page.next}}
+    <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview center-all">
+        <button class="btn bg-main-blue" data-next="{{page.next_page_number}}">{% trans 'load more' %}</button>
+        <i class="fa fa-pulse fa-spinner fa-4x"></i>
+    </div>
+{{/if}}
 {% hbs_endverbatim %}

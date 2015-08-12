@@ -1385,15 +1385,30 @@ body.builds .preview input[type="checkbox"]:checked + label {
 body.builds .preview input[type="checkbox"]:checked + label + .fa {
   display: block;
 }
-/* line 33, ../../sass/partials/apps/_builds.scss */
+/* line 31, ../../sass/partials/apps/_builds.scss */
+body.builds .preview .fa-spinner {
+  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+  animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+}
+/* line 35, ../../sass/partials/apps/_builds.scss */
+body.builds .preview button + .fa-spinner {
+  display: none;
+}
+/* line 40, ../../sass/partials/apps/_builds.scss */
+body.builds .center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 47, ../../sass/partials/apps/_builds.scss */
 body.builds.detail figure img {
   margin: 0 auto;
 }
-/* line 38, ../../sass/partials/apps/_builds.scss */
+/* line 52, ../../sass/partials/apps/_builds.scss */
 body.builds .kit-suggestions {
   margin-top: 15px;
 }
-/* line 41, ../../sass/partials/apps/_builds.scss */
+/* line 55, ../../sass/partials/apps/_builds.scss */
 body.builds .kit-suggestions .h5 {
   display: block;
   position: absolute;

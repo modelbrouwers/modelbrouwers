@@ -11,6 +11,8 @@ let conf = {
     minChars: 2,
 };
 
+let checkedKits = [];
+
 
 $(function() {
 
@@ -21,34 +23,32 @@ $(function() {
     let selName = '#id_{0}-name'.format(conf.prefix);
     let $selects = $('{0}, {1}'.format(selBrand, selScale));
 
+    // events
     $selects.change(refreshKits);
     $(selName).keyup(refreshKits);
-
-
+    $(window).resize(syncHeight);
+    $('.kit-suggestions').on('click', 'button', loadMore);
 });
 
 
-function refreshKits(event) {
-    let $container = $(this).closest('[data-filters="true"');
-    let $target = $container.siblings('.kit-suggestions');
+function getKitFilters($container) {
     let filters = $container.serializeObject();
-    let checkedKits = [];
-
-    if ($(this).is('input[type="text"]') && $(this).val() < conf.minChars) {
-        return;
-    }
-
     // strip off the prefix
     for (let key in filters) {
         let newKey = key.replace('{0}-'.format(conf.prefix), '');
         filters[newKey] = filters[key];
         delete filters[key];
     }
+    return filters;
+}
 
-    ModelKit.objects.filter(filters).then(kits => {
+
+function renderKitPreviews(filters, $target) {
+    return ModelKit.objects.filter(filters).then(kits => {
+        let pageObj = kits.page_obj;
         $target.find('.preview').filter((index, preview) => {
             let cb = $(preview).find('input[type="checkbox"]');
-            let isChecked = cb.is(':checked');
+            let isChecked = cb && cb.is(':checked');
             if (isChecked) {
                 let id = $(preview).data('id');
                 if (checkedKits.indexOf(id) === -1) {
@@ -62,9 +62,48 @@ function refreshKits(event) {
         kits = kits.filter(kit => {
             return checkedKits.indexOf(kit.id) === -1;
         });
-
-        return Handlebars.render('kits::select-modelkit-widget', {kits: kits, htmlname: conf.htmlname});
+        let context = {
+            kits: kits,
+            htmlname: conf.htmlname,
+            page: pageObj,
+        };
+        return Handlebars.render('kits::select-modelkit-widget', context);
     }).done(html => {
         $target.append(html);
+        syncHeight();
     });
+}
+
+
+function refreshKits(event) {
+    let $container = $(this).closest('[data-filters="true"');
+    let $target = $container.siblings('.kit-suggestions');
+    let filters = getKitFilters($container);
+
+    if ($(this).is('input[type="text"]') && $(this).val() < conf.minChars && $(this).val() != '') {
+        return;
+    }
+
+    renderKitPreviews(filters, $target);
+}
+
+
+function syncHeight() {
+    let loadMore = $('.preview.center-all');
+    if (!loadMore) {
+        return;
+    }
+    loadMore.height(loadMore.prev().height());
+}
+
+
+function loadMore(event) {
+    event.preventDefault();
+    let $target = $(this).closest('.kit-suggestions');
+    let $container = $target.siblings('[data-filters="true"]');
+    let filters = getKitFilters($container);
+    filters.page = $(this).data('next');
+    $(this).remove(); // this shows the loader
+    renderKitPreviews(filters, $target);
+    return false;
 }

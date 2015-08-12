@@ -27,6 +27,20 @@ body.builds {
     display: none;
     @include selected-fa();
   }
+
+  .fa-spinner {
+    @include spinner();
+  }
+
+  button + .fa-spinner {
+    display: none;
+  }
+}
+
+.center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 &.detail {
