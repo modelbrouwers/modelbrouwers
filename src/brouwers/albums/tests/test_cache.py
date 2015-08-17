@@ -32,8 +32,8 @@ class CacheTests(TestCase):
 
         # change preferences, make sure the cache is updated
         prefs_obj = Preferences.objects.get(user=user)
-        prefs_obj.collapse_sidebar = False
+        prefs_obj.auto_start_uploading = True
         prefs_obj.save()
 
         cached_prefs = cache.get(cache_key)
-        self.assertEqual(cached_prefs['collapse_sidebar'], prefs_obj.collapse_sidebar)
+        self.assertEqual(cached_prefs['auto_start_uploading'], prefs_obj.auto_start_uploading)

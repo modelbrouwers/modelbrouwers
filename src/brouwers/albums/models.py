@@ -3,6 +3,7 @@ import warnings
 from datetime import datetime
 
 from django.conf import settings
+from django.core import validators
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -213,50 +214,22 @@ class Photo(models.Model):
         self.save()
 
 
-class Backgrounds(DjangoChoices):
-    black = ChoiceItem('black', _('Black'))
-    white = ChoiceItem('white', _('White'))
-    grey = ChoiceItem('EEE', _('Light grey'))
-    dark_grey = ChoiceItem('333', _('Dark grey'))
-
-
-def validate_backgrounds(value):
-    return Backgrounds.validator(value)
-
-
 class Preferences(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
-    # options for uploadify
     auto_start_uploading = models.BooleanField(
         _("start uploading automatically?"),
         help_text=_("Start upload automatically when files are selected"),
         default=False)
 
-    # sidebar settings
-    collapse_sidebar = models.BooleanField(
-        _("collapse sidebar"), default=True,
-        help_text=_("Show the sidebar as closed when typing a post.")
-        )
-    hide_sidebar = models.BooleanField(
-        _("hide sidebar"), default=False,
-        help_text=_("Hide the sidebar completely when typing a post and activate it with a button.")
-        )
-    sidebar_bg_color = models.CharField(
-        _("sidebar background color"),
-        max_length=7, help_text=_("Background for the overlay in the board."),
-        choices=Backgrounds.choices, default=Backgrounds.black,
-        validators=[validate_backgrounds]
-    )
-    sidebar_transparent = models.BooleanField(_("transparent background?"), default=True)
-    text_color = models.CharField(
-        _("sidebar text color"), max_length=7, blank=True,
-        help_text=_("Text color in the overlay. HTML color format #xxxxxx or #xxx.")
-    )
-    width = models.CharField(
-        _("sidebar width"), max_length=6, blank=True,
-        help_text=_("Width of the sidebar. E.g. '30%' or '300px'.")
+    paginate_by_sidebar = models.SmallIntegerField(
+        _('sidebar number of photos per page'),
+        default=settings.REST_FRAMEWORK['PAGE_SIZE'],
+        validators=[
+            validators.MaxValueValidator(100),
+            validators.MinValueValidator(1)
+        ]
     )
 
     objects = PreferencesManager()
