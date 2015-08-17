@@ -13,7 +13,7 @@ from .serializers import (
     PreferencesSerializer, UploadPhotoSerializer
 )
 from .renderers import FineUploaderRenderer
-from .pagination import PhotoPagination
+from .pagination import PhotoPagination, MyPhotoPagination
 
 
 class PhotoViewSet(viewsets.ModelViewSet):
@@ -118,6 +118,7 @@ class MyPhotosViewset(viewsets.ReadOnlyModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ForumPhotoSerializer
     filter_class = PhotoFilter
+    pagination_class = MyPhotoPagination
 
     def get_queryset(self):
         return Photo.objects.for_user(self.request.user).order_by('-uploaded')
