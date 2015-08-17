@@ -43,10 +43,12 @@ function getKitFilters($container) {
 }
 
 
-function renderKitPreviews(filters, $target) {
+function renderKitPreviews(filters, $target, append) {
     return ModelKit.objects.filter(filters).then(kits => {
         let pageObj = kits.page_obj;
-        $target.find('.preview').filter((index, preview) => {
+        let previews = $target.find('.preview');
+
+        previews.each((index, preview) => {
             let cb = $(preview).find('input[type="checkbox"]');
             let isChecked = cb && cb.is(':checked');
             if (isChecked) {
@@ -55,8 +57,19 @@ function renderKitPreviews(filters, $target) {
                     checkedKits.push(id);
                 }
             }
-            return !isChecked;
-        }).remove();
+        });
+
+        if (!append) {
+            previews.filter((index, preview) => {
+                let id = $(preview).data('id');
+                return checkedKits.indexOf(id) === -1;
+            }).remove();
+        } else {
+            // remove any possible loaders
+            previews.filter((index, preview) => {
+                return $(preview).find('.fa-spinner').length > 0;
+            }).remove();
+        }
 
         // don't render the same kit again if it's in the list
         kits = kits.filter(kit => {
@@ -104,6 +117,6 @@ function loadMore(event) {
     let filters = getKitFilters($container);
     filters.page = $(this).data('next');
     $(this).remove(); // this shows the loader
-    renderKitPreviews(filters, $target);
+    renderKitPreviews(filters, $target, true);
     return false;
 }
