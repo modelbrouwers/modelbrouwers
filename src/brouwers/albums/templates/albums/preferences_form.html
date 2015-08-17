@@ -27,16 +27,7 @@
 
         <h2>{% trans "Forum sidebar" %}</h2>
         <fieldset class="well">
-            {% form_field form.collapse_sidebar %}
-            {% form_field form.hide_sidebar %}
-        </fieldset>
-
-        <h2>{% trans "Forum sidebar: appearance" %}</h2>
-        <fieldset class="well">
-            {% form_field form.sidebar_bg_color %}
-            {% form_field form.sidebar_transparent %}
-            {% form_field form.text_color %}
-            {% form_field form.width %}
+            {% form_field form.paginate_by_sidebar %}
         </fieldset>
 
         {% widget 'form:submit' btn_text=_('Save changes') %}

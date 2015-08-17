@@ -55,9 +55,7 @@ class AlbumRestoreForm(forms.ModelForm):
 class PreferencesForm(forms.ModelForm):
     class Meta:
         model = Preferences
-        fields = ('auto_start_uploading', 'collapse_sidebar', 'hide_sidebar',
-                  'sidebar_bg_color', 'sidebar_transparent', 'text_color',
-                  'width')
+        fields = ('auto_start_uploading', 'paginate_by_sidebar')
 
 
 class PhotoForm(AlbumQuerysetFormMixin, forms.ModelForm):
