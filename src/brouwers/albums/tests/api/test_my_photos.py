@@ -5,6 +5,7 @@ from rest_framework.test import APITestCase
 
 from brouwers.users.tests.factories import UserFactory
 from ..factories import AlbumFactory, AlbumGroupFactory, PhotoFactory
+from ..utils import override_preferences
 from ...models import Album
 
 
@@ -60,6 +61,15 @@ class MyPhotoTests(APITestCase):
 
         for result, photo in zip(results, photos[-3:]):
             self.assertEqual(result['id'], photo.id)
+
+    def test_custom_pagination(self):
+        url = reverse('api:my/photos-list')
+        own_album = AlbumFactory.create(user=self.user)
+        PhotoFactory.create_batch(4, album=own_album)
+        self.client.login(username=self.user.username, password='password')
+        with override_preferences(self.user, paginate_by_sidebar=3):
+            response = self.client.get(url)
+        self.assertEqual(response.data['paginate_by'], 3)
 
     def test_set_cover(self):
         own_album = AlbumFactory.create(user=self.user)
