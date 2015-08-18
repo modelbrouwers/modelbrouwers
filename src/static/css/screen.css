@@ -1589,6 +1589,33 @@ body.groupbuilds #build-list .tab-content {
   justify-content: center;
 }
 
+/* line 71, ../../sass/partials/apps/_kits.scss */
+.tt-menu {
+  background-color: white;
+  -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+/* line 78, ../../sass/partials/apps/_kits.scss */
+.tt-menu .tt-suggestion {
+  padding: 2px 10px;
+}
+/* line 81, ../../sass/partials/apps/_kits.scss */
+.tt-menu .tt-suggestion:hover, .tt-menu .tt-suggestion.tt-cursor {
+  background-color: rgba(145, 146, 145, 0.25);
+  cursor: pointer;
+}
+
+/* line 89, ../../sass/partials/apps/_kits.scss */
+.twitter-typeahead {
+  width: 100%;
+}
+
 /* line 3, ../../sass/partials/apps/_users.scss */
 body.users #form-login {
   margin-top: 75px;

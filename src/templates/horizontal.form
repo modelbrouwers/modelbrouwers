@@ -40,10 +40,10 @@
 <div class="form-group clearfix">
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
-        {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
-        <input type="{{ input_type }}"
-            name="{{ html_name }}"
-            id="{{ id }}"
+        <input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ value|default:"" }}" />
+        <input type="{{ input_type|default:'text' }}"
+            name="{{ html_name }}_ta"
+            id="{{ id }}_ta"
             value="{{ value|default:"" }}"
             class="form-control typeahead {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
             data-provide="typeahead"
@@ -52,7 +52,6 @@
             {{ required|yesno:"required," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
         >
-        {% endwith %}
         {% reuse "_help" %}
         {% reuse "_errors" %}
     </div>

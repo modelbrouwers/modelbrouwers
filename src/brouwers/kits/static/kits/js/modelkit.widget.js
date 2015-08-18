@@ -2,16 +2,20 @@ import { ModelKit } from 'kits/js/models/ModelKit';
 
 import 'jquery';
 import 'scripts/jquery.serializeObject';
+import 'typeahead';
 import Handlebars from 'general/js/hbs-pony';
 
 
 let conf = {
     prefix: '__modelkitselect',
+    prefix_add: '__modelkitadd',
     htmlname: 'kits',
     minChars: 2,
 };
 
 let checkedKits = [];
+
+let brands = [];
 
 
 $(function() {
@@ -23,14 +27,14 @@ $(function() {
     let selName = '#id_{0}-name'.format(conf.prefix);
     let $selects = $('{0}, {1}'.format(selBrand, selScale));
 
+    // init
+    initTypeaheads();
+
     // events
     $selects.change(refreshKits);
     $(selName).keyup(refreshKits);
     $(window).resize(syncHeight);
-    $('.kit-suggestions')
-        .on('click', 'button', loadMore)
-        // .on('click', '.add-kit a', showKitForm)
-    ;
+    $('.kit-suggestions').on('click', 'button', loadMore);
 });
 
 
@@ -136,9 +140,32 @@ function loadMore(event) {
 }
 
 
-// function showKitForm(event) {
-//     event.preventDefault();
-//     let modal = $('#{0}'.format($(this).data('modal'))));
+function initTypeaheads() {
+    let fields = ['brand'];
+    fields.forEach(function(f) {
 
-//     return false;
-// }
+        let hiddenInput = $('#id_{0}-{1}'.format(conf.prefix_add, f));
+        let input = $('#id_{0}-{1}_ta'.format(conf.prefix_add, f));
+
+        input.typeahead(
+            {
+                minLength: 2,
+                highlight: true
+            },
+            {
+                source: ( query, sync, async ) => {
+                    hiddenInput.val('');
+                    $.get( '/api/v1/kits/brand/', { name: query }, data => {
+                        async( data );
+                    });
+                },
+                limit: 100,
+                display: 'name',
+            }
+        );
+
+        input.on('typeahead:select', (event, suggestion) => {
+            hiddenInput.val(suggestion.id);
+        });
+    });
+}

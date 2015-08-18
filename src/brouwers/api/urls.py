@@ -6,7 +6,7 @@ from brouwers.albums.api.views import (
     MyAlbumsViewset, MyPhotosViewset,
     PhotoViewSet, PreferencesViewSet
 )
-from brouwers.kits.api.views import ModelKitViewSet
+from brouwers.kits.api.views import ModelKitViewSet, BrandViewSet
 
 router = DefaultRouter()
 
@@ -16,6 +16,7 @@ router.register(r'albums/preferences', PreferencesViewSet)
 router.register(r'my/albums', MyAlbumsViewset, base_name='my/albums')
 router.register(r'my/photos', MyPhotosViewset, base_name='my/photos')
 router.register(r'kits/kit', ModelKitViewSet)
+router.register(r'kits/brand', BrandViewSet)
 
 
 urlpatterns = router.urls + patterns(
