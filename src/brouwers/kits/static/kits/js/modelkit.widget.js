@@ -33,17 +33,28 @@ $(function() {
 
 function getKitFilters($container) {
     let filters = $container.serializeObject();
+    let allEmpty = true;
     // strip off the prefix
     for (let key in filters) {
         let newKey = key.replace('{0}-'.format(conf.prefix), '');
         filters[newKey] = filters[key];
+        if (filters[key]) {
+            allEmpty = false;
+        }
         delete filters[key];
+    }
+    if (allEmpty) {
+        return null;
     }
     return filters;
 }
 
 
 function renderKitPreviews(filters, $target, append) {
+    if (filters === null) {
+        $target.find('.preview').remove();
+        return;
+    }
     return ModelKit.objects.filter(filters).then(kits => {
         let pageObj = kits.page_obj;
         let previews = $target.find('.preview');
