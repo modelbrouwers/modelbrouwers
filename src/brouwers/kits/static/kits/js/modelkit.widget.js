@@ -27,7 +27,10 @@ $(function() {
     $selects.change(refreshKits);
     $(selName).keyup(refreshKits);
     $(window).resize(syncHeight);
-    $('.kit-suggestions').on('click', 'button', loadMore);
+    $('.kit-suggestions')
+        .on('click', 'button', loadMore)
+        // .on('click', '.add-kit a', showKitForm)
+    ;
 });
 
 
@@ -131,3 +134,11 @@ function loadMore(event) {
     renderKitPreviews(filters, $target, true);
     return false;
 }
+
+
+// function showKitForm(event) {
+//     event.preventDefault();
+//     let modal = $('#{0}'.format($(this).data('modal'))));
+
+//     return false;
+// }

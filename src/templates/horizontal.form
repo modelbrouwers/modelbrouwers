@@ -36,6 +36,30 @@
 {% endblock %}
 
 
+{% block typeaheadinput %}
+<div class="form-group clearfix">
+    {% reuse "_label" %}
+    <div class="{{ field_grid|default:'col-sm-10' }}">
+        {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
+        <input type="{{ input_type }}"
+            name="{{ html_name }}"
+            id="{{ id }}"
+            value="{{ value|default:"" }}"
+            class="form-control typeahead {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
+            data-provide="typeahead"
+            autocomplete="off"
+            {{ widget.attrs|flatattrs }}
+            {{ required|yesno:"required," }}
+            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+        >
+        {% endwith %}
+        {% reuse "_help" %}
+        {% reuse "_errors" %}
+    </div>
+</div>
+{% endblock %}
+
+
 {% block HiddenInput %}
 <input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ value|default:"" }}">
 {% endblock HiddenInput %}

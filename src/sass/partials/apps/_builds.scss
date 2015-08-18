@@ -2,7 +2,7 @@ body.builds {
 
 .preview {
 
-  h3, .h5 {
+  h3 {
     @include ellipsis;
   }
 
@@ -22,42 +22,11 @@ body.builds {
       color: $white;
     }
   }
-
-  input[type="checkbox"] {
-    display: none;
-    @include selected-fa();
-  }
-
-  .fa-spinner {
-    @include spinner();
-  }
-
-  button + .fa-spinner {
-    display: none;
-  }
-}
-
-.center-all {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 &.detail {
   figure img {
     margin: 0 auto;
-  }
-}
-
-.kit-suggestions {
-  margin-top: 15px;
-
-  .h5 {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 4px; // padding thumb
-    right: 4px; // padding thumb
   }
 }
 
