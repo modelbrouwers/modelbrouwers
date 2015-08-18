@@ -47,7 +47,8 @@
       "jquery": "github:components/jquery@^2.1.4",
       "jquery-ui": "github:components/jqueryui@^1.11.4",
       "perfect-scrollbar": "npm:perfect-scrollbar@^0.6.2",
-      "q": "npm:q@^2.0.3"
+      "q": "npm:q@^2.0.3",
+      "typeahead": "github:twitter/typeahead.js@^0.11.1"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",

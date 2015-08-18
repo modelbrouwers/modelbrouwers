@@ -28,6 +28,7 @@ System.config({
     "q": "npm:q@2.0.3",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
+    "typeahead": "github:twitter/typeahead.js@0.11.1",
     "github:components/jqueryui@1.11.4": {
       "jquery": "github:components/jquery@2.1.4"
     },
@@ -41,6 +42,9 @@ System.config({
       "process": "npm:process@0.10.1"
     },
     "github:twbs/bootstrap@3.3.5": {
+      "jquery": "github:components/jquery@2.1.4"
+    },
+    "github:twitter/typeahead.js@0.11.1": {
       "jquery": "github:components/jquery@2.1.4"
     },
     "npm:URIjs@1.15.1": {

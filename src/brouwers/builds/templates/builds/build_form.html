@@ -38,7 +38,12 @@
 		</fieldset>
 
 		<h2>{% trans "Used kit(s)" %}</h2>
-		<fieldset class="well">
+        <p class="text-muted">
+        {% blocktrans %}You can select kits from our database here. Use the
+        dropdowns to narrow your search. If your kit isn't in our database yet,
+        you can add it yourself!{% endblocktrans %}
+        </p>
+        <fieldset class="well">
 			{% form_field form.kits widget='kits:ModelKitSelect' label=_('Select a kit') %}
 		</fieldset>
 
