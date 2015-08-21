@@ -1,4 +1,6 @@
+import { Brand } from 'kits/js/models/Brand';
 import { ModelKit } from 'kits/js/models/ModelKit';
+import { Scale } from 'kits/js/models/Scale';
 
 import 'jquery';
 import 'scripts/jquery.serializeObject';
@@ -11,6 +13,7 @@ let conf = {
     prefix_add: '__modelkitadd',
     htmlname: 'kits',
     minChars: 2,
+    add_modal: '#add-kit-modal',
 };
 
 let checkedKits = [];
@@ -35,6 +38,7 @@ $(function() {
     $(selName).keyup(refreshKits);
     $(window).resize(syncHeight);
     $('.kit-suggestions').on('click', 'button', loadMore);
+    $(conf.add_modal).on('shown.bs.modal', fillAddDefaults);
 });
 
 
@@ -140,9 +144,24 @@ function loadMore(event) {
 }
 
 
+function fillAddDefaults(event) {
+    debugger;
+    let fields = ['brand', 'scale'];
+    let selBrand = '#id_{0}-brand'.format(conf.prefix);
+    let selScale = '#id_{0}-scale'.format(conf.prefix);
+    fields.forEach(field => {
+        let option = $('#id_{0}-{1} option:selected'.format(conf.prefix, field));
+        debugger;
+        if (option) {
+            let input = $('#id_{0}-{1}_ta'.format(conf.prefix_add, field));
+        }
+    });
+}
+
+
 function initTypeaheads() {
     let fields = ['brand'];
-    fields.forEach(function(f) {
+    fields.forEach(f => {
 
         let hiddenInput = $('#id_{0}-{1}'.format(conf.prefix_add, f));
         let input = $('#id_{0}-{1}_ta'.format(conf.prefix_add, f));
@@ -153,7 +172,11 @@ function initTypeaheads() {
                 highlight: true
             },
             {
+                async: true,
                 source: ( query, sync, async ) => {
+
+                    debugger;
+
                     hiddenInput.val('');
                     $.get( '/api/v1/kits/brand/', { name: query }, data => {
                         async( data );

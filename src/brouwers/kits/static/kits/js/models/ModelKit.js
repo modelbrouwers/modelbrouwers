@@ -22,4 +22,4 @@ class ModelKit extends Model {
 }
 
 
-export { ModelKit };
+export default ModelKit;
