@@ -508,6 +508,10 @@ body.forum #photo-list .album-photo figcaption:hover {
   -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
 }
+/* line 146, ../../sass/partials/forum/_albums.scss */
+body.forum .pagination > li > a > .fa {
+  line-height: inherit;
+}
 
 /* line 2, ../../sass/partials/forum/_awards.scss */
 .topic-controls a {

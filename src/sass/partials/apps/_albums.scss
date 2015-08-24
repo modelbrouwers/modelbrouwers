@@ -9,6 +9,19 @@
   }
 }
 
+// shared between different sections of the website
+.album-preview {
+  position: relative;
+
+  h3 {
+    @include ellipsis;
+  }
+
+  a.thumbnail + ul.list-inline {
+    top: 26px + 20px + 10px + 4px + 2px;
+  }
+}
+
 body.albums {
 
   header {
@@ -30,48 +43,6 @@ body.albums {
         font-weight: bold;
         @include menu-feedback();
       }
-    }
-  }
-
-  .album-preview {
-    position: relative;
-
-    h3 {
-      @include ellipsis;
-    }
-
-    a.thumbnail + ul.list-inline {
-      top: 26px + 20px + 10px + 4px + 2px;
-    }
-  }
-
-  a.thumbnail + ul.list-inline {
-    position: absolute;
-    // 4px padding for thumbnails in bootstrap
-    top: 4px + 2px;
-    right: 15px + 4px + 2px;
-
-    @include background(rgba($black, 0.2));
-    @include border-radius(3px);
-
-    &:hover {
-      @include background(rgba($black, 0.7));
-      @include raised(1);
-    }
-
-    > li {
-      padding-left: 0;
-      padding-right: 0;
-      &:first-child {
-        padding-left: 2px;
-      }
-      &:last-child {
-        padding-right: 2px;
-      }
-    }
-
-    a {
-      color: $white;
     }
   }
 
