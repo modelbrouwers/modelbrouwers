@@ -19,7 +19,7 @@ MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
 )
 
 INSTALLED_APPS = INSTALLED_APPS + (
-    # 'debug_toolbar',
+    'debug_toolbar',
 )
 
 DEBUG_TOOLBAR_CONFIG = {

@@ -7,7 +7,6 @@
 {% block eye-catcher %}
 <header class="container-fluid eye-catcher">
     <div class="container">
-
         <h1>{{ profile.username }}</h1>
     </div>
 </header>
@@ -17,13 +16,31 @@
 {% block content %}
 <div role="tabpanel">
 	<ul class="nav nav-tabs" role="tablist">
-		<li class="active"><a href="#tab-user" data-toggle="tab">{% trans "Albums" %}</a></li>
-		<li><a href="#tab-address" data-toggle="tab">{% trans "Builds" %}</a></li>
-		<li><a href="#tab-awards" data-toggle="tab">{% trans "Groupbuilds" %}</a></li>
+		<li class="active"><a href="#profile-albums" data-toggle="tab">{% trans "Albums" %}</a></li>
+		<li><a href="#profile-builds" data-toggle="tab">{% trans "Builds" %}</a></li>
+		<li><a href="#profile-groupbuilds" data-toggle="tab">{% trans "Groupbuilds" %}</a></li>
 	</ul>
 
 	<div class="tab-content">
-        <h1>{% trans "Work in progress" %}</h1>
+
+        <div role="tabpanel" class="tab-pane active" id="profile-albums">
+            <div class="row">
+                {% for album in albums %}
+                    {% include "albums/includes/album_square.html" %}
+
+                    {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="profile-builds">
+            <h2>{% trans "Work in progress" %}</h2>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="profile-groupbuilds">
+            <h2>{% trans "Work in progress 2" %}</h2>
+        </div>
+
 	</div>
 </div>
 {% endblock %}
