@@ -84,6 +84,10 @@ let loadPage = function(event) {
     event.preventDefault();
     let page = $(this).data('page');
     let id = $(conf.selectors.albums_select).val();
+
+    // show spinner
+    $(this).html('<i class="fa fa-spin fa-spinner"></i>');
+
     Album.objects.get({id: id}).done(album => {
         renderAlbumPhotos(album, page);
     });

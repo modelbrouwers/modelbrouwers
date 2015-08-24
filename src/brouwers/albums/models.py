@@ -119,7 +119,11 @@ class Album(models.Model):
         return reverse('albums:detail', args=[self.id])
 
     def get_cover(self):
-        if self.cover:
+        if hasattr(self, '_cover_cache'):
+            if self.cover:
+                return self.cover
+
+        elif self.cover:
             return self.cover
 
         img = self.photo_set.filter(trash=False).order_by('order').first()
