@@ -57,6 +57,10 @@ class Api {
 }
 
 export function apiRequest(url, data) {
+    let prefix = apiBase.format('');
+    if (url.startsWith(prefix)) {
+        url = url.substring(prefix.length);
+    }
     return new Api(url, data);
 };
 
