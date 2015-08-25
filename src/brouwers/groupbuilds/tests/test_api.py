@@ -8,7 +8,7 @@ from rest_framework.test import APITestCase
 from brouwers.forum_tools.tests.factory_models import ForumFactory, TopicFactory
 from brouwers.users.tests.factories import UserFactory
 from .factories import GroupBuildFactory, ParticipantFactory
-from ..models import GroupbuildStatuses
+from ..models import GroupbuildStatuses, Participant
 
 
 class ApiTests(APITestCase):
@@ -122,3 +122,26 @@ class ApiTests(APITestCase):
             'finished': False,
         })
         self.assertEqual(response.data['groupbuild']['id'], gb.pk)
+
+    def test_mark_done(self):
+        """
+        Test that a participant can be marked as ready.
+        """
+        gb = GroupBuildFactory.create(status=GroupbuildStatuses.accepted)
+
+        user = UserFactory.create()
+        other_user = UserFactory.create()
+        topic = TopicFactory.create(forum__forum_name=gb.theme,
+                                    topic_title='Participant 1')
+        participant = ParticipantFactory.create(topic_id=topic.topic_id, user=user)
+
+        endpoint = reverse('api:participant-detail', kwargs={'pk': participant.pk})
+        self.client.login(username=user.username, password='password')
+        response = self.client.patch(endpoint, {'finished': True}, format='json')
+        self.assertEqual(response.status_code, 200)
+        participant = Participant.objects.get(pk=participant.pk)
+        self.assertTrue(participant.finished)
+
+        self.client.login(username=other_user.username, password='password')
+        response = self.client.patch(endpoint, {'finished': False}, format='json')
+        self.assertEqual(response.status_code, 403)
