@@ -37,7 +37,7 @@
 
         <tbody>
             {{#each participants}}
-                <tr class="{{#if_even @index}}row2{{else}}row1{{/if_even}}">
+                <tr class="{{#if_even @index}}row2{{else}}row1{{/if_even}}" data-id="{{id}}">
                     <td class="num">{{add @index 1}}</td>
                     <td class="brouwer">{{username}}</td>
                     <td class="model-name">{{model_name}}</td>

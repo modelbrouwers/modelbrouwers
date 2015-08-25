@@ -2,25 +2,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-19 20:31+0200\n"
-"PO-Revision-Date: 2015-07-19 20:52+0020\n"
+"POT-Creation-Date: 2015-08-25 08:56+0200\n"
+"PO-Revision-Date: 2015-08-25 09:01+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: apps.py:7
-#| msgid "group builds"
 msgid "Groupbuilds"
 msgstr "Groepsbouwen"
 
@@ -230,8 +229,9 @@ msgid "{build} participant: {user}"
 msgstr "{build} deelnemer: {user}"
 
 #: templates/groupbuilds/base.html:3
-msgid "Modelbrouwers.nl &bull; Group builds"
-msgstr "Modelbrouwers.nl &bull; Groepsbouwen"
+#| msgid "Groupbuilds"
+msgid "Group builds"
+msgstr "Groepsbouwen"
 
 #: templates/groupbuilds/create.html:4
 msgid "Submit a new group build"
@@ -255,7 +255,7 @@ msgstr ""
 "In dit gedeelte kan je je groepsbouwen beheren. Je groepsbouwen zijn in twee delen opgedeeld: bouwen die je zelf beheert en bouwen waarin je deelnemer bent."
 
 #: templates/groupbuilds/dashboard.html:15
-#: templates/groupbuilds/groupbuild_list.html:24
+#: templates/groupbuilds/groupbuild_list.html:33
 msgid "New concept/idea"
 msgstr "Nieuw concept/idee"
 
@@ -559,11 +559,11 @@ msgstr "Leg de groepsbouw vast!"
 msgid "Submit request"
 msgstr "Verstuur aanvraag"
 
-#: templates/groupbuilds/groupbuild_list.html:9
+#: templates/groupbuilds/groupbuild_list.html:10
 msgid "Group builds - some information"
 msgstr "Groepsbouwen - wat informatie"
 
-#: templates/groupbuilds/groupbuild_list.html:11
+#: templates/groupbuilds/groupbuild_list.html:17
 msgid ""
 "A group build is basically a themed build with a set start\n"
 "            and end date. Builders who share interests for a certain theme can poll other\n"
@@ -579,7 +579,7 @@ msgstr ""
 "afgebakend gebied, waarbij waardevolle referenties en weetjes gedeeld "
 "worden."
 
-#: templates/groupbuilds/groupbuild_list.html:18
+#: templates/groupbuilds/groupbuild_list.html:24
 msgid ""
 "'Ok, sounds cool and all' I hear you think. But what if you have your\n"
 "            own idea? Just click the button below to submit your idea! We provide the\n"
@@ -590,15 +590,15 @@ msgstr ""
 "nu een idee hebt? Klik dan op de knop hieronder om je idee in te voeren, en "
 "wij zorgen voor het platform en de forumintegratie om je idee op te starten!"
 
-#: templates/groupbuilds/groupbuild_list.html:25
+#: templates/groupbuilds/groupbuild_list.html:34
 msgid "My groupbuilds"
 msgstr "Mijn groepsbouwen"
 
-#: templates/groupbuilds/groupbuild_list.html:37
+#: templates/groupbuilds/groupbuild_list.html:52
 msgid "New concepts"
 msgstr "Nieuwe concepten"
 
-#: templates/groupbuilds/groupbuild_list.html:46
+#: templates/groupbuilds/groupbuild_list.html:61
 #, python-format
 msgid ""
 "\n"
@@ -609,11 +609,11 @@ msgstr ""
 "\n"
 "Niemand lijkt inspiratie te hebben! Misschien kan je <a href=\"%(url_gb_concept)s\">zelf een idee toevoegen?</a>"
 
-#: templates/groupbuilds/groupbuild_list.html:57
+#: templates/groupbuilds/groupbuild_list.html:72
 msgid "Starting soon"
 msgstr "Wordt binnenkort gestart"
 
-#: templates/groupbuilds/groupbuild_list.html:65
+#: templates/groupbuilds/groupbuild_list.html:80
 msgid ""
 "\n"
 "                        Nothing starting in the next six weeks. Maybe there's something further\n"
@@ -623,11 +623,11 @@ msgstr ""
 "\n"
 "In de komende zes weken starten geen groepsbouwen. Misschien is er iets later geplanned, check de <a href=\"#calendar\">kalender</a>."
 
-#: templates/groupbuilds/groupbuild_list.html:77
+#: templates/groupbuilds/groupbuild_list.html:92
 msgid "Calendar"
 msgstr "Kalender"
 
-#: templates/groupbuilds/groupbuild_list.html:101
+#: templates/groupbuilds/groupbuild_list.html:116
 msgid "All unfinished group builds"
 msgstr "Alle niet-afgelopen groepsbouwen"
 
@@ -739,6 +739,9 @@ msgstr "Je groepsbouw is aan het moderatorteam voorgelegd ter goedkeuring."
 #: views/participant.py:33
 msgid "You're now listed as participant!"
 msgstr "Je staat nu op de deelnemerslijst!"
+
+#~ msgid "Modelbrouwers.nl &bull; Group builds"
+#~ msgstr "Modelbrouwers.nl &bull; Groepsbouwen"
 
 #~ msgid "Information"
 #~ msgstr "Informatie"

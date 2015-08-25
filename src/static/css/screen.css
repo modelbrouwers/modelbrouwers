@@ -1469,6 +1469,24 @@ body.groupbuilds #build-list .tab-content {
   border: solid 1px #DDD;
   border-top: none;
 }
+/* line 128, ../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .participants tr .fa-ellipsis-h {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+  opacity: 0.25;
+}
+/* line 132, ../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .participants tr .fa-check {
+  display: none;
+}
+/* line 138, ../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .participants tr.finished .fa-ellipsis-h {
+  display: none;
+}
+/* line 142, ../../sass/partials/apps/_groupbuilds.scss */
+body.groupbuilds .participants tr.finished .fa-check {
+  display: inline-block;
+  color: #32BB5B;
+}
 
 /* line 3, ../../sass/partials/apps/_users.scss */
 body.users #form-login {

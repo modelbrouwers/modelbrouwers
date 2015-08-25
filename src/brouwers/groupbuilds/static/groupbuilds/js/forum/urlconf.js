@@ -3,6 +3,7 @@ let urlconf = {
 		participant: {
 			check: 'groupbuilds/participant/check/',
 			add: 'groupbuilds/groupbuild/{0}/participant/',
+            setFinished: 'groupbuilds/participant/{0}/'
 		}
 	}
 };
