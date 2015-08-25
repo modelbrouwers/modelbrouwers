@@ -1,5 +1,5 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n bbcode_tags sniplates %}
+{% load i18n bbcode_tags sniplates system_tags %}
 
 {% block title %}{{ block.super }}: {{ gb.theme }}{% endblock %}
 
@@ -123,7 +123,10 @@
                                                 {% endif %}
                                             </td>
                                             <td class="col-xs-1">
-                                                <a href="{% url 'groupbuilds:update-participant' slug=gb.slug pk=participant.pk %}" class="action"><span class="fa fa-pencil"></span></a>
+                                                <a href="{% url 'groupbuilds:update-participant' slug=gb.slug pk=participant.pk %}" class="action"><i class="fa fa-pencil"></i></a>
+                                                <a href="{% url 'api:participant-detail' pk=participant.pk %}" class="action" data-toggle="finished" data-id="{{ participant.pk }}">
+                                                    <i class="fa fa-{{ participant.finished|yesno:'ellipsis-h,check' }}"></i>
+                                                </a>
                                                 {# <a href="#TODO" class="action"><span class="fa fa-remove"></span></a> #}
                                             </td>
                                         </tr>
@@ -143,10 +146,10 @@
                 <hr>
 
                 <h3>{% blocktrans count n_part=participants|length %}1 participant{% plural %}{{ n_part }} participants{% endblocktrans %}</h3>
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover participants">
                     <thead>
                         <tr>
-                            <th>{% trans "#" %}</th>
+                            <th colspan="2">{% trans "#" %}</th>
                             <th>{% trans "Builder" %}</th>
                             <th>{% trans "Model" %}</th>
                             <th>{% trans "Topic" %}</th>
@@ -155,9 +158,10 @@
 
                     <tbody>
                     {% for participant in participants %}
-                        <tr>
+                        <tr class="{{ participant.finished|yesno:'finished,' }} " data-id="{{ participant.pk }}">
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ participant.user }}</td>
+                            <td><i class="fa fa-check"></i><i class="fa fa-ellipsis-h"></i></td>
+                            <td><a href="{{ participant.user.get_absolute_url }}"><strong>{{ participant.user }}</strong></a></td>
                             <td>{{ participant.model_name }}</td>
                             <td>
                                 {% if participant.topic %}
@@ -236,3 +240,14 @@
     <footer></footer>
 </article>
 {% endblock content %}
+
+
+{% block js_no_compress %}
+    {% load_widgets js='sniplates/js.html' %}
+    {% widget 'js:systemjs-base' %}
+{% endblock %}
+
+{% block extrascript %}
+{{ block.super }}
+{% systemjs_import 'groupbuilds/js/detail' %}
+{% endblock extrascript %}

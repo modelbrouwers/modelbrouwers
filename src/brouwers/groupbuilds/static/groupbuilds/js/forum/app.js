@@ -53,6 +53,26 @@ function checkParticipantTopicCreated() {
 }
 
 
+function setFinished(event) {
+	event.preventDefault();
+	let id = $(this).closest('[data-id]').data('id');
+	let endpoint = urlconf.groupbuilds.participant.setFinished.format(id);
+
+	Api.request(endpoint, {finished: true}).patch().done(response => {
+		$(this).toggleClass('fa-times fa-check').closest('td').addClass('finished');
+	}, response => {
+		// we're not checking if they have permission or not, just try it and see what happens
+		if (response.status === 403) {
+			if (window.console) {
+				console.log('Attempting to change other project to finished');
+			}
+		} else {
+			alert('Er ging iets fout, neem contact op met admins@modelbrouwers.nl. Fout: ' + response.responseText);
+		}
+	});
+	return false;
+}
+
 // jQuery initialization
 $(function() {
 
@@ -63,7 +83,7 @@ $(function() {
 		let inset = $(div);
 		gb = GroupBuild.objects.get({id: inset.data('id')})
 			.done( gb => gb.render(inset) );
-	});
+	}).on('click', 'td.completed .fa-times', setFinished);
 
 	checkParticipantTopicCreated();
 });

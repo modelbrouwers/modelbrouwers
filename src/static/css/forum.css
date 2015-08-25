@@ -580,15 +580,21 @@ div.gb-inset table.tablebg td.completed:hover {
   color: #E91D1D;
 }
 /* line 56, ../../sass/partials/forum/_groupbuilds.scss */
+div.gb-inset table.tablebg td.completed .fa-times:hover {
+  cursor: pointer;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.4), 0 5px 7px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+}
+/* line 61, ../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset table.tablebg td.completed.finished, div.gb-inset table.tablebg td.completed.finished:hover {
   color: #32BB5B;
 }
-/* line 61, ../../sass/partials/forum/_groupbuilds.scss */
+/* line 66, ../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset table.tablebg td.brouwer {
   color: #006699;
   font-weight: bold;
 }
-/* line 66, ../../sass/partials/forum/_groupbuilds.scss */
+/* line 71, ../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset table.tablebg td.model-name {
   font-weight: bold;
 }
