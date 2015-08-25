@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-19 20:31+0200\n"
+"POT-Creation-Date: 2015-08-25 08:56+0200\n"
 "PO-Revision-Date: 2015-02-10 20:02+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,86 +22,6 @@ msgstr ""
 #: apps.py:7
 msgid "General"
 msgstr ""
-
-#: forms.py:19
-msgid "E-mail"
-msgstr "E-mailadres"
-
-#: forms.py:25 forms.py:44
-msgid "A user with that username already exists."
-msgstr "Er bestaat al iemand met deze gebruikersnaam."
-
-#: forms.py:45 forms.py:123 forms.py:219
-msgid "The two password fields didn't match."
-msgstr "De wachtwoordvelden zijn niet identiek."
-
-#: forms.py:48 forms.py:162
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: forms.py:49 forms.py:165
-msgid "E-mail address"
-msgstr "E-mailadres"
-
-#: forms.py:50 forms.py:112 forms.py:209
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: forms.py:52 forms.py:114 forms.py:211
-msgid "Password confirmation"
-msgstr "Wachtwoord - bevestig"
-
-#: forms.py:54 forms.py:116 forms.py:212
-msgid "Enter the same password as above, for verification."
-msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
-
-#: forms.py:64
-msgid "This e-mail address is already registered."
-msgstr "Dit e-mailadres is al geregistreerd."
-
-#: forms.py:101 models.py:137
-msgid "answer"
-msgstr "antwoord"
-
-#: forms.py:110
-msgid "Forum name"
-msgstr "Forumnaam"
-
-#: forms.py:111
-msgid "Code"
-msgstr "Code"
-
-#: forms.py:129
-msgid "This user doesn't exist on the board, check for typos."
-msgstr "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
-
-#: forms.py:137
-msgid "You entered the wrong code."
-msgstr "Je hebt een foutieve code ingegeven."
-
-#: forms.py:152
-msgid "The username entered was not correct."
-msgstr "De ingegeven gebruikersnaam was niet correct."
-
-#: forms.py:166
-msgid ""
-"If you forgot your username, you can enter the e-mail address you registered "
-"with."
-msgstr ""
-"Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres waarmee "
-"je registreerde ingeven."
-
-#: forms.py:173
-msgid "This user is unknown in the database."
-msgstr "Deze gebruiker komt niet in de databank voor."
-
-#: forms.py:180
-msgid "This email adress is unknown in the database"
-msgstr "Dit e-mailadres komt niet in de databank voor."
-
-#: forms.py:187
-msgid "Enter your username or e-mail address."
-msgstr "Voer je gebruikersnaam of e-mailadres in."
 
 #: models.py:14
 msgid "The Netherlands"
@@ -218,6 +138,10 @@ msgstr "E-mailadres"
 #: models.py:136
 msgid "registration question"
 msgstr "Registratievraag"
+
+#: models.py:137
+msgid "answer"
+msgstr "antwoord"
 
 #: models.py:138
 msgid "timestamp"
@@ -478,6 +402,64 @@ msgstr ""
 "Foutjes kunnen gebeuren. Als je denkt dat er een fout in het spel is, aarzel "
 "dan niet om de admins te contacteren. Het e-mailadres staat onderaan deze "
 "pagina."
+
+#~ msgid "E-mail"
+#~ msgstr "E-mailadres"
+
+#~ msgid "A user with that username already exists."
+#~ msgstr "Er bestaat al iemand met deze gebruikersnaam."
+
+#~ msgid "The two password fields didn't match."
+#~ msgstr "De wachtwoordvelden zijn niet identiek."
+
+#~ msgid "Username"
+#~ msgstr "Gebruikersnaam"
+
+#~ msgid "E-mail address"
+#~ msgstr "E-mailadres"
+
+#~ msgid "Password"
+#~ msgstr "Wachtwoord"
+
+#~ msgid "Password confirmation"
+#~ msgstr "Wachtwoord - bevestig"
+
+#~ msgid "Enter the same password as above, for verification."
+#~ msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
+
+#~ msgid "This e-mail address is already registered."
+#~ msgstr "Dit e-mailadres is al geregistreerd."
+
+#~ msgid "Forum name"
+#~ msgstr "Forumnaam"
+
+#~ msgid "Code"
+#~ msgstr "Code"
+
+#~ msgid "This user doesn't exist on the board, check for typos."
+#~ msgstr "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
+
+#~ msgid "You entered the wrong code."
+#~ msgstr "Je hebt een foutieve code ingegeven."
+
+#~ msgid "The username entered was not correct."
+#~ msgstr "De ingegeven gebruikersnaam was niet correct."
+
+#~ msgid ""
+#~ "If you forgot your username, you can enter the e-mail address you "
+#~ "registered with."
+#~ msgstr ""
+#~ "Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres "
+#~ "waarmee je registreerde ingeven."
+
+#~ msgid "This user is unknown in the database."
+#~ msgstr "Deze gebruiker komt niet in de databank voor."
+
+#~ msgid "This email adress is unknown in the database"
+#~ msgstr "Dit e-mailadres komt niet in de databank voor."
+
+#~ msgid "Enter your username or e-mail address."
+#~ msgstr "Voer je gebruikersnaam of e-mailadres in."
 
 #~ msgid "Your password was successfully changed."
 #~ msgstr "Je wachtwoord werd succesvol aangepast."
