@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Q from 'q';
+import 'string.prototype.startswith';
 
 import 'scripts/strformat';
 import 'scripts/jquery.serializeObject';
