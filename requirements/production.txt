@@ -4,4 +4,4 @@ MySQL-python==1.2.5
 psycopg2==2.6.1
 python-memcached==1.57
 uwsgi==2.0.11.1
-raven==5.5.0
+raven==5.6.0
