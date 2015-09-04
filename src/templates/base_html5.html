@@ -29,7 +29,9 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <!-- use googles jquery, loads faster and relieves own server -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        {# <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> fucking Firefox 3.6 support #}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         {# fallback #}
         <script>
             if (typeof window.jQuery === 'undefined') {
