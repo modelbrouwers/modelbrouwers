@@ -18,6 +18,7 @@ class ScaleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Scale
+        fields = ('id', 'scale', '__unicode__')
 
 
 class ModelKitSerializer(serializers.ModelSerializer):

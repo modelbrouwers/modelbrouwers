@@ -168,37 +168,64 @@ function fillAddDefaults(event) {
 }
 
 
+let reScale = new RegExp('1[/:]([0-9]*)');
+
 function initTypeaheads() {
-    let fields = ['brand', 'scale'];
-    fields.forEach(f => {
 
-        if (f == 'scale') {
-            debugger;
-        }
+    let fields = {
+        brand: {
+            display: 'name',
+            param: 'name',
+            minLength: 2
+        },
+        scale: {
+            display: '__unicode__',
+            param: 'scale',
+            sanitize: (query) => {
+                // prefix used
+                if (isNaN(Number(query))) {
+                    let match = reScale.exec(query);
+                    if (match) {
+                        query = match[1];
+                    }
+                }
+                return query;
+            },
+            minLength: 1
+        },
+    }
 
-        let hiddenInput = $('#id_{0}-{1}'.format(conf.prefix_add, f));
-        let input = $('#id_{0}-{1}_ta'.format(conf.prefix_add, f));
+    for (let f in fields) {
+        let fieldConfig = fields[f];
+        let _baseSelector = `#id_${ conf.prefix_add }-${ f }`;
+        let hiddenInput = $(_baseSelector);
+        let input = $(`${ _baseSelector }_ta`);
+
+        let sanitize = fieldConfig.sanitize || function(query) {return query};
+        let callback = `/api/v1/kits/${f}/`;
 
         input.typeahead(
             {
-                minLength: 2,
+                minLength: fieldConfig.minLength,
                 highlight: true
             },
             {
                 async: true,
                 source: ( query, sync, async ) => {
                     hiddenInput.val('');
-                    $.get( '/api/v1/kits/brand/', { name: query }, data => {
+                    let params = {};
+                    params[fieldConfig.param] = sanitize(query);
+                    $.get( callback, params, data => {
                         async( data );
                     });
                 },
                 limit: 100,
-                display: 'name',
+                display: fieldConfig.display,
             }
         );
 
         input.on('typeahead:select', (event, suggestion) => {
             hiddenInput.val(suggestion.id);
         });
-    });
+    }
 }
