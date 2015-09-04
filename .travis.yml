@@ -10,8 +10,8 @@ services:
   # - elasticsearch
 
 install:
-  - pip install --upgrade setuptools
-  - pip install --upgrade pip
+  - pip install --upgrade setuptools pip
+  - pip install Django # temp fix
   - pip install -r requirements/travis.txt
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get -y update
