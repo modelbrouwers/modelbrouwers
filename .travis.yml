@@ -22,7 +22,7 @@ install:
 before_script:
   - mkdir log
   - bower install
-  - jspm config endpoints.github.auth $gh-api-token
+  - jspm config registries.github.auth $GITHUBTOKEN
   - jspm install
   - src/manage.py collectstatic --noinput --link --settings=conf.settings.travis
   - src/manage.py systemjs_bundle --settings=conf.settings.travis
