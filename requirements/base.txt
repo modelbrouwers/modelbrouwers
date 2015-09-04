@@ -8,8 +8,8 @@ sqlparse==0.1.16
 wsgiref==0.1.2
 
 # Django packages
-django-choices==1.4.1
 Django==1.8.4
+django-choices==1.4.1
 django-admin-tools==0.6.0
 django-autoslug==1.8.0
 django-compressor==1.5
