@@ -1,8 +1,9 @@
-import { Brand } from 'kits/js/models/Brand';
-import { ModelKit } from 'kits/js/models/ModelKit';
-import { Scale } from 'kits/js/models/Scale';
+import Brand from 'kits/js/models/Brand';
+import ModelKit from 'kits/js/models/ModelKit';
+import Scale from 'kits/js/models/Scale';
 
 import 'jquery';
+import 'bootstrap';
 import 'scripts/jquery.serializeObject';
 import 'typeahead';
 import Handlebars from 'general/js/hbs-pony';
@@ -144,24 +145,36 @@ function loadMore(event) {
 }
 
 
+/**
+ * If the corresponding option is filled in the dropdowns, pre-select these in
+ * the add-kit popup.
+ */
 function fillAddDefaults(event) {
-    debugger;
     let fields = ['brand', 'scale'];
     let selBrand = '#id_{0}-brand'.format(conf.prefix);
     let selScale = '#id_{0}-scale'.format(conf.prefix);
     fields.forEach(field => {
-        let option = $('#id_{0}-{1} option:selected'.format(conf.prefix, field));
-        debugger;
-        if (option) {
+        let sel = '#id_{0}-{1}'.format(conf.prefix, field);
+        let option = $(sel).find('option:selected');
+        if ($(sel).val() && option) {
             let input = $('#id_{0}-{1}_ta'.format(conf.prefix_add, field));
+            if (!input.val()) {
+                let hiddenInput = $('#id_{0}-{1}'.format(conf.prefix_add, field));
+                hiddenInput.val(option.val());
+                input.val(option.text());
+            }
         }
     });
 }
 
 
 function initTypeaheads() {
-    let fields = ['brand'];
+    let fields = ['brand', 'scale'];
     fields.forEach(f => {
+
+        if (f == 'scale') {
+            debugger;
+        }
 
         let hiddenInput = $('#id_{0}-{1}'.format(conf.prefix_add, f));
         let input = $('#id_{0}-{1}_ta'.format(conf.prefix_add, f));
@@ -174,9 +187,6 @@ function initTypeaheads() {
             {
                 async: true,
                 source: ( query, sync, async ) => {
-
-                    debugger;
-
                     hiddenInput.val('');
                     $.get( '/api/v1/kits/brand/', { name: query }, data => {
                         async( data );
