@@ -1,3 +1,5 @@
+'use strict';
+
 import Q from 'q';
 import Api from 'scripts/api';
 import Paginator from 'scripts/paginator';
@@ -73,6 +75,20 @@ class Manager {
       delete filters.id;
     }
     return Api.request(endpoint, filters).get()
+              .then( response => this._createObjs( [response] )[0] );
+  }
+
+  create(raw) {
+    // map to object
+    if (raw instanceof this.model) {
+      let obj = raw;
+      for (let key in obj) {
+        raw[key] = obj[key];
+      }
+    }
+
+    let endpoint = this.model._meta.endpoints.list;
+    return Api.request(endpoint, raw).post()
               .then( response => this._createObjs( [response] )[0] );
   }
 

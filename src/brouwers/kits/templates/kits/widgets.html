@@ -61,7 +61,8 @@
             </div>
 
             <div class="modal-body">
-                <form action="#" class="form-horizontal">
+                {# can't use <form> tag because that results in nested tags #}
+                <div class="form-horizontal">
                     {% with add_form=widget.add_form %}
                         <!-- brand select -->
                         {% form_field add_form.brand widget='fields:typeaheadinput' placeholder=_('choose the brand') %}
@@ -72,16 +73,16 @@
                         <!-- name -->
                         {% form_field add_form.name placeholder=_('kit name') %}
                     {% endwith %}
-                </form>
+                </div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn bg-main-grey" data-dismiss="modal">{% trans "Close" %}</button>
-                <button type="button" class="btn bg-main-blue">{% trans "Save" %}</button>
+                <button type="submit" class="btn bg-main-blue">{% trans "Save" %}</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div>
 
 {% endblock %}
 

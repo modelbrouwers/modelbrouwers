@@ -7,7 +7,7 @@ from ..models import Brand, ModelKit, Scale
 
 class BrandSerializer(serializers.ModelSerializer):
 
-    logo = ThumbnailField((('small', '100x100'),), opts={'upscale': False})
+    logo = ThumbnailField((('small', '100x100'),), opts={'upscale': False}, required=False)
 
     class Meta:
         model = Brand
@@ -30,3 +30,9 @@ class ModelKitSerializer(serializers.ModelSerializer):
     class Meta:
         model = ModelKit
         fields = ('id', 'name', 'brand', 'scale', 'kit_number', 'box_image')
+
+
+class CreateModelKitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModelKit
+        fields = ('id', 'name', 'brand', 'scale')

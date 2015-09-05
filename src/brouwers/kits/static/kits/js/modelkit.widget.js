@@ -1,12 +1,13 @@
 import Brand from 'kits/js/models/Brand';
 import ModelKit from 'kits/js/models/ModelKit';
-import Scale from 'kits/js/models/Scale';
+import { Scale, cleanScale } from 'kits/js/models/Scale';
 
 import 'jquery';
 import 'bootstrap';
 import 'scripts/jquery.serializeObject';
 import 'typeahead';
 import Handlebars from 'general/js/hbs-pony';
+import Q from 'q';
 
 
 let conf = {
@@ -19,13 +20,8 @@ let conf = {
 
 let checkedKits = [];
 
-let brands = [];
-
 
 $(function() {
-
-    console.log('loaded');
-
     let selBrand = '#id_{0}-brand'.format(conf.prefix);
     let selScale = '#id_{0}-scale'.format(conf.prefix);
     let selName = '#id_{0}-name'.format(conf.prefix);
@@ -39,7 +35,10 @@ $(function() {
     $(selName).keyup(refreshKits);
     $(window).resize(syncHeight);
     $('.kit-suggestions').on('click', 'button', loadMore);
-    $(conf.add_modal).on('shown.bs.modal', fillAddDefaults);
+    $(conf.add_modal)
+        .on('shown.bs.modal', fillAddDefaults)
+        .on('click', 'button[type="submit"]', submitNewKit)
+    ;
 });
 
 
@@ -168,7 +167,85 @@ function fillAddDefaults(event) {
 }
 
 
-let reScale = new RegExp('1[/:]([0-9]*)');
+function submitNewKit(event) {
+    event.preventDefault();
+
+    // data processing
+    let modal = $(this).closest('.modal');
+    let data = modal.serializeObject();
+    data.stripPrefix(conf.prefix_add);
+
+    // configuration
+    let models = {
+        brand: Brand,
+        scale: Scale,
+    };
+    let brand, scale;
+
+    // check if a brand/scale was provided, otherwise create them
+    let promises = [];
+    ['brand', 'scale'].forEach((field) => {
+
+        let model = models[field];
+        let deferred = Q.defer();
+        let promise;
+
+        if (data[field]) {
+            let id = data[field];
+            deferred.resolve(model.objects.get({id: id}));
+            promise = deferred.promise;
+        } else {
+            let model
+            let newValue = data[`${ field }_ta`];
+            let obj = model.fromRaw(newValue);
+            promise = model.objects.create(obj);
+        }
+        promises.push(promise);
+    });
+
+    // create the kit with the correct data
+    Q.all(promises)
+    .then(( returnValues ) => {
+        brand = returnValues[0],
+        scale = returnValues[1];
+
+        return ModelKit.objects.create({
+            brand: brand.id,
+            scale: scale.id,
+            name: data.name
+        });
+    })
+    .then(( kit ) => {
+        // set correct objects, different serializer used
+        kit.brand = brand;
+        kit.scale = scale;
+
+        let context = {
+            kits: [kit],
+            htmlname: conf.htmlname,
+            checked: true
+        };
+        return Handlebars.render('kits::select-modelkit-widget', context);
+    }).done(( html ) => {
+        let $target = modal.siblings('.model-kit-select').find('.kit-suggestions');
+        let previews = $target.find('.preview');
+
+        if (previews) {
+            let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
+            if (lastChecked.length) {
+                lastChecked.after(html);
+            } else {
+                $target.find('.add-kit').after(html);
+            }
+        } else {
+            $target.append(html);
+        }
+        modal.modal('toggle');
+    });
+
+    return false;
+}
+
 
 function initTypeaheads() {
 
@@ -181,16 +258,7 @@ function initTypeaheads() {
         scale: {
             display: '__unicode__',
             param: 'scale',
-            sanitize: (query) => {
-                // prefix used
-                if (isNaN(Number(query))) {
-                    let match = reScale.exec(query);
-                    if (match) {
-                        query = match[1];
-                    }
-                }
-                return query;
-            },
+            sanitize: cleanScale,
             minLength: 1
         },
     }

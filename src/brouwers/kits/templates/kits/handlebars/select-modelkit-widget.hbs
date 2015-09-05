@@ -2,7 +2,7 @@
 {{#each kits}}
 
     <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{id}}">
-        <input type="checkbox" name="{{@root.htmlname}}" value="{{id}}" id="__modelkit_{{id}}">
+        <input type="checkbox" name="{{@root.htmlname}}" value="{{id}}" id="__modelkit_{{id}}" {{#if @root.checked}}checked="checked"{{/if}}>
         <label for="__modelkit_{{id}}" title="{{name}}" class="thumbnail">
             <span class="h5"><strong>{{name}} {{#if kit_number}}<small>{{kit_number}}</small>{{/if}}</strong></span>
 

@@ -3,6 +3,30 @@
 "deps jquery";
 "exports $";
 
+'use strict';
+
+
+class Values {
+    constructor (obj, prefix) {
+        Object.defineProperty(this, '__raw', {value: obj});
+        Object.defineProperty(this, '__prefix', {value: prefix});
+
+        for (let key in obj) {
+            this[key] = obj[key];
+        }
+    }
+
+    stripPrefix (prefix) {
+        prefix = prefix || this.prefix;
+        for (let key in this.__raw) {
+            let newKey = key.replace(`${ prefix }-`, '');
+            delete this[key];
+            this[newKey] = this.__raw[key];
+        }
+    }
+}
+
+
 /**
 * Serializes containers. Example $(".container").serializeObjectV3(); Works also with nested fields
 * => <input type="text" name="myName[1][nested]"/> output: myName: { 1 : {nested: value}}
@@ -86,7 +110,7 @@
             }
         });
 
-        return values;
+        return new Values(values);
     };
 
 }).call(this);
