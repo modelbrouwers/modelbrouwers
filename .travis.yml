@@ -10,8 +10,8 @@ services:
   # - elasticsearch
 
 install:
-  - pip install --upgrade setuptools
-  - pip install --upgrade pip
+  - pip install --upgrade setuptools pip
+  - pip install Django # temp fix
   - pip install -r requirements/travis.txt
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get -y update
@@ -22,7 +22,7 @@ install:
 before_script:
   - mkdir log
   - bower install
-  - jspm config endpoints.github.auth $gh-api-token
+  - jspm config registries.github.auth $GITHUBTOKEN
   - jspm install
   - src/manage.py collectstatic --noinput --link --settings=conf.settings.travis
   - src/manage.py systemjs_bundle --settings=conf.settings.travis

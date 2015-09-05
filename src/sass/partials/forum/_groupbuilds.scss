@@ -53,6 +53,11 @@ div.gb-inset {
           color: $main-red;
         }
 
+        .fa-times:hover {
+          cursor: pointer;
+          @include text-raised(1);
+        }
+
         &.finished, &.finished:hover {
           color: $main-green;
         }

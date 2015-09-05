@@ -26,6 +26,7 @@ System.config({
     "jquery-ui": "github:components/jqueryui@1.11.4",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.2",
     "q": "npm:q@2.0.3",
+    "string.prototype.startswith": "npm:string.prototype.startswith@0.2.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
     "typeahead": "github:twitter/typeahead.js@0.11.1",

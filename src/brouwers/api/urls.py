@@ -6,6 +6,7 @@ from brouwers.albums.api.views import (
     MyAlbumsViewset, MyPhotosViewset,
     PhotoViewSet, PreferencesViewSet
 )
+from brouwers.groupbuilds.api.viewsets import ParticipantViewSet
 from brouwers.kits.api.views import ModelKitViewSet, BrandViewSet, ScaleViewSet
 
 router = DefaultRouter()
@@ -19,9 +20,12 @@ router.register(r'kits/kit', ModelKitViewSet)
 router.register(r'kits/brand', BrandViewSet)
 router.register(r'kits/scale', ScaleViewSet)
 
+# groupbuilds
+router.register(r'groupbuilds/participant', ParticipantViewSet)
 
-urlpatterns = router.urls + patterns(
+
+urlpatterns = patterns(
     '',
     url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
     url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
-)
+) + router.urls

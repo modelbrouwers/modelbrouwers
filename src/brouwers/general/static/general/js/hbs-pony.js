@@ -61,8 +61,8 @@ Handlebars.render = Handlebars.renderTemplate = renderTemplate;
  */
 var _yesno = function(bool, options) {
     var _defaults = {
-        yes: '<span class="fa fa-check"></span>',
-        no: '<span class="fa fa-times"></span>'
+        yes: '<i class="fa fa-check"></i>',
+        no: '<i class="fa fa-times"></i>'
     };
     var hash = $.extend(_defaults, options.hash);
     var result;

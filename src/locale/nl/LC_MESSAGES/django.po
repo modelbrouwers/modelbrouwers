@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-19 20:31+0200\n"
-"PO-Revision-Date: 2015-02-15 00:26+0020\n"
+"POT-Creation-Date: 2015-08-25 08:56+0200\n"
+"PO-Revision-Date: 2015-08-25 08:58+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
+"X-Translated-Using: django-rosetta 0.7.6\n"
 
 #: conf/settings/base.py:28
 msgid "English"
@@ -50,21 +50,20 @@ msgstr "Oeps... een 404!"
 #: templates/404.html:46
 #, python-format
 msgid ""
-"The requested page could not be found or isn't accessible because of limited "
-"user rights. Click on the big logo above or click <a href=\"/\">here</a> to "
-"return to the homepage. Alternatively, use the back button in your browser "
+"The requested page could not be found or isn't accessible because of limited"
+" user rights. Click on the big logo above or click <a href=\"/\">here</a> to"
+" return to the homepage. Alternatively, use the back button in your browser "
 "or click <a href=\"%(return)s\">here</a> to return to the previous page."
 msgstr ""
 "De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
 "doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
-"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
-"de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
-"te gaan naar de vorige pagina."
+"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik"
+" de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om "
+"terug te gaan naar de vorige pagina."
 
 #: templates/admin/base_site.html:19
-#, fuzzy
 msgid "Modelbrouwers.nl admin"
-msgstr "Terug naar de Modelbrouwers.nl homepage"
+msgstr "Modelbrouwers.nl administratie"
 
 #: templates/admin/base_site.html:44 templates/base.html:114
 msgid "Builds"
@@ -115,7 +114,7 @@ msgid "Profile"
 msgstr "Profiel"
 
 #: templates/base.html:182
-#, fuzzy, python-format
+#, python-format
 #| msgid ""
 #| "\n"
 #| "                Current: <a href=\"%(url)s\">%(url)s</a>\n"
@@ -126,18 +125,18 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"Huidige: <a href=\"%(url)s\">%(url)s</a>"
+"Hosting door <a href=\"%(url)s\">Flexwebhosting</a>"
 
 #: templates/base_html5.html:86
 #, python-format
 msgid "logged in as <a href=\"%(profile_url)s\">%(user)s</a>"
 msgstr "ingelogd als <a href=\"%(profile_url)s\">%(user)s</a>"
 
-#: templates/default.form:136 templates/horizontal.form:91
+#: templates/default.form:136 templates/horizontal.form:90
 msgid "Pick an option"
 msgstr "Kies een optie"
 
-#: templates/default.form:203 templates/horizontal.form:158
+#: templates/default.form:203 templates/horizontal.form:156
 #: templates/stacked.form:55
 #, python-format
 msgid ""
@@ -154,7 +153,7 @@ msgstr "Het formulier bevat fouten"
 
 #: templates/default.form:250
 msgid "Submit"
-msgstr ""
+msgstr "Versturen"
 
 #: templates/form_in_table.html:35 templates/form_in_table_rows.html:19
 msgid "Fix the error:"
@@ -162,11 +161,11 @@ msgstr "Los het probleem op:"
 
 #: templates/includes/pagination.html:6
 msgid "Previous"
-msgstr ""
+msgstr "Vorige"
 
 #: templates/includes/pagination.html:22
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: templates/nav_tabs_text.html:12
 msgid "Visit the homepage!"
@@ -270,378 +269,284 @@ msgstr "Zoek"
 #~ msgid "Recent Actions"
 #~ msgstr "Recente acties"
 
-#, fuzzy
 #~ msgid "Own albums"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "Group albums"
 #~ msgstr "Groepsbouwen"
 
-#, fuzzy
 #~ msgid "Public albums"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "album"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "album groups"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "Edit album"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "Restore album"
 #~ msgstr "Ga naar de albums!"
 
-#, fuzzy
 #~ msgid "New album"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "My albums"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "All albums"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "Last uploads"
 #~ msgstr "Laatste pagina"
 
-#, fuzzy
 #~ msgid "Album"
 #~ msgstr "Albums"
 
-#, fuzzy
 #~ msgid "Fix the error"
 #~ msgstr "Los het probleem op:"
 
-#, fuzzy
 #~ msgid "Add album"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "in the album"
 #~ msgstr "Ga naar de albums!"
 
-#, fuzzy
 #~ msgid "Search albums"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "reviewed?"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "last reviewer"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "last review"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "nomination"
 #~ msgstr "Migraties"
 
-#, fuzzy
 #~ msgid "nominations"
 #~ msgstr "Migraties"
 
-#, fuzzy
 #~ msgid "Awards home"
 #~ msgstr "Awards"
 
-#, fuzzy
 #~ msgid "Nominations"
 #~ msgstr "Migraties"
 
-#, fuzzy
 #~ msgid "brouwer"
 #~ msgstr "Brouwersdag"
 
-#, fuzzy
 #~ msgid "competitions"
 #~ msgstr "Recente acties"
 
-#, fuzzy
 #~ msgid "brouwersdag"
 #~ msgstr "Brouwersdag"
 
-#, fuzzy
 #~ msgid "brouwersdagen"
 #~ msgstr "Brouwersdag"
 
-#, fuzzy
 #~ msgid "Brouwersdag model signup"
 #~ msgstr "Brouwersdag"
 
-#, fuzzy
 #~ msgid "Brouwersdag 2014"
 #~ msgstr "Brouwersdag"
 
-#, fuzzy
 #~ msgid "Forum ID"
 #~ msgstr "Forum"
 
-#, fuzzy
 #~ msgid "build"
 #~ msgstr "Brouwverslagen"
 
-#, fuzzy
 #~ msgid "Build reports"
 #~ msgstr "Brouwverslagen"
 
-#, fuzzy
 #~ msgid "My builds"
 #~ msgstr "Groepsbouwen"
 
-#, fuzzy
 #~ msgid "Build photos"
 #~ msgstr "Brouwverslagen"
 
-#, fuzzy
 #~ msgid "From albums"
 #~ msgstr "albums"
 
-#, fuzzy
 #~ msgid "forum profile"
 #~ msgstr "Profiel"
 
-#, fuzzy
 #~ msgid "forum user"
 #~ msgstr "forum"
 
-#, fuzzy
 #~ msgid "forum users"
 #~ msgstr "forum"
 
-#, fuzzy
 #~ msgid "forum id"
 #~ msgstr "forum"
 
-#, fuzzy
 #~ msgid "Username"
 #~ msgstr "Gebruikersbeheer"
 
-#, fuzzy
 #~ msgid "Forum name"
 #~ msgstr "Forum"
 
-#, fuzzy
 #~ msgid "userprofile"
 #~ msgstr "Profiel"
 
-#, fuzzy
 #~ msgid "userprofiles"
 #~ msgstr "Profiel"
 
-#, fuzzy
 #~ msgid "registration question"
 #~ msgstr "Registraties"
 
-#, fuzzy
 #~ msgid "registration attempt"
 #~ msgstr "Registraties"
 
-#, fuzzy
 #~ msgid "registration attempts"
 #~ msgstr "Registraties"
 
-#, fuzzy
 #~ msgid "Registration"
 #~ msgstr "Registraties"
 
-#, fuzzy
 #~ msgid "Terms violations"
 #~ msgstr "Schakel de navigatie aan of uit"
 
-#, fuzzy
 #~ msgid "submitted for review"
 #~ msgstr "Ga naar de kitreviews!"
 
-#, fuzzy
 #~ msgid "denied"
 #~ msgstr "Geen toegang"
 
-#, fuzzy
 #~ msgid "Theme/name of the group build"
 #~ msgstr "Beheer groepsbouwen!"
 
-#, fuzzy
 #~ msgid "Users who manage the group build."
 #~ msgstr "Beheer groepsbouwen!"
 
-#, fuzzy
 #~ msgid "duration"
 #~ msgstr "Migraties"
 
-#, fuzzy
 #~ msgid "group build"
 #~ msgstr "groepsbouwen"
 
-#, fuzzy
 #~ msgid "group build participant"
 #~ msgstr "groepsbouwen"
 
-#, fuzzy
 #~ msgid "group build participants"
 #~ msgstr "groepsbouwen"
 
-#, fuzzy
 #~ msgid "Submit a new group build"
 #~ msgstr "Beheer groepsbouwen!"
 
-#, fuzzy
 #~ msgid "Create group build"
 #~ msgstr "Beheer groepsbouwen!"
 
-#, fuzzy
 #~ msgid "Group builds dashboard"
 #~ msgstr "Groepsbouwen"
 
-#, fuzzy
 #~ msgid "Request denied"
 #~ msgstr "Geen toegang"
 
-#, fuzzy
 #~ msgid "Management"
 #~ msgstr "Gebruikersbeheer"
 
-#, fuzzy
 #~ msgid "Enter the forum names"
 #~ msgstr "Ga naar het forum!"
 
-#, fuzzy
 #~ msgid "Go to forum"
 #~ msgstr "forum"
 
-#, fuzzy
 #~ msgid "Actions"
 #~ msgstr "Recente acties"
 
-#, fuzzy
 #~ msgid "Builder"
 #~ msgstr "Brouwverslagen"
 
-#, fuzzy
 #~ msgid "My groupbuilds"
 #~ msgstr "groepsbouwen"
 
-#, fuzzy
 #~ msgid "All unfinished group builds"
 #~ msgstr "Beheer groepsbouwen!"
 
-#, fuzzy
 #~ msgid "Submitting the group build"
 #~ msgstr "Beheer groepsbouwen!"
 
-#, fuzzy
 #~ msgid "Description"
 #~ msgstr "Registraties"
 
-#, fuzzy
 #~ msgid "end"
 #~ msgstr "Geen toegang"
 
-#, fuzzy
 #~ msgid "Brouwer"
 #~ msgstr "Brouwersdag"
 
-#, fuzzy
 #~ msgid "logo"
 #~ msgstr "uitloggen"
 
-#, fuzzy
 #~ msgid "review"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "rating"
 #~ msgstr "Migraties"
 
-#, fuzzy
 #~ msgid "ID of the topic on Modelbrouwers."
 #~ msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#, fuzzy
 #~ msgid "kit review"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "kit review vote"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "kit review votes"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "Find kits/reviews"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "Add review"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "Reviews"
 #~ msgstr "kitreviews"
 
-#, fuzzy
 #~ msgid "secret santa"
 #~ msgstr "Secret Santa"
 
-#, fuzzy
 #~ msgid "secret santas"
 #~ msgstr "Secret Santa"
 
-#, fuzzy
 #~ msgid "secret santa edition"
 #~ msgstr "Secret Santa"
 
-#, fuzzy
 #~ msgid "My Secret Santa"
 #~ msgstr "Secret Santa"
 
-#, fuzzy
 #~ msgid "Who's my Secret Santa?"
 #~ msgstr "Secret Santa"
 
-#, fuzzy
 #~ msgid "Modelbrouwers.nl shirt order"
 #~ msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#, fuzzy
 #~ msgid "first name"
 #~ msgstr "Eerste pagina"
 
-#, fuzzy
 #~ msgid "last name"
 #~ msgstr "Laatste pagina"
 
-#, fuzzy
 #~ msgid "login"
 #~ msgstr "Inloggen"
 
-#, fuzzy
 #~ msgid "Groupbuilds"
 #~ msgstr "Groepsbouwen"
 
-#, fuzzy
 #~ msgid "Your profile"
 #~ msgstr "Profiel"
 
-#, fuzzy
 #~ msgid "Forum profile"
 #~ msgstr "Profiel"
 
-#, fuzzy
 #~ msgid "registration"
 #~ msgstr "Registraties"

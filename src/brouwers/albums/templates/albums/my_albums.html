@@ -7,8 +7,9 @@
         <i class="pull-right fa fa-folder-o fa-2x"></i>
     </h1>
 
+    {% url 'users:detail' pk=user.pk as share_url %}
     <p>{% blocktrans %}
-        You can manage your own albums and the albums that you have access to here.
+        You can manage your own albums and the albums that you have access to here. Use this link to share your overview: <a href="{{ share_url }}">my profile</a>.
     {% endblocktrans %}</p>
 {% endblock %}
 

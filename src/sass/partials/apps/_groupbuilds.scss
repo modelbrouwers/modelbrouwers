@@ -123,4 +123,26 @@ body.groupbuilds {
     border: solid 1px #DDD;
     border-top: none;
   }
+
+  .participants tr {
+    .fa-ellipsis-h {
+      @include opacity(0.25);
+    }
+
+    .fa-check {
+      display: none;
+    }
+
+    &.finished {
+
+      .fa-ellipsis-h {
+        display: none;
+      }
+
+      .fa-check {
+        display: inline-block;
+        color: $main-green;
+      }
+    }
+  }
 }

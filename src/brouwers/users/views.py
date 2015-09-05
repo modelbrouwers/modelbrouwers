@@ -238,6 +238,8 @@ class UserProfileDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super(UserProfileDetailView, self).get_context_data(**kwargs)
+        ctx['albums'] = self.object.album_set.select_related('cover').filter(
+            trash=False, public=True).order_by('title')
         return ctx
 
 

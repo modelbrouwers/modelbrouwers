@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Q from 'q';
+import 'string.prototype.startswith';
 
 import 'scripts/strformat';
 import 'scripts/jquery.serializeObject';
@@ -57,6 +58,10 @@ class Api {
 }
 
 export function apiRequest(url, data) {
+    let prefix = apiBase.format('');
+    if (url.startsWith(prefix)) {
+        url = url.substring(prefix.length);
+    }
     return new Api(url, data);
 };
 
