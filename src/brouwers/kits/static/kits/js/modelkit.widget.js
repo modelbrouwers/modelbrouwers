@@ -34,7 +34,15 @@ $(function() {
     $selects.change(refreshKits);
     $(selName).keyup(refreshKits);
     $(window).resize(syncHeight);
+
     $('.kit-suggestions').on('click', 'button', loadMore);
+
+    // bind manually, because the globally included bootstrap is being annoying
+    $(`[data-target="${ conf.add_modal }"]`).on('click', (e) => {
+        e.preventDefault();
+        $(conf.add_modal).modal('toggle');
+        return false;
+    });
     $(conf.add_modal)
         .on('shown.bs.modal', fillAddDefaults)
         .on('click', 'button[type="submit"]', submitNewKit)
