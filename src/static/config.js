@@ -1,20 +1,18 @@
 System.config({
-  "baseURL": "/static/",
-  "transpiler": "babel",
-  "babelOptions": {
+  baseURL: "/static/",
+  defaultJSExtensions: true,
+  transpiler: "babel",
+  babelOptions: {
     "optional": [
       "runtime"
     ]
   },
-  "paths": {
-    "*": "*.js",
-    "github:*": "jspm_packages/github/*.js",
-    "npm:*": "jspm_packages/npm/*.js"
-  }
-});
+  paths: {
+    "github:*": "jspm_packages/github/*",
+    "npm:*": "jspm_packages/npm/*"
+  },
 
-System.config({
-  "map": {
+  map: {
     "URIjs": "npm:URIjs@1.15.1",
     "babel": "npm:babel-core@5.6.15",
     "babel-runtime": "npm:babel-runtime@5.6.15",
@@ -58,9 +56,6 @@ System.config({
     "npm:babel-runtime@5.6.15": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
-    "npm:babel-runtime@5.6.4": {
-      "process": "github:jspm/nodelibs-process@0.1.1"
-    },
     "npm:core-js@0.9.18": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.1",
@@ -77,4 +72,3 @@ System.config({
     }
   }
 });
-
