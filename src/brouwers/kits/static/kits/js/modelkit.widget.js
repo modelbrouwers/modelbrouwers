@@ -203,7 +203,6 @@ function submitNewKit(event) {
             deferred.resolve(model.objects.get({id: id}));
             promise = deferred.promise;
         } else {
-            let model
             let newValue = data[`${ field }_ta`];
             let obj = model.fromRaw(newValue);
             promise = model.objects.create(obj);

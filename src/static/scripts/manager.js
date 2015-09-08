@@ -1,5 +1,6 @@
 'use strict';
 
+import $ from 'jquery';
 import Q from 'q';
 import Api from 'scripts/api';
 import Paginator from 'scripts/paginator';
@@ -82,10 +83,16 @@ class Manager {
     // map to object
     if (raw instanceof this.model) {
       let obj = raw;
+      let raw = {};
       for (let key in obj) {
+        if (key == 'id') {
+          continue;
+        }
         raw[key] = obj[key];
       }
     }
+
+    debugger;
 
     let endpoint = this.model._meta.endpoints.list;
     return Api.request(endpoint, raw).post()

@@ -5,7 +5,7 @@
   "main": "index.js",
   "directories": {
     "doc": "doc",
-    "baseURL": "static",
+    "baseURL": "../../../../../static",
     "packages": "src/static/jspm_packages"
   },
   "scripts": {
@@ -35,10 +35,9 @@
   },
   "jspm": {
     "directories": {
-      "baseURL": "static",
+      "baseURL": "src/static",
       "doc": "doc"
     },
-    "configFile": "src/static/config.js",
     "dependencies": {
       "URIjs": "npm:URIjs@^1.15.1",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
@@ -54,9 +53,7 @@
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.22",
       "babel-runtime": "npm:babel-runtime@^5.8.20",
-      "core-js": "npm:core-js@^1.1.0",
-      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
-      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
+      "core-js": "npm:core-js@^1.1.0"
     }
   }
 }

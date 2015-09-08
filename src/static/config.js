@@ -4,30 +4,29 @@ System.config({
   transpiler: "babel",
   babelOptions: {
     "optional": [
-      "runtime"
+      "runtime",
+      "optimisation.modules.system"
     ]
   },
   paths: {
+    "*": "*",
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*",
-    "*": "*"
+    "npm:*": "jspm_packages/npm/*"
   },
 
   map: {
-    "URIjs": "npm:URIjs@1.15.1",
+    "URIjs": "npm:URIjs@1.16.0",
     "babel": "npm:babel-core@5.8.23",
     "babel-runtime": "npm:babel-runtime@5.8.20",
     "bootstrap": "github:twbs/bootstrap@3.3.5",
     "core-js": "npm:core-js@1.1.4",
-    "css": "github:systemjs/plugin-css@0.1.13",
+    "css": "github:systemjs/plugin-css@0.1.16",
     "handlebars": "github:components/handlebars.js@2.0.0",
     "jquery": "github:components/jquery@2.1.4",
     "jquery-ui": "github:components/jqueryui@1.11.4",
-    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.2",
+    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.4",
     "q": "npm:q@2.0.3",
     "string.prototype.startswith": "npm:string.prototype.startswith@0.2.0",
-    "traceur": "github:jmcriffey/bower-traceur@0.0.88",
-    "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
     "typeahead": "github:twitter/typeahead.js@0.11.1",
     "github:components/jqueryui@1.11.4": {
       "jquery": "github:components/jquery@2.1.4"
@@ -47,7 +46,7 @@ System.config({
     "github:twitter/typeahead.js@0.11.1": {
       "jquery": "github:components/jquery@2.1.4"
     },
-    "npm:URIjs@1.15.1": {
+    "npm:URIjs@1.16.0": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:asap@2.0.3": {
