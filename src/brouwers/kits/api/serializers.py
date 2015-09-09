@@ -33,6 +33,7 @@ class ModelKitSerializer(serializers.ModelSerializer):
 
 
 class CreateModelKitSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ModelKit
         fields = ('id', 'name', 'brand', 'scale')

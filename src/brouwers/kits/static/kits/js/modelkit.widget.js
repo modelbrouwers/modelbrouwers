@@ -206,6 +206,9 @@ function submitNewKit(event) {
             let newValue = data[`${ field }_ta`];
             let obj = model.fromRaw(newValue);
             promise = model.objects.create(obj);
+            promise.done((obj) => {
+                console.log(obj);
+            });
         }
         promises.push(promise);
     });

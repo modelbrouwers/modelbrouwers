@@ -1,7 +1,10 @@
 from rest_framework import viewsets, permissions
 
 from ..models import ModelKit, Brand, Scale
-from .serializers import CreateModelKitSerializer, ModelKitSerializer, BrandSerializer, ScaleSerializer
+from .serializers import (
+    CreateModelKitSerializer, ModelKitSerializer,
+    BrandSerializer, ScaleSerializer
+)
 from .filters import ModelKitFilter, BrandFilter, ScaleFilter
 
 
@@ -20,6 +23,7 @@ class ModelKitViewSet(viewsets.ModelViewSet):
         serializer.save(submitter=self.request.user)
 
 
+# TODO: block 'update'
 class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
@@ -28,6 +32,7 @@ class BrandViewSet(viewsets.ModelViewSet):
     pagination_class = None
 
 
+# TODO: block 'update'
 class ScaleViewSet(viewsets.ModelViewSet):
     queryset = Scale.objects.all()
     serializer_class = ScaleSerializer

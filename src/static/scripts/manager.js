@@ -83,7 +83,7 @@ class Manager {
     // map to object
     if (raw instanceof this.model) {
       let obj = raw;
-      let raw = {};
+      raw = {};
       for (let key in obj) {
         if (key == 'id') {
           continue;
@@ -91,8 +91,6 @@ class Manager {
         raw[key] = obj[key];
       }
     }
-
-    debugger;
 
     let endpoint = this.model._meta.endpoints.list;
     return Api.request(endpoint, raw).post()
