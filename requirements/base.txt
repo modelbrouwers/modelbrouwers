@@ -9,7 +9,7 @@ wsgiref==0.1.2
 
 # Django packages
 Django==1.8.4
-django-choices==1.4.1
+django-choices==1.4.2
 django-admin-tools==0.6.0
 django-autoslug==1.8.0
 django-compressor==1.5
@@ -19,7 +19,7 @@ django-precise-bbcode==1.0.10
 django-rosetta==0.7.6
 django-sendfile==0.3.9
 django-sessionprofile==0.1.2
-django-systemjs==0.2.4
+django-systemjs==0.3.0
 # sorl-thumbnail==12.3
 git+https://github.com/mariocesar/sorl-thumbnail.git@master#egg=sorl-thumbnail
 django-sniplates==0.3.2
