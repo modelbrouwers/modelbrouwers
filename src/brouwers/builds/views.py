@@ -84,12 +84,19 @@ class PhotoInline(InlineFormSet):
     form_class = BuildPhotoForm
     extra = 3
 
+    # TODO: patch extra_views.formsets.BaseInlineFormSetMixin.get_factory_kwargs
+    # do not set self.fields if self.form_class is provided
+    def get_factory_kwargs(self):
+        kwargs = super(PhotoInline, self).get_factory_kwargs()
+        del kwargs['fields']
+        return kwargs
+
 
 class BuildCreateView(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
     model = Build
     form_class = BuildForm
-    # inlines = [PhotoInline]
-    # inlines_names = ['photos']
+    inlines = [PhotoInline]
+    inlines_names = ['photos']
 
     def get_success_url(self):
         return self.object.get_absolute_url()
