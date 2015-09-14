@@ -16,6 +16,19 @@ let conf = {
     htmlname: 'kits',
     minChars: 2,
     add_modal: '#add-kit-modal',
+    typeahead: {
+        brand: {
+            display: 'name',
+            param: 'name',
+            minLength: 2
+        },
+        scale: {
+            display: '__unicode__',
+            param: 'scale',
+            sanitize: cleanScale,
+            minLength: 1
+        },
+    }
 };
 
 let checkedKits = [];
@@ -207,7 +220,11 @@ function submitNewKit(event) {
             let obj = model.fromRaw(newValue);
             promise = model.objects.create(obj);
             promise.done((obj) => {
-                console.log(obj);
+                let id = obj.id;
+                let display = obj[conf.typeahead[field].display];
+                let select = $(`#id_${ conf.prefix }-${ field }`);
+                select.append(`<option value="${ id }">${ display }</option>`);
+                select.val(id);
             });
         }
         promises.push(promise);
@@ -259,19 +276,7 @@ function submitNewKit(event) {
 
 function initTypeaheads() {
 
-    let fields = {
-        brand: {
-            display: 'name',
-            param: 'name',
-            minLength: 2
-        },
-        scale: {
-            display: '__unicode__',
-            param: 'scale',
-            sanitize: cleanScale,
-            minLength: 1
-        },
-    }
+    let fields = conf.typeahead;
 
     for (let f in fields) {
         let fieldConfig = fields[f];

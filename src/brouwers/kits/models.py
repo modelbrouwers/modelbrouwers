@@ -36,7 +36,7 @@ class Scale(models.Model):
     """
     Possible scales a model kit can have
     """
-    scale = models.PositiveSmallIntegerField(_('scale'), db_index=True)
+    scale = models.PositiveSmallIntegerField(_('scale'), db_index=True, unique=True)
 
     class Meta:
         verbose_name = _('scale')
