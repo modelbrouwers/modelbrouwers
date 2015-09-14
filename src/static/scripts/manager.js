@@ -6,6 +6,21 @@ import Api from 'scripts/api';
 import Paginator from 'scripts/paginator';
 
 
+function handleError(xhr) {
+  if ( xhr.status === 400 ) { // bad request, validation error
+    return handleValidationErrors(xhr.responseJSON);
+  } else {
+    return Q.reject(xhr);
+  }
+
+}
+
+
+function handleValidationErrors(errorObj) {
+  return Q.reject(errorObj);
+}
+
+
 class Manager {
   constructor(modelClass) {
     this.model = modelClass;
@@ -94,7 +109,7 @@ class Manager {
 
     let endpoint = this.model._meta.endpoints.list;
     return Api.request(endpoint, raw).post()
-              .then( response => this._createObjs( [response] )[0] );
+              .then( response => this._createObjs( [response] )[0], handleError );
   }
 
 }

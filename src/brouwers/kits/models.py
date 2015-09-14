@@ -58,10 +58,6 @@ class KitDifficulties(DjangoChoices):
     very_hard = ChoiceItem(50, _('very hard'))
 
 
-def difficulty_valid(value):
-    return KitDifficulties.validator(value)
-
-
 def get_kit_slug(instance):
     return u"{0} {1}".format(instance.name, instance.brand.name)
 
@@ -82,7 +78,7 @@ class ModelKit(models.Model):
     scale = models.ForeignKey(Scale, verbose_name=_('scale'))
     difficulty = models.PositiveSmallIntegerField(
         _('difficulty'), choices=KitDifficulties.choices,
-        default=KitDifficulties.medium, validators=[difficulty_valid]
+        default=KitDifficulties.medium, validators=[KitDifficulties.validator]
     )
 
     box_image = models.ImageField(_('box image'), upload_to='kits/box_images/%Y/%m', blank=True)

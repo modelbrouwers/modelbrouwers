@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255, verbose_name='kit name', db_index=True)),
                 ('slug', autoslug.fields.AutoSlugField(verbose_name='slug', unique=True, editable=False)),
                 ('kit_number', models.CharField(help_text='Kit number as found on the box.', max_length=50, verbose_name='kit number', db_index=True, blank=True)),
-                ('difficulty', models.PositiveSmallIntegerField(default=30, choices=[(10, 'very easy'), (20, 'easy'), (30, 'medium'), (40, 'hard'), (50, 'very hard')], verbose_name='difficulty', validators=[brouwers.kits.models.difficulty_valid])),
+                ('difficulty', models.PositiveSmallIntegerField(default=30, choices=[(10, 'very easy'), (20, 'easy'), (30, 'medium'), (40, 'hard'), (50, 'very hard')], verbose_name='difficulty', validators=[brouwers.kits.models.KitDifficulties.validator])),
                 ('box_image', models.ImageField(upload_to=b'kits/box_images/%Y/%m', verbose_name='box image', blank=True)),
                 ('submitted_on', models.DateTimeField(auto_now_add=True)),
                 ('brand', models.ForeignKey(verbose_name='brand', to='kits.Brand')),

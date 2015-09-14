@@ -195,6 +195,7 @@ function submitNewKit(event) {
     let modal = $(this).closest('.modal');
     let data = modal.serializeObject();
     data.stripPrefix(conf.prefix_add);
+    modal.find('.errorlist').remove();
 
     // configuration
     let models = {
@@ -242,7 +243,7 @@ function submitNewKit(event) {
             name: data.name
         });
     })
-    .then(( kit ) => {
+    .done(( kit ) => {
         // set correct objects, different serializer used
         kit.brand = brand;
         kit.scale = scale;
@@ -252,25 +253,43 @@ function submitNewKit(event) {
             htmlname: conf.htmlname,
             checked: true
         };
-        return Handlebars.render('kits::select-modelkit-widget', context);
-    }).done(( html ) => {
-        let $target = modal.siblings('.model-kit-select').find('.kit-suggestions');
-        let previews = $target.find('.preview');
 
-        if (previews) {
-            let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
-            if (lastChecked.length) {
-                lastChecked.after(html);
+        Handlebars
+        .render('kits::select-modelkit-widget', context)
+        .done(( html ) => {
+            let $target = modal.siblings('.model-kit-select').find('.kit-suggestions');
+            let previews = $target.find('.preview');
+
+            if (previews) {
+                let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
+                if (lastChecked.length) {
+                    lastChecked.after(html);
+                } else {
+                    $target.find('.add-kit').after(html);
+                }
             } else {
-                $target.find('.add-kit').after(html);
+                $target.append(html);
             }
-        } else {
-            $target.append(html);
+            modal.modal('toggle');
+        });
+    }, (validationErrors) => {
+        for (let fieldName in validationErrors) {
+            let htmlField = $( `#id_${ conf.prefix_add }-${ fieldName }` );
+            showErrors(htmlField, validationErrors[fieldName]);
         }
-        modal.modal('toggle');
     });
 
     return false;
+}
+
+
+function showErrors($formField, errors) {
+    Handlebars.render('general::errors', {errors: errors}).done((html) => {
+        $formField
+            .addClass('error')
+            .parent().append(html)
+        ;
+    });
 }
 
 
