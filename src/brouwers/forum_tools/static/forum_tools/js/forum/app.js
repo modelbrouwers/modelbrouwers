@@ -10,7 +10,7 @@ let conf = {
     forum_id_key: 'f',
     topic_id_key: 't',
     selectors: {
-        new_post: 'a.new_post'
+        new_post: 'a.new-post'
     }
 }
 
