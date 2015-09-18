@@ -262,8 +262,6 @@ How to render errors
 {% block formset %}
     {% reuse 'non_form_errors' %}
 
-    {{ formset }}
-
     {% for form in formset %}
     <div class="formset-form">
         {% reuse 'non_field_errors' %}

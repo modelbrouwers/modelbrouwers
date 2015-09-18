@@ -91,6 +91,11 @@ class PhotoInline(InlineFormSet):
         del kwargs['fields']
         return kwargs
 
+    def get_extra_form_kwargs(self):
+        return {
+            'user': self.request.user
+        }
+
 
 class BuildCreateView(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
     model = Build

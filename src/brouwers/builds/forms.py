@@ -24,10 +24,19 @@ class BuildForm(forms.ModelForm):
 class BuildPhotoForm(forms.ModelForm):
     class Meta:
         model = BuildPhoto
-        fields = ('photo', 'photo_url', 'order')
+        fields = ('build', 'photo', 'photo_url', 'order')
         widgets = {
             'photo': forms.TextInput,
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(BuildPhotoForm, self).__init__(*args, **kwargs)
+
+        photos_qs = self.fields['photo'].queryset
+        self.fields['photo'].queryset = photos_qs.filter(user=user, trash=False)
+        builds_qs = self.fields['build'].queryset
+        self.fields['build'].queryset = builds_qs.filter(user=user)
 
 
 # class BuildFormForum(forms.ModelForm):
