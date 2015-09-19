@@ -5,10 +5,10 @@ from .serializers import ForumSerializer, TopicSerializer
 
 
 class ForumDetail(generics.RetrieveAPIView):
-    model = Forum
+    queryset = Forum.objects.all()
     serializer_class = ForumSerializer
 
 
 class TopicDetail(generics.RetrieveAPIView):
-    model = Topic
+    queryset = Topic.objects.all()
     serializer_class = TopicSerializer
