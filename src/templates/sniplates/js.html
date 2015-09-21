@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 {% block systemjs-base %}
-<script src="https://jspm.io/system@0.18.js"></script>
+<script src="https://jspm.io/system@0.19.js"></script>
 <script>
 if (typeof window.System === 'undefined') {
 	document.write(unescape("%3Cscript src='{{ STATIC_URL }}jspm_packages/system.js'%3E%3C/script%3E"));
