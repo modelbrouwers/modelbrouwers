@@ -14,7 +14,7 @@ from extra_views import CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin
 
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import BuildForm, BuildPhotoForm
+from .forms import BaseBuildPhotoInlineFormSet, BuildForm, BuildPhotoForm
 from .models import Build, BuildPhoto
 
 
@@ -82,6 +82,7 @@ class ProfileRedirectView(RedirectView):
 class PhotoInline(InlineFormSet):
     model = BuildPhoto
     form_class = BuildPhotoForm
+    formset_class = BaseBuildPhotoInlineFormSet
     extra = 3
 
     # TODO: patch extra_views.formsets.BaseInlineFormSetMixin.get_factory_kwargs

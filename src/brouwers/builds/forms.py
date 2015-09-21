@@ -35,8 +35,17 @@ class BuildPhotoForm(forms.ModelForm):
 
         photos_qs = self.fields['photo'].queryset
         self.fields['photo'].queryset = photos_qs.filter(user=user, trash=False)
+
         builds_qs = self.fields['build'].queryset
         self.fields['build'].queryset = builds_qs.filter(user=user)
+
+
+class BaseBuildPhotoInlineFormSet(forms.BaseInlineFormSet):
+
+    def add_fields(self, form, index):
+        super(BaseBuildPhotoInlineFormSet, self).add_fields(form, index)
+        # performance optimization
+        form.fields['id'].queryset = form.fields['id'].queryset.select_related('build')
 
 
 # class BuildFormForum(forms.ModelForm):
