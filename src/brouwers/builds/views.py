@@ -12,6 +12,7 @@ from django.views.generic.edit import UpdateView
 
 from extra_views import CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin
 
+from brouwers.albums.models import Photo
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
 from .forms import BaseBuildPhotoInlineFormSet, BuildForm, BuildPhotoForm
@@ -93,8 +94,11 @@ class PhotoInline(InlineFormSet):
         return kwargs
 
     def get_extra_form_kwargs(self):
+        photos = Photo.objects.filter(trash=False, user=self.request.user)
+        possible_photos = ((pk, pk) for pk in photos.values_list('pk', flat=True))
         return {
-            'user': self.request.user
+            'user': self.request.user,
+            'photos': possible_photos,
         }
 
 
