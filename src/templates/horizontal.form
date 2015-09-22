@@ -20,7 +20,7 @@
         <input type="{{ input_type }}"
             name="{{ html_name }}"
             id="{{ id }}"
-            value="{{ value|default:"" }}"
+            value="{{ raw_value|default:"" }}"
             class="form-control {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
             {{ widget.attrs|flatattrs }}
             {{ required|yesno:"required," }}
@@ -40,11 +40,11 @@
 <div class="form-group clearfix">
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
-        <input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ value|default:"" }}" />
+        <input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ raw_value|default:"" }}" />
         <input type="{{ input_type|default:'text' }}"
             name="{{ html_name }}_ta"
             id="{{ id }}_ta"
-            value="{{ value|default:"" }}"
+            value="{{ raw_value|default:"" }}"
             class="form-control typeahead {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
             data-provide="typeahead"
             autocomplete="off"
@@ -60,12 +60,12 @@
 
 
 {% block HiddenInput %}
-<input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ value|default:"" }}">
+<input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ raw_value|default:"" }}">
 {% endblock HiddenInput %}
 
 
 {% block DateInput %}
-    {% reuse 'input' input_type='text' extra_css_classes='date' value=value|date:'SHORT_DATE_FORMAT' %}
+    {% reuse 'input' input_type='text' extra_css_classes='date' value=raw_value|date:'SHORT_DATE_FORMAT' %}
 {% endblock %}
 
 
@@ -73,7 +73,7 @@
 {% if help_text %}<div class="input-group">{% endif %}
 <select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flatattrs }} class="form-control {{ css_classes }}">
 {% for val, display in choices %}
-    <option value="{{ val }}" {% if val == value|default:None %}selected{% endif %}>{{ display }}</option>
+    <option value="{{ val }}" {% if val == raw_value|default:None %}selected{% endif %}>{{ display }}</option>
 {% endfor %}
 </select>
 {% reuse "_help" %}
@@ -96,7 +96,7 @@
 <div class="form-group">
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
-        <input type="hidden" name="{{ html_name }}" value="{{ value }}">
+        <input type="hidden" name="{{ html_name }}" value="{{ raw_value }}">
         {% for val, display in choices %}
             {% if val == value %}
                 <div class="form-control-static">{{ display }}</div>
@@ -134,7 +134,7 @@
     <div class="{{ label_grid_offset|default:'col-sm-offset-3' }} {{ field_grid|default:'col-sm-10' }}">
         <div class="checkbox">
             <label for="{{ form_field.id_for_label }}" class="{{ css_classes }}">
-                <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ form_field.value|yesno:'checked,' }}>
+                <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ raw_value|yesno:'checked,' }}>
                 {{ form_field.label }}
             </label>
             {% reuse '__help' %}
@@ -156,7 +156,7 @@
             {{ autofocus|yesno:"autofocus," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
             {{ widget.attrs|flatattrs }}
-        >{{ value|default:'' }}</textarea>
+        >{{ raw_value|default:'' }}</textarea>
         {% reuse "_help" %}
         {% if help_text %}</div>{% endif %}
         {% reuse "_errors" %}
@@ -173,15 +173,15 @@
         <input type="text"
             name="{{ html_name }}"
             id="{{ id }}"
-            value="{{ widget|idfield_url:value|default:"" }}"
+            value="{{ widget|idfield_url:raw_value|default:"" }}"
             class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
             {{ widget.attrs|flatattrs }}
             {{ required|yesno:"required," }}
             {{ autofocus|yesno:"autofocus," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
         >
-        {% if value %}
-            {% blocktrans with url=widget|idfield_url:value %}
+        {% if raw_value %}
+            {% blocktrans with url=widget|idfield_url:raw_value %}
                 Current: <a href="{{ url }}">{{ url }}</a>
             {% endblocktrans %}
         {% endif %}
