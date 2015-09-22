@@ -29,28 +29,6 @@ class BuildPhotoForm(forms.ModelForm):
             'photo': forms.TextInput,
         }
 
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
-        photos = kwargs.pop('photos')
-        super(BuildPhotoForm, self).__init__(*args, **kwargs)
-
-        self.fields['photo'].choices = photos
-        self.fields['build'].queryset = self.fields['build'].queryset.filter(user=user)
-
-
-class BaseBuildPhotoInlineFormSet(forms.BaseInlineFormSet):
-
-    def _get_possible_buildphotos(self, form):
-        if not hasattr(self, '_possible_buildphotos'):
-            qs = form.fields['id'].queryset.values_list('pk', flat=True)
-            self._possible_buildphotos = [(pk, pk) for pk in qs]
-        return self._possible_buildphotos
-
-    def add_fields(self, form, index):
-        super(BaseBuildPhotoInlineFormSet, self).add_fields(form, index)
-        # performance optimization
-        form.fields['id'].choices = self._get_possible_buildphotos(form)
-
 
 # class BuildFormForum(forms.ModelForm):
 

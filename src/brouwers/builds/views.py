@@ -15,7 +15,7 @@ from extra_views import CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin
 from brouwers.albums.models import Photo
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import BaseBuildPhotoInlineFormSet, BuildForm, BuildPhotoForm
+from .forms import BuildForm, BuildPhotoForm
 from .models import Build, BuildPhoto
 
 
@@ -83,7 +83,6 @@ class ProfileRedirectView(RedirectView):
 class PhotoInline(InlineFormSet):
     model = BuildPhoto
     form_class = BuildPhotoForm
-    formset_class = BaseBuildPhotoInlineFormSet
     extra = 3
 
     # TODO: patch extra_views.formsets.BaseInlineFormSetMixin.get_factory_kwargs
@@ -92,14 +91,6 @@ class PhotoInline(InlineFormSet):
         kwargs = super(PhotoInline, self).get_factory_kwargs()
         del kwargs['fields']
         return kwargs
-
-    def get_extra_form_kwargs(self):
-        photos = Photo.objects.filter(trash=False, user=self.request.user)
-        possible_photos = ((pk, pk) for pk in photos.values_list('pk', flat=True))
-        return {
-            'user': self.request.user,
-            'photos': possible_photos,
-        }
 
 
 class BuildCreateView(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
@@ -110,10 +101,6 @@ class BuildCreateView(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesV
 
     def get_success_url(self):
         return self.object.get_absolute_url()
-
-
-
-
 
 
 # class BuildUpdate(UpdateView):
