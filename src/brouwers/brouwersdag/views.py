@@ -122,8 +122,10 @@ class PrintSignupsView(StaffRequiredMixin, PDFTemplateView):
     template_name = 'brouwersdag/print.html'
 
     def get_context_data(self, **kwargs):
-        kwargs['regular'] = ShowCasedModel.objects.exclude(is_competitor=True).order_by('id')
-        kwargs['competition'] = ShowCasedModel.objects.filter(is_competitor=True).order_by('id')
+        current_bd = Brouwersdag.objects.get_current()
+        base_qs = ShowCasedModel.objects.filter(brouwersdag=current_bd).order_by('id')
+        kwargs['regular'] = base_qs.exclude(is_competitor=True)
+        kwargs['competition'] = base_qs.filter(is_competitor=True)
         return super(PrintSignupsView, self).get_context_data(**kwargs)
 
 
