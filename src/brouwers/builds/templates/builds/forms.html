@@ -13,3 +13,18 @@
     {% reuse "_errors" %}
 </div>
 {% endblock %}
+
+
+{% block CheckboxInput_DELETE %}
+<div class="form-group DELETE">
+    <div class="checkbox">
+        <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ raw_value|yesno:'checked,' }}>
+        <label for="{{ form_field.id_for_label }}" class="{{ css_classes }}">
+            <i class="fa fa-times fa-lg"></i>
+        </label>
+        <div class="delete-backdrop"></div>
+        {% reuse '__help' %}
+    </div>
+    {% reuse '_errors' %}
+</div>
+{% endblock %}

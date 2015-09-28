@@ -48,7 +48,7 @@
 		</fieldset>
 
 		<h2>{% trans "Photos" %}</h2>
-		<fieldset class="well form-inline">
+		<fieldset class="well">
             {% with formset=photos %}
                 {% widget 'form:non_form_errors' %}
 
@@ -59,6 +59,8 @@
                     {% form_field form.id %}
                     {% form_field form.build %}
                     {% form_field form.order 'form:HiddenInput' %}
+
+                    {% form_field form.DELETE %}
 
                     <div class="btn-group">
                         <a href="#from-albums-{{ forloop.counter }}" class="btn bg-main-blue" data-toggle="tab">
@@ -79,7 +81,13 @@
                         </div>
                     </div>
 
-                    {% form_field form.DELETE %}
+
+                    <div class="preview">
+                        <figure class="thumbnail">
+                            <img src="#" class="img-responsive">
+                            <figcaption>{% trans "Preview" %}</figcaption>
+                        </figure>
+                    </div>
 
                 </div>
 

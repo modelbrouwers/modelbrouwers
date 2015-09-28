@@ -799,6 +799,58 @@ form fieldset.tab-pane {
   text-decoration: none;
 }
 
+/* line 84, ../../sass/partials/_forms.scss */
+.formset-form {
+  position: relative;
+}
+/* line 90, ../../sass/partials/_forms.scss */
+.formset-form .DELETE .checkbox {
+  position: static;
+}
+/* line 94, ../../sass/partials/_forms.scss */
+.formset-form .DELETE input {
+  display: none;
+}
+/* line 98, ../../sass/partials/_forms.scss */
+.formset-form .DELETE label {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 15;
+}
+/* line 105, ../../sass/partials/_forms.scss */
+.formset-form .DELETE label:hover, .formset-form .DELETE label:focus {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
+/* line 111, ../../sass/partials/_forms.scss */
+.formset-form .DELETE .delete-backdrop {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+/* line 122, ../../sass/partials/_forms.scss */
+.formset-form .DELETE input:checked + label {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
+/* line 125, ../../sass/partials/_forms.scss */
+.formset-form .DELETE input:checked + label + .delete-backdrop {
+  display: block;
+}
+/* line 131, ../../sass/partials/_forms.scss */
+.formset-form.delete > * {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=10);
+  opacity: 0.1;
+}
+
 /* line 2, ../../sass/partials/_ads.scss */
 .ad-container {
   position: relative;
