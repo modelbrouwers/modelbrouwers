@@ -24,7 +24,7 @@ class BuildForm(forms.ModelForm):
 class BuildPhotoForm(forms.ModelForm):
     class Meta:
         model = BuildPhoto
-        fields = ('build', 'photo', 'photo_url', 'order')
+        fields = ('photo', 'photo_url', 'order')
         widgets = {
             'photo': forms.TextInput,
         }

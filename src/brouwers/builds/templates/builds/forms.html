@@ -1,1 +1,15 @@
 {% extends "horizontal.form" %}{% load sniplates i18n %}
+
+
+{% block BuildPhotoInput %}
+<div class="form-group">
+    <label id="label_{{ id_for_label }}" for="{{ id }}" class="control-label {{ required|yesno:"required," }}">{{ label }}</label>
+    {% if help_text %}<div class="input-group">{% endif %}
+    {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
+    {% reuse '_input' %}
+    {% endwith %}
+    {% reuse "_help" %}
+    {% if help_text %}</div>{% endif %}
+    {% reuse "_errors" %}
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@
 
 {% block _label %}
 {% if label %}
-    <label id="label_{{ id_for_label }}" for="{{ id }}" class="control-label {{ label_grid|default:'col-sm-2' }} {{ required|yesno:"required," }}">
+    <label id="label_{{ id_for_label }}" for="{{ id }}" class="control-label {{ required|yesno:"required," }}">
         {{ label }}
     </label>
 {% endif %}

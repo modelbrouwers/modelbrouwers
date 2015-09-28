@@ -20,7 +20,7 @@
 
 
 {% block content %}
-<form action="." method="post" class="form-horizontal">{% csrf_token %}
+<form action="." method="post">{% csrf_token %}
 	{% load_widgets form='builds/forms.html' %}
 	{% load_widgets kits='kits/widgets.html' %}
 	{% with label_grid_offset='col-sm-offset-2' %}
@@ -29,7 +29,7 @@
 
 		{{ photos.management_form }}
 
-		<fieldset class="well">
+		<fieldset class="well form-horizontal">
 			{% form_field form.title %}
 			{% form_field form.topic %}
 			{% form_field form.topic_start_page %}
@@ -43,13 +43,49 @@
         dropdowns to narrow your search. If your kit isn't in our database yet,
         you can add it yourself!{% endblocktrans %}
         </p>
-        <fieldset class="well">
+        <fieldset class="well form-horizontal">
 			{% form_field form.kits widget='kits:ModelKitSelect' label=_('Select a kit') %}
 		</fieldset>
 
 		<h2>{% trans "Photos" %}</h2>
-		<fieldset class="well">
-			{% widget 'form:formset' formset=photos %}
+		<fieldset class="well form-inline">
+            {% with formset=photos %}
+                {% widget 'form:non_form_errors' %}
+
+                {% for form in formset %}
+                <div class="formset-form">
+                    {% reuse 'non_field_errors' %}
+
+                    {% form_field form.id %}
+                    {% form_field form.build %}
+                    {% form_field form.order 'form:HiddenInput' %}
+
+                    <div class="btn-group">
+                        <a href="#from-albums-{{ forloop.counter }}" class="btn bg-main-blue" data-toggle="tab">
+                            <i class="fa fa-camera"></i>
+                        </a>
+                        <a href="#from-web-{{ forloop.counter }}" class="btn bg-main-light-blue" data-toggle="tab">
+                            <i class="fa fa-globe"></i>
+                        </a>
+                    </div>
+
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="from-albums-{{ forloop.counter }}">
+                            {% form_field form.photo 'form:BuildPhotoInput' %}
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="from-web-{{ forloop.counter }}">
+                            {% form_field form.photo_url 'form:BuildPhotoInput' %}
+                        </div>
+                    </div>
+
+                    {% form_field form.DELETE %}
+
+                </div>
+
+                <hr style="border-color:red;">
+                {% endfor %}
+            {% endwith %}
 		</fieldset>
 
 		{% widget 'form:submit' btn_text=btn_text|default:_('Add build') %}
