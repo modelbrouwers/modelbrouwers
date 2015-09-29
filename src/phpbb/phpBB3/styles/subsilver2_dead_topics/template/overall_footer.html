@@ -51,12 +51,8 @@ pageTracker._trackPageview();
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
-<script src="https://jspm.io/system@0.19.js"></script>
-<script>
-if (typeof window.System === 'undefined') {
-    document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage3->url('jspm_packages/system.js');<!-- ENDPHP -->'%3E%3C/script%3E"));
+<script src="<!-- PHP --> echo $storage3->url('jspm_packages/system.js');<!-- ENDPHP -->"></script>
 }
-</script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
 <!-- PHP --> echo $storage2->system_import($apps);<!-- ENDPHP -->
 
