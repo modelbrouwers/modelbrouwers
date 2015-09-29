@@ -1,4 +1,4 @@
-{% extends "builds/base.html" %}{% load i18n sniplates %}
+{% extends "builds/base.html" %}{% load i18n sniplates system_tags %}
 
 
 {% block eye-catcher-content %}
@@ -111,4 +111,5 @@
 {% block extrascript %}
     {{ block.super }}
     {% widget 'kits:ModelKitSelectJS' %}
+    {% systemjs_import 'builds/js/builds.js' %}
 {% endblock extrascript %}

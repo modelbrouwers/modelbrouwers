@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from rest_framework import parsers, permissions
 from rest_framework import status
 from rest_framework import viewsets
@@ -23,10 +25,15 @@ class PhotoViewSet(viewsets.ModelViewSet):
     """
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     parser_classes = api_settings.DEFAULT_PARSER_CLASSES + [parsers.FileUploadParser]
-    queryset = Photo.objects.exclude(trash=True).exclude(album__public=False)
+    queryset = Photo.objects.exclude(trash=True)
     serializer_class = PhotoSerializer
     filter_class = PhotoFilter
     pagination_class = PhotoPagination
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated():
+            return self.queryset.filter(Q(album__public=True) | Q(album__user=self.request.user))
+        return self.queryset.exclude(album__public=False)
 
     def get_renderers(self):
         if self.action == 'create':
