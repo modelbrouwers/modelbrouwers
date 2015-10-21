@@ -1,6 +1,10 @@
+import logging
+
 from django.core.management.base import NoArgsCommand
 
 from sorl.thumbnail import get_thumbnail
+
+logger = logging.getLogger(__name__)
 
 
 class Command(NoArgsCommand):
@@ -17,4 +21,7 @@ class Command(NoArgsCommand):
 
         for photo in Photo.objects.all():
             for size in self.sizes:
-                get_thumbnail(photo.image, size)
+                try:
+                    get_thumbnail(photo.image, size, upscale=False)
+                except Exception as e:
+                    logger.exception(e)

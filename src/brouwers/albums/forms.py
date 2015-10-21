@@ -39,8 +39,19 @@ class AlbumForm(forms.ModelForm):
         )
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
         super(AlbumForm, self).__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.filter(public=True)
+
+    def clean(self):
+        cleaned_data = super(AlbumForm, self).clean()
+        title = cleaned_data.get('title')
+        if title:
+            qs = self._meta.model.objects.filter(title=title, user=self.user)
+            if qs.exists():
+                msg = _('You already have an album with this title.')
+                cleaned_data = self.add_error('title', forms.ValidationError(msg))
+        return cleaned_data
 
 
 class AlbumRestoreForm(forms.ModelForm):
