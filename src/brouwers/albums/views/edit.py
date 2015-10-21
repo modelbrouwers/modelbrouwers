@@ -36,6 +36,11 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
     template_name = 'albums/album/create.html'
     success_url = reverse_lazy('albums:upload')
 
+    def get_form_kwargs(self):
+        kwargs = super(AlbumCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def get_initial(self):
         initial = super(AlbumCreateView, self).get_initial()
         initial.setdefault('title', "album %s" % timezone.now().strftime("%d-%m-%Y"))

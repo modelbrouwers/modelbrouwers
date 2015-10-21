@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from django_webtest import WebTest
 
@@ -42,6 +43,23 @@ class CrudTests(LoginRequiredMixin, WebTest):
         self.assertEqual(album.topic, topic)
         self.assertEqual(album.title, 'My first album')
         self.assertEqual(album.description, 'Dummy description')
+
+    def test_album_create_same_title(self):
+        url = reverse('albums:create')
+        create = self.app.get(url, user=self.user)
+        self.assertEqual(create.status_code, 200)
+        create.form['title'] = 'My album'
+
+        response = create.form.submit()
+        self.assertEqual(Album.objects.count(), 1)
+
+        # submit again
+        response = create.form.submit()
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response, 'form', 'title',
+            _('You already have an album with this title.')
+        )
 
     def test_preferences_update(self):
         url = reverse('albums:settings')
