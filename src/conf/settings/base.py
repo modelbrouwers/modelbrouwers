@@ -1,4 +1,5 @@
 import os
+from django.utils.translation import ugettext_lazy as _
 
 # Automatically figure out the PROJECT DIR
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
@@ -9,24 +10,18 @@ ROOT_DIR = os.path.dirname(PROJECT_DIR)
 #
 SITE_ID = 1
 DEBUG = False
-TEMPLATE_DEBUG = False
 DEVELOPMENT = False
 TESTING = False
 
 ADMINS = ()
-
-#
-# TIMEZONE/LOCALISATION/TRANSLATION
-#
-gettext_noop = lambda s: s
 
 TIME_ZONE = 'Europe/Amsterdam'
 USE_TZ = True
 
 USE_I18N = True
 LANGUAGES = (
-    ('en', gettext_noop('English')),
-    ('nl', gettext_noop('Dutch')),
+    ('en', _('English')),
+    ('nl', _('Dutch')),
 )
 LOCALE_PATHS = (
     os.path.join(PROJECT_DIR, 'locale'),
