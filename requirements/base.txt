@@ -9,7 +9,7 @@ wsgiref==0.1.2
 
 # Django packages
 Django==1.8.4
-django-appconf-1.0.1  # pulled in by other packages, but update version
+django-appconf==1.0.1  # pulled in by other packages, but update version
 django-choices==1.4.2
 django-admin-tools==0.6.0
 django-autoslug==1.8.0
