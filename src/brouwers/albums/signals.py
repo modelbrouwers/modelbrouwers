@@ -36,4 +36,4 @@ def generate_photo_thumbs(sender, instance, created, raw, **kwargs):
     )
 
     for size in sizes:
-        get_thumbnail(instance.image, size)
+        get_thumbnail(instance.image, size, upscale=False)
