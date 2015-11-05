@@ -29,7 +29,7 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
 
 <article class="photo">
     <figure data-id="{{ photo.id }}">
-        {% thumbnail photo.image "1280x1280" as im %}
+        {% thumbnail photo.image "1280x1280" upscale=False as im %}
             <img src="{{ im.url }}" class="img-responsive">
         {% endthumbnail %}
 
