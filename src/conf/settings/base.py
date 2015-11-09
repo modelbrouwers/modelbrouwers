@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 # Automatically figure out the PROJECT DIR
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 ROOT_DIR = os.path.dirname(PROJECT_DIR)
+BASE_DIR = ROOT_DIR
 
 #
 # GENERAL
