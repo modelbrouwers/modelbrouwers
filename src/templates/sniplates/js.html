@@ -1,7 +1,6 @@
 {% load staticfiles %}
 
 {% block systemjs-base %}
-{# <script src="{% static "jspm_packages/system.js" %}"></script> #}
-<script src="{{ STATIC_URL }}jspm_packages/system.js"></script>
+<script src="{% static 'jspm_packages/system.js' %}"></script>
 <script src="{% static 'config.js' %}"></script>
 {% endblock systemjs-base %}
