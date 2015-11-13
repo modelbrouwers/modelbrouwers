@@ -60,7 +60,7 @@ class BuildReportsForum(models.Model):
         ordering = ['forum']
 
     def __unicode__(self):
-        return self.forum.name if self.forum else _('(forum does not exist)')
+        return self.forum.forum_name if self.forum else _('(forum does not exist)')
 
 
 class ForumCategory(models.Model):
