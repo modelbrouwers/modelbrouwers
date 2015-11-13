@@ -30,7 +30,7 @@ class ProjectForm(forms.ModelForm):
         forum_id = self.initial.get('forum_id', None)
         topic_id = self.initial.get('topic_id', None)
         if forum_id and topic_id:
-            url = 'http://www.modelbrouwers.nl/phpBB3/viewtopic.php?f={0}&t={1}'
+            url = 'https://modelbrouwers.nl/phpBB3/viewtopic.php?f={0}&t={1}'
             url = url.format(forum_id, topic_id)
             self.fields['url'].initial = url
 
