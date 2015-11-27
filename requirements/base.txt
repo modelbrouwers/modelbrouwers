@@ -11,7 +11,7 @@ wsgiref==0.1.2
 Django==1.8.7
 django-appconf==1.0.1  # pulled in by other packages, but update version
 django-choices==1.4.2
-django-admin-tools==0.7.0
+django-admin-tools==0.6.0
 django-autoslug==1.9.3
 django-compressor==1.5
 django-extensions==1.5.9
