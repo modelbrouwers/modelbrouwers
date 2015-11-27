@@ -137,7 +137,7 @@ STATICFILES_FINDERS = (
 # TEMPLATE
 #
 RAW_TEMPLATE_LOADERS = [
-    # 'admin_tools.template_loaders.Loader',
+    'admin_tools.template_loaders.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 ]

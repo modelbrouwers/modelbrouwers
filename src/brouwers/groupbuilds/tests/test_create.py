@@ -23,7 +23,7 @@ class CreateTests(TestCase):  # TODO: conver to webtest
         _request.user = self.user
 
         self.gb_data = {  # minimal data for form
-            'theme': 'Pokemon',
+            'theme': u'Pokemon',
             'category': ForumCategoryFactory.create().id,
             'description': 'Gotta catch \'em all!',
             'admins': [self.user.id, self.user2.id],

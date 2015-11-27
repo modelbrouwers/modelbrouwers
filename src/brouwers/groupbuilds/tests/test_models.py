@@ -75,7 +75,7 @@ class GroupbuildTests(TestCase):
         self.assertAlmostEqual(dimensions['width'], 33.33, places=2)
         self.assertAlmostEqual(dimensions['offset'], 66.67, places=2)
 
-        build8 = GroupBuildFactory.create(start=sept_1st, end=march_1st, theme='foo')
+        build8 = GroupBuildFactory.create(start=sept_1st, end=march_1st, theme=u'foo')
         build8.set_calendar_dimensions(date(2014, 12, 1), date(2015, 5, 30), num_months=6)
         dimensions = build8.calendar_dimensions
         self.assertAlmostEqual(dimensions['width'], 50.5, delta=0.5)
