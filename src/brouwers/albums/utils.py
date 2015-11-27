@@ -28,7 +28,9 @@ def rotate_img(image_field, degrees=90):
     thumb_delete(image_field, delete_file=False)
 
     img = Image.open(image_field.path)
-    img = img.rotate(degrees)
+    new_size = (img.size[1], img.size[0])
+    img = img.rotate(degrees, expand=True)
+    img = img.resize(new_size)
     img.save(image_field.path)
 
 
