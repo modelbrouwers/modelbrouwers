@@ -136,10 +136,15 @@ STATICFILES_FINDERS = (
 #
 # TEMPLATE
 #
+RAW_TEMPLATE_LOADERS = [
+    'admin_tools.template_loaders.Loader',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
+        'APP_DIRS': False,  # conflicts with explicity specifying the loaders
         'DIRS': [
             os.path.join(PROJECT_DIR, 'templates'),
         ],
@@ -156,9 +161,11 @@ TEMPLATES = [
                 "brouwers.general.context_processors.connection",
                 "brouwers.general.context_processors.djsettings",
             ],
+            'loaders': RAW_TEMPLATE_LOADERS
         },
     },
 ]
+# admin_tools.template_loaders.Loader
 
 #
 # MIDDLEWARE

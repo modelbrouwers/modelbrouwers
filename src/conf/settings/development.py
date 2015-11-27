@@ -10,7 +10,7 @@ except ImportError:
 
 DEBUG = True
 
-TEMPLATES[0]['OPTIONS']['debug'] = True
+# TEMPLATES[0]['OPTIONS']['debug'] = True
 
 #
 # Debug toolbar
