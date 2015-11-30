@@ -69,8 +69,5 @@ COMPRESS_ENABLED = True
 #
 TEMPLATES[0]['APP_DIRS'] = False  # conflicts with explicitly specifying the loaders
 TEMPLATES[0]['OPTIONS']['loaders'] = [
-    ('django.template.loaders.cached.Loader', [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    ]),
+    ('django.template.loaders.cached.Loader', RAW_TEMPLATE_LOADERS),
 ]

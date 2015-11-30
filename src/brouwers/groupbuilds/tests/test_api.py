@@ -15,7 +15,7 @@ class ApiTests(APITestCase):
 
     def test_groupbuild_detail(self):
         gb = GroupBuildFactory.create(
-            theme='Testing the code',
+            theme=u'Testing the code',
             description='[b]My BBCode[/b] groupbuild',
             rules='[i]BBCode[/i] rules'
         )

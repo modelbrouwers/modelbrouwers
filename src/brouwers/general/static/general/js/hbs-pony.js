@@ -1,6 +1,6 @@
 'use strict';
 
-import $ from 'jquery';
+import 'jquery';
 import Handlebars from 'handlebars';
 import Q from 'q';
 

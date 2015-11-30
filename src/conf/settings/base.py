@@ -1,32 +1,28 @@
 import os
+from django.utils.translation import ugettext_lazy as _
 
 # Automatically figure out the PROJECT DIR
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 ROOT_DIR = os.path.dirname(PROJECT_DIR)
+BASE_DIR = ROOT_DIR
 
 #
 # GENERAL
 #
 SITE_ID = 1
 DEBUG = False
-TEMPLATE_DEBUG = False
 DEVELOPMENT = False
 TESTING = False
 
 ADMINS = ()
-
-#
-# TIMEZONE/LOCALISATION/TRANSLATION
-#
-gettext_noop = lambda s: s
 
 TIME_ZONE = 'Europe/Amsterdam'
 USE_TZ = True
 
 USE_I18N = True
 LANGUAGES = (
-    ('en', gettext_noop('English')),
-    ('nl', gettext_noop('Dutch')),
+    ('en', _('English')),
+    ('nl', _('Dutch')),
 )
 LOCALE_PATHS = (
     os.path.join(PROJECT_DIR, 'locale'),
@@ -140,10 +136,15 @@ STATICFILES_FINDERS = (
 #
 # TEMPLATE
 #
+RAW_TEMPLATE_LOADERS = [
+    'admin_tools.template_loaders.Loader',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
+        'APP_DIRS': False,  # conflicts with explicity specifying the loaders
         'DIRS': [
             os.path.join(PROJECT_DIR, 'templates'),
         ],
@@ -160,9 +161,11 @@ TEMPLATES = [
                 "brouwers.general.context_processors.connection",
                 "brouwers.general.context_processors.djsettings",
             ],
+            'loaders': RAW_TEMPLATE_LOADERS
         },
     },
 ]
+# admin_tools.template_loaders.Loader
 
 #
 # MIDDLEWARE

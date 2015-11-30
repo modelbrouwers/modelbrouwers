@@ -15,8 +15,8 @@ class ForumLinkBaseAdmin(admin.ModelAdmin):
 
 
 class ForumAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'forum_name', 'forum_id', 'forum_desc')#, 'parent')
-    list_editable = ('forum_name',) #'forum_desc')
+    list_display = ('__unicode__', 'forum_name', 'forum_id', 'forum_desc')
+    list_editable = ('forum_name',)
     search_fields = ('forum_name', 'forum_desc')
 
 

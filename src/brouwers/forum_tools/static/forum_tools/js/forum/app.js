@@ -66,7 +66,7 @@ $(function() {
     // if we're on a viewtopic page, check if the buttons should be visible
     var url = URI();
     if(url.filename() == 'viewtopic.php'){
-        var forum_id = parseInt(url.search(true)[conf.topic_id_key], 10);
+        var forum_id = parseInt(url.search(true)[conf.forum_id_key], 10);
         $.getJSON(urlconf.forum_tools.get_build_report_forums, function(json){
             if(json.forum_ids.indexOf(forum_id) > -1){ // good to go!
                 $('#add-build-report button').text(json.text_build_report);
