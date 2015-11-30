@@ -23,6 +23,7 @@ System.config({
     "jquery": "github:components/jquery@2.1.4",
     "jquery-ui": "github:components/jqueryui@1.11.4",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.2",
+    "ponyjs": "github:sergei-maertens/django-ponyjs@0.0.1",
     "q": "npm:q@2.0.3",
     "sergei-maertens/django-ponyjs": "github:sergei-maertens/django-ponyjs@0.0.1",
     "string.prototype.startswith": "npm:string.prototype.startswith@0.2.0",
