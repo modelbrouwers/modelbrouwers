@@ -30,9 +30,10 @@
   },
   "jspm": {
     "directories": {
-      "baseURL": "src/static",
+      "baseURL": "static",
       "doc": "doc"
     },
+    "configFile": "src/static/config.js",
     "dependencies": {
       "URIjs": "npm:URIjs@^1.15.1",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
