@@ -1,9 +1,5 @@
 import 'jquery';
 
-import { Model } from 'ponyjs/models/base.js';
-
-debugger;
-
 
 $(function() {
 

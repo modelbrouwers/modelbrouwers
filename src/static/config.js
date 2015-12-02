@@ -15,20 +15,23 @@ System.config({
 
   map: {
     "URIjs": "npm:URIjs@1.15.1",
+    "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1",
     "babel": "npm:babel-core@5.8.33",
     "babel-runtime": "npm:babel-runtime@5.8.29",
     "bootstrap": "github:twbs/bootstrap@3.3.5",
-    "core-js": "npm:core-js@1.2.5",
+    "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.13",
     "handlebars": "github:components/handlebars.js@2.0.0",
     "jquery": "github:components/jquery@2.1.4",
     "jquery-ui": "github:components/jqueryui@1.11.4",
+    "json": "github:systemjs/plugin-json@0.1.0",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.2",
     "ponyjs": "github:sergei-maertens/django-ponyjs@0.0.1",
     "q": "npm:q@2.0.3",
     "sergei-maertens/django-ponyjs": "github:sergei-maertens/django-ponyjs@0.0.1",
     "string.prototype.startswith": "npm:string.prototype.startswith@0.2.0",
     "typeahead": "github:twitter/typeahead.js@0.11.1",
+    "url": "github:jspm/nodelibs-url@0.1.0",
     "github:components/jqueryui@1.11.4": {
       "jquery": "github:components/jquery@2.1.4"
     },
@@ -36,7 +39,7 @@ System.config({
       "assert": "npm:assert@1.3.0"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
-      "buffer": "npm:buffer@3.5.2"
+      "buffer": "npm:buffer@3.5.3"
     },
     "github:jspm/nodelibs-constants@0.1.0": {
       "constants-browserify": "npm:constants-browserify@0.0.1"
@@ -122,7 +125,7 @@ System.config({
       "domain": "github:jspm/nodelibs-domain@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:asn1.js@4.2.0": {
+    "npm:asn1.js@4.2.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "bn.js": "npm:bn.js@4.4.0",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -148,6 +151,11 @@ System.config({
     },
     "npm:async@1.5.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:aurelia-http-client@1.0.0-beta.1": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1",
+      "aurelia-path": "npm:aurelia-path@1.0.0-beta.1",
+      "core-js": "npm:core-js@1.2.6"
     },
     "npm:aws-sign2@0.5.0": {
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
@@ -224,7 +232,7 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
-    "npm:buffer@3.5.2": {
+    "npm:buffer@3.5.3": {
       "base64-js": "npm:base64-js@0.0.8",
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -263,7 +271,7 @@ System.config({
     "npm:constants-browserify@0.0.1": {
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
-    "npm:core-js@1.2.5": {
+    "npm:core-js@1.2.6": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
@@ -361,7 +369,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "http": "github:jspm/nodelibs-http@1.7.1",
       "https": "github:jspm/nodelibs-https@0.1.0",
-      "mime-types": "npm:mime-types@2.1.7",
+      "mime-types": "npm:mime-types@2.1.8",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "url": "github:jspm/nodelibs-url@0.1.0",
@@ -444,8 +452,15 @@ System.config({
     "npm:mime-db@1.19.0": {
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
+    "npm:mime-db@1.20.0": {
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
     "npm:mime-types@2.1.7": {
       "mime-db": "npm:mime-db@1.19.0",
+      "path": "github:jspm/nodelibs-path@0.1.0"
+    },
+    "npm:mime-types@2.1.8": {
+      "mime-db": "npm:mime-db@1.20.0",
       "path": "github:jspm/nodelibs-path@0.1.0"
     },
     "npm:node-uuid@1.4.7": {
@@ -463,7 +478,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:parse-asn1@5.0.0": {
-      "asn1.js": "npm:asn1.js@4.2.0",
+      "asn1.js": "npm:asn1.js@4.2.1",
       "browserify-aes": "npm:browserify-aes@1.0.5",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.2",
