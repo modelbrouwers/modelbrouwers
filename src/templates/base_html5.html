@@ -83,7 +83,7 @@
 
             <div class="container text-right text-muted">
                 {% if user.is_authenticated %}
-                    {% url 'profile' as profile_url %}
+                    {% url 'users:profile' as profile_url %}
                     <i class="fa fa-user"></i>
                     {% blocktrans %}logged in as <a href="{{ profile_url }}">{{ user }}</a>{% endblocktrans %}
                     &bull;

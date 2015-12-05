@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _, ungettext as _n, get_la
 from brouwers.awards.models import Category
 from .utils import get_client_ip, lookup_http_blacklist
 
+
 COUNTRY_CHOICES = (
     ("N", _("The Netherlands")),
     ("B", _("Belgium")),
@@ -17,16 +18,9 @@ COUNTRY_CHOICES = (
     ("F", _("France")),
 )
 
+
 MAX_REGISTRATION_ATTEMPTS = 3
 STANDARD_BAN_TIME_HOURS = 12
-
-
-class LoggedModel(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u'added by'), help_text=_(u'User who added the object.'))
-    timestamp_added = models.DateTimeField(_('added on'), auto_now_add=True)
-
-    class Meta:
-        abstract = True
 
 
 class UserProfile(models.Model):
@@ -54,14 +48,16 @@ class UserProfile(models.Model):
     province = models.CharField(_("province"), max_length=255, blank=True, null=True)
     country = models.CharField(_("country"), max_length=1, choices=COUNTRY_CHOICES, blank=True, null=True)
 
-    #voorkeuren -> TODO: move to secret santa object
+    # voorkeuren -> TODO: move to secret santa object
     preference = models.TextField(help_text=_("Dit wil ik graag"), blank=True, null=True)
     refuse = models.TextField(help_text=_("Dit wil ik absoluut niet"), blank=True, null=True)
 
     # allow social sharing
-    allow_sharing = models.BooleanField(_("allow social sharing"), default=True,
-            help_text=_('Checking this gives us permission to share your topics and albums on social media. Uncheck if you don\'t want to share.')
-        )
+    allow_sharing = models.BooleanField(
+        _("allow social sharing"), default=False,
+        help_text=_('Checking this gives us permission to share your topics and albums on social media. '
+                    'Uncheck if you don\'t want to share.')
+    )
 
     def __unicode__(self):
         return u"%s" % self.forum_nickname
@@ -110,7 +106,7 @@ class RegistrationQuestion(models.Model):
 
 class RegistrationAttemptManager(models.Manager):
     def create_from_form(self, request, form_data):
-        ip = get_client_ip(request) #FIXME: clean format?
+        ip = get_client_ip(request)  # FIXME: clean format?
         kwargs = {
             'username': form_data.get('username') or request.POST.get('username') or '__blank',
             'question': form_data.get('question'),
@@ -190,12 +186,9 @@ class RegistrationAttempt(models.Model):
             else:
                 kwargs['expiry_date'] = timezone.now() + timedelta(hours=STANDARD_BAN_TIME_HOURS)
 
-
             kwargs['reason'] = _n('The system flagged you as a bot or your registration attempt was not valid.',
-                        'You tried registering %(times)s times without succes, the system flagged you as a bot.',
-                        num_attempts) % {
-                            'times': num_attempts
-                        }
+                                  'You tried registering %(times)s times without succes, the system flagged you as a '
+                                  'bot.', num_attempts) % {'times': num_attempts}
             kwargs['reason_internal'] = _('Probably spambot, %(num_attempts)s against maximum attempts of %(max)s') % {
                                 'num_attempts': num_attempts,
                                 'max': MAX_REGISTRATION_ATTEMPTS
@@ -203,7 +196,7 @@ class RegistrationAttempt(models.Model):
             kwargs['automatic'] = True
 
             ban = Ban.objects.create(
-                    ip = self.ip_address,
+                    ip=self.ip_address,
                     **kwargs
                     )
 
@@ -214,72 +207,11 @@ class RegistrationAttempt(models.Model):
         return False
 
 
-class SoftwareVersion(models.Model):
-    VERSION_TYPES = (
-        ('a', 'alpha'),
-        ('b', 'beta'),
-        ('v', 'vanilla')
-    )
-    state = models.CharField(max_length=1, choices=VERSION_TYPES, default='v')
-    major = models.PositiveSmallIntegerField(default=1)
-    minor = models.PositiveSmallIntegerField(default=0)
-    detail = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
-    start = models.DateTimeField(default=timezone.now)
-    end = models.DateTimeField(default=timezone.now)
-    changelog = models.TextField(blank=True)
-
-    class Meta:
-        ordering = ('-state', '-major', '-minor', '-detail')
-
-    def __unicode__(self):
-        prefix = ''
-        if self.state != 'v':
-            prefix = '%s-' % self.get_state_display()
-        detail = '.' + str(self.detail) or ''
-        return u"%s%s.%s%s" % (prefix, self.major, self.minor, detail)
-
-
-class PasswordReset(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    h = models.CharField(_("hash"), max_length=256)
-    expire = models.DateTimeField(_("expire datetime"))
-
-    class Meta:
-        verbose_name = _("password reset")
-        verbose_name_plural = _("password resets")
-        ordering = ('expire',)
-        unique_together = (('user', 'h'),)
-
-    def __unicode__(self):
-        return _("Password reset for %(user)s") % {'user': self.user.username}
-
-
-class Redirect(models.Model):
-    path_from = models.CharField(
-            _("path from"),
-            max_length=255,
-            help_text=_("path from where to redirect, without leading slash. \
-                        E.g. '/shop/' becomse 'shop/'."),
-            unique=True
-            )
-    path_to = models.CharField(_("redirect to"), max_length=1024,
-            help_text=_("Path (relative or absolute to the docroot) or url.")
-    )
-
-    class Meta:
-        verbose_name = _("redirect")
-        verbose_name_plural = _("redirects")
-        ordering = ('path_from',)
-
-    def __unicode__(self):
-        return u"%s" % self.path_from
-
-
 class AnnouncementManager(models.Manager):
     def get_current(self):
         now = timezone.now()
         lang_code = get_language()[:2]
-        q = Q(to_date__lt=now) |  Q(from_date__gt=now)
+        q = Q(to_date__lt=now) | Q(from_date__gt=now)
         qs = super(AnnouncementManager, self).get_queryset().filter(language=lang_code).exclude(q)
         if qs.exists():
             return qs[0]

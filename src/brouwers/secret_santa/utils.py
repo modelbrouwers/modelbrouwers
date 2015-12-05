@@ -1,11 +1,12 @@
-from django.core.mail import EmailMultiAlternatives, send_mail
-from django.shortcuts import get_object_or_404
 from datetime import date, datetime
+
+from django.core.mail import send_mail
+
 
 def get_current_ss(ss_class):
     today = date.today()
     this_year = today.year
-    if today.month in [1,2]:
+    if today.month in [1, 2]:
         this_year -= 1
     defaults = {
         'enrollment_start': datetime(this_year, 11, 1),
@@ -15,6 +16,7 @@ def get_current_ss(ss_class):
     }
     secret_santa, created = ss_class.objects.get_or_create(year=this_year, defaults=defaults)
     return secret_santa
+
 
 MAIL_TEMPLATE_PLAIN = """
 Hallo %(sender)s,
@@ -32,6 +34,7 @@ Je kan deze gegevens en de voorkeuren van jouw lootje bekijken op http://modelbr
 Mvg,
 Het beheer
 """
+
 
 def do_lottery_mailing(couples):
     ss = couples[0].secret_santa

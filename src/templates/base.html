@@ -136,7 +136,7 @@
                                 </a>
                             </li>
                             <li class="user-auth">
-                                <a href="{% url 'brouwers.general.views.profile' %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
+                                <a href="{% url 'users:profile' %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
                             </li>
                         {% endif %}
                     {% endblock %}

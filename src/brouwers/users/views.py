@@ -110,7 +110,7 @@ class LogoutView(RedirectFormMixin, generic.RedirectView):
 
 class ActivationView(generic.RedirectView):
     """ Check that a valid token is used and activate the user """
-    url = reverse_lazy('profile')
+    url = reverse_lazy('users:profile')
     permanent = False
 
     def get(self, request, *args, **kwargs):
@@ -140,7 +140,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
     model = User
     form_class = UserCreationForm
     template_name = 'users/register.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('users:profile')
     registration_attempt = None
 
     def get(self, request, *args, **kwargs):

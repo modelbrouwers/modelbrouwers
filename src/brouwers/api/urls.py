@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 
 from rest_framework.routers import DefaultRouter
 
@@ -20,8 +20,7 @@ router.register(r'my/photos', MyPhotosViewset, base_name='my/photos')
 router.register(r'groupbuilds/participant', ParticipantViewSet)
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
     url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
-) + router.urls
+] + router.urls
