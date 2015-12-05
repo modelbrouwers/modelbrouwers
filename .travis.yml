@@ -1,5 +1,6 @@
-# http://stackoverflow.com/questions/20127174/how-can-i-update-node-js-and-install-grunt-bower-in-a-python-project-in-travis-c
 language: python
+
+sudo: false
 
 python:
   - "2.7"
@@ -13,11 +14,8 @@ install:
   - pip install --upgrade setuptools pip
   - pip install Django # temp fix
   - pip install -r requirements/travis.txt
-  - sudo add-apt-repository -y ppa:chris-lea/node.js
-  - sudo apt-get -y update
-  - sudo apt-get -y install nodejs
-  - sudo npm --registry http://registry.npmjs.eu/ install -g bower
-  - sudo npm install
+  - npm install -g bower jspm grunt-cli
+  - npm install
 
 before_script:
   - mkdir log
