@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.views import password_change, password_reset, password_reset_confirm
 
@@ -6,8 +6,7 @@ from .views import (ActivationView, LoginView, LogoutView, RegistrationView,
                     ProfileView, UserProfileDetailView, PasswordChangedView)
 from .forms.auth import PasswordResetForm
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^profile/$', ProfileView.as_view(), name='profile'),
@@ -36,4 +35,4 @@ urlpatterns = patterns(
             'post_reset_redirect': reverse_lazy('users:login'),
             'template_name': 'users/password_reset_confirm.html'
         }, name='password_reset_confirm'),
-)
+]
