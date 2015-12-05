@@ -1,15 +1,19 @@
 from django.contrib import admin
-from models import *
+
+from .models import *
+
 
 class SecretSantaAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'enrollment_start', 'enrollment_end', 'lottery_date', 'lottery_done')
     list_editable = ('enrollment_start', 'enrollment_end', 'lottery_date', 'lottery_done')
     search_fields = ('year',)
 
+
 class ParticipantAdmin(admin.ModelAdmin):
     list_display = ('user', 'year')
     list_filter = ('secret_santa',)
     search_fields = ('user__username', 'user__email', 'user__first_name', 'user__last_name')
+
 
 class CoupleAdmin(admin.ModelAdmin):
     list_display = ('secret_santa', 'sender', 'receiver')

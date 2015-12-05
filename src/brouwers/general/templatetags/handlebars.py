@@ -1,7 +1,7 @@
 from django.conf import settings
 from django import template
 from django.template.base import (
-    TemplateSyntaxError, TextNode,
+    NodeList, TemplateSyntaxError, TextNode,
     TOKEN_VAR, TOKEN_BLOCK, TOKEN_TEXT
 )
 from django.template.loader_tags import BlockNode
@@ -33,7 +33,8 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
 
     @returns a list of nodes.
     """
-    nodelist = parser.create_nodelist()
+
+    nodelist = NodeList()
     while 1:
         token = parser.tokens.pop(0)
 
@@ -117,7 +118,7 @@ def verbatim(parser, token):
 @register.tag('block_verbatim')
 def do_block(parser, token):
     """
-    Define a block that can be overridden by child templates. Adapted for handlebar
+    Define a block that can be overridden by child templates. Adapted for Handlebars
     template syntax. Note that you cannot use template variables in these blocks!
     """
 
@@ -131,9 +132,8 @@ def do_block(parser, token):
         if block_name in parser.__loaded_blocks:
             raise TemplateSyntaxError("'%s' tag with name '%s' appears more than once" % (bits[0], block_name))
         parser.__loaded_blocks.append(block_name)
-    except AttributeError: # parser.__loaded_blocks isn't a list yet
+    except AttributeError:  # parser.__loaded_blocks isn't a list yet
         parser.__loaded_blocks = [block_name]
-
 
     acceptable_endblocks = ('endblock_verbatim', 'endblock_verbatim %s' % block_name)
 

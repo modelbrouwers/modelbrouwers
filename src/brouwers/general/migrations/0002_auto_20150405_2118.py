@@ -46,6 +46,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='passwordreset',
-            unique_together=set([('user', 'h')]),
+            unique_together=set([('h', 'user')]),
         ),
     ]

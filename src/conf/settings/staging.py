@@ -30,9 +30,9 @@ CACHES['default']['KEY_PREFIX'] = 'staging'
 #
 # SENTRY
 #
-INSTALLED_APPS += (
+INSTALLED_APPS += [
     'raven.contrib.django.raven_compat',
-)
+]
 
 ALLOWED_HOSTS = ['staging.modelbrouwers.nl', '192.168.1.10']
 

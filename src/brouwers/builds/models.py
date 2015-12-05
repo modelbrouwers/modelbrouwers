@@ -1,16 +1,16 @@
 import urllib
 import os
+from collections import OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.utils.slugify import unique_slugify
 from brouwers.general.models import UserProfile
-from brouwers.kitreviews.models import Brand #TODO: FK to scale
+from brouwers.kitreviews.models import Brand  # TODO: FK to scale
 
 
 class Build(models.Model):
@@ -74,7 +74,7 @@ class Build(models.Model):
 
     def get_topic_url(self):
         """ Build the PHPBB3 url based on topic (and forum) id. """
-        query_params = SortedDict()
+        query_params = OrderedDict()
         query_params['t'] = self.topic_id
         if self.forum_id:
             query_params['f'] = self.forum_id

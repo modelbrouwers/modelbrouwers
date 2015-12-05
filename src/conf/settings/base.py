@@ -20,13 +20,15 @@ TIME_ZONE = 'Europe/Amsterdam'
 USE_TZ = True
 
 USE_I18N = True
-LANGUAGES = (
+
+LANGUAGES = [
     ('en', _('English')),
     ('nl', _('Dutch')),
-)
-LOCALE_PATHS = (
+]
+
+LOCALE_PATHS = [
     os.path.join(PROJECT_DIR, 'locale'),
-)
+]
 
 USE_L10N = True
 DATE_FORMAT = 'd-m-Y'
@@ -65,7 +67,7 @@ LOGGING = {
         },
         'null': {
             'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
         'console': {
             'level': 'DEBUG',
@@ -121,17 +123,17 @@ SENDFILE_URL = '/protected'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
     # node_modules cannot be consistently installed in the 'correct place'.
     # symlinking resuls in too many levels of symlinks
     os.path.join(ROOT_DIR, 'node_modules'),
-)
-STATICFILES_FINDERS = (
+]
+STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
-)
+]
 
 #
 # TEMPLATE
@@ -165,12 +167,11 @@ TEMPLATES = [
         },
     },
 ]
-# admin_tools.template_loaders.Loader
 
 #
 # MIDDLEWARE
 #
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -180,8 +181,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     # after auth middleware, checks if user is authenticated
     'brouwers.banning.middleware.BanningMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-)
+]
 
 #
 # URLS
@@ -191,11 +193,12 @@ ROOT_URLCONF = 'brouwers.urls'
 #
 # APPS
 #
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # Contrib apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
+    'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
@@ -234,7 +237,7 @@ INSTALLED_APPS = (
     'brouwers.secret_santa',
     'brouwers.shirts',
     'brouwers.utils',
-)
+]
 
 #
 # DATABASE
@@ -264,10 +267,10 @@ SESSION_COOKIE_AGE = 60*60*24*7*365  # one year
 #
 # AUTH
 #
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'brouwers.users.backends.EmailModelBackend',
-)
+]
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'

@@ -72,7 +72,7 @@ class UserActivationFlowTestCase(TestCase):
         self.assertIsNotNone(url)
 
         response = self.client.get(url)
-        dest = reverse('profile')
+        dest = reverse('users:profile')
 
         # check that the user is logged in
         user_id = self.client.session.get(SESSION_KEY)

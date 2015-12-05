@@ -1,8 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-urlpatterns = patterns('brouwers.secret_santa.views',
-    url(r'^$',             'index'),
-    url(r'^enroll/$',      'enroll'),
-    url(r'^do_lottery/$',  'lottery'),
-    url(r'^receiver/$',    'receiver'),
-)
+from .views import index, enroll, lottery, receiver
+
+urlpatterns = [
+    url(r'^$', index),
+    url(r'^enroll/$', enroll),
+    url(r'^do_lottery/$', lottery),
+    url(r'^receiver/$', receiver),
+]
