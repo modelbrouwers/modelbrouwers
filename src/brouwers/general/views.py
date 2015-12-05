@@ -1,8 +1,5 @@
-from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views.generic import View
 
@@ -12,17 +9,6 @@ from .forms import *
 EMPTY_CONTEXT = {}
 
 User = get_user_model()
-
-
-def index(request):
-    if request.GET.get('django') or settings.DEBUG:
-        return render(request, 'base.html')
-    return HttpResponseRedirect('/index.php')
-
-
-@login_required
-def profile(request):
-    return redirect('users:profile')
 
 
 class ServeHbsTemplateView(View):
