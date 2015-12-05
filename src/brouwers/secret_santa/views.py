@@ -6,9 +6,9 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
-from models import Couple, Participant, SecretSanta
-from forms import EnrollForm
-from utils import get_current_ss
+from .models import Couple, Participant, SecretSanta
+from .forms import EnrollForm
+from .utils import get_current_ss
 
 
 def index(request):
@@ -26,7 +26,7 @@ def index(request):
         }
     )
 
-# TODO: voorkeuren ingeven!
+
 @login_required
 def enroll(request):
     secret_santa = get_current_ss(SecretSanta)
@@ -35,7 +35,7 @@ def enroll(request):
             initial = {'secret_santa': secret_santa, 'user': request.user}
             form = EnrollForm(request.POST, initial=initial)
             address_complete = request.user.profile.is_address_ok
-            if form.is_valid() and  address_complete and not secret_santa.is_participant(request.user):
+            if form.is_valid() and address_complete and not secret_santa.is_participant(request.user):
                 participant = form.save(commit=False)
                 participant.year = participant.secret_santa.year
                 participant.save()
@@ -45,14 +45,15 @@ def enroll(request):
             messages.error(request, _("Signing up is not possible at this time."))
     return HttpResponseRedirect(reverse(index))
 
+
 @user_passes_test(lambda u: u.is_authenticated() and u.is_staff, login_url='/login/')
 def lottery(request):
-    #clear old entries
+    # clear old entries
     secret_santa = get_current_ss(SecretSanta)
     couples = []
 
     sending_participants = Participant.objects.filter(secret_santa=secret_santa).order_by('pk')
-    receivers = list(sending_participants.order_by('?')) #randomize list of participants
+    receivers = list(sending_participants.order_by('?'))  # randomize list of participants
     sending_participants2 = list(sending_participants)
     if sending_participants2[-1] == receivers[-1]:
         receivers[-1], receivers[-2] = receivers[-2], receivers[-1]
@@ -60,13 +61,14 @@ def lottery(request):
     already_sender = set()
     if sending_participants and not secret_santa.lottery_done:
         for receiver in receivers:
-            senders = sending_participants.exclude(user=receiver.user) #exclude yourself - you don't send a present to yourself
+            # exclude yourself - you don't send a present to yourself
+            senders = sending_participants.exclude(user=receiver.user)
             couple = Couple(receiver=receiver, secret_santa=secret_santa)
-            for sender in senders: #dedicate a sender to the receiver
-                if not sender in already_sender: #sender can't send twice
+            for sender in senders:  # dedicate a sender to the receiver
+                if sender not in already_sender:  # sender can't send twice
                     couple.sender = sender
                     already_sender.add(sender)
-                    break    #break once a sender has been determined
+                    break    # break once a sender has been determined
             couple.save()
             couples.append(couple.id)
 
@@ -75,6 +77,7 @@ def lottery(request):
         secret_santa.do_mailing()
         messages.success(request, _("The lottery is done."))
     return HttpResponseRedirect(reverse(index))
+
 
 @login_required
 def receiver(request):
@@ -85,10 +88,12 @@ def receiver(request):
             try:
                 # couple where user is the sender
                 Couple.objects.select_related('participant').get(
-                    sender__user_id = request.user.id,
-                    secret_santa = secret_santa
+                    sender__user_id=request.user.id,
+                    secret_santa=secret_santa
                     )
-                return render(request, 'secret_santa/receiver.html', {'receiver': receiver, 'secret_santa': secret_santa })
+                return render(request, 'secret_santa/receiver.html', {
+                    'receiver': receiver, 'secret_santa': secret_santa
+                })
             except Couple.DoesNotExist:
                 messages.error(request, _("Your match does not exist."))
         else:

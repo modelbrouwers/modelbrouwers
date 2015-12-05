@@ -2,15 +2,12 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.template.loader import get_template
 from django.views.generic import View
 
 from .forms import *
-from .models import Redirect
 
-
-LOG_REGISTRATION_ATTEMPTS = getattr(settings, 'LOG_REGISTRATION_ATTEMPTS', True)
 
 EMPTY_CONTEXT = {}
 
@@ -26,11 +23,6 @@ def index(request):
 @login_required
 def profile(request):
     return redirect('users:profile')
-
-
-def test_redirects(request, path):
-    redirect = get_object_or_404(Redirect, path_from__iexact=path)
-    return HttpResponseRedirect(redirect.path_to)
 
 
 class ServeHbsTemplateView(View):

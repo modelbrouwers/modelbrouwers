@@ -181,6 +181,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     # after auth middleware, checks if user is authenticated
     'brouwers.banning.middleware.BanningMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
@@ -197,6 +198,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
+    'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',

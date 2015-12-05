@@ -1,18 +1,18 @@
 from django.conf import settings
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import TemplateView
 
 
+# FIXME: this breaks laziness
 FORUM_URL = settings.PHPBB_URL
 FORUM_URL = FORUM_URL[1:] if FORUM_URL.startswith('/') else FORUM_URL
 FORUM_URL = FORUM_URL if FORUM_URL.endswith('/') else FORUM_URL + '/'
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^admin/',        include(admin.site.urls)),
     url(r'^admin_tools/',  include('admin_tools.urls')),
@@ -34,17 +34,10 @@ urlpatterns = patterns(
     url(r'^i18n/',         include('django.conf.urls.i18n')),
     url(r'^',              include('brouwers.users.urls', namespace='users')),
     url(r'^',              include('brouwers.general.urls')),
-) + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+
 
 if settings.DEBUG:
-    urlpatterns += patterns(
-        '',
+    urlpatterns += [
         url(r'^404/$', TemplateView.as_view(template_name='404.html')),
-    )
-
-# check if database redirects exists (similar to flatpages' middleware)
-# must be last
-urlpatterns += patterns(
-    'brouwers.general.views',
-    (r'^([\w/0-9,-,_]+(?!\.php$))/$', 'test_redirects'),
-)
+    ]
