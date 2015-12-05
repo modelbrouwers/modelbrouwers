@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, RedirectView
 
 
 # FIXME: this breaks laziness
@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^api/v1/',        include('brouwers.api.urls', namespace='api')),
 
     # just a placeholder for the url
-    url(r'^$', TemplateView.as_view(template_name='base.html'), name='index'),
+    url(r'^$', RedirectView.as_view(url='/index.php'), name='index'),
 
     url(r'^albums/',       include('brouwers.albums.urls', namespace='albums')),
     url(r'^awards/',       include('brouwers.awards.urls')),
