@@ -19,6 +19,9 @@ urlpatterns = [
 
     url(r'^api/v1/',        include('brouwers.api.urls', namespace='api')),
 
+    # just a placeholder for the url
+    url(r'^$', TemplateView.as_view(template_name='base.html'), name='index'),
+
     url(r'^albums/',       include('brouwers.albums.urls', namespace='albums')),
     url(r'^awards/',       include('brouwers.awards.urls')),
     url(r'^brouwersdag/',  include('brouwers.brouwersdag.urls', namespace='brouwersdag')),
