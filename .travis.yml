@@ -5,6 +5,10 @@ sudo: false
 python:
   - "2.7"
 
+cache:
+  directories:
+    - $HOME/.pip-cache
+
 services:
   - memcached
   # - redis-server
@@ -12,8 +16,7 @@ services:
 
 install:
   - pip install --upgrade setuptools pip
-  - pip install Django # temp fix
-  - pip install -r requirements/travis.txt
+  - pip install -r requirements/travis.txt --cache-dir $HOME/.pip-cache
   - npm install -g bower jspm grunt-cli
   - npm install
 
