@@ -15,7 +15,7 @@ class ProfileTests(WebTest):
 
     def test_edit_profile_login(self):
         """ Test that login is required to edit the profile """
-        url = reverse('profile')
+        url = reverse('users:profile')
         redirect = self.app.get(url)
         expected_url = "{}?next={}".format(settings.LOGIN_URL, url)
         self.assertRedirects(redirect, expected_url)
@@ -25,7 +25,7 @@ class ProfileTests(WebTest):
 
     def test_edit_page(self):
         """ Test that the change password link is still present and form submission works """
-        url = reverse('profile')
+        url = reverse('users:profile')
         edit_page = self.app.get(url, user=self.user)
         self.assertContains(edit_page, _('Change password'))
 

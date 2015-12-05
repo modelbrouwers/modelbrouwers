@@ -38,7 +38,7 @@ Signing up is possible from {{ enrollment_start }} <strong>until {{ enrollment_e
 
 <div class="tab midpage">{% trans 'Sign up' %}</div>
 <p>
-{% url 'brouwers.general.views.profile' as profile_url %}
+{% url 'users:profile' as profile_url %}
 {% if secret_santa.enrollment_open %}
     {% blocktrans %}To be able to sign up, you must make sure that your address
     details are complete in your <a href="{{ profile_url }}">profile</a>.{% endblocktrans %}
