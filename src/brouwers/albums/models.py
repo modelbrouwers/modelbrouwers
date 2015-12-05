@@ -48,8 +48,8 @@ class Album(models.Model):
 
     # owner of the album
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user"))
-    title = models.CharField(_("album title"), max_length="256", db_index=True)
-    clean_title = models.CharField(_("album title"), max_length="256", default='', blank=True)
+    title = models.CharField(_("album title"), max_length=256, db_index=True)
+    clean_title = models.CharField(_("album title"), max_length=256, default='', blank=True)
     description = models.CharField(_("album description"), max_length=500, blank=True)
     category = models.ForeignKey(
         Category, blank=True, null=True,

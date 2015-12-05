@@ -1,4 +1,5 @@
 from datetime import date
+from collections import OrderedDict
 
 from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -6,7 +7,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.datastructures import SortedDict
 from django.utils.formats import date_format
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView
@@ -82,8 +82,8 @@ class NominationListView(ListView):
     def get_queryset(self):
         category = self.get_category()
         return Nomination.objects.filter(
-                category__id = category.id,
-                nomination_date__year = date.today().year
+                category__id=category.id,
+                nomination_date__year=date.today().year
             ).exclude(rejected=True)
 
     def get_context_data(self, **kwargs):
@@ -97,7 +97,7 @@ def vote_overview(request):
     year = date.today().year
     for cat in categories:
         projects = Project.objects.filter(category__exact=cat)
-        projects_valid = projects.filter(nomination_date__year = year)
+        projects_valid = projects.filter(nomination_date__year=year)
         data[cat] = projects_valid.exclude(rejected=True)
     return render(request, 'awards/vote_listing.html', {'data': data, 'year': year})
 
@@ -108,13 +108,15 @@ def scores(request):
     if request.user.profile.last_vote.year != year:
         return HttpResponseRedirect('/awards/vote/')
     data = []
-    voters = UserProfile.objects.filter(last_vote__year = year).count()
+    voters = UserProfile.objects.filter(last_vote__year=year).count()
     year = date.today().year-1
     categories = Category.objects.all()
     categories_voted = request.user.profile.categories_voted.all()
     categories = categories.filter(id__in=categories_voted)
     for category in categories:
-        projects = Project.objects.filter(category__exact=category, nomination_date__year = year).exclude(rejected=True).order_by('-votes')
+        projects = Project.objects.filter(
+            category__exact=category, nomination_date__year=year
+        ).exclude(rejected=True).order_by('-votes')
         votes_total = 0
         if projects:
             for project in projects:
@@ -142,10 +144,11 @@ class VoteView(LoginRequiredMixin, TemplateView):
 
         categories = projects.select_related('category').distinct('category').order_by(
                         'category'
-                     ).only('category__id', 'category__name'
+                     ).only(
+                        'category__id', 'category__name'
                      ).exclude(category__id__in=categories_voted)
 
-        forms = SortedDict()
+        forms = OrderedDict()
         for defered_project in categories:
             category = defered_project.category
             qs = projects.filter(category_id=category.id).order_by('?')
@@ -253,10 +256,10 @@ class WinnersView(TemplateView):
         return context
 
     def get_winners(self, year):
-        winners_data, prev_nomination = SortedDict(), None
+        winners_data, prev_nomination = OrderedDict(), None
         nominations = Nomination.objects.filter(
-                          nomination_date__year = year,
-                          rejected = False
+                          nomination_date__year=year,
+                          rejected=False
                       ).select_related(
                           'category'
                       ).order_by('category', '-votes')
@@ -269,7 +272,7 @@ class WinnersView(TemplateView):
             else:
                 if category not in winners_data:
                     position, prev_nomination = 'first', None
-                    winners_data[category] = SortedDict()
+                    winners_data[category] = OrderedDict()
                 else:
 
                     if 'second' not in winners_data[category]:
