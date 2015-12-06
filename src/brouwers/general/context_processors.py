@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import connection as _connection
-from models import SoftwareVersion
+
 
 def connection(request):
     total_time = 0.0
@@ -11,6 +11,7 @@ def connection(request):
         'queries_time': total_time,
         'HONEYPOT_URL': settings.HONEYPOT_URL
         }
+
 
 def djsettings(request):
     phpbb_url = settings.PHPBB_URL

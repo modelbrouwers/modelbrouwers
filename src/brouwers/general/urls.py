@@ -1,20 +1,15 @@
-from django.conf.urls import patterns, url
-from .views import ServeHbsTemplateView
-from .ajax_views import AnnouncementView
+from django.conf.urls import url
 
-urlpatterns = patterns(
-    'brouwers.general.views',
-    url(r'^$', 'index', name='index'),
-    url(r'^profile/$', 'profile', name='profile'),
+from .views import ServeHbsTemplateView
+from .ajax_views import AnnouncementView, search_users
+
+
+urlpatterns = [
     url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w\-_]+)/$',
         ServeHbsTemplateView.as_view(),
-        name='hbs_template')  # get handlebars templates
-)
+        name='hbs_template'),
 
-
-# AJAX
-urlpatterns += patterns(
-    'brouwers.general.ajax_views',
-    url(r'^user/search/$',    'search_users'),
+    url(r'^user/search/$', search_users),
     url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
-)
+
+]

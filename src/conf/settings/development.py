@@ -15,13 +15,13 @@ DEBUG = True
 #
 # Debug toolbar
 #
-MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + [
     # 'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+]
 
-INSTALLED_APPS = INSTALLED_APPS + (
+INSTALLED_APPS = INSTALLED_APPS + [
     'debug_toolbar',
-)
+]
 
 DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': '',
@@ -67,4 +67,4 @@ except ImportError:
 
 
 if 'test' in sys.argv:
-    INSTALLED_APPS = INSTALLED_APPS + ('brouwers.forum_tools.tests.custom_fields',)
+    INSTALLED_APPS = INSTALLED_APPS + ['brouwers.forum_tools.tests.custom_fields']
