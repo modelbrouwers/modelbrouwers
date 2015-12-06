@@ -1,7 +1,12 @@
-from django.conf import settings
 from django.contrib import admin
 
-from models import *
+from .models import (
+    Announcement,
+    QuestionAnswer,
+    RegistrationAttempt,
+    RegistrationQuestion,
+    UserProfile,
+)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -13,7 +18,14 @@ class UserProfileAdmin(admin.ModelAdmin):
             'fields': (('last_vote', 'exclude_from_nomination'), 'categories_voted')
         }),
         ('Secret Santa', {
-            'fields': ('secret_santa', ('street','number'),('postal', 'city'),('province','country'), 'preference', 'refuse')
+            'fields': (
+                'secret_santa',
+                ('street', 'number'),
+                ('postal', 'city'),
+                ('province', 'country'),
+                'preference',
+                'refuse'
+            )
         })
     )
 
@@ -33,27 +45,11 @@ class QuestionAnswerAdmin(admin.ModelAdmin):
 
 
 class RegistrationAttemptAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'question_short', 'answer', 'timestamp', 'ip_address', 'success', '_is_banned', 'type_of_visitor')
+    list_display = ('__unicode__', 'question_short', 'answer', 'timestamp', 'ip_address', 'success',
+                    '_is_banned', 'type_of_visitor')
     list_filter = ('success', 'timestamp', 'type_of_visitor')
     search_fields = ('username',)
-
-    if not settings.DEBUG:
-        actions = None
-
-
-class SoftwareVersionAdmin(admin.ModelAdmin):
-    list_diplsay = ('__unicode__', 'start', 'end')
-
-
-class RedirectAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'path_from', 'path_to')
-    list_editable = ('path_from', 'path_to')
-    search_fields = ('path_from', 'path_to')
-
-
-class PasswordResetAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'expire', 'h')
-    list_filter = ('expire',)
+    actions = None
 
 
 class AnnouncementAdmin(admin.ModelAdmin):
@@ -67,7 +63,4 @@ admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(RegistrationQuestion, QuestionAdmin)
 admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
 admin.site.register(RegistrationAttempt, RegistrationAttemptAdmin)
-admin.site.register(SoftwareVersion, SoftwareVersionAdmin)
-admin.site.register(Redirect, RedirectAdmin)
-admin.site.register(PasswordReset, PasswordResetAdmin)
 admin.site.register(Announcement, AnnouncementAdmin)

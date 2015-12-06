@@ -1,8 +1,8 @@
 import sys
+from importlib import import_module
 
 from django.conf import settings
 from django.core.urlresolvers import clear_url_caches
-from django.utils.importlib import import_module
 
 
 def reload_urlconf():

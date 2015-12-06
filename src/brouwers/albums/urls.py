@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic import RedirectView
 
 # from .ajax_views import RotateView
@@ -11,8 +11,7 @@ from .views import (
 )
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),
     url(r'^list/$', RedirectView.as_view(pattern_name='albums:all', permanent=True)),
@@ -32,11 +31,4 @@ urlpatterns = patterns(
     url(r'^upload/$', UploadView.as_view(), name='upload'),
     url(r'^settings/$', PreferencesUpdateView.as_view(), name='settings'),
     url(r'^preferences/$', RedirectView.as_view(pattern_name='albums:settings', permanent=True)),
-)
-
-# AJAX -> convert to API?
-urlpatterns += patterns(
-    'brouwers.albums.ajax_views',
-    # (r'^upload/from_url/$',     'upload_url'),
-    # url(r'^photo/(?P<pk>\d+)/rotate/', login_required(RotateView.as_view()), name='rotate_photo'),
-)
+]

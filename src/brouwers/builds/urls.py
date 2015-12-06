@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from .views import (
     IndexView,
@@ -8,8 +8,7 @@ from .views import (
 )
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^new/$', BuildCreateView.as_view(), name='create'),
 
@@ -19,9 +18,4 @@ urlpatterns = patterns(
 
     url(r'^user/(?P<user_id>\d+)/$', UserBuildListView.as_view(), name='user_build_list'),
     url(r'^profile/(?P<profile_id>\d+)/$', ProfileRedirectView.as_view(), name='profile_build_list'),
-    )
-
-# urlpatterns += patterns(
-#     '',
-#     url(r'^search/', BuildAjaxSearchView.as_view(), name='search'),
-# )
+]
