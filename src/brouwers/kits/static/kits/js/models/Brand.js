@@ -1,24 +1,18 @@
 'use strict';
 
+import { Model } from 'ponyjs/models.js';
 
-import Model from 'scripts/model';
 
-
-class Brand extends Model {
-    static Meta() {
-        return {
-            'app_label': 'kits',
-            'name': 'Brand',
-            'endpoints': {
-                'list': 'kits/brand/',
-                'detail': 'kits/brand/:id/',
-            }
-        }
+class Brand extends Model('Brand', {
+    Meta: {
+        app_label: 'kits',
     }
+}) {
 
     toString() {
         return 'Brand: {0}'.format(this.name);
     }
+
 }
 
 

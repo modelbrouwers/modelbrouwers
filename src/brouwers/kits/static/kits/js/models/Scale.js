@@ -1,7 +1,7 @@
 'use strict';
 
 
-import Model from 'scripts/model';
+import { Model } from 'ponyjs/models.js';
 
 
 let reScale = new RegExp('1[/:]([0-9]*)');
@@ -18,17 +18,11 @@ let cleanScale = function(input) {
 };
 
 
-class Scale extends Model {
-    static Meta() {
-        return {
-            'app_label': 'kits',
-            'name': 'Scale',
-            'endpoints': {
-                'list': 'kits/scale/',
-                'detail': 'kits/scale/:id/',
-            }
-        }
+class Scale extends Model('Scale', {
+    Meta: {
+        app_label: 'kits',
     }
+}) {
 
     toString() {
         return 'Scale: 1/{0}'.format(this.scale);

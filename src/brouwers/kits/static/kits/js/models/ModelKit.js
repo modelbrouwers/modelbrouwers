@@ -1,20 +1,17 @@
 'use strict';
 
+import { Model } from 'ponyjs/models.js';
 
-import Model from 'scripts/model';
 
-
-class ModelKit extends Model {
-    static Meta() {
-        return {
-            'app_label': 'kits',
-            'name': 'ModelKit',
-            'endpoints': {
-                'list': 'kits/kit/',
-                'detail': 'kits/kit/:id/',
-            }
+class ModelKit extends Model('ModelKit', {
+    Meta: {
+        app_label: 'kits',
+        endpoints: {
+            'list': 'kits/kit/',
+            'detail': 'kits/kit/:id/',
         }
     }
+}) {
 
     toString() {
         return 'ModelKit: {0}'.format(this.title);
