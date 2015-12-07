@@ -37,6 +37,8 @@
     "dependencies": {
       "URIjs": "npm:URIjs@^1.15.1",
       "aurelia-http-client": "npm:aurelia-http-client@^1.0.0-beta.1",
+      "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1",
+      "aurelia-pal-browser": "npm:aurelia-pal-browser@^1.0.0-beta.1",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
       "css": "github:systemjs/plugin-css@^0.1.13",
       "handlebars": "github:components/handlebars.js@2.0.0",

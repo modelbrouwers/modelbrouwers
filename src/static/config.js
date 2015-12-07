@@ -16,6 +16,8 @@ System.config({
   map: {
     "URIjs": "npm:URIjs@1.15.1",
     "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1",
+    "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1",
+    "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-beta.1",
     "babel": "npm:babel-core@5.8.33",
     "babel-runtime": "npm:babel-runtime@5.8.29",
     "bootstrap": "github:twbs/bootstrap@3.3.5",
@@ -156,6 +158,9 @@ System.config({
       "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1",
       "aurelia-path": "npm:aurelia-path@1.0.0-beta.1",
       "core-js": "npm:core-js@1.2.6"
+    },
+    "npm:aurelia-pal-browser@1.0.0-beta.1": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1"
     },
     "npm:aws-sign2@0.5.0": {
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
