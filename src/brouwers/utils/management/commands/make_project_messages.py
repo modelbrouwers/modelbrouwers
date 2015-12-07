@@ -2,14 +2,14 @@ import os
 
 from django.conf import settings
 from django.core.management import call_command
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
     requires_model_validation = False
 
-    def handle_noargs(self, *args, **options):
+    def handle(self, *args, **options):
         os.chdir(settings.PROJECT_DIR)
         call_command('makemessages', all=True, extensions=['py', 'txt', 'html', 'form', 'hbs'])
 

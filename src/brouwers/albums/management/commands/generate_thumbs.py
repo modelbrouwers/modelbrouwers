@@ -1,13 +1,13 @@
 import logging
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from sorl.thumbnail import get_thumbnail
 
 logger = logging.getLogger(__name__)
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
     sizes = (
         '300x225',
@@ -16,7 +16,7 @@ class Command(NoArgsCommand):
         '1024x1024',
     )
 
-    def handle_noargs(self, *args, **options):
+    def handle(self, *args, **options):
         from brouwers.albums.models import Photo
 
         for photo in Photo.objects.all():

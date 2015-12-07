@@ -4,7 +4,6 @@ Easy sending of ``EmailMultiAlternatives`` emails.
 from django.contrib.sites.models import Site
 from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMultiAlternatives
-from django.template import Context
 from django.template.loader import get_template
 
 
@@ -60,12 +59,12 @@ class MultiAlternativesEmail(object):
     def get_text_content(self):
         template = self.get_template(content='txt')
         context = self.get_context_data(**self.kwargs)
-        return template.render(Context(context))
+        return template.render(context)
 
     def get_html_content(self):
         template = self.get_template(content='html')
         context = self.get_context_data(**self.kwargs)
-        return template.render(Context(context))
+        return template.render(context)
 
     def get_email(self):
         """ Get a EmailMessage instance """

@@ -5,4 +5,5 @@ factory_boy==2.6.0
 freezegun==0.3.5
 django-webtest
 mock==1.3.0
+tblib
 webtest
