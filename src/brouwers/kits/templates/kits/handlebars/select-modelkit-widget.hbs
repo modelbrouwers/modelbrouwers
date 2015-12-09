@@ -17,9 +17,9 @@
 
 {{/each}}
 
-{{#if page.next}}
+{{#if page.hasNext}}
     <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview center-all">
-        <button class="btn bg-main-blue" data-next="{{page.next_page_number}}">{% trans 'load more' %}</button>
+        <button class="btn bg-main-blue" data-next="{{page.nextPageNumber}}">{% trans 'load more' %}</button>
         <i class="fa fa-pulse fa-spinner fa-4x"></i>
     </div>
 {{/if}}

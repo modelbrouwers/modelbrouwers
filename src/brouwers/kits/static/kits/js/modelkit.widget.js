@@ -88,7 +88,11 @@ function renderKitPreviews(filters, $target, append) {
         return;
     }
     return ModelKit.objects.filter(filters).then(kits => {
-        let pageObj = kits.page_obj;
+        // read the pagination information to pass it to the template
+        let page = filters.page || 1;
+        let pageObj = kits.paginator.page(page);
+
+        // clean up the DOM
         let previews = $target.find('.preview');
 
         previews.each((index, preview) => {
@@ -121,12 +125,17 @@ function renderKitPreviews(filters, $target, append) {
         let context = {
             kits: kits,
             htmlname: conf.htmlname,
-            page: pageObj,
+            page: {
+                hasNext: pageObj.hasNext(),
+                nextPageNumber: pageObj.hasNext() ? pageObj.nextPageNumber() : null
+            },
         };
         return Handlebars.render('kits::select-modelkit-widget', context);
-    }).done(html => {
+    }).then(html => {
         $target.append(html);
         syncHeight();
+    }).catch(() => {
+        debugger;
     });
 }
 
