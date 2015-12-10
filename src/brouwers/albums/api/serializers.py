@@ -25,7 +25,7 @@ class UploadPhotoSerializer(serializers.ModelSerializer):
 class PhotoSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     image = ThumbnailField(
-        (('large', '1280'), ('thumb', '300x225')),  # large photo + actual thumb
+        (('large', '1024'), ('thumb', '300x225')),  # large photo + actual thumb
         opts={'crop': 'center', 'upscale': False}
     )
 
