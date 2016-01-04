@@ -28,7 +28,7 @@ System.config({
     "jquery-ui": "github:components/jqueryui@1.11.4",
     "json": "github:systemjs/plugin-json@0.1.0",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.2",
-    "ponyjs": "github:sergei-maertens/django-ponyjs@0.0.1",
+    "ponyjs": "github:sergei-maertens/django-ponyjs@develop",
     "q": "npm:q@2.0.3",
     "sergei-maertens/django-ponyjs": "github:sergei-maertens/django-ponyjs@0.0.1",
     "string.prototype.startswith": "npm:string.prototype.startswith@0.2.0",
@@ -113,6 +113,15 @@ System.config({
       "handlebars": "github:components/handlebars.js@3.0.3",
       "jquery": "github:components/jquery@2.1.4",
       "purest": "npm:purest@2.0.0"
+    },
+    "github:sergei-maertens/django-ponyjs@develop": {
+      "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1",
+      "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-beta.1",
+      "core-js": "npm:core-js@1.2.6",
+      "handlebars": "github:components/handlebars.js@3.0.3",
+      "jquery": "github:components/jquery@2.1.4",
+      "json": "github:systemjs/plugin-json@0.1.0",
+      "url": "github:jspm/nodelibs-url@0.1.0"
     },
     "github:twbs/bootstrap@3.3.5": {
       "jquery": "github:components/jquery@2.1.4"
