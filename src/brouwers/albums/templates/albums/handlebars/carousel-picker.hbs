@@ -1,0 +1,20 @@
+{% load i18n handlebars staticfiles %}
+{% hbs_verbatim %}
+<div class="item active"><div class="row">
+{{#each albums}}
+    <div class="col-sm-2">
+        <input type="checkbox" name="album" value="{{id}}" id="id_album_{{id}}">
+        <label for="id_album_{{id}}" class="thumbnail text-center">
+            {{#if cover}}
+                <img src="{{cover.url}}" class="img-responsive" alt="album: {{title}}">
+            {{else}}
+                <img src="{% static "images/thumb.png" %}" class="img-responsive" alt="album">
+            {{/if}}
+            <span class="h4">{{title}}</span>
+        </label>
+        <i class="fa fa-check fa-3x"></i>
+    </div>
+    {{{cycle '' '' '' '' '' '</div></div><div class="item"><div class="row">'}}}
+{{/each}}
+</div></div>
+{% hbs_endverbatim %}

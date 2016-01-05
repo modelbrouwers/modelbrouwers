@@ -83,7 +83,7 @@ class ProfileRedirectView(RedirectView):
 class PhotoInline(InlineFormSet):
     model = BuildPhoto
     form_class = BuildPhotoForm
-    extra = 3
+    extra = 1
 
     # TODO: patch extra_views.formsets.BaseInlineFormSetMixin.get_factory_kwargs
     # do not set self.fields if self.form_class is provided

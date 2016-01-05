@@ -81,86 +81,6 @@ body.albums {
     margin-top: 10px;
   }
 
-  // album picker in upload screen and photo edit
-  #carousel-album {
-    margin-bottom: 10px;
-
-    .carousel-inner {
-      padding: 10px 5px;
-      margin-left: -5px;
-      margin-right: -5px;
-
-      .item.next,
-      .item.prev {
-        top: 10px;
-      }
-    }
-
-    .carousel-control {
-      background-image: none;
-      color: $main-blue;
-
-      @media (min-width: 768px) {
-        &.left {
-          margin-left: -50px;
-        }
-        &.right {
-          margin-right: -50px;
-        }
-      }
-    }
-
-    input[type="checkbox"] {
-      display: none;
-    }
-
-    .carousel-control {
-      max-width: 50px;
-
-      > .fa {
-        position: absolute;
-        top: 50%;
-        display: inline-block;
-        margin-top: -20px;
-      }
-
-      > .fa-arrow-left {
-        left: 5px;
-      }
-
-      > .fa-arrow-right {
-        right: 5px;
-      }
-    }
-
-    input {
-      + label {
-        @media(min-width:768px) {
-          margin-bottom: 0;
-        }
-
-        &:hover,
-        &:active,
-        &:focus {
-          cursor: pointer;
-          border-color: $main-light-blue;
-        }
-
-        span.h4 {
-          display: block;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          margin-top: 5px;
-          margin-bottom: 2px;
-        }
-      }
-
-      @include selected-fa();
-    }
-
-  }
-
   .photo-count {
     left: 20px;
     font-size: 65%;
@@ -317,4 +237,86 @@ body.albums.photo-detail {
       line-height: 100vh;
     }
   }
+}
+
+
+// album picker in upload screen and photo edit
+#carousel-album,
+.carousel-album {
+  margin-bottom: 10px;
+
+  .carousel-inner {
+    padding: 10px 5px;
+    margin-left: -5px;
+    margin-right: -5px;
+
+    .item.next,
+    .item.prev {
+      top: 10px;
+    }
+  }
+
+  .carousel-control {
+    background-image: none;
+    color: $main-blue;
+
+    @media (min-width: 768px) {
+      &.left {
+        margin-left: -50px;
+      }
+      &.right {
+        margin-right: -50px;
+      }
+    }
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .carousel-control {
+    max-width: 50px;
+
+    > .fa {
+      position: absolute;
+      top: 50%;
+      display: inline-block;
+      margin-top: -20px;
+    }
+
+    > .fa-arrow-left {
+      left: 5px;
+    }
+
+    > .fa-arrow-right {
+      right: 5px;
+    }
+  }
+
+  input {
+    + label {
+      @media(min-width:768px) {
+        margin-bottom: 0;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        cursor: pointer;
+        border-color: $main-light-blue;
+      }
+
+      span.h4 {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 5px;
+        margin-bottom: 2px;
+      }
+    }
+
+    @include selected-fa();
+  }
+
 }

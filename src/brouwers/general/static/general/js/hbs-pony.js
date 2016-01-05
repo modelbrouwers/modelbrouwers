@@ -113,6 +113,15 @@ var _debug = function(ctx, options) {
 };
 hbsHelpers.push({name: 'debug', fn: _debug});
 
+let _cycle = function() {
+    // spread/destructuring doesn't work like [...items, ctx] = arguments
+    let ctx = Array.prototype.slice.call(arguments, -1)[0];
+    let items = Array.prototype.slice.call(arguments, 0, arguments.length - 1);
+    let index = ctx.data.index % items.length;
+    return items[index];
+}
+hbsHelpers.push({name: 'cycle', fn: _cycle});
+
 /**
  * Register the helpers
  */

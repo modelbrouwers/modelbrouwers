@@ -47,7 +47,8 @@
 			{% form_field form.kits widget='kits:ModelKitSelect' label=_('Select a kit') %}
 		</fieldset>
 
-		<h2>{% trans "Photos" %}</h2>
+		<h2>{% trans "Photos" %} &bull; {% widget 'form:PhotoPickerButton' %}</h2>
+        {% widget 'form:PhotoPicker' %}
 		<fieldset class="well">
             {% with formset=photos %}
                 {% widget 'form:non_form_errors' %}

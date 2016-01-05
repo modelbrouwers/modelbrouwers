@@ -28,3 +28,27 @@
     {% reuse '_errors' %}
 </div>
 {% endblock %}
+
+
+Button to show/hide album/photo chooser
+{% block PhotoPickerButton %}
+<button class="btn bg-main-orange" data-target="#photo-picker">{% trans "Browse albums" %}</button>
+{% endblock %}
+
+AlbumCarousel
+{% block PhotoPicker %}
+<div id="photo-picker">
+    <label><strong>{% trans "Pick an album first" %}</strong></label>
+    <div class="carousel slide carousel-album" data-interval="false" id="carousel-album">
+        <!-- Carousel items container -->
+        <div class="carousel-inner"></div>
+
+        <a class="left carousel-control" href="#carousel-album" role="button" data-slide="prev">
+            <i class="fa fa-arrow-left fa-2x"></i>
+        </a>
+        <a class="right carousel-control" href="#carousel-album" role="button" data-slide="next">
+            <i class="fa fa-arrow-right fa-2x"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}
