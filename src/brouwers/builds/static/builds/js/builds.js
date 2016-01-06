@@ -4,22 +4,51 @@ import 'jquery';
 import 'bootstrap';
 
 import Album from 'albums/js/models/album2.js';
+import Photo from 'albums/js/models/photo2.js';
 import Handlebars from 'general/js/hbs-pony';
 
 
 let conf = {
     input_url: '.formset-form input[type="url"]',
-    photo_picker: '#photo-picker',
-    photo_picker_body: '#carousel-album .carousel-inner',
+    empty_build_photo: '.formset-form',
+    photo_picker: {
+        picker: '#photo-picker',
+        body: '#carousel-album .carousel-inner',
+        list: '#photo-picker .photo-list',
+    }
 }
 
 
-$(function() {
+let showPhotos = function(event) {
+    let albumId = parseInt($(this).val(), 10);
 
-	$('fieldset').on('change, keyup', conf.input_url, previewUrl);
-
-    loadAlbums();
-});
+    let getQueryset = function(page=1) {
+        return Photo.objects.filter({album: albumId, page: page});
+    };
+    /**
+     * fetch the first page of photos, and figure out how many extra pages there are.
+     * If more pages exist, fetch all of them and wait for all of them to complete.
+     */
+    getQueryset().then(photos => {
+        let promises,
+            page_range = photos.paginator.page_range;
+        if (page_range.length > 1) {
+            promises = page_range.slice(1).map(p => getQueryset(p));
+        } else {
+            promises = [Promise.resolve(photos)];
+        }
+        return Promise.all(promises);
+    }).then(photo_lists => {
+        let photos = [];
+        photo_lists.forEach(_photos => photos.push(..._photos));
+        return Handlebars.render('builds::album-photo-picker', {photos: photos});
+    }).then(html => {
+        $(conf.photo_picker.list).html(html);
+    }).catch(e => {
+        console.log(e);
+        debugger
+    });
+};
 
 
 let previewUrl = function(event) {
@@ -37,14 +66,45 @@ let previewUrl = function(event) {
     img.src = url; // trigger loading
 };
 
-function loadAlbums() {
+
+let loadAlbums = function() {
     // endpoint without pagination
     Album.objects.all().then(albums => {
         return Handlebars.render('albums::carousel-picker', {'albums': albums});
     }).then(html => {
         // render carousel body
-        $(conf.photo_picker_body).html(html);
+        $(conf.photo_picker.body).html(html);
     }).catch(e => {
         throw e;
     });
 };
+
+
+let addRemoveAlbumPhoto = function(event) {
+    let photoId = $(this).data('id');
+    let add = $(this).is(':checked');
+
+    if (add) {
+        // find candidate for formset
+        let formset_forms = $(conf.empty_build_photo).filter((i, form) => {
+            let inputs = form.find('input').length;
+            let emptyInputs = form.find('input:empty').length;
+            return inputs == emptyInputs;
+        });
+        debugger;
+    } else {
+        debugger;
+    }
+};
+
+
+$(function() {
+
+	$('fieldset').on('change, keyup', conf.input_url, previewUrl);
+
+    $(conf.photo_picker.body).on('change', 'input[type="checkbox"]', showPhotos);
+
+    $(conf.photo_picker.list).on('change', 'input[type="checkbox"]', addRemoveAlbumPhoto);
+
+    loadAlbums();
+});

@@ -30,6 +30,9 @@ body.builds {
   }
 }
 
+.fa-spinner {
+  @include spinner();
+}
 
 
 }

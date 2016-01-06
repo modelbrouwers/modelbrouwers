@@ -1483,6 +1483,11 @@ body.builds .preview .thumbnail h4 {
 body.builds.detail figure img {
   margin: 0 auto;
 }
+/* line 33, ../../sass/partials/apps/_builds.scss */
+body.builds .fa-spinner {
+  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+  animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+}
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {
