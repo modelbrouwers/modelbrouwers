@@ -59,3 +59,46 @@ AlbumCarousel
     </div>
 </div>
 {% endblock %}
+
+
+{% block BuildPhotoForm %}
+{% reuse 'non_field_errors' form=form %}
+<div class="formset-form" data-template-for="photos">
+
+    {% form_field form.id %}
+    {% form_field form.build %}
+    {% form_field form.order alias|default:'form'|add:':HiddenInput' %}
+
+    {% form_field form.DELETE %}
+
+    <div class="btn-group">
+        <a href="#from-albums-{{ counter }}" class="btn bg-main-blue" data-toggle="tab">
+            <i class="fa fa-camera"></i>
+        </a>
+        <a href="#from-web-{{ counter }}" class="btn bg-main-light-blue" data-toggle="tab">
+            <i class="fa fa-globe"></i>
+        </a>
+    </div>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="from-albums-{{ counter }}">
+            {% form_field form.photo alias|default:'form'|add:':BuildPhotoInput' extra_css_classes='photo' %}
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="from-web-{{ counter }}">
+            {% form_field form.photo_url alias|default:'form'|add:':BuildPhotoInput' %}
+        </div>
+    </div>
+
+
+    <div class="preview hidden">
+        <figure class="thumbnail">
+            <img src="#" class="img-responsive">
+            <figcaption>{% trans "Preview" %}</figcaption>
+        </figure>
+    </div>
+
+</div>
+
+<hr style="border-color:red;">
+{% endblock %}

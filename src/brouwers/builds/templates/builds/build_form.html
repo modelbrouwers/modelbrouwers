@@ -54,52 +54,20 @@
                 {% widget 'form:non_form_errors' %}
 
                 {% for form in formset %}
-                <div class="formset-form">
-                    {% reuse 'non_field_errors' %}
-
-                    {% form_field form.id %}
-                    {% form_field form.build %}
-                    {% form_field form.order 'form:HiddenInput' %}
-
-                    {% form_field form.DELETE %}
-
-                    <div class="btn-group">
-                        <a href="#from-albums-{{ forloop.counter }}" class="btn bg-main-blue" data-toggle="tab">
-                            <i class="fa fa-camera"></i>
-                        </a>
-                        <a href="#from-web-{{ forloop.counter }}" class="btn bg-main-light-blue" data-toggle="tab">
-                            <i class="fa fa-globe"></i>
-                        </a>
-                    </div>
-
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="from-albums-{{ forloop.counter }}">
-                            {% form_field form.photo 'form:BuildPhotoInput' %}
-                        </div>
-
-                        <div role="tabpanel" class="tab-pane" id="from-web-{{ forloop.counter }}">
-                            {% form_field form.photo_url 'form:BuildPhotoInput' %}
-                        </div>
-                    </div>
-
-
-                    <div class="preview hidden">
-                        <figure class="thumbnail">
-                            <img src="#" class="img-responsive">
-                            <figcaption>{% trans "Preview" %}</figcaption>
-                        </figure>
-                    </div>
-
-                </div>
-
-                <hr style="border-color:red;">
+                    {% widget 'form:BuildPhotoForm' counter=forloop.counter %}
                 {% endfor %}
+
             {% endwith %}
 		</fieldset>
 
 		{% widget 'form:submit' btn_text=btn_text|default:_('Add build') %}
 	{% endwith %}
 </form>
+
+<div id="empty-form">
+    {% widget 'form:BuildPhotoForm' form=photos.empty_form counter='__prefix__' %}
+</div>
+
 {% endblock %}
 
 

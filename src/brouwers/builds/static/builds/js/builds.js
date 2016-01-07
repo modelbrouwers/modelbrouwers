@@ -20,6 +20,13 @@ let conf = {
 
 
 let showPhotos = function(event) {
+    if (!$(this).is(':checked')) {
+        return;
+    }
+
+    // reset other checkboxes
+    $(conf.photo_picker.body).find('input[type="checkbox"]:checked').not(this).prop('checked', false);
+
     let albumId = parseInt($(this).val(), 10);
 
     let getQueryset = function(page=1) {
@@ -45,16 +52,12 @@ let showPhotos = function(event) {
     }).then(html => {
         $(conf.photo_picker.list).html(html);
     }).catch(e => {
-        console.log(e);
-        debugger
+        throw e;
     });
 };
 
 
-let previewUrl = function(event) {
-    let url = $(this).val();
-    let $form = $(this).closest('.formset-form');
-    let $img = $form.find('img');
+let showPreview = function($form, url) {
     let $preview = $form.find('.preview');
     $preview.addClass('hidden'); // always hide, only show when real urls work
 
@@ -64,6 +67,14 @@ let previewUrl = function(event) {
         $preview.removeClass('hidden');
     };
     img.src = url; // trigger loading
+}
+
+
+let previewUrl = function(event) {
+    let url = $(this).val();
+    let $form = $(this).closest('.formset-form');
+    let $img = $form.find('img');
+    showPreview($form, url);
 };
 
 
@@ -86,12 +97,22 @@ let addRemoveAlbumPhoto = function(event) {
 
     if (add) {
         // find candidate for formset
+        let $form;
         let formset_forms = $(conf.empty_build_photo).filter((i, form) => {
-            let inputs = form.find('input').length;
-            let emptyInputs = form.find('input:empty').length;
+            let $form = $(form);
+            let inputs = $form.find('input').length;
+            let emptyInputs = $form.find('input:empty').length;
             return inputs == emptyInputs;
         });
-        debugger;
+        if (formset_forms.length) {
+            $form = formset_forms.first();
+            $form.find('input.photo').val(photoId);
+        } else {
+            // add formset row, set $form
+            debugger;
+        }
+        let url = $(this).siblings('label').find('img').data('large');
+        showPreview($form, url);
     } else {
         debugger;
     }
