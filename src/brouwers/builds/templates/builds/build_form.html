@@ -57,17 +57,17 @@
                     {% widget 'form:BuildPhotoForm' counter=forloop.counter %}
                 {% endfor %}
 
+                <div id="empty-form">
+                    {% widget 'form:BuildPhotoForm' form=photos.empty_form counter='__prefix__' %}
+                </div>
+
             {% endwith %}
-		</fieldset>
+        </fieldset>
 
-		{% widget 'form:submit' btn_text=btn_text|default:_('Add build') %}
-	{% endwith %}
+        {% widget 'form:submit' btn_text=btn_text|default:_('Add build') %}
+    {% endwith %}
+
 </form>
-
-<div id="empty-form">
-    {% widget 'form:BuildPhotoForm' form=photos.empty_form counter='__prefix__' %}
-</div>
-
 {% endblock %}
 
 

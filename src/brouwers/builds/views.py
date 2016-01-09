@@ -1,18 +1,12 @@
-from functools import partial
-import json
-
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.db.models import Prefetch
-from django.forms.models import inlineformset_factory
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import UpdateView
 
 from extra_views import CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin
 
-from brouwers.albums.models import Photo
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
 from .forms import BuildForm, BuildPhotoForm
@@ -83,7 +77,7 @@ class ProfileRedirectView(RedirectView):
 class PhotoInline(InlineFormSet):
     model = BuildPhoto
     form_class = BuildPhotoForm
-    extra = 1
+    extra = 0  # all done dynamically
 
     # TODO: patch extra_views.formsets.BaseInlineFormSetMixin.get_factory_kwargs
     # do not set self.fields if self.form_class is provided

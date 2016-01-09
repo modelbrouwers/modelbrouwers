@@ -63,7 +63,7 @@ AlbumCarousel
 
 {% block BuildPhotoForm %}
 {% reuse 'non_field_errors' form=form %}
-<div class="formset-form" data-template-for="photos">
+<div class="formset-form">
 
     {% form_field form.id %}
     {% form_field form.build %}
@@ -99,6 +99,4 @@ AlbumCarousel
     </div>
 
 </div>
-
-<hr style="border-color:red;">
 {% endblock %}

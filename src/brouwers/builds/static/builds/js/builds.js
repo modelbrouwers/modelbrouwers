@@ -3,6 +3,8 @@
 import 'jquery';
 import 'bootstrap';
 
+import Formset from 'ponyjs/forms/formsets.js';
+
 import Album from 'albums/js/models/album2.js';
 import Photo from 'albums/js/models/photo2.js';
 import Handlebars from 'general/js/hbs-pony';
@@ -10,11 +12,21 @@ import Handlebars from 'general/js/hbs-pony';
 
 let conf = {
     input_url: '.formset-form input[type="url"]',
-    empty_build_photo: '.formset-form',
+    formset: '.formset-form',
     photo_picker: {
         picker: '#photo-picker',
         body: '#carousel-album .carousel-inner',
         list: '#photo-picker .photo-list',
+    }
+}
+
+
+class PhotoFormset extends Formset {
+    get template() {
+        if (!this._template) {
+            this._template = $('#empty-form').html();
+        }
+        return this._template;
     }
 }
 
@@ -91,26 +103,17 @@ let loadAlbums = function() {
 };
 
 
+let photoFormset = new PhotoFormset('photos');
+
 let addRemoveAlbumPhoto = function(event) {
     let photoId = $(this).data('id');
     let add = $(this).is(':checked');
 
     if (add) {
-        // find candidate for formset
-        let $form;
-        let formset_forms = $(conf.empty_build_photo).filter((i, form) => {
-            let $form = $(form);
-            let inputs = $form.find('input').length;
-            let emptyInputs = $form.find('input:empty').length;
-            return inputs == emptyInputs;
-        });
-        if (formset_forms.length) {
-            $form = formset_forms.first();
-            $form.find('input.photo').val(photoId);
-        } else {
-            // add formset row, set $form
-            debugger;
-        }
+        let [html, index] = photoFormset.addForm({'photo': photoId});
+        $(conf.formset).last().after(html);
+        let $form = $(conf.formset).last();
+        photoFormset.setData(index, {'photo': photoId});
         let url = $(this).siblings('label').find('img').data('large');
         showPreview($form, url);
     } else {
