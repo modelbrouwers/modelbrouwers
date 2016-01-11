@@ -15,6 +15,7 @@ let conf = {
     formset: '.formset-form',
     photo_picker: {
         picker: '#photo-picker',
+        add_url: '#add-url-photo',
         body: '#carousel-album .carousel-inner',
         list: '#photo-picker .photo-list',
     }
@@ -118,15 +119,28 @@ let addRemoveAlbumPhoto = function(event) {
     let add = $(this).is(':checked');
 
     if (add) {
-        let [html, index] = photoFormset.addForm({'photo': photoId});
+        let [html, index] = photoFormset.addForm();
         $(conf.formset).closest('fieldset').append(html);
         let $form = $(conf.formset).last();
+        $form.find('.url').hide();
         photoFormset.setData(index, {'photo': photoId});
         let url = $(this).siblings('label').find('img').data('large');
         showPreview($form, url);
     } else {
         debugger;
     }
+};
+
+
+let addUrlForm = function(event) {
+    event.preventDefault();
+    let [html, index] = photoFormset.addForm();
+    $(conf.formset).closest('fieldset').append(html);
+    let $form = $(conf.formset).last();
+    $form.find('.album').hide();
+    debugger;
+    $(window).scrollTo($form);
+    return false;
 };
 
 
@@ -139,6 +153,8 @@ $(function() {
     $(conf.photo_picker.list).on('change', 'input[type="checkbox"]', addRemoveAlbumPhoto);
 
     $('[data-target]').on('click', togglePhotoPicker);
+
+    $(conf.photo_picker.add_url).on('click', addUrlForm);
 
     loadAlbums();
 });

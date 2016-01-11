@@ -71,25 +71,15 @@ AlbumCarousel
 
     {% form_field form.DELETE %}
 
-    <div class="btn-group">
-        <a href="#from-albums-{{ counter }}" class="btn bg-main-blue" data-toggle="tab">
-            <i class="fa fa-camera"></i>
-        </a>
-        <a href="#from-web-{{ counter }}" class="btn bg-main-light-blue" data-toggle="tab">
-            <i class="fa fa-globe"></i>
-        </a>
-    </div>
+    <i class="fa fa-camera album"></i>
+    <i class="fa fa-globe url"></i>
 
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="from-albums-{{ counter }}">
-            {% form_field form.photo alias|default:'form'|add:':BuildPhotoInput' extra_css_classes='photo' %}
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="from-web-{{ counter }}">
-            {% form_field form.photo_url alias|default:'form'|add:':BuildPhotoInput' %}
-        </div>
-    </div>
-
+    <span class="album">
+        {% form_field form.photo alias|default:'form'|add:':BuildPhotoInput' %}
+    </span>
+    <span class="url">
+        {% form_field form.photo_url alias|default:'form'|add:':BuildPhotoInput' %}
+    </span>
 
     <div class="preview hidden">
         <figure class="thumbnail">
