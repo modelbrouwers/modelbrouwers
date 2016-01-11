@@ -31,6 +31,22 @@ class PhotoFormset extends Formset {
 }
 
 
+let photoFormset = new PhotoFormset('photos');
+
+
+let loadAlbums = function() {
+    // endpoint without pagination
+    Album.objects.all().then(albums => {
+        return Handlebars.render('albums::carousel-picker', {'albums': albums});
+    }).then(html => {
+        // render carousel body
+        $(conf.photo_picker.body).html(html);
+    }).catch(e => {
+        throw e;
+    });
+};
+
+
 let showPhotos = function(event) {
     if (!$(this).is(':checked')) {
         return;
@@ -69,6 +85,13 @@ let showPhotos = function(event) {
 };
 
 
+let togglePhotoPicker = function(event) {
+    event.preventDefault();
+    $($(this).data('target')).toggleClass('hidden');
+    return false;
+};
+
+
 let showPreview = function($form, url) {
     let $preview = $form.find('.preview');
     $preview.addClass('hidden'); // always hide, only show when real urls work
@@ -90,28 +113,13 @@ let previewUrl = function(event) {
 };
 
 
-let loadAlbums = function() {
-    // endpoint without pagination
-    Album.objects.all().then(albums => {
-        return Handlebars.render('albums::carousel-picker', {'albums': albums});
-    }).then(html => {
-        // render carousel body
-        $(conf.photo_picker.body).html(html);
-    }).catch(e => {
-        throw e;
-    });
-};
-
-
-let photoFormset = new PhotoFormset('photos');
-
 let addRemoveAlbumPhoto = function(event) {
     let photoId = $(this).data('id');
     let add = $(this).is(':checked');
 
     if (add) {
         let [html, index] = photoFormset.addForm({'photo': photoId});
-        $(conf.formset).last().after(html);
+        $(conf.formset).closest('fieldset').append(html);
         let $form = $(conf.formset).last();
         photoFormset.setData(index, {'photo': photoId});
         let url = $(this).siblings('label').find('img').data('large');
@@ -129,6 +137,8 @@ $(function() {
     $(conf.photo_picker.body).on('change', 'input[type="checkbox"]', showPhotos);
 
     $(conf.photo_picker.list).on('change', 'input[type="checkbox"]', addRemoveAlbumPhoto);
+
+    $('[data-target]').on('click', togglePhotoPicker);
 
     loadAlbums();
 });

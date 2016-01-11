@@ -1488,6 +1488,10 @@ body.builds .fa-spinner {
   -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
   animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
 }
+/* line 38, ../../sass/partials/apps/_builds.scss */
+body.builds #empty-form {
+  display: none;
+}
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {
