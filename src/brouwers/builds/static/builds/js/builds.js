@@ -114,6 +114,9 @@ let previewUrl = function(event) {
 };
 
 
+let photoFormMapping = {};
+
+
 let addRemoveAlbumPhoto = function(event) {
     let photoId = $(this).data('id');
     let add = $(this).is(':checked');
@@ -122,12 +125,14 @@ let addRemoveAlbumPhoto = function(event) {
         let [html, index] = photoFormset.addForm();
         $(conf.formset).closest('fieldset').append(html);
         let $form = $(conf.formset).last();
+        photoFormMapping[photoId] = $form;
         $form.find('.url').hide();
         photoFormset.setData(index, {'photo': photoId});
         let url = $(this).siblings('label').find('img').data('large');
         showPreview($form, url);
     } else {
-        debugger;
+        let $form = photoFormMapping[photoId];
+        $form.remove();
     }
 };
 
@@ -138,8 +143,8 @@ let addUrlForm = function(event) {
     $(conf.formset).closest('fieldset').append(html);
     let $form = $(conf.formset).last();
     $form.find('.album').hide();
-    debugger;
-    $(window).scrollTo($form);
+    $(window, 'body').scrollTop($form.position().top);
+    $form.find('input:visible').focus();
     return false;
 };
 
