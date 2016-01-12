@@ -129,6 +129,7 @@ let addRemoveAlbumPhoto = function(event) {
         $form.find('.url').hide();
         photoFormset.setData(index, {'photo': photoId});
         let url = $(this).siblings('label').find('img').data('large');
+        $form.find('[data-toggle="popover"]').popover();
         showPreview($form, url);
     } else {
         let $form = photoFormMapping[photoId];
@@ -145,6 +146,7 @@ let addUrlForm = function(event) {
     $form.find('.album').hide();
     $(window, 'body').scrollTop($form.position().top);
     $form.find('input:visible').focus();
+    $form.find('[data-toggle="popover"]').popover();
     return false;
 };
 
