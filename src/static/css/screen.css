@@ -1492,6 +1492,36 @@ body.builds .fa-spinner {
 body.builds #empty-form {
   display: none;
 }
+/* line 46, ../../sass/partials/apps/_builds.scss */
+body.builds .photo-list input[type="checkbox"] {
+  display: none;
+}
+@media (min-width: 768px) {
+  /* line 52, ../../sass/partials/apps/_builds.scss */
+  body.builds .photo-list input + label, body.builds .photo-list input + label .thumbnail {
+    margin-bottom: 0;
+  }
+}
+/* line 81, ../../sass/partials/_utils.scss */
+body.builds .photo-list input + label + .fa {
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 0.6em;
+  color: #32BB5B;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.4), 0 5px 7px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+}
+/* line 90, ../../sass/partials/_utils.scss */
+body.builds .photo-list input:checked + label {
+  -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+}
+/* line 93, ../../sass/partials/_utils.scss */
+body.builds .photo-list input:checked + label + .fa {
+  display: block;
+}
 
 /* line 3, ../../sass/partials/apps/_groupbuilds.scss */
 body.groupbuilds .detail {

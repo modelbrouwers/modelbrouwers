@@ -49,7 +49,12 @@ let loadAlbums = function() {
 
 
 let showPhotos = function(event) {
+    // always show the loader first
+    $(conf.photo_picker.list).removeClass('hidden');
+    Handlebars.render('general::loader', {}, $(conf.photo_picker.list));
+
     if (!$(this).is(':checked')) {
+        $(conf.photo_picker.list).addClass('hidden');
         return;
     }
 

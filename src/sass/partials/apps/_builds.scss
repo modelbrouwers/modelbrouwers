@@ -40,4 +40,23 @@ body.builds {
 }
 
 
+.photo-list {
+
+  input {
+    &[type="checkbox"] {
+      display: none;
+    }
+
+    + label {
+      @include gt-mobile {
+        &, & .thumbnail {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    @include selected-fa;
+  }
+}
+
 }

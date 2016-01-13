@@ -295,7 +295,7 @@ body.albums.photo-detail {
 
   input {
     + label {
-      @media(min-width:768px) {
+      @include gt-mobile {
         margin-bottom: 0;
       }
 
@@ -316,7 +316,7 @@ body.albums.photo-detail {
       }
     }
 
-    @include selected-fa();
+    @include selected-fa;
   }
 
 }
