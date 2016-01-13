@@ -20,17 +20,17 @@
             {% with form=widget.form %}
                 <div class="col-xs-12 col-sm-4">
                     <!-- brand select -->
-                    {% form_field form.brand widget='fields:_Select' %}
+                    {% form_field form.brand widget='fields:_Select' required=False %}
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
                     <!-- scale select -->
-                    {% form_field form.scale widget='fields:_Select' %}
+                    {% form_field form.scale widget='fields:_Select' required=False %}
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
                     <!-- search box -->
-                    {% form_field form.name widget='fields:_input' placeholder=_('filter by name') %}
+                    {% form_field form.name widget='fields:_input' placeholder=_('filter by name') required=False %}
                 </div>
             {% endwith %}
         </div>

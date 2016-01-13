@@ -96,6 +96,10 @@ class BuildCreateView(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesV
     def get_success_url(self):
         return self.object.get_absolute_url()
 
+    def forms_valid(self, form, inlines):
+        form.instance.user = self.request.user
+        return super(BuildCreateView, self).forms_valid(form, inlines)
+
 
 # class BuildUpdate(UpdateView):
 #     form_class = BuildForm
