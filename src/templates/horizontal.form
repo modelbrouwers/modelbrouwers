@@ -49,7 +49,6 @@
             data-provide="typeahead"
             autocomplete="off"
             {{ widget.attrs|flatattrs }}
-            {{ required|yesno:"required," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
         >
         {% reuse "_help" %}

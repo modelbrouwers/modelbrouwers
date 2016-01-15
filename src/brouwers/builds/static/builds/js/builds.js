@@ -164,7 +164,7 @@ $(function() {
 
     $(conf.photo_picker.list).on('change', 'input[type="checkbox"]', addRemoveAlbumPhoto);
 
-    $('[data-target]').on('click', togglePhotoPicker);
+    $(`[data-target="${conf.photo_picker.picker}"]`).on('click', togglePhotoPicker)
 
     $(conf.photo_picker.add_url).on('click', addUrlForm);
 
