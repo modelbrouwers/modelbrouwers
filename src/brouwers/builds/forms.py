@@ -1,7 +1,6 @@
 from django import forms
 
 from brouwers.kits.models import ModelKit
-from brouwers.kits.widgets import ModelKitSelect
 from .models import Build, BuildPhoto
 
 
@@ -12,7 +11,6 @@ class BuildForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(attrs={'class': 'date'}),
             'end_date': forms.DateInput(attrs={'class': 'date'}),
-            'kits': ModelKitSelect
         }
         localized_fields = '__all__'
 

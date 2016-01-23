@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from autoslug import AutoSlugField
 
 from brouwers.forum_tools.fields import ForumToolsIDField
+from brouwers.kits.fields import KitsManyToManyField
 
 
 def get_build_slug(build):
@@ -29,7 +30,7 @@ class Build(models.Model):
     slug = AutoSlugField(_('slug'), unique=True, populate_from=get_build_slug)
 
     # kit information
-    kits = models.ManyToManyField('kits.ModelKit', blank=True, verbose_name=_('kits'))
+    kits = KitsManyToManyField('kits.ModelKit', blank=True, verbose_name=_('kits'))
 
     # topic information
     topic = ForumToolsIDField(_('build report topic'), type='topic', blank=True, null=True, unique=True)
