@@ -1,4 +1,4 @@
-{% extends "horizontal.form" %}{% load sniplates i18n %}
+{% extends "horizontal.form" %}{% load sniplates i18n thumbnail %}
 
 
 {% block BuildPhotoInput %}
@@ -79,9 +79,15 @@ AlbumCarousel
         {% form_field form.photo_url ':BuildPhotoInput' %}
     </span>
 
-    <div class="preview hidden">
+    <div class="preview {{ form.instance.pk|yesno:',hidden' }}">
         <figure class="thumbnail">
+        {% if form.instance.pk %}
+            {% thumbnail form.instance.image "1024" as im %}
+                <img src="{{ im.url }}" class="img-responsive">
+            {% endthumbnail %}
+        {% else %}
             <img src="#" class="img-responsive">
+        {% endif %}
         </figure>
     </div>
 

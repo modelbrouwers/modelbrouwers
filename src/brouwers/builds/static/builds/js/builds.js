@@ -155,18 +155,38 @@ let addUrlForm = function(event) {
     return false;
 };
 
+// either show album or url, depending on which one is entered
+let showAlbumOrUrls = function() {
+    $(conf.formset).each((i, form) => {
+        let $form = $(form);
+        let prefix = `id_photos-${i}`;
+        let photo = $(form).find(`#${prefix}-photo`).val();
+        if (photo !== undefined) {
+            $form.find('.url').hide();
+        } else {
+            $form.find('.album').hide();
+        }
+    });
+};
+
 
 $(function() {
 
+    // bind change handler + trigger to display url previews
 	$('fieldset').on('change, keyup', conf.input_url, previewUrl);
+    $(`fieldset ${conf.input_url}`).change();
 
+    // bind photo picker events
     $(conf.photo_picker.body).on('change', 'input[type="checkbox"]', showPhotos);
-
     $(conf.photo_picker.list).on('change', 'input[type="checkbox"]', addRemoveAlbumPhoto);
-
     $(`[data-target="${conf.photo_picker.picker}"]`).on('click', togglePhotoPicker)
 
+    // bind trigger to add a url form
     $(conf.photo_picker.add_url).on('click', addUrlForm);
 
+    // properly display the formset forms, if any
+    showAlbumOrUrls();
+
+    // start loading the albums
     loadAlbums();
 });
