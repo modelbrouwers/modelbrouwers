@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
-import unittest
-
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
@@ -13,7 +12,7 @@ from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
 from ..models import Build
-from .factories import BuildFactory
+from .factories import BuildFactory, BuildPhotoFactory
 
 
 class WebTestFormSetMixin(object):
@@ -115,11 +114,60 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(build.user, self.user)
         self.assertEqual(build.kits.count(), 2)
 
-    @unittest.skip('Skeleton')
     def test_update(self):
+        """
+        Tests that updating builds works as expected.
+
+        It should be possible to add/remove kits of a build
+        """
+        kits = ModelKitFactory.create_batch(2)
+        build = BuildFactory.create(user=self.user, kits=kits)
+        build_photo = BuildPhotoFactory.create(photo_url='http://i.imgur.com/asdljfo.jpg', build=build)
+
+        url = reverse('builds:update', kwargs={'slug': build.slug})
+
+        # test that non-auth can't update
+        response = self.app.get(url)
+        self.assertRedirects(response, '{}?next={}'.format(settings.LOGIN_URL, url))
+
+        # test that different user can't update
+        other_user = UserFactory.create()
+        self.app.get(url, user=other_user, status=404)
+
+        # owner
+        page = self.app.get(url, user=self.user, status=200)
+
+        kit_fields = page.form.fields.get('kits')
+        self.assertEqual(len(kit_fields), build.kits.count())
+
+        # delete a kit
+        pk = int(kit_fields[0].value)
+        kit_fields[0].checked = False
 
         # test add photo
+        self.assertEqual(page.form['photos-TOTAL_FORMS'].value, '1')
+        self.assertEqual(page.form['photos-INITIAL_FORMS'].value, '1')
+
+        photo = PhotoFactory.create(user=self.user)
+        page.form['photos-TOTAL_FORMS'] = 2
+        self._add_field(page.form, 'photos-1-id', '')
+        self._add_field(page.form, 'photos-1-build', '')
+        self._add_field(page.form, 'photos-1-photo', '{}'.format(photo.pk))
+        self._add_field(page.form, 'photos-1-photo_url', '')
+        self._add_field(page.form, 'photos-1-order', '')
 
         # test delete photo
+        page.form['photos-0-DELETE'].checked = True
 
-        raise NotImplementedError
+        redirect = page.form.submit()
+        self.assertRedirects(redirect, build.get_absolute_url())
+
+        build.refresh_from_db()
+
+        kits = build.kits.all()
+        self.assertEqual(kits.count(), 1)
+        self.assertFalse(kits.filter(pk=pk).exists())
+
+        # check photos
+        self.assertEqual(build.photos.count(), 1)
+        self.assertNotEqual(build.photos.get(), build_photo)
