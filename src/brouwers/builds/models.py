@@ -30,7 +30,7 @@ class Build(models.Model):
     slug = AutoSlugField(_('slug'), unique=True, populate_from=get_build_slug)
 
     # kit information
-    kits = KitsManyToManyField('kits.ModelKit', blank=True, verbose_name=_('kits'))
+    kits = KitsManyToManyField(blank=True, verbose_name=_('kits'))
 
     # topic information
     topic = ForumToolsIDField(_('build report topic'), type='topic', blank=True, null=True, unique=True)
