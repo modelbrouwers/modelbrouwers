@@ -9,6 +9,7 @@ from django_webtest import WebTest
 from webtest.forms import Text
 
 from brouwers.albums.tests.factories import PhotoFactory
+from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
 from ..models import Build
@@ -100,6 +101,11 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         self._add_field(add.form, 'photos-1-photo_url', url)
         self._add_field(add.form, 'photos-1-order', '')
 
+        # add some kits
+        kits = ModelKitFactory.create_batch(2)
+        for kit in kits:
+            self._add_field(add.form, 'kits', kit.pk)
+
         response = add.form.submit()
         build = Build.objects.order_by('-pk').first()
         self.assertRedirects(response, build.get_absolute_url())
@@ -107,6 +113,7 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(build.photos.count(), 2)
         self.assertEqual(build.title, 'My new build')
         self.assertEqual(build.user, self.user)
+        self.assertEqual(build.kits.count(), 2)
 
     @unittest.skip('Skeleton')
     def test_update(self):
