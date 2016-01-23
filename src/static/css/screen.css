@@ -1463,8 +1463,9 @@ body.builds .preview h3 {
 /* line 9, ../../sass/partials/apps/_builds.scss */
 body.builds .preview .thumbnail {
   position: relative;
+  max-width: 1024px;
 }
-/* line 12, ../../sass/partials/apps/_builds.scss */
+/* line 13, ../../sass/partials/apps/_builds.scss */
 body.builds .preview .thumbnail h4 {
   margin-top: 0;
   margin-bottom: 0;
@@ -1479,25 +1480,25 @@ body.builds .preview .thumbnail h4 {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1));
   color: #FFFFFF;
 }
-/* line 28, ../../sass/partials/apps/_builds.scss */
+/* line 29, ../../sass/partials/apps/_builds.scss */
 body.builds.detail figure img {
   margin: 0 auto;
 }
-/* line 33, ../../sass/partials/apps/_builds.scss */
+/* line 34, ../../sass/partials/apps/_builds.scss */
 body.builds .fa-spinner {
   -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
   animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
 }
-/* line 38, ../../sass/partials/apps/_builds.scss */
+/* line 39, ../../sass/partials/apps/_builds.scss */
 body.builds #empty-form {
   display: none;
 }
-/* line 46, ../../sass/partials/apps/_builds.scss */
+/* line 47, ../../sass/partials/apps/_builds.scss */
 body.builds .photo-list input[type="checkbox"] {
   display: none;
 }
 @media (min-width: 768px) {
-  /* line 52, ../../sass/partials/apps/_builds.scss */
+  /* line 53, ../../sass/partials/apps/_builds.scss */
   body.builds .photo-list input + label, body.builds .photo-list input + label .thumbnail {
     margin-bottom: 0;
   }

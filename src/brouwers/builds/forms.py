@@ -26,7 +26,8 @@ class BuildPhotoForm(forms.ModelForm):
         model = BuildPhoto
         fields = ('photo', 'photo_url', 'order')
         widgets = {
-            'photo': forms.TextInput,
+            'photo': forms.HiddenInput,
+            'order': forms.HiddenInput,
         }
 
 

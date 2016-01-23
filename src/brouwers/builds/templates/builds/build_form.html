@@ -53,6 +53,7 @@
             <button class="btn bg-main-orange" id="add-url-photo">{% trans "Add URL" %}</button>
         </h2>
         {% widget 'form:PhotoPicker' %}
+        <h3>{% trans "Previews" %}</h3>
 		<fieldset class="well">
             {% with formset=photos %}
                 {% widget 'form:non_form_errors' %}

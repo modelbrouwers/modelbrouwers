@@ -58,6 +58,7 @@ AlbumCarousel
         <div class="text-center"><i class="fa fa-pulse fa-spinner fa-4x"></i></div>
     </div>
 </div>
+<hr>
 {% endblock %}
 
 
@@ -67,24 +68,20 @@ AlbumCarousel
 
     {% form_field form.id %}
     {% form_field form.build %}
-    {% form_field form.order alias|default:'form'|add:':HiddenInput' %}
+    {% form_field form.order %}
 
     {% form_field form.DELETE %}
 
-    <i class="fa fa-camera album"></i>
-    <i class="fa fa-globe url"></i>
-
     <span class="album">
-        {% form_field form.photo alias|default:'form'|add:':BuildPhotoInput' %}
+        {% form_field form.photo %}
     </span>
     <span class="url">
-        {% form_field form.photo_url alias|default:'form'|add:':BuildPhotoInput' %}
+        {% form_field form.photo_url ':BuildPhotoInput' %}
     </span>
 
     <div class="preview hidden">
         <figure class="thumbnail">
             <img src="#" class="img-responsive">
-            <figcaption>{% trans "Preview" %}</figcaption>
         </figure>
     </div>
 
