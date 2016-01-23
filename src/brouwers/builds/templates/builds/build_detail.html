@@ -22,7 +22,12 @@
 
 
 {% block builds-nav-left %}
-    <a href="{{ build.topic_url }}" class="btn bg-main-orange"><i class="fa fa-comment-o"></i> {% trans "View topic" %}</a>
+    <a href="{{ build.topic_url }}" class="btn bg-main-orange">
+        <i class="fa fa-comment-o"></i> {% trans "View topic" %}</a>
+    {% if build.user == user %}
+    <a href="{% url 'builds:update' slug=build.slug %}" class="btn bg-main-blue">
+        <i class="fa fa-pencil-square-o"></i> {% trans "Edit" %}</a>
+    {% endif %}
     <a href="{% url 'builds:index' %}" class="btn bg-main-blue">{% trans "Back to overview" %}</a>
 {% endblock %}
 
