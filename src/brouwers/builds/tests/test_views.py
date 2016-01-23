@@ -1,14 +1,28 @@
+from __future__ import unicode_literals
+
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
 from django_webtest import WebTest
+from webtest.forms import Text
 
+from brouwers.albums.tests.factories import PhotoFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
+from ..models import Build
 from .factories import BuildFactory
 
 
-class ViewTests(LoginRequiredMixin, WebTest):
+class WebTestFormSetMixin(object):
+
+    def _add_field(self, form, name, value):
+        field = Text(form, 'input', None, None, value)
+        form.fields[name] = field
+        form.field_order.append((name, field))
+        return field
+
+
+class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
 
     def setUp(self):
         self.user = UserFactory.create()
@@ -60,3 +74,34 @@ class ViewTests(LoginRequiredMixin, WebTest):
 
         # authenticated
         add = self.app.get(url, user=self.user, status=200)
+
+        add.form['title'] = 'My new build'
+
+        self.assertEqual(add.form['photos-TOTAL_FORMS'].value, '0')
+        self.assertEqual(add.form['photos-INITIAL_FORMS'].value, '0')
+
+        add.form['photos-TOTAL_FORMS'] = 2  # add two photos
+
+        photos = PhotoFactory.create_batch(2, user=self.user)
+
+        self._add_field(add.form, 'photos-0-id', '')
+        self._add_field(add.form, 'photos-0-build', '')
+        self._add_field(add.form, 'photos-0-photo', '{}'.format(photos[0].pk))
+        self._add_field(add.form, 'photos-0-photo_url', '')
+        self._add_field(add.form, 'photos-0-order', '')
+
+        self._add_field(add.form, 'photos-1-id', '')
+        self._add_field(add.form, 'photos-1-build', '')
+        self._add_field(add.form, 'photos-1-photo', '')
+        request = add.context['request']
+        url = request.build_absolute_uri(photos[1].image.url)
+        self._add_field(add.form, 'photos-1-photo_url', url)
+        self._add_field(add.form, 'photos-1-order', '')
+
+        response = add.form.submit()
+        build = Build.objects.order_by('-pk').first()
+        self.assertRedirects(response, build.get_absolute_url())
+
+        self.assertEqual(build.photos.count(), 2)
+        self.assertEqual(build.title, 'My new build')
+        self.assertEqual(build.user, self.user)
