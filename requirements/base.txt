@@ -23,7 +23,8 @@ django-sessionprofile==0.1.3
 django-systemjs==0.3.4
 # sorl-thumbnail==12.3
 git+https://github.com/mariocesar/sorl-thumbnail.git@master#egg=sorl-thumbnail
-django-sniplates==0.3.2
+# django-sniplates==0.3.2
+git+https://github.com/funkybob/django-sniplates.git@feature/pluggable-explosives#egg=django_sniplates
 
 # API
 djangorestframework==3.3.1

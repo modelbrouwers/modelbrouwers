@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import unittest
+
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
@@ -106,6 +108,7 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(build.title, 'My new build')
         self.assertEqual(build.user, self.user)
 
+    @unittest.skip('Skeleton')
     def test_update(self):
 
         # test add photo
