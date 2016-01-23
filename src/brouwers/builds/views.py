@@ -111,7 +111,6 @@ class BuildUpdateView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesV
     inlines_names = ['photos']
 
     def get_queryset(self):
+        # TODO: object-level permissions?
         qs = super(BuildUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)
-
-    # TODO: object-level permissions?

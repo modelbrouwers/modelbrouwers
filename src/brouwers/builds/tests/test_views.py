@@ -105,3 +105,11 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(build.photos.count(), 2)
         self.assertEqual(build.title, 'My new build')
         self.assertEqual(build.user, self.user)
+
+    def test_update(self):
+
+        # test add photo
+
+        # test delete photo
+
+        raise NotImplementedError
