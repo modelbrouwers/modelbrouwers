@@ -45,7 +45,7 @@
 
             {% for kit in selected_kits %}
                 <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{ kit.id }}">
-                    <input type="checkbox" name="{{ htmlname }}" value="{{ kit.id }}" id="__modelkit_{{ kit.id }}" checked="checked">
+                    <input type="checkbox" name="{{ html_name }}" value="{{ kit.id }}" id="__modelkit_{{ kit.id }}" checked="checked">
                     <label for="__modelkit_{{ kit.id }}" title="{{ kit.name }}" class="thumbnail">
                         <span class="h5">
                             <strong>
