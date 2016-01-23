@@ -1,6 +1,6 @@
 {
   "default": {
-    "baseUrl": "http://localhost:8000",
+    "baseUrl": "/",
     "basePath": "api/[version]",
     "options": {
       "version": "v1",
