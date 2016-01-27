@@ -29,6 +29,13 @@ class IDField(IntegerField):
         except ValidationError:  # catch errors and check for urls
             pass
 
+        # trigger URL validation
+        try:
+            URLValidator()(value)
+        except ValidationError as e:
+            e.code = 'invalid_url'
+            raise
+
         # start processing it as an url
         url = urlparse.urlparse(value)
         querydict = urlparse.parse_qs(url.query)

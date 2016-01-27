@@ -67,7 +67,7 @@ class FormFieldTests(SimpleTestCase):
         invalid_url = '[url]http://www.example.com/forum/viewtopic.php?f=32&t=1[/url]'
         with self.assertRaises(ValidationError) as cm:
             self.topic_field.to_python(invalid_url)
-        import bpdb; bpdb.set_trace()
+        self.assertEqual(cm.exception.code, 'invalid_url')
 
 
 class ModelFieldTests(TestCase):
