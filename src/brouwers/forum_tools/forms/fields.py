@@ -1,6 +1,7 @@
 import urlparse
 
 from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 from django.forms.fields import IntegerField
 from django.utils.translation import ugettext_lazy as _
 
@@ -28,13 +29,20 @@ class IDField(IntegerField):
         except ValidationError:  # catch errors and check for urls
             pass
 
+        # trigger URL validation
+        try:
+            URLValidator()(value)
+        except ValidationError as e:
+            e.code = 'invalid_url'
+            raise
+
         # start processing it as an url
         url = urlparse.urlparse(value)
         querydict = urlparse.parse_qs(url.query)
         _id = querydict.get(self.urlparam, None)
         if _id is None:
             raise ValidationError(self.error_messages['invalid_url'])
-        return int(_id[0]) # is a list
+        return int(_id[0])  # is a list
 
 
 class ForumIDField(IDField):

@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     sizes = (
         '300x225',
-        '1280',
+        '1024',
         '1280x1280',
         '1024x1024',
     )

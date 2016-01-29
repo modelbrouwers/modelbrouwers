@@ -16,8 +16,8 @@ class FormFieldTests(SimpleTestCase):
             'forum': 'http://www.example.com/forum/viewforum.php?f=32',
             'forum2': 'http://www.example.com/forum/viewforum.php?forum=32',
             'topic_id': '1',
-            'topic': 'http://www.example.com/forum/viewforum.php?f=32&t=1',
-            'topic2': 'http://www.example.com/forum/viewforum.php?f=32&topic=1',
+            'topic': 'http://www.example.com/forum/viewtopic.php?f=32&t=1',
+            'topic2': 'http://www.example.com/forum/viewtopic.php?f=32&topic=1',
         }
         self.forum_field = ForumIDField()
         self.topic_field = TopicIDField()
@@ -59,6 +59,15 @@ class FormFieldTests(SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             self.topic_field.to_python(self.invalid_url2)
+
+    def test_invalid_url(self):
+        """
+        Test regression: [url][/url] tags show up in the querystring.
+        """
+        invalid_url = '[url]http://www.example.com/forum/viewtopic.php?f=32&t=1[/url]'
+        with self.assertRaises(ValidationError) as cm:
+            self.topic_field.to_python(invalid_url)
+        self.assertEqual(cm.exception.code, 'invalid_url')
 
 
 class ModelFieldTests(TestCase):

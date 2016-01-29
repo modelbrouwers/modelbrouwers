@@ -75,7 +75,7 @@ class BundleCommand extends Command
 
         foreach ($apps as $app) {
             $file = $systemjsDir . DIRECTORY_SEPARATOR . $app;
-            $dest = $file . '.js';
+            $dest = $file;
             $cmd = sprintf($cmdTpl, $app, $dest);
             $output->writeln("<comment>Bundling \"{$app}\" ...</comment>");
             $output->writeln($cmd);
@@ -94,7 +94,10 @@ class BundleCommand extends Command
             // post process
             $hash = md5_file($dest);
             $hash = substr($hash, 0, 12);
-            $link = $file . '.' . $hash . '.js';
+
+            $info = pathinfo($file);
+
+            $link = $info['dirname'] . DIRECTORY_SEPARATOR . $info['filename'] . '.' . $hash . '.' . $info['extension'];
             if (!is_file($link)) {
                 symlink($dest, $link);
                 $relative = substr($link, strlen($settings->STATIC_ROOT) + 1);

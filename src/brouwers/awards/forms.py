@@ -48,17 +48,16 @@ class ProjectForm(forms.ModelForm):
         url = "http://www.%s" % match.group(0)
         return url
 
-    def save(self, *args, **kwargs):
-        instance = super(ProjectForm, self).save(*args, **kwargs)
+    def clean_brouwer(self):
+        brouwer = self.cleaned_data['brouwer']
         try:
-            profile = UserProfile.objects.get(forum_nickname__iexact = instance.brouwer)
-            if profile.exclude_from_nomination:
-                #TODO: send message that nomination is entered but the builder wishes not to take part
-                instance.rejected = True
-                instance.save()
+            profile = UserProfile.objects.get(forum_nickname__iexact=brouwer)
         except UserProfile.DoesNotExist:
             pass
-        return instance
+        else:
+            if profile.exclude_from_nomination:
+                raise forms.ValidationError(_('This person does not wish to participate in the awards.'))
+        return brouwer
 
 
 class CategoryForm(forms.ModelForm):

@@ -104,7 +104,7 @@ class CachedFilesStorage extends FileSystemStorage
 	protected function getBundleScripts($apps) {
 		$imports = '';
 		foreach ($apps as $app) {
-			$filename = $this->systemjs_output_dir . '/' . $app . '.js';
+			$filename = $this->systemjs_output_dir . '/' . $app;
 			$url = $this->url($filename);
 			$imports .= "\n" . "<script type=\"text/javascript\" src=\"{$url}\"></script>";
 		}
@@ -191,7 +191,7 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 	protected function getBundleScripts($apps) {
 		$filenames = array();
 		foreach ($apps as $app) {
-			$filenames[] = $this->systemjs_output_dir . '/' . $app . '.js';
+			$filenames[] = $this->systemjs_output_dir . '/' . $app;
 		}
 		$combinedUrl = $this->url($filenames, $ext='js');
 		return "<script type=\"text/javascript\" src=\"{$combinedUrl}\"></script>";
