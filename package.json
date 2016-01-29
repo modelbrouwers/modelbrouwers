@@ -1,6 +1,6 @@
 {
   "name": "modelbrouwers",
-  "version": "0.5.1",
+  "version": "1.0.8",
   "description": "Bundle for Modelbrouwers.nl community website",
   "main": "index.js",
   "scripts": {
