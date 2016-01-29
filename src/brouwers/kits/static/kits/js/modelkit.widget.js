@@ -90,7 +90,8 @@ function renderKitPreviews(filters, $target, append) {
     return ModelKit.objects.filter(filters).then(kits => {
         // read the pagination information to pass it to the template
         let page = filters.page || 1;
-        let pageObj = kits.paginator.page(page);
+        // kits can actually be empty, which causes the Paginator to throw EmptyPage
+        let pageObj = kits.length ? kits.paginator.page(page) : null;
 
         // clean up the DOM
         let previews = $target.find('.preview');
@@ -126,16 +127,16 @@ function renderKitPreviews(filters, $target, append) {
             kits: kits,
             htmlname: conf.htmlname,
             page: {
-                hasNext: pageObj.hasNext(),
-                nextPageNumber: pageObj.hasNext() ? pageObj.nextPageNumber() : null
+                hasNext: pageObj ? pageObj.hasNext() : false,
+                nextPageNumber: (pageObj && pageObj.hasNext()) ? pageObj.nextPageNumber() : null
             },
         };
         return Handlebars.render('kits::select-modelkit-widget', context);
     }).then(html => {
         $target.append(html);
         syncHeight();
-    }).catch(() => {
-        debugger;
+    }).catch((error) => {
+        console.error(error);
     });
 }
 
