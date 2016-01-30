@@ -252,7 +252,7 @@ function submitNewKit(event) {
         });
     })
     .then(kit => {
-        // set correct objects, different serializer used
+        // set correct objects, different serializer used, to be implemented properly in ponyjs
         kit.brand = brand;
         kit.scale = scale;
 
