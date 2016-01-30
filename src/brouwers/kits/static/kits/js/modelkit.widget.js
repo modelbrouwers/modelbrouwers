@@ -219,18 +219,16 @@ function submitNewKit(event) {
     ['brand', 'scale'].forEach((field) => {
 
         let model = models[field];
-        let deferred = Q.defer();
         let promise;
 
         if (data[field]) {
             let id = data[field];
-            deferred.resolve(model.objects.get({id: id}));
-            promise = deferred.promise;
+            promise = Promise.resolve(model.objects.get({id: id}));
         } else {
             let newValue = data[`${ field }_ta`];
             let obj = model.fromRaw(newValue);
-            promise = model.objects.create(obj);
-            promise.done((obj) => {
+            promise = Promise.resolve(model.objects.create(obj));
+            promise.then(obj => {
                 let id = obj.id;
                 let display = obj[conf.typeahead[field].display];
                 let select = $(`#id_${ conf.prefix }-${ field }`);
@@ -242,8 +240,8 @@ function submitNewKit(event) {
     });
 
     // create the kit with the correct data
-    Q.all(promises)
-    .then(( returnValues ) => {
+    Promise.all(promises)
+    .then(returnValues => {
         brand = returnValues[0],
         scale = returnValues[1];
 
@@ -253,7 +251,7 @@ function submitNewKit(event) {
             name: data.name
         });
     })
-    .done(( kit ) => {
+    .then(kit => {
         // set correct objects, different serializer used
         kit.brand = brand;
         kit.scale = scale;
@@ -282,13 +280,12 @@ function submitNewKit(event) {
             }
             modal.modal('toggle');
         });
-    }, (validationErrors) => {
-        for (let fieldName in validationErrors) {
+    }).catch(validationErrors => {
+        for (let fieldName in validationErrors.errors) {
             let htmlField = $( `#id_${ conf.prefix_add }-${ fieldName }` );
-            showErrors(htmlField, validationErrors[fieldName]);
+            showErrors(htmlField, validationErrors.errors[fieldName]);
         }
     });
-
     return false;
 }
 

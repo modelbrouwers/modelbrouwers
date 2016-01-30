@@ -4,6 +4,7 @@
     "basePath": "api/[version]",
     "options": {
       "version": "v1",
-    }
+    },
+    "csrfCookie": "csrftoken"
   }
 }
