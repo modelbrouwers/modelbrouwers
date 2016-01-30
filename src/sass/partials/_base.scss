@@ -133,3 +133,8 @@ a.thumbnail + ul.list-inline {
     color: $white;
   }
 }
+
+
+.ui-datepicker {
+  z-index: 10 !important; // competes with bootstrap input...
+}

@@ -64,7 +64,7 @@
 
 
 {% block DateInput %}
-    {% reuse 'input' input_type='text' extra_css_classes='date' value=raw_value|date:'SHORT_DATE_FORMAT' %}
+{% reuse 'input' input_type='text' extra_css_classes='date' raw_value=value %}
 {% endblock %}
 
 

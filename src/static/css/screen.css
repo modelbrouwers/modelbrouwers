@@ -270,6 +270,11 @@ a.thumbnail + ul.list-inline a {
   color: #FFFFFF;
 }
 
+/* line 138, ../../sass/partials/_base.scss */
+.ui-datepicker {
+  z-index: 10 !important;
+}
+
 /* line 1, ../../sass/partials/_typography.scss */
 .text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
   text-align: left;
