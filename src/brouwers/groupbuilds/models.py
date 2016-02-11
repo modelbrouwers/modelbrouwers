@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 import bleach
 from djchoices import DjangoChoices, ChoiceItem
 from autoslug import AutoSlugField
-from precise_bbcode import render_bbcodes
+from precise_bbcode.shortcuts import render_bbcodes
 
 from brouwers.forum_tools.models import ForumCategory
 from brouwers.forum_tools.fields import ForumToolsIDField
