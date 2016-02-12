@@ -1,14 +1,10 @@
-from django.contrib.auth import get_user_model
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
+from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.views.generic import View
 
-from .forms import *
-
 
 EMPTY_CONTEXT = {}
-
-User = get_user_model()
 
 
 class ServeHbsTemplateView(View):
@@ -20,6 +16,9 @@ class ServeHbsTemplateView(View):
                             app_name=app_name,
                             template_name=template_name
                         )
-        template = get_template(template_path)
+        try:
+            template = get_template(template_path)
+        except TemplateDoesNotExist:
+            raise Http404
         tpl_source = template.render(EMPTY_CONTEXT)
         return HttpResponse(tpl_source)
