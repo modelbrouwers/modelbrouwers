@@ -12,14 +12,11 @@ from extra_views import (
 
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import BuildForm, BuildPhotoForm
+from .forms import BuildForm, BuildPhotoForm, BuildSearchForm
 from .models import Build, BuildPhoto
 
 
 User = get_user_model()
-
-
-# TODO: search
 
 
 class IndexView(ListView):
@@ -31,6 +28,10 @@ class IndexView(ListView):
     paginate_by = 24
     context_object_name = 'builds'
     show_user = True
+
+    def get_context_data(self, **kwargs):
+        kwargs['search_form'] = BuildSearchForm()
+        return super(IndexView, self).get_context_data(**kwargs)
 
 
 class UserBuildListView(IndexView):
@@ -111,6 +112,5 @@ class BuildUpdateView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesV
     inlines_names = ['photos']
 
     def get_queryset(self):
-        # TODO: object-level permissions?
         qs = super(BuildUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)

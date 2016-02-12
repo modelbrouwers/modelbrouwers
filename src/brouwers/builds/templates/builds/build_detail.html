@@ -7,7 +7,9 @@
 {% block eye-catcher-content %}
 <h1>
     {{ build.title }}
-    <small>&bull; {{ build.user }}</small>
+    <small>&bull;
+        <a href="{% url 'builds:user_build_list' user_id=build.user.id %}">{{ build.user }}</a>
+    </small>
     <i class="pull-right fa fa-cube fa-2x"></i>
 </h1>
 

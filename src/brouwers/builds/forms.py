@@ -29,6 +29,10 @@ class BuildPhotoForm(forms.ModelForm):
         }
 
 
+class BuildSearchForm(forms.Form):
+    q = forms.CharField()
+
+
 # class BuildFormForum(forms.ModelForm):
 
 #     """

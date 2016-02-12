@@ -1,4 +1,4 @@
-{% extends "builds/base.html" %}{% load i18n thumbnail staticfiles %}
+{% extends "builds/base.html" %}{% load i18n thumbnail sniplates staticfiles %}
 
 
 {% block content %}
@@ -6,6 +6,12 @@
 	<h2>{% block h2 %}
 		{% trans "Latest builds" %}
 		<i class="pull-right fa fa-cube"></i>
+		{% if search_form %}
+			<div class="pull-right">
+				{% load_widgets form='default.form' %}
+				{% form_field search_form.q 'form:_input' placeholder=_('Find a build or builder') %}
+			</div>
+		{% endif %}
 	{% endblock %}</h2>
 
 	<div class="row">
