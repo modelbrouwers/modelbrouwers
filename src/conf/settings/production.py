@@ -71,3 +71,12 @@ TEMPLATES[0]['APP_DIRS'] = False  # conflicts with explicitly specifying the loa
 TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', RAW_TEMPLATE_LOADERS),
 ]
+
+#
+# SECURITY
+#
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 0  # start really low
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
