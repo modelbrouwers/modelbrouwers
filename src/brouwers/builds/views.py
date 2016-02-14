@@ -103,6 +103,13 @@ class BuildCreateView(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesV
     inlines = [PhotoInline]
     inlines_names = ['photos']
 
+    def get_initial(self):
+        initial = {
+            'title': self.request.GET.get('title', ''),
+            'topic': self.request.GET.get('topic_id', ''),
+        }
+        return initial
+
     def forms_valid(self, form, inlines):
         form.instance.user = self.request.user
         return super(BuildCreateView, self).forms_valid(form, inlines)

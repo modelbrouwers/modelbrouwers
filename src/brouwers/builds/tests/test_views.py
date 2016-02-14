@@ -8,6 +8,7 @@ from django_webtest import WebTest
 from webtest.forms import Text
 
 from brouwers.albums.tests.factories import PhotoFactory
+from brouwers.forum_tools.tests.factories import TopicFactory
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
@@ -176,4 +177,14 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         """
         Asserts that the button with prefilled fields works correctly.
         """
-        raise NotImplementedError
+        topic = TopicFactory.create()
+        url = '{}?forum_id={}&topic_id={}&title=Dummy%20title'.format(
+            reverse('builds:create'),
+            topic.forum.pk,
+            topic.pk
+        )
+
+        page = self.app.get(url, user=self.user, status=200)
+
+        self.assertEqual(page.form['title'].value, 'Dummy title')
+        self.assertEqual(page.form['topic'].value, 'http://example.com/phpBB3/viewtopic.php?t={}'.format(topic.pk))
