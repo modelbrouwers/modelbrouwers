@@ -30,7 +30,7 @@ class IndexView(ListView):
     show_user = True
 
     def get_context_data(self, **kwargs):
-        kwargs['search_form'] = BuildSearchForm()
+        kwargs['search_form'] = BuildSearchForm(auto_id=False)
         return super(IndexView, self).get_context_data(**kwargs)
 
 

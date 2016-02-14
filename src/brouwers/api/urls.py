@@ -25,6 +25,7 @@ router.register(r'groupbuilds/participant', ParticipantViewSet)
 
 
 urlpatterns = [
+    url(r'^builds/', include('brouwers.builds.api.urls', namespace='builds')),
     url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
     url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
 ] + router.urls

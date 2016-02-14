@@ -171,3 +171,9 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         # check photos
         self.assertEqual(build.photos.count(), 1)
         self.assertNotEqual(build.photos.get(), build_photo)
+
+    def test_create_from_external(self):
+        """
+        Asserts that the button with prefilled fields works correctly.
+        """
+        raise NotImplementedError

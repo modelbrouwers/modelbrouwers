@@ -1,4 +1,9 @@
+from __future__ import unicode_literals
+
 from django import forms
+from django.core.urlresolvers import reverse
+from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 from brouwers.kits.models import ModelKit
 from .models import Build, BuildPhoto
@@ -31,6 +36,31 @@ class BuildPhotoForm(forms.ModelForm):
 
 class BuildSearchForm(forms.Form):
     q = forms.CharField()
+
+    def get_search_results(self):
+        assert self.is_valid()
+
+        q = self.cleaned_data['q']
+        results = []
+
+        # find users first
+        user = get_user_model().objects.filter(username__iexact=q).first()
+
+        if user:
+            results.append({
+                'display': user.username,
+                'url': reverse('builds:user_build_list', kwargs={'user_id': user.id})
+            })
+
+        builds = Build.objects.select_related('user').filter(
+            Q(user__username__icontains=q) | Q(title__icontains=q)
+        ).order_by('title')
+        for build in builds:
+            results.append({
+                'display': '{0.user.username} - {0.title}'.format(build),
+                'url': build.get_absolute_url(),
+            })
+        return results
 
 
 # class BuildFormForum(forms.ModelForm):
