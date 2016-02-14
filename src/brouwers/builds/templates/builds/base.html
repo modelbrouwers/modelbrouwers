@@ -1,4 +1,4 @@
-{% extends "base_html5.html" %}{% load i18n staticfiles sniplates %}
+{% extends "base_html5.html" %}{% load i18n staticfiles sniplates system_tags %}
 
 {% block title %} &bull; {% trans "Builds" %}{% endblock %}
 
@@ -36,3 +36,17 @@
     </div>
 </header>
 {% endblock %}
+
+
+{% block js_no_compress %}
+    {% load_widgets js='sniplates/js.html' %}
+    {% widget 'js:systemjs-base' %}
+{% endblock %}
+
+
+{% block extrascript %}
+    {{ block.super }}
+    {% load_widgets kits='kits/widgets.html' %}
+    {% widget 'kits:ModelKitSelectJS' %}
+    {% systemjs_import 'builds/js/builds.js' %}
+{% endblock extrascript %}

@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django import forms
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
@@ -35,7 +35,9 @@ class BuildPhotoForm(forms.ModelForm):
 
 
 class BuildSearchForm(forms.Form):
-    q = forms.CharField()
+    q = forms.CharField(widget=forms.TextInput(
+        attrs={'data-url': reverse_lazy('api:builds:search')}
+    ))
 
     def get_search_results(self):
         assert self.is_valid()
