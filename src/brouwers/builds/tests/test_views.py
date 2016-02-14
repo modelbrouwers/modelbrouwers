@@ -187,4 +187,4 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         page = self.app.get(url, user=self.user, status=200)
 
         self.assertEqual(page.form['title'].value, 'Dummy title')
-        self.assertEqual(page.form['topic'].value, 'http://example.com/phpBB3/viewtopic.php?t={}'.format(topic.pk))
+        self.assertTrue(page.form['topic'].value.endswith('viewtopic.php?t={}'.format(topic.pk)))
