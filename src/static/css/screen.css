@@ -1491,19 +1491,31 @@ body.builds .twitter-typeahead,
 body.builds input[name="q"] {
   display: inline-block;
   width: auto;
+  vertical-align: middle;
 }
-/* line 11, ../../sass/partials/apps/_builds.scss */
+@media (min-width: 650px) {
+  /* line 3, ../../sass/partials/apps/_builds.scss */
+  body.builds .twitter-typeahead,
+  body.builds input[name="q"] {
+    min-width: 300px;
+  }
+}
+/* line 13, ../../sass/partials/apps/_builds.scss */
+body.builds .tt-suggestion {
+  color: #333333;
+}
+/* line 19, ../../sass/partials/apps/_builds.scss */
 body.builds .preview h3 {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 15, ../../sass/partials/apps/_builds.scss */
+/* line 23, ../../sass/partials/apps/_builds.scss */
 body.builds .preview .thumbnail {
   position: relative;
   max-width: 1024px;
 }
-/* line 19, ../../sass/partials/apps/_builds.scss */
+/* line 27, ../../sass/partials/apps/_builds.scss */
 body.builds .preview .thumbnail h4 {
   margin-top: 0;
   margin-bottom: 0;
@@ -1518,25 +1530,25 @@ body.builds .preview .thumbnail h4 {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1));
   color: #FFFFFF;
 }
-/* line 36, ../../sass/partials/apps/_builds.scss */
+/* line 44, ../../sass/partials/apps/_builds.scss */
 body.builds.detail figure img {
   margin: 0 auto;
 }
-/* line 41, ../../sass/partials/apps/_builds.scss */
+/* line 49, ../../sass/partials/apps/_builds.scss */
 body.builds .fa-spinner {
   -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
   animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
 }
-/* line 46, ../../sass/partials/apps/_builds.scss */
+/* line 54, ../../sass/partials/apps/_builds.scss */
 body.builds #empty-form {
   display: none;
 }
-/* line 54, ../../sass/partials/apps/_builds.scss */
+/* line 62, ../../sass/partials/apps/_builds.scss */
 body.builds .photo-list input[type="checkbox"] {
   display: none;
 }
 @media (min-width: 768px) {
-  /* line 60, ../../sass/partials/apps/_builds.scss */
+  /* line 68, ../../sass/partials/apps/_builds.scss */
   body.builds .photo-list input + label, body.builds .photo-list input + label .thumbnail {
     margin-bottom: 0;
   }

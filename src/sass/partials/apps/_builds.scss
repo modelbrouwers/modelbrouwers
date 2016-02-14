@@ -4,6 +4,14 @@ body.builds {
 input[name="q"] {
   display: inline-block;
   width: auto;
+  @media (min-width: 650px) {
+    min-width: 300px;
+  }
+  vertical-align: middle;
+}
+
+.tt-suggestion {
+  color: $text-color;
 }
 
 .preview {
