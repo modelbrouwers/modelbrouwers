@@ -1,5 +1,11 @@
 body.builds {
 
+.twitter-typeahead,
+input[name="q"] {
+  display: inline-block;
+  width: auto;
+}
+
 .preview {
 
   h3 {

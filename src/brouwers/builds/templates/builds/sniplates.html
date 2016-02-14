@@ -1,8 +1,14 @@
-{% load i18n %}
+{% load i18n sniplates %}
 
 {% block nav-right %}
 <div class="pull-right">
-    <a href="{#{% url 'builds:all' %}#}" class="btn bg-main-blue">{% trans "All builds" %}</a>
+
+    {% if search_form %}
+        {% load_widgets form='default.form' %}
+        {% form_field search_form.q 'form:_input' placeholder=_('Find a build or builder') %}
+    {% endif %}
+
+    <a href="{% url 'builds:index' %}" class="btn bg-main-blue">{% trans "All builds" %}</a>
 
     {% if user.is_authenticated %}
     <div class="dropdown inline">

@@ -1057,6 +1057,33 @@ form fieldset.tab-pane {
   line-height: 90vh;
 }
 
+/* line 2, ../../sass/partials/_typeahead.scss */
+.tt-menu {
+  background-color: white;
+  -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+/* line 9, ../../sass/partials/_typeahead.scss */
+.tt-menu .tt-suggestion {
+  padding: 2px 10px;
+}
+/* line 12, ../../sass/partials/_typeahead.scss */
+.tt-menu .tt-suggestion:hover, .tt-menu .tt-suggestion.tt-cursor {
+  background-color: rgba(145, 146, 145, 0.25);
+  cursor: pointer;
+}
+
+/* line 20, ../../sass/partials/_typeahead.scss */
+.twitter-typeahead {
+  width: 100%;
+}
+
 /* line 2, ../../sass/partials/apps/_albums.scss */
 .album-preview {
   position: relative;
@@ -1459,18 +1486,24 @@ body.albums.photo-detail .modal-backdrop .fa-spinner {
   display: block;
 }
 
-/* line 5, ../../sass/partials/apps/_builds.scss */
+/* line 3, ../../sass/partials/apps/_builds.scss */
+body.builds .twitter-typeahead,
+body.builds input[name="q"] {
+  display: inline-block;
+  width: auto;
+}
+/* line 11, ../../sass/partials/apps/_builds.scss */
 body.builds .preview h3 {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 9, ../../sass/partials/apps/_builds.scss */
+/* line 15, ../../sass/partials/apps/_builds.scss */
 body.builds .preview .thumbnail {
   position: relative;
   max-width: 1024px;
 }
-/* line 13, ../../sass/partials/apps/_builds.scss */
+/* line 19, ../../sass/partials/apps/_builds.scss */
 body.builds .preview .thumbnail h4 {
   margin-top: 0;
   margin-bottom: 0;
@@ -1485,25 +1518,25 @@ body.builds .preview .thumbnail h4 {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1));
   color: #FFFFFF;
 }
-/* line 30, ../../sass/partials/apps/_builds.scss */
+/* line 36, ../../sass/partials/apps/_builds.scss */
 body.builds.detail figure img {
   margin: 0 auto;
 }
-/* line 35, ../../sass/partials/apps/_builds.scss */
+/* line 41, ../../sass/partials/apps/_builds.scss */
 body.builds .fa-spinner {
   -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
   animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
 }
-/* line 40, ../../sass/partials/apps/_builds.scss */
+/* line 46, ../../sass/partials/apps/_builds.scss */
 body.builds #empty-form {
   display: none;
 }
-/* line 48, ../../sass/partials/apps/_builds.scss */
+/* line 54, ../../sass/partials/apps/_builds.scss */
 body.builds .photo-list input[type="checkbox"] {
   display: none;
 }
 @media (min-width: 768px) {
-  /* line 54, ../../sass/partials/apps/_builds.scss */
+  /* line 60, ../../sass/partials/apps/_builds.scss */
   body.builds .photo-list input + label, body.builds .photo-list input + label .thumbnail {
     margin-bottom: 0;
   }
@@ -1768,33 +1801,6 @@ body.groupbuilds .participants tr.finished .fa-check {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* line 71, ../../sass/partials/apps/_kits.scss */
-.tt-menu {
-  background-color: white;
-  -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4), 0 5px 7px 0 rgba(0, 0, 0, 0.3);
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
-/* line 78, ../../sass/partials/apps/_kits.scss */
-.tt-menu .tt-suggestion {
-  padding: 2px 10px;
-}
-/* line 81, ../../sass/partials/apps/_kits.scss */
-.tt-menu .tt-suggestion:hover, .tt-menu .tt-suggestion.tt-cursor {
-  background-color: rgba(145, 146, 145, 0.25);
-  cursor: pointer;
-}
-
-/* line 89, ../../sass/partials/apps/_kits.scss */
-.twitter-typeahead {
-  width: 100%;
 }
 
 /* line 3, ../../sass/partials/apps/_users.scss */

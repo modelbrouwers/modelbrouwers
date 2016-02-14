@@ -19,7 +19,14 @@ from .models import Build, BuildPhoto
 User = get_user_model()
 
 
-class IndexView(ListView):
+class BuildSearchMixin(object):
+
+    def get_context_data(self, **kwargs):
+        kwargs['search_form'] = BuildSearchForm(auto_id=False)
+        return super(BuildSearchMixin, self).get_context_data(**kwargs)
+
+
+class IndexView(BuildSearchMixin, ListView):
     photo_qs = BuildPhoto.objects.select_related('photo').order_by('order')
     queryset = Build.objects.select_related('user').prefetch_related(
                     'kits__brand', 'kits__scale',
@@ -28,10 +35,6 @@ class IndexView(ListView):
     paginate_by = 24
     context_object_name = 'builds'
     show_user = True
-
-    def get_context_data(self, **kwargs):
-        kwargs['search_form'] = BuildSearchForm(auto_id=False)
-        return super(IndexView, self).get_context_data(**kwargs)
 
 
 class UserBuildListView(IndexView):
@@ -51,7 +54,7 @@ class UserBuildListView(IndexView):
         return context
 
 
-class BuildDetailView(DetailView):
+class BuildDetailView(BuildSearchMixin, DetailView):
     model = Build
     context_object_name = 'build'
 
