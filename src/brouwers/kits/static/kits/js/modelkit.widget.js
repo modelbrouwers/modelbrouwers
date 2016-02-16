@@ -226,8 +226,9 @@ function submitNewKit(event) {
             promise = Promise.resolve(model.objects.get({id: id}));
         } else {
             let newValue = data[`${ field }_ta`];
-            let obj = model.fromRaw(newValue);
-            promise = Promise.resolve(model.objects.create(obj));
+            let obj = $.extend(true, {}, model.fromRaw(newValue));
+            delete obj._state; // not JSON serializeable, circular reference
+            promise = model.objects.create(obj);
             promise.then(obj => {
                 let id = obj.id;
                 let display = obj[conf.typeahead[field].display];
