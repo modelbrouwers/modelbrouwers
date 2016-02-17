@@ -161,7 +161,7 @@ let showAlbumOrUrls = function() {
         let $form = $(form);
         let prefix = `id_photos-${i}`;
         let photo = $(form).find(`#${prefix}-photo`).val();
-        if (photo !== undefined) {
+        if (photo) {
             $form.find('.url').hide();
         } else {
             $form.find('.album').hide();
