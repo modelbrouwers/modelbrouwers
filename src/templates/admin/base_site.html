@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n staticfiles admin_tools_menu_tags %}
+{% load i18n staticfiles admin_tools_menu_tags admin_static %}
 
 {% block extrastyle %}
     {{ block.super }}
@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block extrahead %}
-<link rel="shortcut icon" href="{{ STATIC_URL }}images/icons/favicon.ico" />
+<link rel="shortcut icon" href="{% static "images/icons/favicon.ico" %}" />
 {% endblock %}
 
 {% block nav-global %}
