@@ -5,7 +5,7 @@ from .models import Brand, Scale, ModelKit
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    list_display = ('name', 'logo', 'is_active')
+    list_display = ('name', 'logo', 'is_active', 'slug')
     list_filter = ('is_active',)
     search_fields = ('=id', 'name')
 
