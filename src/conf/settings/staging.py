@@ -15,7 +15,7 @@ DATABASES['default']['CONN_MAX_AGE'] = 60*15  # a test
 #
 # STATICFILES
 #
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'systemjs.storage.SystemJSManifestStaticFilesStorage'
 
 #
 # SESSION

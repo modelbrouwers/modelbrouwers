@@ -20,7 +20,7 @@ django-precise-bbcode==1.2.0
 django-rosetta==0.7.8
 django-sendfile==0.3.10
 django-sessionprofile==0.1.3
-django-systemjs==1.0.2
+django-systemjs==1.1.0
 # sorl-thumbnail==12.3
 git+https://github.com/mariocesar/sorl-thumbnail.git@master#egg=sorl-thumbnail
 # django-sniplates==0.3.2

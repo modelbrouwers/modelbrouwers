@@ -34,7 +34,7 @@ except ImportError:
 #
 # STATICFILES
 #
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'systemjs.storage.SystemJSManifestStaticFilesStorage'
 
 #
 # SESSION
