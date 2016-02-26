@@ -121,7 +121,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         try:
             return ForumUser.objects.get(pk=self.forumuser_id)
         except (ForumUser.DoesNotExist, DatabaseError):
-            return None
+            forum_user = ForumUser.objects.filter(username=self.username).first()
+            if not self.forumuser_id and forum_user is not None:
+                self.forumuser_id = forum_user.pk
+                self.save()
+            return forum_user
+        return None
 
     @cached_property
     def profile(self):
