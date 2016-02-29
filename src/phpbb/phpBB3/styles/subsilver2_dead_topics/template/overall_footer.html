@@ -1,15 +1,15 @@
-	<!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
+    <!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
 </div></div>
 <!-- end wrapcentre -->
 
 <div id="wrapfooter">
     <!-- INCLUDEPHP styles/subsilver2_dead_topics/template/common/bottom.php -->
 
-	<!-- IF U_ACP --><span class="gensmall">[ <a href="{U_ACP}">{L_ACP}</a> ]</span><br /><!-- ENDIF -->
+    <!-- IF U_ACP --><span class="gensmall">[ <a href="{U_ACP}">{L_ACP}</a> ]</span><br /><!-- ENDIF -->
     <!-- IF U_MCP --><span class="gensmall">[ <a href="/admin/">Django admin</a> ]</span><br /><br /><!-- ENDIF -->
-	<span class="copyright">Powered by <a href="http://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group
-	<!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->
-	<!-- IF DEBUG_OUTPUT --><br /><bdo dir="ltr">[ {DEBUG_OUTPUT} ]</bdo><!-- ENDIF --></span>
+    <span class="copyright">Powered by <a href="http://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group
+    <!-- IF TRANSLATION_INFO --><br />{TRANSLATION_INFO}<!-- ENDIF -->
+    <!-- IF DEBUG_OUTPUT --><br /><bdo dir="ltr">[ {DEBUG_OUTPUT} ]</bdo><!-- ENDIF --></span>
     &bull;
     Hosting by <a href="http://www.flexwebhosting.nl">Flexwebhosting</a>
     &bull;
@@ -30,34 +30,10 @@ pageTracker._trackPageview();
 
 <!-- static backend, provides the $storage variable -->
 <!-- PHP -->
-    $cache = new StaticCache();
-    $cache->init();
-    $storage = new CachedFilesStorage($cache);
-    $storage2 = new CombinedStaticFilesStorage($cache);
-    $storage3 = new FileSystemStorage();
-<!-- ENDPHP -->
-
-<!-- PHP -->
-    $js = array(
-        'scripts/forum/chat.js',
-        'config.js',
-    );
-    $apps = array(
-        'forum_tools/js/forum/app.js', // JSPM:SYSTEMJSAPP
-        'albums/js/forum/app.js', // JSPM:SYSTEMJSAPP
-        'groupbuilds/js/forum/app.js', // JSPM:SYSTEMJSAPP
-    );
+    $storage = new ManifestStaticFilesStorage();
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
-<script src="<!-- PHP --> echo $storage3->url('jspm_packages/system.js');<!-- ENDPHP -->"></script>
-<script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
-<!-- PHP --> echo $storage2->system_import($apps);<!-- ENDPHP -->
-
-<!-- IF U_MCP || U_ACP -->
-    <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>
-<!-- ENDIF -->
 
 </body>
 </html>
