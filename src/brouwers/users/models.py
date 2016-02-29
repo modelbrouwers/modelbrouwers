@@ -117,11 +117,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @cached_property
     def forumuser(self):
-        from django.db import DatabaseError
-        try:
-            return ForumUser.objects.get(pk=self.forumuser_id)
-        except (ForumUser.DoesNotExist, DatabaseError):
-            return None
+        if self.forumuser_id:
+            forum_user = ForumUser.objects.filter(pk=self.forumuser_id).first()
+        else:
+            forum_user = ForumUser.objects.filter(username=self.username).first()
+            if forum_user is not None:
+                self.forumuser_id = forum_user.pk
+                self.save()
+        return forum_user
 
     @cached_property
     def profile(self):
