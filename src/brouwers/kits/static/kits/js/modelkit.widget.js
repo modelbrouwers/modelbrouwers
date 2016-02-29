@@ -7,7 +7,6 @@ import 'bootstrap';
 import 'scripts/jquery.serializeObject';
 import 'typeahead';
 import Handlebars from 'general/js/hbs-pony';
-import Q from 'q';
 
 
 let conf = {
