@@ -8,6 +8,7 @@
 @import "partials/colors";
 @import "partials/vars";
 @import "partials/utils";
+@import "partials/responsive";
 
 @import "partials/base";
 @import "partials/typography";
@@ -21,7 +22,10 @@
 @import "partials/pagination";
 @import "partials/spinner";
 @import "partials/lightbox";
+@import "partials/typeahead";
 
 @import "partials/apps/albums";
+@import "partials/apps/builds";
 @import "partials/apps/groupbuilds";
+@import "partials/apps/kits";
 @import "partials/apps/users";

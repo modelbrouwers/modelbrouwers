@@ -13,6 +13,10 @@ class ThumbnailField(fields.ImageField):
         thumbs = {}
         request = self.context.get('request', None)
         for name, dim in self.dimensions:
+            if not value:
+                thumbs['%s' % name] = None
+                continue
+
             image = get_thumbnail(value, dim, **self.opts)
             if request is not None:
                 img_url = request.build_absolute_uri(image.url)

@@ -1,0 +1,61 @@
+{% extends "builds/base.html" %}{% load i18n thumbnail %}
+
+
+{% block body-class %}{{ block.super }} detail{% endblock body-class %}
+
+
+{% block eye-catcher-content %}
+<h1>
+    {{ build.title }}
+    <small>&bull;
+        <a href="{% url 'builds:user_build_list' user_id=build.user.id %}">{{ build.user }}</a>
+    </small>
+    <i class="pull-right fa fa-cube fa-2x"></i>
+</h1>
+
+<p>
+<small>
+    <i class="fa fa-calendar-o"></i>
+    {{ build.start_date|default:_('start unknown') }} &ndash;
+    {{ build.end_date|default:_('end unknown') }}
+</small>
+</p>
+{% endblock %}
+
+
+{% block builds-nav-left %}
+    <a href="{{ build.topic_url }}" class="btn bg-main-orange">
+        <i class="fa fa-comment-o"></i> {% trans "View topic" %}</a>
+    {% if build.user == user %}
+    <a href="{% url 'builds:update' slug=build.slug %}" class="btn bg-main-blue">
+        <i class="fa fa-pencil-square-o"></i> {% trans "Edit" %}</a>
+    {% endif %}
+    <a href="{% url 'builds:index' %}" class="btn bg-main-blue">{% trans "Back to overview" %}</a>
+{% endblock %}
+
+
+{% block content %}
+<article>
+
+    <div class="row">
+        {% if kits|length == 1 %}
+            {% with kit=kits.0 %}
+                <div class="col-xs-12">{% include "builds/includes/kit.html" %}</div>
+            {% endwith %}
+        {% else %}
+            {% for kit in kits %}
+                <div class="col-xs-12 col-md-6">{% include "builds/includes/kit.html" %}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% for photo in photos %}
+        <figure>
+            {% thumbnail photo.image "1024" as im %}
+                <img src="{{ im.url }}" alt="build photo {{ forloop.index }}" class="thumbnail img-responsive">
+            {% endthumbnail %}
+        </figure>
+    {% endfor %}
+
+</article>
+{% endblock %}

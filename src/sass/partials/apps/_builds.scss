@@ -1,0 +1,78 @@
+body.builds {
+
+.twitter-typeahead,
+input[name="q"] {
+  display: inline-block;
+  width: auto;
+  @media (min-width: 650px) {
+    min-width: 300px;
+  }
+  vertical-align: middle;
+}
+
+.tt-suggestion {
+  color: $text-color;
+}
+
+.preview {
+
+  h3 {
+    @include ellipsis;
+  }
+
+  .thumbnail {
+    position: relative;
+    max-width: 1024px;
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 2em;
+      position: absolute;
+      // padding thumb
+      top: 4px;
+      left: 4px;
+      right: 4px;
+
+      @include text-background();
+      color: $white;
+    }
+  }
+}
+
+&.detail {
+  figure img {
+    margin: 0 auto;
+  }
+}
+
+.fa-spinner {
+  @include spinner();
+}
+
+
+#empty-form {
+  display: none;
+}
+
+
+.photo-list {
+
+  input {
+    &[type="checkbox"] {
+      display: none;
+    }
+
+    + label {
+      @include gt-mobile {
+        &, & .thumbnail {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    @include selected-fa;
+  }
+}
+
+}

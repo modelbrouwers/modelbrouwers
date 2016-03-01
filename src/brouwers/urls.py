@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^%s' % FORUM_URL, include('brouwers.forum_tools.urls_phpbb', namespace='phpBB')),
     url(r'^group-builds/', include('brouwers.groupbuilds.urls', namespace='groupbuilds')),
     url(r'^kitreviews/',   include('brouwers.kitreviews.urls', namespace='kitreviews')),
-    url(r'^secret_santa/', include('brouwers.secret_santa.urls')),
+    url(r'^secret_santa/', include('brouwers.secret_santa.urls', namespace='secret_santa')),
     url(r'^shirts/',       include('brouwers.shirts.urls')),
     url(r'^builds/',       include('brouwers.builds.urls', namespace='builds')),
     url(r'^ou/',           include('brouwers.online_users.urls')),

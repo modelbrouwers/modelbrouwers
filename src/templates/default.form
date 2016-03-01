@@ -3,10 +3,25 @@
 
 {% block _label %}
 {% if label %}
-    <label id="label_{{ id_for_label }}" for="{{ id }}" class="control-label {{ label_grid|default:'col-sm-2' }} {{ required|yesno:"required," }}">
+    <label id="label_{{ id_for_label }}" for="{{ id }}" class="control-label {{ required|yesno:"required," }}">
         {{ label }}
     </label>
 {% endif %}
+{% endblock %}
+
+{% block _input %}
+{% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
+<input type="{{ input_type }}"
+    name="{{ html_name }}"
+    id="{{ id }}"
+    value="{{ raw_value|default:"" }}"
+    class="form-control {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
+    {{ widget.attrs|flatattrs }}
+    {{ required|yesno:"required," }}
+    {{ autofocus|yesno:"autofocus," }}
+    {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+>
+{% endwith %}
 {% endblock %}
 
 
@@ -15,18 +30,7 @@
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
-        {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
-        <input type="{{ input_type }}"
-            name="{{ html_name }}"
-            id="{{ id }}"
-            value="{{ value|default:"" }}"
-            class="form-control {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
-            {{ widget.attrs|flatattrs }}
-            {{ required|yesno:"required," }}
-            {{ autofocus|yesno:"autofocus," }}
-            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
-        >
-        {% endwith %}
+        {% reuse "_input" %}
         {% reuse "_help" %}
         {% if help_text %}</div>{% endif %}
         {% reuse "_errors" %}
@@ -39,10 +43,10 @@
 {% block EmailInput %}{% reuse "input" input_type="email" %}{% endblock %}
 {% block NumberInput %}{% reuse "input" input_type="number" %}{% endblock %}
 {% block URLInput %}{% reuse "input" input_type="url" %}{% endblock %}
-{% block PasswordInput %}{% reuse "input" input_type="password" value="" %}{% endblock %}
-{% block FileInput %}{% reuse "input" input_type="file" value="" %}{% endblock %}
-{% block DateTimeInput %}{% reuse "input" input_type="datetime" value=value|date:'Y-m-d H:i:s' %}{% endblock %}
-{% block TimeInput %}{% reuse "input" input_type="time" value=value|date:'H:i:s' %}{% endblock %}
+{% block PasswordInput %}{% reuse "input" input_type="password" raw_value="" %}{% endblock %}
+{% block FileInput %}{% reuse "input" input_type="file" raw_value="" %}{% endblock %}
+{% block DateTimeInput %}{% reuse "input" input_type="datetime" raw_value=raw_value|date:'Y-m-d H:i:s' %}{% endblock %}
+{% block TimeInput %}{% reuse "input" input_type="time" raw_value=raw_value|date:'H:i:s' %}{% endblock %}
 
 TODO:
 
@@ -52,7 +56,7 @@ TODO:
 
 
 {% block MultipleHiddenInput %}
-{% for value in value %}
+{% for value in raw_value %}
 <input type="hidden" name="{{ name }}" id="{{ id }}_{{ forloop.counter0 }}" value="{{ value|default:'' }}" {{ widget.attrs|flatattrs }} {{ required|yesno:"required," }}>
 {% endfor %}
 {% endblock %}
@@ -72,7 +76,7 @@ TODO:
 {% reuse "_label" %}
 <ul id="{{ id }}">
 {% for val, display in choices %}
-    <li><input type="checkbox" id="{{ id}}_{{ forloop.counter0 }}" value="{{ val }}" {% if val in value %}checked{% endif %}>{{ display }}</li>
+    <li><input type="checkbox" id="{{ id}}_{{ forloop.counter0 }}" value="{{ val }}" {% if val in raw_value %}checked{% endif %}>{{ display }}</li>
 {% endfor %}
 </ul>
 {% reuse "_help" %}
@@ -81,12 +85,12 @@ TODO:
 
 
 {% block HiddenInput %}
-<input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ value|default:"" }}">
+<input type="hidden" name="{{ html_name }}" id="{{ id }}" value="{{ raw_value|default:"" }}">
 {% endblock HiddenInput %}
 
 
 {% block DateInput %}
-    {% reuse 'input' input_type='text' extra_css_classes='date' value=value|date:'SHORT_DATE_FORMAT' %}
+    {% reuse 'input' input_type='text' extra_css_classes='date' value=raw_value|date:'SHORT_DATE_FORMAT' %}
 {% endblock %}
 
 
@@ -113,7 +117,7 @@ TODO:
 <div class="form-group">
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
-        <input type="hidden" name="{{ html_name }}" value="{{ value }}">
+        <input type="hidden" name="{{ html_name }}" value="{{ raw_value }}">
         {% for val, display in choices %}
             {% if val == value %}
                 <div class="form-control-static">{{ display }}</div>
@@ -136,7 +140,7 @@ TODO:
             data-live-search="{{ livesearch|default:True|yesno:"true,false" }}" title="{{ placeholder|default:_("Pick an option") }}"
             data-size="{{ size|default:5 }}">
         {% for val, display in choices %}
-            <option value="{{ val }}" {% if val in value %}selected{% endif %}>{{ display }}</option>
+            <option value="{{ val }}" {% if val in raw_value %}selected{% endif %}>{{ display }}</option>
         {% endfor %}
         </select>
         {% endwith %}
@@ -153,7 +157,7 @@ TODO:
     <div class="{{ label_grid_offset|default:'col-sm-offset-3' }} {{ field_grid|default:'col-sm-10' }}">
         <div class="checkbox">
             <label for="{{ form_field.id_for_label }}" class="{{ css_classes }}">
-                <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ form_field.value|yesno:'checked,' }}>
+                <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ raw_value|yesno:'checked,' }}>
                 {{ form_field.label }}
             </label>
             {% reuse '_help' %}
@@ -175,7 +179,7 @@ TODO:
             {{ autofocus|yesno:"autofocus," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
             {{ widget.attrs|flatattrs }}
-        >{{ value|default:'' }}</textarea>
+        >{{ raw_value|default:'' }}</textarea>
         {% reuse "_help" %}
         {% if help_text %}</div>{% endif %}
         {% reuse "_errors" %}
@@ -192,15 +196,15 @@ TODO:
         <input type="text"
             name="{{ html_name }}"
             id="{{ id }}"
-            value="{{ widget|idfield_url:value|default:"" }}"
+            value="{{ widget|idfield_url:raw_value|default:"" }}"
             class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
             {{ widget.attrs|flatattrs }}
             {{ required|yesno:"required," }}
             {{ autofocus|yesno:"autofocus," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
         >
-        {% if value %}
-            {% blocktrans with url=widget|idfield_url:value %}
+        {% if raw_value %}
+            {% blocktrans with url=widget|idfield_url:raw_value %}
                 Current: <a href="{{ url }}">{{ url }}</a>
             {% endblocktrans %}
         {% endif %}
@@ -242,6 +246,33 @@ How to render errors
     </ul>
 </div>
 {% endif %}{% endblock %}
+
+
+{% block non_form_errors %}{% if formset.non_form_errors %}
+<div class="panel panel-danger">
+    <div class="panel-heading">{% trans "There are errors between the forms" %}</div>
+
+    <ul class="list-group">
+        {% for error in form.non_form_errors %}<li class="list-group-item error">{{ error }}</li>{% endfor %}
+    </ul>
+</div>
+{% endif %}{% endblock %}
+
+
+{% block formset %}
+    {% reuse 'non_form_errors' %}
+
+    {% for form in formset %}
+    <div class="formset-form">
+        {% reuse 'non_field_errors' %}
+
+        {% for field in form %}
+            {% form_field field %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+{% endblock %}
 
 
 {% block submit %}

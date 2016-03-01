@@ -27,9 +27,7 @@
     <!-- static backend, provides the $storage variable -->
     <!-- INCLUDEPHP styles/subsilver2_dead_topics/template/common/static.php -->
     <!-- PHP -->
-        $cache = new StaticCache();
-        $cache->init();
-        $storage = new CachedFilesStorage($cache);
+        $storage = new ManifestStaticFilesStorage();
     <!-- ENDPHP -->
 
     <!-- PHPBB style -->

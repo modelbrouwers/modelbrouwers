@@ -1,0 +1,29 @@
+{% load i18n sniplates %}
+
+{% block nav-right %}
+<div class="pull-right">
+
+    {% if search_form %}
+        {% load_widgets form='default.form' %}
+        {% form_field search_form.q 'form:_input' placeholder=_('Find a build or builder') %}
+    {% endif %}
+
+    <a href="{% url 'builds:index' %}" class="btn bg-main-blue">{% trans "All builds" %}</a>
+
+    {% if user.is_authenticated %}
+    <div class="dropdown inline">
+        <button type="button" class="btn bg-main-blue dropdown-toggle"
+                data-toggle="dropdown" data-hover="dropdown" data-delay="100">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <ul class="dropdown-menu">
+            <li><a href="{% url 'builds:user_build_list' user_id=user.id %}">
+                <i class="fa fa-fw fa-wrench"></i>
+                {% trans "My builds" %}
+            </a></li>
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

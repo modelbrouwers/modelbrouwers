@@ -1,55 +1,24 @@
 from django.contrib import admin
-from django.utils.translation import ugettext as _
 
+from .models import Build, BuildPhoto
 
-from .models import *
 
 class BuildPhotoInline(admin.TabularInline):
     model = BuildPhoto
     raw_id_fields = ('photo',)
 
+
+@admin.register(Build)
 class BuildAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'title', 'brand', 'scale')
-    fieldsets = (
-        (_('General information'), {
-            'fields': (
-                ('profile', 'user'),
-                'title',
-                'url',
-                ('topic_id', 'forum_id'),
-                )
-            }
-        ),
-        (_('Kit information'), {
-            'fields': (
-                ('brand', 'scale'),
-                ),
-            'classes': ['collapse'],
-            }
-        ),
-        ('Varia', {
-            'fields': (
-                ('start_date', 'end_date'),
-                ),
-            'classes': ['collapse'],
-        }),
-        (None, {
-            'fields': ('slug',),
-            }
-        )
-    )
-
-    prepopulated_fields = {
-        'slug': ('title',),
-        }
-
+    list_display = ('user', 'title')
+    raw_id_fields = ('user', 'kits')
     inlines = (BuildPhotoInline,)
+    search_fields = ('title', 'user__username')
 
+
+@admin.register(BuildPhoto)
 class BuildPhotoAdmin(admin.ModelAdmin):
     list_display = ('build', 'photo', 'photo_url', 'order')
     list_editable = ('order',)
     search_fields = ('build__slug',)
     raw_id_fields = ('photo',)
-
-admin.site.register(Build, BuildAdmin)
-admin.site.register(BuildPhoto, BuildPhotoAdmin)

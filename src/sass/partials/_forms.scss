@@ -79,3 +79,56 @@ form {
     text-decoration: none;
   }
 }
+
+
+.formset-form {
+
+  position: relative;
+
+  .DELETE {
+
+    .checkbox {
+      position: static;
+    }
+
+    input {
+      display: none;
+    }
+
+    label {
+      @include opacity(0.5);
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 15;
+
+      &:hover,
+      &:focus {
+        @include opacity(1.0);
+      }
+    }
+
+    .delete-backdrop {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 10;
+      background-color: rgba($white, 0.75);
+    }
+
+    input:checked + label {
+      @include opacity(1);
+
+      & + .delete-backdrop {
+        display: block;
+      }
+    }
+  }
+
+  &.delete > * {
+    @include opacity(0.1); // TODO
+  }
+}

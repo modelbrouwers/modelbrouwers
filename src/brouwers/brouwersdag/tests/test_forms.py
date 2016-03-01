@@ -1,14 +1,14 @@
 from django.contrib.auth import get_user_model  # otherwise we run intro troubles with the modelform
 from django.core.urlresolvers import reverse
-User = get_user_model()
 
 from django_webtest import WebTest
 
-from brouwers.kitreviews.tests.factories import BrandFactory
+from brouwers.kits.tests.factories import BrandFactory
 from brouwers.users.tests.factory_models import UserFactory
-
 from .factories import CompetitionFactory, ShowCasedModelFactory
 from ..forms import ShowCasedModelSignUpForm
+
+User = get_user_model()
 
 
 class CompetitionSignUpTests(WebTest):

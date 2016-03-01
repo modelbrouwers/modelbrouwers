@@ -1,6 +1,24 @@
+'use strict';
+
+import $ from 'jquery';
 import Q from 'q';
 import Api from 'scripts/api';
 import Paginator from 'scripts/paginator';
+
+
+function handleError(xhr) {
+  if ( xhr.status === 400 ) { // bad request, validation error
+    return handleValidationErrors(xhr.responseJSON);
+  } else {
+    return Q.reject(xhr);
+  }
+
+}
+
+
+function handleValidationErrors(errorObj) {
+  return Q.reject(errorObj);
+}
 
 
 class Manager {
@@ -74,6 +92,24 @@ class Manager {
     }
     return Api.request(endpoint, filters).get()
               .then( response => this._createObjs( [response] )[0] );
+  }
+
+  create(raw) {
+    // map to object
+    if (raw instanceof this.model) {
+      let obj = raw;
+      raw = {};
+      for (let key in obj) {
+        if (key == 'id') {
+          continue;
+        }
+        raw[key] = obj[key];
+      }
+    }
+
+    let endpoint = this.model._meta.endpoints.list;
+    return Api.request(endpoint, raw).post()
+              .then( response => this._createObjs( [response] )[0], handleError );
   }
 
 }

@@ -1,0 +1,69 @@
+.kit-suggestions {
+  margin-top: 15px;
+
+  .add-kit {
+
+    a:hover,
+    a:active,
+    a:focus {
+      text-decoration: none;
+    }
+  }
+
+  .h5 {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 4px; // padding thumb
+    right: 4px; // padding thumb
+  }
+
+  .preview {
+
+    .h5 {
+      @include ellipsis;
+    }
+
+    .thumbnail {
+      position: relative;
+
+      h4 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 2em;
+        position: absolute;
+        top: 0;
+        left: 4px; // padding thumb
+        right: 4px; // padding thumb
+
+        @include text-background();
+        color: $white;
+      }
+    }
+
+    input[type="checkbox"] {
+      display: none;
+      @include selected-fa();
+    }
+
+    label:hover {
+      cursor: pointer;
+      border: solid 1px $main-light-blue;
+    }
+
+    .fa-spinner {
+      @include spinner();
+    }
+
+    button + .fa-spinner {
+      display: none;
+    }
+  }
+
+  .center-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+}

@@ -21,9 +21,9 @@ Modelbrouwers.nl &bull; {{ secret_santa }}
 
 {% block content %}
 <div class="tab">
-    {{ secret_santa }} &bull; <a href="#participants">{% trans 'Participants' %}</a> {% if is_participant %}&bull; <a href="{% url 'brouwers.secret_santa.views.receiver' %}">{% trans 'My Secret Santa' %}</a>{% endif %}
+    {{ secret_santa }} &bull; <a href="#participants">{% trans 'Participants' %}</a> {% if is_participant %}&bull; <a href="{% url 'secret_santa:receiver' %}">{% trans 'My Secret Santa' %}</a>{% endif %}
 </div>
-<img class="right" src="{{STATIC_URL}}images/santa.jpg" alt="Santa Image">
+<img class="right" src="{{ STATIC_URL }}images/santa.jpg" alt="Santa Image">
 
 <p>{% blocktrans with year_later=secret_santa.year|add:"1" year=secret_santa.year %}
 &quot;Secret Santa is a Western Christmas tradition in which members of a group or community are randomly assigned a person to whom they anonymously give a gift.&quot; <sup>[<a href="http://en.wikipedia.org/wiki/Secret_Santa">Wikipedia</a>]</sup> Since we're a scale modelling website, the gift is in the form of a modelling kit. The intent is to finish the model by the end of {{ year_later }} (and we really hope everybody succeeds). You're supposed to put the build report in the normal subforum, provided with the tag <code>[SS {{ year }}]</code>.
@@ -46,7 +46,7 @@ Signing up is possible from {{ enrollment_start }} <strong>until {{ enrollment_e
     <br />
     {% if user.get_profile.is_address_ok %}
         {% if not is_participant %}
-            <form action="{% url 'brouwers.secret_santa.views.enroll' %}" method="post">{% csrf_token %}
+            <form action="{% url 'secret_santa:enroll' %}" method="post">{% csrf_token %}
                 {{ form.as_p }}
                 <input class="submit-button" type="submit" value="{% trans 'Sign up!' %}" />
             </form>
@@ -66,7 +66,7 @@ Signing up is possible from {{ enrollment_start }} <strong>until {{ enrollment_e
 </p>
 
 <div class="midpage tab">{% trans "Who's my Secret Santa?" %}</div>
-{% url 'brouwers.secret_santa.views.receiver' as receiver_url %}
+{% url 'secret_santa:receiver' as receiver_url %}
 <p>{% blocktrans %}Click <a href="{{ receiver_url }}">here</a> to find out. You should have received the information by e-mail too, though.
 {% endblocktrans %}</p>
 

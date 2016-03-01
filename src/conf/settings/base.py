@@ -232,6 +232,7 @@ INSTALLED_APPS = [
     'brouwers.forum_tools',
     'brouwers.general',
     'brouwers.groupbuilds',
+    'brouwers.kits',
     'brouwers.kitreviews',
     'brouwers.migration',
     'brouwers.online_users',
@@ -355,6 +356,10 @@ REST_FRAMEWORK = {
 }
 
 #
+# PHPBB
+#
+PHPBB_POSTS_PER_PAGE = 10
+
 # SECURITY
 #
 SECURE_BROWSER_XSS_FILTER = True

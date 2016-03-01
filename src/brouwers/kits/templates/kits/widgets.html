@@ -1,0 +1,114 @@
+{% load i18n sniplates staticfiles system_tags thumbnail %}
+
+
+{% block ModelKitSelect %}
+
+{% load_widgets fields='horizontal.form' %}
+
+<div class="model-kit-select">
+
+    {% widget 'fields:_label' %}
+
+    <div class="{{ field_grid|default:'col-sm-10' }}">
+        <div>
+            {% widget "fields:_help" %}
+            {% widget "fields:_errors" %}
+        </div>
+
+        <div class="row" data-filters="true">
+            {% with form=widget.form %}
+                <div class="col-xs-12 col-sm-4">
+                    <!-- brand select -->
+                    {% form_field form.brand widget='fields:_Select' %}
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <!-- scale select -->
+                    {% form_field form.scale widget='fields:_Select' %}
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <!-- search box -->
+                    {% form_field form.name widget='fields:_input' placeholder=_('filter by name') %}
+                </div>
+            {% endwith %}
+        </div>
+
+        <div class="kit-suggestions row">
+
+            <div class="text-center add-kit col-xs-12">
+                <a href="#" data-target="#add-kit-modal">
+                    <h3>{% blocktrans %}&hellip; or add a new kit{% endblocktrans %}</h3>
+                    <i class="fa fa-plus fa-5x"></i>
+                </a>
+            </div>
+
+            {% for kit in selected_kits %}
+                <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{ kit.id }}">
+                    <input type="checkbox" name="{{ html_name }}" value="{{ kit.id }}" id="__modelkit_{{ kit.id }}" checked="checked">
+                    <label for="__modelkit_{{ kit.id }}" title="{{ kit.name }}" class="thumbnail">
+                        <span class="h5">
+                            <strong>
+                                {{ kit.name }}
+                                {% if kit.kit_number %}<small>{{ kit.kit_number }}</small>{% endif %}
+                            </strong>
+                        </span>
+
+                        {% if kit.box_image %}
+                            {% thumbnail kit.box_image "600x400" as im %}
+                                <img src="{{ im.url }}" class="img-responsive">
+                            {% endthumbnail %}
+                        {% else %}
+                            <img src="{% static "images/thumb.png" %}" class="img-responsive">
+                        {% endif %}
+                    </label>
+                    <i class="fa fa-check fa-3x"></i>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="add-kit-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{% trans "Add new kit to the database" %}</h4>
+            </div>
+
+            <div class="modal-body">
+                {# can't use <form> tag because that results in nested tags #}
+                <div class="form-horizontal">
+                    {% with add_form=widget.add_form %}
+                        <!-- brand select -->
+                        {% form_field add_form.brand widget='fields:typeaheadinput' placeholder=_('choose the brand') %}
+
+                        <!-- scale select -->
+                        {% form_field add_form.scale widget='fields:typeaheadinput' placeholder=_('choose the scale') %}
+
+                        <!-- name -->
+                        {% form_field add_form.name placeholder=_('kit name') required=False %}
+                    {% endwith %}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn bg-main-grey" data-dismiss="modal">{% trans "Close" %}</button>
+                <button type="submit" class="btn bg-main-blue">{% trans "Save" %}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+{% endblock %}
+
+
+{% block ModelKitSelectJS %}
+{% systemjs_import 'kits/js/modelkit.widget.js' %}
+{% endblock %}

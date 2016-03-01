@@ -11,9 +11,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='album',
-            name='writable_to',
-            field=models.CharField(default=b'u', help_text='Specify who can upload images in this album', max_length=1, verbose_name='writable to', choices=[(b'u', 'owner'), (b'o', 'everyone')]),
-        ),
+        # deliberately empty, there was a merge conflict with the migrations
     ]

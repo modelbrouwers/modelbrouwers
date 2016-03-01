@@ -31,10 +31,9 @@ class PhotoViewSet(viewsets.ModelViewSet):
     pagination_class = PhotoPagination
 
     def get_queryset(self):
-        base_qs = super(PhotoViewSet, self).get_queryset()
         if self.request.user.is_authenticated():
-            return base_qs.filter(Q(album__public=True) | Q(album__user=self.request.user))
-        return base_qs.exclude(album__public=False)
+            return self.queryset.filter(Q(album__public=True) | Q(album__user=self.request.user))
+        return self.queryset.exclude(album__public=False)
 
     def get_renderers(self):
         if self.action == 'create':
