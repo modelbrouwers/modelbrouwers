@@ -31,9 +31,27 @@ pageTracker._trackPageview();
 <!-- static backend, provides the $storage variable -->
 <!-- PHP -->
     $storage = new ManifestStaticFilesStorage();
+    $storage2 = new CombinedManifestStaticFilesStorage();
+
+    $js = array(
+        'config.js',
+        'scripts/forum/chat.js',
+    );
+    $apps = array(
+        'forum_tools/js/forum/app.js', // JSPM:SYSTEMJSAPP
+        'albums/js/forum/app.js', // JSPM:SYSTEMJSAPP
+        'groupbuilds/js/forum/app.js', // JSPM:SYSTEMJSAPP
+    );
 <!-- ENDPHP -->
 
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
+<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/q.min.js');<!-- ENDPHP -->"></script>
+<script src="<!-- PHP --> echo $storage->url('jspm_packages/system.js');<!-- ENDPHP -->"></script>
+<script type="text/javascript" src="<!-- PHP --> echo $storage2->url($js, 'js');<!-- ENDPHP -->"></script>
+<!-- PHP --> echo $storage2->system_import($apps);<!-- ENDPHP -->
 
+<!-- IF U_MCP || U_ACP -->
+    <script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/mods.js');<!-- ENDPHP -->"></script>
+<!-- ENDIF -->
 </body>
 </html>

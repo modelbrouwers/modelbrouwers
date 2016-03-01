@@ -4,9 +4,7 @@
     include($root.'settings.php');
     require_once($root.'../../phpbb/php-static-files/static.php');
 
-    $cache = new StaticCache();
-	$cache->init();
-	$storage = new CachedFilesStorage($cache);
+	$storage = new ManifestStaticFilesStorage();
 ?>
 
 <div id="shop-footer">
