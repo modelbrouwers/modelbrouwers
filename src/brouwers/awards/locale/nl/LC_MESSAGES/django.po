@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 08:56+0200\n"
+"POT-Creation-Date: 2016-03-01 19:23+0100\n"
 "PO-Revision-Date: 2014-05-29 21:56+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,13 +49,17 @@ msgstr "Awards home"
 msgid "This project was already nominated."
 msgstr "Dit project werd eerder al genomineerd."
 
-#: forms.py:91
+#: forms.py:59
+msgid "This person does not wish to participate in the awards."
+msgstr ""
+
+#: forms.py:90
 msgid "When voting, you cannot leave the first place blank."
 msgstr ""
 "Als je een stem uitbrengt in een categorie mag je de eerste plaats niet open "
 "laten."
 
-#: forms.py:116
+#: forms.py:115
 msgid ""
 "The order of votes must be logical. Omitting the second place is not allowed."
 msgstr ""
@@ -115,7 +119,7 @@ msgstr "Awards home"
 msgid "Nominations"
 msgstr "Nominaties"
 
-#: templates/awards/base.html:30 templates/awards/category.html:5
+#: templates/awards/base.html:30 templates/awards/category.html.py:5
 msgid "Categories"
 msgstr "Categorieën"
 
@@ -256,12 +260,12 @@ msgstr ""
 msgid "The nomination was added."
 msgstr "De nominatie werd toegevoegd"
 
-#: views.py:185
+#: views.py:188
 #, python-format
 msgid "Your vote for `%(category)s` was saved."
 msgstr "Je stem in `%(category)s` werd bewaard."
 
-#: views.py:192
+#: views.py:195
 msgid ""
 "One or multiple category votes could not be saved. Please correct the errors "
 "below."
@@ -269,7 +273,7 @@ msgstr ""
 "Een of meerdere categorie-stemmen konden niet bewaard worden. Los de fouten "
 "hierbeneden op."
 
-#: views.py:203
+#: views.py:206
 #, python-format
 msgid "Voting is enabled from %(start_date)s until %(end_date)s."
 msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."

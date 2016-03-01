@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 08:56+0200\n"
+"POT-Creation-Date: 2016-03-01 19:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,195 +63,106 @@ msgstr ""
 msgid "Recent Actions"
 msgstr ""
 
-#: brouwers/kitreviews/forms.py:14
+#: brouwers/kitreviews/forms.py:16
 msgid "Brand"
 msgstr ""
 
-#: brouwers/kitreviews/forms.py:15
+#: brouwers/kitreviews/forms.py:17
 msgid "Kit number"
 msgstr ""
 
-#: brouwers/kitreviews/forms.py:16
+#: brouwers/kitreviews/forms.py:18
 msgid "Kit name"
 msgstr ""
 
-#: brouwers/kitreviews/forms.py:17
+#: brouwers/kitreviews/forms.py:19
 msgid "Scale"
 msgstr ""
 
-#: brouwers/kitreviews/forms.py:18 brouwers/kitreviews/models.py:62
-msgid "Category"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:21 brouwers/kitreviews/models.py:30
-#: brouwers/kitreviews/models.py:72
-msgid "brand"
-msgstr ""
-
 #: brouwers/kitreviews/models.py:22
-#, fuzzy
-#| msgid "logout"
-msgid "logo"
-msgstr "uitloggen"
-
-#: brouwers/kitreviews/models.py:24
-msgid "is active?"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:25
-msgid "Does the brand still exist?"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:31
-msgid "brands"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:40 brouwers/kitreviews/models.py:43
-#: brouwers/kitreviews/models.py:79
-msgid "scale"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:44
-msgid "scales"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:59
-msgid "name"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:63
-msgid "Categories"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:74
-msgid "kit number"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:75
-msgid "Kit number as found on the box."
-msgstr ""
-
-#: brouwers/kitreviews/models.py:78
-msgid "kit name"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:80
-msgid "category"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:81
-msgid "difficulty"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:84
-msgid "box image"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:88
-msgid "duplicates"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:89
-msgid "Kits that are the same but have another producer."
-msgstr ""
-
-#: brouwers/kitreviews/models.py:96
-msgid "model kit"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:97
-msgid "model kits"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:119
-#, python-format
-msgid "A kit from %(brand)s with kit number '%(kit_number)s' already exists"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:131
 msgid "review"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:132
+#: brouwers/kitreviews/models.py:23
 msgid "This is your review. You can use BBCode here."
 msgstr ""
 
-#: brouwers/kitreviews/models.py:135
+#: brouwers/kitreviews/models.py:26
 msgid "positive points"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:136
+#: brouwers/kitreviews/models.py:27
 msgid "negative points"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:137
+#: brouwers/kitreviews/models.py:28
 #, fuzzy
 #| msgid "Migrations"
 msgid "rating"
 msgstr "Migraties"
 
-#: brouwers/kitreviews/models.py:140
+#: brouwers/kitreviews/models.py:31
 msgid "album"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:142
+#: brouwers/kitreviews/models.py:33
 msgid "topic"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:143
+#: brouwers/kitreviews/models.py:34
 #, fuzzy
 #| msgid "Back to the Modelbrouwers.nl homepage"
 msgid "ID of the topic on Modelbrouwers."
 msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#: brouwers/kitreviews/models.py:146
+#: brouwers/kitreviews/models.py:37
 msgid "topic url"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:147
+#: brouwers/kitreviews/models.py:38
 msgid "URL to the topic not hosted on Modelbrouwers"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:152
+#: brouwers/kitreviews/models.py:43
 msgid "show real name?"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:153
+#: brouwers/kitreviews/models.py:44
 msgid ""
 "Checking this option will display your real name as reviewer. Uncheck to use "
 "your nickname."
 msgstr ""
 
-#: brouwers/kitreviews/models.py:162
+#: brouwers/kitreviews/models.py:53
 #, fuzzy
 #| msgid "Visit the kit reviews!"
 msgid "kit review"
 msgstr "Ga naar de kitreviews!"
 
-#: brouwers/kitreviews/models.py:163
+#: brouwers/kitreviews/models.py:54
 #, fuzzy
 #| msgid "Visit the kit reviews!"
 msgid "kit reviews"
 msgstr "Ga naar de kitreviews!"
 
-#: brouwers/kitreviews/models.py:166
+#: brouwers/kitreviews/models.py:57
 #, python-format
 msgid "Review: %(kit)s by %(user)s"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:210
+#: brouwers/kitreviews/models.py:101
 msgid "vote"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:214
+#: brouwers/kitreviews/models.py:105
 msgid "kit review vote"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:215
+#: brouwers/kitreviews/models.py:106
 msgid "kit review votes"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:219
+#: brouwers/kitreviews/models.py:110
 #, python-format
 msgid "Vote for review by %(review_submitter)s"
 msgstr ""
@@ -337,6 +248,143 @@ msgstr ""
 
 #: brouwers/kitreviews/templates/kitreviews/review_form.html:34
 msgid "Album, build report(s)"
+msgstr ""
+
+#: brouwers/kits/apps.py:7
+msgid "kits"
+msgstr ""
+
+#: brouwers/kits/models.py:17 brouwers/kits/models.py:26
+#: brouwers/kits/models.py:71 brouwers/kits/widgets.py:14
+msgid "brand"
+msgstr ""
+
+#: brouwers/kits/models.py:18 brouwers/kits/models.py:72
+msgid "slug"
+msgstr ""
+
+#: brouwers/kits/models.py:19
+#, fuzzy
+#| msgid "logout"
+msgid "logo"
+msgstr "uitloggen"
+
+#: brouwers/kits/models.py:21
+msgid "is active"
+msgstr ""
+
+#: brouwers/kits/models.py:22
+msgid "Whether the brand still exists or not"
+msgstr ""
+
+#: brouwers/kits/models.py:27
+msgid "brands"
+msgstr ""
+
+#: brouwers/kits/models.py:39 brouwers/kits/models.py:42
+#: brouwers/kits/models.py:78 brouwers/kits/widgets.py:15
+msgid "scale"
+msgstr ""
+
+#: brouwers/kits/models.py:43
+msgid "scales"
+msgstr ""
+
+#: brouwers/kits/models.py:54
+msgid "very easy"
+msgstr ""
+
+#: brouwers/kits/models.py:55
+msgid "easy"
+msgstr ""
+
+#: brouwers/kits/models.py:56
+msgid "medium"
+msgstr ""
+
+#: brouwers/kits/models.py:57
+msgid "hard"
+msgstr ""
+
+#: brouwers/kits/models.py:58
+msgid "very hard"
+msgstr ""
+
+#: brouwers/kits/models.py:70 brouwers/kits/templates/kits/widgets.html.py:96
+msgid "kit name"
+msgstr ""
+
+#: brouwers/kits/models.py:74
+msgid "kit number"
+msgstr ""
+
+#: brouwers/kits/models.py:76
+msgid "Kit number as found on the box."
+msgstr ""
+
+#: brouwers/kits/models.py:80
+msgid "difficulty"
+msgstr ""
+
+#: brouwers/kits/models.py:84
+msgid "box image"
+msgstr ""
+
+#: brouwers/kits/models.py:87
+msgid "duplicates"
+msgstr ""
+
+#: brouwers/kits/models.py:88
+msgid "Kits that are the same but have another producer."
+msgstr ""
+
+#: brouwers/kits/models.py:95
+msgid "model kit"
+msgstr ""
+
+#: brouwers/kits/models.py:96
+msgid "model kits"
+msgstr ""
+
+#: brouwers/kits/models.py:121
+#, python-format
+msgid "A kit from %(brand)s with kit number '%(kit_number)s' already exists"
+msgstr ""
+
+#: brouwers/kits/templates/kits/handlebars/select-modelkit-widget.hbs:22
+msgid "load more"
+msgstr ""
+
+#: brouwers/kits/templates/kits/widgets.html:32
+msgid "filter by name"
+msgstr ""
+
+#: brouwers/kits/templates/kits/widgets.html:41
+msgid "&hellip; or add a new kit"
+msgstr ""
+
+#: brouwers/kits/templates/kits/widgets.html:82
+msgid "Add new kit to the database"
+msgstr ""
+
+#: brouwers/kits/templates/kits/widgets.html:90
+msgid "choose the brand"
+msgstr ""
+
+#: brouwers/kits/templates/kits/widgets.html:93
+msgid "choose the scale"
+msgstr ""
+
+#: brouwers/kits/templates/kits/widgets.html:102
+msgid "Close"
+msgstr ""
+
+#: brouwers/kits/templates/kits/widgets.html:103
+msgid "Save"
+msgstr ""
+
+#: brouwers/kits/widgets.py:16
+msgid "name"
 msgstr ""
 
 #: brouwers/migration/models.py:39

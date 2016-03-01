@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 08:56+0200\n"
+"POT-Creation-Date: 2016-03-01 19:23+0100\n"
 "PO-Revision-Date: 2015-02-10 19:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "forumprofiel"
 msgid "Link"
 msgstr "Link"
 
-#: forms/fields.py:15
+#: forms/fields.py:16
 msgid "Enter a valid url"
 msgstr "Geef een geldige url op"
 

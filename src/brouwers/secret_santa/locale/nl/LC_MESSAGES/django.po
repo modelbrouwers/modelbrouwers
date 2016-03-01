@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 08:56+0200\n"
+"POT-Creation-Date: 2016-03-01 19:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sergei Maertens <sergei@modelbrouwers.nl>\n"
 "Language-Team: nl <sergei@modelbrouwers.nl>\n"
@@ -202,18 +202,18 @@ msgstr "De lootjes kunnen pas vanaf %(date)s verdeeld worden."
 msgid "Done already!"
 msgstr "Is al gebeurd!"
 
-#: views.py:76
+#: views.py:78
 msgid "The lottery is done."
 msgstr "De lootjes zijn verdeeld."
 
-#: views.py:93
+#: views.py:98
 msgid "Your match does not exist."
 msgstr "Je Secret Santa bestaat niet. Paniek!"
 
-#: views.py:95
+#: views.py:100
 msgid "You're not a participant!"
 msgstr "Je bent niet ingeschreven!"
 
-#: views.py:97
+#: views.py:102
 msgid "You can't view the lottery results yet."
 msgstr "De lootjesverdeling is nog niet beschikbaar."
