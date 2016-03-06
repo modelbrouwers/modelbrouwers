@@ -18,7 +18,7 @@ class ScaleAdmin(admin.ModelAdmin):
 
 @admin.register(ModelKit)
 class ModelKitAdmin(admin.ModelAdmin):
-    list_display = ('name', 'brand', 'scale')
+    list_display = ('name', 'brand', 'scale', 'box_image')
     list_filter = ('brand', 'scale')
     search_fields = ('name', 'kit_number')
     raw_id_fields = ('submitter',)
