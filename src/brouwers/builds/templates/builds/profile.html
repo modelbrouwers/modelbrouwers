@@ -1,0 +1,25 @@
+{% extends "builds/build_list.html" %}
+{% load i18n %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {% blocktrans with user=builds_user.username %}{{ user }}'s builds{% endblocktrans %}
+        <span class="pull-right">
+            <i class="fa fa-cubes"></i>
+            <i class="fa fa-user fa-2x"></i>
+        </span>
+    </h1>
+
+    <p>{% blocktrans with user=builds_user.username %}
+        This is an overview of all the builds by {{ user }}.
+    {% endblocktrans %}</p>
+{% endblock %}
+
+
+{% block builds-nav-left %}
+    <a href="{% url 'builds:index' %}" class="btn bg-main-blue">&lt; {% trans "back to overview" %}</a>
+{% endblock %}
+
+
+{% block h2 %}{% trans "Builds" %}{% endblock h2 %}

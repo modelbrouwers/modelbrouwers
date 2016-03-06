@@ -43,7 +43,7 @@ def enroll(request):
                 messages.error(request, _("Your address details are incomplete."))
         else:
             messages.error(request, _("Signing up is not possible at this time."))
-    return HttpResponseRedirect(reverse(index))
+    return HttpResponseRedirect(reverse('secret_santa:index'))
 
 
 @user_passes_test(lambda u: u.is_authenticated() and u.is_staff, login_url='/login/')
@@ -76,7 +76,7 @@ def lottery(request):
         secret_santa.save()
         secret_santa.do_mailing()
         messages.success(request, _("The lottery is done."))
-    return HttpResponseRedirect(reverse(index))
+    return HttpResponseRedirect(reverse('secret_santa:index'))
 
 
 @login_required
@@ -100,4 +100,4 @@ def receiver(request):
             messages.info(request, _("You're not a participant!"))
     else:
         messages.info(request, _("You can't view the lottery results yet."))
-    return HttpResponseRedirect(reverse(index))
+    return HttpResponseRedirect(reverse('secret_santa:index'))

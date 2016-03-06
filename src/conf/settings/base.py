@@ -172,6 +172,7 @@ TEMPLATES = [
 # MIDDLEWARE
 #
 MIDDLEWARE_CLASSES = [
+    'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -231,6 +232,7 @@ INSTALLED_APPS = [
     'brouwers.forum_tools',
     'brouwers.general',
     'brouwers.groupbuilds',
+    'brouwers.kits',
     'brouwers.kitreviews',
     'brouwers.migration',
     'brouwers.online_users',
@@ -352,3 +354,14 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+#
+# PHPBB
+#
+PHPBB_POSTS_PER_PAGE = 10
+
+# SECURITY
+#
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True

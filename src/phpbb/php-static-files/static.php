@@ -6,65 +6,88 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'cache.php';
 require_once $settings->COMPOSER_AUTOLOADER;
 require_once $settings->PROJECT_DIR . DIRECTORY_SEPARATOR . 'errorhandler.php';
 
-// initialize the cache
-// $cache = new StaticCache();
-// $cache->init();
 
-class FileSystemStorage
+class StaticFilesStorage
 {
+
+	protected $base_location = null;
+	protected $location = null;
+	protected $base_url = null;
+
+	protected $systemjs_output_dir;
+
 	public function __construct() {
 		global $settings;
-		$this->static_url = $settings->STATIC_URL;
-		$this->static_root = $settings->STATIC_ROOT;
+		$this->location = $this->base_location = $settings->STATIC_ROOT;
+		$this->base_url = $settings->STATIC_URL;
+		$this->systemjs_output_dir = $settings->SYSTEMJS_OUTPUT_DIR;
 	}
 
 	/**
 	 * Get the url to the static file, either from cache or calculate the hashed path.
 	 */
 	public function url($file) {
-		return $this->static_url . $file;
+		return $this->base_url . $file;
+	}
+
+	public function get_location() {
+		return $this->location;
+	}
+
+	public function get_base_url() {
+		return $this->base_url;
+	}
+
+	public function get_systemjs_output_dir() {
+		return $this->systemjs_output_dir;
+	}
+
+	public function system_import($appOrArray) {
+
+		if (!is_array($appOrArray)) {
+			$apps = array($appOrArray);
+		} else {
+			$apps = $appOrArray;
+		}
+
+		if ($this->DEBUG) {
+			$imports = array_reduce($apps, function($reduced, $app) {
+				$reduced .= "\tSystem.import('{$app}');\n";
+				return $reduced;
+			}, '');
+			return "<script type=\"text/javascript\">\n". $imports . "</script>";
+		} else {
+			return $this->getBundleScripts($apps);
+		}
+	}
+
+	protected function getBundleScripts($apps) {
+		$imports = '';
+		foreach ($apps as $app) {
+			$filename = $this->systemjs_output_dir . DIRECTORY_SEPARATOR . $app;
+			$url = $this->url($filename);
+			$imports .= "\n" . "<script type=\"text/javascript\" src=\"{$url}\"></script>";
+		}
+		return $imports;
 	}
 }
 
 
 /**
- * This class builds the hashed filenames similar to Django's cached storage.
- * Because PHP is a lot dumber and I don't want to spend too much effort,
- * we assume Django's collectstatic has been run and the files are present.
- * For when a file is thus requested, we calculate the hash and cache it in
- * Memcached. If the hashed file doesn't exist, return the unchanged URL.
- * Django updates the cached filenames as part of the collectstatic command.
+ * Utility class to inject in the FileSystemStorage class. This takes care of
+ * computing/retrieving hashes to files. It's a workaround for mixins...
  */
-class CachedFilesStorage extends FileSystemStorage
+class HashUtility
 {
-	protected $static_root;
-	protected $static_url;
-	protected $cache_key_prefix;
-	protected $systemjs_output_dir;
+	protected $storage = null;
 
-	protected $cache = null;
-	protected $DEBUG;
-
-	public function __construct($cache) {
-		parent::__construct();
-		global $settings;
-		$this->cache_key_prefix = 'staticfiles:';
-		$this->cache = $cache;
-		$this->DEBUG = (bool) getenv('DEBUG');
-		$this->systemjs_output_dir = $settings->SYSTEMJS_OUTPUT_DIR;
+	public function __construct($storage) {
+		$this->storage = $storage;
 	}
 
-	protected function get_static_root() {
-		return $this->static_root;
-	}
-
-	protected function get_static_url() {
-		return $this->static_url;
-	}
-
-	protected function get_hashed_name($file) {
-		if($this->DEBUG) return $file;
-		$abs_path = realpath($this->get_static_root() . DIRECTORY_SEPARATOR . $file);
+	public function get_hashed_name($file) {
+		if($this->storage->DEBUG) return $file;
+		$abs_path = realpath($this->storage->get_location() . DIRECTORY_SEPARATOR . $file);
 
 		$pathinfo = pathinfo($file);
 		$dirname = $pathinfo['dirname'];
@@ -77,6 +100,33 @@ class CachedFilesStorage extends FileSystemStorage
 		$hashed_filename = $filename . '.' . $hash . '.' . $extension;
 		$result = $dirname . DIRECTORY_SEPARATOR. $hashed_filename;
 		return $result;
+	}
+}
+
+
+/**
+ * This class builds the hashed filenames similar to Django's cached storage.
+ * Because PHP is a lot dumber and I don't want to spend too much effort,
+ * we assume Django's collectstatic has been run and the files are present.
+ * For when a file is thus requested, we calculate the hash and cache it in
+ * Memcached. If the hashed file doesn't exist, return the unchanged URL.
+ * Django updates the cached filenames as part of the collectstatic command.
+ */
+class CachedFilesStorage extends StaticFilesStorage
+{
+	protected $base_url;
+	protected $cache_key_prefix;
+
+	protected $cache = null;
+	protected $DEBUG;
+
+	public function __construct($cache) {
+		parent::__construct();
+		global $settings;
+		$this->cache_key_prefix = 'staticfiles:';
+		$this->cache = $cache;
+		$this->DEBUG = (bool) getenv('DEBUG');
+		$this->hash_utility = new HashUtility($this);
 	}
 
 	/**
@@ -95,51 +145,44 @@ class CachedFilesStorage extends FileSystemStorage
 		$hashed_name = ($this->DEBUG) ? false : $this->cache->get($cache_key);
 
 		if($hashed_name === false) {
-			$hashed_name = $this->get_hashed_name($file);
+			$hashed_name = $this->hash_utility->get_hashed_name($file);
 			if(!$this->DEBUG) $this->cache->set($cache_key, $hashed_name);
 		}
-		return $this->get_static_url() . $hashed_name;
-	}
-
-	protected function getBundleScripts($apps) {
-		$imports = '';
-		foreach ($apps as $app) {
-			$filename = $this->systemjs_output_dir . '/' . $app;
-			$url = $this->url($filename);
-			$imports .= "\n" . "<script type=\"text/javascript\" src=\"{$url}\"></script>";
-		}
-		return $imports;
-	}
-
-	public function system_import($appOrArray) {
-		if (!is_array($appOrArray)) {
-			$apps = array($appOrArray);
-		} else {
-			$apps = $appOrArray;
-		}
-
-		if ($this->DEBUG) {
-			$imports = array_reduce($apps, function($reduced, $app) {
-				$reduced .= "\tSystem.import('{$app}');\n";
-				return $reduced;
-			}, '');
-			return "<script type=\"text/javascript\">\n". $imports . "</script>";
-		} else {
-			return $this->getBundleScripts($apps);
-		}
+		return $this->base_url . $hashed_name;
 	}
 }
 
-/**
- * Combines an array of static files into one (minified) file.
- * Similar to the 'compress' tag.
- */
-class CombinedStaticFilesStorage extends CachedFilesStorage
-{
+
+class Compressor {
+
 	protected $CACHE_DIR = 'PHP_CACHE';
 
+	protected $storage;
+
+	public function __construct($storage) {
+		$this->storage = $storage;
+	}
+
+	/**
+	 *  Used in DEBUG mode: return the files as separete <script> entries, no
+	 *  compressing is done.
+	 */
+	public function uncompressed($files, $ext) {
+		$base_url = $this->storage->get_base_url();
+		$urls = array_map(function($path) use ($base_url) {
+			return $base_url . $path;
+		}, $files);
+
+		if ($ext == 'js') {
+			$glue = "\"></script>\n<script src=\"";
+			return implode($glue, $urls);
+		} else {
+			return '';
+		}
+	}
+
 	protected function get_cache_dir() {
-		$dirname = $this->get_static_root() . DIRECTORY_SEPARATOR . $this->CACHE_DIR;
+		$dirname = $this->storage->get_location() . DIRECTORY_SEPARATOR . $this->CACHE_DIR;
 		if (!is_dir($dirname)) {
 			mkdir($dirname);
 			chmod($dirname, 0755);
@@ -147,28 +190,7 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 		return $dirname;
 	}
 
-	public function url($files, $ext='js') {
-
-		if ($this->DEBUG) {
-			$static_url = $this->get_static_url();
-			$urls = array_map(function($path) use ($static_url) {
-				return $static_url . $path;
-			}, $files);
-			if ($ext == 'js') {
-				$glue = "\"></script>\n<script src=\"";
-				return implode($glue, $urls);
-			}
-		}
-
-		$root = $this->get_static_root();
-		$file_paths = array();
-		$_output = array();
-
-		// calculate all the file hashes to definitely use the latest file
-		foreach ($files as $file) {
-			$filename = $root . DIRECTORY_SEPARATOR . $this->get_hashed_name($file);
-			$file_paths[] = $filename;
-		}
+	public function compress($file_paths, $ext) {
 		$md5_result = md5(implode("::", $file_paths));
 		$destDir = $this->get_cache_dir();
 		$dest_file = $destDir . DIRECTORY_SEPARATOR . $md5_result.'.'.$ext;
@@ -184,17 +206,144 @@ class CombinedStaticFilesStorage extends CachedFilesStorage
 			file_put_contents($dest_file, $output);
 		}
 
-		$url = substr($dest_file, strlen($root)+1);
-		return $this->get_static_url().$url;
+		return substr($dest_file, strlen($this->storage->get_location())+1);
+	}
+
+	public function getBundleScripts($apps) {
+		$filenames = array();
+		$combinedUrl = $this->storage->url($apps, $ext='js');
+		return "<script type=\"text/javascript\" src=\"{$combinedUrl}\"></script>";
+	}
+}
+
+/**
+ * Combines an array of static files into one (minified) file.
+ * Similar to the 'compress' tag.
+ */
+class CombinedCachedStaticFilesStorage extends CachedFilesStorage
+{
+	public function __construct($cache) {
+		parent::__construct($cache);
+		$this->compressor = new Compressor($this);
+	}
+
+	public function url($files, $ext='js') {
+
+		if ($this->DEBUG) {
+			return $this->compressor->uncompressed($files, $ext);
+		}
+
+		$file_paths = array();
+		$_output = array();
+
+		// calculate all the file hashes to definitely use the latest file
+		foreach ($files as $file) {
+			$filename = $this->location . DIRECTORY_SEPARATOR . $this->hash_utility->get_hashed_name($file);
+			$file_paths[] = $filename;
+		}
+
+		$url = $this->compressor->compress($file_paths, $ext);
+		return $this->base_url . $url;
 	}
 
 	protected function getBundleScripts($apps) {
-		$filenames = array();
-		foreach ($apps as $app) {
-			$filenames[] = $this->systemjs_output_dir . '/' . $app;
+		return $this->compressor->getBundleScripts($apps);
+	}
+}
+
+
+class ManifestStaticFilesStorage extends StaticFilesStorage
+{
+
+	protected $manifest_name = 'staticfiles.json';
+	protected $hashed_files = null;
+
+	public function __construct() {
+		parent::__construct();
+		$this->hashed_files = $this->loadManifest();
+	}
+
+	protected function loadManifest() {
+		// speed up: cache this in memcached?
+		$content = $this->readManifest();
+		if ($content === null) {
+			return array();
 		}
-		$combinedUrl = $this->url($filenames, $ext='js');
-		return "<script type=\"text/javascript\" src=\"{$combinedUrl}\"></script>";
+		$stored = json_decode($content, true);
+		$version = $stored['version'];
+		if ($version == '1.0') {
+			return $stored['paths'] ?: array();
+		}
+		throw new Exception("Couldn't load manifest - unknown version {$version}");
+	}
+
+	protected function readManifest() {
+		$path = $this->location . DIRECTORY_SEPARATOR . $this->manifest_name;
+		$content = file_get_contents($path);
+		return $content;
+	}
+
+	public function url($file) {
+		if ($this->DEBUG) return $this->base_url . $file;
+		return $this->base_url . $this->getStoredName($file);
+	}
+
+	protected function getStoredName($file) {
+		return $this->hashed_files[$file] ?: null;
+	}
+}
+
+
+class CombinedManifestStaticFilesStorage extends ManifestStaticFilesStorage
+{
+	protected $cache_key_prefix;
+
+	public function __construct() {
+		parent::__construct();
+		$this->hash_utility = new HashUtility($this);
+		$this->compressor = new Compressor($this);
+		$this->cache = new StaticCache();
+		$this->cache_key_prefix = 'php:staticfiles:';
+	}
+
+	public function url($files, $ext='js') {
+
+		if ($this->DEBUG) {
+			return $this->compressor->uncompressed($files, $ext);
+		}
+
+		$file_paths = array();
+		$_output = array();
+
+		// calculate all the file hashes to definitely use the latest file
+		foreach ($files as $file) {
+			$hashed = $this->getStoredName($file) ?: $file;
+			$filename = $this->location . DIRECTORY_SEPARATOR . $hashed;
+			$file_paths[] = $filename;
+		}
+
+		$url = $this->compressor->compress($file_paths, $ext);
+		return $this->base_url . $url;
+	}
+
+	protected function getBundleScripts($apps) {
+
+		$key = $this->cache_key_prefix . md5(serialize($apps));
+		$result = $this->cache->get($key);
+
+		if ($result === false) {
+			foreach ($apps as &$app) {
+				// $this->getStoredName yields the hash as generated by collectstatic
+				// this is different from the bundled hash
+				$app = $this->systemjs_output_dir . DIRECTORY_SEPARATOR . $app;
+				$app = $this->hash_utility->get_hashed_name($app);
+			}
+			unset($app);
+			$result = $this->compressor->getBundleScripts($apps);
+			$this->cache->set($key, $result, 60*60*3); // cache for 3 hours
+		}
+
+		return $result;
 	}
 }
 

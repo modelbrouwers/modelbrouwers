@@ -1,0 +1,95 @@
+{% extends "horizontal.form" %}{% load sniplates i18n thumbnail %}
+
+
+{% block BuildPhotoInput %}
+<div class="form-group">
+    <label id="label_{{ id_for_label }}" for="{{ id }}" class="control-label {{ required|yesno:"required," }}">{{ label }}</label>
+    {% if help_text %}<div class="input-group">{% endif %}
+    {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
+    {% reuse '_input' %}
+    {% endwith %}
+    {% reuse "_help" %}
+    {% if help_text %}</div>{% endif %}
+    {% reuse "_errors" %}
+</div>
+{% endblock %}
+
+
+{% block CheckboxInput_DELETE %}
+<div class="form-group DELETE">
+    <div class="checkbox">
+        <input name="{{ html_name }}" id="{{ id }}" type="checkbox" {{ raw_value|yesno:'checked,' }}>
+        <label for="{{ form_field.id_for_label }}" class="{{ css_classes }}">
+            <i class="fa fa-times fa-lg"></i>
+        </label>
+        <div class="delete-backdrop"></div>
+        {% reuse '__help' %}
+    </div>
+    {% reuse '_errors' %}
+</div>
+{% endblock %}
+
+
+Button to show/hide album/photo chooser
+{% block PhotoPickerButton %}
+<button class="btn bg-main-orange" data-target="#photo-picker">{% trans "Browse albums" %}</button>
+{% endblock %}
+
+AlbumCarousel
+{% block PhotoPicker %}
+<div id="photo-picker" class="hidden">
+    <label><strong>{% trans "Pick an album first" %}</strong></label>
+    <div class="carousel slide carousel-album" data-interval="false" id="carousel-album">
+        <!-- Carousel items container -->
+        <div class="carousel-inner">
+            <div class="text-center"><i class="fa fa-pulse fa-spinner fa-4x"></i></div>
+        </div>
+
+        <a class="left carousel-control" href="#carousel-album" role="button" data-slide="prev">
+            <i class="fa fa-arrow-left fa-2x"></i>
+        </a>
+        <a class="right carousel-control" href="#carousel-album" role="button" data-slide="next">
+            <i class="fa fa-arrow-right fa-2x"></i>
+        </a>
+    </div>
+
+    <label><strong>{% trans "Select your photos" %}</strong></label>
+    <div class="row photo-list hidden">
+        <div class="text-center"><i class="fa fa-pulse fa-spinner fa-4x"></i></div>
+    </div>
+</div>
+<hr>
+{% endblock %}
+
+
+{% block BuildPhotoForm %}
+{% reuse 'non_field_errors' form=form %}
+<div class="formset-form">
+
+    {% form_field form.id %}
+    {% form_field form.build %}
+    {% form_field form.order %}
+
+    {% form_field form.DELETE %}
+
+    <span class="album">
+        {% form_field form.photo %}
+    </span>
+    <span class="url">
+        {% form_field form.photo_url ':BuildPhotoInput' %}
+    </span>
+
+    <div class="preview {{ form.instance.pk|yesno:',hidden' }}">
+        <figure class="thumbnail">
+        {% if form.instance.pk %}
+            {% thumbnail form.instance.image "1024" as im %}
+                <img src="{{ im.url }}" class="img-responsive">
+            {% endthumbnail %}
+        {% else %}
+            <img src="#" class="img-responsive">
+        {% endif %}
+        </figure>
+    </div>
+
+</div>
+{% endblock %}

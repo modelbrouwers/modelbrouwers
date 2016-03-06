@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 08:56+0200\n"
-"PO-Revision-Date: 2015-08-25 09:01+0020\n"
+"POT-Creation-Date: 2016-03-01 19:23+0100\n"
+"PO-Revision-Date: 2016-03-01 22:45+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Translated-Using: django-rosetta 0.7.6\n"
+"X-Translated-Using: django-rosetta 0.7.8\n"
 
-#: apps.py:7 templates/albums/base.html:3 templates/albums/base.html.py:14
+#: apps.py:7 templates/albums/base.html.py:3 templates/albums/base.html.py:14
 #: templates/albums/handlebars/forum-sidebar.hbs:14
 msgid "Albums"
 msgstr "Albums"
@@ -27,6 +27,10 @@ msgstr "Albums"
 #: forms.py:26
 msgid "image url"
 msgstr "link naar afbeelding"
+
+#: forms.py:52 tests/test_crud.py:61
+msgid "You already have an album with this title."
+msgstr "Je hebt al een album met deze titel."
 
 #: migrations/0002_auto_20150608_0900.py:11
 msgid "Black"
@@ -207,7 +211,7 @@ msgstr "beschrijving"
 msgid "Photo"
 msgstr "Foto"
 
-#: models.py:192 templates/albums/handlebars/forum-sidebar.hbs:24
+#: models.py:192 templates/albums/handlebars/forum-sidebar.hbs.py:24
 msgid "Photos"
 msgstr "Foto's"
 
@@ -318,7 +322,7 @@ msgstr ""
 "\n"
 "Maak hier een nieuw album aan. De standaardinstellingen zijn zo dat je album persoonlijk is en dat niemand anders bestanden kan toevoegen aan jouw album. Je kan echter wel rechten instellen zodat anderen toegang hebben tot je album."
 
-#: templates/albums/album/create.html:32 templates/albums/base.html:31
+#: templates/albums/album/create.html:32 templates/albums/base.html.py:31
 #: templates/albums/upload.html:25
 msgid "Create album"
 msgstr "Maak nieuw album"
@@ -384,7 +388,7 @@ msgstr ""
 "\n"
 "De 'BrouwersAlbums' is een plek waar je je eigen, persoonlijke albums kan aanmaken en foto's kan uploaden. De hoeveelheid albums of foto's is onbeperkt."
 
-#: templates/albums/base.html:30 templates/albums/upload.html:85
+#: templates/albums/base.html:30 templates/albums/upload.html.py:85
 msgid "Upload"
 msgstr "Uploaden"
 
@@ -420,7 +424,6 @@ msgid "Edit album"
 msgstr "Album bewerken"
 
 #: templates/albums/includes/photo_thumb.html:14
-#| msgid "set as album cover"
 msgid "Set as cover"
 msgstr "instellen als albumcover"
 
@@ -447,16 +450,12 @@ msgstr "Recent gewijzigde albums"
 msgid "Latest uploads"
 msgstr "Laatste uploads"
 
-#: templates/albums/my_albums.html:6 templates/albums/sniplates.html:21
+#: templates/albums/my_albums.html:6 templates/albums/sniplates.html.py:21
 msgid "My albums"
 msgstr "Mijn albums"
 
 #: templates/albums/my_albums.html:11
 #, python-format
-#| msgid ""
-#| "\n"
-#| "        You can manage your own albums and the albums that you have access to here.\n"
-#| "    "
 msgid ""
 "\n"
 "        You can manage your own albums and the albums that you have access to here. Use this link to share your overview: <a href=\"%(share_url)s\">my profile</a>.\n"
@@ -609,7 +608,6 @@ msgid "Uploader"
 msgstr "Uploader"
 
 #: templates/albums/preferences_form.html:28
-#| msgid "Forum sidebar: visibility"
 msgid "Forum sidebar"
 msgstr "Forum zijbalk"
 
@@ -714,17 +712,17 @@ msgstr ""
 msgid "You need to create an album before you can upload photos"
 msgstr "Je moet een album aanmaken voor je foto's kan uploaden"
 
-#: views/edit.py:84
+#: views/edit.py:89
 #, python-brace-format
 msgid "The album was deleted. <a href=\"{0}\">Undo</a>"
 msgstr "Het album werd verwijdered. <a href=\"{0}\">Ongedaan maken</a>"
 
-#: views/edit.py:134
+#: views/edit.py:139
 #, python-brace-format
 msgid "The photo was deleted. <a href=\"{0}\">Undo</a>"
 msgstr "De foto werd verwijdered. <a href=\"{0}\">Ongedaan maken</a>"
 
-#: views/edit.py:165
+#: views/edit.py:170
 msgid "The changes have been saved."
 msgstr "De wijzigingen zijn toegepast."
 

@@ -1,0 +1,27 @@
+{% load thumbnail %}
+<div class="kit">
+
+    <div class="row">
+
+        <h2 class="col-md-8">
+            {% if kit.brand %}
+                {% if kit.brand.logo %}
+                    {% thumbnail kit.brand.logo '100x100' as im %}
+                        <img src="{{ im.url }}" alt="logo-{{ kit.brand.slug }}" title="{{ kit.brand.name }}">
+                    {% endthumbnail %}
+                {% else %}
+                    <small>{{ kit.brand.name }}</small>
+                {% endif %}
+            {% endif %}
+            {{ kit.name }}
+        </h2>
+
+        <h2 class="col-md-4 text-right">
+            {% if kit.scale %}
+                <small>{{ kit.scale }}</small>
+            {% endif %}
+        </h2>
+
+    </div>
+
+</div>

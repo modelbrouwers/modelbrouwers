@@ -1,6 +1,6 @@
 {
   "name": "modelbrouwers",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Bundle for Modelbrouwers.nl community website",
   "main": "index.js",
   "scripts": {
@@ -36,19 +36,26 @@
     "configFile": "src/static/config.js",
     "dependencies": {
       "URIjs": "npm:URIjs@^1.15.1",
+      "aurelia-http-client": "npm:aurelia-http-client@^1.0.0-beta.1",
+      "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1",
+      "aurelia-pal-browser": "npm:aurelia-pal-browser@^1.0.0-beta.1",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
       "css": "github:systemjs/plugin-css@^0.1.13",
       "handlebars": "github:components/handlebars.js@2.0.0",
       "jquery": "github:components/jquery@^2.1.4",
       "jquery-ui": "github:components/jqueryui@^1.11.4",
+      "json": "github:systemjs/plugin-json@^0.1.0",
       "perfect-scrollbar": "npm:perfect-scrollbar@^0.6.2",
+      "ponyjs": "github:sergei-maertens/django-ponyjs@0.0.5",
       "q": "npm:q@^2.0.3",
-      "string.prototype.startswith": "npm:string.prototype.startswith@^0.2.0"
+      "string.prototype.startswith": "npm:string.prototype.startswith@^0.2.0",
+      "typeahead": "github:twitter/typeahead.js@^0.11.1",
+      "url": "github:jspm/nodelibs-url@^0.1.0"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "core-js": "npm:core-js@^1.1.4"
+      "core-js": "npm:core-js@^1.2.6"
     }
   }
 }

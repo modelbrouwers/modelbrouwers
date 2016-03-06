@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 08:56+0200\n"
+"POT-Creation-Date: 2016-03-01 19:23+0100\n"
 "PO-Revision-Date: 2015-07-18 21:35+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,7 +56,7 @@ msgstr "naam model"
 msgid "brand"
 msgstr "merk"
 
-#: models.py:18
+#: models.py:19
 msgid "scale"
 msgstr "schaal"
 
@@ -66,133 +66,132 @@ msgstr ""
 "Voeg het getal na de \"1:\" of \"1/\" toe. Bijvoorbeeld \"1/48\" --> vul 48 "
 "in."
 
-#: models.py:20
+#: models.py:21
 msgid "remarkable elements"
 msgstr "bijzonderheden"
 
-#: models.py:21
+#: models.py:22
 msgid ""
 "Add the features that make this model special here, e.g. \"scratch built "
 "cockpit\""
 msgstr "Voeg de bijzonderheden toe, bijvoorbeeld 'piloot 100% scratch'"
 
-#: models.py:23
+#: models.py:24
 msgid "topic url"
 msgstr "topiclink"
 
-#: models.py:27
+#: models.py:28
 msgid "length"
 msgstr "lengte"
 
-#: models.py:27 models.py:28 models.py:29
+#: models.py:28 models.py:29 models.py:30
 msgid "In cm."
 msgstr "In centimer."
 
-#: models.py:28
+#: models.py:29
 msgid "width"
 msgstr "breedte"
 
-#: models.py:29
+#: models.py:30
 msgid "height"
 msgstr "hoogte"
 
-#: models.py:33 models.py:76
+#: models.py:35 models.py:81
 msgid "competition"
 msgstr "wedstrijd"
 
-#: models.py:34
+#: models.py:36
 msgid "enter competition?"
 msgstr "inschrijven voor de wedstrijd?"
 
-#: models.py:35
+#: models.py:37
 msgid "competition fee paid?"
 msgstr "inschrijvingsgeld betaald?"
 
-#: models.py:38
+#: models.py:40
 msgid "added"
 msgstr "toegevoegd"
 
-#: models.py:41
+#: models.py:43
 msgid "showcased model"
 msgstr "tentoongesteld model"
 
-#: models.py:42
+#: models.py:44
 msgid "showcased models"
 msgstr "tentoongestelde modellen"
 
-#: models.py:64 models.py:98 models.py:114
+#: models.py:66 models.py:103 models.py:119
 msgid "name"
 msgstr "naam"
 
-#: models.py:65
+#: models.py:67
 msgid "price per model"
 msgstr "prijs per model"
 
-#: models.py:67
+#: models.py:70
 msgid "models per participant"
 msgstr "modellen per deelnemer"
 
-#: models.py:68
+#: models.py:71
 msgid "Maximum number of models per participant, enter 0 for unlimited."
 msgstr "Maximum aantal modellen per deelnemer, vul 0 in voor ongelimiteerd."
 
-#: models.py:69
+#: models.py:73
 msgid "maximum number of participants"
 msgstr "maximum aantal deelnemers"
 
-#: models.py:70
+#: models.py:74
 msgid "Maximum number of participants, enter 0 for unlimited."
 msgstr "Maximum aantal deelnemers, vul 0 in voor ongelimiteerd."
 
-#: models.py:72
+#: models.py:77
 msgid "current open competition?"
 msgstr "huidige open wedstrijd?"
 
-#: models.py:73
+#: models.py:78
 msgid ""
 "Marking this competition as active will deactivate all other competitions."
 msgstr ""
 "Het markeren van de wedstrijd als 'huidige' zal alle andere wedstrijden als "
 "inactief markeren."
 
-#: models.py:77
+#: models.py:82
 msgid "competitions"
 msgstr "wedstrijden"
 
-#: models.py:99
+#: models.py:104
 msgid "date"
 msgstr "datum"
 
-#: models.py:105
+#: models.py:110
 msgid "brouwersdag"
 msgstr "brouwersdag"
 
-#: models.py:106
+#: models.py:111
 msgid "brouwersdagen"
 msgstr "brouwersdagen"
 
-#: models.py:115
+#: models.py:120
 msgid "website"
 msgstr "website"
 
-#: models.py:118
+#: models.py:124
 msgid "space needed"
 msgstr "benodigde ruimte"
 
-#: models.py:119
+#: models.py:125
 msgid "Amount of space needed. 100 characters or less."
 msgstr "Benodigde ruimte, 100 of minder karakters."
 
-#: models.py:122
+#: models.py:128
 msgid "exhibitor"
 msgstr "exposant"
 
-#: models.py:123
+#: models.py:129
 msgid "exhibitors"
 msgstr "exposanten"
 
-#: templates/brouwersdag/base.html:3
-#: templates/brouwersdag/model_signup.html:10
+#: templates/brouwersdag/base.html:3 templates/brouwersdag/model_signup.html:10
 #: templates/brouwersdag/model_signup.html:34
 #, python-format
 msgid "Brouwersdag %(year)s"

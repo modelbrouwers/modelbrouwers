@@ -1,0 +1,14 @@
+{% load i18n handlebars staticfiles %}
+{% hbs_verbatim %}
+{{#each photos}}
+<div class="col-sm-6 col-md-3">
+    <input type="checkbox" name="build-photo-{{id}}" id="id_build-photo-{{id}}" data-id="{{id}}">
+    <label for="id_build-photo-{{id}}">
+        <figure class="thumbnail album-photo">
+            <img src="{{image.thumb}}" alt="{{description}}" data-large="{{image.large}}">
+        </figure>
+    </label>
+    <i class="fa fa-check fa-3x"></i>
+</div>
+{{/each}}
+{% hbs_endverbatim %}

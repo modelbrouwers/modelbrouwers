@@ -14,6 +14,9 @@ services:
   # - redis-server
   # - elasticsearch
 
+env:
+  - DJANGO_SETTINGS_MODULE=conf.settings.travis
+
 install:
   - pip install --upgrade setuptools pip
   - pip install -r requirements/travis.txt --cache-dir $HOME/.pip-cache
@@ -25,11 +28,11 @@ before_script:
   - bower install
   - jspm config registries.github.auth $GITHUBTOKEN
   - jspm install
-  - src/manage.py collectstatic --noinput --link --settings=conf.settings.travis
-  - src/manage.py systemjs_bundle --settings=conf.settings.travis
+  - src/manage.py collectstatic --noinput --link
+  - src/manage.py systemjs_bundle
 
 script:
-  - coverage run src/manage.py test src/ --settings=conf.settings.travis -v 2
+  - coverage run src/manage.py test src  -v 2
 
 after_success:
   - coveralls

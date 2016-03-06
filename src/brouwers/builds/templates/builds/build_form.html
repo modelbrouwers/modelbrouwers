@@ -1,0 +1,76 @@
+{% extends "builds/base.html" %}{% load i18n sniplates %}
+
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Add a new build" %}
+        <i class="pull-right fa fa-cube fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        By adding new builds to your profile, all your creations are easily
+        retrieved without having to dig through the entire forum.
+    {% endblocktrans %}</p>
+{% endblock %}
+
+
+{% block builds-nav-left %}
+    <a href="{% url 'builds:index' %}" class="btn bg-main-blue">{% trans "Cancel" %}</a>
+{% endblock %}
+
+
+{% block content %}
+<form action="." method="post">{% csrf_token %}
+	{% load_widgets form='builds/forms.html' %}
+	{% load_widgets kits='kits/widgets.html' %}
+	{% with label_grid_offset='col-sm-offset-2' %}
+
+		{% widget 'form:non_field_errors' %}
+
+		{{ photos.management_form }}
+
+		<fieldset class="well form-horizontal">
+			{% form_field form.title %}
+			{% form_field form.topic %}
+			{% form_field form.topic_start_page %}
+			{% form_field form.start_date %}
+			{% form_field form.end_date %}
+		</fieldset>
+
+		<h2>{% trans "Used kit(s)" %}</h2>
+        <p class="text-muted">
+        {% blocktrans %}You can select kits from our database here. Use the
+        dropdowns to narrow your search. If your kit isn't in our database yet,
+        you can add it yourself!{% endblocktrans %}
+        </p>
+        <fieldset class="well form-horizontal">
+			{% form_field form.kits widget='kits:ModelKitSelect' label=_('Select a kit') %}
+		</fieldset>
+
+		<h2>
+            {% trans "Photos" %} &bull;
+            {% widget 'form:PhotoPickerButton' %} &bull;
+            <button class="btn bg-main-orange" id="add-url-photo">{% trans "Add URL" %}</button>
+        </h2>
+        {% widget 'form:PhotoPicker' %}
+        <h3>{% trans "Previews" %}</h3>
+		<fieldset class="well">
+            {% with formset=photos %}
+                {% widget 'form:non_form_errors' %}
+
+                {% for form in formset %}
+                    {% widget 'form:BuildPhotoForm' counter=forloop.counter %}
+                {% endfor %}
+
+                <div id="empty-form">
+                    {% widget 'form:BuildPhotoForm' form=photos.empty_form counter='__prefix__' %}
+                </div>
+
+            {% endwith %}
+        </fieldset>
+
+        {% widget 'form:submit' btn_text=btn_text|default:_('Add build') %}
+    {% endwith %}
+
+</form>
+{% endblock %}
