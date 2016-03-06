@@ -30,8 +30,11 @@ class Command(BaseCommand):
         for infile in options['zip']:
             zipfile = ZipFile(infile)
             for name in zipfile.namelist():
+                bits = os.path.splitext(name)
+                bits = bits[0], bits[-1].lower()  # normalize extension
+                _name = ''.join(bits)
                 try:
-                    photo = deleted[name]
+                    photo = deleted[_name]
                 except KeyError:
                     self.stdout.write('Skipping %s: photo file exists' % name)
                     continue
@@ -42,7 +45,7 @@ class Command(BaseCommand):
                 with open(photo.image.path, 'w') as photo_file:
                     photo_file.write(zipfile.read(name))
 
-                del deleted[name]
+                del deleted[_name]
 
         for name, photo in deleted.items():
             self.stdout.write('Still missing: %s' % photo.image.path)
