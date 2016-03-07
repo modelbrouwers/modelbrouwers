@@ -15,7 +15,7 @@ class Brand(models.Model):
     Model for kit manufacturer.
     """
     name = models.CharField(_('brand'), max_length=100, db_index=True)
-    slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
+    slug = AutoSlugField(_('slug'), unique=True, populate_from='name', editable=True)
     logo = models.ImageField(_('logo'), upload_to='images/brand_logos/', blank=True)
     is_active = models.BooleanField(
         _('is active'), default=True, db_index=True,
@@ -69,7 +69,7 @@ class ModelKit(models.Model):
     """
     name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
     brand = models.ForeignKey('Brand', verbose_name=_('brand'))
-    slug = AutoSlugField(_('slug'), unique=True, populate_from=get_kit_slug)
+    slug = AutoSlugField(_('slug'), unique=True, populate_from=get_kit_slug, editable=True)
     kit_number = models.CharField(
         _('kit number'), max_length=50,
         blank=True, db_index=True,
