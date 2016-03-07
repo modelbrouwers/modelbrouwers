@@ -13,7 +13,7 @@ class StaticFilesStorage
 	protected $base_location = null;
 	protected $location = null;
 	protected $base_url = null;
-	protected $DEBUG = false;
+	public $DEBUG = false;
 
 	protected $systemjs_output_dir;
 
@@ -256,6 +256,7 @@ class ManifestStaticFilesStorage extends StaticFilesStorage
 
 	protected $manifest_name = 'staticfiles.json';
 	protected $hashed_files = null;
+	protected $cache = null;
 
 	public function __construct() {
 		parent::__construct();
