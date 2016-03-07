@@ -3,35 +3,32 @@
 "deps jquery";
 "exports $";
 
-'use strict';
 
+function Values(obj, prefix) {
+    Object.defineProperty(this, '__raw', {value: obj});
+    Object.defineProperty(this, '__prefix', {value: prefix});
 
-class Values {
-    constructor (obj, prefix) {
-        Object.defineProperty(this, '__raw', {value: obj});
-        Object.defineProperty(this, '__prefix', {value: prefix});
-
-        for (let key in obj) {
-            this[key] = obj[key];
-        }
-    }
-
-    stripPrefix (prefix) {
-        prefix = prefix || this.prefix;
-        for (let key in this.__raw) {
-            let newKey = key.replace(`${ prefix }-`, '');
-            delete this[key];
-            this[newKey] = this.__raw[key];
-        }
+    for (var key in obj) {
+        this[key] = obj[key];
     }
 }
+
+Values.prototype.stripPrefix = function(prefix) {
+    prefix = prefix || this.prefix;
+    for (var key in this.__raw) {
+        var _prefix = prefix + '-';
+        var newKey = key.replace(_prefix, '');
+        delete this[key];
+        this[newKey] = this.__raw[key];
+    }
+};
 
 
 /**
 * Serializes containers. Example $(".container").serializeObjectV3(); Works also with nested fields
 * => <input type="text" name="myName[1][nested]"/> output: myName: { 1 : {nested: value}}
 */
-(function () {
++(function () {
 
     var root = this,
         inputTypes = 'color,date,datetime,datetime-local,email,hidden,month,number,password,range,search,tel,text,time,url,week'.split(','),

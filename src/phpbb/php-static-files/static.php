@@ -13,11 +13,13 @@ class StaticFilesStorage
 	protected $base_location = null;
 	protected $location = null;
 	protected $base_url = null;
+	protected $DEBUG = false;
 
 	protected $systemjs_output_dir;
 
 	public function __construct() {
 		global $settings;
+		$this->DEBUG = (bool) getenv('DEBUG');
 		$this->location = $this->base_location = $settings->STATIC_ROOT;
 		$this->base_url = $settings->STATIC_URL;
 		$this->systemjs_output_dir = $settings->SYSTEMJS_OUTPUT_DIR;
@@ -118,14 +120,12 @@ class CachedFilesStorage extends StaticFilesStorage
 	protected $cache_key_prefix;
 
 	protected $cache = null;
-	protected $DEBUG;
 
 	public function __construct($cache) {
 		parent::__construct();
 		global $settings;
 		$this->cache_key_prefix = 'staticfiles:';
 		$this->cache = $cache;
-		$this->DEBUG = (bool) getenv('DEBUG');
 		$this->hash_utility = new HashUtility($this);
 	}
 
@@ -228,7 +228,6 @@ class CombinedCachedStaticFilesStorage extends CachedFilesStorage
 	}
 
 	public function url($files, $ext='js') {
-
 		if ($this->DEBUG) {
 			return $this->compressor->uncompressed($files, $ext);
 		}
@@ -307,7 +306,6 @@ class CombinedManifestStaticFilesStorage extends ManifestStaticFilesStorage
 	}
 
 	public function url($files, $ext='js') {
-
 		if ($this->DEBUG) {
 			return $this->compressor->uncompressed($files, $ext);
 		}
