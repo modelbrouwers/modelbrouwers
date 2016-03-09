@@ -518,6 +518,19 @@ body.forum .pagination > li > a > .fa {
   display: none;
 }
 
+/* line 3, ../../sass/partials/forum/_builds.scss */
+body.forum a.link-builds {
+  height: 18px;
+  overflow: visible;
+}
+/* line 8, ../../sass/partials/forum/_builds.scss */
+body.forum a.link-builds > span {
+  background: url("../images/icons/icon_builds.gif") no-repeat;
+  display: inline-block;
+  width: 70px;
+  height: 20px;
+}
+
 /* line 1, ../../sass/partials/forum/_groupbuilds.scss */
 div.gb-inset {
   padding: 10px;

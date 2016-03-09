@@ -54,6 +54,16 @@ class UserManager(BaseUserManager):
         qs = self.get_queryset().filter(username__iexact=username)
         return qs.exists()
 
+    def get_from_forum(self, forum_user):
+        try:
+            return self.get(forumuser_id=forum_user.pk)
+        except self.model.DoesNotExist:
+            user = self.get(username=forum_user.username)
+            user.forumuser_id = forum_user.pk
+            user.save()
+            return user
+        raise self.model.DoesNotExist('Could not find system user for forum user')
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """
