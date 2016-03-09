@@ -13,7 +13,7 @@ class StaticFilesStorage
 	protected $base_location = null;
 	protected $location = null;
 	protected $base_url = null;
-	protected $DEBUG = false;
+	public $DEBUG = false;
 
 	protected $systemjs_output_dir;
 
@@ -256,14 +256,23 @@ class ManifestStaticFilesStorage extends StaticFilesStorage
 
 	protected $manifest_name = 'staticfiles.json';
 	protected $hashed_files = null;
+	protected $cache = null;
 
 	public function __construct() {
 		parent::__construct();
-		$this->hashed_files = $this->loadManifest();
+		$this->cache = new StaticCache();
+		$this->cache_key_prefix = 'php:staticfiles:';
+
+		// reduce disk IO by caching stuffs
+		$key = $this->cache_key_prefix . 'manifest:hashed-files';
+		$this->hashed_files = $this->cache->get($key);
+		if (!$this->hashed_files) {
+			$this->hashed_files = $this->loadManifest();
+			$this->cache->set($key, $this->hashed_files, 60*60*3); // cache for 3 hours
+		}
 	}
 
 	protected function loadManifest() {
-		// speed up: cache this in memcached?
 		$content = $this->readManifest();
 		if ($content === null) {
 			return array();
