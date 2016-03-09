@@ -8,7 +8,7 @@ from django_webtest import WebTest
 from webtest.forms import Text
 
 from brouwers.albums.tests.factories import PhotoFactory
-from brouwers.forum_tools.tests.factories import TopicFactory
+from brouwers.forum_tools.tests.factories import ForumUserFactory, TopicFactory
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
@@ -188,3 +188,41 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
 
         self.assertEqual(page.form['title'].value, 'Dummy title')
         self.assertTrue(page.form['topic'].value.endswith('viewtopic.php?t={}'.format(topic.pk)))
+
+
+class ForumUserViewTests(WebTest):
+    """
+    Asserts that the url to view a forum users's build works as expected.
+    """
+
+    def setUp(self):
+        # user - forumuser linked by id
+        self.user = UserFactory.create()
+        self.forum_user = ForumUserFactory.create(username=self.user.username)
+        self.user.forumuser_id = self.forum_user.pk
+        self.user.save()
+
+        # user -forumuser linked by username
+        self.user2 = UserFactory.create()
+        self.forum_user2 = ForumUserFactory.create(username=self.user2.username)
+
+        # forum user without user
+        self.forum_user3 = ForumUserFactory.create()
+
+    def test_correct_redirects(self):
+
+        def get_forumuser_url(forum_user):
+            return reverse('builds:forum_user_build_list', kwargs={'pk': forum_user.pk})
+
+        def get_expected_url(user):
+            return reverse('builds:user_build_list', kwargs={'user_id': user.id})
+
+        response = self.app.get(get_forumuser_url(self.forum_user))
+        self.assertRedirects(response, get_expected_url(self.user), status_code=301)
+
+        self.assertIsNone(self.user2.forumuser_id)
+        response = self.app.get(get_forumuser_url(self.forum_user2))
+        self.assertRedirects(response, get_expected_url(self.user2), status_code=301)
+
+        # expected 404
+        self.app.get(get_forumuser_url(self.forum_user3), status=404)

@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.db.models import Prefetch
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
@@ -10,6 +11,7 @@ from extra_views import (
     UpdateWithInlinesView
 )
 
+from brouwers.forum_tools.models import ForumUser
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
 from .forms import BuildForm, BuildPhotoForm, BuildSearchForm
@@ -82,6 +84,22 @@ class ProfileRedirectView(RedirectView):
         profile_id = self.kwargs.get('profile_id', None)
         profile = get_object_or_404(UserProfile, pk=profile_id)
         return reverse('builds:user_build_list', kwargs={'user_id': profile.user.id})
+
+
+class ForumUserRedirectView(SingleObjectMixin, RedirectView):
+    """
+    Takes the forumuser pk and redirects to the associated user's profile.
+    """
+    permanent = True
+    model = ForumUser
+
+    def get_redirect_url(self, **kwargs):
+        forum_user = self.get_object()
+        try:
+            user = User.objects.get_from_forum(forum_user)
+        except User.DoesNotExist:
+            raise Http404
+        return reverse('builds:user_build_list', kwargs={'user_id': user.id})
 
 
 class PhotoInline(InlineFormSet):
