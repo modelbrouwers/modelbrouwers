@@ -3,6 +3,8 @@
 
   .add-kit {
 
+    display: none; // initially, hidden, until no search results turn up
+
     a:hover,
     a:active,
     a:focus {
