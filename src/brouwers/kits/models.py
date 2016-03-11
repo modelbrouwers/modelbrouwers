@@ -90,6 +90,7 @@ class ModelKit(models.Model):
 
     submitter = models.ForeignKey(settings.AUTH_USER_MODEL)
     submitted_on = models.DateTimeField(auto_now_add=True)
+    is_reviewed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('model kit')

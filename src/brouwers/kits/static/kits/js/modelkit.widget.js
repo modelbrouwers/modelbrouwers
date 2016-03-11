@@ -87,6 +87,9 @@ function renderKitPreviews(filters, $target, append) {
         return;
     }
     return ModelKit.objects.filter(filters).then(kits => {
+        if (!kits.length) {
+            $('.add-kit').show();
+        }
         // read the pagination information to pass it to the template
         let page = filters.page || 1;
         // kits can actually be empty, which causes the Paginator to throw EmptyPage

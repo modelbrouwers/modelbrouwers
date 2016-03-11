@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-11 17:55+0100\n"
+"PO-Revision-Date: 2016-03-11 17:59+0020\n"
+"Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.8\n"
+
+#: apps.py:7
+msgid "kits"
+msgstr "kits"
+
+#: models.py:17 models.py:26 models.py:71 widgets.py:14
+msgid "brand"
+msgstr "merk"
+
+#: models.py:18 models.py:72
+msgid "slug"
+msgstr "slug"
+
+#: models.py:19
+msgid "logo"
+msgstr "logo"
+
+#: models.py:21
+msgid "is active"
+msgstr "is actief"
+
+#: models.py:22
+msgid "Whether the brand still exists or not"
+msgstr "Geeft aan of het merk nog bestaat of niet"
+
+#: models.py:27
+msgid "brands"
+msgstr "merken"
+
+#: models.py:39 models.py:42 models.py:78 widgets.py:15
+msgid "scale"
+msgstr "schaal"
+
+#: models.py:43
+msgid "scales"
+msgstr "schalen"
+
+#: models.py:54
+msgid "very easy"
+msgstr "zeer makkelijk"
+
+#: models.py:55
+msgid "easy"
+msgstr "makkelijk"
+
+#: models.py:56
+msgid "medium"
+msgstr "gemiddeld"
+
+#: models.py:57
+msgid "hard"
+msgstr "moeilijk"
+
+#: models.py:58
+msgid "very hard"
+msgstr "zeer moeilijk"
+
+#: models.py:70 templates/kits/widgets.html.py:97
+msgid "kit name"
+msgstr "kitnaam"
+
+#: models.py:74
+msgid "kit number"
+msgstr "kitnummer"
+
+#: models.py:76
+msgid "Kit number as found on the box."
+msgstr "Kitnummer zoals die op de doos staat."
+
+#: models.py:80
+msgid "difficulty"
+msgstr "moeilijkheidsgraad"
+
+#: models.py:84
+msgid "box image"
+msgstr "boxart"
+
+#: models.py:87
+msgid "duplicates"
+msgstr "duplicaten"
+
+#: models.py:88
+msgid "Kits that are the same but have another producer."
+msgstr "Kits die identiek zijn, maar uitgegeven door een ander merk."
+
+#: models.py:95
+msgid "model kit"
+msgstr "bouwdoos"
+
+#: models.py:96
+msgid "model kits"
+msgstr "bouwdozen"
+
+#: models.py:121
+#, python-format
+msgid "A kit from %(brand)s with kit number '%(kit_number)s' already exists"
+msgstr "Er bestaat al een kit van %(brand)s met kitnummer '%(kit_number)s'."
+
+#: templates/kits/handlebars/select-modelkit-widget.hbs:22
+msgid "load more"
+msgstr "meer tonen"
+
+#: templates/kits/widgets.html:32
+msgid "filter by name"
+msgstr "zoek op naam"
+
+#: templates/kits/widgets.html:41
+msgid "&hellip; or add a new kit"
+msgstr "&hellip; of voeg een nieuwe kit toe"
+
+#: templates/kits/widgets.html:82
+msgid "Add new kit to the database"
+msgstr "Voeg een nieuwe kit toe aan de databank"
+
+#: templates/kits/widgets.html:83
+msgid ""
+"Please, only add new kits if they were not available via the search "
+"function."
+msgstr ""
+"Gelieve enkel nieuwe kits toe te voegen als ze niet te vinden zijn via de "
+"zoekfunctie."
+
+#: templates/kits/widgets.html:91
+msgid "choose the brand"
+msgstr "kies het merk"
+
+#: templates/kits/widgets.html:94
+msgid "choose the scale"
+msgstr "kies de schaal"
+
+#: templates/kits/widgets.html:103
+msgid "Close"
+msgstr "Sluiten"
+
+#: templates/kits/widgets.html:104
+msgid "Save"
+msgstr "Bewaren"
+
+#: widgets.py:16
+msgid "name"
+msgstr "naam"

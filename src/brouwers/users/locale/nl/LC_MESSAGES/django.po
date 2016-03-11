@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 19:23+0100\n"
+"POT-Creation-Date: 2016-03-11 17:55+0100\n"
 "PO-Revision-Date: 2015-08-25 08:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,43 +112,43 @@ msgstr "Je registratie op {domain}"
 msgid "{domain} account creation - activation required"
 msgstr "{domain} account aangemaakt - activatie nodig"
 
-#: models.py:66
+#: models.py:76
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:67
+#: models.py:77
 msgid "Required. 30 characters or fewer. All characters allowed."
 msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
 
-#: models.py:68
+#: models.py:78
 msgid "cleaned username"
 msgstr "cleane gebruikersnaam"
 
-#: models.py:69
+#: models.py:79
 msgid "first name"
 msgstr "voornaam"
 
-#: models.py:70
+#: models.py:80
 msgid "last name"
 msgstr "familienaam"
 
-#: models.py:71
+#: models.py:81
 msgid "email address"
 msgstr "e-mailadres"
 
-#: models.py:73
+#: models.py:83
 msgid "staff status"
 msgstr "stafstatus"
 
-#: models.py:74
+#: models.py:84
 msgid "Designates whether the user can log into this admin site."
 msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
 
-#: models.py:77
+#: models.py:87
 msgid "active"
 msgstr "actief"
 
-#: models.py:78
+#: models.py:88
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -156,19 +156,19 @@ msgstr ""
 "Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
 "van gebruikers te verwijderen."
 
-#: models.py:80
+#: models.py:90
 msgid "date joined"
 msgstr "toegetreden"
 
-#: models.py:83
+#: models.py:93
 msgid "forum user id"
 msgstr "forumgebruikerid"
 
-#: models.py:91
+#: models.py:101
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:92
+#: models.py:102
 msgid "users"
 msgstr "gebruikers"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 19:23+0100\n"
+"POT-Creation-Date: 2016-03-11 17:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -250,143 +250,6 @@ msgstr ""
 msgid "Album, build report(s)"
 msgstr ""
 
-#: brouwers/kits/apps.py:7
-msgid "kits"
-msgstr ""
-
-#: brouwers/kits/models.py:17 brouwers/kits/models.py:26
-#: brouwers/kits/models.py:71 brouwers/kits/widgets.py:14
-msgid "brand"
-msgstr ""
-
-#: brouwers/kits/models.py:18 brouwers/kits/models.py:72
-msgid "slug"
-msgstr ""
-
-#: brouwers/kits/models.py:19
-#, fuzzy
-#| msgid "logout"
-msgid "logo"
-msgstr "uitloggen"
-
-#: brouwers/kits/models.py:21
-msgid "is active"
-msgstr ""
-
-#: brouwers/kits/models.py:22
-msgid "Whether the brand still exists or not"
-msgstr ""
-
-#: brouwers/kits/models.py:27
-msgid "brands"
-msgstr ""
-
-#: brouwers/kits/models.py:39 brouwers/kits/models.py:42
-#: brouwers/kits/models.py:78 brouwers/kits/widgets.py:15
-msgid "scale"
-msgstr ""
-
-#: brouwers/kits/models.py:43
-msgid "scales"
-msgstr ""
-
-#: brouwers/kits/models.py:54
-msgid "very easy"
-msgstr ""
-
-#: brouwers/kits/models.py:55
-msgid "easy"
-msgstr ""
-
-#: brouwers/kits/models.py:56
-msgid "medium"
-msgstr ""
-
-#: brouwers/kits/models.py:57
-msgid "hard"
-msgstr ""
-
-#: brouwers/kits/models.py:58
-msgid "very hard"
-msgstr ""
-
-#: brouwers/kits/models.py:70 brouwers/kits/templates/kits/widgets.html.py:96
-msgid "kit name"
-msgstr ""
-
-#: brouwers/kits/models.py:74
-msgid "kit number"
-msgstr ""
-
-#: brouwers/kits/models.py:76
-msgid "Kit number as found on the box."
-msgstr ""
-
-#: brouwers/kits/models.py:80
-msgid "difficulty"
-msgstr ""
-
-#: brouwers/kits/models.py:84
-msgid "box image"
-msgstr ""
-
-#: brouwers/kits/models.py:87
-msgid "duplicates"
-msgstr ""
-
-#: brouwers/kits/models.py:88
-msgid "Kits that are the same but have another producer."
-msgstr ""
-
-#: brouwers/kits/models.py:95
-msgid "model kit"
-msgstr ""
-
-#: brouwers/kits/models.py:96
-msgid "model kits"
-msgstr ""
-
-#: brouwers/kits/models.py:121
-#, python-format
-msgid "A kit from %(brand)s with kit number '%(kit_number)s' already exists"
-msgstr ""
-
-#: brouwers/kits/templates/kits/handlebars/select-modelkit-widget.hbs:22
-msgid "load more"
-msgstr ""
-
-#: brouwers/kits/templates/kits/widgets.html:32
-msgid "filter by name"
-msgstr ""
-
-#: brouwers/kits/templates/kits/widgets.html:41
-msgid "&hellip; or add a new kit"
-msgstr ""
-
-#: brouwers/kits/templates/kits/widgets.html:82
-msgid "Add new kit to the database"
-msgstr ""
-
-#: brouwers/kits/templates/kits/widgets.html:90
-msgid "choose the brand"
-msgstr ""
-
-#: brouwers/kits/templates/kits/widgets.html:93
-msgid "choose the scale"
-msgstr ""
-
-#: brouwers/kits/templates/kits/widgets.html:102
-msgid "Close"
-msgstr ""
-
-#: brouwers/kits/templates/kits/widgets.html:103
-msgid "Save"
-msgstr ""
-
-#: brouwers/kits/widgets.py:16
-msgid "name"
-msgstr ""
-
 #: brouwers/migration/models.py:39
 msgid "album user migration"
 msgstr "albumgebruikermigratie"
@@ -394,6 +257,11 @@ msgstr "albumgebruikermigratie"
 #: brouwers/migration/models.py:40
 msgid "album user migrations"
 msgstr "albumgebruikermigraties"
+
+#, fuzzy
+#~| msgid "logout"
+#~ msgid "logo"
+#~ msgstr "uitloggen"
 
 #~ msgid "First page"
 #~ msgstr "Eerste pagina"

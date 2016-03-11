@@ -1731,13 +1731,17 @@ body.groupbuilds .participants tr.finished .fa-check {
 .kit-suggestions {
   margin-top: 15px;
 }
-/* line 6, ../../sass/partials/apps/_kits.scss */
+/* line 4, ../../sass/partials/apps/_kits.scss */
+.kit-suggestions .add-kit {
+  display: none;
+}
+/* line 8, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .add-kit a:hover,
 .kit-suggestions .add-kit a:active,
 .kit-suggestions .add-kit a:focus {
   text-decoration: none;
 }
-/* line 13, ../../sass/partials/apps/_kits.scss */
+/* line 15, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .h5 {
   display: block;
   position: absolute;
@@ -1745,17 +1749,17 @@ body.groupbuilds .participants tr.finished .fa-check {
   left: 4px;
   right: 4px;
 }
-/* line 23, ../../sass/partials/apps/_kits.scss */
+/* line 25, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .preview .h5 {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 27, ../../sass/partials/apps/_kits.scss */
+/* line 29, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .preview .thumbnail {
   position: relative;
 }
-/* line 30, ../../sass/partials/apps/_kits.scss */
+/* line 32, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .preview .thumbnail h4 {
   margin-top: 0;
   margin-bottom: 0;
@@ -1770,7 +1774,7 @@ body.groupbuilds .participants tr.finished .fa-check {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1));
   color: #FFFFFF;
 }
-/* line 44, ../../sass/partials/apps/_kits.scss */
+/* line 46, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .preview input[type="checkbox"] {
   display: none;
 }
@@ -1794,21 +1798,21 @@ body.groupbuilds .participants tr.finished .fa-check {
 .kit-suggestions .preview input[type="checkbox"]:checked + label + .fa {
   display: block;
 }
-/* line 49, ../../sass/partials/apps/_kits.scss */
+/* line 51, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .preview label:hover {
   cursor: pointer;
   border: solid 1px #4095FD;
 }
-/* line 54, ../../sass/partials/apps/_kits.scss */
+/* line 56, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .preview .fa-spinner {
   -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
   animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
 }
-/* line 58, ../../sass/partials/apps/_kits.scss */
+/* line 60, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .preview button + .fa-spinner {
   display: none;
 }
-/* line 63, ../../sass/partials/apps/_kits.scss */
+/* line 65, ../../sass/partials/apps/_kits.scss */
 .kit-suggestions .center-all {
   display: flex;
   align-items: center;
