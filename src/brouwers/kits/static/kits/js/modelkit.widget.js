@@ -207,7 +207,6 @@ function submitNewKit(event) {
     let modal = $(this).closest('.modal');
     let data = modal.serializeObject();
     data.stripPrefix(conf.prefix_add);
-    delete data.stripPrefix;
     modal.find('.errorlist').remove();
 
     // configuration
