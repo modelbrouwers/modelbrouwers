@@ -200,6 +200,8 @@ function fillAddDefaults(event) {
 }
 
 
+// FIXME: avoid submitting the same brand again
+// FIXME: avoid submitting the same scale again (shows validation error)
 function submitNewKit(event) {
     event.preventDefault();
 
