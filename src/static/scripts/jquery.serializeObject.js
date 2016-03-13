@@ -13,15 +13,22 @@ function Values(obj, prefix) {
     }
 }
 
-Values.prototype.stripPrefix = function(prefix) {
-    prefix = prefix || this.prefix;
-    for (var key in this.__raw) {
-        var _prefix = prefix + '-';
-        var newKey = key.replace(_prefix, '');
-        delete this[key];
-        this[newKey] = this.__raw[key];
+Object.defineProperty(
+    Values.prototype,
+    'stripPrefix',
+    {
+        value: function(prefix) {
+            prefix = prefix || this.prefix;
+            for (var key in this.__raw) {
+                var _prefix = prefix + '-';
+                var newKey = key.replace(_prefix, '');
+                delete this[key];
+                this[newKey] = this.__raw[key];
+            }
+        },
+        enumerable: false
     }
-};
+);
 
 
 /**

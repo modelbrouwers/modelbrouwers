@@ -3,6 +3,8 @@
 
   .add-kit {
 
+    display: none; // initially, hidden, until no search results turn up
+
     a:hover,
     a:active,
     a:focus {
@@ -12,20 +14,22 @@
 
   .h5 {
     display: block;
-    position: absolute;
-    top: 0;
-    left: 4px; // padding thumb
-    right: 4px; // padding thumb
   }
 
   .preview {
 
     .h5 {
       @include ellipsis;
+      margin-bottom: 5px;
+      margin-top: 5px;
     }
 
     .thumbnail {
       position: relative;
+
+      img {
+        min-height: 120px;
+      }
 
       h4 {
         margin-top: 0;
@@ -44,6 +48,10 @@
     input[type="checkbox"] {
       display: none;
       @include selected-fa();
+    }
+
+    label {
+      margin-bottom: 20px;
     }
 
     label:hover {

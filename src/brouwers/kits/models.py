@@ -14,7 +14,7 @@ class Brand(models.Model):
     """
     Model for kit manufacturer.
     """
-    name = models.CharField(_('brand'), max_length=100, db_index=True)
+    name = models.CharField(_('brand'), max_length=100, db_index=True, unique=True)
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
     logo = models.ImageField(_('logo'), upload_to='images/brand_logos/', blank=True)
     is_active = models.BooleanField(
@@ -68,14 +68,14 @@ class ModelKit(models.Model):
     Model to hold scale model kit data.
     """
     name = models.CharField(_(u'kit name'), max_length=255, db_index=True)
-    brand = models.ForeignKey('Brand', verbose_name=_('brand'))
+    brand = models.ForeignKey('Brand', verbose_name=_('brand'), on_delete=models.PROTECT)
     slug = AutoSlugField(_('slug'), unique=True, populate_from=get_kit_slug)
     kit_number = models.CharField(
         _('kit number'), max_length=50,
         blank=True, db_index=True,
         help_text=_(u'Kit number as found on the box.')
     )
-    scale = models.ForeignKey(Scale, verbose_name=_('scale'))
+    scale = models.ForeignKey(Scale, verbose_name=_('scale'), on_delete=models.PROTECT)
     difficulty = models.PositiveSmallIntegerField(
         _('difficulty'), choices=KitDifficulties.choices,
         default=KitDifficulties.medium, validators=[KitDifficulties.validator]
@@ -90,6 +90,7 @@ class ModelKit(models.Model):
 
     submitter = models.ForeignKey(settings.AUTH_USER_MODEL)
     submitted_on = models.DateTimeField(auto_now_add=True)
+    is_reviewed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('model kit')
