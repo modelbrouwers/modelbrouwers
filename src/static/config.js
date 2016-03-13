@@ -29,7 +29,7 @@ System.config({
     "js-cookie": "github:js-cookie/js-cookie@2.1.0",
     "json": "github:systemjs/plugin-json@0.1.0",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.2",
-    "ponyjs": "github:sergei-maertens/django-ponyjs@0.1.0",
+    "ponyjs": "github:sergei-maertens/django-ponyjs@0.1.1",
     "q": "npm:q@2.0.3",
     "string.prototype.startswith": "npm:string.prototype.startswith@0.2.0",
     "typeahead": "github:twitter/typeahead.js@0.11.1",
@@ -58,7 +58,7 @@ System.config({
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
     },
-    "github:sergei-maertens/django-ponyjs@0.1.0": {
+    "github:sergei-maertens/django-ponyjs@0.1.1": {
       "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1.1.2",
       "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-beta.1.1.4",
       "core-js": "npm:core-js@1.2.6",
