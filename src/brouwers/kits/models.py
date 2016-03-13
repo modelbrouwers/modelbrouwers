@@ -14,7 +14,11 @@ class Brand(models.Model):
     """
     Model for kit manufacturer.
     """
-    name = models.CharField(_('brand'), max_length=100, db_index=True, unique=True)
+    name = models.CharField(
+        _('brand'), max_length=100,
+        db_index=True, unique=True,
+        error_messages={'unique': _('This brand already exists')}
+    )
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
     logo = models.ImageField(_('logo'), upload_to='images/brand_logos/', blank=True)
     is_active = models.BooleanField(
@@ -36,7 +40,10 @@ class Scale(models.Model):
     """
     Possible scales a model kit can have
     """
-    scale = models.PositiveSmallIntegerField(_('scale'), db_index=True, unique=True)
+    scale = models.PositiveSmallIntegerField(
+        _('scale'), db_index=True, unique=True,
+        error_messages={'unique': _('This scale already exists')}
+    )
 
     class Meta:
         verbose_name = _('scale')
