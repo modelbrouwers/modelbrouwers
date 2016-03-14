@@ -220,7 +220,7 @@ function submitNewKit(event) {
 
     // check if a brand/scale was provided, otherwise create them
     let promises = [];
-    ['brand', 'scale'].forEach((field) => {
+    ['brand', 'scale'].forEach(field => {
 
         let model = models[field];
         let promise;
@@ -239,6 +239,14 @@ function submitNewKit(event) {
                 let select = $(`#id_${ conf.prefix }-${ field }`);
                 select.append(`<option value="${ id }">${ display }</option>`);
                 select.val(id);
+                return obj;
+            }, validationErrors => {
+                let htmlField = $(`#id_${conf.prefix_add}-${field}_ta`);
+                let renders = [];
+                for (let fieldName in validationErrors.errors) {
+                    renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
+                }
+                return Promise.all(renders);
             });
         }
         promises.push(promise);
@@ -249,7 +257,6 @@ function submitNewKit(event) {
     .then(returnValues => {
         brand = returnValues[0],
         scale = returnValues[1];
-
         return ModelKit.objects.create({
             brand: brand.id,
             scale: scale.id,
@@ -285,18 +292,22 @@ function submitNewKit(event) {
             }
             modal.modal('toggle');
         });
-    }).catch(validationErrors => {
+    }, validationErrors => {
+        // ModelKitCreate validation errors AND the first rejections validation errors
+        // ignore the double display for now...
+        let renders = [];
         for (let fieldName in validationErrors.errors) {
             let htmlField = $( `#id_${ conf.prefix_add }-${ fieldName }` );
-            showErrors(htmlField, validationErrors.errors[fieldName]);
+            renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
         }
-    });
+        return Promise.all(renders);
+    }).catch(error => console.error(error));
     return false;
 }
 
 
 function showErrors($formField, errors) {
-    Handlebars.render('general::errors', {errors: errors}).done((html) => {
+    return Handlebars.render('general::errors', {errors: errors}).then(html => {
         $formField
             .addClass('error')
             .parent().append(html)
@@ -340,6 +351,16 @@ function initTypeaheads() {
 
         input.on('typeahead:select', (event, suggestion) => {
             hiddenInput.val(suggestion.id);
+        });
+
+        input.on('typeahead:render', (event, suggestion) => {
+            // if we have an (case insensitive) exact match, set the value
+            let $input = $(event.target);
+            if (suggestion && $input.val().toLowerCase() == suggestion[fieldConfig.display].toLowerCase()) {
+                hiddenInput.val(suggestion.id);
+            } else {
+                hiddenInput.val('');
+            }
         });
     }
 }
