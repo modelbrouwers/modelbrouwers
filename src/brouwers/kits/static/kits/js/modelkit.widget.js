@@ -352,5 +352,15 @@ function initTypeaheads() {
         input.on('typeahead:select', (event, suggestion) => {
             hiddenInput.val(suggestion.id);
         });
+
+        input.on('typeahead:render', (event, suggestion) => {
+            // if we have an (case insensitive) exact match, set the value
+            let $input = $(event.target);
+            if (suggestion && $input.val().toLowerCase() == suggestion[fieldConfig.display].toLowerCase()) {
+                hiddenInput.val(suggestion.id);
+            } else {
+                hiddenInput.val('');
+            }
+        });
     }
 }
