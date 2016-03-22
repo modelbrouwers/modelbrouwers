@@ -48,6 +48,6 @@ class ForumToolsRouter(object):
             model = hints.get('model')
             if model is not None:
                 unmanaged = model._meta.db_table.startswith(settings.PHPBB_TABLE_PREFIX)
-                return unmanaged or model.__name__ in MYSQL_MODELS
+                return unmanaged or model.__name__ in MYSQL_MODELS or settings.TESTING
         else:
             return True
