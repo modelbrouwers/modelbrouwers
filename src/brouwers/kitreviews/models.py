@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from brouwers.albums.models import Album
 from brouwers.general.utils import get_username
 
-
 RATING_BASE = 100  # store ratings relative to 100
 RATING_DISPLAY_BASE = 5
 DEFAULT_RATING = 50
@@ -21,7 +20,7 @@ class KitReview(models.Model):
     raw_text = models.TextField(
         _(u'review'),
         help_text=_('This is your review. You can use BBCode here.')
-        )
+    )
     html = models.TextField(blank=True, help_text=u'raw_text with BBCode rendered as html')
     positive_points = models.TextField(_('positive points'), blank=True)
     negative_points = models.TextField(_('negative points'), blank=True)
@@ -30,19 +29,19 @@ class KitReview(models.Model):
     # linking to extra information
     album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
     topic_id = models.PositiveIntegerField(
-            _('topic'), blank=True,
-            null=True, help_text=_('ID of the topic on Modelbrouwers.')
-            )
+        _('topic'), blank=True,
+        null=True, help_text=_('ID of the topic on Modelbrouwers.')
+    )
     external_topic_url = models.URLField(
         _('topic url'), blank=True,
         help_text=_('URL to the topic not hosted on Modelbrouwers')
-        )
+    )
 
     # some privacy settings...
     show_real_name = models.BooleanField(
         _('show real name?'), default=True,
         help_text=_('Checking this option will display your real name as reviewer. Uncheck to use your nickname.'),
-        )
+    )
 
     # internal information
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -71,11 +70,11 @@ class KitReview(models.Model):
         if self.topic_id:
             domain = Site.objects.get_current().domain
             topic_url = "%(http)s%(domain)s%(phpBB)s%(topic)s" % {
-                'http': 'http://', # TODO: check for https or http
+                'http': 'http://',  # TODO: check for https or http
                 'domain': domain,
                 'phpBB': settings.PHPBB_URL,
                 'topic': '/viewtopic.php?t=%d' % self.topic_id
-                }
+            }
             return topic_url
         elif self.external_topic_url:
             return self.external_topic_url
@@ -83,9 +82,9 @@ class KitReview(models.Model):
 
     @property
     def rating_scaled(self):
-        factor = RATING_BASE / (10 * RATING_DISPLAY_BASE) # factor ten: for rounding
+        factor = RATING_BASE / (10 * RATING_DISPLAY_BASE)  # factor ten: for rounding
         rating_scaled = float(self.rating) / RATING_BASE * RATING_DISPLAY_BASE
-        rating_scaled = round(factor*rating_scaled) / factor
+        rating_scaled = round(factor * rating_scaled) / factor
         return rating_scaled
 
 
@@ -95,7 +94,7 @@ class KitReviewVote(models.Model):
     VOTE_TYPES = (
         ('+', '+'),
         ('-', '-'),
-        )
+    )
 
     kit_review = models.ForeignKey(KitReview)
     vote = models.CharField(_('vote'), max_length=1, db_index=True)
@@ -108,5 +107,5 @@ class KitReviewVote(models.Model):
 
     def __unicode__(self):
         return _(u"Vote for review by %(review_submitter)s") % {
-                    'review_submitter': get_username(self.kit_review, field='reviewer')
-                    }
+            'review_submitter': get_username(self.kit_review, field='reviewer')
+        }
