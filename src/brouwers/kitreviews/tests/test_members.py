@@ -31,7 +31,7 @@ class KitReviewTest(TestCase):
             # except ValueError:
             #   print('Test passed')
             # try:
-            #    KitReviewFactory.create(rating='1000')
+            #    KitReviewFactory.create(rating='-5')
             #    self.fail('Should be impossible to add ratings less than zero')
             # except ValueError:
             #   print('Test passed')

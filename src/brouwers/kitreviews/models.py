@@ -3,6 +3,7 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from djchoices import DjangoChoices, ChoiceItem
 
 from brouwers.albums.models import Album
 from brouwers.general.utils import get_username
@@ -22,8 +23,7 @@ class KitReview(models.Model):
         help_text=_('This is your review. You can use BBCode here.')
     )
     html = models.TextField(blank=True, help_text=u'raw_text with BBCode rendered as html')
-    positive_points = models.TextField(_('positive points'), blank=True)
-    negative_points = models.TextField(_('negative points'), blank=True)
+    prop = models.ManyToManyField('KitReviewProperty', blank=True, related_name='reviews')
     rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING)
 
     # linking to extra information
@@ -108,4 +108,28 @@ class KitReviewVote(models.Model):
     def __unicode__(self):
         return _(u"Vote for review by %(review_submitter)s") % {
             'review_submitter': get_username(self.kit_review, field='reviewer')
+        }
+
+
+class KitReviewPropertyTypes(DjangoChoices):
+    fitting = ChoiceItem('Fitting', label=_('Fitting'))
+    correctness = ChoiceItem('Correctness', label=_('Correctness'))
+    instructions_clarity = ChoiceItem('Instructions_Clarity', label=_('Instructions clarity'))
+    difficulty = ChoiceItem('Difficulty', label=_('Difficulty'))
+
+
+class KitReviewProperty(models.Model):
+    """ Model containing the properties of a review, which based on their score are divided into pros and cons"""
+
+    name = models.CharField(_(u'name'), max_length=255, choices=KitReviewPropertyTypes.choices)
+    rating = models.PositiveSmallIntegerField(_(u'rating'), default=5)
+
+    class Meta:
+        verbose_name = _(u'kit review property')
+        verbose_name_plural = _(u'kit review properties')
+
+    def __unicode__(self):
+        return _(u'%(name)s: %(rating)s') % {
+            'name': self.name,
+            'rating': self.rating
         }

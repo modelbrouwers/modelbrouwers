@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import KitReview, KitReviewVote
+from models import KitReview, KitReviewVote, KitReviewProperty
 
 
 @admin.register(KitReview)
@@ -12,3 +12,8 @@ class KitReviewAdmin(admin.ModelAdmin):
 @admin.register(KitReviewVote)
 class KitReviewVoteAdmin(admin.ModelAdmin):
     list_display = ('kit_review', 'voter', 'vote')
+
+
+@admin.register(KitReviewProperty)
+class KitReviewPropertyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'rating')
