@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from djchoices import DjangoChoices, ChoiceItem
@@ -12,6 +13,8 @@ RATING_BASE = 100  # store ratings relative to 100
 RATING_DISPLAY_BASE = 5
 DEFAULT_RATING = 50
 DEFAULT_DIFFICULTY = 3
+MAX_RATING = 100
+MIN_RATING = 0
 
 
 class KitReview(models.Model):
@@ -24,7 +27,8 @@ class KitReview(models.Model):
     )
     html = models.TextField(blank=True, help_text=u'raw_text with BBCode rendered as html')
     prop = models.ManyToManyField('KitReviewProperty', blank=True, related_name='reviews')
-    rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING)
+    rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING,
+                                              validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)])
 
     # linking to extra information
     album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
@@ -80,13 +84,6 @@ class KitReview(models.Model):
             return self.external_topic_url
         return None
 
-    @property
-    def rating_scaled(self):
-        factor = RATING_BASE / (10 * RATING_DISPLAY_BASE)  # factor ten: for rounding
-        rating_scaled = float(self.rating) / RATING_BASE * RATING_DISPLAY_BASE
-        rating_scaled = round(factor * rating_scaled) / factor
-        return rating_scaled
-
 
 class KitReviewVote(models.Model):
     """ Model holding the votes for kitreviews, showing the quality of the review """
@@ -111,18 +108,12 @@ class KitReviewVote(models.Model):
         }
 
 
-class KitReviewPropertyTypes(DjangoChoices):
-    fitting = ChoiceItem('Fitting', label=_('Fitting'))
-    correctness = ChoiceItem('Correctness', label=_('Correctness'))
-    instructions_clarity = ChoiceItem('Instructions_Clarity', label=_('Instructions clarity'))
-    difficulty = ChoiceItem('Difficulty', label=_('Difficulty'))
-
-
 class KitReviewProperty(models.Model):
     """ Model containing the properties of a review, which based on their score are divided into pros and cons"""
 
-    name = models.CharField(_(u'name'), max_length=255, choices=KitReviewPropertyTypes.choices)
-    rating = models.PositiveSmallIntegerField(_(u'rating'), default=5)
+    name = models.CharField(_(u'name'), max_length=255)
+    rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING,
+                                              validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)])
 
     class Meta:
         verbose_name = _(u'kit review property')
