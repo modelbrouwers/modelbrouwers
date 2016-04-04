@@ -17,3 +17,4 @@ class KitReviewVoteAdmin(admin.ModelAdmin):
 @admin.register(KitReviewProperty)
 class KitReviewPropertyAdmin(admin.ModelAdmin):
     list_display = ('name', 'rating')
+    search_fields = ('name',)
