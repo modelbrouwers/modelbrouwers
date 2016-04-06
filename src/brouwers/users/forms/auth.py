@@ -83,6 +83,11 @@ class UserCreationForm(AdminUserCreationForm):
         model = User
         fields = ("username", "email")
 
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request')
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['question'].queryset = self.fields['question'].queryset.filter(lang=request.LANGUAGE_CODE[:2])
+
     def clean(self):
         cleaned_data = super(UserCreationForm, self).clean()
         question = cleaned_data.get('question')

@@ -97,6 +97,8 @@ class RegistrationQuestion(models.Model):
     answers = models.ManyToManyField(QuestionAnswer, blank=True)
     in_use = models.BooleanField(default=True)
 
+    lang = models.CharField(_('language'), max_length=10, choices=settings.LANGUAGES, default='nl')
+
     objects = models.Manager()
     active = ActiveQuestionsManager()
 
