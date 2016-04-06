@@ -20,7 +20,7 @@
         <input type="{{ input_type }}"
             name="{{ html_name }}"
             id="{{ id }}"
-            value="{{ value|default:"" }}"
+            value="{{ raw_value|default:"" }}"
             class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
             {{ widget.attrs|flatattrs }}
             {{ required|yesno:"required," }}
@@ -44,15 +44,15 @@
         <input type="text"
             name="{{ html_name }}"
             id="{{ id }}"
-            value="{{ widget|idfield_url:value|default:"" }}"
+            value="{{ widget|idfield_url:raw_value|default:"" }}"
             class="form-control {{ css_classes }} {{ errors|yesno:"error," }}"
             {{ widget.attrs|flatattrs }}
             {{ required|yesno:"required," }}
             {{ autofocus|yesno:"autofocus," }}
             {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
         >
-        {% if value %}
-            {% blocktrans with url=widget|idfield_url:value %}
+        {% if raw_value %}
+            {% blocktrans with url=widget|idfield_url:raw_value %}
                 Current: <a href="{{ url }}">{{ url }}</a>
             {% endblocktrans %}
         {% endif %}
