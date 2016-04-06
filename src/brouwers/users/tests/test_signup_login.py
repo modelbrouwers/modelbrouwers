@@ -26,7 +26,8 @@ class LoginRegisterTests(WebTest):
         """ Test that we can log in with the forum name containing spaces """
         # production -> redirect to php index
         response = self.client.get('/')
-        self.assertRedirects(response, '/index.php', target_status_code=404) # we don't serve php obviously
+        # we don't serve php obviously, so 404 is expected
+        self.assertRedirects(response, '/index.php', target_status_code=404)
 
         # test login
         response = self.client.get(settings.LOGIN_URL)
@@ -69,10 +70,10 @@ class LoginRegisterTests(WebTest):
         self.assertIsNone(self.client.session.get('_auth_user_id'))
 
     def test_register(self):
-        url = '/register/'
+        url = reverse('users:register')
 
         # create a registration question that has to be answered
-        question = RegistrationQuestionFactory()
+        question = RegistrationQuestionFactory.create(lang='en')
         answer = 'answer'  # default answer from the factory model
 
         response = self.client.get(url)
