@@ -1,17 +1,17 @@
 from django.conf import settings
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from djchoices import DjangoChoices, ChoiceItem
 
 from brouwers.albums.models import Album
 from brouwers.general.utils import get_username
+from brouwers.forum_tools.fields import ForumToolsIDField
 
-
-RATING_BASE = 100  # store ratings relative to 100
-RATING_DISPLAY_BASE = 5
 DEFAULT_RATING = 50
-DEFAULT_DIFFICULTY = 3
+MAX_RATING = 100
+MIN_RATING = 0
 
 
 class KitReview(models.Model):
@@ -21,28 +21,26 @@ class KitReview(models.Model):
     raw_text = models.TextField(
         _(u'review'),
         help_text=_('This is your review. You can use BBCode here.')
-        )
+    )
     html = models.TextField(blank=True, help_text=u'raw_text with BBCode rendered as html')
-    positive_points = models.TextField(_('positive points'), blank=True)
-    negative_points = models.TextField(_('negative points'), blank=True)
-    rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING)
+    properties = models.ManyToManyField('KitReviewProperty', blank=True, through='KitReviewPropertyRating', related_name='+')
 
     # linking to extra information
     album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
-    topic_id = models.PositiveIntegerField(
-            _('topic'), blank=True,
-            null=True, help_text=_('ID of the topic on Modelbrouwers.')
-            )
+    topic_id = ForumToolsIDField(
+        _('topic'), type='topic', blank=True,
+        null=True, help_text=_('ID of the topic on Modelbrouwers.')
+    )
     external_topic_url = models.URLField(
         _('topic url'), blank=True,
         help_text=_('URL to the topic not hosted on Modelbrouwers')
-        )
+    )
 
     # some privacy settings...
     show_real_name = models.BooleanField(
         _('show real name?'), default=True,
         help_text=_('Checking this option will display your real name as reviewer. Uncheck to use your nickname.'),
-        )
+    )
 
     # internal information
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -69,36 +67,22 @@ class KitReview(models.Model):
     @property
     def topic_url(self):
         if self.topic_id:
-            domain = Site.objects.get_current().domain
-            topic_url = "%(http)s%(domain)s%(phpBB)s%(topic)s" % {
-                'http': 'http://', # TODO: check for https or http
-                'domain': domain,
-                'phpBB': settings.PHPBB_URL,
-                'topic': '/viewtopic.php?t=%d' % self.topic_id
-                }
-            return topic_url
+            return self.topic.get_absolute_url()
         elif self.external_topic_url:
             return self.external_topic_url
         return None
 
-    @property
-    def rating_scaled(self):
-        factor = RATING_BASE / (10 * RATING_DISPLAY_BASE) # factor ten: for rounding
-        rating_scaled = float(self.rating) / RATING_BASE * RATING_DISPLAY_BASE
-        rating_scaled = round(factor*rating_scaled) / factor
-        return rating_scaled
+
+class KitReviewVoteType(DjangoChoices):
+    positive = ChoiceItem('+', label='+')
+    negative = ChoiceItem('-', label='-')
 
 
 class KitReviewVote(models.Model):
-    """ Model holding the votes for kitreviews, showing the quality of the review """
-
-    VOTE_TYPES = (
-        ('+', '+'),
-        ('-', '-'),
-        )
+    """ Model holding the votes for kit reviews, showing the quality of the review """
 
     kit_review = models.ForeignKey(KitReview)
-    vote = models.CharField(_('vote'), max_length=1, db_index=True)
+    vote = models.CharField(_('vote'), max_length=1, db_index=True, choices=KitReviewVoteType.choices)
     voter = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     class Meta:
@@ -108,5 +92,32 @@ class KitReviewVote(models.Model):
 
     def __unicode__(self):
         return _(u"Vote for review by %(review_submitter)s") % {
-                    'review_submitter': get_username(self.kit_review, field='reviewer')
-                    }
+            'review_submitter': self.kit_review.reviewer.username
+        }
+
+
+class KitReviewProperty(models.Model):
+    """ Model containing the properties of a review """
+
+    name = models.CharField(_(u'name'), max_length=255)
+
+    class Meta:
+        verbose_name = _(u'kit review property')
+        verbose_name_plural = _(u'kit review properties')
+
+    def __unicode__(self):
+        return _(u'%(name)s') % {
+            'name': self.name
+        }
+
+
+class KitReviewPropertyRating(models.Model):
+    """ Represents properties for a kit review rated on a scale from MIN_RATING to MAX_RATING """
+    kit_review = models.ForeignKey('KitReview')
+    prop = models.ForeignKey('KitReviewProperty') # 'property' is a reserved word it seems, maybe come up with smth better
+    rating = models.PositiveSmallIntegerField(_(u'rating'), default=DEFAULT_RATING,
+                                              validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)])
+
+    class Meta:
+        verbose_name = _(u'kit review property rating')
+        verbose_name_plural = _(u'kit review property ratings')
