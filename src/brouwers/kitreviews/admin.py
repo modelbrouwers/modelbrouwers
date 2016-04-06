@@ -21,6 +21,7 @@ class KitReviewAdmin(admin.ModelAdmin):
 @admin.register(KitReviewVote)
 class KitReviewVoteAdmin(admin.ModelAdmin):
     list_display = ('kit_review', 'voter', 'vote')
+    readonly_fields = ('kit_review', 'voter')
 
 
 @admin.register(KitReviewProperty)
