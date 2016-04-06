@@ -6,6 +6,7 @@ from .models import KitReview, KitReviewVote, KitReviewProperty, KitReviewProper
 class KitReviewPropertyRatingInline(admin.TabularInline):
     model = KitReviewPropertyRating
     list_display = ('rating',)
+    extra = 0
 
 
 @admin.register(KitReview)
@@ -14,6 +15,7 @@ class KitReviewAdmin(admin.ModelAdmin):
     list_filter = ('reviewer', 'submitted_on')
     search_fields = ('model_kit__name', 'reviewer__username', 'brand__name')
     inlines = [KitReviewPropertyRatingInline]
+    raw_id_fields = ['model_kit', 'album', 'reviewer']
 
 
 @admin.register(KitReviewVote)

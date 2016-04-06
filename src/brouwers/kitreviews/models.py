@@ -113,6 +113,7 @@ class KitReviewProperty(models.Model):
     Model containing the possible rating properties for a review
     """
     name = models.CharField(_(u'name'), max_length=255)
+    description = models.TextField(blank=True)
 
     class Meta:
         verbose_name = _('kit review property')
