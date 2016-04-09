@@ -12,7 +12,8 @@
 
     {% with formset=properties %}
         {% for form in formset %}
-            {{ form }}
+            {% form_field form.prop %}
+            {% form_field form.rating %}
         {% endfor %}
     {% endwith %}
 
