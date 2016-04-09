@@ -1,12 +1,19 @@
 {% load i18n sniplates %}
 
 {% block form %}
+
     {% load_widgets form='horizontal.form' %}
     {% form_field form.model_kit %}
     {% form_field form.raw_text %}
-    {% form_field form.properties %}
     {% form_field form.album %}
     {% form_field form.topic_id %}
     {% form_field form.external_topic_url %}
     {% form_field form.show_real_name %}
+
+    {% with formset=properties %}
+        {% for form in formset %}
+            {{ form }}
+        {% endfor %}
+    {% endwith %}
+
 {% endblock %}
