@@ -1,0 +1,52 @@
+{% extends "kitreviews/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% url 'kitreviews:find_kit' as search_url %}
+
+    <div class="tab">
+        {% if kitform %}
+            {% trans 'Model kit' %}
+        {% else %}
+            {% trans "Review" %}
+        {% endif %}
+    </div>
+
+    {% if kitform %}
+        <noscript>
+            <div class="no-javascript">
+                {% blocktrans %}
+                    It appears you don't have Javascript enabled. Adding kits and/or reviews is still possible
+                    by <a href="{{ search_url }}">searching</a> for kits.
+                {% endblocktrans %}
+            </div>
+        </noscript>
+
+        {# Javascript only form #}
+        <form id="add-kit-form" style="display:none;">
+            {% with form=kitform %}
+                {% include "form_in_table.html" %}
+            {% endwith %}
+            <div class="center">
+                <input type="button" value="{% trans 'Find kits' %}" class="submit-button"/>
+            </div>
+        </form>
+        {# javascript enabled: show the form #}
+        <script type="text/javascript">
+            $('#add-kit-form').show();
+        </script>
+    {% endif %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+        {% if kitform %}
+            <div class="tab midpage">{% trans "Review" %}</div>
+        {% endif %}
+
+        {% include "kitreviews/review_form.html" %}
+
+        <div class="center">
+            <input type="submit" value="{% trans 'Add' %}" class="submit-button"/>
+        </div>
+    </form>
+{% endblock content %}

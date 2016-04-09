@@ -26,8 +26,8 @@ class KitReviewForm(forms.ModelForm):
         model = KitReview
         exclude = ('model_kit', 'html', 'reviewer')
 
-    def __init__(self, user, *args, **kwargs):
+    """def __init__(self, user, *args, **kwargs):
         super(KitReviewForm, self).__init__(*args, **kwargs)
         # limit album selection to own albums
         # TODO: include group albums and public albums...
-        self.fields['album'].queryset = Album.objects.filter(user=user, trash=False)
+        self.fields['album'].queryset = Album.objects.filter(user=user, trash=False)"""

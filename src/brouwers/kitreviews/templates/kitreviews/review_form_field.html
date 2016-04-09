@@ -1,5 +1,7 @@
-<label for="{{ field.id_for_label }}"{% if field.field.required %} class="required"{% endif %}>
-    {{ field.label }}
-</label>
-{{ field }}
-{% include "field_errors.html" %}
+{% block label %}
+    <label for="{{ field.id_for_label }}"{% if field.field.required %} class="required"{% endif %}>
+        {{ field.label }}
+    </label>
+    {{ field }}
+{% endblock %}
+

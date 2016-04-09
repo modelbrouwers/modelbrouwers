@@ -1,57 +1,12 @@
-{% load i18n %}
+{% load i18n sniplates %}
 
-<div id="review_kit">
-    {% with reviewform.model_kit as field %}
-        {% include "kitreviews/review_form_field.html" %}
-    {% endwith %}
-</div>
-
-<div id="review_raw_text">
-    {% with reviewform.raw_text as field %}
-        {% include "kitreviews/review_form_field.html" %}
-    {% endwith %}
-</div>
-
-<div id="pos-neg-sides">
-    <div id="review_pos_points">
-        {% with reviewform.positive_points as field %}
-            {% include "kitreviews/review_form_field.html" %}
-        {% endwith %}
-    </div>
-    <div id="review_neg_points">
-        {% with reviewform.negative_points as field %}
-            {% include "kitreviews/review_form_field.html" %}
-        {% endwith %}
-    </div>
-</div>
-
-<div id="review_rating">
-    {% with reviewform.rating as field %}
-        {% include "kitreviews/review_form_field.html" %}
-    {% endwith %}
-</div>
-
-<div class="tab midpage">{% trans "Album, build report(s)" %}</div>
-
-<div id="review_links">
-    <p>
-        {% with reviewform.album as field %}
-            {% include "kitreviews/review_form_field.html" %}
-        {% endwith %}
-    </p>
-    <p>
-        {% with reviewform.topic_id as field %}
-            {% include "kitreviews/review_form_field.html" %}
-        {% endwith %}
-    </p>
-    <p>
-        {% with reviewform.external_topic_url as field %}
-            {% include "kitreviews/review_form_field.html" %}
-        {% endwith %}
-    </p>
-    <p>
-        {% with reviewform.show_real_name as field %}
-            {% include "kitreviews/review_form_field.html" %}
-        {% endwith %}
-    </p>
-</div>
+{% block form %}
+    {% load_widgets form='horizontal.form' %}
+    {% form_field form.model_kit %}
+    {% form_field form.raw_text %}
+    {% form_field form.properties %}
+    {% form_field form.album %}
+    {% form_field form.topic_id %}
+    {% form_field form.external_topic_url %}
+    {% form_field form.show_real_name %}
+{% endblock %}
