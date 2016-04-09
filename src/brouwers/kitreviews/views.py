@@ -17,3 +17,11 @@ class AddReview(CreateView):
     model = KitReview
     template_name = 'kitreviews/add_review.html'
     form_class = KitReviewForm
+
+
+class FindKit(DetailView):
+    pass
+
+
+class KitDetail(DetailView):
+    pass

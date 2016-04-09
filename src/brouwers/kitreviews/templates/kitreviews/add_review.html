@@ -3,11 +3,12 @@
 
 {% block content %}
 
-    <form class="form-horizontal" action="." method="post">
+    <form action="." method="post">
         {% csrf_token %}
         {% include "kitreviews/review_form.html" %}
         <div class="center">
             <input type="submit" value="{% trans 'Add' %}" class="submit-button"/>
         </div>
     </form>
+
 {% endblock content %}
