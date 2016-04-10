@@ -9,11 +9,14 @@
         {% form_field form.album %}
         {% form_field form.topic_id %}
         {% form_field form.external_topic_url %}
-        {% form_field form.show_real_name %}
+
+        {% with label_grid_offset='col-sm-offset-2' %}
+            {% form_field form.show_real_name %}
+        {% endwith %}
 
         {% with formset=properties %}
             {% for form in formset %}
-                {% form_field form.prop %}
+                {% form_field form.prop label=_('Property') %}
                 {% form_field form.rating %}
             {% endfor %}
         {% endwith %}
