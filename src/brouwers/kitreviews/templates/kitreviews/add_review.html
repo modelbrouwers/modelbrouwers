@@ -1,6 +1,19 @@
 {% extends "kitreviews/base.html" %}
 {% load i18n %}
 
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Add a review" %}
+        <i class="pull-right fa fa-file-text-o fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        Add review to a kit here. First choose the kit you want to review. If you can't find it from the dropdown menu
+        you can always add a new kit.
+    {% endblocktrans %}</p>
+
+{% endblock %}
+
 {% block content %}
 
     <form action="." method="post">
@@ -8,8 +21,8 @@
         {{ properties.management_form }}
         {% include "kitreviews/review_form.html" %}
 
-        <div class="center">
-            <input type="submit" value="{% trans 'Add' %}" class="submit-button"/>
+        <div class="submit-wrapper">
+            <input type="submit" value="{% trans 'Add' %}" class="btn btn-primary"/>
         </div>
     </form>
 

@@ -1,22 +1,47 @@
-{% extends "base.html" %}
+{% extends "base_html5.html" %}
 {% load i18n staticfiles %}
-
 
 {% block style %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/kitreviews.css' %}" charset="utf-8"/>
 {% endblock style %}
 
-{% block menu %}
-    <li><a href="{% url 'kitreviews:index' %}">{% trans "Home" %}</a></li>
-    <li><a href="{% url 'kitreviews:find_kit' %}">{% trans "Find kits/reviews" %}</a></li>
-    <li><a href="{% url 'kitreviews:add_review' %}">{% trans "Add review" %}</a></li>
+
+{% block eye-catcher %}
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            {% block eye-catcher-content %}
+                <h1>
+                    {% trans "Kit Reviews" %}
+                    <i class="pull-right fa fa-file-text-o fa-2x"></i>
+                </h1>
+
+                <p>{% blocktrans %}
+                    The 'Kit Reviews' is a section where you can write reviews for kits and do lots of other cool stuff.
+                {% endblocktrans %}</p>
+            {% endblock %}
+
+            {% block menu %}
+                <a href="{% url 'kitreviews:index' %}" class="btn bg-main-blue">
+                    {% trans "Home" %}
+                </a>
+                <a href="{% url 'kitreviews:find_kit' %}" class="btn bg-main-blue">
+                    {% trans "Find kits/reviews" %}
+                </a>
+                <a href="{% url 'kitreviews:add_review' %}" class="btn bg-main-orange">
+                    {% trans "Add review" %}
+                </a>
+            {% endblock %}
+        </div>
+    </header>
 {% endblock %}
 
+
 {% block content %}
-<ul>
-    {% for review in reviews %}
-        <li>{{ review }} &dash; <a href="{{ review.topic_url }}">topic</a> &dash; rating: {{ review.rating_scaled }}</li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for review in reviews %}
+            <li>{{ review }} &dash; <a href="{{ review.topic_url }}">topic</a> &dash; rating: {{ review.rating_scaled }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock content %}
