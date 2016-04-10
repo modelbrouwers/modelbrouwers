@@ -18,7 +18,10 @@ def index(request):
 
 class ReviewPropertyRatingInline(InlineFormSet):
     model = KitReviewPropertyRating
-    extra = 1
+
+    @property
+    def extra(self):
+        return KitReviewProperty.objects.count()
 
 
 class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
