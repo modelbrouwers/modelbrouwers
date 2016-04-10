@@ -16,7 +16,7 @@
 
         {% with formset=properties %}
             {% for form in formset %}
-                {% form_field form.prop label=_('Property') %}
+                {% form_field form.prop 'form:HiddenSelect' label=_('Property') %}
                 {% form_field form.rating %}
             {% endfor %}
         {% endwith %}

@@ -23,6 +23,9 @@ class ReviewPropertyRatingInline(InlineFormSet):
     def extra(self):
         return KitReviewProperty.objects.count()
 
+    def get_initial(self):
+        return [{'prop': prop} for prop in KitReviewProperty.objects.all()]
+
 
 class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
     model = KitReview
