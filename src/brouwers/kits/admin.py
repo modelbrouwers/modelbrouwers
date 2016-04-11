@@ -1,7 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
+from django import forms
 from django.contrib import admin
+from django.contrib.admin import helpers
+from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch
+from django.template.response import TemplateResponse
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.builds.models import Build
@@ -9,17 +14,64 @@ from brouwers.utils.admin.decorators import link_list
 from .models import Brand, Scale, ModelKit
 
 
+def merge_duplicates(modeladmin, request, queryset):
+    """
+    Marks the queryset objects as duplicates.
+
+    This needs an intermediate page to select which object it's a duplicate of.
+    """
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
+    opts = modeladmin.model._meta
+
+    # create the form
+    target_queryset = modeladmin.model.objects.exclude(pk__in=queryset.values_list('pk', flat=True))
+    DuplicateForm = type(b'DuplicateForm', (forms.Form,), {
+        'target': forms.ModelChoiceField(queryset=target_queryset, empty_label=None, label=_('merge into'))
+    })
+
+    if request.POST.get('post'):
+        form = DuplicateForm(request.POST)
+        if form.is_valid():
+            target = form.cleaned_data['target']
+            for item in queryset:
+                item.modelkit_set.update(**{opts.model_name: target})
+
+            queryset.delete()
+            # Return None to display the change list page again.
+            return None
+
+    if len(queryset) == 1:
+        objects_name = force_text(opts.verbose_name)
+    else:
+        objects_name = force_text(opts.verbose_name_plural)
+
+    context = {
+        'title': _('Merge duplicates'),
+        'queryset': queryset,
+        'form': DuplicateForm(),
+        'objects_name': objects_name,
+        'opts': opts,
+        'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+    }
+    return TemplateResponse(request, 'admin/kits/mark_duplicate.html', context)
+merge_duplicates.short_description = _('Merge selected %(verbose_name_plural)s')
+
+
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ('name', 'logo', 'is_active', 'slug')
     list_filter = ('is_active',)
     search_fields = ('=id', 'name')
+    actions = [merge_duplicates]
 
 
 @admin.register(Scale)
 class ScaleAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
     search_fields = ('scale',)
+    actions = [merge_duplicates]
 
 
 @admin.register(ModelKit)

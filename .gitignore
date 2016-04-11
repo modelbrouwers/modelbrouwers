@@ -45,3 +45,6 @@ npm-debug.log
 
 # Docs
 /doc/_build
+
+# Pycharm-specific files
+.idea/

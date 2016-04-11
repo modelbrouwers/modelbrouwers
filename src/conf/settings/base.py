@@ -184,6 +184,7 @@ MIDDLEWARE_CLASSES = [
     'brouwers.banning.middleware.BanningMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 #

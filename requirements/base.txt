@@ -1,14 +1,14 @@
 # Common packages
-Pillow==3.1.1
-python-dateutil==2.5.0
+Pillow==3.2.0
+python-dateutil==2.5.2
 python-Levenshtein==0.12.0
 pytz
 six==1.10.0
-sqlparse==0.1.18
+sqlparse==0.1.19
 wsgiref==0.1.2
 
 # Django packages
-Django==1.9.4
+Django==1.9.5
 django-appconf==1.0.1  # pulled in by other packages, but update version
 django-choices==1.4.2
 django-admin-tools==0.7.2
@@ -16,19 +16,19 @@ django-autoslug==1.9.3
 django-compressor==2.0
 django-extensions==1.6.1
 django-extra-views==0.7.1
-django-precise-bbcode==1.2.2
-django-rosetta==0.7.8
+django-precise-bbcode==1.2.3
+django-rosetta==0.7.11
 django-sendfile==0.3.10
 django-sessionprofile==0.1.3
-django-systemjs==1.1
+django-systemjs==1.1.2
 # sorl-thumbnail==12.3
 git+https://github.com/mariocesar/sorl-thumbnail.git@master#egg=sorl-thumbnail
 # django-sniplates==0.3.2
 git+https://github.com/funkybob/django-sniplates.git@master#egg=django_sniplates
 
 # API
-djangorestframework==3.3.2
-djangorestframework-filters==0.7.0
+djangorestframework==3.3.3
+djangorestframework-filters==0.8.0
 
 # Html parsing
 BeautifulSoup

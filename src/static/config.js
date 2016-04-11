@@ -15,27 +15,27 @@ System.config({
 
   map: {
     "URIjs": "npm:URIjs@1.15.1",
-    "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1.0.1",
-    "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.0.2",
-    "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-beta.1.0.3",
+    "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1.1.2",
+    "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.1.1",
+    "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-beta.1.1.4",
     "babel": "npm:babel-core@5.8.33",
     "babel-runtime": "npm:babel-runtime@5.8.29",
     "bootstrap": "github:twbs/bootstrap@3.3.5",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.13",
     "handlebars": "github:components/handlebars.js@2.0.0",
-    "jquery": "github:components/jquery@2.2.0",
+    "jquery": "github:components/jquery@2.2.1",
     "jquery-ui": "github:components/jqueryui@1.11.4",
     "js-cookie": "github:js-cookie/js-cookie@2.1.0",
     "json": "github:systemjs/plugin-json@0.1.0",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.2",
-    "ponyjs": "github:sergei-maertens/django-ponyjs@develop",
+    "ponyjs": "github:sergei-maertens/django-ponyjs@0.1.2",
     "q": "npm:q@2.0.3",
     "string.prototype.startswith": "npm:string.prototype.startswith@0.2.0",
     "typeahead": "github:twitter/typeahead.js@0.11.1",
     "url": "github:jspm/nodelibs-url@0.1.0",
     "github:components/jqueryui@1.11.4": {
-      "jquery": "github:components/jquery@2.2.0"
+      "jquery": "github:components/jquery@2.2.1"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -58,21 +58,21 @@ System.config({
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
     },
-    "github:sergei-maertens/django-ponyjs@develop": {
-      "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1.0.1",
-      "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-beta.1.0.3",
+    "github:sergei-maertens/django-ponyjs@0.1.2": {
+      "aurelia-http-client": "npm:aurelia-http-client@1.0.0-beta.1.1.2",
+      "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-beta.1.1.4",
       "core-js": "npm:core-js@1.2.6",
       "handlebars": "github:components/handlebars.js@3.0.3",
-      "jquery": "github:components/jquery@2.2.0",
+      "jquery": "github:components/jquery@2.2.1",
       "js-cookie": "github:js-cookie/js-cookie@2.1.0",
       "json": "github:systemjs/plugin-json@0.1.0",
       "url": "github:jspm/nodelibs-url@0.1.0"
     },
     "github:twbs/bootstrap@3.3.5": {
-      "jquery": "github:components/jquery@2.2.0"
+      "jquery": "github:components/jquery@2.2.1"
     },
     "github:twitter/typeahead.js@0.11.1": {
-      "jquery": "github:components/jquery@2.2.0"
+      "jquery": "github:components/jquery@2.2.1"
     },
     "npm:URIjs@1.15.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -84,14 +84,12 @@ System.config({
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:aurelia-http-client@1.0.0-beta.1.0.1": {
-      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.0.2",
-      "aurelia-path": "npm:aurelia-path@1.0.0-beta.1",
-      "core-js": "npm:core-js@1.2.6"
+    "npm:aurelia-http-client@1.0.0-beta.1.1.2": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.1.1",
+      "aurelia-path": "npm:aurelia-path@1.0.0-beta.1.1.1"
     },
-    "npm:aurelia-pal-browser@1.0.0-beta.1.0.3": {
-      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.0.2",
-      "core-js": "npm:core-js@1.2.6"
+    "npm:aurelia-pal-browser@1.0.0-beta.1.1.4": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.1.1"
     },
     "npm:babel-runtime@5.8.29": {
       "process": "github:jspm/nodelibs-process@0.1.2"

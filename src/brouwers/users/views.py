@@ -153,6 +153,11 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
         initial['question'] = RegistrationQuestion.active.all().order_by('?')[0]
         return initial
 
+    def get_form_kwargs(self):
+        kwargs = super(RegistrationView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def log_registration(self, form):
         if settings.LOG_REGISTRATION_ATTEMPTS:
             self.registration_attempt = RegistrationAttempt.objects.create_from_form(self.request, form.cleaned_data)

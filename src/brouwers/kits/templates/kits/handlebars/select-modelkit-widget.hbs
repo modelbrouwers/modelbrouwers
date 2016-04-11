@@ -4,13 +4,12 @@
     <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{id}}">
         <input type="checkbox" name="{{@root.htmlname}}" value="{{id}}" id="__modelkit_{{id}}" {{#if @root.checked}}checked="checked"{{/if}}>
         <label for="__modelkit_{{id}}" title="{{name}}" class="thumbnail">
-            <span class="h5"><strong>{{name}} {{#if kit_number}}<small>{{kit_number}}</small>{{/if}}</strong></span>
-
             {{#if box_image.small}}
                 <img src="{{box_image.small}}" class="img-responsive">
             {{else}}
                 <img src="{% static "images/thumb.png" %}" class="img-responsive">
             {{/if}}
+            <span class="h5"><strong>{{name}} {{#if kit_number}}<small>{{kit_number}}</small>{{/if}}</strong></span>
         </label>
         <i class="fa fa-check fa-3x"></i>
     </div>
