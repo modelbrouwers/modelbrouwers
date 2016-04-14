@@ -34,6 +34,11 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
     inlines = [ReviewPropertyRatingInline]
     inlines_names = ['properties']
 
+    def get_form_kwargs(self):
+        kwargs = super(AddReview, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 
 class FindKit(DetailView):
     pass
