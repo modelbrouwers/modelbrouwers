@@ -1,10 +1,10 @@
 from django.conf.urls import url
 
-from .views import index, AddReview, FindKit, KitDetail
+from .views import AddReview, FindKit, IndexView, KitDetail
 
 
 urlpatterns = [
-    url(r'^$', index, name='index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     url(r'^add/$', AddReview.as_view(), name='add_review'),
     url(r'^find_kit/$', FindKit.as_view(), name='find_kit'),
     url(r'^kit/$', KitDetail.as_view()),
