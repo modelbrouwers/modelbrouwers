@@ -67,7 +67,7 @@ class AddReviewViewTests(LoginRequiredMixin, WebTest):
 
         response = form.submit()
         self.assertFormError(response, 'form', 'raw_text', _('This field is required.'))
-        # self.assertFormError(response, 'form', 'model_kit', _('This field is required.'))
+        self.assertFormError(response, 'form', 'model_kit', _('This field is required.'))
 
         # now select a kit
         kit = random.choice(kits)
