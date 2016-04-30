@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from ..models import KitReview, KitReviewVote, KitReviewPropertyRating, MIN_RATING, MAX_RATING, DEFAULT_RATING
-from .factories import KitReviewFactory, KitReviewVoteFactory, KitReviewPropertyFactory, KitReviewPropertyRatingFactory
+from ..models import KitReviewPropertyRating, MIN_RATING, MAX_RATING, DEFAULT_RATING
+from .factories import KitReviewFactory, KitReviewPropertyFactory, KitReviewPropertyRatingFactory
 
 
 class KitReviewPropertyRatingTest(TestCase):

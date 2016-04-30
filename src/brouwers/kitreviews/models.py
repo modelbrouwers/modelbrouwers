@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -65,6 +66,9 @@ class KitReview(models.Model):
             'user': self.reviewer.username,
         }
 
+    def get_absolute_url(self):
+        return reverse('kitreviews:kit_detail', args=[self.pk])
+
     @property
     def votes(self):
         # TODO: optimize, can be annotated
@@ -127,7 +131,7 @@ class KitReviewPropertyRating(models.Model):
     """
     Represents properties for a kit review rated on a scale from MIN_RATING to MAX_RATING
     """
-    kit_review = models.ForeignKey('KitReview')
+    kit_review = models.ForeignKey('KitReview', related_name='ratings')
     prop = models.ForeignKey('KitReviewProperty')
     rating = models.PositiveSmallIntegerField(
         _('rating'), default=DEFAULT_RATING,

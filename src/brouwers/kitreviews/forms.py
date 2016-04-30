@@ -1,7 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from brouwers.albums.models import Album
 from brouwers.kits.models import Brand, ModelKit, Scale
 from .models import KitReview
 
