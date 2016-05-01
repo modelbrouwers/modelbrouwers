@@ -41,5 +41,7 @@ class FindKit(DetailView):
     pass
 
 
-class KitDetail(DetailView):
-    pass
+class KitReviewDetail(DetailView):
+    model = KitReview
+    template_name = 'kitreviews/kitreview_detail.html'
+    context_object_name = 'kit_review'
