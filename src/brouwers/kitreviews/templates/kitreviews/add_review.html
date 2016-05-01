@@ -1,5 +1,5 @@
 {% extends "kitreviews/base.html" %}
-{% load i18n %}
+{% load i18n sniplates %}
 
 {% block eye-catcher-content %}
     <h1>
@@ -20,7 +20,9 @@
         {% csrf_token %}
         {{ properties.management_form }}
         {% include "kitreviews/review_form.html" %}
+        {{ form.errors }}
 
+        {{ formset.errors }}
         <div class="submit-wrapper">
             <input type="submit" value="{% trans 'Add' %}" class="btn btn-primary"/>
         </div>

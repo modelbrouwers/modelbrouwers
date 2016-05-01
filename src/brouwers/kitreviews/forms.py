@@ -19,11 +19,11 @@ class FindModelKitForm(forms.Form):
 
 
 class KitReviewForm(forms.ModelForm):
-    model_kit = forms.ModelChoiceField(queryset=ModelKit.objects.all(), required=False)
+    model_kit = forms.ModelChoiceField(queryset=ModelKit.objects.all(), required=True)
 
     class Meta:
         model = KitReview
-        exclude = ('model_kit', 'html', 'reviewer')
+        fields = ['model_kit', 'raw_text', 'album', 'topic_id', 'external_topic_url', 'show_real_name']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -32,3 +32,7 @@ class KitReviewForm(forms.ModelForm):
         # TODO: include group albums and public albums...
         self.fields['model_kit'].queryset = self.fields['model_kit'].queryset.select_related('brand')
         self.fields['album'].queryset = self.user.album_set.filter(trash=False)
+
+    def save(self, *args, **kwargs):
+        self.instance.reviewer = self.user
+        return super(KitReviewForm, self).save(*args, **kwargs)
