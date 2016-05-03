@@ -1,7 +1,9 @@
+from django.forms import modelform_factory
 from django.views.generic import DetailView, ListView
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
+from brouwers.utils.forms import AlwaysChangedModelForm
 from brouwers.utils.views import LoginRequiredMixin
 from .forms import KitReviewForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
@@ -15,6 +17,10 @@ class IndexView(ListView):
 
 class ReviewPropertyRatingInline(InlineFormSet):
     model = KitReviewPropertyRating
+    form_class = modelform_factory(
+        model, form=AlwaysChangedModelForm,
+        fields=('id', 'prop', 'rating')
+    )
 
     @property
     def num_properties(self):
