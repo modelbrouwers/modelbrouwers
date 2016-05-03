@@ -17,8 +17,22 @@ class ReviewPropertyRatingInline(InlineFormSet):
     model = KitReviewPropertyRating
 
     @property
+    def num_properties(self):
+        if not hasattr(self, '_num_properties'):
+            self._num_properties = KitReviewProperty.objects.count()
+        return self._num_properties
+
+    def get_factory_kwargs(self):
+        kwargs = super(ReviewPropertyRatingInline, self).get_factory_kwargs()
+        kwargs.update({
+            'min_num': self.num_properties,
+            'max_num': self.num_properties,
+        })
+        return kwargs
+
+    @property
     def extra(self):
-        return KitReviewProperty.objects.count()
+        return self.num_properties
 
     def get_initial(self):
         return [{'prop': prop} for prop in KitReviewProperty.objects.all()]
