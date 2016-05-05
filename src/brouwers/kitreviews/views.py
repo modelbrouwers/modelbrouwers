@@ -1,12 +1,13 @@
 from django.forms import modelform_factory
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, FormView
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
 from brouwers.utils.forms import AlwaysChangedModelForm
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import KitReviewForm
+from .forms import KitReviewForm, FindModelKitForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
+from brouwers.kits.models import ModelKit
 
 
 class IndexView(ListView):
@@ -57,8 +58,11 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
         return kwargs
 
 
-class FindKit(DetailView):
-    pass
+class FindKit(FormView):
+    model = ModelKit
+    template_name = 'kitreviews/find_kit.html'
+    form_class = FindModelKitForm
+    context_object_name = 'kits'
 
 
 class KitReviewDetail(DetailView):

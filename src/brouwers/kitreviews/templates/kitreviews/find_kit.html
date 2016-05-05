@@ -1,22 +1,21 @@
 {% extends "kitreviews/base.html" %}
-{% load i18n %}
+{% load i18n sniplates %}
 
 {% block content %}
-    <div class="tab">{% trans 'Find model kit(s) &dash; Enter your search parameters' %}</div>
+    <div class="tab"><h3>{% trans 'Find model kit(s) &dash; Enter your search parameters' %}</h3></div>
 
     <form action="." method="get">
-        {% with form=kitform %}
-            {% include "form_in_table.html" %}
-        {% endwith %}
+        {% include "kitreviews/find_kit_form.html" %}
+        {{ form.errors }}
 
         <div class="center">
-            <input type="submit" value="{% trans 'Find kits' %}" class="submit-button" />
+            <input type="submit" value="{% trans 'Find kits' %}" class="submit-button"/>
         </div>
     </form>
     {% with kits.count as num_kits %}
         {% if num_kits %}
             <div class="tab midpage">{% blocktrans %}
-               Search results ({{ num_kits }})
+                Search results ({{ num_kits }})
             {% endblocktrans %}</div>
             <div id="search-results">
                 {% for kit in kits %}
@@ -41,8 +40,9 @@
                             <p>{{ kit.scale }}</p>
                             <p class="category">{{ kit.category }}</p>
                             <span class="small-text">
-                                <br />
-                                ({% blocktrans count counter=kit.kitreview_set.count %}{{ counter }} review{% plural %}{{ counter }} reviews{% endblocktrans %})
+                                <br/>
+                                ({% blocktrans count counter=kit.kitreview_set.count %}{{ counter }} review
+                                {% plural %}{{ counter }} reviews{% endblocktrans %})
                                 <a href="{% url 'kitreviews:kit_add_review' kit.id %}">{% trans "Add review" %}</a>
                             </span>
                         </div>
