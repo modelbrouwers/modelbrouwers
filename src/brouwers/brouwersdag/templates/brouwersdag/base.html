@@ -1,6 +1,6 @@
 {% extends "base_html5.html" %}{% load i18n %}
 
-{% block title %}{% blocktrans with year=brouwersdag.date.year %}Brouwersdag {{ year }}{% endblocktrans %}{% endblock %}
+{% block title %} {% blocktrans trimmed with year=brouwersdag.date.year %}Modelbouwdag {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block sub-nav-links %}
     {% url 'brouwersdag:index' as url_bd_index %}
@@ -10,5 +10,6 @@
       <li{% if request.path == url_bd_index %} class="active"{% endif %}><a href="{{ url_bd_index }}">Home</a></li>
       <li{% if request.path == url_bd_signup %} class="active"{% endif %}><a href="{{ url_bd_signup }}">{% trans "Signup" %}</a></li>
       <li{% if request.path == url_bd_my_models %} class="active"{% endif %}><a href="{{ url_bd_my_models }}">{% trans "My models" %}</a></li>
+        <li><a href="http://modelbouwdag.nl/">{% trans "Website" %}</a></li>
     </ul>
 {% endblock %}
