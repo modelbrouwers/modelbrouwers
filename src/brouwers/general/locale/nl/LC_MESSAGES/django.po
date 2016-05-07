@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-11 17:55+0100\n"
+"POT-Creation-Date: 2016-05-07 12:51+0200\n"
 "PO-Revision-Date: 2015-02-10 20:02+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,61 +115,61 @@ msgstr "Anti-spambot vraag"
 msgid "Question which must be answered for registration."
 msgstr "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
 
-#: models.py:130
+#: models.py:100 models.py:225
+msgid "language"
+msgstr "taal"
+
+#: models.py:132
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:131
+#: models.py:133
 msgid "email"
 msgstr "E-mailadres"
 
-#: models.py:132
+#: models.py:134
 msgid "registration question"
 msgstr "Registratievraag"
 
-#: models.py:133
+#: models.py:135
 msgid "answer"
 msgstr "antwoord"
 
-#: models.py:134
+#: models.py:136
 msgid "timestamp"
 msgstr "timestamp"
 
-#: models.py:135
+#: models.py:137
 msgid "IP address"
 msgstr "IP adres"
 
-#: models.py:136
+#: models.py:138
 msgid "success"
 msgstr "geslaagd"
 
-#: models.py:140
+#: models.py:142
 msgid "type of visitor"
 msgstr "type bezoeker"
 
-#: models.py:146
+#: models.py:148
 msgid "registration attempt"
 msgstr "registratiepoging"
 
-#: models.py:147
+#: models.py:149
 msgid "registration attempts"
 msgstr "registratiepogingen"
 
-#: models.py:192
+#: models.py:194
 #, python-format
 msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
 msgstr ""
 "Waarschijnlijk spambot, %(num_attempts)s tegenover maximaal %(max)s pogingen."
 
-#: models.py:223
-msgid "language"
-msgstr "taal"
-
-#: models.py:230
+#: models.py:232
 msgid "announcement"
 msgstr "aankondiging"
 
-#: models.py:231
+#: models.py:233
 msgid "announcements"
 msgstr "aankondigingen"
 

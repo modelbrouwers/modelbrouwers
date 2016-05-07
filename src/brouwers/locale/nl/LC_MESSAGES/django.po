@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-11 17:55+0100\n"
+"POT-Creation-Date: 2016-05-07 12:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,92 +79,108 @@ msgstr ""
 msgid "Scale"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:22
+#: brouwers/kitreviews/models.py:27
 msgid "review"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:23
+#: brouwers/kitreviews/models.py:28
 msgid "This is your review. You can use BBCode here."
 msgstr ""
 
-#: brouwers/kitreviews/models.py:26
-msgid "positive points"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:27
-msgid "negative points"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:28
-#, fuzzy
-#| msgid "Migrations"
-msgid "rating"
-msgstr "Migraties"
-
-#: brouwers/kitreviews/models.py:31
+#: brouwers/kitreviews/models.py:37
 msgid "album"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:33
+#: brouwers/kitreviews/models.py:39
 msgid "topic"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:34
+#: brouwers/kitreviews/models.py:40
 #, fuzzy
 #| msgid "Back to the Modelbrouwers.nl homepage"
 msgid "ID of the topic on Modelbrouwers."
 msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#: brouwers/kitreviews/models.py:37
+#: brouwers/kitreviews/models.py:43
 msgid "topic url"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:38
+#: brouwers/kitreviews/models.py:44
 msgid "URL to the topic not hosted on Modelbrouwers"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:43
+#: brouwers/kitreviews/models.py:49
 msgid "show real name?"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:44
+#: brouwers/kitreviews/models.py:50
 msgid ""
 "Checking this option will display your real name as reviewer. Uncheck to use "
 "your nickname."
 msgstr ""
 
-#: brouwers/kitreviews/models.py:53
+#: brouwers/kitreviews/models.py:59
 #, fuzzy
 #| msgid "Visit the kit reviews!"
 msgid "kit review"
 msgstr "Ga naar de kitreviews!"
 
-#: brouwers/kitreviews/models.py:54
+#: brouwers/kitreviews/models.py:60
 #, fuzzy
 #| msgid "Visit the kit reviews!"
 msgid "kit reviews"
 msgstr "Ga naar de kitreviews!"
 
-#: brouwers/kitreviews/models.py:57
+#: brouwers/kitreviews/models.py:63
 #, python-format
 msgid "Review: %(kit)s by %(user)s"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:101
+#: brouwers/kitreviews/models.py:96
 msgid "vote"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:105
+#: brouwers/kitreviews/models.py:100
 msgid "kit review vote"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:106
+#: brouwers/kitreviews/models.py:101
 msgid "kit review votes"
 msgstr ""
 
-#: brouwers/kitreviews/models.py:110
+#: brouwers/kitreviews/models.py:105
 #, python-format
 msgid "Vote for review by %(review_submitter)s"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:115
+msgid "name"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:119
+#, fuzzy
+#| msgid "Visit the kit reviews!"
+msgid "kit review property"
+msgstr "Ga naar de kitreviews!"
+
+#: brouwers/kitreviews/models.py:120
+#, fuzzy
+#| msgid "Visit the kit reviews!"
+msgid "kit review properties"
+msgstr "Ga naar de kitreviews!"
+
+#: brouwers/kitreviews/models.py:133
+#, fuzzy
+#| msgid "Migrations"
+msgid "rating"
+msgstr "Migraties"
+
+#: brouwers/kitreviews/models.py:138
+msgid "kit review property rating"
+msgstr ""
+
+#: brouwers/kitreviews/models.py:139
+msgid "kit review property ratings"
 msgstr ""
 
 #: brouwers/kitreviews/templates/kitreviews/add_review.html:9
@@ -172,7 +188,7 @@ msgid "Model kit"
 msgstr ""
 
 #: brouwers/kitreviews/templates/kitreviews/add_review.html:11
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:42
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:43
 msgid "Review"
 msgstr ""
 
@@ -191,7 +207,7 @@ msgstr ""
 msgid "Find kits"
 msgstr ""
 
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:48
+#: brouwers/kitreviews/templates/kitreviews/add_review.html:49
 msgid "Add"
 msgstr ""
 

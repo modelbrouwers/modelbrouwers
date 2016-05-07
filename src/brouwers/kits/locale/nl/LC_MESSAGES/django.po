@@ -8,115 +8,169 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-11 17:55+0100\n"
+"POT-Creation-Date: 2016-05-07 12:51+0200\n"
 "PO-Revision-Date: 2016-03-11 17:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.8\n"
+
+#: admin.py:31
+msgid "merge into"
+msgstr ""
+
+#: admin.py:51 templates/admin/kits/mark_duplicate.html.py:11
+#, fuzzy
+#| msgid "duplicates"
+msgid "Merge duplicates"
+msgstr "duplicaten"
+
+#: admin.py:59
+#, python-format
+msgid "Merge selected %(verbose_name_plural)s"
+msgstr ""
+
+#: admin.py:89
+msgid "builds"
+msgstr ""
+
+#: admin.py:95
+#, fuzzy
+#| msgid "box image"
+msgid "view image"
+msgstr "boxart"
+
+#: admin.py:98
+msgid "boxart"
+msgstr ""
 
 #: apps.py:7
 msgid "kits"
 msgstr "kits"
 
-#: models.py:17 models.py:26 models.py:71 widgets.py:14
+#: models.py:18 models.py:30 models.py:78 widgets.py:14
 msgid "brand"
 msgstr "merk"
 
-#: models.py:18 models.py:72
+#: models.py:20
+msgid "This brand already exists"
+msgstr ""
+
+#: models.py:22 models.py:79
 msgid "slug"
 msgstr "slug"
 
-#: models.py:19
+#: models.py:23
 msgid "logo"
 msgstr "logo"
 
-#: models.py:21
+#: models.py:25
 msgid "is active"
 msgstr "is actief"
 
-#: models.py:22
+#: models.py:26
 msgid "Whether the brand still exists or not"
 msgstr "Geeft aan of het merk nog bestaat of niet"
 
-#: models.py:27
+#: models.py:31
 msgid "brands"
 msgstr "merken"
 
-#: models.py:39 models.py:42 models.py:78 widgets.py:15
+#: models.py:44 models.py:49 models.py:85 widgets.py:15
 msgid "scale"
 msgstr "schaal"
 
-#: models.py:43
+#: models.py:45
+msgid "This scale already exists"
+msgstr ""
+
+#: models.py:50
 msgid "scales"
 msgstr "schalen"
 
-#: models.py:54
+#: models.py:61
 msgid "very easy"
 msgstr "zeer makkelijk"
 
-#: models.py:55
+#: models.py:62
 msgid "easy"
 msgstr "makkelijk"
 
-#: models.py:56
+#: models.py:63
 msgid "medium"
 msgstr "gemiddeld"
 
-#: models.py:57
+#: models.py:64
 msgid "hard"
 msgstr "moeilijk"
 
-#: models.py:58
+#: models.py:65
 msgid "very hard"
 msgstr "zeer moeilijk"
 
-#: models.py:70 templates/kits/widgets.html.py:97
+#: models.py:77 templates/kits/widgets.html.py:97
 msgid "kit name"
 msgstr "kitnaam"
 
-#: models.py:74
+#: models.py:81
 msgid "kit number"
 msgstr "kitnummer"
 
-#: models.py:76
+#: models.py:83
 msgid "Kit number as found on the box."
 msgstr "Kitnummer zoals die op de doos staat."
 
-#: models.py:80
+#: models.py:87
 msgid "difficulty"
 msgstr "moeilijkheidsgraad"
 
-#: models.py:84
+#: models.py:91
 msgid "box image"
 msgstr "boxart"
 
-#: models.py:87
+#: models.py:94
 msgid "duplicates"
 msgstr "duplicaten"
 
-#: models.py:88
+#: models.py:95
 msgid "Kits that are the same but have another producer."
 msgstr "Kits die identiek zijn, maar uitgegeven door een ander merk."
 
-#: models.py:95
+#: models.py:103
 msgid "model kit"
 msgstr "bouwdoos"
 
-#: models.py:96
+#: models.py:104
 msgid "model kits"
 msgstr "bouwdozen"
 
-#: models.py:121
+#: models.py:129
 #, python-format
 msgid "A kit from %(brand)s with kit number '%(kit_number)s' already exists"
 msgstr "Er bestaat al een kit van %(brand)s met kitnummer '%(kit_number)s'."
 
-#: templates/kits/handlebars/select-modelkit-widget.hbs:22
+#: templates/admin/kits/mark_duplicate.html:8
+msgid "Home"
+msgstr ""
+
+#: templates/admin/kits/mark_duplicate.html:16
+#, python-format
+msgid "Are you sure you want to merge the selected %(objects_name)s?"
+msgstr ""
+
+#: templates/admin/kits/mark_duplicate.html:30
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: templates/admin/kits/mark_duplicate.html:31
+msgid "No, take me back"
+msgstr ""
+
+#: templates/kits/handlebars/select-modelkit-widget.hbs:21
 msgid "load more"
 msgstr "meer tonen"
 
@@ -134,8 +188,7 @@ msgstr "Voeg een nieuwe kit toe aan de databank"
 
 #: templates/kits/widgets.html:83
 msgid ""
-"Please, only add new kits if they were not available via the search "
-"function."
+"Please, only add new kits if they were not available via the search function."
 msgstr ""
 "Gelieve enkel nieuwe kits toe te voegen als ze niet te vinden zijn via de "
 "zoekfunctie."
