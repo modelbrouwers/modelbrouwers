@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.utils.http import base36_to_int
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
 from django.views import generic
 
 from extra_views import UpdateWithInlinesView, NamedFormsetsMixin, InlineFormSet
@@ -150,7 +150,8 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
 
     def get_initial(self):
         initial = super(RegistrationView, self).get_initial()
-        initial['question'] = RegistrationQuestion.active.all().order_by('?')[0]
+        lang = get_language()[:2]
+        initial['question'] = RegistrationQuestion.active.filter(lang=lang).order_by('?')[0]
         return initial
 
     def get_form_kwargs(self):
