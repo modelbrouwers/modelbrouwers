@@ -4,6 +4,7 @@ import $ from 'jquery';
 import URI from 'URIjs';
 import Api from 'scripts/api';
 
+import Collapse from './collapse.js';
 
 
 let conf = {
@@ -33,6 +34,10 @@ let urlconf = {
 
 
 $(function() {
+
+    // handle collapse/uncollapse in responsive mode
+    new Collapse();
+
     // ping the Django server, ignore exceptions
     $.get(urlconf.ou.so);
 
