@@ -1,5 +1,6 @@
 from django.forms import modelform_factory
 from django.views.generic import DetailView, ListView, FormView
+from django.shortcuts import get_object_or_404
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
@@ -55,7 +56,11 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
     def get_form_kwargs(self):
         kwargs = super(AddReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
+        return kwargs
 
+    def get_initial(self):
+        kwargs = super(AddReview, self).get_initial()
+        kwargs['model_kit'] = get_object_or_404(ModelKit, pk=self.args[0])
         return kwargs
 
     def get_context_data(self, *args, **kwargs):
