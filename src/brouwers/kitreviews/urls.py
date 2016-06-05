@@ -4,7 +4,7 @@ from .views import AddReview, FindKit, IndexView, KitReviewDetail
 
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^$', FindKit.as_view(), name='index'),
     url(r'^add/$', AddReview.as_view(), name='add_review'),
     url(r'^find_kit/$', FindKit.as_view(), name='find_kit'),
     url(r'^kit/$', KitReviewDetail.as_view()),

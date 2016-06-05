@@ -7,9 +7,10 @@
     <form action="." method="get">
         {% include "kitreviews/find_kit_form.html" %}
         {{ form.errors }}
+        {{ form.non_field_errors }}
 
         <div class="center">
-            <input type="submit" value="{% trans 'Find kits' %}" class="submit-button"/>
+            <input type="submit" value="{% trans 'Find kits' %}" class="btn btn-primary"/>
         </div>
     </form>
     {% with kits.count as num_kits %}
@@ -20,11 +21,13 @@
             <div id="search-results">
                 {% for kit in kits %}
                     <div class="kit">
-                        <div class="box-image">
-                            <a href="{{ kit.get_absolute_url }}" title="{{ kit.name }}">
-                                <img src="{{ kit.box_image.url }}" class="box-image-small" alt="boximg"/>
-                            </a>
-                        </div>
+                        {% if kit.box_image %}
+                            <div class="box-image">
+                                <a href="{{ kit.get_absolute_url }}" title="{{ kit.name }}">
+                                    <img src="{{ kit.box_image.url }}" class="box-image-small" alt="boximg"/>
+                                </a>
+                            </div>
+                        {% endif %}
                         <div class="kit-details">
                             <p>
                                 <a href="{{ kit.get_absolute_url }}" class="kit-name" title="{{ kit.name }}">

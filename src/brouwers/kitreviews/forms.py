@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Q
 
 from brouwers.kits.models import Brand, ModelKit, Scale
 from .models import KitReview
@@ -16,6 +17,34 @@ class FindModelKitForm(forms.Form):
     kit_number = forms.CharField(label=_('Kit number'), required=False)
     kit_name = forms.CharField(label=_('Kit name'), required=False)
     scale = forms.ModelChoiceField(queryset=Scale.objects.all(), label=_('Scale'), required=False)
+
+    def find_kits(self):
+        results = ModelKit.objects.all().select_related('brand', 'scale')
+
+        brand = self.cleaned_data['brand']
+        if brand:
+            results = results.filter(brand_id=brand.id)
+
+        kit_number = self.cleaned_data['kit_number']
+        if kit_number:
+            results = results.filter(kit_number__icontains=kit_number)
+
+        kit_name = self.cleaned_data['kit_name']
+        if kit_name:
+            name_parts = kit_name.split(' ')
+            # order doesn't matter, just find the kits with names that have all
+            # the search terms
+            q_list = []
+            for part in name_parts:
+                q_list.append(Q(name__icontains=part))
+            results = results.filter(*q_list)
+
+        scale = self.cleaned_data['scale']
+        if scale:
+            results = results.filter(scale_id=scale.id)
+
+        print('results', results)
+        return results
 
 
 class KitReviewForm(forms.ModelForm):

@@ -55,14 +55,32 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
     def get_form_kwargs(self):
         kwargs = super(AddReview, self).get_form_kwargs()
         kwargs['user'] = self.request.user
+
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        print('kw', kwargs)
 
 
 class FindKit(FormView):
-    model = ModelKit
     template_name = 'kitreviews/find_kit.html'
     form_class = FindModelKitForm
-    context_object_name = 'kits'
+
+    def get_form_kwargs(self):
+        kwargs = super(FindKit, self).get_form_kwargs()
+        if 'data' not in kwargs:
+            kwargs['data'] = self.request.GET
+        return kwargs
+
+    def get(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        return self.render_to_response(self.get_context_data())
+
+    def form_valid(self, form):
+        kits = form.find_kits()
+        return self.render_to_response(self.get_context_data(kits=kits))
 
 
 class KitReviewDetail(DetailView):
