@@ -58,8 +58,9 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
 
         return kwargs
 
-    def get_context_data(self, **kwargs):
-        print('kw', kwargs)
+    def get_context_data(self, *args, **kwargs):
+        # we need to swallow *args here because extra_views chokes on it
+        return super(AddReview, self).get_context_data(**kwargs)
 
 
 class FindKit(FormView):
