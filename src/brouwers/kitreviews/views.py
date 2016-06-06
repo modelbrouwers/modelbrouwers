@@ -59,9 +59,10 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
         return kwargs
 
     def get_initial(self):
-        kwargs = super(AddReview, self).get_initial()
-        kwargs['model_kit'] = get_object_or_404(ModelKit, pk=self.args[0])
-        return kwargs
+        if self.args:
+            kwargs = super(AddReview, self).get_initial()
+            kwargs['model_kit'] = get_object_or_404(ModelKit, pk=self.args[0])
+            return kwargs
 
     def get_context_data(self, *args, **kwargs):
         # we need to swallow *args here because extra_views chokes on it
