@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
@@ -125,9 +127,8 @@ class ModelKit(models.Model):
             model = self.__class__
             kits = model.objects.filter(brand=self.brand, kit_number=self.kit_number, scale=self.scale)
             if kits.exists():
-                raise ValidationError(
-                    _(u'A kit from %(brand)s with kit number \'%(kit_number)s\' already exists') % {
-                        'brand': self.brand,
-                        'kit_number': self.kit_number
-                        }
-                    )
+                error = _('A kit from {brand} with kut number \'{kit_number}\' already exists')
+                raise ValidationError(error.format(brand=self.brand, kit_number=self.kit_number))
+
+    def has_box_image(self):
+        return self.box_image.storage.exists(self.box_image.name)

@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.forms import modelform_factory
 from django.views.generic import DetailView, ListView, FormView
 from django.shortcuts import get_object_or_404
@@ -83,6 +84,7 @@ class FindKit(FormView):
 
     def form_valid(self, form):
         kits = form.find_kits()
+        kits = kits.annotate(num_reviews=Count('kitreview'))
         return self.render_to_response(self.get_context_data(kits=kits))
 
 

@@ -4,11 +4,16 @@
 
     <fieldset class="well">
         {% load_widgets form='horizontal.form' %}
-        {% form_field form.brand %}
-        {% form_field form.scale %}
-        {% form_field form.kit_name %}
-        {% form_field form.kit_number %}
-
+        <div class="row">
+            <div class="col-md-6">
+                {% form_field form.brand %}
+                {% form_field form.scale %}
+            </div>
+            <div class="col-md-6">
+                {% form_field form.kit_name %}
+                {% form_field form.kit_number %}
+            </div>
+        </div>
     </fieldset>
 
 {% endblock %}

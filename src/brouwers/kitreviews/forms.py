@@ -19,7 +19,7 @@ class FindModelKitForm(forms.Form):
     scale = forms.ModelChoiceField(queryset=Scale.objects.all(), label=_('Scale'), required=False)
 
     def find_kits(self):
-        results = ModelKit.objects.all().select_related('brand', 'scale')
+        results = ModelKit.objects.select_related('brand', 'scale')
 
         brand = self.cleaned_data['brand']
         if brand:
@@ -42,8 +42,6 @@ class FindModelKitForm(forms.Form):
         scale = self.cleaned_data['scale']
         if scale:
             results = results.filter(scale_id=scale.id)
-
-        print('results', results)
         return results
 
 
