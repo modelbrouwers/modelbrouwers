@@ -1,6 +1,7 @@
 from django.db.models import Count
 from django.forms import modelform_factory
 from django.views.generic import DetailView, ListView, FormView
+from django.views.generic.detail import SingleObjectMixin
 from django.shortcuts import get_object_or_404
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
@@ -86,6 +87,16 @@ class FindKit(FormView):
         kits = form.find_kits()
         kits = kits.annotate(num_reviews=Count('kitreview'))
         return self.render_to_response(self.get_context_data(kits=kits))
+
+
+class ReviewListView(SingleObjectMixin, ListView):
+    queryset = KitReview.objects.all()
+    queryset_kits = ModelKit.objects.select_related('brand', 'scale')
+    template_name = 'kitreviews/kit_review_list.html'
+
+    def get_queryset(self):
+        self.object = kit = self.get_object(queryset=self.queryset_kits)
+        return super(ReviewListView, self).get_queryset().filter(model_kit=kit)
 
 
 class KitReviewDetail(DetailView):

@@ -17,7 +17,7 @@
     {% if form.data %}
     <h3>{% blocktrans with num_results=kits.count %}Search results ({{ num_results }}){% endblocktrans %}</h3>
 
-    <section class="kitreviews__listing">
+    <section class="kitreviews--listing">
         <div class="row">
         {% for kit in kits %}
             <article class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{ kit.id }}">
@@ -39,12 +39,16 @@
                 <p>{{ kit.scale }}</p>
                 <p>{{ kit.category }}</p>
 
-                <span class="small-text">
-                    <br/>
-                    ({% blocktrans count counter=kit.num_reviews %}{{ counter }} review
-                    {% plural %}{{ counter }} reviews{% endblocktrans %})
-                    <a href="{% url 'kitreviews:kit_add_review' kit.id %}">{% trans "Add review" %}</a>
-                </span>
+                <p>
+                    <a href="{% url 'kitreviews:review-list' slug=kit.slug %}">
+                    {% blocktrans trimmed count counter=kit.num_reviews %}
+                        {{ counter }} review
+                    {% plural %}
+                        {{ counter }} reviews
+                    {% endblocktrans %}
+                    </a>
+                    <a href="{% url 'kitreviews:kit_add_review' pk=kit.pk %}">{% trans "Add review" %}</a>
+                </p>
 
             </article>
         {% endfor %}

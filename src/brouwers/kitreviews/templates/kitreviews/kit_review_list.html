@@ -1,0 +1,45 @@
+{% extends "kitreviews/base.html" %}
+{% load i18n sniplates staticfiles thumbnail %}
+
+{% block content %}
+
+<article class="kitreviews--kit">
+    {% with kit=object %}
+
+    <header>
+        <h1>{{ kit.name }} <small>{{ kit.kit_number }}</small></h1>
+
+        {% if kit.brand.logo %}
+            {% thumbnail kit.brand.logo '100x100' as im %}
+                <img src="{{ im.url }}" alt="logo-{{ kit.brand.slug }}" title="{{ kit.brand.name }}">
+            {% endthumbnail %}
+        {% else %}
+            <h2>{{ kit.brand.name }}</h2>
+        {% endif %}
+
+        {% if kit.scale %}
+            <p>{{ kit.scale }}</p>
+        {% endif %}
+    </header>
+
+    <figure>
+        {% if kit.has_box_image %}
+            {% thumbnail kit.box_image "800x600" crop="center" as im %}
+                <img src="{{ im.url }}" class="img-responsive">
+            {% endthumbnail %}
+        {% else %}
+            <img src="{% static "images/thumb.png" %}" class="img-responsive">
+        {% endif %}
+    </figure>
+
+    {% endwith %}
+
+    <section>
+        <ul>
+            {% for review in object_list %}
+                <li><a href="{{ review.get_absolute_url }}">{{ review }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+</article>
+{% endblock %}
