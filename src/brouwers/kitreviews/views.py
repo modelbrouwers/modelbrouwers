@@ -4,11 +4,11 @@ from django.shortcuts import get_object_or_404
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
+from brouwers.kits.models import ModelKit
 from brouwers.utils.forms import AlwaysChangedModelForm
 from brouwers.utils.views import LoginRequiredMixin
 from .forms import KitReviewForm, FindModelKitForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
-from brouwers.kits.models import ModelKit
 
 
 class IndexView(ListView):
@@ -59,14 +59,10 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
         return kwargs
 
     def get_initial(self):
-        if self.args:
-            kwargs = super(AddReview, self).get_initial()
-            kwargs['model_kit'] = get_object_or_404(ModelKit, pk=self.args[0])
-            return kwargs
-
-    def get_context_data(self, *args, **kwargs):
-        # we need to swallow *args here because extra_views chokes on it
-        return super(AddReview, self).get_context_data(**kwargs)
+        initial = super(AddReview, self).get_initial()
+        if self.kwargs.get('pk'):
+            initial['model_kit'] = get_object_or_404(ModelKit, pk=self.kwargs['pk'])
+        return initial
 
 
 class FindKit(FormView):
