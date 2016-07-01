@@ -50,7 +50,7 @@ class KitReviewForm(forms.ModelForm):
 
     class Meta:
         model = KitReview
-        fields = ['model_kit', 'raw_text', 'album', 'topic_id', 'external_topic_url', 'show_real_name']
+        fields = ['model_kit', 'raw_text', 'album', 'topic', 'external_topic_url', 'show_real_name']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)

@@ -35,11 +35,56 @@
     {% endwith %}
 
     <section>
-        <ul>
+        {% blocktrans trimmed count count=object_list.count %}
+            There is one review
+        {% plural %}
+            There are {{ count }} reviews
+        {% endblocktrans %}:
+
+        <div class="kitreviews--review-list">
             {% for review in object_list %}
-                <li><a href="{{ review.get_absolute_url }}">{{ review }}</a></li>
+                <article class="kitreviews--review-preview">
+                    <header>
+                        {% blocktrans trimmed with reviewer=review.reviewer_name time_ago=review.submitted_on|timesince %}
+                            {{ reviewer }} &ndash; {{ time_ago }} ago
+                        {% endblocktrans %}
+                    </header>
+
+                    {# TODO #}
+                    {# <p>{{ review.votes }}</p> #}
+
+                    <div class="row">
+
+                        <ul class="list-unstyled kitreviews--ratings-list col-md-6">
+                            {% for rating in review.ratings.all %}
+                                <li class="row">
+                                    <div class="col-md-4 text-right">{{ rating.prop.name }}</div>
+                                    <div class="col-md-8">
+                                        <div class="progress">
+                                            {% widthratio rating.rating 100 100 as bar_width %}
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ bar_width }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bar_width }}%;">
+                                                <span>{{ bar_width }}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <div class="col-md-6 kitreviews--text-preview">
+                            {{ review.html|safe|default:review.raw_text }}
+                        </div>
+
+                    </div>
+
+                    <footer>
+                        <a class="btn btn-default" href="{{ review.topic_url }}">{% trans "Topic" %}</a>
+
+                        <a class="btn btn-default" href="{{ review.album.get_absolute_url }}">{% trans "album" %}</a>
+                    </footer>
+                </article>
             {% endfor %}
-        </ul>
+        </div>
     </section>
 </article>
 {% endblock %}

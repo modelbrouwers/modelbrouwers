@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Prefetch
 from django.forms import modelform_factory
 from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.detail import SingleObjectMixin
@@ -90,7 +90,9 @@ class FindKit(FormView):
 
 
 class ReviewListView(SingleObjectMixin, ListView):
-    queryset = KitReview.objects.all()
+    queryset = KitReview.objects.prefetch_related(
+        Prefetch('ratings', queryset=KitReviewPropertyRating.objects.select_related('prop'))
+    ).select_related('reviewer', 'album')
     queryset_kits = ModelKit.objects.select_related('brand', 'scale')
     template_name = 'kitreviews/kit_review_list.html'
 

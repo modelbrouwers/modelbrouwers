@@ -1,10 +1,8 @@
 {% extends "base_html5.html" %}
 {% load i18n staticfiles %}
 
-{% block style %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/kitreviews.css' %}" charset="utf-8"/>
-{% endblock style %}
+
+{% block body-class %}{{ block.super }} kitreviews{% endblock body-class %}
 
 
 {% block eye-catcher %}

@@ -1,0 +1,9 @@
+.kitreviews {
+
+  &--review-preview {
+    @include border-radius(5px);
+    border: solid 1px $default-border-color;
+    padding: 1em;
+  }
+
+}

@@ -1825,6 +1825,15 @@ body.groupbuilds .participants tr.finished .fa-check {
   justify-content: center;
 }
 
+/* line 3, ../../sass/partials/apps/_kitreviews.scss */
+.kitreviews--review-preview {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: solid 1px #CCC;
+  padding: 1em;
+}
+
 /* line 3, ../../sass/partials/apps/_users.scss */
 body.users #form-login {
   margin-top: 75px;

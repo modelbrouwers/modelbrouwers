@@ -36,7 +36,7 @@ class KitReview(models.Model):
 
     # linking to extra information
     album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
-    topic_id = ForumToolsIDField(
+    topic = ForumToolsIDField(
         _('topic'), type='topic', blank=True,
         null=True, help_text=_('ID of the topic on Modelbrouwers.')
     )
@@ -84,6 +84,12 @@ class KitReview(models.Model):
         if self.external_topic_url:
             return self.external_topic_url
         return None
+
+    @property
+    def reviewer_name(self):
+        if self.show_real_name:
+            return self.reviewer.get_full_name()
+        return self.reviewer.username
 
 
 class VoteTypes(DjangoChoices):
