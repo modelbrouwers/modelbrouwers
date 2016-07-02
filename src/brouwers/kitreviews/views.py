@@ -2,6 +2,7 @@ from django.db.models import Count, Prefetch
 from django.forms import modelform_factory
 from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormMixin
 from django.shortcuts import get_object_or_404
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
@@ -13,10 +14,11 @@ from .forms import KitReviewForm, FindModelKitForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
-class IndexView(ListView):
+class IndexView(FormMixin, ListView):
     queryset = KitReview.objects.order_by('-submitted_on')[:5]
     context_object_name = 'reviews'
-    template_name = 'kitreviews/base.html'
+    template_name = 'kitreviews/index.html'
+    form_class = FindModelKitForm
 
 
 class ReviewPropertyRatingInline(InlineFormSet):

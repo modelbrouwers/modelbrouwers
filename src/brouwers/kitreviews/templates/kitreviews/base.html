@@ -14,17 +14,16 @@
                     <i class="pull-right fa fa-file-text-o fa-2x"></i>
                 </h1>
 
-                <p>{% blocktrans %}
-                    The 'Kit Reviews' is a section where you can write reviews for kits and do lots of other cool stuff.
+                <p>{% blocktrans trimmed %}
+                Use the kit reviews to check if the kit you have your eye on is
+                worth it! And, anyone can leave reviews for a kit, so don't
+                forget to contribute back.
                 {% endblocktrans %}</p>
             {% endblock %}
 
             {% block menu %}
                 <a href="{% url 'kitreviews:index' %}" class="btn bg-main-blue">
                     {% trans "Home" %}
-                </a>
-                <a href="{% url 'kitreviews:find_kit' %}" class="btn bg-main-blue">
-                    {% trans "Find kits/reviews" %}
                 </a>
                 <a href="{% url 'kitreviews:add_review' %}" class="btn bg-main-orange">
                     {% trans "Add review" %}
@@ -33,13 +32,3 @@
         </div>
     </header>
 {% endblock %}
-
-
-{% block content %}
-    <ul>
-        {% for review in reviews %}
-            <li>{{ review }} &dash; <a href="{{ review.topic_url }}">topic</a> &dash; rating: {{ review.rating_scaled }}
-            </li>
-        {% endfor %}
-    </ul>
-{% endblock content %}

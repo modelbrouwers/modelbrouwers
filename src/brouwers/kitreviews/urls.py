@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^add/$', AddReview.as_view(), name='add_review'),
     url(r'^find_kit/$', FindKit.as_view(), name='find_kit'),
-    url(r'^kit/(?P<slug>[\w-]+)/review/$', ReviewListView.as_view(), name='review-list'),
+    url(r'^kit/(?P<slug>[\w-]+)/reviews/$', ReviewListView.as_view(), name='review-list'),
 
     url(r'^kit/$', KitReviewDetail.as_view()),
     url(r'^kit/(?P<pk>\d+)/$', KitReviewDetail.as_view(), name='kit_detail'),
