@@ -17,40 +17,45 @@
     {% if form.data %}
     <h3>{% blocktrans with num_results=kits.count %}Search results ({{ num_results }}){% endblocktrans %}</h3>
 
-    <section class="kitreviews--listing">
+    <section class="kit__list">
         <div class="row">
         {% for kit in kits %}
-            <article class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{ kit.id }}">
-                <a href="{{ kit.get_absolute_url }}">{{ kit.name }}</a>
-                {% if kit.has_box_image %}
-                    {% thumbnail kit.box_image "300x225" crop="center" as im %}
-                        <img src="{{ im.url }}" class="img-responsive">
-                    {% endthumbnail %}
-                {% else %}
-                    <img src="{% static "images/thumb.png" %}" class="img-responsive">
-                {% endif %}
-                <span class="h5">
-                    <strong>
-                        {{ kit.name }}
-                        {% if kit.kit_number %}<small>{{ kit.kit_number }}</small>{% endif %}
-                    </strong>
-                </span>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2">
+                <article class="kit__preview" data-id="{{ kit.id }}">
+                    <span class="h5 kit__preview__name" title="{{ kit.name }}">
+                        <strong>{{ kit.name }}</strong>
+                    </span>
+                    {% if kit.has_box_image %}
+                        {% thumbnail kit.box_image "300x225" crop="center" as im %}
+                            <img src="{{ im.url }}" class="img-responsive">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static "images/thumb.png" %}" class="img-responsive">
+                    {% endif %}
 
-                <p>{{ kit.scale }}</p>
-                <p>{{ kit.category }}</p>
+                    <span class="kit__preview__details">
+                        {{ kit.brand }}, {{ kit.scale }}{% if kit.category %}, {{ kit.category }}{% endif %}{% if kit.kit_number %}, <em>{{ kit.kit_number }}</em>{% endif %}
+                    </span>
 
-                <p>
-                    <a href="{% url 'kitreviews:review-list' slug=kit.slug %}">
-                    {% blocktrans trimmed count counter=kit.num_reviews %}
-                        {{ counter }} review
-                    {% plural %}
-                        {{ counter }} reviews
-                    {% endblocktrans %}
-                    </a>
-                    <a href="{% url 'kitreviews:kit_add_review' pk=kit.pk %}">{% trans "Add review" %}</a>
-                </p>
 
-            </article>
+                    {% if kit.num_reviews %}
+                        <a class="button button--full button--blue" href="{% url 'kitreviews:review-list' slug=kit.slug %}">
+                        {% blocktrans trimmed count counter=kit.num_reviews %}
+                            View {{ counter }} review
+                        {% plural %}
+                            {{ counter }} reviews
+                        {% endblocktrans %}
+                        </a>
+                    {% else %}
+                        <span class="button button--full button--disabled">
+                            {% trans "No reviews yet" %} <i class="fa fa-frown-o"></i>
+                        </span>
+                    {% endif %}
+
+                    <a class="button button--full button--orange" href="{% url 'kitreviews:kit_add_review' pk=kit.pk %}">{% trans "Add review" %}</a>
+
+                </article>
+            </div>
         {% endfor %}
         </div>
     </section>

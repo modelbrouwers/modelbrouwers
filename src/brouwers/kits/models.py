@@ -131,4 +131,6 @@ class ModelKit(models.Model):
                 raise ValidationError(error.format(brand=self.brand, kit_number=self.kit_number))
 
     def has_box_image(self):
+        if not self.box_image:
+            return False
         return self.box_image.storage.exists(self.box_image.name)

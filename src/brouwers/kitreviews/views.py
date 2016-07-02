@@ -15,7 +15,7 @@ from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
 class IndexView(FormMixin, ListView):
-    queryset = KitReview.objects.order_by('-submitted_on')[:5]
+    queryset = KitReview.objects.select_related('reviewer', 'model_kit').order_by('-submitted_on')[:5]
     context_object_name = 'reviews'
     template_name = 'kitreviews/index.html'
     form_class = FindModelKitForm
@@ -69,12 +69,12 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
         return initial
 
 
-class FindKit(FormView):
+class KitSearchView(FormView):
     template_name = 'kitreviews/find_kit.html'
     form_class = FindModelKitForm
 
     def get_form_kwargs(self):
-        kwargs = super(FindKit, self).get_form_kwargs()
+        kwargs = super(KitSearchView, self).get_form_kwargs()
         if 'data' not in kwargs:
             kwargs['data'] = self.request.GET
         return kwargs

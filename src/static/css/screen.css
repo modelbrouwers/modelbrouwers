@@ -119,6 +119,45 @@ select:-moz-focusring {
   position: relative;
 }
 
+/* line 1, ../../sass/elements/_buttons.scss */
+.button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  text-align: center;
+  padding: 6px 12px;
+  font-weight: bold;
+}
+/* line 8, ../../sass/elements/_buttons.scss */
+.button:hover {
+  cursor: pointer;
+}
+/* line 12, ../../sass/elements/_buttons.scss */
+.button--full {
+  display: block;
+  min-width: 100%;
+}
+/* line 18, ../../sass/elements/_buttons.scss */
+.button--disabled:hover {
+  cursor: default;
+}
+/* line 23, ../../sass/elements/_buttons.scss */
+.button--blue {
+  background-color: #006699;
+}
+/* line 25, ../../sass/elements/_buttons.scss */
+.button--blue, .button--blue:hover, .button--blue:active, .button--blue:focus {
+  color: #FFFFFF;
+}
+/* line 30, ../../sass/elements/_buttons.scss */
+.button--orange {
+  background-color: #D46400;
+}
+/* line 32, ../../sass/elements/_buttons.scss */
+.button--orange, .button--orange:hover, .button--orange:active, .button--orange:focus {
+  color: #FFFFFF;
+}
+
 /*
  * Headers
  */
@@ -1823,6 +1862,31 @@ body.groupbuilds .participants tr.finished .fa-check {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* line 84, ../../sass/partials/apps/_kits.scss */
+.kit__preview {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: solid 1px #CCC;
+  padding: 1em 1em 0;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+/* line 91, ../../sass/partials/apps/_kits.scss */
+.kit__preview .button--full {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+/* line 98, ../../sass/partials/apps/_kits.scss */
+.kit__preview__name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  margin-top: 0;
 }
 
 /* line 3, ../../sass/partials/apps/_kitreviews.scss */
