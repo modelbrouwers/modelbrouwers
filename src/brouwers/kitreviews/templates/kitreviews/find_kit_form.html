@@ -1,0 +1,22 @@
+{% load i18n sniplates %}
+
+{% block form %}
+
+    <fieldset class="well">
+        {% load_widgets form='horizontal.form' %}
+        <div class="row">
+            <div class="col-md-6">
+                {% form_field form.brand %}
+                {% form_field form.scale %}
+            </div>
+            <div class="col-md-6">
+                {% form_field form.kit_name %}
+                {% form_field form.kit_number %}
+            </div>
+        </div>
+        <div class="small">
+            {% trans "Find kits using the search form - all fields are optional." %}
+        </div>
+    </fieldset>
+
+{% endblock %}
