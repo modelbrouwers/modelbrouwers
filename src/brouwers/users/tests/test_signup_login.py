@@ -61,9 +61,9 @@ class LoginRegisterTests(WebTest):
         self.assertEqual(user2.email, self.user.email)
 
         post_data = {
-           'username': self.user.email,
-           'password': 'password',
-           'next': '/index.php',
+            'username': self.user.email,
+            'password': 'password',
+            'next': '/index.php',
         }
         response = self.client.post(settings.LOGIN_URL, post_data)
         self.assertEqual(response.status_code, 200)
@@ -106,7 +106,7 @@ class LoginRegisterTests(WebTest):
         """
         Test that duplicate usernames (case insensitive) trigger form validation.
         """
-        RegistrationQuestionFactory.create()
+        RegistrationQuestionFactory.create(lang='en')
         UserFactory.create(username='John Doe')
 
         registration = self.app.get(reverse('users:register'))
@@ -142,7 +142,7 @@ class RegistrationTests(TestCase):
         """ Test that wrong answers block registration """
         self.assertEqual(self.UserModel.objects.count(), 0)
 
-        question = RegistrationQuestionFactory()
+        question = RegistrationQuestionFactory.create(lang='en')
         answer = 'not-answer'  # 'answer' is the default answer from the factory model
 
         post_data = {
@@ -168,11 +168,11 @@ class LogoutTestCase(TestCase):
     def test_logout_authenticated(self):
         self.client.login(username=self.user.username, password='password')
         response = self.client.get(self.logout_url)
-        self.assertRedirects(response, '/', target_status_code=302) # / issues a redirect to /index.php
+        self.assertRedirects(response, '/', target_status_code=302)  # / issues a redirect to /index.php
         self.assertNotIn('_auth_user_id', self.client.session)
 
     def test_logout_not_authenticated(self):
         # not logged in, should just work too
         response = self.client.get(self.logout_url)
-        self.assertRedirects(response, '/', target_status_code=302) # / issues a redirect to /index.php
+        self.assertRedirects(response, '/', target_status_code=302)  # / issues a redirect to /index.php
         self.assertNotIn('_auth_user_id', self.client.session)
