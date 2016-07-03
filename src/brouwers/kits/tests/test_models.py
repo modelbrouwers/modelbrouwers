@@ -35,3 +35,13 @@ class ModelTests(TestCase):
                 kit_number='012345',
                 scale__scale=144
             )
+
+    def test_has_box_image(self):
+        kit = ModelKitFactory.build(box_image='')
+        self.assertFalse(kit.has_box_image())
+
+        kit2 = ModelKitFactory.build(box_image='non-existant.jpg')
+        self.assertFalse(kit2.has_box_image())
+
+        kit3 = ModelKitFactory.create()
+        self.assertTrue(kit3.has_box_image())
