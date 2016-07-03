@@ -137,3 +137,23 @@ class SearchViewTests(WebTest):
         search_page.form['kit_number'] = '1234'
         search_results = search_page.form.submit()
         self.assertQuerysetEqual(search_results.context['kits'], [repr(self.kit3)])
+
+
+class KitReviewsListViewTests(WebTest):
+
+    def setUp(self):
+        super(KitReviewsListViewTests, self).setUp()
+
+        self.kit1 = ModelKitFactory.create()
+        self.reviews1 = KitReviewFactory.create_batch(3, model_kit=self.kit1)
+        self.kit2 = ModelKitFactory.create()
+        self.reviews2 = KitReviewFactory.create_batch(1, model_kit=self.kit2)
+
+        self.url = reverse('kitreviews:review-list', kwargs={'slug': self.kit1.slug})
+
+    def test_correct_reviews_list(self):
+        kit_detail = self.app.get(self.url)
+        reviews = kit_detail.context['object_list']
+        expected_reviews = [repr(x) for x in self.reviews1]
+        # TODO: ordering comes later - we'll order by review votes
+        self.assertQuerysetEqual(reviews, expected_reviews, ordered=False)
