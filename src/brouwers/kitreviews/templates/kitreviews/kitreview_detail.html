@@ -1,0 +1,9 @@
+{% extends "kitreviews/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+    {{ kit_review.raw_text }}
+    {{ kit_review.ratings}}
+
+{% endblock %}

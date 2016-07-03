@@ -72,7 +72,7 @@
 {% if help_text %}<div class="input-group">{% endif %}
 <select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flatattrs }} class="form-control {{ css_classes }}">
 {% for val, display in choices %}
-    <option value="{{ val }}" {% if val == raw_value|default:None %}selected{% endif %}>{{ display }}</option>
+    <option value="{{ val }}" {% if val == value|default:None %}selected{% endif %}>{{ display }}</option>
 {% endfor %}
 </select>
 {% reuse "_help" %}

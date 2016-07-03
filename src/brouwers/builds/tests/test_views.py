@@ -123,7 +123,7 @@ class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
         """
         kits = ModelKitFactory.create_batch(2)
         build = BuildFactory.create(user=self.user, kits=kits)
-        build_photo = BuildPhotoFactory.create(photo_url='http://i.imgur.com/asdljfo.jpg', build=build)
+        build_photo = BuildPhotoFactory.create(build=build)
 
         url = reverse('builds:update', kwargs={'slug': build.slug})
 

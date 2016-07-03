@@ -1,0 +1,25 @@
+{% extends "kitreviews/base.html" %}
+{% load i18n kitreviews %}
+
+
+{% block content %}
+
+    <form action="{% url 'kitreviews:find_kit' %}" method="get">
+        {{ form.non_field_errors }}
+
+        {% include "kitreviews/find_kit_form.html" %}
+
+        <div class="center">
+            <input type="submit" value="{% trans 'Find kits' %}" class="btn btn-primary"/>
+        </div>
+    </form>
+
+    <h2>{% trans "Latest reviews" %}</h2>
+
+    <div class="kitreviews--review-list">
+        {% for review in reviews %}
+            {% render_review_preview review show_ratings=False %}
+        {% endfor %}
+    </div>
+
+{% endblock content %}

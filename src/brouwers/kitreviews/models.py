@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -35,7 +36,7 @@ class KitReview(models.Model):
 
     # linking to extra information
     album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
-    topic_id = ForumToolsIDField(
+    topic = ForumToolsIDField(
         _('topic'), type='topic', blank=True,
         null=True, help_text=_('ID of the topic on Modelbrouwers.')
     )
@@ -65,6 +66,9 @@ class KitReview(models.Model):
             'user': self.reviewer.username,
         }
 
+    def get_absolute_url(self):
+        return reverse('kitreviews:kit_detail', args=[self.pk])
+
     @property
     def votes(self):
         # TODO: optimize, can be annotated
@@ -80,6 +84,12 @@ class KitReview(models.Model):
         if self.external_topic_url:
             return self.external_topic_url
         return None
+
+    @property
+    def reviewer_name(self):
+        if self.show_real_name:
+            return self.reviewer.get_full_name()
+        return self.reviewer.username
 
 
 class VoteTypes(DjangoChoices):
@@ -127,7 +137,7 @@ class KitReviewPropertyRating(models.Model):
     """
     Represents properties for a kit review rated on a scale from MIN_RATING to MAX_RATING
     """
-    kit_review = models.ForeignKey('KitReview')
+    kit_review = models.ForeignKey('KitReview', related_name='ratings')
     prop = models.ForeignKey('KitReviewProperty')
     rating = models.PositiveSmallIntegerField(
         _('rating'), default=DEFAULT_RATING,

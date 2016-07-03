@@ -1,52 +1,31 @@
 {% extends "kitreviews/base.html" %}
-{% load i18n %}
+{% load i18n sniplates %}
+
+{% block eye-catcher-content %}
+    <h1>
+        {% trans "Add a review" %}
+        <i class="pull-right fa fa-file-text-o fa-2x"></i>
+    </h1>
+
+    <p>{% blocktrans %}
+        Add review to a kit here. First choose the kit you want to review. If you can't find it from the dropdown menu
+        you can always add a new kit.
+    {% endblocktrans %}</p>
+
+{% endblock %}
 
 {% block content %}
-    {% url 'kitreviews:find_kit' as search_url %}
-
-    <div class="tab">
-        {% if kitform %}
-            {% trans 'Model kit' %}
-        {% else %}
-            {% trans "Review" %}
-        {% endif %}
-    </div>
-
-    {% if kitform %}
-        <noscript>
-            <div class="no-javascript">
-                {% blocktrans %}
-                    It appears you don't have Javascript enabled. Adding kits and/or reviews is still possible
-                    by <a href="{{ search_url }}">searching</a> for kits.
-                {% endblocktrans %}
-            </div>
-        </noscript>
-
-        {# Javascript only form #}
-        <form id="add-kit-form" style="display:none;">
-            {% with form=kitform %}
-                {% include "form_in_table.html" %}
-            {% endwith %}
-            <div class="center">
-                <input type="button" value="{% trans 'Find kits' %}" class="submit-button"/>
-            </div>
-        </form>
-        {# javascript enabled: show the form #}
-        <script type="text/javascript">
-            $('#add-kit-form').show();
-        </script>
-    {% endif %}
 
     <form action="." method="post">
         {% csrf_token %}
-        {% if kitform %}
-            <div class="tab midpage">{% trans "Review" %}</div>
-        {% endif %}
-
+        {{ properties.management_form }}
         {% include "kitreviews/review_form.html" %}
+        {{ form.errors }}
 
-        <div class="center">
-            <input type="submit" value="{% trans 'Add' %}" class="submit-button"/>
+        {{ formset.errors }}
+        <div class="submit-wrapper">
+            <input type="submit" value="{% trans 'Add' %}" class="btn btn-primary"/>
         </div>
     </form>
+
 {% endblock content %}

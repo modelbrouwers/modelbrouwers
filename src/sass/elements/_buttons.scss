@@ -1,0 +1,37 @@
+.button {
+
+  @include border-radius(4px);
+  text-align: center;
+  padding: 6px 12px;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--full {
+    display: block;
+    min-width: 100%;
+  }
+
+  &--disabled {
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  &--blue {
+    background-color: $main-blue;
+    &, &:hover, &:active, &:focus {
+      color: $white;
+    }
+  }
+
+  &--orange {
+    background-color: $main-orange;
+    &, &:hover, &:active, &:focus {
+      color: $white;
+    }
+  }
+
+}

@@ -1,88 +1,109 @@
-from django.contrib.auth.decorators import login_required
-from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
+from django.db.models import Count, Prefetch
+from django.forms import modelform_factory
+from django.views.generic import DetailView, ListView, FormView
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormMixin
+from django.shortcuts import get_object_or_404
+
+from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
+
+from brouwers.kits.models import ModelKit
+from brouwers.utils.forms import AlwaysChangedModelForm
+from brouwers.utils.views import LoginRequiredMixin
+from .forms import KitReviewForm, FindModelKitForm
+from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
-from forms import *
-from models import KitReview
+class IndexView(FormMixin, ListView):
+    queryset = KitReview.objects.select_related('reviewer', 'model_kit').order_by('-submitted_on')[:5]
+    context_object_name = 'reviews'
+    template_name = 'kitreviews/index.html'
+    form_class = FindModelKitForm
 
 
-def index(request):
-    reviews = KitReview.objects.all()
-    return render(request, 'kitreviews/base.html', {'reviews': reviews})
+class ReviewPropertyRatingInline(InlineFormSet):
+    model = KitReviewPropertyRating
+    form_class = modelform_factory(
+        model, form=AlwaysChangedModelForm,
+        fields=('id', 'prop', 'rating')
+    )
 
+    @property
+    def num_properties(self):
+        if not hasattr(self, '_num_properties'):
+            self._num_properties = KitReviewProperty.objects.count()
+        return self._num_properties
 
-@login_required
-def add_review(request, kit_id=None):
-    if request.method == 'POST':
-        kitform = ModelKitForm(request.POST, prefix='kit')
-        reviewform = KitReviewForm(request.user, request.POST, prefix='review')
-    else:
-        if kit_id:
-            kit = get_object_or_404(ModelKit, id=kit_id)
-            reviewform = KitReviewForm(
-                request.user, 
-                prefix='review',
-                initial={'model_kit': kit}
-                )
-            kitform = None
-        else:
-            kitform = ModelKitForm(prefix='kit')
-            reviewform = KitReviewForm(request.user, prefix='review')
-
-    return render(request, 'kitreviews/add_review.html', {
-            'kitform': kitform,
-            'reviewform': reviewform,
+    def get_factory_kwargs(self):
+        kwargs = super(ReviewPropertyRatingInline, self).get_factory_kwargs()
+        kwargs.update({
+            'min_num': self.num_properties,
+            'max_num': self.num_properties,
         })
+        return kwargs
 
-def find_kit(request):
-    kitform, results = FindModelKitForm(request.GET), None
-    if kitform.is_valid() and 'brand' in request.GET:
-        results = ModelKit.objects.all().select_related(
-            'brand', 'scale', 'category')
+    @property
+    def extra(self):
+        return self.num_properties
 
-        brand = kitform.cleaned_data['brand']
-        if brand:
-            results = results.filter(brand_id=brand.id)
-
-        kit_number = kitform.cleaned_data['kit_number']
-        if kit_number:
-            results = results.filter(kit_number__icontains=kit_number)
-
-        kit_name = kitform.cleaned_data['kit_name']
-        if kit_name:
-            name_parts = kit_name.split(' ')
-            # order doesn't matter, just find the kits with names that have all
-            # the search terms
-            q_list = []
-            for part in name_parts:
-                q_list.append(Q(name__icontains=part))
-            results = results.filter(*q_list)
-
-        scale = kitform.cleaned_data['scale']
-        if scale:
-            results = results.filter(scale_id=scale.id)
-
-        category = kitform.cleaned_data['category']
-        if category:
-            results = results.filter(category_id=category.id)
+    def get_initial(self):
+        return [{'prop': prop} for prop in KitReviewProperty.objects.all()]
 
 
-    # import pdb; pdb.set_trace()
+class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
+    model = KitReview
+    template_name = 'kitreviews/add_review.html'
+    form_class = KitReviewForm
+    inlines = [ReviewPropertyRatingInline]
+    inlines_names = ['properties']
 
-    return render(request, 'kitreviews/find_kit.html', {
-            'kitform': kitform,
-            'kits': results,
-            'hide_csrf_token': True,
-        })
+    def get_form_kwargs(self):
+        kwargs = super(AddReview, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
-def kit_detail(request, kit_id=None):
-    if not kit_id:
-        # show latest added kit
-        kit = ModelKit.objects.all().order_by('-pk')[:1] or None
-        if kit:
-            kit = kit[0]
-    else:
-        kit = get_object_or_404(ModelKit.objects.select_related(), pk=kit_id)
+    def get_initial(self):
+        initial = super(AddReview, self).get_initial()
+        if self.kwargs.get('pk'):
+            initial['model_kit'] = get_object_or_404(ModelKit, pk=self.kwargs['pk'])
+        return initial
 
-    return render(request, 'kitreviews/kit_detail.html', {'kit': kit})
+
+class KitSearchView(FormView):
+    template_name = 'kitreviews/find_kit.html'
+    form_class = FindModelKitForm
+
+    def get_form_kwargs(self):
+        kwargs = super(KitSearchView, self).get_form_kwargs()
+        if 'data' not in kwargs:
+            kwargs['data'] = self.request.GET
+        return kwargs
+
+    def get(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        return self.render_to_response(self.get_context_data())
+
+    def form_valid(self, form):
+        kits = form.find_kits()
+        kits = kits.annotate(num_reviews=Count('kitreview'))
+        return self.render_to_response(self.get_context_data(kits=kits))
+
+
+class ReviewListView(SingleObjectMixin, ListView):
+    queryset = KitReview.objects.prefetch_related(
+        Prefetch('ratings', queryset=KitReviewPropertyRating.objects.select_related('prop'))
+    ).select_related('reviewer', 'album')
+    queryset_kits = ModelKit.objects.select_related('brand', 'scale')
+    template_name = 'kitreviews/kit_review_list.html'
+
+    def get_queryset(self):
+        self.object = kit = self.get_object(queryset=self.queryset_kits)
+        return super(ReviewListView, self).get_queryset().filter(model_kit=kit)
+
+
+class KitReviewDetail(DetailView):
+    model = KitReview
+    template_name = 'kitreviews/kitreview_detail.html'
+    context_object_name = 'kit_review'
