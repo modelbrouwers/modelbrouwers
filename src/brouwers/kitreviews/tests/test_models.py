@@ -31,3 +31,25 @@ class KitReviewPropertyRatingTest(TestCase):
         # Test that it's impossible to assign non-numeric values to review prop rating
         with self.assertRaises(ValueError):
             KitReviewPropertyRatingFactory.create(rating='good')
+
+
+class KitReviewTests(TestCase):
+
+    """
+    Unit tests on the KitReview model
+    """
+
+    def test_reviewer_name(self):
+        review1 = KitReviewFactory.build(
+            reviewer__first_name='John',
+            reviewer__last_name='Doe',
+            show_real_name=True,
+        )
+        self.assertEqual(review1.reviewer_name, review1.reviewer.get_full_name())
+
+        review2 = KitReviewFactory.build(
+            reviewer__first_name='John',
+            reviewer__last_name='Doe',
+            show_real_name=False,
+        )
+        self.assertEqual(review2.reviewer_name, review2.reviewer.username)
