@@ -82,3 +82,58 @@ class AddReviewViewTests(LoginRequiredMixin, WebTest):
         self.assertEqual(review.model_kit, kit)
         self.assertEqual(review.raw_text, 'My very short review')
         self.assertEqual(review.reviewer, user)
+
+
+class SearchViewTests(WebTest):
+
+    def setUp(self):
+        super(SearchViewTests, self).setUp()
+        self.url = reverse('kitreviews:find_kit')
+
+        self.kit1 = ModelKitFactory.create(name='Suzuki Katana')
+        self.kit2 = ModelKitFactory.create(name='MiG-17F')
+        self.kit3 = ModelKitFactory.create(name='Challenger Mk. IV', kit_number='1234')
+
+        self.reviews = [
+            KitReviewFactory.create(model_kit=self.kit1),
+            KitReviewFactory.create(model_kit=self.kit2)
+        ]
+
+    def test_search_form(self):
+        """
+        Test that the search form works as expected.
+        """
+
+        # search by brand
+        search_page = self.app.get(self.url)
+        search_page.form['brand'].select(self.kit1.brand.pk)
+        search_results = search_page.form.submit()
+        queryset = search_results.context['kits']
+        self.assertQuerysetEqual(queryset, [repr(self.kit1)])
+        self.assertEqual(queryset.first().num_reviews, 1)
+
+        # search by scale
+        search_page = self.app.get(self.url)
+        search_page.form['scale'].select(self.kit2.scale.pk)
+        search_results = search_page.form.submit()
+        queryset = search_results.context['kits']
+        self.assertQuerysetEqual(queryset, [repr(self.kit2)])
+        self.assertEqual(queryset.first().num_reviews, 1)
+
+        # search by name
+        search_page = self.app.get(self.url)
+        search_page.form['kit_name'] = 'challenger'
+        search_results = search_page.form.submit()
+        self.assertQuerysetEqual(search_results.context['kits'], [repr(self.kit3)])
+
+        # search by name 2
+        search_page = self.app.get(self.url)
+        search_page.form['kit_name'] = 'katana'
+        search_results = search_page.form.submit()
+        self.assertQuerysetEqual(search_results.context['kits'], [repr(self.kit1)])
+
+        # search by kit_number
+        search_page = self.app.get(self.url)
+        search_page.form['kit_number'] = '1234'
+        search_results = search_page.form.submit()
+        self.assertQuerysetEqual(search_results.context['kits'], [repr(self.kit3)])
