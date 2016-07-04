@@ -25,7 +25,12 @@
                 <a href="{% url 'kitreviews:index' %}" class="btn bg-main-blue">
                     {% trans "Home" %}
                 </a>
-                <a href="{% url 'kitreviews:add_review' %}" class="btn bg-main-orange">
+                {% if kit %}
+                    {% url 'kitreviews:review-add' slug=kit.slug as add_url %}
+                {% else %}
+                    {% url 'kitreviews:add_review' as add_url %}
+                {% endif %}
+                <a href="{{ add_url }}" class="btn bg-main-orange">
                     {% trans "Add review" %}
                 </a>
             {% endblock %}

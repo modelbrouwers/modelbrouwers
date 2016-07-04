@@ -102,6 +102,10 @@ class ReviewListView(SingleObjectMixin, ListView):
         self.object = kit = self.get_object(queryset=self.queryset_kits)
         return super(ReviewListView, self).get_queryset().filter(model_kit=kit)
 
+    def get_context_data(self, **kwargs):
+        kwargs['kit'] = self.object
+        return super(ReviewListView, self).get_context_data(**kwargs)
+
 
 class KitReviewDetail(DetailView):
     model = KitReview
