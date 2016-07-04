@@ -1,5 +1,4 @@
 from django.db.models import Count, Prefetch
-from django.forms import modelform_factory
 from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
@@ -8,9 +7,8 @@ from django.shortcuts import get_object_or_404
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
 from brouwers.kits.models import ModelKit
-from brouwers.utils.forms import AlwaysChangedModelForm
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import KitReviewForm, FindModelKitForm
+from .forms import KitReviewForm, FindModelKitForm, KitReviePropertyRatingForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
@@ -23,10 +21,7 @@ class IndexView(FormMixin, ListView):
 
 class ReviewPropertyRatingInline(InlineFormSet):
     model = KitReviewPropertyRating
-    form_class = modelform_factory(
-        model, form=AlwaysChangedModelForm,
-        fields=('id', 'prop', 'rating')
-    )
+    form_class = KitReviePropertyRatingForm
 
     @property
     def num_properties(self):

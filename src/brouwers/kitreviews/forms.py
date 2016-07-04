@@ -3,7 +3,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
 
 from brouwers.kits.models import Brand, ModelKit, Scale
-from .models import KitReview
+from brouwers.utils.forms import AlwaysChangedModelForm
+from brouwers.utils.widgets import RangeInput
+
+from .models import KitReview, KitReviewPropertyRating, MAX_RATING
 
 
 class ModelKitForm(forms.ModelForm):
@@ -63,3 +66,13 @@ class KitReviewForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         self.instance.reviewer = self.user
         return super(KitReviewForm, self).save(*args, **kwargs)
+
+
+class KitReviePropertyRatingForm(AlwaysChangedModelForm):
+
+    class Meta:
+        model = KitReviewPropertyRating
+        fields = ('id', 'prop', 'rating')
+        widgets = {
+            'rating': RangeInput(attrs={'max': MAX_RATING})
+        }

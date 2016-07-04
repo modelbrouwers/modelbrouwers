@@ -190,3 +190,8 @@
     </div>
 </div>
 {% endblock %}
+
+
+{% block RangeInput %}
+{% reuse 'input' input_type='range' %}
+{% endblock RangeInput %}
