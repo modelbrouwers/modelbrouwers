@@ -4,8 +4,6 @@
 {% block content %}
 
 <article class="kitreviews--kit">
-    {% with kit=object %}
-
     <header>
         <h1>{{ kit.name }} <small>{{ kit.kit_number }}</small></h1>
 
@@ -31,8 +29,6 @@
             <img src="{% static "images/thumb.png" %}" class="img-responsive">
         {% endif %}
     </figure>
-
-    {% endwith %}
 
     <section>
         {% blocktrans trimmed count count=object_list.count %}
