@@ -895,6 +895,121 @@ form fieldset.tab-pane {
   opacity: 0.1;
 }
 
+/* line 166, ../../sass/partials/_forms.scss */
+input[type="range"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+/* line 138, ../../sass/partials/_forms.scss */
+input[type="range"]::-webkit-slider-thumb {
+  margin-top: -7px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  -webkit-transition: background 0.5s ease;
+  transition: background 0.5s ease;
+  border: 1px solid #D46400;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  background: #ffffff;
+  cursor: pointer;
+}
+/* line 142, ../../sass/partials/_forms.scss */
+input[type="range"]::-moz-range-thumb {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  -webkit-transition: background 0.5s ease;
+  transition: background 0.5s ease;
+  border: 1px solid #D46400;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  background: #ffffff;
+  cursor: pointer;
+}
+/* line 145, ../../sass/partials/_forms.scss */
+input[type="range"]::-ms-thumb {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  -webkit-transition: background 0.5s ease;
+  transition: background 0.5s ease;
+  border: 1px solid #D46400;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  background: #ffffff;
+  cursor: pointer;
+}
+/* line 184, ../../sass/partials/_forms.scss */
+input[type="range"]:focus, input[type="range"]:active, input[type="range"]:hover {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+/* line 138, ../../sass/partials/_forms.scss */
+input[type="range"]:focus::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:hover::-webkit-slider-thumb {
+  margin-top: -7px;
+  background: #ffe8d4;
+}
+/* line 142, ../../sass/partials/_forms.scss */
+input[type="range"]:focus::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb, input[type="range"]:hover::-moz-range-thumb {
+  background: #ffe8d4;
+}
+/* line 145, ../../sass/partials/_forms.scss */
+input[type="range"]:focus::-ms-thumb, input[type="range"]:active::-ms-thumb, input[type="range"]:hover::-ms-thumb {
+  background: #ffe8d4;
+}
+/* line 195, ../../sass/partials/_forms.scss */
+input[type="range"]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+/* line 152, ../../sass/partials/_forms.scss */
+input[type="range"]::-webkit-slider-runnable-track {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  border: solid 1px #006699;
+  background-color: #4095FD;
+}
+/* line 156, ../../sass/partials/_forms.scss */
+input[type="range"]::-moz-range-track {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  border: solid 1px #006699;
+  background-color: #4095FD;
+}
+/* line 160, ../../sass/partials/_forms.scss */
+input[type="range"]::-ms-track {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  border: solid 1px #006699;
+  background-color: #4095FD;
+}
+
 /* line 2, ../../sass/partials/_ads.scss */
 .ad-container {
   position: relative;

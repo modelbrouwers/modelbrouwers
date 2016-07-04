@@ -132,3 +132,82 @@ form {
     @include opacity(0.1); // TODO
   }
 }
+
+
+@mixin slider-thumb() {
+  &::-webkit-slider-thumb {
+    margin-top: -7px;
+    @content;
+  }
+  &::-moz-range-thumb {
+    @content;
+  }
+  &::-ms-thumb {
+    @content;
+  }
+}
+
+
+@mixin slider-track() {
+  &::-webkit-slider-runnable-track {
+    @content;
+  }
+
+  &::-moz-range-track {
+    @content;
+  }
+
+  &::-ms-track {
+    @content;
+  }
+}
+
+
+input[type="range"] {
+  @include appearance(none);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  @include slider-thumb {
+    @include appearance(none);
+    @include transition(background .5s ease);
+    border: 1px solid $main-orange;
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+
+    background: #ffffff;
+    cursor: pointer;
+  }
+
+  &:focus,
+  &:active,
+  &:hover {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    @include slider-thumb {
+      background: lighten($main-orange, 50);
+    }
+  }
+
+  &::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    // hides the slider
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  @include slider-track {
+    // @include box-shadow(1px 1px 1px $main-blue, 0px 0px 1px $main-light-blue);
+    @include border-radius(3px);
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    border: solid 1px $main-blue;
+    background-color: $main-light-blue;
+  }
+}
