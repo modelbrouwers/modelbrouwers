@@ -168,6 +168,8 @@ input[type="range"] {
   background: transparent;
   border: none;
   box-shadow: none;
+  width: 85%;
+  float: left;
 
   @include slider-thumb {
     @include appearance(none);
@@ -209,5 +211,11 @@ input[type="range"] {
     cursor: pointer;
     border: solid 1px $main-blue;
     background-color: $main-light-blue;
+  }
+
+  + output {
+    width: 15%;
+    float: left;
+    text-align: center;
   }
 }
