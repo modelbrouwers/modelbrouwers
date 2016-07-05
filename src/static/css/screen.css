@@ -902,6 +902,8 @@ input[type="range"] {
   background: transparent;
   border: none;
   box-shadow: none;
+  width: 85%;
+  float: left;
 }
 /* line 138, ../../sass/partials/_forms.scss */
 input[type="range"]::-webkit-slider-thumb {
@@ -949,7 +951,7 @@ input[type="range"]::-ms-thumb {
   background: #ffffff;
   cursor: pointer;
 }
-/* line 184, ../../sass/partials/_forms.scss */
+/* line 186, ../../sass/partials/_forms.scss */
 input[type="range"]:focus, input[type="range"]:active, input[type="range"]:hover {
   outline: none;
   border: none;
@@ -968,7 +970,7 @@ input[type="range"]:focus::-moz-range-thumb, input[type="range"]:active::-moz-ra
 input[type="range"]:focus::-ms-thumb, input[type="range"]:active::-ms-thumb, input[type="range"]:hover::-ms-thumb {
   background: #ffe8d4;
 }
-/* line 195, ../../sass/partials/_forms.scss */
+/* line 197, ../../sass/partials/_forms.scss */
 input[type="range"]::-ms-track {
   width: 100%;
   cursor: pointer;
@@ -1008,6 +1010,12 @@ input[type="range"]::-ms-track {
   cursor: pointer;
   border: solid 1px #006699;
   background-color: #4095FD;
+}
+/* line 216, ../../sass/partials/_forms.scss */
+input[type="range"] + output {
+  width: 15%;
+  float: left;
+  text-align: center;
 }
 
 /* line 2, ../../sass/partials/_ads.scss */
