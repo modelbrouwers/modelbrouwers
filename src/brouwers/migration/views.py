@@ -14,9 +14,11 @@ from .forms import PhotoMigrationForm
 
 User = get_user_model()
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
     return render(request, 'migration/base.html')
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def albumusers(request):
@@ -33,6 +35,7 @@ def albumusers(request):
         for email in emails:
             data[email] = AlbumUserMigration.objects.filter(email=email).order_by('username')
     return render(request, 'migration/albumusers.html', {'data': data})
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def find_django_user(request):
@@ -51,6 +54,7 @@ def find_django_user(request):
                 migration.save()
             found += 1
     return render(request, 'migration/albumusers.html', {'migrations': migrations, 'total': total, 'found': found})
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_albums(request):
@@ -74,6 +78,7 @@ def migrate_albums(request):
             except ValidationError:
                 pass
     return render(request, 'migration/albums.html', {'new_albums': new_albums})
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def migrate_pictures(request):

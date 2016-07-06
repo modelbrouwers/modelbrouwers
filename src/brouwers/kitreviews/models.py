@@ -147,3 +147,6 @@ class KitReviewPropertyRating(models.Model):
     class Meta:
         verbose_name = _(u'kit review property rating')
         verbose_name_plural = _(u'kit review property ratings')
+
+
+from . import legacy_models  # NOQA
