@@ -12,7 +12,7 @@ class KitReviewPropertyRatingInline(admin.TabularInline):
 @admin.register(KitReview)
 class KitReviewAdmin(admin.ModelAdmin):
     list_display = ('model_kit', 'reviewer', 'submitted_on', 'last_edited_on')
-    list_filter = ('reviewer', 'submitted_on')
+    list_filter = ('submitted_on',)
     search_fields = ('model_kit__name', 'reviewer__username', 'brand__name')
     inlines = [KitReviewPropertyRatingInline]
     raw_id_fields = ['model_kit', 'album', 'reviewer']
