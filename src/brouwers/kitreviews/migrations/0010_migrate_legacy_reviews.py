@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from HTMLParser import HTMLParser
 from urlparse import urlparse, parse_qs
 
+from django.conf import settings
 from django.db import migrations, models
 from django.utils import timezone
 
@@ -176,6 +177,8 @@ def migrate_reviews(apps):
 
 
 def migrate(apps, schema_editor):
+    if settings.TESTING:
+        return
     migrate_brands(apps)
     migrate_reviewers(apps)
     migrate_kits(apps)
