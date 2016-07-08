@@ -126,7 +126,7 @@ and::
 
     $ bower install
 
-This will install all the necessary front-end dependencies. Additionally install `compass` for scss files compiling
+This will install all the necessary front-end dependencies. Additionally install ``compass`` for .scss files compiling
 with::
 
     $ gem install compass
