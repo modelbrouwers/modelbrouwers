@@ -2012,13 +2012,22 @@ body.groupbuilds .participants tr.finished .fa-check {
   margin-top: 0;
 }
 
-/* line 3, ../../sass/partials/apps/_kitreviews.scss */
-.kitreviews--review-preview {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+/* line 1, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
   border: solid 1px #CCC;
-  padding: 1em;
+  padding: 15px;
+}
+/* line 6, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview__title {
+  font-size: 18px;
+  margin: 0;
+}
+/* line 11, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview__details {
+  color: #919291;
 }
 
 /* line 3, ../../sass/partials/apps/_users.scss */

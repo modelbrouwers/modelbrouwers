@@ -14,12 +14,12 @@
         </div>
     </form>
 
-    <h2>{% trans "Latest reviews" %}</h2>
+    <section>
+        <h2>{% trans "Latest reviews" %}</h2>
 
-    <div class="kitreviews--review-list">
         {% for review in reviews %}
             {% render_review_preview review show_ratings=False %}
         {% endfor %}
-    </div>
+    </section>
 
 {% endblock content %}
