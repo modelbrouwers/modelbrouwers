@@ -115,6 +115,23 @@ All dependencies are in the `requirements` folder, grouped by the environment ty
 
 These will be installed in your virtualenv.
 
+
+Installing front-end dependencies
+=================================
+Make sure npm and bower are installed globally. Then run::
+
+    $ npm install
+
+and::
+
+    $ bower install
+
+This will install all the necessary front-end dependencies. Additionally install `compass` for scss files compiling
+with::
+
+    $ gem install compass
+
+
 Create the settings
 ===================
 
