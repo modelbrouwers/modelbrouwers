@@ -13,7 +13,9 @@ from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
 class IndexView(FormMixin, ListView):
-    queryset = KitReview.objects.select_related('reviewer', 'model_kit').order_by('-submitted_on')[:5]
+    queryset = KitReview.objects.select_related(
+        'reviewer', 'model_kit'
+    ).annotate_mean_rating().order_by('-submitted_on')[:5]
     context_object_name = 'reviews'
     template_name = 'kitreviews/index.html'
     form_class = FindModelKitForm
