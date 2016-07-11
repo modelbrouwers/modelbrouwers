@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
 from .views import (
-    AddReview, KitSearchView, IndexView, KitReviewDetail, ReviewListView
+    AddReview, KitSearchView, IndexView, KitReviewDetail, LegacyRedirectView,
+    ReviewListView
 )
 
 
@@ -12,4 +13,7 @@ urlpatterns = [
     url(r'^kit/(?P<slug>[\w-]+)/reviews/$', ReviewListView.as_view(), name='review-list'),
     url(r'^kit/(?P<slug>[\w-]+)/reviews/(?P<pk>\d+)/$', KitReviewDetail.as_view(), name='review-detail'),
     url(r'^kit/(?P<slug>[\w-]+)/reviews/add/$', AddReview.as_view(), name='review-add'),
+
+    # legacy urls
+    url(r'^kitreview_search_result_review\.php$', LegacyRedirectView.as_view()),
 ]

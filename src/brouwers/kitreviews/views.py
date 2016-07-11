@@ -1,8 +1,9 @@
 from django.db.models import Count, Prefetch
-from django.views.generic import DetailView, ListView, FormView
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView, FormView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
-from django.shortcuts import get_object_or_404
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
@@ -115,3 +116,15 @@ class KitReviewDetail(DetailView):
             'reviewer', 'album'
         ).annotate_mean_rating().exclude(pk=self.object.pk)
         return super(KitReviewDetail, self).get_context_data(**kwargs)
+
+
+class LegacyRedirectView(RedirectView):
+    permanent = True
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            review_id = int(self.request.GET.get('review'))
+        except (ValueError, TypeError):
+            raise Http404
+        review = get_object_or_404(KitReview, legacy_id=review_id)
+        return review.get_absolute_url()
