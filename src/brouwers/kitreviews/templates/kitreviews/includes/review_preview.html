@@ -33,15 +33,18 @@
             </ul>
         {% endif %}
 
-        <div class="col-md-6 kitreviews--text-preview">
-            {{ review.render_raw_text|safe }}
+        <div class="{{ show_ratings|yesno:"col-md-6,col-md-12" }}">
+            <section class="kitreview__preview__body">{{ review.render_raw_text|safe }}</section>
         </div>
 
     </div>
 
     <footer>
-        <a class="btn btn-default" href="{{ review.topic_url }}">{% trans "Topic" %}</a>
-
-        <a class="btn btn-default" href="{{ review.album.get_absolute_url }}">{% trans "album" %}</a>
+        {% if review.topic_url %}
+            <a class="btn btn-default" href="{{ review.topic_url }}">{% trans "view topic" %}</a>
+        {% endif %}
+        {% if review.album %}
+            <a class="btn btn-default" href="{{ review.album.get_absolute_url }}">{% trans "view album" %}</a>
+        {% endif %}
     </footer>
 </article>
