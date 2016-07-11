@@ -30,6 +30,7 @@
         {% endif %}
     </figure>
 
+    {% block reviews %}
     <section>
         {% blocktrans trimmed count count=object_list.count %}
             There is one review
@@ -43,5 +44,6 @@
             {% endfor %}
         </div>
     </section>
+    {% endblock %}
 </article>
 {% endblock %}

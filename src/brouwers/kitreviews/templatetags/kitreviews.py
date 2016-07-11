@@ -22,3 +22,22 @@ def review_rating(rating_pct, num_stars=5):
         'half': (full + empty) != num_stars,
         'open': range(empty),
     }
+
+
+@register.filter
+def rating_class(rating):
+    """
+    Outputs the Bootstrap CSS class for the review rating based on the range.
+    """
+    try:
+        rating = float(rating)
+    except ValueError:
+        return ""
+
+    if rating >= 80:
+        return 'success'
+    if rating >= 50:
+        return 'info'
+    if rating >= 20:
+        return 'warning'
+    return 'danger'
