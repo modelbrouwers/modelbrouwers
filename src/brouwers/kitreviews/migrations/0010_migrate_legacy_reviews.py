@@ -135,7 +135,8 @@ def migrate_reviews(apps):
 
         kit_review = KitReview(
             model_kit=model_kit, reviewer=reviewer,
-            submitted_on=review.datum or timezone.now()
+            submitted_on=review.datum or timezone.now(),
+            legacy_id=review.pk
         )
 
         if review.url_album.startswith('coppermine/'):
@@ -163,12 +164,11 @@ def migrate_reviews(apps):
             else:
                 kit_review.topic_id = topic_id
 
-        raw_text = "{}\n\n\n{}\n\n\n{}".format(
+        kit_review.raw_text = "{}\n\n\n{}\n\n\n{}".format(
             review.commentaar,
             review.pluspunten,
             review.minpunten,
         )
-
         kit_review.save()
         ratings = [KitReviewPropertyRating(
             prop=prop, kit_review=kit_review, rating=review.indruk * 20
@@ -190,7 +190,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('migration', '0002_auto_20150405_2118'),
         ('kits', '0008_auto_20160406_2154'),
-        ('kitreviews', '0009_categorie_fabrikant_kit_review_reviewer_uitbreiding'),
+        ('kitreviews', '0010_add_legacy_id_field'),
     ]
 
     operations = [
@@ -203,7 +203,7 @@ class Migration(migrations.Migration):
                 )
             ]
         ),
-        migrations.RunPython(migrate),
+        migrations.RunPython(migrate, migrations.RunPython.noop),
         migrations.SeparateDatabaseAndState(
             state_operations=[
                 migrations.AlterField(

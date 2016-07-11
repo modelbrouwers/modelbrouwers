@@ -26,6 +26,7 @@ class KitReview(models.Model):
     """
     Model holding the review information for a model kit
     """
+    legacy_id = models.IntegerField(blank=True, null=True, db_index=True)
     model_kit = models.ForeignKey('kits.ModelKit')
     raw_text = models.TextField(
         _('review'),
