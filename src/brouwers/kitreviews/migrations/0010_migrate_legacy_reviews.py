@@ -99,14 +99,21 @@ def migrate_kits(apps):
 
         parser = HTMLParser()
 
+        def set_model_kit_image(model_kit):
+            if kit.foto and not model_kit.box_image:
+                model_kit.box_image = 'kits/box_images/legacy/{}'.format(kit.foto)
+                model_kit.save()
+
         model_kit = next((x for x in _kits if x.kit_number == kit.type), None)
         if model_kit is not None:
+            set_model_kit_image(model_kit)
             KIT_MAPPING[kit] = model_kit
             continue
 
         name = parser.unescape(kit.modelnaam)
         model_kit = next((x for x in _kits if x.name.lower() == name.lower()), None)
         if model_kit is not None:
+            set_model_kit_image(model_kit)
             KIT_MAPPING[kit] = model_kit
             continue
 
@@ -115,6 +122,7 @@ def migrate_kits(apps):
             difficulty=10 * kit.moeilijkheid, submitter=first_user,
             is_reviewed=False
         )
+        set_model_kit_image(model_kit)
         KIT_MAPPING[kit] = model_kit
 
 
