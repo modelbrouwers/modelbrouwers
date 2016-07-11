@@ -76,7 +76,7 @@ class KitReview(models.Model):
         super(KitReview, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('kitreviews:kit_detail', args=[self.pk])
+        return reverse('kitreviews:review-detail', kwargs={'pk': self.pk, 'slug': self.model_kit.slug})
 
     def render_raw_text(self, force=False):
         if not self.html or force:
@@ -85,7 +85,7 @@ class KitReview(models.Model):
 
     @property
     def topic_url(self):
-        if self.topic_id:
+        if self.topic_id and self.topic:
             return self.topic.get_absolute_url()
         if self.external_topic_url:
             return self.external_topic_url

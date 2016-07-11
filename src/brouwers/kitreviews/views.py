@@ -105,6 +105,13 @@ class ReviewListView(SingleObjectMixin, ListView):
 
 
 class KitReviewDetail(DetailView):
-    model = KitReview
+    queryset = KitReview.objects.select_related('model_kit')
     template_name = 'kitreviews/kitreview_detail.html'
-    context_object_name = 'kit_review'
+    context_object_name = 'review'
+
+    def get_context_data(self, **kwargs):
+        kwargs.setdefault('kit', self.object.model_kit)
+        kwargs['other_reviews'] = self.object.model_kit.kitreview_set.select_related(
+            'reviewer', 'album'
+        ).annotate_mean_rating().exclude(pk=self.object.pk)
+        return super(KitReviewDetail, self).get_context_data(**kwargs)

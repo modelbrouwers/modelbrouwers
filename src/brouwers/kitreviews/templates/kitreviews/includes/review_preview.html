@@ -40,6 +40,7 @@
     </div>
 
     <footer>
+        <a class="btn bg-main-orange" href="{{ review.get_absolute_url }}">{% trans "read more" %}</a>
         {% if review.topic_url %}
             <a class="btn btn-default" href="{{ review.topic_url }}">{% trans "view topic" %}</a>
         {% endif %}
