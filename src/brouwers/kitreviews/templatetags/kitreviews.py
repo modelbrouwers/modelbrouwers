@@ -15,6 +15,12 @@ def render_review_preview(review, show_ratings=True):
 
 @register.inclusion_tag('kitreviews/includes/rating.html')
 def review_rating(rating_pct, num_stars=5):
+    if not rating_pct:
+        return {
+            'full': [],
+            'half': False,
+            'open': range(num_stars)
+        }
     full = int(rating_pct / 100 * num_stars)
     empty = int((100 - rating_pct) / 100 * num_stars)
     return {

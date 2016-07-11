@@ -92,7 +92,7 @@ class KitSearchView(FormView):
 class ReviewListView(SingleObjectMixin, ListView):
     queryset = KitReview.objects.prefetch_related(
         Prefetch('ratings', queryset=KitReviewPropertyRating.objects.select_related('prop'))
-    ).select_related('reviewer', 'album')
+    ).select_related('reviewer', 'album').annotate_mean_rating()
     queryset_kits = ModelKit.objects.select_related('brand', 'scale')
     template_name = 'kitreviews/kit_review_list.html'
 
