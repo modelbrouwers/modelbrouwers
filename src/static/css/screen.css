@@ -2035,10 +2035,6 @@ body.groupbuilds .participants tr.finished .fa-check {
   overflow: hidden;
 }
 /* line 21, ../../sass/partials/apps/_kitreviews.scss */
-.kitreview__preview__body br + br {
-  display: none;
-}
-/* line 25, ../../sass/partials/apps/_kitreviews.scss */
 .kitreview__preview__body:after {
   content: " ";
   position: absolute;
