@@ -1,8 +1,14 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from ..models import KitReviewPropertyRating, MIN_RATING, MAX_RATING, DEFAULT_RATING
-from .factories import KitReviewFactory, KitReviewPropertyFactory, KitReviewPropertyRatingFactory
+from brouwers.forum_tools.tests.factories import TopicFactory
+
+from ..models import (
+    MIN_RATING, MAX_RATING, DEFAULT_RATING, KitReview, KitReviewPropertyRating
+)
+from .factories import (
+    KitReviewFactory, KitReviewPropertyFactory, KitReviewPropertyRatingFactory
+)
 
 
 class KitReviewPropertyRatingTest(TestCase):
@@ -53,3 +59,36 @@ class KitReviewTests(TestCase):
             show_real_name=False,
         )
         self.assertEqual(review2.reviewer_name, review2.reviewer.username)
+
+    def test_annotate_mean_rating(self):
+        review = KitReviewFactory.create()
+        KitReviewPropertyRatingFactory.create_batch(3, kit_review=review, rating=75)
+
+        # other ratings that would offset the average rating
+        KitReviewPropertyRatingFactory.create_batch(3, rating=25)
+
+        review = KitReview.objects.annotate_mean_rating().get(pk=review.pk)
+        self.assertEqual(review.avg_rating, 75.0)  # and not 50
+        self.assertEqual(review.rating_pct, 75.0)  # and not 50
+
+        review2 = KitReviewFactory.create()
+        KitReviewPropertyRatingFactory.create(kit_review=review2, rating=75)
+        KitReviewPropertyRatingFactory.create(kit_review=review2, rating=25)
+
+        review2 = KitReview.objects.annotate_mean_rating().get(pk=review2.pk)
+        self.assertEqual(review2.avg_rating, 50.0)
+        self.assertEqual(review2.rating_pct, 50.0)
+
+    def test_topic_url(self):
+        review = KitReviewFactory.build(topic_id=3141592)
+        self.assertIsNone(review.topic_url)
+
+        topic = TopicFactory.create()
+        review2 = KitReviewFactory.build(topic_id=topic.pk)
+        self.assertEqual(review2.topic_url, topic.get_absolute_url())
+
+        review3 = KitReviewFactory.build(topic_id=topic.pk, external_topic_url='https://google.nl')
+        self.assertEqual(review3.topic_url, topic.get_absolute_url())
+
+        review4 = KitReviewFactory.build(external_topic_url='https://google.nl')
+        self.assertEqual(review4.topic_url, 'https://google.nl')
