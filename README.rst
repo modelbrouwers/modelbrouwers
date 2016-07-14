@@ -115,13 +115,30 @@ All dependencies are in the `requirements` folder, grouped by the environment ty
 
 These will be installed in your virtualenv.
 
+
+Installing front-end dependencies
+=================================
+Make sure npm and bower are installed globally. Then run::
+
+    $ npm install
+
+and::
+
+    $ bower install
+
+This will install all the necessary front-end dependencies. Additionally install ``compass`` for .scss files compiling
+with::
+
+    $ gem install compass
+
+
 Create the settings
 ===================
 
 You need some settings to get the project up. For security reasons, sensitive
 data lives in ``secrets.py``
 
-Copy ``src/conf/secrets.py_example`` to ``secrets.py``.
+Copy ``src/conf/settings/secrets.py_example`` to ``secrets.py``.
 
 Edit secrets.py to include your own settings. You can generate a secret key here: `SecretKey`_.
 
@@ -139,6 +156,7 @@ In production the Django tables live in a postgresql database, while the phpBB3
 tables live in MySQL. Replicating this environment is probably the most robust
 during development.
 
+Create an empty directory named ``log`` in the project's root.
 
 Creating the database
 =====================

@@ -1,5 +1,5 @@
 {% extends "base_html5.html" %}
-{% load i18n staticfiles %}
+{% load i18n sniplates staticfiles system_tags %}
 
 
 {% block body-class %}{{ block.super }} kitreviews{% endblock body-class %}
@@ -25,10 +25,26 @@
                 <a href="{% url 'kitreviews:index' %}" class="btn bg-main-blue">
                     {% trans "Home" %}
                 </a>
-                <a href="{% url 'kitreviews:add_review' %}" class="btn bg-main-orange">
+                {% if kit %}
+                    {% url 'kitreviews:review-add' slug=kit.slug as add_url %}
+                {% else %}
+                    {% url 'kitreviews:add_review' as add_url %}
+                {% endif %}
+                <a href="{{ add_url }}" class="btn bg-main-orange">
                     {% trans "Add review" %}
                 </a>
             {% endblock %}
         </div>
     </header>
 {% endblock %}
+
+
+{% block js_no_compress %}
+    {% load_widgets js='sniplates/js.html' %}
+    {% widget 'js:systemjs-base' %}
+{% endblock %}
+
+{% block extrascript %}
+    {{ block.super }}
+    {% systemjs_import 'kitreviews/js/kitreviews.js' %}
+{% endblock extrascript %}

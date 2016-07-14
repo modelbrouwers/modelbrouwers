@@ -7,10 +7,13 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from djchoices import DjangoChoices, ChoiceItem
+from djchoices import ChoiceItem, DjangoChoices
+from precise_bbcode.shortcuts import render_bbcodes
 
 from brouwers.albums.models import Album
 from brouwers.forum_tools.fields import ForumToolsIDField
+
+from .managers import KitReviewQuerySet
 
 
 DEFAULT_RATING = 50
@@ -23,6 +26,7 @@ class KitReview(models.Model):
     """
     Model holding the review information for a model kit
     """
+    legacy_id = models.IntegerField(blank=True, null=True, db_index=True)
     model_kit = models.ForeignKey('kits.ModelKit')
     raw_text = models.TextField(
         _('review'),
@@ -56,6 +60,8 @@ class KitReview(models.Model):
     submitted_on = models.DateTimeField(auto_now_add=True)
     last_edited_on = models.DateTimeField(auto_now=True)
 
+    objects = KitReviewQuerySet.as_manager()
+
     class Meta:
         verbose_name = _('kit review')
         verbose_name_plural = _('kit reviews')
@@ -66,20 +72,21 @@ class KitReview(models.Model):
             'user': self.reviewer.username,
         }
 
-    def get_absolute_url(self):
-        return reverse('kitreviews:kit_detail', args=[self.pk])
+    def save(self, *args, **kwargs):
+        self.render_raw_text(force=True)
+        super(KitReview, self).save(*args, **kwargs)
 
-    @property
-    def votes(self):
-        # TODO: optimize, can be annotated
-        votes_pos = self.kitreviewvote_set.filter(vote=VoteTypes.positive).count()
-        votes_neg = self.kitreviewvote_set.filter(vote=VoteTypes.negative).count()
-        votes_total = votes_pos + votes_neg
-        return (votes_pos, votes_neg, votes_total)
+    def get_absolute_url(self):
+        return reverse('kitreviews:review-detail', kwargs={'pk': self.pk, 'slug': self.model_kit.slug})
+
+    def render_raw_text(self, force=False):
+        if not self.html or force:
+            self.html = render_bbcodes(self.raw_text)
+        return self.html
 
     @property
     def topic_url(self):
-        if self.topic_id:
+        if self.topic_id and self.topic:
             return self.topic.get_absolute_url()
         if self.external_topic_url:
             return self.external_topic_url
@@ -147,3 +154,6 @@ class KitReviewPropertyRating(models.Model):
     class Meta:
         verbose_name = _(u'kit review property rating')
         verbose_name_plural = _(u'kit review property ratings')
+
+
+from . import legacy_models  # NOQA

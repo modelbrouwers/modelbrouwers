@@ -30,6 +30,7 @@ class UserMigration(models.Model):
         query_string = urllib.urlencode(dict([k, v] for k, v in params.items()))
         return u"http://modelbrouwers.nl/confirm_account/?%s" % (query_string)
 
+
 class AlbumUserMigration(models.Model):
     username = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
@@ -46,6 +47,7 @@ class AlbumUserMigration(models.Model):
             django_user = "[django user not found]"
         return u"%s (%s) -> %s" % (self.username, self.email, django_user)
 
+
 class AlbumMigration(models.Model):
     title = models.CharField(max_length=1024)
     description = models.CharField(max_length=1024, blank=True)
@@ -58,6 +60,7 @@ class AlbumMigration(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.title
+
 
 class PhotoMigration(models.Model):
     album = models.ForeignKey(AlbumMigration)

@@ -6,9 +6,11 @@ from django.utils.translation import ugettext as _
 from django_webtest import WebTest
 
 from brouwers.albums.tests.factories import AlbumFactory
+from brouwers.kits.models import Brand
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
+
 from ..models import KitReview
 from .factories import KitReviewFactory, KitReviewPropertyFactory
 
@@ -83,6 +85,24 @@ class AddReviewViewTests(LoginRequiredMixin, WebTest):
         self.assertEqual(review.raw_text, 'My very short review')
         self.assertEqual(review.reviewer, user)
 
+    def test_submit_review_for_kit(self):
+        kit = ModelKitFactory.create()
+        user = UserFactory.create()
+
+        url = reverse('kitreviews:review-add', kwargs={'slug': kit.slug})
+        add_page = self.app.get(url, user=user)
+        form = add_page.form
+        self.assertEqual(form['model_kit'].value, str(kit.pk))
+
+        form['raw_text'] = 'My review with [b]BBCode[/b]\nFoo'
+        response = form.submit()
+        review = KitReview.objects.get()
+        self.assertRedirects(response, review.get_absolute_url())
+        self.assertEqual(review.model_kit, kit)
+        self.assertEqual(review.raw_text, 'My review with [b]BBCode[/b]\nFoo')
+        self.assertHTMLEqual(review.render_raw_text(), 'My review with <strong>BBCode</strong><br>Foo')
+        self.assertEqual(review.reviewer, user)
+
 
 class SearchViewTests(WebTest):
 
@@ -138,6 +158,26 @@ class SearchViewTests(WebTest):
         search_results = search_page.form.submit()
         self.assertQuerysetEqual(search_results.context['kits'], [repr(self.kit3)])
 
+    def test_invalid_search_form(self):
+        """
+        Test invalid search form input
+        """
+        # search by brand
+        max_pk = Brand.objects.order_by('pk').last().pk
+        response = self.client.get(self.url, {'brand': max_pk + 1})
+        self.assertIn('brand', response.context['form'].errors)
+        self.assertNotIn('kits', response.context)
+
+    def test_posting_works(self):
+        """
+        Not intended, but it should work too
+        """
+        # search by brand
+        response = self.client.post(self.url, {'brand': self.kit1.brand.pk})
+        queryset = response.context['kits']
+        self.assertQuerysetEqual(queryset, [repr(self.kit1)])
+        self.assertEqual(queryset.first().num_reviews, 1)
+
 
 class KitReviewsListViewTests(WebTest):
 
@@ -157,3 +197,28 @@ class KitReviewsListViewTests(WebTest):
         expected_reviews = [repr(x) for x in self.reviews1]
         # TODO: ordering comes later - we'll order by review votes
         self.assertQuerysetEqual(reviews, expected_reviews, ordered=False)
+
+
+class LegacyRedirectViewTests(WebTest):
+
+    """
+    Ensure that the old links still work
+    """
+
+    def test_redirect(self):
+        url = '/kitreviews/kitreview_search_result_review.php'
+        review = KitReviewFactory.create(legacy_id=42)
+
+        # test success
+        response = self.app.get(url, {'review': '42'})
+        self.assertRedirects(response, review.get_absolute_url(), status_code=301)
+
+        response = self.app.get(url, {'review': 42, 'kit': 'abcdefgh'})
+        self.assertRedirects(response, review.get_absolute_url(), status_code=301)
+
+        # test error handling
+        self.app.get(url, {'review': 'abcdefgh'}, status=404)
+        self.app.get(url, status=404)
+
+        # test valid input, but unknown kit
+        response = self.app.get(url, {'review': 41}, status=404)

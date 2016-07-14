@@ -895,6 +895,129 @@ form fieldset.tab-pane {
   opacity: 0.1;
 }
 
+/* line 166, ../../sass/partials/_forms.scss */
+input[type="range"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  width: 85%;
+  float: left;
+}
+/* line 138, ../../sass/partials/_forms.scss */
+input[type="range"]::-webkit-slider-thumb {
+  margin-top: -7px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  -webkit-transition: background 0.5s ease;
+  transition: background 0.5s ease;
+  border: 1px solid #D46400;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  background: #ffffff;
+  cursor: pointer;
+}
+/* line 142, ../../sass/partials/_forms.scss */
+input[type="range"]::-moz-range-thumb {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  -webkit-transition: background 0.5s ease;
+  transition: background 0.5s ease;
+  border: 1px solid #D46400;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  background: #ffffff;
+  cursor: pointer;
+}
+/* line 145, ../../sass/partials/_forms.scss */
+input[type="range"]::-ms-thumb {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-transition: background 0.5s ease;
+  -o-transition: background 0.5s ease;
+  -webkit-transition: background 0.5s ease;
+  transition: background 0.5s ease;
+  border: 1px solid #D46400;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  background: #ffffff;
+  cursor: pointer;
+}
+/* line 186, ../../sass/partials/_forms.scss */
+input[type="range"]:focus, input[type="range"]:active, input[type="range"]:hover {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+/* line 138, ../../sass/partials/_forms.scss */
+input[type="range"]:focus::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:hover::-webkit-slider-thumb {
+  margin-top: -7px;
+  background: #ffe8d4;
+}
+/* line 142, ../../sass/partials/_forms.scss */
+input[type="range"]:focus::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb, input[type="range"]:hover::-moz-range-thumb {
+  background: #ffe8d4;
+}
+/* line 145, ../../sass/partials/_forms.scss */
+input[type="range"]:focus::-ms-thumb, input[type="range"]:active::-ms-thumb, input[type="range"]:hover::-ms-thumb {
+  background: #ffe8d4;
+}
+/* line 197, ../../sass/partials/_forms.scss */
+input[type="range"]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+/* line 152, ../../sass/partials/_forms.scss */
+input[type="range"]::-webkit-slider-runnable-track {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  border: solid 1px #006699;
+  background-color: #4095FD;
+}
+/* line 156, ../../sass/partials/_forms.scss */
+input[type="range"]::-moz-range-track {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  border: solid 1px #006699;
+  background-color: #4095FD;
+}
+/* line 160, ../../sass/partials/_forms.scss */
+input[type="range"]::-ms-track {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  border: solid 1px #006699;
+  background-color: #4095FD;
+}
+/* line 216, ../../sass/partials/_forms.scss */
+input[type="range"] + output {
+  width: 15%;
+  float: left;
+  text-align: center;
+}
+
 /* line 2, ../../sass/partials/_ads.scss */
 .ad-container {
   position: relative;
@@ -1889,13 +2012,41 @@ body.groupbuilds .participants tr.finished .fa-check {
   margin-top: 0;
 }
 
-/* line 3, ../../sass/partials/apps/_kitreviews.scss */
-.kitreviews--review-preview {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+/* line 1, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview {
   border: solid 1px #CCC;
-  padding: 1em;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+/* line 6, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview__title {
+  font-size: 18px;
+  margin: 0;
+}
+/* line 11, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview__details {
+  color: #919291;
+}
+/* line 15, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview__body {
+  max-height: 100px;
+  position: relative;
+  min-height: 50px;
+  overflow: hidden;
+}
+/* line 21, ../../sass/partials/apps/_kitreviews.scss */
+.kitreview__preview__body:after {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  display: block;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background: -moz-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
+  background: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), #ffffff);
 }
 
 /* line 3, ../../sass/partials/apps/_users.scss */

@@ -1,0 +1,5 @@
+{% spaceless %}{% load i18n %}{% if unrated %}{% trans "unrated" %}{% else %}
+{% for i in full %}<i class="fa fa-star"></i>{% endfor %}
+{% if half %}<i class="fa fa-star-half-o"></i>{% endif %}
+{% for i in open %}<i class="fa fa-star-o"></i>{% endfor %}
+{% endif %}{% endspaceless %}

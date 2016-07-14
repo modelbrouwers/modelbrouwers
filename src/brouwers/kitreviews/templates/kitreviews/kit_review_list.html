@@ -4,8 +4,6 @@
 {% block content %}
 
 <article class="kitreviews--kit">
-    {% with kit=object %}
-
     <header>
         <h1>{{ kit.name }} <small>{{ kit.kit_number }}</small></h1>
 
@@ -32,8 +30,7 @@
         {% endif %}
     </figure>
 
-    {% endwith %}
-
+    {% block reviews %}
     <section>
         {% blocktrans trimmed count count=object_list.count %}
             There is one review
@@ -47,5 +44,6 @@
             {% endfor %}
         </div>
     </section>
+    {% endblock %}
 </article>
 {% endblock %}

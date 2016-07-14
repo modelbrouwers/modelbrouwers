@@ -1,18 +1,17 @@
-{% load i18n %}
-<article class="kitreviews--review-preview">
-    <header>
-        <h3 class="kitreviews--review-kit-title">
+{% load i18n kitreviews %}
+<article class="kitreview__preview">
+    <header class="row">
+        <h1 class="col-md-9 kitreview__preview__title">
             <a href="{% url 'kitreviews:review-list' slug=review.model_kit.slug %}">{{ review.model_kit }}</a>
-            <small class="pull-right">
-                {% blocktrans trimmed with reviewer=review.reviewer_name time_ago=review.submitted_on|timesince %}
-                    {{ reviewer }} &ndash; {{ time_ago }} ago
-                {% endblocktrans %}
-            </small>
-        </h3>
+        </h1>
+        <aside class="col-md-3 kitreview__preview__details">
+        {% blocktrans trimmed with reviewer=review.reviewer_name time_ago=review.submitted_on|timesince %}
+            {{ reviewer }} &ndash; {{ time_ago }} ago
+        {% endblocktrans %}
+        </aside>
     </header>
 
-    {# TODO #}
-    {# <p>{{ review.votes }}</p> #}
+    {% review_rating review.rating_pct %}
 
     <div class="row">
 
@@ -34,15 +33,19 @@
             </ul>
         {% endif %}
 
-        <div class="col-md-6 kitreviews--text-preview">
-            {{ review.html|safe|default:review.raw_text }}
+        <div class="{{ show_ratings|yesno:"col-md-6,col-md-12" }}">
+            <section class="kitreview__preview__body">{{ review.render_raw_text|safe }}</section>
         </div>
 
     </div>
 
     <footer>
-        <a class="btn btn-default" href="{{ review.topic_url }}">{% trans "Topic" %}</a>
-
-        <a class="btn btn-default" href="{{ review.album.get_absolute_url }}">{% trans "album" %}</a>
+        <a class="btn bg-main-orange" href="{{ review.get_absolute_url }}">{% trans "read more" %}</a>
+        {% if review.topic_url %}
+            <a class="btn btn-default" href="{{ review.topic_url }}">{% trans "view topic" %}</a>
+        {% endif %}
+        {% if review.album %}
+            <a class="btn btn-default" href="{{ review.album.get_absolute_url }}">{% trans "view album" %}</a>
+        {% endif %}
     </footer>
 </article>

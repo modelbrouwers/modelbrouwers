@@ -11,23 +11,28 @@
 {% endblock %}
 
 
+{% block _input %}
+{% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
+<input type="{{ input_type }}"
+    name="{{ html_name }}"
+    id="{{ id }}"
+    value="{{ raw_value|default:"" }}"
+    class="form-control {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
+    {{ widget.attrs|flatattrs }}
+    {{ required|yesno:"required," }}
+    {{ autofocus|yesno:"autofocus," }}
+    {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+>
+{% endwith %}
+{% endblock _input %}
+
+
 {% block input %}
 <div class="form-group clearfix">
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
         {% if help_text %}<div class="input-group">{% endif %}
-        {% with input_type=input_type|default:form_field.field.widget.input_type|default:'text' %}
-        <input type="{{ input_type }}"
-            name="{{ html_name }}"
-            id="{{ id }}"
-            value="{{ raw_value|default:"" }}"
-            class="form-control {{ css_classes }} {{ errors|yesno:"error," }} {{ extra_css_classes }}"
-            {{ widget.attrs|flatattrs }}
-            {{ required|yesno:"required," }}
-            {{ autofocus|yesno:"autofocus," }}
-            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
-        >
-        {% endwith %}
+        {% reuse "_input" %}
         {% reuse "_help" %}
         {% if help_text %}</div>{% endif %}
         {% reuse "_errors" %}
@@ -190,3 +195,18 @@
     </div>
 </div>
 {% endblock %}
+
+
+{% block RangeInput %}
+<div class="form-group clearfix">
+    {% reuse "_label" %}
+    <div class="{{ field_grid|default:'col-sm-10' }}">
+        {% if help_text %}<div class="input-group">{% endif %}
+        {% reuse "_input" %}
+        <output name="_output_{{ html_name }}" for="{{ html_name }}">{{ value }}</output>
+        {% reuse "_help" %}
+        {% if help_text %}</div>{% endif %}
+        {% reuse "_errors" %}
+    </div>
+</div>
+{% endblock RangeInput %}

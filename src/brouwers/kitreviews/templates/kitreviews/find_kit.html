@@ -52,7 +52,7 @@
                         </span>
                     {% endif %}
 
-                    <a class="button button--full button--orange" href="{% url 'kitreviews:kit_add_review' pk=kit.pk %}">{% trans "Add review" %}</a>
+                    <a class="button button--full button--orange" href="{% url 'kitreviews:review-add' slug=kit.slug %}">{% trans "Add review" %}</a>
 
                 </article>
             </div>

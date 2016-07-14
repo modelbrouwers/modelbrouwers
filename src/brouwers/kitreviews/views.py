@@ -1,21 +1,22 @@
 from django.db.models import Count, Prefetch
-from django.forms import modelform_factory
-from django.views.generic import DetailView, ListView, FormView
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView, FormView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
-from django.shortcuts import get_object_or_404
 
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
 from brouwers.kits.models import ModelKit
-from brouwers.utils.forms import AlwaysChangedModelForm
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import KitReviewForm, FindModelKitForm
+from .forms import KitReviewForm, FindModelKitForm, KitReviePropertyRatingForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
 class IndexView(FormMixin, ListView):
-    queryset = KitReview.objects.select_related('reviewer', 'model_kit').order_by('-submitted_on')[:5]
+    queryset = KitReview.objects.select_related(
+        'reviewer', 'model_kit'
+    ).annotate_mean_rating().order_by('-submitted_on')[:5]
     context_object_name = 'reviews'
     template_name = 'kitreviews/index.html'
     form_class = FindModelKitForm
@@ -23,10 +24,7 @@ class IndexView(FormMixin, ListView):
 
 class ReviewPropertyRatingInline(InlineFormSet):
     model = KitReviewPropertyRating
-    form_class = modelform_factory(
-        model, form=AlwaysChangedModelForm,
-        fields=('id', 'prop', 'rating')
-    )
+    form_class = KitReviePropertyRatingForm
 
     @property
     def num_properties(self):
@@ -64,8 +62,8 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
 
     def get_initial(self):
         initial = super(AddReview, self).get_initial()
-        if self.kwargs.get('pk'):
-            initial['model_kit'] = get_object_or_404(ModelKit, pk=self.kwargs['pk'])
+        if self.kwargs.get('slug'):
+            initial['model_kit'] = get_object_or_404(ModelKit, slug=self.kwargs['slug'])
         return initial
 
 
@@ -94,7 +92,7 @@ class KitSearchView(FormView):
 class ReviewListView(SingleObjectMixin, ListView):
     queryset = KitReview.objects.prefetch_related(
         Prefetch('ratings', queryset=KitReviewPropertyRating.objects.select_related('prop'))
-    ).select_related('reviewer', 'album')
+    ).select_related('reviewer', 'album').annotate_mean_rating()
     queryset_kits = ModelKit.objects.select_related('brand', 'scale')
     template_name = 'kitreviews/kit_review_list.html'
 
@@ -102,8 +100,31 @@ class ReviewListView(SingleObjectMixin, ListView):
         self.object = kit = self.get_object(queryset=self.queryset_kits)
         return super(ReviewListView, self).get_queryset().filter(model_kit=kit)
 
+    def get_context_data(self, **kwargs):
+        kwargs['kit'] = self.object
+        return super(ReviewListView, self).get_context_data(**kwargs)
+
 
 class KitReviewDetail(DetailView):
-    model = KitReview
+    queryset = KitReview.objects.select_related('model_kit')
     template_name = 'kitreviews/kitreview_detail.html'
-    context_object_name = 'kit_review'
+    context_object_name = 'review'
+
+    def get_context_data(self, **kwargs):
+        kwargs.setdefault('kit', self.object.model_kit)
+        kwargs['other_reviews'] = self.object.model_kit.kitreview_set.select_related(
+            'reviewer', 'album'
+        ).annotate_mean_rating().exclude(pk=self.object.pk)
+        return super(KitReviewDetail, self).get_context_data(**kwargs)
+
+
+class LegacyRedirectView(RedirectView):
+    permanent = True
+
+    def get_redirect_url(self, *args, **kwargs):
+        try:
+            review_id = int(self.request.GET.get('review'))
+        except (ValueError, TypeError):
+            raise Http404
+        review = get_object_or_404(KitReview, legacy_id=review_id)
+        return review.get_absolute_url()
