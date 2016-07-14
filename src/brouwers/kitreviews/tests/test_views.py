@@ -168,6 +168,16 @@ class SearchViewTests(WebTest):
         self.assertIn('brand', response.context['form'].errors)
         self.assertNotIn('kits', response.context)
 
+    def test_posting_works(self):
+        """
+        Not intended, but it should work too
+        """
+        # search by brand
+        response = self.client.post(self.url, {'brand': self.kit1.brand.pk})
+        queryset = response.context['kits']
+        self.assertQuerysetEqual(queryset, [repr(self.kit1)])
+        self.assertEqual(queryset.first().num_reviews, 1)
+
 
 class KitReviewsListViewTests(WebTest):
 
