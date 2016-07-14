@@ -62,8 +62,8 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
 
     def get_initial(self):
         initial = super(AddReview, self).get_initial()
-        if self.kwargs.get('pk'):
-            initial['model_kit'] = get_object_or_404(ModelKit, pk=self.kwargs['pk'])
+        if self.kwargs.get('slug'):
+            initial['model_kit'] = get_object_or_404(ModelKit, slug=self.kwargs['slug'])
         return initial
 
 

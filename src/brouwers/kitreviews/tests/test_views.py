@@ -83,6 +83,24 @@ class AddReviewViewTests(LoginRequiredMixin, WebTest):
         self.assertEqual(review.raw_text, 'My very short review')
         self.assertEqual(review.reviewer, user)
 
+    def test_submit_review_for_kit(self):
+        kit = ModelKitFactory.create()
+        user = UserFactory.create()
+
+        url = reverse('kitreviews:review-add', kwargs={'slug': kit.slug})
+        add_page = self.app.get(url, user=user)
+        form = add_page.form
+        self.assertEqual(form['model_kit'].value, str(kit.pk))
+
+        form['raw_text'] = 'My review with [b]BBCode[/b]\nFoo'
+        response = form.submit()
+        review = KitReview.objects.get()
+        self.assertRedirects(response, review.get_absolute_url())
+        self.assertEqual(review.model_kit, kit)
+        self.assertEqual(review.raw_text, 'My review with [b]BBCode[/b]\nFoo')
+        self.assertHTMLEqual(review.render_raw_text(), 'My review with <strong>BBCode</strong><br>Foo')
+        self.assertEqual(review.reviewer, user)
+
 
 class SearchViewTests(WebTest):
 
