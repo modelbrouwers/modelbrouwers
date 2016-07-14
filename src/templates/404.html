@@ -2,28 +2,6 @@
 {% load i18n staticfiles %}
 
 {% block body-class %}error-page{% endblock %}
-{% comment %}
-{% block style %}
-    {{ block.super }}
-    <style type="text/css">
-        div#content{min-height:200px;clear:both;}
-        #not-found-content{font-family: Verdana, Arial, Helvetica, sans-serif;font-size:0.8em;}
-        #not-found {
-            font-size: 1.8em;
-            font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            background: url('/static/images/logo/logo_spiegel.jpg') no-repeat;
-            background-position: center;
-            letter-spacing: 1px;
-            color: #069;
-            width: 592px;
-            height: 56px;
-            margin: 0 auto;
-        }
-        {% block extra_css %}{% endblock extra_css %}
-    </style>
-{% endblock %}
-{% endcomment %}
 
 {% block eye-catcher %}
 <header class="container-fluid eye-catcher">

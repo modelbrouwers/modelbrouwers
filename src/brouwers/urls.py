@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^group-builds/', include('brouwers.groupbuilds.urls', namespace='groupbuilds')),
     url(r'^kitreviews/', include('brouwers.kitreviews.urls', namespace='kitreviews')),
     url(r'^secret_santa/', include('brouwers.secret_santa.urls', namespace='secret_santa')),
-    url(r'^shirts/', include('brouwers.shirts.urls')),
+    url(r'^shirts/', TemplateView.as_view(template_name='shirts_removed.html')),
     url(r'^builds/', include('brouwers.builds.urls', namespace='builds')),
     url(r'^ou/', include('brouwers.online_users.urls')),
     url(r'^migration/', include('brouwers.migration.urls')),
