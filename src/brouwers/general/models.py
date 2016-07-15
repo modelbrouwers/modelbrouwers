@@ -34,23 +34,17 @@ class UserProfile(models.Model):
         default=False)
     categories_voted = models.ManyToManyField(Category, blank=True)
 
-    # No longer used TODO remove
-    secret_santa = models.BooleanField(help_text=_("Aanvinken als je meedoet"), default=False)
     # adres
     street = models.CharField(_("street name"), max_length=255, blank=True, null=True)
     number = models.CharField(
-            _("number"), max_length=10,
-            help_text=_("house number (+ PO box if applicable)"),
-            blank=True, null=True
-        )
+        _("number"), max_length=10,
+        help_text=_("house number (+ PO box if applicable)"),
+        blank=True, null=True
+    )
     postal = models.CharField(_("postal code"), max_length=10, blank=True, null=True)
     city = models.CharField(_("city"), max_length=255, blank=True, null=True)
     province = models.CharField(_("province"), max_length=255, blank=True, null=True)
     country = models.CharField(_("country"), max_length=1, choices=COUNTRY_CHOICES, blank=True, null=True)
-
-    # voorkeuren -> TODO: move to secret santa object
-    preference = models.TextField(help_text=_("Dit wil ik graag"), blank=True, null=True)
-    refuse = models.TextField(help_text=_("Dit wil ik absoluut niet"), blank=True, null=True)
 
     # allow social sharing
     allow_sharing = models.BooleanField(
@@ -171,7 +165,7 @@ class RegistrationAttempt(models.Model):
 
         num_attempts = RegistrationAttempt.objects.filter(
             ip_address=self.ip_address, success=False
-            ).count()
+        ).count()
 
         if num_attempts >= 2:
             from brouwers.banning.models import Ban
@@ -192,15 +186,12 @@ class RegistrationAttempt(models.Model):
                                   'You tried registering %(times)s times without succes, the system flagged you as a '
                                   'bot.', num_attempts) % {'times': num_attempts}
             kwargs['reason_internal'] = _('Probably spambot, %(num_attempts)s against maximum attempts of %(max)s') % {
-                                'num_attempts': num_attempts,
-                                'max': MAX_REGISTRATION_ATTEMPTS
-                            }
+                'num_attempts': num_attempts,
+                'max': MAX_REGISTRATION_ATTEMPTS
+            }
             kwargs['automatic'] = True
 
-            ban = Ban.objects.create(
-                    ip=self.ip_address,
-                    **kwargs
-                    )
+            ban = Ban.objects.create(ip=self.ip_address, **kwargs)
 
             # set the ban to the registration attempt
             self.ban = ban
