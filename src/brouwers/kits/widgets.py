@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, Scale
+from .models import Brand, KitDifficulties, Scale
 
 
 class ModelKitForm(forms.Form):
@@ -14,6 +14,13 @@ class AddKitForm(forms.Form):
     brand = forms.CharField(label=_('brand'))
     scale = forms.CharField(label=_('scale'))
     name = forms.CharField(label=_('name'))
+
+    kit_number = forms.CharField(label=_('kit number'))
+    box_image = forms.ImageField(label=_('box image'))
+    difficulty = forms.ChoiceField(
+        label=_('difficulty'), choices=KitDifficulties.choices,
+        widget=forms.RadioSelect
+    )
 
 
 class ModelKitSelect(forms.SelectMultiple):
