@@ -4,7 +4,10 @@
 
     <fieldset class="well">
         {% load_widgets form='horizontal.form' %}
-        {% form_field form.model_kit %}
+        {% load_widgets kits='kits/widgets.html' %}
+
+        {% form_field form.model_kit widget='kits:ModelKitSelect' label=_('Select a kit') %}
+
         {% form_field form.album %}
         {% form_field form.topic %}
         {% form_field form.external_topic_url %}

@@ -95,6 +95,14 @@
 
                         <!-- name -->
                         {% form_field add_form.name placeholder=_('kit name') required=False %}
+
+                        <!-- kit number -->
+                        {% form_field add_form.kit_number placeholder=_('kit number') required=False %}
+
+                        <!-- boxart -->
+                        {% form_field add_form.box_image placeholder=_('box image') required=False %}
+
+                        {% form_field add_form.difficulty placeholder=_('difficulty') required=False %}
                     {% endwith %}
                 </div>
             </div>
