@@ -1,51 +1,34 @@
-{% extends "base.html" %}
-{% load i18n %}{% load staticfiles %}
+{% extends "base_html5.html" %}
+{% load i18n staticfiles %}
 
+{% block body-class %}error-page{% endblock %}
 
-{% block style %}
-    {{ block.super }}
-    <style type="text/css">
-        div#content{min-height:200px;clear:both;}
-        #not-found-content{font-family: Verdana, Arial, Helvetica, sans-serif;font-size:0.8em;}
-        #not-found {
-            font-size: 1.8em;
-            font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            background: url('/static/images/logo/logo_spiegel.jpg') no-repeat;
-            background-position: center;
-            letter-spacing: 1px;
-            color: #069;
-            width: 592px;
-            height: 56px;
-            margin: 0 auto;
-        }
-        {% block extra_css %}{% endblock extra_css %}
-    </style>
+{% block eye-catcher %}
+<header class="container-fluid eye-catcher">
+    <div class="container">
+        <h1>{% trans "404: page not found" %}</h1>
+    </div>
+</header>
 {% endblock %}
 
+
 {% block content %}
-{% spaceless %}
-<div class="center" id="not-found-content">
-    <div>
-        <a href="/">
-            <img src="{% static 'images/logo/logo.gif' %}" 
-                alt="logo" 
-                width="592" height="92">
-        </a>
-    </div>
-    <div id="not-found">
-        <div style="padding-top:1em;">
-            {% block error_code %}
-                {% trans "Oops... a 404!" %}
-            {% endblock error_code %}
-        </div>
-    </div>
-    
+<article class="text-center">
+    {% url 'index' as url_index %}
+    <a href="{{ url_index }}" class="error__logo">
+        <img src="{% static 'images/logo/logo.gif' %}"alt="logo"width="592" height="92">
+    </a>
+    {% block error_code %}
+        <p class="error__code">{% trans "Oops... a 404!" %}</p>
+    {% endblock error_code %}
     {% block error_msg %}
-        <div id="text-not-found">
-            {% blocktrans with return=request.META.HTTP_REFERER %}The requested page could not be found or isn't accessible because of limited user rights. Click on the big logo above or click <a href="/">here</a> to return to the homepage. Alternatively, use the back button in your browser or click <a href="{{ return }}">here</a> to return to the previous page.{% endblocktrans %}
-        </div>
+        <p class="error__text">{% blocktrans trimmed with return=request.META.HTTP_REFERER %}
+            The requested page could not be found or isn't accessible because of
+            limited user rights. Click on the big logo above or click
+            <a href="{{ url_index }}">here</a> to return to the homepage.
+            Alternatively, use the back button in your browser or click
+            <a href="{{ return }}">here</a> to return to the previous page.
+        {% endblocktrans %}</p>
     {% endblock error_msg %}
-</div>
-{% endspaceless %}
+</article>
 {% endblock %}
