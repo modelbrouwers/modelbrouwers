@@ -17,7 +17,7 @@
     {% if form.data %}
         <h3>{% blocktrans with num_results=kits.count %}Search results ({{ num_results }}){% endblocktrans %}</h3>
 
-        {% if not num_results %}
+        {% if not kits.count %}
             <h4>
                 {% blocktrans %}Oops, we don't have this kit in our database! Would you like to add
                     it?{% endblocktrans %}
