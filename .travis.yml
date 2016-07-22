@@ -18,6 +18,9 @@ services:
 env:
   - DJANGO_SETTINGS_MODULE=conf.settings.travis
 
+before_install:
+  - jspm config registries.github.auth $JSPM_GITHUB_TOKEN
+
 install:
   - pip install --upgrade setuptools pip
   - pip install -r requirements/travis.txt --cache-dir $HOME/.pip-cache
@@ -27,7 +30,6 @@ install:
 before_script:
   - mkdir log
   - bower install
-  - jspm config registries.github.auth $GITHUBTOKEN
   - jspm install
   - src/manage.py collectstatic --noinput --link
   - src/manage.py systemjs_bundle
