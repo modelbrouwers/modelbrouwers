@@ -1,0 +1,43 @@
+{% load i18n sniplates staticfiles system_tags thumbnail %}
+
+<div class="modal fade" id="add-kit-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{% trans "Add new kit to the database" %}</h4>
+                <p>{% trans "Please, only add new kits if they were not available via the search function." %}</p>
+            </div>
+            {% load_widgets fields='horizontal.form' %}
+            <div class="modal-body">
+                {# can't use <form> tag because that results in nested tags #}
+                <div class="form-horizontal">
+                    {#% with add_form=widget.add_form %#}
+                        <!-- brand select -->
+                        {% form_field add_form.brand widget='fields:typeaheadinput' placeholder=_('choose the brand') %}
+
+                        <!-- scale select -->
+                        {% form_field add_form.scale widget='fields:typeaheadinput' placeholder=_('choose the scale') %}
+
+                        <!-- name -->
+                        {% form_field add_form.name placeholder=_('kit name') required=False %}
+
+                        <!-- kit number -->
+                        {% form_field add_form.kit_number placeholder=_('kit number') required=False %}
+
+                        <!-- boxart -->
+                        {% form_field add_form.box_image placeholder=_('box image') required=False %}
+
+                        {% form_field add_form.difficulty placeholder=_('difficulty') required=False %}
+                    {#% endwith %#}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn bg-main-grey" data-dismiss="modal">{% trans "Close" %}</button>
+                <button type="submit" class="btn bg-main-blue">{% trans "Save" %}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

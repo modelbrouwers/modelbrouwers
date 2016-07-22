@@ -71,7 +71,7 @@ class KitReviewForm(forms.ModelForm):
         return super(KitReviewForm, self).save(*args, **kwargs)
 
 
-class KitReviePropertyRatingForm(AlwaysChangedModelForm):
+class KitReviewPropertyRatingForm(AlwaysChangedModelForm):
 
     class Meta:
         model = KitReviewPropertyRating

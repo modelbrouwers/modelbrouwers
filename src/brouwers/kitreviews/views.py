@@ -9,7 +9,7 @@ from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
 from brouwers.kits.models import ModelKit
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import KitReviewForm, FindModelKitForm, KitReviePropertyRatingForm
+from .forms import KitReviewForm, FindModelKitForm, KitReviewPropertyRatingForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
@@ -24,7 +24,7 @@ class IndexView(FormMixin, ListView):
 
 class ReviewPropertyRatingInline(InlineFormSet):
     model = KitReviewPropertyRating
-    form_class = KitReviePropertyRatingForm
+    form_class = KitReviewPropertyRatingForm
 
     @property
     def num_properties(self):
