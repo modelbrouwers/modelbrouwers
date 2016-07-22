@@ -19,12 +19,13 @@ env:
   - DJANGO_SETTINGS_MODULE=conf.settings.travis
 
 before_install:
+  - npm install -g jspm
   - jspm config registries.github.auth $JSPM_GITHUB_TOKEN
 
 install:
   - pip install --upgrade setuptools pip
   - pip install -r requirements/travis.txt --cache-dir $HOME/.pip-cache
-  - npm install -g bower jspm grunt-cli
+  - npm install -g bower grunt-cli
   - npm install
 
 before_script:
