@@ -1,8 +1,8 @@
 coverage
 coveralls
 codecov
-factory_boy==2.6.1
-freezegun==0.3.6
+factory_boy==2.7.0
+freezegun==0.3.7
 django-webtest
 mock==2.0.0
 tblib

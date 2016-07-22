@@ -8,6 +8,7 @@ python:
 cache:
   directories:
     - $HOME/.pip-cache
+    - $HOME/.jspm
 
 services:
   - memcached

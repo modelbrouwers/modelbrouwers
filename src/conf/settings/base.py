@@ -217,6 +217,7 @@ INSTALLED_APPS = [
     'sessionprofile',
     'rest_framework',
     'django_extensions',
+    'loginas',
     'sniplates',
     'rosetta',
     'precise_bbcode',

@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
+    url(r'^admin/', include('loginas.urls')),
 
     url(r'^api/v1/', include('brouwers.api.urls', namespace='api')),
 
