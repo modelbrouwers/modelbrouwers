@@ -32,7 +32,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('question', 'in_use')
+    list_display = ('question', 'in_use', 'lang')
     search_fields = ('question',)
     filter_horizontal = ('answers',)
 

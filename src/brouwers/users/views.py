@@ -151,7 +151,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
     def get_initial(self):
         initial = super(RegistrationView, self).get_initial()
         lang = get_language()[:2]
-        initial['question'] = RegistrationQuestion.active.filter(lang=lang).order_by('?')[0]
+        initial['question'] = RegistrationQuestion.active.filter(lang=lang).order_by('?').first()
         return initial
 
     def get_form_kwargs(self):
