@@ -1,0 +1,15 @@
+{% extends "404.html" %}{% load i18n %}
+
+{% block error_code %}
+    <p class="error__code">{% trans "Oops! There is no more stock..." %}</p>
+{% endblock error_code %}
+
+{% block error_msg %}
+    <p class="error__text">{% blocktrans trimmed with return=request.META.HTTP_REFERER %}
+        Sorry, there are no more shirts in stock, so it's no longer possible to
+        order them. Click on the big logo above or click
+        <a href="{{ url_index }}">here</a> to return to the homepage.
+        Alternatively, use the back button in your browser or click
+        <a href="{{ return }}">here</a> to return to the previous page.
+    {% endblocktrans %}</p>
+{% endblock error_msg %}

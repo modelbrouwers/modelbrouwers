@@ -13,23 +13,20 @@ class UserProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         ('General', {
             'fields': ('user', 'forum_nickname')
-          }),
+        }),
         ('Awards', {
             'fields': (('last_vote', 'exclude_from_nomination'), 'categories_voted')
         }),
-        ('Secret Santa', {
+        ('Address', {
             'fields': (
-                'secret_santa',
                 ('street', 'number'),
                 ('postal', 'city'),
                 ('province', 'country'),
-                'preference',
-                'refuse'
             )
         })
     )
 
-    list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'last_vote', 'secret_santa')
+    list_display = ('forum_nickname', 'user', 'full_name', 'exclude_from_nomination', 'last_vote')
     list_filter = ('allow_sharing', 'exclude_from_nomination')
     search_fields = ('forum_nickname', 'user__email')
 

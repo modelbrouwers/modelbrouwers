@@ -1,0 +1,25 @@
+.error__logo {
+  display: block;
+  height: (92px + 56px);
+  background: url('../images/logo/logo_spiegel.jpg') no-repeat;
+  background-position: center bottom;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+.error__code {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: $main-blue;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-top: -1.2em;
+}
+
+
+.error__text {
+  max-width: 600px;
+  margin: 0 auto;
+}

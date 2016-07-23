@@ -314,6 +314,33 @@ a.thumbnail + ul.list-inline a {
   z-index: 10 !important;
 }
 
+/* line 1, ../../sass/partials/_error_pages.scss */
+.error__logo {
+  display: block;
+  height: 148px;
+  background: url("../images/logo/logo_spiegel.jpg") no-repeat;
+  background-position: center bottom;
+}
+/* line 7, ../../sass/partials/_error_pages.scss */
+.error__logo:hover {
+  cursor: pointer;
+}
+
+/* line 13, ../../sass/partials/_error_pages.scss */
+.error__code {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: #006699;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-top: -1.2em;
+}
+
+/* line 22, ../../sass/partials/_error_pages.scss */
+.error__text {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 /* line 1, ../../sass/partials/_typography.scss */
 .text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
   text-align: left;
