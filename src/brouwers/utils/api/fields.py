@@ -1,5 +1,10 @@
+import logging
+
 from rest_framework import fields
 from sorl.thumbnail import get_thumbnail
+
+
+logger = logging.getLogger(__name__)
 
 
 class ThumbnailField(fields.ImageField):
@@ -17,7 +22,11 @@ class ThumbnailField(fields.ImageField):
                 thumbs['%s' % name] = None
                 continue
 
-            image = get_thumbnail(value, dim, **self.opts)
+            try:
+                image = get_thumbnail(value, dim, **self.opts)
+            except IOError:
+                logger.exception('Could not create thumb/scaled version.')
+                continue
             if request is not None:
                 img_url = request.build_absolute_uri(image.url)
             else:

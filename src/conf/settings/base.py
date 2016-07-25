@@ -184,7 +184,6 @@ MIDDLEWARE_CLASSES = [
     'brouwers.banning.middleware.BanningMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 #
@@ -217,6 +216,7 @@ INSTALLED_APPS = [
     'sessionprofile',
     'rest_framework',
     'django_extensions',
+    'loginas',
     'sniplates',
     'rosetta',
     'precise_bbcode',

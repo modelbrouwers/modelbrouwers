@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^admin/rosetta/', include('rosetta.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
+    url(r'^admin/', include('loginas.urls')),
 
     url(r'^api/v1/', include('brouwers.api.urls', namespace='api')),
 
@@ -29,7 +30,7 @@ urlpatterns = [
     url(r'^%s' % FORUM_URL, include('brouwers.forum_tools.urls_phpbb', namespace='phpBB')),
     url(r'^group-builds/', include('brouwers.groupbuilds.urls', namespace='groupbuilds')),
     url(r'^kitreviews/', include('brouwers.kitreviews.urls', namespace='kitreviews')),
-    url(r'^secret_santa/', include('brouwers.secret_santa.urls', namespace='secret_santa')),
+    url(r'^secret_santa/', TemplateView.as_view(template_name='santa_removed.html')),
     url(r'^shirts/', TemplateView.as_view(template_name='shirts_removed.html')),
     url(r'^builds/', include('brouwers.builds.urls', namespace='builds')),
     url(r'^ou/', include('brouwers.online_users.urls')),

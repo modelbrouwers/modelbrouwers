@@ -26,7 +26,7 @@ custom developed apps in `Django`_:
 * Album software, integrated with the board
 * Groupbuilds managed and integrated in the board
 * Awards, allowing nomination and voting of topics
-* Secret Santa app
+* Kit database with reviews
 * Builds overview, add your build topic with metadata to a personal database.
 * phpBB3 administration through the Django admin.
 

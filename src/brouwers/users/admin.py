@@ -5,6 +5,7 @@ from .forms import AdminUserCreationForm
 from .models import User
 
 
+@admin.register(User)
 class UserAdmin(_UserAdmin):
     list_display = (
         'username', 'email',
@@ -15,5 +16,4 @@ class UserAdmin(_UserAdmin):
     list_editable = ('email', 'forumuser_id')
     ordering = ['-date_joined', 'username']
     add_form = AdminUserCreationForm
-
-admin.site.register(User, UserAdmin)
+    change_form_template = 'loginas/change_form.html'
