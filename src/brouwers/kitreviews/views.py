@@ -8,6 +8,7 @@ from django.views.generic.edit import FormMixin
 from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
 
 from brouwers.kits.models import ModelKit
+from brouwers.kits.widgets import AddKitForm
 from brouwers.utils.views import LoginRequiredMixin
 from .forms import KitReviewForm, FindModelKitForm, KitReviewPropertyRatingForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
@@ -87,6 +88,10 @@ class KitSearchView(FormView):
         kits = form.find_kits()
         kits = kits.annotate(num_reviews=Count('kitreview'))
         return self.render_to_response(self.get_context_data(kits=kits))
+
+    def get_context_data(self, **kwargs):
+        kwargs['add_form'] = AddKitForm(prefix='__modelkitadd')
+        return super(KitSearchView, self).get_context_data(**kwargs)
 
 
 class ReviewListView(SingleObjectMixin, ListView):
