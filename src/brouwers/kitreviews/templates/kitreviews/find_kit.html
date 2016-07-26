@@ -18,6 +18,7 @@
         <h3>{% blocktrans with num_results=kits.count %}Search results ({{ num_results }}){% endblocktrans %}</h3>
 
         {% if not kits.exists %}
+
             {% add_kit_modal add_form %}
             <h4>
                 {% blocktrans %}Oops, we don't have this kit in our database! Would you like to add

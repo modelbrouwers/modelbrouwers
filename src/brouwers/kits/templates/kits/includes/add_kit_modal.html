@@ -9,16 +9,16 @@
                 <h4 class="modal-title">{% trans "Add new kit to the database" %}</h4>
                 <p>{% trans "Please, only add new kits if they were not available via the search function." %}</p>
             </div>
-            {% load_widgets fields='horizontal.form' %}
+             {% load_widgets form='horizontal.form' %}
             <div class="modal-body">
                 {# can't use <form> tag because that results in nested tags #}
                 <div class="form-horizontal">
                     {#% with add_form=widget.add_form %#}
                         <!-- brand select -->
-                        {% form_field add_form.brand widget='fields:typeaheadinput' placeholder=_('choose the brand') %}
+                        {% form_field add_form.brand widget='form:typeaheadinput' placeholder=_('choose the brand') %}
 
                         <!-- scale select -->
-                        {% form_field add_form.scale widget='fields:typeaheadinput' placeholder=_('choose the scale') %}
+                        {% form_field add_form.scale widget='form:typeaheadinput' placeholder=_('choose the scale') %}
 
                         <!-- name -->
                         {% form_field add_form.name placeholder=_('kit name') required=False %}
