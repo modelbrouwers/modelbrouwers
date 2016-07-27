@@ -1,4 +1,4 @@
-{% load i18n sniplates staticfiles system_tags thumbnail %}
+{% load i18n sniplates staticfiles thumbnail %}
 
 <div class="modal fade" id="add-kit-modal">
     <div class="modal-dialog">
@@ -13,7 +13,6 @@
             <div class="modal-body">
                 {# can't use <form> tag because that results in nested tags #}
                 <div class="form-horizontal">
-                    {#% with add_form=widget.add_form %#}
                         <!-- brand select -->
                         {% form_field add_form.brand widget='form:typeaheadinput' placeholder=_('choose the brand') %}
 
@@ -30,7 +29,6 @@
                         {% form_field add_form.box_image placeholder=_('box image') required=False %}
 
                         {% form_field add_form.difficulty placeholder=_('difficulty') required=False %}
-                    {#% endwith %#}
                 </div>
             </div>
 
@@ -42,7 +40,3 @@
     </div><!-- /.modal-dialog -->
 
 </div>
-
-
-{% systemjs_import 'kits/js/modelkit.widget.js' %}
-

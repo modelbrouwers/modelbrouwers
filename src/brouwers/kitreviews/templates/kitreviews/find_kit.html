@@ -1,5 +1,5 @@
 {% extends "kitreviews/base.html" %}
-{% load i18n sniplates staticfiles thumbnail add_kit_modal %}
+{% load i18n sniplates staticfiles thumbnail system_tags add_kit_modal %}
 
 {% block content %}
     <h3>{% trans 'Find model kit(s) &dash; Enter your search parameters' %}</h3>
@@ -19,16 +19,17 @@
 
         {% if not kits.exists %}
 
-            {% add_kit_modal add_form %}
             <h4>
                 {% blocktrans %}Oops, we don't have this kit in our database! Would you like to add
                     it?{% endblocktrans %}
             </h4>
 
             <div class="center">
-                <input type="button" data-target="add-kit-modal" value="{% trans 'Add kit' %}"
+                <input type="button" data-target="#add-kit-modal" value="{% trans 'Add kit' %}"
                        class="btn bg-main-orange"/>
             </div>
+
+            {% add_kit_modal add_form %}
         {% endif %}
 
         <section class="kit__list">
@@ -79,3 +80,8 @@
     {% endif %}
 
 {% endblock content %}
+
+
+{% block ModelKitSelectJS %}
+    {% systemjs_import 'kits/js/modelkit.widget.js' %}
+{% endblock %}

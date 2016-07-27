@@ -144,7 +144,7 @@ function renderKitPreviews(filters, $target, append) {
 
 
 function refreshKits(event) {
-    let $container = $(this).closest('[data-filters="true"');
+    let $container = $(this).closest('[data-filters="true"]');
     let $target = $container.siblings('.kit-suggestions');
     let filters = getKitFilters($container);
 
