@@ -66,7 +66,7 @@ function getKitFilters($container) {
     let filters = $container.serializeObject();
     let allEmpty = true;
     // strip off the prefix
-    for (let key in filters) {
+    for (let key of Object.keys(filters)) {
         let newKey = key.replace('{0}-'.format(conf.prefix), '');
         filters[newKey] = filters[key];
         if (filters[key]) {
@@ -243,7 +243,7 @@ function submitNewKit(event) {
             }, validationErrors => {
                 let htmlField = $(`#id_${conf.prefix_add}-${field}_ta`);
                 let renders = [];
-                for (let fieldName in validationErrors.errors) {
+                for (let fieldName of Object.keys(validationErrors.errors)) {
                     renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
                 }
                 return Promise.all(renders);
@@ -296,7 +296,7 @@ function submitNewKit(event) {
         // ModelKitCreate validation errors AND the first rejections validation errors
         // ignore the double display for now...
         let renders = [];
-        for (let fieldName in validationErrors.errors) {
+        for (let fieldName of Object.keys(validationErrors.errors)) {
             let htmlField = $( `#id_${ conf.prefix_add }-${ fieldName }` );
             renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
         }
@@ -320,7 +320,7 @@ function initTypeaheads() {
 
     let fields = conf.typeahead;
 
-    for (let f in fields) {
+    for (let f of Object.keys(fields)) {
         let fieldConfig = fields[f];
         let _baseSelector = `#id_${ conf.prefix_add }-${ f }`;
         let hiddenInput = $(_baseSelector);
