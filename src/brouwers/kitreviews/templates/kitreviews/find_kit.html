@@ -29,7 +29,8 @@
                        class="btn bg-main-orange"/>
             </div>
 
-            {% add_kit_modal add_form %}
+            {% add_kit_modal form=add_form data=form.cleaned_data %}
+
         {% endif %}
 
         <section class="kit__list">
