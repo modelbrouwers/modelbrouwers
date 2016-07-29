@@ -1,6 +1,6 @@
 import Brand from 'kits/js/models/Brand';
 import ModelKit from 'kits/js/models/ModelKit';
-import { Scale, cleanScale } from 'kits/js/models/Scale';
+import {Scale, cleanScale} from 'kits/js/models/Scale';
 
 import 'jquery';
 import 'bootstrap';
@@ -254,54 +254,54 @@ function submitNewKit(event) {
 
     // create the kit with the correct data
     Promise.all(promises)
-    .then(returnValues => {
-        brand = returnValues[0],
-        scale = returnValues[1];
-        return ModelKit.objects.create({
-            brand: brand.id,
-            scale: scale.id,
-            name: data.name
-        });
-    })
-    .then(kit => {
-        // set correct objects, different serializer used, to be implemented properly in ponyjs
-        kit.brand = brand;
-        kit.scale = scale;
+        .then(returnValues => {
+            brand = returnValues[0];
+            scale = returnValues[1];
+            return ModelKit.objects.create({
+                brand: brand.id,
+                scale: scale.id,
+                name: data.name
+            });
+        })
+        .then(kit => {
+            // set correct objects, different serializer used, to be implemented properly in ponyjs
+            kit.brand = brand;
+            kit.scale = scale;
 
-        let context = {
-            kits: [kit],
-            htmlname: conf.htmlname,
-            checked: true
-        };
+            let context = {
+                kits: [kit],
+                htmlname: conf.htmlname,
+                checked: true
+            };
 
-        Handlebars
-        .render('kits::select-modelkit-widget', context)
-        .done(( html ) => {
-            let $target = modal.siblings('.model-kit-select').find('.kit-suggestions');
-            let previews = $target.find('.preview');
+            Handlebars
+                .render('kits::select-modelkit-widget', context)
+                .done((html) => {
+                    let $target = modal.siblings('.model-kit-select').find('.kit-suggestions');
+                    let previews = $target.find('.preview');
 
-            if (previews) {
-                let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
-                if (lastChecked.length) {
-                    lastChecked.after(html);
-                } else {
-                    $target.find('.add-kit').after(html);
-                }
-            } else {
-                $target.append(html);
+                    if (previews) {
+                        let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
+                        if (lastChecked.length) {
+                            lastChecked.after(html);
+                        } else {
+                            $target.find('.add-kit').after(html);
+                        }
+                    } else {
+                        $target.append(html);
+                    }
+                    modal.modal('toggle');
+                });
+        }, validationErrors => {
+            // ModelKitCreate validation errors AND the first rejections validation errors
+            // ignore the double display for now...
+            let renders = [];
+            for (let fieldName of Object.keys(validationErrors.errors)) {
+                let htmlField = $(`#id_${ conf.prefix_add }-${ fieldName }`);
+                renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
             }
-            modal.modal('toggle');
-        });
-    }, validationErrors => {
-        // ModelKitCreate validation errors AND the first rejections validation errors
-        // ignore the double display for now...
-        let renders = [];
-        for (let fieldName of Object.keys(validationErrors.errors)) {
-            let htmlField = $( `#id_${ conf.prefix_add }-${ fieldName }` );
-            renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
-        }
-        return Promise.all(renders);
-    }).catch(error => console.error(error));
+            return Promise.all(renders);
+        }).catch(error => console.error(error));
     return false;
 }
 
@@ -326,7 +326,7 @@ function initTypeaheads() {
         let hiddenInput = $(_baseSelector);
         let input = $(`${ _baseSelector }_ta`);
 
-        let sanitize = fieldConfig.sanitize || function(query) {return query};
+        let sanitize = fieldConfig.sanitize || function(query) { return query };
         let callback = `/api/v1/kits/${f}/`;
 
         input.typeahead(
@@ -336,12 +336,12 @@ function initTypeaheads() {
             },
             {
                 async: true,
-                source: ( query, sync, async ) => {
+                source: (query, sync, async) => {
                     hiddenInput.val('');
                     let params = {};
                     params[fieldConfig.param] = sanitize(query);
-                    $.get( callback, params, data => {
-                        async( data );
+                    $.get(callback, params, data => {
+                        async(data);
                     });
                 },
                 limit: 100,
