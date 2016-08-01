@@ -1,5 +1,4 @@
 import logging
-from datetime import datetime
 
 from django.contrib.auth import logout
 from django.core.cache import cache
@@ -28,7 +27,7 @@ class BanningMiddleware(object):
             bans = Ban.get_bans_queryset()
             qs = bans
 
-            if u.is_authenticated():
+            if u.is_authenticated:
                 bans = bans.filter(Q(user_id=u.id) | Q(ip=ip))
             else:
                 bans = bans.filter(ip=ip)
@@ -47,7 +46,7 @@ class BanningMiddleware(object):
 
             # checking if there are active bans for our current user
             # anonymous users: check ip
-            if u.is_authenticated():
+            if u.is_authenticated:
                 filter_ = lambda ban: ban.user_id == u.id or ban.ip == ip
             else:
                 filter_ = lambda ban: ban.ip == ip
@@ -57,7 +56,7 @@ class BanningMiddleware(object):
             ban_list = filter(filter_date, filter(filter_, ban_list))
 
         # NEVER ban superusers
-        if ban_list and not (u.is_authenticated() and u.is_superuser):
+        if ban_list and not (u.is_authenticated and u.is_superuser):
             logout(request)
             return render(request, 'banning/banned.html', {'bans': ban_list}, status=403)
         return None

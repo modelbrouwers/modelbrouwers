@@ -18,7 +18,7 @@ class AlbumQueryset(models.QuerySet):
         """
         Retrieve all albums that :param:`user` can read.
         """
-        assert user.is_authenticated(), 'Anonymous user passed in'
+        assert user.is_authenticated, 'Anonymous user passed in'
         qs = self.filter(user=user)  # private and public
         qs2 = self.filter(albumgroup__users=user)
         return (qs | qs2).active().distinct()
@@ -43,7 +43,7 @@ class PhotoManager(models.Manager):
         )
 
     def next(self, current, user=None):
-        # if user.is_authenticated():
+        # if user.is_authenticated:
         ordering = self.model._meta.ordering
         queryset = self.get_queryset().filter(
             trash=False,
@@ -53,7 +53,7 @@ class PhotoManager(models.Manager):
         return queryset.first()
 
     def previous(self, current, user=None):
-        # if user.is_authenticated():
+        # if user.is_authenticated:
         ordering = [toggle_ordering(field) for field in self.model._meta.ordering]
         queryset = self.get_queryset().filter(
             trash=False,
@@ -74,7 +74,7 @@ class PreferencesManager(models.Manager):
         """
         from .serializers import PreferencesSerializer
 
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return PreferencesSerializer(self.model()).data
 
         key = self.model._get_cache_key(user.id)

@@ -82,9 +82,9 @@ class NominationListView(ListView):
     def get_queryset(self):
         category = self.get_category()
         return Nomination.objects.filter(
-                category__id=category.id,
-                nomination_date__year=date.today().year
-            ).exclude(rejected=True)
+            category__id=category.id,
+            nomination_date__year=date.today().year
+        ).exclude(rejected=True)
 
     def get_context_data(self, **kwargs):
         kwargs['category'] = self.get_category()
@@ -102,14 +102,14 @@ def vote_overview(request):
     return render(request, 'awards/vote_listing.html', {'data': data, 'year': year})
 
 
-@user_passes_test(lambda u: u.is_authenticated(), login_url='/login/')
+@user_passes_test(lambda u: u.is_authenticated, login_url='/login/')
 def scores(request):
     year = date.today().year
     if request.user.profile.last_vote.year != year:
         return HttpResponseRedirect('/awards/vote/')
     data = []
     voters = UserProfile.objects.filter(last_vote__year=year).count()
-    year = date.today().year-1
+    year = date.today().year - 1
     categories = Category.objects.all()
     categories_voted = request.user.profile.categories_voted.all()
     categories = categories.filter(id__in=categories_voted)
@@ -139,14 +139,11 @@ class VoteView(LoginRequiredMixin, TemplateView):
         # categories voted
         user = self.request.user
         categories_voted = user.vote_set.filter(
-                    submitted__year=date.today().year
-                ).values_list('category', flat=True)
+            submitted__year=date.today().year
+        ).values_list('category', flat=True)
 
         categories = projects.select_related('category').distinct('category').order_by(
-                        'category'
-                     ).only(
-                        'category__id', 'category__name'
-                     ).exclude(category__id__in=categories_voted)
+            'category').only('category__id', 'category__name').exclude(category__id__in=categories_voted)
 
         forms = OrderedDict()
         for defered_project in categories:
@@ -186,8 +183,8 @@ class VoteView(LoginRequiredMixin, TemplateView):
             if form.is_valid():
                 vote = form.save()
                 messages.success(self.request, _('Your vote for `%(category)s` was saved.') % {
-                        'category': vote.category.name
-                    })
+                    'category': vote.category.name
+                })
             else:
                 has_errors = True
 
@@ -201,8 +198,8 @@ class VoteView(LoginRequiredMixin, TemplateView):
         # TODO: unit test
         if not _voting_enabled():
             this_year = date.today().year
-            vote_start_date = date(this_year+1, 1, 1)
-            vote_end_date = date(this_year+1, settings.VOTE_END_MONTH, settings.VOTE_END_DAY)
+            vote_start_date = date(this_year + 1, 1, 1)
+            vote_end_date = date(this_year + 1, settings.VOTE_END_MONTH, settings.VOTE_END_DAY)
             message = _("Voting is enabled from %(start_date)s until %(end_date)s.") % {
                 'start_date': date_format(vote_start_date),
                 'end_date': date_format(vote_end_date),

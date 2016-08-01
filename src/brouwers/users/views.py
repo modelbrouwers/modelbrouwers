@@ -99,7 +99,7 @@ class LogoutView(RedirectFormMixin, generic.RedirectView):
     default_redirect_url = '/'
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             logout(request)
             msg = _('You have been logged out.')
         else:
@@ -144,7 +144,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
     registration_attempt = None
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return redirect('index')
         return super(RegistrationView, self).get(request, *args, **kwargs)
 

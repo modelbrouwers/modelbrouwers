@@ -33,9 +33,9 @@ class IndexView(ListView):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['brouwersdag'] = Brouwersdag.objects.get_current()
         stats = self.get_queryset().aggregate(
-                n_total=Count('id'),
-                n_competition=Count('competition')
-            )
+            n_total=Count('id'),
+            n_competition=Count('competition')
+        )
         context.update(stats)
         return context
 
@@ -68,7 +68,7 @@ class SignupView(CompetitionMixin, CreateView):
 
     def get_initial(self):
         initial = super(SignupView, self).get_initial()
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             initial.update({
                 'owner': self.request.user.id,
                 'owner_name': self.request.user.get_full_name(),
