@@ -9,12 +9,16 @@ from django.utils.translation import ugettext_lazy as _
 
 class ShowCasedModel(models.Model):
     """ Model to track showcased scale models by users. """
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('brouwer'), blank=True, null=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('brouwer'),
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+    )
     owner_name = models.CharField(_('real name'), max_length=254)
     email = models.EmailField(_('e-mail address'))
 
     name = models.CharField(_('model name'), max_length=254)
-    brand = models.ForeignKey('kits.Brand', verbose_name=_('brand'), blank=True, null=True)
+    brand = models.ForeignKey('kits.Brand', verbose_name=_('brand'), blank=True, null=True, on_delete=models.SET_NULL)
     scale = models.PositiveSmallIntegerField(
         _("scale"), help_text=_('Enter the number after the "1:" or "1/". E.g. 1/48 --> enter 48.'))
     remarks = models.TextField(
@@ -22,7 +26,7 @@ class ShowCasedModel(models.Model):
         help_text=_('Add the features that make this model special here, e.g. "scratch built cockpit"'))
 
     topic = models.URLField(_('topic url'), blank=True)
-    brouwersdag = models.ForeignKey('Brouwersdag', null=True)
+    brouwersdag = models.ForeignKey('Brouwersdag', null=True, on_delete=models.SET_NULL)
 
     # dimensions
     length = models.PositiveSmallIntegerField(_('length'), null=True, blank=True, help_text=_('In cm.'))
@@ -32,7 +36,9 @@ class ShowCasedModel(models.Model):
     # competition?
     competition = models.ForeignKey(
         'brouwersdag.Competition', null=True,
-        blank=True, verbose_name=_('competition'))
+        blank=True, verbose_name=_('competition'),
+        on_delete=models.SET_NULL
+    )
     is_competitor = models.BooleanField(_('enter competition?'), default=False)
     is_paid = models.BooleanField(_('competition fee paid?'), default=False)
 
@@ -119,9 +125,9 @@ class Exhibitor(models.Model):
     name = models.CharField(_('name'), max_length=100)
     website = models.URLField(_('website'), blank=True)
 
-    brouwersdag = models.ForeignKey(Brouwersdag, blank=True, null=True)
+    brouwersdag = models.ForeignKey(Brouwersdag, blank=True, null=True, on_delete=models.SET_NULL)
     space = models.CharField(
-        _('space needed'),  blank=True,
+        _('space needed'), blank=True,
         max_length=100, help_text=_('Amount of space needed. 100 characters or less.'))
 
     class Meta:

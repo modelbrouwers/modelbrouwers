@@ -27,7 +27,7 @@ class KitReview(models.Model):
     Model holding the review information for a model kit
     """
     legacy_id = models.IntegerField(blank=True, null=True, db_index=True)
-    model_kit = models.ForeignKey('kits.ModelKit')
+    model_kit = models.ForeignKey('kits.ModelKit', on_delete=models.CASCADE)
     raw_text = models.TextField(
         _('review'),
         help_text=_('This is your review. You can use BBCode here.')
@@ -39,7 +39,7 @@ class KitReview(models.Model):
     )
 
     # linking to extra information
-    album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True)
+    album = models.ForeignKey(Album, verbose_name=_('album'), blank=True, null=True, on_delete=models.SET_NULL)
     topic = ForumToolsIDField(
         _('topic'), type='topic', blank=True,
         null=True, help_text=_('ID of the topic on Modelbrouwers.')
@@ -56,7 +56,7 @@ class KitReview(models.Model):
     )
 
     # internal information
-    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL)
+    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     submitted_on = models.DateTimeField(auto_now_add=True)
     last_edited_on = models.DateTimeField(auto_now=True)
 
@@ -109,9 +109,9 @@ class KitReviewVote(models.Model):
     """
     Model holding the votes for kit reviews, showing the quality of the review
     """
-    kit_review = models.ForeignKey(KitReview)
+    kit_review = models.ForeignKey(KitReview, on_delete=models.CASCADE)
     vote = models.CharField(_('vote'), max_length=1, db_index=True, choices=VoteTypes.choices)
-    voter = models.ForeignKey(settings.AUTH_USER_MODEL)
+    voter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('kit review vote')
@@ -144,8 +144,8 @@ class KitReviewPropertyRating(models.Model):
     """
     Represents properties for a kit review rated on a scale from MIN_RATING to MAX_RATING
     """
-    kit_review = models.ForeignKey('KitReview', related_name='ratings')
-    prop = models.ForeignKey('KitReviewProperty')
+    kit_review = models.ForeignKey('KitReview', related_name='ratings', on_delete=models.CASCADE)
+    prop = models.ForeignKey('KitReviewProperty', on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(
         _('rating'), default=DEFAULT_RATING,
         validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)]

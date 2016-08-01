@@ -52,8 +52,7 @@ class GroupBuild(models.Model):
                              help_text=_('Theme/name of the group build'))
     slug = AutoSlugField(_('slug'), editable=True, unique=True, populate_from='theme')
 
-    category = models.ForeignKey(
-        ForumCategory, verbose_name=_('forum category'))
+    category = models.ForeignKey(ForumCategory, verbose_name=_('forum category'), on_delete=models.CASCADE)
     description = models.TextField(
         _('description'), help_text=_('Short description'))
     admins = models.ManyToManyField(
@@ -97,7 +96,9 @@ class GroupBuild(models.Model):
     # logging
     # pretty much the owner
     applicant = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='groupbuilds_applied')
+        settings.AUTH_USER_MODEL, related_name='groupbuilds_applied',
+        on_delete=models.CASCADE
+    )
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -229,9 +230,11 @@ class GroupBuild(models.Model):
 
 
 class Participant(models.Model):
-    groupbuild = models.ForeignKey(GroupBuild)
+    groupbuild = models.ForeignKey(GroupBuild, on_delete=models.CASCADE)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='gb_participants')
+        settings.AUTH_USER_MODEL, related_name='gb_participants',
+        on_delete=models.CASCADE
+    )
     model_name = models.CharField(_('model name'), max_length=255, blank=True)
 
     finished = models.BooleanField(_('finished'), default=False)

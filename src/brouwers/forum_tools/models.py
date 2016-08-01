@@ -39,7 +39,10 @@ class ForumLinkBase(models.Model):
 
 
 class ForumLinkSynced(models.Model):
-    base = models.ForeignKey(ForumLinkBase, verbose_name=_('base link'), help_text=_('Link this link syncs with.'))
+    base = models.ForeignKey(
+        ForumLinkBase, verbose_name=_('base link'),
+        help_text=_('Link this link syncs with.'), on_delete=models.CASCADE
+    )
     link_id = models.CharField(_('link id'), max_length=128, help_text=_('HTML id of the anchor to be synced.'))
 
     class Meta:
@@ -132,19 +135,18 @@ class ForumUser(models.Model):
 
 
 class Forum(models.Model):
-    """ MySQL Forum, managed by phpBB3 """
+    """
+    MySQL Forum, managed by phpBB3
+    """
     forum_id = models.AutoField(primary_key=True)
     forum_name = models.CharField(max_length=60)
     forum_topics = models.IntegerField(default=0)
     forum_posts = models.IntegerField(default=0)
-    # forum_last_post = models.OneToOneField(
-    #         'PhpbbPost',
-    #         db_column='forum_last_post_id',
-    #         related_name="last_post_of_forum")
     forum_desc = models.TextField()
-    parent = models.ForeignKey('self', related_name="child", default=0)
-    # left = models.OneToOneField('self', related_name="right_of")
-    # right = models.OneToOneField('self', related_name="left_of")
+    parent = models.ForeignKey(
+        'self', related_name="child",
+        default=0, on_delete=models.CASCADE
+    )
 
     def __unicode__(self):
         return u"{0}".format(self.forum_name)
@@ -161,7 +163,7 @@ class Forum(models.Model):
 
 class Topic(models.Model):
     topic_id = models.AutoField(primary_key=True)
-    forum = models.ForeignKey(Forum)
+    forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
     topic_title = models.CharField(max_length=255)
     last_post_time = models.BigIntegerField(db_column='topic_last_post_time', default=0)
     create_time = models.BigIntegerField(db_column='topic_time', default=0)
@@ -215,7 +217,7 @@ class ForumPostCountRestriction(models.Model):
     POSTING_LEVELS = (
         ('T', _('Topic')),
         ('R', _('Reply')),
-        )
+    )
 
     forum = ForumToolsIDField(_('forum id'), type='forum', blank=True, null=True)
     min_posts = models.PositiveSmallIntegerField(_('minimum number of posts'))

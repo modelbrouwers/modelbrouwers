@@ -97,7 +97,7 @@ class ModelKit(models.Model):
         help_text=_('Kits that are the same but have another producer.'),
     )
 
-    submitter = models.ForeignKey(settings.AUTH_USER_MODEL)
+    submitter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     submitted_on = models.DateTimeField(auto_now_add=True)
     is_reviewed = models.BooleanField(default=False)
 

@@ -47,13 +47,17 @@ class Album(models.Model):
         everyone = ChoiceItem('o', _('everyone'))  # auth required
 
     # owner of the album
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, verbose_name=_("user"))
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, db_index=True,
+        on_delete=models.CASCADE, verbose_name=_("user")
+    )
     title = models.CharField(_("album title"), max_length=256, db_index=True)
     clean_title = models.CharField(_("album title"), max_length=256, default='', blank=True)
     description = models.CharField(_("album description"), max_length=500, blank=True)
     category = models.ForeignKey(
         Category, blank=True, null=True,
         default=1, verbose_name=_("category"),
+        on_delete=models.SET_NULL
     )
     cover = models.ForeignKey(
         'Photo',
@@ -61,7 +65,8 @@ class Album(models.Model):
         null=True,
         help_text=_("Image to use as album cover."),
         related_name='cover',
-        verbose_name=_("cover")
+        verbose_name=_("cover"),
+        on_delete=models.SET_NULL
     )
 
     # Logging and statistics
@@ -167,8 +172,9 @@ def get_image_path(instance, filename):
 class Photo(models.Model):
     """ Model Fields """
     # image properties
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)  # we need to know the owner (public albums)
-    album = models.ForeignKey(Album, db_index=True)
+    # we need to know the owner (public albums)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, db_index=True, on_delete=models.CASCADE)
     width = models.PositiveSmallIntegerField(_("width"), blank=True, null=True)
     height = models.PositiveSmallIntegerField(_("height"), blank=True, null=True)
     image = models.ImageField(
@@ -264,13 +270,16 @@ class Preferences(models.Model):
         from .serializers import PreferencesSerializer
         key = self._get_cache_key(self.user_id)
         serialized = PreferencesSerializer(self).data
-        cache.set(key, serialized, 24*60*60)  # cache 24h
+        cache.set(key, serialized, 24 * 60 * 60)  # cache 24h
         return serialized
 
 
 class AlbumDownload(models.Model):
-    album = models.ForeignKey(Album)
-    downloader = models.ForeignKey(settings.AUTH_USER_MODEL, help_text=_("user who downloaded the album"))
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    downloader = models.ForeignKey(
+        settings.AUTH_USER_MODEL, help_text=_("user who downloaded the album"),
+        on_delete=models.CASCADE
+    )
     timestamp = models.DateTimeField(_("timestamp"), auto_now_add=True)
     failed = models.BooleanField(default=False)
 
@@ -281,7 +290,6 @@ class AlbumDownload(models.Model):
 
     def __unicode__(self):
         return u"%s" % _("Download of %(album)s by %(username)s" % {
-                'album': self.album.title,
-                'username': self.downloader.username
-                }
-            )
+            'album': self.album.title,
+            'username': self.downloader.username
+        })
