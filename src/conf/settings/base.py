@@ -237,8 +237,6 @@ INSTALLED_APPS = [
     'brouwers.kitreviews',
     'brouwers.migration',
     'brouwers.online_users',
-    'brouwers.secret_santa',
-    'brouwers.shirts',
     'brouwers.utils',
 ]
 

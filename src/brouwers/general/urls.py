@@ -4,6 +4,7 @@ from .views import ServeHbsTemplateView
 from .ajax_views import AnnouncementView, search_users
 
 
+app_name = 'general'
 urlpatterns = [
     url(r'^templates/(?P<app_name>\w+)/(?P<template_name>[\w\-_]+)/$',
         ServeHbsTemplateView.as_view(),
