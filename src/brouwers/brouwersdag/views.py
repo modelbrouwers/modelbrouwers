@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.db.models import Q, Count
 from django.shortcuts import get_object_or_404

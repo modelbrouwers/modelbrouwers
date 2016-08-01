@@ -1,6 +1,6 @@
 from django.contrib.auth import SESSION_KEY
 from django.core import mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.utils.http import int_to_base36
 
