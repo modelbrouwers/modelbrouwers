@@ -14,7 +14,7 @@ django-appconf==1.0.2  # pulled in by other packages, but update version
 django-choices==1.4.3
 # not compatible yet, fork has the fixes
 # django-admin-tools==0.7.2
-git+https://github.com/PetrDlouhy/django-admin-tools.git@master#egg=admin_tools
+git+https://github.com/PetrDlouhy/django-admin-tools.git@master#egg=django_admin_tools
 django-autoslug==1.9.3
 django-compressor==2.0
 django-extensions==1.6.7
