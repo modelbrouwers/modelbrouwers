@@ -2,7 +2,7 @@ from django.test import TestCase, override_settings
 
 from sorl.thumbnail.models import KVStore
 
-from brouwers.users.tests.factory_models import UserFactory
+from brouwers.users.tests.factories import UserFactory
 from .factories import AlbumFactory, PhotoFactory
 
 

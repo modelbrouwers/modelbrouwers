@@ -4,7 +4,7 @@ from django.urls import reverse
 from django_webtest import WebTest
 
 from brouwers.kits.tests.factories import BrandFactory
-from brouwers.users.tests.factory_models import UserFactory
+from brouwers.users.tests.factories import UserFactory
 from .factories import CompetitionFactory, ShowCasedModelFactory
 from ..forms import ShowCasedModelSignUpForm
 

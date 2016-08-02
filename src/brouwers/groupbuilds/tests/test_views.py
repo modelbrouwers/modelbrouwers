@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from django_webtest import WebTest
 
-from brouwers.users.tests.factory_models import UserFactory
+from brouwers.users.tests.factories import UserFactory
 from .factories import GroupBuildFactory, ParticipantFactory
 from ..models import Participant, GroupbuildStatuses
 
