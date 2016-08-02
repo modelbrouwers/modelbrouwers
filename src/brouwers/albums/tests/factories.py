@@ -44,4 +44,4 @@ class AlbumGroupFactory(factory.django.DjangoModelFactory):
         if not create:
             return
         if extracted:
-            self.users = extracted
+            self.users.set(extracted)
