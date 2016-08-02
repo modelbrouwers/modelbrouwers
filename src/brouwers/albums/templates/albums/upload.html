@@ -3,7 +3,7 @@
 
 {% block extrastyle %}
 {{ block.super }}
-<link href="{% static 'fine-uploader/jquery.fine-uploader/fine-uploader.min.css' %}" media="screen, projection" rel="stylesheet">
+<link href="{% static 'jquery.fine-uploader/fine-uploader.min.css' %}" media="screen, projection" rel="stylesheet">
 {% endblock extrastyle %}
 
 
@@ -118,6 +118,6 @@
 
 {% block extrascript %}
     {{ block.super }}
-    <script src="{% static 'fine-uploader/jquery.fine-uploader/jquery.fine-uploader.min.js' %}"></script>
+    <script src="{% static 'jquery.fine-uploader/jquery.fine-uploader.min.js' %}"></script>
     <script src="{% static 'albums/js/upload.js' %}"></script>
 {% endblock %}
