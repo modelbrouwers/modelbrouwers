@@ -1,4 +1,4 @@
-{% load i18n sniplates staticfiles system_tags thumbnail add_kit_modal %}
+{% load i18n sniplates staticfiles system_tags thumbnail kit_tags %}
 
 
 {% block ModelKitSelect %}
@@ -73,7 +73,7 @@
         </div>
 
     </div>
-    {% add_kit_modal widget.add_form %}
+    {% kit_tags widget.add_form %}
 
 {% endblock %}
 
