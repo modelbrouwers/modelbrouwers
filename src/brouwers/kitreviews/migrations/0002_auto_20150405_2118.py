@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('albums', '0002_auto_20150405_2118'),
+        ('albums', '0001_squashed_0010_auto_20150603_1149'),
         ('kitreviews', '0001_initial'),
     ]
 
