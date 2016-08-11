@@ -8,7 +8,7 @@ from django_webtest import WebTest
 
 from brouwers.forum_tools.tests.factory_models import ForumUserFactory
 from brouwers.general.tests.factory_models import RegistrationQuestionFactory
-from .factory_models import UserFactory
+from .factories import UserFactory
 
 
 class LoginRegisterTests(WebTest):
