@@ -1,8 +1,6 @@
-1. run migrate normally
+1. run migrate auth normally
 2. run the following sql:
 
    delete from django_migrations;
 
-3. migrate contenttypes --fake
-4. migrate albums users kits
-5. migrate brouwersdag
+3. migrate --fake
