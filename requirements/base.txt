@@ -6,6 +6,7 @@ pytz
 six==1.10.0
 sqlparse==0.2.0
 wsgiref==0.1.2
+fake-factory==0.6.0
 
 # Django packages
 Django==1.9.8
