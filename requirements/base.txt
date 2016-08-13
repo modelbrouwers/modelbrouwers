@@ -27,7 +27,7 @@ django-sessionprofile==1.0
 django-systemjs==1.3.2
 sorl-thumbnail==12.4a1
 # django-sniplates==0.4.1
-git+https://github.com/funkybob/django-sniplates.git@master#egg=django_sniplates
+git+https://github.com/sergei-maertens/django-sniplates.git@feature/django-1.10#egg=django_sniplates
 
 # API
 djangorestframework==3.4.4
