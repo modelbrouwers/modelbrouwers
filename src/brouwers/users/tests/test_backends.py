@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .factory_models import UserFactory
+from .factories import UserFactory
 from ..backends import EmailModelBackend
 
 

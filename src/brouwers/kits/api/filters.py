@@ -6,7 +6,7 @@ from ..models import ModelKit, Brand, Scale
 
 class ModelKitFilter(filters.FilterSet):
 
-    name = filters.CharFilter(name='name', lookup_type='icontains')
+    name = filters.CharFilter(name='name', lookup_expr='icontains')
 
     class Meta:
         model = ModelKit
@@ -15,7 +15,7 @@ class ModelKitFilter(filters.FilterSet):
 
 class BrandFilter(filters.FilterSet):
 
-    name = filters.CharFilter(name='name', lookup_type='icontains')
+    name = filters.CharFilter(name='name', lookup_expr='icontains')
 
     class Meta:
         model = Brand

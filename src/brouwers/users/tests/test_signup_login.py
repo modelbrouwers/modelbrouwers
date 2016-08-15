@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
 
@@ -8,7 +8,7 @@ from django_webtest import WebTest
 
 from brouwers.forum_tools.tests.factory_models import ForumUserFactory
 from brouwers.general.tests.factory_models import RegistrationQuestionFactory
-from .factory_models import UserFactory
+from .factories import UserFactory
 
 
 class LoginRegisterTests(WebTest):

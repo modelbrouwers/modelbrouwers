@@ -1,10 +1,9 @@
-try:
-    from functools import update_wrapper, wraps
-except ImportError:
-    from django.utils.functional import update_wrapper, wraps  # Python 2.4 fallback.
+from functools import wraps
 
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseForbidden
 from django.utils.decorators import available_attrs
+
 
 def user_passes_test_403(test_func):
     def decorator(view_func):
@@ -15,13 +14,15 @@ def user_passes_test_403(test_func):
         return wraps(view_func, assigned=available_attrs(view_func))(_wrapped_view)
     return decorator
 
+
 def login_required_403(function=None):
     actual_decorator = user_passes_test_403(
-        lambda u: u.is_authenticated()
+        lambda u: u.is_authenticated
     )
     if function:
         return actual_decorator(function)
     return actual_decorator
+
 
 def permission_required_ajax(perm, raise_exception=False):
     """

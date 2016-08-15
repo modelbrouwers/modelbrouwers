@@ -1,0 +1,35 @@
+# Common packages
+
+Pillow
+python-dateutil
+python-Levenshtein
+pytz
+fake-factory
+
+# Django packages
+Django
+django-admin-tools
+django-autoslug
+django-choices
+django-compressor
+django-extensions
+django-extra-views
+django-loginas
+django-precise-bbcode
+django-rosetta
+django-sendfile
+django-sessionprofile
+django-systemjs
+sorl-thumbnail
+# django-sniplates
+-e git+https://github.com/funkybob/django-sniplates.git@master#egg=django_sniplates
+
+# # API
+djangorestframework
+djangorestframework-filters
+
+# # Html parsing
+bleach
+
+# # Misc
+WeasyPrint

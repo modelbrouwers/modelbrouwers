@@ -9,6 +9,7 @@ from .views import (
 )
 
 
+# app_name = 'awards'
 urlpatterns = [
     url(r'^vote/overview/$', vote_overview),
     url(r'^vote/scores/$', scores),

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.utils.http import base36_to_int
 from django.utils.translation import ugettext as _, get_language
@@ -99,7 +99,7 @@ class LogoutView(RedirectFormMixin, generic.RedirectView):
     default_redirect_url = '/'
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             logout(request)
             msg = _('You have been logged out.')
         else:
@@ -144,7 +144,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
     registration_attempt = None
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return redirect('index')
         return super(RegistrationView, self).get(request, *args, **kwargs)
 

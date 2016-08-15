@@ -9,6 +9,7 @@ from .views import (
 )
 
 
+app_name = 'builds'
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^new/$', BuildCreateView.as_view(), name='create'),

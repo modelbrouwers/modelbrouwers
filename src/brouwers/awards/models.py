@@ -2,7 +2,7 @@ from datetime import date
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ValidationError, NON_FIELD_ERRORS
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -46,19 +46,19 @@ class Category(models.Model):
         """
         year = date.today().year
         start_date = date(year, 1, 1)
-        projects = self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).order_by('-nomination_date', '-id')[:5]
+        projects = self.project_set.exclude(rejected=True).filter(nomination_date__gte=start_date).order_by('-nomination_date', '-id')[:5]
         return projects
 
     def num_nominations(self):
         year = date.today().year
         start_date = date(year, 1, 1)
-        return self.project_set.exclude(rejected=True).filter(nomination_date__gte = start_date).count()
+        return self.project_set.exclude(rejected=True).filter(nomination_date__gte=start_date).count()
 
 
 class NominationsManager(models.Manager):
-    def winners(self, year=date.today().year-1):
+    def winners(self, year=date.today().year - 1):
         """ Get the set of winning projects over all categories for ``year`` """
-        if voting_enabled(year=year+1):
+        if voting_enabled(year=year + 1):
             year -= 1
         qs = super(NominationsManager, self).get_queryset().filter(nomination_date__year=year)
 
@@ -76,16 +76,16 @@ class LatestNominationsManager(models.Manager):
     def get_queryset(self):
         qs = super(LatestNominationsManager, self).get_queryset()
         this_year = date.today().year
-        q = models.Q(nomination_date__year = this_year - 1)
-        q |= models.Q(nomination_date__year = this_year)
+        q = models.Q(nomination_date__year=this_year - 1)
+        q |= models.Q(nomination_date__year=this_year)
         return qs.filter(q).exclude(rejected=True).order_by('-pk')
 
 
 class Project(models.Model):
     url = models.URLField(max_length=500, help_text="link naar het verslag")
     name = models.CharField("titel verslag", max_length=100)
-    brouwer = models.CharField(max_length=30) #this should be able to be linked to an (existing) user
-    category = models.ForeignKey(Category, verbose_name="categorie")
+    brouwer = models.CharField(max_length=30)  # this should be able to be linked to an (existing) user
+    category = models.ForeignKey(Category, verbose_name="categorie", on_delete=models.CASCADE)
     image = models.ImageField(upload_to='awards/', blank=True, null=True)
 
     nomination_date = models.DateField(default=date.today, db_index=True)
@@ -93,9 +93,12 @@ class Project(models.Model):
     votes = models.IntegerField(null=True, blank=True, default=0)
     rejected = models.BooleanField(default=False)
 
-    submitter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='nominations')
+    submitter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='nominations', on_delete=models.CASCADE)
 
-    last_reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('last reviewer'))
+    last_reviewer = models.ForeignKey(
+        settings.AUTH_USER_MODEL, blank=True, null=True,
+        verbose_name=_('last reviewer'), on_delete=models.SET_NULL
+    )
     last_review = models.DateTimeField(_('last review'), auto_now=True, blank=True, null=True)
 
     objects = NominationsManager()
@@ -134,12 +137,12 @@ Nomination = Project
 
 
 class Vote(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    category = models.ForeignKey(Category)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
-    project1 = models.ForeignKey(Project, related_name='+')
-    project2 = models.ForeignKey(Project, related_name='+', blank=True, null=True)
-    project3 = models.ForeignKey(Project, related_name='+', blank=True, null=True)
+    project1 = models.ForeignKey(Project, related_name='+', on_delete=models.CASCADE)
+    project2 = models.ForeignKey(Project, related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
+    project3 = models.ForeignKey(Project, related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
 
     submitted = models.DateTimeField(auto_now_add=True)
 
@@ -153,10 +156,10 @@ class Vote(models.Model):
         user, category, year = self.user, self.category, date.today().year
         if Vote.objects.filter(user=user, category=category, submitted__year=year).exclude(id=self.id).exists():
             error = _("User `%(user)s` already voted for `%(category)s` in `%(year)d`") % {
-                    'user': user.username,
-                    'category': category.name,
-                    'year': year
-                }
+                'user': user.username,
+                'category': category.name,
+                'year': year
+            }
             errors = {NON_FIELD_ERRORS: [error]}
             raise ValidationError(errors)
 
@@ -174,9 +177,9 @@ class Vote(models.Model):
 
             if project.category != self.category:
                 raise ValidationError(_("A project from `%(project_category)s` can't be voted in `%(category)s`") % {
-                        'project_category': project.category.name,
-                        'category': self.category.name
-                    })
+                    'project_category': project.category.name,
+                    'category': self.category.name
+                })
 
         # validate that the projects are different
         # TODO: unittest

@@ -3,6 +3,7 @@ from django.conf.urls import url
 from .views import index, albumusers, find_django_user, migrate_albums, migrate_pictures
 
 
+app_name = 'migration'
 urlpatterns = [
     url(r'^$', index),
     url(r'^albumusers/$', albumusers, name='albumusers'),
