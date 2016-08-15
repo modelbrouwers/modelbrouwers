@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
@@ -23,7 +23,7 @@ class Build(models.Model):
     Model for users to log their builds.
     """
     # owner
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # build information
     title = models.CharField(_("title"), max_length=255, help_text=_("Enter a descriptive build title."))
@@ -75,8 +75,8 @@ class Build(models.Model):
 
 
 class BuildPhoto(models.Model):
-    build = models.ForeignKey(Build, verbose_name=_(u'build'), related_name='photos')
-    photo = models.OneToOneField('albums.Photo', blank=True, null=True)
+    build = models.ForeignKey(Build, verbose_name=_(u'build'), related_name='photos', on_delete=models.CASCADE)
+    photo = models.OneToOneField('albums.Photo', blank=True, null=True, on_delete=models.CASCADE)
     photo_url = models.URLField(blank=True, help_text=_('Link to an image'))
     order = models.PositiveSmallIntegerField(help_text=_('Order in which photos are shown'), blank=True, null=True)
 

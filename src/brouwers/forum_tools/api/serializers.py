@@ -19,6 +19,7 @@ class IDFieldSerializer(serializers.Serializer):
 class ForumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Forum
+        fields = '__all__'
 
 
 class TopicSerializer(serializers.ModelSerializer):
@@ -29,6 +30,7 @@ class TopicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Topic
+        fields = '__all__'
 
     def obj_topic_title(self, obj):
         return html_parser.unescape(obj.topic_title)

@@ -1,9 +1,9 @@
-coverage
-coveralls
-codecov
+coverage==4.2
+coveralls==1.1
+codecov==2.0.5
 factory_boy==2.7.0
 freezegun==0.3.7
-django-webtest
+django-webtest==1.7.9
 mock==2.0.0
-tblib
-webtest
+tblib==1.3.0
+webtest==2.0.23

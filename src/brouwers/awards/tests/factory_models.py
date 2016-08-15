@@ -1,6 +1,6 @@
 import factory
 
-from brouwers.users.tests.factory_models import UserFactory
+from brouwers.users.tests.factories import UserFactory
 import brouwers.awards.models as models
 
 

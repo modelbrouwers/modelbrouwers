@@ -18,7 +18,7 @@ class BuildFactory(factory.django.DjangoModelFactory):
             return
 
         if extracted:
-            obj.kits = extracted
+            obj.kits.set(extracted)
 
 
 class BuildPhotoFactory(factory.django.DjangoModelFactory):

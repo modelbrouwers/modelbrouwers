@@ -10,6 +10,7 @@ from .views import (
 )
 
 # Everything is AJAX
+app_name = 'forum_tools'
 urlpatterns = [
     url(r'^get_sync_data/$', get_sync_data),
     url(r'^get_chat/$', get_chat),

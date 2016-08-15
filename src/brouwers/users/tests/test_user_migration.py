@@ -1,13 +1,13 @@
 from django.contrib.auth import SESSION_KEY
 from django.core import mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.utils.http import int_to_base36
 
 from brouwers.forum_tools.tests.factory_models import ForumUserFactory
 from ..mail import UserCreatedFromForumEmail
 from ..tokens import activation_token_generator
-from .factory_models import UserFactory
+from .factories import UserFactory
 
 
 class ActivationEmailTests(TestCase):

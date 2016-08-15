@@ -7,12 +7,9 @@ from .widgets import ModelKitSelect
 class KitsManyToManyField(models.ManyToManyField):
 
     def __init__(self, *args, **kwargs):
-        super(KitsManyToManyField, self).__init__('kits.ModelKit', *args, **kwargs)
-
-    def deconstruct(self):
-        name, path, args, kwargs = super(KitsManyToManyField, self).deconstruct()
-        del kwargs['to']
-        return name, path, args, kwargs
+        # to is in kwargs during reconstruct
+        to = kwargs.pop('to', 'kits.ModelKit')
+        super(KitsManyToManyField, self).__init__(to, *args, **kwargs)
 
     def formfield(self, **kwargs):
         kwargs.setdefault('widget', ModelKitSelect)

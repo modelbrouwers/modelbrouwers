@@ -11,6 +11,7 @@ from .views import (
 )
 
 
+app_name = 'albums'
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^new/$', AlbumCreateView.as_view(), name='create'),

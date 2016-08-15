@@ -14,19 +14,23 @@ class Ban(models.Model):
     # cache when bans are added, deleted or modified (on delete() and save())
     # Be carefull, queryset.delete() might not fire signals...
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(u'user'), blank=True, null=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_(u'user'),
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+    )
     ip = models.GenericIPAddressField(_(u'ip'), blank=True, null=True,
                                       help_text=_(u'Ip address to ban.'))
     expiry_date = models.DateTimeField(
         _(u'expiry date'),
         blank=True, null=True,
         help_text=_('Date the ban expires. Leave blank for permabans.')
-        )
+    )
     reason_internal = models.TextField(_(u'reason (internal)'), blank=True)
     reason = models.TextField(
         _(u'reason'), blank=True,
         help_text=_(u'This reason will be shown to the banned user.')
-        )
+    )
     automatic = models.BooleanField(_('automatically created?'), default=False)
 
     class Meta:
