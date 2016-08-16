@@ -30,7 +30,8 @@ let conf = {
     }
 };
 
-let checkedKits = [];
+let isMulti,
+    checkedKits = [];
 
 
 $(function() {
@@ -38,6 +39,9 @@ $(function() {
     let selScale = '#id_{0}-scale'.format(conf.prefix);
     let selName = '#id_{0}-name'.format(conf.prefix);
     let $selects = $('{0}, {1}'.format(selBrand, selScale));
+
+    let dataset = document.querySelector('.model-kit-select').dataset;
+    isMulti = !!parseInt(dataset.allowMultiple, 10);
 
     // init
     initTypeaheads();
@@ -126,6 +130,7 @@ function renderKitPreviews(filters, $target, append) {
             return checkedKits.indexOf(kit.id) === -1;
         });
         let context = {
+            isMulti: isMulti,
             kits: kits,
             htmlname: conf.htmlname,
             page: {
@@ -269,6 +274,7 @@ function submitNewKit(event) {
             kit.scale = scale;
 
             let context = {
+                isMulti: isMulti,
                 kits: [kit],
                 htmlname: conf.htmlname,
                 checked: true
