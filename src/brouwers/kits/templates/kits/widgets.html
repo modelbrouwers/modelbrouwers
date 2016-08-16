@@ -5,7 +5,7 @@
 
     {% load_widgets fields='horizontal.form' %}
 
-    <div class="model-kit-select">
+    <div class="model-kit-select" data-allow-multiple="{{ widget.allow_multiple_selected|yesno:"1,0" }}">
 
         {% widget 'fields:_label' %}
 
@@ -75,6 +75,12 @@
     </div>
     {% kit_tags widget.add_form %}
 
+{% endblock %}
+
+
+
+{% block ModelKitSelectMultiple %}
+    {% reuse "ModelKitSelect" %}
 {% endblock %}
 
 

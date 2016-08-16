@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 
-from .widgets import ModelKitSelect
+from .widgets import ModelKitSelectMultiple
 
 
 class KitsManyToManyField(models.ManyToManyField):
@@ -12,7 +12,7 @@ class KitsManyToManyField(models.ManyToManyField):
         super(KitsManyToManyField, self).__init__(to, *args, **kwargs)
 
     def formfield(self, **kwargs):
-        kwargs.setdefault('widget', ModelKitSelect)
+        kwargs.setdefault('widget', ModelKitSelectMultiple)
         kwargs.setdefault('form_class', MultipleKitChoiceField)
         formfield = super(KitsManyToManyField, self).formfield(**kwargs)
         return formfield

@@ -23,11 +23,20 @@ class AddKitForm(forms.Form):
     )
 
 
-class ModelKitSelect(forms.SelectMultiple):
+class ModelKitSelectMixin(object):
     """
-    Subclassed to be more explicit and inject subforms for sniplates.
+    Mixin that injects subforms into sniplates widgets.
     """
+
     def __init__(self, *args, **kwargs):
-        super(ModelKitSelect, self).__init__(*args, **kwargs)
+        super(ModelKitSelectMixin, self).__init__(*args, **kwargs)
         self.form = ModelKitForm(prefix='__modelkitselect')
         self.add_form = AddKitForm(prefix='__modelkitadd')
+
+
+class ModelKitSelect(ModelKitSelectMixin, forms.Select):
+    pass
+
+
+class ModelKitSelectMultiple(ModelKitSelectMixin, forms.SelectMultiple):
+    pass
