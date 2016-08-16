@@ -12,6 +12,7 @@ from precise_bbcode.shortcuts import render_bbcodes
 
 from brouwers.albums.models import Album
 from brouwers.forum_tools.fields import ForumToolsIDField
+from brouwers.kits.fields import KitForeignKey
 
 from .managers import KitReviewQuerySet
 
@@ -27,7 +28,7 @@ class KitReview(models.Model):
     Model holding the review information for a model kit
     """
     legacy_id = models.IntegerField(blank=True, null=True, db_index=True)
-    model_kit = models.ForeignKey('kits.ModelKit', on_delete=models.CASCADE)
+    model_kit = KitForeignKey(on_delete=models.CASCADE, verbose_name=_('model kit'))
     raw_text = models.TextField(
         _('review'),
         help_text=_('This is your review. You can use BBCode here.')
