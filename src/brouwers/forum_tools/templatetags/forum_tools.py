@@ -1,5 +1,6 @@
 from django import template
 from django.template.defaultfilters import stringfilter
+
 from brouwers.general.utils import get_forumname_for_username
 
 register = template.Library()

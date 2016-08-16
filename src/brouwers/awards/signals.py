@@ -3,7 +3,8 @@ from django.db.models.signals import post_init, post_save
 from django.dispatch import receiver
 
 from brouwers.general.models import UserProfile
-from .models import Project, Vote, FIELD_2_POINTS
+
+from .models import FIELD_2_POINTS, Project, Vote
 
 
 @receiver(post_init, sender=UserProfile)

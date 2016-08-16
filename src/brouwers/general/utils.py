@@ -1,10 +1,10 @@
 # -*- coding: UTF-8 -*-
 
+import socket
+
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, loader
-
-import socket
 
 
 def get_forumname_for_username(username):

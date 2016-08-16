@@ -1,8 +1,6 @@
 from django.db.models import Q
 
-from rest_framework import parsers, permissions
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import parsers, permissions, status, viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -10,12 +8,12 @@ from rest_framework.settings import api_settings
 
 from ..models import Album, Photo, Preferences
 from .filters import PhotoFilter
+from .pagination import MyPhotoPagination, PhotoPagination
+from .renderers import FineUploaderRenderer
 from .serializers import (
     AlbumSerializer, ForumPhotoSerializer, PhotoSerializer,
     PreferencesSerializer, UploadPhotoSerializer
 )
-from .renderers import FineUploaderRenderer
-from .pagination import PhotoPagination, MyPhotoPagination
 
 
 class PhotoViewSet(viewsets.ModelViewSet):

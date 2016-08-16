@@ -1,5 +1,7 @@
-from models import *
 from django.contrib import admin
+
+from models import *
+
 
 class TrackedUserAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'last_seen', 'notificate', 'is_online')

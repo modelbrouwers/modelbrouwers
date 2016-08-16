@@ -1,23 +1,26 @@
-from datetime import date
 import json
+from datetime import date
 
 from django.conf import settings
 from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
-from django.utils.translation import ungettext as _n, ugettext as _
+from django.utils.translation import ugettext as _, ungettext as _n
 from django.views.decorators.cache import cache_page
 
-from brouwers.general.decorators import (login_required_403,
-                                         permission_required_ajax,
-                                         user_passes_test_403)
+from brouwers.general.decorators import (
+    login_required_403, permission_required_ajax, user_passes_test_403
+)
 from brouwers.general.models import UserProfile
-from brouwers.general.utils import (get_username_for_user, clean_username,
-                                    clean_username_fallback)
+from brouwers.general.utils import (
+    clean_username, clean_username_fallback, get_username_for_user
+)
 
-
-from .models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser, BuildReportsForum
 from .forms import ForumForm, PosterIDsForm
+from .models import (
+    BuildReportsForum, ForumLinkBase, ForumPostCountRestriction, ForumUser,
+    Report
+)
 
 
 @cache_page(60 * 60 * 24)

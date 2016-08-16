@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 
 from brouwers.utils.tests import reload_urlconf
+
 from .factory_models import ForumFactory, TopicFactory
 
 

@@ -4,7 +4,7 @@ from django.test import TestCase
 from brouwers.forum_tools.tests.factories import TopicFactory
 
 from ..models import (
-    MIN_RATING, MAX_RATING, DEFAULT_RATING, KitReview, KitReviewPropertyRating
+    DEFAULT_RATING, MAX_RATING, MIN_RATING, KitReview, KitReviewPropertyRating
 )
 from .factories import (
     KitReviewFactory, KitReviewPropertyFactory, KitReviewPropertyRatingFactory

@@ -2,8 +2,8 @@ import factory
 import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
-from ..models import Album, AlbumGroup, Category, Photo
 
+from ..models import Album, AlbumGroup, Category, Photo
 
 __all__ = ['CategoryFactory', 'AlbumFactory', 'PhotoFactory']
 

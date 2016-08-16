@@ -1,12 +1,12 @@
-from datetime import date
 from collections import OrderedDict
+from datetime import date
 
 from django.conf import settings
-from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
 from django.utils.formats import date_format
 from django.utils.translation import ugettext as _
 from django.views.generic.base import TemplateView
@@ -16,8 +16,8 @@ from django.views.generic.list import ListView
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
 
-from .models import *
 from .forms import ProjectForm, VoteForm
+from .models import *
 from .utils import voting_enabled as _voting_enabled
 
 

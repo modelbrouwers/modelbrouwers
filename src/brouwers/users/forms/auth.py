@@ -1,9 +1,9 @@
 from django import forms
-from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from brouwers.forum_tools.models import ForumUser
 from brouwers.general.models import RegistrationQuestion
 from brouwers.general.utils import clean_username
+
 from ..models import User
 
 

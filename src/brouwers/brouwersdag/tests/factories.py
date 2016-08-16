@@ -1,6 +1,7 @@
 import factory
 
 from brouwers.kits.tests.factories import BrandFactory
+
 from ..models import Competition, ShowCasedModel
 
 

@@ -1,10 +1,10 @@
-from datetime import datetime
-import zlib
 import urllib
+import zlib
+from datetime import datetime
 
 from django.conf import settings
-from django.urls import reverse
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.timesince import timesince
 from django.utils.translation import ugettext_lazy as _
@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from dateutil.relativedelta import relativedelta
 
 from brouwers.general.utils import clean_username
+
 from .fields import ForumToolsIDField
 
 

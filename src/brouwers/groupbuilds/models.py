@@ -1,19 +1,20 @@
-from datetime import timedelta, date
 import calendar
+from datetime import date, timedelta
 
 from django.conf import settings
-from django.urls import reverse
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 import bleach
-from djchoices import DjangoChoices, ChoiceItem
 from autoslug import AutoSlugField
+from djchoices import ChoiceItem, DjangoChoices
 from precise_bbcode.shortcuts import render_bbcodes
 
-from brouwers.forum_tools.models import ForumCategory
 from brouwers.forum_tools.fields import ForumToolsIDField
+from brouwers.forum_tools.models import ForumCategory
+
 from .managers import PublicGroupBuildsManager
 
 

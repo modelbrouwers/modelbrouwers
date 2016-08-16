@@ -2,13 +2,13 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.urls import reverse
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
-from djchoices import DjangoChoices, ChoiceItem
+from djchoices import ChoiceItem, DjangoChoices
 
 
 @python_2_unicode_compatible

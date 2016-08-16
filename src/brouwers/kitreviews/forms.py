@@ -1,13 +1,13 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
 
 from brouwers.kits.models import Brand, ModelKit, Scale
 from brouwers.kits.widgets import ModelKitSelect
 from brouwers.utils.forms import AlwaysChangedModelForm
 from brouwers.utils.widgets import RangeInput
 
-from .models import KitReview, KitReviewPropertyRating, MAX_RATING
+from .models import MAX_RATING, KitReview, KitReviewPropertyRating
 
 
 class ModelKitForm(forms.ModelForm):

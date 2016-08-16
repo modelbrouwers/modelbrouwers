@@ -3,7 +3,6 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.views.generic import View
 
-
 EMPTY_CONTEXT = {}
 
 

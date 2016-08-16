@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-
 from brouwers.utils.api.fields import ThumbnailField
+
 from ..models import Brand, ModelKit, Scale
 
 

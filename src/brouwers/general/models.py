@@ -1,15 +1,17 @@
 from datetime import date, timedelta
 
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
-from django.conf import settings
-from django.utils.html import strip_tags
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _, ungettext as _n, get_language
+from django.utils.html import strip_tags
+from django.utils.translation import (
+    get_language, ugettext_lazy as _, ungettext as _n
+)
 
 from brouwers.awards.models import Category
-from .utils import get_client_ip, lookup_http_blacklist
 
+from .utils import get_client_ip, lookup_http_blacklist
 
 COUNTRY_CHOICES = (
     ("N", _("The Netherlands")),

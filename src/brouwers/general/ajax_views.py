@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from django.views.generic.base import View
 
 from brouwers.general.decorators import login_required_403
-from .models import UserProfile, Announcement
+
+from .models import Announcement, UserProfile
 
 
 @login_required_403

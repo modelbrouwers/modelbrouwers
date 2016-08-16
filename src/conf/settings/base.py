@@ -1,4 +1,5 @@
 import os
+
 from django.utils.translation import ugettext_lazy as _
 
 # Automatically figure out the PROJECT DIR

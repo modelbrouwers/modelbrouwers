@@ -7,8 +7,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from brouwers.users.tests.factories import UserFactory
 
+from ..models import GroupBuild, GroupbuildDurations, GroupbuildStatuses
 from .factories import GroupBuildFactory
-from ..models import GroupbuildStatuses, GroupbuildDurations, GroupBuild
+
 
 # TODO: use webtest
 

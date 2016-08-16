@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from django.db.models import Q, Manager
+from django.db.models import Manager, Q
 from django.utils import timezone
 
 

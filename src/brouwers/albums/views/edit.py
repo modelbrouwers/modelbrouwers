@@ -1,18 +1,19 @@
 from django.contrib import messages
-from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
+from django.views.generic import (
+    CreateView, DeleteView, TemplateView, UpdateView
+)
 
 from brouwers.utils.views import LoginRequiredMixin
+
 from ..forms import (
-    AlbumForm, AlbumRestoreForm,
-    PhotoForm, PhotoRestoreForm,
-    PreferencesForm,
+    AlbumForm, AlbumRestoreForm, PhotoForm, PhotoRestoreForm, PreferencesForm,
     UploadForm
 )
-from ..models import Album, Preferences, Photo
+from ..models import Album, Photo, Preferences
 
 
 class UploadView(LoginRequiredMixin, TemplateView):

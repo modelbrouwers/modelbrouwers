@@ -1,7 +1,7 @@
 import factory
 
-from brouwers.users.tests.factories import UserFactory
 import brouwers.awards.models as models
+from brouwers.users.tests.factories import UserFactory
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):

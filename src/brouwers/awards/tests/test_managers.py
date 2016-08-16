@@ -3,7 +3,8 @@ from datetime import date
 from django.test import TestCase
 
 from ..models import Nomination
-from .factory_models import NominationFactory, CategoryFactory
+from .factory_models import CategoryFactory, NominationFactory
+
 
 # TODO: mock date.today
 # TODO: mock voting_enabled

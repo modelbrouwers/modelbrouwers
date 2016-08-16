@@ -2,12 +2,13 @@ import logging
 
 from django.contrib.auth import logout
 from django.core.cache import cache
-from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils import timezone
 
 from brouwers.general.utils import get_client_ip
+
 from .models import Ban
 from .utils import CACHE_KEY, set_banning_cache
 

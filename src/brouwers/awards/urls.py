@@ -2,12 +2,9 @@ from django.conf.urls import url
 from django.views.generic.base import TemplateView
 
 from .views import (
-    CategoryListView, NominationView, NominationListView,
-    VoteView, WinnersView,
-    vote_overview,
-    scores
+    CategoryListView, NominationListView, NominationView, VoteView,
+    WinnersView, scores, vote_overview
 )
-
 
 # app_name = 'awards'
 urlpatterns = [

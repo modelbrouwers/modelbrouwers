@@ -1,10 +1,9 @@
 from django.conf.urls import url
 
 from .views import (
-    AddReview, KitSearchView, IndexView, KitReviewDetail, LegacyRedirectView,
+    AddReview, IndexView, KitReviewDetail, KitSearchView, LegacyRedirectView,
     ReviewListView
 )
-
 
 app_name = 'kitreviews'
 urlpatterns = [

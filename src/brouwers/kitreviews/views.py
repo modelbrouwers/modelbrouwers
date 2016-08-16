@@ -1,16 +1,19 @@
 from django.db.models import Count, Prefetch
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView, ListView, FormView, RedirectView
+from django.views.generic import DetailView, FormView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 
-from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
+from extra_views import (
+    CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin
+)
 
 from brouwers.kits.models import ModelKit
 from brouwers.kits.widgets import AddKitForm
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import KitReviewForm, FindModelKitForm, KitReviewPropertyRatingForm
+
+from .forms import FindModelKitForm, KitReviewForm, KitReviewPropertyRatingForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 

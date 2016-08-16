@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from .factories import UserFactory
 from ..backends import EmailModelBackend
+from .factories import UserFactory
 
 
 class LoginBackendTests(TestCase):

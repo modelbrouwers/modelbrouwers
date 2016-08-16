@@ -1,13 +1,9 @@
 from django.conf.urls import url
 
 from .views import (
-    IndexView,
-    BuildDetailView, BuildRedirectView,
-    UserBuildListView, ProfileRedirectView,
-    BuildCreateView, BuildUpdateView,
-    ForumUserRedirectView
+    BuildCreateView, BuildDetailView, BuildRedirectView, BuildUpdateView,
+    ForumUserRedirectView, IndexView, ProfileRedirectView, UserBuildListView
 )
-
 
 app_name = 'builds'
 urlpatterns = [

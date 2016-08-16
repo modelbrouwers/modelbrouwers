@@ -1,7 +1,7 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.crypto import constant_time_compare, salted_hmac
-from django.utils.http import int_to_base36, base36_to_int
 from django.utils import six
+from django.utils.crypto import constant_time_compare, salted_hmac
+from django.utils.http import base36_to_int, int_to_base36
 
 
 class ActivationTokenGenerator(PasswordResetTokenGenerator):

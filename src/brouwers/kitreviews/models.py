@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
-from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -14,8 +14,8 @@ from brouwers.albums.models import Album
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.kits.fields import KitForeignKey
 
+from . import legacy_models  # NOQA
 from .managers import KitReviewQuerySet
-
 
 DEFAULT_RATING = 50
 MAX_RATING = 100
@@ -155,6 +155,3 @@ class KitReviewPropertyRating(models.Model):
     class Meta:
         verbose_name = _(u'kit review property rating')
         verbose_name_plural = _(u'kit review property ratings')
-
-
-from . import legacy_models  # NOQA

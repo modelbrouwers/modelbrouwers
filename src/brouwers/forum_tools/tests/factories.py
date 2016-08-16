@@ -2,7 +2,7 @@ import time
 
 import factory
 
-from ..models import ForumUser, ForumCategory, Forum, Topic
+from ..models import Forum, ForumCategory, ForumUser, Topic
 
 
 def create_from_user(user):

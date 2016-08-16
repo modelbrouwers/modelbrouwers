@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models import KitReview, KitReviewVote, KitReviewProperty, KitReviewPropertyRating
+from .models import (
+    KitReview, KitReviewProperty, KitReviewPropertyRating, KitReviewVote
+)
 
 
 class KitReviewPropertyRatingInline(admin.TabularInline):

@@ -2,7 +2,8 @@ import factory
 import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
-from ..models import Brand, Scale, ModelKit
+
+from ..models import Brand, ModelKit, Scale
 
 
 class BrandFactory(factory.django.DjangoModelFactory):
