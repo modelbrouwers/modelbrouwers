@@ -12,7 +12,7 @@ import Handlebars from 'general/js/hbs-pony';
 let conf = {
     prefix: '__modelkitselect',
     prefix_add: '__modelkitadd',
-    htmlname: 'kits',
+    htmlname: null,
     minChars: 2,
     add_modal: '#add-kit-modal',
     typeahead: {
@@ -42,6 +42,7 @@ $(function() {
 
     let dataset = document.querySelector('.model-kit-select').dataset;
     isMulti = !!parseInt(dataset.allowMultiple, 10);
+    conf.htmlname = dataset.htmlname;
 
     // init
     initTypeaheads();
