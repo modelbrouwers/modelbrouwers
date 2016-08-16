@@ -2080,6 +2080,13 @@ body.groupbuilds .participants tr.finished .fa-check {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), #ffffff);
 }
 
+/* line 38, ../../sass/partials/apps/_kitreviews.scss */
+.rating .rating__label {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 0;
+}
+
 /* line 3, ../../sass/partials/apps/_users.scss */
 body.users #form-login {
   margin-top: 75px;

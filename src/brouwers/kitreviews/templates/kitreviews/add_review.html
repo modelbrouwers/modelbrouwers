@@ -18,7 +18,7 @@
 
     <form action="." method="post">
         {% csrf_token %}
-        {% load_widgets form='horizontal.form' %}
+        {% load_widgets form='kitreviews/forms.html' %}
         {% load_widgets kits='kits/widgets.html' %}
 
         {{ properties.management_form }}
@@ -42,8 +42,7 @@
             {% with formset=properties %}
                 {% for form in formset %}
                     {% widget 'form:non_field_errors' %}
-                    {% form_field form.prop 'form:HiddenSelect' label=_('Property') %}
-                    {% form_field form.rating %}
+                    {% widget 'form:ReviewPropertyRating' %}
                 {% endfor %}
             {% endwith %}
 

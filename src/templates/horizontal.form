@@ -197,16 +197,19 @@
 {% endblock %}
 
 
+{% block _RangeInput %}
+<div class="{{ field_grid|default:'col-sm-10' }}">
+    {% reuse "_input" %}
+    <output name="_output_{{ html_name }}" for="{{ html_name }}">{{ value }}</output>
+    {% reuse "_help" %}
+    {% reuse "_errors" %}
+</div>
+{% endblock _RangeInput %}
+
+
 {% block RangeInput %}
 <div class="form-group clearfix">
     {% reuse "_label" %}
-    <div class="{{ field_grid|default:'col-sm-10' }}">
-        {% if help_text %}<div class="input-group">{% endif %}
-        {% reuse "_input" %}
-        <output name="_output_{{ html_name }}" for="{{ html_name }}">{{ value }}</output>
-        {% reuse "_help" %}
-        {% if help_text %}</div>{% endif %}
-        {% reuse "_errors" %}
-    </div>
+    {% reuse "_RangeInput" %}
 </div>
 {% endblock RangeInput %}
