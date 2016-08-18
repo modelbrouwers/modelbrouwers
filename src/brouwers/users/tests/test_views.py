@@ -1,10 +1,10 @@
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from django_webtest import WebTest
 
-from brouwers.users.tests.factory_models import UserFactory
+from brouwers.users.tests.factories import UserFactory
 
 
 class ProfileTests(WebTest):

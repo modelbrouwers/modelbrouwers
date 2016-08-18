@@ -6,6 +6,7 @@ from .views import (
 )
 
 
+app_name = 'kitreviews'
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^add/$', AddReview.as_view(), name='add_review'),

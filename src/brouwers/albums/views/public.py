@@ -22,7 +22,7 @@ class AlbumQuerysetMixin(object):
 
     def get_album_queryset(self):
         qs = super(AlbumQuerysetMixin, self).get_queryset()
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             groups = self.request.user.albumgroup_set.all()
             qs2 = Album.objects.filter(Q(user=self.request.user) | Q(albumgroup__in=groups))
             return (qs | qs2).distinct()
@@ -134,7 +134,7 @@ class PhotoDetailView(DetailView):
         qs = super(PhotoDetailView, self).get_queryset()
         user = self.request.user
         q = Q(album__public=True)
-        if user.is_authenticated():
+        if user.is_authenticated:
             q |= Q(user=user) | Q(album__albumgroup__users=user)
         return qs.filter(q)
 

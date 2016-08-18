@@ -24,7 +24,7 @@ STANDARD_BAN_TIME_HOURS = 12
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # awardsinfo
     last_vote = models.DateField(default=date(2010, 1, 1))
     forum_nickname = models.CharField(max_length=30, unique=True)
@@ -125,7 +125,10 @@ class RegistrationAttempt(models.Model):
     # same as forum_nickname
     username = models.CharField(_('username'), max_length=512, db_index=True, default='_not_filled_in_')
     email = models.EmailField(_('email'), max_length=255, blank=True)
-    question = models.ForeignKey(RegistrationQuestion, verbose_name=_('registration question'))
+    question = models.ForeignKey(
+        RegistrationQuestion, verbose_name=_('registration question'),
+        on_delete=models.CASCADE
+    )
     answer = models.CharField(_('answer'), max_length=255, blank=True)
     timestamp = models.DateTimeField(_('timestamp'), auto_now_add=True)
     ip_address = models.GenericIPAddressField(_('IP address'), db_index=True)
@@ -134,7 +137,7 @@ class RegistrationAttempt(models.Model):
     # keeping spam out
     potential_spammer = False
     type_of_visitor = models.CharField(_('type of visitor'), max_length=255, default='normal user')
-    ban = models.OneToOneField('banning.Ban', blank=True, null=True)
+    ban = models.OneToOneField('banning.Ban', blank=True, null=True, on_delete=models.SET_NULL)
 
     objects = RegistrationAttemptManager()
 

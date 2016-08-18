@@ -42,9 +42,9 @@ class Kit(models.Model):
     type = models.TextField()
     schaal = models.SmallIntegerField()
     moeilijkheid = models.IntegerField()
-    categorie = models.ForeignKey(Categorie)
+    categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
     foto = models.TextField(blank=True, null=True)
-    fabrikant = models.ForeignKey(Fabrikant)
+    fabrikant = models.ForeignKey(Fabrikant, on_delete=models.CASCADE)
     te_koop = models.CharField(max_length=3)
     url_shop = models.TextField(blank=True, null=True)
     datum = models.DateTimeField()
@@ -82,8 +82,8 @@ class Review(models.Model):
     pluspunten = models.TextField(blank=True, null=True)
     minpunten = models.TextField(blank=True, null=True)
     indruk = models.IntegerField()
-    kit = models.ForeignKey(Kit)
-    reviewer = models.ForeignKey(Reviewer)
+    kit = models.ForeignKey(Kit, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(Reviewer, on_delete=models.CASCADE)
     datum = models.DateTimeField()
 
     class Meta:
@@ -99,7 +99,7 @@ class Uitbreiding(models.Model):
     uitbreiding_id = models.AutoField(primary_key=True)
     naam = models.TextField()
     fabrikantnaam = models.TextField()
-    kit = models.ForeignKey(Kit)
+    kit = models.ForeignKey(Kit, on_delete=models.CASCADE)
 
     class Meta:
         app_label = 'kitreviews'

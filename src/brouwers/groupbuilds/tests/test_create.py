@@ -1,12 +1,12 @@
 from datetime import date, timedelta
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.conf import settings
 from django.http import HttpRequest
 
 from brouwers.forum_tools.tests.factory_models import ForumCategoryFactory
-from brouwers.users.tests.factory_models import UserFactory
+from brouwers.users.tests.factories import UserFactory
 
 from ..forms import GroupBuildForm
 from ..models import GroupbuildStatuses, GroupBuild

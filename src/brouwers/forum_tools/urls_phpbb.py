@@ -9,6 +9,7 @@ class ForumRedirectView(RedirectView):
     permanent = True
 
 
+app_name = 'forum_tools'
 urlpatterns = [
     url(r'^viewforum.php$', ForumRedirectView.as_view(), name='viewforum'),
     url(r'^viewtopic.php$', ForumRedirectView.as_view(), name='viewtopic'),

@@ -2,10 +2,10 @@
 from datetime import date, timedelta
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from brouwers.users.tests.factory_models import UserFactory
+from brouwers.users.tests.factories import UserFactory
 
 from .factories import GroupBuildFactory
 from ..models import GroupbuildStatuses, GroupbuildDurations, GroupBuild

@@ -9,15 +9,15 @@ MINUTES_FOR_ONLINE = 5
 
 
 class TrackedUser(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     last_seen = models.DateTimeField(_("last seen online"), auto_now=True)
     tracking_since = models.DateTimeField(auto_now_add=True)
     notificate = models.BooleanField(
-            _("notificate"),
-            default=True,
-            help_text=_("Send a notification to the online "
-                        "moderators when this user is online.")
-        )
+        _("notificate"),
+        default=True,
+        help_text=_("Send a notification to the online "
+                    "moderators when this user is online.")
+    )
 
     class Meta:
         verbose_name = _("tracked user")

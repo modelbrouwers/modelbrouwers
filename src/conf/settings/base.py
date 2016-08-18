@@ -127,7 +127,7 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
     # node_modules cannot be consistently installed in the 'correct place'.
     # symlinking resuls in too many levels of symlinks
-    os.path.join(ROOT_DIR, 'node_modules'),
+    os.path.join(ROOT_DIR, 'node_modules', 'fine-uploader'),
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -237,8 +237,6 @@ INSTALLED_APPS = [
     'brouwers.kitreviews',
     'brouwers.migration',
     'brouwers.online_users',
-    'brouwers.secret_santa',
-    'brouwers.shirts',
     'brouwers.utils',
 ]
 

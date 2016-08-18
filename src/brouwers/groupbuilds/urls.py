@@ -6,6 +6,7 @@ from .views.participant import (GroupBuildParticipateView, ParticipantUpdateView
 from .views.public import GroupBuildListView, GroupBuildDetailView
 
 
+app_name = 'groupbuilds'
 urlpatterns = [
     url(r'^$', GroupBuildListView.as_view(), name='groupbuild-list'),
     url(r'^dashboard/$', MyGroupbuildsListView.as_view(), name='dashboard'),

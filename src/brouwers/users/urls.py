@@ -1,11 +1,13 @@
 from django.conf.urls import url
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth.views import password_change, password_reset, password_reset_confirm
 
 from .views import (ActivationView, LoginView, LogoutView, RegistrationView,
                     ProfileView, UserProfileDetailView, PasswordChangedView)
 from .forms.auth import PasswordResetForm
 
+
+app_name = 'users'
 urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),

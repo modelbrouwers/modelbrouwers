@@ -31,7 +31,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
     pagination_class = PhotoPagination
 
     def get_queryset(self):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return self.queryset.filter(Q(album__public=True) | Q(album__user=self.request.user))
         return self.queryset.exclude(album__public=False)
 
@@ -98,7 +98,7 @@ class PreferencesViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_value_regex = 'self'
 
     def get_queryset(self):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return Preferences.objects.filter(user=self.request.user)
         return super(PreferencesViewSet, self).get_queryset()
 

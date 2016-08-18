@@ -20,7 +20,7 @@ from .models import ForumLinkBase, Report, ForumPostCountRestriction, ForumUser,
 from .forms import ForumForm, PosterIDsForm
 
 
-@cache_page(60*60*24)
+@cache_page(60 * 60 * 24)
 def get_sync_data(request):
     response_data = {}
     t = date.today()
@@ -32,7 +32,7 @@ def get_sync_data(request):
 
 def get_chat(request):
     t = get_template('chat.html')
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         nickname = get_username_for_user(request.user)
     else:
         nickname = settings.IRC_DEFAULT_NICK
