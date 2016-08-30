@@ -46,7 +46,5 @@
 
 {% block extrascript %}
     {{ block.super }}
-    {% load_widgets kits='kits/widgets.html' %}
-    {% widget 'kits:ModelKitSelectJS' %}
     {% systemjs_import 'kitreviews/js/kitreviews.js' %}
 {% endblock extrascript %}

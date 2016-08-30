@@ -1,0 +1,165 @@
+import 'jquery';
+import 'bootstrap';
+import 'scripts/jquery.serializeObject';
+
+import Handlebars from 'general/js/hbs-pony';
+
+import Brand from 'kits/js/models/Brand';
+import ModelKit from 'kits/js/models/ModelKit';
+import Scale from 'kits/js/models/Scale';
+
+
+export class AddDefaultsFiller {
+
+    constructor(conf) {
+        this.conf = conf;
+    }
+
+    callback(event) {
+        let fields = ['brand', 'scale'];
+        let selBrand = `#id_${this.conf.prefix}-brand`;
+        let selScale = `#id_${this.conf.prefix}-scale`;
+
+        fields.forEach(field => {
+            let sel = `#id_${this.conf.prefix}-${field}`;
+            let option = $(sel).find('option:selected');
+            if ($(sel).val() && option) {
+                let input = $(`#id_${this.conf.prefix_add}-${field}_ta`);
+                if (!input.val()) {
+                    let hiddenInput = $(`#id_${this.conf.prefix_add}-${field}`);
+                    hiddenInput.val(option.val());
+                    input.val(option.text());
+                }
+            }
+        });
+    }
+}
+
+
+export class NewKitSubmitter {
+    constructor(conf) {
+        this.conf = conf;
+        this.models = {
+            brand: Brand,
+            scale: Scale,
+        };
+    }
+
+    get callback() {
+        let that = this;
+
+        // FIXME: avoid submitting the same brand again
+        // FIXME: avoid submitting the same scale again (shows validation error)
+        return function(event) {
+            event.preventDefault();
+
+            // data processing
+            let modal = $(this).closest('.modal');
+            let data = modal.serializeObject();
+            data.stripPrefix(that.conf.prefix_add);
+            modal.find('.errorlist').remove();
+
+            let brand, scale;
+
+            // check if a brand/scale was provided, otherwise create them
+            let promises = [
+                that.getOrCreate('brand', data),
+                that.getOrCreate('scale', data)
+            ];
+
+            // create the kit with the correct data
+            Promise.all(promises)
+                .then(returnValues => {
+                    brand = returnValues[0];
+                    scale = returnValues[1];
+                    return ModelKit.objects.create({
+                        brand: brand.id,
+                        scale: scale.id,
+                        name: data.name
+                    });
+                })
+                .then(kit => {
+                    // set correct objects, different serializer used, to be implemented properly in ponyjs
+                    kit.brand = brand;
+                    kit.scale = scale;
+
+                    let context = {
+                        isMulti: that.conf.isMulti,
+                        kits: [kit],
+                        htmlname: that.conf.htmlname,
+                        checked: true
+                    };
+
+                    Handlebars
+                        .render('kits::select-modelkit-widget', context)
+                        .done(html => {
+                            let $target = modal.siblings('.model-kit-select').find('.kit-suggestions');
+                            let previews = $target.find('.preview');
+
+                            if (previews) {
+                                let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
+                                if (lastChecked.length) {
+                                    lastChecked.after(html);
+                                } else {
+                                    $target.find('.add-kit').after(html);
+                                }
+                            } else {
+                                $target.append(html);
+                            }
+                            modal.modal('toggle');
+                        });
+                }, validationErrors => {
+                    // ModelKitCreate validation errors AND the first rejections validation errors
+                    // ignore the double display for now...
+                    let renders = [];
+                    for (let fieldName of Object.keys(validationErrors.errors)) {
+                        let htmlField = $(`#id_${ that.conf.prefix_add }-${ fieldName }`);
+                        renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
+                    }
+                    return Promise.all(renders);
+                }).catch(console.error);
+            return false;
+        }
+    }
+
+    getOrCreate(field, data) {
+        let model = this.models[field];
+        let promise;
+
+        if (data[field]) {
+            let id = data[field];
+            promise = Promise.resolve(model.objects.get({id: id}));
+        } else {
+            let newValue = data[`${ field }_ta`];
+            let obj = Object.assign({}, model.fromRaw(newValue));
+            delete obj._state; // not JSON serializeable, circular reference
+            promise = model.objects.create(obj);
+            promise.then(obj => {
+                let id = obj.id;
+                let display = obj[this.conf.typeahead[field].display];
+                let select = $(`#id_${ this.conf.prefix }-${ field }`);
+                select.append(`<option value="${ id }">${ display }</option>`);
+                select.val(id);
+                return obj;
+            }, validationErrors => {
+                let htmlField = $(`#id_${this.conf.prefix_add}-${field}_ta`);
+                let renders = [];
+                for (let fieldName of Object.keys(validationErrors.errors)) {
+                    renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
+                }
+                return Promise.all(renders);
+            });
+        }
+        return promise;
+    }
+}
+
+
+function showErrors($formField, errors) {
+    return Handlebars.render('general::errors', {errors: errors}).then(html => {
+        $formField
+            .addClass('error')
+            .parent().append(html)
+        ;
+    });
+}

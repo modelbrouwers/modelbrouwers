@@ -6,12 +6,7 @@
 
     <form action="{% url 'kitreviews:find_kit' %}" method="get">
         {{ form.non_field_errors }}
-
         {% include "kitreviews/find_kit_form.html" %}
-
-        <div class="center">
-            <input type="submit" value="{% trans 'Find kits' %}" class="btn btn-primary"/>
-        </div>
     </form>
 
     <section>

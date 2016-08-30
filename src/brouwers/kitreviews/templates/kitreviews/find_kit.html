@@ -6,12 +6,7 @@
 
     <form action="{% url 'kitreviews:find_kit' %}" method="get">
         {{ form.non_field_errors }}
-
         {% include "kitreviews/find_kit_form.html" %}
-
-        <div class="center">
-            <input type="submit" value="{% trans 'Find kits' %}" class="btn btn-primary"/>
-        </div>
     </form>
 
     {% if form.data %}
@@ -19,17 +14,20 @@
 
         {% if not kits.exists %}
 
-            <h4>
-                {% blocktrans %}Oops, we don't have this kit in our database! Would you like to add
-                    it?{% endblocktrans %}
-            </h4>
+            <p class="text-center">
+                {% blocktrans trimmed %}
+                    Oops, we couldn't find a kit like this in our database!
+                    Would you like to add it?
+                {% endblocktrans %}
+            </p>
 
-            <div class="center">
-                <input type="button" data-target="#add-kit-modal" value="{% trans 'Add kit' %}"
-                       class="btn bg-main-orange"/>
+            <div class="text-center">
+                <button data-target="#add-kit-modal" class="btn bg-main-orange">
+                    {% trans 'Add kit' %}
+                </button>
             </div>
 
-            {% kit_tags form=add_form data=form.cleaned_data %}
+            {% add_kit_modal form=add_form data=form.cleaned_data %}
 
         {% endif %}
 
@@ -81,8 +79,3 @@
     {% endif %}
 
 {% endblock content %}
-
-
-{% block ModelKitSelectJS %}
-    {% systemjs_import 'kits/js/modelkit.widget.js' %}
-{% endblock %}
