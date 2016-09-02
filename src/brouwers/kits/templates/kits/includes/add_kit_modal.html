@@ -13,6 +13,7 @@
             {% load_widgets form='horizontal.form' %}
             <div class="modal-body">
                 {# can't use <form> tag because that results in nested tags #}
+                {% with label_grid='col-sm-4' field_grid='col-sm-8' %}
                 <div class="form-horizontal">
                     <!-- brand select -->
                     {% form_field add_form.brand widget='form:typeaheadinput' raw_value=data.brand placeholder=_('choose the brand') %}
@@ -29,8 +30,10 @@
                     <!-- boxart -->
                     {% form_field add_form.box_image placeholder=_('box image') required=False %}
 
+                    <!-- difficulty as on the box -->
                     {% form_field add_form.difficulty placeholder=_('difficulty') required=False %}
                 </div>
+                {% endwith %}
             </div>
 
             <div class="modal-footer">

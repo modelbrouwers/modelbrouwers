@@ -1273,6 +1273,16 @@ input[type="range"] + output {
   width: 100%;
 }
 
+/* line 1, ../../sass/components/forms/_radio-select.scss */
+.radio-select {
+  list-style-type: none;
+  padding-left: 0;
+}
+/* line 5, ../../sass/components/forms/_radio-select.scss */
+.radio-select label {
+  margin-bottom: 0;
+}
+
 /* line 2, ../../sass/partials/apps/_albums.scss */
 .album-preview {
   position: relative;
