@@ -5,10 +5,12 @@ import {Scale, cleanScale} from 'kits/js/models/Scale';
 import 'jquery';
 import 'bootstrap';
 import 'scripts/jquery.serializeObject';
-import 'typeahead';
 import Handlebars from 'general/js/hbs-pony';
 
-import {AddDefaultsFiller, NewKitSubmitter} from './modelkit.lib.js';
+import {
+    AddDefaultsFiller, Autocomplete,
+    NewKitSubmitter
+} from './modelkit.lib.js';
 
 
 let conf = {
@@ -196,50 +198,8 @@ function loadMore(event) {
 
 
 function initTypeaheads() {
-
     let fields = conf.typeahead;
-
     for (let f of Object.keys(fields)) {
-        let fieldConfig = fields[f];
-        let _baseSelector = `#id_${ conf.prefix_add }-${ f }`;
-        let hiddenInput = $(_baseSelector);
-        let input = $(`${ _baseSelector }_ta`);
-
-        let sanitize = fieldConfig.sanitize || function(query) { return query };
-        let callback = `/api/v1/kits/${f}/`;
-
-        input.typeahead(
-            {
-                minLength: fieldConfig.minLength,
-                highlight: true
-            },
-            {
-                async: true,
-                source: (query, sync, async) => {
-                    hiddenInput.val('');
-                    let params = {};
-                    params[fieldConfig.param] = sanitize(query);
-                    $.get(callback, params, data => {
-                        async(data);
-                    });
-                },
-                limit: 100,
-                display: fieldConfig.display,
-            }
-        );
-
-        input.on('typeahead:select', (event, suggestion) => {
-            hiddenInput.val(suggestion.id);
-        });
-
-        input.on('typeahead:render', (event, suggestion) => {
-            // if we have an (case insensitive) exact match, set the value
-            let $input = $(event.target);
-            if (suggestion && $input.val().toLowerCase() == suggestion[fieldConfig.display].toLowerCase()) {
-                hiddenInput.val(suggestion.id);
-            } else {
-                hiddenInput.val('');
-            }
-        });
+        new Autocomplete(f, fields[f]).initialize();
     }
 }

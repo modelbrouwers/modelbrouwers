@@ -3,7 +3,11 @@ import 'bootstrap';
 
 import Slider from './slider.js';
 
-import {AddDefaultsFiller, NewKitSubmitter} from 'kits/js/modelkit.lib.js';
+import { cleanScale } from 'kits/js/models/Scale';
+import {
+    AddDefaultsFiller, Autocomplete,
+    NewKitSubmitter
+} from 'kits/js/modelkit.lib.js';
 
 
 class AddKitModal {
@@ -49,4 +53,21 @@ class AddKitModal {
 // slider for property ratings
 new Slider('input[type="range"]');
 
+// auto complete fields for kit modal
+let brandConfig = {
+    display: 'name',
+    param: 'name',
+    minLength: 2
+};
+new Autocomplete('brand', brandConfig).initialize();
+
+let scaleConfig = {
+    display: '__unicode__',
+    param: 'scale',
+    sanitize: cleanScale,
+    minLength: 1
+};
+new Autocomplete('scale', scaleConfig).initialize();
+
+// modal binding
 new AddKitModal();

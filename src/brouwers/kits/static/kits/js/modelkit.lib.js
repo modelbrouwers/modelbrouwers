@@ -1,6 +1,7 @@
 import 'jquery';
 import 'bootstrap';
 import 'scripts/jquery.serializeObject';
+import 'typeahead';
 
 import Handlebars from 'general/js/hbs-pony';
 
@@ -162,4 +163,73 @@ function showErrors($formField, errors) {
             .parent().append(html)
         ;
     });
+}
+
+
+export class Autocomplete {
+
+    /**
+     * @param {String} fieldName: name of the model field to autocomplete
+     * @param {Object} conf: typeahead configuration parameters:
+     *     {
+     *        display: {String}, field used for human readable display
+     *        param: {String}, querystring parameter used for search
+     *        minLength: {Number}, minimum number of characters before autocomplete kicks in
+     *        sanitize(optional): {Function}, function used to clean the input
+     *     }
+     */
+    constructor(fieldName, conf) {
+        this.fieldName = fieldName;
+        this.options = conf;
+        this.prefix_add = '__modelkitadd';
+        this.endpoint = `/api/v1/kits/${ fieldName }/`;
+    }
+
+    sanitize(query) {
+        if (this.options.sanitize) {
+            return this.options.sanitize(query);
+        }
+        return query;
+    }
+
+    initialize() {
+        let _baseSelector = `#id_${ this.prefix_add }-${ this.fieldName }`;
+        let hiddenInput = $(_baseSelector);
+        let input = $(`${ _baseSelector }_ta`);
+
+        input.typeahead(
+            {
+                minLength: this.options.minLength,
+                highlight: true
+            },
+            {
+                async: true,
+                source: (query, sync, async) => {
+                    hiddenInput.val('');
+                    let params = {};
+                    params[this.options.param] = this.sanitize(query);
+                    $.get(this.endpoint, params, data => {
+                        async(data);
+                    });
+                },
+                limit: 100,
+                display: this.options.display,
+            }
+        );
+
+        input.on('typeahead:select', (event, suggestion) => {
+            hiddenInput.val(suggestion.id);
+        });
+
+        input.on('typeahead:render', (event, suggestion) => {
+            // if we have an (case insensitive) exact match, set the value
+            let $input = $(event.target);
+            if (suggestion && $input.val().toLowerCase() == suggestion[this.options.display].toLowerCase()) {
+                hiddenInput.val(suggestion.id);
+            } else {
+                hiddenInput.val('');
+            }
+        });
+    }
+
 }
