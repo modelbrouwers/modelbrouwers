@@ -29,11 +29,11 @@ class ModelKitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ModelKit
-        fields = ('id', 'name', 'brand', 'scale', 'kit_number', 'box_image')
+        fields = ('id', 'name', 'brand', 'scale', 'kit_number', 'difficulty', 'box_image')
 
 
 class CreateModelKitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ModelKit
-        fields = ('id', 'name', 'brand', 'scale')
+        fields = ('id', 'name', 'brand', 'scale', 'kit_number', 'difficulty')

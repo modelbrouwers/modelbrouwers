@@ -76,7 +76,9 @@ export class NewKitSubmitter {
                     return ModelKit.objects.create({
                         brand: brand.id,
                         scale: scale.id,
-                        name: data.name
+                        name: data.name,
+                        kit_number: data.kit_number,
+                        difficulty: data.difficulty
                     });
                 })
                 .then(kit => {
