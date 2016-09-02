@@ -44,6 +44,7 @@ export class NewKitSubmitter {
             brand: Brand,
             scale: Scale,
         };
+        this.modal = null;
     }
 
     get callback() {
@@ -55,10 +56,10 @@ export class NewKitSubmitter {
             event.preventDefault();
 
             // data processing
-            let modal = $(this).closest('.modal');
-            let data = modal.serializeObject();
+            that.modal = $(this).closest('.modal');
+            let data = that.modal.serializeObject();
             data.stripPrefix(that.conf.prefix_add);
-            modal.find('.errorlist').remove();
+            that.modal.find('.errorlist').remove();
 
             let brand, scale;
 
@@ -85,32 +86,7 @@ export class NewKitSubmitter {
                     // set correct objects, different serializer used, to be implemented properly in ponyjs
                     kit.brand = brand;
                     kit.scale = scale;
-
-                    let context = {
-                        isMulti: that.conf.isMulti,
-                        kits: [kit],
-                        htmlname: that.conf.htmlname,
-                        checked: true
-                    };
-
-                    Handlebars
-                        .render('kits::select-modelkit-widget', context)
-                        .done(html => {
-                            let $target = modal.siblings('.model-kit-select').find('.kit-suggestions');
-                            let previews = $target.find('.preview');
-
-                            if (previews) {
-                                let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
-                                if (lastChecked.length) {
-                                    lastChecked.after(html);
-                                } else {
-                                    $target.find('.add-kit').after(html);
-                                }
-                            } else {
-                                $target.append(html);
-                            }
-                            modal.modal('toggle');
-                        });
+                    return that.kitCreated(kit);
                 }, validationErrors => {
                     // ModelKitCreate validation errors AND the first rejections validation errors
                     // ignore the double display for now...
@@ -154,6 +130,34 @@ export class NewKitSubmitter {
             });
         }
         return promise;
+    }
+
+    kitCreated(kit) {
+        let context = {
+            isMulti: this.conf.isMulti,
+            kits: [kit],
+            htmlname: this.conf.htmlname,
+            checked: true
+        };
+
+        return Handlebars
+            .render('kits::select-modelkit-widget', context)
+            .done(html => {
+                let $target = this.modal.siblings('.model-kit-select').find('.kit-suggestions');
+                let previews = $target.find('.preview');
+
+                if (previews) {
+                    let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
+                    if (lastChecked.length) {
+                        lastChecked.after(html);
+                    } else {
+                        $target.find('.add-kit').after(html);
+                    }
+                } else {
+                    $target.append(html);
+                }
+                this.modal.modal('toggle');
+            });
     }
 }
 

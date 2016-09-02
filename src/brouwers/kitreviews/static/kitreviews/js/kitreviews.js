@@ -10,6 +10,15 @@ import {
 } from 'kits/js/modelkit.lib.js';
 
 
+class KitreviewsNewKitSubmitter extends NewKitSubmitter {
+
+    kitCreated(kit) {
+        window.location = kit.url_kitreviews;
+    }
+
+}
+
+
 class AddKitModal {
 
     constructor() {
@@ -32,7 +41,7 @@ class AddKitModal {
         }
 
         let filler = new AddDefaultsFiller(conf);
-        let submitter = new NewKitSubmitter(conf);
+        let submitter = new KitreviewsNewKitSubmitter(conf);
 
         // bind manually, because the globally included bootstrap is being annoying
         this.triggers.on('click', e => {
