@@ -92,10 +92,6 @@ class KitSearchView(FormView):
         kits = kits.annotate(num_reviews=Count('kitreview'))
         return self.render_to_response(self.get_context_data(kits=kits))
 
-    def get_context_data(self, **kwargs):
-        kwargs['add_form'] = AddKitForm(prefix='__modelkitadd')
-        return super(KitSearchView, self).get_context_data(**kwargs)
-
 
 class ReviewListView(SingleObjectMixin, ListView):
     queryset = KitReview.objects.prefetch_related(

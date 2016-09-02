@@ -1,5 +1,5 @@
 {% extends "kitreviews/base.html" %}
-{% load i18n kitreviews %}
+{% load i18n kitreviews kit_tags %}
 
 
 {% block content %}
@@ -18,3 +18,9 @@
     </section>
 
 {% endblock content %}
+
+
+{% block modals %}
+    {{ block.super }}
+    {% add_kit_modal data=form.cleaned_data %}
+{% endblock modals %}

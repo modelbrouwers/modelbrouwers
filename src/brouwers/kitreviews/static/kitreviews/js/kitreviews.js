@@ -33,7 +33,6 @@ class AddKitModal {
         // bind manually, because the globally included bootstrap is being annoying
         this.triggers.on('click', e => {
             e.preventDefault();
-            debugger;
             $(that.selector).modal('toggle');
             return false;
         });

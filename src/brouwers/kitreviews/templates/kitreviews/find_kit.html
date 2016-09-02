@@ -27,8 +27,6 @@
                 </button>
             </div>
 
-            {% add_kit_modal form=add_form data=form.cleaned_data %}
-
         {% endif %}
 
         <section class="kit__list">
@@ -79,3 +77,9 @@
     {% endif %}
 
 {% endblock content %}
+
+
+{% block modals %}
+    {{ block.super }}
+    {% add_kit_modal data=form.cleaned_data %}
+{% endblock modals %}
