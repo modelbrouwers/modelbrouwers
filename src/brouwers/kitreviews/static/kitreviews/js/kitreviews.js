@@ -6,7 +6,7 @@ import Slider from './slider.js';
 import { cleanScale } from 'kits/js/models/Scale';
 import {
     AddDefaultsFiller, Autocomplete,
-    NewKitSubmitter
+    KitSearch, NewKitSubmitter
 } from 'kits/js/modelkit.lib.js';
 
 
@@ -80,3 +80,13 @@ new Autocomplete('scale', scaleConfig).initialize();
 
 // modal binding
 new AddKitModal();
+
+
+if (document.querySelector('.model-kit-select')) {
+    new KitSearch({
+        prefix: '__modelkitselect',
+        htmlname: null,
+        minChars: 2,
+        isMulti: false,
+    }, '.model-kit-select');
+}
