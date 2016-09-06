@@ -1,6 +1,6 @@
 import factory
 
-from ..models import RegistrationQuestion, QuestionAnswer
+from ..models import QuestionAnswer, RegistrationQuestion
 
 
 class QuestionAnswerFactory(factory.django.DjangoModelFactory):

@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from brouwers.forum_tools.tests.factory_models import ForumUserFactory
+
 from ..tokens import activation_token_generator
 from .factories import UserFactory
 

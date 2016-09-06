@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import GroupbuildStatuses, GroupBuild
+from ..models import GroupBuild, GroupbuildStatuses
 from .factories import GroupBuildFactory
 
 

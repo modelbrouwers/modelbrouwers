@@ -1,14 +1,15 @@
 from datetime import date
 
 from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist, ValidationError, NON_FIELD_ERRORS
-from django.urls import reverse
+from django.core.exceptions import (
+    NON_FIELD_ERRORS, ObjectDoesNotExist, ValidationError
+)
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from .utils import voting_enabled
-
 
 POINTS_FIRST = 3
 POINTS_SECOND = 2

@@ -1,7 +1,9 @@
 # -*- coding: UTF-8 -*-
 from django.test import TestCase
 
-from brouwers.general.utils import get_username, clean_username, clean_username_fallback
+from brouwers.general.utils import (
+    clean_username, clean_username_fallback, get_username
+)
 
 
 class UsernameTest(TestCase):

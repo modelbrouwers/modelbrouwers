@@ -4,13 +4,16 @@ from django.urls import reverse
 
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+from brouwers.users.tests.factories import UserFactory
+
+from ..factories import AlbumFactory, PhotoFactory
+
 try:  # Pillow
     from PIL import Image
 except ImportError:  # PIL
     import Image
 
-from brouwers.users.tests.factories import UserFactory
-from ..factories import AlbumFactory, PhotoFactory
 
 
 class PhotoViewsetTests(APITestCase):

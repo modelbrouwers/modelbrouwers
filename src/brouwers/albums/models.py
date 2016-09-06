@@ -5,17 +5,18 @@ from datetime import datetime
 from django.conf import settings
 from django.core import validators
 from django.core.cache import cache
-from django.urls import reverse
 from django.db import models
 from django.db.models import Max
+from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _, pgettext_lazy
+from django.utils.translation import pgettext_lazy, ugettext_lazy as _
 
-from djchoices import DjangoChoices, ChoiceItem
+from djchoices import ChoiceItem, DjangoChoices
 
 from brouwers.forum_tools.fields import ForumToolsIDField
-from .utils import rotate_img
+
 from .managers import AlbumQueryset, PhotoManager, PreferencesManager
+from .utils import rotate_img
 
 
 class Category(models.Model):

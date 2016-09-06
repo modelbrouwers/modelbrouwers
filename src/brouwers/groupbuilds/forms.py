@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from .models import GroupBuild, Participant, GroupbuildStatuses
+from .models import GroupBuild, GroupbuildStatuses, Participant
 
 
 class GroupBuildForm(forms.ModelForm):

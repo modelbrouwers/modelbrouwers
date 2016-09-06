@@ -1,14 +1,15 @@
-import shutil
 import os
+import shutil
 
 from django.core.exceptions import ImproperlyConfigured
+
+from sorl.thumbnail import delete as thumb_delete
 
 try:  # PIL
     import Image
 except ImportError:  # Pillow 2.3.0
     from PIL import Image
 
-from sorl.thumbnail import delete as thumb_delete
 
 
 ORIGINALS_FOLDER_NAME = 'originals'

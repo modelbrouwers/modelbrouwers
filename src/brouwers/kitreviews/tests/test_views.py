@@ -9,7 +9,7 @@ from brouwers.albums.tests.factories import AlbumFactory
 from brouwers.kits.models import Brand
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
-from brouwers.utils.tests.mixins import LoginRequiredMixin
+from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
 
 from ..models import KitReview
 from .factories import KitReviewFactory, KitReviewPropertyFactory
@@ -33,7 +33,7 @@ class IndexViewTests(WebTest):
         self.assertQuerysetEqual(index.context['reviews'], expected)
 
 
-class AddReviewViewTests(LoginRequiredMixin, WebTest):
+class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
     """
     Tests for the 'add a kit review' page.
     """
@@ -62,7 +62,7 @@ class AddReviewViewTests(LoginRequiredMixin, WebTest):
         form = add_page.form
 
         # try some invalid input
-        form['model_kit'].select('')  # no kit submitted - a review must belong to a kit
+        self.assertNotIn('model_kit', form.fields)  # no kit submitted - a review must belong to a kit
         with self.assertRaises(ValueError):
             form['album'].select(str(random.choice(invalid_albums).pk))  # an album from a different user
         form['raw_text'] = ''  # empty review
@@ -73,7 +73,7 @@ class AddReviewViewTests(LoginRequiredMixin, WebTest):
 
         # now select a kit
         kit = random.choice(kits)
-        form['model_kit'].select(str(kit.pk))
+        self._add_field(form, 'model_kit', str(kit.pk))
         # and enter a review text
         form['raw_text'] = 'My very short review'
 
@@ -130,7 +130,7 @@ class SearchViewTests(WebTest):
         search_results = search_page.form.submit()
         queryset = search_results.context['kits']
         self.assertQuerysetEqual(queryset, [repr(self.kit1)])
-        self.assertEqual(queryset.first().num_reviews, 1)
+        self.assertEqual(queryset[0].num_reviews, 1)
 
         # search by scale
         search_page = self.app.get(self.url)
@@ -138,7 +138,7 @@ class SearchViewTests(WebTest):
         search_results = search_page.form.submit()
         queryset = search_results.context['kits']
         self.assertQuerysetEqual(queryset, [repr(self.kit2)])
-        self.assertEqual(queryset.first().num_reviews, 1)
+        self.assertEqual(queryset[0].num_reviews, 1)
 
         # search by name
         search_page = self.app.get(self.url)
@@ -176,7 +176,7 @@ class SearchViewTests(WebTest):
         response = self.client.post(self.url, {'brand': self.kit1.brand.pk})
         queryset = response.context['kits']
         self.assertQuerysetEqual(queryset, [repr(self.kit1)])
-        self.assertEqual(queryset.first().num_reviews, 1)
+        self.assertEqual(queryset[0].num_reviews, 1)
 
 
 class KitReviewsListViewTests(WebTest):

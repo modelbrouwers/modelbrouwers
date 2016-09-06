@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import mock
-
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from .factories import ScaleFactory, ModelKitFactory
+import mock
+
+from .factories import ModelKitFactory, ScaleFactory
 
 
 class ModelTests(TestCase):

@@ -3,7 +3,6 @@ import logging
 from rest_framework import fields
 from sorl.thumbnail import get_thumbnail
 
-
 logger = logging.getLogger(__name__)
 
 

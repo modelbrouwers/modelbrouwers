@@ -1,9 +1,11 @@
 import factory
 
-from brouwers.users.tests.factories import UserFactory
 from brouwers.kits.tests.factories import ModelKitFactory
+from brouwers.users.tests.factories import UserFactory
 
-from ..models import KitReview, KitReviewVote, KitReviewProperty, KitReviewPropertyRating
+from ..models import (
+    KitReview, KitReviewProperty, KitReviewPropertyRating, KitReviewVote
+)
 
 
 class KitReviewFactory(factory.django.DjangoModelFactory):

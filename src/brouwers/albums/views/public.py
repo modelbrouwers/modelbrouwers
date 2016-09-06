@@ -12,7 +12,8 @@ from sendfile import sendfile
 
 # from brouwers.awards.models import Nomination
 from brouwers.utils.views import LoginRequiredMixin
-from ..models import Album, Photo, AlbumDownload
+
+from ..models import Album, AlbumDownload, Photo
 
 logger = logging.getLogger(__name__)
 

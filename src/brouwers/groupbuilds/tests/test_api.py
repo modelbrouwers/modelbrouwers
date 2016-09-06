@@ -5,10 +5,13 @@ from django.utils import timezone
 
 from rest_framework.test import APITestCase
 
-from brouwers.forum_tools.tests.factory_models import ForumFactory, TopicFactory
+from brouwers.forum_tools.tests.factory_models import (
+    ForumFactory, TopicFactory
+)
 from brouwers.users.tests.factories import UserFactory
-from .factories import GroupBuildFactory, ParticipantFactory
+
 from ..models import GroupbuildStatuses, Participant
+from .factories import GroupBuildFactory, ParticipantFactory
 
 
 class ApiTests(APITestCase):

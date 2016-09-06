@@ -1,20 +1,25 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import PermissionDenied
-from django.urls import reverse_lazy
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.utils.http import base36_to_int
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import get_language, ugettext as _
 from django.views import generic
 
-from extra_views import UpdateWithInlinesView, NamedFormsetsMixin, InlineFormSet
+from extra_views import (
+    InlineFormSet, NamedFormsetsMixin, UpdateWithInlinesView
+)
 
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
-from brouwers.general.models import RegistrationQuestion, RegistrationAttempt, UserProfile
+from brouwers.general.models import (
+    RegistrationAttempt, RegistrationQuestion, UserProfile
+)
 from brouwers.utils.views import LoginRequiredMixin
+
 from .forms import UserCreationForm
 from .mail import UserRegistrationEmail
 from .tokens import activation_token_generator

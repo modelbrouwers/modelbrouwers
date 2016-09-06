@@ -1,9 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
-from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -12,9 +12,10 @@ from precise_bbcode.shortcuts import render_bbcodes
 
 from brouwers.albums.models import Album
 from brouwers.forum_tools.fields import ForumToolsIDField
+from brouwers.kits.fields import KitForeignKey
 
+from . import legacy_models  # NOQA
 from .managers import KitReviewQuerySet
-
 
 DEFAULT_RATING = 50
 MAX_RATING = 100
@@ -27,7 +28,7 @@ class KitReview(models.Model):
     Model holding the review information for a model kit
     """
     legacy_id = models.IntegerField(blank=True, null=True, db_index=True)
-    model_kit = models.ForeignKey('kits.ModelKit', on_delete=models.CASCADE)
+    model_kit = KitForeignKey(on_delete=models.CASCADE, verbose_name=_('model kit'))
     raw_text = models.TextField(
         _('review'),
         help_text=_('This is your review. You can use BBCode here.')
@@ -45,7 +46,7 @@ class KitReview(models.Model):
         null=True, help_text=_('ID of the topic on Modelbrouwers.')
     )
     external_topic_url = models.URLField(
-        _('topic url'), blank=True,
+        _('external topic url'), blank=True,
         help_text=_('URL to the topic not hosted on Modelbrouwers')
     )
 
@@ -154,6 +155,3 @@ class KitReviewPropertyRating(models.Model):
     class Meta:
         verbose_name = _(u'kit review property rating')
         verbose_name_plural = _(u'kit review property ratings')
-
-
-from . import legacy_models  # NOQA

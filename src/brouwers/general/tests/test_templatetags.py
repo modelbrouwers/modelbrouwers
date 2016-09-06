@@ -1,6 +1,6 @@
 import unittest
 
-from django.template import Template, Context, TemplateSyntaxError
+from django.template import Context, Template, TemplateSyntaxError
 
 
 class BlockVerbatimTestCase(unittest.TestCase):

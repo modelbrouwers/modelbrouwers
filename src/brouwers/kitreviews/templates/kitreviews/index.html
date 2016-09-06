@@ -1,17 +1,12 @@
 {% extends "kitreviews/base.html" %}
-{% load i18n kitreviews %}
+{% load i18n kitreviews kit_tags %}
 
 
 {% block content %}
 
     <form action="{% url 'kitreviews:find_kit' %}" method="get">
         {{ form.non_field_errors }}
-
         {% include "kitreviews/find_kit_form.html" %}
-
-        <div class="center">
-            <input type="submit" value="{% trans 'Find kits' %}" class="btn btn-primary"/>
-        </div>
     </form>
 
     <section>
@@ -23,3 +18,9 @@
     </section>
 
 {% endblock content %}
+
+
+{% block modals %}
+    {{ block.super }}
+    {% add_kit_modal data=form.cleaned_data %}
+{% endblock modals %}

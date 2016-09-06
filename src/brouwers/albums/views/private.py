@@ -3,6 +3,7 @@ from collections import OrderedDict
 from django.views.generic import TemplateView
 
 from brouwers.utils.views import LoginRequiredMixin
+
 from ..models import Album
 
 

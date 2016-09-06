@@ -3,8 +3,9 @@ from django.urls import reverse
 from django_webtest import WebTest
 
 from brouwers.users.tests.factories import UserFactory
+
 from ..models import ModelKit
-from .factories import BrandFactory, ScaleFactory, ModelKitFactory
+from .factories import BrandFactory, ModelKitFactory, ScaleFactory
 
 
 class AdminTests(WebTest):

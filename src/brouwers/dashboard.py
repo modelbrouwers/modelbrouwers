@@ -1,9 +1,10 @@
 from __future__ import absolute_import
+
 from django.utils.translation import ugettext_lazy as _
 
-from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
+from admin_tools.dashboard import AppIndexDashboard, Dashboard, modules
 
-from brouwers.groupbuilds.dashboard import ModerationQueue, CreateForumQueue
+from brouwers.groupbuilds.dashboard import CreateForumQueue, ModerationQueue
 
 
 class CustomIndexDashboard(Dashboard):

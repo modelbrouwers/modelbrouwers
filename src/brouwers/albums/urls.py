@@ -3,13 +3,11 @@ from django.views.generic import RedirectView
 
 # from .ajax_views import RotateView
 from .views import (
-    IndexView, AlbumListView, AlbumDetailView, PhotoDetailView,
-    UploadView, AlbumCreateView, AlbumUpdateView, AlbumDeleteView,
-    AlbumRestoreView, AlbumDownloadView,
-    PhotoDeleteView, PhotoUpdateView, PhotoRestoreView,
-    PreferencesUpdateView, MyAlbumsView
+    AlbumCreateView, AlbumDeleteView, AlbumDetailView, AlbumDownloadView,
+    AlbumListView, AlbumRestoreView, AlbumUpdateView, IndexView, MyAlbumsView,
+    PhotoDeleteView, PhotoDetailView, PhotoRestoreView, PhotoUpdateView,
+    PreferencesUpdateView, UploadView
 )
-
 
 app_name = 'albums'
 urlpatterns = [

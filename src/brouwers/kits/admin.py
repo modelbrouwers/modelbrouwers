@@ -11,7 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from brouwers.builds.models import Build
 from brouwers.utils.admin.decorators import link_list
-from .models import Brand, Scale, ModelKit
+
+from .models import Brand, ModelKit, Scale
 
 
 def merge_duplicates(modeladmin, request, queryset):

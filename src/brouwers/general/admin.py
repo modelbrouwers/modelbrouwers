@@ -1,11 +1,8 @@
 from django.contrib import admin
 
 from .models import (
-    Announcement,
-    QuestionAnswer,
-    RegistrationAttempt,
-    RegistrationQuestion,
-    UserProfile,
+    Announcement, QuestionAnswer, RegistrationAttempt, RegistrationQuestion,
+    UserProfile
 )
 
 

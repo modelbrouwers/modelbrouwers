@@ -5,27 +5,18 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 from django_webtest import WebTest
-from webtest.forms import Text
 
 from brouwers.albums.tests.factories import PhotoFactory
 from brouwers.forum_tools.tests.factories import ForumUserFactory, TopicFactory
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
-from brouwers.utils.tests.mixins import LoginRequiredMixin
+from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
+
 from ..models import Build
 from .factories import BuildFactory, BuildPhotoFactory
 
 
-class WebTestFormSetMixin(object):
-
-    def _add_field(self, form, name, value):
-        field = Text(form, 'input', None, None, value)
-        form.fields[name] = field
-        form.field_order.append((name, field))
-        return field
-
-
-class ViewTests(WebTestFormSetMixin, LoginRequiredMixin, WebTest):
+class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
 
     def setUp(self):
         self.user = UserFactory.create()

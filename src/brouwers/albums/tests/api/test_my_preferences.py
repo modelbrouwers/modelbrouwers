@@ -4,6 +4,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 
 from brouwers.users.tests.factories import UserFactory
+
 from ...models import Preferences
 from ...serializers import PreferencesSerializer
 

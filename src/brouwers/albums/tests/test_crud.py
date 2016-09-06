@@ -6,6 +6,7 @@ from django_webtest import WebTest
 from brouwers.forum_tools.tests.factories import TopicFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
+
 from ..models import Album
 from .factories import AlbumFactory
 

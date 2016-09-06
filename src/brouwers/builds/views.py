@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
-from django.urls import reverse
 from django.db.models import Prefetch
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 
@@ -14,9 +14,9 @@ from extra_views import (
 from brouwers.forum_tools.models import ForumUser
 from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
+
 from .forms import BuildForm, BuildPhotoForm, BuildSearchForm
 from .models import Build, BuildPhoto
-
 
 User = get_user_model()
 

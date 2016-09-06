@@ -1,15 +1,19 @@
 from django.db.models import Count, Prefetch
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView, ListView, FormView, RedirectView
+from django.views.generic import DetailView, FormView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 
-from extra_views import InlineFormSet, CreateWithInlinesView, NamedFormsetsMixin
+from extra_views import (
+    CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin
+)
 
 from brouwers.kits.models import ModelKit
+from brouwers.kits.widgets import AddKitForm
 from brouwers.utils.views import LoginRequiredMixin
-from .forms import KitReviewForm, FindModelKitForm, KitReviePropertyRatingForm
+
+from .forms import FindModelKitForm, KitReviewForm, KitReviewPropertyRatingForm
 from .models import KitReview, KitReviewProperty, KitReviewPropertyRating
 
 
@@ -24,7 +28,7 @@ class IndexView(FormMixin, ListView):
 
 class ReviewPropertyRatingInline(InlineFormSet):
     model = KitReviewPropertyRating
-    form_class = KitReviePropertyRatingForm
+    form_class = KitReviewPropertyRatingForm
 
     @property
     def num_properties(self):
@@ -86,7 +90,7 @@ class KitSearchView(FormView):
     def form_valid(self, form):
         kits = form.find_kits()
         kits = kits.annotate(num_reviews=Count('kitreview'))
-        return self.render_to_response(self.get_context_data(kits=kits))
+        return self.render_to_response(self.get_context_data(kits=kits[:100]))
 
 
 class ReviewListView(SingleObjectMixin, ListView):

@@ -4,7 +4,8 @@ from django import forms
 from django.utils.translation import ugettext as _
 
 from brouwers.general.models import UserProfile
-from .models import Project, Category, Vote
+
+from .models import Category, Project, Vote
 
 
 class ProjectForm(forms.ModelForm):

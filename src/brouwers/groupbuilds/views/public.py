@@ -1,15 +1,15 @@
-from datetime import timedelta, date
 import calendar
-
-from dateutil.relativedelta import relativedelta
+from datetime import date, timedelta
 
 from django.db.models import Count, Q
 from django.utils import timezone
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
 
-from .mixins import GroupBuildDetailMixin
-from ..models import GroupBuild, GroupbuildStatuses as GBStatuses
+from dateutil.relativedelta import relativedelta
+
 from ..forms import DateForm, ParticipantForm
+from ..models import GroupBuild, GroupbuildStatuses as GBStatuses
+from .mixins import GroupBuildDetailMixin
 
 
 class GroupBuildListView(ListView):

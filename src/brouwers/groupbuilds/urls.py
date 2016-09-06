@@ -1,10 +1,12 @@
 from django.conf.urls import url
 
-from .views.admin import GroupBuildCreateView, GroupBuildUpdateView, GroupBuildSubmitView
-from .views.participant import (GroupBuildParticipateView, ParticipantUpdateView,
-                                MyGroupbuildsListView)
-from .views.public import GroupBuildListView, GroupBuildDetailView
-
+from .views.admin import (
+    GroupBuildCreateView, GroupBuildSubmitView, GroupBuildUpdateView
+)
+from .views.participant import (
+    GroupBuildParticipateView, MyGroupbuildsListView, ParticipantUpdateView
+)
+from .views.public import GroupBuildDetailView, GroupBuildListView
 
 app_name = 'groupbuilds'
 urlpatterns = [

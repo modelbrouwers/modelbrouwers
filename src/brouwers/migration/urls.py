@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from .views import index, albumusers, find_django_user, migrate_albums, migrate_pictures
-
+from .views import (
+    albumusers, find_django_user, index, migrate_albums, migrate_pictures
+)
 
 app_name = 'migration'
 urlpatterns = [
