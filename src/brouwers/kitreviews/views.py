@@ -90,7 +90,7 @@ class KitSearchView(FormView):
     def form_valid(self, form):
         kits = form.find_kits()
         kits = kits.annotate(num_reviews=Count('kitreview'))
-        return self.render_to_response(self.get_context_data(kits=kits))
+        return self.render_to_response(self.get_context_data(kits=kits[:100]))
 
 
 class ReviewListView(SingleObjectMixin, ListView):

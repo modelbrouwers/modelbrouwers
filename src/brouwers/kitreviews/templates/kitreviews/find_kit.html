@@ -12,6 +12,8 @@
     {% if form.data %}
         <h3>{% blocktrans with num_results=kits.count %}Search results ({{ num_results }}){% endblocktrans %}</h3>
 
+        <p>{% trans "The number of search results is limited to 100 - you may need to refine your search." %}</p>
+
         {% if not kits.exists %}
 
             <p class="text-center">

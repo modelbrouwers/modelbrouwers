@@ -130,7 +130,7 @@ class SearchViewTests(WebTest):
         search_results = search_page.form.submit()
         queryset = search_results.context['kits']
         self.assertQuerysetEqual(queryset, [repr(self.kit1)])
-        self.assertEqual(queryset.first().num_reviews, 1)
+        self.assertEqual(queryset[0].num_reviews, 1)
 
         # search by scale
         search_page = self.app.get(self.url)
@@ -138,7 +138,7 @@ class SearchViewTests(WebTest):
         search_results = search_page.form.submit()
         queryset = search_results.context['kits']
         self.assertQuerysetEqual(queryset, [repr(self.kit2)])
-        self.assertEqual(queryset.first().num_reviews, 1)
+        self.assertEqual(queryset[0].num_reviews, 1)
 
         # search by name
         search_page = self.app.get(self.url)
@@ -176,7 +176,7 @@ class SearchViewTests(WebTest):
         response = self.client.post(self.url, {'brand': self.kit1.brand.pk})
         queryset = response.context['kits']
         self.assertQuerysetEqual(queryset, [repr(self.kit1)])
-        self.assertEqual(queryset.first().num_reviews, 1)
+        self.assertEqual(queryset[0].num_reviews, 1)
 
 
 class KitReviewsListViewTests(WebTest):
