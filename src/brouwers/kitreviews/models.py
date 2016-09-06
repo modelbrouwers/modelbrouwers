@@ -46,7 +46,7 @@ class KitReview(models.Model):
         null=True, help_text=_('ID of the topic on Modelbrouwers.')
     )
     external_topic_url = models.URLField(
-        _('topic url'), blank=True,
+        _('external topic url'), blank=True,
         help_text=_('URL to the topic not hosted on Modelbrouwers')
     )
 
