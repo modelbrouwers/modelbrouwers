@@ -1,22 +1,22 @@
 {% extends "kitreviews/base.html" %}
 {% load i18n kitreviews sniplates staticfiles thumbnail %}
 
+
 {% block content %}
-
-<article class="kitreviews--kit">
+<article class="kit">
     <header>
-        <h1>{{ kit.name }} <small>{{ kit.kit_number }}</small></h1>
-
         {% if kit.brand.logo %}
             {% thumbnail kit.brand.logo '100x100' as im %}
                 <img src="{{ im.url }}" alt="logo-{{ kit.brand.slug }}" title="{{ kit.brand.name }}">
             {% endthumbnail %}
         {% else %}
-            <h2>{{ kit.brand.name }}</h2>
+            <h2 class="kit__brand-name">{{ kit.brand.name }}</h2>
         {% endif %}
 
+        <h1 class="kit__name">{{ kit.name }} <small>{{ kit.kit_number }}</small></h1>
+
         {% if kit.scale %}
-            <p>{{ kit.scale }}</p>
+            <p class="kit__scale">{{ kit.scale }}</p>
         {% endif %}
     </header>
 

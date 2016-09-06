@@ -119,45 +119,6 @@ select:-moz-focusring {
   position: relative;
 }
 
-/* line 1, ../../sass/elements/_buttons.scss */
-.button {
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  text-align: center;
-  padding: 6px 12px;
-  font-weight: bold;
-}
-/* line 8, ../../sass/elements/_buttons.scss */
-.button:hover {
-  cursor: pointer;
-}
-/* line 12, ../../sass/elements/_buttons.scss */
-.button--full {
-  display: block;
-  min-width: 100%;
-}
-/* line 18, ../../sass/elements/_buttons.scss */
-.button--disabled:hover {
-  cursor: default;
-}
-/* line 23, ../../sass/elements/_buttons.scss */
-.button--blue {
-  background-color: #006699;
-}
-/* line 25, ../../sass/elements/_buttons.scss */
-.button--blue, .button--blue:hover, .button--blue:active, .button--blue:focus {
-  color: #FFFFFF;
-}
-/* line 30, ../../sass/elements/_buttons.scss */
-.button--orange {
-  background-color: #D46400;
-}
-/* line 32, ../../sass/elements/_buttons.scss */
-.button--orange, .button--orange:hover, .button--orange:active, .button--orange:focus {
-  color: #FFFFFF;
-}
-
 /*
  * Headers
  */
@@ -1273,6 +1234,57 @@ input[type="range"] + output {
   width: 100%;
 }
 
+/* line 1, ../../sass/components/buttons/_buttons.scss */
+.button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  text-align: center;
+  padding: 6px 12px;
+  font-weight: bold;
+}
+/* line 10, ../../sass/components/buttons/_buttons.scss */
+.button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/* line 16, ../../sass/components/buttons/_buttons.scss */
+.button--icon .fa {
+  margin-right: 0.5em;
+}
+/* line 21, ../../sass/components/buttons/_buttons.scss */
+.button--full {
+  display: block;
+  min-width: 100%;
+}
+/* line 27, ../../sass/components/buttons/_buttons.scss */
+.button--disabled:hover {
+  cursor: default;
+}
+/* line 32, ../../sass/components/buttons/_buttons.scss */
+.button--blue {
+  background-color: #006699;
+}
+/* line 34, ../../sass/components/buttons/_buttons.scss */
+.button--blue, .button--blue:hover, .button--blue:active, .button--blue:focus {
+  color: #FFFFFF;
+}
+/* line 39, ../../sass/components/buttons/_buttons.scss */
+.button--orange {
+  background-color: #D46400;
+}
+/* line 41, ../../sass/components/buttons/_buttons.scss */
+.button--orange, .button--orange:hover, .button--orange:active, .button--orange:focus {
+  color: #FFFFFF;
+}
+
+/* line 1, ../../sass/components/buttons/_button-group.scss */
+.button-group {
+  padding: 1em;
+  text-align: center;
+}
+
 /* line 1, ../../sass/components/forms/_radio-select.scss */
 .radio-select {
   list-style-type: none;
@@ -1281,6 +1293,23 @@ input[type="range"] + output {
 /* line 5, ../../sass/components/forms/_radio-select.scss */
 .radio-select label {
   margin-bottom: 0;
+}
+
+/* line 3, ../../sass/components/kits/_kit.scss */
+.kit .kit__name {
+  text-transform: uppercase;
+  margin-top: 0;
+}
+/* line 8, ../../sass/components/kits/_kit.scss */
+.kit .kit__brand-name {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.4em;
+  color: #919291;
+}
+/* line 15, ../../sass/components/kits/_kit.scss */
+.kit .kit__scale {
+  font-weight: bold;
 }
 
 /* line 2, ../../sass/partials/apps/_albums.scss */
@@ -2095,6 +2124,16 @@ body.groupbuilds .participants tr.finished .fa-check {
   padding-top: 7px;
   padding-bottom: 7px;
   margin-bottom: 0;
+}
+
+/* line 46, ../../sass/partials/apps/_kitreviews.scss */
+.button--find-kit {
+  margin-right: 1em;
+}
+
+/* line 50, ../../sass/partials/apps/_kitreviews.scss */
+.button--add-kit {
+  margin-left: 1em;
 }
 
 /* line 3, ../../sass/partials/apps/_users.scss */

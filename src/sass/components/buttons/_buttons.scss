@@ -1,12 +1,21 @@
 .button {
 
   @include border-radius(4px);
+  border: 1px solid transparent;
+
   text-align: center;
   padding: 6px 12px;
   font-weight: bold;
 
   &:hover {
     cursor: pointer;
+    text-decoration: underline;
+  }
+
+  &--icon {
+    .fa {
+      margin-right: 0.5em;
+    }
   }
 
   &--full {
@@ -33,5 +42,4 @@
       color: $white;
     }
   }
-
 }
