@@ -83,10 +83,19 @@ new AddKitModal();
 
 
 if (document.querySelector('.model-kit-select')) {
-    new KitSearch({
+    let kitSearch = new KitSearch({
         prefix: '__modelkitselect',
         htmlname: null,
         minChars: 2,
         isMulti: false,
     }, '.model-kit-select');
+
+    let suggestions = document.querySelector('.kit-suggestions');
+    suggestions.addEventListener('click', event => {
+        if (event.target.tagName === 'BUTTON') {
+            kitSearch.loadMore(event);
+        }
+    });
+
+    $('.kit-suggestions').on('click', 'button', kitSearch.loadMore);
 }

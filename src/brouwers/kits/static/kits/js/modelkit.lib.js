@@ -176,6 +176,18 @@ export class KitSearch {
         });
     }
 
+    // TODO: de-jQuery-fy
+    loadMore(event) {
+        event.preventDefault();
+        let elem = $(event.target);
+        let $target = elem.closest('.kit-suggestions');
+        let $container = $target.siblings('[data-filters="true"]');
+        let filters = this.getKitFilters($container[0]);
+        filters.page = elem.data('next');
+        elem.remove(); // this shows the loader
+        this.renderKitPreviews(filters, $target, true);
+        return false;
+    }
 }
 
 

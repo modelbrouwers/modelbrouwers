@@ -9,7 +9,7 @@ wsgiref==0.1.2
 fake-factory==0.6.0
 
 # Django packages
-Django==1.10
+Django==1.10.1
 django-appconf==1.0.2  # pulled in by other packages, but update version
 django-choices==1.4.3
 django-admin-tools==0.8.0
