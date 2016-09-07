@@ -4,39 +4,47 @@
 
 {% block content %}
 <article class="kit">
-    <header>
+    <header class="kit__header clearfix">
         {% if kit.brand.logo %}
             {% thumbnail kit.brand.logo '100x100' as im %}
-                <img src="{{ im.url }}" alt="logo-{{ kit.brand.slug }}" title="{{ kit.brand.name }}">
+                <figure class="kit__brand-logo">
+                    <img src="{{ im.url }}" alt="logo-{{ kit.brand.slug }}" title="{{ kit.brand.name }}">
+                </figure>
             {% endthumbnail %}
         {% else %}
             <h2 class="kit__brand-name">{{ kit.brand.name }}</h2>
         {% endif %}
 
-        <h1 class="kit__name">{{ kit.name }} <small>{{ kit.kit_number }}</small></h1>
-
-        {% if kit.scale %}
-            <p class="kit__scale">{{ kit.scale }}</p>
-        {% endif %}
+        <h1 class="kit__name">
+            {{ kit.name }}
+            <small>
+                {{ kit.kit_number }}
+                {% if kit.scale %}
+                    &ndash; <span class="kit__scale">{{ kit.scale }}</span>
+                {% endif %}
+            </small>
+        </h1>
     </header>
 
-    <figure>
+    <figure class="kit__boxart">
         {% if kit.has_box_image %}
             {% thumbnail kit.box_image "800x600" crop="center" as im %}
-                <img src="{{ im.url }}" class="img-responsive">
+                <img src="{{ im.url }}" class="kit__boxart-image">
             {% endthumbnail %}
         {% else %}
-            <img src="{% static "images/thumb.png" %}" class="img-responsive">
+            <img src="{% static "images/thumb.png" %}" class="kit__boxart-image">
         {% endif %}
     </figure>
 
     {% block reviews %}
-    <section>
-        {% blocktrans trimmed count count=object_list.count %}
-            There is one review
-        {% plural %}
-            There are {{ count }} reviews
-        {% endblocktrans %}:
+    <section class="review-list">
+        <h2>
+            {% blocktrans trimmed count count=object_list.count %}
+                There is one review
+            {% plural %}
+                There are {{ count }} reviews
+            {% endblocktrans %}
+        </h2>
 
         <div class="kitreviews--review-list">
             {% for review in object_list %}

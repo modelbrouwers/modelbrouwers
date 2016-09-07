@@ -1,8 +1,20 @@
 .kit {
 
+  .kit__header {
+    border-bottom: solid 3px rgba($main-light-blue, 0.5);
+    padding-bottom: 0.5em;
+    margin-bottom: 2em;
+  }
+
   .kit__name {
     text-transform: uppercase;
     margin-top: 0;
+  }
+
+  .kit__brand-logo,
+  .kit__brand-name {
+    float: left;
+    margin-right: 1em;
   }
 
   .kit__brand-name {
@@ -10,10 +22,29 @@
     margin-bottom: 0;
     font-size: 1.4em;
     color: $main-grey;
+    line-height: 2.5em;
   }
 
   .kit__scale {
-    font-weight: bold;
+  }
+
+  .kit__boxart {
+    @include opacity(0.7);
+    @include transition(all .5s ease);
+    text-align: center;
+
+    &:hover,
+    &:target {
+      @include opacity(1);
+    }
+  }
+
+  .kit__boxart-image {
+    @include border-radius(4px);
+    margin: 0 auto;
+    border: solid 1px $default-border-color;
+    padding: 4px;
+    max-width: 100%;
   }
 
 }
