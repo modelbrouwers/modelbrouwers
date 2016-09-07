@@ -38,7 +38,7 @@ class AddKitModal {
             prefix: '__modelkitselect',
             prefix_add: '__modelkitadd',
             isMulti: false,
-        }
+        };
 
         let filler = new AddDefaultsFiller(conf);
         let submitter = new KitreviewsNewKitSubmitter(conf);
