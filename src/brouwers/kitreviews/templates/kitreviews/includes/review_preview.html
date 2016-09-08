@@ -25,21 +25,7 @@
     <div class="row">
 
         {% if show_ratings %}
-            <ul class="list-unstyled review-ratings review-ratings--in-preview col-md-6">
-                {% for rating in review.ratings.all %}
-                    <li class="row review-ratings__item">
-                        <div class="col-md-4 text-right">{{ rating.prop.name }}</div>
-                        <div class="col-md-8">
-                            <div class="progress">
-                                {% widthratio rating.rating 100 100 as bar_width %}
-                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ bar_width }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bar_width }}%;">
-                                    <span>{{ bar_width }}%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+            {% detailed_ratings review is_preview=True %}
         {% endif %}
 
         <div class="{{ show_ratings|yesno:"col-md-6,col-md-12" }}">

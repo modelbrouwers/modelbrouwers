@@ -30,6 +30,14 @@ def review_rating(rating_pct, num_stars=5):
     }
 
 
+@register.inclusion_tag('kitreviews/includes/detailed_ratings.html')
+def detailed_ratings(review, is_preview=False):
+    return {
+        'ratings': review.ratings.all(),
+        'is_preview': is_preview,
+    }
+
+
 @register.filter
 def rating_class(rating):
     """
