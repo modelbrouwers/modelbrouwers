@@ -13,6 +13,22 @@
                 {% endblocktrans %})
             </small>
         </h2>
+        {% if review.topic_url or review.album %}
+            <div>
+                {% if review.topic_url %}
+                    <a class="button button--icon button--light-blue" href="{{ review.topic_url }}">
+                        <i class="fa fa-comments-o"></i>
+                        {% trans "view topic" %}
+                    </a>
+                {% endif %}
+                {% if review.album %}
+                    <a class="button button--icon button--light-blue" href="{{ review.album.get_absolute_url }}">
+                        <i class="fa fa-camera"></i>
+                        {% trans "view album" %}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
         <div class="review__body">{{ review.render_raw_text|safe }}</div>
 
         <h2>{% trans "Ratings" %}</h2>

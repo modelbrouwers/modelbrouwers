@@ -5,9 +5,6 @@
 
   display: inline-block;
 
-  background-color: $main-light-blue;
-  color: $white;
-
   text-align: center;
   padding: 6px 12px;
   font-weight: bold;
@@ -17,7 +14,6 @@
   &:focus {
     cursor: pointer;
     text-decoration: underline;
-    color: $white;
   }
 
   &--icon {
@@ -46,6 +42,13 @@
 
   &--orange {
     background-color: $main-orange;
+    &, &:hover, &:active, &:focus {
+      color: $white;
+    }
+  }
+
+  &--light-blue {
+    background-color: $main-light-blue;
     &, &:hover, &:active, &:focus {
       color: $white;
     }

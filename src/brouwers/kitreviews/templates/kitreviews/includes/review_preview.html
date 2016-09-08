@@ -25,7 +25,7 @@
     <div class="row">
 
         {% if show_ratings %}
-            {% detailed_ratings review is_preview=True %}
+            <div class="col-md-6">{% detailed_ratings review is_preview=True %}</div>
         {% endif %}
 
         <div class="{{ show_ratings|yesno:"col-md-6,col-md-12" }}">
@@ -40,13 +40,13 @@
             {% trans "read more" %}
         </a>
         {% if review.topic_url %}
-            <a class="button button--icon" href="{{ review.topic_url }}">
+            <a class="button button--icon button--light-blue" href="{{ review.topic_url }}">
                 <i class="fa fa-comments-o"></i>
                 {% trans "view topic" %}
             </a>
         {% endif %}
         {% if review.album %}
-            <a class="button button--icon" href="{{ review.album.get_absolute_url }}">
+            <a class="button button--icon button--light-blue" href="{{ review.album.get_absolute_url }}">
                 <i class="fa fa-camera"></i>
                 {% trans "view album" %}
             </a>
