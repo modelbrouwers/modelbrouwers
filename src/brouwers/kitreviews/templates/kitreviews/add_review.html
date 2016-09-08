@@ -35,6 +35,7 @@
             {% endwith %}
         </fieldset>
 
+        <h2>{% trans "Review" %}</h2>
         <fieldset class="well">
 
             {% widget 'form:non_form_errors' %}
@@ -46,7 +47,7 @@
                 {% endfor %}
             {% endwith %}
 
-            {% form_field form.raw_text %}
+            {% form_field form.raw_text label=_('Body') %}
         </fieldset>
 
         {% widget 'form:submit' btn_text=btn_text|default:_('Add review') %}

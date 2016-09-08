@@ -761,7 +761,7 @@ label.required:after {
 
 /* line 12, ../../sass/partials/_forms.scss */
 textarea.form-control {
-  height: 100px;
+  min-height: 100px;
 }
 
 /* line 16, ../../sass/partials/_forms.scss */

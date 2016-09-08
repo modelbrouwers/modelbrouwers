@@ -56,6 +56,7 @@ class KitReviewForm(forms.ModelForm):
         fields = ['model_kit', 'raw_text', 'album', 'topic', 'external_topic_url', 'show_real_name']
         widgets = {
             'model_kit': ModelKitSelect,
+            'raw_text': forms.Textarea(attrs={'rows': 10}),
         }
 
     def __init__(self, *args, **kwargs):
