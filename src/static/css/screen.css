@@ -119,45 +119,6 @@ select:-moz-focusring {
   position: relative;
 }
 
-/* line 1, ../../sass/elements/_buttons.scss */
-.button {
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  text-align: center;
-  padding: 6px 12px;
-  font-weight: bold;
-}
-/* line 8, ../../sass/elements/_buttons.scss */
-.button:hover {
-  cursor: pointer;
-}
-/* line 12, ../../sass/elements/_buttons.scss */
-.button--full {
-  display: block;
-  min-width: 100%;
-}
-/* line 18, ../../sass/elements/_buttons.scss */
-.button--disabled:hover {
-  cursor: default;
-}
-/* line 23, ../../sass/elements/_buttons.scss */
-.button--blue {
-  background-color: #006699;
-}
-/* line 25, ../../sass/elements/_buttons.scss */
-.button--blue, .button--blue:hover, .button--blue:active, .button--blue:focus {
-  color: #FFFFFF;
-}
-/* line 30, ../../sass/elements/_buttons.scss */
-.button--orange {
-  background-color: #D46400;
-}
-/* line 32, ../../sass/elements/_buttons.scss */
-.button--orange, .button--orange:hover, .button--orange:active, .button--orange:focus {
-  color: #FFFFFF;
-}
-
 /*
  * Headers
  */
@@ -800,7 +761,7 @@ label.required:after {
 
 /* line 12, ../../sass/partials/_forms.scss */
 textarea.form-control {
-  height: 100px;
+  min-height: 100px;
 }
 
 /* line 16, ../../sass/partials/_forms.scss */
@@ -1273,6 +1234,66 @@ input[type="range"] + output {
   width: 100%;
 }
 
+/* line 1, ../../sass/components/buttons/_buttons.scss */
+.button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  display: inline-block;
+  text-align: center;
+  padding: 6px 12px;
+  font-weight: bold;
+}
+/* line 12, ../../sass/components/buttons/_buttons.scss */
+.button:hover, .button:active, .button:focus {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/* line 20, ../../sass/components/buttons/_buttons.scss */
+.button--icon .fa {
+  margin-right: 0.5em;
+}
+/* line 25, ../../sass/components/buttons/_buttons.scss */
+.button--full {
+  display: block;
+  min-width: 100%;
+}
+/* line 31, ../../sass/components/buttons/_buttons.scss */
+.button--disabled:hover {
+  cursor: default;
+}
+/* line 36, ../../sass/components/buttons/_buttons.scss */
+.button--blue {
+  background-color: #006699;
+}
+/* line 38, ../../sass/components/buttons/_buttons.scss */
+.button--blue, .button--blue:hover, .button--blue:active, .button--blue:focus {
+  color: #FFFFFF;
+}
+/* line 43, ../../sass/components/buttons/_buttons.scss */
+.button--orange {
+  background-color: #D46400;
+}
+/* line 45, ../../sass/components/buttons/_buttons.scss */
+.button--orange, .button--orange:hover, .button--orange:active, .button--orange:focus {
+  color: #FFFFFF;
+}
+/* line 50, ../../sass/components/buttons/_buttons.scss */
+.button--light-blue {
+  background-color: #4095FD;
+}
+/* line 52, ../../sass/components/buttons/_buttons.scss */
+.button--light-blue, .button--light-blue:hover, .button--light-blue:active, .button--light-blue:focus {
+  color: #FFFFFF;
+}
+
+/* line 1, ../../sass/components/buttons/_button-group.scss */
+.button-group {
+  padding: 1em;
+  text-align: center;
+}
+
 /* line 1, ../../sass/components/forms/_radio-select.scss */
 .radio-select {
   list-style-type: none;
@@ -1281,6 +1302,188 @@ input[type="range"] + output {
 /* line 5, ../../sass/components/forms/_radio-select.scss */
 .radio-select label {
   margin-bottom: 0;
+}
+
+/* line 3, ../../sass/components/kits/_kit.scss */
+.kit .kit__header {
+  border-bottom: solid 3px rgba(64, 149, 253, 0.5);
+  padding-bottom: 0.5em;
+  margin-bottom: 2em;
+}
+/* line 9, ../../sass/components/kits/_kit.scss */
+.kit .kit__name {
+  text-transform: uppercase;
+  margin-top: 0;
+}
+/* line 14, ../../sass/components/kits/_kit.scss */
+.kit .kit__brand-logo,
+.kit .kit__brand-name {
+  float: left;
+  margin-right: 1em;
+}
+/* line 20, ../../sass/components/kits/_kit.scss */
+.kit .kit__brand-name {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.4em;
+  color: #919291;
+  line-height: 2.5em;
+}
+/* line 31, ../../sass/components/kits/_kit.scss */
+.kit .kit__boxart {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  text-align: center;
+}
+/* line 36, ../../sass/components/kits/_kit.scss */
+.kit .kit__boxart:hover, .kit .kit__boxart:target {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
+/* line 42, ../../sass/components/kits/_kit.scss */
+.kit .kit__boxart-image {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  margin: 0 auto;
+  border: solid 1px #CCC;
+  padding: 4px;
+  max-width: 100%;
+}
+
+/* line 1, ../../sass/components/kits/_kit-preview.scss */
+.kit-preview {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: solid 1px #CCC;
+  padding: 1em 1em 0;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+/* line 8, ../../sass/components/kits/_kit-preview.scss */
+.kit-preview .button--full {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+/* line 13, ../../sass/components/kits/_kit-preview.scss */
+.kit-preview .kit-preview__name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  margin-top: 0;
+}
+
+/* line 1, ../../sass/components/kitreviews/_review-list.scss */
+.review-list {
+  padding-top: 1em;
+}
+
+/* line 1, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview {
+  border: solid 1px #CCC;
+  padding: 15px;
+}
+/* line 7, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview.review-preview--with-ratings .review-preview__body {
+  padding-top: 2em;
+  max-height: 200px;
+}
+/* line 13, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview + .review-preview {
+  margin-top: 15px;
+}
+/* line 17, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview .review-preview__title {
+  font-size: 18px;
+  margin: 0;
+}
+/* line 22, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview .review-preview__details {
+  color: #919291;
+}
+/* line 26, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview .review-preview__rating {
+  margin-left: 1em;
+  color: #32BB5B;
+}
+/* line 31, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview .review-preview__body {
+  max-height: 100px;
+  position: relative;
+  min-height: 50px;
+  overflow: hidden;
+  padding-top: 1em;
+}
+/* line 38, ../../sass/components/kitreviews/_review-preview.scss */
+.review-preview .review-preview__body:after {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  display: block;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background: -moz-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
+  background: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), #ffffff);
+}
+
+/* line 1, ../../sass/components/kitreviews/_review-ratings.scss */
+.review-ratings {
+  padding-top: 2em;
+}
+/* line 4, ../../sass/components/kitreviews/_review-ratings.scss */
+.review-ratings.review-ratings--in-preview {
+  max-height: 200px;
+  position: relative;
+  min-height: 50px;
+  overflow: hidden;
+}
+/* line 10, ../../sass/components/kitreviews/_review-ratings.scss */
+.review-ratings.review-ratings--in-preview:after {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  display: block;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background: -moz-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
+  background: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), #ffffff);
+}
+/* line 24, ../../sass/components/kitreviews/_review-ratings.scss */
+.review-ratings .review-ratings__item {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85);
+  opacity: 0.85;
+  -moz-transition: opacity 0.5s ease;
+  -o-transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+/* line 28, ../../sass/components/kitreviews/_review-ratings.scss */
+.review-ratings .review-ratings__item:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
+/* line 32, ../../sass/components/kitreviews/_review-ratings.scss */
+.review-ratings .review-ratings__item .progress {
+  margin-bottom: 15px;
+}
+
+/* line 2, ../../sass/components/kitreviews/_review.scss */
+.review .review__body {
+  margin-top: 1em;
+  font-size: 1.14em;
+  text-align: justify;
 }
 
 /* line 2, ../../sass/partials/apps/_albums.scss */
@@ -2028,73 +2231,21 @@ body.groupbuilds .participants tr.finished .fa-check {
   justify-content: center;
 }
 
-/* line 85, ../../sass/partials/apps/_kits.scss */
-.kit__preview {
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  border: solid 1px #CCC;
-  padding: 1em 1em 0;
-  margin-bottom: 30px;
-  overflow: hidden;
-}
-/* line 92, ../../sass/partials/apps/_kits.scss */
-.kit__preview .button--full {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-
-/* line 99, ../../sass/partials/apps/_kits.scss */
-.kit__preview__name {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: block;
-  margin-top: 0;
-}
-
-/* line 1, ../../sass/partials/apps/_kitreviews.scss */
-.kitreview__preview {
-  border: solid 1px #CCC;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-/* line 6, ../../sass/partials/apps/_kitreviews.scss */
-.kitreview__preview__title {
-  font-size: 18px;
-  margin: 0;
-}
-/* line 11, ../../sass/partials/apps/_kitreviews.scss */
-.kitreview__preview__details {
-  color: #919291;
-}
-/* line 15, ../../sass/partials/apps/_kitreviews.scss */
-.kitreview__preview__body {
-  max-height: 100px;
-  position: relative;
-  min-height: 50px;
-  overflow: hidden;
-}
-/* line 21, ../../sass/partials/apps/_kitreviews.scss */
-.kitreview__preview__body:after {
-  content: " ";
-  position: absolute;
-  width: 100%;
-  display: block;
-  height: 50px;
-  bottom: 0;
-  left: 0;
-  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
-  background: -moz-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
-  background: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0), #ffffff);
-}
-
-/* line 38, ../../sass/partials/apps/_kitreviews.scss */
+/* line 2, ../../sass/partials/apps/_kitreviews.scss */
 .rating .rating__label {
   padding-top: 7px;
   padding-bottom: 7px;
   margin-bottom: 0;
+}
+
+/* line 10, ../../sass/partials/apps/_kitreviews.scss */
+.button--find-kit {
+  margin-right: 1em;
+}
+
+/* line 14, ../../sass/partials/apps/_kitreviews.scss */
+.button--add-kit {
+  margin-left: 1em;
 }
 
 /* line 3, ../../sass/partials/apps/_users.scss */

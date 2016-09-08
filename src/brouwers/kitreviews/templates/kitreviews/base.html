@@ -31,7 +31,7 @@
                     {% url 'kitreviews:add_review' as add_url %}
                 {% endif %}
                 <a href="{{ add_url }}" class="btn bg-main-orange">
-                    {% trans "Add review" %}
+                    <i class="fa fa-plus"></i> {% trans "Add review" %}
                 </a>
             {% endblock %}
         </div>

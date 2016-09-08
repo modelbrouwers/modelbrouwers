@@ -17,12 +17,17 @@
         {% trans "Find kits using the search form - all fields are optional." %}
     </div>
 
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary">
-            {% trans 'Find kits' %}
+    <div class="button-group">
+
+        <button type="submit" class="button button--icon button--blue button--find-kit">
+            <i class="fa fa-search"></i> {% trans 'Find kits' %}
         </button>
-        <button data-target="#add-kit-modal" class="btn bg-main-orange">
-            {% trans 'Add new kit' %}
+
+        {% trans "or" %}
+
+        <button data-target="#add-kit-modal" class="button button--icon button--orange button--add-kit">
+            <i class="fa fa-plus"></i> {% trans 'Add new kit' %}
         </button>
+
     </div>
 </fieldset>

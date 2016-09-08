@@ -61,6 +61,8 @@ class KitReview(models.Model):
     submitted_on = models.DateTimeField(auto_now_add=True)
     last_edited_on = models.DateTimeField(auto_now=True)
 
+    is_reviewed = models.BooleanField(_('is reviewed?'), default=False)
+
     objects = KitReviewQuerySet.as_manager()
 
     class Meta:
