@@ -2,7 +2,8 @@
 {% load i18n kitreviews %}
 
 {% block reviews %}
-    <h2>{% trans "Review" %}</h2>
+
+    <h2 id="review-body">{% trans "Review" %}</h2>
     <section>
         {{ review.render_raw_text|safe }}
     </section>

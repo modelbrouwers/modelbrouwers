@@ -1,24 +1,33 @@
 {% load i18n kitreviews %}
-<article class="kitreview__preview">
+<article class="review-preview {% if show_ratings %}review-preview--with-ratings{% endif %}">
     <header class="row">
-        <h1 class="col-md-9 kitreview__preview__title">
-            <a href="{% url 'kitreviews:review-list' slug=review.model_kit.slug %}">{{ review.model_kit }}</a>
-        </h1>
-        <aside class="col-md-3 kitreview__preview__details">
-        {% blocktrans trimmed with reviewer=review.reviewer_name time_ago=review.submitted_on|timesince %}
-            {{ reviewer }} &ndash; {{ time_ago }} ago
-        {% endblocktrans %}
-        </aside>
+        {% if not show_ratings %}
+                <h1 class="col-md-8 review-preview__title">
+                    <a href="{% url 'kitreviews:review-list' slug=review.model_kit.slug %}">{{ review.model_kit }}</a>
+                    <span class="review-preview__rating">{% review_rating review.rating_pct %}</span>
+                </h1>
+                <aside class="col-md-4 review-preview__details text-right">
+                {% blocktrans trimmed with reviewer=review.reviewer_name time_ago=review.submitted_on|timesince %}
+                    {{ reviewer }} &ndash; {{ time_ago }} ago
+                {% endblocktrans %}
+                </aside>
+        {% else %}
+            <h1 class="review-preview__title col-md-8">
+                {{ review.reviewer_name }}
+                <span class="review-preview__rating">{% review_rating review.rating_pct %}</span>
+            </h1>
+            <aside class="review-preview__details col-md-4 text-right">
+                {% blocktrans with time_ago=review.submitted_on|timesince%}{{ time_ago }} ago{% endblocktrans %}
+            </aside>
+        {% endif %}
     </header>
-
-    {% review_rating review.rating_pct %}
 
     <div class="row">
 
         {% if show_ratings %}
-            <ul class="list-unstyled kitreviews--ratings-list col-md-6">
+            <ul class="list-unstyled review-ratings review-ratings--in-preview col-md-6">
                 {% for rating in review.ratings.all %}
-                    <li class="row">
+                    <li class="row review-ratings__item">
                         <div class="col-md-4 text-right">{{ rating.prop.name }}</div>
                         <div class="col-md-8">
                             <div class="progress">
@@ -34,18 +43,27 @@
         {% endif %}
 
         <div class="{{ show_ratings|yesno:"col-md-6,col-md-12" }}">
-            <section class="kitreview__preview__body">{{ review.render_raw_text|safe }}</section>
+            <section class="review-preview__body">{{ review.render_raw_text|safe }}</section>
         </div>
 
     </div>
 
-    <footer>
-        <a class="btn bg-main-orange" href="{{ review.get_absolute_url }}">{% trans "read more" %}</a>
+    <footer class="clearfix">
+        <a class="button button--icon button--orange pull-right" href="{{ review.get_absolute_url }}#review-body">
+            <i class="fa fa-file-text"></i>
+            {% trans "read more" %}
+        </a>
         {% if review.topic_url %}
-            <a class="btn btn-default" href="{{ review.topic_url }}">{% trans "view topic" %}</a>
+            <a class="button button--icon" href="{{ review.topic_url }}">
+                <i class="fa fa-comments-o"></i>
+                {% trans "view topic" %}
+            </a>
         {% endif %}
         {% if review.album %}
-            <a class="btn btn-default" href="{{ review.album.get_absolute_url }}">{% trans "view album" %}</a>
+            <a class="button button--icon" href="{{ review.album.get_absolute_url }}">
+                <i class="fa fa-camera"></i>
+                {% trans "view album" %}
+            </a>
         {% endif %}
     </footer>
 </article>

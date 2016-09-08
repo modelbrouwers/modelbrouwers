@@ -35,8 +35,8 @@
             <div class="row">
                 {% for kit in kits %}
                     <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2">
-                        <article class="kit__preview" data-id="{{ kit.id }}">
-                            <span class="h5 kit__preview__name" title="{{ kit.name }}">
+                        <article class="kit-preview" data-id="{{ kit.id }}">
+                            <span class="h5 kit-preview__name" title="{{ kit.name }}">
                                 <strong>{{ kit.name }}</strong>
                             </span>
                             {% if kit.has_box_image %}
@@ -47,7 +47,7 @@
                                 <img src="{% static "images/thumb.png" %}" class="img-responsive">
                             {% endif %}
 
-                            <span class="kit__preview__details">
+                            <span class="kit-preview__details">
                             {{ kit.brand }}, {{ kit.scale }}{% if kit.category %}, {{ kit.category }}{% endif %}{% if kit.kit_number %}, <em>{{ kit.kit_number }}</em>
                                 {% endif %}
                             </span>

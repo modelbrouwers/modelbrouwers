@@ -3,13 +3,21 @@
   @include border-radius(4px);
   border: 1px solid transparent;
 
+  display: inline-block;
+
+  background-color: $main-light-blue;
+  color: $white;
+
   text-align: center;
   padding: 6px 12px;
   font-weight: bold;
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus {
     cursor: pointer;
     text-decoration: underline;
+    color: $white;
   }
 
   &--icon {
