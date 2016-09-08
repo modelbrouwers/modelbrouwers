@@ -28,7 +28,7 @@
 
     <figure class="kit__boxart">
         {% if kit.has_box_image %}
-            {% thumbnail kit.box_image "800x600" crop="center" as im %}
+            {% thumbnail kit.box_image "800x600" as im %}
                 <img src="{{ im.url }}" class="kit__boxart-image">
             {% endthumbnail %}
         {% else %}

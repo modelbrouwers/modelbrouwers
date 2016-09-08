@@ -1477,6 +1477,7 @@ input[type="range"] + output {
 /* line 2, ../../sass/components/kitreviews/_review.scss */
 .review .review__body {
   font-size: 1.14em;
+  text-align: justify;
 }
 
 /* line 2, ../../sass/partials/apps/_albums.scss */

@@ -4,7 +4,15 @@
 {% block reviews %}
     <section class="review">
 
-        <h2 id="review-body">{% trans "Review" %}</h2>
+        <h2 id="review-body">
+            {% trans "Review" %}
+            <small>
+                &ndash; {{ review.reviewer_name }}
+                ({% blocktrans trimmed with time_ago=review.submitted_on|timesince%}
+                    {{ time_ago }} ago
+                {% endblocktrans %})
+            </small>
+        </h2>
         <div class="review__body">{{ review.render_raw_text|safe }}</div>
 
         <h2>{% trans "Ratings" %}</h2>
