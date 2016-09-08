@@ -65,7 +65,7 @@ describe('Add Kit', () => {
             expect(kitSearch.getKitFilters(node)).to.be.null;
 
             // Select an option
-            document.getElementById('id___modelkitselect-brand').value = '1';
+            document.getElementById(`id_${conf.prefix}-brand`).value = '1';
 
             expect(kitSearch.getKitFilters(node)).to.not.be.null;
             expect(kitSearch.getKitFilters(node)).to.deep.equal({brand: '1', scale: '', name: ''});
