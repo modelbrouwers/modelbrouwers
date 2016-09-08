@@ -8,7 +8,11 @@ module.exports = function(config) {
         frameworks: ['jspm', 'mocha', 'chai', 'fixture'],
 
         // list of files / patterns to load in the browser
-        files: [],
+        files: [
+            {
+                pattern: 'src/js_tests/**/fixtures/*.html',
+            },
+        ],
 
         jspm: {
             config: "src/static/config.js",

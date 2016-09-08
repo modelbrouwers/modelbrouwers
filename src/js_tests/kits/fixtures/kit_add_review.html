@@ -54,3 +54,49 @@
         </div>
     </div>
 </div>
+
+
+<div class="model-kit-select" data-allow-multiple="0" data-htmlname="model_kit">
+
+    <label id="label_id_model_kit" for="id_model_kit" class="control-label col-sm-2 required">
+        Select a kit
+    </label>
+
+    <div class="col-sm-10">
+        <div class="row" data-filters="true">
+            <div class="col-xs-12 col-sm-4">
+                <!-- brand select -->
+
+                <select name="__modelkitselect-brand" id="id___modelkitselect-brand" class="form-control ">
+                    <option value="">---------</option>
+                    <option value="2">rr</option>
+                    <option value="3">t</option>
+                    <option value="1">TestBrand</option>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <!-- scale select -->
+
+                <select name="__modelkitselect-scale" id="id___modelkitselect-scale" class="form-control ">
+                    <option value="">---------</option>
+                    <option value="1">1:1</option>
+                    <option value="2">1:3</option>
+                </select>
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+                <!-- search box -->
+                <input type="text" name="__modelkitselect-name" id="id___modelkitselect-name" value=""
+                       class="form-control   " placeholder="filter by name">
+            </div>
+        </div>
+        <div class="kit-suggestions row">
+            <div class="text-center add-kit col-xs-12">
+                <a href="#" data-target="#add-kit-modal">
+                    <h3>… or add a new kit</h3>
+                    <i class="fa fa-plus fa-5x"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

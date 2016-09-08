@@ -2,11 +2,17 @@
 
 'use strict';
 
-import View from 'kits/js/modelkit.lib.js';
+import Brand from 'kits/js/models/Brand';
+import ModelKit from 'kits/js/models/ModelKit';
+import {Scale, cleanScale} from 'kits/js/models/Scale';
+import {
+    AddDefaultsFiller, Autocomplete,
+    KitSearch, NewKitSubmitter
+} from 'kits/js/modelkit.lib.js';
 
-describe('Test fixtures', () => {
+describe('Add Kit', () => {
 
-    let result;
+    let result, conf;
 
 
     before(function() {
@@ -15,7 +21,29 @@ describe('Test fixtures', () => {
 
 
     beforeEach(() => {
-        result = fixture.load('kit_modal.html');
+        result = fixture.load('kit_add_review.html');
+
+        conf = {
+            prefix: '__modelkitselect',
+            prefix_add: '__modelkitadd',
+            htmlname: null,
+            minChars: 2,
+            add_modal: '#add-kit-modal',
+            isMulti: false,
+            typeahead: {
+                brand: {
+                    display: 'name',
+                    param: 'name',
+                    minLength: 2
+                },
+                scale: {
+                    display: '__unicode__',
+                    param: 'scale',
+                    sanitize: cleanScale,
+                    minLength: 1
+                },
+            }
+        };
     });
 
     afterEach(() => {
@@ -24,6 +52,25 @@ describe('Test fixtures', () => {
 
     it('should load fixture correctly', () => {
         expect(fixture.el.firstChild).to.equal(result[0]);
+    });
+
+    describe('getKitFilters', function() {
+
+        it('should return correct filters', ()=> {
+
+            let kitSearch = new KitSearch(conf, '.model-kit-select');
+            let node = document.querySelector('[data-filters="true"]');
+
+            // Nothing is selected, should return null
+            expect(kitSearch.getKitFilters(node)).to.be.null;
+
+            // Select an option
+            document.getElementById('id___modelkitselect-brand').value = '1';
+
+            expect(kitSearch.getKitFilters(node)).to.not.be.null;
+            expect(kitSearch.getKitFilters(node)).to.deep.equal({brand: '1', scale: '', name: ''});
+        });
+
     });
 });
 
