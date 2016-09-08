@@ -1379,6 +1379,23 @@ input[type="range"] + output {
   margin-top: 0;
 }
 
+/* line 3, ../../sass/components/kitreviews/_find-kit-form.scss */
+.find-kit-form .find-kit-form__button-search {
+  margin-right: 1em;
+}
+/* line 7, ../../sass/components/kitreviews/_find-kit-form.scss */
+.find-kit-form .find-kit-form__button-add-kit {
+  margin-left: 1em;
+}
+@media (max-width: 768px) {
+  /* line 12, ../../sass/components/kitreviews/_find-kit-form.scss */
+  .find-kit-form .find-kit-form__button-search, .find-kit-form .find-kit-form__button-add-kit {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* line 1, ../../sass/components/kitreviews/_review-list.scss */
 .review-list {
   padding-top: 1em;
@@ -1433,6 +1450,24 @@ input[type="range"] + output {
   background: -moz-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
   background: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0), #ffffff);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), #ffffff);
+}
+@media (max-width: 768px) {
+  /* line 53, ../../sass/components/kitreviews/_review-preview.scss */
+  .review-preview .review-preview__rating {
+    display: block;
+    margin-left: 0;
+    margin-top: 0.5em;
+  }
+  /* line 59, ../../sass/components/kitreviews/_review-preview.scss */
+  .review-preview .button + .button {
+    margin-bottom: 0.5em;
+  }
+}
+@media (max-width: 992px) {
+  /* line 65, ../../sass/components/kitreviews/_review-preview.scss */
+  .review-preview .review-preview__details {
+    text-align: left;
+  }
 }
 
 /* line 1, ../../sass/components/kitreviews/_review-ratings.scss */
@@ -2236,16 +2271,6 @@ body.groupbuilds .participants tr.finished .fa-check {
   padding-top: 7px;
   padding-bottom: 7px;
   margin-bottom: 0;
-}
-
-/* line 10, ../../sass/partials/apps/_kitreviews.scss */
-.button--find-kit {
-  margin-right: 1em;
-}
-
-/* line 14, ../../sass/partials/apps/_kitreviews.scss */
-.button--add-kit {
-  margin-left: 1em;
 }
 
 /* line 3, ../../sass/partials/apps/_users.scss */

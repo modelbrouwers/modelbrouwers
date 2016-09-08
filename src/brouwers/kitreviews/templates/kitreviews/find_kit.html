@@ -4,7 +4,7 @@
 {% block content %}
     <h3>{% trans 'Find model kit(s) &dash; Enter your search parameters' %}</h3>
 
-    <form action="{% url 'kitreviews:find_kit' %}" method="get">
+    <form action="{% url 'kitreviews:find_kit' %}" method="get" class="find-kit-form">
         {{ form.non_field_errors }}
         {% include "kitreviews/find_kit_form.html" %}
     </form>
