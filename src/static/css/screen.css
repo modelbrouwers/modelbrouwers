@@ -1378,6 +1378,10 @@ input[type="range"] + output {
   display: block;
   margin-top: 0;
 }
+/* line 19, ../../sass/components/kits/_kit-preview.scss */
+.kit-preview .kit-preview__image {
+  text-align: center;
+}
 
 /* line 3, ../../sass/components/kitreviews/_find-kit-form.scss */
 .find-kit-form .find-kit-form__button-search {
