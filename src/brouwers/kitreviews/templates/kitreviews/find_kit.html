@@ -41,11 +41,11 @@
                             </span>
                             <figure class="kit-preview__image">
                                 {% if kit.has_box_image %}
-                                    {% thumbnail kit.box_image "300x225" as im %}
-                                        <img src="{{ im.url }}" class="img-responsive">
+                                    {% thumbnail kit.box_image "300x225" padding=True as im %}
+                                        <img src="{{ im.url }}" class="img-responsive center-block">
                                     {% endthumbnail %}
                                 {% else %}
-                                    <img src="{% static "images/thumb.png" %}" class="img-responsive">
+                                    <img src="{% static "images/thumb.png" %}" class="img-responsive center-block">
                                 {% endif %}
                             </figure>
 

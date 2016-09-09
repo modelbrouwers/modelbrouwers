@@ -60,7 +60,7 @@
                         </span>
 
                             {% if kit.box_image %}
-                                {% thumbnail kit.box_image "600x400" as im %}
+                                {% thumbnail kit.box_image "600x400" padding=True as im %}
                                     <img src="{{ im.url }}" class="img-responsive">
                                 {% endthumbnail %}
                             {% else %}
