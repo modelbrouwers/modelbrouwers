@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
 "PO-Revision-Date: 2014-05-29 21:57+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: Nederlands <LL@li.org>\n"
@@ -23,74 +23,74 @@ msgstr ""
 msgid "Banning"
 msgstr ""
 
-#: models.py:17
+#: models.py:18
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:18
+#: models.py:22
 msgid "ip"
 msgstr "ip-adres"
 
-#: models.py:19
+#: models.py:23
 msgid "Ip address to ban."
 msgstr "IP-adres om te verbannen."
 
-#: models.py:21
+#: models.py:25
 msgid "expiry date"
 msgstr "vervaldatum"
 
-#: models.py:23
+#: models.py:27
 msgid "Date the ban expires. Leave blank for permabans."
 msgstr ""
 "Datum waarop de ban vervalt. Laat leeg om permanente bans in te steken."
 
-#: models.py:25
+#: models.py:29
 msgid "reason (internal)"
 msgstr "reden (intern)"
 
-#: models.py:27
+#: models.py:31
 msgid "reason"
 msgstr "reden"
 
-#: models.py:28
+#: models.py:32
 msgid "This reason will be shown to the banned user."
 msgstr "Deze reden is zichtbaar voor de verbannen gebruiker."
 
-#: models.py:30
+#: models.py:34
 msgid "automatically created?"
 msgstr "automatisch aangemaakt?"
 
-#: models.py:33
+#: models.py:37
 msgid "ban"
 msgstr "verbanning"
 
-#: models.py:34
+#: models.py:38
 msgid "bans"
 msgstr "verbanningen"
 
-#: models.py:39
+#: models.py:43
 msgid "never"
 msgstr "nooit"
 
-#: models.py:45
+#: models.py:49
 msgid "ip ban"
 msgstr "IP-verbanning"
 
-#: models.py:46
+#: models.py:50
 msgid "account ban"
 msgstr "accountverbanning"
 
-#: models.py:50
+#: models.py:54
 #, python-format
 msgid "Ban: %(username)s"
 msgstr "Verbanning: %(username)s"
 
-#: models.py:52
+#: models.py:56
 #, python-format
 msgid "Ban: %(ip)s"
 msgstr "Verbanning: %(ip)s"
 
-#: models.py:57
+#: models.py:61
 msgid "Submit either an user or IP address."
 msgstr "Geef ofwel een gebruiker in, ofwel een IP-adres"
 

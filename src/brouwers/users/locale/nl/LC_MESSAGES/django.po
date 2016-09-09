@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
 "PO-Revision-Date: 2015-08-25 08:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,63 +23,63 @@ msgstr ""
 msgid "Users"
 msgstr "Gebruikers"
 
-#: forms/auth.py:24 tests/test_signup_login.py:124
+#: forms/auth.py:25 tests/test_signup_login.py:125
 msgid "A user with that username already exists."
 msgstr "Deze gebruikersnaam is al bezet."
 
-#: forms/auth.py:25
+#: forms/auth.py:26
 msgid "The two password fields didn't match."
 msgstr "De twee wachtwoordvelden kwamen niet overeen."
 
-#: forms/auth.py:26
+#: forms/auth.py:27
 msgid "This e-mail address is already in use."
 msgstr "Dit e-mailadres is al in gebruik."
 
-#: forms/auth.py:28
+#: forms/auth.py:29
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: forms/auth.py:31
+#: forms/auth.py:32
 msgid "Password confirmation"
 msgstr "Wachtwoord (bevestiging)"
 
-#: forms/auth.py:33
+#: forms/auth.py:34
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord als hierboven in, ter bevestiging."
 
-#: forms/auth.py:79
+#: forms/auth.py:80
 msgid "Answer"
 msgstr "Antwoord"
 
-#: forms/auth.py:80
+#: forms/auth.py:81
 msgid "I have read and accepted the registration terms"
 msgstr "Ik heb de registratievoorwaarden gelezen en geaccepteerd"
 
-#: forms/auth.py:99
+#: forms/auth.py:100
 msgid "Invalid answer. Make sure to read the entire question!"
 msgstr "Ongeldig antwoord. Lees de volledige vraag!"
 
-#: forms/auth.py:101
+#: forms/auth.py:102
 msgid "You provided an incorrect answer to the anti-bot question."
 msgstr "Je gaf een ongeldig antwoord op de anti-bot vraag."
 
-#: forms/auth.py:109
+#: forms/auth.py:110
 msgid "Username or email"
 msgstr "Gebruikersnaam of e-mail"
 
-#: forms/auth.py:113
+#: forms/auth.py:114
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: forms/auth.py:132
+#: forms/auth.py:133
 msgid "Fill at least one field."
 msgstr "Vul minstens een veld in."
 
-#: forms/auth.py:134
+#: forms/auth.py:135
 msgid "We couldn't find a matching user"
 msgstr "Er kon geen overeenkomstige gebruiker gevonden worden"
 
-#: forms/auth.py:153
+#: forms/auth.py:154
 msgid ""
 "Multiple accounts were found, this shouldn't happen. Please contact the "
 "admins (see e-mail in the page footer)."
@@ -87,7 +87,7 @@ msgstr ""
 "Er werden meerdere accounts gevonden, dit zou niet mogen gebeuren. Gelieve "
 "contact op te nemen met de beheerders (e-mailadres staat onderaan de pagina)."
 
-#: forms/auth.py:162
+#: forms/auth.py:163
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
 "reactivate with the link sent by e-mail. Check your spamfolder to see if you "
@@ -97,58 +97,58 @@ msgstr ""
 "activeert met de link verstuurd via e-mail. Controleer je 'ongewenste "
 "berichten' om te zien of je een e-mail gemist hebt."
 
-#: forms/auth.py:185
+#: forms/auth.py:186
 msgid "An e-mail was sent with a link to reset your password."
 msgstr ""
 "Er werd een e-mail verstuurd met een link om je wachtwoord te resetten."
 
-#: mail.py:11
+#: mail.py:12
 #, python-brace-format
 msgid "Your registration on {domain}"
 msgstr "Je registratie op {domain}"
 
-#: mail.py:30
+#: mail.py:31
 #, python-brace-format
 msgid "{domain} account creation - activation required"
 msgstr "{domain} account aangemaakt - activatie nodig"
 
-#: models.py:76
+#: models.py:78
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:77
+#: models.py:79
 msgid "Required. 30 characters or fewer. All characters allowed."
 msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
 
-#: models.py:78
+#: models.py:80
 msgid "cleaned username"
 msgstr "cleane gebruikersnaam"
 
-#: models.py:79
+#: models.py:81
 msgid "first name"
 msgstr "voornaam"
 
-#: models.py:80
+#: models.py:82
 msgid "last name"
 msgstr "familienaam"
 
-#: models.py:81
+#: models.py:83
 msgid "email address"
 msgstr "e-mailadres"
 
-#: models.py:83
+#: models.py:85
 msgid "staff status"
 msgstr "stafstatus"
 
-#: models.py:84
+#: models.py:86
 msgid "Designates whether the user can log into this admin site."
 msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
 
-#: models.py:87
+#: models.py:89
 msgid "active"
 msgstr "actief"
 
-#: models.py:88
+#: models.py:90
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -156,19 +156,19 @@ msgstr ""
 "Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
 "van gebruikers te verwijderen."
 
-#: models.py:90
+#: models.py:92
 msgid "date joined"
 msgstr "toegetreden"
 
-#: models.py:93
+#: models.py:95
 msgid "forum user id"
 msgstr "forumgebruikerid"
 
-#: models.py:101
+#: models.py:103
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:102
+#: models.py:104
 msgid "users"
 msgstr "gebruikers"
 
@@ -554,11 +554,11 @@ msgstr ""
 "gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels "
 "en voorwaarden."
 
-#: tests/test_views.py:43 views.py:230
+#: tests/test_views.py:43 views.py:236
 msgid "Your profile data has been updated."
 msgstr "Je profiel is bijgewerkt."
 
-#: views.py:78
+#: views.py:83
 msgid ""
 "We found an existing forum account for this username, but it appears that "
 "were was no coupling account yet. We automatically created a coupling "
@@ -573,15 +573,15 @@ msgstr ""
 "gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
 "mogelijk te maken voor de volledige website."
 
-#: views.py:104
+#: views.py:109
 msgid "You have been logged out."
 msgstr "Je bent uitgelogd."
 
-#: views.py:106
+#: views.py:111
 msgid "Can't log you out, you weren't logged in!"
 msgstr "Je kan niet uitloggen, je was niet ingelogd!"
 
-#: views.py:256
+#: views.py:262
 msgid "Your password was changed."
 msgstr "Je wachtwoord is gewijzigd."
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
 "PO-Revision-Date: 2016-03-01 22:45+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.8\n"
 
-#: apps.py:7 templates/albums/base.html.py:3 templates/albums/base.html.py:14
+#: apps.py:7 templates/albums/base.html:3 templates/albums/base.html:14
 #: templates/albums/handlebars/forum-sidebar.hbs:14
 msgid "Albums"
 msgstr "Albums"
@@ -28,47 +28,31 @@ msgstr "Albums"
 msgid "image url"
 msgstr "link naar afbeelding"
 
-#: forms.py:52 tests/test_crud.py:61
+#: forms.py:52 tests/test_crud.py:62
 msgid "You already have an album with this title."
 msgstr "Je hebt al een album met deze titel."
 
-#: migrations/0002_auto_20150608_0900.py:11
-msgid "Black"
-msgstr "Zwart"
-
-#: migrations/0002_auto_20150608_0900.py:12
-msgid "White"
-msgstr "Wit"
-
-#: migrations/0002_auto_20150608_0900.py:13
-msgid "Light grey"
-msgstr "Lichtgrijs"
-
-#: migrations/0002_auto_20150608_0900.py:14
-msgid "Dark grey"
-msgstr "Donkergrijs"
-
-#: models.py:22
+#: models.py:23
 msgid "name"
 msgstr "naam"
 
-#: models.py:23 models.py:77
+#: models.py:24 models.py:83
 msgid "order"
 msgstr "volgorde"
 
-#: models.py:25
+#: models.py:26
 msgid "url"
 msgstr "link"
 
-#: models.py:26
+#: models.py:27
 msgid "on frontpage"
 msgstr "op de voorpagina"
 
-#: models.py:27
+#: models.py:28
 msgid "public"
 msgstr "publiek?"
 
-#: models.py:28
+#: models.py:29
 msgid ""
 "If the category is public, regular users can add their albums to the "
 "category. If it isn't, only people with admin permissions can do so."
@@ -77,52 +61,52 @@ msgstr ""
 "toevoegen. Anders kunnen enkel gebruikers met administratorrechten albums "
 "toevoegen aan deze categorie."
 
-#: models.py:34 models.py:56
+#: models.py:35 models.py:60
 msgid "category"
 msgstr "categorie"
 
-#: models.py:35
+#: models.py:36
 msgid "categories"
 msgstr "categorieën"
 
-#: models.py:45
+#: models.py:46
 msgctxt "write permissions for owner"
 msgid "owner"
 msgstr "mezelf"
 
-#: models.py:47
+#: models.py:48
 msgid "everyone"
 msgstr "iedereen"
 
-#: models.py:50
+#: models.py:53
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:51 models.py:52
+#: models.py:55 models.py:56
 msgid "album title"
 msgstr "albumtitel"
 
-#: models.py:53
+#: models.py:57
 msgid "album description"
 msgstr "albumbeschrijving"
 
-#: models.py:62
+#: models.py:67
 msgid "Image to use as album cover."
 msgstr "Afbeelding als albumcover"
 
-#: models.py:64
+#: models.py:69
 msgid "cover"
 msgstr "cover"
 
-#: models.py:69 models.py:182
+#: models.py:75 models.py:189
 msgid "last modified"
 msgstr "laatst gewijzigd"
 
-#: models.py:79
+#: models.py:85
 msgid "Public?"
 msgstr "Publiek?"
 
-#: models.py:80
+#: models.py:86
 msgid ""
 "Can this album be viewed by everyone? Untick to make the album available "
 "only to yourself."
@@ -130,129 +114,129 @@ msgstr ""
 "Is dit album zichtbaar voor iedereen? Vink uit om het album enkel voor "
 "jezelf zichtbaar te maken."
 
-#: models.py:85
+#: models.py:91
 msgid "build report topic"
 msgstr "brouwverslag"
 
-#: models.py:87
+#: models.py:93
 msgid "appreciation"
 msgstr "waardering"
 
-#: models.py:90
+#: models.py:96
 msgid "writable to"
 msgstr "schrijfbaar voor"
 
-#: models.py:92
+#: models.py:98
 msgid "Specify who can upload images in this album"
 msgstr "Gebruikers die foto's kunnen toevoegen aan dit album."
 
-#: models.py:99 models.py:143
+#: models.py:105 models.py:149
 msgid "album"
 msgstr "album"
 
-#: models.py:100
+#: models.py:106
 msgid "albums"
 msgstr "albums"
 
-#: models.py:105
+#: models.py:111
 msgid "Can edit/remove album"
 msgstr "Kan album bewerken/verwijderen"
 
-#: models.py:106
+#: models.py:112
 msgid "Can see all albums"
 msgstr "Kan alle albums zien"
 
-#: models.py:107
+#: models.py:113
 msgid "Can use new albums"
 msgstr "Kan nieuwe albums gebruiken"
 
-#: models.py:144
+#: models.py:150
 msgid "Album for which the group has write permissions."
 msgstr "Album waarin de groep foto's mag toevoegen."
 
-#: models.py:147
+#: models.py:153
 msgid "users"
 msgstr "gebruikers"
 
-#: models.py:148
+#: models.py:154
 msgid "Users who can write in this album."
 msgstr "Gebruikers die foto's kunnen toevoegen aan dit album."
 
-#: models.py:153
+#: models.py:159
 msgid "album group"
 msgstr "albumgroep"
 
-#: models.py:154
+#: models.py:160
 msgid "album groups"
 msgstr "albumgroepen"
 
-#: models.py:158
+#: models.py:164
 #, python-format
 msgid "Write permissions for '%(album)s'"
 msgstr "Schrijfrechten voor '%(album)s'"
 
-#: models.py:172
+#: models.py:179
 msgid "width"
 msgstr "breedte"
 
-#: models.py:173
+#: models.py:180
 msgid "height"
 msgstr "hoogte"
 
-#: models.py:175
+#: models.py:182
 msgid "image"
 msgstr "afbeelding"
 
-#: models.py:178
+#: models.py:185
 msgid "photo description"
 msgstr "beschrijving"
 
-#: models.py:191
+#: models.py:198
 msgid "Photo"
 msgstr "Foto"
 
-#: models.py:192 templates/albums/handlebars/forum-sidebar.hbs.py:24
+#: models.py:199 templates/albums/handlebars/forum-sidebar.hbs:24
 msgid "Photos"
 msgstr "Foto's"
 
-#: models.py:226
+#: models.py:233
 msgid "start uploading automatically?"
 msgstr "meteen beginnen uploaden"
 
-#: models.py:227
+#: models.py:234
 msgid "Start upload automatically when files are selected"
 msgstr "Automatisch beginnen uploaden zodra bestanden geselecteerd zijn"
 
-#: models.py:231
+#: models.py:238
 msgid "sidebar number of photos per page"
 msgstr "aantal foto's per pagina in de zijbalk"
 
-#: models.py:242
+#: models.py:249
 msgid "User preferences"
 msgstr "Gebruikersvoorkeuren"
 
-#: models.py:248
+#: models.py:255
 #, python-format
 msgid "Preferences for %(user)s"
 msgstr "Voorkeuren voor %(user)s"
 
-#: models.py:273
+#: models.py:281
 msgid "user who downloaded the album"
 msgstr "gebruiker die het album downloadde"
 
-#: models.py:274
+#: models.py:284
 msgid "timestamp"
 msgstr "tijdstip"
 
-#: models.py:278
+#: models.py:288
 msgid "album download"
 msgstr "albumdownload"
 
-#: models.py:279
+#: models.py:289
 msgid "album downloads"
 msgstr "albumdownloads"
 
-#: models.py:283
+#: models.py:293
 #, python-format
 msgid "Download of %(album)s by %(username)s"
 msgstr "Download van %(album)s door %(username)s"
@@ -331,7 +315,7 @@ msgstr ""
 "Je kan echter wel rechten instellen zodat anderen toegang hebben tot je "
 "album."
 
-#: templates/albums/album/create.html:32 templates/albums/base.html.py:31
+#: templates/albums/album/create.html:32 templates/albums/base.html:31
 #: templates/albums/upload.html:25
 msgid "Create album"
 msgstr "Maak nieuw album"
@@ -400,7 +384,7 @@ msgstr ""
 "aanmaken en foto's kan uploaden. De hoeveelheid albums of foto's is "
 "onbeperkt."
 
-#: templates/albums/base.html:30 templates/albums/upload.html.py:85
+#: templates/albums/base.html:30 templates/albums/upload.html:85
 msgid "Upload"
 msgstr "Uploaden"
 
@@ -462,7 +446,7 @@ msgstr "Recent gewijzigde albums"
 msgid "Latest uploads"
 msgstr "Laatste uploads"
 
-#: templates/albums/my_albums.html:6 templates/albums/sniplates.html.py:21
+#: templates/albums/my_albums.html:6 templates/albums/sniplates.html:21
 msgid "My albums"
 msgstr "Mijn albums"
 
@@ -689,7 +673,7 @@ msgid ""
 msgstr ""
 "Slepen van bestanden: niet beschikbaar in IE 8 en 9 en mobiele apparaten."
 
-#: templates/albums/upload.html:55 templates/albums/upload.html.py:64
+#: templates/albums/upload.html:55 templates/albums/upload.html:64
 msgid "Close"
 msgstr "Sluiten"
 
@@ -737,23 +721,35 @@ msgstr ""
 "Gebouwd door &lsquo;%(builder)s&rsquo;, won dit project de eerste plaats in "
 "de categorie &lsquo;%(category)s&rsquo;."
 
-#: views/edit.py:23
+#: views/edit.py:24
 msgid "You need to create an album before you can upload photos"
 msgstr "Je moet een album aanmaken voor je foto's kan uploaden"
 
-#: views/edit.py:89
+#: views/edit.py:90
 #, python-brace-format
 msgid "The album was deleted. <a href=\"{0}\">Undo</a>"
 msgstr "Het album werd verwijdered. <a href=\"{0}\">Ongedaan maken</a>"
 
-#: views/edit.py:139
+#: views/edit.py:140
 #, python-brace-format
 msgid "The photo was deleted. <a href=\"{0}\">Undo</a>"
 msgstr "De foto werd verwijdered. <a href=\"{0}\">Ongedaan maken</a>"
 
-#: views/edit.py:170
+#: views/edit.py:171
 msgid "The changes have been saved."
 msgstr "De wijzigingen zijn toegepast."
+
+#~ msgid "Black"
+#~ msgstr "Zwart"
+
+#~ msgid "White"
+#~ msgstr "Wit"
+
+#~ msgid "Light grey"
+#~ msgstr "Lichtgrijs"
+
+#~ msgid "Dark grey"
+#~ msgstr "Donkergrijs"
 
 #~ msgid "collapse sidebar"
 #~ msgstr "standaard ingeklapte zijbalk"

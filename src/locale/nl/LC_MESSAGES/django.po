@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
-"PO-Revision-Date: 2016-03-01 22:44+0020\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
+"PO-Revision-Date: 2016-09-09 19:49+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translated-Using: django-rosetta 0.7.8\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: conf/settings/base.py:25
+#: conf/settings/base.py:26
 msgid "English"
 msgstr "Engels"
 
-#: conf/settings/base.py:26
+#: conf/settings/base.py:27
 msgid "Dutch"
 msgstr "Nederlands"
 
@@ -43,17 +43,28 @@ msgstr ""
 "De opgevraagde pagina kan niet getoond worden, je hebt onvoldoende rechten. "
 "Mogelijk moet je inloggen om de inhoud te kunnen zien."
 
-#: templates/404.html:39
+#: templates/404.html:9
+msgid "404: page not found"
+msgstr "404: pagina niet gevonden"
+
+#: templates/404.html:22
 msgid "Oops... a 404!"
 msgstr "Oeps... een 404!"
 
-#: templates/404.html:46
-#, python-format
+#: templates/404.html:25
+#, fuzzy, python-format
+#| msgid ""
+#| "The requested page could not be found or isn't accessible because of "
+#| "limited user rights. Click on the big logo above or click <a href=\"/"
+#| "\">here</a> to return to the homepage. Alternatively, use the back button "
+#| "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
+#| "previous page."
 msgid ""
 "The requested page could not be found or isn't accessible because of limited "
-"user rights. Click on the big logo above or click <a href=\"/\">here</a> to "
-"return to the homepage. Alternatively, use the back button in your browser "
-"or click <a href=\"%(return)s\">here</a> to return to the previous page."
+"user rights. Click on the big logo above or click <a href=\"%(url_index)s"
+"\">here</a> to return to the homepage. Alternatively, use the back button in "
+"your browser or click <a href=\"%(return)s\">here</a> to return to the "
+"previous page."
 msgstr ""
 "De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
 "doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
@@ -65,7 +76,7 @@ msgstr ""
 msgid "Modelbrouwers.nl admin"
 msgstr "Modelbrouwers.nl administratie"
 
-#: templates/admin/base_site.html:44 templates/base.html.py:114
+#: templates/admin/base_site.html:44 templates/base.html:114
 msgid "Builds"
 msgstr "Brouwverslagen"
 
@@ -77,7 +88,7 @@ msgstr "Vind een gebruiker"
 msgid "Materials and knowledge for scale modelling."
 msgstr "Materialen en kennisbank voor de modelbouw."
 
-#: templates/base.html:81 templates/nav_top.html.py:14
+#: templates/base.html:81 templates/nav_top.html:14
 msgid "Back to the Modelbrouwers.nl homepage"
 msgstr "Terug naar de Modelbrouwers.nl homepage"
 
@@ -97,15 +108,15 @@ msgstr "Secret Santa"
 msgid "Migrations"
 msgstr "Migraties"
 
-#: templates/base.html:125 templates/base_html5.html.py:92
+#: templates/base.html:125 templates/base_html5.html:92
 msgid "Login"
 msgstr "Inloggen"
 
-#: templates/base.html:128 templates/base_html5.html.py:94
+#: templates/base.html:128 templates/base_html5.html:94
 msgid "Register"
 msgstr "Registreren"
 
-#: templates/base.html:134 templates/base_html5.html.py:90
+#: templates/base.html:134 templates/base_html5.html:90
 msgid "logout"
 msgstr "uitloggen"
 
@@ -128,11 +139,11 @@ msgstr ""
 msgid "logged in as <a href=\"%(profile_url)s\">%(user)s</a>"
 msgstr "ingelogd als <a href=\"%(profile_url)s\">%(user)s</a>"
 
-#: templates/default.form:140 templates/horizontal.form.py:117
+#: templates/default.form:140 templates/horizontal.form:122
 msgid "Pick an option"
 msgstr "Kies een optie"
 
-#: templates/default.form:207 templates/horizontal.form.py:183
+#: templates/default.form:207 templates/horizontal.form:224
 #: templates/stacked.form:55
 #, python-format
 msgid ""
@@ -155,7 +166,7 @@ msgstr "Er zijn foutmeldingen bij de formulieren"
 msgid "Submit"
 msgstr "Versturen"
 
-#: templates/form_in_table.html:35 templates/form_in_table_rows.html.py:19
+#: templates/form_in_table.html:35 templates/form_in_table_rows.html:19
 msgid "Fix the error:"
 msgstr "Los het probleem op:"
 
@@ -235,9 +246,65 @@ msgstr "van"
 msgid "Last page"
 msgstr "Laatste pagina"
 
+#: templates/santa_removed.html:4
+msgid "Oops! This has been removed..."
+msgstr "Oeps! Dit is verwijderd..."
+
+#: templates/santa_removed.html:8
+msgid ""
+"Sorry! The Secret Santa application is no longer available. Since it was "
+"barely used, this has been removed."
+msgstr ""
+"Sorry! De Secret Santa app is niet meer beschikbaar. Door het weinige "
+"gebruik is deze verwijderd."
+
+#: templates/santa_removed.html:15
+#, fuzzy, python-format
+#| msgid ""
+#| "The requested page could not be found or isn't accessible because of "
+#| "limited user rights. Click on the big logo above or click <a href=\"/"
+#| "\">here</a> to return to the homepage. Alternatively, use the back button "
+#| "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
+#| "previous page."
+msgid ""
+"Click on the big logo above or click <a href=\"%(url_index)s\">here</a> to "
+"return to the homepage. Alternatively, use the back button in your browser "
+"or click <a href=\"%(return)s\">here</a> to return to the previous page."
+msgstr ""
+"De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
+"doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
+"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
+"de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
+"te gaan naar de vorige pagina."
+
 #: templates/search_form.html:16
 msgid "Search"
 msgstr "Zoek"
+
+#: templates/shirts_removed.html:4
+msgid "Oops! There is no more stock..."
+msgstr "Oeps! Er is geen voorraad meer..."
+
+#: templates/shirts_removed.html:8
+#, fuzzy, python-format
+#| msgid ""
+#| "The requested page could not be found or isn't accessible because of "
+#| "limited user rights. Click on the big logo above or click <a href=\"/"
+#| "\">here</a> to return to the homepage. Alternatively, use the back button "
+#| "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
+#| "previous page."
+msgid ""
+"Sorry, there are no more shirts in stock, so it's no longer possible to "
+"order them. Click on the big logo above or click <a href=\"%(url_index)s"
+"\">here</a> to return to the homepage. Alternatively, use the back button in "
+"your browser or click <a href=\"%(return)s\">here</a> to return to the "
+"previous page."
+msgstr ""
+"De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
+"doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
+"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
+"de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
+"te gaan naar de vorige pagina."
 
 #~ msgid "Control panel"
 #~ msgstr "Controlepaneel"
