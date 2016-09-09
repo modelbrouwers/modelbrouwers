@@ -2,7 +2,7 @@
 <ul class="list-unstyled review-ratings{% if is_preview %} review-ratings--in-preview{% endif %}">
     {% for rating in ratings %}
         <li class="row">
-            <div class="col-md-2 text-right">
+            <div class="col-md-2 text-right review-rating__label">
                 <strong>{{ rating.prop.name }}</strong>
             </div>
             <div class="col-md-10">

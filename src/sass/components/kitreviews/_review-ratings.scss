@@ -33,4 +33,10 @@
       margin-bottom: 15px;
     }
   }
+
+  @include lte-mobile {
+    .review-rating__label {
+      text-align: left;
+    }
+  }
 }
