@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
 "PO-Revision-Date: 2015-02-10 19:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: admin.py:34
+#: admin.py:35
 msgid "forum profile"
 msgstr "forumprofiel"
 
-#: admin.py:37
+#: admin.py:38
 msgid "Link"
 msgstr "Link"
 
-#: forms/fields.py:16
+#: forms/fields.py:15
 msgid "Enter a valid url"
 msgstr "Geef een geldige url op"
 
@@ -47,138 +47,138 @@ msgstr "Huidig:"
 msgid "Change:"
 msgstr "Wijzig:"
 
-#: models.py:19 models.py:43
+#: models.py:20 models.py:47
 msgid "link id"
 msgstr "linkid"
 
-#: models.py:19
+#: models.py:20
 msgid "HTML id of the base anchor."
 msgstr "HTML-id van de basislink"
 
-#: models.py:20
+#: models.py:21
 msgid "short description"
 msgstr "korte beschrijving"
 
-#: models.py:22
+#: models.py:23
 msgid "enabled"
 msgstr "ingeschakeld"
 
-#: models.py:23
+#: models.py:24
 msgid "Enable the syncing of this link."
 msgstr "Schakel synchronisatie van deze link in."
 
-#: models.py:25
+#: models.py:26
 msgid "from date"
 msgstr "vanaf datum"
 
-#: models.py:25
+#: models.py:26
 msgid "Start date from when this link is enabled."
 msgstr "Startdatum wanneer deze link begint te synchroniseren."
 
-#: models.py:27
+#: models.py:28
 msgid "to date"
 msgstr "tot datum"
 
-#: models.py:28
+#: models.py:29
 msgid "End date from when this link is enabled, this date included."
 msgstr ""
 "Einddatum tot wanneer deze link gesynchroniseerd wordt, datum inbegrepen."
 
-#: models.py:31
+#: models.py:32
 msgid "base forum link"
 msgstr "basis forumlink"
 
-#: models.py:32
+#: models.py:33
 msgid "base forum links"
 msgstr "basis forumlinks"
 
-#: models.py:36
+#: models.py:37
 #, python-format
 msgid "base forum link: %(desc)s"
 msgstr "basis forumlink: %(desc)s"
 
-#: models.py:38
+#: models.py:39
 #, python-format
 msgid "base forum link: %(id)s"
 msgstr "basis forumlink: %(id)s"
 
-#: models.py:42
+#: models.py:44
 msgid "base link"
 msgstr "basislink"
 
-#: models.py:42
+#: models.py:45
 msgid "Link this link syncs with."
 msgstr "Link waarmee deze link synchroniseert."
 
-#: models.py:43
+#: models.py:47
 msgid "HTML id of the anchor to be synced."
 msgstr "HTML id van het link element dat gesynchroniseerd wordt."
 
-#: models.py:46
+#: models.py:50
 msgid "synced forum link"
 msgstr "gesynchroniseerde forumlink"
 
-#: models.py:47
+#: models.py:51
 msgid "synced forum links"
 msgstr "gesynchroniseerde forumlinks"
 
-#: models.py:55 models.py:68
+#: models.py:59 models.py:72
 msgid "forum"
 msgstr "forum"
 
-#: models.py:58
+#: models.py:62
 msgid "build report forum"
 msgstr "brouwverslagforum"
 
-#: models.py:59
+#: models.py:63
 msgid "build report forums"
 msgstr "brouwverslagfora"
 
-#: models.py:63
+#: models.py:67
 msgid "(forum does not exist)"
 msgstr "(forum bestaat niet)"
 
-#: models.py:67
+#: models.py:71
 msgid "name"
 msgstr "naam"
 
-#: models.py:69
+#: models.py:73
 msgid "icon class"
 msgstr "icon class"
 
-#: models.py:72
+#: models.py:76
 msgid "forum category"
 msgstr "forumcategorie"
 
-#: models.py:73
+#: models.py:77
 msgid "forum categories"
 msgstr "forumcategorieën"
 
-#: models.py:86
+#: models.py:90
 msgid "Primary key"
 msgstr "Primary key"
 
-#: models.py:87 models.py:88
+#: models.py:91 models.py:92
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:90
+#: models.py:94
 msgid "email"
 msgstr "emails"
 
-#: models.py:94
+#: models.py:98
 msgid "A hash of the user's email address."
 msgstr "Hash van de gebruikers e-mailadres."
 
-#: models.py:104
+#: models.py:108
 msgid "forum user"
 msgstr "forumgebruiker"
 
-#: models.py:105
+#: models.py:109
 msgid "forum users"
 msgstr "forumgebruikers"
 
-#: models.py:206
+#: models.py:209
 #, python-brace-format
 msgid ""
 "This topic has been inactive for: {0}. Please consider sending the author a "
@@ -187,68 +187,68 @@ msgstr ""
 "Dit topic is inactief sinds: {0}. Overweeg om de auteur een PB te sturen in "
 "plaats van te reageren en het topic onnodig omhoog te schoppen."
 
-#: models.py:216
+#: models.py:219
 msgid "Topic"
 msgstr "Topic"
 
-#: models.py:217
+#: models.py:220
 msgid "Reply"
 msgstr "Antwoord"
 
-#: models.py:220
+#: models.py:223
 msgid "forum id"
 msgstr "forum id"
 
-#: models.py:221
+#: models.py:224
 msgid "minimum number of posts"
 msgstr "minimum aantal posts"
 
-#: models.py:223
+#: models.py:226
 msgid "posting level"
 msgstr "postniveau"
 
-#: models.py:227
+#: models.py:230
 msgid "forum post count restriction"
 msgstr "forum postcount beperking"
 
-#: models.py:228
+#: models.py:231
 msgid "forum post count restrictions"
 msgstr "forum postcount beperkingen"
 
-#: models.py:232
+#: models.py:235
 #, python-format
 msgid "Restriction for %(forum)s"
 msgstr "Beperking voor %(forum)s"
 
-#: models.py:240
+#: models.py:243
 msgid "closed"
 msgstr "gesloten"
 
-#: models.py:241
+#: models.py:244
 msgid "Closed reports need no more attention."
 msgstr "Gesloten reports hebben geen aandacht meer nodig."
 
-#: models.py:244
+#: models.py:247
 msgid "time"
 msgstr "tijd"
 
-#: models.py:245
+#: models.py:248
 msgid "UNIX time when the report was added."
 msgstr "Unix tijdsstempel waarop het report toegevoegd werd."
 
-#: models.py:251
+#: models.py:254
 msgid "report"
 msgstr "report"
 
-#: models.py:252
+#: models.py:255
 msgid "reports"
 msgstr "reports"
 
-#: models.py:255
+#: models.py:258
 msgid "Can see (number of) open reports"
 msgstr "Kan (het aantal) open reports zien"
 
-#: models.py:259
+#: models.py:262
 #, python-format
 msgid "Report %(id)s"
 msgstr "Report %(id)s"
@@ -266,10 +266,10 @@ msgstr "toegestaan"
 msgid "not allowed"
 msgstr "niet toegestaan"
 
-#: views.py:123
+#: views.py:126
 msgid "Add build report"
 msgstr "Brouwverslag toevoegen"
 
-#: views.py:124
+#: views.py:127
 msgid "Nominate for award"
 msgstr "Nomineer voor award"

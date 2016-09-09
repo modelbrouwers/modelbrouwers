@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
-"PO-Revision-Date: 2015-02-10 20:02+0020\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
+"PO-Revision-Date: 2016-09-09 19:44+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,39 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
+"X-Translated-Using: django-rosetta 0.7.12\n"
 
 #: apps.py:7
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
-#: models.py:15
+#: models.py:17
 msgid "The Netherlands"
 msgstr "Nederland"
 
-#: models.py:16
+#: models.py:18
 msgid "Belgium"
 msgstr "België"
 
-#: models.py:17
+#: models.py:19
 msgid "Germany"
 msgstr "Duitsland"
 
-#: models.py:18
+#: models.py:20
 msgid "France"
 msgstr "Frankrijk"
 
-#: models.py:32
+#: models.py:34
 msgid "exclude me from nominations"
 msgstr "sluit me uit van nominaties"
 
-#: models.py:33
+#: models.py:35
 msgid "If checked, you will be excluded from Awards-nominations."
 msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
-
-#: models.py:38
-msgid "Aanvinken als je meedoet"
-msgstr ""
 
 #: models.py:40
 msgid "street name"
@@ -79,19 +75,11 @@ msgstr "provincie"
 msgid "country"
 msgstr "land"
 
-#: models.py:52
-msgid "Dit wil ik graag"
-msgstr ""
-
 #: models.py:53
-msgid "Dit wil ik absoluut niet"
-msgstr ""
-
-#: models.py:57
 msgid "allow social sharing"
 msgstr "sociaal delen toestaan"
 
-#: models.py:58
+#: models.py:54
 msgid ""
 "Checking this gives us permission to share your topics and albums on social "
 "media. Uncheck if you don't want to share."
@@ -99,77 +87,77 @@ msgstr ""
 "Als je dit aanvinkt, dan geef je toestemming om je topics en albums te delen "
 "op sociale media zoals Facebook. Vink dit uit als je dit niet wil."
 
-#: models.py:69
+#: models.py:65
 msgid "userprofile"
 msgstr "gebruikersprofiel"
 
-#: models.py:70
+#: models.py:66
 msgid "userprofiles"
 msgstr "gebruikersprofielen"
 
-#: models.py:95
+#: models.py:91
 msgid "Anti-spambot question"
 msgstr "Anti-spambot vraag"
 
-#: models.py:96
+#: models.py:92
 msgid "Question which must be answered for registration."
 msgstr "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
 
-#: models.py:100 models.py:225
+#: models.py:96 models.py:221
 msgid "language"
 msgstr "taal"
 
-#: models.py:132
+#: models.py:128
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:133
+#: models.py:129
 msgid "email"
 msgstr "E-mailadres"
 
-#: models.py:134
+#: models.py:131
 msgid "registration question"
 msgstr "Registratievraag"
 
-#: models.py:135
+#: models.py:134
 msgid "answer"
 msgstr "antwoord"
 
-#: models.py:136
+#: models.py:135
 msgid "timestamp"
 msgstr "timestamp"
 
-#: models.py:137
+#: models.py:136
 msgid "IP address"
 msgstr "IP adres"
 
-#: models.py:138
+#: models.py:137
 msgid "success"
 msgstr "geslaagd"
 
-#: models.py:142
+#: models.py:141
 msgid "type of visitor"
 msgstr "type bezoeker"
 
-#: models.py:148
+#: models.py:147
 msgid "registration attempt"
 msgstr "registratiepoging"
 
-#: models.py:149
+#: models.py:148
 msgid "registration attempts"
 msgstr "registratiepogingen"
 
-#: models.py:194
+#: models.py:193
 #, python-format
 msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
 msgstr ""
 "Waarschijnlijk spambot, %(num_attempts)s tegenover maximaal %(max)s pogingen."
 
-#: models.py:232
+#: models.py:228
 msgid "announcement"
 msgstr "aankondiging"
 
-#: models.py:233
+#: models.py:229
 msgid "announcements"
 msgstr "aankondigingen"
 

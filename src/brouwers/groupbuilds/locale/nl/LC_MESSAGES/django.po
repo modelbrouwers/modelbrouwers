@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
 "PO-Revision-Date: 2015-08-25 09:01+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,77 +35,77 @@ msgstr "De wachtrij is leeg, goed gedaan!"
 msgid "Groupbuilds without forum"
 msgstr "Groepsbouwen zonder forum"
 
-#: forms.py:9 tests/test_flow.py:110
+#: forms.py:9 tests/test_flow.py:111
 msgid ""
 "The start date cannot be edited if the build is outside of the concept state."
 msgstr ""
 "De startdatum kan niet bewerkt worden als de groepsbouw niet in de concept/"
 "idee fase is."
 
-#: forms.py:10 tests/test_flow.py:111
+#: forms.py:10 tests/test_flow.py:112
 msgid ""
 "The duration cannot be edited if the build is outside of the concept state."
 msgstr ""
 "De duur kan niet bewerkt worden als de groepsbouw niet in de concept/idee "
 "fase is."
 
-#: models.py:21
+#: models.py:22
 msgid "30 days"
 msgstr "30 dagen"
 
-#: models.py:22
+#: models.py:23
 msgid "2 months"
 msgstr "2 maanden"
 
-#: models.py:23
+#: models.py:24
 msgid "3 months"
 msgstr "3 maanden"
 
-#: models.py:24
+#: models.py:25
 msgid "6 months"
 msgstr "6 maanden"
 
-#: models.py:25
+#: models.py:26
 msgid "one year"
 msgstr "een jaar"
 
-#: models.py:29
+#: models.py:30
 msgid "concept/idea"
 msgstr "concept/idee"
 
-#: models.py:30
+#: models.py:31
 msgid "submitted for review"
 msgstr "aangevraagd"
 
-#: models.py:31
+#: models.py:32
 msgid "accepted"
 msgstr "goedgekeurd"
 
-#: models.py:32
+#: models.py:33
 msgid "denied"
 msgstr "afgekeurd"
 
-#: models.py:33
+#: models.py:34
 msgid "extended"
 msgstr "verlengd"
 
-#: models.py:47
+#: models.py:48
 msgid "forum id"
 msgstr "forumid"
 
-#: models.py:48
+#: models.py:49
 msgid "Forum id of the group build subforum"
 msgstr "Forumid van het groepsbouwforum"
 
-#: models.py:51
+#: models.py:52
 msgid "theme"
 msgstr "thema"
 
-#: models.py:52
+#: models.py:53
 msgid "Theme/name of the group build"
 msgstr "Thema/naam van de groepsbouw"
 
-#: models.py:53
+#: models.py:54
 msgid "slug"
 msgstr "slug"
 
@@ -181,48 +181,48 @@ msgstr "topic om naar te verwijzen vanaf de kalender"
 msgid "introduction topic"
 msgstr "inleidingstopic"
 
-#: models.py:115
+#: models.py:117
 msgid "group build"
 msgstr "groepsbouw"
 
-#: models.py:116
+#: models.py:118
 msgid "group builds"
 msgstr "groepsbouwen"
 
-#: models.py:127
+#: models.py:129
 #, python-brace-format
 msgid "{name}: {status}"
 msgstr "{name}: {status}"
 
-#: models.py:138
+#: models.py:140
 msgid "# participants"
 msgstr "# deelnemers"
 
-#: models.py:235 templates/groupbuilds/handlebars/participant.hbs.py:23
+#: models.py:239 templates/groupbuilds/handlebars/participant.hbs:23
 msgid "model name"
 msgstr "naam model"
 
-#: models.py:237
+#: models.py:241
 msgid "finished"
 msgstr "afgewerkt"
 
-#: models.py:238
+#: models.py:242
 msgid "topic"
 msgstr "topic"
 
-#: models.py:241
+#: models.py:245
 msgid "points"
 msgstr "punten"
 
-#: models.py:246
+#: models.py:250
 msgid "group build participant"
 msgstr "groepsbouwdeelnemer"
 
-#: models.py:247
+#: models.py:251
 msgid "group build participants"
 msgstr "groepsbouwdeelnemers"
 
-#: models.py:250
+#: models.py:254
 #, python-brace-format
 msgid "{build} participant: {user}"
 msgstr "{build} deelnemer: {user}"
@@ -799,11 +799,11 @@ msgstr "Zie hoeveel tijd er nog is"
 msgid "Edit your build details"
 msgstr "Bewerk je deelnamedetails"
 
-#: views/admin.py:61
+#: views/admin.py:62
 msgid "Your group build has been submitted to the moderator team."
 msgstr "Je groepsbouw is aan het moderatorteam voorgelegd ter goedkeuring."
 
-#: views/participant.py:33
+#: views/participant.py:36
 msgid "You're now listed as participant!"
 msgstr "Je staat nu op de deelnemerslijst!"
 

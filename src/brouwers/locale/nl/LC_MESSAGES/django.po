@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,262 +17,135 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: brouwers/dashboard.py:10
+#: brouwers/dashboard.py:11
 msgid "Control panel"
 msgstr ""
 
-#: brouwers/dashboard.py:20
+#: brouwers/dashboard.py:21
 msgid "User management"
 msgstr ""
 
-#: brouwers/dashboard.py:34
+#: brouwers/dashboard.py:35
 msgid "Group builds"
 msgstr ""
 
-#: brouwers/dashboard.py:42
+#: brouwers/dashboard.py:43
 msgid "Brouwersdag"
 msgstr ""
 
-#: brouwers/dashboard.py:47
+#: brouwers/dashboard.py:48
 #, fuzzy
 #| msgid "Migrations"
 msgid "Registrations"
 msgstr "Migraties"
 
-#: brouwers/dashboard.py:56
+#: brouwers/dashboard.py:57
 msgid "Forum"
 msgstr ""
 
-#: brouwers/dashboard.py:65
+#: brouwers/dashboard.py:66
 msgid "Albums"
 msgstr ""
 
-#: brouwers/dashboard.py:70
+#: brouwers/dashboard.py:71
 msgid "Awards"
 msgstr ""
 
-#: brouwers/dashboard.py:75
+#: brouwers/dashboard.py:76
 msgid "Misc"
 msgstr ""
 
-#: brouwers/dashboard.py:80
+#: brouwers/dashboard.py:81
 msgid "Shirts"
 msgstr ""
 
-#: brouwers/dashboard.py:85 brouwers/dashboard.py:108
+#: brouwers/dashboard.py:86 brouwers/dashboard.py:109
 msgid "Recent Actions"
 msgstr ""
 
-#: brouwers/kitreviews/forms.py:16
-msgid "Brand"
-msgstr ""
-
-#: brouwers/kitreviews/forms.py:17
-msgid "Kit number"
-msgstr ""
-
-#: brouwers/kitreviews/forms.py:18
-msgid "Kit name"
-msgstr ""
-
-#: brouwers/kitreviews/forms.py:19
-msgid "Scale"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:27
-msgid "review"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:28
-msgid "This is your review. You can use BBCode here."
-msgstr ""
-
-#: brouwers/kitreviews/models.py:37
-msgid "album"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:39
-msgid "topic"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:40
-#, fuzzy
-#| msgid "Back to the Modelbrouwers.nl homepage"
-msgid "ID of the topic on Modelbrouwers."
-msgstr "Terug naar de Modelbrouwers.nl homepage"
-
-#: brouwers/kitreviews/models.py:43
-msgid "topic url"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:44
-msgid "URL to the topic not hosted on Modelbrouwers"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:49
-msgid "show real name?"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:50
-msgid ""
-"Checking this option will display your real name as reviewer. Uncheck to use "
-"your nickname."
-msgstr ""
-
-#: brouwers/kitreviews/models.py:59
-#, fuzzy
-#| msgid "Visit the kit reviews!"
-msgid "kit review"
-msgstr "Ga naar de kitreviews!"
-
-#: brouwers/kitreviews/models.py:60
-#, fuzzy
-#| msgid "Visit the kit reviews!"
-msgid "kit reviews"
-msgstr "Ga naar de kitreviews!"
-
-#: brouwers/kitreviews/models.py:63
-#, python-format
-msgid "Review: %(kit)s by %(user)s"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:96
-msgid "vote"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:100
-msgid "kit review vote"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:101
-msgid "kit review votes"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:105
-#, python-format
-msgid "Vote for review by %(review_submitter)s"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:115
-msgid "name"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:119
-#, fuzzy
-#| msgid "Visit the kit reviews!"
-msgid "kit review property"
-msgstr "Ga naar de kitreviews!"
-
-#: brouwers/kitreviews/models.py:120
-#, fuzzy
-#| msgid "Visit the kit reviews!"
-msgid "kit review properties"
-msgstr "Ga naar de kitreviews!"
-
-#: brouwers/kitreviews/models.py:133
+#: brouwers/migration/apps.py:7
 #, fuzzy
 #| msgid "Migrations"
-msgid "rating"
+msgid "Migrations"
 msgstr "Migraties"
 
-#: brouwers/kitreviews/models.py:138
-msgid "kit review property rating"
-msgstr ""
-
-#: brouwers/kitreviews/models.py:139
-msgid "kit review property ratings"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:9
-msgid "Model kit"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:11
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:43
-msgid "Review"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:18
-#, python-format
-msgid ""
-"\n"
-"                    It appears you don't have Javascript enabled. Adding "
-"kits and/or reviews is still possible\n"
-"                    by <a href=\"%(search_url)s\">searching</a> for kits.\n"
-"                "
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:31
-#: brouwers/kitreviews/templates/kitreviews/find_kit.html:13
-msgid "Find kits"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/add_review.html:49
-msgid "Add"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/base.html:10
-msgid "Home"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/base.html:11
-#, fuzzy
-#| msgid "Visit the kit reviews!"
-msgid "Find kits/reviews"
-msgstr "Ga naar de kitreviews!"
-
-#: brouwers/kitreviews/templates/kitreviews/base.html:12
-#: brouwers/kitreviews/templates/kitreviews/find_kit.html:46
-#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:19
-#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:33
-msgid "Add review"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/find_kit.html:5
-msgid "Find model kit(s) &dash; Enter your search parameters"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/find_kit.html:18
-#, python-format
-msgid ""
-"\n"
-"               Search results (%(num_kits)s)\n"
-"            "
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/find_kit.html:45
-#, python-format
-msgid "%(counter)s review"
-msgid_plural "%(counter)s reviews"
-msgstr[0] ""
-msgstr[1] ""
-
-#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:16
-#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:32
-msgid "Reviews"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:21
-#, python-format
-msgid ""
-"Submitted by <a href=\"%(user_url)s\">%(submitter)s</a> on %(submitted_on)s."
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/kit_detail.html:36
-msgid "Related forum topics"
-msgstr ""
-
-#: brouwers/kitreviews/templates/kitreviews/review_form.html:34
-msgid "Album, build report(s)"
-msgstr ""
-
-#: brouwers/migration/models.py:39
+#: brouwers/migration/models.py:40
 msgid "album user migration"
 msgstr "albumgebruikermigratie"
 
-#: brouwers/migration/models.py:40
+#: brouwers/migration/models.py:41
 msgid "album user migrations"
 msgstr "albumgebruikermigraties"
+
+#, fuzzy
+#~| msgid "Back to the Modelbrouwers.nl homepage"
+#~ msgid "ID of the topic on Modelbrouwers."
+#~ msgstr "Terug naar de Modelbrouwers.nl homepage"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "is reviewed?"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "kit review"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "kit reviews"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "kit review property"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "kit review properties"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Migrations"
+#~ msgid "rating"
+#~ msgstr "Migraties"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "Add a review"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "Kit Reviews"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "No reviews yet"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "Latest reviews"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Migrations"
+#~ msgid "Ratings"
+#~ msgstr "Migraties"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "other reviews"
+#~ msgstr "Ga naar de kitreviews!"
+
+#, fuzzy
+#~| msgid "Visit the kit reviews!"
+#~ msgid "Find kits/reviews"
+#~ msgstr "Ga naar de kitreviews!"
 
 #, fuzzy
 #~| msgid "logout"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-07 12:51+0200\n"
+"POT-Creation-Date: 2016-09-09 19:49+0200\n"
 "PO-Revision-Date: 2016-03-01 22:42+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,7 +93,7 @@ msgstr "Foto voor bouw %(build)s"
 msgid "Provide either an album photo or a link to a photo."
 msgstr "Geef een albumfoto of een link naar een foto op."
 
-#: templates/builds/base.html:3 templates/builds/base.html.py:14
+#: templates/builds/base.html:3 templates/builds/base.html:14
 #: templates/builds/profile.html:25
 msgid "Builds"
 msgstr "Brouwverslagen"
@@ -112,8 +112,8 @@ msgstr ""
 "van anderen bekijken. Je bewaart een geschiedenis van de kits die je gebouwd "
 "hebt, en je kan snel het bijhorende topic terugvinden!"
 
-#: templates/builds/base.html:28 templates/builds/build_form.html.py:72
-#: tests/test_views.py:75
+#: templates/builds/base.html:28 templates/builds/build_form.html:72
+#: tests/test_views.py:66
 msgid "Add build"
 msgstr "Verslag toevoegen"
 
@@ -234,8 +234,8 @@ msgstr "Zoek een brouwer of verslag"
 msgid "All builds"
 msgstr "Alle verslagen"
 
-#: templates/builds/sniplates.html:23 tests/test_views.py:51
-#: tests/test_views.py:55 tests/test_views.py:57
+#: templates/builds/sniplates.html:23 tests/test_views.py:42
+#: tests/test_views.py:46 tests/test_views.py:48
 msgid "My builds"
 msgstr "Mijn projecten"
 
