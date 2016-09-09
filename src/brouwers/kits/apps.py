@@ -7,7 +7,8 @@ class KitsConfig(AppConfig):
     verbose_name = _('kits')
 
     def ready(self):
-        # register the custom extractor
+        # register the custom extractors
         from sniplates.templatetags.sniplates import EXTRACTOR
-        from .extractors import ModelKitExtractor
-        EXTRACTOR['MultipleKitChoiceField'] = ModelKitExtractor
+        from .extractors import ModelKitExtractor, MultiModelKitExtractor
+        EXTRACTOR['KitChoiceField'] = ModelKitExtractor
+        EXTRACTOR['MultipleKitChoiceField'] = MultiModelKitExtractor

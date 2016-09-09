@@ -10,8 +10,6 @@
 @import "partials/utils";
 @import "partials/responsive";
 
-@import "elements/all";
-
 @import "partials/base";
 @import "partials/error_pages";
 @import "partials/typography";
@@ -26,6 +24,8 @@
 @import "partials/spinner";
 @import "partials/lightbox";
 @import "partials/typeahead";
+
+@import "components/all";
 
 @import "partials/apps/albums";
 @import "partials/apps/builds";

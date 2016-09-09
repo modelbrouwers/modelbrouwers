@@ -1,11 +1,10 @@
-from django.conf import settings
 from django import template
+from django.conf import settings
 from django.template.base import (
-    NodeList, TemplateSyntaxError, TextNode,
-    TOKEN_VAR, TOKEN_BLOCK, TOKEN_TEXT
+    TOKEN_BLOCK, TOKEN_TEXT, TOKEN_VAR, NodeList, TemplateSyntaxError,
+    TextNode
 )
 from django.template.loader_tags import BlockNode
-
 
 register = template.Library()
 

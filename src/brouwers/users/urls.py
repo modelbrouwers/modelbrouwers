@@ -1,11 +1,14 @@
 from django.conf.urls import url
+from django.contrib.auth.views import (
+    password_change, password_reset, password_reset_confirm
+)
 from django.urls import reverse_lazy
-from django.contrib.auth.views import password_change, password_reset, password_reset_confirm
 
-from .views import (ActivationView, LoginView, LogoutView, RegistrationView,
-                    ProfileView, UserProfileDetailView, PasswordChangedView)
 from .forms.auth import PasswordResetForm
-
+from .views import (
+    ActivationView, LoginView, LogoutView, PasswordChangedView, ProfileView,
+    RegistrationView, UserProfileDetailView
+)
 
 app_name = 'users'
 urlpatterns = [

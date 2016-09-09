@@ -1,0 +1,21 @@
+{% load kitreviews %}
+<ul class="list-unstyled review-ratings{% if is_preview %} review-ratings--in-preview{% endif %}">
+    {% for rating in ratings %}
+        <li class="row">
+            <div class="col-md-2 text-right review-rating__label">
+                <strong>{{ rating.prop.name }}</strong>
+            </div>
+            <div class="col-md-10">
+                <div class="progress">
+                    {% widthratio rating.rating 100 100 as bar_width %}
+                    <div
+                        class="progress-bar progress-bar-{{ bar_width|rating_class }}"
+                        role="progressbar" aria-valuenow="{{ bar_width }}" aria-valuemin="0"
+                        aria-valuemax="100" style="width: {{ bar_width }}%;">
+                        {{ bar_width }}%
+                    </div>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

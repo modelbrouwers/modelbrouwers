@@ -1,12 +1,13 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
 
 from brouwers.kits.models import Brand, ModelKit, Scale
+from brouwers.kits.widgets import ModelKitSelect
 from brouwers.utils.forms import AlwaysChangedModelForm
 from brouwers.utils.widgets import RangeInput
 
-from .models import KitReview, KitReviewPropertyRating, MAX_RATING
+from .models import MAX_RATING, KitReview, KitReviewPropertyRating
 
 
 class ModelKitForm(forms.ModelForm):
@@ -49,11 +50,14 @@ class FindModelKitForm(forms.Form):
 
 
 class KitReviewForm(forms.ModelForm):
-    model_kit = forms.ModelChoiceField(queryset=ModelKit.objects.all(), required=True)
 
     class Meta:
         model = KitReview
         fields = ['model_kit', 'raw_text', 'album', 'topic', 'external_topic_url', 'show_real_name']
+        widgets = {
+            'model_kit': ModelKitSelect,
+            'raw_text': forms.Textarea(attrs={'rows': 10}),
+        }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -68,7 +72,7 @@ class KitReviewForm(forms.ModelForm):
         return super(KitReviewForm, self).save(*args, **kwargs)
 
 
-class KitReviePropertyRatingForm(AlwaysChangedModelForm):
+class KitReviewPropertyRatingForm(AlwaysChangedModelForm):
 
     class Meta:
         model = KitReviewPropertyRating

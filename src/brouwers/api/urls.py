@@ -1,13 +1,12 @@
-from django.conf.urls import url, include
+from django.conf.urls import include, url
 
 from rest_framework.routers import DefaultRouter
 
 from brouwers.albums.api.views import (
-    MyAlbumsViewset, MyPhotosViewset,
-    PhotoViewSet, PreferencesViewSet
+    MyAlbumsViewset, MyPhotosViewset, PhotoViewSet, PreferencesViewSet
 )
 from brouwers.groupbuilds.api.viewsets import ParticipantViewSet
-from brouwers.kits.api.views import ModelKitViewSet, BrandViewSet, ScaleViewSet
+from brouwers.kits.api.views import BrandViewSet, ModelKitViewSet, ScaleViewSet
 
 router = DefaultRouter()
 

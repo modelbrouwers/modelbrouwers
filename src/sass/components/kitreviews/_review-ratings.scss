@@ -1,0 +1,42 @@
+.review-ratings {
+  padding-top: 2em;
+
+  &.review-ratings--in-preview {
+    max-height: 200px;
+    position: relative;
+    min-height: 50px;
+    overflow: hidden;
+
+    &:after {
+      content: " ";
+      position: absolute;
+      width: 100%;
+      display: block;
+      height: 50px;
+
+      bottom: 0;
+      left: 0;
+
+      @include background(linear-gradient(180deg, transparent, $white));
+    }
+  }
+
+  & &__item {
+    @include opacity(0.85);
+    @include transition(opacity .5s ease);
+
+    &:hover {
+      @include opacity(1);
+    }
+
+    .progress {
+      margin-bottom: 15px;
+    }
+  }
+
+  @include lte-mobile {
+    .review-rating__label {
+      text-align: left;
+    }
+  }
+}

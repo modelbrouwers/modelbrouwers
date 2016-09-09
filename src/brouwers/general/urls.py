@@ -1,8 +1,7 @@
 from django.conf.urls import url
 
-from .views import ServeHbsTemplateView
 from .ajax_views import AnnouncementView, search_users
-
+from .views import ServeHbsTemplateView
 
 app_name = 'general'
 urlpatterns = [

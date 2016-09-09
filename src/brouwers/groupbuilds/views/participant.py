@@ -1,16 +1,19 @@
 """ Groupbuild participant views """
 from datetime import date
 
-from django.db.models import Q, Count
 from django.contrib import messages
+from django.db.models import Count, Q
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, UpdateView, ListView
-from django.views.generic.detail import SingleObjectMixin, SingleObjectTemplateResponseMixin
+from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic.detail import (
+    SingleObjectMixin, SingleObjectTemplateResponseMixin
+)
 
 from brouwers.utils.views import LoginRequiredMixin
-from .mixins import GroupBuildDetailMixin
-from ..models import Participant, GroupBuild
+
 from ..forms import ParticipantForm
+from ..models import GroupBuild, Participant
+from .mixins import GroupBuildDetailMixin
 
 
 class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,

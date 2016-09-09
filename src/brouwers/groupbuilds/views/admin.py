@@ -4,9 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, UpdateView
 
 from brouwers.utils.views import LoginRequiredMixin
-from .mixins import GroupBuildDetailMixin
-from ..models import GroupBuild, GroupbuildStatuses as GBStatuses
+
 from ..forms import GroupBuildForm, SubmitForm
+from ..models import GroupBuild, GroupbuildStatuses as GBStatuses
+from .mixins import GroupBuildDetailMixin
 
 
 class GroupBuildCreateView(LoginRequiredMixin, CreateView):

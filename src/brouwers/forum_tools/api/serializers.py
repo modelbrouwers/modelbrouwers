@@ -1,7 +1,6 @@
 import HTMLParser
 
-from rest_framework import serializers
-from rest_framework import fields
+from rest_framework import fields, serializers
 
 from ..models import Forum, Topic
 

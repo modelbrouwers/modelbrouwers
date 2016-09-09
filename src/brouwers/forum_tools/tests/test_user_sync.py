@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from brouwers.users.tests.factories import UserFactory
+
 from .factory_models import ForumUserFactory
 
 

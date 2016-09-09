@@ -1,12 +1,8 @@
 from django.conf.urls import url
 
 from .views import (
-    get_sync_data,
-    get_chat,
-    get_posting_level,
-    get_build_report_forums,
-    get_mod_data,
-    get_sharing_perms,
+    get_build_report_forums, get_chat, get_mod_data, get_posting_level,
+    get_sharing_perms, get_sync_data
 )
 
 # Everything is AJAX

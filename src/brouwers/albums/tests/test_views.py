@@ -5,6 +5,7 @@ from django_webtest import WebTest
 
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin
+
 from ..models import Album, Photo
 from .factories import AlbumFactory, AlbumGroupFactory, PhotoFactory
 

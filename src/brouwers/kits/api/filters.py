@@ -1,7 +1,6 @@
 import rest_framework_filters as filters
 
-
-from ..models import ModelKit, Brand, Scale
+from ..models import Brand, ModelKit, Scale
 
 
 class ModelKitFilter(filters.FilterSet):

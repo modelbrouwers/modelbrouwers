@@ -18,14 +18,40 @@
 
     <form action="." method="post">
         {% csrf_token %}
-        {{ properties.management_form }}
-        {% include "kitreviews/review_form.html" %}
-        {{ form.errors }}
+        {% load_widgets form='kitreviews/forms.html' %}
+        {% load_widgets kits='kits/widgets.html' %}
 
-        {{ formset.errors }}
-        <div class="submit-wrapper">
-            <input type="submit" value="{% trans 'Add' %}" class="btn btn-primary"/>
-        </div>
+        {{ properties.management_form }}
+
+        {% widget 'form:non_field_errors' %}
+        <fieldset class="well">
+            {% form_field form.model_kit widget='kits:ModelKitSelect' label=_('Select a kit') %}
+            {% form_field form.album %}
+            {% form_field form.topic %}
+            {% form_field form.external_topic_url %}
+
+            {% with label_grid_offset='col-sm-offset-2' %}
+                {% form_field form.show_real_name %}
+            {% endwith %}
+        </fieldset>
+
+        <h2>{% trans "Review" %}</h2>
+        <fieldset class="well">
+
+            {% widget 'form:non_form_errors' %}
+
+            {% with formset=properties %}
+                {% for form in formset %}
+                    {% widget 'form:non_field_errors' %}
+                    {% widget 'form:ReviewPropertyRating' %}
+                {% endfor %}
+            {% endwith %}
+
+            {% form_field form.raw_text label=_('Body') %}
+        </fieldset>
+
+        {% widget 'form:submit' btn_text=btn_text|default:_('Add review') %}
+
     </form>
 
 {% endblock content %}

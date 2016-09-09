@@ -4,9 +4,10 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from brouwers.users.tests.factories import UserFactory
+
+from ...models import Album
 from ..factories import AlbumFactory, AlbumGroupFactory, PhotoFactory
 from ..utils import override_preferences
-from ...models import Album
 
 
 class MyPhotoTests(APITestCase):

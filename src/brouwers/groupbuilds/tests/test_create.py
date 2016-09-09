@@ -1,15 +1,15 @@
 from datetime import date, timedelta
 
-from django.test import TestCase
-from django.urls import reverse
 from django.conf import settings
 from django.http import HttpRequest
+from django.test import TestCase
+from django.urls import reverse
 
 from brouwers.forum_tools.tests.factory_models import ForumCategoryFactory
 from brouwers.users.tests.factories import UserFactory
 
 from ..forms import GroupBuildForm
-from ..models import GroupbuildStatuses, GroupBuild
+from ..models import GroupBuild, GroupbuildStatuses
 
 
 class CreateTests(TestCase):  # TODO: conver to webtest

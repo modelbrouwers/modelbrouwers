@@ -1,11 +1,11 @@
-from rest_framework import viewsets, permissions
+from rest_framework import permissions, viewsets
 
-from ..models import ModelKit, Brand, Scale
+from ..models import Brand, ModelKit, Scale
+from .filters import BrandFilter, ModelKitFilter, ScaleFilter
 from .serializers import (
-    CreateModelKitSerializer, ModelKitSerializer,
-    BrandSerializer, ScaleSerializer
+    BrandSerializer, CreateModelKitSerializer, ModelKitSerializer,
+    ScaleSerializer
 )
-from .filters import ModelKitFilter, BrandFilter, ScaleFilter
 
 
 class ModelKitViewSet(viewsets.ModelViewSet):

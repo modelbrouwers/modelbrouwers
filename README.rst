@@ -118,13 +118,17 @@ These will be installed in your virtualenv.
 
 Installing front-end dependencies
 =================================
-Make sure npm and bower are installed globally. Then run::
+Make sure npm, jspm and bower are installed globally. Then run::
 
     $ npm install
 
 and::
 
     $ bower install
+
+and::
+
+    $ jspm install
 
 This will install all the necessary front-end dependencies. Additionally install ``compass`` for .scss files compiling
 with::

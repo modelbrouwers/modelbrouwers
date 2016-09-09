@@ -1,6 +1,7 @@
 from brouwers.api.pagination import PageNumberPagination
-from ..views import AlbumDetailView
+
 from ..models import Preferences
+from ..views import AlbumDetailView
 
 
 class PhotoPagination(PageNumberPagination):

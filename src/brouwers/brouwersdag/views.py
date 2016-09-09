@@ -1,15 +1,17 @@
-from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-from django.db.models import Q, Count
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import (DeleteView, ListView, CreateView, UpdateView,
-                                  RedirectView)
+from django.views.generic import (
+    CreateView, DeleteView, ListView, RedirectView, UpdateView
+)
 
-from brouwers.utils.views import LoginRequiredMixin, StaffRequiredMixin
 from brouwers.utils.pdf import PDFTemplateView
+from brouwers.utils.views import LoginRequiredMixin, StaffRequiredMixin
+
 from .forms import ShowCasedModelSignUpForm
-from .models import Brouwersdag, ShowCasedModel, Competition
+from .models import Brouwersdag, Competition, ShowCasedModel
 
 
 class OwnModelsMixin(object):

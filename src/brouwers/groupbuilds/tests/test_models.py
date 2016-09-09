@@ -3,8 +3,9 @@ from datetime import date, timedelta
 from django.test import TestCase
 
 from brouwers.users.tests.factories import UserFactory
+
+from ..models import GroupbuildDurations, GroupbuildStatuses
 from .factories import GroupBuildFactory
-from ..models import GroupbuildStatuses, GroupbuildDurations
 
 
 class GroupbuildTests(TestCase):

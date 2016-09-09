@@ -27,7 +27,7 @@
 						{% endif %}
 
 						{% if build.photos.all.0.image %}
-							{% thumbnail build.photos.all.0.image "400x300" crop="center" as im %}
+							{% thumbnail build.photos.all.0.image "400x300" padding=True as im %}
 							    <img src="{{ im.url }}" class="img-responsive">
 							{% empty %}
 								<img src="{% static "images/thumb.400x300.png" %}" class="img-responsive">

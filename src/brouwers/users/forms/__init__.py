@@ -1,1 +1,3 @@
-from .auth import AdminUserCreationForm, UserCreationForm, AuthForm  # noqa pragma: no cover
+from .auth import (  # noqa pragma: no cover
+    AdminUserCreationForm, AuthForm, UserCreationForm
+)

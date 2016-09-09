@@ -1,0 +1,20 @@
+.find-kit-form {
+
+  & &__button-search {
+    margin-right: 1em;
+  }
+
+  & &__button-add-kit {
+    margin-left: 1em;
+  }
+
+  @include lte-mobile {
+    & &__button-search,
+    & &__button-add-kit {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+}

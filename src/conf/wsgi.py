@@ -12,6 +12,8 @@ import os
 import site
 import sys
 
+from django.core.wsgi import get_wsgi_application
+
 
 def setupenv():
     """
@@ -52,6 +54,5 @@ setupenv()
 if not os.environ.get('DJANGO_SETTINGS_MODULE', False):
     sys.exit('You need to set the DJANGO_SETTINGS_MODULE environment var')
 
-from django.core.wsgi import get_wsgi_application
 
 application = get_wsgi_application()

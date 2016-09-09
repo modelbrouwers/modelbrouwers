@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from .widgets import ForumToolsIDFieldWidget
 
-
 __all__ = ['ForumIDField', 'TopicIDField']
 
 

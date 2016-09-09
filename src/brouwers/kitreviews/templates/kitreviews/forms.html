@@ -1,0 +1,25 @@
+{% extends "horizontal.form" %}
+{% load i18n sniplates %}
+
+
+{% block Select_prop %}
+{% reuse 'HiddenInput' %}
+{% for val, display in choices %}
+    {% if val == value %}
+        <label class="control-label required col-sm-2 rating__label">{{ display }}</label>
+    {% endif %}
+{% endfor %}
+{% endblock Select_prop %}
+
+
+{% block RangeInput_rating %}
+    {% reuse '_RangeInput' label=None %}
+{% endblock RangeInput_rating %}
+
+
+{% block ReviewPropertyRating %}
+<div class="form-group clearfix rating">
+    {% form_field form.prop %}
+    {% form_field form.rating %}
+</div>
+{% endblock ReviewPropertyRating %}

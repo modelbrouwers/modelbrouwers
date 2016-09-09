@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from brouwers.users.tests.factories import UserFactory
+
 from ..factories import AlbumFactory, AlbumGroupFactory
 
 

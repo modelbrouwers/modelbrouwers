@@ -1,18 +1,20 @@
 import HTMLParser
-import Levenshtein
 
 from django.utils import timezone
 
+import Levenshtein
 from rest_framework import generics, status, views
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from brouwers.forum_tools.models import Topic
 from brouwers.forum_tools.api.serializers import TopicSerializer
+from brouwers.forum_tools.models import Topic
 
 from ..models import GroupBuild, Participant
-from .serializers import GroupBuildSerializer, ParticipantSerializer, ParticipantCreateSerializer
 from .forms import TopicDetailsForm
+from .serializers import (
+    GroupBuildSerializer, ParticipantCreateSerializer, ParticipantSerializer
+)
 
 html_parser = HTMLParser.HTMLParser()
 

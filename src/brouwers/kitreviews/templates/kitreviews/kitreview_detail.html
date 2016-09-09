@@ -2,36 +2,43 @@
 {% load i18n kitreviews %}
 
 {% block reviews %}
-    <h2>{% trans "Review" %}</h2>
-    <section>
-        {{ review.render_raw_text|safe }}
+    <section class="review">
+
+        <h2 id="review-body">
+            {% trans "Review" %}
+            <small>
+                &ndash; {{ review.reviewer_name }}
+                ({% blocktrans trimmed with time_ago=review.submitted_on|timesince%}
+                    {{ time_ago }} ago
+                {% endblocktrans %})
+            </small>
+        </h2>
+        {% if review.topic_url or review.album %}
+            <div>
+                {% if review.topic_url %}
+                    <a class="button button--icon button--light-blue" href="{{ review.topic_url }}">
+                        <i class="fa fa-comments-o"></i>
+                        {% trans "view topic" %}
+                    </a>
+                {% endif %}
+                {% if review.album %}
+                    <a class="button button--icon button--light-blue" href="{{ review.album.get_absolute_url }}">
+                        <i class="fa fa-camera"></i>
+                        {% trans "view album" %}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="review__body">{{ review.render_raw_text|safe }}</div>
+
+        <h2>{% trans "Ratings" %}</h2>
+        {% detailed_ratings review is_preview=False %}
+
     </section>
 
-    <h2>{% trans "Ratings" %}</h2>
-    <ul class="list-unstyled kitreviews--ratings-list">
-        {% for rating in review.ratings.all %}
-            <li class="row">
-                <div class="col-md-2 text-right">
-                    <strong>{{ rating.prop.name }}</strong>
-                </div>
-                <div class="col-md-10">
-                    <div class="progress">
-                        {% widthratio rating.rating 100 100 as bar_width %}
-                        <div
-                            class="progress-bar progress-bar-{{ bar_width|rating_class }}"
-                            role="progressbar" aria-valuenow="{{ bar_width }}" aria-valuemin="0"
-                            aria-valuemax="100" style="width: {{ bar_width }}%;">
-                            {{ bar_width }}%
-                        </div>
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-
     {% if other_reviews %}
-        <h2>{% trans "other reviews" %}</h2>
-        <aside class="kitreviews--review-list">
+        <aside>
+            <h2>{% trans "other reviews" %}</h2>
             {% for other_review in other_reviews %}
                 {% render_review_preview other_review %}
             {% endfor %}

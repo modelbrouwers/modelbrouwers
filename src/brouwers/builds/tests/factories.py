@@ -1,6 +1,7 @@
 import factory
 
 from brouwers.users.tests.factories import UserFactory
+
 from ..models import Build, BuildPhoto
 
 

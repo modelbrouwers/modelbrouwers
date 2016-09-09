@@ -2,8 +2,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.general.utils import clean_username as _clean_username
-from ..models import Forum, ForumUser
 
+from ..models import Forum, ForumUser
 
 __all__ = ['ForumForm', 'PosterIDsForm', 'ForumUserForm']
 

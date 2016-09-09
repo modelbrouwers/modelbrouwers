@@ -1,8 +1,8 @@
 {% load handlebars staticfiles i18n %}{% hbs_verbatim %}
 {{#each kits}}
 
-    <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{id}}">
-        <input type="checkbox" name="{{@root.htmlname}}" value="{{id}}" id="__modelkit_{{id}}" {{#if @root.checked}}checked="checked"{{/if}}>
+    <div class="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{id}}">
+        <input type="{{#if @root.isMulti}}checkbox{{else}}radio{{/if}}" name="{{@root.htmlname}}" value="{{id}}" id="__modelkit_{{id}}" {{#if @root.checked}}checked="checked"{{/if}}>
         <label for="__modelkit_{{id}}" title="{{name}}" class="thumbnail">
             {{#if box_image.small}}
                 <img src="{{box_image.small}}" class="img-responsive">
@@ -17,7 +17,7 @@
 {{/each}}
 
 {{#if page.hasNext}}
-    <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview center-all">
+    <div class="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
         <button class="btn bg-main-blue" data-next="{{page.nextPageNumber}}">{% trans 'load more' %}</button>
         <i class="fa fa-pulse fa-spinner fa-4x"></i>
     </div>

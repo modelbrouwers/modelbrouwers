@@ -1,22 +1,33 @@
 {% load i18n sniplates %}
 
-{% block form %}
 
-    <fieldset class="well">
-        {% load_widgets form='horizontal.form' %}
-        <div class="row">
-            <div class="col-md-6">
-                {% form_field form.brand %}
-                {% form_field form.scale %}
-            </div>
-            <div class="col-md-6">
-                {% form_field form.kit_name %}
-                {% form_field form.kit_number %}
-            </div>
+<fieldset class="well">
+    {% load_widgets form='horizontal.form' %}
+    <div class="row">
+        <div class="col-md-6">
+            {% form_field form.brand %}
+            {% form_field form.scale %}
         </div>
-        <div class="small">
-            {% trans "Find kits using the search form - all fields are optional." %}
+        <div class="col-md-6">
+            {% form_field form.kit_name %}
+            {% form_field form.kit_number %}
         </div>
-    </fieldset>
+    </div>
+    <div class="small">
+        {% trans "Find kits using the search form - all fields are optional." %}
+    </div>
 
-{% endblock %}
+    <div class="button-group">
+
+        <button type="submit" class="button button--icon button--blue find-kit-form__button-search">
+            <i class="fa fa-search"></i> {% trans 'Find kits' %}
+        </button>
+
+        {% trans "or" %}
+
+        <button data-target="#add-kit-modal" class="button button--icon button--orange find-kit-form__button-add-kit">
+            <i class="fa fa-plus"></i> {% trans 'Add new kit' %}
+        </button>
+
+    </div>
+</fieldset>

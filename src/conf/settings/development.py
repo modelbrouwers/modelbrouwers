@@ -18,7 +18,7 @@ INSTALLED_APPS = INSTALLED_APPS + [
 ]
 
 DEBUG_TOOLBAR_CONFIG = {
-    # 'JQUERY_URL': '',
+    'JQUERY_URL': '',
 }
 
 SENDFILE_BACKEND = 'sendfile.backends.development'

@@ -1,9 +1,10 @@
-from django.test import TestCase, override_settings
 from django.db import IntegrityError
+from django.test import TestCase, override_settings
 
-from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.forum_tools.tests.factories import TopicFactory
+from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.utils.tests import reload_urlconf
+
 from .factories import BuildFactory
 
 
