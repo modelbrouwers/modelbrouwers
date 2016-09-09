@@ -4,7 +4,7 @@
 {% block content %}
     <h3>{% trans 'Find model kit(s) &dash; Enter your search parameters' %}</h3>
 
-    <form action="{% url 'kitreviews:find_kit' %}" method="get">
+    <form action="{% url 'kitreviews:find_kit' %}" method="get" class="find-kit-form">
         {{ form.non_field_errors }}
         {% include "kitreviews/find_kit_form.html" %}
     </form>
@@ -34,18 +34,20 @@
         <section class="kit__list">
             <div class="row">
                 {% for kit in kits %}
-                    <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2">
+                    <div class="col-sm-4 col-md-3 col-xl-2">
                         <article class="kit-preview" data-id="{{ kit.id }}">
                             <span class="h5 kit-preview__name" title="{{ kit.name }}">
                                 <strong>{{ kit.name }}</strong>
                             </span>
-                            {% if kit.has_box_image %}
-                                {% thumbnail kit.box_image "300x225" crop="center" as im %}
-                                    <img src="{{ im.url }}" class="img-responsive">
-                                {% endthumbnail %}
-                            {% else %}
-                                <img src="{% static "images/thumb.png" %}" class="img-responsive">
-                            {% endif %}
+                            <figure class="kit-preview__image">
+                                {% if kit.has_box_image %}
+                                    {% thumbnail kit.box_image "300x225" padding=True as im %}
+                                        <img src="{{ im.url }}" class="img-responsive center-block">
+                                    {% endthumbnail %}
+                                {% else %}
+                                    <img src="{% static "images/thumb.png" %}" class="img-responsive center-block">
+                                {% endif %}
+                            </figure>
 
                             <span class="kit-preview__details">
                             {{ kit.brand }}, {{ kit.scale }}{% if kit.category %}, {{ kit.category }}{% endif %}{% if kit.kit_number %}, <em>{{ kit.kit_number }}</em>
@@ -59,7 +61,7 @@
                                     {% blocktrans trimmed count counter=kit.num_reviews %}
                                         View {{ counter }} review
                                     {% plural %}
-                                        {{ counter }} reviews
+                                        View {{ counter }} reviews
                                     {% endblocktrans %}
                                 </a>
                             {% else %}

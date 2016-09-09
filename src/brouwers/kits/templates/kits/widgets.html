@@ -47,7 +47,7 @@
                 </div>
 
                 {% for kit in selected_kits %}
-                    <div class="col-xs-6 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{ kit.id }}">
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview" data-id="{{ kit.id }}">
                         <input type="{{ widget.allow_multiple_selected|yesno:"checkbox,radio" }}" name="{{ html_name }}" value="{{ kit.id }}" id="__modelkit_{{ kit.id }}"
                                checked="checked">
                         <label for="__modelkit_{{ kit.id }}" title="{{ kit.name }}" class="thumbnail">
@@ -60,7 +60,7 @@
                         </span>
 
                             {% if kit.box_image %}
-                                {% thumbnail kit.box_image "600x400" as im %}
+                                {% thumbnail kit.box_image "600x400" padding=True as im %}
                                     <img src="{{ im.url }}" class="img-responsive">
                                 {% endthumbnail %}
                             {% else %}

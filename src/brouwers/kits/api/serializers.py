@@ -27,7 +27,7 @@ class ModelKitSerializer(serializers.ModelSerializer):
 
     brand = BrandSerializer()
     scale = ScaleSerializer()
-    box_image = ThumbnailField((('small', '600x400'),), opts={'upscale': False})
+    box_image = ThumbnailField((('small', '600x400'),), opts={'upscale': False, 'padding': True})
 
     class Meta:
         model = ModelKit

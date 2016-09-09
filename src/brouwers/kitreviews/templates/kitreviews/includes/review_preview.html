@@ -2,15 +2,15 @@
 <article class="review-preview {% if show_ratings %}review-preview--with-ratings{% endif %}">
     <header class="row">
         {% if not show_ratings %}
-                <h1 class="col-md-8 review-preview__title">
-                    <a href="{% url 'kitreviews:review-list' slug=review.model_kit.slug %}">{{ review.model_kit }}</a>
-                    <span class="review-preview__rating">{% review_rating review.rating_pct %}</span>
-                </h1>
-                <aside class="col-md-4 review-preview__details text-right">
-                {% blocktrans trimmed with reviewer=review.reviewer_name time_ago=review.submitted_on|timesince %}
-                    {{ reviewer }} &ndash; {{ time_ago }} ago
-                {% endblocktrans %}
-                </aside>
+            <h1 class="col-md-8 review-preview__title">
+                <a href="{% url 'kitreviews:review-list' slug=review.model_kit.slug %}">{{ review.model_kit }}</a>
+                <span class="review-preview__rating">{% review_rating review.rating_pct %}</span>
+            </h1>
+            <aside class="col-md-4 review-preview__details text-right">
+            {% blocktrans trimmed with reviewer=review.reviewer_name|default:_('unknown') time_ago=review.submitted_on|timesince %}
+                {{ reviewer }} &ndash; {{ time_ago }} ago
+            {% endblocktrans %}
+            </aside>
         {% else %}
             <h1 class="review-preview__title col-md-8">
                 {{ review.reviewer_name }}
