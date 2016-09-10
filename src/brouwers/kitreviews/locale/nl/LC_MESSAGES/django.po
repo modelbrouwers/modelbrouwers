@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-09 19:49+0200\n"
-"PO-Revision-Date: 2016-09-09 20:14+0020\n"
+"PO-Revision-Date: 2016-09-10 12:18+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -258,7 +258,7 @@ msgstr "%(reviewer)s &ndash; %(time_ago)s geleden"
 #: templates/kitreviews/kitreview_detail.html:11
 #, python-format
 msgid "%(time_ago)s ago"
-msgstr "%(time_ago) geleden"
+msgstr "%(time_ago)s geleden"
 
 #: templates/kitreviews/includes/review_preview.html:40
 msgid "read more"
