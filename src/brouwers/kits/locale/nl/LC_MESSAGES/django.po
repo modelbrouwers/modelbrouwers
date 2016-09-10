@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-09 19:49+0200\n"
+"POT-Creation-Date: 2016-09-11 00:30+0200\n"
 "PO-Revision-Date: 2016-09-09 19:47+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,9 +145,10 @@ msgid "model kits"
 msgstr "bouwdozen"
 
 #: models.py:130
-#, python-brace-format
-msgid "A kit from {brand} with kut number '{kit_number}' already exists"
-msgstr "Er bestaat al een kit van %(brand)s met kitnummer '%(kit_number)s'."
+#, fuzzy, python-brace-format
+#| msgid "A kit from {brand} with kut number '{kit_number}' already exists"
+msgid "A kit from {brand} with kit number '{kit_number}' already exists"
+msgstr "Er bestaat al een kit van {brand} met kitnummer '{kit_number}'."
 
 #: templates/admin/kits/mark_duplicate.html:8
 msgid "Home"

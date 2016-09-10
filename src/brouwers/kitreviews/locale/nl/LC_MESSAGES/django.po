@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-09 19:49+0200\n"
-"PO-Revision-Date: 2016-09-10 12:18+0020\n"
+"POT-Creation-Date: 2016-09-11 00:30+0200\n"
+"PO-Revision-Date: 2016-09-11 00:31+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translated-Using: django-rosetta 0.7.12\n"
+"X-Translated-Using: Mobetta 0.0.1\n"
 
 #: forms.py:20
 msgid "Brand"
@@ -164,16 +164,16 @@ msgstr "Review"
 msgid "Body"
 msgstr "Inhoud"
 
-#: templates/kitreviews/add_review.html:53 templates/kitreviews/base.html:34
-#: templates/kitreviews/find_kit.html:74
+#: templates/kitreviews/add_review.html:53 templates/kitreviews/base.html:37
+#: templates/kitreviews/find_kit.html:96
 msgid "Add review"
 msgstr "Review toevoegen"
 
-#: templates/kitreviews/base.html:13
+#: templates/kitreviews/base.html:5 templates/kitreviews/base.html:16
 msgid "Kit Reviews"
 msgstr "Kitreviews"
 
-#: templates/kitreviews/base.html:17
+#: templates/kitreviews/base.html:20
 msgid ""
 "Use the kit reviews to check if the kit you have your eye on is worth it! "
 "And, anyone can leave reviews for a kit, so don't forget to contribute back."
@@ -182,7 +182,7 @@ msgstr ""
 "is! Iedereen kan reviews toevoegen, dus vergeet niet om een review te "
 "schrijven voor je pas afgeronde model."
 
-#: templates/kitreviews/base.html:26
+#: templates/kitreviews/base.html:29
 msgid "Home"
 msgstr "Home"
 
@@ -195,7 +195,7 @@ msgstr "Zoek kit(s) &dash; Voer je zoekparameters in"
 msgid "Search results (%(num_results)s)"
 msgstr "Zoekresultaten (%(num_results)s)"
 
-#: templates/kitreviews/find_kit.html:15
+#: templates/kitreviews/find_kit.html:16
 msgid ""
 "The number of search results is limited to 100 - you may need to refine your"
 " search."
@@ -203,25 +203,40 @@ msgstr ""
 "Het aantal zoekresultaten is beperkt tot 100 - het is mogelijk dat je je "
 "zoekopdracht preciezer moet maken."
 
-#: templates/kitreviews/find_kit.html:20
+#: templates/kitreviews/find_kit.html:24
 msgid ""
 "Oops, we couldn't find a kit like this in our database! Would you like to "
 "add it?"
 msgstr ""
 "Oeps, we konden geen bouwdoos vinden in onze databank! Wil je hem toevoegen?"
 
-#: templates/kitreviews/find_kit.html:28
+#: templates/kitreviews/find_kit.html:32 tests/test_views.py:205
 msgid "Add kit"
 msgstr "Bouwdoos toevoegen"
 
-#: templates/kitreviews/find_kit.html:61
+#: templates/kitreviews/find_kit.html:39
+#| msgid ""
+#| "Oops, we couldn't find a kit like this in our database! Would you like to "
+#| "add it?"
+msgid ""
+"Oops, we couldn't find a kit like this in our database... After logging in, "
+"you can add it!"
+msgstr ""
+"Oeps, we konden geen bouwdoos vinden in onze databank... Als je inlogt, dan "
+"kan je de kit toevoegen."
+
+#: templates/kitreviews/find_kit.html:48
+msgid "Login now"
+msgstr "Nu inloggen"
+
+#: templates/kitreviews/find_kit.html:83
 #, python-format
 msgid "View %(counter)s review"
 msgid_plural "View %(counter)s reviews"
 msgstr[0] "Bekijk één review"
 msgstr[1] "Bekijk %(counter)s reviews"
 
-#: templates/kitreviews/find_kit.html:69
+#: templates/kitreviews/find_kit.html:91
 msgid "No reviews yet"
 msgstr "Nog geen reviews"
 
@@ -233,11 +248,11 @@ msgstr "Zoek bouwdozen met het formulier - alle velden zijn optioneel."
 msgid "Find kits"
 msgstr "Zoek bouwdozen"
 
-#: templates/kitreviews/find_kit_form.html:26
+#: templates/kitreviews/find_kit_form.html:27
 msgid "or"
 msgstr "of"
 
-#: templates/kitreviews/find_kit_form.html:29
+#: templates/kitreviews/find_kit_form.html:30
 msgid "Add new kit"
 msgstr "Voeg nieuwe kit toe"
 

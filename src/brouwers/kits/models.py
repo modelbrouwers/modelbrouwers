@@ -127,7 +127,7 @@ class ModelKit(models.Model):
             model = self.__class__
             kits = model.objects.filter(brand=self.brand, kit_number=self.kit_number, scale=self.scale)
             if kits.exists():
-                error = _('A kit from {brand} with kut number \'{kit_number}\' already exists')
+                error = _('A kit from {brand} with kit number \'{kit_number}\' already exists')
                 raise ValidationError(error.format(brand=self.brand, kit_number=self.kit_number))
 
     def has_box_image(self):
