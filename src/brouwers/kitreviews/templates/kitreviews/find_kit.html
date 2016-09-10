@@ -12,22 +12,44 @@
     {% if form.data %}
         <h3>{% blocktrans with num_results=kits.count %}Search results ({{ num_results }}){% endblocktrans %}</h3>
 
-        <p>{% trans "The number of search results is limited to 100 - you may need to refine your search." %}</p>
+        {% if kits.exists %}
+            <p>{% trans "The number of search results is limited to 100 - you may need to refine your search." %}</p>
+        {% endif %}
 
         {% if not kits.exists %}
 
-            <p class="text-center">
-                {% blocktrans trimmed %}
-                    Oops, we couldn't find a kit like this in our database!
-                    Would you like to add it?
-                {% endblocktrans %}
-            </p>
+            {% if user.is_authenticated %}
 
-            <div class="text-center">
-                <button data-target="#add-kit-modal" class="btn bg-main-orange">
-                    {% trans 'Add kit' %}
-                </button>
-            </div>
+                <p class="text-center">
+                    {% blocktrans trimmed %}
+                        Oops, we couldn't find a kit like this in our database!
+                        Would you like to add it?
+                    {% endblocktrans %}
+                </p>
+
+                <div class="text-center">
+                    <button data-target="#add-kit-modal" class="btn bg-main-orange">
+                        {% trans 'Add kit' %}
+                    </button>
+                </div>
+
+            {% else %}
+
+                <p class="text-center">
+                    {% blocktrans trimmed %}
+                        Oops, we couldn't find a kit like this in our database...
+                        After logging in, you can add it!
+                    {% endblocktrans %}
+                </p>
+
+                <form action="{% url 'users:login' %}" method="get" class="text-center">
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="btn bg-main-orange">
+                        {% trans 'Login now' %}
+                    </button>
+                </form>
+
+            {% endif %}
 
         {% endif %}
 
