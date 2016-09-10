@@ -178,6 +178,32 @@ class SearchViewTests(WebTest):
         self.assertQuerysetEqual(queryset, [repr(self.kit1)])
         self.assertEqual(queryset[0].num_reviews, 1)
 
+    def test_anonymous_add_kit(self):
+        """
+        When not logged in, you may not get the popup to add a kit, but you must
+        be presented with a login button.
+        """
+        # search by brand
+        search_page = self.app.get(self.url)
+        search_page.form['kit_name'] = 'gibberish'
+        search_results = search_page.form.submit()
+        queryset = search_results.context['kits']
+        self.assertFalse(queryset.exists())
+
+        search_url = search_results.request.url
+
+        self.assertEqual(len(search_results.forms), 2)
+        login_form = search_results.forms[1]
+        self.assertEqual(login_form.action, reverse('users:login'))
+        login_page = login_form.submit()
+
+        user = UserFactory.create(password='letmein')
+        login_page.form['username'] = user.username
+        login_page.form['password'] = 'letmein'
+        search_results = login_page.form.submit().follow()
+        self.assertEqual(search_results.request.url, search_url)
+        self.assertContains(search_results, _('Add kit'))
+
 
 class KitReviewsListViewTests(WebTest):
 
