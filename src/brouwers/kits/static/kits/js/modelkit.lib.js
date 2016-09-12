@@ -261,6 +261,7 @@ export class NewKitSubmitter {
                 .then(returnValues => {
                     brand = returnValues[0];
                     scale = returnValues[1];
+                    debugger;
                     return ModelKit.objects.create({
                         brand: brand.id,
                         scale: scale.id,
