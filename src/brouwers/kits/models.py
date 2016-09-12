@@ -117,7 +117,7 @@ class ModelKit(models.Model):
         super(ModelKit, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('kitreviews:kit_detail', args=[self.id])
+        return reverse('kitreviews:review-list', kwargs={'slug': self.slug})
 
     def clean(self):
         super(ModelKit, self).clean()

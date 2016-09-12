@@ -80,8 +80,7 @@ class ModelKitAdmin(admin.ModelAdmin):
     list_display = ('name', 'brand', 'scale', 'get_builds', 'get_box_image_url')
     list_filter = ('is_reviewed', 'brand', 'scale')
     search_fields = ('name', 'kit_number')
-    raw_id_fields = ('submitter',)
-    filter_horizontal = ('duplicates',)
+    raw_id_fields = ('submitter', 'duplicates')
 
     def get_queryset(self, request=None):
         prefetch = Prefetch('builds', queryset=Build.objects.select_related('user'))
