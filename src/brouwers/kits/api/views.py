@@ -1,10 +1,13 @@
-from rest_framework import permissions, viewsets
+from rest_framework import parsers, permissions, viewsets
+from rest_framework.settings import api_settings
 
-from ..models import Brand, ModelKit, Scale
+from brouwers.albums.api.renderers import FineUploaderRenderer
+
+from ..models import Boxart, Brand, ModelKit, Scale
 from .filters import BrandFilter, ModelKitFilter, ScaleFilter
 from .serializers import (
-    BrandSerializer, CreateModelKitSerializer, ModelKitSerializer,
-    ScaleSerializer
+    BoxartSerializer, BrandSerializer, CreateModelKitSerializer,
+    ModelKitSerializer, ScaleSerializer
 )
 
 
@@ -39,3 +42,14 @@ class ScaleViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_class = ScaleFilter
     pagination_class = None
+
+
+class BoxartViewSet(viewsets.ModelViewSet):
+    queryset = Boxart.objects.none()
+    serializer_class = BoxartSerializer
+    parser_classes = api_settings.DEFAULT_PARSER_CLASSES + [parsers.FileUploadParser]
+
+    def create(self, request, *args, **kwargs):
+        response = super(BoxartViewSet, self).create(request, *args, **kwargs)
+        response.data['success'] = True
+        return response

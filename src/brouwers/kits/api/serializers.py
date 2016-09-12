@@ -4,7 +4,7 @@ from rest_framework import fields, serializers
 
 from brouwers.utils.api.fields import ThumbnailField
 
-from ..models import Brand, ModelKit, Scale
+from ..models import Boxart, Brand, ModelKit, Scale
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -44,3 +44,10 @@ class CreateModelKitSerializer(serializers.ModelSerializer):
 
     def get_url_kitreviews(self, obj):
         return reverse('kitreviews:review-add', kwargs={'slug': obj.slug})
+
+
+class BoxartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Boxart
+        fields = ('uuid', 'image')

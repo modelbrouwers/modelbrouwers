@@ -3,7 +3,8 @@ import 'bootstrap';
 import 'scripts/jquery.serializeObject';
 import 'typeahead';
 
-import qq from 'fine-uploader/lib/core'
+// import qq from 'fine-uploader/lib/core';
+import qq from 'fine-uploader';
 
 import Handlebars from 'general/js/hbs-pony';
 
@@ -235,10 +236,22 @@ export class NewKitSubmitter {
         };
         this.modal = null;
 
-        this.uploader = new qq.FineUploaderBasic({
+        let fileinput = document.getElementById(conf.id_image_upload);
+
+        this.uploader = new qq.FineUploader({
+            debug: true,
+            element: fileinput.parentElement,
             request: {
-                endpoint: '/',
-            }
+                endpoint: fileinput.dataset.endpoint,
+                inputName: 'image',
+                customHeaders: {
+                    'X-CSRFToken': window.csrf_token, // TODO
+                }
+            },
+            multiple: false,
+            validation: {
+                allowedExtensions: ['jpeg', 'jpg', 'png'] // only images
+            },
         });
     }
 

@@ -1,4 +1,5 @@
 from django import forms
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 from .models import Brand, KitDifficulties, Scale
@@ -16,7 +17,9 @@ class AddKitForm(forms.Form):
     name = forms.CharField(label=_('name'))
 
     kit_number = forms.CharField(label=_('kit number'))
-    box_image = forms.ImageField(label=_('box image'), widget=forms.FileInput)
+    box_image = forms.ImageField(label=_('box image'), widget=forms.FileInput(attrs={
+        'data-endpoint': reverse_lazy('api:boxart-list')
+    }))
     difficulty = forms.ChoiceField(
         label=_('difficulty'), choices=KitDifficulties.choices,
         widget=forms.RadioSelect
