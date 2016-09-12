@@ -3,6 +3,8 @@ import 'bootstrap';
 import 'scripts/jquery.serializeObject';
 import 'typeahead';
 
+import qq from 'fine-uploader/lib/core'
+
 import Handlebars from 'general/js/hbs-pony';
 
 import Brand from 'kits/js/models/Brand';
@@ -232,6 +234,12 @@ export class NewKitSubmitter {
             scale: Scale,
         };
         this.modal = null;
+
+        this.uploader = new qq.FineUploaderBasic({
+            request: {
+                endpoint: '/',
+            }
+        });
     }
 
     get callback() {
