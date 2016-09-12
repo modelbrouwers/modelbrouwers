@@ -16,7 +16,7 @@ class AddKitForm(forms.Form):
     name = forms.CharField(label=_('name'))
 
     kit_number = forms.CharField(label=_('kit number'))
-    box_image = forms.ImageField(label=_('box image'))
+    box_image = forms.ImageField(label=_('box image'), widget=forms.FileInput)
     difficulty = forms.ChoiceField(
         label=_('difficulty'), choices=KitDifficulties.choices,
         widget=forms.RadioSelect
