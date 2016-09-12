@@ -25,6 +25,7 @@
 @import "partials/lightbox";
 @import "partials/typeahead";
 
+$disable-warnings: true;
 @import "components/all";
 
 @import "partials/apps/albums";

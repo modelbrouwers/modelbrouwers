@@ -1287,6 +1287,21 @@ input[type="range"] + output {
 .button--light-blue, .button--light-blue:hover, .button--light-blue:active, .button--light-blue:focus {
   color: #FFFFFF;
 }
+/* line 57, ../../sass/components/buttons/_buttons.scss */
+.button--fade {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7;
+  -moz-transition: opacity 0.5s ease;
+  -o-transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+  font-weight: normal;
+}
+/* line 62, ../../sass/components/buttons/_buttons.scss */
+.button--fade:hover, .button--fade:active, .button--fade:focus {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
 
 /* line 1, ../../sass/components/buttons/_button-group.scss */
 .button-group {
@@ -1302,6 +1317,76 @@ input[type="range"] + output {
 /* line 5, ../../sass/components/forms/_radio-select.scss */
 .radio-select label {
   margin-bottom: 0;
+}
+
+/* line 4, ../../../node_modules/bourbon-neat/app/assets/stylesheets/grid/_box-sizing.scss */
+html {
+  box-sizing: border-box;
+}
+
+/* line 9, ../../../node_modules/bourbon-neat/app/assets/stylesheets/grid/_box-sizing.scss */
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+/* line 5, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-hide {
+  display: none;
+}
+/* line 9, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__drop-area {
+  position: static;
+  min-height: 100px;
+  background: rgba(145, 146, 145, 0.2);
+  border: dashed 2px #919291;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* line 20, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__progress-bar {
+  height: 10px;
+  background: #32BB5B;
+}
+/* line 25, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__upload-button-container {
+  display: inline-block;
+}
+/* line 29, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__upload-button {
+  display: inline-block;
+}
+/* line 33, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__upload-list {
+  padding: 0;
+  margin: 1em 0 0;
+}
+/* line 39, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__upload-list-item {
+  list-style: none;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+/* line 44, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__preview {
+  display: table-cell;
+  width: 33.33333%;
+}
+/* line 48, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__upload-actions {
+  display: table-cell;
+  width: 66.66667%;
+  text-align: right;
+}
+/* line 55, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__upload-list-item.qq-upload-fail .qq-uploader__status-text {
+  color: #E91D1D;
+  font-weight: 600;
+}
+/* line 61, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-btn {
+  padding: 3px 8px;
 }
 
 /* line 3, ../../sass/components/kits/_kit.scss */
