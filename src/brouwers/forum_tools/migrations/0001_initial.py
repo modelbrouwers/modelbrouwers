@@ -151,6 +151,10 @@ class Migration(migrations.Migration):
                 ('last_post_time', models.BigIntegerField(default=0, db_column=b'topic_last_post_time')),
                 ('create_time', models.BigIntegerField(default=0, db_column=b'topic_time')),
                 ('forum', models.ForeignKey(to='forum_tools.Forum')),
+                ('author', models.ForeignKey(
+                    to='forum_tools.ForumUser', db_column=b'topic_poster',
+                    default=0, on_delete=models.SET_DEFAULT
+                )),
             ],
             options={
                 'ordering': ['topic_id'],

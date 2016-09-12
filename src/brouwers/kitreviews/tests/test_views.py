@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from django_webtest import WebTest
 
 from brouwers.albums.tests.factories import AlbumFactory
+from brouwers.forum_tools.tests.factories import ForumUserFactory, TopicFactory
 from brouwers.kits.models import Brand
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
@@ -102,6 +103,33 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(review.raw_text, 'My review with [b]BBCode[/b]\nFoo')
         self.assertHTMLEqual(review.render_raw_text(), 'My review with <strong>BBCode</strong><br>Foo')
         self.assertEqual(review.reviewer, user)
+
+    def test_submit_review_with_topic(self):
+        """
+        Assert that only the relevant topics are listed.
+        """
+        kit = ModelKitFactory.create()
+        user = UserFactory.create()
+        forum_user = ForumUserFactory.create(username=user.username)
+        user.forumuser_id = forum_user.pk
+        user.save()
+
+        topic1 = TopicFactory.create()
+        topic2 = TopicFactory.create(author=forum_user)
+
+
+        url = reverse('kitreviews:review-add', kwargs={'slug': kit.slug})
+        add_page = self.app.get(url, user=user)
+
+        # non-authored topics may not be shown
+        with self.assertRaisesRegexp(ValueError, r'^Option %s not found \(from' % topic1.pk):
+            add_page.form['topic'].select(topic1.pk)
+        add_page.form['topic'].select(topic2.pk)
+        add_page.form['raw_text'] = 'Dummy review'
+        response = add_page.form.submit().follow()
+
+        review = KitReview.objects.get()
+        self.assertEqual(review.topic, topic2)
 
 
 class SearchViewTests(WebTest):

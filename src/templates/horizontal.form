@@ -76,8 +76,17 @@
 {% block _Select %}
 {% if help_text %}<div class="input-group">{% endif %}
 <select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flatattrs }} class="form-control {{ css_classes }}">
-{% for val, display in choices %}
-    <option value="{{ val }}" {% if val == value|default:None %}selected{% endif %}>{{ display }}</option>
+{% for choice in choices %}
+    {% if choice.is_group %}
+        <optgroup label="{{ choice.value|striptags }}">
+            {% for val, display in choice.display %}
+                <option value="{{ val }}" {% if val == value|default:None %}selected{% endif %}>{{ display }}</option>
+            {% endfor %}
+        </optgroup>
+    {% else %}
+        {# {% reuse '_Select_Option' val=choice.value value=value display=choice.display %} #}
+        <option value="{{ choice.value }}" {% if choice.value == value|default:None %}selected{% endif %}>{{ choice.display }}</option>
+    {% endif %}
 {% endfor %}
 </select>
 {% reuse "_help" %}

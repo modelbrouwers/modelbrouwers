@@ -19,6 +19,7 @@ SYNCDB_MODELS = [
 
 
 class ForumToolsRouter(object):
+
     def db_for_read(self, model, **hints):
         if model.__name__ in MYSQL_MODELS and model._meta.app_label == 'forum_tools':
             return 'mysql'
@@ -30,10 +31,19 @@ class ForumToolsRouter(object):
         return 'default'
 
     def allow_relation(self, obj1, obj2, **hints):
-        for model in MYSQL_MODELS:
-            if model in [obj1.__class__.__name__, obj2.__class__.__name__]:
-                return False
-        return True
+        """
+        If both obj1 and obj2 are MYSQL or PostgreSQL models, relation is allowed.
+        """
+        app_label1, model1 = obj1._meta.app_label, obj1._meta.object_name
+        app_label2, model2 = obj2._meta.app_label, obj2._meta.object_name
+
+        # we only look at the 'forum_tools' app in this router
+        if app_label1 == app_label2 == 'forum_tools':
+            if model1 in MYSQL_MODELS and model2 in MYSQL_MODELS:
+                return True
+            if model1 not in MYSQL_MODELS and model2 not in MYSQL_MODELS:
+                return True
+        return None
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         """

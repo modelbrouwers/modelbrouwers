@@ -169,6 +169,8 @@ class Topic(models.Model):
     last_post_time = models.BigIntegerField(db_column='topic_last_post_time', default=0)
     create_time = models.BigIntegerField(db_column='topic_time', default=0)
 
+    author = models.ForeignKey(ForumUser, db_column='topic_poster', default=0, on_delete=models.SET_DEFAULT)
+
     class Meta:
         managed = False
         db_table = settings.PHPBB_TABLE_PREFIX + 'topics'
