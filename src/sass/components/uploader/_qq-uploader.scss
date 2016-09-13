@@ -15,6 +15,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &.qq-uploader__drop-area--upload-complete {
+      display: none;
+    }
   }
 
   .qq-uploader__progress-bar {
@@ -33,6 +37,10 @@
   .qq-uploader__upload-list {
     padding: 0;
     margin: 1em 0 0;
+
+    &.qq-uploader__upload-list--upload-complete {
+      margin-top: 0;
+    }
   }
 
   @include display-context(table) {

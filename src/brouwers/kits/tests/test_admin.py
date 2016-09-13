@@ -5,7 +5,7 @@ from django_webtest import WebTest
 from brouwers.users.tests.factories import UserFactory
 
 from ..models import ModelKit
-from .factories import BrandFactory, ModelKitFactory, ScaleFactory
+from .factories import BrandFactory, ModelKitFactory
 
 
 class AdminTests(WebTest):

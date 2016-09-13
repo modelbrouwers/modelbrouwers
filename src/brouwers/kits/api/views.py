@@ -1,8 +1,6 @@
 from rest_framework import parsers, permissions, viewsets
 from rest_framework.settings import api_settings
 
-from brouwers.albums.api.renderers import FineUploaderRenderer
-
 from ..models import Boxart, Brand, ModelKit, Scale
 from .filters import BrandFilter, ModelKitFilter, ScaleFilter
 from .serializers import (

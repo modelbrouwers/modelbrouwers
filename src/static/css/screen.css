@@ -1343,48 +1343,56 @@ html {
   align-items: center;
   justify-content: center;
 }
-/* line 20, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 19, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__drop-area.qq-uploader__drop-area--upload-complete {
+  display: none;
+}
+/* line 24, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__progress-bar {
   height: 10px;
   background: #32BB5B;
 }
-/* line 25, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 29, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__upload-button-container {
   display: inline-block;
 }
-/* line 29, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 33, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__upload-button {
   display: inline-block;
 }
-/* line 33, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 37, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__upload-list {
   padding: 0;
   margin: 1em 0 0;
 }
-/* line 39, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 41, ../../sass/components/uploader/_qq-uploader.scss */
+.qq-uploader .qq-uploader__upload-list.qq-uploader__upload-list--upload-complete {
+  margin-top: 0;
+}
+/* line 47, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__upload-list-item {
   list-style: none;
   display: table;
   width: 100%;
   table-layout: fixed;
 }
-/* line 44, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 52, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__preview {
   display: table-cell;
   width: 33.33333%;
 }
-/* line 48, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 56, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__upload-actions {
   display: table-cell;
   width: 66.66667%;
   text-align: right;
 }
-/* line 55, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 63, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-uploader__upload-list-item.qq-upload-fail .qq-uploader__status-text {
   color: #E91D1D;
   font-weight: 600;
 }
-/* line 61, ../../sass/components/uploader/_qq-uploader.scss */
+/* line 69, ../../sass/components/uploader/_qq-uploader.scss */
 .qq-uploader .qq-btn {
   padding: 3px 8px;
 }

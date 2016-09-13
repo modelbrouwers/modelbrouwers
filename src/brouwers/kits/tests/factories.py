@@ -35,3 +35,11 @@ class ModelKitFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = ModelKit
+
+
+class BoxartFactory(factory.django.DjangoModelFactory):
+
+    image = factory.django.ImageField()
+
+    class Meta:
+        model = 'kits.Boxart'

@@ -235,24 +235,37 @@ export class NewKitSubmitter {
             scale: Scale,
         };
         this.modal = null;
+        this.boxartImageUUID = null;
 
         let fileinput = document.getElementById(conf.id_image_upload);
-
-        this.uploader = new qq.FineUploader({
-            debug: true,
-            element: fileinput.parentElement,
-            request: {
-                endpoint: fileinput.dataset.endpoint,
-                inputName: 'image',
-                customHeaders: {
-                    'X-CSRFToken': window.csrf_token, // TODO
+        if (fileinput) {
+            this.uploader = new qq.FineUploader({
+                element: fileinput.parentElement,
+                request: {
+                    endpoint: fileinput.dataset.endpoint,
+                    inputName: 'image',
+                    customHeaders: {
+                        'X-CSRFToken': window.csrf_token, // TODO
+                    }
+                },
+                multiple: false,
+                validation: {
+                    allowedExtensions: ['jpeg', 'jpg', 'png'] // only images
+                },
+                callbacks: {
+                    onComplete: this.boxartImageUploaded.bind(this)
                 }
-            },
-            multiple: false,
-            validation: {
-                allowedExtensions: ['jpeg', 'jpg', 'png'] // only images
-            },
-        });
+            });
+        }
+    }
+
+    boxartImageUploaded(id, name, responseJSON, xhr) {
+        this.boxartImageUUID = responseJSON.uuid;
+        let dropArea = document.querySelector('.qq-uploader__drop-area');
+        dropArea.classList.add('qq-uploader__drop-area--upload-complete');
+
+        let previews = document.querySelector('.qq-uploader__upload-list');
+        previews.classList.add('qq-uploader__upload-list--upload-complete')
     }
 
     get callback() {
@@ -282,13 +295,13 @@ export class NewKitSubmitter {
                 .then(returnValues => {
                     brand = returnValues[0];
                     scale = returnValues[1];
-                    debugger;
                     return ModelKit.objects.create({
                         brand: brand.id,
                         scale: scale.id,
                         name: data.name,
                         kit_number: data.kit_number,
-                        difficulty: data.difficulty
+                        difficulty: data.difficulty,
+                        box_image_uuid: that.boxartImageUUID
                     });
                 })
                 .then(kit => {
