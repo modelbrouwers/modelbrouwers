@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from brouwers.builds.models import Build
 from brouwers.utils.admin.decorators import link_list
 
-from .models import Brand, ModelKit, Scale
+from .models import Boxart, Brand, ModelKit, Scale
 
 
 def merge_duplicates(modeladmin, request, queryset):
@@ -96,3 +96,9 @@ class ModelKitAdmin(admin.ModelAdmin):
         return ''
     get_box_image_url.allow_tags = True
     get_box_image_url.short_description = _('boxart')
+
+
+@admin.register(Boxart)
+class BoxartAdmin(admin.ModelAdmin):
+    list_display = ['uuid', 'image']
+    list_filter = ['created']

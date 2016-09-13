@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+import uuid
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -134,3 +136,24 @@ class ModelKit(models.Model):
         if not self.box_image:
             return False
         return self.box_image.storage.exists(self.box_image.name)
+
+
+def get_uuid():
+    return str(uuid.uuid4())
+
+
+@python_2_unicode_compatible
+class Boxart(models.Model):
+    """
+    Model to store temporary boxart image uploads.
+    """
+    uuid = models.CharField(_('uuid'), default=get_uuid, max_length=36)
+    image = models.ImageField(upload_to='kits/box_images/%Y/%m')
+    created = models.DateTimeField(_('created'), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('boxart image upload')
+        verbose_name_plural = _('boxart image uploads')
+
+    def __str__(self):
+        return self.uuid

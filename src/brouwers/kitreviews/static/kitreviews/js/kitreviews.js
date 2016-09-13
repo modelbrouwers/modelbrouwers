@@ -38,7 +38,8 @@ class AddKitModal {
             prefix: '__modelkitselect',
             prefix_add: '__modelkitadd',
             isMulti: false,
-        }
+            id_image_upload: 'id___modelkitadd-box_image'
+        };
 
         let filler = new AddDefaultsFiller(conf);
         let submitter = new KitreviewsNewKitSubmitter(conf);

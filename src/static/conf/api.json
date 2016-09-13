@@ -3,7 +3,7 @@
     "baseUrl": "/",
     "basePath": "api/[version]",
     "options": {
-      "version": "v1",
+      "version": "v1"
     },
     "csrfCookie": "csrftoken"
   }
