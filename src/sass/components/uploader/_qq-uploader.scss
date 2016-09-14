@@ -1,0 +1,72 @@
+@import "neat";
+
+.qq-uploader {
+
+  .qq-hide {
+    display: none;
+  }
+
+  .qq-uploader__drop-area {
+    position: static;
+    min-height: 100px;
+    background: rgba($main-grey, 0.2);
+    border: dashed 2px $main-grey;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.qq-uploader__drop-area--upload-complete {
+      display: none;
+    }
+  }
+
+  .qq-uploader__progress-bar {
+    height: 10px;
+    background: $main-green;
+  }
+
+  .qq-uploader__upload-button-container {
+    display: inline-block;
+  }
+
+  .qq-uploader__upload-button {
+    display: inline-block;
+  }
+
+  .qq-uploader__upload-list {
+    padding: 0;
+    margin: 1em 0 0;
+
+    &.qq-uploader__upload-list--upload-complete {
+      margin-top: 0;
+    }
+  }
+
+  @include display-context(table) {
+    .qq-uploader__upload-list-item {
+      list-style: none;
+      @include row(table); // doesn't seem to work entirely with display-context yet
+    }
+
+    .qq-uploader__preview {
+      @include span-columns(1 of 3);
+    }
+
+    .qq-uploader__upload-actions {
+      @include span-columns(2 of 3);
+      text-align: right;
+    }
+  }
+
+  .qq-uploader__upload-list-item.qq-upload-fail {
+    .qq-uploader__status-text {
+      color: $main-red;
+      font-weight: 600;
+    }
+  }
+
+  .qq-btn {
+    padding: 3px 8px;
+  }
+}

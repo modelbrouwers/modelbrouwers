@@ -4,7 +4,7 @@ from rest_framework import fields, serializers
 
 from brouwers.utils.api.fields import ThumbnailField
 
-from ..models import Brand, ModelKit, Scale
+from ..models import Boxart, Brand, ModelKit, Scale
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -34,13 +34,42 @@ class ModelKitSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'brand', 'scale', 'kit_number', 'difficulty', 'box_image')
 
 
+def upload_exists(uuid):
+    if not Boxart.objects.filter(uuid=uuid).exists():
+        raise serializers.ValidationError('Invalid upload specified')
+
+
 class CreateModelKitSerializer(serializers.ModelSerializer):
+
+    box_image_uuid = fields.UUIDField(
+        write_only=True, validators=[upload_exists],
+        required=False
+    )
 
     url_kitreviews = fields.SerializerMethodField()
 
     class Meta:
         model = ModelKit
-        fields = ('id', 'name', 'brand', 'scale', 'kit_number', 'difficulty', 'url_kitreviews')
+        fields = (
+            'id', 'name', 'brand', 'scale', 'kit_number', 'difficulty',
+            'url_kitreviews', 'box_image_uuid'
+        )
 
     def get_url_kitreviews(self, obj):
         return reverse('kitreviews:review-add', kwargs={'slug': obj.slug})
+
+    def create(self, validated_data):
+        uuid = validated_data.get('box_image_uuid')
+        if uuid:
+            boxart = Boxart.objects.get(uuid=uuid)
+            validated_data['box_image'] = boxart.image
+            del validated_data['box_image_uuid']
+            boxart.delete()
+        return super(CreateModelKitSerializer, self).create(validated_data)
+
+
+class BoxartSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Boxart
+        fields = ('uuid', 'image')

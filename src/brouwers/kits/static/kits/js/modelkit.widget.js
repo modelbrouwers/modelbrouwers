@@ -16,6 +16,7 @@ import {
 let conf = {
     prefix: '__modelkitselect',
     prefix_add: '__modelkitadd',
+    id_image_upload: 'id___modelkitadd-box_image',
     htmlname: null,
     minChars: 2,
     add_modal: '#add-kit-modal',

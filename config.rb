@@ -22,3 +22,5 @@ javascripts_dir = "src/static/js"
 # preferred_syntax = :sass
 # and then run:
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+
+add_import_path "./node_modules/bourbon-neat/app/assets/stylesheets"

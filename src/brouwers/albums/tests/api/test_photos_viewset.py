@@ -9,11 +9,7 @@ from brouwers.users.tests.factories import UserFactory
 
 from ..factories import AlbumFactory, PhotoFactory
 
-try:  # Pillow
-    from PIL import Image
-except ImportError:  # PIL
-    import Image
-
+from PIL import Image
 
 
 class PhotoViewsetTests(APITestCase):

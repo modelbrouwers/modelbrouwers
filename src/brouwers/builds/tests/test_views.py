@@ -74,7 +74,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(add.form['photos-TOTAL_FORMS'].value, '0')
         self.assertEqual(add.form['photos-INITIAL_FORMS'].value, '0')
 
-        add.form['photos-TOTAL_FORMS'] = 2  # add two photos
+        add.form['photos-TOTAL_FORMS'] = '2'  # add two photos
 
         photos = PhotoFactory.create_batch(2, user=self.user)
 
@@ -95,7 +95,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         # add some kits
         kits = ModelKitFactory.create_batch(2)
         for kit in kits:
-            self._add_field(add.form, 'kits', kit.pk)
+            self._add_field(add.form, 'kits', str(kit.pk))
 
         response = add.form.submit()
         build = Build.objects.order_by('-pk').first()
@@ -141,7 +141,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(page.form['photos-INITIAL_FORMS'].value, '1')
 
         photo = PhotoFactory.create(user=self.user)
-        page.form['photos-TOTAL_FORMS'] = 2
+        page.form['photos-TOTAL_FORMS'] = '2'
         self._add_field(page.form, 'photos-1-id', '')
         self._add_field(page.form, 'photos-1-build', '')
         self._add_field(page.form, 'photos-1-photo', '{}'.format(photo.pk))
