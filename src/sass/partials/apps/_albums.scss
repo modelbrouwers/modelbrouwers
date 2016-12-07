@@ -299,11 +299,17 @@ body.albums.photo-detail {
         margin-bottom: 0;
       }
 
+      display: inline-block;
+
       &:hover,
       &:active,
       &:focus {
         cursor: pointer;
         border-color: $main-light-blue;
+      }
+
+      > img {
+        pointer-events: none;
       }
 
       span.h4 {
