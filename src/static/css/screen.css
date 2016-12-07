@@ -1977,6 +1977,11 @@ body.albums.photo-detail .modal-backdrop .fa-spinner {
 .carousel-album .carousel-control > .fa-arrow-right {
   right: 5px;
 }
+/* line 297, ../../sass/partials/apps/_albums.scss */
+#carousel-album input + label,
+.carousel-album input + label {
+  display: inline-block;
+}
 @media (min-width: 768px) {
   /* line 297, ../../sass/partials/apps/_albums.scss */
   #carousel-album input + label,
@@ -1984,7 +1989,7 @@ body.albums.photo-detail .modal-backdrop .fa-spinner {
     margin-bottom: 0;
   }
 }
-/* line 302, ../../sass/partials/apps/_albums.scss */
+/* line 304, ../../sass/partials/apps/_albums.scss */
 #carousel-album input + label:hover, #carousel-album input + label:active, #carousel-album input + label:focus,
 .carousel-album input + label:hover,
 .carousel-album input + label:active,
@@ -1992,7 +1997,12 @@ body.albums.photo-detail .modal-backdrop .fa-spinner {
   cursor: pointer;
   border-color: #4095FD;
 }
-/* line 309, ../../sass/partials/apps/_albums.scss */
+/* line 311, ../../sass/partials/apps/_albums.scss */
+#carousel-album input + label > img,
+.carousel-album input + label > img {
+  pointer-events: none;
+}
+/* line 315, ../../sass/partials/apps/_albums.scss */
 #carousel-album input + label span.h4,
 .carousel-album input + label span.h4 {
   display: block;
