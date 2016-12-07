@@ -28,7 +28,7 @@ sorl-thumbnail==12.4a1
 
 # API
 djangorestframework==3.5.3
-djangorestframework-filters==0.9.0
+djangorestframework-filters==0.9.1
 
 # Html parsing
 bleach==1.5.0
