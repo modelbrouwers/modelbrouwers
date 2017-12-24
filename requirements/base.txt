@@ -47,7 +47,7 @@ requests==2.18.4          # via django-rosetta, microsofttranslator
 rjsmin==1.0.12            # via django-compressor
 semantic-version==2.6.0   # via django-systemjs
 six==1.10.0               # via bleach, django-extensions, django-extra-views, django-rosetta, fake-factory, html5lib, microsofttranslator, python-dateutil
-sorl-thumbnail==12.3
+sorl-thumbnail==12.4.1
 tinycss==0.3              # via weasyprint
 typing==3.6.2             # via django-extensions
 urllib3==1.22             # via requests
