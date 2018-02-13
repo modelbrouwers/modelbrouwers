@@ -64,7 +64,7 @@ Responsive layout
 -----------------
 
 It should be easy to browser the shop on Mobile, Tablet and Desktop. This also
-bumps our Google ranking (our rather - Google doesn't punish us).
+bumps our Google ranking (or rather - Google doesn't punish us).
 
 Internationalization
 --------------------
