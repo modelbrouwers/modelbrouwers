@@ -187,6 +187,9 @@ The product model must have at least the following fields:
 
 Products should also have reviews and ratings. Ratings could be part of reviews.
 
+See exports of the current shop for other missing fields/relevant data that
+might need to be migrated.
+
 ------------
 Translations
 ------------
@@ -202,50 +205,68 @@ Check support for django 1.10/1.11 for both apps.
 Search function
 ---------------
 
+Search function should be fast and yield appropriate results. Elastic-search
+may be the way to go if searching purely on database is not maintainable.
+
 ----
 Cart
 ----
+
+Cart status should be stored in the session and preserved if filling the card
+and then logging in.
 
 --------------------------------------------------------------
 Downloadable products (generating entrance tickets for events)
 --------------------------------------------------------------
 
+* barcodes should be unique (uuid?)
+* it should be verifiable that a ticket was scanned or not before
+* plugin-like implementation would be great
+* generate QR and/or barcode + render to PDF
+
 -----------------------------
 Customizable e-mail templates
 -----------------------------
+
+mail-editor is a great candidate for this, the idea is that a set of e-mail
+types is defined upfront, and in the admin the actual content can be templated
+out.
 
 --------
 Vouchers
 --------
 
+The ability to buy/gift vouchers to people as a product should be kept. A
+voucher should also have some sort of unique ID that tracks how much is used,
+so people can use a voucher for webshop purchases as well.
+
 -----------------------------------
 Carousel/highlighted items homepage
 -----------------------------------
+
+There should be a place to enter carousel items/highlighted items. These
+should probably just have a reference to the product so the proper URL can be
+generated, with image/description/position etc. fields. There should not be any
+hardcoding.
 
 ---------------
 Filter by brand
 ---------------
 
+The UI should allow a quick search by brand.
+
 ---------------
 Featured offers
 ---------------
+
+It should be possible to mark a product as featured offer, with an overridden
+price.
 
 ------------
 New products
 ------------
 
-
-
-
-
-
-
-
-
-
-
-
-
+New items should be listed. TDB what marks an product as 'new'.
 
 
 .. _Sendcloud: https://www.sendcloud.nl/
