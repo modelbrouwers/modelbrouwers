@@ -30,10 +30,16 @@ class BuildSearchMixin(object):
 
 class IndexView(BuildSearchMixin, ListView):
     photo_qs = BuildPhoto.objects.select_related('photo').order_by('order')
-    queryset = Build.objects.select_related('user').prefetch_related(
-                    'kits__brand', 'kits__scale',
-                    Prefetch('photos', queryset=photo_qs)
-               ).order_by('-pk')
+    queryset = (
+        Build.objects
+        .select_related('user')
+        .prefetch_related(
+            'kits__brand',
+            'kits__scale',
+            Prefetch('photos', queryset=photo_qs)
+        )
+        .order_by('-pk')
+    )
     paginate_by = 24
     context_object_name = 'builds'
     show_user = True

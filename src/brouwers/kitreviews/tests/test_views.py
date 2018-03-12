@@ -264,15 +264,15 @@ class LegacyRedirectViewTests(WebTest):
         review = KitReviewFactory.create(legacy_id=42)
 
         # test success
-        response = self.app.get(url, {'review': '42'})
+        response = self.app.get(url, params={'review': '42'})
         self.assertRedirects(response, review.get_absolute_url(), status_code=301)
 
-        response = self.app.get(url, {'review': 42, 'kit': 'abcdefgh'})
+        response = self.app.get(url, params={'review': 42, 'kit': 'abcdefgh'})
         self.assertRedirects(response, review.get_absolute_url(), status_code=301)
 
         # test error handling
-        self.app.get(url, {'review': 'abcdefgh'}, status=404)
+        self.app.get(url, params={'review': 'abcdefgh'}, status=404)
         self.app.get(url, status=404)
 
         # test valid input, but unknown kit
-        response = self.app.get(url, {'review': 41}, status=404)
+        response = self.app.get(url, params={'review': 41}, status=404)
