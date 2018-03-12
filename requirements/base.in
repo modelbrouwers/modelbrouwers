@@ -20,9 +20,8 @@ django-rosetta
 django-sendfile
 django-sessionprofile
 django-systemjs
-sorl-thumbnail==12.4.1
-# django-sniplates
--e git+https://github.com/funkybob/django-sniplates.git@master#egg=django_sniplates
+sorl-thumbnail
+django-sniplates
 
 # # API
 djangorestframework
