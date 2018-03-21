@@ -22,7 +22,7 @@ secrets.py
 /static
 /mails
 /test_media
-/log
+*.log
 
 # Annoying windows files
 Thumbs.db
