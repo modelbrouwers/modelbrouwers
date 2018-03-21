@@ -160,8 +160,6 @@ In production the Django tables live in a postgresql database, while the phpBB3
 tables live in MySQL. Replicating this environment is probably the most robust
 during development.
 
-Create an empty directory named ``log`` in the project's root.
-
 Creating the database
 =====================
 Run::
