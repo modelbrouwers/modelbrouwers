@@ -87,8 +87,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         self._add_field(add.form, 'photos-1-id', '')
         self._add_field(add.form, 'photos-1-build', '')
         self._add_field(add.form, 'photos-1-photo', '')
-        request = add.context['request']
-        url = request.build_absolute_uri(photos[1].image.url)
+        url = 'https://modelbrouwers.nl%s' % photos[1].image.url
         self._add_field(add.form, 'photos-1-photo_url', url)
         self._add_field(add.form, 'photos-1-order', '')
 
