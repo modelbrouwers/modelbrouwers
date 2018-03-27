@@ -3,3 +3,5 @@
 
 bpython==0.16
 django-debug-toolbar==1.5
+mobetta==0.2.9
+

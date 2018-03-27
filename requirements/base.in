@@ -32,3 +32,6 @@ bleach
 
 # # Misc
 WeasyPrint
+
+psycopg2
+python-memcached
