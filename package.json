@@ -22,7 +22,10 @@
   },
   "homepage": "https://github.com/modelbrouwers/modelbrouwers",
   "dependencies": {
-    "fine-uploader": "~5.1.3"
+    "bootstrap": "^3.3.7",
+    "fine-uploader": "~5.1.3",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
     "bourbon-neat": "^1.8.0",
@@ -40,7 +43,7 @@
       "aurelia-http-client": "npm:aurelia-http-client@^1.0.0-beta.1",
       "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1",
       "aurelia-pal-browser": "npm:aurelia-pal-browser@^1.0.0-beta.1",
-      "bootstrap": "github:twbs/bootstrap@^3.3.5",
+      "bootstrap": "github:twbs/bootstrap@^3.3.7",
       "css": "github:systemjs/plugin-css@^0.1.13",
       "fine-uploader": "npm:fine-uploader@^5.11.8",
       "handlebars": "github:components/handlebars.js@2.0.0",
