@@ -29,7 +29,6 @@ install:
   - npm install
 
 before_script:
-  - bower install
   - jspm install
   - src/manage.py collectstatic --noinput --link
   - src/manage.py systemjs_bundle
