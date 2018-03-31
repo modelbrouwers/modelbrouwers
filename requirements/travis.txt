@@ -1,4 +1,2 @@
 -r base.txt
 -r test.txt
-
-python-memcached==1.58
