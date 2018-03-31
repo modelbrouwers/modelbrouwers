@@ -118,13 +118,9 @@ These will be installed in your virtualenv.
 
 Installing front-end dependencies
 =================================
-Make sure npm, jspm and bower are installed globally. Then run::
+Make sure npm and jspm are installed globally. Then run::
 
     $ npm install
-
-and::
-
-    $ bower install
 
 and::
 
