@@ -4,8 +4,76 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cc5b8595abda88ca44f2e73ffe399817",
+    "hash": "16c86d51ae00d701eecef143ffa2658b",
     "packages": [
+        {
+            "name": "etki/opencart-core-installer",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etki/opencart-core-installer.git",
+                "reference": "b335ab9db2f0bab30dd978571c27ca568bb7bdbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etki/opencart-core-installer/zipball/b335ab9db2f0bab30dd978571c27ca568bb7bdbb",
+                "reference": "b335ab9db2f0bab30dd978571c27ca568bb7bdbb",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "1.0.0",
+                "php": ">=5.3.0",
+                "symfony/console": "~2.5",
+                "symfony/filesystem": "~2.5"
+            },
+            "require-dev": {
+                "codeception/codeception": "dev-master",
+                "composer/composer": "~1.0@dev"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Etki\\Composer\\Installers\\Opencart\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Etki\\Composer\\Installers\\Opencart\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Etki",
+                    "email": "etki@etki.name",
+                    "homepage": "http://etki.name",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Composer installer for Opencart",
+            "keywords": [
+                "installer",
+                "opencart"
+            ],
+            "time": "2014-09-22 04:07:44"
+        },
+        {
+            "name": "opencart/opencart",
+            "version": "2.0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opencart/opencart",
+                "reference": "2.0.3.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/opencart/opencart/archive/2.0.3.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "opencart-core"
+        },
         {
             "name": "raven/raven",
             "version": "0.12.0",
@@ -114,6 +182,55 @@
                 }
             ],
             "description": "Symfony Console Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-07-09 16:07:40"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v2.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Filesystem.git",
+                "reference": "2d7b2ddaf3f548f4292df49a99d19c853d43f0b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/2d7b2ddaf3f548f4292df49a99d19c853d43f0b8",
+                "reference": "2d7b2ddaf3f548f4292df49a99d19c853d43f0b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
             "time": "2015-07-09 16:07:40"
         },

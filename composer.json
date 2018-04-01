@@ -5,9 +5,33 @@
   "require": {
     "tedivm/jshrink": "~1.0",
     "symfony/console": "^2.7",
-    "raven/raven": "^0.12.0"
+    "raven/raven": "^0.12.0",
+    "etki/opencart-core-installer": "^0.1.0",
+    "opencart/opencart": "2.0.3.1"
   },
   "autoload": {
     "psr-4": {"brouwers\\": "src/phpbb"}
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "opencart/opencart",
+        "type": "opencart-core",
+        "version": "2.0.3.1",
+        "dist": {
+          "url": "https://github.com/opencart/opencart/archive/2.0.3.1.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/opencart/opencart",
+          "type": "git",
+          "reference": "2.0.3.1"
+        }
+      }
+    }
+  ],
+  "extra": {
+    "opencart-install-dir": "public_html/winkel"
   }
 }

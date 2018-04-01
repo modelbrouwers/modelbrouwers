@@ -9,9 +9,9 @@
         <meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" />
         <meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
 
-        <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet">
-        <link href="{% static 'bower_components/components-font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+        <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/jquery-ui-1.10.2.custom.css' %}" rel="stylesheet">
 
         {% compress css %}
@@ -30,12 +30,11 @@
         <![endif]-->
         <!-- use googles jquery, loads faster and relieves own server -->
 
-        {# <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> fucking Firefox 3.6 support #}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         {# fallback #}
         <script>
             if (typeof window.jQuery === 'undefined') {
-                document.write(unescape("%3Cscript src='{% static 'bower_components/jquery/dist/jquery.min.js' %}' type='text/javascript'%3E%3C/script%3E"));
+               document.write(unescape("%3Cscript src='{% static 'jquery/dist/jquery.min.js' %}' type='text/javascript'%3E%3C/script%3E"));
             }
         </script>
         <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
@@ -113,8 +112,7 @@
 
         {% block modals %} {% endblock %}
 
-        <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'bower_components/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'scripts/bootstrap-select.min.js' %}"></script>
 
         {% block js_no_compress %}{% endblock %}

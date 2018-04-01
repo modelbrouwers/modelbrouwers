@@ -118,13 +118,9 @@ These will be installed in your virtualenv.
 
 Installing front-end dependencies
 =================================
-Make sure npm, jspm and bower are installed globally. Then run::
+Make sure npm and jspm are installed globally. Then run::
 
     $ npm install
-
-and::
-
-    $ bower install
 
 and::
 
@@ -159,8 +155,6 @@ be present.
 In production the Django tables live in a postgresql database, while the phpBB3
 tables live in MySQL. Replicating this environment is probably the most robust
 during development.
-
-Create an empty directory named ``log`` in the project's root.
 
 Creating the database
 =====================

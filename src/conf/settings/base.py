@@ -127,8 +127,11 @@ STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
     # node_modules cannot be consistently installed in the 'correct place'.
-    # symlinking resuls in too many levels of symlinks
+    # symlinking results in too many levels of symlinks
     os.path.join(ROOT_DIR, 'node_modules', 'fine-uploader'),
+    ('bootstrap', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap')),
+    ('font-awesome', os.path.join(ROOT_DIR, 'node_modules', 'font-awesome')),
+    ('jquery', os.path.join(ROOT_DIR, 'node_modules', 'jquery')),
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -264,7 +267,7 @@ CACHES = {
 #
 SESSION_COOKIE_NAME = 'mbsessionid'
 SESSION_SAVE_EVERY_REQUEST = False
-SESSION_COOKIE_AGE = 60*60*24*7*365  # one year
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 365  # one year
 
 #
 # AUTH
@@ -285,7 +288,6 @@ SKIP_AUTH_USER_MODEL_MIGRATIONS = True
 IRC_SERVER = 'irc.slacknet.org'
 IRC_CHANNEL = '#modelbrouwers.nl'
 IRC_DEFAULT_NICK = 'brouwer%3F%3F'
-
 
 #
 # TESTS
