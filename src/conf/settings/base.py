@@ -226,6 +226,7 @@ INSTALLED_APPS = [
     'precise_bbcode',
     'sorl.thumbnail',
     'systemjs',
+    'treebeard',
 
     # Modelbrouwers
     'brouwers.users',

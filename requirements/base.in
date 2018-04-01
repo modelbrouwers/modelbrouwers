@@ -22,6 +22,7 @@ django-sessionprofile
 django-systemjs
 sorl-thumbnail
 django-sniplates
+django-treebeard
 
 # # API
 djangorestframework
