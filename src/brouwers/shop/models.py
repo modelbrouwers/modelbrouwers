@@ -9,9 +9,11 @@ from autoslug import AutoSlugField
 
 
 class Category(MP_Node):
-    name = models.CharField(max_length=30)
+    name = models.CharField(_('name'), max_length=30)
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
-    image = models.ImageField(_('thumbnail'), upload_to='shop/thumbnails/', blank=True)
+    image = models.ImageField(_('thumbnail'), upload_to='shop/category/', blank=True)
+    seo_keyword = models.CharField(_('seo keyword'), max_length=100, null=True, blank=True)
+    enabled = models.BooleanField(_('enabled'), default=True)
 
     node_order_by = ['name']
 

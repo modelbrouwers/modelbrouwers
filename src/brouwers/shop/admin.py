@@ -8,6 +8,6 @@ from .models import Category
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'image')
-    list_filter = ('name',)
-    search_fields = ('name',)
+    list_display = ('name', 'image', 'seo_keyword', 'enabled')
+    list_filter = ('name', 'seo_keyword', 'enabled')
+    search_fields = ('name', 'seo_keyword')
