@@ -42,6 +42,7 @@ class AlbumGroupAdmin(admin.ModelAdmin):
     search_fields = ('album__title',)
     filter_horizontal = ('users',)
 
+
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Category, CategoryAdmin)

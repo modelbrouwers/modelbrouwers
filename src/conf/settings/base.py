@@ -209,6 +209,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
 
+    'modeltranslation',  # has to be imported before django.contrib.admin
     # admin tools. order is important
     'admin_tools',
     'admin_tools.theming',
@@ -228,7 +229,6 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'systemjs',
     'treebeard',
-    'modeltranslation',
 
     # Modelbrouwers
     'brouwers.users',
@@ -245,6 +245,7 @@ INSTALLED_APPS = [
     'brouwers.migration',
     'brouwers.online_users',
     'brouwers.utils',
+    'brouwers.shop',
 ]
 
 #
