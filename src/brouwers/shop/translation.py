@@ -4,4 +4,4 @@ from .models import Category
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
-    fields = ('name', 'slug', 'seo_keyword', 'enabled')
+    fields = ('name', 'slug', 'seo_keyword')
