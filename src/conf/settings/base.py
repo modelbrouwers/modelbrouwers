@@ -25,6 +25,7 @@ USE_I18N = True
 LANGUAGES = [
     ('en', _('English')),
     ('nl', _('Dutch')),
+    ('de', _('German')),
 ]
 
 LOCALE_PATHS = [
@@ -227,6 +228,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'systemjs',
     'treebeard',
+    'modeltranslation',
 
     # Modelbrouwers
     'brouwers.users',

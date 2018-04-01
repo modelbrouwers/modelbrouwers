@@ -23,6 +23,7 @@ django-systemjs
 sorl-thumbnail
 django-sniplates
 django-treebeard
+django-modeltranslation
 
 # # API
 djangorestframework
