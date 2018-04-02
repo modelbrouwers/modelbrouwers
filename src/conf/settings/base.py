@@ -25,6 +25,7 @@ USE_I18N = True
 LANGUAGES = [
     ('en', _('English')),
     ('nl', _('Dutch')),
+    ('de', _('German')),
 ]
 
 LOCALE_PATHS = [
@@ -208,6 +209,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
 
+    'modeltranslation',  # has to be imported before django.contrib.admin
     # admin tools. order is important
     'admin_tools',
     'admin_tools.theming',
@@ -226,6 +228,7 @@ INSTALLED_APPS = [
     'precise_bbcode',
     'sorl.thumbnail',
     'systemjs',
+    'treebeard',
 
     # Modelbrouwers
     'brouwers.users',
@@ -242,6 +245,7 @@ INSTALLED_APPS = [
     'brouwers.migration',
     'brouwers.online_users',
     'brouwers.utils',
+    'brouwers.shop',
 ]
 
 #
