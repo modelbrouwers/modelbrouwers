@@ -11,6 +11,7 @@ Django
 django-admin-tools
 django-autoslug
 django-choices
+django-ckeditor
 django-compressor
 django-extensions
 django-extra-views
