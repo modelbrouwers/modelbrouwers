@@ -229,6 +229,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'systemjs',
     'treebeard',
+    'taggit',
 
     # Modelbrouwers
     'brouwers.users',

@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
+from taggit.managers import TaggableManager
 
 
 class Product(models.Model):
@@ -12,10 +13,11 @@ class Product(models.Model):
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
     brand = models.ForeignKey('ProductBrand', null=True, blank=True, on_delete=models.PROTECT)
     model_name = models.CharField(_('model name'), max_length=30)
-    stock = models.PositiveIntegerField(_('stock'), max_length=30, help_text=_('Number of items in stock'))
+    stock = models.PositiveIntegerField(_('stock'), help_text=_('Number of items in stock'))
     price = models.DecimalField(_("price"), max_digits=10, decimal_places=2, default=0)
     vat = models.IntegerField(_('vat'), default=0)
     description = RichTextField(blank=True)
+    tags = TaggableManager()
 
     class Meta:
         verbose_name = _('product')
@@ -33,7 +35,6 @@ class ProductImage(models.Model):
     class Meta:
         verbose_name = _('product image')
         verbose_name_plural = _('product images')
-        ordering = ['name']
 
 
 class ProductBrand(models.Model):

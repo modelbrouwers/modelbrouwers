@@ -25,6 +25,7 @@ sorl-thumbnail
 django-sniplates
 django-treebeard
 django-modeltranslation
+django-taggit
 
 # # API
 djangorestframework
