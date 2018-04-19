@@ -230,6 +230,7 @@ INSTALLED_APPS = [
     'systemjs',
     'treebeard',
     'taggit',
+    'ckeditor',
 
     # Modelbrouwers
     'brouwers.users',
