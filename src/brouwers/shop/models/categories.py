@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from treebeard.mp_tree import MP_Node
 from autoslug import AutoSlugField
+from treebeard.mp_tree import MP_Node
 
 
 class Category(MP_Node):
