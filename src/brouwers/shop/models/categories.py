@@ -11,7 +11,7 @@ from treebeard.mp_tree import MP_Node
 
 @python_2_unicode_compatible
 class Category(MP_Node):
-    name = models.CharField(_('name'), max_length=30)
+    name = models.CharField(_('name'), max_length=100)
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
     image = models.ImageField(_('thumbnail'), upload_to='shop/category/', blank=True)
     seo_keyword = models.CharField(_('seo keyword'), max_length=100, null=True, blank=True)

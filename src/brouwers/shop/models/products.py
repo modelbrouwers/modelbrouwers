@@ -17,7 +17,7 @@ MIN_RATING = 0
 
 @python_2_unicode_compatible
 class Product(models.Model):
-    name = models.CharField(_('name'), max_length=30)
+    name = models.CharField(_('name'), max_length=100)
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
     brand = models.ForeignKey('ProductBrand', null=True, blank=True, on_delete=models.PROTECT)
     model_name = models.CharField(_('model name'), max_length=30)

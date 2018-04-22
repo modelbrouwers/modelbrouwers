@@ -3,21 +3,25 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
+from import_export.admin import ImportExportModelAdmin
+
 from .models import (
     Category, Product, ProductBrand, ProductImage, ProductManufacturer,
     ProductReview
 )
+from .resources import CategoryResource, ProductResource
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ImportExportModelAdmin):
     list_display = ('name', 'image', 'seo_keyword', 'enabled')
     list_filter = ('name', 'seo_keyword', 'enabled')
     search_fields = ('name', 'seo_keyword')
+    resource_class = CategoryResource
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ImportExportModelAdmin):
     list_display = (
         'name',
         'seo_keyword',
@@ -63,6 +67,7 @@ class ProductAdmin(admin.ModelAdmin):
         'category',
         'manufacturer',
     )
+    resource_class = ProductResource
 
 
 @admin.register(ProductReview)
