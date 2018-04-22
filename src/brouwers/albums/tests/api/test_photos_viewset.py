@@ -2,14 +2,13 @@ import tempfile
 
 from django.urls import reverse
 
+from PIL import Image
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from brouwers.users.tests.factories import UserFactory
 
 from ..factories import AlbumFactory, PhotoFactory
-
-from PIL import Image
 
 
 class PhotoViewsetTests(APITestCase):

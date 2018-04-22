@@ -229,6 +229,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'systemjs',
     'treebeard',
+    'taggit',
+    'ckeditor',
 
     # Modelbrouwers
     'brouwers.users',

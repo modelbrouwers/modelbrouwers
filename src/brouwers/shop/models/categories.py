@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from treebeard.mp_tree import MP_Node
 from autoslug import AutoSlugField
+from treebeard.mp_tree import MP_Node
 
 
+@python_2_unicode_compatible
 class Category(MP_Node):
     name = models.CharField(_('name'), max_length=30)
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
