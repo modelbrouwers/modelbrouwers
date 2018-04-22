@@ -31,13 +31,13 @@ class ProductAdmin(ImportExportModelAdmin):
         'price',
         'vat',
         'description',
-        'tags',
         'length',
         'width',
         'height',
         'weight',
         'category',
         'manufacturer',
+        'tag_list'
     )
     list_filter = (
         'name',
@@ -68,6 +68,12 @@ class ProductAdmin(ImportExportModelAdmin):
         'manufacturer',
     )
     resource_class = ProductResource
+
+    def get_queryset(self, request):
+        return super(ProductAdmin, self).get_queryset(request).prefetch_related('tags')
+
+    def tag_list(self, obj):
+        return u", ".join(o.name for o in obj.tags.all())
 
 
 @admin.register(ProductReview)

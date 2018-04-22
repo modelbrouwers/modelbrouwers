@@ -40,3 +40,4 @@ WeasyPrint
 
 psycopg2
 python-memcached
+openpyxl==2.4.9

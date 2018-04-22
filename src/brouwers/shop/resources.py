@@ -15,7 +15,7 @@ class ProductResource(ModelResource):
         fields = (
             'id',
             'name',
-            'brand__name',
+            'brand',
             'model_name',
             'stock',
             'price',
@@ -26,6 +26,6 @@ class ProductResource(ModelResource):
             'width',
             'height',
             'weight',
-            'category__name',
-            'manufacturer__name',
+            'category',
+            'manufacturer'
         )
