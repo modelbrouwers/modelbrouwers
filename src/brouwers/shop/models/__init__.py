@@ -1,2 +1,2 @@
-from categories import *  # noqa
-from products import *  # noqa
+from .categories import *  # noqa
+from .products import *  # noqa

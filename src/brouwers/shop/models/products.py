@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -14,6 +15,7 @@ MAX_RATING = 100
 MIN_RATING = 0
 
 
+@python_2_unicode_compatible
 class Product(models.Model):
     name = models.CharField(_('name'), max_length=30)
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
@@ -21,9 +23,8 @@ class Product(models.Model):
     model_name = models.CharField(_('model name'), max_length=30)
     stock = models.PositiveIntegerField(_('stock'), help_text=_('Number of items in stock'))
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2, default=0)
-    vat = models.IntegerField(_('vat'), default=0)
+    vat = models.DecimalField(_('vat'), max_digits=3, decimal_places=2, default=0)
     description = RichTextField(blank=True)
-    tags = TaggableManager()
     seo_keyword = models.CharField(_('seo keyword'), max_length=100, null=True, blank=True)
     length = models.DecimalField(_('length'), max_digits=10, decimal_places=2, default=0)
     width = models.DecimalField(_('width'), max_digits=10, decimal_places=2, default=0)
@@ -33,11 +34,11 @@ class Product(models.Model):
     category = models.ForeignKey('Category', related_name='products', on_delete=models.PROTECT)
     manufacturer = models.ForeignKey('ProductManufacturer', related_name='products', null=True, blank=True,
                                      on_delete=models.PROTECT)
+    tags = TaggableManager()
 
     class Meta:
         verbose_name = _('product')
         verbose_name_plural = _('products')
-        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -52,6 +53,7 @@ class ProductImage(models.Model):
         verbose_name_plural = _('product images')
 
 
+@python_2_unicode_compatible
 class ProductBrand(models.Model):
     name = models.CharField(_('name'), max_length=30)
     slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
@@ -60,12 +62,12 @@ class ProductBrand(models.Model):
     class Meta:
         verbose_name = _('product brand')
         verbose_name_plural = _('product brands')
-        ordering = ['name']
 
     def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class ProductReview(models.Model):
     product = models.ForeignKey('Product', related_name='reviews', null=True, blank=True)
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -88,13 +90,13 @@ class ProductReview(models.Model):
         }
 
 
+@python_2_unicode_compatible
 class ProductManufacturer(models.Model):
     name = models.CharField(_('manufacturer'), max_length=30)
 
     class Meta:
         verbose_name = _('product manufacturer')
         verbose_name_plural = _('product manufacturers')
-        ordering = ['name']
 
     def __str__(self):
         return self.name
