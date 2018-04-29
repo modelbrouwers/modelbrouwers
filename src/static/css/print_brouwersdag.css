@@ -3,70 +3,42 @@
   src: url("../fonts/sinkinsans-500medium-webfont.eot");
   src: url("../fonts/sinkinsans-500medium-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/sinkinsans-500medium-webfont.woff") format("woff"), url("../fonts/sinkinsans-500medium-webfont.ttf") format("truetype"), url("../fonts/sinkinsans-500medium-webfont.svg#sinkin_sans500_medium") format("svg");
   font-weight: normal;
-  font-style: normal;
-}
-/* line 9, ../../sass/partials/_colors.scss */
+  font-style: normal; }
+
 .bg-main-blue {
-  background-color: #006699;
-}
-/* line 11, ../../sass/partials/_colors.scss */
-.bg-main-blue.soft {
-  background-color: rgba(0, 102, 153, 0.7);
-}
+  background-color: #006699; }
+  .bg-main-blue.soft {
+    background-color: rgba(0, 102, 153, 0.7); }
 
-/* line 15, ../../sass/partials/_colors.scss */
 .bg-main-red {
-  background-color: #E91D1D;
-}
-/* line 17, ../../sass/partials/_colors.scss */
-.bg-main-red.soft {
-  background-color: rgba(233, 29, 29, 0.7);
-}
+  background-color: #E91D1D; }
+  .bg-main-red.soft {
+    background-color: rgba(233, 29, 29, 0.7); }
 
-/* line 21, ../../sass/partials/_colors.scss */
 .bg-main-green {
-  background-color: #32BB5B;
-}
-/* line 23, ../../sass/partials/_colors.scss */
-.bg-main-green.soft {
-  background-color: rgba(50, 187, 91, 0.7);
-}
+  background-color: #32BB5B; }
+  .bg-main-green.soft {
+    background-color: rgba(50, 187, 91, 0.7); }
 
-/* line 27, ../../sass/partials/_colors.scss */
 .bg-main-light-blue {
-  background-color: #4095FD;
-}
-/* line 29, ../../sass/partials/_colors.scss */
-.bg-main-light-blue.soft {
-  background-color: rgba(64, 149, 253, 0.7);
-}
+  background-color: #4095FD; }
+  .bg-main-light-blue.soft {
+    background-color: rgba(64, 149, 253, 0.7); }
 
-/* line 33, ../../sass/partials/_colors.scss */
 .bg-main-pink {
-  background-color: #DF4AC5;
-}
-/* line 35, ../../sass/partials/_colors.scss */
-.bg-main-pink.soft {
-  background-color: rgba(223, 74, 197, 0.7);
-}
+  background-color: #DF4AC5; }
+  .bg-main-pink.soft {
+    background-color: rgba(223, 74, 197, 0.7); }
 
-/* line 39, ../../sass/partials/_colors.scss */
 .bg-main-grey {
-  background-color: #919291;
-}
-/* line 41, ../../sass/partials/_colors.scss */
-.bg-main-grey.soft {
-  background-color: rgba(145, 146, 145, 0.7);
-}
+  background-color: #919291; }
+  .bg-main-grey.soft {
+    background-color: rgba(145, 146, 145, 0.7); }
 
-/* line 45, ../../sass/partials/_colors.scss */
 .bg-main-orange {
-  background-color: #D46400;
-}
-/* line 47, ../../sass/partials/_colors.scss */
-.bg-main-orange.soft {
-  background-color: rgba(212, 100, 0, 0.7);
-}
+  background-color: #D46400; }
+  .bg-main-orange.soft {
+    background-color: rgba(212, 100, 0, 0.7); }
 
 /*
  * Navigation bar
@@ -80,56 +52,40 @@
 /*
 * Hide the dotted lines around an element when it receives focus.
 */
-/* line 5, ../../sass/partials/_utils.scss */
 * {
-  _noFocusLine: expression(this.hideFocus=true);
-}
+  _noFocusLine: expression(this.hideFocus=true); }
 
 /* ie7 */
-/* line 6, ../../sass/partials/_utils.scss */
 ::-moz-focus-inner {
-  border: 0;
-}
+  border: 0; }
 
 /* firefox */
-/* line 7, ../../sass/partials/_utils.scss */
 select:-moz-focusring {
   color: transparent;
-  text-shadow: 0 0 0 #000;
-}
+  text-shadow: 0 0 0 #000; }
 
-/* line 11, ../../sass/partials/_utils.scss */
 :focus, a:focus {
-  outline: none;
-}
+  outline: none; }
 
 /* ie8, chrome, etc */
-/* line 20, ../../sass/partials/_utils.scss */
 .r {
   background: url("../images/logo/mb_r.png") no-repeat top right;
-  background-size: 25px 42px;
-}
+  background-size: 25px 42px; }
 
-/* line 25, ../../sass/partials/_utils.scss */
 .relative {
-  position: relative;
-}
+  position: relative; }
 
-/* line 7, ../../sass/print_brouwersdag.scss */
 * {
-  box-sizing: border-box;
-}
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
 
 @page {
   size: A4;
-  margin: 0;
-}
-/* line 16, ../../sass/print_brouwersdag.scss */
-html {
-  font-size: 12px;
-}
+  margin: 0; }
 
-/* line 20, ../../sass/print_brouwersdag.scss */
+html {
+  font-size: 12px; }
+
 div.model {
   float: left;
   width: 48.2%;
@@ -139,69 +95,45 @@ div.model {
   padding: 1.5em 1em;
   color: #333;
   position: relative;
-  overflow: hidden;
-}
-/* line 32, ../../sass/print_brouwersdag.scss */
-div.model .watermark {
-  background: url("../images/logo/logo_modelbrouwers.png") no-repeat center center;
-  background-size: 80%;
-  position: absolute;
-  top: 6.5em;
-  left: 0;
-  width: 100%;
-  height: 5em;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
-  opacity: 0.2;
-}
-/* line 43, ../../sass/print_brouwersdag.scss */
-div.model.competition {
-  height: 8em;
-}
-/* line 46, ../../sass/print_brouwersdag.scss */
-div.model.competition .watermark {
-  top: 3em;
-}
-/* line 51, ../../sass/print_brouwersdag.scss */
-div.model .row {
-  margin-bottom: 0.5em;
-}
-/* line 53, ../../sass/print_brouwersdag.scss */
-div.model .row:last-child {
-  margin-bottom: 0;
-}
-/* line 57, ../../sass/print_brouwersdag.scss */
-div.model .row label {
-  display: inline-block;
-  width: 18%;
-  color: #006699;
-}
-/* line 61, ../../sass/print_brouwersdag.scss */
-div.model .row label:after {
-  content: ":";
-}
-/* line 66, ../../sass/print_brouwersdag.scss */
-div.model .row.float label {
-  float: left;
-}
-/* line 72, ../../sass/print_brouwersdag.scss */
-div.model .model-name {
-  font-weight: 700;
-  display: block;
-  margin-left: 18%;
-}
+  overflow: hidden; }
+  div.model .watermark {
+    background: url("../images/logo/logo_modelbrouwers.png") no-repeat center center;
+    background-size: 80%;
+    position: absolute;
+    top: 6.5em;
+    left: 0;
+    width: 100%;
+    height: 5em;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+    opacity: 0.2; }
+  div.model.competition {
+    height: 8em; }
+    div.model.competition .watermark {
+      top: 3em; }
+  div.model .row {
+    margin-bottom: 0.5em; }
+    div.model .row:last-child {
+      margin-bottom: 0; }
+    div.model .row label {
+      display: inline-block;
+      width: 18%;
+      color: #006699; }
+      div.model .row label:after {
+        content: ":"; }
+    div.model .row.float label {
+      float: left; }
+  div.model .model-name {
+    font-weight: 700;
+    display: block;
+    margin-left: 18%; }
 
-/* line 78, ../../sass/print_brouwersdag.scss */
 div.clearfix {
   clear: both;
-  height: 0;
-}
+  height: 0; }
 
-/* line 82, ../../sass/print_brouwersdag.scss */
 .pull-right {
-  float: right;
-}
+  float: right; }
 
-/* line 85, ../../sass/print_brouwersdag.scss */
 .circle {
   color: #006699;
   font-weight: bold;
@@ -209,5 +141,6 @@ div.clearfix {
   border-radius: 13px;
   min-width: 22px;
   text-align: center;
-  padding: 3px;
-}
+  padding: 3px; }
+
+/*# sourceMappingURL=maps/print_brouwersdag.css.map */

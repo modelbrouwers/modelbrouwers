@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
 /*
  * Messages
  */
- ul.messages {
+ul.messages {
   margin-top: 15px;
 }
 
@@ -32,7 +32,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 10px;
   }
 }
-
 
 a.list-group-item:hover {
   background-color: rgba($main-light-blue, 0.5);
@@ -100,7 +99,6 @@ body > footer {
   display: inline;
 }
 
-
 // overlay over thumbnail
 a.thumbnail + ul.list-inline {
   position: absolute;
@@ -133,7 +131,6 @@ a.thumbnail + ul.list-inline {
     color: $white;
   }
 }
-
 
 .ui-datepicker {
   z-index: 10 !important; // competes with bootstrap input...
