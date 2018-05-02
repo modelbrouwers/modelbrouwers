@@ -231,6 +231,7 @@ INSTALLED_APPS = [
     'treebeard',
     'taggit',
     'ckeditor',
+    'import_export',
 
     # Modelbrouwers
     'brouwers.users',

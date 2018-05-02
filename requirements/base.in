@@ -26,6 +26,7 @@ django-sniplates
 django-treebeard
 django-modeltranslation
 django-taggit
+django-import-export
 
 # # API
 djangorestframework
@@ -39,3 +40,4 @@ WeasyPrint
 
 psycopg2
 python-memcached
+openpyxl==2.4.9
