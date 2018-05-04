@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.http import base36_to_int
 from django.utils.translation import get_language, ugettext as _
 from django.views import generic
@@ -261,3 +261,10 @@ class PasswordChangedView(generic.RedirectView):
     def get(self, request, *args, **kwargs):
         messages.success(request, _('Your password was changed.'))
         return super(PasswordChangedView, self).get(request, *args, **kwargs)
+
+
+class RequestDataDownloadView(LoginRequiredMixin, generic.View):
+
+    def post(self, *args, **kwargs):
+        import bpdb; bpdb.set_trace()
+        return redirect(reverse('users:profile'))
