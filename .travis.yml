@@ -25,8 +25,9 @@ before_install:
 install:
   - pip install --upgrade setuptools pip
   - pip install -r requirements/travis.txt --cache-dir $HOME/.pip-cache
-  - npm install -g grunt-cli
+  - npm install -g gulp
   - npm install
+  - gulp sass
 
 before_script:
   - jspm install
