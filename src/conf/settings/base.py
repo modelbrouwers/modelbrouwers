@@ -118,6 +118,9 @@ SENDFILE_BACKEND = 'sendfile.backends.nginx'
 SENDFILE_ROOT = os.path.join(ROOT_DIR, 'media_sendfile')
 SENDFILE_URL = '/protected'
 
+PRIVATE_MEDIA_URL = SENDFILE_URL
+PRIVATE_MEDIA_ROOT = SENDFILE_ROOT
+
 #
 # STATIC FILES
 #

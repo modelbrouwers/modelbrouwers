@@ -23,6 +23,7 @@ from brouwers.utils.views import LoginRequiredMixin
 from .forms import UserCreationForm
 from .mail import UserRegistrationEmail
 from .tokens import activation_token_generator
+from .models import DataDownloadRequest
 
 User = get_user_model()
 
@@ -266,5 +267,7 @@ class PasswordChangedView(generic.RedirectView):
 class RequestDataDownloadView(LoginRequiredMixin, generic.View):
 
     def post(self, *args, **kwargs):
-        import bpdb; bpdb.set_trace()
+        if not DataDownloadRequest.objects.filter(user=self.request.user, finished__isnull=True).exists():
+            DataDownloadRequest.objects.create(user=self.request.user)
+        messages.success(self.request, _("Your data download is being prepared and will be e-mailed when it's ready!"))
         return redirect(reverse('users:profile'))
