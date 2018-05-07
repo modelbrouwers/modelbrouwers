@@ -111,6 +111,20 @@
                 </div>
             {% endwith %}
             </form>
+
+            <h3>{% trans "Download data" %}</h3>
+            <form action="{% url 'users:data-download' %}" method="post">
+                {% csrf_token %}
+
+                <p>{% blocktrans trimmed %}
+                    Modelbrouwers.nl takes your privacy seriously. You can download all the data
+                    related to your account by clicking the button below.
+                {% endblocktrans %}</p>
+
+                <div class="submit-wrapper">
+                    <button type="submit" class="btn bg-main-orange">{% trans "Download" %}</button>
+                </div>
+            </form>
         </aside>
 
     </div>
