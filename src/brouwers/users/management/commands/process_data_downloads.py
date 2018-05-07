@@ -11,6 +11,7 @@ from ...models import DataDownloadRequest
 class DataDownload(object):
     def __init__(self, download_request):
         self.download_request = download_request
+        self.context = {}
         self.zip = ZipFile('/tmp/out', 'w')
 
     @transaction.atomic
@@ -50,16 +51,29 @@ class DataDownload(object):
         review_votes = user.kitreviewvote_set.all()
 
         # online_users
-        tracked_users = user.trackeduser
+        tracked_user = user.trackeduser if hasattr(user, 'trackeduser') else None
 
         # users
         data_downloads = user.datadownloadrequest_set.all()
 
         # TODO: forum posts
         # TODO: shop?
-
-
-        import bpdb; bpdb.set_trace()
+        self.context.update({
+            'user': user,
+            'albums': albums,
+            'album_groups': album_groups,
+            'photos': photos,
+            'downloads': downloads,
+            'submitted_projects': submitted_projects,
+            'nomination_votes': nomination_votes,
+            'bans': bans,
+            'showcased_models': showcased_models,
+            'builds': builds,
+            'reviews': reviews,
+            'review_votes': review_votes,
+            'tracked_users': tracked_user,
+            'data_downloads': data_downloads,
+        })
 
     def email(self):
         import bpdb; bpdb.set_trace()

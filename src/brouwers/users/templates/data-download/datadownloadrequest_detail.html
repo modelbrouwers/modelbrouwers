@@ -1,0 +1,139 @@
+{% extends "data-download/base.html" %}
+
+
+{% block content %}
+<section>
+    <h1>Profile</h1>
+
+    <dl>
+        <dt>Username</dt>
+        <dd>{{ user.username }}</dd>
+
+        <dt>Forum nickname</dt>
+        <dd>{{ user.forum_nickname }}</dd>
+
+        <dt>Email</dt>
+        <dd>{{ user.email }}</dd>
+
+        <dt>First name</dt>
+        <dd>{{ user.first_name }}</dd>
+
+        <dt>Last name</dt>
+        <dd>{{ user.last_name }}</dd>
+
+        <dt>Joined</dt>
+        <dd>{{ user.date_joined }}</dd>
+
+        <dt>Last login</dt>
+        <dd>{{ user.last_login }}</dd>
+
+        <dt>Last Awards vote</dt>
+        <dd>{{ user.last_vote }}</dd>
+
+        <dt>Exclude from Awards nominations</dt>
+        <dd>{{ user.exclude_from_nomination }}</dd>
+
+        <dt>Awards categories voted (last time)</dt>
+        <dd>{{ user.categories_voted.all|join:"," }}</dd>
+
+        <dt>Address</dt>
+        <dd>
+            <address>
+                {{ user.street }} {{ user.number }}
+                <br>
+                {{ user.postal }} {{ user.city }}
+                <br>
+                {{ user.province }}
+                <br>
+                {{ user.country }}
+            </address>
+        </dd>
+    </dl>
+</section>
+
+<section>
+    <h1>Albums ({{ albums.count }})</h1>
+
+    <ul>
+        {% for album in albums %}
+            <li>
+                <h2>{{ album.title }}</h2>
+                <small>ID: {{ album.id }}</small>
+                <div>
+                    Created: {{ album.created }}
+                    <br>
+                    Modified: {{ album.modified }}
+                    <br>
+                    Last upload: {{ album.last_upload }}
+                    <br>
+                    Views: {{ album.views }}
+                    <br>
+                    Public? {{ album.public }}
+                    <br>
+                    Trashed? {{ album.trash }}
+                </div>
+                <p>{{ album.category }}</p>
+                <p>{{ album.description }}</p>
+                <p>Cover photo: {{ album.cover_id }}</p>
+                <p>
+                    Related topic: {{ album.topic }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Album groups ({{ album_groups.count }})</h1>
+    <ul>
+        {% for group in album_groups %}
+            <li>
+                <h2>{{ group.album }}</h2>
+                <p>{{ group.users.all|join:"," }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Photos ({{ photos.count }})</h1>
+    <ul>
+        {% for photo in photos %}
+            <li>
+                <h2>{{ photo.image.name }}</h2>
+                {# TODO: link to file & include file #}
+                <p>
+                    Album: {{ photo.album_id }}
+                    <br>
+                    {{ photo.description }}
+                </p>
+                <p>
+                    Uploaded: {{ photo.uploaded }}
+                    <br>
+                    Modified: {{ photo.modified }}
+                    <br>
+                    Views: {{ photo.views }}
+                    <br>
+                    Trashed: {{ photo.trash }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Album downloads ({{ downloads.count }})</h1>
+    <ul>
+        {% for download in downloads %}
+            <li>
+                <h2>{{ download.album }}</h2>
+                <p>
+                    Downloaded at: {{ download.timestamp }}
+                    <br>
+                    Download failed: {{ download.failed }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock content %}
