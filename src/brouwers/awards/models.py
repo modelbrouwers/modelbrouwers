@@ -134,6 +134,7 @@ class Project(models.Model):
             self.votes += (base_qs.filter(**f).count() * _points)
         self.save()
 
+
 Nomination = Project
 
 
