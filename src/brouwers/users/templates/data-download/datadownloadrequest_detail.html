@@ -185,4 +185,113 @@
         {% endfor %}
     </ul>
 </section>
+
+<section>
+    <h1>Bans</h1>
+    <ul>
+        {% for ban in bans %}
+            <li>
+                Expiry: {{ band.expiry_date }}
+                {% if ban.ip %}<br>
+                    <strong>{{ ban.ip }}</strong>
+                {% endif %}
+                <br>
+                Reason: {{ ban.reason }}
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Showcased models (Modelbouwdag)</h1>
+    <ul>
+        {% for model in showcased_models %}
+            <li>
+                <h2>{{ model.name }}</h2>
+                <h3>{{ model.owner_name }} - {{ model.email }}</h3>
+
+                <p>
+                    {{ model.brand }}, 1/{{ model.scale }}
+                </p>
+
+                <blockquote>{{ model.remarks }}</blockquote>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Build history</h1>
+    <ul>
+        {% for build in builds %}
+            <li>
+                <h2>{{ build.title }}</h2>
+                {% if build.topic %}<a href="{{ build.topic_url }}">topic</a>{% endif %}
+                <p>
+                    Kits used: {{ build.kits.all|join:", " }}
+                </p>
+
+                <h3>Photos</h3>
+                <ul>
+                    {% for photo in build.photos.all %}
+                        <li>
+                            {# TODO: include image #}
+                            <a href="{{ photo.photo.image.url }}">image</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Kit reviews</h1>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <h2>
+                    Review for {{ review.model_kit }}
+                </h2>
+                <div>
+                    {{ review.raw_text|linebreaksbr }}
+                </div>
+                <p>
+                    Related album: {{ review.album_id }}
+                    <br>
+                    Related topic: <a href="{{ review.topic_url }}">topic</a>
+                </p>
+                <p>
+                    Name displayed: {{ review.reviewer_name }}
+                    <br>
+                    Submitted {{ review.submitted_on }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% if tracked_user %}
+<section>
+    <h1>User tracking</h1>
+    <div>
+        You were last seen on {{ tracked_user.last_seen }}, and your online-being
+        is tracked since {{ tracked_user.tracking_since }}. If you are online,
+        the moderators do {% if not tracked_user.notificate %}not {% endif %}receive a notification.
+    </div>
+</section>
+{% endif %}
+
+<section>
+    <h1>Data downloads</h1>
+    <ul>
+        {% for download in data_downloads %}
+            <li>
+                Download requested at {{ download.created }}.
+                <br>
+                Finished: {{ download.finished|default:'-' }}
+            </li>
+        {% endfor %}
+    </ul>
+</section>
 {% endblock content %}

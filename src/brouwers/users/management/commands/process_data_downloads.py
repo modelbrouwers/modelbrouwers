@@ -2,8 +2,11 @@ from zipfile import ZipFile
 
 from django.core.management import BaseCommand
 from django.db import transaction
+from django.db.models import Prefetch
 from django.forms.models import model_to_dict
 from django.utils import timezone
+
+from brouwers.builds.models import BuildPhoto
 
 from ...models import DataDownloadRequest
 
@@ -47,7 +50,10 @@ class DataDownload(object):
         showcased_models = user.showcasedmodel_set.all()
 
         # builds
-        builds = user.build_set.prefetch_related('photos')
+        builds = user.build_set.prefetch_related(
+            Prefetch('photos', queryset=BuildPhoto.objects.filter(photo__isnull=False)),
+            'kits'
+        )
 
         # kitreviews
         reviews = user.kitreview_set.all()  # TODO: KR properties and property ratings
