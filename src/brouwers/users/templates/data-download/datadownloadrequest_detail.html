@@ -136,4 +136,53 @@
         {% endfor %}
     </ul>
 </section>
+
+<section>
+    <h1>Submitted award nominations</h1>
+    <ul>
+        {% for project in submitted_projects %}
+            <li>
+                <h2>{{ project.name }}</h2>
+                <a href="{{ project.url }}">Topic</a>
+                <p>
+                    Nominated {{ project.nomination_date }}.
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Award votes</h1>
+    <ul>
+        {% for vote in nomination_votes %}
+            <li>
+                <h2>Vote for {{ vote.category }}, on {{ vote.submitted }}</h2>
+                <ol>
+                    <li>
+                        {% if vote.project1 %}
+                            <a href="{{ vote.project1.url }}">{{ vote.project1 }}</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if vote.project2 %}
+                            <a href="{{ vote.project2.url }}">{{ vote.project2 }}</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if vote.project3 %}
+                            <a href="{{ vote.project3.url }}">{{ vote.project3 }}</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </li>
+                </ol>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
 {% endblock content %}

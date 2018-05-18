@@ -35,7 +35,10 @@ class DataDownload(object):
 
         # awards
         submitted_projects = user.nominations.all()
-        nomination_votes = user.vote_set.all()
+        nomination_votes = (
+            user.vote_set
+            .select_related('category', 'project1', 'project2', 'project3')
+        )
 
         # banning
         bans = user.ban_set.all()
