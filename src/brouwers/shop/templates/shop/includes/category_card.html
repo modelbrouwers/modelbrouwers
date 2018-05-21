@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{#<div class="category__card">#}
+{#    <p class="category__name">{{ category.name }}</p>#}
+{#</div>#}
 
-</body>
-</html>
+
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        {% if category.image %}
+            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+        {% endif %}
+        <div class="caption">
+            <h3>{{ category.name }}</h3>
+            <p>...</p>
+        </div>
+    </div>
+</div>

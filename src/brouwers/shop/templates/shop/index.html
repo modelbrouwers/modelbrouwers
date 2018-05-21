@@ -1,5 +1,12 @@
 {% extends "shop/base.html" %}{% load i18n %}
 
 {% block content %}
-    <h1>Shop homepage</h1>
+    <div class="row">
+    {% for category in categories %}
+        {% include 'shop/includes/category_card.html' %}
+    {% endfor %}
+    </div>
 {% endblock %}
+
+
+
