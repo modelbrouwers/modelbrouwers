@@ -5,7 +5,7 @@
         {% endif %}
 
         <div class="caption">
-            <h3>{{ category.name }}</h3>
+            <h3><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></h3>
             <ul class="category__subcategories">
                 {% for child in category.get_children %}
                     <li class="category__child">{{ child.name }}</li>
