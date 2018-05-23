@@ -1,14 +1,12 @@
 <div class="col-sm-6 col-md-4">
     <div class="thumbnail category__card">
-        {% if category.image %}
-            <img class="category__img" src="{{ category.image.url }}" alt="{{ category.name }}">
-        {% endif %}
-
         <div class="caption">
             <h3><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></h3>
             <ul class="category__subcategories">
                 {% for child in category.get_children %}
-                    <li class="category__child">{{ child.name }}</li>
+                    <li class="category__child">
+                        <a href="{{ child.get_absolute_url }}">{{ child.name }}</a>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
