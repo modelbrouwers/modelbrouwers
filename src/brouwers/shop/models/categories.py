@@ -29,3 +29,13 @@ class Category(MP_Node):
 
     def get_absolute_url(self):
         return reverse('shop:product-list', kwargs={'slug': self.slug})
+
+
+class CategoryCarouselImage(models.Model):
+    title = models.CharField(_('title'), max_length=100)
+    image = models.ImageField(_('category carousel image'), upload_to='shop/category/')
+    visible = models.BooleanField(_('visible'), default=True)
+
+    class Meta:
+        verbose_name = _('category carousel image')
+        verbose_name_plural = _('category carousel images')
