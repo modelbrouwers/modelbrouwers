@@ -9,7 +9,7 @@ from treebeard.forms import movenodeform_factory
 
 from .models import (
     Category, Product, ProductBrand, ProductImage, ProductManufacturer,
-    ProductReview
+    ProductReview, CategoryCarouselImage
 )
 from .resources import CategoryResource, ProductResource
 
@@ -107,3 +107,10 @@ class ProductManufacturerAdmin(admin.ModelAdmin):
     list_display = ('name',)
     list_filter = ('name',)
     search_fields = ('name',)
+
+
+@admin.register(CategoryCarouselImage)
+class CategoryCarouselImageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image', 'visible')
+    list_filter = ('title', 'image', 'visible')
+    list_search = ('title', 'image', 'visible')

@@ -13,19 +13,11 @@
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img src="" alt="...">
-                    <div class="carousel-caption">
-
+                {% for image in  carousel_images %}
+                    <div class="category__carousel-item item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" alt="{{ image.title }}">
                     </div>
-                </div>
-                <div class="item">
-                    <img src="" alt="...">
-                    <div class="carousel-caption">
-
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
 
             <!-- Controls -->
