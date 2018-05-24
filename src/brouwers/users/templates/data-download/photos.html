@@ -7,7 +7,7 @@
         {% for photo in photos %}
             <li>
                 <h2>{{ photo.image.name }}</h2>
-                {# TODO: link to file & include file #}
+                <img src="./files/{{ photo.image }}" height="300">
                 <p>
                     Album: {{ photo.album_id }}
                     <br>

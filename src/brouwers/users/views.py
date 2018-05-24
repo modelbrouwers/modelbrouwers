@@ -23,8 +23,8 @@ from brouwers.utils.views import LoginRequiredMixin
 
 from .forms import UserCreationForm
 from .mail import UserRegistrationEmail
-from .tokens import activation_token_generator
 from .models import DataDownloadRequest
+from .tokens import activation_token_generator
 
 User = get_user_model()
 

@@ -12,10 +12,10 @@ from rest_framework.test import APITestCase
 
 from brouwers.users.tests.factories import UserFactory
 
+from ...models import Boxart, ModelKit
 from ..factories import (
     BoxartFactory, BrandFactory, ModelKitFactory, ScaleFactory
 )
-from ...models import Boxart, ModelKit
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())

@@ -1,5 +1,6 @@
-import tempfile
 import os
+import shutil
+import tempfile
 from zipfile import ZipFile
 
 from django.core.management import BaseCommand
@@ -18,6 +19,8 @@ class DataDownload(object):
     def __init__(self, download_request):
         self.download_request = download_request
         self.tempdir = tempfile.mkdtemp()
+
+        print(self.tempdir)
 
         # self.zip = ZipFile('/tmp/out', 'w')
 
@@ -98,7 +101,20 @@ class DataDownload(object):
                 rendered = render_to_string(template_name, context)
                 outfile.write(rendered.encode('utf-8'))
 
-        print(self.tempdir)
+        self.copy_files(photos, 'image')
+
+    def copy_files(self, queryset, field):
+        for obj in queryset:
+            filefield = getattr(obj, field)
+            source = filefield.storage.path(filefield)
+            target = os.path.join(self.tempdir, 'files', filefield.name)
+            target_dir = os.path.dirname(target)
+            if not os.path.exists(target_dir):
+                os.makedirs(target_dir)
+            try:
+                shutil.copy(source, target)
+            except IOError:
+                pass
 
     def email(self):
         pass
