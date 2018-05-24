@@ -27,3 +27,4 @@ class DataDownloadRequestAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     search_fields = ('user__id', 'user__username', 'user__email')
     readonly_fields = ('zip_file',)
+    raw_id_fields = ('user',)

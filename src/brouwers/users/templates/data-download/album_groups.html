@@ -1,0 +1,15 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Album groups ({{ album_groups.count }})</h1>
+    <ul>
+        {% for group in album_groups %}
+            <li>
+                <h2>{{ group.album }}</h2>
+                <p>{{ group.users.all|join:"," }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}

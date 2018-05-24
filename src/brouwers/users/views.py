@@ -8,6 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.http import base36_to_int
 from django.utils.translation import get_language, ugettext as _
 from django.views import generic
+from django.views.generic.detail import SingleObjectMixin
 
 from extra_views import (
     InlineFormSet, NamedFormsetsMixin, UpdateWithInlinesView
@@ -271,18 +272,3 @@ class RequestDataDownloadView(LoginRequiredMixin, generic.View):
             DataDownloadRequest.objects.create(user=self.request.user)
         messages.success(self.request, _("Your data download is being prepared and will be e-mailed when it's ready!"))
         return redirect(reverse('users:profile'))
-
-
-class DataDownloadDetail(LoginRequiredMixin, generic.DetailView):
-    template_name = 'data-download/datadownloadrequest_detail.html'
-
-    def get_queryset(self):
-        return DataDownloadRequest.objects.filter(user=self.request.user)
-
-    def get_context_data(self, **kwargs):
-        from .management.commands.process_data_downloads import DataDownload
-        context = super(DataDownloadDetail, self).get_context_data(**kwargs)
-        data_download = DataDownload(context['object'])
-        data_download.prepare()
-        context.update(data_download.context)
-        return context

@@ -1,0 +1,28 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Build history</h1>
+    <ul>
+        {% for build in builds %}
+            <li>
+                <h2>{{ build.title }}</h2>
+                {% if build.topic %}<a href="{{ build.topic_url }}">topic</a>{% endif %}
+                <p>
+                    Kits used: {{ build.kits.all|join:", " }}
+                </p>
+
+                <h3>Photos</h3>
+                <ul>
+                    {% for photo in build.photos.all %}
+                        <li>
+                            {# TODO: include image #}
+                            <a href="{{ photo.photo.image.url }}">image</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}
