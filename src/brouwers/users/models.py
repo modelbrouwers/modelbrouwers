@@ -3,10 +3,12 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from brouwers.forum_tools.models import ForumUser
+from brouwers.utils.storages import private_media_storage
 
 from .mail import UserCreatedFromForumEmail
 
@@ -141,3 +143,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     @cached_property
     def profile(self):
         return self.userprofile
+
+
+@python_2_unicode_compatible
+class DataDownloadRequest(models.Model):
+    user = models.ForeignKey(User)
+    created = models.DateTimeField(auto_now_add=True)
+    finished = models.DateTimeField(_("finished"), blank=True, null=True)
+    downloaded = models.DateTimeField(_("downloaded"), blank=True, null=True)
+    zip_file = models.FileField(_("zip file"), blank=True, storage=private_media_storage)
+
+    def __str__(self):
+        return _("Data download for {user} ({created})").format(user=self.user, created=self.created)

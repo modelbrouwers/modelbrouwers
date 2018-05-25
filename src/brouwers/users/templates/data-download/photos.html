@@ -1,0 +1,29 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Photos ({{ photos.count }})</h1>
+    <ul>
+        {% for photo in photos %}
+            <li id="photo-{{ photo.id }}">
+                <h2>{{ photo.image.name }}</h2>
+                <img src="./files/{{ photo.image }}" height="300">
+                <p>
+                    Album: {{ photo.album_id }}
+                    <br>
+                    {{ photo.description }}
+                </p>
+                <p>
+                    Uploaded: {{ photo.uploaded }}
+                    <br>
+                    Modified: {{ photo.modified }}
+                    <br>
+                    Views: {{ photo.views }}
+                    <br>
+                    Trashed: {{ photo.trash }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Albums ({{ albums.count }})</h1>
+
+    <ul>
+        {% for album in albums %}
+            <li>
+                <h2>{{ album.title }}</h2>
+                <small>ID: {{ album.id }}</small>
+                <div>
+                    Created: {{ album.created }}
+                    <br>
+                    Modified: {{ album.modified }}
+                    <br>
+                    Last upload: {{ album.last_upload }}
+                    <br>
+                    Views: {{ album.views }}
+                    <br>
+                    Public? {{ album.public }}
+                    <br>
+                    Trashed? {{ album.trash }}
+                </div>
+                <p>{{ album.category }}</p>
+                <p>{{ album.description }}</p>
+                <p>Cover photo: {{ album.cover_id }}</p>
+                <p>
+                    Related topic: {{ album.topic }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}

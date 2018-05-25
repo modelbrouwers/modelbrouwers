@@ -1,0 +1,18 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Submitted award nominations</h1>
+    <ul>
+        {% for project in submitted_projects %}
+            <li>
+                <h2>{{ project.name }}</h2>
+                <a href="{{ project.url }}">Topic</a>
+                <p>
+                    Nominated {{ project.nomination_date }}.
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}
