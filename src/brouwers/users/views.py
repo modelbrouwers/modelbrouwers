@@ -268,6 +268,7 @@ class PasswordChangedView(generic.RedirectView):
 
 
 class RequestDataDownloadView(LoginRequiredMixin, generic.View):
+    raise_exception = True
 
     def post(self, *args, **kwargs):
         if not DataDownloadRequest.objects.filter(user=self.request.user, finished__isnull=True).exists():
@@ -291,4 +292,4 @@ class DataDownloadFileView(LoginRequiredMixin, SingleObjectMixin, generic.View):
         download_request.downloaded = timezone.now()
         download_request.save(update_fields=['downloaded'])
         zip_file = download_request.zip_file
-        return sendfile(request, zip_file.storage.path(zip_file), attachment=True)
+        return sendfile(request, zip_file.path, attachment=True)

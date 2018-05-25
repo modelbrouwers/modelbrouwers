@@ -172,4 +172,3 @@ class Command(BaseCommand):
         for download_request in open_requests:
             with DataDownload(download_request) as download:
                 download.process()
-                download.email()

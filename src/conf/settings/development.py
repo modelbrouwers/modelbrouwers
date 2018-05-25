@@ -56,10 +56,10 @@ SESSION_COOKIE_NAME = 'mbsessionid'
 
 # Local overrides
 try:
-    from .local import *
+    from .local import *  # noqa
 except ImportError:
     pass
 
 
 if 'test' in sys.argv:
-    INSTALLED_APPS = INSTALLED_APPS + ['brouwers.forum_tools.tests.custom_fields']
+    INSTALLED_APPS += ['brouwers.forum_tools.tests.custom_fields']
