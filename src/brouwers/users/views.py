@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.utils.http import base36_to_int
 from django.utils.translation import get_language, ugettext as _
 from django.views import generic
@@ -13,6 +14,7 @@ from django.views.generic.detail import SingleObjectMixin
 from extra_views import (
     InlineFormSet, NamedFormsetsMixin, UpdateWithInlinesView
 )
+from sendfile import sendfile
 
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
@@ -272,3 +274,21 @@ class RequestDataDownloadView(LoginRequiredMixin, generic.View):
             DataDownloadRequest.objects.create(user=self.request.user)
         messages.success(self.request, _("Your data download is being prepared and will be e-mailed when it's ready!"))
         return redirect(reverse('users:profile'))
+
+
+class DataDownloadFileView(LoginRequiredMixin, SingleObjectMixin, generic.View):
+
+    def get_queryset(self):
+        qs = (
+            DataDownloadRequest.objects
+            .filter(user=self.request.user, finished__isnull=False)
+            .exclude(zip_file='')
+        )
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        download_request = self.get_object()
+        download_request.downloaded = timezone.now()
+        download_request.save(update_fields=['downloaded'])
+        zip_file = download_request.zip_file
+        return sendfile(request, zip_file.storage.path(zip_file), attachment=True)

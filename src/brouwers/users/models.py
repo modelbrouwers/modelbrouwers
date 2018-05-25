@@ -150,6 +150,7 @@ class DataDownloadRequest(models.Model):
     user = models.ForeignKey(User)
     created = models.DateTimeField(auto_now_add=True)
     finished = models.DateTimeField(_("finished"), blank=True, null=True)
+    downloaded = models.DateTimeField(_("downloaded"), blank=True, null=True)
     zip_file = models.FileField(_("zip file"), blank=True, storage=private_media_storage)
 
     def __str__(self):

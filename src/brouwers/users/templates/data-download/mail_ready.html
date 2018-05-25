@@ -1,0 +1,26 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Data download ready</title>
+    </head>
+
+    <body>
+        <p>
+            {% url 'users:data-download-file' pk=request.pk as download_url %}
+
+            {% blocktrans with username=user.username url='https://'|add:domain|add:download_url|urlize trimmed %}
+                Hi {{ username }},
+                <br>
+                <br>
+                The data download you requested is now ready. You can download
+                it at {{ url }}.
+                <br>
+                <br>
+                Best,
+                <br>
+                Modelbrouwers.nl
+            {% endblocktrans %}
+        </p>
+    </body>
+</html>

@@ -6,8 +6,9 @@ from django.urls import reverse_lazy
 
 from .forms.auth import PasswordResetForm
 from .views import (
-    ActivationView, LoginView, LogoutView, PasswordChangedView, ProfileView,
-    RegistrationView, RequestDataDownloadView, UserProfileDetailView
+    ActivationView, DataDownloadFileView, LoginView, LogoutView,
+    PasswordChangedView, ProfileView, RegistrationView,
+    RequestDataDownloadView, UserProfileDetailView
 )
 
 app_name = 'users'
@@ -43,4 +44,5 @@ urlpatterns = [
         name='password_reset_confirm'),
 
     url(r'^data-download/$', RequestDataDownloadView.as_view(), name='data-download'),
+    url(r'^data-download/(?P<pk>\d+)/download/$', DataDownloadFileView.as_view(), name='data-download-file'),
 ]

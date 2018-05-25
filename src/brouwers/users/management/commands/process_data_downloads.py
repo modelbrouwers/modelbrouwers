@@ -4,12 +4,17 @@ import tempfile
 from zipfile import ZipFile
 
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core.files import File
+from django.core.mail import send_mail
 from django.core.management import BaseCommand
 from django.db import transaction
 from django.db.models import Prefetch
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+
+import html2text
 
 from brouwers.builds.models import BuildPhoto
 
@@ -139,7 +144,20 @@ class DataDownload(object):
             )
 
     def email(self):
-        pass
+        site = Site.objects.get_current()
+        user = self.download_request.user
+        context = {
+            'domain': site.domain,
+            'user': user,
+            'request': self.download_request,
+        }
+        html = render_to_string('data-download/mail_ready.html', context)
+        message = html2text.html2text(html)
+        send_mail(
+            _("[Modelbrouwers.nl] Your data download is ready"),
+            message, settings.DEFAULT_FROM_EMAIL, [user.email],
+            html_message=html
+        )
 
 
 class Command(BaseCommand):
