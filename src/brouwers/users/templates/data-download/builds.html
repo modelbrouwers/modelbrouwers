@@ -16,8 +16,11 @@
                 <ul>
                     {% for photo in build.photos.all %}
                         <li>
-                            {# TODO: include image #}
-                            <a href="{{ photo.photo.image.url }}">image</a>
+                            {% if photo.photo_id %}
+                                <a href="./photos.html#photo-{{ photo.photo_id }}">image</a>
+                            {% else %}
+                                <a href="{{ photo.photo.image.url }}">image</a>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>

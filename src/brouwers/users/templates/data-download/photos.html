@@ -5,7 +5,7 @@
     <h1>Photos ({{ photos.count }})</h1>
     <ul>
         {% for photo in photos %}
-            <li>
+            <li id="photo-{{ photo.id }}">
                 <h2>{{ photo.image.name }}</h2>
                 <img src="./files/{{ photo.image }}" height="300">
                 <p>

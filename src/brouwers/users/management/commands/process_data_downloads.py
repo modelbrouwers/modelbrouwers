@@ -3,10 +3,11 @@ import shutil
 import tempfile
 from zipfile import ZipFile
 
+from django.conf import settings
+from django.core.files import File
 from django.core.management import BaseCommand
 from django.db import transaction
 from django.db.models import Prefetch
-from django.forms.models import model_to_dict
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -18,11 +19,14 @@ from ...models import DataDownloadRequest
 class DataDownload(object):
     def __init__(self, download_request):
         self.download_request = download_request
-        self.tempdir = tempfile.mkdtemp()
+        self.tempdir = tempfile.mkdtemp(dir=settings.PRIVATE_MEDIA_ROOT)
+        self.filename = "{}.zip".format(self.tempdir)
 
-        print(self.tempdir)
+    def __enter__(self):
+        return self
 
-        # self.zip = ZipFile('/tmp/out', 'w')
+    def __exit__(self, type, value, traceback):
+        self.cleanup()
 
     @transaction.atomic
     def process(self):
@@ -102,6 +106,7 @@ class DataDownload(object):
                 outfile.write(rendered.encode('utf-8'))
 
         self.copy_files(photos, 'image')
+        self.archive()
 
     def copy_files(self, queryset, field):
         for obj in queryset:
@@ -115,6 +120,23 @@ class DataDownload(object):
                 shutil.copy(source, target)
             except IOError:
                 pass
+
+    def cleanup(self):
+        shutil.rmtree(self.tempdir)
+        os.remove(self.filename)
+
+    def archive(self):
+        with ZipFile(self.filename, 'w') as zipfile:
+            for dir_path, dirs, files in os.walk(self.tempdir):
+                for fn in files:
+                    full_path = os.path.join(dir_path, fn)
+                    arcname = os.path.relpath(full_path, self.tempdir)
+                    zipfile.write(full_path, arcname=arcname)
+
+        with open(self.filename, 'rb') as zipfile:
+            self.download_request.zip_file.save(
+                os.path.basename(self.filename), File(zipfile)
+            )
 
     def email(self):
         pass
@@ -130,5 +152,6 @@ class Command(BaseCommand):
             .filter(finished__isnull=True)
         )
         for download_request in open_requests:
-            download = DataDownload(download_request)
-            download.process()
+            with DataDownload(download_request) as download:
+                download.process()
+                download.email()
