@@ -10,6 +10,6 @@ urlpatterns = [
         name='hbs_template'),
 
     url(r'^user/search/$', search_users),
-    url(r'^utils/get-announcement/', AnnouncementView.as_view(), name='get-announcement'),
+    url(r'^utils/get-announcement/$', AnnouncementView.as_view(), name='get-announcement'),
 
 ]
