@@ -1,15 +1,15 @@
-import json
 from datetime import date
 
 from django.conf import settings
-from django.http import HttpResponse
-from django.template import Context
-from django.template.loader import get_template
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _, ungettext as _n
 from django.views.decorators.cache import cache_page
+from django.views.generic import View
 
 from brouwers.general.decorators import (
-    login_required_403, permission_required_ajax, user_passes_test_403
+    login_required_403, user_passes_test_403
 )
 from brouwers.general.models import UserProfile
 from brouwers.general.utils import (
@@ -23,45 +23,68 @@ from .models import (
 )
 
 
-@cache_page(60 * 60 * 24)
-def get_sync_data(request):
-    response_data = {}
-    t = date.today()
-    links_to_be_synced = ForumLinkBase.objects.filter(enabled=True, to_date__gte=t, from_date__lte=t)
-    for link in links_to_be_synced:
-        response_data[link.link_id] = [l.link_id for l in link.forumlinksynced_set.all()]
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+class CacheMixin(object):
+    cache_timeout = 60
+
+    def get_cache_timeout(self):
+        return self.cache_timeout
+
+    def dispatch(self, *args, **kwargs):
+        cache = cache_page(self.get_cache_timeout())
+        return cache(super(CacheMixin, self).dispatch)(*args, **kwargs)
 
 
-def get_chat(request):
-    t = get_template('chat.html')
-    if request.user.is_authenticated:
-        nickname = get_username_for_user(request.user)
-    else:
-        nickname = settings.IRC_DEFAULT_NICK
+class SyncDataView(View):
+    cache_timeout = 60 * 60 * 24
 
-    c = Context({
-        'MIBBIT_SETTINGS': settings.MIBBIT_SETTINGS,
-        'IRC_SERVER': settings.IRC_SERVER,
-        'IRC_CHANNEL': settings.IRC_CHANNEL,
-        'nickname': nickname,
-    })
-
-    html = t.render(c)
-    json_data = {
-        'html': html,
-        'title': "Brouwers chat [%s, %s]" % (settings.IRC_SERVER, settings.IRC_CHANNEL)
-    }
-    return HttpResponse(json.dumps(json_data), content_type='application/json')
+    def get(self, request, *args, **kwargs):
+        today = date.today()
+        links_to_be_synced = (
+            ForumLinkBase.objects
+            .filter(enabled=True, to_date__gte=today, from_date__lte=today)
+            .prefetch_related('forumlinksynced_set')
+        )
+        data = {
+            link.link_id: [l.link_id for l in link.forumlinksynced_set.all()]
+            for link in links_to_be_synced
+        }
+        return JsonResponse(data)
 
 
-@permission_required_ajax('forum_tools.can_see_reports')
-def get_mod_data(request):
-    data = {}
-    num_open_reports = Report.objects.filter(report_closed=False).count()
-    data['open_reports'] = num_open_reports
-    data['text_reports'] = _n("1 open report", "%(num)d open reports", num_open_reports) % {'num': num_open_reports}
-    return HttpResponse(json.dumps(data), content_type="application/json")
+class ChatView(View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            nickname = get_username_for_user(request.user)
+        else:
+            nickname = settings.IRC_DEFAULT_NICK
+
+        html = render_to_string('chat.html', {
+            'MIBBIT_SETTINGS': settings.MIBBIT_SETTINGS,
+            'IRC_SERVER': settings.IRC_SERVER,
+            'IRC_CHANNEL': settings.IRC_CHANNEL,
+            'nickname': nickname,
+        })
+        return JsonResponse({
+            'html': html,
+            'title': "Brouwers chat [%s, %s]" % (settings.IRC_SERVER, settings.IRC_CHANNEL)
+        })
+
+
+class ModDataView(PermissionRequiredMixin, View):
+    permission_required = 'forum_tools.can_see_reports'
+    raise_exception = True
+
+    def get(self, request, *args, **kwargs):
+        count = Report.objects.filter(report_closed=False).count()
+        data = {
+            'open_reports': count,
+            'text_reports': _n(
+                "1 open report",
+                "%(num)d open reports",
+                count
+            ) % {'num': count}
+        }
+        return JsonResponse(data)
 
 
 @user_passes_test_403(lambda u: u.groups.filter(name__iexact='content sharing').exists())
@@ -70,23 +93,24 @@ def get_sharing_perms(request):
     form = PosterIDsForm(request.GET)
     if form.is_valid():
         forumusers = ForumUser.objects.filter(user_id__in=form.poster_ids)
-        if forumusers.exists():
+
+        if forumusers:
             # render text in template
-            t_allowed = get_template('forum_tools/sharing_allowed.html')
-            t_not_allowed = get_template('forum_tools/sharing_not_allowed.html')
-            template_sharing_allowed = t_allowed.render(Context())
-            template_sharing_not_allowed = t_not_allowed.render(Context())
+            allowed = render_to_string('forum_tools/sharing_allowed.html')
+            not_allowed = render_to_string('forum_tools/sharing_not_allowed.html')
+
+            # manual 'joining' on username
+            usernames = [forum_user.username for forum_user in forumusers]
+            profiles = {
+                profile.nickname: profile
+                for profile in UserProfile.objects.filter(forum__nickname__in=usernames)
+            }
 
             for forumuser in forumusers:
-                try:
-                    profile = UserProfile.objects.get(forum_nickname=forumuser.username)
-                    if profile.allow_sharing:
-                        data[forumuser.user_id] = template_sharing_allowed
-                    else:
-                        data[forumuser.user_id] = template_sharing_not_allowed
-                except UserProfile.DoesNotExist:
-                    data[forumuser.user_id] = template_sharing_not_allowed
-    return HttpResponse(json.dumps(data), content_type="application/json")
+                profile = profiles.get(forumuser.username)
+                data[forumuser.user_id] = allowed if (profile and profile.allow_sharing) else not_allowed
+
+    return JsonResponse(data)
 
 
 @login_required_403
@@ -114,16 +138,18 @@ def get_posting_level(request):
 
         restrictions = ForumPostCountRestriction.objects.filter(forum_id=forum.forum_id)
         data['restrictions'] = [restr.posting_level for restr in restrictions if restr.min_posts > num_posts]
-    return HttpResponse(json.dumps(data), content_type="application/json")
+    return JsonResponse(data)
 
 
-@cache_page(60*60*24*7*2)  # two weeks, cache is language based already
-def get_build_report_forums(self):
-    # TODO: return data if the build report was added already
-    forum_ids = BuildReportsForum.objects.values_list('forum_id', flat=True)
-    data = {
-        'forum_ids': list(forum_ids),
-        'text_build_report': _('Add build report'),
-        'text_nominate': _('Nominate for award'),
-    }
-    return HttpResponse(json.dumps(data), content_type="application/json")
+class BuildReportForumsView(CacheMixin, View):
+    cache_timeout = 60 * 60 * 24 * 7 * 2
+
+    def get(self, request, *args, **kwargs):
+        # TODO: return data if the build report was added already
+        forum_ids = BuildReportsForum.objects.values_list('forum_id', flat=True)
+        data = {
+            'forum_ids': list(forum_ids),
+            'text_build_report': _('Add build report'),
+            'text_nominate': _('Nominate for award'),
+        }
+        return JsonResponse(data)
