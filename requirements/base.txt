@@ -4,7 +4,7 @@
 #
 #    pip-compile --no-index --output-file requirements/base.txt requirements/base.in
 #
-bleach==2.1.1
+bleach==2.1.3
 cairocffi==0.8.0          # via cairosvg, weasyprint
 cairosvg==1.0.22          # via weasyprint
 certifi==2017.7.27.1      # via requests
@@ -30,6 +30,7 @@ django==1.11.11
 djangorestframework-filters==0.10.2
 djangorestframework==3.7.7
 fake-factory==0.7.2
+html2text==2018.1.9
 html5lib==1.0b10          # via bleach, weasyprint
 idna==2.6                 # via requests
 ipaddress==1.0.18         # via fake-factory

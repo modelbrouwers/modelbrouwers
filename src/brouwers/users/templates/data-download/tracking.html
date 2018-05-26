@@ -1,0 +1,16 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>User tracking</h1>
+    {% if tracked_user %}
+        <div>
+            You were last seen on {{ tracked_user.last_seen }}, and your online-being
+            is tracked since {{ tracked_user.tracking_since }}. If you are online,
+            the moderators do {% if not tracked_user.notificate %}not {% endif %}receive a notification.
+        </div>
+    {% else %}
+        No user tracking was ever done for your account.
+    {% endif %}
+</article>
+{% endblock content %}

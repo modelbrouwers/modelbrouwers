@@ -1,0 +1,29 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Kit reviews</h1>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <h2>
+                    Review for {{ review.model_kit }}
+                </h2>
+                <div>
+                    {{ review.raw_text|linebreaksbr }}
+                </div>
+                <p>
+                    Related album: {{ review.album_id }}
+                    <br>
+                    Related topic: <a href="{{ review.topic_url }}">topic</a>
+                </p>
+                <p>
+                    Name displayed: {{ review.reviewer_name }}
+                    <br>
+                    Submitted {{ review.submitted_on }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}

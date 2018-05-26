@@ -1,8 +1,0 @@
-1. run the following sql:
-
-   delete from django_migrations;
-
-2. src/manage.py migrate contenttypes --fake
-3. src/manage.py migrate auth 0007 --fake
-4. src/manage.py migrate auth
-5. src/manage.py migrate --fake

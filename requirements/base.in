@@ -23,12 +23,13 @@ django-systemjs
 sorl-thumbnail
 django-sniplates
 
-# # API
+# API
 djangorestframework
 djangorestframework-filters
 
-# # Html parsing
+# Html parsing
 bleach
+html2text
 
-# # Misc
+# Misc
 WeasyPrint
