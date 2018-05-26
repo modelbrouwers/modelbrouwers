@@ -131,7 +131,7 @@ class DataDownload(object):
         os.remove(self.filename)
 
     def archive(self):
-        with ZipFile(self.filename, 'w') as zipfile:
+        with ZipFile(self.filename, 'w', allowZip64=True) as zipfile:
             for dir_path, dirs, files in os.walk(self.tempdir):
                 for fn in files:
                     full_path = os.path.join(dir_path, fn)
