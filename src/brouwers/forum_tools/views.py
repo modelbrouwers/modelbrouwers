@@ -103,7 +103,7 @@ def get_sharing_perms(request):
             usernames = [forum_user.username for forum_user in forumusers]
             profiles = {
                 profile.nickname: profile
-                for profile in UserProfile.objects.filter(forum__nickname__in=usernames)
+                for profile in UserProfile.objects.filter(forum_nickname__in=usernames)
             }
 
             for forumuser in forumusers:
