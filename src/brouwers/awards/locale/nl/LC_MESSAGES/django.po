@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-11 00:30+0200\n"
+"POT-Creation-Date: 2018-08-11 14:18+0200\n"
 "PO-Revision-Date: 2014-05-29 21:56+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,24 +90,24 @@ msgstr "nominatie"
 msgid "nominations"
 msgstr "nominaties"
 
-#: models.py:151
+#: models.py:152
 #, python-format
 msgid "Vote by %(user)s in %(category)s"
 msgstr "Stem van %(user)s in %(category)s"
 
-#: models.py:159
+#: models.py:160
 #, python-format
 msgid "User `%(user)s` already voted for `%(category)s` in `%(year)d`"
 msgstr "Gebruiker `%(user)s` stemde al voor `%(category)s` in %(year)d"
 
-#: models.py:180
+#: models.py:181
 #, python-format
 msgid "A project from `%(project_category)s` can't be voted in `%(category)s`"
 msgstr ""
 "Een project uit de categorie `%(project_category)s` kan niet gestemd worden "
 "in `%(category)s`"
 
-#: models.py:188
+#: models.py:189
 msgid "No duplicate projects are allowed"
 msgstr "De stemmen moeten van elkaar verschillen"
 

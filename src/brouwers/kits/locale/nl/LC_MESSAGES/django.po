@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-11 00:30+0200\n"
+"POT-Creation-Date: 2018-08-11 14:18+0200\n"
 "PO-Revision-Date: 2016-09-09 19:47+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,15 +32,15 @@ msgstr "Duplicaten samenvoegen"
 msgid "Merge selected %(verbose_name_plural)s"
 msgstr "Voeg de geselecteerde %(verbose_name_plural)s samen"
 
-#: admin.py:90
+#: admin.py:89
 msgid "builds"
 msgstr "builds"
 
-#: admin.py:96
+#: admin.py:95
 msgid "view image"
 msgstr "bekijk afbeelding"
 
-#: admin.py:99
+#: admin.py:98
 msgid "boxart"
 msgstr "doosafbeelding"
 
@@ -48,107 +48,127 @@ msgstr "doosafbeelding"
 msgid "kits"
 msgstr "kits"
 
-#: models.py:20 models.py:32 models.py:80 widgets.py:14
+#: models.py:22 models.py:34 models.py:82 widgets.py:15
 msgid "brand"
 msgstr "merk"
 
-#: models.py:22
+#: models.py:24
 msgid "This brand already exists"
 msgstr "Dit merk bestaat al"
 
-#: models.py:24 models.py:81
+#: models.py:26 models.py:83
 msgid "slug"
 msgstr "slug"
 
-#: models.py:25
+#: models.py:27
 msgid "logo"
 msgstr "logo"
 
-#: models.py:27
+#: models.py:29
 msgid "is active"
 msgstr "is actief"
 
-#: models.py:28
+#: models.py:30
 msgid "Whether the brand still exists or not"
 msgstr "Geeft aan of het merk nog bestaat of niet"
 
-#: models.py:33
+#: models.py:35
 msgid "brands"
 msgstr "merken"
 
-#: models.py:46 models.py:51 models.py:87 widgets.py:15
+#: models.py:48 models.py:53 models.py:89 widgets.py:16
 msgid "scale"
 msgstr "schaal"
 
-#: models.py:47
+#: models.py:49
 msgid "This scale already exists"
 msgstr "Deze schaal bestaat al"
 
-#: models.py:52
+#: models.py:54
 msgid "scales"
 msgstr "schalen"
 
-#: models.py:63
+#: models.py:65
 msgid "very easy"
 msgstr "zeer makkelijk"
 
-#: models.py:64
+#: models.py:66
 msgid "easy"
 msgstr "makkelijk"
 
-#: models.py:65
+#: models.py:67
 msgid "medium"
 msgstr "gemiddeld"
 
-#: models.py:66
+#: models.py:68
 msgid "hard"
 msgstr "moeilijk"
 
-#: models.py:67
+#: models.py:69
 msgid "very hard"
 msgstr "zeer moeilijk"
 
-#: models.py:79 templates/kits/includes/add_kit_modal.html:25
+#: models.py:81 templates/kits/includes/add_kit_modal.html:25
 msgid "kit name"
 msgstr "kitnaam"
 
-#: models.py:83 templates/kits/includes/add_kit_modal.html:28 widgets.py:18
+#: models.py:85 templates/kits/includes/add_kit_modal.html:28 widgets.py:19
 msgid "kit number"
 msgstr "kitnummer"
 
-#: models.py:85
+#: models.py:87
 msgid "Kit number as found on the box."
 msgstr "Kitnummer zoals die op de doos staat."
 
-#: models.py:89 templates/kits/includes/add_kit_modal.html:34 widgets.py:21
+#: models.py:91 templates/kits/includes/add_kit_modal.html:34 widgets.py:24
 msgid "difficulty"
 msgstr "moeilijkheidsgraad"
 
-#: models.py:93 templates/kits/includes/add_kit_modal.html:31 widgets.py:19
+#: models.py:95 templates/kits/includes/add_kit_modal.html:31 widgets.py:20
 msgid "box image"
 msgstr "boxart"
 
-#: models.py:96
+#: models.py:98
 msgid "duplicates"
 msgstr "duplicaten"
 
-#: models.py:97
+#: models.py:99
 msgid "Kits that are the same but have another producer."
 msgstr "Kits die identiek zijn, maar uitgegeven door een ander merk."
 
-#: models.py:105
+#: models.py:107
 msgid "model kit"
 msgstr "bouwdoos"
 
-#: models.py:106
+#: models.py:108
 msgid "model kits"
 msgstr "bouwdozen"
 
-#: models.py:130
+#: models.py:132
 #, fuzzy, python-brace-format
 #| msgid "A kit from {brand} with kut number '{kit_number}' already exists"
 msgid "A kit from {brand} with kit number '{kit_number}' already exists"
 msgstr "Er bestaat al een kit van {brand} met kitnummer '{kit_number}'."
+
+#: models.py:150
+msgid "uuid"
+msgstr ""
+
+#: models.py:152
+msgid "created"
+msgstr ""
+
+#: models.py:155
+#, fuzzy
+#| msgid "box image"
+msgid "boxart image upload"
+msgstr "boxart"
+
+#: models.py:156
+#, fuzzy
+#| msgid "box image"
+msgid "boxart image uploads"
+msgstr "boxart"
 
 #: templates/admin/kits/mark_duplicate.html:8
 msgid "Home"
@@ -191,12 +211,46 @@ msgid "choose the scale"
 msgstr "kies de schaal"
 
 #: templates/kits/includes/add_kit_modal.html:40
+#: templates/kits/includes/add_kit_modal.html:97
 msgid "Close"
 msgstr "Sluiten"
 
 #: templates/kits/includes/add_kit_modal.html:41
 msgid "Save"
 msgstr "Bewaren"
+
+#: templates/kits/includes/add_kit_modal.html:49
+msgid "Drop files here"
+msgstr ""
+
+#: templates/kits/includes/add_kit_modal.html:60
+msgid "Upload a file"
+msgstr ""
+
+#: templates/kits/includes/add_kit_modal.html:67
+msgid "Processing dropped files..."
+msgstr ""
+
+#: templates/kits/includes/add_kit_modal.html:85
+#: templates/kits/includes/add_kit_modal.html:113
+msgid "Cancel"
+msgstr ""
+
+#: templates/kits/includes/add_kit_modal.html:88
+msgid "Retry"
+msgstr ""
+
+#: templates/kits/includes/add_kit_modal.html:104
+msgid "No"
+msgstr ""
+
+#: templates/kits/includes/add_kit_modal.html:105
+msgid "Yes"
+msgstr ""
+
+#: templates/kits/includes/add_kit_modal.html:114
+msgid "Ok"
+msgstr ""
 
 #: templates/kits/widgets.html:35
 msgid "filter by name"
@@ -206,6 +260,10 @@ msgstr "zoek op naam"
 msgid "&hellip; or add a new kit"
 msgstr "&hellip; of voeg een nieuwe kit toe"
 
-#: widgets.py:16
+#: tests/api/test_kit_viewset.py:98
+msgid "Invalid upload specified"
+msgstr ""
+
+#: widgets.py:17
 msgid "name"
 msgstr "naam"

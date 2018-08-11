@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-11 00:30+0200\n"
+"POT-Creation-Date: 2018-08-11 14:18+0200\n"
 "PO-Revision-Date: 2015-08-25 08:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,43 +112,49 @@ msgstr "Je registratie op {domain}"
 msgid "{domain} account creation - activation required"
 msgstr "{domain} account aangemaakt - activatie nodig"
 
-#: models.py:78
+#: management/commands/process_data_downloads.py:157
+#, fuzzy
+#| msgid "Modelbrouwers.nl &bull; Edit profile"
+msgid "[Modelbrouwers.nl] Your data download is ready"
+msgstr "Modelbrouwers.nl &bull; Bewerk profiel"
+
+#: models.py:80
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:79
+#: models.py:81
 msgid "Required. 30 characters or fewer. All characters allowed."
 msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
 
-#: models.py:80
+#: models.py:82
 msgid "cleaned username"
 msgstr "cleane gebruikersnaam"
 
-#: models.py:81
+#: models.py:83
 msgid "first name"
 msgstr "voornaam"
 
-#: models.py:82
+#: models.py:84
 msgid "last name"
 msgstr "familienaam"
 
-#: models.py:83
+#: models.py:85
 msgid "email address"
 msgstr "e-mailadres"
 
-#: models.py:85
+#: models.py:87
 msgid "staff status"
 msgstr "stafstatus"
 
-#: models.py:86
+#: models.py:88
 msgid "Designates whether the user can log into this admin site."
 msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
 
-#: models.py:89
+#: models.py:91
 msgid "active"
 msgstr "actief"
 
-#: models.py:90
+#: models.py:92
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -156,27 +162,51 @@ msgstr ""
 "Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
 "van gebruikers te verwijderen."
 
-#: models.py:92
+#: models.py:94
 msgid "date joined"
 msgstr "toegetreden"
 
-#: models.py:95
+#: models.py:97
 msgid "forum user id"
 msgstr "forumgebruikerid"
 
-#: models.py:103
+#: models.py:105
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:104
+#: models.py:106
 msgid "users"
 msgstr "gebruikers"
+
+#: models.py:152
+msgid "finished"
+msgstr ""
+
+#: models.py:153
+msgid "downloaded"
+msgstr ""
+
+#: models.py:154
+msgid "zip file"
+msgstr ""
+
+#: models.py:157
+#, python-brace-format
+msgid "Data download for {user} ({created})"
+msgstr ""
+
+#: templates/data-download/mail_ready.html:12
+#, python-format
+msgid ""
+"Hi %(username)s, <br> <br> The data download you requested is now ready. You "
+"can download it at %(url)s. <br> <br> Best, <br> Modelbrouwers.nl"
+msgstr ""
 
 #: templates/users/change_password.html:6
 #: templates/users/change_password.html:17
 #: templates/users/password_reset_confirm.html:7
 #: templates/users/password_reset_confirm.html:19
-#: templates/users/profile_edit.html:83 templates/users/profile_edit.html:93
+#: templates/users/profile_edit.html:100 templates/users/profile_edit.html:110
 #: tests/test_views.py:30
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
@@ -433,15 +463,15 @@ msgstr "Work in progress"
 msgid "Work in progress 2"
 msgstr "Work in progress"
 
-#: templates/users/profile_edit.html:3
+#: templates/users/profile_edit.html:4
 msgid "Modelbrouwers.nl &bull; Edit profile"
 msgstr "Modelbrouwers.nl &bull; Bewerk profiel"
 
-#: templates/users/profile_edit.html:10
+#: templates/users/profile_edit.html:11
 msgid "Your profile"
 msgstr "Jouw profiel"
 
-#: templates/users/profile_edit.html:12
+#: templates/users/profile_edit.html:13
 msgid ""
 "\n"
 "            Here you can configure various site-wide settings.\n"
@@ -450,33 +480,47 @@ msgstr ""
 "\n"
 "Hier kan je verschillende site-brede instellingen aanpassen."
 
-#: templates/users/profile_edit.html:32
+#: templates/users/profile_edit.html:33
 msgid "You have form errors, check the tabs below"
 msgstr "Je hebt fouten in het formulier, controleer de onderstaande tabs"
 
-#: templates/users/profile_edit.html:40
+#: templates/users/profile_edit.html:44
 msgid "User details"
 msgstr "Gebruikersdetails"
 
-#: templates/users/profile_edit.html:41
+#: templates/users/profile_edit.html:48
 msgid "Address"
 msgstr "adres"
 
-#: templates/users/profile_edit.html:42
+#: templates/users/profile_edit.html:52
 msgid "Awards"
 msgstr "Awards"
 
-#: templates/users/profile_edit.html:43
+#: templates/users/profile_edit.html:56
 msgid "Social settings"
 msgstr "Social instellingen"
 
-#: templates/users/profile_edit.html:44
+#: templates/users/profile_edit.html:60
 msgid "Forum profile"
 msgstr "Forumprofiel"
 
-#: templates/users/profile_edit.html:76
+#: templates/users/profile_edit.html:93
 msgid "Save changes"
 msgstr "Bewaar de veranderingen"
+
+#: templates/users/profile_edit.html:115
+msgid "Download data"
+msgstr ""
+
+#: templates/users/profile_edit.html:119
+msgid ""
+"Modelbrouwers.nl takes your privacy seriously. You can download all the data "
+"related to your account by clicking the button below."
+msgstr ""
+
+#: templates/users/profile_edit.html:125
+msgid "Download"
+msgstr ""
 
 #: templates/users/register.html:4
 msgid "registration"
@@ -554,11 +598,11 @@ msgstr ""
 "gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels "
 "en voorwaarden."
 
-#: tests/test_views.py:43 views.py:236
+#: tests/test_views.py:43 views.py:240
 msgid "Your profile data has been updated."
 msgstr "Je profiel is bijgewerkt."
 
-#: views.py:83
+#: views.py:87
 msgid ""
 "We found an existing forum account for this username, but it appears that "
 "were was no coupling account yet. We automatically created a coupling "
@@ -573,17 +617,22 @@ msgstr ""
 "gekoppelde accounts werden ingevoerd om SSO (single sign on) in de toekomst "
 "mogelijk te maken voor de volledige website."
 
-#: views.py:109
+#: views.py:113
 msgid "You have been logged out."
 msgstr "Je bent uitgelogd."
 
-#: views.py:111
+#: views.py:115
 msgid "Can't log you out, you weren't logged in!"
 msgstr "Je kan niet uitloggen, je was niet ingelogd!"
 
-#: views.py:262
+#: views.py:266
 msgid "Your password was changed."
 msgstr "Je wachtwoord is gewijzigd."
+
+#: views.py:276
+msgid ""
+"Your data download is being prepared and will be e-mailed when it's ready!"
+msgstr ""
 
 #~ msgid "Registration: fill out the form below. All fields are required."
 #~ msgstr "Registratie: vul het formulier in. Alle velden zijn verplicht."
