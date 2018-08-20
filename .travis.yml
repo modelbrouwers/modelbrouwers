@@ -25,12 +25,11 @@ before_install:
 install:
   - pip install --upgrade setuptools pip
   - pip install -r requirements/travis.txt --cache-dir $HOME/.pip-cache
-  - npm install -g bower grunt-cli
+  - npm install -g grunt-cli
   - npm install
 
 before_script:
   - mkdir log
-  - bower install
   - jspm install
   - src/manage.py collectstatic --noinput --link
   - src/manage.py systemjs_bundle

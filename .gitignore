@@ -39,7 +39,6 @@ _codecov_coverage.xml
 
 # Frontend package managers
 /node_modules
-/src/static/bower_components
 npm-debug.log
 /src/static/jspm_packages
 

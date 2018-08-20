@@ -132,6 +132,10 @@ STATICFILES_DIRS = [
     # node_modules cannot be consistently installed in the 'correct place'.
     # symlinking resuls in too many levels of symlinks
     os.path.join(ROOT_DIR, 'node_modules', 'fine-uploader'),
+    ('font-awesome', os.path.join(ROOT_DIR, 'node_modules', 'font-awesome')),
+    ('jquery', os.path.join(ROOT_DIR, 'node_modules', 'jquery')),
+    ('bootstrap', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap')),
+    ('bootstrap-hover-dropdown', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap-hover-dropdown')),
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
