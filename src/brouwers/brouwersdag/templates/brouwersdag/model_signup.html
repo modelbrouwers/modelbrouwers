@@ -70,22 +70,16 @@
                 {% if not form.competition %}
                     {% trans "There's no competition planned (yet)." %}
                 {% else %}
-                <p>
-                    {% blocktrans with fee=form.competition.price|floatformat:'-2' %}
-                        There will be a competition during this edition.
-                        The competition entry fee per model is &euro;{{ fee }}, to be paid when entering the venue.
-                    {% endblocktrans %}
-                </p>
 
-                {% if form.competition.max_num_models %}
-                <p class="text-warning">{% blocktrans count n=form.competition.max_num_models %}
-                    Attention! You can enter only one model in the competition. Extra models will be rejected.
-                    {% plural %}
-                    Attention! You can enter a maximum of <strong>{{ n }}</strong> models in the competition. Extra models will be rejected.
-                {% endblocktrans %}
-
-                <p>{% trans "This restriction is <strong>only for competition models</strong>. You can bring as many models as you want outside of the competition!" %}
-                {% endif %}
+                    {% if form.competition.max_num_models %}
+                    <p class="text-warning">
+                        {% blocktrans count n=form.competition.max_num_models trimmed %}
+                            Attention! You can enter only one model in the competition. Extra models will be rejected.
+                            {% plural %}
+                            Attention! You can enter a maximum of <strong>{{ n }}</strong> models in the competition. Extra models will be rejected.
+                        {% endblocktrans %}
+                    </p>
+                    {% endif %}
                 {% endif %}
             </aside>
         </div>
