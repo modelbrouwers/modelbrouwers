@@ -4,6 +4,8 @@ var sourcesRoot = 'src/';
 /** Name of the static (source) directory */
 var staticRoot = sourcesRoot + 'static/';
 
+var jsRoot = sourcesRoot + 'js/';
+
 
 /**
  * Application path configuration for use in frontend scripts
@@ -13,5 +15,9 @@ module.exports = {
     sassSrc: sourcesRoot + 'sass/**/*.scss',
 
     // Path to the (transpiled) css directory
-    cssDir: staticRoot + 'css/'
+    cssDir: staticRoot + 'css/',
+
+    jsSrc: jsRoot + '**/*.js',
+    jsEntry: jsRoot + 'index.js',
+    jsDir: staticRoot + 'js/'
 };
