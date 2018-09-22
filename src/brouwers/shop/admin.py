@@ -15,7 +15,7 @@ from .resources import CategoryResource, ProductResource
 @admin.register(Category)
 class CategoryAdmin(ImportExportModelAdmin):
     list_display = ('name', 'image', 'seo_keyword', 'enabled')
-    list_filter = ('name', 'seo_keyword', 'enabled')
+    list_filter = ('enabled',)
     search_fields = ('name', 'seo_keyword')
     resource_class = CategoryResource
 
