@@ -110,7 +110,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
     def save(self, *args, **kwargs):
-        if self.username and not self.username_clean:
+        if self.username:
             self.username_clean = self.username.lower()
         super(User, self).save(*args, **kwargs)
 

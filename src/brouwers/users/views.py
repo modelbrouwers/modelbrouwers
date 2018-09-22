@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
@@ -23,7 +23,7 @@ from brouwers.general.models import (
 )
 from brouwers.utils.views import LoginRequiredMixin
 
-from .forms import UserCreationForm
+from .forms import AuthForm, UserCreationForm
 from .mail import UserRegistrationEmail
 from .models import DataDownloadRequest
 from .tokens import activation_token_generator
@@ -49,7 +49,7 @@ class RedirectFormMixin(object):
 
 
 class LoginView(RedirectFormMixin, generic.FormView):
-    form_class = AuthenticationForm
+    form_class = AuthForm
     template_name = 'users/login.html'
 
     def get_form_kwargs(self):

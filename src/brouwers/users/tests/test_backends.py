@@ -17,4 +17,4 @@ class LoginBackendTests(TestCase):
 
         # wrong password / email
         self.assertIsNone(backend.authenticate(username='test@test.com', password='guesswhat'))
-        self.assertIsNone(backend.authenticate(username=self.user.username, password='secret'))
+        self.assertIsNone(backend.authenticate(username='imakenosense', password='secret'))

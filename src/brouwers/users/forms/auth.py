@@ -132,7 +132,7 @@ class PasswordResetForm(PasswordResetForm):
         if not cleaned_data.get('username') and not cleaned_data.get('email'):
             raise forms.ValidationError(_('Fill at least one field.'))
         if not self.get_queryset(cleaned_data).exists():
-            raise forms.ValidationError(_('We couldn\'t find a matching user'))
+            raise forms.ValidationError(_('We couldn\'t find a matching user.'))
         return cleaned_data
 
     def save(self, **kwargs):
