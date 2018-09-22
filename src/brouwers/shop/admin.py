@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from treebeard.admin import TreeAdmin
+from treebeard.forms import movenodeform_factory
 
 from .models import (
     Category, Product, ProductBrand, ProductImage, ProductManufacturer,
@@ -13,11 +15,14 @@ from .resources import CategoryResource, ProductResource
 
 
 @admin.register(Category)
-class CategoryAdmin(ImportExportModelAdmin):
+class CategoryAdmin(ImportExportMixin, TreeAdmin):
+    form = movenodeform_factory(Category)
     list_display = ('name', 'image', 'seo_keyword', 'enabled')
     list_filter = ('enabled',)
     search_fields = ('name', 'seo_keyword')
     resource_class = CategoryResource
+    # TODO - override template to include import-export buttons
+    change_list_template = 'admin/tree_change_list.html'
 
 
 @admin.register(Product)
