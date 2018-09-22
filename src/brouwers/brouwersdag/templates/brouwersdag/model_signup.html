@@ -22,10 +22,17 @@
 
     <div class="well">
         <i class="fa fa-info-circle fa-lg"></i>
-        {% blocktrans %}
-        If you bring a model, you get free entrance!
-        More info on <a class="btn btn-xs bg-main-orange" href="http://www.modelbouwdag.nl/">www.modelbouwdag.nl</a>
-        {% endblocktrans %}
+        {% trans "Attention! This form serves multiple purposes. Please read the below description." %}
+    </div>
+
+    <div>
+        <p>Modelbrouwers leden kunnen via dit formulier hun modellen aanmelden om te plaatsen op de tafels van de Modelbrouwers clubtafels. Er geldt geen beperking in het aantal modellen, en je hoeft niet per se aan de tafels te bouwen. Modelbrouwers leden die live bouwen (aanmelden via <a href="mailto:sergei@modelbrouwers.nl">sergei@modelbrouwers.nl</a> of stuur een PB naar BBT) hebben echter wel gratis toegang tot de modelbouwdag.</p>
+
+        <p>Modellen van andere clubs hoeven niet te worden aangemeld, zij krijgen immers ruimte bij het aanmelden van de club.</p>
+
+        <p><strong>WEDSTRIJD</strong></p>
+
+        <p>Ook kunnen Modelbrouwers clubleden EN alle andere exposanten via dit formulier een model inschrijven voor de wedstrijd. De jury is het publiek van de modelbouwdag en het thema is simpel: 'Welk model spreekt je het meeste aan?'. De wedstrijd modellen komen NIET op een wedstrijdtafel te staan maar zijn op dag te herkennen aan felgekleurde kaarten met een nummer op de tafels van de betreffende club.</p>
     </div>
 
     <div class="row">
@@ -63,22 +70,16 @@
                 {% if not form.competition %}
                     {% trans "There's no competition planned (yet)." %}
                 {% else %}
-                <p>
-                    {% blocktrans with fee=form.competition.price|floatformat:'-2' %}
-                        There will be a competition during this edition.
-                        The competition entry fee per model is &euro;{{ fee }}, to be paid when entering the venue.
-                    {% endblocktrans %}
-                </p>
 
-                {% if form.competition.max_num_models %}
-                <p class="text-warning">{% blocktrans count n=form.competition.max_num_models %}
-                    Attention! You can enter only one model in the competition. Extra models will be rejected.
-                    {% plural %}
-                    Attention! You can enter a maximum of <strong>{{ n }}</strong> models in the competition. Extra models will be rejected.
-                {% endblocktrans %}
-
-                <p>{% trans "This restriction is <strong>only for competition models</strong>. You can bring as many models as you want outside of the competition!" %}
-                {% endif %}
+                    {% if form.competition.max_num_models %}
+                    <p class="text-warning">
+                        {% blocktrans count n=form.competition.max_num_models trimmed %}
+                            Attention! You can enter only one model in the competition. Extra models will be rejected.
+                            {% plural %}
+                            Attention! You can enter a maximum of <strong>{{ n }}</strong> models in the competition. Extra models will be rejected.
+                        {% endblocktrans %}
+                    </p>
+                    {% endif %}
                 {% endif %}
             </aside>
         </div>

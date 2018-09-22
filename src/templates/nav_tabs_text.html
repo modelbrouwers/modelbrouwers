@@ -4,6 +4,8 @@
 {% url 'albums:index' as url_albums %}
 {% url 'kitreviews:index' as url_kitreviews %}
 {% url 'groupbuilds:groupbuild-list' as url_groupbuilds %}
+{% url 'builds:index' as url_builds %}
+
 
 {% spaceless %}
     <li id="tab-home" class="tab">
@@ -34,6 +36,11 @@
     <li id="group-builds" class="tab">
         <a href="{{ url_groupbuilds }}"{% if request.path|startswith:url_groupbuilds %} class="active"{% endif %} title="{% trans "Manage group builds!" %}">{% trans "group builds" %}</a>
     </li>
+
+    <li id="builds" class="tab">
+        <a href="{{ url_builds }}"{% if request.path|startswith:url_builds %} class="active"{% endif %} title="{% trans 'Builds' %}">{% trans "builds" %}</a>
+    </li>
+
     <!--<li>
         <img src="{% static 'images/nav/modelbouw_wiki.png' %}" alt="Modelbouw Wiki"/>
     </li>-->

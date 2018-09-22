@@ -28,14 +28,15 @@ django-modeltranslation
 django-taggit
 django-import-export
 
-# # API
+# API
 djangorestframework
 djangorestframework-filters
 
-# # Html parsing
+# Html parsing
 bleach
+html2text
 
-# # Misc
+# Misc
 WeasyPrint
 
 psycopg2

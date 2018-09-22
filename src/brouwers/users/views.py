@@ -1,17 +1,20 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.utils.http import base36_to_int
 from django.utils.translation import get_language, ugettext as _
 from django.views import generic
+from django.views.generic.detail import SingleObjectMixin
 
 from extra_views import (
     InlineFormSet, NamedFormsetsMixin, UpdateWithInlinesView
 )
+from sendfile import sendfile
 
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
@@ -20,8 +23,9 @@ from brouwers.general.models import (
 )
 from brouwers.utils.views import LoginRequiredMixin
 
-from .forms import UserCreationForm
+from .forms import AuthForm, UserCreationForm
 from .mail import UserRegistrationEmail
+from .models import DataDownloadRequest
 from .tokens import activation_token_generator
 
 User = get_user_model()
@@ -45,7 +49,7 @@ class RedirectFormMixin(object):
 
 
 class LoginView(RedirectFormMixin, generic.FormView):
-    form_class = AuthenticationForm
+    form_class = AuthForm
     template_name = 'users/login.html'
 
     def get_form_kwargs(self):
@@ -261,3 +265,31 @@ class PasswordChangedView(generic.RedirectView):
     def get(self, request, *args, **kwargs):
         messages.success(request, _('Your password was changed.'))
         return super(PasswordChangedView, self).get(request, *args, **kwargs)
+
+
+class RequestDataDownloadView(LoginRequiredMixin, generic.View):
+    raise_exception = True
+
+    def post(self, *args, **kwargs):
+        if not DataDownloadRequest.objects.filter(user=self.request.user, finished__isnull=True).exists():
+            DataDownloadRequest.objects.create(user=self.request.user)
+        messages.success(self.request, _("Your data download is being prepared and will be e-mailed when it's ready!"))
+        return redirect(reverse('users:profile'))
+
+
+class DataDownloadFileView(LoginRequiredMixin, SingleObjectMixin, generic.View):
+
+    def get_queryset(self):
+        qs = (
+            DataDownloadRequest.objects
+            .filter(user=self.request.user, finished__isnull=False)
+            .exclude(zip_file='')
+        )
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        download_request = self.get_object()
+        download_request.downloaded = timezone.now()
+        download_request.save(update_fields=['downloaded'])
+        zip_file = download_request.zip_file
+        return sendfile(request, zip_file.path, attachment=True)

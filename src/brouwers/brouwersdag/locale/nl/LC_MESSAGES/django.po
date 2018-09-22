@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-11 00:30+0200\n"
+"POT-Creation-Date: 2018-08-20 08:06+0200\n"
 "PO-Revision-Date: 2016-05-07 12:52+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,7 +191,7 @@ msgstr "exposant"
 msgid "exhibitors"
 msgstr "exposanten"
 
-#: templates/brouwersdag/base.html:3 templates/brouwersdag/model_signup.html:34
+#: templates/brouwersdag/base.html:3 templates/brouwersdag/model_signup.html:41
 #, python-format
 msgid "Modelbouwdag %(year)s"
 msgstr "Modelbouwdag %(year)s"
@@ -230,31 +230,26 @@ msgstr "Voeg je modellen toe"
 
 #: templates/brouwersdag/index.html:21
 msgid ""
-"\n"
-"            If you bring a model, you get free entrance!\n"
-"            More info on <a class=\"btn btn-default btn-lg\" href=\"http://"
-"www.modelbouwdag.nl/\">www.modelbouwdag.nl</a>\n"
-"            "
+"More info on <a class=\"btn btn-default btn-lg\" href=\"http://www."
+"modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
 msgstr ""
-"\n"
-"Modelbrouwers die een model meenemen hebben gratis toegang. Meer info op <a "
-"class=\"btn btn-default btn-lg\" href=\"http://www.modelbouwdag.nl/\">www."
-"modelbouwdag.nl</a>"
+"Meer info op <a class=\"btn btn-default btn-lg\" href=\"http://www."
+"modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
 
-#: templates/brouwersdag/index.html:28
+#: templates/brouwersdag/index.html:27
 msgid "Click the above button to sign up for the competition"
 msgstr "Klik op de knop hierboven om je aan te melden voor de wedstrijd"
 
-#: templates/brouwersdag/index.html:31
+#: templates/brouwersdag/index.html:30
 msgid "Confirmed models"
 msgstr "Bevestigde modellen"
 
-#: templates/brouwersdag/index.html:33
+#: templates/brouwersdag/index.html:32
 #, python-format
 msgid "%(n_total)s total, %(n_competition)s competition"
 msgstr "%(n_total)s totaal, %(n_competition)s wedstrijd"
 
-#: templates/brouwersdag/index.html:56
+#: templates/brouwersdag/index.html:55
 msgid "Back to top"
 msgstr "Terug naar boven"
 
@@ -264,12 +259,12 @@ msgid "Modelbouwdag%(year)s"
 msgstr "Modelbouwdag %(year)s"
 
 #: templates/brouwersdag/model_signup.html:11
-#: templates/brouwersdag/model_signup.html:35
+#: templates/brouwersdag/model_signup.html:42
 msgid "Time to do your models sign-up!"
 msgstr "Tijd om je modellen aan te melden!"
 
 #: templates/brouwersdag/model_signup.html:14
-#: templates/brouwersdag/model_signup.html:39
+#: templates/brouwersdag/model_signup.html:46
 msgid ""
 "If you want to display multiple models, just fill in the form again for each "
 "extra model."
@@ -279,55 +274,32 @@ msgstr ""
 
 #: templates/brouwersdag/model_signup.html:25
 msgid ""
-"\n"
-"        If you bring a model, you get free entrance!\n"
-"        More info on <a class=\"btn btn-xs bg-main-orange\" href=\"http://"
-"www.modelbouwdag.nl/\">www.modelbouwdag.nl</a>\n"
-"        "
+"Attention! This form serves multiple purposes. Please read the below "
+"description."
 msgstr ""
-"\n"
-"Modelbrouwers die een model meenemen hebben gratis toegang. Meer info op <a "
-"class=\"btn btn-xs bg-main-orange\" href=\"http://www.modelbouwdag.nl/\">www."
-"modelbouwdag.nl</a>"
+"Let op! Dit formulier dient verschillende doelen. Lees onderstaande goed "
+"door."
 
-#: templates/brouwersdag/model_signup.html:54
+#: templates/brouwersdag/model_signup.html:61
 msgid "Add model"
 msgstr "Model aanmelden"
 
-#: templates/brouwersdag/model_signup.html:61
+#: templates/brouwersdag/model_signup.html:68
 msgid "Competition information"
 msgstr "Wedstrijdinformatie"
 
-#: templates/brouwersdag/model_signup.html:64
+#: templates/brouwersdag/model_signup.html:71
 msgid "There's no competition planned (yet)."
 msgstr "Er is (nog) geen wedstrijd geplanned."
 
-#: templates/brouwersdag/model_signup.html:67
-#, python-format
+#: templates/brouwersdag/model_signup.html:76
+# python-format
 msgid ""
-"\n"
-"                        There will be a competition during this edition.\n"
-"                        The competition entry fee per model is &euro;"
-"%(fee)s, to be paid when entering the venue.\n"
-"                    "
-msgstr ""
-"\n"
-"Tijdens deze editie vindt er een wedstrijd plaats. De kosten om deel te "
-"nemen bedragen &euro;%(fee)s per model, wat betaald moet worden bij het "
-"binnenkomen van de zaal."
-
-#: templates/brouwersdag/model_signup.html:74
-#, python-format
-msgid ""
-"\n"
-"                    Attention! You can enter only one model in the "
-"competition. Extra models will be rejected.\n"
-"                    "
+"Attention! You can enter only one model in the competition. Extra models "
+"will be rejected."
 msgid_plural ""
-"\n"
-"                    Attention! You can enter a maximum of <strong>%(n)s</"
-"strong> models in the competition. Extra models will be rejected.\n"
-"                "
+"Attention! You can enter a maximum of <strong>%(n)s</strong> models in the "
+"competition. Extra models will be rejected."
 msgstr[0] ""
 "\n"
 "Opgelet! Je kan slechts één model aanmelden voor de wedstrijd. Extra "
@@ -336,14 +308,6 @@ msgstr[1] ""
 "\n"
 "Opgelet! Je kan maximaal <strong>%(n)s</strong> model(len) aanmelden voor de "
 "wedstrijd. Extra modellen zullen geweigerd worden."
-
-#: templates/brouwersdag/model_signup.html:80
-msgid ""
-"This restriction is <strong>only for competition models</strong>. You can "
-"bring as many models as you want outside of the competition!"
-msgstr ""
-"Deze beperking geldt <strong>enkel voor de wedstrijd</strong> Buiten de "
-"wedstrijd om mag je zoveel modellen als je wenst meebrengen!"
 
 #: templates/brouwersdag/model_signup_edit.html:5
 msgid "Edit model"
@@ -387,6 +351,37 @@ msgstr "Je model werd toegevoegd."
 #: views.py:98
 msgid "Your model has been edited"
 msgstr "Je model werd bijgewerkt"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        There will be a competition during this edition.\n"
+#~ "                        The competition entry fee per model is &euro;"
+#~ "%(fee)s, to be paid when entering the venue.\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "Tijdens deze editie vindt er een wedstrijd plaats. De kosten om deel te "
+#~ "nemen bedragen &euro;%(fee)s per model, wat betaald moet worden bij het "
+#~ "binnenkomen van de zaal."
+
+#~ msgid ""
+#~ "This restriction is <strong>only for competition models</strong>. You can "
+#~ "bring as many models as you want outside of the competition!"
+#~ msgstr ""
+#~ "Deze beperking geldt <strong>enkel voor de wedstrijd</strong> Buiten de "
+#~ "wedstrijd om mag je zoveel modellen als je wenst meebrengen!"
+
+#~ msgid ""
+#~ "\n"
+#~ "        If you bring a model, you get free entrance!\n"
+#~ "        More info on <a class=\"btn btn-xs bg-main-orange\" href=\"http://"
+#~ "www.modelbouwdag.nl/\">www.modelbouwdag.nl</a>\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "Modelbrouwers die een model meenemen hebben gratis toegang. Meer info op "
+#~ "<a class=\"btn btn-xs bg-main-orange\" href=\"http://www.modelbouwdag.nl/"
+#~ "\">www.modelbouwdag.nl</a>"
 
 #~ msgid "Brouwersdag model signup"
 #~ msgstr "Inschrijven modellen Brouwersdag"

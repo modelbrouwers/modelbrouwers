@@ -30,6 +30,7 @@ install:
   - gulp sass
 
 before_script:
+  - mkdir log
   - jspm install
   - src/manage.py collectstatic --noinput --link
   - src/manage.py systemjs_bundle

@@ -1,4 +1,5 @@
-{% extends "base_html5.html" %}{% load i18n sniplates %}
+{% extends "base.html" %}
+{% load i18n sniplates %}
 
 {% block title %}{% trans 'Modelbrouwers.nl &bull; Edit profile' %}{% endblock %}
 
@@ -18,84 +19,114 @@
 
 
 {% block content %}
-	{% block container %}
-	<div class="row">
+    {% block container %}
+    <div class="row">
 
-		<form action="." method="post" class="form-horizontal col-md-8 col-xs-12">
-			{% load_widgets form='horizontal.form' %}{% with label_grid='col-sm-4' field_grid='col-sm-8' %}
-			{% csrf_token %}
+        <form action="." method="post" class="form-horizontal col-md-8 col-xs-12">
+            {% load_widgets form='horizontal.form' %}{% with label_grid='col-sm-4' field_grid='col-sm-8' %}
+            {% csrf_token %}
 
-			{{ profiles.management_form }}
-			{{ profiles.0.id }}
+            {{ profiles.management_form }}
+            {{ profiles.0.id }}
 
-			{% if form.errors or profiles.0.errors %}
-				<div class="text-danger">{% trans "You have form errors, check the tabs below" %}</div>
-				{% widget 'form:non_field_errors' %}
-				{{ profiles.0.errors }}
-			{% endif %}
+            {% if form.errors or profiles.0.errors %}
+                <div class="text-danger">{% trans "You have form errors, check the tabs below" %}</div>
+                {% widget 'form:non_field_errors' %}
+                {{ profiles.0.errors }}
+            {% endif %}
 
-			<div role="tabpanel">
+            {% load_widgets tabs='sniplates/tabs.html' %}
 
-				<ul class="nav nav-tabs" role="tablist">
-					<li class="active"><a href="#tab-user" data-toggle="tab">{% trans "User details" %}</a></li>
-					<li><a href="#tab-address" data-toggle="tab">{% trans "Address" %}</a></li>
-					<li><a href="#tab-awards" data-toggle="tab">{% trans "Awards" %}</a></li>
-					<li><a href="#tab-privacy" data-toggle="tab">{% trans "Social settings" %}</a></li>
-					<li><a href="{{ PHPBB_URL }}ucp.php?i=profile&amp;mode=profile_info">{% trans "Forum profile" %}</a></li>
-				</ul>
+            <div role="tabpanel">
 
-				<div class="tab-content">
+                <ul class="nav nav-tabs" role="tablist">
+                    {% nested_widget 'tabs:tab' target='tab-user' active=True %}
+                        {% trans "User details" %}
+                    {% endnested %}
 
-					<fieldset class="tab-pane active" id="tab-user">
-						{% form_field form.email %}
-						{% form_field form.first_name %}
-						{% form_field form.last_name %}
-					</fieldset>
+                    {% nested_widget 'tabs:tab' target='tab-address' %}
+                        {% trans "Address" %}
+                    {% endnested %}
 
-					<fieldset class="tab-pane" id="tab-address">
-						{% form_field profiles.0.street %}
-						{% form_field profiles.0.number %}
-						{% form_field profiles.0.postal %}
-						{% form_field profiles.0.city %}
-						{% form_field profiles.0.province %}
-					</fieldset>
+                    {% nested_widget 'tabs:tab' target='tab-awards' %}
+                        {% trans "Awards" %}
+                    {% endnested %}
 
-					<fieldset class="tab-pane" id="tab-awards">
-						{% form_field profiles.0.exclude_from_nomination %}
-					</fieldset>
+                    {% nested_widget 'tabs:tab' target='tab-privacy' %}
+                        {% trans "Social settings" %}
+                    {% endnested %}
 
-					<fieldset class="tab-pane" id="tab-privacy">
-						{% form_field profiles.0.allow_sharing %}
-					</fieldset>
+                    {% nested_widget 'tabs:tab' url=PHPBB_URL|add:"ucp.php?i=profile&amp;mode=profile_info" %}
+                        {% trans "Forum profile" %}
+                    {% endnested %}
+                </ul>
 
-				</div>
-			</div>
+                <div class="tab-content">
 
-			<div class="submit-wrapper">
-			    {% block submit_button %}
-			        <button type="submit" class="btn btn-primary">{% block submit-btn %}{% trans "Save changes" %}{% endblock %}</button>
-			    {% endblock %}
-			</div>
-		{% endwith %}
-		</form>
+                    <fieldset class="tab-pane active" id="tab-user">
+                        {% form_field form.email %}
+                        {% form_field form.first_name %}
+                        {% form_field form.last_name %}
+                    </fieldset>
 
-		<aside class="col-xs-12 col-md-4">
-			<h3 class="align-tabs">{% trans "Change password" %}</h3>
-			<form action="{% url 'users:change_pw' %}" class="form-horizontal well" method="post">
-			{% with label_grid='col-md-6 col-xs-12' field_grid='col-md-6 col-xs-12' %}
-				{% csrf_token %}
+                    <fieldset class="tab-pane" id="tab-address">
+                        {% form_field profiles.0.street %}
+                        {% form_field profiles.0.number %}
+                        {% form_field profiles.0.postal %}
+                        {% form_field profiles.0.city %}
+                        {% form_field profiles.0.province %}
+                    </fieldset>
 
-				{% form_field pw_form.old_password %}
-				{% form_field pw_form.new_password1 %}
-				{% form_field pw_form.new_password2 %}
+                    <fieldset class="tab-pane" id="tab-awards">
+                        {% form_field profiles.0.exclude_from_nomination %}
+                    </fieldset>
 
-				<div class="submit-wrapper">
-				    <button type="submit" class="btn bg-main-orange">{% trans "Change password" %}</button>
-				</div>
-			{% endwith %}
-			</form>
-		</aside>
+                    <fieldset class="tab-pane" id="tab-privacy">
+                        {% form_field profiles.0.allow_sharing %}
+                    </fieldset>
 
-	</div>
-	{% endblock container %}
+                </div>
+            </div>
+
+            <div class="submit-wrapper">
+                {% block submit_button %}
+                    <button type="submit" class="btn btn-primary">{% block submit-btn %}{% trans "Save changes" %}{% endblock %}</button>
+                {% endblock %}
+            </div>
+        {% endwith %}
+        </form>
+
+        <aside class="col-xs-12 col-md-4">
+            <h3 class="align-tabs">{% trans "Change password" %}</h3>
+            <form action="{% url 'users:change_pw' %}" class="form-horizontal well" method="post">
+            {% with label_grid='col-md-6 col-xs-12' field_grid='col-md-6 col-xs-12' %}
+                {% csrf_token %}
+
+                {% form_field pw_form.old_password %}
+                {% form_field pw_form.new_password1 %}
+                {% form_field pw_form.new_password2 %}
+
+                <div class="submit-wrapper">
+                    <button type="submit" class="btn bg-main-orange">{% trans "Change password" %}</button>
+                </div>
+            {% endwith %}
+            </form>
+
+            <h3>{% trans "Download data" %}</h3>
+            <form action="{% url 'users:data-download' %}" method="post">
+                {% csrf_token %}
+
+                <p>{% blocktrans trimmed %}
+                    Modelbrouwers.nl takes your privacy seriously. You can download all the data
+                    related to your account by clicking the button below.
+                {% endblocktrans %}</p>
+
+                <div class="submit-wrapper">
+                    <button type="submit" class="btn bg-main-orange">{% trans "Download" %}</button>
+                </div>
+            </form>
+        </aside>
+
+    </div>
+    {% endblock container %}
 {% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Showcased models (Modelbouwdag)</h1>
+    <ul>
+        {% for model in showcased_models %}
+            <li>
+                <h2>{{ model.name }}</h2>
+                <h3>{{ model.owner_name }} - {{ model.email }}</h3>
+
+                <p>
+                    {{ model.brand }}, 1/{{ model.scale }}
+                </p>
+
+                <blockquote>{{ model.remarks }}</blockquote>
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}

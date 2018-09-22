@@ -124,6 +124,28 @@ class LoginRegisterTests(WebTest):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, 'form', 'username', _("A user with that username already exists."))
 
+    def test_login_username_case_insensitive(self):
+        UserFactory.create(username='Rodith', password='letmein')
+
+        login_page = self.app.get(settings.LOGIN_URL)
+        login_page.form['username'] = 'rodith'
+        login_page.form['password'] = 'letmein'
+
+        response = login_page.form.submit()
+
+        self.assertEqual(response.status_code, 302)
+
+    def test_login_username_same_email(self):
+        UserFactory.create(username='FOO@bar.com', email='foo@bar.com', password='letmein')
+
+        login_page = self.app.get(settings.LOGIN_URL)
+        login_page.form['username'] = 'foo@bar.com'
+        login_page.form['password'] = 'letmein'
+
+        response = login_page.form.submit()
+
+        self.assertEqual(response.status_code, 302)
+
     def test_register_invisible_if_logged_in(self):
         """ Test that the registration page is not accessible if the user is logged in"""
         url = '/register/'

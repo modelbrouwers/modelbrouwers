@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+{% load i18n staticfiles forum_tools compress %}
+<head>
+	<title>{% block title %}Modelbrouwers &bull; {% trans 'Materials and knowledge for scale modelling.' %}{% endblock %}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta name="description" content="Modelbrouwers.nl is de 'place to be' voor alle fanaten van kunststof schaalmodellen van bijvoorbeeld Revell of AMT. Een forum en plaats om je modelbouwfoto's te uploaden in je eigen fotoalbum!" />
+	<meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
+
+	{% compress css %}
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" charset="utf-8"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" charset="utf-8"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/screen.css' %}" charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/uploadify.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui-1.10.2.custom.css' %}" />
+        <!--[if IE 9]>
+            <style type="text/css">
+                ul#menu li a{padding-top: 2px;}
+            </style>
+        <![endif]-->
+        <!--[if lte IE 8]>
+            <style type="text/css">
+                div.tab{border-bottom: solid 2px #6F8698;}
+                ul#menu{
+                    background-color: #0A1871;
+                    background-image: url('/static/images/nav/bg_menu.png');
+                    background-repeat: repeat-x;
+                }
+            </style>
+        <![endif]-->
+        {% block extrastyle %}
+	    {% endblock extrastyle %}
+	{% endblock style %}
+    {% endcompress %}
+
+    <!-- use googles jquery, loads faster and relieves own server -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        <!-- fallback -->
+        if (typeof jQuery === 'undefined') {
+            document.write(unescape("%3Cscript src='{% static 'scripts/jquery.js' %}' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
+
+    {% compress js %}
+    {% block scripts %}
+        <script type="text/javascript">
+            // set the default date format, corresponding to Django's en
+            jQuery(function($){
+                $.datepicker.regional.en = {dateFormat: 'yy-mm-dd'};
+                $.datepicker.setDefaults($.datepicker.regional.en);
+            });
+        </script>
+        {% ifnotequal LANGUAGE_CODE 'en' %}
+            <script type="text/javascript" src="{% static 'scripts/jquery.ui.datepicker-nl.js' %}" ></script>
+        {% endifnotequal %}
+        <script type="text/javascript" src="{% static 'scripts/common.js' %}"></script>
+
+        {% block extrascript %}{% endblock %}
+	{% endblock scripts %}
+    {% endcompress %}
+    {% block vendor_js %}{% endblock vendor_js %}
+    <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}" />
+</head>
+
+<body{% block body-attrs %}{% endblock %}>
+    {% include "nav_top.html" %}
+
+    <!-- start container -->
+    <div id="container">
+        <!-- div with logos and misc -->
+        <div id="logo">
+             <div class="left">
+                {% spaceless %}
+                 <a href="{% url 'index' %}" id="main-logo">
+                    <img src="{% static 'images/logo/logo_modelbrouwers.png' %}"
+                    alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}"/>
+                 </a>{% endspaceless %}
+            </div>
+            <div id="announcement">
+                {% block announcement %}{% endblock %}
+            </div>
+
+            <div class="right">{% spaceless %}
+                <a href="http://www.modelbouwmagazine.nl/acties.html" target="_blank">
+                    <img class="rounded" src="{% static 'images/varia/MM-actie.gif' %}"
+                        alt="Modelbouwmagazine / Modelbrouwers ACTIE" width="308" height="60" />
+                </a>
+                <a href="https://www.allekabels.nl" target="_blank">
+                    <img class="rounded" src="{% static 'images/varia/allekabels.png' %}"
+                        width="234" height="60" alt="allekabels.nl" />
+                </a>{% endspaceless %}
+            </div>
+        </div>
+        <!-- end logo div -->
+
+        <!-- start content wrapper -->
+        <div id="content_wrapper">
+            {% block important_message %}
+            {% endblock %}
+
+            {% block messages %}
+                {% include "messages.html" %}
+            {% endblock %}
+
+            <div id="menu_wrapper">
+                <ul id="menu">{% spaceless %}
+                    {% block menu %}
+                        <li><a href="{% url 'index' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'builds:index' %}">{% trans "Builds" %}</a></li>
+                        <li><a href="{% url 'awards_index' %}">{% trans "Awards" %}</a></li>
+                        <li><a href="{% url 'secret_santa:index' %}">{% trans "Secret Santa" %}</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'brouwers.migration.views.index' %}">{% trans 'Migrations' %}</a></li>
+                        {% endif %}
+                    {% endblock %}
+
+                    {% block user_auth %}
+                        {% if not user.is_authenticated %}
+                            <li class="user-auth">
+                                <a href="{% url 'users:login' %}?next={{ request.path }}">{% trans 'Login' %}</a>
+                            </li>
+                            <li class="user-auth">
+                                <a href="{% url 'users:register' %}">{% trans 'Register' %}</a>
+                            </li>
+                        {% else %}
+                            <li class="user-auth">
+                                <a href="{% url 'users:logout' %}">
+                                    <span>&nbsp;</span><!-- hack for proper height display in chrome -->
+                                    <img id="img-logout" src="{% static 'images/icons/door.png' %}" title="{% trans 'logout' %}" alt="{% trans 'logout' %}"/>
+                                    <span>&nbsp;</span>
+                                </a>
+                            </li>
+                            <li class="user-auth">
+                                <a href="{% url 'users:profile' %}">{% trans 'Profile' %} [ {{ user|forum_name }} ]</a>
+                            </li>
+                        {% endif %}
+                    {% endblock %}
+                {% endspaceless %}</ul>
+            </div>
+
+            {% block above_content %}{% endblock %}
+            <!-- start content -->
+            <div id="content">
+            {% block content %}{% endblock content %}
+            </div>
+            <!-- end content -->
+
+            {% comment %}
+                {% if debug %}
+                        <div id="debug">
+                            {% block queries %}
+                                Total: {{ connection.queries|length }} - time: <span style="font-weight:bold;color:red;">{{ queries_time }}</span> s
+                                <ol>
+                                {% for query in connection.queries %}
+                                    <li style="margin-bottom:0.5em">Time: <strong>{{ query.time }}</strong><br />{{ query.sql }}</li>
+                                {% endfor %}
+                                </ol>
+                            {% endblock %}
+                        </div>
+                    {% endif %}
+            {% endcomment %}
+        </div>
+        <!-- end content wrapper -->
+
+        <!-- start footer -->
+        <div id="footer">
+            {% block footer %}
+                {% include "footer_banner.html" %}
+                <div id="copyright">
+                    <img src="{% static 'images/varia/email.png' %}" width="158" height="15" alt="admins[[@]]modelbrouwers.nl" />
+                    <br />
+                    &copy; 2005-2013 Modelbrouwers.nl &amp; Sergei Maertens
+                    {% if user.is_superuser %}<br /><a href="/admin/">[ Django admin ]</a>{% endif %}
+                    <a href="{{ HONEYPOT_URL }}" style="display: none;">ozone-inevitable</a>
+                    &bull;
+                    {% blocktrans with url='http://www.flexwebhosting.nl' %}
+                        Hosting by <a href="{{ url }}">Flexwebhosting</a>
+                    {% endblocktrans %}
+                    &bull;
+                    Cross-browser testing via <a href="https://www.browserstack.com/">Browserstack</a>
+                </div>
+            {% endblock %}
+        </div>
+        <!-- end footer -->
+    </div>
+    <!-- end container -->
+
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-385491-1");
+    pageTracker._trackPageview();
+    } catch(err) {}
+    </script>
+</body>
+</html>

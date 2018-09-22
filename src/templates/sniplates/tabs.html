@@ -1,0 +1,15 @@
+{% load sniplates %}
+
+
+{% block tab %}
+<li{% if active %} class="active"{% endif %}>
+    <a href="{% firstof url '#'|add:target %}" data-toggle="tab">{{ content }}</a>
+</li>
+{% endblock tab %}
+
+
+{% block pane %}
+<fieldset class="tab-pane {% if active %}active{% endif %}" id="{{ target }}">
+    {{ content }}
+</fieldset>
+{% endblock pane %}

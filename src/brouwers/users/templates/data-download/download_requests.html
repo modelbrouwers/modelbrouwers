@@ -1,0 +1,16 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Data downloads</h1>
+    <ul>
+        {% for download in data_downloads %}
+            <li>
+                Download requested at {{ download.created }}.
+                <br>
+                Finished: {{ download.finished|default:'-' }}
+            </li>
+        {% endfor %}
+    </ul>
+</article>
+{% endblock content %}

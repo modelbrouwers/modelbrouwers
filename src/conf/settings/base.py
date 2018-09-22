@@ -119,6 +119,9 @@ SENDFILE_BACKEND = 'sendfile.backends.nginx'
 SENDFILE_ROOT = os.path.join(ROOT_DIR, 'media_sendfile')
 SENDFILE_URL = '/protected'
 
+PRIVATE_MEDIA_URL = SENDFILE_URL
+PRIVATE_MEDIA_ROOT = SENDFILE_ROOT
+
 #
 # STATIC FILES
 #
@@ -131,6 +134,7 @@ STATICFILES_DIRS = [
     # symlinking results in too many levels of symlinks
     os.path.join(ROOT_DIR, 'node_modules', 'fine-uploader'),
     ('bootstrap', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap')),
+    ('bootstrap-hover-dropdown', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap-hover-dropdown')),
     ('font-awesome', os.path.join(ROOT_DIR, 'node_modules', 'font-awesome')),
     ('jquery', os.path.join(ROOT_DIR, 'node_modules', 'jquery')),
 ]
@@ -374,3 +378,8 @@ PHPBB_POSTS_PER_PAGE = 10
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+#
+# CHAT
+#
+MIBBIT_SETTINGS = ''

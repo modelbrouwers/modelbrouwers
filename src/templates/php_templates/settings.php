@@ -48,6 +48,12 @@
                             'url' => '/group-builds/',
                             'classes' => '',
                             ),
+        'builds'       => array(
+                            'label' => 'verslagen',
+                            'title' => 'Blader door brouwverslagen!',
+                            'url' => '/builds/',
+                            'classes' => '',
+                            ),
     );
 
     $best_match = '';

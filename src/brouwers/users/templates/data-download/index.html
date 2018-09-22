@@ -1,0 +1,57 @@
+{% extends "data-download/base.html" %}
+
+{% block content %}
+<article>
+    <h1>Overview of your data</h1>
+    <p>
+        Generated on {% now "d-m-Y H:i" %}
+    </p>
+
+    <ul>
+        <li>
+            <a href="./profile.html">Profile</a>
+        </li>
+        <li>
+            <a href="./albums.html">Albums</a>
+        </li>
+        <li>
+            <a href="./album_groups.html">Album Groups</a>
+        </li>
+        <li>
+            <a href="./photos.html">Photos</a>
+        </li>
+        <li>
+            <a href="./album_downloads.html">Album Downloads</a>
+        </li>
+        <li>
+            <a href="./nominations.html">Nominations</a>
+        </li>
+        <li>
+            <a href="./award_votes.html">Award_votes</a>
+        </li>
+        <li>
+            <a href="./bans.html">Bans</a>
+        </li>
+        <li>
+            <a href="./showcased_models.html">Showcased_models</a>
+        </li>
+        <li>
+            <a href="./builds.html">Builds</a>
+        </li>
+        <li>
+            <a href="./kit_reviews.html">Kit Reviews</a>
+        </li>
+        <li>
+            <a href="./tracking.html">Tracking</a>
+        </li>
+        <li>
+            <a href="./download_requests.html">Download_requests</a>
+        </li>
+    </ul>
+
+    <p>
+        Questions? Please contact <a href="mailto:admins@modelbrouwers.nl">the admins</a>.
+        We'll be happy to answer them!
+    </p>
+</article>
+{% endblock %}
