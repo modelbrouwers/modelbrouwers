@@ -40,7 +40,6 @@ class ProductAdmin(ImportExportModelAdmin):
         'width',
         'height',
         'weight',
-        'category',
         'manufacturer',
         'tag_list'
     )
@@ -55,9 +54,10 @@ class ProductAdmin(ImportExportModelAdmin):
         'width',
         'height',
         'weight',
-        'category',
+        'categories',
         'manufacturer',
     )
+    list_select_related = ('manufacturer',)
     search_fields = (
         'name',
         'seo_keyword',
@@ -69,9 +69,9 @@ class ProductAdmin(ImportExportModelAdmin):
         'width',
         'height',
         'weight',
-        'category',
         'manufacturer',
     )
+    raw_id_fields = ('brand', 'related_products', 'categories', 'manufacturer')
     resource_class = ProductResource
 
     def get_queryset(self, request):

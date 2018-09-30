@@ -10,6 +10,8 @@ from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
+from ..constants import WeightUnits
+
 DEFAULT_RATING = 50
 MAX_RATING = 100
 MIN_RATING = 0
@@ -17,21 +19,27 @@ MIN_RATING = 0
 
 @python_2_unicode_compatible
 class Product(models.Model):
-    name = models.CharField(_('name'), max_length=100)
-    slug = AutoSlugField(_('slug'), unique=True, populate_from='name')
+    name = models.CharField(_('name'), max_length=200)
+    slug = AutoSlugField(_('slug'), max_length=200, unique=True, populate_from='name')
     brand = models.ForeignKey('ProductBrand', null=True, blank=True, on_delete=models.PROTECT)
     model_name = models.CharField(_('model name'), max_length=30)
     stock = models.PositiveIntegerField(_('stock'), help_text=_('Number of items in stock'))
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2, default=0)
     vat = models.DecimalField(_('vat'), max_digits=3, decimal_places=2, default=0)
     description = RichTextField(blank=True)
-    seo_keyword = models.CharField(_('seo keyword'), max_length=100, null=True, blank=True)
+    seo_keyword = models.CharField(_('seo keyword'), max_length=200, null=True, blank=True)
+
+    # dimensional data
     length = models.DecimalField(_('length'), max_digits=10, decimal_places=2, default=0)
     width = models.DecimalField(_('width'), max_digits=10, decimal_places=2, default=0)
     height = models.DecimalField(_('height'), max_digits=10, decimal_places=2, default=0)
+    # TODO: need length unit?
+
     weight = models.DecimalField(_('weight'), max_digits=10, decimal_places=2, default=0)
+    weight_unit = models.CharField(_('weight unit'), max_length=10, choices=WeightUnits.choices)
+
     related_products = models.ManyToManyField('self', blank=True)
-    category = models.ForeignKey('Category', related_name='products', on_delete=models.PROTECT)
+    categories = models.ManyToManyField('Category', related_name='products')
     manufacturer = models.ForeignKey('ProductManufacturer', related_name='products', null=True, blank=True,
                                      on_delete=models.PROTECT)
     tags = TaggableManager()
@@ -41,7 +49,7 @@ class Product(models.Model):
         verbose_name_plural = _('products')
 
     def __str__(self):
-        return self.name
+        return self.name or self.name_nl
 
 
 class ProductImage(models.Model):
