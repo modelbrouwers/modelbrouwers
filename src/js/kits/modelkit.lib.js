@@ -1,16 +1,15 @@
 import 'jquery';
 import 'bootstrap';
-import 'scripts/jquery.serializeObject';
-import 'typeahead';
+import '../scripts/jquery.serializeObject';
+import 'typeahead/typeahead.js'
+import qq from 'fine-uploader/fine-uploader/fine-uploader';
+//import qq from 'fine-uploader';
 
-// import qq from 'fine-uploader/lib/core';
-import qq from 'fine-uploader';
+import Handlebars from '../general/hbs-pony';
 
-import Handlebars from 'general/js/hbs-pony';
-
-import Brand from 'kits/js/models/Brand';
-import ModelKit from 'kits/js/models/ModelKit';
-import Scale from 'kits/js/models/Scale';
+import Brand from './models/Brand';
+import ModelKit from './models/ModelKit';
+import Scale from './models/Scale';
 
 
 /**
@@ -70,7 +69,7 @@ export class KitSearch {
     refreshKits(event) {
         // check for min length on text inputs
         if (event.target.nodeName == 'INPUT' && event.target.type == 'text'
-                && event.target.value  && event.target.value.length < this.conf.minChars) {
+            && event.target.value && event.target.value.length < this.conf.minChars) {
             return;
         }
 
@@ -83,7 +82,7 @@ export class KitSearch {
             if (found) break;
             current = current.parentNode;
         }
-        if(!found) {
+        if (!found) {
             console.warn('Could not find container');
         }
 
@@ -428,25 +427,25 @@ export class Autocomplete {
         let hiddenInput = $(_baseSelector);
         let input = $(`${ _baseSelector }_ta`);
 
-        input.typeahead(
-            {
-                minLength: this.options.minLength,
-                highlight: true
-            },
-            {
-                async: true,
-                source: (query, sync, async) => {
-                    hiddenInput.val('');
-                    let params = {};
-                    params[this.options.param] = this.sanitize(query);
-                    $.get(this.endpoint, params, data => {
-                        async(data);
-                    });
-                },
-                limit: 100,
-                display: this.options.display,
-            }
-        );
+        // input.typeahead(
+        //     {
+        //         minLength: this.options.minLength,
+        //         highlight: true
+        //     },
+        //     {
+        //         async: true,
+        //         source: (query, sync, async) => {
+        //             hiddenInput.val('');
+        //             let params = {};
+        //             params[this.options.param] = this.sanitize(query);
+        //             $.get(this.endpoint, params, data => {
+        //                 async(data);
+        //             });
+        //         },
+        //         limit: 100,
+        //         display: this.options.display,
+        //     }
+        // );
 
         input.on('typeahead:select', (event, suggestion) => {
             hiddenInput.val(suggestion.id);

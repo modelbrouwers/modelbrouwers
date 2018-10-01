@@ -1,5 +1,5 @@
 var paths = require('./build/paths');
-
+var webpack = require('webpack');
 /**
  * Webpack configuration
  * Run using "webpack"
@@ -38,10 +38,15 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf)$/,
                 loader: 'url-loader'
             }
-        ]
+        ],
     },
 
     devtool: 'inline-source-map',
+
+
+    optimization: {
+        minimize: false
+    },
 
     watch: true
 };

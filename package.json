@@ -23,13 +23,19 @@
     },
     "homepage": "https://github.com/modelbrouwers/modelbrouwers",
     "dependencies": {
+        "aurelia-http-client": "^1.3.0",
+        "aurelia-pal-browser": "^1.8.0",
         "bootstrap": "^3.3.7",
         "bootstrap-hover-dropdown": "^2.2.1",
         "bourbon": "^5.0.0",
         "fine-uploader": "~5.1.3",
         "font-awesome": "^4.7.0",
         "gulp": "^3.9.1",
-        "jquery": "^3.3.1"
+        "handlebars": "^4.0.12",
+        "jquery": "^3.3.1",
+        "js-cookie": "^2.2.0",
+        "q": "^1.5.1",
+        "typeahead": "^0.2.2"
     },
     "devDependencies": {
         "@babel/cli": "^7.0.0",

@@ -1,7 +1,7 @@
 'use strict';
 
 
-import { Model } from 'ponyjs/models.js';
+import { Model } from '../../ponyjs/models.js';
 
 
 let reScale = new RegExp('1[/:]([0-9]*)');
