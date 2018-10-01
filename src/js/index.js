@@ -1,5 +1,5 @@
-//Testing imports
-
-import Slider from './kitreviews/slider';
-
-new Slider('test');
+import Router from './router/router';
+import './kitreviews/index'
+console.log('starting')
+// Start routing
+new Router().autoload();

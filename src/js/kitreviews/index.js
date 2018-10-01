@@ -3,11 +3,11 @@ import 'bootstrap';
 
 import Slider from './slider.js';
 
-import { cleanScale } from 'kits/js/models/Scale';
+import { cleanScale } from '../kits/models/Scale';
 import {
     AddDefaultsFiller, Autocomplete,
     KitSearch, NewKitSubmitter
-} from 'kits/js/modelkit.lib.js';
+} from '../kits/modelkit.lib.js';
 
 
 class KitreviewsNewKitSubmitter extends NewKitSubmitter {

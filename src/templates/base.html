@@ -1,6 +1,6 @@
 {% load compress staticfiles i18n %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
-<html lang="en">
+<html lang="en" {% block data-app %}{% endblock %} {% block data-view %}{% endblock %}>
     <head>
         <meta charset="utf-8">
         <title>Modelbrouwers.nl &bull;{% block title %}{% endblock %}</title>
@@ -117,6 +117,7 @@
         <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"></script>
         <script src="{% static 'scripts/bootstrap-select.min.js' %}"></script>
+        <script src="{% static 'js/bundle.js' %}"></script>
 
         {% block js_no_compress %}{% endblock %}
         {% compress js %}
