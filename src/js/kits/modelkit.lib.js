@@ -2,8 +2,7 @@ import 'jquery';
 import 'bootstrap';
 import '../scripts/jquery.serializeObject';
 import 'typeahead/typeahead.js'
-import qq from 'fine-uploader/fine-uploader/fine-uploader';
-//import qq from 'fine-uploader';
+import qq from 'fine-uploader/lib/core';
 
 import Handlebars from '../general/hbs-pony';
 
@@ -238,7 +237,7 @@ export class NewKitSubmitter {
 
         let fileinput = document.getElementById(conf.id_image_upload);
         if (fileinput) {
-            this.uploader = new qq.FineUploader({
+            this.uploader = new qq.FineUploaderBasic({
                 element: fileinput.parentElement,
                 request: {
                     endpoint: fileinput.dataset.endpoint,

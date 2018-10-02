@@ -28,7 +28,7 @@
         "bootstrap": "^3.3.7",
         "bootstrap-hover-dropdown": "^2.2.1",
         "bourbon": "^5.0.0",
-        "fine-uploader": "~5.1.3",
+        "fine-uploader": "^5.16.2",
         "font-awesome": "^4.7.0",
         "gulp": "^3.9.1",
         "handlebars": "^4.0.12",
