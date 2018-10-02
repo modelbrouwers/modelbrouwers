@@ -67,7 +67,7 @@ export class KitSearch {
 
     refreshKits(event) {
         // check for min length on text inputs
-        if (event.target.nodeName == 'INPUT' && event.target.type == 'text'
+        if (event.target.nodeName === 'INPUT' && event.target.type === 'text'
             && event.target.value && event.target.value.length < this.conf.minChars) {
             return;
         }
@@ -139,7 +139,9 @@ export class KitSearch {
                 let isChecked = cb && cb.is(':checked');
                 if (isChecked) {
                     let id = $(preview).data('id');
-                    this.checkedKits.includes(id) ? null : this.checkedKits.push(id);
+                    if (!this.checkedKits.includes(id)) {
+                        this.checkedKits.push(id)
+                    }
                 }
             });
 
@@ -453,7 +455,7 @@ export class Autocomplete {
         input.on('typeahead:render', (event, suggestion) => {
             // if we have an (case insensitive) exact match, set the value
             let $input = $(event.target);
-            if (suggestion && $input.val().toLowerCase() == suggestion[this.options.display].toLowerCase()) {
+            if (suggestion && $input.val().toLowerCase() === suggestion[this.options.display].toLowerCase()) {
                 hiddenInput.val(suggestion.id);
             } else {
                 hiddenInput.val('');
