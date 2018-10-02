@@ -1,11 +1,8 @@
-import Brand from 'kits/js/models/Brand';
-import ModelKit from 'kits/js/models/ModelKit';
-import {Scale, cleanScale} from 'kits/js/models/Scale';
+import {cleanScale} from './models/Scale';
 
 import 'jquery';
 import 'bootstrap';
-import 'scripts/jquery.serializeObject';
-import Handlebars from 'general/js/hbs-pony';
+import '../scripts/jquery.serializeObject';
 
 import {
     AddDefaultsFiller, Autocomplete,

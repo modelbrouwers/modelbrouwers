@@ -1,11 +1,11 @@
 'use strict';
 
-import $ from 'scripts/jquery.insertAtCaret';
+import $ from '../../scripts/jquery.insertAtCaret';
 import Ps from 'perfect-scrollbar';
 
-import Handlebars from 'general/js/hbs-pony';
-import { Album } from 'albums/js/models/album';
-import { MyPhoto } from 'albums/js/models/photo';
+import Handlebars from '../../general/hbs-pony';
+import { Album } from '../models/album';
+import { MyPhoto } from '../models/photo';
 
 
 let conf = {

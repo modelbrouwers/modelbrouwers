@@ -1,10 +1,10 @@
 'use strict';
 
 import $ from 'jquery';
-import URI from 'URIjs';
+import URI from 'urijs';
 
-import { getCookie, deleteCookie, setCookie } from 'scripts/csrf';
-import Api from 'scripts/api';
+import { getCookie, deleteCookie, setCookie } from '../../scripts/csrf';
+import Api from '../../scripts/api';
 import { GroupBuild } from '../models/groupbuild';
 import urlconf from './urlconf';
 

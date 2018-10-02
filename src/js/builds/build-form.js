@@ -3,11 +3,11 @@
 import 'jquery';
 import 'bootstrap';
 
-import Formset from 'ponyjs/forms/formsets.js';
+import Formset from '../ponyjs/forms/formsets.js';
 
-import Album from 'albums/js/models/album2.js';
-import Photo from 'albums/js/models/photo2.js';
-import Handlebars from 'general/js/hbs-pony';
+import Album from '../albums/models/album2.js';
+import Photo from '../albums/models/photo2.js';
+import Handlebars from '../general/hbs-pony';
 
 
 let conf = {

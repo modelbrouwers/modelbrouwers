@@ -1,7 +1,7 @@
 'use strict';
 
-import Api from 'scripts/api';
-import Model from 'scripts/model';
+import Api from '../../scripts/api';
+import Model from '../../scripts/model';
 
 
 class Photo extends Model {

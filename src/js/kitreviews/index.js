@@ -59,6 +59,7 @@ class AddKitModal {
 }
 
 // initialize everything
+console.log('initing kitsss')
 
 // slider for property ratings
 new Slider('input[type="range"]');

@@ -1,7 +1,7 @@
 'use strict';
 
 import $ from 'bootstrap';
-import { Photo } from 'albums/js/models/photo';
+import { Photo } from './models/photo';
 
 
 class Control {

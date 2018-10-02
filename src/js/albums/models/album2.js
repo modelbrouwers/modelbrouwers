@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import { Model } from 'ponyjs/models.js';
+import { Model } from '../../ponyjs/models.js';
 
 
 class Album extends Model('Album', {

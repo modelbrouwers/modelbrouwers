@@ -1,8 +1,8 @@
 'use strict';
 
 import $ from 'bootstrap'; // bootstrap returns a jquery version
-import Handlebars from 'general/js/hbs-pony';
-import { Photo, MyPhoto } from 'albums/js/models/photo';
+import Handlebars from '../general/hbs-pony';
+import { Photo, MyPhoto } from './models/photo';
 
 
 $(function() {

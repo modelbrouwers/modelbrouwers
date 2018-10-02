@@ -1,7 +1,7 @@
 'use strict';
 
 import 'jquery';
-import Api from 'scripts/api';
+import Api from '../scripts/api';
 
 
 $(function() {

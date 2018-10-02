@@ -428,25 +428,25 @@ export class Autocomplete {
         let hiddenInput = $(_baseSelector);
         let input = $(`${ _baseSelector }_ta`);
 
-        // input.typeahead(
-        //     {
-        //         minLength: this.options.minLength,
-        //         highlight: true
-        //     },
-        //     {
-        //         async: true,
-        //         source: (query, sync, async) => {
-        //             hiddenInput.val('');
-        //             let params = {};
-        //             params[this.options.param] = this.sanitize(query);
-        //             $.get(this.endpoint, params, data => {
-        //                 async(data);
-        //             });
-        //         },
-        //         limit: 100,
-        //         display: this.options.display,
-        //     }
-        // );
+        input.typeahead(
+            {
+                minLength: this.options.minLength,
+                highlight: true
+            },
+            {
+                async: true,
+                source: (query, sync, async) => {
+                    hiddenInput.val('');
+                    let params = {};
+                    params[this.options.param] = this.sanitize(query);
+                    $.get(this.endpoint, params, data => {
+                        async(data);
+                    });
+                },
+                limit: 100,
+                display: this.options.display,
+            }
+        );
 
         input.on('typeahead:select', (event, suggestion) => {
             hiddenInput.val(suggestion.id);

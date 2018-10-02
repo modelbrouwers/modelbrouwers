@@ -2,9 +2,9 @@
 
 import $ from 'jquery';
 
-import Model from 'scripts/model';
-import Handlebars from 'general/js/hbs-pony';
-import { MyPhoto } from 'albums/js/models/photo';
+import Model from '../../scripts/model';
+import Handlebars from '../../general/hbs-pony';
+import { MyPhoto } from './photo';
 
 
 class Album extends Model {
