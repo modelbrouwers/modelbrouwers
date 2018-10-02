@@ -10,8 +10,10 @@ module.exports = {
 
     // Path to the (transpiled) js
     output: {
+      //  publicPath: __dirname + '/' + paths.jsDir,
         path: __dirname + '/' + paths.jsDir, // directory
-        filename: 'bundle.js', // file
+        filename: '[name].bundle.js', // file
+         chunkFilename: '[name].bundle.js'
     },
 
     module: {

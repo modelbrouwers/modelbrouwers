@@ -16,7 +16,7 @@ export default class Router {
             return;
         }
 
-        import(`../${module}`)
+        import(/* webpackChunkName: '[request]' */`../${module}`)
             .then(module => {
                 new module.default({
                     objectId: this.getObjectId()
@@ -33,7 +33,7 @@ export default class Router {
             view = this.getView();
 
         if (app && view) {
-            return `${app}/${view}.js`;
+            return `${app}.bundle.js`;
         }
     }
 

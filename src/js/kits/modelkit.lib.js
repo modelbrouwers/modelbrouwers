@@ -428,7 +428,7 @@ export class Autocomplete {
         let hiddenInput = $(_baseSelector);
         let input = $(`${ _baseSelector }_ta`);
 
-        input.typeahead(
+       /* input.typeahead(
             {
                 minLength: this.options.minLength,
                 highlight: true
@@ -446,7 +446,7 @@ export class Autocomplete {
                 limit: 100,
                 display: this.options.display,
             }
-        );
+        );*/
 
         input.on('typeahead:select', (event, suggestion) => {
             hiddenInput.val(suggestion.id);
