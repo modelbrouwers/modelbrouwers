@@ -4,16 +4,17 @@ var webpack = require('webpack');
  * Webpack configuration
  * Run using "webpack"
  */
+console.log('ENTRY', __dirname + '/' + paths.jsEntry)
 module.exports = {
     // Path to the js entry point (source)
     entry: __dirname + '/' + paths.jsEntry,
 
     // Path to the (transpiled) js
     output: {
-      //  publicPath: __dirname + '/' + paths.jsDir,
+        publicPath: __dirname + '/' + paths.jsDir,
         path: __dirname + '/' + paths.jsDir, // directory
-        filename: '[name].bundle.js', // file
-         chunkFilename: '[name].bundle.js'
+        // filename: '[name].bundle.js', // file
+        //  chunkFilename: '[name].bundle.js'
     },
 
     module: {

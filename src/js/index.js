@@ -1,5 +1,7 @@
 import Router from './router/router';
-//import './kitreviews/index'
+import KitreviewsPage from './kitreviews/index';
+
+const pageMap = {kitreviews: KitreviewsPage};
 
 // Start routing
-new Router().autoload();
+new Router(pageMap).autoload();

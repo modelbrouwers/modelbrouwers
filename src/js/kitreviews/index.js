@@ -3,7 +3,7 @@ import 'bootstrap';
 
 import Slider from './slider.js';
 
-import { cleanScale } from '../kits/models/Scale';
+import {cleanScale} from '../kits/models/Scale';
 import {
     AddDefaultsFiller, Autocomplete,
     KitSearch, NewKitSubmitter
@@ -11,16 +11,12 @@ import {
 
 
 class KitreviewsNewKitSubmitter extends NewKitSubmitter {
-
     kitCreated(kit) {
         window.location = kit.url_kitreviews;
     }
-
 }
 
-
 class AddKitModal {
-
     constructor() {
         this.selector = '#add-kit-modal';
         this.triggers = $(`[data-target="${ this.selector }"]`);
@@ -58,46 +54,51 @@ class AddKitModal {
     }
 }
 
-// initialize everything
-console.log('initing kitsss')
+export default class Page {
+    static init() {
+        // modal binding
+        new AddKitModal();
+        // slider for property ratings
+        new Slider('input[type="range"]');
+        this.initAutocomplete();
+        this.initSuggestions();
+    }
 
-// slider for property ratings
-new Slider('input[type="range"]');
+    static initAutocomplete() {
+        // auto complete fields for kit modal
+        let brandConfig = {
+            display: 'name',
+            param: 'name',
+            minLength: 2
+        };
+        new Autocomplete('brand', brandConfig).initialize();
 
-// auto complete fields for kit modal
-let brandConfig = {
-    display: 'name',
-    param: 'name',
-    minLength: 2
-};
-new Autocomplete('brand', brandConfig).initialize();
+        let scaleConfig = {
+            display: '__unicode__',
+            param: 'scale',
+            sanitize: cleanScale,
+            minLength: 1
+        };
+        new Autocomplete('scale', scaleConfig).initialize();
+    }
 
-let scaleConfig = {
-    display: '__unicode__',
-    param: 'scale',
-    sanitize: cleanScale,
-    minLength: 1
-};
-new Autocomplete('scale', scaleConfig).initialize();
+    static initSuggestions() {
+        if (document.querySelector('.model-kit-select')) {
+            let kitSearch = new KitSearch({
+                prefix: '__modelkitselect',
+                htmlname: null,
+                minChars: 2,
+                isMulti: false,
+            }, '.model-kit-select');
 
-// modal binding
-new AddKitModal();
+            let suggestions = document.querySelector('.kit-suggestions');
+            suggestions.addEventListener('click', event => {
+                if (event.target.tagName === 'BUTTON') {
+                    kitSearch.loadMore(event);
+                }
+            });
 
-
-if (document.querySelector('.model-kit-select')) {
-    let kitSearch = new KitSearch({
-        prefix: '__modelkitselect',
-        htmlname: null,
-        minChars: 2,
-        isMulti: false,
-    }, '.model-kit-select');
-
-    let suggestions = document.querySelector('.kit-suggestions');
-    suggestions.addEventListener('click', event => {
-        if (event.target.tagName === 'BUTTON') {
-            kitSearch.loadMore(event);
+            $('.kit-suggestions').on('click', 'button', kitSearch.loadMore);
         }
-    });
-
-    $('.kit-suggestions').on('click', 'button', kitSearch.loadMore);
+    }
 }

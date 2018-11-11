@@ -1,6 +1,6 @@
 {% load compress staticfiles i18n %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
-<html lang="en" {% block data-app %}{% endblock %} {% block data-view %}{% endblock %}>
+<html lang="en" {% block data-page %}{% endblock %}>
     <head>
         <meta charset="utf-8">
         <title>Modelbrouwers.nl &bull;{% block title %}{% endblock %}</title>
@@ -138,7 +138,8 @@
             })(window.jQuery);
 
             </script>
-            {% block extrascript %}{% endblock %}
+            <script src="{% static 'js/main.js' %}"></script>
+{#            {% block extrascript %}{% endblock %}#}
         {% endcompress %}
 
     </body>
