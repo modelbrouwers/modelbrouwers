@@ -1,14 +1,15 @@
-import 'jquery';
-import 'bootstrap';
+import "jquery";
+import "bootstrap";
 
-import Slider from './slider.js';
+import Slider from "./slider.js";
 
-import {cleanScale} from '../kits/models/Scale';
+import { cleanScale } from "../kits/models/Scale";
 import {
-    AddDefaultsFiller, Autocomplete,
-    KitSearch, NewKitSubmitter
-} from '../kits/modelkit.lib.js';
-
+    AddDefaultsFiller,
+    Autocomplete,
+    KitSearch,
+    NewKitSubmitter
+} from "../kits/modelkit.lib.js";
 
 class KitreviewsNewKitSubmitter extends NewKitSubmitter {
     kitCreated(kit) {
@@ -18,39 +19,39 @@ class KitreviewsNewKitSubmitter extends NewKitSubmitter {
 
 class AddKitModal {
     constructor() {
-        this.selector = '#add-kit-modal';
-        this.triggers = $(`[data-target="${ this.selector }"]`);
+        this.selector = "#add-kit-modal";
+        this.triggers = $(`[data-target="${this.selector}"]`);
+
         if (this.triggers.length) {
             this.initModal();
         }
-        console.log('Kitreviews initialized.');
+        console.log("Kitreviews initialized.");
     }
 
     initModal() {
-
         let that = this;
 
         let conf = {
-            prefix: '__modelkitselect',
-            prefix_add: '__modelkitadd',
+            prefix: "__modelkitselect",
+            prefix_add: "__modelkitadd",
             isMulti: false,
-            id_image_upload: 'id___modelkitadd-box_image'
+            id_image_upload: "id___modelkitadd-box_image"
         };
 
         let filler = new AddDefaultsFiller(conf);
         let submitter = new KitreviewsNewKitSubmitter(conf);
 
         // bind manually, because the globally included bootstrap is being annoying
-        this.triggers.on('click', e => {
+        this.triggers.on("click", e => {
             e.preventDefault();
-            $(that.selector).modal('toggle');
+            $(that.selector).modal("toggle");
             return false;
         });
 
         // bind the modal submit to API calls
         $(this.selector)
-            .on('shown.bs.modal', filler.callback.bind(filler))
-            .on('click', 'button[type="submit"]', submitter.callback);
+            .on("shown.bs.modal", filler.callback.bind(filler))
+            .on("click", 'button[type="submit"]', submitter.callback);
     }
 }
 
@@ -67,38 +68,41 @@ export default class Page {
     static initAutocomplete() {
         // auto complete fields for kit modal
         let brandConfig = {
-            display: 'name',
-            param: 'name',
+            display: "name",
+            param: "name",
             minLength: 2
         };
-        new Autocomplete('brand', brandConfig).initialize();
+        new Autocomplete("brand", brandConfig).initialize();
 
         let scaleConfig = {
-            display: '__unicode__',
-            param: 'scale',
+            display: "__unicode__",
+            param: "scale",
             sanitize: cleanScale,
             minLength: 1
         };
-        new Autocomplete('scale', scaleConfig).initialize();
+        new Autocomplete("scale", scaleConfig).initialize();
     }
 
     static initSuggestions() {
-        if (document.querySelector('.model-kit-select')) {
-            let kitSearch = new KitSearch({
-                prefix: '__modelkitselect',
-                htmlname: null,
-                minChars: 2,
-                isMulti: false,
-            }, '.model-kit-select');
+        if (document.querySelector(".model-kit-select")) {
+            let kitSearch = new KitSearch(
+                {
+                    prefix: "__modelkitselect",
+                    htmlname: null,
+                    minChars: 2,
+                    isMulti: false
+                },
+                ".model-kit-select"
+            );
 
-            let suggestions = document.querySelector('.kit-suggestions');
-            suggestions.addEventListener('click', event => {
-                if (event.target.tagName === 'BUTTON') {
+            let suggestions = document.querySelector(".kit-suggestions");
+            suggestions.addEventListener("click", event => {
+                if (event.target.tagName === "BUTTON") {
                     kitSearch.loadMore(event);
                 }
             });
 
-            $('.kit-suggestions').on('click', 'button', kitSearch.loadMore);
+            $(".kit-suggestions").on("click", "button", kitSearch.loadMore);
         }
     }
 }

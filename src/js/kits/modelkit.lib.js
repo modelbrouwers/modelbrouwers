@@ -1,21 +1,19 @@
-import 'jquery';
-import 'bootstrap';
-import '../scripts/jquery.serializeObject';
-import 'typeahead/typeahead.js'
-import qq from 'fine-uploader/lib/core';
+import "jquery";
+import "bootstrap";
+import "../scripts/jquery.serializeObject";
+import "typeahead/typeahead.js";
+import qq from "fine-uploader/lib/core";
 
-import Handlebars from '../general/hbs-pony';
+import Handlebars from "../general/hbs-pony";
 
-import Brand from './models/Brand';
-import ModelKit from './models/ModelKit';
-import Scale from './models/Scale';
-
+import Brand from "./models/Brand";
+import ModelKit from "./models/ModelKit";
+import Scale from "./models/Scale";
 
 /**
  * Kit search widget implementation
  */
 export class KitSearch {
-
     /**
      * @param {Object} conf: object holding the form prefixes and various config
      * @param {String} selector: selector for the Kit M2M/FK field (wrapper).
@@ -30,7 +28,7 @@ export class KitSearch {
         // update configuration
         Object.assign(this.conf, {
             isMulti: !!parseInt(this.node.dataset.allowMultiple, 10),
-            htmlname: this.node.dataset.htmlname,
+            htmlname: this.node.dataset.htmlname
         });
         this.bindEvents();
     }
@@ -49,15 +47,15 @@ export class KitSearch {
                 }
             });
         };
-        bindEvent('change');
-        bindEvent('keyup');
+        bindEvent("change");
+        bindEvent("keyup");
 
         // fix the heights of elements if the window gets resized
-        window.addEventListener('resize', this.syncLoadMoreHeight);
+        window.addEventListener("resize", this.syncLoadMoreHeight);
     }
 
     syncLoadMoreHeight(event) {
-        let loadMore = document.querySelector('.preview.center-all');
+        let loadMore = document.querySelector(".preview.center-all");
         if (loadMore === null) {
             return;
         }
@@ -67,14 +65,19 @@ export class KitSearch {
 
     refreshKits(event) {
         // check for min length on text inputs
-        if (event.target.nodeName === 'INPUT' && event.target.type === 'text'
-            && event.target.value && event.target.value.length < this.conf.minChars) {
+        if (
+            event.target.nodeName === "INPUT" &&
+            event.target.type === "text" &&
+            event.target.value &&
+            event.target.value.length < this.conf.minChars
+        ) {
             return;
         }
 
         let current = event.target,
             found = false;
-        let checkBool = input => input === undefined ? false : !!JSON.parse(input);
+        let checkBool = input =>
+            input === undefined ? false : !!JSON.parse(input);
 
         while (!found && current.parentNode) {
             found = checkBool(current.dataset.filters);
@@ -82,12 +85,15 @@ export class KitSearch {
             current = current.parentNode;
         }
         if (!found) {
-            console.warn('Could not find container');
+            console.warn("Could not find container");
         }
 
         // find the target div to render previews
         let target = current;
-        while (!target.classList.contains('kit-suggestions') && target.nextElementSibling) {
+        while (
+            !target.classList.contains("kit-suggestions") &&
+            target.nextElementSibling
+        ) {
             target = target.nextElementSibling;
         }
 
@@ -100,7 +106,7 @@ export class KitSearch {
         let allEmpty = true;
         // strip off the prefix
         for (let key of Object.keys(filters)) {
-            let newKey = key.replace(`${this.conf.prefix}-`, '');
+            let newKey = key.replace(`${this.conf.prefix}-`, "");
             filters[newKey] = filters[key];
             if (filters[key]) {
                 allEmpty = false;
@@ -116,101 +122,113 @@ export class KitSearch {
     // TODO: de-jQuery-fy
     renderKitPreviews(filters, target, append) {
         if (filters === null) {
-            let node = target.querySelector('.preview');
+            let node = target.querySelector(".preview");
             node !== null ? node.parentNode.removeChild(node) : null;
             return;
         }
 
         let $target = $(target);
-        return ModelKit.objects.filter(filters).then(kits => {
-            if (!kits.length) {
-                $('.add-kit').show();
-            }
-            // read the pagination information to pass it to the template
-            let page = filters.page || 1;
-            // kits can actually be empty, which causes the Paginator to throw EmptyPage
-            let pageObj = kits.length ? kits.paginator.page(page) : null;
-
-            // clean up the DOM
-            let previews = $target.find('.preview');
-
-            previews.each((index, preview) => {
-                let cb = $(preview).find('input[type="checkbox"]');
-                let isChecked = cb && cb.is(':checked');
-                if (isChecked) {
-                    let id = $(preview).data('id');
-                    if (!this.checkedKits.includes(id)) {
-                        this.checkedKits.push(id)
-                    }
+        return ModelKit.objects
+            .filter(filters)
+            .then(kits => {
+                if (!kits.length) {
+                    $(".add-kit").show();
                 }
-            });
+                // read the pagination information to pass it to the template
+                let page = filters.page || 1;
+                // kits can actually be empty, which causes the Paginator to throw EmptyPage
+                let pageObj = kits.length ? kits.paginator.page(page) : null;
 
-            if (!append) {
-                previews.filter((index, preview) => {
-                    let id = $(preview).data('id');
-                    return !this.checkedKits.includes(id);
-                }).remove();
-            } else {
-                // remove any possible loaders
-                previews.filter((index, preview) => {
-                    return $(preview).find('.fa-spinner').length > 0;
-                }).remove();
-            }
+                // clean up the DOM
+                let previews = $target.find(".preview");
 
-            // don't render the same kit again if it's in the list
-            kits = kits.filter(kit => {
-                return !this.checkedKits.includes(kit.id);
+                previews.each((index, preview) => {
+                    let cb = $(preview).find('input[type="checkbox"]');
+                    let isChecked = cb && cb.is(":checked");
+                    if (isChecked) {
+                        let id = $(preview).data("id");
+                        if (!this.checkedKits.includes(id)) {
+                            this.checkedKits.push(id);
+                        }
+                    }
+                });
+
+                if (!append) {
+                    previews
+                        .filter((index, preview) => {
+                            let id = $(preview).data("id");
+                            return !this.checkedKits.includes(id);
+                        })
+                        .remove();
+                } else {
+                    // remove any possible loaders
+                    previews
+                        .filter((index, preview) => {
+                            return $(preview).find(".fa-spinner").length > 0;
+                        })
+                        .remove();
+                }
+
+                // don't render the same kit again if it's in the list
+                kits = kits.filter(kit => {
+                    return !this.checkedKits.includes(kit.id);
+                });
+                let context = {
+                    isMulti: this.conf.isMulti,
+                    kits: kits,
+                    htmlname: this.conf.htmlname,
+                    page: {
+                        hasNext: pageObj ? pageObj.hasNext() : false,
+                        nextPageNumber:
+                            pageObj && pageObj.hasNext()
+                                ? pageObj.nextPageNumber()
+                                : null
+                    }
+                };
+                return Handlebars.render(
+                    "kits::select-modelkit-widget",
+                    context
+                );
+            })
+            .then(html => {
+                $target.append(html);
+                this.syncLoadMoreHeight();
+            })
+            .catch(error => {
+                console.error(error);
             });
-            let context = {
-                isMulti: this.conf.isMulti,
-                kits: kits,
-                htmlname: this.conf.htmlname,
-                page: {
-                    hasNext: pageObj ? pageObj.hasNext() : false,
-                    nextPageNumber: (pageObj && pageObj.hasNext()) ? pageObj.nextPageNumber() : null
-                },
-            };
-            return Handlebars.render('kits::select-modelkit-widget', context);
-        }).then(html => {
-            $target.append(html);
-            this.syncLoadMoreHeight();
-        }).catch((error) => {
-            console.error(error);
-        });
     }
 
     // TODO: de-jQuery-fy
     loadMore(event) {
         event.preventDefault();
         let elem = $(event.target);
-        let $target = elem.closest('.kit-suggestions');
+        let $target = elem.closest(".kit-suggestions");
         let $container = $target.siblings('[data-filters="true"]');
         let filters = this.getKitFilters($container[0]);
-        filters.page = elem.data('next');
+        filters.page = elem.data("next");
         elem.remove(); // this shows the loader
         this.renderKitPreviews(filters, $target, true);
         return false;
     }
 }
 
-
 /**
  * Helper class to fill the defaults from the search form fields.
  */
 export class AddDefaultsFiller {
-
     constructor(conf) {
         this.conf = conf;
     }
 
     callback(event) {
-        let fields = ['brand', 'scale'];
+        let fields = ["brand", "scale"];
         let selBrand = `#id_${this.conf.prefix}-brand`;
         let selScale = `#id_${this.conf.prefix}-scale`;
 
         fields.forEach(field => {
             let sel = `#id_${this.conf.prefix}-${field}`;
-            let option = $(sel).find('option:selected');
+            let option = $(sel).find("option:selected");
             if ($(sel).val() && option) {
                 let input = $(`#id_${this.conf.prefix_add}-${field}_ta`);
                 if (!input.val()) {
@@ -223,7 +241,6 @@ export class AddDefaultsFiller {
     }
 }
 
-
 /**
  * Class to handle submission of a new kit to the API.
  */
@@ -232,7 +249,7 @@ export class NewKitSubmitter {
         this.conf = conf;
         this.models = {
             brand: Brand,
-            scale: Scale,
+            scale: Scale
         };
         this.modal = null;
         this.boxartImageUUID = null;
@@ -243,14 +260,14 @@ export class NewKitSubmitter {
                 element: fileinput.parentElement,
                 request: {
                     endpoint: fileinput.dataset.endpoint,
-                    inputName: 'image',
+                    inputName: "image",
                     customHeaders: {
-                        'X-CSRFToken': window.csrf_token, // TODO
+                        "X-CSRFToken": window.csrf_token // TODO
                     }
                 },
                 multiple: false,
                 validation: {
-                    allowedExtensions: ['jpeg', 'jpg', 'png'] // only images
+                    allowedExtensions: ["jpeg", "jpg", "png"] // only images
                 },
                 callbacks: {
                     onComplete: this.boxartImageUploaded.bind(this)
@@ -261,11 +278,11 @@ export class NewKitSubmitter {
 
     boxartImageUploaded(id, name, responseJSON, xhr) {
         this.boxartImageUUID = responseJSON.uuid;
-        let dropArea = document.querySelector('.qq-uploader__drop-area');
-        dropArea.classList.add('qq-uploader__drop-area--upload-complete');
+        let dropArea = document.querySelector(".qq-uploader__drop-area");
+        dropArea.classList.add("qq-uploader__drop-area--upload-complete");
 
-        let previews = document.querySelector('.qq-uploader__upload-list');
-        previews.classList.add('qq-uploader__upload-list--upload-complete')
+        let previews = document.querySelector(".qq-uploader__upload-list");
+        previews.classList.add("qq-uploader__upload-list--upload-complete");
     }
 
     get callback() {
@@ -277,17 +294,17 @@ export class NewKitSubmitter {
             event.preventDefault();
 
             // data processing
-            that.modal = $(this).closest('.modal');
+            that.modal = $(this).closest(".modal");
             let data = that.modal.serializeObject();
             data.stripPrefix(that.conf.prefix_add);
-            that.modal.find('.errorlist').remove();
+            that.modal.find(".errorlist").remove();
 
             let brand, scale;
 
             // check if a brand/scale was provided, otherwise create them
             let promises = [
-                that.getOrCreate('brand', data),
-                that.getOrCreate('scale', data)
+                that.getOrCreate("brand", data),
+                that.getOrCreate("scale", data)
             ];
 
             // create the kit with the correct data
@@ -304,23 +321,36 @@ export class NewKitSubmitter {
                         box_image_uuid: that.boxartImageUUID
                     });
                 })
-                .then(kit => {
-                    // set correct objects, different serializer used, to be implemented properly in ponyjs
-                    kit.brand = brand;
-                    kit.scale = scale;
-                    return that.kitCreated(kit);
-                }, validationErrors => {
-                    // ModelKitCreate validation errors AND the first rejections validation errors
-                    // ignore the double display for now...
-                    let renders = [];
-                    for (let fieldName of Object.keys(validationErrors.errors)) {
-                        let htmlField = $(`#id_${ that.conf.prefix_add }-${ fieldName }`);
-                        renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
+                .then(
+                    kit => {
+                        // set correct objects, different serializer used, to be implemented properly in ponyjs
+                        kit.brand = brand;
+                        kit.scale = scale;
+                        return that.kitCreated(kit);
+                    },
+                    validationErrors => {
+                        // ModelKitCreate validation errors AND the first rejections validation errors
+                        // ignore the double display for now...
+                        let renders = [];
+                        for (let fieldName of Object.keys(
+                            validationErrors.errors
+                        )) {
+                            let htmlField = $(
+                                `#id_${that.conf.prefix_add}-${fieldName}`
+                            );
+                            renders.push(
+                                showErrors(
+                                    htmlField,
+                                    validationErrors.errors[fieldName]
+                                )
+                            );
+                        }
+                        return Promise.all(renders);
                     }
-                    return Promise.all(renders);
-                }).catch(console.error);
+                )
+                .catch(console.error);
             return false;
-        }
+        };
     }
 
     getOrCreate(field, data) {
@@ -329,27 +359,39 @@ export class NewKitSubmitter {
 
         if (data[field]) {
             let id = data[field];
-            promise = Promise.resolve(model.objects.get({id: id}));
+            promise = Promise.resolve(model.objects.get({ id: id }));
         } else {
-            let newValue = data[`${ field }_ta`];
+            let newValue = data[`${field}_ta`];
             let obj = Object.assign({}, model.fromRaw(newValue));
             delete obj._state; // not JSON serializeable, circular reference
             promise = model.objects.create(obj);
-            promise.then(obj => {
-                let id = obj.id;
-                let display = obj[this.conf.typeahead[field].display];
-                let select = $(`#id_${ this.conf.prefix }-${ field }`);
-                select.append(`<option value="${ id }">${ display }</option>`);
-                select.val(id);
-                return obj;
-            }, validationErrors => {
-                let htmlField = $(`#id_${this.conf.prefix_add}-${field}_ta`);
-                let renders = [];
-                for (let fieldName of Object.keys(validationErrors.errors)) {
-                    renders.push(showErrors(htmlField, validationErrors.errors[fieldName]));
+            promise.then(
+                obj => {
+                    let id = obj.id;
+                    let display = obj[this.conf.typeahead[field].display];
+                    let select = $(`#id_${this.conf.prefix}-${field}`);
+                    select.append(`<option value="${id}">${display}</option>`);
+                    select.val(id);
+                    return obj;
+                },
+                validationErrors => {
+                    let htmlField = $(
+                        `#id_${this.conf.prefix_add}-${field}_ta`
+                    );
+                    let renders = [];
+                    for (let fieldName of Object.keys(
+                        validationErrors.errors
+                    )) {
+                        renders.push(
+                            showErrors(
+                                htmlField,
+                                validationErrors.errors[fieldName]
+                            )
+                        );
+                    }
+                    return Promise.all(renders);
                 }
-                return Promise.all(renders);
-            });
+            );
         }
         return promise;
     }
@@ -362,43 +404,47 @@ export class NewKitSubmitter {
             checked: true
         };
 
-        return Handlebars
-            .render('kits::select-modelkit-widget', context)
-            .done(html => {
-                let $target = this.modal.siblings('.model-kit-select').find('.kit-suggestions');
-                let previews = $target.find('.preview');
+        return Handlebars.render("kits::select-modelkit-widget", context).done(
+            html => {
+                let $target = this.modal
+                    .siblings(".model-kit-select")
+                    .find(".kit-suggestions");
+                let previews = $target.find(".preview");
 
                 if (previews) {
-                    let lastChecked = previews.find('input[type="checkbox"]:checked').last().closest('.preview');
+                    let lastChecked = previews
+                        .find('input[type="checkbox"]:checked')
+                        .last()
+                        .closest(".preview");
                     if (lastChecked.length) {
                         lastChecked.after(html);
                     } else {
-                        $target.find('.add-kit').after(html);
+                        $target.find(".add-kit").after(html);
                     }
                 } else {
                     $target.append(html);
                 }
-                this.modal.modal('toggle');
-            });
+                this.modal.modal("toggle");
+            }
+        );
     }
 }
 
-
 function showErrors($formField, errors) {
-    return Handlebars.render('general::errors', {errors: errors}).then(html => {
-        $formField
-            .addClass('error')
-            .parent().append(html)
-        ;
-    });
+    return Handlebars.render("general::errors", { errors: errors }).then(
+        html => {
+            $formField
+                .addClass("error")
+                .parent()
+                .append(html);
+        }
+    );
 }
-
 
 /**
  * Wrapper around TypeAhead inputs for Brand/Scale autocomplete
  */
 export class Autocomplete {
-
     /**
      * @param {String} fieldName: name of the model field to autocomplete
      * @param {Object} conf: typeahead configuration parameters:
@@ -412,8 +458,8 @@ export class Autocomplete {
     constructor(fieldName, conf) {
         this.fieldName = fieldName;
         this.options = conf;
-        this.prefix_add = '__modelkitadd';
-        this.endpoint = `/api/v1/kits/${ fieldName }/`;
+        this.prefix_add = "__modelkitadd";
+        this.endpoint = `/api/v1/kits/${fieldName}/`;
     }
 
     sanitize(query) {
@@ -424,11 +470,11 @@ export class Autocomplete {
     }
 
     initialize() {
-        let _baseSelector = `#id_${ this.prefix_add }-${ this.fieldName }`;
+        let _baseSelector = `#id_${this.prefix_add}-${this.fieldName}`;
         let hiddenInput = $(_baseSelector);
-        let input = $(`${ _baseSelector }_ta`);
+        let input = $(`${_baseSelector}_ta`);
 
-       /* input.typeahead(
+        /* input.typeahead(
             {
                 minLength: this.options.minLength,
                 highlight: true
@@ -448,19 +494,22 @@ export class Autocomplete {
             }
         );*/
 
-        input.on('typeahead:select', (event, suggestion) => {
+        input.on("typeahead:select", (event, suggestion) => {
             hiddenInput.val(suggestion.id);
         });
 
-        input.on('typeahead:render', (event, suggestion) => {
+        input.on("typeahead:render", (event, suggestion) => {
             // if we have an (case insensitive) exact match, set the value
             let $input = $(event.target);
-            if (suggestion && $input.val().toLowerCase() === suggestion[this.options.display].toLowerCase()) {
+            if (
+                suggestion &&
+                $input.val().toLowerCase() ===
+                    suggestion[this.options.display].toLowerCase()
+            ) {
                 hiddenInput.val(suggestion.id);
             } else {
-                hiddenInput.val('');
+                hiddenInput.val("");
             }
         });
     }
-
 }
