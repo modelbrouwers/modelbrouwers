@@ -87,7 +87,6 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 
 {% block js_no_compress %}
     {% load_widgets js='sniplates/js.html' %}
-    {% widget 'js:systemjs-base' %}
 
     <script>
         var page = {{ page_obj.number }};

@@ -37,13 +37,6 @@
 </header>
 {% endblock %}
 
-
-{% block js_no_compress %}
-    {% load_widgets js='sniplates/js.html' %}
-    {% widget 'js:systemjs-base' %}
-{% endblock %}
-
-
 {% block extrascript %}
     {{ block.super }}
     {% load_widgets kits='kits/widgets.html' %}

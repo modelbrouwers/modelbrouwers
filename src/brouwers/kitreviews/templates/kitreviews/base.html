@@ -41,14 +41,3 @@
         </div>
     </header>
 {% endblock %}
-
-
-{% block js_no_compress %}
-    {% load_widgets js='sniplates/js.html' %}
-    {% widget 'js:systemjs-base' %}
-{% endblock %}
-
-{% block extrascript %}
-    {{ block.super }}
-    {% systemjs_import 'kitreviews/js/kitreviews.js' %}
-{% endblock extrascript %}
