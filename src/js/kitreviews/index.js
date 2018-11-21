@@ -25,7 +25,6 @@ class AddKitModal {
         if (this.triggers.length) {
             this.initModal();
         }
-        console.log("Kitreviews initialized.");
     }
 
     initModal() {

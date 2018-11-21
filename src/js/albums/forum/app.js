@@ -1,25 +1,24 @@
-'use strict';
+"use strict";
 
-import $ from '../../scripts/jquery.insertAtCaret';
-import Ps from 'perfect-scrollbar';
+import $ from "../../scripts/jquery.insertAtCaret";
+import Ps from "perfect-scrollbar";
 
-import Handlebars from '../../general/hbs-pony';
-import { Album } from '../models/album';
-import { MyPhoto } from '../models/photo';
-
+import Handlebars from "../../general/hbs-pony";
+import { Album } from "../models/album";
+import { MyPhoto } from "../models/photo";
 
 let conf = {
-	selectors: {
-		root: 'body.forum',
-        root_sidebar: '#photo-sidebar',
-		photo_list: '#photo-list',
-		albums_select: 'select[name="album"]',
-		pagination: '#photo-list-pagination',
-        page_link: '#photo-list-pagination .pagination a',
-        loader: '#image-loader',
-        photo: '.album-photo',
+    selectors: {
+        root: "body.forum",
+        root_sidebar: "#photo-sidebar",
+        photo_list: "#photo-list",
+        albums_select: 'select[name="album"]',
+        pagination: "#photo-list-pagination",
+        page_link: "#photo-list-pagination .pagination a",
+        loader: "#image-loader",
+        photo: ".album-photo",
         post_textarea: 'textarea[name="message"],textarea[name="signature"]'
-	}
+    }
 };
 
 let updateScrollbar = function() {
@@ -28,19 +27,19 @@ let updateScrollbar = function() {
 };
 
 let renderSidebar = function(albums) {
-	return Handlebars
-		.render('albums::forum-sidebar', {albums:albums})
-		.then(html => {
-			$('body').append(html);
+    return Handlebars.render("albums::forum-sidebar", { albums: albums }).then(
+        html => {
+            $("body").append(html);
 
             let $sidebar = $(conf.selectors.root_sidebar);
             Ps.initialize($sidebar[0]);
 
-			if (albums.length === 0) {
-				return null;
-			}
-			return albums[0];
-		});
+            if (albums.length === 0) {
+                return null;
+            }
+            return albums[0];
+        }
+    );
 };
 
 let renderAlbumPhotos = function(album, page) {
@@ -49,9 +48,14 @@ let renderAlbumPhotos = function(album, page) {
     }
     var target = $(conf.selectors.photo_list);
     var pagination_target = $(conf.selectors.pagination);
-    var filters = page ? {page: page} : {};
+    var filters = page ? { page: page } : {};
     return album
-        .renderPhotos('albums::forum-sidebar-photos', target, pagination_target, filters)
+        .renderPhotos(
+            "albums::forum-sidebar-photos",
+            target,
+            pagination_target,
+            filters
+        )
         .done(html => {
             $(conf.selectors.loader).hide();
             updateScrollbar();
@@ -59,7 +63,8 @@ let renderAlbumPhotos = function(album, page) {
 };
 
 let showSidebar = function() {
-    Album.objects.all()
+    Album.objects
+        .all()
         .then(renderSidebar)
         .done(renderAlbumPhotos);
 };
@@ -67,13 +72,13 @@ let showSidebar = function() {
 let onAlbumSelectChange = function(event) {
     var id = parseInt($(this).val(), 10);
     $(conf.selectors.loader).show();
-    Album.objects.get({id: id}).done(renderAlbumPhotos);
+    Album.objects.get({ id: id }).done(renderAlbumPhotos);
 };
 
 let insertPhotoAtCaret = function(event) {
     event.preventDefault();
-    let id = $(this).data('id');
-    MyPhoto.objects.get({id: id}).done(photo => {
+    let id = $(this).data("id");
+    MyPhoto.objects.get({ id: id }).done(photo => {
         let $textarea = $(conf.selectors.post_textarea);
         $textarea.insertAtCaret(photo.bbcode() + "\n");
     });
@@ -82,18 +87,17 @@ let insertPhotoAtCaret = function(event) {
 
 let loadPage = function(event) {
     event.preventDefault();
-    let page = $(this).data('page');
+    let page = $(this).data("page");
     let id = $(conf.selectors.albums_select).val();
 
     // show spinner
     $(this).html('<i class="fa fa-spin fa-spinner"></i>');
 
-    Album.objects.get({id: id}).done(album => {
+    Album.objects.get({ id: id }).done(album => {
         renderAlbumPhotos(album, page);
     });
     return false;
 };
-
 
 $(function() {
     // check if we're in posting mode
@@ -102,13 +106,12 @@ $(function() {
     }
 
     $(conf.selectors.root)
-        .on('click', '[data-open], [data-close]', function() {
-            var selector = $(this).data('open') || $(this).data('close');
-            $(selector).toggleClass('open closed');
+        .on("click", "[data-open], [data-close]", function() {
+            var selector = $(this).data("open") || $(this).data("close");
+            $(selector).toggleClass("open closed");
             updateScrollbar();
         })
-        .on('change', conf.selectors.albums_select, onAlbumSelectChange)
-        .on('click', conf.selectors.photo, insertPhotoAtCaret)
-        .on('click', conf.selectors.page_link, loadPage)
-    ;
+        .on("change", conf.selectors.albums_select, onAlbumSelectChange)
+        .on("click", conf.selectors.photo, insertPhotoAtCaret)
+        .on("click", conf.selectors.page_link, loadPage);
 });
