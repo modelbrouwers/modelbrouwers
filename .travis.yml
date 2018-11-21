@@ -30,9 +30,7 @@ install:
   - gulp sass
 
 before_script:
-  - jspm install
   - src/manage.py collectstatic --noinput --link
-  - src/manage.py systemjs_bundle
 
 script:
   - coverage run src/manage.py test src  -v 2
