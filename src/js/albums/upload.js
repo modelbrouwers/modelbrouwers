@@ -1,102 +1,115 @@
-$(function(){
-    'use strict';
+import "jquery";
+import qq from "fine-uploader/lib/core";
 
-    var uploader = $('#uploader');
-    var albumChooser = $('#carousel-album');
-    var album;
+export class PhotoUpload {
+    constructor() {
+        const albumChooser = $("#carousel-album");
+        let album;
 
-    uploader.fineUploader({
-        request: {
-            endpoint: endpoint,
-            inputName: 'image',
-            filenameParam: 'description',
-            customHeaders: {
-                Accept: 'text/plain', // otherwise DRF complains
-                'X-CSRFToken': window.csrf_token
+        // TODO this doesn't initialize for some reason. Look into another upload lib
+        new qq.FineUploaderBasic({
+            request: {
+                element: document.getElementById("uploader"),
+                endpoint: endpoint,
+                inputName: "image",
+                filenameParam: "description",
+                customHeaders: {
+                    Accept: "text/plain", // otherwise DRF complains
+                    "X-CSRFToken": window.csrf_token
+                }
+            },
+            retry: {
+                enableAuto: false
+            },
+            validation: {
+                allowedExtensions: ["jpeg", "jpg", "gif", "png"] // only images
+            },
+            autoUpload: autoUpload,
+            callbacks: {
+                onComplete: function(event, succeeded, failed) {
+                    if (failed.length === 0) {
+                        window.location = decodeURI(window.albumDetail).format(
+                            album
+                        );
+                    }
+                },
+                onSubmit: function() {
+                    const ok = setAlbum();
+                    if (ok) {
+                        const $dest = $("#upload-form");
+                        $("html, body").animate(
+                            {
+                                scrollTop: $dest.offset().top
+                            },
+                            500
+                        );
+                    }
+                    return ok;
+                }
             }
-        },
-        retry: {
-           enableAuto: false,
-        },
-        validation: {
-            allowedExtensions: ['jpeg', 'jpg', 'gif', 'png'] // only images
-        },
-        autoUpload: autoUpload
-    }).on('allComplete', function(event, succeeded, failed) {
-        if (failed.length === 0) {
-            window.location = decodeURI(window.albumDetail).format(album);
-        }
-    }).on('submit', function(event, id, name) {
-        var ok = setAlbum();
-        if (ok) {
-            var $dest = $('#upload-form');
-            $('html, body').animate({
-                scrollTop: $dest.offset().top
-            }, 500);
-        }
-        return ok;
-    });
+        });
 
-    var setAlbum = function() {
-        var checked = $('#upload-form input[name="album"]:checked');
-        if (checked.length !== 1) {
-            $('#modal-albums').modal('show');
+        var setAlbum = function() {
+            var checked = $('#upload-form input[name="album"]:checked');
+            if (checked.length !== 1) {
+                $("#modal-albums").modal("show");
+                return false;
+            }
+
+            album = parseInt(checked.val(), 10);
+            var params = { album: album };
+            if (!qq.supportedFeatures.uploadCustomHeaders) {
+                params.csrfmiddlewaretoken = window.csrf_token;
+            }
+            uploader.fineUploader("setParams", params);
+            return true;
+        };
+
+        $(".cancel").click(function(e) {
+            uploader.fineUploader("cancel", id);
+        });
+
+        $("#trigger-upload").click(function(e) {
+            e.preventDefault();
+            // TODO: multi upload
+            setAlbum();
+            uploader.fineUploader("uploadStoredFiles");
             return false;
-        }
+        });
 
-        album = parseInt(checked.val(), 10);
-        var params = {album: album};
-        if (!qq.supportedFeatures.uploadCustomHeaders) {
-            params.csrfmiddlewaretoken = window.csrf_token;
-        }
-        uploader.fineUploader('setParams', params);
-        return true;
-    };
+        var focusActiveAlbum = function() {
+            var checked = albumChooser.find("input:checked").next();
+            var hasChecked = checked.length == 1;
 
-    $('.cancel').click(function(e) {
-        uploader.fineUploader('cancel', id);
-    });
+            var slideNext = function() {
+                if (hasChecked && !checked.is(":visible")) {
+                    albumChooser.carousel("next");
+                    setTimeout(slideNext, 100);
+                }
+            };
+            slideNext();
+        };
+        focusActiveAlbum();
 
-    $('#trigger-upload').click(function(e) {
-        e.preventDefault();
-        // TODO: multi upload
-        setAlbum();
-        uploader.fineUploader('uploadStoredFiles');
-        return false;
-    });
-
-    var focusActiveAlbum = function() {
-        var checked = albumChooser.find('input:checked').next();
-        var hasChecked = checked.length == 1;
-
-        var slideNext = function() {
-            if (hasChecked && !checked.is(':visible')) {
-                albumChooser.carousel('next');
-                setTimeout(slideNext, 100);
+        // Use the FineUploader flags to hide/show relevant DOM elements.
+        var featureDetection = function() {
+            if (!qq.supportedFeatures.fileDrop) {
+                $('[data-feature="fileDrop"]').toggleClass("hidden");
             }
         };
-        slideNext();
-    };
-    focusActiveAlbum();
+        featureDetection();
 
-    // Use the FineUploader flags to hide/show relevant DOM elements.
-    var featureDetection = function() {
-        if (!qq.supportedFeatures.fileDrop) {
-            $('[data-feature="fileDrop"]').toggleClass('hidden');
-        }
-    };
-    featureDetection();
+        // scrolling through the carousel
+        $("#carousel-album").on("mousewheel", function(event) {
+            event.preventDefault();
 
-    // scrolling through the carousel
-    $('#carousel-album').on('mousewheel', function(event) {
-        event.preventDefault();
+            if (event.originalEvent.wheelDelta / 120 > 0) {
+                $(this).carousel("next");
+            } else {
+                $(this).carousel("prev");
+            }
 
-        if(event.originalEvent.wheelDelta / 120 > 0) {
-            $(this).carousel('next');
-        } else{
-            $(this).carousel('prev');
-        }
-
-        return false;
-    });
-});
+            return false;
+        });
+    }
+}

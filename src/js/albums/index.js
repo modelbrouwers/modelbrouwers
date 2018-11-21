@@ -2,11 +2,13 @@ import "jquery";
 import Handlebars from "../general/hbs-pony";
 import { Photo } from "./models/photo";
 import { RotateControl, Control } from "./photo-detail";
+import { PhotoUpload } from "./upload";
 
 export default class Page {
     static init() {
         this.initLightbox();
         this.initControls();
+        new PhotoUpload();
     }
 
     static initLightbox() {
