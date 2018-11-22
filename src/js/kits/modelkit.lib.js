@@ -1,7 +1,7 @@
 import "jquery";
 import "bootstrap";
 import "../scripts/jquery.serializeObject";
-import "typeahead/typeahead.js";
+import "typeahead.js";
 import qq from "fine-uploader/lib/core";
 
 import Handlebars from "../general/hbs-pony";
@@ -474,7 +474,7 @@ export class Autocomplete {
         let hiddenInput = $(_baseSelector);
         let input = $(`${_baseSelector}_ta`);
 
-        /* input.typeahead(
+        input.typeahead(
             {
                 minLength: this.options.minLength,
                 highlight: true
@@ -482,7 +482,7 @@ export class Autocomplete {
             {
                 async: true,
                 source: (query, sync, async) => {
-                    hiddenInput.val('');
+                    hiddenInput.val("");
                     let params = {};
                     params[this.options.param] = this.sanitize(query);
                     $.get(this.endpoint, params, data => {
@@ -490,9 +490,9 @@ export class Autocomplete {
                     });
                 },
                 limit: 100,
-                display: this.options.display,
+                display: this.options.display
             }
-        );*/
+        );
 
         input.on("typeahead:select", (event, suggestion) => {
             hiddenInput.val(suggestion.id);

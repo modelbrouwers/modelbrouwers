@@ -46,5 +46,14 @@ module.exports = {
 
     optimization: {
         minimize: false
-    }
+    },
+
+    // Necessary for some libs that rely on global jQuery to work (e.g. Typeahead)
+    plugins: [
+        new webpack.ProvidePlugin({
+            jQuery: "jquery",
+            $: "jquery",
+            "window.jQuery": "jquery"
+        })
+    ]
 };

@@ -1,12 +1,11 @@
-import 'jquery';
-import 'typeahead';
+import "jquery";
+import "typeahead.js";
 
 const search = 'input[name="q"]';
 
-
 export default function initSearch() {
     let $search = $(search);
-    if ( !$search.length ) {
+    if (!$search.length) {
         return;
     }
 
@@ -17,17 +16,18 @@ export default function initSearch() {
         },
         {
             async: true,
-            source: ( query, sync, async ) => {
-                $.getJSON(
-                    $search.data('url'),
-                    {q: $search.val()},
-                    data => async( data )
+            source: (query, sync, async) => {
+                $.getJSON($search.data("url"), { q: $search.val() }, data =>
+                    async(data)
                 );
             },
             limit: 100,
-            display: 'display',
+            display: "display"
         }
     );
 
-    $search.on('typeahead:select', ( event, suggestion ) => window.location = suggestion.url );
-};
+    $search.on(
+        "typeahead:select",
+        (event, suggestion) => (window.location = suggestion.url)
+    );
+}

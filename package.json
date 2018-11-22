@@ -40,7 +40,7 @@
         "perfect-scrollbar": "^1.4.0",
         "q": "^1.5.1",
         "string.prototype.startswith": "^0.2.0",
-        "typeahead": "^0.2.2",
+        "typeahead.js": "^0.11.1",
         "urijs": "^1.19.1"
     },
     "devDependencies": {
