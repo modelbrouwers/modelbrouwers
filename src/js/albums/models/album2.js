@@ -1,17 +1,16 @@
 /**
  * This uses the proper PonyJS models. album.js is legacy.
  */
-'use strict';
+"use strict";
 
-import { Model } from '../../ponyjs/models.js';
+import { Model } from "../../ponyjs/models.js";
 
-
-class Album extends Model('Album', {
+class Album extends Model("Album", {
     Meta: {
-        app_label: 'albums',
+        app_label: "albums",
         endpoints: {
-            'list': 'my/albums/',
-            'detail': 'my/albums/:id/'
+            list: "my/albums/",
+            detail: "my/albums/:id/"
         }
     }
 }) {
@@ -19,6 +18,5 @@ class Album extends Model('Album', {
         return `Album by ${this.user.username}`;
     }
 }
-
 
 export default Album;

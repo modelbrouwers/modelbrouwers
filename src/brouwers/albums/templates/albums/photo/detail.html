@@ -91,8 +91,3 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
 </article>
 
 {% endblock content %}
-
-{% block extrascript %}
-    {{ block.super }}
-    {% systemjs_import 'albums/js/photo-detail' %}
-{% endblock %}

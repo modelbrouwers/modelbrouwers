@@ -63,11 +63,11 @@
 
     {% if user.is_authenticated %}
         <span class="pull-left">
-    <i class="fa fa-download"></i>
-    <a href="{% url 'albums:download' pk=album.pk %}">
-        {% trans "Download album" %}
-    </a>
-</span>
+            <i class="fa fa-download"></i>
+            <a href="{% url 'albums:download' pk=album.pk %}">
+                {% trans "Download album" %}
+            </a>
+        </span>
     {% endif %}
 
     {% include "includes/pagination.html" %}
@@ -93,8 +93,3 @@
         var album = {{ album.pk }};
     </script>
 {% endblock %}
-
-{% block extrascript %}
-    {{ block.super }}
-    {% systemjs_import 'albums/js/album' %}
-{% endblock extrascript %}

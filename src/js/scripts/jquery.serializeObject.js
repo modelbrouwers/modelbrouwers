@@ -3,43 +3,38 @@
 "deps jquery";
 "exports $";
 
-
 function Values(obj, prefix) {
-    Object.defineProperty(this, '__raw', {value: obj});
-    Object.defineProperty(this, '__prefix', {value: prefix});
+    Object.defineProperty(this, "__raw", { value: obj });
+    Object.defineProperty(this, "__prefix", { value: prefix });
 
     for (var key in obj) {
         this[key] = obj[key];
     }
 }
 
-Object.defineProperty(
-    Values.prototype,
-    'stripPrefix',
-    {
-        value: function(prefix) {
-            prefix = prefix || this.prefix;
-            for (var key in this.__raw) {
-                var _prefix = prefix + '-';
-                var newKey = key.replace(_prefix, '');
-                delete this[key];
-                this[newKey] = this.__raw[key];
-            }
-        },
-        enumerable: false
-    }
-);
-
+Object.defineProperty(Values.prototype, "stripPrefix", {
+    value: function(prefix) {
+        prefix = prefix || this.prefix;
+        for (var key in this.__raw) {
+            var _prefix = prefix + "-";
+            var newKey = key.replace(_prefix, "");
+            delete this[key];
+            this[newKey] = this.__raw[key];
+        }
+    },
+    enumerable: false
+});
 
 /**
-* Serializes containers. Example $(".container").serializeObjectV3(); Works also with nested fields
-* => <input type="text" name="myName[1][nested]"/> output: myName: { 1 : {nested: value}}
-*/
-+(function () {
-
+ * Serializes containers. Example $(".container").serializeObjectV3(); Works also with nested fields
+ * => <input type="text" name="myName[1][nested]"/> output: myName: { 1 : {nested: value}}
+ */
++function() {
     var root = this,
-        inputTypes = 'color,date,datetime,datetime-local,email,hidden,month,number,password,range,search,tel,text,time,url,week'.split(','),
-        inputNodes = 'select,textarea'.split(','),
+        inputTypes = "color,date,datetime,datetime-local,email,hidden,month,number,password,range,search,tel,text,time,url,week".split(
+            ","
+        ),
+        inputNodes = "select,textarea".split(","),
         rName = /\[([^\]]*)\]/g;
 
     // ugly hack for IE7-8
@@ -48,7 +43,6 @@ Object.defineProperty(
     }
 
     function storeValue(container, parsedName, value) {
-
         var part = parsedName[0];
 
         if (parsedName.length > 1) {
@@ -59,7 +53,6 @@ Object.defineProperty(
             }
             storeValue(container[part], parsedName.slice(1), value);
         } else {
-
             // Increment Array index for `some[]` case
             if (!part) {
                 part = container.length;
@@ -69,43 +62,51 @@ Object.defineProperty(
         }
     }
 
-    $.fn.serializeObject = function (options) {
+    $.fn.serializeObject = function(options) {
         options || (options = {});
 
         var values = {},
-            settings = $.extend(true, {
-                include: [],
-                exclude: [],
-                includeByClass: ''
-            }, options);
+            settings = $.extend(
+                true,
+                {
+                    include: [],
+                    exclude: [],
+                    includeByClass: ""
+                },
+                options
+            );
 
-        this.find(':input').each(function () {
-
+        this.find(":input").each(function() {
             var parsedName;
 
             // Apply simple checks and filters
-            if (!this.name || this.disabled ||
+            if (
+                !this.name ||
+                this.disabled ||
                 isInArray(settings.exclude, this.name) ||
-                (settings.include.length && !isInArray(settings.include, this.name)) ||
-                this.className.indexOf(settings.includeByClass) === -1) {
+                (settings.include.length &&
+                    !isInArray(settings.include, this.name)) ||
+                this.className.indexOf(settings.includeByClass) === -1
+            ) {
                 return;
             }
 
             // Parse complex names
             // JS RegExp doesn't support "positive look behind" :( that's why so weird parsing is used
-            parsedName = this.name.replace(rName, '[$1').split('[');
+            parsedName = this.name.replace(rName, "[$1").split("[");
             if (!parsedName[0]) {
                 return;
             }
 
-            if (this.checked ||
+            if (
+                this.checked ||
                 isInArray(inputTypes, this.type) ||
-                isInArray(inputNodes, this.nodeName.toLowerCase())) {
-
+                isInArray(inputNodes, this.nodeName.toLowerCase())
+            ) {
                 // Simulate control with a complex name (i.e. `some[]`)
                 // as it handled in the same way as Checkboxes should
-                if (this.type === 'checkbox') {
-                    parsedName.push('');
+                if (this.type === "checkbox") {
+                    parsedName.push("");
                 }
 
                 // jQuery.val() is used to simplify of getting values
@@ -116,5 +117,4 @@ Object.defineProperty(
 
         return new Values(values);
     };
-
-}).call(this);
+}.call(this);

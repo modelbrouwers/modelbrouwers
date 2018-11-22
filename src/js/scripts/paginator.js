@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from "jquery";
 
 class Paginator {
     constructor(opts) {
@@ -16,7 +16,7 @@ class Paginator {
     /* checks if an api response can be paginated, and does so if possible */
     paginate(response, page) {
         if (response.count === undefined) {
-          return;
+            return;
         }
         page = page || 1;
 
@@ -26,15 +26,15 @@ class Paginator {
         this.number = page;
 
         if (response.results.length > 0) {
-          var n = Math.ceil(response.count / this.paginate_by);
-          for (let i=1; i<=n; i++) {
-            this.page_range.push(i);
-          }
+            var n = Math.ceil(response.count / this.paginate_by);
+            for (let i = 1; i <= n; i++) {
+                this.page_range.push(i);
+            }
         }
 
         var index = this.page_range.indexOf(this.number);
-        this.previous_page_number = this.page_range[index-1] || null;
-        this.next_page_number = this.page_range[index+1] || null;
+        this.previous_page_number = this.page_range[index - 1] || null;
+        this.next_page_number = this.page_range[index + 1] || null;
     }
 
     has_previous() {

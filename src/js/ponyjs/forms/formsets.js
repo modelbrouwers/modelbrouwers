@@ -5,21 +5,19 @@
  * was an excellent inspiration.
  */
 
-'use strict';
+"use strict";
 
-import $ from 'jquery';
-
+import $ from "jquery";
 
 const defaults = {
-    formCssClass: 'form',
-    template: null,
+    formCssClass: "form",
+    template: null
 };
 
-
 export default class Formset {
-    constructor (prefix, options={}) {
+    constructor(prefix, options = {}) {
         this.prefix = prefix;
-        this.id_regex = new RegExp(`(${prefix}-(\\d+|__prefix__))`, 'g');
+        this.id_regex = new RegExp(`(${prefix}-(\\d+|__prefix__))`, "g");
         this.options = $.extend(true, {}, defaults, options);
     }
 
@@ -54,7 +52,7 @@ export default class Formset {
      */
     get template() {
         if (!this.options.template) {
-            throw new Error('Not implemented');
+            throw new Error("Not implemented");
         }
         return this.options.template;
     }
@@ -84,43 +82,50 @@ export default class Formset {
         // if a form gets deleted, its index must be determined
         // all following forms' indices must be -1'd, and the total number must
         // be updated
-        let attrs = ['id', 'name', 'for', 'class'];
+        let attrs = ["id", "name", "for", "class"];
 
         // loop over all elements with 'options.formCssClass' and remove them if they match
         let re = new RegExp(`${this.prefix}-${index}-`);
         let toRemove = [];
         $(`.${this.options.formCssClass}`).each((i, el) => {
-            $(el).find('*').each((j, child) => {
-                if (toRemove.indexOf(el) > -1) {
-                    return;
-                }
-                attrs.forEach(attr => {
-                    if (re.test($(child).attr(attr))) {
-                        toRemove.push(el);
+            $(el)
+                .find("*")
+                .each((j, child) => {
+                    if (toRemove.indexOf(el) > -1) {
                         return;
                     }
+                    attrs.forEach(attr => {
+                        if (re.test($(child).attr(attr))) {
+                            toRemove.push(el);
+                            return;
+                        }
+                    });
                 });
-            });
 
             toRemove.forEach(el => {
                 $(el).remove();
-            })
+            });
         });
 
         // now the DOM node(s) have been removed, update the indices
         let re2 = new RegExp(`(${this.prefix}-(\\d+)-)`);
         $(`.${this.options.formCssClass}`).each((i, el) => {
-            $(el).find('*').each((j, node) => {
-                $node = $(node);
-                attrs.forEach(attr => {
-                    let match = re2.exec($node.attr(attr));
-                    if (match) {
-                        let _index = parseInt(match[2], 10);
-                        let replacement = `${this.prefix}-${_index-1}-`;
-                        $node.attr(attr, $node.attr(attr).replace(re2, replacement));
-                    }
+            $(el)
+                .find("*")
+                .each((j, node) => {
+                    $node = $(node);
+                    attrs.forEach(attr => {
+                        let match = re2.exec($node.attr(attr));
+                        if (match) {
+                            let _index = parseInt(match[2], 10);
+                            let replacement = `${this.prefix}-${_index - 1}-`;
+                            $node.attr(
+                                attr,
+                                $node.attr(attr).replace(re2, replacement)
+                            );
+                        }
+                    });
                 });
-            });
         });
 
         // if all this was succesful, update the total number of forms

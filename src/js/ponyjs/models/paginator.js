@@ -1,9 +1,8 @@
-/* */ 
+/* */
+
 class InvalidPage extends Error {}
 
-
 class EmptyPage extends InvalidPage {}
-
 
 class Page {
     constructor(object_list, number, paginator) {
@@ -37,11 +36,11 @@ class Page {
         if (nr !== undefined) {
             return nr;
         }
-        throw new EmptyPage(`Page ${nr+1} does not exist`);
+        throw new EmptyPage(`Page ${nr + 1} does not exist`);
     }
 
     previousPageNumber() {
-        let nr = this.paginator.page_range[this.number-2];
+        let nr = this.paginator.page_range[this.number - 2];
         if (nr !== undefined) {
             return nr;
         }
@@ -49,19 +48,18 @@ class Page {
     }
 }
 
-
 class Paginator {
     constructor(model) {
         this.model = model;
         this.page_range = [];
 
         this.options = {
-            count: 'count',
-            object_list: 'results',
-            paginate_by: 'paginate_by',
-            next: 'next',
-            previous: 'previous'
-        }
+            count: "count",
+            object_list: "results",
+            paginate_by: "paginate_by",
+            next: "next",
+            previous: "previous"
+        };
     }
 
     paginated(content) {
@@ -73,7 +71,7 @@ class Paginator {
 
         if (this.object_list.length > 0) {
             let n = Math.ceil(this.count / this.paginate_by);
-            for (let i=1; i<=n; i++) {
+            for (let i = 1; i <= n; i++) {
                 this.page_range.push(i);
             }
         }
@@ -98,7 +96,6 @@ class Paginator {
         return new Page(this.object_list, page_nr, this);
     }
 }
-
 
 export default Paginator;
 export { Page, Paginator, InvalidPage, EmptyPage };

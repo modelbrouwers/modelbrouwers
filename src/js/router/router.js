@@ -6,7 +6,9 @@
 export default class Router {
     constructor(pageMap) {
         if (!pageMap) {
-            throw new Error('A valid pageMap object is required for the router to function properly. Check the initialization of the router instance');
+            throw new Error(
+                "A valid pageMap object is required for the router to function properly. Check the initialization of the router instance"
+            );
         }
 
         this.pageMap = pageMap;
@@ -30,7 +32,7 @@ export default class Router {
      * @returns {string|undefined}
      */
     getPage() {
-        let html = document.querySelector('html');
+        let html = document.querySelector("html");
         return html.dataset.page;
     }
 }
