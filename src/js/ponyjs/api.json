@@ -1,6 +1,6 @@
 {
   "default": {
-    "baseUrl": "http://example.com",
+    "baseUrl": "/",
     "basePath": "api/[version]",
     "options": {
       "version": "v1"

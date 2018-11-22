@@ -7,39 +7,37 @@
 
 
 {% block eye-catcher %}
-<header class="container-fluid eye-catcher">
-    <div class="container">
-        {% block eye-catcher-content %}
-            <h1>
-                {% trans "Builds" %}
-                <i class="pull-right fa fa-cubes fa-2x"></i>
-            </h1>
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            {% block eye-catcher-content %}
+                <h1>
+                    {% trans "Builds" %}
+                    <i class="pull-right fa fa-cubes fa-2x"></i>
+                </h1>
 
-            <p>{% blocktrans %}
-                In the 'Builds' section you can track your others and your own projects.
-                Keep a history of the kits you have built and quickly find the matching topic.
-            {% endblocktrans %}</p>
-        {% endblock %}
+                <p>{% blocktrans %}
+                    In the 'Builds' section you can track your others and your own projects.
+                    Keep a history of the kits you have built and quickly find the matching topic.
+                {% endblocktrans %}</p>
+            {% endblock %}
 
-        {% block builds-nav %}
-            <div>
+            {% block builds-nav %}
+                <div>
 
-                {% block builds-nav-left %}
-                    <a href="{% url 'builds:create' %}" class="btn bg-main-blue">{% trans "Add build" %}</a>
-                {% endblock %}
+                    {% block builds-nav-left %}
+                        <a href="{% url 'builds:create' %}" class="btn bg-main-blue">{% trans "Add build" %}</a>
+                    {% endblock %}
 
-                {% load_widgets builds='builds/sniplates.html' %}
-                {% widget 'builds:nav-right' %}
+                    {% load_widgets builds='builds/sniplates.html' %}
+                    {% widget 'builds:nav-right' %}
 
-            </div>
-        {% endblock %}
-    </div>
-</header>
+                </div>
+            {% endblock %}
+        </div>
+    </header>
 {% endblock %}
 
 {% block extrascript %}
     {{ block.super }}
     {% load_widgets kits='kits/widgets.html' %}
-    {% widget 'kits:ModelKitSelectJS' %}
-    {% systemjs_import 'builds/js/builds.js' %}
 {% endblock extrascript %}

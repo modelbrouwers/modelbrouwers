@@ -4,50 +4,53 @@ import qq from "fine-uploader/lib/core";
 export class PhotoUpload {
     constructor() {
         const albumChooser = $("#carousel-album");
-        let album;
+        let album, uploader;
+        const elem = document.getElementById("uploader");
 
         // TODO this doesn't initialize for some reason. Look into another upload lib
-        new qq.FineUploaderBasic({
-            request: {
-                element: document.getElementById("uploader"),
-                endpoint: endpoint,
-                inputName: "image",
-                filenameParam: "description",
-                customHeaders: {
-                    Accept: "text/plain", // otherwise DRF complains
-                    "X-CSRFToken": window.csrf_token
-                }
-            },
-            retry: {
-                enableAuto: false
-            },
-            validation: {
-                allowedExtensions: ["jpeg", "jpg", "gif", "png"] // only images
-            },
-            autoUpload: autoUpload,
-            callbacks: {
-                onComplete: function(event, succeeded, failed) {
-                    if (failed.length === 0) {
-                        window.location = decodeURI(window.albumDetail).format(
-                            album
-                        );
+        if (elem) {
+            uploader = new qq.FineUploaderBasic({
+                request: {
+                    element: elem,
+                    endpoint: endpoint,
+                    inputName: "image",
+                    filenameParam: "description",
+                    customHeaders: {
+                        Accept: "text/plain", // otherwise DRF complains
+                        "X-CSRFToken": window.csrf_token
                     }
                 },
-                onSubmit: function() {
-                    const ok = setAlbum();
-                    if (ok) {
-                        const $dest = $("#upload-form");
-                        $("html, body").animate(
-                            {
-                                scrollTop: $dest.offset().top
-                            },
-                            500
-                        );
+                retry: {
+                    enableAuto: false
+                },
+                validation: {
+                    allowedExtensions: ["jpeg", "jpg", "gif", "png"] // only images
+                },
+                autoUpload: autoUpload,
+                callbacks: {
+                    onComplete: function(event, succeeded, failed) {
+                        if (failed.length === 0) {
+                            window.location = decodeURI(
+                                window.albumDetail
+                            ).format(album);
+                        }
+                    },
+                    onSubmit: function() {
+                        const ok = setAlbum();
+                        if (ok) {
+                            const $dest = $("#upload-form");
+                            $("html, body").animate(
+                                {
+                                    scrollTop: $dest.offset().top
+                                },
+                                500
+                            );
+                        }
+                        return ok;
                     }
-                    return ok;
                 }
-            }
-        });
+            });
+        }
 
         var setAlbum = function() {
             var checked = $('#upload-form input[name="album"]:checked');

@@ -10,6 +10,7 @@ import {
     KitSearch,
     NewKitSubmitter
 } from "../kits/modelkit.lib.js";
+import KitWidget from "../kits/modelkit.widget";
 
 class KitreviewsNewKitSubmitter extends NewKitSubmitter {
     kitCreated(kit) {
@@ -62,6 +63,7 @@ export default class Page {
         new Slider('input[type="range"]');
         this.initAutocomplete();
         this.initSuggestions();
+        KitWidget.init();
     }
 
     static initAutocomplete() {

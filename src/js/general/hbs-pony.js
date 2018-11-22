@@ -1,27 +1,26 @@
-'use strict';
+"use strict";
 
-import 'jquery';
-import Handlebars from 'handlebars/dist/handlebars.min.js';
-import Q from 'q';
-
+import "jquery";
+import Handlebars from "handlebars/dist/handlebars.min.js";
+import Q from "q";
 
 let hbsHelpers = [];
 let urlconf = {
-    templates: '/templates/{0}/{1}/'
+    templates: "/templates/{0}/{1}/"
 };
 
-
-function _loadTemplate(app, name){
+function _loadTemplate(app, name) {
     // keep the templates in an object
     Handlebars.templates = Handlebars.templates || {};
 
     var deferred = Q.defer();
-    var tplName = '{0}::{1}'.format(app, name);
+    var tplName = "{0}::{1}".format(app, name);
 
     // check the local cache first
     if (Handlebars.templates[tplName] !== undefined) {
         deferred.resolve(Handlebars.templates[tplName]);
-    } else { // fetch from the server
+    } else {
+        // fetch from the server
         var tplUrl = urlconf.templates.format(app, name);
         $.get(tplUrl, function(tpl) {
             Handlebars.templates[tplName] = Handlebars.compile(tpl);
@@ -35,26 +34,25 @@ function _loadTemplate(app, name){
  * @param name: name of the template, in the format app::name
  */
 function renderTemplate(name, context, $dest) {
-    var bits = name.split('::');
+    var bits = name.split("::");
     var _app = bits[0],
         _name = bits[1];
 
     return _loadTemplate(_app, _name).then(function(tpl) {
         var rendered = tpl(context || {});
-        if($dest) {
+        if ($dest) {
             $dest.html(rendered);
         }
         return rendered;
     });
 }
-if(Handlebars.renderTemplate) {
-    console.warn('Warning: overwriting renderTemplate');
+if (Handlebars.renderTemplate) {
+    console.warn("Warning: overwriting renderTemplate");
 }
-if(Handlebars.render) {
-    console.warn('Warning: overwriting render');
+if (Handlebars.render) {
+    console.warn("Warning: overwriting render");
 }
 Handlebars.render = Handlebars.renderTemplate = renderTemplate;
-
 
 /**
  *  Handlebars helpers
@@ -81,21 +79,21 @@ var _yesno = function(bool, options) {
     }
     return new Handlebars.SafeString(result);
 };
-hbsHelpers.push({name: 'yesno', fn: _yesno});
+hbsHelpers.push({ name: "yesno", fn: _yesno });
 
 var _isEven = function(number, options) {
-    if((number % 2) === 0) {
+    if (number % 2 === 0) {
         return options.fn(this);
     } else {
         return options.inverse(this);
     }
 };
-hbsHelpers.push({name: 'if_even', fn: _isEven});
+hbsHelpers.push({ name: "if_even", fn: _isEven });
 
 var _add = function(number, number2, options) {
-    return number+number2;
+    return number + number2;
 };
-hbsHelpers.push({name: 'add', fn: _add});
+hbsHelpers.push({ name: "add", fn: _add });
 
 var _ifequal = function(lhs, rhs, options) {
     var equal;
@@ -104,14 +102,14 @@ var _ifequal = function(lhs, rhs, options) {
     } else {
         equal = lhs == rhs;
     }
-    return Handlebars.helpers['if'].call(this, equal, options);
+    return Handlebars.helpers["if"].call(this, equal, options);
 };
-hbsHelpers.push({name: 'ifequal', fn: _ifequal});
+hbsHelpers.push({ name: "ifequal", fn: _ifequal });
 
 var _debug = function(ctx, options) {
     console.log(ctx);
 };
-hbsHelpers.push({name: 'debug', fn: _debug});
+hbsHelpers.push({ name: "debug", fn: _debug });
 
 let _cycle = function() {
     // spread/destructuring doesn't work like [...items, ctx] = arguments
@@ -119,8 +117,8 @@ let _cycle = function() {
     let items = Array.prototype.slice.call(arguments, 0, arguments.length - 1);
     let index = ctx.data.index % items.length;
     return items[index];
-}
-hbsHelpers.push({name: 'cycle', fn: _cycle});
+};
+hbsHelpers.push({ name: "cycle", fn: _cycle });
 
 /**
  * Register the helpers
