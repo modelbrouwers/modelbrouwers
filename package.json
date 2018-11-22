@@ -55,43 +55,11 @@
         "gulp-jshint": "^2.1.0",
         "gulp-sass": "^4.0.1",
         "gulp-sourcemaps": "^2.6.4",
-        "jspm": "^0.16.14",
         "node-sass": "^4.9.3",
         "onchange": "^5.1.0",
         "prettier": "1.15.2",
         "uglify-js": "^2.4.23",
         "webpack": "^4.25.1",
         "webpack-cli": "^3.1.0"
-    },
-    "jspm": {
-        "directories": {
-            "baseURL": "static",
-            "doc": "doc"
-        },
-        "configFile": "src/static/config.js",
-        "dependencies": {
-            "URIjs": "npm:URIjs@^1.15.1",
-            "aurelia-http-client": "npm:aurelia-http-client@^1.0.0-beta.1",
-            "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1",
-            "aurelia-pal-browser": "npm:aurelia-pal-browser@^1.0.0-beta.1",
-            "bootstrap": "github:twbs/bootstrap@^3.3.7",
-            "css": "github:systemjs/plugin-css@^0.1.13",
-            "fine-uploader": "npm:fine-uploader@^5.11.8",
-            "handlebars": "github:components/handlebars.js@2.0.0",
-            "jquery": "github:components/jquery@^2.1.4",
-            "jquery-ui": "github:components/jqueryui@^1.11.4",
-            "json": "github:systemjs/plugin-json@^0.1.0",
-            "perfect-scrollbar": "npm:perfect-scrollbar@^0.6.2",
-            "ponyjs": "github:sergei-maertens/django-ponyjs@0.1.2",
-            "q": "npm:q@^2.0.3",
-            "string.prototype.startswith": "npm:string.prototype.startswith@^0.2.0",
-            "typeahead": "github:twitter/typeahead.js@^0.11.1",
-            "url": "github:jspm/nodelibs-url@^0.1.0"
-        },
-        "devDependencies": {
-            "babel": "npm:babel-core@^5.8.24",
-            "babel-runtime": "npm:babel-runtime@^5.8.24",
-            "core-js": "npm:core-js@^1.2.6"
-        }
     }
 }

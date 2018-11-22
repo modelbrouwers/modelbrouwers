@@ -1,5 +1,8 @@
 ## Changelog
 
+##### 22.11.2018
+* replaced jspm with Webpack for JS modules imports
+
 ##### 29.04.2018
 * removed Compass support
 * added Gulp for scss to css compilation
