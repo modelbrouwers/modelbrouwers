@@ -12,7 +12,7 @@
             </ol>
 
             <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
+            <div class="carousel-inner carousel__inner" role="listbox">
                 {% for image in  carousel_images %}
                     <div class="category__carousel-item item {% if forloop.first %}active{% endif %}">
                         <img src="{{ image.image.url }}" alt="{{ image.title }}">

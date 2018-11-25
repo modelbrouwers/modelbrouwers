@@ -4,11 +4,7 @@
     margin: 1rem auto;
   }
 
-  &__carousel {
-    height: 500px;
-  }
-
-  &__carousel-item {
-    height: 500px;
+  &__carousel, &__carousel-item, &__inner {
+    height: 300px;
   }
 }
