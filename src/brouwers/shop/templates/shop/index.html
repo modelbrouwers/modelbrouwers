@@ -41,9 +41,10 @@
                 <input type="text" class="form-control" placeholder={% trans "Search for..." %}>
             </div>
         </div>
-
-        {% for category in categories %}
-            {% include 'shop/includes/category_card.html' %}
-        {% endfor %}
+        <div class="flex-row">
+            {% for category in categories %}
+                {% include 'shop/includes/category_card.html' %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
