@@ -8,15 +8,8 @@
     height: 300px;
   }
 
-
+  &__link {
+    color: $main-orange;
+  }
 }
 
-.flex-row {
-  display: flex;
-  width: 100%;
-  flex-flow: wrap;
-}
-
-.t {
-  width: 33%;
-}
