@@ -30,4 +30,4 @@ class HomepageCategoryChild(models.Model):
         verbose_name_plural = _('homepage category children')
 
     def __str__(self):
-        return self.main_category.name
+        return self.category.name

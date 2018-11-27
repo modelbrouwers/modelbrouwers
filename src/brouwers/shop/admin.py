@@ -118,13 +118,15 @@ class CategoryCarouselImageAdmin(admin.ModelAdmin):
 
 @admin.register(HomepageCategory)
 class HomepageCategoryAdmin(admin.ModelAdmin):
-    list_display = ('main_category', 'order')
-    list_filter = ('main_category', 'order')
-    list_search = ('main_category', 'order')
+    list_display = ('main_category', 'order',)
+    raw_id_fields = ('main_category',)
+    list_filter = ('order',)
+    list_search = ('order',)
 
 
 @admin.register(HomepageCategoryChild)
 class HomepageCategoryChild(admin.ModelAdmin):
     list_display = ('category', 'order')
-    list_filter = ('category', 'order')
-    list_search = ('category', 'order')
+    raw_id_fields = ('category',)
+    list_filter = ('order',)
+    list_search = ('order',)
