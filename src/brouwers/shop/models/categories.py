@@ -28,7 +28,7 @@ class Category(MP_Node):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:product-list', kwargs={'slug': self.slug})
+        return reverse('shop:category-detail', kwargs={'slug': self.slug})
 
 
 class CategoryCarouselImage(models.Model):

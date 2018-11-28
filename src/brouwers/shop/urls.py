@@ -1,11 +1,10 @@
 from django.conf.urls import url
-from django.views.generic.base import TemplateView
 
-from .views import IndexView
+from .views import IndexView, CategoryDetailView
 
 app_name = 'shop'
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^category/(?P<slug>[-_\w]+)/', TemplateView.as_view(template_name='shop/product_list.html'), name='product-list')
+    url(r'^category/(?P<slug>[-_\w]+)/', CategoryDetailView.as_view(), name='category-detail')
 ]
