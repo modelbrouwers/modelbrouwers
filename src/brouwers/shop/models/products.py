@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
@@ -50,6 +51,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name or self.name_nl
+
+    def get_absolute_url(self):
+        return reverse('shop:product-detail', kwargs={'slug': self.slug})
 
 
 class ProductImage(models.Model):

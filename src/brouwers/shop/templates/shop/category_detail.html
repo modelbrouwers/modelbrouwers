@@ -43,6 +43,14 @@
                     </div>
                 </div>
             {% endif %}
+
+            <div class="products">
+                {% for product in category.products.all %}
+                    {% include 'shop/includes/product_card.html' %}
+                {% endfor %}
+
+            </div>
+
         </div>
     </div>
 
