@@ -45,12 +45,12 @@
             {% endif %}
 
             <div class="products">
-                {% for product in category.products.all %}
+               <h3 class="subcategories__header">{% trans 'Products' %}</h3>
+                <div class="product-list">
+                    {% for product in category.products.all %}
                     {% include 'shop/includes/product_card.html' %}
-                {% endfor %}
-
+                {% endfor %}</div>
             </div>
-
         </div>
     </div>
 

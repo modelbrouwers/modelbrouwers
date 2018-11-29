@@ -44,7 +44,6 @@ class ProductAdmin(ImportExportModelAdmin):
         'tag_list'
     )
     list_filter = (
-        'name',
         'seo_keyword',
         'brand',
         'model_name',
@@ -97,8 +96,8 @@ class ProductBrandAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ('product', 'image')
-    list_filter = ('product',)
+    #list_display = ('product', 'image')
+    # list_filter = ('product',)
     search_fields = ('product',)
 
 
