@@ -1,4 +1,4 @@
-{% extends "shop/base.html" %}{% load i18n static shop %}
+{% extends "shop/base.html" %}{% load i18n static %}
 
 {% block content %}
     <div class="wrapper">
@@ -15,7 +15,16 @@
         <div class="category__content">
             {% include 'shop/includes/breadcrumbs.html' with curr_node=category %}
             <h2 class="category__title">{{ category }}</h2>
-
+            {% if not category.is_leaf %}
+                <div class="category_subcategories">
+                    {% for subcategory in category.get_children %}
+                        <div class="subcategory__card">
+                            <img class="subcategory_img" src="{{ subcategory.image.url }}" alt="{{ subcategory.name }}">
+                            <a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 
