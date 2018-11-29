@@ -1,8 +1,15 @@
-<ul class="category-navbar">
-    {% for category in categories %}
-        <li class="category-navbar__item">
-            <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-        </li>
-    {% endfor %}
-</ul>
+{% extends "shop/base.html" %}{% load i18n %}
 
+{% block content %}
+    <ul class="category-sidenav">
+        <li class="category-sidenav__header">
+            {% trans "Categories" %}
+        </li>
+        {% for category in categories %}
+            <li class="category-sidenav__item">
+                <a class="category-sidenav__link" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
