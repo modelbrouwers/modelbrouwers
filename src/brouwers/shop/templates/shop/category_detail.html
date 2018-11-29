@@ -8,7 +8,17 @@
             </li>
             {% for cat in categories %}
                 <li class="category-sidenav__item">
-                    <a class="category-sidenav__link" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+                    <a class="category-sidenav__link {% if cat.id == category.id %}category-sidenav__link--active{% endif %}"
+                       href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+                    {% if cat.id == category.id and not cat.is_leaf or cat.id == category.get_root.id %}
+                        <ul class="category-sidenav__subcategories">
+                            {% for subcat in cat.get_children %}
+                                <li class="category-sidenav__subcategory {% if subcat.id == category.id %}category-sidenav__subcategory--active{% endif %}">
+                                    <a href="{{ subcat.get_absolute_url }}">{{ subcat.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
@@ -16,13 +26,21 @@
             {% include 'shop/includes/breadcrumbs.html' with curr_node=category %}
             <h2 class="category__title">{{ category }}</h2>
             {% if not category.is_leaf %}
-                <div class="category_subcategories">
-                    {% for subcategory in category.get_children %}
-                        <div class="subcategory__card">
-                            <img class="subcategory_img" src="{{ subcategory.image.url }}" alt="{{ subcategory.name }}">
-                            <a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a>
-                        </div>
-                    {% endfor %}
+                <div class="subcategories__wrapper">
+                    <h3 class="subcategories__header">{% trans 'Subcategories' %}</h3>
+                    <div class="subcategories">
+                        {% for subcategory in category.get_children %}
+                            <div class="subcategory__card">
+                                <!-- TODO Remove onerror -->
+                                <img class="subcategory__img" src="{{ subcategory.image.url }}"
+                                     alt="{{ subcategory.name }}"
+                                     onerror="if (this.src !== 'https://www.detailedimage.com/photos/placeholder_item_100.jpg') this.src = 'https://www.detailedimage.com/photos/placeholder_item_100.jpg';">
+                                <a class="subcategory__name" href="{{ subcategory.get_absolute_url }}">
+                                    {{ subcategory.name }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             {% endif %}
         </div>

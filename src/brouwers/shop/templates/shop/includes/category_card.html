@@ -2,7 +2,7 @@
     <div class="category__card">
         <div class="caption">
             <h3><a class="category__link" href="{{ category.get_absolute_url }}">{{ category.main_category.name }}</a></h3>
-            <ul class="category__subcategories">
+            <ul class="category__children">
                 {% for child in category.main_category.get_children %}
                     <li class="category__child">
                         <a class="category__link" href="{{ child.get_absolute_url }}">{{ child.name }}</a>
