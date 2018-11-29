@@ -1,15 +1,22 @@
-{% extends "shop/base.html" %}{% load i18n %}
+{% extends "shop/base.html" %}{% load i18n static shop %}
 
 {% block content %}
-    <ul class="category-sidenav">
-        <li class="category-sidenav__header">
-            {% trans "Categories" %}
-        </li>
-        {% for category in categories %}
-            <li class="category-sidenav__item">
-                <a class="category-sidenav__link" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+    <div class="wrapper">
+        <ul class="category-sidenav">
+            <li class="category-sidenav__header">
+                {% trans "Categories" %}
             </li>
-        {% endfor %}
-    </ul>
+            {% for cat in categories %}
+                <li class="category-sidenav__item">
+                    <a class="category-sidenav__link" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="category__content">
+            {% include 'shop/includes/breadcrumbs.html' with curr_node=category %}
+            <h2 class="category__title">{{ category }}</h2>
+
+        </div>
+    </div>
 
 {% endblock %}

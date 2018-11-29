@@ -1,0 +1,11 @@
+{% load i18n %}
+
+<div class="breadcrumbs">
+    <a class="breadcrumbs__item" href="{% url 'shop:index' %}">{% trans 'Home' %}</a>
+    <span class="breadcrumbs__separator"> > </span>
+    {% for node in curr_node.get_ancestors %}
+        <a class="breadcrumbs__item" href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        <span class="breadcrumbs__separator"> > </span>
+    {% endfor %}
+    <a class="breadcrumbs__item" href="{{ curr_node.get_absolute_url }}">{{ curr_node.name }}</a>
+</div>

@@ -6,5 +6,5 @@ app_name = 'shop'
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^category/(?P<slug>[-_\w]+)/', CategoryDetailView.as_view(), name='category-detail')
+    url(r'^categories/(?P<slug>[-_\w]+)/', CategoryDetailView.as_view(), name='category-detail')
 ]

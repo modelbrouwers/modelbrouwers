@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^', include('brouwers.users.urls', namespace='users')),
     url(r'^', include('brouwers.general.urls')),
-    url(r'^winkel/', include('brouwers.shop.urls'))
+    url(r'^winkel/', include('brouwers.shop.urls',  namespace='shop'))
 ] + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
 
 
