@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
@@ -55,6 +56,13 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product-detail', kwargs={'slug': self.slug})
+
+    def get_image_url(self):
+        image = self.image
+
+        if not image:
+            return static('images/shop/placeholder.gif')
+        return image.url
 
 
 class ProductImage(models.Model):

@@ -3,9 +3,24 @@
   flex-direction: column;
   height: 200px;
   width: 150px;
+  border: $border;
+  padding: 5px;
+  margin-bottom: 20px;
 
   &__image {
-    width: 150px;
-    height: auto;
+    width: 100%;
+    flex: 1 0 auto;
+  }
+
+  &__name {
+    color: $text-color;
+    padding: 5px 0;
+    flex: 1 0 auto;
+  }
+
+  &__price {
+    font-weight: bold;
+    margin: 5px 0;
+    flex: 0;
   }
 }
