@@ -29,6 +29,7 @@ class Product(models.Model):
     vat = models.DecimalField(_('vat'), max_digits=3, decimal_places=2, default=0)
     description = RichTextField(blank=True)
     seo_keyword = models.CharField(_('seo keyword'), max_length=200, null=True, blank=True)
+    image = models.ImageField(_('image'), upload_to='shop/product/', null=True, blank=True)
 
     # dimensional data
     length = models.DecimalField(_('length'), max_digits=10, decimal_places=2, default=0)
