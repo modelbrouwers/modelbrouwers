@@ -46,8 +46,6 @@ class ProductAdmin(ImportExportModelAdmin):
     list_filter = (
         'seo_keyword',
         'brand',
-        'model_name',
-        'stock',
         'price',
         'length',
         'width',
@@ -60,7 +58,7 @@ class ProductAdmin(ImportExportModelAdmin):
     search_fields = (
         'name',
         'seo_keyword',
-        'brand',
+        'brand__name',
         'model_name',
         'stock',
         'price',
@@ -68,7 +66,7 @@ class ProductAdmin(ImportExportModelAdmin):
         'width',
         'height',
         'weight',
-        'manufacturer',
+        'manufacturer__name',
     )
     raw_id_fields = ('brand', 'related_products', 'categories', 'manufacturer')
     resource_class = ProductResource
