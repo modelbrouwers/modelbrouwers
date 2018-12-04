@@ -2,26 +2,7 @@
 
 {% block content %}
     <div class="wrapper">
-        <ul class="category-sidenav">
-            <li class="category-sidenav__header">
-                {% trans "Categories" %}
-            </li>
-            {% for cat in categories %}
-                <li class="category-sidenav__item">
-                    <a class="category-sidenav__link {% if cat.id == category.id %}category-sidenav__link--active{% endif %}"
-                       href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
-                    {% if cat.id == category.id and not cat.is_leaf or cat.id == category.get_root.id %}
-                        <ul class="category-sidenav__subcategories">
-                            {% for subcat in cat.get_children %}
-                                <li class="category-sidenav__subcategory {% if subcat.id == category.id %}category-sidenav__subcategory--active{% endif %}">
-                                    <a href="{{ subcat.get_absolute_url }}">{{ subcat.name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
+        {% include 'shop/includes/sidenav.html' %}
         <div class="category__content">
             {% include 'shop/includes/breadcrumbs.html' with curr_node=category %}
             <h2 class="category__title">{{ category }}</h2>

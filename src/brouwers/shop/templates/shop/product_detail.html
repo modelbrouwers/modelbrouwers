@@ -1,5 +1,15 @@
-{% extends "shop/base.html" %} {% load i18n %}
+{% extends "shop/base.html" %} {% load i18n i18n %}
 
 {% block content %}
-    <h3>{{ product.name }}</h3>
+    <div class="wrapper">
+        {% include 'shop/includes/sidenav.html' with categories=categories category=product.categories.all.first %}
+        <div class="product__content">
+            {#    TODO Figure out how to get the proper category #}
+            {% include 'shop/includes/breadcrumbs.html' with curr_node=product.categories.all.first %}
+            <h2>{{ product.name }}</h2>
+            <div class="product__image-wrapper">
+                <img src="{{ product.get_image_url }}" class="product__image">
+            </div>
+        </div>
+    </div>
 {% endblock %}

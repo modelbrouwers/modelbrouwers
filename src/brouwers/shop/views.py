@@ -34,3 +34,8 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
     template_name = 'shop/product_detail.html'
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        context['categories'] = Category.get_tree().filter(depth=1, enabled=True)
+        return context
