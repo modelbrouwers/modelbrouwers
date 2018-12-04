@@ -1,7 +1,7 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: auto;
   width: 150px;
   border: $border;
   padding: 5px;
@@ -16,11 +16,16 @@
     color: $text-color;
     padding: 5px 0;
     flex: 1 0 auto;
+    font-size: 12px;
   }
 
   &__price {
     font-weight: bold;
     margin: 5px 0;
     flex: 0;
+  }
+
+  &__actions {
+
   }
 }

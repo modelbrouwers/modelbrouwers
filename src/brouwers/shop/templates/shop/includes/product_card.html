@@ -1,5 +1,17 @@
+{% load i18n %}
 <div class="product-card">
     <img src="{{ product.get_image_url }}" class="product-card__image">
-        <a href="{{ product.get_absolute_url }}" class="product-card__name">{{ product.name }}</a>
-        <p class="product-card__price">{{ product.price }} &euro;</p>
+    <a href="{{ product.get_absolute_url }}" class="product-card__name">{{ product.name }}</a>
+    <p class="product-card__price">{{ product.price }} &euro;</p>
+    <button class="button button--blue">{% trans 'Add to cart' %}</button>
+    <div class="product-card__actions">
+        <div class="button-row">
+            <button class="button__icon"><i class="fa fa-plus"></i></button>
+            <p class="button-row__text">{% trans 'Wishlist' %}</p>
+        </div>
+        <div class="button-row">
+            <button class="button__icon"><i class="fa fa-plus"></i></button>
+            <p class="button-row__text">{% trans 'Product comparison' %}</p>
+        </div>
+    </div>
 </div>
