@@ -8,8 +8,8 @@ from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
 from .models import (
-    Category, Product, ProductBrand, ProductImage, ProductManufacturer,
-    ProductReview, CategoryCarouselImage, HomepageCategory, HomepageCategoryChild
+    Category, CategoryCarouselImage, HomepageCategory, HomepageCategoryChild,
+    Product, ProductBrand, ProductImage, ProductManufacturer, ProductReview
 )
 from .resources import CategoryResource, ProductResource
 

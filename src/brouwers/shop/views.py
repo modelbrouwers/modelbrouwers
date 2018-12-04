@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 
 from django.views.generic import DetailView, ListView
 
-from brouwers.shop.models import HomepageCategory, Category, Product, CategoryCarouselImage
+from brouwers.shop.models import (
+    Category, CategoryCarouselImage, HomepageCategory, Product
+)
 
 
 class IndexView(ListView):
@@ -26,3 +28,9 @@ class CategoryDetailView(DetailView):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
         context['categories'] = Category.get_tree().filter(depth=1, enabled=True)
         return context
+
+
+class ProductDetailView(DetailView):
+    context_object_name = 'product'
+    template_name = 'shop/product_detail.html'
+    model = Product

@@ -1,12 +1,12 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse
-from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField

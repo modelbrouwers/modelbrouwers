@@ -11,7 +11,6 @@ from tablib import import_set
 from ...constants import WeightUnits
 from ...models import Product, ProductManufacturer
 
-
 VAT_MAPPING = {
     'BTW Hoog': Decimal('0.21'),
     'BTW Laag': Decimal('0.06'),
