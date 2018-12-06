@@ -97,4 +97,12 @@
     border: 1px solid #ddd;
     @include border-radius(0 4px 4px 4px);
   }
+
+  &__actions {
+    display: flex;
+
+    .button-row:first-child {
+      margin-right: 30px;
+    }
+  }
 }
