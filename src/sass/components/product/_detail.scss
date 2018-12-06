@@ -8,4 +8,78 @@
     width: 250px;
     height: 250px;
   }
+
+  &__name {
+    color: $text-color;
+    margin: 0;
+  }
+
+  &__inner {
+    display: flex;
+    padding: 30px 0;
+  }
+
+  &__brand-logo {
+    height: 50px;
+  }
+
+  &__content, &__inner {
+    width: 100%;
+  }
+
+  &__image-container, &__info {
+    width: 50%;
+  }
+
+  &__amount-label {
+    display: none;
+  }
+
+  &__amount {
+    width: 50px;
+    padding: 0 5px;
+    border: 1px solid $main-blue;
+    border-radius: 4px 0 0 4px;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__order {
+    display: flex;
+    padding: 15px 0;
+  }
+
+  &__brand {
+    margin: 0;
+  }
+
+  &__brand-link {
+    color: $main-grey;
+    text-transform: uppercase;
+  }
+
+  &__text-group {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+  }
+
+  &__label {
+    font-size: 12px;
+    color: $main-grey;
+  }
+
+  &__text {
+    font-size: 14px;
+    font-weight: bold;
+
+    &--lg {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }

@@ -6,10 +6,51 @@
         <div class="product__content">
             {#    TODO Figure out how to get the proper category #}
             {% include 'shop/includes/breadcrumbs.html' with curr_node=product.categories.all.first %}
-            <h2>{{ product.name }}</h2>
-            <div class="product__image-wrapper">
-                <img src="{{ product.get_image_url }}" class="product__image">
+
+            <div class="product__inner">
+                <div class="product__image-container">
+                    <div class="product__image-wrapper">
+                        <img src="{{ product.get_image_url }}" class="product__image" alt="{{ product.name }}">
+                    </div>
+                </div>
+
+                <div class="product__info">
+                    <h4 class="product__name">{{ product.name }}</h4>
+                    {% if product.brand %}
+                        <p class="product__brand">
+                            <a href="{{ product.brand.slug }}" class="product__brand-link">
+                                {{ product.brand }}
+                            </a>
+                        </p>
+                        <img src="{{ product.brand.logo.url }}" class="product__brand-logo"
+                             alt="{{ product.brand.name }}">
+                    {% endif %}
+                    {% if product.model_name %}
+                        <div class="product__text-group">
+                            <span class="product__label">{% trans 'Model' %}</span>
+                            <span class="product__text">{{ product.model_name }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="product__text-group">
+                        <span class="product__label">{% trans 'Stock' %}</span>
+                        <span class="product__text">{{ product.stock }}</span>
+                    </div>
+
+                    <div class="product__text-group">
+                        <span class="product__label">{% trans 'Price' %}</span>
+                        <span class="product__text product__text--lg">{{ product.price }} &euro;</span>
+                    </div>
+
+                    <div class="product__order">
+                        <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
+                        <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
+                               value="1">
+                        <button class="button button--blue button--order">{% trans 'Add to cart' %}</button>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
