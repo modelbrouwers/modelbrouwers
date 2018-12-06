@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView
+from django.views.generic.edit import ModelFormMixin
 
-from brouwers.shop.models import (
-    Category, CategoryCarouselImage, HomepageCategory, Product
-)
+from .models import Category, CategoryCarouselImage, HomepageCategory, Product
+
+from .forms import ProductReviewForm
 
 
 class IndexView(ListView):
@@ -30,12 +32,17 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(ModelFormMixin, DetailView):
     context_object_name = 'product'
     template_name = 'shop/product_detail.html'
     model = Product
+    form_class = ProductReviewForm
 
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['categories'] = Category.get_tree().filter(depth=1, enabled=True)
+        context['form'] = self.get_form()
         return context
+
+    def get_success_url(self):
+        return reverse('product-detail', kwargs={'slug': self.object.slug})
