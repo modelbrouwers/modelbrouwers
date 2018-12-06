@@ -17,6 +17,7 @@
   &__inner {
     display: flex;
     padding: 30px 0;
+    flex-flow: wrap;
   }
 
   &__brand-logo {
@@ -39,7 +40,7 @@
     width: 50px;
     padding: 0 5px;
     border: 1px solid $main-blue;
-    border-radius: 4px 0 0 4px;
+    @include border-radius(4px 0 0 4px);
 
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
@@ -81,5 +82,19 @@
       font-size: 16px;
       font-weight: bold;
     }
+  }
+
+  &__tabs {
+    width: 100%;
+
+    .nav-tabs {
+      border-bottom: none;
+    }
+  }
+
+  &__tab-content {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    @include border-radius(0 4px 4px 4px);
   }
 }

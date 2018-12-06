@@ -49,6 +49,30 @@
                     </div>
 
                 </div>
+                <div class="product__tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#description" aria-controls="home" role="tab" data-toggle="tab">
+                                {% trans 'Description' %}
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#reviews" aria-controls="profile" role="tab" data-toggle="tab">
+                                {% trans 'Reviews' %}
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content product__tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="description">
+                            {{ product.description|safe }}
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="reviews">Reviews</div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
