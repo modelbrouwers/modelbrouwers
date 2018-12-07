@@ -124,12 +124,13 @@
     justify-content: space-between;
   }
 
-  &__left-content {
-    display: flex;
-  }
-
   &__reviewer-name {
     font-weight: bold;
-    margin-right: 30px;
+    margin-right: 10px;
+  }
+
+  &__date {
+    font-size: 12px;
+    color: $main-grey;
   }
 }
