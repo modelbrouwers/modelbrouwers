@@ -80,7 +80,24 @@
                             {{ product.description|safe }}
                         </div>
                         <div role="tabpanel" class="tab-pane" id="reviews">
+                            {% if product.reviews.all|length %}
+                                <ul class="product__reviews">
+                                    {% for review in product.reviews.all %}
+                                        <li class="product__review-item">
+                                            <div class="review__info">
+                                                <div class="review__left-content">
+                                                    <p class="review__reviewer-name">{{ review.reviewer.username }}</p>
+                                                    <p class="review__date">{{ review.submitted_on|date:"d.m.Y" }}</p>
+                                                </div>
+                                                <p class="review__rating">{{ review.rating }}</p>
+                                            </div>
+                                            <p class="review__text">{{ review.text|safe }}</p>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                             {% if user.is_authenticated %}
+                                <h4 class="product__leave-review">{% trans 'Leave a review' %}</h4>
                                 <form action="." method="post" class="product__review-form">
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}

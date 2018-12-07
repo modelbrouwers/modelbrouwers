@@ -105,4 +105,31 @@
       margin-right: 30px;
     }
   }
+
+  &__review-item:not(:last-child) {
+    padding: 10px 0;
+    border-bottom: $border;
+  }
+
+  &__leave-review {
+    margin-top: 40px;
+    color: $text-color;
+  }
+}
+
+.review {
+  &__info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  &__left-content {
+    display: flex;
+  }
+
+  &__reviewer-name {
+    font-weight: bold;
+    margin-right: 30px;
+  }
 }

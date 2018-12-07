@@ -9,7 +9,8 @@ class ProductReviewForm(forms.ModelForm):
     class Meta:
         model = ProductReview
         fields = [
-            'rating'
+            'rating',
+            'text'
         ]
 
     def __init__(self, *args, **kwargs):
