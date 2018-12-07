@@ -2,12 +2,12 @@
 from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import ModelFormMixin
 
-from .models import Category, CategoryCarouselImage, HomepageCategory, Product
-
 from .forms import ProductReviewForm
+from .models import Category, CategoryCarouselImage, HomepageCategory, Product
 
 
 class IndexView(ListView):
@@ -45,4 +45,15 @@ class ProductDetailView(ModelFormMixin, DetailView):
         return context
 
     def get_success_url(self):
-        return reverse('product-detail', kwargs={'slug': self.object.slug})
+        return reverse('shop:product-detail', kwargs={'slug': self.object.product.slug})
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        form.user = self.request.user
+        form.product = get_object_or_404(Product, slug=self.kwargs['slug'])
+        if self.form_valid(form):
+            return redirect(self.get_success_url())
+
+        kwargs.update(form)
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)

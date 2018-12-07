@@ -81,13 +81,13 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="reviews">
                             {% if user.is_authenticated %}
-                                <form action="." method="get" class="product__review-form">
+                                <form action="." method="post" class="product__review-form">
+                                    {% csrf_token %}
                                     {{ form.non_field_errors }}
                                     <fieldset class="well">
                                         {% load_widgets form='horizontal.form' %}
                                         <div class="row">
                                             <div class="col-md-12">
-                                                {% form_field form.reviewer %}
                                                 {% form_field form.text %}
                                                 {% form_field form.rating %}
                                             </div>

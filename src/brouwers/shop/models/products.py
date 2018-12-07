@@ -106,7 +106,7 @@ class ProductReview(models.Model):
 
     def __str__(self):
         return _('Review: %(product)s by %(user)s') % {
-            'kit': self.product.name,
+            'product': self.product.name,
             'user': self.reviewer.username,
         }
 
