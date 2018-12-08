@@ -14,9 +14,8 @@ from taggit.managers import TaggableManager
 
 from ..constants import WeightUnits
 
-DEFAULT_RATING = 50
-MAX_RATING = 100
-MIN_RATING = 0
+MAX_RATING = 5
+MIN_RATING = 1
 
 
 @python_2_unicode_compatible
@@ -94,8 +93,7 @@ class ProductReview(models.Model):
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = RichTextField()
     rating = models.PositiveSmallIntegerField(
-        _('rating'), default=DEFAULT_RATING,
-        validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)]
+        _('rating'), validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)]
     )
     submitted_on = models.DateTimeField(auto_now_add=True)
     last_edited_on = models.DateTimeField(auto_now=True)
