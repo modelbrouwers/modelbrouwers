@@ -23,6 +23,7 @@ install:
   - npm install -g gulp
   - npm install
   - gulp sass
+  - npm run build
 
 before_script:
   - src/manage.py collectstatic --noinput --link -v 0
