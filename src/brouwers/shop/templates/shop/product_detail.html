@@ -86,10 +86,14 @@
                                         <li class="product__review-item">
                                             <div class="review__info">
                                                 <div class="review__left-content">
-                                                    <span class="review__reviewer-name">{{ review.reviewer.username }}</span>
-                                                    <span class="review__date">{{ review.submitted_on|date:"d.m.Y" }}</span>
+                                                    <span class="review__reviewer-name">
+                                                        {{ review.reviewer.username }}
+                                                    </span>
+                                                    <span class="review__date">
+                                                        {{ review.submitted_on|date:"d.m.Y" }}
+                                                    </span>
                                                 </div>
-                                                <p class="review__rating">{{ review.rating }}</p>
+                                                <div class="review__rating">{{ review.rating }}</div>
                                             </div>
                                             <p class="review__text">{{ review.text|safe }}</p>
                                         </li>

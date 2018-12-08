@@ -1,0 +1,34 @@
+.rating-input {
+  display: flex;
+  // Reverse order of icons
+  justify-content: flex-end;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+
+  &__input, &__label {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &__option:hover, &__option:hover ~ &__option {
+    .rating-input__star {
+      & {
+        color: transparent;
+      }
+
+      &::before {
+        content: "\2605";
+        position: absolute;
+        color: $main-orange;
+      }
+    }
+  }
+
+  &__star {
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+
+
