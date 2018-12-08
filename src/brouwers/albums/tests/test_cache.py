@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from brouwers.users.tests.factories import UserFactory
 
@@ -10,7 +10,11 @@ class CacheTests(TestCase):
     """ Test that the cache functions correctly """
     def setUp(self):
         cache.clear()
+        self.addCleanup(cache.clear)
 
+    @override_settings(CACHES={'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }})
     def test_preferences_cache(self):
         user = UserFactory.create()
 
