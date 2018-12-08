@@ -172,7 +172,15 @@
                 <input type="radio" name="{{ html_name }}" id="{{ id}}_{{ forloop.counter0 }}"
                 value="{{ val }}" {% if val == value|default:"" %}checked{% endif %} class="rating-input__input">
                 <label for="{{ id}}_{{ forloop.counter0 }}" class="rating-input__label">{{ display }}</label>
-                <span class="rating-input__star">☆</span>
+                <span class="rating-input__star" data-id="{{ id}}_{{ forloop.counter0 }}" onclick="onClick(this)">☆</span>
+                <!-- TODO Remove inline JS when webpack PR is merged -->
+                 <script>
+                    function onClick(target) {
+                        var id = target.dataset.id;
+                        target.parentNode.classList.add('rating-input__option--is-active');
+                        document.getElementById(id).checked = true;
+                    }
+                </script>
             </li>
         {% endfor %}
         </ul

@@ -10,16 +10,18 @@
     opacity: 0;
   }
 
-  &__option:hover, &__option:hover ~ &__option {
-    .rating-input__star {
-      & {
-        color: transparent;
-      }
+  &__option {
+    &:hover, &--is-active, &:hover ~ &, &--is-active ~ & {
+      .rating-input__star {
+        & {
+          color: transparent;
+        }
 
-      &::before {
-        content: "\2605";
-        position: absolute;
-        color: $main-orange;
+        &::before {
+          content: "\2605";
+          position: absolute;
+          color: $main-orange;
+        }
       }
     }
   }
@@ -29,6 +31,3 @@
     cursor: pointer;
   }
 }
-
-
-
