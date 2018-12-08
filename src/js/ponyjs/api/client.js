@@ -1,9 +1,6 @@
 /* */
 "use strict";
 
-// loads the polyfills like Object.assign
-import "core-js";
-
 import url from "url";
 
 import { HttpClient as _HttpClient } from "aurelia-http-client";
