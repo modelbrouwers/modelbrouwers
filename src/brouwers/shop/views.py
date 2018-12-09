@@ -54,7 +54,6 @@ class ProductDetailView(ModelFormMixin, DetailView):
         form.instance.reviewer = self.request.user
         form.instance.product = get_object_or_404(Product, slug=self.kwargs['slug'])
         if form.is_valid():
-            print 'valid', form
             return redirect(self.get_success_url())
         context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)
