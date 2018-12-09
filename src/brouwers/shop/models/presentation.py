@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 @python_2_unicode_compatible
 class HomepageCategory(models.Model):
-    main_category = models.ForeignKey('Category', related_name='homepage_categories', null=True, blank=True)
+    main_category = models.OneToOneField('Category', related_name='homepage_categories')
     order = models.PositiveIntegerField(_('order'), help_text=_('Order in which to display category on the homepage'))
 
     class Meta:
@@ -22,7 +22,7 @@ class HomepageCategory(models.Model):
 @python_2_unicode_compatible
 class HomepageCategoryChild(models.Model):
     parent = models.ForeignKey('HomepageCategory', related_name='children')
-    category = models.ForeignKey('Category', related_name='homepage_category_children', null=True, blank=True)
+    category = models.ForeignKey('Category', related_name='homepage_category_children')
     order = models.PositiveIntegerField(_('order'), help_text=_('Order in which to display category on the homepage'))
 
     class Meta:

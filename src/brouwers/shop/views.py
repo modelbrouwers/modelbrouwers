@@ -41,7 +41,8 @@ class ProductDetailView(ModelFormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['categories'] = Category.get_tree().filter(depth=1, enabled=True)
-        context['form'] = self.get_form()
+        if 'form' not in kwargs:
+            context['form'] = self.get_form()
         return context
 
     def get_success_url(self):
@@ -53,6 +54,7 @@ class ProductDetailView(ModelFormMixin, DetailView):
         form.instance.reviewer = self.request.user
         form.instance.product = get_object_or_404(Product, slug=self.kwargs['slug'])
         if form.is_valid():
+            print 'valid', form
             return redirect(self.get_success_url())
-        context = self.get_context_data(**kwargs)
+        context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)

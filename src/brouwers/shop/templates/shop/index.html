@@ -6,9 +6,10 @@
         <div id="category-carousel" class="category__carousel carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#category-carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#category-carousel" data-slide-to="1"></li>
-                <li data-target="#category-carousel" data-slide-to="2"></li>
+                {% for image in  carousel_images %}
+                    <li data-target="#category-carousel_{{ forloop.counter0 }}" data-slide-to="{{ forloop.counter0 }}"
+                        class="active"></li>
+                {% endfor %}
             </ol>
 
             <!-- Wrapper for slides -->

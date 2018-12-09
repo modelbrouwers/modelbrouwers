@@ -91,7 +91,7 @@ class ProductBrand(models.Model):
 class ProductReview(models.Model):
     product = models.ForeignKey('Product', related_name='reviews', null=True, blank=True)
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    text = RichTextField()
+    text = models.TextField()
     rating = models.PositiveSmallIntegerField(
         _('rating'), validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)]
     )

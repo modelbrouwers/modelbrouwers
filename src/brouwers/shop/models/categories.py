@@ -31,6 +31,7 @@ class Category(MP_Node):
         return reverse('shop:category-detail', kwargs={'slug': self.slug})
 
 
+@python_2_unicode_compatible
 class CategoryCarouselImage(models.Model):
     title = models.CharField(_('title'), max_length=100)
     image = models.ImageField(_('category carousel image'), upload_to='shop/category/')
@@ -39,3 +40,6 @@ class CategoryCarouselImage(models.Model):
     class Meta:
         verbose_name = _('category carousel image')
         verbose_name_plural = _('category carousel images')
+
+    def __str__(self):
+        return self.title
