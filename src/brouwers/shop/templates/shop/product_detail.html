@@ -62,12 +62,13 @@
                 <div class="product__tabs">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
+                        <li role="presentation" class="{% if not form.errors %}active{% endif %}">
                             <a href="#description" aria-controls="home" role="tab" data-toggle="tab">
                                 {% trans 'Description' %}
+
                             </a>
                         </li>
-                        <li role="presentation">
+                        <li role="presentation" class="{% if form.errors %}active{% endif %}">
                             <a href="#reviews" aria-controls="profile" role="tab" data-toggle="tab">
                                 {% trans 'Reviews' %} ({{ product.reviews.all|length }})
                             </a>
@@ -76,10 +77,11 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content product__tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="description">
+                        <div role="tabpanel" class="tab-pane {% if not form.errors %}active{% endif %}"
+                             id="description">
                             {{ product.description|safe }}
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="reviews">
+                        <div role="tabpanel" class="tab-pane {% if form.errors %}active{% endif %}" id="reviews">
                             {% if product.reviews.all|length %}
                                 <ul class="product__reviews">
                                     {% for review in product.reviews.all %}
