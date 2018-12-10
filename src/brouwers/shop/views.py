@@ -49,11 +49,12 @@ class ProductDetailView(ModelFormMixin, DetailView):
         return reverse('shop:product-detail', kwargs={'slug': self.object.product.slug})
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
         form = self.get_form()
         form.instance.reviewer = self.request.user
         form.instance.product = get_object_or_404(Product, slug=self.kwargs['slug'])
         if form.is_valid():
+            self.object = form.save()
             return redirect(self.get_success_url())
+        self.object = self.get_object()
         context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)
