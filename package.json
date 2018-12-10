@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "webpack --config webpack.config.js --mode=production",
+        "build": "gulp sass && webpack --config webpack.config.js --mode=production",
         "dev": "webpack --config webpack.config.js --mode=development --watch=true",
         "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
     },
