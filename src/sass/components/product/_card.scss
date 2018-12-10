@@ -1,0 +1,27 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 150px;
+  border: $border;
+  padding: 5px;
+  margin: 0 15px 20px 0;
+
+  &__image {
+    width: 100%;
+    flex: 1 0 auto;
+  }
+
+  &__name {
+    color: $text-color;
+    padding: 5px 0;
+    flex: 1 0 auto;
+    font-size: 12px;
+  }
+
+  &__price {
+    font-weight: bold;
+    margin: 5px 0;
+    flex: 0;
+  }
+}

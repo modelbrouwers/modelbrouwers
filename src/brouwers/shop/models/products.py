@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -12,9 +14,8 @@ from taggit.managers import TaggableManager
 
 from ..constants import WeightUnits
 
-DEFAULT_RATING = 50
-MAX_RATING = 100
-MIN_RATING = 0
+MAX_RATING = 5
+MIN_RATING = 1
 
 
 @python_2_unicode_compatible
@@ -28,6 +29,7 @@ class Product(models.Model):
     vat = models.DecimalField(_('vat'), max_digits=3, decimal_places=2, default=0)
     description = RichTextField(blank=True)
     seo_keyword = models.CharField(_('seo keyword'), max_length=200, null=True, blank=True)
+    image = models.ImageField(_('image'), upload_to='shop/product/', null=True, blank=True)
 
     # dimensional data
     length = models.DecimalField(_('length'), max_digits=10, decimal_places=2, default=0)
@@ -50,6 +52,16 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name or self.name_nl
+
+    def get_absolute_url(self):
+        return reverse('shop:product-detail', kwargs={'slug': self.slug})
+
+    def get_image_url(self):
+        image = self.image
+
+        if not image:
+            return static('images/shop/placeholder.gif')
+        return image.url
 
 
 class ProductImage(models.Model):
@@ -79,10 +91,9 @@ class ProductBrand(models.Model):
 class ProductReview(models.Model):
     product = models.ForeignKey('Product', related_name='reviews', null=True, blank=True)
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    text = RichTextField()
+    text = models.TextField()
     rating = models.PositiveSmallIntegerField(
-        _('rating'), default=DEFAULT_RATING,
-        validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)]
+        _('rating'), validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)]
     )
     submitted_on = models.DateTimeField(auto_now_add=True)
     last_edited_on = models.DateTimeField(auto_now=True)
@@ -93,7 +104,7 @@ class ProductReview(models.Model):
 
     def __str__(self):
         return _('Review: %(product)s by %(user)s') % {
-            'kit': self.product.name,
+            'product': self.product.name,
             'user': self.reviewer.username,
         }
 

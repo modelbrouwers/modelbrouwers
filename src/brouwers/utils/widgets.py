@@ -1,5 +1,9 @@
-from django.forms.widgets import NumberInput
+from django.forms.widgets import NumberInput, RadioSelect
 
 
 class RangeInput(NumberInput):
     input_type = 'range'
+
+
+class StarRatingSelect(RadioSelect):
+    pass

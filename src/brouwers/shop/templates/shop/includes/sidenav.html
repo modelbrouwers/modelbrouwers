@@ -1,0 +1,23 @@
+{% load i18n %}
+<ul class="category-sidenav">
+    <li class="category-sidenav__header">
+        {% trans "Categories" %}
+    </li>
+    {% with root_id=category.get_root.id %}
+        {% for cat in categories %}
+            <li class="category-sidenav__item">
+                <a class="category-sidenav__link {% if cat.id == category.id %}category-sidenav__link--active{% endif %}"
+                   href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+                {% if cat.id == category.id and not cat.is_leaf or cat.id == root_id %}
+                    <ul class="category-sidenav__subcategories">
+                        {% for subcat in cat.get_children %}
+                            <li class="category-sidenav__subcategory {% if subcat.id == category.id %}category-sidenav__subcategory--active{% endif %}">
+                                <a href="{{ subcat.get_absolute_url }}">{{ subcat.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    {% endwith %}
+</ul>

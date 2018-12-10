@@ -8,8 +8,8 @@ from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
 from .models import (
-    Category, Product, ProductBrand, ProductImage, ProductManufacturer,
-    ProductReview
+    Category, CategoryCarouselImage, HomepageCategory, HomepageCategoryChild,
+    Product, ProductBrand, ProductImage, ProductManufacturer, ProductReview
 )
 from .resources import CategoryResource, ProductResource
 
@@ -44,11 +44,8 @@ class ProductAdmin(ImportExportModelAdmin):
         'tag_list'
     )
     list_filter = (
-        'name',
         'seo_keyword',
         'brand',
-        'model_name',
-        'stock',
         'price',
         'length',
         'width',
@@ -61,7 +58,7 @@ class ProductAdmin(ImportExportModelAdmin):
     search_fields = (
         'name',
         'seo_keyword',
-        'brand',
+        'brand__name',
         'model_name',
         'stock',
         'price',
@@ -69,7 +66,7 @@ class ProductAdmin(ImportExportModelAdmin):
         'width',
         'height',
         'weight',
-        'manufacturer',
+        'manufacturer__name',
     )
     raw_id_fields = ('brand', 'related_products', 'categories', 'manufacturer')
     resource_class = ProductResource
@@ -97,8 +94,8 @@ class ProductBrandAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ('product', 'image')
-    list_filter = ('product',)
+    #list_display = ('product', 'image')
+    # list_filter = ('product',)
     search_fields = ('product',)
 
 
@@ -107,3 +104,26 @@ class ProductManufacturerAdmin(admin.ModelAdmin):
     list_display = ('name',)
     list_filter = ('name',)
     search_fields = ('name',)
+
+
+@admin.register(CategoryCarouselImage)
+class CategoryCarouselImageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image', 'visible')
+    list_filter = ('title', 'image', 'visible')
+    list_search = ('title', 'image', 'visible')
+
+
+@admin.register(HomepageCategory)
+class HomepageCategoryAdmin(admin.ModelAdmin):
+    list_display = ('main_category', 'order',)
+    raw_id_fields = ('main_category',)
+    list_filter = ('order',)
+    list_search = ('order',)
+
+
+@admin.register(HomepageCategoryChild)
+class HomepageCategoryChild(admin.ModelAdmin):
+    list_display = ('category', 'order')
+    raw_id_fields = ('category',)
+    list_filter = ('order',)
+    list_search = ('order',)

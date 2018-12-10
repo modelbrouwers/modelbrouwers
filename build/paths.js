@@ -11,7 +11,8 @@ var jsRoot = sourcesRoot + "js/";
  */
 module.exports = {
     // Path to the sass (sources) directory
-    sassSrc: sourcesRoot + "sass/**/*.scss",
+    sassSrc: sourcesRoot + "sass/*.scss",
+    sassWatchSrc: sourcesRoot + "sass/**/*.scss",
 
     // Path to the (transpiled) css directory
     cssDir: staticRoot + "css/",
