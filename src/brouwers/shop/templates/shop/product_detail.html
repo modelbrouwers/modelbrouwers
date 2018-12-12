@@ -1,4 +1,4 @@
-{% extends "shop/base.html" %} {% load i18n sniplates %}
+{% extends "shop/base.html" %} {% load i18n sniplates brouwers %}
 
 {% block content %}
     <div class="wrapper">
@@ -51,14 +51,21 @@
                         <span class="product__text product__text--lg">{{ product.price }} &euro;</span>
                     </div>
 
+                    {% if product.reviews %}
+                        <div class="product__rating">
+                            {% review_rating rating_pct=product.avg_rating max_rating=5 %}
+                            <span class="product__rating-info">{{ product.avg_rating|floatformat:'-1' }}/5</span>
+                        </div>
+                    {% endif %}
+
                     <div class="product__order">
                         <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
                         <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
                                value="1">
                         <button class="button button--blue button--order">{% trans 'Add to cart' %}</button>
                     </div>
-
                 </div>
+
                 <div class="product__tabs">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">

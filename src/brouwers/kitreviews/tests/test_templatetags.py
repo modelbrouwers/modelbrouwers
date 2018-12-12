@@ -11,7 +11,7 @@ class KitReviewTagsTests(SimpleTestCase):
 
     def test_review_rating(self):
         tpl = """
-        {% load kitreviews %}
+        {% load brouwers %}
         {% review_rating rating num_stars=num_stars %}
         """
         template = self._load_template(tpl)

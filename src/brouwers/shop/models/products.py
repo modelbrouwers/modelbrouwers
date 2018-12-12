@@ -12,6 +12,7 @@ from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
+from ..managers import ProductQuerySet
 from ..constants import WeightUnits
 
 MAX_RATING = 5
@@ -45,6 +46,7 @@ class Product(models.Model):
     manufacturer = models.ForeignKey('ProductManufacturer', related_name='products', null=True, blank=True,
                                      on_delete=models.PROTECT)
     tags = TaggableManager()
+    objects = ProductQuerySet.as_manager()
 
     class Meta:
         verbose_name = _('product')
