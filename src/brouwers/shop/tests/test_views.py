@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.utils.translation import ugettext as _
-
+from django.template import engines
+from django.test import TestCase
 from django_webtest import WebTest
 
 from .factories import ProductFactory
@@ -8,6 +9,7 @@ from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
 
 from ..models import ProductReview
+from .factories import CategoryFactory
 
 
 class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
@@ -51,3 +53,53 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         self.assertEqual(review.product, self.product)
         self.assertEqual(review.text, 'My very short review')
         self.assertEqual(review.reviewer, user)
+
+
+class BreadcrumbsTests(TestCase):
+
+    def _load_template(self, tpl):
+        return engines['django'].from_string(tpl)
+
+    def test_breadcrumbs_render(self):
+        """
+        Asserts that breadcrumbs are rendered correctly.
+        """
+        tpl = "{% include 'shop/includes/breadcrumbs.html' with curr_node=node%}"
+        template = self._load_template(tpl)
+
+        root = CategoryFactory.create().add_root(name='Root')
+        child1 = root.add_child(name='Child1')
+        child2 = child1.add_child(name='Child2')
+
+        rendered = template.render({'node': child2})
+        self.assertHTMLEqual(
+            rendered,
+            '<div class="breadcrumbs">'
+            '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
+            '<span class="breadcrumbs__separator"> > </span>'
+            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
+            '<span class="breadcrumbs__separator"> > </span>'
+            '<a class="breadcrumbs__item" href="/winkel/categories/child1/">Child1</a>'
+            '<span class="breadcrumbs__separator"> > </span>'
+            '<a class="breadcrumbs__item" href="/winkel/categories/child2/">Child2</a></div>'
+        )
+
+        rendered2 = template.render({'node': child1})
+        self.assertHTMLEqual(
+            rendered2,
+            '<div class="breadcrumbs">'
+            '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
+            '<span class="breadcrumbs__separator"> > </span>'
+            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
+            '<span class="breadcrumbs__separator"> > </span>'
+            '<a class="breadcrumbs__item" href="/winkel/categories/child1/">Child1</a>'
+        )
+
+        rendered3 = template.render({'node': root})
+        self.assertHTMLEqual(
+            rendered3,
+            '<div class="breadcrumbs">'
+            '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
+            '<span class="breadcrumbs__separator"> > </span>'
+            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
+        )
