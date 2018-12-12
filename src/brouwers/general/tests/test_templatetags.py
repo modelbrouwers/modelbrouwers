@@ -76,7 +76,7 @@ class BlockVerbatimTestCase(unittest.TestCase):
         self.assertRaises(TemplateSyntaxError, _create_template)
 
 
-class KitReviewTagsTests(SimpleTestCase):
+class RatingTests(SimpleTestCase):
     def _load_template(self, tpl):
         return engines['django'].from_string(tpl)
 
