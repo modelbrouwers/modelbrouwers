@@ -1,15 +1,15 @@
-from django.urls import reverse
-from django.utils.translation import ugettext as _
 from django.template import engines
 from django.test import TestCase
+from django.urls import reverse
+from django.utils.translation import ugettext as _
+
 from django_webtest import WebTest
 
-from .factories import ProductFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
 
 from ..models import ProductReview
-from .factories import CategoryFactory
+from .factories import CategoryFactory, ProductFactory
 
 
 class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):

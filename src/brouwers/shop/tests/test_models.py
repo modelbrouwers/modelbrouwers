@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 import csv
 import io
 
-from django.urls import reverse
 from django.test import TestCase
+from django.urls import reverse
 
 from django_webtest import WebTest
 

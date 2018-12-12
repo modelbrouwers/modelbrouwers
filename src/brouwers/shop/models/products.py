@@ -12,8 +12,8 @@ from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
-from ..managers import ProductQuerySet
 from ..constants import WeightUnits
+from ..managers import ProductQuerySet
 
 MAX_RATING = 5
 MIN_RATING = 1

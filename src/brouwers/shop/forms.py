@@ -1,6 +1,6 @@
 from django import forms
 
-from brouwers.shop.models import ProductReview, MAX_RATING, MIN_RATING
+from brouwers.shop.models import MAX_RATING, MIN_RATING, ProductReview
 from brouwers.utils.widgets import StarRatingSelect
 
 
