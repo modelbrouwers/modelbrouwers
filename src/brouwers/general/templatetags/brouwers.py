@@ -1,3 +1,5 @@
+from __future__ import division
+
 from django import template
 
 register = template.Library()
@@ -40,8 +42,8 @@ def review_rating(rating_pct, num_stars=5, max_rating=100):
             'half': False,
             'open': range(num_stars)
         }
-    full = int(float(rating_pct) / max_rating * num_stars)
-    empty = int((max_rating - float(rating_pct)) / max_rating * num_stars)
+    full = int(rating_pct / max_rating * num_stars)
+    empty = int((max_rating - rating_pct) / max_rating * num_stars)
 
     return {
         'full': range(full),
