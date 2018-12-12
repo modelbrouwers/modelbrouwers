@@ -5,6 +5,7 @@ import csv
 import io
 
 from django.urls import reverse
+from django.test import TestCase
 
 from django_webtest import WebTest
 
@@ -35,3 +36,20 @@ class CategoryImportExportTest(WebTest):
         export_fields = ['id', 'name', 'image', 'seo_keyword', 'enabled']
 
         self.assertEqual(headers, export_fields)
+
+
+class CategoryModelTest(TestCase):
+    def setUp(self):
+        self.category = CategoryFactory.create()
+
+    def test_nesting(self):
+        root = self.category.add_root(name='Root')
+        self.assertEquals(root.name, 'Root')
+
+        child1 = root.add_child(name='Child')
+        child2 = root.add_child(name='Child2')
+
+        self.assertEquals(len(root.get_children()), 2)
+
+        child1.add_child()
+        self.assertEquals(len(child1.get_children()), 1)
