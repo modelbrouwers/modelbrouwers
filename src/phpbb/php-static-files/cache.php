@@ -7,29 +7,32 @@ define('PREFIX_KEY', $settings->KEY_PREFIX);
 
 
 class StaticCache extends Memcached {
-	protected $TIMEOUT = 900; // 15 minutes
+    protected $TIMEOUT = 900; // 15 minutes
 
-	public function __construct($persistent_id = '') {
-		parent::__construct($persistent_id);
-		$this->setOption(Memcached::OPT_PREFIX_KEY, PREFIX_KEY);
-	}
+    public function __construct($persistent_id = '') {
+        parent::__construct($persistent_id);
+        $this->setOption(Memcached::OPT_PREFIX_KEY, PREFIX_KEY);
+    }
 
-	/**
-	 * Set up the connection
-	 */
-	function init() {
-		$server_list = $this->getServerList();
-		if(count($server_list) === 0) {
-			$this->addServer('localhost', 11211);
-		}
-	}
+    /**
+     * Set up the connection
+     */
+    function init() {
+        $server_list = $this->getServerList();
 
-	function set($key, $value, $expiration=null) {
-		if(!$expiration) {
-			$expiration = $this->TIMEOUT;
-		}
-		parent::set($key, $value, $expiration);
-	}
+        $host = getenv('MEMCACHED_HOST') ?: 'localhost';
+        $port = getenv('MEMCACHED_PORT') ?: 112111;
+        if(count($server_list) === 0) {
+            $this->addServer($host, $port);
+        }
+    }
+
+    function set($key, $value, $expiration=null) {
+        if(!$expiration) {
+            $expiration = $this->TIMEOUT;
+        }
+        parent::set($key, $value, $expiration);
+    }
 
 }
 ?>

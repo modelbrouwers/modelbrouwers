@@ -7,7 +7,8 @@ function joinPath() {
 	return implode(DIRECTORY_SEPARATOR, $bits);
 }
 
-$PROJECT_DIR = realpath(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'phpbb');
+$DEFAULT_PROJECT_DIR = realpath(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'phpbb');
+$PROJECT_DIR = getenv('PROJECT_DIR') ?: $DEFAULT_PROJECT_DIR;
 $ROOT_DIR = dirname(dirname($PROJECT_DIR));
 
 $settings = new stdClass();
