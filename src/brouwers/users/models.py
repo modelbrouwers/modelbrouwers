@@ -96,6 +96,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # cross db-relation
     forumuser_id = models.IntegerField(_('forum user id'), blank=True, null=True)
 
+    customer_group = models.ForeignKey('shop.CustomerGroup', related_name=_('users'), null=True)
+
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
