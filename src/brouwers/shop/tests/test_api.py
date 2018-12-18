@@ -8,9 +8,9 @@ from brouwers.users.tests.factories import UserFactory
 from .factories import ProductFactory
 
 
-class CartApiTest(APITransactionTestCase):
+class ProductApiTest(APITransactionTestCase):
     """
-      Test that CRUD operations for a cart work correctly
+      Test that CRUD operations for products work correctly
     """
 
     def setUp(self):
