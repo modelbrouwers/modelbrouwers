@@ -16,23 +16,9 @@ class CategoryFactory(factory.django.DjangoModelFactory):
         model = Category
 
 
-class ProductFactory(factory.django.DjangoModelFactory):
-    name = factory.Faker('name')
-    model_name = factory.Faker('name')
-    stock = factory.fuzzy.FuzzyInteger(1, 8)
-    price = factory.fuzzy.FuzzyDecimal(1, 50)
-    vat = factory.fuzzy.FuzzyDecimal(0, 25)
-    brand = factory.SubFactory(ProductBrand)
-    manufacturer = factory.SubFactory(ProductManufacturer)
-    category = factory.SubFactory(Category)
-    seo_keyword = factory.Faker('bs')
-
-    class Meta:
-        model = Product
-
-
 class ProductBrandFactory(factory.django.DjangoModelFactory):
     name = factory.Faker('name')
+    logo = factory.django.ImageField(color='blue')
 
     class Meta:
         model = ProductBrand
@@ -43,3 +29,29 @@ class ProductManufacturerFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = ProductManufacturer
+
+
+class ProductFactory(factory.django.DjangoModelFactory):
+    name = factory.Faker('name')
+    model_name = factory.Faker('name')
+    stock = factory.fuzzy.FuzzyInteger(1, 8)
+    price = factory.fuzzy.FuzzyDecimal(0, 5)
+    vat = factory.fuzzy.FuzzyDecimal(0, 2)
+    brand = factory.SubFactory(ProductBrandFactory)
+    manufacturer = factory.SubFactory(ProductManufacturerFactory)
+    seo_keyword = factory.Faker('bs')
+
+    class Meta:
+        model = Product
+
+    @factory.post_generation
+    def categories(self, create, extracted, **kwargs):
+        if not create:
+            return
+
+        if extracted:
+            for category in extracted:
+                if isinstance(category, Category):
+                    self.categories.add(category)
+                else:
+                    self.categories.add(CategoryFactory.create(category=category))

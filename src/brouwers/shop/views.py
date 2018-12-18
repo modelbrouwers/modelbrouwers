@@ -33,6 +33,7 @@ class CategoryDetailView(DetailView):
 
 
 class ProductDetailView(ModelFormMixin, DetailView):
+    queryset = Product.objects.annotate_mean_rating()
     context_object_name = 'product'
     template_name = 'shop/product_detail.html'
     model = Product
