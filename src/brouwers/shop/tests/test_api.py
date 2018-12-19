@@ -26,6 +26,7 @@ class ProductApiTest(APITransactionTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], product.pk)
         self.assertEqual(response.data['name'], product.name)
+        self.assertEqual(response.data['brand'], product.brand.id)
 
 
 class CartApiTest(APITransactionTestCase):
@@ -45,3 +46,11 @@ class CartApiTest(APITransactionTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], cart.pk)
         self.assertEqual(response.data['status'], cart.status)
+
+    def test_get_cart_product(self):
+        cart_product = CartProductFactory.create()
+        response = self.client.get(reverse('api:cartproduct-detail', args=[cart_product.pk]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['id'], cart_product.pk)
+        self.assertEqual(response.data['amount'], cart_product.amount)
+        self.assertEqual(response.data['cart'], cart_product.cart.id)
