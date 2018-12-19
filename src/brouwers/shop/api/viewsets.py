@@ -16,7 +16,10 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
 
     def get_queryset(self):
-        return Cart.objects.filter(user=self.request.user)
+        qs = super(CartViewSet, self).get_queryset()
+        if self.request.user:
+            qs = Cart.objects.filter(user=self.request.user)
+        return qs
 
 
 class CartProductViewSet(viewsets.ModelViewSet):
@@ -24,4 +27,7 @@ class CartProductViewSet(viewsets.ModelViewSet):
     serializer_class = CartProductSerializer
 
     def get_queryset(self):
-        return CartProduct.objects.filter(cart__user=self.request.user)
+        qs = super(CartProductViewSet, self).get_queryset()
+        if self.request.user:
+            qs = CartProduct.objects.filter(cart__user=self.request.user)
+        return qs
