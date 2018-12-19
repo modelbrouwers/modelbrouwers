@@ -2,8 +2,11 @@ import factory
 import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
-from ..models import Category, Product, ProductBrand, ProductManufacturer, Cart, CartProduct
+
 from ..constants import CartStatuses
+from ..models import (
+    Cart, CartProduct, Category, Product, ProductBrand, ProductManufacturer
+)
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
