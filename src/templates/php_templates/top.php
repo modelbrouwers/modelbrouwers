@@ -1,6 +1,5 @@
 <?php
     $root = dirname(__FILE__).'/';
-    echo $root;
     require_once $root.'settings.php';
     // TODO: look into Twig templating so we can reuse django templates
 ?>
