@@ -1,11 +1,10 @@
-"use strict";
 
-import $ from "../../scripts/jquery.insertAtCaret";
+import $ from "../scripts/jquery.insertAtCaret";
 import Ps from "perfect-scrollbar";
 
-import Handlebars from "../../general/hbs-pony";
-import { Album } from "../models/album";
-import { MyPhoto } from "../models/photo";
+import Handlebars from "../general/hbs-pony";
+import { Album } from "../albums/models/album";
+import { MyPhoto } from "../albums/models/photo";
 
 let conf = {
     selectors: {
@@ -99,19 +98,23 @@ let loadPage = function(event) {
     return false;
 };
 
-$(function() {
-    // check if we're in posting mode
-    if ($(conf.selectors.post_textarea).length == 1) {
-        showSidebar();
-    }
 
-    $(conf.selectors.root)
-        .on("click", "[data-open], [data-close]", function() {
-            var selector = $(this).data("open") || $(this).data("close");
-            $(selector).toggleClass("open closed");
-            updateScrollbar();
-        })
-        .on("change", conf.selectors.albums_select, onAlbumSelectChange)
-        .on("click", conf.selectors.photo, insertPhotoAtCaret)
-        .on("click", conf.selectors.page_link, loadPage);
-});
+export default class App {
+    static init() {
+        // check if we're in posting mode
+        const textAreas = document.querySelectorAll(conf.selectors.post_textarea);
+        if (textAreas.length == 1) {
+            showSidebar();
+        }
+
+        $(conf.selectors.root)
+            .on("click", "[data-open], [data-close]", function() {
+                var selector = $(this).data("open") || $(this).data("close");
+                $(selector).toggleClass("open closed");
+                updateScrollbar();
+            })
+            .on("change", conf.selectors.albums_select, onAlbumSelectChange)
+            .on("click", conf.selectors.photo, insertPhotoAtCaret)
+            .on("click", conf.selectors.page_link, loadPage);
+    }
+}
