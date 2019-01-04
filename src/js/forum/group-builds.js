@@ -3,15 +3,16 @@
 import $ from "jquery";
 import URI from "urijs";
 
-import { getCookie, deleteCookie, setCookie } from "../../scripts/csrf";
-import Api from "../../scripts/api";
-import { GroupBuild } from "../models/groupbuild";
-import urlconf from "./urlconf";
+import { getCookie, deleteCookie, setCookie } from "../scripts/csrf";
+import Api from "../scripts/api";
+import { GroupBuild } from "../groupbuilds/models/groupbuild";
+import urlconf from './urlconf';
+
 
 /**
  * Check if a topic was created
  **/
-function checkParticipantTopicCreated() {
+const checkParticipantTopicCreated = () => {
     // check the referrer - did we come from create topic?
     let referrer = URI(document.referrer);
     let thisHost = referrer.host() == URI().host();
@@ -88,19 +89,21 @@ function setFinished(event) {
     return false;
 }
 
-// jQuery initialization
-$(function() {
-    let gb;
 
-    // get the page insets and render
-    $("div.gb-inset")
-        .each((i, div) => {
-            let inset = $(div);
-            gb = GroupBuild.objects
-                .get({ id: inset.data("id") })
-                .done(gb => gb.render(inset));
-        })
-        .on("click", "td.completed .fa-times", setFinished);
+export default class App {
+    static init() {
+        let gb;
 
-    checkParticipantTopicCreated();
-});
+        // get the page insets and render
+        $("div.gb-inset")
+            .each((i, div) => {
+                let inset = $(div);
+                gb = GroupBuild.objects
+                    .get({ id: inset.data("id") })
+                    .done(gb => gb.render(inset));
+            })
+            .on("click", "td.completed .fa-times", setFinished);
+
+        checkParticipantTopicCreated();
+    }
+}

@@ -3,7 +3,7 @@
 import Api from "../../scripts/api";
 import Model from "../../scripts/model";
 import Handlebars from "../../general/hbs-pony";
-import urlconf from "../forum/urlconf";
+import urlconf from "../../forum/urlconf";
 
 import "jquery-ui";
 import "../../scripts/jquery.serializeObject";
