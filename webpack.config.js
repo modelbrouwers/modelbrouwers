@@ -56,6 +56,9 @@ module.exports = {
 
     // Necessary for some libs that rely on global jQuery to work (e.g. Typeahead)
     plugins: [
+        new webpack.EnvironmentPlugin({
+            'BACKEND_SERVER': '/'
+        }),
         new webpack.ProvidePlugin({
             jQuery: "jquery",
             $: "jquery",

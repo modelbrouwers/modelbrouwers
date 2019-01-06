@@ -4,9 +4,11 @@ import "jquery";
 import Handlebars from "handlebars/dist/handlebars.min.js";
 import Q from "q";
 
+import { API_ROOT } from '../constants';
+
 let hbsHelpers = [];
 let urlconf = {
-    templates: "/templates/{0}/{1}/"
+    templates: `${API_ROOT}templates/{0}/{1}/`,
 };
 
 function _loadTemplate(app, name) {
