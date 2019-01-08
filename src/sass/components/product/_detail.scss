@@ -116,6 +116,21 @@
     margin-top: 40px;
     color: $text-color;
   }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+
+    .fa {
+      font-size: 18px;
+      color: $main-orange;
+    }
+  }
+
+  &__rating-info {
+    margin-left: 10px;
+  }
 }
 
 .review {
