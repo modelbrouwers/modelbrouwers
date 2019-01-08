@@ -67,7 +67,7 @@ tablib==0.12.1            # via django-import-export
 tinycss==0.3              # via weasyprint
 typing==3.6.2             # via django-extensions
 unicodecsv==0.14.1        # via tablib
-urllib3==1.22             # via requests
+urllib3==1.24.1           # via requests
 weasyprint==0.31
 webencodings==0.5.1       # via bleach, html5lib
 xlrd==1.1.0               # via tablib
