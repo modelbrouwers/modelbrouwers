@@ -17,7 +17,7 @@ class ActivationTokenGenerator(PasswordResetTokenGenerator):
 
         # user.is_active makes it a one time use only
         value = (six.text_type(user.pk) + user.password +
-                six.text_type(user.is_active))
+                 six.text_type(user.is_active))
         hash = salted_hmac(key_salt, value).hexdigest()[::2]
         return "%s-%s" % (user_info_b36, hash)
 
@@ -38,5 +38,6 @@ class ActivationTokenGenerator(PasswordResetTokenGenerator):
         if not constant_time_compare(self.make_token(user), token):
             return False
         return True
+
 
 activation_token_generator = ActivationTokenGenerator()

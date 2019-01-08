@@ -10,7 +10,7 @@ from ..constants import CartStatuses
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='carts')
     status = models.CharField(_('status'), max_length=10, choices=CartStatuses.choices)
 
     class Meta:

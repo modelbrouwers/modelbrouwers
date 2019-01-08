@@ -42,16 +42,18 @@ class CartApiTest(APITransactionTestCase):
 
     def test_get_cart(self):
         cart = CartFactory.create(user=self.user)
-        response = self.client.get(reverse('api:cart-detail', args=[cart.pk]))
+        response = self.client.get(reverse('api:cart-detail'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['id'], cart.pk)
-        self.assertEqual(response.data['status'], cart.status)
+        self.assertEqual(response.data['cart']['id'], cart.id)
+        self.assertEqual(response.data['cart']['status'], cart.status)
 
         # User shouldn't be able see other users' carts
         user2 = UserFactory.create()
+        self.client.force_authenticate(user=user2)
         cart2 = CartFactory.create(user=user2)
-        response = self.client.get(reverse('api:cart-detail', args=[cart2.pk]))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        response = self.client.get(reverse('api:cart-detail'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertNotEqual(response.data['cart']['id'], cart.id)
 
     def test_get_cart_product(self):
         cart = CartFactory.create(user=self.user)
