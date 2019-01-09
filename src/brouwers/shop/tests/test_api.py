@@ -8,6 +8,7 @@ from brouwers.users.tests.factories import UserFactory
 
 from ..constants import CartStatuses
 from .factories import CartFactory, CartProductFactory, ProductFactory
+from ..models import Cart
 
 
 class ProductApiTest(APITransactionTestCase):
@@ -82,7 +83,7 @@ class CartApiTest(APITransactionTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], cart_product.pk)
         self.assertEqual(response.data['amount'], cart_product.amount)
-        self.assertEqual(response.data['cart'], cart_product.cart.id)
+        self.assertEqual(response.data['cart']['id'], cart_product.cart.id)
 
         # User shouldn't be able see other users' cart products
         user2 = UserFactory.create()
@@ -90,3 +91,17 @@ class CartApiTest(APITransactionTestCase):
         cart_product2 = CartProductFactory.create(cart=cart2)
         response = self.client.get(reverse('api:cartproduct-detail', args=[cart_product2.pk]))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_add_cart_product(self):
+        cart = CartFactory.create(user=self.user)
+        product = ProductFactory.create()
+        data = {
+            'product': product.id,
+            'cart': cart.id,
+            'amount': 13
+        }
+        response = self.client.post(reverse('api:cartproduct-list'), data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        cart = Cart.objects.get(id=cart.id)
+        self.assertEqual(cart.cart_products.count(), 1)
+        self.assertEqual(cart.cart_products.first().amount, 13)

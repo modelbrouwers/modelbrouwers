@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 from ..models import Cart, CartProduct, Product
 from .serializers import (
-    CartProductSerializer, CartSerializer, ProductSerializer
+    ReadCartProductSerializer, WriteCartProductSerializer, CartSerializer, ProductSerializer
 )
 
 
@@ -39,10 +39,15 @@ class CartViewSet(views.APIView):
 
 class CartProductViewSet(viewsets.ModelViewSet):
     queryset = CartProduct.objects.all()
-    serializer_class = CartProductSerializer
 
     def get_queryset(self):
         qs = super(CartProductViewSet, self).get_queryset()
-        if self.request.user:
+        if self.request.user.is_authenticated():
             qs = CartProduct.objects.filter(cart__user=self.request.user)
         return qs
+
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return ReadCartProductSerializer
+        else:
+            return WriteCartProductSerializer

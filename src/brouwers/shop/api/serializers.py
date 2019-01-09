@@ -1,6 +1,5 @@
-from django.core.urlresolvers import reverse
-
-from rest_framework import fields, serializers
+from django.db.models import Q
+from rest_framework import serializers
 
 from brouwers.users.api.serializers import UserSerializer
 
@@ -29,9 +28,25 @@ class CartSerializer(serializers.ModelSerializer):
         return cart
 
 
-class CartProductSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
+class ReadCartProductSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+    cart = CartSerializer(read_only=True)
 
     class Meta:
         model = CartProduct
         fields = ('id', 'product', 'amount', 'cart')
+
+
+class WriteCartProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartProduct
+        fields = ('id', 'product', 'amount', 'cart')
+
+    def validate_cart(self, value):
+        cart = value
+        request = self._context['request']
+        qs = Cart.objects.filter(Q(user=request.user) | Q(id=request.session.get('cart_id')))
+
+        if cart not in qs:
+            raise serializers.ValidationError({"cart": "invalid cart"})
+        return value
