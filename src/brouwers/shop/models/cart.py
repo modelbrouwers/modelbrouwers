@@ -7,11 +7,14 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from ..constants import CartStatuses
+from ..managers import CartQuerySet
 
 
 class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='carts')
-    status = models.CharField(_('status'), max_length=10, choices=CartStatuses.choices)
+    status = models.CharField(_('status'), max_length=10, choices=CartStatuses.choices, default=CartStatuses.open)
+
+    objects = CartQuerySet.as_manager()
 
     class Meta:
         verbose_name = _('cart')

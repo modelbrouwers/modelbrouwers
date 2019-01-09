@@ -3,7 +3,6 @@ import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
 
-from ..constants import CartStatuses
 from ..models import (
     Cart, CartProduct, Category, Product, ProductBrand, ProductManufacturer
 )
@@ -64,7 +63,6 @@ class ProductFactory(factory.django.DjangoModelFactory):
 
 class CartFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
-    status = factory.fuzzy.FuzzyChoice(choices=CartStatuses.values)
 
     class Meta:
         model = Cart

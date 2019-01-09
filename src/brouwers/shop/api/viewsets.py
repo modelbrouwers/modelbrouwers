@@ -1,4 +1,4 @@
-from rest_framework import viewsets, views, generics
+from rest_framework import views, viewsets
 from rest_framework.response import Response
 
 from ..models import Cart, CartProduct, Product
@@ -19,7 +19,10 @@ class CartViewSet(views.APIView):
         if request.session.get('cart_id'):
             cart_id = request.session['cart_id']
         elif hasattr(request.user, 'carts'):
-            cart_id = request.user.carts.last().id
+            cart = request.user.carts.open().last()
+
+            if cart:
+                cart_id = cart.id
 
         if cart_id:
             cart = Cart.objects.get(id=cart_id)

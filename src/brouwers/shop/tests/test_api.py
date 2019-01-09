@@ -6,6 +6,7 @@ from rest_framework.test import APITransactionTestCase
 
 from brouwers.users.tests.factories import UserFactory
 
+from ..constants import CartStatuses
 from .factories import CartFactory, CartProductFactory, ProductFactory
 
 
@@ -47,6 +48,14 @@ class CartApiTest(APITransactionTestCase):
         self.assertEqual(response.data['cart']['id'], cart.id)
         self.assertEqual(response.data['cart']['status'], cart.status)
 
+        # Should return the last open cart
+        open_cart = CartFactory.create(user=self.user, status=CartStatuses.open)
+        closed_cart = CartFactory.create(user=self.user, status=CartStatuses.paid)
+        response = self.client.get(reverse('api:cart-detail'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['cart']['id'], open_cart.id)
+        self.assertNotEqual(response.data['cart']['id'], closed_cart.id)
+
         # User shouldn't be able see other users' carts
         user2 = UserFactory.create()
         self.client.force_authenticate(user=user2)
@@ -54,6 +63,17 @@ class CartApiTest(APITransactionTestCase):
         response = self.client.get(reverse('api:cart-detail'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertNotEqual(response.data['cart']['id'], cart.id)
+
+        # Anon user should get a new cart
+        self.client.logout()
+        response = self.client.get(reverse('api:cart-detail'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        cart = response.data['cart']
+
+        # Should get the same cart after the second request
+        response2 = self.client.get(reverse('api:cart-detail'))
+        self.assertEqual(response2.status_code, status.HTTP_200_OK)
+        self.assertEqual(response2.data['cart']['id'], cart['id'])
 
     def test_get_cart_product(self):
         cart = CartFactory.create(user=self.user)
@@ -70,4 +90,3 @@ class CartApiTest(APITransactionTestCase):
         cart_product2 = CartProductFactory.create(cart=cart2)
         response = self.client.get(reverse('api:cartproduct-detail', args=[cart_product2.pk]))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
