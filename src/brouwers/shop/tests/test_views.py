@@ -69,7 +69,9 @@ class BreadcrumbsTests(TestCase):
 
         root = CategoryFactory.create().add_root(name='Root')
         child1 = root.add_child(name='Child1')
+        child1.save()
         child2 = child1.add_child(name='Child2')
+        child2.save()
 
         rendered = template.render({'node': child2})
         self.assertHTMLEqual(
