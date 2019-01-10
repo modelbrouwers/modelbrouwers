@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.core.cache import cache
 from django.urls import reverse
 
@@ -7,8 +9,8 @@ from rest_framework.test import APITransactionTestCase
 from brouwers.users.tests.factories import UserFactory
 
 from ..constants import CartStatuses
-from .factories import CartFactory, CartProductFactory, ProductFactory
 from ..models import Cart
+from .factories import CartFactory, CartProductFactory, ProductFactory
 
 
 class ProductApiTest(APITransactionTestCase):
@@ -103,5 +105,30 @@ class CartApiTest(APITransactionTestCase):
         response = self.client.post(reverse('api:cartproduct-list'), data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         cart = Cart.objects.get(id=cart.id)
-        self.assertEqual(cart.cart_products.count(), 1)
-        self.assertEqual(cart.cart_products.first().amount, 13)
+        self.assertEqual(cart.products.count(), 1)
+        self.assertEqual(cart.products.first().amount, 13)
+
+        # Update product amount
+        cart_product = cart.products.first()
+        data = {'amount': 2}
+        self.client.patch(reverse('api:cartproduct-detail', args=[cart_product.pk]), data)
+        cart = Cart.objects.get(id=cart.id)
+        self.assertEqual(cart.products.count(), 1)
+        self.assertEqual(cart.products.first().amount, 2)
+
+    def test_cart_products_total(self):
+        product = ProductFactory.create(price=Decimal('1.15'))
+        cart_product = CartProductFactory.create(product=product, amount=4, cart__user=self.user)
+        response = self.client.get(reverse('api:cartproduct-detail', args=[cart_product.pk]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['total'], Decimal('4.60'))
+
+    def test_get_cart_total(self):
+        cart = CartFactory.create(user=self.user)
+        product = ProductFactory.create(price=Decimal('1.15'))
+        cart_product = CartProductFactory.create(product=product, amount=4, cart=cart)
+        product2 = ProductFactory.create(price=Decimal('0.15'))
+        cart_product2 = CartProductFactory.create(product=product2, amount=40, cart=cart)
+        response = self.client.get(reverse('api:cart-detail'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['cart']['total'], Decimal('10.60'))

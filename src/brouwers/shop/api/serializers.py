@@ -1,4 +1,5 @@
 from django.db.models import Q
+
 from rest_framework import serializers
 
 from brouwers.users.api.serializers import UserSerializer
@@ -14,18 +15,14 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    total = serializers.SerializerMethodField()
 
     class Meta:
         model = Cart
-        fields = ('id', 'user', 'status', 'cart_products')
+        fields = ('id', 'user', 'status', 'products', 'total')
 
-    def create(self, validated_data):
-        cart, created = Cart.objects.get_or_create(
-            id=self.request.session.cart_id,
-            user=self.request.user)
-        if not self.request.session.cart_id:
-            self.request.session.cart_id = cart.id
-        return cart
+    def get_total(self, obj):
+        return obj.total
 
 
 class ReadCartProductSerializer(serializers.ModelSerializer):
@@ -34,7 +31,7 @@ class ReadCartProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartProduct
-        fields = ('id', 'product', 'amount', 'cart')
+        fields = ('id', 'product', 'amount', 'cart', 'total')
 
 
 class WriteCartProductSerializer(serializers.ModelSerializer):

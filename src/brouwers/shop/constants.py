@@ -1,6 +1,10 @@
+from decimal import Decimal
+
 from django.utils.translation import ugettext_lazy as _
 
 from djchoices import ChoiceItem, DjangoChoices
+
+TWO_DIGITS = Decimal('0.01')
 
 
 class WeightUnits(DjangoChoices):

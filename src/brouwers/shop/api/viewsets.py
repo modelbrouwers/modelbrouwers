@@ -3,7 +3,8 @@ from rest_framework.response import Response
 
 from ..models import Cart, CartProduct, Product
 from .serializers import (
-    ReadCartProductSerializer, WriteCartProductSerializer, CartSerializer, ProductSerializer
+    CartSerializer, ProductSerializer, ReadCartProductSerializer,
+    WriteCartProductSerializer
 )
 
 
@@ -32,7 +33,6 @@ class CartViewSet(views.APIView):
             else:
                 cart = Cart.objects.create()
                 request.session['cart_id'] = cart.id
-
         response = {'cart': CartSerializer(cart).data}
         return Response(response)
 
