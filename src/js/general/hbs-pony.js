@@ -2,51 +2,31 @@
 
 import "jquery";
 import Handlebars from "handlebars/dist/handlebars.min.js";
-import Q from "q";
 
+import TemplateConsumer from '../data/hbs-template';
 import { API_ROOT } from '../constants';
 
 let hbsHelpers = [];
-let urlconf = {
-    templates: `${API_ROOT}templates/{0}/{1}/`,
-};
+const consumer = new TemplateConsumer();
 
-function _loadTemplate(app, name) {
-    // keep the templates in an object
-    Handlebars.templates = Handlebars.templates || {};
-
-    var deferred = Q.defer();
-    var tplName = "{0}::{1}".format(app, name);
-
-    // check the local cache first
-    if (Handlebars.templates[tplName] !== undefined) {
-        deferred.resolve(Handlebars.templates[tplName]);
-    } else {
-        // fetch from the server
-        var tplUrl = urlconf.templates.format(app, name);
-        $.get(tplUrl, function(tpl) {
-            Handlebars.templates[tplName] = Handlebars.compile(tpl);
-            deferred.resolve(Handlebars.templates[tplName]);
-        });
-    }
-    return deferred.promise;
-}
 
 /**
  * @param name: name of the template, in the format app::name
  */
-function renderTemplate(name, context, $dest) {
+function renderTemplate(name, context={}, $dest) {
     var bits = name.split("::");
-    var _app = bits[0],
-        _name = bits[1];
+    var app = bits[0],
+        name = bits[1];
 
-    return _loadTemplate(_app, _name).then(function(tpl) {
-        var rendered = tpl(context || {});
-        if ($dest) {
-            $dest.html(rendered);
-        }
-        return rendered;
-    });
+    return consumer
+        .loadTemplate(app, name)
+        .then(tpl => {
+            let rendered = tpl(context);
+            if ($dest) {
+                $dest.html(rendered);
+            }
+            return rendered;
+        });
 }
 if (Handlebars.renderTemplate) {
     console.warn("Warning: overwriting renderTemplate");
