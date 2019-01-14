@@ -1,21 +1,17 @@
 "use strict";
 
-import Q from "q";
 import Api from "./api";
 import Paginator from "./paginator";
 
 function handleError(xhr) {
     if (xhr.status === 400) {
         // bad request, validation error
-        return handleValidationErrors(xhr.responseJSON);
+        return Promise.reject(xhr.responseJSON);
     } else {
-        return Q.reject(xhr);
+        return Promise.reject(xhr);
     }
 }
 
-function handleValidationErrors(errorObj) {
-    return Q.reject(errorObj);
-}
 
 class Manager {
     constructor(modelClass) {
@@ -52,18 +48,17 @@ class Manager {
             });
     }
 
-    filter(filters, force_refresh) {
+    filter(filters, force_refresh=false) {
         // TODO: block until promise is resolved and return the result immediately?
         var endpoint = this.model._meta.endpoints.list;
         var self = this;
         var key = JSON.stringify(filters);
         var cached = self._objectCache[key];
         if (cached !== undefined && !force_refresh) {
-            let deferred = Q.defer();
-            deferred.resolve(cached);
-            return deferred.promise;
+            return Promise.resolve(cached);
         }
-        return Api.request(endpoint, filters)
+        return Api
+            .request(endpoint, filters)
             .get()
             .then(function(response) {
                 var paginator = new Paginator();
@@ -82,9 +77,7 @@ class Manager {
             // first check the local object cache
             var _obj = self._objectCache._objects[filters.id];
             if (_obj !== undefined) {
-                var deferred = Q.defer();
-                deferred.resolve(_obj);
-                return deferred.promise;
+                return Promise.resolve(_obj);
             }
             endpoint = endpoint.replace(":id", filters.id);
             delete filters.id;
