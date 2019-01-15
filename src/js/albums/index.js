@@ -1,11 +1,13 @@
 import "jquery";
 import Handlebars from "../general/hbs-pony";
-import { Photo } from "./models/photo";
+import { PhotoConsumer } from '../data/albums/photo';
 import { RotateControl, Control } from "./photo-detail";
 import { PhotoUpload } from "./upload";
 
 export default class Page {
     static init() {
+        this.photoConsumer = new PhotoConsumer();
+
         this.initLightbox();
         this.initControls();
         new PhotoUpload();
@@ -23,12 +25,12 @@ export default class Page {
                 photos: photos,
                 current: current
             };
-            Handlebars.render("albums::photo-lightbox", context).done(html => {
+            Handlebars.render("albums::photo-lightbox", context).then(html => {
                 $lightboxBody.append(html);
                 $lightbox.find(".active img").on("load", function() {
                     $("#image-loader").hide();
                 });
-            });
+            }).catch(console.error);
         };
 
         /* Closure to render the current photo in the lightbox */
@@ -39,27 +41,6 @@ export default class Page {
                 $lightbox.find(".carousel").trigger("slide.bs.carousel");
             };
         };
-
-        photoThumbs.on("click", ".album-photo", function(event) {
-            event.preventDefault();
-
-            const id = $(this).data("id");
-
-            // remove all 'old' bits
-            $lightboxBody.find(".modal-body").remove();
-            $("#image-loader").show();
-
-            // bring up the modal with spinner
-            $lightbox.modal("show");
-
-            // fetch the photo details from the Api
-            Photo.objects
-                .filter({
-                    page: window.page,
-                    album: window.album
-                })
-                .done(getLightboxRenderer(id));
-        });
 
         photoThumbs.on("click", ".album-photo", event => {
             event.preventDefault();
@@ -74,12 +55,10 @@ export default class Page {
             $lightbox.modal("show");
 
             // fetch the photo details from the Api
-            Photo.objects
-                .filter({
-                    page: window.page,
-                    album: window.album
-                })
-                .then(getLightboxRenderer(id));
+            photoConsumer
+                .getForAlbum(window.album, window.page)
+                .then(getLightboxRenderer(id))
+                .catch(console.error);
         });
     }
 
