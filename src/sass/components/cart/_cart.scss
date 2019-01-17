@@ -1,3 +1,36 @@
-.cart-container {
+.cart {
   padding: 20px;
+
+  &__row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__box {
+    border: 1px solid $main-blue;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-left: 20px;
+  }
+
+  &__price {
+    font-weight: bold;
+  }
+
+  &__icon {
+    color: $main-blue;
+    font-size: 24px;
+  }
 }
