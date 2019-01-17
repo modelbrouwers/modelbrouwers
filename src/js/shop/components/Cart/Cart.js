@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { CartConsumer } from "../../../data/albums/cart";
+import { Loader } from "../Loader";
 
 export default class Cart extends Component {
     constructor(props) {
@@ -10,6 +12,17 @@ export default class Cart extends Component {
                 products: []
             }
         };
+
+        this.cartConsumer = new CartConsumer();
+    }
+
+    componentDidMount() {
+        this.setState({ loading: true });
+        this.cartConsumer
+            .fetch()
+            .then(resp => this.setState({ cart: resp.cart }))
+            .catch(err => console.log("Error retrieving cart", err))
+            .then(() => this.setState({ loading: false }));
     }
 
     render() {
@@ -19,7 +32,7 @@ export default class Cart extends Component {
                 <div className="cart__box">
                     <i className="fa fa-shopping-basket cart__icon" />
                     {loading ? (
-                        <p>Loading...</p>
+                        <Loader />
                     ) : (
                         <div className="cart__info">
                             <div className="cart__items">

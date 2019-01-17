@@ -5,11 +5,11 @@ import { API_ROOT } from "../../constants";
 class Cart extends CrudConsumerObject {}
 
 export class CartConsumer extends CrudConsumer {
-    constructor(endpoint = `${API_ROOT}shop/cart`, objectClass = Cart) {
+    constructor(endpoint = `${API_ROOT}api/v1/shop/cart`, objectClass = Cart) {
         super(endpoint, objectClass);
     }
 
-    getCart() {
+    fetch() {
         return this.get("/");
     }
 
@@ -23,7 +23,7 @@ class CartProduct extends CrudConsumerObject {}
 
 export class CartProductConsumer extends CrudConsumer {
     constructor(
-        endpoint = `${API_ROOT}shop/cart-product`,
+        endpoint = `${API_ROOT}api/v1/shop/cart-product`,
         objectClass = CartProduct
     ) {
         super(endpoint, objectClass);
