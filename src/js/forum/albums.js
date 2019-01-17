@@ -1,4 +1,4 @@
-import insertTextAtCursor from 'insert-text-at-cursor';
+import insertTextAtCursor from "insert-text-at-cursor";
 import Ps from "perfect-scrollbar";
 
 import Handlebars from "../general/hbs-pony";
@@ -27,8 +27,8 @@ let updateScrollbar = function() {
 let renderSidebar = function(albums) {
     return Handlebars.render("albums::forum-sidebar", { albums: albums }).then(
         html => {
-            let body = document.querySelector('body');
-            body.insertAdjacentHTML('beforeend', html);
+            let body = document.querySelector("body");
+            body.insertAdjacentHTML("beforeend", html);
 
             let sidebar = document.querySelector(conf.selectors.root_sidebar);
             Ps.initialize($sidebar);
@@ -62,9 +62,7 @@ let renderAlbumPhotos = function(album, page) {
 };
 
 let showSidebar = function() {
-    Album.objects
-        .all()
-        .done(renderAlbumPhotos);
+    Album.objects.all().done(renderAlbumPhotos);
 };
 
 let onAlbumSelectChange = function(event) {
@@ -97,11 +95,12 @@ let loadPage = function(event) {
     return false;
 };
 
-
 export default class App {
     static init() {
         // check if we're in posting mode
-        const textAreas = document.querySelectorAll(conf.selectors.post_textarea);
+        const textAreas = document.querySelectorAll(
+            conf.selectors.post_textarea
+        );
         if (textAreas.length == 1) {
             renderSidebar([]);
             showSidebar();

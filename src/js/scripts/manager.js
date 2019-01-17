@@ -12,7 +12,6 @@ function handleError(xhr) {
     }
 }
 
-
 class Manager {
     constructor(modelClass) {
         this.model = modelClass;
@@ -48,7 +47,7 @@ class Manager {
             });
     }
 
-    filter(filters, force_refresh=false) {
+    filter(filters, force_refresh = false) {
         // TODO: block until promise is resolved and return the result immediately?
         var endpoint = this.model._meta.endpoints.list;
         var self = this;
@@ -57,8 +56,7 @@ class Manager {
         if (cached !== undefined && !force_refresh) {
             return Promise.resolve(cached);
         }
-        return Api
-            .request(endpoint, filters)
+        return Api.request(endpoint, filters)
             .get()
             .then(function(response) {
                 var paginator = new Paginator();

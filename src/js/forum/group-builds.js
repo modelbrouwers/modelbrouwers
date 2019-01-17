@@ -6,8 +6,7 @@ import URI from "urijs";
 import { getCookie, deleteCookie, setCookie } from "../scripts/csrf";
 import Api from "../scripts/api";
 import { GroupBuild } from "../groupbuilds/models/groupbuild";
-import urlconf from './urlconf';
-
+import urlconf from "./urlconf";
 
 /**
  * Check if a topic was created
@@ -52,7 +51,7 @@ const checkParticipantTopicCreated = () => {
                 });
         }
     }
-}
+};
 
 function setFinished(event) {
     event.preventDefault();
@@ -88,7 +87,6 @@ function setFinished(event) {
         );
     return false;
 }
-
 
 export default class App {
     static init() {

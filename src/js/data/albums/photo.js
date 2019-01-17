@@ -1,7 +1,6 @@
-import { CrudConsumer, CrudConsumerObject } from 'consumerjs';
+import { CrudConsumer, CrudConsumerObject } from "consumerjs";
 
-import { API_ROOT } from '../../constants';
-
+import { API_ROOT } from "../../constants";
 
 class Photo extends CrudConsumerObject {
     bbcode() {
@@ -13,14 +12,13 @@ class Photo extends CrudConsumerObject {
     }
 }
 
-
 class PhotoConsumer extends CrudConsumer {
-    constructor(endpoint=`${API_ROOT}albums/photo`, objectClass=Photo) {
+    constructor(endpoint = `${API_ROOT}albums/photo`, objectClass = Photo) {
         super(endpoint, objectClass);
     }
 
     getForAlbum(albumId, page) {
-        return this.get('/', {album: albumId, page: page});
+        return this.get("/", { album: albumId, page: page });
     }
 
     rotate(id, direction) {
@@ -29,16 +27,14 @@ class PhotoConsumer extends CrudConsumer {
     }
 }
 
-
 class MyPhoto extends CrudConsumerObject {
     setAsCover() {
         this.__consumer__.setAsCover(this.id);
     }
 }
 
-
 class MyPhotoConsumer extends CrudConsumer {
-    constructor(endpoint=`${API_ROOT}my/photos`, objectClass=Photo) {
+    constructor(endpoint = `${API_ROOT}my/photos`, objectClass = Photo) {
         super(endpoint, objectClass);
     }
 
@@ -46,6 +42,5 @@ class MyPhotoConsumer extends CrudConsumer {
         return this.post(`/${id}/set_cover/`);
     }
 }
-
 
 export { PhotoConsumer, MyPhotoConsumer };

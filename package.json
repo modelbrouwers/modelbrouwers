@@ -39,8 +39,11 @@
         "jquery": "^3.3.1",
         "jquery-ui": "^1.12.1",
         "js-cookie": "^2.2.0",
+        "mobx": "^5.8.0",
         "perfect-scrollbar": "^1.4.0",
         "q": "^1.5.1",
+        "react": "^16.7.0",
+        "react-dom": "^16.7.0",
         "string.prototype.startswith": "^0.2.0",
         "typeahead.js": "^0.11.1",
         "urijs": "^1.19.1"

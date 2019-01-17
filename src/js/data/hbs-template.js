@@ -1,17 +1,14 @@
-import { CrudConsumer, CrudConsumerObject } from 'consumerjs';
+import { CrudConsumer, CrudConsumerObject } from "consumerjs";
 import Handlebars from "handlebars/dist/handlebars.min.js";
 
-import { API_ROOT } from '../constants';
-
+import { API_ROOT } from "../constants";
 
 const TEMPLATE_CACHE = {};
 
-
 class Template extends CrudConsumerObject {}
 
-
 class TemplateConsumer extends CrudConsumer {
-    constructor(endpoint=`${API_ROOT}templates/`, objectClass=Template) {
+    constructor(endpoint = `${API_ROOT}templates/`, objectClass = Template) {
         super(endpoint, objectClass);
     }
 
@@ -22,14 +19,11 @@ class TemplateConsumer extends CrudConsumer {
             return Promise.resolve(tpl);
         }
 
-        return this
-            .get(`${app}/${name}/`)
-            .then(tpl => {
-                Handlebars.templates[tplName] = Handlebars.compile(tpl);
-                return Handlebars.templates[tplName];
-            });
+        return this.get(`${app}/${name}/`).then(tpl => {
+            Handlebars.templates[tplName] = Handlebars.compile(tpl);
+            return Handlebars.templates[tplName];
+        });
     }
 }
-
 
 export default TemplateConsumer;

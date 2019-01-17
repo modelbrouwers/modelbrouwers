@@ -1,6 +1,6 @@
 import "jquery";
 import Handlebars from "../general/hbs-pony";
-import { PhotoConsumer } from '../data/albums/photo';
+import { PhotoConsumer } from "../data/albums/photo";
 import { RotateControl, Control } from "./photo-detail";
 import { PhotoUpload } from "./upload";
 
@@ -25,12 +25,14 @@ export default class Page {
                 photos: photos,
                 current: current
             };
-            Handlebars.render("albums::photo-lightbox", context).then(html => {
-                $lightboxBody.append(html);
-                $lightbox.find(".active img").on("load", function() {
-                    $("#image-loader").hide();
-                });
-            }).catch(console.error);
+            Handlebars.render("albums::photo-lightbox", context)
+                .then(html => {
+                    $lightboxBody.append(html);
+                    $lightbox.find(".active img").on("load", function() {
+                        $("#image-loader").hide();
+                    });
+                })
+                .catch(console.error);
         };
 
         /* Closure to render the current photo in the lightbox */

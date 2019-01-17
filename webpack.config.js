@@ -19,7 +19,7 @@ module.exports = {
     output: {
         publicPath: __dirname + "/" + paths.jsDir,
         path: __dirname + "/" + paths.jsDir, // directory
-        filename: '[name].js', // file
+        filename: "[name].js" // file
         //  chunkFilename: '[name].bundle.js'
     },
 
@@ -57,7 +57,7 @@ module.exports = {
     // Necessary for some libs that rely on global jQuery to work (e.g. Typeahead)
     plugins: [
         new webpack.EnvironmentPlugin({
-            'BACKEND_SERVER': '/'
+            BACKEND_SERVER: "/"
         }),
         new webpack.ProvidePlugin({
             jQuery: "jquery",
