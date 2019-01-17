@@ -1,6 +1,12 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { Cart } from "./components/Cart";
+
 export default class Page {
     static init() {
         this.initRating();
+        this.initCart();
     }
 
     static initRating() {
@@ -24,6 +30,14 @@ export default class Page {
                     el.checked = true;
                 });
             }
+        }
+    }
+
+    static initCart() {
+        const node = document.getElementById("react-cart");
+
+        if (node) {
+            ReactDOM.render(<Cart />, node);
         }
     }
 }
