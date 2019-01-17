@@ -7,7 +7,8 @@ function joinPath() {
 	return implode(DIRECTORY_SEPARATOR, $bits);
 }
 
-$PROJECT_DIR = realpath(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'phpbb');
+$DEFAULT_PROJECT_DIR = realpath(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'phpbb');
+$PROJECT_DIR = getenv('PROJECT_DIR') ?: $DEFAULT_PROJECT_DIR;
 $ROOT_DIR = dirname(dirname($PROJECT_DIR));
 
 $settings = new stdClass();
@@ -16,7 +17,6 @@ $settings->ROOT_DIR = $ROOT_DIR;
 
 $settings->STATIC_ROOT = realpath(joinPath($ROOT_DIR, 'static'));
 $settings->STATIC_URL = getenv('STATIC_URL') ?: '/static/';
-$settings->SYSTEMJS_OUTPUT_DIR = getenv('SYSTEMJS_OUTPUT_DIR') ?: 'SYSTEMJS';
 
 $settings->MEDIA_ROOT = realpath(joinPath($ROOT_DIR, 'media'));
 

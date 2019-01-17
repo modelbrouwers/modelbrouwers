@@ -1,5 +1,5 @@
 import "jquery";
-import qq from "fine-uploader/lib/core";
+import qq from "fine-uploader";
 
 export class PhotoUpload {
     constructor() {
@@ -7,11 +7,10 @@ export class PhotoUpload {
         let album, uploader;
         const elem = document.getElementById("uploader");
 
-        // TODO this doesn't initialize for some reason. Look into another upload lib
         if (elem) {
-            uploader = new qq.FineUploaderBasic({
+            uploader = new qq.FineUploader({
+                element: elem,
                 request: {
-                    element: elem,
                     endpoint: endpoint,
                     inputName: "image",
                     filenameParam: "description",
@@ -64,19 +63,19 @@ export class PhotoUpload {
             if (!qq.supportedFeatures.uploadCustomHeaders) {
                 params.csrfmiddlewaretoken = window.csrf_token;
             }
-            uploader.fineUploader("setParams", params);
+            uploader.setParams(params);
             return true;
         };
 
         $(".cancel").click(function(e) {
-            uploader.fineUploader("cancel", id);
+            uploader.cancel(id);
         });
 
         $("#trigger-upload").click(function(e) {
             e.preventDefault();
             // TODO: multi upload
             setAlbum();
-            uploader.fineUploader("uploadStoredFiles");
+            uploader.uploadStoredFiles();
             return false;
         });
 

@@ -16,6 +16,7 @@ DEBUG = True
 INSTALLED_APPS = INSTALLED_APPS + [
     'debug_toolbar',
     'mobetta',
+    'corsheaders',
 ]
 
 DEBUG_TOOLBAR_CONFIG = {
@@ -23,6 +24,10 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 SENDFILE_BACKEND = 'sendfile.backends.development'
+
+MIDDLEWARE_CLASSES = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE_CLASSES
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 #
 # CACHE

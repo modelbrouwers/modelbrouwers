@@ -2,7 +2,7 @@ import "jquery";
 import "bootstrap";
 import "../scripts/jquery.serializeObject";
 import "typeahead.js";
-import qq from "fine-uploader/lib/core";
+import qq from "fine-uploader";
 
 import Handlebars from "../general/hbs-pony";
 
@@ -256,13 +256,13 @@ export class NewKitSubmitter {
 
         let fileinput = document.getElementById(conf.id_image_upload);
         if (fileinput) {
-            this.uploader = new qq.FineUploaderBasic({
+            this.uploader = new qq.FineUploader({
                 element: fileinput.parentElement,
                 request: {
                     endpoint: fileinput.dataset.endpoint,
                     inputName: "image",
                     customHeaders: {
-                        "X-CSRFToken": window.csrf_token // TODO
+                        "X-CSRFToken": window.csrf_token
                     }
                 },
                 multiple: false,

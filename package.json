@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "webpack --config webpack.config.js --mode=production",
+        "build": "gulp sass && webpack --config webpack.config.js --mode=production",
         "dev": "webpack --config webpack.config.js --mode=development --watch=true",
         "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
     },
@@ -30,10 +30,12 @@
         "bootstrap": "^3.3.7",
         "bootstrap-hover-dropdown": "^2.2.1",
         "bourbon": "^5.0.0",
+        "consumerjs": "^1.9.0",
         "fine-uploader": "^5.16.2",
         "font-awesome": "^4.7.0",
         "gulp": "^3.9.1",
         "handlebars": "^4.0.12",
+        "insert-text-at-cursor": "^0.1.1",
         "jquery": "^3.3.1",
         "jquery-ui": "^1.12.1",
         "js-cookie": "^2.2.0",
