@@ -55,7 +55,7 @@ export default class Page {
             $lightbox.modal("show");
 
             // fetch the photo details from the Api
-            photoConsumer
+            this.photoConsumer
                 .getForAlbum(window.album, window.page)
                 .then(getLightboxRenderer(id))
                 .catch(console.error);
