@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import { Cart } from "./components/Cart";
+import { CartConsumer } from "../data/albums/cart";
+import { Cart, CartProduct } from "./components/Cart";
 
 export default class Page {
     static init() {
@@ -35,9 +35,29 @@ export default class Page {
 
     static initCart() {
         const node = document.getElementById("react-cart");
-
         if (node) {
-            ReactDOM.render(<Cart />, node);
+            this.cartConsumer = new CartConsumer();
+            this.cartConsumer
+                .fetch()
+                .then(resp => {
+                    ReactDOM.render(<Cart cart={resp.cart} />, node);
+                    initCartActions(resp.cart);
+                })
+                .catch(err => console.log("Error retrieving cart", err));
         }
+
+        const initCartActions = cart => {
+            const products = document.getElementsByClassName("product-card");
+
+            for (let product of products) {
+                const id = product.dataset.product;
+                const reactNode = product.querySelector(".react-cart-actions");
+
+                ReactDOM.render(
+                    <CartProduct cart={cart} product={id} />,
+                    reactNode
+                );
+            }
+        };
     }
 }
