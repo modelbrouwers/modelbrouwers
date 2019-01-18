@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "gulp sass && webpack --config webpack.config.js --mode=production",
         "dev": "webpack --config webpack.config.js --mode=development --watch=true",
-        "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
+        "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
+        "generate": "plop --plopfile src/js/scripts/generator/index.js"
     },
     "repository": {
         "type": "git",
@@ -61,8 +62,13 @@
         "gulp-jshint": "^2.1.0",
         "gulp-sass": "^4.0.1",
         "gulp-sourcemaps": "^2.6.4",
+        "lodash.camelcase": "^4.3.0",
+        "lodash.capitalize": "^4.2.1",
+        "lodash.kebabcase": "^4.1.1",
+        "lodash.upperfirst": "^4.3.1",
         "node-sass": "^4.9.3",
         "onchange": "^5.1.0",
+        "plop": "^2.2.0",
         "prettier": "1.15.2",
         "uglify-js": "^2.4.23",
         "webpack": "^4.25.1",
