@@ -15,12 +15,16 @@ class Photo extends CrudConsumerObject {
 
 
 class PhotoConsumer extends CrudConsumer {
-    constructor(endpoint=`${API_ROOT}albums/photo`, objectClass=Photo) {
+    constructor(endpoint=`${API_ROOT}api/v1/albums/photo`, objectClass=Photo) {
         super(endpoint, objectClass);
     }
 
     getForAlbum(albumId, page) {
-        return this.get('/', {album: albumId, page: page});
+        return this
+            .get('/', {album: albumId, page: page})
+            .then(paginatedResponse => {
+                return paginatedResponse.results;
+            });
     }
 
     rotate(id, direction) {
@@ -38,7 +42,7 @@ class MyPhoto extends CrudConsumerObject {
 
 
 class MyPhotoConsumer extends CrudConsumer {
-    constructor(endpoint=`${API_ROOT}my/photos`, objectClass=Photo) {
+    constructor(endpoint=`${API_ROOT}api/v1/my/photos`, objectClass=Photo) {
         super(endpoint, objectClass);
     }
 

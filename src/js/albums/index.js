@@ -45,7 +45,7 @@ export default class Page {
         photoThumbs.on("click", ".album-photo", event => {
             event.preventDefault();
 
-            const id = $(event.target).data("id");
+            const id = $(event.target).closest('.album-photo').data('id');
 
             // remove all 'old' bits
             $lightboxBody.find(".modal-body").remove();
