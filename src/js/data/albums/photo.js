@@ -4,7 +4,7 @@ import { API_ROOT } from '../../constants';
 
 
 class Photo extends CrudConsumerObject {
-    bbcode() {
+    get bbcode() {
         return `[photo data-id="${this.id}"]${this.image.large}[/photo]`;
     }
 
@@ -34,7 +34,7 @@ class PhotoConsumer extends CrudConsumer {
 }
 
 
-class MyPhoto extends CrudConsumerObject {
+class MyPhoto extends Photo {
     setAsCover() {
         this.__consumer__.setAsCover(this.id);
     }
@@ -48,6 +48,11 @@ class MyPhotoConsumer extends CrudConsumer {
 
     setAsCover(id) {
         return this.post(`/${id}/set_cover/`);
+    }
+
+    getForAlbum(albumId, extraFilters={}) {
+        let filters = Object.assign({ album: albumId }, extraFilters);
+        return this.get('/', filters);
     }
 }
 

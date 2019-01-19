@@ -2,8 +2,8 @@ import insertTextAtCursor from 'insert-text-at-cursor';
 import Ps from "perfect-scrollbar";
 
 import Handlebars from "../general/hbs-pony";
-import { Album } from "../albums/models/album";
-import { MyPhoto } from "../albums/models/photo";
+import { AlbumConsumer } from '../data/albums/album';
+import { MyPhotoConsumer } from '../data/albums/photo';
 
 let conf = {
     selectors: {
@@ -18,6 +18,9 @@ let conf = {
         post_textarea: 'textarea[name="message"],textarea[name="signature"]'
     }
 };
+
+const myPhotoConsumer = new MyPhotoConsumer();
+const albumConsumer = new AlbumConsumer();
 
 let updateScrollbar = function() {
     let sidebar = document.querySelector(conf.selectors.root_sidebar);
@@ -42,44 +45,63 @@ let renderSidebar = function(albums) {
 };
 
 let renderAlbumPhotos = function(album, page) {
-    if (album === null) {
+    if (album == null) {
         return;
     }
+
     var target = $(conf.selectors.photo_list);
     var pagination_target = $(conf.selectors.pagination);
     var filters = page ? { page: page } : {};
+
     return album
-        .renderPhotos(
-            "albums::forum-sidebar-photos",
-            target,
-            pagination_target,
-            filters
-        )
-        .done(html => {
+        .getPhotos()
+        .then(photos => {
+            // FIXME TODO: extract page object/pagination information!
+            Handlebars.render(
+                "albums::pagination",
+                { page_obj: photos.page_obj },
+                pagination_target
+            )
+            .catch(console.error);
+            return Handlebars
+                .render("albums::forum-sidebar-photos", { album, photos }, target);
+        })
+        .then(() => {
             $(conf.selectors.loader).hide();
             updateScrollbar();
-        });
+        })
+        .catch(console.error);
 };
 
 let showSidebar = function() {
-    Album.objects
-        .all()
-        .done(renderAlbumPhotos);
+    albumConsumer
+        .list()
+        .then(renderAlbumPhotos)
+        .catch(console.error);
 };
 
 let onAlbumSelectChange = function(event) {
     var id = parseInt($(this).val(), 10);
     $(conf.selectors.loader).show();
-    Album.objects.get({ id: id }).done(renderAlbumPhotos);
+
+    albumConsumer
+        .read(id)
+        .then(renderAlbumPhotos)
+        .catch(console.error);
 };
 
 let insertPhotoAtCaret = function(event) {
     event.preventDefault();
     let id = $(this).data("id");
-    MyPhoto.objects.get({ id: id }).done(photo => {
-        let textarea = document.querySelector(conf.selectors.post_textarea);
-        insertTextAtCursor(textAreas, photo.bbcode() + "\n");
-    });
+
+    myPhotoConsumer
+        .read(id)
+        .then(photo => {
+            let textarea = document.querySelector(conf.selectors.post_textarea);
+            insertTextAtCursor(textAreas, photo.bbcode + "\n");
+        })
+        .catch(console.error);
+
     return false;
 };
 
@@ -91,9 +113,12 @@ let loadPage = function(event) {
     // show spinner
     $(this).html('<i class="fa fa-spin fa-spinner"></i>');
 
-    Album.objects.get({ id: id }).done(album => {
-        renderAlbumPhotos(album, page);
-    });
+    albumConsumer
+        .read(id)
+        .then(album => {
+            renderAlbumPhotos(album, page);
+        })
+        .catch(console.error);
     return false;
 };
 
