@@ -37,14 +37,14 @@ module.exports = {
                     options: {
                         presets: ["@babel/preset-env"],
                         plugins: [
-                            "@babel/plugin-syntax-dynamic-import",
-                            "@babel/plugin-proposal-class-properties",
                             [
                                 "@babel/plugin-proposal-decorators",
                                 {
                                     decoratorsBeforeExport: true
                                 }
-                            ]
+                            ],
+                            "@babel/plugin-syntax-dynamic-import",
+                            "@babel/plugin-proposal-class-properties"
                         ],
                         cacheDirectory: true
                     }

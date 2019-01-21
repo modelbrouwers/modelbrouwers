@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { CartProductConsumer } from "../../../data/albums/cart";
+import { observer } from "mobx-react";
+import { CartProductConsumer } from "../../../data/shop/cart";
 
+@observer
 class CartProduct extends Component {
     constructor(props) {
         super(props);

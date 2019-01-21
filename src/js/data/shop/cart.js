@@ -33,6 +33,10 @@ export class CartProductConsumer extends CrudConsumer {
         return this.get(`/${id}`);
     }
 
+    getCartProducts(params) {
+        return this.get(`/`, params);
+    }
+
     /**
      * Add product to cart
      * @param {Object} data
