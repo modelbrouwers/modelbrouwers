@@ -2,6 +2,7 @@ from rest_framework import views, viewsets
 from rest_framework.response import Response
 
 from ..models import Cart, CartProduct, Product
+from .filters import CartProductFilter
 from .serializers import (
     CartSerializer, ProductSerializer, ReadCartProductSerializer,
     WriteCartProductSerializer
@@ -39,6 +40,7 @@ class CartViewSet(views.APIView):
 
 class CartProductViewSet(viewsets.ModelViewSet):
     queryset = CartProduct.objects.all()
+    filter_class = CartProductFilter
 
     def get_queryset(self):
         qs = super(CartProductViewSet, self).get_queryset()

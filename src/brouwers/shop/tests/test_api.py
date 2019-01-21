@@ -94,6 +94,14 @@ class CartApiTest(APITransactionTestCase):
         response = self.client.get(reverse('api:cartproduct-detail', args=[cart_product2.pk]))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+    def test_get_cart_products_by_cart(self):
+        cart = CartFactory.create(user=self.user)
+        CartProductFactory.create(cart=cart, amount=2)
+        CartProductFactory.create(cart=cart, amount=20)
+        response = self.client.get(reverse('api:cartproduct-list'), {'cart': cart.pk})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 2)
+
     def test_add_cart_product(self):
         cart = CartFactory.create(user=self.user)
         product = ProductFactory.create()
