@@ -33,8 +33,19 @@
     color: $main-blue;
     font-size: 24px;
   }
+}
 
-  &__actions {
+.controls {
 
+  &__row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__amount {
+    width: 30%;
+    text-align: center;
+    @include border-radius(4px);
+    border: 1px solid $main-blue;
   }
 }

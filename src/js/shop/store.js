@@ -1,21 +1,36 @@
-import { observable, action } from "mobx";
+import { observable, action, autorun } from "mobx";
 
 class CartProductStore {
-    @observable products;
+    @observable cartProducts;
 
     constructor() {
-        this.products = [];
+        this.cartProducts = [];
     }
 
-    setProducts(products) {
-        this.products = products;
+    setProducts(cartProducts) {
+        this.cartProducts = cartProducts;
     }
 
-    @action getProductById(id) {
-        return this.products.find(product => product.id === id);
+    getByProductId(id) {
+        return this.cartProducts.find(cp => cp.product.id === Number(id));
+    }
+
+    @action changeAmount(id, amount) {
+        const cartProduct = this.cartProducts.find(cp => cp.id === id);
+        if (cartProduct.amount > 0 || amount > 0) {
+            cartProduct.amount += amount;
+
+            this.cartProducts = [
+                ...this.cartProducts.filter(cp => cp.id !== id),
+                cartProduct
+            ];
+        }
+
+        return cartProduct.amount;
     }
 }
 
 const cartProductStore = new CartProductStore();
+// autorun(() => console.log("pp", cartProductStore.cartProducts));
 
 export { cartProductStore };

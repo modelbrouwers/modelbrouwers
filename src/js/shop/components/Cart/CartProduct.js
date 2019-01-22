@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
 import { CartProductConsumer } from "../../../data/shop/cart";
-
+import { AmountControls } from "./index";
 @observer
 class CartProduct extends Component {
     constructor(props) {
@@ -19,8 +19,14 @@ class CartProduct extends Component {
             .then(resp => console.log("Product added", resp))
             .catch(err => console.log("Error adding a product", err));
     };
+
     render() {
-        return (
+        const { product: id, store } = this.props;
+        const cartProduct = store.getByProductId(id);
+
+        return cartProduct ? (
+            <AmountControls cartProduct={cartProduct} store={store} />
+        ) : (
             <button
                 className="button button--blue button__add"
                 onClick={this.add}
