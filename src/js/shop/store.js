@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx";
+import { observable, action } from "mobx";
 
 class CartProductStore {
     @observable products;
@@ -11,7 +11,7 @@ class CartProductStore {
         this.products = products;
     }
 
-    @computed getProductById() {
+    @action getProductById(id) {
         return this.products.find(product => product.id === id);
     }
 }
