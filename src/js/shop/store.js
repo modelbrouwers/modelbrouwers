@@ -1,4 +1,4 @@
-import { observable, action, autorun } from "mobx";
+import { observable, action } from "mobx";
 
 class CartProductStore {
     @observable cartProducts;
@@ -25,12 +25,9 @@ class CartProductStore {
                 cartProduct
             ];
         }
-
-        return cartProduct.amount;
     }
 }
 
 const cartProductStore = new CartProductStore();
-// autorun(() => console.log("pp", cartProductStore.cartProducts));
 
 export { cartProductStore };

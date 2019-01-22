@@ -24,7 +24,7 @@ class CartProduct extends Component {
         const { product: id, store } = this.props;
         const cartProduct = store.getByProductId(id);
 
-        return cartProduct ? (
+        return cartProduct && cartProduct.amount > 0 ? (
             <AmountControls cartProduct={cartProduct} store={store} />
         ) : (
             <button
