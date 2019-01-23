@@ -85,7 +85,7 @@ class CartApiTest(APITransactionTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], cart_product.pk)
         self.assertEqual(response.data['amount'], cart_product.amount)
-        self.assertEqual(response.data['cart']['id'], cart_product.cart.id)
+        self.assertEqual(response.data['cart'], cart_product.cart.id)
 
         # User shouldn't be able see other users' cart products
         user2 = UserFactory.create()
@@ -100,7 +100,7 @@ class CartApiTest(APITransactionTestCase):
         CartProductFactory.create(cart=cart, amount=20)
         response = self.client.get(reverse('api:cartproduct-list'), {'cart': cart.pk})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 2)
+        self.assertEqual(len(response.data), 2)
 
     def test_add_cart_product(self):
         cart = CartFactory.create(user=self.user)

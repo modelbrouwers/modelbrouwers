@@ -41,6 +41,7 @@ class CartViewSet(views.APIView):
 class CartProductViewSet(viewsets.ModelViewSet):
     queryset = CartProduct.objects.all()
     filter_class = CartProductFilter
+    pagination_class = None
 
     def get_queryset(self):
         qs = super(CartProductViewSet, self).get_queryset()

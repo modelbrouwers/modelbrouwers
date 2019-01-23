@@ -13,21 +13,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'brand', 'image', 'price', 'vat', 'categories')
 
 
-class CartSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    total = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Cart
-        fields = ('id', 'user', 'status', 'products', 'total')
-
-    def get_total(self, obj):
-        return obj.total
-
-
 class ReadCartProductSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
-    cart = CartSerializer(read_only=True)
 
     class Meta:
         model = CartProduct
@@ -47,3 +34,16 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
         if cart not in qs:
             raise serializers.ValidationError({"cart": "invalid cart"})
         return value
+
+
+class CartSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    total = serializers.SerializerMethodField()
+    products = ReadCartProductSerializer(many=True)
+
+    class Meta:
+        model = Cart
+        fields = ('id', 'user', 'status', 'products', 'total')
+
+    def get_total(self, obj):
+        return obj.total

@@ -28,6 +28,10 @@ class CartProductStore {
     }
 }
 
+class CartStore {
+    @observable cart = {};
+}
+
 const cartProductStore = new CartProductStore();
 
 export { cartProductStore };

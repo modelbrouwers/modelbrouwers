@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 import { CartProductConsumer } from "../../../data/shop/cart";
 import { AmountControls } from "./index";
+
 @observer
 class CartProduct extends Component {
     constructor(props) {
