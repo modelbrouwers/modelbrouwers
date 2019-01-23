@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import { observer } from "mobx-react";
 
+@observer
 export default class Cart extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const { cart } = this.props;
+        const { cart } = this.props.store;
+
         return (
             <div className="cart__row">
                 <div className="cart__box">

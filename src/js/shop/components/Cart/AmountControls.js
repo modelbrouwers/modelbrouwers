@@ -9,13 +9,18 @@ import { observer } from "mobx-react";
  */
 @observer
 class AmountControls extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     changeAmount = amount => {
-        const { cartProduct, store } = this.props;
-        store.changeAmount(cartProduct.id, amount);
+        const { id, store } = this.props;
+        store.changeAmount(id, amount);
     };
 
     render() {
-        const { cartProduct } = this.props;
+        const { id, store } = this.props;
+        const cartProduct = store.findProduct(id);
         return (
             <div className="controls__row">
                 <button

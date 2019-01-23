@@ -10,23 +10,24 @@ class CartProduct extends Component {
         this.cartProductConsumer = new CartProductConsumer();
     }
     add = () => {
-        const { product, cart } = this.props;
+        const { productId, cart, store } = this.props;
+        const cartProduct = store.findProduct(productId);
         return this.cartProductConsumer
             .addProduct({
-                product,
+                product: productId,
                 cart: cart.id,
                 amount: 1
             })
-            .then(resp => console.log("Product added", resp))
-            .catch(err => console.log("Error adding a product", err));
+            .then(resp => console.log("added prod", resp))
+            .catch(err => console.log("Error adding product", err));
     };
 
     render() {
-        const { product: id, store } = this.props;
-        const cartProduct = store.getByProductId(id);
+        const { productId, store } = this.props;
+        const cartProduct = store.findProduct(productId);
 
         return cartProduct && cartProduct.amount > 0 ? (
-            <AmountControls cartProduct={cartProduct} store={store} />
+            <AmountControls id={productId} store={store} />
         ) : (
             <button
                 className="button button--blue button__add"

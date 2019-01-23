@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.db.models import Q
 
 from rest_framework import serializers
@@ -13,6 +14,24 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'brand', 'image', 'price', 'vat', 'categories')
 
 
+class ProductField(serializers.PrimaryKeyRelatedField):
+    def to_representation(self, value):
+        pk = super(ProductField, self).to_representation(value)
+        try:
+            item = Product.objects.get(pk=pk)
+            serializer = ProductSerializer(item)
+            return serializer.data
+        except Product.DoesNotExist:
+            return None
+
+    def get_choices(self, cutoff=None):
+        queryset = self.get_queryset()
+        if queryset is None:
+            return {}
+
+        return OrderedDict([(item.id, str(item)) for item in queryset])
+
+
 class ReadCartProductSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
 
@@ -22,6 +41,8 @@ class ReadCartProductSerializer(serializers.ModelSerializer):
 
 
 class WriteCartProductSerializer(serializers.ModelSerializer):
+    product = ProductField(queryset=Product.objects.all())
+
     class Meta:
         model = CartProduct
         fields = ('id', 'product', 'amount', 'cart')
