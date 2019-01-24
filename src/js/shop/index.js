@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { CartConsumer } from "../data/shop/cart";
 import { Cart, CartProduct } from "./components/Cart";
-import { cartStore } from "./store";
+import { CartStore } from "./store";
 
 export default class Page {
     static init() {
@@ -41,24 +41,25 @@ export default class Page {
             this.cartConsumer
                 .fetch()
                 .then(({ cart }) => {
-                    cartStore.cart = cart;
-                    initCartActions(cart);
+                    let cartStore = new CartStore(cart);
+                    initCartActions(cartStore);
                     ReactDOM.render(<Cart store={cartStore} />, node);
                 })
                 .catch(err => console.log("Error retrieving cart", err));
         }
 
-        const initCartActions = cart => {
+        const initCartActions = cartStore => {
             const products = document.getElementsByClassName("product-card");
 
             for (let product of products) {
                 const id = product.dataset.product;
+                const cartProduct = cartStore.findProduct(id);
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 ReactDOM.render(
                     <CartProduct
                         store={cartStore}
-                        cart={cart}
+                        cartProduct={cartProduct}
                         productId={id}
                     />,
                     reactNode

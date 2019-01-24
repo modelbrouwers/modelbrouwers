@@ -1,64 +1,85 @@
 import { observable, action, computed } from "mobx";
+import { CartProductConsumer } from "./../data/shop/cart";
 
-class CartProductStore {
-    @observable cartProducts;
+export class CartStore {
+    @observable products = [];
+    @observable user = {};
+    id = null;
 
-    constructor() {
-        this.cartProducts = [];
-    }
-
-    setProducts(cartProducts) {
-        this.cartProducts = cartProducts;
-    }
-
-    getByProductId(id) {
-        return this.cartProducts.find(
-            cp => Number(cp.product.id) === Number(id)
+    constructor(cart) {
+        this.products = cart.products.map(
+            product => new CartProduct(product, this)
         );
-    }
-}
-
-class CartStore {
-    @observable cart = {
-        products: []
-    };
-
-    @action addProduct(product) {
-        this.cart.products.push(product);
-    }
-
-    @action removeProduct(product) {
-        this.cart.products = this.cart.products.filter(
-            p => p.id !== product.id
-        );
-    }
-
-    @action clearCart() {
-        this.cart.products = [];
-    }
-
-    findProduct(id) {
-        return this.cart.products.find(
-            cp => Number(cp.product.id) === Number(id)
-        );
+        this.cartProductConsumer = new CartProductConsumer();
+        this.id = cart.id;
+        this.user = cart.user;
     }
 
     @computed get total() {
-        return this.cart.products.reduce(
-            (acc, curr) => acc + (curr.amount * curr.total).toFixed(2)
-        );
+        const total = this.products.reduce((acc, curr) => acc + curr.total, 0);
+        return total.toFixed(2);
+    }
+
+    @computed get amount() {
+        return this.products.reduce((acc, curr) => acc + curr.amount, 0);
+    }
+
+    @action addProduct(data) {
+        return this.cartProductConsumer
+            .addProduct(data)
+            .then(resp => {
+                const p = new CartProduct(resp, this);
+                this.products.push(p);
+            })
+            .catch(err => console.log("Error adding product", err));
+    }
+
+    @action removeProduct(product) {
+        this.products = this.products.filter(p => p.id !== product.id);
+    }
+
+    @action clearCart() {
+        this.products = [];
+    }
+
+    findProduct(id) {
+        return this.products.find(cp => Number(cp.product.id) === Number(id));
     }
 
     @action changeAmount(id, amount) {
         const cartProduct = this.findProduct(id);
         cartProduct.amount += amount;
+
         if (cartProduct.amount === 0) {
             this.removeProduct(cartProduct);
         }
     }
 }
 
-const cartProductStore = new CartProductStore();
-const cartStore = new CartStore();
+export class CartProduct {
+    id = null;
+    store = null;
+    cartId = null;
+    product = null;
+    @observable amount = 0;
 
-export { cartProductStore, cartStore };
+    constructor(cartProduct = {}, store) {
+        this.store = store;
+        this.id = cartProduct.id;
+        this.amount = cartProduct.amount;
+        this.cartId = cartProduct.cart;
+        this.product = cartProduct.product;
+    }
+
+    @action increaseAmount(amount) {
+        this.amount += amount;
+    }
+
+    @action decreaseAmount(amount) {
+        this.amount -= amount;
+    }
+
+    @computed get total() {
+        return this.amount * this.product.price;
+    }
+}

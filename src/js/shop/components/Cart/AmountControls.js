@@ -19,13 +19,13 @@ class AmountControls extends Component {
     };
 
     render() {
-        const { id, store } = this.props;
-        const cartProduct = store.findProduct(id);
+        const { cartProduct, store } = this.props;
+        // const cartProduct = store.findProduct(id);
         return (
             <div className="controls__row">
                 <button
                     className="button button__plus button--blue"
-                    onClick={() => this.changeAmount(1)}
+                    onClick={() => cartProduct.increaseAmount(1)}
                 >
                     <i className="fa fa-plus" />
                 </button>
@@ -33,7 +33,7 @@ class AmountControls extends Component {
 
                 <button
                     className="button button__minus button--blue"
-                    onClick={() => this.changeAmount(-1)}
+                    onClick={() => cartProduct.decreaseAmount(1)}
                 >
                     <i className="fa fa-minus" />
                 </button>
