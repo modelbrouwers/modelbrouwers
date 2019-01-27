@@ -31,6 +31,7 @@
         "bootstrap": "^3.3.7",
         "bootstrap-hover-dropdown": "^2.2.1",
         "bourbon": "^5.0.0",
+        "classnames": "^2.2.6",
         "consumerjs": "^1.9.0",
         "fine-uploader": "^5.16.2",
         "font-awesome": "^4.7.0",

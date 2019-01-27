@@ -1,3 +1,2 @@
-const API_ROOT = process.env.BACKEND_SERVER;
-
-export { API_ROOT };
+export const API_ROOT = process.env.BACKEND_SERVER;
+export const DEFAULT_IMAGE = "/static/images/shop/placeholder.gif";
