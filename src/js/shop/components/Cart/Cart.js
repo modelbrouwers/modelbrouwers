@@ -48,7 +48,7 @@ export default class Cart extends Component {
                     </div>
                     <ul className="cart__products">
                         {cart.products.map((p, i) => (
-                            <li className="cart-product">
+                            <li className="cart-product" key={i}>
                                 <div className="cart-product__image">
                                     <img
                                         src={p.product.image || DEFAULT_IMAGE}
@@ -61,7 +61,7 @@ export default class Cart extends Component {
                                     {p.amount}
                                 </div>
                                 <div className="cart-product__price">
-                                    {p.product.price}
+                                    &euro; {p.product.price}
                                 </div>
                                 <div className="cart-product__remove">
                                     <i className="fa fa-close" />

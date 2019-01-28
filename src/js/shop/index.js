@@ -53,15 +53,10 @@ export default class Page {
 
             for (let product of products) {
                 const id = product.dataset.product;
-                const cartProduct = cartStore.findProduct(id);
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 ReactDOM.render(
-                    <CartProduct
-                        store={cartStore}
-                        cartProduct={cartProduct}
-                        productId={id}
-                    />,
+                    <CartProduct store={cartStore} productId={id} />,
                     reactNode
                 );
             }

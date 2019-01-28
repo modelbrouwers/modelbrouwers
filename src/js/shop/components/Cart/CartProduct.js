@@ -22,7 +22,11 @@ class CartProduct extends Component {
         const cartProduct = store.findProduct(productId);
 
         return cartProduct && cartProduct.amount > 0 ? (
-            <AmountControls cartProduct={cartProduct} store={store} />
+            <AmountControls
+                store={store}
+                id={productId}
+                cartProduct={cartProduct}
+            />
         ) : (
             <button
                 className="button button--blue button__add"

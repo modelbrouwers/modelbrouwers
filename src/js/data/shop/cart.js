@@ -48,4 +48,12 @@ export class CartProductConsumer extends CrudConsumer {
     addProduct(data) {
         return this.post("/", data);
     }
+
+    /**
+     * Completely remove product from cart
+     * @param id
+     */
+    removeProduct(id) {
+        return this.delete(`/${id}`);
+    }
 }

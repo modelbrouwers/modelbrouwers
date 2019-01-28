@@ -5,11 +5,10 @@ export class CartStore {
     @observable products = [];
     @observable user = {};
     id = null;
+    @observable status = null;
 
     constructor(cart) {
-        this.products = cart.products.map(
-            product => new CartProduct(product, this)
-        );
+        this.products = cart.products;
         this.cartProductConsumer = new CartProductConsumer();
         this.id = cart.id;
         this.user = cart.user;
@@ -27,21 +26,28 @@ export class CartStore {
     @action addProduct(data) {
         return this.cartProductConsumer
             .addProduct(data)
-            .then(resp => {
-                const p = new CartProduct(resp, this);
-                this.products.push(p);
-            })
+            .then(resp => this.products.push(resp))
             .catch(err => console.log("Error adding product", err));
     }
 
-    @action removeProduct(product) {
-        this.products = this.products.filter(p => p.id !== product.id);
+    @action removeProduct(id) {
+        this.cartProductConsumer
+            .removeProduct(id)
+            .then(() => {
+                this.products = this.products.filter(p => p.id !== id);
+            })
+            .catch(err => console.log("error deleting product", err));
     }
 
     @action clearCart() {
         this.products = [];
     }
 
+    /**
+     * Find cart product by it's product's id
+     * @param id
+     * @returns {*}
+     */
     findProduct(id) {
         return this.products.find(cp => Number(cp.product.id) === Number(id));
     }
@@ -51,7 +57,7 @@ export class CartStore {
         cartProduct.amount += amount;
 
         if (cartProduct.amount === 0) {
-            this.removeProduct(cartProduct);
+            this.removeProduct(cartProduct.id);
         }
     }
 }
