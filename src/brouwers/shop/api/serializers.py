@@ -56,6 +56,19 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"cart": "invalid cart"})
         return value
 
+    def create(self, validated_data):
+        """
+        Increase cart product amount if product is already in the cart. Otherwise add product to cart
+        """
+        cart = Cart.objects.get(id=validated_data['cart'].id)
+        qs = cart.products.filter(product=validated_data['product'])
+        if qs:
+            cp = qs.first()
+            cp.amount += validated_data['amount']
+            cp.save()
+            return cp
+        return super(WriteCartProductSerializer, self).create(validated_data)
+
 
 class CartSerializer(serializers.ModelSerializer):
     user = UserSerializer()

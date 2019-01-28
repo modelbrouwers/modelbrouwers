@@ -124,6 +124,19 @@ class CartApiTest(APITransactionTestCase):
         self.assertEqual(cart.products.count(), 1)
         self.assertEqual(cart.products.first().amount, 2)
 
+        # Adding same product more than once should only update the amount
+        cart = CartFactory.create(user=self.user)
+        product = ProductFactory.create()
+        data = {
+            'product': product.id,
+            'cart': cart.id,
+            'amount': 1
+        }
+        self.client.post(reverse('api:cartproduct-list'), data)
+        self.client.post(reverse('api:cartproduct-list'), data)
+        cart = Cart.objects.get(id=cart.id)
+        self.assertEqual(cart.products.count(), 1)
+
     def test_cart_products_total(self):
         product = ProductFactory.create(price=Decimal('1.15'))
         cart_product = CartProductFactory.create(product=product, amount=4, cart__user=self.user)
