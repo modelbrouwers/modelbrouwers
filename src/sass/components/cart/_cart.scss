@@ -8,7 +8,7 @@
   }
 
   &__box {
-    border: 1px solid $main-blue;
+    border: $border-light;
     @include border-radius(6px);
     display: flex;
     align-items: center;
@@ -44,11 +44,13 @@
 
 
   &__actions {
-    display: none;
-    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: $border-light;
 
     button {
-      margin-right: 10px;
+      font-size: 12px;
     }
   }
 
@@ -57,7 +59,7 @@
 
     &--expanded {
       .cart {
-        &__products {
+        &__menu {
           opacity: 1;
           visibility: visible;
           animation-delay: 5s;
@@ -67,35 +69,27 @@
         &__box {
           @include border-radius(6px 6px 0 0);
           margin-bottom: -1px;
-
-          &::after {
-            content: '';
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            color: red;
-            height: 1px;
-          }
-        }
-
-        &__actions {
-          display: block;
         }
       }
     }
   }
 
-  &__products {
+  &__menu {
     opacity: 0;
     visibility: hidden;
-    border: 1px solid $main-blue;
-    max-height: 350px;
-    overflow-y: scroll;
+    border: $border-light;
+    @include box-shadow(0 2px 8px 0 rgba(186, 198, 208, 0.5), 0 2px 8px 0 rgba(0, 157, 255, 0.05));
+    overflow: hidden;
     position: absolute;
     right: 0;
     background: $white;
     width: 380px;
     @include border-radius(6px 0 6px 6px);
+  }
+
+  &__products {
+    overflow-y: scroll;
+    max-height: 300px;
   }
 }
 

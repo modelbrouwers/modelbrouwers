@@ -45,6 +45,8 @@ export default class Cart extends Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="cart__menu">
                         <div className="cart__actions">
                             <button className="button button--blue">
                                 View cart
@@ -53,39 +55,39 @@ export default class Cart extends Component {
                                 Checkout
                             </button>
                         </div>
-                    </div>
-                    <ul className="cart__products">
-                        {cart.products.map((product, i) => (
-                            <li className="cart-product" key={i}>
-                                <div className="cart-product__image">
-                                    <img
-                                        src={
-                                            product.product.image ||
-                                            DEFAULT_IMAGE
+                        <ul className="cart__products">
+                            {cart.products.map((product, i) => (
+                                <li className="cart-product" key={i}>
+                                    <div className="cart-product__image">
+                                        <img
+                                            src={
+                                                product.product.image ||
+                                                DEFAULT_IMAGE
+                                            }
+                                            alt={product.name}
+                                        />
+                                    </div>
+                                    <p className="cart-product__name">
+                                        {product.product.name}
+                                    </p>
+                                    <div className="cart-product__amount">
+                                        {product.amount}
+                                    </div>
+                                    <div className="cart-product__price">
+                                        &euro; {product.product.price}
+                                    </div>
+                                    <div
+                                        className="cart-product__remove"
+                                        onClick={() =>
+                                            cart.removeProduct(product.id)
                                         }
-                                        alt={product.name}
-                                    />
-                                </div>
-                                <p className="cart-product__name">
-                                    {product.product.name}
-                                </p>
-                                <div className="cart-product__amount">
-                                    {product.amount}
-                                </div>
-                                <div className="cart-product__price">
-                                    &euro; {product.product.price}
-                                </div>
-                                <div
-                                    className="cart-product__remove"
-                                    onClick={() =>
-                                        cart.removeProduct(product.id)
-                                    }
-                                >
-                                    <i className="fa fa-close" />
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                                    >
+                                        <i className="fa fa-close" />
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
         );
