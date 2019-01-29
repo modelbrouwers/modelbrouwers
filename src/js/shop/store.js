@@ -52,12 +52,17 @@ export class CartStore {
         return this.products.find(cp => Number(cp.product.id) === Number(id));
     }
 
-    @action changeAmount(id, amount) {
-        const cartProduct = this.findProduct(id);
-        cartProduct.amount += amount;
+    @action changeAmount(productId, amount) {
+        const cartProduct = this.findProduct(productId);
+        const cpAmount = cartProduct.amount + amount;
 
-        if (cartProduct.amount === 0) {
+        if (cpAmount === 0) {
             this.removeProduct(cartProduct.id);
+        } else {
+            this.cartProductConsumer
+                .updateAmount(cartProduct.id, cpAmount)
+                .then(() => (cartProduct.amount = cpAmount))
+                .catch(err => console.log("could not update amount", err));
         }
     }
 }

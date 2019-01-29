@@ -56,4 +56,8 @@ export class CartProductConsumer extends CrudConsumer {
     removeProduct(id) {
         return this.delete(`/${id}`);
     }
+
+    updateAmount(id, amount) {
+        return this.patch(`/${id}/`, { amount });
+    }
 }

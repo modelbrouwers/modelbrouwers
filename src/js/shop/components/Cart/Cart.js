@@ -11,8 +11,12 @@ export default class Cart extends Component {
         this.state = { expanded: false };
     }
 
-    toggleExpanded = () => {
-        this.setState({ expanded: !this.state.expanded });
+    expandCart = () => {
+        this.setState({ expanded: true });
+    };
+
+    collapseCart = () => {
+        this.setState({ expanded: false });
     };
 
     render() {
@@ -24,7 +28,11 @@ export default class Cart extends Component {
 
         return (
             <div className="cart__row">
-                <div className={containerClasses} onClick={this.toggleExpanded}>
+                <div
+                    className={containerClasses}
+                    onMouseOver={this.expandCart}
+                    onMouseOut={this.collapseCart}
+                >
                     <div className="cart__box">
                         <div className="cart__inner">
                             <i className="fa fa-shopping-basket cart__icon" />
@@ -47,23 +55,32 @@ export default class Cart extends Component {
                         </div>
                     </div>
                     <ul className="cart__products">
-                        {cart.products.map((p, i) => (
+                        {cart.products.map((product, i) => (
                             <li className="cart-product" key={i}>
                                 <div className="cart-product__image">
                                     <img
-                                        src={p.product.image || DEFAULT_IMAGE}
+                                        src={
+                                            product.product.image ||
+                                            DEFAULT_IMAGE
+                                        }
+                                        alt={product.name}
                                     />
                                 </div>
                                 <p className="cart-product__name">
-                                    {p.product.name}
+                                    {product.product.name}
                                 </p>
                                 <div className="cart-product__amount">
-                                    {p.amount}
+                                    {product.amount}
                                 </div>
                                 <div className="cart-product__price">
-                                    &euro; {p.product.price}
+                                    &euro; {product.product.price}
                                 </div>
-                                <div className="cart-product__remove">
+                                <div
+                                    className="cart-product__remove"
+                                    onClick={() =>
+                                        cart.removeProduct(product.id)
+                                    }
+                                >
                                     <i className="fa fa-close" />
                                 </div>
                             </li>
