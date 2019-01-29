@@ -45,7 +45,7 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartProduct
-        fields = ('id', 'product', 'amount', 'cart')
+        fields = ('id', 'product', 'amount', 'cart', 'total')
 
     def validate_cart(self, value):
         cart = value
