@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CartConsumer } from "../data/shop/cart";
-import { Cart, CartProduct } from "./components/Cart";
+import { TopbarCart, CartProduct } from "./components/Cart";
 import { CartStore } from "./store";
 
 export default class Page {
@@ -43,7 +43,7 @@ export default class Page {
                 .then(({ cart }) => {
                     let cartStore = new CartStore(cart);
                     initCartActions(cartStore);
-                    ReactDOM.render(<Cart store={cartStore} />, node);
+                    ReactDOM.render(<TopbarCart store={cartStore} />, node);
                 })
                 .catch(err => console.log("Error retrieving cart", err));
         }

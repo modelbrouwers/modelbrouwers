@@ -9,6 +9,11 @@ import { observer } from "mobx-react";
  */
 @observer
 class AmountControls extends Component {
+    static propTypes = {
+        store: PropTypes.object,
+        cartProduct: PropTypes.object,
+        id: PropTypes.number
+    };
     constructor(props) {
         super(props);
     }

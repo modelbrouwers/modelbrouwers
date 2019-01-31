@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { DEFAULT_IMAGE } from "../../../constants";
 
 @observer
-export default class Cart extends Component {
+export default class TopbarCart extends Component {
     constructor(props) {
         super(props);
 
@@ -48,9 +48,12 @@ export default class Cart extends Component {
                     </div>
                     <div className="cart__menu">
                         <div className="cart__actions">
-                            <button className="button button--blue">
+                            <a
+                                href={`winkel/cart/${cart.id}`}
+                                className="button button--blue"
+                            >
                                 View cart
-                            </button>
+                            </a>
                             <button className="button button--blue">
                                 Checkout
                             </button>

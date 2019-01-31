@@ -7,11 +7,14 @@ import PropTypes from 'prop-types';
 *
 */
 class {{ properCase name }} extends {{{ type }}} {
-        constructor(props) {
+    static propTypes = {}
+
+    constructor(props) {
         super(props);
 
         this.state = {};
     }
+
     render() {
         return (
           <div>
@@ -20,7 +23,5 @@ class {{ properCase name }} extends {{{ type }}} {
         );
     }
 }
-
-{{ properCase name }}.propTypes = {};
 
 export default {{ properCase name }};

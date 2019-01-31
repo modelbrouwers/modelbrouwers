@@ -44,6 +44,7 @@
         "mobx": "^5.8.0",
         "mobx-react": "^5.4.3",
         "perfect-scrollbar": "^1.4.0",
+        "prop-types": "^15.6.2",
         "q": "^1.5.1",
         "react": "^16.7.0",
         "react-dom": "^16.7.0",
