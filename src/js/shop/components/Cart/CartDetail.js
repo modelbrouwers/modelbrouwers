@@ -37,7 +37,7 @@ class CartDetail extends Component {
                             <th>Total</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="cart-detail__tbody">
                         {store.products.map((cp, i) => (
                             <tr key={i}>
                                 <td>
@@ -57,7 +57,7 @@ class CartDetail extends Component {
                                         {cp.product.model_name}
                                     </p>
                                 </td>
-                                <td>
+                                <td className="cart-detail__quantity">
                                     <AmountControls
                                         store={store}
                                         cartProduct={cp}
