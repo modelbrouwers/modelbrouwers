@@ -59,30 +59,30 @@ export default class TopbarCart extends Component {
                             </button>
                         </div>
                         <ul className="cart__products">
-                            {cart.products.map((product, i) => (
+                            {cart.products.map((cp, i) => (
                                 <li className="cart-product" key={i}>
                                     <div className="cart-product__image">
                                         <img
                                             src={
-                                                product.product.image ||
+                                                cp.product.image ||
                                                 DEFAULT_IMAGE
                                             }
-                                            alt={product.name}
+                                            alt={cp.product.name}
                                         />
                                     </div>
                                     <p className="cart-product__name">
-                                        {product.product.name}
+                                        {cp.product.name}
                                     </p>
                                     <div className="cart-product__amount">
-                                        {product.amount}
+                                        {cp.amount}
                                     </div>
                                     <div className="cart-product__price">
-                                        &euro; {product.product.price}
+                                        &euro; {cp.product.price}
                                     </div>
                                     <div
                                         className="cart-product__remove"
                                         onClick={() =>
-                                            cart.removeProduct(product.id)
+                                            cart.removeProduct(cp.id)
                                         }
                                     >
                                         <i className="fa fa-close" />

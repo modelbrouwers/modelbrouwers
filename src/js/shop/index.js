@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CartConsumer } from "../data/shop/cart";
-import { TopbarCart, CartProduct } from "./components/Cart";
+import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
 import { CartStore } from "./store";
 
 export default class Page {
@@ -36,6 +36,8 @@ export default class Page {
 
     static initCart() {
         const node = document.getElementById("react-cart");
+        const detailNode = document.getElementById("react-cart-detail");
+
         if (node) {
             this.cartConsumer = new CartConsumer();
             this.cartConsumer
@@ -44,6 +46,13 @@ export default class Page {
                     let cartStore = new CartStore(cart);
                     initCartActions(cartStore);
                     ReactDOM.render(<TopbarCart store={cartStore} />, node);
+
+                    if (detailNode) {
+                        ReactDOM.render(
+                            <CartDetail store={cartStore} />,
+                            detailNode
+                        );
+                    }
                 })
                 .catch(err => console.log("Error retrieving cart", err));
         }

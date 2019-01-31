@@ -50,6 +50,4 @@ class AmountControls extends Component {
     }
 }
 
-AmountControls.propTypes = {};
-
 export default AmountControls;

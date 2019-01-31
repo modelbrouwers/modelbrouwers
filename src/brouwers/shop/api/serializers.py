@@ -11,7 +11,7 @@ from ..models import Cart, CartProduct, Product
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ('id', 'name', 'brand', 'image', 'price', 'vat', 'categories')
+        fields = ('id', 'name', 'brand', 'image', 'price', 'vat', 'categories', 'model_name')
 
 
 class ProductField(serializers.PrimaryKeyRelatedField):
