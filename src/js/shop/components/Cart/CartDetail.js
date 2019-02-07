@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { observer } from "mobx-react";
 import { DEFAULT_IMAGE } from "../../../constants";
 import { AmountControls } from "./index";
 
@@ -8,6 +9,7 @@ import { AmountControls } from "./index";
  * CartDetail
  *
  */
+@observer
 class CartDetail extends Component {
     static propTypes = {
         store: PropTypes.object
@@ -22,7 +24,6 @@ class CartDetail extends Component {
     render() {
         const { store } = this.props;
 
-        console.log("props", this.props);
         return (
             <div className="cart-detail">
                 <h2 className="cart-detail__page-header">Shopping Cart</h2>
