@@ -80,6 +80,25 @@ class CartDetail extends Component {
                         ))}
                     </tbody>
                 </table>
+
+                {/*TODO: Calculate sub-total and taxes*/}
+                <div className="cart-totals">
+                    <div className="cart-totals__inner">
+                        <h3>Cart total</h3>
+                        <div className="cart-totals__row">
+                            <span>Sub-total:</span>
+                            <span>N/A</span>
+                        </div>
+                        <div className="cart-totals__row">
+                            <span>Taxes:</span>
+                            <span>N/A</span>
+                        </div>
+                        <div className="cart-totals__row">
+                            <span>Total:</span>
+                            <span>{store.total}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
