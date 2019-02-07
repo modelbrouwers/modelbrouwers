@@ -22,6 +22,7 @@ class CartDetail extends Component {
     render() {
         const { store } = this.props;
 
+        console.log("props", this.props);
         return (
             <div className="cart-detail">
                 <h2 className="cart-detail__page-header">Shopping Cart</h2>
@@ -71,7 +72,7 @@ class CartDetail extends Component {
                                 </td>
                                 <td>
                                     <p className="cart-detail__product-total">
-                                        &euro; {cp.total}
+                                        &euro; {cp.totalStr}
                                     </p>
                                 </td>
                             </tr>

@@ -49,7 +49,7 @@ export default class TopbarCart extends Component {
                     <div className="cart__menu">
                         <div className="cart__actions">
                             <a
-                                href={`winkel/cart/${cart.id}`}
+                                href={`/winkel/cart/${cart.id}`}
                                 className="button button--blue"
                             >
                                 View cart
@@ -77,7 +77,7 @@ export default class TopbarCart extends Component {
                                         {cp.amount}
                                     </div>
                                     <div className="cart-product__price">
-                                        &euro; {cp.product.price}
+                                        &euro; {cp.totalStr}
                                     </div>
                                     <div
                                         className="cart-product__remove"

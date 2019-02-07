@@ -8,7 +8,7 @@ export class CartStore {
     @observable status = null;
 
     constructor(cart) {
-        this.products = cart.products;
+        this.products = cart.products.map(cp => new CartProduct(cp));
         this.cartProductConsumer = new CartProductConsumer();
         this.id = cart.id;
         this.user = cart.user;
@@ -26,7 +26,7 @@ export class CartStore {
     @action addProduct(data) {
         return this.cartProductConsumer
             .addProduct(data)
-            .then(resp => this.products.push(resp))
+            .then(resp => this.products.push(new CartProduct(resp)))
             .catch(err => console.log("Error adding product", err));
     }
 
@@ -40,7 +40,7 @@ export class CartStore {
     }
 
     @action clearCart() {
-        this.products = [];
+        this.products.clear();
     }
 
     /**
@@ -92,5 +92,9 @@ export class CartProduct {
 
     @computed get total() {
         return this.amount * this.product.price;
+    }
+
+    @computed get totalStr() {
+        return (this.amount * this.product.price).toFixed(2);
     }
 }

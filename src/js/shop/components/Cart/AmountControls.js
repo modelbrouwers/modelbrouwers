@@ -12,8 +12,9 @@ class AmountControls extends Component {
     static propTypes = {
         store: PropTypes.object,
         cartProduct: PropTypes.object,
-        id: PropTypes.number
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     };
+
     constructor(props) {
         super(props);
     }
@@ -25,6 +26,7 @@ class AmountControls extends Component {
 
     render() {
         const { store, cartProduct } = this.props;
+
         return (
             <div className="controls__row">
                 <button
