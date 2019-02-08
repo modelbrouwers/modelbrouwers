@@ -28,6 +28,7 @@ SENDFILE_BACKEND = 'sendfile.backends.development'
 MIDDLEWARE_CLASSES = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE_CLASSES
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 #
 # CACHE
