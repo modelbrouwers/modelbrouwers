@@ -82,10 +82,10 @@ class Album(models.Model):
     # User preferences
     order = models.PositiveSmallIntegerField(_("order"), default=1, blank=True, null=True, db_index=True)
     public = models.BooleanField(
-            _("Public?"),
-            help_text=_("Can this album be viewed by everyone? Untick to make the album available only to yourself."),
-            default=True
-        )
+        _("Public?"),
+        help_text=_("Can this album be viewed by everyone? Untick to make the album available only to yourself."),
+        default=True
+    )
 
     # Misc features
     topic = ForumToolsIDField(_('build report topic'), blank=True, null=True, type='topic')
