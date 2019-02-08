@@ -1,5 +1,5 @@
 import insertTextAtCursor from 'insert-text-at-cursor';
-import Ps from "perfect-scrollbar";
+import PerfectScrollbar from "perfect-scrollbar";
 
 import Handlebars from "../general/hbs-pony";
 import { AlbumConsumer } from '../data/albums/album';
@@ -22,19 +22,17 @@ let conf = {
 const myPhotoConsumer = new MyPhotoConsumer();
 const albumConsumer = new AlbumConsumer();
 
-let updateScrollbar = function() {
-    let sidebar = document.querySelector(conf.selectors.root_sidebar);
-    Ps.update(sidebar);
-};
+// module level variable until we properly refactor...
+let ps;
 
-let renderSidebar = function(albums) {
+let renderSidebar = albums => {
     return Handlebars.render("albums::forum-sidebar", { albums: albums }).then(
         html => {
             let body = document.querySelector('body');
             body.insertAdjacentHTML('beforeend', html);
 
-            let sidebar = document.querySelector(conf.selectors.root_sidebar);
-            Ps.initialize($sidebar);
+            let sidebarContainer = document.querySelector(conf.selectors.root_sidebar);
+            ps = new PerfectScrollbar(sidebarContainer);
 
             if (albums.length === 0) {
                 return null;
@@ -68,7 +66,7 @@ let renderAlbumPhotos = function(album, page) {
         })
         .then(() => {
             $(conf.selectors.loader).hide();
-            updateScrollbar();
+            ps.update();
         })
         .catch(console.error);
 };
@@ -136,7 +134,7 @@ export default class App {
             .on("click", "[data-open], [data-close]", function() {
                 var selector = $(this).data("open") || $(this).data("close");
                 $(selector).toggleClass("open closed");
-                updateScrollbar();
+                ps.update();
             })
             .on("change", conf.selectors.albums_select, onAlbumSelectChange)
             .on("click", conf.selectors.photo, insertPhotoAtCaret)
