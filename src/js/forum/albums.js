@@ -1,6 +1,7 @@
 import insertTextAtCursor from 'insert-text-at-cursor';
 import PerfectScrollbar from "perfect-scrollbar";
 
+import Paginator from '../scripts/paginator';
 import Handlebars from "../general/hbs-pony";
 import { AlbumConsumer } from '../data/albums/album';
 import { MyPhotoConsumer } from '../data/albums/photo';
@@ -22,7 +23,7 @@ let conf = {
 const myPhotoConsumer = new MyPhotoConsumer();
 const albumConsumer = new AlbumConsumer();
 
-// module level variable until we properly refactor...
+// module level variables until we properly refactor...
 let ps;
 
 let renderSidebar = albums => {
@@ -52,17 +53,20 @@ let renderAlbumPhotos = function(album, page) {
     var filters = page ? { page: page } : {};
 
     return album
-        .getPhotos()
-        .then(photos => {
-            // FIXME TODO: extract page object/pagination information!
-            Handlebars.render(
-                "albums::pagination",
-                { page_obj: photos.page_obj },
-                pagination_target
-            )
-            .catch(console.error);
+        .getPhotos(filters)
+        .then(photosResponse => {
+            let photos = photosResponse.results;
+
+            // TODO: use consumerjs pagination
+            let paginator = new Paginator();
+            paginator.paginate(photosResponse, page);
+
+            Handlebars.render("albums::pagination", { page_obj: paginator }, pagination_target)
+                .catch(console.error);
+
             return Handlebars
-                .render("albums::forum-sidebar-photos", { album, photos }, target);
+                .render("albums::forum-sidebar-photos", { album, photos }, target)
+                .catch(console.error);
         })
         .then(() => {
             $(conf.selectors.loader).hide();
@@ -74,6 +78,7 @@ let renderAlbumPhotos = function(album, page) {
 let showSidebar = function() {
     albumConsumer
         .list()
+        .then(renderSidebar)
         .then(renderAlbumPhotos)
         .catch(console.error);
 };
@@ -83,7 +88,7 @@ let onAlbumSelectChange = function(event) {
     $(conf.selectors.loader).show();
 
     albumConsumer
-        .read(id)
+        .read(`${id}/`)
         .then(renderAlbumPhotos)
         .catch(console.error);
 };
@@ -93,10 +98,10 @@ let insertPhotoAtCaret = function(event) {
     let id = $(this).data("id");
 
     myPhotoConsumer
-        .read(id)
+        .read(`${id}/`)
         .then(photo => {
-            let textarea = document.querySelector(conf.selectors.post_textarea);
-            insertTextAtCursor(textAreas, photo.bbcode + "\n");
+            let textArea = document.querySelector(conf.selectors.post_textarea);
+            insertTextAtCursor(textArea, photo.bbcode + "\n");
         })
         .catch(console.error);
 
@@ -112,7 +117,7 @@ let loadPage = function(event) {
     $(this).html('<i class="fa fa-spin fa-spinner"></i>');
 
     albumConsumer
-        .read(id)
+        .read(`${id}/`)
         .then(album => {
             renderAlbumPhotos(album, page);
         })
@@ -124,9 +129,8 @@ let loadPage = function(event) {
 export default class App {
     static init() {
         // check if we're in posting mode
-        const textAreas = document.querySelectorAll(conf.selectors.post_textarea);
-        if (textAreas.length == 1) {
-            renderSidebar([]);
+        const textArea = document.querySelectorAll(conf.selectors.post_textarea);
+        if (textArea.length == 1) {
             showSidebar();
         }
 
