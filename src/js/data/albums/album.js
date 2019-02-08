@@ -8,7 +8,11 @@ import { MyPhotoConsumer } from './photo';
 const myPhotoConsumer = new MyPhotoConsumer()
 
 
-class Album extends CrudConsumerObject {}
+class Album extends CrudConsumerObject {
+    getPhotos(extraFilters={}) {
+        return myPhotoConsumer.getForAlbum(this.id, extraFilters);
+    }
+}
 
 
 class AlbumConsumer extends CrudConsumer {
@@ -18,10 +22,6 @@ class AlbumConsumer extends CrudConsumer {
 
     list() {
         return this.get('/');
-    }
-
-    getPhotos(extraFilters={}) {
-        return myPhotoConsumer.getForAlbum(this.id, extraFilters);
     }
 }
 
