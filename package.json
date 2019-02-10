@@ -8,7 +8,8 @@
         "build": "gulp sass && webpack --config webpack.config.js --mode=production",
         "dev": "webpack --config webpack.config.js --mode=development --watch=true",
         "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
-        "generate": "plop --plopfile src/js/scripts/generator/index.js"
+        "generate": "plop --plopfile src/js/scripts/generator/index.js",
+         "makemessages": "node bin/translate.js"
     },
     "repository": {
         "type": "git",
@@ -48,6 +49,7 @@
         "q": "^1.5.1",
         "react": "^16.7.0",
         "react-dom": "^16.7.0",
+        "react-intl": "^2.8.0",
         "string.prototype.startswith": "^0.2.0",
         "typeahead.js": "^0.11.1",
         "urijs": "^1.19.1"
@@ -75,6 +77,7 @@
         "onchange": "^5.1.0",
         "plop": "^2.2.0",
         "prettier": "1.15.2",
+        "react-intl-translations-manager": "^5.0.3",
         "uglify-js": "^2.4.23",
         "webpack": "^4.25.1",
         "webpack-cli": "^3.1.0"
