@@ -150,3 +150,17 @@
     width: 5%;
   }
 }
+
+.cart-totals {
+  float: right;
+  padding: 20px;
+  width: 250px;
+
+  &__text {
+    margin-right: 10px;
+  }
+
+  &__value {
+    font-weight: bold;
+  }
+}

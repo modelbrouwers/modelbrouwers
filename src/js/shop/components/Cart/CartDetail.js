@@ -84,18 +84,22 @@ class CartDetail extends Component {
                 {/*TODO: Calculate sub-total and taxes*/}
                 <div className="cart-totals">
                     <div className="cart-totals__inner">
-                        <h3>Cart total</h3>
+                        <h4>Cart total</h4>
                         <div className="cart-totals__row">
-                            <span>Sub-total:</span>
-                            <span>N/A</span>
+                            <span className="cart-totals__text">
+                                Sub-total:
+                            </span>
+                            <span className="cart-totals__value">N/A</span>
                         </div>
                         <div className="cart-totals__row">
-                            <span>Taxes:</span>
-                            <span>N/A</span>
+                            <span className="cart-totals__text">Taxes:</span>
+                            <span className="cart-totals__value">N/A</span>
                         </div>
                         <div className="cart-totals__row">
-                            <span>Total:</span>
-                            <span>{store.total}</span>
+                            <span className="cart-totals__text">Total:</span>
+                            <span className="cart-totals__value">
+                                &euro; {store.total}
+                            </span>
                         </div>
                     </div>
                 </div>
