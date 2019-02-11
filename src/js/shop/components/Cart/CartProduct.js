@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
 import { AmountControls } from "./index";
+import { msg } from "../../../translations/components/Message";
+import messages from "./messages";
 
 @observer
 class CartProduct extends Component {
@@ -32,7 +34,7 @@ class CartProduct extends Component {
                 className="button button--blue button__add"
                 onClick={this.add}
             >
-                Add to Cart
+                {msg(messages.addToCart)}
             </button>
         );
     }

@@ -9,6 +9,7 @@
   "shop.cart.detail.header.quantity": "Quantity",
   "shop.cart.detail.header.unit.price": "Unit Price",
   "shop.cart.detail.title.cart.total": "Cart total",
+  "shop.cart.product.actions.add": "Add to cart",
   "shop.cart.topbar.checkout": "Checkout",
   "shop.cart.topbar.item.count": "{count, number} {count, plural, one {item} other {items}}",
   "shop.cart.topbar.view.cart": "View cart"

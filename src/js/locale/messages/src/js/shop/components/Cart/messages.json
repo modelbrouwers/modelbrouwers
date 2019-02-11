@@ -46,5 +46,9 @@
   {
     "id": "shop.cart.detail.cart.taxes",
     "defaultMessage": "Taxes"
+  },
+  {
+    "id": "shop.cart.product.actions.add",
+    "defaultMessage": "Add to cart"
   }
 ]

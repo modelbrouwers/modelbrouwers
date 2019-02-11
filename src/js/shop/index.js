@@ -76,7 +76,9 @@ export default class Page {
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 ReactDOM.render(
-                    <CartProduct store={cartStore} productId={id} />,
+                    <IntlProvider locale={locale} messages={messages}>
+                        <CartProduct store={cartStore} productId={id} />
+                    </IntlProvider>,
                     reactNode
                 );
             }

@@ -48,5 +48,9 @@ export default defineMessages({
     taxes: {
         id: "shop.cart.detail.cart.taxes",
         defaultMessage: "Taxes"
+    },
+    addToCart: {
+        id: "shop.cart.product.actions.add",
+        defaultMessage: "Add to cart"
     }
 });
