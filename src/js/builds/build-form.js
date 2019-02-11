@@ -3,10 +3,11 @@
 import "jquery";
 import "bootstrap";
 
+import { AlbumConsumer } from '../data/albums/album';
+import { PhotoConsumer } from '../data/albums/photo';
+
 import Formset from "../ponyjs/forms/formsets.js";
 
-import Album from "../albums/models/album2.js";
-import Photo from "../albums/models/photo2.js";
 import Handlebars from "../general/hbs-pony";
 
 let conf = {
@@ -32,9 +33,9 @@ class PhotoFormset extends Formset {
 let photoFormset = new PhotoFormset("photos");
 
 let loadAlbums = function() {
-    // endpoint without pagination
-    Album.objects
-        .all()
+    let albumConsumer = new AlbumConsumer();
+    albumConsumer
+        .list()
         .then(albums => {
             return Handlebars.render("albums::carousel-picker", {
                 albums: albums
@@ -44,10 +45,7 @@ let loadAlbums = function() {
             // render carousel body
             $(conf.photo_picker.body).html(html);
         })
-        .catch(e => {
-            console.log("err", e);
-            throw e;
-        });
+        .catch(console.error);
 };
 
 let showPhotos = function(event) {
@@ -68,37 +66,17 @@ let showPhotos = function(event) {
 
     let albumId = parseInt($(this).val(), 10);
 
-    let getQueryset = function(page = 1) {
-        return Photo.objects.filter({ album: albumId, page: page });
-    };
-    /**
-     * fetch the first page of photos, and figure out how many extra pages there are.
-     * If more pages exist, fetch all of them and wait for all of them to complete.
-     */
-    getQueryset()
+    const photoConsumer = new PhotoConsumer();
+    photoConsumer
+        .getAllForAlbum(albumId)
         .then(photos => {
-            let promises,
-                page_range = photos.paginator.page_range;
-            if (page_range.length > 1) {
-                promises = page_range.slice(1).map(p => getQueryset(p));
-            } else {
-                promises = [Promise.resolve(photos)];
-            }
-            return Promise.all(promises);
-        })
-        .then(photo_lists => {
-            let photos = [];
-            photo_lists.forEach(_photos => photos.push(..._photos));
-            return Handlebars.render("builds::album-photo-picker", {
-                photos: photos
-            });
+            console.log(photos);
+            return Handlebars.render("builds::album-photo-picker", { photos });
         })
         .then(html => {
             $(conf.photo_picker.list).html(html);
         })
-        .catch(e => {
-            throw e;
-        });
+        .catch(console.error);
 };
 
 let togglePhotoPicker = function(event) {
