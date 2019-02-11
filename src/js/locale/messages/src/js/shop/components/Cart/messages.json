@@ -6,5 +6,45 @@
   {
     "id": "shop.cart.topbar.checkout",
     "defaultMessage": "Checkout"
+  },
+  {
+    "id": "shop.cart.detail.header.image",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "shop.cart.detail.header.product.name",
+    "defaultMessage": "Product Name"
+  },
+  {
+    "id": "shop.cart.detail.header.model",
+    "defaultMessage": "Model"
+  },
+  {
+    "id": "shop.cart.detail.header.quantity",
+    "defaultMessage": "Quantity"
+  },
+  {
+    "id": "shop.cart.detail.header.unit.price",
+    "defaultMessage": "Unit Price"
+  },
+  {
+    "id": "shop.cart.detail.header.header",
+    "defaultMessage": "Total"
+  },
+  {
+    "id": "shop.cart.detail.title.cart.total",
+    "defaultMessage": "Cart total"
+  },
+  {
+    "id": "shop.cart.detail.cart.subtotal",
+    "defaultMessage": "Sub-total"
+  },
+  {
+    "id": "shop.cart.detail.cart.total",
+    "defaultMessage": "Sub-total"
+  },
+  {
+    "id": "shop.cart.detail.cart.taxes",
+    "defaultMessage": "Taxes"
   }
 ]

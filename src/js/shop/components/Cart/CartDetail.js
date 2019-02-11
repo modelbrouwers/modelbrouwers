@@ -3,6 +3,17 @@ import PropTypes from "prop-types";
 import { observer } from "mobx-react";
 import { DEFAULT_IMAGE } from "../../../constants";
 import { AmountControls } from "./index";
+import { msg } from "../../../translations/components/Message";
+import messages from "./messages";
+
+const headers = [
+    msg(messages.image),
+    msg(messages.productName),
+    msg(messages.model),
+    msg(messages.quantity),
+    msg(messages.unitPrice),
+    msg(messages.totalHeader)
+];
 
 /**
  *
@@ -31,12 +42,9 @@ class CartDetail extends Component {
                 <table className="cart-detail__table">
                     <thead className="cart-detail__thead">
                         <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Model</th>
-                            <th>Quantity</th>
-                            <th>Unit Price</th>
-                            <th>Total</th>
+                            {headers.map((header, i) => (
+                                <th key={i}>{header}</th>
+                            ))}
                         </tr>
                     </thead>
                     <tbody className="cart-detail__tbody">
@@ -84,19 +92,23 @@ class CartDetail extends Component {
                 {/*TODO: Calculate sub-total and taxes*/}
                 <div className="cart-totals">
                     <div className="cart-totals__inner">
-                        <h4>Cart total</h4>
+                        <h4>{msg(messages.cartTotal)}</h4>
                         <div className="cart-totals__row">
                             <span className="cart-totals__text">
-                                Sub-total:
+                                {msg(messages.subTotal)}
                             </span>
                             <span className="cart-totals__value">N/A</span>
                         </div>
                         <div className="cart-totals__row">
-                            <span className="cart-totals__text">Taxes:</span>
+                            <span className="cart-totals__text">
+                                {msg(messages.taxes)}
+                            </span>
                             <span className="cart-totals__value">N/A</span>
                         </div>
                         <div className="cart-totals__row">
-                            <span className="cart-totals__text">Total:</span>
+                            <span className="cart-totals__text">
+                                {msg(messages.total)}
+                            </span>
                             <span className="cart-totals__value">
                                 &euro; {store.total}
                             </span>
