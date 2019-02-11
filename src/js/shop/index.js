@@ -4,6 +4,7 @@ import { IntlProvider } from "react-intl";
 import { CartConsumer } from "../data/shop/cart";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
 import { CartStore } from "./store";
+import { getLocale, getMessages } from "../translations/utils";
 
 export default class Page {
     static init() {
@@ -38,6 +39,8 @@ export default class Page {
     static initCart() {
         const node = document.getElementById("react-cart");
         const detailNode = document.getElementById("react-cart-detail");
+        const locale = getLocale() || "en";
+        const messages = getMessages(locale);
 
         if (node) {
             this.cartConsumer = new CartConsumer();
@@ -46,11 +49,18 @@ export default class Page {
                 .then(({ cart }) => {
                     let cartStore = new CartStore(cart);
                     initCartActions(cartStore);
-                    ReactDOM.render(<TopbarCart store={cartStore} />, node);
+                    ReactDOM.render(
+                        <IntlProvider locale={locale} messages={messages}>
+                            <TopbarCart store={cartStore} />
+                        </IntlProvider>,
+                        node
+                    );
 
                     if (detailNode) {
                         ReactDOM.render(
-                            <CartDetail store={cartStore} />,
+                            <IntlProvider locale={locale} messages={messages}>
+                                <CartDetail store={cartStore} />
+                            </IntlProvider>,
                             detailNode
                         );
                     }

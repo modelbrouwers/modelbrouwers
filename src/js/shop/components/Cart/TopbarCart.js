@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 import classNames from "classnames";
 import { DEFAULT_IMAGE } from "../../../constants";
+import { msg } from "../../../translations/components/Message";
+import messages from "./messages";
 
 @observer
 export default class TopbarCart extends Component {
@@ -52,10 +54,10 @@ export default class TopbarCart extends Component {
                                 href={`/winkel/cart/${cart.id}`}
                                 className="button button--blue"
                             >
-                                View cart
+                                {msg(messages.viewCart)}
                             </a>
                             <button className="button button--blue">
-                                Checkout
+                                {msg(messages.checkout)}
                             </button>
                         </div>
                         <ul className="cart__products">

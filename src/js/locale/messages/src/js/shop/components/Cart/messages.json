@@ -1,0 +1,10 @@
+[
+  {
+    "id": "shop.cart.topbar.view.cart",
+    "defaultMessage": "View cart"
+  },
+  {
+    "id": "shop.cart.topbar.checkout",
+    "defaultMessage": "Checkout"
+  }
+]
