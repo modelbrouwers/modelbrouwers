@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 import classNames from "classnames";
 import { DEFAULT_IMAGE } from "../../../constants";
+import { msg } from "../../../translations/components/Message";
+import messages from "./messages";
+import { FormattedMessage } from "react-intl";
 
 @observer
 export default class TopbarCart extends Component {
@@ -38,7 +41,11 @@ export default class TopbarCart extends Component {
                             <i className="fa fa-shopping-basket cart__icon" />
                             <div className="cart__info">
                                 <div className="cart__items">
-                                    {cart.amount} item(s)
+                                    <FormattedMessage
+                                        id="shop.cart.topbar.item.count"
+                                        defaultMessage={`{count, number} {count, plural, one {item} other {items}}`}
+                                        values={{ count: cart.amount }}
+                                    />
                                 </div>
                                 <div className="cart__price">
                                     &euro; {cart.total}
@@ -52,10 +59,10 @@ export default class TopbarCart extends Component {
                                 href={`/winkel/cart/${cart.id}`}
                                 className="button button--blue"
                             >
-                                View cart
+                                {msg(messages.viewCart)}
                             </a>
                             <button className="button button--blue">
-                                Checkout
+                                {msg(messages.checkout)}
                             </button>
                         </div>
                         <ul className="cart__products">

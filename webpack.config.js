@@ -1,5 +1,6 @@
-var paths = require("./build/paths");
-var webpack = require("webpack");
+const paths = require("./build/paths");
+const webpack = require("webpack");
+const exec = require("child_process").exec;
 /**
  * Webpack configuration
  * Run using "webpack"
