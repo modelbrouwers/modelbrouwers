@@ -1,9 +1,10 @@
 import insertTextAtCursor from "insert-text-at-cursor";
-import Ps from "perfect-scrollbar";
+import PerfectScrollbar from "perfect-scrollbar";
 
+import Paginator from "../scripts/paginator";
 import Handlebars from "../general/hbs-pony";
-import { Album } from "../albums/models/album";
-import { MyPhoto } from "../albums/models/photo";
+import { AlbumConsumer } from "../data/albums/album";
+import { MyPhotoConsumer } from "../data/albums/photo";
 
 let conf = {
     selectors: {
@@ -19,19 +20,22 @@ let conf = {
     }
 };
 
-let updateScrollbar = function() {
-    let sidebar = document.querySelector(conf.selectors.root_sidebar);
-    Ps.update(sidebar);
-};
+const myPhotoConsumer = new MyPhotoConsumer();
+const albumConsumer = new AlbumConsumer();
 
-let renderSidebar = function(albums) {
+// module level variables until we properly refactor...
+let ps;
+
+let renderSidebar = albums => {
     return Handlebars.render("albums::forum-sidebar", { albums: albums }).then(
         html => {
             let body = document.querySelector("body");
             body.insertAdjacentHTML("beforeend", html);
 
-            let sidebar = document.querySelector(conf.selectors.root_sidebar);
-            Ps.initialize($sidebar);
+            let sidebarContainer = document.querySelector(
+                conf.selectors.root_sidebar
+            );
+            ps = new PerfectScrollbar(sidebarContainer);
 
             if (albums.length === 0) {
                 return null;
@@ -42,42 +46,72 @@ let renderSidebar = function(albums) {
 };
 
 let renderAlbumPhotos = function(album, page) {
-    if (album === null) {
+    if (album == null) {
         return;
     }
+
     var target = $(conf.selectors.photo_list);
     var pagination_target = $(conf.selectors.pagination);
     var filters = page ? { page: page } : {};
+
     return album
-        .renderPhotos(
-            "albums::forum-sidebar-photos",
-            target,
-            pagination_target,
-            filters
-        )
-        .done(html => {
+        .getPhotos(filters)
+        .then(photosResponse => {
+            let photos = photosResponse.results;
+
+            // TODO: use consumerjs pagination
+            let paginator = new Paginator();
+            paginator.paginate(photosResponse, page);
+
+            Handlebars.render(
+                "albums::pagination",
+                { page_obj: paginator },
+                pagination_target
+            ).catch(console.error);
+
+            return Handlebars.render(
+                "albums::forum-sidebar-photos",
+                { album, photos },
+                target
+            ).catch(console.error);
+        })
+        .then(() => {
             $(conf.selectors.loader).hide();
-            updateScrollbar();
-        });
+            ps.update();
+        })
+        .catch(console.error);
 };
 
 let showSidebar = function() {
-    Album.objects.all().done(renderAlbumPhotos);
+    albumConsumer
+        .list()
+        .then(renderSidebar)
+        .then(renderAlbumPhotos)
+        .catch(console.error);
 };
 
 let onAlbumSelectChange = function(event) {
     var id = parseInt($(this).val(), 10);
     $(conf.selectors.loader).show();
-    Album.objects.get({ id: id }).done(renderAlbumPhotos);
+
+    albumConsumer
+        .read(`${id}/`)
+        .then(renderAlbumPhotos)
+        .catch(console.error);
 };
 
 let insertPhotoAtCaret = function(event) {
     event.preventDefault();
     let id = $(this).data("id");
-    MyPhoto.objects.get({ id: id }).done(photo => {
-        let textarea = document.querySelector(conf.selectors.post_textarea);
-        insertTextAtCursor(textAreas, photo.bbcode() + "\n");
-    });
+
+    myPhotoConsumer
+        .read(`${id}/`)
+        .then(photo => {
+            let textArea = document.querySelector(conf.selectors.post_textarea);
+            insertTextAtCursor(textArea, photo.bbcode + "\n");
+        })
+        .catch(console.error);
+
     return false;
 };
 
@@ -89,20 +123,22 @@ let loadPage = function(event) {
     // show spinner
     $(this).html('<i class="fa fa-spin fa-spinner"></i>');
 
-    Album.objects.get({ id: id }).done(album => {
-        renderAlbumPhotos(album, page);
-    });
+    albumConsumer
+        .read(`${id}/`)
+        .then(album => {
+            renderAlbumPhotos(album, page);
+        })
+        .catch(console.error);
     return false;
 };
 
 export default class App {
     static init() {
         // check if we're in posting mode
-        const textAreas = document.querySelectorAll(
+        const textArea = document.querySelectorAll(
             conf.selectors.post_textarea
         );
-        if (textAreas.length == 1) {
-            renderSidebar([]);
+        if (textArea.length == 1) {
             showSidebar();
         }
 
@@ -110,7 +146,7 @@ export default class App {
             .on("click", "[data-open], [data-close]", function() {
                 var selector = $(this).data("open") || $(this).data("close");
                 $(selector).toggleClass("open closed");
-                updateScrollbar();
+                ps.update();
             })
             .on("change", conf.selectors.albums_select, onAlbumSelectChange)
             .on("click", conf.selectors.photo, insertPhotoAtCaret)

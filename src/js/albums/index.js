@@ -47,7 +47,9 @@ export default class Page {
         photoThumbs.on("click", ".album-photo", event => {
             event.preventDefault();
 
-            const id = $(event.target).data("id");
+            const id = $(event.target)
+                .closest(".album-photo")
+                .data("id");
 
             // remove all 'old' bits
             $lightboxBody.find(".modal-body").remove();
@@ -57,7 +59,7 @@ export default class Page {
             $lightbox.modal("show");
 
             // fetch the photo details from the Api
-            photoConsumer
+            this.photoConsumer
                 .getForAlbum(window.album, window.page)
                 .then(getLightboxRenderer(id))
                 .catch(console.error);

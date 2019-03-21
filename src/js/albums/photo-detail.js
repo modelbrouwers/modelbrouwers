@@ -1,4 +1,4 @@
-import { Photo } from "./models/photo";
+import { PhotoConsumer } from "../data/albums/photo";
 
 export class Control {
     constructor($node, $target) {
@@ -41,6 +41,8 @@ export class RotateControl extends Control {
             "rotate-right": "cw"
         };
         this.direction = direction_mapping[this.action];
+
+        this.photoConsumer = new PhotoConsumer();
     }
 
     activate() {
@@ -49,12 +51,12 @@ export class RotateControl extends Control {
 
         let id = this.target.data("id");
 
-        Photo.objects
-            .get({ id: id })
+        this.photoConsumer
+            .read(id)
             .then(photo => {
                 return photo.rotate(this.direction);
             })
-            .done(photo => {
+            .then(photo => {
                 let img = new Image();
                 img.src = "{0}?cache_bust={1}".format(
                     photo.image.large,
@@ -62,7 +64,8 @@ export class RotateControl extends Control {
                 );
                 this.target.find("img").attr("src", img.src);
                 this.deactivate(); // removes the highlighting
-            });
+            })
+            .catch(console.error);
     }
 
     deactivate() {
