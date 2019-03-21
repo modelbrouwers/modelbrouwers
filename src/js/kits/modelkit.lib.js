@@ -6,10 +6,9 @@ import qq from "fine-uploader";
 
 import Handlebars from "../general/hbs-pony";
 
-import { BrandConsumer } from '../data/kits/brand';
-import { ScaleConsumer } from '../data/kits/scale';
-import { ModelKitConsumer } from '../data/kits/modelkit';
-
+import { BrandConsumer } from "../data/kits/brand";
+import { ScaleConsumer } from "../data/kits/scale";
+import { ModelKitConsumer } from "../data/kits/modelkit";
 
 /**
  * Kit search widget implementation
@@ -252,7 +251,7 @@ export class NewKitSubmitter {
         this.conf = conf;
         this.consumers = {
             brand: new BrandConsumer(),
-            scale: new ScaleConsumer(),
+            scale: new ScaleConsumer()
         };
         this.modal = null;
         this.boxartImageUUID = null;
@@ -336,8 +335,10 @@ export class NewKitSubmitter {
                     // ModelKitCreate validation errors AND the first rejections validation errors
                     // ignore the double display for now...
                     const renders = Object.keys(errors).map(fieldName => {
-                        const htmlField = $(`#id_${that.conf.prefix_add}-${fieldName}`);
-                        return showErrors(htmlField, errors[fieldName])
+                        const htmlField = $(
+                            `#id_${that.conf.prefix_add}-${fieldName}`
+                        );
+                        return showErrors(htmlField, errors[fieldName]);
                     });
 
                     return Promise.all(renders);
@@ -353,7 +354,7 @@ export class NewKitSubmitter {
 
         if (data[field]) {
             let id = data[field];
-            promise = Promise.resolve(consumer.read(`${id}/`));  // FIXME: append slash in consumerjs
+            promise = Promise.resolve(consumer.read(`${id}/`)); // FIXME: append slash in consumerjs
         } else {
             let newValue = data[`${field}_ta`];
             promise = consumer
@@ -366,12 +367,12 @@ export class NewKitSubmitter {
                     select.val(id);
                     return obj;
                 })
-                .catch((errors) => {
+                .catch(errors => {
                     const selector = `#id_${this.conf.prefix_add}-${field}_ta`;
                     const htmlField = $(selector);
 
                     const renders = Object.keys(errors).map(fieldName => {
-                        return showErrors(htmlField, errors[fieldName])
+                        return showErrors(htmlField, errors[fieldName]);
                     });
 
                     return Promise.all(renders);

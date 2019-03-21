@@ -1,29 +1,25 @@
-import { CrudConsumer, CrudConsumerObject } from 'consumerjs';
+import { CrudConsumer, CrudConsumerObject } from "consumerjs";
 
-import { API_ROOT } from '../../constants';
+import { API_ROOT } from "../../constants";
 
-import { MyPhotoConsumer } from './photo';
+import { MyPhotoConsumer } from "./photo";
 
-
-const myPhotoConsumer = new MyPhotoConsumer()
-
+const myPhotoConsumer = new MyPhotoConsumer();
 
 class Album extends CrudConsumerObject {
-    getPhotos(extraFilters={}) {
+    getPhotos(extraFilters = {}) {
         return myPhotoConsumer.getForAlbum(this.id, extraFilters);
     }
 }
 
-
 class AlbumConsumer extends CrudConsumer {
-    constructor(endpoint=`${API_ROOT}api/v1/my/albums`, objectClass=Album) {
+    constructor(endpoint = `${API_ROOT}api/v1/my/albums`, objectClass = Album) {
         super(endpoint, objectClass);
     }
 
     list() {
-        return this.get('/');
+        return this.get("/");
     }
 }
-
 
 export { AlbumConsumer };

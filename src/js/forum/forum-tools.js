@@ -3,7 +3,7 @@
 import $ from "jquery";
 import URI from "urijs";
 import Api from "../scripts/api";
-import urlconf from './urlconf';
+import urlconf from "./urlconf";
 
 const conf = {
     forum_id_key: "f",
@@ -12,7 +12,6 @@ const conf = {
         new_post: "a.new-post"
     }
 };
-
 
 export default class App {
     static init() {
@@ -33,7 +32,9 @@ export default class App {
             var a = $(this);
             var topic_id = a.data("topic-id");
 
-            var endpoint = urlconf.forum_tools.check_topic_dead.format(topic_id);
+            var endpoint = urlconf.forum_tools.check_topic_dead.format(
+                topic_id
+            );
             Api.request(endpoint)
                 .get()
                 .done(function(data) {
@@ -46,14 +47,14 @@ export default class App {
                     }
                 });
             return false;
-        }
+        };
 
         const hideOverlayDeadTopics = () => {
             $("div#blanket").hide();
             $("div#dead_topic").hide();
             $("body").css("overflow-y", "auto");
             return false;
-        }
+        };
 
         // dead-topics - bind clicks on reply buttons
         $(conf.selectors.new_post).click(test_url);
@@ -61,7 +62,7 @@ export default class App {
     }
 
     static syncUnreadPosts() {
-        const syncNewPostsIndicators = (response) => {
+        const syncNewPostsIndicators = response => {
             $.each(response, function(key, value) {
                 var source = $("#" + key);
                 var cls = source.attr("class");
@@ -72,7 +73,7 @@ export default class App {
                         .attr("title", title);
                 });
             });
-        }
+        };
 
         // sync 'oranje briefjes'
         $.get(urlconf.forum_tools.sync_data, syncNewPostsIndicators);
@@ -100,7 +101,9 @@ export default class App {
         var url = URI();
         if (url.filename() === "viewtopic.php") {
             var forum_id = parseInt(url.search(true)[conf.forum_id_key], 10);
-            $.getJSON(urlconf.forum_tools.get_build_report_forums, function(json) {
+            $.getJSON(urlconf.forum_tools.get_build_report_forums, function(
+                json
+            ) {
                 if (json.forum_ids.indexOf(forum_id) > -1) {
                     // good to go!
                     $("#add-build-report button").text(json.text_build_report);

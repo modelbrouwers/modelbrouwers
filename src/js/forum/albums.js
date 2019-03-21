@@ -1,10 +1,10 @@
-import insertTextAtCursor from 'insert-text-at-cursor';
+import insertTextAtCursor from "insert-text-at-cursor";
 import PerfectScrollbar from "perfect-scrollbar";
 
-import Paginator from '../scripts/paginator';
+import Paginator from "../scripts/paginator";
 import Handlebars from "../general/hbs-pony";
-import { AlbumConsumer } from '../data/albums/album';
-import { MyPhotoConsumer } from '../data/albums/photo';
+import { AlbumConsumer } from "../data/albums/album";
+import { MyPhotoConsumer } from "../data/albums/photo";
 
 let conf = {
     selectors: {
@@ -29,10 +29,12 @@ let ps;
 let renderSidebar = albums => {
     return Handlebars.render("albums::forum-sidebar", { albums: albums }).then(
         html => {
-            let body = document.querySelector('body');
-            body.insertAdjacentHTML('beforeend', html);
+            let body = document.querySelector("body");
+            body.insertAdjacentHTML("beforeend", html);
 
-            let sidebarContainer = document.querySelector(conf.selectors.root_sidebar);
+            let sidebarContainer = document.querySelector(
+                conf.selectors.root_sidebar
+            );
             ps = new PerfectScrollbar(sidebarContainer);
 
             if (albums.length === 0) {
@@ -61,12 +63,17 @@ let renderAlbumPhotos = function(album, page) {
             let paginator = new Paginator();
             paginator.paginate(photosResponse, page);
 
-            Handlebars.render("albums::pagination", { page_obj: paginator }, pagination_target)
-                .catch(console.error);
+            Handlebars.render(
+                "albums::pagination",
+                { page_obj: paginator },
+                pagination_target
+            ).catch(console.error);
 
-            return Handlebars
-                .render("albums::forum-sidebar-photos", { album, photos }, target)
-                .catch(console.error);
+            return Handlebars.render(
+                "albums::forum-sidebar-photos",
+                { album, photos },
+                target
+            ).catch(console.error);
         })
         .then(() => {
             $(conf.selectors.loader).hide();
@@ -125,11 +132,12 @@ let loadPage = function(event) {
     return false;
 };
 
-
 export default class App {
     static init() {
         // check if we're in posting mode
-        const textArea = document.querySelectorAll(conf.selectors.post_textarea);
+        const textArea = document.querySelectorAll(
+            conf.selectors.post_textarea
+        );
         if (textArea.length == 1) {
             showSidebar();
         }

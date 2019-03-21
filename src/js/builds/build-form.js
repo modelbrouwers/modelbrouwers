@@ -3,8 +3,8 @@
 import "jquery";
 import "bootstrap";
 
-import { AlbumConsumer } from '../data/albums/album';
-import { PhotoConsumer } from '../data/albums/photo';
+import { AlbumConsumer } from "../data/albums/album";
+import { PhotoConsumer } from "../data/albums/photo";
 
 import Formset from "../ponyjs/forms/formsets.js";
 

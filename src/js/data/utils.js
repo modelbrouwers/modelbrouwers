@@ -1,4 +1,4 @@
-const handleValidationErrors = (err) => {
+const handleValidationErrors = err => {
     const data = err.statusText.response.data;
 
     if (!err.statusCode === 400) {
@@ -6,13 +6,16 @@ const handleValidationErrors = (err) => {
         return data;
     }
 
-    if (!err.statusText.response.headers['content-type'].startsWith('application/json')) {
+    if (
+        !err.statusText.response.headers["content-type"].startsWith(
+            "application/json"
+        )
+    ) {
         console.warn("Got a non-JSON response", err);
         return data;
     }
 
     return JSON.parse(data);
 };
-
 
 export { handleValidationErrors };

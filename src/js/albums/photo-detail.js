@@ -1,5 +1,4 @@
-import { PhotoConsumer } from '../data/albums/photo';
-
+import { PhotoConsumer } from "../data/albums/photo";
 
 export class Control {
     constructor($node, $target) {

@@ -1,12 +1,11 @@
-import { CrudConsumer, CrudConsumerObject } from 'consumerjs';
+import { CrudConsumer, CrudConsumerObject } from "consumerjs";
 
-import { handleValidationErrors } from '../utils';
-import { API_ROOT } from '../../constants';
-
+import { handleValidationErrors } from "../utils";
+import { API_ROOT } from "../../constants";
 
 let reScale = new RegExp("1[/:]([0-9]*)");
 
-const cleanScale = (input) => {
+const cleanScale = input => {
     if (isNaN(Number(input))) {
         let match = reScale.exec(input);
         if (match) {
@@ -16,30 +15,26 @@ const cleanScale = (input) => {
     return input;
 };
 
-
-class Scale extends CrudConsumerObject {};
-
+class Scale extends CrudConsumerObject {}
 
 class ScaleConsumer extends CrudConsumer {
-    constructor(endpoint=`${API_ROOT}/api/v1/kits/scale/`, objectClass=Scale) {
+    constructor(
+        endpoint = `${API_ROOT}/api/v1/kits/scale/`,
+        objectClass = Scale
+    ) {
         super(endpoint, objectClass);
     }
 
     list() {
-        return this.get('');
+        return this.get("");
     }
 
     fromRaw(scale) {
         scale = cleanScale(scale);
-        return this
-            .create({ scale })
-            .catch(err => {
-                return Promise.reject(handleValidationErrors(err));
-            });
+        return this.create({ scale }).catch(err => {
+            return Promise.reject(handleValidationErrors(err));
+        });
     }
 }
-
-
-
 
 export { cleanScale, ScaleConsumer };

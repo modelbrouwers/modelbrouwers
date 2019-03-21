@@ -3,30 +3,27 @@
 import "jquery";
 import Handlebars from "handlebars/dist/handlebars.min.js";
 
-import TemplateConsumer from '../data/hbs-template';
-import { API_ROOT } from '../constants';
+import TemplateConsumer from "../data/hbs-template";
+import { API_ROOT } from "../constants";
 
 let hbsHelpers = [];
 const consumer = new TemplateConsumer();
 
-
 /**
  * @param name: name of the template, in the format app::name
  */
-function renderTemplate(name, context={}, $dest) {
+function renderTemplate(name, context = {}, $dest) {
     var bits = name.split("::");
     var app = bits[0],
         name = bits[1];
 
-    return consumer
-        .loadTemplate(app, name)
-        .then(tpl => {
-            let rendered = tpl(context);
-            if ($dest) {
-                $dest.html(rendered);
-            }
-            return rendered;
-        });
+    return consumer.loadTemplate(app, name).then(tpl => {
+        let rendered = tpl(context);
+        if ($dest) {
+            $dest.html(rendered);
+        }
+        return rendered;
+    });
 }
 if (Handlebars.renderTemplate) {
     console.warn("Warning: overwriting renderTemplate");
