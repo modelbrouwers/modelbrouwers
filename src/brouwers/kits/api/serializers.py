@@ -43,7 +43,7 @@ class CreateModelKitSerializer(serializers.ModelSerializer):
 
     box_image_uuid = fields.UUIDField(
         write_only=True, validators=[upload_exists],
-        required=False
+        required=False, allow_null=True
     )
 
     url_kitreviews = fields.SerializerMethodField()
@@ -59,11 +59,10 @@ class CreateModelKitSerializer(serializers.ModelSerializer):
         return reverse('kitreviews:review-add', kwargs={'slug': obj.slug})
 
     def create(self, validated_data):
-        uuid = validated_data.get('box_image_uuid')
+        uuid = validated_data.pop('box_image_uuid', None)
         if uuid:
             boxart = Boxart.objects.get(uuid=uuid)
             validated_data['box_image'] = boxart.image
-            del validated_data['box_image_uuid']
             boxart.delete()
         return super(CreateModelKitSerializer, self).create(validated_data)
 

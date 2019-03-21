@@ -3,7 +3,7 @@ import "bootstrap";
 
 import Slider from "./slider.js";
 
-import { cleanScale } from "../kits/models/Scale";
+import { cleanScale } from "../data/kits/scale";
 import {
     AddDefaultsFiller,
     Autocomplete,

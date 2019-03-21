@@ -6,9 +6,10 @@ import qq from "fine-uploader";
 
 import Handlebars from "../general/hbs-pony";
 
-import Brand from "./models/Brand";
-import ModelKit from "./models/ModelKit";
-import Scale from "./models/Scale";
+import { BrandConsumer } from '../data/kits/brand';
+import { ScaleConsumer } from '../data/kits/scale';
+import { ModelKitConsumer } from '../data/kits/modelkit';
+
 
 /**
  * Kit search widget implementation
@@ -31,6 +32,8 @@ export class KitSearch {
             htmlname: this.node.dataset.htmlname
         });
         this.bindEvents();
+
+        this.modelKitConsumer = new ModelKitConsumer();
     }
 
     bindEvents() {
@@ -128,7 +131,7 @@ export class KitSearch {
         }
 
         let $target = $(target);
-        return ModelKit.objects
+        return this.modelKitConsumer
             .filter(filters)
             .then(kits => {
                 if (!kits.length) {
@@ -247,9 +250,9 @@ export class AddDefaultsFiller {
 export class NewKitSubmitter {
     constructor(conf) {
         this.conf = conf;
-        this.models = {
-            brand: Brand,
-            scale: Scale
+        this.consumers = {
+            brand: new BrandConsumer(),
+            scale: new ScaleConsumer(),
         };
         this.modal = null;
         this.boxartImageUUID = null;
@@ -274,6 +277,8 @@ export class NewKitSubmitter {
                 }
             });
         }
+
+        this.modelKitConsumer = new ModelKitConsumer();
     }
 
     boxartImageUploaded(id, name, responseJSON, xhr) {
@@ -312,7 +317,7 @@ export class NewKitSubmitter {
                 .then(returnValues => {
                     brand = returnValues[0];
                     scale = returnValues[1];
-                    return ModelKit.objects.create({
+                    return that.modelKitConsumer.create({
                         brand: brand.id,
                         scale: scale.id,
                         name: data.name,
@@ -321,77 +326,56 @@ export class NewKitSubmitter {
                         box_image_uuid: that.boxartImageUUID
                     });
                 })
-                .then(
-                    kit => {
-                        // set correct objects, different serializer used, to be implemented properly in ponyjs
-                        kit.brand = brand;
-                        kit.scale = scale;
-                        return that.kitCreated(kit);
-                    },
-                    validationErrors => {
-                        // ModelKitCreate validation errors AND the first rejections validation errors
-                        // ignore the double display for now...
-                        let renders = [];
-                        for (let fieldName of Object.keys(
-                            validationErrors.errors
-                        )) {
-                            let htmlField = $(
-                                `#id_${that.conf.prefix_add}-${fieldName}`
-                            );
-                            renders.push(
-                                showErrors(
-                                    htmlField,
-                                    validationErrors.errors[fieldName]
-                                )
-                            );
-                        }
-                        return Promise.all(renders);
-                    }
-                )
+                .then(kit => {
+                    // set correct objects, different serializer used, to be implemented properly in ponyjs
+                    kit.brand = brand;
+                    kit.scale = scale;
+                    return that.kitCreated(kit);
+                })
+                .catch(errors => {
+                    // ModelKitCreate validation errors AND the first rejections validation errors
+                    // ignore the double display for now...
+                    const renders = Object.keys(errors).map(fieldName => {
+                        const htmlField = $(`#id_${that.conf.prefix_add}-${fieldName}`);
+                        return showErrors(htmlField, errors[fieldName])
+                    });
+
+                    return Promise.all(renders);
+                })
                 .catch(console.error);
             return false;
         };
     }
 
     getOrCreate(field, data) {
-        let model = this.models[field];
+        let consumer = this.consumers[field];
         let promise;
 
         if (data[field]) {
             let id = data[field];
-            promise = Promise.resolve(model.objects.get({ id: id }));
+            promise = Promise.resolve(consumer.read(`${id}/`));  // FIXME: append slash in consumerjs
         } else {
             let newValue = data[`${field}_ta`];
-            let obj = Object.assign({}, model.fromRaw(newValue));
-            delete obj._state; // not JSON serializeable, circular reference
-            promise = model.objects.create(obj);
-            promise.then(
-                obj => {
-                    let id = obj.id;
-                    let display = obj[this.conf.typeahead[field].display];
-                    let select = $(`#id_${this.conf.prefix}-${field}`);
+            promise = consumer
+                .fromRaw(newValue)
+                .then(obj => {
+                    const id = obj.id;
+                    const display = obj[this.conf.typeahead[field].display];
+                    const select = $(`#id_${this.conf.prefix}-${field}`);
                     select.append(`<option value="${id}">${display}</option>`);
                     select.val(id);
                     return obj;
-                },
-                validationErrors => {
-                    let htmlField = $(
-                        `#id_${this.conf.prefix_add}-${field}_ta`
-                    );
-                    let renders = [];
-                    for (let fieldName of Object.keys(
-                        validationErrors.errors
-                    )) {
-                        renders.push(
-                            showErrors(
-                                htmlField,
-                                validationErrors.errors[fieldName]
-                            )
-                        );
-                    }
+                })
+                .catch((errors) => {
+                    const selector = `#id_${this.conf.prefix_add}-${field}_ta`;
+                    const htmlField = $(selector);
+
+                    const renders = Object.keys(errors).map(fieldName => {
+                        return showErrors(htmlField, errors[fieldName])
+                    });
+
                     return Promise.all(renders);
-                }
-            );
+                });
         }
         return promise;
     }
