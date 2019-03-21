@@ -1,4 +1,4 @@
-import { cleanScale } from "./models/Scale";
+import { cleanScale } from "../data/kits/scale";
 
 import "jquery";
 import "bootstrap";
