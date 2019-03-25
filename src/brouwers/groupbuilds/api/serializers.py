@@ -1,4 +1,4 @@
-from rest_framework import fields, serializers
+from rest_framework import serializers
 
 from brouwers.forum_tools.api.serializers import IDFieldSerializer
 from brouwers.users.api.serializers import UserSerializer
@@ -32,16 +32,3 @@ class GroupBuildSerializer(serializers.ModelSerializer):
         model = GroupBuild
         fields = ('id', 'theme', 'url', 'forum', 'description', 'start', 'end',
                   'status', 'rules', 'rules_topic', 'participants', 'admins')
-
-
-class ParticipantCreateSerializer(serializers.ModelSerializer):
-
-    topic_id = fields.IntegerField(required=True)
-
-    class Meta:
-        model = Participant
-        fields = ('id', 'groupbuild', 'model_name', 'topic_id')
-
-    def __init__(self, *args, **kwargs):
-        super(ParticipantCreateSerializer, self).__init__(*args, **kwargs)
-        self.fields['model_name'].required = True

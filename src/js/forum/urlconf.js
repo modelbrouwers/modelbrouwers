@@ -12,14 +12,6 @@ const urlconf = {
         mods: {
             get_sharing_perms: "/forum_tools/mods/get_sharing_perms/"
         }
-    },
-
-    groupbuilds: {
-        participant: {
-            check: "groupbuilds/participant/check/",
-            add: "groupbuilds/groupbuild/{0}/participant/",
-            setFinished: "groupbuilds/participant/{0}/"
-        }
     }
 };
 

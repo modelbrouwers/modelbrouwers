@@ -7,6 +7,7 @@ export default class Page {
     static init() {
         this.initDetails();
     }
+
     static initDetails() {
         $('[data-toggle="finished"]').click(function(e) {
             e.preventDefault();
