@@ -64,4 +64,7 @@ class ProductDetailView(ModelFormMixin, DetailView):
 class CartDetailView(DetailView):
     queryset = Cart.objects.all()
     template_name = 'shop/cart_detail.html'
-    model = Cart
+
+    def get_queryset(self):
+        qs = super(CartDetailView, self).get_queryset()
+        return qs.filter(user=self.request.user)

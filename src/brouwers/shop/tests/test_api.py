@@ -15,7 +15,7 @@ from .factories import CartFactory, CartProductFactory, ProductFactory
 
 class ProductApiTest(APITransactionTestCase):
     """
-      Test that CRUD operations for products work correctly
+    Test that CRUD operations for products work correctly
     """
 
     def setUp(self):
@@ -35,7 +35,7 @@ class ProductApiTest(APITransactionTestCase):
 
 class CartApiTest(APITransactionTestCase):
     """
-      Test that CRUD operations for cart work correctly
+    Test that CRUD operations for cart work correctly
     """
 
     def setUp(self):
@@ -107,8 +107,8 @@ class CartApiTest(APITransactionTestCase):
         product = ProductFactory.create()
         data = {
             'product': product.id,
-            'cart': cart.id,
-            'amount': 13
+            'cart':    cart.id,
+            'amount':  13
         }
         response = self.client.post(reverse('api:cartproduct-list'), data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -129,8 +129,8 @@ class CartApiTest(APITransactionTestCase):
         product = ProductFactory.create()
         data = {
             'product': product.id,
-            'cart': cart.id,
-            'amount': 1
+            'cart':    cart.id,
+            'amount':  1
         }
         self.client.post(reverse('api:cartproduct-list'), data)
         self.client.post(reverse('api:cartproduct-list'), data)

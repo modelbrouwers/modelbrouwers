@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from django.db.models import Q
 
 from rest_framework import serializers
 
@@ -49,10 +48,10 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
 
     def validate_cart(self, value):
         cart = value
-        request = self._context['request']
-        qs = Cart.objects.filter(Q(user=request.user) | Q(id=request.session.get('cart_id')))
+        request = self.context['request']
+        qs = Cart.objects.for_request(request)
 
-        if cart not in qs:
+        if not qs.filter(id=cart.id).exists():
             raise serializers.ValidationError({"cart": "invalid cart"})
         return value
 
@@ -63,7 +62,7 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
         cart = Cart.objects.get(id=validated_data['cart'].id)
         qs = cart.products.filter(product=validated_data['product'])
         if qs:
-            cp = qs.first()
+            cp = qs.get()
             cp.amount += validated_data['amount']
             cp.save()
             return cp

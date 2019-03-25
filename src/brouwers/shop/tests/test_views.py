@@ -9,7 +9,7 @@ from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
 
 from ..models import ProductReview
-from .factories import CategoryFactory, ProductFactory
+from .factories import CategoryFactory, ProductFactory, CartFactory
 
 
 class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
@@ -105,3 +105,25 @@ class BreadcrumbsTests(TestCase):
             '<span class="breadcrumbs__separator"> > </span>'
             '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
         )
+
+
+class CartViewTests(WebTest):
+    def setUp(self):
+        self.user = UserFactory.create()
+        self.cart = CartFactory.create(user=self.user)
+        self.url = reverse('shop:cart-detail', kwargs={'pk': self.cart.id})
+
+    def test_cart_detail_view(self):
+        """
+        Asserts that cart detail view is properly loaded and available only to the cart user
+        """
+        cart_page = self.app.get(self.url, user=self.user)
+        self.assertEquals(cart_page.status_code, 200)
+        cart = cart_page.context['cart']
+        self.assertEquals(cart, self.cart)
+
+        # Check that other users can't view the same cart
+
+        second_user = UserFactory.create()
+        cart_page = self.app.get(self.url, user=second_user, expect_errors=True)
+        self.assertEquals(cart_page.status_code, 404)
