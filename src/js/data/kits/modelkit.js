@@ -7,7 +7,7 @@ class ModelKit extends CrudConsumerObject {}
 
 class ModelKitConsumer extends CrudConsumer {
     constructor(
-        endpoint = `${API_ROOT}/api/v1/kits/kit/`,
+        endpoint = `${API_ROOT}api/v1/kits/kit/`,
         objectClass = ModelKit
     ) {
         super(endpoint, objectClass);

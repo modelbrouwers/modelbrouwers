@@ -19,7 +19,7 @@ class Scale extends CrudConsumerObject {}
 
 class ScaleConsumer extends CrudConsumer {
     constructor(
-        endpoint = `${API_ROOT}/api/v1/kits/scale/`,
+        endpoint = `${API_ROOT}api/v1/kits/scale/`,
         objectClass = Scale
     ) {
         super(endpoint, objectClass);

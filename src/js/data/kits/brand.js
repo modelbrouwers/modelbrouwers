@@ -7,7 +7,7 @@ class Brand extends CrudConsumerObject {}
 
 class BrandConsumer extends CrudConsumer {
     constructor(
-        endpoint = `${API_ROOT}/api/v1/kits/brand/`,
+        endpoint = `${API_ROOT}api/v1/kits/brand/`,
         objectClass = Brand
     ) {
         super(endpoint, objectClass);
