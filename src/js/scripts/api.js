@@ -2,15 +2,14 @@ import $ from "jquery";
 import Q from "q";
 import "string.prototype.startswith";
 
-import "./strformat";
 import "./jquery.serializeObject";
 import "./csrf";
 
-var apiBase = "/api/v1/{0}";
+var apiBase = "/api/v1";
 
 class Api {
     constructor(endpoint, data) {
-        this.endpoint = apiBase.format(endpoint);
+        this.endpoint = `${apiBase}/${endpoint}`;
         this.data = data || {};
     }
 
@@ -57,7 +56,7 @@ class Api {
 }
 
 export function apiRequest(url, data) {
-    let prefix = apiBase.format("");
+    let prefix = `${apiBase}/`;
     if (url.startsWith(prefix)) {
         url = url.substring(prefix.length);
     }

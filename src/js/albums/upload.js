@@ -29,9 +29,7 @@ export class PhotoUpload {
                 callbacks: {
                     onComplete: function(event, succeeded, failed) {
                         if (failed.length === 0) {
-                            window.location = decodeURI(
-                                window.albumDetail
-                            ).format(album);
+                            window.location = decodeURI(window.albumDetail).replace('{0}', album, 1);
                         }
                     },
                     onSubmit: function() {

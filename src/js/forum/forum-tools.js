@@ -32,9 +32,7 @@ export default class App {
             var a = $(this);
             var topic_id = a.data("topic-id");
 
-            var endpoint = urlconf.forum_tools.check_topic_dead.format(
-                topic_id
-            );
+            var endpoint = `${urlconf.forum_tools.check_topic_dead}${topic_id}/`;
             Api.request(endpoint)
                 .get()
                 .done(function(data) {
