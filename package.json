@@ -30,6 +30,7 @@
         "aurelia-pal-browser": "^1.8.0",
         "bootstrap": "^3.3.7",
         "bootstrap-hover-dropdown": "^2.2.1",
+        "bootstrap-select": "^1.13.8",
         "bourbon": "^5.0.0",
         "consumerjs": "^2.0.1",
         "fine-uploader": "^5.16.2",

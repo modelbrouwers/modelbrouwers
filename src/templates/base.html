@@ -10,7 +10,6 @@
         <meta name="keywords" content="amt, revell, tamiya, verf , modelbouw, modelkit, paint, enamel, humbroll, revell, airbrush, academy, hobby, model, kits, kit, doyusha, dragon, bigscale, scale, schaal, schaalmodel, hasegawa, italeri, minicrafts, pst, polystyreen" />
 
         <link href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet">
         <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/jquery-ui-1.10.2.custom.css' %}" rel="stylesheet">
 
@@ -20,6 +19,9 @@
 
             {% block extrastyle %}{% endblock %}
         {% endcompress %}
+
+        <link href="{% static 'bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet">
+
         <!--[if IE]>
             <link href="{% static 'css/ie.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
         <![endif]-->
@@ -116,7 +118,7 @@
 
         <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"></script>
-        <script src="{% static 'scripts/bootstrap-select.min.js' %}"></script>
+        <script src="{% static 'bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
 
 
         {% block js_no_compress %}{% endblock %}
@@ -133,7 +135,7 @@
                     $('.badge').tooltip({
                         'placement': 'auto left'
                     });
-                    $('.selectpicker').selectpicker();
+                    // $('.selectpicker').selectpicker();
                 });
             })(window.jQuery);
 

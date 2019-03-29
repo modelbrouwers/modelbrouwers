@@ -137,6 +137,7 @@ STATICFILES_DIRS = [
     ('bootstrap-hover-dropdown', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap-hover-dropdown')),
     ('font-awesome', os.path.join(ROOT_DIR, 'node_modules', 'font-awesome')),
     ('jquery', os.path.join(ROOT_DIR, 'node_modules', 'jquery')),
+    ('bootstrap-select', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap-select')),
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
