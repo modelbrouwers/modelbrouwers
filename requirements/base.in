@@ -7,7 +7,7 @@ pytz
 fake-factory
 
 # Django packages
-Django==1.11.18
+Django
 django-admin-tools
 django-autoslug
 django-choices
