@@ -12,11 +12,6 @@ export class CartConsumer extends CrudConsumer {
     fetch() {
         return this.get("/");
     }
-
-    rotate(id, direction) {
-        const endpoint = `/${id}/rotate/`;
-        return this.patch(endpoint, { direction: direction });
-    }
 }
 
 class CartProduct extends CrudConsumerObject {}
