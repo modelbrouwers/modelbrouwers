@@ -1,5 +1,6 @@
-var paths = require("./build/paths");
-var webpack = require("webpack");
+const paths = require("./build/paths");
+const webpack = require("webpack");
+const exec = require("child_process").exec;
 /**
  * Webpack configuration
  * Run using "webpack"
@@ -19,7 +20,7 @@ module.exports = {
     output: {
         publicPath: __dirname + "/" + paths.jsDir,
         path: __dirname + "/" + paths.jsDir, // directory
-        filename: '[name].js', // file
+        filename: "[name].js" // file
         //  chunkFilename: '[name].bundle.js'
     },
 
@@ -36,7 +37,17 @@ module.exports = {
                     loader: "babel-loader",
                     options: {
                         presets: ["@babel/preset-env"],
-                        plugins: ["@babel/plugin-syntax-dynamic-import"],
+                        plugins: [
+                            [
+                                "@babel/plugin-proposal-decorators",
+                                { legacy: true }
+                            ],
+                            [
+                                "@babel/plugin-proposal-class-properties",
+                                { loose: true }
+                            ],
+                            "@babel/plugin-syntax-dynamic-import"
+                        ],
                         cacheDirectory: true
                     }
                 }
@@ -57,7 +68,8 @@ module.exports = {
     // Necessary for some libs that rely on global jQuery to work (e.g. Typeahead)
     plugins: [
         new webpack.EnvironmentPlugin({
-            'BACKEND_SERVER': '/'
+            BACKEND_SERVER: "/",
+            STATIC_ROOT: "/static"
         }),
         new webpack.ProvidePlugin({
             jQuery: "jquery",

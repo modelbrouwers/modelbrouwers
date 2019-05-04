@@ -19,8 +19,8 @@ module.exports = {
 
     jsSrc: jsRoot + "**/*.js",
     jsEntry: {
-        'main': jsRoot + "index.js",
-        'forum': jsRoot + "forum.js"
+        main: jsRoot + "index.js",
+        forum: jsRoot + "forum.js"
     },
     jsDir: staticRoot + "js/"
 };

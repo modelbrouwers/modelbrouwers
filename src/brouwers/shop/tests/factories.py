@@ -1,7 +1,11 @@
 import factory
 import factory.fuzzy
 
-from ..models import Category, Product, ProductBrand, ProductManufacturer
+from brouwers.users.tests.factories import UserFactory
+
+from ..models import (
+    Cart, CartProduct, Category, Product, ProductBrand, ProductManufacturer
+)
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
@@ -55,3 +59,19 @@ class ProductFactory(factory.django.DjangoModelFactory):
                     self.categories.add(category)
                 else:
                     self.categories.add(CategoryFactory.create(category=category))
+
+
+class CartFactory(factory.django.DjangoModelFactory):
+    user = factory.SubFactory(UserFactory)
+
+    class Meta:
+        model = Cart
+
+
+class CartProductFactory(factory.django.DjangoModelFactory):
+    product = factory.SubFactory(ProductFactory)
+    cart = factory.SubFactory(CartFactory)
+    amount = factory.fuzzy.FuzzyInteger(1, 18)
+
+    class Meta:
+        model = CartProduct

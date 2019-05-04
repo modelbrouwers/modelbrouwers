@@ -16,7 +16,6 @@ class TemplateConsumer extends CrudConsumer {
 
     loadTemplate(app, name) {
         const tplName = `${app}::${name}`;
-
         if (TEMPLATE_CACHE[tplName] != null) {
             const tpl = TEMPLATE_CACHE[tplName];
             return Promise.resolve(tpl);
