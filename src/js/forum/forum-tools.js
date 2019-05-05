@@ -2,8 +2,9 @@
 
 import $ from "jquery";
 import URI from "urijs";
-import Api from "../scripts/api";
 import urlconf from "./urlconf";
+
+import { TopicConsumer } from '../data/topic';
 
 const conf = {
     forum_id_key: "f",
@@ -27,17 +28,16 @@ export default class App {
     }
 
     static initDeadTopics() {
+        const consumer = new TopicConsumer();
+
         const test_url = function(e) {
             e.preventDefault();
             var a = $(this);
             var topic_id = a.data("topic-id");
 
-            var endpoint = urlconf.forum_tools.check_topic_dead.format(
-                topic_id
-            );
-            Api.request(endpoint)
-                .get()
-                .done(function(data) {
+            consumer
+                .retrieve(topic_id)
+                .then(data => {
                     if (!data.is_dead) {
                         window.location = a.attr("href");
                     } else {
@@ -45,7 +45,9 @@ export default class App {
                         $("#blanket, #dead_topic").show();
                         $("#message_topic_dead").text(data.text_dead);
                     }
-                });
+                })
+                .catch(console.error);
+
             return false;
         };
 

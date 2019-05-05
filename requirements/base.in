@@ -1,8 +1,7 @@
 # Common packages
-
+pip-tools==3.5.0
 Pillow
 python-dateutil
-python-Levenshtein
 pytz
 fake-factory
 
