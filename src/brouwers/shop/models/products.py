@@ -91,7 +91,7 @@ class ProductBrand(models.Model):
 
 @python_2_unicode_compatible
 class ProductReview(models.Model):
-    product = models.ForeignKey('Product', related_name='reviews', null=True, blank=True)
+    product = models.ForeignKey('Product', related_name='reviews')
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
     rating = models.PositiveSmallIntegerField(

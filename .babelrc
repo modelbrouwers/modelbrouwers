@@ -1,5 +1,14 @@
 {
     "presets": [
-        "@babel/env"
+        "@babel/env",
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        [
+            "react-intl",
+            {
+                "messagesDir": "./src/js/locale/messages/"
+            }
+        ]
     ]
 }

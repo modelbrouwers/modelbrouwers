@@ -1,6 +1,7 @@
 {% extends "shop/base.html" %} {% load i18n sniplates brouwers %}
 
 {% block content %}
+    {{ block.super }}
     <div class="wrapper">
         {% include 'shop/includes/sidenav.html' with categories=categories category=product.categories.all.first %}
         <div class="product__content">
@@ -51,7 +52,7 @@
                         <span class="product__text product__text--lg">{{ product.price }} &euro;</span>
                     </div>
 
-                    {% if product.reviews %}
+                    {% if product.reviews.all %}
                         <div class="product__rating">
                             {% review_rating rating_pct=product.avg_rating max_rating=5 %}
                             <span class="product__rating-info">{{ product.avg_rating|floatformat:'-1' }}/5</span>

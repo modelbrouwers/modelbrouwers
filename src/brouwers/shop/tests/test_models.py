@@ -47,7 +47,9 @@ class CategoryModelTest(TestCase):
         self.assertEquals(root.name, 'Root')
 
         child1 = root.add_child(name='Child')
+        child1.save()
         child2 = root.add_child(name='Child2')
+        child2.save()
 
         self.assertEquals(len(root.get_children()), 2)
 

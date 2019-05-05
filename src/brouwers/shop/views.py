@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import ModelFormMixin
 
 from .forms import ProductReviewForm
-from .models import Category, CategoryCarouselImage, HomepageCategory, Product
+from .models import Category, CategoryCarouselImage, HomepageCategory, Product, Cart
 
 
 class IndexView(ListView):
@@ -59,3 +59,12 @@ class ProductDetailView(ModelFormMixin, DetailView):
         self.object = self.get_object()
         context = self.get_context_data(form=form, **kwargs)
         return self.render_to_response(context)
+
+
+class CartDetailView(DetailView):
+    queryset = Cart.objects.all()
+    template_name = 'shop/cart_detail.html'
+
+    def get_queryset(self):
+        qs = super(CartDetailView, self).get_queryset()
+        return qs.filter(user=self.request.user)
