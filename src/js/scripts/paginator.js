@@ -1,9 +1,6 @@
-import $ from "jquery";
-
 class Paginator {
-    constructor(opts) {
-        var defaults = {};
-        this.opts = $.extend(true, defaults, opts || {});
+    constructor(opts={}) {
+        this.opts = Object.assign({}, opts);
         this.paginate_by = null;
         this.page_range = [];
         this.previous_page_number = null;
