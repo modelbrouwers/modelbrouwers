@@ -68,3 +68,12 @@ class CartDetailView(DetailView):
     def get_queryset(self):
         qs = super(CartDetailView, self).get_queryset()
         return qs.filter(user=self.request.user)
+
+
+class CheckoutView(DetailView):
+    queryset = Cart.objects.all()
+    template_name = 'shop/checkout.html'
+
+    def get_queryset(self):
+        qs = super(CheckoutView, self).get_queryset()
+        return qs.filter(user=self.request.user)

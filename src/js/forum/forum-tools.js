@@ -4,7 +4,7 @@ import $ from "jquery";
 import URI from "urijs";
 import urlconf from "./urlconf";
 
-import { TopicConsumer } from '../data/topic';
+import { TopicConsumer } from "../data/topic";
 
 const conf = {
     forum_id_key: "f",

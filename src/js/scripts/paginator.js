@@ -1,5 +1,5 @@
 class Paginator {
-    constructor(opts={}) {
+    constructor(opts = {}) {
         this.opts = Object.assign({}, opts);
         this.paginate_by = null;
         this.page_range = [];

@@ -5,7 +5,10 @@ import { API_ROOT } from "../constants";
 class Topic extends CrudConsumerObject {}
 
 class TopicConsumer extends CrudConsumer {
-    constructor(endpoint = `${API_ROOT}forum_tools/topic/`, objectClass = Topic) {
+    constructor(
+        endpoint = `${API_ROOT}forum_tools/topic/`,
+        objectClass = Topic
+    ) {
         super(endpoint, objectClass);
     }
 
@@ -13,6 +16,5 @@ class TopicConsumer extends CrudConsumer {
         return this.read(`${id}/`);
     }
 }
-
 
 export { TopicConsumer };
