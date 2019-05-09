@@ -91,42 +91,62 @@ class CartDetail extends Component {
                 </table>
 
                 {/*TODO: Calculate sub-total and taxes*/}
-                <div className="cart-totals">
-                    <div className="cart-totals__inner">
-                        <h4>
-                            <FormattedMessage
-                                id="shop.cart.detail.title.cart.total"
-                                defaultMessage="Cart total"
-                            />
-                        </h4>
-                        <div className="cart-totals__row">
-                            <span className="cart-totals__text">
+                <div className="cart-detail__row">
+                    <div className="cart-detail__totals">
+                        <div className="cart-detail__inner">
+                            <h4>
                                 <FormattedMessage
-                                    id="shop.cart.detail.cart.subtotal"
-                                    defaultMessage="Sub-total"
+                                    id="shop.cart.detail.title.cart.total"
+                                    defaultMessage="Cart total"
                                 />
-                            </span>
-                            <span className="cart-totals__value">N/A</span>
+                            </h4>
+                            <div className="cart-detail__info-row">
+                                <span className="cart-detail__text">
+                                    <FormattedMessage
+                                        id="shop.cart.detail.cart.subtotal"
+                                        defaultMessage="Sub-total"
+                                    />
+                                </span>
+                                <span className="cart-detail__value">N/A</span>
+                            </div>
+                            <div className="cart-detail__info-row">
+                                <span className="cart-detail__text">
+                                    <FormattedMessage
+                                        id="shop.cart.detail.cart.taxes"
+                                        defaultMessage="Taxes"
+                                    />
+                                </span>
+                                <span className="cart-detail__value">N/A</span>
+                            </div>
+                            <div className="cart-detail__info-row">
+                                <span className="cart-detail__text">
+                                    <FormattedMessage
+                                        id="shop.cart.detail.cart.total"
+                                        defaultMessage="Total"
+                                    />
+                                </span>
+                                <span className="cart-detail__value">
+                                    &euro; {store.total}
+                                </span>
+                            </div>
                         </div>
-                        <div className="cart-totals__row">
-                            <span className="cart-totals__text">
+
+                        <div className="cart-detail__action-row">
+                            <a href="/winkel" className="button button--blue">
                                 <FormattedMessage
-                                    id="shop.cart.detail.cart.taxes"
-                                    defaultMessage="Taxes"
+                                    description="Button back to webshop homepage"
+                                    defaultMessage="Continue shopping"
                                 />
-                            </span>
-                            <span className="cart-totals__value">N/A</span>
-                        </div>
-                        <div className="cart-totals__row">
-                            <span className="cart-totals__text">
+                            </a>
+                            <a
+                                href="/winkel/checkout"
+                                className="button button--blue"
+                            >
                                 <FormattedMessage
-                                    id="shop.cart.detail.cart.total"
-                                    defaultMessage="Sub-total"
+                                    description="Button to webshop checkout"
+                                    defaultMessage="Checkout"
                                 />
-                            </span>
-                            <span className="cart-totals__value">
-                                &euro; {store.total}
-                            </span>
+                            </a>
                         </div>
                     </div>
                 </div>

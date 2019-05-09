@@ -1,10 +1,7 @@
 .button {
-
   border-radius: 4px;
   border: 1px solid transparent;
-
   display: inline-block;
-
   text-align: center;
   padding: 6px 12px;
   font-weight: bold;
@@ -36,7 +33,10 @@
   &--blue {
     background-color: $main-blue;
 
-    &, &:hover, &:active, &:focus {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
       color: $white;
     }
   }
@@ -44,7 +44,10 @@
   &--orange {
     background-color: $main-orange;
 
-    &, &:hover, &:active, &:focus {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
       color: $white;
     }
   }
@@ -52,7 +55,10 @@
   &--light-blue {
     background-color: $main-light-blue;
 
-    &, &:hover, &:active, &:focus {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
       color: $white;
     }
   }
@@ -70,8 +76,8 @@
   }
 
   &--vertical-center {
-     display: inline-flex;
-     align-items: center;
+    display: inline-flex;
+    align-items: center;
   }
 
   &__icon {
@@ -98,6 +104,11 @@
 
   &__add {
     width: 100%;
+  }
+
+  // Sizes
+  &--large {
+    padding: 12px 18px;
   }
 }
 
