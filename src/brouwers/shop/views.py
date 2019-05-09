@@ -67,33 +67,6 @@ class CartDetailView(DetailView):
         return qs.filter(user=self.request.user)
 
 
-def get_cart(request):
-    cart_id = None
-
-    if request.session.get('cart_id'):
-        cart_id = request.session['cart_id']
-    elif hasattr(request.user, 'carts'):
-        cart = request.user.carts.open().last()
-
-        if cart:
-            cart_id = cart.id
-
-    if cart_id:
-        cart = Cart.objects.get(id=cart_id)
-    else:
-        if request.user.is_authenticated():
-            cart = Cart.objects.create(user=request.user)
-        else:
-            cart = Cart.objects.create()
-            request.session['cart_id'] = cart.id
-    return cart
-
-
 class CheckoutView(TemplateView):
     queryset = Cart.objects.all()
     template_name = "shop/checkout.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(CheckoutView, self).get_context_data(**kwargs)
-        context['cart'] = get_cart(self.request)
-        return context
