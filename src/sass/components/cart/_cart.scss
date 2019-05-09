@@ -148,23 +148,3 @@
     width: 5%;
   }
 }
-
-.cart-totals {
-  float: right;
-  padding: 20px;
-  width: 250px;
-
-  &__row {
-    display: flex;
-    justify-content: space-between;
-    line-height: 2;
-  }
-
-  &__text {
-    margin-right: 10px;
-  }
-
-  &__value {
-    font-weight: bold;
-  }
-}

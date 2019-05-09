@@ -61,9 +61,12 @@ export default class TopbarCart extends Component {
                             >
                                 {msg(messages.viewCart)}
                             </a>
-                            <button className="button button--blue">
+                            <a
+                                href="/winkel/checkout"
+                                className="button button--blue"
+                            >
                                 {msg(messages.checkout)}
-                            </button>
+                            </a>
                         </div>
                         <ul className="cart__products">
                             {cart.products.map((cp, i) => (

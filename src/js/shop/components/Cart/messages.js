@@ -52,5 +52,9 @@ export default defineMessages({
     addToCart: {
         id: "shop.cart.product.actions.add",
         defaultMessage: "Add to cart"
+    },
+    continueShopping: {
+        id: "shop.cart.product.actions.continue.shopping",
+        defaultMessage: "Continue shopping"
     }
 });

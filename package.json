@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "gulp sass && webpack --config webpack.config.js --mode=production",
-        "dev": "webpack --config webpack.config.js --mode=development --watch=true",
+        "dev": "node bin/translate.js && webpack --config webpack.config.js --mode=development --watch=true",
         "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
         "generate": "plop --plopfile src/js/scripts/generator/index.js",
         "makemessages": "node bin/translate.js"

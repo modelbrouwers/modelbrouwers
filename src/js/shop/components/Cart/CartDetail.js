@@ -90,28 +90,42 @@ class CartDetail extends Component {
                 </table>
 
                 {/*TODO: Calculate sub-total and taxes*/}
-                <div className="cart-totals">
-                    <div className="cart-totals__inner">
-                        <h4>{msg(messages.cartTotal)}</h4>
-                        <div className="cart-totals__row">
-                            <span className="cart-totals__text">
-                                {msg(messages.subTotal)}
-                            </span>
-                            <span className="cart-totals__value">N/A</span>
+                <div className="cart-detail__row">
+                    <div className="cart-detail__totals">
+                        <div className="cart-detail__inner">
+                            <h4>{msg(messages.cartTotal)}</h4>
+                            <div className="cart-detail__info-row">
+                                <span className="cart-detail__text">
+                                    {msg(messages.subTotal)}
+                                </span>
+                                <span className="cart-detail__value">N/A</span>
+                            </div>
+                            <div className="cart-detail__info-row">
+                                <span className="cart-detail__text">
+                                    {msg(messages.taxes)}
+                                </span>
+                                <span className="cart-detail__value">N/A</span>
+                            </div>
+                            <div className="cart-detail__info-row">
+                                <span className="cart-detail__text">
+                                    {msg(messages.total)}
+                                </span>
+                                <span className="cart-detail__value">
+                                    &euro; {store.total}
+                                </span>
+                            </div>
                         </div>
-                        <div className="cart-totals__row">
-                            <span className="cart-totals__text">
-                                {msg(messages.taxes)}
-                            </span>
-                            <span className="cart-totals__value">N/A</span>
-                        </div>
-                        <div className="cart-totals__row">
-                            <span className="cart-totals__text">
-                                {msg(messages.total)}
-                            </span>
-                            <span className="cart-totals__value">
-                                &euro; {store.total}
-                            </span>
+
+                        <div className="cart-detail__action-row">
+                            <a href="/winkel" className="button button--blue">
+                                {msg(messages.continueShopping)}
+                            </a>
+                            <a
+                                href="/winkel/checkout"
+                                className="button button--blue"
+                            >
+                                {msg(messages.checkout)}
+                            </a>
                         </div>
                     </div>
                 </div>

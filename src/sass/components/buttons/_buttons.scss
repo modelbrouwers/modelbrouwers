@@ -1,10 +1,7 @@
 .button {
-
   @include border-radius(4px);
   border: 1px solid transparent;
-
   display: inline-block;
-
   text-align: center;
   padding: 6px 12px;
   font-weight: bold;
@@ -93,6 +90,11 @@
 
   &__add {
     width: 100%;
+  }
+
+  // Sizes
+  &--large {
+    padding: 12px 18px;
   }
 }
 

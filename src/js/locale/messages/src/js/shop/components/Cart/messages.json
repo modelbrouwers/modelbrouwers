@@ -50,5 +50,9 @@
   {
     "id": "shop.cart.product.actions.add",
     "defaultMessage": "Add to cart"
+  },
+  {
+    "id": "shop.cart.product.actions.continue.shopping",
+    "defaultMessage": "Continue shopping"
   }
 ]
