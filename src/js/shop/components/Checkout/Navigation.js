@@ -18,8 +18,8 @@ const tabs = [
  */
 const Navigation = props => {
     const getLinkClassNames = tab => {
-        return classNames("navigation__list-item", {
-            "navigation__list-item--active":
+        return classNames("navigation__link", {
+            "navigation__link--active":
                 window.location.hash === tab.url.replace("/", "#")
         });
     };
@@ -29,8 +29,12 @@ const Navigation = props => {
             <ul className="navigation__container">
                 {tabs.map((tab, i) => {
                     return (
-                        <li key={i} className={getLinkClassNames(tab)}>
-                            <NavLink className="navigation__link" to={tab.url}>
+                        <li key={i} className="navigation__list-item">
+                            <NavLink
+                                className={getLinkClassNames(tab)}
+                                to={tab.url}
+                                activeClassName="navigation__link--active"
+                            >
                                 {tab.name}
                             </NavLink>
                         </li>
