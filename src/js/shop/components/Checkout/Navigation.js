@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { HashRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, NavLink } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
 
@@ -18,8 +18,8 @@ const tabs = [
  */
 const Navigation = props => {
     const getLinkClassNames = tab => {
-        return classNames("navigation__link", {
-            "navigation__link--active":
+        return classNames("navigation__list-item", {
+            "navigation__list-item--active":
                 window.location.hash === tab.url.replace("/", "#")
         });
     };
@@ -29,13 +29,10 @@ const Navigation = props => {
             <ul className="navigation__container">
                 {tabs.map((tab, i) => {
                     return (
-                        <li key={i}>
-                            <Link
-                                to={tab.url}
-                                className={getLinkClassNames(tab)}
-                            >
+                        <li key={i} className={getLinkClassNames(tab)}>
+                            <NavLink className="navigation__link" to={tab.url}>
                                 {tab.name}
-                            </Link>
+                            </NavLink>
                         </li>
                     );
                 })}
