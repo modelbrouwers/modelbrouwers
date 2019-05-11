@@ -8,12 +8,21 @@
     display: block;
     height: 100%;
     width: 100%;
+    padding: 8px 16px;
 
+    &:hover {
+      text-decoration: none;
+      background-color: $main-blue;
+    }
 
+    &--active {
+      background-color: $main-blue;
+      border-color: $main-blue;
+      color: $white;
+    }
   }
 
   &__list-item {
-    padding: 8px 16px;
     border-left: 1px solid $light-grey;
     border-right: 1px solid $light-grey;
     border-bottom: 1px solid $light-grey;
@@ -27,15 +36,6 @@
     &:last-child {
       border-bottom-right-radius: 6px;
       border-bottom-left-radius: 6px;
-    }
-
-    &--active {
-      background-color: $main-blue;
-      border-color: $main-blue;
-
-      .navigation__link {
-        color: $white;
-      }
     }
   }
 }
