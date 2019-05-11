@@ -1,6 +1,15 @@
 .checkout {
-  &__header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
+  &__container {
+    display: flex;
+    width: 100%;
+  }
+
+  &__header {
+    color: $black;
   }
 
 }

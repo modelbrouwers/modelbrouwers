@@ -1,0 +1,12 @@
+.navigation {
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}

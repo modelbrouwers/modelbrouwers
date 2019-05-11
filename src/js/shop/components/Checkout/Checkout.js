@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
+import { Navigation } from "./index";
 
 /**
  *
@@ -9,7 +10,14 @@ import messages from "./messages";
  *
  */
 const Checkout = props => {
-    return <h3 className="checkout__header">Checkout</h3>;
+    return (
+        <div className="checkout">
+            <h3 className="checkout__header">{msg(messages.checkout)}</h3>
+            <div className="checkout__container">
+                <Navigation />
+            </div>
+        </div>
+    );
 };
 
 Checkout.propTypes = {};

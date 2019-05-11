@@ -14,5 +14,9 @@
   "shop.cart.topbar.checkout": "Checkout",
   "shop.cart.topbar.item.count": "{count, number} {count, plural, one {item} other {items}}",
   "shop.cart.topbar.view.cart": "View cart",
-  "shop.checkout": "Checkout"
+  "shop.checkout": "Checkout",
+  "shop.checkout.navigation.account": "Account",
+  "shop.checkout.navigation.address": "Address",
+  "shop.checkout.navigation.confirm": "Confirmation",
+  "shop.checkout.navigation.payment": "Payment"
 }
