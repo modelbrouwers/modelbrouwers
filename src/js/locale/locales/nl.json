@@ -13,5 +13,6 @@
   "shop.cart.product.actions.continue.shopping": "Continue shopping",
   "shop.cart.topbar.checkout": "Checkout",
   "shop.cart.topbar.item.count": "{count, number} {count, plural, one {item} other {items}}",
-  "shop.cart.topbar.view.cart": "View cart"
+  "shop.cart.topbar.view.cart": "View cart",
+  "shop.checkout": "Checkout"
 }

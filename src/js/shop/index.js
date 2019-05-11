@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { IntlProvider } from "react-intl";
 import { CartConsumer } from "../data/shop/cart";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
+import { Checkout } from "./components/Checkout";
 import { CartStore } from "./store";
 import { getLocale, getMessages } from "../translations/utils";
 
@@ -36,37 +37,12 @@ export default class Page {
         }
     }
 
-    static initCart() {
+    static async initCart() {
         const node = document.getElementById("react-cart");
         const detailNode = document.getElementById("react-cart-detail");
         const locale = getLocale() || "en";
         const messages = getMessages(locale);
-
-        if (node) {
-            this.cartConsumer = new CartConsumer();
-            this.cartConsumer
-                .fetch()
-                .then(({ cart }) => {
-                    let cartStore = new CartStore(cart);
-                    initCartActions(cartStore);
-                    ReactDOM.render(
-                        <IntlProvider locale={locale} messages={messages}>
-                            <TopbarCart store={cartStore} />
-                        </IntlProvider>,
-                        node
-                    );
-
-                    if (detailNode) {
-                        ReactDOM.render(
-                            <IntlProvider locale={locale} messages={messages}>
-                                <CartDetail store={cartStore} />
-                            </IntlProvider>,
-                            detailNode
-                        );
-                    }
-                })
-                .catch(err => console.log("Error retrieving cart", err));
-        }
+        const intlProps = { locale, messages };
 
         const initCartActions = cartStore => {
             const products = document.getElementsByClassName("product-card");
@@ -76,12 +52,52 @@ export default class Page {
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 ReactDOM.render(
-                    <IntlProvider locale={locale} messages={messages}>
+                    <IntlProvider {...intlProps}>
                         <CartProduct store={cartStore} productId={id} />
                     </IntlProvider>,
                     reactNode
                 );
             }
         };
+
+        try {
+            this.cartConsumer = new CartConsumer();
+            const resp = await this.cartConsumer.fetch();
+            const cart = resp.cart;
+            let cartStore = new CartStore(cart);
+            initCartActions(cartStore);
+            this.initCheckout(intlProps);
+            ReactDOM.render(
+                <IntlProvider {...intlProps}>
+                    <TopbarCart store={cartStore} />
+                </IntlProvider>,
+                node
+            );
+
+            if (detailNode) {
+                ReactDOM.render(
+                    <IntlProvider {...intlProps}>
+                        <CartDetail store={cartStore} />
+                    </IntlProvider>,
+                    detailNode
+                );
+            }
+        } catch (err) {
+            console.log("Error retrieving cart", err);
+            // TODO render error page/modal/toast
+        }
+    }
+
+    static initCheckout(intlProps) {
+        const node = document.getElementById("react-checkout");
+
+        if (node) {
+            ReactDOM.render(
+                <IntlProvider {...intlProps}>
+                    <Checkout />
+                </IntlProvider>,
+                node
+            );
+        }
     }
 }

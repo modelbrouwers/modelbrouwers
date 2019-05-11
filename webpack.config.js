@@ -7,8 +7,8 @@ const exec = require("child_process").exec;
  */
 
 let entry = {};
-for (let key in paths.jsEntry) {
-    entry[key] = __dirname + "/" + paths.jsEntry[key];
+for (let key of Object.keys(paths.jsEntry)) {
+    entry[key] = ["@babel/polyfill", __dirname + "/" + paths.jsEntry[key]];
 }
 console.log(entry);
 
