@@ -88,6 +88,12 @@ module.exports = {
                     path:
                         "../../{{app}}/components/{{properCase name}}/index.js",
                     templateFile: "./templates/index.js.hbs"
+                },
+                {
+                    type: "add",
+                    path:
+                        "../../{{app}}/components/{{properCase name}}/messages.js",
+                    templateFile: "./templates/messages.js.hbs"
                 }
             ];
         }
