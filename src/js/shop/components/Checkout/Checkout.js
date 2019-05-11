@@ -9,7 +9,7 @@ import messages from "./messages";
  *
  */
 const Checkout = props => {
-    return <div>Checkout</div>;
+    return <h3 className="checkout__header">Checkout</h3>;
 };
 
 Checkout.propTypes = {};

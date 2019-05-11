@@ -13,7 +13,6 @@ if (argv.production) {
  * Webpack configuration
  * Run using "webpack"
  */
-
 module.exports = {
     // Path to the js entry point (source)
     entry: {
@@ -23,7 +22,7 @@ module.exports = {
         // CSS
         "screen-css": `${__dirname}/src/sass/screen.scss`,
         "forum-css": `${__dirname}/src/sass/forum.scss`,
-        "print-brouwersdag-css": `${__dirname}/src/sass/print_brouwersdag.scss`
+        "print-brouwersdag-css": `${__dirname}/src/sass/print_brouwersdag.scss`,
     },
 
     // Path to the (transpiled) js & CSS
@@ -31,28 +30,28 @@ module.exports = {
         path: `${__dirname}/src/static/bundles/`,
         filename: "[name].js", // file
         chunkFilename: "[name].bundle.js",
-        publicPath: "/static/bundles/"
+        publicPath: "/static/bundles/",
     },
 
     plugins: [
         new MiniCssExtractPlugin(),
         new webpack.EnvironmentPlugin({
             BACKEND_SERVER: "/",
-            STATIC_ROOT: "/static"
+            STATIC_ROOT: "/static",
         }),
         // Necessary for some libs that rely on global jQuery to work (e.g. Typeahead)
         new webpack.ProvidePlugin({
             jQuery: "jquery",
             $: "jquery",
-            "window.jQuery": "jquery"
-        })
+            "window.jQuery": "jquery",
+        }),
     ],
 
     module: {
         rules: [
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: ["file-loader"]
+                use: ["file-loader"],
             },
             {
                 test: /\.js$/,
@@ -60,13 +59,13 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        cacheDirectory: true
-                    }
-                }
+                        cacheDirectory: true,
+                    },
+                },
             },
             {
                 test: /\.(woff|woff2|eot|ttf)$/,
-                loader: "url-loader"
+                loader: "url-loader",
             },
             // scss
             {
@@ -79,13 +78,13 @@ module.exports = {
                     {
                         loader: "css-loader",
                         options: {
-                            url: false
-                        }
+                            url: false,
+                        },
                     },
 
                     // Runs postcss configuration (postcss.config.js).
                     {
-                        loader: "postcss-loader"
+                        loader: "postcss-loader",
                     },
 
                     // Compiles .scss to .css.
@@ -94,18 +93,18 @@ module.exports = {
                         options: {
                             sassOptions: {
                                 comments: false,
-                                style: "compressed"
+                                style: "compressed",
                             },
-                            sourceMap: argv.sourcemap
-                        }
-                    }
-                ]
-            }
-        ]
+                            sourceMap: argv.sourcemap,
+                        },
+                    },
+                ],
+            },
+        ],
     },
 
     mode: isProduction ? "production" : "development",
 
     // Use --sourcemap to generate sourcemap.
-    devtool: argv.sourcemap ? "sourcemap" : false
+    devtool: argv.sourcemap ? "sourcemap" : false,
 };
