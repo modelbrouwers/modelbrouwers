@@ -1,1 +1,0 @@
-../src/phpbb/SystemJS/bundle.php
