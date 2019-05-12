@@ -62,6 +62,7 @@ module.exports = {
     ],
     actions: data => {
         let template = "./templates/class.js.hbs";
+        let actions = [];
         let path =
             "../../{{app}}/components/{{properCase name}}/{{properCase name}}.js";
 
@@ -71,15 +72,25 @@ module.exports = {
 
         if (data.action === "add") {
             path = `../../{{app}}/components/{{properCase component}}/{{properCase name}}.js`;
+            actions = [
+                {
+                    type: "append",
+                    path:
+                        "../../{{app}}/components/{{properCase component}}/index.js",
+                    templateFile: "./templates/index.js.hbs"
+                }
+            ];
         }
 
-        let actions = [
+        actions = [
+            ...actions,
             {
                 type: "add",
                 path: path,
                 templateFile: template
             }
         ];
+
         if (data.action === "create") {
             actions = [
                 ...actions,

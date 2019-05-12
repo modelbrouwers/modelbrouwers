@@ -9,7 +9,6 @@ import messages from "./messages";
  *
  */
 const Account = () => {
-    console.log("Acc");
     return (
         <div className="checkout__inner">
             <div className="checkout__row">

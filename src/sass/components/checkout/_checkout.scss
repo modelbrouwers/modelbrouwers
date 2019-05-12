@@ -10,14 +10,14 @@
 
   &__inner {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-flow: wrap;
     padding: 0 30px;
     width: 100%;
   }
 
-  &__header {
-    color: $black;
+  &__header, &__title {
+    color: $text-color;
   }
 
   &__row {
@@ -29,4 +29,6 @@
       justify-content: space-around;
     }
   }
+
+
 }
