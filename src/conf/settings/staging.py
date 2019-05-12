@@ -10,12 +10,12 @@ except ImportError:
 #
 # DATABASES
 #
-DATABASES['default']['CONN_MAX_AGE'] = 60*15  # a test
+DATABASES['default']['CONN_MAX_AGE'] = 60 * 15  # a test
 
 #
 # STATICFILES
 #
-STATICFILES_STORAGE = 'systemjs.storage.SystemJSManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 #
 # SESSION

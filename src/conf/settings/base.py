@@ -233,7 +233,6 @@ INSTALLED_APPS = [
     'rosetta',
     'precise_bbcode',
     'sorl.thumbnail',
-    'systemjs',
     'treebeard',
     'taggit',
     'ckeditor',
