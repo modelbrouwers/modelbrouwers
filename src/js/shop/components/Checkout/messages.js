@@ -41,6 +41,10 @@ export default defineMessages({
         id: "shop.checkout.address.header.delivery.address",
         defaultMessage: "Delivery address"
     },
+    billingAddress: {
+        id: "shop.checkout.address.header.billing.address",
+        defaultMessage: "Billing address"
+    },
     firstName: {
         id: "shop.checkout.address.input.label.first.name",
         defaultMessage: "First name"
