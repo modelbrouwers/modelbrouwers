@@ -20,5 +20,17 @@ export default defineMessages({
     address: {
         id: "shop.checkout.navigation.address",
         defaultMessage: "Address"
+    },
+    continueNoSignup: {
+        id: "shop.checkout.account.action.no.signup",
+        defaultMessage: "Continue without signup"
+    },
+    signIn: {
+        id: "shop.checkout.account.action.signin",
+        defaultMessage: "Sign in"
+    },
+    signUp: {
+        id: "shop.checkout.account.action.signup",
+        defaultMessage: "Sign up"
     }
 });
