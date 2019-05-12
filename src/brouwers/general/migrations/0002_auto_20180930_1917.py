@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='announcement',
             name='language',
-            field=models.CharField(choices=[(b'en', 'English'), (b'nl', 'Dutch'), (b'de', 'German')], max_length=10, verbose_name='language'),
+            field=models.CharField(choices=[('en', 'English'), ('nl', 'Dutch'), ('de', 'German')], max_length=10, verbose_name='language'),
         ),
         migrations.AlterField(
             model_name='registrationquestion',
             name='lang',
-            field=models.CharField(choices=[(b'en', 'English'), (b'nl', 'Dutch'), (b'de', 'German')], default=b'nl', max_length=10, verbose_name='language'),
+            field=models.CharField(choices=[('en', 'English'), ('nl', 'Dutch'), ('de', 'German')], default='nl', max_length=10, verbose_name='language'),
         ),
     ]

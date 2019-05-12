@@ -1,11 +1,10 @@
-import urllib
-
 from django import forms
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.forms.utils import flatatt
 from django.utils.encoding import force_text
 from django.utils.html import format_html, smart_urlquote
+from django.utils.http import urlencode
 from django.utils.translation import ugettext as _
 
 
@@ -43,5 +42,5 @@ class ForumToolsIDFieldWidget(forms.TextInput):
             domain=Site.objects.get_current().domain,
             prefix=settings.PHPBB_URL,
             type=self.type_,
-            qs=urllib.urlencode({self.urlparam: value})
+            qs=urlencode({self.urlparam: value})
         )

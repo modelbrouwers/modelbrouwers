@@ -7,9 +7,9 @@ from .models import (
 
 @admin.register(UserMigration)
 class UserMigrationAdmin(admin.ModelAdmin):
-	list_display = ('__unicode__', 'username', 'username_clean', 'email', 'hash', 'url')
+	list_display = ('__str__', 'username', 'username_clean', 'email', 'hash', 'url')
 	list_editable = ('username', 'email')
-	list_display_links = ('__unicode__',)
+	list_display_links = ('__str__',)
 	search_fields = ('username',)
 
 
@@ -32,7 +32,7 @@ class AlbumMigrationAdmin(admin.ModelAdmin):
 
 @admin.register(PhotoMigration)
 class PictureMigrationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'album', '__unicode__', 'migrated')
+    list_display = ('id', 'album', '__str__', 'migrated')
     list_editable = ('migrated',)
     list_filter = ('migrated',)
     search_fields = ('owner__username', 'album__owner__username', 'caption', 'title')

@@ -11,7 +11,6 @@ except ImportError:  # Pillow 2.3.0
     from PIL import Image
 
 
-
 ORIGINALS_FOLDER_NAME = 'originals'
 
 
@@ -40,7 +39,7 @@ def get_or_create_originals_folder(album_folder):
     if not os.path.exists(originals_folder):
         try:
             os.makedirs(originals_folder)
-        except OSError, err:
+        except OSError as err:
             raise ImproperlyConfigured('Could not create directory: %s (%s)' % (originals_folder, err))
     return originals_folder
 

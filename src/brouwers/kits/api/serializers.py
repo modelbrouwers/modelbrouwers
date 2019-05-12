@@ -20,7 +20,7 @@ class ScaleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Scale
-        fields = ('id', 'scale', '__unicode__')
+        fields = ('id', 'scale', '__str__')
 
 
 class ModelKitSerializer(serializers.ModelSerializer):

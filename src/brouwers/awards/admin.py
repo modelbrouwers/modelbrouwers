@@ -4,20 +4,28 @@ from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
 from django.utils.translation import ugettext as _
 
-from models import *
+from .models import Category, Project, Vote
 
 
 def reject(modeladmin, request, queryset):
     queryset.update(rejected=True, last_reviewer=request.user)
+
+
 reject.short_description = _('Mark nominations as invalid')
+
 
 def mark_reviewed(modeladmin, request, queryset):
     queryset.update(last_reviewer=request.user, last_review=datetime.now())
+
+
 mark_reviewed.short_description = _('Mark nominations as reviewed')
+
 
 def resync_score(modeladmin, request, queryset):
     for nomination in queryset:
         nomination.sync_votes()
+
+
 resync_score.short_description = _('Re-sync the score based on the cast votes')
 
 
@@ -41,8 +49,12 @@ class NominationDateFilter(DateFieldListFilter):
     #     #     return queryset.filter(status=self.default_status)
 
 
+@admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'show_url', 'reviewed', 'brouwer','category','nomination_date', 'rejected', 'votes')
+    list_display = (
+        'name', 'show_url', 'reviewed', 'brouwer', 'category',
+        'nomination_date', 'rejected', 'votes'
+    )
     list_filter = (
         'category',
         ('nomination_date', NominationDateFilter),
@@ -59,7 +71,7 @@ class ProjectAdmin(admin.ModelAdmin):
         'rejected',
         'votes',
         'image',
-        ) + readonly_fields
+    ) + readonly_fields
 
     actions = [reject, mark_reviewed, resync_score]
 
@@ -79,12 +91,13 @@ class ProjectAdmin(admin.ModelAdmin):
         super(ProjectAdmin, self).save_model(request, obj, form, change)
 
 
+@admin.register(Vote)
 class VoteAdmin(admin.ModelAdmin):
     list_display = ('user', 'category', 'submitted')
     raw_id_fields = ('project1', 'project2', 'project3', 'user')
     list_filter = ('submitted', 'category')
 
 
-admin.site.register(Project, ProjectAdmin)
-admin.site.register(Category)
-admin.site.register(Vote, VoteAdmin)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass

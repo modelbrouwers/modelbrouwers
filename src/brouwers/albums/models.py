@@ -36,7 +36,7 @@ class Category(models.Model):
         verbose_name_plural = _("categories")
         ordering = ['order', 'name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -113,7 +113,7 @@ class Album(models.Model):
             ('access_albums', _("Can use new albums")),
         )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
@@ -140,14 +140,14 @@ class Album(models.Model):
 
     def set_order(self):
         max_order = Album.objects.filter(user=self.user, trash=False).aggregate(Max('order'))['order__max'] or 0
-        self.order = max_order+1
+        self.order = max_order + 1
         return self
 
 
 class AlbumGroup(models.Model):
     album = models.OneToOneField(
-            Album, verbose_name=_("album"),
-            help_text=_("Album for which the group has write permissions."),
+        Album, verbose_name=_("album"),
+        help_text=_("Album for which the group has write permissions."),
     )
     users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, verbose_name=_("users"),
@@ -160,8 +160,8 @@ class AlbumGroup(models.Model):
         verbose_name_plural = _("album groups")
         ordering = ('album',)
 
-    def __unicode__(self):
-        return _(u"Write permissions for '%(album)s'") % {'album': self.album.__unicode__()}
+    def __str__(self):
+        return _("Write permissions for '%(album)s'") % {'album': self.album}
 
 
 def get_image_path(instance, filename):
@@ -205,8 +205,8 @@ class Photo(models.Model):
             self.order = max_order + 1
         super(Photo, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return u'albumphoto %d' % self.id
+    def __str__(self):
+        return 'albumphoto %d' % self.id
 
     def get_absolute_url(self):
         return reverse('albums:photo-detail', kwargs={'pk': self.pk})
@@ -250,9 +250,9 @@ class Preferences(models.Model):
         verbose_name_plural = verbose_name
         ordering = ('user',)
 
-    def __unicode__(self):
+    def __str__(self):
         user = self.user.get_full_name() if self.id else 'Anonymous user'
-        return _(u"Preferences for %(user)s") % {'user': user}
+        return _("Preferences for %(user)s") % {'user': user}
 
     @classmethod
     def get_or_create(cls, user):
@@ -289,8 +289,8 @@ class AlbumDownload(models.Model):
         verbose_name_plural = _("album downloads")
         ordering = ('-timestamp',)
 
-    def __unicode__(self):
-        return u"%s" % _("Download of %(album)s by %(username)s" % {
+    def __str__(self):
+        return _("Download of %(album)s by %(username)s" % {
             'album': self.album.title,
             'username': self.downloader.username
         })

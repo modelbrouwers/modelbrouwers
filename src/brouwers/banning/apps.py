@@ -7,4 +7,4 @@ class BanningConfig(AppConfig):
     verbose_name = _('Banning')
 
     def ready(self):
-        from . import signals
+        from . import signals  # noqa

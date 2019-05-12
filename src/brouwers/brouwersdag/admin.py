@@ -12,7 +12,7 @@ class ShowCasedModelAdmin(admin.ModelAdmin):
 
 @admin.register(Competition)
 class CompetitionAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'name', 'max_num_models', 'max_participants', 'is_current')
+    list_display = ('__str__', 'name', 'max_num_models', 'max_participants', 'is_current')
     list_editable = ('name', 'max_num_models', 'max_participants', 'is_current')
     search_fields = ('name',)
 

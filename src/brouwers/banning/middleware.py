@@ -39,22 +39,27 @@ class BanningMiddleware(object):
             # set cache
             set_banning_cache(qs)
         else:
-            invalid_tz = filter(lambda b: b.expiry_date and b.expiry_date.tzinfo is None, ban_list)
-            if len(invalid_tz):
-                logger.warn('%d bans with timezone naive expiry dates' % len(invalid_tz))
+            invalid_tz = [
+                ban for ban in ban_list
+                if ban.expiry_date and ban.expiry_date.tzinfo is None
+            ]
+            if invalid_tz:
+                logger.warn('%d bans with timezone naive expiry dates', len(invalid_tz))
                 for ban in invalid_tz:
                     ban.expiry_date = ban.expiry_date.replace(tzinfo=timezone.utc)
 
             # checking if there are active bans for our current user
             # anonymous users: check ip
             if u.is_authenticated:
-                filter_ = lambda ban: ban.user_id == u.id or ban.ip == ip
+                ban_list = [ban for ban in ban_list if ban.user_id == u.id or ban.ip == ip]
             else:
-                filter_ = lambda ban: ban.ip == ip
+                ban_list = [ban for ban in ban_list if ban.ip == ip]
 
             now = timezone.now()
-            filter_date = lambda ban: ban.expiry_date is None or ban.expiry_date >= now
-            ban_list = filter(filter_date, filter(filter_, ban_list))
+            ban_list = [
+                ban for ban in ban_list
+                if ban.expiry_date is None or ban.expiry_date >= now
+            ]
 
         # NEVER ban superusers
         if ban_list and not (u.is_authenticated and u.is_superuser):

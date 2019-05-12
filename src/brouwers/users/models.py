@@ -108,7 +108,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('users')
         ordering = ['username_clean']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.username
 
     def save(self, *args, **kwargs):

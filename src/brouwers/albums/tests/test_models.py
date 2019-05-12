@@ -8,9 +8,9 @@ from .factories import AlbumFactory, PhotoFactory
 
 
 class CategoryTests(TestCase):
-    def test_unicode(self):
+    def test_str(self):
         album = AlbumFactory.create()
-        self.assertEquals(unicode(album.category), album.category.name)
+        self.assertEquals(str(album.category), album.category.name)
 
 
 class AlbumTests(TestCase):

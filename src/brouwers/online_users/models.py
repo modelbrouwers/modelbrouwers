@@ -24,8 +24,8 @@ class TrackedUser(models.Model):
         verbose_name_plural = _("tracked users")
         ordering = ('-last_seen',)
 
-    def __unicode__(self):
-        return u"%s" % self.user.username
+    def __str__(self):
+        return self.user.username
 
     @property
     def is_online(self):

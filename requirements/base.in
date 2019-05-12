@@ -1,5 +1,5 @@
 # Common packages
-pip-tools==3.5.0
+pip-tools==3.7.0
 Pillow
 python-dateutil
 pytz
@@ -40,3 +40,6 @@ WeasyPrint
 psycopg2
 python-memcached
 openpyxl==2.4.9
+uwsgi
+raven==5.32.0
+mysqlclient

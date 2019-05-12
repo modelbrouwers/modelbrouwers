@@ -1,4 +1,4 @@
-from django.db.models import Avg, QuerySet, Q
+from django.db.models import Avg, Q, QuerySet
 
 from .constants import CartStatuses
 

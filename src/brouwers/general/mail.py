@@ -46,7 +46,7 @@ class MultiAlternativesEmail(object):
                 "MultiAlternativesEmail requires either a definition of "
                 "'to' or an implementation of 'get_to'")
         # iterable and not string
-        if hasattr(self.to, '__iter__'):
+        if isinstance(self.to, (tuple, list)):
             return self.to
         return [self.to]
 

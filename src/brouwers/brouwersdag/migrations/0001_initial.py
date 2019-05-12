@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, verbose_name='name')),
-                ('price', models.DecimalField(decimal_places=2, default=b'0.0', max_digits=5, verbose_name='price per model')),
+                ('price', models.DecimalField(decimal_places=2, default='0.0', max_digits=5, verbose_name='price per model')),
                 ('max_num_models', models.PositiveSmallIntegerField(default=0, help_text='Maximum number of models per participant, enter 0 for unlimited.', verbose_name='models per participant')),
                 ('max_participants', models.PositiveSmallIntegerField(default=0, help_text='Maximum number of participants, enter 0 for unlimited.', verbose_name='maximum number of participants')),
                 ('is_current', models.BooleanField(default=False, help_text='Marking this competition as active will deactivate all other competitions.', verbose_name='current open competition?')),

@@ -72,7 +72,7 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
                 parser.invalid_block_tag(token, command, None)
             try:
                 node = compile_func(parser, token)
-            except template.TemplateSyntaxError, e:
+            except template.TemplateSyntaxError as e:
                 if not parser.compile_function_error(token, e):
                     raise
             parser.extend_nodelist(nodelist, node, token)

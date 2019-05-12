@@ -108,7 +108,7 @@ class DataDownload(object):
             with open(path, 'w') as outfile:
                 context['user'] = self.download_request.user
                 rendered = render_to_string(template_name, context)
-                outfile.write(rendered.encode('utf-8'))
+                outfile.write(rendered)
 
         self.copy_files(photos, 'image')
         self.archive()

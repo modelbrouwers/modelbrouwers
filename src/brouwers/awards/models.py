@@ -31,7 +31,7 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -105,7 +105,7 @@ class Project(models.Model):
     objects = NominationsManager()
     latest = LatestNominationsManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name + ' - ' + self.brouwer
 
     class Meta:
@@ -148,8 +148,8 @@ class Vote(models.Model):
 
     submitted = models.DateTimeField(auto_now_add=True)
 
-    def __unicode__(self):
-        return _(u"Vote by %(user)s in %(category)s") % {'user': self.user.username, 'category': self.category.name}
+    def __str__(self):
+        return _("Vote by %(user)s in %(category)s") % {'user': self.user.username, 'category': self.category.name}
 
     def validate_unique(self, exclude=None):
         super(Vote, self).validate_unique(exclude=exclude)

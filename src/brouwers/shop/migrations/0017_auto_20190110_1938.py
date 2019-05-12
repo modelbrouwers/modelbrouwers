@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='cart',
             name='status',
-            field=models.CharField(choices=[(b'open', 'Open'), (b'paid', 'Paid')], default=b'open', max_length=10, verbose_name='status'),
+            field=models.CharField(choices=[('open', 'Open'), ('paid', 'Paid')], default='open', max_length=10, verbose_name='status'),
         ),
         migrations.AlterField(
             model_name='cart',

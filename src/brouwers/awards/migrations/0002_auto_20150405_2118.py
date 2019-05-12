@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='category',
-            field=models.ForeignKey(verbose_name=b'categorie', to='awards.Category'),
+            field=models.ForeignKey(verbose_name='categorie', to='awards.Category'),
             preserve_default=True,
         ),
         migrations.AddField(

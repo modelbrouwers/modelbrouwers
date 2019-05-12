@@ -9,7 +9,7 @@ from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
 
 from ..models import ProductReview
-from .factories import CategoryFactory, ProductFactory, CartFactory
+from .factories import CartFactory, CategoryFactory, ProductFactory
 
 
 class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):

@@ -26,7 +26,7 @@ class ModelTests(TestCase):
 
     def test_kit_str(self):
         kit = ModelKitFactory.create(name=u'😻', brand__name=u'SMĚR')
-        self.assertEqual(unicode(kit), u'SMĚR - 😻')
+        self.assertEqual(str(kit), u'SMĚR - 😻')
 
     def test_duplicate_kitnumber(self):
         with self.assertRaises(ValidationError):

@@ -125,7 +125,7 @@ class GroupBuild(models.Model):
             self._created = True
         super(GroupBuild, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return _("{name}: {status}").format(name=self.theme, status=self.get_status_display())
 
     def get_absolute_url(self):
@@ -250,7 +250,7 @@ class Participant(models.Model):
         verbose_name = _(u'group build participant')
         verbose_name_plural = _(u'group build participants')
 
-    def __unicode__(self):
+    def __str__(self):
         return _("{build} participant: {user}").format(
             build=self.groupbuild.theme,
             user=self.user.username
