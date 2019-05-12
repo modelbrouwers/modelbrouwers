@@ -28,7 +28,7 @@ def merge_duplicates(modeladmin, request, queryset):
 
     # create the form
     target_queryset = modeladmin.model.objects.exclude(pk__in=queryset.values_list('pk', flat=True))
-    DuplicateForm = type(b'DuplicateForm', (forms.Form,), {
+    DuplicateForm = type('DuplicateForm', (forms.Form,), {
         'target': forms.ModelChoiceField(queryset=target_queryset, empty_label=None, label=_('merge into'))
     })
 

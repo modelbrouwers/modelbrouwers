@@ -1,4 +1,3 @@
-import urllib
 import zlib
 from datetime import datetime
 
@@ -6,6 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.http import urlencode
 from django.utils.timesince import timesince
 from django.utils.translation import ugettext_lazy as _
 
@@ -32,11 +32,11 @@ class ForumLinkBase(models.Model):
         verbose_name = _('base forum link')
         verbose_name_plural = _('base forum links')
 
-    def __unicode__(self):
+    def __str__(self):
         if self.short_description:
-            return _(u'base forum link: %(desc)s') % {'desc': self.short_description}
+            return _('base forum link: %(desc)s') % {'desc': self.short_description}
         else:
-            return _(u'base forum link: %(id)s') % {'id': self.link_id}
+            return _('base forum link: %(id)s') % {'id': self.link_id}
 
 
 class ForumLinkSynced(models.Model):
@@ -50,8 +50,8 @@ class ForumLinkSynced(models.Model):
         verbose_name = _('synced forum link')
         verbose_name_plural = _('synced forum links')
 
-    def __unicode__(self):
-        return u"%s -- %s" % (self.base.__unicode__(), self.link_id)
+    def __str__(self):
+        return u"%s -- %s" % (self.base, self.link_id)
 
 
 class BuildReportsForum(models.Model):
@@ -63,7 +63,7 @@ class BuildReportsForum(models.Model):
         verbose_name_plural = _(u'build report forums')
         ordering = ['forum']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.forum.forum_name if self.forum else _('(forum does not exist)')
 
 
@@ -77,7 +77,7 @@ class ForumCategory(models.Model):
         verbose_name_plural = _(u'forum categories')
         ordering = ('name',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -110,19 +110,19 @@ class ForumUser(models.Model):
         ordering = ('username',)
         db_table = u"%susers" % settings.PHPBB_TABLE_PREFIX
 
-    def __unicode__(self):
-        return u"%s" % self.username
+    def __str__(self):
+        return self.username
 
     def get_absolute_url(self):
         qs = {
             'mode': 'viewprofile',
             'u': self.user_id,
         }
-        return "{0}?{1}".format(reverse('phpBB:memberlist'), urllib.urlencode(qs))
+        return "{0}?{1}".format(reverse('phpBB:memberlist'), urlencode(qs))
 
     def get_email_hash(self):
         email = self.user_email
-        h = zlib.crc32(email.lower()) & 0xffffffff
+        h = zlib.crc32(email.lower().encode('ascii')) & 0xffffffff
         return "%s%s" % (h, len(email))
 
     def save(self, *args, **kwargs):
@@ -149,12 +149,12 @@ class Forum(models.Model):
         default=0, on_delete=models.CASCADE
     )
 
-    def __unicode__(self):
-        return u"{0}".format(self.forum_name)
+    def __str__(self):
+        return self.forum_name
 
     def get_absolute_url(self):
         qs = {'f': self.forum_id}
-        return "{0}?{1}".format(reverse('phpBB:viewforum'), urllib.urlencode(qs))
+        return "{0}?{1}".format(reverse('phpBB:viewforum'), urlencode(qs))
 
     class Meta:
         managed = False
@@ -176,14 +176,14 @@ class Topic(models.Model):
         db_table = settings.PHPBB_TABLE_PREFIX + 'topics'
         ordering = ['topic_id']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.topic_title
 
     def get_absolute_url(self):
         qs = {'t': self.topic_id}
         if self.forum.pk:
             qs['f'] = self.forum.pk
-        return "{0}?{1}".format(reverse('phpBB:viewtopic'), urllib.urlencode(qs))
+        return "{0}?{1}".format(reverse('phpBB:viewtopic'), urlencode(qs))
 
     @property
     def created(self):
@@ -233,7 +233,7 @@ class ForumPostCountRestriction(models.Model):
         verbose_name_plural = _('forum post count restrictions')
         ordering = ['forum']
 
-    def __unicode__(self):
+    def __str__(self):
         return _("Restriction for %(forum)s") % {'forum': self.forum.forum_name}
 
 
@@ -260,7 +260,7 @@ class Report(models.Model):
             ("can_see_reports", _("Can see (number of) open reports")),
         )
 
-    def __unicode__(self):
+    def __str__(self):
         return _('Report %(id)s' % {'id': self.report_id})
 
     def report_time(self):

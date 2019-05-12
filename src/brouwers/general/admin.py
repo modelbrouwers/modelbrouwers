@@ -39,7 +39,7 @@ class QuestionAnswerAdmin(admin.ModelAdmin):
 
 
 class RegistrationAttemptAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'question_short', 'answer', 'timestamp', 'ip_address', 'success',
+    list_display = ('__str__', 'question_short', 'answer', 'timestamp', 'ip_address', 'success',
                     '_is_banned', 'type_of_visitor')
     list_filter = ('success', 'timestamp', 'type_of_visitor')
     search_fields = ('username',)
@@ -47,7 +47,7 @@ class RegistrationAttemptAdmin(admin.ModelAdmin):
 
 
 class AnnouncementAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'from_date', 'to_date')
+    list_display = ('__str__', 'from_date', 'to_date')
     list_filter = ('language', 'from_date', 'to_date')
     list_editable = ('from_date', 'to_date')
     search_fields = ('text',)

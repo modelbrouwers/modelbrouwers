@@ -1,4 +1,4 @@
-import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -36,8 +36,8 @@ class IDField(IntegerField):
             raise
 
         # start processing it as an url
-        url = urlparse.urlparse(value)
-        querydict = urlparse.parse_qs(url.query)
+        url = urlparse(value)
+        querydict = parse_qs(url.query)
         _id = querydict.get(self.urlparam, None)
         if _id is None:
             raise ValidationError(self.error_messages['invalid_url'])

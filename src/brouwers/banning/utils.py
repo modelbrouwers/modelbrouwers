@@ -15,11 +15,16 @@ def set_banning_cache(qs=None):
         qs = models.Ban.get_bans_queryset()
 
     bans = list(qs)
-    invalid_tz_bans = filter(lambda ban: ban.expiry_date is not None and ban.expiry_date.tzinfo is None, bans)
+
+    invalid_tz_bans = [
+        ban for ban in bans
+        if ban.expiry_date is not None and ban.expiry_date.tzinfo is None
+    ]
+
     if len(invalid_tz_bans):
         logger.warn('Detected %d invalid tz bans.' % len(invalid_tz_bans))
     for ban in invalid_tz_bans:
         ban.expiry_date = ban.expiry_date.replace(tzinfo=timezone.utc)
 
     logger.debug('Setting bans cache: %d objects' % len(bans))
-    cache.set(CACHE_KEY, bans, 60*60*24) # cache 24 hours
+    cache.set(CACHE_KEY, bans, 60 * 60 * 24)  # cache 24 hours

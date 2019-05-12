@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='Cart',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[(b'open', 'Open'), (b'paid', 'Paid')], max_length=10, verbose_name='status')),
+                ('status', models.CharField(choices=[('open', 'Open'), ('paid', 'Paid')], max_length=10, verbose_name='status')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
