@@ -16,6 +16,7 @@ apache
 /brouwers/settings/local_settings.py
 src/conf/settings/local.py
 secrets.py
+.env
 
 # Collection directories
 /media
