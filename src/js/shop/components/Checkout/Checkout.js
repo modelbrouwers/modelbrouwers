@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { HashRouter as Router, NavLink, Route } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
-import { Account } from "./index";
+import { Account, Address } from "./index";
 
 const tabs = [
     { name: msg(messages.account), url: "/account" },
@@ -14,7 +14,7 @@ const tabs = [
 
 const routes = [
     { path: "/account", component: () => <Account /> },
-    { path: "/address", component: () => "" },
+    { path: "/address", component: () => <Address /> },
     { path: "/payment", component: () => "" },
     { path: "/confirm", component: () => "" }
 ];
