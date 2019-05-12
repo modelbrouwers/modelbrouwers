@@ -31,7 +31,7 @@ const Checkout = ({ user }) => {
 
     return (
         <div className="checkout">
-            <h3 className="checkout__header">{msg(messages.checkout)}</h3>
+            <h2 className="checkout__header">{msg(messages.checkout)}</h2>
             <div className="checkout__container">
                 <Router hashType="noslash">
                     <ul className="navigation__container">

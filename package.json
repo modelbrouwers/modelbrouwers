@@ -33,7 +33,7 @@
     "homepage": "https://github.com/modelbrouwers/modelbrouwers",
     "dependencies": {
         "@babel/polyfill": "^7.2.5",
-        "bootstrap": "^3.3.7",
+        "bootstrap": "^3.4.1",
         "bootstrap-datepicker": "^1.9.0",
         "bootstrap-select": "^1.13.8",
         "classnames": "^2.2.6",

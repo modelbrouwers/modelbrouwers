@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "/N7xse": {
         "defaultMessage": "Klaar?",
         "description": "GB participants table, finished header.",
@@ -130,3 +131,46 @@
         "originalDefault": "Topic"
     }
 }
+=======
+  "shop.cart.detail.cart.subtotal": "Sub-total",
+  "shop.cart.detail.cart.taxes": "Taxes",
+  "shop.cart.detail.cart.total": "Sub-total",
+  "shop.cart.detail.header.header": "Total",
+  "shop.cart.detail.header.image": "Image",
+  "shop.cart.detail.header.model": "Model",
+  "shop.cart.detail.header.product.name": "Product Name",
+  "shop.cart.detail.header.quantity": "Quantity",
+  "shop.cart.detail.header.unit.price": "Unit Price",
+  "shop.cart.detail.title.cart.total": "Cart total",
+  "shop.cart.product.actions.add": "Add to cart",
+  "shop.cart.product.actions.continue.shopping": "Continue shopping",
+  "shop.cart.topbar.checkout": "Checkout",
+  "shop.cart.topbar.item.count": "{count, number} {count, plural, one {item} other {items}}",
+  "shop.cart.topbar.view.cart": "View cart",
+  "shop.checkout": "Checkout",
+  "shop.checkout.account.action.no.signup": "Continue without signup",
+  "shop.checkout.account.action.signin": "Sign in",
+  "shop.checkout.account.action.signup": "Sign up",
+  "shop.checkout.actions.next": "Next",
+  "shop.checkout.address.checkbox.billing.address.same.as.delivery": "My billing and delivery address are the same.",
+  "shop.checkout.address.header.billing.address": "Billing address",
+  "shop.checkout.address.header.delivery.address": "Delivery address",
+  "shop.checkout.address.header.personal.details": "Personal details",
+  "shop.checkout.address.input.label.address1": "Address 1",
+  "shop.checkout.address.input.label.address2": "Address 2",
+  "shop.checkout.address.input.label.city": "City",
+  "shop.checkout.address.input.label.company": "Company",
+  "shop.checkout.address.input.label.country": "Country",
+  "shop.checkout.address.input.label.email": "Email address",
+  "shop.checkout.address.input.label.fax": "Fax",
+  "shop.checkout.address.input.label.first.name": "First name",
+  "shop.checkout.address.input.label.kvk": "Chamber of Commerce number",
+  "shop.checkout.address.input.label.last.name": "Last name",
+  "shop.checkout.address.input.label.phone": "Phone number",
+  "shop.checkout.address.input.label.zip": "Postal code",
+  "shop.checkout.navigation.account": "Account",
+  "shop.checkout.navigation.address": "Address",
+  "shop.checkout.navigation.confirm": "Confirmation",
+  "shop.checkout.navigation.payment": "Payment"
+}
+>>>>>>> e2d36a07 (Address form)
