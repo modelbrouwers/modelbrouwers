@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
-import { SHOP_ROOT } from "../../../constants";
 
 /**
  *
@@ -15,7 +14,7 @@ const Account = () => {
         <div className="checkout__inner">
             <div className="checkout__row">
                 <Link
-                    to={`${SHOP_ROOT}/checkout#address`}
+                    to="/address"
                     className="button button--blue button--large"
                 >
                     {msg(messages.continueNoSignup)}
