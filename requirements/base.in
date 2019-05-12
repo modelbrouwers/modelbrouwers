@@ -19,7 +19,6 @@ django-precise-bbcode
 django-rosetta
 django-sendfile
 django-sessionprofile
-django-systemjs
 sorl-thumbnail
 django-sniplates
 django-treebeard

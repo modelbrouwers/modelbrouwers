@@ -14,7 +14,7 @@ click==7.0                # via pip-tools
 cssselect==1.0.1          # via weasyprint
 diff-match-patch==20121119  # via django-import-export
 django-admin-tools==0.8.1
-django-appconf==1.0.2     # via django-compressor, django-systemjs
+django-appconf==1.0.2     # via django-compressor
 django-autoslug==1.9.3
 django-choices==1.6.0
 django-ckeditor==5.4.0
@@ -31,7 +31,6 @@ django-rosetta==0.7.13
 django-sendfile==0.3.11
 django-sessionprofile==1.0
 django-sniplates==0.5.0
-django-systemjs==1.4.1
 django-taggit==0.22.2
 django-treebeard==4.2.1
 django==1.11.20
@@ -61,7 +60,6 @@ pyyaml==5.1               # via tablib
 rcssmin==1.0.6            # via django-compressor
 requests==2.21.0          # via django-rosetta, microsofttranslator
 rjsmin==1.0.12            # via django-compressor
-semantic-version==2.6.0   # via django-systemjs
 six==1.10.0               # via bleach, django-extensions, django-extra-views, django-rosetta, fake-factory, html5lib, microsofttranslator, pip-tools, python-dateutil, python-memcached
 sorl-thumbnail==12.4.1
 tablib==0.12.1            # via django-import-export
