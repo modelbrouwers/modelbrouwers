@@ -7,7 +7,9 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import ModelFormMixin
 
 from .forms import ProductReviewForm
-from .models import Category, CategoryCarouselImage, HomepageCategory, Product, Cart
+from .models import (
+    Cart, Category, CategoryCarouselImage, HomepageCategory, Product
+)
 
 
 class IndexView(ListView):

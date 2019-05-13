@@ -1,7 +1,6 @@
-import urllib
-
 from django.conf import settings
 from django.db import models
+from django.utils.http import urlencode
 from django.utils.translation import ugettext as _
 
 from brouwers.albums.models import Album
@@ -16,8 +15,8 @@ class UserMigration(models.Model):
     class Meta:
         ordering = ['username_clean']
 
-    def __unicode__(self):
-        return u"%s" % self.username
+    def __str__(self):
+        return self.username
 
     def save(self, *args, **kwargs):
         if not self.username_clean:
@@ -27,8 +26,8 @@ class UserMigration(models.Model):
     @property
     def url(self):
         params = {'hash': self.hash, 'forum_nickname': self.username}
-        query_string = urllib.urlencode(dict([k, v] for k, v in params.items()))
-        return u"http://modelbrouwers.nl/confirm_account/?%s" % (query_string)
+        query_string = urlencode(dict([k, v] for k, v in params.items()))
+        return "http://modelbrouwers.nl/confirm_account/?%s" % (query_string)
 
 
 class AlbumUserMigration(models.Model):
@@ -40,12 +39,12 @@ class AlbumUserMigration(models.Model):
         verbose_name = _("album user migration")
         verbose_name_plural = _("album user migrations")
 
-    def __unicode__(self):
+    def __str__(self):
         if self.django_user:
-            django_user = self.django_user.__unicode__() + " (%s)" % self.django_user.email
+            django_user = "%s (%s)" % (self.django_user, self.django_user.email)
         else:
             django_user = "[django user not found]"
-        return u"%s (%s) -> %s" % (self.username, self.email, django_user)
+        return "%s (%s) -> %s" % (self.username, self.email, django_user)
 
 
 class AlbumMigration(models.Model):
@@ -58,8 +57,8 @@ class AlbumMigration(models.Model):
     class Meta:
         ordering = ('owner', 'title')
 
-    def __unicode__(self):
-        return u"%s" % self.title
+    def __str__(self):
+        return self.title
 
 
 class PhotoMigration(models.Model):
@@ -76,5 +75,5 @@ class PhotoMigration(models.Model):
     class Meta:
         ordering = ('album',)
 
-    def __unicode__(self):
-        return u"%(path)s%(filename)s" % {'path': self.filepath, 'filename': self.filename}
+    def __str__(self):
+        return "%(path)s%(filename)s" % {'path': self.filepath, 'filename': self.filename}

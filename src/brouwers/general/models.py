@@ -55,8 +55,8 @@ class UserProfile(models.Model):
                     'Uncheck if you don\'t want to share.')
     )
 
-    def __unicode__(self):
-        return u"%s" % self.forum_nickname
+    def __str__(self):
+        return self.forum_nickname
 
     def full_name(self):
         return self.user.get_full_name()
@@ -77,8 +77,8 @@ class UserProfile(models.Model):
 class QuestionAnswer(models.Model):
     answer = models.CharField(max_length=255)
 
-    def __unicode__(self):
-        return u"%s" % self.answer
+    def __str__(self):
+        return self.answer
 
 
 class ActiveQuestionsManager(models.Manager):
@@ -98,8 +98,8 @@ class RegistrationQuestion(models.Model):
     objects = models.Manager()
     active = ActiveQuestionsManager()
 
-    def __unicode__(self):
-        return u"%s" % self.question
+    def __str__(self):
+        return self.question
 
 
 class RegistrationAttemptManager(models.Manager):
@@ -148,12 +148,12 @@ class RegistrationAttempt(models.Model):
         verbose_name_plural = _('registration attempts')
         ordering = ('-timestamp',)
 
-    def __unicode__(self):
-        return u"%s" % self.username
+    def __str__(self):
+        return self.username
 
     @property
     def question_short(self):
-        return self.question.__unicode__()[:15]
+        return str(self.question)[:15]
 
     def _is_banned(self):
         return self.ban_id is not None
@@ -229,5 +229,5 @@ class Announcement(models.Model):
         verbose_name_plural = _(u'announcements')
         ordering = ['-from_date']
 
-    def __unicode__(self):
+    def __str__(self):
         return strip_tags(self.text[:50])

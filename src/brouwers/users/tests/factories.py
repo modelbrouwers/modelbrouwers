@@ -24,6 +24,6 @@ class DataDownloadRequestFactory(factory.django.DjangoModelFactory):
 
     class Params:
         with_file = factory.Trait(
-            zip_file=factory.django.FileField(data=b'foo', filename='some_file.zip'),
+            zip_file=factory.django.FileField(data='foo', filename='some_file.zip'),
             finished=factory.LazyAttribute(lambda o: timezone.now())
         )

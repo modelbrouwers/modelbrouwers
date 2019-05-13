@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='weight_unit',
-            field=models.CharField(choices=[(b'g', 'Gram'), (b'kg', 'Kilogram')], default='g', max_length=10, verbose_name='weight unit'),
+            field=models.CharField(choices=[('g', 'Gram'), ('kg', 'Kilogram')], default='g', max_length=10, verbose_name='weight unit'),
             preserve_default=False,
         ),
     ]

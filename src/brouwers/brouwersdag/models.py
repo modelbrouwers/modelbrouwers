@@ -49,7 +49,7 @@ class ShowCasedModel(models.Model):
         verbose_name = _(u'showcased model')
         verbose_name_plural = _(u'showcased models')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
@@ -92,7 +92,7 @@ class Competition(models.Model):
             Competition.objects.update(is_current=False)
         super(Competition, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def models(self):
@@ -113,11 +113,11 @@ class Brouwersdag(models.Model):
 
     # TODO: open from (visitors, exhibitors), closing, special events
     class Meta:
-        verbose_name = _(u'brouwersdag')
-        verbose_name_plural = _(u'brouwersdagen')
+        verbose_name = _('brouwersdag')
+        verbose_name_plural = _('brouwersdagen')
         ordering = ('-date',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name or 'Brouwersdag %s' % self.date.year
 
 
@@ -135,5 +135,5 @@ class Exhibitor(models.Model):
         verbose_name_plural = _(u'exhibitors')
         ordering = ('name',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

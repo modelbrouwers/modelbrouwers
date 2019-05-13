@@ -28,10 +28,10 @@ class Migration(migrations.Migration):
             name='Project',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('url', models.URLField(help_text=b'link naar het verslag', max_length=500)),
-                ('name', models.CharField(max_length=100, verbose_name=b'titel verslag')),
+                ('url', models.URLField(help_text='link naar het verslag', max_length=500)),
+                ('name', models.CharField(max_length=100, verbose_name='titel verslag')),
                 ('brouwer', models.CharField(max_length=30)),
-                ('image', models.ImageField(null=True, upload_to=b'awards/', blank=True)),
+                ('image', models.ImageField(null=True, upload_to='awards/', blank=True)),
                 ('nomination_date', models.DateField(default=datetime.date.today, db_index=True)),
                 ('votes', models.IntegerField(default=0, null=True, blank=True)),
                 ('rejected', models.BooleanField(default=False)),

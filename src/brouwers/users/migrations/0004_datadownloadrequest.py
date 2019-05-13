@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('finished', models.DateTimeField(blank=True, null=True, verbose_name='finished')),
-                ('zip_file', models.FileField(blank=True, storage=brouwers.utils.storages.PrivateMediaFileSystemStorage(), upload_to=b'', verbose_name='zip file')),
+                ('zip_file', models.FileField(blank=True, storage=brouwers.utils.storages.PrivateMediaFileSystemStorage(), upload_to='', verbose_name='zip file')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

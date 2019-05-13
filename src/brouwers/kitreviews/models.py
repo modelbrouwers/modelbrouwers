@@ -14,7 +14,6 @@ from brouwers.albums.models import Album
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.kits.fields import KitForeignKey
 
-from . import legacy_models  # NOQA
 from .managers import KitReviewQuerySet
 
 DEFAULT_RATING = 50

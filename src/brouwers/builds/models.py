@@ -45,8 +45,8 @@ class Build(models.Model):
         verbose_name_plural = _("build reports")
         ordering = ['kits__scale', 'kits__brand__name']
 
-    def __unicode__(self):
-        return _(u"%(username)s - %(title)s") % {'username': self.user.username, 'title': self.title}
+    def __str__(self):
+        return _("%(username)s - %(title)s") % {'username': self.user.username, 'title': self.title}
 
     def get_absolute_url(self):
         return reverse('builds:detail', kwargs={'slug': self.slug})
@@ -85,8 +85,8 @@ class BuildPhoto(models.Model):
         verbose_name_plural = _(u'build photos')
         ordering = ['order', 'id']
 
-    def __unicode__(self):
-        return _(u"Photo for build %(build)s") % {'build': self.build.title}
+    def __str__(self):
+        return _("Photo for build %(build)s") % {'build': self.build.title}
 
     def clean(self):
         if not self.photo and not self.photo_url:

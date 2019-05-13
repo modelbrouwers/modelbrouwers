@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(help_text='Enter a descriptive build title.', max_length=255, verbose_name='title')),
                 ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from=brouwers.builds.models.get_build_slug, unique=True, verbose_name='slug')),
-                ('topic', brouwers.forum_tools.fields.ForumToolsIDField(blank=True, null=True, type=b'topic', unique=True, verbose_name='build report topic')),
+                ('topic', brouwers.forum_tools.fields.ForumToolsIDField(blank=True, null=True, type='topic', unique=True, verbose_name='build report topic')),
                 ('topic_start_page', models.PositiveSmallIntegerField(default=1, verbose_name='topic start page')),
                 ('start_date', models.DateField(blank=True, null=True, verbose_name='start date')),
                 ('end_date', models.DateField(blank=True, null=True, verbose_name='end date')),

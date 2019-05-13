@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='BuildReportsForum',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type=b'forum', verbose_name='forum')),
+                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type='forum', verbose_name='forum')),
             ],
             options={
                 'ordering': ['forum'],
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=255, verbose_name='name')),
-                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type=b'forum', null=True, verbose_name='forum', blank=True)),
+                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type='forum', null=True, verbose_name='forum', blank=True)),
                 ('icon_class', models.CharField(max_length=50, verbose_name='icon class', blank=True)),
             ],
             options={
@@ -91,9 +91,9 @@ class Migration(migrations.Migration):
             name='ForumPostCountRestriction',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type=b'forum', null=True, verbose_name='forum id', blank=True)),
+                ('forum', brouwers.forum_tools.fields.ForumToolsIDField(type='forum', null=True, verbose_name='forum id', blank=True)),
                 ('min_posts', models.PositiveSmallIntegerField(verbose_name='minimum number of posts')),
-                ('posting_level', models.CharField(max_length=1, verbose_name='posting level', choices=[(b'T', 'Topic'), (b'R', 'Reply')])),
+                ('posting_level', models.CharField(max_length=1, verbose_name='posting level', choices=[('T', 'Topic'), ('R', 'Reply')])),
             ],
             options={
                 'ordering': ['forum'],
@@ -110,7 +110,7 @@ class Migration(migrations.Migration):
                 ('username_clean', models.CharField(max_length=255, verbose_name='username')),
                 ('user_posts', models.IntegerField()),
                 ('user_email', models.CharField(max_length=100, verbose_name='email')),
-                ('user_email_hash', models.BigIntegerField(default=0, help_text="A hash of the user's email address.", db_column=b'user_email_hash')),
+                ('user_email_hash', models.BigIntegerField(default=0, help_text="A hash of the user's email address.", db_column='user_email_hash')),
                 ('user_permissions', models.TextField(blank=True)),
                 ('user_sig', models.TextField(blank=True)),
                 ('user_interests', models.TextField(blank=True)),
@@ -129,10 +129,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Report',
             fields=[
-                ('report_id', models.AutoField(help_text=b'Primary key', serialize=False, primary_key=True)),
+                ('report_id', models.AutoField(help_text='Primary key', serialize=False, primary_key=True)),
                 ('report_closed', models.BooleanField(default=False, help_text='Closed reports need no more attention.', verbose_name='closed')),
-                ('report_time_int', models.IntegerField(help_text='UNIX time when the report was added.', verbose_name='time', db_column=b'report_time')),
-                ('report_text', models.TextField(verbose_name=b'text', blank=True)),
+                ('report_time_int', models.IntegerField(help_text='UNIX time when the report was added.', verbose_name='time', db_column='report_time')),
+                ('report_text', models.TextField(verbose_name='text', blank=True)),
             ],
             options={
                 'db_table': '%sreports' % settings.PHPBB_TABLE_PREFIX,
@@ -148,11 +148,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('topic_id', models.AutoField(serialize=False, primary_key=True)),
                 ('topic_title', models.CharField(max_length=255)),
-                ('last_post_time', models.BigIntegerField(default=0, db_column=b'topic_last_post_time')),
-                ('create_time', models.BigIntegerField(default=0, db_column=b'topic_time')),
+                ('last_post_time', models.BigIntegerField(default=0, db_column='topic_last_post_time')),
+                ('create_time', models.BigIntegerField(default=0, db_column='topic_time')),
                 ('forum', models.ForeignKey(to='forum_tools.Forum')),
                 ('author', models.ForeignKey(
-                    to='forum_tools.ForumUser', db_column=b'topic_poster',
+                    to='forum_tools.ForumUser', db_column='topic_poster',
                     default=0, on_delete=models.SET_DEFAULT
                 )),
             ],

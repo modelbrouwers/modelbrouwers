@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from models import *
+from .models import Ban
 
 
+@admin.register(Ban)
 class BanAdmin(admin.ModelAdmin):
     list_display = ('user', 'ip', 'expiry_date', 'automatic', 'registration_attempt')
     list_filter = ('automatic', 'expiry_date',)
@@ -10,5 +11,3 @@ class BanAdmin(admin.ModelAdmin):
 
     def registration_attempt(self, obj):
         return obj.registrationattempt
-
-admin.site.register(Ban, BanAdmin)

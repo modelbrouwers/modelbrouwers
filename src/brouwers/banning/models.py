@@ -49,16 +49,16 @@ class Ban(models.Model):
             return _('ip ban')
         return _('account ban')
 
-    def __unicode__(self):
+    def __str__(self):
         if self.user:
-            return _(u'Ban: %(username)s') % {'username': get_username(self)}
+            return _('Ban: %(username)s') % {'username': get_username(self)}
         else:
-            return _(u'Ban: %(ip)s') % {'ip': self.ip}
+            return _('Ban: %(ip)s') % {'ip': self.ip}
 
     def clean(self):
         super(Ban, self).clean()
         if not self.ip and not self.user:
-            raise ValidationError(_(u'Submit either an user or IP address.'))
+            raise ValidationError(_('Submit either an user or IP address.'))
         return self
 
     def save(self, *args, **kwargs):
