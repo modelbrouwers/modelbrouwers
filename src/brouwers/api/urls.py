@@ -10,7 +10,7 @@ from brouwers.kits.api.views import (
     BoxartViewSet, BrandViewSet, ModelKitViewSet, ScaleViewSet
 )
 from brouwers.shop.api.viewsets import (
-    CartProductViewSet, CartViewSet, ProductViewSet
+    CartProductViewSet, ProductViewSet
 )
 
 router = DefaultRouter()
@@ -39,4 +39,5 @@ urlpatterns = [
   url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
   url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
   url(r'^shop/', include('brouwers.shop.api.urls')),
+  url(r'^user/', include('brouwers.general.api.urls')),
 ] + router.urls
