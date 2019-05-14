@@ -9,6 +9,7 @@ import {
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
 import { Account, Address } from "./index";
+import { SHOP_ROOT } from "../../../constants";
 
 /**
  *
@@ -40,6 +41,10 @@ const Checkout = ({ profile }) => {
     const isActive = tab => {
         return window.location.hash === tab.url.replace("/", "#");
     };
+
+    if (window.location.pathname === `${SHOP_ROOT}/checkout/`) {
+        window.location.href = `${SHOP_ROOT}/checkout/#account`;
+    }
 
     return (
         <div className="checkout">

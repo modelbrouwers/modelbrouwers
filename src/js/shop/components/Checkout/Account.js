@@ -12,7 +12,7 @@ import { SHOP_ROOT } from "../../../constants";
 const Account = ({ profile }) => {
     // Redirect to next step is user is logged in
     if (profile.user) {
-        return (window.location.href = `${SHOP_ROOT}/checkout/#address`);
+        window.location.href = `${SHOP_ROOT}/checkout/#address`;
     }
 
     return (
