@@ -2,13 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
+import { SHOP_ROOT } from "../../../constants";
 
 /**
  *
  * Account
  *
  */
-const Account = () => {
+const Account = ({ profile }) => {
+    // Redirect to next step is user is logged in
+    if (profile.user) {
+        return (window.location.href = `${SHOP_ROOT}/checkout/#address`);
+    }
+
     return (
         <div className="checkout__inner">
             <div className="checkout__row">

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { IntlProvider } from "react-intl";
 import { CartConsumer } from "../data/shop/cart";
+import { UserProfileConsumer } from "../data/user/profile";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
 import { Checkout } from "./components/Checkout";
 import { CartStore } from "./store";
@@ -88,13 +89,20 @@ export default class Page {
         }
     }
 
-    static initCheckout(intlProps) {
+    static async initCheckout(intlProps) {
         const node = document.getElementById("react-checkout");
-
+        let profile = null;
+        this.userProfileConsumer = new UserProfileConsumer();
         if (node) {
+            try {
+                const resp = await this.userProfileConsumer.fetch();
+                profile = resp.data;
+            } catch (e) {
+                profile = {};
+            }
             ReactDOM.render(
                 <IntlProvider {...intlProps}>
-                    <Checkout />
+                    <Checkout profile={profile} />
                 </IntlProvider>,
                 node
             );
