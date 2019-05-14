@@ -8,15 +8,28 @@ import messages from "./messages";
  * Address
  *
  */
-const Address = ({ user }) => {
-    const [userDetails, setUserDetails] = useState(user);
+const Address = ({ profile }) => {
+    // Set default values for missing fields to avoid null errors
+    const defaultProfile = { user: {}, kvk: "", company: "" };
+    const [userDetails, setUserDetails] = useState({
+        ...defaultProfile,
+        ...profile
+    });
     const [addressCheck, setAddressCheck] = useState(true);
 
-    const onChange = e => {
+    const onProfileChange = e => {
         const { name, value } = e.target;
         setUserDetails({ ...userDetails, [name]: value });
     };
 
+    // Separate handler to update user data
+    const onUserChange = e => {
+        const { name, value } = e.target;
+        setUserDetails({
+            ...userDetails,
+            user: { ...userDetails.user, [name]: value }
+        });
+    };
     return (
         <div className="container">
             <div className="row">
@@ -34,9 +47,9 @@ const Address = ({ user }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={user.firstName}
-                                    name="firstName"
-                                    onChange={onChange}
+                                    value={userDetails.user.first_name}
+                                    name="first_name"
+                                    onChange={onUserChange}
                                 />
                             </div>
                             <div className="form-group col-md-6 col-xs-12">
@@ -46,9 +59,9 @@ const Address = ({ user }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={user.lastName}
-                                    name="lastName"
-                                    onChange={onChange}
+                                    value={userDetails.user.last_name}
+                                    name="last_name"
+                                    onChange={onUserChange}
                                 />
                             </div>
 
@@ -59,9 +72,9 @@ const Address = ({ user }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={user.email}
+                                    value={userDetails.user.email}
                                     name="email"
-                                    onChange={onChange}
+                                    onChange={onUserChange}
                                 />
                             </div>
 
@@ -72,9 +85,9 @@ const Address = ({ user }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={user.phone}
+                                    value={userDetails.user.phone}
                                     name="phone"
-                                    onChange={onChange}
+                                    onChange={onUserChange}
                                 />
                             </div>
                         </div>
@@ -93,9 +106,9 @@ const Address = ({ user }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={user.company}
+                            value={userDetails.company}
                             name="company"
-                            onChange={onChange}
+                            onChange={onProfileChange}
                         />
                     </div>
                     <div className="form-group col-xs-12">
@@ -105,33 +118,33 @@ const Address = ({ user }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={user.kvk}
+                            value={userDetails.kvk}
                             name="kvk"
-                            onChange={onChange}
+                            onChange={onProfileChange}
                         />
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.address1)}
+                            {msg(messages.street)}
                         </label>
                         <input
                             type="text"
                             className="form-control"
-                            value={user.address1}
-                            name="address1"
-                            onChange={onChange}
+                            value={userDetails.street}
+                            name="street"
+                            onChange={onProfileChange}
                         />
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.address2)}
+                            {msg(messages.number)}
                         </label>
                         <input
                             type="text"
                             className="form-control"
-                            value={user.address2}
-                            name="address2"
-                            onChange={onChange}
+                            value={userDetails.number}
+                            name="number"
+                            onChange={onProfileChange}
                         />
                     </div>
                     <div className="form-group col-md-6 col-xs-12">
@@ -141,9 +154,9 @@ const Address = ({ user }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={user.city}
+                            value={userDetails.city}
                             name="city"
-                            onChange={onChange}
+                            onChange={onProfileChange}
                         />
                     </div>
                     <div className="form-group col-md-6 col-xs-12">
@@ -153,9 +166,9 @@ const Address = ({ user }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={user.zip}
-                            name="zip"
-                            onChange={onChange}
+                            value={userDetails.postal}
+                            name="postal"
+                            onChange={onProfileChange}
                         />
                     </div>
                     <div className="form-group col-xs-12">
@@ -165,9 +178,9 @@ const Address = ({ user }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={user.country}
+                            value={userDetails.country}
                             name="country"
-                            onChange={onChange}
+                            onChange={onProfileChange}
                         />
                     </div>
                     <div className="form-check col-xs-12 checkbox-flex">
@@ -200,9 +213,9 @@ const Address = ({ user }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={user.company}
+                                value={userDetails.company}
                                 name="company"
-                                onChange={onChange}
+                                onChange={onProfileChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
@@ -212,33 +225,33 @@ const Address = ({ user }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={user.kvk}
+                                value={userDetails.kvk}
                                 name="kvk"
-                                onChange={onChange}
+                                onChange={onProfileChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.address1)}
+                                {msg(messages.street)}
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={user.address1}
-                                name="address1"
-                                onChange={onChange}
+                                value={userDetails.street}
+                                name="street"
+                                onChange={onProfileChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.address2)}
+                                {msg(messages.number)}
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={user.address2}
-                                name="address2"
-                                onChange={onChange}
+                                value={userDetails.number}
+                                name="number"
+                                onChange={onProfileChange}
                             />
                         </div>
                         <div className="form-group col-md-6 col-xs-12">
@@ -248,9 +261,9 @@ const Address = ({ user }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={user.city}
+                                value={userDetails.city}
                                 name="city"
-                                onChange={onChange}
+                                onChange={onProfileChange}
                             />
                         </div>
                         <div className="form-group col-md-6 col-xs-12">
@@ -260,9 +273,9 @@ const Address = ({ user }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={user.zip}
-                                name="zip"
-                                onChange={onChange}
+                                value={userDetails.postal}
+                                name="postal"
+                                onChange={onProfileChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
@@ -272,9 +285,9 @@ const Address = ({ user }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={user.country}
+                                value={userDetails.country}
                                 name="country"
-                                onChange={onChange}
+                                onChange={onProfileChange}
                             />
                         </div>
                     </div>
@@ -285,11 +298,11 @@ const Address = ({ user }) => {
 };
 
 Address.propTypes = {
-    user: PropTypes.object
+    profile: PropTypes.object
 };
 
 Address.defaultProps = {
-    user: {}
+    profile: {}
 };
 
 export default Address;
