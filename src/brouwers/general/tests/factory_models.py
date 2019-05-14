@@ -2,6 +2,7 @@ import factory
 import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
+
 from ..models import QuestionAnswer, RegistrationQuestion, UserProfile
 
 

@@ -9,9 +9,7 @@ from brouwers.groupbuilds.api.viewsets import ParticipantViewSet
 from brouwers.kits.api.views import (
     BoxartViewSet, BrandViewSet, ModelKitViewSet, ScaleViewSet
 )
-from brouwers.shop.api.viewsets import (
-    CartProductViewSet, ProductViewSet
-)
+from brouwers.shop.api.viewsets import CartProductViewSet, ProductViewSet
 
 router = DefaultRouter()
 

@@ -1,6 +1,9 @@
 from django.conf.urls import url
 
-from .views import CategoryDetailView, IndexView, ProductDetailView, CartDetailView, CheckoutView
+from .views import (
+    CartDetailView, CategoryDetailView, CheckoutView, IndexView,
+    ProductDetailView
+)
 
 app_name = 'shop'
 
