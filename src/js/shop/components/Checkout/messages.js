@@ -73,13 +73,13 @@ export default defineMessages({
         id: "shop.checkout.address.input.label.kvk",
         defaultMessage: "Chamber of Commerce number"
     },
-    address1: {
+    street: {
         id: "shop.checkout.address.input.label.address1",
-        defaultMessage: "Address 1"
+        defaultMessage: "Street"
     },
-    address2: {
+    number: {
         id: "shop.checkout.address.input.label.address2",
-        defaultMessage: "Address 2"
+        defaultMessage: "House number"
     },
     city: {
         id: "shop.checkout.address.input.label.city",
