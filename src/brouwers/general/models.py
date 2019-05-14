@@ -36,7 +36,7 @@ class UserProfile(models.Model):
         default=False)
     categories_voted = models.ManyToManyField(Category, blank=True)
 
-    # adres
+    # address
     street = models.CharField(_("street name"), max_length=255, blank=True, null=True)
     number = models.CharField(
         _("number"), max_length=10,
