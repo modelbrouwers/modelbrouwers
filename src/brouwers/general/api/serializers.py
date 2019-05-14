@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from brouwers.users.api.serializers import UserSerializer
+
 from ..models import UserProfile
 
 
