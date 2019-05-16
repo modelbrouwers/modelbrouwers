@@ -100,5 +100,9 @@ export default defineMessages({
     next: {
         id: "shop.checkout.actions.next",
         defaultMessage: "Next"
+    },
+    continue: {
+        id: "shop.checkout.actions.continue",
+        defaultMessage: "Continue"
     }
 });
