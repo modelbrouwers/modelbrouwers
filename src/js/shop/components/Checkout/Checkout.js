@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { HashRouter as Router, NavLink, Route } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
-import { Account, Address } from "./index";
+import { Account, Address, Payment } from "./index";
 import { SHOP_ROOT } from "../../../constants";
 
 /**
@@ -29,7 +29,10 @@ const Checkout = ({ profile }) => {
             path: "/address",
             component: props => <Address {...props} profile={profile} />
         },
-        { path: "/payment", component: () => "" },
+        {
+            path: "/payment",
+            component: props => <Payment {...props} profile={profile} />
+        },
         { path: "/confirm", component: () => "" }
     ];
 
