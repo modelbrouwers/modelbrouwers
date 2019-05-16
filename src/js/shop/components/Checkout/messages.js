@@ -104,5 +104,9 @@ export default defineMessages({
     continue: {
         id: "shop.checkout.actions.continue",
         defaultMessage: "Continue"
+    },
+    selectPaymentMethod: {
+        id: "shop.checkout.actions.select.payment.method",
+        defaultMessage: "Select your payment method"
     }
 });

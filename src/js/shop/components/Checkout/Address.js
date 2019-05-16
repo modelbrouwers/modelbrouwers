@@ -18,6 +18,14 @@ const Address = ({ profile }) => {
     });
     const [addressCheck, setAddressCheck] = useState(true);
     const [billingDetails, setBillingDetails] = useState({});
+    const mandatoryUserFields = ["first_name", "last_name", "email"];
+    const mandatoryProfileFields = [
+        "street",
+        "number",
+        "city",
+        "country",
+        "postal"
+    ];
 
     const onProfileChange = e => {
         const { name, value } = e.target;
@@ -301,6 +309,7 @@ const Address = ({ profile }) => {
                 )}
             </div>
             <div className="spacer" />
+            {/*TODO Disable Link if any of mandatory fields is empty*/}
             <Link to={`/payment`} className="button button--blue">
                 {msg(messages.continue)}
             </Link>
