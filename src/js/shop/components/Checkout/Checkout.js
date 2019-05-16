@@ -1,11 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-    HashRouter as Router,
-    NavLink,
-    Route,
-    Redirect
-} from "react-router-dom";
+import { HashRouter as Router, NavLink, Route } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
 import { Account, Address } from "./index";

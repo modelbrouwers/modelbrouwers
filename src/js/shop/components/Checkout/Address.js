@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
 
@@ -16,10 +17,16 @@ const Address = ({ profile }) => {
         ...profile
     });
     const [addressCheck, setAddressCheck] = useState(true);
+    const [billingDetails, setBillingDetails] = useState({});
 
     const onProfileChange = e => {
         const { name, value } = e.target;
         setUserDetails({ ...userDetails, [name]: value });
+    };
+
+    const onBillingDetailsChange = e => {
+        const { name, value } = e.target;
+        setBillingDetails({ ...billingDetails, [name]: value });
     };
 
     // Separate handler to update user data
@@ -213,9 +220,9 @@ const Address = ({ profile }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userDetails.company}
+                                value={billingDetails.company}
                                 name="company"
-                                onChange={onProfileChange}
+                                onChange={onBillingDetailsChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
@@ -225,9 +232,9 @@ const Address = ({ profile }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userDetails.kvk}
+                                value={billingDetails.kvk}
                                 name="kvk"
-                                onChange={onProfileChange}
+                                onChange={onBillingDetailsChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
@@ -237,9 +244,9 @@ const Address = ({ profile }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userDetails.street}
+                                value={billingDetails.street}
                                 name="street"
-                                onChange={onProfileChange}
+                                onChange={onBillingDetailsChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
@@ -249,9 +256,9 @@ const Address = ({ profile }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userDetails.number}
+                                value={billingDetails.number}
                                 name="number"
-                                onChange={onProfileChange}
+                                onChange={onBillingDetailsChange}
                             />
                         </div>
                         <div className="form-group col-md-6 col-xs-12">
@@ -261,9 +268,9 @@ const Address = ({ profile }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userDetails.city}
+                                value={billingDetails.city}
                                 name="city"
-                                onChange={onProfileChange}
+                                onChange={onBillingDetailsChange}
                             />
                         </div>
                         <div className="form-group col-md-6 col-xs-12">
@@ -273,9 +280,9 @@ const Address = ({ profile }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userDetails.postal}
+                                value={billingDetails.postal}
                                 name="postal"
-                                onChange={onProfileChange}
+                                onChange={onBillingDetailsChange}
                             />
                         </div>
                         <div className="form-group col-xs-12">
@@ -285,14 +292,18 @@ const Address = ({ profile }) => {
                             <input
                                 type="text"
                                 className="form-control"
-                                value={userDetails.country}
+                                value={billingDetails.country}
                                 name="country"
-                                onChange={onProfileChange}
+                                onChange={onBillingDetailsChange}
                             />
                         </div>
                     </div>
                 )}
             </div>
+            <div className="spacer" />
+            <Link to={`/payment`} className="button button--blue">
+                {msg(messages.continue)}
+            </Link>
         </div>
     );
 };
