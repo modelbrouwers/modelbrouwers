@@ -237,6 +237,7 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'import_export',
+    'solo',
 
     # Modelbrouwers
     'brouwers.users',

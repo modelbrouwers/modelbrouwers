@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 
-from djchoices import DjangoChoices, ChoiceItem
+from djchoices import ChoiceItem, DjangoChoices
 
 BASE_URL = "https://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/"
 
