@@ -44,7 +44,7 @@ html2text==2018.1.9
 html5lib==1.0.1           # via weasyprint
 idna==2.6                 # via requests
 jdcal==1.4                # via openpyxl
-lxml==4.3.0               # via weasyprint
+lxml==4.3.0
 microsofttranslator==0.8  # via django-rosetta
 mysqlclient==1.4.2.post1
 odfpy==1.3.6              # via tablib

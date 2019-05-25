@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .debug_views import PaymentView
+from .debug_views import IdealPaymentView, PaymentView
 from .views import (
     CartDetailView, CategoryDetailView, IndexView, ProductDetailView
 )
@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^cart/(?P<pk>\d+)/', CartDetailView.as_view(), name='cart-detail'),
 
     url(r'^pay/$', PaymentView.as_view(), name='pay'),
+    url(r'^pay/ideal/$', IdealPaymentView.as_view(), name='ideal-bank'),
 ]

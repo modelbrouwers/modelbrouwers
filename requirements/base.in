@@ -4,6 +4,7 @@ Pillow
 python-dateutil
 pytz
 fake-factory
+lxml
 
 # Django packages
 Django
