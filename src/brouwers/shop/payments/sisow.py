@@ -1,3 +1,6 @@
+import hashlib
+import uuid
+from decimal import Decimal
 from functools import lru_cache
 from typing import Iterator, List
 from urllib.parse import urljoin
@@ -24,6 +27,8 @@ def xml_request(resource: str, **params) -> lxml.etree.ElementTree:
     url = urljoin(BASE_URL, resource)
 
     response = requests.get(url, params=params)
+    response.raise_for_status()
+
     root = lxml.etree.fromstring(response.content)
     return root
 
@@ -87,3 +92,43 @@ def get_ideal_bank_choices() -> Iterator:
 def coerce_bank(value):
     bank_mapping = {bank.id: bank for bank in get_ideal_banks()}
     return bank_mapping[value]
+
+
+def start_ideal_payment(amount: Decimal, bank: iDealBank) -> str:
+    from ..models import ShopConfiguration
+
+    config = ShopConfiguration.get_solo()
+
+    purchaseid = str(uuid.uuid4())[:16]
+    amount = int(100 * amount)  # convert euros to eurocents
+
+    sha1_input = "{purchaseid}/{entrancecode}/{amount}/{merchantid}/{merchantkey}".format(
+        purchaseid=purchaseid,
+        entrancecode=purchaseid,
+        amount=amount,
+        merchantid=config.sisow_merchant_key,
+        merchantkey=config.sisow_merchant_key
+    )
+
+    post_data = {
+        "merchantid": config.sisow_merchant_id,
+        "payment": Payments.ideal,
+        "purchaseid": purchaseid,
+        "amount": amount,
+        "description": "Example description",
+        "testmode": "true" if config.sisow_test_mode else "false",
+        "returnurl": "http://localhost:8000/shop/payment-complete/",  # TODO
+        "cancelurl": "http://localhost:8000/shop/payment-aborted/",  # TODO
+        "sha1": hashlib.sha1(sha1_input.encode('ascii')).hexdigest(),
+        "issuerid": bank.id,
+        "currency": "EUR",
+    }
+
+    url = urljoin(BASE_URL, 'TransactionRequest')
+
+    response = requests.post(url, data=post_data)
+    response.raise_for_status()
+
+    # trxid + IssuerURL + merchantid + merchantkey
+
+    import bpdb; bpdb.set_trace()

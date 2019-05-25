@@ -1,3 +1,5 @@
+import decimal
+
 from django import forms
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
@@ -5,7 +7,8 @@ from django.views.generic import FormView
 
 from .models import PaymentMethod
 from .payments.sisow import (
-    Payments, coerce_bank, get_ideal_bank_choices, get_ideal_banks
+    Payments, coerce_bank, get_ideal_bank_choices, get_ideal_banks,
+    start_ideal_payment
 )
 
 
@@ -46,7 +49,6 @@ class IdealPaymentView(FormView):
     template_name = "shop/pay_ideal.html"
 
     def form_valid(self, form):
-
-        import bpdb; bpdb.set_trace()
-
-        return super().form_valid(form)
+        amount = decimal.Decimal(self.request.session['amount'])
+        issuer_url = start_ideal_payment(amount, form.cleaned_data['bank'])
+        return redirect(issuer_url)
