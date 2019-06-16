@@ -3,7 +3,7 @@ import uuid
 from decimal import Decimal
 from functools import lru_cache
 from typing import Iterator, List
-from urllib.parse import urljoin
+from urllib.parse import unquote, urljoin
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -16,17 +16,24 @@ BASE_URL = "https://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/"
 NS = "https://www.sisow.nl/Sisow/REST"
 
 
-def xml_request(resource: str, **params) -> lxml.etree.ElementTree:
+class InvalidIssuerURL(Exception):
+    pass
+
+
+def xml_request(resource: str, method='get', **kwargs) -> lxml.etree.ElementTree:
     from ..models import ShopConfiguration
 
     config = ShopConfiguration.get_solo()
 
     if config.sisow_test_mode:
-        params['test'] = 'true'
+        kwargs.setdefault('params', {})
+        kwargs['params']['test'] = 'true'
+        if 'data' in kwargs:
+            kwargs['data'].setdefault('testmode', "true")
 
     url = urljoin(BASE_URL, resource)
 
-    response = requests.get(url, params=params)
+    response = requests.request(method, url, **kwargs)
     response.raise_for_status()
 
     root = lxml.etree.fromstring(response.content)
@@ -94,6 +101,21 @@ def coerce_bank(value):
     return bank_mapping[value]
 
 
+def calculate_sha1(purchaseid: str, merchantid: str, merchantkey: str, amount: str, shopid: str = "") -> str:
+    sha1_input = "{purchaseid}{entrancecode}{amount}{shopid}{merchantid}{merchantkey}".format(
+        purchaseid=purchaseid,
+        entrancecode=purchaseid,
+        amount=amount,
+        merchantid=merchantid,
+        merchantkey=merchantkey,
+        shopid=shopid
+    )
+
+    sha1 = hashlib.sha1(sha1_input.encode('ascii'))
+    digest = sha1.hexdigest()
+    return digest
+
+
 def start_ideal_payment(amount: Decimal, bank: iDealBank) -> str:
     from ..models import ShopConfiguration
 
@@ -102,12 +124,11 @@ def start_ideal_payment(amount: Decimal, bank: iDealBank) -> str:
     purchaseid = str(uuid.uuid4())[:16]
     amount = int(100 * amount)  # convert euros to eurocents
 
-    sha1_input = "{purchaseid}/{entrancecode}/{amount}/{merchantid}/{merchantkey}".format(
+    sha1 = calculate_sha1(
         purchaseid=purchaseid,
-        entrancecode=purchaseid,
-        amount=amount,
-        merchantid=config.sisow_merchant_key,
-        merchantkey=config.sisow_merchant_key
+        merchantid=config.sisow_merchant_id,
+        merchantkey=config.sisow_merchant_key,
+        amount=amount
     )
 
     post_data = {
@@ -116,19 +137,26 @@ def start_ideal_payment(amount: Decimal, bank: iDealBank) -> str:
         "purchaseid": purchaseid,
         "amount": amount,
         "description": "Example description",
-        "testmode": "true" if config.sisow_test_mode else "false",
         "returnurl": "http://localhost:8000/shop/payment-complete/",  # TODO
         "cancelurl": "http://localhost:8000/shop/payment-aborted/",  # TODO
-        "sha1": hashlib.sha1(sha1_input.encode('ascii')).hexdigest(),
+        "sha1": sha1,
         "issuerid": bank.id,
         "currency": "EUR",
     }
 
-    url = urljoin(BASE_URL, 'TransactionRequest')
+    root = xml_request('TransactionRequest', method="post", data=post_data)
 
-    response = requests.post(url, data=post_data)
-    response.raise_for_status()
+    # verify the response
+    transaction = root.find("{{{ns}}}transaction".format(ns=NS))
 
-    # trxid + IssuerURL + merchantid + merchantkey
+    url = transaction.find("{{{ns}}}issuerurl".format(ns=NS)).text
+    trx_id = transaction.find("{{{ns}}}trxid".format(ns=NS)).text
+    signature_sha1 = root.find("{{{ns}}}signature/{{{ns}}}sha1".format(ns=NS)).text
 
-    import bpdb; bpdb.set_trace()
+    validation_string = f"{trx_id}{url}{config.sisow_merchant_id}{config.sisow_merchant_key}"
+
+    expected_sha1 = hashlib.sha1(validation_string.encode('ascii')).hexdigest()
+    if signature_sha1 != expected_sha1:
+        raise InvalidIssuerURL("Mismatch in issuer URL sha1")
+
+    return unquote(url)
