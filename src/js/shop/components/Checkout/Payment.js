@@ -28,24 +28,22 @@ const Payment = ({ profile }) => {
         }
     };
     return (
-        <div className="container">
-            <div className="row">
-                <h3 className="checkout__title ">
+        <div className="payment-method__container">
+            <div className="payment-method__row">
+                <h3 className="checkout__title">
                     {msg(messages.selectPaymentMethod)}
                 </h3>
             </div>
-            <div className="row">
-                <div className="col-xs-12">
-                    {orderBy(paymentMethods, ["order"], ["asc"]).map(method => (
-                        <div className="payment-method__card" key={method.name}>
-                            <img
-                                className="payment-method__logo"
-                                src={method.logo}
-                                alt={method.name}
-                            />
-                        </div>
-                    ))}
-                </div>
+            <div className="payment-method__row payment-method__row--logos">
+                {orderBy(paymentMethods, ["order"], ["asc"]).map(method => (
+                    <div className="payment-method__card" key={method.name}>
+                        <img
+                            className="payment-method__logo"
+                            src={method.logo}
+                            alt={method.name}
+                        />
+                    </div>
+                ))}
             </div>
         </div>
     );
