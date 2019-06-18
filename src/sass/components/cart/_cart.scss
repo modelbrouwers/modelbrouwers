@@ -64,6 +64,7 @@
           visibility: visible;
           animation-delay: 5s;
           transition: all .3s linear;
+          z-index: 9;
         }
 
         &__box {
