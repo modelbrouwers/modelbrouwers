@@ -153,7 +153,7 @@
   "shop.checkout.account.action.signup": "Sign up",
   "shop.checkout.actions.continue": "Continue",
   "shop.checkout.actions.next": "Next",
-  "shop.checkout.actions.select.payment.method": "select your payment method",
+  "shop.checkout.actions.select.payment.method": "Select your payment method",
   "shop.checkout.address.checkbox.billing.address.same.as.delivery": "My billing and delivery address are the same.",
   "shop.checkout.address.header.billing.address": "Billing address",
   "shop.checkout.address.header.delivery.address": "Delivery address",
