@@ -4,12 +4,14 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
 from .models import (
     Category, CategoryCarouselImage, HomepageCategory, HomepageCategoryChild,
-    Product, ProductBrand, ProductImage, ProductManufacturer, ProductReview
+    PaymentMethod, Product, ProductBrand, ProductImage, ProductManufacturer,
+    ProductReview, ShopConfiguration
 )
 from .resources import CategoryResource, ProductResource
 
@@ -94,7 +96,7 @@ class ProductBrandAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
-    #list_display = ('product', 'image')
+    # list_display = ('product', 'image')
     # list_filter = ('product',)
     search_fields = ('product',)
 
@@ -127,3 +129,16 @@ class HomepageCategoryChild(admin.ModelAdmin):
     raw_id_fields = ('category',)
     list_filter = ('order',)
     list_search = ('order',)
+
+
+@admin.register(PaymentMethod)
+class PaymentMethodAdmin(admin.ModelAdmin):
+    list_display = ('name', 'method', 'logo', 'enabled', 'order')
+    list_filter = ('enabled',)
+    search_fields = ('name', 'method')
+    ordering = ('order',)
+
+
+@admin.register(ShopConfiguration)
+class ShopConfigurationAdmin(SingletonModelAdmin):
+    pass

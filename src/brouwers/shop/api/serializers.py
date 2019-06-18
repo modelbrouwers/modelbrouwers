@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from brouwers.users.api.serializers import UserSerializer
 
-from ..models import Cart, CartProduct, Product
+from ..models import Cart, CartProduct, PaymentMethod, Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -80,3 +80,9 @@ class CartSerializer(serializers.ModelSerializer):
 
     def get_total(self, obj):
         return obj.total
+
+
+class PaymentMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentMethod
+        fields = ('id', 'name', 'logo', 'order')

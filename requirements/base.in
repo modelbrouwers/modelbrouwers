@@ -4,6 +4,7 @@ Pillow
 python-dateutil
 pytz
 fake-factory
+lxml
 
 # Django packages
 Django
@@ -19,6 +20,7 @@ django-precise-bbcode
 django-rosetta
 django-sendfile
 django-sessionprofile
+django-solo
 sorl-thumbnail
 django-sniplates
 django-treebeard

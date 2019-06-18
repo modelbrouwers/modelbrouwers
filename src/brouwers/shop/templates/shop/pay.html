@@ -1,0 +1,20 @@
+{% extends "shop/base.html" %}
+{% load i18n sniplates %}
+
+{% block content %}
+    {{ block.super }}
+    {% load_widgets form='builds/forms.html' %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+
+        {% widget 'form:non_field_errors' %}
+
+        <fieldset class="well form-horizontal">
+            {% form_field form.method %}
+            {% form_field form.amount %}
+        </fieldset>
+
+        {% widget 'form:submit' btn_text=btn_text|default:_('Pay') %}
+    </form>
+{% endblock %}

@@ -1,11 +1,11 @@
 from rest_framework import views, viewsets
 from rest_framework.response import Response
 
-from ..models import Cart, CartProduct, Product
+from ..models import Cart, CartProduct, PaymentMethod, Product
 from .filters import CartProductFilter
 from .serializers import (
-    CartSerializer, ProductSerializer, ReadCartProductSerializer,
-    WriteCartProductSerializer
+    CartSerializer, PaymentMethodSerializer, ProductSerializer,
+    ReadCartProductSerializer, WriteCartProductSerializer
 )
 
 
@@ -54,3 +54,9 @@ class CartProductViewSet(viewsets.ModelViewSet):
             return ReadCartProductSerializer
         else:
             return WriteCartProductSerializer
+
+
+class PaymentMethodViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = PaymentMethod.objects.filter(enabled=True).order_by('order', 'name')
+    pagination_class = None
+    serializer_class = PaymentMethodSerializer

@@ -9,7 +9,9 @@ from brouwers.groupbuilds.api.viewsets import ParticipantViewSet
 from brouwers.kits.api.views import (
     BoxartViewSet, BrandViewSet, ModelKitViewSet, ScaleViewSet
 )
-from brouwers.shop.api.viewsets import CartProductViewSet, ProductViewSet
+from brouwers.shop.api.viewsets import (
+    CartProductViewSet, PaymentMethodViewSet, ProductViewSet
+)
 
 router = DefaultRouter()
 
@@ -30,12 +32,13 @@ router.register(r'groupbuilds/participant', ParticipantViewSet)
 # router.register(r'shop/cart', CartViewSet)
 router.register(r'shop/cart-product', CartProductViewSet)
 router.register(r'shop/product', ProductViewSet)
+router.register(r'shop/paymentmethod', PaymentMethodViewSet)
 
 app_name = 'api'
 urlpatterns = [
-  url(r'^builds/', include('brouwers.builds.api.urls', namespace='builds')),
-  url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
-  url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
-  url(r'^shop/', include('brouwers.shop.api.urls')),
+    url(r'^builds/', include('brouwers.builds.api.urls', namespace='builds')),
+    url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
+    url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
+    url(r'^shop/', include('brouwers.shop.api.urls')),
   url(r'^user/', include('brouwers.general.api.urls')),
 ] + router.urls
