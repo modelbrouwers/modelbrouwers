@@ -45,6 +45,7 @@
         "jquery": "^3.3.1",
         "jquery-ui": "^1.12.1",
         "js-cookie": "^2.2.0",
+        "lodash.orderby": "^4.6.0",
         "mobx": "^5.8.0",
         "mobx-react": "^5.4.3",
         "perfect-scrollbar": "^1.4.0",

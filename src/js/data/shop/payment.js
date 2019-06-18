@@ -12,7 +12,7 @@ export class PaymentConsumer extends CrudConsumer {
         super(endpoint, objectClass);
     }
 
-    list() {
+    listMethods() {
         return this.get("/");
     }
 }
