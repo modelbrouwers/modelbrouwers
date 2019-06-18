@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
-import Address from "./Address";
 
 /**
  *
@@ -10,6 +9,16 @@ import Address from "./Address";
  *
  */
 const Payment = ({ profile }) => {
+    const [paymentMethods, setPaymentMethods] = useState([]);
+
+    useEffect(() => {
+        getPaymentMethods();
+    });
+
+    const getPaymentMethods = async => {
+        try {
+        } catch (e) {}
+    };
     return (
         <div className="container">
             <div className="row">
