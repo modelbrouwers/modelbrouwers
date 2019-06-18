@@ -27,6 +27,9 @@ const Payment = ({ profile }) => {
             console.log(e);
         }
     };
+
+    const onMethodClick = method => {};
+
     return (
         <div className="payment-method__container">
             <div className="payment-method__row">
@@ -36,7 +39,11 @@ const Payment = ({ profile }) => {
             </div>
             <div className="payment-method__row payment-method__row--logos">
                 {orderBy(paymentMethods, ["order"], ["asc"]).map(method => (
-                    <div className="payment-method__card" key={method.name}>
+                    <div
+                        className="payment-method__card"
+                        key={method.name}
+                        onClick={() => onMethodClick(method)}
+                    >
                         <img
                             className="payment-method__logo"
                             src={method.logo}

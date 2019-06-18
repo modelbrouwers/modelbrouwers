@@ -1,4 +1,4 @@
-from rest_framework import views, viewsets
+from rest_framework import views, viewsets, generics
 from rest_framework.response import Response
 
 from ..models import Cart, CartProduct, PaymentMethod, Product
@@ -10,6 +10,7 @@ from .serializers import (
     ReadCartProductSerializer,
     WriteCartProductSerializer,
 )
+from ..payments.sisow import get_ideal_bank_choices
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -63,3 +64,12 @@ class PaymentMethodViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = PaymentMethod.objects.filter(enabled=True).order_by("order", "name")
     pagination_class = None
     serializer_class = PaymentMethodSerializer
+
+
+class IdealBanksViewSet(views.APIView):
+    def get(self, request):
+        banks = []
+        for bank in get_ideal_bank_choices():
+            b = {'name': bank[1], 'id': bank[0]}
+            banks.append(b)
+        return Response(banks)
