@@ -22,7 +22,7 @@
     border-radius: 6px;
     padding: 8px;
 
-    &:hover {
+    &:hover, &--active {
       border-color: $main-blue;
       cursor: pointer;
     }
