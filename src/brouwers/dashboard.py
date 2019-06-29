@@ -9,13 +9,14 @@ from brouwers.groupbuilds.dashboard import CreateForumQueue, ModerationQueue
 
 class CustomIndexDashboard(Dashboard):
     title = _('Control panel')
-    columns = 2
+    columns = 3
 
     """
     Custom index dashboard for nudge-website.
     """
+
     def __init__(self):
-        super(CustomIndexDashboard, self).__init__()
+        super().__init__()
 
         self.children.append(modules.ModelList(
             _('User management'),
@@ -29,6 +30,37 @@ class CustomIndexDashboard(Dashboard):
                 'brouwers.general.models.PasswordReset',
 
             ),
+        ))
+
+        self.children.append(modules.ModelList(
+            _("Shop: orders"),
+            models=(
+                "brouwers.shop.models.cart.Cart",
+                "brouwers.shop.models.payments.Payment",
+            )
+        ))
+
+        self.children.append(modules.ModelList(
+            _("Shop: products"),
+            models=(
+                "brouwers.shop.models.categories.Category",
+                "brouwers.shop.models.categories.CategoryCarouselImage",
+                "brouwers.shop.models.products.Product",
+                "brouwers.shop.models.products.ProductImage",
+                "brouwers.shop.models.products.ProductBrand",
+                "brouwers.shop.models.products.ProductManufacturer",
+            )
+        ))
+
+        self.children.append(modules.ModelList(
+            _("Shop: config"),
+            models=(
+                "brouwers.shop.models.config.ShopConfiguration",
+                "brouwers.shop.models.payments.PaymentMethod",
+                "brouwers.shop.models.presentation.HomepageCategory",
+                "brouwers.shop.models.presentation.HomepageCategoryChild",
+                "brouwers.shop.models.customers.CustomerGroup",
+            )
         ))
 
         self.children.append(modules.ModelList(
