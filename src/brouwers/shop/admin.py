@@ -10,8 +10,8 @@ from treebeard.forms import movenodeform_factory
 
 from .models import (
     Category, CategoryCarouselImage, HomepageCategory, HomepageCategoryChild,
-    PaymentMethod, Product, ProductBrand, ProductImage, ProductManufacturer,
-    ProductReview, ShopConfiguration
+    Payment, PaymentMethod, Product, ProductBrand, ProductImage,
+    ProductManufacturer, ProductReview, ShopConfiguration
 )
 from .resources import CategoryResource, ProductResource
 
@@ -142,3 +142,12 @@ class PaymentMethodAdmin(admin.ModelAdmin):
 @admin.register(ShopConfiguration)
 class ShopConfigurationAdmin(SingletonModelAdmin):
     pass
+
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ("reference", "format_amount", "payment_method", "created")
+    list_filter = ("created", "payment_method")
+    search_fields = ("reference",)
+    date_hierarchy = "created"
+    ordering = ("-created",)
