@@ -55,7 +55,9 @@ class Payment(models.Model):
         "Cart",
         verbose_name=_("shopping cart"),
         help_text=_("The shopping cart that generated this payment."),
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
     )
     data = JSONField(
         _("payment data"),
