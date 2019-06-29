@@ -1,6 +1,7 @@
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
 
-from ..sisow import calculate_sha1
+from ...models import ShopConfiguration
+from ..sisow import CallbackForm, calculate_sha1
 
 
 class Sha1Tests(SimpleTestCase):
@@ -19,3 +20,35 @@ class Sha1Tests(SimpleTestCase):
         )
 
         self.assertEqual(sha1, "4bdf789f7800496d9b5883eecd7eca2bae73cd02")
+
+
+class CallbackFormTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        config = ShopConfiguration.get_solo()
+        config.sisow_merchant_id = "2537987391"
+        config.sisow_merchant_key = "28f31a03f4d272bb5d6dd6a345cce93b670e2f79"
+        config.save()
+
+    def test_valid_callback_form(self):
+        form = CallbackForm(data={
+            "trxid": "TEST080536811624",
+            "ec": "4cb92ef9-0bcc-4a",
+            "status": "Success",
+            "sha1": "54f2ae81eaa39fd8463f0f780a228fc3562faa43",
+        })
+
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_callback_form(self):
+        form = CallbackForm(data={
+            "trxid": "TEST080536811624",
+            "ec": "4cb92ef9-0bcc-4a",
+            "status": "Success",
+            "sha1": "ad534db9faba53ac064e2140a87429334e855d98",  # bad hash
+        })
+
+        self.assertFalse(form.is_valid())

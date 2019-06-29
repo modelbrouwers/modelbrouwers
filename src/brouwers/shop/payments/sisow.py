@@ -5,6 +5,8 @@ from functools import lru_cache
 from typing import Iterator, List
 from urllib.parse import unquote, urljoin
 
+from django import forms
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 import lxml
@@ -70,6 +72,53 @@ class Payments(DjangoChoices):
     webshop = ChoiceItem("webshop", label=_("Webshop Giftcard"))
 
 
+class TransactionStatuses(DjangoChoices):
+    success = ChoiceItem("Success", label=_("Een succesvolle transactie"))
+    expired = ChoiceItem("Expired", label=_("De transactie is verlopen"))
+    cancelled = ChoiceItem("Cancelled", label=_("De transactie is geannuleerd"))
+    failure = ChoiceItem("Failure", label=_("Een interne fout heeft zich bij de gekozen betaalmethode voorgedaan"))
+    pending = ChoiceItem("Pending", label=_("In afwachting van daadwerkelijke betaling, betaling is nog niet zeker"))
+    reversed = ChoiceItem("Reversed", label=_("De transactie is teruggedraaid"))
+    denied = ChoiceItem("Denied", label=_("De transactie aanvraag is afgewezen door de betaalmethode (Focum/Klarna)"))
+    reservation = ChoiceItem(
+        "Reservation",
+        label=_("Transactie aanvraag is gelukt factuur dient nog te worden aangemaakt (Focum/Klarna)")
+    )
+    open = ChoiceItem("Open", label=_("De transactie is nog in behandeling"))
+
+
+class CallbackForm(forms.Form):
+    trxid = forms.CharField(label=_("transaction id"))
+    ec = forms.CharField(label=_("entrance code"), required=False)
+    status = forms.ChoiceField(label=_("status"), choices=TransactionStatuses.choices)
+    sha1 = forms.CharField(label=_("sha1 transaction"))
+    notify = forms.BooleanField(label=_("notify or not?"), required=False)
+    callback = forms.BooleanField(label=_("callback or not?"), required=False)
+
+    def clean(self):
+        from ..models import ShopConfiguration
+        config = ShopConfiguration.get_solo()
+
+        sha1 = self.cleaned_data.get("sha1")
+        trxid = self.cleaned_data.get("trxid")
+        ec = self.cleaned_data.get("ec")
+        status = self.cleaned_data.get("status")
+
+        if all((sha1, trxid, ec, status)):
+            sha1_input = "{trxid}{ec}{status}{merchantid}{merchantkey}".format(
+                trxid=trxid,
+                ec=ec,
+                status=status,
+                merchantid=config.sisow_merchant_id,
+                merchantkey=config.sisow_merchant_key,
+            )
+            check_sha1 = hashlib.sha1(sha1_input.encode('ascii'))
+            digest = check_sha1.hexdigest()
+            print(digest)
+            if not digest == sha1:
+                self.add_error("sha1", _("Invalid SHA1"))
+
+
 class iDealBank:
 
     def __init__(self, _id: str, name: str):
@@ -116,7 +165,7 @@ def calculate_sha1(purchaseid: str, merchantid: str, merchantkey: str, amount: s
     return digest
 
 
-def start_ideal_payment(amount: Decimal, bank: iDealBank) -> str:
+def start_ideal_payment(amount: Decimal, bank: iDealBank, request=None) -> str:
     from ..models import ShopConfiguration
 
     config = ShopConfiguration.get_solo()
@@ -131,14 +180,17 @@ def start_ideal_payment(amount: Decimal, bank: iDealBank) -> str:
         amount=amount
     )
 
+    callback_url = reverse('shop:payment-callback')
+    if request:
+        callback_url = request.build_absolute_uri(callback_url)
+
     post_data = {
         "merchantid": config.sisow_merchant_id,
         "payment": Payments.ideal,
         "purchaseid": purchaseid,
         "amount": amount,
         "description": "Example description",
-        "returnurl": "http://localhost:8000/shop/payment-complete/",  # TODO
-        "cancelurl": "http://localhost:8000/shop/payment-aborted/",  # TODO
+        "returnurl": callback_url,
         "sha1": sha1,
         "issuerid": bank.id,
         "currency": "EUR",

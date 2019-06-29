@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .debug_views import IdealPaymentView, PaymentView
+from .debug_views import IdealPaymentView, PaymentCallbackView, PaymentView
 from .views import (
     CartDetailView, CategoryDetailView, IndexView, ProductDetailView
 )
@@ -15,4 +15,5 @@ urlpatterns = [
 
     url(r'^pay/$', PaymentView.as_view(), name='pay'),
     url(r'^pay/ideal/$', IdealPaymentView.as_view(), name='ideal-bank'),
+    url(r'^payment/callback/$', PaymentCallbackView.as_view(), name='payment-callback')
 ]
