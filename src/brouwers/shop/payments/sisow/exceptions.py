@@ -1,0 +1,2 @@
+class InvalidIssuerURL(Exception):
+    pass

@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from djchoices import ChoiceItem, DjangoChoices
 
-from .sisow import Payments as SisowPayments
+from .sisow.constants import Payments as SisowPayments
 
 
 class PaymentProviders(DjangoChoices):
