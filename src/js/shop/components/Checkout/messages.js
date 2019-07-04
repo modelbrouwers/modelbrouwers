@@ -112,5 +112,9 @@ export default defineMessages({
     selectCountry: {
         id: "shop.checkout.input.placeholder.select.country",
         defaultMessage: "Select country"
+    },
+    requiredFields: {
+        id: "shop.checkout.required.fields",
+        defaultMessage: "Required fields"
     }
 });

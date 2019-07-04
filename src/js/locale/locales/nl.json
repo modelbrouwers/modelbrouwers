@@ -42,6 +42,7 @@
   "shop.checkout.navigation.address": "Address",
   "shop.checkout.navigation.confirm": "Confirmation",
   "shop.checkout.navigation.payment": "Payment",
+  "shop.checkout.required.fields": "Required fields",
   "shop.info.error.message": "Oops, something went wrong. Please try again later.",
   "shop.info.error.page.reload": "Reload page"
 }

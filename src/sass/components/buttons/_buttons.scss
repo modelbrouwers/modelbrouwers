@@ -13,6 +13,15 @@
     text-decoration: underline;
   }
 
+  &:disabled {
+    background-color: $main-grey;
+
+    &:hover {
+      cursor: not-allowed;
+      text-decoration: none;
+    }
+  }
+
   &--icon {
     .fa {
       margin-right: 0.5em;

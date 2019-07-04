@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
 import Select from "react-select";
@@ -11,7 +10,7 @@ import { country_list, SUPPORTED_COUNTRIES } from "./constants";
  * Address
  *
  */
-const Address = ({ profile }) => {
+const Address = ({ profile, history }) => {
     // Set default values for missing fields to avoid null errors
     const defaultProfile = { user: {}, kvk: "", company: "" };
     const [userDetails, setUserDetails] = useState({
@@ -28,6 +27,16 @@ const Address = ({ profile }) => {
         "country",
         "postal"
     ];
+
+    /**
+     * Disable 'Continue' button if any of the required fields is empty/null
+     */
+    const requiredFieldMissing = () => {
+        return (
+            mandatoryUserFields.some(field => !userDetails.user[field]) ||
+            mandatoryProfileFields.some(field => !userDetails[field])
+        );
+    };
 
     const onProfileChange = e => {
         const { name, value } = e.target;
@@ -57,6 +66,11 @@ const Address = ({ profile }) => {
         setBillingDetails(details => ({ ...details, country: country.value }));
     };
 
+    // TODO this probably needs to send api request to create/modify an order
+    const onAddressComplete = () => {
+        return history.push("/payment");
+    };
+
     return (
         <div className="container">
             <div className="row">
@@ -69,7 +83,7 @@ const Address = ({ profile }) => {
                             </h3>
                             <div className="form-group col-md-6 col-xs-12">
                                 <label className="control-label">
-                                    {msg(messages.firstName)}
+                                    {msg(messages.firstName)}*
                                 </label>
                                 <input
                                     type="text"
@@ -81,7 +95,7 @@ const Address = ({ profile }) => {
                             </div>
                             <div className="form-group col-md-6 col-xs-12">
                                 <label className="control-label">
-                                    {msg(messages.lastName)}
+                                    {msg(messages.lastName)}*
                                 </label>
                                 <input
                                     type="text"
@@ -94,7 +108,7 @@ const Address = ({ profile }) => {
 
                             <div className="form-group col-xs-12">
                                 <label className="control-label">
-                                    {msg(messages.email)}
+                                    {msg(messages.email)}*
                                 </label>
                                 <input
                                     type="text"
@@ -152,7 +166,7 @@ const Address = ({ profile }) => {
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.street)}
+                            {msg(messages.street)}*
                         </label>
                         <input
                             type="text"
@@ -164,7 +178,7 @@ const Address = ({ profile }) => {
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.number)}
+                            {msg(messages.number)}*
                         </label>
                         <input
                             type="text"
@@ -176,7 +190,7 @@ const Address = ({ profile }) => {
                     </div>
                     <div className="form-group col-md-6 col-xs-12">
                         <label className="control-label">
-                            {msg(messages.city)}
+                            {msg(messages.city)}*
                         </label>
                         <input
                             type="text"
@@ -188,7 +202,7 @@ const Address = ({ profile }) => {
                     </div>
                     <div className="form-group col-md-6 col-xs-12">
                         <label className="control-label">
-                            {msg(messages.zip)}
+                            {msg(messages.zip)}*
                         </label>
                         <input
                             type="text"
@@ -200,7 +214,7 @@ const Address = ({ profile }) => {
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.country)}
+                            {msg(messages.country)}*
                         </label>
                         <Select
                             name="country"
@@ -262,7 +276,7 @@ const Address = ({ profile }) => {
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.street)}
+                                {msg(messages.street)}*
                             </label>
                             <input
                                 type="text"
@@ -274,7 +288,7 @@ const Address = ({ profile }) => {
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.number)}
+                                {msg(messages.number)}*
                             </label>
                             <input
                                 type="text"
@@ -286,7 +300,7 @@ const Address = ({ profile }) => {
                         </div>
                         <div className="form-group col-md-6 col-xs-12">
                             <label className="control-label">
-                                {msg(messages.city)}
+                                {msg(messages.city)}*
                             </label>
                             <input
                                 type="text"
@@ -310,7 +324,7 @@ const Address = ({ profile }) => {
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.country)}
+                                {msg(messages.country)}*
                             </label>
 
                             <Select
@@ -330,11 +344,19 @@ const Address = ({ profile }) => {
                     </div>
                 )}
             </div>
-            <div className="spacer" />
-            {/*TODO Disable Link if any of mandatory fields is empty*/}
-            <Link to={`/payment`} className="button button--blue">
-                {msg(messages.continue)}
-            </Link>
+            <div className="col-xs-12">
+                <div className="spacer" />
+                <small className="checkout__help-text">
+                    *{msg(messages.requiredFields)}
+                </small>
+                <button
+                    className={"button button--blue"}
+                    disabled={requiredFieldMissing()}
+                    onClick={onAddressComplete}
+                >
+                    {msg(messages.continue)}
+                </button>
+            </div>
         </div>
     );
 };
