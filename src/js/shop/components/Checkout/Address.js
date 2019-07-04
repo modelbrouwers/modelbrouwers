@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
+import Select from "react-select";
+import { country_list, SUPPORTED_COUNTRIES } from "./constants";
 
 /**
  *
@@ -45,6 +47,16 @@ const Address = ({ profile }) => {
             user: { ...userDetails.user, [name]: value }
         });
     };
+
+    // Separate onchange handlers for selects, since data repr is different there
+    const onCountryChange = country => {
+        setUserDetails(user => ({ ...user, country: country.value }));
+    };
+
+    const onBillingCountryChange = country => {
+        setBillingDetails(details => ({ ...details, country: country.value }));
+    };
+
     return (
         <div className="container">
             <div className="row">
@@ -190,12 +202,15 @@ const Address = ({ profile }) => {
                         <label className="control-label">
                             {msg(messages.country)}
                         </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={userDetails.country}
+                        <Select
                             name="country"
-                            onChange={onProfileChange}
+                            value={{
+                                value: userDetails.country || "",
+                                label: SUPPORTED_COUNTRIES[userDetails.country]
+                            }}
+                            options={country_list}
+                            onChange={onCountryChange}
+                            placeholder={msg(messages.selectCountry)}
                         />
                     </div>
                     <div className="form-check col-xs-12 checkbox-flex">
@@ -297,12 +312,19 @@ const Address = ({ profile }) => {
                             <label className="control-label">
                                 {msg(messages.country)}
                             </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={billingDetails.country}
+
+                            <Select
                                 name="country"
-                                onChange={onBillingDetailsChange}
+                                value={{
+                                    value: billingDetails.country || "",
+                                    label:
+                                        SUPPORTED_COUNTRIES[
+                                            billingDetails.country
+                                        ]
+                                }}
+                                options={country_list}
+                                onChange={onBillingCountryChange}
+                                placeholder={msg(messages.selectCountry)}
                             />
                         </div>
                     </div>

@@ -108,5 +108,9 @@ export default defineMessages({
     selectPaymentMethod: {
         id: "shop.checkout.actions.select.payment.method",
         defaultMessage: "Select your payment method"
+    },
+    selectCountry: {
+        id: "shop.checkout.input.placeholder.select.country",
+        defaultMessage: "Select country"
     }
 });
