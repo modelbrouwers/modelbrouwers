@@ -40,6 +40,7 @@
         "consumerjs": "^3.1.0",
         "fine-uploader": "^5.16.2",
         "font-awesome": "^4.7.0",
+        "i18n-iso-countries": "^4.1.1",
         "immer": "^9.0.1",
         "insert-text-at-cursor": "^0.1.1",
         "jquery": "^3.5.1",
