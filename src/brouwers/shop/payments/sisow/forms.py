@@ -7,12 +7,23 @@ from .constants import TransactionStatuses
 from .service import get_ideal_banks
 
 
-def coerce_bank(value):
+def coerce_bank(value: str):
+    """
+    Translate a form field value back to a :class:`Bank` object.
+    """
     bank_mapping = {bank.id: bank for bank in get_ideal_banks()}
     return bank_mapping[value]
 
 
 class CallbackForm(forms.Form):
+    """
+    Form definition to handle callbacks/redirects from Sisow.
+
+    Sisow redirects the customer back via a GET request to the shop,
+    including a bunch of URL parameters. A number of these parameters are
+    relevant in protecting against tampering, since anyone can hit these
+    URLs.
+    """
     trxid = forms.CharField(label=_("transaction id"))
     ec = forms.CharField(label=_("entrance code"), required=False)
     status = forms.ChoiceField(label=_("status"), choices=TransactionStatuses.choices)
