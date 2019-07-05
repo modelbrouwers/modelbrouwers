@@ -25,12 +25,12 @@ class KitReviewPropertyRatingTest(TestCase):
         self.assertEqual(kit_review_property_rating1.rating, DEFAULT_RATING)
 
         # Test that it's impossible to assign values less than MIN_RATING to review prop rating
-        kit_review_property_rating2 = KitReviewPropertyRatingFactory.create(rating=MIN_RATING - 1)
+        kit_review_property_rating2 = KitReviewPropertyRatingFactory.build(rating=MIN_RATING - 1)
         with self.assertRaises(ValidationError):
             kit_review_property_rating2.full_clean()
 
         # Test that it's impossible to assign values larger than MAX_RATING to review prop rating
-        kit_review_property_rating3 = KitReviewPropertyRatingFactory.create(rating=MAX_RATING + 10)
+        kit_review_property_rating3 = KitReviewPropertyRatingFactory.build(rating=MAX_RATING + 10)
         with self.assertRaises(ValidationError):
             kit_review_property_rating3.full_clean()
 

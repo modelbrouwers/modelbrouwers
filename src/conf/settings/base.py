@@ -209,6 +209,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
+    'django.contrib.postgres',
     'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',

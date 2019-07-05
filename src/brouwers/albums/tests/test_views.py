@@ -18,13 +18,16 @@ class PublicViewTests(WebTest):
     def test_index(self):
         AlbumFactory.create_batch(13)
         AlbumFactory.create_batch(2, trash=True)
-        PhotoFactory.create_batch(4, album__public=True)
-        PhotoFactory.create_batch(2, album__public=False)
-        PhotoFactory.create_batch(2, trash=True)
+        for i in range(4):
+            PhotoFactory.create(album__public=True)
+        for i in range(2):
+            PhotoFactory.create(album__public=False)
+        for i in range(2):
+            PhotoFactory.create(trash=True)
 
         index = self.app.get(reverse('albums:index'))
         self.assertEqual(index.status_code, 200)
-        albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload')[:12]
+        albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-pk')[:12]
         self.assertQuerysetEqual(index.context['albums'], [repr(x) for x in albums])
         photos = Photo.objects.filter(trash=False, album__public=True, album__trash=False).order_by('-uploaded')
         self.assertQuerysetEqual(index.context['latest_uploads'], [repr(x) for x in photos])
