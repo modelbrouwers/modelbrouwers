@@ -31,8 +31,10 @@ SESSION_COOKIE_NAME = 'mbsessionid'
 # Secrets
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'brouwers',
+        'USER': 'postgres',
+        'PASSWORD': '',
     },
     'mysql': {
         'ENGINE': 'django.db.backends.sqlite3',

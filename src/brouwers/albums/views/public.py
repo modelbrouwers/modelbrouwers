@@ -47,11 +47,14 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         # spotlight: awards winners, select 3 random categories
         # kwargs['awards_winners'] = self.get_awards_winners()
-        kwargs['latest_uploads'] = Photo.objects.select_related('user').filter(
-                                       trash=False,
-                                       album__public=True,
-                                       album__trash=False,
-                                    ).order_by('-uploaded')[:20]
+        kwargs['latest_uploads'] = (
+            Photo.objects
+            .select_related('user').filter(
+                trash=False,
+                album__public=True,
+                album__trash=False,
+            ).order_by('-uploaded')[:20]
+        )
         return super(IndexView, self).get_context_data(**kwargs)
 
 
