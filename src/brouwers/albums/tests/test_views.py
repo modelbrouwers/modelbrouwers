@@ -27,7 +27,7 @@ class PublicViewTests(WebTest):
 
         index = self.app.get(reverse('albums:index'))
         self.assertEqual(index.status_code, 200)
-        albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload')[:12]
+        albums = Album.objects.filter(trash=False, public=True).order_by('-last_upload', '-pk')[:12]
         self.assertQuerysetEqual(index.context['albums'], [repr(x) for x in albums])
         photos = Photo.objects.filter(trash=False, album__public=True, album__trash=False).order_by('-uploaded')
         self.assertQuerysetEqual(index.context['latest_uploads'], [repr(x) for x in photos])

@@ -12,7 +12,7 @@ class AlbumQueryset(models.QuerySet):
 
     def for_index(self):
         qs = self.public().select_related('user', 'cover')
-        return qs.order_by('-last_upload')
+        return qs.order_by('-last_upload', '-pk')
 
     def for_user(self, user):
         """
