@@ -119,7 +119,7 @@ class Album(models.Model):
     def save(self, *args, **kwargs):
         if not self.trash and self.clean_title != self.title:
             self.clean_title = self.title
-        super(Album, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('albums:detail', args=[self.id])
@@ -204,7 +204,7 @@ class Photo(models.Model):
         if not self.pk:
             max_order = Photo.objects.filter(album=self.album).aggregate(max_order=Max('order'))['max_order'] or 0
             self.order = max_order + 1
-        super(Photo, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return 'albumphoto %d' % self.id

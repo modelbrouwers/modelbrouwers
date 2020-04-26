@@ -120,7 +120,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         if self.username:
             self.username_clean = self.username.lower()
-        super(User, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         # TODO

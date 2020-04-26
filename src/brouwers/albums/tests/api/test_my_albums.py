@@ -11,7 +11,7 @@ from ..factories import AlbumFactory, AlbumGroupFactory
 class MyAlbumTests(APITestCase):
 
     def setUp(self):
-        super(MyAlbumTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_unpaginated_albums(self):

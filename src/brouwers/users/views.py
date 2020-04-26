@@ -44,7 +44,7 @@ class RedirectFormMixin(object):
         if redirectform.is_valid():
             return redirectform.cleaned_data['redirect'] or redirectform.cleaned_data['next']
         if self.success_url:
-            return super(RedirectFormMixin, self).get_redirect_url()
+            return super().get_redirect_url()
         return self.default_redirect_url
 
 
@@ -53,7 +53,7 @@ class LoginView(RedirectFormMixin, generic.FormView):
     template_name = 'users/login.html'
 
     def get_form_kwargs(self):
-        kwargs = super(LoginView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs.update(dict(request=self.request))
         return kwargs
 
@@ -63,7 +63,7 @@ class LoginView(RedirectFormMixin, generic.FormView):
     def form_valid(self, form):
         user = form.get_user()
         login(self.request, user)
-        return super(LoginView, self).form_valid(form)
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         """ Try and find existing users on the forum but not in the Django db """
@@ -72,13 +72,13 @@ class LoginView(RedirectFormMixin, generic.FormView):
             forum_user = forum_user_form.get_user()
             if forum_user is not None:
                 return self.handle_forumuser(form, forum_user)
-        return super(LoginView, self).form_invalid(form)
+        return super().form_invalid(form)
 
     def handle_forumuser(self, form, forum_user):
         """ Handle existing ForumUser's if the Django user wasn't found. """
         # Make sure no Django user exists!
         if User.objects.user_exists(forum_user.username):
-            return super(LoginView, self).form_invalid(form)
+            return super().form_invalid(form)
 
         # create an inactive Django user, this also sends the e-mail!
         User.objects.create_from_forum(forum_user)
@@ -101,7 +101,7 @@ class LoginView(RedirectFormMixin, generic.FormView):
             'redirectform': RedirectForm(data=self._get_request_data()),
         }
         context.update(**kwargs)
-        return super(LoginView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
 
 class LogoutView(RedirectFormMixin, generic.RedirectView):
@@ -114,7 +114,7 @@ class LogoutView(RedirectFormMixin, generic.RedirectView):
         else:
             msg = _('Can\'t log you out, you weren\'t logged in!')
         messages.info(request, msg)
-        return super(LogoutView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
 
 class ActivationView(generic.RedirectView):
@@ -125,7 +125,7 @@ class ActivationView(generic.RedirectView):
     def get(self, request, *args, **kwargs):
         """ Check token raises a 403 if the token is invalid. """
         self.check_token()
-        return super(ActivationView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def check_token(self):
         uidb36 = self.kwargs.get('uidb36')
@@ -155,16 +155,16 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('index')
-        return super(RegistrationView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_initial(self):
-        initial = super(RegistrationView, self).get_initial()
+        initial = super().get_initial()
         lang = get_language()[:2]
         initial['question'] = RegistrationQuestion.active.filter(lang=lang).order_by('?').first()
         return initial
 
     def get_form_kwargs(self):
-        kwargs = super(RegistrationView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
 
@@ -179,7 +179,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
             self.log_registration(form)
         if self.registration_attempt:
             self.registration_attempt.set_ban()  # FIXME
-        return super(RegistrationView, self).form_invalid(form)
+        return super().form_invalid(form)
 
     def form_valid(self, form):
         """
@@ -187,7 +187,7 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
         make the account inactive and send an e-mail to the admins.
         """
         self.log_registration(form)
-        response = super(RegistrationView, self).form_valid(form)
+        response = super().form_valid(form)
 
         mail = UserRegistrationEmail(user=self.object)
         mail.send()
@@ -236,12 +236,12 @@ class ProfileView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesView)
         return self.request.user
 
     def forms_valid(self, form, inlines):
-        response = super(ProfileView, self).forms_valid(form, inlines)
+        response = super().forms_valid(form, inlines)
         messages.success(self.request, _('Your profile data has been updated.'))
         return response
 
     def get_context_data(self, **kwargs):
-        context = super(ProfileView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['pw_form'] = PasswordChangeForm(self.request.user)
         return context
 
@@ -252,7 +252,7 @@ class UserProfileDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = 'profile'
 
     def get_context_data(self, **kwargs):
-        ctx = super(UserProfileDetailView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx['albums'] = self.object.album_set.select_related('cover').filter(
             trash=False, public=True).order_by('title')
         return ctx
@@ -264,7 +264,7 @@ class PasswordChangedView(generic.RedirectView):
 
     def get(self, request, *args, **kwargs):
         messages.success(request, _('Your password was changed.'))
-        return super(PasswordChangedView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
 
 class RequestDataDownloadView(LoginRequiredMixin, generic.View):

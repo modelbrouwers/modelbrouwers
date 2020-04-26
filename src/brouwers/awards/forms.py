@@ -26,7 +26,7 @@ class ProjectForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(ProjectForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # do some processing if added from the board itself
         forum_id = self.initial.get('forum_id', None)
         topic_id = self.initial.get('topic_id', None)
@@ -86,7 +86,7 @@ class VoteForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         """ Improve performance by reducing the number of queries """
         queryset = kwargs.pop('queryset', None)
-        super(VoteForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.fields['project1'].error_messages['required'] = _("When voting,"
                                                                " you cannot leave the first place blank.")
@@ -108,7 +108,7 @@ class VoteForm(forms.ModelForm):
                 self.fields['project3'].choices = choices[:1]
 
     def clean(self):
-        cleaned_data = super(VoteForm, self).clean()
+        cleaned_data = super().clean()
         project1 = cleaned_data.get('project1', None)
         project2 = cleaned_data.get('project2', None)
         project3 = cleaned_data.get('project3', None)

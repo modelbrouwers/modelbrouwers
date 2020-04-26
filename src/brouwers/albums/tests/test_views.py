@@ -12,7 +12,7 @@ from .factories import AlbumFactory, AlbumGroupFactory, PhotoFactory
 
 class PublicViewTests(WebTest):
     def setUp(self):
-        super(PublicViewTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_index(self):
@@ -90,7 +90,7 @@ class DownloadTests(LoginRequiredMixin, WebTest):
 
 class PrivateViewTests(LoginRequiredMixin, WebTest):
     def setUp(self):
-        super(PrivateViewTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_my_albums(self):

@@ -21,7 +21,7 @@ class UserMigration(models.Model):
     def save(self, *args, **kwargs):
         if not self.username_clean:
             self.username_clean = self.username.lower()
-        super(UserMigration, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     @property
     def url(self):

@@ -49,7 +49,7 @@ class GroupBuildListView(ListView):
             'dates': dates,
             'offset_today': offset_today,
         })
-        return super(GroupBuildListView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
     def get_calendar_builds(self, dates):
         start_date = date(dates[0].year, dates[0].month, 1)
@@ -70,7 +70,7 @@ class GroupBuildDetailView(GroupBuildDetailMixin, DetailView):
     context_object_name = 'gb'
 
     def get_context_data(self, **kwargs):
-        ctx = super(GroupBuildDetailView, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         if self.object.is_open:
             ctx['participate_form'] = ParticipantForm()
         return ctx

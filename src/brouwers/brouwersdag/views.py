@@ -16,7 +16,7 @@ from .models import Brouwersdag, Competition, ShowCasedModel
 
 class OwnModelsMixin(object):
     def get_queryset(self):
-        qs = super(OwnModelsMixin, self).get_queryset()
+        qs = super().get_queryset()
         user = self.request.user
         current_bd = Brouwersdag.objects.get_current()
         return qs.filter(
@@ -32,7 +32,7 @@ class IndexView(ListView):
         return ShowCasedModel.objects.filter(brouwersdag=current_bd).order_by('?')
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['brouwersdag'] = Brouwersdag.objects.get_current()
         stats = self.get_queryset().aggregate(
             n_total=Count('id'),
@@ -52,7 +52,7 @@ class CompetitionMixin(object):
         return self._competition
 
     def get_form_kwargs(self):
-        kwargs = super(CompetitionMixin, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['competition'] = self.get_competition()
         return kwargs
 
@@ -69,7 +69,7 @@ class SignupView(CompetitionMixin, CreateView):
     form_class = ShowCasedModelSignUpForm
 
     def get_initial(self):
-        initial = super(SignupView, self).get_initial()
+        initial = super().get_initial()
         if self.request.user.is_authenticated:
             initial.update({
                 'owner': self.request.user.id,
@@ -81,11 +81,11 @@ class SignupView(CompetitionMixin, CreateView):
     def form_valid(self, form):
         self.form = form
         messages.success(self.request, _('Your model has been submitted'))
-        return super(SignupView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         kwargs.update(brouwersdag=Brouwersdag.objects.get_current())
-        return super(SignupView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class EditModelView(CompetitionMixin, UpdateView):
@@ -96,11 +96,11 @@ class EditModelView(CompetitionMixin, UpdateView):
     def form_valid(self, form):
         self.form = form
         messages.success(self.request, _('Your model has been edited'))
-        return super(EditModelView, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         kwargs.update(brouwersdag=Brouwersdag.objects.get_current())
-        return super(EditModelView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):
@@ -108,11 +108,11 @@ class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):
     template_name = 'brouwersdag/my_models.html'
 
     def get_queryset(self):
-        return super(MyModelsView, self).get_queryset().order_by('-id')
+        return super().get_queryset().order_by('-id')
 
     def get_context_data(self, **kwargs):
         kwargs.update(brouwersdag=Brouwersdag.objects.get_current())
-        return super(MyModelsView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class CancelSignupView(OwnModelsMixin, DeleteView):
@@ -128,7 +128,7 @@ class PrintSignupsView(StaffRequiredMixin, PDFTemplateView):
         base_qs = ShowCasedModel.objects.filter(brouwersdag=current_bd).order_by('id')
         kwargs['regular'] = base_qs.exclude(is_competitor=True)
         kwargs['competition'] = base_qs.filter(is_competitor=True)
-        return super(PrintSignupsView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class GoToBuildReportView(RedirectView):

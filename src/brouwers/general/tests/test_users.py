@@ -10,12 +10,12 @@ class UsernameTest(TestCase):
     def setUp(self):
         class User(object):
             def __init__(self, username):
-                super(User, self).__init__()
+                super().__init__()
                 self.username = username
 
         class TestObject(object):
             def __init__(self, username):
-                super(TestObject, self).__init__()
+                super().__init__()
                 self.field = User(username)
                 self.user = User(username)
 

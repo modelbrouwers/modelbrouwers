@@ -28,7 +28,7 @@ class MyAlbumsView(LoginRequiredMixin, TemplateView):
         return user.album_set.select_related('cover').filter(trash=True).order_by('-modified')
 
     def get_context_data(self, **kwargs):
-        context = super(MyAlbumsView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         tab_order = ['public', 'private', 'shared-with-me', 'shared-by-me', 'trashed']
         _tab_content = {
             'public': self.get_queryset(public=True),

@@ -116,13 +116,13 @@ class ModelKit(models.Model):
         """
         if not self.id:
             self.full_clean()
-        super(ModelKit, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('kitreviews:review-list', kwargs={'slug': self.slug})
 
     def clean(self):
-        super(ModelKit, self).clean()
+        super().clean()
 
         if self.kit_number and not self.id:
             # validate the uniqueness of kitnumber, scale and brand only if a kit number is supplied

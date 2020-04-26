@@ -55,7 +55,7 @@ class ShowCasedModel(models.Model):
     def save(self, *args, **kwargs):
         if not self.brouwersdag:
             self.brouwersdag = Brouwersdag.objects.get_current()
-        super(ShowCasedModel, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_scale(self):
         return "1:{0}".format(self.scale) if self.scale else ''
@@ -90,7 +90,7 @@ class Competition(models.Model):
     def save(self, *args, **kwargs):
         if self.is_current:
             Competition.objects.update(is_current=False)
-        super(Competition, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

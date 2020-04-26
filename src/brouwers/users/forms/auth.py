@@ -68,7 +68,7 @@ class AdminUserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user = super(AdminUserCreationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -86,11 +86,11 @@ class UserCreationForm(AdminUserCreationForm):
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop('request')
-        super(UserCreationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['question'].queryset = self.fields['question'].queryset.filter(lang=request.LANGUAGE_CODE[:2])
 
     def clean(self):
-        cleaned_data = super(UserCreationForm, self).clean()
+        cleaned_data = super().clean()
         question = cleaned_data.get('question')
         answer = cleaned_data.get('answer')
         if question and answer:
@@ -106,7 +106,7 @@ class UserCreationForm(AdminUserCreationForm):
 
 class AuthForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
-        super(AuthForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['username'].label = _('Username or email')
 
 
@@ -114,7 +114,7 @@ class PasswordResetForm(PasswordResetForm):
     username = forms.CharField(label=_('Username'), required=False)
 
     def __init__(self, *args, **kwargs):
-        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['email'].required = False
 
     def get_queryset(self, cleaned_data):
@@ -128,7 +128,7 @@ class PasswordResetForm(PasswordResetForm):
         return UserModel._default_manager.filter(**query)
 
     def clean(self):
-        cleaned_data = super(PasswordResetForm, self).clean()
+        cleaned_data = super().clean()
         if not cleaned_data.get('username') and not cleaned_data.get('email'):
             raise forms.ValidationError(_('Fill at least one field.'))
         if not self.get_queryset(cleaned_data).exists():

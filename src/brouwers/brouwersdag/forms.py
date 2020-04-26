@@ -34,11 +34,11 @@ class ShowCasedModelSignUpForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.competition = kwargs.pop('competition', None)
-        super(ShowCasedModelSignUpForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean(self):
         """ Validate that the number of subscribed models isn't going over the limits """
-        cleaned_data = super(ShowCasedModelSignUpForm, self).clean()
+        cleaned_data = super().clean()
 
         # no limit cleaning required, model is not doing the competition
         if not cleaned_data.get('is_competitor'):
@@ -78,4 +78,4 @@ class ShowCasedModelSignUpForm(forms.ModelForm):
         """ Set the competition when saving """
         if self.cleaned_data.get('is_competitor'):
             self.instance.competition = self.competition
-        super(ShowCasedModelSignUpForm, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)

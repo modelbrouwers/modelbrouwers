@@ -22,7 +22,7 @@ class AlbumQuerysetMixin(object):
     queryset = Album.objects.public()
 
     def get_album_queryset(self):
-        qs = super(AlbumQuerysetMixin, self).get_queryset()
+        qs = super().get_queryset()
         if self.request.user.is_authenticated:
             groups = self.request.user.albumgroup_set.all()
             qs2 = Album.objects.filter(Q(user=self.request.user) | Q(albumgroup__in=groups))
@@ -55,7 +55,7 @@ class IndexView(ListView):
                 album__trash=False,
             ).order_by('-uploaded')[:20]
         )
-        return super(IndexView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class AlbumListView(ListView):
@@ -76,7 +76,7 @@ class AlbumDetailView(AlbumQuerysetMixin, ListView, SingleObjectMixin):
         album.views = F('views') + 1
         album.save()
         self.get_album(refresh=True)
-        return super(AlbumDetailView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_album(self, refresh=False):
         if self.object is None or refresh:
@@ -92,7 +92,7 @@ class AlbumDetailView(AlbumQuerysetMixin, ListView, SingleObjectMixin):
 
     def get_context_data(self, **kwargs):
         kwargs['album'] = self.get_album()
-        return super(AlbumDetailView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class AlbumDownloadView(LoginRequiredMixin, AlbumQuerysetMixin, DetailView):
@@ -135,7 +135,7 @@ class PhotoDetailView(DetailView):
     template_name = 'albums/photo/detail.html'
 
     def get_queryset(self):  # TODO: test
-        qs = super(PhotoDetailView, self).get_queryset()
+        qs = super().get_queryset()
         user = self.request.user
         q = Q(album__public=True)
         if user.is_authenticated:
@@ -146,10 +146,10 @@ class PhotoDetailView(DetailView):
         obj = self.get_object()
         obj.views = F('views') + 1
         obj.save()
-        return super(PhotoDetailView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(PhotoDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({
             'next': Photo.objects.next(self.object, user=self.request.user),
             'previous': Photo.objects.previous(self.object, user=self.request.user)

@@ -12,7 +12,7 @@ from ...serializers import PreferencesSerializer
 class PreferencesTests(APITestCase):
 
     def setUp(self):
-        super(PreferencesTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
         cache.clear()
 

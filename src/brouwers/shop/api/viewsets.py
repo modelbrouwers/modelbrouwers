@@ -44,7 +44,7 @@ class CartProductViewSet(viewsets.ModelViewSet):
     pagination_class = None
 
     def get_queryset(self):
-        qs = super(CartProductViewSet, self).get_queryset()
+        qs = super().get_queryset()
         if self.request.user.is_authenticated:
             qs = CartProduct.objects.filter(cart__user=self.request.user)
         return qs

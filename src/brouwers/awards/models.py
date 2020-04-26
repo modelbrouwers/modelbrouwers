@@ -29,7 +29,7 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -61,7 +61,7 @@ class NominationsManager(models.Manager):
         """ Get the set of winning projects over all categories for ``year`` """
         if voting_enabled(year=year + 1):
             year -= 1
-        qs = super(NominationsManager, self).get_queryset().filter(nomination_date__year=year)
+        qs = super().get_queryset().filter(nomination_date__year=year)
 
         winners = {}
         for project in qs.order_by('category', '-votes'):
@@ -75,7 +75,7 @@ class NominationsManager(models.Manager):
 
 class LatestNominationsManager(models.Manager):
     def get_queryset(self):
-        qs = super(LatestNominationsManager, self).get_queryset()
+        qs = super().get_queryset()
         this_year = date.today().year
         q = models.Q(nomination_date__year=this_year - 1)
         q |= models.Q(nomination_date__year=this_year)
@@ -117,7 +117,7 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.year = self.nomination_date.year
-        super(Project, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def sync_votes(self):
         """
@@ -152,7 +152,7 @@ class Vote(models.Model):
         return _("Vote by %(user)s in %(category)s") % {'user': self.user.username, 'category': self.category.name}
 
     def validate_unique(self, exclude=None):
-        super(Vote, self).validate_unique(exclude=exclude)
+        super().validate_unique(exclude=exclude)
 
         # validate that a user can't cast multiple votes in the same year and category
         user, category, year = self.user, self.category, date.today().year

@@ -84,7 +84,7 @@ class ModelKitAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request=None):
         prefetch = Prefetch('builds', queryset=Build.objects.select_related('user'))
-        return super(ModelKitAdmin, self).get_queryset(request=request).prefetch_related(prefetch)
+        return super().get_queryset(request=request).prefetch_related(prefetch)
 
     @link_list(short_description=_('builds'))
     def get_builds(self, obj):

@@ -64,7 +64,7 @@ class KitReviewForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
-        super(KitReviewForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # limit album selection to own albums
         # TODO: include group albums and public albums...
         self.fields['model_kit'].queryset = self.fields['model_kit'].queryset.select_related('brand')
@@ -87,7 +87,7 @@ class KitReviewForm(forms.ModelForm):
 
     def save(self, *args, **kwargs):
         self.instance.reviewer = self.user
-        return super(KitReviewForm, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
 
 class KitReviewPropertyRatingForm(AlwaysChangedModelForm):

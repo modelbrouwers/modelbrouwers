@@ -8,4 +8,4 @@ class StaffRequiredMixin(object):
 
     @method_decorator(staff_member_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)

@@ -18,13 +18,13 @@ class GroupBuildForm(forms.ModelForm):
         localized_fields = '__all__'
 
     def __init__(self, request, *args, **kwargs):
-        super(GroupBuildForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if not self.instance.applicant_id:
             self.instance.applicant = request.user
 
     def save(self, *args, **kwargs):
         _created = self.instance.id is None and kwargs.get('commit', True)
-        gb = super(GroupBuildForm, self).save(*args, **kwargs)
+        gb = super().save(*args, **kwargs)
         if _created and gb.applicant not in gb.admins.all():
             gb.admins.add(gb.applicant)
         return gb
@@ -66,4 +66,4 @@ class SubmitForm(forms.ModelForm):
 
     def save(self, *args, **kwargs):
         self.instance.status = GroupbuildStatuses.submitted
-        return super(SubmitForm, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)

@@ -27,7 +27,7 @@ class CategoryListView(ListView):
     context_object_name = 'categories'
 
     def get_queryset(self):
-        qs = super(CategoryListView, self).get_queryset()
+        qs = super().get_queryset()
         return qs.order_by('?')
 
 
@@ -38,7 +38,7 @@ class NominationView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('add_nomination')
 
     def get_initial(self):
-        initial = super(NominationView, self).get_initial()
+        initial = super().get_initial()
         initial.update(dict(self.request.GET.items()))
         return initial
 
@@ -56,7 +56,7 @@ class NominationView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         kwargs['last_nominations'] = Nomination.latest.all()[:15]
         kwargs['current_year'] = date.today().year
-        return super(NominationView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class NominationListView(ListView):
@@ -88,7 +88,7 @@ class NominationListView(ListView):
 
     def get_context_data(self, **kwargs):
         kwargs['category'] = self.get_category()
-        return super(NominationListView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 def vote_overview(request):
@@ -167,7 +167,7 @@ class VoteView(LoginRequiredMixin, TemplateView):
         return forms
 
     def get_context_data(self, form_data=None, **kwargs):
-        context = super(VoteView, self).get_context_data()
+        context = super().get_context_data()
         context.update(**kwargs)
         if not context.get('forms', False):
             context['forms'] = self.get_forms(data=form_data)
@@ -207,7 +207,7 @@ class VoteView(LoginRequiredMixin, TemplateView):
             messages.error(request, message)
             return redirect(reverse('awards_index'))
 
-        return super(VoteView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         forms = self.get_forms(data=request.POST)
@@ -225,7 +225,7 @@ class WinnersView(TemplateView):
     template_name = 'awards/winners.html'
 
     def get_context_data(self, **kwargs):
-        context = super(WinnersView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         requested_year = self.kwargs.get('year', None)
         voting_enabled = _voting_enabled()
 

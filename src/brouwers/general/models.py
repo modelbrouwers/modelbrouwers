@@ -83,7 +83,7 @@ class QuestionAnswer(models.Model):
 
 class ActiveQuestionsManager(models.Manager):
     def get_queryset(self):
-        return super(ActiveQuestionsManager, self).get_queryset().filter(in_use=True)
+        return super().get_queryset().filter(in_use=True)
 
 
 class RegistrationQuestion(models.Model):
@@ -210,7 +210,7 @@ class AnnouncementManager(models.Manager):
         now = timezone.now()
         lang_code = get_language()[:2]
         q = Q(to_date__lt=now) | Q(from_date__gt=now)
-        qs = super(AnnouncementManager, self).get_queryset().filter(language=lang_code).exclude(q)
+        qs = super().get_queryset().filter(language=lang_code).exclude(q)
         if qs.exists():
             return qs[0]
         return None

@@ -41,7 +41,7 @@ class NominationDateFilter(DateFieldListFilter):
     #         }
 
     # def queryset(self, request, queryset):
-    #     return super(NominationDateFilter, self).queryset(request, queryset)
+    #     return super().queryset(request, queryset)
 
     #     # if self.value() in DonationStatuses.values:
     #     #     return queryset.filter(status=self.value())
@@ -88,7 +88,7 @@ class ProjectAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not change:
             obj.submitter = request.user
-        super(ProjectAdmin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Vote)

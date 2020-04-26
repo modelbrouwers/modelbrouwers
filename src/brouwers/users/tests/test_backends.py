@@ -7,7 +7,7 @@ from .factories import UserFactory
 class LoginBackendTests(TestCase):
 
     def setUp(self):
-        super(LoginBackendTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create(email='test@test.com', password='secret')
 
     def test_email_backend(self):

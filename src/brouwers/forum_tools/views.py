@@ -31,7 +31,7 @@ class CacheMixin(object):
 
     def dispatch(self, *args, **kwargs):
         cache = cache_page(self.get_cache_timeout())
-        return cache(super(CacheMixin, self).dispatch)(*args, **kwargs)
+        return cache(super().dispatch)(*args, **kwargs)
 
 
 class SyncDataView(View):

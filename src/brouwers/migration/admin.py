@@ -26,7 +26,7 @@ class AlbumMigrationAdmin(admin.ModelAdmin):
     search_fields = ('owner__username', 'title', 'description')
 
     def get_queryset(self, request=None):
-        base = super(AlbumMigrationAdmin, self).get_queryset(request=request)
+        base = super().get_queryset(request=request)
         return base.select_related('owner__django_user', 'new_album')
 
 

@@ -8,10 +8,10 @@ class ForumToolsIDField(FieldCacheMixin, PositiveIntegerField):
         type_ = kwargs.pop('type')
         assert type_ in ['forum', 'topic']
         self._type = type_
-        super(ForumToolsIDField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super(ForumToolsIDField, self).deconstruct()
+        name, path, args, kwargs = super().deconstruct()
         kwargs['type'] = self._type
         return (name, path, args, kwargs)
 
@@ -23,18 +23,18 @@ class ForumToolsIDField(FieldCacheMixin, PositiveIntegerField):
             form_class = TopicIDField
         defaults = {'form_class': form_class}
         defaults.update(kwargs)
-        return super(ForumToolsIDField, self).formfield(**defaults)
+        return super().formfield(**defaults)
 
     def contribute_to_class(self, cls, name):
         """ Make an accessor for the ID field. """
-        super(ForumToolsIDField, self).contribute_to_class(cls, name)
+        super().contribute_to_class(cls, name)
         setattr(cls, name, ForumToolsDescriptor(self))
 
     def get_attname(self):
         return "{0}_id".format(self.name)
 
     def get_attname_column(self):
-        attname, column = super(ForumToolsIDField, self).get_attname_column()
+        attname, column = super().get_attname_column()
         return attname, column
 
     def get_cache_name(self):

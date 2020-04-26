@@ -15,7 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ProductField(serializers.PrimaryKeyRelatedField):
     def to_representation(self, value):
-        pk = super(ProductField, self).to_representation(value)
+        pk = super().to_representation(value)
         try:
             item = Product.objects.get(pk=pk)
             serializer = ProductSerializer(item)
@@ -66,7 +66,7 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
             cp.amount += validated_data['amount']
             cp.save()
             return cp
-        return super(WriteCartProductSerializer, self).create(validated_data)
+        return super().create(validated_data)
 
 
 class CartSerializer(serializers.ModelSerializer):

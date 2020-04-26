@@ -13,7 +13,7 @@ class BuildTests(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(BuildTests, cls).setUpClass()
+        super().setUpClass()
         reload_urlconf()
 
     def setUp(self):

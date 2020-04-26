@@ -32,7 +32,7 @@ class ModelKitSelectMixin(object):
     """
 
     def __init__(self, *args, **kwargs):
-        super(ModelKitSelectMixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.form = ModelKitForm(prefix='__modelkitselect')
         self.add_form = AddKitForm(prefix='__modelkitadd')
 

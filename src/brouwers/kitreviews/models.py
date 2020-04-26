@@ -76,7 +76,7 @@ class KitReview(models.Model):
 
     def save(self, *args, **kwargs):
         self.render_raw_text(force=True)
-        super(KitReview, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('kitreviews:review-detail', kwargs={'pk': self.pk, 'slug': self.model_kit.slug})

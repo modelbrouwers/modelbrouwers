@@ -13,7 +13,7 @@ from ..utils import override_preferences
 class MyPhotoTests(APITestCase):
 
     def setUp(self):
-        super(MyPhotoTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_paginated_photos(self):

@@ -18,7 +18,7 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
     """
 
     def setUp(self):
-        super(AddReviewViewTests, self).setUp()
+        super().setUp()
         self.product = ProductFactory.create()
         self.url = reverse('shop:product-detail', kwargs={'slug': self.product.slug})
 

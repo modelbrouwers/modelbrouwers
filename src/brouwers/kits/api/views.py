@@ -18,7 +18,7 @@ class ModelKitViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'create':
             return CreateModelKitSerializer
-        return super(ModelKitViewSet, self).get_serializer_class()
+        return super().get_serializer_class()
 
     def perform_create(self, serializer):
         serializer.save(submitter=self.request.user)
@@ -48,6 +48,6 @@ class BoxartViewSet(viewsets.ModelViewSet):
     parser_classes = api_settings.DEFAULT_PARSER_CLASSES + [parsers.FileUploadParser]
 
     def create(self, request, *args, **kwargs):
-        response = super(BoxartViewSet, self).create(request, *args, **kwargs)
+        response = super().create(request, *args, **kwargs)
         response.data['success'] = True
         return response

@@ -36,12 +36,12 @@ class PhotoViewSet(viewsets.ModelViewSet):
     def get_renderers(self):
         if self.action == 'create':
             return [FineUploaderRenderer()]
-        return super(PhotoViewSet, self).get_renderers()
+        return super().get_renderers()
 
     def get_serializer_class(self):
         if self.action == 'create':
             return UploadPhotoSerializer
-        return super(PhotoViewSet, self).get_serializer_class()
+        return super().get_serializer_class()
 
     def create(self, request, *args, **kwargs):
         """
@@ -98,7 +98,7 @@ class PreferencesViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return Preferences.objects.filter(user=self.request.user)
-        return super(PreferencesViewSet, self).get_queryset()
+        return super().get_queryset()
 
     def get_object(self):
         return Preferences.objects.get_for(self.request.user)

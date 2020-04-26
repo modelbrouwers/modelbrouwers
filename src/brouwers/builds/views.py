@@ -25,7 +25,7 @@ class BuildSearchMixin(object):
 
     def get_context_data(self, **kwargs):
         kwargs['search_form'] = BuildSearchForm(auto_id=False)
-        return super(BuildSearchMixin, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class IndexView(BuildSearchMixin, ListView):
@@ -51,13 +51,13 @@ class UserBuildListView(IndexView):
     show_user = False
 
     def get_queryset(self):
-        qs = super(UserBuildListView, self).get_queryset()
+        qs = super().get_queryset()
         user_id = self.kwargs.get('user_id', None)
         self.user = get_object_or_404(User, pk=user_id)
         return qs.filter(user_id=user_id)
 
     def get_context_data(self, **kwargs):
-        context = super(UserBuildListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['builds_user'] = self.user
         return context
 
@@ -69,7 +69,7 @@ class BuildDetailView(BuildSearchMixin, DetailView):
     def get_context_data(self, **kwargs):
         kwargs['photos'] = self.object.photos.select_related('photo').order_by('order', 'id')
         kwargs['kits'] = list(self.object.kits.select_related('brand', 'scale'))
-        return super(BuildDetailView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class BuildRedirectView(SingleObjectMixin, RedirectView):
@@ -116,7 +116,7 @@ class PhotoInline(InlineFormSet):
     # TODO: patch extra_views.formsets.BaseInlineFormSetMixin.get_factory_kwargs
     # do not set self.fields if self.form_class is provided
     def get_factory_kwargs(self):
-        kwargs = super(PhotoInline, self).get_factory_kwargs()
+        kwargs = super().get_factory_kwargs()
         del kwargs['fields']
         return kwargs
 
@@ -136,7 +136,7 @@ class BuildCreateView(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesV
 
     def forms_valid(self, form, inlines):
         form.instance.user = self.request.user
-        return super(BuildCreateView, self).forms_valid(form, inlines)
+        return super().forms_valid(form, inlines)
 
 
 class BuildUpdateView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesView):
@@ -146,5 +146,5 @@ class BuildUpdateView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesV
     inlines_names = ['photos']
 
     def get_queryset(self):
-        qs = super(BuildUpdateView, self).get_queryset()
+        qs = super().get_queryset()
         return qs.filter(user=self.request.user)

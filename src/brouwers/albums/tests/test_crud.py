@@ -17,7 +17,7 @@ class CrudTests(LoginRequiredMixin, WebTest):
     """
 
     def setUp(self):
-        super(CrudTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_album_create(self):
@@ -77,7 +77,7 @@ class UploadTests(LoginRequiredMixin, WebTest):
     url = reverse('albums:upload')
 
     def setUp(self):
-        super(UploadTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_upload_view_anon(self):

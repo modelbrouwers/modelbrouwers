@@ -20,11 +20,11 @@ class IDField(IntegerField):
     def __init__(self, *args, **kwargs):
         if not kwargs.get('widget'):
             kwargs['widget'] = ForumToolsIDFieldWidget(urlparam=self.urlparam, type_=self.type_)
-        super(IDField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_python(self, value):
         try:  # check if it's integer or not
-            return super(IDField, self).to_python(value)
+            return super().to_python(value)
         except ValidationError:  # catch errors and check for urls
             pass
 
@@ -49,7 +49,7 @@ class ForumIDField(IDField):
 
     def __init__(self, urlparam='f', *args, **kwargs):
         self.urlparam = urlparam
-        super(ForumIDField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class TopicIDField(IDField):
@@ -57,4 +57,4 @@ class TopicIDField(IDField):
 
     def __init__(self, urlparam='t', *args, **kwargs):
         self.urlparam = urlparam
-        super(TopicIDField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)

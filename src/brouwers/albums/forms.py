@@ -12,7 +12,7 @@ class AlbumQuerysetFormMixin(object):
 
     def __init__(self, request=None, *args, **kwargs):
         assert request is not None
-        super(AlbumQuerysetFormMixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # TODO: add albums that are shared
         self.fields['album'].queryset = Album.objects.select_related(
             'cover'
@@ -40,11 +40,11 @@ class AlbumForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
-        super(AlbumForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.filter(public=True)
 
     def clean(self):
-        cleaned_data = super(AlbumForm, self).clean()
+        cleaned_data = super().clean()
         title = cleaned_data.get('title')
         if title:
             qs = self._meta.model.objects.filter(title=title, user=self.user)

@@ -14,7 +14,7 @@ from ..factories import AlbumFactory, PhotoFactory
 class PhotoViewsetTests(APITestCase):
 
     def setUp(self):
-        super(PhotoViewsetTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
         self.album = AlbumFactory.create(user=self.user)
         self.list_url = reverse('api:photo-list')

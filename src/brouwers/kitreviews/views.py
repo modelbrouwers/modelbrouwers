@@ -37,7 +37,7 @@ class ReviewPropertyRatingInline(InlineFormSet):
         return self._num_properties
 
     def get_factory_kwargs(self):
-        kwargs = super(ReviewPropertyRatingInline, self).get_factory_kwargs()
+        kwargs = super().get_factory_kwargs()
         kwargs.update({
             'min_num': self.num_properties,
             'max_num': self.num_properties,
@@ -60,12 +60,12 @@ class AddReview(LoginRequiredMixin, NamedFormsetsMixin, CreateWithInlinesView):
     inlines_names = ['properties']
 
     def get_form_kwargs(self):
-        kwargs = super(AddReview, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
     def get_initial(self):
-        initial = super(AddReview, self).get_initial()
+        initial = super().get_initial()
         if self.kwargs.get('slug'):
             initial['model_kit'] = get_object_or_404(ModelKit, slug=self.kwargs['slug'])
         return initial
@@ -76,7 +76,7 @@ class KitSearchView(FormView):
     form_class = FindModelKitForm
 
     def get_form_kwargs(self):
-        kwargs = super(KitSearchView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         if 'data' not in kwargs:
             kwargs['data'] = self.request.GET
         return kwargs
@@ -102,11 +102,11 @@ class ReviewListView(SingleObjectMixin, ListView):
 
     def get_queryset(self):
         self.object = kit = self.get_object(queryset=self.queryset_kits)
-        return super(ReviewListView, self).get_queryset().filter(model_kit=kit)
+        return super().get_queryset().filter(model_kit=kit)
 
     def get_context_data(self, **kwargs):
         kwargs['kit'] = self.object
-        return super(ReviewListView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class KitReviewDetail(DetailView):
@@ -119,7 +119,7 @@ class KitReviewDetail(DetailView):
         kwargs['other_reviews'] = self.object.model_kit.kitreview_set.select_related(
             'reviewer', 'album'
         ).annotate_mean_rating().exclude(pk=self.object.pk)
-        return super(KitReviewDetail, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class LegacyRedirectView(RedirectView):

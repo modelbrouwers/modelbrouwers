@@ -64,7 +64,7 @@ class CreateModelKitSerializer(serializers.ModelSerializer):
             boxart = Boxart.objects.get(uuid=uuid)
             validated_data['box_image'] = boxart.image
             boxart.delete()
-        return super(CreateModelKitSerializer, self).create(validated_data)
+        return super().create(validated_data)
 
 
 class BoxartSerializer(serializers.ModelSerializer):

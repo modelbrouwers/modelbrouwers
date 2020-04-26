@@ -129,7 +129,7 @@ class ForumUser(models.Model):
         self.user_email_hash = self.get_email_hash()
         if not self.username_clean:
             self._clean_username()
-        super(ForumUser, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def _clean_username(self):
         self.username_clean = clean_username(self.username)

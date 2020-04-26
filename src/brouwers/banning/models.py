@@ -56,7 +56,7 @@ class Ban(models.Model):
             return _('Ban: %(ip)s') % {'ip': self.ip}
 
     def clean(self):
-        super(Ban, self).clean()
+        super().clean()
         if not self.ip and not self.user:
             raise ValidationError(_('Submit either an user or IP address.'))
         return self
@@ -64,7 +64,7 @@ class Ban(models.Model):
     def save(self, *args, **kwargs):
         if not self.ip:
             self.ip = '0.0.0.0'  # bogus ip
-        super(Ban, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     @classmethod
     def get_bans_queryset(cls):

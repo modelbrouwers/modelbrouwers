@@ -21,7 +21,7 @@ class BuildForm(forms.ModelForm):
         localized_fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(BuildForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['kits'].queryset = ModelKit.objects.select_related('brand', 'scale')
 
 

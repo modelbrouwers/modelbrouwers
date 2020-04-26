@@ -13,7 +13,7 @@ class PrivateMediaFileSystemStorage(FileSystemStorage):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('location', settings.PRIVATE_MEDIA_ROOT)
         kwargs.setdefault('base_url', settings.PRIVATE_MEDIA_URL)
-        super(PrivateMediaFileSystemStorage, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class PrivateMediaStorage(LazyObject):

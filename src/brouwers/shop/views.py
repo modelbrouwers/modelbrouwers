@@ -15,7 +15,7 @@ class IndexView(ListView):
     template_name = 'shop/index.html'
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['carousel_images'] = CategoryCarouselImage.objects.filter(visible=True)
         return context
 
@@ -26,7 +26,7 @@ class CategoryDetailView(DetailView):
     model = Category
 
     def get_context_data(self, **kwargs):
-        context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['categories'] = Category.get_tree().filter(depth=1, enabled=True)
         return context
 
@@ -39,7 +39,7 @@ class ProductDetailView(ModelFormMixin, DetailView):
     form_class = ProductReviewForm
 
     def get_context_data(self, **kwargs):
-        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['categories'] = Category.get_tree().filter(depth=1, enabled=True)
         if 'form' not in kwargs:
             context['form'] = self.get_form()
@@ -65,5 +65,5 @@ class CartDetailView(DetailView):
     template_name = 'shop/cart_detail.html'
 
     def get_queryset(self):
-        qs = super(CartDetailView, self).get_queryset()
+        qs = super().get_queryset()
         return qs.filter(user=self.request.user)

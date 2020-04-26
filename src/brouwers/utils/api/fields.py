@@ -11,7 +11,7 @@ class ThumbnailField(fields.ImageField):
     def __init__(self, dimensions, opts=None, *args, **kwargs):
         self.dimensions = dimensions
         self.opts = opts or {}
-        super(ThumbnailField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def to_representation(self, value):
         thumbs = {}
@@ -29,7 +29,7 @@ class ThumbnailField(fields.ImageField):
             if request is not None:
                 img_url = request.build_absolute_uri(image.url)
             else:
-                img_url = super(ThumbnailField, self).to_representation(image.url)
+                img_url = super().to_representation(image.url)
             thumbs['%s' % name] = img_url
 
         return thumbs

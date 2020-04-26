@@ -19,7 +19,7 @@ from .factories import KitReviewFactory, KitReviewPropertyFactory
 class IndexViewTests(WebTest):
 
     def setUp(self):
-        super(IndexViewTests, self).setUp()
+        super().setUp()
         self.url = reverse('kitreviews:index')
 
     def test_index_shows_latest_reviews(self):
@@ -40,7 +40,7 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
     """
 
     def setUp(self):
-        super(AddReviewViewTests, self).setUp()
+        super().setUp()
         self.url = reverse('kitreviews:add_review')
 
     def test_submit_review(self):
@@ -134,7 +134,7 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
 class SearchViewTests(WebTest):
 
     def setUp(self):
-        super(SearchViewTests, self).setUp()
+        super().setUp()
         self.url = reverse('kitreviews:find_kit')
 
         self.kit1 = ModelKitFactory.create(name='Suzuki Katana')
@@ -235,7 +235,7 @@ class SearchViewTests(WebTest):
 class KitReviewsListViewTests(WebTest):
 
     def setUp(self):
-        super(KitReviewsListViewTests, self).setUp()
+        super().setUp()
 
         self.kit1 = ModelKitFactory.create()
         self.reviews1 = KitReviewFactory.create_batch(3, model_kit=self.kit1)

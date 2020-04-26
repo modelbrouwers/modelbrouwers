@@ -10,7 +10,7 @@ from brouwers.users.tests.factories import UserFactory
 class ProfileTests(WebTest):
 
     def setUp(self):
-        super(ProfileTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_edit_profile_login(self):

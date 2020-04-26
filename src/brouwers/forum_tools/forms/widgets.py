@@ -14,12 +14,12 @@ class ForumToolsIDFieldWidget(forms.TextInput):
         assert type_ in ['topic', 'forum']  # viewtopic.php, viewforum.php
         self.urlparam = urlparam
         self.type_ = type_
-        super(ForumToolsIDFieldWidget, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def render(self, name, value, attrs=None):
         if value:
             value = self.get_url(value)
-        html = super(ForumToolsIDFieldWidget, self).render(name, value, attrs)
+        html = super().render(name, value, attrs)
         if value:
             value = force_text(value)
             final_attrs = {'href': smart_urlquote(value)}

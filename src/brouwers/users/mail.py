@@ -13,7 +13,7 @@ class UserRegistrationEmail(MultiAlternativesEmail):
 
     def __init__(self, to=None, **kwargs):
         self.user = kwargs.get('user')
-        super(UserRegistrationEmail, self).__init__(to=self.user.email, **kwargs)
+        super().__init__(to=self.user.email, **kwargs)
 
     def get_subject(self):
         domain = Site.objects.get_current().domain
@@ -22,7 +22,7 @@ class UserRegistrationEmail(MultiAlternativesEmail):
     def get_context_data(self, **kwargs):
         context = {'user': self.user}
         kwargs.update(context)
-        return super(UserRegistrationEmail, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
 
 class UserCreatedFromForumEmail(MultiAlternativesEmail):
@@ -32,7 +32,7 @@ class UserCreatedFromForumEmail(MultiAlternativesEmail):
 
     def __init__(self, to=None, **kwargs):
         self.user = kwargs['user']
-        super(UserCreatedFromForumEmail, self).__init__(to=self.user.email, **kwargs)
+        super().__init__(to=self.user.email, **kwargs)
 
     def get_subject(self):
         domain = Site.objects.get_current().domain
@@ -45,4 +45,4 @@ class UserCreatedFromForumEmail(MultiAlternativesEmail):
             'protocol': 'http'
         }
         kwargs.update(**context)
-        return super(UserCreatedFromForumEmail, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)

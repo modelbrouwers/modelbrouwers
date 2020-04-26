@@ -32,13 +32,13 @@ class GroupBuildParticipateView(LoginRequiredMixin, GroupBuildDetailMixin,
     def form_valid(self, form):
         form.instance.groupbuild = self.get_object()  # TODO: limit queryset to open groupbuilds
         form.instance.user = self.request.user
-        response = super(GroupBuildParticipateView, self).form_valid(form)
+        response = super().form_valid(form)
         messages.success(self.request, _('You\'re now listed as participant!'))
         return response
 
     def get_context_data(self, **kwargs):
         self.object = self.get_object()
-        context = super(GroupBuildParticipateView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['participate_form'] = context['form']
         return context
 
@@ -58,7 +58,7 @@ class ParticipantUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         kwargs['gb'] = self.object.groupbuild
-        return super(ParticipantUpdateView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
     def get_success_url(self):
         return self.object.groupbuild.get_absolute_url()
@@ -75,7 +75,7 @@ class MyGroupbuildsListView(LoginRequiredMixin, ListView):
         return (self.admin_gbs | self.participant_gbs).distinct().order_by('start')
 
     def get_context_data(self, **kwargs):
-        context = super(MyGroupbuildsListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['admin_gbs'] = self.admin_gbs
         context['participant_gbs'] = self.participant_gbs
         return context

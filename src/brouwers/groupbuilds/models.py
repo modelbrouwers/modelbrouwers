@@ -124,7 +124,7 @@ class GroupBuild(models.Model):
             self.end = self.start + timedelta(days=self.duration)
         if not self.id:
             self._created = True
-        super(GroupBuild, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return _("{name}: {status}").format(name=self.theme, status=self.get_status_display())

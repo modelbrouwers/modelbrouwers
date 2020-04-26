@@ -10,7 +10,7 @@ from .factories import BuildFactory
 class SearchTests(APITestCase):
 
     def setUp(self):
-        super(SearchTests, self).setUp()
+        super().setUp()
         self.user1 = UserFactory.create(username='BBT')
         self.user2 = UserFactory.create(username='hanjos')
 
