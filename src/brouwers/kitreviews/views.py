@@ -6,11 +6,10 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 
 from extra_views import (
-    CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin
+    CreateWithInlinesView, InlineFormSetFactory, NamedFormsetsMixin
 )
 
 from brouwers.kits.models import ModelKit
-from brouwers.kits.widgets import AddKitForm
 from brouwers.utils.views import LoginRequiredMixin
 
 from .forms import FindModelKitForm, KitReviewForm, KitReviewPropertyRatingForm
@@ -26,7 +25,7 @@ class IndexView(FormMixin, ListView):
     form_class = FindModelKitForm
 
 
-class ReviewPropertyRatingInline(InlineFormSet):
+class ReviewPropertyRatingInline(InlineFormSetFactory):
     model = KitReviewPropertyRating
     form_class = KitReviewPropertyRatingForm
 
@@ -39,14 +38,11 @@ class ReviewPropertyRatingInline(InlineFormSet):
     def get_factory_kwargs(self):
         kwargs = super().get_factory_kwargs()
         kwargs.update({
+            'extra': self.num_properties,
             'min_num': self.num_properties,
             'max_num': self.num_properties,
         })
         return kwargs
-
-    @property
-    def extra(self):
-        return self.num_properties
 
     def get_initial(self):
         return [{'prop': prop} for prop in KitReviewProperty.objects.all()]

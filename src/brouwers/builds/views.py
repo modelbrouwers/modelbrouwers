@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView, RedirectView
 from django.views.generic.detail import SingleObjectMixin
 
 from extra_views import (
-    CreateWithInlinesView, InlineFormSet, NamedFormsetsMixin,
+    CreateWithInlinesView, InlineFormSetFactory, NamedFormsetsMixin,
     UpdateWithInlinesView
 )
 
@@ -108,12 +108,14 @@ class ForumUserRedirectView(SingleObjectMixin, RedirectView):
         return reverse('builds:user_build_list', kwargs={'user_id': user.id})
 
 
-class PhotoInline(InlineFormSet):
+class PhotoInline(InlineFormSetFactory):
     model = BuildPhoto
     form_class = BuildPhotoForm
-    extra = 0  # all done dynamically
+    factory_kwargs = {
+        "extra": 0,
+    }
 
-    # TODO: patch extra_views.formsets.BaseInlineFormSetMixin.get_factory_kwargs
+    # TODO: patch extra_views.formsets.BaseInlineFormSetFactory.get_factory_kwargs
     # do not set self.fields if self.form_class is provided
     def get_factory_kwargs(self):
         kwargs = super().get_factory_kwargs()

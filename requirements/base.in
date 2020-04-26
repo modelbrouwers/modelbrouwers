@@ -20,7 +20,6 @@ django-autoslug
 django-choices
 django-ckeditor
 django-compressor
-django-extensions
 django-extra-views
 django-loginas
 django-precise-bbcode

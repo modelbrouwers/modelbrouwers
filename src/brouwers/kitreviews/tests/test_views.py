@@ -135,7 +135,7 @@ class SearchViewTests(WebTest):
 
     @classmethod
     def setUpTestData(cls):
-        super().setUp()
+        super().setUpTestData()
         cls.url = reverse('kitreviews:find_kit')
 
         cls.kit1 = ModelKitFactory.create(name='Suzuki Katana')

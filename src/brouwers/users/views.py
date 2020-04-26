@@ -12,7 +12,7 @@ from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 
 from extra_views import (
-    InlineFormSet, NamedFormsetsMixin, UpdateWithInlinesView
+    InlineFormSetFactory, NamedFormsetsMixin, UpdateWithInlinesView
 )
 from sendfile import sendfile
 
@@ -212,16 +212,18 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
         login(self.request, user)
 
 
-class ProfileInline(InlineFormSet):
+class ProfileInline(InlineFormSetFactory):
     model = UserProfile
     fields = (
         'street', 'number', 'postal', 'city', 'province', 'country',  # address
         'exclude_from_nomination',  # awards
         'allow_sharing',  # privacy
     )
-    can_delete = False
-    extra = 0
-    max_num = 1
+    factory_kwargs = {
+        "can_delete": False,
+        "extra": 0,
+        "max_num": 1,
+    }
 
 
 class ProfileView(LoginRequiredMixin, NamedFormsetsMixin, UpdateWithInlinesView):

@@ -14,6 +14,7 @@ DEBUG = True
 # Debug toolbar
 #
 INSTALLED_APPS = INSTALLED_APPS + [
+    'django_extensions',
     'debug_toolbar',
     'corsheaders',
 ]
