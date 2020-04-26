@@ -3,13 +3,14 @@ from datetime import timedelta
 from django.db.models import Manager, Q
 from django.utils import timezone
 
+from .query import GroupbuildQuerySet
 
-class PublicGroupBuildsManager(Manager):
 
-    """ Publicly visible photos """
+class PublicGroupBuildsManager(Manager.from_queryset(GroupbuildQuerySet)):
+    """ Publicly visible groupbuilds """
 
     def get_base_queryset(self):
-        return super(PublicGroupBuildsManager, self).get_queryset()
+        return super().get_queryset()
 
     def get_queryset(self):
         from .models import GroupbuildStatuses  # avoid circular imports

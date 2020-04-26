@@ -1,4 +1,4 @@
-{% load thumbnail staticfiles i18n %}
+{% load thumbnail static i18n %}
 <article class="col-sm-6 col-md-3" data-id="{{ photo.id }}">
     <a href="{{ photo.get_absolute_url }}" class="thumbnail album-photo{% if album.cover == photo %} cover{% endif %}" data-id="{{ photo.id }}">
         {% if photo.exists %}

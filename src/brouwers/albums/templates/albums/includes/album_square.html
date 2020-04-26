@@ -1,4 +1,4 @@
-{% load staticfiles thumbnail i18n %}
+{% load static thumbnail i18n %}
 <article class="col-sm-6 col-md-3 album-preview">
     <h3><a href="{{ album.get_absolute_url }}">{% if not album.trash %}{{ album.title }}{% else %}{{ album.clean_title }}{% endif %}</a></h3>
     <a href="{{ album.get_absolute_url }}" class="thumbnail">

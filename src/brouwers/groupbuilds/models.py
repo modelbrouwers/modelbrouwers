@@ -16,6 +16,7 @@ from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.forum_tools.models import ForumCategory
 
 from .managers import PublicGroupBuildsManager
+from .query import GroupbuildQuerySet
 
 
 class GroupbuildDurations(DjangoChoices):
@@ -107,7 +108,7 @@ class GroupBuild(models.Model):
 
     # TODO: status tracking -> forum created, forum visible etc...
 
-    objects = models.Manager()
+    objects = GroupbuildQuerySet.as_manager()
     public = PublicGroupBuildsManager()
 
     _created = False

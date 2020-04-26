@@ -229,6 +229,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
     'django_filters',
+    'rest_framework_filters',
     'loginas',
     'sniplates',
     'rosetta',
@@ -366,7 +367,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'brouwers.api.pagination.PageNumberPagination',
     'PAGE_SIZE': 25,
     'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework_filters.backends.DjangoFilterBackend',
+        'rest_framework_filters.backends.RestFrameworkFilterBackend',
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }

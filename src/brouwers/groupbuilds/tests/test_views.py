@@ -44,8 +44,10 @@ class ViewTests(WebTest):
         self.assertIsNone(gb.end)
         self.assertEquals(gb.participant_set.count(), 3)
 
-        edit_urls = [reverse('groupbuilds:update-participant', kwargs={'slug': gb.slug, 'pk': p.pk})
-                    for p in ps]
+        edit_urls = [
+            reverse('groupbuilds:update-participant', kwargs={'slug': gb.slug, 'pk': p.pk})
+            for p in ps
+        ]
         response = self.app.get(gb.get_absolute_url())
         self.assertEquals(response.status_code, 200)
         for url in edit_urls:

@@ -1,8 +1,7 @@
 from django import template
 from django.conf import settings
 from django.template.base import (
-    TOKEN_BLOCK, TOKEN_TEXT, TOKEN_VAR, NodeList, TemplateSyntaxError,
-    TextNode
+    NodeList, TemplateSyntaxError, TextNode, TokenType
 )
 from django.template.loader_tags import BlockNode
 
@@ -53,14 +52,14 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
         #     parser.extend_nodelist(nodelist, var_node, token)
         #     import pdb; pdb.set_trace()
 
-        if token.token_type == TOKEN_VAR:
+        if token.token_type == TokenType.VAR:
             parser.extend_nodelist(nodelist, TextNode('{{'), token)
             parser.extend_nodelist(nodelist, TextNode(token.contents), token)
 
-        elif token.token_type == TOKEN_TEXT:
+        elif token.token_type == TokenType.TEXT:
             parser.extend_nodelist(nodelist, TextNode(token.contents), token)
 
-        elif token.token_type == TOKEN_BLOCK:
+        elif token.token_type == TokenType.BLOCK:
             try:
                 command = token.contents.split()[0]
             except IndexError:
@@ -77,7 +76,7 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
                     raise
             parser.extend_nodelist(nodelist, node, token)
 
-        if token.token_type == TOKEN_VAR:
+        if token.token_type == TokenType.VAR:
             parser.extend_nodelist(nodelist, TextNode('}}'), token)
     return nodelist
 
@@ -94,6 +93,7 @@ class VerbatimNode(template.Node):
             {% trans "Your name is" %} {{first}} {{last}}
         {% endverbatim %}
     """
+
     def __init__(self, text_and_nodes):
         self.text_and_nodes = text_and_nodes
 
@@ -101,7 +101,7 @@ class VerbatimNode(template.Node):
         output = ""
         # If its text we concatenate it, otherwise it's a node and we render it
         for bit in self.text_and_nodes:
-            if isinstance(bit, basestring):
+            if isinstance(bit, str):
                 output += bit
             else:
                 output += bit.render(context)

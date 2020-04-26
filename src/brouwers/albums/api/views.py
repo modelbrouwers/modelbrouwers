@@ -25,7 +25,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
     parser_classes = api_settings.DEFAULT_PARSER_CLASSES + [parsers.FileUploadParser]
     queryset = Photo.objects.exclude(trash=True)
     serializer_class = PhotoSerializer
-    filter_class = PhotoFilter
+    filterset_class = PhotoFilter
     pagination_class = PhotoPagination
 
     def get_queryset(self):
@@ -122,7 +122,7 @@ class MyPhotosViewset(viewsets.ReadOnlyModelViewSet):
     queryset = Photo.objects.none()
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ForumPhotoSerializer
-    filter_class = PhotoFilter
+    filterset_class = PhotoFilter
     pagination_class = MyPhotoPagination
 
     def get_queryset(self):

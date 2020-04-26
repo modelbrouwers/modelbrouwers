@@ -16,7 +16,7 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
     form_class = GroupBuildForm
 
     def get_form_kwargs(self):
-        kwargs = super(GroupBuildCreateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
 
@@ -24,7 +24,7 @@ class GroupBuildCreateView(LoginRequiredMixin, CreateView):
         return self.object.get_absolute_url()
 
     def get_initial(self):
-        initial = super(GroupBuildCreateView, self).get_initial()
+        initial = super().get_initial()
         initial['admins'] = self.request.user
         return initial
 
@@ -35,7 +35,7 @@ class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
     form_class = GroupBuildForm
 
     def get_form_kwargs(self):
-        kwargs = super(GroupBuildUpdateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
 
@@ -47,17 +47,16 @@ class GroupBuildUpdateView(LoginRequiredMixin, UpdateView):
 
 class GroupBuildSubmitView(LoginRequiredMixin, GroupBuildDetailMixin, UpdateView):
     """ View to submit the group build to the staff """
-    model = GroupBuild
     form_class = SubmitForm
     context_object_name = 'gb'
     template_name = 'groupbuilds/groupbuild_submit.html'
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return super(GroupBuildSubmitView, self).get_queryset()
-        return self.request.user.admin_groupbuilds.all()
+            return super().get_queryset()
+        return self.request.user.admin_groupbuilds.with_admin_count()
 
     def form_valid(self, form):
-        response = super(GroupBuildSubmitView, self).form_valid(form)
+        response = super().form_valid(form)
         messages.success(self.request, _('Your group build has been submitted to the moderator team.'))
         return response

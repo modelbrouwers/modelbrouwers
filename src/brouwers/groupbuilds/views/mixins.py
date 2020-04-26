@@ -1,5 +1,3 @@
-from django.db.models import Count
-
 from ..models import GroupBuild, GroupbuildStatuses as GBStatuses
 
 
@@ -7,16 +5,20 @@ class GroupBuildDetailMixin(object):
     """
     Mixin that checks the queryset for detail-related views
     """
-    queryset = GroupBuild.public.all().annotate(n_admins=Count('admins'))
+    queryset = GroupBuild.public.with_admin_count()
 
     def get_queryset(self):  # TODO: unit test
         user = self.request.user
+        qs = super().get_queryset()
+
         if user.is_authenticated:  # TODO: add staff permissions
-            return (user.admin_groupbuilds.all() | self.queryset).distinct()
-        return super(GroupBuildDetailMixin, self).get_queryset()
+            admin_qs = user.admin_groupbuilds.with_admin_count()
+            qs = (admin_qs | qs).distinct()
+
+        return qs
 
     def get_context_data(self, **kwargs):
-        ctx = super(GroupBuildDetailMixin, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
 
         user = self.request.user
         can_edit = (

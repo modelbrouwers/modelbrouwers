@@ -14,7 +14,7 @@ pytz  # handle timezones
 WeasyPrint
 
 # Django packages
-Django < 2.1
+Django < 2.2
 django-admin-tools
 django-autoslug
 django-choices
@@ -37,7 +37,7 @@ django-import-export
 
 # API
 djangorestframework < 3.12
-djangorestframework-filters
+djangorestframework-filters == 1.0.0.dev0
 
 # WSGI servers & monitoring - production oriented
 uwsgi

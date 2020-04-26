@@ -67,8 +67,6 @@ class GroupBuildListView(ListView):
 
 
 class GroupBuildDetailView(GroupBuildDetailMixin, DetailView):
-    model = GroupBuild
-    queryset = GroupBuild.objects.all()
     context_object_name = 'gb'
 
     def get_context_data(self, **kwargs):

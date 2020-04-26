@@ -34,8 +34,8 @@ django-cors-headers==3.2.1  # via -r requirements/dev.in
 django-debug-toolbar==2.2  # via -r requirements/dev.in
 django-extensions==1.9.7  # via -r requirements/ci.txt, -r requirements/dev.in
 django-extra-views==0.9.0  # via -r requirements/ci.txt
-django-filter==1.1.0      # via -r requirements/ci.txt, djangorestframework-filters
-django-import-export==1.0.0  # via -r requirements/ci.txt
+django-filter==2.2.0      # via -r requirements/ci.txt, djangorestframework-filters
+django-import-export==2.0.2  # via -r requirements/ci.txt
 django-js-asset==1.0.0    # via -r requirements/ci.txt, django-ckeditor
 django-loginas==0.3.3     # via -r requirements/ci.txt
 django-modeltranslation==0.13.0  # via -r requirements/ci.txt
@@ -48,8 +48,8 @@ django-solo==1.1.3        # via -r requirements/ci.txt
 django-taggit==0.22.2     # via -r requirements/ci.txt
 django-treebeard==4.2.1   # via -r requirements/ci.txt
 django-webtest==1.9.7     # via -r requirements/ci.txt
-django==2.0.13            # via -r requirements/ci.txt, django-choices, django-cors-headers, django-debug-toolbar, django-extra-views, django-import-export, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-treebeard, djangorestframework
-djangorestframework-filters==0.10.2  # via -r requirements/ci.txt
+django==2.1.15            # via -r requirements/ci.txt, django-choices, django-cors-headers, django-debug-toolbar, django-extra-views, django-filter, django-import-export, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-treebeard, djangorestframework
+djangorestframework-filters==1.0.0.dev0  # via -r requirements/ci.txt
 djangorestframework==3.11.0  # via -r requirements/ci.txt, djangorestframework-filters
 docutils==0.16            # via sphinx
 entrypoints==0.3          # via flake8
@@ -67,6 +67,7 @@ isort==4.3.21             # via -r requirements/dev.in
 jdcal==1.4                # via -r requirements/ci.txt, openpyxl
 jinja2==2.11.2            # via sphinx
 lxml==4.3.0               # via -r requirements/ci.txt, weasyprint
+markuppy==1.14            # via -r requirements/ci.txt, tablib
 markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via flake8
 mysqlclient==1.4.2.post1  # via -r requirements/ci.txt
@@ -109,14 +110,13 @@ sphinxcontrib-jsmath==1.0.1  # via sphinx
 sphinxcontrib-qthelp==1.0.3  # via sphinx
 sphinxcontrib-serializinghtml==1.1.4  # via sphinx
 sqlparse==0.3.1           # via django-debug-toolbar
-tablib==0.12.1            # via -r requirements/ci.txt, django-import-export
+tablib[html,ods,xls,xlsx,yaml]==1.1.0  # via -r requirements/ci.txt, django-import-export
 tblib==1.6.0              # via -r requirements/ci.txt
 text-unidecode==1.3       # via -r requirements/ci.txt, faker
 tinycss==0.3              # via -r requirements/ci.txt, weasyprint
 toml==0.10.0              # via black
 typed-ast==1.4.1          # via black
 typing==3.6.2             # via -r requirements/ci.txt, django-extensions
-unicodecsv==0.14.1        # via -r requirements/ci.txt, tablib
 urllib3==1.24.3           # via -r requirements/ci.txt, requests
 uwsgi==2.0.18             # via -r requirements/ci.txt
 waitress==1.4.3           # via -r requirements/ci.txt, webtest

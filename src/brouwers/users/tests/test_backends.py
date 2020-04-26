@@ -12,9 +12,9 @@ class LoginBackendTests(TestCase):
 
     def test_email_backend(self):
         backend = EmailModelBackend()
-        user = backend.authenticate(username='test@test.com', password='secret')
+        user = backend.authenticate(None, username='test@test.com', password='secret')
         self.assertEqual(user, self.user)
 
         # wrong password / email
-        self.assertIsNone(backend.authenticate(username='test@test.com', password='guesswhat'))
-        self.assertIsNone(backend.authenticate(username='imakenosense', password='secret'))
+        self.assertIsNone(backend.authenticate(None, username='test@test.com', password='guesswhat'))
+        self.assertIsNone(backend.authenticate(None, username='imakenosense', password='secret'))

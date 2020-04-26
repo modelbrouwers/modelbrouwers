@@ -14,7 +14,7 @@ class EmailModelBackend(ModelBackend):
     looks at the e-mailaddress of the user and the case-insensitive username.
     """
 
-    def authenticate(self, username=None, password=None, **kwargs):
+    def authenticate(self, request, username=None, password=None, **kwargs):
         UserModel = get_user_model()
 
         try:
@@ -22,12 +22,18 @@ class EmailModelBackend(ModelBackend):
                 Q(username__iexact=username) | Q(email=username)
             )
         except UserModel.DoesNotExist:
+            # Run the default password hasher once to reduce the timing
+            # difference between an existing and a nonexistent user (#20760).
+            UserModel().set_password(password)
             return None
         except MultipleObjectsReturned:
             logger.error("Multiple case-insensitive usernames matched! Username: %s", username)
+            # Run the default password hasher once to reduce the timing
+            # difference between an existing and a nonexistent user (#20760).
+            UserModel().set_password(password)
             return None
 
-        if user.check_password(password):
+        if user.check_password(password) and self.user_can_authenticate(user):
             return user
 
         return None
