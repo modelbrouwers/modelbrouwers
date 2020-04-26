@@ -1,5 +1,5 @@
 # Common packages
-pip-tools==3.7.0
+pip-tools
 Pillow
 python-dateutil
 pytz
