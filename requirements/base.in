@@ -36,7 +36,7 @@ django-taggit
 django-import-export
 
 # API
-djangorestframework
+djangorestframework < 3.10
 djangorestframework-filters
 
 # WSGI servers & monitoring - production oriented

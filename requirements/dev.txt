@@ -50,7 +50,7 @@ django-treebeard==4.2.1   # via -r requirements/ci.txt
 django-webtest==1.9.7     # via -r requirements/ci.txt
 django==1.11.22           # via -r requirements/ci.txt, django-choices, django-cors-headers, django-debug-toolbar, django-extra-views, django-import-export, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-treebeard
 djangorestframework-filters==0.10.2  # via -r requirements/ci.txt
-djangorestframework==3.7.7  # via -r requirements/ci.txt, djangorestframework-filters
+djangorestframework==3.9.4  # via -r requirements/ci.txt, djangorestframework-filters
 docutils==0.16            # via sphinx
 entrypoints==0.3          # via flake8
 et-xmlfile==1.0.1         # via -r requirements/ci.txt, openpyxl

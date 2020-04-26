@@ -36,7 +36,7 @@ django-taggit==0.22.2     # via -r requirements/base.in
 django-treebeard==4.2.1   # via -r requirements/base.in
 django==1.11.22           # via -r requirements/base.in, django-choices, django-extra-views, django-import-export, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-treebeard
 djangorestframework-filters==0.10.2  # via -r requirements/base.in
-djangorestframework==3.7.7  # via -r requirements/base.in, djangorestframework-filters
+djangorestframework==3.9.4  # via -r requirements/base.in, djangorestframework-filters
 et-xmlfile==1.0.1         # via openpyxl
 html2text==2018.1.9       # via -r requirements/base.in
 html5lib==1.0.1           # via weasyprint
