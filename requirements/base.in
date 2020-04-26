@@ -1,13 +1,20 @@
 # Common packages
-pip-tools
-Pillow
-python-dateutil
-pytz
-fake-factory
+bleach
+html2text
 lxml
+mysqlclient
+openpyxl==2.4.9
+Pillow  # handle images
+psycopg2  # database driver
+python-dateutil
+python-decouple  # processing of envvar configs
+python-dotenv  # environment variables for secrets
+python-memcached
+pytz  # handle timezones
+WeasyPrint
 
 # Django packages
-Django
+Django < 2.0
 django-admin-tools
 django-autoslug
 django-choices
@@ -32,16 +39,6 @@ django-import-export
 djangorestframework
 djangorestframework-filters
 
-# Html parsing
-bleach
-html2text
-
-# Misc
-WeasyPrint
-
-psycopg2
-python-memcached
-openpyxl==2.4.9
+# WSGI servers & monitoring - production oriented
 uwsgi
 raven==5.32.0
-mysqlclient

@@ -23,7 +23,8 @@ env:
 
 install:
   - pip install --upgrade setuptools pip
-  - pip install -r requirements/travis.txt --cache-dir $HOME/.pip-cache
+  - pip install -r requirements/ci.txt --cache-dir $HOME/.pip-cache
+  - pip install coveralls codecov
   - npm install
   - ./node_modules/.bin/gulp sass
   - npm run build

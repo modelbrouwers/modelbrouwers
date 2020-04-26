@@ -15,7 +15,6 @@ DEBUG = True
 #
 INSTALLED_APPS = INSTALLED_APPS + [
     'debug_toolbar',
-    'mobetta',
     'corsheaders',
 ]
 

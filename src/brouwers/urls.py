@@ -46,8 +46,3 @@ if settings.DEBUG:
     urlpatterns += [
         url(r'^404/$', TemplateView.as_view(template_name='404.html')),
     ]
-
-if 'mobetta' in settings.INSTALLED_APPS:
-    urlpatterns += [
-        url(r'^admin/mobetta/', include('mobetta.urls')),
-    ]
