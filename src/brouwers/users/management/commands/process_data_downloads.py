@@ -116,7 +116,7 @@ class DataDownload(object):
     def copy_files(self, queryset, field):
         for obj in queryset:
             filefield = getattr(obj, field)
-            source = filefield.storage.path(filefield)
+            source = filefield.storage.path(filefield.name)
             target = os.path.join(self.tempdir, 'files', filefield.name)
             target_dir = os.path.dirname(target)
             if not os.path.exists(target_dir):

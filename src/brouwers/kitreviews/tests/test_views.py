@@ -133,17 +133,18 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
 
 class SearchViewTests(WebTest):
 
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         super().setUp()
-        self.url = reverse('kitreviews:find_kit')
+        cls.url = reverse('kitreviews:find_kit')
 
-        self.kit1 = ModelKitFactory.create(name='Suzuki Katana')
-        self.kit2 = ModelKitFactory.create(name='MiG-17F')
-        self.kit3 = ModelKitFactory.create(name='Challenger Mk. IV', kit_number='1234')
+        cls.kit1 = ModelKitFactory.create(name='Suzuki Katana')
+        cls.kit2 = ModelKitFactory.create(name='MiG-17F')
+        cls.kit3 = ModelKitFactory.create(name='Challenger Mk. IV', kit_number='1234')
 
-        self.reviews = [
-            KitReviewFactory.create(model_kit=self.kit1),
-            KitReviewFactory.create(model_kit=self.kit2)
+        cls.reviews = [
+            KitReviewFactory.create(model_kit=cls.kit1),
+            KitReviewFactory.create(model_kit=cls.kit2)
         ]
 
     def test_search_form(self):

@@ -162,6 +162,6 @@ class ProcessDataDownloadsTests(TestCase):
 
         dr.refresh_from_db()
         self.assertNotEqual(dr.zip_file, '')
-        self.assertTrue(dr.zip_file.storage.exists(dr.zip_file))
+        self.assertTrue(dr.zip_file.storage.exists(dr.zip_file.name))
 
         self.assertEqual(len(mail.outbox), 1)
