@@ -63,7 +63,7 @@ python-decouple==3.3      # via -r requirements/base.txt
 python-dotenv==0.13.0     # via -r requirements/base.txt
 python-memcached==1.59    # via -r requirements/base.txt
 pytz==2016.7              # via -r requirements/base.txt, django
-pyyaml==5.1               # via -r requirements/base.txt, tablib
+pyyaml==5.3.1             # via -r requirements/base.txt, tablib
 raven==5.32.0             # via -r requirements/base.txt
 rcssmin==1.0.6            # via -r requirements/base.txt, django-compressor
 requests-mock==1.7.0      # via -r requirements/test-tools.in

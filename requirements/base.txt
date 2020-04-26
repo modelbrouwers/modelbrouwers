@@ -57,7 +57,7 @@ python-decouple==3.3      # via -r requirements/base.in
 python-dotenv==0.13.0     # via -r requirements/base.in
 python-memcached==1.59    # via -r requirements/base.in
 pytz==2016.7              # via -r requirements/base.in, django
-pyyaml==5.1               # via tablib
+pyyaml==5.3.1             # via tablib
 raven==5.32.0             # via -r requirements/base.in
 rcssmin==1.0.6            # via django-compressor
 requests==2.21.0          # via django-rosetta, microsofttranslator
