@@ -5,7 +5,7 @@
 #    pip-compile --no-index --output-file=requirements/ci.txt requirements/base.txt requirements/test-tools.in
 #
 beautifulsoup4==4.9.0     # via webtest
-bleach==3.0.2             # via -r requirements/base.txt
+bleach==3.1.4             # via -r requirements/base.txt
 cairocffi==0.8.0          # via -r requirements/base.txt, cairosvg, weasyprint
 cairosvg==1.0.22          # via -r requirements/base.txt, weasyprint
 certifi==2017.7.27.1      # via -r requirements/base.txt, requests

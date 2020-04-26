@@ -10,7 +10,7 @@ attrs==19.3.0             # via black
 babel==2.8.0              # via sphinx
 beautifulsoup4==4.9.0     # via -r requirements/ci.txt, webtest
 black==19.10b0            # via -r requirements/dev.in
-bleach==3.0.2             # via -r requirements/ci.txt
+bleach==3.1.4             # via -r requirements/ci.txt
 blessings==1.7            # via curtsies
 bpython==0.19             # via -r requirements/dev.in
 cairocffi==0.8.0          # via -r requirements/ci.txt, cairosvg, weasyprint

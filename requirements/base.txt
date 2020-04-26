@@ -4,7 +4,7 @@
 #
 #    pip-compile --no-index requirements/base.in
 #
-bleach==3.0.2             # via -r requirements/base.in
+bleach==3.1.4             # via -r requirements/base.in
 cairocffi==0.8.0          # via cairosvg, weasyprint
 cairosvg==1.0.22          # via weasyprint
 certifi==2017.7.27.1      # via requests
