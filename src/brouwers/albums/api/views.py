@@ -1,7 +1,7 @@
 from django.db.models import Q
 
 from rest_framework import parsers, permissions, status, viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -64,15 +64,15 @@ class PhotoViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(photo)
         return Response(serializer.data)
 
-    @detail_route(methods=['get'])
+    @action(detail=True, methods=['get'])
     def next(self, request, *args, **kwargs):
         return self.next_or_previous(request, next=True, *args, **kwargs)
 
-    @detail_route(methods=['get'])
+    @action(detail=True, methods=['get'])
     def previous(self, request, *args, **kwargs):
         return self.next_or_previous(request, next=False, *args, **kwargs)
 
-    @detail_route(methods=['patch'])
+    @action(detail=True, methods=['patch'])
     def rotate(self, request, *args, **kwargs):
         photo = self.get_object()
         direction = request.data.get('direction')
@@ -128,7 +128,7 @@ class MyPhotosViewset(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return Photo.objects.for_user(self.request.user).order_by('-uploaded')
 
-    @detail_route(methods=['post'])
+    @action(detail=True, methods=['post'])
     def set_cover(self, request, *args, **kwargs):
         photo = self.get_object()
         photo.album.cover = photo
