@@ -29,6 +29,8 @@ MIDDLEWARE_CLASSES = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE_CLAS
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+SHOP_ENABLED = True
+
 #
 # CACHE
 #
