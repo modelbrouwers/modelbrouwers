@@ -9,7 +9,12 @@ from ..managers import CartQuerySet
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='carts')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='carts',
+    )
     status = models.CharField(_('status'), max_length=10, choices=CartStatuses.choices, default=CartStatuses.open)
 
     objects = CartQuerySet.as_manager()
@@ -31,8 +36,16 @@ class Cart(models.Model):
 
 @python_2_unicode_compatible
 class CartProduct(models.Model):
-    product = models.ForeignKey('Product', related_name='cart_products')
-    cart = models.ForeignKey('Cart', related_name='products')
+    product = models.ForeignKey(
+        'Product',
+        related_name='cart_products',
+        on_delete=models.CASCADE,
+    )
+    cart = models.ForeignKey(
+        'Cart',
+        related_name='products',
+        on_delete=models.CASCADE
+    )
     amount = models.PositiveIntegerField(_('amount'), default=1)
 
     class Meta:

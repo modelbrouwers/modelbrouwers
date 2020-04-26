@@ -117,7 +117,6 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         topic1 = TopicFactory.create()
         topic2 = TopicFactory.create(author=forum_user)
 
-
         url = reverse('kitreviews:review-add', kwargs={'slug': kit.slug})
         add_page = self.app.get(url, user=user)
 

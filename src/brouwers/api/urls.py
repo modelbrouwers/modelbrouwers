@@ -36,8 +36,8 @@ router.register(r'shop/paymentmethod', PaymentMethodViewSet)
 
 app_name = 'api'
 urlpatterns = [
-    url(r'^builds/', include('brouwers.builds.api.urls', namespace='builds')),
-    url(r'^forum_tools/', include('brouwers.forum_tools.api.urls', namespace='forum_tools')),
-    url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls', namespace='groupbuilds')),
+    url(r'^builds/', include('brouwers.builds.api.urls')),
+    url(r'^forum_tools/', include('brouwers.forum_tools.api.urls')),
+    url(r'^groupbuilds/', include('brouwers.groupbuilds.api.urls')),
     url(r'^shop/', include('brouwers.shop.api.urls')),
 ] + router.urls

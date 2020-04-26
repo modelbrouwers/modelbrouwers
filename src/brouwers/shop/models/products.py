@@ -67,7 +67,7 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
-    product = models.ForeignKey('Product', related_name='images', null=True, blank=True)
+    product = models.ForeignKey('Product', related_name='images', null=True, blank=True, on_delete=models.CASCADE)
     image = models.ImageField(_('product image'), upload_to='shop/product/')
 
     class Meta:
@@ -91,7 +91,7 @@ class ProductBrand(models.Model):
 
 @python_2_unicode_compatible
 class ProductReview(models.Model):
-    product = models.ForeignKey('Product', related_name='reviews')
+    product = models.ForeignKey('Product', related_name='reviews', on_delete=models.CASCADE,)
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
     rating = models.PositiveSmallIntegerField(

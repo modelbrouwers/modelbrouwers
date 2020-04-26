@@ -29,7 +29,7 @@ class CartViewSet(views.APIView):
         if cart_id:
             cart = Cart.objects.get(id=cart_id)
         else:
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 cart = Cart.objects.create(user=request.user)
             else:
                 cart = Cart.objects.create()
@@ -45,7 +45,7 @@ class CartProductViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = super(CartProductViewSet, self).get_queryset()
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             qs = CartProduct.objects.filter(cart__user=self.request.user)
         return qs
 

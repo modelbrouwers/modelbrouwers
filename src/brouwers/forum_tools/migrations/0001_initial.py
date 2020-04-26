@@ -34,7 +34,14 @@ class Migration(migrations.Migration):
                 ('forum_topics', models.IntegerField(default=0)),
                 ('forum_posts', models.IntegerField(default=0)),
                 ('forum_desc', models.TextField()),
-                ('parent', models.ForeignKey(related_name='child', default=0, to='forum_tools.Forum')),
+                ('parent', models.ForeignKey(
+                    related_name='child',
+                    default=None,
+                    to='forum_tools.Forum',
+                    null=True,
+                    blank=True,
+                    on_delete=models.CASCADE,
+                )),
             ],
             options={
                 'ordering': ['forum_name'],
@@ -79,7 +86,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('link_id', models.CharField(help_text='HTML id of the anchor to be synced.', max_length=128, verbose_name='link id')),
-                ('base', models.ForeignKey(verbose_name='base link', to='forum_tools.ForumLinkBase', help_text='Link this link syncs with.')),
+                ('base', models.ForeignKey(verbose_name='base link', to='forum_tools.ForumLinkBase', help_text='Link this link syncs with.', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'synced forum link',
@@ -150,10 +157,11 @@ class Migration(migrations.Migration):
                 ('topic_title', models.CharField(max_length=255)),
                 ('last_post_time', models.BigIntegerField(default=0, db_column='topic_last_post_time')),
                 ('create_time', models.BigIntegerField(default=0, db_column='topic_time')),
-                ('forum', models.ForeignKey(to='forum_tools.Forum')),
+                ('forum', models.ForeignKey(to='forum_tools.Forum', on_delete=models.CASCADE)),
                 ('author', models.ForeignKey(
                     to='forum_tools.ForumUser', db_column='topic_poster',
-                    default=0, on_delete=models.SET_DEFAULT
+                    null=True, blank=True,
+                    on_delete=models.SET_NULL,
                 )),
             ],
             options={

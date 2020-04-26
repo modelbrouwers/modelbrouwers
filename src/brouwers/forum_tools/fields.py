@@ -1,7 +1,8 @@
 from django.db.models.fields import PositiveIntegerField
+from django.db.models.fields.mixins import FieldCacheMixin
 
 
-class ForumToolsIDField(PositiveIntegerField):
+class ForumToolsIDField(FieldCacheMixin, PositiveIntegerField):
 
     def __init__(self, *args, **kwargs):
         type_ = kwargs.pop('type')
@@ -36,39 +37,41 @@ class ForumToolsIDField(PositiveIntegerField):
         attname, column = super(ForumToolsIDField, self).get_attname_column()
         return attname, column
 
+    def get_cache_name(self):
+        return self.name
+
 
 class ForumToolsDescriptor(object):
 
-    def __init__(self, related):
-        self.related = related
-        self.type = related._type
-        self.cache_name = related.get_cache_name()  # TODO: strip the ID off
+    def __init__(self, field_with_rel):
+        self.field = field_with_rel
+        self.type = field_with_rel._type
 
     def __get__(self, instance, instance_type=None):
         if instance is None:
             return self
 
         try:
-            rel_obj = getattr(instance, self.cache_name)
-        except AttributeError:
-            pk = getattr(instance, self.related.attname)
+            rel_obj = self.field.get_cached_value(instance)
+        except KeyError:
+            pk = getattr(instance, self.field.attname)
             rel_obj = self.get_object(pk)
-            setattr(instance, self.cache_name, rel_obj)
+            self.field.set_cached_value(instance, rel_obj)
         return rel_obj
 
     def __set__(self, instance, value):
-        if value is None and self.related.null is False:
+        if value is None and self.field.null is False:
             value = 0
         elif value is None:
-            setattr(instance, self.related.attname, None)
-            setattr(instance, self.cache_name, None)
+            setattr(instance, self.field.attname, None)
+            self.field.set_cached_value(instance, None)
         elif value is not None:
             if isinstance(value, int):
-                setattr(instance, self.related.attname, value)
+                setattr(instance, self.field.attname, value)
             else:
                 self.check_type(instance, value)
-                setattr(instance, self.cache_name, value)
-                setattr(instance, self.related.attname, value.pk)
+                self.field.set_cached_value(instance, value)
+                setattr(instance, self.field.attname, value.pk)
 
     def get_object(self, pk):
         from brouwers.forum_tools.models import Forum, Topic
@@ -92,10 +95,10 @@ class ForumToolsDescriptor(object):
         if self.type == 'topic' and not isinstance(value, Topic):
             raise ValueError('Cannot assign "%r": "%s.%s" must be a "%s" instance.' %
                                 (value, instance._meta.object_name,
-                                    self.related.name, Topic._meta.object_name))
+                                    self.field.name, Topic._meta.object_name))
         elif self.type == 'forum' and not isinstance(value, Forum):
             raise ValueError('Cannot assign "%r": "%s.%s" must be a "%s" instance.' %
                                 (value, instance._meta.object_name,
-                                    self.related.name, Forum._meta.object_name))
+                                    self.field.name, Forum._meta.object_name))
         elif self.type not in ['topic', 'forum']:
             raise ValueError('Unknown type: %s' % self.type)

@@ -10,7 +10,6 @@ from brouwers.users.tests.factories import UserFactory
 from ..models import GroupBuild, GroupbuildDurations, GroupbuildStatuses
 from .factories import GroupBuildFactory
 
-
 # TODO: use webtest
 
 class FlowTest(TestCase):

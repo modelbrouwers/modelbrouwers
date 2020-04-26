@@ -146,7 +146,8 @@ class Forum(models.Model):
     forum_desc = models.TextField()
     parent = models.ForeignKey(
         'self', related_name="child",
-        default=0, on_delete=models.CASCADE
+        null=True, blank=True,
+        default=None, on_delete=models.CASCADE,
     )
 
     def __str__(self):
@@ -169,7 +170,11 @@ class Topic(models.Model):
     last_post_time = models.BigIntegerField(db_column='topic_last_post_time', default=0)
     create_time = models.BigIntegerField(db_column='topic_time', default=0)
 
-    author = models.ForeignKey(ForumUser, db_column='topic_poster', default=0, on_delete=models.SET_DEFAULT)
+    author = models.ForeignKey(
+        ForumUser, db_column='topic_poster',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+    )
 
     class Meta:
         managed = False

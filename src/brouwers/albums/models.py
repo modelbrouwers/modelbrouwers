@@ -148,6 +148,7 @@ class AlbumGroup(models.Model):
     album = models.OneToOneField(
         Album, verbose_name=_("album"),
         help_text=_("Album for which the group has write permissions."),
+        on_delete=models.CASCADE,
     )
     users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, verbose_name=_("users"),
@@ -227,7 +228,7 @@ class Photo(models.Model):
 
 class Preferences(models.Model):
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     auto_start_uploading = models.BooleanField(
         _("start uploading automatically?"),

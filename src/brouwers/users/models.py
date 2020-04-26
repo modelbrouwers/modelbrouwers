@@ -96,7 +96,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     # cross db-relation
     forumuser_id = models.IntegerField(_('forum user id'), blank=True, null=True)
 
-    customer_group = models.ForeignKey('shop.CustomerGroup', related_name=_('users'), null=True, blank=True)
+    customer_group = models.ForeignKey(
+        'shop.CustomerGroup',
+        related_name=_('users'),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
 
     objects = UserManager()
 
@@ -149,7 +155,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 @python_2_unicode_compatible
 class DataDownloadRequest(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     finished = models.DateTimeField(_("finished"), blank=True, null=True)
     downloaded = models.DateTimeField(_("downloaded"), blank=True, null=True)

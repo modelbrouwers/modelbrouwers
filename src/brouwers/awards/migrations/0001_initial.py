@@ -49,10 +49,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('submitted', models.DateTimeField(auto_now_add=True)),
-                ('category', models.ForeignKey(to='awards.Category')),
-                ('project1', models.ForeignKey(related_name='+', to='awards.Project')),
-                ('project2', models.ForeignKey(related_name='+', blank=True, to='awards.Project', null=True)),
-                ('project3', models.ForeignKey(related_name='+', blank=True, to='awards.Project', null=True)),
+                ('category', models.ForeignKey(to='awards.Category', on_delete=models.CASCADE)),
+                ('project1', models.ForeignKey(related_name='+', to='awards.Project', on_delete=models.CASCADE)),
+                ('project2', models.ForeignKey(related_name='+', blank=True, to='awards.Project', null=True, on_delete=models.CASCADE)),
+                ('project3', models.ForeignKey(related_name='+', blank=True, to='awards.Project', null=True, on_delete=models.CASCADE)),
             ],
             options={
             },

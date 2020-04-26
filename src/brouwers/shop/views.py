@@ -1,5 +1,5 @@
-from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import ModelFormMixin
 
