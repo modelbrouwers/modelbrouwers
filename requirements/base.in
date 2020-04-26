@@ -3,7 +3,7 @@ bleach
 html2text
 lxml
 mysqlclient
-openpyxl==2.4.9
+openpyxl
 Pillow  # handle images
 psycopg2  # database driver
 python-dateutil
@@ -30,7 +30,7 @@ django-solo
 sorl-thumbnail
 django-sniplates
 django-treebeard
-django-modeltranslation == 0.13.0
+django-modeltranslation
 django-taggit
 django-import-export
 

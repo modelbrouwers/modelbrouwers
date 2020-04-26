@@ -27,7 +27,7 @@ django-filter==2.2.0      # via -r requirements/base.txt, djangorestframework-fi
 django-import-export==2.0.2  # via -r requirements/base.txt
 django-js-asset==1.2.2    # via -r requirements/base.txt, django-ckeditor
 django-loginas==0.3.8     # via -r requirements/base.txt
-django-modeltranslation==0.13.0  # via -r requirements/base.txt
+django-modeltranslation==0.15  # via -r requirements/base.txt
 django-precise-bbcode==1.2.12  # via -r requirements/base.txt
 django-rosetta==0.9.4     # via -r requirements/base.txt
 django-sendfile==0.3.11   # via -r requirements/base.txt
@@ -37,7 +37,7 @@ django-solo==1.1.3        # via -r requirements/base.txt
 django-taggit==1.2.0      # via -r requirements/base.txt
 django-treebeard==4.3.1   # via -r requirements/base.txt
 django-webtest==1.9.7     # via -r requirements/test-tools.in
-django==2.2.12            # via -r requirements/base.txt, django-appconf, django-choices, django-extra-views, django-filter, django-import-export, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-taggit, django-treebeard, djangorestframework
+django==2.2.12            # via -r requirements/base.txt, django-appconf, django-choices, django-extra-views, django-filter, django-import-export, django-modeltranslation, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-taggit, django-treebeard, djangorestframework
 djangorestframework-filters==1.0.0.dev0  # via -r requirements/base.txt
 djangorestframework==3.11.0  # via -r requirements/base.txt, djangorestframework-filters
 et-xmlfile==1.0.1         # via -r requirements/base.txt, openpyxl
@@ -52,7 +52,7 @@ lxml==4.5.0               # via -r requirements/base.txt
 markuppy==1.14            # via -r requirements/base.txt, tablib
 mysqlclient==1.4.6        # via -r requirements/base.txt
 odfpy==1.4.1              # via -r requirements/base.txt, tablib
-openpyxl==2.4.9           # via -r requirements/base.txt, tablib
+openpyxl==3.0.3           # via -r requirements/base.txt, tablib
 pillow==7.1.2             # via -r requirements/base.txt, cairosvg, django-precise-bbcode
 polib==1.1.0              # via -r requirements/base.txt, django-rosetta
 psycopg2==2.8.5           # via -r requirements/base.txt
@@ -69,7 +69,7 @@ rcssmin==1.0.6            # via -r requirements/base.txt, django-compressor
 requests-mock==1.7.0      # via -r requirements/test-tools.in
 requests==2.23.0          # via -r requirements/base.txt, django-rosetta, requests-mock
 rjsmin==1.0.12            # via -r requirements/base.txt, django-compressor
-six==1.14.0               # via -r requirements/base.txt, bleach, django-choices, django-extra-views, django-rosetta, freezegun, html5lib, python-dateutil, python-memcached, requests-mock, webtest
+six==1.14.0               # via -r requirements/base.txt, bleach, django-choices, django-extra-views, django-modeltranslation, django-rosetta, freezegun, html5lib, python-dateutil, python-memcached, requests-mock, webtest
 sorl-thumbnail==12.6.3    # via -r requirements/base.txt
 soupsieve==2.0            # via beautifulsoup4
 sqlparse==0.3.1           # via -r requirements/base.txt, django
