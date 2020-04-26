@@ -13,17 +13,17 @@ black==19.10b0            # via -r requirements/dev.in
 bleach==3.1.4             # via -r requirements/ci.txt
 blessings==1.7            # via curtsies
 bpython==0.19             # via -r requirements/dev.in
-cairocffi==0.8.0          # via -r requirements/ci.txt, cairosvg, weasyprint
-cairosvg==1.0.22          # via -r requirements/ci.txt, weasyprint
+cairocffi==1.1.0          # via -r requirements/ci.txt, cairosvg, weasyprint
+cairosvg==2.4.2           # via -r requirements/ci.txt, weasyprint
 certifi==2020.4.5.1       # via -r requirements/ci.txt, requests
 cffi==1.14.0              # via -r requirements/ci.txt, cairocffi, weasyprint
 chardet==3.0.4            # via -r requirements/ci.txt, requests
 click==7.1.1              # via black, pip-tools
 contextlib2==0.6.0.post1  # via -r requirements/ci.txt, raven
 coverage==4.5.4           # via -r requirements/ci.txt
-cssselect==1.1.0          # via -r requirements/ci.txt, weasyprint
+cssselect2==0.3.0         # via -r requirements/ci.txt, cairosvg, weasyprint
 curtsies==0.3.1           # via bpython
-defusedxml==0.6.0         # via -r requirements/ci.txt, odfpy
+defusedxml==0.6.0         # via -r requirements/ci.txt, cairosvg, odfpy
 diff-match-patch==20181111  # via -r requirements/ci.txt, django-import-export
 django-admin-tools==0.9.0  # via -r requirements/ci.txt
 django-appconf==1.0.4     # via -r requirements/ci.txt, django-compressor
@@ -67,7 +67,7 @@ imagesize==1.2.0          # via sphinx
 isort==4.3.21             # via -r requirements/dev.in
 jdcal==1.4.1              # via -r requirements/ci.txt, openpyxl
 jinja2==2.11.2            # via sphinx
-lxml==4.5.0               # via -r requirements/ci.txt, weasyprint
+lxml==4.5.0               # via -r requirements/ci.txt
 markuppy==1.14            # via -r requirements/ci.txt, tablib
 markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via flake8
@@ -76,7 +76,7 @@ odfpy==1.4.1              # via -r requirements/ci.txt, tablib
 openpyxl==2.4.9           # via -r requirements/ci.txt, tablib
 packaging==20.3           # via sphinx
 pathspec==0.8.0           # via black
-pillow==7.1.2             # via -r requirements/ci.txt, django-precise-bbcode
+pillow==7.1.2             # via -r requirements/ci.txt, cairosvg, django-precise-bbcode
 pip-tools==5.0.0          # via -r requirements/dev.in
 polib==1.1.0              # via -r requirements/ci.txt, django-rosetta
 psycopg2==2.8.5           # via -r requirements/ci.txt
@@ -114,7 +114,7 @@ sqlparse==0.3.1           # via -r requirements/ci.txt, django, django-debug-too
 tablib[html,ods,xls,xlsx,yaml]==1.1.0  # via -r requirements/ci.txt, django-import-export
 tblib==1.6.0              # via -r requirements/ci.txt
 text-unidecode==1.3       # via -r requirements/ci.txt, faker
-tinycss==0.3              # via -r requirements/ci.txt, weasyprint
+tinycss2==1.0.2           # via -r requirements/ci.txt, cairosvg, cssselect2, weasyprint
 toml==0.10.0              # via black
 typed-ast==1.4.1          # via black
 typing==3.6.2             # via django-extensions
@@ -122,8 +122,8 @@ urllib3==1.25.9           # via -r requirements/ci.txt, requests
 uwsgi==2.0.18             # via -r requirements/ci.txt
 waitress==1.4.3           # via -r requirements/ci.txt, webtest
 wcwidth==0.1.9            # via curtsies
-weasyprint==0.31          # via -r requirements/ci.txt
-webencodings==0.5.1       # via -r requirements/ci.txt, bleach, html5lib
+weasyprint==51            # via -r requirements/ci.txt
+webencodings==0.5.1       # via -r requirements/ci.txt, bleach, cssselect2, html5lib, tinycss2
 webob==1.8.6              # via -r requirements/ci.txt, webtest
 webtest==2.0.34           # via -r requirements/ci.txt, django-webtest
 xlrd==1.2.0               # via -r requirements/ci.txt, tablib

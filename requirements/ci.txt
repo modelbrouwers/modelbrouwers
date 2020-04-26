@@ -6,15 +6,15 @@
 #
 beautifulsoup4==4.9.0     # via webtest
 bleach==3.1.4             # via -r requirements/base.txt
-cairocffi==0.8.0          # via -r requirements/base.txt, cairosvg, weasyprint
-cairosvg==1.0.22          # via -r requirements/base.txt, weasyprint
+cairocffi==1.1.0          # via -r requirements/base.txt, cairosvg, weasyprint
+cairosvg==2.4.2           # via -r requirements/base.txt, weasyprint
 certifi==2020.4.5.1       # via -r requirements/base.txt, requests
 cffi==1.14.0              # via -r requirements/base.txt, cairocffi, weasyprint
 chardet==3.0.4            # via -r requirements/base.txt, requests
 contextlib2==0.6.0.post1  # via -r requirements/base.txt, raven
 coverage==4.5.4           # via -r requirements/test-tools.in
-cssselect==1.1.0          # via -r requirements/base.txt, weasyprint
-defusedxml==0.6.0         # via -r requirements/base.txt, odfpy
+cssselect2==0.3.0         # via -r requirements/base.txt, cairosvg, weasyprint
+defusedxml==0.6.0         # via -r requirements/base.txt, cairosvg, odfpy
 diff-match-patch==20181111  # via -r requirements/base.txt, django-import-export
 django-admin-tools==0.9.0  # via -r requirements/base.txt
 django-appconf==1.0.4     # via -r requirements/base.txt, django-compressor
@@ -48,12 +48,12 @@ html2text==2020.1.16      # via -r requirements/base.txt
 html5lib==1.0.1           # via -r requirements/base.txt, weasyprint
 idna==2.9                 # via -r requirements/base.txt, requests
 jdcal==1.4.1              # via -r requirements/base.txt, openpyxl
-lxml==4.5.0               # via -r requirements/base.txt, weasyprint
+lxml==4.5.0               # via -r requirements/base.txt
 markuppy==1.14            # via -r requirements/base.txt, tablib
 mysqlclient==1.4.6        # via -r requirements/base.txt
 odfpy==1.4.1              # via -r requirements/base.txt, tablib
 openpyxl==2.4.9           # via -r requirements/base.txt, tablib
-pillow==7.1.2             # via -r requirements/base.txt, django-precise-bbcode
+pillow==7.1.2             # via -r requirements/base.txt, cairosvg, django-precise-bbcode
 polib==1.1.0              # via -r requirements/base.txt, django-rosetta
 psycopg2==2.8.5           # via -r requirements/base.txt
 pycparser==2.20           # via -r requirements/base.txt, cffi
@@ -76,13 +76,16 @@ sqlparse==0.3.1           # via -r requirements/base.txt, django
 tablib[html,ods,xls,xlsx,yaml]==1.1.0  # via -r requirements/base.txt, django-import-export
 tblib==1.6.0              # via -r requirements/test-tools.in
 text-unidecode==1.3       # via faker
-tinycss==0.3              # via -r requirements/base.txt, weasyprint
+tinycss2==1.0.2           # via -r requirements/base.txt, cairosvg, cssselect2, weasyprint
 urllib3==1.25.9           # via -r requirements/base.txt, requests
 uwsgi==2.0.18             # via -r requirements/base.txt
 waitress==1.4.3           # via webtest
-weasyprint==0.31          # via -r requirements/base.txt
-webencodings==0.5.1       # via -r requirements/base.txt, bleach, html5lib
+weasyprint==51            # via -r requirements/base.txt
+webencodings==0.5.1       # via -r requirements/base.txt, bleach, cssselect2, html5lib, tinycss2
 webob==1.8.6              # via webtest
 webtest==2.0.34           # via django-webtest
 xlrd==1.2.0               # via -r requirements/base.txt, tablib
 xlwt==1.3.0               # via -r requirements/base.txt, tablib
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
