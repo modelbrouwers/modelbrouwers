@@ -47,7 +47,7 @@ microsofttranslator==0.8  # via django-rosetta
 mysqlclient==1.4.2.post1  # via -r requirements/base.in
 odfpy==1.3.6              # via tablib
 openpyxl==2.4.9           # via -r requirements/base.in, tablib
-pillow==3.4.2             # via -r requirements/base.in, django-precise-bbcode
+pillow==7.1.2             # via -r requirements/base.in, django-precise-bbcode
 polib==1.0.8              # via django-rosetta
 psycopg2==2.8.2           # via -r requirements/base.in
 pycparser==2.18           # via cffi
