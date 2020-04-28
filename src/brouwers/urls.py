@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -50,4 +51,11 @@ if settings.SHOP_ENABLED:
 if settings.DEBUG:
     urlpatterns += [
         path('404/', TemplateView.as_view(template_name='404.html')),
+    ]
+
+if apps.is_installed("debug_toolbar"):
+    import debug_toolbar
+
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
     ]

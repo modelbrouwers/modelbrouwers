@@ -3,11 +3,23 @@
 var gulp = require("gulp");
 var sass = require("gulp-sass");
 var sourcemaps = require("gulp-sourcemaps");
-var autoprefixer = require("gulp-autoprefixer");
+var autoprefixer = require("autoprefixer");
 var paths = require("./build/paths");
+var postcss = require('gulp-postcss');
 var bourbon = require("bourbon");
 var neat = require("bourbon-neat");
 var compass = require("compass-importer");
+
+const sassOptions = {
+    outputStyle: "minified",
+    importer: compass,
+    // Includes bourbon neat
+    includePaths: bourbon.includePaths.concat(neat.includePaths),
+};
+
+var plugins = [
+    autoprefixer(),
+];
 
 /**
  * Sass task
@@ -18,37 +30,22 @@ var compass = require("compass-importer");
  * Auto prefixes css
  * Writes css to paths.cssDir
  */
-gulp.task("sass", function() {
-    // Searches for sass files in paths.sassSrc
-    gulp.src(paths.sassSrc)
+function scss() {
+    return gulp.src(paths.sassSrc)
         .pipe(sourcemaps.init())
-        // Compiles sass to css
-        .pipe(
-            sass({
-                outputStyle: "minified",
-                importer: compass,
-                // Includes bourbon neat
-                includePaths: bourbon.includePaths.concat(neat.includePaths)
-            }).on("error", sass.logError)
-        )
-
-        // Auto prefixes css
-        .pipe(
-            autoprefixer({
-                browsers: ["last 2 versions"],
-                cascade: false
-            })
-        )
-
-        // write the sourcemaps
+        .pipe(sass(sassOptions).on("error", sass.logError))
+        .pipe(postcss(plugins))
         .pipe(sourcemaps.write("./maps"))
-
-        // Writes css to paths.cssDir
         .pipe(gulp.dest(paths.cssDir));
-});
+};
 
-gulp.task("watch-sass", function() {
-    gulp.watch(paths.sassWatchSrc, ["sass"]);
-});
+function watchSCSS() {
+    scss()
+    gulp.watch(paths.sassWatchSrc, scss);
+};
 
-gulp.task("default", ["sass", "watch-sass"]);
+gulp.task('sass', scss);
+gulp.task('scss', scss);
+gulp.task("watch-scss", watchSCSS);
+
+gulp.task("default", watchSCSS);

@@ -33,12 +33,6 @@
         <!-- use googles jquery, loads faster and relieves own server -->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        {# fallback #}
-        <script>
-            if (typeof window.jQuery === 'undefined') {
-               document.write(unescape("%3Cscript src='{% static 'jquery/dist/jquery.min.js' %}' type='text/javascript'%3E%3C/script%3E"));
-            }
-        </script>
         <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
         {% ifnotequal LANGUAGE_CODE 'en' %}
             <script type="text/javascript" src="{% static 'scripts/jquery.ui.datepicker-nl.js' %}" ></script>
@@ -135,7 +129,7 @@
                     $('.badge').tooltip({
                         'placement': 'auto left'
                     });
-                    // $('.selectpicker').selectpicker();
+                    $('.selectpicker').selectpicker();
                 });
             })(window.jQuery);
 
