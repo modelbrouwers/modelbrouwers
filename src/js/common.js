@@ -1,18 +1,16 @@
 var rotation = 0;
 
-+(function($) {
-    $(function() {
-        $('td.help_text div').hide(); // hide the help texts
+$(function() {
+    $('td.help_text div').hide(); // hide the help texts
 
-        $('img').tooltip({
-            track: true
-        });
-
-        if ($.fn.datepicker) {
-            $('input.date').datepicker();
-        }
+    $('img').tooltip({
+        track: true
     });
-})(window.jQuery);
+
+    if ($.fn.datepicker) {
+        $('input.date').datepicker();
+    }
+});
 
 function showHelp(e){
     //close all (the others)

@@ -16,27 +16,10 @@
         {% compress css %}
             <link href="{% static 'css/screen.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
             <link href="{% static 'css/print.css' %}" media="print" rel="stylesheet" type="text/css" />
-
             {% block extrastyle %}{% endblock %}
         {% endcompress %}
 
         <link href="{% static 'bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet">
-
-        <!--[if IE]>
-            <link href="{% static 'css/ie.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
-        <![endif]-->
-
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-        <!-- use googles jquery, loads faster and relieves own server -->
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="{% static 'scripts/jquery-ui-1.10.2.custom.min.js' %}"></script>
-        {% ifnotequal LANGUAGE_CODE 'en' %}
-            <script type="text/javascript" src="{% static 'scripts/jquery.ui.datepicker-nl.js' %}" ></script>
-        {% endifnotequal %}
 
         <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
     </head>
@@ -110,33 +93,11 @@
 
         {% block modals %} {% endblock %}
 
-        <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"></script>
-        <script src="{% static 'bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
-
-
         {% block js_no_compress %}{% endblock %}
-        {% compress js %}
-            {% include "includes/google-analytics.html" %}
-            <script src="{% static 'scripts/common.js' %}"></script>
-            <script>
 
-            (function($) {
-                $(function() {
-                    $('.help').popover({
-                        'placement': 'auto right'
-                    });
-                    $('.badge').tooltip({
-                        'placement': 'auto left'
-                    });
-                    $('.selectpicker').selectpicker();
-                });
-            })(window.jQuery);
-
-            </script>
-            <script src="{% static 'js/main.js' %}"></script>
-            {% block extrascript %}{% endblock %}
-        {% endcompress %}
+        {% include "includes/google-analytics.html" %}
+        <script src="{% static 'js/main.js' %}"></script>
+        {% block extrascript %}{% endblock %}
 
     </body>
 

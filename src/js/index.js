@@ -1,3 +1,5 @@
+import 'bootstrap';
+
 import Router from "./router/router";
 import KitreviewsPage from "./kitreviews/index";
 import AlbumsPage from "./albums/index";
@@ -19,3 +21,14 @@ const pageMap = {
 
 // Start routing
 new Router(pageMap).autoload();
+
+// global bootstrap stuff
+$('.help').popover({
+    'placement': 'auto right'
+});
+
+$('.badge').tooltip({
+    'placement': 'auto left'
+});
+
+// $('.selectpicker').selectpicker();
