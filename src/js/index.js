@@ -1,5 +1,7 @@
 import 'bootstrap';
 
+import './csrf';
+
 import Router from "./router/router";
 import KitreviewsPage from "./kitreviews/index";
 import AlbumsPage from "./albums/index";
@@ -30,5 +32,15 @@ $('.help').popover({
 $('.badge').tooltip({
     'placement': 'auto left'
 });
+
+$('td.help_text div').hide(); // hide the help texts
+
+$('img').tooltip({
+    track: true
+});
+
+if ($.fn.datepicker) {
+    $('input.date').datepicker();
+}
 
 // $('.selectpicker').selectpicker();

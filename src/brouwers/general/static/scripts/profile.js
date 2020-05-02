@@ -33,3 +33,11 @@ $(document).ready(function(){
 	    return false;
 	});
 });
+
+function add_message(msg){
+    m = '<li class=\"{{ class }}\">{{ text }}</li>';
+    m = m.replace("{{ class }}", msg.tag);
+    m = m.replace("{{ text }}", msg.text);
+    $('div#messages ul.messages').append(m);
+    $('div#messages').show();
+}

@@ -90,5 +90,8 @@ export default class Page {
             control.toggle();
             return false;
         });
+
     }
 }
+
+$('.controls [data-toggle="popover"]').popover();
