@@ -27,7 +27,13 @@ class UploadView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         kwargs['form'] = UploadForm(self.request, initial=self.request.GET)
-        kwargs['settings'] = Preferences.objects.get_for(self.request.user)
+
+        prefs = Preferences.objects.get_for(self.request.user)
+        kwargs["upload_settings"] = {
+            "endpoint": reverse("api:photo-list"),
+            "albumDetail": reverse("albums:detail", kwargs={"pk": "{0}"}),
+            "autoUpload": prefs["auto_start_uploading"],
+        }
         return super().get_context_data(**kwargs)
 
 

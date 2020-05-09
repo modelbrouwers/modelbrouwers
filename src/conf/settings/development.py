@@ -9,6 +9,7 @@ except ImportError:
 
 
 DEBUG = True
+THUMBNAIL_DEBUG = True
 
 #
 # Debug toolbar
