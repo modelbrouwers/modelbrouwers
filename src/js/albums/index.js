@@ -11,6 +11,7 @@ export default class Page {
         this.initLightbox();
         this.initControls();
         new PhotoUpload();
+        this.initPhotoEdit();
     }
 
     static initLightbox() {
@@ -90,7 +91,28 @@ export default class Page {
             control.toggle();
             return false;
         });
+    }
 
+    static initPhotoEdit() {
+        $('body.photo-update input[name="album"]').change(function() {
+            // if checked, uncheck other albums
+            if ( $(this).is(':checked') ) {
+                $( 'input[name="album"]' ).not(this).prop('checked', false);
+            }
+        });
+
+        // scrolling through the carousel
+        $('body.photo-update #carousel-album').on('mousewheel', function(event) {
+            event.preventDefault();
+
+            if(event.originalEvent.wheelDelta / 120 > 0) {
+                $(this).carousel('next');
+            } else{
+                $(this).carousel('prev');
+            }
+
+            return false;
+        });
     }
 }
 

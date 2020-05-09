@@ -1,5 +1,6 @@
 {% extends "albums/base.html" %}{% load i18n static sniplates %}
 
+{% block body-class %}{{ block.super }} photo-update{% endblock %}
 
 {% block eye-catcher-content %}
     <h1>
@@ -32,33 +33,4 @@
 
     {% endwith %}
 </form>
-{% endblock %}
-
-{% block extrascript %}
-{{ block.super }}
-<script>
-(function($) {
-    $(function() {
-        $( 'input[name="album"]' ).change(function( e ) {
-            // if checked, uncheck other albums
-            if ( $(this).is(':checked') ) {
-                $( 'input[name="album"]' ).not(this).prop('checked', false);
-            }
-        });
-    });
-
-    // scrolling through the carousel
-    $('#carousel-album').on('mousewheel', function(event) {
-        event.preventDefault();
-
-        if(event.originalEvent.wheelDelta / 120 > 0) {
-            $(this).carousel('next');
-        } else{
-            $(this).carousel('prev');
-        }
-
-        return false;
-    });
-})(window.jQuery);
-</script>
 {% endblock %}

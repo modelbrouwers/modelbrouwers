@@ -11,6 +11,8 @@ const participantConsumer = new GroupBuildParticipantConsumer();
 export default class Page {
     static init() {
         this.initDetails();
+
+        $('[data-toggle="popover"]').popover();
     }
 
     static initDetails() {
