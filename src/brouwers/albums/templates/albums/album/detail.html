@@ -76,7 +76,7 @@
 
 
 {% block modals %}
-    <div class="modal fade lightbox" id="modal-lightbox">
+    <div class="modal fade lightbox" id="modal-lightbox" data-album="{{ album.pk }}" data-page="{{ page_obj.number }}">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="text-center" id="image-loader">
@@ -85,11 +85,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block js_no_compress %}
-    <script>
-        var page = {{ page_obj.number }};
-        var album = {{ album.pk }};
-    </script>
 {% endblock %}

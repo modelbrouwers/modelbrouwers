@@ -23,7 +23,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
     """
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     parser_classes = api_settings.DEFAULT_PARSER_CLASSES + [parsers.FileUploadParser]
-    queryset = Photo.objects.exclude(trash=True)
+    queryset = Photo.objects.exclude(trash=True).select_related("user")
     serializer_class = PhotoSerializer
     filterset_class = PhotoFilter
     pagination_class = PhotoPagination

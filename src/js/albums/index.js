@@ -15,7 +15,8 @@ export default class Page {
     }
 
     static initLightbox() {
-        const $lightbox = $("#modal-lightbox");
+        const lightBox = document.getElementById('modal-lightbox');
+        const $lightbox = $(lightBox);
         const $lightboxBody = $lightbox.find(".modal-content");
         const photoThumbs = $("#photo-thumbs");
 
@@ -60,8 +61,9 @@ export default class Page {
             $lightbox.modal("show");
 
             // fetch the photo details from the Api
+            const { album, page } = lightBox.dataset;
             this.photoConsumer
-                .getForAlbum(window.album, window.page)
+                .getForAlbum(album, page)
                 .then(getLightboxRenderer(id))
                 .catch(console.error);
         });

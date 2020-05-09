@@ -14,23 +14,6 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" charset="utf-8"/>
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" charset="utf-8"/>
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/screen.css' %}" charset="utf-8"/>
-        <!--[if IE 9]>
-            <style type="text/css">
-                ul#menu li a{padding-top: 2px;}
-            </style>
-        <![endif]-->
-        <!--[if lte IE 8]>
-            <style type="text/css">
-                div.tab{border-bottom: solid 2px #6F8698;}
-                ul#menu{
-                    background-color: #0A1871;
-                    background-image: url('/static/images/nav/bg_menu.png');
-                    background-repeat: repeat-x;
-                }
-            </style>
-        <![endif]-->
-        {% block extrastyle %}
-	    {% endblock extrastyle %}
 	{% endblock style %}
     {% endcompress %}
 
