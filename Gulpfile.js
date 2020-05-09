@@ -6,15 +6,12 @@ var sourcemaps = require("gulp-sourcemaps");
 var autoprefixer = require("autoprefixer");
 var paths = require("./build/paths");
 var postcss = require('gulp-postcss');
-var bourbon = require("bourbon");
-var neat = require("bourbon-neat");
 var compass = require("compass-importer");
 
 const sassOptions = {
     outputStyle: "minified",
     importer: compass,
-    // Includes bourbon neat
-    includePaths: bourbon.includePaths.concat(neat.includePaths),
+    includePaths: 'node_modules',
 };
 
 var plugins = [

@@ -1,4 +1,5 @@
 import 'bootstrap';
+import 'bootstrap-select';
 
 import './csrf';
 
@@ -43,4 +44,4 @@ if ($.fn.datepicker) {
     $('input.date').datepicker();
 }
 
-// $('.selectpicker').selectpicker();
+$('.selectpicker').selectpicker();

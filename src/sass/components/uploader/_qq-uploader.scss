@@ -1,5 +1,3 @@
-@import "neat";
-
 .qq-uploader {
 
   .qq-hide {
@@ -43,20 +41,17 @@
     }
   }
 
-  @include display-context(table) {
-    .qq-uploader__upload-list-item {
-      list-style: none;
-      @include row(table); // doesn't seem to work entirely with display-context yet
-    }
+  .qq-uploader__upload-list-item {
+    list-style: none;
+  }
 
-    .qq-uploader__preview {
-      @include span-columns(1 of 3);
-    }
+  .qq-uploader__preview {
+    display: table;
+  }
 
-    .qq-uploader__upload-actions {
-      @include span-columns(2 of 3);
-      text-align: right;
-    }
+  .qq-uploader__upload-actions {
+    display: table;
+    text-align: right;
   }
 
   .qq-uploader__upload-list-item.qq-upload-fail {
