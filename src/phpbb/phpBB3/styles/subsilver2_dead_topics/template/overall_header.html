@@ -34,14 +34,7 @@
     <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
 
     <!-- use googles jquery, loads faster and relieves own server -->
-    <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- fallback -->
-    <script type="text/javascript">
-        if (typeof jQuery == 'undefined'){
-            document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage->url('jquery/dist/jquery.min.js');<!-- ENDPHP -->' type='text/javascript'%3E%3C/script%3E"));
-        }
-    </script>
     <script>
         var jQuery = jQuery.noConflict();
     </script>
@@ -49,7 +42,6 @@
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/common.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/screen.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('font-awesome/css/font-awesome.min.css');<!-- ENDPHP -->" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/jquery-ui-1.10.2.custom.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/forum.css');<!-- ENDPHP -->" charset="utf-8"/>
 
     <style type="text/css">

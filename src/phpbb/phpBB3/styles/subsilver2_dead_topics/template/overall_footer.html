@@ -14,7 +14,6 @@
     <a href="/winkel/privacy/">Privacy statement</a>
 </div>
 <div id="popup"></div>
-<div id="chat-window"></div>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -29,18 +28,8 @@ pageTracker._trackPageview();
 <!-- static backend, provides the $storage variable -->
 <!-- PHP -->
     $storage = new ManifeststaticStorage();
-
-    $js = array(
-        'config.js',
-        'scripts/forum/chat.js',
-    );
-    $apps = array(
-        // 'albums/js/forum/app.js', // JSPM:SYSTEMJSAPP
-        // 'groupbuilds/js/forum/app.js', // JSPM:SYSTEMJSAPP
-    );
 <!-- ENDPHP -->
 
-<script type="text/javascript" src="<!-- PHP --> echo $storage->url('scripts/jquery-ui-1.10.2.custom.min.js');<!-- ENDPHP -->"></script>
 <script type="text/javascript" src="<!-- PHP --> echo $storage->url('js/forum.js');<!-- ENDPHP -->"></script>
 
 <!-- IF U_MCP || U_ACP -->
