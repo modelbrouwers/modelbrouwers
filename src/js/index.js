@@ -1,4 +1,6 @@
 import 'bootstrap';
+import 'bootstrap-datepicker';
+import 'bootstrap-datepicker/js/locales/bootstrap-datepicker.nl';
 import 'bootstrap-select';
 
 import './csrf';
@@ -40,8 +42,8 @@ $('img').tooltip({
     track: true
 });
 
-if ($.fn.datepicker) {
-    $('input.date').datepicker();
-}
-
+$('input.date').datepicker({
+    language: 'nl',
+    format: 'yyyy-mm-dd',
+});
 $('.selectpicker').selectpicker();

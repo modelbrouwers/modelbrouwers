@@ -132,10 +132,6 @@ a.thumbnail + ul.list-inline {
   }
 }
 
-.ui-datepicker {
-  z-index: 10 !important; // competes with bootstrap input...
-}
-
 // Global reset
 ul {
   list-style: none;
