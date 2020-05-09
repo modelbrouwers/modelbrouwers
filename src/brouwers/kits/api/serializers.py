@@ -15,6 +15,13 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         fields = ('id', 'name', 'is_active', 'logo')
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        view = self.context.get("view")
+        if view and view.action == "list":
+            del self.fields["logo"]
+
 
 class ScaleSerializer(serializers.ModelSerializer):
 

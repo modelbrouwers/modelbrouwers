@@ -5,6 +5,10 @@ import 'bootstrap-select';
 
 import './csrf';
 
+// components
+import './kits';
+
+// pages
 import Router from "./router/router";
 import KitreviewsPage from "./kitreviews/index";
 import AlbumsPage from "./albums/index";
