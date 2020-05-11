@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ScaleConsumer } from '../../data/kits/scale';
 
@@ -20,11 +21,14 @@ const fetchOptions = () => {
         });
 };
 
-
 const ScaleSelect = (props) => {
     return (
-        <Select fetchOptions={fetchOptions} />
+        <Select fetchOptions={fetchOptions} {...props} />
     );
+};
+
+ScaleSelect.propTypes = {
+    onChange: PropTypes.func.isRequired,
 };
 
 export { ScaleSelect };

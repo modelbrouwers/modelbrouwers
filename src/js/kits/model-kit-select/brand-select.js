@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { BrandConsumer } from '../../data/kits/brand';
 
 import { Select } from './select';
-
 
 const brandConsumer = new BrandConsumer();
 
@@ -23,8 +23,12 @@ const fetchOptions = () => {
 
 const BrandSelect = (props) => {
     return (
-        <Select fetchOptions={fetchOptions} />
+        <Select fetchOptions={fetchOptions} {...props} />
     );
+};
+
+BrandSelect.propTyeps = {
+    onChange: PropTypes.func.isRequired,
 };
 
 export { BrandSelect };

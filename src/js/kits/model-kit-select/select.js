@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 const Select = (props) => {
-    const { fetchOptions } = props;
+    const { fetchOptions, onChange } = props;
     const [options, setOptions] = useState([{value: '', label: '(loading...)'}]);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const Select = (props) => {
     }, []);
 
     return (
-        <select onChange={console.log} className="form-control">
+        <select onChange={ (event) => onChange(event.target.value) } className="form-control">
             { options.map(
                 option => <option key={option.value} value={ option.value }>{ option.label }</option>)
             }
@@ -23,6 +23,7 @@ const Select = (props) => {
 
 Select.propTypes = {
     fetchOptions: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
 };
 
 export { Select };
