@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { IntlProvider } from "react-intl";
 
+import { getLocale, getMessages } from '../../translations/utils';
 import { ModelKitSelect } from './model-kit-select';
+
+const locale = getLocale() || 'nl';
+const messages = getMessages(locale);
 
 // mount the detected components, based on class name
 const nodes = document.querySelectorAll('.model-kit-select');
@@ -20,12 +25,14 @@ Array.from(nodes).forEach(node => {
 
     // mount component in the DOM node
     ReactDOM.render(
-        <ModelKitSelect
-            label={label}
-            allowMultiple={_allowMultiple}
-            htmlName={htmlname}
-            selected={_selected}
-        />,
+        <IntlProvider locale={locale} messages={messages}>
+            <ModelKitSelect
+                label={label}
+                allowMultiple={_allowMultiple}
+                htmlName={htmlname}
+                selected={_selected}
+            />
+        </IntlProvider>,
         node
     );
 });

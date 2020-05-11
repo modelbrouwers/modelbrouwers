@@ -10,7 +10,7 @@ const Select = (props) => {
         fetchOptions()
             .then(options => setOptions(options))
             .catch(console.error);
-    }, [fetchOptions]);
+    }, []);
 
     return (
         <select onChange={console.log} className="form-control">

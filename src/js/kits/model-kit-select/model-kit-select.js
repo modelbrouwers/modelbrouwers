@@ -5,11 +5,8 @@ import { BrandSelect } from './brand-select';
 import { ScaleSelect } from './scale-select';
 import { SearchInput } from './search-input';
 
-// TOOD: i18n
 // TODO: pass selected kit IDs as prop
-
 // for TODOs/missing aspects -> see horizontal.form for the markup
-
 
 const ModelKitSelect = (props) => {
     const {
@@ -39,8 +36,7 @@ const ModelKitSelect = (props) => {
                     </div>
 
                     <div className="col-xs-12 col-sm-4">
-                        {/* placeholder: zoek op naam */}
-                        <SearchInput />
+                        <SearchInput onChange={console.log} />
                     </div>
                 </div>
 

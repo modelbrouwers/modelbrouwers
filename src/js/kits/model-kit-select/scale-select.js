@@ -10,7 +10,6 @@ const fetchOptions = () => {
     return scaleConsumer
         .list()
         .then(scales => {
-            console.log(scales);
             const options = scales.map(scale => {
                 return {
                     value: scale.id,
