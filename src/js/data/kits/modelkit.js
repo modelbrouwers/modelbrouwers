@@ -1,7 +1,7 @@
-import { CrudConsumer, CrudConsumerObject } from "consumerjs";
+import { CrudConsumer, CrudConsumerObject, LinkedPageNumberList } from 'consumerjs';
 
-import { handleValidationErrors } from "../utils";
-import { API_ROOT } from "../../constants";
+import { handleValidationErrors } from '../utils';
+import { API_ROOT } from '../../constants';
 
 class ModelKit extends CrudConsumerObject {}
 
@@ -10,15 +10,18 @@ class ModelKitConsumer extends CrudConsumer {
         endpoint = `${API_ROOT}api/v1/kits/kit/`,
         objectClass = ModelKit
     ) {
-        super(endpoint, objectClass);
+        super(endpoint, objectClass, {
+            parserDataPath: 'results',
+            listClass: LinkedPageNumberList
+        });
     }
 
     list() {
-        return this.get("");
+        return this.get('');
     }
 
     filter(filters) {
-        return this.get("", filters);
+        return this.get('', filters);
     }
 
     create(data) {
