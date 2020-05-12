@@ -12,6 +12,7 @@ const DEBOUNCE = 300;  // debounce in ms
 const modelKitConsumer = new ModelKitConsumer();
 
 // TODO: pass selected kit IDs as prop
+// TODO: handle toggle changes & allowMultiple yes/no
 
 const ModelKitSelect = (props) => {
     const {
@@ -35,6 +36,7 @@ const ModelKitSelect = (props) => {
     }
 
     const [searchResults, setSearchResults] = useState([]);
+    const [lastResultList, setLastResultList] = useState(null);
 
     // make an API call whenever the search params change
     useEffect(() => {
@@ -45,15 +47,21 @@ const ModelKitSelect = (props) => {
             () => {
                 modelKitConsumer
                     .filter(searchParams)
-                    .then(setSearchResults)
+                    .then(resultList => {
+                        const newSearchResults = searchResults.concat(resultList);
+                        setSearchResults(newSearchResults);
+                        setLastResultList(resultList);
+                    })
                     .catch(console.error);
             }, DEBOUNCE
         );
         return () => window.clearTimeout(tid);
     }, [searchParams]);
 
+    const nextPage = lastResultList ? parseInt(lastResultList.page || 1, 10) + 1 : null;
+
     const onKitToggle = (kit, checked) => {
-        console.log(`Kit ${kit.id} checked: ${checked}`);
+        // console.log(`Kit ${kit.id} checked: ${checked}`);
     };
 
     return (
@@ -80,6 +88,19 @@ const ModelKitSelect = (props) => {
                     { searchResults.map(
                         kit => <KitPreview key={kit.id} htmlName={htmlName} kit={kit} onToggle={onKitToggle} />
                     ) }
+
+                    { lastResultList && lastResultList.responseData.next ?
+                        (
+                            <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
+                                <button className="btn bg-main-blue" onClick={ () => updateSearchParam('page', nextPage) }>
+                                    load more
+                                </button>
+                                <i className="fa fa-pulse fa-spinner fa-4x"></i>
+                            </div>
+                        )
+                        : null
+                    }
+
                 </div>
             </div>
         </React.Fragment>
