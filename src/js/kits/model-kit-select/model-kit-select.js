@@ -32,6 +32,12 @@ const ModelKitSelect = (props) => {
         if (!value) {
             delete newSearchParams[param];
         }
+
+        if (param !== 'page') {
+            delete newSearchParams.page;
+            setSearchResults([]);
+        }
+
         setSearchParams(newSearchParams);
     }
 
@@ -92,7 +98,7 @@ const ModelKitSelect = (props) => {
                     { lastResultList && lastResultList.responseData.next ?
                         (
                             <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
-                                <button className="btn bg-main-blue" onClick={ () => updateSearchParam('page', nextPage) }>
+                                <button className="btn bg-main-blue" type="button" onClick={ () => updateSearchParam('page', nextPage) }>
                                     load more
                                 </button>
                                 <i className="fa fa-pulse fa-spinner fa-4x"></i>
