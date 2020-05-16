@@ -1,3 +1,4 @@
+// TODO: handle allowMultiple yes/no
 import React, { useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { useAsync, useDebounce } from 'react-use';
@@ -11,31 +12,6 @@ const DEBOUNCE = 300;  // debounce in ms
 const modelKitConsumer = new ModelKitConsumer();
 
 const isEmpty = (obj) => !Object.keys(obj).length;
-
-// TODO: pass selected kit IDs as prop
-// TODO: handle toggle changes & allowMultiple yes/no
-
-const searchReducer = (state, {param='', value=null}) => {
-    // needs a new object, as the state itself is passed to useDebounce, which appears
-    // to be identity checked -> updating just the keys does not
-    const newParams = Object.assign({}, state);
-
-    if (!value) {
-        delete newParams[param];
-        return newParams;
-    }
-
-    // otherwise, update the value
-    newParams[param] = value;
-
-    // handle pagination - if any param other than page changes, restart at page 1
-    if (param !== 'page') {
-        delete newParams.page;
-    }
-
-    return newParams;
-};
-
 
 const reducer = (state, action) => {
     // current state
