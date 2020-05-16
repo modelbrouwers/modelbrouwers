@@ -10,6 +10,8 @@ const DEBOUNCE = 300;  // debounce in ms
 
 const modelKitConsumer = new ModelKitConsumer();
 
+const isEmpty = (obj) => !Object.keys(obj).length;
+
 // TODO: pass selected kit IDs as prop
 // TODO: handle toggle changes & allowMultiple yes/no
 
@@ -35,58 +37,125 @@ const searchReducer = (state, {param='', value=null}) => {
 };
 
 
-const resultsReducer = (state, action) => {
-    const { results, forParams: { page } } = action;
-    const currentPage = page ?? 1;  // can be undefined
-    const allResults = currentPage === 1 ? results : state.results.concat(results);
-    return {
-        results: allResults,
-        hasNext: results.responseData.next != null,
-        page: page ?? 1,
-    };
+const reducer = (state, action) => {
+    // current state
+    const { searchParams, page, selectedIds, preSelected, searchResults, hasNext } = state;
+
+    // create a new state object, defaulting to the existing state
+    const newState = Object.assign({}, state);
+
+    const preSelectedIds = preSelected.map(kit => kit.id);
+
+    switch(action.type) {
+        case 'searchParam':
+            // update the search param (brand, scale or name)
+            // page is handled separately
+            const { param, value } = action;
+            if (!value) {
+                delete searchParams[param];
+            } else {
+                searchParams[param] = value;
+            }
+
+            // force creation of a new object
+            newState.searchParams = Object.assign({}, searchParams);
+            return newState;
+
+        case 'initial':
+            // include the pre-selected kits that are _still_ selected
+            const { kits } = action;
+            newState.preSelected = kits.filter(kit => selectedIds.includes(kit.id));
+            return newState;
+
+        case 'kitToggle':
+            // remove kits that get unselected, add kits that get selected
+            const { kit, checked } = action;
+            const isPresent = selectedIds.includes(kit.id);
+
+            if (checked && !isPresent) {
+                newState.selectedIds = selectedIds.concat([kit.id]);
+            } else if (!checked && isPresent) {
+                newState.selectedIds = selectedIds.filter(id => id !== kit.id);
+            }
+
+            // remove the kit from the pre selected kits if it gets untoggled - but only
+            // if there are search params
+            if ( !isEmpty(searchParams) && !checked && preSelectedIds.includes(kit.id) ) {
+                newState.preSelected = preSelected.filter(preSelectedKit => preSelectedKit.id !== kit.id);
+            }
+
+            return newState;
+
+        case 'search':
+            // set the search result if it's page one, or append them if it's a higher page.
+            const { results } = action;
+            const newSearchResults = page === 1 ? results : searchResults.concat(results);
+
+            newState.searchResults = newSearchResults;
+            newState.hasNext = results.responseData.next !== null;
+            return newState;
+
+        case 'page':
+            newState.page = action.to;
+            return newState;
+    }
+    throw new Error(`Unknown action: ${action.type}`);
 };
 
 
 const ModelKitSelect = ({ label, htmlName, allowMultiple=false, selected=[] }) => {
-    // track search parameters state
-    const [searchParams, dispatchSearch] = useReducer(searchReducer, {});
-    const emptySearch = !Object.keys(searchParams).length;
-    const setSearchParam = (param, value) => {
-        dispatchSearch({ param, value });
-    };
+    // track filter parameters & search results
+    const [state, dispatch] = useReducer(
+        reducer,
+        {
+            searchParams: {},
+            page: 1,
+            selectedIds: selected,  // track PKs of kits that are selected
+            preSelected: [],
+            searchResults: [],
+            hasNext: null,
+        }
+    );
 
-    // track search result state
-    const [searchResults, dispatchResults] = useReducer(resultsReducer, {results: [], hasNext: null, page: 1});
+    const { searchParams, page } = state;
 
-    // track which kits are selected
-    const [selectedKitIds, setSelectedKitIds] = useState(selected);
+    // load the preview for selected kit IDs
+    // this is one-off, so no state dependencies!
+    useAsync(() => {
+        const promises = state.selectedIds.map(id => modelKitConsumer.read(id));
+        return Promise
+            .all(promises)
+            .then(kits => {
+                dispatch({
+                    type: 'initial',
+                    kits: kits,
+                });
+            })
+            .catch(console.error);
+    }, []);
 
     // make an API call whenever the search params change
     const [, cancel] = useDebounce(
         () => {
-            if (emptySearch) {
-                return;
-            }
+            if ( isEmpty(searchParams) ) return;
             modelKitConsumer
-                .filter(searchParams)
+                .filter({...searchParams, page: page})
                 .then(resultList => {
-                    dispatchResults({results: resultList, forParams: searchParams})
+                    dispatch({
+                        type: 'search',
+                        results: resultList,
+                    });
                 })
                 .catch(console.error);
         },
         DEBOUNCE,
-        [searchParams]
+        [searchParams, page]
     );
 
-    const onKitToggle = (kit, checked) => {
-        const isPresent = selectedKitIds.includes(kit.id);
-        if (!checked && isPresent) {
-            setSelectedKitIds(selectedKitIds.filter(id => id !== kit.id));
-        }
-        if (checked && !isPresent) {
-            selectedKitIds([...selectedKitIds, kit.id]);
-        }
-    };
+    const { preSelected, searchResults } = state;
+    const preSelectedIds = preSelected.map(kit => kit.id);
+    const searchResultsToRender = searchResults.filter(kit => !preSelectedIds.includes(kit.id))
+    const allKits = preSelected.concat(searchResultsToRender);
 
     return (
         <React.Fragment>
@@ -96,7 +165,7 @@ const ModelKitSelect = ({ label, htmlName, allowMultiple=false, selected=[] }) =
                     {/* help text*/}
                     {/* validation errors*/}
                 </div>
-                <FilterForm setSearchParam={setSearchParam} />
+                <FilterForm setSearchParam={ (param, value) => dispatch({type: 'searchParam', param: param, value: value}) } />
                 <div className="kit-suggestions row">
 
                     <div className="text-center add-kit col-xs-12">
@@ -107,21 +176,21 @@ const ModelKitSelect = ({ label, htmlName, allowMultiple=false, selected=[] }) =
                         </a>
                     </div>
 
-                    { searchResults.results.map(
-                        kit => <KitPreview
-                            key={kit.id}
-                            htmlName={htmlName}
-                            kit={kit}
-                            selected={selectedKitIds.includes(kit.id)}
-                            onToggle={onKitToggle}
-                        />
+                    { allKits.map(
+                            kit => <KitPreview
+                                key={kit.id}
+                                htmlName={htmlName}
+                                kit={kit}
+                                selected={state.selectedIds.includes(kit.id)}
+                                onToggle={ (kit, checked) => dispatch({type: 'kitToggle', kit, checked}) }
+                            />
                     ) }
 
-                    { searchResults.hasNext ?
+                    { state.hasNext ?
                         (
                             <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
                                 <button className="btn bg-main-blue" type="button" onClick={
-                                    () => updateSearchParam('page', searchResults.page + 1)
+                                    () => dispatch({type: 'page', to: state.page + 1})
                                 }>
                                     load more
                                 </button>
