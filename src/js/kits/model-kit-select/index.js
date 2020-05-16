@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { IntlProvider } from "react-intl";
 
 import { getLocale, getMessages } from '../../translations/utils';
-import { ModelKitSelect } from './model-kit-select';
+import { ModelKitSelect } from './ModelKitSelect';
 
 const locale = getLocale() || 'nl';
 const messages = getMessages(locale);
@@ -11,7 +11,7 @@ const messages = getMessages(locale);
 // mount the detected components, based on class name
 const nodes = document.querySelectorAll('.model-kit-select');
 
-Array.from(nodes).forEach(node => {
+for (const node of nodes) {
     const {
         label,
         allowMultiple,
@@ -35,4 +35,4 @@ Array.from(nodes).forEach(node => {
         </IntlProvider>,
         node
     );
-});
+}

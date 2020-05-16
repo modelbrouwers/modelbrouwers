@@ -3,8 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
 
-const SearchInput = (props) => {
-    const { onChange } = props;
+const SearchInput = ({ onChange }) => {
     const [query, setQuery] = useState('');
     return (
         <FormattedMessage

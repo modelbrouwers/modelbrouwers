@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 const DEFAULT_THUMB = '/static/images/thumb.png';
 
-const KitPreview = (props) => {
-    const { kit, selected, htmlName, onToggle } = props;
-
+const KitPreview = ({ kit, htmlName, selected=false, onToggle=() => {} }) => {
     const [checked, setChecked] = useState(selected);
     const [thumbImg, setThumbImg] = useState(kit.box_image.small || DEFAULT_THUMB);
     const [errored, setErrored] = useState(false);
@@ -17,9 +15,9 @@ const KitPreview = (props) => {
     };
 
     const onChange = (event) => {
-        const _checked = event.target.checked;
-        setChecked(_checked);
-        onToggle(kit, _checked);
+        const { checked } = event.target;
+        setChecked(checked);
+        onToggle(kit, checked);
     };
 
     return (
@@ -52,11 +50,6 @@ KitPreview.propTypes = {
     kit: PropTypes.object.isRequired,
     selected: PropTypes.bool,
     onToggle: PropTypes.func,
-};
-
-KitPreview.defaultProps = {
-    selected: false,
-    onToggle: (kit, checked) => {},
 };
 
 export { KitPreview };
