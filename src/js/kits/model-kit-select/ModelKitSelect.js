@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { useDebounce } from 'react-use';
+import { useAsync, useDebounce } from 'react-use';
 
 import { ModelKitConsumer } from '../../data/kits/modelkit';
 import { FilterForm } from './FilterForm';
@@ -58,6 +58,9 @@ const ModelKitSelect = ({ label, htmlName, allowMultiple=false, selected=[] }) =
     // track search result state
     const [searchResults, dispatchResults] = useReducer(resultsReducer, {results: [], hasNext: null, page: 1});
 
+    // track which kits are selected
+    const [selectedKitIds, setSelectedKitIds] = useState(selected);
+
     // make an API call whenever the search params change
     const [, cancel] = useDebounce(
         () => {
@@ -76,7 +79,13 @@ const ModelKitSelect = ({ label, htmlName, allowMultiple=false, selected=[] }) =
     );
 
     const onKitToggle = (kit, checked) => {
-        // console.log(`Kit ${kit.id} checked: ${checked}`);
+        const isPresent = selectedKitIds.includes(kit.id);
+        if (!checked && isPresent) {
+            setSelectedKitIds(selectedKitIds.filter(id => id !== kit.id));
+        }
+        if (checked && !isPresent) {
+            selectedKitIds([...selectedKitIds, kit.id]);
+        }
     };
 
     return (
@@ -98,10 +107,14 @@ const ModelKitSelect = ({ label, htmlName, allowMultiple=false, selected=[] }) =
                         </a>
                     </div>
 
-                    { selected.toString() }
-
                     { searchResults.results.map(
-                        kit => <KitPreview key={kit.id} htmlName={htmlName} kit={kit} onToggle={onKitToggle} />
+                        kit => <KitPreview
+                            key={kit.id}
+                            htmlName={htmlName}
+                            kit={kit}
+                            selected={selectedKitIds.includes(kit.id)}
+                            onToggle={onKitToggle}
+                        />
                     ) }
 
                     { searchResults.hasNext ?

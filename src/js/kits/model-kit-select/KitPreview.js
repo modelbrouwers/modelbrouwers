@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const DEFAULT_THUMB = '/static/images/thumb.png';
 
 const KitPreview = ({ kit, htmlName, selected=false, onToggle=() => {} }) => {
-    const [checked, setChecked] = useState(selected);
     const [thumbImg, setThumbImg] = useState(kit.box_image.small || DEFAULT_THUMB);
     const [errored, setErrored] = useState(false);
 
@@ -16,7 +15,6 @@ const KitPreview = ({ kit, htmlName, selected=false, onToggle=() => {} }) => {
 
     const onChange = (event) => {
         const { checked } = event.target;
-        setChecked(checked);
         onToggle(kit, checked);
     };
 
@@ -25,7 +23,7 @@ const KitPreview = ({ kit, htmlName, selected=false, onToggle=() => {} }) => {
             <input
                 type="checkbox"
                 name={htmlName}
-                defaultChecked={checked}
+                defaultChecked={selected}
                 id={`__modelkit_${kit.id}`}
                 value={kit.id}
                 onChange={ onChange }
