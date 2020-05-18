@@ -1,1 +1,1 @@
-import './model-kit-select';
+import "./model-kit-select";

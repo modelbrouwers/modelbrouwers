@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-const DEFAULT_THUMB = '/static/images/thumb.png';
+const DEFAULT_THUMB = "/static/images/thumb.png";
 
-const KitPreview = ({ kit, htmlName, selected=false, onToggle=() => {} }) => {
-    const [thumbImg, setThumbImg] = useState(kit.box_image.small || DEFAULT_THUMB);
+const KitPreview = ({
+    kit,
+    htmlName,
+    selected = false,
+    onToggle = () => {}
+}) => {
+    const [thumbImg, setThumbImg] = useState(
+        kit.box_image.small || DEFAULT_THUMB
+    );
     const [errored, setErrored] = useState(false);
 
     const onThumbError = () => {
@@ -13,7 +20,7 @@ const KitPreview = ({ kit, htmlName, selected=false, onToggle=() => {} }) => {
         setErrored(true);
     };
 
-    const onChange = (event) => {
+    const onChange = event => {
         const { checked } = event.target;
         onToggle(kit, checked);
     };
@@ -26,19 +33,28 @@ const KitPreview = ({ kit, htmlName, selected=false, onToggle=() => {} }) => {
                 defaultChecked={selected}
                 id={`__modelkit_${kit.id}`}
                 value={kit.id}
-                onChange={ onChange }
+                onChange={onChange}
             />
-            <label htmlFor={`__modelkit_${kit.id}`}
-                   title={kit.name} className="thumbnail">
-                <img src={thumbImg} className="img-responsive" onError={ onThumbError } />
+            <label
+                htmlFor={`__modelkit_${kit.id}`}
+                title={kit.name}
+                className="thumbnail"
+            >
+                <img
+                    src={thumbImg}
+                    className="img-responsive"
+                    onError={onThumbError}
+                />
                 <span className="h5">
                     <strong>
-                        { kit.name }
-                        { kit.kit_number ? <small>{ kit.kit_number }</small> : null}
+                        {kit.name}
+                        {kit.kit_number ? (
+                            <small>{kit.kit_number}</small>
+                        ) : null}
                     </strong>
                 </span>
             </label>
-            <i className="fa fa-check fa-3x"></i>
+            <i className="fa fa-check fa-3x" />
         </div>
     );
 };
@@ -47,7 +63,7 @@ KitPreview.propTypes = {
     htmlName: PropTypes.string.isRequired,
     kit: PropTypes.object.isRequired,
     selected: PropTypes.bool,
-    onToggle: PropTypes.func,
+    onToggle: PropTypes.func
 };
 
 export { KitPreview };
