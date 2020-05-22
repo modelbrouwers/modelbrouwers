@@ -10,9 +10,9 @@ let entry = {};
 for (let key in paths.jsEntry) {
     entry[key] = __dirname + "/" + paths.jsEntry[key];
 }
-console.log(entry);
+// console.log(entry);
 
-module.exports = {
+var config = {
     // Path to the js entry point (source)
     entry: entry,
 
@@ -59,8 +59,6 @@ module.exports = {
         ]
     },
 
-    devtool: "inline-source-map",
-
     optimization: {
         minimize: false
     },
@@ -77,4 +75,15 @@ module.exports = {
             "window.jQuery": "jquery"
         })
     ]
+};
+
+module.exports = (env, argv) => {
+
+    if ( argv.mode === "development" ) {
+        config.devtool = "inline-source-map";
+    } else if ( argv.mode === "production" ) {
+        // no devtool
+    }
+
+    return config;
 };
