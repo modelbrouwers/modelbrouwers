@@ -15,10 +15,10 @@ const isEmpty = obj => !Object.keys(obj).length;
 
 const reducer = (allowMultiple, state, action) => {
     switch (action.type) {
-        case "searchParam": {
+        case "UPDATE_SEARCH_PARAM": {
             // update the search param (brand, scale or name)
             // page is handled separately
-            const { param, value } = action;
+            const { param, value } = action.payload;
             if (!value) {
                 const { [param]: value, ...rest } = state.searchParams;
                 return { ...state, searchParams: rest };
@@ -28,9 +28,9 @@ const reducer = (allowMultiple, state, action) => {
             }
         }
 
-        case "initial": {
+        case "SET_INITIAL_KITS": {
             // include the pre-selected kits that are _still_ selected
-            const { kits } = action;
+            const kits = action.payload;
             return {
                 ...state,
                 preSelected: kits.filter(kit =>
@@ -39,9 +39,9 @@ const reducer = (allowMultiple, state, action) => {
             };
         }
 
-        case "kitToggle": {
+        case "TOGGLE_KIT": {
             // remove kits that get unselected, add kits that get selected
-            const { kit, checked } = action;
+            const { kit, checked } = action.payload;
             let preSelected = state.preSelected;
             const preSelectedIds = preSelected.map(kit => kit.id);
 
@@ -86,9 +86,9 @@ const reducer = (allowMultiple, state, action) => {
             }
         }
 
-        case "search": {
+        case "SET_SEARCH_RESULTS": {
             // set the search result if it's page one, or append them if it's a higher page.
-            const { results } = action;
+            const results = action.payload;
             return {
                 ...state,
                 searchResults:
@@ -99,8 +99,8 @@ const reducer = (allowMultiple, state, action) => {
             };
         }
 
-        case "page":
-            return { ...state, page: action.to };
+        case "INCREMENT_PAGE":
+            return { ...state, page: state.page + 1 };
 
         default:
             throw new Error(`Unknown action: ${action.type}`);
@@ -140,8 +140,8 @@ const ModelKitSelect = ({
         return Promise.all(promises)
             .then(kits => {
                 dispatch({
-                    type: "initial",
-                    kits: kits
+                    type: "SET_INITIAL_KITS",
+                    payload: kits
                 });
             })
             .catch(console.error);
@@ -156,8 +156,8 @@ const ModelKitSelect = ({
                 .filter({ ...searchParams, page: page })
                 .then(resultList => {
                     dispatch({
-                        type: "search",
-                        results: resultList
+                        type: "SET_SEARCH_RESULTS",
+                        payload: resultList
                     });
                 })
                 .catch(console.error);
@@ -186,9 +186,11 @@ const ModelKitSelect = ({
                 <FilterForm
                     setSearchParam={(param, value) =>
                         dispatch({
-                            type: "searchParam",
-                            param: param,
-                            value: value
+                            type: "UPDATE_SEARCH_PARAM",
+                            payload: {
+                                param: param,
+                                value: value
+                            }
                         })
                     }
                 />
@@ -209,7 +211,10 @@ const ModelKitSelect = ({
                             kit={kit}
                             selected={selectedIds.includes(kit.id)}
                             onToggle={(kit, checked) =>
-                                dispatch({ type: "kitToggle", kit, checked })
+                                dispatch({
+                                    type: "TOGGLE_KIT",
+                                    payload: { kit, checked }
+                                })
                             }
                         />
                     ))}
@@ -220,10 +225,7 @@ const ModelKitSelect = ({
                                 className="btn bg-main-blue"
                                 type="button"
                                 onClick={() =>
-                                    dispatch({
-                                        type: "page",
-                                        to: page + 1
-                                    })
+                                    dispatch({ type: "INCREMENT_PAGE" })
                                 }
                             >
                                 load more
