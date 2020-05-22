@@ -13,7 +13,7 @@ const modelKitConsumer = new ModelKitConsumer();
 
 const isEmpty = obj => !Object.keys(obj).length;
 
-const reducer = (state, action) => {
+const reducer = (allowMultiple, state, action) => {
     // current state
     const {
         searchParams,
@@ -57,10 +57,14 @@ const reducer = (state, action) => {
             const { kit, checked } = action;
             const isPresent = selectedIds.includes(kit.id);
 
-            if (checked && !isPresent) {
-                newState.selectedIds = selectedIds.concat([kit.id]);
-            } else if (!checked && isPresent) {
-                newState.selectedIds = selectedIds.filter(id => id !== kit.id);
+            if (allowMultiple) {
+                if (checked && !isPresent) {
+                    newState.selectedIds = selectedIds.concat([kit.id]);
+                } else if (!checked && isPresent) {
+                    newState.selectedIds = selectedIds.filter(id => id !== kit.id);
+                }
+            } else {
+                newState.selectedIds = checked ? [kit.id] : [];
             }
 
             // remove the kit from the pre selected kits if it gets untoggled - but only
@@ -101,7 +105,7 @@ const ModelKitSelect = ({
     selected = []
 }) => {
     // track filter parameters & search results
-    const [state, dispatch] = useReducer(reducer, {
+    const [state, dispatch] = useReducer(reducer.bind(null, allowMultiple), {
         searchParams: {},
         page: 1,
         selectedIds: selected, // track PKs of kits that are selected
@@ -184,6 +188,7 @@ const ModelKitSelect = ({
                         <KitPreview
                             key={kit.id}
                             htmlName={htmlName}
+                            inputType={allowMultiple ? "checkbox" : "radio"}
                             kit={kit}
                             selected={state.selectedIds.includes(kit.id)}
                             onToggle={(kit, checked) =>

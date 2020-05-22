@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 const DEFAULT_THUMB = "/static/images/thumb.png";
 
 const KitPreview = ({
-    kit,
     htmlName,
+    inputType,
+    kit,
     selected = false,
     onToggle = () => {}
 }) => {
@@ -28,7 +29,7 @@ const KitPreview = ({
     return (
         <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview">
             <input
-                type="checkbox"
+                type={inputType}
                 name={htmlName}
                 defaultChecked={selected}
                 id={`__modelkit_${kit.id}`}
@@ -61,6 +62,7 @@ const KitPreview = ({
 
 KitPreview.propTypes = {
     htmlName: PropTypes.string.isRequired,
+    inputType: PropTypes.oneOf(["checkbox", "radio"]).isRequired,
     kit: PropTypes.object.isRequired,
     selected: PropTypes.bool,
     onToggle: PropTypes.func
