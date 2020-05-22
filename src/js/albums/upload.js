@@ -1,7 +1,7 @@
 import "jquery";
 import qq from "fine-uploader";
 
-import { csrfToken } from '../csrf';
+import { csrfToken } from "../csrf";
 
 export class PhotoUpload {
     constructor() {
@@ -9,10 +9,9 @@ export class PhotoUpload {
         let album, uploader;
         const elem = document.getElementById("uploader");
 
-
         if (elem) {
             const uploadSettings = JSON.parse(
-                document.getElementById('uploadSettings').innerText
+                document.getElementById("uploadSettings").innerText
             );
             uploader = new qq.FineUploader({
                 element: elem,
@@ -22,7 +21,7 @@ export class PhotoUpload {
                     filenameParam: "description",
                     customHeaders: {
                         Accept: "text/plain", // otherwise DRF complains
-                        "X-CSRFToken": csrfToken,
+                        "X-CSRFToken": csrfToken
                     }
                 },
                 retry: {
@@ -35,8 +34,9 @@ export class PhotoUpload {
                 callbacks: {
                     onComplete: function(event, succeeded, failed) {
                         if (failed.length === 0) {
-                            window.location = decodeURI(uploadSettings.albumDetail)
-                                .replace('{0}', album, 1);
+                            window.location = decodeURI(
+                                uploadSettings.albumDetail
+                            ).replace("{0}", album, 1);
                         }
                     },
                     onSubmit: function() {

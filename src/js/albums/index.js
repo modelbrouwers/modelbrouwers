@@ -15,7 +15,7 @@ export default class Page {
     }
 
     static initLightbox() {
-        const lightBox = document.getElementById('modal-lightbox');
+        const lightBox = document.getElementById("modal-lightbox");
         const $lightbox = $(lightBox);
         const $lightboxBody = $lightbox.find(".modal-content");
         const photoThumbs = $("#photo-thumbs");
@@ -98,19 +98,23 @@ export default class Page {
     static initPhotoEdit() {
         $('body.photo-update input[name="album"]').change(function() {
             // if checked, uncheck other albums
-            if ( $(this).is(':checked') ) {
-                $( 'input[name="album"]' ).not(this).prop('checked', false);
+            if ($(this).is(":checked")) {
+                $('input[name="album"]')
+                    .not(this)
+                    .prop("checked", false);
             }
         });
 
         // scrolling through the carousel
-        $('body.photo-update #carousel-album').on('mousewheel', function(event) {
+        $("body.photo-update #carousel-album").on("mousewheel", function(
+            event
+        ) {
             event.preventDefault();
 
-            if(event.originalEvent.wheelDelta / 120 > 0) {
-                $(this).carousel('next');
-            } else{
-                $(this).carousel('prev');
+            if (event.originalEvent.wheelDelta / 120 > 0) {
+                $(this).carousel("next");
+            } else {
+                $(this).carousel("prev");
             }
 
             return false;

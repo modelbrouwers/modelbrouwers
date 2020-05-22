@@ -2,13 +2,7 @@ from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Brand, KitDifficulties, Scale
-
-
-class ModelKitForm(forms.Form):
-    brand = forms.ModelChoiceField(queryset=Brand.objects.all())
-    scale = forms.ModelChoiceField(queryset=Scale.objects.all())
-    name = forms.CharField(required=False)
+from .models import KitDifficulties
 
 
 class AddKitForm(forms.Form):
@@ -33,7 +27,6 @@ class ModelKitSelectMixin(object):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.form = ModelKitForm(prefix='__modelkitselect')
         self.add_form = AddKitForm(prefix='__modelkitadd')
 
 

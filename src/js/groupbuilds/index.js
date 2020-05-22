@@ -2,11 +2,9 @@
 
 import "jquery";
 
-import { GroupBuildParticipantConsumer } from '../data/group-build-participant';
-
+import { GroupBuildParticipantConsumer } from "../data/group-build-participant";
 
 const participantConsumer = new GroupBuildParticipantConsumer();
-
 
 export default class Page {
     static init() {

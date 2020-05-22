@@ -1,26 +1,30 @@
-import 'bootstrap';
-import 'bootstrap-datepicker';
-import 'bootstrap-datepicker/js/locales/bootstrap-datepicker.nl';
-import 'bootstrap-select';
+import "bootstrap";
+import "bootstrap-datepicker";
+import "bootstrap-datepicker/js/locales/bootstrap-datepicker.nl";
+import "bootstrap-select";
 
-import './csrf';
+import "./csrf";
 
+// components
+import "./kits";
+
+// pages
 import Router from "./router/router";
 import KitreviewsPage from "./kitreviews/index";
 import AlbumsPage from "./albums/index";
 import BuildPage from "./builds/index";
 import GroupBuildsPage from "./groupbuilds/index";
-// import ShopPage from "./shop/index";
-// import { locales } from "./translations/utils";
-// import { addLocaleData } from "react-intl";
+import ShopPage from "./shop/index";
+import { locales } from "./translations/utils";
+import { addLocaleData } from "react-intl";
 
-// addLocaleData(locales);
+addLocaleData(locales);
 
 const pageMap = {
     kitreviews: KitreviewsPage,
     albums: AlbumsPage,
     builds: BuildPage,
-    group_builds: GroupBuildsPage,
+    group_builds: GroupBuildsPage
     // shop: ShopPage
 };
 
@@ -28,22 +32,22 @@ const pageMap = {
 new Router(pageMap).autoload();
 
 // global bootstrap stuff
-$('.help').popover({
-    'placement': 'auto right'
+$(".help").popover({
+    placement: "auto right"
 });
 
-$('.badge').tooltip({
-    'placement': 'auto left'
+$(".badge").tooltip({
+    placement: "auto left"
 });
 
-$('td.help_text div').hide(); // hide the help texts
+$("td.help_text div").hide(); // hide the help texts
 
-$('img').tooltip({
+$("img").tooltip({
     track: true
 });
 
-$('input.date').datepicker({
-    language: 'nl',
-    format: 'yyyy-mm-dd',
+$("input.date").datepicker({
+    language: "nl",
+    format: "yyyy-mm-dd"
 });
-$('.selectpicker').selectpicker();
+$(".selectpicker").selectpicker();

@@ -7,7 +7,6 @@ import "../scripts/jquery.serializeObject";
 import {
     AddDefaultsFiller,
     Autocomplete,
-    KitSearch,
     NewKitSubmitter
 } from "./modelkit.lib.js";
 
@@ -45,16 +44,10 @@ export default class Widget {
     static initKitSelect() {
         let formField = document.querySelector(".model-kit-select");
         if (formField !== null) {
-            // init search based on filters
-            let kitSearch = new KitSearch(conf, ".model-kit-select");
-
             // init
             for (let f of Object.keys(conf.typeahead)) {
                 new Autocomplete(f, conf.typeahead[f]).initialize();
             }
-
-            // events
-            $(".kit-suggestions").on("click", "button", kitSearch.loadMore);
 
             // bind manually, because the globally included bootstrap is being annoying
             $(`[data-target="${conf.add_modal}"]`).on("click", e => {
