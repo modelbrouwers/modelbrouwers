@@ -1,4 +1,4 @@
-{% extends "builds/base.html" %}{% load i18n sniplates %}
+{% extends "builds/base.html" %}{% load i18n sniplates kit_tags %}
 
 
 {% block eye-catcher-content %}
@@ -74,3 +74,9 @@
 
 </form>
 {% endblock %}
+
+
+{% block modals %}
+    {{ block.super }}
+    {% add_kit_modal data=form.cleaned_data %}
+{% endblock modals %}

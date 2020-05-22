@@ -1,9 +1,5 @@
 import { cleanScale } from "../data/kits/scale";
 
-import "jquery";
-import "bootstrap";
-import "../scripts/jquery.serializeObject";
-
 import {
     AddDefaultsFiller,
     Autocomplete,
@@ -25,7 +21,7 @@ let conf = {
             minLength: 2
         },
         scale: {
-            display: "__unicode__",
+            display: "__str__",
             param: "scale",
             sanitize: cleanScale,
             minLength: 1
@@ -36,28 +32,23 @@ let conf = {
 let filler = new AddDefaultsFiller(conf);
 let submitter = new NewKitSubmitter(conf);
 
-export default class Widget {
-    static init() {
-        this.initKitSelect();
+const initModal = node => {
+    // set up auto-complete
+    for (let f of Object.keys(conf.typeahead)) {
+        new Autocomplete(f, conf.typeahead[f]).initialize();
     }
 
-    static initKitSelect() {
-        let formField = document.querySelector(".model-kit-select");
-        if (formField !== null) {
-            // init
-            for (let f of Object.keys(conf.typeahead)) {
-                new Autocomplete(f, conf.typeahead[f]).initialize();
-            }
+    // bring up modal when button is clicked
+    const selector = `[data-target="${conf.add_modal}"]`;
+    $(node).on("click", selector, event => {
+        event.preventDefault();
+        $(conf.add_modal).modal("toggle");
+        return false;
+    });
 
-            // bind manually, because the globally included bootstrap is being annoying
-            $(`[data-target="${conf.add_modal}"]`).on("click", e => {
-                e.preventDefault();
-                $(conf.add_modal).modal("toggle");
-                return false;
-            });
-            $(conf.add_modal)
-                .on("shown.bs.modal", filler.callback.bind(filler))
-                .on("click", 'button[type="submit"]', submitter.callback);
-        }
-    }
-}
+    $(conf.add_modal)
+        // .on("shown.bs.modal", filler.callback.bind(filler))
+        .on("click", 'button[type="submit"]', submitter.callback);
+};
+
+export { initModal };

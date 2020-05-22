@@ -5,6 +5,8 @@ import { IntlProvider } from "react-intl";
 import { getLocale, getMessages } from "../../translations/utils";
 import { ModelKitSelect } from "./ModelKitSelect";
 
+import { initAddKitModals } from "./add-kit-modal";
+
 const locale = getLocale() || "nl";
 const messages = getMessages(locale);
 
@@ -33,3 +35,5 @@ for (const node of nodes) {
         node
     );
 }
+
+initAddKitModals(nodes);

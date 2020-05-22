@@ -2,6 +2,7 @@
 import React, { useReducer } from "react";
 import PropTypes from "prop-types";
 import { useAsync, useDebounce } from "react-use";
+import classNames from "classnames";
 
 import { ModelKitConsumer } from "../../data/kits/modelkit";
 import { FilterForm } from "./FilterForm";
@@ -172,6 +173,9 @@ const ModelKitSelect = ({
     );
     const allKits = preSelected.concat(searchResultsToRender);
 
+    // const noResults = !isEmpty(searchParams) && searchResults.length === 0;
+    const noResults = true;
+
     return (
         <React.Fragment>
             <label htmlFor="id_kits" className="control-label col-sm-2">
@@ -194,7 +198,11 @@ const ModelKitSelect = ({
                         })
                     }
                 />
-                <div className="kit-suggestions row">
+                <div
+                    className={classNames("row", "kit-suggestions", {
+                        "kit-suggestions--no-results": noResults
+                    })}
+                >
                     <div className="text-center add-kit col-xs-12">
                         {/* TODO: onClick handler */}
                         <a href="#" data-target="#add-kit-modal">
