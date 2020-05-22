@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -128,12 +126,8 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         # owner
         page = self.app.get(url, user=self.user, status=200)
 
-        kit_fields = page.form.fields.get('kits')
-        self.assertEqual(len(kit_fields), build.kits.count())
-
-        # delete a kit
-        pk = int(kit_fields[0].value)
-        kit_fields[0].checked = False
+        # kits field is filled in by React component - make sure we can re-write it
+        self._add_field(page.form, "kits", kits[1].pk)
 
         # test add photo
         self.assertEqual(page.form['photos-TOTAL_FORMS'].value, '1')
@@ -155,9 +149,9 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
 
         build.refresh_from_db()
 
-        kits = build.kits.all()
-        self.assertEqual(kits.count(), 1)
-        self.assertFalse(kits.filter(pk=pk).exists())
+        _kits = build.kits.all()
+        self.assertEqual(_kits.count(), 1)
+        self.assertFalse(_kits.filter(pk=kits[0].pk).exists())
 
         # check photos
         self.assertEqual(build.photos.count(), 1)
