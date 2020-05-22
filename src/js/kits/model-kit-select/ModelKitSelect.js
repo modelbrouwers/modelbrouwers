@@ -1,5 +1,5 @@
 // TODO: handle allowMultiple yes/no
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import PropTypes from "prop-types";
 import { useAsync, useDebounce } from "react-use";
 
@@ -14,88 +14,97 @@ const modelKitConsumer = new ModelKitConsumer();
 const isEmpty = obj => !Object.keys(obj).length;
 
 const reducer = (allowMultiple, state, action) => {
-    // current state
-    const {
-        searchParams,
-        page,
-        selectedIds,
-        preSelected,
-        searchResults,
-        hasNext
-    } = state;
-
-    // create a new state object, defaulting to the existing state
-    const newState = Object.assign({}, state);
-
-    const preSelectedIds = preSelected.map(kit => kit.id);
-
     switch (action.type) {
-        case "searchParam":
+        case "searchParam": {
             // update the search param (brand, scale or name)
             // page is handled separately
             const { param, value } = action;
             if (!value) {
-                delete searchParams[param];
+                const { [param]: value, ...rest } = state.searchParams;
+                return { ...state, searchParams: rest };
             } else {
-                searchParams[param] = value;
+                const searchParams = { ...state.searchParams, [param]: value };
+                return { ...state, searchParams: searchParams };
             }
+        }
 
-            // force creation of a new object
-            newState.searchParams = Object.assign({}, searchParams);
-            return newState;
-
-        case "initial":
+        case "initial": {
             // include the pre-selected kits that are _still_ selected
             const { kits } = action;
-            newState.preSelected = kits.filter(kit =>
-                selectedIds.includes(kit.id)
-            );
-            return newState;
+            return {
+                ...state,
+                preSelected: kits.filter(kit =>
+                    state.selectedIds.includes(kit.id)
+                )
+            };
+        }
 
-        case "kitToggle":
+        case "kitToggle": {
             // remove kits that get unselected, add kits that get selected
             const { kit, checked } = action;
-            const isPresent = selectedIds.includes(kit.id);
-
-            if (allowMultiple) {
-                if (checked && !isPresent) {
-                    newState.selectedIds = selectedIds.concat([kit.id]);
-                } else if (!checked && isPresent) {
-                    newState.selectedIds = selectedIds.filter(id => id !== kit.id);
-                }
-            } else {
-                newState.selectedIds = checked ? [kit.id] : [];
-            }
+            let preSelected = state.preSelected;
+            const preSelectedIds = preSelected.map(kit => kit.id);
 
             // remove the kit from the pre selected kits if it gets untoggled - but only
             // if there are search params
             if (
-                !isEmpty(searchParams) &&
+                !isEmpty(state.searchParams) &&
                 !checked &&
                 preSelectedIds.includes(kit.id)
             ) {
-                newState.preSelected = preSelected.filter(
+                preSelected = preSelected.filter(
                     preSelectedKit => preSelectedKit.id !== kit.id
                 );
             }
 
-            return newState;
+            // keep track of the selected kit IDs
+            if (allowMultiple) {
+                const isPresent = state.selectedIds.includes(kit.id);
+                if (checked && !isPresent) {
+                    return {
+                        ...state,
+                        preSelected: preSelected,
+                        selectedIds: state.selectedIds.concat([kit.id])
+                    };
+                } else if (!checked && isPresent) {
+                    return {
+                        ...state,
+                        preSelected: preSelected,
+                        selectedIds: state.selectedIds.filter(
+                            id => id !== kit.id
+                        )
+                    };
+                }
+                // can't happen, but better safe than sorry?
+                return state;
+            } else {
+                return {
+                    ...state,
+                    preSelected: preSelected,
+                    selectedIds: checked ? [kit.id] : []
+                };
+            }
+        }
 
-        case "search":
+        case "search": {
             // set the search result if it's page one, or append them if it's a higher page.
             const { results } = action;
-            const newSearchResults =
-                page === 1 ? results : searchResults.concat(results);
-
-            newState.searchResults = newSearchResults;
-            newState.hasNext = results.responseData.next !== null;
-            return newState;
+            return {
+                ...state,
+                searchResults:
+                    state.page === 1
+                        ? results
+                        : [...state.searchResults, ...results],
+                hasNext: results.responseData.next !== null
+            };
+        }
 
         case "page":
-            newState.page = action.to;
-            return newState;
+            return { ...state, page: action.to };
+
+        default:
+            throw new Error(`Unknown action: ${action.type}`);
     }
-    throw new Error(`Unknown action: ${action.type}`);
 };
 
 const ModelKitSelect = ({
@@ -105,7 +114,17 @@ const ModelKitSelect = ({
     selected = []
 }) => {
     // track filter parameters & search results
-    const [state, dispatch] = useReducer(reducer.bind(null, allowMultiple), {
+    const [
+        {
+            searchParams,
+            page,
+            selectedIds,
+            preSelected,
+            searchResults,
+            hasNext
+        },
+        dispatch
+    ] = useReducer(reducer.bind(null, allowMultiple), {
         searchParams: {},
         page: 1,
         selectedIds: selected, // track PKs of kits that are selected
@@ -114,12 +133,10 @@ const ModelKitSelect = ({
         hasNext: null
     });
 
-    const { searchParams, page } = state;
-
     // load the preview for selected kit IDs
     // this is one-off, so no state dependencies!
     useAsync(() => {
-        const promises = state.selectedIds.map(id => modelKitConsumer.read(id));
+        const promises = selectedIds.map(id => modelKitConsumer.read(id));
         return Promise.all(promises)
             .then(kits => {
                 dispatch({
@@ -131,7 +148,8 @@ const ModelKitSelect = ({
     }, []);
 
     // make an API call whenever the search params change
-    const [, cancel] = useDebounce(
+    // TODO: use the const [_, cancel] = args (on unmount -> cancel)
+    useDebounce(
         () => {
             if (isEmpty(searchParams)) return;
             modelKitConsumer
@@ -148,7 +166,6 @@ const ModelKitSelect = ({
         [searchParams, page]
     );
 
-    const { preSelected, searchResults } = state;
     const preSelectedIds = preSelected.map(kit => kit.id);
     const searchResultsToRender = searchResults.filter(
         kit => !preSelectedIds.includes(kit.id)
@@ -190,14 +207,14 @@ const ModelKitSelect = ({
                             htmlName={htmlName}
                             inputType={allowMultiple ? "checkbox" : "radio"}
                             kit={kit}
-                            selected={state.selectedIds.includes(kit.id)}
+                            selected={selectedIds.includes(kit.id)}
                             onToggle={(kit, checked) =>
                                 dispatch({ type: "kitToggle", kit, checked })
                             }
                         />
                     ))}
 
-                    {state.hasNext ? (
+                    {hasNext ? (
                         <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
                             <button
                                 className="btn bg-main-blue"
@@ -205,7 +222,7 @@ const ModelKitSelect = ({
                                 onClick={() =>
                                     dispatch({
                                         type: "page",
-                                        to: state.page + 1
+                                        to: page + 1
                                     })
                                 }
                             >

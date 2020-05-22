@@ -29,7 +29,7 @@ const FilterForm = ({ setSearchParam }) => {
                 <AsyncSelect
                     consumer={brandConsumer}
                     optionGetter={brandOptionGetter}
-                    onChange={setSearchParam.bind(this, "brand")}
+                    onChange={setSearchParam.bind(null, "brand")}
                 />
             </div>
 
@@ -37,12 +37,12 @@ const FilterForm = ({ setSearchParam }) => {
                 <AsyncSelect
                     consumer={scaleConsumer}
                     optionGetter={scaleOptionGetter}
-                    onChange={setSearchParam.bind(this, "scale")}
+                    onChange={setSearchParam.bind(null, "scale")}
                 />
             </div>
 
             <div className="col-xs-12 col-sm-4">
-                <SearchInput onChange={setSearchParam.bind(this, "name")} />
+                <SearchInput onChange={setSearchParam.bind(null, "name")} />
             </div>
         </div>
     );

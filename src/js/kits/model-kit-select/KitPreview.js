@@ -45,6 +45,7 @@ const KitPreview = ({
                     src={thumbImg}
                     className="img-responsive"
                     onError={onThumbError}
+                    alt="boxart"
                 />
                 <span className="h5">
                     <strong>
