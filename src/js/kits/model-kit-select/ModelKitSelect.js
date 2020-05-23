@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { ModelKitConsumer } from "../../data/kits/modelkit";
 import { FilterForm } from "./FilterForm";
 import { KitPreview } from "./KitPreview";
+import { ModelKitAdd } from "./ModelKitAdd";
 
 const DEBOUNCE = 300; // debounce in ms
 
@@ -204,6 +205,7 @@ const ModelKitSelect = ({
                     })}
                 >
                     <div className="text-center add-kit col-xs-12">
+                        <ModelKitAdd />
                         {/* TODO: onClick handler */}
                         <a href="#" data-target="#add-kit-modal">
                             <h3>&hellip; of voeg een nieuwe kit toe</h3>

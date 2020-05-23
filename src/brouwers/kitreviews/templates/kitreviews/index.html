@@ -22,5 +22,5 @@
 
 {% block modals %}
     {{ block.super }}
-    {% add_kit_modal %}
+    {% add_kit_modal data=form.cleaned_data %}
 {% endblock modals %}

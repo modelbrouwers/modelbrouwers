@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<div class="modal fade" id="add-kit-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{% trans "Add new kit to the database" %}</h4>
+                <p>{% trans "Please, only add new kits if they were not available via the search function." %}</p>
+            </div>
+
+            <div class="modal-body">
+                <!-- mount react component here -->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn bg-main-grey" data-dismiss="modal">{% trans "Close" %}</button>
+                <button type="submit" class="btn bg-main-blue">{% trans "Save" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
