@@ -24,4 +24,4 @@ class BrandConsumer extends CrudConsumer {
     }
 }
 
-export { BrandConsumer };
+export { Brand, BrandConsumer };

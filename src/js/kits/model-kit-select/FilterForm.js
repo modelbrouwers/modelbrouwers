@@ -9,16 +9,18 @@ import { AsyncSelect } from "./AsyncSelect";
 const brandConsumer = new BrandConsumer();
 const brandOptionGetter = brand => {
     return {
-        value: brand.id,
-        label: brand.name
+        value: brand.id.toString(),
+        label: brand.name,
+        option: brand
     };
 };
 
 const scaleConsumer = new ScaleConsumer();
 const scaleOptionGetter = scale => {
     return {
-        value: scale.id,
-        label: scale.__str__
+        value: scale.id.toString(),
+        label: scale.__str__,
+        option: scale
     };
 };
 

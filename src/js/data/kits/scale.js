@@ -37,4 +37,4 @@ class ScaleConsumer extends CrudConsumer {
     }
 }
 
-export { cleanScale, ScaleConsumer };
+export { cleanScale, Scale, ScaleConsumer };

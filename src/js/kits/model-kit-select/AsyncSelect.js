@@ -25,11 +25,15 @@ const AsyncSelect = ({ consumer, optionGetter, onChange }) => {
         []
     );
     const options = loading ? [LOADING_OPTION] : value;
+
+    const onChangeHandler = event => {
+        const { value } = event.target;
+        const option = options.find(opt => opt.value === value);
+        onChange(option ?? null);
+    };
+
     return (
-        <select
-            onChange={event => onChange(event.target.value)}
-            className="form-control"
-        >
+        <select onChange={onChangeHandler} className="form-control">
             {options.map(option => (
                 <option key={option.value} value={option.value}>
                     {option.label}

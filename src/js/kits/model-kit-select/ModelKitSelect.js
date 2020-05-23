@@ -30,6 +30,32 @@ const reducer = (allowMultiple, state, action) => {
             }
         }
 
+        case "SET_NEW_KIT_PARAM": {
+            const { param, target } = action.payload;
+            let newKitParams;
+
+            switch (param) {
+                case "brand":
+                case "scale":
+                    newKitParams = {
+                        ...state.newKitParams,
+                        [param]: target.option
+                    };
+                    break;
+
+                case "name":
+                    newKitParams = {
+                        ...state.newKitParams,
+                        name: target.value
+                    };
+                    break;
+
+                default:
+                    throw new Error(`Unknown param ${param}`);
+            }
+            return { ...state, newKitParams: newKitParams };
+        }
+
         case "SET_INITIAL_KITS": {
             // include the pre-selected kits that are _still_ selected
             const kits = action.payload;
@@ -123,7 +149,8 @@ const ModelKitSelect = ({
             selectedIds,
             preSelected,
             searchResults,
-            hasNext
+            hasNext,
+            newKitParams
         },
         dispatch
     ] = useReducer(reducer.bind(null, allowMultiple), {
@@ -132,7 +159,8 @@ const ModelKitSelect = ({
         selectedIds: selected, // track PKs of kits that are selected
         preSelected: [],
         searchResults: [],
-        hasNext: null
+        hasNext: null,
+        newKitParams: {}
     });
 
     // load the preview for selected kit IDs
@@ -189,15 +217,23 @@ const ModelKitSelect = ({
                     {/* validation errors*/}
                 </div>
                 <FilterForm
-                    setSearchParam={(param, value) =>
+                    setSearchParam={(param, target) => {
+                        const { value } = target;
                         dispatch({
                             type: "UPDATE_SEARCH_PARAM",
                             payload: {
                                 param: param,
                                 value: value
                             }
-                        })
-                    }
+                        });
+                        dispatch({
+                            type: "SET_NEW_KIT_PARAM",
+                            payload: {
+                                param: param,
+                                target: target
+                            }
+                        });
+                    }}
                 />
                 <div
                     className={classNames("row", "kit-suggestions", {
@@ -205,8 +241,11 @@ const ModelKitSelect = ({
                     })}
                 >
                     <div className="text-center add-kit col-xs-12">
-                        <ModelKitAdd />
-                        {/* TODO: onClick handler */}
+                        <ModelKitAdd
+                            brand={newKitParams.brand}
+                            scale={newKitParams.scale}
+                            name={newKitParams.name}
+                        />
                         <a href="#" data-target="#add-kit-modal">
                             <h3>&hellip; of voeg een nieuwe kit toe</h3>
                             <i className="fa fa-plus fa-5x" />
