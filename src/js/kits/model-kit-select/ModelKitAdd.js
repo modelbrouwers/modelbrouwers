@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import { FormField } from "../../components/forms/FormField";
 import { RadioSelect } from "../../components/forms/RadioSelect";
 
-import { Brand } from "../../data/kits/brand";
-import { Scale } from "../../data/kits/scale";
+import { Brand, BrandConsumer } from "../../data/kits/brand";
+import { Scale, ScaleConsumer } from "../../data/kits/scale";
 import { ModalContext, KitSearchContext } from "./context";
-import { BrandAutocomplete } from "./BrandAutocomplete";
+import { KitFieldSelect } from "./KitFieldSelect";
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
@@ -20,6 +20,9 @@ const DIFFICULTY_CHOICES = [
     { value: 50, display: "very hard" }
 ];
 
+const brandConsumer = new BrandConsumer();
+const scaleConsumer = new ScaleConsumer();
+
 const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
     const [values, setValues] = useState({});
     const onChange = event => {
@@ -30,14 +33,21 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
     return (
         <div className="form-horizontal">
             <FormField htmlId="add-kit-brand" label="brand" required={true}>
-                <BrandAutocomplete brand={brand} onChange={onChange} />
+                <KitFieldSelect
+                    name="brand"
+                    consumer={brandConsumer}
+                    labelField="name"
+                    onChange={onChange}
+                    defaultValue={brand}
+                />
             </FormField>
             <FormField htmlId="add-kit-scale" label="scale" required={true}>
-                <input
-                    type="text"
-                    className="form-control"
-                    required
-                    defaultValue={scale ? `${scale.__str__}:${scale.id}` : ""}
+                <KitFieldSelect
+                    name="scale"
+                    consumer={scaleConsumer}
+                    labelField="__str__"
+                    onChange={onChange}
+                    defaultValue={scale}
                 />
             </FormField>
             <FormField htmlId="add-kit-name" label="name" required={true}>
