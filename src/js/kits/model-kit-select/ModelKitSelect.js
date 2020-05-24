@@ -240,17 +240,19 @@ const ModelKitSelect = ({
                         "kit-suggestions--no-results": noResults
                     })}
                 >
-                    <div className="text-center add-kit col-xs-12">
-                        <ModelKitAdd
-                            brand={newKitParams.brand}
-                            scale={newKitParams.scale}
-                            name={newKitParams.name}
-                        />
-                        <a href="#" data-target="#add-kit-modal">
-                            <h3>&hellip; of voeg een nieuwe kit toe</h3>
-                            <i className="fa fa-plus fa-5x" />
-                        </a>
-                    </div>
+                    {noResults ? (
+                        <div className="text-center add-kit col-xs-12">
+                            <ModelKitAdd
+                                brand={newKitParams.brand}
+                                scale={newKitParams.scale}
+                                name={newKitParams.name}
+                            />
+                            <a href="#" data-target="#add-kit-modal">
+                                <h3>&hellip; of voeg een nieuwe kit toe</h3>
+                                <i className="fa fa-plus fa-5x" />
+                            </a>
+                        </div>
+                    ) : null}
 
                     {allKits.map(kit => (
                         <KitPreview
