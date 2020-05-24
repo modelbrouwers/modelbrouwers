@@ -1,10 +1,6 @@
 import { cleanScale } from "../data/kits/scale";
 
-import {
-    AddDefaultsFiller,
-    Autocomplete,
-    NewKitSubmitter
-} from "./modelkit.lib.js";
+import { Autocomplete, NewKitSubmitter } from "./modelkit.lib.js";
 
 let conf = {
     prefix: "__modelkitselect",
@@ -29,7 +25,6 @@ let conf = {
     }
 };
 
-let filler = new AddDefaultsFiller(conf);
 let submitter = new NewKitSubmitter(conf);
 
 const initModal = node => {
@@ -46,9 +41,7 @@ const initModal = node => {
         return false;
     });
 
-    $(conf.add_modal)
-        // .on("shown.bs.modal", filler.callback.bind(filler))
-        .on("click", 'button[type="submit"]', submitter.callback);
+    $(conf.add_modal).on("click", 'button[type="submit"]', submitter.callback);
 };
 
 export { initModal };

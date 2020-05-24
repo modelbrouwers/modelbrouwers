@@ -8,6 +8,7 @@ import { RadioSelect } from "../../components/forms/RadioSelect";
 import { Brand } from "../../data/kits/brand";
 import { Scale } from "../../data/kits/scale";
 import { ModalContext, KitSearchContext } from "./context";
+import { BrandAutocomplete } from "./BrandAutocomplete";
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
@@ -21,21 +22,17 @@ const DIFFICULTY_CHOICES = [
 
 const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
     const [values, setValues] = useState({});
-
     const onChange = event => {
         const { name, value } = event.target;
         setValues({ ...values, [name]: value });
     };
 
+    console.log(values);
+
     return (
         <div className="form-horizontal">
             <FormField htmlId="add-kit-brand" label="brand" required={true}>
-                <input
-                    type="text"
-                    className="form-control"
-                    required
-                    defaultValue={brand ? `${brand.name}:${brand.id}` : ""}
-                />
+                <BrandAutocomplete brand={brand} onChange={onChange} />
             </FormField>
 
             <FormField htmlId="add-kit-scale" label="scale" required={true}>

@@ -11,34 +11,6 @@ import { ScaleConsumer } from "../data/kits/scale";
 import { ModelKitConsumer } from "../data/kits/modelkit";
 
 /**
- * Helper class to fill the defaults from the search form fields.
- */
-export class AddDefaultsFiller {
-    constructor(conf) {
-        this.conf = conf;
-    }
-
-    callback(event) {
-        let fields = ["brand", "scale"];
-        let selBrand = `#id_${this.conf.prefix}-brand`;
-        let selScale = `#id_${this.conf.prefix}-scale`;
-
-        fields.forEach(field => {
-            let sel = `#id_${this.conf.prefix}-${field}`;
-            let option = $(sel).find("option:selected");
-            if ($(sel).val() && option) {
-                let input = $(`#id_${this.conf.prefix_add}-${field}_ta`);
-                if (!input.val()) {
-                    let hiddenInput = $(`#id_${this.conf.prefix_add}-${field}`);
-                    hiddenInput.val(option.val());
-                    input.val(option.text());
-                }
-            }
-        });
-    }
-}
-
-/**
  * Class to handle submission of a new kit to the API.
  */
 export class NewKitSubmitter {

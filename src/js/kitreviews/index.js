@@ -4,11 +4,7 @@ import "bootstrap";
 import Slider from "./slider.js";
 
 import { cleanScale } from "../data/kits/scale";
-import {
-    AddDefaultsFiller,
-    Autocomplete,
-    NewKitSubmitter
-} from "../kits/modelkit.lib.js";
+import { Autocomplete, NewKitSubmitter } from "../kits/modelkit.lib.js";
 
 class KitreviewsNewKitSubmitter extends NewKitSubmitter {
     kitCreated(kit) {
@@ -36,7 +32,6 @@ class AddKitModal {
             id_image_upload: "id___modelkitadd-box_image"
         };
 
-        let filler = new AddDefaultsFiller(conf);
         let submitter = new KitreviewsNewKitSubmitter(conf);
 
         // bind manually, because the globally included bootstrap is being annoying
@@ -47,9 +42,11 @@ class AddKitModal {
         });
 
         // bind the modal submit to API calls
-        $(this.selector)
-            .on("shown.bs.modal", filler.callback.bind(filler))
-            .on("click", 'button[type="submit"]', submitter.callback);
+        $(this.selector).on(
+            "click",
+            'button[type="submit"]',
+            submitter.callback
+        );
     }
 }
 
