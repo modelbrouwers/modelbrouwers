@@ -24,7 +24,11 @@ const brandConsumer = new BrandConsumer();
 const scaleConsumer = new ScaleConsumer();
 
 const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
-    const [values, setValues] = useState({});
+    const [values, setValues] = useState({
+        brand: brand ? brand.id : null,
+        scale: scale ? scale.id : null,
+        name: name ?? ""
+    });
     const onChange = event => {
         const { name, value } = event.target;
         setValues({ ...values, [name]: value });
@@ -53,10 +57,12 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
             <FormField htmlId="add-kit-name" label="name" required={true}>
                 <input
                     type="text"
+                    name="name"
                     className="form-control"
                     required
-                    defaultValue={name}
+                    value={values.name || ""}
                     placeholder="kit name"
+                    onChange={onChange}
                 />
             </FormField>
             <FormField
@@ -66,9 +72,11 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
             >
                 <input
                     type="text"
+                    name="kit_number"
                     className="form-control"
-                    defaultValue={""}
+                    value={values.kit_number || ""}
                     placeholder="kit number"
+                    onChange={onChange}
                 />
             </FormField>
             {/* TODO: box image */}
