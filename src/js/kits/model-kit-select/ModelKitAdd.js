@@ -27,14 +27,11 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
         setValues({ ...values, [name]: value });
     };
 
-    console.log(values);
-
     return (
         <div className="form-horizontal">
             <FormField htmlId="add-kit-brand" label="brand" required={true}>
                 <BrandAutocomplete brand={brand} onChange={onChange} />
             </FormField>
-
             <FormField htmlId="add-kit-scale" label="scale" required={true}>
                 <input
                     type="text"
@@ -43,7 +40,6 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                     defaultValue={scale ? `${scale.__str__}:${scale.id}` : ""}
                 />
             </FormField>
-
             <FormField htmlId="add-kit-name" label="name" required={true}>
                 <input
                     type="text"
@@ -53,7 +49,6 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                     placeholder="kit name"
                 />
             </FormField>
-
             <FormField
                 htmlId="add-kit-number"
                 label="kit number"
@@ -66,9 +61,7 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                     placeholder="kit number"
                 />
             </FormField>
-
             {/* TODO: box image */}
-
             <RadioSelect
                 htmlId="add-kit-difficulty"
                 name="difficulty"
@@ -78,6 +71,7 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                 onChange={onChange}
                 currentValue={values.difficulty}
             />
+            Create params: <code>{JSON.stringify(values)}</code>
         </div>
     );
 };
