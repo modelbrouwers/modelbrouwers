@@ -1,44 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+
+import { FormField } from "../../components/forms/FormField";
+import { RadioSelect } from "../../components/forms/RadioSelect";
 
 import { Brand } from "../../data/kits/brand";
 import { Scale } from "../../data/kits/scale";
 import { ModalContext, KitSearchContext } from "./context";
 
-const FormField = ({
-    htmlId,
-    label,
-    required = false,
-    labelGrid = "col-sm-4",
-    fieldGrid = "col-sm-8",
-    children
-}) => {
-    const labelClassNames = classNames("control-label", labelGrid, {
-        required: required
-    });
-    return (
-        <div className="form-group clearfix">
-            <label
-                id={`label_${htmlId}`}
-                htmlFor={htmlId}
-                className={labelClassNames}
-            >
-                {label}
-            </label>
-            <div className={fieldGrid}>{children}</div>
-        </div>
-    );
-};
+// see brouwers.kits.models.KitDifficulties
+// TODO: inject this into the DOM and read from the DOM
+const DIFFICULTY_CHOICES = [
+    { value: 10, display: "very easy" },
+    { value: 20, display: "easy" },
+    { value: 30, display: "medium" },
+    { value: 40, display: "hard" },
+    { value: 50, display: "very hard" }
+];
 
-const ModalContent = ({ brand = null, scale = null, name = "" }) => {
+const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
+    const [values, setValues] = useState({});
+
+    const onChange = event => {
+        const { name, value } = event.target;
+        setValues({ ...values, [name]: value });
+    };
+
     return (
         <div className="form-horizontal">
             <FormField htmlId="add-kit-brand" label="brand" required={true}>
                 <input
                     type="text"
                     className="form-control"
+                    required
                     defaultValue={brand ? `${brand.name}:${brand.id}` : ""}
                 />
             </FormField>
@@ -47,6 +42,7 @@ const ModalContent = ({ brand = null, scale = null, name = "" }) => {
                 <input
                     type="text"
                     className="form-control"
+                    required
                     defaultValue={scale ? `${scale.__str__}:${scale.id}` : ""}
                 />
             </FormField>
@@ -55,9 +51,36 @@ const ModalContent = ({ brand = null, scale = null, name = "" }) => {
                 <input
                     type="text"
                     className="form-control"
+                    required
                     defaultValue={name}
+                    placeholder="kit name"
                 />
             </FormField>
+
+            <FormField
+                htmlId="add-kit-number"
+                label="kit number"
+                required={false}
+            >
+                <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={""}
+                    placeholder="kit number"
+                />
+            </FormField>
+
+            {/* TODO: box image */}
+
+            <RadioSelect
+                htmlId="add-kit-difficulty"
+                name="difficulty"
+                label="difficulty"
+                choices={DIFFICULTY_CHOICES}
+                required={false}
+                onChange={onChange}
+                currentValue={values.difficulty}
+            />
         </div>
     );
 };
@@ -65,7 +88,7 @@ const ModalContent = ({ brand = null, scale = null, name = "" }) => {
 const ModelKitAdd = ({ brand = null, scale = null, name = "" }) => {
     const modalNode = useContext(ModalContext);
     return ReactDOM.createPortal(
-        <ModalContent brand={brand} scale={scale} name={name} />,
+        <AddKitForm brand={brand} scale={scale} name={name} />,
         modalNode
     );
 };
