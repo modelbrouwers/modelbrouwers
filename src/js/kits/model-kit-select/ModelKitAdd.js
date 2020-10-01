@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import { useEvent } from "react-use";
 
 import { FormField } from "../../components/forms/FormField";
 import { RadioSelect } from "../../components/forms/RadioSelect";
 
 import { Brand, BrandConsumer } from "../../data/kits/brand";
-import { Scale, ScaleConsumer } from "../../data/kits/scale";
+import { Scale, ScaleConsumer, cleanScale } from "../../data/kits/scale";
 import { ModalContext, KitSearchContext } from "./context";
-import { KitFieldSelect } from "./KitFieldSelect";
+import { brandOptionGetter, scaleOptionGetter } from './FilterForm';
+import KitFieldSelect from "./KitFieldSelect";
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
@@ -23,25 +25,26 @@ const DIFFICULTY_CHOICES = [
 const brandConsumer = new BrandConsumer();
 const scaleConsumer = new ScaleConsumer();
 
-const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
+const AddKitForm = ({
+    brand = null,
+    scale = null,
+    name = "",
+    kitNumber="",
+    difficulty=null,
+    onChange,
+    children
+}) => {
 
-    const onNewKitDefaultChange = (event) => {
-        // console.log(event);
-        const { name, value } = event.target;
-        dispatch({
-            type: 'SET_NEW_KIT_PARAM',
-            payload: {
-                param: name,
-                target: event.target,
-            }
-        });
+    const onSelectChange = (selectedOption, action) => {
+        const {name} = action;
+        const value = selectedOption ? selectedOption.option : null;
+        onChange({name, value});
     };
 
-    const onChange = event => {
-        console.log(name, value);
+    const onInputChange = (event) => {
+        const {name, value} = event.target;
+        onChange({name, value});
     };
-
-    return null;
 
     return (
         <div className="form-horizontal">
@@ -49,8 +52,9 @@ const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
                 <KitFieldSelect
                     name="brand"
                     consumer={brandConsumer}
-                    labelField="name"
-                    onChange={onNewKitDefaultChange}
+                    prepareQuery={ inputValue => inputValue ? {name: inputValue} : {} }
+                    optionGetter={brandOptionGetter}
+                    onChange={onSelectChange}
                     value={brand}
                 />
             </FormField>
@@ -58,8 +62,9 @@ const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
                 <KitFieldSelect
                     name="scale"
                     consumer={scaleConsumer}
-                    labelField="__str__"
-                    onChange={onNewKitDefaultChange}
+                    prepareQuery={ inputValue => inputValue ? {scale: cleanScale(inputValue)} : {} }
+                    optionGetter={scaleOptionGetter}
+                    onChange={onSelectChange}
                     value={scale}
                 />
             </FormField>
@@ -71,21 +76,17 @@ const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
                     required
                     value={name}
                     placeholder="kit name"
-                    onChange={onChange}
+                    onChange={onInputChange}
                 />
             </FormField>
-            <FormField
-                htmlId="add-kit-number"
-                label="kit number"
-                required={false}
-            >
+            <FormField htmlId="add-kit-number" label="kit number" required={false}>
                 <input
                     type="text"
                     name="kit_number"
                     className="form-control"
-                    value=""
+                    value={kitNumber}
                     placeholder="kit number"
-                    onChange={onChange}
+                    onChange={onInputChange}
                 />
             </FormField>
 
@@ -97,26 +98,48 @@ const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
                 label="difficulty"
                 choices={DIFFICULTY_CHOICES}
                 required={false}
-                onChange={onChange}
-                currentValue=""
+                onChange={onInputChange}
+                currentValue={difficulty}
             />
+            {children}
         </div>
     );
 };
 
-const ModelKitAdd = ({ dispatch, brand = null, scale = null, name = "" }) => {
-    const modalNode = useContext(ModalContext);
-    return ReactDOM.createPortal(
-        <AddKitForm dispatch={dispatch} brand={brand} scale={scale} name={name} />,
-        modalNode
-    );
-};
-
-ModelKitAdd.propTypes = {
-    dispatch: PropTypes.func.isRequired,
+AddKitForm.propTypes = {
+    onChange: PropTypes.func.isRequired,
     brand: PropTypes.instanceOf(Brand),
     scale: PropTypes.instanceOf(Scale),
     name: PropTypes.string,
+    kitNumber: PropTypes.string,
+    difficulty: PropTypes.string,
+    children: PropTypes.node,
+};
+
+const ModelKitAdd = (props) => {
+    const { brand, scale, name, kitNumber, difficulty } = props;
+    const {modalBody, modalForm} = useContext(ModalContext);
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        const submitData = {
+            brand: brand ? brand.id : null,
+            scale: scale ? scale.id : null,
+            name: name,
+            kit_number: kitNumber || "",
+            difficulty: difficulty | "",
+        };
+        console.group("Submit data:");
+        console.log(submitData);
+        console.groupEnd();
+    };
+
+    useEvent("submit", onSubmit, modalForm);
+
+    return ReactDOM.createPortal(
+        <AddKitForm {...props} />,
+        modalBody
+    );
 };
 
 export { ModelKitAdd };

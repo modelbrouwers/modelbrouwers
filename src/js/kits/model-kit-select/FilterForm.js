@@ -70,4 +70,4 @@ FilterForm.propTypes = {
     onChange: PropTypes.func.isRequired
 };
 
-export { FilterForm };
+export { FilterForm, brandOptionGetter, scaleOptionGetter };

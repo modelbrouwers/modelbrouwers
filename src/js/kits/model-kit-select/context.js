@@ -1,5 +1,8 @@
 import React from "react";
 
-const ModalContext = React.createContext(null);
+const ModalContext = React.createContext({
+    modalBody: null,
+    modalForm: null,
+});
 
 export { ModalContext };

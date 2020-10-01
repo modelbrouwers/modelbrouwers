@@ -228,6 +228,16 @@ const ModelKitSelect = ({
         });
     };
 
+    const onCreateFieldChange = ({name, value}) => {
+        dispatch({
+            type: "SET_CREATE_KIT_PARAM",
+            payload: {
+                param: name,
+                value: value,
+            }
+        });
+    };
+
     // const noResults = !isEmpty(searchParams) && searchResults.length === 0;
     const noResults = true;
 
@@ -254,7 +264,9 @@ const ModelKitSelect = ({
                                 brand={createKitData.brand}
                                 scale={createKitData.scale}
                                 name={createKitData.name}
-                                dispatch={dispatch}
+                                kitNumber={createKitData.kit_number}
+                                difficulty={createKitData.difficulty}
+                                onChange={onCreateFieldChange}
                             />
                             <a href="#" data-target="#add-kit-modal">
                                 <h3>&hellip; of voeg een nieuwe kit toe</h3>

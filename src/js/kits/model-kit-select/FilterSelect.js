@@ -6,10 +6,8 @@ const FilterSelect = ({ name, consumer, optionGetter, onChange }) => {
 
     const loadOptions = () => {
         return consumer.list()
-            .then( (objects) => {
-                const mapped = objects.map(optionGetter);
-                return mapped;
-            });
+            .then( objects => objects.map(optionGetter) )
+            .catch(console.error);
     };
 
     return (
@@ -17,7 +15,7 @@ const FilterSelect = ({ name, consumer, optionGetter, onChange }) => {
             name={name}
             defaultOptions
             loadOptions={loadOptions}
-            isClearable={true}
+            isClearable
             isSearchable={false}
             onChange={onChange}
         />

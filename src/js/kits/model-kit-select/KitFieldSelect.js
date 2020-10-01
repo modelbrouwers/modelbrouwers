@@ -1,80 +1,43 @@
 import React, { useState } from "react";
-import { useAsync, useDebounce } from "react-use";
 import PropTypes from "prop-types";
-import CreatableSelect from "react-select/creatable";
+import AsyncCreatableSelect from 'react-select/async-creatable';
 
-const getOption = (object, labelField) => {
-    return {
-        value: object.id,
-        label: object[labelField]
+
+const KitFieldSelect = ({name, consumer, prepareQuery, optionGetter, onChange, value = null}) => {
+    const loadOptions = (inputValue) => {
+        const params = prepareQuery(inputValue);
+        return consumer
+            .filter(params)
+            .then( objects => objects.map(optionGetter) )
+            .catch(console.error);
     };
-};
 
-const loadOptions = (consumer, labelField) => {
-    return consumer
-        .list()
-        .then(objectList =>
-            objectList.map(object => getOption(object, labelField))
-        )
-        .catch(console.error);
-};
+    const selectedValue = value ? optionGetter(value) : null;
 
-const KitFieldSelect = ({
-    name,
-    consumer,
-    labelField,
-    onChange,
-    value = null
-}) => {
-
-    // console.log(value);
-
-    const state = useAsync(
-        () => loadOptions(consumer, labelField),
-        []
-    );
-
-    const selectValue = value ? getOption(value, labelField) : null;
-
-    const onOptionChange = (option, meta) => {
-        const name = meta.name;
-
-        switch (meta.action) {
-            case "select-option":
-                onChange({ target: { name, value: option.value } });
-                break;
-
-            case "create-option":
-                // create new instance in the backend
-                consumer
-                    .fromRaw(option.value)
-                    .then(newObject => {
-                        option.value = newObject.id;
-                        setState({
-                            value: option,
-                            options: [option].concat(state.value)
-                        });
-                        // notify upstream component
-                        onChange({ target: { name, value: option.value } });
-                    })
-                    .catch(console.error);
-                break;
-
-            case "clear":
-                onChange({ target: { name, value: null } });
-                break;
+    const onSelectChange = (option, meta) => {
+        if (meta.action !== "create-option") {
+            onChange(option, meta);
+        } else {
+            // create new instance in the backend
+            consumer
+                .fromRaw(option.value)
+                .then( instance => {
+                    const newOption = optionGetter(instance);
+                    Object.assign(option, newOption);
+                    onChange(option, meta);
+                });
         }
     };
 
-    const { error, loading } = state;
     return (
-        <CreatableSelect
+        <AsyncCreatableSelect
             name={name}
+            defaultOptions
+            loadOptions={loadOptions}
             isClearable
-            isLoading={loading}
-            value={selectValue}
-            options={state.value}
-            onChange={onOptionChange}
+            isSearchable
+            value={selectedValue}
+            onChange={onSelectChange}
         />
     );
 };
@@ -85,9 +48,10 @@ KitFieldSelect.propTypes = {
         list: PropTypes.func.isRequired,
         fromRaw: PropTypes.func.isRequired
     }).isRequired,
-    labelField: PropTypes.string.isRequired,
+    prepareQuery: PropTypes.func.isRequired,
+    optionGetter: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.object
+    value: PropTypes.object,
 };
 
-export { KitFieldSelect };
+export default KitFieldSelect;

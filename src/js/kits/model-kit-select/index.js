@@ -15,6 +15,7 @@ const messages = getMessages(locale);
 const nodes = document.querySelectorAll(".model-kit-select");
 const modalNode = document.getElementById("add-kit-modal");
 const modalBody = modalNode ? modalNode.querySelector(".modal-body") : null;
+const modalForm = modalNode ? modalNode.querySelector("form") : null;
 
 for (const node of nodes) {
     const { label, allowMultiple, htmlname, selected } = node.dataset;
@@ -28,7 +29,7 @@ for (const node of nodes) {
     // mount component in the DOM node
     ReactDOM.render(
         <IntlProvider locale={locale} messages={messages}>
-            <ModalContext.Provider value={modalBody}>
+            <ModalContext.Provider value={{modalBody, modalForm}}>
                 <ModelKitSelect
                     label={label}
                     allowMultiple={_allowMultiple}
