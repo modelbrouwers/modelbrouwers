@@ -27,7 +27,7 @@ const KitFieldSelect = ({
     value = null
 }) => {
 
-    console.log(value);
+    // console.log(value);
 
     const state = useAsync(
         () => loadOptions(consumer, labelField),

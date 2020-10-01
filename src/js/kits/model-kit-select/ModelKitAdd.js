@@ -26,7 +26,7 @@ const scaleConsumer = new ScaleConsumer();
 const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
 
     const onNewKitDefaultChange = (event) => {
-        console.log(event);
+        // console.log(event);
         const { name, value } = event.target;
         dispatch({
             type: 'SET_NEW_KIT_PARAM',
@@ -40,6 +40,8 @@ const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
     const onChange = event => {
         console.log(name, value);
     };
+
+    return null;
 
     return (
         <div className="form-horizontal">

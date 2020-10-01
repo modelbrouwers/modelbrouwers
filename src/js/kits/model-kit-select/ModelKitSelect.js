@@ -3,6 +3,7 @@ import React, { useReducer } from "react";
 import PropTypes from "prop-types";
 import { useAsync, useDebounce } from "react-use";
 import classNames from "classnames";
+import { useImmerReducer } from "use-immer";
 
 import { ModelKitConsumer } from "../../data/kits/modelkit";
 import { FilterForm } from "./FilterForm";
@@ -15,125 +16,106 @@ const modelKitConsumer = new ModelKitConsumer();
 
 const isEmpty = obj => !Object.keys(obj).length;
 
-const reducer = (allowMultiple, state, action) => {
-    switch (action.type) {
-        case "UPDATE_SEARCH_PARAM": {
-            // update the search param (brand, scale or name)
-            // page is handled separately
-            const { param, value } = action.payload;
-            if (!value) {
-                const { [param]: value, ...rest } = state.searchParams;
-                return { ...state, searchParams: rest };
-            } else {
-                const searchParams = { ...state.searchParams, [param]: value };
-                return { ...state, searchParams: searchParams };
-            }
-        }
 
-        case "SET_NEW_KIT_PARAM": {
-            const { param, target } = action.payload;
-            let newKitParams;
-
-            switch (param) {
-                case "brand":
-                case "scale":
-                    newKitParams = {
-                        ...state.newKitParams,
-                        [param]: target.option
-                    };
-                    break;
-
-                case "name":
-                    newKitParams = {
-                        ...state.newKitParams,
-                        name: target.value
-                    };
-                    break;
-
-                default:
-                    throw new Error(`Unknown param ${param}`);
-            }
-            return { ...state, newKitParams: newKitParams };
-        }
-
-        case "SET_INITIAL_KITS": {
-            // include the pre-selected kits that are _still_ selected
-            const kits = action.payload;
-            return {
-                ...state,
-                preSelected: kits.filter(kit =>
-                    state.selectedIds.includes(kit.id)
-                )
-            };
-        }
-
-        case "TOGGLE_KIT": {
-            // remove kits that get unselected, add kits that get selected
-            const { kit, checked } = action.payload;
-            let preSelected = state.preSelected;
-            const preSelectedIds = preSelected.map(kit => kit.id);
-
-            // remove the kit from the pre selected kits if it gets untoggled - but only
-            // if there are search params
-            if (
-                !isEmpty(state.searchParams) &&
-                !checked &&
-                preSelectedIds.includes(kit.id)
-            ) {
-                preSelected = preSelected.filter(
-                    preSelectedKit => preSelectedKit.id !== kit.id
-                );
-            }
-
-            // keep track of the selected kit IDs
-            if (allowMultiple) {
-                const isPresent = state.selectedIds.includes(kit.id);
-                if (checked && !isPresent) {
-                    return {
-                        ...state,
-                        preSelected: preSelected,
-                        selectedIds: state.selectedIds.concat([kit.id])
-                    };
-                } else if (!checked && isPresent) {
-                    return {
-                        ...state,
-                        preSelected: preSelected,
-                        selectedIds: state.selectedIds.filter(
-                            id => id !== kit.id
-                        )
-                    };
-                }
-                // can't happen, but better safe than sorry?
-                return state;
-            } else {
-                return {
-                    ...state,
-                    preSelected: preSelected,
-                    selectedIds: checked ? [kit.id] : []
-                };
-            }
-        }
-
-        case "SET_SEARCH_RESULTS": {
-            // set the search result if it's page one, or append them if it's a higher page.
-            const results = action.payload;
-            return {
-                ...state,
-                searchResults:
-                    state.page === 1
-                        ? results
-                        : [...state.searchResults, ...results],
-                hasNext: results.responseData.next !== null
-            };
-        }
-
-        case "INCREMENT_PAGE":
-            return { ...state, page: state.page + 1 };
-
-        default:
-            throw new Error(`Unknown action: ${action.type}`);
-    }
+const getInitialState = (selected = []) => {
+    return {
+        searchParams: {},
+        page: 1,
+        selectedIds: selected, // track PKs of kits that are selected
+        preSelected: [],
+        searchResults: [],
+        hasNext: null,
+        createKitData: {}
+    };
 };
+
+
+const getReducer = (allowMultiple) => {
+    const reducer = (draft, action) => {
+        switch (action.type) {
+            case "UPDATE_SEARCH_PARAM": {
+                // update the search param (brand, scale or name)
+                // page is handled separately
+                const { param, value } = action.payload;
+                if (!value && draft.searchParams[param]) {
+                    delete draft.searchParams[param];
+                } else if (value) {
+                    draft.searchParams[param] = value;
+                }
+                break;
+            }
+
+            case "SET_CREATE_KIT_PARAM": {
+                const { param, value } = action.payload;
+                if (!value && draft.createKitData) {
+                    delete draft.createKitData[param];
+                } else if (value) {
+                    draft.createKitData[param] = value;
+                }
+                break;
+            }
+
+            case "SET_INITIAL_KITS": {
+                // include the pre-selected kits that are _still_ selected
+                const kits = action.payload;
+                draft.preSelected = kits.filter( kit => draft.selectedIds.includes(kit.id) );
+                break;
+            }
+
+            case "TOGGLE_KIT": {
+                // remove kits that get unselected, add kits that get selected
+                const { kit, checked } = action.payload;
+                const preSelectedIds = draft.preSelected.map(kit => kit.id);
+
+                // remove the kit from the pre selected kits if it gets untoggled - but only
+                // if there are search params
+                if (
+                    !isEmpty(draft.searchParams) &&
+                    !checked &&
+                    preSelectedIds.includes(kit.id)
+                ) {
+                    draft.preSelected = draft.preSelected.filter(
+                        preSelectedKit => preSelectedKit.id !== kit.id
+                    );
+                }
+
+                // keep track of the selected kit IDs
+                if (allowMultiple) {
+                    const isPresent = draft.selectedIds.includes(kit.id);
+                    if (checked && !isPresent) {
+                        draft.selectedIds = draft.selectedIds.concat([kit.id]);
+                    } else if (!checked && isPresent) {
+                        draft.selectedIds = draft.selectedIds.filter(id => id !== kit.id);
+                    }
+                } else {
+                    draft.selectedIds = checked ? [kit.id] : [];
+                }
+                break;
+            }
+
+            case "SET_SEARCH_RESULTS": {
+                // set the search result if it's page one, or append them if it's a higher page.
+                const results = action.payload;
+                draft.searchResults = draft.page === 1
+                    ? results
+                    : [...draft.searchResults, ...results];
+                draft.hasNext = results.responseData.next !== null;
+                break;
+            }
+
+            case "INCREMENT_PAGE": {
+                draft.page++;
+                break;
+            }
+
+            default:
+                throw new Error(`Unknown action: ${action.type}`);
+        }
+    };
+
+    return reducer;
+};
+
 
 const ModelKitSelect = ({
     label,
@@ -142,6 +124,9 @@ const ModelKitSelect = ({
     selected = []
 }) => {
     // track filter parameters & search results
+    const reducer = getReducer(allowMultiple);
+    const initialState = getInitialState(selected);
+
     const [
         {
             searchParams,
@@ -150,18 +135,10 @@ const ModelKitSelect = ({
             preSelected,
             searchResults,
             hasNext,
-            newKitParams
+            createKitData
         },
         dispatch
-    ] = useReducer(reducer.bind(null, allowMultiple), {
-        searchParams: {},
-        page: 1,
-        selectedIds: selected, // track PKs of kits that are selected
-        preSelected: [],
-        searchResults: [],
-        hasNext: null,
-        newKitParams: {}
-    });
+    ] = useImmerReducer(reducer, initialState);
 
     // load the preview for selected kit IDs
     // this is one-off, so no state dependencies!
@@ -227,7 +204,7 @@ const ModelKitSelect = ({
                             }
                         });
                         dispatch({
-                            type: "SET_NEW_KIT_PARAM",
+                            type: "SET_CREATE_KIT_PARAM",
                             payload: {
                                 param: param,
                                 target: target
@@ -243,9 +220,9 @@ const ModelKitSelect = ({
                     {noResults ? (
                         <div className="text-center add-kit col-xs-12">
                             <ModelKitAdd
-                                brand={newKitParams.brand}
-                                scale={newKitParams.scale}
-                                name={newKitParams.name}
+                                brand={createKitData.brand}
+                                scale={createKitData.scale}
+                                name={createKitData.name}
                                 dispatch={dispatch}
                             />
                             <a href="#" data-target="#add-kit-modal">
