@@ -34,7 +34,7 @@ django-sniplates==0.7.0   # via -r requirements/base.in
 django-solo==1.1.3        # via -r requirements/base.in
 django-taggit==1.2.0      # via -r requirements/base.in
 django-treebeard==4.3.1   # via -r requirements/base.in
-django==2.2.13            # via -r requirements/base.in, django-appconf, django-choices, django-extra-views, django-filter, django-import-export, django-modeltranslation, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-taggit, django-treebeard, djangorestframework
+django==2.2.16            # via -r requirements/base.in, django-appconf, django-choices, django-extra-views, django-filter, django-import-export, django-modeltranslation, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-taggit, django-treebeard, djangorestframework
 djangorestframework-filters==1.0.0.dev0  # via -r requirements/base.in
 djangorestframework==3.11.0  # via -r requirements/base.in, djangorestframework-filters
 et-xmlfile==1.0.1         # via openpyxl
