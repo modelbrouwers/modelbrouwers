@@ -7,7 +7,7 @@ import { useImmerReducer } from "use-immer";
 
 import { ModelKitConsumer } from "../../data/kits/modelkit";
 import { FilterForm } from "./FilterForm";
-import { KitPreview } from "./KitPreview";
+import { KitPreviews } from "./KitPreview";
 import { ModelKitAdd } from "./ModelKitAdd";
 
 const DEBOUNCE = 300; // debounce in ms
@@ -117,6 +117,27 @@ const getReducer = (allowMultiple) => {
 };
 
 
+const LoadMore = ({ show=false, onClick, children="load more" }) => {
+    if (!show) {
+        return null;
+    }
+    return (
+        <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
+            <button className="btn bg-main-blue" type="button" onClick={onClick}>
+                {children}
+            </button>
+            <i className="fa fa-pulse fa-spinner fa-4x" />
+        </div>
+    );
+};
+
+LoadMore.propTypes = {
+    show: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
+    children: PropTypes.node,
+};
+
+
 const ModelKitSelect = ({
     label,
     htmlName,
@@ -179,6 +200,34 @@ const ModelKitSelect = ({
     );
     const allKits = preSelected.concat(searchResultsToRender);
 
+    /**
+     * Handle a change in the search form
+     * @param  {String} options.name  Name of the search field
+     * @param  {String|Number|Object} options.value Value of the search field
+     * @return {Void}               Updates the component state on changes
+     */
+    const onSearchFieldChange = ({name, value}) => {
+        const searchParamValue = name === "name" ? value : value.id;
+
+        // trigger search
+        dispatch({
+            type: "UPDATE_SEARCH_PARAM",
+            payload: {
+                param: name,
+                value: searchParamValue,
+            }
+        });
+
+        // pre-populate create data
+        dispatch({
+            type: "SET_CREATE_KIT_PARAM",
+            payload: {
+                param: name,
+                value: value,
+            }
+        });
+    };
+
     // const noResults = !isEmpty(searchParams) && searchResults.length === 0;
     const noResults = true;
 
@@ -193,25 +242,7 @@ const ModelKitSelect = ({
                     {/* help text*/}
                     {/* validation errors*/}
                 </div>
-                <FilterForm
-                    setSearchParam={(param, target) => {
-                        const { value } = target;
-                        dispatch({
-                            type: "UPDATE_SEARCH_PARAM",
-                            payload: {
-                                param: param,
-                                value: value
-                            }
-                        });
-                        dispatch({
-                            type: "SET_CREATE_KIT_PARAM",
-                            payload: {
-                                param: param,
-                                target: target
-                            }
-                        });
-                    }}
-                />
+                <FilterForm onChange={onSearchFieldChange} />
                 <div
                     className={classNames("row", "kit-suggestions", {
                         "kit-suggestions--no-results": noResults
@@ -232,36 +263,19 @@ const ModelKitSelect = ({
                         </div>
                     ) : null}
 
-                    {allKits.map(kit => (
-                        <KitPreview
-                            key={kit.id}
-                            htmlName={htmlName}
-                            inputType={allowMultiple ? "checkbox" : "radio"}
-                            kit={kit}
-                            selected={selectedIds.includes(kit.id)}
-                            onToggle={(kit, checked) =>
-                                dispatch({
-                                    type: "TOGGLE_KIT",
-                                    payload: { kit, checked }
-                                })
-                            }
-                        />
-                    ))}
-
-                    {hasNext ? (
-                        <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
-                            <button
-                                className="btn bg-main-blue"
-                                type="button"
-                                onClick={() =>
-                                    dispatch({ type: "INCREMENT_PAGE" })
-                                }
-                            >
-                                load more
-                            </button>
-                            <i className="fa fa-pulse fa-spinner fa-4x" />
-                        </div>
-                    ) : null}
+                    <KitPreviews
+                        kits={allKits}
+                        htmlName={htmlName}
+                        inputType={allowMultiple ? "checkbox" : "radio"}
+                        selected={selectedIds}
+                        onToggle={(kit, checked) =>
+                            dispatch({
+                                type: "TOGGLE_KIT",
+                                payload: { kit, checked }
+                            })
+                        }
+                    />
+                    <LoadMore show={hasNext} onClick={ () => dispatch({type: "INCREMENT_PAGE"}) } />
                 </div>
             </div>
         </React.Fragment>

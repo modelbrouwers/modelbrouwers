@@ -69,4 +69,31 @@ KitPreview.propTypes = {
     onToggle: PropTypes.func
 };
 
-export { KitPreview };
+
+const KitPreviews = ({ htmlName, inputType="checkbox", selected=[], kits=[], onToggle }) => {
+    return (
+        <>
+            {kits.map(kit => (
+                <KitPreview
+                    key={kit.id}
+                    htmlName={htmlName}
+                    inputType={inputType}
+                    kit={kit}
+                    selected={selected.includes(kit.id)}
+                    onToggle={onToggle}
+                />
+            ))}
+        </>
+    );
+};
+
+KitPreviews.propTypes = {
+    htmlName: PropTypes.string.isRequired,
+    inputType: PropTypes.oneOf(["checkbox", "radio"]).isRequired,
+    selected: PropTypes.arrayOf(PropTypes.number),
+    kits: PropTypes.arrayOf(PropTypes.object),
+    onToggle: PropTypes.func.isRequired,
+};
+
+
+export { KitPreviews, KitPreview };

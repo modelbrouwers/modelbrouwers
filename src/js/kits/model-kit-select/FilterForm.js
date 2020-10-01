@@ -24,7 +24,21 @@ const scaleOptionGetter = scale => {
     };
 };
 
-const FilterForm = ({ setSearchParam }) => {
+const FilterForm = ({ onChange }) => {
+
+    const onSelectChange = (selectedOption, action) => {
+        const { name } = action;
+        const value = selectedOption ? selectedOption.option : null;
+        onChange({name, value});
+    };
+
+    const onNameChange = (event) => {
+        onChange({
+            name: "name",
+            value: event.target.value,
+        });
+    };
+
     return (
         <div className="row">
             <div className="col-xs-12 col-sm-4">
@@ -32,7 +46,7 @@ const FilterForm = ({ setSearchParam }) => {
                     name="brand"
                     consumer={brandConsumer}
                     optionGetter={brandOptionGetter}
-                    onChange={setSearchParam.bind(null, "brand")}
+                    onChange={onSelectChange}
                 />
             </div>
 
@@ -41,19 +55,19 @@ const FilterForm = ({ setSearchParam }) => {
                     name="scale"
                     consumer={scaleConsumer}
                     optionGetter={scaleOptionGetter}
-                    onChange={setSearchParam.bind(null, "scale")}
+                    onChange={onSelectChange}
                 />
             </div>
 
             <div className="col-xs-12 col-sm-4">
-                <SearchInput onChange={setSearchParam.bind(null, "name")} />
+                <SearchInput onChange={onNameChange} />
             </div>
         </div>
     );
 };
 
 FilterForm.propTypes = {
-    setSearchParam: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired
 };
 
 export { FilterForm };
