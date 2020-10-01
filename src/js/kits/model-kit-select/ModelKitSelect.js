@@ -246,6 +246,7 @@ const ModelKitSelect = ({
                                 brand={newKitParams.brand}
                                 scale={newKitParams.scale}
                                 name={newKitParams.name}
+                                dispatch={dispatch}
                             />
                             <a href="#" data-target="#add-kit-modal">
                                 <h3>&hellip; of voeg een nieuwe kit toe</h3>

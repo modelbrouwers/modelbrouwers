@@ -19,32 +19,28 @@ const loadOptions = (consumer, labelField) => {
         .catch(console.error);
 };
 
-// TODO: fix defaultValue by (un)mounting the addkitform component at the right time
 const KitFieldSelect = ({
     name,
     consumer,
     labelField,
     onChange,
-    defaultValue = null
+    value = null
 }) => {
-    const [state, setState] = useState({
-        value: defaultValue ? getOption(defaultValue, labelField) : null,
-        options: []
-    });
 
-    const { loading } = useAsync(() => {
-        const promise = loadOptions(consumer, labelField).then(options =>
-            setState({ ...state, options })
-        );
-        return promise;
-    }, []);
+    console.log(value);
+
+    const state = useAsync(
+        () => loadOptions(consumer, labelField),
+        []
+    );
+
+    const selectValue = value ? getOption(value, labelField) : null;
 
     const onOptionChange = (option, meta) => {
         const name = meta.name;
 
         switch (meta.action) {
             case "select-option":
-                setState({ ...state, value: option });
                 onChange({ target: { name, value: option.value } });
                 break;
 
@@ -56,7 +52,7 @@ const KitFieldSelect = ({
                         option.value = newObject.id;
                         setState({
                             value: option,
-                            options: [option].concat(state.options)
+                            options: [option].concat(state.value)
                         });
                         // notify upstream component
                         onChange({ target: { name, value: option.value } });
@@ -65,20 +61,19 @@ const KitFieldSelect = ({
                 break;
 
             case "clear":
-                setState({ ...state, value: null });
                 onChange({ target: { name, value: null } });
                 break;
         }
     };
 
-    const { value, options } = state;
+    const { error, loading } = state;
     return (
         <CreatableSelect
             name={name}
             isClearable
             isLoading={loading}
-            value={value}
-            options={options}
+            value={selectValue}
+            options={state.value}
             onChange={onOptionChange}
         />
     );
@@ -92,7 +87,7 @@ KitFieldSelect.propTypes = {
     }).isRequired,
     labelField: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    defaultValue: PropTypes.object
+    value: PropTypes.object
 };
 
 export { KitFieldSelect };

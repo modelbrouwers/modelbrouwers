@@ -23,15 +23,22 @@ const DIFFICULTY_CHOICES = [
 const brandConsumer = new BrandConsumer();
 const scaleConsumer = new ScaleConsumer();
 
-const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
-    const [values, setValues] = useState({
-        brand: brand ? brand.id : null,
-        scale: scale ? scale.id : null,
-        name: name ?? ""
-    });
-    const onChange = event => {
+const AddKitForm = ({ dispatch, brand = null, scale = null, name = "" }) => {
+
+    const onNewKitDefaultChange = (event) => {
+        console.log(event);
         const { name, value } = event.target;
-        setValues({ ...values, [name]: value });
+        dispatch({
+            type: 'SET_NEW_KIT_PARAM',
+            payload: {
+                param: name,
+                target: event.target,
+            }
+        });
+    };
+
+    const onChange = event => {
+        console.log(name, value);
     };
 
     return (
@@ -41,8 +48,8 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                     name="brand"
                     consumer={brandConsumer}
                     labelField="name"
-                    onChange={onChange}
-                    defaultValue={brand}
+                    onChange={onNewKitDefaultChange}
+                    value={brand}
                 />
             </FormField>
             <FormField htmlId="add-kit-scale" label="scale" required={true}>
@@ -50,8 +57,8 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                     name="scale"
                     consumer={scaleConsumer}
                     labelField="__str__"
-                    onChange={onChange}
-                    defaultValue={scale}
+                    onChange={onNewKitDefaultChange}
+                    value={scale}
                 />
             </FormField>
             <FormField htmlId="add-kit-name" label="name" required={true}>
@@ -60,7 +67,7 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                     name="name"
                     className="form-control"
                     required
-                    value={values.name || ""}
+                    value={name}
                     placeholder="kit name"
                     onChange={onChange}
                 />
@@ -74,12 +81,14 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                     type="text"
                     name="kit_number"
                     className="form-control"
-                    value={values.kit_number || ""}
+                    value=""
                     placeholder="kit number"
                     onChange={onChange}
                 />
             </FormField>
+
             {/* TODO: box image */}
+
             <RadioSelect
                 htmlId="add-kit-difficulty"
                 name="difficulty"
@@ -87,25 +96,25 @@ const AddKitForm = ({ brand = null, scale = null, name = "" }) => {
                 choices={DIFFICULTY_CHOICES}
                 required={false}
                 onChange={onChange}
-                currentValue={values.difficulty}
+                currentValue=""
             />
-            Create params: <code>{JSON.stringify(values)}</code>
         </div>
     );
 };
 
-const ModelKitAdd = ({ brand = null, scale = null, name = "" }) => {
+const ModelKitAdd = ({ dispatch, brand = null, scale = null, name = "" }) => {
     const modalNode = useContext(ModalContext);
     return ReactDOM.createPortal(
-        <AddKitForm brand={brand} scale={scale} name={name} />,
+        <AddKitForm dispatch={dispatch} brand={brand} scale={scale} name={name} />,
         modalNode
     );
 };
 
 ModelKitAdd.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     brand: PropTypes.instanceOf(Brand),
     scale: PropTypes.instanceOf(Scale),
-    name: PropTypes.string
+    name: PropTypes.string,
 };
 
 export { ModelKitAdd };
