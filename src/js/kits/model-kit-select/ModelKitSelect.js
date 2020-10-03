@@ -260,8 +260,7 @@ const ModelKitSelect = ({
         modal.modal("show");
     };
 
-    // const noResults = !isEmpty(searchParams) && searchResults.length === 0;
-    const noResults = true;
+    const noResults = !isEmpty(searchParams) && searchResults.length === 0;
 
     return (
         <>
