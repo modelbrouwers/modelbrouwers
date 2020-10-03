@@ -172,4 +172,4 @@ ModelKitAdd.propTypes = {
     onKitAdded: PropTypes.func.isRequired,
 };
 
-export { ModelKitAdd };
+export { AddKitForm, ModelKitAdd };

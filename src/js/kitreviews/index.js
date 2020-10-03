@@ -1,91 +1,48 @@
 import "jquery";
 import "bootstrap";
 
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { ModalContext } from "../kits/model-kit-select/context";
+import KitReviewKitAdd from "./KitreviewKitAdd";
+
+
 import Slider from "./slider.js";
 
-import { cleanScale } from "../data/kits/scale";
-import { Autocomplete, NewKitSubmitter } from "../kits/modelkit.lib.js";
+const onKitAdded = (kit) => {
+    window.location = kit.url_kitreviews;
+};
 
-class KitreviewsNewKitSubmitter extends NewKitSubmitter {
-    kitCreated(kit) {
-        window.location = kit.url_kitreviews;
-    }
-}
-
-class AddKitModal {
-    constructor() {
-        this.selector = "#add-kit-modal";
-        this.triggers = $(`[data-target="${this.selector}"]`);
-
-        if (this.triggers.length) {
-            this.initModal();
-        }
-    }
-
-    initModal() {
-        let that = this;
-
-        let conf = {
-            prefix: "__modelkitselect",
-            prefix_add: "__modelkitadd",
-            isMulti: false,
-            id_image_upload: "id___modelkitadd-box_image"
-        };
-
-        let submitter = new KitreviewsNewKitSubmitter(conf);
-
-        // bind manually, because the globally included bootstrap is being annoying
-        this.triggers.on("click", e => {
-            e.preventDefault();
-            $(that.selector).modal("toggle");
-            return false;
-        });
-
-        // bind the modal submit to API calls
-        $(this.selector).on(
-            "click",
-            'button[type="submit"]',
-            submitter.callback
-        );
-    }
-}
+const onAddNewKitClick = (event, btnNode, modalContext) => {
+    event.preventDefault();
+    ReactDOM.render(
+        <ModalContext.Provider value={modalContext}>
+            <KitReviewKitAdd onKitAdded={onKitAdded} />
+        </ModalContext.Provider>,
+        modalContext.modalBody
+    );
+    modalContext.modal.modal("show");
+};
 
 export default class Page {
     static init() {
-        // modal binding
-        new AddKitModal();
         // slider for property ratings
         new Slider('input[type="range"]');
-        this.initAutocomplete();
-        this.initSuggestions();
+
+        this.initKitCreate();
     }
 
-    static initAutocomplete() {
-        // auto complete fields for kit modal
-        let brandConfig = {
-            display: "name",
-            param: "name",
-            minLength: 2
-        };
-        new Autocomplete("brand", brandConfig).initialize();
+    static initKitCreate() {
+        const modalNode = document.getElementById("add-kit-modal");
+        const modal = $(modalNode);
+        const modalBody = modalNode ? modalNode.querySelector(".modal-body") : null;
+        const modalForm = modalNode ? modalNode.querySelector("form") : null;
 
-        let scaleConfig = {
-            display: "__unicode__",
-            param: "scale",
-            sanitize: cleanScale,
-            minLength: 1
-        };
-        new Autocomplete("scale", scaleConfig).initialize();
-    }
-
-    static initSuggestions() {
-        if (document.querySelector(".model-kit-select")) {
-            let suggestions = document.querySelector(".kit-suggestions");
-            suggestions.addEventListener("click", event => {
-                if (event.target.tagName === "BUTTON") {
-                    console.log("FIXME");
-                }
-            });
+        const modalContext = {modal, modalBody, modalForm};
+        const nodes = document.querySelectorAll(".find-kit-form__button-add-kit");
+        for (const node of nodes) {
+            node.addEventListener("click", (event) => onAddNewKitClick(event, node, modalContext));
         }
     }
 }
