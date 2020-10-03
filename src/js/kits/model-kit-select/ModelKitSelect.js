@@ -4,6 +4,7 @@ import { useAsync, useDebounce } from "react-use";
 import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
+import { Loader } from "../../shop/components/Loader";
 import { ModelKitConsumer } from "../../data/kits/modelkit";
 import { ModalContext } from "./context";
 import { FilterForm } from "./FilterForm";
@@ -19,6 +20,7 @@ const isEmpty = obj => !Object.keys(obj).length;
 
 const getInitialState = (selected = []) => {
     return {
+        loading: false,
         searchParams: {},
         page: 1,
         selectedIds: selected, // track PKs of kits that are selected
@@ -96,6 +98,7 @@ const getReducer = (allowMultiple) => {
             case "SET_SEARCH_RESULTS": {
                 // set the search result if it's page one, or append them if it's a higher page.
                 const results = action.payload;
+                draft.loading = false;
                 draft.searchResults = draft.page === 1
                     ? results
                     : [...draft.searchResults, ...results];
@@ -112,6 +115,11 @@ const getReducer = (allowMultiple) => {
                 const kit = action.payload;
                 draft.searchResults = [kit, ...draft.searchResults];
                 draft.selectedIds = allowMultiple ? [kit.id, ...draft.selectedIds] : [kit.id];
+                break;
+            }
+
+            case "SET_LOADING": {
+                draft.loading = true;
                 break;
             }
 
@@ -159,6 +167,7 @@ const ModelKitSelect = ({
 
     const [
         {
+            loading,
             searchParams,
             page,
             selectedIds,
@@ -189,6 +198,7 @@ const ModelKitSelect = ({
     useDebounce(
         () => {
             if (isEmpty(searchParams)) return;
+            dispatch({type: "SET_LOADING"});
             modelKitConsumer
                 .filter({ ...searchParams, page: page })
                 .then(resultList => {
@@ -260,7 +270,7 @@ const ModelKitSelect = ({
         modal.modal("show");
     };
 
-    const noResults = !isEmpty(searchParams) && searchResults.length === 0;
+    const noResults = !loading && !isEmpty(searchParams) && searchResults.length === 0;
 
     return (
         <>
@@ -274,6 +284,9 @@ const ModelKitSelect = ({
                     {/* validation errors*/}
                 </div>
                 <FilterForm onChange={onSearchFieldChange} />
+
+                { loading ? <Loader /> : null }
+
                 <div
                     className={classNames("row", "kit-suggestions", {
                         "kit-suggestions--no-results": noResults
