@@ -8,31 +8,32 @@ import { RadioSelect } from "../../components/forms/RadioSelect";
 
 import { Brand, BrandConsumer } from "../../data/kits/brand";
 import { Scale, ScaleConsumer, cleanScale } from "../../data/kits/scale";
-import { ModalContext, KitSearchContext } from "./context";
+import { ModelKitConsumer } from "../../data/kits/modelkit";
+import { ModalContext } from "./context";
 import { brandOptionGetter, scaleOptionGetter } from './FilterForm';
 import KitFieldSelect from "./KitFieldSelect";
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
 const DIFFICULTY_CHOICES = [
-    { value: 10, display: "very easy" },
-    { value: 20, display: "easy" },
-    { value: 30, display: "medium" },
-    { value: 40, display: "hard" },
-    { value: 50, display: "very hard" }
+    { value: "10", display: "very easy" },
+    { value: "20", display: "easy" },
+    { value: "30", display: "medium" },
+    { value: "40", display: "hard" },
+    { value: "50", display: "very hard" }
 ];
 
 const brandConsumer = new BrandConsumer();
 const scaleConsumer = new ScaleConsumer();
+const kitConsumer = new ModelKitConsumer();
 
 const AddKitForm = ({
     brand = null,
     scale = null,
     name = "",
     kitNumber="",
-    difficulty=null,
-    onChange,
-    children
+    difficulty,
+    onChange
 }) => {
 
     const onSelectChange = (selectedOption, action) => {
@@ -101,7 +102,6 @@ const AddKitForm = ({
                 onChange={onInputChange}
                 currentValue={difficulty}
             />
-            {children}
         </div>
     );
 };
@@ -112,13 +112,11 @@ AddKitForm.propTypes = {
     scale: PropTypes.instanceOf(Scale),
     name: PropTypes.string,
     kitNumber: PropTypes.string,
-    difficulty: PropTypes.string,
-    children: PropTypes.node,
+    difficulty: PropTypes.string.isRequired,
 };
 
-const ModelKitAdd = (props) => {
-    const { brand, scale, name, kitNumber, difficulty } = props;
-    const {modalBody, modalForm} = useContext(ModalContext);
+const ModelKitAdd = ({ brand, scale, name, kitNumber, difficulty="30", onChange, onKitAdded }) => {
+    const {modal, modalBody, modalForm} = useContext(ModalContext);
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -127,19 +125,51 @@ const ModelKitAdd = (props) => {
             scale: scale ? scale.id : null,
             name: name,
             kit_number: kitNumber || "",
-            difficulty: difficulty | "",
+            difficulty: difficulty,
+            // box_image_uuid: TODO
         };
-        console.group("Submit data:");
-        console.log(submitData);
-        console.groupEnd();
+
+        // submit to backend
+        kitConsumer
+            .create(submitData)
+            .then(kit => {
+                // handle the different serializers in the backend
+                kit.brand = brand;
+                kit.scale = scale;
+                // FIXME: legacy bootstrap
+                modal.modal("hide");
+                onKitAdded(kit);
+            })
+            .catch(errors => {
+                console.log(errors);
+                // TODO: handle validation errors
+            });
+        ;
     };
 
     useEvent("submit", onSubmit, modalForm);
 
     return ReactDOM.createPortal(
-        <AddKitForm {...props} />,
+        <AddKitForm
+            brand={brand}
+            scale={scale}
+            name={name}
+            kitNumber={kitNumber}
+            difficulty={difficulty}
+            onChange={onChange}
+        />,
         modalBody
     );
+};
+
+ModelKitAdd.propTypes = {
+    brand: PropTypes.instanceOf(Brand),
+    scale: PropTypes.instanceOf(Scale),
+    name: PropTypes.string,
+    kitNumber: PropTypes.string,
+    difficulty: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    onKitAdded: PropTypes.func.isRequired,
 };
 
 export { ModelKitAdd };

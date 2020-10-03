@@ -1,11 +1,11 @@
-// TODO: handle allowMultiple yes/no
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
 import PropTypes from "prop-types";
 import { useAsync, useDebounce } from "react-use";
 import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
 import { ModelKitConsumer } from "../../data/kits/modelkit";
+import { ModalContext } from "./context";
 import { FilterForm } from "./FilterForm";
 import { KitPreviews } from "./KitPreview";
 import { ModelKitAdd } from "./ModelKitAdd";
@@ -108,6 +108,13 @@ const getReducer = (allowMultiple) => {
                 break;
             }
 
+            case "KIT_CREATED": {
+                const kit = action.payload;
+                draft.searchResults = [kit, ...draft.searchResults];
+                draft.selectedIds = allowMultiple ? [kit.id, ...draft.selectedIds] : [kit.id];
+                break;
+            }
+
             default:
                 throw new Error(`Unknown action: ${action.type}`);
         }
@@ -144,6 +151,8 @@ const ModelKitSelect = ({
     allowMultiple = false,
     selected = []
 }) => {
+    const {modal} = useContext(ModalContext);
+
     // track filter parameters & search results
     const reducer = getReducer(allowMultiple);
     const initialState = getInitialState(selected);
@@ -238,11 +247,24 @@ const ModelKitSelect = ({
         });
     };
 
+    const onKitAdded = (kit) => {
+        dispatch({
+            type: "KIT_CREATED",
+            payload: kit,
+        });
+    };
+
+    // legacy bootstrap modal
+    const openModal = (event) => {
+        event.preventDefault();
+        modal.modal("show");
+    };
+
     // const noResults = !isEmpty(searchParams) && searchResults.length === 0;
     const noResults = true;
 
     return (
-        <React.Fragment>
+        <>
             <label htmlFor="id_kits" className="control-label col-sm-2">
                 {" "}
                 {label}{" "}
@@ -267,8 +289,9 @@ const ModelKitSelect = ({
                                 kitNumber={createKitData.kit_number}
                                 difficulty={createKitData.difficulty}
                                 onChange={onCreateFieldChange}
+                                onKitAdded={onKitAdded}
                             />
-                            <a href="#" data-target="#add-kit-modal">
+                            <a href="#" onClick={openModal}>
                                 <h3>&hellip; of voeg een nieuwe kit toe</h3>
                                 <i className="fa fa-plus fa-5x" />
                             </a>
@@ -290,7 +313,7 @@ const ModelKitSelect = ({
                     <LoadMore show={hasNext} onClick={ () => dispatch({type: "INCREMENT_PAGE"}) } />
                 </div>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

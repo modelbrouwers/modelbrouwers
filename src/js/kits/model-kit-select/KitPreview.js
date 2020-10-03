@@ -10,9 +10,8 @@ const KitPreview = ({
     selected = false,
     onToggle = () => {}
 }) => {
-    const [thumbImg, setThumbImg] = useState(
-        kit.box_image.small || DEFAULT_THUMB
-    );
+    const thumb = kit.box_image ? kit.box_image.small : undefined;
+    const [thumbImg, setThumbImg] = useState(thumb || DEFAULT_THUMB);
     const [errored, setErrored] = useState(false);
 
     const onThumbError = () => {
