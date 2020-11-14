@@ -1,6 +1,6 @@
 
-.. image:: https://travis-ci.org/modelbrouwers/modelbrouwers.svg?branch=master
-    :target: https://travis-ci.org/modelbrouwers/modelbrouwers
+.. image:: https://travis-ci.com/modelbrouwers/modelbrouwers.svg?branch=master
+    :target: https://travis-ci.com/modelbrouwers/modelbrouwers
 
 .. image:: https://coveralls.io/repos/modelbrouwers/modelbrouwers/badge.png
     :target: https://coveralls.io/r/modelbrouwers/modelbrouwers
