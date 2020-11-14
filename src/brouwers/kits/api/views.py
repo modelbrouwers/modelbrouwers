@@ -1,4 +1,4 @@
-from rest_framework import parsers, permissions, viewsets
+from rest_framework import mixins, parsers, permissions, viewsets
 from rest_framework.settings import api_settings
 
 from ..models import Boxart, Brand, ModelKit, Scale
@@ -10,13 +10,13 @@ from .serializers import (
 
 
 class ModelKitViewSet(viewsets.ModelViewSet):
-    queryset = ModelKit.objects.select_related('scale', 'brand')
+    queryset = ModelKit.objects.select_related("scale", "brand")
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = ModelKitSerializer
     filterset_class = ModelKitFilter
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action == "create":
             return CreateModelKitSerializer
         return super().get_serializer_class()
 
@@ -24,8 +24,7 @@ class ModelKitViewSet(viewsets.ModelViewSet):
         serializer.save(submitter=self.request.user)
 
 
-# TODO: block 'update'
-class BrandViewSet(viewsets.ModelViewSet):
+class BrandViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -33,8 +32,7 @@ class BrandViewSet(viewsets.ModelViewSet):
     pagination_class = None
 
 
-# TODO: block 'update'
-class ScaleViewSet(viewsets.ModelViewSet):
+class ScaleViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Scale.objects.all()
     serializer_class = ScaleSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -49,5 +47,5 @@ class BoxartViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
-        response.data['success'] = True
+        response.data["success"] = True
         return response
