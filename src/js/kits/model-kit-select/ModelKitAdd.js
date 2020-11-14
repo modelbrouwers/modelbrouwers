@@ -12,6 +12,7 @@ import { ModelKitConsumer } from "../../data/kits/modelkit";
 import { ModalContext } from "./context";
 import { brandOptionGetter, scaleOptionGetter } from './FilterForm';
 import KitFieldSelect from "./KitFieldSelect";
+import BoxartUpload from './BoxartUpload';
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
@@ -91,7 +92,9 @@ const AddKitForm = ({
                 />
             </FormField>
 
-            {/* TODO: box image */}
+            <FormField htmlId="add-kit-box_image" label="Box image" required={false}>
+                <BoxartUpload onComplete={console.log} />
+            </FormField>
 
             <RadioSelect
                 htmlId="add-kit-difficulty"
