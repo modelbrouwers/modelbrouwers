@@ -1,0 +1,73 @@
+@import "../partials/colors";
+
+$dropzone-min-height: 100px;
+
+// overrides for react-dropzone styles
+.dzu-dropzone {
+  overflow: auto;
+  border: none;
+  min-height: 0;
+
+  .dzu-dropzone-wrapper {
+    min-height: $dropzone-min-height;
+    background: rgba($main-grey, 0.2);
+    border: dashed 2px $main-grey;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    width: 100%;
+  }
+
+  &.dzu-dropzoneActive {
+    .dzu-dropzone-wrapper {
+      border-color: $main-orange;
+      box-shadow: 0px 0px 5px 0px rgba(black, 0.5);
+    }
+  }
+}
+
+.dzu-inputLabel {
+  margin-bottom: 0;
+  color: $text-color;
+
+  input[type="file"] {
+    position: fixed;
+    top: -1000px;
+  }
+}
+
+.dzu-previewContainer {
+  padding: 0;
+  border: none;
+}
+
+.dzu-previewImage {
+  max-width: 100px;
+}
+
+.dzu-previewStatusContainer {
+  progress {
+    // reset
+    appearance: none;
+
+    height: 10px;
+
+    &::-webkit-progress-bar {
+      background: $main-grey;
+    }
+
+    &::-webkit-progress-value {
+      background: $main-green;
+    }
+
+    &[value="100"] {
+      display: none;
+    }
+  }
+}
+
+
+// <div class="dzu-previewContainer"><img class="dzu-previewImage" src="blob:http://localhost:8000/69a8a06d-013c-4cb5-b380-93043bd357a0" alt="image001.jpg, 5.2kB" title="image001.jpg, 5.2kB"><div class="dzu-previewStatusContainer"><progress max="100" value="100"></progress></div></div>

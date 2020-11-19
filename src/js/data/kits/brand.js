@@ -17,6 +17,10 @@ class BrandConsumer extends CrudConsumer {
         return this.get("");
     }
 
+    filter(params) {
+        return this.get("", params);
+    }
+
     fromRaw(name) {
         return this.create({ name }).catch(err => {
             return Promise.reject(handleValidationErrors(err));
@@ -24,4 +28,4 @@ class BrandConsumer extends CrudConsumer {
     }
 }
 
-export { BrandConsumer };
+export { Brand, BrandConsumer };

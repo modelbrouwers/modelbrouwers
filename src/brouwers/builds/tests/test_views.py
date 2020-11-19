@@ -15,91 +15,88 @@ from .factories import BuildFactory, BuildPhotoFactory
 
 
 class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
-
     def setUp(self):
         self.user = UserFactory.create()
         self.builds = BuildFactory.create_batch(5)
 
     def test_index(self):
-        url = reverse('builds:index')
+        url = reverse("builds:index")
         index = self.app.get(url, status=200)
-        builds = index.context['builds']
+        builds = index.context["builds"]
         expected_builds = self.builds
         expected_builds.reverse()
-        self.assertQuerysetEqual(builds, [
-            repr(x) for x in expected_builds
-        ])
+        self.assertQuerysetEqual(builds, [repr(x) for x in expected_builds])
 
     def test_user_list(self):
         user_builds = BuildFactory.create_batch(2, user=self.user)
-        index_url = reverse('builds:index')
-        url = reverse('builds:user_build_list', kwargs={'user_id': self.user.id})
+        index_url = reverse("builds:index")
+        url = reverse("builds:user_build_list", kwargs={"user_id": self.user.id})
 
         # anonymous
         index = self.app.get(index_url, status=200)
-        self.assertNotContains(index, _('My builds'))
+        self.assertNotContains(index, _("My builds"))
 
         # authenticated
         index = self.app.get(index_url, status=200, user=self.user)
-        self.assertContains(index, _('My builds'))
+        self.assertContains(index, _("My builds"))
         self.assertContains(index, url)
-        my_builds = index.click(_('My builds'))
+        my_builds = index.click(_("My builds"))
         self.assertEqual(my_builds.status_code, 200)
         self.assertQuerysetEqual(
-            my_builds.context['builds'],
-            reversed([repr(x) for x in user_builds])
+            my_builds.context["builds"], reversed([repr(x) for x in user_builds])
         )
-        self.assertEqual(my_builds.context['request'].path, url)
+        self.assertEqual(my_builds.context["request"].path, url)
 
     def test_detail(self):
         build = BuildFactory.create()
         detail = self.app.get(build.get_absolute_url(), status=200)
-        self.assertEqual(detail.context['build'], build)
+        self.assertEqual(detail.context["build"], build)
 
     def test_create(self):
-        url = reverse('builds:create')
-        index = self.app.get(reverse('builds:index'), status=200)
+        url = reverse("builds:create")
+        index = self.app.get(reverse("builds:index"), status=200)
 
         # anonymous
-        response = index.click(_('Add build'))
+        response = index.click(_("Add build"))
         self._test_login_required(url, response)
 
         # authenticated
         add = self.app.get(url, user=self.user, status=200)
+        form = add.forms[0]
 
-        add.form['title'] = 'My new build'
+        form["title"] = "My new build"
 
-        self.assertEqual(add.form['photos-TOTAL_FORMS'].value, '0')
-        self.assertEqual(add.form['photos-INITIAL_FORMS'].value, '0')
+        self.assertEqual(form["photos-TOTAL_FORMS"].value, "0")
+        self.assertEqual(form["photos-INITIAL_FORMS"].value, "0")
 
-        add.form['photos-TOTAL_FORMS'] = '2'  # add two photos
+        form["photos-TOTAL_FORMS"] = "2"  # add two photos
 
         photos = PhotoFactory.create_batch(2, user=self.user)
 
-        self._add_field(add.form, 'photos-0-id', '')
-        self._add_field(add.form, 'photos-0-build', '')
-        self._add_field(add.form, 'photos-0-photo', '{}'.format(photos[0].pk))
-        self._add_field(add.form, 'photos-0-photo_url', '')
-        self._add_field(add.form, 'photos-0-order', '')
+        self._add_field(form, "photos-0-id", "")
+        self._add_field(form, "photos-0-build", "")
+        self._add_field(form, "photos-0-photo", "{}".format(photos[0].pk))
+        self._add_field(form, "photos-0-photo_url", "")
+        self._add_field(form, "photos-0-order", "")
 
-        self._add_field(add.form, 'photos-1-id', '')
-        self._add_field(add.form, 'photos-1-build', '')
-        self._add_field(add.form, 'photos-1-photo', '')
-        url = 'https://modelbrouwers.nl%s' % photos[1].image.url
-        self._add_field(add.form, 'photos-1-photo_url', url)
-        self._add_field(add.form, 'photos-1-order', '')
+        self._add_field(form, "photos-1-id", "")
+        self._add_field(form, "photos-1-build", "")
+        self._add_field(form, "photos-1-photo", "")
+        url = "https://modelbrouwers.nl%s" % photos[1].image.url
+        self._add_field(form, "photos-1-photo_url", url)
+        self._add_field(form, "photos-1-order", "")
 
         # add some kits
         kits = ModelKitFactory.create_batch(2)
         for kit in kits:
-            self._add_field(add.form, 'kits', str(kit.pk))
+            self._add_field(form, "kits", str(kit.pk))
 
-        response = add.form.submit()
-        build = Build.objects.order_by('-pk').first()
+        response = form.submit()
+        build = Build.objects.order_by("-pk").first()
         self.assertRedirects(response, build.get_absolute_url())
 
         self.assertEqual(build.photos.count(), 2)
-        self.assertEqual(build.title, 'My new build')
+        self.assertEqual(build.title, "My new build")
         self.assertEqual(build.user, self.user)
         self.assertEqual(build.kits.count(), 2)
 
@@ -113,11 +110,11 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         build = BuildFactory.create(user=self.user, kits=kits)
         build_photo = BuildPhotoFactory.create(build=build)
 
-        url = reverse('builds:update', kwargs={'slug': build.slug})
+        url = reverse("builds:update", kwargs={"slug": build.slug})
 
         # test that non-auth can't update
         response = self.app.get(url)
-        self.assertRedirects(response, '{}?next={}'.format(settings.LOGIN_URL, url))
+        self.assertRedirects(response, "{}?next={}".format(settings.LOGIN_URL, url))
 
         # test that different user can't update
         other_user = UserFactory.create()
@@ -127,24 +124,25 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         page = self.app.get(url, user=self.user, status=200)
 
         # kits field is filled in by React component - make sure we can re-write it
-        self._add_field(page.form, "kits", kits[1].pk)
+        form = page.forms[0]
+        self._add_field(form, "kits", kits[1].pk)
 
         # test add photo
-        self.assertEqual(page.form['photos-TOTAL_FORMS'].value, '1')
-        self.assertEqual(page.form['photos-INITIAL_FORMS'].value, '1')
+        self.assertEqual(form["photos-TOTAL_FORMS"].value, "1")
+        self.assertEqual(form["photos-INITIAL_FORMS"].value, "1")
 
         photo = PhotoFactory.create(user=self.user)
-        page.form['photos-TOTAL_FORMS'] = '2'
-        self._add_field(page.form, 'photos-1-id', '')
-        self._add_field(page.form, 'photos-1-build', '')
-        self._add_field(page.form, 'photos-1-photo', '{}'.format(photo.pk))
-        self._add_field(page.form, 'photos-1-photo_url', '')
-        self._add_field(page.form, 'photos-1-order', '')
+        form["photos-TOTAL_FORMS"] = "2"
+        self._add_field(form, "photos-1-id", "")
+        self._add_field(form, "photos-1-build", "")
+        self._add_field(form, "photos-1-photo", "{}".format(photo.pk))
+        self._add_field(form, "photos-1-photo_url", "")
+        self._add_field(form, "photos-1-order", "")
 
         # test delete photo
-        page.form['photos-0-DELETE'].checked = True
+        form["photos-0-DELETE"].checked = True
 
-        redirect = page.form.submit()
+        redirect = form.submit()
         self.assertRedirects(redirect, build.get_absolute_url())
 
         build.refresh_from_db()
@@ -162,16 +160,17 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         Asserts that the button with prefilled fields works correctly.
         """
         topic = TopicFactory.create()
-        url = '{}?forum_id={}&topic_id={}&title=Dummy%20title'.format(
-            reverse('builds:create'),
-            topic.forum.pk,
-            topic.pk
+        url = "{}?forum_id={}&topic_id={}&title=Dummy%20title".format(
+            reverse("builds:create"), topic.forum.pk, topic.pk
         )
 
         page = self.app.get(url, user=self.user, status=200)
+        form = page.forms[0]
 
-        self.assertEqual(page.form['title'].value, 'Dummy title')
-        self.assertTrue(page.form['topic'].value.endswith('viewtopic.php?t={}'.format(topic.pk)))
+        self.assertEqual(form["title"].value, "Dummy title")
+        self.assertTrue(
+            form["topic"].value.endswith("viewtopic.php?t={}".format(topic.pk))
+        )
 
 
 class ForumUserViewTests(WebTest):
@@ -194,12 +193,11 @@ class ForumUserViewTests(WebTest):
         self.forum_user3 = ForumUserFactory.create()
 
     def test_correct_redirects(self):
-
         def get_forumuser_url(forum_user):
-            return reverse('builds:forum_user_build_list', kwargs={'pk': forum_user.pk})
+            return reverse("builds:forum_user_build_list", kwargs={"pk": forum_user.pk})
 
         def get_expected_url(user):
-            return reverse('builds:user_build_list', kwargs={'user_id': user.id})
+            return reverse("builds:user_build_list", kwargs={"user_id": user.id})
 
         response = self.app.get(get_forumuser_url(self.forum_user))
         self.assertRedirects(response, get_expected_url(self.user), status_code=301)

@@ -1,6 +1,6 @@
 language: python
 
-sudo: false
+dist: bionic
 
 python:
   - "3.6"
@@ -15,9 +15,6 @@ services:
   # - redis-server
   # - elasticsearch
 
-addons:
-  postgresql: "9.4"
-
 env:
   - DJANGO_SETTINGS_MODULE=conf.settings.travis
 
@@ -26,7 +23,6 @@ install:
   - pip install -r requirements/ci.txt --cache-dir $HOME/.pip-cache
   - pip install coveralls codecov
   - npm install
-  - ./node_modules/.bin/gulp sass
   - npm run build
 
 before_script:

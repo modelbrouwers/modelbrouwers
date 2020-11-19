@@ -29,6 +29,10 @@ class ScaleConsumer extends CrudConsumer {
         return this.get("");
     }
 
+    filter(params) {
+        return this.get("", params);
+    }
+
     fromRaw(scale) {
         scale = cleanScale(scale);
         return this.create({ scale }).catch(err => {
@@ -37,4 +41,4 @@ class ScaleConsumer extends CrudConsumer {
     }
 }
 
-export { cleanScale, ScaleConsumer };
+export { cleanScale, Scale, ScaleConsumer };
