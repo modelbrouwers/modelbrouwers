@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { useEvent } from "react-use";
 import { useImmerReducer } from "use-immer";
 
@@ -15,9 +15,8 @@ const initialState = {
     name: "",
     kit_number: "",
     difficulty: "30",
-    boxartUUID: "",
+    boxartUUID: null
 };
-
 
 const reducer = (draft, action) => {
     switch (action.type) {
@@ -33,14 +32,13 @@ const reducer = (draft, action) => {
 
         default:
             throw new Error(`Unknown action: ${action.type}`);
-    };
+    }
 };
 
-
-const KitReviewKitAdd = ({onKitAdded}) => {
-    const {modalForm} = useContext(ModalContext);
+const KitReviewKitAdd = ({ onKitAdded }) => {
+    const { modalForm } = useContext(ModalContext);
     const [
-        {brand, scale, name, kit_number, difficulty, boxartUUID},
+        { brand, scale, name, kit_number, difficulty, boxartUUID },
         dispatch
     ] = useImmerReducer(reducer, initialState);
 
@@ -50,13 +48,13 @@ const KitReviewKitAdd = ({onKitAdded}) => {
      * @param  {String|Number|Object|Null} options.value Value of the parameter
      * @return {void}                Triggers state update
      */
-    const onChange = ({name, value}) => {
+    const onChange = ({ name, value }) => {
         // pre-populate create data
         dispatch({
             type: "SET_CREATE_KIT_PARAM",
             payload: {
                 param: name,
-                value: value,
+                value: value
             }
         });
     };
@@ -65,7 +63,7 @@ const KitReviewKitAdd = ({onKitAdded}) => {
      * Submit handler, invoked when the create form is submitted.
      * @param  {DOMEvent} event The submit event
      */
-    const onSubmit = (event) => {
+    const onSubmit = event => {
         event.preventDefault();
 
         const submitData = {
@@ -74,7 +72,7 @@ const KitReviewKitAdd = ({onKitAdded}) => {
             name: name,
             kit_number: kit_number || "",
             difficulty: difficulty,
-            // box_image_uuid: boxartUUID
+            box_image_uuid: boxartUUID
         };
 
         // submit to backend
@@ -90,8 +88,6 @@ const KitReviewKitAdd = ({onKitAdded}) => {
                 console.log(errors);
                 // TODO: handle validation errors
             });
-        ;
-
     };
     useEvent("submit", onSubmit, modalForm);
 
@@ -108,8 +104,7 @@ const KitReviewKitAdd = ({onKitAdded}) => {
 };
 
 KitReviewKitAdd.propTypes = {
-    onKitAdded: PropTypes.func.isRequired,
+    onKitAdded: PropTypes.func.isRequired
 };
-
 
 export default KitReviewKitAdd;

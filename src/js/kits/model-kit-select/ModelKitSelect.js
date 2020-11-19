@@ -17,7 +17,6 @@ const modelKitConsumer = new ModelKitConsumer();
 
 const isEmpty = obj => !Object.keys(obj).length;
 
-
 const getInitialState = (selected = []) => {
     return {
         loading: false,
@@ -31,8 +30,7 @@ const getInitialState = (selected = []) => {
     };
 };
 
-
-const getReducer = (allowMultiple) => {
+const getReducer = allowMultiple => {
     const reducer = (draft, action) => {
         switch (action.type) {
             case "UPDATE_SEARCH_PARAM": {
@@ -60,7 +58,9 @@ const getReducer = (allowMultiple) => {
             case "SET_INITIAL_KITS": {
                 // include the pre-selected kits that are _still_ selected
                 const kits = action.payload;
-                draft.preSelected = kits.filter( kit => draft.selectedIds.includes(kit.id) );
+                draft.preSelected = kits.filter(kit =>
+                    draft.selectedIds.includes(kit.id)
+                );
                 break;
             }
 
@@ -87,7 +87,9 @@ const getReducer = (allowMultiple) => {
                     if (checked && !isPresent) {
                         draft.selectedIds = draft.selectedIds.concat([kit.id]);
                     } else if (!checked && isPresent) {
-                        draft.selectedIds = draft.selectedIds.filter(id => id !== kit.id);
+                        draft.selectedIds = draft.selectedIds.filter(
+                            id => id !== kit.id
+                        );
                     }
                 } else {
                     draft.selectedIds = checked ? [kit.id] : [];
@@ -99,9 +101,10 @@ const getReducer = (allowMultiple) => {
                 // set the search result if it's page one, or append them if it's a higher page.
                 const results = action.payload;
                 draft.loading = false;
-                draft.searchResults = draft.page === 1
-                    ? results
-                    : [...draft.searchResults, ...results];
+                draft.searchResults =
+                    draft.page === 1
+                        ? results
+                        : [...draft.searchResults, ...results];
                 draft.hasNext = results.responseData.next !== null;
                 break;
             }
@@ -114,7 +117,9 @@ const getReducer = (allowMultiple) => {
             case "KIT_CREATED": {
                 const kit = action.payload;
                 draft.searchResults = [kit, ...draft.searchResults];
-                draft.selectedIds = allowMultiple ? [kit.id, ...draft.selectedIds] : [kit.id];
+                draft.selectedIds = allowMultiple
+                    ? [kit.id, ...draft.selectedIds]
+                    : [kit.id];
                 break;
             }
 
@@ -131,14 +136,17 @@ const getReducer = (allowMultiple) => {
     return reducer;
 };
 
-
-const LoadMore = ({ show=false, onClick, children="load more" }) => {
+const LoadMore = ({ show = false, onClick, children = "load more" }) => {
     if (!show) {
         return null;
     }
     return (
         <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
-            <button className="btn bg-main-blue" type="button" onClick={onClick}>
+            <button
+                className="btn bg-main-blue"
+                type="button"
+                onClick={onClick}
+            >
                 {children}
             </button>
             <i className="fa fa-pulse fa-spinner fa-4x" />
@@ -149,9 +157,8 @@ const LoadMore = ({ show=false, onClick, children="load more" }) => {
 LoadMore.propTypes = {
     show: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
-    children: PropTypes.node,
+    children: PropTypes.node
 };
-
 
 const ModelKitSelect = ({
     label,
@@ -159,7 +166,7 @@ const ModelKitSelect = ({
     allowMultiple = false,
     selected = []
 }) => {
-    const {modal} = useContext(ModalContext);
+    const { modal } = useContext(ModalContext);
 
     // track filter parameters & search results
     const reducer = getReducer(allowMultiple);
@@ -198,7 +205,7 @@ const ModelKitSelect = ({
     useDebounce(
         () => {
             if (isEmpty(searchParams)) return;
-            dispatch({type: "SET_LOADING"});
+            dispatch({ type: "SET_LOADING" });
             modelKitConsumer
                 .filter({ ...searchParams, page: page })
                 .then(resultList => {
@@ -225,7 +232,7 @@ const ModelKitSelect = ({
      * @param  {String|Number|Object} options.value Value of the search field
      * @return {Void}               Updates the component state on changes
      */
-    const onSearchFieldChange = ({name, value}) => {
+    const onSearchFieldChange = ({ name, value }) => {
         const searchParamValue = name === "name" ? value : value.id;
 
         // trigger search
@@ -233,7 +240,7 @@ const ModelKitSelect = ({
             type: "UPDATE_SEARCH_PARAM",
             payload: {
                 param: name,
-                value: searchParamValue,
+                value: searchParamValue
             }
         });
 
@@ -242,35 +249,36 @@ const ModelKitSelect = ({
             type: "SET_CREATE_KIT_PARAM",
             payload: {
                 param: name,
-                value: value,
+                value: value
             }
         });
     };
 
-    const onCreateFieldChange = ({name, value}) => {
+    const onCreateFieldChange = ({ name, value }) => {
         dispatch({
             type: "SET_CREATE_KIT_PARAM",
             payload: {
                 param: name,
-                value: value,
+                value: value
             }
         });
     };
 
-    const onKitAdded = (kit) => {
+    const onKitAdded = kit => {
         dispatch({
             type: "KIT_CREATED",
-            payload: kit,
+            payload: kit
         });
     };
 
     // legacy bootstrap modal
-    const openModal = (event) => {
+    const openModal = event => {
         event.preventDefault();
         modal.modal("show");
     };
 
-    const noResults = !loading && !isEmpty(searchParams) && searchResults.length === 0;
+    const noResults =
+        !loading && !isEmpty(searchParams) && searchResults.length === 0;
 
     return (
         <>
@@ -285,7 +293,7 @@ const ModelKitSelect = ({
                 </div>
                 <FilterForm onChange={onSearchFieldChange} />
 
-                { loading ? <Loader /> : null }
+                {loading ? <Loader /> : null}
 
                 <div
                     className={classNames("row", "kit-suggestions", {
@@ -300,6 +308,7 @@ const ModelKitSelect = ({
                                 name={createKitData.name}
                                 kitNumber={createKitData.kit_number}
                                 difficulty={createKitData.difficulty}
+                                boxartUUID={createKitData.boxartUUID}
                                 onChange={onCreateFieldChange}
                                 onKitAdded={onKitAdded}
                             />
@@ -322,7 +331,10 @@ const ModelKitSelect = ({
                             })
                         }
                     />
-                    <LoadMore show={hasNext} onClick={ () => dispatch({type: "INCREMENT_PAGE"}) } />
+                    <LoadMore
+                        show={hasNext}
+                        onClick={() => dispatch({ type: "INCREMENT_PAGE" })}
+                    />
                 </div>
             </div>
         </>

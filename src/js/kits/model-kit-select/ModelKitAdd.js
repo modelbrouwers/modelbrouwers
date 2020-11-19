@@ -10,9 +10,9 @@ import { Brand, BrandConsumer } from "../../data/kits/brand";
 import { Scale, ScaleConsumer, cleanScale } from "../../data/kits/scale";
 import { ModelKitConsumer } from "../../data/kits/modelkit";
 import { ModalContext } from "./context";
-import { brandOptionGetter, scaleOptionGetter } from './FilterForm';
+import { brandOptionGetter, scaleOptionGetter } from "./FilterForm";
 import KitFieldSelect from "./KitFieldSelect";
-import BoxartUpload from './BoxartUpload';
+import BoxartUpload from "./BoxartUpload";
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
@@ -32,20 +32,19 @@ const AddKitForm = ({
     brand = null,
     scale = null,
     name = "",
-    kitNumber="",
+    kitNumber = "",
     difficulty,
     onChange
 }) => {
-
     const onSelectChange = (selectedOption, action) => {
-        const {name} = action;
+        const { name } = action;
         const value = selectedOption ? selectedOption.option : null;
-        onChange({name, value});
+        onChange({ name, value });
     };
 
-    const onInputChange = (event) => {
-        const {name, value} = event.target;
-        onChange({name, value});
+    const onInputChange = event => {
+        const { name, value } = event.target;
+        onChange({ name, value });
     };
 
     return (
@@ -54,7 +53,9 @@ const AddKitForm = ({
                 <KitFieldSelect
                     name="brand"
                     consumer={brandConsumer}
-                    prepareQuery={ inputValue => inputValue ? {name: inputValue} : {} }
+                    prepareQuery={inputValue =>
+                        inputValue ? { name: inputValue } : {}
+                    }
                     optionGetter={brandOptionGetter}
                     onChange={onSelectChange}
                     value={brand}
@@ -64,7 +65,9 @@ const AddKitForm = ({
                 <KitFieldSelect
                     name="scale"
                     consumer={scaleConsumer}
-                    prepareQuery={ inputValue => inputValue ? {scale: cleanScale(inputValue)} : {} }
+                    prepareQuery={inputValue =>
+                        inputValue ? { scale: cleanScale(inputValue) } : {}
+                    }
                     optionGetter={scaleOptionGetter}
                     onChange={onSelectChange}
                     value={scale}
@@ -81,7 +84,11 @@ const AddKitForm = ({
                     onChange={onInputChange}
                 />
             </FormField>
-            <FormField htmlId="add-kit-number" label="kit number" required={false}>
+            <FormField
+                htmlId="add-kit-number"
+                label="kit number"
+                required={false}
+            >
                 <input
                     type="text"
                     name="kit_number"
@@ -92,8 +99,19 @@ const AddKitForm = ({
                 />
             </FormField>
 
-            <FormField htmlId="add-kit-box_image" label="Box image" required={false}>
-                <BoxartUpload onComplete={console.log} />
+            <FormField
+                htmlId="add-kit-box_image"
+                label="box image"
+                required={false}
+            >
+                <BoxartUpload
+                    onComplete={uploadResponse =>
+                        onChange({
+                            name: "boxartUUID",
+                            value: uploadResponse.uuid
+                        })
+                    }
+                />
             </FormField>
 
             <RadioSelect
@@ -115,13 +133,22 @@ AddKitForm.propTypes = {
     scale: PropTypes.instanceOf(Scale),
     name: PropTypes.string,
     kitNumber: PropTypes.string,
-    difficulty: PropTypes.string.isRequired,
+    difficulty: PropTypes.string.isRequired
 };
 
-const ModelKitAdd = ({ brand, scale, name, kitNumber, difficulty="30", onChange, onKitAdded }) => {
-    const {modal, modalBody, modalForm} = useContext(ModalContext);
+const ModelKitAdd = ({
+    brand,
+    scale,
+    name,
+    kitNumber,
+    difficulty = "30",
+    boxartUUID = null,
+    onChange,
+    onKitAdded
+}) => {
+    const { modal, modalBody, modalForm } = useContext(ModalContext);
 
-    const onSubmit = (event) => {
+    const onSubmit = event => {
         event.preventDefault();
         const submitData = {
             brand: brand ? brand.id : null,
@@ -129,7 +156,7 @@ const ModelKitAdd = ({ brand, scale, name, kitNumber, difficulty="30", onChange,
             name: name,
             kit_number: kitNumber || "",
             difficulty: difficulty,
-            // box_image_uuid: TODO
+            box_image_uuid: boxartUUID
         };
 
         // submit to backend
@@ -147,7 +174,6 @@ const ModelKitAdd = ({ brand, scale, name, kitNumber, difficulty="30", onChange,
                 console.log(errors);
                 // TODO: handle validation errors
             });
-        ;
     };
 
     useEvent("submit", onSubmit, modalForm);
@@ -171,8 +197,9 @@ ModelKitAdd.propTypes = {
     name: PropTypes.string,
     kitNumber: PropTypes.string,
     difficulty: PropTypes.string,
+    boxartUUID: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    onKitAdded: PropTypes.func.isRequired,
+    onKitAdded: PropTypes.func.isRequired
 };
 
 export { AddKitForm, ModelKitAdd };
