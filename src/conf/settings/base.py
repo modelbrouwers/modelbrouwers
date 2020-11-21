@@ -1,9 +1,17 @@
 import os
+from typing import Any
 
 from django.utils.translation import ugettext_lazy as _
 
+
+def config(name: str, default: Any = None):
+    return os.environ.get(name, default)
+
+
 # Automatically figure out the PROJECT DIR
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+PROJECT_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+)
 ROOT_DIR = os.path.dirname(PROJECT_DIR)
 BASE_DIR = ROOT_DIR
 
@@ -17,107 +25,92 @@ TESTING = False
 
 ADMINS = ()
 
-TIME_ZONE = 'Europe/Amsterdam'
+TIME_ZONE = "Europe/Amsterdam"
 USE_TZ = True
 
 USE_I18N = True
 
 LANGUAGES = [
-    ('en', _('English')),
-    ('nl', _('Dutch')),
-    ('de', _('German')),
+    ("en", _("English")),
+    ("nl", _("Dutch")),
+    ("de", _("German")),
 ]
 
 LOCALE_PATHS = [
-    os.path.join(PROJECT_DIR, 'locale'),
+    os.path.join(PROJECT_DIR, "locale"),
 ]
 
 USE_L10N = True
-DATE_FORMAT = 'd-m-Y'
+DATE_FORMAT = "d-m-Y"
 
 #
 # LOGGING
 #
-LOGGING_DIR = os.path.join(ROOT_DIR, 'log')
+LOGGING_DIR = os.path.join(ROOT_DIR, "log")
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(asctime)s %(levelname)s %(name)s %(module)s %(process)d %(thread)d  %(message)s'
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s %(levelname)s %(name)s %(module)s %(process)d %(thread)d  %(message)s"
         },
-        'timestamped': {
-            'format': '%(asctime)s %(levelname)s %(name)s  %(message)s'
-        },
-        'simple': {
-            'format': '%(levelname)s  %(message)s'
-        },
-        'performance': {
-            'format': '%(asctime)s %(process)d | %(thread)d | %(message)s',
+        "timestamped": {"format": "%(asctime)s %(levelname)s %(name)s  %(message)s"},
+        "simple": {"format": "%(levelname)s  %(message)s"},
+        "performance": {
+            "format": "%(asctime)s %(process)d | %(thread)d | %(message)s",
         },
     },
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},},
+    "handlers": {
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        "null": {"level": "DEBUG", "class": "logging.NullHandler",},
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "timestamped",
+        },
+        "django": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(LOGGING_DIR, "django.log"),
+            "formatter": "verbose",
+        },
+        "project": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(LOGGING_DIR, "brouwers.log"),
+            "formatter": "verbose",
+        },
+        "performance": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(LOGGING_DIR, "performance.log"),
+            "formatter": "performance",
         },
     },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'timestamped'
-        },
-        'django': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGGING_DIR, 'django.log'),
-            'formatter': 'verbose'
-        },
-        'project': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGGING_DIR, 'brouwers.log'),
-            'formatter': 'verbose'
-        },
-        'performance': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGGING_DIR, 'performance.log'),
-            'formatter': 'performance'
+    "loggers": {
+        "brouwers": {"handlers": ["project"], "level": "INFO", "propagate": True,},
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": True,
         },
     },
-    'loggers': {
-        'brouwers': {
-            'handlers': ['project'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
 }
 
 #
 # MEDIA
 #
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(ROOT_DIR, "media")
 
-SENDFILE_BACKEND = 'sendfile.backends.nginx'
-SENDFILE_ROOT = os.path.join(ROOT_DIR, 'media_sendfile')
-SENDFILE_URL = '/protected'
+SENDFILE_BACKEND = "sendfile.backends.nginx"
+SENDFILE_ROOT = os.path.join(ROOT_DIR, "media_sendfile")
+SENDFILE_URL = "/protected"
 
 PRIVATE_MEDIA_URL = SENDFILE_URL
 PRIVATE_MEDIA_ROOT = SENDFILE_ROOT
@@ -125,40 +118,38 @@ PRIVATE_MEDIA_ROOT = SENDFILE_ROOT
 #
 # STATIC FILES
 #
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(ROOT_DIR, "static")
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(PROJECT_DIR, "static"),
     # node_modules cannot be consistently installed in the 'correct place'.
     # symlinking results in too many levels of symlinks
-    ('bootstrap', os.path.join(ROOT_DIR, 'node_modules', 'bootstrap')),
-    os.path.join(ROOT_DIR, 'node_modules', 'fine-uploader'),
-    ('font-awesome', os.path.join(ROOT_DIR, 'node_modules', 'font-awesome')),
+    ("bootstrap", os.path.join(ROOT_DIR, "node_modules", "bootstrap")),
+    os.path.join(ROOT_DIR, "node_modules", "fine-uploader"),
+    ("font-awesome", os.path.join(ROOT_DIR, "node_modules", "font-awesome")),
 ]
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 ]
 
 #
 # TEMPLATE
 #
 RAW_TEMPLATE_LOADERS = [
-    'admin_tools.template_loaders.Loader',
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
+    "admin_tools.template_loaders.Loader",
+    "django.template.loaders.filesystem.Loader",
+    "django.template.loaders.app_directories.Loader",
 ]
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': False,  # conflicts with explicity specifying the loaders
-        'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
-        ],
-        'OPTIONS': {
-            'context_processors': [
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "APP_DIRS": False,  # conflicts with explicity specifying the loaders
+        "DIRS": [os.path.join(PROJECT_DIR, "templates"),],
+        "OPTIONS": {
+            "context_processors": [
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.i18n",
@@ -166,11 +157,10 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.request",
                 "django.contrib.messages.context_processors.messages",
-
                 "brouwers.general.context_processors.connection",
                 "brouwers.general.context_processors.djsettings",
             ],
-            'loaders': RAW_TEMPLATE_LOADERS
+            "loaders": RAW_TEMPLATE_LOADERS,
         },
     },
 ]
@@ -179,104 +169,99 @@ TEMPLATES = [
 # MIDDLEWARE
 #
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'sessionprofile.middleware.SessionProfileMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "sessionprofile.middleware.SessionProfileMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
     # after auth middleware, checks if user is authenticated
-    'brouwers.banning.middleware.BanningMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    "brouwers.banning.middleware.BanningMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
 ]
 
 #
 # URLS
 #
-ROOT_URLCONF = 'brouwers.urls'
+ROOT_URLCONF = "brouwers.urls"
 
 #
 # APPS
 #
 INSTALLED_APPS = [
     # Contrib apps
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.messages',
-    'django.contrib.postgres',
-    'django.contrib.redirects',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.staticfiles',
-
-    'modeltranslation',  # has to be imported before django.contrib.admin
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.messages",
+    "django.contrib.postgres",
+    "django.contrib.redirects",
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    "django.contrib.staticfiles",
+    "modeltranslation",  # has to be imported before django.contrib.admin
     # admin tools. order is important
-    'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
-    'admin_tools.dashboard',
-    'django.contrib.admin',
-
+    "admin_tools",
+    "admin_tools.theming",
+    "admin_tools.menu",
+    "admin_tools.dashboard",
+    "django.contrib.admin",
     # Third party
-    'compressor',
-    'sessionprofile',
-    'rest_framework',
-    'django_filters',
-    'rest_framework_filters',
-    'loginas',
-    'sniplates',
-    'rosetta',
-    'precise_bbcode',
-    'sorl.thumbnail',
-    'treebeard',
-    'taggit',
-    'ckeditor',
-    'import_export',
-    'solo',
-
+    "compressor",
+    "sessionprofile",
+    "rest_framework",
+    "django_filters",
+    "rest_framework_filters",
+    "loginas",
+    "sniplates",
+    "rosetta",
+    "precise_bbcode",
+    "sorl.thumbnail",
+    "treebeard",
+    "taggit",
+    "ckeditor",
+    "import_export",
+    "solo",
     # Modelbrouwers
-    'brouwers.users',
-    'brouwers.albums',
-    'brouwers.awards',
-    'brouwers.banning',
-    'brouwers.builds',
-    'brouwers.brouwersdag',
-    'brouwers.forum_tools',
-    'brouwers.general',
-    'brouwers.groupbuilds',
-    'brouwers.kits',
-    'brouwers.kitreviews',
-    'brouwers.migration',
-    'brouwers.online_users',
-    'brouwers.utils',
-    'brouwers.shop',
+    "brouwers.users",
+    "brouwers.albums",
+    "brouwers.awards",
+    "brouwers.banning",
+    "brouwers.builds",
+    "brouwers.brouwersdag",
+    "brouwers.forum_tools",
+    "brouwers.general",
+    "brouwers.groupbuilds",
+    "brouwers.kits",
+    "brouwers.kitreviews",
+    "brouwers.migration",
+    "brouwers.online_users",
+    "brouwers.utils",
+    "brouwers.shop",
 ]
 
 #
 # DATABASE
 #
-DATABASE_ROUTERS = [
-    'brouwers.forum_tools.db_router.ForumToolsRouter'
-]
+DATABASE_ROUTERS = ["brouwers.forum_tools.db_router.ForumToolsRouter"]
 # db config -> secrets.py
 
 #
 # CACHE
 #
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": config("CACHE_URL", "127.0.0.1:11211"),
     },
 }
 
 #
 # SESSION
 #
-SESSION_COOKIE_NAME = 'mbsessionid'
+SESSION_COOKIE_NAME = "mbsessionid"
 SESSION_SAVE_EVERY_REQUEST = False
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 365  # one year
 
@@ -284,26 +269,39 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 365  # one year
 # AUTH
 #
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'brouwers.users.backends.EmailModelBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "brouwers.users.backends.EmailModelBackend",
 ]
-AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
+AUTH_USER_MODEL = "users.User"
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/login/"
 
 SKIP_AUTH_USER_MODEL_MIGRATIONS = True
 
 #
+# Sending EMAIL
+#
+EMAIL_HOST = config("EMAIL_HOST", default="localhost")
+EMAIL_PORT = config("EMAIL_PORT", default=25)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False)
+EMAIL_TIMEOUT = 10
+
+SERVER_EMAIL = "beheer@modelbrouwers.nl"
+DEFAULT_FROM_EMAIL = SERVER_EMAIL
+
+#
 # MIBBIT
 #
-IRC_SERVER = 'irc.slacknet.org'
-IRC_CHANNEL = '#modelbrouwers.nl'
-IRC_DEFAULT_NICK = 'brouwer%3F%3F'
+IRC_SERVER = "irc.slacknet.org"
+IRC_CHANNEL = "#modelbrouwers.nl"
+IRC_DEFAULT_NICK = "brouwer%3F%3F"
 
 #
 # TESTS
 #
-TEST_RUNNER = 'brouwers.utils.tests.runner.TestDiscoverRunner'
+TEST_RUNNER = "brouwers.utils.tests.runner.TestDiscoverRunner"
 
 #################
 # APP SPECIFICS #
@@ -323,8 +321,8 @@ VOTE_END_DAY = 15
 #
 # ALBUMS
 #
-VALID_IMG_EXTENSIONS = ['.jpg', '.jpeg', '.png']
-THUMB_DIMENSIONS = (200, 150, 'thumb_')
+VALID_IMG_EXTENSIONS = [".jpg", ".jpeg", ".png"]
+THUMB_DIMENSIONS = (200, 150, "thumb_")
 
 #
 # FORUM_TOOLS
@@ -336,20 +334,20 @@ TOPIC_DEAD_TIME = 1  # months
 # COMPRESS
 #
 COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
+    "compressor.filters.css_default.CssAbsoluteFilter",
+    "compressor.filters.cssmin.CSSMinFilter",
 ]
 
 #
 # ADMIN TOOLS
 #
-ADMIN_TOOLS_INDEX_DASHBOARD = 'brouwers.dashboard.CustomIndexDashboard'
-ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'brouwers.dashboard.CustomAppIndexDashboard'
+ADMIN_TOOLS_INDEX_DASHBOARD = "brouwers.dashboard.CustomIndexDashboard"
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = "brouwers.dashboard.CustomAppIndexDashboard"
 
 #
 # WSGI conf
 #
-WSGI_APPLICATION = 'conf.wsgi.application'
+WSGI_APPLICATION = "brouwers.wsgi.application"
 
 #
 # SORL THUMBNAIL
@@ -361,12 +359,12 @@ THUMBNAIL_PRESERVE_FORMAT = True
 # DRF
 #
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'brouwers.api.pagination.PageNumberPagination',
-    'PAGE_SIZE': 25,
-    'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework_filters.backends.RestFrameworkFilterBackend',
+    "DEFAULT_PAGINATION_CLASS": "brouwers.api.pagination.PageNumberPagination",
+    "PAGE_SIZE": 25,
+    "DEFAULT_FILTER_BACKENDS": (
+        "rest_framework_filters.backends.RestFrameworkFilterBackend",
     ),
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
 
 #
@@ -383,7 +381,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 #
 # CHAT
 #
-MIBBIT_SETTINGS = ''
+MIBBIT_SETTINGS = ""
 
 #
 # NEW SHOP

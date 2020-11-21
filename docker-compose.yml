@@ -1,0 +1,50 @@
+# Inspired by https://docs.docker.com/compose/django/
+version: '3'
+
+services:
+  postgres:
+    image: postgres:11
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=supersecret
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  smtp:
+    image: namshi/smtp@sha256:aa63b8de68ce63dfcf848c56f3c1a16d81354f4accd4242a0086c57dd5a91d77
+    container_name: smtp_relay
+    environment:
+      - RELAY_NETWORKS=:172.0.0.0/8
+      - DISABLE_IPV6=1
+      # - MAILNAME=example.modelbrouwers.nl
+
+  memcached:
+    image: memcached:1.6
+
+  web:
+    build: .
+    image: modelbrouwers/brouwers:${TAG:-latest}
+    environment:
+      - DJANGO_SETTINGS_MODULE=conf.settings.production
+      - SECRET_KEY=${SECRET_KEY:-overridemeiminsecure}
+      - EMAIL_HOST=smtp
+      - DB_HOST=postgres
+      - FORUM_DB_HOST=mysql
+      - CACHE_URL=memcached:11211
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+      - mysql
+      - memcached
+      - smtp
+
+volumes:
+  postgres_data:
+  mysql_data:
