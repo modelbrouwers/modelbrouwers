@@ -54,3 +54,4 @@ except ImportError:
 
 if "test" in sys.argv:
     INSTALLED_APPS += ["brouwers.forum_tools.tests.custom_fields"]
+    SENDFILE_BACKEND = "sendfile.backends.nginx"

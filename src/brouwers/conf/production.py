@@ -40,10 +40,3 @@ LOGGING["loggers"].update(
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Sets X-Content-Type-Options: nosniff
 SECURE_BROWSER_XSS_FILTER = True  # Sets X-XSS-Protection: 1; mode=block
-
-#
-# SENTRY
-#
-INSTALLED_APPS += [
-    "raven.contrib.django.raven_compat",
-]

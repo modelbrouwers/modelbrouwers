@@ -438,6 +438,21 @@ REST_FRAMEWORK = {
 }
 
 #
+# RAVEN/SENTRY
+#
+SENTRY_DSN = config("SENTRY_DSN", default="")
+
+if SENTRY_DSN:
+    RAVEN_CONFIG = {
+        "dsn": SENTRY_DSN,
+    }
+
+    INSTALLED_APPS += [
+        "raven.contrib.django.raven_compat",
+    ]
+
+
+#
 # PHPBB
 #
 PHPBB_URL = "/phpBB3"
