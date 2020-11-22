@@ -68,6 +68,8 @@ COPY --from=frontend-build /app/node_modules/fine-uploader /app/node_modules/fin
 COPY --from=frontend-build /app/node_modules/font-awesome /app/node_modules/font-awesome
 COPY --from=frontend-build /app/src/static /app/src/static
 
+VOLUME /app/media /app/private_media /app/log
+
 # copy source code
 COPY ./src /app/src
 

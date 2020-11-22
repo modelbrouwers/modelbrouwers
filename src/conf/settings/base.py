@@ -46,7 +46,10 @@ DATE_FORMAT = "d-m-Y"
 #
 # LOGGING
 #
+LOG_STDOUT = config("LOG_STDOUT", default=False)
+
 LOGGING_DIR = os.path.join(ROOT_DIR, "log")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -75,28 +78,45 @@ LOGGING = {
         },
         "django": {
             "level": "DEBUG",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": os.path.join(LOGGING_DIR, "django.log"),
             "formatter": "verbose",
+            "maxBytes": 1024 * 1024 * 10,  # 10 MB
+            "backupCount": 10,
         },
         "project": {
             "level": "DEBUG",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": os.path.join(LOGGING_DIR, "brouwers.log"),
             "formatter": "verbose",
+            "maxBytes": 1024 * 1024 * 10,  # 10 MB
+            "backupCount": 10,
         },
         "performance": {
             "level": "INFO",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": os.path.join(LOGGING_DIR, "performance.log"),
             "formatter": "performance",
+            "maxBytes": 1024 * 1024 * 10,  # 10 MB
+            "backupCount": 10,
         },
     },
     "loggers": {
-        "brouwers": {"handlers": ["project"], "level": "INFO", "propagate": True,},
+        "brouwers": {
+            "handlers": ["project"] if not LOG_STDOUT else ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
         "django.request": {
-            "handlers": ["mail_admins"],
+            "handlers": ["django", "mail_admins"]
+            if not LOG_STDOUT
+            else ["console", "mail_admins"],
             "level": "ERROR",
+            "propagate": True,
+        },
+        "django.template": {
+            "handlers": ["console"],
+            "level": "INFO",
             "propagate": True,
         },
     },

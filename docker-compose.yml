@@ -37,6 +37,10 @@ services:
       - DB_HOST=postgres
       - FORUM_DB_HOST=mysql
       - CACHE_URL=memcached:11211
+    volumes:
+      - media:/app/media
+      - media_sendfile:/app/media_sendfile
+      - log:/app/log
     ports:
       - 8000:8000
     depends_on:
@@ -48,3 +52,6 @@ services:
 volumes:
   postgres_data:
   mysql_data:
+  media:
+  media_sendfile:
+  log:
