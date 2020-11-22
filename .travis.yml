@@ -12,6 +12,7 @@ cache:
 services:
   - postgresql
   - memcached
+  - docker
   # - redis-server
   # - elasticsearch
 
@@ -30,6 +31,7 @@ before_script:
 
 script:
   - coverage run src/manage.py test src  -v 2
+  - docker build .
 
 after_success:
   - coveralls
