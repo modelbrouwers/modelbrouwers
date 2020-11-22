@@ -53,9 +53,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 COPY ./bin/docker_start.sh /start.sh
-RUN mkdir /app/log
-RUN mkdir /app/media
-RUN mkdir /app/node_modules
+RUN mkdir /app/log /app/media /app/private_media /app/node_modules
 
 # copy backend build deps
 COPY --from=backend-build /usr/local/lib/python3.6 /usr/local/lib/python3.6
@@ -68,20 +66,21 @@ COPY --from=frontend-build /app/node_modules/fine-uploader /app/node_modules/fin
 COPY --from=frontend-build /app/node_modules/font-awesome /app/node_modules/font-awesome
 COPY --from=frontend-build /app/src/static /app/src/static
 
-VOLUME /app/media /app/private_media /app/log
-
 # copy source code
 COPY ./src /app/src
 
 RUN useradd -M -u 1000 brouwers
 RUN chown -R brouwers /app
 
+VOLUME /app/media /app/private_media /app/log
+
 # drop privileges
 USER brouwers
 
 # ARG COMMIT_HASH
 # ENV GIT_SHA=${COMMIT_HASH}
-ENV DJANGO_SETTINGS_MODULE=conf.settings.production
+ENV DJANGO_SETTINGS_MODULE=brouwers.conf.production
+ENV LOG_STDOUT=yes
 
 ARG SECRET_KEY=dummy
 

@@ -31,8 +31,9 @@ services:
     build: .
     image: modelbrouwers/brouwers:${TAG:-latest}
     environment:
-      - DJANGO_SETTINGS_MODULE=conf.settings.production
+      - DJANGO_SETTINGS_MODULE=brouwers.conf.production
       - SECRET_KEY=${SECRET_KEY:-overridemeiminsecure}
+      - ALLOWED_HOSTS=*
       - EMAIL_HOST=smtp
       - DB_HOST=postgres
       - FORUM_DB_HOST=mysql

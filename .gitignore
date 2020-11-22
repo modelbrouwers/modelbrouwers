@@ -13,8 +13,7 @@ phpBB3/styles/subsilver2_dead_topics/template/common/_nav_tabs.php
 
 # settings
 apache
-/brouwers/settings/local_settings.py
-src/conf/settings/local.py
+src/brouwers/conf/local.py
 secrets.py
 .env
 

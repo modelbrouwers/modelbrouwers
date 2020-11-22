@@ -17,3 +17,7 @@ local.py
 /vendor/
 
 /src/static/js
+/src/static/css
+!/src/static/css/base.css
+!/src/static/css/common.css
+!/src/static/css/images
