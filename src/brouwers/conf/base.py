@@ -39,7 +39,7 @@ LANGUAGES = [
     ("de", _("German")),
 ]
 
-LANGUAGE_CODE = "nl"
+# LANGUAGE_CODE = "nl"
 
 TIME_ZONE = "Europe/Amsterdam"
 
