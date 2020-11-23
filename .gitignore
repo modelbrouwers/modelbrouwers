@@ -61,3 +61,7 @@ src/static/css/
 !src/static/css/jquery-ui-1.10.2.custom.css
 
 src/static/js/
+
+# docker pre-populate
+/docker/mysql/modelbrouw_fora.sql.gz
+/docker/postgres/modelbrouwers.sql.gz

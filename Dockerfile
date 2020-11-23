@@ -52,6 +52,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+COPY ./bin/wait-for-it.sh /wait-for-it.sh
 COPY ./bin/docker_start.sh /start.sh
 RUN mkdir /app/log /app/media /app/private_media /app/node_modules
 

@@ -18,7 +18,9 @@ until pg_isready; do
   sleep 1
 done
 
->&2 echo "Database is up."
+/wait-for-it.sh ${FORUM_DB_HOST:-mysql}:${FORUM_DB_PORT:-3306} -- echo "MySQL is up"
+
+>&2 echo "Databases are up."
 
 # Apply database migrations
 >&2 echo "Apply database migrations"
@@ -43,5 +45,5 @@ exec uwsgi \
     --processes $uwsgi_processes \
     --cheaper 2 \
     --cheaper-algo spare \
-    --cheaper--initial 4 \
+    --cheaper-initial 4 \
     --cheaper-step 1

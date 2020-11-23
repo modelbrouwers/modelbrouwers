@@ -6,11 +6,13 @@ services:
     image: postgres:11
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=modelbrouwers
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/:/docker-entrypoint-initdb.d/
 
   mysql:
-    image: mysql:5.7
+    image: mariadb:10.1
     environment:
       - MYSQL_ROOT_PASSWORD=supersecret
       - MYSQL_DATABASE=brouwers
@@ -18,6 +20,7 @@ services:
       - MYSQL_PASSWORD=brouwers
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./docker/mysql/:/docker-entrypoint-initdb.d/
 
   smtp:
     image: namshi/smtp@sha256:aa63b8de68ce63dfcf848c56f3c1a16d81354f4accd4242a0086c57dd5a91d77
@@ -37,10 +40,14 @@ services:
       - DJANGO_SETTINGS_MODULE=brouwers.conf.production
       - SECRET_KEY=${SECRET_KEY:-overridemeiminsecure}
       - ALLOWED_HOSTS=*
+      - IS_HTTPS=no
       - EMAIL_HOST=smtp
+      - DB_NAME=modelbrouwers
+      - DB_USER=postgres
       - DB_HOST=postgres
       - FORUM_DB_HOST=mysql
       - CACHE_URL=memcached:11211
+      - SESSION_COOKIE_DOMAIN=localhost
     volumes:
       - media:/app/media
       - media_sendfile:/app/media_sendfile
