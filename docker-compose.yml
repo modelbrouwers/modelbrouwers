@@ -13,6 +13,9 @@ services:
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=supersecret
+      - MYSQL_DATABASE=brouwers
+      - MYSQL_USER=brouwers
+      - MYSQL_PASSWORD=brouwers
     volumes:
       - mysql_data:/var/lib/mysql
 
