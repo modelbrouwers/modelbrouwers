@@ -1,6 +1,7 @@
 import os
 
 os.environ.setdefault("SECRET_KEY", "travis-key")
+os.environ.setdefault("IS_HTTPS", "no")
 
 os.environ.setdefault("DB_NAME", "brouwers")
 os.environ.setdefault("DB_USER", "postgres")
