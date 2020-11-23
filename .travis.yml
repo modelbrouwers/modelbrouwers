@@ -12,11 +12,12 @@ cache:
 services:
   - postgresql
   - memcached
+  - docker
   # - redis-server
   # - elasticsearch
 
 env:
-  - DJANGO_SETTINGS_MODULE=conf.settings.travis
+  - DJANGO_SETTINGS_MODULE=brouwers.conf.travis
 
 install:
   - pip install --upgrade setuptools pip
@@ -30,6 +31,7 @@ before_script:
 
 script:
   - coverage run src/manage.py test src  -v 2
+  - docker build .
 
 after_success:
   - coveralls
