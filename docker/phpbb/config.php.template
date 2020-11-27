@@ -15,7 +15,7 @@ $load_extensions = '';
 // @define('DEBUG', true);
 // @define('DEBUG_EXTRA', true);
 
-$django_host = '${PHPBB3_DJANGO_DB_HOST}';
+$django_dbhost = '${PHPBB3_DJANGO_DB_HOST}';
 $django_dbname = '${PHPBB3_DJANGO_DB_NAME}';
 $django_dbuser = '${PHPBB3_DJANGO_DB_USER}';
 $django_dbpasswd = '${PHPBB3_DJANGO_DB_PASSWORD}';

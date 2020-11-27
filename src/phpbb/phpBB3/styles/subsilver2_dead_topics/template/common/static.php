@@ -1,1 +1,0 @@
-../../../../../php-static-files/static.php

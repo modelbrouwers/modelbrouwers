@@ -46,12 +46,15 @@ COPY src/phpbb/phpBB3/includes/auth/auth_django.php \
      src/phpbb/phpBB3/includes/auth/getdjangouser.php \
      phpBB3/includes/auth/
 
-RUN mkdir -p phpBB3/src/conf phpbb3/src/phpbb
+RUN mkdir -p phpBB3/src/conf/ phpBB3/src/phpbb/ phpBB3/src/templates/ phpBB3/static/
 
 COPY src/conf/settings.php phpBB3/src/conf/settings.php
-COPY src/templates phpBB3/src/templates
+COPY src/templates/php_templates phpBB3/src/templates/php_templates
 COPY src/phpbb/php-static-files phpBB3/src/phpbb/php-static-files
 COPY src/phpbb/phpBB3/styles/subsilver2_dead_topics phpBB3/styles/subsilver2_dead_topics
+
+# Include the staticfiles manifest
+COPY --from=modelbrouwers/brouwers:latest /app/static/staticfiles.json phpBB3/static/staticfiles.json
 
 VOLUME /var/www/html/phpBB3/cache /var/www/html/phpBB3/images
 
@@ -64,4 +67,6 @@ ENV PHPBB3_DB_HOST=mysql \
     PHPBB3_DJANGO_DB_NAME=modelbrouwers \
     PHPBB3_DJANGO_DB_USER=brouwers \
     PHPBB3_DJANGO_DB_PASSWORD=brouwers \
-    PHPBB3_DJANGO_SESSION_COOKIE_NAME=mbsessionid
+    PHPBB3_DJANGO_SESSION_COOKIE_NAME=mbsessionid \
+    MEMCACHED_HOST=memcached
+
