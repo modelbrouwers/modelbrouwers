@@ -48,6 +48,14 @@ COPY src/phpbb/phpBB3/includes/auth/auth_django.php \
 
 RUN mkdir -p phpBB3/src/conf/ phpBB3/src/phpbb/ phpBB3/src/templates/ phpBB3/static/
 
+# Install dependencies with composer
+WORKDIR /var/www/html/phpBB3/src
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY composer.json composer.lock ./
+RUN composer install
+
+# Copy source code
+WORKDIR /var/www/html
 COPY src/conf/settings.php phpBB3/src/conf/settings.php
 COPY src/templates/php_templates phpBB3/src/templates/php_templates
 COPY src/phpbb/php-static-files phpBB3/src/phpbb/php-static-files
@@ -69,4 +77,3 @@ ENV PHPBB3_DB_HOST=mysql \
     PHPBB3_DJANGO_DB_PASSWORD=brouwers \
     PHPBB3_DJANGO_SESSION_COOKIE_NAME=mbsessionid \
     MEMCACHED_HOST=memcached
-
