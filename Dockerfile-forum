@@ -38,6 +38,9 @@ RUN curl -LOJ $PHPBB_DOWNLOAD_URL \
     && cp -r dutch_\(casual_honorifics\)_1_0_14/* phpBB3/ \
     && rm -rf dutch_\(casual_honorifics\)_1_0_14/ 107906
 
+# Install extra images
+COPY src/phpbb/phpBB3/images/smilies/*.gif phpBB3/images/smilies/
+
 # Set up config template, environment driven
 COPY docker/phpbb/config.php.template /var/www/html/phpBB3/config.php.template
 
