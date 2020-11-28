@@ -73,7 +73,7 @@ services:
       - PHPBB3_DJANGO_DB_HOST=postgres
       - PHPBB3_DJANGO_DB_NAME=modelbrouwers
       - PHPBB3_DJANGO_DB_USER=postgres
-      - PHPBB3_DJANGO_DB_PASSWORD=''
+      - PHPBB3_DJANGO_DB_PASSWORD=
       - PHPBB3_DJANGO_SESSION_COOKIE_NAME=mbsessionid
       - MEMCACHED_HOST=memcached
     volumes:

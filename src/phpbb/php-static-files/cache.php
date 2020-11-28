@@ -1,6 +1,6 @@
 <?php
 
-$settingsFile = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'settings.php';
+$settingsFile = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'settings.php';
 require_once $settingsFile;
 
 define('PREFIX_KEY', $settings->KEY_PREFIX);
