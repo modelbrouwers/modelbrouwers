@@ -27,13 +27,20 @@
     <!-- static backend, provides the $storage variable -->
     <!-- INCLUDEPHP src/phpbb/php-static-files/static.php -->
     <!-- PHP -->
-        $storage = new ManifeststaticStorage();
+        $storage = new ManifestStaticFilesStorage();
     <!-- ENDPHP -->
 
     <!-- PHPBB style -->
     <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
 
-    <!-- use googles jquery, loads faster and relieves own server -->
+    <!-- google analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-385491-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
         var jQuery = jQuery.noConflict();
@@ -262,11 +269,6 @@ function marklist(id, name, state)
                                         alt="Modelbouw woordenboek" hspace="3" />
                                     Columns
                                 </a> -->
-                                &nbsp;
-                                <a href="viewtopic.php?t=22861" class="mainmenu" id="open-chat">
-                                    <img src="{T_THEME_PATH}/images/icon_mini_chat.gif" border="0" alt="Modelbrouwers.nl chat" hspace="3" />
-                                    Brouw Chat
-                                </a>
                                 &nbsp;
                                 <a href="viewtopic.php?t=3606" class="mainmenu">
                                     <img src="{T_THEME_PATH}/images/icon_mini_abc.gif"  border="0" alt="Modelbouw woordenboek" hspace="3" />

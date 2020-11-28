@@ -21,3 +21,6 @@ local.py
 !/src/static/css/base.css
 !/src/static/css/common.css
 !/src/static/css/images
+
+/docker/mysql/*.sql.gz
+/docker/postgres/*.sql.gz

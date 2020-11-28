@@ -1,4 +1,3 @@
-<ul>
 <li>
     <a href="/winkel/uhu" id="shop-uhu"></a>
 </li>
@@ -47,4 +46,3 @@
 <li>
     <a href="/winkel/vallejo" id="shop-vallejo"></a>
 </li>
-</ul>

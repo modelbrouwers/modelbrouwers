@@ -1,0 +1,22 @@
+<?php
+// phpBB 3.0.x (ansible) auto-generated configuration file
+// Do not change anything in this file!
+$dbms = 'mysqli';
+$dbhost = '${PHPBB3_DB_HOST}';
+$dbport = '';
+$dbname = '${PHPBB3_DB_NAME}';
+$dbuser = '${PHPBB3_DB_USER}';
+$dbpasswd = '${PHPBB3_DB_PASSWORD}';
+$table_prefix = '${PHPBB3_TABLE_PREFIX}';
+$acm_type = 'file';
+$load_extensions = '';
+
+@define('PHPBB_INSTALLED', true);
+// @define('DEBUG', true);
+// @define('DEBUG_EXTRA', true);
+
+$django_dbhost = '${PHPBB3_DJANGO_DB_HOST}';
+$django_dbname = '${PHPBB3_DJANGO_DB_NAME}';
+$django_dbuser = '${PHPBB3_DJANGO_DB_USER}';
+$django_dbpasswd = '${PHPBB3_DJANGO_DB_PASSWORD}';
+$django_session_cookie = '${PHPBB3_DJANGO_SESSION_COOKIE_NAME}';

@@ -7,7 +7,7 @@ define('PREFIX_KEY', $settings->KEY_PREFIX);
 
 
 class StaticCache extends Memcached {
-    protected $TIMEOUT = 900; // 15 minutes
+    protected $TIMEOUT = 60 * 60; // 60 minutes
 
     public function __construct($persistent_id = '') {
         parent::__construct($persistent_id);
