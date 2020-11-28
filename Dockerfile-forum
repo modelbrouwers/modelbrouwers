@@ -56,6 +56,7 @@ RUN composer install
 
 # Copy source code
 WORKDIR /var/www/html
+COPY src/phpbb/errorhandler.php phpBB3/src/phpbb/errorhandler.php
 COPY src/conf/settings.php phpBB3/src/conf/settings.php
 COPY src/templates/php_templates phpBB3/src/templates/php_templates
 COPY src/phpbb/php-static-files phpBB3/src/phpbb/php-static-files
