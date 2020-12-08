@@ -1,7 +1,6 @@
 <?php
     $root = dirname(__FILE__).'/';
     require_once $root.'settings.php';
-    // TODO: look into Twig templating so we can reuse django templates
 ?>
 
 <header class="container-fluid">

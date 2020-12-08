@@ -1,0 +1,3 @@
+[submodule "opencart-extensions"]
+	path = opencart-extensions
+	url = git@github.com:modelbrouwers/opencart-extensions.git
