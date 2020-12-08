@@ -105,7 +105,7 @@ services:
       - DB_PASSWORD=winkel
       - DB_NAME=winkel
       - DB_PREFIX=oc_
-      - SELF_ADDRESS=http://localhost:8002
+      - SELF_ADDRESS=http://localhost
     volumes:
       - shop:/var/www/html/winkel/:rw
     ports:
