@@ -1,0 +1,50 @@
+FROM php:5.6-apache
+
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng-dev \
+        libcurl3-dev \
+        unzip \
+    && docker-php-ext-install mcrypt curl mysql \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
+
+RUN a2enmod rewrite
+
+COPY ./docker/shop/php.ini /usr/local/etc/php/
+
+ARG OPENCART_URL=https://github.com/opencart/opencart/archive/1.5.5.1.zip
+ARG OPENCART_DIR=opencart-1.5.5.1
+ARG VQMOD_URL=https://github.com/vqmod/vqmod/archive/v2.6.1-opencart.zip
+ARG VQMOD_DIR=vqmod-2.6.1-opencart
+
+RUN curl -sLOJ $OPENCART_URL \
+    && curl -sLOJ $VQMOD_URL \
+    && unzip $OPENCART_DIR.zip -d . \
+    && mv $OPENCART_DIR/upload ./winkel/ \
+    && mv ./winkel/admin ./winkel/achterdeur \
+    && rm -rf $OPENCART_DIR $OPENCART_DIR.zip \
+    && unzip $VQMOD_DIR.zip -d . \
+    && mv $VQMOD_DIR/vqmod ./winkel/vqmod \
+    && rm -rf $VQMOD_DIR $VQMOD_DIR.zip \
+    && rm -rf ./winkel/install ./winkel/config-dist.php ./winkel/achterdeur/config-dist.php
+
+COPY ./docker/shop/winkel/ ./winkel/
+COPY ./docker/shop/pathReplaces.php ./winkel/vqmod/
+
+# Set up all the vqmod extensions. Note that you need the git submodule for that, which
+# is in a private repository.
+COPY ./opencart-extensions /tmp/opencart-extensions
+RUN /tmp/opencart-extensions/install_all.sh /var/www/html/winkel \
+    && rm -rf /tmp/opencart-extensions
+
+VOLUME /var/www/html/winkel/
+
+ENV DB_HOSTNAME=mysql \
+    DB_USERNAME=shop \
+    DB_PASSWORD=shop \
+    DB_NAME=shop \
+    DB_PREFIX=oc_ \
+    SELF_ADDRESS=http://localhost

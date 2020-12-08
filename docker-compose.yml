@@ -87,6 +87,33 @@ services:
       - mysql
       - memcached
 
+  # works as an init container
+  shop_volume:
+    image: busybox
+    command: ["chown", "-R", "33:33", "/tmp/vol"]
+    volumes:
+      - shop:/tmp/vol:rw
+
+  shop:
+    build:
+      context: .
+      dockerfile: Dockerfile-shop
+    image: docker.modelbrouwers.nl/modelbrouwers/winkel:${SHOP_VERSION:-latest}
+    environment:
+      - DB_HOSTNAME=mysql
+      - DB_USERNAME=winkel
+      - DB_PASSWORD=winkel
+      - DB_NAME=winkel
+      - DB_PREFIX=oc_
+      - SELF_ADDRESS=http://localhost:8002
+    volumes:
+      - shop:/var/www/html/winkel/:rw
+    ports:
+      - 8002:80
+    depends_on:
+      - mysql
+      - shop_volume
+
   # not suitable for production
   nginx:
     image: nginx:1.19
@@ -107,3 +134,4 @@ volumes:
   log:
   phpbb_cache:
   phpbb_images:
+  shop:

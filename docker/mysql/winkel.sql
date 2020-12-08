@@ -1,0 +1,4 @@
+CREATE USER 'winkel'@'%' IDENTIFIED BY 'winkel';
+CREATE DATABASE winkel;
+GRANT ALL PRIVILEGES ON winkel.* TO 'winkel'@'%';
+FLUSH PRIVILEGES;
