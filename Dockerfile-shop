@@ -34,6 +34,12 @@ RUN curl -sLOJ $OPENCART_URL \
 COPY ./docker/shop/winkel/ ./winkel/
 COPY ./docker/shop/pathReplaces.php ./winkel/vqmod/
 
+COPY src/templates/php_templates/top.php \
+    src/templates/php_templates/settings.php \
+    src/templates/php_templates/nav_tabs.php \
+    src/templates/php_templates/shop_banner.php \
+    ./winkel/catalog/view/theme/default/template/common/
+
 # Set up all the vqmod extensions. Note that you need the git submodule for that, which
 # is in a private repository.
 COPY ./opencart-extensions /tmp/opencart-extensions
