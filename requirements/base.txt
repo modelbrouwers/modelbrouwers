@@ -10,7 +10,6 @@ cairosvg==2.5.0           # via weasyprint
 certifi==2020.11.8        # via requests
 cffi==1.14.3              # via cairocffi, weasyprint
 chardet==3.0.4            # via requests
-contextlib2==0.6.0.post1  # via raven
 cssselect2==0.3.0         # via cairosvg, weasyprint
 defusedxml==0.6.0         # via cairosvg
 diff-match-patch==20181111  # via django-import-export
@@ -60,7 +59,7 @@ python-dotenv==0.15.0     # via -r requirements/base.in
 python-memcached==1.59    # via -r requirements/base.in
 pytz==2020.4              # via -r requirements/base.in, django
 pyyaml==5.3.1             # via tablib
-raven==5.32.0             # via -r requirements/base.in
+raven==6.10.0             # via -r requirements/base.in
 rcssmin==1.0.6            # via django-compressor
 requests==2.25.0          # via django-rosetta
 rjsmin==1.0.12            # via django-compressor

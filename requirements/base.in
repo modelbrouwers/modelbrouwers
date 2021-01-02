@@ -40,4 +40,4 @@ djangorestframework-filters == 1.0.0.dev0
 
 # WSGI servers & monitoring - production oriented
 uwsgi
-raven==5.32.0
+raven

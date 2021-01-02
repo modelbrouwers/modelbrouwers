@@ -19,7 +19,6 @@ certifi==2020.11.8        # via -r requirements/ci.txt, requests
 cffi==1.14.3              # via -r requirements/ci.txt, cairocffi, weasyprint
 chardet==3.0.4            # via -r requirements/ci.txt, requests
 click==7.1.1              # via black, pip-tools
-contextlib2==0.6.0.post1  # via -r requirements/ci.txt, raven
 coverage==4.5.4           # via -r requirements/ci.txt
 cssselect2==0.3.0         # via -r requirements/ci.txt, cairosvg, weasyprint
 curtsies==0.3.1           # via bpython
@@ -92,7 +91,7 @@ python-dotenv==0.15.0     # via -r requirements/ci.txt
 python-memcached==1.59    # via -r requirements/ci.txt
 pytz==2020.4              # via -r requirements/ci.txt, babel, django
 pyyaml==5.3.1             # via -r requirements/ci.txt, tablib
-raven==5.32.0             # via -r requirements/ci.txt
+raven==6.10.0             # via -r requirements/ci.txt
 rcssmin==1.0.6            # via -r requirements/ci.txt, django-compressor
 regex==2020.4.4           # via black
 requests-mock==1.7.0      # via -r requirements/ci.txt
