@@ -1,6 +1,5 @@
 class Paginator {
-    constructor(opts = {}) {
-        this.opts = Object.assign({}, opts);
+    constructor() {
         this.paginate_by = null;
         this.page_range = [];
         this.previous_page_number = null;
@@ -34,11 +33,11 @@ class Paginator {
         this.next_page_number = this.page_range[index + 1] || null;
     }
 
-    has_previous() {
+    get has_previous() {
         return this.previous_page_number !== null;
     }
 
-    has_next() {
+    get has_next() {
         return this.next_page_number !== null;
     }
 }
