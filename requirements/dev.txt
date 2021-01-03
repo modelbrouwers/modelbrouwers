@@ -66,7 +66,7 @@ imagesize==1.2.0          # via sphinx
 isort==4.3.21             # via -r requirements/dev.in
 jdcal==1.4.1              # via -r requirements/ci.txt, openpyxl
 jinja2==2.11.2            # via sphinx
-lxml==4.6.1               # via -r requirements/ci.txt
+lxml==4.6.2               # via -r requirements/ci.txt
 markuppy==1.14            # via -r requirements/ci.txt, tablib
 markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via flake8

@@ -41,7 +41,7 @@ html2text==2020.1.16      # via -r requirements/base.in
 html5lib==1.1             # via weasyprint
 idna==2.10                # via requests
 jdcal==1.4.1              # via openpyxl
-lxml==4.6.1               # via -r requirements/base.in
+lxml==4.6.2               # via -r requirements/base.in
 markuppy==1.14            # via tablib
 mysqlclient==1.4.6        # via -r requirements/base.in
 odfpy==1.4.1              # via tablib
