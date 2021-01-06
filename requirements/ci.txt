@@ -7,7 +7,7 @@
 beautifulsoup4==4.9.0     # via webtest
 bleach==3.2.1             # via -r requirements/base.txt
 cairocffi==1.2.0          # via -r requirements/base.txt, cairosvg, weasyprint
-cairosvg==2.5.0           # via -r requirements/base.txt, weasyprint
+cairosvg==2.5.1           # via -r requirements/base.txt, weasyprint
 certifi==2020.12.5        # via -r requirements/base.txt, requests
 cffi==1.14.4              # via -r requirements/base.txt, cairocffi, weasyprint
 chardet==4.0.0            # via -r requirements/base.txt, requests
