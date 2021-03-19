@@ -38,7 +38,7 @@ django-treebeard==4.3.1   # via -r requirements/base.txt
 django-webtest==1.9.7     # via -r requirements/test-tools.in
 django==2.2.17            # via -r requirements/base.txt, django-appconf, django-choices, django-extra-views, django-filter, django-import-export, django-modeltranslation, django-precise-bbcode, django-rosetta, django-sendfile, django-sniplates, django-taggit, django-treebeard, djangorestframework
 djangorestframework-filters==1.0.0.dev2  # via -r requirements/base.txt
-djangorestframework==3.11.0  # via -r requirements/base.txt, djangorestframework-filters
+djangorestframework==3.11.2  # via -r requirements/base.txt, djangorestframework-filters
 et-xmlfile==1.0.1         # via -r requirements/base.txt, openpyxl
 factory-boy==2.12.0       # via -r requirements/test-tools.in
 faker==4.0.3              # via factory-boy
