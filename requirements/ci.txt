@@ -6,7 +6,7 @@
 #
 beautifulsoup4==4.9.0
     # via webtest
-bleach==3.2.1
+bleach==3.3.0
     # via -r requirements/base.txt
 cairocffi==1.2.0
     # via

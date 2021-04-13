@@ -18,7 +18,7 @@ beautifulsoup4==4.9.0
     #   webtest
 black==19.10b0
     # via -r requirements/dev.in
-bleach==3.2.1
+bleach==3.3.0
     # via -r requirements/ci.txt
 blessings==1.7
     # via curtsies
