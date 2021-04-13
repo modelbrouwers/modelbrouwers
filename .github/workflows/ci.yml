@@ -37,6 +37,8 @@ jobs:
 
       memcached:
         image: memcached:1.6
+        ports:
+          - 11211:11211
 
     steps:
       - uses: actions/checkout@v2
