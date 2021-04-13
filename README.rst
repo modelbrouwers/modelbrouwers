@@ -1,6 +1,6 @@
 
-.. image:: https://travis-ci.com/modelbrouwers/modelbrouwers.svg?branch=master
-    :target: https://travis-ci.com/modelbrouwers/modelbrouwers
+.. image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
+    :target: https://github.com/modelbrouwers/modelbrouwers/actions?query=workflow%3A%22Run+CI%22
 
 .. image:: https://coveralls.io/repos/modelbrouwers/modelbrouwers/badge.png
     :target: https://coveralls.io/r/modelbrouwers/modelbrouwers
