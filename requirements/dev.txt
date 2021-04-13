@@ -29,7 +29,7 @@ cairocffi==1.2.0
     #   -r requirements/ci.txt
     #   cairosvg
     #   weasyprint
-cairosvg==2.5.0
+cairosvg==2.5.2
     # via
     #   -r requirements/ci.txt
     #   weasyprint
@@ -122,7 +122,7 @@ django-treebeard==4.3.1
     # via -r requirements/ci.txt
 django-webtest==1.9.7
     # via -r requirements/ci.txt
-django==2.2.17
+django==2.2.20
     # via
     #   -r requirements/ci.txt
     #   django-appconf
@@ -142,7 +142,7 @@ django==2.2.17
     #   djangorestframework
 djangorestframework-filters==1.0.0.dev2
     # via -r requirements/ci.txt
-djangorestframework==3.11.0
+djangorestframework==3.11.2
     # via
     #   -r requirements/ci.txt
     #   djangorestframework-filters
@@ -186,9 +186,9 @@ jdcal==1.4.1
     # via
     #   -r requirements/ci.txt
     #   openpyxl
-jinja2==2.11.2
+jinja2==2.11.3
     # via sphinx
-lxml==4.6.2
+lxml==4.6.3
     # via -r requirements/ci.txt
 markuppy==1.14
     # via
@@ -217,7 +217,7 @@ pathspec==0.8.0
     # via black
 pep517==0.10.0
     # via pip-tools
-pillow==8.1.0
+pillow==8.2.0
     # via
     #   -r requirements/ci.txt
     #   cairosvg
@@ -239,7 +239,7 @@ pycparser==2.20
     #   cffi
 pyflakes==2.1.1
     # via flake8
-pygments==2.6.1
+pygments==2.8.1
     # via
     #   bpython
     #   sphinx
@@ -267,7 +267,7 @@ pytz==2020.5
     #   -r requirements/ci.txt
     #   babel
     #   django
-pyyaml==5.3.1
+pyyaml==5.4.1
     # via
     #   -r requirements/ci.txt
     #   tablib
@@ -366,7 +366,7 @@ typing-extensions==3.7.4.3
     # via importlib-metadata
 typing==3.6.2
     # via django-extensions
-urllib3==1.26.2
+urllib3==1.26.4
     # via
     #   -r requirements/ci.txt
     #   requests

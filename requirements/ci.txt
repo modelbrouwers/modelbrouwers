@@ -13,7 +13,7 @@ cairocffi==1.2.0
     #   -r requirements/base.txt
     #   cairosvg
     #   weasyprint
-cairosvg==2.5.0
+cairosvg==2.5.2
     # via
     #   -r requirements/base.txt
     #   weasyprint
@@ -94,7 +94,7 @@ django-treebeard==4.3.1
     # via -r requirements/base.txt
 django-webtest==1.9.7
     # via -r requirements/test-tools.in
-django==2.2.17
+django==2.2.20
     # via
     #   -r requirements/base.txt
     #   django-appconf
@@ -112,7 +112,7 @@ django==2.2.17
     #   djangorestframework
 djangorestframework-filters==1.0.0.dev2
     # via -r requirements/base.txt
-djangorestframework==3.11.0
+djangorestframework==3.11.2
     # via
     #   -r requirements/base.txt
     #   djangorestframework-filters
@@ -140,7 +140,7 @@ jdcal==1.4.1
     # via
     #   -r requirements/base.txt
     #   openpyxl
-lxml==4.6.2
+lxml==4.6.3
     # via -r requirements/base.txt
 markuppy==1.14
     # via
@@ -160,7 +160,7 @@ packaging==20.8
     # via
     #   -r requirements/base.txt
     #   bleach
-pillow==8.1.0
+pillow==8.2.0
     # via
     #   -r requirements/base.txt
     #   cairosvg
@@ -199,7 +199,7 @@ pytz==2020.5
     # via
     #   -r requirements/base.txt
     #   django
-pyyaml==5.3.1
+pyyaml==5.4.1
     # via
     #   -r requirements/base.txt
     #   tablib
@@ -256,7 +256,7 @@ tinycss2==1.1.0
     #   cairosvg
     #   cssselect2
     #   weasyprint
-urllib3==1.26.2
+urllib3==1.26.4
     # via
     #   -r requirements/base.txt
     #   requests
