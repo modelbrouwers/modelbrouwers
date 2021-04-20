@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
 
+from brouwers.forum_tools.fields import ForumToolsIDField
+
 from .constants import FIELD_2_POINTS
 from .utils import voting_enabled
 
@@ -15,6 +17,9 @@ from .utils import voting_enabled
 class Category(models.Model):
     name = models.CharField(_("name"), max_length=100)
     slug = AutoSlugField(_("slug"), populate_from="name", unique=True)
+    forum = ForumToolsIDField(
+        _("forum"), type="forum", unique=True, blank=True, null=True,
+    )
 
     def __str__(self):
         return self.name

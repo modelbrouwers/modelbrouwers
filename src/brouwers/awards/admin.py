@@ -1,8 +1,11 @@
 from datetime import datetime
 
+from django import forms
 from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
 from django.utils.translation import ugettext as _
+
+from brouwers.forum_tools.models import Forum
 
 from .models import Category, Project, Vote
 
@@ -108,4 +111,15 @@ class VoteAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("name", "slug", "forum")
+    search_fields = ("name",)
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if db_field.name == "forum":
+            field = forms.ModelChoiceField(
+                label=db_field.verbose_name,
+                required=not db_field.blank,
+                queryset=Forum.objects.all(),
+            )
+            return field
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
