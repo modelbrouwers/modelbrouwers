@@ -63,11 +63,17 @@ class ProjectAdmin(admin.ModelAdmin):
         "nomination_date",
         "rejected",
         "votes",
+        "topic",
     )
     list_filter = (
         "category",
         ("nomination_date", NominationDateFilter),
     )
+    list_select_related = (
+        "category",
+        "last_reviewer",
+    )
+    ordering = ("-nomination_date",)
     search_fields = ("name", "nomination_date", "brouwer")
 
     readonly_fields = ("last_reviewer", "last_review")

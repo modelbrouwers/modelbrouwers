@@ -85,20 +85,16 @@ class LatestNominationsManager(models.Manager):
 
 class Project(models.Model):
     url = models.URLField(max_length=500, help_text="link naar het verslag")
-    name = models.CharField("titel verslag", max_length=100)
-    brouwer = models.CharField(
-        max_length=30
-    )  # this should be able to be linked to an (existing) user
+    topic = ForumToolsIDField(
+        _("build report topic"), type="topic", blank=True, null=True,
+    )
     category = models.ForeignKey(
         Category, verbose_name="categorie", on_delete=models.CASCADE
     )
-    image = models.ImageField(upload_to="awards/", blank=True, null=True)
 
+    # internal statistics
     nomination_date = models.DateField(default=date.today, db_index=True)
-
     votes = models.IntegerField(null=True, blank=True, default=0)
-    rejected = models.BooleanField(default=False)
-
     submitter = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="nominations", on_delete=models.CASCADE
     )
@@ -113,6 +109,15 @@ class Project(models.Model):
     last_review = models.DateTimeField(
         _("last review"), auto_now=True, blank=True, null=True
     )
+
+    name = models.CharField("titel verslag", max_length=100)
+    brouwer = models.CharField(
+        max_length=30
+    )  # this should be able to be linked to an (existing) user
+
+    image = models.ImageField(upload_to="awards/", blank=True, null=True)
+
+    rejected = models.BooleanField(default=False)
 
     objects = NominationsManager()
     latest = LatestNominationsManager()
