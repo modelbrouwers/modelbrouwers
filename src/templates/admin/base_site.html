@@ -37,10 +37,10 @@
 {% block userlinks %}
     {{ block.super }}
     <br />
-    <a href="/phpBB3/viewforum.php?f=39" target="_blank">Moddeel</a> &bull;
-    <a href="/phpBB3/" target="_blank">Forum</a> &bull;
-    <a href="/shop/catalog/" target="_blank">Shop</a> &bull;
-    <a href="{% url 'albums:index' %}" target="_blank">Albums</a> &bull;
+    <a href="/phpBB3/viewforum.php?f=39">Moddeel</a> &bull;
+    <a href="/phpBB3/">Forum</a> &bull;
+    <a href="/shop/catalog/">Shop</a> &bull;
+    <a href="{% url 'albums:index' %}">Albums</a> &bull;
     <a href="{% url 'builds:index' %}">{% trans "Builds" %}</a> &bull;
-    <a href="/phpBB3/memberlist.php?mode=searchuser" target="_blank">{% trans 'Find a member' %}</a>
+    <a href="/phpBB3/memberlist.php?mode=searchuser">{% trans 'Find a member' %}</a>
 {% endblock %}
