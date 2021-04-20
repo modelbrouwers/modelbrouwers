@@ -63,7 +63,7 @@ class ProjectAdmin(admin.ModelAdmin):
         "nomination_date",
         "rejected",
         "votes",
-        "topic",
+        "topic_id",
     )
     list_filter = (
         "category",
