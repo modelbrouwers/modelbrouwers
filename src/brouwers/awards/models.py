@@ -84,7 +84,6 @@ class LatestNominationsManager(models.Manager):
 
 
 class Project(models.Model):
-    url = models.URLField(max_length=500, help_text="link naar het verslag")
     topic = ForumToolsIDField(
         _("build report topic"), type="topic", blank=True, null=True,
     )
@@ -129,7 +128,7 @@ class Project(models.Model):
         verbose_name = _("nomination")
         verbose_name_plural = _("nominations")
         ordering = ["category", "votes"]
-        unique_together = (("category", "url"),)
+        unique_together = (("category", "topic"),)
 
     def save(self, *args, **kwargs):
         if not self.id:

@@ -3,6 +3,8 @@ from datetime import datetime
 from django import forms
 from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
+from django.template.defaultfilters import truncatewords
+from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 
 from brouwers.forum_tools.models import Forum
@@ -90,10 +92,15 @@ class ProjectAdmin(admin.ModelAdmin):
 
     actions = [reject, mark_reviewed, resync_score]
 
-    def show_url(self, obj):
-        return '<a href="%s">topic</a>' % obj.url
+    def show_url(self, obj) -> str:
+        if not obj.topic:
+            return _("No topic found!")
+        return format_html(
+            '<a href="{}">{}</a>',
+            obj.topic.get_absolute_url(),
+            truncatewords(obj.topic.topic_title, 6),
+        )
 
-    show_url.allow_tags = True
     show_url.short_description = _("Topic url")
 
     def reviewed(self, obj):
