@@ -84,7 +84,7 @@ django-compressor==2.1
     # via -r requirements/ci.txt
 django-cors-headers==3.2.1
     # via -r requirements/dev.in
-django-debug-toolbar==2.2
+django-debug-toolbar==3.2.1
     # via -r requirements/dev.in
 django-extensions==1.9.7
     # via -r requirements/dev.in
