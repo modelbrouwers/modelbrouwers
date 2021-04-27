@@ -13,6 +13,13 @@ uwsgi_port=${UWSGI_PORT:-8000}
 uwsgi_processes=${UWSGI_PROCESSES:-6}
 uwsgi_threads=${UWSGI_THREADS:-5}
 
+echo
+
+# Copy static root to volume, if required
+if [ -n "$STATIC_ROOT_VOLUME" ]; then
+    cp -r /app/static/* "$STATIC_ROOT_VOLUME"
+fi
+
 until pg_isready; do
   >&2 echo "Waiting for database connection..."
   sleep 1
