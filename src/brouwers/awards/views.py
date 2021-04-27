@@ -7,6 +7,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import RedirectView, TemplateView
 from django.views.generic.list import ListView
 
+from brouwers.forum_tools.models import Topic
 from brouwers.utils.views import LoginRequiredMixin
 
 from .models import Category, Project
@@ -28,10 +29,15 @@ class NominationView(LoginRequiredMixin, RedirectView):
 
 
 class NominationListView(ListView):
-    queryset = Project.objects.exclude(rejected=True)
+    queryset = (
+        Project.objects.select_related("category")
+        .exclude(rejected=True)
+        .order_by("-nomination_date")
+    )
     template_name = "awards/project_list.html"
     context_object_name = "projects"
     category = None
+    paginate_by = 24
 
     def get(self, request, *args, **kwargs):
         self.category = self.get_category_from_url()
@@ -60,7 +66,21 @@ class NominationListView(ListView):
 
     def get_context_data(self, **kwargs):
         kwargs["category"] = self.category
-        return super().get_context_data(**kwargs)
+        kwargs["all_categories"] = Category.objects.order_by("name")
+        ctx = super().get_context_data(**kwargs)
+        self.prefetch_topics(ctx)
+        return ctx
+
+    def prefetch_topics(self, context):
+        qs = context["projects"]
+
+        topic_ids = list(qs.values_list("topic_id", flat=True))
+        topics = Topic.objects.select_related("author", "forum").in_bulk(
+            id_list=topic_ids
+        )
+
+        for project in qs:
+            project.topic = topics.get(project.topic_id)
 
 
 class WinnersView(TemplateView):
