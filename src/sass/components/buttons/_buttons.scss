@@ -69,6 +69,11 @@
     }
   }
 
+  &--vertical-center {
+     display: inline-flex;
+     align-items: center;
+  }
+
   &__icon {
     background: $main-orange;
     color: $white;

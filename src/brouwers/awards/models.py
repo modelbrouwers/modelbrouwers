@@ -18,7 +18,11 @@ class Category(models.Model):
     name = models.CharField(_("name"), max_length=100)
     slug = AutoSlugField(_("slug"), populate_from="name", unique=True)
     forum = ForumToolsIDField(
-        _("forum"), type="forum", unique=True, blank=True, null=True,
+        _("forum"),
+        type="forum",
+        unique=True,
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
@@ -85,7 +89,10 @@ class LatestNominationsManager(models.Manager):
 
 class Project(models.Model):
     topic = ForumToolsIDField(
-        _("build report topic"), type="topic", blank=True, null=True,
+        _("build report topic"),
+        type="topic",
+        blank=True,
+        null=True,
     )
     category = models.ForeignKey(
         Category, verbose_name="categorie", on_delete=models.CASCADE

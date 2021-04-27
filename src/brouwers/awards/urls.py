@@ -1,30 +1,20 @@
 from django.urls import path
-from django.views.generic.base import TemplateView
+from django.views.generic import RedirectView, TemplateView
 
-from .views import (
-    CategoryListView,
-    NominationListView,
-    NominationView,
-    VoteView,
-    WinnersView,
-    scores,
-    vote_overview,
-)
+from .views import WinnersView
 
-# app_name = 'awards'
+app_name = "awards"
+
 urlpatterns = [
-    path("vote/overview/", vote_overview),
-    path("vote/scores/", scores),
+    path("", TemplateView.as_view(template_name="awards/landing.html"), name="index"),
+    path("hall-of-fame/", WinnersView.as_view(), name="winners"),
+    path("hall-of-fame/<int:year>/", WinnersView.as_view(), name="winners"),
+    # old redirect URLs, keep them for SEO
     path(
-        "", TemplateView.as_view(template_name="awards/base.html"), name="awards_index"
+        "winners/", RedirectView.as_view(pattern_name="awards:winners", permanent=True)
     ),
-    path("categories/", CategoryListView.as_view(), name="category-list"),
-    path("categories/<int:pk>/", NominationListView.as_view()),
     path(
-        "categories/<slug:slug>/", NominationListView.as_view(), name="nominations-list"
+        "winners/<int:year>/",
+        RedirectView.as_view(pattern_name="awards:winners", permanent=True),
     ),
-    path("nomination/", NominationView.as_view(), name="add_nomination"),
-    path("voting/", VoteView.as_view(), name="voting"),
-    path("winners/<int:year>/", WinnersView.as_view(), name="winners"),
-    path("winners/", WinnersView.as_view(), name="winners"),
 ]

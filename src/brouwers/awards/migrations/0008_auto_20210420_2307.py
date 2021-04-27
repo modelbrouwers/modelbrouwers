@@ -11,7 +11,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterUniqueTogether(
-            name="project", unique_together={("category", "topic")},
+            name="project",
+            unique_together={("category", "topic")},
         ),
-        migrations.RemoveField(model_name="project", name="url",),
+        migrations.RemoveField(
+            model_name="project",
+            name="url",
+        ),
     ]
