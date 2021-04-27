@@ -32,12 +32,12 @@ chardet==4.0.0
     #   requests
 coverage==4.5.4
     # via -r requirements/test-tools.in
-cssselect2==0.3.0
+cssselect2==0.4.1
     # via
     #   -r requirements/base.txt
     #   cairosvg
     #   weasyprint
-defusedxml==0.6.0
+defusedxml==0.7.1
     # via
     #   -r requirements/base.txt
     #   cairosvg
@@ -76,11 +76,11 @@ django-js-asset==1.2.2
     #   django-ckeditor
 django-loginas==0.3.9
     # via -r requirements/base.txt
-django-modeltranslation==0.16.1
+django-modeltranslation==0.17.1
     # via -r requirements/base.txt
 django-precise-bbcode==1.2.13
     # via -r requirements/base.txt
-django-rosetta==0.9.5
+django-rosetta==0.9.6
     # via -r requirements/base.txt
 django-sendfile==0.3.11
     # via -r requirements/base.txt
@@ -90,9 +90,9 @@ django-sniplates==0.7.0
     # via -r requirements/base.txt
 django-solo==1.1.5
     # via -r requirements/base.txt
-django-taggit==1.3.0
+django-taggit==1.4.0
     # via -r requirements/base.txt
-django-treebeard==4.3.1
+django-treebeard==4.5.1
     # via -r requirements/base.txt
 django-webtest==1.9.7
     # via -r requirements/test-tools.in
@@ -119,7 +119,7 @@ djangorestframework==3.11.2
     # via
     #   -r requirements/base.txt
     #   djangorestframework-filters
-et-xmlfile==1.0.1
+et_xmlfile==1.1.0
     # via
     #   -r requirements/base.txt
     #   openpyxl
@@ -155,11 +155,11 @@ odfpy==1.4.1
     # via
     #   -r requirements/base.txt
     #   tablib
-openpyxl==3.0.5
+openpyxl==3.0.7
     # via
     #   -r requirements/base.txt
     #   tablib
-packaging==20.8
+packaging==20.9
     # via
     #   -r requirements/base.txt
     #   bleach
@@ -169,7 +169,7 @@ pillow==8.4.0
     #   cairosvg
     #   django-precise-bbcode
     #   weasyprint
-polib==1.1.0
+polib==1.1.1
     # via
     #   -r requirements/base.txt
     #   django-rosetta
@@ -192,9 +192,9 @@ python-dateutil==2.8.1
     #   -r requirements/base.txt
     #   faker
     #   freezegun
-python-decouple==3.3
+python-decouple==3.4
     # via -r requirements/base.txt
-python-dotenv==0.15.0
+python-dotenv==0.17.0
     # via -r requirements/base.txt
 python-memcached==1.59
     # via -r requirements/base.txt
@@ -245,7 +245,7 @@ sqlparse==0.4.2
     # via
     #   -r requirements/base.txt
     #   django
-tablib[html,ods,xls,xlsx,yaml]==1.1.0
+tablib[html,ods,xls,xlsx,yaml]==3.0.0
     # via
     #   -r requirements/base.txt
     #   django-import-export
@@ -267,7 +267,7 @@ uwsgi==2.0.19.1
     # via -r requirements/base.txt
 waitress==1.4.3
     # via webtest
-weasyprint==52.2
+weasyprint==52.5
     # via -r requirements/base.txt
 webencodings==0.5.1
     # via
@@ -280,7 +280,7 @@ webob==1.8.6
     # via webtest
 webtest==2.0.34
     # via django-webtest
-xlrd==1.2.0
+xlrd==2.0.1
     # via
     #   -r requirements/base.txt
     #   tablib

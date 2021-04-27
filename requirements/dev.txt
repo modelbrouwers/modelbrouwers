@@ -52,14 +52,14 @@ click==7.1.1
     #   pip-tools
 coverage==4.5.4
     # via -r requirements/ci.txt
-cssselect2==0.3.0
+cssselect2==0.4.1
     # via
     #   -r requirements/ci.txt
     #   cairosvg
     #   weasyprint
 curtsies==0.3.1
     # via bpython
-defusedxml==0.6.0
+defusedxml==0.7.1
     # via
     #   -r requirements/ci.txt
     #   cairosvg
@@ -102,11 +102,11 @@ django-js-asset==1.2.2
     #   django-ckeditor
 django-loginas==0.3.9
     # via -r requirements/ci.txt
-django-modeltranslation==0.16.1
+django-modeltranslation==0.17.1
     # via -r requirements/ci.txt
 django-precise-bbcode==1.2.13
     # via -r requirements/ci.txt
-django-rosetta==0.9.5
+django-rosetta==0.9.6
     # via -r requirements/ci.txt
 django-sendfile==0.3.11
     # via -r requirements/ci.txt
@@ -116,9 +116,9 @@ django-sniplates==0.7.0
     # via -r requirements/ci.txt
 django-solo==1.1.5
     # via -r requirements/ci.txt
-django-taggit==1.3.0
+django-taggit==1.4.0
     # via -r requirements/ci.txt
-django-treebeard==4.3.1
+django-treebeard==4.5.1
     # via -r requirements/ci.txt
 django-webtest==1.9.7
     # via -r requirements/ci.txt
@@ -150,7 +150,7 @@ docutils==0.16
     # via sphinx
 entrypoints==0.3
     # via flake8
-et-xmlfile==1.0.1
+et_xmlfile==1.1.0
     # via
     #   -r requirements/ci.txt
     #   openpyxl
@@ -182,10 +182,6 @@ importlib-metadata==3.10.1
     # via pep517
 isort==4.3.21
     # via -r requirements/dev.in
-jdcal==1.4.1
-    # via
-    #   -r requirements/ci.txt
-    #   openpyxl
 jinja2==2.11.3
     # via sphinx
 lxml==4.7.1
@@ -204,11 +200,11 @@ odfpy==1.4.1
     # via
     #   -r requirements/ci.txt
     #   tablib
-openpyxl==3.0.5
+openpyxl==3.0.7
     # via
     #   -r requirements/ci.txt
     #   tablib
-packaging==20.8
+packaging==20.9
     # via
     #   -r requirements/ci.txt
     #   bleach
@@ -225,7 +221,7 @@ pillow==8.4.0
     #   weasyprint
 pip-tools==6.0.1
     # via -r requirements/dev.in
-polib==1.1.0
+polib==1.1.1
     # via
     #   -r requirements/ci.txt
     #   django-rosetta
@@ -256,9 +252,9 @@ python-dateutil==2.8.1
     #   -r requirements/ci.txt
     #   faker
     #   freezegun
-python-decouple==3.3
+python-decouple==3.4
     # via -r requirements/ci.txt
-python-dotenv==0.15.0
+python-dotenv==0.17.0
     # via -r requirements/ci.txt
 python-memcached==1.59
     # via -r requirements/ci.txt
@@ -340,7 +336,7 @@ sqlparse==0.4.2
     #   -r requirements/ci.txt
     #   django
     #   django-debug-toolbar
-tablib[html,ods,xls,xlsx,yaml]==1.1.0
+tablib[html,ods,xls,xlsx,yaml]==3.0.0
     # via
     #   -r requirements/ci.txt
     #   django-import-export
@@ -378,7 +374,7 @@ waitress==1.4.3
     #   webtest
 wcwidth==0.1.9
     # via curtsies
-weasyprint==52.2
+weasyprint==52.5
     # via -r requirements/ci.txt
 webencodings==0.5.1
     # via
@@ -395,7 +391,7 @@ webtest==2.0.34
     # via
     #   -r requirements/ci.txt
     #   django-webtest
-xlrd==1.2.0
+xlrd==2.0.1
     # via
     #   -r requirements/ci.txt
     #   tablib
