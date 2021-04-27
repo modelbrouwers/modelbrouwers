@@ -56,12 +56,12 @@ form {
   }
 
   &.fade {
-    @include opacity(0.5);
-    @include transition(opacity 0.5s ease);
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
 
     &:hover,
     &:focus {
-      @include opacity(1.0);
+      opacity: 1.0;
     }
   }
 }
@@ -96,7 +96,7 @@ form {
     }
 
     label {
-      @include opacity(0.5);
+      opacity: 0.5;
       position: absolute;
       top: 0;
       right: 0;
@@ -104,7 +104,7 @@ form {
 
       &:hover,
       &:focus {
-        @include opacity(1.0);
+        opacity: 1.0;
       }
     }
 
@@ -120,7 +120,7 @@ form {
     }
 
     input:checked + label {
-      @include opacity(1);
+      opacity: 1;
 
       & + .delete-backdrop {
         display: block;
@@ -129,7 +129,7 @@ form {
   }
 
   &.delete > * {
-    @include opacity(0.1); // TODO
+    opacity: 0.1; // TODO
   }
 }
 
@@ -164,7 +164,7 @@ form {
 
 
 input[type="range"] {
-  @include appearance(none);
+  appearance: none;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -172,8 +172,8 @@ input[type="range"] {
   float: left;
 
   @include slider-thumb {
-    @include appearance(none);
-    @include transition(background .5s ease);
+    appearance: none;
+    transition: background .5s ease;
     border: 1px solid $main-orange;
     border-radius: 50%;
     height: 16px;
@@ -204,8 +204,8 @@ input[type="range"] {
   }
 
   @include slider-track {
-    // @include box-shadow(1px 1px 1px $main-blue, 0px 0px 1px $main-light-blue);
-    @include border-radius(3px);
+    // box-shadow: 1px 1px 1px $main-blue, 0px 0px 1px $main-light-blue;
+    border-radius: 3px;
     width: 100%;
     height: 6px;
     cursor: pointer;

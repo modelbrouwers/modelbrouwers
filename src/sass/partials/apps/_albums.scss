@@ -23,7 +23,7 @@ body.albums {
       top: auto;
       right: 0;
       left: auto;
-      @include border-radius(3px);
+      border-radius: 3px;
       background-color: $main-blue;
       padding: 0;
 
@@ -40,7 +40,7 @@ body.albums {
     @include raised(1);
 
     & + ul .set-cover {
-      @include opacity(0.2);
+      opacity: 0.2;
     }
   }
 
@@ -86,7 +86,7 @@ body.albums {
     font-size: 65%;
     background-color: rgba($main-green, 0.90);
     line-height: 1;
-    @include border-radius(15px);
+    border-radius: 15px;
     padding: 4px 12px;
     width: auto;
   }
@@ -110,7 +110,7 @@ body.albums {
   }
 
   &.modal-open .modal-backdrop.in {
-    @include opacity(0.75);
+    opacity: 0.75;
   }
 
   #modal-lightbox .carousel-control {
@@ -145,7 +145,7 @@ body.albums.photo-detail {
 
       @include raised(1);
 
-      @include transition(box-shadow 1s ease);
+      transition: box-shadow 1s ease;
 
       &:hover,
       &:focus,
@@ -178,8 +178,8 @@ body.albums.photo-detail {
       margin-bottom: 10px;
       background-color: rgba($white, 0.85);
       border: solid 1px rgba($black, 0.25);
-      @include border-radius(6px);
-      @include box-shadow(3px 3px 10px 0 rgba($black, 0.5));
+      border-radius: 6px;
+      box-shadow: 3px 3px 10px 0 rgba($black, 0.5);
 
       > .fa-fw {
         display: block;
@@ -187,8 +187,8 @@ body.albums.photo-detail {
         line-height: 1.28571429em;
         z-index: 101;
         border-bottom: solid 1px $default-border-color;
-        @include opacity(0.5);
-        @include transition(opacity 0.5s ease);
+        opacity: 0.5;
+        transition: opacity 0.5s ease;
 
         &:last-child {
           border-bottom: none;
@@ -199,7 +199,7 @@ body.albums.photo-detail {
         &.active,
         &:focus {
           cursor: pointer;
-          @include opacity(1);
+          opacity: 1;
         }
       }
 
@@ -213,15 +213,15 @@ body.albums.photo-detail {
     }
 
     figure.rotate-left img {
-      @include rotate(-90deg);
+      transform: rotate(-90deg);
     }
 
     figure.rotate-right img {
-      @include rotate(90deg);
+      transform: rotate(90deg);
     }
 
     figure.rotate-180 img {
-      @include rotate(180deg);
+      transform: rotate(180deg);
     }
 
     footer {

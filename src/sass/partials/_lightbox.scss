@@ -10,7 +10,7 @@ $lightbox-margin: (100vh - $lightbox-height)/2;
   }
 
   .modal-content {
-    @include border-radius(0);
+    border-radius: 0;
     height: $lightbox-height;
     margin-top: $lightbox-margin;
     margin-bottom: $lightbox-margin;
@@ -24,7 +24,7 @@ $lightbox-margin: (100vh - $lightbox-height)/2;
 
   .fa-spinner {
     line-height: $lightbox-height;
-    @include opacity(0.75);
+    opacity: 0.75;
     @include spinner();
   }
 

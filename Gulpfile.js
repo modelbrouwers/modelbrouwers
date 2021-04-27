@@ -6,11 +6,9 @@ var sourcemaps = require("gulp-sourcemaps");
 var autoprefixer = require("autoprefixer");
 var paths = require("./build/paths");
 var postcss = require("gulp-postcss");
-var compass = require("compass-importer");
 
 const sassOptions = {
     outputStyle: "compressed",
-    importer: compass,
     includePaths: "node_modules"
 };
 

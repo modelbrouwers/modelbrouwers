@@ -29,18 +29,18 @@
   }
 
   .kit__boxart {
-    @include opacity(0.7);
-    @include transition(all .5s ease);
+    opacity: 0.7;
+    transition: all .5s ease;
     text-align: center;
 
     &:hover,
     &:target {
-      @include opacity(1);
+      opacity: 1;
     }
   }
 
   .kit__boxart-image {
-    @include border-radius(4px);
+    border-radius: 4px;
     margin: 0 auto;
     border: solid 1px $default-border-color;
     padding: 4px;

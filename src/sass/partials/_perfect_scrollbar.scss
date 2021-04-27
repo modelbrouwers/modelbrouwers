@@ -8,6 +8,14 @@ $ps-bar-hover: $main-green;
 $ps-rail-width: 8px;
 $ps-rail-offset: 3px;
 
+// Scrollbar mixins
+@mixin scrollbar-rail-default {
+  display: none;
+  position: absolute; /* please don't change 'position' */
+  border-radius: 4px;
+  opacity: 0;
+  transition: background-color .2s linear, opacity .2s linear;
+}
 
 @mixin ps-dimensions($dimension, $width: $ps-rail-width, $offset: $ps-rail-offset) {
   $width-property: null;

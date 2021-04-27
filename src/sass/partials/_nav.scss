@@ -1,7 +1,7 @@
 .nav-pills {
   margin-top: 5px;
   margin-bottom: 5px;
-  @include opacity(0.8);
+  opacity: 0.8;
 }
 .nav > li > a {
   padding: 5px 15px;
