@@ -34,7 +34,6 @@ exec uwsgi \
     --http-keepalive \
     --module brouwers.wsgi \
     --static-map /static=/app/static \
-    --static-map /media=/app/media  \
     --chdir src \
     --enable-threads \
     --threads $uwsgi_threads \
