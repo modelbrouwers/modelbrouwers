@@ -3,8 +3,12 @@
 
 function GetDBSession()
 {
-  global $django_dbname, $django_dbuser, $django_dbpasswd;
-  $dbSession = pg_connect("dbname={$django_dbname} user=${django_dbuser} password={$django_dbpasswd}");
+  global $django_dbhost, $django_dbname, $django_dbuser, $django_dbpasswd;
+  $connectionString = "dbname={$django_dbname} user=${django_dbuser} password={$django_dbpasswd}";
+  if ($django_dbhost) {
+    $connectionString = "host=${django_dbhost} " . $connectionString;
+  }
+  $dbSession = pg_connect($connectionString);
   if (!$dbSession)
   {
     throw new Exception("cannot connect to DBMS: " . pg_last_error());

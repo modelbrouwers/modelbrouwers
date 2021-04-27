@@ -1,3 +1,4 @@
+/__pycache__/
 *.pyc
 
 # [sublime]
@@ -7,11 +8,14 @@
 phpBB3/styles/subsilver2_dead_topics/template/common/_settings.php
 phpBB3/styles/subsilver2_dead_topics/template/common/_nav_tabs.php
 
+# public html symlink (required for composer opencart)
+/public_html
+
 # settings
 apache
-/brouwers/settings/local_settings.py
-src/conf/settings/local.py
+src/brouwers/conf/local.py
 secrets.py
+.env
 
 # Collection directories
 /media
@@ -19,7 +23,7 @@ secrets.py
 /static
 /mails
 /test_media
-/log
+*.log
 
 # Annoying windows files
 Thumbs.db
@@ -36,10 +40,10 @@ _codecov_coverage.xml
 
 # PHP composer
 /vendor/
+/shop
 
 # Frontend package managers
 /node_modules
-/src/static/bower_components
 npm-debug.log
 /src/static/jspm_packages
 
@@ -48,3 +52,16 @@ npm-debug.log
 
 # Pycharm-specific files
 .idea/
+
+# Build results
+src/static/css/
+!src/static/css/images
+!src/static/css/base.css
+!src/static/css/common.css
+!src/static/css/jquery-ui-1.10.2.custom.css
+
+src/static/js/
+
+# docker pre-populate
+/docker/mysql/modelbrouw_fora.sql.gz
+/docker/postgres/modelbrouwers.sql.gz

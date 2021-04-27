@@ -1,29 +1,29 @@
-{% extends "albums/base.html" %}{% load i18n staticfiles sniplates system_tags %}
+{% extends "albums/base.html" %}{% load i18n static sniplates %}
 
 
 {% block eye-catcher-content %}
-<h1>
-    {{ album.title }}
-    <small>&bull; {{ album.user }}</small>
-    <span class="fa-stack fa-lg pull-right">
+    <h1>
+        {{ album.title }}
+        <small>&bull; {{ album.user }}</small>
+        <span class="fa-stack fa-lg pull-right">
         <i class="fa fa-folder-open-o fa-stack-2x"></i>
         <span class="photo-count fa fa-stack-1x">{{ paginator.count }}</span>
     </span>
-</h1>
+    </h1>
 
-{% if album.description %}
-    <p>
-        <i class="fa fa-quote-left"></i>
-        {{ album.description }}
-        <i class="fa fa-quote-right"></i>
-    </p>
-{% endif %}
+    {% if album.description %}
+        <p>
+            <i class="fa fa-quote-left"></i>
+            {{ album.description }}
+            <i class="fa fa-quote-right"></i>
+        </p>
+    {% endif %}
 
-<small class="stats">
-{% blocktrans with views=album.views last_upload=album.last_upload|date:'j F Y' %}
-Statistics: {{ views }} views, last upload: {{ last_upload }}
-{% endblocktrans %}
-</small>
+    <small class="stats">
+        {% blocktrans with views=album.views last_upload=album.last_upload|date:'j F Y' %}
+            Statistics: {{ views }} views, last upload: {{ last_upload }}
+        {% endblocktrans %}
+    </small>
 {% endblock %}
 
 
@@ -42,60 +42,47 @@ Statistics: {{ views }} views, last upload: {{ last_upload }}
 
 
 {% block content %}
-<div class="pre-content clearfix">
-    {% if album.topic %}
-        <a href="{{ album.topic.get_absolute_url }}" class="pull-left btn bg-main-blue" title="{% trans "View topic" %}">{{ album.topic }}</a>
+    <div class="pre-content clearfix">
+        {% if album.topic %}
+            <a href="{{ album.topic.get_absolute_url }}" class="pull-left btn bg-main-blue"
+               title="{% trans "View topic" %}">{{ album.topic }}</a>
+        {% endif %}
+
+        {% include "includes/pagination.html" %}
+    </div>
+
+    <section id="photo-thumbs">
+        <div class="row">
+            {% for photo in photos %}
+                {% include "albums/includes/photo_thumb.html" %}
+                {% if forloop.counter|divisibleby:4 %}</div>
+                    <div class="row">{% endif %}
+            {% endfor %}
+            </div>
+    </section>
+
+    {% if user.is_authenticated %}
+        <span class="pull-left">
+            <i class="fa fa-download"></i>
+            <a href="{% url 'albums:download' pk=album.pk %}">
+                {% trans "Download album" %}
+            </a>
+        </span>
     {% endif %}
 
     {% include "includes/pagination.html" %}
-</div>
-
-<section id="photo-thumbs">
-    <div class="row">
-        {% for photo in photos %}
-            {% include "albums/includes/photo_thumb.html" %}
-            {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
-        {% endfor %}
-    </div>
-</section>
-
-{% if user.is_authenticated %}
-<span class="pull-left">
-    <i class="fa fa-download"></i>
-    <a href="{% url 'albums:download' pk=album.pk %}">
-        {% trans "Download album" %}
-    </a>
-</span>
-{% endif %}
-
-{% include "includes/pagination.html" %}
 
 {% endblock content %}
 
 
 {% block modals %}
-<div class="modal fade lightbox" id="modal-lightbox">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="text-center" id="image-loader">
-                <i class="fa fa-pulse fa-spinner fa-4x"></i>
+    <div class="modal fade lightbox" id="modal-lightbox" data-album="{{ album.pk }}" data-page="{{ page_obj.number }}">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="text-center" id="image-loader">
+                    <i class="fa fa-pulse fa-spinner fa-4x"></i>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
-
-{% block js_no_compress %}
-    {% load_widgets js='sniplates/js.html' %}
-    {% widget 'js:systemjs-base' %}
-
-    <script>
-        var page = {{ page_obj.number }};
-        var album = {{ album.pk }};
-    </script>
-{% endblock %}
-
-{% block extrascript %}
-{{ block.super }}
-{% systemjs_import 'albums/js/album' %}
-{% endblock extrascript %}

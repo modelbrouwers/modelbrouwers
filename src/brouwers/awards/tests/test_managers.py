@@ -5,7 +5,6 @@ from django.test import TestCase
 from ..models import Nomination
 from .factory_models import CategoryFactory, NominationFactory
 
-
 # TODO: mock date.today
 # TODO: mock voting_enabled
 
@@ -16,17 +15,25 @@ class NominationManagerTests(TestCase):
         self.nomination_date = date(2013, 10, 1)
 
     def test_winners_returned(self):
-        """ Test that only the winners in categories are returned """
+        """Test that only the winners in categories are returned"""
         # create two categories
         cat1 = CategoryFactory.create()
         cat2 = CategoryFactory.create()
 
         # create some projects in each category
-        nom1 = NominationFactory.create(category=cat1, votes=1, nomination_date=self.nomination_date)
-        nom2 = NominationFactory.create(category=cat1, votes=10, nomination_date=self.nomination_date)
+        nom1 = NominationFactory.create(
+            category=cat1, votes=1, nomination_date=self.nomination_date
+        )
+        nom2 = NominationFactory.create(
+            category=cat1, votes=10, nomination_date=self.nomination_date
+        )
 
-        nom3 = NominationFactory.create(category=cat2, votes=10, nomination_date=self.nomination_date)
-        nom4 = NominationFactory.create(category=cat2, votes=20, nomination_date=self.nomination_date)
+        nom3 = NominationFactory.create(
+            category=cat2, votes=10, nomination_date=self.nomination_date
+        )
+        nom4 = NominationFactory.create(
+            category=cat2, votes=20, nomination_date=self.nomination_date
+        )
 
         winners = Nomination.objects.winners(year=self.nomination_date.year)
 
@@ -37,12 +44,18 @@ class NominationManagerTests(TestCase):
         self.assertNotIn(nom3, winners)
 
     def test_winners_same_score(self):
-        """ Test that winners with the same score are both included """
+        """Test that winners with the same score are both included"""
         category = CategoryFactory()
 
-        nom1 = NominationFactory.create(category=category, votes=1, nomination_date=self.nomination_date)
-        nom2 = NominationFactory.create(category=category, votes=10, nomination_date=self.nomination_date)
-        nom3 = NominationFactory.create(category=category, votes=10, nomination_date=self.nomination_date)
+        nom1 = NominationFactory.create(
+            category=category, votes=1, nomination_date=self.nomination_date
+        )
+        nom2 = NominationFactory.create(
+            category=category, votes=10, nomination_date=self.nomination_date
+        )
+        nom3 = NominationFactory.create(
+            category=category, votes=10, nomination_date=self.nomination_date
+        )
 
         winners = Nomination.objects.winners(year=self.nomination_date.year)
         self.assertEqual(len(winners), 2)

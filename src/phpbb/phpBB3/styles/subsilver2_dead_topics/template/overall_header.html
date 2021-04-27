@@ -25,7 +25,7 @@
     <!-- ENDIF -->
 
     <!-- static backend, provides the $storage variable -->
-    <!-- INCLUDEPHP styles/subsilver2_dead_topics/template/common/static.php -->
+    <!-- INCLUDEPHP src/phpbb/php-static-files/static.php -->
     <!-- PHP -->
         $storage = new ManifestStaticFilesStorage();
     <!-- ENDPHP -->
@@ -33,23 +33,22 @@
     <!-- PHPBB style -->
     <link rel="stylesheet" href="{T_STYLESHEET_LINK}" type="text/css" />
 
-    <!-- use googles jquery, loads faster and relieves own server -->
-    <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- fallback -->
-    <script type="text/javascript">
-        if (typeof jQuery == 'undefined'){
-            document.write(unescape("%3Cscript src='<!-- PHP --> echo $storage->url('scripts/jquery.js');<!-- ENDPHP -->' type='text/javascript'%3E%3C/script%3E"));
-        }
+    <!-- google analytics -->
+    <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-385491-1', 'auto');
+        ga('send', 'pageview');
     </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
         var jQuery = jQuery.noConflict();
     </script>
 
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/common.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/screen.css');<!-- ENDPHP -->" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('bower_components/components-font-awesome/css/font-awesome.min.css');<!-- ENDPHP -->" charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/jquery-ui-1.10.2.custom.css');<!-- ENDPHP -->" charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('font-awesome/css/font-awesome.min.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/forum.css');<!-- ENDPHP -->" charset="utf-8"/>
 
     <style type="text/css">
@@ -181,7 +180,7 @@ function marklist(id, name, state)
 <body class="{S_CONTENT_DIRECTION} forum fade-small-logo">
     <!-- begin header tabs -->
 
-<!-- INCLUDEPHP styles/subsilver2_dead_topics/template/common/top.php -->
+<!-- INCLUDEPHP src/templates/php_templates/top.php -->
 
 
 <a name="top"></a>
@@ -270,11 +269,6 @@ function marklist(id, name, state)
                                         alt="Modelbouw woordenboek" hspace="3" />
                                     Columns
                                 </a> -->
-                                &nbsp;
-                                <a href="viewtopic.php?t=22861" class="mainmenu" id="open-chat">
-                                    <img src="{T_THEME_PATH}/images/icon_mini_chat.gif" border="0" alt="Modelbrouwers.nl chat" hspace="3" />
-                                    Brouw Chat
-                                </a>
                                 &nbsp;
                                 <a href="viewtopic.php?t=3606" class="mainmenu">
                                     <img src="{T_THEME_PATH}/images/icon_mini_abc.gif"  border="0" alt="Modelbouw woordenboek" hspace="3" />

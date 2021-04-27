@@ -1,5 +1,6 @@
-{% extends "base_html5.html" %}
-{% load i18n sniplates staticfiles system_tags %}
+{% extends "base.html" %}
+{% block data-page %}data-page="kitreviews"{% endblock %}
+{% load i18n sniplates static %}
 
 
 {% block title %} {% trans "Kit Reviews" %}{% endblock %}
@@ -40,14 +41,3 @@
         </div>
     </header>
 {% endblock %}
-
-
-{% block js_no_compress %}
-    {% load_widgets js='sniplates/js.html' %}
-    {% widget 'js:systemjs-base' %}
-{% endblock %}
-
-{% block extrascript %}
-    {{ block.super }}
-    {% systemjs_import 'kitreviews/js/kitreviews.js' %}
-{% endblock extrascript %}

@@ -35,7 +35,7 @@
 					{% if project.brouwer|lower == project.nominator.forum_nickname|lower %} self-nomination{% endif %}
 					">
 					<td>
-						<a href="{{ project.url }}" target="_blank" class="title link-project">
+						<a href="{{ project.url }}" target="_blank" rel="nofollower noopener" class="title link-project">
 							{{ project.name }}
 						</a>
 					</td>

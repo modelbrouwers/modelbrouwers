@@ -54,9 +54,8 @@ class DataDownload(object):
 
         # awards
         submitted_projects = user.nominations.all()
-        nomination_votes = (
-            user.vote_set
-            .select_related('category', 'project1', 'project2', 'project3')
+        nomination_votes = user.vote_set.select_related(
+            "category", "project1", "project2", "project3"
         )
 
         # banning
@@ -67,8 +66,8 @@ class DataDownload(object):
 
         # builds
         builds = user.build_set.prefetch_related(
-            Prefetch('photos', queryset=BuildPhoto.objects.filter(photo__isnull=False)),
-            'kits'
+            Prefetch("photos", queryset=BuildPhoto.objects.filter(photo__isnull=False)),
+            "kits",
         )
 
         # kitreviews
@@ -77,7 +76,7 @@ class DataDownload(object):
         # review_votes = user.kitreviewvote_set.all()
 
         # online_users
-        tracked_user = user.trackeduser if hasattr(user, 'trackeduser') else None
+        tracked_user = user.trackeduser if hasattr(user, "trackeduser") else None
 
         # users
         data_downloads = user.datadownloadrequest_set.all()
@@ -85,39 +84,48 @@ class DataDownload(object):
         # TODO: forum posts
         # TODO: shop?
         templates_and_data = (
-            ('data-download/index.html', {'request': self.download_request}),
-            ('data-download/profile.html', {'user': user}),
-            ('data-download/albums.html', {'albums': albums}),
-            ('data-download/album_groups.html', {'album_groups': album_groups}),
-            ('data-download/photos.html', {'photos': photos}),
-            ('data-download/album_downloads.html', {'downloads': downloads}),
-            ('data-download/nominations.html', {'submitted_projects': submitted_projects}),
-            ('data-download/award_votes.html', {'nomination_votes': nomination_votes}),
-            ('data-download/bans.html', {'bans': bans}),
-            ('data-download/showcased_models.html', {'showcased_models': showcased_models}),
-            ('data-download/builds.html', {'builds': builds}),
-            ('data-download/kit_reviews.html', {'reviews': reviews}),
+            ("data-download/index.html", {"request": self.download_request}),
+            ("data-download/profile.html", {"user": user}),
+            ("data-download/albums.html", {"albums": albums}),
+            ("data-download/album_groups.html", {"album_groups": album_groups}),
+            ("data-download/photos.html", {"photos": photos}),
+            ("data-download/album_downloads.html", {"downloads": downloads}),
+            (
+                "data-download/nominations.html",
+                {"submitted_projects": submitted_projects},
+            ),
+            ("data-download/award_votes.html", {"nomination_votes": nomination_votes}),
+            ("data-download/bans.html", {"bans": bans}),
+            (
+                "data-download/showcased_models.html",
+                {"showcased_models": showcased_models},
+            ),
+            ("data-download/builds.html", {"builds": builds}),
+            ("data-download/kit_reviews.html", {"reviews": reviews}),
             # ('data-download/kit_review_votes.html', {'review_votes': review_votes}),
-            ('data-download/tracking.html', {'tracked_users': tracked_user}),
-            ('data-download/download_requests.html', {'data_downloads': data_downloads}),
+            ("data-download/tracking.html", {"tracked_users": tracked_user}),
+            (
+                "data-download/download_requests.html",
+                {"data_downloads": data_downloads},
+            ),
         )
 
         for template_name, context in templates_and_data:
             filename = os.path.split(template_name)[1]
             path = os.path.join(self.tempdir, filename)
-            with open(path, 'w') as outfile:
-                context['user'] = self.download_request.user
+            with open(path, "w") as outfile:
+                context["user"] = self.download_request.user
                 rendered = render_to_string(template_name, context)
-                outfile.write(rendered.encode('utf-8'))
+                outfile.write(rendered)
 
-        self.copy_files(photos, 'image')
+        self.copy_files(photos, "image")
         self.archive()
 
     def copy_files(self, queryset, field):
         for obj in queryset:
             filefield = getattr(obj, field)
-            source = filefield.storage.path(filefield)
-            target = os.path.join(self.tempdir, 'files', filefield.name)
+            source = filefield.storage.path(filefield.name)
+            target = os.path.join(self.tempdir, "files", filefield.name)
             target_dir = os.path.dirname(target)
             if not os.path.exists(target_dir):
                 os.makedirs(target_dir)
@@ -131,14 +139,14 @@ class DataDownload(object):
         os.remove(self.filename)
 
     def archive(self):
-        with ZipFile(self.filename, 'w', allowZip64=True) as zipfile:
+        with ZipFile(self.filename, "w", allowZip64=True) as zipfile:
             for dir_path, dirs, files in os.walk(self.tempdir):
                 for fn in files:
                     full_path = os.path.join(dir_path, fn)
                     arcname = os.path.relpath(full_path, self.tempdir)
                     zipfile.write(full_path, arcname=arcname)
 
-        with open(self.filename, 'rb') as zipfile:
+        with open(self.filename, "rb") as zipfile:
             self.download_request.zip_file.save(
                 os.path.basename(self.filename), File(zipfile)
             )
@@ -147,16 +155,18 @@ class DataDownload(object):
         site = Site.objects.get_current()
         user = self.download_request.user
         context = {
-            'domain': site.domain,
-            'user': user,
-            'request': self.download_request,
+            "domain": site.domain,
+            "user": user,
+            "request": self.download_request,
         }
-        html = render_to_string('data-download/mail_ready.html', context)
+        html = render_to_string("data-download/mail_ready.html", context)
         message = html2text.html2text(html)
         send_mail(
             _("[Modelbrouwers.nl] Your data download is ready"),
-            message, settings.DEFAULT_FROM_EMAIL, [user.email],
-            html_message=html
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+            html_message=html,
         )
 
 
@@ -164,10 +174,8 @@ class Command(BaseCommand):
     help = "Process the pending data download requests"
 
     def handle(self, **options):
-        open_requests = (
-            DataDownloadRequest.objects
-            .select_related('user')
-            .filter(finished__isnull=True)
+        open_requests = DataDownloadRequest.objects.select_related("user").filter(
+            finished__isnull=True
         )
         for download_request in open_requests:
             with DataDownload(download_request) as download:

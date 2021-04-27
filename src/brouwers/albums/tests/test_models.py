@@ -8,20 +8,22 @@ from .factories import AlbumFactory, PhotoFactory
 
 
 class CategoryTests(TestCase):
-    def test_unicode(self):
+    def test_str(self):
         album = AlbumFactory.create()
-        self.assertEquals(unicode(album.category), album.category.name)
+        self.assertEquals(str(album.category), album.category.name)
 
 
 class AlbumTests(TestCase):
-    """ Test the (custom) Album model methods """
+    """Test the (custom) Album model methods"""
 
     def setUp(self):
         self.user = UserFactory.create()
 
     def test_album_clean_title(self):
-        album = AlbumFactory.build(title='foo', trash=False, user=self.user, category=None)
-        self.assertEquals(album.clean_title, '')
+        album = AlbumFactory.build(
+            title="foo", trash=False, user=self.user, category=None
+        )
+        self.assertEquals(album.clean_title, "")
         album.save()
         self.assertEquals(album.clean_title, album.title)
 
@@ -56,9 +58,11 @@ class AlbumTests(TestCase):
 
 
 class PhotoTests(TestCase):
-    """ Test the (custom) Photo model methods """
+    """Test the (custom) Photo model methods"""
 
-    @override_settings(THUMBNAIL_KVSTORE='sorl.thumbnail.kvstores.cached_db_kvstore.KVStore')
+    @override_settings(
+        THUMBNAIL_KVSTORE="sorl.thumbnail.kvstores.cached_db_kvstore.KVStore"
+    )
     def test_thumbs_generated(self):
         """
         Test that the thumbnails are generated in the post_save

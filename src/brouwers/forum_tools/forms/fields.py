@@ -1,4 +1,4 @@
-import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -7,24 +7,26 @@ from django.utils.translation import ugettext_lazy as _
 
 from .widgets import ForumToolsIDFieldWidget
 
-__all__ = ['ForumIDField', 'TopicIDField']
+__all__ = ["ForumIDField", "TopicIDField"]
 
 
 class IDField(IntegerField):
     default_error_messages = {
-        'invalid_url': _('Enter a valid url'),
+        "invalid_url": _("Enter a valid url"),
     }
     urlparam = None
     widget = ForumToolsIDFieldWidget
 
     def __init__(self, *args, **kwargs):
-        if not kwargs.get('widget'):
-            kwargs['widget'] = ForumToolsIDFieldWidget(urlparam=self.urlparam, type_=self.type_)
-        super(IDField, self).__init__(*args, **kwargs)
+        if not kwargs.get("widget"):
+            kwargs["widget"] = ForumToolsIDFieldWidget(
+                urlparam=self.urlparam, type_=self.type_
+            )
+        super().__init__(*args, **kwargs)
 
     def to_python(self, value):
         try:  # check if it's integer or not
-            return super(IDField, self).to_python(value)
+            return super().to_python(value)
         except ValidationError:  # catch errors and check for urls
             pass
 
@@ -32,29 +34,29 @@ class IDField(IntegerField):
         try:
             URLValidator()(value)
         except ValidationError as e:
-            e.code = 'invalid_url'
+            e.code = "invalid_url"
             raise
 
         # start processing it as an url
-        url = urlparse.urlparse(value)
-        querydict = urlparse.parse_qs(url.query)
+        url = urlparse(value)
+        querydict = parse_qs(url.query)
         _id = querydict.get(self.urlparam, None)
         if _id is None:
-            raise ValidationError(self.error_messages['invalid_url'])
+            raise ValidationError(self.error_messages["invalid_url"])
         return int(_id[0])  # is a list
 
 
 class ForumIDField(IDField):
-    type_ = 'forum'
+    type_ = "forum"
 
-    def __init__(self, urlparam='f', *args, **kwargs):
+    def __init__(self, urlparam="f", *args, **kwargs):
         self.urlparam = urlparam
-        super(ForumIDField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class TopicIDField(IDField):
-    type_ = 'topic'
+    type_ = "topic"
 
-    def __init__(self, urlparam='t', *args, **kwargs):
+    def __init__(self, urlparam="t", *args, **kwargs):
         self.urlparam = urlparam
-        super(TopicIDField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)

@@ -1,0 +1,141 @@
+{% extends "shop/base.html" %} {% load i18n sniplates brouwers %}
+
+{% block content %}
+    {{ block.super }}
+    <div class="wrapper">
+        {% include 'shop/includes/sidenav.html' with categories=categories category=product.categories.all.first %}
+        <div class="product__content">
+            {#    TODO Figure out how to get the proper category #}
+            {% include 'shop/includes/breadcrumbs.html' with curr_node=product.categories.all.first %}
+
+            <div class="product__inner">
+                <div class="product__image-container">
+                    <div class="product__image-wrapper">
+                        <img src="{{ product.get_image_url }}" class="product__image" alt="{{ product.name }}">
+                    </div>
+                    <div class="product__actions">
+                        <div class="button-row">
+                            <button class="button__icon"><i class="fa fa-plus"></i></button>
+                            <p class="button-row__text">{% trans 'Wishlist' %}</p>
+                        </div>
+                        <div class="button-row">
+                            <button class="button__icon"><i class="fa fa-plus"></i></button>
+                            <p class="button-row__text">{% trans 'Product comparison' %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product__info">
+                    <h4 class="product__name">{{ product.name }}</h4>
+                    {% if product.brand %}
+                        <p class="product__brand">
+                            <a href="{{ product.brand.slug }}" class="product__brand-link">
+                                {{ product.brand }}
+                            </a>
+                        </p>
+                        <img src="{{ product.brand.logo.url }}" class="product__brand-logo"
+                             alt="{{ product.brand.name }}">
+                    {% endif %}
+                    {% if product.model_name %}
+                        <div class="product__text-group">
+                            <span class="product__label">{% trans 'Model' %}</span>
+                            <span class="product__text">{{ product.model_name }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="product__text-group">
+                        <span class="product__label">{% trans 'Stock' %}</span>
+                        <span class="product__text">{{ product.stock }}</span>
+                    </div>
+
+                    <div class="product__text-group">
+                        <span class="product__label">{% trans 'Price' %}</span>
+                        <span class="product__text product__text--lg">{{ product.price }} &euro;</span>
+                    </div>
+
+                    {% if product.reviews.all %}
+                        <div class="product__rating">
+                            {% review_rating rating_pct=product.avg_rating max_rating=5 %}
+                            <span class="product__rating-info">{{ product.avg_rating|floatformat:'-1' }}/5</span>
+                        </div>
+                    {% endif %}
+
+                    <div class="product__order">
+                        <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
+                        <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
+                               value="1">
+                        <button class="button button--blue button--order">{% trans 'Add to cart' %}</button>
+                    </div>
+                </div>
+
+                <div class="product__tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="{% if not form.errors %}active{% endif %}">
+                            <a href="#description" aria-controls="home" role="tab" data-toggle="tab">
+                                {% trans 'Description' %}
+
+                            </a>
+                        </li>
+                        <li role="presentation" class="{% if form.errors %}active{% endif %}">
+                            <a href="#reviews" aria-controls="profile" role="tab" data-toggle="tab">
+                                {% trans 'Reviews' %} ({{ product.reviews.all|length }})
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content product__tab-content">
+                        <div role="tabpanel" class="tab-pane {% if not form.errors %}active{% endif %}"
+                             id="description">
+                            {{ product.description|safe }}
+                        </div>
+                        <div role="tabpanel" class="tab-pane {% if form.errors %}active{% endif %}" id="reviews">
+                            {% if product.reviews.all|length %}
+                                <ul class="product__reviews">
+                                    {% for review in product.reviews.all %}
+                                        <li class="product__review-item">
+                                            <div class="review__info">
+                                                <div class="review__left-content">
+                                                    <span class="review__reviewer-name">
+                                                        {{ review.reviewer.username }}
+                                                    </span>
+                                                    <span class="review__date">
+                                                        {{ review.submitted_on|date:"d.m.Y" }}
+                                                    </span>
+                                                </div>
+                                                <div class="review__rating">{{ review.rating }}</div>
+                                            </div>
+                                            <p class="review__text">{{ review.text|safe }}</p>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                                <h4 class="product__leave-review">{% trans 'Leave a review' %}</h4>
+                                <form action="." method="post" class="product__review-form">
+                                    {% csrf_token %}
+                                    {{ form.non_field_errors }}
+                                    <fieldset class="well">
+                                        {% load_widgets form='horizontal.form' %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {% form_field form.text %}
+                                                {% form_field form.rating %}
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="button button--icon button--blue">
+                                            {% trans 'Add review' %}
+                                        </button>
+                                    </fieldset>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

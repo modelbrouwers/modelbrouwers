@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from brouwers.users.tests.factories import UserFactory
 
@@ -7,18 +7,27 @@ from ..models import Preferences
 
 
 class CacheTests(TestCase):
-    """ Test that the cache functions correctly """
+    """Test that the cache functions correctly"""
+
     def setUp(self):
         cache.clear()
+        self.addCleanup(cache.clear)
 
+    @override_settings(
+        CACHES={
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            }
+        }
+    )
     def test_preferences_cache(self):
         user = UserFactory.create()
 
         # log the user in
-        self.client.login(username=user.username, password='password')
+        self.client.login(username=user.username, password="password")
         self.assertEqual(Preferences.objects.filter(user=user).count(), 0)
 
-        cache_key = 'album-preferences:%d' % user.id
+        cache_key = "album-preferences:%d" % user.id
 
         # make sure the cache is empty
         prefs = cache.get(cache_key)
@@ -37,4 +46,6 @@ class CacheTests(TestCase):
         prefs_obj.save()
 
         cached_prefs = cache.get(cache_key)
-        self.assertEqual(cached_prefs['auto_start_uploading'], prefs_obj.auto_start_uploading)
+        self.assertEqual(
+            cached_prefs["auto_start_uploading"], prefs_obj.auto_start_uploading
+        )

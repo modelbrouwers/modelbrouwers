@@ -1,6 +1,6 @@
 
-.. image:: https://travis-ci.org/modelbrouwers/modelbrouwers.svg?branch=master
-    :target: https://travis-ci.org/modelbrouwers/modelbrouwers
+.. image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
+    :target: https://github.com/modelbrouwers/modelbrouwers/actions?query=workflow%3A%22Run+CI%22
 
 .. image:: https://coveralls.io/repos/modelbrouwers/modelbrouwers/badge.png
     :target: https://coveralls.io/r/modelbrouwers/modelbrouwers
@@ -41,24 +41,9 @@ hesitate to contact BBT on the Modelbrouwers.nl IRC chat or forum itself.
 
 Installing ``Python``
 =====================
-Python is the programming language Django is written in, you'll need at least
-version 2.7. Python 3.x is untested.
 
-On Windows, get Python 2.7 here: `Python installer`_.
-
-.. note:: A 64-bit version exists, but often causes problems with third party libraries.
-          It's advisory to install a 32-bit Python version.
-
-.. note:: Often problems arise with the $PATH variable and the 'python' command
-          not being available in a shell. See `stackoverflow`_ for a resolution.
-
-
-On Linux Python mostly comes with the distro and should be a recent version.
-
-
-.. _Python installer: http://www.python.org/ftp/python/2.7.6/python-2.7.6.msi
-.. _stackoverflow: http://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-7
-
+Python is the programming language Django is written in. You need Python 3.6 to
+run the project.
 
 Installing ``virtualenv`` and ``virtualenvwrapper``
 ===================================================
@@ -118,23 +103,12 @@ These will be installed in your virtualenv.
 
 Installing front-end dependencies
 =================================
-Make sure npm, jspm and bower are installed globally. Then run::
+
+Make sure npm is installed globally. Then run::
 
     $ npm install
 
-and::
-
-    $ bower install
-
-and::
-
-    $ jspm install
-
-This will install all the necessary front-end dependencies. Additionally install ``compass`` for .scss files compiling
-with::
-
-    $ gem install compass
-
+This will install all the necessary front-end dependencies.
 
 Create the settings
 ===================
@@ -160,10 +134,9 @@ In production the Django tables live in a postgresql database, while the phpBB3
 tables live in MySQL. Replicating this environment is probably the most robust
 during development.
 
-Create an empty directory named ``log`` in the project's root.
-
 Creating the database
 =====================
+
 Run::
 
     $ python src/manage.py migrate
@@ -189,17 +162,17 @@ Point your browser to http://127.0.0.1:8000. You should see a homepage.
 
 Setting up local ``phpBB3``-installation
 ========================================
+
 We're currently on the 3.0.x branch. The 3.1.x versions have major backwards
 incompatible changes that our code needs adoption for.
 
 To install phpBB3, you'll need a full fledged PHP stack with a (MySQL) database.
 
-Download the installer from here: `phpBB3install`_ and follow the instructions.
-
-.. _phpBB3install: https://www.phpbb.com/downloads/3.0/
+The `docker forum setup`_ makes this available using Docker.
 
 Tests
 =====
+
 Run all tests by executing::
 
     $ python src/manage.py test src
@@ -207,6 +180,9 @@ Run all tests by executing::
 
 Thanks
 ======
+
 Thanks to `browserstack`_ to make cross browser testing a breeze.
 
 .. _browsersstdack: https://www.browserstack.com
+
+.. _docker forum setup: https://github.com/modelbrouwers/forum

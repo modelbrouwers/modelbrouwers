@@ -12,9 +12,15 @@ class LoginRequiredMixin(object):
 
 
 class WebTestFormMixin(object):
-
     def _add_field(self, form, name, value):
-        field = Text(form, 'input', None, None, value)
+        def get_pos(item):
+            if isinstance(item, list):
+                return item[0].pos
+            else:
+                return item.pos
+
+        max_pos = max([get_pos(x) for x in form.fields.values()])
+        field = Text(form, "input", None, max_pos + 1, value)
         form.fields[name] = field
         form.field_order.append((name, field))
         return field

@@ -11,13 +11,12 @@ class PrivateMediaFileSystemStorage(FileSystemStorage):
     """
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('location', settings.PRIVATE_MEDIA_ROOT)
-        kwargs.setdefault('base_url', settings.PRIVATE_MEDIA_URL)
-        super(PrivateMediaFileSystemStorage, self).__init__(*args, **kwargs)
+        kwargs.setdefault("location", settings.PRIVATE_MEDIA_ROOT)
+        kwargs.setdefault("base_url", settings.PRIVATE_MEDIA_URL)
+        super().__init__(*args, **kwargs)
 
 
 class PrivateMediaStorage(LazyObject):
-
     def _setup(self):
         self._wrapped = PrivateMediaFileSystemStorage()
 

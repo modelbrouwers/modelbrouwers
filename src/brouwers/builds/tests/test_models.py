@@ -8,23 +8,26 @@ from brouwers.utils.tests import reload_urlconf
 from .factories import BuildFactory
 
 
-@override_settings(PHPBB_URL='/forum', PHPBB_POSTS_PER_PAGE=5)
+@override_settings(PHPBB_URL="/forum", PHPBB_POSTS_PER_PAGE=5)
 class BuildTests(TestCase):
-
     @classmethod
     def setUpClass(cls):
-        super(BuildTests, cls).setUpClass()
+        super().setUpClass()
         reload_urlconf()
 
     def setUp(self):
         self.kits = ModelKitFactory.create_batch(5)
         self.topic = TopicFactory.create()
-        self.build = BuildFactory.create(kits=self.kits[:2], topic_id=self.topic.pk, topic_start_page=2)
+        self.build = BuildFactory.create(
+            kits=self.kits[:2], topic_id=self.topic.pk, topic_start_page=2
+        )
 
     def test_topic_url(self):
         self.assertEqual(
             self.build.topic_url,
-            '/forum/viewtopic.php?t={0}&f={1}&start=5'.format(self.topic.pk, self.topic.forum_id)
+            "/forum/viewtopic.php?t={0}&f={1}&start=5".format(
+                self.topic.pk, self.topic.forum_id
+            ),
         )
 
     def test_topic_url_no_startpage(self):
@@ -32,7 +35,7 @@ class BuildTests(TestCase):
         build = BuildFactory.create(topic_id=topic.pk)
         self.assertEqual(
             build.topic_url,
-            '/forum/viewtopic.php?t={0}&f={1}'.format(topic.pk, topic.forum_id)
+            "/forum/viewtopic.php?t={0}&f={1}".format(topic.pk, topic.forum_id),
         )
 
     def test_topic_url_None(self):

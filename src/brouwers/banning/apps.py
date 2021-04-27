@@ -3,8 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class BanningConfig(AppConfig):
-    name = 'brouwers.banning'
-    verbose_name = _('Banning')
+    name = "brouwers.banning"
+    verbose_name = _("Banning")
 
     def ready(self):
-        from . import signals
+        from . import signals  # noqa

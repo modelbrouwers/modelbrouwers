@@ -15,17 +15,18 @@ class TrackedUser(models.Model):
     notificate = models.BooleanField(
         _("notificate"),
         default=True,
-        help_text=_("Send a notification to the online "
-                    "moderators when this user is online.")
+        help_text=_(
+            "Send a notification to the online " "moderators when this user is online."
+        ),
     )
 
     class Meta:
         verbose_name = _("tracked user")
         verbose_name_plural = _("tracked users")
-        ordering = ('-last_seen',)
+        ordering = ("-last_seen",)
 
-    def __unicode__(self):
-        return u"%s" % self.user.username
+    def __str__(self):
+        return self.user.username
 
     @property
     def is_online(self):

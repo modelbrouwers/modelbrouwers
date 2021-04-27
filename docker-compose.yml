@@ -1,0 +1,137 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:11
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=modelbrouwers
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/:/docker-entrypoint-initdb.d/
+
+  mysql:
+    image: mariadb:10.1
+    environment:
+      - MYSQL_ROOT_PASSWORD=supersecret
+      - MYSQL_DATABASE=brouwers
+      - MYSQL_USER=brouwers
+      - MYSQL_PASSWORD=brouwers
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/:/docker-entrypoint-initdb.d/
+
+  smtp:
+    image: namshi/smtp@sha256:aa63b8de68ce63dfcf848c56f3c1a16d81354f4accd4242a0086c57dd5a91d77
+    container_name: smtp_relay
+    environment:
+      - RELAY_NETWORKS=:172.0.0.0/8
+      - DISABLE_IPV6=1
+      # - MAILNAME=example.modelbrouwers.nl
+
+  memcached:
+    image: memcached:1.6
+
+  django:
+    build: .
+    image: modelbrouwers/brouwers:${TAG:-latest}
+    environment:
+      - DJANGO_SETTINGS_MODULE=brouwers.conf.production
+      - SECRET_KEY=${SECRET_KEY:-overridemeiminsecure}
+      - ALLOWED_HOSTS=*
+      - IS_HTTPS=no
+      - EMAIL_HOST=smtp
+      - DB_NAME=modelbrouwers
+      - DB_USER=postgres
+      - DB_HOST=postgres
+      - FORUM_DB_HOST=mysql
+      - CACHE_URL=memcached:11211
+      - SESSION_COOKIE_DOMAIN=localhost
+    volumes:
+      - media:/app/media
+      - media_sendfile:/app/media_sendfile
+      - log:/app/log
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+      - mysql
+      - memcached
+      - smtp
+
+  phpbb:
+    build:
+      context: .
+      dockerfile: Dockerfile-forum
+    image: modelbrouwers/phpbb:${TAG:-latest}
+    environment:
+      - PHPBB3_DB_HOST=mysql
+      - PHPBB3_DB_NAME=brouwers
+      - PHPBB3_DB_USER=brouwers
+      - PHPBB3_DB_PASSWORD=brouwers
+      - PHPBB3_TABLE_PREFIX=phpbb_
+      - PHPBB3_DJANGO_DB_HOST=postgres
+      - PHPBB3_DJANGO_DB_NAME=modelbrouwers
+      - PHPBB3_DJANGO_DB_USER=postgres
+      - PHPBB3_DJANGO_DB_PASSWORD=
+      - PHPBB3_DJANGO_SESSION_COOKIE_NAME=mbsessionid
+      - MEMCACHED_HOST=memcached
+      - RAVEN_DSN=${PHP_RAVEN_DSN:-}
+    volumes:
+      - phpbb_cache:/var/www/html/phpBB3/cache
+      - phpbb_images:/var/www/html/phpBB3/images
+    ports:
+      - 8001:80
+    depends_on:
+      - postgres
+      - mysql
+      - memcached
+
+  # works as an init container
+  shop_volume:
+    image: busybox
+    command: ["chown", "-R", "33:33", "/tmp/vol"]
+    volumes:
+      - shop:/tmp/vol:rw
+
+  shop:
+    build:
+      context: .
+      dockerfile: Dockerfile-shop
+    image: docker.modelbrouwers.nl/modelbrouwers/winkel:${SHOP_VERSION:-latest}
+    environment:
+      - DB_HOSTNAME=mysql
+      - DB_USERNAME=winkel
+      - DB_PASSWORD=winkel
+      - DB_NAME=winkel
+      - DB_PREFIX=oc_
+      - SELF_ADDRESS=http://localhost
+    volumes:
+      - shop:/var/www/html/winkel/:rw
+    ports:
+      - 8002:80
+    depends_on:
+      - mysql
+      - shop_volume
+
+  # not suitable for production
+  nginx:
+    image: nginx:1.19
+    volumes:
+      - media_sendfile:/private_media
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - 80:80
+    depends_on:
+      - django
+      - phpbb
+
+volumes:
+  postgres_data:
+  mysql_data:
+  media:
+  media_sendfile:
+  log:
+  phpbb_cache:
+  phpbb_images:
+  shop:

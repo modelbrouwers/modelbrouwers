@@ -1,35 +1,43 @@
 # Common packages
-
-Pillow
+bleach
+html2text
+lxml
+mysqlclient
+openpyxl
+Pillow  # handle images
+psycopg2  # database driver
 python-dateutil
-python-Levenshtein
-pytz
-fake-factory
+python-decouple  # processing of envvar configs
+python-dotenv  # environment variables for secrets
+python-memcached
+pytz  # handle timezones
+WeasyPrint
 
 # Django packages
-Django<2.0
+Django < 3.0
 django-admin-tools
 django-autoslug
 django-choices
+django-ckeditor
 django-compressor
-django-extensions
 django-extra-views
 django-loginas
 django-precise-bbcode
 django-rosetta
 django-sendfile
 django-sessionprofile
-django-systemjs
+django-solo
 sorl-thumbnail
 django-sniplates
+django-treebeard
+django-modeltranslation
+django-taggit
+django-import-export
 
 # API
-djangorestframework
-djangorestframework-filters
+djangorestframework < 3.12
+djangorestframework-filters == 1.0.0.dev2
 
-# Html parsing
-bleach
-html2text
-
-# Misc
-WeasyPrint
+# WSGI servers & monitoring - production oriented
+uwsgi
+raven

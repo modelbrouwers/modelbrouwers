@@ -3,9 +3,10 @@
 from __future__ import unicode_literals
 
 import datetime
+
+import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -13,89 +14,264 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('awards', '0003_auto_20160811_2230'),
+        ("awards", "0003_auto_20160811_2230"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('banning', '0004_auto_20160811_2230'),
+        ("banning", "0004_auto_20160811_2230"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Announcement',
+            name="Announcement",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
-                ('language', models.CharField(choices=[(b'en', 'English'), (b'nl', 'Dutch')], max_length=10, verbose_name='language')),
-                ('from_date', models.DateTimeField(blank=True, null=True)),
-                ('to_date', models.DateTimeField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField()),
+                (
+                    "language",
+                    models.CharField(
+                        choices=[("en", "English"), ("nl", "Dutch")],
+                        max_length=10,
+                        verbose_name="language",
+                    ),
+                ),
+                ("from_date", models.DateTimeField(blank=True, null=True)),
+                ("to_date", models.DateTimeField(blank=True, null=True)),
             ],
             options={
-                'ordering': ['-from_date'],
-                'verbose_name': 'announcement',
-                'verbose_name_plural': 'announcements',
+                "ordering": ["-from_date"],
+                "verbose_name": "announcement",
+                "verbose_name_plural": "announcements",
             },
         ),
         migrations.CreateModel(
-            name='QuestionAnswer',
+            name="QuestionAnswer",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('answer', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("answer", models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='RegistrationAttempt',
+            name="RegistrationAttempt",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('username', models.CharField(db_index=True, default=b'_not_filled_in_', max_length=512, verbose_name='username')),
-                ('email', models.EmailField(blank=True, max_length=255, verbose_name='email')),
-                ('answer', models.CharField(blank=True, max_length=255, verbose_name='answer')),
-                ('timestamp', models.DateTimeField(auto_now_add=True, verbose_name='timestamp')),
-                ('ip_address', models.GenericIPAddressField(db_index=True, verbose_name='IP address')),
-                ('success', models.BooleanField(default=False, verbose_name='success')),
-                ('type_of_visitor', models.CharField(default=b'normal user', max_length=255, verbose_name='type of visitor')),
-                ('ban', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='banning.Ban')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(
+                        db_index=True,
+                        default="_not_filled_in_",
+                        max_length=512,
+                        verbose_name="username",
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(blank=True, max_length=255, verbose_name="email"),
+                ),
+                (
+                    "answer",
+                    models.CharField(blank=True, max_length=255, verbose_name="answer"),
+                ),
+                (
+                    "timestamp",
+                    models.DateTimeField(auto_now_add=True, verbose_name="timestamp"),
+                ),
+                (
+                    "ip_address",
+                    models.GenericIPAddressField(
+                        db_index=True, verbose_name="IP address"
+                    ),
+                ),
+                ("success", models.BooleanField(default=False, verbose_name="success")),
+                (
+                    "type_of_visitor",
+                    models.CharField(
+                        default="normal user",
+                        max_length=255,
+                        verbose_name="type of visitor",
+                    ),
+                ),
+                (
+                    "ban",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="banning.Ban",
+                    ),
+                ),
             ],
             options={
-                'ordering': ('-timestamp',),
-                'verbose_name': 'registration attempt',
-                'verbose_name_plural': 'registration attempts',
+                "ordering": ("-timestamp",),
+                "verbose_name": "registration attempt",
+                "verbose_name_plural": "registration attempts",
             },
         ),
         migrations.CreateModel(
-            name='RegistrationQuestion',
+            name="RegistrationQuestion",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('question', models.CharField(help_text='Question which must be answered for registration.', max_length=255, verbose_name='Anti-spambot question')),
-                ('in_use', models.BooleanField(default=True)),
-                ('lang', models.CharField(choices=[(b'en', 'English'), (b'nl', 'Dutch')], default=b'nl', max_length=10, verbose_name='language')),
-                ('answers', models.ManyToManyField(blank=True, to='general.QuestionAnswer')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "question",
+                    models.CharField(
+                        help_text="Question which must be answered for registration.",
+                        max_length=255,
+                        verbose_name="Anti-spambot question",
+                    ),
+                ),
+                ("in_use", models.BooleanField(default=True)),
+                (
+                    "lang",
+                    models.CharField(
+                        choices=[("en", "English"), ("nl", "Dutch")],
+                        default="nl",
+                        max_length=10,
+                        verbose_name="language",
+                    ),
+                ),
+                (
+                    "answers",
+                    models.ManyToManyField(blank=True, to="general.QuestionAnswer"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='UserProfile',
+            name="UserProfile",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('last_vote', models.DateField(default=datetime.date(2010, 1, 1))),
-                ('forum_nickname', models.CharField(max_length=30, unique=True)),
-                ('exclude_from_nomination', models.BooleanField(default=False, help_text='If checked, you will be excluded from Awards-nominations.', verbose_name='exclude me from nominations')),
-                ('street', models.CharField(blank=True, max_length=255, null=True, verbose_name='street name')),
-                ('number', models.CharField(blank=True, help_text='house number (+ PO box if applicable)', max_length=10, null=True, verbose_name='number')),
-                ('postal', models.CharField(blank=True, max_length=10, null=True, verbose_name='postal code')),
-                ('city', models.CharField(blank=True, max_length=255, null=True, verbose_name='city')),
-                ('province', models.CharField(blank=True, max_length=255, null=True, verbose_name='province')),
-                ('country', models.CharField(blank=True, choices=[(b'N', 'The Netherlands'), (b'B', 'Belgium'), (b'D', 'Germany'), (b'F', 'France')], max_length=1, null=True, verbose_name='country')),
-                ('allow_sharing', models.BooleanField(default=False, help_text="Checking this gives us permission to share your topics and albums on social media. Uncheck if you don't want to share.", verbose_name='allow social sharing')),
-                ('categories_voted', models.ManyToManyField(blank=True, to='awards.Category')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("last_vote", models.DateField(default=datetime.date(2010, 1, 1))),
+                ("forum_nickname", models.CharField(max_length=30, unique=True)),
+                (
+                    "exclude_from_nomination",
+                    models.BooleanField(
+                        default=False,
+                        help_text="If checked, you will be excluded from Awards-nominations.",
+                        verbose_name="exclude me from nominations",
+                    ),
+                ),
+                (
+                    "street",
+                    models.CharField(
+                        blank=True,
+                        max_length=255,
+                        null=True,
+                        verbose_name="street name",
+                    ),
+                ),
+                (
+                    "number",
+                    models.CharField(
+                        blank=True,
+                        help_text="house number (+ PO box if applicable)",
+                        max_length=10,
+                        null=True,
+                        verbose_name="number",
+                    ),
+                ),
+                (
+                    "postal",
+                    models.CharField(
+                        blank=True, max_length=10, null=True, verbose_name="postal code"
+                    ),
+                ),
+                (
+                    "city",
+                    models.CharField(
+                        blank=True, max_length=255, null=True, verbose_name="city"
+                    ),
+                ),
+                (
+                    "province",
+                    models.CharField(
+                        blank=True, max_length=255, null=True, verbose_name="province"
+                    ),
+                ),
+                (
+                    "country",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("N", "The Netherlands"),
+                            ("B", "Belgium"),
+                            ("D", "Germany"),
+                            ("F", "France"),
+                        ],
+                        max_length=1,
+                        null=True,
+                        verbose_name="country",
+                    ),
+                ),
+                (
+                    "allow_sharing",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Checking this gives us permission to share your topics and albums on social media. Uncheck if you don't want to share.",
+                        verbose_name="allow social sharing",
+                    ),
+                ),
+                (
+                    "categories_voted",
+                    models.ManyToManyField(blank=True, to="awards.Category"),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['forum_nickname'],
-                'verbose_name': 'userprofile',
-                'verbose_name_plural': 'userprofiles',
+                "ordering": ["forum_nickname"],
+                "verbose_name": "userprofile",
+                "verbose_name_plural": "userprofiles",
             },
         ),
         migrations.AddField(
-            model_name='registrationattempt',
-            name='question',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='general.RegistrationQuestion', verbose_name='registration question'),
+            model_name="registrationattempt",
+            name="question",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="general.RegistrationQuestion",
+                verbose_name="registration question",
+            ),
         ),
     ]

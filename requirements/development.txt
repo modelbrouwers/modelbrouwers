@@ -1,5 +1,0 @@
--r base.txt
--r test.txt
-
-bpython==0.16
-django-debug-toolbar==1.5

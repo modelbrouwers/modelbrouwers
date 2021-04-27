@@ -1,5 +1,5 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n bbcode_tags sniplates system_tags %}
+{% load i18n bbcode_tags sniplates %}
 
 {% block title %}{{ block.super }}: {{ gb.theme }}{% endblock %}
 
@@ -124,10 +124,11 @@
                                             </td>
                                             <td class="col-xs-1">
                                                 <a href="{% url 'groupbuilds:update-participant' slug=gb.slug pk=participant.pk %}" class="action"><i class="fa fa-pencil"></i></a>
-                                                <a href="{% url 'api:participant-detail' pk=participant.pk %}" class="action" data-toggle="finished" data-id="{{ participant.pk }}">
+
+                                                <a href="#" class="action" data-toggle="finished" data-id="{{ participant.pk }}">
                                                     <i class="fa fa-{{ participant.finished|yesno:'ellipsis-h,check' }}"></i>
                                                 </a>
-                                                {# <a href="#TODO" class="action"><span class="fa fa-remove"></span></a> #}
+
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -240,14 +241,3 @@
     <footer></footer>
 </article>
 {% endblock content %}
-
-
-{% block js_no_compress %}
-    {% load_widgets js='sniplates/js.html' %}
-    {% widget 'js:systemjs-base' %}
-{% endblock %}
-
-{% block extrascript %}
-{{ block.super }}
-{% systemjs_import 'groupbuilds/js/detail' %}
-{% endblock extrascript %}

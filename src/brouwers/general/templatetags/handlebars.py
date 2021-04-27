@@ -1,9 +1,6 @@
 from django import template
 from django.conf import settings
-from django.template.base import (
-    TOKEN_BLOCK, TOKEN_TEXT, TOKEN_VAR, NodeList, TemplateSyntaxError,
-    TextNode
-)
+from django.template.base import NodeList, TemplateSyntaxError, TextNode, TokenType
 from django.template.loader_tags import BlockNode
 
 register = template.Library()
@@ -11,10 +8,13 @@ register = template.Library()
 
 @register.simple_tag
 def handlebars_js():
-    return """<script src="%s/scripts/handlebars-2.0.0.js"></script>""" % settings.STATIC_URL
+    return (
+        """<script src="%s/scripts/handlebars-2.0.0.js"></script>"""
+        % settings.STATIC_URL
+    )
 
 
-def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
+def verbatim_tags(parser, token, endtagname="", endtagnames=[]):
     """
     Javascript templates (jquery, handlebars.js, mustache.js) use constructs like:
 
@@ -53,14 +53,14 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
         #     parser.extend_nodelist(nodelist, var_node, token)
         #     import pdb; pdb.set_trace()
 
-        if token.token_type == TOKEN_VAR:
-            parser.extend_nodelist(nodelist, TextNode('{{'), token)
+        if token.token_type == TokenType.VAR:
+            parser.extend_nodelist(nodelist, TextNode("{{"), token)
             parser.extend_nodelist(nodelist, TextNode(token.contents), token)
 
-        elif token.token_type == TOKEN_TEXT:
+        elif token.token_type == TokenType.TEXT:
             parser.extend_nodelist(nodelist, TextNode(token.contents), token)
 
-        elif token.token_type == TOKEN_BLOCK:
+        elif token.token_type == TokenType.BLOCK:
             try:
                 command = token.contents.split()[0]
             except IndexError:
@@ -72,13 +72,13 @@ def verbatim_tags(parser, token, endtagname='', endtagnames=[]):
                 parser.invalid_block_tag(token, command, None)
             try:
                 node = compile_func(parser, token)
-            except template.TemplateSyntaxError, e:
+            except template.TemplateSyntaxError as e:
                 if not parser.compile_function_error(token, e):
                     raise
             parser.extend_nodelist(nodelist, node, token)
 
-        if token.token_type == TOKEN_VAR:
-            parser.extend_nodelist(nodelist, TextNode('}}'), token)
+        if token.token_type == TokenType.VAR:
+            parser.extend_nodelist(nodelist, TextNode("}}"), token)
     return nodelist
 
 
@@ -94,6 +94,7 @@ class VerbatimNode(template.Node):
             {% trans "Your name is" %} {{first}} {{last}}
         {% endverbatim %}
     """
+
     def __init__(self, text_and_nodes):
         self.text_and_nodes = text_and_nodes
 
@@ -101,20 +102,20 @@ class VerbatimNode(template.Node):
         output = ""
         # If its text we concatenate it, otherwise it's a node and we render it
         for bit in self.text_and_nodes:
-            if isinstance(bit, basestring):
+            if isinstance(bit, str):
                 output += bit
             else:
                 output += bit.render(context)
         return output
 
 
-@register.tag('hbs_verbatim')
+@register.tag("hbs_verbatim")
 def verbatim(parser, token):
-    text_and_nodes = verbatim_tags(parser, token, 'hbs_endverbatim')
+    text_and_nodes = verbatim_tags(parser, token, "hbs_endverbatim")
     return VerbatimNode(text_and_nodes)
 
 
-@register.tag('block_verbatim')
+@register.tag("block_verbatim")
 def do_block(parser, token):
     """
     Define a block that can be overridden by child templates. Adapted for Handlebars
@@ -129,12 +130,14 @@ def do_block(parser, token):
     # check for duplication.
     try:
         if block_name in parser.__loaded_blocks:
-            raise TemplateSyntaxError("'%s' tag with name '%s' appears more than once" % (bits[0], block_name))
+            raise TemplateSyntaxError(
+                "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+            )
         parser.__loaded_blocks.append(block_name)
     except AttributeError:  # parser.__loaded_blocks isn't a list yet
         parser.__loaded_blocks = [block_name]
 
-    acceptable_endblocks = ('endblock_verbatim', 'endblock_verbatim %s' % block_name)
+    acceptable_endblocks = ("endblock_verbatim", "endblock_verbatim %s" % block_name)
 
     # modify nodelist!
     nodelist = verbatim_tags(parser, token, endtagnames=acceptable_endblocks)

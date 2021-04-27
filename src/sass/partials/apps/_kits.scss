@@ -12,6 +12,12 @@
     }
   }
 
+  &--no-results {
+    .add-kit {
+      display: block;
+    }
+  }
+
   .h5 {
     display: block;
   }

@@ -17,39 +17,43 @@ class CrudTests(LoginRequiredMixin, WebTest):
     """
 
     def setUp(self):
-        super(CrudTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_album_create(self):
         self.assertEqual(Album.objects.count(), 0)
-        url = reverse('albums:create')
+        url = reverse("albums:create")
         self._test_login_required(url)
 
         topic = TopicFactory.create()
 
         create = self.app.get(url, user=self.user)
         self.assertEqual(create.status_code, 200)
-        create.form['title'] = 'My first album'
-        create.form['description'] = 'Dummy description'
-        create.form['topic'] = 'http://modelbrouwers.nl/phpBB3/viewtopic.php?f=%d&t=%d' % (
-            topic.forum_id, topic.topic_id)
+        create.form["title"] = "My first album"
+        create.form["description"] = "Dummy description"
+        create.form[
+            "topic"
+        ] = "http://modelbrouwers.nl/phpBB3/viewtopic.php?f=%d&t=%d" % (
+            topic.forum_id,
+            topic.topic_id,
+        )
 
         response = create.form.submit()
 
         self.assertEqual(Album.objects.count(), 1)
         album = Album.objects.first()
-        redirect = u"{}?album={}".format(reverse('albums:upload'), album.id)
+        redirect = u"{}?album={}".format(reverse("albums:upload"), album.id)
         self.assertRedirects(response, redirect)
 
         self.assertEqual(album.topic, topic)
-        self.assertEqual(album.title, 'My first album')
-        self.assertEqual(album.description, 'Dummy description')
+        self.assertEqual(album.title, "My first album")
+        self.assertEqual(album.description, "Dummy description")
 
     def test_album_create_same_title(self):
-        url = reverse('albums:create')
+        url = reverse("albums:create")
         create = self.app.get(url, user=self.user)
         self.assertEqual(create.status_code, 200)
-        create.form['title'] = 'My album'
+        create.form["title"] = "My album"
 
         response = create.form.submit()
         self.assertEqual(Album.objects.count(), 1)
@@ -58,26 +62,25 @@ class CrudTests(LoginRequiredMixin, WebTest):
         response = create.form.submit()
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response, 'form', 'title',
-            _('You already have an album with this title.')
+            response, "form", "title", _("You already have an album with this title.")
         )
 
     def test_preferences_update(self):
-        url = reverse('albums:settings')
+        url = reverse("albums:settings")
         self._test_login_required(url)
 
         preferences = self.app.get(url, user=self.user)
         self.assertEqual(preferences.status_code, 200)
         response = preferences.form.submit()
-        self.assertRedirects(response, reverse('albums:index'))
+        self.assertRedirects(response, reverse("albums:index"))
 
 
 class UploadTests(LoginRequiredMixin, WebTest):
 
-    url = reverse('albums:upload')
+    url = reverse("albums:upload")
 
     def setUp(self):
-        super(UploadTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_upload_view_anon(self):
@@ -92,7 +95,7 @@ class UploadTests(LoginRequiredMixin, WebTest):
         """
         self.assertEqual(self.user.album_set.count(), 0)
         response = self.app.get(self.url, user=self.user)
-        self.assertRedirects(response, reverse('albums:create'))
+        self.assertRedirects(response, reverse("albums:create"))
 
     def test_uploadview(self):
         """
@@ -104,5 +107,5 @@ class UploadTests(LoginRequiredMixin, WebTest):
         upload = self.app.get(self.url, user=self.user)
         self.assertEqual(upload.status_code, 200)
 
-        uploadform = upload.context['form']
-        self.assertQuerysetEqual(uploadform.fields['album'].queryset, [repr(album)])
+        uploadform = upload.context["form"]
+        self.assertQuerysetEqual(uploadform.fields["album"].queryset, [repr(album)])

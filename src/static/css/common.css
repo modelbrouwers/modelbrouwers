@@ -140,13 +140,6 @@ div#shop-footer div.blokje  {
 #footer-verlichting         {background-position: -468px top;}
 #footer-verlichting:hover   {background-position: -468px -146px;}
 
-/*** CHAT ***/
-#chat-window{
-    padding: 0;
-    padding-bottom: 0.1em;
-    background-color: #FAFAFA;/*rgb(34, 34, 34);*/
-    overflow: hidden;
-}
 /*** MODS ***/
 #open_reports               {color: red;}
 

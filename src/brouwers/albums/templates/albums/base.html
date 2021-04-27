@@ -1,5 +1,5 @@
-{% extends "base_html5.html" %}{% load i18n staticfiles cache thumbnail sniplates %}
-
+{% extends "base.html" %}{% load i18n static cache thumbnail sniplates %}
+{% block data-page %}data-page="albums"{% endblock %}
 {% block title %} &bull; {% trans "Albums" %}{% endblock %}
 
 
@@ -7,47 +7,35 @@
 
 
 {% block eye-catcher %}
-<header class="container-fluid eye-catcher">
-    <div class="container">
-        {% block eye-catcher-content %}
-            <h1>
-                {% trans "Albums" %}
-                <i class="pull-right fa fa-camera-retro fa-2x"></i>
-            </h1>
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            {% block eye-catcher-content %}
+                <h1>
+                    {% trans "Albums" %}
+                    <i class="pull-right fa fa-camera-retro fa-2x"></i>
+                </h1>
 
-            <p>{% blocktrans %}
-                The 'BrouwersAlbums' are a section where you can create your own, personal
-                albums and upload photos to them. The amount of albums or photos is unlimited.
-            {% endblocktrans %}</p>
+                <p>{% blocktrans %}
+                    The 'BrouwersAlbums' is a section where you can create your own, personal
+                    albums and upload photos to them. The amount of albums or photos is unlimited.
+                {% endblocktrans %}</p>
 
-            {# {% include "albums/winners_carousel.html" %} #}
-        {% endblock %}
+                {# {% include "albums/winners_carousel.html" %} #}
+            {% endblock %}
 
-        {% block albums-nav %}
-            <div>
+            {% block albums-nav %}
+                <div>
 
-                {% block albums-nav-left %}
-                    <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
-                    <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
-                {% endblock %}
+                    {% block albums-nav-left %}
+                        <a href="{% url 'albums:upload' %}" class="btn bg-main-orange">{% trans "Upload" %}</a>
+                        <a href="{% url 'albums:create' %}" class="btn bg-main-blue">{% trans "Create album" %}</a>
+                    {% endblock %}
 
-                {% load_widgets albums='albums/sniplates.html' %}
-                {% widget 'albums:nav-right' %}
+                    {% load_widgets albums='albums/sniplates.html' %}
+                    {% widget 'albums:nav-right' %}
 
-            </div>
-        {% endblock %}
-    </div>
-</header>
+                </div>
+            {% endblock %}
+        </div>
+    </header>
 {% endblock %}
-
-
-{% block extrascript %}
-{{ block.super }}
-<script>
-(function($) {
-    $(function() {
-        $('.controls [data-toggle="popover"]').popover();
-    });
-})(window.jQuery);
-</script>
-{% endblock extrascript %}

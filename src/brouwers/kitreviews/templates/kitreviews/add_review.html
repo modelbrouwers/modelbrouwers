@@ -55,3 +55,8 @@
     </form>
 
 {% endblock content %}
+
+{% block modals %}
+    {{ block.super }}
+    {% include "kits/includes/add_kit_modal_react.html" %}
+{% endblock modals %}

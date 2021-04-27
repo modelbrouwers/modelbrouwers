@@ -1,44 +1,45 @@
-from rest_framework import parsers, permissions, viewsets
+from rest_framework import mixins, parsers, permissions, viewsets
 from rest_framework.settings import api_settings
 
 from ..models import Boxart, Brand, ModelKit, Scale
 from .filters import BrandFilter, ModelKitFilter, ScaleFilter
 from .serializers import (
-    BoxartSerializer, BrandSerializer, CreateModelKitSerializer,
-    ModelKitSerializer, ScaleSerializer
+    BoxartSerializer,
+    BrandSerializer,
+    CreateModelKitSerializer,
+    ModelKitSerializer,
+    ScaleSerializer
 )
 
 
 class ModelKitViewSet(viewsets.ModelViewSet):
-    queryset = ModelKit.objects.select_related('scale', 'brand')
+    queryset = ModelKit.objects.select_related("scale", "brand")
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = ModelKitSerializer
-    filter_class = ModelKitFilter
+    filterset_class = ModelKitFilter
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action == "create":
             return CreateModelKitSerializer
-        return super(ModelKitViewSet, self).get_serializer_class()
+        return super().get_serializer_class()
 
     def perform_create(self, serializer):
         serializer.save(submitter=self.request.user)
 
 
-# TODO: block 'update'
-class BrandViewSet(viewsets.ModelViewSet):
+class BrandViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    filter_class = BrandFilter
+    filterset_class = BrandFilter
     pagination_class = None
 
 
-# TODO: block 'update'
-class ScaleViewSet(viewsets.ModelViewSet):
+class ScaleViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Scale.objects.all()
     serializer_class = ScaleSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    filter_class = ScaleFilter
+    filterset_class = ScaleFilter
     pagination_class = None
 
 
@@ -48,6 +49,6 @@ class BoxartViewSet(viewsets.ModelViewSet):
     parser_classes = api_settings.DEFAULT_PARSER_CLASSES + [parsers.FileUploadParser]
 
     def create(self, request, *args, **kwargs):
-        response = super(BoxartViewSet, self).create(request, *args, **kwargs)
-        response.data['success'] = True
+        response = super().create(request, *args, **kwargs)
+        response.data["success"] = True
         return response

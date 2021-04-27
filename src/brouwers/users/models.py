@@ -1,5 +1,7 @@
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin
 )
 from django.db import models
 from django.utils import timezone
@@ -14,18 +16,24 @@ from .mail import UserCreatedFromForumEmail
 
 
 class UserManager(BaseUserManager):
-
     def create_user(self, username, email=None, password=None, **extra_fields):
         """
         Creates and saves a User with the given username, email and password.
         """
         now = timezone.now()
         if not username:
-            raise ValueError('The given username must be set')
+            raise ValueError("The given username must be set")
         email = UserManager.normalize_email(email)
-        user = self.model(username=username, email=email,
-                          is_staff=False, is_active=True, is_superuser=False,
-                          last_login=now, date_joined=now, **extra_fields)
+        user = self.model(
+            username=username,
+            email=email,
+            is_staff=False,
+            is_active=True,
+            is_superuser=False,
+            last_login=now,
+            date_joined=now,
+            **extra_fields
+        )
 
         user.set_password(password)
         user.save(using=self._db)
@@ -40,17 +48,17 @@ class UserManager(BaseUserManager):
         return u
 
     def create_from_forum(self, forum_user):
-        extra_fields = {
-            'forumuser_id': forum_user.user_id
-        }
-        user = self.create_user(forum_user.username, forum_user.user_email, **extra_fields)
+        extra_fields = {"forumuser_id": forum_user.user_id}
+        user = self.create_user(
+            forum_user.username, forum_user.user_email, **extra_fields
+        )
         user.is_active = False
         user.save(using=self._db)
 
         # populate cache
         user.forumuser = forum_user
         # Send e-mail
-        mail = UserCreatedFromForumEmail(**{'user': user})
+        mail = UserCreatedFromForumEmail(**{"user": user})
         mail.send()
         return user
 
@@ -66,7 +74,7 @@ class UserManager(BaseUserManager):
             user.forumuser_id = forum_user.pk
             user.save()
             return user
-        raise self.model.DoesNotExist('Could not find system user for forum user')
+        raise self.model.DoesNotExist("Could not find system user for forum user")
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -76,43 +84,60 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     Username, password and email are required. Other fields are optional.
     """
+
     username = models.CharField(
-        _('username'), max_length=30, unique=True,
-        help_text=_('Required. 30 characters or fewer. All characters allowed.'))
-    username_clean = models.CharField(_('cleaned username'), max_length=30, blank=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    email = models.EmailField(_('email address'))
+        _("username"),
+        max_length=30,
+        unique=True,
+        help_text=_("Required. 30 characters or fewer. All characters allowed."),
+    )
+    username_clean = models.CharField(_("cleaned username"), max_length=30, blank=True)
+    first_name = models.CharField(_("first name"), max_length=30, blank=True)
+    last_name = models.CharField(_("last name"), max_length=30, blank=True)
+    email = models.EmailField(_("email address"))
     is_staff = models.BooleanField(
-        _('staff status'), default=False,
-        help_text=_('Designates whether the user can log into this admin '
-                    'site.'))
+        _("staff status"),
+        default=False,
+        help_text=_("Designates whether the user can log into this admin " "site."),
+    )
     is_active = models.BooleanField(
-        _('active'), default=True,
-        help_text=_('Designates whether this user should be treated as '
-                    'active. Unselect this instead of deleting accounts.'))
-    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+        _("active"),
+        default=True,
+        help_text=_(
+            "Designates whether this user should be treated as "
+            "active. Unselect this instead of deleting accounts."
+        ),
+    )
+    date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
     # cross db-relation
-    forumuser_id = models.IntegerField(_('forum user id'), blank=True, null=True)
+    forumuser_id = models.IntegerField(_("forum user id"), blank=True, null=True)
+
+    customer_group = models.ForeignKey(
+        "shop.CustomerGroup",
+        related_name=_("users"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
     class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
-        ordering = ['username_clean']
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
+        ordering = ["username_clean"]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.username
 
     def save(self, *args, **kwargs):
-        if self.username and not self.username_clean:
+        if self.username:
             self.username_clean = self.username.lower()
-        super(User, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         # TODO
@@ -122,7 +147,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         Returns the first_name plus the last_name, with a space in between.
         """
-        full_name = '%s %s' % (self.first_name, self.last_name)
+        full_name = "%s %s" % (self.first_name, self.last_name)
         return full_name.strip()
 
     def get_short_name(self):
@@ -147,11 +172,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 @python_2_unicode_compatible
 class DataDownloadRequest(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     finished = models.DateTimeField(_("finished"), blank=True, null=True)
     downloaded = models.DateTimeField(_("downloaded"), blank=True, null=True)
-    zip_file = models.FileField(_("zip file"), blank=True, storage=private_media_storage)
+    zip_file = models.FileField(
+        _("zip file"), blank=True, storage=private_media_storage
+    )
 
     def __str__(self):
-        return _("Data download for {user} ({created})").format(user=self.user, created=self.created)
+        return _("Data download for {user} ({created})").format(
+            user=self.user, created=self.created
+        )

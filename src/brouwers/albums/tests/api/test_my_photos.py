@@ -11,9 +11,8 @@ from ..utils import override_preferences
 
 
 class MyPhotoTests(APITestCase):
-
     def setUp(self):
-        super(MyPhotoTests, self).setUp()
+        super().setUp()
         self.user = UserFactory.create()
 
     def test_paginated_photos(self):
@@ -32,45 +31,47 @@ class MyPhotoTests(APITestCase):
         random_album = AlbumFactory.create()
         PhotoFactory.create_batch(5, album=random_album)
 
-        url = reverse('api:my/photos-list')
+        url = reverse("api:my/photos-list")
 
         # check as anonymous user
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertEqual(response.data, {'detail': 'Authentication credentials were not provided.'})
+        self.assertEqual(
+            response.data, {"detail": "Authentication credentials were not provided."}
+        )
 
         # authenticated
-        self.client.login(username=self.user.username, password='password')
+        self.client.login(username=self.user.username, password="password")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # ensure pagination is active
-        self.assertEqual(response.data['count'], len(photos))
+        self.assertEqual(response.data["count"], len(photos))
 
         photos.reverse()
-        results = response.data['results']
+        results = response.data["results"]
         for photo, result in zip(photos, results):
-            self.assertEqual(result['id'], photo.id)
-            self.assertEqual(result['user'], photo.user_id)
-            image = result['image']
-            self.assertIn('large', image)
-            self.assertIn('thumb', image)
+            self.assertEqual(result["id"], photo.id)
+            self.assertEqual(result["user"], photo.user_id)
+            image = result["image"]
+            self.assertIn("large", image)
+            self.assertIn("thumb", image)
 
         # test filter
-        response = self.client.get(url, {'album': own_album.pk})
-        self.assertEqual(response.data['count'], 3)
-        results = response.data['results']
+        response = self.client.get(url, {"album": own_album.pk})
+        self.assertEqual(response.data["count"], 3)
+        results = response.data["results"]
 
         for result, photo in zip(results, photos[-3:]):
-            self.assertEqual(result['id'], photo.id)
+            self.assertEqual(result["id"], photo.id)
 
     def test_custom_pagination(self):
-        url = reverse('api:my/photos-list')
+        url = reverse("api:my/photos-list")
         own_album = AlbumFactory.create(user=self.user)
         PhotoFactory.create_batch(4, album=own_album)
-        self.client.login(username=self.user.username, password='password')
+        self.client.login(username=self.user.username, password="password")
         with override_preferences(self.user, paginate_by_sidebar=3):
             response = self.client.get(url)
-        self.assertEqual(response.data['paginate_by'], 3)
+        self.assertEqual(response.data["paginate_by"], 3)
 
     def test_set_cover(self):
         own_album = AlbumFactory.create(user=self.user)
@@ -82,20 +83,20 @@ class MyPhotoTests(APITestCase):
         self.assertIsNone(own_album.cover)
         self.assertIsNone(other_album.cover)
 
-        url = reverse('api:my/photos-set-cover', kwargs={'pk': photos[1].pk})
+        url = reverse("api:my/photos-set-cover", kwargs={"pk": photos[1].pk})
 
         # check anonymous
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
         # authenticated
-        self.client.login(username=self.user.username, password='password')
+        self.client.login(username=self.user.username, password="password")
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         album = Album.objects.get(pk=own_album.pk)
         self.assertEqual(album.cover, photos[1])
 
         # other person album/photo
-        url = reverse('api:my/photos-set-cover', kwargs={'pk': other_photos[1].pk})
+        url = reverse("api:my/photos-set-cover", kwargs={"pk": other_photos[1].pk})
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

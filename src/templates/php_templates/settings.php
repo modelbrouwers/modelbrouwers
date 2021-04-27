@@ -5,7 +5,6 @@
     $settings = array(
         'MEDIA_URL'         => '/media/',
         'STATIC_URL'        => '/static/',
-        'HONEYPOT_URL'      => '/scratchy.php',
     );
 
     // options: 'achter' or 'voor' in the filename. voor <==> highlighted image
@@ -46,6 +45,12 @@
                             'label' => 'groepsbouwen',
                             'title' => 'Ga naar de groepsbouwen!',
                             'url' => '/group-builds/',
+                            'classes' => '',
+                            ),
+        'builds'       => array(
+                            'label' => 'verslagen',
+                            'title' => 'Blader door brouwverslagen!',
+                            'url' => '/builds/',
                             'classes' => '',
                             ),
     );

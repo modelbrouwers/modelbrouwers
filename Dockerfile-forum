@@ -1,0 +1,83 @@
+FROM php:5.6-apache
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends --no-install-suggests -y \
+        gettext-base \
+        unzip \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+        libpq-dev \
+        libz-dev \
+        libmemcached-dev \
+    && docker-php-ext-install mysqli pgsql \
+    && docker-php-ext-configure gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
+    && pecl install memcached-2.2.0 \
+    && docker-php-ext-enable memcached \
+    && mkdir /docker-entrypoint.d
+
+RUN a2enmod rewrite
+
+COPY docker/phpbb/php.ini /usr/local/etc/php/
+COPY docker/phpbb/docker-php-entrypoint /usr/local/bin/
+COPY docker/phpbb/10-envsubst.sh /docker-entrypoint.d
+
+# Install phpBB3
+
+ARG PHPBB_DOWNLOAD_URL=https://www.phpbb.com/files/release/phpBB-3.0.14.zip
+ARG PHPBB_LANGUAGE_PACK=https://www.phpbb.com/customise/db/download/107906
+RUN curl -LOJ $PHPBB_DOWNLOAD_URL \
+    && unzip phpBB-3.0.14.zip -d . \
+    && rm phpBB-3.0.14.zip \
+    && rm -rf phpBB3/install \
+    && curl -LOJ $PHPBB_LANGUAGE_PACK \
+    && unzip 107906 -d . \
+    && cp -r dutch_\(casual_honorifics\)_1_0_14/* phpBB3/ \
+    && rm -rf dutch_\(casual_honorifics\)_1_0_14/ 107906
+
+# Install extra images
+COPY src/phpbb/phpBB3/images/smilies/*.gif phpBB3/images/smilies/
+
+# Set up config template, environment driven
+COPY docker/phpbb/config.php.template /var/www/html/phpBB3/config.php.template
+
+# Set up MB specific integrations
+COPY src/phpbb/phpBB3/includes/auth/auth_django.php \
+     src/phpbb/phpBB3/includes/auth/getdjangouser.php \
+     phpBB3/includes/auth/
+
+RUN mkdir -p phpBB3/src/conf/ phpBB3/src/phpbb/ phpBB3/src/templates/ phpBB3/static/
+
+# Install dependencies with composer
+WORKDIR /var/www/html/phpBB3/src
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY composer.json composer.lock ./
+RUN composer install
+
+# Copy source code
+WORKDIR /var/www/html
+COPY src/phpbb/errorhandler.php phpBB3/src/phpbb/errorhandler.php
+COPY src/conf/settings.php phpBB3/src/conf/settings.php
+COPY src/templates/php_templates phpBB3/src/templates/php_templates
+COPY src/phpbb/php-static-files phpBB3/src/phpbb/php-static-files
+COPY src/phpbb/phpBB3/styles/subsilver2_dead_topics phpBB3/styles/subsilver2_dead_topics
+
+# Include the staticfiles manifest
+COPY --from=modelbrouwers/brouwers:latest /app/static/staticfiles.json phpBB3/static/staticfiles.json
+
+VOLUME /var/www/html/phpBB3/cache /var/www/html/phpBB3/images
+
+ENV PHPBB3_DB_HOST=mysql \
+    PHPBB3_DB_NAME=brouwers \
+    PHPBB3_DB_USER=brouwers \
+    PHPBB3_DB_PASSWORD=brouwers \
+    PHPBB3_TABLE_PREFIX=phpbb_ \
+    PHPBB3_DJANGO_DB_HOST=postgres \
+    PHPBB3_DJANGO_DB_NAME=modelbrouwers \
+    PHPBB3_DJANGO_DB_USER=brouwers \
+    PHPBB3_DJANGO_DB_PASSWORD=brouwers \
+    PHPBB3_DJANGO_SESSION_COOKIE_NAME=mbsessionid \
+    MEMCACHED_HOST=memcached

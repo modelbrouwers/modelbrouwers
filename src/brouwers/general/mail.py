@@ -8,7 +8,8 @@ from django.template.loader import get_template
 
 
 class MultiAlternativesEmail(object):
-    """ CBV approach for MultiAlternativesEmail """
+    """CBV approach for MultiAlternativesEmail"""
+
     template_name = None
     subject = None
     to = None
@@ -18,7 +19,7 @@ class MultiAlternativesEmail(object):
         self.to = to
         self.kwargs = kwargs or {}
 
-    def get_template(self, content='html'):
+    def get_template(self, content="html"):
         """
         Returns a list of template names to be used for the request. Must return
         a list.
@@ -28,7 +29,8 @@ class MultiAlternativesEmail(object):
         if self.template_name is None:
             raise ImproperlyConfigured(
                 "MultiAlternativesEmail requires either a definition of "
-                "'template_name' or an implementation of 'get_template'")
+                "'template_name' or an implementation of 'get_template'"
+            )
         else:
             template_name = "%s.%s" % (self.template_name, content)
             return get_template(template_name)
@@ -37,37 +39,37 @@ class MultiAlternativesEmail(object):
         if self.subject is None:
             raise ImproperlyConfigured(
                 "MultiAlternativesEmail requires either a definition of "
-                "'subject' or an implementation of 'get_subject'")
+                "'subject' or an implementation of 'get_subject'"
+            )
         return self.subject
 
     def get_to(self):
         if self.to is None:
             raise ImproperlyConfigured(
                 "MultiAlternativesEmail requires either a definition of "
-                "'to' or an implementation of 'get_to'")
+                "'to' or an implementation of 'get_to'"
+            )
         # iterable and not string
-        if hasattr(self.to, '__iter__'):
+        if isinstance(self.to, (tuple, list)):
             return self.to
         return [self.to]
 
     def get_context_data(self, **kwargs):
-        kwargs.update(**{
-            'site': Site.objects.get_current()
-        })
+        kwargs.update(**{"site": Site.objects.get_current()})
         return kwargs
 
     def get_text_content(self):
-        template = self.get_template(content='txt')
+        template = self.get_template(content="txt")
         context = self.get_context_data(**self.kwargs)
         return template.render(context)
 
     def get_html_content(self):
-        template = self.get_template(content='html')
+        template = self.get_template(content="html")
         context = self.get_context_data(**self.kwargs)
         return template.render(context)
 
     def get_email(self):
-        """ Get a EmailMessage instance """
+        """Get a EmailMessage instance"""
         to = self.get_to()
         subject = self.get_subject()
 
