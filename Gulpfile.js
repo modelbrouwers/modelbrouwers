@@ -1,7 +1,7 @@
 "use strict";
 
 var gulp = require("gulp");
-var sass = require("gulp-sass");
+var sass = require("gulp-dart-sass");
 var sourcemaps = require("gulp-sourcemaps");
 var autoprefixer = require("autoprefixer");
 var paths = require("./build/paths");
@@ -9,7 +9,7 @@ var postcss = require("gulp-postcss");
 var compass = require("compass-importer");
 
 const sassOptions = {
-    outputStyle: "minified",
+    outputStyle: "compressed",
     importer: compass,
     includePaths: "node_modules"
 };
