@@ -1,0 +1,10 @@
+{% extends "awards/landing.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Awards" %} / {% trans "Projects" %}{% endblock %}
+
+{% block content %}
+
+{{ category }} - {{ projects }}
+
+{% endblock %}

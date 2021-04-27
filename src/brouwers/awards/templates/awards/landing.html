@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block title %} {% trans "Awards" %}{% endblock %}
+
 {% block eye-catcher %}
 <header class="container-fluid eye-catcher">
     <div class="container">
@@ -32,7 +34,7 @@
         {% trans "Hall of fame" %}
     </a>
 
-    <a class="button button--blue button--icon btn-lg button--vertical-center" href="#">
+    <a class="button button--blue button--icon btn-lg button--vertical-center" href="{% url 'awards:nomination-list' %}">
         <i class="fa fa-ticket fa-2x"></i>
         {% trans "View nominations" %}
     </a>
