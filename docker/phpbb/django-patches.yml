@@ -1,0 +1,24 @@
+- name: Patch phpBB points to work with Django auth backend
+  hosts: localhost
+  connection: local
+
+  vars:
+    phpbb_dir: /build/phpBB3
+
+  tasks:
+
+    - name: Disable re-auth for phpBB admin
+      lineinfile:
+        dest: "{{ phpbb_dir }}/adm/index.php"
+        regexp: "login_box\\('', \\$user->lang\\['LOGIN_ADMIN_CONFIRM'\\], \\$user->lang\\['LOGIN_ADMIN_SUCCESS'\\], true, false\\);"
+        line: "//    login_box('', $user->lang['LOGIN_ADMIN_CONFIRM'], $user->lang['LOGIN_ADMIN_SUCCESS'], true, false);"
+
+    - name: Ensure X-Forwarded-For header is respected
+      blockinfile:
+        dest: "{{ phpbb_dir }}/includes/startup.php"
+        block: |
+          // Fix for reverse proxy
+          if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['SERVER_ADDR'] == $_SERVER['REMOTE_ADDR']) {
+                  $_SERVER['REMOTE_ADDR'] = htmlspecialchars((string) $_SERVER['HTTP_X_FORWARDED_FOR']);
+          }
+        insertbefore: "// Report all errors, except notices and deprecation messages"

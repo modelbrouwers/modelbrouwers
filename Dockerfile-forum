@@ -1,3 +1,37 @@
+# Build stage with some extra tooling to adapt to the Django integration
+FROM python:3.8-slim-buster AS build
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends --no-install-suggests -y \
+        curl \
+        unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+# Download and 'install' phpBB3
+
+ARG PHPBB_DOWNLOAD_URL=https://www.phpbb.com/files/release/phpBB-3.0.14.zip
+ARG PHPBB_LANGUAGE_PACK=https://www.phpbb.com/customise/db/download/107906
+RUN curl -LOJ $PHPBB_DOWNLOAD_URL \
+    && unzip phpBB-3.0.14.zip -d . \
+    && rm phpBB-3.0.14.zip \
+    && rm -rf phpBB3/install \
+    && curl -LOJ $PHPBB_LANGUAGE_PACK \
+    && unzip 107906 -d . \
+    && cp -r dutch_\(casual_honorifics\)_1_0_14/* phpBB3/ \
+    && rm -rf dutch_\(casual_honorifics\)_1_0_14/ 107906
+
+# Make django-specific modifications
+
+COPY docker/phpbb/requirements.txt docker/phpbb/django-patches.yml ./
+RUN pip install -r requirements.txt \
+    && ansible-playbook django-patches.yml
+
+# Prepare for extra addons
+RUN mkdir -p phpBB3/src/conf/ phpBB3/src/phpbb/ phpBB3/src/templates/ phpBB3/static/
+
+# Production image stage
 FROM php:5.6-apache
 
 RUN apt-get update \
@@ -17,7 +51,8 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     && pecl install memcached-2.2.0 \
     && docker-php-ext-enable memcached \
-    && mkdir /docker-entrypoint.d
+    && mkdir /docker-entrypoint.d \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN a2enmod rewrite
 
@@ -25,18 +60,9 @@ COPY docker/phpbb/php.ini /usr/local/etc/php/
 COPY docker/phpbb/docker-php-entrypoint /usr/local/bin/
 COPY docker/phpbb/10-envsubst.sh /docker-entrypoint.d
 
-# Install phpBB3
+# Copy phpBB3 install from build
 
-ARG PHPBB_DOWNLOAD_URL=https://www.phpbb.com/files/release/phpBB-3.0.14.zip
-ARG PHPBB_LANGUAGE_PACK=https://www.phpbb.com/customise/db/download/107906
-RUN curl -LOJ $PHPBB_DOWNLOAD_URL \
-    && unzip phpBB-3.0.14.zip -d . \
-    && rm phpBB-3.0.14.zip \
-    && rm -rf phpBB3/install \
-    && curl -LOJ $PHPBB_LANGUAGE_PACK \
-    && unzip 107906 -d . \
-    && cp -r dutch_\(casual_honorifics\)_1_0_14/* phpBB3/ \
-    && rm -rf dutch_\(casual_honorifics\)_1_0_14/ 107906
+COPY --from=build /build/phpBB3 ./phpBB3
 
 # Install extra images
 COPY src/phpbb/phpBB3/images/smilies/*.gif phpBB3/images/smilies/
@@ -48,8 +74,6 @@ COPY docker/phpbb/config.php.template /var/www/html/phpBB3/config.php.template
 COPY src/phpbb/phpBB3/includes/auth/auth_django.php \
      src/phpbb/phpBB3/includes/auth/getdjangouser.php \
      phpBB3/includes/auth/
-
-RUN mkdir -p phpBB3/src/conf/ phpBB3/src/phpbb/ phpBB3/src/templates/ phpBB3/static/
 
 # Install dependencies with composer
 WORKDIR /var/www/html/phpBB3/src
