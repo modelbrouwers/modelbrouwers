@@ -1,8 +1,21 @@
 import "jquery";
 import Handlebars from "../general/hbs-pony";
-import { PhotoConsumer } from "../data/albums/photo";
+import { PhotoConsumer, MyPhotoConsumer } from "../data/albums/photo";
 import { RotateControl, Control } from "./photo-detail";
 import { PhotoUpload } from "./upload";
+
+const myPhotoConsumer = new MyPhotoConsumer();
+
+const setCover = photoNode => {
+    const photoId = photoNode.dataset.id;
+    const promise = myPhotoConsumer.setAsCover(photoId);
+    promise
+        .then(() => {
+            $(".cover").removeClass("cover");
+            photoNode.classList.add("cover");
+        })
+        .catch(console.error);
+};
 
 export default class Page {
     static init() {
@@ -83,13 +96,22 @@ export default class Page {
 
         $(".controls").on("click", "[data-action]", function(event) {
             event.preventDefault();
+            const node = this;
 
             let control,
-                action = $(this).data("action"),
+                action = node.dataset.action,
                 $figure = $(this).closest("figure");
+
+            if (action === "set-cover") {
+                const photoNode = node
+                    .closest("article")
+                    .querySelector(".album-photo");
+                return setCover(photoNode);
+            }
 
             let cls = getControlClass(action);
             control = controls[action] || new cls($(this), $figure);
+
             control.toggle();
             return false;
         });
