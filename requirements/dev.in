@@ -10,9 +10,6 @@ flake8
 django-debug-toolbar
 django-extensions
 
-# frontend development
-django-cors-headers
-
 # Documentation
 sphinx
 sphinx_rtd_theme

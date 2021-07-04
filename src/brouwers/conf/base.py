@@ -124,6 +124,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "import_export",
     "solo",
+    "corsheaders",
     # Modelbrouwers
     "brouwers.users",
     "brouwers.albums",
@@ -149,6 +150,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "sessionprofile.middleware.SessionProfileMiddleware",
@@ -268,19 +270,14 @@ LOGGING = {
             "format": "%(asctime)s %(process)d | %(thread)d | %(message)s",
         },
     },
-    "filters": {
-        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
-    },
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},},
     "handlers": {
         "mail_admins": {
             "level": "ERROR",
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
         },
-        "null": {
-            "level": "DEBUG",
-            "class": "logging.NullHandler",
-        },
+        "null": {"level": "DEBUG", "class": "logging.NullHandler",},
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
@@ -456,6 +453,12 @@ if SENTRY_DSN:
         "raven.contrib.django.raven_compat",
     ]
 
+
+#
+# CORSHEADERS
+#
+CORS_ORIGIN_ALLOW_ALL = config("CORS_ENABLED", default=False)
+CORS_ALLOW_CREDENTIALS = config("CORS_ENABLED", default=False)
 
 #
 # PHPBB

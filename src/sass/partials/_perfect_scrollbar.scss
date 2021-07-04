@@ -1,107 +1,61 @@
+@import 'perfect-scrollbar/css/perfect-scrollbar';
+
 // Colors
 $ps-rail-hover: $main-blue;
 $ps-bar-default: $main-green;
 $ps-bar-hover: $main-green;
 
-// Scrollbar mixins
-@mixin scrollbar-rail-default {
-  display: none;
-  position: absolute; /* please don't change 'position' */
-  @include border-radius(4px);
-  opacity: 0;
-  @include transition(background-color .2s linear, opacity .2s linear);
-}
+$ps-rail-width: 8px;
+$ps-rail-offset: 3px;
 
-@mixin scrollbar-rail-hover {
-  background-color: $ps-rail-hover;
-  opacity: 0.9;
-}
 
-@mixin scrollbar-default {
-  position: absolute; /* please don't change 'position' */
-  background-color: $ps-bar-default;
-  @include border-radius(4px);
-  @include transition(background-color .2s linear);
-}
+@mixin ps-dimensions($dimension, $width: $ps-rail-width, $offset: $ps-rail-offset) {
+  $width-property: null;
+  $offset-property: null;
 
-@mixin scrollbar-hover {
-  background-color: $ps-bar-hover;
-}
-
-@mixin in-scrolling {
-  &.ps-in-scrolling {
-    pointer-events: none;
-    &.ps-x>.ps-scrollbar-x-rail{
-      @include scrollbar-rail-hover;
-      >.ps-scrollbar-x {
-        @include scrollbar-hover;
-      }
-    }
-    &.ps-y>.ps-scrollbar-y-rail {
-      @include scrollbar-rail-hover;
-      >.ps-scrollbar-y {
-        @include scrollbar-hover;
-      }
-    }
-  }
-}
-
-.ps-container {
-  overflow: hidden !important;
-
-  &.ps-active-x > .ps-scrollbar-x-rail,
-  &.ps-active-y > .ps-scrollbar-y-rail {
-    display: block;
+  @if $dimension == x {
+    $width-property: height;
+    $offset-property: bottom;
+  } @else if $dimension == y {
+    $width-property: width;
+    $offset-property: right;
+  } @else {
+    @error "Unknown dimension #{$dimension}";
   }
 
-  @include in-scrolling;
+  #{$width-property}: $width;
+  #{$offset-property}: $offset;
+}
 
-  >.ps-scrollbar-x-rail {
-    @include scrollbar-rail-default;
-    bottom: 3px; /* there must be 'bottom' for ps-scrollbar-x-rail */
-    height: 8px;
 
-    >.ps-scrollbar-x {
-      @include scrollbar-default;
-      bottom: 0; /* there must be 'bottom' for ps-scrollbar-x */
-      height: 8px;
-    }
-  }
+.ps {
+  @each $dimension in x, y {
 
-  >.ps-scrollbar-y-rail {
-    @include scrollbar-rail-default;
-    right: 3px; /* there must be 'right' for ps-scrollbar-y-rail */
-    width: 8px;
+    & &__rail-#{$dimension} {
+      @include ps-dimensions($dimension);
+      background-color: $ps-rail-hover;
+      border-radius: 4px;
 
-    >.ps-scrollbar-y {
-      @include scrollbar-default;
-      right: 0; /* there must be 'right' for ps-scrollbar-y */
-      width: 8px;
-    }
-  }
+      &:hover,
+      &:focus,
+      &.ps--clicking {
+        background-color: $ps-rail-hover;
 
-  &:hover {
-    @include in-scrolling;
-
-    >.ps-scrollbar-x-rail,
-    >.ps-scrollbar-y-rail {
-      opacity: 0.6;
-    }
-
-    >.ps-scrollbar-x-rail:hover {
-      @include scrollbar-rail-hover;
-
-      >.ps-scrollbar-x {
-        @include scrollbar-hover;
+        .ps__thumb-#{$dimension} {
+          @include ps-dimensions($dimension, $offset: 0);
+          background-color: $ps-bar-hover;
+        }
       }
     }
 
-    >.ps-scrollbar-y-rail:hover {
-      @include scrollbar-rail-hover;
-
-      >.ps-scrollbar-y {
-        @include scrollbar-hover;
-      }
+    &__thumb-#{$dimension} {
+      background-color: $ps-bar-default;
+      @include ps-dimensions($dimension, $offset: 0);
     }
   }
+}
+
+
+.album-photo {
+  min-height: 300px;
 }

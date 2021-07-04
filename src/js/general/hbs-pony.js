@@ -18,7 +18,10 @@ function renderTemplate(name, context = {}, $dest) {
         name = bits[1];
 
     return consumer.loadTemplate(app, name).then(tpl => {
-        let rendered = tpl(context);
+        let rendered = tpl(context, {
+            allowProtoMethodsByDefault: true,
+            allowProtoPropertiesByDefault: true
+        });
         if ($dest) {
             $dest.html(rendered);
         }

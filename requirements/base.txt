@@ -40,6 +40,8 @@ django-ckeditor==6.0.0
     # via -r requirements/base.in
 django-compressor==2.1
     # via -r requirements/base.in
+django-cors-headers==3.7.0
+    # via -r requirements/base.in
 django-extra-views==0.13.0
     # via -r requirements/base.in
 django-filter==2.4.0
@@ -73,6 +75,7 @@ django==2.2.24
     #   -r requirements/base.in
     #   django-appconf
     #   django-choices
+    #   django-cors-headers
     #   django-extra-views
     #   django-filter
     #   django-import-export
