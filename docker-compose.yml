@@ -47,6 +47,7 @@ services:
       - FORUM_DB_HOST=mysql
       - CACHE_URL=memcached:11211
       - SESSION_COOKIE_DOMAIN=localhost
+      - CORS_ENABLED=yes
     volumes:
       - media:/app/media
       - media_sendfile:/app/media_sendfile
