@@ -77,9 +77,11 @@ services:
       - PHPBB3_DJANGO_SESSION_COOKIE_NAME=mbsessionid
       - MEMCACHED_HOST=memcached
       - RAVEN_DSN=${PHP_RAVEN_DSN:-}
+      - DEBUG=1
     volumes:
       - phpbb_cache:/var/www/html/phpBB3/cache
       - phpbb_images:/var/www/html/phpBB3/images
+      - ./static:/var/www/html/static
     ports:
       - 8001:80
     depends_on:
