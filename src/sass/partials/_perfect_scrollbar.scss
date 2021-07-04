@@ -8,60 +8,50 @@ $ps-bar-hover: $main-green;
 $ps-rail-width: 8px;
 $ps-rail-offset: 3px;
 
+
+@mixin ps-dimensions($dimension, $width: $ps-rail-width, $offset: $ps-rail-offset) {
+  $width-property: null;
+  $offset-property: null;
+
+  @if $dimension == x {
+    $width-property: height;
+    $offset-property: bottom;
+  } @else if $dimension == y {
+    $width-property: width;
+    $offset-property: right;
+  } @else {
+    @error "Unknown dimension #{$dimension}";
+  }
+
+  #{$width-property}: $width;
+  #{$offset-property}: $offset;
+}
+
+
 .ps {
-  & &__rail-x,
-  & &__rail-y {
-    background-color: $ps-rail-hover;
+  @each $dimension in x, y {
 
-    &:hover,
-    &:focus,
-    &.ps--clicking {
+    & &__rail-#{$dimension} {
+      @include ps-dimensions($dimension);
       background-color: $ps-rail-hover;
-    }
-  }
+      border-radius: 4px;
 
-  & &__rail-y {
-    width: $ps-rail-width;
-    right: $ps-rail-offset;
-    border-radius: 4px;
+      &:hover,
+      &:focus,
+      &.ps--clicking {
+        background-color: $ps-rail-hover;
 
-    &:hover,
-    &:focus,
-    &.ps--clicking {
-      .ps__thumb-y {
-        background-color: $ps-bar-hover;
-        width: $ps-rail-width;
-        right: 0;
+        .ps__thumb-#{$dimension} {
+          @include ps-dimensions($dimension, $offset: 0);
+          background-color: $ps-bar-hover;
+        }
       }
     }
-  }
 
-  & &__rail-x {
-    height: $ps-rail-width;
-    bottom: $ps-rail-offset;
-    border-radius: 4px;
-
-    &:hover,
-    &:focus,
-    &.ps--clicking {
-      .ps__thumb-x {
-        background-color: $ps-bar-hover;
-        height: $ps-rail-width;
-        bottom: 0;
-      }
+    &__thumb-#{$dimension} {
+      background-color: $ps-bar-default;
+      @include ps-dimensions($dimension, $offset: 0);
     }
-  }
-
-  &__thumb-y {
-    background-color: $ps-bar-default;
-    width: $ps-rail-width;
-    right: 0;
-  }
-
-  &__thumb-x {
-    background-color: $ps-bar-default;
-    height: $ps-rail-width;
-    bottom: 0;
   }
 }
 
