@@ -32,6 +32,9 @@ services:
   memcached:
     image: memcached:1.6
 
+  redis:
+    image: redis:6
+
   django:
     build: .
     image: modelbrouwers/brouwers:${TAG:-latest}
@@ -109,12 +112,14 @@ services:
       - DB_NAME=winkel
       - DB_PREFIX=oc_
       - SELF_ADDRESS=http://localhost
+      - REDIS_URL=redis:6379?database=5
     volumes:
       - shop:/var/www/html/winkel/:rw
     ports:
       - 8002:80
     depends_on:
       - mysql
+      - redis
       - shop_volume
 
   # not suitable for production

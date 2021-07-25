@@ -63,5 +63,5 @@ src/static/css/
 src/static/js/
 
 # docker pre-populate
-/docker/mysql/modelbrouw_fora.sql.gz
+/docker/mysql/*.sql.gz
 /docker/postgres/modelbrouwers.sql.gz
