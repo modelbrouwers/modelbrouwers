@@ -104,7 +104,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-shop
-    image: docker.modelbrouwers.nl/modelbrouwers/winkel:${SHOP_VERSION:-latest}
+    image: docker.modelbrouwers.nl/modelbrouwers/winkel:${TAG:-latest}
     environment:
       - DB_HOSTNAME=mysql
       - DB_USERNAME=winkel
