@@ -96,7 +96,7 @@ django-treebeard==4.3.1
     # via -r requirements/base.txt
 django-webtest==1.9.7
     # via -r requirements/test-tools.in
-django==2.2.24
+django==2.2.27
     # via
     #   -r requirements/base.txt
     #   django-appconf
@@ -143,7 +143,7 @@ jdcal==1.4.1
     # via
     #   -r requirements/base.txt
     #   openpyxl
-lxml==4.6.3
+lxml==4.7.1
     # via -r requirements/base.txt
 markuppy==1.14
     # via
@@ -163,7 +163,7 @@ packaging==20.8
     # via
     #   -r requirements/base.txt
     #   bleach
-pillow==8.2.0
+pillow==8.4.0
     # via
     #   -r requirements/base.txt
     #   cairosvg
@@ -198,7 +198,7 @@ python-dotenv==0.15.0
     # via -r requirements/base.txt
 python-memcached==1.59
     # via -r requirements/base.txt
-pytz==2021.1
+pytz==2021.3
     # via
     #   -r requirements/base.txt
     #   django
@@ -241,7 +241,7 @@ sorl-thumbnail==12.7.0
     # via -r requirements/base.txt
 soupsieve==2.0
     # via beautifulsoup4
-sqlparse==0.4.1
+sqlparse==0.4.2
     # via
     #   -r requirements/base.txt
     #   django
