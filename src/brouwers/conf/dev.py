@@ -1,5 +1,6 @@
 import os
 import sys
+import warnings
 
 os.environ.setdefault("DEBUG", "yes")
 os.environ.setdefault("ALLOWED_HOSTS", "*")
@@ -49,3 +50,8 @@ except ImportError:
 if "test" in sys.argv:
     INSTALLED_APPS += ["brouwers.forum_tools.tests.custom_fields"]
     SENDFILE_BACKEND = "sendfile.backends.nginx"
+
+
+warnings.filterwarnings(
+    "error", module=r"django\.db\.models\.query",
+)

@@ -117,12 +117,12 @@ class CartViewTests(WebTest):
         Asserts that cart detail view is properly loaded and available only to the cart user
         """
         cart_page = self.app.get(self.url, user=self.user)
-        self.assertEquals(cart_page.status_code, 200)
+        self.assertEqual(cart_page.status_code, 200)
         cart = cart_page.context["cart"]
-        self.assertEquals(cart, self.cart)
+        self.assertEqual(cart, self.cart)
 
         # Check that other users can't view the same cart
 
         second_user = UserFactory.create()
         cart_page = self.app.get(self.url, user=second_user, expect_errors=True)
-        self.assertEquals(cart_page.status_code, 404)
+        self.assertEqual(cart_page.status_code, 404)

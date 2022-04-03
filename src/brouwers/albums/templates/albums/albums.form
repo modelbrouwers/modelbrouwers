@@ -1,4 +1,4 @@
-{% extends "horizontal.form" %}{% load thumbnail i18n staticfiles sniplates %}
+{% extends "horizontal.form" %}{% load thumbnail i18n static sniplates %}
 
 
 {% block AlbumCarousel %}

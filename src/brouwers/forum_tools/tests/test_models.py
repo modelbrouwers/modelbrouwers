@@ -17,7 +17,7 @@ class URLTests(TestCase):
     def test_absolute_url_forum(self):
         url = self.forum.get_absolute_url()
         expected_url = "/forum/viewforum.php?f={0}".format(self.forum.pk)
-        self.assertEquals(expected_url, url)
+        self.assertEqual(expected_url, url)
 
     def test_absolute_url_topic(self):
         url = self.topic.get_absolute_url()

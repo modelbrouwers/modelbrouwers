@@ -1,9 +1,7 @@
-from __future__ import unicode_literals
-
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
@@ -121,9 +119,7 @@ class ProductBrand(models.Model):
 @python_2_unicode_compatible
 class ProductReview(models.Model):
     product = models.ForeignKey(
-        "Product",
-        related_name="reviews",
-        on_delete=models.CASCADE,
+        "Product", related_name="reviews", on_delete=models.CASCADE,
     )
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()

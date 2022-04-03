@@ -130,7 +130,7 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         form = add_page.forms[0]
 
         # non-authored topics may not be shown
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, r"^Option %s not found \(from" % topic1.pk
         ):
             form["topic"].select(topic1.pk)
