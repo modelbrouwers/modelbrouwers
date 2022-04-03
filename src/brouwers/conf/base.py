@@ -137,7 +137,6 @@ INSTALLED_APPS = [
     "brouwers.groupbuilds",
     "brouwers.kits",
     "brouwers.kitreviews",
-    "brouwers.migration",
     "brouwers.online_users",
     "brouwers.utils",
     "brouwers.shop",
