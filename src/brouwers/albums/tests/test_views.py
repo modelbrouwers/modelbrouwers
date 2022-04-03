@@ -192,11 +192,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         url_restore = reverse("albums:restore", kwargs={"pk": album.pk})
 
         # anonymous user
-        self.app.get(album.get_absolute_url(), status=404)
-        # try it anyway
-        restore_page = self.app.get(url_restore)
-        expected_redirect = u"%s?next=%s" % (settings.LOGIN_URL, url_restore)
-        self.assertRedirects(restore_page, expected_redirect)
+        restore_page = self.app.get(album.get_absolute_url(), status=404)
 
         # other user
         other_user = UserFactory.create()
@@ -236,9 +232,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertTrue(photo.trash)
 
     def test_restore_photo(self):
-        photo = PhotoFactory.create(user=self.user)
-        photo.trash = True
-        photo.save()
+        photo = PhotoFactory.create(user=self.user, trash=True)
 
         url_restore = reverse("albums:photo_restore", kwargs={"pk": photo.pk})
 
