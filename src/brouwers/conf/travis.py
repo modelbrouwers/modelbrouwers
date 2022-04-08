@@ -12,6 +12,9 @@ from .base import *  # noqa isort:skip
 # Secrets
 DATABASES["mysql"] = {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}
 
+# Regular settings
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
 #
 # PHPBB
 #
