@@ -8,15 +8,18 @@ from django_webtest import WebTest
 
 from brouwers.users.tests.factories import UserFactory
 
+from ..models import Category
 from .factories import CategoryFactory
 
 
 class CategoryImportExportTest(WebTest):
-    def setUp(self):
-        self.category = CategoryFactory.create()
-        self.superuser = UserFactory.create(is_staff=True, is_superuser=True)
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.superuser = UserFactory.create(is_staff=True, is_superuser=True)
 
     def test_export(self):
+        CategoryFactory.create()
         url = reverse("admin:shop_category_export")
         categories = self.app.get(url, user=self.superuser)
         form = categories.forms[1]
@@ -35,11 +38,8 @@ class CategoryImportExportTest(WebTest):
 
 
 class CategoryModelTest(TestCase):
-    def setUp(self):
-        self.category = CategoryFactory.create()
-
     def test_nesting(self):
-        root = self.category.add_root(name="Root")
+        root = Category.add_root(name="Root")
         self.assertEqual(root.name, "Root")
 
         child1 = root.add_child(name="Child")

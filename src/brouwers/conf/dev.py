@@ -6,7 +6,7 @@ os.environ.setdefault("DEBUG", "yes")
 os.environ.setdefault("ALLOWED_HOSTS", "*")
 os.environ.setdefault("SECRET_KEY", "dev-key")
 os.environ.setdefault("IS_HTTPS", "no")
-os.environ.setdefault("SENDFILE_BACKEND", "sendfile.backends.development")
+os.environ.setdefault("SENDFILE_BACKEND", "django_sendfile.backends.development")
 os.environ.setdefault("CORS_ENABLED", "yes")
 
 from .base import *  # noqa isort:skip
@@ -54,4 +54,4 @@ except ImportError:
 
 if "test" in sys.argv:
     INSTALLED_APPS += ["brouwers.forum_tools.tests.custom_fields"]
-    SENDFILE_BACKEND = "sendfile.backends.nginx"
+    SENDFILE_BACKEND = "django_sendfile.backends.nginx"

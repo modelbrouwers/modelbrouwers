@@ -3,7 +3,9 @@ import os
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from .utils import config
+import sentry_sdk
+
+from .utils import config, get_sentry_integrations
 
 # Build paths inside the project, so further paths can be defined relative to
 # the code root.
@@ -77,6 +79,9 @@ DATABASES = {
     },
 }
 
+# Change to BigAutoField on Django 4+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 DATABASE_ROUTERS = ["brouwers.forum_tools.db_router.ForumToolsRouter"]
 
 CACHES = {
@@ -109,7 +114,6 @@ INSTALLED_APPS = [
     "admin_tools.dashboard",
     "django.contrib.admin",
     # Third party
-    "compressor",
     "sessionprofile",
     "rest_framework",
     "django_filters",
@@ -214,7 +218,6 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
 ]
 
 MEDIA_URL = "/media/"
@@ -222,7 +225,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-SENDFILE_BACKEND = config("SENDFILE_BACKEND", "sendfile.backends.nginx")
+SENDFILE_BACKEND = config("SENDFILE_BACKEND", "django_sendfile.backends.nginx")
 
 SENDFILE_ROOT = os.path.join(BASE_DIR, "media_sendfile")
 
@@ -377,6 +380,30 @@ X_FRAME_OPTIONS = "DENY"
 
 SECURE_SSL_REDIRECT = IS_HTTPS
 
+#
+# Custom settings
+#
+ENVIRONMENT = config("ENVIRONMENT", "")
+
+if "GIT_SHA" in os.environ:
+    GIT_SHA = config("GIT_SHA", "")
+# in docker (build) context, there is no .git directory
+elif os.path.exists(os.path.join(BASE_DIR, ".git")):
+    try:
+        import git
+    except ImportError:
+        GIT_SHA = None
+    else:
+        repo = git.Repo(search_parent_directories=True)
+        try:
+            GIT_SHA = repo.head.object.hexsha
+        except ValueError:  # on startproject initial runs before any git commits have been made
+            GIT_SHA = repo.active_branch.name
+else:
+    GIT_SHA = None
+
+RELEASE = config("RELEASE", GIT_SHA)
+
 #################
 # APP SPECIFICS #
 #################
@@ -405,16 +432,6 @@ THUMB_DIMENSIONS = (200, 150, "thumb_")
 TOPIC_DEAD_TIME = 1  # months
 
 #
-# COMPRESS
-#
-COMPRESS_ENABLED = not DEBUG
-
-COMPRESS_CSS_FILTERS = [
-    "compressor.filters.css_default.CssAbsoluteFilter",
-    "compressor.filters.cssmin.CSSMinFilter",
-]
-
-#
 # ADMIN TOOLS
 #
 ADMIN_TOOLS_INDEX_DASHBOARD = "brouwers.dashboard.CustomIndexDashboard"
@@ -439,19 +456,20 @@ REST_FRAMEWORK = {
 }
 
 #
-# RAVEN/SENTRY
+# SENTRY
 #
 SENTRY_DSN = config("SENTRY_DSN", default="")
 
 if SENTRY_DSN:
-    RAVEN_CONFIG = {
+    SENTRY_CONFIG = {
         "dsn": SENTRY_DSN,
+        "release": RELEASE,
+        "environment": ENVIRONMENT,
     }
 
-    INSTALLED_APPS += [
-        "raven.contrib.django.raven_compat",
-    ]
-
+    sentry_sdk.init(
+        **SENTRY_CONFIG, integrations=get_sentry_integrations(), send_default_pii=True
+    )
 
 #
 # CORSHEADERS

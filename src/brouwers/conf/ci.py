@@ -26,6 +26,6 @@ INSTALLED_APPS = INSTALLED_APPS + ["brouwers.forum_tools.tests.custom_fields"]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "test_media")
 
-SENDFILE_BACKEND = "sendfile.backends.nginx"
+SENDFILE_BACKEND = "django_sendfile.backends.nginx"
 
 SHOP_ENABLED = True

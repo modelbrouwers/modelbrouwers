@@ -1,22 +1,18 @@
 {% extends "base_legacy.html" %}
-{% load compress i18n static %}
+{% load i18n static %}
 
 {% block title %}
 Modelbrouwers.nl &bull; Awards
 {% endblock %}
 
 {% block style %}
-    {% compress css %}
-        {{ block.super }}
-        <link rel="stylesheet" type="text/css" href="{% static "css/awards.css" %}" charset="utf-8" />
-    {% endcompress %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/awards.css" %}" charset="utf-8" />
 {% endblock %}
 
 {% block scripts %}
-    {% compress js %}
-        {{ block.super }}
-        <script type="text/javascript" src="{% static "js/awards.js" %}"></script>
-    {% endcompress %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static "js/awards.js" %}"></script>
 {% endblock scripts %}
 
 {% block menu %}

@@ -109,7 +109,7 @@ class Command(BaseCommand):
             if line["Tags"]:
                 tags = line["Tags"].replace("&amp;", "&")
                 tags = [t for t in tags.split(", ") if len(t) <= 100]
-                product.tags.set(*tags)
+                product.tags.set(tags)
 
             # set the categories
             if line["Categories"]:

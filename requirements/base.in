@@ -14,18 +14,17 @@ pytz  # handle timezones
 WeasyPrint
 
 # Django packages
-Django < 3.0
+Django ~= 3.2
 django-admin-tools
 django-autoslug
 django-choices
 django-ckeditor
-django-compressor
 django-cors-headers
 django-extra-views
 django-loginas
 django-precise-bbcode
 django-rosetta
-django-sendfile
+django-sendfile2
 django-sessionprofile
 django-solo
 sorl-thumbnail
@@ -36,9 +35,9 @@ django-taggit
 django-import-export
 
 # API
-djangorestframework < 3.12
+djangorestframework
 djangorestframework-filters == 1.0.0.dev2
 
 # WSGI servers & monitoring - production oriented
 uwsgi
-raven
+sentry-sdk
