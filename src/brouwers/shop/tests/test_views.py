@@ -8,8 +8,8 @@ from django_webtest import WebTest
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
 
-from ..models import ProductReview
-from .factories import CartFactory, CategoryFactory, ProductFactory
+from ..models import Category, ProductReview
+from .factories import CartFactory, ProductFactory
 
 
 class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
@@ -66,7 +66,7 @@ class BreadcrumbsTests(TestCase):
         tpl = "{% include 'shop/includes/breadcrumbs.html' with curr_node=node%}"
         template = self._load_template(tpl)
 
-        root = CategoryFactory.create().add_root(name="Root")
+        root = Category.add_root(name="Root")
         child1 = root.add_child(name="Child1")
         child1.save()
         child2 = child1.add_child(name="Child2")
