@@ -35,7 +35,7 @@ django-taggit
 django-import-export
 
 # API
-djangorestframework < 3.12
+djangorestframework
 djangorestframework-filters == 1.0.0.dev2
 
 # WSGI servers & monitoring - production oriented
