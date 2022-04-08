@@ -10,7 +10,7 @@ asgiref==3.4.1
     #   django
 beautifulsoup4==4.9.0
     # via webtest
-bleach==3.3.0
+bleach==4.1.0
     # via -r requirements/base.txt
 cairocffi==1.2.0
     # via
