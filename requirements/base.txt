@@ -14,7 +14,7 @@ certifi==2021.10.8
     # via requests
 cffi==1.15.0
     # via weasyprint
-chardet==4.0.0
+charset-normalizer==2.0.12
     # via requests
 cssselect2==0.4.1
     # via weasyprint
@@ -91,21 +91,21 @@ html2text==2020.1.16
     # via -r requirements/base.in
 html5lib==1.1
     # via weasyprint
-idna==2.10
+idna==3.3
     # via requests
-lxml==4.7.1
+lxml==4.8.0
     # via -r requirements/base.in
 markuppy==1.14
     # via tablib
-mysqlclient==2.0.3
+mysqlclient==2.1.0
     # via -r requirements/base.in
 odfpy==1.4.1
     # via tablib
-openpyxl==3.0.7
+openpyxl==3.0.9
     # via
     #   -r requirements/base.in
     #   tablib
-packaging==20.9
+packaging==21.3
     # via bleach
 pillow==8.4.0
     # via
@@ -114,36 +114,36 @@ pillow==8.4.0
     #   weasyprint
 polib==1.1.1
     # via django-rosetta
-psycopg2==2.8.6
+psycopg2==2.9.3
     # via -r requirements/base.in
-pycparser==2.20
+pycparser==2.21
     # via cffi
 pydyf==0.1.2
     # via weasyprint
-pyparsing==2.4.7
+pyparsing==3.0.7
     # via packaging
-pyphen==0.10.0
+pyphen==0.11.0
     # via weasyprint
-python-dateutil==2.8.1
+python-dateutil==2.8.2
     # via -r requirements/base.in
-python-decouple==3.4
+python-decouple==3.6
     # via -r requirements/base.in
-python-dotenv==0.17.0
+python-dotenv==0.20.0
     # via -r requirements/base.in
 python-memcached==1.59
     # via -r requirements/base.in
-pytz==2021.3
+pytz==2022.1
     # via
     #   -r requirements/base.in
     #   django
     #   djangorestframework
-pyyaml==5.4.1
+pyyaml==6.0
     # via tablib
 raven==6.10.0
     # via -r requirements/base.in
-requests==2.25.1
+requests==2.27.1
     # via django-rosetta
-six==1.15.0
+six==1.16.0
     # via
     #   bleach
     #   django-choices
@@ -155,7 +155,7 @@ sorl-thumbnail==12.7.0
     # via -r requirements/base.in
 sqlparse==0.4.2
     # via django
-tablib[html,ods,xls,xlsx,yaml]==3.0.0
+tablib[html,ods,xls,xlsx,yaml]==3.1.0
     # via django-import-export
 tinycss2==1.1.1
     # via
@@ -163,9 +163,9 @@ tinycss2==1.1.1
     #   weasyprint
 typing-extensions==4.1.1
     # via asgiref
-urllib3==1.26.5
+urllib3==1.26.9
     # via requests
-uwsgi==2.0.19.1
+uwsgi==2.0.20
     # via -r requirements/base.in
 weasyprint==54.3
     # via -r requirements/base.in

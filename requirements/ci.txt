@@ -24,7 +24,7 @@ cffi==1.15.0
     # via
     #   -r requirements/base.txt
     #   weasyprint
-chardet==4.0.0
+charset-normalizer==2.0.12
     # via
     #   -r requirements/base.txt
     #   requests
@@ -129,27 +129,27 @@ html5lib==1.1
     # via
     #   -r requirements/base.txt
     #   weasyprint
-idna==2.10
+idna==3.3
     # via
     #   -r requirements/base.txt
     #   requests
-lxml==4.7.1
+lxml==4.8.0
     # via -r requirements/base.txt
 markuppy==1.14
     # via
     #   -r requirements/base.txt
     #   tablib
-mysqlclient==2.0.3
+mysqlclient==2.1.0
     # via -r requirements/base.txt
 odfpy==1.4.1
     # via
     #   -r requirements/base.txt
     #   tablib
-openpyxl==3.0.7
+openpyxl==3.0.9
     # via
     #   -r requirements/base.txt
     #   tablib
-packaging==20.9
+packaging==21.3
     # via
     #   -r requirements/base.txt
     #   bleach
@@ -162,9 +162,9 @@ polib==1.1.1
     # via
     #   -r requirements/base.txt
     #   django-rosetta
-psycopg2==2.8.6
+psycopg2==2.9.3
     # via -r requirements/base.txt
-pycparser==2.20
+pycparser==2.21
     # via
     #   -r requirements/base.txt
     #   cffi
@@ -172,31 +172,31 @@ pydyf==0.1.2
     # via
     #   -r requirements/base.txt
     #   weasyprint
-pyparsing==2.4.7
+pyparsing==3.0.7
     # via
     #   -r requirements/base.txt
     #   packaging
-pyphen==0.10.0
+pyphen==0.11.0
     # via
     #   -r requirements/base.txt
     #   weasyprint
-python-dateutil==2.8.1
+python-dateutil==2.8.2
     # via
     #   -r requirements/base.txt
     #   faker
     #   freezegun
-python-decouple==3.4
+python-decouple==3.6
     # via -r requirements/base.txt
-python-dotenv==0.17.0
+python-dotenv==0.20.0
     # via -r requirements/base.txt
 python-memcached==1.59
     # via -r requirements/base.txt
-pytz==2021.3
+pytz==2022.1
     # via
     #   -r requirements/base.txt
     #   django
     #   djangorestframework
-pyyaml==5.4.1
+pyyaml==6.0
     # via
     #   -r requirements/base.txt
     #   tablib
@@ -204,12 +204,12 @@ raven==6.10.0
     # via -r requirements/base.txt
 requests-mock==1.7.0
     # via -r requirements/test-tools.in
-requests==2.25.1
+requests==2.27.1
     # via
     #   -r requirements/base.txt
     #   django-rosetta
     #   requests-mock
-six==1.15.0
+six==1.16.0
     # via
     #   -r requirements/base.txt
     #   bleach
@@ -229,7 +229,7 @@ sqlparse==0.4.2
     # via
     #   -r requirements/base.txt
     #   django
-tablib[html,ods,xls,xlsx,yaml]==3.0.0
+tablib[html,ods,xls,xlsx,yaml]==3.1.0
     # via
     #   -r requirements/base.txt
     #   django-import-export
@@ -246,11 +246,11 @@ typing-extensions==4.1.1
     # via
     #   -r requirements/base.txt
     #   asgiref
-urllib3==1.26.5
+urllib3==1.26.9
     # via
     #   -r requirements/base.txt
     #   requests
-uwsgi==2.0.19.1
+uwsgi==2.0.20
     # via -r requirements/base.txt
 waitress==1.4.3
     # via webtest
