@@ -42,7 +42,7 @@ hesitate to contact BBT on the Modelbrouwers.nl IRC chat or forum itself.
 Installing ``Python``
 =====================
 
-Python is the programming language Django is written in. You need Python 3.6 to
+Python is the programming language Django is written in. You need Python 3.9 to
 run the project.
 
 Installing ``virtualenv`` and ``virtualenvwrapper``
@@ -176,13 +176,5 @@ Tests
 Run all tests by executing::
 
     $ python src/manage.py test src
-
-
-Thanks
-======
-
-Thanks to `browserstack`_ to make cross browser testing a breeze.
-
-.. _browsersstdack: https://www.browserstack.com
 
 .. _docker forum setup: https://github.com/modelbrouwers/forum
