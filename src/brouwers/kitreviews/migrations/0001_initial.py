@@ -25,7 +25,10 @@ class Migration(migrations.Migration):
                 ("categorie_id", models.AutoField(primary_key=True, serialize=False)),
                 ("naam", models.TextField()),
             ],
-            options={"db_table": "categorieen", "managed": False,},
+            options={
+                "db_table": "categorieen",
+                "managed": False,
+            },
         ),
         migrations.CreateModel(
             name="Fabrikant",
@@ -33,7 +36,10 @@ class Migration(migrations.Migration):
                 ("fabrikant_id", models.AutoField(primary_key=True, serialize=False)),
                 ("naam", models.TextField()),
             ],
-            options={"db_table": "fabrikanten", "managed": False,},
+            options={
+                "db_table": "fabrikanten",
+                "managed": False,
+            },
         ),
         migrations.CreateModel(
             name="Kit",
@@ -49,7 +55,10 @@ class Migration(migrations.Migration):
                 ("datum", models.DateTimeField()),
                 ("bouwbeschrijving", models.TextField()),
             ],
-            options={"db_table": "kits", "managed": False,},
+            options={
+                "db_table": "kits",
+                "managed": False,
+            },
         ),
         migrations.CreateModel(
             name="Review",
@@ -64,7 +73,10 @@ class Migration(migrations.Migration):
                 ("indruk", models.IntegerField()),
                 ("datum", models.DateTimeField()),
             ],
-            options={"db_table": "reviews", "managed": False,},
+            options={
+                "db_table": "reviews",
+                "managed": False,
+            },
         ),
         migrations.CreateModel(
             name="Reviewer",
@@ -73,7 +85,10 @@ class Migration(migrations.Migration):
                 ("naam", models.TextField()),
                 ("emailadres", models.TextField()),
             ],
-            options={"db_table": "reviewers", "managed": False,},
+            options={
+                "db_table": "reviewers",
+                "managed": False,
+            },
         ),
         migrations.CreateModel(
             name="Uitbreiding",
@@ -82,7 +97,10 @@ class Migration(migrations.Migration):
                 ("naam", models.TextField()),
                 ("fabrikantnaam", models.TextField()),
             ],
-            options={"db_table": "uitbreidingen", "managed": False,},
+            options={
+                "db_table": "uitbreidingen",
+                "managed": False,
+            },
         ),
         migrations.CreateModel(
             name="KitReview",
@@ -286,6 +304,7 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterUniqueTogether(
-            name="kitreviewvote", unique_together=set([("kit_review", "voter")]),
+            name="kitreviewvote",
+            unique_together=set([("kit_review", "voter")]),
         ),
     ]

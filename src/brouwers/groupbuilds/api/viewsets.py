@@ -5,7 +5,6 @@ from .serializers import ParticipantSerializer
 
 
 class ParticipantIsSelf(permissions.IsAuthenticatedOrReadOnly):
-
     def has_object_permission(self, request, view, obj):
         return request.user == obj.user
 

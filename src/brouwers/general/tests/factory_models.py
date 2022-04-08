@@ -7,14 +7,14 @@ class QuestionAnswerFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = QuestionAnswer
 
-    answer = 'answer'
+    answer = "answer"
 
 
 class RegistrationQuestionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = RegistrationQuestion
 
-    question = factory.Sequence(lambda n: 'Question {n}'.format(n=n))
+    question = factory.Sequence(lambda n: "Question {n}".format(n=n))
     in_use = True
 
     @factory.post_generation

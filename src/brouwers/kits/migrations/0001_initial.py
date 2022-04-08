@@ -164,7 +164,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "model kit", "verbose_name_plural": "model kits",},
+            options={
+                "verbose_name": "model kit",
+                "verbose_name_plural": "model kits",
+            },
         ),
         migrations.CreateModel(
             name="Scale",

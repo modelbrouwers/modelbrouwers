@@ -42,7 +42,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "cart", "verbose_name_plural": "carts",},
+            options={
+                "verbose_name": "cart",
+                "verbose_name_plural": "carts",
+            },
         ),
         migrations.CreateModel(
             name="CartProduct",

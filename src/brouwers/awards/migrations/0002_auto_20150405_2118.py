@@ -49,6 +49,7 @@ class Migration(migrations.Migration):
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
-            name="project", unique_together=set([("category", "url")]),
+            name="project",
+            unique_together=set([("category", "url")]),
         ),
     ]

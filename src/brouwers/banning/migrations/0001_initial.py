@@ -52,7 +52,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "ban", "verbose_name_plural": "bans",},
+            options={
+                "verbose_name": "ban",
+                "verbose_name_plural": "bans",
+            },
             bases=(models.Model,),
         ),
     ]

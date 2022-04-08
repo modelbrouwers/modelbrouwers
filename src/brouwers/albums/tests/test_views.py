@@ -143,7 +143,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_update)
         # try it anyway
         update_page = self.app.get(url_update)
-        expected_redirect = u"%s?next=%s" % (settings.LOGIN_URL, url_update)
+        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_update)
         self.assertRedirects(update_page, expected_redirect)
 
         # other user
@@ -168,7 +168,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_delete)
         # try it anyway
         delete_page = self.app.get(url_delete)
-        expected_redirect = u"%s?next=%s" % (settings.LOGIN_URL, url_delete)
+        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_delete)
         self.assertRedirects(delete_page, expected_redirect)
 
         # other user
@@ -216,7 +216,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_delete)
         # try it anyway
         delete_page = self.app.get(url_delete)
-        expected_redirect = u"%s?next=%s" % (settings.LOGIN_URL, url_delete)
+        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_delete)
         self.assertRedirects(delete_page, expected_redirect)
 
         # other user
@@ -240,7 +240,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.app.get(photo.get_absolute_url(), status=404)
         # try it anyway
         restore_page = self.app.get(url_restore)
-        expected_redirect = u"%s?next=%s" % (settings.LOGIN_URL, url_restore)
+        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_restore)
         self.assertRedirects(restore_page, expected_redirect)
 
         # other user
@@ -269,7 +269,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_update)
         # try it anyway
         update_page = self.app.get(url_update)
-        expected_redirect = u"%s?next=%s" % (settings.LOGIN_URL, url_update)
+        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_update)
         self.assertRedirects(update_page, expected_redirect)
 
         # other user

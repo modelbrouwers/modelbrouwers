@@ -10,10 +10,10 @@ class GroupBuildFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = GroupBuild
 
-    theme = factory.Sequence(lambda n: u"Groupbuild {0}".format(n))
+    theme = factory.Sequence(lambda n: "Groupbuild {0}".format(n))
     category = factory.SubFactory(ForumCategoryFactory)
-    description = 'Groupbuild with [b]BBCode[/b]'
-    rules = 'Groupbuild rules with [i]BBCode[/i]'
+    description = "Groupbuild with [b]BBCode[/b]"
+    rules = "Groupbuild rules with [i]BBCode[/i]"
     applicant = factory.SubFactory(UserFactory)
     reason_denied = 'Denied: [quote="admin"]BBCode[/quote]'
 
@@ -24,4 +24,4 @@ class ParticipantFactory(factory.django.DjangoModelFactory):
 
     groupbuild = factory.SubFactory(GroupBuildFactory)
     user = factory.SubFactory(UserFactory)
-    model_name = factory.Sequence(lambda n: 'Participant {0}'.format(n))
+    model_name = factory.Sequence(lambda n: "Participant {0}".format(n))

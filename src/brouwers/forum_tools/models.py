@@ -61,7 +61,7 @@ class ForumLinkSynced(models.Model):
         verbose_name_plural = _("synced forum links")
 
     def __str__(self):
-        return u"%s -- %s" % (self.base, self.link_id)
+        return "%s -- %s" % (self.base, self.link_id)
 
 
 class BuildReportsForum(models.Model):
@@ -70,8 +70,8 @@ class BuildReportsForum(models.Model):
     forum = ForumToolsIDField(_("forum"), type="forum")
 
     class Meta:
-        verbose_name = _(u"build report forum")
-        verbose_name_plural = _(u"build report forums")
+        verbose_name = _("build report forum")
+        verbose_name_plural = _("build report forums")
         ordering = ["forum"]
 
     def __str__(self):
@@ -84,8 +84,8 @@ class ForumCategory(models.Model):
     icon_class = models.CharField(_("icon class"), max_length=50, blank=True)
 
     class Meta:
-        verbose_name = _(u"forum category")
-        verbose_name_plural = _(u"forum categories")
+        verbose_name = _("forum category")
+        verbose_name_plural = _("forum categories")
         ordering = ("name",)
 
     def __str__(self):
@@ -121,7 +121,7 @@ class ForumUser(models.Model):
         verbose_name = _("forum user")
         verbose_name_plural = _("forum users")
         ordering = ("username",)
-        db_table = u"%susers" % settings.PHPBB_TABLE_PREFIX
+        db_table = "%susers" % settings.PHPBB_TABLE_PREFIX
 
     def __str__(self):
         return self.username
@@ -286,7 +286,7 @@ class Report(models.Model):
         managed = False
         verbose_name = _("report")
         verbose_name_plural = _("reports")
-        db_table = u"%sreports" % settings.PHPBB_TABLE_PREFIX
+        db_table = "%sreports" % settings.PHPBB_TABLE_PREFIX
         permissions = (("can_see_reports", _("Can see (number of) open reports")),)
 
     def __str__(self):

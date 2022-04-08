@@ -1,1 +1,1 @@
-default_app_config = 'brouwers.banning.apps.BanningConfig'
+default_app_config = "brouwers.banning.apps.BanningConfig"

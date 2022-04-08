@@ -8,7 +8,6 @@ from ..utils import voting_enabled
 
 
 class UtilsTest(SimpleTestCase):
-
     def test_voting_enabled(self):
         with freeze_time("2014-01-01"):
             self.assertTrue(voting_enabled())

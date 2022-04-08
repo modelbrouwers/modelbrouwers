@@ -42,7 +42,7 @@ class CrudTests(LoginRequiredMixin, WebTest):
 
         self.assertEqual(Album.objects.count(), 1)
         album = Album.objects.first()
-        redirect = u"{}?album={}".format(reverse("albums:upload"), album.id)
+        redirect = "{}?album={}".format(reverse("albums:upload"), album.id)
         self.assertRedirects(response, redirect)
 
         self.assertEqual(album.topic, topic)

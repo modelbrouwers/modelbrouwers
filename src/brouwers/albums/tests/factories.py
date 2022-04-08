@@ -5,7 +5,7 @@ from brouwers.users.tests.factories import UserFactory
 
 from ..models import Album, AlbumGroup, Category, Photo
 
-__all__ = ['CategoryFactory', 'AlbumFactory', 'PhotoFactory']
+__all__ = ["CategoryFactory", "AlbumFactory", "PhotoFactory"]
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
@@ -21,7 +21,7 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     category = factory.SubFactory(CategoryFactory)
-    title = factory.Sequence(lambda n: 'album {0}'.format(n))
+    title = factory.Sequence(lambda n: "album {0}".format(n))
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):

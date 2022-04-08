@@ -391,6 +391,7 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterUniqueTogether(
-            name="album", unique_together=set([("user", "title")]),
+            name="album",
+            unique_together=set([("user", "title")]),
         ),
     ]
