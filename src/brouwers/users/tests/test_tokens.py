@@ -13,7 +13,7 @@ class ActivationTokenTests(TestCase):
         self.user2 = UserFactory(forumuser_id=self.forum_user.user_id, is_active=False)
 
     def test_token_inactive(self):
-        """ Test that the tokens return expected compare failures/successes """
+        """Test that the tokens return expected compare failures/successes"""
 
         # self.user is not activated
         self.assertIsNotNone(self.user.forumuser_id)
@@ -29,11 +29,11 @@ class ActivationTokenTests(TestCase):
         self.assertFalse(activation_token_generator.check_token(self.user, token2))
 
     def test_token_active(self):
-        """ Test that token is invalid if the user is activated """
+        """Test that token is invalid if the user is activated"""
         token = activation_token_generator.make_token(self.user)
         self.user.is_active = True
         self.assertFalse(activation_token_generator.check_token(self.user, token))
 
     def test_malformatted_token(self):
-        token = 'abcfoobar'
+        token = "abcfoobar"
         self.assertFalse(activation_token_generator.check_token(self.user, token))

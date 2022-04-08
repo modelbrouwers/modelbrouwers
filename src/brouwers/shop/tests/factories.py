@@ -9,7 +9,7 @@ from ..models import (
     Category,
     Product,
     ProductBrand,
-    ProductManufacturer
+    ProductManufacturer,
 )
 
 

@@ -12,6 +12,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name="productreview", name="text", field=models.TextField(),
+            model_name="productreview",
+            name="text",
+            field=models.TextField(),
         ),
     ]

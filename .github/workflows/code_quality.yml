@@ -27,7 +27,6 @@ jobs:
         run: pip install -r requirements/dev.txt
       - name: Run isort
         run: isort --check-only --diff .
-        continue-on-error: true
 
   black:
     name: Code format
@@ -42,7 +41,6 @@ jobs:
         run: pip install -r requirements/dev.txt
       - name: Run black
         run: black --check --diff src doc
-        continue-on-error: true
 
   flake8:
     name: Code style

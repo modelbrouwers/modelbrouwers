@@ -115,6 +115,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "Shop configuration",},
+            options={
+                "verbose_name": "Shop configuration",
+            },
         ),
     ]

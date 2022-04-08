@@ -17,31 +17,31 @@ class Ban(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_(u"user"),
+        verbose_name=_("user"),
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
     )
     ip = models.GenericIPAddressField(
-        _(u"ip"), blank=True, null=True, help_text=_(u"Ip address to ban.")
+        _("ip"), blank=True, null=True, help_text=_("Ip address to ban.")
     )
     expiry_date = models.DateTimeField(
-        _(u"expiry date"),
+        _("expiry date"),
         blank=True,
         null=True,
         help_text=_("Date the ban expires. Leave blank for permabans."),
     )
-    reason_internal = models.TextField(_(u"reason (internal)"), blank=True)
+    reason_internal = models.TextField(_("reason (internal)"), blank=True)
     reason = models.TextField(
-        _(u"reason"),
+        _("reason"),
         blank=True,
-        help_text=_(u"This reason will be shown to the banned user."),
+        help_text=_("This reason will be shown to the banned user."),
     )
     automatic = models.BooleanField(_("automatically created?"), default=False)
 
     class Meta:
-        verbose_name = _(u"ban")
-        verbose_name_plural = _(u"bans")
+        verbose_name = _("ban")
+        verbose_name_plural = _("bans")
 
     @property
     def expires(self):

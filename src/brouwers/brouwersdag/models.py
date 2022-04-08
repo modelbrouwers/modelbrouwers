@@ -69,8 +69,8 @@ class ShowCasedModel(models.Model):
     created = models.DateTimeField(_("added"), auto_now_add=True)
 
     class Meta:
-        verbose_name = _(u"showcased model")
-        verbose_name_plural = _(u"showcased models")
+        verbose_name = _("showcased model")
+        verbose_name_plural = _("showcased models")
 
     def __str__(self):
         return self.name
@@ -88,7 +88,7 @@ class ShowCasedModel(models.Model):
 
     def get_url(self):
         domain = Site.objects.get_current().domain
-        return u"{0}{1}".format(domain, self.get_absolute_url())
+        return "{0}{1}".format(domain, self.get_absolute_url())
 
 
 class Competition(models.Model):
@@ -117,8 +117,8 @@ class Competition(models.Model):
     )
 
     class Meta:
-        verbose_name = _(u"competition")
-        verbose_name_plural = _(u"competitions")
+        verbose_name = _("competition")
+        verbose_name_plural = _("competitions")
 
     def save(self, *args, **kwargs):
         if self.is_current:
@@ -168,8 +168,8 @@ class Exhibitor(models.Model):
     )
 
     class Meta:
-        verbose_name = _(u"exhibitor")
-        verbose_name_plural = _(u"exhibitors")
+        verbose_name = _("exhibitor")
+        verbose_name_plural = _("exhibitors")
         ordering = ("name",)
 
     def __str__(self):

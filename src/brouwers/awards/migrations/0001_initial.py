@@ -23,7 +23,10 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=100)),
                 ("slug", models.SlugField()),
             ],
-            options={"verbose_name": "category", "verbose_name_plural": "categories",},
+            options={
+                "verbose_name": "category",
+                "verbose_name_plural": "categories",
+            },
             bases=(models.Model,),
         ),
         migrations.CreateModel(

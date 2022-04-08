@@ -40,7 +40,10 @@ class PhotoViewsetTests(APITestCase):
 
         with open(tmp_file.name, "rb") as image:
             data.update(
-                {"image": image, "description": "dummy description",}
+                {
+                    "image": image,
+                    "description": "dummy description",
+                }
             )
             response = self.client.post(self.list_url, data, format="multipart")
 

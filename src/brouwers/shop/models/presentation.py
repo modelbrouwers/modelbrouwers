@@ -4,7 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 
 class HomepageCategory(models.Model):
     main_category = models.OneToOneField(
-        "Category", related_name="homepage_categories", on_delete=models.CASCADE,
+        "Category",
+        related_name="homepage_categories",
+        on_delete=models.CASCADE,
     )
     order = models.PositiveIntegerField(
         _("order"), help_text=_("Order in which to display category on the homepage")

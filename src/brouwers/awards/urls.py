@@ -8,7 +8,7 @@ from .views import (
     VoteView,
     WinnersView,
     scores,
-    vote_overview
+    vote_overview,
 )
 
 # app_name = 'awards'

@@ -10,10 +10,10 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
 
     sizes = (
-        '300x225',
-        '1024',
-        '1280x1280',
-        '1024x1024',
+        "300x225",
+        "1024",
+        "1280x1280",
+        "1024x1024",
     )
 
     def handle(self, *args, **options):

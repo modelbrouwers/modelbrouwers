@@ -12,7 +12,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name="paymentmethod", old_name="enabeld", new_name="enabled",
+            model_name="paymentmethod",
+            old_name="enabeld",
+            new_name="enabled",
         ),
         migrations.AddField(
             model_name="paymentmethod",

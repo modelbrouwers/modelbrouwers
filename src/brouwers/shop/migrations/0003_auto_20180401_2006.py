@@ -11,7 +11,16 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="category", name="enabled_de",),
-        migrations.RemoveField(model_name="category", name="enabled_en",),
-        migrations.RemoveField(model_name="category", name="enabled_nl",),
+        migrations.RemoveField(
+            model_name="category",
+            name="enabled_de",
+        ),
+        migrations.RemoveField(
+            model_name="category",
+            name="enabled_en",
+        ),
+        migrations.RemoveField(
+            model_name="category",
+            name="enabled_nl",
+        ),
     ]

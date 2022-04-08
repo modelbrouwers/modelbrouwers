@@ -14,12 +14,12 @@ class LinkedModelsTests(TestCase):
         self.forum_user = create_from_user(self.user)
 
     def test_username_changes(self):
-        """ If the username changes, test that the forumprofile and forumuser change """
+        """If the username changes, test that the forumprofile and forumuser change"""
         self.assertEqual(self.user.username, self.forum_user.username)
         self.assertIsNotNone(self.user.profile)
         self.assertEqual(self.user.profile.forum_nickname, self.forum_user.username)
 
-        new_username = 'changed username'
+        new_username = "changed username"
 
         self.user.username = new_username
         self.user.save()

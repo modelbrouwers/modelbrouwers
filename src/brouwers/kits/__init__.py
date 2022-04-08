@@ -1,1 +1,1 @@
-default_app_config = 'brouwers.kits.apps.KitsConfig'
+default_app_config = "brouwers.kits.apps.KitsConfig"

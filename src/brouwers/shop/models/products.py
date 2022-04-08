@@ -115,7 +115,9 @@ class ProductBrand(models.Model):
 
 class ProductReview(models.Model):
     product = models.ForeignKey(
-        "Product", related_name="reviews", on_delete=models.CASCADE,
+        "Product",
+        related_name="reviews",
+        on_delete=models.CASCADE,
     )
     reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()

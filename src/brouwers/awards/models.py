@@ -34,7 +34,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name = _("category")
-        verbose_name_plural = _(u"categories")
+        verbose_name_plural = _("categories")
 
     def get_absolute_url(self):
         return reverse("nominations-list", kwargs={"slug": self.slug})

@@ -17,7 +17,7 @@ from .views import (
     PhotoRestoreView,
     PhotoUpdateView,
     PreferencesUpdateView,
-    UploadView
+    UploadView,
 )
 
 app_name = "albums"

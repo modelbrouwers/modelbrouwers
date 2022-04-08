@@ -5,7 +5,6 @@ from .factories import GroupBuildFactory
 
 
 class ManagerTests(TestCase):
-
     def setUp(self):
         # create some groupbuilds
         self.gb_concept = GroupBuildFactory(status=GroupbuildStatuses.concept)
@@ -16,5 +15,10 @@ class ManagerTests(TestCase):
 
     def test_public_manager(self):
         public_gbs = GroupBuild.public.all()
-        for gb in [self.gb_concept, self.gb_submitted, self.gb_accepted, self.gb_extended]:
+        for gb in [
+            self.gb_concept,
+            self.gb_submitted,
+            self.gb_accepted,
+            self.gb_extended,
+        ]:
             self.assertIn(gb, public_gbs)

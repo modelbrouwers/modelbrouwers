@@ -1,7 +1,7 @@
 from django.contrib.auth.views import (
     PasswordChangeView,
     PasswordResetConfirmView,
-    PasswordResetView
+    PasswordResetView,
 )
 from django.urls import path, re_path, reverse_lazy
 
@@ -15,7 +15,7 @@ from .views import (
     ProfileView,
     RegistrationView,
     RequestDataDownloadView,
-    UserProfileDetailView
+    UserProfileDetailView,
 )
 
 app_name = "users"

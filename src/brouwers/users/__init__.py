@@ -1,1 +1,1 @@
-default_app_config = 'brouwers.users.apps.UsersConfig'
+default_app_config = "brouwers.users.apps.UsersConfig"

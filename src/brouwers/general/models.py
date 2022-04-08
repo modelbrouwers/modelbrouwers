@@ -213,15 +213,12 @@ class RegistrationAttempt(models.Model):
                     hours=STANDARD_BAN_TIME_HOURS
                 )
 
-            kwargs["reason"] = (
-                _n(
-                    "The system flagged you as a bot or your registration attempt was not valid.",
-                    "You tried registering %(times)s times without succes, the system flagged you as a "
-                    "bot.",
-                    num_attempts,
-                )
-                % {"times": num_attempts}
-            )
+            kwargs["reason"] = _n(
+                "The system flagged you as a bot or your registration attempt was not valid.",
+                "You tried registering %(times)s times without succes, the system flagged you as a "
+                "bot.",
+                num_attempts,
+            ) % {"times": num_attempts}
             kwargs["reason_internal"] = _(
                 "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
             ) % {"num_attempts": num_attempts, "max": MAX_REGISTRATION_ATTEMPTS}
@@ -258,8 +255,8 @@ class Announcement(models.Model):
     objects = AnnouncementManager()
 
     class Meta:
-        verbose_name = _(u"announcement")
-        verbose_name_plural = _(u"announcements")
+        verbose_name = _("announcement")
+        verbose_name_plural = _("announcements")
         ordering = ["-from_date"]
 
     def __str__(self):

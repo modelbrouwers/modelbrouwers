@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView,
     ListView,
     RedirectView,
-    UpdateView
+    UpdateView,
 )
 
 from brouwers.utils.pdf import PDFTemplateView

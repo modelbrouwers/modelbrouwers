@@ -3,12 +3,12 @@ from django.urls import path
 from .views.admin import (
     GroupBuildCreateView,
     GroupBuildSubmitView,
-    GroupBuildUpdateView
+    GroupBuildUpdateView,
 )
 from .views.participant import (
     GroupBuildParticipateView,
     MyGroupbuildsListView,
-    ParticipantUpdateView
+    ParticipantUpdateView,
 )
 from .views.public import GroupBuildDetailView, GroupBuildListView
 

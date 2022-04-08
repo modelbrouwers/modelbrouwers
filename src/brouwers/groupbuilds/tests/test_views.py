@@ -103,7 +103,7 @@ class ViewTests(WebTest):
         )
 
         dashboard = self.app.get(url)
-        self.assertRedirects(dashboard, settings.LOGIN_URL + u"?next={}".format(url))
+        self.assertRedirects(dashboard, settings.LOGIN_URL + "?next={}".format(url))
 
         dashboard = self.app.get(url, user=user)
         self.assertEqual(dashboard.status_code, 200)

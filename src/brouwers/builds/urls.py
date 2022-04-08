@@ -8,7 +8,7 @@ from .views import (
     ForumUserRedirectView,
     IndexView,
     ProfileRedirectView,
-    UserBuildListView
+    UserBuildListView,
 )
 
 app_name = "builds"

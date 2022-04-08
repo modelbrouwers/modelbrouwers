@@ -22,7 +22,7 @@ def get_username(obj, field="user"):
 
 
 def clean_username(username):
-    return username.replace(u"'", u"ʹ").lower()
+    return username.replace("'", "ʹ").lower()
 
 
 def clean_username_fallback(username):
@@ -38,20 +38,20 @@ def get_client_ip(request):
 
 
 BLOCKING_LEVELS = {
-    u"1": u"suspicious",
-    u"2": u"harvester",
-    u"3": u"suspicious & harvester",
-    u"4": u"comment spammer",
-    u"5": u"suspicious & comment spammer",
-    u"6": u"harvester & comment spammer",
-    u"7": u"suspicious & harvester & comment spammer",
+    "1": "suspicious",
+    "2": "harvester",
+    "3": "suspicious & harvester",
+    "4": "comment spammer",
+    "5": "suspicious & comment spammer",
+    "6": "harvester & comment spammer",
+    "7": "suspicious & harvester & comment spammer",
 }
 
 
 def lookup_http_blacklist(ip):
-    """ Checks if an ip is a potential spammer.
+    """Checks if an ip is a potential spammer.
 
-        Returns a tupple (type_of_visitor, potential_spammer), e.g. ('comment spammer', True)
+    Returns a tupple (type_of_visitor, potential_spammer), e.g. ('comment spammer', True)
     """
     return (None, None)  # disable lookups for now, not thread safe, TODO: celery
     # FIXME
@@ -63,7 +63,7 @@ def lookup_http_blacklist(ip):
     octets.reverse()
     reverse_ip = ".".join(octets)
 
-    host = u"%s.%s.dnsbl.httpbl.org" % (key, reverse_ip)
+    host = "%s.%s.dnsbl.httpbl.org" % (key, reverse_ip)
     result = socket.getaddrinfo(host, 80)
 
     # go with the first hit

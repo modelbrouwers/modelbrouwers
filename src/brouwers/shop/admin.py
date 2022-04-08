@@ -17,7 +17,7 @@ from .models import (
     ProductImage,
     ProductManufacturer,
     ProductReview,
-    ShopConfiguration
+    ShopConfiguration,
 )
 from .resources import CategoryResource, ProductResource
 

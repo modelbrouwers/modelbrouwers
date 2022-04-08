@@ -6,19 +6,19 @@ from brouwers.albums.api.views import (
     MyAlbumsViewset,
     MyPhotosViewset,
     PhotoViewSet,
-    PreferencesViewSet
+    PreferencesViewSet,
 )
 from brouwers.groupbuilds.api.viewsets import ParticipantViewSet
 from brouwers.kits.api.views import (
     BoxartViewSet,
     BrandViewSet,
     ModelKitViewSet,
-    ScaleViewSet
+    ScaleViewSet,
 )
 from brouwers.shop.api.viewsets import (
     CartProductViewSet,
     PaymentMethodViewSet,
-    ProductViewSet
+    ProductViewSet,
 )
 
 router = DefaultRouter()

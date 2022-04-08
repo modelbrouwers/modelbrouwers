@@ -23,13 +23,13 @@ class ModelTests(TestCase):
             self.assertFalse(mocked.called)
 
     def test_kit_str(self):
-        kit = ModelKitFactory.create(name=u"😻", brand__name=u"SMĚR")
-        self.assertEqual(str(kit), u"SMĚR - 😻")
+        kit = ModelKitFactory.create(name="😻", brand__name="SMĚR")
+        self.assertEqual(str(kit), "SMĚR - 😻")
 
     def test_duplicate_kitnumber(self):
         with self.assertRaises(ValidationError):
             ModelKitFactory.create_batch(
-                2, brand__name=u"SMĚR", kit_number="012345", scale__scale=144
+                2, brand__name="SMĚR", kit_number="012345", scale__scale=144
             )
 
     def test_has_box_image(self):

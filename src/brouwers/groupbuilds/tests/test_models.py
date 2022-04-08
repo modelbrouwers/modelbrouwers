@@ -75,7 +75,7 @@ class GroupbuildTests(TestCase):
         self.assertAlmostEqual(dimensions["width"], 33.33, places=2)
         self.assertAlmostEqual(dimensions["offset"], 66.67, places=2)
 
-        build8 = GroupBuildFactory.create(start=sept_1st, end=march_1st, theme=u"foo")
+        build8 = GroupBuildFactory.create(start=sept_1st, end=march_1st, theme="foo")
         build8.set_calendar_dimensions(
             date(2014, 12, 1), date(2015, 5, 30), num_months=6
         )
@@ -84,7 +84,7 @@ class GroupbuildTests(TestCase):
         self.assertAlmostEqual(dimensions["offset"], 0.0, places=2)
 
     def test_is_ongoing(self):
-        """ Test that the model correctly returns the 'ongoing' status """
+        """Test that the model correctly returns the 'ongoing' status"""
         start1 = date.today() - timedelta(hours=24)
         end1 = date.today() + timedelta(hours=24)
         gb1 = GroupBuildFactory.create(start=start1, end=end1)
@@ -135,7 +135,7 @@ class GroupbuildTests(TestCase):
         self.assertAlmostEqual(gb4.progress, progress, delta=0.1)
 
     def test_is_submittable(self):
-        """ Test if the groupbuild is submittable """
+        """Test if the groupbuild is submittable"""
         build1 = GroupBuildFactory.create(start=None)
         self.assertFalse(build1.is_submittable)
 
