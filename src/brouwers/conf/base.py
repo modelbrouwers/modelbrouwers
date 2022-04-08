@@ -109,7 +109,6 @@ INSTALLED_APPS = [
     "admin_tools.dashboard",
     "django.contrib.admin",
     # Third party
-    "compressor",
     "sessionprofile",
     "rest_framework",
     "django_filters",
@@ -214,7 +213,6 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
 ]
 
 MEDIA_URL = "/media/"
@@ -403,16 +401,6 @@ THUMB_DIMENSIONS = (200, 150, "thumb_")
 #
 # in .secrets.py
 TOPIC_DEAD_TIME = 1  # months
-
-#
-# COMPRESS
-#
-COMPRESS_ENABLED = not DEBUG
-
-COMPRESS_CSS_FILTERS = [
-    "compressor.filters.css_default.CssAbsoluteFilter",
-    "compressor.filters.cssmin.CSSMinFilter",
-]
 
 #
 # ADMIN TOOLS

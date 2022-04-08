@@ -19,7 +19,6 @@ django-admin-tools
 django-autoslug
 django-choices
 django-ckeditor
-django-compressor
 django-cors-headers
 django-extra-views
 django-loginas
