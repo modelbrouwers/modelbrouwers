@@ -54,7 +54,7 @@ django-sessionprofile==1.0
     # via -r requirements/base.in
 django-sniplates==0.7.0
     # via -r requirements/base.in
-django-solo==1.1.5
+django-solo==2.0.0
     # via -r requirements/base.in
 django-taggit==1.4.0
     # via -r requirements/base.in
@@ -73,6 +73,7 @@ django==3.2.12
     #   django-rosetta
     #   django-sendfile2
     #   django-sniplates
+    #   django-solo
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
