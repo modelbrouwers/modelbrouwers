@@ -70,7 +70,7 @@ django-modeltranslation==0.17.5
     # via -r requirements/base.txt
 django-precise-bbcode==1.2.14
     # via -r requirements/base.txt
-django-rosetta==0.9.6
+django-rosetta==0.9.8
     # via -r requirements/base.txt
 django-sendfile==0.3.11
     # via -r requirements/base.txt
@@ -213,7 +213,6 @@ six==1.15.0
     #   bleach
     #   django-choices
     #   django-modeltranslation
-    #   django-rosetta
     #   freezegun
     #   html5lib
     #   python-dateutil
