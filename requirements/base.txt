@@ -28,7 +28,7 @@ django-autoslug==1.9.8
     # via -r requirements/base.in
 django-choices==1.7.2
     # via -r requirements/base.in
-django-ckeditor==6.0.0
+django-ckeditor==6.3.0
     # via -r requirements/base.in
 django-cors-headers==3.7.0
     # via -r requirements/base.in
