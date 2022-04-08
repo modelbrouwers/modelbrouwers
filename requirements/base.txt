@@ -42,7 +42,7 @@ django-js-asset==1.2.2
     # via django-ckeditor
 django-loginas==0.3.10
     # via -r requirements/base.in
-django-modeltranslation==0.17.1
+django-modeltranslation==0.17.5
     # via -r requirements/base.in
 django-precise-bbcode==1.2.13
     # via -r requirements/base.in
