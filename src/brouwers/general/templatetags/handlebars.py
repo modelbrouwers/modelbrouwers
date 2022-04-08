@@ -1,17 +1,7 @@
 from django import template
-from django.conf import settings
-from django.template.base import NodeList, TemplateSyntaxError, TextNode, TokenType
-from django.template.loader_tags import BlockNode
+from django.template.base import NodeList, TextNode, TokenType
 
 register = template.Library()
-
-
-@register.simple_tag
-def handlebars_js():
-    return (
-        """<script src="%s/scripts/handlebars-2.0.0.js"></script>"""
-        % settings.STATIC_URL
-    )
 
 
 def verbatim_tags(parser, token, endtagname="", endtagnames=[]):
@@ -113,33 +103,3 @@ class VerbatimNode(template.Node):
 def verbatim(parser, token):
     text_and_nodes = verbatim_tags(parser, token, "hbs_endverbatim")
     return VerbatimNode(text_and_nodes)
-
-
-@register.tag("block_verbatim")
-def do_block(parser, token):
-    """
-    Define a block that can be overridden by child templates. Adapted for Handlebars
-    template syntax. Note that you cannot use template variables in these blocks!
-    """
-
-    bits = token.contents.split()
-    if len(bits) != 2:
-        raise TemplateSyntaxError("'%s' tag takes only one argument" % bits[0])
-    block_name = bits[1]
-    # Keep track of the names of BlockNodes found in this template, so we can
-    # check for duplication.
-    try:
-        if block_name in parser.__loaded_blocks:
-            raise TemplateSyntaxError(
-                "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
-            )
-        parser.__loaded_blocks.append(block_name)
-    except AttributeError:  # parser.__loaded_blocks isn't a list yet
-        parser.__loaded_blocks = [block_name]
-
-    acceptable_endblocks = ("endblock_verbatim", "endblock_verbatim %s" % block_name)
-
-    # modify nodelist!
-    nodelist = verbatim_tags(parser, token, endtagnames=acceptable_endblocks)
-
-    return BlockNode(block_name, nodelist)
