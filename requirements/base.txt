@@ -32,7 +32,7 @@ django-ckeditor==6.3.0
     # via -r requirements/base.in
 django-cors-headers==3.10.1
     # via -r requirements/base.in
-django-extra-views==0.13.0
+django-extra-views==0.14.0
     # via -r requirements/base.in
 django-filter==2.4.0
     # via djangorestframework-filters
@@ -145,7 +145,6 @@ six==1.15.0
     # via
     #   bleach
     #   django-choices
-    #   django-extra-views
     #   django-modeltranslation
     #   django-rosetta
     #   html5lib

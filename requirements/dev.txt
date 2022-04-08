@@ -78,7 +78,7 @@ django-debug-toolbar==3.2.1
     # via -r requirements/dev.in
 django-extensions==1.9.7
     # via -r requirements/dev.in
-django-extra-views==0.13.0
+django-extra-views==0.14.0
     # via -r requirements/ci.txt
 django-filter==2.4.0
     # via
@@ -284,7 +284,6 @@ six==1.15.0
     #   bpython
     #   django-choices
     #   django-extensions
-    #   django-extra-views
     #   django-modeltranslation
     #   django-rosetta
     #   freezegun

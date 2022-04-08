@@ -52,7 +52,7 @@ django-ckeditor==6.3.0
     # via -r requirements/base.txt
 django-cors-headers==3.10.1
     # via -r requirements/base.txt
-django-extra-views==0.13.0
+django-extra-views==0.14.0
     # via -r requirements/base.txt
 django-filter==2.4.0
     # via
@@ -212,7 +212,6 @@ six==1.15.0
     #   -r requirements/base.txt
     #   bleach
     #   django-choices
-    #   django-extra-views
     #   django-modeltranslation
     #   django-rosetta
     #   freezegun
