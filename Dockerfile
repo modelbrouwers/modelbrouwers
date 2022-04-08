@@ -5,10 +5,15 @@
 
 # Stage 1 - Backend build environment
 # includes compilers and build tooling to create the environment
-FROM python:3.9-bullseye AS backend-build
+FROM python:3.9-slim-bullseye AS backend-build
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+        pkg-config \
+        build-essential \
         libpq-dev \
+        libmariadb-dev-compat \
+        libxml2-dev \
+        libxslt-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -41,14 +46,20 @@ RUN npm run build
 
 
 # Stage 3 - Build docker image suitable for production
-FROM python:3.9-bullseye
+FROM python:3.9-slim-bullseye
 
 # Stage 3.1 - Set up the needed production dependencies
 # install all the dependencies for GeoDjango
 RUN apt-get update && apt-get install -y --no-install-recommends \
         procps \
         vim \
+        mime-support \
         postgresql-client \
+        mariadb-client \
+        gettext \
+        # lxml deps
+        libxml2 \
+        libxslt1.1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -57,7 +68,7 @@ COPY ./bin/docker_start.sh /start.sh
 RUN mkdir /app/log /app/media /app/private_media /app/node_modules
 
 # copy backend build deps
-COPY --from=backend-build /usr/local/lib/python3.6 /usr/local/lib/python3.6
+COPY --from=backend-build /usr/local/lib/python3.9 /usr/local/lib/python3.9
 COPY --from=backend-build /usr/local/bin/uwsgi /usr/local/bin/uwsgi
 COPY --from=backend-build /app/src/ /app/src/
 
