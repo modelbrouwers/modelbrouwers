@@ -1,5 +1,4 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils import six
 from django.utils.crypto import constant_time_compare, salted_hmac
 from django.utils.http import base36_to_int, int_to_base36
 
@@ -16,7 +15,7 @@ class ActivationTokenGenerator(PasswordResetTokenGenerator):
         user_info_b36 = int_to_base36(user_info)
 
         # user.is_active makes it a one time use only
-        value = six.text_type(user.pk) + user.password + six.text_type(user.is_active)
+        value = f"{user.pk}{user.password}{user.is_active}"
         hash = salted_hmac(key_salt, value).hexdigest()[::2]
         return "%s-%s" % (user_info_b36, hash)
 

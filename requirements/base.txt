@@ -4,6 +4,8 @@
 #
 #    ./bin/compile_dependencies.sh
 #
+asgiref==3.4.1
+    # via django
 bleach==3.3.0
     # via -r requirements/base.in
 cairocffi==1.2.0
@@ -70,7 +72,7 @@ django-taggit==1.4.0
     # via -r requirements/base.in
 django-treebeard==4.5.1
     # via -r requirements/base.in
-django==2.2.27
+django==3.2.12
     # via
     #   -r requirements/base.in
     #   django-appconf
@@ -174,6 +176,8 @@ tinycss2==1.1.0
     #   cairosvg
     #   cssselect2
     #   weasyprint
+typing-extensions==4.1.1
+    # via asgiref
 urllib3==1.26.5
     # via requests
 uwsgi==2.0.19.1

@@ -4,6 +4,10 @@
 #
 #    ./bin/compile_dependencies.sh
 #
+asgiref==3.4.1
+    # via
+    #   -r requirements/base.txt
+    #   django
 beautifulsoup4==4.9.0
     # via webtest
 bleach==3.3.0
@@ -96,7 +100,7 @@ django-treebeard==4.5.1
     # via -r requirements/base.txt
 django-webtest==1.9.7
     # via -r requirements/test-tools.in
-django==2.2.27
+django==3.2.12
     # via
     #   -r requirements/base.txt
     #   django-appconf
@@ -255,6 +259,10 @@ tinycss2==1.1.0
     #   cairosvg
     #   cssselect2
     #   weasyprint
+typing-extensions==4.1.1
+    # via
+    #   -r requirements/base.txt
+    #   asgiref
 urllib3==1.26.5
     # via
     #   -r requirements/base.txt

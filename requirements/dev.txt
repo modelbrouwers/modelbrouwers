@@ -8,6 +8,10 @@ alabaster==0.7.12
     # via sphinx
 appdirs==1.4.3
     # via black
+asgiref==3.4.1
+    # via
+    #   -r requirements/ci.txt
+    #   django
 attrs==19.3.0
     # via black
 babel==2.9.1
@@ -122,7 +126,7 @@ django-treebeard==4.5.1
     # via -r requirements/ci.txt
 django-webtest==1.9.7
     # via -r requirements/ci.txt
-django==2.2.27
+django==3.2.12
     # via
     #   -r requirements/ci.txt
     #   django-appconf
@@ -358,8 +362,11 @@ toml==0.10.0
     #   pep517
 typed-ast==1.4.1
     # via black
-typing-extensions==3.7.4.3
-    # via importlib-metadata
+typing-extensions==4.1.1
+    # via
+    #   -r requirements/ci.txt
+    #   asgiref
+    #   importlib-metadata
 typing==3.6.2
     # via django-extensions
 urllib3==1.26.5

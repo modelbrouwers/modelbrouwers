@@ -14,7 +14,7 @@ pytz  # handle timezones
 WeasyPrint
 
 # Django packages
-Django < 3.0
+Django ~= 3.2
 django-admin-tools
 django-autoslug
 django-choices
