@@ -10,23 +10,16 @@ bleach==4.1.0
     # via -r requirements/base.in
 brotli==1.0.9
     # via fonttools
-cairocffi==1.2.0
-    # via cairosvg
-cairosvg==2.5.2
-certifi==2021.5.30
+certifi==2021.10.8
     # via requests
 cffi==1.15.0
-    # via
-    #   cairocffi
-    #   weasyprint
+    # via weasyprint
 chardet==4.0.0
     # via requests
 cssselect2==0.4.1
-    # via
-    #   cairosvg
-    #   weasyprint
+    # via weasyprint
 defusedxml==0.7.1
-    # via cairosvg
+    # via odfpy
 diff-match-patch==20200713
     # via django-import-export
 django-admin-tools==0.9.1
@@ -116,7 +109,6 @@ packaging==20.9
 pillow==8.4.0
     # via
     #   -r requirements/base.in
-    #   cairosvg
     #   django-precise-bbcode
     #   weasyprint
 polib==1.1.1
@@ -167,7 +159,6 @@ tablib[html,ods,xls,xlsx,yaml]==3.0.0
     # via django-import-export
 tinycss2==1.1.1
     # via
-    #   cairosvg
     #   cssselect2
     #   weasyprint
 typing-extensions==4.1.1

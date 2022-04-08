@@ -32,20 +32,13 @@ brotli==1.0.9
     # via
     #   -r requirements/ci.txt
     #   fonttools
-cairocffi==1.2.0
-    # via
-    #   -r requirements/ci.txt
-    #   cairosvg
-cairosvg==2.5.2
-    # via -r requirements/ci.txt
-certifi==2021.5.30
+certifi==2021.10.8
     # via
     #   -r requirements/ci.txt
     #   requests
 cffi==1.15.0
     # via
     #   -r requirements/ci.txt
-    #   cairocffi
     #   weasyprint
 chardet==4.0.0
     # via
@@ -60,14 +53,12 @@ coverage==4.5.4
 cssselect2==0.4.1
     # via
     #   -r requirements/ci.txt
-    #   cairosvg
     #   weasyprint
 curtsies==0.3.1
     # via bpython
 defusedxml==0.7.1
     # via
     #   -r requirements/ci.txt
-    #   cairosvg
     #   odfpy
 diff-match-patch==20200713
     # via
@@ -218,7 +209,6 @@ pep517==0.10.0
 pillow==8.4.0
     # via
     #   -r requirements/ci.txt
-    #   cairosvg
     #   django-precise-bbcode
     #   weasyprint
 pip-tools==6.0.1
@@ -347,7 +337,6 @@ text-unidecode==1.3
 tinycss2==1.1.1
     # via
     #   -r requirements/ci.txt
-    #   cairosvg
     #   cssselect2
     #   weasyprint
 toml==0.10.0
