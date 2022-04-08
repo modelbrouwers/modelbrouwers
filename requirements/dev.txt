@@ -94,7 +94,7 @@ django-loginas==0.3.10
     # via -r requirements/ci.txt
 django-modeltranslation==0.17.5
     # via -r requirements/ci.txt
-django-precise-bbcode==1.2.13
+django-precise-bbcode==1.2.14
     # via -r requirements/ci.txt
 django-rosetta==0.9.6
     # via -r requirements/ci.txt
