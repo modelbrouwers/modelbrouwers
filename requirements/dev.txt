@@ -106,7 +106,7 @@ django-sniplates==0.7.0
     # via -r requirements/ci.txt
 django-solo==2.0.0
     # via -r requirements/ci.txt
-django-taggit==1.4.0
+django-taggit==2.1.0
     # via -r requirements/ci.txt
 django-treebeard==4.5.1
     # via -r requirements/ci.txt
