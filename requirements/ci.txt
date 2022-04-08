@@ -64,7 +64,7 @@ django-js-asset==1.2.2
     # via
     #   -r requirements/base.txt
     #   django-ckeditor
-django-loginas==0.3.9
+django-loginas==0.3.10
     # via -r requirements/base.txt
 django-modeltranslation==0.17.1
     # via -r requirements/base.txt
