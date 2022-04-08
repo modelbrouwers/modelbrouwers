@@ -8,7 +8,7 @@ from django.db.models import F, Q
 from django.views.generic import DetailView, ListView
 from django.views.generic.detail import SingleObjectMixin
 
-from sendfile import sendfile
+from django_sendfile import sendfile
 
 # from brouwers.awards.models import Nomination
 from brouwers.utils.views import LoginRequiredMixin
@@ -41,11 +41,7 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         kwargs["latest_uploads"] = (
             Photo.objects.select_related("user")
-            .filter(
-                trash=False,
-                album__public=True,
-                album__trash=False,
-            )
+            .filter(trash=False, album__public=True, album__trash=False,)
             .order_by("-uploaded")[:20]
         )
         return super().get_context_data(**kwargs)

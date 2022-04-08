@@ -98,7 +98,7 @@ django-precise-bbcode==1.2.14
     # via -r requirements/ci.txt
 django-rosetta==0.9.8
     # via -r requirements/ci.txt
-django-sendfile==0.3.11
+django-sendfile2==0.6.1
     # via -r requirements/ci.txt
 django-sessionprofile==1.0
     # via -r requirements/ci.txt
@@ -124,7 +124,7 @@ django==3.2.12
     #   django-modeltranslation
     #   django-precise-bbcode
     #   django-rosetta
-    #   django-sendfile
+    #   django-sendfile2
     #   django-sniplates
     #   django-taggit
     #   django-treebeard

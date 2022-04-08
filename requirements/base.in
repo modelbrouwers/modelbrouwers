@@ -24,7 +24,7 @@ django-extra-views
 django-loginas
 django-precise-bbcode
 django-rosetta
-django-sendfile
+django-sendfile2
 django-sessionprofile
 django-solo
 sorl-thumbnail

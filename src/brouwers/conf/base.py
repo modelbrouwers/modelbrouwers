@@ -223,7 +223,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-SENDFILE_BACKEND = config("SENDFILE_BACKEND", "sendfile.backends.nginx")
+SENDFILE_BACKEND = config("SENDFILE_BACKEND", "django_sendfile.backends.nginx")
 
 SENDFILE_ROOT = os.path.join(BASE_DIR, "media_sendfile")
 
