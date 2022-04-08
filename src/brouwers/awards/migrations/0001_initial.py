@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import datetime
 
 from django.db import migrations, models
@@ -26,10 +23,7 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=100)),
                 ("slug", models.SlugField()),
             ],
-            options={
-                "verbose_name": "category",
-                "verbose_name_plural": "categories",
-            },
+            options={"verbose_name": "category", "verbose_name_plural": "categories",},
             bases=(models.Model,),
         ),
         migrations.CreateModel(

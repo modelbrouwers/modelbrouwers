@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 from django.test import TestCase
 
 from brouwers.general.utils import clean_username, clean_username_fallback, get_username

@@ -5,7 +5,6 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
@@ -170,7 +169,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.userprofile
 
 
-@python_2_unicode_compatible
 class DataDownloadRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
