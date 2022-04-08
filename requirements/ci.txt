@@ -54,7 +54,7 @@ django-cors-headers==3.10.1
     # via -r requirements/base.txt
 django-extra-views==0.14.0
     # via -r requirements/base.txt
-django-filter==2.4.0
+django-filter==21.1
     # via
     #   -r requirements/base.txt
     #   djangorestframework-filters

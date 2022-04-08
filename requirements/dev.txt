@@ -80,7 +80,7 @@ django-extensions==1.9.7
     # via -r requirements/dev.in
 django-extra-views==0.14.0
     # via -r requirements/ci.txt
-django-filter==2.4.0
+django-filter==21.1
     # via
     #   -r requirements/ci.txt
     #   djangorestframework-filters
