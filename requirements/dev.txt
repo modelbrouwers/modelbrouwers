@@ -150,7 +150,7 @@ docutils==0.16
     # via sphinx
 entrypoints==0.3
     # via flake8
-et_xmlfile==1.1.0
+et-xmlfile==1.1.0
     # via
     #   -r requirements/ci.txt
     #   openpyxl
