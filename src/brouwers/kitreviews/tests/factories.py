@@ -4,14 +4,17 @@ from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
 
 from ..models import (
-    KitReview, KitReviewProperty, KitReviewPropertyRating, KitReviewVote
+    KitReview,
+    KitReviewProperty,
+    KitReviewPropertyRating,
+    KitReviewVote,
 )
 
 
 class KitReviewFactory(factory.django.DjangoModelFactory):
     model_kit = factory.SubFactory(ModelKitFactory)
-    raw_text = factory.Faker('text')
-    submitted_on = factory.Faker('date')
+    raw_text = factory.Faker("text")
+    submitted_on = factory.Faker("date")
 
     reviewer = factory.SubFactory(UserFactory)
 
@@ -28,7 +31,7 @@ class KitReviewVoteFactory(factory.django.DjangoModelFactory):
 
 
 class KitReviewPropertyFactory(factory.django.DjangoModelFactory):
-    name = factory.Faker('text')
+    name = factory.Faker("text")
 
     class Meta:
         model = KitReviewProperty

@@ -9,7 +9,7 @@ from .models import (
     ForumLinkSynced,
     ForumPostCountRestriction,
     ForumUser,
-    Report
+    Report,
 )
 
 

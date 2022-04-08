@@ -13,7 +13,7 @@ from ..forms import (
     PhotoForm,
     PhotoRestoreForm,
     PreferencesForm,
-    UploadForm
+    UploadForm,
 )
 from ..models import Album, Photo, Preferences
 
@@ -63,7 +63,7 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         url = super().get_success_url()
-        return u"%s%s" % (url, "?album=%s" % self.object.id)
+        return "%s%s" % (url, "?album=%s" % self.object.id)
 
 
 class AlbumUpdateView(LoginRequiredMixin, UpdateView):

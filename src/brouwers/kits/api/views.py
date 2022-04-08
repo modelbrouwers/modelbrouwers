@@ -8,7 +8,7 @@ from .serializers import (
     BrandSerializer,
     CreateModelKitSerializer,
     ModelKitSerializer,
-    ScaleSerializer
+    ScaleSerializer,
 )
 
 

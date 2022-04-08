@@ -19,7 +19,7 @@ from brouwers.general.forms import RedirectForm
 from brouwers.general.models import (
     RegistrationAttempt,
     RegistrationQuestion,
-    UserProfile
+    UserProfile,
 )
 from brouwers.utils.views import LoginRequiredMixin
 

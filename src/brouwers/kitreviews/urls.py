@@ -6,7 +6,7 @@ from .views import (
     KitReviewDetail,
     KitSearchView,
     LegacyRedirectView,
-    ReviewListView
+    ReviewListView,
 )
 
 app_name = "kitreviews"

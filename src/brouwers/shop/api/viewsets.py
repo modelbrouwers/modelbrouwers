@@ -8,7 +8,7 @@ from .serializers import (
     PaymentMethodSerializer,
     ProductSerializer,
     ReadCartProductSerializer,
-    WriteCartProductSerializer
+    WriteCartProductSerializer,
 )
 
 

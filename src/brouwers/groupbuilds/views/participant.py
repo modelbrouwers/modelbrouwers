@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, ListView, UpdateView
 from django.views.generic.detail import (
     SingleObjectMixin,
-    SingleObjectTemplateResponseMixin
+    SingleObjectTemplateResponseMixin,
 )
 
 from brouwers.utils.views import LoginRequiredMixin

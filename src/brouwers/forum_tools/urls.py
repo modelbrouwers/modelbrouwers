@@ -6,7 +6,7 @@ from .views import (
     ModDataView,
     SyncDataView,
     get_posting_level,
-    get_sharing_perms
+    get_sharing_perms,
 )
 
 # Everything is AJAX

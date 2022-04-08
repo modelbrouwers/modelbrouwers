@@ -5,7 +5,7 @@ from .models import (
     QuestionAnswer,
     RegistrationAttempt,
     RegistrationQuestion,
-    UserProfile
+    UserProfile,
 )
 
 
