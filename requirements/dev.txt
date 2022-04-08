@@ -295,7 +295,7 @@ six==1.16.0
     #   webtest
 snowballstemmer==2.0.0
     # via sphinx
-sorl-thumbnail==12.7.0
+sorl-thumbnail==12.8.0
     # via -r requirements/ci.txt
 soupsieve==2.0
     # via

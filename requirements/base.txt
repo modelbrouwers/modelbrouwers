@@ -151,7 +151,7 @@ six==1.16.0
     #   html5lib
     #   python-dateutil
     #   python-memcached
-sorl-thumbnail==12.7.0
+sorl-thumbnail==12.8.0
     # via -r requirements/base.in
 sqlparse==0.4.2
     # via django

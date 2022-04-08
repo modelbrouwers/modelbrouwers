@@ -221,7 +221,7 @@ six==1.16.0
     #   python-memcached
     #   requests-mock
     #   webtest
-sorl-thumbnail==12.7.0
+sorl-thumbnail==12.8.0
     # via -r requirements/base.txt
 soupsieve==2.0
     # via beautifulsoup4
