@@ -198,7 +198,7 @@ pathspec==0.8.0
     # via black
 pep517==0.10.0
     # via pip-tools
-pillow==8.4.0
+pillow==9.1.0
     # via
     #   -r requirements/ci.txt
     #   django-precise-bbcode
