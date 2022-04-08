@@ -40,4 +40,4 @@ djangorestframework-filters == 1.0.0.dev2
 
 # WSGI servers & monitoring - production oriented
 uwsgi
-raven
+sentry-sdk

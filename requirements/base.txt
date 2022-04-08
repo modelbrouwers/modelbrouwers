@@ -11,7 +11,9 @@ bleach==4.1.0
 brotli==1.0.9
     # via fonttools
 certifi==2021.10.8
-    # via requests
+    # via
+    #   requests
+    #   sentry-sdk
 cffi==1.15.0
     # via weasyprint
 charset-normalizer==2.0.12
@@ -139,10 +141,10 @@ pytz==2022.1
     #   djangorestframework
 pyyaml==6.0
     # via tablib
-raven==6.10.0
-    # via -r requirements/base.in
 requests==2.27.1
     # via django-rosetta
+sentry-sdk==1.5.8
+    # via -r requirements/base.in
 six==1.16.0
     # via
     #   bleach
@@ -164,7 +166,9 @@ tinycss2==1.1.1
 typing-extensions==4.1.1
     # via asgiref
 urllib3==1.26.9
-    # via requests
+    # via
+    #   requests
+    #   sentry-sdk
 uwsgi==2.0.20
     # via -r requirements/base.in
 weasyprint==54.3

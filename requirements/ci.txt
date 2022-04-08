@@ -20,6 +20,7 @@ certifi==2021.10.8
     # via
     #   -r requirements/base.txt
     #   requests
+    #   sentry-sdk
 cffi==1.15.0
     # via
     #   -r requirements/base.txt
@@ -200,8 +201,6 @@ pyyaml==6.0
     # via
     #   -r requirements/base.txt
     #   tablib
-raven==6.10.0
-    # via -r requirements/base.txt
 requests-mock==1.7.0
     # via -r requirements/test-tools.in
 requests==2.27.1
@@ -209,6 +208,8 @@ requests==2.27.1
     #   -r requirements/base.txt
     #   django-rosetta
     #   requests-mock
+sentry-sdk==1.5.8
+    # via -r requirements/base.txt
 six==1.16.0
     # via
     #   -r requirements/base.txt
@@ -250,6 +251,7 @@ urllib3==1.26.9
     # via
     #   -r requirements/base.txt
     #   requests
+    #   sentry-sdk
 uwsgi==2.0.20
     # via -r requirements/base.txt
 waitress==1.4.3
