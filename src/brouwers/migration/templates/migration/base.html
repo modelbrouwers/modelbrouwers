@@ -1,9 +1,0 @@
-{% extends "base_legacy.html" %}
-
-{% block menu %}
-    {% if user.is_superuser %}
-        <li><a href="{% url 'find_django_user' %}">Migratie albumgebruikers</a></li>
-        <li><a href="{% url 'migrate_albums' %}">Migratie albums</a></li>
-        <li><a href="{% url 'migrate_pictures' %}">Migratie foto's</a></li>
-    {% endif %}
-{% endblock %}

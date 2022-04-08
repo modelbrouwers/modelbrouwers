@@ -43,14 +43,14 @@ class CategoryModelTest(TestCase):
 
     def test_nesting(self):
         root = self.category.add_root(name="Root")
-        self.assertEquals(root.name, "Root")
+        self.assertEqual(root.name, "Root")
 
         child1 = root.add_child(name="Child")
         child1.save()
         child2 = root.add_child(name="Child2")
         child2.save()
 
-        self.assertEquals(len(root.get_children()), 2)
+        self.assertEqual(len(root.get_children()), 2)
 
         child1.add_child()
-        self.assertEquals(len(child1.get_children()), 1)
+        self.assertEqual(len(child1.get_children()), 1)

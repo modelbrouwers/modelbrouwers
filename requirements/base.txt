@@ -101,8 +101,6 @@ html5lib==1.1
     # via weasyprint
 idna==2.10
     # via requests
-jdcal==1.4.1
-    # via openpyxl
 lxml==4.7.1
     # via -r requirements/base.in
 markuppy==1.14

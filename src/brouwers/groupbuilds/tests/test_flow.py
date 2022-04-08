@@ -44,18 +44,18 @@ class FlowTest(TestCase):
         self.client.login(username=user2.username, password="password")
         url = reverse("groupbuilds:submit", kwargs={"slug": groupbuild.slug})
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 404)
+        self.assertEqual(response.status_code, 404)
         self.client.logout
 
         self.client.login(username=user1, password="password")
         url = reverse("groupbuilds:submit", kwargs={"slug": groupbuild.slug})
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         response = self.client.post(url)
-        self.assertEquals(response.status_code, 302)
+        self.assertEqual(response.status_code, 302)
         groupbuild = GroupBuild.objects.get(slug=groupbuild.slug)
-        self.assertEquals(groupbuild.status, GroupbuildStatuses.submitted)
+        self.assertEqual(groupbuild.status, GroupbuildStatuses.submitted)
 
     def test_submitted_concept_not_editable(self):
         groupbuild = GroupBuildFactory.create(status=GroupbuildStatuses.submitted)
@@ -64,7 +64,7 @@ class FlowTest(TestCase):
         self.client.login(username=groupbuild.applicant.username, password="password")
         url = reverse("groupbuilds:edit", kwargs={"slug": groupbuild.slug})
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 404)
+        self.assertEqual(response.status_code, 404)
 
     def test_dates_locked_for_non_staff(self):
         """
@@ -81,14 +81,14 @@ class FlowTest(TestCase):
         self.client.login(username=groupbuild.applicant.username, password="password")
         url = reverse("groupbuilds:edit", kwargs={"slug": groupbuild.slug})
         response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         post_data = {
             "start": date.today() + timedelta(days=2),
             "duration": GroupbuildDurations.two_months,
         }
         response = self.client.post(url, post_data)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         error_start = _(
             "The start date cannot be edited if the build is outside of the concept state."

@@ -14,7 +14,7 @@ from ..models import (
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
-    name = factory.Faker("name")
+    name = factory.Sequence(lambda n: "category-{}".format(n))
     seo_keyword = factory.Faker("bs")
     image = factory.django.ImageField()
     path = factory.Faker("bs")

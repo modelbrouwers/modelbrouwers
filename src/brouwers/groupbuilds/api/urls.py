@@ -1,17 +1,13 @@
-from django.conf.urls import url
+from django.urls import path
 
 from .views import GroupBuildDetail
 
 app_name = "groupbuilds"
 
 urlpatterns = [
-    url(
-        r"^groupbuild/(?P<pk>\d+)/$",
-        GroupBuildDetail.as_view(),
-        name="groupbuild-detail",
-    ),
-    url(
-        r"^groupbuild/(?P<slug>[\w\-_]+)/$",
+    path("groupbuild/<int:pk>/", GroupBuildDetail.as_view(), name="groupbuild-detail"),
+    path(
+        "groupbuild/<slug:slug>/",
         GroupBuildDetail.as_view(lookup_field="slug"),
         name="groupbuild-detail",
     ),

@@ -19,19 +19,19 @@ class ViewTests(WebTest):
 
         # anonymous user
         response = self.app.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertIn(gb.theme, response)
         self.assertFalse(response.context["can_edit"])
 
         # login as owner user
         response = self.app.get(url, user=gb.applicant)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context["can_edit"])
 
         # and as superuser
         superuser = UserFactory.create(is_staff=True, is_superuser=True)
         response = self.app.get(url, user=superuser)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context["can_edit"])
 
     def test_user_participant(self):
@@ -41,7 +41,7 @@ class ViewTests(WebTest):
         ps = ParticipantFactory.create_batch(3, groupbuild=gb)
 
         self.assertIsNone(gb.end)
-        self.assertEquals(gb.participant_set.count(), 3)
+        self.assertEqual(gb.participant_set.count(), 3)
 
         edit_urls = [
             reverse(
@@ -50,7 +50,7 @@ class ViewTests(WebTest):
             for p in ps
         ]
         response = self.app.get(gb.get_absolute_url())
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         for url in edit_urls:
             self.assertNotIn(url, response)
 
@@ -60,11 +60,11 @@ class ViewTests(WebTest):
             "groupbuilds:update-participant", kwargs={"slug": gb.slug, "pk": ps[0].pk}
         )
         p_form = self.app.get(url, user=user)
-        self.assertEquals(p_form.status_code, 200)
+        self.assertEqual(p_form.status_code, 200)
         self.assertTemplateUsed(p_form, "groupbuilds/participant_form.html")
         self.assertTemplateUsed(p_form, "groupbuilds/includes/progress.html")
         self.assertTemplateUsed(p_form, "groupbuilds/includes/links.html")
-        self.assertEquals(p_form.context["gb"], gb)
+        self.assertEqual(p_form.context["gb"], gb)
 
         # alter the form
         p_form.form["model_name"] = "My updated model"
@@ -74,11 +74,11 @@ class ViewTests(WebTest):
 
         # check that the data is effectively saved
         p = Participant.objects.get(pk=ps[0].pk)
-        self.assertEquals(p.model_name, "My updated model")
-        self.assertEquals(p.topic_id, 1)
+        self.assertEqual(p.model_name, "My updated model")
+        self.assertEqual(p.topic_id, 1)
 
         # user trying to edit a participant that is not himself
-        self.assertNotEquals(ps[1].user, ps[0].user)
+        self.assertNotEqual(ps[1].user, ps[0].user)
         p_form = self.app.get(url, user=ps[1].user, status=404)
 
         # test that groupbuilds that are past the end date can no longer be edited

@@ -1,5 +1,6 @@
 import os
 import sys
+import warnings
 
 os.environ.setdefault("DEBUG", "yes")
 os.environ.setdefault("ALLOWED_HOSTS", "*")
@@ -15,29 +16,34 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"
 #
 # Debug toolbar
 #
-INSTALLED_APPS = INSTALLED_APPS + [
+INSTALLED_APPS += [
     "django_extensions",
     "debug_toolbar",
 ]
-
+MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+INTERNAL_IPS = ("127.0.0.1",)
 DEBUG_TOOLBAR_CONFIG = {
     "JQUERY_URL": "",
 }
 
-INTERNAL_IPS = ("127.0.0.1",)
-
-MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware",] + MIDDLEWARE
-
+# Custom settings
 SHOP_ENABLED = True
 
 #
 # E-MAIL
 #
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "mails")
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # SESSION
 SESSION_COOKIE_NAME = "mbsessionid"
+
+# THOU SHALT NOT USE NAIVE DATETIMES
+warnings.filterwarnings(
+    "error",
+    r"DateTimeField .* received a naive datetime",
+    RuntimeWarning,
+    r"django\.db\.models\.fields",
+)
 
 # Local overrides
 try:

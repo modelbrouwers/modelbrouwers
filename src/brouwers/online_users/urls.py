@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from .views import get_online_users, set_online
 
-app_name = 'online_users'
+app_name = "online_users"
 urlpatterns = [
-    url(r'^so/$', set_online),
-    url(r'^ous/$', get_online_users),
+    path("so/", set_online),
+    path("ous/", get_online_users),
 ]

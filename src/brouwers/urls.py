@@ -40,7 +40,6 @@ urlpatterns = (
         path("shirts/", TemplateView.as_view(template_name="shirts_removed.html")),
         path("builds/", include("brouwers.builds.urls", namespace="builds")),
         path("ou/", include("brouwers.online_users.urls")),
-        path("migration/", include("brouwers.migration.urls")),
         path(
             "modelbouwdag/",
             include("brouwers.brouwersdag.urls", namespace="brouwersdag"),
