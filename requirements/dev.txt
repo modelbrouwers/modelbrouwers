@@ -28,20 +28,21 @@ blessings==1.7
     # via curtsies
 bpython==0.19
     # via -r requirements/dev.in
+brotli==1.0.9
+    # via
+    #   -r requirements/ci.txt
+    #   fonttools
 cairocffi==1.2.0
     # via
     #   -r requirements/ci.txt
     #   cairosvg
-    #   weasyprint
 cairosvg==2.5.2
-    # via
-    #   -r requirements/ci.txt
-    #   weasyprint
+    # via -r requirements/ci.txt
 certifi==2021.5.30
     # via
     #   -r requirements/ci.txt
     #   requests
-cffi==1.14.5
+cffi==1.15.0
     # via
     #   -r requirements/ci.txt
     #   cairocffi
@@ -159,6 +160,10 @@ faker==4.0.3
     #   factory-boy
 flake8==3.7.9
     # via -r requirements/dev.in
+fonttools[woff]==4.27.1
+    # via
+    #   -r requirements/ci.txt
+    #   weasyprint
 freezegun==0.3.15
     # via -r requirements/ci.txt
 greenlet==0.4.15
@@ -230,6 +235,10 @@ pycparser==2.20
     # via
     #   -r requirements/ci.txt
     #   cffi
+pydyf==0.1.2
+    # via
+    #   -r requirements/ci.txt
+    #   weasyprint
 pyflakes==2.1.1
     # via flake8
 pygments==2.8.1
@@ -335,7 +344,7 @@ text-unidecode==1.3
     # via
     #   -r requirements/ci.txt
     #   faker
-tinycss2==1.1.0
+tinycss2==1.1.1
     # via
     #   -r requirements/ci.txt
     #   cairosvg
@@ -366,7 +375,7 @@ waitress==1.4.3
     #   webtest
 wcwidth==0.1.9
     # via curtsies
-weasyprint==52.5
+weasyprint==54.3
     # via -r requirements/ci.txt
 webencodings==0.5.1
     # via
@@ -395,6 +404,10 @@ zipp==3.4.1
     # via
     #   importlib-metadata
     #   pep517
+zopfli==0.1.9
+    # via
+    #   -r requirements/ci.txt
+    #   fonttools
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
