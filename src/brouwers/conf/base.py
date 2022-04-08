@@ -77,6 +77,9 @@ DATABASES = {
     },
 }
 
+# Change to BigAutoField on Django 4+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 DATABASE_ROUTERS = ["brouwers.forum_tools.db_router.ForumToolsRouter"]
 
 CACHES = {
