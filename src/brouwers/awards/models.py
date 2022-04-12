@@ -11,7 +11,6 @@ from autoslug import AutoSlugField
 from brouwers.forum_tools.fields import ForumToolsIDField
 
 from .constants import FIELD_2_POINTS
-from .utils import voting_enabled
 
 
 class Category(models.Model):
@@ -61,23 +60,6 @@ class Category(models.Model):
         )
 
 
-class NominationsManager(models.Manager):
-    def winners(self, year=date.today().year - 1):
-        """Get the set of winning projects over all categories for ``year``"""
-        if voting_enabled(year=year + 1):
-            year -= 1
-        qs = super().get_queryset().filter(nomination_date__year=year)
-
-        winners = {}
-        for project in qs.order_by("category", "-votes"):
-            if project.category in winners:
-                if project.votes != winners[project.category][0].votes:
-                    continue
-            winners.setdefault(project.category, []).append(project)
-        shallow = [project_list for key, project_list in winners.items()]
-        return set([project for sublist in shallow for project in sublist])
-
-
 class LatestNominationsManager(models.Manager):
     def get_queryset(self):
         qs = super().get_queryset()
@@ -125,7 +107,7 @@ class Project(models.Model):
 
     rejected = models.BooleanField(default=False)
 
-    objects = NominationsManager()
+    objects = models.Manager()
     latest = LatestNominationsManager()
 
     def __str__(self):

@@ -7,4 +7,4 @@ class AwardsConfig(AppConfig):
     verbose_name = _("Awards")
 
     def ready(self):
-        from . import signals
+        from . import signals  # noqa
