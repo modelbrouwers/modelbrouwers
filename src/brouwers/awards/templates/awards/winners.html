@@ -1,60 +1,89 @@
-{% extends "awards/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
+{% block title %} {% trans "Awards" %}{% endblock %}
+
+{% block eye-catcher %}
+<header class="container-fluid eye-catcher">
+    <div class="container">
+        {% block eye-catcher-content %}
+            <h1>
+                {% trans "Awards - Hall of Fame" %}
+                <i class="pull-right fa fa-trophy fa-2x"></i>
+            </h1>
+
+            <p>{% blocktrans trimmed %}
+                The 'Brouwers Awards' can be compared to movie or music awards, but applied to build report topics!
+                Topics get nominated within a category, and everyone can vote their favourites within each category,
+                ultimately leading to a top-three.
+            {% endblocktrans %}</p>
+
+            <p>{% blocktrans trimmed %}
+                Note that currently the awards feature is disabled, except for historical results support.
+            {% endblocktrans %}</p>
+        {% endblock %}
+    </div>
+</header>
+{% endblock %}
+
 {% block content %}
-<div class="tab" id="winners-title">
-	<span class="trophy"></span>
-	<span>{% blocktrans %}Hall of fame &bull; Edition {{ year }}{% endblocktrans %}</span>
-	<span class="trophy"></span>
-</div>
+<div class="row">
 
-<div id="winners">
+    <div class="col-md-9 col-xs-12">
+        <p class="lead">{% blocktrans trimmed %}
+            The Hall of Fame honors the participants took first, second and third places within
+            their respective categories. You can click through to their build report topics
+            and admire their build yourself.
+        {% endblocktrans %}</p>
 
-	<div id="dates-sidebar">
-		<h2>{% trans "Other editions" %}</h2>
-		<ul>
-			{% for date in years %}
-				<li><a href="{% url 'winners' year=date.year %}"{% ifequal year date.year %} class="active"{% endifequal %}>{{ date.year }}</a></li>
-			{% endfor %}
-		</ul>
-	</div>
+        <h2>{% blocktrans %}Results for edition {{ year }}{% endblocktrans %}</h2>
 
-	<div id="results">
-		{% for category, winners in winners_data.items %}
-			<div class="category">
-				<h1>{{ category.name }}</h1>
+        {% if top_three_per_category %}
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                {% for category, category_top_three in top_three_per_category.items %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="category-{{ category.id }}">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#projects-category-{{ category.id }}" aria-expanded="true" aria-controls="projects-category-{{ category.id }}">
+                                    {{ category }}
+                                </a>
+                            </h4>
+                        </div>
 
-				<ul class="winners-list">
+                        <div id="projects-category-{{ category.id }}" class="panel-collapse collapse {% if forloop.first %}in{% endif %}" role="tabpanel" aria-labelledby="category-{{ category.id }}">
+                            <div class="panel-body awards-category">
 
-					<li class="second trophy-container">
-						<em></em>
-						{% with winners.second as winners_list %}
-							{% include "awards/category_winner_content.html" %}
-						{% endwith %}
-					</li>
+                                <div class="awards-top-three awards-top-three--rank-1">
+                                    {% include "awards/projects_preview.html" with projects=category_top_three.1 %}
+                                </div>
 
-					<li class="first trophy-container">
-						<em></em>
-						{% with winners.first as winners_list %}
-							{% include "awards/category_winner_content.html" %}
-						{% endwith %}
-					</li>
+                                <div class="awards-top-three awards-top-three--rank-2">
+                                    {% include "awards/projects_preview.html" with projects=category_top_three.2 %}
+                                </div>
 
-					<li class="third trophy-container">
-						<em></em>
-						{% with winners.third as winners_list %}
-							{% include "awards/category_winner_content.html" %}
-						{% endwith %}
-					</li>
-					<li class="clearfix"></li>
-				</ul>
+                                <div class="awards-top-three awards-top-three--rank-3">
+                                    {% include "awards/projects_preview.html" with projects=category_top_three.3 %}
+                                </div>
 
-			</div>
-		{% empty %}
-			<div style="text-align:center;margin: 1em 5em;">
-				{% trans "Are you trying to beat the system? This edition's results page is not available. Either it doesn't exist, or you don't have access." %}
-			</div>
-		{% endfor %}
-	</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>{% trans "No results found :(" %}
+        {% endif %}
+
+    </div>
+
+    <div class="col-md-3 col-xs-12">
+        <h3>{% trans "Select edition" %}</h3>
+            <div class="list-group">
+                {% for edition in editions %}
+                    <a class="list-group-item {% if edition.year == year %}active{% endif %}" href="{% url 'awards:winners' year=edition.year %}">{{ edition.year }}</a>
+                {% endfor %}
+            </div>
+    </div>
+
 </div>
 {% endblock %}
