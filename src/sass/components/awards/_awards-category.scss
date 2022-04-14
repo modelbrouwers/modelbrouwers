@@ -1,0 +1,65 @@
+@import "../../partials/colors";
+@import "../../partials/responsive";
+
+$awards-podium-spacing: 10px;
+
+@include gt-mobile {
+  .awards-category {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &__podium {
+      padding-left: $awards-podium-spacing;
+      padding-right: $awards-podium-spacing;
+      width: 100%;
+      flex: 1 1 0;
+
+      &--rank-1 {
+        order: 2;
+
+        .awards-category__points {
+          height: 5em;
+          margin-left: -$awards-podium-spacing;
+          margin-right: -$awards-podium-spacing;
+          background-color: $main-light-blue;
+          color: $white;
+        }
+      }
+
+      &--rank-2 {
+        order: 1;
+        margin-left: -$awards-podium-spacing;
+
+        .awards-category__points {
+          height: 3.5em;
+          margin-right: -$awards-podium-spacing;
+          background-color: $main-blue;
+          color: $white;
+        }
+      }
+
+      &--rank-3 {
+        order: 3;
+        margin-right: -$awards-podium-spacing;
+
+        .awards-category__points {
+          height: 3em;
+          margin-left: -$awards-podium-spacing;
+          background-color: $main-green;
+          color: $white;
+        }
+      }
+    }
+
+    &__points {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;;
+      // border: solid 1px $awards-podium-border-color;
+      padding: 1em;
+      font-weight: bolder;
+    }
+  }
+}

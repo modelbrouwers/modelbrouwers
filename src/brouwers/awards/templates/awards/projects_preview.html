@@ -1,18 +1,16 @@
 {% load i18n %}
 {% if projects %}
-    <p class="awards-points">
-        {% blocktrans count projects.0.votes as counter %}1 point{% plural %}{{ counter }} points{% endblocktrans %}
-    </p>
 
-    <div class="list-group">
+    <div class="awards-category__projects">
         {% for project in projects %}
-            <a
-                class="list-group-item"
-                href="{{ project.url }}" target="_blank" rel="noopener nofollow"
-            >
+            <a class="awards-category__project" href="{{ project.url }}" target="_blank" rel="noopener nofollow">
                 {{ project.name }} ({{ project.brouwer }})
             </a>
         {% endfor %}
+    </div>
+
+    <div class="awards-category__points">
+        {% blocktrans count projects.0.votes as counter %}1 point{% plural %}{{ counter }} points{% endblocktrans %}
     </div>
 {% else %}
     {% trans "No-one grabbed this spot!" %}

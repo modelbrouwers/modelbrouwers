@@ -51,18 +51,20 @@
                         </div>
 
                         <div id="projects-category-{{ category.id }}" class="panel-collapse collapse {% if forloop.first %}in{% endif %}" role="tabpanel" aria-labelledby="category-{{ category.id }}">
-                            <div class="panel-body awards-category">
+                            <div class="panel-body">
 
-                                <div class="awards-top-three awards-top-three--rank-1">
-                                    {% include "awards/projects_preview.html" with projects=category_top_three.1 %}
-                                </div>
+                                <div class="awards-category">
+                                    <div class="awards-category__podium awards-category__podium--rank-1">
+                                        {% include "awards/projects_preview.html" with projects=category_top_three.1 %}
+                                    </div>
 
-                                <div class="awards-top-three awards-top-three--rank-2">
-                                    {% include "awards/projects_preview.html" with projects=category_top_three.2 %}
-                                </div>
+                                    <div class="awards-category__podium awards-category__podium--rank-2">
+                                        {% include "awards/projects_preview.html" with projects=category_top_three.2 %}
+                                    </div>
 
-                                <div class="awards-top-three awards-top-three--rank-3">
-                                    {% include "awards/projects_preview.html" with projects=category_top_three.3 %}
+                                    <div class="awards-category__podium awards-category__podium--rank-3">
+                                        {% include "awards/projects_preview.html" with projects=category_top_three.3 %}
+                                    </div>
                                 </div>
 
                             </div>
