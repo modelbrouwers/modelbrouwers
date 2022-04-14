@@ -3,9 +3,12 @@
 
     <div class="awards-category__projects">
         {% for project in projects %}
-            <a class="awards-category__project" href="{{ project.url }}" target="_blank" rel="noopener nofollow">
-                {{ project.name }} ({{ project.brouwer }})
-            </a>
+            <div class="awards-project">
+                <a class="awards-project__link" href="{{ project.topic.get_absolute_url }}" target="_blank" rel="noopener nofollow" title="{{ project.name }}">
+                    {{ project.name }}
+                </a>
+                <span class="awards-project__author">{{ project.brouwer }}</span>
+            </div>
         {% endfor %}
     </div>
 
