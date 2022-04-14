@@ -1,0 +1,35 @@
+@import "../../partials/utils";
+@import "../../partials/responsive";
+
+.awards-project {
+  text-align: center;
+  max-width: 100%;
+
+  & + & {
+    margin-top: 10px;
+  }
+
+  &__link {
+    @include ellipsis;
+    display: block;
+    font-size: 110%;
+    font-weight: bold;
+  }
+
+  &__author {
+    text-align: center;
+    display: block;
+    font-weight: bold;
+  }
+}
+
+@include lte-mobile {
+  .awards-project {
+    display: flex;
+    justify-content: space-between;
+
+    &__author {
+      margin-left: 5px;
+    }
+  }
+}

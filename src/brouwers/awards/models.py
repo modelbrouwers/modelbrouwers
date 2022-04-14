@@ -3,31 +3,26 @@ from datetime import date
 from django.conf import settings
 from django.core.exceptions import NON_FIELD_ERRORS, ObjectDoesNotExist, ValidationError
 from django.db import models
-from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from .utils import voting_enabled
+from autoslug import AutoSlugField
 
-POINTS_FIRST = 3
-POINTS_SECOND = 2
-POINTS_THIRD = 1
+from brouwers.forum_tools.fields import ForumToolsIDField
 
-FIELD_2_POINTS = {
-    "project1": POINTS_FIRST,
-    "project2": POINTS_SECOND,
-    "project3": POINTS_THIRD,
-}
+from .constants import FIELD_2_POINTS
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField()
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+    name = models.CharField(_("name"), max_length=100)
+    slug = AutoSlugField(_("slug"), populate_from="name", unique=True)
+    forum = ForumToolsIDField(
+        _("forum"),
+        type="forum",
+        unique=True,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.name
@@ -42,6 +37,8 @@ class Category(models.Model):
     def latest(self):
         """
         Returns latest five nominations in this category
+
+        TODO: optimize with DB functions
         """
         year = date.today().year
         start_date = date(year, 1, 1)
@@ -53,6 +50,7 @@ class Category(models.Model):
         return projects
 
     def num_nominations(self):
+        # TODO: optimize with DB functions
         year = date.today().year
         start_date = date(year, 1, 1)
         return (
@@ -60,23 +58,6 @@ class Category(models.Model):
             .filter(nomination_date__gte=start_date)
             .count()
         )
-
-
-class NominationsManager(models.Manager):
-    def winners(self, year=date.today().year - 1):
-        """Get the set of winning projects over all categories for ``year``"""
-        if voting_enabled(year=year + 1):
-            year -= 1
-        qs = super().get_queryset().filter(nomination_date__year=year)
-
-        winners = {}
-        for project in qs.order_by("category", "-votes"):
-            if project.category in winners:
-                if project.votes != winners[project.category][0].votes:
-                    continue
-            winners.setdefault(project.category, []).append(project)
-        shallow = [project_list for key, project_list in winners.items()]
-        return set([project for sublist in shallow for project in sublist])
 
 
 class LatestNominationsManager(models.Manager):
@@ -89,21 +70,19 @@ class LatestNominationsManager(models.Manager):
 
 
 class Project(models.Model):
-    url = models.URLField(max_length=500, help_text="link naar het verslag")
-    name = models.CharField("titel verslag", max_length=100)
-    brouwer = models.CharField(
-        max_length=30
-    )  # this should be able to be linked to an (existing) user
+    topic = ForumToolsIDField(
+        _("build report topic"),
+        type="topic",
+        blank=True,
+        null=True,
+    )
     category = models.ForeignKey(
         Category, verbose_name="categorie", on_delete=models.CASCADE
     )
-    image = models.ImageField(upload_to="awards/", blank=True, null=True)
 
+    # internal statistics
     nomination_date = models.DateField(default=date.today, db_index=True)
-
     votes = models.IntegerField(null=True, blank=True, default=0)
-    rejected = models.BooleanField(default=False)
-
     submitter = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="nominations", on_delete=models.CASCADE
     )
@@ -119,7 +98,16 @@ class Project(models.Model):
         _("last review"), auto_now=True, blank=True, null=True
     )
 
-    objects = NominationsManager()
+    name = models.CharField("titel verslag", max_length=100)
+    brouwer = models.CharField(
+        max_length=30
+    )  # this should be able to be linked to an (existing) user
+
+    image = models.ImageField(upload_to="awards/", blank=True, null=True)
+
+    rejected = models.BooleanField(default=False)
+
+    objects = models.Manager()
     latest = LatestNominationsManager()
 
     def __str__(self):
@@ -129,7 +117,7 @@ class Project(models.Model):
         verbose_name = _("nomination")
         verbose_name_plural = _("nominations")
         ordering = ["category", "votes"]
-        unique_together = (("category", "url"),)
+        unique_together = (("category", "topic"),)
 
     def save(self, *args, **kwargs):
         if not self.id:

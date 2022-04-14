@@ -1,0 +1,20 @@
+{% load i18n %}
+{% if projects %}
+
+    <div class="awards-category__projects">
+        {% for project in projects %}
+            <div class="awards-project">
+                <a class="awards-project__link" href="{{ project.topic.get_absolute_url }}" target="_blank" rel="noopener nofollow" title="{{ project.name }}">
+                    {{ project.name }}
+                </a>
+                <span class="awards-project__author">{{ project.brouwer }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="awards-category__points">
+        {% blocktrans count projects.0.votes as counter %}1 point{% plural %}{{ counter }} points{% endblocktrans %}
+    </div>
+{% else %}
+    {% trans "No-one grabbed this spot!" %}
+{% endif %}
