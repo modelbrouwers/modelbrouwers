@@ -8,7 +8,7 @@ asgiref==3.5.0
     # via
     #   -r requirements/base.txt
     #   django
-beautifulsoup4==4.11.0
+beautifulsoup4==4.11.1
     # via webtest
 bleach==5.0.0
     # via -r requirements/base.txt
@@ -31,7 +31,7 @@ charset-normalizer==2.0.12
     #   requests
 coverage==4.5.4
     # via -r requirements/test-tools.in
-cssselect2==0.5.0
+cssselect2==0.6.0
     # via
     #   -r requirements/base.txt
     #   weasyprint
@@ -47,6 +47,7 @@ django==3.2.13
     # via
     #   -r requirements/base.txt
     #   django-choices
+    #   django-ckeditor
     #   django-cors-headers
     #   django-extra-views
     #   django-filter
@@ -67,7 +68,7 @@ django-autoslug==1.9.8
     # via -r requirements/base.txt
 django-choices==1.7.2
     # via -r requirements/base.txt
-django-ckeditor==6.3.0
+django-ckeditor==6.4.0
     # via -r requirements/base.txt
 django-cors-headers==3.11.0
     # via -r requirements/base.txt
@@ -119,7 +120,7 @@ factory-boy==3.2.1
     # via -r requirements/test-tools.in
 faker==13.3.4
     # via factory-boy
-fonttools[woff]==4.31.2
+fonttools[woff]==4.32.0
     # via
     #   -r requirements/base.txt
     #   weasyprint
@@ -201,7 +202,7 @@ requests==2.27.1
     #   requests-mock
 requests-mock==1.9.3
     # via -r requirements/test-tools.in
-sentry-sdk==1.5.8
+sentry-sdk==1.5.10
     # via -r requirements/base.txt
 six==1.16.0
     # via
@@ -215,13 +216,13 @@ six==1.16.0
     #   requests-mock
 sorl-thumbnail==12.8.0
     # via -r requirements/base.txt
-soupsieve==2.3.2
+soupsieve==2.3.2.post1
     # via beautifulsoup4
 sqlparse==0.4.2
     # via
     #   -r requirements/base.txt
     #   django
-tablib[html,ods,xls,xlsx,yaml]==3.2.0
+tablib[html,ods,xls,xlsx,yaml]==3.2.1
     # via
     #   -r requirements/base.txt
     #   django-import-export
