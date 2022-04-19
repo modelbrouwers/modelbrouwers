@@ -5,11 +5,12 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "gulp sass && webpack --config webpack.config.js --mode=production",
-        "dev": "webpack --config webpack.config.js --mode=development --watch=true",
+        "build": "NODE_ENV=production webpack",
+        "dev": "webpack -w",
         "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
         "generate": "plop --plopfile src/js/scripts/generator/index.js",
-        "makemessages": "node bin/translate.js"
+        "makemessages": "node bin/translate.js",
+        "start": "webpack -w"
     },
     "repository": {
         "type": "git",
