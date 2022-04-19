@@ -31,7 +31,7 @@ let selectorLintConfig = {
 module.exports = {
     plugins: [
         require("autoprefixer"),
-        require("cssnano"),
-        require("postcss-selector-lint")(selectorLintConfig)
+        require("cssnano")
+        // require("postcss-selector-lint")(selectorLintConfig)
     ]
 };
