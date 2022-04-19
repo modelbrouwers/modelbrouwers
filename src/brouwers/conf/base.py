@@ -385,6 +385,8 @@ X_FRAME_OPTIONS = "DENY"
 
 SECURE_SSL_REDIRECT = IS_HTTPS
 
+SILENCED_SYSTEM_CHECKS = ["debug_toolbar.W006"]
+
 #
 # Custom settings
 #
