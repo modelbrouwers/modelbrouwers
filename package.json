@@ -65,6 +65,7 @@
         "@babel/preset-react": "^7.0.0",
         "autoprefixer": "^9.7.6",
         "babel-loader": "^8.0.5",
+        "css-loader": "^6.7.1",
         "gulp": "^4.0.2",
         "gulp-dart-sass": "^1.0.2",
         "gulp-postcss": "^8.0.0",
@@ -73,12 +74,18 @@
         "lodash.capitalize": "^4.2.1",
         "lodash.kebabcase": "^4.1.1",
         "lodash.upperfirst": "^4.3.1",
+        "mini-css-extract-plugin": "^2.6.0",
         "onchange": "^5.1.0",
         "plop": "^2.2.0",
+        "postcss-loader": "^6.2.1",
+        "postcss-selector-lint": "^1.0.2",
         "prettier": "1.15.2",
         "react-intl-translations-manager": "^5.0.3",
+        "sass": "^1.50.1",
+        "sass-loader": "^12.6.0",
         "uglify-js": "^2.4.23",
         "webpack": "^5.72.0",
-        "webpack-cli": "^4.9.2"
+        "webpack-cli": "^4.9.2",
+        "yargs": "^17.4.1"
     }
 }
