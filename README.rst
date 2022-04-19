@@ -96,7 +96,7 @@ Installing ``django`` and the project dependencies
 ==================================================
 All dependencies are in the `requirements` folder, grouped by the environment type (development, staging, production). Install with::
 
-    $ pip install -r requirements/development.txt
+    $ pip install -r requirements/dev.txt
 
 These will be installed in your virtualenv.
 
@@ -114,25 +114,9 @@ Create the settings
 ===================
 
 You need some settings to get the project up. For security reasons, sensitive
-data lives in ``secrets.py``
+data lives in the ``.env`` file.
 
-Copy ``src/conf/settings/secrets.py_example`` to ``secrets.py``.
-
-Edit secrets.py to include your own settings. You can generate a secret key here: `SecretKey`_.
-
-.. _SecretKey: http://www.miniwebtool.com/django-secret-key-generator/
-
-The base file is base.py, and is included by ``settings/development.py`` for instance.
-
-
-All available database backends are in the example file, for local development
-it's easiest if everything is changed to sqlite3 (like the
-``DATABASES['sqlite3']`` example). Both the 'default' and 'mysql' database must
-be present.
-
-In production the Django tables live in a postgresql database, while the phpBB3
-tables live in MySQL. Replicating this environment is probably the most robust
-during development.
+Check ``src/brouwers/conf/base.py`` for available config parameters.
 
 Creating the database
 =====================
@@ -159,6 +143,9 @@ Start it by invoking::
     $ python src/manage.py runserver
 
 Point your browser to http://127.0.0.1:8000. You should see a homepage.
+
+For the frontend tooling, you can invoke ``npm start`` which will watch for file changes
+and compile the bundles.
 
 Setting up local ``phpBB3``-installation
 ========================================

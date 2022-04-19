@@ -26,12 +26,11 @@ RUN pip install -r requirements/production.txt
 
 
 # Stage 2 - Install frontend deps and build assets
-FROM node:13-buster AS frontend-build
+FROM node:16-bullseye-slim AS frontend-build
 
 WORKDIR /app
 
 # copy configuration/build files
-COPY ./build /app/build/
 COPY ./*.json ./*.js ./.babelrc /app/
 
 # install WITH dev tooling
