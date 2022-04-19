@@ -47,7 +47,7 @@ jobs:
           python-version: '3.9'
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: '13'
+          node-version: '16'
 
       - name: Install dependencies
         run: pip install -r requirements/ci.txt
