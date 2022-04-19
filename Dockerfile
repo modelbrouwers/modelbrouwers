@@ -31,7 +31,6 @@ FROM node:16-bullseye-slim AS frontend-build
 WORKDIR /app
 
 # copy configuration/build files
-COPY ./build /app/build/
 COPY ./*.json ./*.js ./.babelrc /app/
 
 # install WITH dev tooling
