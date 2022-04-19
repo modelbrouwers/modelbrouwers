@@ -2,8 +2,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const argv = require("yargs").argv;
 const webpack = require("webpack");
 
-const paths = require("./build/paths");
-
 // Set isProduction based on environment or argv.
 
 let isProduction = process.env.NODE_ENV === "production";
