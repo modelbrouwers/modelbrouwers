@@ -1,5 +1,5 @@
 {% extends "404.html" %}
-{% load i18n static %}
+{% load i18n %}
 
 {% block title %}403 - {% trans "You are banned" %}.{% endblock title %}
 {% block extra_css %}
@@ -21,9 +21,8 @@ span.error              {color: red; font-weight:bold;}
             <tr>
                 <th>{% trans "Ban type" %}</th>
                 <th>{% trans "Reason" %}</th>
-                <th>
+                <th title="{% trans "Starting from this moment, you regain access to the website." %}">
                     {% trans "Expires" %}
-                    <img src="{% static 'images/icons/help.png' %}" width="16" height="16" alt="?" title="{% trans "Starting from this moment, you regain access to the website." %}"/>
                 </th>
             </tr>
             {% for ban in bans %}

@@ -45,7 +45,7 @@
       bottom: 0;
       left: 0;
 
-      @include background(linear-gradient(180deg, transparent, $white));
+      background: linear-gradient(180deg, transparent, $white);
     }
   }
 

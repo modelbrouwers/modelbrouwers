@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import url
+from django.urls import path
 from django.views.generic import RedirectView
 
 
@@ -8,9 +8,9 @@ class ForumRedirectView(RedirectView):
     permanent = True
 
 
-app_name = 'forum_tools'
+app_name = "forum_tools"
 urlpatterns = [
-    url(r'^viewforum.php$', ForumRedirectView.as_view(), name='viewforum'),
-    url(r'^viewtopic.php$', ForumRedirectView.as_view(), name='viewtopic'),
-    url(r'^memberlist.php$', ForumRedirectView.as_view(), name='memberlist'),
+    path("viewforum.php", ForumRedirectView.as_view(), name="viewforum"),
+    path("viewtopic.php", ForumRedirectView.as_view(), name="viewtopic"),
+    path("memberlist.php", ForumRedirectView.as_view(), name="memberlist"),
 ]

@@ -20,10 +20,10 @@ class ForumUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ForumUser
 
-    username = factory.Sequence(lambda n: 'User {n}'.format(n=n))
-    username_clean = factory.PostGenerationMethodCall('_clean_username')
-    user_email = factory.Sequence(lambda n: 'user{n}@domain.com'.format(n=n))
-    user_email_hash = factory.PostGenerationMethodCall('get_email_hash')
+    username = factory.Sequence(lambda n: "User {n}".format(n=n))
+    username_clean = factory.PostGenerationMethodCall("_clean_username")
+    user_email = factory.Sequence(lambda n: "user{n}@domain.com".format(n=n))
+    user_email_hash = factory.PostGenerationMethodCall("get_email_hash")
     user_posts = 10
 
 
@@ -31,14 +31,14 @@ class ForumCategoryFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ForumCategory
 
-    name = factory.Sequence(lambda n: 'Category {0}'.format(n))
+    name = factory.Sequence(lambda n: "Category {0}".format(n))
 
 
 class ForumFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Forum
 
-    forum_name = factory.Sequence(lambda n: 'Forum {0}'.format(n))
+    forum_name = factory.Sequence(lambda n: "Forum {0}".format(n))
 
 
 class TopicFactory(factory.django.DjangoModelFactory):
@@ -46,5 +46,5 @@ class TopicFactory(factory.django.DjangoModelFactory):
         model = Topic
 
     forum = factory.SubFactory(ForumFactory)
-    topic_title = factory.Sequence(lambda n: 'Topic {0}'.format(n))
+    topic_title = factory.Sequence(lambda n: "Topic {0}".format(n))
     create_time = factory.LazyAttribute(lambda *args: int(time.time()))

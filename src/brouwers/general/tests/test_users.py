@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 from django.test import TestCase
 
 from brouwers.general.utils import clean_username, clean_username_fallback, get_username
@@ -31,5 +30,5 @@ class UsernameTest(TestCase):
 
     def test_clean_username(self):
         username = self.object3.user.username
-        self.assertEqual(clean_username(username), u"myʹuser")
+        self.assertEqual(clean_username(username), "myʹuser")
         self.assertEqual(clean_username_fallback(username), "my user")

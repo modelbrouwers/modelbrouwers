@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from ..constants import TWO_DIGITS, CartStatuses
@@ -39,7 +38,6 @@ class Cart(models.Model):
         return sum(product.total for product in self.products.all())
 
 
-@python_2_unicode_compatible
 class CartProduct(models.Model):
     product = models.ForeignKey(
         "Product",

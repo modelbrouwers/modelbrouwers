@@ -1,188 +1,185 @@
+================
+Modelbrouwers.nl
+================
+
+:Version: 2.1.0
+:Source: https://github.com/modelbrouwers/modelbrouwers
+:Keywords: scale modeling, phpBB3, forum, albums, community
+
+Modelbrouwers.nl is a scale modeling community. The website hosts a phpBB3 board,
+albums software and a webshop.
 
 .. image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
     :target: https://github.com/modelbrouwers/modelbrouwers/actions?query=workflow%3A%22Run+CI%22
 
-.. image:: https://coveralls.io/repos/modelbrouwers/modelbrouwers/badge.png
-    :target: https://coveralls.io/r/modelbrouwers/modelbrouwers
-
 .. image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=master
     :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=master
-
-.. image:: https://landscape.io/github/modelbrouwers/modelbrouwers/master/landscape.svg?style=plastic
-    :target: https://landscape.io/github/modelbrouwers/modelbrouwers/master
-    :alt: Code Health
 
 .. image:: https://requires.io/github/modelbrouwers/modelbrouwers/requirements.svg?branch=master
      :target: https://requires.io/github/modelbrouwers/modelbrouwers/requirements/?branch=master
      :alt: Requirements Status
 
-######################################
-Modelbrouwers Apps & phpBB integration
-######################################
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :alt: Code style
+    :target: https://github.com/psf/black
 
-Modelbrouwers.nl is a scale modelling community. We couple a phpBB3 board with
-custom developed apps in `Django`_:
+.. |python-versions| image:: https://img.shields.io/badge/python-3.9-blue.svg
+    :alt: Supported Python versions
 
-* Album software, integrated with the board
-* Groupbuilds managed and integrated in the board
-* Awards, allowing nomination and voting of topics
+
+Introduction
+============
+
+This repository contains the majority of software powering the modelbrouwers.nl domain.
+
+The main parts are the phpBB3 board and various apps built in `Django`_, such as:
+
+* album software, tightly integrated in the phpBB3 board
 * Kit database with reviews
-* Builds overview, add your build topic with metadata to a personal database.
+* Member projects portfolio
 * phpBB3 administration through the Django admin.
 
 .. _Django: https://www.djangoproject.com/
 
-**************************************
+Code organization
+=================
+
+There are three major parts involved in the modelbrouwers.nl website, each backed by
+their own containers and/or databases and interacting with each other.
+
+See ``docker-compose.yml`` to see how the services interact.
+
+phpBB3 forum
+------------
+
+phpBB3 is an open-source forum built in PHP, and our choice or even origin story
+for the community. See the ``Dockerfile-forum`` for more details.
+
+Django project
+--------------
+
+The Django project implements the user accounts, album software and any extra additions
+that are not available in phpBB3. Generally we avoid extensions to phpBB3 due to the
+increase in maintenance and challenges in quality control.
+
+The idea is rather to implement the necessary functionality in the Django backend,
+expose it through the API and consume it with (modern) Javascript in the phpBB3 pages.
+
+The backend build is specified in ``Dockerfile``.
+
+Webshop
+-------
+
+The webshop is (for now) based on OpenCart. Modelbrouwers.nl does use some closed source
+extensions which live in a private repository. This is orchestrated via the
+``opencart-extensions`` git submodule.
+
+You need access to this repository to be able to build the ``Dockerfile-shop`` image,
+which is only given to trusted people directly involved with the project.
+
 Setting up the development environment
-**************************************
+======================================
 
-For new developers, setting up the environment can be overwhelming at first. Don't
-hesitate to contact BBT on the Modelbrouwers.nl IRC chat or forum itself.
+Ensure you have the prerequisites installed on your system:
 
-Installing ``Python``
-=====================
+* PostgreSQL database server (django project)
+* MySQL/MariaDB database server (phpBB3 and django project)
+* Python 3.9
+* NodeJS 16+/npm 8+
 
-Python is the programming language Django is written in. You need Python 3.6 to
-run the project.
+It is recommended to use a virtualenv.
 
-Installing ``virtualenv`` and ``virtualenvwrapper``
-===================================================
-``virtualenv`` creates isolated Python environments on your system, allowing
-multiple versions of libraries to be installed without interfering each other.
+Advanced users may also find inspiration in the Github CI configuration in
+``.github/workflows/ci.yml``.
 
-``virtualenvwrapper`` provides a more intuitive interface to use these environments.
+Installing the dependencies
+---------------------------
 
-Both are optional, but highly recommended!
+Install the backend dependencies using pip:
 
-On Linux, consult distro specific guides. For windows, the installer is available
-on `Pypi`_.
+.. code-block:: bash
 
-.. _Pypi: https://pypi.python.org/pypi/virtualenvwrapper-win
+   pip install -r requirements/dev.txt
 
+Frontend dependencies:
 
-Initializing the project
-========================
-You only need to do this once to configure the project environment.
+.. code-block:: bash
 
-Start with creating a virtualenv::
+   npm install
 
-    $ mkvirtualenv brouwers
+Configuring your environment
+----------------------------
 
-Or with regular ``virtualenv``::
+Configuration is mostly done through environment variables, which you can specify
+in a ``.env`` file in the root of the project/repository.
 
-    $ virtualenv myenv
+For all available settings, check ``src/brouwers/conf/base.py`` and look for the
+``config`` function calls.
 
-And activate it::
+Synchronizing the database(s)
+-----------------------------
 
-    $ workon brouwers
+Run:
 
-(regular virtualenv, Linux/OSX)::
+.. code-block:: bash
 
-    $ source myenv/bin/activate
+    src/manage.py migrate
 
-``cd`` to your project folder, e.g.::
+You should also create a superuser for local development:
 
-    $ cd /home/me/code
+.. code-block:: bash
 
-Fork the repository on GitHub (button is above) and clone the fork with your
-favorite tool, e.g. on the commandline::
-
-    $ git clone https://github.com/<my-github-account>/modelbrouwers.git
-
-or use the Windows Git client (recommended for inexperienced users)
-
-
-Installing ``django`` and the project dependencies
-==================================================
-All dependencies are in the `requirements` folder, grouped by the environment type (development, staging, production). Install with::
-
-    $ pip install -r requirements/development.txt
-
-These will be installed in your virtualenv.
-
-
-Installing front-end dependencies
-=================================
-
-Make sure npm is installed globally. Then run::
-
-    $ npm install
-
-This will install all the necessary front-end dependencies.
-
-Create the settings
-===================
-
-You need some settings to get the project up. For security reasons, sensitive
-data lives in ``secrets.py``
-
-Copy ``src/conf/settings/secrets.py_example`` to ``secrets.py``.
-
-Edit secrets.py to include your own settings. You can generate a secret key here: `SecretKey`_.
-
-.. _SecretKey: http://www.miniwebtool.com/django-secret-key-generator/
-
-The base file is base.py, and is included by ``settings/development.py`` for instance.
-
-
-All available database backends are in the example file, for local development
-it's easiest if everything is changed to sqlite3 (like the
-``DATABASES['sqlite3']`` example). Both the 'default' and 'mysql' database must
-be present.
-
-In production the Django tables live in a postgresql database, while the phpBB3
-tables live in MySQL. Replicating this environment is probably the most robust
-during development.
-
-Creating the database
-=====================
-
-Run::
-
-    $ python src/manage.py migrate
-
-This creates the database if you're running sqlite and runs all required migrations.
-
-Finally, create a superuser account::
-
-    $ python src/manage.py createsuperuser
-
-Fill out the prompts. You now have a user with all permissions.
+   src/manage.py createsuperuser
 
 Starting the development server
-===============================
+-------------------------------
+
+**Frontend**
+
+You can either build the frontend once:
+
+.. code-block:: bash
+
+   npm run build
+
+or have the dev server watch for file changes and rebuild the frontend on every change:
+
+.. code-block:: bash
+
+   npm start
+
+**Backend**
 
 Django comes with a development server included.
 
-Start it by invoking::
+Start it by invoking:
 
-    $ python src/manage.py runserver
+.. code-block:: bash
+
+   src/manage.py runserver
 
 Point your browser to http://127.0.0.1:8000. You should see a homepage.
 
+For the frontend tooling, you can invoke ``npm start`` which will watch for file changes
+and compile the bundles.
+
 Setting up local ``phpBB3``-installation
-========================================
+----------------------------------------
 
 We're currently on the 3.0.x branch. The 3.1.x versions have major backwards
 incompatible changes that our code needs adoption for.
 
-To install phpBB3, you'll need a full fledged PHP stack with a (MySQL) database.
+The easiest way is probably to run this through the docker setup:
 
-The `docker forum setup`_ makes this available using Docker.
+.. code-block:: bash
+
+   docker-compose up phpbb
 
 Tests
-=====
+-----
 
-Run all tests by executing::
+Run all tests by executing:
 
-    $ python src/manage.py test src
+.. code-block:: bash
 
-
-Thanks
-======
-
-Thanks to `browserstack`_ to make cross browser testing a breeze.
-
-.. _browsersstdack: https://www.browserstack.com
-
-.. _docker forum setup: https://github.com/modelbrouwers/forum
+    src/manage.py test src

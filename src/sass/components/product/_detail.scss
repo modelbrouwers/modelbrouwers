@@ -40,7 +40,7 @@
     width: 50px;
     padding: 0 5px;
     border: 1px solid $main-blue;
-    @include border-radius(4px 0 0 4px);
+    border-radius: 4px 0 0 4px;
 
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
@@ -96,7 +96,7 @@
   &__tab-content {
     padding: 10px 20px;
     border: 1px solid #ddd;
-    @include border-radius(0 4px 4px 4px);
+    border-radius: 0 4px 4px 4px;
   }
 
   &__actions {

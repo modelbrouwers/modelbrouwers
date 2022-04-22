@@ -15,13 +15,13 @@ class ActivationEmailTests(TestCase):
     def setUp(self):
         self.forum_user = ForumUserFactory()
         self.user = UserFactory(forumuser_id=self.forum_user.user_id, is_active=False)
-        self.mail = UserCreatedFromForumEmail(**{'user': self.user})
+        self.mail = UserCreatedFromForumEmail(**{"user": self.user})
 
     def test_content(self):
-        """ Test that the expected context is present in the body of the e-mail. """
+        """Test that the expected context is present in the body of the e-mail."""
         token = activation_token_generator.make_token(self.user)
         uidb36 = int_to_base36(self.user.id)
-        url = reverse('users:activate', kwargs={'token': token, 'uidb36': uidb36})
+        url = reverse("users:activate", kwargs={"token": token, "uidb36": uidb36})
 
         text_content = self.mail.get_text_content()
         self.assertIsNotNone(text_content)
@@ -69,11 +69,11 @@ class UserActivationFlowTestCase(TestCase):
         token = activation_token_generator.make_token(user)
         uidb36 = int_to_base36(user.id)
 
-        url = reverse('users:activate', kwargs={'token': token, 'uidb36': uidb36})
+        url = reverse("users:activate", kwargs={"token": token, "uidb36": uidb36})
         self.assertIsNotNone(url)
 
         response = self.client.get(url)
-        dest = reverse('users:profile')
+        dest = reverse("users:profile")
 
         # check that the user is logged in
         user_id = self.client.session.get(SESSION_KEY)
@@ -91,7 +91,7 @@ class UserActivationFlowTestCase(TestCase):
         token = activation_token_generator.make_token(user2)
         uidb36 = int_to_base36(user.id)
 
-        url = reverse('users:activate', kwargs={'token': token, 'uidb36': uidb36})
+        url = reverse("users:activate", kwargs={"token": token, "uidb36": uidb36})
         self.assertIsNotNone(url)
 
         response = self.client.get(url)

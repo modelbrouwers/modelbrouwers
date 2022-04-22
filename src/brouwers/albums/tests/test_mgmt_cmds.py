@@ -14,7 +14,7 @@ class CommandTests(TestCase):
     """
 
     @factory.django.mute_signals(signals.post_save)
-    @override_settings(THUMBNAIL_KVSTORE='sorl.thumbnail.kvstores.dbm_kvstore.KVStore')
+    @override_settings(THUMBNAIL_KVSTORE="sorl.thumbnail.kvstores.dbm_kvstore.KVStore")
     def test_generate_thumbs(self):
         """
         Test that the thumbnails are generated for all photos in the management
@@ -23,8 +23,10 @@ class CommandTests(TestCase):
         PhotoFactory.create_batch(3)
 
         qs = KVStore.objects.all()
-        self.assertEqual(qs.count(), 0)  # verifies that the signal is indeed properly disconnected
+        self.assertEqual(
+            qs.count(), 0
+        )  # verifies that the signal is indeed properly disconnected
 
-        call_command('generate_thumbs')
+        call_command("generate_thumbs")
 
         self.assertGreaterEqual(qs.count(), 9)

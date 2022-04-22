@@ -12,7 +12,7 @@ from brouwers.kits.fields import KitsManyToManyField
 
 
 def get_build_slug(build):
-    return u"{username} {title}".format(
+    return "{username} {title}".format(
         **{"username": build.user.username, "title": build.title}
     )
 
@@ -87,7 +87,7 @@ class Build(models.Model):
 
 class BuildPhoto(models.Model):
     build = models.ForeignKey(
-        Build, verbose_name=_(u"build"), related_name="photos", on_delete=models.CASCADE
+        Build, verbose_name=_("build"), related_name="photos", on_delete=models.CASCADE
     )
     photo = models.OneToOneField(
         "albums.Photo", blank=True, null=True, on_delete=models.CASCADE
@@ -98,8 +98,8 @@ class BuildPhoto(models.Model):
     )
 
     class Meta:
-        verbose_name = _(u"build photo")
-        verbose_name_plural = _(u"build photos")
+        verbose_name = _("build photo")
+        verbose_name_plural = _("build photos")
         ordering = ["order", "id"]
 
     def __str__(self):

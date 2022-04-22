@@ -1,8 +1,13 @@
 from datetime import datetime
 
+from django import forms
 from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
+from django.template.defaultfilters import truncatewords
+from django.utils.html import format_html
 from django.utils.translation import ugettext as _
+
+from brouwers.forum_tools.models import Forum
 
 from .models import Category, Project, Vote
 
@@ -60,11 +65,17 @@ class ProjectAdmin(admin.ModelAdmin):
         "nomination_date",
         "rejected",
         "votes",
+        "topic_id",
     )
     list_filter = (
         "category",
         ("nomination_date", NominationDateFilter),
     )
+    list_select_related = (
+        "category",
+        "last_reviewer",
+    )
+    ordering = ("-nomination_date",)
     search_fields = ("name", "nomination_date", "brouwer")
 
     readonly_fields = ("last_reviewer", "last_review")
@@ -81,10 +92,15 @@ class ProjectAdmin(admin.ModelAdmin):
 
     actions = [reject, mark_reviewed, resync_score]
 
-    def show_url(self, obj):
-        return '<a href="%s">topic</a>' % obj.url
+    def show_url(self, obj) -> str:
+        if not obj.topic:
+            return _("No topic found!")
+        return format_html(
+            '<a href="{}">{}</a>',
+            obj.topic.get_absolute_url(),
+            truncatewords(obj.topic.topic_title, 6),
+        )
 
-    show_url.allow_tags = True
     show_url.short_description = _("Topic url")
 
     def reviewed(self, obj):
@@ -108,4 +124,15 @@ class VoteAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("name", "slug", "forum")
+    search_fields = ("name",)
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        if db_field.name == "forum":
+            field = forms.ModelChoiceField(
+                label=db_field.verbose_name,
+                required=not db_field.blank,
+                queryset=Forum.objects.all(),
+            )
+            return field
+        return super().formfield_for_dbfield(db_field, request, **kwargs)

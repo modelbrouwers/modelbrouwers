@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, ListView, UpdateView
 from django.views.generic.detail import (
     SingleObjectMixin,
-    SingleObjectTemplateResponseMixin
+    SingleObjectTemplateResponseMixin,
 )
 
 from brouwers.utils.views import LoginRequiredMixin
@@ -77,12 +77,12 @@ class MyGroupbuildsListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        self.admin_gbs = user.admin_groupbuilds.all().annotate(
+        self.admin_gbs = user.admin_groupbuilds.annotate(
             n_participants=Count("participants")
-        )
-        self.participant_gbs = user.groupbuilds.all().annotate(
+        ).order_by("id")
+        self.participant_gbs = user.groupbuilds.annotate(
             n_participants=Count("participants")
-        )
+        ).order_by("id")
         return (self.admin_gbs | self.participant_gbs).distinct().order_by("start")
 
     def get_context_data(self, **kwargs):

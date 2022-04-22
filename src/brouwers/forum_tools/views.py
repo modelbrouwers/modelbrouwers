@@ -13,7 +13,7 @@ from brouwers.general.models import UserProfile
 from brouwers.general.utils import (
     clean_username,
     clean_username_fallback,
-    get_username_for_user
+    get_username_for_user,
 )
 
 from .forms import ForumForm, PosterIDsForm
@@ -22,7 +22,7 @@ from .models import (
     ForumLinkBase,
     ForumPostCountRestriction,
     ForumUser,
-    Report
+    Report,
 )
 
 

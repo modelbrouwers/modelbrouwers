@@ -142,8 +142,8 @@ class GroupBuild(models.Model):
     _dimensions = None
 
     class Meta:
-        verbose_name = _(u"group build")
-        verbose_name_plural = _(u"group builds")
+        verbose_name = _("group build")
+        verbose_name_plural = _("group builds")
         ordering = ("-modified", "-created")  # most recently changed first
 
     def save(self, *args, **kwargs):
@@ -172,7 +172,7 @@ class GroupBuild(models.Model):
 
     def get_bbcode(self):
         if self.pk:
-            return u"[gb={0}][/gb]".format(self.pk)
+            return "[gb={0}][/gb]".format(self.pk)
         return None
 
     def set_calendar_dimensions(self, start, end, num_months=6):
@@ -290,8 +290,8 @@ class Participant(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = _(u"group build participant")
-        verbose_name_plural = _(u"group build participants")
+        verbose_name = _("group build participant")
+        verbose_name_plural = _("group build participants")
 
     def __str__(self):
         return _("{build} participant: {user}").format(

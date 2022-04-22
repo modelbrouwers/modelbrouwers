@@ -10,7 +10,7 @@ from .factories import AlbumFactory, PhotoFactory
 class CategoryTests(TestCase):
     def test_str(self):
         album = AlbumFactory.create()
-        self.assertEquals(str(album.category), album.category.name)
+        self.assertEqual(str(album.category), album.category.name)
 
 
 class AlbumTests(TestCase):
@@ -23,15 +23,15 @@ class AlbumTests(TestCase):
         album = AlbumFactory.build(
             title="foo", trash=False, user=self.user, category=None
         )
-        self.assertEquals(album.clean_title, "")
+        self.assertEqual(album.clean_title, "")
         album.save()
-        self.assertEquals(album.clean_title, album.title)
+        self.assertEqual(album.clean_title, album.title)
 
         # trash it
         original_title = album.title
         album.trash = True
         album.save()
-        self.assertEquals(album.clean_title, original_title)
+        self.assertEqual(album.clean_title, original_title)
 
     def test_get_cover(self):
         album = AlbumFactory.create()
@@ -40,21 +40,21 @@ class AlbumTests(TestCase):
         photos = PhotoFactory.create_batch(3, album=album, user=album.user)
         album.cover = photos[0]
 
-        self.assertEquals(album.get_cover(), photos[0])
+        self.assertEqual(album.get_cover(), photos[0])
 
         album.cover = None
         cover = album.get_cover()
         self.assertIn(cover, photos)
-        self.assertEquals(album.cover, cover)
+        self.assertEqual(album.cover, cover)
 
     def test_set_order(self):
         AlbumFactory.create(order=1, user=self.user)
         AlbumFactory.create(order=3, user=self.user)
         album = AlbumFactory.create(user=self.user)
 
-        self.assertEquals(album.order, 1)
+        self.assertEqual(album.order, 1)
         album.set_order()
-        self.assertEquals(album.order, 4)
+        self.assertEqual(album.order, 4)
 
 
 class PhotoTests(TestCase):

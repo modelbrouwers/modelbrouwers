@@ -77,7 +77,7 @@ COPY src/phpbb/phpBB3/includes/auth/auth_django.php \
 
 # Install dependencies with composer
 WORKDIR /var/www/html/phpBB3/src
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
 RUN composer install
 

@@ -8,7 +8,7 @@ $ps-bar-hover: $main-green;
 $ps-rail-width: 8px;
 $ps-rail-offset: 3px;
 
-
+// Scrollbar mixins
 @mixin ps-dimensions($dimension, $width: $ps-rail-width, $offset: $ps-rail-offset) {
   $width-property: null;
   $offset-property: null;
@@ -26,7 +26,6 @@ $ps-rail-offset: 3px;
   #{$width-property}: $width;
   #{$offset-property}: $offset;
 }
-
 
 .ps {
   @each $dimension in x, y {

@@ -11,15 +11,15 @@ from django.utils.translation import get_language, ugettext as _
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 
+from django_sendfile import sendfile
 from extra_views import InlineFormSetFactory, NamedFormsetsMixin, UpdateWithInlinesView
-from sendfile import sendfile
 
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
 from brouwers.general.models import (
     RegistrationAttempt,
     RegistrationQuestion,
-    UserProfile
+    UserProfile,
 )
 from brouwers.utils.views import LoginRequiredMixin
 

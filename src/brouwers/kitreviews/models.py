@@ -1,10 +1,7 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from djchoices import ChoiceItem, DjangoChoices
@@ -21,7 +18,6 @@ MAX_RATING = 100
 MIN_RATING = 0
 
 
-@python_2_unicode_compatible
 class KitReview(models.Model):
     """
     Model holding the review information for a model kit
@@ -122,7 +118,6 @@ class VoteTypes(DjangoChoices):
     negative = ChoiceItem("-", label="-")
 
 
-@python_2_unicode_compatible
 class KitReviewVote(models.Model):
     """
     Model holding the votes for kit reviews, showing the quality of the review
@@ -145,7 +140,6 @@ class KitReviewVote(models.Model):
         }
 
 
-@python_2_unicode_compatible
 class KitReviewProperty(models.Model):
     """
     Model containing the possible rating properties for a review

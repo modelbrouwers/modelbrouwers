@@ -8,7 +8,7 @@ from ..models import Build, BuildPhoto
 class BuildFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
-    title = factory.Sequence(lambda n: 'Build {n}'.format(n=n))
+    title = factory.Sequence(lambda n: "Build {n}".format(n=n))
 
     class Meta:
         model = Build

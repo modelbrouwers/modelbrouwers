@@ -11,12 +11,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         os.chdir(settings.PROJECT_DIR)
-        call_command('compilemessages')
+        call_command("compilemessages")
 
-        dirs = os.listdir(os.path.join(settings.PROJECT_DIR, 'brouwers'))
+        dirs = os.listdir(os.path.join(settings.PROJECT_DIR, "brouwers"))
         for app in dirs:
-            app_path = os.path.join(settings.PROJECT_DIR, 'brouwers', app)
+            app_path = os.path.join(settings.PROJECT_DIR, "brouwers", app)
             locale_path = os.path.join(app_path, "locale")
-            if(os.path.exists(locale_path)):
+            if os.path.exists(locale_path):
                 os.chdir(app_path)
-                call_command('compilemessages')
+                call_command("compilemessages")

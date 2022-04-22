@@ -8,12 +8,12 @@ from ..models import (
     MAX_RATING,
     MIN_RATING,
     KitReview,
-    KitReviewPropertyRating
+    KitReviewPropertyRating,
 )
 from .factories import (
     KitReviewFactory,
     KitReviewPropertyFactory,
-    KitReviewPropertyRatingFactory
+    KitReviewPropertyRatingFactory,
 )
 
 

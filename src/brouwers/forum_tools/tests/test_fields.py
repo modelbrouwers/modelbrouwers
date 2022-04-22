@@ -8,31 +8,30 @@ from .factory_models import ForumFactory, TopicFactory
 
 
 class FormFieldTests(SimpleTestCase):
-
     def setUp(self):
         self.data = {
-            'forum_id': '10',
-            'forum': 'http://www.example.com/forum/viewforum.php?f=32',
-            'forum2': 'http://www.example.com/forum/viewforum.php?forum=32',
-            'topic_id': '1',
-            'topic': 'http://www.example.com/forum/viewtopic.php?f=32&t=1',
-            'topic2': 'http://www.example.com/forum/viewtopic.php?f=32&topic=1',
+            "forum_id": "10",
+            "forum": "http://www.example.com/forum/viewforum.php?f=32",
+            "forum2": "http://www.example.com/forum/viewforum.php?forum=32",
+            "topic_id": "1",
+            "topic": "http://www.example.com/forum/viewtopic.php?f=32&t=1",
+            "topic2": "http://www.example.com/forum/viewtopic.php?f=32&topic=1",
         }
         self.forum_field = ForumIDField()
         self.topic_field = TopicIDField()
-        self.invalid_url = 'http://example.com/'
-        self.invalid_url2 = 'gibberish'
+        self.invalid_url = "http://example.com/"
+        self.invalid_url2 = "gibberish"
 
     def test_forum_field(self):
 
-        value = self.forum_field.to_python(self.data['forum_id'])
+        value = self.forum_field.to_python(self.data["forum_id"])
         self.assertEqual(value, 10)
 
-        value = self.forum_field.to_python(self.data['forum'])
+        value = self.forum_field.to_python(self.data["forum"])
         self.assertEqual(value, 32)
 
-        forum_field2 = ForumIDField(urlparam='forum')
-        value = forum_field2.to_python(self.data['forum2'])
+        forum_field2 = ForumIDField(urlparam="forum")
+        value = forum_field2.to_python(self.data["forum2"])
         self.assertEqual(value, 32)
 
         with self.assertRaises(ValidationError):
@@ -43,14 +42,14 @@ class FormFieldTests(SimpleTestCase):
 
     def test_topic_field(self):
 
-        value = self.topic_field.to_python(self.data['topic_id'])
+        value = self.topic_field.to_python(self.data["topic_id"])
         self.assertEqual(value, 1)
 
-        value = self.topic_field.to_python(self.data['topic'])
+        value = self.topic_field.to_python(self.data["topic"])
         self.assertEqual(value, 1)
 
-        topic_field2 = TopicIDField(urlparam='topic')
-        value = topic_field2.to_python(self.data['topic2'])
+        topic_field2 = TopicIDField(urlparam="topic")
+        value = topic_field2.to_python(self.data["topic2"])
         self.assertEqual(value, 1)
 
         with self.assertRaises(ValidationError):
@@ -63,22 +62,23 @@ class FormFieldTests(SimpleTestCase):
         """
         Test regression: [url][/url] tags show up in the querystring.
         """
-        invalid_url = '[url]http://www.example.com/forum/viewtopic.php?f=32&t=1[/url]'
+        invalid_url = "[url]http://www.example.com/forum/viewtopic.php?f=32&t=1[/url]"
         with self.assertRaises(ValidationError) as cm:
             self.topic_field.to_python(invalid_url)
-        self.assertEqual(cm.exception.code, 'invalid_url')
+        self.assertEqual(cm.exception.code, "invalid_url")
 
 
 class ModelFieldTests(TestCase):
-
     def setUp(self):
         self.forum = ForumFactory.create()
         self.topic1 = TopicFactory.create()
         self.topic2 = TopicFactory.create(forum=self.forum)
 
-        max_forum = Forum.objects.values_list('pk', flat=True).order_by('-pk')[0]
+        max_forum = Forum.objects.values_list("pk", flat=True).order_by("-pk")[0]
 
-        self.mm1 = MyModel.objects.create(forum_id=self.forum.pk, forum2_id=max_forum+1)
+        self.mm1 = MyModel.objects.create(
+            forum_id=self.forum.pk, forum2_id=max_forum + 1
+        )
         # tests creation with nullable fields
         self.mm2 = MyModel.objects.create(forum_id=1, forum2_id=None)
         self.mm3 = MyModel.objects.create(forum_id=1)

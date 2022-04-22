@@ -1,11 +1,8 @@
-from __future__ import unicode_literals
-
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.templatetags.static import static
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -19,7 +16,6 @@ MAX_RATING = 5
 MIN_RATING = 1
 
 
-@python_2_unicode_compatible
 class Product(models.Model):
     name = models.CharField(_("name"), max_length=200)
     slug = AutoSlugField(_("slug"), max_length=200, unique=True, populate_from="name")
@@ -102,7 +98,6 @@ class ProductImage(models.Model):
         verbose_name_plural = _("product images")
 
 
-@python_2_unicode_compatible
 class ProductBrand(models.Model):
     name = models.CharField(_("name"), max_length=30)
     slug = AutoSlugField(_("slug"), unique=True, populate_from="name")
@@ -118,7 +113,6 @@ class ProductBrand(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class ProductReview(models.Model):
     product = models.ForeignKey(
         "Product",
@@ -145,7 +139,6 @@ class ProductReview(models.Model):
         }
 
 
-@python_2_unicode_compatible
 class ProductManufacturer(models.Model):
     name = models.CharField(_("manufacturer"), max_length=30)
 

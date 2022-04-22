@@ -99,8 +99,8 @@ class PhotoViewsetTests(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["width"], 50)
         self.assertEqual(response.data["height"], 100)
-        img = Image.open(photo.image.path)
-        self.assertEqual(img.size, (50, 100))
+        with Image.open(photo.image.path) as img:
+            self.assertEqual(img.size, (50, 100))
 
         response = self.client.patch(
             detail_url, data={"direction": "ccw"}
@@ -108,8 +108,8 @@ class PhotoViewsetTests(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["width"], 100)
         self.assertEqual(response.data["height"], 50)
-        img = Image.open(photo.image.path)
-        self.assertEqual(img.size, (100, 50))
+        with Image.open(photo.image.path) as img:
+            self.assertEqual(img.size, (100, 50))
 
     def test_invalid_rotate(self):
         photo = PhotoFactory.create(

@@ -2,7 +2,7 @@
 .tt-menu {
   background-color: white;
   @include raised(1);
-  @include border-radius(5px);
+  border-radius: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
 

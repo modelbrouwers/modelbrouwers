@@ -1,6 +1,8 @@
+@use "sass:math";
+
 /* Lightbox */
 $lightbox-height: 90vh;
-$lightbox-margin: (100vh - $lightbox-height)/2;
+$lightbox-margin: math.div((100vh - $lightbox-height), 2);
 
 .lightbox {
 
@@ -10,7 +12,7 @@ $lightbox-margin: (100vh - $lightbox-height)/2;
   }
 
   .modal-content {
-    @include border-radius(0);
+    border-radius: 0;
     height: $lightbox-height;
     margin-top: $lightbox-margin;
     margin-bottom: $lightbox-margin;
@@ -24,13 +26,13 @@ $lightbox-margin: (100vh - $lightbox-height)/2;
 
   .fa-spinner {
     line-height: $lightbox-height;
-    @include opacity(0.75);
+    opacity: 0.75;
     @include spinner();
   }
 
   .carousel {
     background-color: rgba($black, 0.95);
-    padding: $lightbox-margin/2 0;
+    padding: math.div($lightbox-margin, 2) 0;
   }
 
   .item {

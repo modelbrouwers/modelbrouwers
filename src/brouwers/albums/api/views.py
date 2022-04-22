@@ -15,7 +15,7 @@ from .serializers import (
     ForumPhotoSerializer,
     PhotoSerializer,
     PreferencesSerializer,
-    UploadPhotoSerializer
+    UploadPhotoSerializer,
 )
 
 

@@ -1,0 +1,9 @@
+POINTS_FIRST = 3
+POINTS_SECOND = 2
+POINTS_THIRD = 1
+
+FIELD_2_POINTS = {
+    "project1": POINTS_FIRST,
+    "project2": POINTS_SECOND,
+    "project3": POINTS_THIRD,
+}

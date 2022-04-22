@@ -1,6 +1,6 @@
 .button {
 
-  @include border-radius(4px);
+  border-radius: 4px;
   border: 1px solid transparent;
 
   display: inline-block;
@@ -58,15 +58,20 @@
   }
 
   &--fade {
-    @include opacity(0.7);
-    @include transition(opacity 0.5s ease);
+    opacity: 0.7;
+    transition: opacity 0.5s ease;
     font-weight: normal;
 
     &:hover,
     &:active,
     &:focus {
-      @include opacity(1);
+      opacity: 1;
     }
+  }
+
+  &--vertical-center {
+     display: inline-flex;
+     align-items: center;
   }
 
   &__icon {
@@ -80,7 +85,7 @@
     padding: 0;
     -webkit-appearance: none;
     border: none;
-    @include border-radius(4px);
+    border-radius: 4px;
 
     &:hover {
       background: darken($main-orange, 10%);
@@ -88,7 +93,7 @@
   }
 
   &--order {
-    @include border-radius(0 4px 4px 0);
+    border-radius: 0 4px 4px 0;
   }
 
   &__add {

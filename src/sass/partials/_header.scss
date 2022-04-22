@@ -15,7 +15,7 @@
 
 body.fade-small-logo .navbar-brand img {
   @include bw();
-  @include opacity(0.7);
+  opacity: 0.7;
 }
 
 @media (min-width:768px) { // show the tabs
@@ -34,8 +34,8 @@ body.fade-small-logo .navbar-brand img {
   }
   .sprue-tabs {
     // hide all the default styling from bootstrap
-    @include background($nav-gradient);
-    @include box-shadow(none);
+    background: $nav-gradient;
+    box-shadow: none;
     border: none;
     min-height: 35px;
     max-height: 35px;
@@ -48,11 +48,12 @@ body.fade-small-logo .navbar-brand img {
       padding: 3px 20px 6px;
       margin: 5px 10px 0;
       font-size: 115%;
-      @include border-top-radius(10px);
-      @include text-shadow(#AAA 1px 1px 3px, #AAA 1px 1px 1px, #BBB 1px 1px 0, #BBB 0 0 1px);
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      text-shadow: #AAA 1px 1px 3px, #AAA 1px 1px 1px, #BBB 1px 1px 0, #BBB 0 0 1px;
       border: solid 1px #c8c8c8;
       border-bottom: none;
-      @include box-shadow(#AAA 0 -1px 1px -1px, 3px 0 4px rgba(0,0,0,0.1), inset $broken-white 0 2px 1px);
+      box-shadow: #AAA 0 -1px 1px -1px, 3px 0 4px rgba(0,0,0,0.1), inset $broken-white 0 2px 1px;
       overflow: hidden; // cut off bottom shadow
       &:hover, &:focus, &:active, &.active {
         background-color: $nav-tab-highlight;
@@ -85,9 +86,9 @@ body.fade-small-logo .navbar-brand img {
   }
   li.tab {
     border: solid 1px $nav-tab;
-    @include background($nav-gradient);
+    background: $nav-gradient;
     &:hover, &.active, &:focus, &:active {
-      @include background($nav-gradient-reverse);
+      background: $nav-gradient-reverse;
     }
   }
 }
@@ -100,7 +101,7 @@ body.fade-small-logo .navbar-brand img {
   #shop-banner {
     text-align: center;
     padding: 5px 15px 0;
-    @include box-shadow(inset #c8c8c8 0 5px 5px -5px);
+    box-shadow: inset #c8c8c8 0 5px 5px -5px;
     margin: 0 -15px;
     font-size: 0;
     li {
@@ -197,7 +198,7 @@ header {
     top: auto;
     right: 0;
     left: auto;
-    @include border-radius(3px);
+    border-radius: 3px;
     background-color: $main-blue;
     padding: 0;
 

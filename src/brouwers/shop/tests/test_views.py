@@ -8,8 +8,8 @@ from django_webtest import WebTest
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
 
-from ..models import ProductReview
-from .factories import CartFactory, CategoryFactory, ProductFactory
+from ..models import Category, ProductReview
+from .factories import CartFactory, ProductFactory
 
 
 class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
@@ -66,7 +66,7 @@ class BreadcrumbsTests(TestCase):
         tpl = "{% include 'shop/includes/breadcrumbs.html' with curr_node=node%}"
         template = self._load_template(tpl)
 
-        root = CategoryFactory.create().add_root(name="Root")
+        root = Category.add_root(name="Root")
         child1 = root.add_child(name="Child1")
         child1.save()
         child2 = child1.add_child(name="Child2")
@@ -117,12 +117,12 @@ class CartViewTests(WebTest):
         Asserts that cart detail view is properly loaded and available only to the cart user
         """
         cart_page = self.app.get(self.url, user=self.user)
-        self.assertEquals(cart_page.status_code, 200)
+        self.assertEqual(cart_page.status_code, 200)
         cart = cart_page.context["cart"]
-        self.assertEquals(cart, self.cart)
+        self.assertEqual(cart, self.cart)
 
         # Check that other users can't view the same cart
 
         second_user = UserFactory.create()
         cart_page = self.app.get(self.url, user=second_user, expect_errors=True)
-        self.assertEquals(cart_page.status_code, 404)
+        self.assertEqual(cart_page.status_code, 404)

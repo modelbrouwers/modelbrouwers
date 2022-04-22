@@ -1,5 +1,6 @@
 import logging
 import os
+
 # import random
 import zipfile
 
@@ -8,7 +9,7 @@ from django.db.models import F, Q
 from django.views.generic import DetailView, ListView
 from django.views.generic.detail import SingleObjectMixin
 
-from sendfile import sendfile
+from django_sendfile import sendfile
 
 # from brouwers.awards.models import Nomination
 from brouwers.utils.views import LoginRequiredMixin

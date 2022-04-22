@@ -4,7 +4,6 @@ from sniplates.templatetags.sniplates import FieldExtractor
 
 
 class ModelKitExtractor(FieldExtractor):
-
     @property
     def selected_kits(self):
         queryset = self.form_field.field.queryset
@@ -17,25 +16,24 @@ class ModelKitExtractor(FieldExtractor):
         initial = self.form_field.form.initial.get(self.form_field.name)
         if initial:
             return str(initial.brand_id)
-        return ''
+        return ""
 
     @cached_property
     def selected_scale(self):
         initial = self.form_field.form.initial.get(self.form_field.name)
         if initial:
             return str(initial.scale_id)
-        return ''
+        return ""
 
     @cached_property
     def selected_name(self):
         initial = self.form_field.form.initial.get(self.form_field.name)
         if initial:
             return initial.name
-        return ''
+        return ""
 
 
 class MultiModelKitExtractor(FieldExtractor):
-
     @property
     def selected_kits(self):
         queryset = self.form_field.field.queryset

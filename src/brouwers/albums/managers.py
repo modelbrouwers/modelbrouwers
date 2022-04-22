@@ -27,7 +27,7 @@ def toggle_ordering(field):
     if field.startswith("-"):
         return field[1:]
     else:
-        return u"-%s" % field
+        return "-%s" % field
 
 
 class PhotoManager(models.Manager):

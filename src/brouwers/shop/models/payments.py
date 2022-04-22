@@ -1,6 +1,5 @@
 from decimal import Decimal
 
-from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.templatetags.l10n import localize
 from django.utils.translation import ugettext_lazy as _
@@ -60,7 +59,7 @@ class Payment(models.Model):
         null=True,
         blank=True,
     )
-    data = JSONField(
+    data = models.JSONField(
         _("payment data"),
         default=dict,
         blank=True,

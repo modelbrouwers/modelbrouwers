@@ -1,19 +1,15 @@
-from __future__ import unicode_literals
-
 import uuid
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
 from djchoices import ChoiceItem, DjangoChoices
 
 
-@python_2_unicode_compatible
 class Brand(models.Model):
     """
     Model for kit manufacturer.
@@ -44,7 +40,6 @@ class Brand(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Scale(models.Model):
     """
     Possible scales a model kit can have
@@ -81,7 +76,6 @@ def get_kit_slug(instance):
     return "{0} {1}".format(instance.name, instance.brand.name)
 
 
-@python_2_unicode_compatible
 class ModelKit(models.Model):
     """
     Model to hold scale model kit data.
@@ -167,7 +161,6 @@ def get_uuid():
     return str(uuid.uuid4())
 
 
-@python_2_unicode_compatible
 class Boxart(models.Model):
     """
     Model to store temporary boxart image uploads.

@@ -9,10 +9,10 @@ register = template.Library()
 @register.filter(is_safe=True)
 @stringfilter
 def forum_name(value):
-    """ Translates username to forumname """
+    """Translates username to forumname"""
     return get_forumname_for_username(value)
 
 
-@register.filter('idfield_url')
+@register.filter("idfield_url")
 def idfield_url(widget, value):
     return widget.get_url(value)

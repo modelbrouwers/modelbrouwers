@@ -10,7 +10,7 @@ from extra_views import (
     CreateWithInlinesView,
     InlineFormSetFactory,
     NamedFormsetsMixin,
-    UpdateWithInlinesView
+    UpdateWithInlinesView,
 )
 
 from brouwers.forum_tools.models import ForumUser

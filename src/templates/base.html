@@ -12,8 +12,7 @@
         <link href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
         <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
-        <link href="{% static 'css/screen.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
-        <link href="{% static 'css/print.css' %}" media="print" rel="stylesheet" type="text/css" />
+        <link href="{% static 'bundles/screen-css.css' %}" media="screen, projection" rel="stylesheet" type="text/css" />
         {% block extrastyle %}{% endblock %}
         <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
     </head>
@@ -86,7 +85,7 @@
         {% block modals %} {% endblock %}
 
         {% include "includes/google-analytics.html" %}
-        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static 'bundles/main.js' %}"></script>
         {% block extrascript %}{% endblock %}
 
     </body>

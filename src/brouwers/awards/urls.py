@@ -1,22 +1,24 @@
-from django.conf.urls import url
-from django.views.generic.base import TemplateView
+from django.urls import path
+from django.views.generic import RedirectView
 
-from .views import (
-    CategoryListView, NominationListView, NominationView, VoteView,
-    WinnersView, scores, vote_overview
-)
+from .views import WinnersView
 
-# app_name = 'awards'
+app_name = "awards"
+
 urlpatterns = [
-    url(r'^vote/overview/$', vote_overview),
-    url(r'^vote/scores/$', scores),
-] + [
-    url(r'^$', TemplateView.as_view(template_name='awards/base.html'), name='awards_index'),
-    url(r'^categories/$', CategoryListView.as_view(), name='category-list'),
-    url(r'^categories/(?P<pk>\d+)/$', NominationListView.as_view()),
-    url(r'^categories/(?P<slug>[\w0-9\-_]+)/$', NominationListView.as_view(), name='nominations-list'),
-    url(r'^nomination/', NominationView.as_view(), name='add_nomination'),
-    url(r'^voting/', VoteView.as_view(), name='voting'),
-    url(r'^winners/(?P<year>\d{4})/$', WinnersView.as_view(), name='winners'),
-    url(r'^winners/$', WinnersView.as_view(), name='winners'),
+    path(
+        "",
+        RedirectView.as_view(pattern_name="awards:winners", permanent=False),
+        name="index",
+    ),
+    path("hall-of-fame/", WinnersView.as_view(), name="winners"),
+    path("hall-of-fame/<int:year>/", WinnersView.as_view(), name="winners"),
+    # old redirect URLs, keep them for SEO
+    path(
+        "winners/", RedirectView.as_view(pattern_name="awards:winners", permanent=True)
+    ),
+    path(
+        "winners/<int:year>/",
+        RedirectView.as_view(pattern_name="awards:winners", permanent=True),
+    ),
 ]
