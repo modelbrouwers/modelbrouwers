@@ -24,6 +24,8 @@ brotli==1.0.9
     # via
     #   -r requirements/ci.txt
     #   fonttools
+bump2version==1.0.1
+    # via -r requirements/dev.in
 certifi==2021.10.8
     # via
     #   -r requirements/ci.txt
