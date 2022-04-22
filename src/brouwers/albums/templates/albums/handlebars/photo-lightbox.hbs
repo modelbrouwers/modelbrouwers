@@ -1,22 +1,21 @@
-{% load i18n handlebars %}
-{% hbs_verbatim %}
+{% load i18n %}
 <div class="modal-body">
 
   <div id="carousel-photo" class="carousel slide" data-ride="carousel" data-interval="false">
     <!-- Indicators -->
     <ol class="carousel-indicators">
-      {{#each photos}}
-        <li data-target="#carousel-photo" data-slide-to="{{@index}}" {{#if state.selected}}class="active"{{/if}}></li>
-      {{/each}}
+      {% templatetag openvariable %}#each photos{% templatetag closevariable %}
+        <li data-target="#carousel-photo" data-slide-to="{% templatetag openvariable %}@index{% templatetag closevariable %}" {% templatetag openvariable %}#if state.selected{% templatetag closevariable %}class="active"{% templatetag openvariable %}/if{% templatetag closevariable %}></li>
+      {% templatetag openvariable %}/each{% templatetag closevariable %}
     </ol>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-      {{#each photos}}
-      <div class="item {{#if state.selected}}active{{/if}}" data-slide-number="{{@index}}">
-        <img src="{{image.large}}" class="img-responsive" alt="">
+      {% templatetag openvariable %}#each photos{% templatetag closevariable %}
+      <div class="item {% templatetag openvariable %}#if state.selected{% templatetag closevariable %}active{% templatetag openvariable %}/if{% templatetag closevariable %}" data-slide-number="{% templatetag openvariable %}@index{% templatetag closevariable %}">
+        <img src="{% templatetag openvariable %}image.large{% templatetag closevariable %}" class="img-responsive" alt="">
       </div>
-      {{/each}}
+      {% templatetag openvariable %}/each{% templatetag closevariable %}
     </div>
 
     <!-- Controls -->
@@ -31,4 +30,3 @@
   </div>
 
 </div>
-{% hbs_endverbatim %}

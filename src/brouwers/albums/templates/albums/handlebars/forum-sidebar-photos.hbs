@@ -1,21 +1,17 @@
-{% load i18n handlebars %}
-{% hbs_verbatim %}
-
-{{#each photos}}
+{% load i18n %}
+{% templatetag openvariable %}#each photos{% templatetag closevariable %}
     <li>
-        <figure class="album-photo" data-id="{{ id }}">
-            <a href="#"><img src="{{ image.thumb }}" alt="{{ description }}"></a>
-            <figcaption>{{ description }}</figcaption>
+        <figure class="album-photo" data-id="{% templatetag openvariable %} id {% templatetag closevariable %}">
+            <a href="#"><img src="{% templatetag openvariable %} image.thumb {% templatetag closevariable %}" alt="{% templatetag openvariable %} description {% templatetag closevariable %}"></a>
+            <figcaption>{% templatetag openvariable %} description {% templatetag closevariable %}</figcaption>
         </figure>
     </li>
-{{else}}
+{% templatetag openvariable %}else{% templatetag closevariable %}
     <li>
         {% url 'albums:upload' as upload_url %}
         {% blocktrans %}
             There are no photo's in this album yet. You can upload some
-            <a href="{{ upload_url }}" target="_blank">here</a>.
+            <a href="{{upload_url}}" target="_blank">here</a>.
         {% endblocktrans %}
     </li>
-{{/each}}
-
-{% hbs_endverbatim %}
+{% templatetag openvariable %}/each{% templatetag closevariable %}

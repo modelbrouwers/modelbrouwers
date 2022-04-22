@@ -1,6 +1,4 @@
-{% load i18n handlebars %}
-{% hbs_verbatim %}
-
+{% load i18n %}
 <div id="photo-sidebar" class="closed box-sizing">
     <div class="pull-right">
         <div class="open-close" data-close="#photo-sidebar" id="close-sidebar">
@@ -14,9 +12,9 @@
             <h2>{% trans "Albums" %}</h2>
 
             <select name="album">
-                {{#each albums}}
-                    <option value="{{id}}">{{title}}</option>
-                {{/each}}
+                {% templatetag openvariable %}#each albums{% templatetag closevariable %}
+                    <option value="{% templatetag openvariable %}id{% templatetag closevariable %}">{% templatetag openvariable %}title{% templatetag closevariable %}</option>
+                {% templatetag openvariable %}/each{% templatetag closevariable %}
             </select>
         </section>
 
@@ -39,5 +37,3 @@
 <div class="lid open-close" data-open="#photo-sidebar">
     <i class="fa fa-camera fa-rotate-270 fa-2x"></i>
 </div>
-
-{% hbs_endverbatim %}
