@@ -1,10 +1,8 @@
-from html.parser import HTMLParser
+import html
 
 from rest_framework import fields, serializers
 
 from ..models import Forum, Topic
-
-html_parser = HTMLParser()
 
 
 class IDFieldSerializer(serializers.Serializer):
@@ -12,7 +10,7 @@ class IDFieldSerializer(serializers.Serializer):
     url = fields.URLField(source="get_absolute_url", read_only=True)
 
     def obj_title(self, obj):
-        return html_parser.unescape(str(obj))
+        return html.unescape(str(obj))
 
 
 class ForumSerializer(serializers.ModelSerializer):
@@ -32,4 +30,4 @@ class TopicSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def obj_topic_title(self, obj):
-        return html_parser.unescape(obj.topic_title)
+        return html.unescape(obj.topic_title)

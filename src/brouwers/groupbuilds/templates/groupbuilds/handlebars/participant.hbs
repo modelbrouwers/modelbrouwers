@@ -1,5 +1,4 @@
-{% load i18n handlebars %}
-{% hbs_verbatim %}
+{% load i18n %}
 
 <script>
     var dialogTranslations = {
@@ -9,28 +8,26 @@
     };
 </script>
 
-<h2>{{build.theme}}</h2>
+<h2>{% templatetag openvariable %}build.theme{% templatetag closevariable %}</h2>
 <p>{% trans "You've just created a new topic in this groupbuild. Would you like to add it to the groupbuild's participants list?" %}</p>
 <br />
 <form id="add-participant" method="post">
-    {{#if participant}}
-    <input type="hidden" name="id" value="{{participant.id}}" />
-    {{/if}}
-    <input type="hidden" name="groupbuild" value="{{build.id}}" />
-    <input type="hidden" name="topic_id" value="{{topic.topic_id}}" />
+    {% templatetag openvariable %}#if participant{% templatetag closevariable %}
+    <input type="hidden" name="id" value="{% templatetag openvariable %}participant.id{% templatetag closevariable %}" />
+    {% templatetag openvariable %}/if{% templatetag closevariable %}
+    <input type="hidden" name="groupbuild" value="{% templatetag openvariable %}build.id{% templatetag closevariable %}" />
+    <input type="hidden" name="topic_id" value="{% templatetag openvariable %}topic.topic_id{% templatetag closevariable %}" />
     <p>
         <label>
             {% filter capfirst %}{% trans "model name" %}{% endfilter %}
-            <input type="text" name="model_name" value="{{#if participant}}{{participant.model_name}}{{else}}{{topic.topic_title}}{{/if}}" />
+            <input type="text" name="model_name" value="{% templatetag openvariable %}#if participant{% templatetag closevariable %}{% templatetag openvariable %}participant.model_name{% templatetag closevariable %}{% templatetag openvariable %}else{% templatetag closevariable %}{% templatetag openvariable %}topic.topic_title{% templatetag closevariable %}{% templatetag openvariable %}/if{% templatetag closevariable %}" />
         </label>
-        {{#if errors.model_name}}
+        {% templatetag openvariable %}#if errors.model_name{% templatetag closevariable %}
         <ul class="errors">
-            {{#each errors.model_name}}
-                <li class="error">{{this}}</li>
-            {{/each}}
+            {% templatetag openvariable %}#each errors.model_name{% templatetag closevariable %}
+                <li class="error">{% templatetag openvariable %}this{% templatetag closevariable %}</li>
+            {% templatetag openvariable %}/each{% templatetag closevariable %}
         </ul>
-        {{/if}}
+        {% templatetag openvariable %}/if{% templatetag closevariable %}
     </p>
 </form>
-
-{% hbs_endverbatim %}
