@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
+import PerfectScrollbar from "perfect-scrollbar";
 
 const SideBar = () => {
     const [closed, setClosed] = useState(true);
+    const containerRef = useRef(null);
     const className = classNames("box-sizing", {
         closed: closed,
         open: !closed
     });
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        const container = containerRef.current;
+        if (!container._psInstance) {
+            container._psInstance = new PerfectScrollbar(container);
+        }
+        const ps = container._psInstance;
+        return () => {
+            if (ps) {
+                ps.destroy();
+                delete container._psInstance;
+            }
+        };
+    });
+
     return (
         <>
-            <div id="photo-sidebar" className={className}>
+            <div id="photo-sidebar" className={className} ref={containerRef}>
                 <div className="pull-right">
                     <div
                         className="open-close"
@@ -55,7 +73,7 @@ const SideBar = () => {
                 </div>
             </div>
 
-            <div className="lid open-close" onClick={() => setClosed(false)}>
+            <div className="lid" onClick={() => setClosed(false)}>
                 <i className="fa fa-camera fa-rotate-270 fa-2x" />
             </div>
         </>
