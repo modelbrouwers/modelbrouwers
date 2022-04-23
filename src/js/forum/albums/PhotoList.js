@@ -16,7 +16,6 @@ const PhotoPreview = ({ thumbnailUrl, description = "", onSelect }) => {
 };
 
 PhotoPreview.propTypes = {
-    id: PropTypes.number.isRequired,
     thumbnailUrl: PropTypes.string.isRequired,
     description: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
@@ -58,7 +57,17 @@ const PhotoList = ({ photos = null }) => {
 };
 
 PhotoList.propTypes = {
-    photos: PropTypes.arrayOf(PropTypes.instanceOf(Photo)),
+    photos: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            description: PropTypes.string.isRequired,
+            image: PropTypes.shape({
+                thumb: PropTypes.string.isRequired,
+                large: PropTypes.string.isRequired,
+            }).isRequired,
+            user: PropTypes.number.isRequired,
+        })
+    ),
 };
 
 export default PhotoList;

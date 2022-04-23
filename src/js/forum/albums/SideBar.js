@@ -8,6 +8,7 @@ import useAsync from "react-use/esm/useAsync";
 import Paginator from "../../scripts/paginator";
 import AlbumSelect from "./AlbumSelect";
 import PhotoList from "./PhotoList";
+import PhotosPagination from "./PhotosPagination";
 
 const usePerfectScrollbar = () => {
     const containerRef = useRef(null);
@@ -29,7 +30,7 @@ const usePerfectScrollbar = () => {
 };
 
 const useLoadPhotos = (album, page) => {
-    const paginator = new Paginator();
+    const paginatorRef = useRef(new Paginator());
     const {
         loading,
         error,
@@ -37,15 +38,17 @@ const useLoadPhotos = (album, page) => {
     } = useAsync(async () => {
         const filters = page ? { page } : {};
         const photosResponse = await album.getPhotos(filters);
+        const paginator = new Paginator();
         paginator.paginate(photosResponse, page);
+        paginatorRef.current = paginator;
         return photosResponse.results;
-    }, [album, page]);
+    }, [album, page, paginatorRef]);
 
     return {
         loading,
         error,
         photos,
-        paginator,
+        paginatorRef,
     };
 };
 
@@ -55,7 +58,7 @@ const SideBar = () => {
     const [page, setPage] = useState(null);
 
     const containerRef = usePerfectScrollbar();
-    const { loading, error, photos, paginator } = useLoadPhotos(album, page);
+    const { loading, error, photos, paginatorRef } = useLoadPhotos(album, page);
 
     const className = classNames("box-sizing", {
         closed: closed,
@@ -84,7 +87,13 @@ const SideBar = () => {
                             />
                         </h2>
 
-                        <AlbumSelect onChange={setAlbum} selected={album} />
+                        <AlbumSelect
+                            onChange={(album) => {
+                                setAlbum(album);
+                                setPage(null);
+                            }}
+                            selected={album}
+                        />
                     </section>
 
                     <section>
@@ -104,7 +113,10 @@ const SideBar = () => {
                             <PhotoList photos={photos} />
                         </div>
 
-                        <div id="photo-list-pagination" />
+                        <PhotosPagination
+                            paginator={paginatorRef.current}
+                            onPageRequested={setPage}
+                        />
                     </section>
                 </div>
             </div>

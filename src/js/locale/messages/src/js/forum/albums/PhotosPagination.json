@@ -1,0 +1,10 @@
+[
+  {
+    "id": "forum.albums.photosNav.previous",
+    "defaultMessage": "Previous"
+  },
+  {
+    "id": "forum.albums.photosNav.next",
+    "defaultMessage": "Next"
+  }
+]
