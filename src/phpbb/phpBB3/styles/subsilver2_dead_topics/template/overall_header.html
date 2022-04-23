@@ -43,7 +43,7 @@
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
-        var jQuery = jQuery.noConflict();
+        var jQuery = jQuery && jQuery.noConflict();
     </script>
 
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('css/common.css');<!-- ENDPHP -->" charset="utf-8"/>
@@ -204,13 +204,6 @@ function marklist(id, name, state)
                         <td>
                             <center>
                                 <div id="announcement"></div>
-                                <script type="text/javascript">
-                                    jQuery.get('/utils/get-announcement', function(response){
-                                        if (response.html) {
-                                            jQuery('#announcement').html(response.html);
-                                        }
-                                    });
-                                </script>
                             </center>
                         </td>
                         <td>

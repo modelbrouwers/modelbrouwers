@@ -1,47 +1,50 @@
 var urlconf = urlconf || {};
 
-+(function($) {
-    $(function() {
-        urlconf = $.extend(true, urlconf, {
-            ou: {
-                so: "/ou/so/",
-                ous: "/ou/ous/"
-            },
+const get = url => {
+    return window
+        .fetch(url, { credentials: "include" })
+        .then(response => response.json());
+};
 
-            forum_tools: {
-                mods: {
-                    get_sharing_perms: "/forum_tools/mods/get_sharing_perms/"
-                }
-            }
-        });
+const injectModInformation = () => {
+    get("/forum_tools/mods/get_data/").then(json => {
+        if (json.open_reports <= 0) return;
+        const sibling = document.querySelector("#pageheader p.linkmcp a");
+        const html = `&nbsp;<span id="open_reports">${
+            json.text_reports
+        }</span>`;
+        sibling.insertAdjacentHTML("beforeend", html);
+    });
+};
 
-        $.get("/forum_tools/mods/get_data/", function(json) {
-            if (json.open_reports > 0) {
-                html =
-                    '&nbsp;<span id="open_reports">(' +
-                    json.text_reports +
-                    ")</span>";
-                $("#pageheader p.linkmcp a").after(html);
-            }
-        });
+const injectUserSharingSettings = () => {
+    const userIds = [];
+    const sharingNodes = document.querySelectorAll("span.sharing");
+    sharingNodes.forEach(node => {
+        const userId = node.dataset.posterid;
+        userIds.push(userId);
+    });
+    if (!userIds.length) return;
 
-        // retrieve sharing settings
-        var user_ids = [];
-        $("span.sharing").each(function(i, e) {
-            user_id = $(e).data("posterid");
-            user_ids.push(user_id);
+    const query = new URLSearchParams({
+        poster_ids: userIds.join(",")
+    });
+    const url = `/forum_tools/mods/get_sharing_perms/?${query}`;
+    get(url).then(json => {
+        Object.entries(json).map(([user_id, html]) => {
+            const node = document.querySelector(`span#sharing_${user_id}`);
+            node.innerHTML = html;
         });
-        var ids = user_ids.join(",");
-        if (ids) {
-            $.get(
-                urlconf.forum_tools.mods.get_sharing_perms,
-                { poster_ids: ids },
-                function(json_response) {
-                    $.each(json_response, function(poster_id, html) {
-                        $("span#sharing_" + poster_id).html(html);
-                    });
-                }
-            );
+    });
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    urlconf = Object.assign(urlconf, {
+        ou: {
+            so: "/ou/so/",
+            ous: "/ou/ous/"
         }
     });
-})(window.jQuery);
+    injectModInformation();
+    injectUserSharingSettings();
+});
