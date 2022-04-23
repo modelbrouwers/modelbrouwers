@@ -4,12 +4,15 @@ import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
 import PerfectScrollbar from "perfect-scrollbar";
 
+import AlbumSelect from "./AlbumSelect";
+
 const SideBar = () => {
     const [closed, setClosed] = useState(true);
+    const [albumId, setAlbumId] = useState("");
     const containerRef = useRef(null);
     const className = classNames("box-sizing", {
         closed: closed,
-        open: !closed
+        open: !closed,
     });
 
     useEffect(() => {
@@ -26,6 +29,8 @@ const SideBar = () => {
             }
         };
     });
+
+    console.log(albumId);
 
     return (
         <>
@@ -49,9 +54,7 @@ const SideBar = () => {
                             />
                         </h2>
 
-                        <select name="album">
-                            <option value="">TODO</option>
-                        </select>
+                        <AlbumSelect onChange={setAlbumId} selected={albumId} />
                     </section>
 
                     <section>
