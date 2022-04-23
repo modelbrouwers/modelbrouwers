@@ -3,18 +3,14 @@ import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
 import PerfectScrollbar from "perfect-scrollbar";
+import useAsync from "react-use/esm/useAsync";
 
+import Paginator from "../../scripts/paginator";
 import AlbumSelect from "./AlbumSelect";
+import PhotoList from "./PhotoList";
 
-const SideBar = () => {
-    const [closed, setClosed] = useState(true);
-    const [albumId, setAlbumId] = useState("");
+const usePerfectScrollbar = () => {
     const containerRef = useRef(null);
-    const className = classNames("box-sizing", {
-        closed: closed,
-        open: !closed,
-    });
-
     useEffect(() => {
         if (!containerRef.current) return;
         const container = containerRef.current;
@@ -29,8 +25,42 @@ const SideBar = () => {
             }
         };
     });
+    return containerRef;
+};
 
-    console.log(albumId);
+const useLoadPhotos = (album, page) => {
+    const paginator = new Paginator();
+    const {
+        loading,
+        error,
+        value: photos = [],
+    } = useAsync(async () => {
+        const filters = page ? { page } : {};
+        const photosResponse = await album.getPhotos(filters);
+        paginator.paginate(photosResponse, page);
+        return photosResponse.results;
+    }, [album, page]);
+
+    return {
+        loading,
+        error,
+        photos,
+        paginator,
+    };
+};
+
+const SideBar = () => {
+    const [closed, setClosed] = useState(true);
+    const [album, setAlbum] = useState(null);
+    const [page, setPage] = useState(null);
+
+    const containerRef = usePerfectScrollbar();
+    const { loading, error, photos, paginator } = useLoadPhotos(album, page);
+
+    const className = classNames("box-sizing", {
+        closed: closed,
+        open: !closed,
+    });
 
     return (
         <>
@@ -54,7 +84,7 @@ const SideBar = () => {
                             />
                         </h2>
 
-                        <AlbumSelect onChange={setAlbumId} selected={albumId} />
+                        <AlbumSelect onChange={setAlbum} selected={album} />
                     </section>
 
                     <section>
@@ -65,10 +95,13 @@ const SideBar = () => {
                             />
                         </h2>
                         <div id="photo-list-container">
-                            <div className="text-center" id="image-loader">
-                                <i className="fa fa-pulse fa-spinner fa-4x" />
-                            </div>
-                            <ul id="photo-list" />
+                            {loading ? (
+                                <div className="text-center" id="image-loader">
+                                    <i className="fa fa-pulse fa-spinner fa-4x" />
+                                </div>
+                            ) : null}
+
+                            <PhotoList photos={photos} />
                         </div>
 
                         <div id="photo-list-pagination" />

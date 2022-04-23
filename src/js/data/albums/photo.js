@@ -27,14 +27,14 @@ class PhotoConsumer extends CrudConsumer {
 
     getForAlbum(albumId, page) {
         return this.get("/", { album: albumId, page: page }).then(
-            paginatedResponse => paginatedResponse.results
+            (paginatedResponse) => paginatedResponse.results
         );
     }
 
     getAllForAlbum(albumId) {
         const promise = this.get("/", { album: albumId, page: 1 });
         return promise
-            .then(paginatedResponse => {
+            .then((paginatedResponse) => {
                 // initialize on the first result set
                 const paginator = new Paginator();
                 paginator.paginate(paginatedResponse);
@@ -45,12 +45,12 @@ class PhotoConsumer extends CrudConsumer {
                     page_range
                         .slice(1)
                         // fetch all other pages
-                        .map(pageNr => this.getForAlbum(albumId, pageNr))
+                        .map((pageNr) => this.getForAlbum(albumId, pageNr))
                 );
                 return Promise.all(allPromises);
             })
-            .then(responses => {
-                const photos = responses.map(response => response.results);
+            .then((responses) => {
+                const photos = responses.map((response) => response.results);
                 // lists of photos for each page, so merge them together
                 return photos.flat();
             });
@@ -83,4 +83,4 @@ class MyPhotoConsumer extends CrudConsumer {
     }
 }
 
-export { PhotoConsumer, MyPhotoConsumer };
+export { Photo, PhotoConsumer, MyPhotoConsumer };

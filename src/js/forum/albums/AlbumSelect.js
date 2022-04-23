@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import useAsync from "react-use/esm/useAsync";
 
-import { AlbumConsumer } from "../../data/albums/album";
+import { Album, AlbumConsumer } from "../../data/albums/album";
 
 const albumConsumer = new AlbumConsumer();
 
-const AlbumSelect = ({ onChange, selected = "" }) => {
+const AlbumSelect = ({ onChange, selected = null }) => {
     const {
         loading,
         error,
@@ -14,7 +14,7 @@ const AlbumSelect = ({ onChange, selected = "" }) => {
     } = useAsync(async () => {
         const albums = await albumConsumer.list();
         if (albums.length && !selected) {
-            onChange(albums[0].id.toString());
+            onChange(albums[0]);
         }
         return albums;
     }, []);
@@ -24,8 +24,13 @@ const AlbumSelect = ({ onChange, selected = "" }) => {
     return (
         <select
             name="album"
-            value={selected}
-            onChange={(event) => onChange(event.target.value)}
+            value={selected ? selected.id.toString() : ""}
+            onChange={(event) => {
+                const album = albums.find(
+                    (album) => album.id.toString() === event.target.value
+                );
+                onChange(album);
+            }}
         >
             {loading ? (
                 <option value="">...</option>
@@ -42,7 +47,7 @@ const AlbumSelect = ({ onChange, selected = "" }) => {
 
 AlbumSelect.propTypes = {
     onChange: PropTypes.func.isRequired,
-    selected: PropTypes.string,
+    selected: PropTypes.instanceOf(Album),
 };
 
 export default AlbumSelect;
