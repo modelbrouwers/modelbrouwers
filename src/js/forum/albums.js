@@ -1,5 +1,11 @@
 import insertTextAtCursor from "insert-text-at-cursor";
 import PerfectScrollbar from "perfect-scrollbar";
+import React from "react";
+import ReactDOM from "react-dom";
+import { IntlProvider } from "react-intl";
+
+import { getLocale, getMessages } from "../translations/utils";
+import SideBar from "./albums/SideBar";
 
 import Paginator from "../scripts/paginator";
 import Handlebars from "../general/hbs-pony";
@@ -138,18 +144,29 @@ export default class App {
         const textArea = document.querySelectorAll(
             conf.selectors.post_textarea
         );
-        if (textArea.length == 1) {
-            showSidebar();
-        }
+        if (!textArea.length) return;
 
-        $(conf.selectors.root)
-            .on("click", "[data-open], [data-close]", function() {
-                var selector = $(this).data("open") || $(this).data("close");
-                $(selector).toggleClass("open closed");
-                ps.update();
-            })
-            .on("change", conf.selectors.albums_select, onAlbumSelectChange)
-            .on("click", conf.selectors.photo, insertPhotoAtCaret)
-            .on("click", conf.selectors.page_link, loadPage);
+        const mountNode = document.createElement("div");
+        document.body.appendChild(mountNode);
+
+        const locale = getLocale() || "nl";
+        const messages = getMessages(locale);
+
+        ReactDOM.render(
+            <IntlProvider locale={locale} messages={messages}>
+                <SideBar />
+            </IntlProvider>,
+            mountNode
+        );
+
+        // $(conf.selectors.root)
+        //     .on("click", "[data-open], [data-close]", function() {
+        //         var selector = $(this).data("open") || $(this).data("close");
+        //         $(selector).toggleClass("open closed");
+        //         ps.update();
+        //     })
+        //     .on("change", conf.selectors.albums_select, onAlbumSelectChange)
+        //     .on("click", conf.selectors.photo, insertPhotoAtCaret)
+        //     .on("click", conf.selectors.page_link, loadPage);
     }
 }

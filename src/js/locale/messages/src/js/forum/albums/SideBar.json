@@ -1,0 +1,10 @@
+[
+  {
+    "id": "forum.albums.sidebar.title",
+    "defaultMessage": "Albums"
+  },
+  {
+    "id": "forum.albums.sidebar.photos-title",
+    "defaultMessage": "Photos"
+  }
+]
