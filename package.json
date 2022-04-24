@@ -84,7 +84,6 @@
         "postcss-loader": "^6.2.1",
         "postcss-selector-lint": "^1.0.2",
         "prettier": "^2.6.2",
-        "react-intl-translations-manager": "^5.0.3",
         "sass": "^1.50.1",
         "sass-loader": "^12.6.0",
         "uglify-js": "^2.4.23",
