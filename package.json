@@ -9,7 +9,11 @@
         "dev": "webpack -w",
         "prettier-watch": "onchange '**/*.js' -e 'src/static/bundles/**/*.js' -- prettier --write {{changed}}",
         "generate": "plop --plopfile src/js/scripts/generator/index.js",
-        "makemessages": "node bin/translate.js",
+        "makemessages-en": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+        "makemessages-nl": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/nl.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+        "makemessages-de": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/de.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+        "makemessages": "npm run makemessages-nl && npm run makemessages-en && npm run makemessages-de",
+        "compilemessages": "formatjs compile-folder --ast src/js/locale/locales src/js/locale/compiled",
         "start": "webpack -w"
     },
     "repository": {
@@ -64,6 +68,7 @@
         "@babel/plugin-transform-runtime": "^7.17.0",
         "@babel/preset-env": "^7.3.1",
         "@babel/preset-react": "^7.0.0",
+        "@formatjs/cli": "^4.8.3",
         "autoprefixer": "^10.4.4",
         "babel-loader": "^8.0.5",
         "babel-plugin-formatjs": "^10.3.19",
