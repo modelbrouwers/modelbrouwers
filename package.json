@@ -66,6 +66,7 @@
         "@babel/preset-react": "^7.0.0",
         "autoprefixer": "^10.4.4",
         "babel-loader": "^8.0.5",
+        "babel-plugin-formatjs": "^10.3.19",
         "css-loader": "^6.7.1",
         "cssnano": "^5.1.7",
         "lodash.camelcase": "^4.3.0",
