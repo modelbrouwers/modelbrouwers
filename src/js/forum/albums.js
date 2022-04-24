@@ -62,7 +62,11 @@ export default class App {
         const messages = getMessages(locale);
 
         ReactDOM.render(
-            <IntlProvider locale={locale} messages={messages}>
+            <IntlProvider
+                locale={locale}
+                messages={messages}
+                defaultLocale="nl"
+            >
                 <SideBar />
             </IntlProvider>,
             mountNode

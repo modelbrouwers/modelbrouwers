@@ -18,7 +18,7 @@ export default class Page {
 
         if (nodes && nodes.length) {
             for (let node of nodes) {
-                node.addEventListener("click", function(e) {
+                node.addEventListener("click", function (e) {
                     const id = e.target.dataset.id;
                     const el = document.getElementById(id);
                     const activeNodes = document.querySelectorAll(
@@ -50,7 +50,11 @@ export default class Page {
                     let cartStore = new CartStore(cart);
                     initCartActions(cartStore);
                     ReactDOM.render(
-                        <IntlProvider locale={locale} messages={messages}>
+                        <IntlProvider
+                            locale={locale}
+                            messages={messages}
+                            defaultLocale="nl"
+                        >
                             <TopbarCart store={cartStore} />
                         </IntlProvider>,
                         node
@@ -58,17 +62,21 @@ export default class Page {
 
                     if (detailNode) {
                         ReactDOM.render(
-                            <IntlProvider locale={locale} messages={messages}>
+                            <IntlProvider
+                                locale={locale}
+                                messages={messages}
+                                defaultLocale="nl"
+                            >
                                 <CartDetail store={cartStore} />
                             </IntlProvider>,
                             detailNode
                         );
                     }
                 })
-                .catch(err => console.log("Error retrieving cart", err));
+                .catch((err) => console.log("Error retrieving cart", err));
         }
 
-        const initCartActions = cartStore => {
+        const initCartActions = (cartStore) => {
             const products = document.getElementsByClassName("product-card");
 
             for (let product of products) {
@@ -76,7 +84,11 @@ export default class Page {
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 ReactDOM.render(
-                    <IntlProvider locale={locale} messages={messages}>
+                    <IntlProvider
+                        locale={locale}
+                        messages={messages}
+                        defaultLocale="nl"
+                    >
                         <CartProduct store={cartStore} productId={id} />
                     </IntlProvider>,
                     reactNode

@@ -25,12 +25,12 @@ for (const node of nodes) {
     // cast string to actual boolean
     const _allowMultiple = allowMultiple === "true";
     const _selected = selected.length
-        ? selected.split(",").map(id => parseInt(id, 10))
+        ? selected.split(",").map((id) => parseInt(id, 10))
         : [];
 
     // mount component in the DOM node
     ReactDOM.render(
-        <IntlProvider locale={locale} messages={messages}>
+        <IntlProvider locale={locale} messages={messages} defaultLocale="nl">
             <ModalContext.Provider value={{ modal, modalBody, modalForm }}>
                 <ModelKitSelect
                     label={label}
