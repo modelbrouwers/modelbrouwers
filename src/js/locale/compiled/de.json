@@ -1,0 +1,165 @@
+{
+  "forum.albums.photosNav.next": [
+    {
+      "type": 0,
+      "value": "Next"
+    }
+  ],
+  "forum.albums.photosNav.previous": [
+    {
+      "type": 0,
+      "value": "Previous"
+    }
+  ],
+  "forum.albums.sidebar.noPhotosYet": [
+    {
+      "type": 0,
+      "value": "There are no photo's in this album yet. You can upload some "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "here"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "forum.albums.sidebar.photos-title": [
+    {
+      "type": 0,
+      "value": "Photos"
+    }
+  ],
+  "forum.albums.sidebar.title": [
+    {
+      "type": 0,
+      "value": "Albums"
+    }
+  ],
+  "kits.filter.byName": [
+    {
+      "type": 0,
+      "value": "filter by name"
+    }
+  ],
+  "shop.cart.detail.cart.subtotal": [
+    {
+      "type": 0,
+      "value": "Sub-total"
+    }
+  ],
+  "shop.cart.detail.cart.taxes": [
+    {
+      "type": 0,
+      "value": "Taxes"
+    }
+  ],
+  "shop.cart.detail.cart.total": [
+    {
+      "type": 0,
+      "value": "Sub-total"
+    }
+  ],
+  "shop.cart.detail.header.header": [
+    {
+      "type": 0,
+      "value": "Total"
+    }
+  ],
+  "shop.cart.detail.header.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "shop.cart.detail.header.model": [
+    {
+      "type": 0,
+      "value": "Model"
+    }
+  ],
+  "shop.cart.detail.header.product.name": [
+    {
+      "type": 0,
+      "value": "Product Name"
+    }
+  ],
+  "shop.cart.detail.header.quantity": [
+    {
+      "type": 0,
+      "value": "Quantity"
+    }
+  ],
+  "shop.cart.detail.header.unit.price": [
+    {
+      "type": 0,
+      "value": "Unit Price"
+    }
+  ],
+  "shop.cart.detail.title.cart.total": [
+    {
+      "type": 0,
+      "value": "Cart total"
+    }
+  ],
+  "shop.cart.product.actions.add": [
+    {
+      "type": 0,
+      "value": "Add to cart"
+    }
+  ],
+  "shop.cart.topbar.checkout": [
+    {
+      "type": 0,
+      "value": "Checkout"
+    }
+  ],
+  "shop.cart.topbar.item.count": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "shop.cart.topbar.view.cart": [
+    {
+      "type": 0,
+      "value": "View cart"
+    }
+  ]
+}
