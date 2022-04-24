@@ -1,15 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { IntlProvider } from "react-intl";
+
 import { CartConsumer } from "../data/shop/cart";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
 import { CartStore } from "./store";
-import { getLocale, getMessages } from "../translations/utils";
+import { getIntlProviderProps } from "../i18n";
 
 export default class Page {
     static init() {
-        this.initRating();
-        this.initCart();
+        getIntlProviderProps()
+            .then((intlProviderProps) => {
+                this.intlProviderProps = intlProviderProps;
+                this.initRating();
+                this.initCart();
+            })
+            .catch(console.error);
     }
 
     static initRating() {
@@ -39,9 +45,6 @@ export default class Page {
     static initCart() {
         const node = document.getElementById("react-cart");
         const detailNode = document.getElementById("react-cart-detail");
-        const locale = getLocale() || "en";
-        const messages = getMessages(locale);
-
         if (node) {
             this.cartConsumer = new CartConsumer();
             this.cartConsumer
@@ -50,11 +53,7 @@ export default class Page {
                     let cartStore = new CartStore(cart);
                     initCartActions(cartStore);
                     ReactDOM.render(
-                        <IntlProvider
-                            locale={locale}
-                            messages={messages}
-                            defaultLocale="nl"
-                        >
+                        <IntlProvider {...this.intlProviderProps}>
                             <TopbarCart store={cartStore} />
                         </IntlProvider>,
                         node
@@ -62,11 +61,7 @@ export default class Page {
 
                     if (detailNode) {
                         ReactDOM.render(
-                            <IntlProvider
-                                locale={locale}
-                                messages={messages}
-                                defaultLocale="nl"
-                            >
+                            <IntlProvider {...this.intlProviderProps}>
                                 <CartDetail store={cartStore} />
                             </IntlProvider>,
                             detailNode
@@ -84,11 +79,7 @@ export default class Page {
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 ReactDOM.render(
-                    <IntlProvider
-                        locale={locale}
-                        messages={messages}
-                        defaultLocale="nl"
-                    >
+                    <IntlProvider {...this.intlProviderProps}>
                         <CartProduct store={cartStore} productId={id} />
                     </IntlProvider>,
                     reactNode

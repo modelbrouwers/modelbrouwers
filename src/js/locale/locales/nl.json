@@ -1,4 +1,9 @@
 {
+  "forum.albums.photosNav.next": "Next",
+  "forum.albums.photosNav.previous": "Previous",
+  "forum.albums.sidebar.noPhotosYet": "There are no photo's in this album yet. You can upload some <link>here</link>.",
+  "forum.albums.sidebar.photos-title": "Photos",
+  "forum.albums.sidebar.title": "Albums",
   "kits.filter.byName": "zoek op naam",
   "shop.cart.detail.cart.subtotal": "Sub-total",
   "shop.cart.detail.cart.taxes": "Taxes",

@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { IntlProvider } from "react-intl";
 
-import { getLocale, getMessages } from "../translations/utils";
+import { getIntlProviderProps } from "../i18n";
 import SideBar from "./albums/SideBar";
 
 import Paginator from "../scripts/paginator";
@@ -58,19 +58,16 @@ export default class App {
         const mountNode = document.createElement("div");
         document.body.appendChild(mountNode);
 
-        const locale = getLocale() || "nl";
-        const messages = getMessages(locale);
-
-        ReactDOM.render(
-            <IntlProvider
-                locale={locale}
-                messages={messages}
-                defaultLocale="nl"
-            >
-                <SideBar />
-            </IntlProvider>,
-            mountNode
-        );
+        getIntlProviderProps()
+            .then((intlProviderProps) => {
+                ReactDOM.render(
+                    <IntlProvider {...intlProviderProps}>
+                        <SideBar />
+                    </IntlProvider>,
+                    mountNode
+                );
+            })
+            .catch(console.error);
 
         // $(conf.selectors.root)
         //     .on("click", conf.selectors.photo, insertPhotoAtCaret)
