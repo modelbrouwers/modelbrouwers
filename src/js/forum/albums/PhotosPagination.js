@@ -26,9 +26,9 @@ const PhotosPagination = ({ paginator = null, onPageRequested }) => {
 
     return (
         <div id="photo-list-pagination">
-            <nav class="text-right">
-                <ul class="pagination">
-                    <li class={paginator.has_previous ? "" : "disabled"}>
+            <nav className="text-right">
+                <ul className="pagination">
+                    <li className={paginator.has_previous ? "" : "disabled"}>
                         {paginator.has_previous ? (
                             <NavButton
                                 onClick={onLinkClick.bind(
@@ -52,7 +52,9 @@ const PhotosPagination = ({ paginator = null, onPageRequested }) => {
 
                     {paginator.page_range.map((page) => (
                         <li
-                            class={page === paginator.number ? "active" : ""}
+                            className={
+                                page === paginator.number ? "active" : ""
+                            }
                             key={page}
                         >
                             <a href="#" onClick={onLinkClick.bind(this, page)}>
@@ -61,7 +63,7 @@ const PhotosPagination = ({ paginator = null, onPageRequested }) => {
                         </li>
                     ))}
 
-                    <li class={paginator.has_next ? "" : "disabled"}>
+                    <li className={paginator.has_next ? "" : "disabled"}>
                         {paginator.has_next ? (
                             <NavButton
                                 onClick={onLinkClick.bind(
