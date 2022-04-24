@@ -1,11 +1,16 @@
-const loadLocaleData = (locale) => {
+const loadLocaleData = async (locale) => {
     switch (locale) {
         case "nl":
+            return import("./locale/compiled/nl.json");
         case "en":
+            return import("./locale/compiled/en.json");
         case "de":
-            return import(`./locale/compiled/${locale}.json`);
+            return import("./locale/compiled/de.json");
         default:
-            console.error(`Unsupported locale: ${locale}`);
+            if (locale.length === 5) {
+                const localeData = await loadLocaleData(locale.substring(0, 2));
+                return localeData;
+            }
             return import("./locale/compiled/en.json");
     }
 };
