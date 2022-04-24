@@ -38,6 +38,7 @@ services:
   django:
     build: .
     image: modelbrouwers/brouwers:${TAG:-latest}
+    command: python src/manage.py runserver 0.0.0.0:8000
     environment:
       - DJANGO_SETTINGS_MODULE=brouwers.conf.production
       - SECRET_KEY=${SECRET_KEY:-overridemeiminsecure}
@@ -51,10 +52,13 @@ services:
       - CACHE_URL=memcached:11211
       - SESSION_COOKIE_DOMAIN=localhost
       - CORS_ENABLED=yes
+      - DEBUG=1
     volumes:
       - media:/app/media
       - media_sendfile:/app/media_sendfile
       - log:/app/log
+      - ./src:/app/src
+      - ./node_modules/:/app/node_modules/
     ports:
       - 8000:8000
     depends_on:
