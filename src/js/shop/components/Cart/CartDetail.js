@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react";
+import { injectIntl, FormattedMessage } from "react-intl";
+
 import { DEFAULT_IMAGE } from "../../../constants";
 import { AmountControls } from "./index";
-import { msg } from "../../../translations/components/Message";
 import messages from "./messages";
 
 const headers = [
-    msg(messages.image),
-    msg(messages.productName),
-    msg(messages.model),
-    msg(messages.quantity),
-    msg(messages.unitPrice),
-    msg(messages.totalHeader)
+    messages.image,
+    messages.productName,
+    messages.model,
+    messages.quantity,
+    messages.unitPrice,
+    messages.totalHeader,
 ];
 
 /**
@@ -23,7 +24,7 @@ const headers = [
 @observer
 class CartDetail extends Component {
     static propTypes = {
-        store: PropTypes.object
+        store: PropTypes.object,
     };
 
     constructor(props) {
@@ -33,7 +34,7 @@ class CartDetail extends Component {
     }
 
     render() {
-        const { store } = this.props;
+        const { store, intl } = this.props;
 
         return (
             <div className="cart-detail">
@@ -43,7 +44,7 @@ class CartDetail extends Component {
                     <thead className="cart-detail__thead">
                         <tr>
                             {headers.map((header, i) => (
-                                <th key={i}>{header}</th>
+                                <th key={i}>{intl.formatMessage(header)}</th>
                             ))}
                         </tr>
                     </thead>
@@ -92,22 +93,36 @@ class CartDetail extends Component {
                 {/*TODO: Calculate sub-total and taxes*/}
                 <div className="cart-totals">
                     <div className="cart-totals__inner">
-                        <h4>{msg(messages.cartTotal)}</h4>
+                        <h4>
+                            <FormattedMessage
+                                id="shop.cart.detail.title.cart.total"
+                                defaultMessage="Cart total"
+                            />
+                        </h4>
                         <div className="cart-totals__row">
                             <span className="cart-totals__text">
-                                {msg(messages.subTotal)}
+                                <FormattedMessage
+                                    id="shop.cart.detail.cart.subtotal"
+                                    defaultMessage="Sub-total"
+                                />
                             </span>
                             <span className="cart-totals__value">N/A</span>
                         </div>
                         <div className="cart-totals__row">
                             <span className="cart-totals__text">
-                                {msg(messages.taxes)}
+                                <FormattedMessage
+                                    id="shop.cart.detail.cart.taxes"
+                                    defaultMessage="Taxes"
+                                />
                             </span>
                             <span className="cart-totals__value">N/A</span>
                         </div>
                         <div className="cart-totals__row">
                             <span className="cart-totals__text">
-                                {msg(messages.total)}
+                                <FormattedMessage
+                                    id="shop.cart.detail.cart.total"
+                                    defaultMessage="Sub-total"
+                                />
                             </span>
                             <span className="cart-totals__value">
                                 &euro; {store.total}
@@ -120,4 +135,4 @@ class CartDetail extends Component {
     }
 }
 
-export default CartDetail;
+export default injectIntl(CartDetail);
