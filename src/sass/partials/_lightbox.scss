@@ -5,10 +5,13 @@ $lightbox-height: 90vh;
 $lightbox-margin: math.div((100vh - $lightbox-height), 2);
 
 .lightbox {
+  padding-right: 0 !important; // stupid bootstrap
 
   .modal-dialog {
-    width: 75vw;
-    padding: 0;
+    @include gt-mobile {
+      width: 75vw;
+      padding: 0;
+    }
   }
 
   .modal-content {
@@ -16,6 +19,7 @@ $lightbox-margin: math.div((100vh - $lightbox-height), 2);
     height: $lightbox-height;
     margin-top: $lightbox-margin;
     margin-bottom: $lightbox-margin;
+    background-color: rgba($black, 0.95);
   }
 
   .modal-content > * {
@@ -25,29 +29,27 @@ $lightbox-margin: math.div((100vh - $lightbox-height), 2);
   }
 
   .fa-spinner {
+    @include spinner();
     line-height: $lightbox-height;
     opacity: 0.75;
-    @include spinner();
   }
 
-  .carousel {
-    background-color: rgba($black, 0.95);
-    padding: math.div($lightbox-margin, 2) 0;
+  .swiper {
+    height: 100%;
   }
 
-  .item {
-    text-align: center;
-    height: $lightbox-height - $lightbox-margin;
-
-    img {
-      max-height: 100%;
-      margin: 0 auto;
-      padding: 5px;
-    }
+  .image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .carousel-control {
-    line-height: $lightbox-height;
+  img {
+    background-color: white; // for transparent images
+    max-height: 100%;
+    max-width: 100%;
+    padding: 5px;
   }
-
 }
