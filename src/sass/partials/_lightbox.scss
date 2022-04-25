@@ -7,6 +7,8 @@ $lightbox-margin: math.div((100vh - $lightbox-height), 2);
 .lightbox {
   padding-right: 0 !important; // stupid bootstrap
 
+  --swiper-theme-color: #{$main-orange};
+
   .modal-dialog {
     @include gt-mobile {
       width: 75vw;

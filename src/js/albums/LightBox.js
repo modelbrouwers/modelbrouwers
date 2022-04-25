@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import useAsync from "react-use/esm/useAsync";
 
@@ -9,7 +9,13 @@ import { Photo, PhotoConsumer } from "../data/albums/photo";
 
 const photoConsumer = new PhotoConsumer();
 
+const getPhotoIndex = (photos, photoId) => {
+    const photo = photos.find((photo) => photo.id === photoId);
+    return photos.indexOf(photo);
+};
+
 const LightBox = ({ albumId, page, selectedPhotoId }) => {
+    const swiperRef = useRef(null);
     const {
         loading,
         error,
@@ -17,6 +23,16 @@ const LightBox = ({ albumId, page, selectedPhotoId }) => {
     } = useAsync(async () => {
         return await photoConsumer.getForAlbum(albumId, page);
     }, [albumId, page]);
+
+    useEffect(() => {
+        const swiper = swiperRef.current;
+        if (!swiper) return;
+        if (!photos.length) return;
+        const expectedIndex = getPhotoIndex(photos, selectedPhotoId);
+        if (swiper.activeIndex !== expectedIndex) {
+            swiper.slideTo(expectedIndex);
+        }
+    }, [swiperRef, photos, selectedPhotoId]);
 
     if (loading) {
         return (
@@ -26,16 +42,14 @@ const LightBox = ({ albumId, page, selectedPhotoId }) => {
         );
     }
 
-    const selectedPhoto = photos.find((photo) => photo.id === selectedPhotoId);
-    const selectedPhotoIndex = photos.indexOf(selectedPhoto);
-
     return (
         <div className="modal-body" style={{ height: "100%" }}>
             <Swiper
                 modules={[Navigation, Scrollbar, A11y]}
-                initialSlide={selectedPhotoIndex}
+                initialSlide={getPhotoIndex(photos, selectedPhotoId)}
                 navigation
                 scrollbar={{ draggable: true }}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
             >
                 {photos.map((photo) => (
                     <SwiperSlide key={photo.id}>
