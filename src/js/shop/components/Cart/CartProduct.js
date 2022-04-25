@@ -20,7 +20,7 @@ class CartProduct extends Component {
     };
 
     render() {
-        const { productId, store, intl } = this.props;
+        const { productId, store } = this.props;
         const cartProduct = store.findProduct(productId);
 
         return cartProduct && cartProduct.amount > 0 ? (
@@ -43,4 +43,4 @@ class CartProduct extends Component {
     }
 }
 
-export default injectIntl(CartProduct);
+export default CartProduct;

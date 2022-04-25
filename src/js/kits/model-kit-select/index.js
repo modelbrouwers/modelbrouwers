@@ -8,9 +8,6 @@ import { getIntlProviderProps } from "../../i18n";
 import { ModelKitSelect } from "./ModelKitSelect";
 import { ModalContext } from "./context";
 
-const locale = getLocale() || "nl";
-const messages = getMessages(locale);
-
 // mount the detected components, based on class name
 const nodes = document.querySelectorAll(".model-kit-select");
 const modalNode = document.getElementById("add-kit-modal");
