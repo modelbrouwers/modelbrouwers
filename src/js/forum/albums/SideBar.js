@@ -5,10 +5,13 @@ import classNames from "classnames";
 import PerfectScrollbar from "perfect-scrollbar";
 import useAsync from "react-use/esm/useAsync";
 
+import { MyPhotoConsumer } from "../../data/albums/photo";
 import Paginator from "../../scripts/paginator";
 import AlbumSelect from "./AlbumSelect";
 import PhotoList from "./PhotoList";
 import PhotosPagination from "./PhotosPagination";
+
+const myPhotoConsumer = new MyPhotoConsumer();
 
 const usePerfectScrollbar = () => {
     const containerRef = useRef(null);
@@ -52,13 +55,19 @@ const useLoadPhotos = (album, page) => {
     };
 };
 
-const SideBar = () => {
+const SideBar = ({ onInsertPhoto }) => {
     const [closed, setClosed] = useState(true);
     const [album, setAlbum] = useState(null);
     const [page, setPage] = useState(null);
 
     const containerRef = usePerfectScrollbar();
     const { loading, error, photos, paginatorRef } = useLoadPhotos(album, page);
+
+    const onPhotoSelect = async (photo, event) => {
+        event.preventDefault();
+        photo = await myPhotoConsumer.read(`${photo.id}/`);
+        onInsertPhoto(photo.bbcode);
+    };
 
     const className = classNames("box-sizing", {
         closed: closed,
@@ -110,7 +119,10 @@ const SideBar = () => {
                                 </div>
                             ) : null}
 
-                            <PhotoList photos={photos} />
+                            <PhotoList
+                                photos={photos}
+                                onPhotoSelect={onPhotoSelect}
+                            />
                         </div>
 
                         <PhotosPagination
@@ -128,6 +140,8 @@ const SideBar = () => {
     );
 };
 
-SideBar.propTypes = {};
+SideBar.propTypes = {
+    onInsertPhoto: PropTypes.func.isRequired,
+};
 
 export default SideBar;

@@ -21,7 +21,7 @@ PhotoPreview.propTypes = {
     onSelect: PropTypes.func.isRequired,
 };
 
-const PhotoList = ({ photos = null }) => {
+const PhotoList = ({ photos = null, onPhotoSelect }) => {
     if (photos && photos.length === 0) {
         return (
             <ul id="photo-list">
@@ -48,7 +48,7 @@ const PhotoList = ({ photos = null }) => {
                     <PhotoPreview
                         thumbnailUrl={photo.image.thumb}
                         description={photo.description}
-                        onSelect={console.log}
+                        onSelect={onPhotoSelect.bind(this, photo)}
                     />
                 </li>
             ))}
@@ -68,6 +68,7 @@ PhotoList.propTypes = {
             user: PropTypes.number.isRequired,
         })
     ),
+    onPhotoSelect: PropTypes.func.isRequired,
 };
 
 export default PhotoList;

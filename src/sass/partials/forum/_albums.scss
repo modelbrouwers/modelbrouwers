@@ -1,7 +1,6 @@
 @use "sass:math";
 
 body.forum {
-
   $sidebar-width: 20%;
   $sidebar-bg: rgba($main-blue, 0.87);
 
@@ -74,13 +73,13 @@ body.forum {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
       @include raised(2);
-      transition: opacity 0.5s linear 0.5s, left 0.5s ease, visibility 0.5s linear 0.5s;
+      transition: opacity 0.5s linear 0.5s, left 0.5s ease,
+        visibility 0.5s linear 0.5s;
 
       .fa {
         line-height: $height;
       }
     }
-
   }
 
   .open-close {
@@ -125,6 +124,7 @@ body.forum {
 
       img {
         max-width: 100%;
+        min-height: 50px;
       }
 
       figcaption {
@@ -141,7 +141,6 @@ body.forum {
           background: rgba($black, 0.7);
           @include raised(1);
         }
-
       }
     }
   }
@@ -149,5 +148,4 @@ body.forum {
   .pagination > li > a > .fa {
     line-height: inherit;
   }
-
 }
