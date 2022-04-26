@@ -1,23 +1,8 @@
 {% load i18n %}
 
-<h2>{% templatetag openvariable %}theme{% templatetag closevariable %} <span class="status">({% templatetag openvariable %}status{% templatetag closevariable %})</span></h2>
-<a href="{% templatetag openvariable %}url{% templatetag closevariable %}">{% trans "View outside of forum" %}</a>
 
-<h4>{% trans "Description" %}</h4>
-<p class="description"><strong>{% trans "Start" %}: {% templatetag openvariable %}start{% templatetag closevariable %}, {% trans "end" %}: {% templatetag openvariable %}end{% templatetag closevariable %}</strong></p>
-<p class="description">{% templatetag openvariable %}description{% templatetag closevariable %}</p>
 
-{% templatetag openvariable %}#if rules{% templatetag closevariable %}
-<h4>{% trans "Rules" %}</h4>
-<div class="rules">{% templatetag openvariable %}rules{% templatetag closevariable %}</div>
-{% templatetag openvariable %}/if{% templatetag closevariable %}
-
-{% templatetag openvariable %}#if rules_topic{% templatetag closevariable %}
-<h4>{% trans "Rules topic" %}</h4>
-<a href="{% templatetag openvariable %}rules_topic.url{% templatetag closevariable %}" class="rules">{% templatetag openvariable %}rules_topic.title{% templatetag closevariable %}</a>
-{% templatetag openvariable %}/if{% templatetag closevariable %}
-
-{% templatetag openvariable %}#if participants{% templatetag closevariable %}
+{{#if participants}}
 <h4>{% trans 'Participants' %}</h4>
 <div class="participants">
 
@@ -33,16 +18,16 @@
         </thead>
 
         <tbody>
-            {% templatetag openvariable %}#each participants{% templatetag closevariable %}
-                <tr class="{% templatetag openvariable %}#if_even @index{% templatetag closevariable %}row2{% templatetag openvariable %}else{% templatetag closevariable %}row1{% templatetag openvariable %}/if_even{% templatetag closevariable %}" data-id="{% templatetag openvariable %}id{% templatetag closevariable %}">
-                    <td class="num">{% templatetag openvariable %}add @index 1{% templatetag closevariable %}</td>
-                    <td class="brouwer">{% templatetag openvariable %}username{% templatetag closevariable %}</td>
-                    <td class="model-name">{% templatetag openvariable %}model_name{% templatetag closevariable %}</td>
-                    <td class="completed {% templatetag openvariable %}#if finished{% templatetag closevariable %}finished{% templatetag openvariable %}/if{% templatetag closevariable %}">{% templatetag openvariable %}yesno finished{% templatetag closevariable %}</td>
-                    <td class="topic">{% templatetag openvariable %}#if topic{% templatetag closevariable %}<a href="{% templatetag openvariable %}topic.url{% templatetag closevariable %}">{% templatetag openvariable %}topic.title{% templatetag closevariable %}</a>{% templatetag openvariable %}/if{% templatetag closevariable %}</td>
+            {{#each participants}}
+                <tr class="{{#if_even @index}}row2{{else}}row1{{/if_even}}" data-id="{{id}}">
+                    <td class="num">{{add @index 1}}</td>
+                    <td class="brouwer">{{username}}</td>
+                    <td class="model-name">{{model_name}}</td>
+                    <td class="completed {{#if finished}}finished{{/if}}">{{yesno finished}}</td>
+                    <td class="topic">{{#if topic}}<a href="{{topic.url}}">{{topic.title}}</a>{{/if}}</td>
                 </tr>
-            {% templatetag openvariable %}/each{% templatetag closevariable %}
+            {{/each}}
         </tbody>
     </table>
 </div>
-{% templatetag openvariable %}/if{% templatetag closevariable %}
+{{/if}}

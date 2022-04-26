@@ -262,13 +262,13 @@ class GroupBuild(models.Model):
             self._progress = float(delta.days) / total_delta.days
         return self._progress
 
-    def get_field_rendered(self, field):
+    def get_field_rendered(self, field) -> str:
         return render_bbcodes(getattr(self, field))
 
-    def get_description_rendered(self):
+    def get_description_rendered(self) -> str:
         return self.get_field_rendered("description")
 
-    def get_rules_rendered(self):
+    def get_rules_rendered(self) -> str:
         return self.get_field_rendered("rules")
 
 
