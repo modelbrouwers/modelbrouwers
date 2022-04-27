@@ -183,3 +183,18 @@ Run all tests by executing:
 .. code-block:: bash
 
     src/manage.py test src
+
+Docker
+------
+
+The entire stack can be run with docker compose, recommended for local development of
+the Javascript/CSS bundles that are used outside of Django.
+
+.. code-block:: bash
+
+    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+This setup uses your locally installed ``node_modules`` and has the Django dev server
+handle static files/assets, while reloading Python code when it changes.
+
+Point your browser at http://localhost/phpBB3/ to view the forum, for example.
