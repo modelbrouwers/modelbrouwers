@@ -6,6 +6,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import useAsync from "react-use/esm/useAsync";
 
 import { MyPhotoConsumer } from "../../data/albums/photo";
+import Loader from "../../components/loaders";
 import Paginator from "../../scripts/paginator";
 import AlbumSelect from "./AlbumSelect";
 import PhotoList from "./PhotoList";
@@ -113,11 +114,7 @@ const SideBar = ({ onInsertPhoto }) => {
                             />
                         </h2>
                         <div id="photo-list-container">
-                            {loading ? (
-                                <div className="text-center" id="image-loader">
-                                    <i className="fa fa-pulse fa-spinner fa-4x" />
-                                </div>
-                            ) : null}
+                            {loading ? <Loader center /> : null}
 
                             <PhotoList
                                 photos={photos}

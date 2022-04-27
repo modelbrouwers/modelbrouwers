@@ -6,6 +6,7 @@ import { Navigation, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Photo, PhotoConsumer } from "../data/albums/photo";
+import Loader from "../components/loaders";
 
 const photoConsumer = new PhotoConsumer();
 
@@ -35,11 +36,7 @@ const LightBox = ({ albumId, page, selectedPhotoId }) => {
     }, [swiperRef, photos, selectedPhotoId]);
 
     if (loading) {
-        return (
-            <div className="text-center" id="image-loader">
-                <i className="fa fa-pulse fa-spinner fa-4x"></i>
-            </div>
-        );
+        return <Loader center />;
     }
 
     return (

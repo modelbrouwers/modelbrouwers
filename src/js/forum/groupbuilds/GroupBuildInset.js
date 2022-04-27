@@ -4,6 +4,7 @@ import { FormattedMessage } from "react-intl";
 import useAsync from "react-use/esm/useAsync";
 
 import { GroupBuildConsumer } from "../../data/group-build";
+import Loader from "../../components/loaders";
 import BBCodeContent from "./BBCodeContent";
 import GroupBuildParticipantsTable from "./GroupBuildParticipantsTable";
 
@@ -118,7 +119,7 @@ const GroupBuildInset = ({ id }) => {
     } = useAsync(async () => await consumer.read(`${id}/`), [id]);
 
     if (loading) {
-        return <i className="fa fa-pulse fa-spinner fa-4x" />;
+        return <Loader />;
     }
     if (error) {
         console.error(error);

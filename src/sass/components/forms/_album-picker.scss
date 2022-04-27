@@ -1,0 +1,31 @@
+$react-album-picker-spacing: 10px;
+
+.react-album-picker {
+  margin-left: -$react-album-picker-spacing;
+  margin-right: -$react-album-picker-spacing;
+  padding-bottom: 20px;
+}
+
+.album-picker {
+  .swiper {
+    z-index: 0;
+  }
+
+  & &__input {
+    display: block;
+    margin: 0 $react-album-picker-spacing;
+
+    label {
+      cursor: pointer;
+    }
+  }
+
+  & &__radio {
+    display: none;
+    @include selected-fa;
+  }
+
+  .swiper-scrollbar {
+    height: 10px;
+  }
+}
