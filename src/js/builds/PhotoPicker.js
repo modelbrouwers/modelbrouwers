@@ -55,6 +55,8 @@ const PhotoPicker = ({ albumId, selectedPhotoIds = [], onSelect }) => {
         return "Something went wrong.";
     }
 
+    console.log(photos);
+
     const onPhotoSelected = (event) => {
         console.log(event.target);
         const { value: photoId } = event.target;
