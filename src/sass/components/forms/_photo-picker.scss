@@ -1,0 +1,31 @@
+.photo-picker {
+  display: grid;
+  grid-template-columns: [col1] 1fr [col2] 1fr [col3] 1fr [col4] 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+  max-height: 40vh;
+  overflow-y: auto;
+
+  @include lte-mobile {
+    grid-template-columns: [col1] 1fr [col2] 1fr;
+    max-height: 60vh;
+  }
+
+  & &__input {
+    display: block;
+
+    figure {
+      margin-bottom: 0;
+    }
+
+    label {
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+  }
+
+  & &__checkbox {
+    display: none;
+    @include selected-fa;
+  }
+}

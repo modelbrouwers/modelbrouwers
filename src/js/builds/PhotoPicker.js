@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import useAsync from "react-use/esm/useAsync";
 
+import { STATIC } from "../constants";
 import Loader from "../components/loaders";
 import { PhotoConsumer } from "../data/albums/photo";
+
+const THUMB = `${STATIC}/images/thumb.png`;
 
 const photoConsumer = new PhotoConsumer();
 
@@ -16,10 +19,18 @@ const PhotoInput = ({ id, image, description, selected, onChange }) => {
                 onChange={onChange}
                 name={`build-photo-${id}`}
                 id={htmlId}
+                className="photo-picker__checkbox"
             />
             <label htmlFor={htmlId}>
                 <figure className="thumbnail album-photo">
-                    <img src={image.thumb} alt={description} />
+                    <img
+                        src={image.thumb}
+                        alt={description}
+                        onError={(event) => {
+                            event.target.onerror = null;
+                            event.target.src = THUMB;
+                        }}
+                    />
                 </figure>
             </label>
             <i className="fa fa-check fa-3x"></i>
@@ -54,8 +65,6 @@ const PhotoPicker = ({ albumId, selectedPhotoIds = [], onSelect }) => {
         console.error(error);
         return "Something went wrong.";
     }
-
-    console.log(photos);
 
     const onPhotoSelected = (event) => {
         console.log(event.target);
