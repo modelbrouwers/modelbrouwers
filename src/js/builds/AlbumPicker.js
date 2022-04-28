@@ -83,8 +83,14 @@ const AlbumPicker = ({ onSelect, selectedAlbumId = null }) => {
                 modules={[Scrollbar, A11y]}
                 scrollbar={{ draggable: true }}
                 height={155}
-                slidesPerView={5}
-                slidesPerGroup={4}
+                slidesPerView={3}
+                slidesPerGroup={3}
+                breakpoints={{
+                    768: {
+                        slidesPerView: 5,
+                        slidesPerGroup: 4,
+                    },
+                }}
             >
                 {albums.map((album) => (
                     <SwiperSlide key={album.id}>
