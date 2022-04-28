@@ -7,14 +7,12 @@ import { getIntlProviderProps } from "../i18n";
 import "jquery";
 import "bootstrap";
 
-import { AlbumConsumer } from "../data/albums/album";
-import { PhotoConsumer } from "../data/albums/photo";
-
 import Formset from "../ponyjs/forms/formsets.js";
 
 import Handlebars from "../general/hbs-pony";
 
 import AlbumPicker from "./AlbumPicker";
+import PhotoPicker from "./PhotoPicker";
 
 let conf = {
     input_url: '.formset-form input[type="url"]',
@@ -143,11 +141,13 @@ let showAlbumOrUrls = function () {
 };
 
 let selectedAlbumId = null;
+let selectedPhotos = [];
 
 const renderAlbumPicker = (node, intlProviderProps) => {
     const onAlbumSelected = (albumId) => {
         selectedAlbumId = parseInt(albumId, 10);
         renderAlbumPicker(node, intlProviderProps);
+        renderPhotoPicker(null, intlProviderProps);
     };
 
     ReactDOM.render(
@@ -155,6 +155,28 @@ const renderAlbumPicker = (node, intlProviderProps) => {
             <AlbumPicker
                 onSelect={onAlbumSelected}
                 selectedAlbumId={selectedAlbumId}
+            />
+        </IntlProvider>,
+        node
+    );
+};
+
+const renderPhotoPicker = (node = null, intlProviderProps) => {
+    if (node == null) {
+        node = document.querySelector(".react-photo-picker");
+    }
+
+    const onPhotoSelected = (photo) => {
+        selectedPhotos.push(photo);
+        renderPhotoPicker(node, intlProviderProps);
+    };
+
+    ReactDOM.render(
+        <IntlProvider {...intlProviderProps}>
+            <PhotoPicker
+                albumId={selectedAlbumId}
+                selectedPhotoIds={selectedPhotos.map((photo) => photo.id)}
+                onSelect={onPhotoSelected}
             />
         </IntlProvider>,
         node
@@ -171,11 +193,6 @@ const initBuildForm = async () => {
     $(`fieldset ${conf.input_url}`).change();
 
     // bind photo picker events
-    $(conf.photo_picker.body).on(
-        "change",
-        'input[type="checkbox"]',
-        showPhotos
-    );
     $(conf.photo_picker.list).on(
         "change",
         'input[type="checkbox"]',

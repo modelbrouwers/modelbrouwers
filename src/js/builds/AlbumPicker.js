@@ -5,7 +5,7 @@ import { Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { STATIC } from "../constants";
-import { Album, AlbumConsumer } from "../data/albums/album";
+import { AlbumConsumer } from "../data/albums/album";
 import Loader from "../components/loaders";
 
 const albumConsumer = new AlbumConsumer();
