@@ -166,8 +166,13 @@ const renderPhotoPicker = (node = null, intlProviderProps) => {
         node = document.querySelector(".react-photo-picker");
     }
 
-    const onPhotoSelected = (photo) => {
-        selectedPhotos.push(photo);
+    const onPhotoToggle = (photo, checked) => {
+        if (checked) {
+            selectedPhotos.push(photo);
+        } else {
+            const index = selectedPhotos.indexOf(photo);
+            selectedPhotos.splice(index, 1);
+        }
         renderPhotoPicker(node, intlProviderProps);
     };
 
@@ -176,7 +181,7 @@ const renderPhotoPicker = (node = null, intlProviderProps) => {
             <PhotoPicker
                 albumId={selectedAlbumId}
                 selectedPhotoIds={selectedPhotos.map((photo) => photo.id)}
-                onSelect={onPhotoSelected}
+                onToggle={onPhotoToggle}
             />
         </IntlProvider>,
         node

@@ -12,14 +12,20 @@ const photoConsumer = new PhotoConsumer();
 
 const PhotoInput = ({ id, image, description, selected, onChange }) => {
     const htmlId = `id_build-photo-${id}`;
+
+    const onCheckboxChange = () => {
+        onChange(id, !selected);
+    };
+
     return (
         <div className="photo-picker__input">
             <input
                 type="checkbox"
-                onChange={onChange}
                 name={`build-photo-${id}`}
                 id={htmlId}
                 className="photo-picker__checkbox"
+                onChange={onCheckboxChange}
+                checked={selected}
             />
             <label htmlFor={htmlId}>
                 <figure className="thumbnail album-photo">
@@ -47,7 +53,7 @@ PhotoInput.propTypes = {
     description: PropTypes.string.isRequired,
 };
 
-const PhotoPicker = ({ albumId, selectedPhotoIds = [], onSelect }) => {
+const PhotoPicker = ({ albumId, selectedPhotoIds = [], onToggle }) => {
     const {
         loading,
         error,
@@ -66,13 +72,9 @@ const PhotoPicker = ({ albumId, selectedPhotoIds = [], onSelect }) => {
         return "Something went wrong.";
     }
 
-    const onPhotoSelected = (event) => {
-        console.log(event.target);
-        const { value: photoId } = event.target;
-        const photo = photos.find(
-            (photo) => photo.id === parseInt(photoId, 10)
-        );
-        onSelect(photo);
+    const onChange = (id, checked) => {
+        const photo = photos.find((photo) => photo.id === id);
+        onToggle(photo, checked);
     };
 
     return (
@@ -82,7 +84,7 @@ const PhotoPicker = ({ albumId, selectedPhotoIds = [], onSelect }) => {
                     key={photo.id}
                     {...photo}
                     selected={selectedPhotoIds.includes(photo.id)}
-                    onChange={onPhotoSelected}
+                    onChange={onChange}
                 />
             ))}
         </div>
@@ -92,7 +94,7 @@ const PhotoPicker = ({ albumId, selectedPhotoIds = [], onSelect }) => {
 PhotoPicker.propTypes = {
     albumId: PropTypes.number.isRequired,
     selectedPhotoIds: PropTypes.arrayOf(PropTypes.number.isRequired),
-    onSelect: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired,
 };
 
 export default PhotoPicker;
