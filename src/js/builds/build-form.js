@@ -2,25 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { IntlProvider } from "react-intl";
 
-import { getIntlProviderProps } from "../i18n";
-
-import "jquery";
-import "bootstrap";
-
 import Formset from "../ponyjs/forms/formsets.js";
 
+import { getIntlProviderProps } from "../i18n";
 import AlbumPicker from "./AlbumPicker";
 import PhotoPicker from "./PhotoPicker";
 import Image from "./Image";
-
-let conf = {
-    input_url: '.formset-form input[type="url"]',
-    formset: ".formset-form",
-    photo_picker: {
-        add_url: "#add-url-photo",
-        list: "#photo-picker .photo-list",
-    },
-};
 
 class PhotoFormset extends Formset {
     get template() {
@@ -32,62 +19,48 @@ class PhotoFormset extends Formset {
 }
 
 let photoFormset = new PhotoFormset("photos");
-
-let showPreview = function ($form, url) {
-    let $preview = $form.find(".preview");
-    $preview.addClass("hidden"); // always hide, only show when real urls work
-
-    let img = new Image();
-    img.onload = function () {
-        $form.find("img").attr("src", url);
-        $preview.removeClass("hidden");
-    };
-    img.src = url; // trigger loading
-};
-
-let previewUrl = function (event) {
-    let url = $(this).val();
-    let $form = $(this).closest(".formset-form");
-    let $img = $form.find("img");
-    showPreview($form, url);
-};
-
+let formsetContainer;
 let photoFormMapping = {};
+let selectedAlbumId = null;
+let selectedPhotos = []; // TODO: populate this for edit forms
 
-let addUrlForm = function (event) {
+const addUrlForm = (event) => {
     event.preventDefault();
-    let [html, index] = photoFormset.addForm();
-    $(conf.formset).closest("fieldset").append(html);
-    let $form = $(conf.formset).last();
-    $form.find(".album").hide();
-    $(window, "body").scrollTop($form.position().top);
-    $form.find("input:visible").focus();
-    $form.find('[data-toggle="popover"]').popover();
-    return false;
+    const [html, index] = photoFormset.addForm();
+    formsetContainer.insertAdjacentHTML("beforeend", html);
+    const formNode = formsetContainer.lastElementChild;
+    formNode.querySelector(".album").style.display = "none";
+    formNode.scrollIntoView(true);
+    formNode.querySelector("input[type='url']").focus();
+
+    // TODO: de-jQuery-ify
+    const popoverNode = formNode.querySelector('[data-toggle="popover"]');
+    $(popoverNode).popover();
 };
 
 // either show album or url, depending on which one is entered
-let showAlbumOrUrls = function () {
-    $(conf.formset).each((i, form) => {
-        let $form = $(form);
-        let prefix = `id_photos-${i}`;
-        let photo = $(form).find(`#${prefix}-photo`).val();
-        if (photo) {
-            $form.find(".url").hide();
+let showAlbumOrUrls = () => {
+    const forms = document.querySelectorAll(
+        ".formset-container > .formset-form"
+    );
+    forms.forEach((formNode, index) => {
+        const photoId = formNode.querySelector(
+            `#id_photos-${index}-photo`
+        ).value;
+        if (photoId) {
+            formNode.querySelector(".url").style.display = "none";
+            // TODO: fetch and add to selectedPhotos
         } else {
-            $form.find(".album").hide();
+            formNode.querySelector(".album").style.display = "none";
         }
     });
 };
-
-// refactored - above this is old code
 
 /**
  * Synchronize the formset when a photo is selected.
  */
 const onPhotoSelected = (photo) => {
     // TODO: refactor all these formset shenanigans to React too
-    const formsetContainer = document.querySelector(".formset-container");
     const [html, index] = photoFormset.addForm();
     formsetContainer.insertAdjacentHTML("beforeend", html);
     const formNode = formsetContainer.lastElementChild;
@@ -113,9 +86,6 @@ const onPhotoDeselected = (photo) => {
     const formNode = photoFormMapping[photo.id];
     formNode.parentNode.removeChild(formNode);
 };
-
-let selectedAlbumId = null;
-let selectedPhotos = []; // TODO: populate this for edit forms
 
 const renderAlbumPicker = (node, intlProviderProps) => {
     const onAlbumSelected = (albumId) => {
@@ -164,14 +134,36 @@ const renderPhotoPicker = (node = null, intlProviderProps) => {
     );
 };
 
+const onURLFieldChanged = ({ target }) => {
+    if (target.tagName !== "INPUT") return;
+    if (target.type !== "url") return;
+    const formNode = target.closest(".formset-form");
+    const previewNode = formNode.querySelector(".preview");
+    ReactDOM.render(
+        <Image src={target.value} alt={`URL: ${target.value}`} />,
+        previewNode.querySelector(".thumbnail")
+    );
+    previewNode.classList.remove("hidden");
+};
+
 const initBuildForm = async () => {
     // only initialize if there is a postable form
     const form = document.querySelector('form[method="post"]');
     if (!form) return;
 
+    formsetContainer = document.querySelector(".formset-container");
+
     // bind change handler + trigger to display url previews
-    $("fieldset").on("change, keyup", conf.input_url, previewUrl);
-    $(`fieldset ${conf.input_url}`).change();
+    formsetContainer.addEventListener("change", onURLFieldChanged, false);
+    formsetContainer.addEventListener("keyup", onURLFieldChanged, false);
+    // fire on change event manually on load
+    const changeEvent = new Event("change");
+    const urlInputs = formsetContainer.querySelectorAll(
+        ".formset-form input[type='url']"
+    );
+    for (const input of urlInputs) {
+        input.dispatchEvent(changeEvent);
+    }
 
     // bind photo picker events
     const photoPickerButton = document.querySelector(
@@ -186,10 +178,7 @@ const initBuildForm = async () => {
     // bind trigger to add a url form
     document
         .getElementById("add-url-photo")
-        .addEventListener("click", (event) => {
-            // event.preventDefault();
-            addUrlForm(event);
-        });
+        .addEventListener("click", addUrlForm);
 
     // properly display the formset forms, if any
     showAlbumOrUrls();

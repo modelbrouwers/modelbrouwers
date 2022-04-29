@@ -6,6 +6,7 @@ import { STATIC } from "../constants";
 const THUMB = `${STATIC}/images/thumb.png`;
 
 const Image = ({ src, ...extra }) => {
+    if (src === "") return null;
     return (
         <img
             src={src}
