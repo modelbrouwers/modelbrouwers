@@ -17,7 +17,6 @@ let conf = {
     input_url: '.formset-form input[type="url"]',
     formset: ".formset-form",
     photo_picker: {
-        picker: "#photo-picker",
         add_url: "#add-url-photo",
         list: "#photo-picker .photo-list",
     },
@@ -33,12 +32,6 @@ class PhotoFormset extends Formset {
 }
 
 let photoFormset = new PhotoFormset("photos");
-
-let togglePhotoPicker = function (event) {
-    event.preventDefault();
-    $($(this).data("target")).toggleClass("hidden");
-    return false;
-};
 
 let showPreview = function ($form, url) {
     let $preview = $form.find(".preview");
@@ -122,7 +115,7 @@ const onPhotoDeselected = (photo) => {
 };
 
 let selectedAlbumId = null;
-let selectedPhotos = [];
+let selectedPhotos = []; // TODO: populate this for edit forms
 
 const renderAlbumPicker = (node, intlProviderProps) => {
     const onAlbumSelected = (albumId) => {
@@ -181,13 +174,22 @@ const initBuildForm = async () => {
     $(`fieldset ${conf.input_url}`).change();
 
     // bind photo picker events
-    $(`[data-target="${conf.photo_picker.picker}"]`).on(
-        "click",
-        togglePhotoPicker
+    const photoPickerButton = document.querySelector(
+        '[data-target="#photo-picker"]'
     );
+    const photoPicker = document.getElementById("photo-picker");
+    photoPickerButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        photoPicker.classList.toggle("hidden");
+    });
 
     // bind trigger to add a url form
-    $(conf.photo_picker.add_url).on("click", addUrlForm);
+    document
+        .getElementById("add-url-photo")
+        .addEventListener("click", (event) => {
+            // event.preventDefault();
+            addUrlForm(event);
+        });
 
     // properly display the formset forms, if any
     showAlbumOrUrls();
