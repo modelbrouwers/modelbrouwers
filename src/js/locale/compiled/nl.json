@@ -2,25 +2,25 @@
   "/N7xse": [
     {
       "type": 0,
-      "value": "Finished?"
+      "value": "Klaar?"
     }
   ],
   "7wbY42": [
     {
       "type": 0,
-      "value": "Participants"
+      "value": "Deelnemers"
     }
   ],
   "84sXop": [
     {
       "type": 0,
-      "value": "Rules"
+      "value": "Regels"
     }
   ],
   "B4vH06": [
     {
       "type": 0,
-      "value": "Description"
+      "value": "Omschrijving"
     }
   ],
   "BxbHDf": [
@@ -40,7 +40,7 @@
     },
     {
       "type": 0,
-      "value": ", end: "
+      "value": ", einde: "
     },
     {
       "type": 1,
@@ -56,25 +56,25 @@
   "forum.albums.photosNav.next": [
     {
       "type": 0,
-      "value": "Next"
+      "value": "Volgende"
     }
   ],
   "forum.albums.photosNav.previous": [
     {
       "type": 0,
-      "value": "Previous"
+      "value": "Vorige"
     }
   ],
   "forum.albums.sidebar.noPhotosYet": [
     {
       "type": 0,
-      "value": "There are no photo's in this album yet. You can upload some "
+      "value": "Je hebt nog geen foto's in dit album. Je kunt deze "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "here"
+          "value": "hier"
         }
       ],
       "type": 8,
@@ -82,13 +82,13 @@
     },
     {
       "type": 0,
-      "value": "."
+      "value": " toevoegen."
     }
   ],
   "forum.albums.sidebar.photos-title": [
     {
       "type": 0,
-      "value": "Photos"
+      "value": "Foto's"
     }
   ],
   "forum.albums.sidebar.title": [
@@ -100,43 +100,43 @@
   "jHygYM": [
     {
       "type": 0,
-      "value": "View outside of forum"
+      "value": "Open buiten het forum"
     }
   ],
   "kits.filter.byName": [
     {
       "type": 0,
-      "value": "filter by name"
+      "value": "zoek op naam"
     }
   ],
   "shop.cart.detail.cart.subtotal": [
     {
       "type": 0,
-      "value": "Sub-total"
+      "value": "Subtotaal"
     }
   ],
   "shop.cart.detail.cart.taxes": [
     {
       "type": 0,
-      "value": "Taxes"
+      "value": "BTW"
     }
   ],
   "shop.cart.detail.cart.total": [
     {
       "type": 0,
-      "value": "Sub-total"
+      "value": "Totaal"
     }
   ],
   "shop.cart.detail.header.header": [
     {
       "type": 0,
-      "value": "Total"
+      "value": "Totaal"
     }
   ],
   "shop.cart.detail.header.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "Afbeelding"
     }
   ],
   "shop.cart.detail.header.model": [
@@ -148,37 +148,37 @@
   "shop.cart.detail.header.product.name": [
     {
       "type": 0,
-      "value": "Product Name"
+      "value": "Artikel"
     }
   ],
   "shop.cart.detail.header.quantity": [
     {
       "type": 0,
-      "value": "Quantity"
+      "value": "Aantal"
     }
   ],
   "shop.cart.detail.header.unit.price": [
     {
       "type": 0,
-      "value": "Unit Price"
+      "value": "Stukprijs"
     }
   ],
   "shop.cart.detail.title.cart.total": [
     {
       "type": 0,
-      "value": "Cart total"
+      "value": "Totaal"
     }
   ],
   "shop.cart.product.actions.add": [
     {
       "type": 0,
-      "value": "Add to cart"
+      "value": "Toevoegen aan winkelmandje"
     }
   ],
   "shop.cart.topbar.checkout": [
     {
       "type": 0,
-      "value": "Checkout"
+      "value": "Afrekenen"
     }
   ],
   "shop.cart.topbar.item.count": [
@@ -198,7 +198,7 @@
           "value": [
             {
               "type": 0,
-              "value": "item"
+              "value": "artikel"
             }
           ]
         },
@@ -206,7 +206,7 @@
           "value": [
             {
               "type": 0,
-              "value": "items"
+              "value": "artikelen"
             }
           ]
         }
@@ -219,13 +219,13 @@
   "shop.cart.topbar.view.cart": [
     {
       "type": 0,
-      "value": "View cart"
+      "value": "Winkelmandje bekijken"
     }
   ],
   "tPmUAf": [
     {
       "type": 0,
-      "value": "Rules topic"
+      "value": "Topic met regels"
     }
   ],
   "y/pElv": [
