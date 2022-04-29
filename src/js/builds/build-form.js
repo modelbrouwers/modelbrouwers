@@ -9,8 +9,6 @@ import "bootstrap";
 
 import Formset from "../ponyjs/forms/formsets.js";
 
-import Handlebars from "../general/hbs-pony";
-
 import AlbumPicker from "./AlbumPicker";
 import PhotoPicker from "./PhotoPicker";
 
@@ -20,7 +18,6 @@ let conf = {
     photo_picker: {
         picker: "#photo-picker",
         add_url: "#add-url-photo",
-        body: "#carousel-album .carousel-inner",
         list: "#photo-picker .photo-list",
     },
 };
@@ -35,37 +32,6 @@ class PhotoFormset extends Formset {
 }
 
 let photoFormset = new PhotoFormset("photos");
-
-let showPhotos = function (event) {
-    // always show the loader first
-    $(conf.photo_picker.list).removeClass("hidden");
-    Handlebars.render("general::loader", {}, $(conf.photo_picker.list));
-
-    if (!$(this).is(":checked")) {
-        $(conf.photo_picker.list).addClass("hidden");
-        return;
-    }
-
-    // reset other checkboxes
-    $(conf.photo_picker.body)
-        .find('input[type="checkbox"]:checked')
-        .not(this)
-        .prop("checked", false);
-
-    let albumId = parseInt($(this).val(), 10);
-
-    const photoConsumer = new PhotoConsumer();
-    photoConsumer
-        .getAllForAlbum(albumId)
-        .then((photos) => {
-            console.log(photos);
-            return Handlebars.render("builds::album-photo-picker", { photos });
-        })
-        .then((html) => {
-            $(conf.photo_picker.list).html(html);
-        })
-        .catch(console.error);
-};
 
 let togglePhotoPicker = function (event) {
     event.preventDefault();
