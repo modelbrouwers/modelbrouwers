@@ -2,11 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import useAsync from "react-use/esm/useAsync";
 
-import { STATIC } from "../constants";
 import Loader from "../components/loaders";
 import { PhotoConsumer } from "../data/albums/photo";
-
-const THUMB = `${STATIC}/images/thumb.png`;
+import Image from "./Image";
 
 const photoConsumer = new PhotoConsumer();
 
@@ -29,14 +27,7 @@ const PhotoInput = ({ id, image, description, selected, onChange }) => {
             />
             <label htmlFor={htmlId}>
                 <figure className="thumbnail album-photo">
-                    <img
-                        src={image.thumb}
-                        alt={description}
-                        onError={(event) => {
-                            event.target.onerror = null;
-                            event.target.src = THUMB;
-                        }}
-                    />
+                    <Image src={image.thumb} alt={description} />
                 </figure>
             </label>
             <i className="fa fa-check fa-3x"></i>

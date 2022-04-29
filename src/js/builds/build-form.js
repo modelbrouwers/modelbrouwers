@@ -11,6 +11,7 @@ import Formset from "../ponyjs/forms/formsets.js";
 
 import AlbumPicker from "./AlbumPicker";
 import PhotoPicker from "./PhotoPicker";
+import Image from "./Image";
 
 let conf = {
     input_url: '.formset-form input[type="url"]',
@@ -60,26 +61,6 @@ let previewUrl = function (event) {
 
 let photoFormMapping = {};
 
-let addRemoveAlbumPhoto = function (event) {
-    let photoId = $(this).data("id");
-    let add = $(this).is(":checked");
-
-    if (add) {
-        let [html, index] = photoFormset.addForm();
-        $(conf.formset).closest("fieldset").append(html);
-        let $form = $(conf.formset).last();
-        photoFormMapping[photoId] = $form;
-        $form.find(".url").hide();
-        photoFormset.setData(index, { photo: photoId });
-        let url = $(this).siblings("label").find("img").data("large");
-        $form.find('[data-toggle="popover"]').popover();
-        showPreview($form, url);
-    } else {
-        let $form = photoFormMapping[photoId];
-        $form.remove();
-    }
-};
-
 let addUrlForm = function (event) {
     event.preventDefault();
     let [html, index] = photoFormset.addForm();
@@ -104,6 +85,40 @@ let showAlbumOrUrls = function () {
             $form.find(".album").hide();
         }
     });
+};
+
+// refactored - above this is old code
+
+/**
+ * Synchronize the formset when a photo is selected.
+ */
+const onPhotoSelected = (photo) => {
+    // TODO: refactor all these formset shenanigans to React too
+    const formsetContainer = document.querySelector(".formset-container");
+    const [html, index] = photoFormset.addForm();
+    formsetContainer.insertAdjacentHTML("beforeend", html);
+    const formNode = formsetContainer.lastElementChild;
+    photoFormMapping[photo.id] = formNode;
+    formNode.querySelector(".url").style.display = "none";
+    photoFormset.setData(index, { photo: photo.id });
+    const url = photo.image.large;
+    const previewNode = formNode.querySelector(".preview");
+    ReactDOM.render(
+        <Image src={photo.image.large} alt={photo.description} />,
+        previewNode.querySelector(".thumbnail")
+    );
+    previewNode.classList.remove("hidden");
+    // TODO: de-jQuery-ify
+    const popoverNode = formNode.querySelector('[data-toggle="popover"]');
+    $(popoverNode).popover();
+};
+
+/**
+ * Synchronize the formset when a photo is de-selected.
+ */
+const onPhotoDeselected = (photo) => {
+    const formNode = photoFormMapping[photo.id];
+    formNode.parentNode.removeChild(formNode);
 };
 
 let selectedAlbumId = null;
@@ -135,9 +150,11 @@ const renderPhotoPicker = (node = null, intlProviderProps) => {
     const onPhotoToggle = (photo, checked) => {
         if (checked) {
             selectedPhotos.push(photo);
+            onPhotoSelected(photo);
         } else {
             const index = selectedPhotos.indexOf(photo);
             selectedPhotos.splice(index, 1);
+            onPhotoDeselected(photo);
         }
         renderPhotoPicker(node, intlProviderProps);
     };
@@ -164,11 +181,6 @@ const initBuildForm = async () => {
     $(`fieldset ${conf.input_url}`).change();
 
     // bind photo picker events
-    $(conf.photo_picker.list).on(
-        "change",
-        'input[type="checkbox"]',
-        addRemoveAlbumPhoto
-    );
     $(`[data-target="${conf.photo_picker.picker}"]`).on(
         "click",
         togglePhotoPicker
