@@ -6,6 +6,7 @@ import { useImmerReducer } from "use-immer";
 
 import { Loader } from "../../shop/components/Loader";
 import { ModelKitConsumer } from "../../data/kits/modelkit";
+import { default as SpinningLoader } from "../../components/loaders";
 import { ModalContext } from "./context";
 import { FilterForm } from "./FilterForm";
 import { KitPreviews } from "./KitPreview";
@@ -15,7 +16,7 @@ const DEBOUNCE = 300; // debounce in ms
 
 const modelKitConsumer = new ModelKitConsumer();
 
-const isEmpty = obj => !Object.keys(obj).length;
+const isEmpty = (obj) => !Object.keys(obj).length;
 
 const getInitialState = (selected = []) => {
     return {
@@ -26,11 +27,11 @@ const getInitialState = (selected = []) => {
         preSelected: [],
         searchResults: [],
         hasNext: null,
-        createKitData: {}
+        createKitData: {},
     };
 };
 
-const getReducer = allowMultiple => {
+const getReducer = (allowMultiple) => {
     const reducer = (draft, action) => {
         switch (action.type) {
             case "UPDATE_SEARCH_PARAM": {
@@ -58,7 +59,7 @@ const getReducer = allowMultiple => {
             case "SET_INITIAL_KITS": {
                 // include the pre-selected kits that are _still_ selected
                 const kits = action.payload;
-                draft.preSelected = kits.filter(kit =>
+                draft.preSelected = kits.filter((kit) =>
                     draft.selectedIds.includes(kit.id)
                 );
                 break;
@@ -67,7 +68,7 @@ const getReducer = allowMultiple => {
             case "TOGGLE_KIT": {
                 // remove kits that get unselected, add kits that get selected
                 const { kit, checked } = action.payload;
-                const preSelectedIds = draft.preSelected.map(kit => kit.id);
+                const preSelectedIds = draft.preSelected.map((kit) => kit.id);
 
                 // remove the kit from the pre selected kits if it gets untoggled - but only
                 // if there are search params
@@ -77,7 +78,7 @@ const getReducer = allowMultiple => {
                     preSelectedIds.includes(kit.id)
                 ) {
                     draft.preSelected = draft.preSelected.filter(
-                        preSelectedKit => preSelectedKit.id !== kit.id
+                        (preSelectedKit) => preSelectedKit.id !== kit.id
                     );
                 }
 
@@ -88,7 +89,7 @@ const getReducer = allowMultiple => {
                         draft.selectedIds = draft.selectedIds.concat([kit.id]);
                     } else if (!checked && isPresent) {
                         draft.selectedIds = draft.selectedIds.filter(
-                            id => id !== kit.id
+                            (id) => id !== kit.id
                         );
                     }
                 } else {
@@ -149,7 +150,7 @@ const LoadMore = ({ show = false, onClick, children = "load more" }) => {
             >
                 {children}
             </button>
-            <i className="fa fa-pulse fa-spinner fa-4x" />
+            <SpinningLoader />
         </div>
     );
 };
@@ -157,14 +158,14 @@ const LoadMore = ({ show = false, onClick, children = "load more" }) => {
 LoadMore.propTypes = {
     show: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
-    children: PropTypes.node
+    children: PropTypes.node,
 };
 
 const ModelKitSelect = ({
     label,
     htmlName,
     allowMultiple = false,
-    selected = []
+    selected = [],
 }) => {
     const { modal } = useContext(ModalContext);
 
@@ -181,20 +182,20 @@ const ModelKitSelect = ({
             preSelected,
             searchResults,
             hasNext,
-            createKitData
+            createKitData,
         },
-        dispatch
+        dispatch,
     ] = useImmerReducer(reducer, initialState);
 
     // load the preview for selected kit IDs
     // this is one-off, so no state dependencies!
     useAsync(() => {
-        const promises = selectedIds.map(id => modelKitConsumer.read(id));
+        const promises = selectedIds.map((id) => modelKitConsumer.read(id));
         return Promise.all(promises)
-            .then(kits => {
+            .then((kits) => {
                 dispatch({
                     type: "SET_INITIAL_KITS",
-                    payload: kits
+                    payload: kits,
                 });
             })
             .catch(console.error);
@@ -208,10 +209,10 @@ const ModelKitSelect = ({
             dispatch({ type: "SET_LOADING" });
             modelKitConsumer
                 .filter({ ...searchParams, page: page })
-                .then(resultList => {
+                .then((resultList) => {
                     dispatch({
                         type: "SET_SEARCH_RESULTS",
-                        payload: resultList
+                        payload: resultList,
                     });
                 })
                 .catch(console.error);
@@ -220,9 +221,9 @@ const ModelKitSelect = ({
         [searchParams, page]
     );
 
-    const preSelectedIds = preSelected.map(kit => kit.id);
+    const preSelectedIds = preSelected.map((kit) => kit.id);
     const searchResultsToRender = searchResults.filter(
-        kit => !preSelectedIds.includes(kit.id)
+        (kit) => !preSelectedIds.includes(kit.id)
     );
     const allKits = preSelected.concat(searchResultsToRender);
 
@@ -240,8 +241,8 @@ const ModelKitSelect = ({
             type: "UPDATE_SEARCH_PARAM",
             payload: {
                 param: name,
-                value: searchParamValue
-            }
+                value: searchParamValue,
+            },
         });
 
         // pre-populate create data
@@ -249,8 +250,8 @@ const ModelKitSelect = ({
             type: "SET_CREATE_KIT_PARAM",
             payload: {
                 param: name,
-                value: value
-            }
+                value: value,
+            },
         });
     };
 
@@ -259,20 +260,20 @@ const ModelKitSelect = ({
             type: "SET_CREATE_KIT_PARAM",
             payload: {
                 param: name,
-                value: value
-            }
+                value: value,
+            },
         });
     };
 
-    const onKitAdded = kit => {
+    const onKitAdded = (kit) => {
         dispatch({
             type: "KIT_CREATED",
-            payload: kit
+            payload: kit,
         });
     };
 
     // legacy bootstrap modal
-    const openModal = event => {
+    const openModal = (event) => {
         event.preventDefault();
         modal.modal("show");
     };
@@ -297,7 +298,7 @@ const ModelKitSelect = ({
 
                 <div
                     className={classNames("row", "kit-suggestions", {
-                        "kit-suggestions--no-results": noResults
+                        "kit-suggestions--no-results": noResults,
                     })}
                 >
                     {noResults ? (
@@ -327,7 +328,7 @@ const ModelKitSelect = ({
                         onToggle={(kit, checked) =>
                             dispatch({
                                 type: "TOGGLE_KIT",
-                                payload: { kit, checked }
+                                payload: { kit, checked },
                             })
                         }
                     />
@@ -345,7 +346,7 @@ ModelKitSelect.propTypes = {
     label: PropTypes.string.isRequired,
     htmlName: PropTypes.string.isRequired,
     allowMultiple: PropTypes.bool,
-    selected: PropTypes.arrayOf(PropTypes.number)
+    selected: PropTypes.arrayOf(PropTypes.number),
 };
 
 export { ModelKitSelect };

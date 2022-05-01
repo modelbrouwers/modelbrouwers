@@ -15,16 +15,12 @@ import AlbumsPage from "./albums/index";
 import BuildPage from "./builds/index";
 import GroupBuildsPage from "./groupbuilds/index";
 import ShopPage from "./shop/index";
-import { locales } from "./translations/utils";
-import { addLocaleData } from "react-intl";
-
-addLocaleData(locales);
 
 const pageMap = {
     kitreviews: KitreviewsPage,
     albums: AlbumsPage,
     builds: BuildPage,
-    group_builds: GroupBuildsPage
+    group_builds: GroupBuildsPage,
     // shop: ShopPage
 };
 
@@ -33,21 +29,21 @@ new Router(pageMap).autoload();
 
 // global bootstrap stuff
 $(".help").popover({
-    placement: "auto right"
+    placement: "auto right",
 });
 
 $(".badge").tooltip({
-    placement: "auto left"
+    placement: "auto left",
 });
 
 $("td.help_text div").hide(); // hide the help texts
 
 $("img").tooltip({
-    track: true
+    track: true,
 });
 
 $("input.date").datepicker({
     language: "nl",
-    format: "yyyy-mm-dd"
+    format: "yyyy-mm-dd",
 });
 $(".selectpicker").selectpicker();

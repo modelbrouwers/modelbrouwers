@@ -22,4 +22,4 @@ class AlbumConsumer extends CrudConsumer {
     }
 }
 
-export { AlbumConsumer };
+export { Album, AlbumConsumer };

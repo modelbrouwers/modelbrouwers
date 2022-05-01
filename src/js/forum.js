@@ -7,6 +7,7 @@
 import AlbumsApp from "./forum/albums";
 import ForumToolsApp from "./forum/forum-tools";
 import GroupBuildsApp from "./forum/group-builds";
+import "./forum/announcement";
 
 AlbumsApp.init();
 ForumToolsApp.init();

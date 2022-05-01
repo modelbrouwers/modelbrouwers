@@ -1,23 +1,24 @@
-"use strict";
+import React from "react";
+import ReactDOM from "react-dom";
+import { IntlProvider } from "react-intl";
 
-import Handlebars from "../general/hbs-pony";
-
-import { GroupBuildConsumer } from "../data/group-build";
-
-const render = (gb, node) => {
-    Handlebars.render("groupbuilds::inset", gb, $(node)).catch(console.error);
-};
+import { getIntlProviderProps } from "../i18n";
+import GroupBuildInset from "./groupbuilds/GroupBuildInset";
 
 export default class App {
-    static init() {
-        const consumer = new GroupBuildConsumer();
+    static async init() {
         const insets = document.querySelectorAll(".gb-inset");
+        if (!insets.length) return;
 
-        insets.forEach(node => {
-            consumer
-                .read(node.dataset.id)
-                .then(gb => render(gb, node))
-                .catch(console.error);
-        });
+        const intlProviderProps = await getIntlProviderProps();
+        for (const node of insets) {
+            const id = parseInt(node.dataset.id, 10);
+            ReactDOM.render(
+                <IntlProvider {...intlProviderProps}>
+                    <GroupBuildInset id={id} />
+                </IntlProvider>,
+                node
+            );
+        }
     }
 }

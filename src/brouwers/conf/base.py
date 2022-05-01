@@ -363,7 +363,7 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 365  # one year
 
 SESSION_SAVE_EVERY_REQUEST = False
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 SESSION_CACHE_ALIAS = "default"
 

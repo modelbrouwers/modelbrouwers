@@ -1,0 +1,237 @@
+{
+  "/N7xse": [
+    {
+      "type": 0,
+      "value": "Klaar?"
+    }
+  ],
+  "7wbY42": [
+    {
+      "type": 0,
+      "value": "Deelnemers"
+    }
+  ],
+  "84sXop": [
+    {
+      "type": 0,
+      "value": "Regels"
+    }
+  ],
+  "B4vH06": [
+    {
+      "type": 0,
+      "value": "Omschrijving"
+    }
+  ],
+  "BxbHDf": [
+    {
+      "type": 0,
+      "value": "Brouwer"
+    }
+  ],
+  "IlIaZ2": [
+    {
+      "type": 0,
+      "value": "Start: "
+    },
+    {
+      "type": 1,
+      "value": "start"
+    },
+    {
+      "type": 0,
+      "value": ", einde: "
+    },
+    {
+      "type": 1,
+      "value": "end"
+    }
+  ],
+  "JFs7tB": [
+    {
+      "type": 0,
+      "value": "Model"
+    }
+  ],
+  "forum.albums.photosNav.next": [
+    {
+      "type": 0,
+      "value": "Volgende"
+    }
+  ],
+  "forum.albums.photosNav.previous": [
+    {
+      "type": 0,
+      "value": "Vorige"
+    }
+  ],
+  "forum.albums.sidebar.noPhotosYet": [
+    {
+      "type": 0,
+      "value": "Je hebt nog geen foto's in dit album. Je kunt deze "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "hier"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " toevoegen."
+    }
+  ],
+  "forum.albums.sidebar.photos-title": [
+    {
+      "type": 0,
+      "value": "Foto's"
+    }
+  ],
+  "forum.albums.sidebar.title": [
+    {
+      "type": 0,
+      "value": "Albums"
+    }
+  ],
+  "jHygYM": [
+    {
+      "type": 0,
+      "value": "Open buiten het forum"
+    }
+  ],
+  "kits.filter.byName": [
+    {
+      "type": 0,
+      "value": "zoek op naam"
+    }
+  ],
+  "shop.cart.detail.cart.subtotal": [
+    {
+      "type": 0,
+      "value": "Subtotaal"
+    }
+  ],
+  "shop.cart.detail.cart.taxes": [
+    {
+      "type": 0,
+      "value": "BTW"
+    }
+  ],
+  "shop.cart.detail.cart.total": [
+    {
+      "type": 0,
+      "value": "Totaal"
+    }
+  ],
+  "shop.cart.detail.header.header": [
+    {
+      "type": 0,
+      "value": "Totaal"
+    }
+  ],
+  "shop.cart.detail.header.image": [
+    {
+      "type": 0,
+      "value": "Afbeelding"
+    }
+  ],
+  "shop.cart.detail.header.model": [
+    {
+      "type": 0,
+      "value": "Model"
+    }
+  ],
+  "shop.cart.detail.header.product.name": [
+    {
+      "type": 0,
+      "value": "Artikel"
+    }
+  ],
+  "shop.cart.detail.header.quantity": [
+    {
+      "type": 0,
+      "value": "Aantal"
+    }
+  ],
+  "shop.cart.detail.header.unit.price": [
+    {
+      "type": 0,
+      "value": "Stukprijs"
+    }
+  ],
+  "shop.cart.detail.title.cart.total": [
+    {
+      "type": 0,
+      "value": "Totaal"
+    }
+  ],
+  "shop.cart.product.actions.add": [
+    {
+      "type": 0,
+      "value": "Toevoegen aan winkelmandje"
+    }
+  ],
+  "shop.cart.topbar.checkout": [
+    {
+      "type": 0,
+      "value": "Afrekenen"
+    }
+  ],
+  "shop.cart.topbar.item.count": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "artikel"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "artikelen"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "shop.cart.topbar.view.cart": [
+    {
+      "type": 0,
+      "value": "Winkelmandje bekijken"
+    }
+  ],
+  "tPmUAf": [
+    {
+      "type": 0,
+      "value": "Topic met regels"
+    }
+  ],
+  "y/pElv": [
+    {
+      "type": 0,
+      "value": "Topic"
+    }
+  ]
+}

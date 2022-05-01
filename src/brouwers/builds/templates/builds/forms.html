@@ -39,24 +39,10 @@ AlbumCarousel
 {% block PhotoPicker %}
 <div id="photo-picker" class="hidden">
     <label><strong>{% trans "Pick an album first" %}</strong></label>
-    <div class="carousel slide carousel-album" data-interval="false" id="carousel-album">
-        <!-- Carousel items container -->
-        <div class="carousel-inner">
-            <div class="text-center"><i class="fa fa-pulse fa-spinner fa-4x"></i></div>
-        </div>
-
-        <a class="left carousel-control" href="#carousel-album" role="button" data-slide="prev">
-            <i class="fa fa-arrow-left fa-2x"></i>
-        </a>
-        <a class="right carousel-control" href="#carousel-album" role="button" data-slide="next">
-            <i class="fa fa-arrow-right fa-2x"></i>
-        </a>
-    </div>
+    <div class="react-album-picker">{# Managed by react #}</div>
 
     <label><strong>{% trans "Select your photos" %}</strong></label>
-    <div class="row photo-list hidden">
-        <div class="text-center"><i class="fa fa-pulse fa-spinner fa-4x"></i></div>
-    </div>
+    <div class="react-photo-picker">{# Managed by react #}</div>
 </div>
 <hr>
 {% endblock %}

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import { FormattedMessage } from "react-intl";
+
 import { AmountControls } from "./index";
-import { msg } from "../../../translations/components/Message";
-import messages from "./messages";
 
 @observer
 class CartProduct extends Component {
@@ -15,7 +15,7 @@ class CartProduct extends Component {
         return store.addProduct({
             product: productId,
             cart: store.id,
-            amount: 1
+            amount: 1,
         });
     };
 
@@ -34,7 +34,10 @@ class CartProduct extends Component {
                 className="button button--blue button__add"
                 onClick={this.add}
             >
-                {msg(messages.addToCart)}
+                <FormattedMessage
+                    id="shop.cart.product.actions.add"
+                    defaultMessage="Add to cart"
+                />
             </button>
         );
     }

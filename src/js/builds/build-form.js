@@ -1,25 +1,13 @@
-"use strict";
-
-import "jquery";
-import "bootstrap";
-
-import { AlbumConsumer } from "../data/albums/album";
-import { PhotoConsumer } from "../data/albums/photo";
+import React from "react";
+import ReactDOM from "react-dom";
+import { IntlProvider } from "react-intl";
 
 import Formset from "../ponyjs/forms/formsets.js";
 
-import Handlebars from "../general/hbs-pony";
-
-let conf = {
-    input_url: '.formset-form input[type="url"]',
-    formset: ".formset-form",
-    photo_picker: {
-        picker: "#photo-picker",
-        add_url: "#add-url-photo",
-        body: "#carousel-album .carousel-inner",
-        list: "#photo-picker .photo-list"
-    }
-};
+import { getIntlProviderProps } from "../i18n";
+import AlbumPicker from "./AlbumPicker";
+import PhotoPicker from "./PhotoPicker";
+import Image from "./Image";
 
 class PhotoFormset extends Formset {
     get template() {
@@ -31,168 +19,174 @@ class PhotoFormset extends Formset {
 }
 
 let photoFormset = new PhotoFormset("photos");
-
-let loadAlbums = function() {
-    let albumConsumer = new AlbumConsumer();
-    albumConsumer
-        .list()
-        .then(albums => {
-            return Handlebars.render("albums::carousel-picker", {
-                albums: albums
-            });
-        })
-        .then(html => {
-            // render carousel body
-            $(conf.photo_picker.body).html(html);
-        })
-        .catch(console.error);
-};
-
-let showPhotos = function(event) {
-    // always show the loader first
-    $(conf.photo_picker.list).removeClass("hidden");
-    Handlebars.render("general::loader", {}, $(conf.photo_picker.list));
-
-    if (!$(this).is(":checked")) {
-        $(conf.photo_picker.list).addClass("hidden");
-        return;
-    }
-
-    // reset other checkboxes
-    $(conf.photo_picker.body)
-        .find('input[type="checkbox"]:checked')
-        .not(this)
-        .prop("checked", false);
-
-    let albumId = parseInt($(this).val(), 10);
-
-    const photoConsumer = new PhotoConsumer();
-    photoConsumer
-        .getAllForAlbum(albumId)
-        .then(photos => {
-            console.log(photos);
-            return Handlebars.render("builds::album-photo-picker", { photos });
-        })
-        .then(html => {
-            $(conf.photo_picker.list).html(html);
-        })
-        .catch(console.error);
-};
-
-let togglePhotoPicker = function(event) {
-    event.preventDefault();
-    $($(this).data("target")).toggleClass("hidden");
-    return false;
-};
-
-let showPreview = function($form, url) {
-    let $preview = $form.find(".preview");
-    $preview.addClass("hidden"); // always hide, only show when real urls work
-
-    let img = new Image();
-    img.onload = function() {
-        $form.find("img").attr("src", url);
-        $preview.removeClass("hidden");
-    };
-    img.src = url; // trigger loading
-};
-
-let previewUrl = function(event) {
-    let url = $(this).val();
-    let $form = $(this).closest(".formset-form");
-    let $img = $form.find("img");
-    showPreview($form, url);
-};
-
+let formsetContainer;
 let photoFormMapping = {};
+let selectedAlbumId = null;
+let selectedPhotoIds = []; // TODO: populate this for edit forms
 
-let addRemoveAlbumPhoto = function(event) {
-    let photoId = $(this).data("id");
-    let add = $(this).is(":checked");
-
-    if (add) {
-        let [html, index] = photoFormset.addForm();
-        $(conf.formset)
-            .closest("fieldset")
-            .append(html);
-        let $form = $(conf.formset).last();
-        photoFormMapping[photoId] = $form;
-        $form.find(".url").hide();
-        photoFormset.setData(index, { photo: photoId });
-        let url = $(this)
-            .siblings("label")
-            .find("img")
-            .data("large");
-        $form.find('[data-toggle="popover"]').popover();
-        showPreview($form, url);
-    } else {
-        let $form = photoFormMapping[photoId];
-        $form.remove();
-    }
-};
-
-let addUrlForm = function(event) {
+const addUrlForm = (event) => {
     event.preventDefault();
-    let [html, index] = photoFormset.addForm();
-    $(conf.formset)
-        .closest("fieldset")
-        .append(html);
-    let $form = $(conf.formset).last();
-    $form.find(".album").hide();
-    $(window, "body").scrollTop($form.position().top);
-    $form.find("input:visible").focus();
-    $form.find('[data-toggle="popover"]').popover();
-    return false;
+    const [html, index] = photoFormset.addForm();
+    formsetContainer.insertAdjacentHTML("beforeend", html);
+    const formNode = formsetContainer.lastElementChild;
+    formNode.querySelector(".album").style.display = "none";
+    formNode.scrollIntoView(true);
+    formNode.querySelector("input[type='url']").focus();
+
+    // TODO: de-jQuery-ify
+    const popoverNode = formNode.querySelector('[data-toggle="popover"]');
+    $(popoverNode).popover();
 };
 
 // either show album or url, depending on which one is entered
-let showAlbumOrUrls = function() {
-    $(conf.formset).each((i, form) => {
-        let $form = $(form);
-        let prefix = `id_photos-${i}`;
-        let photo = $(form)
-            .find(`#${prefix}-photo`)
-            .val();
-        if (photo) {
-            $form.find(".url").hide();
+let showAlbumOrUrls = () => {
+    const forms = document.querySelectorAll(
+        ".formset-container > .formset-form"
+    );
+    forms.forEach((formNode, index) => {
+        const photoId = formNode.querySelector(
+            `#id_photos-${index}-photo`
+        ).value;
+        if (photoId) {
+            formNode.querySelector(".url").style.display = "none";
+            selectedPhotoIds.push(parseInt(photoId, 10));
         } else {
-            $form.find(".album").hide();
+            formNode.querySelector(".album").style.display = "none";
         }
     });
 };
 
-export default function initBuildForm() {
-    // only initialize if there is a postable form
-    if (!$('form[method="post"]').length) {
-        return;
+/**
+ * Synchronize the formset when a photo is selected.
+ */
+const onPhotoSelected = (photo) => {
+    // TODO: refactor all these formset shenanigans to React too
+    const [html, index] = photoFormset.addForm();
+    formsetContainer.insertAdjacentHTML("beforeend", html);
+    const formNode = formsetContainer.lastElementChild;
+    photoFormMapping[photo.id] = formNode;
+    formNode.querySelector(".url").style.display = "none";
+    photoFormset.setData(index, { photo: photo.id });
+    const url = photo.image.large;
+    const previewNode = formNode.querySelector(".preview");
+    ReactDOM.render(
+        <Image src={photo.image.large} alt={photo.description} />,
+        previewNode.querySelector(".thumbnail")
+    );
+    previewNode.classList.remove("hidden");
+    // TODO: de-jQuery-ify
+    const popoverNode = formNode.querySelector('[data-toggle="popover"]');
+    $(popoverNode).popover();
+};
+
+/**
+ * Synchronize the formset when a photo is de-selected.
+ */
+const onPhotoDeselected = (photo) => {
+    const formNode = photoFormMapping[photo.id];
+    formNode.parentNode.removeChild(formNode);
+};
+
+const renderAlbumPicker = (node, intlProviderProps) => {
+    const onAlbumSelected = (albumId) => {
+        selectedAlbumId = parseInt(albumId, 10);
+        renderAlbumPicker(node, intlProviderProps);
+        renderPhotoPicker(null, intlProviderProps);
+    };
+
+    ReactDOM.render(
+        <IntlProvider {...intlProviderProps}>
+            <AlbumPicker
+                onSelect={onAlbumSelected}
+                selectedAlbumId={selectedAlbumId}
+            />
+        </IntlProvider>,
+        node
+    );
+};
+
+const renderPhotoPicker = (node = null, intlProviderProps) => {
+    if (node == null) {
+        node = document.querySelector(".react-photo-picker");
     }
 
+    const onPhotoToggle = (photo, checked) => {
+        if (checked) {
+            selectedPhotoIds.push(photo.id);
+            onPhotoSelected(photo);
+        } else {
+            const index = selectedPhotoIds.indexOf(photo.id);
+            selectedPhotoIds.splice(index, 1);
+            onPhotoDeselected(photo);
+        }
+        renderPhotoPicker(node, intlProviderProps);
+    };
+
+    ReactDOM.render(
+        <IntlProvider {...intlProviderProps}>
+            <PhotoPicker
+                albumId={selectedAlbumId}
+                selectedPhotoIds={selectedPhotoIds}
+                onToggle={onPhotoToggle}
+            />
+        </IntlProvider>,
+        node
+    );
+};
+
+const onURLFieldChanged = ({ target }) => {
+    if (target.tagName !== "INPUT") return;
+    if (target.type !== "url") return;
+    const formNode = target.closest(".formset-form");
+    const previewNode = formNode.querySelector(".preview");
+    ReactDOM.render(
+        <Image src={target.value} alt={`URL: ${target.value}`} />,
+        previewNode.querySelector(".thumbnail")
+    );
+    previewNode.classList.remove("hidden");
+};
+
+const initBuildForm = async () => {
+    // only initialize if there is a postable form
+    const form = document.querySelector('form[method="post"]');
+    if (!form) return;
+
+    formsetContainer = document.querySelector(".formset-container");
+
     // bind change handler + trigger to display url previews
-    $("fieldset").on("change, keyup", conf.input_url, previewUrl);
-    $(`fieldset ${conf.input_url}`).change();
+    formsetContainer.addEventListener("change", onURLFieldChanged, false);
+    formsetContainer.addEventListener("keyup", onURLFieldChanged, false);
+    // fire on change event manually on load
+    const changeEvent = new Event("change");
+    const urlInputs = formsetContainer.querySelectorAll(
+        ".formset-form input[type='url']"
+    );
+    for (const input of urlInputs) {
+        input.dispatchEvent(changeEvent);
+    }
 
     // bind photo picker events
-    $(conf.photo_picker.body).on(
-        "change",
-        'input[type="checkbox"]',
-        showPhotos
+    const photoPickerButton = document.querySelector(
+        '[data-target="#photo-picker"]'
     );
-    $(conf.photo_picker.list).on(
-        "change",
-        'input[type="checkbox"]',
-        addRemoveAlbumPhoto
-    );
-    $(`[data-target="${conf.photo_picker.picker}"]`).on(
-        "click",
-        togglePhotoPicker
-    );
+    const photoPicker = document.getElementById("photo-picker");
+    photoPickerButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        photoPicker.classList.toggle("hidden");
+    });
 
     // bind trigger to add a url form
-    $(conf.photo_picker.add_url).on("click", addUrlForm);
+    document
+        .getElementById("add-url-photo")
+        .addEventListener("click", addUrlForm);
 
     // properly display the formset forms, if any
     showAlbumOrUrls();
 
-    // start loading the albums
-    loadAlbums();
-}
+    // rendering album picker with React
+    const intlProviderProps = await getIntlProviderProps();
+    const albumPicker = document.querySelector(".react-album-picker");
+    renderAlbumPicker(albumPicker, intlProviderProps);
+};
+
+export default initBuildForm;
