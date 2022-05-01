@@ -22,7 +22,7 @@ let photoFormset = new PhotoFormset("photos");
 let formsetContainer;
 let photoFormMapping = {};
 let selectedAlbumId = null;
-let selectedPhotos = []; // TODO: populate this for edit forms
+let selectedPhotoIds = []; // TODO: populate this for edit forms
 
 const addUrlForm = (event) => {
     event.preventDefault();
@@ -49,7 +49,7 @@ let showAlbumOrUrls = () => {
         ).value;
         if (photoId) {
             formNode.querySelector(".url").style.display = "none";
-            // TODO: fetch and add to selectedPhotos
+            selectedPhotoIds.push(parseInt(photoId, 10));
         } else {
             formNode.querySelector(".album").style.display = "none";
         }
@@ -112,11 +112,11 @@ const renderPhotoPicker = (node = null, intlProviderProps) => {
 
     const onPhotoToggle = (photo, checked) => {
         if (checked) {
-            selectedPhotos.push(photo);
+            selectedPhotoIds.push(photo.id);
             onPhotoSelected(photo);
         } else {
-            const index = selectedPhotos.indexOf(photo);
-            selectedPhotos.splice(index, 1);
+            const index = selectedPhotoIds.indexOf(photo.id);
+            selectedPhotoIds.splice(index, 1);
             onPhotoDeselected(photo);
         }
         renderPhotoPicker(node, intlProviderProps);
@@ -126,7 +126,7 @@ const renderPhotoPicker = (node = null, intlProviderProps) => {
         <IntlProvider {...intlProviderProps}>
             <PhotoPicker
                 albumId={selectedAlbumId}
-                selectedPhotoIds={selectedPhotos.map((photo) => photo.id)}
+                selectedPhotoIds={selectedPhotoIds}
                 onToggle={onPhotoToggle}
             />
         </IntlProvider>,
