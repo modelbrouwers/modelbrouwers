@@ -5,9 +5,10 @@
     ],
     "plugins": [
         [
-            "react-intl",
+            "formatjs",
             {
-                "messagesDir": "./src/js/locale/messages/"
+                "idInterpolationPattern": "[sha512:contenthash:base64:6]",
+                "ast": true
             }
         ],
         [
@@ -18,6 +19,7 @@
             "@babel/plugin-proposal-class-properties",
             { "loose": true }
         ],
+        "@babel/plugin-transform-runtime",
         "@babel/plugin-syntax-dynamic-import"
     ],
 }

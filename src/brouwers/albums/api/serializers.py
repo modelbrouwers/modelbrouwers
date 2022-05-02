@@ -45,7 +45,6 @@ class PhotoSerializer(serializers.ModelSerializer):
 
 
 class ForumPhotoSerializer(serializers.ModelSerializer):
-    user = UserSerializer
     image = ThumbnailField(
         (("large", "1024x1024"), ("thumb", "300x225")),
         opts={"crop": False, "upscale": False},

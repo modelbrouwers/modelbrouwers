@@ -1,17 +1,132 @@
 {
-  "kits.filter.byName": "filter by name",
-  "shop.cart.detail.cart.subtotal": "Sub-total",
-  "shop.cart.detail.cart.taxes": "Taxes",
-  "shop.cart.detail.cart.total": "Sub-total",
-  "shop.cart.detail.header.header": "Total",
-  "shop.cart.detail.header.image": "Image",
-  "shop.cart.detail.header.model": "Model",
-  "shop.cart.detail.header.product.name": "Product Name",
-  "shop.cart.detail.header.quantity": "Quantity",
-  "shop.cart.detail.header.unit.price": "Unit Price",
-  "shop.cart.detail.title.cart.total": "Cart total",
-  "shop.cart.product.actions.add": "Add to cart",
-  "shop.cart.topbar.checkout": "Checkout",
-  "shop.cart.topbar.item.count": "{count, number} {count, plural, one {item} other {items}}",
-  "shop.cart.topbar.view.cart": "View cart"
+  "/N7xse": {
+    "defaultMessage": "Finished?",
+    "description": "GB participants table, finished header.",
+    "originalDefault": "Finished?"
+  },
+  "7wbY42": {
+    "defaultMessage": "Participants",
+    "description": "Groupbuild inset in forum post, participants title",
+    "originalDefault": "Participants"
+  },
+  "84sXop": {
+    "defaultMessage": "Rules",
+    "description": "Groupbuild inset in forum post, rules title",
+    "originalDefault": "Rules"
+  },
+  "B4vH06": {
+    "defaultMessage": "Description",
+    "description": "Groupbuild inset in forum post, description title",
+    "originalDefault": "Description"
+  },
+  "BxbHDf": {
+    "defaultMessage": "Brouwer",
+    "description": "GB participants table, brouwer header.",
+    "originalDefault": "Brouwer"
+  },
+  "IlIaZ2": {
+    "defaultMessage": "Start: {start}, end: {end}",
+    "description": "Groupbuild inset in forum post, start and end dates",
+    "originalDefault": "Start: {start}, end: {end}"
+  },
+  "JFs7tB": {
+    "defaultMessage": "Model",
+    "description": "GB participants table, model header.",
+    "originalDefault": "Model"
+  },
+  "forum.albums.photosNav.next": {
+    "defaultMessage": "Next",
+    "originalDefault": "Next"
+  },
+  "forum.albums.photosNav.previous": {
+    "defaultMessage": "Previous",
+    "originalDefault": "Previous"
+  },
+  "forum.albums.sidebar.noPhotosYet": {
+    "defaultMessage": "There are no photo's in this album yet. You can upload some <link>here</link>.",
+    "originalDefault": "There are no photo's in this album yet. You can upload some <link>here</link>."
+  },
+  "forum.albums.sidebar.photos-title": {
+    "defaultMessage": "Photos",
+    "originalDefault": "Photos"
+  },
+  "forum.albums.sidebar.title": {
+    "defaultMessage": "Albums",
+    "originalDefault": "Albums"
+  },
+  "jHygYM": {
+    "defaultMessage": "View outside of forum",
+    "description": "Groupbuild inset in forum post, open main website link",
+    "originalDefault": "View outside of forum"
+  },
+  "kits.filter.byName": {
+    "defaultMessage": "filter by name",
+    "originalDefault": "filter by name"
+  },
+  "shop.cart.detail.cart.subtotal": {
+    "defaultMessage": "Sub-total",
+    "originalDefault": "Sub-total"
+  },
+  "shop.cart.detail.cart.taxes": {
+    "defaultMessage": "Taxes",
+    "originalDefault": "Taxes"
+  },
+  "shop.cart.detail.cart.total": {
+    "defaultMessage": "Sub-total",
+    "originalDefault": "Sub-total"
+  },
+  "shop.cart.detail.header.header": {
+    "defaultMessage": "Total",
+    "originalDefault": "Total"
+  },
+  "shop.cart.detail.header.image": {
+    "defaultMessage": "Image",
+    "originalDefault": "Image"
+  },
+  "shop.cart.detail.header.model": {
+    "defaultMessage": "Model",
+    "originalDefault": "Model"
+  },
+  "shop.cart.detail.header.product.name": {
+    "defaultMessage": "Product Name",
+    "originalDefault": "Product Name"
+  },
+  "shop.cart.detail.header.quantity": {
+    "defaultMessage": "Quantity",
+    "originalDefault": "Quantity"
+  },
+  "shop.cart.detail.header.unit.price": {
+    "defaultMessage": "Unit Price",
+    "originalDefault": "Unit Price"
+  },
+  "shop.cart.detail.title.cart.total": {
+    "defaultMessage": "Cart total",
+    "originalDefault": "Cart total"
+  },
+  "shop.cart.product.actions.add": {
+    "defaultMessage": "Add to cart",
+    "originalDefault": "Add to cart"
+  },
+  "shop.cart.topbar.checkout": {
+    "defaultMessage": "Checkout",
+    "originalDefault": "Checkout"
+  },
+  "shop.cart.topbar.item.count": {
+    "defaultMessage": "{count, number} {count, plural, one {item} other {items}}",
+    "originalDefault": "{count, number} {count, plural, one {item} other {items}}"
+  },
+  "shop.cart.topbar.view.cart": {
+    "defaultMessage": "View cart",
+    "originalDefault": "View cart"
+  },
+  "tPmUAf": {
+    "defaultMessage": "Rules topic",
+    "description": "Groupbuild inset in forum post, rules topic title",
+    "originalDefault": "Rules topic"
+  },
+  "y/pElv": {
+    "defaultMessage": "Topic",
+    "description": "GB participants table, topic header.",
+    "originalDefault": "Topic"
+  }
 }

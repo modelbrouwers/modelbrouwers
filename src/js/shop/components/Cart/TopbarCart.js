@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
 import classNames from "classnames";
-import { DEFAULT_IMAGE } from "../../../constants";
-import { msg } from "../../../translations/components/Message";
-import messages from "./messages";
 import { FormattedMessage } from "react-intl";
+
+import { DEFAULT_IMAGE } from "../../../constants";
 
 @observer
 export default class TopbarCart extends Component {
@@ -26,7 +25,7 @@ export default class TopbarCart extends Component {
         const { store: cart } = this.props;
         const { expanded } = this.state;
         const containerClasses = classNames("cart__container", {
-            "cart__container--expanded": expanded
+            "cart__container--expanded": expanded,
         });
 
         return (
@@ -59,10 +58,16 @@ export default class TopbarCart extends Component {
                                 href={`/winkel/cart/${cart.id}`}
                                 className="button button--blue"
                             >
-                                {msg(messages.viewCart)}
+                                <FormattedMessage
+                                    id="shop.cart.topbar.view.cart"
+                                    defaultMessage="View cart"
+                                />
                             </a>
                             <button className="button button--blue">
-                                {msg(messages.checkout)}
+                                <FormattedMessage
+                                    id="shop.cart.topbar.checkout"
+                                    defaultMessage="Checkout"
+                                />
                             </button>
                         </div>
                         <ul className="cart__products">

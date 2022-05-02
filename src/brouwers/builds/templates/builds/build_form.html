@@ -54,7 +54,7 @@
         </h2>
         {% widget 'form:PhotoPicker' %}
         <h3>{% trans "Previews" %}</h3>
-		<fieldset class="well">
+		<fieldset class="well formset-container">
             {% with formset=photos %}
                 {% widget 'form:non_form_errors' %}
 

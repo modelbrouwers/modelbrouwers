@@ -1,6 +1,0 @@
-[
-  {
-    "id": "shop.cart.topbar.item.count",
-    "defaultMessage": "{count, number} {count, plural, one {item} other {items}}"
-  }
-]

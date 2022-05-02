@@ -12,9 +12,7 @@
 }
 
 body.albums {
-
   header {
-
     .dropdown-toggle {
       @include menu-feedback();
     }
@@ -84,7 +82,7 @@ body.albums {
   .photo-count {
     left: 20px;
     font-size: 65%;
-    background-color: rgba($main-green, 0.90);
+    background-color: rgba($main-green, 0.9);
     line-height: 1;
     border-radius: 15px;
     padding: 4px 12px;
@@ -112,17 +110,10 @@ body.albums {
   &.modal-open .modal-backdrop.in {
     opacity: 0.75;
   }
-
-  #modal-lightbox .carousel-control {
-    max-width: 75px;
-  }
-
 }
 
 body.albums.photo-detail {
-
   header {
-
     margin-bottom: 10px; // instead of 20
 
     h1 {
@@ -135,7 +126,6 @@ body.albums.photo-detail {
   }
 
   .photo {
-
     figure {
       padding: 10px;
       background-color: rgba($black, 0.1);
@@ -239,7 +229,6 @@ body.albums.photo-detail {
   }
 }
 
-
 // album picker in upload screen and photo edit
 #carousel-album,
 .carousel-album {
@@ -324,5 +313,4 @@ body.albums.photo-detail {
 
     @include selected-fa;
   }
-
 }

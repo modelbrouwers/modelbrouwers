@@ -102,6 +102,7 @@ class Album(models.Model):
             "Can this album be viewed by everyone? Untick to make the album available only to yourself."
         ),
         default=True,
+        db_index=True,
     )
 
     # Misc features
@@ -229,7 +230,7 @@ class Photo(models.Model):
     order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, db_index=True
     )
-    trash = models.BooleanField(default=False)
+    trash = models.BooleanField(default=False, db_index=True)
 
     objects = PhotoManager()
 
