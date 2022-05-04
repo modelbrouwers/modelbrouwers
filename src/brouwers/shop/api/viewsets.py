@@ -2,7 +2,7 @@ from rest_framework import generics, views, viewsets
 from rest_framework.response import Response
 
 from ..models import Cart, CartProduct, PaymentMethod, Product
-from ..payments.sisow import get_ideal_bank_choices
+from ..payments.sisow.service import get_ideal_bank_choices
 from .filters import CartProductFilter
 from .serializers import (
     CartSerializer,
