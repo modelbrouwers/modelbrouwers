@@ -8,13 +8,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0006_user_customer_group'),
+        ("users", "0006_user_customer_group"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='phone',
-            field=models.CharField(blank=True, max_length=15, verbose_name='phone number'),
+            model_name="user",
+            name="phone",
+            field=models.CharField(
+                blank=True, max_length=15, verbose_name="phone number"
+            ),
         ),
     ]

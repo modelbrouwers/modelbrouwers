@@ -11,7 +11,7 @@ class UserProfileViewSet(views.APIView):
 
         if user and not user.is_anonymous():
             u = UserProfile.objects.get(id=user.id)
-            response = {'data': UserProfileSerializer(u).data}
+            response = {"data": UserProfileSerializer(u).data}
             st = status.HTTP_200_OK
         else:
             response = {}
