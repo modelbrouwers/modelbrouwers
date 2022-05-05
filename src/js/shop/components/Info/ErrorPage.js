@@ -1,27 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { msg } from "../../../translations/components/Message";
-import messages from "./messages";
+import { FormattedMessage } from "react-intl";
 
 /**
  *
  * ErrorPage
  *
  */
-const ErrorPage = ({ message }) => {
+const ErrorPage = ({ message = null }) => {
+    if (message == null) {
+        message = (
+            <FormattedMessage
+                description="General error message"
+                defaultMessage="Oops, something went wrong. Please try again later."
+            />
+        );
+    }
     return (
         <div>
-            <p>{msg(message || messages.generalError)}</p>
+            <p>{message}</p>
             <button
                 className="button button--blue"
                 onClick={() => window.location.reload()}
             >
-                {msg(messages.reload)}
+                <FormattedMessage
+                    description="General error: reload page button"
+                    defaultMessage="Reload page"
+                />
             </button>
         </div>
     );
 };
 
-ErrorPage.propTypes = {};
+ErrorPage.propTypes = {
+    message: PropTypes.node,
+};
 
 export default ErrorPage;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { msg } from "../../../translations/components/Message";
-import messages from "./messages";
+import { FormattedMessage } from "react-intl";
 import Select from "react-select";
+
 import { country_list, SUPPORTED_COUNTRIES } from "./constants";
 
 /**
@@ -15,7 +15,7 @@ const Address = ({ profile, history }) => {
     const defaultProfile = { user: {}, kvk: "", company: "" };
     const [userDetails, setUserDetails] = useState({
         ...defaultProfile,
-        ...profile
+        ...profile,
     });
     const [addressCheck, setAddressCheck] = useState(true);
     const [billingDetails, setBillingDetails] = useState({});
@@ -25,7 +25,7 @@ const Address = ({ profile, history }) => {
         "number",
         "city",
         "country",
-        "postal"
+        "postal",
     ];
 
     /**
@@ -33,37 +33,40 @@ const Address = ({ profile, history }) => {
      */
     const requiredFieldMissing = () => {
         return (
-            mandatoryUserFields.some(field => !userDetails.user[field]) ||
-            mandatoryProfileFields.some(field => !userDetails[field])
+            mandatoryUserFields.some((field) => !userDetails.user[field]) ||
+            mandatoryProfileFields.some((field) => !userDetails[field])
         );
     };
 
-    const onProfileChange = e => {
+    const onProfileChange = (e) => {
         const { name, value } = e.target;
         setUserDetails({ ...userDetails, [name]: value });
     };
 
-    const onBillingDetailsChange = e => {
+    const onBillingDetailsChange = (e) => {
         const { name, value } = e.target;
         setBillingDetails({ ...billingDetails, [name]: value });
     };
 
     // Separate handler to update user data
-    const onUserChange = e => {
+    const onUserChange = (e) => {
         const { name, value } = e.target;
         setUserDetails({
             ...userDetails,
-            user: { ...userDetails.user, [name]: value }
+            user: { ...userDetails.user, [name]: value },
         });
     };
 
     // Separate onchange handlers for selects, since data repr is different there
-    const onCountryChange = country => {
-        setUserDetails(user => ({ ...user, country: country.value }));
+    const onCountryChange = (country) => {
+        setUserDetails((user) => ({ ...user, country: country.value }));
     };
 
-    const onBillingCountryChange = country => {
-        setBillingDetails(details => ({ ...details, country: country.value }));
+    const onBillingCountryChange = (country) => {
+        setBillingDetails((details) => ({
+            ...details,
+            country: country.value,
+        }));
     };
 
     // TODO this probably needs to send api request to create/modify an order
@@ -79,11 +82,18 @@ const Address = ({ profile, history }) => {
                     <div className="row">
                         <div className="col-xs-6">
                             <h3 className="checkout__title col-xs-12">
-                                {msg(messages.personalDetails)}
+                                <FormattedMessage
+                                    description="Checkout address: personal details"
+                                    defaultMessage="Personal details"
+                                />
                             </h3>
                             <div className="form-group col-md-6 col-xs-12">
                                 <label className="control-label">
-                                    {msg(messages.firstName)}*
+                                    <FormattedMessage
+                                        description="Checkout address: firstName"
+                                        defaultMessage="First name"
+                                    />
+                                    *
                                 </label>
                                 <input
                                     type="text"
@@ -95,7 +105,11 @@ const Address = ({ profile, history }) => {
                             </div>
                             <div className="form-group col-md-6 col-xs-12">
                                 <label className="control-label">
-                                    {msg(messages.lastName)}*
+                                    <FormattedMessage
+                                        description="Checkout address: lastName"
+                                        defaultMessage="Last name"
+                                    />
+                                    *
                                 </label>
                                 <input
                                     type="text"
@@ -108,7 +122,11 @@ const Address = ({ profile, history }) => {
 
                             <div className="form-group col-xs-12">
                                 <label className="control-label">
-                                    {msg(messages.email)}*
+                                    <FormattedMessage
+                                        description="Checkout address: email"
+                                        defaultMessage="Email address"
+                                    />
+                                    *
                                 </label>
                                 <input
                                     type="text"
@@ -121,7 +139,10 @@ const Address = ({ profile, history }) => {
 
                             <div className="form-group col-xs-12">
                                 <label className="control-label">
-                                    {msg(messages.phone)}
+                                    <FormattedMessage
+                                        description="Checkout address: phone"
+                                        defaultMessage="Phone number"
+                                    />
                                 </label>
                                 <input
                                     type="text"
@@ -138,11 +159,17 @@ const Address = ({ profile, history }) => {
                 {/*Delivery address*/}
                 <div className="col-md-6 col-xs-12">
                     <h3 className="checkout__title col-xs-12">
-                        {msg(messages.deliveryAddress)}
+                        <FormattedMessage
+                            description="Delivery address: deliveryAddress"
+                            defaultMessage="Delivery address"
+                        />
                     </h3>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.company)}
+                            <FormattedMessage
+                                description="Delivery address: company"
+                                defaultMessage="Company"
+                            />
                         </label>
                         <input
                             type="text"
@@ -154,7 +181,10 @@ const Address = ({ profile, history }) => {
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.kvk)}
+                            <FormattedMessage
+                                description="Delivery address: kvk"
+                                defaultMessage="KVK"
+                            />
                         </label>
                         <input
                             type="text"
@@ -166,7 +196,11 @@ const Address = ({ profile, history }) => {
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.street)}*
+                            <FormattedMessage
+                                description="Delivery address: street"
+                                defaultMessage="Street"
+                            />
+                            *
                         </label>
                         <input
                             type="text"
@@ -178,7 +212,11 @@ const Address = ({ profile, history }) => {
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.number)}*
+                            <FormattedMessage
+                                description="Delivery address: number"
+                                defaultMessage="Number"
+                            />
+                            *
                         </label>
                         <input
                             type="text"
@@ -190,7 +228,11 @@ const Address = ({ profile, history }) => {
                     </div>
                     <div className="form-group col-md-6 col-xs-12">
                         <label className="control-label">
-                            {msg(messages.city)}*
+                            <FormattedMessage
+                                description="Delivery address: city"
+                                defaultMessage="City"
+                            />
+                            *
                         </label>
                         <input
                             type="text"
@@ -202,7 +244,11 @@ const Address = ({ profile, history }) => {
                     </div>
                     <div className="form-group col-md-6 col-xs-12">
                         <label className="control-label">
-                            {msg(messages.zip)}*
+                            <FormattedMessage
+                                description="Delivery address: zip"
+                                defaultMessage="ZIP code"
+                            />
+                            *
                         </label>
                         <input
                             type="text"
@@ -214,17 +260,26 @@ const Address = ({ profile, history }) => {
                     </div>
                     <div className="form-group col-xs-12">
                         <label className="control-label">
-                            {msg(messages.country)}*
+                            <FormattedMessage
+                                description="Checkout address: country"
+                                defaultMessage="Country"
+                            />
+                            *
                         </label>
                         <Select
                             name="country"
                             value={{
                                 value: userDetails.country || "",
-                                label: SUPPORTED_COUNTRIES[userDetails.country]
+                                label: SUPPORTED_COUNTRIES[userDetails.country],
                             }}
                             options={country_list}
                             onChange={onCountryChange}
-                            placeholder={msg(messages.selectCountry)}
+                            placeholder={
+                                <FormattedMessage
+                                    description="Country dropdown placeholder"
+                                    defaultMessage="Select country"
+                                />
+                            }
                         />
                     </div>
                     <div className="form-check col-xs-12 checkbox-flex">
@@ -239,7 +294,10 @@ const Address = ({ profile, history }) => {
                             className="form-check-label"
                             htmlFor="addressCheck"
                         >
-                            {msg(messages.billingAddressSame)}
+                            <FormattedMessage
+                                description="Checkout address: billingAddressSame"
+                                defaultMessage="My billing and delivery address are the same."
+                            />
                         </label>
                     </div>
                 </div>
@@ -248,11 +306,17 @@ const Address = ({ profile, history }) => {
                 {!addressCheck && (
                     <div className="col-md-6 col-xs-12">
                         <h3 className="checkout__title col-xs-12">
-                            {msg(messages.billingAddress)}
+                            <FormattedMessage
+                                description="Billing address: billingAddress"
+                                defaultMessage="Billing address"
+                            />
                         </h3>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.company)}
+                                <FormattedMessage
+                                    description="Billing address: company"
+                                    defaultMessage="Company"
+                                />
                             </label>
                             <input
                                 type="text"
@@ -264,7 +328,10 @@ const Address = ({ profile, history }) => {
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.kvk)}
+                                <FormattedMessage
+                                    description="Billing address: kvk"
+                                    defaultMessage="KVK"
+                                />
                             </label>
                             <input
                                 type="text"
@@ -276,7 +343,11 @@ const Address = ({ profile, history }) => {
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.street)}*
+                                <FormattedMessage
+                                    description="Billing address: street"
+                                    defaultMessage="Street"
+                                />
+                                *
                             </label>
                             <input
                                 type="text"
@@ -288,7 +359,11 @@ const Address = ({ profile, history }) => {
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.number)}*
+                                <FormattedMessage
+                                    description="Billing address: number"
+                                    defaultMessage="Number"
+                                />
+                                *
                             </label>
                             <input
                                 type="text"
@@ -300,7 +375,11 @@ const Address = ({ profile, history }) => {
                         </div>
                         <div className="form-group col-md-6 col-xs-12">
                             <label className="control-label">
-                                {msg(messages.city)}*
+                                <FormattedMessage
+                                    description="Billing address: city"
+                                    defaultMessage="City"
+                                />
+                                *
                             </label>
                             <input
                                 type="text"
@@ -312,7 +391,10 @@ const Address = ({ profile, history }) => {
                         </div>
                         <div className="form-group col-md-6 col-xs-12">
                             <label className="control-label">
-                                {msg(messages.zip)}
+                                <FormattedMessage
+                                    description="Billing address: zip"
+                                    defaultMessage="ZIP code"
+                                />
                             </label>
                             <input
                                 type="text"
@@ -324,21 +406,29 @@ const Address = ({ profile, history }) => {
                         </div>
                         <div className="form-group col-xs-12">
                             <label className="control-label">
-                                {msg(messages.country)}*
+                                <FormattedMessage
+                                    description="Billing address: country"
+                                    defaultMessage="Country"
+                                />
+                                *
                             </label>
 
                             <Select
                                 name="country"
                                 value={{
                                     value: billingDetails.country || "",
-                                    label:
-                                        SUPPORTED_COUNTRIES[
-                                            billingDetails.country
-                                        ]
+                                    label: SUPPORTED_COUNTRIES[
+                                        billingDetails.country
+                                    ],
                                 }}
                                 options={country_list}
                                 onChange={onBillingCountryChange}
-                                placeholder={msg(messages.selectCountry)}
+                                placeholder={
+                                    <FormattedMessage
+                                        description="Country dropdown placeholder"
+                                        defaultMessage="Select country"
+                                    />
+                                }
                             />
                         </div>
                     </div>
@@ -347,14 +437,21 @@ const Address = ({ profile, history }) => {
             <div className="col-xs-12">
                 <div className="spacer" />
                 <small className="checkout__help-text">
-                    *{msg(messages.requiredFields)}
+                    *{" "}
+                    <FormattedMessage
+                        description="Checkout address: requiredFields"
+                        defaultMessage="Required fields"
+                    />
                 </small>
                 <button
                     className={"button button--blue"}
                     disabled={requiredFieldMissing()}
                     onClick={onAddressComplete}
                 >
-                    {msg(messages.continue)}
+                    <FormattedMessage
+                        description="Checkout address: continue"
+                        defaultMessage="Continue"
+                    />
                 </button>
             </div>
         </div>
@@ -362,11 +459,11 @@ const Address = ({ profile, history }) => {
 };
 
 Address.propTypes = {
-    profile: PropTypes.object
+    profile: PropTypes.object,
 };
 
 Address.defaultProps = {
-    profile: {}
+    profile: {},
 };
 
 export default Address;

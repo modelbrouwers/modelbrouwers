@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import orderBy from "lodash.orderby";
-import { msg } from "../../../translations/components/Message";
-import messages from "./messages";
+import { FormattedMessage } from "react-intl";
+
 import { PaymentConsumer } from "../../../data/shop/payment";
 import { ErrorMessage } from "../Info";
 
@@ -34,7 +34,7 @@ const Payment = ({ profile }) => {
         }
     };
 
-    const onMethodClick = async method => {
+    const onMethodClick = async (method) => {
         setPaymentMethod(method);
         setLoading(true);
         try {
@@ -48,9 +48,9 @@ const Payment = ({ profile }) => {
         }
     };
 
-    const getCardClasses = method => {
+    const getCardClasses = (method) => {
         return classnames("payment-method__card", {
-            "payment-method__card--active": paymentMethod.id === method.id
+            "payment-method__card--active": paymentMethod.id === method.id,
         });
     };
 
@@ -59,11 +59,14 @@ const Payment = ({ profile }) => {
         <div className="payment-method__container">
             <div className="payment-method__row">
                 <h3 className="checkout__title">
-                    {msg(messages.selectPaymentMethod)}
+                    <FormattedMessage
+                        description="Checkout: select payment method"
+                        defaultMessage="Select your payment method"
+                    />
                 </h3>
             </div>
             <div className="payment-method__row payment-method__row--logos">
-                {orderBy(paymentMethods, ["order"], ["asc"]).map(method => (
+                {orderBy(paymentMethods, ["order"], ["asc"]).map((method) => (
                     <div
                         className={getCardClasses(method)}
                         key={method.name}
@@ -78,7 +81,7 @@ const Payment = ({ profile }) => {
                 ))}
             </div>
             {paymentBanks.length
-                ? paymentBanks.map(bank => (
+                ? paymentBanks.map((bank) => (
                       <div className="payment-method__bank">
                           <p className="payment-method__bank-name">
                               {bank.name}
@@ -96,11 +99,11 @@ const Payment = ({ profile }) => {
 };
 
 Payment.propTypes = {
-    profile: PropTypes.object
+    profile: PropTypes.object,
 };
 
 Payment.defaultProps = {
-    profile: {}
+    profile: {},
 };
 
 export default Payment;

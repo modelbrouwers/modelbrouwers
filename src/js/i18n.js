@@ -16,7 +16,7 @@ const loadLocaleData = async (locale) => {
 };
 
 const getIntlProviderProps = async () => {
-    const lang = document.querySelector("html").getAttribute("lang");
+    const lang = getLocale();
     const messages = await loadLocaleData(lang);
     return {
         messages,
@@ -25,4 +25,8 @@ const getIntlProviderProps = async () => {
     };
 };
 
-export { loadLocaleData, getIntlProviderProps };
+const getLocale = () => {
+    return document.querySelector("html").getAttribute("lang");
+};
+
+export { loadLocaleData, getIntlProviderProps, getLocale };

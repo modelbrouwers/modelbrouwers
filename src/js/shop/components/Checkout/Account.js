@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { msg } from "../../../translations/components/Message";
-import messages from "./messages";
+import { FormattedMessage } from "react-intl";
+
 import { SHOP_ROOT } from "../../../constants";
 
 /**
@@ -22,7 +22,10 @@ const Account = ({ profile }) => {
                     to="/address"
                     className="button button--blue button--large"
                 >
-                    {msg(messages.continueNoSignup)}
+                    <FormattedMessage
+                        description="Checkout with account link"
+                        defaultMessage="Continue without signup"
+                    />
                 </Link>
             </div>
 
@@ -31,14 +34,20 @@ const Account = ({ profile }) => {
                     to="/signin"
                     className="button button--blue button--large"
                 >
-                    {msg(messages.signIn)}
+                    <FormattedMessage
+                        description="Checkout with login"
+                        defaultMessage="Sign in"
+                    />
                 </Link>
 
                 <Link
                     to="/signup"
                     className="button button--blue button--large"
                 >
-                    {msg(messages.signUp)}
+                    <FormattedMessage
+                        description="Checkout with account creation"
+                        defaultMessage="Sign up"
+                    />
                 </Link>
             </div>
         </div>
