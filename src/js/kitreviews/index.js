@@ -2,24 +2,24 @@ import "jquery";
 import "bootstrap";
 
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import { ModalContext } from "../kits/model-kit-select/context";
 import KitReviewKitAdd from "./KitreviewKitAdd";
 
 import Slider from "./slider.js";
 
-const onKitAdded = kit => {
+const onKitAdded = (kit) => {
     window.location = kit.url_kitreviews;
 };
 
 const onAddNewKitClick = (event, btnNode, modalContext) => {
     event.preventDefault();
-    ReactDOM.render(
+    const root = createRoot(modalContext.modalBody);
+    root.render(
         <ModalContext.Provider value={modalContext}>
             <KitReviewKitAdd onKitAdded={onKitAdded} />
-        </ModalContext.Provider>,
-        modalContext.modalBody
+        </ModalContext.Provider>
     );
     modalContext.modal.modal("show");
 };
@@ -45,7 +45,7 @@ export default class Page {
             ".find-kit-form__button-add-kit"
         );
         for (const node of nodes) {
-            node.addEventListener("click", event =>
+            node.addEventListener("click", (event) =>
                 onAddNewKitClick(event, node, modalContext)
             );
         }

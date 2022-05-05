@@ -1,6 +1,6 @@
 import insertTextAtCursor from "insert-text-at-cursor";
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
 
 import { getIntlProviderProps } from "../i18n";
@@ -23,11 +23,10 @@ export default class App {
 
         getIntlProviderProps()
             .then((intlProviderProps) => {
-                ReactDOM.render(
+                createRoot(mountNode).render(
                     <IntlProvider {...intlProviderProps}>
                         <SideBar onInsertPhoto={insertPhoto} />
-                    </IntlProvider>,
-                    mountNode
+                    </IntlProvider>
                 );
             })
             .catch(console.error);

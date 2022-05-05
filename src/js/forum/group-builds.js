@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
 
 import { getIntlProviderProps } from "../i18n";
@@ -13,11 +13,10 @@ export default class App {
         const intlProviderProps = await getIntlProviderProps();
         for (const node of insets) {
             const id = parseInt(node.dataset.id, 10);
-            ReactDOM.render(
+            createRoot(node).render(
                 <IntlProvider {...intlProviderProps}>
                     <GroupBuildInset id={id} />
-                </IntlProvider>,
-                node
+                </IntlProvider>
             );
         }
     }
