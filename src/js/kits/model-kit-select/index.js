@@ -1,7 +1,7 @@
 import "bootstrap";
 
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
 
 import { getIntlProviderProps } from "../../i18n";
@@ -27,7 +27,7 @@ getIntlProviderProps()
                 : [];
 
             // mount component in the DOM node
-            ReactDOM.render(
+            createRoot(node).render(
                 <IntlProvider {...intlProviderProps}>
                     <ModalContext.Provider
                         value={{ modal, modalBody, modalForm }}
@@ -39,8 +39,7 @@ getIntlProviderProps()
                             selected={_selected}
                         />
                     </ModalContext.Provider>
-                </IntlProvider>,
-                node
+                </IntlProvider>
             );
         }
     })

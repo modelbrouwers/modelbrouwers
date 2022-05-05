@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import "jquery";
 import { MyPhotoConsumer } from "../data/albums/photo";
@@ -44,13 +44,13 @@ export default class Page {
                 const { id: photoId } = event.currentTarget.dataset;
                 // TODO: change modals to non-bootstrap
                 $(lightBox).modal("show");
-                ReactDOM.render(
+                const root = createRoot(targetNode);
+                root.render(
                     <LightBox
                         albumId={parseInt(album, 10)}
                         page={parseInt(page, 10)}
                         selectedPhotoId={parseInt(photoId, 10)}
-                    />,
-                    targetNode
+                    />
                 );
             });
         }

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
 
 import { CartConsumer } from "../data/shop/cart";
@@ -52,19 +52,17 @@ export default class Page {
                 .then(({ cart }) => {
                     let cartStore = new CartStore(cart);
                     initCartActions(cartStore);
-                    ReactDOM.render(
+                    createRoot(node).render(
                         <IntlProvider {...this.intlProviderProps}>
                             <TopbarCart store={cartStore} />
-                        </IntlProvider>,
-                        node
+                        </IntlProvider>
                     );
 
                     if (detailNode) {
-                        ReactDOM.render(
+                        createRoot(detailNode).render(
                             <IntlProvider {...this.intlProviderProps}>
                                 <CartDetail store={cartStore} />
-                            </IntlProvider>,
-                            detailNode
+                            </IntlProvider>
                         );
                     }
                 })
@@ -78,11 +76,10 @@ export default class Page {
                 const id = product.dataset.product;
                 const reactNode = product.querySelector(".react-cart-actions");
 
-                ReactDOM.render(
+                createRoot(reactNode).render(
                     <IntlProvider {...this.intlProviderProps}>
                         <CartProduct store={cartStore} productId={id} />
-                    </IntlProvider>,
-                    reactNode
+                    </IntlProvider>
                 );
             }
         };
