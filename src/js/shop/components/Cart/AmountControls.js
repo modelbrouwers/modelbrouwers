@@ -12,14 +12,14 @@ class AmountControls extends Component {
     static propTypes = {
         store: PropTypes.object,
         cartProduct: PropTypes.object,
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     };
 
     constructor(props) {
         super(props);
     }
 
-    changeAmount = amount => {
+    changeAmount = (amount) => {
         const { id, store } = this.props;
         store.changeAmount(id, amount);
     };
