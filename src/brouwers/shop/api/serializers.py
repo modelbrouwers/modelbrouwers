@@ -1,5 +1,7 @@
 from collections import OrderedDict
 
+from django.utils.translation import gettext_lazy as _
+
 from rest_framework import serializers
 
 from brouwers.users.api.serializers import UserSerializer
@@ -95,3 +97,8 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentMethod
         fields = ("id", "name", "logo", "order")
+
+
+class iDealBankSerializer(serializers.Serializer):
+    id = serializers.CharField(label=_("id"))
+    name = serializers.CharField(label=_("name"))

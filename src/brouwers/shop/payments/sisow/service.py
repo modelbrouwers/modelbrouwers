@@ -1,5 +1,6 @@
+from dataclasses import dataclass
 from functools import lru_cache
-from typing import Iterator, List
+from typing import Iterator, List, Tuple
 from urllib.parse import unquote
 
 from django.urls import reverse
@@ -10,10 +11,10 @@ from .constants import Payments
 from .exceptions import InvalidIssuerURL
 
 
+@dataclass
 class iDealBank:
-    def __init__(self, _id: str, name: str):
-        self.id = _id
-        self.name = name
+    id: str
+    name: str
 
 
 @lru_cache()
@@ -22,7 +23,7 @@ def get_ideal_banks() -> List[iDealBank]:
     _issuers = root.findall("*/{{{ns}}}issuer".format(ns=NS))
     banks = [
         iDealBank(
-            _id=issuer.find("{{{ns}}}issuerid".format(ns=NS)).text,
+            id=issuer.find("{{{ns}}}issuerid".format(ns=NS)).text,
             name=issuer.find("{{{ns}}}issuername".format(ns=NS)).text,
         )
         for issuer in _issuers
@@ -30,7 +31,7 @@ def get_ideal_banks() -> List[iDealBank]:
     return banks
 
 
-def get_ideal_bank_choices() -> Iterator:
+def get_ideal_bank_choices() -> Iterator[Tuple[str, str]]:
     for bank in get_ideal_banks():
         yield (bank.id, bank.name)
 
