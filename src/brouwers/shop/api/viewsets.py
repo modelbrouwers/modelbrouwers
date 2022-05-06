@@ -1,4 +1,4 @@
-from rest_framework import generics, views, viewsets
+from rest_framework import views, viewsets
 from rest_framework.response import Response
 
 from ..models import Cart, CartProduct, PaymentMethod, Product
