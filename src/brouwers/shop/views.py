@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import ModelFormMixin
 
+from brouwers.users.api.serializers import UserWithProfileSerializer
+
 from .forms import ProductReviewForm
 from .models import Cart, Category, CategoryCarouselImage, HomepageCategory, Product
 
@@ -69,3 +71,14 @@ class CartDetailView(DetailView):
 
 class CheckoutView(TemplateView):
     template_name = "shop/checkout.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context["user_profile_data"] = UserWithProfileSerializer(
+                instance=self.request.user,
+                context={"request": self.request},
+            ).data
+        else:
+            context["user_profile_data"] = {}
+        return context

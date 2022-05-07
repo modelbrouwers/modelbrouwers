@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
 
 import { CartConsumer } from "../data/shop/cart";
-import { UserProfileConsumer } from "../data/user/profile";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
 import { Checkout } from "./components/Checkout";
 import { CartStore } from "./store";
@@ -87,28 +86,25 @@ export default class Page {
                 );
             }
         } catch (err) {
-            console.log("Error retrieving cart", err);
+            console.error("Error retrieving cart", err);
             // TODO render error page/modal/toast
         }
     }
 
-    static async initCheckout(intlProps) {
+    static initCheckout(intlProps) {
         const node = document.getElementById("react-checkout");
-        let profile = null;
-        this.userProfileConsumer = new UserProfileConsumer();
+        if (!node) return;
+        const root = createRoot(node);
 
-        // if (node) {
-        //     try {
-        //         const resp = await this.userProfileConsumer.fetch();
-        //         profile = resp.data;
-        //     } catch (e) {
-        //         profile = {};
-        //     }
-        //     createRoot(node).render(
-        //         <IntlProvider {...intlProps}>
-        //             <Checkout profile={profile} />
-        //         </IntlProvider>
-        //     );
-        // }
+        // read user profile data from DOM, if user is not authenticated, this will be
+        // an empty object
+        const userProfileScript = document.getElementById("user_profile_data");
+        const profile = JSON.parse(userProfileScript.innerText);
+        // mount and render the checkout component in the DOM
+        root.render(
+            <IntlProvider {...intlProps}>
+                <Checkout profile={profile} />
+            </IntlProvider>
+        );
     }
 }

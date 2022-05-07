@@ -2,5 +2,9 @@
 
 {% block content %}
     {{ block.super }}
-    <div id="react-checkout"></div>
+
+    <div id="react-checkout">
+        {{ user_profile_data|json_script:"user_profile_data" }}
+    </div>
+
 {% endblock %}
