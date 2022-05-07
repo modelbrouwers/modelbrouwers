@@ -3,7 +3,7 @@
 {% block content %}
     {{ block.super }}
 
-    <div id="react-checkout">
+    <div id="react-checkout" data-path="{% url 'shop:checkout' %}">
         {{ user_profile_data|json_script:"user_profile_data" }}
     </div>
 

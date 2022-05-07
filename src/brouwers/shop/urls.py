@@ -28,6 +28,7 @@ urlpatterns = [
         name="sisow-payment-callback",
     ),
     path("checkout/", CheckoutView.as_view(), name="checkout"),
+    path("checkout/<path:path>", CheckoutView.as_view(), name="checkout"),
     # debug helpers
     path("pay/", PaymentView.as_view(), name="pay"),
     path("pay/ideal/", IdealPaymentView.as_view(), name="ideal-bank"),

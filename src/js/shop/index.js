@@ -1,6 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { CartConsumer } from "../data/shop/cart";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
@@ -93,17 +94,20 @@ export default class Page {
 
     static initCheckout(intlProps) {
         const node = document.getElementById("react-checkout");
+        const { path: basePath } = node.dataset;
         if (!node) return;
         const root = createRoot(node);
 
         // read user profile data from DOM, if user is not authenticated, this will be
         // an empty object
         const userProfileScript = document.getElementById("user_profile_data");
-        const profile = JSON.parse(userProfileScript.innerText);
+        const user = JSON.parse(userProfileScript.innerText);
         // mount and render the checkout component in the DOM
         root.render(
             <IntlProvider {...intlProps}>
-                <Checkout profile={profile} />
+                <Router basename={basePath}>
+                    <Checkout user={user} />
+                </Router>
             </IntlProvider>
         );
     }
