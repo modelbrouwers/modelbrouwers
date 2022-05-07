@@ -20,3 +20,5 @@ export const country_list = Object.keys(SUPPORTED_COUNTRIES).map((key) => ({
     label: SUPPORTED_COUNTRIES[key],
     value: key,
 }));
+
+export const CHECKOUT_MODES = ["withoutAccount", "withAccount"];

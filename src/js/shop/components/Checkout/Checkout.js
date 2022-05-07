@@ -24,6 +24,30 @@ const NavLink = ({ enabled = false, className, ...props }) => {
     return <Container {...props} className={wrappedClassname} />;
 };
 
+const initialState = {
+    checkoutMode: "withoutAccount",
+    customer: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+    },
+    company: {
+        name: "",
+        chamberOfCommerce: "",
+        taxNumber: "",
+    },
+    deliveryAddress: {
+        street: "",
+        number: "",
+        suffix: "",
+        postalCode: "",
+        city: "",
+        country: "",
+    },
+    billingAddress: null, // same as delivery address
+};
+
 /**
  *
  * Checkout
