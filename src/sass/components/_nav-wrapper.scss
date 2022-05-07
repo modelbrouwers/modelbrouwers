@@ -1,0 +1,21 @@
+// TODO: mobile/tablet styling
+// on mobile, the nav itself should be more of a progress, sticky positioned to the
+// bottom (?) of the screen
+
+.nav-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__title {
+    flex-basis: 100%;
+  }
+
+  &__nav {
+    width: 25%;
+    padding-right: 1em;
+  }
+
+  &__content {
+    width: 75%;
+  }
+}
