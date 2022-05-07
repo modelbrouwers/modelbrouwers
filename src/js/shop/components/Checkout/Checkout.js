@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import {
+    NavLink,
+    Routes,
+    Route,
+    useNavigate,
+    useLocation,
+} from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
 
-import { Account, Address, Payment } from "./index";
+import { Account, Address, Payment } from ".";
 import { SHOP_ROOT } from "../../../constants";
 
 const getActiveNavClassNames = ({ isActive }) =>
@@ -19,16 +25,16 @@ const Checkout = ({ user, basePath }) => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const isAuthenticated = Object.keys(user).length > 1;
+
     // redirect if on the homepage
     useEffect(() => {
-        const isAuthenticated = Object.keys(user).length > 1;
-
         if (location.pathname === "/") {
             const navigateTo = isAuthenticated ? "address" : "account";
             navigate(navigateTo);
             return;
         }
-    }, [user, location, navigate]);
+    }, [isAuthenticated, location, navigate]);
 
     return (
         <div className="nav-wrapper">
@@ -88,74 +94,17 @@ const Checkout = ({ user, basePath }) => {
                 </ul>
             </nav>
 
-            <div className="nav-wrapper__content">{location.pathname}</div>
+            <div className="nav-wrapper__content">
+                <Routes>
+                    <Route
+                        path="account"
+                        element={<Account isAuthenticated={isAuthenticated} />}
+                    />
+                    <Route path="address" element={<Address user={user} />} />
+                </Routes>
+            </div>
         </div>
     );
-
-    // const routes = [
-    //     {
-    //         path: "/account",
-    //         component: (props) => <Account {...props} profile={profile} />,
-    //         hidden: profile.user,
-    //     },
-    //     {
-    //         path: "/address",
-    //         component: (props) => <Address {...props} profile={profile} />,
-    //     },
-    //     {
-    //         path: "/payment",
-    //         component: (props) => <Payment {...props} profile={profile} />,
-    //     },
-    //     { path: "/confirm", component: () => "" },
-    // ];
-    // const isActive = (tab) => {
-    //     return window.location.hash === tab.url.replace("/", "#");
-    // };
-    // if (window.location.pathname === `${SHOP_ROOT}/checkout/`) {
-    //     window.location.href = `${SHOP_ROOT}/checkout/#account`;
-    // }
-    // return (
-    //     <div className="checkout">
-    //         <h2 className="checkout__header">
-    //             <FormattedMessage
-    //                 description="Checkout header"
-    //                 defaultMessage="Checkout"
-    //             />
-    //         </h2>
-    //         <div className="checkout__container">
-    //             <Router hashType="noslash">
-    //                 <ul className="navigation__container">
-    //                     {tabs.map(
-    //                         (tab, i) =>
-    //                             !tab.hidden && (
-    //                                 <li
-    //                                     className="navigation__list-item"
-    //                                     key={i}
-    //                                 >
-    //                                     <NavLink
-    //                                         className="navigation__link"
-    //                                         to={tab.url}
-    //                                         activeClassName="navigation__link--active"
-    //                                         isActive={() => isActive(tab)}
-    //                                     >
-    //                                         {tab.name}
-    //                                     </NavLink>
-    //                                 </li>
-    //                             )
-    //                     )}
-    //                 </ul>
-    //                 {routes.map((route, i) => (
-    //                     <Route
-    //                         key={i}
-    //                         path={route.path}
-    //                         exact={route.exact}
-    //                         component={route.component}
-    //                     />
-    //                 ))}
-    //             </Router>
-    //         </div>
-    //     </div>
-    // );
 };
 
 Checkout.propTypes = {

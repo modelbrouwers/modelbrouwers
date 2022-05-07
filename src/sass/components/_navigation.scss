@@ -48,21 +48,4 @@
       color: var(--nav-focus-fg);
     }
   }
-
-  &__list-item {
-    &:first-child {
-      .navigation__link {
-        border-top: 1px solid $light-grey;
-        border-top-right-radius: 6px;
-        border-top-left-radius: 6px;
-      }
-    }
-
-    &:last-child {
-      .navigation__link {
-        border-bottom-right-radius: 6px;
-        border-bottom-left-radius: 6px;
-      }
-    }
-  }
 }

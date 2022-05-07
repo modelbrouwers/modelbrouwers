@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Navigate, Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
 import { SHOP_ROOT } from "../../../constants";
@@ -9,10 +10,9 @@ import { SHOP_ROOT } from "../../../constants";
  * Account
  *
  */
-const Account = ({ profile }) => {
-    // Redirect to next step is user is logged in
-    if (profile.user) {
-        window.location.href = `${SHOP_ROOT}/checkout/#address`;
+const Account = ({ isAuthenticated = false }) => {
+    if (isAuthenticated) {
+        return <Navigate to="/address" />;
     }
 
     return (
@@ -52,6 +52,10 @@ const Account = ({ profile }) => {
             </div>
         </div>
     );
+};
+
+Account.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default Account;

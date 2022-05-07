@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
 import { country_list, SUPPORTED_COUNTRIES } from "./constants";
 
@@ -10,12 +11,12 @@ import { country_list, SUPPORTED_COUNTRIES } from "./constants";
  * Address
  *
  */
-const Address = ({ profile, history }) => {
+const Address = ({ user }) => {
     // Set default values for missing fields to avoid null errors
-    const defaultProfile = { user: {}, kvk: "", company: "" };
+    const defaultUser = { profile: {}, kvk: "", company: "" };
     const [userDetails, setUserDetails] = useState({
-        ...defaultProfile,
-        ...profile,
+        ...defaultUser,
+        ...user,
     });
     const [addressCheck, setAddressCheck] = useState(true);
     const [billingDetails, setBillingDetails] = useState({});
@@ -33,7 +34,7 @@ const Address = ({ profile, history }) => {
      */
     const requiredFieldMissing = () => {
         return (
-            mandatoryUserFields.some((field) => !userDetails.user[field]) ||
+            mandatoryUserFields.some((field) => !userDetails[field]) ||
             mandatoryProfileFields.some((field) => !userDetails[field])
         );
     };
@@ -53,7 +54,7 @@ const Address = ({ profile, history }) => {
         const { name, value } = e.target;
         setUserDetails({
             ...userDetails,
-            user: { ...userDetails.user, [name]: value },
+            user: { ...userDetails, [name]: value },
         });
     };
 
@@ -71,7 +72,8 @@ const Address = ({ profile, history }) => {
 
     // TODO this probably needs to send api request to create/modify an order
     const onAddressComplete = () => {
-        return history.push("/payment");
+        useNavigate("/payment");
+        return;
     };
 
     return (
@@ -98,7 +100,7 @@ const Address = ({ profile, history }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={userDetails.user.first_name}
+                                    value={userDetails.first_name}
                                     name="first_name"
                                     onChange={onUserChange}
                                 />
@@ -114,7 +116,7 @@ const Address = ({ profile, history }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={userDetails.user.last_name}
+                                    value={userDetails.last_name}
                                     name="last_name"
                                     onChange={onUserChange}
                                 />
@@ -131,7 +133,7 @@ const Address = ({ profile, history }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={userDetails.user.email}
+                                    value={userDetails.email}
                                     name="email"
                                     onChange={onUserChange}
                                 />
@@ -147,7 +149,7 @@ const Address = ({ profile, history }) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={userDetails.user.phone}
+                                    value={userDetails.phone}
                                     name="phone"
                                     onChange={onUserChange}
                                 />
@@ -205,7 +207,7 @@ const Address = ({ profile, history }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={userDetails.street}
+                            value={userDetails.profile.street}
                             name="street"
                             onChange={onProfileChange}
                         />
@@ -221,7 +223,7 @@ const Address = ({ profile, history }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={userDetails.number}
+                            value={userDetails.profile.number}
                             name="number"
                             onChange={onProfileChange}
                         />
@@ -237,7 +239,7 @@ const Address = ({ profile, history }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={userDetails.city}
+                            value={userDetails.profile.city}
                             name="city"
                             onChange={onProfileChange}
                         />
@@ -253,7 +255,7 @@ const Address = ({ profile, history }) => {
                         <input
                             type="text"
                             className="form-control"
-                            value={userDetails.postal}
+                            value={userDetails.profile.postal}
                             name="postal"
                             onChange={onProfileChange}
                         />
@@ -269,7 +271,7 @@ const Address = ({ profile, history }) => {
                         <Select
                             name="country"
                             value={{
-                                value: userDetails.country || "",
+                                value: userDetails.profile.country || "",
                                 label: SUPPORTED_COUNTRIES[userDetails.country],
                             }}
                             options={country_list}
@@ -459,11 +461,7 @@ const Address = ({ profile, history }) => {
 };
 
 Address.propTypes = {
-    profile: PropTypes.object,
-};
-
-Address.defaultProps = {
-    profile: {},
+    user: PropTypes.object,
 };
 
 export default Address;
