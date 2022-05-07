@@ -1,0 +1,14 @@
+body.shop {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > .container-fluid {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  > .ad-container {
+    flex: 1 0 auto;
+  }
+}

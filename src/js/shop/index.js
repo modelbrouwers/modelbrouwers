@@ -96,18 +96,19 @@ export default class Page {
         const node = document.getElementById("react-checkout");
         let profile = null;
         this.userProfileConsumer = new UserProfileConsumer();
-        if (node) {
-            try {
-                const resp = await this.userProfileConsumer.fetch();
-                profile = resp.data;
-            } catch (e) {
-                profile = {};
-            }
-            createRoot(node).render(
-                <IntlProvider {...intlProps}>
-                    <Checkout profile={profile} />
-                </IntlProvider>
-            );
-        }
+
+        // if (node) {
+        //     try {
+        //         const resp = await this.userProfileConsumer.fetch();
+        //         profile = resp.data;
+        //     } catch (e) {
+        //         profile = {};
+        //     }
+        //     createRoot(node).render(
+        //         <IntlProvider {...intlProps}>
+        //             <Checkout profile={profile} />
+        //         </IntlProvider>
+        //     );
+        // }
     }
 }
