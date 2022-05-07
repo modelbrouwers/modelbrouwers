@@ -71,11 +71,13 @@ export default class Page {
             let cartStore = new CartStore(cart);
             initCartActions(cartStore);
             this.initCheckout(intlProps);
-            createRoot(node).render(
-                <IntlProvider {...intlProps}>
-                    <TopbarCart store={cartStore} />
-                </IntlProvider>
-            );
+            if (node) {
+                createRoot(node).render(
+                    <IntlProvider {...intlProps}>
+                        <TopbarCart store={cartStore} />
+                    </IntlProvider>
+                );
+            }
 
             if (detailNode) {
                 createRoot(detailNode).render(
