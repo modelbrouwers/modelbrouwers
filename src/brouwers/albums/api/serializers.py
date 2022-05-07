@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from brouwers.forum_tools.api.serializers import TopicSerializer
-from brouwers.users.api.serializers import UserSerializer
+from brouwers.users.api.serializers import SimpleUserSerializer
 from brouwers.utils.api.fields import ThumbnailField
 
 from ..models import Album, Photo
@@ -9,7 +9,7 @@ from ..serializers import PreferencesSerializer  # noqa pragma: no cover
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = SimpleUserSerializer()
     topic = TopicSerializer()
 
     class Meta:
@@ -24,7 +24,7 @@ class UploadPhotoSerializer(serializers.ModelSerializer):
 
 
 class PhotoSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = SimpleUserSerializer()
     image = ThumbnailField(
         (("large", "1024"), ("thumb", "300x225")),  # large photo + actual thumb
         opts={"crop": "center", "upscale": False},

@@ -46,4 +46,4 @@ class MyAlbumTests(APITestCase):
             self.assertEqual(result["description"], album.description)
             self.assertEqual(result["public"], album.public)
             self.assertEqual(result["topic"], album.topic)
-            self.assertEqual(result["user"], {"username": album.user.username})
+            self.assertEqual(result["user"]["username"], album.user.username)

@@ -5,6 +5,12 @@ from brouwers.general.models import UserProfile
 from ..models import User
 
 
+class SimpleUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("username",)
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -15,6 +21,14 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
             "phone",
         )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance and self.instance != self.context["request"].user:
+            raise RuntimeError(
+                "You are (inadvertedly) leaking sensitive data to other users!"
+            )
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
