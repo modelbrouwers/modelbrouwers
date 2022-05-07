@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
-    NavLink,
+    NavLink as RRNavLink,
     Routes,
     Route,
     useNavigate,
@@ -15,6 +15,14 @@ import { SHOP_ROOT } from "../../../constants";
 
 const getActiveNavClassNames = ({ isActive }) =>
     classNames("navigation__link", { "navigation__link--active": isActive });
+
+const NavLink = ({ enabled = false, className, ...props }) => {
+    const Container = enabled ? RRNavLink : "span";
+    const wrappedClassname = enabled
+        ? className
+        : className({ isActive: false });
+    return <Container {...props} className={wrappedClassname} />;
+};
 
 /**
  *
@@ -51,6 +59,7 @@ const Checkout = ({ user, basePath }) => {
                         <NavLink
                             to="account"
                             className={getActiveNavClassNames}
+                            enabled
                         >
                             <FormattedMessage
                                 description="Tab: account"
