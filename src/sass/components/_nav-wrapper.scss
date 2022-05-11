@@ -13,10 +13,12 @@
   &__nav {
     width: 25%;
     padding-right: 1em;
+    order: 1;
   }
 
   &__content {
     width: 75%;
+    order: 2;
   }
 }
 
@@ -25,15 +27,15 @@
     flex-direction: column;
 
     &__nav {
-      width: 100%;
       order: 2;
+      width: 100%;
       padding-right: 0;
       margin-top: 2em;
     }
 
     &__content {
-      width: 100%;
       order: 1;
+      width: 100%;
     }
   }
 }

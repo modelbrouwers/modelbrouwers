@@ -98,6 +98,21 @@ const Checkout = ({ user }) => {
                 />
             </h2>
 
+            <div className="nav-wrapper__content">
+                <Routes>
+                    <Route
+                        path="account"
+                        element={
+                            <Account
+                                isAuthenticated={isAuthenticated}
+                                currentLocation={checkoutRoot}
+                            />
+                        }
+                    />
+                    <Route path="address" element={<Address user={user} />} />
+                </Routes>
+            </div>
+
             <nav className="nav-wrapper__nav">
                 <ul className="navigation">
                     <li className="navigation__item">
@@ -148,21 +163,6 @@ const Checkout = ({ user }) => {
                     </li>
                 </ul>
             </nav>
-
-            <div className="nav-wrapper__content">
-                <Routes>
-                    <Route
-                        path="account"
-                        element={
-                            <Account
-                                isAuthenticated={isAuthenticated}
-                                currentLocation={checkoutRoot}
-                            />
-                        }
-                    />
-                    <Route path="address" element={<Address user={user} />} />
-                </Routes>
-            </div>
         </div>
     );
 };
