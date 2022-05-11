@@ -19,3 +19,21 @@
     width: 75%;
   }
 }
+
+@include lte-mobile {
+  .nav-wrapper {
+    flex-direction: column;
+
+    &__nav {
+      width: 100%;
+      order: 2;
+      padding-right: 0;
+      margin-top: 2em;
+    }
+
+    &__content {
+      width: 100%;
+      order: 1;
+    }
+  }
+}

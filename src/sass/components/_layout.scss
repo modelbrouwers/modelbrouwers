@@ -42,3 +42,8 @@
     }
   }
 }
+
+@include lte-mobile {
+  .layout {
+  }
+}
