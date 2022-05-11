@@ -24,14 +24,13 @@
     display: block;
     padding: 0.5em 1em;
 
+    &--enabled {
+      cursor: pointer;
+    }
+
     &,
     &:hover {
       color: $main-blue;
-    }
-
-    &:hover {
-      cursor: default;
-      text-decoration: none;
     }
 
     &#{&}--active {

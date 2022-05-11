@@ -6,21 +6,26 @@ import {
     Route,
     useNavigate,
     useLocation,
+    useHref,
 } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
+import { useImmerReducer } from "use-immer";
 
 import { Account, Address, Payment } from ".";
 import { SHOP_ROOT } from "../../../constants";
 
-const getActiveNavClassNames = ({ isActive }) =>
-    classNames("navigation__link", { "navigation__link--active": isActive });
+const getActiveNavClassNames = ({ isActive, enabled = false }) =>
+    classNames("navigation__link", {
+        "navigation__link--active": isActive,
+        "navigation__link--enabled": enabled,
+    });
 
 const NavLink = ({ enabled = false, className, ...props }) => {
     const Container = enabled ? RRNavLink : "span";
     const wrappedClassname = enabled
-        ? className
-        : className({ isActive: false });
+        ? ({ isActive }) => className({ isActive, enabled })
+        : className({ isActive: false, enabled });
     return <Container {...props} className={wrappedClassname} />;
 };
 
@@ -48,16 +53,32 @@ const initialState = {
     billingAddress: null, // same as delivery address
 };
 
+const reducer = (draft, action) => {
+    switch (action.type) {
+        case "": {
+        }
+        default: {
+            throw new Error(`Unknown action type: ${action.type}`);
+        }
+    }
+};
+
 /**
  *
  * Checkout
  *
  */
-const Checkout = ({ user, basePath }) => {
+const Checkout = ({ user }) => {
     const location = useLocation();
     const navigate = useNavigate();
+    const checkoutRoot = useHref("/");
 
     const isAuthenticated = Object.keys(user).length > 1;
+
+    const [state, dispatch] = useImmerReducer(reducer, {
+        ...initialState,
+        checkoutMode: isAuthenticated ? "withAccount" : "withoutAccount",
+    });
 
     // redirect if on the homepage
     useEffect(() => {
@@ -83,7 +104,7 @@ const Checkout = ({ user, basePath }) => {
                         <NavLink
                             to="account"
                             className={getActiveNavClassNames}
-                            enabled
+                            enabled={!isAuthenticated}
                         >
                             <FormattedMessage
                                 description="Tab: account"
@@ -95,6 +116,7 @@ const Checkout = ({ user, basePath }) => {
                         <NavLink
                             to="address"
                             className={getActiveNavClassNames}
+                            enabled
                         >
                             <FormattedMessage
                                 description="Tab: address"
@@ -131,7 +153,12 @@ const Checkout = ({ user, basePath }) => {
                 <Routes>
                     <Route
                         path="account"
-                        element={<Account isAuthenticated={isAuthenticated} />}
+                        element={
+                            <Account
+                                isAuthenticated={isAuthenticated}
+                                currentLocation={checkoutRoot}
+                            />
+                        }
                     />
                     <Route path="address" element={<Address user={user} />} />
                 </Routes>

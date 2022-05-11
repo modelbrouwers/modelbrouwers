@@ -1,132 +1,332 @@
 {
-    "/N7xse": {
-        "defaultMessage": "Klaar?",
-        "description": "GB participants table, finished header.",
-        "originalDefault": "Finished?"
-    },
-    "7wbY42": {
-        "defaultMessage": "Deelnemers",
-        "description": "Groupbuild inset in forum post, participants title",
-        "originalDefault": "Participants"
-    },
-    "84sXop": {
-        "defaultMessage": "Regels",
-        "description": "Groupbuild inset in forum post, rules title",
-        "originalDefault": "Rules"
-    },
-    "B4vH06": {
-        "defaultMessage": "Omschrijving",
-        "description": "Groupbuild inset in forum post, description title",
-        "originalDefault": "Description"
-    },
-    "BxbHDf": {
-        "defaultMessage": "Brouwer",
-        "description": "GB participants table, brouwer header.",
-        "originalDefault": "Brouwer"
-    },
-    "IlIaZ2": {
-        "defaultMessage": "Start: {start}, einde: {end}",
-        "description": "Groupbuild inset in forum post, start and end dates",
-        "originalDefault": "Start: {start}, end: {end}"
-    },
-    "JFs7tB": {
-        "defaultMessage": "Model",
-        "description": "GB participants table, model header.",
-        "originalDefault": "Model"
-    },
-    "forum.albums.photosNav.next": {
-        "defaultMessage": "Volgende",
-        "originalDefault": "Next"
-    },
-    "forum.albums.photosNav.previous": {
-        "defaultMessage": "Vorige",
-        "originalDefault": "Previous"
-    },
-    "forum.albums.sidebar.noPhotosYet": {
-        "defaultMessage": "Je hebt nog geen foto's in dit album. Je kunt deze <link>hier</link> toevoegen.",
-        "originalDefault": "There are no photo's in this album yet. You can upload some <link>here</link>."
-    },
-    "forum.albums.sidebar.photos-title": {
-        "defaultMessage": "Foto's",
-        "originalDefault": "Photos"
-    },
-    "forum.albums.sidebar.title": {
-        "defaultMessage": "Albums",
-        "originalDefault": "Albums"
-    },
-    "jHygYM": {
-        "defaultMessage": "Open buiten het forum",
-        "description": "Groupbuild inset in forum post, open main website link",
-        "originalDefault": "View outside of forum"
-    },
-    "kits.filter.byName": {
-        "defaultMessage": "zoek op naam",
-        "originalDefault": "filter by name"
-    },
-    "shop.cart.detail.cart.subtotal": {
-        "defaultMessage": "Subtotaal",
-        "originalDefault": "Sub-total"
-    },
-    "shop.cart.detail.cart.taxes": {
-        "defaultMessage": "BTW",
-        "originalDefault": "Taxes"
-    },
-    "shop.cart.detail.cart.total": {
-        "defaultMessage": "Totaal",
-        "originalDefault": "Sub-total"
-    },
-    "shop.cart.detail.header.header": {
-        "defaultMessage": "Totaal",
-        "originalDefault": "Total"
-    },
-    "shop.cart.detail.header.image": {
-        "defaultMessage": "Afbeelding",
-        "originalDefault": "Image"
-    },
-    "shop.cart.detail.header.model": {
-        "defaultMessage": "Model",
-        "originalDefault": "Model"
-    },
-    "shop.cart.detail.header.product.name": {
-        "defaultMessage": "Artikel",
-        "originalDefault": "Product Name"
-    },
-    "shop.cart.detail.header.quantity": {
-        "defaultMessage": "Aantal",
-        "originalDefault": "Quantity"
-    },
-    "shop.cart.detail.header.unit.price": {
-        "defaultMessage": "Stukprijs",
-        "originalDefault": "Unit Price"
-    },
-    "shop.cart.detail.title.cart.total": {
-        "defaultMessage": "Totaal",
-        "originalDefault": "Cart total"
-    },
-    "shop.cart.product.actions.add": {
-        "defaultMessage": "Toevoegen aan winkelmandje",
-        "originalDefault": "Add to cart"
-    },
-    "shop.cart.topbar.checkout": {
-        "defaultMessage": "Afrekenen",
-        "originalDefault": "Checkout"
-    },
-    "shop.cart.topbar.item.count": {
-        "defaultMessage": "{count, number} {count, plural, one {artikel} other {artikelen}}",
-        "originalDefault": "{count, number} {count, plural, one {item} other {items}}"
-    },
-    "shop.cart.topbar.view.cart": {
-        "defaultMessage": "Winkelmandje bekijken",
-        "originalDefault": "View cart"
-    },
-    "tPmUAf": {
-        "defaultMessage": "Topic met regels",
-        "description": "Groupbuild inset in forum post, rules topic title",
-        "originalDefault": "Rules topic"
-    },
-    "y/pElv": {
-        "defaultMessage": "Topic",
-        "description": "GB participants table, topic header.",
-        "originalDefault": "Topic"
-    }
+  "+kXYqX": {
+    "defaultMessage": "Country",
+    "description": "Checkout address: country",
+    "originalDefault": "Country"
+  },
+  "/Eg5rz": {
+    "defaultMessage": "Billing address",
+    "description": "Billing address: billingAddress",
+    "originalDefault": "Billing address"
+  },
+  "/N7xse": {
+    "defaultMessage": "Klaar?",
+    "description": "GB participants table, finished header.",
+    "originalDefault": "Finished?"
+  },
+  "0IKVYp": {
+    "defaultMessage": "City",
+    "description": "Delivery address: city",
+    "originalDefault": "City"
+  },
+  "3UvxIB": {
+    "defaultMessage": "Street",
+    "description": "Delivery address: street",
+    "originalDefault": "Street"
+  },
+  "3c81Yt": {
+    "defaultMessage": "Number",
+    "description": "Billing address: number",
+    "originalDefault": "Number"
+  },
+  "4+G0m8": {
+    "defaultMessage": "KVK",
+    "description": "Delivery address: kvk",
+    "originalDefault": "KVK"
+  },
+  "4sjMB/": {
+    "defaultMessage": "KVK",
+    "description": "Billing address: kvk",
+    "originalDefault": "KVK"
+  },
+  "6qobm2": {
+    "defaultMessage": "City",
+    "description": "Billing address: city",
+    "originalDefault": "City"
+  },
+  "7wbY42": {
+    "defaultMessage": "Deelnemers",
+    "description": "Groupbuild inset in forum post, participants title",
+    "originalDefault": "Participants"
+  },
+  "84sXop": {
+    "defaultMessage": "Regels",
+    "description": "Groupbuild inset in forum post, rules title",
+    "originalDefault": "Rules"
+  },
+  "9xJNKa": {
+    "defaultMessage": "Continue",
+    "description": "Checkout address: continue",
+    "originalDefault": "Continue"
+  },
+  "B4vH06": {
+    "defaultMessage": "Omschrijving",
+    "description": "Groupbuild inset in forum post, description title",
+    "originalDefault": "Description"
+  },
+  "BFOrds": {
+    "defaultMessage": "Email address",
+    "description": "Checkout address: email",
+    "originalDefault": "Email address"
+  },
+  "BxbHDf": {
+    "defaultMessage": "Brouwer",
+    "description": "GB participants table, brouwer header.",
+    "originalDefault": "Brouwer"
+  },
+  "CCvXMf": {
+    "defaultMessage": "Address",
+    "description": "Tab: address",
+    "originalDefault": "Address"
+  },
+  "D5xbSP": {
+    "defaultMessage": "Checkout",
+    "description": "Checkout header",
+    "originalDefault": "Checkout"
+  },
+  "DXeHjf": {
+    "defaultMessage": "Required fields",
+    "description": "Checkout address: requiredFields",
+    "originalDefault": "Required fields"
+  },
+  "EG8GlO": {
+    "defaultMessage": "Number",
+    "description": "Delivery address: number",
+    "originalDefault": "Number"
+  },
+  "FYuL74": {
+    "defaultMessage": "My billing and delivery address are the same.",
+    "description": "Checkout address: billingAddressSame",
+    "originalDefault": "My billing and delivery address are the same."
+  },
+  "GhZs+k": {
+    "defaultMessage": "Confirmation",
+    "description": "Tab: confirm",
+    "originalDefault": "Confirmation"
+  },
+  "GuiGSo": {
+    "defaultMessage": "Company",
+    "description": "Billing address: company",
+    "originalDefault": "Company"
+  },
+  "GxgjcH": {
+    "defaultMessage": "Phone number",
+    "description": "Checkout address: phone",
+    "originalDefault": "Phone number"
+  },
+  "IlIaZ2": {
+    "defaultMessage": "Start: {start}, einde: {end}",
+    "description": "Groupbuild inset in forum post, start and end dates",
+    "originalDefault": "Start: {start}, end: {end}"
+  },
+  "JFs7tB": {
+    "defaultMessage": "Model",
+    "description": "GB participants table, model header.",
+    "originalDefault": "Model"
+  },
+  "O3sAqY": {
+    "defaultMessage": "Personal details",
+    "description": "Checkout address: personal details",
+    "originalDefault": "Personal details"
+  },
+  "Ovk5iw": {
+    "defaultMessage": "ZIP code",
+    "description": "Delivery address: zip",
+    "originalDefault": "ZIP code"
+  },
+  "PKVzgg": {
+    "defaultMessage": "First name",
+    "description": "Checkout address: firstName",
+    "originalDefault": "First name"
+  },
+  "PmaF7F": {
+    "defaultMessage": "Country",
+    "description": "Billing address: country",
+    "originalDefault": "Country"
+  },
+  "Qiw2De": {
+    "defaultMessage": "Select your payment method",
+    "description": "Checkout: select payment method",
+    "originalDefault": "Select your payment method"
+  },
+  "W4CwLT": {
+    "defaultMessage": "Street",
+    "description": "Billing address: street",
+    "originalDefault": "Street"
+  },
+  "bsyaaX": {
+    "defaultMessage": "Sign up",
+    "description": "Checkout with account creation",
+    "originalDefault": "Sign up"
+  },
+  "dbSo0d": {
+    "defaultMessage": "Continue without signup",
+    "description": "Checkout with account link",
+    "originalDefault": "Continue without signup"
+  },
+  "fJMjTz": {
+    "defaultMessage": "Sign in",
+    "description": "Checkout with login",
+    "originalDefault": "Sign in"
+  },
+  "forum.albums.photosNav.next": {
+    "defaultMessage": "Volgende",
+    "originalDefault": "Next"
+  },
+  "forum.albums.photosNav.previous": {
+    "defaultMessage": "Vorige",
+    "originalDefault": "Previous"
+  },
+  "forum.albums.sidebar.noPhotosYet": {
+    "defaultMessage": "Je hebt nog geen foto's in dit album. Je kunt deze <link>hier</link> toevoegen.",
+    "originalDefault": "There are no photo's in this album yet. You can upload some <link>here</link>."
+  },
+  "forum.albums.sidebar.photos-title": {
+    "defaultMessage": "Foto's",
+    "originalDefault": "Photos"
+  },
+  "forum.albums.sidebar.title": {
+    "defaultMessage": "Albums",
+    "originalDefault": "Albums"
+  },
+  "ilLhfJ": {
+    "defaultMessage": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future).",
+    "description": "Checkout account options description",
+    "originalDefault": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
+  },
+  "iziEr8": {
+    "defaultMessage": "Reload page",
+    "description": "General error: reload page button",
+    "originalDefault": "Reload page"
+  },
+  "jHygYM": {
+    "defaultMessage": "Open buiten het forum",
+    "description": "Groupbuild inset in forum post, open main website link",
+    "originalDefault": "View outside of forum"
+  },
+  "kits.filter.byName": {
+    "defaultMessage": "zoek op naam",
+    "originalDefault": "filter by name"
+  },
+  "m0WW7s": {
+    "defaultMessage": "Continue shopping",
+    "description": "Button back to webshop homepage",
+    "originalDefault": "Continue shopping"
+  },
+  "mMHo4X": {
+    "defaultMessage": "Oops, something went wrong. Please try again later.",
+    "description": "General error message",
+    "originalDefault": "Oops, something went wrong. Please try again later."
+  },
+  "mzZEkB": {
+    "defaultMessage": "ZIP code",
+    "description": "Billing address: zip",
+    "originalDefault": "ZIP code"
+  },
+  "nul77H": {
+    "defaultMessage": "Delivery address",
+    "description": "Delivery address: deliveryAddress",
+    "originalDefault": "Delivery address"
+  },
+  "oNlKJN": {
+    "defaultMessage": "Company",
+    "description": "Delivery address: company",
+    "originalDefault": "Company"
+  },
+  "ocBRLh": {
+    "defaultMessage": "Last name",
+    "description": "Checkout address: lastName",
+    "originalDefault": "Last name"
+  },
+  "osdebM": {
+    "defaultMessage": "Checkout",
+    "description": "Button to webshop checkout",
+    "originalDefault": "Checkout"
+  },
+  "sg6151": {
+    "defaultMessage": "Account",
+    "description": "Tab: account",
+    "originalDefault": "Account"
+  },
+  "shop.cart.detail.cart.subtotal": {
+    "defaultMessage": "Subtotaal",
+    "originalDefault": "Sub-total"
+  },
+  "shop.cart.detail.cart.taxes": {
+    "defaultMessage": "BTW",
+    "originalDefault": "Taxes"
+  },
+  "shop.cart.detail.cart.total": {
+    "defaultMessage": "Totaal",
+    "originalDefault": "Total"
+  },
+  "shop.cart.detail.header.header": {
+    "defaultMessage": "Totaal",
+    "originalDefault": "Total"
+  },
+  "shop.cart.detail.header.image": {
+    "defaultMessage": "Afbeelding",
+    "originalDefault": "Image"
+  },
+  "shop.cart.detail.header.model": {
+    "defaultMessage": "Model",
+    "originalDefault": "Model"
+  },
+  "shop.cart.detail.header.product.name": {
+    "defaultMessage": "Artikel",
+    "originalDefault": "Product Name"
+  },
+  "shop.cart.detail.header.quantity": {
+    "defaultMessage": "Aantal",
+    "originalDefault": "Quantity"
+  },
+  "shop.cart.detail.header.unit.price": {
+    "defaultMessage": "Stukprijs",
+    "originalDefault": "Unit Price"
+  },
+  "shop.cart.detail.title.cart.total": {
+    "defaultMessage": "Totaal",
+    "originalDefault": "Cart total"
+  },
+  "shop.cart.product.actions.add": {
+    "defaultMessage": "Toevoegen aan winkelmandje",
+    "originalDefault": "Add to cart"
+  },
+  "shop.cart.topbar.checkout": {
+    "defaultMessage": "Afrekenen",
+    "originalDefault": "Checkout"
+  },
+  "shop.cart.topbar.item.count": {
+    "defaultMessage": "{count, number} {count, plural, one {artikel} other {artikelen}}",
+    "originalDefault": "{count, number} {count, plural, one {item} other {items}}"
+  },
+  "shop.cart.topbar.view.cart": {
+    "defaultMessage": "Winkelmandje bekijken",
+    "originalDefault": "View cart"
+  },
+  "tPmUAf": {
+    "defaultMessage": "Topic met regels",
+    "description": "Groupbuild inset in forum post, rules topic title",
+    "originalDefault": "Rules topic"
+  },
+  "v2t0Vo": {
+    "defaultMessage": "or",
+    "description": "'Or' (Separator between options)",
+    "originalDefault": "or"
+  },
+  "vRPK2q": {
+    "defaultMessage": "Payment",
+    "description": "Tab: payment",
+    "originalDefault": "Payment"
+  },
+  "y/pElv": {
+    "defaultMessage": "Topic",
+    "description": "GB participants table, topic header.",
+    "originalDefault": "Topic"
+  },
+  "yy0Fua": {
+    "defaultMessage": "Select country",
+    "description": "Country dropdown placeholder",
+    "originalDefault": "Select country"
+  }
 }

@@ -1,0 +1,44 @@
+@import "layout/all";
+
+.layout {
+  display: flex;
+
+  &--columns {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+  }
+
+  &--rows {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__separator {
+    display: block;
+
+    &--vertical {
+      &:empty {
+        width: 2px;
+        min-height: 10em;
+        border: solid 1px $default-border-color;
+        margin: 2em;
+      }
+    }
+
+    &--horizontal {
+      margin: 0.5em 0;
+    }
+  }
+
+  &__column {
+    width: 100%;
+
+    &--center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
