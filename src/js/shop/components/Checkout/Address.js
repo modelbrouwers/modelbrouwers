@@ -30,30 +30,17 @@ const CustomerType = PropTypes.shape({
  * Address
  *
  */
-const Address = ({ customer, deliveryAddress, billingAddress, onChange }) => {
+const Address = ({
+    customer,
+    deliveryAddress,
+    billingAddress,
+    allowSubmit = false,
+    onChange,
+}) => {
     const [
         deliveryAddressIsBillingAddress,
         setDeliveryAddressIsBillingAddress,
     ] = useState(true);
-
-    const mandatoryCustomerFields = ["firstName", "lastName", "email"];
-    const mandatoryAddressFields = [
-        "street",
-        "number",
-        "city",
-        "postalCode",
-        "country",
-    ];
-
-    /**
-     * Disable 'Continue' button if any of the required fields is empty/null
-     */
-    const requiredFieldMissing = () => {
-        return (
-            mandatoryCustomerFields.some((field) => !customer[field]) ||
-            mandatoryAddressFields.some((field) => !deliveryAddress[field])
-        );
-    };
 
     // TODO this probably needs to send api request to create/modify an order
     const onSubmit = (event) => {
@@ -186,7 +173,7 @@ const Address = ({ customer, deliveryAddress, billingAddress, onChange }) => {
                 <button
                     type="submit"
                     className="button button--blue pull-right"
-                    disabled={requiredFieldMissing()}
+                    disabled={!allowSubmit}
                 >
                     <FormattedMessage
                         description="Checkout address: continue"
@@ -203,6 +190,7 @@ Address.propTypes = {
     deliveryAddress: AddressType.isRequired,
     billingAddress: AddressType,
     onChange: PropTypes.func.isRequired,
+    allowSubmit: PropTypes.bool,
 };
 
 export default Address;

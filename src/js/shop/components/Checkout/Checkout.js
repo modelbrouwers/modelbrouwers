@@ -18,6 +18,7 @@ import { useImmerReducer } from "use-immer";
 import { SHOP_ROOT } from "../../../constants";
 import { Account, Address, Payment } from ".";
 import { EMPTY_ADDRESS } from "./constants";
+import { checkAddressFieldsComplete } from "./utils";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
     classNames("navigation__link", {
@@ -64,6 +65,7 @@ const initialState = {
     },
     deliveryAddress: EMPTY_ADDRESS,
     billingAddress: null, // same as delivery address
+    addressStepValid: false,
 };
 
 const reducer = (draft, action) => {
@@ -71,6 +73,13 @@ const reducer = (draft, action) => {
         case "FIELD_CHANGED": {
             const { name, value } = action.payload;
             set(draft, name, value);
+            break;
+        }
+        case "CHECK_ADDRESS_VALIDITY": {
+            draft.addressStepValid = checkAddressFieldsComplete(
+                draft.customer,
+                draft.deliveryAddress
+            );
             break;
         }
         default: {
@@ -111,14 +120,17 @@ const Checkout = ({ user }) => {
             const navigateTo = isAuthenticated ? "address" : "account";
             navigate(navigateTo);
             return;
+        } else {
+            dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
         }
-    }, [isAuthenticated, location, navigate]);
+    }, [isAuthenticated, location, navigate, dispatch]);
 
     const onInputChange = (event) => {
         dispatch({
             type: "FIELD_CHANGED",
             payload: event.target,
         });
+        dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
     };
 
     return (
@@ -149,9 +161,11 @@ const Checkout = ({ user }) => {
                                 deliveryAddress={state.deliveryAddress}
                                 billingAddress={state.billingAddress}
                                 onChange={onInputChange}
+                                allowSubmit={state.addressStepValid}
                             />
                         }
                     />
+                    <Route path="payment" element={"Pay up!"} />
                 </Routes>
             </div>
 
@@ -185,6 +199,7 @@ const Checkout = ({ user }) => {
                         <NavLink
                             to="payment"
                             className={getActiveNavClassNames}
+                            enabled={state.addressStepValid}
                         >
                             <FormattedMessage
                                 description="Tab: payment"
