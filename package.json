@@ -44,6 +44,8 @@
         "immer": "^9.0.1",
         "insert-text-at-cursor": "^0.1.1",
         "jquery": "^3.5.1",
+        "lodash.isobject": "^3.0.2",
+        "lodash.set": "^4.3.2",
         "mobx": "^5.8.0",
         "mobx-react": "^5.4.3",
         "perfect-scrollbar": "^1.4.0",

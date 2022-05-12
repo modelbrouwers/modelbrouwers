@@ -22,3 +22,13 @@ export const country_list = Object.keys(SUPPORTED_COUNTRIES).map((key) => ({
 }));
 
 export const CHECKOUT_MODES = ["withoutAccount", "withAccount"];
+
+export const EMPTY_ADDRESS = {
+    company: "",
+    chamberOfCommerce: "",
+    street: "",
+    number: "",
+    city: "",
+    postalCode: "",
+    country: "",
+};

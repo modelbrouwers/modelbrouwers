@@ -2,6 +2,8 @@
 // on mobile, the nav itself should be more of a progress, sticky positioned to the
 // bottom (?) of the screen
 
+$nav-wrapper-spacing: 1em !default;
+
 .nav-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -12,12 +14,13 @@
 
   &__nav {
     width: 25%;
-    padding-right: 1em;
+    padding-right: $nav-wrapper-spacing;
     order: 1;
   }
 
   &__content {
     width: 75%;
+    padding-left: $nav-wrapper-spacing;
     order: 2;
   }
 }

@@ -1,3 +1,6 @@
+import camelCase from "lodash.camelcase";
+import isObject from "lodash.isobject";
+import set from "lodash.set";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
@@ -12,14 +15,36 @@ import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
-import { Account, Address, Payment } from ".";
 import { SHOP_ROOT } from "../../../constants";
+import { Account, Address, Payment } from ".";
+import { EMPTY_ADDRESS } from "./constants";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
     classNames("navigation__link", {
         "navigation__link--active": isActive,
         "navigation__link--enabled": enabled,
     });
+
+const camelize = (obj) => {
+    // recurse into arrays
+    if (Array.isArray(obj)) {
+        return obj.map(camelize);
+    }
+
+    if (!isObject(obj)) {
+        return obj;
+    }
+
+    // convert keys to camelCase
+    const newObj = {};
+    Object.entries(obj).forEach(([key, value]) => {
+        const newKey = camelCase(key);
+        const newValue = camelize(value);
+        newObj[newKey] = newValue;
+    });
+
+    return newObj;
+};
 
 const NavLink = ({ enabled = false, className, ...props }) => {
     const Container = enabled ? RRNavLink : "span";
@@ -35,27 +60,18 @@ const initialState = {
         firstName: "",
         lastName: "",
         email: "",
-        phoneNumber: "",
+        phone: "",
     },
-    company: {
-        name: "",
-        chamberOfCommerce: "",
-        taxNumber: "",
-    },
-    deliveryAddress: {
-        street: "",
-        number: "",
-        suffix: "",
-        postalCode: "",
-        city: "",
-        country: "",
-    },
+    deliveryAddress: EMPTY_ADDRESS,
     billingAddress: null, // same as delivery address
 };
 
 const reducer = (draft, action) => {
     switch (action.type) {
-        case "": {
+        case "FIELD_CHANGED": {
+            const { name, value } = action.payload;
+            set(draft, name, value);
+            break;
         }
         default: {
             throw new Error(`Unknown action type: ${action.type}`);
@@ -74,11 +90,20 @@ const Checkout = ({ user }) => {
     const checkoutRoot = useHref("/");
 
     const isAuthenticated = Object.keys(user).length > 1;
+    const customer = camelize(user);
 
-    const [state, dispatch] = useImmerReducer(reducer, {
+    const dynamicInitialState = {
         ...initialState,
         checkoutMode: isAuthenticated ? "withAccount" : "withoutAccount",
-    });
+    };
+    if (isAuthenticated) {
+        dynamicInitialState.customer = customer;
+        dynamicInitialState.deliveryAddress = {
+            ...dynamicInitialState.deliveryAddress,
+            ...customer.profile,
+        };
+    }
+    const [state, dispatch] = useImmerReducer(reducer, dynamicInitialState);
 
     // redirect if on the homepage
     useEffect(() => {
@@ -88,6 +113,13 @@ const Checkout = ({ user }) => {
             return;
         }
     }, [isAuthenticated, location, navigate]);
+
+    const onInputChange = (event) => {
+        dispatch({
+            type: "FIELD_CHANGED",
+            payload: event.target,
+        });
+    };
 
     return (
         <div className="nav-wrapper">
@@ -109,7 +141,17 @@ const Checkout = ({ user }) => {
                             />
                         }
                     />
-                    <Route path="address" element={<Address user={user} />} />
+                    <Route
+                        path="address"
+                        element={
+                            <Address
+                                customer={state.customer}
+                                deliveryAddress={state.deliveryAddress}
+                                billingAddress={state.billingAddress}
+                                onChange={onInputChange}
+                            />
+                        }
+                    />
                 </Routes>
             </div>
 

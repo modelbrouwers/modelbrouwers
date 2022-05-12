@@ -4,29 +4,45 @@ import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
-import { country_list, SUPPORTED_COUNTRIES } from "./constants";
+import { country_list, SUPPORTED_COUNTRIES, EMPTY_ADDRESS } from "./constants";
+import AddressFields from "./AddressFields";
+import PersonalDetailsFields from "./PersonalDetailsFields";
+
+const AddressType = PropTypes.shape({
+    company: PropTypes.string,
+    chamberOfCommerce: PropTypes.string,
+    street: PropTypes.string,
+    number: PropTypes.string,
+    city: PropTypes.string,
+    postalCode: PropTypes.string,
+    country: PropTypes.string,
+});
+
+const CustomerType = PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+});
 
 /**
  *
  * Address
  *
  */
-const Address = ({ user }) => {
-    // Set default values for missing fields to avoid null errors
-    const defaultUser = { profile: {}, kvk: "", company: "" };
-    const [userDetails, setUserDetails] = useState({
-        ...defaultUser,
-        ...user,
-    });
-    const [addressCheck, setAddressCheck] = useState(true);
-    const [billingDetails, setBillingDetails] = useState({});
-    const mandatoryUserFields = ["first_name", "last_name", "email"];
-    const mandatoryProfileFields = [
+const Address = ({ customer, deliveryAddress, billingAddress, onChange }) => {
+    const [
+        deliveryAddressIsBillingAddress,
+        setDeliveryAddressIsBillingAddress,
+    ] = useState(true);
+
+    const mandatoryCustomerFields = ["firstName", "lastName", "email"];
+    const mandatoryAddressFields = [
         "street",
         "number",
         "city",
+        "postalCode",
         "country",
-        "postal",
     ];
 
     /**
@@ -34,267 +50,91 @@ const Address = ({ user }) => {
      */
     const requiredFieldMissing = () => {
         return (
-            mandatoryUserFields.some((field) => !userDetails[field]) ||
-            mandatoryProfileFields.some((field) => !userDetails[field])
+            mandatoryCustomerFields.some((field) => !customer[field]) ||
+            mandatoryAddressFields.some((field) => !deliveryAddress[field])
         );
     };
 
-    const onProfileChange = (e) => {
-        const { name, value } = e.target;
-        setUserDetails({ ...userDetails, [name]: value });
-    };
-
-    const onBillingDetailsChange = (e) => {
-        const { name, value } = e.target;
-        setBillingDetails({ ...billingDetails, [name]: value });
-    };
-
-    // Separate handler to update user data
-    const onUserChange = (e) => {
-        const { name, value } = e.target;
-        setUserDetails({
-            ...userDetails,
-            user: { ...userDetails, [name]: value },
-        });
-    };
-
-    // Separate onchange handlers for selects, since data repr is different there
-    const onCountryChange = (country) => {
-        setUserDetails((user) => ({ ...user, country: country.value }));
-    };
-
-    const onBillingCountryChange = (country) => {
-        setBillingDetails((details) => ({
-            ...details,
-            country: country.value,
-        }));
-    };
-
     // TODO this probably needs to send api request to create/modify an order
-    const onAddressComplete = () => {
+    const onSubmit = (event) => {
+        event.preventDefault();
         useNavigate("/payment");
         return;
     };
 
+    billingAddress =
+        billingAddress ??
+        (!deliveryAddressIsBillingAddress ? EMPTY_ADDRESS : null);
+
     return (
-        <div className="container">
+        <form onSubmit={onSubmit}>
             <div className="row">
                 {/*Personal details*/}
-                <div className="col-xs-12">
-                    <div className="row">
-                        <div className="col-xs-6">
-                            <h3 className="checkout__title col-xs-12">
-                                <FormattedMessage
-                                    description="Checkout address: personal details"
-                                    defaultMessage="Personal details"
-                                />
-                            </h3>
-                            <div className="form-group col-md-6 col-xs-12">
-                                <label className="control-label">
-                                    <FormattedMessage
-                                        description="Checkout address: firstName"
-                                        defaultMessage="First name"
-                                    />
-                                    *
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={userDetails.first_name}
-                                    name="first_name"
-                                    onChange={onUserChange}
-                                />
-                            </div>
-                            <div className="form-group col-md-6 col-xs-12">
-                                <label className="control-label">
-                                    <FormattedMessage
-                                        description="Checkout address: lastName"
-                                        defaultMessage="Last name"
-                                    />
-                                    *
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={userDetails.last_name}
-                                    name="last_name"
-                                    onChange={onUserChange}
-                                />
-                            </div>
+                <div className="col-xs-6">
+                    <h3 className="checkout__title">
+                        <FormattedMessage
+                            description="Checkout address: personal details"
+                            defaultMessage="Personal details"
+                        />
+                    </h3>
 
-                            <div className="form-group col-xs-12">
-                                <label className="control-label">
-                                    <FormattedMessage
-                                        description="Checkout address: email"
-                                        defaultMessage="Email address"
-                                    />
-                                    *
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={userDetails.email}
-                                    name="email"
-                                    onChange={onUserChange}
-                                />
-                            </div>
-
-                            <div className="form-group col-xs-12">
-                                <label className="control-label">
-                                    <FormattedMessage
-                                        description="Checkout address: phone"
-                                        defaultMessage="Phone number"
-                                    />
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={userDetails.phone}
-                                    name="phone"
-                                    onChange={onUserChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <PersonalDetailsFields
+                        prefix="customer"
+                        firstName={customer.firstName}
+                        lastName={customer.lastName}
+                        email={customer.email}
+                        phone={customer.phone}
+                        onChange={onChange}
+                    />
                 </div>
+            </div>
 
+            <div className="row">
                 {/*Delivery address*/}
                 <div className="col-md-6 col-xs-12">
-                    <h3 className="checkout__title col-xs-12">
+                    <h3 className="checkout__title">
                         <FormattedMessage
                             description="Delivery address: deliveryAddress"
                             defaultMessage="Delivery address"
                         />
                     </h3>
-                    <div className="form-group col-xs-12">
-                        <label className="control-label">
-                            <FormattedMessage
-                                description="Delivery address: company"
-                                defaultMessage="Company"
-                            />
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={userDetails.company}
-                            name="company"
-                            onChange={onProfileChange}
-                        />
-                    </div>
-                    <div className="form-group col-xs-12">
-                        <label className="control-label">
-                            <FormattedMessage
-                                description="Delivery address: kvk"
-                                defaultMessage="KVK"
-                            />
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={userDetails.kvk}
-                            name="kvk"
-                            onChange={onProfileChange}
-                        />
-                    </div>
-                    <div className="form-group col-xs-12">
-                        <label className="control-label">
-                            <FormattedMessage
-                                description="Delivery address: street"
-                                defaultMessage="Street"
-                            />
-                            *
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={userDetails.profile.street}
-                            name="street"
-                            onChange={onProfileChange}
-                        />
-                    </div>
-                    <div className="form-group col-xs-12">
-                        <label className="control-label">
-                            <FormattedMessage
-                                description="Delivery address: number"
-                                defaultMessage="Number"
-                            />
-                            *
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={userDetails.profile.number}
-                            name="number"
-                            onChange={onProfileChange}
-                        />
-                    </div>
-                    <div className="form-group col-md-6 col-xs-12">
-                        <label className="control-label">
-                            <FormattedMessage
-                                description="Delivery address: city"
-                                defaultMessage="City"
-                            />
-                            *
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={userDetails.profile.city}
-                            name="city"
-                            onChange={onProfileChange}
-                        />
-                    </div>
-                    <div className="form-group col-md-6 col-xs-12">
-                        <label className="control-label">
-                            <FormattedMessage
-                                description="Delivery address: zip"
-                                defaultMessage="ZIP code"
-                            />
-                            *
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={userDetails.profile.postal}
-                            name="postal"
-                            onChange={onProfileChange}
-                        />
-                    </div>
-                    <div className="form-group col-xs-12">
-                        <label className="control-label">
-                            <FormattedMessage
-                                description="Checkout address: country"
-                                defaultMessage="Country"
-                            />
-                            *
-                        </label>
-                        <Select
-                            name="country"
-                            value={{
-                                value: userDetails.profile.country || "",
-                                label: SUPPORTED_COUNTRIES[userDetails.country],
-                            }}
-                            options={country_list}
-                            onChange={onCountryChange}
-                            placeholder={
-                                <FormattedMessage
-                                    description="Country dropdown placeholder"
-                                    defaultMessage="Select country"
-                                />
-                            }
-                        />
-                    </div>
-                    <div className="form-check col-xs-12 checkbox-flex">
+
+                    <AddressFields
+                        prefix="deliveryAddress"
+                        company={deliveryAddress.company}
+                        chamberOfCommerce={deliveryAddress.chamberOfCommerce}
+                        street={deliveryAddress.street}
+                        number={deliveryAddress.number}
+                        city={deliveryAddress.city}
+                        postalCode={deliveryAddress.postalCode}
+                        country={{
+                            value: deliveryAddress.country,
+                            label: SUPPORTED_COUNTRIES[deliveryAddress.country],
+                        }}
+                        onChange={onChange}
+                    />
+
+                    <div className="form-check checkbox-flex">
                         <input
                             type="checkbox"
                             className="form-check-input"
-                            id="addressCheck"
-                            checked={addressCheck}
-                            onChange={() => setAddressCheck(!addressCheck)}
+                            id="deliveryAddressIsBillingAddress"
+                            checked={deliveryAddressIsBillingAddress}
+                            onChange={() => {
+                                setDeliveryAddressIsBillingAddress(
+                                    !deliveryAddressIsBillingAddress
+                                );
+                                onChange({
+                                    target: {
+                                        name: "billingAddress",
+                                        value: null,
+                                    },
+                                });
+                            }}
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="addressCheck"
+                            htmlFor="deliveryAddressIsBillingAddress"
                         >
                             <FormattedMessage
                                 description="Checkout address: billingAddressSame"
@@ -305,139 +145,37 @@ const Address = ({ user }) => {
                 </div>
 
                 {/*Billing address*/}
-                {!addressCheck && (
+                {!deliveryAddressIsBillingAddress && (
                     <div className="col-md-6 col-xs-12">
-                        <h3 className="checkout__title col-xs-12">
+                        <h3 className="checkout__title">
                             <FormattedMessage
                                 description="Billing address: billingAddress"
                                 defaultMessage="Billing address"
                             />
                         </h3>
-                        <div className="form-group col-xs-12">
-                            <label className="control-label">
-                                <FormattedMessage
-                                    description="Billing address: company"
-                                    defaultMessage="Company"
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={billingDetails.company}
-                                name="company"
-                                onChange={onBillingDetailsChange}
-                            />
-                        </div>
-                        <div className="form-group col-xs-12">
-                            <label className="control-label">
-                                <FormattedMessage
-                                    description="Billing address: kvk"
-                                    defaultMessage="KVK"
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={billingDetails.kvk}
-                                name="kvk"
-                                onChange={onBillingDetailsChange}
-                            />
-                        </div>
-                        <div className="form-group col-xs-12">
-                            <label className="control-label">
-                                <FormattedMessage
-                                    description="Billing address: street"
-                                    defaultMessage="Street"
-                                />
-                                *
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={billingDetails.street}
-                                name="street"
-                                onChange={onBillingDetailsChange}
-                            />
-                        </div>
-                        <div className="form-group col-xs-12">
-                            <label className="control-label">
-                                <FormattedMessage
-                                    description="Billing address: number"
-                                    defaultMessage="Number"
-                                />
-                                *
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={billingDetails.number}
-                                name="number"
-                                onChange={onBillingDetailsChange}
-                            />
-                        </div>
-                        <div className="form-group col-md-6 col-xs-12">
-                            <label className="control-label">
-                                <FormattedMessage
-                                    description="Billing address: city"
-                                    defaultMessage="City"
-                                />
-                                *
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={billingDetails.city}
-                                name="city"
-                                onChange={onBillingDetailsChange}
-                            />
-                        </div>
-                        <div className="form-group col-md-6 col-xs-12">
-                            <label className="control-label">
-                                <FormattedMessage
-                                    description="Billing address: zip"
-                                    defaultMessage="ZIP code"
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={billingDetails.postal}
-                                name="postal"
-                                onChange={onBillingDetailsChange}
-                            />
-                        </div>
-                        <div className="form-group col-xs-12">
-                            <label className="control-label">
-                                <FormattedMessage
-                                    description="Billing address: country"
-                                    defaultMessage="Country"
-                                />
-                                *
-                            </label>
 
-                            <Select
-                                name="country"
-                                value={{
-                                    value: billingDetails.country || "",
-                                    label: SUPPORTED_COUNTRIES[
-                                        billingDetails.country
-                                    ],
-                                }}
-                                options={country_list}
-                                onChange={onBillingCountryChange}
-                                placeholder={
-                                    <FormattedMessage
-                                        description="Country dropdown placeholder"
-                                        defaultMessage="Select country"
-                                    />
-                                }
-                            />
-                        </div>
+                        <AddressFields
+                            prefix="billingAddress"
+                            company={billingAddress.company}
+                            chamberOfCommerce={billingAddress.chamberOfCommerce}
+                            street={billingAddress.street}
+                            number={billingAddress.number}
+                            city={billingAddress.city}
+                            postalCode={billingAddress.postalCode}
+                            country={{
+                                value: billingAddress.country,
+                                label: SUPPORTED_COUNTRIES[
+                                    billingAddress.country
+                                ],
+                            }}
+                            onChange={onChange}
+                        />
                     </div>
                 )}
             </div>
-            <div className="col-xs-12">
-                <div className="spacer" />
+
+            <div className="spacer" />
+            <div>
                 <small className="checkout__help-text">
                     *{" "}
                     <FormattedMessage
@@ -446,9 +184,9 @@ const Address = ({ user }) => {
                     />
                 </small>
                 <button
-                    className={"button button--blue"}
+                    type="submit"
+                    className="button button--blue pull-right"
                     disabled={requiredFieldMissing()}
-                    onClick={onAddressComplete}
                 >
                     <FormattedMessage
                         description="Checkout address: continue"
@@ -456,12 +194,15 @@ const Address = ({ user }) => {
                     />
                 </button>
             </div>
-        </div>
+        </form>
     );
 };
 
 Address.propTypes = {
-    user: PropTypes.object,
+    customer: CustomerType,
+    deliveryAddress: AddressType.isRequired,
+    billingAddress: AddressType,
+    onChange: PropTypes.func.isRequired,
 };
 
 export default Address;
