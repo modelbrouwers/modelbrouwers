@@ -57,7 +57,7 @@ const Address = ({
         <form onSubmit={onSubmit}>
             <div className="row">
                 {/*Personal details*/}
-                <div className="col-xs-6">
+                <div className="col-xs-12 col-md-6">
                     <h3 className="checkout__title">
                         <FormattedMessage
                             description="Checkout address: personal details"
