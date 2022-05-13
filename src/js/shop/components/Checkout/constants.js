@@ -30,5 +30,5 @@ export const EMPTY_ADDRESS = {
     number: "",
     city: "",
     postalCode: "",
-    country: "",
+    country: "N",
 };

@@ -41,11 +41,12 @@ const Address = ({
         deliveryAddressIsBillingAddress,
         setDeliveryAddressIsBillingAddress,
     ] = useState(true);
+    const navigate = useNavigate();
 
     // TODO this probably needs to send api request to create/modify an order
     const onSubmit = (event) => {
         event.preventDefault();
-        useNavigate("/payment");
+        navigate("/payment");
         return;
     };
 

@@ -112,7 +112,13 @@ const Checkout = ({ user }) => {
             ...dynamicInitialState.deliveryAddress,
             ...customer.profile,
         };
+        dynamicInitialState.deliveryAddress.postalCode =
+            dynamicInitialState.deliveryAddress.postal;
+        if (dynamicInitialState.deliveryAddress.country == null) {
+            dynamicInitialState.deliveryAddress.country = "N";
+        }
     }
+
     const [state, dispatch] = useImmerReducer(reducer, dynamicInitialState);
 
     // redirect if on the homepage
@@ -241,7 +247,7 @@ Checkout.propTypes = {
             number: PropTypes.string.isRequired,
             postal: PropTypes.string.isRequired,
             city: PropTypes.string.isRequired,
-            country: PropTypes.oneOf(["N", "B", "F", "G"]).isRequired,
+            country: PropTypes.oneOf(["N", "B", "F", "G"]),
         }),
     }),
 };
