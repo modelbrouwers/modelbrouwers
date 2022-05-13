@@ -176,7 +176,7 @@ const Checkout = ({ user }) => {
                             />
                         }
                     />
-                    <Route path="payment" element={"Pay up!"} />
+                    <Route path="payment" element={<Payment />} />
                 </Routes>
             </div>
 
