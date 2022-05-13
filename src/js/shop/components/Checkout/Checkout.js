@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
     NavLink as RRNavLink,
+    Navigate,
     Routes,
     Route,
     useNavigate,
@@ -116,11 +117,7 @@ const Checkout = ({ user }) => {
 
     // redirect if on the homepage
     useEffect(() => {
-        if (location.pathname === "/") {
-            const navigateTo = isAuthenticated ? "address" : "account";
-            navigate(navigateTo);
-            return;
-        } else {
+        if (location.pathname !== "/") {
             dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
         }
     }, [isAuthenticated, location, navigate, dispatch]);
@@ -144,6 +141,14 @@ const Checkout = ({ user }) => {
 
             <div className="nav-wrapper__content">
                 <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Navigate
+                                to={isAuthenticated ? "address" : "account"}
+                            />
+                        }
+                    />
                     <Route
                         path="account"
                         element={

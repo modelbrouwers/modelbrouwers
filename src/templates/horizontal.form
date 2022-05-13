@@ -166,7 +166,7 @@
 <div class="form-group clearfix">
     {% reuse "_label" %}
     <div class="{{ field_grid|default:'col-sm-10' }}">
-        <ul id="{{ id }}" class="rating-input"">
+        <ul id="{{ id }}" class="rating-input">
         {% for val, display in choices reversed %}
             <li class="rating-input__option">
                 <input type="radio" name="{{ html_name }}" id="{{ id}}_{{ forloop.counter0 }}"
