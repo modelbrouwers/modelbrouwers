@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import orderBy from "lodash.orderby";
 import { FormattedMessage } from "react-intl";
+import Select from "react-select";
 import useAsync from "react-use/esm/useAsync";
 
 import { PaymentConsumer } from "../../../data/shop/payment";
 import Loader from "../../../components/loaders";
 import { ErrorMessage } from "../Info";
+import { FormField, FormGroup } from "./FormFields";
 
 const paymentConsumer = new PaymentConsumer();
 
@@ -69,6 +71,90 @@ PaymentMethod.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
+const useGetPaymentSpecificOptions = (paymentMethod) => {
+    const {
+        loading,
+        error,
+        value = {},
+    } = useAsync(async () => {
+        if (!paymentMethod) return;
+
+        switch (paymentMethod.name.toLowerCase()) {
+            case "ideal": {
+                const idealBanks = await paymentConsumer.listIdealBanks();
+                return { banks: idealBanks.responseData };
+            }
+        }
+    }, [paymentMethod]);
+
+    if (error) {
+        throw error;
+    }
+
+    return value;
+};
+
+const PaymentMethodSpecificOptions = ({
+    paymentMethod,
+    paymentMethodSpecificState,
+    setPaymentMethodSpecificState,
+    ...props
+}) => {
+    if (!paymentMethod) return null;
+
+    switch (paymentMethod.name.toLowerCase()) {
+        case "ideal": {
+            const { banks } = props;
+            if (!banks) return <Loader />;
+
+            const onBankChange = (bank) => {
+                setPaymentMethodSpecificState({
+                    ...paymentMethodSpecificState,
+                    bank: bank,
+                });
+            };
+
+            return (
+                <>
+                    <div className="spacer" />
+                    <FormGroup>
+                        <FormField
+                            name="bank"
+                            label={
+                                <FormattedMessage
+                                    description="iDeal bank dropdown"
+                                    defaultMessage="Select your bank"
+                                />
+                            }
+                            required
+                            component={Select}
+                            value={paymentMethodSpecificState.bank}
+                            options={banks.map((bank) => ({
+                                value: bank.id,
+                                label: bank.name,
+                            }))}
+                            onChange={onBankChange}
+                            className=""
+                            autoFocus={!paymentMethodSpecificState.bank}
+                        />
+                    </FormGroup>
+                </>
+            );
+        }
+    }
+
+    return null;
+};
+
+PaymentMethodSpecificOptions.propTypes = {
+    paymentMethod: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        order: PropTypes.number.isRequired,
+        logo: PropTypes.string,
+    }),
+};
+
 /**
  *
  * Payment method selection & flow
@@ -77,6 +163,12 @@ PaymentMethod.propTypes = {
 const Payment = () => {
     const { loading, error, paymentMethods } = useFetchPaymentMethods();
     const [selectedMethod, setSelectedMethod] = useState(null);
+    const [paymentMethodSpecificState, setPaymentMethodSpecificState] =
+        useState({});
+    const paymentMethod = paymentMethods.find(
+        (method) => method.id === selectedMethod
+    );
+    const paymentMethodOptions = useGetPaymentSpecificOptions(paymentMethod);
 
     if (error) return <ErrorMessage />;
 
@@ -91,18 +183,27 @@ const Payment = () => {
 
             {loading && <Loader />}
 
-            <div className="payment-methods" aria-role="listbox">
+            <div className="payment-methods">
                 {paymentMethods.map((method) => (
                     <PaymentMethod
                         key={method.id}
                         {...method}
-                        isSelected={method.id === selectedMethod}
+                        isSelected={
+                            paymentMethod && method.id === paymentMethod.id
+                        }
                         onChange={(event) =>
                             setSelectedMethod(parseInt(event.target.value, 10))
                         }
                     />
                 ))}
             </div>
+
+            <PaymentMethodSpecificOptions
+                paymentMethod={paymentMethod}
+                paymentMethodSpecificState={paymentMethodSpecificState}
+                setPaymentMethodSpecificState={setPaymentMethodSpecificState}
+                {...paymentMethodOptions}
+            />
         </>
     );
 };

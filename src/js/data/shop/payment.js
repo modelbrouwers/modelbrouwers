@@ -10,15 +10,10 @@ export class PaymentConsumer extends CrudConsumer {
     }
 
     listMethods() {
-        return this.get("/paymentmethod");
+        return this.get("/paymentmethod/");
     }
 
-    // TODO Only lists iDeal banks for now, check if other listing endpoints necessary
-    listMethodBanks(bank) {
-        switch (bank) {
-            case "iDEAL":
-            default:
-                return this.get("/ideal_banks");
-        }
+    listIdealBanks() {
+        return this.get("/ideal_banks/");
     }
 }
