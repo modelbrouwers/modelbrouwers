@@ -60,9 +60,8 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
     def validate_cart(self, value):
         cart = value
         request = self.context["request"]
-        qs = Cart.objects.for_request(request)
-
-        if not qs.filter(id=cart.id).exists():
+        carts = Cart.objects.for_request(request)
+        if not carts.filter(id=cart.id).exists():
             raise serializers.ValidationError({"cart": "invalid cart"})
         return value
 

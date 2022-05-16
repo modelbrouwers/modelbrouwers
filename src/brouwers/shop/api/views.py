@@ -14,12 +14,7 @@ class IdealBanksView(views.APIView):
 
 class CartView(views.APIView):
     def get(self, request, *args, **kwargs):
-        cart = None
-
-        if cart_id := request.session.get("cart_id"):
-            cart = Cart.objects.get(id=cart_id)
-        elif request.user.is_authenticated:
-            cart = request.user.carts.open().last()
+        cart = Cart.objects.open().for_request(request).last()
 
         if cart is None:
             if request.user.is_authenticated:
