@@ -66,8 +66,7 @@ export default class Page {
 
         try {
             this.cartConsumer = new CartConsumer();
-            const resp = await this.cartConsumer.fetch();
-            const cart = resp.cart;
+            const cart = await this.cartConsumer.fetch();
             let cartStore = new CartStore(cart);
             initCartActions(cartStore);
             this.initCheckout(intlProps);

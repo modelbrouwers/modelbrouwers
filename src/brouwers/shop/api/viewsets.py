@@ -17,30 +17,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
 
-class CartViewSet(views.APIView):
-    def get(self, request, *args, **kwargs):
-        cart_id = None
-
-        if request.session.get("cart_id"):
-            cart_id = request.session["cart_id"]
-        elif hasattr(request.user, "carts"):
-            cart = request.user.carts.open().last()
-
-            if cart:
-                cart_id = cart.id
-
-        if cart_id:
-            cart = Cart.objects.get(id=cart_id)
-        else:
-            if request.user.is_authenticated:
-                cart = Cart.objects.create(user=request.user)
-            else:
-                cart = Cart.objects.create()
-                request.session["cart_id"] = cart.id
-        response = {"cart": CartSerializer(cart).data}
-        return Response(response)
-
-
 class CartProductViewSet(viewsets.ModelViewSet):
     queryset = CartProduct.objects.all()
     filterset_class = CartProductFilter
