@@ -94,8 +94,8 @@ export default class Page {
 
     static initCheckout(intlProps) {
         const node = document.getElementById("react-checkout");
-        const { path: basePath } = node.dataset;
         if (!node) return;
+        const { path: basePath } = node.dataset;
         const root = createRoot(node);
 
         // read user profile data from DOM, if user is not authenticated, this will be
