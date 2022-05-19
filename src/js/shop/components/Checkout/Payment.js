@@ -10,6 +10,7 @@ import { PaymentConsumer } from "../../../data/shop/payment";
 import Loader from "../../../components/loaders";
 import { ErrorMessage } from "../Info";
 import { FormField, FormGroup } from "./FormFields";
+import { BodyCart } from "../Cart";
 
 const paymentConsumer = new PaymentConsumer();
 
@@ -160,7 +161,7 @@ PaymentMethodSpecificOptions.propTypes = {
  * Payment method selection & flow
  *
  */
-const Payment = () => {
+const Payment = ({ cartStore }) => {
     const { loading, error, paymentMethods } = useFetchPaymentMethods();
     const [selectedMethod, setSelectedMethod] = useState(null);
     const [paymentMethodSpecificState, setPaymentMethodSpecificState] =
@@ -204,10 +205,14 @@ const Payment = () => {
                 setPaymentMethodSpecificState={setPaymentMethodSpecificState}
                 {...paymentMethodOptions}
             />
+
+            <BodyCart store={cartStore} />
         </>
     );
 };
 
-Payment.propTypes = {};
+Payment.propTypes = {
+    cartStore: PropTypes.object.isRequired,
+};
 
 export default Payment;

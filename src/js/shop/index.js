@@ -69,7 +69,7 @@ export default class Page {
             const cart = await this.cartConsumer.fetch();
             let cartStore = new CartStore(cart);
             initCartActions(cartStore);
-            this.initCheckout(intlProps);
+            this.initCheckout(intlProps, cartStore);
             if (node) {
                 createRoot(node).render(
                     <IntlProvider {...intlProps}>
@@ -91,7 +91,7 @@ export default class Page {
         }
     }
 
-    static initCheckout(intlProps) {
+    static initCheckout(intlProps, cartStore) {
         const node = document.getElementById("react-checkout");
         if (!node) return;
         const { path: basePath } = node.dataset;
@@ -105,7 +105,7 @@ export default class Page {
         root.render(
             <IntlProvider {...intlProps}>
                 <Router basename={basePath}>
-                    <Checkout user={user} />
+                    <Checkout user={user} cartStore={cartStore} />
                 </Router>
             </IntlProvider>
         );

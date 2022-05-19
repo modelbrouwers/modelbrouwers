@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 
-import { DEFAULT_IMAGE } from "../../../constants";
+import ProductImage from "./ProductImage";
 
 @observer
 export default class TopbarCart extends Component {
@@ -75,15 +75,12 @@ export default class TopbarCart extends Component {
                         </div>
                         <ul className="cart__products">
                             {cart.products.map((cp, i) => (
-                                <li className="cart-product" key={i}>
+                                <li
+                                    className="cart-product cart-product--small"
+                                    key={i}
+                                >
                                     <div className="cart-product__image">
-                                        <img
-                                            src={
-                                                cp.product.image ||
-                                                DEFAULT_IMAGE
-                                            }
-                                            alt={cp.product.name}
-                                        />
+                                        <ProductImage product={cp.product} />
                                     </div>
                                     <p className="cart-product__name">
                                         {cp.product.name}
