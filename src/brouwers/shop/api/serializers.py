@@ -21,9 +21,16 @@ class ProductSerializer(serializers.ModelSerializer):
             "vat",
             "categories",
             "model_name",
+            "absoluteUrl",
         )
+        extra_kwargs = {
+            "absoluteUrl": {
+                "source": "get_absolute_url",
+            }
+        }
 
 
+# TODO: profile & optimize - a query for every product in the cart might get expensive
 class ProductField(serializers.PrimaryKeyRelatedField):
     def to_representation(self, value):
         pk = super().to_representation(value)

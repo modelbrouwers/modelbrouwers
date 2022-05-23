@@ -10,18 +10,17 @@ import ProductImage from "./ProductImage";
 
 const CartProduct = ({ cartProduct, onChange }) => {
     const {
-        product: { name, price },
+        product: { name, price, absoluteUrl },
         amount,
         totalStr,
     } = cartProduct;
-    const href = "#TODO";
     return (
         <div className="cart-product cart-product--full">
             <div className="cart-product__image">
                 <ProductImage product={cartProduct.product} />
             </div>
             <div className="cart-product__name">
-                <a href={href}>{name}</a>
+                <a href={absoluteUrl}>{name}</a>
             </div>
             <div className="cart-product__amount">
                 {/* TODO: add increment & +/- buttons */}
