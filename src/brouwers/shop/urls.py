@@ -6,6 +6,7 @@ from .views import (
     CartDetailView,
     CategoryDetailView,
     CheckoutView,
+    ConfirmOrderView,
     IndexView,
     ProductDetailView,
 )
@@ -27,6 +28,7 @@ urlpatterns = [
         PaymentCallbackView.as_view(),
         name="sisow-payment-callback",
     ),
+    path("checkout/confirm", ConfirmOrderView.as_view(), name="confirm-checkout"),
     path("checkout/", CheckoutView.as_view(), name="checkout"),
     path("checkout/<path:path>", CheckoutView.as_view(), name="checkout"),
     # debug helpers

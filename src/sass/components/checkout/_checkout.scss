@@ -16,9 +16,14 @@
     width: 100%;
   }
 
-  &__header, &__title {
+  &__header,
+  &__title {
     color: $text-color;
     margin: 0 0 16px 0;
+  }
+
+  * + &__title {
+    margin-top: 1em;
   }
 
   &__row {

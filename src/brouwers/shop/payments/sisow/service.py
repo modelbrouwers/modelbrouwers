@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from functools import lru_cache
 from typing import Iterator, List, Tuple
-from urllib.parse import unquote
+from urllib.parse import unquote, urlencode
 
 from django.urls import reverse
 
@@ -36,7 +36,7 @@ def get_ideal_bank_choices() -> Iterator[Tuple[str, str]]:
         yield (bank.id, bank.name)
 
 
-def start_ideal_payment(payment: Payment, request=None) -> str:
+def start_ideal_payment(payment: Payment, request=None, next_page="") -> str:
     bank_id = payment.data.get("bank")
     if not isinstance(bank_id, int):
         raise ValueError("Missing selected bank ID in payment data")
@@ -56,12 +56,15 @@ def start_ideal_payment(payment: Payment, request=None) -> str:
     if request:
         callback_url = request.build_absolute_uri(callback_url)
 
+    if next_page:
+        callback_url = f"{callback_url}?{urlencode({'next': next_page})}"
+
     post_data = {
         "merchantid": config.sisow_merchant_id,
         "payment": Payments.ideal,
         "purchaseid": purchaseid,
         "amount": payment.amount,
-        "description": "Example description",
+        "description": f"MB order {payment.reference}",  # TODO: parametrize?
         "returnurl": callback_url,
         "sha1": sha1,
         "issuerid": bank_id,

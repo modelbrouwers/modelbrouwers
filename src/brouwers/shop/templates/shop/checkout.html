@@ -3,7 +3,12 @@
 {% block content %}
     {{ block.super }}
 
-    <div id="react-checkout" data-path="{% url 'shop:checkout' %}">
+    <div
+        id="react-checkout"
+        data-path="{% url 'shop:checkout' %}"
+        data-csrftoken="{{ csrf_token }}"
+        data-confirm-path="{% url 'shop:confirm-checkout' %}"
+    >
         {{ user_profile_data|json_script:"user_profile_data" }}
     </div>
 

@@ -1,12 +1,23 @@
+from django.db import transaction
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django.views.generic.edit import ModelFormMixin
 
+from brouwers.shop.payments.sisow.constants import Payments
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
-from .forms import ProductReviewForm
-from .models import Cart, Category, CategoryCarouselImage, HomepageCategory, Product
+from .forms import ConfirmOrderForm, ProductReviewForm
+from .models import (
+    Cart,
+    Category,
+    CategoryCarouselImage,
+    HomepageCategory,
+    Payment,
+    Product,
+)
+from .payments.sisow.service import start_ideal_payment
 
 
 class IndexView(ListView):
@@ -82,3 +93,67 @@ class CheckoutView(TemplateView):
         else:
             context["user_profile_data"] = {}
         return context
+
+
+class ConfirmOrderView(FormView):
+    """
+    Submit an order and redirect to the selected payment provider.
+
+    This view finalizes the cart and creates the actual order. On success, the user
+    is redirected to the payment provider.
+    """
+
+    form_class = ConfirmOrderForm
+    template_name = "shop/checkout.html"
+
+    def get_form_kwargs(self) -> dict:
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+    # TODO: on form invalid, re-render checkout page but put validation errors in
+    # json-script for the React component.
+    # def form_invalid(self, form):
+    #     return super().form_invalid(form)
+
+    @transaction.atomic()
+    def form_valid(self, form) -> HttpResponseRedirect:
+        cart = form.cleaned_data["cart"]
+        payment_method = form.cleaned_data["payment_method"]
+        bank = form.cleaned_data.get("bank")
+
+        assert bank is not None, "Currently only ideal payments are supported"
+
+        # create a payment instance for the order
+        cart.save_snapshot()
+        # convert euros to eurocents
+        total_amount = int(cart.total * 100)
+        payment = Payment.objects.create(
+            payment_method=payment_method,
+            amount=total_amount,
+            cart=cart,
+            data={"bank": int(bank.id)},  # TODO: handle non-ideal!
+        )
+
+        # remove cart from session
+        if self.request.session.get("cart_id") == cart.id:
+            del self.request.session["cart_id"]
+
+        # special case -> get the ideal payment start URL
+        if payment_method.method == Payments.ideal:
+            issuer_url = start_ideal_payment(
+                payment, request=self.request, next_page=self.get_success_url()
+            )
+
+            import bpdb
+
+            bpdb.set_trace()
+
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        """
+        Add the frontend URL routing part to the backend URL.
+        """
+        backend_url = reverse("shop:checkout")
+        return f"{backend_url}confirmation"
