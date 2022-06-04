@@ -161,7 +161,7 @@ PaymentMethodSpecificOptions.propTypes = {
  * Payment method selection & flow
  *
  */
-const Payment = ({ cartStore }) => {
+const Payment = ({ cartStore, csrftoken, confirmPath }) => {
     const { loading, error, paymentMethods } = useFetchPaymentMethods();
     const [selectedMethod, setSelectedMethod] = useState(null);
     const [paymentMethodSpecificState, setPaymentMethodSpecificState] =
@@ -206,13 +206,50 @@ const Payment = ({ cartStore }) => {
                 {...paymentMethodOptions}
             />
 
+            <h3 className="checkout__title">
+                <FormattedMessage
+                    description="Checkout: Cart overview"
+                    defaultMessage="Cart overview"
+                />
+            </h3>
             <BodyCart store={cartStore} />
+
+            {/* server side submit */}
+            <form action={confirmPath} method="post">
+                <input
+                    type="hidden"
+                    name="csrfmiddlewaretoken"
+                    defaultValue={csrftoken}
+                />
+                <input type="hidden" name="cart" defaultValue={cartStore.id} />
+                <input
+                    type="hidden"
+                    name="payment_method"
+                    defaultValue={selectedMethod}
+                />
+                <input
+                    type="hidden"
+                    name="payment_method_options"
+                    defaultValue={JSON.stringify(paymentMethodSpecificState)}
+                />
+
+                <div className="submit-wrapper">
+                    <button type="submit" className="btn bg-main-orange">
+                        <FormattedMessage
+                            description="Checkout: confirm order"
+                            defaultMessage="Place order"
+                        />
+                    </button>
+                </div>
+            </form>
         </>
     );
 };
 
 Payment.propTypes = {
     cartStore: PropTypes.object.isRequired,
+    csrftoken: PropTypes.string.isRequired,
+    confirmPath: PropTypes.string.isRequired,
 };
 
 export default Payment;

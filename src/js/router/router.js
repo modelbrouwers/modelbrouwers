@@ -20,9 +20,7 @@ const loadModule = async (name) => {
             return import("../groupbuilds/index");
         case "shop":
             return import("../shop/index");
-        default: {
-            throw new Error("Unknown page");
-        }
+        // some pages don't have an entrypoint at all, so don't throw exceptions
     }
 };
 

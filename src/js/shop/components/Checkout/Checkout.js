@@ -94,7 +94,7 @@ const reducer = (draft, action) => {
  * Checkout
  *
  */
-const Checkout = ({ cartStore, user }) => {
+const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const checkoutRoot = useHref("/");
@@ -178,7 +178,13 @@ const Checkout = ({ cartStore, user }) => {
                     />
                     <Route
                         path="payment"
-                        element={<Payment cartStore={cartStore} />}
+                        element={
+                            <Payment
+                                cartStore={cartStore}
+                                csrftoken={csrftoken}
+                                confirmPath={confirmPath}
+                            />
+                        }
                     />
                 </Routes>
             </div>
@@ -240,6 +246,8 @@ const Checkout = ({ cartStore, user }) => {
 
 Checkout.propTypes = {
     cartStore: PropTypes.object.isRequired,
+    csrftoken: PropTypes.string.isRequired,
+    confirmPath: PropTypes.string.isRequired,
     user: PropTypes.shape({
         username: PropTypes.string,
         first_name: PropTypes.string,

@@ -94,7 +94,7 @@ export default class Page {
     static initCheckout(intlProps, cartStore) {
         const node = document.getElementById("react-checkout");
         if (!node) return;
-        const { path: basePath } = node.dataset;
+        const { path: basePath, csrftoken, confirmPath } = node.dataset;
         const root = createRoot(node);
 
         // read user profile data from DOM, if user is not authenticated, this will be
@@ -105,7 +105,12 @@ export default class Page {
         root.render(
             <IntlProvider {...intlProps}>
                 <Router basename={basePath}>
-                    <Checkout user={user} cartStore={cartStore} />
+                    <Checkout
+                        csrftoken={csrftoken}
+                        confirmPath={confirmPath}
+                        user={user}
+                        cartStore={cartStore}
+                    />
                 </Router>
             </IntlProvider>
         );
