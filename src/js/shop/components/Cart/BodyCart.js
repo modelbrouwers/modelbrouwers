@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 
 import ProductImage from "./ProductImage";
+import { DecrementButton, IncrementButton } from "./AmountButtons";
 
 const CartProduct = ({ cartProduct, onChange }) => {
     const {
@@ -23,14 +24,15 @@ const CartProduct = ({ cartProduct, onChange }) => {
                 <a href={absoluteUrl}>{name}</a>
             </div>
             <div className="cart-product__amount">
-                {/* TODO: add increment & +/- buttons */}
+                <DecrementButton onClick={() => onChange(amount - 1)} />
                 <input
                     type="number"
                     name="amount"
                     value={amount}
-                    onChange={onChange}
+                    onChange={(event) => onChange(event.target.value)}
                     min="0"
                 />
+                <IncrementButton onClick={() => onChange(amount + 1)} />
             </div>
             <div className="cart-product__price">&euro; {price}</div>
             <div className="cart-product__total">&euro; {totalStr}</div>
@@ -52,9 +54,8 @@ CartProduct.propTypes = {
 };
 
 const BodyCart = ({ store: cart }) => {
-    const onChange = (cartProduct, event) => {
-        const { value: amount } = event.target;
-        const delta = parseInt(amount, 10) - cartProduct.amount;
+    const onChange = (cartProduct, newAmount) => {
+        const delta = parseInt(newAmount, 10) - cartProduct.amount;
         cart.changeAmount(cartProduct.product.id, delta);
     };
 
@@ -102,7 +103,9 @@ const BodyCart = ({ store: cart }) => {
                     <CartProduct
                         key={`${cartProduct.product.id}-${index}`}
                         cartProduct={cartProduct}
-                        onChange={(event) => onChange(cartProduct, event)}
+                        onChange={(newAmount) =>
+                            onChange(cartProduct, newAmount)
+                        }
                     />
                 ))}
             </div>

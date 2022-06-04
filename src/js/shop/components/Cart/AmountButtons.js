@@ -19,7 +19,7 @@ const IncrementButton = ({ onClick }) => (
 );
 
 IncrementButton.propTypes = {
-    onClick: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
 };
 
 const DecrementButton = ({ onClick }) => (
@@ -27,7 +27,7 @@ const DecrementButton = ({ onClick }) => (
 );
 
 DecrementButton.propTypes = {
-    onClick: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
 };
 
 export { IncrementButton, DecrementButton };
