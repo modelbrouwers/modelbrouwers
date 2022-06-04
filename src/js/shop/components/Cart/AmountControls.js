@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react";
 
+import { IncrementButton, DecrementButton } from "./AmountButtons";
+
 /**
  *
  * AmountControls
@@ -29,24 +31,17 @@ class AmountControls extends Component {
 
         return (
             <div className="controls__row">
-                <button
-                    className="button button__plus button--blue"
-                    onClick={() =>
-                        store.changeAmount(cartProduct.product.id, 1)
-                    }
-                >
-                    <i className="fa fa-plus" />
-                </button>
-                <span className="controls__amount">{cartProduct.amount}</span>
-
-                <button
-                    className="button button__minus button--blue"
+                <DecrementButton
                     onClick={() =>
                         store.changeAmount(cartProduct.product.id, -1)
                     }
-                >
-                    <i className="fa fa-minus" />
-                </button>
+                />
+                <span className="controls__amount">{cartProduct.amount}</span>
+                <IncrementButton
+                    onClick={() =>
+                        store.changeAmount(cartProduct.product.id, 1)
+                    }
+                />
             </div>
         );
     }
