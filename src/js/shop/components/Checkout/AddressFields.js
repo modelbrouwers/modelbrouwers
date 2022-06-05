@@ -1,3 +1,4 @@
+import isObject from "lodash.isobject";
 import React from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
@@ -14,10 +15,15 @@ const AddressFields = ({
     number = "",
     city = "",
     postalCode = "",
-    country = { value: "", label: "" },
+    country,
     onChange,
 }) => {
     prefix = prefix ? `${prefix}.` : "";
+
+    // null or empty object
+    if (!country || (isObject(country) && Object.keys(country).length < 2)) {
+        country = { value: "", label: "" };
+    }
 
     const onCountryChange = (country, actionMeta) => {
         const { value } = country;

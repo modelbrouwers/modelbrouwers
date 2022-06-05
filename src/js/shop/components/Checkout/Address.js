@@ -142,6 +142,7 @@ const Address = ({
                             />
                         </h3>
 
+                        {/* TODO: fix default country being reset */}
                         <AddressFields
                             prefix="billingAddress"
                             company={billingAddress.company}
