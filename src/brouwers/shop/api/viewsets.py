@@ -24,9 +24,8 @@ class CartProductViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        if self.request.user.is_authenticated:
-            qs = CartProduct.objects.filter(cart__user=self.request.user)
-        return qs
+        valid_carts = Cart.objects.for_request(self.request)
+        return qs.filter(cart__in=valid_carts)
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
