@@ -6,15 +6,26 @@
   margin-bottom: 10px;
 }
 
-h1, .h1 {
+h1,
+.h1 {
   color: $main-blue;
 }
 
-h2, .h2, h3, .h3, h4, .h4 {
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
   color: rgba($main-blue, 0.9);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   &.align-tabs {
     margin-top: -5px;
   }
@@ -28,7 +39,9 @@ ul.messages {
 }
 
 .confirmed-model {
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     margin-top: 10px;
   }
 }
@@ -46,13 +59,19 @@ a.list-group-item:hover {
   border-top: solid 2px $main-grey;
   border-bottom: solid 2px $main-grey;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     small {
       color: rgba($white, 0.4);
     }
   }
 
-  h1, .h1 {
+  h1,
+  .h1 {
     color: rgba($white, 0.95);
   }
 
@@ -130,4 +149,19 @@ a.thumbnail + ul.list-inline {
   a {
     color: $white;
   }
+}
+
+.ui-datepicker {
+  z-index: 10 !important; // competes with bootstrap input...
+}
+
+// Global reset
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ad-container {
+  flex: 1;
 }

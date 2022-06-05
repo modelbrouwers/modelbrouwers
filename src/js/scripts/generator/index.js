@@ -15,5 +15,8 @@ module.exports = function(plop) {
     plop.setHelper("properCase", function(text) {
         return upperFirst(camelCase(text));
     });
+    plop.setHelper("lowerCase", function(text) {
+        return text.toLowerCase();
+    });
     plop.setGenerator("component", componentGenerator);
 };

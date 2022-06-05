@@ -187,6 +187,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "brouwers.general.context_processors.connection",
                 "brouwers.general.context_processors.djsettings",
+                "brouwers.shop.context_processors.cart",
             ],
             "loaders": TEMPLATE_LOADERS,
         },

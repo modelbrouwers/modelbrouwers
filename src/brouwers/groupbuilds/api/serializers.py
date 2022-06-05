@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from brouwers.forum_tools.api.serializers import IDFieldSerializer
-from brouwers.users.api.serializers import UserSerializer
+from brouwers.users.api.serializers import SimpleUserSerializer
 
 from ..models import GroupBuild, Participant
 
@@ -28,7 +28,7 @@ class GroupBuildSerializer(serializers.ModelSerializer):
     forum = IDFieldSerializer()
 
     participants = ParticipantSerializer(many=True, source="participant_set")
-    admins = UserSerializer(many=True)
+    admins = SimpleUserSerializer(many=True)
 
     class Meta:
         model = GroupBuild

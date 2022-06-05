@@ -8,7 +8,7 @@ export class CartStore {
     @observable status = null;
 
     constructor(cart) {
-        this.products = cart.products.map(cp => new CartProduct(cp));
+        this.products = cart.products.map((cp) => new CartProduct(cp));
         this.cartProductConsumer = new CartProductConsumer();
         this.id = cart.id;
         this.user = cart.user;
@@ -26,17 +26,17 @@ export class CartStore {
     @action addProduct(data) {
         return this.cartProductConsumer
             .addProduct(data)
-            .then(resp => this.products.push(new CartProduct(resp)))
-            .catch(err => console.log("Error adding product", err));
+            .then((resp) => this.products.push(new CartProduct(resp)))
+            .catch((err) => console.log("Error adding product", err));
     }
 
     @action removeProduct(id) {
         this.cartProductConsumer
             .removeProduct(id)
             .then(() => {
-                this.products = this.products.filter(p => p.id !== id);
+                this.products = this.products.filter((p) => p.id !== id);
             })
-            .catch(err => console.log("error deleting product", err));
+            .catch((err) => console.log("error deleting product", err));
     }
 
     @action clearCart() {
@@ -49,7 +49,7 @@ export class CartStore {
      * @returns {*}
      */
     findProduct(id) {
-        return this.products.find(cp => Number(cp.product.id) === Number(id));
+        return this.products.find((cp) => Number(cp.product.id) === Number(id));
     }
 
     @action changeAmount(productId, amount) {
@@ -62,7 +62,7 @@ export class CartStore {
             this.cartProductConsumer
                 .updateAmount(cartProduct.id, cpAmount)
                 .then(() => (cartProduct.amount = cpAmount))
-                .catch(err => console.log("could not update amount", err));
+                .catch((err) => console.log("could not update amount", err));
         }
     }
 }

@@ -3,35 +3,43 @@
  * Auto loads view based on page name, which is read from html tag data attribute
  */
 
-export default class Router {
-    constructor(pageMap) {
-        if (!pageMap) {
-            throw new Error(
-                "A valid pageMap object is required for the router to function properly. Check the initialization of the router instance"
-            );
-        }
-
-        this.pageMap = pageMap;
+/**
+ * Load the relevant module dynamically.
+ * @param  {String} name Alias of the page to load the module for.
+ * @return {Promise}     Promise for the resolved default import.
+ */
+const loadModule = async (name) => {
+    switch (name) {
+        case "kitreviews":
+            return import("../kitreviews/index");
+        case "albums":
+            return import("../albums/index");
+        case "builds":
+            return import("../builds/index");
+        case "group_builds":
+            return import("../groupbuilds/index");
+        case "shop":
+            return import("../shop/index");
+        // some pages don't have an entrypoint at all, so don't throw exceptions
     }
+};
 
-    /**
-     * Autoloads the correct module based on page name
-     */
-    autoload() {
-        let module = this.getPage();
-
-        if (!module) {
-            return;
+export default class Router {
+    static async route() {
+        const page = this.getPage();
+        try {
+            const pageModule = await loadModule(page);
+            pageModule.default.init();
+        } catch (exc) {
+            console.error(exc);
         }
-
-        this.pageMap[module].init();
     }
 
     /**
      * Returns the current page name
      * @returns {string|undefined}
      */
-    getPage() {
+    static getPage() {
         let html = document.querySelector("html");
         return html.dataset.page;
     }

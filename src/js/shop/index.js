@@ -1,9 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { CartConsumer } from "../data/shop/cart";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
+import { Checkout } from "./components/Checkout";
 import { CartStore } from "./store";
 import { getIntlProviderProps } from "../i18n";
 
@@ -42,32 +44,10 @@ export default class Page {
         }
     }
 
-    static initCart() {
+    static async initCart() {
+        const intlProps = this.intlProviderProps;
         const node = document.getElementById("react-cart");
         const detailNode = document.getElementById("react-cart-detail");
-        if (node) {
-            this.cartConsumer = new CartConsumer();
-            this.cartConsumer
-                .fetch()
-                .then(({ cart }) => {
-                    let cartStore = new CartStore(cart);
-                    initCartActions(cartStore);
-                    createRoot(node).render(
-                        <IntlProvider {...this.intlProviderProps}>
-                            <TopbarCart store={cartStore} />
-                        </IntlProvider>
-                    );
-
-                    if (detailNode) {
-                        createRoot(detailNode).render(
-                            <IntlProvider {...this.intlProviderProps}>
-                                <CartDetail store={cartStore} />
-                            </IntlProvider>
-                        );
-                    }
-                })
-                .catch((err) => console.log("Error retrieving cart", err));
-        }
 
         const initCartActions = (cartStore) => {
             const products = document.getElementsByClassName("product-card");
@@ -77,11 +57,73 @@ export default class Page {
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 createRoot(reactNode).render(
-                    <IntlProvider {...this.intlProviderProps}>
+                    <IntlProvider {...intlProps}>
                         <CartProduct store={cartStore} productId={id} />
                     </IntlProvider>
                 );
             }
         };
+
+        try {
+            this.cartConsumer = new CartConsumer();
+            const cart = await this.cartConsumer.fetch();
+            let cartStore = new CartStore(cart);
+            initCartActions(cartStore);
+            this.initCheckout(intlProps, cartStore);
+            if (node) {
+                const { checkoutPath, cartDetailPath } = node.dataset;
+                createRoot(node).render(
+                    <IntlProvider {...intlProps}>
+                        <TopbarCart
+                            store={cartStore}
+                            checkoutPath={checkoutPath}
+                            cartDetailPath={cartDetailPath}
+                        />
+                    </IntlProvider>
+                );
+            }
+
+            if (detailNode) {
+                const { checkoutPath: detailCheckoutPath, indexPath } =
+                    detailNode.dataset;
+                createRoot(detailNode).render(
+                    <IntlProvider {...intlProps}>
+                        <CartDetail
+                            store={cartStore}
+                            checkoutPath={detailCheckoutPath}
+                            indexPath={indexPath}
+                        />
+                    </IntlProvider>
+                );
+            }
+        } catch (err) {
+            console.error("Error retrieving cart", err);
+            // TODO render error page/modal/toast
+        }
+    }
+
+    static initCheckout(intlProps, cartStore) {
+        const node = document.getElementById("react-checkout");
+        if (!node) return;
+        const { path: basePath, csrftoken, confirmPath } = node.dataset;
+        const root = createRoot(node);
+
+        // read user profile data from DOM, if user is not authenticated, this will be
+        // an empty object
+        const userProfileScript = document.getElementById("user_profile_data");
+        const user = JSON.parse(userProfileScript.innerText);
+        // mount and render the checkout component in the DOM
+        root.render(
+            <IntlProvider {...intlProps}>
+                <Router basename={basePath}>
+                    <Checkout
+                        csrftoken={csrftoken}
+                        confirmPath={confirmPath}
+                        user={user}
+                        cartStore={cartStore}
+                    />
+                </Router>
+            </IntlProvider>
+        );
     }
 }

@@ -3,4 +3,10 @@
   &__container {
     padding: 5px;
   }
+
+  &--full-width {
+    width: 100%;
+    text-align: center;
+    margin-top: 24px;
+  }
 }

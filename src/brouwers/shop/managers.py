@@ -15,5 +15,15 @@ class CartQuerySet(QuerySet):
         """
         return self.filter(status=CartStatuses.open)
 
-    def for_request(self, request):
-        return self.filter(Q(user=request.user) | Q(id=request.session.get("cart_id")))
+    def for_request(self, request) -> QuerySet:
+        q = Q()
+        if cart_id := request.session.get("cart_id"):
+            q |= Q(id=cart_id)
+
+        if request.user.is_authenticated:
+            q |= Q(user=request.user)
+
+        if not q:
+            return self.none()
+
+        return self.filter(q)

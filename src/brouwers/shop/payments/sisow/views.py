@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.edit import BaseFormView
 
@@ -48,3 +50,15 @@ class PaymentCallbackView(BaseFormView):
         else:
             messages.error(self.request, _("Your payment was not completed yet"))
         return super().form_valid(form)
+
+    def get_success_url(self):
+        if next_page := self.request.GET.get("next"):
+            url_is_safe = url_has_allowed_host_and_scheme(
+                url=next_page,
+                allowed_hosts={self.request.get_host()},
+                require_https=self.request.is_secure(),
+            )
+            if url_is_safe:
+                return next_page
+
+        return super().get_success_url()

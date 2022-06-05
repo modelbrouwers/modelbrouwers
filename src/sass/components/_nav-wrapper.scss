@@ -1,0 +1,45 @@
+// TODO: mobile/tablet styling
+// on mobile, the nav itself should be more of a progress, sticky positioned to the
+// bottom (?) of the screen
+
+$nav-wrapper-spacing: 1em !default;
+
+.nav-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__title {
+    flex-basis: 100%;
+  }
+
+  &__nav {
+    width: 25%;
+    padding-right: $nav-wrapper-spacing;
+    order: 1;
+  }
+
+  &__content {
+    width: 75%;
+    padding-left: $nav-wrapper-spacing;
+    order: 2;
+  }
+}
+
+@include lte-mobile {
+  .nav-wrapper {
+    flex-direction: column;
+
+    &__nav {
+      order: 2;
+      width: 100%;
+      padding-right: 0;
+      margin-top: 2em;
+    }
+
+    &__content {
+      order: 1;
+      width: 100%;
+      padding-left: 0;
+    }
+  }
+}
