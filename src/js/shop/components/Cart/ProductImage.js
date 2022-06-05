@@ -3,8 +3,16 @@ import PropTypes from "prop-types";
 
 import { DEFAULT_IMAGE } from "../../../constants";
 
-const ProductImage = ({ product }) => (
-    <img src={product.image || DEFAULT_IMAGE} alt={product.name} />
+const ProductImage = ({ product, ...props }) => (
+    <img
+        src={product.image || DEFAULT_IMAGE}
+        alt={product.name}
+        onError={(event) => {
+            event.target.onerror = null;
+            event.target.src = DEFAULT_IMAGE;
+        }}
+        {...props}
+    />
 );
 
 ProductImage.propTypes = {

@@ -6,6 +6,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { DEFAULT_IMAGE } from "../../../constants";
 import { AmountControls } from "./index";
 import messages from "./messages";
+import ProductImage from "./ProductImage";
 
 const headers = [
     messages.image,
@@ -43,10 +44,9 @@ const CartDetail = ({ store, intl, checkoutPath, indexPath }) => {
                     {store.products.map((cp, i) => (
                         <tr key={cp.id}>
                             <td>
-                                <img
+                                <ProductImage
+                                    product={cp.product}
                                     className="cart-detail__image"
-                                    src={cp.product.image || DEFAULT_IMAGE}
-                                    alt={cp.product.name}
                                 />
                             </td>
                             <td>
