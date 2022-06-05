@@ -76,8 +76,8 @@ export default class TopbarCart extends Component {
                         <ul className="cart__products">
                             {cart.products.map((cp, i) => (
                                 <li
+                                    key={cp.id}
                                     className="cart-product cart-product--small"
-                                    key={i}
                                 >
                                     <div className="cart-product__image">
                                         <ProductImage product={cp.product} />
