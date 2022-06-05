@@ -21,7 +21,7 @@ const ErrorPage = ({ message = null }) => {
             <p>{message}</p>
             <button
                 className="button button--blue"
-                onClick={() => window.location.reload()}
+                onClick={window.location.reload}
             >
                 <FormattedMessage
                     description="General error: reload page button"

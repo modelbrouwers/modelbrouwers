@@ -88,6 +88,7 @@ const useGetPaymentSpecificOptions = (paymentMethod) => {
         }
     }, [paymentMethod]);
 
+    // TODO: properly set up user feedback with error boundaries
     if (error) {
         throw error;
     }
@@ -111,7 +112,7 @@ const PaymentMethodSpecificOptions = ({
             const onBankChange = (bank) => {
                 setPaymentMethodSpecificState({
                     ...paymentMethodSpecificState,
-                    bank: bank,
+                    bank,
                 });
             };
 
