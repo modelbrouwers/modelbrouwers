@@ -152,7 +152,7 @@ openpyxl==3.0.9
     # via
     #   -r requirements/base.txt
     #   tablib
-pillow==9.1.0
+pillow==9.1.1
     # via
     #   -r requirements/base.txt
     #   django-precise-bbcode
