@@ -79,9 +79,14 @@ export default class Page {
             }
 
             if (detailNode) {
+                const { checkoutPath, indexPath } = detailNode.dataset;
                 createRoot(detailNode).render(
                     <IntlProvider {...intlProps}>
-                        <CartDetail store={cartStore} />
+                        <CartDetail
+                            store={cartStore}
+                            checkoutPath={checkoutPath}
+                            indexPath={indexPath}
+                        />
                     </IntlProvider>
                 );
             }

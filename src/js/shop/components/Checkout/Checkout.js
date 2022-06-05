@@ -16,7 +16,6 @@ import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
-import { SHOP_ROOT } from "../../../constants";
 import { Account, Address, Payment } from ".";
 import { EMPTY_ADDRESS } from "./constants";
 import { checkAddressFieldsComplete } from "./utils";

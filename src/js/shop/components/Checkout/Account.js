@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { Navigate, Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 
-import { SHOP_ROOT } from "../../../constants";
-
 /**
  *
  * Account

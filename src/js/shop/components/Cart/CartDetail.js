@@ -25,6 +25,8 @@ const headers = [
 class CartDetail extends Component {
     static propTypes = {
         store: PropTypes.object,
+        checkoutPath: PropTypes.string.isRequired,
+        indexPath: PropTypes.string.isRequired,
     };
 
     constructor(props) {
@@ -34,7 +36,7 @@ class CartDetail extends Component {
     }
 
     render() {
-        const { store, intl } = this.props;
+        const { store, intl, checkoutPath, indexPath } = this.props;
 
         return (
             <div className="cart-detail">
@@ -132,14 +134,14 @@ class CartDetail extends Component {
                         </div>
 
                         <div className="cart-detail__action-row">
-                            <a href="/winkel" className="button button--blue">
+                            <a href={indexPath} className="button button--blue">
                                 <FormattedMessage
                                     description="Button back to webshop homepage"
                                     defaultMessage="Continue shopping"
                                 />
                             </a>
                             <a
-                                href="/winkel/checkout"
+                                href={checkoutPath}
                                 className="button button--blue"
                             >
                                 <FormattedMessage
