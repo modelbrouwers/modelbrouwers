@@ -71,20 +71,26 @@ export default class Page {
             initCartActions(cartStore);
             this.initCheckout(intlProps, cartStore);
             if (node) {
+                const { checkoutPath, cartDetailPath } = node.dataset;
                 createRoot(node).render(
                     <IntlProvider {...intlProps}>
-                        <TopbarCart store={cartStore} />
+                        <TopbarCart
+                            store={cartStore}
+                            checkoutPath={checkoutPath}
+                            cartDetailPath={cartDetailPath}
+                        />
                     </IntlProvider>
                 );
             }
 
             if (detailNode) {
-                const { checkoutPath, indexPath } = detailNode.dataset;
+                const { checkoutPath: detailCheckoutPath, indexPath } =
+                    detailNode.dataset;
                 createRoot(detailNode).render(
                     <IntlProvider {...intlProps}>
                         <CartDetail
                             store={cartStore}
-                            checkoutPath={checkoutPath}
+                            checkoutPath={detailCheckoutPath}
                             indexPath={indexPath}
                         />
                     </IntlProvider>

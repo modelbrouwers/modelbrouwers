@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { observer } from "mobx-react";
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
@@ -7,6 +8,12 @@ import ProductImage from "./ProductImage";
 
 @observer
 export default class TopbarCart extends Component {
+    static propTypes = {
+        store: PropTypes.object.isRequired,
+        checkoutPath: PropTypes.string.isRequired,
+        cartDetailPath: PropTypes.string.isRequired,
+    };
+
     constructor(props) {
         super(props);
 
@@ -22,7 +29,7 @@ export default class TopbarCart extends Component {
     };
 
     render() {
-        const { store: cart } = this.props;
+        const { store: cart, checkoutPath, cartDetailPath } = this.props;
         const { expanded } = this.state;
         const containerClasses = classNames("cart__container", {
             "cart__container--expanded": expanded,
@@ -55,7 +62,7 @@ export default class TopbarCart extends Component {
                     <div className="cart__menu">
                         <div className="cart__actions">
                             <a
-                                href={`/winkel/cart/${cart.id}`}
+                                href={cartDetailPath}
                                 className="button button--blue"
                             >
                                 <FormattedMessage
@@ -64,7 +71,7 @@ export default class TopbarCart extends Component {
                                 />
                             </a>
                             <a
-                                href="/winkel/checkout"
+                                href={checkoutPath}
                                 className="button button--blue"
                             >
                                 <FormattedMessage
