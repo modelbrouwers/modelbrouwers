@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedMessage } from "react-intl";
+import { useIntl, FormattedMessage } from "react-intl";
 
 import { DEFAULT_IMAGE } from "../../../constants";
 import { AmountControls } from "./index";
@@ -22,7 +22,8 @@ const headers = [
  * CartDetail
  *
  */
-const CartDetail = ({ store, intl, checkoutPath, indexPath }) => {
+const CartDetail = observer(({ store, checkoutPath, indexPath }) => {
+    const intl = useIntl();
     return (
         <div className="cart-detail">
             <h2 className="cart-detail__page-header">
@@ -140,7 +141,7 @@ const CartDetail = ({ store, intl, checkoutPath, indexPath }) => {
             </div>
         </div>
     );
-};
+});
 
 CartDetail.propTypes = {
     store: PropTypes.object,
@@ -148,4 +149,4 @@ CartDetail.propTypes = {
     indexPath: PropTypes.string.isRequired,
 };
 
-export default observer(injectIntl(CartDetail));
+export default CartDetail;
