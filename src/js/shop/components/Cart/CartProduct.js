@@ -1,38 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { observer } from "mobx-react";
 import { FormattedMessage } from "react-intl";
 
 import { AmountControls } from "./index";
 
-@observer
-class CartProduct extends Component {
-    constructor(props) {
-        super(props);
-    }
+const CartProduct = observer(({ store: cart, productId }) => {
+    const cartProduct = cart.findProduct(productId);
 
-    add = () => {
-        const { productId, store } = this.props;
-        return store.addProduct({
-            product: productId,
-            cart: store.id,
-            amount: 1,
-        });
-    };
-
-    render() {
-        const { productId, store } = this.props;
-        const cartProduct = store.findProduct(productId);
-
-        return cartProduct && cartProduct.amount > 0 ? (
-            <AmountControls
-                store={store}
-                id={productId}
-                cartProduct={cartProduct}
-            />
-        ) : (
+    if (!cartProduct || cartProduct.amount <= 0) {
+        return (
             <button
                 className="button button--blue button__add"
-                onClick={this.add}
+                onClick={() => {
+                    cart.addProduct({
+                        product: productId,
+                        amount: 1,
+                    });
+                }}
             >
                 <FormattedMessage
                     id="shop.cart.product.actions.add"
@@ -41,6 +26,15 @@ class CartProduct extends Component {
             </button>
         );
     }
-}
+
+    return (
+        <AmountControls store={cart} id={productId} cartProduct={cartProduct} />
+    );
+});
+
+CartProduct.propTypes = {
+    store: PropTypes.object.isRequired,
+    productId: PropTypes.string.isRequired,
+};
 
 export default CartProduct;

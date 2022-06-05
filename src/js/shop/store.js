@@ -1,36 +1,49 @@
-import { observable, action, computed } from "mobx";
+import { makeObservable, observable, action, computed } from "mobx";
 import { CartProductConsumer } from "./../data/shop/cart";
 
 export class CartStore {
-    @observable products = [];
-    @observable user = {};
+    products = [];
+    user = {};
     id = null;
-    @observable status = null;
+    status = null;
 
     constructor(cart) {
+        makeObservable(this, {
+            products: observable,
+            user: observable,
+            status: observable,
+            total: computed,
+            amount: computed,
+            addProduct: action,
+            removeProduct: action,
+            clearCart: action,
+            changeAmount: action,
+        });
+
         this.products = cart.products.map((cp) => new CartProduct(cp));
         this.cartProductConsumer = new CartProductConsumer();
         this.id = cart.id;
         this.user = cart.user;
     }
 
-    @computed get total() {
+    get total() {
         const total = this.products.reduce((acc, curr) => acc + curr.total, 0);
         return total.toFixed(2);
     }
 
-    @computed get amount() {
+    get amount() {
         return this.products.reduce((acc, curr) => acc + curr.amount, 0);
     }
 
-    @action addProduct(data) {
+    addProduct(data) {
+        const postData = { ...data, cart: this.id };
         return this.cartProductConsumer
-            .addProduct(data)
+            .addProduct(postData)
             .then((resp) => this.products.push(new CartProduct(resp)))
             .catch((err) => console.log("Error adding product", err));
     }
 
-    @action removeProduct(id) {
+    removeProduct(id) {
         this.cartProductConsumer
             .removeProduct(id)
             .then(() => {
@@ -39,7 +52,7 @@ export class CartStore {
             .catch((err) => console.log("error deleting product", err));
     }
 
-    @action clearCart() {
+    clearCart() {
         this.products.clear();
     }
 
@@ -52,7 +65,7 @@ export class CartStore {
         return this.products.find((cp) => Number(cp.product.id) === Number(id));
     }
 
-    @action changeAmount(productId, amount) {
+    changeAmount(productId, amount) {
         const cartProduct = this.findProduct(productId);
         const cpAmount = cartProduct.amount + amount;
 
@@ -61,7 +74,7 @@ export class CartStore {
         } else {
             this.cartProductConsumer
                 .updateAmount(cartProduct.id, cpAmount)
-                .then(() => (cartProduct.amount = cpAmount))
+                .then(() => cartProduct.setAmount(cpAmount))
                 .catch((err) => console.log("could not update amount", err));
         }
     }
@@ -72,9 +85,18 @@ export class CartProduct {
     store = null;
     cartId = null;
     product = null;
-    @observable amount = 0;
+    amount = 0;
 
     constructor(cartProduct = {}, store) {
+        makeObservable(this, {
+            amount: observable,
+            setAmount: action,
+            increaseAmount: action,
+            decreaseAmount: action,
+            total: computed,
+            totalStr: computed,
+        });
+
         this.store = store;
         this.id = cartProduct.id;
         this.amount = cartProduct.amount;
@@ -82,19 +104,23 @@ export class CartProduct {
         this.product = cartProduct.product;
     }
 
-    @action increaseAmount(amount) {
+    setAmount(amount) {
+        this.amount = amount;
+    }
+
+    increaseAmount(amount) {
         this.amount += amount;
     }
 
-    @action decreaseAmount(amount) {
+    decreaseAmount(amount) {
         this.amount -= amount;
     }
 
-    @computed get total() {
+    get total() {
         return this.amount * this.product.price;
     }
 
-    @computed get totalStr() {
+    get totalStr() {
         return (this.amount * this.product.price).toFixed(2);
     }
 }

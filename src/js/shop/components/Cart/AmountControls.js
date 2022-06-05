@@ -9,42 +9,22 @@ import { DecrementButton, IncrementButton } from "./AmountButtons";
  * AmountControls
  *
  */
-@observer
-class AmountControls extends Component {
-    static propTypes = {
-        store: PropTypes.object,
-        cartProduct: PropTypes.object,
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    };
+const AmountControls = observer(
+    ({ id, store: cart, cartProduct: { amount, product } }) => (
+        <div className="controls__row">
+            <DecrementButton
+                onClick={() => cart.changeAmount(product.id, -1)}
+            />
+            <span className="controls__amount">{amount}</span>
+            <IncrementButton onClick={() => cart.changeAmount(product.id, 1)} />
+        </div>
+    )
+);
 
-    constructor(props) {
-        super(props);
-    }
-
-    changeAmount = (amount) => {
-        const { id, store } = this.props;
-        store.changeAmount(id, amount);
-    };
-
-    render() {
-        const { store, cartProduct } = this.props;
-
-        return (
-            <div className="controls__row">
-                <DecrementButton
-                    onClick={() =>
-                        store.changeAmount(cartProduct.product.id, -1)
-                    }
-                />
-                <span className="controls__amount">{cartProduct.amount}</span>
-                <IncrementButton
-                    onClick={() =>
-                        store.changeAmount(cartProduct.product.id, 1)
-                    }
-                />
-            </div>
-        );
-    }
-}
+AmountControls.propTypes = {
+    store: PropTypes.object,
+    cartProduct: PropTypes.object,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
 
 export default AmountControls;
