@@ -8,7 +8,6 @@ import {
     Navigate,
     Routes,
     Route,
-    useNavigate,
     useLocation,
     useHref,
 } from "react-router-dom";
@@ -26,6 +25,7 @@ const getActiveNavClassNames = ({ isActive, enabled = false }) =>
         "navigation__link--enabled": enabled,
     });
 
+// Temporary solution - we should use drf-camelcase-renderer to the backend later.
 const camelize = (obj) => {
     // recurse into arrays
     if (Array.isArray(obj)) {
@@ -95,7 +95,6 @@ const reducer = (draft, action) => {
  */
 const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
     const location = useLocation();
-    const navigate = useNavigate();
     const checkoutRoot = useHref("/");
 
     const isAuthenticated = Object.keys(user).length > 1;
@@ -125,7 +124,7 @@ const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
         if (location.pathname !== "/") {
             dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
         }
-    }, [isAuthenticated, location, navigate, dispatch]);
+    }, [isAuthenticated, location, dispatch]);
 
     const onInputChange = (event) => {
         dispatch({
