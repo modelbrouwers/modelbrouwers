@@ -106,5 +106,5 @@ module.exports = {
     mode: isProduction ? "production" : "development",
 
     // Use --sourcemap to generate sourcemap.
-    devtool: argv.sourcemap ? "sourcemap" : false,
+    devtool: argv.sourcemap ? "source-map" : false,
 };

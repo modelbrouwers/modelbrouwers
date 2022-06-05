@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "NODE_ENV=production webpack",
-        "dev": "webpack -w",
+        "dev": "webpack -w --devtool eval-source-map",
         "prettier-watch": "onchange '**/*.js' -e 'src/static/bundles/**/*.js' -- prettier --write {{changed}}",
         "generate": "plop --plopfile src/js/scripts/generator/index.js",
         "makemessages-en": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
@@ -14,7 +14,7 @@
         "makemessages-de": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/de.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
         "makemessages": "npm run makemessages-nl && npm run makemessages-en && npm run makemessages-de",
         "compilemessages": "formatjs compile-folder --ast src/js/locale/locales src/js/locale/compiled",
-        "start": "webpack -w"
+        "start": "webpack -w --devtool eval-source-map"
     },
     "repository": {
         "type": "git",
