@@ -331,7 +331,7 @@ urllib3==1.26.9
     #   sentry-sdk
 uwsgi==2.0.20
     # via -r requirements/ci.txt
-waitress==2.1.1
+waitress==2.1.2
     # via
     #   -r requirements/ci.txt
     #   webtest
