@@ -1,15 +1,12 @@
 .category {
-
   &__search-container {
     margin: 1rem auto;
   }
 
-  &__carousel, &__carousel-item, &__inner {
+  &__carousel,
+  &__carousel-item,
+  &__inner {
     height: 300px;
-  }
-
-  &__link {
-    color: $main-orange;
   }
 
   &__title {
@@ -39,7 +36,6 @@
 }
 
 .subcategory {
-
   &__card {
     display: flex;
     flex-direction: column;
@@ -58,4 +54,3 @@
     margin-top: 5px;
   }
 }
-

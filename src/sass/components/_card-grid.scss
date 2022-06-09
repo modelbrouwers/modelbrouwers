@@ -1,0 +1,43 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 1em;
+  row-gap: 1em;
+
+  &__card {
+    padding: 1em 0;
+  }
+
+  &__card-title {
+    display: block;
+    color: $main-orange;
+  }
+
+  &__item-link {
+    display: block;
+    color: $main-orange;
+    padding: 0.2em 0;
+
+    & + & {
+      border-top: solid 1px $default-border-color;
+    }
+  }
+
+  @include gt-mobile {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    &__card {
+      padding: 1em;
+    }
+
+    &__card-title {
+      border-bottom: solid 2px $light-grey;
+    }
+
+    &__item-link {
+      & + & {
+        border-top: none;
+      }
+    }
+  }
+}

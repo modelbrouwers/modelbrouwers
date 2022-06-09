@@ -1,5 +1,9 @@
+from typing import Iterator
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+from .categories import Category
 
 
 class HomepageCategory(models.Model):
@@ -18,6 +22,11 @@ class HomepageCategory(models.Model):
 
     def __str__(self):
         return self.main_category.name
+
+    def get_children(self) -> Iterator[Category]:
+        yield from self.main_category.get_children()
+        for child in self.children.all():
+            yield child.category
 
 
 class HomepageCategoryChild(models.Model):

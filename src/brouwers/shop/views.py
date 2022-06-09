@@ -21,7 +21,9 @@ from .payments.sisow.service import start_ideal_payment
 
 
 class IndexView(ListView):
-    queryset = HomepageCategory.objects.all().order_by("order")
+    queryset = HomepageCategory.objects.select_related("main_category").order_by(
+        "order"
+    )
     context_object_name = "categories"
     template_name = "shop/index.html"
 
