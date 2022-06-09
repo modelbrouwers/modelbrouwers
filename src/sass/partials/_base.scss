@@ -20,6 +20,12 @@ h4,
   color: rgba($main-blue, 0.9);
 }
 
+.heading {
+  &#{&}--plain {
+    color: $text-color;
+  }
+}
+
 h1,
 h2,
 h3,

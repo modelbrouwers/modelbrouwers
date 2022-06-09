@@ -2,38 +2,49 @@
 
 {% block content %}
     {{ block.super }}
-    <div class="wrapper">
-        {% include 'shop/includes/sidenav.html' %}
-        <div class="category__content">
-            {% include 'shop/includes/breadcrumbs.html' with curr_node=category %}
-            <h2 class="category__title">{{ category }}</h2>
-            {% if not category.is_leaf %}
-                <div class="subcategories__wrapper">
-                    <h3 class="subcategories__header">{% trans 'Subcategories' %}</h3>
-                    <div class="subcategories">
-                        {% for subcategory in category.get_children %}
-                            <div class="subcategory__card">
-                                <!-- TODO Remove onerror -->
-                                <img class="subcategory__img" src="{{ subcategory.image.url }}"
-                                     alt="{{ subcategory.name }}"
-                                     onerror="if (this.src !== 'https://www.detailedimage.com/photos/placeholder_item_100.jpg') this.src = 'https://www.detailedimage.com/photos/placeholder_item_100.jpg';">
-                                <a class="subcategory__name" href="{{ subcategory.get_absolute_url }}">
-                                    {{ subcategory.name }}
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
 
-            <div class="products">
-                <h3 class="subcategories__header">{% trans 'Products' %}</h3>
-                <div class="product-list">
+    <div class="page-content">
+        <div class="page-content__breadcrumbs">
+            {% include 'shop/includes/breadcrumbs.html' with curr_node=category %}
+        </div>
+
+        <div class="nav-wrapper">
+
+            <h2 class="nav-wrapper__title heading heading--plain">{{ category }}</h2>
+
+            <div class="nav-wrapper__content">
+                {% if not category.is_leaf %}
+                    <h3 class="heading heading--plain">{% trans 'Subcategories' %}</h3>
+                    <div class="subcategories__wrapper">
+                        <h3 class="subcategories__header"></h3>
+                        <div class="subcategories">
+                            {% for subcategory in category.get_children %}
+                                <div class="subcategory__card">
+                                    <!-- TODO Remove onerror -->
+                                    <img class="subcategory__img" src="{{ subcategory.image.url }}"
+                                         alt="{{ subcategory.name }}"
+                                         onerror="if (this.src !== 'https://www.detailedimage.com/photos/placeholder_item_100.jpg') this.src = 'https://www.detailedimage.com/photos/placeholder_item_100.jpg';">
+                                    <a class="subcategory__name" href="{{ subcategory.get_absolute_url }}">
+                                        {{ subcategory.name }}
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <h3 class="heading heading--plain">{% trans 'Products' %}</h3>
+                <div class="card-grid">
                     {% for product in category.products.all %}
                         {% include 'shop/includes/product_card.html' %}
                     {% endfor %}
                 </div>
             </div>
+
+            <nav class="nav-wrapper__nav">
+                {% include 'shop/includes/sidenav.html' %}
+            </nav>
+
         </div>
     </div>
 
