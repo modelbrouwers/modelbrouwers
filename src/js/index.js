@@ -5,6 +5,7 @@ import "bootstrap-datepicker/js/locales/bootstrap-datepicker.nl";
 import "bootstrap-select";
 
 import "./csrf";
+import "./fallback-img";
 
 // components
 import "./kits";

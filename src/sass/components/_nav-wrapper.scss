@@ -2,7 +2,10 @@
 // on mobile, the nav itself should be more of a progress, sticky positioned to the
 // bottom (?) of the screen
 
-$nav-wrapper-spacing: 1em !default;
+$nav-wrapper-spacing: 1rem !default;
+
+$nav-wrapper-width-nav: 25%;
+$nav-wrapper-width-content: 100% - $nav-wrapper-width-nav;
 
 .nav-wrapper {
   display: flex;
@@ -13,13 +16,13 @@ $nav-wrapper-spacing: 1em !default;
   }
 
   &__nav {
-    width: 25%;
+    width: $nav-wrapper-width-nav;
     padding-right: $nav-wrapper-spacing;
     order: 1;
   }
 
   &__content {
-    width: 75%;
+    width: $nav-wrapper-width-content;
     padding-left: $nav-wrapper-spacing;
     order: 2;
   }
@@ -40,6 +43,16 @@ $nav-wrapper-spacing: 1em !default;
       order: 1;
       width: 100%;
       padding-left: 0;
+    }
+  }
+}
+
+@include gt-mobile {
+  .nav-wrapper {
+    &__title {
+      &#{&}--content-aligned {
+        margin-left: calc($nav-wrapper-width-nav + $nav-wrapper-spacing);
+      }
     }
   }
 }
