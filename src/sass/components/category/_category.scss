@@ -4,18 +4,8 @@
   }
 
   &__carousel,
-  &__carousel-item,
-  &__inner {
+  &__carousel-item {
     height: 300px;
-  }
-
-  &__title {
-    color: $text-color;
-    margin: 20px auto;
-  }
-
-  &__content {
-    width: calc(100% - 220px);
   }
 }
 

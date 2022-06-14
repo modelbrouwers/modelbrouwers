@@ -38,11 +38,6 @@ class CategoryDetailView(DetailView):
     template_name = "shop/category_detail.html"
     model = Category
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["categories"] = Category.get_tree().filter(depth=1, enabled=True)
-        return context
-
 
 class ProductDetailView(ModelFormMixin, DetailView):
     queryset = Product.objects.annotate_mean_rating()
@@ -53,7 +48,6 @@ class ProductDetailView(ModelFormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["categories"] = Category.get_tree().filter(depth=1, enabled=True)
         if "form" not in kwargs:
             context["form"] = self.get_form()
         return context
