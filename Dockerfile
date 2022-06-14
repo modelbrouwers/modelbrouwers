@@ -34,7 +34,7 @@ WORKDIR /app
 COPY ./*.json ./*.js ./.babelrc /app/
 
 # install WITH dev tooling
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # copy source code
 COPY ./src/sass /app/src/sass
