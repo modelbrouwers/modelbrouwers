@@ -48,7 +48,7 @@
 <div class="card-grid">
     {% for category in categories %}
         <div class="card-grid__card">
-            <a href="{{ category.main_category.get_absolute_url }}">
+            <a href="{{ category.main_category.get_absolute_url }}" class="card-grid__card-link">
                 <h3 class="card-grid__card-title">{{ category.main_category.name }}</h3>
             </a>
 

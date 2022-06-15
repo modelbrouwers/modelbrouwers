@@ -22,6 +22,14 @@
     color: $main-orange;
   }
 
+  &__card-link {
+    color: $main-orange;
+
+    &:hover {
+      color: $main-orange;
+    }
+  }
+
   &__item-link {
     display: block;
     color: $main-orange;
