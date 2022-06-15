@@ -144,11 +144,7 @@ class ConfirmOrderView(FormView):
             issuer_url = start_ideal_payment(
                 payment, request=self.request, next_page=self.get_success_url()
             )
-
-            import bpdb
-
-            bpdb.set_trace()
-
+            return HttpResponseRedirect(issuer_url)
         return super().form_valid(form)
 
     def get_success_url(self) -> str:
