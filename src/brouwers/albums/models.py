@@ -22,7 +22,7 @@ from .utils import rotate_img
 class Category(models.Model):
     name = models.CharField(_("name"), max_length=256, unique=True)
     order = models.PositiveSmallIntegerField(
-        _("order"), default=1, blank=True, null=True
+        _("ordering"), default=1, blank=True, null=True
     )
 
     url = models.URLField(_("url"), max_length=500, blank=True)
@@ -94,7 +94,7 @@ class Album(models.Model):
 
     # User preferences
     order = models.PositiveSmallIntegerField(
-        _("order"), default=1, blank=True, null=True, db_index=True
+        _("ordering"), default=1, blank=True, null=True, db_index=True
     )
     public = models.BooleanField(
         _("Public?"),

@@ -1,5 +1,6 @@
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 from brouwers.general.fields import CountryField
 
@@ -47,7 +48,7 @@ class Order(models.Model):
     first_name = models.CharField(_("first name"), max_length=255)
     last_name = models.CharField(_("last name"), max_length=255, blank=True)
     email = models.EmailField(_("email"))
-    phone = models.CharField(_("phone number"), max_length=100)
+    phone = models.CharField(_("phone number"), max_length=100, blank=True)
 
     # addresses
     delivery_address = models.OneToOneField(
@@ -75,6 +76,12 @@ class Order(models.Model):
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)
 
+    def clean(self):
+        if self.payment.cart and self.payment.cart != self.cart:
+            raise ValidationError(_("Order and payment cart must be identical."))
+
     @property
     def reference(self) -> str:
+        if not self.payment:
+            return gettext("(no reference yet)")
         return self.payment.reference

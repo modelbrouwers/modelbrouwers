@@ -21,7 +21,7 @@ class PaymentMethod(models.Model):
         default=False,
         help_text=_("Whether the payment method can be used at checkout or not."),
     )
-    order = models.PositiveSmallIntegerField(_("order"), default=get_max_order)
+    order = models.PositiveSmallIntegerField(_("ordering"), default=get_max_order)
 
     class Meta:
         verbose_name = _("payment method")

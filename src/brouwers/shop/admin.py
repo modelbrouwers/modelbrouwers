@@ -6,10 +6,13 @@ from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
 from .models import (
+    Address,
+    Cart,
     Category,
     CategoryCarouselImage,
     HomepageCategory,
     HomepageCategoryChild,
+    Order,
     Payment,
     PaymentMethod,
     Product,
@@ -147,6 +150,18 @@ class ShopConfigurationAdmin(SingletonModelAdmin):
     pass
 
 
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "status",
+        "user",
+    )
+    list_select_related = ("user",)
+    list_filter = ("status",)
+    raw_id_fields = ("user",)
+
+
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ("reference", "format_amount", "payment_method", "created")
@@ -154,3 +169,32 @@ class PaymentAdmin(admin.ModelAdmin):
     search_fields = ("reference",)
     date_hierarchy = "created"
     ordering = ("-created",)
+
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = (
+        "street",
+        "number",
+        "postal_code",
+        "city",
+        "country",
+        "chamber_of_commerce",
+    )
+    list_filter = ("country",)
+    search_fields = ("street", "postal_code")
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("reference", "first_name", "last_name", "email", "status")
+    list_select_related = ("cart", "payment")
+    search_fields = ("first_name", "last_name", "payment__reference", "email")
+    list_filter = ("status",)
+    date_hierarchy = "created"
+    raw_id_fields = (
+        "cart",
+        "payment",
+        "delivery_address",
+        "invoice_address",
+    )
