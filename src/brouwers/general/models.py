@@ -35,12 +35,11 @@ class UserProfile(models.Model):
         max_length=10,
         help_text=_("house number (+ PO box if applicable)"),
         blank=True,
-        null=True,
     )
-    postal = models.CharField(_("postal code"), max_length=10, blank=True, null=True)
-    city = models.CharField(_("city"), max_length=255, blank=True, null=True)
-    province = models.CharField(_("province"), max_length=255, blank=True, null=True)
-    country = CountryField(blank=True, null=True)
+    postal = models.CharField(_("postal code"), max_length=10, blank=True)
+    city = models.CharField(_("city"), max_length=255, blank=True)
+    province = models.CharField(_("province"), max_length=255, blank=True)
+    country = CountryField(blank=True)
 
     # allow social sharing
     allow_sharing = models.BooleanField(
