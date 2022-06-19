@@ -15,3 +15,10 @@ class WeightUnits(DjangoChoices):
 class CartStatuses(DjangoChoices):
     open = ChoiceItem("open", _("Open"))
     paid = ChoiceItem("paid", _("Paid"))
+
+
+class OrderStatuses(DjangoChoices):
+    received = ChoiceItem("received", _("Received"))
+    processing = ChoiceItem("processing", _("Processing"))
+    shipped = ChoiceItem("shipped", _("Shipped"))
+    cancelled = ChoiceItem("cancelled", _("Cancelled"))
