@@ -37,12 +37,23 @@ $nav-wrapper-width-content: 100% - $nav-wrapper-width-nav;
       width: 100%;
       padding-right: 0;
       margin-top: 2em;
+
+      &#{&}--sticky-bottom {
+        position: sticky;
+        bottom: 0;
+        margin: 0;
+        padding: 0;
+      }
     }
 
     &__content {
       order: 1;
       width: 100%;
       padding-left: 0;
+
+      &:not(:last-child) {
+        margin-bottom: 1em;
+      }
     }
   }
 }

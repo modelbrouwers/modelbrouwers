@@ -6,6 +6,7 @@ import "bootstrap-select";
 
 import "./csrf";
 import "./fallback-img";
+import "./mobile-nav";
 
 // components
 import "./kits";

@@ -46,6 +46,10 @@
     }
   }
 
+  @include lte-mobile {
+    border: none;
+  }
+
   @include gt-mobile {
     &#{&}--sticky {
       position: sticky;

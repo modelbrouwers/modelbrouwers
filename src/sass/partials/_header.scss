@@ -1,5 +1,7 @@
 // center the top navbar
 .navbar-center {
+  z-index: 2;
+
   .navbar-nav {
     display: inline-block;
     float: none;
@@ -18,7 +20,8 @@ body.fade-small-logo .navbar-brand img {
   opacity: 0.7;
 }
 
-@media (min-width:768px) { // show the tabs
+@media (min-width: 768px) {
+  // show the tabs
   .navbar-brand {
     position: absolute;
     padding: 0;
@@ -50,12 +53,17 @@ body.fade-small-logo .navbar-brand img {
       font-size: 115%;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
-      text-shadow: #AAA 1px 1px 3px, #AAA 1px 1px 1px, #BBB 1px 1px 0, #BBB 0 0 1px;
+      text-shadow: #aaa 1px 1px 3px, #aaa 1px 1px 1px, #bbb 1px 1px 0,
+        #bbb 0 0 1px;
       border: solid 1px #c8c8c8;
       border-bottom: none;
-      box-shadow: #AAA 0 -1px 1px -1px, 3px 0 4px rgba(0,0,0,0.1), inset $broken-white 0 2px 1px;
+      box-shadow: #aaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1),
+        inset $broken-white 0 2px 1px;
       overflow: hidden; // cut off bottom shadow
-      &:hover, &:focus, &:active, &.active {
+      &:hover,
+      &:focus,
+      &:active,
+      &.active {
         background-color: $nav-tab-highlight;
         color: $nav-tab-text-highlight;
         padding-top: 5px;
@@ -65,7 +73,8 @@ body.fade-small-logo .navbar-brand img {
   }
 }
 
-@media (max-width: 768px) { // collapsed, take up the entire width with the background
+@media (max-width: 768px) {
+  // collapsed, take up the entire width with the background
   .navbar-brand {
     height: 50px;
     padding: 7.5px 15px;
@@ -87,17 +96,19 @@ body.fade-small-logo .navbar-brand img {
   li.tab {
     border: solid 1px $nav-tab;
     background: $nav-gradient;
-    &:hover, &.active, &:focus, &:active {
+    &:hover,
+    &.active,
+    &:focus,
+    &:active {
       background: $nav-gradient-reverse;
     }
   }
 }
 
-
 /*
  * Shop banner
  */
-@media (min-width:650px) {
+@media (min-width: 650px) {
   #shop-banner {
     text-align: center;
     padding: 5px 15px 0;
@@ -109,87 +120,85 @@ body.fade-small-logo .navbar-brand img {
       a {
         display: block;
         height: 25px;
-        background-image: url('../images/shop/products_sprite.png');
+        background-image: url("../images/shop/products_sprite.png");
         background-repeat: no-repeat;
       }
     }
   }
 }
-@media (max-width:650px) {
+@media (max-width: 650px) {
   #shop-banner {
     display: none;
   }
 }
 
 /* brands, individual */
-#shop-uhu{
-    width: 54px;
-    background-position: 0px -293px;
+#shop-uhu {
+  width: 54px;
+  background-position: 0px -293px;
 }
-#shop-xuron{
-    width: 102px;
-    background-position: -54px -293px;
+#shop-xuron {
+  width: 102px;
+  background-position: -54px -293px;
 }
-#shop-revell{
-    width: 62px;
-    background-position: -156px -293px;
+#shop-revell {
+  width: 62px;
+  background-position: -156px -293px;
 }
-#shop-alclad{
-    width: 65px;
-    background-position: -218px -293px;
+#shop-alclad {
+  width: 65px;
+  background-position: -218px -293px;
 }
-#shop-bmf{
-    width: 66px;
-    background-position: -283px -293px;
+#shop-bmf {
+  width: 66px;
+  background-position: -283px -293px;
 }
-#shop-birchwood{
-    width: 52px;
-    background-position: -349px -293px;
+#shop-birchwood {
+  width: 52px;
+  background-position: -349px -293px;
 }
-#shop-evergreen{
-    width: 50px;
-    background-position: -516px -318px;
+#shop-evergreen {
+  width: 50px;
+  background-position: -516px -318px;
 }
-#shop-sp{
-    width: 74px;
-    background-position: -442px -318px;
+#shop-sp {
+  width: 74px;
+  background-position: -442px -318px;
 }
-#shop-excel{
-    width: 56px;
-    background-position: -442px -293px;
+#shop-excel {
+  width: 56px;
+  background-position: -442px -293px;
 }
-#shop-intech{
-    width: 86px;
-    background-position: -498px -293px;
+#shop-intech {
+  width: 86px;
+  background-position: -498px -293px;
 }
-#shop-microscale{
-    width: 62px;
-    background-position: 0 -318px;
+#shop-microscale {
+  width: 62px;
+  background-position: 0 -318px;
 }
-#shop-miliput{
-    width: 93px;
-    background-position: -62px -318px;
+#shop-miliput {
+  width: 93px;
+  background-position: -62px -318px;
 }
-#shop-mb{
-    width: 127px;
-    background-position: -155px -318px;
+#shop-mb {
+  width: 127px;
+  background-position: -155px -318px;
 }
-#shop-rustall{
-    width: 93px;
-    background-position: -282px -318px;
+#shop-rustall {
+  width: 93px;
+  background-position: -282px -318px;
 }
-#shop-sms{
-    width: 25px;
-    background-position: -375px -318px;
+#shop-sms {
+  width: 25px;
+  background-position: -375px -318px;
 }
-#shop-vallejo{
-    width: 42px;
-    background-position: -400px -318px;
+#shop-vallejo {
+  width: 42px;
+  background-position: -400px -318px;
 }
-
 
 header {
-
   .dropdown-toggle {
     @include menu-feedback();
   }
