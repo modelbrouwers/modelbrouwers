@@ -7,7 +7,7 @@ from brouwers.shop.models import MAX_RATING, MIN_RATING, ProductReview
 from brouwers.utils.widgets import StarRatingSelect
 
 from .api.viewsets import PaymentMethodViewSet
-from .models import Cart, CartProduct
+from .models import Address, Cart, CartProduct
 from .payments.sisow.constants import Payments
 from .payments.sisow.service import get_ideal_banks
 
@@ -21,6 +21,20 @@ class ProductReviewForm(forms.ModelForm):
     class Meta:
         model = ProductReview
         fields = ["rating", "text"]
+
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = (
+            "street",
+            "number",
+            "postal_code",
+            "city",
+            "country",
+            "company",
+            "chamber_of_commerce",
+        )
 
 
 class ConfirmOrderForm(forms.Form):
@@ -42,6 +56,22 @@ class ConfirmOrderForm(forms.Form):
         ).prefetch_related(
             Prefetch("products", queryset=CartProduct.objects.select_related("product"))
         )
+
+        # add the nested sub-forms
+        self.delivery_form = AddressForm(prefix="delivery", data=self.data)
+        self.invoice_form = AddressForm(
+            prefix="invoice",
+            data=self.data,
+            empty_permitted=True,
+            use_required_attribute=False,
+        )
+
+    def is_valid(self) -> bool:
+        subforms_valid = all(
+            (self.delivery_form.is_valid(), self.invoice_form.is_valid())
+        )
+        self_valid = super().is_valid()
+        return subforms_valid and self_valid
 
     def clean(self):
         super().clean()
@@ -74,3 +104,11 @@ class ConfirmOrderForm(forms.Form):
             self.cleaned_data["bank"] = bank
 
         return self.cleaned_data
+
+    def get_validation_errors(self) -> dict:
+        # collect all the validation errors in a format suitable for json-script
+        return {
+            "payment": self.errors.get_json_data(),
+            self.delivery_form.prefix: self.delivery_form.errors.get_json_data(),
+            self.invoice_form.prefix: self.invoice_form.errors.get_json_data(),
+        }

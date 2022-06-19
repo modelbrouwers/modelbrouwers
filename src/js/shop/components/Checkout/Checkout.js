@@ -1,5 +1,3 @@
-import camelCase from "lodash.camelcase";
-import isObject from "lodash.isobject";
 import set from "lodash.set";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
@@ -17,35 +15,13 @@ import { useImmerReducer } from "use-immer";
 
 import { Account, Address, Payment } from ".";
 import { EMPTY_ADDRESS } from "./constants";
-import { checkAddressFieldsComplete } from "./utils";
+import { camelize, checkAddressFieldsComplete } from "./utils";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
     classNames("navigation__link", {
         "navigation__link--active": isActive,
         "navigation__link--enabled": enabled,
     });
-
-// Temporary solution - we should use drf-camelcase-renderer to the backend later.
-const camelize = (obj) => {
-    // recurse into arrays
-    if (Array.isArray(obj)) {
-        return obj.map(camelize);
-    }
-
-    if (!isObject(obj)) {
-        return obj;
-    }
-
-    // convert keys to camelCase
-    const newObj = {};
-    Object.entries(obj).forEach(([key, value]) => {
-        const newKey = camelCase(key);
-        const newValue = camelize(value);
-        newObj[newKey] = newValue;
-    });
-
-    return newObj;
-};
 
 const NavLink = ({ enabled = false, className, ...props }) => {
     const Container = enabled ? RRNavLink : "span";
@@ -93,7 +69,13 @@ const reducer = (draft, action) => {
  * Checkout
  *
  */
-const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
+const Checkout = ({
+    cartStore,
+    user,
+    csrftoken,
+    confirmPath,
+    validationErrors,
+}) => {
     const location = useLocation();
     const checkoutRoot = useHref("/");
 
@@ -133,6 +115,8 @@ const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
         });
         dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
     };
+
+    console.log(validationErrors);
 
     return (
         <div className="nav-wrapper">
@@ -260,6 +244,7 @@ Checkout.propTypes = {
             country: PropTypes.oneOf(["N", "B", "F", "G"]),
         }),
     }),
+    validationErrors: PropTypes.object,
 };
 
 export default Checkout;

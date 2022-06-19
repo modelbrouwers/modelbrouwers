@@ -107,10 +107,13 @@ class ConfirmOrderView(FormView):
         kwargs["request"] = self.request
         return kwargs
 
-    # TODO: on form invalid, re-render checkout page but put validation errors in
-    # json-script for the React component.
-    # def form_invalid(self, form):
-    #     return super().form_invalid(form)
+    # on form invalid, re-render checkout page
+    def get_context_data(self, **kwargs):
+        form = kwargs.get("form")
+        # there are validation errors
+        if form is not None and form.is_bound:
+            kwargs["validation_errors"] = form.get_validation_errors()
+        return super().get_context_data(**kwargs)
 
     @transaction.atomic()
     def form_valid(self, form) -> HttpResponseRedirect:

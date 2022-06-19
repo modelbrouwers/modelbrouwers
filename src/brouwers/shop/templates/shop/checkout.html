@@ -3,6 +3,7 @@
 {% block content %}
     {{ block.super }}
 
+    {% if validation_errors %}{{ validation_errors|json_script:'checkout-validation-errors' }}{% endif %}
     <div
         id="react-checkout"
         data-path="{% url 'shop:checkout' %}"
