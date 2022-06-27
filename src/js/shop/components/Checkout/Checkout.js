@@ -15,6 +15,7 @@ import { useImmerReducer } from "use-immer";
 
 import { Account, Address, Payment } from ".";
 import { EMPTY_ADDRESS } from "./constants";
+import { CheckoutContext } from "./Context";
 import { camelize, checkAddressFieldsComplete } from "./utils";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
@@ -116,8 +117,6 @@ const Checkout = ({
         dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
     };
 
-    console.log(validationErrors);
-
     return (
         <div className="nav-wrapper">
             <h2 className="nav-wrapper__title">
@@ -128,47 +127,56 @@ const Checkout = ({
             </h2>
 
             <div className="nav-wrapper__content">
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <Navigate
-                                to={isAuthenticated ? "address" : "account"}
-                            />
-                        }
-                    />
-                    <Route
-                        path="account"
-                        element={
-                            <Account
-                                isAuthenticated={isAuthenticated}
-                                currentLocation={checkoutRoot}
-                            />
-                        }
-                    />
-                    <Route
-                        path="address"
-                        element={
-                            <Address
-                                customer={state.customer}
-                                deliveryAddress={state.deliveryAddress}
-                                billingAddress={state.billingAddress}
-                                onChange={onInputChange}
-                                allowSubmit={state.addressStepValid}
-                            />
-                        }
-                    />
-                    <Route
-                        path="payment"
-                        element={
-                            <Payment
-                                cartStore={cartStore}
-                                csrftoken={csrftoken}
-                                confirmPath={confirmPath}
-                            />
-                        }
-                    />
-                </Routes>
+                <CheckoutContext.Provider
+                    value={{
+                        validationErrors,
+                        customer: state.customer,
+                        deliveryAddress: state.deliveryAddress,
+                        billingAddress: state.billingAddress,
+                    }}
+                >
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <Navigate
+                                    to={isAuthenticated ? "address" : "account"}
+                                />
+                            }
+                        />
+                        <Route
+                            path="account"
+                            element={
+                                <Account
+                                    isAuthenticated={isAuthenticated}
+                                    currentLocation={checkoutRoot}
+                                />
+                            }
+                        />
+                        <Route
+                            path="address"
+                            element={
+                                <Address
+                                    customer={state.customer}
+                                    deliveryAddress={state.deliveryAddress}
+                                    billingAddress={state.billingAddress}
+                                    onChange={onInputChange}
+                                    allowSubmit={state.addressStepValid}
+                                />
+                            }
+                        />
+                        <Route
+                            path="payment"
+                            element={
+                                <Payment
+                                    cartStore={cartStore}
+                                    csrftoken={csrftoken}
+                                    confirmPath={confirmPath}
+                                />
+                            }
+                        />
+                    </Routes>
+                </CheckoutContext.Provider>
             </div>
 
             <nav className="nav-wrapper__nav">
