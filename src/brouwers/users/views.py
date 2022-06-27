@@ -2,11 +2,9 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.utils.http import base36_to_int
 from django.utils.translation import get_language, ugettext as _
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
@@ -26,7 +24,6 @@ from brouwers.utils.views import LoginRequiredMixin
 from .forms import AuthForm, UserCreationForm
 from .mail import UserRegistrationEmail
 from .models import DataDownloadRequest
-from .tokens import activation_token_generator
 
 User = get_user_model()
 
@@ -84,21 +81,13 @@ class LoginView(RedirectFormMixin, generic.FormView):
         if User.objects.user_exists(forum_user.username):
             return super().form_invalid(form)
 
-        # create an inactive Django user, this also sends the e-mail!
-        User.objects.create_from_forum(forum_user)
-
-        # show message that the account was found, but is inactive
+        # show message that the account was found,
         msg = _(
-            "We found an existing forum account for this username, "
-            "but it appears that were was no coupling account yet. "
-            "We automatically created a coupling account, which is "
-            "not activated yet. You should receive an e-mail soon "
-            "with a link to activate your account. "
-            "Coupling accounts were added to introduce SSO (single "
-            "sign on) in the future for the entire domain."
+            "There is an existing forum account for this user. Please pick a different "
+            "username."
         )
         messages.warning(self.request, msg)
-        context = self.get_context_data(**{"forum_user": forum_user})
+        context = self.get_context_data()
         return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
@@ -120,35 +109,6 @@ class LogoutView(RedirectFormMixin, generic.RedirectView):
             msg = _("Can't log you out, you weren't logged in!")
         messages.info(request, msg)
         return super().get(request, *args, **kwargs)
-
-
-class ActivationView(generic.RedirectView):
-    """Check that a valid token is used and activate the user"""
-
-    url = reverse_lazy("users:profile")
-    permanent = False
-
-    def get(self, request, *args, **kwargs):
-        """Check token raises a 403 if the token is invalid."""
-        self.check_token()
-        return super().get(request, *args, **kwargs)
-
-    def check_token(self):
-        uidb36 = self.kwargs.get("uidb36")
-        token = self.kwargs.get("token")
-        assert uidb36 is not None and token is not None
-        user_id = base36_to_int(uidb36)
-        user = User._default_manager.get(pk=user_id)
-
-        valid = activation_token_generator.check_token(user, token)
-        if not valid:
-            raise PermissionDenied
-
-        user.is_active = True
-        user.save()
-        # backend attribute needed to log user in
-        user.backend = "django.contrib.auth.backends.ModelBackend"
-        login(self.request, user)
 
 
 class RegistrationView(RedirectFormMixin, generic.CreateView):
