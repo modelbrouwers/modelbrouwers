@@ -50,8 +50,8 @@ urlpatterns = [
         ),
         name="pw_reset",
     ),
-    re_path(
-        r"^password/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$",
+    path(
+        "password/reset/<uidb64>/<token>/",
         PasswordResetConfirmView.as_view(
             success_url=reverse_lazy("users:login"),
             template_name="users/password_reset_confirm.html",
