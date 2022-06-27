@@ -38,7 +38,10 @@ class RedirectFormMixin(object):
         return self.request.POST if self.request.method == "POST" else self.request.GET
 
     def get_redirect_url(self):
-        redirectform = RedirectForm(data=self._get_request_data())
+        redirectform = RedirectForm(
+            data=self._get_request_data(),
+            request=self.request,
+        )
         if redirectform.is_valid():
             return (
                 redirectform.cleaned_data["redirect"]
@@ -92,7 +95,9 @@ class LoginView(RedirectFormMixin, generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = {
-            "redirectform": RedirectForm(data=self._get_request_data()),
+            "redirectform": RedirectForm(
+                data=self._get_request_data(), request=self.request
+            ),
         }
         context.update(**kwargs)
         return super().get_context_data(**context)
