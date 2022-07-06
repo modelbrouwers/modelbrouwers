@@ -1,9 +1,17 @@
 {% extends "base.html" %}{% load i18n cache thumbnail sniplates %}
 {% block data-page %}data-page="shop"{% endblock %}
-{% block title %} &bull; {% trans "Shop" %}{% endblock %}
+{% block body-class %}shop{% endblock %}
+{% block title %} {% trans "Shop" %}{% endblock %}
+
+{% block sub-nav %}{% endblock %}
 
 {% block content %}
-    <div id="react-cart" class="cart"></div>
+    <div
+        id="react-cart"
+        class="cart"
+        data-checkout-path="{% url 'shop:checkout' %}"
+        data-cart-detail-path="{{ cart_url }}"
+    ></div>
 {% endblock content %}
 
 {% block ads %}{% endblock %}

@@ -21,42 +21,42 @@ export class PhotoUpload {
                     filenameParam: "description",
                     customHeaders: {
                         Accept: "text/plain", // otherwise DRF complains
-                        "X-CSRFToken": csrfToken
-                    }
+                        "X-CSRFToken": csrfToken,
+                    },
                 },
                 retry: {
-                    enableAuto: false
+                    enableAuto: false,
                 },
                 validation: {
-                    allowedExtensions: ["jpeg", "jpg", "gif", "png"] // only images
+                    allowedExtensions: ["jpeg", "jpg", "gif", "png"], // only images
                 },
                 autoUpload: uploadSettings.autoUpload,
                 callbacks: {
-                    onComplete: function(event, succeeded, failed) {
+                    onComplete: function (event, succeeded, failed) {
                         if (failed.length === 0) {
                             window.location = decodeURI(
                                 uploadSettings.albumDetail
                             ).replace("{0}", album, 1);
                         }
                     },
-                    onSubmit: function() {
+                    onSubmit: function () {
                         const ok = setAlbum();
                         if (ok) {
                             const $dest = $("#upload-form");
                             $("html, body").animate(
                                 {
-                                    scrollTop: $dest.offset().top
+                                    scrollTop: $dest.offset().top,
                                 },
                                 500
                             );
                         }
                         return ok;
-                    }
-                }
+                    },
+                },
             });
         }
 
-        var setAlbum = function() {
+        var setAlbum = function () {
             var checked = $('#upload-form input[name="album"]:checked');
             if (checked.length !== 1) {
                 $("#modal-albums").modal("show");
@@ -72,11 +72,11 @@ export class PhotoUpload {
             return true;
         };
 
-        $(".cancel").click(function(e) {
+        $(".cancel").click(function (e) {
             uploader.cancel(id);
         });
 
-        $("#trigger-upload").click(function(e) {
+        $("#trigger-upload").click(function (e) {
             e.preventDefault();
             // TODO: multi upload
             setAlbum();
@@ -84,11 +84,11 @@ export class PhotoUpload {
             return false;
         });
 
-        var focusActiveAlbum = function() {
+        var focusActiveAlbum = function () {
             var checked = albumChooser.find("input:checked").next();
             var hasChecked = checked.length == 1;
 
-            var slideNext = function() {
+            var slideNext = function () {
                 if (hasChecked && !checked.is(":visible")) {
                     albumChooser.carousel("next");
                     setTimeout(slideNext, 100);
@@ -99,7 +99,7 @@ export class PhotoUpload {
         focusActiveAlbum();
 
         // Use the FineUploader flags to hide/show relevant DOM elements.
-        var featureDetection = function() {
+        var featureDetection = function () {
             if (!qq.supportedFeatures.fileDrop) {
                 $('[data-feature="fileDrop"]').toggleClass("hidden");
             }
@@ -107,7 +107,7 @@ export class PhotoUpload {
         featureDetection();
 
         // scrolling through the carousel
-        $("#carousel-album").on("mousewheel", function(event) {
+        $("#carousel-album").on("mousewheel", function (event) {
             event.preventDefault();
 
             if (event.originalEvent.wheelDelta / 120 > 0) {

@@ -1,9 +1,16 @@
 {% load i18n %}
-<div class="product-card" data-product="{{ product.id }}">
-    <img src="{{ product.get_image_url }}" class="product-card__image" alt="{{ product.name }}">
+<div class="card-grid__card product-card" data-product="{{ product.id }}">
+
+    <a href="{{ product.get_absolute_url }}" class="product-card__image-link">
+        <img src="{{ product.get_image_url }}" class="product-card__image" alt="{{ product.name }}">
+    </a>
+
     <a href="{{ product.get_absolute_url }}" class="product-card__name">{{ product.name }}</a>
+
     <p class="product-card__price">{{ product.price }} &euro;</p>
+
     <div class="react-cart-actions"></div>
+
     <div class="product-card__actions">
         <div class="button-row">
             <button class="button__icon"><i class="fa fa-plus"></i></button>

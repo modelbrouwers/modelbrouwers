@@ -1,51 +1,66 @@
 {% extends "shop/base.html" %}{% load i18n %}
 
 {% block content %}
-    <div class="row">
+<div class="row">
 
-        <div id="category-carousel" class="category__carousel carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                {% for image in  carousel_images %}
-                    <li data-target="#category-carousel_{{ forloop.counter0 }}" data-slide-to="{{ forloop.counter0 }}"
-                        class="active"></li>
-                {% endfor %}
-            </ol>
+    <div id="category-carousel" class="category__carousel carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for image in  carousel_images %}
+                <li data-target="#category-carousel_{{ forloop.counter0 }}" data-slide-to="{{ forloop.counter0 }}"
+                    class="active"></li>
+            {% endfor %}
+        </ol>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner carousel__inner" role="listbox">
-                {% for image in  carousel_images %}
-                    <div class="category__carousel-item item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ image.image.url }}" alt="{{ image.title }}">
-                    </div>
-                {% endfor %}
-            </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href="#category-carousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">{% trans "Previous" %}</span>
-            </a>
-            <a class="right carousel-control" href="#category-carousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">{% trans "Next" %}</span>
-            </a>
-        </div>
-
-        <div class="col-xs-12 category__search-container">
-            <div class="input-group">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button>
-                </span>
-                <input type="text" class="form-control" placeholder={% trans "Search for..." %}>
-            </div>
-        </div>
-        <div class="row">
-            {% for category in categories %}
-                {% include 'shop/includes/category_card.html' %}
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner carousel__inner" role="listbox">
+            {% for image in  carousel_images %}
+                <div class="category__carousel-item item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ image.image.url }}" alt="{{ image.title }}">
+                </div>
             {% endfor %}
         </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#category-carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">{% trans "Previous" %}</span>
+        </a>
+        <a class="right carousel-control" href="#category-carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">{% trans "Next" %}</span>
+        </a>
     </div>
+
+    {# TODO: style and implement search #}
+    <div class="col-xs-12 category__search-container">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </span>
+            <input type="text" class="form-control" placeholder={% trans "Search for..." %}>
+        </div>
+    </div>
+</div>
+
+<div class="card-grid">
+    {% for category in categories %}
+        <div class="card-grid__card">
+            <a href="{{ category.main_category.get_absolute_url }}" class="card-grid__card-link">
+                <h3 class="card-grid__card-title">{{ category.main_category.name }}</h3>
+            </a>
+
+            <div class="card-grid__body">
+                {% for child_category in category.get_children %}
+                    <a class="card-grid__item-link" href="{{ child_category.get_absolute_url }}">
+                        {{ child_category.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

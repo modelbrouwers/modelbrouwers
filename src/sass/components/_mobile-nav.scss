@@ -1,0 +1,86 @@
+/**
+ * .mobile-nav
+ *
+ *   .mobile-nav__trigger
+ *   .mobile-nav__content
+ *
+ * On mobile, this displays the trigger as a sticky element, while the JS toggles the
+ * expand/collapse classes to show the content.
+ *
+ * Expanded content is rendered as overlay.
+ */
+
+.mobile-nav {
+  &__trigger-icons {
+    display: none;
+  }
+}
+
+@include lte-mobile {
+  .mobile-nav {
+    margin-left: -15px;
+    margin-right: -15px;
+    background: white;
+    padding: 0.5em 1em;
+    border-top: solid 1px $default-border-color;
+    border-bottom: solid 1px $default-border-color;
+
+    &__toggle-trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:focus {
+        text-decoration: underline;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-size: 1.4em;
+        font-weight: bold;
+      }
+    }
+
+    &__trigger-icons {
+      display: block;
+    }
+
+    &__icon {
+      display: none;
+    }
+
+    &#{&}--collapsed {
+      .mobile-nav__icon--collapsed {
+        display: inline;
+      }
+
+      .mobile-nav__content {
+        display: none;
+      }
+    }
+
+    &#{&}--expanded {
+      // ugly because of header, see if we can improve that at some point
+      position: fixed;
+      top: 60px;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+
+      .mobile-nav__icon--expanded {
+        display: inline;
+      }
+
+      .mobile-nav__toggle-trigger {
+        margin-bottom: 1em;
+      }
+
+      .mobile-nav__content {
+        display: block;
+      }
+    }
+  }
+}

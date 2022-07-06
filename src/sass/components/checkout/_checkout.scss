@@ -1,0 +1,43 @@
+.checkout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__container {
+    display: flex;
+    width: 100%;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: flex-start;
+    flex-flow: wrap;
+    padding: 0 30px;
+    width: 100%;
+  }
+
+  &__header,
+  &__title {
+    color: $text-color;
+    margin: 0 0 16px 0;
+  }
+
+  * + &__title {
+    margin-top: 1em;
+  }
+
+  &__row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    &--justified {
+      justify-content: space-around;
+    }
+  }
+
+  &__help-text {
+    display: block;
+    margin-bottom: 10px;
+  }
+}

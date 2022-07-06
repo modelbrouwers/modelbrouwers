@@ -1,0 +1,60 @@
+.tree-nav {
+  list-style: none;
+  width: 100%;
+  border: solid 1px $default-border-color;
+  border-radius: 4px;
+
+  &__item {
+    > .tree-nav__child {
+      display: none;
+    }
+
+    &:not(:last-child) {
+      > .tree-nav__link {
+        border-bottom: $border-light;
+      }
+    }
+
+    &#{&}--show {
+      > .tree-nav__child {
+        display: block;
+      }
+    }
+  }
+
+  &__child {
+    .tree-nav__link {
+      padding-left: 2.6em;
+    }
+
+    &:last-child {
+      border-bottom: $border-light;
+    }
+  }
+
+  &__link {
+    display: block;
+    padding: 0.5em 1em;
+    color: $text-color;
+
+    &#{&}--active {
+      font-weight: bold;
+    }
+
+    &[data-depth="1"] {
+      font-size: 1.1em;
+    }
+  }
+
+  @include lte-mobile {
+    border: none;
+  }
+
+  @include gt-mobile {
+    &#{&}--sticky {
+      position: sticky;
+      top: 2rem;
+      // FIXME: flexbox messes this up
+    }
+  }
+}

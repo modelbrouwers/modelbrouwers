@@ -43,7 +43,7 @@ diff-match-patch==20200713
     # via
     #   -r requirements/base.txt
     #   django-import-export
-django==3.2.13
+django==3.2.14
     # via
     #   -r requirements/base.txt
     #   django-choices
@@ -152,7 +152,7 @@ openpyxl==3.0.9
     # via
     #   -r requirements/base.txt
     #   tablib
-pillow==9.1.0
+pillow==9.1.1
     # via
     #   -r requirements/base.txt
     #   django-precise-bbcode
@@ -240,7 +240,7 @@ urllib3==1.26.9
     #   sentry-sdk
 uwsgi==2.0.20
     # via -r requirements/base.txt
-waitress==2.1.1
+waitress==2.1.2
     # via webtest
 weasyprint==54.3
     # via -r requirements/base.txt

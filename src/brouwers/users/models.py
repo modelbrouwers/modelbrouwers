@@ -11,8 +11,6 @@ from django.utils.translation import ugettext_lazy as _
 from brouwers.forum_tools.models import ForumUser
 from brouwers.utils.storages import private_media_storage
 
-from .mail import UserCreatedFromForumEmail
-
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
@@ -45,21 +43,6 @@ class UserManager(BaseUserManager):
         u.is_superuser = True
         u.save(using=self._db)
         return u
-
-    def create_from_forum(self, forum_user):
-        extra_fields = {"forumuser_id": forum_user.user_id}
-        user = self.create_user(
-            forum_user.username, forum_user.user_email, **extra_fields
-        )
-        user.is_active = False
-        user.save(using=self._db)
-
-        # populate cache
-        user.forumuser = forum_user
-        # Send e-mail
-        mail = UserCreatedFromForumEmail(**{"user": user})
-        mail.send()
-        return user
 
     def user_exists(self, username):
         qs = self.get_queryset().filter(username__iexact=username)
@@ -94,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_("first name"), max_length=30, blank=True)
     last_name = models.CharField(_("last name"), max_length=30, blank=True)
     email = models.EmailField(_("email address"))
+    phone = models.CharField(_("phone number"), max_length=15, blank=True)
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,

@@ -1,12 +1,19 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { observer } from "mobx-react";
 import classNames from "classnames";
 import { FormattedMessage } from "react-intl";
 
-import { DEFAULT_IMAGE } from "../../../constants";
+import ProductImage from "./ProductImage";
 
 @observer
 export default class TopbarCart extends Component {
+    static propTypes = {
+        store: PropTypes.object.isRequired,
+        checkoutPath: PropTypes.string.isRequired,
+        cartDetailPath: PropTypes.string.isRequired,
+    };
+
     constructor(props) {
         super(props);
 
@@ -22,7 +29,7 @@ export default class TopbarCart extends Component {
     };
 
     render() {
-        const { store: cart } = this.props;
+        const { store: cart, checkoutPath, cartDetailPath } = this.props;
         const { expanded } = this.state;
         const containerClasses = classNames("cart__container", {
             "cart__container--expanded": expanded,
@@ -55,7 +62,7 @@ export default class TopbarCart extends Component {
                     <div className="cart__menu">
                         <div className="cart__actions">
                             <a
-                                href={`/winkel/cart/${cart.id}`}
+                                href={cartDetailPath}
                                 className="button button--blue"
                             >
                                 <FormattedMessage
@@ -63,24 +70,24 @@ export default class TopbarCart extends Component {
                                     defaultMessage="View cart"
                                 />
                             </a>
-                            <button className="button button--blue">
+                            <a
+                                href={checkoutPath}
+                                className="button button--blue"
+                            >
                                 <FormattedMessage
                                     id="shop.cart.topbar.checkout"
                                     defaultMessage="Checkout"
                                 />
-                            </button>
+                            </a>
                         </div>
                         <ul className="cart__products">
                             {cart.products.map((cp, i) => (
-                                <li className="cart-product" key={i}>
+                                <li
+                                    key={cp.id}
+                                    className="cart-product cart-product--small"
+                                >
                                     <div className="cart-product__image">
-                                        <img
-                                            src={
-                                                cp.product.image ||
-                                                DEFAULT_IMAGE
-                                            }
-                                            alt={cp.product.name}
-                                        />
+                                        <ProductImage product={cp.product} />
                                     </div>
                                     <p className="cart-product__name">
                                         {cp.product.name}

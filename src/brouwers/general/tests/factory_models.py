@@ -1,6 +1,9 @@
 import factory
+import factory.fuzzy
 
-from ..models import QuestionAnswer, RegistrationQuestion
+from brouwers.users.tests.factories import UserFactory
+
+from ..models import QuestionAnswer, RegistrationQuestion, UserProfile
 
 
 class QuestionAnswerFactory(factory.django.DjangoModelFactory):
@@ -25,3 +28,15 @@ class RegistrationQuestionFactory(factory.django.DjangoModelFactory):
                 self.answers.add(answer)
         else:
             self.answers.add(QuestionAnswerFactory(**kwargs))
+
+
+class UserProfileFactory(factory.django.DjangoModelFactory):
+    user = factory.SubFactory(UserFactory)
+    street = factory.Faker("name")
+    number = factory.Faker("name", length=10)
+    postal = factory.Faker("postcode")
+    city = factory.Faker("city")
+    country = "N"
+
+    class Meta:
+        model = UserProfile

@@ -42,7 +42,6 @@
     font-size: 24px;
   }
 
-
   &__actions {
     display: flex;
     justify-content: space-between;
@@ -55,7 +54,7 @@
   }
 
   &__container {
-    transition: all .1s linear;
+    transition: all 0.1s linear;
 
     &--expanded {
       .cart {
@@ -63,7 +62,8 @@
           opacity: 1;
           visibility: visible;
           animation-delay: 5s;
-          transition: all .3s linear;
+          transition: all 0.3s linear;
+          z-index: 9;
         }
 
         &__box {
@@ -78,7 +78,8 @@
     opacity: 0;
     visibility: hidden;
     border: $border-light;
-    box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5), 0 2px 8px 0 rgba(0, 157, 255, 0.05);
+    box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+      0 2px 8px 0 rgba(0, 157, 255, 0.05);
     overflow: hidden;
     position: absolute;
     right: 0;
@@ -94,7 +95,6 @@
 }
 
 .controls {
-
   &__row {
     display: flex;
     justify-content: space-between;
@@ -109,62 +109,10 @@
   }
 }
 
-.cart-product {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 10px;
-  text-align: center;
-
-  &:not(last-child) {
-    border-bottom: $border-light;
-  }
-
-  &__image {
-    width: 15%;
-
-    img {
-      width: 40px;
-      height: 40px;
+@include lte-mobile {
+  .cart {
+    &#{&}--full {
+      padding: 0;
     }
-  }
-
-  &__name {
-    font-size: 12px;
-    width: 45%;
-    padding: 0 5px;
-  }
-
-  &__amount {
-    width: 10%;
-  }
-
-  &__price {
-    width: 25%;
-  }
-
-  &__remove {
-    cursor: pointer;
-    width: 5%;
-  }
-}
-
-.cart-totals {
-  float: right;
-  padding: 20px;
-  width: 250px;
-
-  &__row {
-    display: flex;
-    justify-content: space-between;
-    line-height: 2;
-  }
-
-  &__text {
-    margin-right: 10px;
-  }
-
-  &__value {
-    font-weight: bold;
   }
 }

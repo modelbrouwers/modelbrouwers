@@ -24,7 +24,7 @@ defusedxml==0.7.1
     # via odfpy
 diff-match-patch==20200713
     # via django-import-export
-django==3.2.13
+django==3.2.14
     # via
     #   -r requirements/base.in
     #   django-choices
@@ -109,7 +109,7 @@ openpyxl==3.0.9
     # via
     #   -r requirements/base.in
     #   tablib
-pillow==9.1.0
+pillow==9.1.1
     # via
     #   -r requirements/base.in
     #   django-precise-bbcode

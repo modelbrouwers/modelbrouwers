@@ -48,4 +48,5 @@ urlpatterns = [
     path("forum_tools/", include("brouwers.forum_tools.api.urls")),
     path("groupbuilds/", include("brouwers.groupbuilds.api.urls")),
     path("shop/", include("brouwers.shop.api.urls")),
+    path("users/", include("brouwers.users.api.urls")),
 ] + router.urls

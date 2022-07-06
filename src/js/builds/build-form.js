@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
 
 import Formset from "../ponyjs/forms/formsets.js";
@@ -23,6 +23,9 @@ let formsetContainer;
 let photoFormMapping = {};
 let selectedAlbumId = null;
 let selectedPhotoIds = []; // TODO: populate this for edit forms
+
+let albumPickerRoot = null;
+let photoPickerRoot = null;
 
 const addUrlForm = (event) => {
     event.preventDefault();
@@ -69,10 +72,8 @@ const onPhotoSelected = (photo) => {
     photoFormset.setData(index, { photo: photo.id });
     const url = photo.image.large;
     const previewNode = formNode.querySelector(".preview");
-    ReactDOM.render(
-        <Image src={photo.image.large} alt={photo.description} />,
-        previewNode.querySelector(".thumbnail")
-    );
+    const root = previewNode.querySelector(".thumbnail");
+    root.render(<Image src={photo.image.large} alt={photo.description} />);
     previewNode.classList.remove("hidden");
     // TODO: de-jQuery-ify
     const popoverNode = formNode.querySelector('[data-toggle="popover"]');
@@ -87,27 +88,29 @@ const onPhotoDeselected = (photo) => {
     formNode.parentNode.removeChild(formNode);
 };
 
-const renderAlbumPicker = (node, intlProviderProps) => {
+const renderAlbumPicker = (root, intlProviderProps) => {
     const onAlbumSelected = (albumId) => {
         selectedAlbumId = parseInt(albumId, 10);
-        renderAlbumPicker(node, intlProviderProps);
+        renderAlbumPicker(root, intlProviderProps);
         renderPhotoPicker(null, intlProviderProps);
     };
 
-    ReactDOM.render(
+    root.render(
         <IntlProvider {...intlProviderProps}>
             <AlbumPicker
                 onSelect={onAlbumSelected}
                 selectedAlbumId={selectedAlbumId}
             />
-        </IntlProvider>,
-        node
+        </IntlProvider>
     );
 };
 
-const renderPhotoPicker = (node = null, intlProviderProps) => {
-    if (node == null) {
-        node = document.querySelector(".react-photo-picker");
+const renderPhotoPicker = (root = photoPickerRoot, intlProviderProps) => {
+    if (root == null) {
+        photoPickerRoot = createRoot(
+            document.querySelector(".react-photo-picker")
+        );
+        root = photoPickerRoot;
     }
 
     const onPhotoToggle = (photo, checked) => {
@@ -119,18 +122,17 @@ const renderPhotoPicker = (node = null, intlProviderProps) => {
             selectedPhotoIds.splice(index, 1);
             onPhotoDeselected(photo);
         }
-        renderPhotoPicker(node, intlProviderProps);
+        renderPhotoPicker(root, intlProviderProps);
     };
 
-    ReactDOM.render(
+    root.render(
         <IntlProvider {...intlProviderProps}>
             <PhotoPicker
                 albumId={selectedAlbumId}
                 selectedPhotoIds={selectedPhotoIds}
                 onToggle={onPhotoToggle}
             />
-        </IntlProvider>,
-        node
+        </IntlProvider>
     );
 };
 
@@ -139,10 +141,9 @@ const onURLFieldChanged = ({ target }) => {
     if (target.type !== "url") return;
     const formNode = target.closest(".formset-form");
     const previewNode = formNode.querySelector(".preview");
-    ReactDOM.render(
-        <Image src={target.value} alt={`URL: ${target.value}`} />,
-        previewNode.querySelector(".thumbnail")
-    );
+
+    const root = previewNode.querySelector(".thumbnail");
+    root.render(<Image src={target.value} alt={`URL: ${target.value}`} />);
     previewNode.classList.remove("hidden");
 };
 
@@ -186,7 +187,8 @@ const initBuildForm = async () => {
     // rendering album picker with React
     const intlProviderProps = await getIntlProviderProps();
     const albumPicker = document.querySelector(".react-album-picker");
-    renderAlbumPicker(albumPicker, intlProviderProps);
+    albumPickerRoot = createRoot(albumPicker);
+    renderAlbumPicker(albumPickerRoot, intlProviderProps);
 };
 
 export default initBuildForm;

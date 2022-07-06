@@ -1,23 +1,44 @@
-{% load i18n %}
-<ul class="category-sidenav">
-    <li class="category-sidenav__header">
-        {% trans "Categories" %}
-    </li>
-    {% with root_id=category.get_root.id %}
-        {% for cat in categories %}
-            <li class="category-sidenav__item">
-                <a class="category-sidenav__link {% if cat.id == category.id %}category-sidenav__link--active{% endif %}"
-                   href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
-                {% if cat.id == category.id and not cat.is_leaf or cat.id == root_id %}
-                    <ul class="category-sidenav__subcategories">
-                        {% for subcat in cat.get_children %}
-                            <li class="category-sidenav__subcategory {% if subcat.id == category.id %}category-sidenav__subcategory--active{% endif %}">
-                                <a href="{{ subcat.get_absolute_url }}">{{ subcat.name }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </li>
+{% load i18n shop %}
+{% category_tree as categories %}
+
+{# TODO: accessibility controls for mobile-nav #}
+
+<div class="mobile-nav mobile-nav--sticky-bottom mobile-nav--collapsed">
+
+    <div class="mobile-nav__toggle-trigger" tabindex="0">
+        <h2 class="h3 heading heading--plain">{% trans "Categories" %}</h2>
+
+        <div class="mobile-nav__trigger-icons">
+            <i class="fa fa-chevron-right mobile-nav__icon mobile-nav__icon--collapsed"></i>
+            <i class="fa fa-chevron-down mobile-nav__icon mobile-nav__icon--expanded"></i>
+        </div>
+    </div>
+
+    <div class="mobile-nav__content">
+        {% with root=category.get_root %}
+        {% for item, info in categories %}
+            {% is_descendant_of item root as show_children %}
+
+            {% if info.open %}
+                <ul class="{% if item.depth == 1 %}tree-nav tree-nav--sticky{% else %}tree-nav__child{% endif %}">
+                    <li class="tree-nav__item {% if show_children %}tree-nav__item--show{% endif %}">
+            {% else %}
+                    </li>
+                    <li class="tree-nav__item {% if show_children or item == root %}tree-nav__item--show{% endif %}">
+            {% endif %}
+
+            <a class="tree-nav__link {% if item.id == category.id %}tree-nav__link--active{% endif %}"
+               href="{{ item.get_absolute_url }}"
+               data-depth="{{ item.depth }}"
+            >
+                {{ item.name }}
+            </a>
+
+            {% for close in info.close %}
+                    </li>
+                </ul>
+            {% endfor %}
         {% endfor %}
-    {% endwith %}
-</ul>
+        {% endwith %}
+    </div>
+</div>

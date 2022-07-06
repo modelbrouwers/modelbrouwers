@@ -1,5 +1,6 @@
 import tempfile
 from datetime import timedelta
+from io import StringIO
 from unittest.mock import patch
 
 from django.conf import settings
@@ -109,7 +110,7 @@ class ClearDataDownloadsTests(TestCase):
 
         self.addCleanup(cleanup)
 
-        call_command("clear_data_downloads")
+        call_command("clear_data_downloads", stdout=StringIO())
 
         dr1.refresh_from_db()
         self.assertIsNone(dr1.finished)

@@ -1,5 +1,7 @@
 from collections import OrderedDict
 
+from django.utils.translation import gettext_lazy as _
+
 from rest_framework import serializers
 
 from brouwers.users.api.serializers import UserSerializer
@@ -19,9 +21,16 @@ class ProductSerializer(serializers.ModelSerializer):
             "vat",
             "categories",
             "model_name",
+            "absoluteUrl",
         )
+        extra_kwargs = {
+            "absoluteUrl": {
+                "source": "get_absolute_url",
+            }
+        }
 
 
+# TODO: profile & optimize - a query for every product in the cart might get expensive
 class ProductField(serializers.PrimaryKeyRelatedField):
     def to_representation(self, value):
         pk = super().to_representation(value)
@@ -58,9 +67,8 @@ class WriteCartProductSerializer(serializers.ModelSerializer):
     def validate_cart(self, value):
         cart = value
         request = self.context["request"]
-        qs = Cart.objects.for_request(request)
-
-        if not qs.filter(id=cart.id).exists():
+        carts = Cart.objects.for_request(request)
+        if not carts.filter(id=cart.id).exists():
             raise serializers.ValidationError({"cart": "invalid cart"})
         return value
 
@@ -95,3 +103,8 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentMethod
         fields = ("id", "name", "logo", "order")
+
+
+class iDealBankSerializer(serializers.Serializer):
+    id = serializers.CharField(label=_("id"))
+    name = serializers.CharField(label=_("name"))

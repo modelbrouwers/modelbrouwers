@@ -1,8 +1,56 @@
 {
+  "+kXYqX": [
+    {
+      "type": 0,
+      "value": "Country"
+    }
+  ],
+  "/Eg5rz": [
+    {
+      "type": 0,
+      "value": "Billing address"
+    }
+  ],
   "/N7xse": [
     {
       "type": 0,
       "value": "Klaar?"
+    }
+  ],
+  "0IKVYp": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "3UvxIB": [
+    {
+      "type": 0,
+      "value": "Street"
+    }
+  ],
+  "3c81Yt": [
+    {
+      "type": 0,
+      "value": "Number"
+    }
+  ],
+  "4+G0m8": [
+    {
+      "type": 0,
+      "value": "KVK"
+    }
+  ],
+  "4sjMB/": [
+    {
+      "type": 0,
+      "value": "KVK"
+    }
+  ],
+  "6qobm2": [
+    {
+      "type": 0,
+      "value": "City"
     }
   ],
   "7wbY42": [
@@ -17,16 +65,76 @@
       "value": "Regels"
     }
   ],
+  "9xJNKa": [
+    {
+      "type": 0,
+      "value": "Continue"
+    }
+  ],
   "B4vH06": [
     {
       "type": 0,
       "value": "Omschrijving"
     }
   ],
+  "BFOrds": [
+    {
+      "type": 0,
+      "value": "Email address"
+    }
+  ],
   "BxbHDf": [
     {
       "type": 0,
       "value": "Brouwer"
+    }
+  ],
+  "CCvXMf": [
+    {
+      "type": 0,
+      "value": "Address"
+    }
+  ],
+  "D5xbSP": [
+    {
+      "type": 0,
+      "value": "Checkout"
+    }
+  ],
+  "DXeHjf": [
+    {
+      "type": 0,
+      "value": "Required fields"
+    }
+  ],
+  "EG8GlO": [
+    {
+      "type": 0,
+      "value": "Number"
+    }
+  ],
+  "FYuL74": [
+    {
+      "type": 0,
+      "value": "My billing and delivery address are the same."
+    }
+  ],
+  "GhZs+k": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "GuiGSo": [
+    {
+      "type": 0,
+      "value": "Company"
+    }
+  ],
+  "GxgjcH": [
+    {
+      "type": 0,
+      "value": "Phone number"
     }
   ],
   "IlIaZ2": [
@@ -51,6 +159,60 @@
     {
       "type": 0,
       "value": "Model"
+    }
+  ],
+  "O3sAqY": [
+    {
+      "type": 0,
+      "value": "Personal details"
+    }
+  ],
+  "Ovk5iw": [
+    {
+      "type": 0,
+      "value": "ZIP code"
+    }
+  ],
+  "PKVzgg": [
+    {
+      "type": 0,
+      "value": "First name"
+    }
+  ],
+  "PmaF7F": [
+    {
+      "type": 0,
+      "value": "Country"
+    }
+  ],
+  "Qiw2De": [
+    {
+      "type": 0,
+      "value": "Select your payment method"
+    }
+  ],
+  "W4CwLT": [
+    {
+      "type": 0,
+      "value": "Street"
+    }
+  ],
+  "bsyaaX": [
+    {
+      "type": 0,
+      "value": "Sign up"
+    }
+  ],
+  "dbSo0d": [
+    {
+      "type": 0,
+      "value": "Continue without signup"
+    }
+  ],
+  "fJMjTz": [
+    {
+      "type": 0,
+      "value": "Sign in"
     }
   ],
   "forum.albums.photosNav.next": [
@@ -97,6 +259,18 @@
       "value": "Albums"
     }
   ],
+  "ilLhfJ": [
+    {
+      "type": 0,
+      "value": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
+    }
+  ],
+  "iziEr8": [
+    {
+      "type": 0,
+      "value": "Reload page"
+    }
+  ],
   "jHygYM": [
     {
       "type": 0,
@@ -107,6 +281,54 @@
     {
       "type": 0,
       "value": "zoek op naam"
+    }
+  ],
+  "m0WW7s": [
+    {
+      "type": 0,
+      "value": "Continue shopping"
+    }
+  ],
+  "mMHo4X": [
+    {
+      "type": 0,
+      "value": "Oops, something went wrong. Please try again later."
+    }
+  ],
+  "mzZEkB": [
+    {
+      "type": 0,
+      "value": "ZIP code"
+    }
+  ],
+  "nul77H": [
+    {
+      "type": 0,
+      "value": "Delivery address"
+    }
+  ],
+  "oNlKJN": [
+    {
+      "type": 0,
+      "value": "Company"
+    }
+  ],
+  "ocBRLh": [
+    {
+      "type": 0,
+      "value": "Last name"
+    }
+  ],
+  "osdebM": [
+    {
+      "type": 0,
+      "value": "Checkout"
+    }
+  ],
+  "sg6151": [
+    {
+      "type": 0,
+      "value": "Account"
     }
   ],
   "shop.cart.detail.cart.subtotal": [
@@ -228,10 +450,28 @@
       "value": "Topic met regels"
     }
   ],
+  "v2t0Vo": [
+    {
+      "type": 0,
+      "value": "or"
+    }
+  ],
+  "vRPK2q": [
+    {
+      "type": 0,
+      "value": "Payment"
+    }
+  ],
   "y/pElv": [
     {
       "type": 0,
       "value": "Topic"
+    }
+  ],
+  "yy0Fua": [
+    {
+      "type": 0,
+      "value": "Select country"
     }
   ]
 }

@@ -1,0 +1,50 @@
+:root {
+  --nav-border-color: #dbdee1;
+  --nav-active-bg: #{$main-blue};
+  --nav-active-fg: #ffffff;
+  --nav-focus-bg: var(--nav-active-bg);
+  --nav-focus-fg: var(--nav-active-fg);
+}
+
+.navigation {
+  padding: 0;
+  margin: 0;
+  border: solid 1px var(--nav-border-color);
+  list-style: none;
+
+  &__item {
+    list-style: none;
+
+    &:not(:last-child) {
+      border-bottom: solid 1px var(--nav-border-color);
+    }
+  }
+
+  &__link {
+    display: block;
+    padding: 0.5em 1em;
+
+    &--enabled {
+      cursor: pointer;
+    }
+
+    &,
+    &:hover {
+      color: $main-blue;
+    }
+
+    &#{&}--active {
+      background-color: var(--nav-active-bg);
+
+      &,
+      &:hover {
+        color: var(--nav-active-fg);
+      }
+    }
+
+    &:focus {
+      background-color: var(--nav-focus-bg);
+      color: var(--nav-focus-fg);
+    }
+  }
+}

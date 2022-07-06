@@ -52,13 +52,7 @@ class ProductAdmin(ImportExportModelAdmin):
         "tag_list",
     )
     list_filter = (
-        "seo_keyword",
         "brand",
-        "price",
-        "length",
-        "width",
-        "height",
-        "weight",
         "categories",
         "manufacturer",
     )
