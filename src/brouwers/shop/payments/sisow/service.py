@@ -64,7 +64,7 @@ def start_payment(payment: Payment, request=None, next_page="") -> str:
 
     post_data = {
         "merchantid": config.sisow_merchant_id,
-        "payment": Payments.ideal,
+        "payment": payment.payment_method.method,
         "purchaseid": purchaseid,
         "amount": payment.amount,
         "description": f"MB order {payment.reference}",  # TODO: parametrize?
@@ -83,6 +83,7 @@ def start_payment(payment: Payment, request=None, next_page="") -> str:
     url = transaction.find("{{{ns}}}issuerurl".format(ns=NS)).text
     trx_id = transaction.find("{{{ns}}}trxid".format(ns=NS)).text
     signature_sha1 = root.find("{{{ns}}}signature/{{{ns}}}sha1".format(ns=NS)).text
+    # this pattern is the general case - applies for ideal, mrcash and sofort
     expected_sha1 = calculate_sha1(
         trx_id, url, config.sisow_merchant_id, config.sisow_merchant_key
     )
