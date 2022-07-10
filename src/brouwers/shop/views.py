@@ -17,7 +17,7 @@ from .models import (
     Payment,
     Product,
 )
-from .payments.sisow.service import start_ideal_payment
+from .payments.sisow.service import start_payment
 
 
 class IndexView(ListView):
@@ -121,8 +121,6 @@ class ConfirmOrderView(FormView):
         payment_method = form.cleaned_data["payment_method"]
         bank = form.cleaned_data.get("bank")
 
-        assert bank is not None, "Currently only ideal payments are supported"
-
         # create a payment instance for the order
         cart.save_snapshot()
         # convert euros to eurocents
@@ -131,20 +129,17 @@ class ConfirmOrderView(FormView):
             payment_method=payment_method,
             amount=total_amount,
             cart=cart,
-            data={"bank": int(bank.id)},  # TODO: handle non-ideal!
+            data={"bank": int(bank.id)} if bank else {},  # TODO: handle non-ideal!
         )
 
         # remove cart from session
         if self.request.session.get("cart_id") == cart.id:
             del self.request.session["cart_id"]
 
-        # special case -> get the ideal payment start URL
-        if payment_method.method == Payments.ideal:
-            issuer_url = start_ideal_payment(
-                payment, request=self.request, next_page=self.get_success_url()
-            )
-            return HttpResponseRedirect(issuer_url)
-        return super().form_valid(form)
+        issuer_url = start_payment(
+            payment, request=self.request, next_page=self.get_success_url()
+        )
+        return HttpResponseRedirect(issuer_url)
 
     def get_success_url(self) -> str:
         """

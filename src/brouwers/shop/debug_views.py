@@ -1,12 +1,13 @@
 from django import forms
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 
 from .models import Payment, PaymentMethod
 from .payments.sisow.constants import Payments
 from .payments.sisow.forms import coerce_bank
-from .payments.sisow.service import get_ideal_bank_choices, start_ideal_payment
+from .payments.sisow.service import get_ideal_bank_choices, start_payment
 
 
 class PaymentForm(forms.Form):
@@ -39,8 +40,11 @@ class PaymentView(FormView):
 
         if payment_method.method == Payments.ideal:
             return redirect("shop:ideal-bank")
-        else:
-            raise NotImplementedError
+
+        issuer_url = start_payment(
+            payment, request=self.request, next_page=reverse("shop:pay")
+        )
+        return redirect(issuer_url)
 
 
 class IdealPaymentView(FormView):
@@ -51,5 +55,5 @@ class IdealPaymentView(FormView):
         payment = get_object_or_404(Payment, pk=self.request.session.get("payment"))
         payment.data["bank"] = int(form.cleaned_data["bank"].id)
         payment.save()
-        issuer_url = start_ideal_payment(payment, request=self.request)
+        issuer_url = start_payment(payment, request=self.request)
         return redirect(issuer_url)

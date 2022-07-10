@@ -6,7 +6,7 @@ from urllib.parse import unquote, urlencode
 from django.urls import reverse
 
 from ...models import Payment, ShopConfiguration
-from .api import NS, calculate_ideal_sha1, calculate_sha1, xml_request
+from .api import NS, calculate_sha1, calculate_sisow_sha1, xml_request
 from .constants import Payments
 from .exceptions import InvalidIssuerURL
 
@@ -36,16 +36,19 @@ def get_ideal_bank_choices() -> Iterator[Tuple[str, str]]:
         yield (bank.id, bank.name)
 
 
-def start_ideal_payment(payment: Payment, request=None, next_page="") -> str:
-    bank_id = payment.data.get("bank")
-    if not isinstance(bank_id, int):
-        raise ValueError("Missing selected bank ID in payment data")
+def start_payment(payment: Payment, request=None, next_page="") -> str:
+    # ideal accepts an optional issuer ID for bank pre-selection
+    extra_params = {}
+    if payment.payment_method.method == Payments.ideal:
+        bank_id = payment.data.get("bank")
+        if isinstance(bank_id, int):
+            extra_params["issuerid"] = (bank_id,)
 
     config = ShopConfiguration.get_solo()
 
     purchaseid = payment.reference
 
-    sha1 = calculate_ideal_sha1(
+    sha1 = calculate_sisow_sha1(
         purchaseid,
         config.sisow_merchant_id,
         config.sisow_merchant_key,
@@ -67,8 +70,9 @@ def start_ideal_payment(payment: Payment, request=None, next_page="") -> str:
         "description": f"MB order {payment.reference}",  # TODO: parametrize?
         "returnurl": callback_url,
         "sha1": sha1,
-        "issuerid": bank_id,
         "currency": "EUR",
+        "locale": "nl",  # TODO -> derive from request?
+        **extra_params,
     }
 
     root = xml_request("TransactionRequest", method="post", data=post_data)
@@ -86,6 +90,7 @@ def start_ideal_payment(payment: Payment, request=None, next_page="") -> str:
         raise InvalidIssuerURL("Mismatch in issuer URL sha1")
 
     # store metadata in payment object
+    # TODO: ensure this is always stored whether the django transaction fails or succeeds
     payment.data["sisow_transaction_request"] = {
         "issuerurl": url,
         "trxid": trx_id,
