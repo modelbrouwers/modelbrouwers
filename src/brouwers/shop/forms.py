@@ -1,13 +1,15 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.db.models import Prefetch
 from django.utils.translation import gettext_lazy as _
 
+from brouwers.shop.constants import OrderStatuses
 from brouwers.shop.models import MAX_RATING, MIN_RATING, ProductReview
 from brouwers.utils.widgets import StarRatingSelect
 
 from .api.viewsets import PaymentMethodViewSet
-from .models import Address, Cart, CartProduct
+from .models import Address, Cart, CartProduct, Order, Payment
 from .payments.sisow.constants import Payments
 from .payments.sisow.service import get_ideal_banks
 
@@ -47,6 +49,11 @@ class ConfirmOrderForm(forms.Form):
         required=True,
     )
     payment_method_options = forms.JSONField()
+
+    first_name = forms.CharField(label=_("first name"), max_length=255)
+    last_name = forms.CharField(label=_("last name"), max_length=255, required=False)
+    email = forms.EmailField(label=_("email"))
+    phone = forms.CharField(label=_("phone number"), max_length=100, required=False)
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop("request")
@@ -112,3 +119,25 @@ class ConfirmOrderForm(forms.Form):
             self.delivery_form.prefix: self.delivery_form.errors.get_json_data(),
             self.invoice_form.prefix: self.invoice_form.errors.get_json_data(),
         }
+
+    @transaction.atomic
+    def save_order(self, *, payment: Payment):
+        """
+        Persist the data in an Order instance.
+        """
+        delivery_address = self.delivery_form.save()
+        invoice_address = (
+            self.invoice_form.save() if self.invoice_form.has_changed() else None
+        )
+        order = Order.objects.create(
+            cart=self.cleaned_data["cart"],
+            payment=payment,
+            status=OrderStatuses.received,
+            first_name=self.clenaed_data["first_name"],
+            last_name=self.clenaed_data["last_name"],
+            email=self.clenaed_data["email"],
+            phone=self.clenaed_data["phone"],
+            delivery_address=delivery_address,
+            invoice_address=invoice_address,
+        )
+        return order

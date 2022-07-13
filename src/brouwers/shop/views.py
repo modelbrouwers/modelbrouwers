@@ -132,6 +132,9 @@ class ConfirmOrderView(FormView):
             data={"bank": int(bank.id)} if bank else {},  # TODO: handle non-ideal!
         )
 
+        # store order
+        order = form.save_order(payment=payment)
+
         # remove cart from session
         if self.request.session.get("cart_id") == cart.id:
             del self.request.session["cart_id"]
