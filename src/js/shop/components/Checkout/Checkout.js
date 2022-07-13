@@ -1,3 +1,5 @@
+import get from "lodash/get";
+import unset from "lodash/unset";
 import set from "lodash.set";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
@@ -116,6 +118,20 @@ const Checkout = ({
         });
         dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
     };
+
+    // re-arrange validation errors to match component structure
+    const ERROR_MAP = {
+        "payment.firstName": "address.firstName",
+        "payment.lastName": "address.lastName",
+        "payment.email": "address.email",
+        "payment.phone": "address.phone",
+    };
+    for (const [from, to] of Object.entries(ERROR_MAP)) {
+        const errors = get(validationErrors, from);
+        if (!errors) continue;
+        set(validationErrors, to, errors);
+        unset(validationErrors, from);
+    }
 
     return (
         <div className="nav-wrapper">
