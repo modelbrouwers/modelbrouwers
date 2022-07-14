@@ -76,7 +76,7 @@ class CartDetailView(DetailView):
         return qs.for_request(self.request)
 
 
-class CheckoutView(TemplateView):
+class CheckoutMixin:
     template_name = "shop/checkout.html"
 
     def get_context_data(self, **kwargs):
@@ -91,7 +91,11 @@ class CheckoutView(TemplateView):
         return context
 
 
-class ConfirmOrderView(FormView):
+class CheckoutView(CheckoutMixin, TemplateView):
+    pass
+
+
+class ConfirmOrderView(CheckoutMixin, FormView):
     """
     Submit an order and redirect to the selected payment provider.
 
@@ -100,7 +104,6 @@ class ConfirmOrderView(FormView):
     """
 
     form_class = ConfirmOrderForm
-    template_name = "shop/checkout.html"
 
     def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()

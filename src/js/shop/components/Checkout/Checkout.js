@@ -15,6 +15,7 @@ import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
+import FAIcon from "../../../components/FAIcon";
 import { Account, Address, Payment } from ".";
 import { EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
@@ -26,12 +27,34 @@ const getActiveNavClassNames = ({ isActive, enabled = false }) =>
         "navigation__link--enabled": enabled,
     });
 
-const NavLink = ({ enabled = false, className, ...props }) => {
+const NavLink = ({
+    enabled = false,
+    className,
+    hasErrors = false,
+    children,
+    ...props
+}) => {
     const Container = enabled ? RRNavLink : "span";
     const wrappedClassname = enabled
         ? ({ isActive }) => className({ isActive, enabled })
         : className({ isActive: false, enabled });
-    return <Container {...props} className={wrappedClassname} />;
+
+    if (hasErrors) {
+        children = (
+            <span className="nav-link-wrapper">
+                <span className="nav-link-wrapper__text">{children}</span>
+                <span className="nav-link-wrapper__icon">
+                    <FAIcon icon="lock" />
+                </span>
+            </span>
+        );
+    }
+
+    return (
+        <Container {...props} className={wrappedClassname}>
+            {children}
+        </Container>
+    );
 };
 
 const initialState = {
@@ -65,6 +88,13 @@ const reducer = (draft, action) => {
             throw new Error(`Unknown action type: ${action.type}`);
         }
     }
+};
+
+const checkHasValidationErrors = (validationErrors, key) => {
+    if (!validationErrors) return false;
+    if (!validationErrors[key]) return false;
+    const errors = Object.values(validationErrors[key]);
+    return errors.some((errorList) => errorList && errorList.length > 0);
 };
 
 /**
@@ -133,6 +163,21 @@ const Checkout = ({
         unset(validationErrors, from);
     }
 
+    const hasAddressValidationErrors = checkHasValidationErrors(
+        validationErrors,
+        "address"
+    );
+    const hasPaymentValidationErrors = checkHasValidationErrors(
+        validationErrors,
+        "payment"
+    );
+    let firstRouteWithErrors = "/";
+    if (hasAddressValidationErrors) {
+        firstRouteWithErrors = "/address";
+    } else if (hasPaymentValidationErrors) {
+        firstRouteWithErrors = "/payment";
+    }
+
     return (
         <div className="nav-wrapper">
             <h2 className="nav-wrapper__title">
@@ -191,6 +236,12 @@ const Checkout = ({
                                 />
                             }
                         />
+                        {/* This is a backend URL - if there are validation errors, it renders
+                            the response at this URL. */}
+                        <Route
+                            path="confirm"
+                            element={<Navigate to={firstRouteWithErrors} />}
+                        />
                     </Routes>
                 </CheckoutContext.Provider>
             </div>
@@ -214,6 +265,7 @@ const Checkout = ({
                             to="address"
                             className={getActiveNavClassNames}
                             enabled
+                            hasErrors={hasAddressValidationErrors}
                         >
                             <FormattedMessage
                                 description="Tab: address"
@@ -226,6 +278,7 @@ const Checkout = ({
                             to="payment"
                             className={getActiveNavClassNames}
                             enabled={state.addressStepValid}
+                            hasErrors={hasPaymentValidationErrors}
                         >
                             <FormattedMessage
                                 description="Tab: payment"
@@ -265,7 +318,7 @@ Checkout.propTypes = {
             number: PropTypes.string.isRequired,
             postal: PropTypes.string.isRequired,
             city: PropTypes.string.isRequired,
-            country: PropTypes.oneOf(["N", "B", "F", "G"]),
+            country: PropTypes.oneOf(["", "N", "B", "F", "G"]),
         }),
     }),
     validationErrors: PropTypes.object,
