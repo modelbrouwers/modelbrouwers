@@ -44,7 +44,7 @@ const NavLink = ({
             <span className="nav-link-wrapper">
                 <span className="nav-link-wrapper__text">{children}</span>
                 <span className="nav-link-wrapper__icon">
-                    <FAIcon icon="lock" />
+                    <FAIcon icon="exclamation-circle" />
                 </span>
             </span>
         );
