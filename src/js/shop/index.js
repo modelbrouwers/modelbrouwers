@@ -11,6 +11,13 @@ import { camelize } from "./components/Checkout/utils";
 import { CartStore } from "./store";
 import { getIntlProviderProps } from "../i18n";
 
+const getDataFromScript = (scriptId) => {
+    const node = document.getElementById(scriptId);
+    if (!node) return null;
+    const data = JSON.parse(node.innerText);
+    return data ? camelize(data) : null;
+};
+
 export default class Page {
     static init() {
         getIntlProviderProps()
@@ -115,13 +122,9 @@ export default class Page {
         const userProfileScript = document.getElementById("user_profile_data");
         const user = JSON.parse(userProfileScript.innerText);
 
-        // read backend validation errors
-        const validationErrorsScript = document.getElementById(
-            "checkout-validation-errors"
-        );
-        const validationErrors = validationErrorsScript
-            ? camelize(JSON.parse(validationErrorsScript.innerText))
-            : null;
+        // read backend data and validation errors
+        const checkoutData = getDataFromScript("checkout-data");
+        const validationErrors = getDataFromScript("checkout-errors");
 
         // mount and render the checkout component in the DOM
         root.render(
@@ -132,6 +135,7 @@ export default class Page {
                         confirmPath={confirmPath}
                         user={user}
                         cartStore={cartStore}
+                        checkoutData={checkoutData}
                         validationErrors={validationErrors}
                     />
                 </Router>

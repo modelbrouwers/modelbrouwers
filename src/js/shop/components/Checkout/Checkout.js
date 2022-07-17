@@ -90,11 +90,17 @@ const reducer = (draft, action) => {
     }
 };
 
-const checkHasValidationErrors = (validationErrors, key) => {
+const checkHasValidationErrors = (validationErrors, errorKey) => {
+    const keys = !Array.isArray(errorKey) ? [errorKey] : errorKey;
     if (!validationErrors) return false;
-    if (!validationErrors[key]) return false;
-    const errors = Object.values(validationErrors[key]);
-    return errors.some((errorList) => errorList && errorList.length > 0);
+    for (const key of keys) {
+        if (!validationErrors[key]) continue;
+        const errors = Object.values(validationErrors[key]);
+        if (errors.some((errorList) => errorList && errorList.length > 0)) {
+            return true;
+        }
+    }
+    return false;
 };
 
 /**
@@ -107,6 +113,7 @@ const Checkout = ({
     user,
     csrftoken,
     confirmPath,
+    checkoutData,
     validationErrors,
 }) => {
     const location = useLocation();
@@ -151,10 +158,10 @@ const Checkout = ({
 
     // re-arrange validation errors to match component structure
     const ERROR_MAP = {
-        "payment.firstName": "address.firstName",
-        "payment.lastName": "address.lastName",
-        "payment.email": "address.email",
-        "payment.phone": "address.phone",
+        firstName: "address.firstName",
+        lastName: "address.lastName",
+        email: "address.email",
+        phone: "address.phone",
     };
     for (const [from, to] of Object.entries(ERROR_MAP)) {
         const errors = get(validationErrors, from);
@@ -169,7 +176,7 @@ const Checkout = ({
     );
     const hasPaymentValidationErrors = checkHasValidationErrors(
         validationErrors,
-        "payment"
+        ["paymentMethod", "paymentMethodOptions"]
     );
     let firstRouteWithErrors = "/";
     if (hasAddressValidationErrors) {
@@ -321,6 +328,7 @@ Checkout.propTypes = {
             country: PropTypes.oneOf(["", "N", "B", "F", "G"]),
         }),
     }),
+    checkoutData: PropTypes.object,
     validationErrors: PropTypes.object,
 };
 

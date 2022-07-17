@@ -174,6 +174,15 @@ const Payment = ({ cartStore, csrftoken, confirmPath }) => {
 
     if (error) return <ErrorMessage />;
 
+    // TODO: camelize?
+    const checkoutData = {
+        cart: cartStore.id,
+        payment_method: selectedMethod,
+        payment_method_options: paymentMethodSpecificState,
+        delivery_address: {},
+        invoice_address: null,
+    };
+
     return (
         <>
             <h3 className="checkout__title">
@@ -222,18 +231,11 @@ const Payment = ({ cartStore, csrftoken, confirmPath }) => {
                     name="csrfmiddlewaretoken"
                     defaultValue={csrftoken}
                 />
-                <input type="hidden" name="cart" defaultValue={cartStore.id} />
                 <input
                     type="hidden"
-                    name="payment_method"
-                    defaultValue={selectedMethod}
+                    name="checkoutData"
+                    value={JSON.stringify(checkoutData)}
                 />
-                <input
-                    type="hidden"
-                    name="payment_method_options"
-                    defaultValue={JSON.stringify(paymentMethodSpecificState)}
-                />
-
                 <div className="submit-wrapper">
                     <button type="submit" className="btn bg-main-orange">
                         <FormattedMessage

@@ -1,14 +1,18 @@
+import json
+
 from django.db import transaction
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseBase, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import DetailView, FormView, ListView, TemplateView
+from django.views import View
+from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.base import ContextMixin, TemplateResponseMixin
 from django.views.generic.edit import ModelFormMixin
 
 from brouwers.shop.payments.sisow.constants import Payments
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
-from .forms import ConfirmOrderForm, ProductReviewForm
+from .forms import ProductReviewForm
 from .models import (
     Cart,
     Category,
@@ -18,6 +22,7 @@ from .models import (
     Product,
 )
 from .payments.sisow.service import start_payment
+from .serializers import ConfirmOrderSerializer
 
 
 class IndexView(ListView):
@@ -95,7 +100,7 @@ class CheckoutView(CheckoutMixin, TemplateView):
     pass
 
 
-class ConfirmOrderView(CheckoutMixin, FormView):
+class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View):
     """
     Submit an order and redirect to the selected payment provider.
 
@@ -103,26 +108,22 @@ class ConfirmOrderView(CheckoutMixin, FormView):
     is redirected to the payment provider.
     """
 
-    form_class = ConfirmOrderForm
-
-    def get_form_kwargs(self) -> dict:
-        kwargs = super().get_form_kwargs()
-        kwargs["request"] = self.request
-        return kwargs
-
-    # on form invalid, re-render checkout page
-    def get_context_data(self, **kwargs):
-        form = kwargs.get("form")
-        # there are validation errors
-        if form is not None and form.is_bound:
-            kwargs["validation_errors"] = form.get_validation_errors()
-        return super().get_context_data(**kwargs)
-
     @transaction.atomic()
-    def form_valid(self, form) -> HttpResponseRedirect:
-        cart = form.cleaned_data["cart"]
-        payment_method = form.cleaned_data["payment_method"]
-        bank = form.cleaned_data.get("bank")
+    def post(self, request, *args, **kwargs) -> HttpResponseBase:
+        raw_data = request.POST.get("checkoutData")
+        serializer = ConfirmOrderSerializer(
+            data=json.loads(raw_data) if raw_data else None,
+            context={"request": request},
+        )
+        # validation errors - render back to frontend
+        if not serializer.is_valid():
+            context = self.get_context_data(serializer=serializer)
+            return self.render_to_response(context)
+
+        # everything is valid, proceed to checkout
+        cart = serializer.validated_data["cart"]
+        payment_method = serializer.validated_data["payment_method"]
+        bank = serializer.validated_data.get("bank")
 
         # create a payment instance for the order
         cart.save_snapshot()
@@ -136,7 +137,7 @@ class ConfirmOrderView(CheckoutMixin, FormView):
         )
 
         # store order
-        order = form.save_order(payment=payment)
+        order = serializer.save_order(payment=payment)
 
         # remove cart from session
         if self.request.session.get("cart_id") == cart.id:
