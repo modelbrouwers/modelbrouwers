@@ -77,7 +77,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
             if not bank_id:
                 raise serializers.ValidationError(
                     {
-                        "payment_method_options": serializers.ValidationError(
+                        "payment_method_options": serializers.ErrorDetail(
                             _("Please select your iDeal bank."), code="required"
                         )
                     }
@@ -91,7 +91,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
             if bank is None:
                 raise serializers.ValidationError(
                     {
-                        "payment_method_options": serializers.ValidationError(
+                        "payment_method_options": serializers.ErrorDetail(
                             _("Please select a valid bank."), code="invalid"
                         ),
                     }

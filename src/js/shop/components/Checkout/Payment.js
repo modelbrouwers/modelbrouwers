@@ -9,8 +9,9 @@ import useAsync from "react-use/esm/useAsync";
 import { PaymentConsumer } from "../../../data/shop/payment";
 import Loader from "../../../components/loaders";
 import { ErrorMessage } from "../Info";
-import { FormField, FormGroup } from "./FormFields";
+import { FormField, FormGroup, ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
+import { AddressType, CustomerType } from "./Address";
 
 const paymentConsumer = new PaymentConsumer();
 
@@ -157,12 +158,31 @@ PaymentMethodSpecificOptions.propTypes = {
     }),
 };
 
+const addressToSerializerShape = (address) => {
+    if (!address) return null;
+    return {
+        street: address.street,
+        number: address.number,
+        postal_code: address.postalCode,
+        city: address.city,
+        country: address.country,
+        company: address.company,
+        chamber_of_commerce: address.chamberOfCommerce,
+    };
+};
+
 /**
  *
  * Payment method selection & flow
  *
  */
-const Payment = ({ cartStore, csrftoken, confirmPath }) => {
+const Payment = ({
+    cartStore,
+    csrftoken,
+    confirmPath,
+    errors,
+    checkoutDetails,
+}) => {
     const { loading, error, paymentMethods } = useFetchPaymentMethods();
     const [selectedMethod, setSelectedMethod] = useState(null);
     const [paymentMethodSpecificState, setPaymentMethodSpecificState] =
@@ -174,14 +194,23 @@ const Payment = ({ cartStore, csrftoken, confirmPath }) => {
 
     if (error) return <ErrorMessage />;
 
-    // TODO: camelize?
     const checkoutData = {
         cart: cartStore.id,
         payment_method: selectedMethod,
         payment_method_options: paymentMethodSpecificState,
-        delivery_address: {},
-        invoice_address: null,
+        first_name: checkoutDetails.customer.firstName,
+        last_name: checkoutDetails.customer.lastName,
+        email: checkoutDetails.customer.email,
+        phone: checkoutDetails.customer.phone,
+        delivery_address: addressToSerializerShape(
+            checkoutDetails.deliveryAddress
+        ),
+        invoice_address: addressToSerializerShape(
+            checkoutDetails.billingAddress
+        ),
     };
+
+    console.log(errors);
 
     return (
         <>
@@ -253,6 +282,12 @@ Payment.propTypes = {
     cartStore: PropTypes.object.isRequired,
     csrftoken: PropTypes.string.isRequired,
     confirmPath: PropTypes.string.isRequired,
+    errors: PropTypes.object,
+    checkoutDetails: PropTypes.shape({
+        customer: CustomerType.isRequired,
+        deliveryAddress: AddressType.isRequired,
+        billingAddress: AddressType,
+    }).isRequired,
 };
 
 export default Payment;

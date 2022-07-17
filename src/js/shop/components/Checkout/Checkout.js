@@ -58,7 +58,6 @@ const NavLink = ({
 };
 
 const initialState = {
-    checkoutMode: "withoutAccount",
     customer: {
         firstName: "",
         lastName: "",
@@ -72,6 +71,45 @@ const initialState = {
 
 const reducer = (draft, action) => {
     switch (action.type) {
+        case "STATE_FROM_PROPS": {
+            const { user, checkoutData } = action.payload;
+            const isAuthenticated = Object.keys(user).length > 1;
+
+            // first, process any pre-filled user details (for authenticated users)
+            const customer = camelize(user);
+            if (isAuthenticated) {
+                draft.customer = customer;
+                for (const [field, value] of Object.entries(customer.profile)) {
+                    draft.deliveryAddress[field] = value;
+                }
+                draft.deliveryAddress.postalCode = customer.profile.postal;
+                if (!draft.deliveryAddress.country) {
+                    draft.deliveryAddress.country = "N";
+                }
+            }
+
+            // next, process the filled out data
+            if (checkoutData && Object.keys(checkoutData).length) {
+                const {
+                    deliveryAddress,
+                    invoiceAddress: billingAddress,
+                    firstName,
+                    lastName,
+                    email,
+                    phone,
+                    paymentMethod,
+                    paymentMethodOptions,
+                } = camelize(checkoutData);
+
+                if (deliveryAddress) draft.deliveryAddress = deliveryAddress;
+                if (billingAddress) draft.billingAddress = billingAddress;
+                if (firstName) draft.customer.firstName = firstName;
+                if (lastName) draft.customer.lastName = lastName;
+                if (email) draft.customer.email = email;
+                if (phone) draft.customer.phone = phone;
+            }
+            break;
+        }
         case "FIELD_CHANGED": {
             const { name, value } = action.payload;
             set(draft, name, value);
@@ -120,33 +158,23 @@ const Checkout = ({
     const checkoutRoot = useHref("/");
 
     const isAuthenticated = Object.keys(user).length > 1;
-    const customer = camelize(user);
+    const [state, dispatch] = useImmerReducer(reducer, initialState);
 
-    const dynamicInitialState = {
-        ...initialState,
-        checkoutMode: isAuthenticated ? "withAccount" : "withoutAccount",
-    };
-    if (isAuthenticated) {
-        dynamicInitialState.customer = customer;
-        dynamicInitialState.deliveryAddress = {
-            ...dynamicInitialState.deliveryAddress,
-            ...customer.profile,
-        };
-        dynamicInitialState.deliveryAddress.postalCode =
-            dynamicInitialState.deliveryAddress.postal;
-        if (dynamicInitialState.deliveryAddress.country == null) {
-            dynamicInitialState.deliveryAddress.country = "N";
-        }
-    }
+    useEffect(() => {
+        dispatch({
+            type: "STATE_FROM_PROPS",
+            payload: {
+                user,
+                checkoutData,
+            },
+        });
+    }, [dispatch, user, checkoutData]);
 
-    const [state, dispatch] = useImmerReducer(reducer, dynamicInitialState);
-
-    // redirect if on the homepage
     useEffect(() => {
         if (location.pathname !== "/") {
             dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
         }
-    }, [isAuthenticated, location, dispatch]);
+    }, [location, dispatch]);
 
     const onInputChange = (event) => {
         dispatch({
@@ -240,6 +268,12 @@ const Checkout = ({
                                     cartStore={cartStore}
                                     csrftoken={csrftoken}
                                     confirmPath={confirmPath}
+                                    checkoutDetails={{
+                                        customer: state.customer,
+                                        deliveryAddress: state.deliveryAddress,
+                                        billingAddress: state.billingAddress,
+                                    }}
+                                    errors={validationErrors}
                                 />
                             }
                         />

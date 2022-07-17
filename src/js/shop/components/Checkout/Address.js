@@ -201,3 +201,4 @@ Address.propTypes = {
 };
 
 export default Address;
+export { AddressType, CustomerType };
