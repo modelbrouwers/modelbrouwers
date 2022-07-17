@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import { country_list, SUPPORTED_COUNTRIES } from "./constants";
 
-import { FormField, FormGroup } from "./FormFields";
+import { FormField, FormGroup, ErrorList } from "./FormFields";
 
 const AddressFields = ({
     prefix,
@@ -16,6 +16,7 @@ const AddressFields = ({
     city = "",
     postalCode = "",
     country,
+    errors = {},
     onChange,
 }) => {
     prefix = prefix ? `${prefix}.` : "";
@@ -44,6 +45,7 @@ const AddressFields = ({
                     }
                     value={company}
                     onChange={onChange}
+                    errors={errors?.company}
                 />
             </FormGroup>
             <FormGroup>
@@ -57,6 +59,7 @@ const AddressFields = ({
                     }
                     value={chamberOfCommerce}
                     onChange={onChange}
+                    errors={errors?.chamberOfCommerce}
                 />
             </FormGroup>
             <FormGroup>
@@ -71,6 +74,7 @@ const AddressFields = ({
                     value={street}
                     required
                     onChange={onChange}
+                    errors={errors?.street}
                 />
             </FormGroup>
             <FormGroup>
@@ -85,6 +89,7 @@ const AddressFields = ({
                     value={number}
                     required
                     onChange={onChange}
+                    errors={errors?.number}
                 />
             </FormGroup>
             <FormGroup>
@@ -99,6 +104,7 @@ const AddressFields = ({
                     value={city}
                     required
                     onChange={onChange}
+                    errors={errors?.city}
                 />
             </FormGroup>
             <FormGroup>
@@ -113,6 +119,7 @@ const AddressFields = ({
                     value={postalCode}
                     required
                     onChange={onChange}
+                    errors={errors?.postalCode}
                 />
             </FormGroup>
             <FormGroup>
@@ -137,6 +144,7 @@ const AddressFields = ({
                     }
                     className=""
                 />
+                <ErrorList errors={errors?.country} />
             </FormGroup>
         </>
     );
@@ -154,6 +162,7 @@ AddressFields.propTypes = {
         value: PropTypes.string,
         label: PropTypes.string,
     }),
+    errors: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     onChange: PropTypes.func.isRequired,
 };
 

@@ -158,10 +158,10 @@ const Checkout = ({
 
     // re-arrange validation errors to match component structure
     const ERROR_MAP = {
-        firstName: "address.firstName",
-        lastName: "address.lastName",
-        email: "address.email",
-        phone: "address.phone",
+        firstName: "customer.firstName",
+        lastName: "customer.lastName",
+        email: "customer.email",
+        phone: "customer.phone",
     };
     for (const [from, to] of Object.entries(ERROR_MAP)) {
         const errors = get(validationErrors, from);
@@ -172,7 +172,7 @@ const Checkout = ({
 
     const hasAddressValidationErrors = checkHasValidationErrors(
         validationErrors,
-        "address"
+        ["customer", "deliveryAddress", "invoiceAddress"]
     );
     const hasPaymentValidationErrors = checkHasValidationErrors(
         validationErrors,

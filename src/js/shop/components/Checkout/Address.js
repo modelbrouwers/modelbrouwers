@@ -44,7 +44,6 @@ const Address = ({
     ] = useState(true);
     const navigate = useNavigate();
 
-    // TODO this probably needs to send api request to create/modify an order
     const onSubmit = (event) => {
         event.preventDefault();
         navigate("/payment");
@@ -56,7 +55,6 @@ const Address = ({
         (!deliveryAddressIsBillingAddress ? EMPTY_ADDRESS : null);
 
     const { validationErrors } = useContext(CheckoutContext);
-    console.log(validationErrors);
 
     return (
         <form onSubmit={onSubmit}>
@@ -76,6 +74,7 @@ const Address = ({
                         lastName={customer.lastName}
                         email={customer.email}
                         phone={customer.phone}
+                        errors={validationErrors?.customer}
                         onChange={onChange}
                     />
                 </div>
@@ -103,6 +102,7 @@ const Address = ({
                             value: deliveryAddress.country,
                             label: SUPPORTED_COUNTRIES[deliveryAddress.country],
                         }}
+                        errors={validationErrors?.deliveryAddress}
                         onChange={onChange}
                     />
 
@@ -161,6 +161,7 @@ const Address = ({
                                     billingAddress.country
                                 ],
                             }}
+                            errors={validationErrors?.invoiceAddress}
                             onChange={onChange}
                         />
                     </div>
