@@ -115,6 +115,7 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
             data=json.loads(raw_data) if raw_data else None,
             context={"request": request},
         )
+
         # validation errors - render back to frontend
         if not serializer.is_valid():
             context = self.get_context_data(serializer=serializer)

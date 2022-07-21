@@ -6,8 +6,10 @@ import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import useAsync from "react-use/esm/useAsync";
 
+import Loader from "components/loaders";
+import ErrorBoundary from "components/ErrorBoundary";
+
 import { PaymentConsumer } from "../../../data/shop/payment";
-import Loader from "../../../components/loaders";
 import { ErrorMessage } from "../Info";
 import { FormField, FormGroup, ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
@@ -238,12 +240,16 @@ const Payment = ({
                 ))}
             </div>
 
-            <PaymentMethodSpecificOptions
-                paymentMethod={paymentMethod}
-                paymentMethodSpecificState={paymentMethodSpecificState}
-                setPaymentMethodSpecificState={setPaymentMethodSpecificState}
-                {...paymentMethodOptions}
-            />
+            <ErrorBoundary>
+                <PaymentMethodSpecificOptions
+                    paymentMethod={paymentMethod}
+                    paymentMethodSpecificState={paymentMethodSpecificState}
+                    setPaymentMethodSpecificState={
+                        setPaymentMethodSpecificState
+                    }
+                    {...paymentMethodOptions}
+                />
+            </ErrorBoundary>
 
             <h3 className="checkout__title">
                 <FormattedMessage
