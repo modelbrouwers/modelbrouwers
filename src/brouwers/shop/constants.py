@@ -6,6 +6,8 @@ from djchoices import ChoiceItem, DjangoChoices
 
 TWO_DIGITS = Decimal("0.01")
 
+CART_SESSION_KEY = "cart_id"
+
 
 class WeightUnits(DjangoChoices):
     gram = ChoiceItem("g", _("Gram"))

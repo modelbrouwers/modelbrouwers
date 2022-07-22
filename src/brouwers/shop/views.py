@@ -12,6 +12,7 @@ from django.views.generic.edit import ModelFormMixin
 from brouwers.shop.payments.sisow.constants import Payments
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
+from .constants import CART_SESSION_KEY
 from .forms import ProductReviewForm
 from .models import (
     Cart,
@@ -141,8 +142,8 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         order = serializer.save_order(payment=payment)
 
         # remove cart from session
-        if self.request.session.get("cart_id") == cart.id:
-            del self.request.session["cart_id"]
+        if self.request.session.get(CART_SESSION_KEY) == cart.id:
+            del self.request.session[CART_SESSION_KEY]
 
         issuer_url = start_payment(
             payment, request=self.request, next_page=self.get_success_url()
