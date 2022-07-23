@@ -24,6 +24,8 @@ class ShopConfiguration(SingletonModel):
         ),
     )
 
+    # paypal TODO
+
     class Meta:
         verbose_name = _("Shop configuration")
 
