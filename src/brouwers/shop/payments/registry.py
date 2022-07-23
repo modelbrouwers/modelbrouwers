@@ -6,7 +6,7 @@ from django.http.response import HttpResponseBase
 from django.utils.functional import Promise
 from django.utils.translation import gettext_lazy as _
 
-from ..models import Payment
+from ..models import Order, Payment
 
 PluginType = Type["Plugin"]
 LazyStr = Union[Promise, str]
@@ -35,6 +35,9 @@ class Plugin(ABC):
         nothing has to be done.
         """
         pass
+
+    def get_confirmation_message(self, order: Order) -> str:
+        return ""
 
 
 class Registry:

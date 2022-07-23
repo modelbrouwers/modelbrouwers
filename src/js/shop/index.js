@@ -125,6 +125,7 @@ export default class Page {
         // read backend data and validation errors
         const checkoutData = getDataFromScript("checkout-data");
         const validationErrors = getDataFromScript("checkout-errors");
+        const orderDetails = getDataFromScript("order-details");
 
         // mount and render the checkout component in the DOM
         root.render(
@@ -136,6 +137,7 @@ export default class Page {
                         user={user}
                         cartStore={cartStore}
                         checkoutData={checkoutData}
+                        orderDetails={orderDetails}
                         validationErrors={validationErrors}
                     />
                 </Router>

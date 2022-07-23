@@ -1,4 +1,5 @@
 import json
+from urllib.parse import urlencode
 
 from django.db import transaction
 from django.http.response import HttpResponseBase
@@ -18,10 +19,11 @@ from .models import (
     Category,
     CategoryCarouselImage,
     HomepageCategory,
+    Order,
     Payment,
     Product,
 )
-from .payments.service import start_payment
+from .payments.service import register, start_payment
 from .serializers import ConfirmOrderSerializer
 
 
@@ -93,6 +95,15 @@ class CheckoutMixin:
             ).data
         else:
             context["user_profile_data"] = {}
+
+        if order_id := self.request.GET.get("orderId"):
+            order = get_object_or_404(Order, id=order_id)
+            plugin = register[order.payment.payment_method.method]
+
+            context["orderDetails"] = {
+                "number": order.reference,
+                "message": plugin.get_confirmation_message(order),
+            }
         return context
 
 
@@ -146,21 +157,22 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         if self.request.session.get(CART_SESSION_KEY) == cart.id:
             del self.request.session[CART_SESSION_KEY]
 
+        success_url = self.get_success_url(order)
         start_payment_response = start_payment(
             payment,
             request=self.request,
-            next_page=self.get_success_url(),
+            next_page=success_url,
             order=order,
         )
         if start_payment_response is not None:
             return start_payment_response
+        return redirect(success_url)
 
-        # TODO: go straight to success mode / context
-        raise NotImplementedError("None response not supported yet!")
-
-    def get_success_url(self) -> str:
+    def get_success_url(self, order: Order) -> str:
         """
         Add the frontend URL routing part to the backend URL.
         """
+        # TODO: add token of some sorts to prevent enumeration attacks
+        query = urlencode({"orderId": order.id})
         backend_url = reverse("shop:checkout")
-        return f"{backend_url}confirmation"
+        return f"{backend_url}confirmation?{query}"

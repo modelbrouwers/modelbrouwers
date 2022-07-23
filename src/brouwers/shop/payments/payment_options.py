@@ -3,7 +3,7 @@ import logging
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 
-from ..models import Payment
+from ..models import Order, Payment, ShopConfiguration
 from .registry import Plugin, register
 from .sisow.service import start_payment as start_sisow_payment
 
@@ -21,6 +21,10 @@ class BankTransfer(Plugin):
             self.identifier,
         )
         return None
+
+    def get_confirmation_message(self, order: Order) -> str:
+        config = ShopConfiguration.get_solo()
+        return config.bank_transfer_instructions
 
 
 @register("paypal_standard")

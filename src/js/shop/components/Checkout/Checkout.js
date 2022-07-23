@@ -16,7 +16,7 @@ import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
 import FAIcon from "../../../components/FAIcon";
-import { Account, Address, Payment } from ".";
+import { Account, Address, Payment, Confirmation } from ".";
 import { EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
 import { camelize, checkAddressFieldsComplete } from "./utils";
@@ -152,6 +152,7 @@ const Checkout = ({
     csrftoken,
     confirmPath,
     checkoutData,
+    orderDetails = null,
     validationErrors,
 }) => {
     const location = useLocation();
@@ -283,6 +284,19 @@ const Checkout = ({
                             path="confirm"
                             element={<Navigate to={firstRouteWithErrors} />}
                         />
+
+                        {/* Success page */}
+                        {orderDetails && (
+                            <Route
+                                path="confirmation"
+                                element={
+                                    <Confirmation
+                                        orderNumber={orderDetails.number}
+                                        message={orderDetails.message}
+                                    />
+                                }
+                            />
+                        )}
                     </Routes>
                 </CheckoutContext.Provider>
             </div>
@@ -331,6 +345,7 @@ const Checkout = ({
                         <NavLink
                             to="confirmation"
                             className={getActiveNavClassNames}
+                            enabled={!!orderDetails}
                         >
                             <FormattedMessage
                                 description="Tab: confirm"
@@ -363,6 +378,10 @@ Checkout.propTypes = {
         }),
     }),
     checkoutData: PropTypes.object,
+    orderDetails: PropTypes.shape({
+        number: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired,
+    }),
     validationErrors: PropTypes.object,
 };
 
