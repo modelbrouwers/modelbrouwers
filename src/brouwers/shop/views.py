@@ -11,7 +11,7 @@ from django.views.generic.edit import ModelFormMixin
 
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
-from .constants import CART_SESSION_KEY
+from .constants import CART_SESSION_KEY, CartStatuses
 from .forms import ProductReviewForm
 from .models import (
     Cart,
@@ -127,7 +127,9 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         bank = serializer.validated_data.get("bank")
 
         # create a payment instance for the order
+        cart.status = CartStatuses.payment_pending
         cart.save_snapshot()
+        cart.save()
         # convert euros to eurocents
         total_amount = int(cart.total * 100)
         payment = Payment.objects.create(

@@ -16,6 +16,7 @@ class WeightUnits(DjangoChoices):
 
 class CartStatuses(DjangoChoices):
     open = ChoiceItem("open", _("Open"))
+    payment_pending = ChoiceItem("payment_pending", _("Payment pending"))
     paid = ChoiceItem("paid", _("Paid"))
 
 
