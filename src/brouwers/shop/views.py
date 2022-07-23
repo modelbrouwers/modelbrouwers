@@ -1,7 +1,7 @@
 import json
 
 from django.db import transaction
-from django.http.response import HttpResponseBase, HttpResponseRedirect
+from django.http.response import HttpResponseBase
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
@@ -9,7 +9,6 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 from django.views.generic.edit import ModelFormMixin
 
-from brouwers.shop.payments.sisow.constants import Payments
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from .constants import CART_SESSION_KEY
@@ -22,7 +21,7 @@ from .models import (
     Payment,
     Product,
 )
-from .payments.sisow.service import start_payment
+from .payments.service import start_payment
 from .serializers import ConfirmOrderSerializer
 
 
@@ -110,7 +109,7 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
     """
 
     @transaction.atomic()
-    def post(self, request, *args, **kwargs) -> HttpResponseBase:
+    def post(self, request) -> HttpResponseBase:
         raw_data = request.POST.get("checkoutData")
         serializer = ConfirmOrderSerializer(
             data=json.loads(raw_data) if raw_data else None,
@@ -145,10 +144,17 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         if self.request.session.get(CART_SESSION_KEY) == cart.id:
             del self.request.session[CART_SESSION_KEY]
 
-        issuer_url = start_payment(
-            payment, request=self.request, next_page=self.get_success_url()
+        start_payment_response = start_payment(
+            payment,
+            request=self.request,
+            next_page=self.get_success_url(),
+            order=order,
         )
-        return HttpResponseRedirect(issuer_url)
+        if start_payment_response is not None:
+            return start_payment_response
+
+        # TODO: go straight to success mode / context
+        raise NotImplementedError("None response not supported yet!")
 
     def get_success_url(self) -> str:
         """

@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from ...models import Payment, ShopConfiguration
 from .api import NS, calculate_sha1, calculate_sisow_sha1, xml_request
-from .constants import Payments
+from .constants import SisowMethods
 from .exceptions import InvalidIssuerURL
 
 
@@ -37,9 +37,11 @@ def get_ideal_bank_choices() -> Iterator[Tuple[str, str]]:
 
 
 def start_payment(payment: Payment, request=None, next_page="") -> str:
+    method: str = payment.data["sisow_method"]
+
     # ideal accepts an optional issuer ID for bank pre-selection
     extra_params = {}
-    if payment.payment_method.method == Payments.ideal:
+    if method == SisowMethods.ideal:
         bank_id = payment.data.get("bank")
         if isinstance(bank_id, int):
             extra_params["issuerid"] = (bank_id,)
@@ -52,7 +54,7 @@ def start_payment(payment: Payment, request=None, next_page="") -> str:
         purchaseid,
         config.sisow_merchant_id,
         config.sisow_merchant_key,
-        str(payment.amount),
+        payment.amount,
     )
 
     callback_url = reverse("shop:sisow-payment-callback", kwargs={"pk": payment.pk})
@@ -64,7 +66,7 @@ def start_payment(payment: Payment, request=None, next_page="") -> str:
 
     post_data = {
         "merchantid": config.sisow_merchant_id,
-        "payment": payment.payment_method.method,
+        "payment": method,
         "purchaseid": purchaseid,
         "amount": payment.amount,
         "description": f"MB order {payment.reference}",  # TODO: parametrize?

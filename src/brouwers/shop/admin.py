@@ -132,7 +132,7 @@ class HomepageCategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(HomepageCategoryChild)
-class HomepageCategoryChild(admin.ModelAdmin):
+class HomepageCategoryChildAdmin(admin.ModelAdmin):
     list_display = ("category", "order")
     raw_id_fields = ("category",)
     list_filter = ("order",)
@@ -145,6 +145,19 @@ class PaymentMethodAdmin(admin.ModelAdmin):
     list_filter = ("enabled",)
     search_fields = ("name", "method")
     ordering = ("order",)
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        from .payments.service import register
+
+        if db_field.name == "method":
+            assert not db_field.choices
+            _old = db_field.choices
+            db_field.choices = register.get_choices()
+            field = super().formfield_for_dbfield(db_field, request, **kwargs)
+            db_field.choices = _old
+            return field
+
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
 
 
 @admin.register(ShopConfiguration)

@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from djchoices import ChoiceItem, DjangoChoices
 
 
-class Payments(DjangoChoices):
+class SisowMethods(DjangoChoices):
     """
     Possible payment methods offered by Sisow.
 

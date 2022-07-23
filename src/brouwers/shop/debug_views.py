@@ -5,9 +5,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 
 from .models import Payment, PaymentMethod
-from .payments.sisow.constants import Payments
+from .payments.payment_options import SisowIDeal
+from .payments.service import register, start_payment
 from .payments.sisow.forms import coerce_bank
-from .payments.sisow.service import get_ideal_bank_choices, start_payment
+from .payments.sisow.service import get_ideal_bank_choices
 
 
 class PaymentForm(forms.Form):
@@ -30,7 +31,6 @@ class PaymentView(FormView):
 
     def form_valid(self, form):
         payment_method = form.cleaned_data["method"]
-
         payment = Payment.objects.create(
             payment_method=payment_method,
             amount=100 * form.cleaned_data["amount"],  # euro to euro cents
@@ -38,13 +38,16 @@ class PaymentView(FormView):
 
         self.request.session["payment"] = payment.pk
 
-        if payment_method.method == Payments.ideal:
+        plugin = register[payment_method.method]
+        if isinstance(plugin, SisowIDeal):
             return redirect("shop:ideal-bank")
 
-        issuer_url = start_payment(
+        response = start_payment(
             payment, request=self.request, next_page=reverse("shop:pay")
         )
-        return redirect(issuer_url)
+        if response is not None:
+            return response
+        raise NotImplementedError("None response not implemented yet")
 
 
 class IdealPaymentView(FormView):
@@ -55,5 +58,4 @@ class IdealPaymentView(FormView):
         payment = get_object_or_404(Payment, pk=self.request.session.get("payment"))
         payment.data["bank"] = int(form.cleaned_data["bank"].id)
         payment.save()
-        issuer_url = start_payment(payment, request=self.request)
-        return redirect(issuer_url)
+        return start_payment(payment, request=self.request)

@@ -10,7 +10,8 @@ from rest_framework import serializers
 from .api.viewsets import PaymentMethodViewSet
 from .constants import OrderStatuses
 from .models import Address, Cart, CartProduct, Order, Payment
-from .payments.sisow.constants import Payments
+from .payments.payment_options import SisowIDeal
+from .payments.service import register
 from .payments.sisow.service import get_ideal_banks
 
 
@@ -71,8 +72,11 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
         payment_method = attrs["payment_method"]
         options = attrs.get("payment_method_options") or {}
 
+        # TODO: move validation to plugin?
+
         # check that a bank was selected
-        if payment_method.method == Payments.ideal:
+        plugin = register[payment_method.method]
+        if isinstance(plugin, SisowIDeal):
             bank_id = options.get("bank", {}).get("value")
             if not bank_id:
                 raise serializers.ValidationError(

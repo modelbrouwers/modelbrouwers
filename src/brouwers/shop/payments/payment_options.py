@@ -55,19 +55,19 @@ class SisowPlugin(Plugin):
         return HttpResponseRedirect(redirect_url)
 
 
-@register("Sisow_iDeal")
+@register("sisow_ideal")
 class SisowIDeal(SisowPlugin):
     verbose_name = _("iDeal")
     sisow_method = "ideal"
 
 
-@register("Sisow_sofort")
+@register("sisow_sofort")
 class SisowSofort(SisowPlugin):
-    verbose_name = _("iDeal")
+    verbose_name = _("Sofort")
     sisow_method = "sofort"
 
 
-@register("Sisow_mistercash")
+@register("sisow_mistercash")
 class SisowMrCash(SisowPlugin):
-    verbose_name = _("iDeal")
+    verbose_name = _("Mister Cash")
     sisow_method = "mistercash"
