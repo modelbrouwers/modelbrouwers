@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from modeltranslation.admin import TranslationAdmin
 from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
@@ -146,8 +148,20 @@ class PaymentMethodAdmin(admin.ModelAdmin):
 
 
 @admin.register(ShopConfiguration)
-class ShopConfigurationAdmin(SingletonModelAdmin):
-    pass
+class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
+    fieldsets = (
+        (
+            _("Sisow/Buckaroo"),
+            {
+                "fields": (
+                    "sisow_test_mode",
+                    "sisow_merchant_id",
+                    "sisow_merchant_key",
+                )
+            },
+        ),
+        (_("Bank transfer"), {"fields": ("bank_transfer_instructions",)}),
+    )
 
 
 @admin.register(Cart)
