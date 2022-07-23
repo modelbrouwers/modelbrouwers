@@ -25,7 +25,9 @@ class Plugin(ABC):
         return self.verbose_name
 
     @abstractmethod
-    def start_payment(self, payment: Payment) -> Optional[HttpResponseBase]:
+    def start_payment(
+        self, payment: Payment, context: dict
+    ) -> Optional[HttpResponseBase]:
         """
         Given a payment instance, handle the actual payment flow.
 
