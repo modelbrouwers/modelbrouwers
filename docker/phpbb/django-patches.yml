@@ -6,7 +6,6 @@
     phpbb_dir: /build/phpBB3
 
   tasks:
-
     - name: Disable re-auth for phpBB admin
       lineinfile:
         dest: "{{ phpbb_dir }}/adm/index.php"
@@ -18,7 +17,7 @@
         dest: "{{ phpbb_dir }}/includes/startup.php"
         block: |
           // Fix for reverse proxy
-          if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['SERVER_ADDR'] == $_SERVER['REMOTE_ADDR']) {
-                  $_SERVER['REMOTE_ADDR'] = htmlspecialchars((string) $_SERVER['HTTP_X_FORWARDED_FOR']);
+          if(!empty($_SERVER['HTTP_X_REAL_IP'])) {
+                  $_SERVER['REMOTE_ADDR'] = htmlspecialchars((string) $_SERVER['HTTP_X_REAL_IP']);
           }
         insertbefore: "// Report all errors, except notices and deprecation messages"
