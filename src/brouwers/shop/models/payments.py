@@ -4,7 +4,6 @@ from django.db import models
 from django.templatetags.l10n import localize
 from django.utils.translation import ugettext_lazy as _
 
-from ..payments.constants import PaymentMethods
 from .utils import get_max_order, get_payment_reference
 
 __all__ = ["PaymentMethod", "Payment"]
@@ -12,16 +11,14 @@ __all__ = ["PaymentMethod", "Payment"]
 
 class PaymentMethod(models.Model):
     name = models.CharField(_("name"), max_length=50)
-    method = models.CharField(
-        _("method"), max_length=50, choices=PaymentMethods.choices, unique=True
-    )
+    method = models.CharField(_("method"), max_length=50, unique=True)
     logo = models.ImageField(_("logo"), upload_to="shop/payment_methods/", blank=True)
     enabled = models.BooleanField(
         _("enabled"),
         default=False,
         help_text=_("Whether the payment method can be used at checkout or not."),
     )
-    order = models.PositiveSmallIntegerField(_("order"), default=get_max_order)
+    order = models.PositiveSmallIntegerField(_("ordering"), default=get_max_order)
 
     class Meta:
         verbose_name = _("payment method")

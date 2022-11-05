@@ -6,11 +6,14 @@ import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import useAsync from "react-use/esm/useAsync";
 
+import Loader from "components/loaders";
+import ErrorBoundary from "components/ErrorBoundary";
+
 import { PaymentConsumer } from "../../../data/shop/payment";
-import Loader from "../../../components/loaders";
 import { ErrorMessage } from "../Info";
-import { FormField, FormGroup } from "./FormFields";
+import { FormField, FormGroup, ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
+import { AddressType, CustomerType } from "./Address";
 
 const paymentConsumer = new PaymentConsumer();
 
@@ -157,12 +160,31 @@ PaymentMethodSpecificOptions.propTypes = {
     }),
 };
 
+const addressToSerializerShape = (address) => {
+    if (!address) return null;
+    return {
+        street: address.street,
+        number: address.number,
+        postal_code: address.postalCode,
+        city: address.city,
+        country: address.country,
+        company: address.company,
+        chamber_of_commerce: address.chamberOfCommerce,
+    };
+};
+
 /**
  *
  * Payment method selection & flow
  *
  */
-const Payment = ({ cartStore, csrftoken, confirmPath }) => {
+const Payment = ({
+    cartStore,
+    csrftoken,
+    confirmPath,
+    errors,
+    checkoutDetails,
+}) => {
     const { loading, error, paymentMethods } = useFetchPaymentMethods();
     const [selectedMethod, setSelectedMethod] = useState(null);
     const [paymentMethodSpecificState, setPaymentMethodSpecificState] =
@@ -173,6 +195,24 @@ const Payment = ({ cartStore, csrftoken, confirmPath }) => {
     const paymentMethodOptions = useGetPaymentSpecificOptions(paymentMethod);
 
     if (error) return <ErrorMessage />;
+
+    const checkoutData = {
+        cart: cartStore.id,
+        payment_method: selectedMethod,
+        payment_method_options: paymentMethodSpecificState,
+        first_name: checkoutDetails.customer.firstName,
+        last_name: checkoutDetails.customer.lastName,
+        email: checkoutDetails.customer.email,
+        phone: checkoutDetails.customer.phone,
+        delivery_address: addressToSerializerShape(
+            checkoutDetails.deliveryAddress
+        ),
+        invoice_address: addressToSerializerShape(
+            checkoutDetails.billingAddress
+        ),
+    };
+
+    console.log(errors);
 
     return (
         <>
@@ -200,12 +240,16 @@ const Payment = ({ cartStore, csrftoken, confirmPath }) => {
                 ))}
             </div>
 
-            <PaymentMethodSpecificOptions
-                paymentMethod={paymentMethod}
-                paymentMethodSpecificState={paymentMethodSpecificState}
-                setPaymentMethodSpecificState={setPaymentMethodSpecificState}
-                {...paymentMethodOptions}
-            />
+            <ErrorBoundary>
+                <PaymentMethodSpecificOptions
+                    paymentMethod={paymentMethod}
+                    paymentMethodSpecificState={paymentMethodSpecificState}
+                    setPaymentMethodSpecificState={
+                        setPaymentMethodSpecificState
+                    }
+                    {...paymentMethodOptions}
+                />
+            </ErrorBoundary>
 
             <h3 className="checkout__title">
                 <FormattedMessage
@@ -222,18 +266,11 @@ const Payment = ({ cartStore, csrftoken, confirmPath }) => {
                     name="csrfmiddlewaretoken"
                     defaultValue={csrftoken}
                 />
-                <input type="hidden" name="cart" defaultValue={cartStore.id} />
                 <input
                     type="hidden"
-                    name="payment_method"
-                    defaultValue={selectedMethod}
+                    name="checkoutData"
+                    value={JSON.stringify(checkoutData)}
                 />
-                <input
-                    type="hidden"
-                    name="payment_method_options"
-                    defaultValue={JSON.stringify(paymentMethodSpecificState)}
-                />
-
                 <div className="submit-wrapper">
                     <button type="submit" className="btn bg-main-orange">
                         <FormattedMessage
@@ -251,6 +288,12 @@ Payment.propTypes = {
     cartStore: PropTypes.object.isRequired,
     csrftoken: PropTypes.string.isRequired,
     confirmPath: PropTypes.string.isRequired,
+    errors: PropTypes.object,
+    checkoutDetails: PropTypes.shape({
+        customer: CustomerType.isRequired,
+        deliveryAddress: AddressType.isRequired,
+        billingAddress: AddressType,
+    }).isRequired,
 };
 
 export default Payment;

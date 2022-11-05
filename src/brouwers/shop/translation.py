@@ -1,6 +1,6 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import Category, PaymentMethod, Product
+from .models import Category, PaymentMethod, Product, ShopConfiguration
 
 
 @register(Category)
@@ -16,3 +16,8 @@ class ProductTranslationOptions(TranslationOptions):
 @register(PaymentMethod)
 class PaymentMethodTranslationOptions(TranslationOptions):
     fields = ("name",)
+
+
+@register(ShopConfiguration)
+class ShopConfigurationTranslationOptions(TranslationOptions):
+    fields = ("bank_transfer_instructions",)

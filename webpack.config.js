@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const argv = require("yargs").argv;
 const webpack = require("webpack");
+const path = require("path");
 
 // Set isProduction based on environment or argv.
 
@@ -100,6 +101,14 @@ module.exports = {
                     },
                 ],
             },
+        ],
+    },
+
+    resolve: {
+        modules: [
+            "node_modules",
+            path.resolve(__dirname, "node_modules"),
+            path.resolve(__dirname, "src/js/"),
         ],
     },
 

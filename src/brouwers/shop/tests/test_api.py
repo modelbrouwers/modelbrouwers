@@ -27,7 +27,7 @@ class ProductApiTest(APITestCase):
         self.addCleanup(cache.clear)
 
     def test_get_product(self):
-        product = ProductFactory.create()
+        product = ProductFactory.create(with_brand=True)
 
         response = self.client.get(reverse("api:product-detail", args=[product.pk]))
 

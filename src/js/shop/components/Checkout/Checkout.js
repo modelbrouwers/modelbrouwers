@@ -1,5 +1,5 @@
-import camelCase from "lodash.camelcase";
-import isObject from "lodash.isobject";
+import get from "lodash/get";
+import unset from "lodash/unset";
 import set from "lodash.set";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
@@ -15,9 +15,11 @@ import { FormattedMessage } from "react-intl";
 import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
-import { Account, Address, Payment } from ".";
+import FAIcon from "../../../components/FAIcon";
+import { Account, Address, Payment, Confirmation } from ".";
 import { EMPTY_ADDRESS } from "./constants";
-import { checkAddressFieldsComplete } from "./utils";
+import { CheckoutContext } from "./Context";
+import { camelize, checkAddressFieldsComplete } from "./utils";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
     classNames("navigation__link", {
@@ -25,38 +27,37 @@ const getActiveNavClassNames = ({ isActive, enabled = false }) =>
         "navigation__link--enabled": enabled,
     });
 
-// Temporary solution - we should use drf-camelcase-renderer to the backend later.
-const camelize = (obj) => {
-    // recurse into arrays
-    if (Array.isArray(obj)) {
-        return obj.map(camelize);
-    }
-
-    if (!isObject(obj)) {
-        return obj;
-    }
-
-    // convert keys to camelCase
-    const newObj = {};
-    Object.entries(obj).forEach(([key, value]) => {
-        const newKey = camelCase(key);
-        const newValue = camelize(value);
-        newObj[newKey] = newValue;
-    });
-
-    return newObj;
-};
-
-const NavLink = ({ enabled = false, className, ...props }) => {
+const NavLink = ({
+    enabled = false,
+    className,
+    hasErrors = false,
+    children,
+    ...props
+}) => {
     const Container = enabled ? RRNavLink : "span";
     const wrappedClassname = enabled
         ? ({ isActive }) => className({ isActive, enabled })
         : className({ isActive: false, enabled });
-    return <Container {...props} className={wrappedClassname} />;
+
+    if (hasErrors) {
+        children = (
+            <span className="nav-link-wrapper">
+                <span className="nav-link-wrapper__text">{children}</span>
+                <span className="nav-link-wrapper__icon">
+                    <FAIcon icon="exclamation-circle" />
+                </span>
+            </span>
+        );
+    }
+
+    return (
+        <Container {...props} className={wrappedClassname}>
+            {children}
+        </Container>
+    );
 };
 
 const initialState = {
-    checkoutMode: "withoutAccount",
     customer: {
         firstName: "",
         lastName: "",
@@ -70,6 +71,45 @@ const initialState = {
 
 const reducer = (draft, action) => {
     switch (action.type) {
+        case "STATE_FROM_PROPS": {
+            const { user, checkoutData } = action.payload;
+            const isAuthenticated = Object.keys(user).length > 1;
+
+            // first, process any pre-filled user details (for authenticated users)
+            const customer = camelize(user);
+            if (isAuthenticated) {
+                draft.customer = customer;
+                for (const [field, value] of Object.entries(customer.profile)) {
+                    draft.deliveryAddress[field] = value;
+                }
+                draft.deliveryAddress.postalCode = customer.profile.postal;
+                if (!draft.deliveryAddress.country) {
+                    draft.deliveryAddress.country = "N";
+                }
+            }
+
+            // next, process the filled out data
+            if (checkoutData && Object.keys(checkoutData).length) {
+                const {
+                    deliveryAddress,
+                    invoiceAddress: billingAddress,
+                    firstName,
+                    lastName,
+                    email,
+                    phone,
+                    paymentMethod,
+                    paymentMethodOptions,
+                } = camelize(checkoutData);
+
+                if (deliveryAddress) draft.deliveryAddress = deliveryAddress;
+                if (billingAddress) draft.billingAddress = billingAddress;
+                if (firstName) draft.customer.firstName = firstName;
+                if (lastName) draft.customer.lastName = lastName;
+                if (email) draft.customer.email = email;
+                if (phone) draft.customer.phone = phone;
+            }
+            break;
+        }
         case "FIELD_CHANGED": {
             const { name, value } = action.payload;
             set(draft, name, value);
@@ -88,43 +128,54 @@ const reducer = (draft, action) => {
     }
 };
 
+const checkHasValidationErrors = (validationErrors, errorKey) => {
+    const keys = !Array.isArray(errorKey) ? [errorKey] : errorKey;
+    if (!validationErrors) return false;
+    for (const key of keys) {
+        if (!validationErrors[key]) continue;
+        const errors = Object.values(validationErrors[key]);
+        if (errors.some((errorList) => errorList && errorList.length > 0)) {
+            return true;
+        }
+    }
+    return false;
+};
+
 /**
  *
  * Checkout
  *
  */
-const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
+const Checkout = ({
+    cartStore,
+    user,
+    csrftoken,
+    confirmPath,
+    checkoutData,
+    orderDetails = null,
+    validationErrors,
+}) => {
     const location = useLocation();
     const checkoutRoot = useHref("/");
 
     const isAuthenticated = Object.keys(user).length > 1;
-    const customer = camelize(user);
+    const [state, dispatch] = useImmerReducer(reducer, initialState);
 
-    const dynamicInitialState = {
-        ...initialState,
-        checkoutMode: isAuthenticated ? "withAccount" : "withoutAccount",
-    };
-    if (isAuthenticated) {
-        dynamicInitialState.customer = customer;
-        dynamicInitialState.deliveryAddress = {
-            ...dynamicInitialState.deliveryAddress,
-            ...customer.profile,
-        };
-        dynamicInitialState.deliveryAddress.postalCode =
-            dynamicInitialState.deliveryAddress.postal;
-        if (dynamicInitialState.deliveryAddress.country == null) {
-            dynamicInitialState.deliveryAddress.country = "N";
-        }
-    }
+    useEffect(() => {
+        dispatch({
+            type: "STATE_FROM_PROPS",
+            payload: {
+                user,
+                checkoutData,
+            },
+        });
+    }, [dispatch, user, checkoutData]);
 
-    const [state, dispatch] = useImmerReducer(reducer, dynamicInitialState);
-
-    // redirect if on the homepage
     useEffect(() => {
         if (location.pathname !== "/") {
             dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
         }
-    }, [isAuthenticated, location, dispatch]);
+    }, [location, dispatch]);
 
     const onInputChange = (event) => {
         dispatch({
@@ -133,6 +184,35 @@ const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
         });
         dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
     };
+
+    // re-arrange validation errors to match component structure
+    const ERROR_MAP = {
+        firstName: "customer.firstName",
+        lastName: "customer.lastName",
+        email: "customer.email",
+        phone: "customer.phone",
+    };
+    for (const [from, to] of Object.entries(ERROR_MAP)) {
+        const errors = get(validationErrors, from);
+        if (!errors) continue;
+        set(validationErrors, to, errors);
+        unset(validationErrors, from);
+    }
+
+    const hasAddressValidationErrors = checkHasValidationErrors(
+        validationErrors,
+        ["customer", "deliveryAddress", "invoiceAddress"]
+    );
+    const hasPaymentValidationErrors = checkHasValidationErrors(
+        validationErrors,
+        ["paymentMethod", "paymentMethodOptions"]
+    );
+    let firstRouteWithErrors = "/";
+    if (hasAddressValidationErrors) {
+        firstRouteWithErrors = "/address";
+    } else if (hasPaymentValidationErrors) {
+        firstRouteWithErrors = "/payment";
+    }
 
     return (
         <div className="nav-wrapper">
@@ -144,47 +224,81 @@ const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
             </h2>
 
             <div className="nav-wrapper__content">
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <Navigate
-                                to={isAuthenticated ? "address" : "account"}
+                <CheckoutContext.Provider
+                    value={{
+                        validationErrors,
+                        customer: state.customer,
+                        deliveryAddress: state.deliveryAddress,
+                        billingAddress: state.billingAddress,
+                    }}
+                >
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <Navigate
+                                    to={isAuthenticated ? "address" : "account"}
+                                />
+                            }
+                        />
+                        <Route
+                            path="account"
+                            element={
+                                <Account
+                                    isAuthenticated={isAuthenticated}
+                                    currentLocation={checkoutRoot}
+                                />
+                            }
+                        />
+                        <Route
+                            path="address"
+                            element={
+                                <Address
+                                    customer={state.customer}
+                                    deliveryAddress={state.deliveryAddress}
+                                    billingAddress={state.billingAddress}
+                                    onChange={onInputChange}
+                                    allowSubmit={state.addressStepValid}
+                                />
+                            }
+                        />
+                        <Route
+                            path="payment"
+                            element={
+                                <Payment
+                                    cartStore={cartStore}
+                                    csrftoken={csrftoken}
+                                    confirmPath={confirmPath}
+                                    checkoutDetails={{
+                                        customer: state.customer,
+                                        deliveryAddress: state.deliveryAddress,
+                                        billingAddress: state.billingAddress,
+                                    }}
+                                    errors={validationErrors}
+                                />
+                            }
+                        />
+                        {/* This is a backend URL - if there are validation errors, it renders
+                            the response at this URL. */}
+                        <Route
+                            path="confirm"
+                            element={<Navigate to={firstRouteWithErrors} />}
+                        />
+
+                        {/* Success page */}
+                        {orderDetails && (
+                            <Route
+                                path="confirmation"
+                                element={
+                                    <Confirmation
+                                        orderNumber={orderDetails.number}
+                                        message={orderDetails.message}
+                                    />
+                                }
                             />
-                        }
-                    />
-                    <Route
-                        path="account"
-                        element={
-                            <Account
-                                isAuthenticated={isAuthenticated}
-                                currentLocation={checkoutRoot}
-                            />
-                        }
-                    />
-                    <Route
-                        path="address"
-                        element={
-                            <Address
-                                customer={state.customer}
-                                deliveryAddress={state.deliveryAddress}
-                                billingAddress={state.billingAddress}
-                                onChange={onInputChange}
-                                allowSubmit={state.addressStepValid}
-                            />
-                        }
-                    />
-                    <Route
-                        path="payment"
-                        element={
-                            <Payment
-                                cartStore={cartStore}
-                                csrftoken={csrftoken}
-                                confirmPath={confirmPath}
-                            />
-                        }
-                    />
-                </Routes>
+                        )}
+                    </Routes>
+                </CheckoutContext.Provider>
             </div>
 
             <nav className="nav-wrapper__nav">
@@ -206,6 +320,7 @@ const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
                             to="address"
                             className={getActiveNavClassNames}
                             enabled
+                            hasErrors={hasAddressValidationErrors}
                         >
                             <FormattedMessage
                                 description="Tab: address"
@@ -218,6 +333,7 @@ const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
                             to="payment"
                             className={getActiveNavClassNames}
                             enabled={state.addressStepValid}
+                            hasErrors={hasPaymentValidationErrors}
                         >
                             <FormattedMessage
                                 description="Tab: payment"
@@ -229,6 +345,7 @@ const Checkout = ({ cartStore, user, csrftoken, confirmPath }) => {
                         <NavLink
                             to="confirmation"
                             className={getActiveNavClassNames}
+                            enabled={!!orderDetails}
                         >
                             <FormattedMessage
                                 description="Tab: confirm"
@@ -257,9 +374,15 @@ Checkout.propTypes = {
             number: PropTypes.string.isRequired,
             postal: PropTypes.string.isRequired,
             city: PropTypes.string.isRequired,
-            country: PropTypes.oneOf(["N", "B", "F", "G"]),
+            country: PropTypes.oneOf(["", "N", "B", "F", "G"]),
         }),
     }),
+    checkoutData: PropTypes.object,
+    orderDetails: PropTypes.shape({
+        number: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired,
+    }),
+    validationErrors: PropTypes.object,
 };
 
 export default Checkout;

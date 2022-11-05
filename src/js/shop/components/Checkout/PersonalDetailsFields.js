@@ -10,6 +10,7 @@ const PersonalDetailsFields = ({
     lastName = "",
     email = "",
     phone = "",
+    errors = {},
     onChange,
 }) => {
     prefix = prefix ? `${prefix}.` : "";
@@ -29,6 +30,7 @@ const PersonalDetailsFields = ({
                         value={firstName}
                         onChange={onChange}
                         autoFocus={!firstName}
+                        errors={errors?.firstName}
                         required
                     />
                 </FormGroup>
@@ -44,6 +46,7 @@ const PersonalDetailsFields = ({
                         }
                         value={lastName}
                         onChange={onChange}
+                        errors={errors?.lastName}
                         required
                     />
                 </FormGroup>
@@ -60,6 +63,7 @@ const PersonalDetailsFields = ({
                     }
                     value={email}
                     onChange={onChange}
+                    errors={errors?.email}
                     required
                 />
             </FormGroup>
@@ -75,6 +79,7 @@ const PersonalDetailsFields = ({
                     }
                     value={phone}
                     onChange={onChange}
+                    errors={errors?.phone}
                 />
             </FormGroup>
         </>
@@ -87,6 +92,7 @@ PersonalDetailsFields.propTypes = {
     lastName: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,
+    errors: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     onChange: PropTypes.func.isRequired,
 };
 

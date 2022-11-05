@@ -2,12 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+const ErrorList = ({ errors }) => {
+    if (!errors || !errors.length) return null;
+    return (
+        <ul className="errorlist">
+            {errors.map((error, index) => (
+                <li key={index} className="error">
+                    {error}
+                </li>
+            ))}
+        </ul>
+    );
+};
+
+ErrorList.propTypes = {
+    errors: PropTypes.arrayOf(PropTypes.string),
+};
+
 // TODO: merge with components/forms/FormField.js
 const FormField = ({
     name,
     label: labelText = "",
     component: Component = "input",
     id = "",
+    errors = [],
     ...props
 }) => {
     const isRequired = props.required || false;
@@ -35,6 +53,7 @@ const FormField = ({
         <>
             {label}
             <Component name={name} id={fieldId} {...inputProps} {...props} />
+            <ErrorList errors={errors} />
         </>
     );
 };
@@ -57,4 +76,4 @@ FormGroup.propTypes = {
 };
 
 export default FormField;
-export { FormField, FormGroup };
+export { FormField, FormGroup, ErrorList };

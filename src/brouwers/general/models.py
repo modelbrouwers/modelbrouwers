@@ -9,15 +9,8 @@ from django.utils.translation import get_language, ugettext_lazy as _, ungettext
 
 from brouwers.awards.models import Category
 
+from .fields import CountryField
 from .utils import get_client_ip, lookup_http_blacklist
-
-COUNTRY_CHOICES = (
-    ("N", _("The Netherlands")),
-    ("B", _("Belgium")),
-    ("D", _("Germany")),
-    ("F", _("France")),
-)
-
 
 MAX_REGISTRATION_ATTEMPTS = 3
 STANDARD_BAN_TIME_HOURS = 12
@@ -42,14 +35,11 @@ class UserProfile(models.Model):
         max_length=10,
         help_text=_("house number (+ PO box if applicable)"),
         blank=True,
-        null=True,
     )
-    postal = models.CharField(_("postal code"), max_length=10, blank=True, null=True)
-    city = models.CharField(_("city"), max_length=255, blank=True, null=True)
-    province = models.CharField(_("province"), max_length=255, blank=True, null=True)
-    country = models.CharField(
-        _("country"), max_length=1, choices=COUNTRY_CHOICES, blank=True, null=True
-    )
+    postal = models.CharField(_("postal code"), max_length=10, blank=True)
+    city = models.CharField(_("city"), max_length=255, blank=True)
+    province = models.CharField(_("province"), max_length=255, blank=True)
+    country = CountryField(blank=True)
 
     # allow social sharing
     allow_sharing = models.BooleanField(

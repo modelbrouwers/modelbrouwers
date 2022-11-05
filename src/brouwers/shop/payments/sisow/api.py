@@ -36,7 +36,7 @@ def calculate_sha1(*args: str) -> str:
     return digest
 
 
-def calculate_ideal_sha1(
+def calculate_sisow_sha1(
     purchaseid: str, merchantid: str, merchantkey: str, amount: int
 ) -> str:
     return calculate_sha1(
