@@ -11,6 +11,7 @@ from ..models import (
     ProductBrand,
     ProductManufacturer,
 )
+from ..payments.registry import register
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
@@ -46,12 +47,16 @@ class ProductFactory(factory.django.DjangoModelFactory):
     stock = factory.fuzzy.FuzzyInteger(1, 8)
     price = factory.fuzzy.FuzzyDecimal(0, 5)
     vat = factory.fuzzy.FuzzyDecimal(0, 2)
-    brand = factory.SubFactory(ProductBrandFactory)
     manufacturer = factory.SubFactory(ProductManufacturerFactory)
     seo_keyword = factory.Faker("bs")
 
     class Meta:
         model = Product
+
+    class Params:
+        with_brand = factory.Trait(
+            brand=factory.SubFactory(ProductBrandFactory),
+        )
 
     @factory.post_generation
     def categories(self, create, extracted, **kwargs):
@@ -80,3 +85,12 @@ class CartProductFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = CartProduct
+
+
+class PaymentMethodFactory(factory.django.DjangoModelFactory):
+    name = factory.Faker("word")
+    method = factory.fuzzy.FuzzyChoice((plugin.identifier for plugin in register))
+
+    class Meta:
+        model = "shop.PaymentMethod"
+        django_get_or_create = ("method",)
