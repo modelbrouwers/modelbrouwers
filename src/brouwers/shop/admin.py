@@ -21,7 +21,6 @@ from .models import (
     ProductBrand,
     ProductImage,
     ProductManufacturer,
-    ProductReview,
     ShopConfiguration,
 )
 from .resources import CategoryResource, ProductResource
@@ -83,13 +82,6 @@ class ProductAdmin(ImportExportModelAdmin):
 
     def tag_list(self, obj):
         return ", ".join(o.name for o in obj.tags.all())
-
-
-@admin.register(ProductReview)
-class ProductReviewAdmin(admin.ModelAdmin):
-    list_display = ("product", "reviewer", "text", "rating", "submitted_on")
-    list_filter = ("product", "reviewer", "rating", "submitted_on")
-    search_fields = ("product", "reviewer", "rating")
 
 
 @admin.register(ProductBrand)

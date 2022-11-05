@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
@@ -10,7 +8,6 @@ from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
 from ..constants import WeightUnits
-from ..managers import ProductQuerySet
 
 MAX_RATING = 5
 MIN_RATING = 1
@@ -63,7 +60,6 @@ class Product(models.Model):
         on_delete=models.PROTECT,
     )
     tags = TaggableManager()
-    objects = ProductQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("product")
@@ -111,32 +107,6 @@ class ProductBrand(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class ProductReview(models.Model):
-    product = models.ForeignKey(
-        "Product",
-        related_name="reviews",
-        on_delete=models.CASCADE,
-    )
-    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    text = models.TextField()
-    rating = models.PositiveSmallIntegerField(
-        _("rating"),
-        validators=[MinValueValidator(MIN_RATING), MaxValueValidator(MAX_RATING)],
-    )
-    submitted_on = models.DateTimeField(auto_now_add=True)
-    last_edited_on = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = _("product review")
-        verbose_name_plural = _("product reviews")
-
-    def __str__(self):
-        return _("Review: %(product)s by %(user)s") % {
-            "product": self.product.name,
-            "user": self.reviewer.username,
-        }
 
 
 class ProductManufacturer(models.Model):
