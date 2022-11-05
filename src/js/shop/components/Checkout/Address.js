@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
-import { country_list, SUPPORTED_COUNTRIES, EMPTY_ADDRESS } from "./constants";
 import AddressFields from "./AddressFields";
+import { country_list, SUPPORTED_COUNTRIES, EMPTY_ADDRESS } from "./constants";
+import { CheckoutContext } from "./Context";
 import PersonalDetailsFields from "./PersonalDetailsFields";
 
 const AddressType = PropTypes.shape({
@@ -43,7 +44,6 @@ const Address = ({
     ] = useState(true);
     const navigate = useNavigate();
 
-    // TODO this probably needs to send api request to create/modify an order
     const onSubmit = (event) => {
         event.preventDefault();
         navigate("/payment");
@@ -53,6 +53,8 @@ const Address = ({
     billingAddress =
         billingAddress ??
         (!deliveryAddressIsBillingAddress ? EMPTY_ADDRESS : null);
+
+    const { validationErrors } = useContext(CheckoutContext);
 
     return (
         <form onSubmit={onSubmit}>
@@ -72,6 +74,7 @@ const Address = ({
                         lastName={customer.lastName}
                         email={customer.email}
                         phone={customer.phone}
+                        errors={validationErrors?.customer}
                         onChange={onChange}
                     />
                 </div>
@@ -99,6 +102,7 @@ const Address = ({
                             value: deliveryAddress.country,
                             label: SUPPORTED_COUNTRIES[deliveryAddress.country],
                         }}
+                        errors={validationErrors?.deliveryAddress}
                         onChange={onChange}
                     />
 
@@ -157,6 +161,7 @@ const Address = ({
                                     billingAddress.country
                                 ],
                             }}
+                            errors={validationErrors?.invoiceAddress}
                             onChange={onChange}
                         />
                     </div>
@@ -196,3 +201,4 @@ Address.propTypes = {
 };
 
 export default Address;
+export { AddressType, CustomerType };

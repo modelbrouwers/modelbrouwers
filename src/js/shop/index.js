@@ -1,3 +1,4 @@
+import camelCase from "lodash.camelcase";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { IntlProvider } from "react-intl";
@@ -6,8 +7,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { CartConsumer } from "../data/shop/cart";
 import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
 import { Checkout } from "./components/Checkout";
+import { camelize } from "./components/Checkout/utils";
 import { CartStore } from "./store";
 import { getIntlProviderProps } from "../i18n";
+
+const getDataFromScript = (scriptId) => {
+    const node = document.getElementById(scriptId);
+    if (!node) return null;
+    const data = JSON.parse(node.innerText);
+    return data ? camelize(data) : null;
+};
 
 export default class Page {
     static init() {
@@ -112,6 +121,12 @@ export default class Page {
         // an empty object
         const userProfileScript = document.getElementById("user_profile_data");
         const user = JSON.parse(userProfileScript.innerText);
+
+        // read backend data and validation errors
+        const checkoutData = getDataFromScript("checkout-data");
+        const validationErrors = getDataFromScript("checkout-errors");
+        const orderDetails = getDataFromScript("order-details");
+
         // mount and render the checkout component in the DOM
         root.render(
             <IntlProvider {...intlProps}>
@@ -121,6 +136,9 @@ export default class Page {
                         confirmPath={confirmPath}
                         user={user}
                         cartStore={cartStore}
+                        checkoutData={checkoutData}
+                        orderDetails={orderDetails}
+                        validationErrors={validationErrors}
                     />
                 </Router>
             </IntlProvider>

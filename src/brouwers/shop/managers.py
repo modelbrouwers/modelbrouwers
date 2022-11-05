@@ -1,6 +1,6 @@
 from django.db.models import Avg, Q, QuerySet
 
-from .constants import CartStatuses
+from .constants import CART_SESSION_KEY, CartStatuses
 
 
 class ProductQuerySet(QuerySet):
@@ -17,7 +17,7 @@ class CartQuerySet(QuerySet):
 
     def for_request(self, request) -> QuerySet:
         q = Q()
-        if cart_id := request.session.get("cart_id"):
+        if cart_id := request.session.get(CART_SESSION_KEY):
             q |= Q(id=cart_id)
 
         if request.user.is_authenticated:

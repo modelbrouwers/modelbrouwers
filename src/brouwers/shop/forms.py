@@ -1,15 +1,9 @@
 from django import forms
-from django.core.exceptions import ValidationError
-from django.db.models import Prefetch
 from django.utils.translation import gettext_lazy as _
 
-from brouwers.shop.models import MAX_RATING, MIN_RATING, ProductReview
 from brouwers.utils.widgets import StarRatingSelect
 
-from .api.viewsets import PaymentMethodViewSet
-from .models import Cart, CartProduct
-from .payments.sisow.constants import Payments
-from .payments.sisow.service import get_ideal_banks
+from .models import MAX_RATING, MIN_RATING, ProductReview
 
 
 class ProductReviewForm(forms.ModelForm):
@@ -21,56 +15,3 @@ class ProductReviewForm(forms.ModelForm):
     class Meta:
         model = ProductReview
         fields = ["rating", "text"]
-
-
-class ConfirmOrderForm(forms.Form):
-    cart = forms.ModelChoiceField(
-        queryset=Cart.objects.none(),
-        required=True,
-    )
-    payment_method = forms.ModelChoiceField(
-        queryset=PaymentMethodViewSet.queryset,
-        required=True,
-    )
-    payment_method_options = forms.JSONField()
-
-    def __init__(self, *args, **kwargs):
-        request = kwargs.pop("request")
-        super().__init__(*args, **kwargs)
-        self.fields["cart"].queryset = Cart.objects.for_request(
-            request
-        ).prefetch_related(
-            Prefetch("products", queryset=CartProduct.objects.select_related("product"))
-        )
-
-    def clean(self):
-        super().clean()
-        payment_method = self.cleaned_data.get("payment_method")
-        options = self.cleaned_data.get("payment_method_options")
-
-        # check that a bank was selected
-        if payment_method.method == Payments.ideal:
-            bank_id = options.get("bank", {}).get("value")
-            if not bank_id:
-                self.add_error(
-                    "payment_method_options",
-                    ValidationError(
-                        _("Please select your iDeal bank."), code="required"
-                    ),
-                )
-            # check if it's a valid ID
-            ideal_banks = get_ideal_banks()
-            bank = next(
-                (ideal_bank for ideal_bank in ideal_banks if ideal_bank.id == bank_id),
-                None,
-            )
-            if bank is None:
-                self.add_error(
-                    "payment_method_options",
-                    ValidationError(_("Please select a valid bank."), code="invalid"),
-                )
-
-            # all good - store the bank reference in the cleaned_data
-            self.cleaned_data["bank"] = bank
-
-        return self.cleaned_data

@@ -19,7 +19,7 @@ class Cart(models.Model):
     )
     status = models.CharField(
         _("status"),
-        max_length=10,
+        max_length=50,
         choices=CartStatuses.choices,
         default=CartStatuses.open,
     )

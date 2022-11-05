@@ -37,7 +37,7 @@ msgid "name"
 msgstr "naam"
 
 #: models.py:24 models.py:83
-msgid "order"
+msgid "ordering"
 msgstr "volgorde"
 
 #: models.py:26

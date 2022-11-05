@@ -3,6 +3,15 @@
 {% block content %}
     {{ block.super }}
 
+    {% if serializer %}
+        {{ serializer.data|json_script:'checkout-data' }}
+        {{ serializer.errors|json_script:'checkout-errors' }}
+    {% endif %}
+
+    {% if orderDetails %}
+        {{ orderDetails|json_script:'order-details' }}
+    {% endif %}
+
     <div
         id="react-checkout"
         data-path="{% url 'shop:checkout' %}"

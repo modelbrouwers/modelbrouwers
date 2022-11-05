@@ -1,15 +1,20 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from modeltranslation.admin import TranslationAdmin
 from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
 from .models import (
+    Address,
+    Cart,
     Category,
     CategoryCarouselImage,
     HomepageCategory,
     HomepageCategoryChild,
+    Order,
     Payment,
     PaymentMethod,
     Product,
@@ -127,7 +132,7 @@ class HomepageCategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(HomepageCategoryChild)
-class HomepageCategoryChild(admin.ModelAdmin):
+class HomepageCategoryChildAdmin(admin.ModelAdmin):
     list_display = ("category", "order")
     raw_id_fields = ("category",)
     list_filter = ("order",)
@@ -141,10 +146,47 @@ class PaymentMethodAdmin(admin.ModelAdmin):
     search_fields = ("name", "method")
     ordering = ("order",)
 
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        from .payments.service import register
+
+        if db_field.name == "method":
+            assert not db_field.choices
+            _old = db_field.choices
+            db_field.choices = register.get_choices()
+            field = super().formfield_for_dbfield(db_field, request, **kwargs)
+            db_field.choices = _old
+            return field
+
+        return super().formfield_for_dbfield(db_field, request, **kwargs)
+
 
 @admin.register(ShopConfiguration)
-class ShopConfigurationAdmin(SingletonModelAdmin):
-    pass
+class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
+    fieldsets = (
+        (
+            _("Sisow/Buckaroo"),
+            {
+                "fields": (
+                    "sisow_test_mode",
+                    "sisow_merchant_id",
+                    "sisow_merchant_key",
+                )
+            },
+        ),
+        (_("Bank transfer"), {"fields": ("bank_transfer_instructions",)}),
+    )
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "status",
+        "user",
+    )
+    list_select_related = ("user",)
+    list_filter = ("status",)
+    raw_id_fields = ("user",)
 
 
 @admin.register(Payment)
@@ -154,3 +196,32 @@ class PaymentAdmin(admin.ModelAdmin):
     search_fields = ("reference",)
     date_hierarchy = "created"
     ordering = ("-created",)
+
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = (
+        "street",
+        "number",
+        "postal_code",
+        "city",
+        "country",
+        "chamber_of_commerce",
+    )
+    list_filter = ("country",)
+    search_fields = ("street", "postal_code")
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("reference", "first_name", "last_name", "email", "status")
+    list_select_related = ("cart", "payment")
+    search_fields = ("first_name", "last_name", "payment__reference", "email")
+    list_filter = ("status",)
+    date_hierarchy = "created"
+    raw_id_fields = (
+        "cart",
+        "payment",
+        "delivery_address",
+        "invoice_address",
+    )
