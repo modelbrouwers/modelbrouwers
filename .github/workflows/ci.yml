@@ -42,13 +42,13 @@ jobs:
           - 11211:11211
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
         run: pip install -r requirements/ci.txt
@@ -64,14 +64,14 @@ jobs:
           coverage run src/manage.py test src -v 2
 
       - name: Publish coverage report
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
 
   docker:
     runs-on: ubuntu-latest
     name: Docker image build
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Determine tag/commit hash
         id: vars
         run: |
@@ -95,7 +95,7 @@ jobs:
             .
       - run: docker image save -o image.tar $IMAGE_NAME:${{ steps.vars.outputs.tag }}
       - name: Store image artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: docker-image
           path: image.tar
