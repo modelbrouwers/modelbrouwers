@@ -27,15 +27,6 @@
 
                 <div class="product__info">
                     <h4 class="product__name">{{ product.name }}</h4>
-                    {% if product.brand %}
-                        <p class="product__brand">
-                            <a href="{{ product.brand.slug }}" class="product__brand-link">
-                                {{ product.brand }}
-                            </a>
-                        </p>
-                        <img src="{{ product.brand.logo.url }}" class="product__brand-logo"
-                             alt="{{ product.brand.name }}">
-                    {% endif %}
                     {% if product.model_name %}
                         <div class="product__text-group">
                             <span class="product__label">{% trans 'Model' %}</span>

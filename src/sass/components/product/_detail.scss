@@ -1,5 +1,4 @@
 .product {
-
   &__image {
     width: 100%;
   }
@@ -20,15 +19,13 @@
     flex-flow: wrap;
   }
 
-  &__brand-logo {
-    height: 50px;
-  }
-
-  &__content, &__inner {
+  &__content,
+  &__inner {
     width: 100%;
   }
 
-  &__image-container, &__info {
+  &__image-container,
+  &__info {
     width: 50%;
   }
 
@@ -52,15 +49,6 @@
   &__order {
     display: flex;
     padding: 15px 0;
-  }
-
-  &__brand {
-    margin: 0;
-  }
-
-  &__brand-link {
-    color: $main-grey;
-    text-transform: uppercase;
   }
 
   &__text-group {

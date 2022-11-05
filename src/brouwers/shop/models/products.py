@@ -16,9 +16,6 @@ MIN_RATING = 1
 class Product(models.Model):
     name = models.CharField(_("name"), max_length=200)
     slug = AutoSlugField(_("slug"), max_length=200, unique=True, populate_from="name")
-    brand = models.ForeignKey(
-        "ProductBrand", null=True, blank=True, on_delete=models.PROTECT
-    )
     model_name = models.CharField(_("model name"), max_length=30)
     stock = models.PositiveIntegerField(
         _("stock"), help_text=_("Number of items in stock")
@@ -92,21 +89,6 @@ class ProductImage(models.Model):
     class Meta:
         verbose_name = _("product image")
         verbose_name_plural = _("product images")
-
-
-class ProductBrand(models.Model):
-    name = models.CharField(_("name"), max_length=30)
-    slug = AutoSlugField(_("slug"), unique=True, populate_from="name")
-    logo = models.ImageField(
-        _("logo"), upload_to="images/product_brand_logos/", blank=True
-    )
-
-    class Meta:
-        verbose_name = _("product brand")
-        verbose_name_plural = _("product brands")
-
-    def __str__(self):
-        return self.name
 
 
 class ProductManufacturer(models.Model):

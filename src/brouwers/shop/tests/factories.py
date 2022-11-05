@@ -3,14 +3,7 @@ import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
 
-from ..models import (
-    Cart,
-    CartProduct,
-    Category,
-    Product,
-    ProductBrand,
-    ProductManufacturer,
-)
+from ..models import Cart, CartProduct, Category, Product, ProductManufacturer
 from ..payments.registry import register
 
 
@@ -31,14 +24,6 @@ class CategoryFactory(factory.django.DjangoModelFactory):
         return model_class.add_root(**kwargs)
 
 
-class ProductBrandFactory(factory.django.DjangoModelFactory):
-    name = factory.Faker("name")
-    logo = factory.django.ImageField(color="blue")
-
-    class Meta:
-        model = ProductBrand
-
-
 class ProductManufacturerFactory(factory.django.DjangoModelFactory):
     name = factory.Faker("name")
 
@@ -57,11 +42,6 @@ class ProductFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Product
-
-    class Params:
-        with_brand = factory.Trait(
-            brand=factory.SubFactory(ProductBrandFactory),
-        )
 
     @factory.post_generation
     def categories(self, create, extracted, **kwargs):

@@ -18,7 +18,6 @@ from .models import (
     Payment,
     PaymentMethod,
     Product,
-    ProductBrand,
     ProductImage,
     ProductManufacturer,
     ShopConfiguration,
@@ -42,7 +41,6 @@ class ProductAdmin(ImportExportModelAdmin):
     list_display = (
         "name",
         "seo_keyword",
-        "brand",
         "model_name",
         "stock",
         "price",
@@ -56,7 +54,6 @@ class ProductAdmin(ImportExportModelAdmin):
         "tag_list",
     )
     list_filter = (
-        "brand",
         "categories",
         "manufacturer",
     )
@@ -64,7 +61,6 @@ class ProductAdmin(ImportExportModelAdmin):
     search_fields = (
         "name",
         "seo_keyword",
-        "brand__name",
         "model_name",
         "stock",
         "price",
@@ -74,7 +70,7 @@ class ProductAdmin(ImportExportModelAdmin):
         "weight",
         "manufacturer__name",
     )
-    raw_id_fields = ("brand", "related_products", "categories", "manufacturer")
+    raw_id_fields = ("related_products", "categories", "manufacturer")
     resource_class = ProductResource
 
     def get_queryset(self, request):
@@ -82,13 +78,6 @@ class ProductAdmin(ImportExportModelAdmin):
 
     def tag_list(self, obj):
         return ", ".join(o.name for o in obj.tags.all())
-
-
-@admin.register(ProductBrand)
-class ProductBrandAdmin(admin.ModelAdmin):
-    list_display = ("name", "logo")
-    list_filter = ("name",)
-    search_fields = ("name",)
 
 
 @admin.register(ProductImage)
