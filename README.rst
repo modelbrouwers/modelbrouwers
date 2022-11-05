@@ -12,11 +12,11 @@ albums software and a webshop.
 .. image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
     :target: https://github.com/modelbrouwers/modelbrouwers/actions?query=workflow%3A%22Run+CI%22
 
-.. image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=master
-    :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=master
+.. image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=main
+    :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=main
 
-.. image:: https://requires.io/github/modelbrouwers/modelbrouwers/requirements.svg?branch=master
-     :target: https://requires.io/github/modelbrouwers/modelbrouwers/requirements/?branch=master
+.. image:: https://requires.io/github/modelbrouwers/modelbrouwers/requirements.svg?branch=main
+     :target: https://requires.io/github/modelbrouwers/modelbrouwers/requirements/?branch=main
      :alt: Requirements Status
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
