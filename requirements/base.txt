@@ -4,17 +4,17 @@
 #
 #    ./bin/compile_dependencies.sh
 #
-asgiref==3.5.0
+asgiref==3.5.2
     # via django
-bleach==5.0.0
+bleach==5.0.1
     # via -r requirements/base.in
 brotli==1.0.9
     # via fonttools
-certifi==2021.10.8
+certifi==2022.9.24
     # via
     #   requests
     #   sentry-sdk
-cffi==1.15.0
+cffi==1.15.1
     # via weasyprint
 charset-normalizer==2.0.12
     # via requests
@@ -24,7 +24,7 @@ defusedxml==0.7.1
     # via odfpy
 diff-match-patch==20200713
     # via django-import-export
-django==3.2.14
+django==3.2.16
     # via
     #   -r requirements/base.in
     #   django-choices
@@ -38,6 +38,7 @@ django==3.2.14
     #   django-precise-bbcode
     #   django-rosetta
     #   django-sendfile2
+    #   django-sessionprofile
     #   django-sniplates
     #   django-solo
     #   django-taggit
@@ -61,17 +62,17 @@ django-import-export==2.8.0
     # via -r requirements/base.in
 django-js-asset==2.0.0
     # via django-ckeditor
-django-loginas==0.3.10
+django-loginas==0.3.11
     # via -r requirements/base.in
 django-modeltranslation==0.17.5
     # via -r requirements/base.in
-django-precise-bbcode==1.2.14
+django-precise-bbcode==1.2.15
     # via -r requirements/base.in
 django-rosetta==0.9.8
     # via -r requirements/base.in
-django-sendfile2==0.6.1
+django-sendfile2==0.7.0
     # via -r requirements/base.in
-django-sessionprofile==1.0
+django-sessionprofile==2.0.0
     # via -r requirements/base.in
 django-sniplates==0.7.0
     # via -r requirements/base.in
@@ -97,26 +98,26 @@ html5lib==1.1
     # via weasyprint
 idna==3.3
     # via requests
-lxml==4.8.0
+lxml==4.9.1
     # via -r requirements/base.in
 markuppy==1.14
     # via tablib
-mysqlclient==2.1.0
+mysqlclient==2.1.1
     # via -r requirements/base.in
 odfpy==1.4.1
     # via tablib
-openpyxl==3.0.9
+openpyxl==3.0.10
     # via
     #   -r requirements/base.in
     #   tablib
-pillow==9.1.1
+pillow==9.3.0
     # via
     #   -r requirements/base.in
     #   django-precise-bbcode
     #   weasyprint
 polib==1.1.1
     # via django-rosetta
-psycopg2==2.9.3
+psycopg2==2.9.5
     # via -r requirements/base.in
 pycparser==2.21
     # via cffi
@@ -132,16 +133,16 @@ python-dotenv==0.20.0
     # via -r requirements/base.in
 python-memcached==1.59
     # via -r requirements/base.in
-pytz==2022.1
+pytz==2022.6
     # via
     #   -r requirements/base.in
     #   django
     #   djangorestframework
 pyyaml==6.0
     # via tablib
-requests==2.27.1
+requests==2.28.1
     # via django-rosetta
-sentry-sdk==1.5.10
+sentry-sdk==1.10.1
     # via -r requirements/base.in
 six==1.16.0
     # via
@@ -153,7 +154,7 @@ six==1.16.0
     #   python-memcached
 sorl-thumbnail==12.8.0
     # via -r requirements/base.in
-sqlparse==0.4.2
+sqlparse==0.4.3
     # via django
 tablib[html,ods,xls,xlsx,yaml]==3.2.1
     # via django-import-export
@@ -161,11 +162,11 @@ tinycss2==1.1.1
     # via
     #   cssselect2
     #   weasyprint
-urllib3==1.26.9
+urllib3==1.26.12
     # via
     #   requests
     #   sentry-sdk
-uwsgi==2.0.20
+uwsgi==2.0.21
     # via -r requirements/base.in
 weasyprint==54.3
     # via -r requirements/base.in
