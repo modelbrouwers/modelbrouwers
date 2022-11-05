@@ -86,39 +86,6 @@
     border: 1px solid #ddd;
     border-radius: 0 4px 4px 4px;
   }
-
-  &__actions {
-    display: flex;
-
-    .button-row:first-child {
-      margin-right: 30px;
-    }
-  }
-
-  &__review-item:not(:last-child) {
-    padding: 10px 0;
-    border-bottom: $border;
-  }
-
-  &__leave-review {
-    margin-top: 40px;
-    color: $text-color;
-  }
-
-  &__rating {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-
-    .fa {
-      font-size: 18px;
-      color: $main-orange;
-    }
-  }
-
-  &__rating-info {
-    margin-left: 10px;
-  }
 }
 
 .review {
