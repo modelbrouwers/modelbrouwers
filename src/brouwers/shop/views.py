@@ -13,7 +13,6 @@ from django.views.generic.edit import ModelFormMixin
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from .constants import CART_SESSION_KEY, CartStatuses
-from .forms import ProductReviewForm
 from .models import (
     Cart,
     Category,
@@ -46,32 +45,10 @@ class CategoryDetailView(DetailView):
     model = Category
 
 
-class ProductDetailView(ModelFormMixin, DetailView):
-    queryset = Product.objects.annotate_mean_rating()
+class ProductDetailView(DetailView):
+    model = Product
     context_object_name = "product"
     template_name = "shop/product_detail.html"
-    model = Product
-    form_class = ProductReviewForm
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if "form" not in kwargs:
-            context["form"] = self.get_form()
-        return context
-
-    def get_success_url(self):
-        return reverse("shop:product-detail", kwargs={"slug": self.object.product.slug})
-
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        form.instance.reviewer = self.request.user
-        form.instance.product = get_object_or_404(Product, slug=self.kwargs["slug"])
-        if form.is_valid():
-            self.object = form.save()
-            return redirect(self.get_success_url())
-        self.object = self.get_object()
-        context = self.get_context_data(form=form, **kwargs)
-        return self.render_to_response(context)
 
 
 class CartDetailView(DetailView):

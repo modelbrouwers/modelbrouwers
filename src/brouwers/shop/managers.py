@@ -1,11 +1,6 @@
-from django.db.models import Avg, Q, QuerySet
+from django.db.models import Q, QuerySet
 
 from .constants import CART_SESSION_KEY, CartStatuses
-
-
-class ProductQuerySet(QuerySet):
-    def annotate_mean_rating(self):
-        return self.annotate(avg_rating=Avg("reviews__rating"))
 
 
 class CartQuerySet(QuerySet):

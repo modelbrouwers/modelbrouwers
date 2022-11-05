@@ -27,14 +27,13 @@ class ProductApiTest(APITestCase):
         self.addCleanup(cache.clear)
 
     def test_get_product(self):
-        product = ProductFactory.create(with_brand=True)
+        product = ProductFactory.create()
 
         response = self.client.get(reverse("api:product-detail", args=[product.pk]))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["id"], product.pk)
         self.assertEqual(response.data["name"], product.name)
-        self.assertEqual(response.data["brand"], product.brand.id)
 
 
 class CartApiTest(APITestCase):

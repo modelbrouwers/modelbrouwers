@@ -15,7 +15,6 @@ class ProductResource(ModelResource):
         fields = (
             "id",
             "name",
-            "brand",
             "model_name",
             "stock",
             "price",

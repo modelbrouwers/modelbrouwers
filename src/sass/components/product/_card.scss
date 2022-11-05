@@ -32,19 +32,6 @@
     text-align: right;
   }
 
-  &__actions {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin-top: 0.5em;
-
-    > * {
-      flex-grow: 1;
-      width: 100%;
-    }
-  }
-
   @include gt-mobile {
     &__image-link {
       order: 1;
@@ -62,10 +49,6 @@
     .react-cart-actions {
       order: 2;
       margin-top: 0.5em;
-    }
-
-    &__actions {
-      order: 5;
     }
   }
 }

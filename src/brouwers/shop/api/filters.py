@@ -9,7 +9,7 @@ from ..models import Cart, CartProduct, Product
 class ProductFilter(filters.FilterSet):
     class Meta:
         model = Product
-        fields = ("id", "name", "brand", "price", "vat")
+        fields = ("id", "name", "price", "vat")
 
 
 class CartFilter(filters.FilterSet):

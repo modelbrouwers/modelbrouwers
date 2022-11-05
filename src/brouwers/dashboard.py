@@ -49,7 +49,6 @@ class CustomIndexDashboard(Dashboard):
                     "brouwers.shop.models.categories.CategoryCarouselImage",
                     "brouwers.shop.models.products.Product",
                     "brouwers.shop.models.products.ProductImage",
-                    "brouwers.shop.models.products.ProductBrand",
                     "brouwers.shop.models.products.ProductManufacturer",
                 ),
             )
