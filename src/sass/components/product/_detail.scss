@@ -1,32 +1,61 @@
 .product {
-  &__image {
-    width: 100%;
-  }
-
-  &__image-wrapper {
-    width: 250px;
-    height: 250px;
-  }
-
-  &__name {
-    color: $text-color;
-    margin: 0;
-  }
-
-  &__inner {
-    display: flex;
-    padding: 30px 0;
-    flex-flow: wrap;
-  }
-
-  &__content,
-  &__inner {
-    width: 100%;
-  }
-
-  &__image-container,
   &__info {
+    display: flex;
+    gap: 1em;
+    justify-content: flex-start;
+
+    @include lte-mobile {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__image {
     width: 50%;
+    flex-grow: 1.3;
+
+    @include lte-mobile {
+      flex-basis: 100%;
+      width: 100%;
+    }
+  }
+
+  &__picture {
+    max-width: 100%;
+  }
+
+  &__details {
+    flex-grow: 1;
+
+    @include lte-mobile {
+      flex-basis: 100%;
+      display: flex;
+      gap: 0.5em;
+    }
+  }
+
+  &__order {
+    display: flex;
+    padding: 1em 0;
+    justify-content: flex-start;
+
+    @include lte-mobile {
+      justify-content: flex-end;
+      order: 2;
+      width: 50%;
+    }
+
+    @include gt-mobile {
+      position: sticky;
+      top: 1em;
+    }
+  }
+
+  &__properties {
+    @include lte-mobile {
+      order: 1;
+      width: 50%;
+      padding: 1em 0;
+    }
   }
 
   &__amount-label {
@@ -44,64 +73,5 @@
       -webkit-appearance: none;
       margin: 0;
     }
-  }
-
-  &__order {
-    display: flex;
-    padding: 15px 0;
-  }
-
-  &__text-group {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 0;
-  }
-
-  &__label {
-    font-size: 12px;
-    color: $main-grey;
-  }
-
-  &__text {
-    font-size: 14px;
-    font-weight: bold;
-
-    &--lg {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
-
-  &__tabs {
-    width: 100%;
-    margin-top: 30px;
-
-    .nav-tabs {
-      border-bottom: none;
-    }
-  }
-
-  &__tab-content {
-    padding: 10px 20px;
-    border: 1px solid #ddd;
-    border-radius: 0 4px 4px 4px;
-  }
-}
-
-.review {
-  &__info {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  &__reviewer-name {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-
-  &__date {
-    font-size: 12px;
-    color: $main-grey;
   }
 }

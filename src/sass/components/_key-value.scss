@@ -1,0 +1,26 @@
+.key-value {
+  display: flex;
+  gap: 1em;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  @include lte-mobile {
+    max-width: 200px;
+    margin-left: auto;
+  }
+
+  &__label {
+    font-size: 1em;
+    color: $main-grey;
+  }
+
+  &__text {
+    font-size: 1.1em;
+    font-weight: 900;
+
+    &#{&}--large {
+      font-size: 121%;
+    }
+  }
+}

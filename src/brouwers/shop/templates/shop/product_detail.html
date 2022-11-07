@@ -27,37 +27,43 @@
                         <img src="{{ product.get_image_url }}" class="product__picture" alt="{{ product.name }}">
                     </figure>
 
-                    <div class="product__properties">
+                    <div class="product__details">
 
-                        {% if product.model_name %}
-                            <div class="key-value">
-                                <span class="key-value__label">{% trans 'Model' %}</span>
-                                <span "key-value__text">{{ product.model_name }}</span>
-                            </div>
-                        {% endif %}
-
-                        <div class="key-value">
-                            <span class="key-value__label">{% trans 'Stock' %}</span>
-                            <span class="key-value__text">{{ product.stock }}</span>
+                        {# TODO: hook up react component / JS #}
+                        <div class="product__order">
+                            <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
+                            <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
+                                   value="1">
+                            {# TODO: disable if there is no stock #}
+                            <button class="button button--blue button--order">
+                                {% trans 'Add to cart' %}
+                            </button>
                         </div>
 
-                        <div class="key-value">
-                            <span class="key-value__label">{% trans 'Price' %}</span>
-                            <span class="key-value__text key-value__text--large">
-                                &euro;&nbsp;{{ product.price }}
-                            </span>
+                        <div class="product__properties">
+
+                            {% if product.model_name %}
+                                <div class="key-value">
+                                    <span class="key-value__label">{% trans 'Model' %}</span>
+                                    <span "key-value__text">{{ product.model_name }}</span>
+                                </div>
+                            {% endif %}
+
+                            <div class="key-value">
+                                <span class="key-value__label">{% trans 'Stock' %}</span>
+                                <span class="key-value__text">{{ product.stock }}</span>
+                            </div>
+
+                            <div class="key-value">
+                                <span class="key-value__label">{% trans 'Price' %}</span>
+                                <span class="key-value__text key-value__text--large">
+                                    &euro;&nbsp;{{ product.price }}
+                                </span>
+                            </div>
                         </div>
 
                     </div>
 
-                </div>
-
-                {# TODO: hook up react component / JS #}
-                <div class="product__order">
-                    <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
-                    <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
-                           value="1">
-                    <button class="button button--blue button--order">{% trans 'Add to cart' %}</button>
                 </div>
 
 
