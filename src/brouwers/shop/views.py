@@ -1,14 +1,13 @@
 import json
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 
 from django.db import transaction
 from django.http.response import HttpResponseBase
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import Resolver404, get_resolver, reverse
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
-from django.views.generic.edit import ModelFormMixin
 
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
@@ -49,6 +48,42 @@ class ProductDetailView(DetailView):
     model = Product
     context_object_name = "product"
     template_name = "shop/product_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            category = self._resolve_product_category()
+        except Category.DoesNotExist:
+            category = context["product"].categories.first()
+        context["from_category"] = category
+        return context
+
+    def _resolve_product_category(self):
+        referrer = self.request.headers.get("Referer")
+        if not referrer:  # fallback
+            raise Category.DoesNotExist("No Referer header to derive category from")
+
+        split_result = urlsplit(referrer)
+        if split_result.netloc != self.request.get_host():
+            raise Category.DoesNotExist("Referer belongs to another domain")
+
+        resolver = get_resolver()
+        try:
+            callback, callback_args, callback_kwargs = resolver.resolve(
+                split_result.path
+            )
+        except Resolver404 as exc:
+            raise Category.DoesNotExist("Could not resolve referer URL") from exc
+
+        if (
+            view_cls := getattr(callback, "view_class", None)
+        ) is not CategoryDetailView:
+            raise Category.DoesNotExist("URL did not resolve to category detailview")
+
+        view = view_cls(*callback_args, **callback_kwargs)
+        view.args = callback_args
+        view.kwargs = callback_kwargs
+        return view.get_object()
 
 
 class CartDetailView(DetailView):

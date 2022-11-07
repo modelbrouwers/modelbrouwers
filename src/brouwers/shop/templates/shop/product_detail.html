@@ -1,70 +1,80 @@
 {% extends "shop/base.html" %} {% load i18n sniplates brouwers %}
 
-{% block content %}
-    {{ block.super }}
-    <div class="wrapper">
-        {% include 'shop/includes/sidenav.html' with categories=categories category=product.categories.all.first %}
-        <div class="product__content">
-            {#    TODO Figure out how to get the proper category #}
-            {% include 'shop/includes/breadcrumbs.html' with curr_node=product.categories.all.first %}
+{% block title %} {{ product.name }}{% endblock %}
 
-            <div class="product__inner">
-                <div class="product__image-container">
-                    <div class="product__image-wrapper">
-                        <img src="{{ product.get_image_url }}" class="product__image" alt="{{ product.name }}">
-                    </div>
-                </div>
+{# TODO: meta/seo tags #}
+
+{% block content %}
+{{ block.super }}
+
+<div class="page-content">
+
+    <div class="nav-wrapper">
+
+        <div class="nav-wrapper__content">
+
+            <div class="page-content__breadcrumbs">
+                {% include 'shop/includes/breadcrumbs.html' with curr_node=from_category %}
+            </div>
+
+            <article class="product">
+
+                <h1 class="heading heading--plain">{{ product.name }}</h1>
 
                 <div class="product__info">
-                    <h4 class="product__name">{{ product.name }}</h4>
-                    {% if product.model_name %}
-                        <div class="product__text-group">
-                            <span class="product__label">{% trans 'Model' %}</span>
-                            <span class="product__text">{{ product.model_name }}</span>
+
+                    <figure class="product__image">
+                        <img src="{{ product.get_image_url }}" class="product__picture" alt="{{ product.name }}">
+                    </figure>
+
+                    <div class="product__properties">
+
+                        {% if product.model_name %}
+                            <div class="key-value">
+                                <span class="key-value__label">{% trans 'Model' %}</span>
+                                <span "key-value__text">{{ product.model_name }}</span>
+                            </div>
+                        {% endif %}
+
+                        <div class="key-value">
+                            <span class="key-value__label">{% trans 'Stock' %}</span>
+                            <span class="key-value__text">{{ product.stock }}</span>
                         </div>
-                    {% endif %}
-                    <div class="product__text-group">
-                        <span class="product__label">{% trans 'Stock' %}</span>
-                        <span class="product__text">{{ product.stock }}</span>
-                    </div>
 
-                    <div class="product__text-group">
-                        <span class="product__label">{% trans 'Price' %}</span>
-                        <span class="product__text product__text--lg">{{ product.price }} &euro;</span>
-                    </div>
-
-                    <div class="product__order">
-                        <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
-                        <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
-                               value="1">
-                        {# TODO: hook up react component #}
-                        <button class="button button--blue button--order">{% trans 'Add to cart' %}</button>
-                    </div>
-                </div>
-
-                <div class="product__tabs">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#description" aria-controls="home" role="tab" data-toggle="tab">
-                                {% trans 'Description' %}
-
-                            </a>
-                        </li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content product__tab-content">
-                        <div role="tabpanel" class="tab-pane active"
-                             id="description">
-                            {# TODO: pass through bleach #}
-                            {{ product.description|safe }}
+                        <div class="key-value">
+                            <span class="key-value__label">{% trans 'Price' %}</span>
+                            <span class="key-value__text key-value__text--large">
+                                &euro;&nbsp;{{ product.price }}
+                            </span>
                         </div>
+
                     </div>
 
                 </div>
-            </div>
+
+                {# TODO: hook up react component / JS #}
+                <div class="product__order">
+                    <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
+                    <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
+                           value="1">
+                    <button class="button button--blue button--order">{% trans 'Add to cart' %}</button>
+                </div>
+
+
+                <h2 class="heading heading--plain">{% trans "Description" %}</h2>
+
+                {# TODO: pass through bleach #}
+                <div>{{ product.description|safe|default:'-' }}</div>
+
+            </article>
+
         </div>
+
+        <nav class="nav-wrapper__nav nav-wrapper__nav--sticky-bottom">
+            {% include 'shop/includes/sidenav.html' with category=from_category %}
+        </nav>
+
     </div>
+</div>
 {% endblock %}
 
