@@ -1,56 +1,57 @@
+// TODO: fully migrate to _design-tokens.scss and add style dictionary in the future
 $main-blue: #006699;
-$main-red: #E91D1D;
-$main-green: #32BB5B;
-$main-light-blue: #4095FD;
-$main-pink: #DF4AC5;
+$main-red: #e91d1d;
+$main-green: #32bb5b;
+$main-light-blue: #4095fd;
+$main-pink: #df4ac5;
 $main-grey: #919291;
-$main-orange: #D46400;
-$light-grey: #DBDEE1;
+$main-orange: #d46400;
+$light-grey: #dbdee1;
 
-.bg-main-blue       {
-    background-color: $main-blue;
-    &.soft {
-        background-color: rgba($main-blue, 0.7);
-    }
+.bg-main-blue {
+  background-color: $main-blue;
+  &.soft {
+    background-color: rgba($main-blue, 0.7);
+  }
 }
-.bg-main-red        {
-    background-color: $main-red;
-    &.soft {
-        background-color: rgba($main-red, 0.7);
-    }
+.bg-main-red {
+  background-color: $main-red;
+  &.soft {
+    background-color: rgba($main-red, 0.7);
+  }
 }
-.bg-main-green      {
-    background-color: $main-green;
-    &.soft {
-        background-color: rgba($main-green, 0.7);
-    }
+.bg-main-green {
+  background-color: $main-green;
+  &.soft {
+    background-color: rgba($main-green, 0.7);
+  }
 }
 .bg-main-light-blue {
-    background-color: $main-light-blue;
-    &.soft {
-        background-color: rgba($main-light-blue, 0.7);
-    }
+  background-color: $main-light-blue;
+  &.soft {
+    background-color: rgba($main-light-blue, 0.7);
+  }
 }
-.bg-main-pink       {
-    background-color: $main-pink;
-    &.soft {
-        background-color: rgba($main-pink, 0.7);
-    }
+.bg-main-pink {
+  background-color: $main-pink;
+  &.soft {
+    background-color: rgba($main-pink, 0.7);
+  }
 }
-.bg-main-grey       {
-    background-color: $main-grey;
-    &.soft {
-        background-color: rgba($main-grey, 0.7);
-    }
+.bg-main-grey {
+  background-color: $main-grey;
+  &.soft {
+    background-color: rgba($main-grey, 0.7);
+  }
 }
-.bg-main-orange     {
-    background-color: $main-orange;
-    &.soft {
-        background-color: rgba($main-orange, 0.7);
-    }
+.bg-main-orange {
+  background-color: $main-orange;
+  &.soft {
+    background-color: rgba($main-orange, 0.7);
+  }
 }
 
-$white: #FFFFFF;
+$white: #ffffff;
 $black: #000000;
 
 /*
@@ -62,20 +63,20 @@ $nav-tab: #e5e5e5;
 $nav-tab-highlight: #fafafa;
 $nav-tab-text: #f4f4f4;
 $nav-tab-text-highlight: #fafafa;
-$broken-white: rgba(255,255,255, 0.5);
+$broken-white: rgba(255, 255, 255, 0.5);
 
 /*
  * Main content
  */
-$box-shadow-color: rgba(0,0,0,0.1);
+$box-shadow-color: rgba(0, 0, 0, 0.1);
 $text-color: #333333;
 
 /*
  * Borders
  */
-$default-border-color: #CCC;
+$default-border-color: #ccc;
 
 /*
 * Bg colors
  */
-$bg-light: #EEEEEE;
+$bg-light: #eeeeee;
