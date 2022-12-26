@@ -25,6 +25,36 @@
 
 @use "sass:list" as list;
 @use "sass:string" as string;
+@use "sass:selector" as selector;
+
+/// Split a string on separator
+///
+/// Taken from https://stackoverflow.com/a/42295154
+///
+/// @access private
+/// @param {string} $string - The string to split
+/// @param {string} $separator - The separator to split on
+@function _str-split($string, $separator) {
+  // empty array/list
+  $split-arr: ();
+  // first index of separator in string
+  $index: string.index($string, $separator);
+  // loop through string
+  @while $index != null {
+    // get the substring from the first character to the separator
+    $item: string.slice($string, 1, $index - 1);
+    // push item to array
+    $split-arr: list.append($split-arr, $item);
+    // remove item and separator from string
+    $string: string.slice($string, $index + 1);
+    // find new index of separator
+    $index: string.index($string, $separator);
+  }
+  // add the remaining string to list (the last item)
+  $split-arr: list.append($split-arr, $string);
+
+  @return $split-arr;
+}
 
 /// Output rules for elements within a block.
 ///
@@ -74,16 +104,16 @@
   // we grab the _first_ selector list item - & can refer to multiple, but that's very
   // un-bem like and unsupported here.
   $target: list.nth(&, 1);
-  $bits: str-split(string.quote(#{$target}), " ");
+  $bits: _str-split(string.quote(#{$target}), " ");
 
   @if (length($bits) == 1) {
     // block
-    $selector: selector-append(&, "#{&}--#{$modifier}");
+    $selector: selector.append(&, "#{&}--#{$modifier}");
   } @else {
     // block__element
-    $block: nth($bits, 1); // block, possibly with a modifier
-    $element: nth($bits, 2);
-    $element_with_modifier: selector-append(
+    $block: list.nth($bits, 1); // block, possibly with a modifier
+    $element: list.nth($bits, 2);
+    $element_with_modifier: selector.append(
       $element,
       "#{$element}--#{$modifier}"
     );
