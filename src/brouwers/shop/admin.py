@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from import_export.admin import ImportExportMixin
 from modeltranslation.admin import TranslationAdmin
 from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
@@ -26,7 +26,7 @@ from .resources import CategoryResource, ProductResource
 
 
 @admin.register(Category)
-class CategoryAdmin(ImportExportMixin, TreeAdmin):
+class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
     form = movenodeform_factory(Category)
     list_display = ("name", "image", "seo_keyword", "enabled")
     list_filter = ("enabled",)
@@ -37,7 +37,7 @@ class CategoryAdmin(ImportExportMixin, TreeAdmin):
 
 
 @admin.register(Product)
-class ProductAdmin(ImportExportModelAdmin):
+class ProductAdmin(ImportExportMixin, TranslationAdmin):
     list_display = (
         "name",
         "seo_keyword",
@@ -121,7 +121,7 @@ class HomepageCategoryChildAdmin(admin.ModelAdmin):
 
 
 @admin.register(PaymentMethod)
-class PaymentMethodAdmin(admin.ModelAdmin):
+class PaymentMethodAdmin(TranslationAdmin):
     list_display = ("name", "method", "logo", "enabled", "order")
     list_filter = ("enabled",)
     search_fields = ("name", "method")

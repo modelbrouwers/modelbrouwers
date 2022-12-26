@@ -64,7 +64,7 @@ django-js-asset==2.0.0
     # via django-ckeditor
 django-loginas==0.3.11
     # via -r requirements/base.in
-django-modeltranslation==0.17.5
+django-modeltranslation==0.18.7
     # via -r requirements/base.in
 django-precise-bbcode==1.2.15
     # via -r requirements/base.in
@@ -148,7 +148,6 @@ six==1.16.0
     # via
     #   bleach
     #   django-choices
-    #   django-modeltranslation
     #   html5lib
     #   python-dateutil
     #   python-memcached
@@ -162,6 +161,8 @@ tinycss2==1.1.1
     # via
     #   cssselect2
     #   weasyprint
+typing-extensions==4.4.0
+    # via django-modeltranslation
 urllib3==1.26.12
     # via
     #   requests

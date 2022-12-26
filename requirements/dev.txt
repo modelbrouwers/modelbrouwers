@@ -118,7 +118,7 @@ django-js-asset==2.0.0
     #   django-ckeditor
 django-loginas==0.3.11
     # via -r requirements/ci.txt
-django-modeltranslation==0.17.5
+django-modeltranslation==0.18.7
     # via -r requirements/ci.txt
 django-precise-bbcode==1.2.15
     # via -r requirements/ci.txt
@@ -302,7 +302,6 @@ six==1.16.0
     #   -r requirements/ci.txt
     #   bleach
     #   django-choices
-    #   django-modeltranslation
     #   html5lib
     #   python-dateutil
     #   python-memcached
@@ -370,8 +369,11 @@ trio-websocket==0.9.2
     # via
     #   -r requirements/ci.txt
     #   selenium
-typing-extensions==4.1.1
-    # via black
+typing-extensions==4.4.0
+    # via
+    #   -r requirements/ci.txt
+    #   black
+    #   django-modeltranslation
 urllib3[socks]==1.26.12
     # via
     #   -r requirements/ci.txt

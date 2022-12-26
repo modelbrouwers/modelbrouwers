@@ -36,8 +36,8 @@ IS_HTTPS = config("IS_HTTPS", default=not DEBUG)
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGES = [
-    ("en", _("English")),
     ("nl", _("Dutch")),
+    ("en", _("English")),
     ("de", _("German")),
 ]
 
