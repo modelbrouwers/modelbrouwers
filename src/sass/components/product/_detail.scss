@@ -3,24 +3,7 @@
 
 .product {
   @include bem.element("info") {
-    display: flex;
-    gap: 1em;
-    justify-content: flex-start;
     margin-bottom: 2em;
-
-    @include responsive.lte-mobile {
-      flex-wrap: wrap;
-    }
-  }
-
-  @include bem.element("image") {
-    width: 50%;
-    flex-grow: 1.3;
-
-    @include responsive.lte-mobile {
-      flex-basis: 100%;
-      width: 100%;
-    }
   }
 
   @include bem.element("picture") {
@@ -33,56 +16,66 @@
     font-weight: 700;
     color: var(--mb-color-main-orange);
   }
+}
 
-  @include bem.element("order") {
-    display: flex;
-    padding: 1em 0;
-    justify-content: flex-start;
-
-    @include responsive.lte-mobile {
-      width: 100%;
-      padding: 0.2em 0 0;
-      font-size: 1.2em;
-      line-height: 1.8;
-
-      .button {
-        width: 100%;
-      }
+@include responsive.lte-mobile {
+  .product {
+    @include bem.element("info") {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
     }
 
-    @include responsive.gt-mobile {
-      position: sticky;
-      top: 1em;
-    }
-  }
-
-  @include bem.element("properties") {
-    @include responsive.lte-mobile {
+    @include bem.element("properties") {
       display: inline-flex;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
-  }
 
-  @include bem.element("amount-label") {
-    display: none;
-  }
-
-  @include bem.element("amount") {
-    width: 50px;
-    padding: 0 5px;
-    border: 1px solid $main-blue;
-    border-radius: 4px 0 0 4px;
-    text-align: center;
-
-    @include responsive.lte-mobile {
-      width: 100px;
+    @include bem.element("image") {
+      flex-basis: 100%;
+      width: 100%;
     }
 
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+    @include bem.element("order") {
+      width: 100%;
+
+      .order-button {
+        font-size: 1.2em;
+        line-height: 1.8;
+      }
+    }
+  }
+}
+
+@include responsive.gt-mobile {
+  .product {
+    @include bem.element("info") {
+      display: grid;
+      grid-template-columns: [main] 2fr [sidebar] 1fr;
+      grid-template-rows: min-content min-content;
+      grid-template-areas:
+        "image order"
+        "image properties";
+      column-gap: 1em;
+      row-gap: 0.5em;
+    }
+
+    @include bem.element("image") {
+      grid-area: image;
+    }
+
+    @include bem.element("order") {
+      grid-area: order;
+      align-self: center;
+    }
+
+    @include bem.element("properties") {
+      grid-area: properties;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
     }
   }
 }

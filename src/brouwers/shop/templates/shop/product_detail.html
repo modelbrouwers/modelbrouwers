@@ -25,13 +25,13 @@
 
                     <aside class="product__properties">
                         {% if product.model_name %}
-                            <div class="key-value key-value--inline">
+                            <div class="key-value key-value">
                                 <span class="key-value__label">{% trans 'Model' %}</span>
                                 <span class="key-value__text">{{ product.model_name }}</span>
                             </div>
                         {% endif %}
 
-                        <div class="key-value key-value--inline">
+                        <div class="key-value key-value">
                             <span class="key-value__label">{% trans 'Stock' %}</span>
                             <span class="key-value__text">{{ product.stock }}</span>
                         </div>
@@ -41,19 +41,21 @@
                         <img src="{{ product.get_image_url }}" class="product__picture" alt="{{ product.name }}">
                     </figure>
 
-                    <div class="product__price">
-                        &euro;&nbsp;{{ product.price }}
-                    </div>
-
-                    {# TODO: hook up react component / JS #}
                     <div class="product__order">
-                        <label for="amount" class="product__amount-label">{% trans 'Amount' %}</label>
-                        <input type="number" id="amount" name="product-amount" class="product__amount" min="0"
-                               value="1">
-                        {# TODO: disable if there is no stock #}
-                        <button class="button button--blue button--order">
-                            {% trans 'Add to cart' %}
-                        </button>
+                        <div class="product__price">
+                            &euro;&nbsp;{{ product.price }}
+                        </div>
+
+                        {# TODO: hook up react component / JS #}
+                        <div class="order-button">
+                            <label for="amount" class="order-button__amount-label">{% trans 'Amount' %}</label>
+                            <input type="number" id="amount" name="product-amount" class="order-button__amount" min="0"
+                                   value="1">
+                            {# TODO: disable if there is no stock #}
+                            <button class="button button--blue button--order">
+                                {% trans 'Add to cart' %}
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -62,7 +64,7 @@
                     <h2 class="heading heading--plain">{% trans "Description" %}</h2>
 
                     {# TODO: pass through bleach #}
-                    <div class="wysiwyg">{{ product.description|safe|default:'-' }}</div>
+                    <div class="product__description wysiwyg">{{ product.description|safe|default:'-' }}</div>
                 </section>
 
             </article>
