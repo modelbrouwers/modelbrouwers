@@ -24,7 +24,6 @@ class PaymentMethodAdminTests(WebTest):
             add_page = self.app.get(url)
             add_form = add_page.forms["paymentmethod_form"]
 
-            add_form["name"] = "Test method"
             add_form["name_nl"] = "Test method"
             add_form["method"].select("sisow_ideal")
             add_form["enabled"] = True
