@@ -46,16 +46,16 @@
                             &euro;&nbsp;{{ product.price }}
                         </div>
 
-                        {# TODO: hook up react component / JS #}
-                        <div class="order-button">
+                        <form class="order-button">
                             <label for="amount" class="order-button__amount-label">{% trans 'Amount' %}</label>
-                            <input type="number" id="amount" name="product-amount" class="order-button__amount" min="0"
+                            <input type="hidden" name="productId" value="{{ product.id }}" />
+                            <input type="number" id="amount" name="amount" class="order-button__amount" min="0"
                                    value="1">
                             {# TODO: disable if there is no stock #}
-                            <button class="button button--blue button--order">
+                            <button type="submit" class="button button--blue button--order">
                                 {% trans 'Add to cart' %}
                             </button>
-                        </div>
+                        </form>
                     </div>
 
                 </div>
