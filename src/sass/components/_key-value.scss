@@ -1,26 +1,43 @@
+@use "../modules/bem";
+@use "../modules/responsive";
+
 .key-value {
   display: flex;
-  gap: 1em;
+  gap: 1rem;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  font-size: 1.1em;
 
-  @include lte-mobile {
-    max-width: 200px;
-    margin-left: auto;
+  @include responsive.lte-mobile {
+    justify-content: flex-start;
+    gap: 2rem;
   }
 
-  &__label {
-    font-size: 1em;
-    color: $main-grey;
-  }
+  @include bem.modifier(inline) {
+    gap: 0;
 
-  &__text {
-    font-size: 1.1em;
-    font-weight: 900;
-
-    &#{&}--large {
-      font-size: 121%;
+    @include bem.element("label") {
+      &:after {
+        content: ":";
+        padding-right: 0.2rem;
+      }
     }
+
+    &:not(:last-child) {
+      &:after {
+        content: "|";
+        padding-left: 0.5rem;
+        color: var(--mb-color-main-grey);
+      }
+    }
+  }
+
+  @include bem.element("label") {
+    color: var(--mb-color-main-grey);
+  }
+
+  @include bem.element("text") {
+    font-weight: 900;
   }
 }

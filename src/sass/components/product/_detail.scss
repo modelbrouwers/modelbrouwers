@@ -1,72 +1,83 @@
+@use "../../modules/bem";
+@use "../../modules/responsive";
+
 .product {
-  &__info {
+  @include bem.element("info") {
     display: flex;
     gap: 1em;
     justify-content: flex-start;
+    margin-bottom: 2em;
 
-    @include lte-mobile {
+    @include responsive.lte-mobile {
       flex-wrap: wrap;
     }
   }
 
-  &__image {
+  @include bem.element("image") {
     width: 50%;
     flex-grow: 1.3;
 
-    @include lte-mobile {
+    @include responsive.lte-mobile {
       flex-basis: 100%;
       width: 100%;
     }
   }
 
-  &__picture {
+  @include bem.element("picture") {
     max-width: 100%;
   }
 
-  &__details {
-    flex-grow: 1;
-
-    @include lte-mobile {
-      flex-basis: 100%;
-      display: flex;
-      gap: 0.5em;
-    }
+  @include bem.element("price") {
+    font-size: 2.5em;
+    width: 100%;
+    font-weight: 700;
+    color: var(--mb-color-main-orange);
   }
 
-  &__order {
+  @include bem.element("order") {
     display: flex;
     padding: 1em 0;
     justify-content: flex-start;
 
-    @include lte-mobile {
-      justify-content: flex-end;
-      order: 2;
-      width: 50%;
+    @include responsive.lte-mobile {
+      width: 100%;
+      padding: 0.2em 0 0;
+      font-size: 1.2em;
+      line-height: 1.8;
+
+      .button {
+        width: 100%;
+      }
     }
 
-    @include gt-mobile {
+    @include responsive.gt-mobile {
       position: sticky;
       top: 1em;
     }
   }
 
-  &__properties {
-    @include lte-mobile {
-      order: 1;
-      width: 50%;
-      padding: 1em 0;
+  @include bem.element("properties") {
+    @include responsive.lte-mobile {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
   }
 
-  &__amount-label {
+  @include bem.element("amount-label") {
     display: none;
   }
 
-  &__amount {
+  @include bem.element("amount") {
     width: 50px;
     padding: 0 5px;
     border: 1px solid $main-blue;
     border-radius: 4px 0 0 4px;
+    text-align: center;
+
+    @include responsive.lte-mobile {
+      width: 100px;
+    }
 
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
