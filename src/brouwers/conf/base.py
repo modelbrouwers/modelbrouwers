@@ -487,6 +487,38 @@ CORS_ORIGIN_ALLOW_ALL = config("CORS_ENABLED", default=False)
 CORS_ALLOW_CREDENTIALS = config("CORS_ENABLED", default=False)
 
 #
+# DJANGO-BLEACH
+#
+BLEACH_ALLOWED_TAGS = [
+    "a",
+    "abbr",
+    "acronym",
+    "b",
+    "blockquote",
+    "code",
+    "em",
+    "i",
+    "li",
+    "ol",
+    "strong",
+    "ul",
+    "s",
+    "p",
+    "div",
+    "br",
+    "img",
+    "hr",
+]
+BLEACH_ALLOWED_ATTRIBUTES = {
+    "a": ["href", "title", "rel"],
+    "abbr": ["title"],
+    "acronym": ["title"],
+    "img": ["src", "alt", "height", "width"],
+}
+BLEACH_STRIP_TAGS = True
+
+
+#
 # PHPBB
 #
 PHPBB_URL = "/phpBB3"
