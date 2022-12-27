@@ -57,7 +57,7 @@ class ReadCartProductSerializer(serializers.ModelSerializer):
 
 
 class WriteCartProductSerializer(serializers.ModelSerializer):
-    product = ProductField(queryset=Product.objects.all())
+    product = ProductField(queryset=Product.objects.filter(active=True))
 
     class Meta:
         model = CartProduct

@@ -32,7 +32,7 @@ class CategoryImportExportTest(WebTest):
         cvs_reader = csv.reader(io.StringIO(content))
         body = list(cvs_reader)
         headers = body.pop(0)
-        export_fields = ["id", "name", "image", "seo_keyword", "enabled"]
+        export_fields = ["id", "name", "image", "enabled", "meta_description"]
 
         self.assertEqual(headers, export_fields)
 

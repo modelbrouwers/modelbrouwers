@@ -29,10 +29,10 @@
                     </div>
                 {% endif %}
 
-                {% if category.products.all %}
+                {% if products %}
                     <h3 class="heading heading--plain">{% trans 'Products' %}</h3>
                     <div class="card-grid">
-                        {% for product in category.products.all %}
+                        {% for product in products %}
                             {% include 'shop/includes/product_card.html' %}
                         {% endfor %}
                     </div>

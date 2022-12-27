@@ -18,6 +18,18 @@ const getDataFromScript = (scriptId) => {
     return data ? camelize(data) : null;
 };
 
+const bindAddToCartForm = (form, cartStore) => {
+    if (!form) return;
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const { productId, amount } = Object.fromEntries(new FormData(form));
+        cartStore.addProduct({
+            product: parseInt(productId),
+            amount: parseInt(amount),
+        });
+    });
+};
+
 export default class Page {
     static init() {
         getIntlProviderProps()
@@ -58,6 +70,7 @@ export default class Page {
         const node = document.getElementById("react-cart");
         const detailNode = document.getElementById("react-cart-detail");
 
+        // set up cart action handlers on list/overview pages
         const initCartActions = (cartStore) => {
             const products = document.getElementsByClassName("product-card");
 
@@ -105,6 +118,11 @@ export default class Page {
                     </IntlProvider>
                 );
             }
+
+            const productOrder = document.querySelector(
+                ".product .order-button"
+            );
+            bindAddToCartForm(productOrder, cartStore);
         } catch (err) {
             console.error("Error retrieving cart", err);
             // TODO render error page/modal/toast

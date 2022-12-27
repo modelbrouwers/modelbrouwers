@@ -10,10 +10,14 @@ class Category(MP_Node):
     name = models.CharField(_("name"), max_length=100)
     slug = AutoSlugField(_("slug"), unique=True, populate_from="name")
     image = models.ImageField(_("thumbnail"), upload_to="shop/category/", blank=True)
-    seo_keyword = models.CharField(
-        _("seo keyword"), max_length=100, null=True, blank=True
-    )
     enabled = models.BooleanField(_("enabled"), default=True)
+
+    # SEO
+    meta_description = models.TextField(
+        _("meta description"),
+        blank=True,
+        help_text=_("If filled, populates the description meta tag for SEO purposes."),
+    )
 
     node_order_by = ["name"]
 

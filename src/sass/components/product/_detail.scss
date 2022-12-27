@@ -1,107 +1,81 @@
+@use "../../modules/bem";
+@use "../../modules/responsive";
+
 .product {
-  &__image {
+  @include bem.element("info") {
+    margin-bottom: 2em;
+  }
+
+  @include bem.element("picture") {
+    max-width: 100%;
+  }
+
+  @include bem.element("price") {
+    font-size: 2.5em;
     width: 100%;
-  }
-
-  &__image-wrapper {
-    width: 250px;
-    height: 250px;
-  }
-
-  &__name {
-    color: $text-color;
-    margin: 0;
-  }
-
-  &__inner {
-    display: flex;
-    padding: 30px 0;
-    flex-flow: wrap;
-  }
-
-  &__content,
-  &__inner {
-    width: 100%;
-  }
-
-  &__image-container,
-  &__info {
-    width: 50%;
-  }
-
-  &__amount-label {
-    display: none;
-  }
-
-  &__amount {
-    width: 50px;
-    padding: 0 5px;
-    border: 1px solid $main-blue;
-    border-radius: 4px 0 0 4px;
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-
-  &__order {
-    display: flex;
-    padding: 15px 0;
-  }
-
-  &__text-group {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 0;
-  }
-
-  &__label {
-    font-size: 12px;
-    color: $main-grey;
-  }
-
-  &__text {
-    font-size: 14px;
-    font-weight: bold;
-
-    &--lg {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
-
-  &__tabs {
-    width: 100%;
-    margin-top: 30px;
-
-    .nav-tabs {
-      border-bottom: none;
-    }
-  }
-
-  &__tab-content {
-    padding: 10px 20px;
-    border: 1px solid #ddd;
-    border-radius: 0 4px 4px 4px;
+    font-weight: 700;
+    color: var(--mb-color-main-orange);
   }
 }
 
-.review {
-  &__info {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
+@include responsive.lte-mobile {
+  .product {
+    @include bem.element("info") {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
 
-  &__reviewer-name {
-    font-weight: bold;
-    margin-right: 10px;
-  }
+    @include bem.element("properties") {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
 
-  &__date {
-    font-size: 12px;
-    color: $main-grey;
+    @include bem.element("image") {
+      flex-basis: 100%;
+      width: 100%;
+    }
+
+    @include bem.element("order") {
+      width: 100%;
+
+      .order-button {
+        font-size: 1.2em;
+        line-height: 1.8;
+      }
+    }
+  }
+}
+
+@include responsive.gt-mobile {
+  .product {
+    @include bem.element("info") {
+      display: grid;
+      grid-template-columns: [main] 2fr [sidebar] 1fr;
+      grid-template-rows: min-content min-content;
+      grid-template-areas:
+        "image order"
+        "image properties";
+      column-gap: 1em;
+      row-gap: 0.5em;
+    }
+
+    @include bem.element("image") {
+      grid-area: image;
+    }
+
+    @include bem.element("order") {
+      grid-area: order;
+      align-self: center;
+    }
+
+    @include bem.element("properties") {
+      grid-area: properties;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+    }
   }
 }

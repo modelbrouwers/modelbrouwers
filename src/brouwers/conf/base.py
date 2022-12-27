@@ -36,8 +36,8 @@ IS_HTTPS = config("IS_HTTPS", default=not DEBUG)
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGES = [
-    ("en", _("English")),
     ("nl", _("Dutch")),
+    ("en", _("English")),
     ("de", _("German")),
 ]
 
@@ -116,6 +116,7 @@ INSTALLED_APPS = [
     # Third party
     "sessionprofile",
     "rest_framework",
+    "django_bleach",
     "django_filters",
     "rest_framework_filters",
     "loginas",
@@ -486,6 +487,38 @@ CORS_ORIGIN_ALLOW_ALL = config("CORS_ENABLED", default=False)
 CORS_ALLOW_CREDENTIALS = config("CORS_ENABLED", default=False)
 
 #
+# DJANGO-BLEACH
+#
+BLEACH_ALLOWED_TAGS = [
+    "a",
+    "abbr",
+    "acronym",
+    "b",
+    "blockquote",
+    "code",
+    "em",
+    "i",
+    "li",
+    "ol",
+    "strong",
+    "ul",
+    "s",
+    "p",
+    "div",
+    "br",
+    "img",
+    "hr",
+]
+BLEACH_ALLOWED_ATTRIBUTES = {
+    "a": ["href", "title", "rel"],
+    "abbr": ["title"],
+    "acronym": ["title"],
+    "img": ["src", "alt", "height", "width"],
+}
+BLEACH_STRIP_TAGS = True
+
+
+#
 # PHPBB
 #
 PHPBB_URL = "/phpBB3"
@@ -498,6 +531,11 @@ PHPBB_UID_COOKIE = config("PHPBB_UID_COOKIE", "phpbb3_u")
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+#
+# DJANGO-MODELTRANSLATION
+#
+MODELTRANSLATION_FALLBACK_LANGUAGES = ("nl", "en")
 
 #
 # CHAT

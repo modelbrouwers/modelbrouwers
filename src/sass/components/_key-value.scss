@@ -1,0 +1,53 @@
+@use "../modules/bem";
+@use "../modules/responsive";
+
+.key-value {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 1.1em;
+
+  @include bem.element("label") {
+    color: var(--mb-color-main-grey);
+  }
+
+  @include bem.element("text") {
+    font-weight: 900;
+  }
+}
+
+@include responsive.lte-mobile {
+  .key-value {
+    justify-content: flex-start;
+    gap: 0;
+
+    &:not(:last-child) {
+      &:after {
+        content: "|";
+        padding-left: 0.5rem;
+        color: var(--mb-color-main-grey);
+      }
+    }
+
+    @include bem.element("label") {
+      &:after {
+        content: ":";
+        padding-right: 0.2rem;
+      }
+    }
+  }
+}
+
+@include responsive.gt-mobile {
+  .key-value {
+    @include bem.element("label") {
+      min-width: 6em;
+    }
+
+    @include bem.element("text") {
+      text-align: right;
+    }
+  }
+}

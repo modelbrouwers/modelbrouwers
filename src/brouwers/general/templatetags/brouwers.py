@@ -1,4 +1,9 @@
+import json
+
 from django import template
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.html import _json_script_escapes, format_html
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -44,3 +49,12 @@ def review_rating(rating_pct, num_stars=5, max_rating=100):
         "half": (full + empty) != num_stars,
         "open": range(empty),
     }
+
+
+@register.filter(is_safe=True)
+def json_ld_script(value):
+    json_str = json.dumps(value, cls=DjangoJSONEncoder).translate(_json_script_escapes)
+    return format_html(
+        '<script type="application/ld+json">{}</script>',
+        mark_safe(json_str),
+    )

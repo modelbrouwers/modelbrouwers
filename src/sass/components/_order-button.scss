@@ -1,0 +1,39 @@
+@use "../modules/bem";
+@use "../modules/responsive";
+
+.order-button {
+  display: flex;
+  justify-content: flex-start;
+
+  .button.button--order {
+    border-radius: 0 4px 4px 0;
+  }
+
+  @include bem.element("amount-label") {
+    display: none; // SR only
+  }
+
+  @include bem.element("amount") {
+    width: var(--mb-order-button-input-width, 50px);
+    padding: 0 5px;
+    border: 1px solid var(--mb-color-main-blue);
+    border-radius: 4px 0 0 4px;
+    text-align: center;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  @include responsive.lte-mobile {
+    @include bem.element("amount") {
+      --mb-order-button-input-width: 100px;
+    }
+
+    .button.button--order {
+      width: 100%;
+    }
+  }
+}

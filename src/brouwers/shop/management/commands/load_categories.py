@@ -25,7 +25,6 @@ class Command(BaseCommand):
                 name_nl=line["Category Name"],
                 slug_nl=line["SEO Keyword"],  # don't break existing urls
                 image=line["Image"].rsplit("/")[-1],  # TODO: copy image files
-                seo_keyword_nl=line["SEO Keyword"],
                 enabled=line["Status"] == "Enabled",
             )
             categories[category["id"]] = category

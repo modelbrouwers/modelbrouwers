@@ -17,14 +17,14 @@
     <div class="mobile-nav__content">
         {% with root=category.get_root %}
         {% for item, info in categories %}
-            {% is_descendant_of item root as show_children %}
+            {% is_in_branch item root as show_open %}
 
             {% if info.open %}
                 <ul class="{% if item.depth == 1 %}tree-nav tree-nav--sticky{% else %}tree-nav__child{% endif %}">
-                    <li class="tree-nav__item {% if show_children %}tree-nav__item--show{% endif %}">
+                    <li class="tree-nav__item {% if show_open %}tree-nav__item--show{% endif %}">
             {% else %}
                     </li>
-                    <li class="tree-nav__item {% if show_children or item == root %}tree-nav__item--show{% endif %}">
+                    <li class="tree-nav__item {% if show_open %}tree-nav__item--show{% endif %}">
             {% endif %}
 
             <a class="tree-nav__link {% if item.id == category.id %}tree-nav__link--active{% endif %}"

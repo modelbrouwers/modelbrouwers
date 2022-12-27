@@ -36,6 +36,10 @@ export class CartStore {
     }
 
     addProduct(data) {
+        const existingCardProduct = this.findProduct(data.product);
+        if (existingCardProduct) {
+            return this.changeAmount(data.product, data.amount);
+        }
         const postData = { ...data, cart: this.id };
         return this.cartProductConsumer
             .addProduct(postData)
@@ -69,7 +73,7 @@ export class CartStore {
         const cartProduct = this.findProduct(productId);
         const cpAmount = cartProduct.amount + amount;
 
-        if (cpAmount === 0) {
+        if (cpAmount <= 0) {
             this.removeProduct(cartProduct.id);
         } else {
             this.cartProductConsumer

@@ -5,12 +5,12 @@ from .models import Category, PaymentMethod, Product, ShopConfiguration
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
-    fields = ("name", "slug", "seo_keyword")
+    fields = ("name", "slug", "meta_description")
 
 
 @register(Product)
 class ProductTranslationOptions(TranslationOptions):
-    fields = ("name", "slug", "seo_keyword", "model_name", "description")
+    fields = ("name", "slug", "meta_description", "model_name", "description")
 
 
 @register(PaymentMethod)

@@ -1,6 +1,7 @@
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
+from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -23,11 +24,19 @@ class Product(models.Model):
     price = models.DecimalField(_("price"), max_digits=10, decimal_places=2, default=0)
     vat = models.DecimalField(_("vat"), max_digits=3, decimal_places=2, default=0)
     description = RichTextField(blank=True)
-    seo_keyword = models.CharField(
-        _("seo keyword"), max_length=200, null=True, blank=True
-    )
     image = models.ImageField(
         _("image"), upload_to="shop/product/", null=True, blank=True
+    )
+
+    # SEO
+    meta_description = models.TextField(
+        _("meta description"),
+        blank=True,
+        help_text=_(
+            "If filled, populates the description meta tag for SEO purposes. "
+            "If left blank, then the HTML tags are stripped from the regular "
+            "description field and this content is used."
+        ),
     )
 
     # dimensional data
@@ -56,6 +65,11 @@ class Product(models.Model):
         blank=True,
         on_delete=models.PROTECT,
     )
+    active = models.BooleanField(
+        _("active"),
+        default=True,
+        help_text=_("Inactive products do not show up on the site"),
+    )
     tags = TaggableManager()
 
     class Meta:
@@ -74,6 +88,28 @@ class Product(models.Model):
         if not image:
             return static("images/shop/placeholder.gif")
         return image.url
+
+    @property
+    def json_ld(self):
+        schema = {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "description": strip_tags(self.description),
+            "name": self.name,
+            "sku": self.model_name,
+            "offers": {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock"
+                if self.stock
+                else "https://schema.org/OutOfStock",
+                "price": str(self.price),
+                "priceCurrency": "EUR",
+            },
+            "url": self.get_absolute_url(),
+        }
+        if self.image:
+            schema["image"] = self.image.url
+        return schema
 
 
 class ProductImage(models.Model):
