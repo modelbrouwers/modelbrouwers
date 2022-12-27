@@ -2,7 +2,12 @@
 
 {% block title %} {{ product.name }}{% endblock %}
 
-{# TODO: meta/seo tags #}
+{% block seo %}
+        <meta
+            name="description"
+            content="{% firstof product.meta_description product.description|striptags|truncatechars:200 %}"
+        />
+{% endblock %}
 
 {% block content %}
 {{ block.super }}
@@ -60,11 +65,11 @@
 
                 </div>
 
-                <section class="product__description">
-                    <h2 class="heading heading--plain">{% trans "Description" %}</h2>
-
+                <h2 class="heading heading--plain">{% trans "Description" %}</h2>
+                {# because we use sectioning content, any h1-h6 inside from the wysiwyg shouldn't hurt SEO perf #}
+                <section class="product__description wysiwyg">
                     {# TODO: pass through bleach #}
-                    <div class="product__description wysiwyg">{{ product.description|safe|default:'-' }}</div>
+                    {{ product.description|safe|default:'-' }}
                 </section>
 
             </article>
