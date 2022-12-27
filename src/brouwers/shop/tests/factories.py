@@ -41,6 +41,9 @@ class ProductFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Product
 
+    class Params:
+        with_image = factory.Trait(image=factory.django.ImageField(width=10, height=10))
+
     @factory.post_generation
     def categories(self, create, extracted, **kwargs):
         if not create:

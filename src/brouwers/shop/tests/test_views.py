@@ -107,6 +107,7 @@ class ProductDetailViewTests(WebTest):
     def test_active_product(self):
         product = ProductFactory.create(
             active=True,
+            with_image=True,
             name_nl="Testproduct",
             name_en="Test product",
         )
