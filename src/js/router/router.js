@@ -29,6 +29,7 @@ export default class Router {
         const page = this.getPage();
         try {
             const pageModule = await loadModule(page);
+            if (!pageModule?.default) return;
             pageModule.default.init();
         } catch (exc) {
             console.error(exc);
