@@ -17,6 +17,7 @@ WeasyPrint
 Django ~= 3.2
 django-admin-tools
 django-autoslug
+django-bleach
 django-choices
 django-ckeditor
 django-cors-headers

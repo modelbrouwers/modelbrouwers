@@ -18,8 +18,10 @@ attrs==22.1.0
     #   trio
 beautifulsoup4==4.11.1
     # via webtest
-bleach==5.0.1
-    # via -r requirements/base.txt
+bleach[css]==5.0.1
+    # via
+    #   -r requirements/base.txt
+    #   django-bleach
 brotli==1.0.9
     # via
     #   -r requirements/base.txt
@@ -55,6 +57,7 @@ diff-match-patch==20200713
 django==3.2.16
     # via
     #   -r requirements/base.txt
+    #   django-bleach
     #   django-choices
     #   django-ckeditor
     #   django-cors-headers
@@ -75,6 +78,8 @@ django==3.2.16
 django-admin-tools==0.9.2
     # via -r requirements/base.txt
 django-autoslug==1.9.8
+    # via -r requirements/base.txt
+django-bleach==3.0.1
     # via -r requirements/base.txt
 django-choices==1.7.2
     # via -r requirements/base.txt
@@ -255,6 +260,7 @@ tblib==1.7.0
 tinycss2==1.1.1
     # via
     #   -r requirements/base.txt
+    #   bleach
     #   cssselect2
     #   weasyprint
 trio==0.22.0

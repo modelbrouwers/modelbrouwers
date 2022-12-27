@@ -6,8 +6,10 @@
 #
 asgiref==3.5.2
     # via django
-bleach==5.0.1
-    # via -r requirements/base.in
+bleach[css]==5.0.1
+    # via
+    #   -r requirements/base.in
+    #   django-bleach
 brotli==1.0.9
     # via fonttools
 certifi==2022.9.24
@@ -27,6 +29,7 @@ diff-match-patch==20200713
 django==3.2.16
     # via
     #   -r requirements/base.in
+    #   django-bleach
     #   django-choices
     #   django-ckeditor
     #   django-cors-headers
@@ -47,6 +50,8 @@ django==3.2.16
 django-admin-tools==0.9.2
     # via -r requirements/base.in
 django-autoslug==1.9.8
+    # via -r requirements/base.in
+django-bleach==3.0.1
     # via -r requirements/base.in
 django-choices==1.7.2
     # via -r requirements/base.in
@@ -159,6 +164,7 @@ tablib[html,ods,xls,xlsx,yaml]==3.2.1
     # via django-import-export
 tinycss2==1.1.1
     # via
+    #   bleach
     #   cssselect2
     #   weasyprint
 typing-extensions==4.4.0

@@ -28,8 +28,10 @@ beautifulsoup4==4.11.1
     #   webtest
 black==22.3.0
     # via -r requirements/dev.in
-bleach==5.0.1
-    # via -r requirements/ci.txt
+bleach[css]==5.0.1
+    # via
+    #   -r requirements/ci.txt
+    #   django-bleach
 brotli==1.0.9
     # via
     #   -r requirements/ci.txt
@@ -71,6 +73,7 @@ diff-match-patch==20200713
 django==3.2.16
     # via
     #   -r requirements/ci.txt
+    #   django-bleach
     #   django-choices
     #   django-ckeditor
     #   django-cors-headers
@@ -93,6 +96,8 @@ django==3.2.16
 django-admin-tools==0.9.2
     # via -r requirements/ci.txt
 django-autoslug==1.9.8
+    # via -r requirements/ci.txt
+django-bleach==3.0.1
     # via -r requirements/ci.txt
 django-choices==1.7.2
     # via -r requirements/ci.txt
@@ -354,6 +359,7 @@ tblib==1.7.0
 tinycss2==1.1.1
     # via
     #   -r requirements/ci.txt
+    #   bleach
     #   cssselect2
     #   weasyprint
 tomli==2.0.1

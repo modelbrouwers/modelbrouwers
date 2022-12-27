@@ -116,6 +116,7 @@ INSTALLED_APPS = [
     # Third party
     "sessionprofile",
     "rest_framework",
+    "django_bleach",
     "django_filters",
     "rest_framework_filters",
     "loginas",
