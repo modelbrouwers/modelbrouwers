@@ -1,4 +1,4 @@
-{% extends "shop/base.html" %} {% load i18n sniplates brouwers %}
+{% extends "shop/base.html" %} {% load i18n bleach_tags sniplates brouwers %}
 
 {% block title %} {{ product.name }}{% endblock %}
 
@@ -70,8 +70,7 @@
                 <h2 class="heading heading--plain">{% trans "Description" %}</h2>
                 {# because we use sectioning content, any h1-h6 inside from the wysiwyg shouldn't hurt SEO perf #}
                 <section class="product__description wysiwyg">
-                    {# TODO: pass through bleach #}
-                    {{ product.description|safe|default:'-' }}
+                    {{ product.description|bleach|default:'-' }}
                 </section>
 
             </article>
