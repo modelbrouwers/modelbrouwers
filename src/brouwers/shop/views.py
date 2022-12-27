@@ -2,6 +2,7 @@ import json
 from urllib.parse import urlencode, urlsplit
 
 from django.db import transaction
+from django.http import Http404
 from django.http.response import HttpResponseBase
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import Resolver404, get_resolver, reverse
@@ -88,7 +89,10 @@ class ProductDetailView(DetailView):
         view = view_cls(*callback_args, **callback_kwargs)
         view.args = callback_args
         view.kwargs = callback_kwargs
-        return view.get_object()
+        try:
+            return view.get_object()
+        except Http404 as err:
+            raise Category.DoesNotExist("Category does not exist") from err
 
 
 class CartDetailView(DetailView):

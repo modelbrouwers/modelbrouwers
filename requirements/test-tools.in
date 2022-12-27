@@ -3,6 +3,7 @@ coverage < 5.0
 django-webtest
 factory-boy
 freezegun
+pyquery
 requests-mock
 selenium
 tblib

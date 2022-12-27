@@ -1,3 +1,5 @@
+import uuid
+
 from django.template import engines
 from django.test import TestCase
 from django.urls import reverse
@@ -8,7 +10,7 @@ from django_webtest import WebTest
 from brouwers.users.tests.factories import UserFactory
 
 from ..models import Category
-from .factories import CartFactory
+from .factories import CartFactory, CategoryFactory, ProductFactory
 
 
 class BreadcrumbsTests(TestCase):
@@ -82,3 +84,113 @@ class CartViewTests(WebTest):
         second_user = UserFactory.create()
         cart_page = self.app.get(self.url, user=second_user, expect_errors=True)
         self.assertEqual(cart_page.status_code, 404)
+
+
+class CategoryDetailViewTests(WebTest):
+    def test_list_active_products(self):
+        _, root2 = CategoryFactory.create(name="Root 1"), CategoryFactory.create(
+            name="Root 2"
+        )
+        child = CategoryFactory.create(parent=root2, name="Child 2")
+        ProductFactory.create(categories=[child], active=True, name="active-visible")
+        ProductFactory.create(
+            categories=[child], active=False, name="inactive-not-visible"
+        )
+
+        category_page = self.app.get(child.get_absolute_url())
+
+        self.assertContains(category_page, "active-visible")
+        self.assertNotContains(category_page, "inactive-not-visible")
+
+
+class ProductDetailViewTests(WebTest):
+    def test_active_product(self):
+        product = ProductFactory.create(
+            active=True,
+            name_nl="Testproduct",
+            name_en="Test product",
+        )
+
+        with self.subTest("nl content"):
+            detail_page = self.app.get(
+                product.get_absolute_url(), extra_environ={"HTTP_ACCEPT_LANGUAGE": "nl"}
+            )
+
+            self.assertEqual(detail_page.status_code, 200)
+            self.assertContains(detail_page, "Testproduct")
+
+        with self.subTest("en content"):
+            detail_page = self.app.get(
+                product.get_absolute_url(), extra_environ={"HTTP_ACCEPT_LANGUAGE": "en"}
+            )
+
+            self.assertEqual(detail_page.status_code, 200)
+            self.assertContains(detail_page, "Test product")
+
+    def test_inactive_product(self):
+        product = ProductFactory.create(active=False)
+
+        detail_page = self.app.get(product.get_absolute_url(), status=404)
+
+        self.assertEqual(detail_page.status_code, 404)
+
+    def test_category_expanded(self):
+        root1, root2 = CategoryFactory.create(name="Root 1"), CategoryFactory.create(
+            name="Root 2"
+        )
+        child1 = CategoryFactory.create(parent=root1, name="Child 1")
+        child2 = CategoryFactory.create(parent=root2, name="Child 2")
+        product = ProductFactory.create(categories=[child2])
+
+        detail_page = self.app.get(product.get_absolute_url())
+
+        self.assertEqual(detail_page.status_code, 200)
+        visible_nodes = detail_page.pyquery(".tree-nav__item--show")
+        self.assertEqual(len(visible_nodes), 2)
+        node_labels = visible_nodes.map(lambda i, e: e.find("a").text.strip())
+        self.assertEqual(node_labels, ["Root 2", "Child 2"])
+
+    def test_default_category_expanded_with_multiple(self):
+        root1, root2 = CategoryFactory.create(name="Root 1"), CategoryFactory.create(
+            name="Root 2"
+        )
+        child1 = CategoryFactory.create(parent=root1, name="Child 1")
+        child2 = CategoryFactory.create(parent=root2, name="Child 2")
+        product = ProductFactory.create(categories=[child1, child2])
+
+        detail_page = self.app.get(product.get_absolute_url())
+
+        self.assertEqual(detail_page.status_code, 200)
+        visible_nodes = detail_page.pyquery(".tree-nav__item--show")
+        self.assertEqual(len(visible_nodes), 2)
+        node_labels = visible_nodes.map(lambda i, e: e.find("a").text.strip())
+        self.assertEqual(node_labels, ["Root 1", "Child 1"])
+
+    def test_bad_referers_for_expanded_product_category(self):
+        bad_category = CategoryFactory.build(slug="do-not-exist")
+        category = CategoryFactory.create()
+        product = ProductFactory.create(categories=[category])
+        url = product.get_absolute_url()
+        referers = (
+            "",
+            "https://example.com/external",
+            "http://testserver/albums/",
+            f"http://testserver/{uuid.uuid4()}",
+            f"http://testserver{bad_category.get_absolute_url()}",
+        )
+
+        for referer in referers:
+            with self.subTest(referer=referer):
+
+                detail_page = self.app.get(
+                    url,
+                    extra_environ={
+                        "HTTP_REFERER": referer,
+                    },
+                )
+
+                self.assertEqual(detail_page.status_code, 200)
+                visible_nodes = detail_page.pyquery(".tree-nav__item--show")
+                self.assertEqual(len(visible_nodes), 1)
+                node_labels = visible_nodes.map(lambda i, e: e.find("a").text.strip())
+                self.assertEqual(node_labels, [category.name])
