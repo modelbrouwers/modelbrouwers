@@ -1,6 +1,7 @@
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
+from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -82,6 +83,28 @@ class Product(models.Model):
         if not image:
             return static("images/shop/placeholder.gif")
         return image.url
+
+    @property
+    def json_ld(self):
+        schema = {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "description": strip_tags(self.description),
+            "name": self.name,
+            "sku": self.model_name,
+            "offers": {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock"
+                if self.stock
+                else "https://schema.org/OutOfStock",
+                "price": str(self.price),
+                "priceCurrency": "EUR",
+            },
+            "url": self.get_absolute_url(),
+        }
+        if self.image:
+            schema["image"] = self.image.url
+        return schema
 
 
 class ProductImage(models.Model):

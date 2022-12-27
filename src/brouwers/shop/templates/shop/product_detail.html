@@ -24,6 +24,8 @@
 
             <article class="product">
 
+                {{ product.json_ld|json_ld_script }}
+
                 <h1 class="heading heading--plain">{{ product.name }}</h1>
 
                 <div class="product__info">
