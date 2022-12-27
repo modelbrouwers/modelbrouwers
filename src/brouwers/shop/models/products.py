@@ -65,6 +65,11 @@ class Product(models.Model):
         blank=True,
         on_delete=models.PROTECT,
     )
+    active = models.BooleanField(
+        _("active"),
+        default=True,
+        help_text=_("Inactive products do not show up on the site"),
+    )
     tags = TaggableManager()
 
     class Meta:

@@ -41,6 +41,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
     list_display = (
         "name",
         "model_name",
+        "active",
         "stock",
         "price",
         "vat",
@@ -53,6 +54,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
         "tag_list",
     )
     list_filter = (
+        "active",
         "categories",
         "manufacturer",
     )

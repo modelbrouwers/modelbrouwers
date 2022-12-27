@@ -43,9 +43,14 @@ class CategoryDetailView(DetailView):
     template_name = "shop/category_detail.html"
     model = Category
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["products"] = self.object.products.filter(active=True)
+        return ctx
+
 
 class ProductDetailView(DetailView):
-    model = Product
+    queryset = Product.objects.filter(active=True)
     context_object_name = "product"
     template_name = "shop/product_detail.html"
 
