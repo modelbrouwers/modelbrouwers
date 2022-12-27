@@ -91,7 +91,6 @@ class Command(BaseCommand):
                     price=Decimal(line["Price"]),
                     vat=VAT_MAPPING[line["Tax Class"]],
                     description=unescape(line["Description"]),
-                    seo_keyword=slug,
                     length=Decimal(line["Length"]),
                     width=Decimal(line["Width"]),
                     height=Decimal(line["Height"]),

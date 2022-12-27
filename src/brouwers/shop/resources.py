@@ -6,7 +6,7 @@ from .models import Category, Product
 class CategoryResource(ModelResource):
     class Meta:
         model = Category
-        fields = ("id", "name", "image", "seo_keyword", "enabled")
+        fields = ("id", "name", "image", "enabled", "meta_description")
 
 
 class ProductResource(ModelResource):
@@ -20,7 +20,7 @@ class ProductResource(ModelResource):
             "price",
             "vat",
             "description",
-            "seo_keyword",
+            "meta_description",
             "length",
             "width",
             "height",

@@ -23,11 +23,19 @@ class Product(models.Model):
     price = models.DecimalField(_("price"), max_digits=10, decimal_places=2, default=0)
     vat = models.DecimalField(_("vat"), max_digits=3, decimal_places=2, default=0)
     description = RichTextField(blank=True)
-    seo_keyword = models.CharField(
-        _("seo keyword"), max_length=200, null=True, blank=True
-    )
     image = models.ImageField(
         _("image"), upload_to="shop/product/", null=True, blank=True
+    )
+
+    # SEO
+    meta_description = models.TextField(
+        _("meta description"),
+        blank=True,
+        help_text=_(
+            "If filled, populates the description meta tag for SEO purposes. "
+            "If left blank, then the HTML tags are stripped from the regular "
+            "description field and this content is used."
+        ),
     )
 
     # dimensional data

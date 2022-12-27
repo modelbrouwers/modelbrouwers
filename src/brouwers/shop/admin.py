@@ -28,9 +28,9 @@ from .resources import CategoryResource, ProductResource
 @admin.register(Category)
 class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
     form = movenodeform_factory(Category)
-    list_display = ("name", "image", "seo_keyword", "enabled")
+    list_display = ("name", "image", "enabled")
     list_filter = ("enabled",)
-    search_fields = ("name", "seo_keyword")
+    search_fields = ("name", "meta_description")
     resource_class = CategoryResource
     # TODO - override template to include import-export buttons
     change_list_template = "admin/tree_change_list.html"
@@ -40,7 +40,6 @@ class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
 class ProductAdmin(ImportExportMixin, TranslationAdmin):
     list_display = (
         "name",
-        "seo_keyword",
         "model_name",
         "stock",
         "price",
@@ -60,7 +59,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
     list_select_related = ("manufacturer",)
     search_fields = (
         "name",
-        "seo_keyword",
+        "meta_description",
         "model_name",
         "stock",
         "price",

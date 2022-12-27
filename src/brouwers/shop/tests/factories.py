@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 import factory
 import factory.fuzzy
 
@@ -9,8 +11,6 @@ from ..payments.registry import register
 
 class CategoryFactory(factory.django.DjangoModelFactory):
     name = factory.Sequence(lambda n: "category-{}".format(n))
-    seo_keyword = factory.Faker("bs")
-    image = factory.django.ImageField()
 
     class Meta:
         model = Category
@@ -36,9 +36,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
     model_name = factory.Faker("name")
     stock = factory.fuzzy.FuzzyInteger(1, 8)
     price = factory.fuzzy.FuzzyDecimal(0, 5)
-    vat = factory.fuzzy.FuzzyDecimal(0, 2)
-    manufacturer = factory.SubFactory(ProductManufacturerFactory)
-    seo_keyword = factory.Faker("bs")
+    vat = Decimal("0.21")
 
     class Meta:
         model = Product
