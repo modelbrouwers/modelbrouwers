@@ -15,10 +15,6 @@ albums software and a webshop.
 .. image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=main
     :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=main
 
-.. image:: https://requires.io/github/modelbrouwers/modelbrouwers/requirements.svg?branch=main
-     :target: https://requires.io/github/modelbrouwers/modelbrouwers/requirements/?branch=main
-     :alt: Requirements Status
-
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :alt: Code style
     :target: https://github.com/psf/black
