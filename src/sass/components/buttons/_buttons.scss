@@ -14,7 +14,7 @@
   }
 
   &:disabled {
-    background-color: $main-grey;
+    background-color: var(--mb-disabled-background-color);
 
     &:hover {
       cursor: not-allowed;

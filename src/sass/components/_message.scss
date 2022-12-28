@@ -1,18 +1,28 @@
+@use "../modules/bem";
+
 .message {
-  display: block;
-  padding: 1em;
-  border: solid 1px $default-border-color;
+  --message-background-color: transparent;
+  --message-border-color: var(--mb-color-border);
+  --message-spacing: 1em;
+
+  background-color: var(--message-background-color);
+  padding: var(--message-spacing);
+  border: solid 1px var(--message-border-color);
   border-radius: 4px;
 
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: var(--message-spacing);
 
-  > .fa {
-    margin-right: 0.5em;
+  @include bem.modifier("info") {
+    --message-background-color: #cde4ff;
   }
 
-  &--info {
-    background-color: #cde4ff;
+  @include bem.modifier("warning") {
+    --message-background-color: var(--mb-color-main-orange);
+    --message-border-color: var(--mb-color-main-orange);
+    // font-weight: 700;
+    color: #ffffff;
   }
 }

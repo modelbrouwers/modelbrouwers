@@ -56,13 +56,29 @@
                         <form class="order-button">
                             <label for="amount" class="order-button__amount-label">{% trans 'Amount' %}</label>
                             <input type="hidden" name="productId" value="{{ product.id }}" />
-                            <input type="number" id="amount" name="amount" class="order-button__amount" min="0"
-                                   value="1">
+                            <input
+                                id="amount" class="order-button__amount"
+                                type="number" name="amount"
+                                min="0" value="1"
+                                {% if not product.stock %}disabled {% endif %}
+                            >
                             {# TODO: disable if there is no stock #}
-                            <button type="submit" class="button button--blue button--order">
+                            <button
+                                type="submit"
+                                class="button button--blue button--order"
+                                {% if not product.stock %}disabled{% endif %}
+                            >
                                 {% trans 'Add to cart' %}
                             </button>
                         </form>
+
+                        {% if not product.stock %}
+                            <p class="message message--warning">
+                                <i class="fa fa-fw fa-2x fa-info-circle" aria-hidden="true"></i>
+                                {% trans "Apologies - this product is currently out of stock." %}
+                            </p>
+                        {% endif %}
+
                     </div>
 
                 </div>

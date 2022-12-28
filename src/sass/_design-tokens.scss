@@ -10,4 +10,9 @@
   --mb-color-light-grey: #dbdee1;
   // typography colors
   --mb-color-text: #333333;
+  // box models
+  --mb-color-border: #cccccc;
+  // disabled states
+  --mb-disabled-background-color: var(--mb-color-main-grey);
+  --mb-disabled-border-color: var(--mb-color-main-grey);
 }
