@@ -21,6 +21,7 @@ class BreadcrumbsTests(TestCase):
         """
         Asserts that breadcrumbs are rendered correctly.
         """
+        self.maxDiff = None
         tpl = "{% include 'shop/includes/breadcrumbs.html' with curr_node=node%}"
         template = self._load_template(tpl)
 
@@ -36,11 +37,11 @@ class BreadcrumbsTests(TestCase):
             '<div class="breadcrumbs">'
             '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
+            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/child1/">Child1</a>'
+            '<a class="breadcrumbs__item" href="/winkel/root/child1">Child1</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/child2/">Child2</a></div>',
+            '<a class="breadcrumbs__item" href="/winkel/root/child1/child2">Child2</a></div>',
         )
 
         rendered2 = template.render({"node": child1})
@@ -49,9 +50,9 @@ class BreadcrumbsTests(TestCase):
             '<div class="breadcrumbs">'
             '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
+            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/child1/">Child1</a>',
+            '<a class="breadcrumbs__item" href="/winkel/root/child1">Child1</a>',
         )
 
         rendered3 = template.render({"node": root})
@@ -60,7 +61,7 @@ class BreadcrumbsTests(TestCase):
             '<div class="breadcrumbs">'
             '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>',
+            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>',
         )
 
 

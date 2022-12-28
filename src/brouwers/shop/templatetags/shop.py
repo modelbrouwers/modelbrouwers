@@ -1,4 +1,5 @@
-from django.template import Library
+from django import template
+from django.template import Library, TemplateSyntaxError
 
 from ..models import Category
 
@@ -24,3 +25,55 @@ def is_in_branch(node1, node2) -> bool:
     if node1 == node2:
         return True
     return node1.is_descendant_of(node2)
+
+
+class RecordCategoryPathNode(template.Node):
+    def __init__(self, item_var, info_var, asvar):
+        self.item_var = item_var
+        self.info_var = info_var
+        self.asvar = asvar
+
+    def render(self, context):
+        category = self.item_var.resolve(context)
+        info = self.info_var.resolve(context)
+
+        # track the tree walking state
+        if self not in context.render_context:
+            context.render_context[self] = {
+                "branch": [],
+                "prev_info": None,
+            }
+
+        branch = context.render_context[self]["branch"]
+        prev_info = context.render_context[self]["prev_info"]
+        if prev_info is not None:
+            if info["level"] == prev_info["level"]:
+                branch.pop(-1)  # prop previous node off so it can be replaced
+            elif (diff := prev_info["level"] - info["level"]) > 0:
+                branch = branch[: -(diff + 1)]
+                context.render_context[self]["branch"] = branch
+
+        branch.append(category)
+
+        # calculate the full path of the entire branch
+        path = "/".join(cat.slug for cat in branch)
+        context[self.asvar] = path
+
+        context.render_context[self]["prev_info"] = info
+        return ""
+
+
+@register.tag(name="record_category_path")
+def do_record_category_path(parser, token):
+    args = token.split_contents()
+    if len(args) != 5:
+        raise TemplateSyntaxError("'record_category_path' requires five arguments")
+    if args[-2] != "as":
+        raise TemplateSyntaxError("'record_category_path' requires the 'as foo' form ")
+
+    item_var, info_var, asvar = args[1], args[2], args[4]
+    return RecordCategoryPathNode(
+        parser.compile_filter(item_var),
+        parser.compile_filter(info_var),
+        asvar,
+    )

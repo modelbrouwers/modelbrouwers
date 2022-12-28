@@ -28,8 +28,14 @@ class Category(MP_Node):
     def __str__(self):
         return self.name
 
+    def get_catalogue_path(self):
+        nodes = list(self.get_ancestors()) + [self]
+        path = "/".join([category.slug for category in nodes])
+        return path
+
     def get_absolute_url(self):
-        return reverse("shop:category-detail", kwargs={"slug": self.slug})
+        path = self.get_catalogue_path()
+        return reverse("shop:catalogue", kwargs={"path": path})
 
 
 class CategoryCarouselImage(models.Model):

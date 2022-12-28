@@ -1,11 +1,13 @@
 import json
+import re
 from urllib.parse import urlencode, urlsplit
 
 from django.db import transaction
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.http.response import HttpResponseBase
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import Resolver404, get_resolver, reverse
+from django.urls.converters import SlugConverter
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
@@ -39,10 +41,42 @@ class IndexView(ListView):
         return context
 
 
+class RouterView(View):
+    """
+    Route the path to the most appropriate specialized view.
+
+    This attempts to get:
+
+    * product detail from the last slug in the path
+    * category detail from the last slug in the path
+    * TODO: search by manufacturer
+    """
+
+    def dispatch(self, request: HttpRequest, path: str):
+        bits = path.split("/")
+        re_slug = re.compile(SlugConverter.regex)
+        if not all(re_slug.match(bit) for bit in bits):
+            raise Http404("No catalogue resource found.")
+        slug = bits[-1]
+
+        candidates = (
+            ProductDetailView.as_view(),
+            CategoryDetailView.as_view(),
+        )
+
+        for candidate in candidates:
+            try:
+                return candidate(request, slug=slug)
+            except Http404:
+                continue
+
+        raise Http404("No catalogue resource found.")
+
+
 class CategoryDetailView(DetailView):
-    context_object_name = "category"
-    template_name = "shop/category_detail.html"
     model = Category
+    template_name = "shop/category_detail.html"
+    context_object_name = "category"
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)

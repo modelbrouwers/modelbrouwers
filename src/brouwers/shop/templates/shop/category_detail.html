@@ -17,8 +17,12 @@
                 {% if not category.is_leaf %}
                     <h3 class="heading heading--plain">{% trans 'Subcategories' %}</h3>
                     <div class="card-grid card-grid--scroll card-grid--rows-2">
+                        {% with category.get_catalogue_path as base_path %}
                         {% for subcategory in category.get_children %}
-                            <a class="card-grid__item category-card" href="{{ subcategory.get_absolute_url }}">
+
+
+                            <a class="card-grid__item category-card"
+                               href="{% url 'shop:catalogue' path=base_path|add:'/'|add:subcategory.slug %}">
                                 <img class="category-card__img"
                                      src="{{ subcategory.image.url }}"
                                      alt="{{ subcategory.name }}"
@@ -26,6 +30,7 @@
                                 <span class="category-card__name">{{ subcategory.name }}</a>
                             </a>
                         {% endfor %}
+                        {% endwith %}
                     </div>
                 {% endif %}
 

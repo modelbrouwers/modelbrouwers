@@ -17,6 +17,8 @@
     <div class="mobile-nav__content">
         {% with root=category.get_root %}
         {% for item, info in categories %}
+            {% record_category_path item info as category_path %}
+
             {% is_in_branch item root as show_open %}
 
             {% if info.open %}
@@ -28,7 +30,7 @@
             {% endif %}
 
             <a class="tree-nav__link {% if item.id == category.id %}tree-nav__link--active{% endif %}"
-               href="{{ item.get_absolute_url }}"
+               href="{% url 'shop:catalogue' path=category_path %}"
                data-depth="{{ item.depth }}"
             >
                 {{ item.name }}
