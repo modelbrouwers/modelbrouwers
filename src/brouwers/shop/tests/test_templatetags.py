@@ -12,11 +12,11 @@ class RecordCategoryPathTests(TestCase):
 
     def test_invalid_args(self):
         invalid = (
-            "{% load shop %}{% record_category_path %}",
-            "{% load shop %}{% record_category_path item %}",
-            "{% load shop %}{% record_category_path item info %}",
-            "{% load shop %}{% record_category_path item info category_path %}",
-            "{% load shop %}{% record_category_path item info foo category_path %}",
+            "{% record_category_path %}",
+            "{% record_category_path item %}",
+            "{% record_category_path item info %}",
+            "{% record_category_path item info category_path %}",
+            "{% record_category_path item info foo category_path %}",
         )
         for tpl in invalid:
             with self.subTest(template=tpl):

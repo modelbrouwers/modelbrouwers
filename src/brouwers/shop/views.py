@@ -64,7 +64,7 @@ class RouterView(View):
     @staticmethod
     def _validate_path(path: str) -> str:
         bits = path.split("/")
-        re_slug = re.compile(SlugConverter.regex)
+        re_slug = re.compile(rf"^{SlugConverter.regex}$")
         if not all(re_slug.match(bit) for bit in bits):
             raise Http404("No catalogue resource found.")
         return bits[-1]

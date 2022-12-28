@@ -1,8 +1,6 @@
 from django import template
 from django.template import Library, TemplateSyntaxError
 
-import bpdb
-
 from ..models import Category, Product
 
 register = Library()

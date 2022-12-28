@@ -87,6 +87,39 @@ class CartViewTests(WebTest):
         self.assertEqual(cart_page.status_code, 404)
 
 
+class CatalogueRouterTests(TestCase):
+    def test_dynamic_routing(self):
+        category = CategoryFactory.create(slug="root")
+        ProductFactory.create(slug="a-product", categories=[category])
+
+        bad_urls = (
+            "/not-root",
+            "/not-product",
+            "/root/not a proper slug",
+        )
+
+        for bad_url in bad_urls:
+            with self.subTest(bad_url=bad_url):
+                response = self.client.get(f"/winkel{bad_url}")
+
+                self.assertEqual(response.status_code, 404)
+
+        good_urls = (
+            ("/root", "shop/category_detail.html"),
+            ("/random/root", "shop/category_detail.html"),
+            ("/a-product", "shop/product_detail.html"),
+            ("/root/a-product", "shop/product_detail.html"),
+            ("/nonsense/a-product", "shop/product_detail.html"),
+        )
+
+        for (good_url, template_name) in good_urls:
+            with self.subTest(good_url=good_url):
+                response = self.client.get(f"/winkel{good_url}")
+
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, template_name)
+
+
 class CategoryDetailViewTests(WebTest):
     def test_list_active_products(self):
         _, root2 = CategoryFactory.create(name="Root 1"), CategoryFactory.create(
@@ -185,6 +218,7 @@ class ProductDetailViewTests(WebTest):
             "http://testserver/albums/",
             f"http://testserver/{uuid.uuid4()}",
             f"http://testserver{bad_category.get_absolute_url()}",
+            f"http://testserver{url}",
         )
 
         for referer in referers:
