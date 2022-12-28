@@ -7,8 +7,8 @@ register = Library()
 
 
 @register.simple_tag
-def category_tree(**extra_filters):
-    default_filters = {"enabled": True, "depth__lte": 2}
+def category_tree(max_depth: int = 2, **extra_filters):
+    default_filters = {"enabled": True, "depth__lte": max_depth}
     filters = {**default_filters, **extra_filters}
     qs = Category.get_tree().filter(**filters)
     return Category.get_annotated_list_qs(qs)

@@ -1,5 +1,7 @@
 import json
+import logging
 import re
+from typing import Any, Callable, Tuple
 from urllib.parse import urlencode, urlsplit
 
 from django.db import transaction
@@ -26,6 +28,9 @@ from .models import (
 )
 from .payments.service import register, start_payment
 from .serializers import ConfirmOrderSerializer
+from .utils import ViewFunc, view_instance
+
+logger = logging.getLogger(__name__)
 
 
 class IndexView(ListView):
@@ -53,23 +58,30 @@ class RouterView(View):
     """
 
     def dispatch(self, request: HttpRequest, path: str):
+        slug = self._validate_path(path)
+        return self.try_candidates(lambda candidate: candidate(request, slug=slug))
+
+    @staticmethod
+    def _validate_path(path: str) -> str:
         bits = path.split("/")
         re_slug = re.compile(SlugConverter.regex)
         if not all(re_slug.match(bit) for bit in bits):
             raise Http404("No catalogue resource found.")
-        slug = bits[-1]
+        return bits[-1]
 
+    @staticmethod
+    def try_candidates(
+        callback: Callable[[ViewFunc], Any]
+    ) -> Tuple[Callable, HttpResponseBase]:
         candidates = (
             ProductDetailView.as_view(),
             CategoryDetailView.as_view(),
         )
-
         for candidate in candidates:
             try:
-                return candidate(request, slug=slug)
+                return callback(candidate)
             except Http404:
                 continue
-
         raise Http404("No catalogue resource found.")
 
 
@@ -109,22 +121,25 @@ class ProductDetailView(DetailView):
 
         resolver = get_resolver()
         try:
-            callback, callback_args, callback_kwargs = resolver.resolve(
-                split_result.path
-            )
+            callback, _, callback_kwargs = resolver.resolve(split_result.path)
         except Resolver404 as exc:
             raise Category.DoesNotExist("Could not resolve referer URL") from exc
 
-        if (
-            view_cls := getattr(callback, "view_class", None)
-        ) is not CategoryDetailView:
+        if getattr(callback, "view_class", None) is not RouterView:
             raise Category.DoesNotExist("URL did not resolve to category detailview")
 
-        view = view_cls(*callback_args, **callback_kwargs)
-        view.args = callback_args
-        view.kwargs = callback_kwargs
-        try:
+        slug = RouterView._validate_path(callback_kwargs["path"])
+
+        def _try_candidate(candidate: ViewFunc):
+            view = view_instance(candidate, slug=slug)
+            # args and kwargs must match the respective CategoryDetailView args and kwargs
             return view.get_object()
+
+        try:
+            instance = RouterView.try_candidates(_try_candidate)
+            if not isinstance(instance, Category):
+                raise Http404
+            return instance
         except Http404 as err:
             raise Category.DoesNotExist("Category does not exist") from err
 
