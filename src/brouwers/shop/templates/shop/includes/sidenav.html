@@ -14,11 +14,11 @@
         </div>
     </div>
 
+    {% get_active_node categories category as active_node %}
     <div class="mobile-nav__content">
         {% with root=category.get_root %}
         {% for item, info in categories %}
             {% record_category_path item info as category_path %}
-
             {% is_in_branch item root as show_open %}
 
             {% if info.open %}
@@ -29,7 +29,9 @@
                     <li class="tree-nav__item {% if show_open %}tree-nav__item--show{% endif %}">
             {% endif %}
 
-            <a class="tree-nav__link {% if item.id == category.id %}tree-nav__link--active{% endif %}"
+            {% is_in_branch category item as category_is_in_current_branch %}
+
+            <a class="tree-nav__link {% if item == active_node %}tree-nav__link--active{% endif %}"
                href="{% url 'shop:catalogue' path=category_path %}"
                data-depth="{{ item.depth }}"
             >

@@ -1,6 +1,8 @@
 from django import template
 from django.template import Library, TemplateSyntaxError
 
+import bpdb
+
 from ..models import Category, Product
 
 register = Library()
@@ -82,3 +84,37 @@ def do_record_category_path(parser, token):
 @register.simple_tag
 def get_product_catalogue_path(product: Product, category_path: str) -> str:
     return f"{category_path}/{product.slug}"
+
+
+class ActiveNodeNode(template.Node):
+    def __init__(self, nodes_var, current_node_var, asvar):
+        self.nodes_var = nodes_var
+        self.current_node_var = current_node_var
+        self.asvar = asvar
+
+    def render(self, context):
+        nodes = [entry[0] for entry in self.nodes_var.resolve(context)]
+        current_node = self.current_node_var.resolve(context)
+        if current_node not in nodes:
+            # find closest parent
+            parents = [
+                parent for parent in nodes if current_node.is_descendant_of(parent)
+            ]
+            current_node = next(
+                (n for n in sorted(parents, key=lambda n: n.depth, reverse=True)), None
+            )
+        context[self.asvar] = current_node
+        return ""
+
+
+@register.tag(name="get_active_node")
+def do_get_active_node(parser, token):
+    args = token.split_contents()
+    assert len(args) == 5
+    assert args[-2] == "as"
+    nodes_var, current_node_var, asvar = args[1], args[2], args[4]
+    return ActiveNodeNode(
+        nodes_var=parser.compile_filter(nodes_var),
+        current_node_var=parser.compile_filter(current_node_var),
+        asvar=asvar,
+    )
