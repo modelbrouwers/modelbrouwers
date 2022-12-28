@@ -100,7 +100,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
                         "weight",
                         "weight_unit",
                     ),
-                    ("length", "width", "height"),
+                    ("length", "width", "height", "length_unit"),
                     "related_products",
                     "manufacturer",
                 ),
