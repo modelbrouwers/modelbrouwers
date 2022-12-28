@@ -75,12 +75,16 @@ export default class Page {
             const products = document.getElementsByClassName("product-card");
 
             for (let product of products) {
-                const id = product.dataset.product;
+                const { product: id, stock } = product.dataset;
                 const reactNode = product.querySelector(".react-cart-actions");
 
                 createRoot(reactNode).render(
                     <IntlProvider {...intlProps}>
-                        <CartProduct store={cartStore} productId={id} />
+                        <CartProduct
+                            store={cartStore}
+                            productId={id}
+                            hasStock={parseInt(stock) > 0}
+                        />
                     </IntlProvider>
                 );
             }

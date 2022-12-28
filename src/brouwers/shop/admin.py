@@ -45,7 +45,6 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
         "stock",
         "price",
         "vat",
-        "description",
         "length",
         "width",
         "height",
