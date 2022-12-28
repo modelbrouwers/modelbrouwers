@@ -2,10 +2,12 @@
 
 .message {
   --message-background-color: transparent;
+  --message-color: initial;
   --message-border-color: var(--mb-color-border);
   --message-spacing: 1em;
 
   background-color: var(--message-background-color);
+  color: var(--message-color);
   padding: var(--message-spacing);
   border: solid 1px var(--message-border-color);
   border-radius: 4px;
@@ -15,14 +17,22 @@
   align-items: center;
   gap: var(--message-spacing);
 
+  @include bem.modifier("slim") {
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: var(--message-background-color);
+    background-color: transparent;
+    gap: calc(var(--message-spacing) / 2);
+  }
+
   @include bem.modifier("info") {
     --message-background-color: #cde4ff;
   }
 
   @include bem.modifier("warning") {
     --message-background-color: var(--mb-color-main-orange);
+    --message-color: #ffffff;
     --message-border-color: var(--mb-color-main-orange);
-    // font-weight: 700;
-    color: #ffffff;
   }
 }

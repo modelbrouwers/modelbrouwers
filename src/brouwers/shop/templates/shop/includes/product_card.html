@@ -1,4 +1,8 @@
-<div class="card-grid__card product-card" data-product="{{ product.id }}">
+{% load i18n %}
+<div
+    class="card-grid__card product-card"
+    data-product="{{ product.id }}"
+    data-stock="{{ product.stock }}">
 
     <a href="{{ product.get_absolute_url }}" class="product-card__image-link">
         <img src="{{ product.get_image_url }}" class="product-card__image" alt="{{ product.name }}">
@@ -6,8 +10,16 @@
 
     <a href="{{ product.get_absolute_url }}" class="product-card__name">{{ product.name }}</a>
 
-    <p class="product-card__price">{{ product.price }} &euro;</p>
+    <div class="product-card__price">{{ product.price }} &euro;</div>
 
-    <div class="react-cart-actions"></div>
+    <div class="product-card__actions">
+        {% if not product.stock %}
+            <p class="message message--slim message--warning">
+                <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
+                {% trans "Out of stock." %}
+            </p>
+        {% endif %}
+        <div class="react-cart-actions"></div>
+    </div>
 
 </div>

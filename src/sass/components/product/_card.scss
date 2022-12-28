@@ -1,3 +1,5 @@
+@use "../../modules/bem";
+
 .product-card {
   @at-root .card-grid__card#{&} {
     padding: 1em;
@@ -8,24 +10,24 @@
   height: auto;
   border: $border;
 
-  &__image-link {
+  @include bem.element("image-link") {
     display: block;
     width: 100%;
     flex: 1 0 auto;
   }
 
-  &__image {
+  @include bem.element("image") {
     width: 100%;
     flex: 1 0 auto;
   }
 
-  &__name {
+  @include bem.element("name") {
     padding: 5px 0;
     flex: 1 0 auto;
     font-size: 1.1em;
   }
 
-  &__price {
+  @include bem.element("price") {
     font-weight: bold;
     margin: 5px 0;
     flex: 0;
@@ -33,22 +35,25 @@
   }
 
   @include gt-mobile {
-    &__image-link {
+    @include bem.element("image-link") {
       order: 1;
     }
 
-    &__name {
+    @include bem.element("name") {
       color: $text-color;
       order: 2;
     }
 
-    &__price {
+    @include bem.element("price") {
       order: 4;
     }
 
-    .react-cart-actions {
-      order: 2;
+    @include bem.element("actions") {
+      order: 3;
       margin-top: 0.5em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4em;
     }
   }
 }

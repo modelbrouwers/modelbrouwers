@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const FAIcon = ({ icon, extra = [] }) => {
     const classNames = ["fa", `fa-${icon}`, ...extra];
-    return <i className={classNames.join(" ")} />;
+    return <i className={classNames.join(" ")} aria-hidden="true" />;
 };
 
 FAIcon.propTypes = {
