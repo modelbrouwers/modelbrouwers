@@ -38,7 +38,7 @@ brotli==1.0.9
     #   fonttools
 bump2version==1.0.1
     # via -r requirements/dev.in
-certifi==2022.9.24
+certifi==2022.12.7
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -288,7 +288,7 @@ python-dotenv==0.20.0
     # via -r requirements/ci.txt
 python-memcached==1.59
     # via -r requirements/ci.txt
-pytz==2022.6
+pytz==2022.7
     # via
     #   -r requirements/ci.txt
     #   babel

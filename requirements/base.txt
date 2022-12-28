@@ -12,7 +12,7 @@ bleach[css]==5.0.1
     #   django-bleach
 brotli==1.0.9
     # via fonttools
-certifi==2022.9.24
+certifi==2022.12.7
     # via
     #   requests
     #   sentry-sdk
@@ -138,7 +138,7 @@ python-dotenv==0.20.0
     # via -r requirements/base.in
 python-memcached==1.59
     # via -r requirements/base.in
-pytz==2022.6
+pytz==2022.7
     # via
     #   -r requirements/base.in
     #   django
