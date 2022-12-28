@@ -71,6 +71,48 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
         "weight",
         "manufacturer__name",
     )
+    fieldsets = (  # type:ignore
+        (
+            None,
+            {
+                "fields": (
+                    "active",
+                    "name",
+                    "image",
+                    "description",
+                    "categories",
+                    "tags",
+                ),
+            },
+        ),
+        (
+            _("Sales"),
+            {
+                "fields": ("price", "vat", "stock"),
+            },
+        ),
+        (
+            _("Product details"),
+            {
+                "fields": (
+                    "model_name",
+                    (
+                        "weight",
+                        "weight_unit",
+                    ),
+                    ("length", "width", "height"),
+                    "related_products",
+                    "manufacturer",
+                ),
+            },
+        ),
+        (
+            _("SEO"),
+            {
+                "fields": ("slug", "meta_description"),
+            },
+        ),
+    )
     raw_id_fields = ("related_products", "categories", "manufacturer")
     prepopulated_fields = {"slug": ("name",)}
     resource_class = ProductResource
