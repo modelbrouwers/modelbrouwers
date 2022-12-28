@@ -8,7 +8,7 @@ from treebeard.mp_tree import MP_Node
 
 class Category(MP_Node):
     name = models.CharField(_("name"), max_length=100)
-    slug = AutoSlugField(_("slug"), unique=True, populate_from="name")
+    slug = AutoSlugField(_("slug"), unique=True, populate_from="name", editable=True)
     image = models.ImageField(_("thumbnail"), upload_to="shop/category/", blank=True)
     enabled = models.BooleanField(_("enabled"), default=True)
 
