@@ -84,10 +84,10 @@ class Product(models.Model):
         verbose_name_plural = _("products")
 
     def __str__(self):
-        return self.name or self.name_nl
+        return self.name
 
     def get_absolute_url(self):
-        return reverse("shop:product-detail", kwargs={"slug": self.slug})
+        return reverse("shop:catalogue", kwargs={"path": self.slug})
 
     def get_image_url(self):
         image = self.image

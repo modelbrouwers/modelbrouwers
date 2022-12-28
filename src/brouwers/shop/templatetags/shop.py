@@ -1,7 +1,7 @@
 from django import template
 from django.template import Library, TemplateSyntaxError
 
-from ..models import Category
+from ..models import Category, Product
 
 register = Library()
 
@@ -77,3 +77,8 @@ def do_record_category_path(parser, token):
         parser.compile_filter(info_var),
         asvar,
     )
+
+
+@register.simple_tag
+def get_product_catalogue_path(product: Product, category_path: str) -> str:
+    return f"{category_path}/{product.slug}"

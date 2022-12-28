@@ -2,21 +2,12 @@ from django.urls import path
 
 from .debug_views import IdealPaymentView, PaymentView
 from .payments.sisow.views import PaymentCallbackView
-from .views import (
-    CartDetailView,
-    CheckoutView,
-    ConfirmOrderView,
-    IndexView,
-    ProductDetailView,
-    RouterView,
-)
+from .views import CartDetailView, CheckoutView, ConfirmOrderView, IndexView, RouterView
 
 app_name = "shop"
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    # TODO: change to /<category_slug>/<product_slug>
-    path("products/<slug:slug>/", ProductDetailView.as_view(), name="product-detail"),
     path("cart/<int:pk>/", CartDetailView.as_view(), name="cart-detail"),
     # payments
     path(
