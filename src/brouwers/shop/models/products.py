@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
 
-from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
@@ -16,7 +15,7 @@ MIN_RATING = 1
 
 class Product(models.Model):
     name = models.CharField(_("name"), max_length=200)
-    slug = AutoSlugField(_("slug"), max_length=200, unique=True, populate_from="name")
+    slug = models.SlugField(_("slug"), max_length=200, unique=True)
     model_name = models.CharField(_("model name"), max_length=30)
     stock = models.PositiveIntegerField(
         _("stock"), help_text=_("Number of items in stock")

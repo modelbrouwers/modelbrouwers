@@ -72,6 +72,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
         "manufacturer__name",
     )
     raw_id_fields = ("related_products", "categories", "manufacturer")
+    prepopulated_fields = {"slug": ("name",)}
     resource_class = ProductResource
 
     def get_queryset(self, request):

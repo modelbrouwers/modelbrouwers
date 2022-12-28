@@ -33,6 +33,7 @@ class ProductManufacturerFactory(factory.django.DjangoModelFactory):
 
 class ProductFactory(factory.django.DjangoModelFactory):
     name = factory.Faker("name")
+    slug = factory.Sequence(lambda n: f"product-{n:04}")
     model_name = factory.Faker("name")
     stock = factory.fuzzy.FuzzyInteger(1, 8)
     price = factory.fuzzy.FuzzyDecimal(0, 5)
