@@ -14,6 +14,12 @@ class WeightUnits(DjangoChoices):
     kilogram = ChoiceItem("kg", _("Kilogram"))
 
 
+class LengthUnits(DjangoChoices):
+    mm = ChoiceItem("mm", _("Milimetre"))
+    cm = ChoiceItem("cm", _("Centimetre"))
+    m = ChoiceItem("m", _("Metre"))
+
+
 class CartStatuses(DjangoChoices):
     open = ChoiceItem("open", _("Open"))
     payment_pending = ChoiceItem("payment_pending", _("Payment pending"))

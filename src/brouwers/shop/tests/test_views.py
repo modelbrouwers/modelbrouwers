@@ -3,7 +3,7 @@ import uuid
 from django.template import engines
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import override, ugettext as _
 
 from django_webtest import WebTest
 
@@ -109,20 +109,26 @@ class ProductDetailViewTests(WebTest):
             active=True,
             with_image=True,
             name_nl="Testproduct",
+            slug_nl="testproduct",
             name_en="Test product",
+            slug_en="test-product",
         )
 
         with self.subTest("nl content"):
+            with override("nl"):
+                url = product.get_absolute_url()
             detail_page = self.app.get(
-                product.get_absolute_url(), extra_environ={"HTTP_ACCEPT_LANGUAGE": "nl"}
+                url, extra_environ={"HTTP_ACCEPT_LANGUAGE": "nl"}
             )
 
             self.assertEqual(detail_page.status_code, 200)
             self.assertContains(detail_page, "Testproduct")
 
         with self.subTest("en content"):
+            with override("en"):
+                url = product.get_absolute_url()
             detail_page = self.app.get(
-                product.get_absolute_url(), extra_environ={"HTTP_ACCEPT_LANGUAGE": "en"}
+                url, extra_environ={"HTTP_ACCEPT_LANGUAGE": "en"}
             )
 
             self.assertEqual(detail_page.status_code, 200)

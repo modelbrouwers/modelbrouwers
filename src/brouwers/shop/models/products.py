@@ -4,11 +4,10 @@ from django.urls import reverse
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
 
-from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
-from ..constants import WeightUnits
+from ..constants import LengthUnits, WeightUnits
 
 MAX_RATING = 5
 MIN_RATING = 1
@@ -16,7 +15,7 @@ MIN_RATING = 1
 
 class Product(models.Model):
     name = models.CharField(_("name"), max_length=200)
-    slug = AutoSlugField(_("slug"), max_length=200, unique=True, populate_from="name")
+    slug = models.SlugField(_("slug"), max_length=200, unique=True)
     model_name = models.CharField(_("model name"), max_length=30)
     stock = models.PositiveIntegerField(
         _("stock"), help_text=_("Number of items in stock")
@@ -47,13 +46,21 @@ class Product(models.Model):
     height = models.DecimalField(
         _("height"), max_digits=10, decimal_places=2, default=0
     )
-    # TODO: need length unit?
+    length_unit = models.CharField(
+        _("length unit"),
+        max_length=10,
+        choices=LengthUnits,
+        default=LengthUnits.cm,
+    )
 
     weight = models.DecimalField(
         _("weight"), max_digits=10, decimal_places=2, default=0
     )
     weight_unit = models.CharField(
-        _("weight unit"), max_length=10, choices=WeightUnits.choices
+        _("weight unit"),
+        max_length=10,
+        choices=WeightUnits,
+        default=WeightUnits.gram,
     )
 
     related_products = models.ManyToManyField("self", blank=True)
