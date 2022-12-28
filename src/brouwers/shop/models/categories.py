@@ -8,7 +8,7 @@ from treebeard.mp_tree import MP_Node
 
 class Category(MP_Node):
     name = models.CharField(_("name"), max_length=100)
-    slug = AutoSlugField(_("slug"), unique=True, populate_from="name")
+    slug = AutoSlugField(_("slug"), unique=True, populate_from="name", editable=True)
     image = models.ImageField(_("thumbnail"), upload_to="shop/category/", blank=True)
     enabled = models.BooleanField(_("enabled"), default=True)
 
@@ -28,8 +28,14 @@ class Category(MP_Node):
     def __str__(self):
         return self.name
 
+    def get_catalogue_path(self):
+        nodes = list(self.get_ancestors()) + [self]
+        path = "/".join([category.slug for category in nodes])
+        return path
+
     def get_absolute_url(self):
-        return reverse("shop:category-detail", kwargs={"slug": self.slug})
+        path = self.get_catalogue_path()
+        return reverse("shop:catalogue", kwargs={"path": path})
 
 
 class CategoryCarouselImage(models.Model):

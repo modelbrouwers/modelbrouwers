@@ -4,6 +4,7 @@
 {% block content %}
     {{ block.super }}
 
+    {% with category.get_catalogue_path as base_path %}
     <div class="page-content">
         <div class="page-content__breadcrumbs">
             {% include 'shop/includes/breadcrumbs.html' with curr_node=category %}
@@ -18,7 +19,8 @@
                     <h3 class="heading heading--plain">{% trans 'Subcategories' %}</h3>
                     <div class="card-grid card-grid--scroll card-grid--rows-2">
                         {% for subcategory in category.get_children %}
-                            <a class="card-grid__item category-card" href="{{ subcategory.get_absolute_url }}">
+                            <a class="card-grid__item category-card"
+                               href="{% url 'shop:catalogue' path=base_path|add:'/'|add:subcategory.slug %}">
                                 <img class="category-card__img"
                                      src="{{ subcategory.image.url }}"
                                      alt="{{ subcategory.name }}"
@@ -33,7 +35,7 @@
                     <h3 class="heading heading--plain">{% trans 'Products' %}</h3>
                     <div class="card-grid">
                         {% for product in products %}
-                            {% include 'shop/includes/product_card.html' %}
+                            {% include 'shop/includes/product_card.html' with category_path=base_path %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -45,5 +47,6 @@
 
         </div>
     </div>
+    {% endwith %}
 
 {% endblock %}

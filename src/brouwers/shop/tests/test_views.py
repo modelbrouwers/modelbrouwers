@@ -21,6 +21,7 @@ class BreadcrumbsTests(TestCase):
         """
         Asserts that breadcrumbs are rendered correctly.
         """
+        self.maxDiff = None
         tpl = "{% include 'shop/includes/breadcrumbs.html' with curr_node=node%}"
         template = self._load_template(tpl)
 
@@ -36,11 +37,11 @@ class BreadcrumbsTests(TestCase):
             '<div class="breadcrumbs">'
             '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
+            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/child1/">Child1</a>'
+            '<a class="breadcrumbs__item" href="/winkel/root/child1">Child1</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/child2/">Child2</a></div>',
+            '<a class="breadcrumbs__item" href="/winkel/root/child1/child2">Child2</a></div>',
         )
 
         rendered2 = template.render({"node": child1})
@@ -49,9 +50,9 @@ class BreadcrumbsTests(TestCase):
             '<div class="breadcrumbs">'
             '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>'
+            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/child1/">Child1</a>',
+            '<a class="breadcrumbs__item" href="/winkel/root/child1">Child1</a>',
         )
 
         rendered3 = template.render({"node": root})
@@ -60,7 +61,7 @@ class BreadcrumbsTests(TestCase):
             '<div class="breadcrumbs">'
             '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/categories/root/">Root</a>',
+            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>',
         )
 
 
@@ -84,6 +85,39 @@ class CartViewTests(WebTest):
         second_user = UserFactory.create()
         cart_page = self.app.get(self.url, user=second_user, expect_errors=True)
         self.assertEqual(cart_page.status_code, 404)
+
+
+class CatalogueRouterTests(TestCase):
+    def test_dynamic_routing(self):
+        category = CategoryFactory.create(slug="root")
+        ProductFactory.create(slug="a-product", categories=[category])
+
+        bad_urls = (
+            "/not-root",
+            "/not-product",
+            "/root/not a proper slug",
+        )
+
+        for bad_url in bad_urls:
+            with self.subTest(bad_url=bad_url):
+                response = self.client.get(f"/winkel{bad_url}")
+
+                self.assertEqual(response.status_code, 404)
+
+        good_urls = (
+            ("/root", "shop/category_detail.html"),
+            ("/random/root", "shop/category_detail.html"),
+            ("/a-product", "shop/product_detail.html"),
+            ("/root/a-product", "shop/product_detail.html"),
+            ("/nonsense/a-product", "shop/product_detail.html"),
+        )
+
+        for (good_url, template_name) in good_urls:
+            with self.subTest(good_url=good_url):
+                response = self.client.get(f"/winkel{good_url}")
+
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, template_name)
 
 
 class CategoryDetailViewTests(WebTest):
@@ -184,6 +218,7 @@ class ProductDetailViewTests(WebTest):
             "http://testserver/albums/",
             f"http://testserver/{uuid.uuid4()}",
             f"http://testserver{bad_category.get_absolute_url()}",
+            f"http://testserver{url}",
         )
 
         for referer in referers:

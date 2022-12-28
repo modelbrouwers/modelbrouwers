@@ -2,25 +2,12 @@ from django.urls import path
 
 from .debug_views import IdealPaymentView, PaymentView
 from .payments.sisow.views import PaymentCallbackView
-from .views import (
-    CartDetailView,
-    CategoryDetailView,
-    CheckoutView,
-    ConfirmOrderView,
-    IndexView,
-    ProductDetailView,
-)
+from .views import CartDetailView, CheckoutView, ConfirmOrderView, IndexView, RouterView
 
 app_name = "shop"
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    # TODO: drop categories/ prefix & trailing slash
-    path(
-        "categories/<slug:slug>/", CategoryDetailView.as_view(), name="category-detail"
-    ),
-    # TODO: change to /<category_slug>/<product_slug>
-    path("products/<slug:slug>/", ProductDetailView.as_view(), name="product-detail"),
     path("cart/<int:pk>/", CartDetailView.as_view(), name="cart-detail"),
     # payments
     path(
@@ -34,4 +21,7 @@ urlpatterns = [
     # debug helpers
     path("pay/", PaymentView.as_view(), name="pay"),
     path("pay/ideal/", IdealPaymentView.as_view(), name="ideal-bank"),
+    # catch-all for catalogue routing - note that the individual
+    # views are registered inside of RouterView
+    path("<path:path>", RouterView.as_view(), name="catalogue"),
 ]
