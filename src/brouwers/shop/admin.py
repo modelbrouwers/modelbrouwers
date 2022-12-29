@@ -186,7 +186,7 @@ class PaymentMethodAdmin(TranslationAdmin):
 
 @admin.register(ShopConfiguration)
 class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
-    fieldsets = (
+    fieldsets = (  # type:ignore
         (
             _("Sisow/Buckaroo"),
             {
@@ -198,6 +198,16 @@ class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
             },
         ),
         (_("Bank transfer"), {"fields": ("bank_transfer_instructions",)}),
+        (
+            _("Paypal"),
+            {
+                "fields": (
+                    "paypal_sandbox",
+                    "paypal_client_id",
+                    "paypal_secret",
+                )
+            },
+        ),
     )
 
 
