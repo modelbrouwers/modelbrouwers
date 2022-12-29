@@ -11,6 +11,8 @@ python-decouple  # processing of envvar configs
 python-dotenv  # environment variables for secrets
 python-memcached
 pytz  # handle timezones
+requests
+requests-oauthlib
 WeasyPrint
 
 # Django packages
