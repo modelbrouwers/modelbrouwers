@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 
 from ..models import Order, Payment, ShopConfiguration
+from .paypal.service import start_payment as start_paypal_payment
 from .registry import Plugin, register
 from .sisow.service import start_payment as start_sisow_payment
 
@@ -37,7 +38,12 @@ class PayPalStandard(Plugin):
             payment.id,
             self.identifier,
         )
-        raise NotImplementedError("TODO")
+        redirect_url = start_paypal_payment(
+            payment=payment,
+            request=context.get("request"),
+            next_page=context.get("next_page", ""),
+        )
+        return HttpResponseRedirect(redirect_url)
 
 
 class SisowPlugin(Plugin):

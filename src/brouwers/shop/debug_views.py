@@ -33,7 +33,7 @@ class PaymentView(FormView):
         payment_method = form.cleaned_data["method"]
         payment = Payment.objects.create(
             payment_method=payment_method,
-            amount=100 * form.cleaned_data["amount"],  # euro to euro cents
+            amount=int(100 * form.cleaned_data["amount"]),  # euro to euro cents
         )
 
         self.request.session["payment"] = payment.pk
