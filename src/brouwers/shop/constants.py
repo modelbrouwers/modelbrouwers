@@ -7,6 +7,7 @@ from djchoices import ChoiceItem, DjangoChoices
 TWO_DIGITS = Decimal("0.01")
 
 CART_SESSION_KEY = "cart_id"
+ORDERS_SESSION_KEY = "order_ids"
 
 
 class WeightUnits(DjangoChoices):
