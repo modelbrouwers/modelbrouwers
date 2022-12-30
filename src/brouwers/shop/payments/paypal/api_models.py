@@ -1,4 +1,4 @@
-from typing import List, Literal
+from typing import Dict, List, Literal
 
 from pydantic import BaseModel
 
@@ -16,12 +16,14 @@ class PaypalOrder(BaseModel):
     ]
     links: List[Link]
 
+    @property
+    def parsed_links(self) -> Dict[str, Link]:
+        return {link.rel: link for link in self.links}
+
     def get_redirect_url(self) -> str:
         assert self.status == "PAYER_ACTION_REQUIRED"
-        relevant_link = next(link for link in self.links if link.rel == "payer-action")
-        return relevant_link.href
+        return self.parsed_links["payer-action"].href
 
     def get_capture_url(self):
         assert self.status == "APPROVED"
-        relevant_link = next(link for link in self.links if link.rel == "capture")
-        return relevant_link.href
+        return self.parsed_links["capture"].href

@@ -13,28 +13,29 @@ def _build_callback_url(
 ) -> str:
     path = reverse(name, kwargs=kwargs)
     url = request.build_absolute_uri(path)
-    if next_page:
-        url = furl(url).set({"next": next_page}).url
+    assert next_page, "Expected a non-empty next page parameter"
+    url = furl(url).set({"next": next_page}).url
     return url
 
 
 def start_payment(
     payment: Payment,
     request: HttpRequest,
-    next_page="",
+    success_page: str = "",
+    cancel_page: str = "",
 ) -> str:
 
     payment_return = _build_callback_url(
         "shop:paypal-return",
         {"pk": payment.pk},
         request,
-        next_page=next_page,
+        next_page=success_page,
     )
     payment_cancel = _build_callback_url(
         "shop:paypal-cancel",
         {"pk": payment.pk},
         request,
-        next_page=next_page,
+        next_page=cancel_page,
     )
 
     with Client() as client:

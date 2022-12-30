@@ -2,7 +2,7 @@ import json
 import logging
 import re
 from typing import Any, Callable, Tuple
-from urllib.parse import urlencode, urlsplit
+from urllib.parse import urlsplit
 
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
@@ -14,6 +14,8 @@ from django.urls.converters import SlugConverter
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
+
+from furl import furl
 
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
@@ -253,6 +255,5 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         order_ids = self.request.session.get(ORDERS_SESSION_KEY, [])
         order_ids.append(order.pk)
         self.request.session[ORDERS_SESSION_KEY] = order_ids
-        query = urlencode({"orderId": order.pk})
-        backend_url = reverse("shop:checkout")
-        return f"{backend_url}confirmation?{query}"
+        path = reverse("shop:checkout", kwargs={"path": "confirmation"})
+        return furl(path).set({"orderId": order.pk}).url

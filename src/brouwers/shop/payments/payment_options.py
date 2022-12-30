@@ -1,8 +1,10 @@
 import logging
 import uuid
+from typing import cast
 
 from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from ..models import Order, Payment, ShopConfiguration
@@ -21,7 +23,7 @@ class BankTransfer(Plugin):
         return None
 
     def get_confirmation_message(self, order: Order) -> str:
-        config = ShopConfiguration.get_solo()
+        config = cast(ShopConfiguration, ShopConfiguration.get_solo())
         return config.bank_transfer_instructions
 
 
@@ -43,10 +45,12 @@ class PayPalStandard(Plugin):
         payment.data["paypal_request_id"] = str(uuid.uuid4())
         payment.save(update_fields=["data"])
 
+        checkout_url = reverse("shop:checkout", kwargs={"path": "payment"})
         redirect_url = start_paypal_payment(
             payment=payment,
             request=context["request"],
-            next_page=context.get("next_page", ""),
+            success_page=context.get("next_page", ""),
+            cancel_page=checkout_url,
         )
         return HttpResponseRedirect(redirect_url)
 

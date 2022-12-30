@@ -78,12 +78,11 @@ class Client:
                 "intent": "CAPTURE",
                 "purchase_units": [
                     {
-                        "reference_id": reference,
+                        "invoice_id": reference,
                         "amount": {
                             "currency_code": "EUR",
                             "value": _amount,
                         },
-                        # "invoice_id": "",
                     }
                 ],
                 "payment_source": {
