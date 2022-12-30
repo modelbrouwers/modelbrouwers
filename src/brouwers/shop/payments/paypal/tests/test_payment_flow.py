@@ -155,3 +155,124 @@ class PaypalPaymentFlowTests(TestCase):
         )
 
         self.assertRedirects(response, confirmation_url)
+        capture = m.last_request
+        self.assertEqual(capture.method, "POST")
+        self.assertEqual(
+            capture.url,
+            "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T/capture",
+        )
+        self.assertIn("Paypal-Request-Id", capture.headers)
+
+    def test_unhappy_flow_return_path(self):
+        with self.subTest("accessing payment different payment method"):
+            bt_payment = Payment.objects.create(payment_method=self.bt, amount=1000)
+            return_url = reverse("shop:paypal-return", kwargs={"pk": bt_payment.pk})
+
+            response = self.client.get(return_url)
+
+            self.assertEqual(response.status_code, 404)
+
+        payment = Payment.objects.create(
+            payment_method=self.pp,
+            amount=2542,
+            data={"paypal_order": {"id": "5O190127TN364715T"}},
+        )
+        return_url = reverse("shop:paypal-return", kwargs={"pk": payment.pk})
+
+        with self.subTest("missing token in URL"):
+            response = self.client.get(return_url)
+
+            self.assertEqual(response.status_code, 404)
+
+        with self.subTest("different token in URL"):
+            response = self.client.get(return_url, {"token": "different-value"})
+
+            self.assertEqual(response.status_code, 404)
+
+        with self.subTest("payment is missing metadata"):
+            payment2 = Payment.objects.create(
+                payment_method=self.pp, amount=2542, data={}
+            )
+            return_url2 = reverse("shop:paypal-return", kwargs={"pk": payment2.pk})
+
+            response = self.client.get(return_url2)
+
+            self.assertEqual(response.status_code, 404)
+
+    @patch_cache({"token": {"expires_in": 3600, "access_token": "brouwers-dummy"}})
+    @requests_mock.Mocker()
+    @patch_config()
+    def test_replay_of_return_url_payment_already_captured(self, m, mock_get_solo):
+        payment = Payment.objects.create(
+            payment_method=self.pp,
+            amount=2542,
+            data={
+                "paypal_order": {"id": "5O190127TN364715T"},
+                "paypal_capture_request_id": "earlier-id",
+            },
+        )
+        return_url = reverse("shop:paypal-return", kwargs={"pk": payment.pk})
+        m.get(
+            "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T",
+            json={
+                "id": "5O190127TN364715T",
+                "intent": "CAPTURE",
+                "status": "COMPLETED",
+                "payment_source": {"paypal": {}},
+                "links": [
+                    {
+                        "href": "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T",
+                        "rel": "self",
+                        "method": "GET",
+                    },
+                ],
+            },
+        )
+
+        response = self.client.get(
+            return_url,
+            {
+                "next": "/dummy",
+                "token": "5O190127TN364715T",
+            },
+        )
+
+        self.assertRedirects(response, "/dummy", fetch_redirect_response=False)
+        self.assertEqual(len(m.request_history), 1)
+
+    @patch_cache({"token": {"expires_in": 3600, "access_token": "brouwers-dummy"}})
+    @requests_mock.Mocker()
+    @patch_config()
+    def test_validate_next_parameter(self, m, mock_get_solo):
+        payment = Payment.objects.create(
+            payment_method=self.pp,
+            amount=2542,
+            data={"paypal_order": {"id": "5O190127TN364715T"}},
+        )
+        return_url = reverse("shop:paypal-return", kwargs={"pk": payment.pk})
+        m.get(
+            "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T",
+            json={
+                "id": "5O190127TN364715T",
+                "intent": "CAPTURE",
+                "status": "COMPLETED",
+                "payment_source": {"paypal": {}},
+                "links": [
+                    {
+                        "href": "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T",
+                        "rel": "self",
+                        "method": "GET",
+                    },
+                ],
+            },
+        )
+
+        response = self.client.get(
+            return_url,
+            {
+                "next": "https://evil.com/",
+                "token": "5O190127TN364715T",
+            },
+        )
+
+        self.assertRedirects(response, "/winkel/", fetch_redirect_response=False)
