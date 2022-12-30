@@ -1,9 +1,13 @@
 from dataclasses import dataclass
 from functools import lru_cache
-from typing import Iterator, List, Tuple
-from urllib.parse import unquote, urlencode
+from typing import Iterator, List, Tuple, cast
+from urllib.parse import unquote
 
+from django.http import HttpRequest
 from django.urls import reverse
+from django.utils import translation
+
+from furl import furl
 
 from ...models import Payment, ShopConfiguration
 from .api import NS, calculate_sha1, calculate_sisow_sha1, xml_request
@@ -36,7 +40,7 @@ def get_ideal_bank_choices() -> Iterator[Tuple[str, str]]:
         yield (bank.id, bank.name)
 
 
-def start_payment(payment: Payment, request=None, next_page="") -> str:
+def start_payment(payment: Payment, request: HttpRequest, next_page="") -> str:
     method: str = payment.data["sisow_method"]
 
     # ideal accepts an optional issuer ID for bank pre-selection
@@ -46,7 +50,7 @@ def start_payment(payment: Payment, request=None, next_page="") -> str:
         if isinstance(bank_id, int):
             extra_params["issuerid"] = (bank_id,)
 
-    config = ShopConfiguration.get_solo()
+    config = cast(ShopConfiguration, ShopConfiguration.get_solo())
 
     purchaseid = payment.reference
 
@@ -58,11 +62,10 @@ def start_payment(payment: Payment, request=None, next_page="") -> str:
     )
 
     callback_url = reverse("shop:sisow-payment-callback", kwargs={"pk": payment.pk})
-    if request:
-        callback_url = request.build_absolute_uri(callback_url)
+    callback_url = request.build_absolute_uri(callback_url)
 
     if next_page:
-        callback_url = f"{callback_url}?{urlencode({'next': next_page})}"
+        callback_url = furl(callback_url).set({"next": next_page}).url
 
     post_data = {
         "merchantid": config.sisow_merchant_id,
@@ -73,7 +76,7 @@ def start_payment(payment: Payment, request=None, next_page="") -> str:
         "returnurl": callback_url,
         "sha1": sha1,
         "currency": "EUR",
-        "locale": "nl",  # TODO -> derive from request?
+        "locale": translation.get_language(),
         **extra_params,
     }
 

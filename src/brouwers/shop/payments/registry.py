@@ -1,15 +1,24 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Callable, Optional, Type, Union
+from typing import Callable, Optional, Type, TypedDict, Union
 
+from django.http import HttpRequest
 from django.http.response import HttpResponseBase
 from django.utils.functional import Promise
 from django.utils.translation import gettext_lazy as _
 
 from ..models import Order, Payment
 
+__all__ = ["register", "PaymentContext", "Plugin"]
+
 PluginType = Type["Plugin"]
 LazyStr = Union[Promise, str]
+
+
+class PaymentContext(TypedDict):
+    request: HttpRequest
+    next_page: str
+    order: Optional[Order]
 
 
 @dataclass
@@ -26,8 +35,8 @@ class Plugin(ABC):
 
     @abstractmethod
     def start_payment(
-        self, payment: Payment, context: dict
-    ) -> Optional[HttpResponseBase]:
+        self, payment: Payment, context: PaymentContext
+    ) -> Optional[HttpResponseBase]:  # pragma: no cover
         """
         Given a payment instance, handle the actual payment flow.
 

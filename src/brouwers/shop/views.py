@@ -79,7 +79,7 @@ class RouterView(View):
         )
         for candidate in candidates:
             try:
-                return callback(candidate)
+                return callback(candidate)  # type:ignore
             except Http404:
                 continue
         raise Http404("No catalogue resource found.")
@@ -155,6 +155,7 @@ class CartDetailView(DetailView):
 
 class CheckoutMixin:
     template_name = "shop/checkout.html"
+    request: HttpRequest
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -243,6 +244,6 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         Add the frontend URL routing part to the backend URL.
         """
         # TODO: add token of some sorts to prevent enumeration attacks
-        query = urlencode({"orderId": order.id})
+        query = urlencode({"orderId": order.pk})
         backend_url = reverse("shop:checkout")
         return f"{backend_url}confirmation?{query}"

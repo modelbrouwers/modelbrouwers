@@ -1,11 +1,12 @@
 import logging
+import uuid
 
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 
 from ..models import Order, Payment, ShopConfiguration
 from .paypal.service import start_payment as start_paypal_payment
-from .registry import Plugin, register
+from .registry import PaymentContext, Plugin, register
 from .sisow.service import start_payment as start_sisow_payment
 
 logger = logging.getLogger(__name__)
@@ -15,12 +16,7 @@ logger = logging.getLogger(__name__)
 class BankTransfer(Plugin):
     verbose_name = _("Bank transfer")
 
-    def start_payment(self, payment: Payment, context: dict) -> None:
-        logger.info(
-            "Initiating payment flow for payment %d, using plugin %s",
-            payment.id,
-            self.identifier,
-        )
+    def start_payment(self, payment: Payment, context: PaymentContext) -> None:
         return None
 
     def get_confirmation_message(self, order: Order) -> str:
@@ -32,15 +28,19 @@ class BankTransfer(Plugin):
 class PayPalStandard(Plugin):
     verbose_name = _("PayPal standard")
 
-    def start_payment(self, payment: Payment, context: dict) -> HttpResponseRedirect:
-        logger.info(
-            "Initiating payment flow for payment %d, using plugin %s",
-            payment.id,
-            self.identifier,
-        )
+    def start_payment(
+        self, payment: Payment, context: PaymentContext
+    ) -> HttpResponseRedirect:
+        # track some metadata that is paypal specific
+        order = context.get("order")
+        if order is not None:
+            payment.data["order"] = {"id": order.pk}
+        payment.data["paypal_request_id"] = str(uuid.uuid4())
+        payment.save(update_fields=["data"])
+
         redirect_url = start_paypal_payment(
             payment=payment,
-            request=context.get("request"),
+            request=context["request"],
             next_page=context.get("next_page", ""),
         )
         return HttpResponseRedirect(redirect_url)
@@ -49,17 +49,14 @@ class PayPalStandard(Plugin):
 class SisowPlugin(Plugin):
     sisow_method: str
 
-    def start_payment(self, payment: Payment, context: dict) -> HttpResponseRedirect:
-        logger.info(
-            "Initiating payment flow for payment %d, using plugin %s",
-            payment.id,
-            self.identifier,
-        )
+    def start_payment(
+        self, payment: Payment, context: PaymentContext
+    ) -> HttpResponseRedirect:
         payment.data["sisow_method"] = self.sisow_method
         payment.save(update_fields=["data"])
         redirect_url = start_sisow_payment(
             payment=payment,
-            request=context.get("request"),
+            request=context["request"],
             next_page=context.get("next_page", ""),
         )
         return HttpResponseRedirect(redirect_url)

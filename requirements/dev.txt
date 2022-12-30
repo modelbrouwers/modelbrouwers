@@ -181,6 +181,8 @@ fonttools[woff]==4.32.0
     #   weasyprint
 freezegun==1.2.1
     # via -r requirements/ci.txt
+furl==2.1.3
+    # via -r requirements/ci.txt
 h11==0.14.0
     # via
     #   -r requirements/ci.txt
@@ -232,6 +234,10 @@ openpyxl==3.0.10
     # via
     #   -r requirements/ci.txt
     #   tablib
+orderedmultidict==1.0.1
+    # via
+    #   -r requirements/ci.txt
+    #   furl
 outcome==1.2.0
     # via
     #   -r requirements/ci.txt
@@ -326,7 +332,9 @@ six==1.16.0
     #   -r requirements/ci.txt
     #   bleach
     #   django-choices
+    #   furl
     #   html5lib
+    #   orderedmultidict
     #   python-dateutil
     #   python-memcached
     #   requests-mock

@@ -1,6 +1,5 @@
 import uuid
 from decimal import Decimal
-from typing import Optional
 
 from django.http import HttpRequest
 from django.urls import reverse
@@ -9,7 +8,7 @@ from django.utils import translation
 from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
 
-from ...models import Payment, ShopConfiguration
+from ...models import Order, Payment, ShopConfiguration
 
 BASE_URLS = {
     "live": "https://api-m.paypal.com",
@@ -18,9 +17,10 @@ BASE_URLS = {
 
 
 def start_payment(
-    payment: Payment, request: Optional[HttpRequest] = None, next_page=""
+    payment: Payment,
+    request: HttpRequest,
+    next_page="",
 ) -> str:
-    assert request
     config = ShopConfiguration.get_solo()
     base_url = BASE_URLS["live" if not config.paypal_sandbox else "sandbox"]
 

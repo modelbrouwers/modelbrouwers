@@ -97,6 +97,8 @@ et-xmlfile==1.1.0
     # via openpyxl
 fonttools[woff]==4.32.0
     # via weasyprint
+furl==2.1.3
+    # via -r requirements/base.in
 html2text==2020.1.16
     # via -r requirements/base.in
 html5lib==1.1
@@ -117,6 +119,8 @@ openpyxl==3.0.10
     # via
     #   -r requirements/base.in
     #   tablib
+orderedmultidict==1.0.1
+    # via furl
 pillow==9.3.0
     # via
     #   -r requirements/base.in
@@ -160,7 +164,9 @@ six==1.16.0
     # via
     #   bleach
     #   django-choices
+    #   furl
     #   html5lib
+    #   orderedmultidict
     #   python-dateutil
     #   python-memcached
 sorl-thumbnail==12.8.0
