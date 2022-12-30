@@ -7,7 +7,7 @@ from django.urls import reverse
 import requests_mock
 
 from ....models import Payment
-from ....tests.factories import PaymentMethodFactory
+from ....tests.factories import CartFactory, PaymentMethodFactory
 from ...service import start_payment
 from .utils import patch_cache, patch_config
 
@@ -276,3 +276,95 @@ class PaypalPaymentFlowTests(TestCase):
         )
 
         self.assertRedirects(response, "/winkel/", fetch_redirect_response=False)
+
+    def test_cancel_flow_error_conditions(self):
+        with self.subTest("accessing payment different payment method"):
+            bt_payment = Payment.objects.create(payment_method=self.bt, amount=1000)
+            cancel_url = reverse("shop:paypal-cancel", kwargs={"pk": bt_payment.pk})
+
+            response = self.client.get(cancel_url)
+
+            self.assertEqual(response.status_code, 404)
+
+        payment = Payment.objects.create(
+            payment_method=self.pp,
+            amount=2542,
+            data={"paypal_order": {"id": "5O190127TN364715T"}},
+        )
+        cancel_url = reverse("shop:paypal-cancel", kwargs={"pk": payment.pk})
+
+        with self.subTest("missing token in URL"):
+            response = self.client.get(cancel_url)
+
+            self.assertEqual(response.status_code, 404)
+
+        with self.subTest("different token in URL"):
+            response = self.client.get(cancel_url, {"token": "different-value"})
+
+            self.assertEqual(response.status_code, 404)
+
+        with self.subTest("payment is missing metadata"):
+            payment2 = Payment.objects.create(
+                payment_method=self.pp, amount=2542, data={}
+            )
+            cancel_url2 = reverse("shop:paypal-cancel", kwargs={"pk": payment2.pk})
+
+            response = self.client.get(cancel_url2)
+
+            self.assertEqual(response.status_code, 404)
+
+    @patch_cache({"token": {"expires_in": 3600, "access_token": "brouwers-dummy"}})
+    @requests_mock.Mocker()
+    @patch_config()
+    def test_cancel_flow_cart_still_in_session(self, m, mock_get_solo):
+        cart = CartFactory.create()
+        m.get(
+            "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T",
+            json={
+                "id": "5O190127TN364715T",
+                "status": "PAYER_ACTION_REQUIRED",
+                "payment_source": {"paypal": {}},
+                "links": [
+                    {
+                        "href": "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T",
+                        "rel": "self",
+                        "method": "GET",
+                    },
+                    {
+                        "href": "https://www.paypal.com/checkoutnow?token=5O190127TN364715T",
+                        "rel": "payer-action",
+                        "method": "GET",
+                    },
+                ],
+            },
+        )
+        payment = Payment.objects.create(
+            cart=cart,
+            payment_method=self.pp,
+            amount=2542,
+            data={"paypal_order": {"id": "5O190127TN364715T"}},
+        )
+        cancel_url = reverse("shop:paypal-cancel", kwargs={"pk": payment.pk})
+        checkout_url = reverse("shop:checkout", kwargs={"path": "payment"})
+
+        response = self.client.get(
+            cancel_url,
+            {
+                "token": "5O190127TN364715T",
+                "next": checkout_url,
+            },
+        )
+
+        self.assertRedirects(response, checkout_url)
+        # check that the detail status was fetched in API
+        self.assertEqual(
+            m.last_request.url,
+            "https://api-m.paypal.com/v2/checkout/orders/5O190127TN364715T",
+        )
+        self.assertEqual(m.last_request.method, "GET")
+
+        api_response = self.client.get(reverse("api:cart-detail"))
+        self.assertEqual(api_response.status_code, 200)
+        cart_data = api_response.json()
+        self.assertEqual(cart_data["id"], cart.id)
+        self.assertEqual(cart_data["status"], "open")

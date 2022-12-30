@@ -162,6 +162,9 @@ class CheckoutMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # TODO: handle existing order instance when returning here from a cancel-flow
+
         if self.request.user.is_authenticated:
             context["user_profile_data"] = UserWithProfileSerializer(
                 instance=self.request.user,

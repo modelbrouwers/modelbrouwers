@@ -212,8 +212,6 @@ const Payment = ({
         ),
     };
 
-    console.log(errors);
-
     return (
         <>
             <h3 className="checkout__title">
