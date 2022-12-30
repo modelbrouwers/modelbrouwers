@@ -203,6 +203,8 @@ pycparser==2.21
     # via
     #   -r requirements/base.txt
     #   cffi
+pydantic==1.10.4
+    # via -r requirements/base.txt
 pydyf==0.1.2
     # via
     #   -r requirements/base.txt
@@ -294,6 +296,7 @@ typing-extensions==4.4.0
     # via
     #   -r requirements/base.txt
     #   django-modeltranslation
+    #   pydantic
 urllib3[socks]==1.26.12
     # via
     #   -r requirements/base.txt

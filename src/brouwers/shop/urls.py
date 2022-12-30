@@ -1,7 +1,11 @@
 from django.urls import path
 
 from .debug_views import IdealPaymentView, PaymentView
-from .payments.sisow.views import PaymentCallbackView
+from .payments.paypal.views import (
+    CancelView as PPCancelView,
+    ReturnView as PPReturnView,
+)
+from .payments.sisow.views import PaymentCallbackView as SisowCallbackView
 from .views import CartDetailView, CheckoutView, ConfirmOrderView, IndexView, RouterView
 
 app_name = "shop"
@@ -11,10 +15,17 @@ urlpatterns = [
     path("cart/<int:pk>/", CartDetailView.as_view(), name="cart-detail"),
     # payments
     path(
-        "payment/<int:pk>/callback/",
-        PaymentCallbackView.as_view(),
+        "payments/sisow/<int:pk>/callback/",
+        SisowCallbackView.as_view(),
         name="sisow-payment-callback",
     ),
+    path(
+        "payments/paypal/<int:pk>/return", PPReturnView.as_view(), name="paypal-return"
+    ),
+    path(
+        "payments/paypal/<int:pk>/cancel", PPCancelView.as_view(), name="paypal-cancel"
+    ),
+    # checkout flow
     path("checkout/confirm", ConfirmOrderView.as_view(), name="confirm-checkout"),
     path("checkout/", CheckoutView.as_view(), name="checkout"),
     path("checkout/<path:path>", CheckoutView.as_view(), name="checkout"),

@@ -1,6 +1,7 @@
 import logging
 import uuid
 
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 
@@ -28,10 +29,14 @@ class BankTransfer(Plugin):
 class PayPalStandard(Plugin):
     verbose_name = _("PayPal standard")
 
+    @transaction.atomic
     def start_payment(
         self, payment: Payment, context: PaymentContext
     ) -> HttpResponseRedirect:
         # track some metadata that is paypal specific
+        locking_qs = Payment.objects.select_for_update().filter(pk=payment.pk)
+        payment = locking_qs.get()
+
         order = context.get("order")
         if order is not None:
             payment.data["order"] = {"id": order.pk}
