@@ -1,3 +1,4 @@
+import random
 import uuid
 from decimal import Decimal
 
@@ -6,8 +7,17 @@ import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
 
+from ..constants import OrderStatuses, PaymentStatuses
 from ..models import Cart, CartProduct, Category, Product, ProductManufacturer
 from ..payments.registry import register
+
+LOCALES = [
+    "nl_NL",
+    "nl_BE",
+    "fr_BE",
+    "en",
+    "de_DE",
+]
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
@@ -78,6 +88,28 @@ class CartProductFactory(factory.django.DjangoModelFactory):
         model = CartProduct
 
 
+class AddressFactory(factory.django.DjangoModelFactory):
+    street = factory.Faker("street_address", locale=random.choice(LOCALES))
+    postal_code = factory.Faker("postcode", locale=random.choice(LOCALES))
+    city = factory.Faker("city", locale=random.choice(LOCALES))
+    # TODO: properly refactor to django-countries
+    country = factory.fuzzy.FuzzyChoice(["N", "B", "D"])
+
+    class Meta:
+        model = "shop.Address"
+
+
+class OrderFactory(factory.django.DjangoModelFactory):
+    cart = factory.SubFactory(CartFactory)
+    status = OrderStatuses.received
+    first_name = factory.Faker("first_name")
+    email = factory.Faker("free_email")
+    delivery_address = factory.SubFactory(AddressFactory)
+
+    class Meta:
+        model = "shop.Order"
+
+
 class PaymentMethodFactory(factory.django.DjangoModelFactory):
     name = factory.Faker("word")
     method = factory.fuzzy.FuzzyChoice((plugin.identifier for plugin in register))
@@ -88,6 +120,7 @@ class PaymentMethodFactory(factory.django.DjangoModelFactory):
 
 
 class PaymentFactory(factory.django.DjangoModelFactory):
+    order = factory.SubFactory(OrderFactory)
     payment_method = factory.SubFactory(PaymentMethodFactory)
     amount = factory.fuzzy.FuzzyInteger(1, 50000)
 
@@ -95,7 +128,11 @@ class PaymentFactory(factory.django.DjangoModelFactory):
         model = "shop.Payment"
 
     class Params:
-        with_cart = factory.Trait(cart=factory.SubFactory(CartFactory))
+        is_cancelled = factory.Trait(
+            order=None,
+            historical_order=factory.SubFactory(OrderFactory),
+            status=PaymentStatuses.cancelled,
+        )
         is_paypal = factory.Trait(
             payment_method=factory.SubFactory(
                 PaymentMethodFactory, method="paypal_standard"

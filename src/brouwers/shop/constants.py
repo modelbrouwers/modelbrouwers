@@ -23,12 +23,18 @@ class LengthUnits(DjangoChoices):
 
 class CartStatuses(DjangoChoices):
     open = ChoiceItem("open", _("Open"))
-    payment_pending = ChoiceItem("payment_pending", _("Payment pending"))
-    paid = ChoiceItem("paid", _("Paid"))
+    processing = ChoiceItem("processing", _("Processing"))
+    closed = ChoiceItem("closed", _("Closed"))
 
 
 class OrderStatuses(DjangoChoices):
     received = ChoiceItem("received", _("Received"))
     processing = ChoiceItem("processing", _("Processing"))
     shipped = ChoiceItem("shipped", _("Shipped"))
+    cancelled = ChoiceItem("cancelled", _("Cancelled"))
+
+
+class PaymentStatuses(DjangoChoices):
+    pending = ChoiceItem("pending", _("Pending"))
+    completed = ChoiceItem("completed", _("Completed"))
     cancelled = ChoiceItem("cancelled", _("Cancelled"))

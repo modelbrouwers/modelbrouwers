@@ -4,6 +4,7 @@ from django.db import models
 from django.templatetags.l10n import localize
 from django.utils.translation import ugettext_lazy as _
 
+from ..constants import PaymentStatuses
 from .utils import get_max_order, get_payment_reference
 
 __all__ = ["PaymentMethod", "Payment"]
@@ -32,15 +33,20 @@ class Payment(models.Model):
     """
     Represent payment for an order.
 
+    An order is paid by a single payment, tracked via the ``order`` o2o-field. It's
+    possible payments are cancelled, in which case the return/cancel flow will related
+    them accordingly.
+
     This tracks all information needed to debug payment issues.
     """
 
-    reference = models.CharField(
-        _("reference"),
-        max_length=16,
-        unique=True,
-        default=get_payment_reference,
-        help_text=_("A unique payment reference"),
+    order = models.OneToOneField(
+        "Order",
+        on_delete=models.CASCADE,  # deleting the order deletes the payment with it
+        null=True,
+        blank=True,
+        verbose_name=_("order"),
+        help_text=_("The order being paid by this payment."),
     )
     payment_method = models.ForeignKey(
         "PaymentMethod", verbose_name=_("Payment method used"), on_delete=models.PROTECT
@@ -48,13 +54,18 @@ class Payment(models.Model):
     amount = models.IntegerField(
         _("amount"), help_text=_("Amount to be paid, in eurocents.")
     )
-    cart = models.ForeignKey(
-        "Cart",
-        verbose_name=_("shopping cart"),
-        help_text=_("The shopping cart that generated this payment."),
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
+    status = models.CharField(
+        _("status"),
+        max_length=50,
+        choices=PaymentStatuses.choices,
+        default=PaymentStatuses.pending,
+    )
+    reference = models.CharField(
+        _("reference"),
+        max_length=16,
+        unique=True,
+        default=get_payment_reference,
+        help_text=_("A unique payment reference"),
     )
     data = models.JSONField(
         _("payment data"),
@@ -62,13 +73,33 @@ class Payment(models.Model):
         blank=True,
         help_text=_("The exact payment data is provider-specific"),
     )
-
+    historical_order = models.ForeignKey(
+        "Order",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="historical_payments",
+        verbose_name=_("historical order"),
+        help_text=_(
+            "Order this payment was for, in case it was cancelled/aborted. You cannot "
+            "set order and historical order at the same time.",
+        ),
+    )
     created = models.DateTimeField(_("created"), auto_now_add=True)
     modified = models.DateTimeField(_("modified"), auto_now=True)
 
     class Meta:
         verbose_name = _("payment")
         verbose_name_plural = _("payments")
+        constraints = [
+            models.CheckConstraint(
+                check=(
+                    models.Q(order__isnull=False, historical_order__isnull=True)
+                    | models.Q(order__isnull=True, historical_order__isnull=False)
+                ),
+                name="order_or_historical_order",
+            ),
+        ]
 
     def __str__(self):
         return self.reference
