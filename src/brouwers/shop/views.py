@@ -19,7 +19,12 @@ from furl import furl
 
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
-from .constants import CART_SESSION_KEY, ORDERS_SESSION_KEY, CartStatuses
+from .constants import (
+    CART_SESSION_KEY,
+    ORDERS_SESSION_KEY,
+    CartStatuses,
+    PaymentStatuses,
+)
 from .models import (
     Cart,
     Category,
@@ -221,20 +226,22 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         bank = serializer.validated_data.get("bank")
 
         # create a payment instance for the order
-        cart.status = CartStatuses.payment_pending
+        cart.status = CartStatuses.processing
         cart.save_snapshot()
         cart.save()
         # convert euros to eurocents
         total_amount = int(cart.total * 100)
-        payment = Payment.objects.create(
-            payment_method=payment_method,
-            amount=total_amount,
-            cart=cart,
-            data={"bank": int(bank.id)} if bank else {},  # TODO: handle non-ideal!
-        )
 
         # store order
-        order = serializer.save_order(payment=payment)
+        # TODO: check if there's an existing order to update instead
+        order = serializer.save_order()
+        payment = Payment.objects.create(
+            order=order,
+            payment_method=payment_method,
+            status=PaymentStatuses.pending,
+            amount=total_amount,
+            data={"bank": int(bank.id)} if bank else {},  # TODO: handle non-ideal!
+        )
 
         # remove cart from session
         if self.request.session.get(CART_SESSION_KEY) == cart.id:

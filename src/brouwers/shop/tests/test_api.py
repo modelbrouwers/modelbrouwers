@@ -60,7 +60,7 @@ class CartApiTest(APITestCase):
 
         # Should return the last open cart
         open_cart = CartFactory.create(user=self.user, status=CartStatuses.open)
-        closed_cart = CartFactory.create(user=self.user, status=CartStatuses.paid)
+        closed_cart = CartFactory.create(user=self.user, status=CartStatuses.closed)
 
         response = self.client.get(reverse("api:cart-detail"))
 

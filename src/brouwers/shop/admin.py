@@ -9,7 +9,7 @@ from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
-from .constants import CartStatuses
+from .constants import PaymentStatuses
 from .models import (
     Address,
     Cart,
@@ -27,6 +27,10 @@ from .models import (
     ShopConfiguration,
 )
 from .resources import CategoryResource, ProductResource
+
+#
+# Catalogue
+#
 
 
 @admin.register(Category)
@@ -141,6 +145,11 @@ class ProductManufacturerAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+#
+# Homepage
+#
+
+
 @admin.register(CategoryCarouselImage)
 class CategoryCarouselImageAdmin(admin.ModelAdmin):
     list_display = ("title", "image", "visible")
@@ -165,6 +174,11 @@ class HomepageCategoryChildAdmin(admin.ModelAdmin):
     raw_id_fields = ("category",)
     list_filter = ("order",)
     list_search = ("order",)
+
+
+#
+# Configuration
+#
 
 
 @admin.register(PaymentMethod)
@@ -215,6 +229,11 @@ class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
     )
 
 
+#
+# Carts/orders/payments
+#
+
+
 class CartProductInline(admin.TabularInline):
     model = CartProduct
     raw_id_fields = ("product",)
@@ -237,24 +256,19 @@ class CartAdmin(admin.ModelAdmin):
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
     list_display = (
-        "reference",
+        "order",
         "format_amount",
-        "cart_status",
         "payment_method",
+        "status",
+        "reference",
         "created",
+        "historical_order",
     )
-    list_filter = ("cart__status", "created", "payment_method")
-    search_fields = ("reference",)
+    list_filter = ("status", "created", "payment_method")
+    search_fields = ("reference", "order__reference")
     date_hierarchy = "created"
     ordering = ("-created",)
-    list_select_related = ("cart",)
-
-    @admin.display(description=_("Cart status"))  # type:ignore
-    def cart_status(self, obj: Payment) -> Optional[str]:
-        if not obj.cart:
-            return None
-        status = obj.cart.status
-        return CartStatuses.labels[status]
+    list_select_related = ("order", "payment_method", "historical_order")
 
 
 @admin.register(Address)
@@ -271,16 +285,38 @@ class AddressAdmin(admin.ModelAdmin):
     search_fields = ("street", "postal_code")
 
 
+class HistoricalPaymentInline(admin.TabularInline):
+    model = Payment
+    verbose_name = _("historical payment")
+    verbose_name_plural = _("historical payments")
+    fk_name = "historical_order"
+    raw_id_fields = ("order",)
+    extra = 0
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("reference", "first_name", "last_name", "email", "status")
-    list_select_related = ("cart", "payment")
-    search_fields = ("first_name", "last_name", "payment__reference", "email")
+    list_display = (
+        "reference",
+        "first_name",
+        "last_name",
+        "email",
+        "status",
+        "payment_status",
+    )
+    list_select_related = ("payment",)
+    search_fields = ("first_name", "last_name", "reference", "email")
     list_filter = ("status",)
     date_hierarchy = "created"
     raw_id_fields = (
         "cart",
-        "payment",
         "delivery_address",
         "invoice_address",
     )
+    inlines = [HistoricalPaymentInline]
+
+    @admin.display(description=_("Payment status"))  # type:ignore
+    def payment_status(self, obj: Order) -> Optional[str]:
+        if not obj.payment:
+            return None
+        return PaymentStatuses.labels[obj.payment.status]

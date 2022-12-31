@@ -1,10 +1,15 @@
-from django.core.exceptions import ValidationError
+from typing import TYPE_CHECKING
+
 from django.db import models
-from django.utils.translation import gettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from brouwers.general.fields import CountryField
 
 from ..constants import OrderStatuses
+from .utils import get_random_reference
+
+if TYPE_CHECKING:
+    from .payments import Payment
 
 
 class Address(models.Model):
@@ -34,14 +39,39 @@ class Address(models.Model):
         return ", ".join(bits)
 
 
+def get_order_reference():
+    """
+    Generate a random but unique reference.
+    """
+    MAX_ATTEMPTS = 100  # ensure we have finite loops (while is evil)
+    iterations = 0
+
+    for _ in range(MAX_ATTEMPTS):  # noqa: F402
+        iterations += 1
+        reference = get_random_reference()
+        exists = Order.objects.only("pk").filter(reference=reference).exists()
+        if exists is False:
+            return reference
+
+    # loop ran all the way to the end without finding unused reference
+    # (otherwise it would have returned)
+    raise RuntimeError(
+        f"Could not get a unused reference after {iterations} attempts!"
+    )  # pragma: no cover
+
+
 class Order(models.Model):
-    cart = models.ForeignKey(
+    cart = models.OneToOneField(
         "Cart", on_delete=models.PROTECT, verbose_name=_("shopping cart")
     )
-    payment = models.ForeignKey(
-        "Payment", on_delete=models.PROTECT, verbose_name=_("payment instance")
-    )
     status = models.CharField(_("status"), max_length=50, choices=OrderStatuses)
+    reference = models.CharField(
+        _("reference"),
+        max_length=16,
+        unique=True,
+        default=get_order_reference,
+        help_text=_("A unique order reference"),
+    )
     # TODO: add django-privates and field for invoices
 
     # personal details
@@ -69,19 +99,11 @@ class Order(models.Model):
     created = models.DateTimeField(_("created"), auto_now_add=True)
     modified = models.DateTimeField(_("modified"), auto_now=True)
 
+    payment: "Payment"
+
     class Meta:
         verbose_name = _("order")
         verbose_name_plural = _("orders")
 
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)
-
-    def clean(self):
-        if self.payment.cart and self.payment.cart != self.cart:
-            raise ValidationError(_("Order and payment cart must be identical."))
-
-    @property
-    def reference(self) -> str:
-        if not self.payment:
-            return gettext("(no reference yet)")
-        return self.payment.reference
