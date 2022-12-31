@@ -287,6 +287,8 @@ class AddressAdmin(admin.ModelAdmin):
 
 class HistoricalPaymentInline(admin.TabularInline):
     model = Payment
+    verbose_name = _("historical payment")
+    verbose_name_plural = _("historical payments")
     fk_name = "historical_order"
     raw_id_fields = ("order",)
     extra = 0

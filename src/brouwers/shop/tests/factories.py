@@ -14,7 +14,7 @@ from ..payments.registry import register
 LOCALES = [
     "nl_NL",
     "nl_BE",
-    "fr_BE",
+    "fr",
     "en",
     "de_DE",
 ]

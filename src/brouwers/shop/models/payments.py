@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from django.db import models
+from django.db import models, transaction
 from django.templatetags.l10n import localize
 from django.utils.translation import ugettext_lazy as _
 
@@ -107,3 +107,25 @@ class Payment(models.Model):
     def format_amount(self) -> str:
         amount_in_euro = Decimal(self.amount) / 100
         return "€ {amount}".format(amount=localize(amount_in_euro))
+
+    def mark_paid(self) -> None:
+        if self.status == PaymentStatuses.completed:
+            return
+
+        assert (
+            self.status != PaymentStatuses.cancelled
+        ), "Cannot mark cancelled payment as completed"
+        assert self.order_id is not None, "Cannot complete historical payments"
+
+        self.status = PaymentStatuses.completed
+        self.save(update_fields=["status"])
+
+    @transaction.atomic()
+    def cancel(self) -> None:
+        if self.status == PaymentStatuses.cancelled:
+            return
+
+        self.historical_order = self.order
+        self.order = None
+        self.status = PaymentStatuses.cancelled
+        self.save()

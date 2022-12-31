@@ -54,18 +54,15 @@ class ReturnView(ValidatePaymentMixin, View):
                 payment.data["paypal_capture_request_id"] = request_id
                 payment.save(update_fields=["data"])
 
-        # check the order state
-        with Client() as client:
-            paypal_order = client.get_order(order_id)
-            if paypal_order.status != "COMPLETED":
-                client.capture(paypal_order, request_id)
+            # ch eck the order state
+            with Client() as client:
+                paypal_order = client.get_order(order_id)
+                if paypal_order.status != "COMPLETED":
+                    client.capture(paypal_order, request_id)
 
                 # TODO: check the amounts again to prevent partial payments? is that
                 # even possible?
-                cart = payment.cart
-                if cart is not None:
-                    cart.status = CartStatuses.paid
-                    cart.save(update_fields=["status"])
+                payment.mark_paid()
 
         next_page = get_next_page(request) or reverse("shop:index")
         return redirect(next_page)
@@ -74,7 +71,7 @@ class ReturnView(ValidatePaymentMixin, View):
 class CancelView(ValidatePaymentMixin, View):
     def get(self, request: HttpRequest, pk: int):
         payment = get_object_or_404(
-            Payment.objects.select_related("cart"),
+            Payment.objects.select_related("order", "order__cart"),
             pk=pk,
         )
         order_id = self.validate_payment(payment)
@@ -89,13 +86,16 @@ class CancelView(ValidatePaymentMixin, View):
             # by default, we have 3 hours to redirect the payer to the approval, and there's
             # no explicit cancel operation for orders, so we can just let it time out?
 
+        payment.cancel()
+
         # re-add the cart to the session
-        # TODO: update payment status to cancelled?
-        cart = payment.cart
-        if cart is not None:
-            cart.status = CartStatuses.open
-            cart.save(update_fields=["status"])
-            request.session[CART_SESSION_KEY] = cart.id
+        assert (
+            payment.historical_order is not None
+        ), "Cancelling a payment must set the historical order"
+        cart = payment.historical_order.cart
+        cart.status = CartStatuses.open
+        cart.save(update_fields=["status"])
+        request.session[CART_SESSION_KEY] = cart.id
 
         next_page = get_next_page(request) or reverse("shop:index")
         return redirect(next_page)

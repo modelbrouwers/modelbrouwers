@@ -7,7 +7,7 @@ from django.urls import reverse
 import requests_mock
 
 from ....models import Payment
-from ....tests.factories import CartFactory, PaymentMethodFactory
+from ....tests.factories import CartFactory, PaymentFactory, PaymentMethodFactory
 from ...service import start_payment
 from .utils import patch_cache, patch_config
 
@@ -19,10 +19,8 @@ class PaypalPaymentFlowTests(TestCase):
     def setUpTestData(cls):
         super().setUpTestData()
 
-        cls.pp = PaymentMethodFactory.create(name="paypal", method="paypal_standard")
-        cls.bt = PaymentMethodFactory.create(
-            name="bank transfer", method="bank_transfer"
-        )
+        PaymentMethodFactory.create(name="paypal", method="paypal_standard")
+        PaymentMethodFactory.create(name="bank transfer", method="bank_transfer")
 
     @patch_cache({"token": {"expires_in": 3600, "access_token": "brouwers-dummy"}})
     @requests_mock.Mocker()
@@ -50,8 +48,11 @@ class PaypalPaymentFlowTests(TestCase):
             },
         )
         # EUR 25.42
-        payment = Payment.objects.create(
-            payment_method=self.pp, amount=2542, reference="unit-test"
+        payment = PaymentFactory.create(
+            is_paypal=True,
+            amount=2542,
+            reference="unit-test",
+            data={},
         )
         dummy_request = factory.post("/start-payment")
 
@@ -135,13 +136,11 @@ class PaypalPaymentFlowTests(TestCase):
                 ],
             },
         )
-        payment = Payment.objects.create(
-            payment_method=self.pp,
+        payment = PaymentFactory.create(
+            is_paypal=True,
             amount=2542,
             reference="unit-test",
-            data={
-                "paypal_order": {"id": "5O190127TN364715T"},
-            },
+            data={"paypal_order": {"id": "5O190127TN364715T"}},
         )
         return_url = reverse("shop:paypal-return", kwargs={"pk": payment.pk})
         confirmation_url = reverse("shop:checkout", kwargs={"path": "confirmation"})
@@ -165,15 +164,17 @@ class PaypalPaymentFlowTests(TestCase):
 
     def test_unhappy_flow_return_path(self):
         with self.subTest("accessing payment different payment method"):
-            bt_payment = Payment.objects.create(payment_method=self.bt, amount=1000)
+            bt_payment = PaymentFactory.create(
+                payment_method__method="bank_transfer", amount=1000
+            )
             return_url = reverse("shop:paypal-return", kwargs={"pk": bt_payment.pk})
 
             response = self.client.get(return_url)
 
             self.assertEqual(response.status_code, 404)
 
-        payment = Payment.objects.create(
-            payment_method=self.pp,
+        payment = PaymentFactory.create(
+            is_paypal=True,
             amount=2542,
             data={"paypal_order": {"id": "5O190127TN364715T"}},
         )
@@ -190,9 +191,7 @@ class PaypalPaymentFlowTests(TestCase):
             self.assertEqual(response.status_code, 404)
 
         with self.subTest("payment is missing metadata"):
-            payment2 = Payment.objects.create(
-                payment_method=self.pp, amount=2542, data={}
-            )
+            payment2 = PaymentFactory.create(is_paypal=True, amount=2542, data={})
             return_url2 = reverse("shop:paypal-return", kwargs={"pk": payment2.pk})
 
             response = self.client.get(return_url2)
@@ -203,8 +202,8 @@ class PaypalPaymentFlowTests(TestCase):
     @requests_mock.Mocker()
     @patch_config()
     def test_replay_of_return_url_payment_already_captured(self, m, mock_get_solo):
-        payment = Payment.objects.create(
-            payment_method=self.pp,
+        payment = PaymentFactory.create(
+            is_paypal=True,
             amount=2542,
             data={
                 "paypal_order": {"id": "5O190127TN364715T"},
@@ -244,8 +243,8 @@ class PaypalPaymentFlowTests(TestCase):
     @requests_mock.Mocker()
     @patch_config()
     def test_validate_next_parameter(self, m, mock_get_solo):
-        payment = Payment.objects.create(
-            payment_method=self.pp,
+        payment = PaymentFactory.create(
+            is_paypal=True,
             amount=2542,
             data={"paypal_order": {"id": "5O190127TN364715T"}},
         )
@@ -279,15 +278,17 @@ class PaypalPaymentFlowTests(TestCase):
 
     def test_cancel_flow_error_conditions(self):
         with self.subTest("accessing payment different payment method"):
-            bt_payment = Payment.objects.create(payment_method=self.bt, amount=1000)
+            bt_payment = PaymentFactory.create(
+                payment_method__method="bank_transfer", amount=1000
+            )
             cancel_url = reverse("shop:paypal-cancel", kwargs={"pk": bt_payment.pk})
 
             response = self.client.get(cancel_url)
 
             self.assertEqual(response.status_code, 404)
 
-        payment = Payment.objects.create(
-            payment_method=self.pp,
+        payment = PaymentFactory.create(
+            is_paypal=True,
             amount=2542,
             data={"paypal_order": {"id": "5O190127TN364715T"}},
         )
@@ -304,9 +305,7 @@ class PaypalPaymentFlowTests(TestCase):
             self.assertEqual(response.status_code, 404)
 
         with self.subTest("payment is missing metadata"):
-            payment2 = Payment.objects.create(
-                payment_method=self.pp, amount=2542, data={}
-            )
+            payment2 = PaymentFactory.create(is_paypal=True, amount=2542, data={})
             cancel_url2 = reverse("shop:paypal-cancel", kwargs={"pk": payment2.pk})
 
             response = self.client.get(cancel_url2)
@@ -338,9 +337,9 @@ class PaypalPaymentFlowTests(TestCase):
                 ],
             },
         )
-        payment = Payment.objects.create(
-            cart=cart,
-            payment_method=self.pp,
+        payment = PaymentFactory.create(
+            is_paypal=True,
+            order__cart=cart,
             amount=2542,
             data={"paypal_order": {"id": "5O190127TN364715T"}},
         )

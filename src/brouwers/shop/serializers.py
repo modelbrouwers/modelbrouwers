@@ -1,7 +1,6 @@
 """
 Non-API serializers
 """
-from django.db import transaction
 from django.db.models import Prefetch
 from django.utils.translation import gettext_lazy as _
 
@@ -9,7 +8,7 @@ from rest_framework import serializers
 
 from .api.viewsets import PaymentMethodViewSet
 from .constants import OrderStatuses
-from .models import Address, Cart, CartProduct, Order, Payment
+from .models import Address, Cart, CartProduct, Order
 from .payments.payment_options import SisowIDeal
 from .payments.service import register
 from .payments.sisow.service import get_ideal_banks
@@ -106,8 +105,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
 
         return attrs
 
-    @transaction.atomic
-    def save_order(self, *, payment: Payment):
+    def save_order(self):
         """
         Persist the data in an Order instance.
         """
@@ -122,7 +120,6 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
         )
         order = Order.objects.create(
             cart=self.validated_data["cart"],
-            payment=payment,
             status=OrderStatuses.received,
             first_name=self.validated_data["first_name"],
             last_name=self.validated_data["last_name"],
