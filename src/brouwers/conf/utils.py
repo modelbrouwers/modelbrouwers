@@ -1,8 +1,10 @@
+from typing import Any
+
 from decouple import Csv, config as _config, undefined
 from sentry_sdk.integrations import DidNotEnable, django
 
 
-def config(option: str, default=undefined, *args, **kwargs):
+def config(option: str, default: Any = undefined, *args, **kwargs):
     if "split" in kwargs:
         kwargs.pop("split")
         kwargs["cast"] = Csv()

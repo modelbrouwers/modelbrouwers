@@ -1,6 +1,7 @@
 from decimal import Decimal
 from typing import Optional, cast
 
+from django.conf import settings
 from django.core.cache import caches
 from django.utils.functional import cached_property
 
@@ -90,7 +91,7 @@ class Client:
                         "experience_context": {
                             "payment_method_preference": "IMMEDIATE_PAYMENT_REQUIRED",
                             "payment_method_selected": "PAYPAL",
-                            "brand_name": "Modelbrouwers.nl",  # TODO -> configure
+                            "brand_name": settings.SHOP_BRAND_NAME,
                             "locale": locale,
                             "shipping_preference": "NO_SHIPPING",
                             "user_action": "PAY_NOW",
