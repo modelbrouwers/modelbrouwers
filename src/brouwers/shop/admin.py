@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
@@ -7,9 +9,11 @@ from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
+from .constants import CartStatuses
 from .models import (
     Address,
     Cart,
+    CartProduct,
     Category,
     CategoryCarouselImage,
     HomepageCategory,
@@ -186,7 +190,7 @@ class PaymentMethodAdmin(TranslationAdmin):
 
 @admin.register(ShopConfiguration)
 class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
-    fieldsets = (
+    fieldsets = (  # type:ignore
         (
             _("Sisow/Buckaroo"),
             {
@@ -198,7 +202,23 @@ class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
             },
         ),
         (_("Bank transfer"), {"fields": ("bank_transfer_instructions",)}),
+        (
+            _("Paypal"),
+            {
+                "fields": (
+                    "paypal_sandbox",
+                    "paypal_client_id",
+                    "paypal_secret",
+                )
+            },
+        ),
     )
+
+
+class CartProductInline(admin.TabularInline):
+    model = CartProduct
+    raw_id_fields = ("product",)
+    extra = 0
 
 
 @admin.register(Cart)
@@ -211,15 +231,30 @@ class CartAdmin(admin.ModelAdmin):
     list_select_related = ("user",)
     list_filter = ("status",)
     raw_id_fields = ("user",)
+    inlines = [CartProductInline]
 
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ("reference", "format_amount", "payment_method", "created")
-    list_filter = ("created", "payment_method")
+    list_display = (
+        "reference",
+        "format_amount",
+        "cart_status",
+        "payment_method",
+        "created",
+    )
+    list_filter = ("cart__status", "created", "payment_method")
     search_fields = ("reference",)
     date_hierarchy = "created"
     ordering = ("-created",)
+    list_select_related = ("cart",)
+
+    @admin.display(description=_("Cart status"))  # type:ignore
+    def cart_status(self, obj: Payment) -> Optional[str]:
+        if not obj.cart:
+            return None
+        status = obj.cart.status
+        return CartStatuses.labels[status]
 
 
 @admin.register(Address)

@@ -1,16 +1,20 @@
 # Common packages
 bleach
+furl
 html2text
 lxml
 mysqlclient
 openpyxl
 Pillow  # handle images
 psycopg2  # database driver
+pydantic
 python-dateutil
 python-decouple  # processing of envvar configs
 python-dotenv  # environment variables for secrets
 python-memcached
 pytz  # handle timezones
+requests
+requests-oauthlib
 WeasyPrint
 
 # Django packages

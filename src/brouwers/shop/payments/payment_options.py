@@ -1,10 +1,15 @@
 import logging
+import uuid
+from typing import cast
 
+from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from ..models import Order, Payment, ShopConfiguration
-from .registry import Plugin, register
+from .paypal.service import start_payment as start_paypal_payment
+from .registry import PaymentContext, Plugin, register
 from .sisow.service import start_payment as start_sisow_payment
 
 logger = logging.getLogger(__name__)
@@ -14,16 +19,11 @@ logger = logging.getLogger(__name__)
 class BankTransfer(Plugin):
     verbose_name = _("Bank transfer")
 
-    def start_payment(self, payment: Payment, context: dict) -> None:
-        logger.info(
-            "Initiating payment flow for payment %d, using plugin %s",
-            payment.id,
-            self.identifier,
-        )
+    def start_payment(self, payment: Payment, context: PaymentContext) -> None:
         return None
 
     def get_confirmation_message(self, order: Order) -> str:
-        config = ShopConfiguration.get_solo()
+        config = cast(ShopConfiguration, ShopConfiguration.get_solo())
         return config.bank_transfer_instructions
 
 
@@ -31,29 +31,41 @@ class BankTransfer(Plugin):
 class PayPalStandard(Plugin):
     verbose_name = _("PayPal standard")
 
-    def start_payment(self, payment: Payment, context: dict) -> HttpResponseRedirect:
-        logger.info(
-            "Initiating payment flow for payment %d, using plugin %s",
-            payment.id,
-            self.identifier,
+    @transaction.atomic
+    def start_payment(
+        self, payment: Payment, context: PaymentContext
+    ) -> HttpResponseRedirect:
+        # track some metadata that is paypal specific
+        locking_qs = Payment.objects.select_for_update().filter(pk=payment.pk)
+        payment = locking_qs.get()
+
+        order = context.get("order")
+        if order is not None:
+            payment.data["order"] = {"id": order.pk}
+        payment.data["paypal_request_id"] = str(uuid.uuid4())
+        payment.save(update_fields=["data"])
+
+        checkout_url = reverse("shop:checkout", kwargs={"path": "payment"})
+        redirect_url = start_paypal_payment(
+            payment=payment,
+            request=context["request"],
+            success_page=context.get("next_page", ""),
+            cancel_page=checkout_url,
         )
-        raise NotImplementedError("TODO")
+        return HttpResponseRedirect(redirect_url)
 
 
 class SisowPlugin(Plugin):
     sisow_method: str
 
-    def start_payment(self, payment: Payment, context: dict) -> HttpResponseRedirect:
-        logger.info(
-            "Initiating payment flow for payment %d, using plugin %s",
-            payment.id,
-            self.identifier,
-        )
+    def start_payment(
+        self, payment: Payment, context: PaymentContext
+    ) -> HttpResponseRedirect:
         payment.data["sisow_method"] = self.sisow_method
         payment.save(update_fields=["data"])
         redirect_url = start_sisow_payment(
             payment=payment,
-            request=context.get("request"),
+            request=context["request"],
             next_page=context.get("next_page", ""),
         )
         return HttpResponseRedirect(redirect_url)

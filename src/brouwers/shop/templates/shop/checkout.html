@@ -3,6 +3,7 @@
 {% block content %}
     {{ block.super }}
 
+    {# Data and validation errors for checkout confirm #}
     {% if serializer %}
         {{ serializer.data|json_script:'checkout-data' }}
         {{ serializer.errors|json_script:'checkout-errors' }}

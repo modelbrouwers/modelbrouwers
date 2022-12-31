@@ -546,9 +546,10 @@ IRC_CHANNEL = "#modelbrouwers.nl"
 IRC_DEFAULT_NICK = "brouwer%3F%3F"
 
 #
-# NEW SHOP
+# SHOP
 #
 SHOP_ENABLED = False
+SHOP_BRAND_NAME = config("SHOP_BRAND_NAME", "Modelbrouwers")
 
 #
 # (UNIT) TESTING

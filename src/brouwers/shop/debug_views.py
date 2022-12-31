@@ -33,7 +33,7 @@ class PaymentView(FormView):
         payment_method = form.cleaned_data["method"]
         payment = Payment.objects.create(
             payment_method=payment_method,
-            amount=100 * form.cleaned_data["amount"],  # euro to euro cents
+            amount=int(100 * form.cleaned_data["amount"]),  # euro to euro cents
         )
 
         self.request.session["payment"] = payment.pk
@@ -43,7 +43,10 @@ class PaymentView(FormView):
             return redirect("shop:ideal-bank")
 
         response = start_payment(
-            payment, request=self.request, next_page=reverse("shop:pay")
+            payment,
+            request=self.request,
+            next_page=reverse("shop:pay"),
+            order=None,
         )
         if response is not None:
             return response
@@ -58,4 +61,9 @@ class IdealPaymentView(FormView):
         payment = get_object_or_404(Payment, pk=self.request.session.get("payment"))
         payment.data["bank"] = int(form.cleaned_data["bank"].id)
         payment.save()
-        return start_payment(payment, request=self.request)
+        return start_payment(
+            payment,
+            request=self.request,
+            next_page="",
+            order=None,
+        )

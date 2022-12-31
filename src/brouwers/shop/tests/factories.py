@@ -1,3 +1,4 @@
+import uuid
 from decimal import Decimal
 
 import factory
@@ -59,10 +60,13 @@ class ProductFactory(factory.django.DjangoModelFactory):
 
 
 class CartFactory(factory.django.DjangoModelFactory):
-    user = factory.SubFactory(UserFactory)
-
     class Meta:
         model = Cart
+
+    class Params:
+        with_user = factory.Trait(
+            user=factory.SubFactory(UserFactory),
+        )
 
 
 class CartProductFactory(factory.django.DjangoModelFactory):
@@ -81,3 +85,23 @@ class PaymentMethodFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = "shop.PaymentMethod"
         django_get_or_create = ("method",)
+
+
+class PaymentFactory(factory.django.DjangoModelFactory):
+    payment_method = factory.SubFactory(PaymentMethodFactory)
+    amount = factory.fuzzy.FuzzyInteger(1, 50000)
+
+    class Meta:
+        model = "shop.Payment"
+
+    class Params:
+        with_cart = factory.Trait(cart=factory.SubFactory(CartFactory))
+        is_paypal = factory.Trait(
+            payment_method=factory.SubFactory(
+                PaymentMethodFactory, method="paypal_standard"
+            ),
+            data={
+                "paypal_request_id": str(uuid.uuid4()),
+                "paypal_order": {"id": "5O190127TN364715T"},
+            },
+        )

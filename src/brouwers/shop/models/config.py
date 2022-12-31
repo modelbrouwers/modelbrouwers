@@ -24,7 +24,12 @@ class ShopConfiguration(SingletonModel):
         ),
     )
 
-    # paypal TODO
+    # paypal
+    paypal_sandbox = models.BooleanField(_("paypal sandbox"), default=True)
+    paypal_client_id = models.CharField(
+        _("paypal API client ID"), max_length=200, blank=True
+    )
+    paypal_secret = models.CharField(_("paypal API secret"), max_length=200, blank=True)
 
     class Meta:
         verbose_name = _("Shop configuration")

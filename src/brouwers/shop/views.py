@@ -2,8 +2,9 @@ import json
 import logging
 import re
 from typing import Any, Callable, Tuple
-from urllib.parse import urlencode, urlsplit
+from urllib.parse import urlsplit
 
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.http import Http404, HttpRequest
 from django.http.response import HttpResponseBase
@@ -14,9 +15,11 @@ from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
+from furl import furl
+
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
-from .constants import CART_SESSION_KEY, CartStatuses
+from .constants import CART_SESSION_KEY, ORDERS_SESSION_KEY, CartStatuses
 from .models import (
     Cart,
     Category,
@@ -79,7 +82,7 @@ class RouterView(View):
         )
         for candidate in candidates:
             try:
-                return callback(candidate)
+                return callback(candidate)  # type:ignore
             except Http404:
                 continue
         raise Http404("No catalogue resource found.")
@@ -155,9 +158,13 @@ class CartDetailView(DetailView):
 
 class CheckoutMixin:
     template_name = "shop/checkout.html"
+    request: HttpRequest
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # TODO: handle existing order instance when returning here from a cancel-flow
+
         if self.request.user.is_authenticated:
             context["user_profile_data"] = UserWithProfileSerializer(
                 instance=self.request.user,
@@ -167,6 +174,12 @@ class CheckoutMixin:
             context["user_profile_data"] = {}
 
         if order_id := self.request.GET.get("orderId"):
+            order_ids = self.request.session.get(ORDERS_SESSION_KEY, [])
+            try:
+                order_ids.index(int(order_id))
+            except ValueError as exc:
+                raise PermissionDenied("Invalid order ID provided") from exc
+
             order = get_object_or_404(Order, id=order_id)
             plugin = register[order.payment.payment_method.method]
 
@@ -242,7 +255,8 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         """
         Add the frontend URL routing part to the backend URL.
         """
-        # TODO: add token of some sorts to prevent enumeration attacks
-        query = urlencode({"orderId": order.id})
-        backend_url = reverse("shop:checkout")
-        return f"{backend_url}confirmation?{query}"
+        order_ids = self.request.session.get(ORDERS_SESSION_KEY, [])
+        order_ids.append(order.pk)
+        self.request.session[ORDERS_SESSION_KEY] = order_ids
+        path = reverse("shop:checkout", kwargs={"path": "confirmation"})
+        return furl(path).set({"orderId": order.pk}).url
