@@ -11,6 +11,7 @@ from ...constants import CART_SESSION_KEY, CartStatuses
 from ...models import Payment
 from ..utils import get_next_page
 from .client import Client
+from .utils import attempt_capture
 
 logger = logging.getLogger(__name__)
 
@@ -45,24 +46,18 @@ class ReturnView(ValidatePaymentMixin, View):
         with transaction.atomic():
             locking_qs = Payment.objects.select_for_update()
             payment = get_object_or_404(locking_qs, pk=pk)
+            self.validate_payment(payment)
 
-            order_id = self.validate_payment(payment)
-
-            # check if we need to generate a capture request ID
-            if not (request_id := payment.data.get("paypal_capture_request_id")):
-                request_id = str(uuid.uuid4())
-                payment.data["paypal_capture_request_id"] = request_id
-                payment.save(update_fields=["data"])
-
-            # ch eck the order state
-            with Client() as client:
-                paypal_order = client.get_order(order_id)
-                if paypal_order.status != "COMPLETED":
-                    client.capture(paypal_order, request_id)
-
-                # TODO: check the amounts again to prevent partial payments? is that
-                # even possible?
-                payment.mark_paid()
+            captured = attempt_capture(payment)
+            logger.info(
+                "Payment %d capture succeeded: %r",
+                payment.pk,
+                captured,
+                extra={
+                    "id": payment.pk,
+                    "captured": captured,
+                },
+            )
 
         next_page = get_next_page(request) or reverse("shop:index")
         return redirect(next_page)
