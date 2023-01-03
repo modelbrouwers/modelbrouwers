@@ -118,7 +118,7 @@ class Payment(models.Model):
         assert self.order_id is not None, "Cannot complete historical payments"
 
         self.status = PaymentStatuses.completed
-        self.save(update_fields=["status"])
+        self.save()
 
     @transaction.atomic()
     def cancel(self) -> None:

@@ -6,7 +6,6 @@ from django.urls import reverse
 
 import requests_mock
 
-from ....models import Payment
 from ....tests.factories import CartFactory, PaymentFactory, PaymentMethodFactory
 from ...service import start_payment
 from .utils import patch_cache, patch_config
