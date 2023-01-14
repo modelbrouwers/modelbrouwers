@@ -55,6 +55,27 @@ class LoginRegisterTests(WebTest):
         self.assertRedirects(response, "/index.php", target_status_code=404)
         self.assertIn("_auth_user_id", self.client.session)
 
+    def test_login_email_longer_than_30_chars_possible(self):
+        user = UserFactory.create(
+            email="i-am-longer-than-30-characters@example.com", password="so-secret"
+        )
+
+        login_page = self.app.get(settings.LOGIN_URL)
+        login_form = login_page.form
+
+        with self.subTest("No length limit on username field"):
+            self.assertNotIn("maxlength", login_form["username"].attrs)
+
+        with self.subTest("logging in with credentials"):
+            login_form["username"] = "i-am-longer-than-30-characters@example.com"
+            login_form["password"] = "so-secret"
+
+            response = login_form.submit()
+
+            self.assertEqual(response.status_code, 302)
+            user_id = int(self.app.session["_auth_user_id"])
+            self.assertEqual(user_id, user.id)
+
     def test_email_not_logged_in_duplicate(self):
         """Test that duplicate e-mail users are not logged in"""
         user2 = UserFactory(email=self.user.email)

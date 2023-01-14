@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordResetForm as _PasswordResetForm,
+)
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template import loader
@@ -116,9 +119,10 @@ class AuthForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].label = _("Username or email")
+        del self.fields["username"].widget.attrs["maxlength"]
 
 
-class PasswordResetForm(PasswordResetForm):
+class PasswordResetForm(_PasswordResetForm):
     username = forms.CharField(label=_("Username"), required=False)
 
     def __init__(self, *args, **kwargs):
