@@ -20,7 +20,7 @@ class ForumSerializer(serializers.ModelSerializer):
 
 
 class TopicSerializer(serializers.ModelSerializer):
-    is_dead = fields.BooleanField(read_only=True)
+    is_dead = fields.SerializerMethodField(read_only=True)
     age = fields.CharField(read_only=True)
     text_dead = fields.CharField(read_only=True)
     topic_title = fields.SerializerMethodField("obj_topic_title")
@@ -31,3 +31,9 @@ class TopicSerializer(serializers.ModelSerializer):
 
     def obj_topic_title(self, obj):
         return html.unescape(obj.topic_title)
+
+    def get_is_dead(self, obj) -> bool:
+        user = self.context["request"].user
+        if obj.author_id == user.forumuser_id:
+            return False
+        return obj.is_dead
