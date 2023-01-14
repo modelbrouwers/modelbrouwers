@@ -38,13 +38,16 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ("user", "album", "views", "uploaded")
-    list_filter = ("album", "uploaded")
+    list_select_related = ("user", "album")
+    list_filter = ("uploaded", "trash")
+    date_hierarchy = "uploaded"
     raw_id_fields = ("user", "album")
 
 
 @admin.register(Preferences)
 class PreferencesAdmin(admin.ModelAdmin):
     list_display = ("user", "auto_start_uploading")
+    list_select_related = ("user",)
     list_editable = ("auto_start_uploading",)
     search_fields = ("user__username", "user__first_name", "user__last_name")
     raw_id_fields = ("user",)
@@ -53,6 +56,7 @@ class PreferencesAdmin(admin.ModelAdmin):
 @admin.register(AlbumDownload)
 class AlbumDownloadAdmin(admin.ModelAdmin):
     list_display = ("__str__", "album", "downloader", "timestamp", "failed")
+    list_select_related = ("album", "downloader")
     list_filter = ("timestamp", "failed")
     search_fields = ("album__title", "downloader__username")
     raw_id_fields = ("downloader", "album")

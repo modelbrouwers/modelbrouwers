@@ -26,7 +26,6 @@ class Category(models.Model):
     )
 
     url = models.URLField(_("url"), max_length=500, blank=True)
-    on_frontpage = models.BooleanField(_("on frontpage"), default=False)
     public = models.BooleanField(
         _("public"),
         default=True,
@@ -109,8 +108,6 @@ class Album(models.Model):
     topic = ForumToolsIDField(
         _("build report topic"), blank=True, null=True, type="topic"
     )
-    # albums can be voted, so we can have an 'album of the month' feature
-    votes = models.IntegerField(_("appreciation"), default=0)
     # writable to only user, group or everyone (unix like permissions)
     writable_to = models.CharField(
         _("writable to"),
