@@ -1,11 +1,14 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
+import requests
 from autoslug import AutoSlugField
+from sorl.thumbnail.shortcuts import get_thumbnail
 
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.kits.fields import KitsManyToManyField
@@ -97,6 +100,12 @@ class BuildPhoto(models.Model):
         help_text=_("Order in which photos are shown"), blank=True, null=True
     )
 
+    # photo_urls links break all the time and clog logs/error monitoring...
+    image_gone = models.BooleanField(
+        _("image gone"),
+        default=False,
+    )
+
     class Meta:
         verbose_name = _("build photo")
         verbose_name_plural = _("build photos")
@@ -119,3 +128,45 @@ class BuildPhoto(models.Model):
         if self.photo:
             return self.photo.image
         return self.photo_url
+
+    def _get_image_thumbnail(self, geometry: str, options: dict) -> str:
+        """
+        Produce a thumbnail URL if possible, otherwise fall back to a fallback image.
+
+        If the file uses a remote image URL which doesn't resolve (anymore), the image
+        is marked as gone.
+        """
+        FALLBACK = static("images/thumb.400x300.png")
+
+        # own albums -> files are not deleted
+        if self.photo_id:
+            return get_thumbnail(self.photo.image, geometry, **options)
+
+        if self.image_gone or not self.photo_url:
+            return FALLBACK
+
+        # try to obtain a thumbnail from the remote
+        thumbnail = get_thumbnail(self.photo_url, geometry, **options)
+        if thumbnail.exists():
+            return thumbnail.url
+
+        # at this point, we couldn't write a thumbnail - mark the photo URL as broken
+        # and fall back instead
+        self.image_gone = True
+        self.save()
+
+        return FALLBACK
+
+    @property
+    def image_thumbnail(self) -> str:
+        """
+        Produce a thumbnail URL if possible, otherwise fall back to a fallback image.
+
+        If the file uses a remote image URL which doesn't resolve (anymore), the image
+        is marked as gone.
+        """
+        return self._get_image_thumbnail("400x300", {"padding": True})
+
+    @property
+    def preview_image(self) -> str:
+        return self._get_image_thumbnail("1024", {})

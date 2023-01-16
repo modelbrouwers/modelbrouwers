@@ -1,4 +1,4 @@
-{% extends "builds/base.html" %}{% load i18n thumbnail sniplates static %}
+{% extends "builds/base.html" %}{% load i18n sniplates static %}
 
 
 {% block content %}
@@ -26,15 +26,7 @@
 							</h4></div>
 						{% endif %}
 
-						{% if build.photos.all.0.image %}
-							{% thumbnail build.photos.all.0.image "400x300" padding=True as im %}
-							    <img src="{{ im.url }}" class="img-responsive">
-							{% empty %}
-								<img src="{% static "images/thumb.400x300.png" %}" class="img-responsive">
-							{% endthumbnail %}
-					    {% else %}
-					        <img src="{% static "images/thumb.400x300.png" %}" class="img-responsive">
-					    {% endif %}
+                        <img src="{{ build.photos.all.0.image_thumbnail }}" class="img-responsive">
 					</a>
 				</article>
 			</div>

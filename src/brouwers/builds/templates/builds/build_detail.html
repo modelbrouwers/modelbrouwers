@@ -1,4 +1,4 @@
-{% extends "builds/base.html" %}{% load i18n thumbnail %}
+{% extends "builds/base.html" %}{% load i18n %}
 
 
 {% block body-class %}{{ block.super }} detail{% endblock body-class %}
@@ -51,9 +51,7 @@
 
     {% for photo in photos %}
         <figure>
-            {% thumbnail photo.image "1024" as im %}
-                <img src="{{ im.url }}" alt="build photo {{ forloop.index }}" class="thumbnail img-responsive">
-            {% endthumbnail %}
+            <img src="{{ photo.preview_image }}" alt="build photo {{ forloop.index }}" class="thumbnail img-responsive">
         </figure>
     {% endfor %}
 
