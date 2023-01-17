@@ -6,12 +6,13 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-import requests
 from autoslug import AutoSlugField
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.kits.fields import KitsManyToManyField
+
+from .validators import validate_image_url
 
 
 def get_build_slug(build):
@@ -95,7 +96,11 @@ class BuildPhoto(models.Model):
     photo = models.OneToOneField(
         "albums.Photo", blank=True, null=True, on_delete=models.CASCADE
     )
-    photo_url = models.URLField(blank=True, help_text=_("Link to an image"))
+    photo_url = models.URLField(
+        blank=True,
+        help_text=_("Link to an image"),
+        validators=[validate_image_url],
+    )
     order = models.PositiveSmallIntegerField(
         help_text=_("Order in which photos are shown"), blank=True, null=True
     )

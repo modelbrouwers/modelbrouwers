@@ -39,6 +39,10 @@ class BuildPhotoForm(forms.ModelForm):
             "order": forms.HiddenInput,
         }
 
+    def save(self, *args, **kwargs):
+        self.instance.image_gone = False
+        return super().save(*args, **kwargs)
+
 
 class BuildSearchForm(forms.Form):
     q = forms.CharField(
