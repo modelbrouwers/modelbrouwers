@@ -28,3 +28,15 @@ class BuildPhotoFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = BuildPhoto
+
+    class Params:
+        with_album_photo = factory.Trait(
+            photo_url="",
+            photo=factory.SubFactory(
+                "brouwers.albums.tests.factories.PhotoFactory",
+                album__user=factory.SelfAttribute("...build.user"),
+            ),
+        )
+        with_photo_url = factory.Trait(
+            photo_url=factory.Faker("image_url"),
+        )

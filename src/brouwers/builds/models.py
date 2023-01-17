@@ -120,15 +120,6 @@ class BuildPhoto(models.Model):
                 _("Provide either an album photo or a link to a photo.")
             )
 
-    @property
-    def image(self):
-        """
-        Returns a cropping-suitable image.
-        """
-        if self.photo:
-            return self.photo.image
-        return self.photo_url
-
     def _get_image_thumbnail(self, geometry: str, options: dict) -> str:
         """
         Produce a thumbnail URL if possible, otherwise fall back to a fallback image.
@@ -140,7 +131,7 @@ class BuildPhoto(models.Model):
 
         # own albums -> files are not deleted
         if self.photo_id:
-            return get_thumbnail(self.photo.image, geometry, **options)
+            return get_thumbnail(self.photo.image, geometry, **options).url
 
         if self.image_gone or not self.photo_url:
             return FALLBACK
