@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
+import requests_mock
 from django_webtest import WebTest
 
 from brouwers.albums.tests.factories import PhotoFactory
@@ -91,7 +92,11 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         for kit in kits:
             self._add_field(form, "kits", str(kit.pk))
 
-        response = form.submit()
+        with requests_mock.Mocker() as m:
+            m.head(url, headers={"Content-Type": "image/jpg"})
+
+            response = form.submit()
+
         build = Build.objects.order_by("-pk").first()
         self.assertRedirects(response, build.get_absolute_url())
 

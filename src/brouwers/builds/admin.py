@@ -18,7 +18,8 @@ class BuildAdmin(admin.ModelAdmin):
 
 @admin.register(BuildPhoto)
 class BuildPhotoAdmin(admin.ModelAdmin):
-    list_display = ("build", "photo", "photo_url", "order")
+    list_display = ("build", "photo", "photo_url", "order", "image_gone")
+    list_filter = ("image_gone",)
     list_editable = ("order",)
-    search_fields = ("build__slug",)
-    raw_id_fields = ("photo",)
+    search_fields = ("build__slug", "photo_url")
+    raw_id_fields = ("photo", "build")
