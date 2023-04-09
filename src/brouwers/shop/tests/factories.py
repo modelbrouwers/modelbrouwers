@@ -142,3 +142,14 @@ class PaymentFactory(factory.django.DjangoModelFactory):
                 "paypal_order": {"id": "5O190127TN364715T"},
             },
         )
+        is_mistercash = factory.Trait(
+            payment_method=factory.SubFactory(
+                PaymentMethodFactory, method="sisow_mistercash"
+            ),
+            data={
+                "sisow_method": "mistercash",
+                "sisow_transaction_request": {
+                    "trxid": "TEST080536811624",
+                },
+            },
+        )

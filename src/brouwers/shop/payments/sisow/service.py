@@ -74,6 +74,7 @@ def start_payment(payment: Payment, request: HttpRequest, next_page="") -> str:
         "amount": payment.amount,
         "description": f"MB order {payment.reference}",  # TODO: parametrize?
         "returnurl": callback_url,
+        # "notifyurl": "", TODO: server-to-server call
         "sha1": sha1,
         "currency": "EUR",
         "locale": translation.get_language(),

@@ -46,8 +46,11 @@ class PaymentCallbackView(BaseFormView):
         self.payment.save()
         if status == TransactionStatuses.success:
             messages.success(self.request, _("Your payment was received"))
+        elif status == TransactionStatuses.open:
+            messages.info(self.request, _("Your payment is being processed"))
         else:
             messages.error(self.request, _("Your payment was not completed yet"))
+            # TODO: put cart back into session/reset status, see paypal view
         # TODO: mark order as paid if full sum is received
         return super().form_valid(form)
 

@@ -1,5 +1,7 @@
+from typing import cast
+
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ...models import Payment, ShopConfiguration
 from .api import calculate_sha1
@@ -49,12 +51,12 @@ class CallbackForm(forms.Form):
         return trxid
 
     def clean(self) -> None:
-        config = ShopConfiguration.get_solo()
+        config = cast(ShopConfiguration, ShopConfiguration.get_solo())
 
-        sha1 = self.cleaned_data.get("sha1")
-        trxid = self.cleaned_data.get("trxid")
-        ec = self.cleaned_data.get("ec")
-        status = self.cleaned_data.get("status")
+        sha1 = self.cleaned_data.get("sha1") or ""
+        trxid = self.cleaned_data.get("trxid") or ""
+        ec = self.cleaned_data.get("ec") or ""
+        status = self.cleaned_data.get("status") or ""
 
         if all((sha1, trxid, ec, status)):
             expected_sha1 = calculate_sha1(
