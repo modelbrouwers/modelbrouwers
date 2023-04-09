@@ -2,10 +2,10 @@ from django.test import SimpleTestCase, TestCase
 
 import requests_mock
 
-from ...models import Payment, ShopConfiguration
-from ..sisow.api import calculate_sisow_sha1
-from ..sisow.forms import CallbackForm
-from ..sisow.service import get_ideal_bank_choices
+from ....models import Payment, ShopConfiguration
+from ...sisow.api import calculate_sisow_sha1
+from ...sisow.forms import CallbackForm
+from ...sisow.service import get_ideal_bank_choices
 
 
 class Sha1Tests(SimpleTestCase):

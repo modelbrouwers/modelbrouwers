@@ -1,5 +1,4 @@
 import logging
-import uuid
 
 from django.db import transaction
 from django.http import Http404, HttpRequest

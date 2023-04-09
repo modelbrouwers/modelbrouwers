@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from ..models import Order, Payment, ShopConfiguration
 from .paypal.service import start_payment as start_paypal_payment
 from .registry import PaymentContext, Plugin, register
+from .sisow.constants import SisowMethods
 from .sisow.service import start_payment as start_sisow_payment
 
 logger = logging.getLogger(__name__)
@@ -74,16 +75,16 @@ class SisowPlugin(Plugin):
 @register("sisow_ideal")
 class SisowIDeal(SisowPlugin):
     verbose_name = _("iDeal")
-    sisow_method = "ideal"
+    sisow_method = cast(str, SisowMethods.ideal)
 
 
 @register("sisow_sofort")
 class SisowSofort(SisowPlugin):
     verbose_name = _("Sofort")
-    sisow_method = "sofort"
+    sisow_method = cast(str, SisowMethods.sofort)
 
 
 @register("sisow_mistercash")
 class SisowMrCash(SisowPlugin):
     verbose_name = _("Mister Cash")
-    sisow_method = "mistercash"
+    sisow_method = cast(str, SisowMethods.mistercash)
