@@ -36,11 +36,12 @@ class CallbackFormTests(TestCase):
         config.save()
 
         cls.payment = Payment(
+            reference="4cb92ef9-0bcc-4a",
             data={
                 "sisow_transaction_request": {
                     "trxid": "TEST080536811624",
                 }
-            }
+            },
         )
 
     def test_valid_callback_form(self):

@@ -68,6 +68,15 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
     def validate(self, attrs: dict):
         attrs = super().validate(attrs)
 
+        if not attrs["cart"].products.all():
+            raise serializers.ValidationError(
+                {
+                    "cart": serializers.ErrorDetail(
+                        _("Checking a cart without any products is not possible."),
+                        code="cart-empty",
+                    )
+                }
+            )
         payment_method = attrs["payment_method"]
         options = attrs.get("payment_method_options") or {}
 
@@ -118,14 +127,18 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
             if invoice_address_data
             else None
         )
-        order = Order.objects.create(
+        order, _ = Order.objects.update_or_create(
             cart=self.validated_data["cart"],
-            status=OrderStatuses.received,
-            first_name=self.validated_data["first_name"],
-            last_name=self.validated_data["last_name"],
-            email=self.validated_data["email"],
-            phone=self.validated_data["phone"],
-            delivery_address=delivery_address,
-            invoice_address=invoice_address,
+            defaults={
+                "status": OrderStatuses.received,
+                "first_name": self.validated_data["first_name"],
+                "last_name": self.validated_data["last_name"],
+                "email": self.validated_data["email"],
+                "phone": self.validated_data["phone"],
+                "delivery_address": delivery_address,
+                "invoice_address": invoice_address,
+            },
         )
+        if self.instance:
+            assert self.instance == order
         return order

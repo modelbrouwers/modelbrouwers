@@ -1,14 +1,20 @@
+import logging
+
 from django.contrib import messages
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.edit import BaseFormView
 
+from ...constants import PaymentStatuses
 from ...models import Payment
-from ..utils import get_next_page
+from ..utils import get_next_page, on_payment_failure
 from .constants import TransactionStatuses
 from .forms import CallbackForm
+
+logger = logging.getLogger(__name__)
 
 
 class PaymentCallbackView(BaseFormView):
@@ -41,21 +47,51 @@ class PaymentCallbackView(BaseFormView):
         )
 
     def form_valid(self, form):
+        allow_redirect = not form.cleaned_data.get(
+            "notify"
+        ) and not form.cleaned_data.get("callback")
+
+        # register the reported Sisow status
         status = form.cleaned_data["status"]
         self.payment.data["status"] = status
         self.payment.save()
-        if status == TransactionStatuses.success:
+
+        logger.info(
+            "Received information for Sisow payment %d, status: %s",
+            self.payment.pk,
+            status,
+            extra={
+                "payment": self.payment.pk,
+                "status": status,
+                "params": form.cleaned_data,
+            },
+        )
+
+        fail_payment = status in (
+            TransactionStatuses.expired,
+            TransactionStatuses.cancelled,
+            TransactionStatuses.failure,
+            TransactionStatuses.reversed,
+            TransactionStatuses.denied,
+        )
+        complete_payment = status == TransactionStatuses.success
+
+        with transaction.atomic():
+            if fail_payment:
+                on_payment_failure(self.payment, self.request)
+            elif complete_payment:
+                self.payment.mark_paid()
+
+        if not allow_redirect:
+            return HttpResponse(b"processed", content_type="text/plain", status=200)
+
+        if complete_payment:
             messages.success(self.request, _("Your payment was received"))
         elif status == TransactionStatuses.open:
-            messages.info(self.request, _("Your payment is being processed"))
-        else:
-            messages.error(self.request, _("Your payment was not completed yet"))
-            # TODO: put cart back into session/reset status, see paypal view
-        # TODO: mark order as paid if full sum is received
+            messages.info(self.request, _("Your payment is (still) being processed"))
         return super().form_valid(form)
 
-    def get_success_url(self):
-        next_page = get_next_page(self.request)
-        if next_page is not None:
-            return next_page
-        return super().get_success_url()
+    def get_success_url(self) -> str:
+        if self.payment.status == PaymentStatuses.cancelled:
+            return reverse("shop:checkout", kwargs={"path": "payment"})
+        return get_next_page(self.request) or super().get_success_url()
