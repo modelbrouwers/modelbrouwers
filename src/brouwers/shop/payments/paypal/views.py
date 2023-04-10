@@ -6,9 +6,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
 
-from ...constants import CART_SESSION_KEY, CartStatuses
 from ...models import Payment
-from ..utils import get_next_page
+from ..utils import get_next_page, on_payment_failure
 from .client import Client
 from .utils import attempt_capture
 
@@ -80,16 +79,7 @@ class CancelView(ValidatePaymentMixin, View):
             # by default, we have 3 hours to redirect the payer to the approval, and there's
             # no explicit cancel operation for orders, so we can just let it time out?
 
-        payment.cancel()
-
-        # re-add the cart to the session
-        assert (
-            payment.historical_order is not None
-        ), "Cancelling a payment must set the historical order"
-        cart = payment.historical_order.cart
-        cart.status = CartStatuses.open
-        cart.save(update_fields=["status"])
-        request.session[CART_SESSION_KEY] = cart.id
+        on_payment_failure(payment, request)
 
         next_page = get_next_page(request) or reverse("shop:index")
         return redirect(next_page)

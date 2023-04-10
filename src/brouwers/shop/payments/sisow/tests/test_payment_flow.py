@@ -7,6 +7,7 @@ from django.urls import reverse
 
 import requests_mock
 
+from ....constants import CartStatuses, PaymentStatuses
 from ....models import ShopConfiguration
 from ....tests.factories import PaymentFactory
 from ..api import calculate_sha1
@@ -172,3 +173,81 @@ class PaymentReturnFlowTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+
+    def test_payment_cancelled(self, m_get_solo):
+        payment = PaymentFactory.create(
+            is_mistercash=True, reference="order-134", amount=67
+        )
+        trxid = payment.data["sisow_transaction_request"]["trxid"]
+        url = reverse("shop:sisow-payment-callback", kwargs={"pk": payment.pk})
+
+        response = self.client.get(
+            url,
+            {
+                "trxid": trxid,
+                "ec": "order-134",
+                "status": cast(str, TransactionStatuses.failure),
+                "sha1": calculate_sha1(
+                    trxid,
+                    "order-134",
+                    "Failure",
+                    "2537987391",
+                    "28f31a03f4d272bb5d6dd6a345cce93b670e2f79",
+                ),
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        payment.refresh_from_db()
+
+        self.assertEqual(payment.data["status"], "Failure")
+        self.assertEqual(payment.status, PaymentStatuses.cancelled)
+        self.assertIsNotNone(payment.historical_order)
+        self.assertIsNone(payment.order)
+
+        cart = payment.historical_order.cart
+        # compare against cart retrieved via frontend api call
+        response = self.client.get(reverse("api:cart-detail"))
+        assert response.status_code == 200
+        cart_id = response.json()["id"]
+        self.assertEqual(cart.id, cart_id)
+        self.assertEqual(cart.status, CartStatuses.open)
+
+    def test_payment_success(self, m_get_solo):
+        payment = PaymentFactory.create(
+            is_mistercash=True, reference="order-134", amount=67
+        )
+        trxid = payment.data["sisow_transaction_request"]["trxid"]
+        url = reverse("shop:sisow-payment-callback", kwargs={"pk": payment.pk})
+
+        response = self.client.get(
+            url,
+            {
+                "trxid": trxid,
+                "ec": "order-134",
+                "status": cast(str, TransactionStatuses.success),
+                "sha1": calculate_sha1(
+                    trxid,
+                    "order-134",
+                    "Success",
+                    "2537987391",
+                    "28f31a03f4d272bb5d6dd6a345cce93b670e2f79",
+                ),
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        payment.refresh_from_db()
+
+        self.assertEqual(payment.data["status"], "Success")
+        self.assertEqual(payment.status, PaymentStatuses.completed)
+        self.assertIsNone(payment.historical_order)
+        self.assertIsNotNone(payment.order)
+
+        cart = payment.order.cart
+        # compare against cart retrieved via frontend api call
+        response = self.client.get(reverse("api:cart-detail"))
+        assert response.status_code == 200
+        cart_id = response.json()["id"]
+        self.assertNotEqual(cart.id, cart_id)
+        self.assertEqual(cart.status, CartStatuses.open)

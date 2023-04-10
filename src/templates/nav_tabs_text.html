@@ -1,6 +1,7 @@
 {% load i18n static brouwers %}
 
 {% url 'index' as url_home %}
+{% url 'shop:index' as url_shop %}
 {% url 'albums:index' as url_albums %}
 {% url 'kitreviews:index' as url_kitreviews %}
 {% url 'groupbuilds:groupbuild-list' as url_groupbuilds %}
@@ -19,7 +20,10 @@
     </li>
 
     <li id="tab-shop" class="tab">
-        <a href="/winkel/" title="{% trans 'Visit the shop!' %}">{% trans "shop" %}</a>
+        <a
+            href="/winkel/"
+            {% if request.path|startswith:url_shop %} class="active"{% endif %}
+            title="{% trans 'Visit the shop!' %}">{% trans "shop" %}</a>
     </li>
 
     <li id="tab-albums" class="tab">
