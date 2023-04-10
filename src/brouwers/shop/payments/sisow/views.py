@@ -4,10 +4,11 @@ from django.contrib import messages
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.edit import BaseFormView
 
+from ...constants import PaymentStatuses
 from ...models import Payment
 from ..utils import get_next_page, on_payment_failure
 from .constants import TransactionStatuses
@@ -86,13 +87,11 @@ class PaymentCallbackView(BaseFormView):
 
         if complete_payment:
             messages.success(self.request, _("Your payment was received"))
-        elif fail_payment:
-            messages.error(
-                self.request, _("Your payment was not received (yet) - please retry.")
-            )
         elif status == TransactionStatuses.open:
-            messages.info(self.request, _("Your payment is being processed"))
+            messages.info(self.request, _("Your payment is (still) being processed"))
         return super().form_valid(form)
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
+        if self.payment.status == PaymentStatuses.cancelled:
+            return reverse("shop:checkout", kwargs={"path": "payment"})
         return get_next_page(self.request) or super().get_success_url()

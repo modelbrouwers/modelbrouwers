@@ -1,7 +1,9 @@
 from typing import Optional
 
+from django.contrib import messages
 from django.http import HttpRequest
 from django.utils.http import url_has_allowed_host_and_scheme
+from django.utils.translation import gettext as _
 
 from ..constants import CART_SESSION_KEY, CartStatuses
 from ..models import Payment
@@ -40,3 +42,5 @@ def on_payment_failure(payment: Payment, request: HttpRequest) -> None:
     cart.status = CartStatuses.open
     cart.save(update_fields=["status"])
     request.session[CART_SESSION_KEY] = cart.id
+
+    messages.error(request, _("Your payment was not received (yet) - please retry."))

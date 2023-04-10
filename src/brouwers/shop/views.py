@@ -186,6 +186,7 @@ class CheckoutMixin:
                 raise PermissionDenied("Invalid order ID provided") from exc
 
             order = get_object_or_404(Order, id=order_id)
+            # FIXME: cancelled payments -> this breaks
             plugin = register[order.payment.payment_method.method]
 
             context["orderDetails"] = {
@@ -210,9 +211,20 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
     @transaction.atomic()
     def post(self, request) -> HttpResponseBase:
         raw_data = request.POST.get("checkoutData")
+        # find existing order - this happens for example when the payment gets cancelled
+        # and you are redirected to the payment screen again, so that the payment can
+        # be retried.
+        serializer_data = json.loads(raw_data) if raw_data else None
+        instance = None
+        if (
+            serializer_data
+            and (cart_id := serializer_data.get("cart"))
+            and isinstance(cart_id, int)
+        ):
+            possible_carts = Cart.objects.for_request(request).filter(id=cart_id)
+            instance = Order.objects.filter(cart=possible_carts[:1]).first()
         serializer = ConfirmOrderSerializer(
-            data=json.loads(raw_data) if raw_data else None,
-            context={"request": request},
+            data=serializer_data, instance=instance, context={"request": request}
         )
 
         # validation errors - render back to frontend
