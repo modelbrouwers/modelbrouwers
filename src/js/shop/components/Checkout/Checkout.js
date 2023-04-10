@@ -205,7 +205,7 @@ const Checkout = ({
     );
     const hasPaymentValidationErrors = checkHasValidationErrors(
         validationErrors,
-        ["paymentMethod", "paymentMethodOptions"]
+        ["paymentMethod", "paymentMethodOptions", "cart"]
     );
     let firstRouteWithErrors = "/";
     if (hasAddressValidationErrors) {

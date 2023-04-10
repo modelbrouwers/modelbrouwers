@@ -212,6 +212,8 @@ const Payment = ({
         ),
     };
 
+    const hasProducts = Boolean(cartStore.products.length);
+
     return (
         <>
             <h3 className="checkout__title">
@@ -255,7 +257,9 @@ const Payment = ({
                     defaultMessage="Cart overview"
                 />
             </h3>
+
             <BodyCart store={cartStore} />
+            <ErrorList errors={errors?.cart} />
 
             {/* server side submit */}
             <form action={confirmPath} method="post">
@@ -270,7 +274,11 @@ const Payment = ({
                     value={JSON.stringify(checkoutData)}
                 />
                 <div className="submit-wrapper">
-                    <button type="submit" className="btn bg-main-orange">
+                    <button
+                        type="submit"
+                        className="btn bg-main-orange"
+                        disabled={!hasProducts}
+                    >
                         <FormattedMessage
                             description="Checkout: confirm order"
                             defaultMessage="Place order"

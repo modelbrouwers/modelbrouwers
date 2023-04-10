@@ -68,6 +68,15 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
     def validate(self, attrs: dict):
         attrs = super().validate(attrs)
 
+        if not attrs["cart"].products.all():
+            raise serializers.ValidationError(
+                {
+                    "cart": serializers.ErrorDetail(
+                        _("Checking a cart without any products is not possible."),
+                        code="cart-empty",
+                    )
+                }
+            )
         payment_method = attrs["payment_method"]
         options = attrs.get("payment_method_options") or {}
 
