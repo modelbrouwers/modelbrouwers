@@ -9,4 +9,3 @@ class CountryChoices(DjangoChoices):
     nl = ChoiceItem("N", _("The Netherlands"))
     be = ChoiceItem("B", _("Belgium"))
     de = ChoiceItem("D", _("Germany"))
-    fr = ChoiceItem("F", _("France"))

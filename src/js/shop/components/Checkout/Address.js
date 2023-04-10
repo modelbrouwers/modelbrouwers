@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
-import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
 import AddressFields from "./AddressFields";
-import { country_list, SUPPORTED_COUNTRIES, EMPTY_ADDRESS } from "./constants";
+import { SUPPORTED_COUNTRIES, EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
 import PersonalDetailsFields from "./PersonalDetailsFields";
 
