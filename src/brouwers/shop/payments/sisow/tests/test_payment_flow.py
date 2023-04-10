@@ -1,12 +1,16 @@
 from textwrap import dedent
+from typing import cast
 from unittest.mock import patch
 
 from django.test import RequestFactory, TestCase
+from django.urls import reverse
 
 import requests_mock
 
 from ....models import ShopConfiguration
 from ....tests.factories import PaymentFactory
+from ..api import calculate_sha1
+from ..constants import TransactionStatuses
 from ..exceptions import InvalidIssuerURL
 from ..service import start_payment
 
@@ -87,3 +91,84 @@ class PaymentStartTests(TestCase):
 
         with self.assertRaises(InvalidIssuerURL):
             start_payment(payment, dummy_request, next_page="/foo")
+
+
+# Credentials from example requests in Documentation PDF rest521.pdf
+@patch(
+    "brouwers.shop.payments.sisow.forms.ShopConfiguration.get_solo",
+    return_value=ShopConfiguration(
+        sisow_merchant_id="2537987391",
+        sisow_merchant_key="28f31a03f4d272bb5d6dd6a345cce93b670e2f79",
+    ),
+)
+class PaymentReturnFlowTests(TestCase):
+    def test_return_with_missing_ec(self, m_get_solo):
+        payment = PaymentFactory.create(
+            is_mistercash=True,
+            reference="order-134",
+            amount=67,
+        )
+        url = reverse("shop:sisow-payment-callback", kwargs={"pk": payment.pk})
+
+        response = self.client.get(
+            url,
+            {
+                "trxid": payment.data["sisow_transaction_request"]["trxid"],
+                "ec": "",
+                "status": cast(str, TransactionStatuses.success),
+                "sha1": "definitely-bad-hash",
+                "notify": False,
+                "callback": False,
+            },
+        )
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_return_url_with_invalid_hash(self, m_get_solo):
+        payment = PaymentFactory.create(
+            is_mistercash=True,
+            reference="order-134",
+            amount=67,
+        )
+        url = reverse("shop:sisow-payment-callback", kwargs={"pk": payment.pk})
+
+        response = self.client.get(
+            url,
+            {
+                "trxid": payment.data["sisow_transaction_request"]["trxid"],
+                "ec": "order-134",
+                "status": cast(str, TransactionStatuses.success),
+                "sha1": "definitely-bad-hash",
+                "notify": False,
+                "callback": False,
+            },
+        )
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_notify_callback_no_redirect(self, m_get_solo):
+        payment = PaymentFactory.create(
+            is_mistercash=True, reference="order-134", amount=67
+        )
+        trxid = payment.data["sisow_transaction_request"]["trxid"]
+        url = reverse("shop:sisow-payment-callback", kwargs={"pk": payment.pk})
+
+        response = self.client.get(
+            url,
+            {
+                "trxid": trxid,
+                "ec": "order-134",
+                "status": cast(str, TransactionStatuses.success),
+                "sha1": calculate_sha1(
+                    trxid,
+                    "order-134",
+                    "Success",
+                    "2537987391",
+                    "28f31a03f4d272bb5d6dd6a345cce93b670e2f79",
+                ),
+                "notify": True,
+                "callback": False,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)

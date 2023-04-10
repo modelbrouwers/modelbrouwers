@@ -28,7 +28,7 @@ class CallbackForm(forms.Form):
     """
 
     trxid = forms.CharField(label=_("transaction id"))
-    ec = forms.CharField(label=_("entrance code"), required=False)
+    ec = forms.CharField(label=_("entrance code"), required=True)
     status = forms.ChoiceField(label=_("status"), choices=TransactionStatuses.choices)
     sha1 = forms.CharField(label=_("sha1 transaction"))
     notify = forms.BooleanField(label=_("notify or not?"), required=False)
@@ -49,6 +49,14 @@ class CallbackForm(forms.Form):
             raise forms.ValidationError(_("Invalid transaction ID"))
 
         return trxid
+
+    def clean_ec(self) -> str:
+        ec = self.cleaned_data["ec"]
+        # ec = entrancecode - if empty, this uses the purchase ID, which is equal to
+        # our payment reference
+        if ec != self.payment.reference:
+            raise forms.ValidationError(_("Invalid entrancecode"))
+        return ec
 
     def clean(self) -> None:
         config = cast(ShopConfiguration, ShopConfiguration.get_solo())

@@ -41,9 +41,17 @@ class PaymentCallbackView(BaseFormView):
         )
 
     def form_valid(self, form):
+        allow_redirect = not form.cleaned_data.get(
+            "notify"
+        ) and not form.cleaned_data.get("callback")
+
         status = form.cleaned_data["status"]
         self.payment.data["status"] = status
         self.payment.save()
+
+        if not allow_redirect:
+            return HttpResponse(b"processed", content_type="text/plain", status=200)
+
         if status == TransactionStatuses.success:
             messages.success(self.request, _("Your payment was received"))
         elif status == TransactionStatuses.open:
