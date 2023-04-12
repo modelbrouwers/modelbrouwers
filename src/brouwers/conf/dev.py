@@ -30,6 +30,42 @@ DEBUG_TOOLBAR_CONFIG = {
 SHOP_ENABLED = True
 
 #
+# Logging outgoing requests
+#
+try:
+    from log_outgoing_requests.formatters import HttpFormatter
+except ImportError:
+    pass
+else:
+    INSTALLED_APPS += ["log_outgoing_requests"]
+    LOGGING["formatters"]["outgoing_requests"] = {"()": HttpFormatter}
+    LOGGING["handlers"].update(
+        {
+            "log_outgoing_requests": {
+                "level": "DEBUG",
+                "formatter": "outgoing_requests",
+                "class": "logging.StreamHandler",
+            },
+            "save_outgoing_requests": {
+                "level": "DEBUG",
+                "class": "log_outgoing_requests.handlers.DatabaseOutgoingRequestsHandler",
+            },
+        }
+    )
+    LOGGING["loggers"].setdefault(
+        "requests",
+        {
+            "handlers": [],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    )
+    LOGGING["loggers"]["requests"]["handlers"].extend(
+        ["log_outgoing_requests", "save_outgoing_requests"]
+    )
+    LOG_OUTGOING_REQUESTS_DB_SAVE = False
+
+#
 # E-MAIL
 #
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
