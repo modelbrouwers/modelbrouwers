@@ -57,7 +57,7 @@ else:
         {
             "handlers": [],
             "level": "DEBUG",
-            "propagate": True,
+            "propagate": False,
         },
     )
     LOGGING["loggers"]["requests"]["handlers"].extend(
