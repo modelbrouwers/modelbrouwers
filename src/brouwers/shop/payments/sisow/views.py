@@ -27,7 +27,7 @@ class PaymentCallbackView(BaseFormView):
     """
 
     form_class = CallbackForm
-    success_url = reverse_lazy("shop:pay")
+    success_url = reverse_lazy("shop:index")
 
     def get(self, request, pk, *args, **kwargs):
         self.payment = get_object_or_404(Payment, pk=pk)

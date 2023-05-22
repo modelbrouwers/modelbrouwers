@@ -6,15 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from ...models import Payment, ShopConfiguration
 from .api import calculate_sha1
 from .constants import TransactionStatuses
-from .service import get_ideal_banks
-
-
-def coerce_bank(value: str):
-    """
-    Translate a form field value back to a :class:`Bank` object.
-    """
-    bank_mapping = {bank.id: bank for bank in get_ideal_banks()}
-    return bank_mapping[value]
 
 
 class CallbackForm(forms.Form):
