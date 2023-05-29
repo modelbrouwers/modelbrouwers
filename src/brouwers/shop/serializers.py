@@ -121,7 +121,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
         delivery_address = Address.objects.create(
             **self.validated_data["delivery_address"]
         )
-        invoice_address_data = self.validated_data["invoice_address"]
+        invoice_address_data = self.validated_data.get("invoice_address")
         invoice_address = (
             Address.objects.create(**invoice_address_data)
             if invoice_address_data

@@ -9,7 +9,7 @@ from django.db import transaction
 from django.http import Http404, HttpRequest
 from django.http.response import HttpResponseBase
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import Resolver404, get_resolver
+from django.urls import Resolver404, get_resolver, reverse
 from django.urls.converters import SlugConverter
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
@@ -24,7 +24,10 @@ from .constants import (
     CartStatuses,
     PaymentStatuses,
 )
-from .emails import render_order_confirmation as render_order_confirmation_email
+from .emails import (
+    render_order_confirmation as render_order_confirmation_email,
+    send_order_confirmation_email,
+)
 from .models import (
     Cart,
     Category,
@@ -245,7 +248,6 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         total_amount = int(cart.total * 100)
 
         # store order
-        # TODO: check if there's an existing order to update instead
         order = serializer.save_order()
         payment = Payment.objects.create(
             order=order,
@@ -258,6 +260,9 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         # remove cart from session
         if self.request.session.get(CART_SESSION_KEY) == cart.id:
             del self.request.session[CART_SESSION_KEY]
+
+        base_url = request.build_absolute_uri(reverse("index"))
+        transaction.on_commit(lambda: send_order_confirmation_email(order, base_url))
 
         success_url = self.get_success_url(order)
         start_payment_response = start_payment(
@@ -288,4 +293,5 @@ class OrderConfirmationEmailView(
     def get_email_content(self):
         order = self.get_object()
         mode = self._get_mode()
-        return render_order_confirmation_email(order, mode=mode)
+        base_url = self.request.build_absolute_uri(reverse("index"))
+        return render_order_confirmation_email(order, base_url, mode=mode)

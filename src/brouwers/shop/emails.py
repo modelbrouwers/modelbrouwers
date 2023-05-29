@@ -1,14 +1,52 @@
 from decimal import Decimal
-from typing import Literal
+from typing import Literal, cast
 
+from django.conf import settings
 from django.template.loader import get_template
 from django.utils import timezone, translation
+from django.utils.translation import gettext as _
+
+from furl import furl
+from mail_cleaner.mail import send_mail_plus
+from mail_cleaner.sanitizer import sanitize_content
+from mail_cleaner.text import strip_tags_plus
 
 from .constants import TWO_DIGITS
-from .models import Order
+from .models import Order, ShopConfiguration
 
 
-def render_order_confirmation(order: Order, mode: Literal["text", "html"]) -> str:
+def send_order_confirmation_email(order: Order, base_url: str) -> None:
+    config = cast(ShopConfiguration, ShopConfiguration.get_solo())
+    base = furl(base_url)
+    if not base.host:  # pragma: no cover
+        raise ValueError("Unsupported base URL provided")
+    allowlist = [base.host]
+
+    subject = _("Modelbrouwers - order {order_number}").format(
+        order_number=order.reference
+    )
+    html_body = sanitize_content(
+        render_order_confirmation(order=order, base=base, mode="html"),
+        allowlist=allowlist,
+    )
+    text_body = sanitize_content(
+        render_order_confirmation(order=order, base=base, mode="text"),
+        allowlist=allowlist,
+    )
+
+    send_mail_plus(
+        subject,
+        message=text_body,
+        from_email=config.from_email or settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[order.email],
+        html_message=html_body,
+        headers={"Content-Language": order.language},
+    )
+
+
+def render_order_confirmation(
+    order: Order, base: furl, mode: Literal["text", "html"]
+) -> str:
     """
     Render the email body for an order confirmation.
     """

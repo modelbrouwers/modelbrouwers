@@ -7,8 +7,10 @@ from django.urls import reverse
 
 from django_webtest import WebTest
 
+from brouwers.utils.tests.html_assert import strip_all_attributes
+
 from ..constants import CART_SESSION_KEY
-from ..models import Cart, ShopConfiguration
+from ..models import Cart, Order, ShopConfiguration
 from .factories import (
     CartProductFactory,
     CategoryFactory,
@@ -69,14 +71,22 @@ class CheckoutTests(WebTest):
         self.assertIn("cart", errors)
 
     def test_checkout_sends_confirmation_email(self):
-        shop_config_patcher = patch(
-            "brouwers.shop.payments.payment_options.ShopConfiguration.get_solo",
-            return_value=ShopConfiguration(
-                bank_transfer_instructions="[bank transfer instructions here]"
-            ),
+        # set up mocks
+        mock_config = ShopConfiguration(
+            bank_transfer_instructions="[bank transfer instructions here]",
+            from_email="shop@example.com",
         )
-        shop_config_patcher.start()
-        self.addCleanup(shop_config_patcher.stop)
+        patch_paths = (
+            "brouwers.shop.payments.payment_options",
+            "brouwers.shop.emails",
+        )
+        for path in patch_paths:
+            patcher = patch(
+                f"{path}.ShopConfiguration.get_solo", return_value=mock_config
+            )
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        # set up test data
         category = CategoryFactory.create(name="testdata")
         product1 = ProductFactory.create(
             name="Testproduct",
@@ -123,4 +133,33 @@ class CheckoutTests(WebTest):
             )
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(len(mail.outbox), 1)
+
+        with self.subTest("email sent"):
+            self.assertEqual(len(mail.outbox), 1)
+            message = mail.outbox[0]
+            self.assertEqual(message.from_email, "shop@example.com")
+
+            order = Order.objects.get()
+            self.assertIn(order.reference, message.subject)
+            self.assertEqual(message.extra_headers, {"Content-Language": "nl"})
+
+            content_by_content_type = {
+                ct: content for content, ct in message.alternatives
+            }
+            self.assertIn("text/html", content_by_content_type)
+
+            html_body = strip_all_attributes(content_by_content_type["text/html"])
+
+            # check that the correct prices are in the HTML e-mail
+            with self.subTest("first product"):
+                self.assertInHTML("<td>&euro;&nbsp;5,14</td>", html_body)
+                self.assertInHTML("<td>&euro;&nbsp;15,42</td>", html_body)
+
+            with self.subTest("second product"):
+                self.assertInHTML("<td>&euro;&nbsp;10,00</td>", html_body)
+                self.assertInHTML("<td>&euro;&nbsp;20,00</td>", html_body)
+
+            with self.subTest("totals"):
+                # 0.20 * 3 * 5.14 + 0.20 * 2 * 10 -> rounded = 7.08
+                self.assertInHTML("<td>&euro;&nbsp;7,08</td>", html_body)
+                self.assertInHTML("<td>&euro;&nbsp;35,42</td>", html_body)

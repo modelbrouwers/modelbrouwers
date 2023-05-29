@@ -1,3 +1,5 @@
+from typing import Literal
+
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpRequest, HttpResponse
@@ -27,7 +29,7 @@ class EmailDebugViewMixin:  # pragma: no cover
     template_name = "emails/wrapper.html"
     request: HttpRequest
 
-    def _get_mode(self) -> str:
+    def _get_mode(self) -> Literal["text", "html"]:
         mode = self.request.GET.get("mode", "html")
         assert mode in ("html", "text"), f"Unknown mode: {mode}"
         return mode
