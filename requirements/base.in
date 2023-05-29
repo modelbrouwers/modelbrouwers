@@ -3,6 +3,7 @@ bleach
 furl
 html2text
 lxml
+mail-cleaner
 mysqlclient
 openpyxl
 Pillow  # handle images
