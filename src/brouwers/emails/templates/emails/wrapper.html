@@ -1,0 +1,28 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{ title|default:_('E-mail wrapper') }}</title>
+</head>
+
+<body style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000; border: none; margin: 0; padding: 0;">
+    <div style="width: 680px;">
+        <a style="text-decoration: none;" href="{{ main_website_url }}">
+            <img
+                src="{% static 'images/logo/logo_winkel.jpg' %}"
+                width="438" height="98"
+                style="width: 428px; height: 98px; margin-bottom: 20px; border: none;"
+                alt="{% trans 'Website logo' %}"
+            />
+        </a>
+        <div>
+            {{ content }}
+        </div>
+
+        {% if footer %}
+            <p style="margin-top: 0px; margin-bottom: 20px;">{{ footer }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

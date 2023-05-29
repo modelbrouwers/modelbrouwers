@@ -62,6 +62,7 @@ if settings.SHOP_ENABLED:
 if settings.DEBUG:
     urlpatterns += [
         path("404/", TemplateView.as_view(template_name="404.html")),
+        path("dev/emails/", include("brouwers.emails.urls")),
     ]
 
 if apps.is_installed("debug_toolbar"):
