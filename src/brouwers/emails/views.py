@@ -3,9 +3,9 @@ from typing import Literal
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpRequest, HttpResponse
+from django.template import loader
 from django.urls import reverse
-from django.utils.safestring import mark_safe
-from django.views.generic import TemplateView
+from django.views import View
 
 
 class DevViewMixin(LoginRequiredMixin, UserPassesTestMixin):  # pragma: no cover
@@ -19,7 +19,7 @@ class DevViewMixin(LoginRequiredMixin, UserPassesTestMixin):  # pragma: no cover
         return settings.DEBUG and self.request.user.is_superuser
 
 
-class EmailDebugViewMixin:  # pragma: no cover
+class BaseEmailDebugView(DevViewMixin, View):  # pragma: no cover
     """
     Mixin to view the contents of an e-mail as they would be sent out.
 
@@ -27,42 +27,31 @@ class EmailDebugViewMixin:  # pragma: no cover
     """
 
     template_name = "emails/wrapper.html"
-    request: HttpRequest
 
     def _get_mode(self) -> Literal["text", "html"]:
         mode = self.request.GET.get("mode", "html")
         assert mode in ("html", "text"), f"Unknown mode: {mode}"
         return mode
 
-    def get_email_content(self):
+    def get_email_content(self, mode: Literal["text", "html"]):
         raise NotImplementedError()
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data()
-        content = self.get_email_content()
-        ctx.update(
-            {
-                **kwargs,
-                "main_website_url": self.request.build_absolute_uri(
-                    reverse("shop:index")
-                ),  # TODO -> setting/config?
-                "content": content,
-            }
-        )
-        return ctx
-
-    def render_to_response(self, context, **response_kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs):
         mode = self._get_mode()
+        content = self.get_email_content(mode)
         if mode == "text":
-            return HttpResponse(
-                context["content"].encode("utf-8"), content_type="text/plain"
-            )
-        return super().render_to_response(context, **response_kwargs)
+            content_type = "text/plain"
+        elif mode == "html":
+            content_type = "text/html"
+        else:
+            raise ValueError("Unsupported mode")
+        return HttpResponse(content.encode("utf-8"), content_type=content_type)
 
 
-class EmailWrapperTestView(
-    DevViewMixin, EmailDebugViewMixin, TemplateView
-):  # pragma: no cover
-    def get_email_content(self):
-        content = "<b>content goes here</b>"
-        return mark_safe(content)
+class EmailWrapperTestView(BaseEmailDebugView):  # pragma: no cover
+    def get_email_content(self, mode: Literal["text", "html"]) -> str:
+        template = loader.get_template("emails/wrapper.html")
+        context = {
+            "base": self.request.build_absolute_uri(reverse("index")),
+        }
+        return template.render(context)

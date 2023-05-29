@@ -14,8 +14,11 @@ from django.urls.converters import SlugConverter
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
+from django.views.generic.detail import SingleObjectMixin
 
-from brouwers.emails.views import DevViewMixin, EmailDebugViewMixin
+from furl import furl
+
+from brouwers.emails.views import BaseEmailDebugView
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from .constants import (
@@ -286,12 +289,11 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
 
 
 class OrderConfirmationEmailView(
-    DevViewMixin, EmailDebugViewMixin, DetailView
+    SingleObjectMixin, BaseEmailDebugView
 ):  # pragma: nocover
     model = Order
 
-    def get_email_content(self):
+    def get_email_content(self, mode):
         order = self.get_object()
-        mode = self._get_mode()
         base_url = self.request.build_absolute_uri(reverse("index"))
-        return render_order_confirmation_email(order, base_url, mode=mode)
+        return render_order_confirmation_email(order, furl(base_url), mode=mode)
