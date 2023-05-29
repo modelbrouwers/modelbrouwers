@@ -1,0 +1,167 @@
+{% load i18n %}
+
+{% with table_style='border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;' %}
+{% with tbody_style='font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px; vertical-align: top;' %}
+{% with thead_style='font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;' %}
+
+{% blocktranslate with reference=order.reference link=link|urlize trimmed %}
+<p style="margin-top: 0px; margin-bottom: 20px;">
+    Thank you - your Modelbrouwers order <strong>{{ reference }}</strong> was
+    sucessfully received.
+</p>
+<p style="margin-top: 0px; margin-bottom: 20px;">
+    Your order will be processed as soon as we receive payment confirmation.
+</p>
+<p style="margin-top: 0px; margin-bottom: 20px;">
+    To view your order, click the link below:
+    <br>
+    {{ link }}
+</p>
+{% endblocktranslate %}
+
+{# Order details #}
+<table style="{{ table_style }}">
+    <thead>
+        <tr>
+            <td style="{{ thead_style }}" colspan="2">
+                {% translate "Details" %}
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="{{ tbody_style }}">
+                <strong>{% translate "Order number" %}: </strong>
+                {{ order.reference }}
+                <br />
+
+                <strong>{% translate "Order date" %}: </strong>
+                {{ order.date }}
+                <br />
+
+                <strong>{% translate "Payment method" %}: </strong>
+                {{ order.payment_method|default:'-' }}
+                <br />
+
+                <strong>{% translate "Payment status" %}: </strong>
+                {{ order.payment_status|default:'-' }}
+                <br />
+
+                {% if order.shipping_method %}
+                    <strong>{% translate "Shipping method" %}: </strong>
+                    {{ order.shipping_method|default:'-' }}
+                    <br />
+                {% endif %}
+            </td>
+            <td style="{{ tbody_style }}">
+                <strong>{% translate "Email address" %}: </strong>
+                {{ contact.email|urlize }}
+                <br />
+
+                <strong>{% translate "Phone" %}: </strong>
+                {{ contact.phone|default:'-' }}
+                <br />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% if instructions.strip %}
+<table style="{{ table_style }}">
+    <thead>
+        <tr>
+            <td style="{{ thead_style }}" colspan="2">
+                {% translate "Instructions" %}
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="{{ tbody_style }}">
+                {{ instructions|linebreaksbr }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+
+{# Addresses (shipping/invoice) #}
+<table style="{{ table_style }}">
+    <thead>
+        <tr>
+            <td style="{{ thead_style }}">{% translate "Shipping address" %}</td>
+            <td style="{{ thead_style }}">{% translate "Invoice address" %}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="{{ tbody_style }}">
+                {% include "./includes/address.html" with address=delivery_address name=customer_name only %}
+            </td>
+            <td style="{{ tbody_style }}">
+                {% include "./includes/address.html" with address=invoice_address name=customer_name only %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{# Products overview #}
+<table style="{{ table_style }}">
+    <thead>
+        <tr>
+            <td style="{{ thead_style }}">{% translate "Product" %}</td>
+            <td style="{{ thead_style }}">{% translate "Qty." %}</td>
+            <td style="{{ thead_style }}">{% translate "Price" %}</td>
+            <td style="{{ thead_style }}">{% translate "Total" %}</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td style="{{ tbody_style }}">{{ product.name }}</td>
+                <td style="{{ tbody_style }}; text-align: right;">{{ product.amount }}</td>
+                <td style="{{ tbody_style }}; text-align: right;">
+                    &euro;&nbsp;{{ product.price|floatformat:"2g" }}
+                </td>
+                <td style="{{ tbody_style }}; text-align: right;">
+                    &euro;&nbsp;{{ product.total|floatformat:"2g" }}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td style="{{ tbody_style }}; text-align: right;" colspan="3">
+                <strong>{% translate "Subtotal" %}:</strong>
+            </td>
+            <td style="{{ tbody_style }}; text-align: right;">
+                &euro;&nbsp;{{ subtotal|floatformat:"2g" }}
+            </td>
+        </tr>
+        <tr>
+            <td style="{{ tbody_style }}; text-align: right;" colspan="3">
+                <strong>{% translate "VAT" %}:</strong>
+            </td>
+            <td style="{{ tbody_style }}; text-align: right;">
+                &euro;&nbsp;{{ total_vat|floatformat:"2g" }}
+            </td>
+        </tr>
+        <tr>
+            <td style="{{ tbody_style }}; text-align: right;" colspan="3">
+                <strong>{% translate "Total" %}:</strong>
+            </td>
+            <td style="{{ tbody_style }}; text-align: right;">
+                &euro;&nbsp;{{ total|floatformat:"2g" }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+
+<p style="margin-top: 0px; margin-bottom: 20px;">
+    {% translate "You can reply to this email if you have any questions." %}
+</p>

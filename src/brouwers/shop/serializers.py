@@ -2,7 +2,7 @@
 Non-API serializers
 """
 from django.db.models import Prefetch
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language, gettext_lazy as _
 
 from rest_framework import serializers
 
@@ -137,6 +137,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
                 "phone": self.validated_data["phone"],
                 "delivery_address": delivery_address,
                 "invoice_address": invoice_address,
+                "language": get_language(),
             },
         )
         if self.instance:

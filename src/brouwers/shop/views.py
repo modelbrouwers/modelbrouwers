@@ -9,14 +9,13 @@ from django.db import transaction
 from django.http import Http404, HttpRequest
 from django.http.response import HttpResponseBase
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import Resolver404, get_resolver, reverse
+from django.urls import Resolver404, get_resolver
 from django.urls.converters import SlugConverter
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
-from furl import furl
-
+from brouwers.emails.views import DevViewMixin, EmailDebugViewMixin
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from .constants import (
@@ -25,6 +24,7 @@ from .constants import (
     CartStatuses,
     PaymentStatuses,
 )
+from .emails import render_order_confirmation as render_order_confirmation_email
 from .models import (
     Cart,
     Category,
@@ -277,5 +277,15 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         order_ids = self.request.session.get(ORDERS_SESSION_KEY, [])
         order_ids.append(order.pk)
         self.request.session[ORDERS_SESSION_KEY] = order_ids
-        path = reverse("shop:checkout", kwargs={"path": "confirmation"})
-        return furl(path).set({"orderId": order.pk}).url
+        return order.get_confirmation_link()
+
+
+class OrderConfirmationEmailView(
+    DevViewMixin, EmailDebugViewMixin, DetailView
+):  # pragma: nocover
+    model = Order
+
+    def get_email_content(self):
+        order = self.get_object()
+        mode = self._get_mode()
+        return render_order_confirmation_email(order, mode=mode)
