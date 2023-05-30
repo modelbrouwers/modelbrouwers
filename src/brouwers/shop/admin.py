@@ -226,6 +226,7 @@ class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
                 )
             },
         ),
+        (_("Email"), {"fields": ("from_email",)}),
     )
 
 

@@ -1,0 +1,27 @@
+{% load static i18n emails %}
+{% static 'images/logo/logo_winkel.jpg' as logo_path %}
+{% url 'index' as url_homepage %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{ title|default:_('E-mail wrapper') }}</title>
+</head>
+
+<body style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000; border: none; margin: 0; padding: 0;">
+    <div style="width: 680px;">
+        <a style="text-decoration: none;" href="{% absolute_url main_website_url|default:url_homepage %}">
+            <img
+                src="{% absolute_url logo_path %}"
+                width="438" height="98"
+                style="width: 428px; height: 98px; margin-bottom: 20px; border: none;"
+                alt="{% trans 'Website logo' %}"
+            />
+        </a>
+
+        <div>
+            {% block content %}<strong>content goes here</strong>{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

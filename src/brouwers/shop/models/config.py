@@ -31,6 +31,17 @@ class ShopConfiguration(SingletonModel):
     )
     paypal_secret = models.CharField(_("paypal API secret"), max_length=200, blank=True)
 
+    # e-mails
+    from_email = models.EmailField(
+        _("from email"),
+        blank=True,
+        help_text=_(
+            "Email address for outgoing e-mails. This will end up in the 'From' header - "
+            "you must ensure that your outgoing email server is appropriately "
+            "configured. If left blank, the default value from the settings is used."
+        ),
+    )
+
     class Meta:
         verbose_name = _("Shop configuration")
 

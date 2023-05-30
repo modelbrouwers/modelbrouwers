@@ -36,6 +36,7 @@ class CustomIndexDashboard(Dashboard):
                 _("Shop: orders"),
                 models=(
                     "brouwers.shop.models.cart.Cart",
+                    "brouwers.shop.models.orders.Order",
                     "brouwers.shop.models.payments.Payment",
                 ),
             )

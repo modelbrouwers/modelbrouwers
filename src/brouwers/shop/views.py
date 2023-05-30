@@ -14,9 +14,11 @@ from django.urls.converters import SlugConverter
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
+from django.views.generic.detail import SingleObjectMixin
 
 from furl import furl
 
+from brouwers.emails.views import BaseEmailDebugView
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from .constants import (
@@ -24,6 +26,10 @@ from .constants import (
     ORDERS_SESSION_KEY,
     CartStatuses,
     PaymentStatuses,
+)
+from .emails import (
+    render_order_confirmation as render_order_confirmation_email,
+    send_order_confirmation_email,
 )
 from .models import (
     Cart,
@@ -245,7 +251,6 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         total_amount = int(cart.total * 100)
 
         # store order
-        # TODO: check if there's an existing order to update instead
         order = serializer.save_order()
         payment = Payment.objects.create(
             order=order,
@@ -258,6 +263,9 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         # remove cart from session
         if self.request.session.get(CART_SESSION_KEY) == cart.id:
             del self.request.session[CART_SESSION_KEY]
+
+        base_url = request.build_absolute_uri(reverse("index"))
+        transaction.on_commit(lambda: send_order_confirmation_email(order, base_url))
 
         success_url = self.get_success_url(order)
         start_payment_response = start_payment(
@@ -277,5 +285,15 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         order_ids = self.request.session.get(ORDERS_SESSION_KEY, [])
         order_ids.append(order.pk)
         self.request.session[ORDERS_SESSION_KEY] = order_ids
-        path = reverse("shop:checkout", kwargs={"path": "confirmation"})
-        return furl(path).set({"orderId": order.pk}).url
+        return order.get_confirmation_link()
+
+
+class OrderConfirmationEmailView(
+    SingleObjectMixin, BaseEmailDebugView
+):  # pragma: no cover
+    model = Order
+
+    def get_email_content(self, mode):
+        order = self.get_object()
+        base_url = self.request.build_absolute_uri(reverse("index"))
+        return render_order_confirmation_email(order, furl(base_url), mode=mode)

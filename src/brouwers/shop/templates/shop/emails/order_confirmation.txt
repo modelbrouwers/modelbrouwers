@@ -1,0 +1,44 @@
+{% load i18n %}
+
+{% blocktranslate with reference=order.reference %}
+Thank you - your Modelbrouwers order {{ reference }} was sucessfully received.
+
+Your order will be processed as soon as we receive payment confirmation.
+{% endblocktranslate %}
+
+{% translate "Order number" %}: {{ order.reference }}
+{% translate "Order date" %}: {{ order.date }}
+{% translate "Status" %}: {{ order.status }}
+
+{% translate "Payment method" %}: {{ order.payment_method|default:'-' }}
+{% translate "Payment status" %}: {{ order.payment_status|default:'-' }}
+{% if order.shipping_method %}{% translate "Shipping method" %}: {{ order.shipping_method|default:'-' }}{% endif %}
+
+{% if instructions.strip %}
+{% translate "Instructions" %}
+
+{{ instructions }}
+{% endif %}
+
+{% translate "Shipping address" %}:
+{% include "./includes/address.txt" with address=delivery_address name=customer_name only %}
+
+{% translate "Invoice address" %}:
+{% include "./includes/address.txt" with address=invoice_address name=customer_name only %}
+
+{% blocktrans count count=products|length %}
+Product:{% plural %}
+Products:{% endblocktrans %}{% for product in products %}
+{{ product.amount }}x {{ product.name }} € {{ product.price|floatformat:"2g" }}
+{% endfor %}
+
+
+{% translate "Subtotal" %}: € {{ subtotal|floatformat:"2g" }}
+{% translate "VAT" %}: € {{ total_vat|floatformat:"2g" }}
+{% translate "Total" %}: € {{ total|floatformat:"2g" }}
+
+{% blocktranslate with link=order.link %}
+To view your order, please navigate to: {{ link }}
+{% endblocktranslate %}
+
+{% translate "You can reply to this email if you have any questions." %}

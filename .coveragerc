@@ -3,7 +3,13 @@ branch = True
 source = src
 
 [report]
-omit = */migrations/*,*/tests/*,src/conf/settings/*,src/manage.py,src/conf/wsgi.py
+omit =
+    */migrations/*
+    */tests/*
+    src/conf/settings/*
+    src/manage.py
+    src/conf/wsgi.py
+    src/brouwers/emails/urls.py
 exclude_lines =
 	pragma: no cover
 

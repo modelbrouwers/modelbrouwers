@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% if address.company %}
+    {% blocktrans with company=address.company trimmed %}
+    {{ company }}; to the attention of {{ name }}
+    {% endblocktrans %}
+{% else %}
+    {{ name }}
+{% endif %}
+<br>
+
+{{ address.street }} {{ address.number }}
+<br>
+{{ address.postal_code }} {{ address.city }}
+<br>
+{{ address.get_country_display }}

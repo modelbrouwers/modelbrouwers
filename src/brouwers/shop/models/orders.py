@@ -1,7 +1,11 @@
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from furl import furl
 
 from brouwers.general.fields import CountryField
 
@@ -98,6 +102,9 @@ class Order(models.Model):
     # metadata
     created = models.DateTimeField(_("created"), auto_now_add=True)
     modified = models.DateTimeField(_("modified"), auto_now=True)
+    language = models.CharField(
+        _("language"), max_length=10, default="nl", choices=settings.LANGUAGES
+    )
 
     payment: "Payment"
 
@@ -107,3 +114,11 @@ class Order(models.Model):
 
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)
+
+    def get_full_name(self) -> str:
+        bits = [self.first_name, self.last_name]
+        return " ".join(bits).strip()
+
+    def get_confirmation_link(self) -> str:
+        path = reverse("shop:checkout", kwargs={"path": "confirmation"})
+        return furl(path).set({"orderId": self.pk}).url

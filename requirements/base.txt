@@ -47,6 +47,7 @@ django==3.2.19
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
+    #   mail-cleaner
 django-admin-tools==0.9.2
     # via -r requirements/base.in
 django-autoslug==1.9.8
@@ -106,6 +107,10 @@ html5lib==1.1
 idna==3.3
     # via requests
 lxml==4.9.1
+    # via
+    #   -r requirements/base.in
+    #   mail-cleaner
+mail-cleaner==1.1.0
     # via -r requirements/base.in
 markuppy==1.14
     # via tablib
