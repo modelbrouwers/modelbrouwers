@@ -39,6 +39,10 @@
                 {{ order.date }}
                 <br />
 
+                <strong>{% translate "Status" %}: </strong>
+                {{ order.status }}
+                <br />
+
                 <strong>{% translate "Payment method" %}: </strong>
                 {{ order.payment_method|default:'-' }}
                 <br />

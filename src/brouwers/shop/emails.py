@@ -36,6 +36,12 @@ def send_order_confirmation_email(order: Order, base_url: str) -> None:
     )
 
 
+ORDER_CONFIRMATION_TEMPLATE_NAMES = {
+    "text": "shop/emails/order_confirmation.txt",
+    "html": "shop/emails/order_confirmation.html",
+}
+
+
 def render_order_confirmation(
     order: Order, base: furl, mode: Literal["text", "html"]
 ) -> str:
@@ -45,7 +51,7 @@ def render_order_confirmation(
     if not base.netloc:  # pragma: no cover
         raise ValueError("Unsupported base URL provided")
 
-    template = get_template("shop/emails/order_confirmation.html")
+    template = get_template(ORDER_CONFIRMATION_TEMPLATE_NAMES[mode])
 
     payment = order.payment if hasattr(order, "payment") else None
 
@@ -58,7 +64,10 @@ def render_order_confirmation(
         Decimal(0),
     )
 
-    confirmation_url = base.copy().set(path=order.get_confirmation_link())
+    confirmation_url = furl(order.get_confirmation_link())
+    confirmation_url.scheme = base.scheme
+    confirmation_url.netloc = base.netloc
+
     with translation.override(order.language):
         context = {
             "base": base,
@@ -71,6 +80,7 @@ def render_order_confirmation(
                 "link": confirmation_url.url,
                 # TODO: store and use user timezone?
                 "date": timezone.localtime(order.created).date(),
+                "status": order.get_status_display(),
                 "payment_method": payment.payment_method.name if payment else None,
                 "payment_status": payment.get_status_display() if payment else None,
                 # "shipping_method": "TODO",
@@ -89,5 +99,8 @@ def render_order_confirmation(
             "total_vat": total_vat.quantize(TWO_DIGITS),
         }
         content = template.render(context)
+
+    if mode == "text":
+        content = strip_tags_plus(content)
 
     return sanitize_content(content, allowlist=[base.netloc])

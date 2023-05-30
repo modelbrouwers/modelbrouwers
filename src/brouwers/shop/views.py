@@ -290,7 +290,7 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
 
 class OrderConfirmationEmailView(
     SingleObjectMixin, BaseEmailDebugView
-):  # pragma: nocover
+):  # pragma: no cover
     model = Order
 
     def get_email_content(self, mode):

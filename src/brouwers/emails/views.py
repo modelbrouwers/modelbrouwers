@@ -40,7 +40,7 @@ class BaseEmailDebugView(DevViewMixin, View):  # pragma: no cover
         mode = self._get_mode()
         content = self.get_email_content(mode)
         if mode == "text":
-            content_type = "text/plain"
+            content_type = "text/plain; charset=utf-8"
         elif mode == "html":
             content_type = "text/html"
         else:
