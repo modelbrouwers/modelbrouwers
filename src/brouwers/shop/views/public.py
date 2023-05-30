@@ -14,24 +14,17 @@ from django.urls.converters import SlugConverter
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
-from django.views.generic.detail import SingleObjectMixin
 
-from furl import furl
-
-from brouwers.emails.views import BaseEmailDebugView
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
-from .constants import (
+from ..constants import (
     CART_SESSION_KEY,
     ORDERS_SESSION_KEY,
     CartStatuses,
     PaymentStatuses,
 )
-from .emails import (
-    render_order_confirmation as render_order_confirmation_email,
-    send_order_confirmation_email,
-)
-from .models import (
+from ..emails import send_order_confirmation_email
+from ..models import (
     Cart,
     Category,
     CategoryCarouselImage,
@@ -40,9 +33,9 @@ from .models import (
     Payment,
     Product,
 )
-from .payments.service import register, start_payment
-from .serializers import ConfirmOrderSerializer
-from .utils import ViewFunc, view_instance
+from ..payments.service import register, start_payment
+from ..serializers import ConfirmOrderSerializer
+from ..utils import ViewFunc, view_instance
 
 logger = logging.getLogger(__name__)
 
@@ -286,14 +279,3 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         order_ids.append(order.pk)
         self.request.session[ORDERS_SESSION_KEY] = order_ids
         return order.get_confirmation_link()
-
-
-class OrderConfirmationEmailView(
-    SingleObjectMixin, BaseEmailDebugView
-):  # pragma: no cover
-    model = Order
-
-    def get_email_content(self, mode):
-        order = self.get_object()
-        base_url = self.request.build_absolute_uri(reverse("index"))
-        return render_order_confirmation_email(order, furl(base_url), mode=mode)
