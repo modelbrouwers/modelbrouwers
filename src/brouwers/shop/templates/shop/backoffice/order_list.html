@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Orders" %}{% endblock %}
+
+{% block body-class %}shop-backoffice{% endblock body-class %}
+
+{% block eye-catcher %}
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            <div class="row">
+                <h1 class="col-md-8">{% trans "Orders" %}</h1>
+                <div class="col-md-4">
+                    <br />
+                    <i class="pull-right fa fa-building fa-2x"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <section>
+        {% for order in orders %}
+            <div class="order order--summary" style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+
+                <div class="order__reference">
+                    {{ order.reference }}
+                </div>
+
+                <div class="order__name">
+                    {{ order.get_full_name }}
+                </div>
+
+                {# Status information #}
+                <div class="order__status">
+                    {{ order.get_status_display }}
+                </div>
+
+                <div class="order__payment-status">
+                    {{ order.payment.get_status_display }}
+                </div>
+
+                <div class="order__total_price">
+                    {{ order.payment.format_amount }}
+                </div>
+
+                <div class="order__created">
+                    <time timestamp="{{ order.created.isoformat }}">
+                    {% blocktrans with since=order.created|timesince trimmed %}
+                        {{ since }} ago
+                    {% endblocktrans %}
+                    </time>
+                </div>
+
+                <div class="order__modified">
+                    <time timestamp="{{ order.modified.isoformat }}">
+                    {% blocktrans with since=order.modified|timesince trimmed %}
+                        {{ since }} ago
+                    {% endblocktrans %}
+                    </time>
+                </div>
+
+            </div>
+        {% endfor %}
+    </section>
+    {% include "includes/pagination.html" %}
+{% endblock %}

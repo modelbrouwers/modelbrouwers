@@ -1,16 +1,31 @@
-from django.urls import path
+from django.urls import include, path
 
 from .payments.paypal.views import (
     CancelView as PPCancelView,
     ReturnView as PPReturnView,
 )
 from .payments.sisow.views import PaymentCallbackView as SisowCallbackView
-from .views import CartDetailView, CheckoutView, ConfirmOrderView, IndexView, RouterView
+from .views import (
+    CartDetailView,
+    CheckoutView,
+    ConfirmOrderView,
+    IndexView,
+    OrderListView,
+    RouterView,
+)
 
 app_name = "shop"
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
+    path(
+        "backoffice/",
+        include(
+            [
+                path("orders/", OrderListView.as_view(), name="order-list"),
+            ]
+        ),
+    ),
     path("cart/<int:pk>/", CartDetailView.as_view(), name="cart-detail"),
     # payments
     path(
