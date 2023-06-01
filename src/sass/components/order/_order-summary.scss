@@ -1,0 +1,52 @@
+@use "../../modules/bem";
+
+.order-summary {
+  display: block;
+  padding: 1em;
+  border: solid 1px #e6e6e6;
+
+  &:not(:last-child) {
+    margin-block-end: 20px;
+  }
+
+  @include bem.element("details") {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    align-items: center;
+    border-bottom: solid 2px #999;
+    padding-block-end: 0.5em;
+    margin-block-end: 0.5em;
+  }
+
+  @include bem.element("reference") {
+    font-weight: 700;
+  }
+
+  @include bem.element("status-row") {
+    padding: 0.5em;
+    background: #ededed;
+    margin-block-end: 0.5em;
+  }
+
+  @include bem.element("status-title") {
+    display: block;
+    font-weight: 900;
+
+    &:not(:first-child) {
+      margin-block-start: 1em;
+    }
+  }
+
+  @include bem.element("status-row-header") {
+    display: block;
+    border-bottom: solid 1px #e6e6e6;
+    margin-block-end: 0.5em;
+  }
+
+  @include gt-mobile {
+    @include bem.element("status-row-header") {
+      display: none;
+    }
+  }
+}

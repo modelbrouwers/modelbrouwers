@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n shop %}
 
 {% block title %} {% trans "Orders" %}{% endblock %}
 
@@ -22,43 +22,67 @@
 {% block content %}
     <section>
         {% for order in orders %}
-            <div class="order order--summary" style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+            <div class="order-summary">
 
-                <div class="order__reference">
-                    {{ order.reference }}
-                </div>
-
-                <div class="order__name">
-                    {{ order.get_full_name }}
+                <div class="order-summary__details">
+                    <span class="order-summary__reference" title="{% trans 'Order number' %}">
+                        {{ order.reference }}
+                    </span>
+                    <span class="order-summary__name" title="{% trans 'Customer' %}">
+                        {{ order.get_full_name }}
+                    </span>
                 </div>
 
                 {# Status information #}
-                <div class="order__status">
-                    {{ order.get_status_display }}
+                <div class="order-summary__status-row">
+                    <span class="order-summary__status-title">
+                        {% trans 'Order status' %}
+                    </span>
+                    {% order_status order %}
+
+                    <span class="order-summary__status-title">
+                        {% trans 'Payment status' %}
+                    </span>
+                    {% if order.payment %}
+                        {% payment_status order.payment %}
+                    {% else %}
+                        {% trans "No payment information for order." %}
+                    {% endif %}
                 </div>
 
-                <div class="order__payment-status">
-                    {{ order.payment.get_status_display }}
+                <div class="key-value key-value--stretch-mobile key-value--plain">
+                    <div class="key-value__label">
+                        {% trans "Total price" %}
+                    </div>
+                    <div class="key-value__text">
+                        {{ order.payment.format_amount }}
+                    </div>
                 </div>
 
-                <div class="order__total_price">
-                    {{ order.payment.format_amount }}
+                <div class="key-value key-value--stretch-mobile key-value--plain">
+                    <div class="key-value__label">
+                        {% trans 'Placed' %}
+                    </div>
+                    <div class="key-value__text">
+                        <time datetime="{{ order.created.isoformat }}">
+                        {% blocktrans with since=order.created|timesince trimmed %}
+                            {{ since }} ago
+                        {% endblocktrans %}
+                        </time>
+                    </div>
                 </div>
 
-                <div class="order__created">
-                    <time timestamp="{{ order.created.isoformat }}">
-                    {% blocktrans with since=order.created|timesince trimmed %}
-                        {{ since }} ago
-                    {% endblocktrans %}
-                    </time>
-                </div>
-
-                <div class="order__modified">
-                    <time timestamp="{{ order.modified.isoformat }}">
-                    {% blocktrans with since=order.modified|timesince trimmed %}
-                        {{ since }} ago
-                    {% endblocktrans %}
-                    </time>
+                <div class="key-value key-value--stretch-mobile key-value--plain">
+                    <div class="key-value__label">
+                        {% trans 'Last modified' %}
+                    </div>
+                    <div class="key-value__text">
+                        <time datetime="{{ order.modified.isoformat }}">
+                        {% blocktrans with since=order.modified|timesince trimmed %}
+                            {{ since }} ago
+                        {% endblocktrans %}
+                        </time>
+                    </div>
                 </div>
 
             </div>
