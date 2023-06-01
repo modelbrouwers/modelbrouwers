@@ -1,7 +1,8 @@
 from django import template
 from django.template import Library, TemplateSyntaxError
 
-from ..models import Category, Product
+from ..constants import OrderStatuses, PaymentStatuses
+from ..models import Category, Order, Payment, Product
 
 register = Library()
 
@@ -116,3 +117,23 @@ def do_get_active_node(parser, token):
         current_node_var=parser.compile_filter(current_node_var),
         asvar=asvar,
     )
+
+
+@register.inclusion_tag("shop/includes/status_progress.html")
+def order_status(order: Order):
+    # map value -> label
+    choices_order = (
+        OrderStatuses.received,
+        OrderStatuses.processing,
+        OrderStatuses.shipped,
+    )
+    progression = [(value, OrderStatuses.values[value]) for value in choices_order]
+    return {"steps": progression, "current": order.status}
+
+
+@register.inclusion_tag("shop/includes/status_progress.html")
+def payment_status(payment: Payment):
+    # map value -> label
+    choices_order = (PaymentStatuses.pending, PaymentStatuses.completed)
+    progression = [(value, PaymentStatuses.values[value]) for value in choices_order]
+    return {"steps": progression, "current": payment.status}
