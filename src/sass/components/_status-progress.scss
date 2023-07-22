@@ -14,6 +14,7 @@ $status-progress-padding-inline: 0.5em;
     border-top: solid 1px $main-grey;
     margin-inline-start: 0.5em;
     margin-inline-end: 0.5em;
+    min-width: 1em;
   }
 
   @include bem.element("step") {
