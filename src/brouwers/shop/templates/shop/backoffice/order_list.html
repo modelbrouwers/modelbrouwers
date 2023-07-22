@@ -46,11 +46,11 @@
                     {% if order.payment %}
                         {% payment_status order.payment %}
                     {% else %}
-                        {% trans "No payment information for order." %}
+                        {% trans "No payment information." %}
                     {% endif %}
                 </div>
 
-                <div class="key-value key-value--stretch-mobile key-value--plain">
+                <div class="order-summary__price key-value key-value--stretch-mobile key-value--plain">
                     <div class="key-value__label">
                         {% trans "Total price" %}
                     </div>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
 
-                <div class="key-value key-value--stretch-mobile key-value--plain">
+                <div class="order-summary__created key-value key-value--stretch-mobile key-value--plain">
                     <div class="key-value__label">
                         {% trans 'Placed' %}
                     </div>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
 
-                <div class="key-value key-value--stretch-mobile key-value--plain">
+                <div class="order-summary__modified key-value key-value--stretch-mobile key-value--plain">
                     <div class="key-value__label">
                         {% trans 'Last modified' %}
                     </div>

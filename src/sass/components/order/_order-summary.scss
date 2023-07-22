@@ -1,4 +1,5 @@
 @use "../../modules/bem";
+@use "../../modules/responsive";
 
 .order-summary {
   display: block;
@@ -47,6 +48,75 @@
   @include gt-mobile {
     @include bem.element("status-row-header") {
       display: none;
+    }
+  }
+}
+
+@mixin kv-grid-column($area) {
+  @include bem.element($area) {
+    grid-area: $area;
+    display: block;
+    padding-inline: 1em;
+
+    &.key-value .key-value__label {
+      display: none;
+    }
+  }
+}
+
+@include responsive.gte-tablet {
+  .order-summary {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0 1em;
+    grid-template-areas:
+      "details created modified price"
+      "statuses statuses statuses statuses";
+    align-items: start;
+    padding-inline: 0;
+    padding-block: 1em 0;
+    border-block-end: dotted 1px $main-grey;
+
+    &:not(:last-child) {
+      margin-block-end: 0;
+    }
+
+    &:not(:first-child) {
+      border-block-start: none;
+    }
+
+    @include bem.element("details") {
+      grid-area: details;
+      border-block: none;
+      margin-block: 0;
+      padding-block: 0 1em;
+      padding-inline: 1em;
+      justify-content: flex-start;
+      font-size: 1.2em;
+    }
+
+    @include kv-grid-column(created);
+    @include kv-grid-column(modified);
+    @include kv-grid-column(price);
+
+    @include bem.element("status-row") {
+      grid-area: statuses;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      align-items: center;
+      gap: 0 2em;
+      margin-block-end: 0;
+      padding-inline: 1em;
+    }
+
+    @include bem.element("status-title") {
+      display: flex;
+      font-weight: 400;
+
+      &:not(:first-child) {
+        margin-block-start: 0;
+      }
     }
   }
 }

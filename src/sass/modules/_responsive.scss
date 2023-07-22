@@ -20,6 +20,12 @@ $laptop-breakpoint: 1200px;
   }
 }
 
+@mixin gte-tablet {
+  @media (min-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
 @mixin laptop {
   @media (min-width: $tablet-breakpoint) and (max-width: $laptop-breakpoint - 1px) {
     @content;
