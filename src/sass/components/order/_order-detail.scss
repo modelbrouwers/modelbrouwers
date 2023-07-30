@@ -1,2 +1,55 @@
+@use "../../modules/bem";
+@use "../../modules/responsive";
+
 .order-detail {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "status customer"
+    "products customer";
+  gap: 10px;
+
+  address {
+    margin: 0;
+  }
+
+  @include bem.element("status") {
+    grid-area: status;
+  }
+
+  @include bem.element("products") {
+    grid-area: products;
+  }
+
+  @include bem.element("customer") {
+    grid-area: customer;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@include responsive.lte-mobile {
+  .order-detail {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "status"
+      "products"
+      "customer";
+  }
+}
+
+@include responsive.gte-tablet {
+  .order-detail {
+    @include bem.element("customer") {
+      align-self: start;
+      position: sticky;
+      top: 20px;
+      box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+        0 2px 8px 0 rgba(0, 157, 255, 0.05);
+      padding-inline-start: 10px;
+      padding-inline-end: 10px;
+    }
+  }
 }
