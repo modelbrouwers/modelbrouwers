@@ -41,7 +41,10 @@
     </section>
 
     <section class="order-detail__products">
-        <h2>{% trans "Products" %}</h2>
+        <h2>
+            {% trans "Products" %}
+            <span class="badge">{{ num_products }}</span>
+        </h2>
         <ul>
             {% for cart_product in order.cart.products.all %}
                 <li>
@@ -58,47 +61,58 @@
         </ul>
     </section>
 
-    <section class="order-detail__address order-detail__address--delivery">
-        <h2>{% trans "Delivery address" %}</h2>
+    <div class="order-detail__customer">
 
-        {% include "shop/includes/address.html" with address=order.delivery_address %}
-    </section>
+        <section class="order-detail__address order-detail__address--delivery">
+            <h2>{% trans "Delivery address" %}</h2>
 
-    <section class="order-detail__address order-detail__address--invoice">
-        <h2>{% trans "Invoice address" %}</h2>
+            {% include "shop/includes/address.html" with address=order.delivery_address %}
+        </section>
 
-        {% if not order.invoice_address %}
-            {% trans "Same as delivery address." %}
-        {% else %}
-            {% include "shop/includes/address.html" with address=order.invoice_address %}
-        {% endif %}
-    </section>
+        <section class="order-detail__address order-detail__address--invoice">
+            <h2>{% trans "Invoice address" %}</h2>
 
-    <aside class="order-detail__meta">
-        <h2>{% trans "Details" %}</h2>
-        <p>
-            Customer name: <strong>{{ order.get_full_name }}</strong>
-        </p>
-        <p>
-            Contact details:
-            <ul>
-                <li>{{ order.email }}</li>
-                {% if order.phone %}<li>{{ order.phone }}</li>{% endif %}
-            </ul>
-        </p>
-        <p>
-            Created:
-            <time datetime="{{ order.created.isoformat }}">{{ order.created|timesince }} ago </time>
-        </p>
-        <p>
-            Last modified:
-            <time datetime="{{ order.modified.isoformat }}">{{ order.modified|timesince }} ago </time>
-        </p>
-        <p>
-            Language: {{ order.get_language_display }}
-        </p>
+            {% if not order.invoice_address %}
+                <p>{% trans "Same as delivery address." %}</p>
+            {% else %}
+                {% include "shop/includes/address.html" with address=order.invoice_address %}
+            {% endif %}
+        </section>
 
-    </aside>
+        <aside class="order-detail__meta">
+            <h2>{% trans "Details" %}</h2>
+            <p>
+                Customer name: <strong>{{ order.get_full_name }}</strong>
+            </p>
+            <p>
+                Contact details:
+                <ul>
+                    <li><a href="mailto:{{ order.email }}">{{ order.email }}</a></li>
+                    {% if order.phone %}
+                        <li><a href="tel:{{ order.phone }}">{{ order.phone }}</a></li>
+                    {% endif %}
+                </ul>
+            </p>
+            <p>
+                Created:
+                <time
+                    datetime="{{ order.created.isoformat }}"
+                    title="{{ order.created }}"
+                > {{ order.created|timesince }} ago </time>
+            </p>
+            <p>
+                Last modified:
+                <time
+                    datetime="{{ order.modified.isoformat }}"
+                    title="{{ order.modified }}"
+                > {{ order.modified|timesince }} ago </time>
+            </p>
+            <p>
+                Language: {{ order.get_language_display }}
+            </p>
+
+        </aside>
+    </div>
 
 </article>
 {% endblock %}

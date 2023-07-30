@@ -21,3 +21,13 @@ class OrderDetailView(BackofficeRequiredMixin, DetailView):
     slug_url_kwarg = "reference"
     template_name = "shop/backoffice/order_detail.html"
     context_object_name = "order"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["num_products"] = sum(
+            (
+                cart_product.amount
+                for cart_product in context["order"].cart.products.all()
+            )
+        )
+        return context
