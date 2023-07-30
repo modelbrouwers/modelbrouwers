@@ -1,11 +1,11 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
 
 from ..models import Order
 
 
 class BackofficeRequiredMixin(PermissionRequiredMixin):
-    permission_required = "shop.can_change_order"
+    permission_required = "shop.change_order"
 
 
 class OrderListView(BackofficeRequiredMixin, ListView):
@@ -13,3 +13,11 @@ class OrderListView(BackofficeRequiredMixin, ListView):
     context_object_name = "orders"
     template_name = "shop/backoffice/order_list.html"
     paginate_by = 25
+
+
+class OrderDetailView(BackofficeRequiredMixin, DetailView):
+    queryset = Order.objects.select_related("cart", "payment")
+    slug_field = "reference"
+    slug_url_kwarg = "reference"
+    template_name = "shop/backoffice/order_detail.html"
+    context_object_name = "order"
