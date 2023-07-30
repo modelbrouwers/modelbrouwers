@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% load i18n shop %}
 
-{% block title %} {% trans "Orders" %}{% endblock %}
+{% block title %} {% trans "Shop backoffice | Orders" %}{% endblock %}
 
 {% block body-class %}shop-backoffice{% endblock body-class %}
 
 {% block eye-catcher %}
     <header class="container-fluid eye-catcher">
         <div class="container">
-            <div class="row">
-                <h1 class="col-md-8">{% trans "Orders" %}</h1>
-                <div class="col-md-4">
-                    <br />
-                    <i class="pull-right fa fa-building fa-2x"></i>
-                </div>
-            </div>
+            <h1>
+                {% trans "Orders" %}
+                <i class="pull-right fa fa-shopping-bag fa-2x"></i>
+            </h1>
+
+            <p>{% blocktrans trimmed %}
+                Overview of all orders, sorted by most recently placed first.
+            {% endblocktrans %}</p>
         </div>
     </header>
 {% endblock %}

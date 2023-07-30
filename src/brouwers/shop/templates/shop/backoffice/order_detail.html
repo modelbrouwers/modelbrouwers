@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n shop %}
+
+{% block title %}
+{% blocktrans with ref=order.reference %}Shop backoffice | Order {{ ref }}{% endblocktrans %}
+{% endblock %}
+
+{% block body-class %}shop-backoffice{% endblock body-class %}
+
+
+{% block eye-catcher %}
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            <h1>
+                {{ order.reference }}
+                <i class="pull-right fa fa-shopping-bag fa-2x"></i>
+            </h1>
+
+            <p>{% blocktrans trimmed %}
+                Order details.
+            {% endblocktrans %}</p>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
