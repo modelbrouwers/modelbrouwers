@@ -10,6 +10,7 @@ from .views import (
     CheckoutView,
     ConfirmOrderView,
     IndexView,
+    OrderDetailView,
     OrderListView,
     RouterView,
 )
@@ -23,6 +24,16 @@ urlpatterns = [
         include(
             [
                 path("orders/", OrderListView.as_view(), name="order-list"),
+                path(
+                    "orders/<slug:reference>/",
+                    OrderDetailView.as_view(),
+                    name="order-detail",
+                ),
+                path(
+                    "order/<slug:reference>/",
+                    OrderDetailView.as_view(),
+                    name="order-detail",
+                ),
             ]
         ),
     ),

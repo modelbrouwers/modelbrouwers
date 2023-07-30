@@ -1,4 +1,4 @@
-from .backoffice import OrderListView
+from .backoffice import OrderDetailView, OrderListView
 from .dev import OrderConfirmationEmailView
 from .public import (
     CartDetailView,
@@ -20,4 +20,5 @@ __all__ = [
     "ConfirmOrderView",
     "OrderConfirmationEmailView",
     "OrderListView",
+    "OrderDetailView",
 ]
