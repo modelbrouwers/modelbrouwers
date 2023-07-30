@@ -2,7 +2,11 @@ from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse_lazy
 
+from django_webtest import WebTest
+
 from brouwers.users.tests.factories import UserFactory
+
+from ..factories import OrderFactory
 
 LIST_URL = reverse_lazy("shop:order-list")
 
@@ -34,3 +38,18 @@ class OrderListTests(TestCase):
         response = self.client.get(LIST_URL)
 
         self.assertEqual(response.status_code, 200)
+
+
+class FunctionalOrderListTests(WebTest):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.user = UserFactory.create(superuser=True)
+
+    def test_order_references_listed(self):
+        OrderFactory.create(reference="MB-1234")
+
+        response = self.app.get(LIST_URL, user=self.user)
+
+        self.assertContains(response, "MB-1234")
