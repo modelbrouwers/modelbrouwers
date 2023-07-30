@@ -11,7 +11,7 @@ $status-progress-padding-inline: 0.5em;
   @include bem.element("spacer") {
     flex-grow: 1;
     flex-basis: 100%;
-    border-top: solid 1px $main-grey;
+    border-top: dotted 1px $main-grey;
     margin-inline-start: 0.5em;
     margin-inline-end: 0.5em;
     min-width: 1em;
