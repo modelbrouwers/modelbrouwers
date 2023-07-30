@@ -1,8 +1,21 @@
+import functools
+
+from django.contrib.auth.models import Permission
 from django.utils import timezone
 
 import factory
 
 from ..models import User
+
+
+@functools.lru_cache
+def get_all_permissions():
+    all_permissions = Permission.objects.prefetch_related("content_type")
+    mapped_perms = {
+        f"{perm.content_type.app_label}.{perm.codename}": perm
+        for perm in all_permissions
+    }
+    return mapped_perms
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -21,6 +34,17 @@ class UserFactory(factory.django.DjangoModelFactory):
             is_staff=True,
             is_superuser=True,
         )
+
+    @factory.post_generation
+    def permissions(obj, create, extracted, **kwargs):
+        """ """
+        if not create or not extracted:
+            return
+
+        perms = get_all_permissions()
+        expected_perms = [perms[code] for code in extracted]
+        obj.user_permissions.set(expected_perms)
+        return expected_perms
 
 
 class DataDownloadRequestFactory(factory.django.DjangoModelFactory):
