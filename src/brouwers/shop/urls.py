@@ -25,12 +25,12 @@ urlpatterns = [
             [
                 path("orders/", OrderListView.as_view(), name="order-list"),
                 path(
-                    "orders/<slug:reference>/",
+                    "order/<slug:reference>/",
                     OrderDetailView.as_view(),
                     name="order-detail",
                 ),
                 path(
-                    "order/<slug:reference>/",
+                    "orders/<slug:reference>/",
                     OrderDetailView.as_view(),
                     name="order-detail",
                 ),
