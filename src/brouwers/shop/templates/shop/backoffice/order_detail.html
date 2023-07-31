@@ -49,20 +49,37 @@
             {% trans "Products" %}
             <span class="badge">{{ num_products }}</span>
         </h2>
-        <ul>
+
+        <ul class="product-list">
+
+            <li class="product-list__product product-list__product--headings">
+                <span aria-hidden="true">&nbsp;</span>
+                <span class="product-list__product-link">{% trans "Product" %}</span>
+                <span class="product-list__product-model">{% trans "Model" %}</span>
+                <span class="product-list__product-amount">{% trans "Amount" %}</span>
+            </li>
+
             {% for cart_product in order.cart.products.all %}
-                <li>
-                    <p>{{ cart_product.product.name }} x {{ cart_product.amount }}</p>
-                    <p>
-                        {% trans "Product details:" %}
-                        <br>
-                        <br>
-                        {% trans "Model name" %}: {{ cart_product.product.model_name }}
-                    </p>
-                    <img src="{{ cart_product.product.get_image_url }}" class="img-responsive">
+                {% with product=cart_product.product name=cart_product.product.name %}
+                <li class="product-list__product">
+                    <img
+                        src="{{ cart_product.product.get_image_url }}"
+                        class="img-responsive"
+                        alt="{% blocktrans %}Product image for '{{ name }}' {% endblocktrans %}"
+                    >
+                    <a
+                        href="{% url 'admin:shop_product_change' product.pk %}"
+                        class="product-list__product-link"
+                    >{{ name }}</a>
+                    <span class="product-list__product-model">
+                        {{ product.model_name|default:_('-') }}
+                    </span>
+                    <span class="product-list__product-amount">{{ cart_product.amount }}</span>
                 </li>
+                {% endwith %}
             {% endfor %}
         </ul>
+
     </section>
 
     <div class="order-detail__customer">
