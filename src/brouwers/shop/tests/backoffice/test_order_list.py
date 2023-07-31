@@ -53,3 +53,11 @@ class FunctionalOrderListTests(WebTest):
         response = self.app.get(LIST_URL, user=self.user)
 
         self.assertContains(response, "MB-1234")
+
+    def test_go_to_order_detail_page(self):
+        OrderFactory.create(reference="MB-1234")
+
+        list_page = self.app.get(LIST_URL, user=self.user)
+        detail_page = list_page.click("MB-1234")
+
+        self.assertTemplateUsed(detail_page, "shop/backoffice/order_detail.html")

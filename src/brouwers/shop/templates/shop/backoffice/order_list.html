@@ -26,9 +26,9 @@
             <div class="order-summary">
 
                 <div class="order-summary__details">
-                    <span class="order-summary__reference" title="{% trans 'Order number' %}">
+                    <a href="{% url 'shop:order-detail' reference=order.reference %}" class="order-summary__reference" title="{% trans 'Order number' %}">
                         {{ order.reference }}
-                    </span>
+                    </a>
                     <span class="order-summary__name" title="{% trans 'Customer' %}">
                         {{ order.get_full_name }}
                     </span>
