@@ -12,12 +12,16 @@
     <header class="container-fluid eye-catcher">
         <div class="container">
             <h1>
-                {{ order.reference }} <small>{{ order.get_full_name }}</small>
+                {{ order.reference }} <small>&mdash; {{ order.get_full_name }}</small>
                 <i class="pull-right fa fa-shopping-bag fa-2x"></i>
             </h1>
+            <a href="{% url 'shop:order-list' %}" class="backlink backlink--light">
+                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                {% trans "back to overview" %}
+            </a>
 
             <p>{% blocktrans trimmed %}
-                Order details.
+                All the details of the shop order.
             {% endblocktrans %}</p>
         </div>
     </header>
