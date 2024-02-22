@@ -31,3 +31,9 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return _("{name} - {preview}").format(name=self.name, preview=self.preview)
+
+    def notify_creation(self) -> None:
+        """
+        Send a notification email.
+        """
+        ...  # TODO

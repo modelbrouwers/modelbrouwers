@@ -6,6 +6,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views.generic.base import RedirectView, TemplateView
 
+from brouwers.contact.views import ContactMessageCreateView
+
 # FIXME: this breaks laziness
 FORUM_URL = settings.PHPBB_URL
 FORUM_URL = FORUM_URL[1:] if FORUM_URL.startswith("/") else FORUM_URL
@@ -14,6 +16,11 @@ FORUM_URL = FORUM_URL if FORUM_URL.endswith("/") else FORUM_URL + "/"
 
 urlpatterns = (
     [
+        # contact page because the live shop contact page email handling is horrible and gets
+        # blocked by mail servers (including our own)
+        path("winkel/contact", ContactMessageCreateView.as_view()),
+        path("winkel/contact/", ContactMessageCreateView.as_view(), name="contact"),
+        # normal application
         path("admin/rosetta/", include("rosetta.urls")),
         path("admin/", admin.site.urls),
         path("admin_tools/", include("admin_tools.urls")),
