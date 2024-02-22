@@ -137,6 +137,7 @@ INSTALLED_APPS = [
     "brouwers.banning",
     "brouwers.builds",
     "brouwers.brouwersdag",
+    "brouwers.contact",
     "brouwers.emails",
     "brouwers.forum_tools",
     "brouwers.general",
