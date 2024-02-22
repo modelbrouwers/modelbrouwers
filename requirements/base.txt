@@ -176,7 +176,7 @@ six==1.16.0
     #   orderedmultidict
     #   python-dateutil
     #   python-memcached
-sorl-thumbnail==12.8.0
+sorl-thumbnail==12.10.0
     # via -r requirements/base.in
 sqlparse==0.4.4
     # via django

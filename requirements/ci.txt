@@ -268,7 +268,7 @@ six==1.16.0
     #   requests-mock
 sniffio==1.3.0
     # via trio
-sorl-thumbnail==12.8.0
+sorl-thumbnail==12.10.0
     # via -r requirements/base.txt
 sortedcontainers==2.4.0
     # via trio
