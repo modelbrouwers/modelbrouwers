@@ -28,7 +28,7 @@ jobs:
 
     services:
       postgres:
-        image: docker.io/library/postgres:10
+        image: docker.io/library/postgres:14
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
@@ -42,11 +42,11 @@ jobs:
           - 11211:11211
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.9"
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -71,7 +71,7 @@ jobs:
     name: Docker image build
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Determine tag/commit hash
         id: vars
         run: |
@@ -95,7 +95,7 @@ jobs:
             .
       - run: docker image save -o image.tar $IMAGE_NAME:${{ steps.vars.outputs.tag }}
       - name: Store image artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-image
           path: image.tar
