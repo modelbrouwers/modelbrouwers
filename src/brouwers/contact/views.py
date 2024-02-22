@@ -4,12 +4,13 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 
+from .forms import ContactMessageForm
 from .models import ContactMessage
 
 
 class ContactMessageCreateView(SuccessMessageMixin, CreateView):
     model = ContactMessage
-    fields = ("name", "email", "message")
+    form_class = ContactMessageForm
     success_url = reverse_lazy("contact")
     success_message = _(
         "Thank you for your message, we will get back to you as soon as possible."

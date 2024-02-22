@@ -24,6 +24,12 @@
     {% form_field form.email %}
     {% form_field form.message %}
 
+    <div class="row">
+        <div class="col-md-offset-2 col-xs-10">
+            {{ form.captcha }}
+        </div>
+    </div>
+
     {% widget 'form:submit' btn_text=btn_text|default:_('Send message') %}
 </form>
 {% endblock %}

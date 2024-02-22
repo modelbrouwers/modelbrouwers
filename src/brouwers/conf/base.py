@@ -130,6 +130,7 @@ INSTALLED_APPS = [
     "import_export",
     "solo",
     "corsheaders",
+    "django_recaptcha",
     # Modelbrouwers
     "brouwers.users",
     "brouwers.albums",
@@ -519,6 +520,11 @@ BLEACH_ALLOWED_ATTRIBUTES = {
 }
 BLEACH_STRIP_TAGS = True
 
+#
+# DJANGO-RECAPTCHA
+#
+RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY", default="")
+RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY", default="")
 
 #
 # PHPBB

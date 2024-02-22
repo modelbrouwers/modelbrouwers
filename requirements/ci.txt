@@ -69,6 +69,7 @@ django==3.2.24
     #   django-js-asset
     #   django-modeltranslation
     #   django-precise-bbcode
+    #   django-recaptcha
     #   django-rosetta
     #   django-sendfile2
     #   django-sessionprofile
@@ -107,6 +108,8 @@ django-loginas==0.3.11
 django-modeltranslation==0.18.7
     # via -r requirements/base.txt
 django-precise-bbcode==1.2.15
+    # via -r requirements/base.txt
+django-recaptcha==4.0.0
     # via -r requirements/base.txt
 django-rosetta==0.9.8
     # via -r requirements/base.txt
