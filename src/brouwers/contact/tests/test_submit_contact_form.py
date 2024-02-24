@@ -1,4 +1,5 @@
 from django.core import mail
+from django.db import connections
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
@@ -10,6 +11,25 @@ from ..models import ContactMessage
 
 
 class SubmitContactMessageTests(WebTest):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        # it's SQlite in tests, if this breaks -> update your databases setting in
+        # local.py
+        with connections["legacy_shop"].cursor() as cursor:
+            sql = """
+                CREATE TABLE IF NOT EXISTS oc_setting (
+                  "setting_id" INTEGER NOT NULL PRIMARY KEY,
+                  "store_id" INTEGER NOT NULL DEFAULT 0,
+                  "group" TEXT NOT NULL,
+                  "key" TEXT NOT NULL,
+                  "value" TEXT NOT NULL,
+                  "serialized" INTEGER NOT NULL
+                )
+            """
+            cursor.execute(sql)
+
     @mock_recaptcha(is_valid=True, action="contact")
     def test_submit_valid_message(self, m):
         url = reverse("contact")

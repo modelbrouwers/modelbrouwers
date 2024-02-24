@@ -490,7 +490,7 @@ msgstr "Gebruikersdetails"
 
 #: templates/users/profile_edit.html:48
 msgid "Address"
-msgstr "adres"
+msgstr "Adres"
 
 #: templates/users/profile_edit.html:52
 msgid "Awards"

@@ -1,0 +1,41 @@
+@use "../../modules/responsive";
+
+body.contact-page {
+  --contact-page-title-vertical-spacing: 20px;
+
+  .eye-catcher {
+    padding-block-start: var(--contact-page-title-vertical-spacing);
+    padding-block-end: var(--contact-page-title-vertical-spacing);
+
+    h1 {
+      margin-block-start: 0;
+      margin-block-end: 0;
+    }
+  }
+
+  @include responsive.lte-mobile {
+    --contact-page-title-vertical-spacing: 10px;
+
+    .contact {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  @include responsive.gt-mobile {
+    .contact {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 40px;
+
+      &__details {
+        flex-basis: 34%;
+      }
+
+      &__form {
+        flex-basis: 66%;
+      }
+    }
+  }
+}
