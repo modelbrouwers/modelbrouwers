@@ -18,7 +18,7 @@ SYNCDB_MODELS = [
 ]
 
 
-class ForumToolsRouter:
+class Router:
     def db_for_read(self, model, **hints):
         if model.__name__ in MYSQL_MODELS and model._meta.app_label == "forum_tools":
             return "mysql"
