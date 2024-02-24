@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-24 15:44+0100\n"
+"POT-Creation-Date: 2024-02-24 18:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,9 @@ msgstr "gelezen"
 
 #: models.py:23
 msgid "Mark messages as read to keep track of what still requires action."
-msgstr "Markeer berichten als gelezen om bij te houden wat nog behandeld dient te worden."
+msgstr ""
+"Markeer berichten als gelezen om bij te houden wat nog behandeld dient te "
+"worden."
 
 #: models.py:26
 msgid "created on"
@@ -59,16 +61,28 @@ msgstr "Bericht van {name} - {preview}"
 msgid "[Modelbrouwers.nl] New contact form message"
 msgstr "[Modelbrouwers.nl] Nieuw contactformulierbericht"
 
-#: templates/contact/contactmessage_form.html:3
-#: templates/contact/contactmessage_form.html:9
+#: templates/contact/contactmessage_form.html:5
+#: templates/contact/contactmessage_form.html:11
 msgid "Contact us"
 msgstr "Neem contact op"
 
-#: templates/contact/contactmessage_form.html:18
+#: templates/contact/contactmessage_form.html:22
+msgid "Our company details"
+msgstr "Onze bedrijfsgegevens"
+
+#: templates/contact/contactmessage_form.html:24
+msgid "Address"
+msgstr "Adres"
+
+#: templates/contact/contactmessage_form.html:31
+msgid "Phone number"
+msgstr "Telefoon"
+
+#: templates/contact/contactmessage_form.html:38
 msgid "Contact form"
 msgstr "Contactformulier"
 
-#: templates/contact/contactmessage_form.html:33
+#: templates/contact/contactmessage_form.html:56
 msgid "Send message"
 msgstr "Verstuur bericht"
 
@@ -100,11 +114,10 @@ msgstr ""
 "\n"
 "-----------------------------\n"
 "\n"
-"Je kan deze e-mail beantwoorden om hun meteen een antwoord te sturen. Dit bericht is "
-"ook in het admin-panel bewaard.\n"
+"Je kan deze e-mail beantwoorden om hun meteen een antwoord te sturen. Dit "
+"bericht is ook in het admin-panel bewaard.\n"
 
-#: views.py:16
+#: views.py:18
 msgid ""
 "Thank you for your message, we will get back to you as soon as possible."
-msgstr ""
-"Bedankt voor je bericht, we zullen dit zo snel mogelijk beantwoorden."
+msgstr "Bedankt voor je bericht, we zullen dit zo snel mogelijk beantwoorden."

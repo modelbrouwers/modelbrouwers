@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-24 15:44+0100\n"
+"POT-Creation-Date: 2024-02-24 18:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,16 +59,28 @@ msgstr ""
 msgid "[Modelbrouwers.nl] New contact form message"
 msgstr ""
 
-#: templates/contact/contactmessage_form.html:3
-#: templates/contact/contactmessage_form.html:9
+#: templates/contact/contactmessage_form.html:5
+#: templates/contact/contactmessage_form.html:11
 msgid "Contact us"
 msgstr ""
 
-#: templates/contact/contactmessage_form.html:18
+#: templates/contact/contactmessage_form.html:22
+msgid "Our company details"
+msgstr ""
+
+#: templates/contact/contactmessage_form.html:24
+msgid "Address"
+msgstr ""
+
+#: templates/contact/contactmessage_form.html:31
+msgid "Phone number"
+msgstr ""
+
+#: templates/contact/contactmessage_form.html:38
 msgid "Contact form"
 msgstr ""
 
-#: templates/contact/contactmessage_form.html:33
+#: templates/contact/contactmessage_form.html:56
 msgid "Send message"
 msgstr ""
 
@@ -90,7 +102,7 @@ msgid ""
 "recorded in the admin panel.\n"
 msgstr ""
 
-#: views.py:16
+#: views.py:18
 msgid ""
 "Thank you for your message, we will get back to you as soon as possible."
 msgstr ""
