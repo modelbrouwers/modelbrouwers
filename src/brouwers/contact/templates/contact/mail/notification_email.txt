@@ -1,0 +1,13 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with name=message.name content=message.message email=message.email %}
+{{ name }} just sent a message through the website's contact form.
+
+Their email address is: {{ email }}.
+
+-----------------------------
+
+{{ content }}
+
+-----------------------------
+
+You can reply to this email to send them a reply. This message is also recorded in the admin panel.
+{% endblocktrans %}{% endautoescape %}

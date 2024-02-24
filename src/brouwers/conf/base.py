@@ -130,6 +130,7 @@ INSTALLED_APPS = [
     "import_export",
     "solo",
     "corsheaders",
+    "django_recaptcha",
     # Modelbrouwers
     "brouwers.users",
     "brouwers.albums",
@@ -137,6 +138,7 @@ INSTALLED_APPS = [
     "brouwers.banning",
     "brouwers.builds",
     "brouwers.brouwersdag",
+    "brouwers.contact",
     "brouwers.emails",
     "brouwers.forum_tools",
     "brouwers.general",
@@ -254,6 +256,9 @@ EMAIL_TIMEOUT = 10
 
 SERVER_EMAIL = "beheer@modelbrouwers.nl"
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", SERVER_EMAIL)
+
+# Custom settings for email flows
+EMAIL_CONTACT_NOTIFICATION = config("EMAIL_CONTACT_NOTIFICATION", default=SERVER_EMAIL)
 
 #
 # LOGGING
@@ -518,6 +523,11 @@ BLEACH_ALLOWED_ATTRIBUTES = {
 }
 BLEACH_STRIP_TAGS = True
 
+#
+# DJANGO-RECAPTCHA
+#
+RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY", default="")
+RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY", default="")
 
 #
 # PHPBB

@@ -1,0 +1,35 @@
+{% extends "base.html" %}{% load i18n sniplates %}
+
+{% block title %} {% trans "Contact us" %}{% endblock %}
+
+{% block eye-catcher %}
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            <h1>
+                {% trans "Contact us" %}
+                <i class="pull-right fa fa-envelope-o"></i>
+            </h1>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+
+<h2>{% trans "Contact form" %}</h2>
+<form id="contact" action="{% url 'contact' %}" class="form-horizontal" method="post">
+    {% csrf_token %}
+    {% load_widgets form='horizontal.form' %}
+
+    {% form_field form.name %}
+    {% form_field form.email %}
+    {% form_field form.message %}
+
+    <div class="row">
+        <div class="col-md-offset-2 col-xs-10">
+            {{ form.captcha }}
+        </div>
+    </div>
+
+    {% widget 'form:submit' btn_text=btn_text|default:_('Send message') %}
+</form>
+{% endblock %}
