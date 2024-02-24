@@ -257,6 +257,9 @@ EMAIL_TIMEOUT = 10
 SERVER_EMAIL = "beheer@modelbrouwers.nl"
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", SERVER_EMAIL)
 
+# Custom settings for email flows
+EMAIL_CONTACT_NOTIFICATION = config("EMAIL_CONTACT_NOTIFICATION", default=SERVER_EMAIL)
+
 #
 # LOGGING
 #

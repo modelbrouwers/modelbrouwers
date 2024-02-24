@@ -1,7 +1,11 @@
+from django.conf import settings
+from django.core.mail import EmailMessage
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db import models
+from django.template.loader import render_to_string
+from django.utils import translation
 from django.utils.text import Truncator
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 
 class ContactMessage(models.Model):
@@ -36,4 +40,20 @@ class ContactMessage(models.Model):
         """
         Send a notification email.
         """
-        ...  # TODO
+        email_to = settings.EMAIL_CONTACT_NOTIFICATION
+
+        # notification recipients are Dutch speaking
+        with translation.override("nl"):
+            body = render_to_string(
+                "contact/mail/notification_email.txt", context={"message": self}
+            )
+            subject = gettext("[Modelbrouwers.nl] New contact form message")
+
+        msg = EmailMessage(
+            subject=subject,
+            body=body,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[email_to],
+            reply_to=[self.email],
+        )
+        msg.send()

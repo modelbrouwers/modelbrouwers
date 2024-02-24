@@ -34,3 +34,8 @@ class SubmitContactMessageTests(WebTest):
 
         with self.subTest("Notification email"):
             self.assertEqual(len(mail.outbox), 1)
+
+            msg = mail.outbox[0]
+
+            self.assertEqual(msg.reply_to, ["donald@disney.com"])
+            self.assertIn("Quack quack quack\nBest, Dolan", msg.body)
