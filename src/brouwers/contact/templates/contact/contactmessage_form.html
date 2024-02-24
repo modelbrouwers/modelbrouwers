@@ -1,5 +1,7 @@
 {% extends "base.html" %}{% load i18n sniplates %}
 
+{% block body-class %}contact-page{% endblock %}
+
 {% block title %} {% trans "Contact us" %}{% endblock %}
 
 {% block eye-catcher %}
@@ -14,22 +16,46 @@
 {% endblock %}
 
 {% block content %}
+<div class="contact">
 
-<h2>{% trans "Contact form" %}</h2>
-<form id="contact" action="{% url 'contact' %}" class="form-horizontal" method="post">
-    {% csrf_token %}
-    {% load_widgets form='horizontal.form' %}
+    <div class="contact__details">
+        <h2>{% trans "Our company details" %}</h2>
 
-    {% form_field form.name %}
-    {% form_field form.email %}
-    {% form_field form.message %}
+        <strong>{% trans "Address" %}</strong>
+        <p>
+            <address>
+                {{ contact_details.address|linebreaksbr }}
+            </address>
+        </p>
 
-    <div class="row">
-        <div class="col-md-offset-2 col-xs-10">
-            {{ form.captcha }}
-        </div>
+        <strong>{% trans "Phone number" %}</strong>
+        <p>
+            <a href="tel:{{ contact_details.telephone|cut:' ' }}">{{ contact_details.telephone }}</a>
+        </p>
     </div>
 
-    {% widget 'form:submit' btn_text=btn_text|default:_('Send message') %}
-</form>
+    <div class="contact__form">
+        <h2>{% trans "Contact form" %}</h2>
+        <form id="contact" action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+
+            {% load_widgets form='horizontal.form' %}
+
+            {% with label_grid='-' field_grid='-' %}
+                {% form_field form.name %}
+                {% form_field form.email %}
+                {% form_field form.message %}
+            {% endwith %}
+
+            <div class="row">
+                <div class="col-md-offset-2 col-xs-10">
+                    {{ form.captcha }}
+                </div>
+            </div>
+
+            {% widget 'form:submit' btn_text=btn_text|default:_('Send message') %}
+        </form>
+    </div>
+
+</div>
 {% endblock %}

@@ -164,7 +164,7 @@ msgstr "gebruikersnaam"
 
 #: models.py:94
 msgid "email"
-msgstr "emails"
+msgstr "e-mailadres"
 
 #: models.py:98
 msgid "A hash of the user's email address."

@@ -77,12 +77,22 @@ DATABASES = {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES', storage_engine=MYISAM",
         },
     },
+    "legacy_shop": {  # read data from the legacy shop database
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": config("LEGACY_SHOP_DB_NAME", "shop_brouwers"),
+        "USER": config("LEGACY_SHOP_DB_USER", "brouwers"),
+        "PASSWORD": config("LEGACY_SHOP_DB_PASSWORD", "brouwers"),
+        "HOST": config("LEGACY_SHOP_DB_HOST", "localhost"),
+        "OPTIONS": {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES', storage_engine=MYISAM",
+        },
+    },
 }
 
 # Change to BigAutoField on Django 4+
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-DATABASE_ROUTERS = ["brouwers.forum_tools.db_router.ForumToolsRouter"]
+DATABASE_ROUTERS = ["brouwers.db_router.Router"]
 
 CACHES = {
     "default": {
@@ -147,6 +157,7 @@ INSTALLED_APPS = [
     "brouwers.kitreviews",
     "brouwers.online_users",
     "brouwers.utils",
+    "brouwers.legacy_shop",
     "brouwers.shop",
 ]
 
