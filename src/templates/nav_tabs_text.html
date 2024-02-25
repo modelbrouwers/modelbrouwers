@@ -20,10 +20,12 @@
     </li>
 
     <li id="tab-shop" class="tab">
+        {% with url_shop=url_shop|default:'/winkel/' %}
         <a
             href="/winkel/"
             {% if request.path|startswith:url_shop %} class="active"{% endif %}
             title="{% trans 'Visit the shop!' %}">{% trans "shop" %}</a>
+        {% endwith %}
     </li>
 
     <li id="tab-albums" class="tab">
