@@ -1,4 +1,4 @@
-from ..models import GroupBuild, GroupbuildStatuses as GBStatuses
+from ..models import GroupBuild
 
 
 class GroupBuildDetailMixin(object):
@@ -22,17 +22,11 @@ class GroupBuildDetailMixin(object):
         ctx = super().get_context_data(**kwargs)
 
         user = self.request.user
-        can_edit = (
-            user.is_authenticated
-            and self.object.status != GBStatuses.submitted
-            and (user.is_superuser or self.object in user.admin_groupbuilds.all())
-        )
         participants = self.object.participant_set.select_related("user").order_by("id")
         ctx.update(
             {
                 "admins": self.object.admins.all(),
                 "participants": participants,
-                "can_edit": can_edit,
             }
         )
 

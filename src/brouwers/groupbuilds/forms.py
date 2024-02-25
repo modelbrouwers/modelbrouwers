@@ -61,15 +61,6 @@ class GroupBuildForm(forms.ModelForm):
         return duration
 
 
-class DateForm(forms.Form):
-    date = forms.DateField(required=False)
-
-    def get_date(self):
-        if self.is_valid():
-            return self.cleaned_data["date"]
-        return None
-
-
 class ParticipantForm(forms.ModelForm):
     class Meta:
         model = Participant

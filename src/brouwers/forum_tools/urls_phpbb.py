@@ -5,7 +5,7 @@ from django.views.generic import RedirectView
 
 class ForumRedirectView(RedirectView):
     url = settings.PHPBB_URL
-    permanent = True
+    permanent = False
 
 
 app_name = "forum_tools"

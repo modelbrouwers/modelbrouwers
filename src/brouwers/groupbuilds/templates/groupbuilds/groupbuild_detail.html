@@ -58,11 +58,6 @@
 
                     <h3>
                         {% trans "All you need to know..." %}
-                        {% if can_edit %}
-                        <small>
-                            <a class="pull-right" href="{% url 'groupbuilds:edit' slug=gb.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                        </small>
-                        {% endif %}
                     </h3>
 
                     <ul class="nav nav-tabs" role="tablist">
@@ -123,12 +118,9 @@
                                                 {% endif %}
                                             </td>
                                             <td class="col-xs-1">
-                                                <a href="{% url 'groupbuilds:update-participant' slug=gb.slug pk=participant.pk %}" class="action"><i class="fa fa-pencil"></i></a>
-
                                                 <a href="#" class="action" data-toggle="finished" data-id="{{ participant.pk }}">
                                                     <i class="fa fa-{{ participant.finished|yesno:'ellipsis-h,check' }}"></i>
                                                 </a>
-
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -177,31 +169,9 @@
 
             <div class="col-md-3">
 
-                {% if gb.is_open %}
-                    <h3>
-                        {% if gb.is_ongoing %}
-                            {% trans "Join us!" %}
-                        {% else %}
-                            {% trans "Show your interest!" %}
-                        {% endif %}
-                    </h3>
-                    <form action="{% url 'groupbuilds:participate' slug=gb.slug %}" method="post" class="well">
-                        {% csrf_token %}
-                        {% load_widgets form='stacked.form' %}
-                        {% for field in participate_form %}
-                            {% form_field field %}
-                        {% endfor %}
-                        <button type="submit" class="btn bg-main-orange">{% trans "Submit!" %}</button>
-                        <p>
-                            <small>{% trans "Hitting the button is enough, but providing more information is always nice!" %}</small>
-                        </p>
-                    </form>
-                {% endif %}
-
                 {% include 'groupbuilds/includes/progress.html' %}
 
                 {% include 'groupbuilds/includes/links.html' %}
-
 
                 <h3>{% blocktrans count count=gb.n_admins %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
                 <aside>
@@ -227,11 +197,6 @@
                     <p class="well">
                         <input value="{{ gb.get_bbcode }}" class="form-control">
                     </p>
-                    {% url 'groupbuilds:submit' slug=gb.slug as submit_url %}
-                    {% if gb.is_submittable and request.path != submit_url %}
-                        <h3>{% trans "Set it in stone!" %}</h3>
-                        <a href="{{ submit_url }}" class="btn bg-main-orange btn-big">{% trans "Submit request" %}</a>
-                    {% endif %}
                 {% endif %}
 
             </div>

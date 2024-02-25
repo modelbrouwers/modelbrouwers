@@ -1,33 +1,14 @@
 from django.urls import path
+from django.views.generic import RedirectView
 
-from .views.admin import (
-    GroupBuildCreateView,
-    GroupBuildSubmitView,
-    GroupBuildUpdateView,
-)
-from .views.participant import (
-    GroupBuildParticipateView,
-    MyGroupbuildsListView,
-    ParticipantUpdateView,
-)
-from .views.public import GroupBuildDetailView, GroupBuildListView
+from .views.public import GroupBuildDetailView
 
 app_name = "groupbuilds"
 urlpatterns = [
-    path("", GroupBuildListView.as_view(), name="groupbuild-list"),
-    path("dashboard/", MyGroupbuildsListView.as_view(), name="dashboard"),
-    path("concept/", GroupBuildCreateView.as_view(), name="create"),
+    path(
+        "",
+        RedirectView.as_view(permanent=False, url="/phpBB3/viewforum.php?f=266"),
+        name="groupbuild-list",
+    ),
     path("<slug:slug>/", GroupBuildDetailView.as_view(), name="detail"),
-    path("<slug:slug>/edit/", GroupBuildUpdateView.as_view(), name="edit"),
-    path("<slug:slug>/submit/", GroupBuildSubmitView.as_view(), name="submit"),
-    path(
-        "<slug:slug>/participate/",
-        GroupBuildParticipateView.as_view(),
-        name="participate",
-    ),
-    path(
-        "<slug:slug>/participant/<int:pk>/",
-        ParticipantUpdateView.as_view(),
-        name="update-participant",
-    ),
 ]
