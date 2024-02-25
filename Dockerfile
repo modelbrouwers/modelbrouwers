@@ -7,7 +7,7 @@
 # includes compilers and build tooling to create the environment
 FROM python:3.9-slim-bullseye AS backend-build
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install-recommends \
         pkg-config \
         build-essential \
         libpq-dev \
@@ -49,7 +49,7 @@ FROM python:3.9-slim-bullseye
 
 # Stage 3.1 - Set up the needed production dependencies
 # install all the dependencies for GeoDjango
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install-recommends \
         procps \
         vim \
         mime-support \
