@@ -57,7 +57,14 @@
                     <i class="fa fa-user"></i>
                     {% blocktrans %}logged in as <a href="{{ profile_url }}">{{ user }}</a>{% endblocktrans %}
                     &bull;
-                    <a href="{% url 'users:logout' %}">{% trans "logout" %}</a>
+
+                    <form id="logout" action="{% url 'users:logout' %}" method="post" class="form form--inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link">
+                            {% trans "logout" %}
+                        </button>
+                    </form>
+
                 {% else %}
                     <a href="{% url 'users:login' %}?next={{ request.path }}">{% trans "Login" %}</a>
                     &bull;

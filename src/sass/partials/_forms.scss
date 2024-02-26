@@ -25,7 +25,6 @@ form {
   }
 
   fieldset {
-
     &.well {
       h3 {
         margin-top: 0;
@@ -33,7 +32,7 @@ form {
     }
 
     &.tab-pane {
-      border: solid 1px #DDD;
+      border: solid 1px #ddd;
       border-top: none;
       padding: 15px;
       margin-bottom: 15px;
@@ -41,12 +40,22 @@ form {
   }
 }
 
+.form.form--inline {
+  display: inline;
+
+  .btn-link {
+    display: inline;
+    padding: 0;
+  }
+}
 
 /* buttons */
-.btn {
+.btn:not(.btn-link) {
   color: $white;
 
-  &:hover, &:active, &:focus {
+  &:hover,
+  &:active,
+  &:focus {
     color: $white;
     text-decoration: underline;
   }
@@ -61,7 +70,7 @@ form {
 
     &:hover,
     &:focus {
-      opacity: 1.0;
+      opacity: 1;
     }
   }
 }
@@ -80,13 +89,10 @@ form {
   }
 }
 
-
 .formset-form {
-
   position: relative;
 
   .DELETE {
-
     .checkbox {
       position: static;
     }
@@ -104,7 +110,7 @@ form {
 
       &:hover,
       &:focus {
-        opacity: 1.0;
+        opacity: 1;
       }
     }
 
@@ -133,7 +139,6 @@ form {
   }
 }
 
-
 @mixin slider-thumb() {
   &::-webkit-slider-thumb {
     margin-top: -7px;
@@ -146,7 +151,6 @@ form {
     @content;
   }
 }
-
 
 @mixin slider-track() {
   &::-webkit-slider-runnable-track {
@@ -162,7 +166,6 @@ form {
   }
 }
 
-
 input[type="range"] {
   appearance: none;
   background: transparent;
@@ -173,7 +176,7 @@ input[type="range"] {
 
   @include slider-thumb {
     appearance: none;
-    transition: background .5s ease;
+    transition: background 0.5s ease;
     border: 1px solid $main-orange;
     border-radius: 50%;
     height: 16px;
