@@ -42,14 +42,7 @@
             {% form_field form.password1 %}
             {% form_field form.password2 %}
         </fieldset>
-
-        <h2>{% trans "Anti-spam question" %}</h2>
-        <p>{% trans "Carefully read the question, the answer is often literally in there!" %}</p>
-        <fieldset class="well">
-            {% form_field form.question 'form:HiddenSelect' %}
-            {% form_field form.answer %}
-            {% form_field form.accept_terms %}
-        </fieldset>
+        {{ form.captcha }}
         {% endwith %}
 
         <div class="submit-wrapper">

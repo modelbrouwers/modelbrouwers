@@ -2,10 +2,11 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db import transaction
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.utils.translation import get_language, ugettext as _
+from django.utils.translation import ugettext as _
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 
@@ -14,11 +15,7 @@ from extra_views import InlineFormSetFactory, NamedFormsetsMixin, UpdateWithInli
 
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
-from brouwers.general.models import (
-    RegistrationAttempt,
-    RegistrationQuestion,
-    UserProfile,
-)
+from brouwers.general.models import UserProfile
 from brouwers.utils.views import LoginRequiredMixin
 
 from .forms import AuthForm, UserCreationForm
@@ -121,64 +118,18 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
     form_class = UserCreationForm
     template_name = "users/register.html"
     success_url = reverse_lazy("users:profile")
-    registration_attempt = None
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect("index")
         return super().get(request, *args, **kwargs)
 
-    def get_initial(self):
-        initial = super().get_initial()
-        lang = get_language()[:2]
-        initial["question"] = (
-            RegistrationQuestion.active.filter(lang=lang).order_by("?").first()
-        )
-        return initial
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["request"] = self.request
-        return kwargs
-
-    def log_registration(self, form):
-        if settings.LOG_REGISTRATION_ATTEMPTS:
-            self.registration_attempt = RegistrationAttempt.objects.create_from_form(
-                self.request, form.cleaned_data
-            )
-
-    def form_invalid(self, form):
-        """Log the registration attempts before handling the form"""
-        rest_valid = set(form.errors.keys()).issubset(set(["answer", "__all__"]))
-        if rest_valid:
-            self.log_registration(form)
-        if self.registration_attempt:
-            self.registration_attempt.set_ban()  # FIXME
-        return super().form_invalid(form)
-
     def form_valid(self, form):
-        """
-        If the user is consider trustworthy, log him/her in. Else,
-        make the account inactive and send an e-mail to the admins.
-        """
-        self.log_registration(form)
         response = super().form_valid(form)
+        self.do_login(form)
 
         mail = UserRegistrationEmail(user=self.object)
-        mail.send()
-
-        if self.registration_attempt:
-            # possible spammer: log attemt, send e-mail
-            if self.registration_attempt.potential_spammer:
-                self.object.is_active = False
-                self.object.save()
-                # TODO: e-mail send_inactive_user_mail(new_user), template is in general app
-            else:
-                self.do_login(form)
-                self.registration_attempt.success = True
-                self.registration_attempt.save()
-        else:
-            self.do_login(form)
+        transaction.on_commit(mail.send)
         return response
 
     def do_login(self, form):

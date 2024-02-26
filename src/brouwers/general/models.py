@@ -10,7 +10,6 @@ from django.utils.translation import get_language, ugettext_lazy as _, ungettext
 from brouwers.awards.models import Category
 
 from .fields import CountryField
-from .utils import get_client_ip, lookup_http_blacklist
 
 MAX_REGISTRATION_ATTEMPTS = 3
 STANDARD_BAN_TIME_HOURS = 12
@@ -70,75 +69,12 @@ class UserProfile(models.Model):
         return ok
 
 
-class QuestionAnswer(models.Model):
-    answer = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.answer
-
-
-class ActiveQuestionsManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(in_use=True)
-
-
-class RegistrationQuestion(models.Model):
-    question = models.CharField(
-        _("Anti-spambot question"),
-        max_length=255,
-        help_text=_("Question which must be answered for registration."),
-    )
-    answers = models.ManyToManyField(QuestionAnswer, blank=True)
-    in_use = models.BooleanField(default=True)
-
-    lang = models.CharField(
-        _("language"), max_length=10, choices=settings.LANGUAGES, default="nl"
-    )
-
-    objects = models.Manager()
-    active = ActiveQuestionsManager()
-
-    def __str__(self):
-        return self.question
-
-
-class RegistrationAttemptManager(models.Manager):
-    def create_from_form(self, request, form_data):
-        ip = get_client_ip(request)  # FIXME: clean format?
-        kwargs = {
-            "username": form_data.get("username")
-            or request.POST.get("username")
-            or "__blank",
-            "question": form_data["question"],
-            "answer": form_data.get("answer") or request.POST.get("answer"),
-            "ip_address": ip,
-            "email": form_data.get("email") or "",
-        }
-
-        type_of_visitor, potential_spammer = lookup_http_blacklist(ip)
-        if type_of_visitor is not None and potential_spammer is not None:
-            kwargs.update(
-                {
-                    "potential_spammer": potential_spammer,
-                    "type_of_visitor": type_of_visitor,
-                }
-            )
-
-        return self.create(**kwargs)
-
-
 class RegistrationAttempt(models.Model):
     # same as forum_nickname
     username = models.CharField(
         _("username"), max_length=512, db_index=True, default="_not_filled_in_"
     )
     email = models.EmailField(_("email"), max_length=255, blank=True)
-    question = models.ForeignKey(
-        RegistrationQuestion,
-        verbose_name=_("registration question"),
-        on_delete=models.CASCADE,
-    )
-    answer = models.CharField(_("answer"), max_length=255, blank=True)
     timestamp = models.DateTimeField(_("timestamp"), auto_now_add=True)
     ip_address = models.GenericIPAddressField(_("IP address"), db_index=True)
     success = models.BooleanField(_("success"), default=False)
@@ -152,8 +88,6 @@ class RegistrationAttempt(models.Model):
         "banning.Ban", blank=True, null=True, on_delete=models.SET_NULL
     )
 
-    objects = RegistrationAttemptManager()
-
     class Meta:
         verbose_name = _("registration attempt")
         verbose_name_plural = _("registration attempts")
@@ -161,10 +95,6 @@ class RegistrationAttempt(models.Model):
 
     def __str__(self):
         return self.username
-
-    @property
-    def question_short(self):
-        return str(self.question)[:15]
 
     def _is_banned(self):
         return self.ban_id is not None
