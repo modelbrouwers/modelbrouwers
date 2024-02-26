@@ -34,9 +34,9 @@
             {% widget 'form:non_field_errors' %}
 
             {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
-            {% for field in form %}
-                {% form_field field %}
-            {% endfor %}
+                {% form_field form.username %}
+                {% form_field form.password %}
+                {{ form.captcha }}
             {% endwith %}
             <div class="submit-wrapper">
                 <button type="submit" class="btn bg-main-orange">{% trans "Come on in" %}</button>

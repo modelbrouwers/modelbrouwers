@@ -11,6 +11,7 @@ from brouwers.kits.models import Brand
 from brouwers.kits.tests.factories import ModelKitFactory
 from brouwers.users.tests.factories import UserFactory
 from brouwers.utils.tests.mixins import LoginRequiredMixin, WebTestFormMixin
+from brouwers.utils.tests.recaptcha import mock_recaptcha
 
 from ..models import KitReview
 from .factories import KitReviewFactory, KitReviewPropertyFactory
@@ -223,7 +224,8 @@ class SearchViewTests(WebTest):
         self.assertQuerysetEqual(queryset, [repr(self.kit1)])
         self.assertEqual(queryset[0].num_reviews, 1)
 
-    def test_anonymous_add_kit(self):
+    @mock_recaptcha(is_valid=True, action="login")
+    def test_anonymous_add_kit(self, m):
         """
         When not logged in, you may not get the popup to add a kit, but you must
         be presented with a login button.
@@ -246,6 +248,7 @@ class SearchViewTests(WebTest):
         user = UserFactory.create(password="letmein")
         login_page.form["username"] = user.username
         login_page.form["password"] = "letmein"
+        login_page.form["captcha"] = "dummy"
         search_results = login_page.form.submit().follow()
         self.assertEqual(search_results.request.url, search_url)
         self.assertContains(search_results, _("Add kit"))

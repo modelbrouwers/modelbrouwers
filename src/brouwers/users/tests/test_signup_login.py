@@ -19,7 +19,8 @@ class LoginRegisterTests(WebTest):
         self.user = UserFactory(username=username)
         self.forum_user = ForumUserFactory(username=username)
 
-    def test_login(self):
+    @mock_recaptcha(is_valid=True, action="login")
+    def test_login(self, m):
         """Test that we can log in with the forum name containing spaces"""
         # production -> redirect to php index
         response = self.client.get("/")
@@ -35,24 +36,28 @@ class LoginRegisterTests(WebTest):
             "username": self.forum_user.username,
             "password": "password",
             "next": "/index.php",
+            "captcha": "dummy",
         }
         response = self.client.post(settings.LOGIN_URL, post_data)
         # redirects
         self.assertRedirects(response, "/index.php", target_status_code=404)
         self.assertIn("_auth_user_id", self.client.session)
 
-    def test_email_login(self):
+    @mock_recaptcha(is_valid=True, action="login")
+    def test_email_login(self, m):
         """Test that we can also login with the e-mail address"""
         post_data = {
             "username": self.user.email,
             "password": "password",
             "next": "/index.php",
+            "captcha": "dummy",
         }
         response = self.client.post(settings.LOGIN_URL, post_data)
         self.assertRedirects(response, "/index.php", target_status_code=404)
         self.assertIn("_auth_user_id", self.client.session)
 
-    def test_login_email_longer_than_30_chars_possible(self):
+    @mock_recaptcha(is_valid=True, action="login")
+    def test_login_email_longer_than_30_chars_possible(self, m):
         user = UserFactory.create(
             email="i-am-longer-than-30-characters@example.com", password="so-secret"
         )
@@ -66,6 +71,7 @@ class LoginRegisterTests(WebTest):
         with self.subTest("logging in with credentials"):
             login_form["username"] = "i-am-longer-than-30-characters@example.com"
             login_form["password"] = "so-secret"
+            login_form["captcha"] = "dummy"
 
             response = login_form.submit()
 
@@ -73,7 +79,8 @@ class LoginRegisterTests(WebTest):
             user_id = int(self.app.session["_auth_user_id"])
             self.assertEqual(user_id, user.id)
 
-    def test_email_not_logged_in_duplicate(self):
+    @mock_recaptcha(is_valid=True, action="login")
+    def test_email_not_logged_in_duplicate(self, m):
         """Test that duplicate e-mail users are not logged in"""
         user2 = UserFactory(email=self.user.email)
         self.assertEqual(user2.email, self.user.email)
@@ -82,6 +89,7 @@ class LoginRegisterTests(WebTest):
             "username": self.user.email,
             "password": "password",
             "next": "/index.php",
+            "captcha": "dummy",
         }
         response = self.client.post(settings.LOGIN_URL, post_data)
         self.assertEqual(response.status_code, 200)
@@ -134,7 +142,7 @@ class LoginRegisterTests(WebTest):
             response, "form", "captcha", [str(_("This field is required."))]
         )
 
-    def test_username_case_insensitive(self):
+    def test_registration_username_case_insensitive(self):
         """
         Test that duplicate usernames (case insensitive) trigger form validation.
         """
@@ -159,18 +167,21 @@ class LoginRegisterTests(WebTest):
             str(_("A user with that username already exists.")),
         )
 
-    def test_login_username_case_insensitive(self):
+    @mock_recaptcha(is_valid=True, action="login")
+    def test_login_username_case_insensitive(self, m):
         UserFactory.create(username="Rodith", password="letmein")
 
         login_page = self.app.get(settings.LOGIN_URL)
         login_page.form["username"] = "rodith"
         login_page.form["password"] = "letmein"
+        login_page.form["captcha"] = "dummy"
 
         response = login_page.form.submit()
 
         self.assertEqual(response.status_code, 302)
 
-    def test_login_username_same_email(self):
+    @mock_recaptcha(is_valid=True, action="login")
+    def test_login_username_same_email(self, m):
         UserFactory.create(
             username="FOO@bar.com", email="foo@bar.com", password="letmein"
         )
@@ -178,6 +189,7 @@ class LoginRegisterTests(WebTest):
         login_page = self.app.get(settings.LOGIN_URL)
         login_page.form["username"] = "foo@bar.com"
         login_page.form["password"] = "letmein"
+        login_page.form["captcha"] = "dummy"
 
         response = login_page.form.submit()
 
