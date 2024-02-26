@@ -12,8 +12,10 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext_lazy as _
 
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV3
+
 from brouwers.forum_tools.models import ForumUser
-from brouwers.general.models import RegistrationQuestion
 from brouwers.general.utils import clean_username
 
 from ..models import User
@@ -61,7 +63,6 @@ class AdminUserCreationForm(forms.ModelForm):
             except ForumUser.DoesNotExist:
                 return username
         raise forms.ValidationError(self.error_messages["duplicate_username"])
-        return username
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
@@ -79,10 +80,7 @@ class AdminUserCreationForm(forms.ModelForm):
 
 
 class UserCreationForm(AdminUserCreationForm):
-    question = forms.ModelChoiceField(
-        queryset=RegistrationQuestion.active.all(), empty_label=None
-    )
-    answer = forms.CharField(label=_("Answer"), max_length=255)
+    captcha = ReCaptchaField(widget=ReCaptchaV3(action="signup"))
     accept_terms = forms.BooleanField(
         label=_("I have read and accepted the registration terms"), required=True
     )
@@ -90,29 +88,6 @@ class UserCreationForm(AdminUserCreationForm):
     class Meta:
         model = User
         fields = ("username", "email")
-
-    def __init__(self, *args, **kwargs):
-        request = kwargs.pop("request")
-        super().__init__(*args, **kwargs)
-        self.fields["question"].queryset = self.fields["question"].queryset.filter(
-            lang=request.LANGUAGE_CODE[:2]
-        )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        question = cleaned_data.get("question")
-        answer = cleaned_data.get("answer")
-        if question and answer:
-            valid_answer = question.answers.filter(answer__iexact=answer).exists()
-            if not valid_answer:
-                del cleaned_data["answer"]
-                msg = _("Invalid answer. Make sure to read the entire question!")
-                self._errors["answer"] = self.error_class([msg])
-                raise forms.ValidationError(
-                    _("You provided an incorrect answer to the anti-bot question.")
-                )
-
-        return cleaned_data
 
 
 class AuthForm(AuthenticationForm):

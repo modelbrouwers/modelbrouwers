@@ -1,12 +1,6 @@
 from django.contrib import admin
 
-from .models import (
-    Announcement,
-    QuestionAnswer,
-    RegistrationAttempt,
-    RegistrationQuestion,
-    UserProfile,
-)
+from .models import Announcement, RegistrationAttempt, UserProfile
 
 
 class UserProfileAdmin(admin.ModelAdmin):
@@ -39,21 +33,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ("forum_nickname", "user__email")
 
 
-class QuestionAdmin(admin.ModelAdmin):
-    list_display = ("question", "in_use", "lang")
-    search_fields = ("question",)
-    filter_horizontal = ("answers",)
-
-
-class QuestionAnswerAdmin(admin.ModelAdmin):
-    list_display = ("answer",)
-
-
 class RegistrationAttemptAdmin(admin.ModelAdmin):
     list_display = (
         "__str__",
-        "question_short",
-        "answer",
         "timestamp",
         "ip_address",
         "success",
@@ -73,7 +55,5 @@ class AnnouncementAdmin(admin.ModelAdmin):
 
 
 admin.site.register(UserProfile, UserProfileAdmin)
-admin.site.register(RegistrationQuestion, QuestionAdmin)
-admin.site.register(QuestionAnswer, QuestionAnswerAdmin)
 admin.site.register(RegistrationAttempt, RegistrationAttemptAdmin)
 admin.site.register(Announcement, AnnouncementAdmin)

@@ -435,11 +435,6 @@ RELEASE = config("RELEASE", GIT_SHA)
 #################
 
 #
-# Registration logging + bans
-#
-LOG_REGISTRATION_ATTEMPTS = True
-
-#
 # AWARDS
 #
 VOTE_END_MONTH = 1

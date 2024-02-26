@@ -8,7 +8,7 @@ from .factories import UserFactory
 
 class PasswordResetTests(WebTest):
     def test_password_reset_request_email(self):
-        user = UserFactory.create(email="foo@bar.com")
+        UserFactory.create(email="foo@bar.com")
         url = reverse("users:pw_reset")
 
         response = self.app.get(url)
@@ -21,7 +21,7 @@ class PasswordResetTests(WebTest):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_password_reset_request_username(self):
-        user = UserFactory.create(email="foo@bar.com", username="santa")
+        UserFactory.create(email="foo@bar.com", username="santa")
         url = reverse("users:pw_reset")
 
         response = self.app.get(url)
