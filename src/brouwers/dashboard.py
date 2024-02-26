@@ -84,17 +84,6 @@ class CustomIndexDashboard(Dashboard):
 
         self.children.append(
             modules.ModelList(
-                _("Registrations"),
-                models=(
-                    "brouwers.general.models.RegistrationAttempt",
-                    "brouwers.general.models.RegistrationQuestion",
-                    "brouwers.general.models.QuestionAnswer",
-                ),
-            )
-        )
-
-        self.children.append(
-            modules.ModelList(
                 _("Forum"),
                 models=("brouwers.forum_tools.*",),
                 exclude=(

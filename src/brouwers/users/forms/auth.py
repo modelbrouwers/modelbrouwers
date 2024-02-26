@@ -62,8 +62,7 @@ class AdminUserCreationForm(forms.ModelForm):
                 ForumUser.objects.get(username_clean=clean_username(username))
             except ForumUser.DoesNotExist:
                 return username
-            raise forms.ValidationError(self.error_messages["duplicate_username"])
-        return username
+        raise forms.ValidationError(self.error_messages["duplicate_username"])
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1", "")
@@ -81,7 +80,7 @@ class AdminUserCreationForm(forms.ModelForm):
 
 
 class UserCreationForm(AdminUserCreationForm):
-    captcha = ReCaptchaField(widget=ReCaptchaV3(action="contact"))
+    captcha = ReCaptchaField(widget=ReCaptchaV3(action="signup"))
     accept_terms = forms.BooleanField(
         label=_("I have read and accepted the registration terms"), required=True
     )

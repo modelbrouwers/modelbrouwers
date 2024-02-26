@@ -6,18 +6,15 @@ from django.utils.translation import ugettext_lazy as _
 from django_webtest import WebTest
 
 from brouwers.forum_tools.tests.factory_models import ForumUserFactory
-from brouwers.general.tests.factory_models import RegistrationQuestionFactory
+from brouwers.utils.tests.recaptcha import mock_recaptcha
 
 from .factories import UserFactory
 
 
 class LoginRegisterTests(WebTest):
-    # TODO:
-    #   - succesful registration
-    #   - test e-mail suspicous registration and not logged in
-    #   - test registration logging
-    #   - test registration e-mail is sent
     def setUp(self):
+        super().setUp()
+
         username = "My user"
         self.user = UserFactory(username=username)
         self.forum_user = ForumUserFactory(username=username)
@@ -90,12 +87,9 @@ class LoginRegisterTests(WebTest):
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(self.client.session.get("_auth_user_id"))
 
-    def test_register(self):
+    @mock_recaptcha(is_valid=True, action="signup")
+    def test_register(self, m):
         url = reverse("users:register")
-
-        # create a registration question that has to be answered
-        question = RegistrationQuestionFactory.create(lang="en")
-        answer = "answer"  # default answer from the factory model
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -105,9 +99,8 @@ class LoginRegisterTests(WebTest):
             "email": "myuser@dummy.com",
             "password1": "password",
             "password2": "password",
-            "question": question.id,
-            "answer": answer,
             "accept_terms": True,
+            "captcha": "dummy",
         }
 
         response = self.client.post(url, post_data)
@@ -123,19 +116,14 @@ class LoginRegisterTests(WebTest):
         self.client.login(username="My user2", password="password")
         self.assertIn("_auth_user_id", self.client.session)
 
-    def test_register_no_question_submitted(self):
+    def test_register_no_captcha_submitted(self):
         url = reverse("users:register")
-
-        # create a registration question that has to be answered
-        RegistrationQuestionFactory.create(lang="en")
-        answer = "answer"  # default answer from the factory model
 
         post_data = {
             "username": "My user2",
             "email": "myuser@dummy.com",
             "password1": "password",
             "password2": "password",
-            "answer": answer,
             "accept_terms": True,
         }
 
@@ -143,14 +131,13 @@ class LoginRegisterTests(WebTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response, "form", "question", [_("This field is required.")]
+            response, "form", "captcha", [str(_("This field is required."))]
         )
 
     def test_username_case_insensitive(self):
         """
         Test that duplicate usernames (case insensitive) trigger form validation.
         """
-        RegistrationQuestionFactory.create(lang="en")
         UserFactory.create(username="John Doe")
 
         registration = self.app.get(reverse("users:register"))
@@ -161,12 +148,15 @@ class LoginRegisterTests(WebTest):
         form["email"] = "myuser@dummy.com"
         form["password1"] = "secret"
         form["password2"] = "secret"
-        form["answer"] = "answer"
+        form["captcha"] = "dummy"
 
         response = form.submit()
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response, "form", "username", _("A user with that username already exists.")
+            response,
+            "form",
+            "username",
+            str(_("A user with that username already exists.")),
         )
 
     def test_login_username_case_insensitive(self):
@@ -203,36 +193,10 @@ class LoginRegisterTests(WebTest):
         self.assertRedirects(response, "/", target_status_code=302)
 
 
-class RegistrationTests(TestCase):
-    def setUp(self):
-        self.UserModel = UserFactory._meta.model
-        self.url = "/register/"
-
-    def test_anti_spambot_question(self):
-        """Test that wrong answers block registration"""
-        self.assertEqual(self.UserModel.objects.count(), 0)
-
-        question = RegistrationQuestionFactory.create(lang="en")
-        answer = "not-answer"  # 'answer' is the default answer from the factory model
-
-        post_data = {
-            "username": "My user2",
-            "email": "myuser@dummy.com",
-            "password1": "password",
-            "password2": "password",
-            "question": question.id,
-            "answer": answer,
-        }
-
-        response = self.client.post(self.url, post_data)
-        self.assertEqual(response.status_code, 200)
-        # Test that no user account was created
-        self.assertEqual(self.UserModel.objects.count(), 0)
-
-
 class LogoutTestCase(TestCase):
     def setUp(self):
-        self.user = UserFactory()
+        super().setUp()
+        self.user = UserFactory.create()
         self.logout_url = "/logout/"
 
     def test_logout_authenticated(self):
