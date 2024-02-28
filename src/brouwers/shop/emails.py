@@ -31,6 +31,7 @@ def send_order_confirmation_email(order: Order, base_url: str) -> None:
         message=text_body,
         from_email=config.from_email or settings.DEFAULT_FROM_EMAIL,
         recipient_list=[order.email],
+        cc=None,
         html_message=html_body,
         headers={"Content-Language": order.language},
     )

@@ -96,7 +96,7 @@ DATABASE_ROUTERS = ["brouwers.db_router.Router"]
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
         "LOCATION": config("CACHE_URL", "127.0.0.1:11211"),
         "KEY_PREFIX": config("CACHE_PREFIX", ""),
     },
