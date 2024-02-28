@@ -31,6 +31,7 @@ diff-match-patch==20200713
 django==3.2.24
     # via
     #   -r requirements/base.in
+    #   django-admin-index
     #   django-bleach
     #   django-ckeditor
     #   django-cors-headers
@@ -50,6 +51,8 @@ django==3.2.24
     #   django-treebeard
     #   djangorestframework
     #   mail-cleaner
+django-admin-index==3.1.0
+    # via -r requirements/base.in
 django-autoslug==1.9.8
     # via -r requirements/base.in
 django-bleach==3.1.0
@@ -70,6 +73,8 @@ django-loginas==0.3.11
     # via -r requirements/base.in
 django-modeltranslation==0.18.7
     # via -r requirements/base.in
+django-ordered-model==3.7.4
+    # via django-admin-index
 django-precise-bbcode==1.2.15
     # via -r requirements/base.in
 django-recaptcha==4.0.0
