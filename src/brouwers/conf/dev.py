@@ -63,6 +63,11 @@ else:
     LOGGING["loggers"]["requests"]["handlers"].extend(
         ["log_outgoing_requests", "save_outgoing_requests"]
     )
+    LOGGING["loggers"]["sorl.thumbnail"] = {
+        "handlers": [],
+        "level": "CRITICAL",
+        "propagate": False,
+    }
     LOG_OUTGOING_REQUESTS_DB_SAVE = False
 
 #
