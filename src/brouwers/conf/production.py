@@ -11,10 +11,6 @@ os.environ.setdefault("CACHE_PREFIX", "production")
 
 from .base import *  # noqa isort:skip
 
-# Caching templates.
-TEMPLATES[0]["OPTIONS"]["loaders"] = [
-    ("django.template.loaders.cached.Loader", TEMPLATE_LOADERS)
-]
 
 # The file storage engine to use when collecting static files with the
 # collectstatic management command.

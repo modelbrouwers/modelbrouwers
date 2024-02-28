@@ -23,7 +23,6 @@ urlpatterns = (
         # normal application
         path("admin/rosetta/", include("rosetta.urls")),
         path("admin/", admin.site.urls),
-        path("admin_tools/", include("admin_tools.urls")),
         path("admin/", include("loginas.urls")),
         path("api/v1/", include("brouwers.api.urls", namespace="api")),
         # just a placeholder for the url

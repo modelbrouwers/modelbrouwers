@@ -117,11 +117,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "modeltranslation",  # has to be imported before django.contrib.admin
-    # admin tools. order is important
-    "admin_tools",
-    "admin_tools.theming",
-    "admin_tools.menu",
-    "admin_tools.dashboard",
     "django.contrib.admin",
     # Third party
     "sessionprofile",
@@ -182,16 +177,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "brouwers.urls"
 
-TEMPLATE_LOADERS = [
-    "admin_tools.template_loaders.Loader",
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-]
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "APP_DIRS": False,  # conflicts with explicity specifying the loaders
+        "APP_DIRS": True,
         "DIRS": [os.path.join(BASE_DIR, "src", "templates")],
         "OPTIONS": {
             "context_processors": [
@@ -204,7 +194,6 @@ TEMPLATES = [
                 "brouwers.general.context_processors.djsettings",
                 "brouwers.shop.context_processors.cart",
             ],
-            "loaders": TEMPLATE_LOADERS,
         },
     },
 ]
@@ -451,12 +440,6 @@ THUMB_DIMENSIONS = (200, 150, "thumb_")
 #
 # in .secrets.py
 TOPIC_DEAD_TIME = 1  # months
-
-#
-# ADMIN TOOLS
-#
-ADMIN_TOOLS_INDEX_DASHBOARD = "brouwers.dashboard.CustomIndexDashboard"
-ADMIN_TOOLS_APP_INDEX_DASHBOARD = "brouwers.dashboard.CustomAppIndexDashboard"
 
 #
 # SORL THUMBNAIL

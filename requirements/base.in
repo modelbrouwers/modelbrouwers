@@ -20,7 +20,6 @@ WeasyPrint
 
 # Django packages
 Django ~= 3.2
-django-admin-tools
 django-autoslug
 django-bleach
 django-ckeditor
