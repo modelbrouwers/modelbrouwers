@@ -29,16 +29,15 @@ class CrudTests(LoginRequiredMixin, WebTest):
 
         create = self.app.get(url, user=self.user)
         self.assertEqual(create.status_code, 200)
-        create.form["title"] = "My first album"
-        create.form["description"] = "Dummy description"
-        create.form[
-            "topic"
-        ] = "http://modelbrouwers.nl/phpBB3/viewtopic.php?f=%d&t=%d" % (
+        form = create.forms["album-form"]
+        form["title"] = "My first album"
+        form["description"] = "Dummy description"
+        form["topic"] = "http://modelbrouwers.nl/phpBB3/viewtopic.php?f=%d&t=%d" % (
             topic.forum_id,
             topic.topic_id,
         )
 
-        response = create.form.submit()
+        response = form.submit()
 
         self.assertEqual(Album.objects.count(), 1)
         album = Album.objects.first()
@@ -53,13 +52,14 @@ class CrudTests(LoginRequiredMixin, WebTest):
         url = reverse("albums:create")
         create = self.app.get(url, user=self.user)
         self.assertEqual(create.status_code, 200)
-        create.form["title"] = "My album"
+        form = create.forms["album-form"]
+        form["title"] = "My album"
 
-        response = create.form.submit()
+        response = form.submit()
         self.assertEqual(Album.objects.count(), 1)
 
         # submit again
-        response = create.form.submit()
+        response = form.submit()
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
             response, "form", "title", _("You already have an album with this title.")
@@ -71,7 +71,8 @@ class CrudTests(LoginRequiredMixin, WebTest):
 
         preferences = self.app.get(url, user=self.user)
         self.assertEqual(preferences.status_code, 200)
-        response = preferences.form.submit()
+        form = preferences.forms["preferences-form"]
+        response = form.submit()
         self.assertRedirects(response, reverse("albums:index"))
 
 

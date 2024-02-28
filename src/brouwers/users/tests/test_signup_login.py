@@ -142,7 +142,8 @@ class LoginRegisterTests(WebTest):
             response, "form", "captcha", [str(_("This field is required."))]
         )
 
-    def test_registration_username_case_insensitive(self):
+    @mock_recaptcha(is_valid=True, action="signup")
+    def test_registration_username_case_insensitive(self, m):
         """
         Test that duplicate usernames (case insensitive) trigger form validation.
         """

@@ -17,7 +17,7 @@
 
 
 {% block content %}
-<form action="." class="form-horizontal" method="post">
+<form action="." class="form-horizontal" method="post" id="photo-form">
     {% csrf_token %}
     {% load_widgets form='albums/albums.form' %}
     {% with label_grid_offset='col-sm-offset-2' %}
