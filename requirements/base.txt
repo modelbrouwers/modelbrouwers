@@ -32,7 +32,6 @@ django==3.2.24
     # via
     #   -r requirements/base.in
     #   django-bleach
-    #   django-choices
     #   django-ckeditor
     #   django-cors-headers
     #   django-extra-views
@@ -56,8 +55,6 @@ django-admin-tools==0.9.2
 django-autoslug==1.9.8
     # via -r requirements/base.in
 django-bleach==3.1.0
-    # via -r requirements/base.in
-django-choices==1.7.2
     # via -r requirements/base.in
 django-ckeditor==6.4.0
     # via -r requirements/base.in
@@ -177,7 +174,6 @@ sentry-sdk==1.40.5
 six==1.16.0
     # via
     #   bleach
-    #   django-choices
     #   furl
     #   html5lib
     #   orderedmultidict

@@ -68,7 +68,7 @@ class Order(models.Model):
     cart = models.OneToOneField(
         "Cart", on_delete=models.PROTECT, verbose_name=_("shopping cart")
     )
-    status = models.CharField(_("status"), max_length=50, choices=OrderStatuses)
+    status = models.CharField(_("status"), max_length=50, choices=OrderStatuses.choices)
     reference = models.CharField(
         _("reference"),
         max_length=16,

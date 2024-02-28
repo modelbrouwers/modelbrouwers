@@ -320,4 +320,4 @@ class OrderAdmin(admin.ModelAdmin):
     def payment_status(self, obj: Order) -> Optional[str]:
         if not obj.payment:
             return None
-        return PaymentStatuses.labels[obj.payment.status]
+        return obj.payment.get_status_display()

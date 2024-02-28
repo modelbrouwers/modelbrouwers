@@ -142,7 +142,7 @@ class GroupbuildTests(TestCase):
         build2 = GroupBuildFactory.create(end=None)
         self.assertFalse(build2.is_submittable)
 
-        for status in GroupbuildStatuses.values.keys():
+        for status in GroupbuildStatuses.values:
             build = GroupBuildFactory.create(
                 start=date(2014, 10, 1),
                 duration=GroupbuildDurations.one_month,

@@ -49,7 +49,7 @@ class Product(models.Model):
     length_unit = models.CharField(
         _("length unit"),
         max_length=10,
-        choices=LengthUnits,
+        choices=LengthUnits.choices,
         default=LengthUnits.cm,
     )
 
@@ -59,7 +59,7 @@ class Product(models.Model):
     weight_unit = models.CharField(
         _("weight unit"),
         max_length=10,
-        choices=WeightUnits,
+        choices=WeightUnits.choices,
         default=WeightUnits.gram,
     )
 

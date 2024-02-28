@@ -9,39 +9,14 @@ from django.utils.translation import ugettext_lazy as _
 
 import bleach
 from autoslug import AutoSlugField
-from djchoices import ChoiceItem, DjangoChoices
 from precise_bbcode.shortcuts import render_bbcodes
 
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.forum_tools.models import ForumCategory
 
+from .constants import GroupbuildDurations, GroupbuildStatuses
 from .managers import PublicGroupBuildsManager
 from .query import GroupbuildQuerySet
-
-
-class GroupbuildDurations(DjangoChoices):
-    one_month = ChoiceItem(30, _("30 days"))
-    two_months = ChoiceItem(61, _("2 months"))
-    three_months = ChoiceItem(92, _("3 months"))
-    six_months = ChoiceItem(183, _("6 months"))
-    twelve_months = ChoiceItem(365, _("one year"))
-
-
-class GroupbuildStatuses(DjangoChoices):
-    concept = ChoiceItem("concept", _("concept/idea"))
-    submitted = ChoiceItem("submitted", _("submitted for review"))
-    accepted = ChoiceItem("accepted", _("accepted"))
-    denied = ChoiceItem("denied", _("denied"))
-    extended = ChoiceItem("extended", _("extended"))
-
-
-# public statuses
-date_bound_statuses = [GroupbuildStatuses.accepted, GroupbuildStatuses.extended]
-non_date_bound_statuses = [GroupbuildStatuses.concept, GroupbuildStatuses.submitted]
-
-GroupbuildStatuses.date_bound_statuses = date_bound_statuses
-GroupbuildStatuses.non_date_bound_statuses = non_date_bound_statuses
-GroupbuildStatuses.public_statuses = non_date_bound_statuses + date_bound_statuses
 
 
 class GroupBuild(models.Model):

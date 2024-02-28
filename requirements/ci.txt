@@ -64,7 +64,6 @@ django==3.2.24
     # via
     #   -r requirements/base.txt
     #   django-bleach
-    #   django-choices
     #   django-ckeditor
     #   django-cors-headers
     #   django-extra-views
@@ -88,8 +87,6 @@ django-admin-tools==0.9.2
 django-autoslug==1.9.8
     # via -r requirements/base.txt
 django-bleach==3.1.0
-    # via -r requirements/base.txt
-django-choices==1.7.2
     # via -r requirements/base.txt
 django-ckeditor==6.4.0
     # via -r requirements/base.txt
@@ -270,7 +267,6 @@ six==1.16.0
     # via
     #   -r requirements/base.txt
     #   bleach
-    #   django-choices
     #   furl
     #   html5lib
     #   orderedmultidict

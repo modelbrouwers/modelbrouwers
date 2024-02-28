@@ -84,7 +84,6 @@ django==3.2.24
     # via
     #   -r requirements/ci.txt
     #   django-bleach
-    #   django-choices
     #   django-ckeditor
     #   django-cors-headers
     #   django-debug-toolbar
@@ -110,8 +109,6 @@ django-admin-tools==0.9.2
 django-autoslug==1.9.8
     # via -r requirements/ci.txt
 django-bleach==3.1.0
-    # via -r requirements/ci.txt
-django-choices==1.7.2
     # via -r requirements/ci.txt
 django-ckeditor==6.4.0
     # via -r requirements/ci.txt
@@ -352,7 +349,6 @@ six==1.16.0
     # via
     #   -r requirements/ci.txt
     #   bleach
-    #   django-choices
     #   furl
     #   html5lib
     #   orderedmultidict
