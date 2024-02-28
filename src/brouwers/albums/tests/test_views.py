@@ -153,8 +153,9 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         # album owner
         update_page = self.app.get(url_update, user=self.user, status=200)
-        update_page.form["title"] = "New title"
-        update_page.form.submit().follow()
+        form = update_page.forms["album-form"]
+        form["title"] = "New title"
+        form.submit().follow()
 
         album = Album.objects.get(pk=album.pk)
         self.assertEqual(album.title, "New title")
@@ -178,7 +179,8 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         # album owner
         delete_page = self.app.get(url_delete, user=self.user, status=200)
-        delete_page.form.submit().follow()
+        form = delete_page.forms["delete-form"]
+        form.submit().follow()
 
         album = Album.objects.get(pk=album.pk)
         self.assertTrue(album.trash)
@@ -201,7 +203,8 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         # album owner
         restore_page = self.app.get(url_restore, user=self.user, status=200)
-        restore_page.form.submit().follow()
+        form = restore_page.forms["restore-form"]
+        form.submit().follow()
 
         album = Album.objects.get(pk=album.pk)
         self.assertFalse(album.trash)
@@ -226,7 +229,8 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         # photo owner
         delete_page = self.app.get(url_delete, user=self.user, status=200)
-        delete_page.form.submit().follow()
+        form = delete_page.forms["delete-form"]
+        form.submit().follow()
 
         photo = Photo.objects.get(pk=photo.pk)
         self.assertTrue(photo.trash)
@@ -250,7 +254,8 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         # photo owner
         restore_page = self.app.get(url_restore, user=self.user, status=200)
-        restore_page.form.submit().follow()
+        form = restore_page.forms["restore-form"]
+        form.submit().follow()
 
         photo = Photo.objects.get(pk=photo.pk)
         self.assertFalse(photo.trash)
@@ -279,9 +284,10 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         # photo owner
         update_page = self.app.get(url_update, user=self.user, status=200)
-        update_page.form["description"] = "New description"
-        update_page.form["album"] = [str(albums[1].pk)]
-        update_page.form.submit().follow()
+        form = update_page.forms["photo-form"]
+        form["description"] = "New description"
+        form["album"] = [str(albums[1].pk)]
+        form.submit().follow()
 
         photo = Photo.objects.get(pk=photo.pk)
         self.assertEqual(photo.description, "New description")

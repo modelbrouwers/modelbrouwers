@@ -16,7 +16,7 @@
 {% block albums-nav %}{% endblock %}
 
 {% block content %}
-<form action="." method="post" class="form-horizontal">
+<form action="." method="post" class="form-horizontal" id="delete-form">
     {% csrf_token %}
     {% load_widgets form='albums/albums.form' %}
 

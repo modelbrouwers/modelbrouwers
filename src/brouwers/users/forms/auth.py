@@ -91,6 +91,8 @@ class UserCreationForm(AdminUserCreationForm):
 
 
 class AuthForm(AuthenticationForm):
+    captcha = ReCaptchaField(widget=ReCaptchaV3(action="login"))
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].label = _("Username or email")
