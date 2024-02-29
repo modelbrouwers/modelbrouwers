@@ -117,6 +117,8 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "modeltranslation",  # has to be imported before django.contrib.admin
+    "django_admin_index",
+    "ordered_model",
     "django.contrib.admin",
     # Third party
     "sessionprofile",
@@ -241,6 +243,10 @@ PRIVATE_MEDIA_URL = SENDFILE_URL
 PRIVATE_MEDIA_ROOT = SENDFILE_ROOT
 
 FILE_UPLOAD_PERMISSIONS = 0o644
+
+FIXTURE_DIRS = [
+    os.path.join("DJANGO_PROJECT_DIR", "fixtures"),
+]
 
 #
 # Sending EMAIL
@@ -446,6 +452,11 @@ TOPIC_DEAD_TIME = 1  # months
 #
 THUMBNAIL_DEBUG = DEBUG
 THUMBNAIL_PRESERVE_FORMAT = True
+
+#
+# DJANGO-ADMIN-INDEX
+#
+ADMIN_INDEX_SHOW_REMAINING_APPS = True
 
 #
 # DRF
