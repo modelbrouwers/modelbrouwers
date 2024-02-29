@@ -31,7 +31,7 @@ class AdminTests(WebTest):
             field.checked = True
 
         intermediate = form.submit()
-        form = intermediate.forms[1]
+        form = intermediate.forms[0]
 
         expected_brands = [
             repr(brand) for i, brand in enumerate(brands) if i in index_range
