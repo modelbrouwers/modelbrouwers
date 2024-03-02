@@ -4,8 +4,6 @@
 #
 #    ./bin/compile_dependencies.sh
 #
-alabaster==0.7.12
-    # via sphinx
 annotated-types==0.6.0
     # via
     #   -r requirements/ci.txt
@@ -24,8 +22,6 @@ attrs==22.1.0
     #   -r requirements/ci.txt
     #   outcome
     #   trio
-babel==2.9.1
-    # via sphinx
 beautifulsoup4==4.11.1
     # via
     #   -r requirements/ci.txt
@@ -165,10 +161,6 @@ djangorestframework==3.13.1
     #   djangorestframework-filters
 djangorestframework-filters==1.0.0.dev2
     # via -r requirements/ci.txt
-docutils==0.17.1
-    # via
-    #   sphinx
-    #   sphinx-rtd-theme
 et-xmlfile==1.1.0
     # via
     #   -r requirements/ci.txt
@@ -208,16 +200,10 @@ idna==3.3
     #   -r requirements/ci.txt
     #   requests
     #   trio
-imagesize==1.3.0
-    # via sphinx
 importlib-metadata==4.11.3
-    # via
-    #   build
-    #   sphinx
+    # via build
 isort==5.10.1
     # via -r requirements/dev.in
-jinja2==3.1.3
-    # via sphinx
 lxml==5.1.0
     # via
     #   -r requirements/ci.txt
@@ -229,8 +215,6 @@ markuppy==1.14
     # via
     #   -r requirements/ci.txt
     #   tablib
-markupsafe==2.1.1
-    # via jinja2
 mccabe==0.6.1
     # via flake8
 mypy-extensions==0.4.3
@@ -258,9 +242,7 @@ outcome==1.2.0
     #   -r requirements/ci.txt
     #   trio
 packaging==21.3
-    # via
-    #   build
-    #   sphinx
+    # via build
 pathspec==0.9.0
     # via black
 pillow==10.2.0
@@ -296,8 +278,6 @@ pydyf==0.9.0
     #   weasyprint
 pyflakes==2.4.0
     # via flake8
-pygments==2.17.2
-    # via sphinx
 pylibmc==1.6.3
     # via -r requirements/ci.txt
 pyparsing==3.0.7
@@ -328,7 +308,6 @@ python-dotenv==1.0.1
 pytz==2024.1
     # via
     #   -r requirements/ci.txt
-    #   babel
     #   django
     #   djangorestframework
 pyyaml==6.0
@@ -341,7 +320,6 @@ requests==2.31.0
     #   django-rosetta
     #   requests-mock
     #   requests-oauthlib
-    #   sphinx
 requests-mock==1.9.3
     # via -r requirements/ci.txt
 requests-oauthlib==1.3.1
@@ -363,8 +341,6 @@ sniffio==1.3.0
     # via
     #   -r requirements/ci.txt
     #   trio
-snowballstemmer==2.2.0
-    # via sphinx
 sorl-thumbnail==12.10.0
     # via -r requirements/ci.txt
 sortedcontainers==2.4.0
@@ -375,24 +351,6 @@ soupsieve==2.3.2.post1
     # via
     #   -r requirements/ci.txt
     #   beautifulsoup4
-sphinx==4.5.0
-    # via
-    #   -r requirements/dev.in
-    #   sphinx-rtd-theme
-sphinx-rtd-theme==1.0.0
-    # via -r requirements/dev.in
-sphinxcontrib-applehelp==1.0.2
-    # via sphinx
-sphinxcontrib-devhelp==1.0.2
-    # via sphinx
-sphinxcontrib-htmlhelp==2.0.0
-    # via sphinx
-sphinxcontrib-jsmath==1.0.1
-    # via sphinx
-sphinxcontrib-qthelp==1.0.3
-    # via sphinx
-sphinxcontrib-serializinghtml==1.1.5
-    # via sphinx
 sqlparse==0.4.4
     # via
     #   -r requirements/ci.txt
