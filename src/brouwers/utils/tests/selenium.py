@@ -35,6 +35,7 @@ class SeleniumTests(StaticLiveServerTestCase):
         options = Options()
         if SELENIUM_HEADLESS:
             options.headless = True
+            options.add_argument("--headless=new")  # for Chrome >= 109
 
         cls.selenium = WebDriver(options=options)
         cls.selenium.implicitly_wait(3)
