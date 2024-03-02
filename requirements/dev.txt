@@ -8,25 +8,21 @@ annotated-types==0.6.0
     # via
     #   -r requirements/ci.txt
     #   pydantic
-asgiref==3.5.2
+asgiref==3.7.2
     # via
     #   -r requirements/ci.txt
     #   django
-async-generator==1.10
-    # via
-    #   -r requirements/ci.txt
-    #   trio
-    #   trio-websocket
-attrs==22.1.0
+    #   django-cors-headers
+attrs==23.2.0
     # via
     #   -r requirements/ci.txt
     #   outcome
     #   trio
-beautifulsoup4==4.11.1
+beautifulsoup4==4.12.3
     # via
     #   -r requirements/ci.txt
     #   webtest
-black==22.3.0
+black==24.2.0
     # via -r requirements/dev.in
 bleach[css]==5.0.1
     # via
@@ -36,7 +32,7 @@ brotli==1.1.0
     # via
     #   -r requirements/ci.txt
     #   fonttools
-build==1.0.3
+build==1.1.1
     # via pip-tools
 bump2version==1.0.1
     # via -r requirements/dev.in
@@ -50,11 +46,11 @@ cffi==1.16.0
     # via
     #   -r requirements/ci.txt
     #   weasyprint
-charset-normalizer==2.0.12
+charset-normalizer==3.3.2
     # via
     #   -r requirements/ci.txt
     #   requests
-click==8.1.2
+click==8.1.7
     # via
     #   black
     #   pip-tools
@@ -64,7 +60,7 @@ cssselect==1.2.0
     # via
     #   -r requirements/ci.txt
     #   pyquery
-cssselect2==0.6.0
+cssselect2==0.7.0
     # via
     #   -r requirements/ci.txt
     #   weasyprint
@@ -72,7 +68,7 @@ defusedxml==0.7.1
     # via
     #   -r requirements/ci.txt
     #   odfpy
-diff-match-patch==20200713
+diff-match-patch==20230430
     # via
     #   -r requirements/ci.txt
     #   django-import-export
@@ -101,15 +97,15 @@ django==3.2.24
     #   django-treebeard
     #   djangorestframework
     #   mail-cleaner
-django-admin-index==3.1.0
+django-admin-index==3.1.1
     # via -r requirements/ci.txt
-django-autoslug==1.9.8
+django-autoslug==1.9.9
     # via -r requirements/ci.txt
 django-bleach==3.1.0
     # via -r requirements/ci.txt
-django-ckeditor==6.4.0
+django-ckeditor==6.7.1
     # via -r requirements/ci.txt
-django-cors-headers==3.11.0
+django-cors-headers==4.3.1
     # via -r requirements/ci.txt
 django-debug-toolbar==4.3.0
     # via -r requirements/dev.in
@@ -117,45 +113,45 @@ django-extensions==3.2.3
     # via -r requirements/dev.in
 django-extra-views==0.14.0
     # via -r requirements/ci.txt
-django-filter==21.1
+django-filter==23.5
     # via
     #   -r requirements/ci.txt
     #   djangorestframework-filters
-django-import-export==2.8.0
+django-import-export==3.3.7
     # via -r requirements/ci.txt
-django-js-asset==2.0.0
+django-js-asset==2.2.0
     # via
     #   -r requirements/ci.txt
     #   django-ckeditor
 django-loginas==0.3.11
     # via -r requirements/ci.txt
-django-modeltranslation==0.18.7
+django-modeltranslation==0.18.11
     # via -r requirements/ci.txt
 django-ordered-model==3.7.4
     # via
     #   -r requirements/ci.txt
     #   django-admin-index
-django-precise-bbcode==1.2.15
+django-precise-bbcode==1.2.16
     # via -r requirements/ci.txt
 django-recaptcha==4.0.0
     # via -r requirements/ci.txt
-django-rosetta==0.9.8
+django-rosetta==0.9.9
     # via -r requirements/ci.txt
-django-sendfile2==0.7.0
+django-sendfile2==0.7.1
     # via -r requirements/ci.txt
-django-sessionprofile==2.0.0
+django-sessionprofile==3.0.0
     # via -r requirements/ci.txt
-django-sniplates==0.7.0
+django-sniplates==0.7.2
     # via -r requirements/ci.txt
-django-solo==2.0.0
+django-solo==2.2.0
     # via -r requirements/ci.txt
-django-taggit==2.1.0
+django-taggit==4.0.0
     # via -r requirements/ci.txt
-django-treebeard==4.5.1
+django-treebeard==4.7.1
     # via -r requirements/ci.txt
 django-webtest==1.9.11
     # via -r requirements/ci.txt
-djangorestframework==3.13.1
+djangorestframework==3.14.0
     # via
     #   -r requirements/ci.txt
     #   djangorestframework-filters
@@ -165,17 +161,18 @@ et-xmlfile==1.1.0
     # via
     #   -r requirements/ci.txt
     #   openpyxl
-exceptiongroup==1.0.1
+exceptiongroup==1.2.0
     # via
     #   -r requirements/ci.txt
     #   trio
+    #   trio-websocket
 factory-boy==3.3.0
     # via -r requirements/ci.txt
-faker==13.3.4
+faker==23.3.0
     # via
     #   -r requirements/ci.txt
     #   factory-boy
-flake8==4.0.1
+flake8==7.0.0
     # via -r requirements/dev.in
 fonttools[woff]==4.49.0
     # via
@@ -195,14 +192,14 @@ html5lib==1.1
     # via
     #   -r requirements/ci.txt
     #   weasyprint
-idna==3.3
+idna==3.6
     # via
     #   -r requirements/ci.txt
     #   requests
     #   trio
-importlib-metadata==4.11.3
+importlib-metadata==7.0.1
     # via build
-isort==5.10.1
+isort==5.13.2
     # via -r requirements/dev.in
 lxml==5.1.0
     # via
@@ -215,9 +212,9 @@ markuppy==1.14
     # via
     #   -r requirements/ci.txt
     #   tablib
-mccabe==0.6.1
+mccabe==0.7.0
     # via flake8
-mypy-extensions==0.4.3
+mypy-extensions==1.0.0
     # via black
 mysqlclient==2.2.4
     # via -r requirements/ci.txt
@@ -237,13 +234,15 @@ orderedmultidict==1.0.1
     # via
     #   -r requirements/ci.txt
     #   furl
-outcome==1.2.0
+outcome==1.3.0.post0
     # via
     #   -r requirements/ci.txt
     #   trio
-packaging==21.3
-    # via build
-pathspec==0.9.0
+packaging==23.2
+    # via
+    #   black
+    #   build
+pathspec==0.12.1
     # via black
 pillow==10.2.0
     # via
@@ -252,15 +251,15 @@ pillow==10.2.0
     #   weasyprint
 pip-tools==7.4.0
     # via -r requirements/dev.in
-platformdirs==2.5.1
+platformdirs==4.2.0
     # via black
-polib==1.1.1
+polib==1.2.0
     # via
     #   -r requirements/ci.txt
     #   django-rosetta
 psycopg2==2.9.9
     # via -r requirements/ci.txt
-pycodestyle==2.8.0
+pycodestyle==2.11.1
     # via flake8
 pycparser==2.21
     # via
@@ -276,13 +275,11 @@ pydyf==0.9.0
     # via
     #   -r requirements/ci.txt
     #   weasyprint
-pyflakes==2.4.0
+pyflakes==3.2.0
     # via flake8
 pylibmc==1.6.3
     # via -r requirements/ci.txt
-pyparsing==3.0.7
-    # via packaging
-pyphen==0.12.0
+pyphen==0.14.0
     # via
     #   -r requirements/ci.txt
     #   weasyprint
@@ -296,7 +293,7 @@ pysocks==1.7.1
     # via
     #   -r requirements/ci.txt
     #   urllib3
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via
     #   -r requirements/ci.txt
     #   faker
@@ -310,7 +307,7 @@ pytz==2024.1
     #   -r requirements/ci.txt
     #   django
     #   djangorestframework
-pyyaml==6.0
+pyyaml==6.0.1
     # via
     #   -r requirements/ci.txt
     #   tablib
@@ -326,7 +323,7 @@ requests-oauthlib==1.3.1
     # via -r requirements/ci.txt
 selenium==4.18.1
     # via -r requirements/ci.txt
-sentry-sdk==1.40.5
+sentry-sdk==1.40.6
     # via -r requirements/ci.txt
 six==1.16.0
     # via
@@ -337,7 +334,7 @@ six==1.16.0
     #   orderedmultidict
     #   python-dateutil
     #   requests-mock
-sniffio==1.3.0
+sniffio==1.3.1
     # via
     #   -r requirements/ci.txt
     #   trio
@@ -347,7 +344,7 @@ sortedcontainers==2.4.0
     # via
     #   -r requirements/ci.txt
     #   trio
-soupsieve==2.3.2.post1
+soupsieve==2.5
     # via
     #   -r requirements/ci.txt
     #   beautifulsoup4
@@ -356,7 +353,7 @@ sqlparse==0.4.4
     #   -r requirements/ci.txt
     #   django
     #   django-debug-toolbar
-tablib[html,ods,xls,xlsx,yaml]==3.2.1
+tablib[html,ods,xls,xlsx,yaml]==3.5.0
     # via
     #   -r requirements/ci.txt
     #   django-import-export
@@ -374,24 +371,25 @@ tomli==2.0.1
     #   build
     #   pip-tools
     #   pyproject-hooks
-trio==0.22.0
+trio==0.24.0
     # via
     #   -r requirements/ci.txt
     #   selenium
     #   trio-websocket
-trio-websocket==0.9.2
+trio-websocket==0.11.1
     # via
     #   -r requirements/ci.txt
     #   selenium
 typing-extensions==4.10.0
     # via
     #   -r requirements/ci.txt
+    #   asgiref
     #   black
     #   django-modeltranslation
     #   pydantic
     #   pydantic-core
     #   selenium
-urllib3[socks]==1.26.18
+urllib3[socks]==2.2.1
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -399,7 +397,7 @@ urllib3[socks]==1.26.18
     #   sentry-sdk
 uwsgi==2.0.24
     # via -r requirements/ci.txt
-waitress==2.1.2
+waitress==3.0.0
     # via
     #   -r requirements/ci.txt
     #   webtest
@@ -420,7 +418,7 @@ webtest==3.0.0
     # via
     #   -r requirements/ci.txt
     #   django-webtest
-wheel==0.38.4
+wheel==0.42.0
     # via pip-tools
 wsproto==1.2.0
     # via
@@ -434,9 +432,9 @@ xlwt==1.3.0
     # via
     #   -r requirements/ci.txt
     #   tablib
-zipp==3.8.0
+zipp==3.17.0
     # via importlib-metadata
-zopfli==0.2.1
+zopfli==0.2.3
     # via
     #   -r requirements/ci.txt
     #   fonttools
