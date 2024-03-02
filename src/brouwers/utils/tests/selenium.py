@@ -2,7 +2,7 @@ import os
 from unittest import skipIf
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import override_settings
+from django.test import override_settings, tag
 from django.utils.module_loading import import_string
 
 SELENIUM_WEBDRIVER = os.getenv("SELENIUM_WEBDRIVER", default="Chrome")
@@ -20,6 +20,7 @@ else:
 skipUnlessSelenium = skipIf(not WebDriver, "No Selenium webdriver configured")
 
 
+@tag("e2e")
 @override_settings(ALLOWED_HOSTS=["*"])
 class SeleniumTests(StaticLiveServerTestCase):
     @classmethod
