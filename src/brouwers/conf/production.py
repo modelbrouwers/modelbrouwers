@@ -15,7 +15,7 @@ from .base import *  # noqa isort:skip
 
 # The file storage engine to use when collecting static files with the
 # collectstatic management command.
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STATICFILES_STORAGE = "brouwers.staticfiles_storage.ManifestStaticFilesStorage"
 
 #
 # LOGGING
