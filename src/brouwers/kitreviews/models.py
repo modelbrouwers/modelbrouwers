@@ -2,15 +2,15 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from djchoices import ChoiceItem, DjangoChoices
 from precise_bbcode.shortcuts import render_bbcodes
 
 from brouwers.albums.models import Album
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.kits.fields import KitForeignKey
 
+from .constants import VoteTypes
 from .managers import KitReviewQuerySet
 
 DEFAULT_RATING = 50
@@ -111,11 +111,6 @@ class KitReview(models.Model):
         if self.show_real_name:
             return self.reviewer.get_full_name()
         return self.reviewer.username
-
-
-class VoteTypes(DjangoChoices):
-    positive = ChoiceItem("+", label="+")
-    negative = ChoiceItem("-", label="-")
 
 
 class KitReviewVote(models.Model):

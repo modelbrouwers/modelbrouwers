@@ -9,12 +9,11 @@ from django.db import models
 from django.db.models import Max
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import pgettext_lazy, ugettext_lazy as _
-
-from djchoices import ChoiceItem, DjangoChoices
+from django.utils.translation import gettext_lazy as _
 
 from brouwers.forum_tools.fields import ForumToolsIDField
 
+from .constants import WritePermissions
 from .managers import AlbumQueryset, PhotoManager, PreferencesManager
 from .utils import rotate_img
 
@@ -47,10 +46,6 @@ class Category(models.Model):
 
 
 class Album(models.Model):
-    class WritePermissions(DjangoChoices):
-        owner = ChoiceItem("u", pgettext_lazy("write permissions for owner", "owner"))
-        # group = ChoiceItem('g', _('group'))
-        everyone = ChoiceItem("o", _("everyone"))  # auth required
 
     # owner of the album
     user = models.ForeignKey(

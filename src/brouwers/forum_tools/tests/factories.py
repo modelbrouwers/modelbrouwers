@@ -19,12 +19,17 @@ def create_from_user(user):
 class ForumUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ForumUser
+        skip_postgeneration_save = True
 
     username = factory.Sequence(lambda n: "User {n}".format(n=n))
-    username_clean = factory.PostGenerationMethodCall("_clean_username")
     user_email = factory.Sequence(lambda n: "user{n}@domain.com".format(n=n))
-    user_email_hash = factory.PostGenerationMethodCall("get_email_hash")
     user_posts = 10
+
+    @factory.post_generation
+    def _integrity(obj: ForumUser, *args, **kwargs):
+        obj._clean_username()
+        obj.user_email_hash = obj.get_email_hash()
+        obj.save()
 
 
 class ForumCategoryFactory(factory.django.DjangoModelFactory):

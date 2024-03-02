@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.html import strip_tags
-from django.utils.translation import get_language, ugettext_lazy as _, ungettext as _n
+from django.utils.translation import get_language, gettext_lazy as _, ngettext as _n
 
 from brouwers.awards.models import Category
 

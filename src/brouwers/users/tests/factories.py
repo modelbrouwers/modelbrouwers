@@ -7,13 +7,14 @@ from ..models import User
 
 class UserFactory(factory.django.DjangoModelFactory):
     username = factory.Sequence(lambda n: "User {0}".format(n))
-    password = factory.PostGenerationMethodCall("set_password", "password")
+    password = factory.django.Password("password")
     email = factory.Sequence(lambda n: "user-{0}@gmail.com".format(n))
     is_active = True
     last_login = timezone.now()
 
     class Meta:
         model = User
+        skip_postgeneration_save = True
 
     class Params:
         superuser = factory.Trait(

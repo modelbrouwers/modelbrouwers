@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_webtest import WebTest
 
@@ -109,4 +109,6 @@ class UploadTests(LoginRequiredMixin, WebTest):
         self.assertEqual(upload.status_code, 200)
 
         uploadform = upload.context["form"]
-        self.assertQuerysetEqual(uploadform.fields["album"].queryset, [repr(album)])
+        self.assertQuerysetEqual(
+            uploadform.fields["album"].queryset, [repr(album)], transform=repr
+        )

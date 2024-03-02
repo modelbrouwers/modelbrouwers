@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n static admin_tools_menu_tags %}
+{% load i18n static %}
 
 {% block extrastyle %}
     {{ block.super }}
@@ -9,11 +9,6 @@
         background: none !important;
     }
     </style>
-    {% if user.is_active and user.is_staff %}
-        {% if not is_popup %}
-            {% admin_tools_render_menu_css %}
-        {% endif %}
-    {% endif %}
 {% endblock %}
 
 {% block title %}{{ title }} | {% trans 'Modelbrouwers.nl admin' %}{% endblock %}
@@ -24,14 +19,6 @@
 
 {% block extrahead %}
 <link rel="shortcut icon" href="{% static "images/icons/favicon.ico" %}" />
-{% endblock %}
-
-{% block nav-global %}
-    {% if user.is_active and user.is_staff %}
-        {% if not is_popup %}
-            {% admin_tools_render_menu %}
-        {% endif %}
-    {% endif %}
 {% endblock %}
 
 {% block userlinks %}

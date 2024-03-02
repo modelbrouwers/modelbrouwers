@@ -6,7 +6,6 @@ from django.conf import settings
 from django.db import migrations, models
 
 import autoslug.fields
-import djchoices.choices
 
 import brouwers.kits.models
 
@@ -121,17 +120,6 @@ class Migration(migrations.Migration):
                             (50, "very hard"),
                         ],
                         default=30,
-                        validators=[
-                            djchoices.choices.ChoicesValidator(
-                                {
-                                    10: "very easy",
-                                    20: "easy",
-                                    30: "medium",
-                                    40: "hard",
-                                    50: "very hard",
-                                }
-                            )
-                        ],
                         verbose_name="difficulty",
                     ),
                 ),

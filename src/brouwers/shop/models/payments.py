@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.db import models, transaction
 from django.templatetags.l10n import localize
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..constants import PaymentStatuses
 from .utils import get_max_order, get_payment_reference

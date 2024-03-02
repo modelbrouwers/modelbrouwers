@@ -3,7 +3,7 @@ import uuid
 from django.template import engines
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import override, ugettext as _
+from django.utils.translation import gettext as _, override
 
 from django_webtest import WebTest
 
@@ -112,7 +112,7 @@ class CatalogueRouterTests(TestCase):
             ("/nonsense/a-product", "shop/product_detail.html"),
         )
 
-        for (good_url, template_name) in good_urls:
+        for good_url, template_name in good_urls:
             with self.subTest(good_url=good_url):
                 response = self.client.get(f"/winkel{good_url}")
 

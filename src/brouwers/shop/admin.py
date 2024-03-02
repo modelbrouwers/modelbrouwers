@@ -9,7 +9,6 @@ from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 
-from .constants import PaymentStatuses
 from .models import (
     Address,
     Cart,
@@ -39,7 +38,7 @@ class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
     list_display = ("name", "image", "enabled")
     list_filter = ("enabled",)
     search_fields = ("name", "meta_description")
-    resource_class = CategoryResource
+    resource_classes = (CategoryResource,)
     # TODO - override template to include import-export buttons
     change_list_template = "admin/tree_change_list.html"
 
@@ -122,7 +121,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin):
     )
     raw_id_fields = ("related_products", "categories", "manufacturer")
     prepopulated_fields = {"slug": ("name",)}
-    resource_class = ProductResource
+    resource_classes = (ProductResource,)
 
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related("tags")
@@ -320,4 +319,4 @@ class OrderAdmin(admin.ModelAdmin):
     def payment_status(self, obj: Order) -> Optional[str]:
         if not obj.payment:
             return None
-        return PaymentStatuses.labels[obj.payment.status]
+        return obj.payment.get_status_display()

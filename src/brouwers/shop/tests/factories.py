@@ -52,6 +52,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Product
+        skip_postgeneration_save = True
 
     class Params:
         with_image = factory.Trait(image=factory.django.ImageField(width=10, height=10))

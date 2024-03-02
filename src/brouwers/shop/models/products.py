@@ -2,7 +2,7 @@ from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.html import strip_tags
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
@@ -49,7 +49,7 @@ class Product(models.Model):
     length_unit = models.CharField(
         _("length unit"),
         max_length=10,
-        choices=LengthUnits,
+        choices=LengthUnits.choices,
         default=LengthUnits.cm,
     )
 
@@ -59,7 +59,7 @@ class Product(models.Model):
     weight_unit = models.CharField(
         _("weight unit"),
         max_length=10,
-        choices=WeightUnits,
+        choices=WeightUnits.choices,
         default=WeightUnits.gram,
     )
 
@@ -106,9 +106,11 @@ class Product(models.Model):
             "sku": self.model_name,
             "offers": {
                 "@type": "Offer",
-                "availability": "https://schema.org/InStock"
-                if self.stock
-                else "https://schema.org/OutOfStock",
+                "availability": (
+                    "https://schema.org/InStock"
+                    if self.stock
+                    else "https://schema.org/OutOfStock"
+                ),
                 "price": str(self.price),
                 "priceCurrency": "EUR",
             },

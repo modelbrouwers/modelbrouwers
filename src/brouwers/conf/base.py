@@ -96,7 +96,7 @@ DATABASE_ROUTERS = ["brouwers.db_router.Router"]
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
         "LOCATION": config("CACHE_URL", "127.0.0.1:11211"),
         "KEY_PREFIX": config("CACHE_PREFIX", ""),
     },
@@ -117,11 +117,8 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "modeltranslation",  # has to be imported before django.contrib.admin
-    # admin tools. order is important
-    "admin_tools",
-    "admin_tools.theming",
-    "admin_tools.menu",
-    "admin_tools.dashboard",
+    "django_admin_index",
+    "ordered_model",
     "django.contrib.admin",
     # Third party
     "sessionprofile",
@@ -182,16 +179,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "brouwers.urls"
 
-TEMPLATE_LOADERS = [
-    "admin_tools.template_loaders.Loader",
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-]
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "APP_DIRS": False,  # conflicts with explicity specifying the loaders
+        "APP_DIRS": True,
         "DIRS": [os.path.join(BASE_DIR, "src", "templates")],
         "OPTIONS": {
             "context_processors": [
@@ -204,7 +196,6 @@ TEMPLATES = [
                 "brouwers.general.context_processors.djsettings",
                 "brouwers.shop.context_processors.cart",
             ],
-            "loaders": TEMPLATE_LOADERS,
         },
     },
 ]
@@ -252,6 +243,10 @@ PRIVATE_MEDIA_URL = SENDFILE_URL
 PRIVATE_MEDIA_ROOT = SENDFILE_ROOT
 
 FILE_UPLOAD_PERMISSIONS = 0o644
+
+FIXTURE_DIRS = [
+    os.path.join("DJANGO_PROJECT_DIR", "fixtures"),
+]
 
 #
 # Sending EMAIL
@@ -341,9 +336,11 @@ LOGGING = {
             "propagate": True,
         },
         "django.request": {
-            "handlers": ["django", "mail_admins"]
-            if not LOG_STDOUT
-            else ["console", "mail_admins"],
+            "handlers": (
+                ["django", "mail_admins"]
+                if not LOG_STDOUT
+                else ["console", "mail_admins"]
+            ),
             "level": "ERROR",
             "propagate": True,
         },
@@ -423,7 +420,9 @@ elif os.path.exists(os.path.join(BASE_DIR, ".git")):
         repo = git.Repo(search_parent_directories=True)
         try:
             GIT_SHA = repo.head.object.hexsha
-        except ValueError:  # on startproject initial runs before any git commits have been made
+        except (
+            ValueError
+        ):  # on startproject initial runs before any git commits have been made
             GIT_SHA = repo.active_branch.name
 else:
     GIT_SHA = None
@@ -453,16 +452,15 @@ THUMB_DIMENSIONS = (200, 150, "thumb_")
 TOPIC_DEAD_TIME = 1  # months
 
 #
-# ADMIN TOOLS
-#
-ADMIN_TOOLS_INDEX_DASHBOARD = "brouwers.dashboard.CustomIndexDashboard"
-ADMIN_TOOLS_APP_INDEX_DASHBOARD = "brouwers.dashboard.CustomAppIndexDashboard"
-
-#
 # SORL THUMBNAIL
 #
 THUMBNAIL_DEBUG = DEBUG
 THUMBNAIL_PRESERVE_FORMAT = True
+
+#
+# DJANGO-ADMIN-INDEX
+#
+ADMIN_INDEX_SHOW_REMAINING_APPS = True
 
 #
 # DRF

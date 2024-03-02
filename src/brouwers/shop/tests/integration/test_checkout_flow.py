@@ -1,6 +1,7 @@
 """
 Integration tests for shop checkout flow.
 """
+
 from decimal import Decimal
 
 from django.test import override_settings

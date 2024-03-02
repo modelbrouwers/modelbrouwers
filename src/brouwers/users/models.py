@@ -6,7 +6,7 @@ from django.contrib.auth.models import (
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from brouwers.forum_tools.models import ForumUser
 from brouwers.utils.storages import private_media_storage

@@ -4,10 +4,11 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from autoslug import AutoSlugField
-from djchoices import ChoiceItem, DjangoChoices
+
+from .constants import KitDifficulties
 
 
 class Brand(models.Model):
@@ -64,14 +65,6 @@ class Scale(models.Model):
         return self.get_repr()
 
 
-class KitDifficulties(DjangoChoices):
-    very_easy = ChoiceItem(10, _("very easy"))
-    easy = ChoiceItem(20, _("easy"))
-    medium = ChoiceItem(30, _("medium"))
-    hard = ChoiceItem(40, _("hard"))
-    very_hard = ChoiceItem(50, _("very hard"))
-
-
 def get_kit_slug(instance):
     return "{0} {1}".format(instance.name, instance.brand.name)
 
@@ -98,7 +91,6 @@ class ModelKit(models.Model):
         _("difficulty"),
         choices=KitDifficulties.choices,
         default=KitDifficulties.medium,
-        validators=[KitDifficulties.validator],
     )
 
     box_image = models.ImageField(

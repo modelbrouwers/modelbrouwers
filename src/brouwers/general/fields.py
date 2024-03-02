@@ -9,6 +9,6 @@ from .constants import CountryChoices
 class CountryField(models.CharField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("verbose_name", _("country"))
-        kwargs["choices"] = CountryChoices
+        kwargs["choices"] = CountryChoices.choices
         kwargs["max_length"] = 1
         super().__init__(*args, **kwargs)
