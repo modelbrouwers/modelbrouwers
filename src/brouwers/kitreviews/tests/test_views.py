@@ -274,7 +274,6 @@ class KitReviewsListViewTests(WebTest):
 
 
 class LegacyRedirectViewTests(WebTest):
-
     """
     Ensure that the old links still work
     """

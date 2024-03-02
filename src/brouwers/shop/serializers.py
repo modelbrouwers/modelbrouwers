@@ -1,6 +1,7 @@
 """
 Non-API serializers
 """
+
 from django.db.models import Prefetch
 from django.utils.translation import get_language, gettext_lazy as _
 

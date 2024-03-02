@@ -1,6 +1,7 @@
 """
 Easy sending of ``EmailMultiAlternatives`` emails.
 """
+
 from django.contrib.sites.models import Site
 from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMultiAlternatives

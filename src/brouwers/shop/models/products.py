@@ -106,9 +106,11 @@ class Product(models.Model):
             "sku": self.model_name,
             "offers": {
                 "@type": "Offer",
-                "availability": "https://schema.org/InStock"
-                if self.stock
-                else "https://schema.org/OutOfStock",
+                "availability": (
+                    "https://schema.org/InStock"
+                    if self.stock
+                    else "https://schema.org/OutOfStock"
+                ),
                 "price": str(self.price),
                 "priceCurrency": "EUR",
             },

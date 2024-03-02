@@ -336,9 +336,11 @@ LOGGING = {
             "propagate": True,
         },
         "django.request": {
-            "handlers": ["django", "mail_admins"]
-            if not LOG_STDOUT
-            else ["console", "mail_admins"],
+            "handlers": (
+                ["django", "mail_admins"]
+                if not LOG_STDOUT
+                else ["console", "mail_admins"]
+            ),
             "level": "ERROR",
             "propagate": True,
         },
@@ -418,7 +420,9 @@ elif os.path.exists(os.path.join(BASE_DIR, ".git")):
         repo = git.Repo(search_parent_directories=True)
         try:
             GIT_SHA = repo.head.object.hexsha
-        except ValueError:  # on startproject initial runs before any git commits have been made
+        except (
+            ValueError
+        ):  # on startproject initial runs before any git commits have been made
             GIT_SHA = repo.active_branch.name
 else:
     GIT_SHA = None

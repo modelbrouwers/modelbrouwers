@@ -5,7 +5,6 @@ from ..forms import BuildSearchForm
 
 
 class SearchView(APIView):
-
     """
     API endpoint for autocomplete search.
 

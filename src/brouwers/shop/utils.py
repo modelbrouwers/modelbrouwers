@@ -11,8 +11,7 @@ class ViewFunc(Protocol):
 
     def __call__(
         self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponseBase:
-        ...  # pragma: nocover
+    ) -> HttpResponseBase: ...  # pragma: nocover
 
 
 def view_instance(view: ViewFunc, *args, **kwargs):

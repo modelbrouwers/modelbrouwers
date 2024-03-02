@@ -112,7 +112,7 @@ class CatalogueRouterTests(TestCase):
             ("/nonsense/a-product", "shop/product_detail.html"),
         )
 
-        for (good_url, template_name) in good_urls:
+        for good_url, template_name in good_urls:
             with self.subTest(good_url=good_url):
                 response = self.client.get(f"/winkel{good_url}")
 

@@ -51,7 +51,6 @@ class KitReviewPropertyRatingTest(TestCase):
 
 
 class KitReviewTests(TestCase):
-
     """
     Unit tests on the KitReview model
     """
