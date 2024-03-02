@@ -72,7 +72,7 @@ diff-match-patch==20230430
     # via
     #   -r requirements/ci.txt
     #   django-import-export
-django==3.2.24
+django==4.2.10
     # via
     #   -r requirements/ci.txt
     #   django-admin-index
@@ -135,7 +135,7 @@ django-precise-bbcode==1.2.16
     # via -r requirements/ci.txt
 django-recaptcha==4.0.0
     # via -r requirements/ci.txt
-django-rosetta==0.9.9
+django-rosetta==0.10.0
     # via -r requirements/ci.txt
 django-sendfile2==0.7.1
     # via -r requirements/ci.txt
@@ -145,7 +145,7 @@ django-sniplates==0.7.2
     # via -r requirements/ci.txt
 django-solo==2.2.0
     # via -r requirements/ci.txt
-django-taggit==4.0.0
+django-taggit==5.0.1
     # via -r requirements/ci.txt
 django-treebeard==4.7.1
     # via -r requirements/ci.txt
@@ -305,7 +305,6 @@ python-dotenv==1.0.1
 pytz==2024.1
     # via
     #   -r requirements/ci.txt
-    #   django
     #   djangorestframework
 pyyaml==6.0.1
     # via

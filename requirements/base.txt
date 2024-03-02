@@ -30,7 +30,7 @@ defusedxml==0.7.1
     # via odfpy
 diff-match-patch==20230430
     # via django-import-export
-django==3.2.24
+django==4.2.10
     # via
     #   -r requirements/base.in
     #   django-admin-index
@@ -81,7 +81,7 @@ django-precise-bbcode==1.2.16
     # via -r requirements/base.in
 django-recaptcha==4.0.0
     # via -r requirements/base.in
-django-rosetta==0.9.9
+django-rosetta==0.10.0
     # via -r requirements/base.in
 django-sendfile2==0.7.1
     # via -r requirements/base.in
@@ -91,7 +91,7 @@ django-sniplates==0.7.2
     # via -r requirements/base.in
 django-solo==2.2.0
     # via -r requirements/base.in
-django-taggit==4.0.0
+django-taggit==5.0.1
     # via -r requirements/base.in
 django-treebeard==4.7.1
     # via -r requirements/base.in
@@ -163,7 +163,6 @@ python-dotenv==1.0.1
 pytz==2024.1
     # via
     #   -r requirements/base.in
-    #   django
     #   djangorestframework
 pyyaml==6.0.1
     # via tablib
