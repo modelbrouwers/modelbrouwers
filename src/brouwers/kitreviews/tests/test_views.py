@@ -73,10 +73,9 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         form["raw_text"] = ""  # empty review
 
         response = form.submit()
-        self.assertFormError(response, "form", "raw_text", _("This field is required."))
-        self.assertFormError(
-            response, "form", "model_kit", _("This field is required.")
-        )
+        _form = response.context["form"]
+        self.assertFormError(_form, "raw_text", errors=[_("This field is required.")])
+        self.assertFormError(_form, "model_kit", errors=[_("This field is required.")])
 
         # now select a kit
         kit = random.choice(kits)

@@ -62,7 +62,9 @@ class CrudTests(LoginRequiredMixin, WebTest):
         response = form.submit()
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response, "form", "title", _("You already have an album with this title.")
+            response.context["form"],
+            "title",
+            errors=[str(_("You already have an album with this title."))],
         )
 
     def test_preferences_update(self):

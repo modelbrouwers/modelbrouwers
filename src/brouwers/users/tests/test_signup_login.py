@@ -139,7 +139,7 @@ class LoginRegisterTests(WebTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response, "form", "captcha", [str(_("This field is required."))]
+            response.context["form"], "captcha", [str(_("This field is required."))]
         )
 
     @mock_recaptcha(is_valid=True, action="signup")
@@ -162,10 +162,9 @@ class LoginRegisterTests(WebTest):
         response = form.submit()
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response,
-            "form",
+            response.context["form"],
             "username",
-            str(_("A user with that username already exists.")),
+            errors=[str(_("A user with that username already exists."))],
         )
 
     @mock_recaptcha(is_valid=True, action="login")
