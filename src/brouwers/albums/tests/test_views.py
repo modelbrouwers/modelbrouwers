@@ -30,13 +30,13 @@ class PublicViewTests(WebTest):
         albums = Album.objects.filter(trash=False, public=True).order_by(
             "-last_upload", "-pk"
         )[:12]
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             index.context["albums"], [repr(x) for x in albums], transform=repr
         )
         photos = Photo.objects.filter(
             trash=False, album__public=True, album__trash=False
         ).order_by("-uploaded")
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             index.context["latest_uploads"], [repr(x) for x in photos], transform=repr
         )
 
@@ -46,7 +46,7 @@ class PublicViewTests(WebTest):
         albums.reverse()
         listview = self.app.get(url)
         self.assertEqual(listview.status_code, 200)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             listview.context["albums"], [repr(x) for x in albums[:16]], transform=repr
         )
 
@@ -59,7 +59,7 @@ class PublicViewTests(WebTest):
         self.assertEqual(detail.context["album"], album)
         album = detail.context["album"]
         self.assertEqual(album.views, 1)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             detail.context["photos"], [repr(x) for x in photos[:24]], transform=repr
         )
         self.assertContains(detail, "pagination")
@@ -119,14 +119,14 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
 
         tabs = my_albums_list.context["tabcontent"]
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             tabs["public"], [repr(album1), repr(albumgroup2.album)], transform=repr
         )
-        self.assertQuerysetEqual(tabs["private"], [repr(album2)], transform=repr)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(tabs["private"], [repr(album2)], transform=repr)
+        self.assertQuerySetEqual(
             tabs["shared-with-me"], [repr(albumgroup1.album)], transform=repr
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             tabs["shared-by-me"], [repr(albumgroup2.album)], transform=repr
         )
 

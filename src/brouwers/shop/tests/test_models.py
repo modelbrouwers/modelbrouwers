@@ -22,7 +22,7 @@ class CategoryImportExportTest(WebTest):
         CategoryFactory.create()
         url = reverse("admin:shop_category_export")
         categories = self.app.get(url, user=self.superuser)
-        form = categories.forms[0]
+        form = categories.forms[1]
         form["file_format"].select("0")
         response = form.submit()
 

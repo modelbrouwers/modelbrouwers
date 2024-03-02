@@ -91,14 +91,13 @@ class AlbumDeleteView(LoginRequiredMixin, DeleteView):
         kwargs["photos"] = self.object.photo_set.filter(trash=False)
         return super().get_context_data(**kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
+    def form_valid(self, form):
         success_url = self.get_success_url()
         self.object.trash = True
         self.object.save()
         restore_url = reverse("albums:restore", kwargs={"pk": self.object.pk})
         messages.success(
-            request,
+            self.request,
             _('The album was deleted. <a href="{0}">Undo</a>').format(restore_url),
         )
         return redirect(success_url)
@@ -144,14 +143,13 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
         qs = super().get_queryset()
         return qs.filter(user=self.request.user, trash=False)
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
+    def form_valid(self, form):
         success_url = self.get_success_url()
         self.object.trash = True
         self.object.save()
         restore_url = reverse("albums:photo_restore", kwargs={"pk": self.object.pk})
         messages.success(
-            request,
+            self.request,
             _('The photo was deleted. <a href="{0}">Undo</a>').format(restore_url),
         )
         return redirect(success_url)

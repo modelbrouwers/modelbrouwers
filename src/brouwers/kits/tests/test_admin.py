@@ -36,7 +36,7 @@ class AdminTests(WebTest):
         expected_brands = [
             repr(brand) for i, brand in enumerate(brands) if i in index_range
         ]
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             intermediate.context["queryset"], expected_brands, transform=repr
         )
         django_form = intermediate.context["form"]
@@ -44,7 +44,7 @@ class AdminTests(WebTest):
         expected_targets = [
             repr(brand) for i, brand in enumerate(brands) if i not in index_range
         ]
-        self.assertQuerysetEqual(queryset, expected_targets, transform=repr)
+        self.assertQuerySetEqual(queryset, expected_targets, transform=repr)
 
         # select a target
         form["target"].select(brands[8].pk)

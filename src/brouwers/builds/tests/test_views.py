@@ -26,7 +26,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         builds = index.context["builds"]
         expected_builds = self.builds
         expected_builds.reverse()
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             builds, [repr(x) for x in expected_builds], transform=repr
         )
 
@@ -45,7 +45,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         self.assertContains(index, url)
         my_builds = index.click(_("My builds"))
         self.assertEqual(my_builds.status_code, 200)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             my_builds.context["builds"],
             reversed([repr(x) for x in user_builds]),
             transform=repr,
