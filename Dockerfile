@@ -5,7 +5,7 @@
 
 # Stage 1 - Backend build environment
 # includes compilers and build tooling to create the environment
-FROM python:3.9-slim-bullseye AS backend-build
+FROM python:3.12-slim-bookworm AS backend-build
 
 RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install-recommends \
         pkg-config \
@@ -14,15 +14,15 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install
         libmariadb-dev-compat \
         libxml2-dev \
         libxslt-dev \
+        shared-mime-info \
+        libmemcached-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 RUN mkdir /app/src
 
-# Ensure we use the latest version of pip
-RUN pip install pip setuptools -U
 COPY ./requirements /app/requirements
-RUN pip install -r requirements/production.txt
+RUN pip install uv && uv pip install --python 3.12 -r requirements/production.txt
 
 
 # Stage 2 - Install frontend deps and build assets
@@ -45,7 +45,7 @@ RUN npm run build
 
 
 # Stage 3 - Build docker image suitable for production
-FROM python:3.9-slim-bullseye
+FROM python:3.12-slim-bookworm
 
 # Stage 3.1 - Set up the needed production dependencies
 # install all the dependencies for GeoDjango
@@ -56,6 +56,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install
         postgresql-client \
         mariadb-client \
         gettext \
+        shared-mime-info \
         # lxml deps
         libxml2 \
         libxslt1.1 \
@@ -65,9 +66,10 @@ WORKDIR /app
 COPY ./bin/wait-for-it.sh /wait-for-it.sh
 COPY ./bin/docker_start.sh /start.sh
 RUN mkdir /app/log /app/media /app/private_media /app/node_modules
+VOLUME /app/media /app/private_media /app/log
 
 # copy backend build deps
-COPY --from=backend-build /usr/local/lib/python3.9 /usr/local/lib/python3.9
+COPY --from=backend-build /usr/local/lib/python3.12 /usr/local/lib/python3.12
 COPY --from=backend-build /usr/local/bin/uwsgi /usr/local/bin/uwsgi
 COPY --from=backend-build /app/src/ /app/src/
 
@@ -80,10 +82,8 @@ COPY --from=frontend-build /app/src/static /app/src/static
 # copy source code
 COPY ./src /app/src
 
-RUN useradd -M -u 1000 brouwers
-RUN chown -R brouwers /app
-
-VOLUME /app/media /app/private_media /app/log
+RUN useradd -M -u 1000 brouwers\
+    && chown -R brouwers /app
 
 # drop privileges
 USER brouwers
@@ -96,10 +96,10 @@ ENV LOG_STDOUT=yes
 ARG SECRET_KEY=dummy
 
 # Run collectstatic, so the result is already included in the image
-RUN python src/manage.py collectstatic --noinput
-
-# Clean up
-RUN rm -rf node_modules src/static src/js
+RUN python src/manage.py collectstatic --noinput \
+    && python src/manage.py compilemessages \
+    # Clean up
+    && rm -rf node_modules src/static src/js
 
 EXPOSE 8000
 CMD ["/start.sh"]
