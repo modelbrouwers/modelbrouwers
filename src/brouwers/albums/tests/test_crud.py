@@ -111,6 +111,6 @@ class UploadTests(LoginRequiredMixin, WebTest):
         self.assertEqual(upload.status_code, 200)
 
         uploadform = upload.context["form"]
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             uploadform.fields["album"].queryset, [repr(album)], transform=repr
         )

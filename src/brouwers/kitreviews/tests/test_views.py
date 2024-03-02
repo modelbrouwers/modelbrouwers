@@ -31,7 +31,7 @@ class IndexViewTests(WebTest):
         index = self.app.get(self.url)
         expected = [repr(review) for review in kitreviews[5:]]
         expected.reverse()
-        self.assertQuerysetEqual(index.context["reviews"], expected, transform=repr)
+        self.assertQuerySetEqual(index.context["reviews"], expected, transform=repr)
 
 
 class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
@@ -170,7 +170,7 @@ class SearchViewTests(WebTest):
             form["brand"].select(self.kit1.brand.pk)
             search_results = form.submit()
             queryset = search_results.context["kits"]
-            self.assertQuerysetEqual(queryset, [repr(self.kit1)], transform=repr)
+            self.assertQuerySetEqual(queryset, [repr(self.kit1)], transform=repr)
             self.assertEqual(queryset[0].num_reviews, 1)
 
         with self.subTest(search_by="scale"):
@@ -179,7 +179,7 @@ class SearchViewTests(WebTest):
             form["scale"].select(self.kit2.scale.pk)
             search_results = form.submit()
             queryset = search_results.context["kits"]
-            self.assertQuerysetEqual(queryset, [repr(self.kit2)], transform=repr)
+            self.assertQuerySetEqual(queryset, [repr(self.kit2)], transform=repr)
             self.assertEqual(queryset[0].num_reviews, 1)
 
         with self.subTest(search_by="name"):
@@ -187,7 +187,7 @@ class SearchViewTests(WebTest):
             form = search_page.forms[0]
             form["kit_name"] = "challenger"
             search_results = form.submit()
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 search_results.context["kits"], [repr(self.kit3)], transform=repr
             )
 
@@ -196,7 +196,7 @@ class SearchViewTests(WebTest):
             form = search_page.forms[0]
             form["kit_name"] = "katana"
             search_results = form.submit()
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 search_results.context["kits"], [repr(self.kit1)], transform=repr
             )
 
@@ -205,7 +205,7 @@ class SearchViewTests(WebTest):
             form = search_page.forms[0]
             form["kit_number"] = "1234"
             search_results = form.submit()
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 search_results.context["kits"], [repr(self.kit3)], transform=repr
             )
 
@@ -226,7 +226,7 @@ class SearchViewTests(WebTest):
         # search by brand
         response = self.client.post(self.url, {"brand": self.kit1.brand.pk})
         queryset = response.context["kits"]
-        self.assertQuerysetEqual(queryset, [repr(self.kit1)], transform=repr)
+        self.assertQuerySetEqual(queryset, [repr(self.kit1)], transform=repr)
         self.assertEqual(queryset[0].num_reviews, 1)
 
     @mock_recaptcha(is_valid=True, action="login")
@@ -275,7 +275,7 @@ class KitReviewsListViewTests(WebTest):
         reviews = kit_detail.context["object_list"]
         expected_reviews = [repr(x) for x in self.reviews1]
         # TODO: ordering comes later - we'll order by review votes
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             reviews, expected_reviews, ordered=False, transform=repr
         )
 

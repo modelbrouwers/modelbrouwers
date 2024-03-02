@@ -159,7 +159,7 @@ class GroupbuildTests(TestCase):
         """
         user = UserFactory.create()
         gb = GroupBuildFactory.create(applicant=user)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             gb.admins.all(), [repr(user)], ordered=False, transform=repr
         )
 
@@ -169,4 +169,4 @@ class GroupbuildTests(TestCase):
         # test that existing groupbuilds aren't forced
         gb = gb.__class__.objects.get(pk=gb.pk)
         gb.admins.remove(gb.applicant)
-        self.assertQuerysetEqual(gb.admins.all(), [], ordered=False, transform=repr)
+        self.assertQuerySetEqual(gb.admins.all(), [], ordered=False, transform=repr)
