@@ -1,7 +1,7 @@
 import logging
+from datetime import timezone
 
 from django.core.cache import cache
-from django.utils import timezone
 
 from . import models
 

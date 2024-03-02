@@ -1,12 +1,12 @@
 import zlib
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.http import urlencode
 from django.utils.timesince import timesince
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from dateutil.relativedelta import relativedelta
@@ -211,12 +211,10 @@ class Topic(models.Model):
 
     @property
     def created(self):
-        return datetime.utcfromtimestamp(self.create_time).replace(tzinfo=timezone.utc)
+        return datetime.fromtimestamp(self.create_time, tz=timezone.utc)
 
     def get_last_post_time(self):
-        return datetime.utcfromtimestamp(self.last_post_time).replace(
-            tzinfo=timezone.utc
-        )
+        return datetime.fromtimestamp(self.last_post_time, tz=timezone.utc)
 
     @property
     def is_dead(self):
@@ -225,7 +223,7 @@ class Topic(models.Model):
         dead.
         """
         last = self.get_last_post_time()
-        lower = timezone.now() - relativedelta(months=settings.TOPIC_DEAD_TIME)
+        lower = now() - relativedelta(months=settings.TOPIC_DEAD_TIME)
         return last <= lower
 
     @property
