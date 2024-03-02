@@ -2,10 +2,10 @@ from django import forms
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.forms.utils import flatatt
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.html import format_html, smart_urlquote
 from django.utils.http import urlencode
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 
 class ForumToolsIDFieldWidget(forms.TextInput):
@@ -21,7 +21,7 @@ class ForumToolsIDFieldWidget(forms.TextInput):
             value = self.get_url(value)
         html = super().render(name, value, attrs)
         if value:
-            value = force_text(value)
+            value = force_str(value)
             final_attrs = {"href": smart_urlquote(value)}
             html = format_html(
                 '<p class="url">{0} <a{1}>{2}</a><br />{3} {4}</p>',

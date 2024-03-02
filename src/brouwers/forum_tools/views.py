@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _, ungettext as _n
+from django.utils.translation import gettext as _, ngettext as _n
 from django.views.decorators.cache import cache_page
 from django.views.generic import View
 

@@ -3,7 +3,7 @@ import uuid
 from django.template import engines
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import override, ugettext as _
+from django.utils.translation import gettext as _, override
 
 from django_webtest import WebTest
 

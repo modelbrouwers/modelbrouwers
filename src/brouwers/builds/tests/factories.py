@@ -12,6 +12,7 @@ class BuildFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Build
+        skip_postgeneration_save = True
 
     @factory.post_generation
     def kits(obj, create, extracted, **kwargs):

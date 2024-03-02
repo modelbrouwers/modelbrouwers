@@ -36,6 +36,7 @@ class PhotoFactory(factory.django.DjangoModelFactory):
 class AlbumGroupFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = AlbumGroup
+        skip_postgeneration_save = True
 
     album = factory.SubFactory(AlbumFactory)
 

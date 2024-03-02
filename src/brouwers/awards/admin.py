@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
 from django.template.defaultfilters import truncatewords
 from django.utils.html import format_html
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from brouwers.forum_tools.models import Forum
 

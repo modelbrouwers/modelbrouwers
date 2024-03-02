@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 import requests_mock
 from django_webtest import WebTest
@@ -26,7 +26,9 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         builds = index.context["builds"]
         expected_builds = self.builds
         expected_builds.reverse()
-        self.assertQuerysetEqual(builds, [repr(x) for x in expected_builds])
+        self.assertQuerysetEqual(
+            builds, [repr(x) for x in expected_builds], transform=repr
+        )
 
     def test_user_list(self):
         user_builds = BuildFactory.create_batch(2, user=self.user)
@@ -44,7 +46,9 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         my_builds = index.click(_("My builds"))
         self.assertEqual(my_builds.status_code, 200)
         self.assertQuerysetEqual(
-            my_builds.context["builds"], reversed([repr(x) for x in user_builds])
+            my_builds.context["builds"],
+            reversed([repr(x) for x in user_builds]),
+            transform=repr,
         )
         self.assertEqual(my_builds.context["request"].path, url)
 

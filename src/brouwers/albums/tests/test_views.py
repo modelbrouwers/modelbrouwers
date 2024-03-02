@@ -30,12 +30,14 @@ class PublicViewTests(WebTest):
         albums = Album.objects.filter(trash=False, public=True).order_by(
             "-last_upload", "-pk"
         )[:12]
-        self.assertQuerysetEqual(index.context["albums"], [repr(x) for x in albums])
+        self.assertQuerysetEqual(
+            index.context["albums"], [repr(x) for x in albums], transform=repr
+        )
         photos = Photo.objects.filter(
             trash=False, album__public=True, album__trash=False
         ).order_by("-uploaded")
         self.assertQuerysetEqual(
-            index.context["latest_uploads"], [repr(x) for x in photos]
+            index.context["latest_uploads"], [repr(x) for x in photos], transform=repr
         )
 
     def test_list(self):
@@ -45,7 +47,7 @@ class PublicViewTests(WebTest):
         listview = self.app.get(url)
         self.assertEqual(listview.status_code, 200)
         self.assertQuerysetEqual(
-            listview.context["albums"], [repr(x) for x in albums[:16]]
+            listview.context["albums"], [repr(x) for x in albums[:16]], transform=repr
         )
 
     def test_album_detail(self):
@@ -58,7 +60,7 @@ class PublicViewTests(WebTest):
         album = detail.context["album"]
         self.assertEqual(album.views, 1)
         self.assertQuerysetEqual(
-            detail.context["photos"], [repr(x) for x in photos[:24]]
+            detail.context["photos"], [repr(x) for x in photos[:24]], transform=repr
         )
         self.assertContains(detail, "pagination")
 
@@ -118,11 +120,15 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         tabs = my_albums_list.context["tabcontent"]
 
         self.assertQuerysetEqual(
-            tabs["public"], [repr(album1), repr(albumgroup2.album)]
+            tabs["public"], [repr(album1), repr(albumgroup2.album)], transform=repr
         )
-        self.assertQuerysetEqual(tabs["private"], [repr(album2)])
-        self.assertQuerysetEqual(tabs["shared-with-me"], [repr(albumgroup1.album)])
-        self.assertQuerysetEqual(tabs["shared-by-me"], [repr(albumgroup2.album)])
+        self.assertQuerysetEqual(tabs["private"], [repr(album2)], transform=repr)
+        self.assertQuerysetEqual(
+            tabs["shared-with-me"], [repr(albumgroup1.album)], transform=repr
+        )
+        self.assertQuerysetEqual(
+            tabs["shared-by-me"], [repr(albumgroup2.album)], transform=repr
+        )
 
         # assert that the edit urls are visible
         for album in [album1, album2, albumgroup2.album]:

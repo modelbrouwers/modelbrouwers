@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 
 from .models import (
     BuildReportsForum,
@@ -50,11 +50,11 @@ class ForumUserAdmin(admin.ModelAdmin):
     search_fields = ("username", "user_email")
 
     def show_absolute_url(self, obj):
-        click = ugettext("forum profile")
+        click = gettext("forum profile")
         return '<a href="%s">%s</a>' % (obj.get_absolute_url(), click)
 
     show_absolute_url.allow_tags = True
-    show_absolute_url.short_description = ugettext("Link")
+    show_absolute_url.short_description = gettext("Link")
 
 
 @admin.register(ForumPostCountRestriction)
