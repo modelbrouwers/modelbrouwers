@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import RedirectView
 
-from .views.public import GroupBuildDetailView
+from .views import GroupBuildDetailView
 
 app_name = "groupbuilds"
 urlpatterns = [
