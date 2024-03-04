@@ -16,8 +16,6 @@ const loadModule = async (name) => {
             return import("../albums/index");
         case "builds":
             return import("../builds/index");
-        case "group_builds":
-            return import("../groupbuilds/index");
         case "shop":
             return import("../shop/index");
         // some pages don't have an entrypoint at all, so don't throw exceptions

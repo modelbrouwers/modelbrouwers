@@ -23,7 +23,6 @@ class ApiTests(APITestCase):
                 "id": gb.id,
                 "theme": "Testing the code",
                 "url": gb.get_absolute_url(),
-                "forum": gb.forum,
                 "description": "<strong>My BBCode</strong> groupbuild",
                 "rules": "<em>BBCode</em> rules",
                 "start": gb.start,
@@ -31,6 +30,5 @@ class ApiTests(APITestCase):
                 "status": gb.get_status_display(),
                 "rules_topic": gb.rules_topic,
                 "participants": [],
-                "admins": [{"username": gb.applicant.username}],
             },
         )

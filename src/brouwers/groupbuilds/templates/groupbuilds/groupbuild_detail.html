@@ -1,5 +1,5 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n bbcode_tags sniplates %}
+{% load i18n bbcode_tags %}
 
 {% block title %}{{ block.super }}: {{ gb.theme }}{% endblock %}
 
@@ -10,23 +10,14 @@
         <div class="row relative">
             {% if gb.category.icon_class %}<i class="category-icon fa {{ gb.category.icon_class }}"></i>{% endif %}
             <div class="col-md-3">
-                <h2>
-                    {{ gb.category }}
-                <small><br>
-                {% blocktrans with status=gb.get_status_display %}
-                    Status: {{ status }}
-                {% endblocktrans %}</small>
-                </h2>
+                <h2>{{ gb.category }}</h2>
             </div>
 
             <div class="col-md-9">
-                <h1>{{ gb.theme }}
-                    {% if gb.is_ongoing %}<sup><small title="{% trans "Ongoing" %}"><i class="fa fa-forward"></i></small></sup>{% endif %}</h1>
+                <h1>{{ gb.theme }}</h1>
                 <p>
                     <i class="fa fa-calendar"></i>
-                    {{ gb.start|default:_('to be determined') }}
-                    &bull;
-                    {{ gb.end|default:_('to be determined') }}
+                    {{ gb.start }} &bull; {{ gb.end }}
 
                     {% if gb.forum %}
                         &bull;
@@ -47,15 +38,6 @@
             <div class="col-md-9">
 
                 {% block gb-content %}
-                    {% if request.user in admins or request.user.is_superuser %}
-                    <div class="feedback text-danger">
-                        {% if gb.reason_denied %}
-                            <h3 class="text-danger">{% trans "Uh-oh, problems!" %}</h3>
-                            <p>{{ gb.reason_denied }}</p>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-
                     <h3>
                         {% trans "All you need to know..." %}
                     </h3>
@@ -118,9 +100,7 @@
                                                 {% endif %}
                                             </td>
                                             <td class="col-xs-1">
-                                                <a href="#" class="action" data-toggle="finished" data-id="{{ participant.pk }}">
-                                                    <i class="fa fa-{{ participant.finished|yesno:'ellipsis-h,check' }}"></i>
-                                                </a>
+                                                <i class="fa fa-{{ participant.finished|yesno:'ellipsis-h,check' }}"></i>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -168,41 +148,10 @@
             </div>
 
             <div class="col-md-3">
-
-                {% include 'groupbuilds/includes/progress.html' %}
-
                 {% include 'groupbuilds/includes/links.html' %}
-
-                <h3>{% blocktrans count count=gb.n_admins %}Organiser{% plural %}Organisers{% endblocktrans %}</h3>
-                <aside>
-                    <ul class="list-group">
-                    {% for profile in admins %}
-                        <li class="list-group-item">
-                            <a href="{{ profile.get_absolute_url }}">
-                                {% if profile == request.user %}{% trans "You!" %}
-                                {% else %}{{ profile }}
-                                {% endif %}
-                            </a>
-                            {# TODO: button to pm #}
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </aside>
-
-                {% if request.user in admins or request.user.is_superuser %}
-                    <h3>{% trans "BBCode" %}
-                        <br>
-                        <small>{% trans "Use this to embed the group build in the forum" %}</small>
-                    </h3>
-                    <p class="well">
-                        <input value="{{ gb.get_bbcode }}" class="form-control">
-                    </p>
-                {% endif %}
-
             </div>
         </div>
     {% endblock %}</div>
 
-    <footer></footer>
 </article>
 {% endblock content %}
