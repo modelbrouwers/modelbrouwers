@@ -9,17 +9,19 @@ Modelbrouwers.nl
 Modelbrouwers.nl is a scale modeling community. The website hosts a phpBB3 board,
 albums software and a webshop.
 
-.. image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
+|build| |coverage| |python-versions| |black|
+
+.. |build| image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
     :target: https://github.com/modelbrouwers/modelbrouwers/actions?query=workflow%3A%22Run+CI%22
 
-.. image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=main
+.. |coverage| image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=main
     :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=main
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :alt: Code style
     :target: https://github.com/psf/black
 
-.. |python-versions| image:: https://img.shields.io/badge/python-3.9-blue.svg
+.. |python-versions| image:: https://img.shields.io/badge/python-3.12-blue.svg
     :alt: Supported Python versions
 
 
@@ -80,8 +82,8 @@ Ensure you have the prerequisites installed on your system:
 
 * PostgreSQL database server (django project)
 * MySQL/MariaDB database server (phpBB3 and django project)
-* Python 3.9
-* NodeJS 16+/npm 8+
+* Python 3.12
+* NodeJS 20+/npm 8+
 
 It is recommended to use a virtualenv.
 
