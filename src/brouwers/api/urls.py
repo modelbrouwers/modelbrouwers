@@ -8,7 +8,6 @@ from brouwers.albums.api.views import (
     PhotoViewSet,
     PreferencesViewSet,
 )
-from brouwers.groupbuilds.api.viewsets import ParticipantViewSet
 from brouwers.kits.api.views import (
     BoxartViewSet,
     BrandViewSet,
@@ -32,9 +31,6 @@ router.register("kits/kit", ModelKitViewSet)
 router.register("kits/brand", BrandViewSet)
 router.register("kits/scale", ScaleViewSet)
 router.register("kits/boxart", BoxartViewSet)
-
-# groupbuilds
-router.register("groupbuilds/participant", ParticipantViewSet)
 
 # shop
 # router.register(r'shop/cart', CartViewSet)
