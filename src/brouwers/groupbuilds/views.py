@@ -1,7 +1,21 @@
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 from .constants import GroupbuildStatuses
 from .models import GroupBuild
+
+
+class GroupBuildListView(ListView):
+    """
+    Archived list of group builds.
+    """
+
+    queryset = GroupBuild.objects.filter(
+        status__in=[
+            GroupbuildStatuses.accepted,
+            GroupbuildStatuses.extended,
+        ]
+    ).order_by("-start", "-end")
+    context_object_name = "group_builds"
 
 
 class GroupBuildDetailView(DetailView):

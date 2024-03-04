@@ -1,0 +1,61 @@
+{% extends "groupbuilds/base.html" %}
+{% load i18n bbcode_tags %}
+
+
+{% block eye-catcher %}
+<header class="eye-catcher">
+    <div class="container">
+        <h1>
+            {% trans "Group builds" %}
+
+            <span class="fa-stack fa-lg pull-right">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-users fa-stack-1x"></i>
+            </span>
+        </h1>
+        <p>
+            {% trans "Archive of group builds in the old-style." %}
+        </p>
+        <a href="{% url 'groupbuilds:to-forum' %}" class="btn button button--icon bg-main-blue">
+            {% trans "New-style group builds" %}
+            <i class="fa fa-arrow-right"></i>
+        </a>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+{% for gb in group_builds %}
+    <article class="review-preview ">
+        <header class="row">
+            <h1 class="col-md-8 col-xs-12 review-preview__title">
+                {{ gb.theme }}
+            </h1>
+
+            <aside class="col-md-4 col-xs-12 review-preview__details text-right">
+                {{ gb.category }} &ndash;
+                {% blocktrans with time_ago=gb.end|timesince %}{{ time_ago }} ago{% endblocktrans %}
+            </aside>
+        </header>
+
+        <div class="review-preview__body">
+            {{ gb.description|bbcode|safe }}
+        </div>
+
+        <footer class="clearfix">
+            <a class="button button--icon button--orange pull-right" href="{{ gb.get_absolute_url }}">
+                <i class="fa fa-file-text"></i>
+                {% trans "read more" %}
+            </a>
+            {% if gb.forum %}
+                <a class="button button--icon button--light-blue" href="{{ gb.forum.get_absolute_url }}">
+                    <i class="fa fa-comments-o"></i>
+                    {% trans "Go to forum" %}</a>
+            {% endif %}
+
+        </footer>
+
+    </article>
+
+{% endfor %}
+{% endblock content %}

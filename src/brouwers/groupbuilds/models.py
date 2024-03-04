@@ -15,8 +15,6 @@ from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.forum_tools.models import ForumCategory
 
 from .constants import GroupbuildDurations, GroupbuildStatuses
-from .managers import PublicGroupBuildsManager
-from .query import GroupbuildQuerySet
 
 
 class GroupBuild(models.Model):
@@ -107,11 +105,6 @@ class GroupBuild(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     reason_denied = models.TextField(blank=True)
-
-    # TODO: status tracking -> forum created, forum visible etc...
-
-    objects = GroupbuildQuerySet.as_manager()
-    public = PublicGroupBuildsManager()
 
     _created = False
     _dimensions = None
