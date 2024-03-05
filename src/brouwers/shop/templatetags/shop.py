@@ -127,7 +127,7 @@ def order_status(order: Order):
         OrderStatuses.processing,
         OrderStatuses.shipped,
     )
-    progression = [(value, OrderStatuses.values[value]) for value in choices_order]
+    progression = [(value, OrderStatuses[value].label) for value in choices_order]
     return {"steps": progression, "current": order.status}
 
 
@@ -135,5 +135,5 @@ def order_status(order: Order):
 def payment_status(payment: Payment):
     # map value -> label
     choices_order = (PaymentStatuses.pending, PaymentStatuses.completed)
-    progression = [(value, PaymentStatuses.values[value]) for value in choices_order]
+    progression = [(value, PaymentStatuses[value].label) for value in choices_order]
     return {"steps": progression, "current": payment.status}
