@@ -7,6 +7,6 @@
   row-gap: 20px;
 
   @include responsive.lte-mobile {
-    grid-template-colums: 1fr;
+    grid-template-columns: 1fr;
   }
 }

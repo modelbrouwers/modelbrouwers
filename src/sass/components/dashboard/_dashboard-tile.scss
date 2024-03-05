@@ -1,5 +1,6 @@
-@use "../../partials/colors";
 @use "../../modules/bem";
+@use "../../partials/colors";
+@use "../../modules/responsive";
 
 .dashboard-tile {
   --dashboard-tile-size: 280px;
@@ -46,5 +47,10 @@
 
   @include bem.element("label") {
     font-size: 2rem;
+  }
+
+  @include responsive.lte-mobile {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
   }
 }
