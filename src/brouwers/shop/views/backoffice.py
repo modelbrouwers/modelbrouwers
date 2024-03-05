@@ -1,11 +1,27 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 
+from ..constants import OrderStatuses
 from ..models import Order
 
 
 class BackofficeRequiredMixin(PermissionRequiredMixin):
     permission_required = "shop.change_order"
+
+
+class DashboardView(BackofficeRequiredMixin, TemplateView):
+    template_name = "shop/backoffice/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "new_order_count": Order.objects.filter(
+                    status=OrderStatuses.received
+                ).count(),
+            }
+        )
+        return context
 
 
 class OrderListView(BackofficeRequiredMixin, ListView):
