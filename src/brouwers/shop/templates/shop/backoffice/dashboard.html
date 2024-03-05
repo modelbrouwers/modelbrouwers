@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n shop %}
+
+{% block title %} {% trans "Shop backoffice | Dashboard" %}{% endblock %}
+
+{% block body-class %}shop-backoffice{% endblock body-class %}
+
+{% block eye-catcher %}
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            <h1>
+                {% trans "Shop dashboard" %}
+                <i class="pull-right fa fa-bar-chart-o fa-2x"></i>
+            </h1>
+
+            <p>{% blocktrans trimmed %}
+                Quick overview to manage the shop.
+            {% endblocktrans %}</p>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <a class="dashboard-tile" href="{% url 'shop:order-list' %}">
+        <i class="dashboard-tile__icon fa fa-shopping-bag fa-4x"></i>
+        <span class="dashboard-tile__label">
+            {% blocktrans count new_order_count=new_order_count trimmed %}
+                Orders (1 new)
+            {% plural %}
+                Orders ({{ new_order_count }} new)
+            {% endblocktrans %}
+        </span>
+    </a>
+
+    <a class="dashboard-tile" href="{% url 'admin:shop_product_changelist' %}">
+        <i class="dashboard-tile__icon fa fa-shopping-cart fa-4x"></i>
+        <span class="dashboard-tile__label">
+            {% trans "Manage products" %}
+        </span>
+    </a>
+
+</div>
+
+{% endblock %}

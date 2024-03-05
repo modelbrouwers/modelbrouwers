@@ -1,4 +1,5 @@
 from django.urls import include, path
+from django.views.generic import RedirectView
 
 from .payments.paypal.views import (
     CancelView as PPCancelView,
@@ -9,6 +10,7 @@ from .views import (
     CartDetailView,
     CheckoutView,
     ConfirmOrderView,
+    DashboardView,
     IndexView,
     OrderDetailView,
     OrderListView,
@@ -19,10 +21,14 @@ app_name = "shop"
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
+    # set up redirects for old URLs Hanjo is used to :)
+    path("achterdeur", RedirectView.as_view(pattern_name="shop:dashboard")),
+    path("achterdeur/", RedirectView.as_view(pattern_name="shop:dashboard")),
     path(
         "backoffice/",
         include(
             [
+                path("", DashboardView.as_view(), name="dashboard"),
                 path("orders/", OrderListView.as_view(), name="order-list"),
                 path(
                     "order/<slug:reference>/",
