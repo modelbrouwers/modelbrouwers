@@ -42,6 +42,13 @@
 
 @include responsive.gte-tablet {
   .order-detail {
+    @include bem.element("status") {
+      box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+        0 2px 8px 0 rgba(0, 157, 255, 0.05);
+      padding-inline-start: 10px;
+      padding-inline-end: 10px;
+    }
+
     @include bem.element("customer") {
       align-self: start;
       position: sticky;
