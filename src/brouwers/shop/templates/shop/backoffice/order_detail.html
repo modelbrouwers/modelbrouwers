@@ -37,11 +37,18 @@
 
         <h3>
             {% trans "Payment" %}
+            {% with status=order.payment.status %}
+                <span class="pull-right label {% if status == 'completed' %}label-success{% elif status == 'cancelled' %}label-danger{% else %}label-default{% endif %}">
+                    {{ order.payment.get_status_display }}
+                </span>
+            {% endwith %}
         </h3>
         <p>{% blocktrans with method=order.payment.payment_method.name trimmed %}
             Payment using: {{ method }}
         {% endblocktrans %}</p>
-        <p>{{ order.payment.get_status_display }}</p>
+        <p>{% blocktrans with total=order.payment.format_amount trimmed %}
+            Total price: {{ total }}
+        {% endblocktrans %}</p>
     </section>
 
     <section class="order-detail__products">
