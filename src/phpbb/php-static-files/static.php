@@ -66,7 +66,7 @@ class ManifestStaticFilesStorage extends StaticFilesStorage
         }
         $stored = json_decode($content, true);
         $version = $stored['version'];
-        if ($version == '1.0') {
+        if ($version == '1.1') {
             return $stored['paths'] ?: array();
         }
         throw new Exception("Couldn't load manifest - unknown version {$version}");
