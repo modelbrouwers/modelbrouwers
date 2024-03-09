@@ -57,6 +57,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install
         mariadb-client \
         gettext \
         shared-mime-info \
+        libmemcached11 \
         # lxml deps
         libxml2 \
         libxslt1.1 \
