@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
-"PO-Revision-Date: 2015-08-25 09:01+0020\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"PO-Revision-Date: 2024-03-09 23:07+0100\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,795 +17,645 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translated-Using: django-rosetta 0.7.6\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
 
-#: apps.py:7
+#: src/brouwers/groupbuilds/apps.py:7
 msgid "Groupbuilds"
 msgstr "Groepsbouwen"
 
-#: dashboard.py:11
-msgid "Groupbuilds moderation queue"
-msgstr "Groepsbouwen goedkeuringswachtrij"
-
-#: dashboard.py:21 dashboard.py:40
-msgid "Empty queue, good job!"
-msgstr "De wachtrij is leeg, goed gedaan!"
-
-#: dashboard.py:25
-msgid "Groupbuilds without forum"
-msgstr "Groepsbouwen zonder forum"
-
-#: forms.py:9 tests/test_flow.py:111
-msgid ""
-"The start date cannot be edited if the build is outside of the concept state."
-msgstr ""
-"De startdatum kan niet bewerkt worden als de groepsbouw niet in de concept/"
-"idee fase is."
-
-#: forms.py:10 tests/test_flow.py:112
-msgid ""
-"The duration cannot be edited if the build is outside of the concept state."
-msgstr ""
-"De duur kan niet bewerkt worden als de groepsbouw niet in de concept/idee "
-"fase is."
-
-#: models.py:22
-msgid "30 days"
-msgstr "30 dagen"
-
-#: models.py:23
-msgid "2 months"
-msgstr "2 maanden"
-
-#: models.py:24
-msgid "3 months"
-msgstr "3 maanden"
-
-#: models.py:25
-msgid "6 months"
-msgstr "6 maanden"
-
-#: models.py:26
-msgid "one year"
-msgstr "een jaar"
-
-#: models.py:30
+#: src/brouwers/groupbuilds/constants.py:6
 msgid "concept/idea"
 msgstr "concept/idee"
 
-#: models.py:31
+#: src/brouwers/groupbuilds/constants.py:7
 msgid "submitted for review"
 msgstr "aangevraagd"
 
-#: models.py:32
+#: src/brouwers/groupbuilds/constants.py:8
 msgid "accepted"
 msgstr "goedgekeurd"
 
-#: models.py:33
+#: src/brouwers/groupbuilds/constants.py:9
 msgid "denied"
 msgstr "afgekeurd"
 
-#: models.py:34
+#: src/brouwers/groupbuilds/constants.py:10
 msgid "extended"
 msgstr "verlengd"
 
-#: models.py:48
+#: src/brouwers/groupbuilds/models.py:17
 msgid "forum id"
 msgstr "forumid"
 
-#: models.py:49
+#: src/brouwers/groupbuilds/models.py:21
 msgid "Forum id of the group build subforum"
 msgstr "Forumid van het groepsbouwforum"
 
-#: models.py:52
+#: src/brouwers/groupbuilds/models.py:26
 msgid "theme"
 msgstr "thema"
 
-#: models.py:53
+#: src/brouwers/groupbuilds/models.py:26
 msgid "Theme/name of the group build"
 msgstr "Thema/naam van de groepsbouw"
 
-#: models.py:54
+#: src/brouwers/groupbuilds/models.py:28
 msgid "slug"
 msgstr "slug"
 
-#: models.py:56
+#: src/brouwers/groupbuilds/models.py:31
 msgid "forum category"
 msgstr "forumcategorie"
 
-#: models.py:58
+#: src/brouwers/groupbuilds/models.py:33
 msgid "description"
 msgstr "beschrijving"
 
-#: models.py:58
+#: src/brouwers/groupbuilds/models.py:33
 msgid "Short description"
 msgstr "Korte beschrijving"
 
-#: models.py:60
-msgid "admins"
-msgstr "verantwoordelijken"
-
-#: models.py:61
-msgid "Users who manage the group build."
-msgstr "Gebruikers die de groepsbouw beheren."
-
-#: models.py:64
+#: src/brouwers/groupbuilds/models.py:36
 msgid "start date"
 msgstr "startdatum"
 
-#: models.py:65
+#: src/brouwers/groupbuilds/models.py:39
 msgid "Date when you want to start building."
 msgstr "Datum waarop het bouwen zou beginnen."
 
-#: models.py:66
+#: src/brouwers/groupbuilds/models.py:42
 msgid "end date"
 msgstr "einddatum"
 
-#: models.py:67
+#: src/brouwers/groupbuilds/models.py:42
 msgid "Date this build ends."
 msgstr "Datum waarop het bouwen stopt."
 
-#: models.py:69
-msgid "duration"
-msgstr "duur"
-
-#: models.py:73
+#: src/brouwers/groupbuilds/models.py:47
 msgid "status"
 msgstr "status"
 
-#: models.py:75
-msgid "users can vote"
-msgstr "mogelijheid tot stemmen"
-
-#: models.py:76
-msgid "Let users vote to determine the build popularity"
-msgstr "Laat de gebruikers stemmen of de groepsbouw moet doorgaan of niet"
-
-#: models.py:78
-msgid "upvotes"
-msgstr "positieve stemmen"
-
-#: models.py:80
-msgid "downvotes"
-msgstr "negatieve stemmen"
-
-#: models.py:89
+#: src/brouwers/groupbuilds/models.py:64
 msgid "rules topic"
 msgstr "topic met regels"
 
-#: models.py:91
+#: src/brouwers/groupbuilds/models.py:67
 msgid "topic to direct to from calendar"
 msgstr "topic om naar te verwijzen vanaf de kalender"
 
-#: models.py:94
+#: src/brouwers/groupbuilds/models.py:70
 msgid "introduction topic"
 msgstr "inleidingstopic"
 
-#: models.py:117
+#: src/brouwers/groupbuilds/models.py:86
 msgid "group build"
 msgstr "groepsbouw"
 
-#: models.py:118
+#: src/brouwers/groupbuilds/models.py:87
 msgid "group builds"
 msgstr "groepsbouwen"
 
-#: models.py:129
+#: src/brouwers/groupbuilds/models.py:91
 #, python-brace-format
 msgid "{name}: {status}"
 msgstr "{name}: {status}"
 
-#: models.py:140
-msgid "# participants"
-msgstr "# deelnemers"
-
-#: models.py:239 templates/groupbuilds/handlebars/participant.hbs:23
+#: src/brouwers/groupbuilds/models.py:124
 msgid "model name"
 msgstr "naam model"
 
-#: models.py:241
+#: src/brouwers/groupbuilds/models.py:126
 msgid "finished"
 msgstr "afgewerkt"
 
-#: models.py:242
+#: src/brouwers/groupbuilds/models.py:127
 msgid "topic"
 msgstr "topic"
 
-#: models.py:245
-msgid "points"
-msgstr "punten"
-
-#: models.py:250
+#: src/brouwers/groupbuilds/models.py:132
 msgid "group build participant"
 msgstr "groepsbouwdeelnemer"
 
-#: models.py:251
+#: src/brouwers/groupbuilds/models.py:133
 msgid "group build participants"
 msgstr "groepsbouwdeelnemers"
 
-#: models.py:254
+#: src/brouwers/groupbuilds/models.py:136
 #, python-brace-format
 msgid "{build} participant: {user}"
 msgstr "{build} deelnemer: {user}"
 
-#: templates/groupbuilds/base.html:3
+#: src/brouwers/groupbuilds/templates/groupbuilds/base.html:3
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:9
 msgid "Group builds"
 msgstr "Groepsbouwen"
 
-#: templates/groupbuilds/create.html:4
-msgid "Submit a new group build"
-msgstr "Voeg een nieuwe groepsbouw toe"
-
-#: templates/groupbuilds/create.html:5
-msgid "Create group build"
-msgstr "Maak nieuwe groepsbouw"
-
-#: templates/groupbuilds/dashboard.html:8
-msgid "Group builds dashboard"
-msgstr "Groepsbouwdashboard"
-
-#: templates/groupbuilds/dashboard.html:10
-msgid ""
-"\n"
-"            In this section you can manage your group builds. Your group "
-"builds are split in a set of group builds that you manage, and a set of "
-"builds where you're a regular participant.\n"
-"        "
-msgstr ""
-"\n"
-"In dit gedeelte kan je je groepsbouwen beheren. Je groepsbouwen zijn in twee "
-"delen opgedeeld: bouwen die je zelf beheert en bouwen waarin je deelnemer "
-"bent."
-
-#: templates/groupbuilds/dashboard.html:15
-#: templates/groupbuilds/groupbuild_list.html:33
-msgid "New concept/idea"
-msgstr "Nieuw concept/idee"
-
-#: templates/groupbuilds/dashboard.html:29
-msgid "Organized by you"
-msgstr "Door jou georganiseerd"
-
-#: templates/groupbuilds/dashboard.html:36
-msgid "Request denied"
-msgstr "Aanvraag afgekeurd"
-
-#: templates/groupbuilds/dashboard.html:48
-#: templates/groupbuilds/dashboard.html:77
-#, python-format
-msgid "%(time_left)s left"
-msgstr "%(time_left)s resterend"
-
-#: templates/groupbuilds/dashboard.html:54
-#, python-format
-msgid ""
-"\n"
-"                            You haven't organized any groupbuilds yet. If "
-"you have\n"
-"                            a brilliant idea, share it with us by\n"
-"                            <a href=\"%(url_gb_concept)s\">submitting your "
-"idea</a>.\n"
-"                        "
-msgstr ""
-"\n"
-"Je hebt nog geen groepsbouwen georganiseerd. Als je een geweldig idee hebt, "
-"deel het dan met ons door je <a href=\"%(url_gb_concept)s\">idee in te "
-"voeren</a>."
-
-#: templates/groupbuilds/dashboard.html:68
-msgid "Builds you participate in"
-msgstr "Groepsbouwen waaraan je deelneemt"
-
-#: templates/groupbuilds/dashboard.html:81
-#, python-format
-msgid "Started %(start)s"
-msgstr "Begonnen op %(start)s"
-
-#: templates/groupbuilds/dashboard.html:83
-#, python-format
-msgid "Starts %(start)s (%(time_until)s from now)"
-msgstr "Begint op %(start)s (%(time_until)s vanaf nu)"
-
-#: templates/groupbuilds/dashboard.html:89
-#, python-format
-msgid ""
-"\n"
-"                            You haven't joined a build yet. Maybe you can "
-"browse\n"
-"                            the <a href=\"%(url_gb_list)s\">list</a> to find "
-"something interesting?\n"
-"                        "
-msgstr ""
-"\n"
-"Je hebt nog aan geen enkele groepsbouw deelgenomen. Misschien kan je wat <a "
-"href=\"%(url_gb_list)s\">bladeren</a> door de lijst om iets interessants te "
-"vinden?"
-
-#: templates/groupbuilds/edit.html:12
-msgid "Edit the details"
-msgstr "Bewerk de gegevens"
-
-#: templates/groupbuilds/edit.html:16
-msgid "Return to detail page"
-msgstr "Terug naar de detailpagina"
-
-#: templates/groupbuilds/edit.html:19
-msgid "Theme"
-msgstr "Thema"
-
-#: templates/groupbuilds/edit.html:21
-msgid "What's it all about?"
-msgstr "Waar gaat het over?"
-
-#: templates/groupbuilds/edit.html:30
-msgid "Planning"
-msgstr "Planning"
-
-#: templates/groupbuilds/edit.html:32
-msgid "When should it all start and end?"
-msgstr "Wanneer moet alles beginnen en klaar zijn?"
-
-#: templates/groupbuilds/edit.html:40
-msgid "Management"
-msgstr "Beheer"
-
-#: templates/groupbuilds/edit.html:42
-msgid "Who can edit this information?"
-msgstr "Wie kan deze informatie bewerken?"
-
-#: templates/groupbuilds/edit.html:43
-msgid "Enter the forum names"
-msgstr "Voeg de forumnamen toe"
-
-#: templates/groupbuilds/edit.html:48
-msgid "Rules &amp; misc"
-msgstr "Regels &amp; overige"
-
-#: templates/groupbuilds/edit.html:50
-msgid "Less important, but nice to have!"
-msgstr "Minder belangrijk, maar leuk om te hebben!"
-
-#: templates/groupbuilds/edit.html:62
-#: templates/groupbuilds/participant_form.html:19
-msgid "Save changes"
-msgstr "Wijzigingen bewaren"
-
-#: templates/groupbuilds/edit.html:69
-msgid "Rules &amp; guidelines"
-msgstr "Regels & richtlijnen"
-
-#: templates/groupbuilds/edit.html:71
-msgid ""
-"\n"
-"                            <p>You can submit your group build ideas here, "
-"find interested\n"
-"                            people, and tweak the subject/data as much as "
-"you want.</p>\n"
-"\n"
-"                            <p>When you're happy with the result, check the "
-"calendar and make sure your start-date/duration are reasonable. Then you can "
-"submit the group build to the board moderators.</p>\n"
-"\n"
-"                            <p>The moderators will then review the group "
-"build and assign a start date and duration. If needed, they will communicate "
-"to you about potential changes.</p>\n"
-"\n"
-"                            <p>Some general rules apply. The staff can "
-"always decide to divert from them if there's a reason for diversion.</p>\n"
-"\n"
-"                            <ul>\n"
-"                                <li>No more than <strong>one</strong> group "
-"build per discipline. A discipline is roughly equal with a forum (like cars, "
-"military aviation, &hellip;)</li>\n"
-"\n"
-"                                <li>A 'minimum' of <strong>10</strong> "
-"participants. Make sure your potential participants have subscribed to the "
-"group build, this will be used to check if the quota are met. 'Minimum' is "
-"quoted, because 9 participants is usually not a big issue.</li>\n"
-"\n"
-"                                <li>Think about the duration and make a "
-"reasonable estimate. The default duration is three months, this is for a "
-"reason. Extensions are possible, but you need a strong case to get it - "
-"especially if different group builds in the same forum section are planned!</"
-"li>\n"
-"\n"
-"                                <li>Group builds can be closed at any time "
-"if the activity died out. It's your responsibility as admin/gb moderator to "
-"keep it active and interesting.</li>\n"
-"\n"
-"                                <li>Any other rules (like starting with an "
-"unoped kit, amount of kits you can participante with, &hellip;) are up to "
-"the organisers. Please take care to mention these rules the rules field or "
-"in your rules topic.</li>\n"
-"                            </ul>\n"
-"\n"
-"                            <p>And most of all, have fun! Group builds are a "
-"valuable and popular aspect of scale modelling communities!</p>\n"
-"\n"
-"\n"
-"                        "
-msgstr ""
-"\n"
-"<p>Hier kan je je groepsbouwidee toevoegen, gelijkgezinden vinden voor je "
-"onderwerp, en je groepsbouw verder vormgeven.</p>\n"
-"\n"
-"<p>Wanneer je gelukkig bent met hoe je groepsbouw eruit moet gaan zien, "
-"controleer dan de kalender en check dat je startdatum en duur redelijk zijn. "
-"Daarna kan je de groepsbouw officieel aanvragen bij de moderators.</p>\n"
-"\n"
-"<p>Vervolgens gaan de moderators de groepsbouw beoordelen en een startdatum "
-"en duur toekennen, rekening houdend met jouw suggestie. Indien iets moet "
-"aangepast worden, dan zal daarover gecommuniceerd worden.</p>\n"
-"\n"
-"<p>Er gelden enkele algemene regels, waar indien nodig van kan afgeweken "
-"worden. Overleg hiervoor met het beheer.</p>\n"
-"\n"
-"<ul>\n"
-"<li>Niet meer dan <strong>één</strong> groepsbouwen per discipline. Een "
-"discipline is ruwweg equivalent aan een forum (zoals auto's, militaire "
-"luchtvaart, &hellip;)</li>\n"
-"\n"
-"<li>Een 'minimum' van <strong>10</strong> deelnemers, in het "
-"groepsbouwenbeheer. De deelnemer moet zichzelf ingeschreven hebben bij de "
-"betreffende groepsbouw, forumposts gelden niet. 'Minimum' staat tussen "
-"aanhalingstekens, omdat pakweg 9 geen onoverkomelijk obstakel is.</li>\n"
-"\n"
-"<li>Denk goed na over de duur en maak een redelijke inschatting. De "
-"standaardduur is drie maanden, en dit is met reden zo gekozen. Verlengingen "
-"zijn mogelijk, maar dan moet er wel een echt goede reden voor zijn - al "
-"helemaal als er verschillende groepsbouwen in hetzelfde forumdeel geplanned "
-"zijn!</li>\n"
-"\n"
-"<li>Groepsbouwen kunnen op ieder moment gesloten worden als de activiteit te "
-"laag geworden is. Het is jouw verantwoordelijkheid als groepsbouwbeheerder/"
-"organisator om de bouw actief en interessant te houden.</li>\n"
-"\n"
-"<li>Alle andere regels (nieuwe kit starten, aantal kits die je mag bouwen, "
-"&hellip;) worden door de organisator ingevuld. Vergeet niet om deze regels "
-"te vermelden bij de groepsbouw of in het topic met de bouw-regels!</li>\n"
-"</ul>\n"
-"\n"
-"<p>En het belangrijkste van alles, zorg dat het leuk wordt! Groepsbouwen "
-"zijn een kostbaar en populair aspect van modelbouwfora!</p>"
-
-#: templates/groupbuilds/groupbuild_detail.html:16
-#, python-format
-msgid ""
-"\n"
-"                    Status: %(status)s\n"
-"                "
-msgstr ""
-"\n"
-"Status: %(status)s"
-
-#: templates/groupbuilds/groupbuild_detail.html:24
-msgid "Ongoing"
-msgstr "Bezig"
-
-#: templates/groupbuilds/groupbuild_detail.html:27
-#: templates/groupbuilds/groupbuild_detail.html:29
-msgid "to be determined"
-msgstr "nog te bepalen"
-
-#: templates/groupbuilds/groupbuild_detail.html:33
-#: templates/groupbuilds/includes/links.html:8
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:24
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:53
+#: src/brouwers/groupbuilds/templates/groupbuilds/includes/links.html:8
 msgid "Go to forum"
 msgstr "Ga naar het forum"
 
-#: templates/groupbuilds/groupbuild_detail.html:53
-msgid "Uh-oh, problems!"
-msgstr "Uh-oh, problemen!"
-
-#: templates/groupbuilds/groupbuild_detail.html:60
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:42
 msgid "All you need to know..."
 msgstr "Alles wat je moet weten..."
 
-#: templates/groupbuilds/groupbuild_detail.html:70
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:47
 msgid "Introduction"
 msgstr "Inleiding"
 
-#: templates/groupbuilds/groupbuild_detail.html:73
-#: templates/groupbuilds/handlebars/inset.hbs:14
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:50
 msgid "Rules"
 msgstr "Regels"
 
-#: templates/groupbuilds/groupbuild_detail.html:76
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:53
 msgid "My models"
 msgstr "Mijn modellen"
 
-#: templates/groupbuilds/groupbuild_detail.html:91
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:68
 #, python-format
 msgid ""
 "\n"
-"                                        Go read the <a href=\"%(url)s"
-"\">rules topic</a>\n"
+"                                        Go read the <a href=\"%(url)s\">rules topic</a>\n"
 "                                    "
 msgstr ""
 "\n"
 "Lees het <a href=\"%(url)s\">regelstopic</a>."
 
-#: templates/groupbuilds/groupbuild_detail.html:97
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:74
 msgid "No specific rules, which means the default rules apply!"
 msgstr ""
 "Er zijn geen concrete regels, wat betekent dat de standaarregels van "
 "toepassing zijn!"
 
-#: templates/groupbuilds/groupbuild_detail.html:108
-#: templates/groupbuilds/groupbuild_detail.html:152
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:85
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:125
 msgid "#"
 msgstr "#"
 
-#: templates/groupbuilds/groupbuild_detail.html:109
-#: templates/groupbuilds/groupbuild_detail.html:154
-#: templates/groupbuilds/handlebars/inset.hbs:32
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:86
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:127
 msgid "Model"
 msgstr "Model"
 
-#: templates/groupbuilds/groupbuild_detail.html:110
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:87
 msgid "Build report"
 msgstr "Brouwverslag"
 
-#: templates/groupbuilds/groupbuild_detail.html:111
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:88
 msgid "Actions"
 msgstr "Acties"
 
-#: templates/groupbuilds/groupbuild_detail.html:139
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:112
 msgid "Login to view your models"
 msgstr "Log in om je modellen te bekijken"
 
-#: templates/groupbuilds/groupbuild_detail.html:148
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:121
 #, python-format
 msgid "1 participant"
 msgid_plural "%(n_part)s participants"
 msgstr[0] "1 deelnemer"
 msgstr[1] "%(n_part)s deelnemers"
 
-#: templates/groupbuilds/groupbuild_detail.html:153
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:126
 msgid "Builder"
 msgstr "Brouwer"
 
-#: templates/groupbuilds/groupbuild_detail.html:155
-#: templates/groupbuilds/handlebars/inset.hbs:34
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_detail.html:128
 msgid "Topic"
 msgstr "Topic"
 
-#: templates/groupbuilds/groupbuild_detail.html:182
-msgid "Join us!"
-msgstr "Doe mee!"
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:17
+msgid "Archive of group builds in the old-style."
+msgstr "Archief van groepsbouwen \"oude stijl\"."
 
-#: templates/groupbuilds/groupbuild_detail.html:184
-msgid "Show your interest!"
-msgstr "Toon je interesse!"
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:20
+#| msgid "Create group build"
+msgid "New-style group builds"
+msgstr "Groepsprojecten nieuwe stijl"
 
-#: templates/groupbuilds/groupbuild_detail.html:193
-msgid "Submit!"
-msgstr "Bevestig!"
-
-#: templates/groupbuilds/groupbuild_detail.html:195
-msgid ""
-"Hitting the button is enough, but providing more information is always nice!"
-msgstr ""
-"Op de knop klikken is voldoende, maar we houden van wat meer informatie!"
-
-#: templates/groupbuilds/groupbuild_detail.html:205
-msgid "Organiser"
-msgid_plural "Organisers"
-msgstr[0] "Organisator"
-msgstr[1] "Organisatoren"
-
-#: templates/groupbuilds/groupbuild_detail.html:211
-msgid "You!"
-msgstr "Jij!"
-
-#: templates/groupbuilds/groupbuild_detail.html:222
-msgid "BBCode"
-msgstr "BBCode"
-
-#: templates/groupbuilds/groupbuild_detail.html:224
-msgid "Use this to embed the group build in the forum"
-msgstr "Gebruik dit om de groepsbouw in een post te integreren."
-
-#: templates/groupbuilds/groupbuild_detail.html:231
-msgid "Set it in stone!"
-msgstr "Leg de groepsbouw vast!"
-
-#: templates/groupbuilds/groupbuild_detail.html:232
-msgid "Submit request"
-msgstr "Verstuur aanvraag"
-
-#: templates/groupbuilds/groupbuild_list.html:10
-msgid "Group builds - some information"
-msgstr "Groepsbouwen - wat informatie"
-
-#: templates/groupbuilds/groupbuild_list.html:17
-msgid ""
-"A group build is basically a themed build with a set start\n"
-"            and end date. Builders who share interests for a certain theme "
-"can poll other\n"
-"            forum members if they are interested to take part in a group "
-"build. Group builds\n"
-"            usually result in tight groups of builders around a narrow "
-"field, providing\n"
-"            valuable theme-specific reference documentation and small "
-"facts.\n"
-"        "
-msgstr ""
-"Een groepsbouw is in essentie een bouw rond een bepaald thema met een "
-"vastgelegde start- en eindtijd. Brouwers die interesse hebben in een bepaald "
-"thema kunnen nagaan of andere brouwers die interesse delen en zin hebben om "
-"deel te nemen aan een groepsbouw. Groepsbouwen werken meestal rond een "
-"afgebakend gebied, waarbij waardevolle referenties en weetjes gedeeld worden."
-
-#: templates/groupbuilds/groupbuild_list.html:24
-msgid ""
-"'Ok, sounds cool and all' I hear you think. But what if you have your\n"
-"            own idea? Just click the button below to submit your idea! We "
-"provide the\n"
-"            platform and forum-integration to get your idea going!\n"
-"        "
-msgstr ""
-"'Ok, dat klinkt allemaal wel leuk enzo' hoor ik je denken. Maar wat als jij "
-"nu een idee hebt? Klik dan op de knop hieronder om je idee in te voeren, en "
-"wij zorgen voor het platform en de forumintegratie om je idee op te starten!"
-
-#: templates/groupbuilds/groupbuild_list.html:34
-msgid "My groupbuilds"
-msgstr "Mijn groepsbouwen"
-
-#: templates/groupbuilds/groupbuild_list.html:52
-msgid "New concepts"
-msgstr "Nieuwe concepten"
-
-#: templates/groupbuilds/groupbuild_list.html:61
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:37
 #, python-format
-msgid ""
-"\n"
-"                            Nobody seems to have a clue! Maybe you can\n"
-"                            <a href=\"%(url_gb_concept)s\">submit your own "
-"idea?</a>\n"
-"                        "
-msgstr ""
-"\n"
-"Niemand lijkt inspiratie te hebben! Misschien kan je <a href="
-"\"%(url_gb_concept)s\">zelf een idee toevoegen?</a>"
+msgid "%(time_ago)s ago"
+msgstr "%(time_ago)s geleden"
 
-#: templates/groupbuilds/groupbuild_list.html:72
-msgid "Starting soon"
-msgstr "Wordt binnenkort gestart"
+#: src/brouwers/groupbuilds/templates/groupbuilds/groupbuild_list.html:48
+msgid "read more"
+msgstr "lees meer"
 
-#: templates/groupbuilds/groupbuild_list.html:80
-msgid ""
-"\n"
-"                        Nothing starting in the next six weeks. Maybe "
-"there's something further\n"
-"                        down the road in the <a href=\"#calendar\">calendar</"
-"a>?\n"
-"                    "
-msgstr ""
-"\n"
-"In de komende zes weken starten geen groepsbouwen. Misschien is er iets "
-"later geplanned, check de <a href=\"#calendar\">kalender</a>."
-
-#: templates/groupbuilds/groupbuild_list.html:92
-msgid "Calendar"
-msgstr "Kalender"
-
-#: templates/groupbuilds/groupbuild_list.html:116
-msgid "All unfinished group builds"
-msgstr "Alle niet-afgelopen groepsbouwen"
-
-#: templates/groupbuilds/groupbuild_submit.html:6
-msgid "Submitting the group build"
-msgstr "Groepsbouw aanvragen"
-
-#: templates/groupbuilds/groupbuild_submit.html:14
-msgid ""
-"\n"
-"        To submit the groupbuild you need to have set a start date and "
-"duration.\n"
-"        If you confirm to submit the groupbuild, the moderators take a look "
-"if all\n"
-"        requirements are met and if so, put it on the calendar. If not all "
-"requirements\n"
-"        are met, you will receive feedback about this.\n"
-"    "
-msgstr ""
-"\n"
-"Om de groepsbouw officieel aan te vragen dien je een startdatum en duur op "
-"te geven.\n"
-"Wanneer je een aanvraag indient, bekijken de moderators of aan alle eisen "
-"voldaan is. Is dat het geval, dan komt de groepsbouw op de kalender. Indien "
-"niet, dan krijg je hierover feedback."
-
-#: templates/groupbuilds/groupbuild_submit.html:24
-msgid "Confirm submission"
-msgstr "Bevestig aanvraag"
-
-#: templates/groupbuilds/groupbuild_submit.html:27
-msgid ""
-"This groupbuild cannot be submitted. Make sure you meet all the requirements."
-msgstr ""
-"Deze groepsbouw kan nog niet aangevraagd worden. Zorg dat alle eisen voldaan "
-"zijn."
-
-#: templates/groupbuilds/groupbuild_submit.html:31
-msgid "Go to edit page"
-msgstr "Ga naar de bewerkpagina"
-
-#: templates/groupbuilds/handlebars/inset.hbs:7
-msgid "View outside of forum"
-msgstr "Bekijk eigen groepsbouwpagina"
-
-#: templates/groupbuilds/handlebars/inset.hbs:9
-msgid "Description"
-msgstr "Beschrijving"
-
-#: templates/groupbuilds/handlebars/inset.hbs:10
-msgid "Start"
-msgstr "Start"
-
-#: templates/groupbuilds/handlebars/inset.hbs:10
-msgid "end"
-msgstr "einde"
-
-#: templates/groupbuilds/handlebars/inset.hbs:19
-msgid "Rules topic"
-msgstr "Topic met regels"
-
-#: templates/groupbuilds/handlebars/inset.hbs:24
-msgid "Participants"
-msgstr "Deelnemers"
-
-#: templates/groupbuilds/handlebars/inset.hbs:31
-msgid "Brouwer"
-msgstr "Brouwer"
-
-#: templates/groupbuilds/handlebars/inset.hbs:33
-msgid "Finished?"
-msgstr "Klaar?"
-
-#: templates/groupbuilds/handlebars/participant.hbs:6
-msgid "Add your project"
-msgstr "Voeg je project toe"
-
-#: templates/groupbuilds/handlebars/participant.hbs:7
-msgid "No, thanks"
-msgstr "Nee, bedankt"
-
-#: templates/groupbuilds/handlebars/participant.hbs:8
-msgid "Sure, sign me up"
-msgstr "Ja, doe maar"
-
-#: templates/groupbuilds/handlebars/participant.hbs:13
-msgid ""
-"You've just created a new topic in this groupbuild. Would you like to add it "
-"to the groupbuild's participants list?"
-msgstr ""
-"Je hebt net een nieuwe topic aangemaakt binnen deze groepsbouw. Wil je het "
-"toevoegen aan de lijst met deelnemers?"
-
-#: templates/groupbuilds/includes/links.html:3
+#: src/brouwers/groupbuilds/templates/groupbuilds/includes/links.html:3
 msgid "Links"
 msgstr "Links"
 
-#: templates/groupbuilds/includes/progress.html:3
-msgid "Progress"
-msgstr "Voortgang"
+#~ msgid "Groupbuilds moderation queue"
+#~ msgstr "Groepsbouwen goedkeuringswachtrij"
 
-#: templates/groupbuilds/includes/progress.html:3
-msgid "See how much time is left"
-msgstr "Zie hoeveel tijd er nog is"
+#~ msgid "Empty queue, good job!"
+#~ msgstr "De wachtrij is leeg, goed gedaan!"
 
-#: templates/groupbuilds/participant_form.html:7
-msgid "Edit your build details"
-msgstr "Bewerk je deelnamedetails"
+#~ msgid "Groupbuilds without forum"
+#~ msgstr "Groepsbouwen zonder forum"
 
-#: views/admin.py:62
-msgid "Your group build has been submitted to the moderator team."
-msgstr "Je groepsbouw is aan het moderatorteam voorgelegd ter goedkeuring."
+#~ msgid ""
+#~ "The start date cannot be edited if the build is outside of the concept "
+#~ "state."
+#~ msgstr ""
+#~ "De startdatum kan niet bewerkt worden als de groepsbouw niet in de "
+#~ "concept/idee fase is."
 
-#: views/participant.py:36
-msgid "You're now listed as participant!"
-msgstr "Je staat nu op de deelnemerslijst!"
+#~ msgid ""
+#~ "The duration cannot be edited if the build is outside of the concept state."
+#~ msgstr ""
+#~ "De duur kan niet bewerkt worden als de groepsbouw niet in de concept/idee "
+#~ "fase is."
+
+#~ msgid "30 days"
+#~ msgstr "30 dagen"
+
+#~ msgid "2 months"
+#~ msgstr "2 maanden"
+
+#~ msgid "3 months"
+#~ msgstr "3 maanden"
+
+#~ msgid "6 months"
+#~ msgstr "6 maanden"
+
+#~ msgid "one year"
+#~ msgstr "een jaar"
+
+#~ msgid "admins"
+#~ msgstr "verantwoordelijken"
+
+#~ msgid "Users who manage the group build."
+#~ msgstr "Gebruikers die de groepsbouw beheren."
+
+#~ msgid "duration"
+#~ msgstr "duur"
+
+#~ msgid "users can vote"
+#~ msgstr "mogelijheid tot stemmen"
+
+#~ msgid "Let users vote to determine the build popularity"
+#~ msgstr "Laat de gebruikers stemmen of de groepsbouw moet doorgaan of niet"
+
+#~ msgid "upvotes"
+#~ msgstr "positieve stemmen"
+
+#~ msgid "downvotes"
+#~ msgstr "negatieve stemmen"
+
+#~ msgid "# participants"
+#~ msgstr "# deelnemers"
+
+#~ msgid "points"
+#~ msgstr "punten"
+
+#~ msgid "Submit a new group build"
+#~ msgstr "Voeg een nieuwe groepsbouw toe"
+
+#~ msgid "Group builds dashboard"
+#~ msgstr "Groepsbouwdashboard"
+
+#~ msgid ""
+#~ "\n"
+#~ "            In this section you can manage your group builds. Your group builds are split in a set of group builds that you manage, and a set of builds where you're a regular participant.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "In dit gedeelte kan je je groepsbouwen beheren. Je groepsbouwen zijn in twee delen opgedeeld: bouwen die je zelf beheert en bouwen waarin je deelnemer bent."
+
+#~ msgid "New concept/idea"
+#~ msgstr "Nieuw concept/idee"
+
+#~ msgid "Organized by you"
+#~ msgstr "Door jou georganiseerd"
+
+#~ msgid "Request denied"
+#~ msgstr "Aanvraag afgekeurd"
+
+#, python-format
+#~ msgid "%(time_left)s left"
+#~ msgstr "%(time_left)s resterend"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                            You haven't organized any groupbuilds yet. If you have\n"
+#~ "                            a brilliant idea, share it with us by\n"
+#~ "                            <a href=\"%(url_gb_concept)s\">submitting your idea</a>.\n"
+#~ "                        "
+#~ msgstr ""
+#~ "\n"
+#~ "Je hebt nog geen groepsbouwen georganiseerd. Als je een geweldig idee hebt, deel het dan met ons door je <a href=\"%(url_gb_concept)s\">idee in te voeren</a>."
+
+#~ msgid "Builds you participate in"
+#~ msgstr "Groepsbouwen waaraan je deelneemt"
+
+#, python-format
+#~ msgid "Started %(start)s"
+#~ msgstr "Begonnen op %(start)s"
+
+#, python-format
+#~ msgid "Starts %(start)s (%(time_until)s from now)"
+#~ msgstr "Begint op %(start)s (%(time_until)s vanaf nu)"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                            You haven't joined a build yet. Maybe you can browse\n"
+#~ "                            the <a href=\"%(url_gb_list)s\">list</a> to find something interesting?\n"
+#~ "                        "
+#~ msgstr ""
+#~ "\n"
+#~ "Je hebt nog aan geen enkele groepsbouw deelgenomen. Misschien kan je wat <a href=\"%(url_gb_list)s\">bladeren</a> door de lijst om iets interessants te vinden?"
+
+#~ msgid "Edit the details"
+#~ msgstr "Bewerk de gegevens"
+
+#~ msgid "Return to detail page"
+#~ msgstr "Terug naar de detailpagina"
+
+#~ msgid "Theme"
+#~ msgstr "Thema"
+
+#~ msgid "What's it all about?"
+#~ msgstr "Waar gaat het over?"
+
+#~ msgid "Planning"
+#~ msgstr "Planning"
+
+#~ msgid "When should it all start and end?"
+#~ msgstr "Wanneer moet alles beginnen en klaar zijn?"
+
+#~ msgid "Management"
+#~ msgstr "Beheer"
+
+#~ msgid "Who can edit this information?"
+#~ msgstr "Wie kan deze informatie bewerken?"
+
+#~ msgid "Enter the forum names"
+#~ msgstr "Voeg de forumnamen toe"
+
+#~ msgid "Rules &amp; misc"
+#~ msgstr "Regels &amp; overige"
+
+#~ msgid "Less important, but nice to have!"
+#~ msgstr "Minder belangrijk, maar leuk om te hebben!"
+
+#~ msgid "Save changes"
+#~ msgstr "Wijzigingen bewaren"
+
+#~ msgid "Rules &amp; guidelines"
+#~ msgstr "Regels & richtlijnen"
+
+#~ msgid ""
+#~ "\n"
+#~ "                            <p>You can submit your group build ideas here, find interested\n"
+#~ "                            people, and tweak the subject/data as much as you want.</p>\n"
+#~ "\n"
+#~ "                            <p>When you're happy with the result, check the calendar and make sure your start-date/duration are reasonable. Then you can submit the group build to the board moderators.</p>\n"
+#~ "\n"
+#~ "                            <p>The moderators will then review the group build and assign a start date and duration. If needed, they will communicate to you about potential changes.</p>\n"
+#~ "\n"
+#~ "                            <p>Some general rules apply. The staff can always decide to divert from them if there's a reason for diversion.</p>\n"
+#~ "\n"
+#~ "                            <ul>\n"
+#~ "                                <li>No more than <strong>one</strong> group build per discipline. A discipline is roughly equal with a forum (like cars, military aviation, &hellip;)</li>\n"
+#~ "\n"
+#~ "                                <li>A 'minimum' of <strong>10</strong> participants. Make sure your potential participants have subscribed to the group build, this will be used to check if the quota are met. 'Minimum' is quoted, because 9 participants is usually not a big issue.</li>\n"
+#~ "\n"
+#~ "                                <li>Think about the duration and make a reasonable estimate. The default duration is three months, this is for a reason. Extensions are possible, but you need a strong case to get it - especially if different group builds in the same forum section are planned!</li>\n"
+#~ "\n"
+#~ "                                <li>Group builds can be closed at any time if the activity died out. It's your responsibility as admin/gb moderator to keep it active and interesting.</li>\n"
+#~ "\n"
+#~ "                                <li>Any other rules (like starting with an unoped kit, amount of kits you can participante with, &hellip;) are up to the organisers. Please take care to mention these rules the rules field or in your rules topic.</li>\n"
+#~ "                            </ul>\n"
+#~ "\n"
+#~ "                            <p>And most of all, have fun! Group builds are a valuable and popular aspect of scale modelling communities!</p>\n"
+#~ "\n"
+#~ "\n"
+#~ "                        "
+#~ msgstr ""
+#~ "\n"
+#~ "<p>Hier kan je je groepsbouwidee toevoegen, gelijkgezinden vinden voor je onderwerp, en je groepsbouw verder vormgeven.</p>\n"
+#~ "\n"
+#~ "<p>Wanneer je gelukkig bent met hoe je groepsbouw eruit moet gaan zien, controleer dan de kalender en check dat je startdatum en duur redelijk zijn. Daarna kan je de groepsbouw officieel aanvragen bij de moderators.</p>\n"
+#~ "\n"
+#~ "<p>Vervolgens gaan de moderators de groepsbouw beoordelen en een startdatum en duur toekennen, rekening houdend met jouw suggestie. Indien iets moet aangepast worden, dan zal daarover gecommuniceerd worden.</p>\n"
+#~ "\n"
+#~ "<p>Er gelden enkele algemene regels, waar indien nodig van kan afgeweken worden. Overleg hiervoor met het beheer.</p>\n"
+#~ "\n"
+#~ "<ul>\n"
+#~ "<li>Niet meer dan <strong>één</strong> groepsbouwen per discipline. Een discipline is ruwweg equivalent aan een forum (zoals auto's, militaire luchtvaart, &hellip;)</li>\n"
+#~ "\n"
+#~ "<li>Een 'minimum' van <strong>10</strong> deelnemers, in het groepsbouwenbeheer. De deelnemer moet zichzelf ingeschreven hebben bij de betreffende groepsbouw, forumposts gelden niet. 'Minimum' staat tussen aanhalingstekens, omdat pakweg 9 geen onoverkomelijk obstakel is.</li>\n"
+#~ "\n"
+#~ "<li>Denk goed na over de duur en maak een redelijke inschatting. De standaardduur is drie maanden, en dit is met reden zo gekozen. Verlengingen zijn mogelijk, maar dan moet er wel een echt goede reden voor zijn - al helemaal als er verschillende groepsbouwen in hetzelfde forumdeel geplanned zijn!</li>\n"
+#~ "\n"
+#~ "<li>Groepsbouwen kunnen op ieder moment gesloten worden als de activiteit te laag geworden is. Het is jouw verantwoordelijkheid als groepsbouwbeheerder/organisator om de bouw actief en interessant te houden.</li>\n"
+#~ "\n"
+#~ "<li>Alle andere regels (nieuwe kit starten, aantal kits die je mag bouwen, &hellip;) worden door de organisator ingevuld. Vergeet niet om deze regels te vermelden bij de groepsbouw of in het topic met de bouw-regels!</li>\n"
+#~ "</ul>\n"
+#~ "\n"
+#~ "<p>En het belangrijkste van alles, zorg dat het leuk wordt! Groepsbouwen zijn een kostbaar en populair aspect van modelbouwfora!</p>"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                    Status: %(status)s\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "Status: %(status)s"
+
+#~ msgid "Ongoing"
+#~ msgstr "Bezig"
+
+#~ msgid "to be determined"
+#~ msgstr "nog te bepalen"
+
+#~ msgid "Uh-oh, problems!"
+#~ msgstr "Uh-oh, problemen!"
+
+#~ msgid "Join us!"
+#~ msgstr "Doe mee!"
+
+#~ msgid "Show your interest!"
+#~ msgstr "Toon je interesse!"
+
+#~ msgid "Submit!"
+#~ msgstr "Bevestig!"
+
+#~ msgid ""
+#~ "Hitting the button is enough, but providing more information is always nice!"
+#~ msgstr ""
+#~ "Op de knop klikken is voldoende, maar we houden van wat meer informatie!"
+
+#~ msgid "Organiser"
+#~ msgid_plural "Organisers"
+#~ msgstr[0] "Organisator"
+#~ msgstr[1] "Organisatoren"
+
+#~ msgid "You!"
+#~ msgstr "Jij!"
+
+#~ msgid "BBCode"
+#~ msgstr "BBCode"
+
+#~ msgid "Use this to embed the group build in the forum"
+#~ msgstr "Gebruik dit om de groepsbouw in een post te integreren."
+
+#~ msgid "Set it in stone!"
+#~ msgstr "Leg de groepsbouw vast!"
+
+#~ msgid "Submit request"
+#~ msgstr "Verstuur aanvraag"
+
+#~ msgid "Group builds - some information"
+#~ msgstr "Groepsbouwen - wat informatie"
+
+#~ msgid ""
+#~ "A group build is basically a themed build with a set start\n"
+#~ "            and end date. Builders who share interests for a certain theme can poll other\n"
+#~ "            forum members if they are interested to take part in a group build. Group builds\n"
+#~ "            usually result in tight groups of builders around a narrow field, providing\n"
+#~ "            valuable theme-specific reference documentation and small facts.\n"
+#~ "        "
+#~ msgstr ""
+#~ "Een groepsbouw is in essentie een bouw rond een bepaald thema met een "
+#~ "vastgelegde start- en eindtijd. Brouwers die interesse hebben in een bepaald"
+#~ " thema kunnen nagaan of andere brouwers die interesse delen en zin hebben om"
+#~ " deel te nemen aan een groepsbouw. Groepsbouwen werken meestal rond een "
+#~ "afgebakend gebied, waarbij waardevolle referenties en weetjes gedeeld "
+#~ "worden."
+
+#~ msgid ""
+#~ "'Ok, sounds cool and all' I hear you think. But what if you have your\n"
+#~ "            own idea? Just click the button below to submit your idea! We provide the\n"
+#~ "            platform and forum-integration to get your idea going!\n"
+#~ "        "
+#~ msgstr ""
+#~ "'Ok, dat klinkt allemaal wel leuk enzo' hoor ik je denken. Maar wat als jij "
+#~ "nu een idee hebt? Klik dan op de knop hieronder om je idee in te voeren, en "
+#~ "wij zorgen voor het platform en de forumintegratie om je idee op te starten!"
+
+#~ msgid "My groupbuilds"
+#~ msgstr "Mijn groepsbouwen"
+
+#~ msgid "New concepts"
+#~ msgstr "Nieuwe concepten"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                            Nobody seems to have a clue! Maybe you can\n"
+#~ "                            <a href=\"%(url_gb_concept)s\">submit your own idea?</a>\n"
+#~ "                        "
+#~ msgstr ""
+#~ "\n"
+#~ "Niemand lijkt inspiratie te hebben! Misschien kan je <a href=\"%(url_gb_concept)s\">zelf een idee toevoegen?</a>"
+
+#~ msgid "Starting soon"
+#~ msgstr "Wordt binnenkort gestart"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Nothing starting in the next six weeks. Maybe there's something further\n"
+#~ "                        down the road in the <a href=\"#calendar\">calendar</a>?\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "In de komende zes weken starten geen groepsbouwen. Misschien is er iets later geplanned, check de <a href=\"#calendar\">kalender</a>."
+
+#~ msgid "Calendar"
+#~ msgstr "Kalender"
+
+#~ msgid "All unfinished group builds"
+#~ msgstr "Alle niet-afgelopen groepsbouwen"
+
+#~ msgid "Submitting the group build"
+#~ msgstr "Groepsbouw aanvragen"
+
+#~ msgid ""
+#~ "\n"
+#~ "        To submit the groupbuild you need to have set a start date and duration.\n"
+#~ "        If you confirm to submit the groupbuild, the moderators take a look if all\n"
+#~ "        requirements are met and if so, put it on the calendar. If not all requirements\n"
+#~ "        are met, you will receive feedback about this.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Om de groepsbouw officieel aan te vragen dien je een startdatum en duur op te geven.\n"
+#~ "Wanneer je een aanvraag indient, bekijken de moderators of aan alle eisen voldaan is. Is dat het geval, dan komt de groepsbouw op de kalender. Indien niet, dan krijg je hierover feedback."
+
+#~ msgid "Confirm submission"
+#~ msgstr "Bevestig aanvraag"
+
+#~ msgid ""
+#~ "This groupbuild cannot be submitted. Make sure you meet all the "
+#~ "requirements."
+#~ msgstr ""
+#~ "Deze groepsbouw kan nog niet aangevraagd worden. Zorg dat alle eisen voldaan"
+#~ " zijn."
+
+#~ msgid "Go to edit page"
+#~ msgstr "Ga naar de bewerkpagina"
+
+#~ msgid "View outside of forum"
+#~ msgstr "Bekijk eigen groepsbouwpagina"
+
+#~ msgid "Description"
+#~ msgstr "Beschrijving"
+
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgid "end"
+#~ msgstr "einde"
+
+#~ msgid "Rules topic"
+#~ msgstr "Topic met regels"
+
+#~ msgid "Participants"
+#~ msgstr "Deelnemers"
+
+#~ msgid "Brouwer"
+#~ msgstr "Brouwer"
+
+#~ msgid "Finished?"
+#~ msgstr "Klaar?"
+
+#~ msgid "Add your project"
+#~ msgstr "Voeg je project toe"
+
+#~ msgid "No, thanks"
+#~ msgstr "Nee, bedankt"
+
+#~ msgid "Sure, sign me up"
+#~ msgstr "Ja, doe maar"
+
+#~ msgid ""
+#~ "You've just created a new topic in this groupbuild. Would you like to add it"
+#~ " to the groupbuild's participants list?"
+#~ msgstr ""
+#~ "Je hebt net een nieuwe topic aangemaakt binnen deze groepsbouw. Wil je het "
+#~ "toevoegen aan de lijst met deelnemers?"
+
+#~ msgid "Progress"
+#~ msgstr "Voortgang"
+
+#~ msgid "See how much time is left"
+#~ msgstr "Zie hoeveel tijd er nog is"
+
+#~ msgid "Edit your build details"
+#~ msgstr "Bewerk je deelnamedetails"
+
+#~ msgid "Your group build has been submitted to the moderator team."
+#~ msgstr "Je groepsbouw is aan het moderatorteam voorgelegd ter goedkeuring."
+
+#~ msgid "You're now listed as participant!"
+#~ msgstr "Je staat nu op de deelnemerslijst!"
 
 #~ msgid "Modelbrouwers.nl &bull; Group builds"
 #~ msgstr "Modelbrouwers.nl &bull; Groepsbouwen"

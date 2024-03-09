@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
-"PO-Revision-Date: 2016-03-01 22:42+0020\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"PO-Revision-Date: 2024-03-09 23:06+0100\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,131 +17,138 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Translated-Using: django-rosetta 0.7.8\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
 
-#: models.py:29
+#: src/brouwers/builds/models.py:34
 msgid "title"
 msgstr "titel"
 
-#: models.py:29
+#: src/brouwers/builds/models.py:34
 msgid "Enter a descriptive build title."
 msgstr "Geef een duidelijke omschrijving."
 
-#: models.py:30
+#: src/brouwers/builds/models.py:36
 msgid "slug"
 msgstr "slug"
 
-#: models.py:33
+#: src/brouwers/builds/models.py:40
 msgid "kits"
 msgstr "kits"
 
-#: models.py:36
+#: src/brouwers/builds/models.py:45
 msgid "build report topic"
 msgstr "brouwverslagtopic"
 
-#: models.py:37
+#: src/brouwers/builds/models.py:48
 msgid "topic start page"
 msgstr "startpagina"
 
-#: models.py:40
+#: src/brouwers/builds/models.py:52
 msgid "start date"
 msgstr "begindatum"
 
-#: models.py:41
+#: src/brouwers/builds/models.py:53
 msgid "end date"
 msgstr "einddatum"
 
-#: models.py:44
+#: src/brouwers/builds/models.py:56
 msgid "build report"
 msgstr "brouwverslag"
 
-#: models.py:45
+#: src/brouwers/builds/models.py:57
 msgid "build reports"
 msgstr "brouwverslagen"
 
-#: models.py:49
+#: src/brouwers/builds/models.py:61
 #, python-format
 msgid "%(username)s - %(title)s"
 msgstr "%(username)s - %(title)s"
 
-#: models.py:78
+#: src/brouwers/builds/models.py:94
 msgid "build"
 msgstr "bouw"
 
-#: models.py:80
+#: src/brouwers/builds/models.py:101
 msgid "Link to an image"
 msgstr "Link naar een foto"
 
-#: models.py:81
+#: src/brouwers/builds/models.py:105
 msgid "Order in which photos are shown"
 msgstr "Volgorde waarin de foto's getoond worden"
 
-#: models.py:84
+#: src/brouwers/builds/models.py:110
+msgid "image gone"
+msgstr ""
+
+#: src/brouwers/builds/models.py:115
 msgid "build photo"
 msgstr "bouwfoto"
 
-#: models.py:85
+#: src/brouwers/builds/models.py:116
 msgid "build photos"
 msgstr "bouwfoto's"
 
-#: models.py:89
+#: src/brouwers/builds/models.py:120
 #, python-format
 msgid "Photo for build %(build)s"
 msgstr "Foto voor bouw %(build)s"
 
-#: models.py:93
+#: src/brouwers/builds/models.py:125
 msgid "Provide either an album photo or a link to a photo."
 msgstr "Geef een albumfoto of een link naar een foto op."
 
-#: templates/builds/base.html:3 templates/builds/base.html:14
-#: templates/builds/profile.html:25
+#: src/brouwers/builds/templates/builds/base.html:3
+#: src/brouwers/builds/templates/builds/base.html:14
+#: src/brouwers/builds/templates/builds/profile.html:25
 msgid "Builds"
 msgstr "Brouwverslagen"
 
-#: templates/builds/base.html:18
+#: src/brouwers/builds/templates/builds/base.html:18
+#| msgid ""
+#| "\n"
+#| "                In the 'Builds' section you can track your others and your own projects.\n"
+#| "                Keep a history of the kits you have built and quickly find the matching topic.\n"
+#| "            "
 msgid ""
 "\n"
-"                In the 'Builds' section you can track your others and your "
-"own projects.\n"
-"                Keep a history of the kits you have built and quickly find "
-"the matching topic.\n"
-"            "
+"                    In the 'Builds' section you can track your others and your own projects.\n"
+"                    Keep a history of the kits you have built and quickly find the matching topic.\n"
+"                "
 msgstr ""
 "\n"
-"In het 'Brouwverslagen' gedeelte kan je je eigen projecten bijhouden en die "
-"van anderen bekijken. Je bewaart een geschiedenis van de kits die je gebouwd "
-"hebt, en je kan snel het bijhorende topic terugvinden!"
+"In het 'Brouwverslagen' gedeelte kan je je eigen projecten bijhouden en die van anderen bekijken. Je bewaart een geschiedenis van de kits die je gebouwd hebt, en je kan snel het bijhorende topic terugvinden!"
 
-#: templates/builds/base.html:28 templates/builds/build_form.html:72
-#: tests/test_views.py:66
+#: src/brouwers/builds/templates/builds/base.html:28
+#: src/brouwers/builds/templates/builds/build_form.html:72
+#: src/brouwers/builds/tests/test_views.py:65
 msgid "Add build"
 msgstr "Verslag toevoegen"
 
-#: templates/builds/build_detail.html:19
+#: src/brouwers/builds/templates/builds/build_detail.html:19
 msgid "start unknown"
 msgstr "start onbekend"
 
-#: templates/builds/build_detail.html:20
+#: src/brouwers/builds/templates/builds/build_detail.html:20
 msgid "end unknown"
 msgstr "einde onbekend"
 
-#: templates/builds/build_detail.html:28
+#: src/brouwers/builds/templates/builds/build_detail.html:28
 msgid "View topic"
 msgstr "Bekijk topic"
 
-#: templates/builds/build_detail.html:31
+#: src/brouwers/builds/templates/builds/build_detail.html:31
 msgid "Edit"
 msgstr "Bewerken"
 
-#: templates/builds/build_detail.html:33
+#: src/brouwers/builds/templates/builds/build_detail.html:33
 msgid "Back to overview"
 msgstr "Terug naar overzicht"
 
-#: templates/builds/build_form.html:6
+#: src/brouwers/builds/templates/builds/build_form.html:6
 msgid "Add a new build"
 msgstr "Voeg een nieuw verslag toe"
 
-#: templates/builds/build_form.html:10
+#: src/brouwers/builds/templates/builds/build_form.html:10
 msgid ""
 "\n"
 "        By adding new builds to your profile, all your creations are easily\n"
@@ -149,70 +156,64 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Door nieuwe verslagen aan je profiel toe te voegen kan je snel en makkelijk "
-"al je creaties terugvinden, zonder het halve forum te hoeven doorspitten!"
+"Door nieuwe verslagen aan je profiel toe te voegen kan je snel en makkelijk al je creaties terugvinden, zonder het halve forum te hoeven doorspitten!"
 
-#: templates/builds/build_form.html:18
+#: src/brouwers/builds/templates/builds/build_form.html:18
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: templates/builds/build_form.html:40
+#: src/brouwers/builds/templates/builds/build_form.html:40
 msgid "Used kit(s)"
 msgstr "Gebruikte kit(s)"
 
-#: templates/builds/build_form.html:42
+#: src/brouwers/builds/templates/builds/build_form.html:42
 msgid ""
 "You can select kits from our database here. Use the\n"
-"        dropdowns to narrow your search. If your kit isn't in our database "
-"yet,\n"
+"        dropdowns to narrow your search. If your kit isn't in our database yet,\n"
 "        you can add it yourself!"
 msgstr ""
 "Hier kan je kits uit de kitdatabank selecteren. Gebruik de menu's om je "
-"zoekopdracht te verfijnen. Als je kit nog niet bestaat in onze databank, dan "
-"kan je deze zelf toevoegen!"
+"zoekopdracht te verfijnen. Als je kit nog niet bestaat in onze databank, dan"
+" kan je deze zelf toevoegen!"
 
-#: templates/builds/build_form.html:47
+#: src/brouwers/builds/templates/builds/build_form.html:47
 msgid "Select a kit"
 msgstr "Selecteer een kit"
 
-#: templates/builds/build_form.html:51
+#: src/brouwers/builds/templates/builds/build_form.html:51
 msgid "Photos"
 msgstr "Foto's"
 
-#: templates/builds/build_form.html:53
+#: src/brouwers/builds/templates/builds/build_form.html:53
 msgid "Add URL"
 msgstr "Voeg url toe"
 
-#: templates/builds/build_form.html:56
+#: src/brouwers/builds/templates/builds/build_form.html:56
 msgid "Previews"
 msgstr "Voorvertoningen"
 
-#: templates/builds/build_list.html:7
+#: src/brouwers/builds/templates/builds/build_list.html:7
 msgid "Latest builds"
 msgstr "Laatste verslagen"
 
-#: templates/builds/edit.html:11
-msgid "Edit build report"
-msgstr "Brouwverslag bewerken"
-
-#: templates/builds/forms.html:35
+#: src/brouwers/builds/templates/builds/forms.html:35
 msgid "Browse albums"
 msgstr "Blader in albums"
 
-#: templates/builds/forms.html:41
+#: src/brouwers/builds/templates/builds/forms.html:41
 msgid "Pick an album first"
 msgstr "Kies eerst een album"
 
-#: templates/builds/forms.html:56
+#: src/brouwers/builds/templates/builds/forms.html:44
 msgid "Select your photos"
 msgstr "Kies je foto's"
 
-#: templates/builds/profile.html:7
+#: src/brouwers/builds/templates/builds/profile.html:7
 #, python-format
 msgid "%(user)s's builds"
 msgstr "%(user)s's verslagen"
 
-#: templates/builds/profile.html:14
+#: src/brouwers/builds/templates/builds/profile.html:14
 #, python-format
 msgid ""
 "\n"
@@ -222,22 +223,31 @@ msgstr ""
 "\n"
 "Dit is een overzicht van alle verslagen door %(user)s."
 
-#: templates/builds/profile.html:21
+#: src/brouwers/builds/templates/builds/profile.html:21
 msgid "back to overview"
 msgstr "terug naar overzicht"
 
-#: templates/builds/sniplates.html:8
+#: src/brouwers/builds/templates/builds/sniplates.html:8
 msgid "Find a build or builder"
 msgstr "Zoek een brouwer of verslag"
 
-#: templates/builds/sniplates.html:11
+#: src/brouwers/builds/templates/builds/sniplates.html:11
 msgid "All builds"
 msgstr "Alle verslagen"
 
-#: templates/builds/sniplates.html:23 tests/test_views.py:42
-#: tests/test_views.py:46 tests/test_views.py:48
+#: src/brouwers/builds/templates/builds/sniplates.html:22
+#: src/brouwers/builds/tests/test_views.py:40
+#: src/brouwers/builds/tests/test_views.py:44
+#: src/brouwers/builds/tests/test_views.py:46
 msgid "My builds"
 msgstr "Mijn projecten"
+
+#: src/brouwers/builds/validators.py:10
+msgid "Enter a valid image URL."
+msgstr ""
+
+#~ msgid "Edit build report"
+#~ msgstr "Brouwverslag bewerken"
 
 #~ msgid "General information"
 #~ msgstr "Algemene informatie"
@@ -284,11 +294,11 @@ msgstr "Mijn projecten"
 #~ msgstr "merk"
 
 #~ msgid ""
-#~ "Use this page to link your projects to your profile. Caution, everything "
-#~ "you enter here is public for all visitors!"
+#~ "Use this page to link your projects to your profile. Caution, everything you"
+#~ " enter here is public for all visitors!"
 #~ msgstr ""
-#~ "Gebruik deze pagina om je projecten te linken naar je profiel. PAS OP: "
-#~ "alles wat je hier opgeeft is voor alle bezoekers zichtbaar!"
+#~ "Gebruik deze pagina om je projecten te linken naar je profiel. PAS OP: alles"
+#~ " wat je hier opgeeft is voor alle bezoekers zichtbaar!"
 
 #~ msgid "Save"
 #~ msgstr "Opslaan"

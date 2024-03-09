@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
-"PO-Revision-Date: 2014-05-29 21:57+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"PO-Revision-Date: 2024-03-09 23:06+0100\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: Nederlands <LL@li.org>\n"
 "Language: Nederlands\n"
@@ -17,111 +17,111 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
 
-#: apps.py:7
+#: src/brouwers/banning/apps.py:7
 msgid "Banning"
-msgstr ""
+msgstr "Verbanningen"
 
-#: models.py:18
+#: src/brouwers/banning/models.py:20
 msgid "user"
 msgstr "gebruiker"
 
-#: models.py:22
+#: src/brouwers/banning/models.py:26
 msgid "ip"
 msgstr "ip-adres"
 
-#: models.py:23
+#: src/brouwers/banning/models.py:26
 msgid "Ip address to ban."
 msgstr "IP-adres om te verbannen."
 
-#: models.py:25
+#: src/brouwers/banning/models.py:29
 msgid "expiry date"
 msgstr "vervaldatum"
 
-#: models.py:27
+#: src/brouwers/banning/models.py:32
 msgid "Date the ban expires. Leave blank for permabans."
 msgstr ""
 "Datum waarop de ban vervalt. Laat leeg om permanente bans in te steken."
 
-#: models.py:29
+#: src/brouwers/banning/models.py:34
 msgid "reason (internal)"
 msgstr "reden (intern)"
 
-#: models.py:31
+#: src/brouwers/banning/models.py:36
 msgid "reason"
 msgstr "reden"
 
-#: models.py:32
+#: src/brouwers/banning/models.py:38
 msgid "This reason will be shown to the banned user."
 msgstr "Deze reden is zichtbaar voor de verbannen gebruiker."
 
-#: models.py:34
+#: src/brouwers/banning/models.py:40
 msgid "automatically created?"
 msgstr "automatisch aangemaakt?"
 
-#: models.py:37
+#: src/brouwers/banning/models.py:43
 msgid "ban"
 msgstr "verbanning"
 
-#: models.py:38
+#: src/brouwers/banning/models.py:44
 msgid "bans"
 msgstr "verbanningen"
 
-#: models.py:43
+#: src/brouwers/banning/models.py:49
 msgid "never"
 msgstr "nooit"
 
-#: models.py:49
+#: src/brouwers/banning/models.py:55
 msgid "ip ban"
 msgstr "IP-verbanning"
 
-#: models.py:50
+#: src/brouwers/banning/models.py:56
 msgid "account ban"
 msgstr "accountverbanning"
 
-#: models.py:54
+#: src/brouwers/banning/models.py:60
 #, python-format
 msgid "Ban: %(username)s"
 msgstr "Verbanning: %(username)s"
 
-#: models.py:56
+#: src/brouwers/banning/models.py:62
 #, python-format
 msgid "Ban: %(ip)s"
 msgstr "Verbanning: %(ip)s"
 
-#: models.py:61
+#: src/brouwers/banning/models.py:67
 msgid "Submit either an user or IP address."
 msgstr "Geef ofwel een gebruiker in, ofwel een IP-adres"
 
-#: templates/banning/banned.html:4
+#: src/brouwers/banning/templates/banning/banned.html:4
 msgid "You are banned"
 msgstr "Je bent verbannen"
 
-#: templates/banning/banned.html:13
+#: src/brouwers/banning/templates/banning/banned.html:13
 msgid "Oops... you've been naughty!"
 msgstr "Oeps... je bent stout geweest!"
 
-#: templates/banning/banned.html:17
+#: src/brouwers/banning/templates/banning/banned.html:17
 msgid ""
-"The requested page cannot be shown since you have been <span class=\"error"
-"\">banned</span>."
+"The requested page cannot be shown since you have been <span "
+"class=\"error\">banned</span>."
 msgstr ""
-"De opgevraagde pagina kan niet getoond worden omdat je <span class=\"error"
-"\">verbannen</span> bent."
+"De opgevraagde pagina kan niet getoond worden omdat je <span "
+"class=\"error\">verbannen</span> bent."
 
-#: templates/banning/banned.html:22
+#: src/brouwers/banning/templates/banning/banned.html:22
 msgid "Ban type"
 msgstr "Soort verbanning"
 
-#: templates/banning/banned.html:23
+#: src/brouwers/banning/templates/banning/banned.html:23
 msgid "Reason"
 msgstr "Reden"
 
-#: templates/banning/banned.html:25
-msgid "Expires"
-msgstr "Vervaldatum"
-
-#: templates/banning/banned.html:26
+#: src/brouwers/banning/templates/banning/banned.html:24
 msgid "Starting from this moment, you regain access to the website."
 msgstr "Vanaf dit moment krijg je weer toegang tot de website."
+
+#: src/brouwers/banning/templates/banning/banned.html:25
+msgid "Expires"
+msgstr "Vervaldatum"

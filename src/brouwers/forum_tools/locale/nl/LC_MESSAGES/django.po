@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: 2015-02-10 19:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,166 +19,167 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: admin.py:35
+#: src/brouwers/forum_tools/admin.py:53
 msgid "forum profile"
 msgstr "forumprofiel"
 
-#: admin.py:38
+#: src/brouwers/forum_tools/admin.py:57
 msgid "Link"
 msgstr "Link"
 
-#: forms/fields.py:15
+#: src/brouwers/forum_tools/forms/fields.py:15
 msgid "Enter a valid url"
 msgstr "Geef een geldige url op"
 
-#: forms/forms.py:25
+#: src/brouwers/forum_tools/forms/forms.py:25
 msgid "Provide a set of IDS separated by ';'"
 msgstr "Geef een set van IDs op, gescheiden door ';'"
 
-#: forms/forms.py:33
+#: src/brouwers/forum_tools/forms/forms.py:33
 msgid "Please enter a correct username and password."
 msgstr "Geef aub een geldige gebruikersnaam en wachtwoord op."
 
-#: forms/widgets.py:29
+#: src/brouwers/forum_tools/forms/widgets.py:28
 msgid "Currently:"
 msgstr "Huidig:"
 
-#: forms/widgets.py:30
+#: src/brouwers/forum_tools/forms/widgets.py:31
 msgid "Change:"
 msgstr "Wijzig:"
 
-#: models.py:20 models.py:47
+#: src/brouwers/forum_tools/models.py:21 src/brouwers/forum_tools/models.py:56
 msgid "link id"
 msgstr "linkid"
 
-#: models.py:20
+#: src/brouwers/forum_tools/models.py:21
 msgid "HTML id of the base anchor."
 msgstr "HTML-id van de basislink"
 
-#: models.py:21
+#: src/brouwers/forum_tools/models.py:24
 msgid "short description"
 msgstr "korte beschrijving"
 
-#: models.py:23
+#: src/brouwers/forum_tools/models.py:27
 msgid "enabled"
 msgstr "ingeschakeld"
 
-#: models.py:24
+#: src/brouwers/forum_tools/models.py:27
 msgid "Enable the syncing of this link."
 msgstr "Schakel synchronisatie van deze link in."
 
-#: models.py:26
+#: src/brouwers/forum_tools/models.py:30
 msgid "from date"
 msgstr "vanaf datum"
 
-#: models.py:26
+#: src/brouwers/forum_tools/models.py:30
 msgid "Start date from when this link is enabled."
 msgstr "Startdatum wanneer deze link begint te synchroniseren."
 
-#: models.py:28
+#: src/brouwers/forum_tools/models.py:33
 msgid "to date"
 msgstr "tot datum"
 
-#: models.py:29
+#: src/brouwers/forum_tools/models.py:34
 msgid "End date from when this link is enabled, this date included."
 msgstr ""
 "Einddatum tot wanneer deze link gesynchroniseerd wordt, datum inbegrepen."
 
-#: models.py:32
+#: src/brouwers/forum_tools/models.py:38
 msgid "base forum link"
 msgstr "basis forumlink"
 
-#: models.py:33
+#: src/brouwers/forum_tools/models.py:39
 msgid "base forum links"
 msgstr "basis forumlinks"
 
-#: models.py:37
+#: src/brouwers/forum_tools/models.py:43
 #, python-format
 msgid "base forum link: %(desc)s"
 msgstr "basis forumlink: %(desc)s"
 
-#: models.py:39
+#: src/brouwers/forum_tools/models.py:45
 #, python-format
 msgid "base forum link: %(id)s"
 msgstr "basis forumlink: %(id)s"
 
-#: models.py:44
+#: src/brouwers/forum_tools/models.py:51
 msgid "base link"
 msgstr "basislink"
 
-#: models.py:45
+#: src/brouwers/forum_tools/models.py:52
 msgid "Link this link syncs with."
 msgstr "Link waarmee deze link synchroniseert."
 
-#: models.py:47
+#: src/brouwers/forum_tools/models.py:56
 msgid "HTML id of the anchor to be synced."
 msgstr "HTML id van het link element dat gesynchroniseerd wordt."
 
-#: models.py:50
+#: src/brouwers/forum_tools/models.py:60
 msgid "synced forum link"
 msgstr "gesynchroniseerde forumlink"
 
-#: models.py:51
+#: src/brouwers/forum_tools/models.py:61
 msgid "synced forum links"
 msgstr "gesynchroniseerde forumlinks"
 
-#: models.py:59 models.py:72
+#: src/brouwers/forum_tools/models.py:70 src/brouwers/forum_tools/models.py:83
 msgid "forum"
 msgstr "forum"
 
-#: models.py:62
+#: src/brouwers/forum_tools/models.py:73
 msgid "build report forum"
 msgstr "brouwverslagforum"
 
-#: models.py:63
+#: src/brouwers/forum_tools/models.py:74
 msgid "build report forums"
 msgstr "brouwverslagfora"
 
-#: models.py:67
+#: src/brouwers/forum_tools/models.py:78
 msgid "(forum does not exist)"
 msgstr "(forum bestaat niet)"
 
-#: models.py:71
+#: src/brouwers/forum_tools/models.py:82
 msgid "name"
 msgstr "naam"
 
-#: models.py:73
+#: src/brouwers/forum_tools/models.py:84
 msgid "icon class"
 msgstr "icon class"
 
-#: models.py:76
+#: src/brouwers/forum_tools/models.py:87
 msgid "forum category"
 msgstr "forumcategorie"
 
-#: models.py:77
+#: src/brouwers/forum_tools/models.py:88
 msgid "forum categories"
 msgstr "forumcategorieën"
 
-#: models.py:90
+#: src/brouwers/forum_tools/models.py:102
 msgid "Primary key"
 msgstr "Primary key"
 
-#: models.py:91 models.py:92
+#: src/brouwers/forum_tools/models.py:103
+#: src/brouwers/forum_tools/models.py:104
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:94
+#: src/brouwers/forum_tools/models.py:106
 msgid "email"
 msgstr "e-mailadres"
 
-#: models.py:98
+#: src/brouwers/forum_tools/models.py:111
 msgid "A hash of the user's email address."
 msgstr "Hash van de gebruikers e-mailadres."
 
-#: models.py:108
+#: src/brouwers/forum_tools/models.py:121
 msgid "forum user"
 msgstr "forumgebruiker"
 
-#: models.py:109
+#: src/brouwers/forum_tools/models.py:122
 msgid "forum users"
 msgstr "forumgebruikers"
 
-#: models.py:211
+#: src/brouwers/forum_tools/models.py:236
 #, python-brace-format
 msgid ""
 "This topic has been inactive for: {0}. Please consider sending the author a "
@@ -187,89 +188,89 @@ msgstr ""
 "Dit topic is inactief sinds: {0}. Overweeg om de auteur een PB te sturen in "
 "plaats van te reageren en het topic onnodig omhoog te schoppen."
 
-#: models.py:221
+#: src/brouwers/forum_tools/models.py:247
 msgid "Topic"
 msgstr "Topic"
 
-#: models.py:222
+#: src/brouwers/forum_tools/models.py:248
 msgid "Reply"
 msgstr "Antwoord"
 
-#: models.py:225
+#: src/brouwers/forum_tools/models.py:251
 msgid "forum id"
 msgstr "forum id"
 
-#: models.py:226
+#: src/brouwers/forum_tools/models.py:252
 msgid "minimum number of posts"
 msgstr "minimum aantal posts"
 
-#: models.py:228
+#: src/brouwers/forum_tools/models.py:254
 msgid "posting level"
 msgstr "postniveau"
 
-#: models.py:232
+#: src/brouwers/forum_tools/models.py:258
 msgid "forum post count restriction"
 msgstr "forum postcount beperking"
 
-#: models.py:233
+#: src/brouwers/forum_tools/models.py:259
 msgid "forum post count restrictions"
 msgstr "forum postcount beperkingen"
 
-#: models.py:237
+#: src/brouwers/forum_tools/models.py:263
 #, python-format
 msgid "Restriction for %(forum)s"
 msgstr "Beperking voor %(forum)s"
 
-#: models.py:245
+#: src/brouwers/forum_tools/models.py:272
 msgid "closed"
 msgstr "gesloten"
 
-#: models.py:246
+#: src/brouwers/forum_tools/models.py:274
 msgid "Closed reports need no more attention."
 msgstr "Gesloten reports hebben geen aandacht meer nodig."
 
-#: models.py:249
+#: src/brouwers/forum_tools/models.py:277
 msgid "time"
 msgstr "tijd"
 
-#: models.py:250
+#: src/brouwers/forum_tools/models.py:279
 msgid "UNIX time when the report was added."
 msgstr "Unix tijdsstempel waarop het report toegevoegd werd."
 
-#: models.py:256
+#: src/brouwers/forum_tools/models.py:285
 msgid "report"
 msgstr "report"
 
-#: models.py:257
+#: src/brouwers/forum_tools/models.py:286
 msgid "reports"
 msgstr "reports"
 
-#: models.py:260
+#: src/brouwers/forum_tools/models.py:288
 msgid "Can see (number of) open reports"
 msgstr "Kan (het aantal) open reports zien"
 
-#: models.py:264
+#: src/brouwers/forum_tools/models.py:291
 #, python-format
 msgid "Report %(id)s"
 msgstr "Report %(id)s"
 
-#: templates/forum_tools/sharing_allowed.html:2
-#: templates/forum_tools/sharing_not_allowed.html:2
+#: src/brouwers/forum_tools/templates/forum_tools/sharing_allowed.html:2
+#: src/brouwers/forum_tools/templates/forum_tools/sharing_not_allowed.html:2
 msgid "Content sharing"
 msgstr "Delen van content"
 
-#: templates/forum_tools/sharing_allowed.html:2
+#: src/brouwers/forum_tools/templates/forum_tools/sharing_allowed.html:2
 msgid "allowed"
 msgstr "toegestaan"
 
-#: templates/forum_tools/sharing_not_allowed.html:2
+#: src/brouwers/forum_tools/templates/forum_tools/sharing_not_allowed.html:2
 msgid "not allowed"
 msgstr "niet toegestaan"
 
-#: views.py:152
+#: src/brouwers/forum_tools/views.py:162
 msgid "Add build report"
 msgstr "Brouwverslag toevoegen"
 
-#: views.py:153
+#: src/brouwers/forum_tools/views.py:163
 msgid "Nominate for award"
 msgstr "Nomineer voor award"

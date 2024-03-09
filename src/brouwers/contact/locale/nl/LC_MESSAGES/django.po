@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-24 18:03+0100\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,75 +18,75 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:12
+#: src/brouwers/contact/models.py:12
 msgid "name"
 msgstr "naam"
 
-#: models.py:13
+#: src/brouwers/contact/models.py:13
 msgid "email"
 msgstr "e-mailadres"
 
-#: models.py:15
+#: src/brouwers/contact/models.py:15
 msgid "message"
 msgstr "bericht"
 
-#: models.py:20
+#: src/brouwers/contact/models.py:20
 msgid "is read"
 msgstr "gelezen"
 
-#: models.py:23
+#: src/brouwers/contact/models.py:23
 msgid "Mark messages as read to keep track of what still requires action."
 msgstr ""
 "Markeer berichten als gelezen om bij te houden wat nog behandeld dient te "
 "worden."
 
-#: models.py:26
+#: src/brouwers/contact/models.py:26
 msgid "created on"
 msgstr "aangemaakt op"
 
-#: models.py:29
+#: src/brouwers/contact/models.py:29
 msgid "contact message"
 msgstr "contacformulierbericht"
 
-#: models.py:30
+#: src/brouwers/contact/models.py:30
 msgid "contact messages"
 msgstr "contacformulierberichten"
 
-#: models.py:37
+#: src/brouwers/contact/models.py:37
 #, python-brace-format
 msgid "{name} - {preview}"
 msgstr "Bericht van {name} - {preview}"
 
-#: models.py:50
+#: src/brouwers/contact/models.py:50
 msgid "[Modelbrouwers.nl] New contact form message"
 msgstr "[Modelbrouwers.nl] Nieuw contactformulierbericht"
 
-#: templates/contact/contactmessage_form.html:5
-#: templates/contact/contactmessage_form.html:11
+#: src/brouwers/contact/templates/contact/contactmessage_form.html:5
+#: src/brouwers/contact/templates/contact/contactmessage_form.html:11
 msgid "Contact us"
 msgstr "Neem contact op"
 
-#: templates/contact/contactmessage_form.html:22
+#: src/brouwers/contact/templates/contact/contactmessage_form.html:22
 msgid "Our company details"
 msgstr "Onze bedrijfsgegevens"
 
-#: templates/contact/contactmessage_form.html:24
+#: src/brouwers/contact/templates/contact/contactmessage_form.html:24
 msgid "Address"
 msgstr "Adres"
 
-#: templates/contact/contactmessage_form.html:31
+#: src/brouwers/contact/templates/contact/contactmessage_form.html:31
 msgid "Phone number"
 msgstr "Telefoon"
 
-#: templates/contact/contactmessage_form.html:38
+#: src/brouwers/contact/templates/contact/contactmessage_form.html:38
 msgid "Contact form"
 msgstr "Contactformulier"
 
-#: templates/contact/contactmessage_form.html:56
+#: src/brouwers/contact/templates/contact/contactmessage_form.html:56
 msgid "Send message"
 msgstr "Verstuur bericht"
 
-#: templates/contact/mail/notification_email.txt:1
+#: src/brouwers/contact/templates/contact/mail/notification_email.txt:1
 #, python-format
 msgid ""
 "\n"
@@ -117,7 +117,7 @@ msgstr ""
 "Je kan deze e-mail beantwoorden om hun meteen een antwoord te sturen. Dit "
 "bericht is ook in het admin-panel bewaard.\n"
 
-#: views.py:18
+#: src/brouwers/contact/views.py:18
 msgid ""
 "Thank you for your message, we will get back to you as soon as possible."
 msgstr "Bedankt voor je bericht, we zullen dit zo snel mogelijk beantwoorden."

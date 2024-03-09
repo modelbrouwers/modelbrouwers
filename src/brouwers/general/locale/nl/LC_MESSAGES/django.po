@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: 2016-09-09 19:44+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,67 +19,63 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: apps.py:7
+#: src/brouwers/general/apps.py:8
 msgid "General"
 msgstr "Algemeen"
 
-#: models.py:17
+#: src/brouwers/general/constants.py:8
 msgid "The Netherlands"
 msgstr "Nederland"
 
-#: models.py:18
+#: src/brouwers/general/constants.py:9
 msgid "Belgium"
 msgstr "België"
 
-#: models.py:19
+#: src/brouwers/general/constants.py:10
 msgid "Germany"
 msgstr "Duitsland"
 
-#: models.py:20
-msgid "France"
-msgstr "Frankrijk"
-
-#: models.py:34
-msgid "exclude me from nominations"
-msgstr "sluit me uit van nominaties"
-
-#: models.py:35
-msgid "If checked, you will be excluded from Awards-nominations."
-msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
-
-#: models.py:40
-msgid "street name"
-msgstr "straatnaam"
-
-#: models.py:42
-msgid "number"
-msgstr "nummer"
-
-#: models.py:43
-msgid "house number (+ PO box if applicable)"
-msgstr "huisnummer (+ postbus indien van toepassing)"
-
-#: models.py:46
-msgid "postal code"
-msgstr "postcode"
-
-#: models.py:47
-msgid "city"
-msgstr "stad"
-
-#: models.py:48
-msgid "province"
-msgstr "provincie"
-
-#: models.py:49
+#: src/brouwers/general/fields.py:11
 msgid "country"
 msgstr "land"
 
-#: models.py:53
+#: src/brouwers/general/models.py:24
+msgid "exclude me from nominations"
+msgstr "sluit me uit van nominaties"
+
+#: src/brouwers/general/models.py:25
+msgid "If checked, you will be excluded from Awards-nominations."
+msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
+
+#: src/brouwers/general/models.py:31
+msgid "street name"
+msgstr "straatnaam"
+
+#: src/brouwers/general/models.py:33
+msgid "number"
+msgstr "nummer"
+
+#: src/brouwers/general/models.py:35
+msgid "house number (+ PO box if applicable)"
+msgstr "huisnummer (+ postbus indien van toepassing)"
+
+#: src/brouwers/general/models.py:38
+msgid "postal code"
+msgstr "postcode"
+
+#: src/brouwers/general/models.py:39
+msgid "city"
+msgstr "stad"
+
+#: src/brouwers/general/models.py:40
+msgid "province"
+msgstr "provincie"
+
+#: src/brouwers/general/models.py:45
 msgid "allow social sharing"
 msgstr "sociaal delen toestaan"
 
-#: models.py:54
+#: src/brouwers/general/models.py:48
 msgid ""
 "Checking this gives us permission to share your topics and albums on social "
 "media. Uncheck if you don't want to share."
@@ -87,89 +83,73 @@ msgstr ""
 "Als je dit aanvinkt, dan geef je toestemming om je topics en albums te delen "
 "op sociale media zoals Facebook. Vink dit uit als je dit niet wil."
 
-#: models.py:65
+#: src/brouwers/general/models.py:60
 msgid "userprofile"
 msgstr "gebruikersprofiel"
 
-#: models.py:66
+#: src/brouwers/general/models.py:61
 msgid "userprofiles"
 msgstr "gebruikersprofielen"
 
-#: models.py:91
-msgid "Anti-spambot question"
-msgstr "Anti-spambot vraag"
-
-#: models.py:92
-msgid "Question which must be answered for registration."
-msgstr "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
-
-#: models.py:96 models.py:221
-msgid "language"
-msgstr "taal"
-
-#: models.py:128
+#: src/brouwers/general/models.py:75
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: models.py:129
+#: src/brouwers/general/models.py:77
 msgid "email"
 msgstr "E-mailadres"
 
-#: models.py:131
-msgid "registration question"
-msgstr "Registratievraag"
-
-#: models.py:134
-msgid "answer"
-msgstr "antwoord"
-
-#: models.py:135
+#: src/brouwers/general/models.py:78
 msgid "timestamp"
 msgstr "timestamp"
 
-#: models.py:136
+#: src/brouwers/general/models.py:79
 msgid "IP address"
 msgstr "IP adres"
 
-#: models.py:137
+#: src/brouwers/general/models.py:80
 msgid "success"
 msgstr "geslaagd"
 
-#: models.py:141
+#: src/brouwers/general/models.py:85
 msgid "type of visitor"
 msgstr "type bezoeker"
 
-#: models.py:147
+#: src/brouwers/general/models.py:92
 msgid "registration attempt"
 msgstr "registratiepoging"
 
-#: models.py:148
+#: src/brouwers/general/models.py:93
 msgid "registration attempts"
 msgstr "registratiepogingen"
 
-#: models.py:193
+#: src/brouwers/general/models.py:143
 #, python-format
 msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
 msgstr ""
 "Waarschijnlijk spambot, %(num_attempts)s tegenover maximaal %(max)s pogingen."
 
-#: models.py:228
+#: src/brouwers/general/models.py:170
+msgid "language"
+msgstr "taal"
+
+#: src/brouwers/general/models.py:178
 msgid "announcement"
 msgstr "aankondiging"
 
-#: models.py:229
+#: src/brouwers/general/models.py:179
 msgid "announcements"
 msgstr "aankondigingen"
 
-#: templates/general/confirm_account.html:24
-msgid "Confirm"
-msgstr "Bevestigen"
+#: src/brouwers/general/templates/general/includes/rating.html:1
+msgid "unrated"
+msgstr ""
 
-#: templates/general/registration_terms.html:4
+#: src/brouwers/general/templates/general/registration_terms.html:4
 msgid "Registration"
 msgstr "Registratie"
 
-#: templates/general/registration_terms.html:6
+#: src/brouwers/general/templates/general/registration_terms.html:6
 #, python-format
 msgid ""
 "By registering on %(site)s and creating an account and profile,you get "
@@ -182,7 +162,7 @@ msgstr ""
 "van %(site)s wordt in de toekomst toegevoegd. Registratie houdt in dat je "
 "automatisch akkoord gaat met de voorwaarden."
 
-#: templates/general/registration_terms.html:9
+#: src/brouwers/general/templates/general/registration_terms.html:9
 msgid ""
 "You agree to keep your credentials safe. Furthermore, you will keep one, and "
 "<strong>only one</strong> account. Multiple accounts are strictly forbidden. "
@@ -194,7 +174,7 @@ msgstr ""
 "zijn niet toegelaten. Je zal je ook niet voordoen als een ander forumlid of "
 "proberen onrechtmatige toegang te krijgen tot de account van een ander lid."
 
-#: templates/general/registration_terms.html:12
+#: src/brouwers/general/templates/general/registration_terms.html:12
 #, python-format
 msgid ""
 "Some parts of %(site)s contain (extra) rules. It's your responsibility to "
@@ -205,11 +185,11 @@ msgstr ""
 "verantwoordelijkheid om deze te lezen. De admins en moderators (= het "
 "modteam) gaat er altijd van uit dat je op de hoogte bent van de regels."
 
-#: templates/general/registration_terms.html:16
+#: src/brouwers/general/templates/general/registration_terms.html:16
 msgid "Content"
 msgstr "Inhoud"
 
-#: templates/general/registration_terms.html:18
+#: src/brouwers/general/templates/general/registration_terms.html:18
 #, python-format
 msgid ""
 "All content posted on %(site)s becomes property of %(site)s as soon as it's "
@@ -223,7 +203,7 @@ msgstr ""
 "verwijderen, tenzij een geldige reden opgegeven wordt (bijvoorbeeld werk-"
 "gerelateerde privacy)."
 
-#: templates/general/registration_terms.html:21
+#: src/brouwers/general/templates/general/registration_terms.html:21
 msgid ""
 "On the forums, you are allowed to edit your posts, unless that right has "
 "been taken away by the staff. You can delete your latest post, if no-one "
@@ -235,7 +215,7 @@ msgstr ""
 "reactie op gekomen is. Soms is een uitzondering op zijn plaats, contacteer "
 "het modteam als je denkt dat een uitzondering vereist is."
 
-#: templates/general/registration_terms.html:24
+#: src/brouwers/general/templates/general/registration_terms.html:24
 msgid ""
 "All images added to the albums stay on our server. Even if you delete an "
 "image from your album, the file is still on the hard drive. This is to "
@@ -247,7 +227,7 @@ msgstr ""
 "de harde schijf. Op deze manier proberen we continu&iuml;teit in de topics "
 "te verzekeren door rode kruisjes te vermijden."
 
-#: templates/general/registration_terms.html:27
+#: src/brouwers/general/templates/general/registration_terms.html:27
 #, python-format
 msgid ""
 "Posted content is subject to Dutch and Belgian legislation. Furthermore, "
@@ -259,11 +239,11 @@ msgstr ""
 "Pornografische, racistische, godslasterlijke of grievende inhoud is niet "
 "toegestaan. Bij twijfel, contacteer het modteam."
 
-#: templates/general/registration_terms.html:32
+#: src/brouwers/general/templates/general/registration_terms.html:32
 msgid "Stored data"
 msgstr "Bewaarde gegevens"
 
-#: templates/general/registration_terms.html:34
+#: src/brouwers/general/templates/general/registration_terms.html:34
 #, python-format
 msgid ""
 "%(site)s makes use of cookies to keep you logged in. Furthermore, certain "
@@ -274,7 +254,7 @@ msgstr ""
 "cookies gebruikt om de veiligheid van de site hoog te houden. Deze cookies "
 "zijn essentieel om %(site)s goed te laten werken."
 
-#: templates/general/registration_terms.html:37
+#: src/brouwers/general/templates/general/registration_terms.html:37
 #, python-format
 msgid ""
 "%(site)s also makes use of Google Analytics cookies. These cookies generate "
@@ -285,7 +265,7 @@ msgstr ""
 "genereren anonieme statistieken over het gebruik van %(site)s. We gebruiken "
 "ze om jouw ervaring op %(site)s te verbeteren en de kwaliteit hoog te houden."
 
-#: templates/general/registration_terms.html:40
+#: src/brouwers/general/templates/general/registration_terms.html:40
 #, python-format
 msgid ""
 "%(site)s values your privacy highly. Your password is hashed and can not be "
@@ -299,11 +279,11 @@ msgstr ""
 "opties kunnen ingesteld worden in je profiel, zoals het <i>sharen</i> op "
 "social media."
 
-#: templates/general/registration_terms.html:45
+#: src/brouwers/general/templates/general/registration_terms.html:45
 msgid "Terms violations"
 msgstr "Overtredingen van de voorwaarden"
 
-#: templates/general/registration_terms.html:47
+#: src/brouwers/general/templates/general/registration_terms.html:47
 #, python-format
 msgid ""
 "Violation of these terms will be looked at case-per-case by the staff. The "
@@ -321,7 +301,7 @@ msgstr ""
 "gediscussieerd. Het modteam zal je altijd met respect behandelen. Vergeet "
 "echter niet, ook het modteam bestaat uit gewone mensen!"
 
-#: templates/general/registration_terms.html:50
+#: src/brouwers/general/templates/general/registration_terms.html:50
 msgid ""
 "Mistakes occur. If you feel like an error is in place, don't hesitate to "
 "contact the admins. The e-mail address is in the footer of this page."
@@ -329,6 +309,25 @@ msgstr ""
 "Foutjes kunnen gebeuren. Als je denkt dat er een fout in het spel is, aarzel "
 "dan niet om de admins te contacteren. Het e-mailadres staat onderaan deze "
 "pagina."
+
+#~ msgid "France"
+#~ msgstr "Frankrijk"
+
+#~ msgid "Anti-spambot question"
+#~ msgstr "Anti-spambot vraag"
+
+#~ msgid "Question which must be answered for registration."
+#~ msgstr ""
+#~ "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
+
+#~ msgid "registration question"
+#~ msgstr "Registratievraag"
+
+#~ msgid "answer"
+#~ msgstr "antwoord"
+
+#~ msgid "Confirm"
+#~ msgstr "Bevestigen"
 
 #~ msgid "added by"
 #~ msgstr "toegevoegd door"

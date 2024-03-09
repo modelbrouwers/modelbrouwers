@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: 2016-09-09 19:49+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,23 +19,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: conf/settings/base.py:26
-msgid "English"
-msgstr "Engels"
+#: src/templates/403.html:7
+msgid "403: permission denied"
+msgstr ""
 
-#: conf/settings/base.py:27
-msgid "Dutch"
-msgstr "Nederlands"
-
-#: templates/403.html:4
+#: src/templates/403.html:12
 msgid "Access denied"
 msgstr "Geen toegang"
 
-#: templates/403.html:7
+#: src/templates/403.html:15
 msgid "Oops... you don't have access to this page!"
 msgstr "Oeps... je hebt geen toegang tot deze pagina!"
 
-#: templates/403.html:11
+#: src/templates/403.html:19
 msgid ""
 "The requested page cannot be shown, you have insufficient permissions. You "
 "might need to log in to view the content."
@@ -43,15 +39,15 @@ msgstr ""
 "De opgevraagde pagina kan niet getoond worden, je hebt onvoldoende rechten. "
 "Mogelijk moet je inloggen om de inhoud te kunnen zien."
 
-#: templates/404.html:9
+#: src/templates/404.html:9
 msgid "404: page not found"
 msgstr "404: pagina niet gevonden"
 
-#: templates/404.html:22
+#: src/templates/404.html:22
 msgid "Oops... a 404!"
 msgstr "Oeps... een 404!"
 
-#: templates/404.html:25
+#: src/templates/404.html:25
 #, fuzzy, python-format
 #| msgid ""
 #| "The requested page could not be found or isn't accessible because of "
@@ -61,10 +57,10 @@ msgstr "Oeps... een 404!"
 #| "previous page."
 msgid ""
 "The requested page could not be found or isn't accessible because of limited "
-"user rights. Click on the big logo above or click <a href=\"%(url_index)s"
-"\">here</a> to return to the homepage. Alternatively, use the back button in "
-"your browser or click <a href=\"%(return)s\">here</a> to return to the "
-"previous page."
+"user rights. Click on the big logo above or click <a "
+"href=\"%(url_index)s\">here</a> to return to the homepage. Alternatively, "
+"use the back button in your browser or click <a href=\"%(return)s\">here</a> "
+"to return to the previous page."
 msgstr ""
 "De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
 "doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
@@ -72,189 +68,130 @@ msgstr ""
 "de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
 "te gaan naar de vorige pagina."
 
-#: templates/admin/base_site.html:19
+#: src/templates/admin/base_site.html:14
 msgid "Modelbrouwers.nl admin"
 msgstr "Modelbrouwers.nl administratie"
 
-#: templates/admin/base_site.html:44 templates/base.html:114
+#: src/templates/admin/base_site.html:31 src/templates/nav_tabs_text.html:47
 msgid "Builds"
 msgstr "Brouwverslagen"
 
-#: templates/admin/base_site.html:45
+#: src/templates/admin/base_site.html:32
 msgid "Find a member"
 msgstr "Vind een gebruiker"
 
-#: templates/base.html:6
-msgid "Materials and knowledge for scale modelling."
-msgstr "Materialen en kennisbank voor de modelbouw."
-
-#: templates/base.html:81 templates/nav_top.html:14
-msgid "Back to the Modelbrouwers.nl homepage"
-msgstr "Terug naar de Modelbrouwers.nl homepage"
-
-#: templates/base.html:113
-msgid "Home"
-msgstr "Home"
-
-#: templates/base.html:115
-msgid "Awards"
-msgstr "Awards"
-
-#: templates/base.html:116
-msgid "Secret Santa"
-msgstr "Secret Santa"
-
-#: templates/base.html:118
-msgid "Migrations"
-msgstr "Migraties"
-
-#: templates/base.html:125 templates/base_html5.html:92
-msgid "Login"
-msgstr "Inloggen"
-
-#: templates/base.html:128 templates/base_html5.html:94
-msgid "Register"
-msgstr "Registreren"
-
-#: templates/base.html:134 templates/base_html5.html:90
-msgid "logout"
-msgstr "uitloggen"
-
-#: templates/base.html:139
-msgid "Profile"
-msgstr "Profiel"
-
-#: templates/base.html:182
-#, python-format
-msgid ""
-"\n"
-"                        Hosting by <a href=\"%(url)s\">Flexwebhosting</a>\n"
-"                    "
-msgstr ""
-"\n"
-"Hosting door <a href=\"%(url)s\">Flexwebhosting</a>"
-
-#: templates/base_html5.html:88
+#: src/templates/base.html:58
 #, python-format
 msgid "logged in as <a href=\"%(profile_url)s\">%(user)s</a>"
 msgstr "ingelogd als <a href=\"%(profile_url)s\">%(user)s</a>"
 
-#: templates/base_html5.html:97
+#: src/templates/base.html:64
+msgid "logout"
+msgstr "uitloggen"
+
+#: src/templates/base.html:69
+msgid "Login"
+msgstr "Inloggen"
+
+#: src/templates/base.html:71
+msgid "Register"
+msgstr "Registreren"
+
+#: src/templates/base.html:74
 msgid "Privacy statement"
 msgstr ""
 
-#: templates/default.form:140 templates/horizontal.form:131
-msgid "Pick an option"
-msgstr "Kies een optie"
-
-#: templates/default.form:207 templates/horizontal.form:233
-#: templates/stacked.form:55
-#, python-format
-msgid ""
-"\n"
-"                Current: <a href=\"%(url)s\">%(url)s</a>\n"
-"            "
-msgstr ""
-"\n"
-"Huidige: <a href=\"%(url)s\">%(url)s</a>"
-
-#: templates/default.form:242
-msgid "The form contains errors"
-msgstr "Het formulier bevat fouten"
-
-#: templates/default.form:253
-msgid "There are errors between the forms"
-msgstr "Er zijn foutmeldingen bij de formulieren"
-
-#: templates/default.form:281
-msgid "Submit"
-msgstr "Versturen"
-
-#: templates/form_in_table.html:35 templates/form_in_table_rows.html:19
-msgid "Fix the error:"
-msgstr "Los het probleem op:"
-
-#: templates/includes/pagination.html:6
+#: src/templates/includes/pagination.html:6
 msgid "Previous"
 msgstr "Vorige"
 
-#: templates/includes/pagination.html:22
+#: src/templates/includes/pagination.html:22
 msgid "Next"
 msgstr "Volgende"
 
-#: templates/nav_tabs_text.html:12
+#: src/templates/nav_tabs_text.html:15
 msgid "Visit the homepage!"
 msgstr "Ga naar de homepage!"
 
-#: templates/nav_tabs_text.html:12
+#: src/templates/nav_tabs_text.html:15
 msgid "home"
 msgstr "home"
 
-#: templates/nav_tabs_text.html:16
+#: src/templates/nav_tabs_text.html:19
 msgid "Visit the forums!"
 msgstr "Ga naar het forum!"
 
-#: templates/nav_tabs_text.html:16
+#: src/templates/nav_tabs_text.html:19
 msgid "forum"
 msgstr "forum"
 
-#: templates/nav_tabs_text.html:20
+#: src/templates/nav_tabs_text.html:27
 msgid "Visit the shop!"
 msgstr "Ga naar de shop!"
 
-#: templates/nav_tabs_text.html:20
+#: src/templates/nav_tabs_text.html:27
 msgid "shop"
 msgstr "shop"
 
-#: templates/nav_tabs_text.html:26
+#: src/templates/nav_tabs_text.html:34
 msgid "You are now in the photo albums!"
 msgstr "Je bent nu in de albums!"
 
-#: templates/nav_tabs_text.html:26
+#: src/templates/nav_tabs_text.html:34
 msgid "Go to the albums!"
 msgstr "Ga naar de albums!"
 
-#: templates/nav_tabs_text.html:26
+#: src/templates/nav_tabs_text.html:34
 msgid "albums"
 msgstr "albums"
 
-#: templates/nav_tabs_text.html:31
+#: src/templates/nav_tabs_text.html:39
 msgid "Visit the kit reviews!"
 msgstr "Ga naar de kitreviews!"
 
-#: templates/nav_tabs_text.html:31
+#: src/templates/nav_tabs_text.html:39
 msgid "kit reviews"
 msgstr "kitreviews"
 
-#: templates/nav_tabs_text.html:35
+#: src/templates/nav_tabs_text.html:43
 msgid "Manage group builds!"
 msgstr "Beheer groepsbouwen!"
 
-#: templates/nav_tabs_text.html:35
+#: src/templates/nav_tabs_text.html:43
 msgid "group builds"
 msgstr "groepsbouwen"
 
-#: templates/nav_top.html:8
+#: src/templates/nav_tabs_text.html:47
+#, fuzzy
+#| msgid "build"
+msgid "builds"
+msgstr "Brouwverslagen"
+
+#: src/templates/nav_top.html:8
 msgid "Toggle navigation"
 msgstr "Schakel de navigatie aan of uit"
 
-#: templates/pagination.html:5
+#: src/templates/nav_top.html:14
+msgid "Back to the Modelbrouwers.nl homepage"
+msgstr "Terug naar de Modelbrouwers.nl homepage"
+
+#: src/templates/pagination.html:5
 msgid "First page"
 msgstr "Eerste pagina"
 
-#: templates/pagination.html:16
+#: src/templates/pagination.html:16
 msgid "of"
 msgstr "van"
 
-#: templates/pagination.html:25
+#: src/templates/pagination.html:25
 msgid "Last page"
 msgstr "Laatste pagina"
 
-#: templates/santa_removed.html:4
+#: src/templates/santa_removed.html:4
 msgid "Oops! This has been removed..."
 msgstr "Oeps! Dit is verwijderd..."
 
-#: templates/santa_removed.html:8
+#: src/templates/santa_removed.html:8
 msgid ""
 "Sorry! The Secret Santa application is no longer available. Since it was "
 "barely used, this has been removed."
@@ -262,7 +199,7 @@ msgstr ""
 "Sorry! De Secret Santa app is niet meer beschikbaar. Door het weinige "
 "gebruik is deze verwijderd."
 
-#: templates/santa_removed.html:15
+#: src/templates/santa_removed.html:15
 #, fuzzy, python-format
 #| msgid ""
 #| "The requested page could not be found or isn't accessible because of "
@@ -281,15 +218,15 @@ msgstr ""
 "de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
 "te gaan naar de vorige pagina."
 
-#: templates/search_form.html:16
+#: src/templates/search_form.html:16
 msgid "Search"
 msgstr "Zoek"
 
-#: templates/shirts_removed.html:4
+#: src/templates/shirts_removed.html:4
 msgid "Oops! There is no more stock..."
 msgstr "Oeps! Er is geen voorraad meer..."
 
-#: templates/shirts_removed.html:8
+#: src/templates/shirts_removed.html:8
 #, fuzzy, python-format
 #| msgid ""
 #| "The requested page could not be found or isn't accessible because of "
@@ -299,16 +236,74 @@ msgstr "Oeps! Er is geen voorraad meer..."
 #| "previous page."
 msgid ""
 "Sorry, there are no more shirts in stock, so it's no longer possible to "
-"order them. Click on the big logo above or click <a href=\"%(url_index)s"
-"\">here</a> to return to the homepage. Alternatively, use the back button in "
-"your browser or click <a href=\"%(return)s\">here</a> to return to the "
-"previous page."
+"order them. Click on the big logo above or click <a "
+"href=\"%(url_index)s\">here</a> to return to the homepage. Alternatively, "
+"use the back button in your browser or click <a href=\"%(return)s\">here</a> "
+"to return to the previous page."
 msgstr ""
 "De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
 "doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
 "of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
 "de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
 "te gaan naar de vorige pagina."
+
+#~ msgid "English"
+#~ msgstr "Engels"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlands"
+
+#~ msgid "Materials and knowledge for scale modelling."
+#~ msgstr "Materialen en kennisbank voor de modelbouw."
+
+#~ msgid "Home"
+#~ msgstr "Home"
+
+#~ msgid "Awards"
+#~ msgstr "Awards"
+
+#~ msgid "Secret Santa"
+#~ msgstr "Secret Santa"
+
+#~ msgid "Migrations"
+#~ msgstr "Migraties"
+
+#~ msgid "Profile"
+#~ msgstr "Profiel"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                        Hosting by <a href=\"%(url)s\">Flexwebhosting</"
+#~ "a>\n"
+#~ "                    "
+#~ msgstr ""
+#~ "\n"
+#~ "Hosting door <a href=\"%(url)s\">Flexwebhosting</a>"
+
+#~ msgid "Pick an option"
+#~ msgstr "Kies een optie"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                Current: <a href=\"%(url)s\">%(url)s</a>\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "Huidige: <a href=\"%(url)s\">%(url)s</a>"
+
+#~ msgid "The form contains errors"
+#~ msgstr "Het formulier bevat fouten"
+
+#~ msgid "There are errors between the forms"
+#~ msgstr "Er zijn foutmeldingen bij de formulieren"
+
+#~ msgid "Submit"
+#~ msgstr "Versturen"
+
+#~ msgid "Fix the error:"
+#~ msgstr "Los het probleem op:"
 
 #~ msgid "Control panel"
 #~ msgstr "Controlepaneel"
@@ -429,9 +424,6 @@ msgstr ""
 
 #~ msgid "Forum ID"
 #~ msgstr "Forum"
-
-#~ msgid "build"
-#~ msgstr "Brouwverslagen"
 
 #~ msgid "Build reports"
 #~ msgstr "Brouwverslagen"

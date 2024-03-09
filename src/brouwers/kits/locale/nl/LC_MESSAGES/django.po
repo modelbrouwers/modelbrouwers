@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: 2016-09-09 19:47+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,251 +19,215 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: admin.py:32
+#: src/brouwers/kits/admin.py:37
 msgid "merge into"
 msgstr "samenvoegen in"
 
-#: admin.py:52 templates/admin/kits/mark_duplicate.html:11
+#: src/brouwers/kits/admin.py:59
+#: src/brouwers/kits/templates/admin/kits/mark_duplicate.html:11
 msgid "Merge duplicates"
 msgstr "Duplicaten samenvoegen"
 
-#: admin.py:60
+#: src/brouwers/kits/admin.py:69
 #, python-format
 msgid "Merge selected %(verbose_name_plural)s"
 msgstr "Voeg de geselecteerde %(verbose_name_plural)s samen"
 
-#: admin.py:89
+#: src/brouwers/kits/admin.py:98
 msgid "builds"
 msgstr "builds"
 
-#: admin.py:95
+#: src/brouwers/kits/admin.py:106
 msgid "view image"
 msgstr "bekijk afbeelding"
 
-#: admin.py:98
+#: src/brouwers/kits/admin.py:108
 msgid "boxart"
 msgstr "doosafbeelding"
 
-#: apps.py:7
+#: src/brouwers/kits/apps.py:7
 msgid "kits"
 msgstr "kits"
 
-#: models.py:22 models.py:34 models.py:82 widgets.py:15
-msgid "brand"
-msgstr "merk"
-
-#: models.py:24
-msgid "This brand already exists"
-msgstr "Dit merk bestaat al"
-
-#: models.py:26 models.py:83
-msgid "slug"
-msgstr "slug"
-
-#: models.py:27
-msgid "logo"
-msgstr "logo"
-
-#: models.py:29
-msgid "is active"
-msgstr "is actief"
-
-#: models.py:30
-msgid "Whether the brand still exists or not"
-msgstr "Geeft aan of het merk nog bestaat of niet"
-
-#: models.py:35
-msgid "brands"
-msgstr "merken"
-
-#: models.py:48 models.py:53 models.py:89 widgets.py:16
-msgid "scale"
-msgstr "schaal"
-
-#: models.py:49
-msgid "This scale already exists"
-msgstr "Deze schaal bestaat al"
-
-#: models.py:54
-msgid "scales"
-msgstr "schalen"
-
-#: models.py:65
+#: src/brouwers/kits/constants.py:6
 msgid "very easy"
 msgstr "zeer makkelijk"
 
-#: models.py:66
+#: src/brouwers/kits/constants.py:7
 msgid "easy"
 msgstr "makkelijk"
 
-#: models.py:67
+#: src/brouwers/kits/constants.py:8
 msgid "medium"
 msgstr "gemiddeld"
 
-#: models.py:68
+#: src/brouwers/kits/constants.py:9
 msgid "hard"
 msgstr "moeilijk"
 
-#: models.py:69
+#: src/brouwers/kits/constants.py:10
 msgid "very hard"
 msgstr "zeer moeilijk"
 
-#: models.py:81 templates/kits/includes/add_kit_modal.html:25
+#: src/brouwers/kits/models.py:20 src/brouwers/kits/models.py:36
+#: src/brouwers/kits/models.py:79 src/brouwers/kits/widgets.py:9
+msgid "brand"
+msgstr "merk"
+
+#: src/brouwers/kits/models.py:24
+msgid "This brand already exists"
+msgstr "Dit merk bestaat al"
+
+#: src/brouwers/kits/models.py:26 src/brouwers/kits/models.py:81
+msgid "slug"
+msgstr "slug"
+
+#: src/brouwers/kits/models.py:27
+msgid "logo"
+msgstr "logo"
+
+#: src/brouwers/kits/models.py:29
+msgid "is active"
+msgstr "is actief"
+
+#: src/brouwers/kits/models.py:32
+msgid "Whether the brand still exists or not"
+msgstr "Geeft aan of het merk nog bestaat of niet"
+
+#: src/brouwers/kits/models.py:37
+msgid "brands"
+msgstr "merken"
+
+#: src/brouwers/kits/models.py:50 src/brouwers/kits/models.py:57
+#: src/brouwers/kits/models.py:89 src/brouwers/kits/widgets.py:10
+msgid "scale"
+msgstr "schaal"
+
+#: src/brouwers/kits/models.py:53
+msgid "This scale already exists"
+msgstr "Deze schaal bestaat al"
+
+#: src/brouwers/kits/models.py:58
+msgid "scales"
+msgstr "schalen"
+
+#: src/brouwers/kits/models.py:77
 msgid "kit name"
 msgstr "kitnaam"
 
-#: models.py:85 templates/kits/includes/add_kit_modal.html:28 widgets.py:19
+#: src/brouwers/kits/models.py:83 src/brouwers/kits/widgets.py:13
 msgid "kit number"
 msgstr "kitnummer"
 
-#: models.py:87
+#: src/brouwers/kits/models.py:87
 msgid "Kit number as found on the box."
 msgstr "Kitnummer zoals die op de doos staat."
 
-#: models.py:91 templates/kits/includes/add_kit_modal.html:34 widgets.py:24
+#: src/brouwers/kits/models.py:91 src/brouwers/kits/widgets.py:21
 msgid "difficulty"
 msgstr "moeilijkheidsgraad"
 
-#: models.py:95 templates/kits/includes/add_kit_modal.html:31 widgets.py:20
+#: src/brouwers/kits/models.py:97 src/brouwers/kits/widgets.py:15
 msgid "box image"
 msgstr "boxart"
 
-#: models.py:98
+#: src/brouwers/kits/models.py:103
 msgid "duplicates"
 msgstr "duplicaten"
 
-#: models.py:99
+#: src/brouwers/kits/models.py:104
 msgid "Kits that are the same but have another producer."
 msgstr "Kits die identiek zijn, maar uitgegeven door een ander merk."
 
-#: models.py:107
+#: src/brouwers/kits/models.py:112
 msgid "model kit"
 msgstr "bouwdoos"
 
-#: models.py:108
+#: src/brouwers/kits/models.py:113
 msgid "model kits"
 msgstr "bouwdozen"
 
-#: models.py:132
+#: src/brouwers/kits/models.py:140
 #, fuzzy, python-brace-format
 #| msgid "A kit from {brand} with kut number '{kit_number}' already exists"
 msgid "A kit from {brand} with kit number '{kit_number}' already exists"
 msgstr "Er bestaat al een kit van {brand} met kitnummer '{kit_number}'."
 
-#: models.py:150
+#: src/brouwers/kits/models.py:161
 msgid "uuid"
 msgstr ""
 
-#: models.py:152
+#: src/brouwers/kits/models.py:163
 msgid "created"
 msgstr ""
 
-#: models.py:155
+#: src/brouwers/kits/models.py:166
 #, fuzzy
 #| msgid "box image"
 msgid "boxart image upload"
 msgstr "boxart"
 
-#: models.py:156
+#: src/brouwers/kits/models.py:167
 #, fuzzy
 #| msgid "box image"
 msgid "boxart image uploads"
 msgstr "boxart"
 
-#: templates/admin/kits/mark_duplicate.html:8
+#: src/brouwers/kits/templates/admin/kits/mark_duplicate.html:8
 msgid "Home"
 msgstr "Home"
 
-#: templates/admin/kits/mark_duplicate.html:16
+#: src/brouwers/kits/templates/admin/kits/mark_duplicate.html:16
 #, python-format
 msgid "Are you sure you want to merge the selected %(objects_name)s?"
 msgstr "Ben je zeker dat je de geselecteerde %(objects_name)s wil samenvoegen?"
 
-#: templates/admin/kits/mark_duplicate.html:30
+#: src/brouwers/kits/templates/admin/kits/mark_duplicate.html:30
 msgid "Yes, I'm sure"
 msgstr "Ja, ik ben zeker"
 
-#: templates/admin/kits/mark_duplicate.html:31
+#: src/brouwers/kits/templates/admin/kits/mark_duplicate.html:31
 msgid "No, take me back"
 msgstr "Nee, keer terug"
 
-#: templates/kits/handlebars/select-modelkit-widget.hbs:21
-msgid "load more"
-msgstr "meer tonen"
-
-#: templates/kits/includes/add_kit_modal.html:10
+#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:11
 msgid "Add new kit to the database"
 msgstr "Voeg een nieuwe kit toe aan de databank"
 
-#: templates/kits/includes/add_kit_modal.html:11
+#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:12
 msgid ""
 "Please, only add new kits if they were not available via the search function."
 msgstr ""
 "Gelieve enkel nieuwe kits toe te voegen als ze niet te vinden zijn via de "
 "zoekfunctie."
 
-#: templates/kits/includes/add_kit_modal.html:19
-msgid "choose the brand"
-msgstr "kies het merk"
-
-#: templates/kits/includes/add_kit_modal.html:22
-msgid "choose the scale"
-msgstr "kies de schaal"
-
-#: templates/kits/includes/add_kit_modal.html:40
-#: templates/kits/includes/add_kit_modal.html:97
+#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:20
 msgid "Close"
 msgstr "Sluiten"
 
-#: templates/kits/includes/add_kit_modal.html:41
+#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:21
 msgid "Save"
 msgstr "Bewaren"
 
-#: templates/kits/includes/add_kit_modal.html:49
-msgid "Drop files here"
-msgstr ""
-
-#: templates/kits/includes/add_kit_modal.html:60
-msgid "Upload a file"
-msgstr ""
-
-#: templates/kits/includes/add_kit_modal.html:67
-msgid "Processing dropped files..."
-msgstr ""
-
-#: templates/kits/includes/add_kit_modal.html:85
-#: templates/kits/includes/add_kit_modal.html:113
-msgid "Cancel"
-msgstr ""
-
-#: templates/kits/includes/add_kit_modal.html:88
-msgid "Retry"
-msgstr ""
-
-#: templates/kits/includes/add_kit_modal.html:104
-msgid "No"
-msgstr ""
-
-#: templates/kits/includes/add_kit_modal.html:105
-msgid "Yes"
-msgstr ""
-
-#: templates/kits/includes/add_kit_modal.html:114
-msgid "Ok"
-msgstr ""
-
-#: templates/kits/widgets.html:35
-msgid "filter by name"
-msgstr "zoek op naam"
-
-#: templates/kits/widgets.html:44
-msgid "&hellip; or add a new kit"
-msgstr "&hellip; of voeg een nieuwe kit toe"
-
-#: tests/api/test_kit_viewset.py:98
+#: src/brouwers/kits/tests/api/test_kit_viewset.py:109
 msgid "Invalid upload specified"
 msgstr ""
 
-#: widgets.py:17
+#: src/brouwers/kits/widgets.py:11
 msgid "name"
 msgstr "naam"
+
+#~ msgid "load more"
+#~ msgstr "meer tonen"
+
+#~ msgid "choose the brand"
+#~ msgstr "kies het merk"
+
+#~ msgid "choose the scale"
+#~ msgstr "kies de schaal"
+
+#~ msgid "filter by name"
+#~ msgstr "zoek op naam"
+
+#~ msgid "&hellip; or add a new kit"
+#~ msgstr "&hellip; of voeg een nieuwe kit toe"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: 2016-05-07 12:52+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.11\n"
 
-#: forms.py:9
+#: src/brouwers/brouwersdag/forms.py:10
 #, python-brace-format
 msgid "There is a limit of {limit} model(s) per person for this competition."
 msgstr "Er is een limiet van {limit} modellen per persoon voor deze wedstrijd."
 
-#: forms.py:10
+#: src/brouwers/brouwersdag/forms.py:13
 msgid ""
 "The maximum number of contestors is reached. You can no longer enter the "
 "competition"
@@ -32,187 +32,190 @@ msgstr ""
 "Het maximum aantal deelnemers is bereikt. Je kan niet meer meedoen met de "
 "wedstrijd."
 
-#: forms.py:13
+#: src/brouwers/brouwersdag/forms.py:17
 msgid "Add another model"
 msgstr "Voeg nog een model toe"
 
-#: models.py:13
+#: src/brouwers/brouwersdag/models.py:15
 msgid "brouwer"
 msgstr "brouwer"
 
-#: models.py:17
+#: src/brouwers/brouwersdag/models.py:20
 msgid "real name"
 msgstr "echte naam"
 
-#: models.py:18
+#: src/brouwers/brouwersdag/models.py:21
 msgid "e-mail address"
 msgstr "e-mailadres"
 
-#: models.py:20
+#: src/brouwers/brouwersdag/models.py:23
 msgid "model name"
 msgstr "naam model"
 
-#: models.py:21
+#: src/brouwers/brouwersdag/models.py:26
 msgid "brand"
 msgstr "merk"
 
-#: models.py:23
+#: src/brouwers/brouwersdag/models.py:32
 msgid "scale"
 msgstr "schaal"
 
-#: models.py:23
+#: src/brouwers/brouwersdag/models.py:33
 msgid "Enter the number after the \"1:\" or \"1/\". E.g. 1/48 --> enter 48."
 msgstr ""
 "Voeg het getal na de \"1:\" of \"1/\" toe. Bijvoorbeeld \"1/48\" --> vul 48 "
 "in."
 
-#: models.py:25
+#: src/brouwers/brouwersdag/models.py:36
 msgid "remarkable elements"
 msgstr "bijzonderheden"
 
-#: models.py:26
+#: src/brouwers/brouwersdag/models.py:39
 msgid ""
 "Add the features that make this model special here, e.g. \"scratch built "
 "cockpit\""
 msgstr "Voeg de bijzonderheden toe, bijvoorbeeld 'piloot 100% scratch'"
 
-#: models.py:28
+#: src/brouwers/brouwersdag/models.py:43
 msgid "topic url"
 msgstr "topiclink"
 
-#: models.py:32
+#: src/brouwers/brouwersdag/models.py:48
 msgid "length"
 msgstr "lengte"
 
-#: models.py:32 models.py:33 models.py:34
+#: src/brouwers/brouwersdag/models.py:48 src/brouwers/brouwersdag/models.py:51
+#: src/brouwers/brouwersdag/models.py:54
 msgid "In cm."
 msgstr "In centimer."
 
-#: models.py:33
+#: src/brouwers/brouwersdag/models.py:51
 msgid "width"
 msgstr "breedte"
 
-#: models.py:34
+#: src/brouwers/brouwersdag/models.py:54
 msgid "height"
 msgstr "hoogte"
 
-#: models.py:39 models.py:87
+#: src/brouwers/brouwersdag/models.py:62 src/brouwers/brouwersdag/models.py:120
 msgid "competition"
 msgstr "wedstrijd"
 
-#: models.py:42
+#: src/brouwers/brouwersdag/models.py:65
 msgid "enter competition?"
 msgstr "inschrijven voor de wedstrijd?"
 
-#: models.py:43
+#: src/brouwers/brouwersdag/models.py:66
 msgid "competition fee paid?"
 msgstr "inschrijvingsgeld betaald?"
 
-#: models.py:46
+#: src/brouwers/brouwersdag/models.py:69
 msgid "added"
 msgstr "toegevoegd"
 
-#: models.py:49
+#: src/brouwers/brouwersdag/models.py:72
 msgid "showcased model"
 msgstr "tentoongesteld model"
 
-#: models.py:50
+#: src/brouwers/brouwersdag/models.py:73
 msgid "showcased models"
 msgstr "tentoongestelde modellen"
 
-#: models.py:72 models.py:109 models.py:125
+#: src/brouwers/brouwersdag/models.py:95 src/brouwers/brouwersdag/models.py:141
+#: src/brouwers/brouwersdag/models.py:157
 msgid "name"
 msgstr "naam"
 
-#: models.py:73
+#: src/brouwers/brouwersdag/models.py:97
 msgid "price per model"
 msgstr "prijs per model"
 
-#: models.py:76
+#: src/brouwers/brouwersdag/models.py:101
 msgid "models per participant"
 msgstr "modellen per deelnemer"
 
-#: models.py:77
+#: src/brouwers/brouwersdag/models.py:103
 msgid "Maximum number of models per participant, enter 0 for unlimited."
 msgstr "Maximum aantal modellen per deelnemer, vul 0 in voor ongelimiteerd."
 
-#: models.py:79
+#: src/brouwers/brouwersdag/models.py:106
 msgid "maximum number of participants"
 msgstr "maximum aantal deelnemers"
 
-#: models.py:80
+#: src/brouwers/brouwersdag/models.py:108
 msgid "Maximum number of participants, enter 0 for unlimited."
 msgstr "Maximum aantal deelnemers, vul 0 in voor ongelimiteerd."
 
-#: models.py:83
+#: src/brouwers/brouwersdag/models.py:112
 msgid "current open competition?"
 msgstr "huidige open wedstrijd?"
 
-#: models.py:84
+#: src/brouwers/brouwersdag/models.py:115
 msgid ""
 "Marking this competition as active will deactivate all other competitions."
 msgstr ""
 "Het markeren van de wedstrijd als 'huidige' zal alle andere wedstrijden als "
 "inactief markeren."
 
-#: models.py:88
+#: src/brouwers/brouwersdag/models.py:121
 msgid "competitions"
 msgstr "wedstrijden"
 
-#: models.py:110
+#: src/brouwers/brouwersdag/models.py:142
 msgid "date"
 msgstr "datum"
 
-#: models.py:116
+#: src/brouwers/brouwersdag/models.py:148
 msgid "brouwersdag"
 msgstr "brouwersdag"
 
-#: models.py:117
+#: src/brouwers/brouwersdag/models.py:149
 msgid "brouwersdagen"
 msgstr "brouwersdagen"
 
-#: models.py:126
+#: src/brouwers/brouwersdag/models.py:158
 msgid "website"
 msgstr "website"
 
-#: models.py:130
+#: src/brouwers/brouwersdag/models.py:164
 msgid "space needed"
 msgstr "benodigde ruimte"
 
-#: models.py:131
+#: src/brouwers/brouwersdag/models.py:167
 msgid "Amount of space needed. 100 characters or less."
 msgstr "Benodigde ruimte, 100 of minder karakters."
 
-#: models.py:134
+#: src/brouwers/brouwersdag/models.py:171
 msgid "exhibitor"
 msgstr "exposant"
 
-#: models.py:135
+#: src/brouwers/brouwersdag/models.py:172
 msgid "exhibitors"
 msgstr "exposanten"
 
-#: templates/brouwersdag/base.html:3 templates/brouwersdag/model_signup.html:41
+#: src/brouwers/brouwersdag/templates/brouwersdag/base.html:3
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:41
 #, python-format
 msgid "Modelbouwdag %(year)s"
 msgstr "Modelbouwdag %(year)s"
 
-#: templates/brouwersdag/base.html:11
+#: src/brouwers/brouwersdag/templates/brouwersdag/base.html:11
 msgid "Signup"
 msgstr "Inschrijving"
 
-#: templates/brouwersdag/base.html:12
+#: src/brouwers/brouwersdag/templates/brouwersdag/base.html:12
 msgid "My models"
 msgstr "Mijn modellen"
 
-#: templates/brouwersdag/base.html:13
+#: src/brouwers/brouwersdag/templates/brouwersdag/base.html:13
 msgid "Website"
 msgstr "Website"
 
-#: templates/brouwersdag/index.html:7
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:7
 msgid "Model signup"
 msgstr "Modellen aanmelden"
 
-#: templates/brouwersdag/index.html:9
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:9
 msgid ""
 "Below you can find out which models will be on display. The list is updated "
 "after every model sign-up!"
@@ -220,15 +223,15 @@ msgstr ""
 "Binnenkort zal je hier kunnen ontdekken welke modellen er aanwezig zijn. "
 "Deze lijst wordt bijgewerkt na ieder toegevoegd model."
 
-#: templates/brouwersdag/index.html:11
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:11
 msgid "What are you waiting for? If you're coming, bring a model!"
 msgstr "Waarop wacht je nog? Als je komt, breng een model mee!"
 
-#: templates/brouwersdag/index.html:16
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:16
 msgid "Add your models"
 msgstr "Voeg je modellen toe"
 
-#: templates/brouwersdag/index.html:21
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:21
 msgid ""
 "More info on <a class=\"btn btn-default btn-lg\" href=\"http://www."
 "modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
@@ -236,35 +239,35 @@ msgstr ""
 "Meer info op <a class=\"btn btn-default btn-lg\" href=\"http://www."
 "modelbouwdag.nl/\">www.modelbouwdag.nl</a>"
 
-#: templates/brouwersdag/index.html:27
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:27
 msgid "Click the above button to sign up for the competition"
 msgstr "Klik op de knop hierboven om je aan te melden voor de wedstrijd"
 
-#: templates/brouwersdag/index.html:30
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:30
 msgid "Confirmed models"
 msgstr "Bevestigde modellen"
 
-#: templates/brouwersdag/index.html:32
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:32
 #, python-format
 msgid "%(n_total)s total, %(n_competition)s competition"
 msgstr "%(n_total)s totaal, %(n_competition)s wedstrijd"
 
-#: templates/brouwersdag/index.html:55
+#: src/brouwers/brouwersdag/templates/brouwersdag/index.html:55
 msgid "Back to top"
 msgstr "Terug naar boven"
 
-#: templates/brouwersdag/model_signup.html:10
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:10
 #, python-format
 msgid "Modelbouwdag%(year)s"
 msgstr "Modelbouwdag %(year)s"
 
-#: templates/brouwersdag/model_signup.html:11
-#: templates/brouwersdag/model_signup.html:42
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:11
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:42
 msgid "Time to do your models sign-up!"
 msgstr "Tijd om je modellen aan te melden!"
 
-#: templates/brouwersdag/model_signup.html:14
-#: templates/brouwersdag/model_signup.html:46
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:14
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:46
 msgid ""
 "If you want to display multiple models, just fill in the form again for each "
 "extra model."
@@ -272,7 +275,7 @@ msgstr ""
 "Indien je met meerdere modellen wenst deel te nemen, vul het formulier dan "
 "in voor elk model."
 
-#: templates/brouwersdag/model_signup.html:25
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:25
 msgid ""
 "Attention! This form serves multiple purposes. Please read the below "
 "description."
@@ -280,20 +283,21 @@ msgstr ""
 "Let op! Dit formulier dient verschillende doelen. Lees onderstaande goed "
 "door."
 
-#: templates/brouwersdag/model_signup.html:61
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:61
 msgid "Add model"
 msgstr "Model aanmelden"
 
-#: templates/brouwersdag/model_signup.html:68
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:68
 msgid "Competition information"
 msgstr "Wedstrijdinformatie"
 
-#: templates/brouwersdag/model_signup.html:71
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:71
 msgid "There's no competition planned (yet)."
 msgstr "Er is (nog) geen wedstrijd geplanned."
 
-#: templates/brouwersdag/model_signup.html:76
 # python-format
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup.html:76
+#, python-format
 msgid ""
 "Attention! You can enter only one model in the competition. Extra models "
 "will be rejected."
@@ -307,46 +311,46 @@ msgstr[1] ""
 "Opgelet! Je kan maximaal <strong>%(n)s</strong> model(len) aanmelden voor de "
 "wedstrijd. Extra modellen zullen geweigerd worden."
 
-#: templates/brouwersdag/model_signup_edit.html:5
+#: src/brouwers/brouwersdag/templates/brouwersdag/model_signup_edit.html:5
 msgid "Edit model"
 msgstr "Model bewerken"
 
-#: templates/brouwersdag/my_models.html:5
+#: src/brouwers/brouwersdag/templates/brouwersdag/my_models.html:5
 msgid "My submitted models"
 msgstr "Mijn ingeschreven modellen"
 
-#: templates/brouwersdag/my_models.html:10
+#: src/brouwers/brouwersdag/templates/brouwersdag/my_models.html:10
 msgid "Entered for competition"
 msgstr "Ingeschreven voor de wedstrijd"
 
-#: templates/brouwersdag/my_models.html:22
+#: src/brouwers/brouwersdag/templates/brouwersdag/my_models.html:22
 msgid "Cancel signup"
 msgstr "Inschrijving annuleren"
 
-#: templates/brouwersdag/nav_top.html:8
+#: src/brouwers/brouwersdag/templates/brouwersdag/nav_top.html:8
 msgid "Toggle navigation"
 msgstr "Toon/verberg navigatie"
 
-#: templates/brouwersdag/nav_top.html:14
+#: src/brouwers/brouwersdag/templates/brouwersdag/nav_top.html:14
 msgid "Back to the Modelbrouwers.nl homepage"
 msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#: templates/brouwersdag/showcasedmodel_confirm_delete.html:7
+#: src/brouwers/brouwersdag/templates/brouwersdag/showcasedmodel_confirm_delete.html:7
 msgid ""
 "Are you sure you want to cancel this signup? This action is irreversible."
 msgstr ""
 "Ben je zeker dat je deze inschrijving wil annuleren? Deze actie is "
 "onomkeerbaar."
 
-#: templates/brouwersdag/showcasedmodel_confirm_delete.html:11
+#: src/brouwers/brouwersdag/templates/brouwersdag/showcasedmodel_confirm_delete.html:11
 msgid "Confirm"
 msgstr "Bevestigen"
 
-#: views.py:83
+#: src/brouwers/brouwersdag/views.py:91
 msgid "Your model has been submitted"
 msgstr "Je model werd toegevoegd."
 
-#: views.py:98
+#: src/brouwers/brouwersdag/views.py:106
 msgid "Your model has been edited"
 msgstr "Je model werd bijgewerkt"
 

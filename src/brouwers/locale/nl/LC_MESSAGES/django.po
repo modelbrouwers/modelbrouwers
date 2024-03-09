@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,65 +17,909 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: brouwers/dashboard.py:11
-msgid "Control panel"
+#: cover/src_brouwers_general_templatetags_handlebars_py.html:247
+msgid "foo"
 msgstr ""
 
-#: brouwers/dashboard.py:21
-msgid "User management"
+#: src/brouwers/conf/base.py:39
+msgid "Dutch"
+msgstr "Nederlands"
+
+#: src/brouwers/conf/base.py:40
+msgid "English"
+msgstr "Engels"
+
+#: src/brouwers/conf/base.py:41
+msgid "German"
 msgstr ""
 
-#: brouwers/dashboard.py:35
-msgid "Group builds"
+#: src/brouwers/emails/templates/emails/wrapper.html:8
+msgid "E-mail wrapper"
 msgstr ""
 
-#: brouwers/dashboard.py:43
-msgid "Brouwersdag"
+#: src/brouwers/emails/templates/emails/wrapper.html:18
+msgid "Website logo"
 msgstr ""
 
-#: brouwers/dashboard.py:48
+#: src/brouwers/shop/admin.py:95
+msgid "Sales"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:101
+msgid "Product details"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:116
+msgid "SEO"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:208
+msgid "Sisow/Buckaroo"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:217
+#: src/brouwers/shop/payments/payment_options.py:21
+msgid "Bank transfer"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:219
+msgid "Paypal"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:228
+msgid "Email"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:290
+msgid "historical payment"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:291
+msgid "historical payments"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:318
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:50
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:14
+msgid "Payment status"
+msgstr ""
+
+#: src/brouwers/shop/api/serializers.py:108
+msgid "id"
+msgstr ""
+
+#: src/brouwers/shop/api/serializers.py:109
+#: src/brouwers/shop/models/categories.py:10
+#: src/brouwers/shop/models/customers.py:6
+#: src/brouwers/shop/models/payments.py:14
+#: src/brouwers/shop/models/products.py:17
+msgid "name"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:13
+msgid "Gram"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:14
+msgid "Kilogram"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:18
+msgid "Milimetre"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:19
+msgid "Centimetre"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:20
+msgid "Metre"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:24
+msgid "Open"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:25 src/brouwers/shop/constants.py:31
+msgid "Processing"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:26
+msgid "Closed"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:30
+msgid "Received"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:32
+msgid "Shipped"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:33 src/brouwers/shop/constants.py:39
+msgid "Cancelled"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:37
+msgid "Pending"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:38
+msgid "Completed"
+msgstr ""
+
+#: src/brouwers/shop/emails.py:23
+#, python-brace-format
+msgid "Modelbrouwers - order {order_number}"
+msgstr ""
+
+#: src/brouwers/shop/emails.py:76
+#, python-brace-format
+msgid "Order confirmation - {order_number}"
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:22 src/brouwers/shop/models/orders.py:71
+#: src/brouwers/shop/models/payments.py:58
+#: src/brouwers/shop/payments/sisow/forms.py:23
+msgid "status"
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:28
+msgid "snapshot data"
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:30
+msgid "Snapshot of order information with frozen prices."
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:37
+msgid "cart"
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:38
+msgid "carts"
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:83 src/brouwers/shop/models/payments.py:55
+msgid "amount"
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:86
+msgid "cart product"
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:87
+msgid "cart products"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:11
+#: src/brouwers/shop/models/products.py:18
+msgid "slug"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:12
+msgid "thumbnail"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:13
+#: src/brouwers/shop/models/payments.py:18
+msgid "enabled"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:17
+#: src/brouwers/shop/models/products.py:32
+msgid "meta description"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:19
+msgid "If filled, populates the description meta tag for SEO purposes."
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:25
+msgid "category"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:26
+msgid "categories"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:42
+msgid "title"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:43
+#: src/brouwers/shop/models/categories.py:47
+msgid "category carousel image"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:44
+msgid "visible"
+msgstr ""
+
+#: src/brouwers/shop/models/categories.py:48
+msgid "category carousel images"
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:11
+msgid "sisow test mode"
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:13
+msgid "sisow merchant ID"
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:16
+msgid "sisow merchant key"
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:21
 #, fuzzy
 #| msgid "Migrations"
-msgid "Registrations"
+msgid "instructions"
 msgstr "Migraties"
 
-#: brouwers/dashboard.py:57
-msgid "Forum"
+#: src/brouwers/shop/models/config.py:23
+msgid ""
+"Enter the instructions to display to the customer on how to transfer the "
+"money."
 msgstr ""
 
-#: brouwers/dashboard.py:66
-msgid "Albums"
+#: src/brouwers/shop/models/config.py:28
+msgid "paypal sandbox"
 msgstr ""
 
-#: brouwers/dashboard.py:71
-msgid "Awards"
+#: src/brouwers/shop/models/config.py:30
+msgid "paypal API client ID"
 msgstr ""
 
-#: brouwers/dashboard.py:76
-msgid "Misc"
+#: src/brouwers/shop/models/config.py:32
+msgid "paypal API secret"
 msgstr ""
 
-#: brouwers/dashboard.py:81
-msgid "Shirts"
+#: src/brouwers/shop/models/config.py:36
+msgid "from email"
 msgstr ""
 
-#: brouwers/dashboard.py:86 brouwers/dashboard.py:109
-msgid "Recent Actions"
+#: src/brouwers/shop/models/config.py:39
+msgid ""
+"Email address for outgoing e-mails. This will end up in the 'From' header - "
+"you must ensure that your outgoing email server is appropriately configured. "
+"If left blank, the default value from the settings is used."
 msgstr ""
 
-#: brouwers/migration/apps.py:7
+#: src/brouwers/shop/models/config.py:46
+msgid "Shop configuration"
+msgstr ""
+
+#: src/brouwers/shop/models/customers.py:8
+msgid "discount"
+msgstr ""
+
+#: src/brouwers/shop/models/customers.py:12
+msgid "customer group"
+msgstr ""
+
+#: src/brouwers/shop/models/customers.py:13
+msgid "customer groups"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:20
+msgid "street name"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:21
+msgid "house number"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:22
+msgid "postal code"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:23
+msgid "city"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:27
+msgid "company"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:29
+msgid "chamber of commerce number"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:33
+msgid "address"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:34
+msgid "addresses"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:69
+msgid "shopping cart"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:73
+#: src/brouwers/shop/models/payments.py:64
+msgid "reference"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:77
+msgid "A unique order reference"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:82
+#, fuzzy
+#| msgid "First page"
+msgid "first name"
+msgstr "Eerste pagina"
+
+#: src/brouwers/shop/models/orders.py:83
+#, fuzzy
+#| msgid "Last page"
+msgid "last name"
+msgstr "Laatste pagina"
+
+#: src/brouwers/shop/models/orders.py:84
+msgid "email"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:85
+msgid "phone number"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:92
+msgid "Address for delivery"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:103
+#: src/brouwers/shop/models/payments.py:88
+msgid "created"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:104
+#: src/brouwers/shop/models/payments.py:89
+msgid "modified"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:106
+msgid "language"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:112
+#: src/brouwers/shop/models/payments.py:48
+#: src/brouwers/shop/models/presentation.py:16
+#: src/brouwers/shop/models/presentation.py:40
+msgid "order"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:113
+msgid "orders"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:116
+#, python-brace-format
+msgid "Order {pk}"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:15
+msgid "method"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:16
+#, fuzzy
+#| msgid "logout"
+msgid "logo"
+msgstr "uitloggen"
+
+#: src/brouwers/shop/models/payments.py:20
+msgid "Whether the payment method can be used at checkout or not."
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:22
+msgid "ordering"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:25
+msgid "payment method"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:26
+msgid "payment methods"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:49
+msgid "The order being paid by this payment."
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:52
+msgid "Payment method used"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:55
+msgid "Amount to be paid, in eurocents."
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:68
+msgid "A unique payment reference"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:71
+msgid "payment data"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:74
+msgid "The exact payment data is provider-specific"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:82
+msgid "historical order"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:84
+msgid ""
+"Order this payment was for, in case it was cancelled/aborted. You cannot set "
+"order and historical order at the same time."
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:92
+msgid "payment"
+msgstr ""
+
+#: src/brouwers/shop/models/payments.py:93
+msgid "payments"
+msgstr ""
+
+#: src/brouwers/shop/models/presentation.py:16
+#: src/brouwers/shop/models/presentation.py:40
+msgid "Order in which to display category on the homepage"
+msgstr ""
+
+#: src/brouwers/shop/models/presentation.py:20
+msgid "homepage category"
+msgstr ""
+
+#: src/brouwers/shop/models/presentation.py:21
+msgid "homepage categories"
+msgstr ""
+
+#: src/brouwers/shop/models/presentation.py:44
+msgid "homepage category child"
+msgstr ""
+
+#: src/brouwers/shop/models/presentation.py:45
+msgid "homepage category children"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:19
+msgid "model name"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:21
+msgid "stock"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:21
+msgid "Number of items in stock"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:23
+msgid "price"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:24
+msgid "vat"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:27
+msgid "image"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:35
+msgid ""
+"If filled, populates the description meta tag for SEO purposes. If left "
+"blank, then the HTML tags are stripped from the regular description field "
+"and this content is used."
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:43
+msgid "length"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:45
+msgid "width"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:47
+msgid "height"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:50
+msgid "length unit"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:57
+msgid "weight"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:60
+msgid "weight unit"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:76
+msgid "active"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:78
+msgid "Inactive products do not show up on the site"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:83
+msgid "product"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:84
+msgid "products"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:132
+#: src/brouwers/shop/models/products.py:135
+msgid "product image"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:136
+msgid "product images"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:140
+msgid "manufacturer"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:143
+msgid "product manufacturer"
+msgstr ""
+
+#: src/brouwers/shop/models/products.py:144
+msgid "product manufacturers"
+msgstr ""
+
+#: src/brouwers/shop/payments/payment_options.py:33
+msgid "PayPal standard"
+msgstr ""
+
+#: src/brouwers/shop/payments/payment_options.py:77
+msgid "iDeal"
+msgstr ""
+
+#: src/brouwers/shop/payments/payment_options.py:83
+msgid "Sofort"
+msgstr ""
+
+#: src/brouwers/shop/payments/payment_options.py:89
+msgid "Mister Cash"
+msgstr ""
+
+#: src/brouwers/shop/payments/registry.py:29
+msgid "Set the 'verbose_name' attribute for a human-readable name"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:12
+msgid "iDEAL"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:20
+msgid "SOFORT Banking"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:23
+msgid "Bancontact"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:39
+msgid "Een succesvolle transactie"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:40
+msgid "De transactie is verlopen"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:41
+msgid "De transactie is geannuleerd"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:44
+msgid "Een interne fout heeft zich bij de gekozen betaalmethode voorgedaan"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:48
+msgid "In afwachting van daadwerkelijke betaling, betaling is nog niet zeker"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:50
+msgid "De transactie is teruggedraaid"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:53
+msgid ""
+"De transactie aanvraag is afgewezen door de betaalmethode (Focum/Klarna)"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:58
+msgid ""
+"Transactie aanvraag is gelukt factuur dient nog te worden aangemaakt (Focum/"
+"Klarna)"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/constants.py:61
+msgid "De transactie is nog in behandeling"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:21
+msgid "transaction id"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:22
+msgid "entrance code"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:24
+msgid "sha1 transaction"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:25
+msgid "notify or not?"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:26
+msgid "callback or not?"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:37
+msgid "No Sisow transaction data found"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:40
+msgid "Invalid transaction ID"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:49
+msgid "Invalid entrancecode"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/forms.py:65
+msgid "Invalid SHA1"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/views.py:89
+msgid "Your payment was received"
+msgstr ""
+
+#: src/brouwers/shop/payments/sisow/views.py:91
+msgid "Your payment is (still) being processed"
+msgstr ""
+
+#: src/brouwers/shop/payments/utils.py:46
+msgid "Your payment was not received (yet) - please retry."
+msgstr ""
+
+#: src/brouwers/shop/serializers.py:76
+msgid "Checking a cart without any products is not possible."
+msgstr ""
+
+#: src/brouwers/shop/serializers.py:94
+msgid "Please select your iDeal bank."
+msgstr ""
+
+#: src/brouwers/shop/serializers.py:108
+msgid "Please select a valid bank."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/base.html:4
+msgid "Shop"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/category_detail.html:19
+msgid "Subcategories"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/category_detail.html:35
+msgid "Products"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/includes/address.html:4
+#: src/brouwers/shop/templates/shop/emails/includes/address.txt:2
+#, python-format
+msgid "%(company)s; to the attention of %(name)s"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:9
+#, python-format
+msgid ""
+"<p style=\"margin-top: 0px; margin-bottom: 20px;\"> Thank you - your "
+"Modelbrouwers order <strong>%(reference)s</strong> was sucessfully received. "
+"</p> <p style=\"margin-top: 0px; margin-bottom: 20px;\"> Your order will be "
+"processed as soon as we receive payment confirmation. </p> <p style=\"margin-"
+"top: 0px; margin-bottom: 20px;\"> To view your order, click the link: "
+"%(link)s </p>"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:27
+msgid "Details"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:34
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:9
+msgid "Order number"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:38
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:10
+msgid "Order date"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:42
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:11
+msgid "Status"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:46
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:13
+msgid "Payment method"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:55
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:15
+msgid "Shipping method"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:61
+msgid "Email address"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:65
+msgid "Phone"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:78
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:18
 #, fuzzy
 #| msgid "Migrations"
-msgid "Migrations"
+msgid "Instructions"
 msgstr "Migraties"
 
-#: brouwers/migration/models.py:40
-msgid "album user migration"
-msgstr "albumgebruikermigratie"
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:96
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:23
+msgid "Shipping address"
+msgstr ""
 
-#: brouwers/migration/models.py:41
-msgid "album user migrations"
-msgstr "albumgebruikermigraties"
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:97
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:26
+msgid "Invoice address"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:116
+msgid "Product"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:117
+msgid "Qty."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:118
+msgid "Price"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:119
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:153
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:38
+msgid "Total"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:137
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:36
+msgid "Subtotal"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:145
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:37
+msgid "VAT"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:167
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:44
+msgid "You can reply to this email if you have any questions."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:3
+#, python-format
+msgid ""
+"\n"
+"Thank you - your Modelbrouwers order %(reference)s was sucessfully "
+"received.\n"
+"\n"
+"Your order will be processed as soon as we receive payment confirmation.\n"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:29
+msgid ""
+"\n"
+"Product:"
+msgid_plural ""
+"\n"
+"Products:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:40
+#, python-format
+msgid ""
+"\n"
+"To view your order, please navigate to: %(link)s\n"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/includes/breadcrumbs.html:4
+msgid "Home"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/includes/product_card.html:21
+msgid "Out of stock."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/includes/sidenav.html:9
+msgid "Categories"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/index.html:27
+msgid "Previous"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/index.html:31
+msgid "Next"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/index.html:43
+msgid "Search for..."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/pay.html:18
+#: src/brouwers/shop/templates/shop/pay_ideal.html:18
+msgid "Pay"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/product_detail.html:36
+msgid "Model"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/product_detail.html:42
+msgid "Stock"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/product_detail.html:57
+msgid "Amount"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/product_detail.html:71
+msgid "Add to cart"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/product_detail.html:78
+msgid "Apologies - this product is currently out of stock."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/product_detail.html:86
+msgid "Description"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Migrations"
+#~ msgid "Migrations"
+#~ msgstr "Migraties"
+
+#~ msgid "album user migration"
+#~ msgstr "albumgebruikermigratie"
+
+#~ msgid "album user migrations"
+#~ msgstr "albumgebruikermigraties"
 
 #, fuzzy
 #~| msgid "Back to the Modelbrouwers.nl homepage"
@@ -147,23 +991,6 @@ msgstr "albumgebruikermigraties"
 #~ msgid "Find kits/reviews"
 #~ msgstr "Ga naar de kitreviews!"
 
-#, fuzzy
-#~| msgid "logout"
-#~ msgid "logo"
-#~ msgstr "uitloggen"
-
-#~ msgid "First page"
-#~ msgstr "Eerste pagina"
-
-#~ msgid "Last page"
-#~ msgstr "Laatste pagina"
-
-#~ msgid "English"
-#~ msgstr "Engels"
-
-#~ msgid "Dutch"
-#~ msgstr "Nederlands"
-
 #~ msgid "%(nickname)s - %(title)s"
 #~ msgstr "%(nickname)s - %(title)s"
 
@@ -180,8 +1007,9 @@ msgstr "albumgebruikermigraties"
 #~ "De opgevraagde pagina kon niet gevonden worden of je hebt niet voldoende "
 #~ "rechten om de pagina te bekijken. Klik op het grote logo hierboven of "
 #~ "klik <a href=\"/\">hier</a> om naar de homepage terug te keren. Je kan "
-#~ "ook de 'terug'-knop in je browser gebruiken, of <a href=\"%(return)s"
-#~ "\">hier</a> klikken om naar de vorige pagina terug te keren."
+#~ "ook de 'terug'-knop in je browser gebruiken, of <a "
+#~ "href=\"%(return)s\">hier</a> klikken om naar de vorige pagina terug te "
+#~ "keren."
 
 #~ msgid "Materials and knowledge for scale modelling."
 #~ msgstr "Materialen en kennisbank voor de modelbouw."

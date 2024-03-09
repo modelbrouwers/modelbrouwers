@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
 "PO-Revision-Date: 2016-09-11 00:31+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,59 +19,59 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: Mobetta 0.0.1\n"
 
-#: forms.py:17
+#: src/brouwers/kitreviews/forms.py:18
 msgid "Brand"
 msgstr "Merk"
 
-#: forms.py:18
+#: src/brouwers/kitreviews/forms.py:20
 msgid "Kit number"
 msgstr "Kitnummer"
 
-#: forms.py:19
+#: src/brouwers/kitreviews/forms.py:21
 msgid "Kit name"
 msgstr "Kitnaam"
 
-#: forms.py:20
+#: src/brouwers/kitreviews/forms.py:23
 msgid "Scale"
 msgstr "Schaal"
 
-#: models.py:31
+#: src/brouwers/kitreviews/models.py:27
 msgid "model kit"
 msgstr "bouwdoos"
 
-#: models.py:33
+#: src/brouwers/kitreviews/models.py:29
 msgid "review"
 msgstr "review"
 
-#: models.py:34
+#: src/brouwers/kitreviews/models.py:29
 msgid "This is your review. You can use BBCode here."
 msgstr "Dit is je reviewtekst. Je kan BBCode gebruiken."
 
-#: models.py:43
+#: src/brouwers/kitreviews/models.py:43
 msgid "album"
 msgstr "album"
 
-#: models.py:45
+#: src/brouwers/kitreviews/models.py:46
 msgid "topic"
 msgstr "topic"
 
-#: models.py:46
+#: src/brouwers/kitreviews/models.py:50
 msgid "ID of the topic on Modelbrouwers."
 msgstr "Link naar het forumtopic/brouwverslag."
 
-#: models.py:49
+#: src/brouwers/kitreviews/models.py:53
 msgid "external topic url"
 msgstr "externe topiclink"
 
-#: models.py:50
+#: src/brouwers/kitreviews/models.py:55
 msgid "URL to the topic not hosted on Modelbrouwers"
 msgstr "Link naar het verslag NIET op Modelbrouwers"
 
-#: models.py:55
+#: src/brouwers/kitreviews/models.py:60
 msgid "show real name?"
 msgstr "echte naam weergeven?"
 
-#: models.py:56
+#: src/brouwers/kitreviews/models.py:63
 msgid ""
 "Checking this option will display your real name as reviewer. Uncheck to use "
 "your nickname."
@@ -79,69 +79,69 @@ msgstr ""
 "Indien je deze optie aanvinkt, dan wordt je echt naam gebruikt als auteur "
 "van de review. Vink dit uit om je gebruikersnaam te tonen."
 
-#: models.py:64
+#: src/brouwers/kitreviews/models.py:72
 msgid "is reviewed?"
 msgstr "gereviewed?"
 
-#: models.py:69
+#: src/brouwers/kitreviews/models.py:77
 msgid "kit review"
 msgstr "kitreview"
 
-#: models.py:70
+#: src/brouwers/kitreviews/models.py:78
 msgid "kit reviews"
 msgstr "kitreviews"
 
-#: models.py:73
+#: src/brouwers/kitreviews/models.py:81
 #, python-format
 msgid "Review: %(kit)s by %(user)s"
 msgstr "Review: %(kit)s door %(user)s"
 
-#: models.py:116
+#: src/brouwers/kitreviews/models.py:123
 msgid "vote"
 msgstr "stem"
 
-#: models.py:120
+#: src/brouwers/kitreviews/models.py:128
 msgid "kit review vote"
 msgstr "kitreviewstem"
 
-#: models.py:121
+#: src/brouwers/kitreviews/models.py:129
 msgid "kit review votes"
 msgstr "kitreview stemmen"
 
-#: models.py:125
+#: src/brouwers/kitreviews/models.py:133
 #, python-format
 msgid "Vote for review by %(review_submitter)s"
 msgstr "Stem voor review door %(review_submitter)s"
 
-#: models.py:135
+#: src/brouwers/kitreviews/models.py:143
 msgid "name"
 msgstr "naam"
 
-#: models.py:139
+#: src/brouwers/kitreviews/models.py:147
 msgid "kit review property"
 msgstr "kitrevieweigenschap"
 
-#: models.py:140
+#: src/brouwers/kitreviews/models.py:148
 msgid "kit review properties"
 msgstr "kitrevieweigenschappen"
 
-#: models.py:153
+#: src/brouwers/kitreviews/models.py:164
 msgid "rating"
 msgstr "waardering"
 
-#: models.py:158
+#: src/brouwers/kitreviews/models.py:170
 msgid "kit review property rating"
 msgstr "eigenschapwaardering"
 
-#: models.py:159
+#: src/brouwers/kitreviews/models.py:171
 msgid "kit review property ratings"
 msgstr "eigenschapwaarderingen"
 
-#: templates/kitreviews/add_review.html:6
+#: src/brouwers/kitreviews/templates/kitreviews/add_review.html:6
 msgid "Add a review"
 msgstr "Voeg een review toe"
 
-#: templates/kitreviews/add_review.html:10
+#: src/brouwers/kitreviews/templates/kitreviews/add_review.html:10
 msgid ""
 "\n"
 "        Add review to a kit here. First choose the kit you want to review. "
@@ -154,29 +154,31 @@ msgstr ""
 "reviewen. Als de kit niet gevonden is, dan kan je eerst de kit zelf "
 "toevoegen."
 
-#: templates/kitreviews/add_review.html:28
+#: src/brouwers/kitreviews/templates/kitreviews/add_review.html:28
 msgid "Select a kit"
 msgstr "Selecteer een bouwdoos"
 
-#: templates/kitreviews/add_review.html:38
-#: templates/kitreviews/kitreview_detail.html:8
+#: src/brouwers/kitreviews/templates/kitreviews/add_review.html:38
+#: src/brouwers/kitreviews/templates/kitreviews/kitreview_detail.html:8
 msgid "Review"
 msgstr "Review"
 
-#: templates/kitreviews/add_review.html:50
+#: src/brouwers/kitreviews/templates/kitreviews/add_review.html:50
 msgid "Body"
 msgstr "Inhoud"
 
-#: templates/kitreviews/add_review.html:53 templates/kitreviews/base.html:37
-#: templates/kitreviews/find_kit.html:96
+#: src/brouwers/kitreviews/templates/kitreviews/add_review.html:53
+#: src/brouwers/kitreviews/templates/kitreviews/base.html:38
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:96
 msgid "Add review"
 msgstr "Review toevoegen"
 
-#: templates/kitreviews/base.html:5 templates/kitreviews/base.html:16
+#: src/brouwers/kitreviews/templates/kitreviews/base.html:6
+#: src/brouwers/kitreviews/templates/kitreviews/base.html:17
 msgid "Kit Reviews"
 msgstr "Kitreviews"
 
-#: templates/kitreviews/base.html:20
+#: src/brouwers/kitreviews/templates/kitreviews/base.html:21
 msgid ""
 "Use the kit reviews to check if the kit you have your eye on is worth it! "
 "And, anyone can leave reviews for a kit, so don't forget to contribute back."
@@ -185,20 +187,20 @@ msgstr ""
 "is! Iedereen kan reviews toevoegen, dus vergeet niet om een review te "
 "schrijven voor je pas afgeronde model."
 
-#: templates/kitreviews/base.html:29
+#: src/brouwers/kitreviews/templates/kitreviews/base.html:30
 msgid "Home"
 msgstr "Home"
 
-#: templates/kitreviews/find_kit.html:5
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:5
 msgid "Find model kit(s) &dash; Enter your search parameters"
 msgstr "Zoek kit(s) &dash; Voer je zoekparameters in"
 
-#: templates/kitreviews/find_kit.html:13
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:13
 #, python-format
 msgid "Search results (%(num_results)s)"
 msgstr "Zoekresultaten (%(num_results)s)"
 
-#: templates/kitreviews/find_kit.html:16
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:16
 msgid ""
 "The number of search results is limited to 100 - you may need to refine your "
 "search."
@@ -206,18 +208,19 @@ msgstr ""
 "Het aantal zoekresultaten is beperkt tot 100 - het is mogelijk dat je je "
 "zoekopdracht preciezer moet maken."
 
-#: templates/kitreviews/find_kit.html:24
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:24
 msgid ""
 "Oops, we couldn't find a kit like this in our database! Would you like to "
 "add it?"
 msgstr ""
 "Oeps, we konden geen bouwdoos vinden in onze databank! Wil je hem toevoegen?"
 
-#: templates/kitreviews/find_kit.html:32 tests/test_views.py:233
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:32
+#: src/brouwers/kitreviews/tests/test_views.py:259
 msgid "Add kit"
 msgstr "Bouwdoos toevoegen"
 
-#: templates/kitreviews/find_kit.html:39
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:39
 msgid ""
 "Oops, we couldn't find a kit like this in our database... After logging in, "
 "you can add it!"
@@ -225,89 +228,89 @@ msgstr ""
 "Oeps, we konden geen bouwdoos vinden in onze databank... Als je inlogt, dan "
 "kan je de kit toevoegen."
 
-#: templates/kitreviews/find_kit.html:48
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:48
 msgid "Login now"
 msgstr "Nu inloggen"
 
-#: templates/kitreviews/find_kit.html:83
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:83
 #, python-format
 msgid "View %(counter)s review"
 msgid_plural "View %(counter)s reviews"
 msgstr[0] "Bekijk één review"
 msgstr[1] "Bekijk %(counter)s reviews"
 
-#: templates/kitreviews/find_kit.html:91
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:91
 msgid "No reviews yet"
 msgstr "Nog geen reviews"
 
-#: templates/kitreviews/find_kit_form.html:17
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit_form.html:17
 msgid "Find kits using the search form - all fields are optional."
 msgstr "Zoek bouwdozen met het formulier - alle velden zijn optioneel."
 
-#: templates/kitreviews/find_kit_form.html:23
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit_form.html:23
 msgid "Find kits"
 msgstr "Zoek bouwdozen"
 
-#: templates/kitreviews/find_kit_form.html:27
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit_form.html:27
 msgid "or"
 msgstr "of"
 
-#: templates/kitreviews/find_kit_form.html:30
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit_form.html:30
 msgid "Add new kit"
 msgstr "Voeg nieuwe kit toe"
 
-#: templates/kitreviews/includes/rating.html:1
-msgid "unrated"
-msgstr "geen waardering"
-
-#: templates/kitreviews/includes/review_preview.html:10
+#: src/brouwers/kitreviews/templates/kitreviews/includes/review_preview.html:10
 msgid "unknown"
 msgstr "onbekend"
 
-#: templates/kitreviews/includes/review_preview.html:10
+#: src/brouwers/kitreviews/templates/kitreviews/includes/review_preview.html:10
 #, python-format
 msgid "%(reviewer)s &ndash; %(time_ago)s ago"
 msgstr "%(reviewer)s &ndash; %(time_ago)s geleden"
 
-#: templates/kitreviews/includes/review_preview.html:20
-#: templates/kitreviews/kitreview_detail.html:11
+#: src/brouwers/kitreviews/templates/kitreviews/includes/review_preview.html:20
+#: src/brouwers/kitreviews/templates/kitreviews/kitreview_detail.html:11
 #, python-format
 msgid "%(time_ago)s ago"
 msgstr "%(time_ago)s geleden"
 
-#: templates/kitreviews/includes/review_preview.html:40
+#: src/brouwers/kitreviews/templates/kitreviews/includes/review_preview.html:40
 msgid "read more"
 msgstr "lees meer"
 
-#: templates/kitreviews/includes/review_preview.html:45
-#: templates/kitreviews/kitreview_detail.html:21
+#: src/brouwers/kitreviews/templates/kitreviews/includes/review_preview.html:45
+#: src/brouwers/kitreviews/templates/kitreviews/kitreview_detail.html:21
 msgid "view topic"
 msgstr "lees verslag"
 
-#: templates/kitreviews/includes/review_preview.html:51
-#: templates/kitreviews/kitreview_detail.html:27
+#: src/brouwers/kitreviews/templates/kitreviews/includes/review_preview.html:51
+#: src/brouwers/kitreviews/templates/kitreviews/kitreview_detail.html:27
 msgid "view album"
 msgstr "bekijk album"
 
-#: templates/kitreviews/index.html:13
+#: src/brouwers/kitreviews/templates/kitreviews/index.html:13
 msgid "Latest reviews"
 msgstr "Nieuwste reviews"
 
-#: templates/kitreviews/kit_review_list.html:42
+#: src/brouwers/kitreviews/templates/kitreviews/kit_review_list.html:42
 #, python-format
 msgid "There is one review"
 msgid_plural "There are %(count)s reviews"
 msgstr[0] "Er is één review"
 msgstr[1] "Er zijn %(count)s reviews"
 
-#: templates/kitreviews/kitreview_detail.html:34
+#: src/brouwers/kitreviews/templates/kitreviews/kitreview_detail.html:34
 msgid "Ratings"
 msgstr "Scores"
 
-#: templates/kitreviews/kitreview_detail.html:41
+#: src/brouwers/kitreviews/templates/kitreviews/kitreview_detail.html:41
 msgid "other reviews"
 msgstr "andere reviews"
 
-#: tests/test_views.py:72 tests/test_views.py:73
+#: src/brouwers/kitreviews/tests/test_views.py:77
+#: src/brouwers/kitreviews/tests/test_views.py:78
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
+
+#~ msgid "unrated"
+#~ msgstr "geen waardering"

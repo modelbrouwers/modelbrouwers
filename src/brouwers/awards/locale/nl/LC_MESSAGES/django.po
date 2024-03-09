@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-20 08:06+0200\n"
-"PO-Revision-Date: 2014-05-29 21:56+0200\n"
+"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"PO-Revision-Date: 2024-03-09 23:05+0100\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,266 +17,282 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Translated-Using: django-rosetta 0.7.4\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
 
-#: admin.py:12
+#: src/brouwers/awards/admin.py:19
 msgid "Mark nominations as invalid"
 msgstr "Maak nominaties ongeldig"
 
-#: admin.py:16
+#: src/brouwers/awards/admin.py:26
 msgid "Mark nominations as reviewed"
 msgstr "Zet nominaties als 'gerevied'"
 
-#: admin.py:21
+#: src/brouwers/awards/admin.py:34
 msgid "Re-sync the score based on the cast votes"
 msgstr "Re-synchronyseer de scores op basis van de uitgebrachte stemmen"
 
-#: admin.py:69
+#: src/brouwers/awards/admin.py:97
+msgid "No topic found!"
+msgstr "Topic niet gevonden!"
+
+#: src/brouwers/awards/admin.py:104
 msgid "Topic url"
 msgstr "Topiclink"
 
-#: admin.py:73
+#: src/brouwers/awards/admin.py:109
 msgid "reviewed?"
 msgstr "gereviewed?"
 
-#: apps.py:7
-#, fuzzy
+#: src/brouwers/awards/apps.py:7
+#: src/brouwers/awards/templates/awards/winners.html:4
 #| msgid "Awards home"
 msgid "Awards"
-msgstr "Awards home"
+msgstr "Awards"
 
-#: forms.py:40
-msgid "This project was already nominated."
-msgstr "Dit project werd eerder al genomineerd."
+#: src/brouwers/awards/models.py:17
+msgid "name"
+msgstr "naam"
 
-#: forms.py:60
-msgid "This person does not wish to participate in the awards."
-msgstr ""
+#: src/brouwers/awards/models.py:18
+msgid "slug"
+msgstr "slug"
 
-#: forms.py:91
-msgid "When voting, you cannot leave the first place blank."
-msgstr ""
-"Als je een stem uitbrengt in een categorie mag je de eerste plaats niet open "
-"laten."
+#: src/brouwers/awards/models.py:20
+msgid "forum"
+msgstr "forum"
 
-#: forms.py:116
-msgid ""
-"The order of votes must be logical. Omitting the second place is not allowed."
-msgstr ""
-"De volgorde van de stemmen moet logisch zijn. Je mag de tweede plaats niet "
-"open laten."
-
-#: models.py:38
+#: src/brouwers/awards/models.py:31
 msgid "category"
 msgstr "categorie"
 
-#: models.py:39
+#: src/brouwers/awards/models.py:32
 msgid "categories"
 msgstr "categorieën"
 
-#: models.py:101
+#: src/brouwers/awards/models.py:74
+msgid "build report topic"
+msgstr "brouwverslag"
+
+#: src/brouwers/awards/models.py:94
 msgid "last reviewer"
 msgstr "laatste reviewer"
 
-#: models.py:103
+#: src/brouwers/awards/models.py:98
 msgid "last review"
 msgstr "laatste review"
 
-#: models.py:112
+#: src/brouwers/awards/models.py:117
 msgid "nomination"
 msgstr "nominatie"
 
-#: models.py:113
+#: src/brouwers/awards/models.py:118
 msgid "nominations"
 msgstr "nominaties"
 
-#: models.py:152
+#: src/brouwers/awards/models.py:161
 #, python-format
 msgid "Vote by %(user)s in %(category)s"
 msgstr "Stem van %(user)s in %(category)s"
 
-#: models.py:160
+#: src/brouwers/awards/models.py:177
 #, python-format
 msgid "User `%(user)s` already voted for `%(category)s` in `%(year)d`"
 msgstr "Gebruiker `%(user)s` stemde al voor `%(category)s` in %(year)d"
 
-#: models.py:181
+#: src/brouwers/awards/models.py:197
 #, python-format
 msgid "A project from `%(project_category)s` can't be voted in `%(category)s`"
 msgstr ""
 "Een project uit de categorie `%(project_category)s` kan niet gestemd worden "
 "in `%(category)s`"
 
-#: models.py:189
+#: src/brouwers/awards/models.py:208
 msgid "No duplicate projects are allowed"
 msgstr "De stemmen moeten van elkaar verschillen"
 
-#: templates/awards/base.html:24
-msgid "Awards home"
-msgstr "Awards home"
-
-#: templates/awards/base.html:27
-msgid "Nominations"
-msgstr "Nominaties"
-
-#: templates/awards/base.html:30 templates/awards/category.html:5
-msgid "Categories"
-msgstr "Categorieën"
-
-#: templates/awards/base.html:33
-msgid "Voting"
-msgstr "Stemmen"
-
-#: templates/awards/base.html:36
-msgid "Winners"
-msgstr "Winnaars"
-
-#: templates/awards/category.html:19
-#, python-format
-msgid ""
-"\n"
-"\t\t\t\t\t\t\tLatest nomination:\n"
-"\t\t\t\t\t\t"
-msgid_plural ""
-"\n"
-"\t\t\t\t\t\t\tLatest %(num_nominations)s nominations:\n"
-"\t\t\t\t\t\t"
-msgstr[0] ""
-"\n"
-"\t\t\t\t\t\t\tLaatste nominatie:\n"
-"\t\t\t\t\t\t"
-msgstr[1] ""
-"\n"
-"\t\t\t\t\t\t\tLaatste %(num_nominations)s nominaties:\n"
-"\t\t\t\t\t\t"
-
-#: templates/awards/category.html:33
-msgid "more&hellip;"
-msgstr "meer&hellip;"
-
-#: templates/awards/category.html:38
-msgid "No nominations yet! Maybe you could submit the first one?"
-msgstr "Er zijn nog geen nominaties! Misschien kan jij de eerste toevoegen?"
-
-#: templates/awards/category_winner_content.html:5
+#: src/brouwers/awards/templates/awards/projects_preview.html:16
 #, python-format
 msgid "1 point"
 msgid_plural "%(counter)s points"
 msgstr[0] "1 punt"
 msgstr[1] "%(counter)s punten"
 
-#: templates/awards/category_winner_content.html:7
+#: src/brouwers/awards/templates/awards/projects_preview.html:19
 msgid "No-one grabbed this spot!"
 msgstr "Niemand kon deze plek verzekeren!"
 
-#: templates/awards/nomination.html:5
-msgid "New nomination"
-msgstr "Nieuwe nominatie"
+#: src/brouwers/awards/templates/awards/winners.html:11
+#| msgid "Awards home"
+msgid "Awards - Hall of Fame"
+msgstr "Awards - Hall of Fame"
 
-#: templates/awards/nomination.html:20
-msgid "Nominate"
-msgstr "Nomineer"
-
-#: templates/awards/nomination.html:24
-msgid "Latest nominations"
-msgstr "Laatste nominaties"
-
-#: templates/awards/nomination.html:29
-msgid "Topic"
-msgstr "Topic"
-
-#: templates/awards/nomination.html:30
-msgid "Author"
-msgstr "Auteur"
-
-#: templates/awards/nomination.html:31
-msgid "Nomination date"
-msgstr "Nominatiedatum"
-
-#: templates/awards/vote_block.html:4
-msgid "1st."
-msgstr "1ste."
-
-#: templates/awards/vote_block.html:5
-msgid "2nd."
-msgstr "2de."
-
-#: templates/awards/vote_block.html:6
-msgid "3rd."
-msgstr "3de."
-
-#: templates/awards/voting.html:6
-msgid "Vote your favourite projects"
-msgstr "Stem voor je favoriete projecten"
-
-#: templates/awards/voting.html:7
-msgid "You need to enable javascript to be able to cast your votes"
-msgstr "Je hebt Javascript nodig om je stemmen uit te kunnen brengen"
-
-#: templates/awards/voting.html:9
+#: src/brouwers/awards/templates/awards/winners.html:15
 msgid ""
-"You can leave categories blank, and vote them later. However, as soon as you "
-"vote <em>one</em> project in a category, you can no longer change that vote."
+"The 'Brouwers Awards' can be compared to movie or music awards, but applied "
+"to build report topics! Topics get nominated within a category, and everyone"
+" can vote their favourites within each category, ultimately leading to a "
+"top-three."
 msgstr ""
-"Je kan categorieën leeg laten, en later een stem uitbrengen. Echter, zodra "
-"je <em>1</em> project stemt in een categorie, kan je de stem voor die "
-"categorie niet meer wijzigen."
 
-#: templates/awards/voting.html:52
-msgid "Submit vote"
-msgstr "Stem bewaren"
-
-#: templates/awards/voting_project.html:9
-#, python-format
-msgid "by <span>%(brouwer)s</span>"
-msgstr "door <span>%(brouwer)s</span>"
-
-#: templates/awards/winners.html:7
-#, python-format
-msgid "Hall of fame &bull; Edition %(year)s"
-msgstr "Eregalerij &bull; Editie %(year)s"
-
-#: templates/awards/winners.html:14
-msgid "Other editions"
-msgstr "Andere edities"
-
-#: templates/awards/winners.html:55
+#: src/brouwers/awards/templates/awards/winners.html:21
 msgid ""
-"Are you trying to beat the system? This edition's results page is not "
-"available. Either it doesn't exist, or you don't have access."
+"Note that currently the awards feature is disabled, except for historical "
+"results support."
 msgstr ""
-"Probeer je het systeem te verslaan? De resultatenpagina van deze editie is "
-"niet beschikbaar omdat die niet bestaat of omdat je geen toegang hebt."
 
-#: views.py:50
+#: src/brouwers/awards/templates/awards/winners.html:33
 msgid ""
-"The builder of this project doesn't participate in the awards. Voting for "
-"this project will not be possible."
+"The Hall of Fame honors the participants took first, second and third places"
+" within their respective categories. You can click through to their build "
+"report topics and admire their build yourself."
 msgstr ""
-"The brouwer van dit project neemt niet deel aan de awards. Stemmen voor dit "
-"project zal niet mogelijk zijn."
 
-#: views.py:53
-msgid "The nomination was added."
-msgstr "De nominatie werd toegevoegd"
-
-#: views.py:185
+#: src/brouwers/awards/templates/awards/winners.html:39
 #, python-format
-msgid "Your vote for `%(category)s` was saved."
-msgstr "Je stem in `%(category)s` werd bewaard."
+#| msgid "Hall of fame &bull; Edition %(year)s"
+msgid "Results for edition %(year)s"
+msgstr "Resultaten editie %(year)s"
 
-#: views.py:192
-msgid ""
-"One or multiple category votes could not be saved. Please correct the errors "
-"below."
-msgstr ""
-"Een of meerdere categorie-stemmen konden niet bewaard worden. Los de fouten "
-"hierbeneden op."
+#: src/brouwers/awards/templates/awards/winners.html:76
+msgid "No results found :("
+msgstr "Geen resultaten gevonden :("
 
-#: views.py:203
+#: src/brouwers/awards/templates/awards/winners.html:82
+#| msgid "Other editions"
+msgid "Select edition"
+msgstr "Selecteer editie"
+
+#~ msgid "This project was already nominated."
+#~ msgstr "Dit project werd eerder al genomineerd."
+
+#~ msgid "When voting, you cannot leave the first place blank."
+#~ msgstr ""
+#~ "Als je een stem uitbrengt in een categorie mag je de eerste plaats niet open"
+#~ " laten."
+
+#~ msgid ""
+#~ "The order of votes must be logical. Omitting the second place is not "
+#~ "allowed."
+#~ msgstr ""
+#~ "De volgorde van de stemmen moet logisch zijn. Je mag de tweede plaats niet "
+#~ "open laten."
+
+#~ msgid "Nominations"
+#~ msgstr "Nominaties"
+
+#~ msgid "Categories"
+#~ msgstr "Categorieën"
+
+#~ msgid "Voting"
+#~ msgstr "Stemmen"
+
+#~ msgid "Winners"
+#~ msgstr "Winnaars"
+
 #, python-format
-msgid "Voting is enabled from %(start_date)s until %(end_date)s."
-msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
+#~ msgid ""
+#~ "\n"
+#~ "\t\t\t\t\t\t\tLatest nomination:\n"
+#~ "\t\t\t\t\t\t"
+#~ msgid_plural ""
+#~ "\n"
+#~ "\t\t\t\t\t\t\tLatest %(num_nominations)s nominations:\n"
+#~ "\t\t\t\t\t\t"
+#~ msgstr[0] ""
+#~ "\n"
+#~ "\t\t\t\t\t\t\tLaatste nominatie:\n"
+#~ "\t\t\t\t\t\t"
+#~ msgstr[1] ""
+#~ "\n"
+#~ "\t\t\t\t\t\t\tLaatste %(num_nominations)s nominaties:\n"
+#~ "\t\t\t\t\t\t"
+
+#~ msgid "more&hellip;"
+#~ msgstr "meer&hellip;"
+
+#~ msgid "No nominations yet! Maybe you could submit the first one?"
+#~ msgstr "Er zijn nog geen nominaties! Misschien kan jij de eerste toevoegen?"
+
+#~ msgid "New nomination"
+#~ msgstr "Nieuwe nominatie"
+
+#~ msgid "Nominate"
+#~ msgstr "Nomineer"
+
+#~ msgid "Latest nominations"
+#~ msgstr "Laatste nominaties"
+
+#~ msgid "Topic"
+#~ msgstr "Topic"
+
+#~ msgid "Author"
+#~ msgstr "Auteur"
+
+#~ msgid "Nomination date"
+#~ msgstr "Nominatiedatum"
+
+#~ msgid "1st."
+#~ msgstr "1ste."
+
+#~ msgid "2nd."
+#~ msgstr "2de."
+
+#~ msgid "3rd."
+#~ msgstr "3de."
+
+#~ msgid "Vote your favourite projects"
+#~ msgstr "Stem voor je favoriete projecten"
+
+#~ msgid "You need to enable javascript to be able to cast your votes"
+#~ msgstr "Je hebt Javascript nodig om je stemmen uit te kunnen brengen"
+
+#~ msgid ""
+#~ "You can leave categories blank, and vote them later. However, as soon as you"
+#~ " vote <em>one</em> project in a category, you can no longer change that "
+#~ "vote."
+#~ msgstr ""
+#~ "Je kan categorieën leeg laten, en later een stem uitbrengen. Echter, zodra "
+#~ "je <em>1</em> project stemt in een categorie, kan je de stem voor die "
+#~ "categorie niet meer wijzigen."
+
+#~ msgid "Submit vote"
+#~ msgstr "Stem bewaren"
+
+#, python-format
+#~ msgid "by <span>%(brouwer)s</span>"
+#~ msgstr "door <span>%(brouwer)s</span>"
+
+#~ msgid ""
+#~ "Are you trying to beat the system? This edition's results page is not "
+#~ "available. Either it doesn't exist, or you don't have access."
+#~ msgstr ""
+#~ "Probeer je het systeem te verslaan? De resultatenpagina van deze editie is "
+#~ "niet beschikbaar omdat die niet bestaat of omdat je geen toegang hebt."
+
+#~ msgid ""
+#~ "The builder of this project doesn't participate in the awards. Voting for "
+#~ "this project will not be possible."
+#~ msgstr ""
+#~ "The brouwer van dit project neemt niet deel aan de awards. Stemmen voor dit "
+#~ "project zal niet mogelijk zijn."
+
+#~ msgid "The nomination was added."
+#~ msgstr "De nominatie werd toegevoegd"
+
+#, python-format
+#~ msgid "Your vote for `%(category)s` was saved."
+#~ msgstr "Je stem in `%(category)s` werd bewaard."
+
+#~ msgid ""
+#~ "One or multiple category votes could not be saved. Please correct the errors"
+#~ " below."
+#~ msgstr ""
+#~ "Een of meerdere categorie-stemmen konden niet bewaard worden. Los de fouten "
+#~ "hierbeneden op."
+
+#, python-format
+#~ msgid "Voting is enabled from %(start_date)s until %(end_date)s."
+#~ msgstr "Stemmen is mogelijk vanaf %(start_date)s tot %(end_date)s."
 
 #~ msgid "Interim scores"
 #~ msgstr "Tussenstand"
