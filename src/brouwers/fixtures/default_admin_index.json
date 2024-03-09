@@ -373,14 +373,6 @@
             [
                 "general",
                 "registrationattempt"
-            ],
-            [
-                "log_outgoing_requests",
-                "outgoingrequestslog"
-            ],
-            [
-                "mobetta",
-                "editlog"
             ]
         ]
     }
