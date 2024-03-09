@@ -28,17 +28,34 @@
 {% endblock %}
 
 {% block content %}
-<article class="order-detail">
+<form class="order-detail" action="." method="post">
+    {% csrf_token %}
 
     <section class="order-detail__status">
-        <h2>{% trans "Status" %}</h2>
+        <h2>
+            {% trans "Status" %}
+            <small>{{ order.get_status_display }}</small>
+        </h2>
 
-        <p>{{ order.get_status_display }}</p>
+        <div class="order-detail__form">
+            <div class="form-group">
+                <label for="{{ form.status.id_for_label }}">
+                    {% trans "Change status to" %}
+                </label>
+                {{ form.status }}
+            </div>
+            <div class="checkbox">
+                <label>
+                    {{ form.send_email_notification }}
+                    {{ form.send_email_notification.label }}
+                </label>
+            </div>
+        </div>
 
         <h3>
             {% trans "Payment" %}
             {% with status=order.payment.status %}
-                <span class="pull-right label {% if status == 'completed' %}label-success{% elif status == 'cancelled' %}label-danger{% else %}label-default{% endif %}">
+                <span class="label {% if status == 'completed' %}label-success{% elif status == 'cancelled' %}label-danger{% else %}label-default{% endif %}">
                     {{ order.payment.get_status_display }}
                 </span>
             {% endwith %}
@@ -142,6 +159,11 @@
         </aside>
     </div>
 
-</article>
+    <div class="order-detail__button-row">
+        <button type="submit" class="btn btn-sm button button--orange">
+            {% trans "Save changes" %}
+        </button>
+    </div>
+</form>
 {% endblock %}
 

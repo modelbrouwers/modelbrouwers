@@ -7,7 +7,8 @@
   grid-template-rows: auto;
   grid-template-areas:
     "status customer"
-    "products customer";
+    "products customer"
+    "buttonrow customer";
   gap: 10px;
 
   address {
@@ -27,6 +28,33 @@
     display: flex;
     flex-direction: column;
   }
+
+  @include bem.element("form") {
+    .form-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      label {
+        margin-bottom: 0;
+      }
+    }
+
+    .form-control {
+      width: auto;
+    }
+  }
+
+  @include bem.element("button-row") {
+    grid-area: buttonrow;
+    box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+      0 2px 8px 0 rgba(0, 157, 255, 0.05);
+    background-color: white;
+    padding-block: 10px;
+    padding-inline: 10px;
+    position: sticky;
+    bottom: 0;
+  }
 }
 
 @include responsive.lte-mobile {
@@ -36,7 +64,8 @@
     grid-template-areas:
       "status"
       "products"
-      "customer";
+      "customer"
+      "buttonrow";
   }
 }
 
