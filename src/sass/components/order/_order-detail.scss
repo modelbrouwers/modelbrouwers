@@ -55,6 +55,14 @@
     position: sticky;
     bottom: 0;
   }
+
+  @include bem.element("meta") {
+    ul {
+      list-style: revert;
+      margin: revert;
+      padding: revert;
+    }
+  }
 }
 
 @include responsive.lte-mobile {
