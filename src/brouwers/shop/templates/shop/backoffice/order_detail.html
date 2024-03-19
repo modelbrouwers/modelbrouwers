@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "shop/backoffice/base.html" %}
 {% load i18n shop %}
 
 {% block title %}
@@ -9,22 +9,9 @@
 
 
 {% block eye-catcher %}
-    <header class="container-fluid eye-catcher">
-        <div class="container">
-            <h1>
-                {{ order.reference }} <small>&mdash; {{ order.get_full_name }}</small>
-                <i class="pull-right fa fa-shopping-bag fa-2x"></i>
-            </h1>
-            <a href="{% url 'shop:order-list' %}" class="backlink backlink--light">
-                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-                {% trans "back to overview" %}
-            </a>
-
-            <p>{% blocktrans trimmed %}
-                All the details of the shop order.
-            {% endblocktrans %}</p>
-        </div>
-    </header>
+    <div class="container">
+        <h1>{{ order.reference }}</h1>
+    </div>
 {% endblock %}
 
 {% block content %}
@@ -108,15 +95,26 @@
 
     <div class="order-detail__customer">
 
-        <section class="order-detail__address order-detail__address--delivery">
-            <h2>{% trans "Delivery address" %}</h2>
+        <section>
+            <h2>{% trans "Customer" %}</h2>
+            <strong>{{ order.get_full_name }}</strong>
 
+            <p>
+                <a href="mailto:{{ order.email }}">{{ order.email }}</a>
+                {% if order.phone %}
+                    <br>
+                    <a href="tel:{{ order.phone }}">{{ order.phone }}</a>
+                {% endif %}
+            </p>
+        </section>
+
+        <section>
+            <h3>{% trans "Delivery address" %}</h3>
             {% include "shop/includes/address.html" with address=order.delivery_address %}
         </section>
 
-        <section class="order-detail__address order-detail__address--invoice">
-            <h2>{% trans "Invoice address" %}</h2>
-
+        <section>
+            <h3>{% trans "Invoice address" %}</h3>
             {% if not order.invoice_address %}
                 <p>{% trans "Same as delivery address." %}</p>
             {% else %}
@@ -125,37 +123,31 @@
         </section>
 
         <aside class="order-detail__meta">
-            <h2>{% trans "Details" %}</h2>
-            <p>
-                Customer name: <strong>{{ order.get_full_name }}</strong>
-            </p>
-            <p>
-                Contact details:
-                <ul>
-                    <li><a href="mailto:{{ order.email }}">{{ order.email }}</a></li>
-                    {% if order.phone %}
-                        <li><a href="tel:{{ order.phone }}">{{ order.phone }}</a></li>
-                    {% endif %}
-                </ul>
-            </p>
-            <p>
-                Created:
-                <time
-                    datetime="{{ order.created.isoformat }}"
-                    title="{{ order.created }}"
-                > {{ order.created|timesince }} ago </time>
-            </p>
-            <p>
-                Last modified:
-                <time
-                    datetime="{{ order.modified.isoformat }}"
-                    title="{{ order.modified }}"
-                > {{ order.modified|timesince }} ago </time>
-            </p>
-            <p>
-                Language: {{ order.get_language_display }}
-            </p>
+            <h2 class="h3">{% trans "Order details" %}</h2>
 
+            <ul>
+                <li>
+                    {% blocktrans with since=order.created|timesince isodate=order.created.isoformat title=order.created %}
+                        Created:
+                        <time datetime="{{ isodate }}" title="{{ title }}">
+                            {{ since }} ago
+                        </time>
+                    {% endblocktrans %}
+                </li>
+                <li>
+                    {% blocktrans with since=order.modified|timesince isodate=order.modified.isoformat title=order.modified %}
+                        Last modified:
+                        <time datetime="{{ isodate }}" title="{{ title }}">
+                            {{ since }} ago
+                        </time>
+                    {% endblocktrans %}
+                </li>
+                <li>
+                    {% blocktrans with lang=order.get_language_display %}
+                        Language: {{ lang }}
+                    {% endblocktrans %}
+                </li>
+            </ul>
         </aside>
     </div>
 

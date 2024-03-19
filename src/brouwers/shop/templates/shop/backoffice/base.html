@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n static brouwers %}
+
+{% block nav-top %}
+<div class="navbar navbar-default navbar--center-logo navbar--no-margin" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">{% trans "Toggle navigation" %}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'images/logo/logo_modelbrouwers.png' %}" alt="{% trans 'Back to the Modelbrouwers.nl homepage' %}">
+            </a>
+        </div>
+
+        {% url 'shop:order-list' as url_order_list %}
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="{% if request.path|startswith:url_order_list %}active{% endif %}">
+                    <a href="{{ url_order_list }}">
+                        {% trans "Order list" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'admin:shop_product_changelist' %}">
+                        {% trans "Manage products" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

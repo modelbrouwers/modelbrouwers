@@ -20,7 +20,9 @@
     </head>
 
     <body class="{% block body-class %}{% endblock %}">
-        {% include "nav_top.html" %}
+        {% block nav-top %}
+            {% include "nav_top.html" %}
+        {% endblock %}
 
         {% block messages %}
             {% if messages %}
