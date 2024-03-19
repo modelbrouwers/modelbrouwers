@@ -1,0 +1,93 @@
+{% extends "shop/backoffice/base.html" %}
+{% load i18n shop %}
+
+{% block title %} {% trans "Shop backoffice | Orders" %}{% endblock %}
+
+{% block body-class %}shop-backoffice{% endblock body-class %}
+
+{% block eye-catcher %}
+    <header class="container-fluid eye-catcher">
+        <div class="container">
+            <h1>
+                {% trans "Orders" %}
+                <i class="pull-right fa fa-shopping-bag fa-2x"></i>
+            </h1>
+
+            <p>{% blocktrans trimmed %}
+                Overview of all orders, sorted by most recently placed first.
+            {% endblocktrans %}</p>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <section>
+        {% for order in orders %}
+            <div class="order-summary">
+
+                <div class="order-summary__details">
+                    <a href="{% url 'shop:order-detail' reference=order.reference %}" class="order-summary__reference" title="{% trans 'Order number' %}">
+                        {{ order.reference }}
+                    </a>
+                    <span class="order-summary__name" title="{% trans 'Customer' %}">
+                        {{ order.get_full_name }}
+                    </span>
+                </div>
+
+                {# Status information #}
+                <div class="order-summary__status-row">
+                    <span class="order-summary__status-title">
+                        {% trans 'Order status' %}
+                    </span>
+                    {% order_status order %}
+
+                    <span class="order-summary__status-title">
+                        {% trans 'Payment status' %}
+                    </span>
+                    {% if order.payment %}
+                        {% payment_status order.payment %}
+                    {% else %}
+                        {% trans "No payment information." %}
+                    {% endif %}
+                </div>
+
+                <div class="order-summary__price key-value key-value--stretch-mobile key-value--plain">
+                    <div class="key-value__label">
+                        {% trans "Total price" %}
+                    </div>
+                    <div class="key-value__text">
+                        {{ order.payment.format_amount }}
+                    </div>
+                </div>
+
+                <div class="order-summary__created key-value key-value--stretch-mobile key-value--plain">
+                    <div class="key-value__label">
+                        {% trans 'Placed' %}
+                    </div>
+                    <div class="key-value__text">
+                        <time datetime="{{ order.created.isoformat }}">
+                        {% blocktrans with since=order.created|timesince trimmed %}
+                            {{ since }} ago
+                        {% endblocktrans %}
+                        </time>
+                    </div>
+                </div>
+
+                <div class="order-summary__modified key-value key-value--stretch-mobile key-value--plain">
+                    <div class="key-value__label">
+                        {% trans 'Last modified' %}
+                    </div>
+                    <div class="key-value__text">
+                        <time datetime="{{ order.modified.isoformat }}">
+                        {% blocktrans with since=order.modified|timesince trimmed %}
+                            {{ since }} ago
+                        {% endblocktrans %}
+                        </time>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </section>
+    {% include "includes/pagination.html" %}
+{% endblock %}

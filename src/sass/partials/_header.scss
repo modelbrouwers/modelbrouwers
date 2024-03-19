@@ -22,17 +22,31 @@ body.fade-small-logo .navbar-brand img {
 
 @media (min-width: 768px) {
   // show the tabs
-  .navbar-brand {
+  .sprue-tabs .navbar-brand {
     position: absolute;
     padding: 0;
     top: 0;
     left: 30px;
+  }
+
+  .navbar--no-margin {
+    margin-bottom: 0;
+  }
+
+  .navbar-brand {
     img {
-      height: 35px;
-      width: 184px;
+      block-size: 35px;
+      inline-size: 184px;
+    }
+
+    @at-root .navbar--center-logo & {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
-  .navbar-collapse.collapse {
+
+  .sprue-tabs .navbar-collapse.collapse {
     height: 35px !important;
   }
   .sprue-tabs {

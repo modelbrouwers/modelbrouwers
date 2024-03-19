@@ -1,0 +1,8 @@
+<div class="status-progress">
+    {% for value, label in steps %}
+        <span class="status-progress__step {% if value == current %}status-progress__step--current{% endif %}" title="{{ label }}">
+            {{ label }}
+        </span>
+        {% if not forloop.last %}<span class="status-progress__spacer"></span>{% endif %}
+    {% endfor %}
+</div>
