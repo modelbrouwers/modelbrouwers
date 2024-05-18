@@ -22,7 +22,7 @@ beautifulsoup4==4.12.3
     # via
     #   -r requirements/ci.txt
     #   webtest
-black==24.2.0
+black==24.4.2
     # via -r requirements/dev.in
 bleach[css]==5.0.1
     # via
@@ -187,7 +187,7 @@ html5lib==1.1
     # via
     #   -r requirements/ci.txt
     #   weasyprint
-idna==3.6
+idna==3.7
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -237,7 +237,7 @@ packaging==23.2
     #   build
 pathspec==0.12.1
     # via black
-pillow==10.2.0
+pillow==10.3.0
     # via
     #   -r requirements/ci.txt
     #   django-precise-bbcode
@@ -340,7 +340,7 @@ soupsieve==2.5
     # via
     #   -r requirements/ci.txt
     #   beautifulsoup4
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via
     #   -r requirements/ci.txt
     #   django
@@ -385,7 +385,7 @@ waitress==3.0.0
     # via
     #   -r requirements/ci.txt
     #   webtest
-weasyprint==61.1
+weasyprint==61.2
     # via -r requirements/ci.txt
 webencodings==0.5.1
     # via

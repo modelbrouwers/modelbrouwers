@@ -111,7 +111,7 @@ html2text==2024.2.26
     # via -r requirements/base.in
 html5lib==1.1
     # via weasyprint
-idna==3.6
+idna==3.7
     # via requests
 lxml==5.1.0
     # via
@@ -133,7 +133,7 @@ openpyxl==3.1.2
     #   tablib
 orderedmultidict==1.0.1
     # via furl
-pillow==10.2.0
+pillow==10.3.0
     # via
     #   -r requirements/base.in
     #   django-precise-bbcode
@@ -184,7 +184,7 @@ six==1.16.0
     #   python-dateutil
 sorl-thumbnail==12.10.0
     # via -r requirements/base.in
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via django
 tablib[html,ods,xls,xlsx,yaml]==3.5.0
     # via django-import-export
@@ -204,7 +204,7 @@ urllib3==2.2.1
     #   sentry-sdk
 uwsgi==2.0.24
     # via -r requirements/base.in
-weasyprint==61.1
+weasyprint==61.2
     # via -r requirements/base.in
 webencodings==0.5.1
     # via
