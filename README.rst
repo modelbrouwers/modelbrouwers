@@ -14,8 +14,8 @@ albums software and a webshop.
 .. |build| image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
     :target: https://github.com/modelbrouwers/modelbrouwers/actions?query=workflow%3A%22Run+CI%22
 
-.. |coverage| image:: https://codecov.io/github/modelbrouwers/modelbrouwers/coverage.svg?branch=main
-    :target: https://codecov.io/github/modelbrouwers/modelbrouwers?branch=main
+.. |coverage| image:: https://codecov.io/github/modelbrouwers/modelbrouwers/branch/main/graph/badge.svg?token=OBBXJ94dVo
+    :target: https://codecov.io/github/modelbrouwers/modelbrouwers
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :alt: Code style
