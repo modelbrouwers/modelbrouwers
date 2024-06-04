@@ -64,11 +64,11 @@ jobs:
 
       - name: Run tests
         run: |
+          # codecov can't handle symlinks...
+          rm -f src/phpbb/php-static-files/vendor_autoload.php
+
           python src/manage.py collectstatic --noinput --link
           coverage run src/manage.py test src -v 2
-
-          # codecov can't handle symlinks...
-          rm src/phpbb/php-static-files/vendor_autoload.php
 
       - name: Publish coverage report
         uses: codecov/codecov-action@v4
