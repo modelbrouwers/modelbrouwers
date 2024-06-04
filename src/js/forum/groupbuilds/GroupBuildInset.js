@@ -5,10 +5,20 @@ import useAsync from "react-use/esm/useAsync";
 
 import { GroupBuildConsumer } from "../../data/group-build";
 import Loader from "../../components/loaders";
-import BBCodeContent from "./BBCodeContent";
 import GroupBuildParticipantsTable from "./GroupBuildParticipantsTable";
 
 const consumer = new GroupBuildConsumer();
+
+const LinebreaksBr = ({ text, className, component: Component = "p" }) => (
+    <Component className={className}>
+        {text.split("\n").map((bit, index) => (
+            <React.Fragment key={index}>
+                {index === 0 ? null : <br />}
+                {bit}
+            </React.Fragment>
+        ))}
+    </Component>
+);
 
 const GroupBuildDetails = ({
     theme,
@@ -20,71 +30,66 @@ const GroupBuildDetails = ({
     rules,
     rules_topic,
     participants,
-}) => {
-    return (
-        <>
-            <h2>
-                {theme}
-                <span className="status">({status})</span>
-            </h2>
-            <a href={url}>
-                <FormattedMessage
-                    description="Groupbuild inset in forum post, open main website link"
-                    defaultMessage="View outside of forum"
-                />
-            </a>
+}) => (
+    <>
+        <h2>
+            {theme}
+            <span className="status">({status})</span>
+        </h2>
+        <a href={url}>
+            <FormattedMessage
+                description="Groupbuild inset in forum post, open main website link"
+                defaultMessage="View outside of forum"
+            />
+        </a>
 
-            <h4>
+        <h4>
+            <FormattedMessage
+                description="Groupbuild inset in forum post, description title"
+                defaultMessage="Description"
+            />
+        </h4>
+        <p className="description">
+            <strong>
                 <FormattedMessage
-                    description="Groupbuild inset in forum post, description title"
-                    defaultMessage="Description"
+                    description="Groupbuild inset in forum post, start and end dates"
+                    defaultMessage="Start: {start}, end: {end}"
+                    values={{
+                        start: start,
+                        end: end,
+                    }}
                 />
-            </h4>
-            <p className="description">
-                <strong>
+            </strong>
+        </p>
+
+        <LinebreaksBr text={description} className="description" />
+
+        {rules ? (
+            <>
+                <h4>
                     <FormattedMessage
-                        description="Groupbuild inset in forum post, start and end dates"
-                        defaultMessage="Start: {start}, end: {end}"
-                        values={{
-                            start: start,
-                            end: end,
-                        }}
+                        description="Groupbuild inset in forum post, rules title"
+                        defaultMessage="Rules"
                     />
-                </strong>
-            </p>
-            <BBCodeContent content={description} className="description" />
+                </h4>
+                <LinebreaksBr text={rules} className="rules" component="div" />
+            </>
+        ) : null}
 
-            {rules ? (
-                <>
-                    <h4>
-                        <FormattedMessage
-                            description="Groupbuild inset in forum post, rules title"
-                            defaultMessage="Rules"
-                        />
-                    </h4>
-                    <BBCodeContent
-                        content={rules}
-                        className="rules"
-                        component="div"
+        {rules_topic ? (
+            <>
+                <h4>
+                    <FormattedMessage
+                        description="Groupbuild inset in forum post, rules topic title"
+                        defaultMessage="Rules topic"
                     />
-                </>
-            ) : null}
-
-            {rules_topic ? (
-                <>
-                    <h4>
-                        <FormattedMessage
-                            description="Groupbuild inset in forum post, rules topic title"
-                            defaultMessage="Rules topic"
-                        />
-                    </h4>
-                    <a href={rules_topic.url}>{rules_topic.title}</a>
-                </>
-            ) : null}
-            <GroupBuildParticipantsTable participants={participants} />
-        </>
-    );
-};
+                </h4>
+                <a href={rules_topic.url}>{rules_topic.title}</a>
+            </>
+        ) : null}
+        <GroupBuildParticipantsTable participants={participants} />
+    </>
+);
 
 GroupBuildDetails.propTypes = {
     theme: PropTypes.string.isRequired,
