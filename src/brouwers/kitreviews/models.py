@@ -4,8 +4,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from precise_bbcode.shortcuts import render_bbcodes
-
 from brouwers.albums.models import Album
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.kits.fields import KitForeignKey
@@ -27,9 +25,6 @@ class KitReview(models.Model):
     model_kit = KitForeignKey(on_delete=models.CASCADE, verbose_name=_("model kit"))
     raw_text = models.TextField(
         _("review"), help_text=_("This is your review. You can use BBCode here.")
-    )
-    html = models.TextField(
-        blank=True, help_text="raw_text with BBCode rendered as html"
     )
     properties = models.ManyToManyField(
         "KitReviewProperty",
@@ -83,20 +78,11 @@ class KitReview(models.Model):
             "user": self.reviewer.username,
         }
 
-    def save(self, *args, **kwargs):
-        self.render_raw_text(force=True)
-        super().save(*args, **kwargs)
-
     def get_absolute_url(self):
         return reverse(
             "kitreviews:review-detail",
             kwargs={"pk": self.pk, "slug": self.model_kit.slug},
         )
-
-    def render_raw_text(self, force=False):
-        if not self.html or force:
-            self.html = render_bbcodes(self.raw_text)
-        return self.html
 
     @property
     def topic_url(self):

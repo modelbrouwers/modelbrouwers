@@ -129,7 +129,6 @@ INSTALLED_APPS = [
     "loginas",
     "sniplates",
     "rosetta",
-    "precise_bbcode",
     "sorl.thumbnail",
     "treebeard",
     "taggit",

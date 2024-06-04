@@ -98,17 +98,14 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         add_page = self.app.get(url, user=user)
         form = add_page.forms[0]
         self._add_field(form, "model_kit", kit.pk)
-        form["raw_text"] = "My review with [b]BBCode[/b]\nFoo"
+        form["raw_text"] = "My review with newlines\nFoo"
 
         response = form.submit()
 
         review = KitReview.objects.get()
         self.assertRedirects(response, review.get_absolute_url())
         self.assertEqual(review.model_kit, kit)
-        self.assertEqual(review.raw_text, "My review with [b]BBCode[/b]\nFoo")
-        self.assertHTMLEqual(
-            review.render_raw_text(), "My review with <strong>BBCode</strong><br>Foo"
-        )
+        self.assertEqual(review.raw_text, "My review with newlines\nFoo")
         self.assertEqual(review.reviewer, user)
 
     def test_submit_review_with_topic(self):
