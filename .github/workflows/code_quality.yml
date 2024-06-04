@@ -27,7 +27,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes libmemcached-dev
           pip install uv
-          uv pip install --python 3.12 -r requirements/dev.txt
+          uv pip install --system -r requirements/dev.txt
       - name: Run isort
         run: isort --check-only --diff .
 
@@ -45,7 +45,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes libmemcached-dev
           pip install uv
-          uv pip install --python 3.12 -r requirements/dev.txt
+          uv pip install --system -r requirements/dev.txt
       - name: Run black
         run: black --check --diff src doc
 
@@ -63,7 +63,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes libmemcached-dev
           pip install uv
-          uv pip install --python 3.12 -r requirements/dev.txt
+          uv pip install --system -r requirements/dev.txt
       - name: Run flake8
         run: flake8 src
         continue-on-error: true

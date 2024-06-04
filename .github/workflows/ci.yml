@@ -55,7 +55,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes libmemcached-dev
           pip install uv
-          uv pip install --python 3.12 -r requirements/ci.txt
+          uv pip install --system -r requirements/ci.txt
 
       - name: Build frontend
         run: |
