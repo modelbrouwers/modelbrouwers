@@ -110,6 +110,14 @@ class OrderFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = "shop.Order"
 
+    class Params:
+        with_payment = factory.Trait(
+            payment=factory.RelatedFactory(
+                "brouwers.shop.tests.factories.PaymentFactory",
+                factory_related_name="order",
+            ),
+        )
+
 
 class PaymentMethodFactory(factory.django.DjangoModelFactory):
     name = factory.Faker("word")

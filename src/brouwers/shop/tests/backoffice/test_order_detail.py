@@ -4,12 +4,14 @@ from django.urls import reverse
 
 from django_webtest import WebTest
 
+from brouwers.shop.models import Payment
 from brouwers.users.tests.factories import UserFactory
 
+from ...constants import OrderStatuses, PaymentStatuses
 from ..factories import OrderFactory
 
 
-class OrderDetailTests(TestCase):
+class OrderDetailAccessTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()
@@ -61,3 +63,53 @@ class FunctionalOrderDetailTests(WebTest):
         response = self.app.get(detail_url, user=self.user)
 
         self.assertContains(response, "MB-1234")
+
+    def test_can_change_order_status(self):
+        order = OrderFactory.create(
+            reference="MB-1234",
+            status=OrderStatuses.received,
+            with_payment=True,
+            payment__status=PaymentStatuses.pending,
+        )
+        detail_url = reverse("shop:order-detail", kwargs={"reference": "MB-1234"})
+        order_detail_page = self.app.get(detail_url, user=self.user)
+        form = order_detail_page.forms[0]
+        assert form["status"].value == OrderStatuses.received
+        assert form["payment_status"].value == PaymentStatuses.pending
+
+        form["payment_status"].select(PaymentStatuses.completed)
+        form["status"].select(OrderStatuses.processing)
+        form["send_email_notification"].checked = False
+
+        updated_detail_page = form.submit().follow()
+        self.assertTemplateUsed(
+            updated_detail_page, "shop/backoffice/order_detail.html"
+        )
+
+        order.refresh_from_db()
+        self.assertEqual(order.status, OrderStatuses.processing)
+        self.assertEqual(order.payment.status, PaymentStatuses.completed)
+
+    def test_change_order_status_without_any_payment(self):
+        order = OrderFactory.create(
+            reference="MB-1234",
+            status=OrderStatuses.processing,
+            with_payment=False,
+        )
+        detail_url = reverse("shop:order-detail", kwargs={"reference": "MB-1234"})
+        order_detail_page = self.app.get(detail_url, user=self.user)
+        form = order_detail_page.forms[0]
+        assert form["status"].value == OrderStatuses.processing
+        assert "payment_status" not in form.fields
+
+        form["status"].select(OrderStatuses.cancelled)
+        form["send_email_notification"].checked = False
+
+        updated_detail_page = form.submit().follow()
+        self.assertTemplateUsed(
+            updated_detail_page, "shop/backoffice/order_detail.html"
+        )
+
+        order.refresh_from_db()
+        self.assertEqual(order.status, OrderStatuses.cancelled)
+        self.assertFalse(Payment.objects.exists())

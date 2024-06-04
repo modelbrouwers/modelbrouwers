@@ -7,6 +7,13 @@ from .constants import OrderStatuses, PaymentStatuses
 from .models import Order
 
 
+def _get_payment(order: Order) -> Payment | None:
+    try:
+        return order.payment
+    except Payment.DoesNotExist:
+        return None
+
+
 class OrderDetailForm(forms.ModelForm):
     payment_status = forms.ChoiceField(
         required=False,
@@ -33,19 +40,22 @@ class OrderDetailForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         assert self.instance
 
-        try:
-            self.fields["payment_status"].initial = self.instance.payment.status
-        except Payment.DoesNotExist:
-            pass
+        payment = _get_payment(self.instance)
+        if payment is not None:
+            self.fields["payment_status"].initial = payment.status
 
         # remove blank/empty option
         self.fields["status"].choices = OrderStatuses.choices
 
     def save(self, *args, **kwargs):
         obj: Order = super().save(*args, **kwargs)
+
+        payment = _get_payment(obj)
         if (
-            new_payment_status := self.cleaned_data.get("payment_status")
-        ) != obj.payment.status:
-            obj.payment.status = new_payment_status
-            obj.payment.save()
+            payment
+            and (new_payment_status := self.cleaned_data.get("payment_status"))
+            != payment.status
+        ):
+            payment.status = new_payment_status
+            payment.save()
         return obj
