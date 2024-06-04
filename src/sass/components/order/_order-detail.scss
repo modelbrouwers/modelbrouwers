@@ -30,6 +30,54 @@
     flex-direction: column;
   }
 
+  @include bem.element("heading") {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+    padding-block-start: 10px;
+    padding-block-end: 15px;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-block: 0;
+    }
+  }
+
+  @include bem.element("heading-badges") {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+  }
+
+  @include bem.element("heading-badge") {
+    display: block;
+    border-radius: 14px;
+    padding-inline: 6px;
+    padding-block: 4px;
+    border: solid 1px $light-grey;
+
+    @include bem.modifier("neutral") {
+      background-color: $light-grey;
+    }
+
+    @include bem.modifier("success") {
+      background-color: $main-green;
+      border-color: transparent;
+      color: #fff;
+    }
+
+    @include bem.modifier("danger") {
+      background-color: $main-red;
+      border-color: transparent;
+      color: #fff;
+    }
+  }
+
   @include bem.element("form") {
     .form-group {
       display: flex;
@@ -55,6 +103,15 @@
     padding-inline: 10px;
     position: sticky;
     bottom: 0;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+
+    .checkbox {
+      margin-block: 0;
+    }
   }
 
   @include bem.element("meta") {
@@ -75,6 +132,10 @@
       "products"
       "customer"
       "buttonrow";
+
+    @include bem.element("button-row") {
+      flex-direction: column;
+    }
   }
 }
 
