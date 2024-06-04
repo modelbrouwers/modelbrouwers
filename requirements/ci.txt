@@ -248,7 +248,7 @@ pyyaml==6.0.1
     # via
     #   -r requirements/base.txt
     #   tablib
-requests==2.31.0
+requests==2.32.3
     # via
     #   -r requirements/base.txt
     #   django-rosetta

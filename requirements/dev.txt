@@ -303,7 +303,7 @@ pyyaml==6.0.1
     # via
     #   -r requirements/ci.txt
     #   tablib
-requests==2.31.0
+requests==2.32.3
     # via
     #   -r requirements/ci.txt
     #   django-rosetta
