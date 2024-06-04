@@ -24,7 +24,8 @@ class KitReview(models.Model):
     legacy_id = models.IntegerField(blank=True, null=True, db_index=True)
     model_kit = KitForeignKey(on_delete=models.CASCADE, verbose_name=_("model kit"))
     raw_text = models.TextField(
-        _("review"), help_text=_("This is your review. You can use BBCode here.")
+        _("review"),
+        help_text=_("The content of the review. Please be detailed!"),
     )
     properties = models.ManyToManyField(
         "KitReviewProperty",
