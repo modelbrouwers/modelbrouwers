@@ -1,5 +1,5 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n bbcode_tags %}
+{% load i18n %}
 
 {% block title %}{{ block.super }}: {{ gb.theme }}{% endblock %}
 
@@ -56,19 +56,18 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="desc">
-                            <p>{{ gb.description|bbcode|safe }}</p>
+                            <p>{{ gb.description|linebreaksbr }}</p>
                         </div>
 
                         <div class="tab-pane" id="rules">
                             {% if gb.rules %}
-                                <p>{{ gb.rules|bbcode|safe }}</p>
+                                <p>{{ gb.rules|linebreaksbr }}</p>
                             {% else %}
                                 {% if self.rules_topic %}
                                 <p>
                                     {% blocktrans with url=self.rules_topic.get_absolute_url %}
                                         Go read the <a href="{{ url }}">rules topic</a>
                                     {% endblocktrans %}
-                                    {{ ';)'|bbcode|safe }}
                                 </p>
                                 {% else %}
                                     <p>{% trans "No specific rules, which means the default rules apply!" %}</p>

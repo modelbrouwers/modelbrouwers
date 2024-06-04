@@ -12,10 +12,10 @@ class GroupBuildFactory(factory.django.DjangoModelFactory):
 
     theme = factory.Sequence(lambda n: "Groupbuild {0}".format(n))
     category = factory.SubFactory(ForumCategoryFactory)
-    description = "Groupbuild with [b]BBCode[/b]"
-    rules = "Groupbuild rules with [i]BBCode[/i]"
+    description = "Groupbuild description"
+    rules = "Groupbuild rules\n\nVery important"
     applicant = factory.SubFactory(UserFactory)
-    reason_denied = 'Denied: [quote="admin"]BBCode[/quote]'
+    reason_denied = "Denied."
 
 
 class ParticipantFactory(factory.django.DjangoModelFactory):
