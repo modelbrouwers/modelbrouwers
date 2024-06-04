@@ -1,6 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from brouwers.shop.models import Payment
+
 from .constants import OrderStatuses, PaymentStatuses
 from .models import Order
 
@@ -31,7 +33,11 @@ class OrderDetailForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         assert self.instance
 
-        self.fields["payment_status"].initial = self.instance.payment.status
+        try:
+            self.fields["payment_status"].initial = self.instance.payment.status
+        except Payment.DoesNotExist:
+            pass
+
         # remove blank/empty option
         self.fields["status"].choices = OrderStatuses.choices
 
