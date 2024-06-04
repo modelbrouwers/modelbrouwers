@@ -9,8 +9,8 @@ class ApiTests(APITestCase):
     def test_groupbuild_detail(self):
         gb = GroupBuildFactory.create(
             theme="Testing the code",
-            description="[b]My BBCode[/b] groupbuild",
-            rules="[i]BBCode[/i] rules",
+            description="My groupbuild",
+            rules="Newlined\nrules",
         )
 
         endpoint = reverse("api:groupbuilds:groupbuild-detail", kwargs={"pk": gb.pk})
@@ -23,8 +23,8 @@ class ApiTests(APITestCase):
                 "id": gb.id,
                 "theme": "Testing the code",
                 "url": gb.get_absolute_url(),
-                "description": "<strong>My BBCode</strong> groupbuild",
-                "rules": "<em>BBCode</em> rules",
+                "description": "My groupbuild",
+                "rules": "Newlined\nrules",
                 "start": gb.start,
                 "end": gb.end,
                 "status": gb.get_status_display(),

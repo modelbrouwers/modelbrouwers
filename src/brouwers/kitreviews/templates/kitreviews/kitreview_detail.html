@@ -29,7 +29,7 @@
                 {% endif %}
             </div>
         {% endif %}
-        <div class="review__body">{{ review.render_raw_text|safe }}</div>
+        <div class="review__body">{{ review.raw_text|linebreaksbr }}</div>
 
         <h2>{% trans "Ratings" %}</h2>
         {% detailed_ratings review is_preview=False %}

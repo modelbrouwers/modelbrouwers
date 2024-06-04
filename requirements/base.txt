@@ -42,7 +42,6 @@ django==4.2.11
     #   django-import-export
     #   django-js-asset
     #   django-modeltranslation
-    #   django-precise-bbcode
     #   django-recaptcha
     #   django-rosetta
     #   django-sendfile2
@@ -77,8 +76,6 @@ django-modeltranslation==0.18.11
     # via -r requirements/base.in
 django-ordered-model==3.7.4
     # via django-admin-index
-django-precise-bbcode==1.2.16
-    # via -r requirements/base.in
 django-recaptcha==4.0.0
     # via -r requirements/base.in
 django-rosetta==0.10.0
@@ -136,7 +133,6 @@ orderedmultidict==1.0.1
 pillow==10.3.0
     # via
     #   -r requirements/base.in
-    #   django-precise-bbcode
     #   weasyprint
 polib==1.2.0
     # via django-rosetta

@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from autoslug import AutoSlugField
-from precise_bbcode.shortcuts import render_bbcodes
 
 from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.forum_tools.models import ForumCategory
@@ -103,15 +102,6 @@ class GroupBuild(models.Model):
             or self.homepage_topic
             or self.rules_topic
         )
-
-    def get_field_rendered(self, field) -> str:
-        return render_bbcodes(getattr(self, field))
-
-    def get_description_rendered(self) -> str:
-        return self.get_field_rendered("description")
-
-    def get_rules_rendered(self) -> str:
-        return self.get_field_rendered("rules")
 
 
 class Participant(models.Model):

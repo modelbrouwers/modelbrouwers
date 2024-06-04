@@ -1,5 +1,5 @@
 {% extends "groupbuilds/base.html" %}
-{% load i18n bbcode_tags %}
+{% load i18n %}
 
 
 {% block eye-catcher %}
@@ -39,7 +39,7 @@
         </header>
 
         <div class="review-preview__body">
-            {{ gb.description|bbcode|safe }}
+            {{ gb.description|linebreaksbr }}
         </div>
 
         <footer class="clearfix">

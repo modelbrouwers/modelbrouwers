@@ -334,14 +334,6 @@
                 "ocsetting"
             ],
             [
-                "precise_bbcode",
-                "bbcodetag"
-            ],
-            [
-                "precise_bbcode",
-                "smileytag"
-            ],
-            [
                 "redirects",
                 "redirect"
             ],
