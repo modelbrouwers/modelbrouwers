@@ -67,6 +67,9 @@ jobs:
           python src/manage.py collectstatic --noinput --link
           coverage run src/manage.py test src -v 2
 
+          # codecov can't handle symlinks...
+          rm src/phpbb/php-static-files/vendor_autoload.php
+
       - name: Publish coverage report
         uses: codecov/codecov-action@v4
         with:
