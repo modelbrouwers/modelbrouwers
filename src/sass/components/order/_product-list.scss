@@ -1,0 +1,81 @@
+@use "../../modules/bem";
+@use "../../modules/responsive";
+
+$column-gap: 10px;
+$row-gap: 10px;
+$padding: 10px;
+
+.product-list {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header header header"
+    "img name model amount";
+  column-gap: $column-gap;
+  row-gap: $row-gap;
+  justify-content: start;
+  align-items: center;
+
+  padding-block: $padding;
+  padding-inline: $padding;
+
+  background: #eeeeee;
+  border-start-start-radius: 4px;
+  border-start-end-radius: 4px;
+
+  @include bem.element("header-background") {
+    grid-template-area: header;
+  }
+
+  @include bem.element("product") {
+    display: contents;
+
+    @include bem.modifier("headings") {
+      font-weight: 600;
+      grid-area: header;
+
+      > * {
+        display: block;
+        border-bottom: solid 1px $default-border-color;
+        background: $main-grey;
+
+        margin-inline-start: -0.5 * $column-gap;
+        margin-inline-end: -0.5 * $column-gap;
+        padding-inline-start: 0.5 * $column-gap;
+        padding-inline-end: 0.5 * $column-gap;
+
+        margin-block-start: -1 * $padding;
+        padding-block-start: 0.5 * $padding;
+        padding-block-end: 0.5 * $padding;
+
+        color: #fefefe;
+
+        &:first-child {
+          border-start-start-radius: 4px;
+          margin-inline-start: -0.5 * ($column-gap + $padding);
+        }
+
+        &:last-child {
+          border-start-end-radius: 4px;
+          margin-inline-end: -0.5 * ($column-gap + $padding);
+        }
+
+        &.product-list__product-amount {
+          display: flex;
+          padding-inline-end: $padding;
+        }
+      }
+    }
+  }
+
+  @include bem.element("product-amount") {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
+  }
+
+  @include bem.element("product-link") {
+    font-weight: 600;
+  }
+}

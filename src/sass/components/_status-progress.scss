@@ -1,0 +1,38 @@
+@use "../modules/bem";
+@use "../modules/responsive";
+
+$status-progress-padding-inline: 0.5em;
+
+.status-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include bem.element("spacer") {
+    flex-grow: 1;
+    flex-basis: 100%;
+    border-top: dotted 1px $main-grey;
+    margin-inline-start: 0.5em;
+    margin-inline-end: 0.5em;
+    min-width: 1em;
+  }
+
+  @include bem.element("step") {
+    padding-inline: $status-progress-padding-inline;
+    padding-block: 0.2em;
+
+    &:first-child {
+      margin-inline-start: -$status-progress-padding-inline;
+    }
+
+    &:last-child {
+      margin-inline-end: -$status-progress-padding-inline;
+    }
+
+    @include bem.modifier("current") {
+      font-weight: 900;
+      font-style: italic;
+      color: $main-orange;
+    }
+  }
+}

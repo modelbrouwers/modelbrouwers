@@ -1,0 +1,10 @@
+{% load i18n %}
+<address>
+    {% if address.company %}<p>{{ address.company }}</p>{% endif %}
+    {% if address.chamber_of_commerce %}<p>
+        {% blocktrans with coc=address.chamber_of_commerce %}Chamber of Commerce: {{ coc }}{% endblocktrans %}
+    </p>{% endif %}
+    <p>{{ address.street }} {{ address.number }}</p>
+    <p>{{ address.postal_code }} {{ address.city }}</p>
+    <p>{{ address.get_country_display }}</p>
+</address>

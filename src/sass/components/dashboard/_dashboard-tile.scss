@@ -1,0 +1,56 @@
+@use "../../modules/bem";
+@use "../../partials/colors";
+@use "../../modules/responsive";
+
+.dashboard-tile {
+  --dashboard-tile-size: 280px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--dashboard-tile-size);
+  block-size: var(--dashboard-tile-size);
+  padding-inline: 1em;
+  padding-block: 1em;
+
+  background-color: colors.$main-blue;
+  color: colors.$white;
+
+  border-radius: 2px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: colors.$white;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+
+    .dashboard-tile__icon {
+      transform: scale(1.1) rotate(0.02turn);
+    }
+
+    .dashboard-tile__label {
+      text-decoration: underline;
+      text-underline-offset: 0.5rem;
+    }
+  }
+
+  &:focus {
+    background-color: colors.$main-light-blue;
+  }
+
+  @include bem.element("icon") {
+    padding-block: 20px;
+    transition: transform 0.2s ease;
+  }
+
+  @include bem.element("label") {
+    font-size: 2rem;
+  }
+
+  @include responsive.lte-mobile {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  }
+}

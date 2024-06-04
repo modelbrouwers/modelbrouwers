@@ -1,0 +1,185 @@
+{% extends "shop/backoffice/base.html" %}
+{% load i18n shop %}
+
+{% block title %}
+{% blocktrans with ref=order.reference %}Shop backoffice | Order {{ ref }}{% endblocktrans %}
+{% endblock %}
+
+{% block body-class %}shop-backoffice{% endblock body-class %}
+
+{% block eye-catcher %}
+    <div class="container">
+        <header>
+            <h1>
+                {{ order.reference }}
+                <small title="{% trans 'Current status' %}">{{ order.get_status_display }}</small>
+            </h1>
+        </header>
+    </div>
+{% endblock %}
+
+{% block content %}
+<form class="order-detail" action="." method="post">
+    {% csrf_token %}
+
+    <section class="order-detail__status">
+        <div class="order-detail__form">
+            <div class="form-group">
+                <label for="{{ form.status.id_for_label }}">
+                    {% trans "Change status to" %}:
+                </label>
+                {{ form.status }}
+            </div>
+        </div>
+
+        {% with payment=order.payment %}
+
+            <heading class="order-detail__heading">
+                <h3> {% trans "Payment" %} </h3>
+
+                {% if payment %}
+                    <div class="order-detail__heading-badges">
+
+                        {% with status=order.payment.status %}
+                            <span class="
+                                order-detail__heading-badge
+                                order-detail__heading-badge--{% if status == 'completed' %}success{% elif status == 'cancelled' %}danger{% else %}neutral{% endif %}
+                            ">
+                                {{ order.payment.format_amount }}
+                            </span>
+                        {% endwith %}
+
+                        <span class="order-detail__heading-badge">
+                            {{ order.payment.payment_method.name }}
+                        </span>
+
+                    </div>
+                {% endif %}
+
+            </heading>
+
+            {% if payment %}
+                <div class="order-detail__form">
+                    <div class="form-group">
+                        {{ form.payment_status.label_tag }}
+                        {{ form.payment_status }}
+                    </div>
+                </div>
+            {% else %}
+                <p>{% trans "There is no payment information for this order." %}</p>
+            {% endif %}
+
+        {% endwith %}
+
+    </section>
+
+    <section class="order-detail__products">
+        <h2>
+            {% trans "Products" %}
+            <span class="badge">{{ num_products }}</span>
+        </h2>
+
+        <ul class="product-list">
+
+            <li class="product-list__product product-list__product--headings">
+                <span aria-hidden="true">&nbsp;</span>
+                <span class="product-list__product-link">{% trans "Product" %}</span>
+                <span class="product-list__product-model">{% trans "Model" %}</span>
+                <span class="product-list__product-amount">{% trans "Amount" %}</span>
+            </li>
+
+            {% for cart_product in order.cart.products.all %}
+                {% with product=cart_product.product name=cart_product.product.name %}
+                <li class="product-list__product">
+                    <img
+                        src="{{ cart_product.product.get_image_url }}"
+                        class="img-responsive"
+                        alt="{% blocktrans %}Product image for '{{ name }}' {% endblocktrans %}"
+                    >
+                    <a
+                        href="{% url 'admin:shop_product_change' product.pk %}"
+                        class="product-list__product-link"
+                    >{{ name }}</a>
+                    <span class="product-list__product-model">
+                        {{ product.model_name|default:_('-') }}
+                    </span>
+                    <span class="product-list__product-amount">{{ cart_product.amount }}</span>
+                </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+
+    </section>
+
+    <div class="order-detail__customer">
+
+        <section>
+            <h2>{% trans "Customer" %}</h2>
+            <strong>{{ order.get_full_name }}</strong>
+
+            <p>
+                <a href="mailto:{{ order.email }}">{{ order.email }}</a>
+                {% if order.phone %}
+                    <br>
+                    <a href="tel:{{ order.phone }}">{{ order.phone }}</a>
+                {% endif %}
+            </p>
+        </section>
+
+        <section>
+            <h3>{% trans "Delivery address" %}</h3>
+            {% include "shop/includes/address.html" with address=order.delivery_address %}
+        </section>
+
+        <section>
+            <h3>{% trans "Invoice address" %}</h3>
+            {% if not order.invoice_address %}
+                <p>{% trans "Same as delivery address." %}</p>
+            {% else %}
+                {% include "shop/includes/address.html" with address=order.invoice_address %}
+            {% endif %}
+        </section>
+
+        <aside class="order-detail__meta">
+            <h2 class="h3">{% trans "Order details" %}</h2>
+
+            <ul>
+                <li>
+                    {% blocktrans with since=order.created|timesince isodate=order.created.isoformat title=order.created %}
+                        Created:
+                        <time datetime="{{ isodate }}" title="{{ title }}">
+                            {{ since }} ago
+                        </time>
+                    {% endblocktrans %}
+                </li>
+                <li>
+                    {% blocktrans with since=order.modified|timesince isodate=order.modified.isoformat title=order.modified %}
+                        Last modified:
+                        <time datetime="{{ isodate }}" title="{{ title }}">
+                            {{ since }} ago
+                        </time>
+                    {% endblocktrans %}
+                </li>
+                <li>
+                    {% blocktrans with lang=order.get_language_display %}
+                        Language: {{ lang }}
+                    {% endblocktrans %}
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+    <div class="order-detail__button-row">
+        <div class="checkbox">
+            <label>
+                {{ form.send_email_notification }}
+                {{ form.send_email_notification.label }}
+            </label>
+        </div>
+        <button type="submit" class="btn btn-sm button button--orange">
+            {% trans "Save changes" %}
+        </button>
+    </div>
+</form>
+{% endblock %}
+

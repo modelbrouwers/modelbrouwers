@@ -22,7 +22,7 @@ WORKDIR /app
 RUN mkdir /app/src
 
 COPY ./requirements /app/requirements
-RUN pip install uv && uv pip install --python 3.12 -r requirements/production.txt
+RUN pip install uv && uv pip install --system -r requirements/production.txt
 
 
 # Stage 2 - Install frontend deps and build assets

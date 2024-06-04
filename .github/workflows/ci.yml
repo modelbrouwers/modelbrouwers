@@ -55,7 +55,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes libmemcached-dev
           pip install uv
-          uv pip install --python 3.12 -r requirements/ci.txt
+          uv pip install --system -r requirements/ci.txt
 
       - name: Build frontend
         run: |
@@ -68,7 +68,9 @@ jobs:
           coverage run src/manage.py test src -v 2
 
       - name: Publish coverage report
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   docker:
     runs-on: ubuntu-latest
