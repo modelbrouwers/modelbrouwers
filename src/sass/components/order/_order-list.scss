@@ -1,0 +1,19 @@
+@use "../../modules/responsive";
+
+.order-list {
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @include responsive.gte-tablet {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
