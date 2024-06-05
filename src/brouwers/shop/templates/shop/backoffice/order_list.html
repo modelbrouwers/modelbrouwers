@@ -1,5 +1,5 @@
 {% extends "shop/backoffice/base.html" %}
-{% load i18n shop %}
+{% load i18n %}
 
 {% block title %} {% trans "Shop backoffice | Orders" %}{% endblock %}
 
@@ -21,72 +21,72 @@
 {% endblock %}
 
 {% block content %}
-    <section>
+    <ol class="order-list">
         {% for order in orders %}
-            <div class="order-summary">
+            {% url 'shop:order-detail' reference=order.reference as detail_url %}
+            <li class="order-summary {% if order.status == 'received' %}order-summary--new{% endif %}">
 
-                <div class="order-summary__details">
-                    <a href="{% url 'shop:order-detail' reference=order.reference %}" class="order-summary__reference" title="{% trans 'Order number' %}">
-                        {{ order.reference }}
-                    </a>
-                    <span class="order-summary__name" title="{% trans 'Customer' %}">
-                        {{ order.get_full_name }}
-                    </span>
-                </div>
+                <heading class="order-summary__heading">
+                    <h2 class="order-summary__reference">
+                        <a href="{{ detail_url }}" class="order-summary__reference-link" title="{% trans 'Order number' %}">
+                            {{ order.reference }}
+                        </a>
+                    </h2>
 
-                {# Status information #}
-                <div class="order-summary__status-row">
-                    <span class="order-summary__status-title">
-                        {% trans 'Order status' %}
-                    </span>
-                    {% order_status order %}
-
-                    <span class="order-summary__status-title">
-                        {% trans 'Payment status' %}
-                    </span>
                     {% if order.payment %}
-                        {% payment_status order.payment %}
-                    {% else %}
-                        {% trans "No payment information." %}
+                        <div class="order-summary__price">
+                            {{ order.payment.format_amount }}
+                        </div>
                     {% endif %}
+                </heading>
+
+                <span class="order-summary__name" title="{% trans 'Customer' %}">
+                    {{ order.get_full_name }}
+                </span>
+
+                <div class="order-summary__metadata">
+                    <div class="key-value key-value--stretch-mobile">
+                        <div class="key-value__label">
+                            {% trans "Payment status" %}
+                        </div>
+                        <div class="key-value__text">
+                            {% if order.payment %}
+                                {{ order.payment.get_status_display }}
+                            {% else %}
+                                {% trans "No payment information." %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="key-value key-value--stretch-mobile">
+                        <div class="key-value__label">
+                            {% trans "Order status" %}
+                        </div>
+                        <div class="key-value__text">
+                            {{ order.get_status_display }}
+                        </div>
+                    </div>
+
+                    <div class="key-value key-value--stretch-mobile">
+                        <div class="key-value__label">
+                            {% trans 'Placed' %}
+                        </div>
+                        <div class="key-value__text">
+                            <time datetime="{{ order.created.isoformat }}">
+                            {% blocktrans with since=order.created|timesince trimmed %}
+                                {{ since }} ago
+                            {% endblocktrans %}
+                            </time>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="order-summary__price key-value key-value--stretch-mobile key-value--plain">
-                    <div class="key-value__label">
-                        {% trans "Total price" %}
-                    </div>
-                    <div class="key-value__text">
-                        {{ order.payment.format_amount }}
-                    </div>
+                <div class="text-right">
+                    <a href="{{ detail_url }}" class="button button--orange">
+                        {% trans "Manage order" %}
+                    </a>
                 </div>
-
-                <div class="order-summary__created key-value key-value--stretch-mobile key-value--plain">
-                    <div class="key-value__label">
-                        {% trans 'Placed' %}
-                    </div>
-                    <div class="key-value__text">
-                        <time datetime="{{ order.created.isoformat }}">
-                        {% blocktrans with since=order.created|timesince trimmed %}
-                            {{ since }} ago
-                        {% endblocktrans %}
-                        </time>
-                    </div>
-                </div>
-
-                <div class="order-summary__modified key-value key-value--stretch-mobile key-value--plain">
-                    <div class="key-value__label">
-                        {% trans 'Last modified' %}
-                    </div>
-                    <div class="key-value__text">
-                        <time datetime="{{ order.modified.isoformat }}">
-                        {% blocktrans with since=order.modified|timesince trimmed %}
-                            {{ since }} ago
-                        {% endblocktrans %}
-                        </time>
-                    </div>
-                </div>
-
-            </div>
+            </li>
         {% endfor %}
     </section>
     {% include "includes/pagination.html" %}
