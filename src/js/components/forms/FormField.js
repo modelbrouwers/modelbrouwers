@@ -9,14 +9,13 @@ const FormField = ({
     required = false,
     labelGrid = "col-sm-4",
     fieldGrid = "col-sm-8",
-    children
+    children,
 }) => {
     return (
         <div className="form-group clearfix">
             <Label
                 label={label}
                 htmlId={htmlId}
-                label={label}
                 required={required}
                 labelGrid={labelGrid}
             />
@@ -30,7 +29,7 @@ FormField.propTypes = {
     label: PropTypes.string.isRequired,
     required: PropTypes.bool,
     labelGrid: PropTypes.string,
-    fieldGrid: PropTypes.string
+    fieldGrid: PropTypes.string,
 };
 
 export { FormField };

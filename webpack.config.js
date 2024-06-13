@@ -2,6 +2,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const argv = require("yargs").argv;
 const webpack = require("webpack");
 const path = require("path");
+const transform = require("@formatjs/ts-transformer").transform;
 
 // Set isProduction based on environment or argv.
 
@@ -55,6 +56,25 @@ module.exports = {
                 use: ["file-loader"],
             },
             {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "ts-loader",
+                    options: {
+                        getCustomTransformers() {
+                            return {
+                                before: [
+                                    transform({
+                                        overrideIdFn:
+                                            "[sha512:contenthash:base64:6]",
+                                    }),
+                                ],
+                            };
+                        },
+                    },
+                },
+            },
+            {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 use: {
@@ -105,6 +125,7 @@ module.exports = {
     },
 
     resolve: {
+        extensions: [".tsx", ".ts", ".js"],
         modules: [
             "node_modules",
             path.resolve(__dirname, "node_modules"),
