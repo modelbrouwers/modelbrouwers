@@ -47,6 +47,13 @@ class Cart(models.Model):
         """
         return sum(product.total for product in self.products.all())
 
+    @property
+    def weight(self) -> Decimal:
+        """
+        Calculate the weight in grams.
+        """
+        return sum(product.weight for product in self.products.all())
+
     def save_snapshot(self) -> None:
         """
         Freeze all the cart product information for archiving purposes.
@@ -95,3 +102,10 @@ class CartProduct(models.Model):
         Total price for the amount of products
         """
         return (self.product.price * self.amount).quantize(TWO_DIGITS)
+
+    @property
+    def weight(self) -> Decimal:
+        """
+        Calculate the weight in grams.
+        """
+        return self.product.weight_in_grams * self.amount

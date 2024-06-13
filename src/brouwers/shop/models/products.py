@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
@@ -119,6 +121,16 @@ class Product(models.Model):
         if self.image:
             schema["image"] = self.image.url
         return schema
+
+    @property
+    def weight_in_grams(self) -> Decimal:
+        match self.weight_unit:
+            case WeightUnits.gram:
+                return self.weight
+            case WeightUnits.kilogram:
+                return self.weight * 1000
+            case _:
+                raise ValueError(f"Unexpected weight unit '{self.weight_unit}'")
 
 
 class ProductImage(models.Model):
