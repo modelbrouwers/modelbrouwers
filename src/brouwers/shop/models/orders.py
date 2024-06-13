@@ -9,7 +9,7 @@ from furl import furl
 
 from brouwers.general.fields import CountryField
 
-from ..constants import OrderStatuses
+from ..constants import DeliveryMethods, OrderStatuses
 from .utils import get_random_reference
 
 if TYPE_CHECKING:
@@ -85,11 +85,18 @@ class Order(models.Model):
     phone = models.CharField(_("phone number"), max_length=100, blank=True)
 
     # addresses
+    delivery_method = models.CharField(
+        _("delivery method"),
+        max_length=20,
+        choices=DeliveryMethods.choices,
+    )
     delivery_address = models.OneToOneField(
         "Address",
         on_delete=models.PROTECT,
         related_name="delivery_order",
         help_text=_("Address for delivery"),
+        blank=True,
+        null=True,
     )
     invoice_address = models.OneToOneField(
         "Address",
@@ -111,6 +118,14 @@ class Order(models.Model):
     class Meta:
         verbose_name = _("order")
         verbose_name_plural = _("orders")
+        constraints = [
+            models.CheckConstraint(
+                name="delivery_address_when_shipping",
+                check=models.Q(
+                    delivery_method=DeliveryMethods.mail, delivery_address__isnull=False
+                ),
+            )
+        ]
 
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)

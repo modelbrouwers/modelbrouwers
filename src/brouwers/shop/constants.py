@@ -39,6 +39,6 @@ class PaymentStatuses(models.TextChoices):
     cancelled = "cancelled", _("Cancelled")
 
 
-class ShippingMethods(models.TextChoices):
+class DeliveryMethods(models.TextChoices):
     pickup = "pickup", _("Pick up")
     mail = "mail", _("By mail")
