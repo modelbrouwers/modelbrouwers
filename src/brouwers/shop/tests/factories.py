@@ -173,4 +173,4 @@ class ShippingCostFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = "shop.ShippingCost"
-        django_get_or_create = (("country", "max_weight"),)
+        django_get_or_create = ("country", "max_weight")
