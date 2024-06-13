@@ -7,7 +7,7 @@ import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
 
-from ..constants import OrderStatuses, PaymentStatuses
+from ..constants import DeliveryMethods, OrderStatuses, PaymentStatuses
 from ..models import Cart, CartProduct, Category, Product, ProductManufacturer
 from ..payments.registry import register
 
@@ -105,12 +105,20 @@ class OrderFactory(factory.django.DjangoModelFactory):
     status = OrderStatuses.received
     first_name = factory.Faker("first_name")
     email = factory.Faker("free_email")
-    delivery_address = factory.SubFactory(AddressFactory)
+    delivery_method = factory.fuzzy.FuzzyChoice(list(DeliveryMethods.values))
+    delivery_address = factory.Maybe(
+        "needs_address",
+        yes_declaration=factory.SubFactory(AddressFactory),
+        no_declaration=None,
+    )
 
     class Meta:
         model = "shop.Order"
 
     class Params:
+        needs_address = factory.LazyAttribute(
+            lambda o: o.delivery_method == DeliveryMethods.mail
+        )
         with_payment = factory.Trait(
             payment=factory.RelatedFactory(
                 "brouwers.shop.tests.factories.PaymentFactory",

@@ -316,6 +316,7 @@ class OrderAdmin(admin.ModelAdmin):
         "email",
         "status",
         "payment_status",
+        "delivery_method",
     )
     list_select_related = ("payment",)
     search_fields = ("first_name", "last_name", "reference", "email")
