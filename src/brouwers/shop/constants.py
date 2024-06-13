@@ -37,3 +37,8 @@ class PaymentStatuses(models.TextChoices):
     pending = "pending", _("Pending")
     completed = "completed", _("Completed")
     cancelled = "cancelled", _("Cancelled")
+
+
+class ShippingMethods(models.TextChoices):
+    pickup = "pickup", _("Pick up")
+    mail = "mail", _("By mail")

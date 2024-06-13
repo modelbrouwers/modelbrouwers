@@ -6,3 +6,4 @@ from .orders import *  # noqa
 from .payments import *  # noqa
 from .presentation import *  # noqa
 from .products import *  # noqa
+from .shipping import *  # noqa
