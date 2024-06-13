@@ -43,6 +43,7 @@ const config: StorybookConfig = {
       },
     },
     "storybook-react-intl",
+    "storybook-addon-remix-react-router",
   ],
   framework: {
     name: "@storybook/react-webpack5",
