@@ -23,6 +23,7 @@ from .models import (
     Product,
     ProductImage,
     ProductManufacturer,
+    ShippingCost,
     ShopConfiguration,
 )
 from .resources import CategoryResource, ProductResource
@@ -227,6 +228,18 @@ class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
         ),
         (_("Email"), {"fields": ("from_email",)}),
     )
+
+
+@admin.register(ShippingCost)
+class ShippingCostAdmin(admin.ModelAdmin):
+    list_display = ("country", "label", "formatted_weight", "price")
+    list_filter = ("country",)
+    search_fields = ("label",)
+    ordering = ("country", "max_weight")
+
+    @admin.display(description=_("maximum weight"), ordering="max_weight")
+    def formatted_weight(self, obj: ShippingCost) -> str:
+        return obj.format_weight()
 
 
 #
