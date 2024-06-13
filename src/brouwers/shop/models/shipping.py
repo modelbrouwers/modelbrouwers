@@ -1,14 +1,24 @@
+from decimal import Decimal
 from typing import Callable
 
 from django.db import models
 from django.utils import formats
 from django.utils.translation import gettext_lazy as _
 
+from brouwers.general.constants import CountryChoices
 from brouwers.general.fields import CountryField
 
 
 class ShippingCostManager(models.Manager):
-    pass
+
+    def get_price(self, country: CountryChoices | str, weight: int) -> None | Decimal:
+        qs = (
+            self.filter(country=country)
+            .exclude(max_weight__lt=weight)
+            .order_by("max_weight")
+            .values_list("price", flat=True)
+        )
+        return qs.first()
 
 
 class ShippingCost(models.Model):

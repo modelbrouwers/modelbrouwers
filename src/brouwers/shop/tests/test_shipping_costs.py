@@ -2,6 +2,9 @@ from decimal import Decimal
 
 from django.test import SimpleTestCase, TestCase, override_settings
 
+from brouwers.general.constants import CountryChoices
+
+from ..models import ShippingCost
 from .factories import ShippingCostFactory
 
 
@@ -31,3 +34,21 @@ class SimpleModelTests(SimpleTestCase):
             shipping_cost_2 = ShippingCostFactory.build(max_weight=1560)
 
             self.assertEqual(shipping_cost_2.format_weight(), "1,56 kg")
+
+
+class ModelTests(TestCase):
+
+    def test_lookup_shipping_costs(self):
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=20, price=Decimal("2.95")
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=400, price=Decimal("9.95")
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.be, max_weight=1000, price=Decimal("11.95")
+        )
+
+        price = ShippingCost.objects.get_price(country=CountryChoices.nl, weight=175)
+
+        self.assertEqual(price, Decimal("9.95"))
