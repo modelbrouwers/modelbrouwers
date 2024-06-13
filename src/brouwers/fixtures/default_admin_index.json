@@ -228,6 +228,10 @@
             ],
             [
                 "shop",
+                "shippingcost"
+            ],
+            [
+                "shop",
                 "shopconfiguration"
             ]
         ]
