@@ -237,7 +237,9 @@ const Checkout = ({
             <Route
               path="/"
               element={
-                <Navigate to={isAuthenticated ? "address" : "account"} />
+                <Navigate
+                  to={isAuthenticated ? "details-and-delivery" : "account"}
+                />
               }
             />
             <Route
@@ -251,7 +253,7 @@ const Checkout = ({
               }
             />
             <Route
-              path="address"
+              path="details-and-delivery"
               element={
                 <Address
                   customer={state.customer}
@@ -282,7 +284,7 @@ const Checkout = ({
               }
             />
             {/* This is a backend URL - if there are validation errors, it renders
-                            the response at this URL. */}
+                the response at this URL. */}
             <Route
               path="confirm"
               element={<Navigate to={firstRouteWithErrors} />}
@@ -320,14 +322,14 @@ const Checkout = ({
           </li>
           <li className="navigation__item">
             <NavLink
-              to="address"
+              to="details-and-delivery"
               className={getActiveNavClassNames}
               enabled
               hasErrors={hasAddressValidationErrors}
             >
               <FormattedMessage
-                description="Tab: address"
-                defaultMessage="Address"
+                description="Tab: details/address"
+                defaultMessage="Details and delivery"
               />
             </NavLink>
           </li>
