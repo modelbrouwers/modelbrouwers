@@ -1,5 +1,6 @@
 import type { StorybookConfig } from "@storybook/react-webpack5";
 import { EnvironmentPlugin } from "webpack";
+import path from "path";
 
 const config: StorybookConfig = {
   core: {
@@ -53,6 +54,7 @@ const config: StorybookConfig = {
     { from: "../static/fonts", to: "fonts" },
     { from: "../static/font-awesome/fonts", to: "fonts" },
     { from: "../static/images", to: "static/images" },
+    { from: "../public", to: "" },
   ],
 
   webpackFinal: (config, options) => {
@@ -63,6 +65,11 @@ const config: StorybookConfig = {
         STATIC_ROOT: "/static",
       }),
     );
+
+    if (!config.resolve) config.resolve = {};
+    if (!config.resolve.modules) config.resolve.modules = [];
+    config.resolve.modules.push(path.resolve(__dirname, "..", "src/js/"));
+
     return config;
   },
 };
