@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-webpack5";
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import { EnvironmentPlugin } from "webpack";
 import path from "path";
 
@@ -69,6 +70,8 @@ const config: StorybookConfig = {
     if (!config.resolve) config.resolve = {};
     if (!config.resolve.modules) config.resolve.modules = [];
     config.resolve.modules.push(path.resolve(__dirname, "..", "src/js/"));
+    if (!config.resolve.plugins) config.resolve.plugins = [];
+    config.resolve.plugins.push(new TsconfigPathsPlugin());
 
     return config;
   },
