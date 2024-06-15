@@ -30,6 +30,7 @@ export default {
     billingAddress: undefined,
     allowSubmit: false,
     onChange: fn(),
+    onSubmit: fn(),
   },
   parameters: {
     reactRouter: reactRouterParameters({
