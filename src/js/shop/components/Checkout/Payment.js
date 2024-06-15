@@ -13,7 +13,23 @@ import { PaymentConsumer } from "../../../data/shop/payment";
 import { ErrorMessage } from "../Info";
 import { FormField, FormGroup, ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
-import { AddressType, CustomerType } from "./Address";
+
+const AddressType = PropTypes.shape({
+  company: PropTypes.string,
+  chamberOfCommerce: PropTypes.string,
+  street: PropTypes.string,
+  number: PropTypes.string,
+  city: PropTypes.string,
+  postalCode: PropTypes.string,
+  country: PropTypes.string,
+});
+
+const CustomerType = PropTypes.shape({
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  phone: PropTypes.string,
+});
 
 const paymentConsumer = new PaymentConsumer();
 

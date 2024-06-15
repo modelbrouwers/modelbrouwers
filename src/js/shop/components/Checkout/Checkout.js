@@ -111,14 +111,9 @@ const reducer = (draft, action) => {
       }
       break;
     }
-    case "FIELD_CHANGED": {
-      const { name, value } = action.payload;
-      set(draft, name, value);
-      break;
-    }
     case "ADDRESS_SUBMITTED": {
       Object.assign(draft, action.payload);
-      break;
+      // fall through to validity check
     }
     case "CHECK_ADDRESS_VALIDITY": {
       draft.addressStepValid = checkAddressFieldsComplete(
@@ -182,14 +177,6 @@ const Checkout = ({
       dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
     }
   }, [location, dispatch]);
-
-  const onInputChange = (event) => {
-    dispatch({
-      type: "FIELD_CHANGED",
-      payload: event.target,
-    });
-    dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
-  };
 
   // re-arrange validation errors to match component structure
   const ERROR_MAP = {
@@ -261,7 +248,6 @@ const Checkout = ({
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}
-                  onChange={onInputChange}
                   onSubmit={(values) => {
                     dispatch({ type: "ADDRESS_SUBMITTED", payload: values });
                     navigate("/payment");

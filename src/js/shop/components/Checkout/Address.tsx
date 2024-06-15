@@ -1,32 +1,30 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
+import { useContext } from "react";
 import { FormattedMessage } from "react-intl";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikErrors } from "formik";
 
 import AddressFields from "./AddressFields";
 import { CheckoutContext } from "./Context";
 import PersonalDetailsFields from "./PersonalDetailsFields";
 import Checkbox from "@/forms/Checkbox";
+import { AddressDetails } from "./types";
 
-const AddressType = PropTypes.shape({
-  company: PropTypes.string,
-  chamberOfCommerce: PropTypes.string,
-  street: PropTypes.string,
-  number: PropTypes.string,
-  city: PropTypes.string,
-  postalCode: PropTypes.string,
-  country: PropTypes.string,
-});
+export type AddressProps = AddressDetails & {
+  allowSubmit: boolean;
+  onSubmit: (values: AddressDetails) => void;
+};
 
-const CustomerType = PropTypes.shape({
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  email: PropTypes.string,
-  phone: PropTypes.string,
-});
+type FormikValues = AddressDetails & {
+  billingSameAsDelivery: boolean;
+};
 
-const getInitialTouched = (errors) => {
-  const touched = {};
+// FIXME: could probably be done in a type safe way, but it is complicated so maybe it's
+// just a bad idea?
+type Touched = {
+  [K in string]: any;
+};
+
+const getInitialTouched = (errors: any) => {
+  const touched: Touched = {};
   if (!errors) return touched;
 
   Object.entries(errors).forEach(([key, errorOrObject]) => {
@@ -44,29 +42,25 @@ const getInitialTouched = (errors) => {
   return touched;
 };
 
-/**
- *
- * Address
- *
- */
-const Address = ({
+const Address: React.FC<AddressProps> = ({
   customer,
   deliveryAddress,
-  billingAddress = null,
-  allowSubmit = false,
+  billingAddress,
+  allowSubmit,
   onSubmit,
 }) => {
-  const { validationErrors } = useContext(CheckoutContext);
-
+  const { validationErrors: _validationErrors } = useContext(CheckoutContext);
+  // FIXME -> in context type
+  const validationErrors = _validationErrors as FormikErrors<FormikValues>;
   return (
-    <Formik
+    <Formik<FormikValues>
       initialValues={{
         customer,
         deliveryAddress,
         billingAddress,
         billingSameAsDelivery: true,
       }}
-      initialErrors={{ validationErrors }}
+      initialErrors={validationErrors}
       initialTouched={getInitialTouched(validationErrors)}
       onSubmit={(values) => {
         if (!allowSubmit) return;
@@ -170,4 +164,3 @@ const Address = ({
 };
 
 export default Address;
-export { AddressType, CustomerType };

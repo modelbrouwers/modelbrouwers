@@ -12,6 +12,7 @@ export default {
   component: Address,
   decorators: [withRouter],
   args: {
+    allowSubmit: false,
     customer: {
       firstName: "Arsene",
       lastName: "Lupin",
@@ -28,8 +29,6 @@ export default {
       country: "N",
     },
     billingAddress: undefined,
-    allowSubmit: false,
-    onChange: fn(),
     onSubmit: fn(),
   },
   parameters: {
