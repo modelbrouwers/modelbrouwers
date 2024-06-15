@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { withFormik } from "@/storybook/decorators";
 
 import AddressFields from "./AddressFields";
@@ -10,8 +9,6 @@ export default {
   decorators: [withFormik],
   args: {
     prefix: "prefix",
-    country: undefined,
-    onChange: fn(),
   },
   argTypes: {
     prefix: { control: { disable: true } },
@@ -39,12 +36,6 @@ type Story = StoryObj<typeof AddressFields>;
 export const Empty: Story = {};
 
 export const FilledOut: Story = {
-  args: {
-    country: {
-      value: "N",
-      label: "The Netherlands",
-    },
-  },
   parameters: {
     formik: {
       initialValues: {
@@ -55,10 +46,7 @@ export const FilledOut: Story = {
           number: "123",
           city: "Hamsterdam",
           postalCode: "1017 AB",
-          country: {
-            value: "N",
-            label: "The Netherlands",
-          },
+          country: "N",
         },
       },
       initialTouched: {
