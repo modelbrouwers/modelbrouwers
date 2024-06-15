@@ -4,7 +4,7 @@ import { withFormik } from "@/storybook/decorators";
 import AddressFields from "./AddressFields";
 
 export default {
-  title: "Shop / Checkout / AddressFields",
+  title: "Shop / Checkout / Address / AddressFields",
   component: AddressFields,
   decorators: [withFormik],
   args: {

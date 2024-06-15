@@ -8,7 +8,7 @@ import {
 import Address from "./Address";
 
 export default {
-  title: "Shop / Checkout / Address",
+  title: "Shop / Checkout / Address / Full page",
   component: Address,
   decorators: [withRouter],
   args: {
@@ -40,6 +40,4 @@ export default {
 
 type Story = StoryObj<typeof Address>;
 
-export const Default: Story = {
-  name: "Address",
-};
+export const Default: Story = { name: "Full page" };
