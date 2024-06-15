@@ -1,12 +1,13 @@
-import { useId } from "react";
+import { ReactNode, useId } from "react";
 import { useField } from "formik";
 import clsx from "clsx";
 
 import ErrorList from "./ErrorList";
+import FormGroup from "./FormGroup";
 
-interface TextFieldProps {
+export interface TextFieldProps {
   name: string;
-  label: string;
+  label: ReactNode;
 }
 
 const TextField: React.FC<TextFieldProps & JSX.IntrinsicElements["input"]> = ({
@@ -19,7 +20,7 @@ const TextField: React.FC<TextFieldProps & JSX.IntrinsicElements["input"]> = ({
   const [field] = useField<string>(name);
   const className = clsx("form-control", _className);
   return (
-    <>
+    <FormGroup>
       {label && (
         <label
           htmlFor={id}
@@ -30,7 +31,7 @@ const TextField: React.FC<TextFieldProps & JSX.IntrinsicElements["input"]> = ({
       )}
       <input type="text" id={id} className={className} {...field} {...props} />
       <ErrorList name={name} />
-    </>
+    </FormGroup>
   );
 };
 

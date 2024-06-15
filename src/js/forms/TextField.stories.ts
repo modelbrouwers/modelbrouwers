@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { withFormik, withFormGroup } from "@/storybook/decorators";
+import { withFormik } from "@/storybook/decorators";
 
 import TextField from "./TextField";
 
 export default {
   title: "Components / Forms / TextField",
   component: TextField,
-  decorators: [withFormGroup, withFormik],
+  decorators: [withFormik],
   args: {
     name: "example",
     label: "Example textfield",

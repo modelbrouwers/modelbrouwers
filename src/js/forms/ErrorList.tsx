@@ -1,6 +1,6 @@
 import { useFormikContext } from "formik";
 
-interface ErrorListProps {
+export interface ErrorListProps {
   name: string;
 }
 

@@ -11,7 +11,6 @@ export default {
   args: {
     prefix: "prefix",
     country: undefined,
-    errors: {},
     onChange: fn(),
   },
   argTypes: {
@@ -41,15 +40,9 @@ export const Empty: Story = {};
 
 export const FilledOut: Story = {
   args: {
-    company: "ACME",
-    chamberOfCommerce: "12345678",
-    street: "Bosmanlaan",
-    number: "123",
-    city: "Hamsterdam",
-    postalCode: "1017 AB",
     country: {
       value: "N",
-      label: "Nederland",
+      label: "The Netherlands",
     },
   },
   parameters: {
@@ -64,7 +57,7 @@ export const FilledOut: Story = {
           postalCode: "1017 AB",
           country: {
             value: "N",
-            label: "Nederland",
+            label: "The Netherlands",
           },
         },
       },
@@ -84,17 +77,6 @@ export const FilledOut: Story = {
 };
 
 export const WithErrors: Story = {
-  args: {
-    errors: {
-      company: ["Something went horribly wrong!"],
-      chamberOfCommerce: ["Something went horribly wrong!"],
-      street: ["Something went horribly wrong!"],
-      number: ["Something went horribly wrong!"],
-      city: ["Something went horribly wrong!"],
-      postalCode: ["Something went horribly wrong!"],
-      country: ["Something went horribly wrong!"],
-    },
-  },
   parameters: {
     formik: {
       initialErrors: {
