@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
-import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 import AddressFields from "./AddressFields";
 import { SUPPORTED_COUNTRIES, EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
 import PersonalDetailsFields from "./PersonalDetailsFields";
+import Checkbox from "@/forms/Checkbox";
 
 const AddressType = PropTypes.shape({
   company: PropTypes.string,
@@ -53,18 +53,11 @@ const getInitialTouched = (errors) => {
 const Address = ({
   customer,
   deliveryAddress,
-  billingAddress,
+  billingAddress = null,
   allowSubmit = false,
-  onChange,
   onSubmit,
 }) => {
-  const [deliveryAddressIsBillingAddress, setDeliveryAddressIsBillingAddress] =
-    useState(true);
-  const navigate = useNavigate();
   const { validationErrors } = useContext(CheckoutContext);
-
-  billingAddress =
-    billingAddress ?? (!deliveryAddressIsBillingAddress ? EMPTY_ADDRESS : null);
 
   return (
     <Formik
@@ -72,6 +65,7 @@ const Address = ({
         customer,
         deliveryAddress,
         billingAddress,
+        billingSameAsDelivery: true,
       }}
       initialErrors={{ validationErrors }}
       initialTouched={getInitialTouched(validationErrors)}
@@ -80,7 +74,7 @@ const Address = ({
         onSubmit(values);
       }}
     >
-      {(values) => (
+      {({ values, handleChange, setFieldValue }) => (
         <Form>
           <div className="row">
             {/* Personal details */}
@@ -107,38 +101,38 @@ const Address = ({
 
               <AddressFields prefix="deliveryAddress" />
 
-              <div className="form-check checkbox-flex">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="deliveryAddressIsBillingAddress"
-                  checked={deliveryAddressIsBillingAddress}
-                  onChange={() => {
-                    setDeliveryAddressIsBillingAddress(
-                      !deliveryAddressIsBillingAddress,
-                    );
-                    onChange({
-                      target: {
-                        name: "billingAddress",
-                        value: null,
-                      },
-                    });
-                  }}
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="deliveryAddressIsBillingAddress"
-                >
+              <Checkbox
+                name="billingSameAsDelivery"
+                label={
                   <FormattedMessage
                     description="Checkout address: billingAddressSame"
                     defaultMessage="My billing and delivery address are the same."
                   />
-                </label>
-              </div>
+                }
+                onChange={async (event) => {
+                  handleChange(event);
+                  // it's a checkbox, so the value toggles
+                  const isSameAddress = !values.billingSameAsDelivery;
+                  if (isSameAddress) {
+                    setFieldValue("billingAddress", null);
+                  } else {
+                    const emptyAddress = {
+                      company: "",
+                      chamberOfCommerce: "",
+                      street: "",
+                      number: "",
+                      city: "",
+                      postalCode: "",
+                      country: values.deliveryAddress.country || "N",
+                    };
+                    setFieldValue("billingAddress", emptyAddress);
+                  }
+                }}
+              />
             </div>
 
             {/*Billing address*/}
-            {!deliveryAddressIsBillingAddress && (
+            {!values.billingSameAsDelivery && (
               <div className="col-md-6 col-xs-12">
                 <h3 className="checkout__title">
                   <FormattedMessage
@@ -146,8 +140,6 @@ const Address = ({
                     defaultMessage="Billing address"
                   />
                 </h3>
-
-                {/* TODO: fix default country being reset */}
                 <AddressFields prefix="billingAddress" />
               </div>
             )}
@@ -156,10 +148,9 @@ const Address = ({
           <div className="spacer" />
           <div>
             <small className="checkout__help-text">
-              *{" "}
               <FormattedMessage
                 description="Checkout address: requiredFields"
-                defaultMessage="Required fields"
+                defaultMessage="* Required fields"
               />
             </small>
             <button
@@ -177,14 +168,6 @@ const Address = ({
       )}
     </Formik>
   );
-};
-
-Address.propTypes = {
-  customer: CustomerType,
-  deliveryAddress: AddressType.isRequired,
-  billingAddress: AddressType,
-  onChange: PropTypes.func.isRequired,
-  allowSubmit: PropTypes.bool,
 };
 
 export default Address;

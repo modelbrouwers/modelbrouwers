@@ -5,7 +5,7 @@ import TextField from "@/forms/TextField";
 import { Customer } from "./types";
 
 export interface PersonalDetailsFieldsProps {
-  customer: Customer | undefined;
+  customer: Customer;
 }
 
 const PersonalDetailsFields: React.FC<PersonalDetailsFieldsProps> = ({
@@ -21,7 +21,7 @@ const PersonalDetailsFields: React.FC<PersonalDetailsFieldsProps> = ({
             defaultMessage="First name"
           />
         }
-        autoFocus={!customer?.firstName}
+        autoFocus={!customer.firstName}
         required
         formGroupProps={{ className: "col-md-6 col-xs-12" }}
       />
