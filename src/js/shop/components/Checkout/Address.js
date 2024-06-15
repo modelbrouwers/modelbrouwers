@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import { Formik, Form } from "formik";
 
 import AddressFields from "./AddressFields";
-import { SUPPORTED_COUNTRIES, EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
 import PersonalDetailsFields from "./PersonalDetailsFields";
 import Checkbox from "@/forms/Checkbox";
