@@ -80,108 +80,101 @@ const Address = ({
         onSubmit(values);
       }}
     >
-      <Form>
-        <div className="row">
-          {/* Personal details */}
-          <div className="col-xs-12 col-md-6">
-            <h3 className="checkout__title">
-              <FormattedMessage
-                description="Checkout address: personal details"
-                defaultMessage="Personal details"
-              />
-            </h3>
-
-            <PersonalDetailsFields
-              prefix="customer"
-              firstName={customer.firstName}
-              lastName={customer.lastName}
-              email={customer.email}
-              phone={customer.phone}
-              errors={validationErrors?.customer}
-              onChange={onChange}
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          {/* Delivery address */}
-          <div className="col-md-6 col-xs-12">
-            <h3 className="checkout__title">
-              <FormattedMessage
-                description="Delivery address: deliveryAddress"
-                defaultMessage="Delivery address"
-              />
-            </h3>
-
-            <AddressFields prefix="deliveryAddress" />
-
-            <div className="form-check checkbox-flex">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="deliveryAddressIsBillingAddress"
-                checked={deliveryAddressIsBillingAddress}
-                onChange={() => {
-                  setDeliveryAddressIsBillingAddress(
-                    !deliveryAddressIsBillingAddress,
-                  );
-                  onChange({
-                    target: {
-                      name: "billingAddress",
-                      value: null,
-                    },
-                  });
-                }}
-              />
-              <label
-                className="form-check-label"
-                htmlFor="deliveryAddressIsBillingAddress"
-              >
+      {(values) => (
+        <Form>
+          <div className="row">
+            {/* Personal details */}
+            <div className="col-xs-12 col-md-6">
+              <h3 className="checkout__title">
                 <FormattedMessage
-                  description="Checkout address: billingAddressSame"
-                  defaultMessage="My billing and delivery address are the same."
+                  description="Checkout address: personal details"
+                  defaultMessage="Personal details"
                 />
-              </label>
+              </h3>
+              <PersonalDetailsFields customer={values.customer} />
             </div>
           </div>
 
-          {/*Billing address*/}
-          {!deliveryAddressIsBillingAddress && (
+          <div className="row">
+            {/* Delivery address */}
             <div className="col-md-6 col-xs-12">
               <h3 className="checkout__title">
                 <FormattedMessage
-                  description="Billing address: billingAddress"
-                  defaultMessage="Billing address"
+                  description="Delivery address: deliveryAddress"
+                  defaultMessage="Delivery address"
                 />
               </h3>
 
-              {/* TODO: fix default country being reset */}
-              <AddressFields prefix="billingAddress" />
-            </div>
-          )}
-        </div>
+              <AddressFields prefix="deliveryAddress" />
 
-        <div className="spacer" />
-        <div>
-          <small className="checkout__help-text">
-            *{" "}
-            <FormattedMessage
-              description="Checkout address: requiredFields"
-              defaultMessage="Required fields"
-            />
-          </small>
-          <button
-            type="submit"
-            className="button button--blue pull-right"
-            disabled={!allowSubmit}
-          >
-            <FormattedMessage
-              description="Checkout address: continue"
-              defaultMessage="Continue"
-            />
-          </button>
-        </div>
-      </Form>
+              <div className="form-check checkbox-flex">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="deliveryAddressIsBillingAddress"
+                  checked={deliveryAddressIsBillingAddress}
+                  onChange={() => {
+                    setDeliveryAddressIsBillingAddress(
+                      !deliveryAddressIsBillingAddress,
+                    );
+                    onChange({
+                      target: {
+                        name: "billingAddress",
+                        value: null,
+                      },
+                    });
+                  }}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="deliveryAddressIsBillingAddress"
+                >
+                  <FormattedMessage
+                    description="Checkout address: billingAddressSame"
+                    defaultMessage="My billing and delivery address are the same."
+                  />
+                </label>
+              </div>
+            </div>
+
+            {/*Billing address*/}
+            {!deliveryAddressIsBillingAddress && (
+              <div className="col-md-6 col-xs-12">
+                <h3 className="checkout__title">
+                  <FormattedMessage
+                    description="Billing address: billingAddress"
+                    defaultMessage="Billing address"
+                  />
+                </h3>
+
+                {/* TODO: fix default country being reset */}
+                <AddressFields prefix="billingAddress" />
+              </div>
+            )}
+          </div>
+
+          <div className="spacer" />
+          <div>
+            <small className="checkout__help-text">
+              *{" "}
+              <FormattedMessage
+                description="Checkout address: requiredFields"
+                defaultMessage="Required fields"
+              />
+            </small>
+            <button
+              type="submit"
+              className="button button--blue pull-right"
+              disabled={!allowSubmit}
+            >
+              <FormattedMessage
+                description="Checkout address: continue"
+                defaultMessage="Continue"
+              />
+            </button>
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 };
