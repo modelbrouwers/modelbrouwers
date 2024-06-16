@@ -235,10 +235,11 @@ const Checkout = ({
             <Route
               path="account"
               element={
-                <Account
-                  isAuthenticated={isAuthenticated}
-                  currentLocation={checkoutRoot}
-                />
+                isAuthenticated ? (
+                  <Navigate to="/address" />
+                ) : (
+                  <Account nextAfterLogin={checkoutRoot} />
+                )
               }
             />
             <Route

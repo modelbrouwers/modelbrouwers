@@ -11,12 +11,11 @@ export default {
   component: Account,
   decorators: [withRouter],
   args: {
-    isAuthenticated: false,
-    currentLocation: "/winkel/checkout/account",
+    nextAfterLogin: "/winkel/checkout/",
   },
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: "/winkel/checkout/account" },
+      routing: { path: "/winkel/checkout/" },
     }),
   },
 } satisfies Meta<typeof Account>;
