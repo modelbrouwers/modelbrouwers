@@ -12,7 +12,7 @@ import {
   useHref,
   useNavigate,
 } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import classNames from "classnames";
 import { useImmerReducer } from "use-immer";
 
@@ -20,7 +20,8 @@ import FAIcon from "../../../components/FAIcon";
 import { Account, Address, Payment, Confirmation } from ".";
 import { EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
-import { camelize, checkAddressFieldsComplete } from "./utils";
+import { camelize } from "./utils";
+import { validateAddressDetails } from "./validation";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
   classNames("navigation__link", {
@@ -113,13 +114,19 @@ const reducer = (draft, action) => {
     }
     case "ADDRESS_SUBMITTED": {
       Object.assign(draft, action.payload);
-      // fall through to validity check
+      break;
     }
     case "CHECK_ADDRESS_VALIDITY": {
-      draft.addressStepValid = checkAddressFieldsComplete(
-        draft.customer,
-        draft.deliveryAddress,
+      const { intl } = action.payload;
+      const errors = validateAddressDetails(
+        {
+          customer: draft.customer,
+          deliveryAddress: draft.deliveryAddress,
+          billingAddress: draft.billingAddress,
+        },
+        intl,
       );
+      draft.addressStepValid = Object.keys(errors).length === 0;
       break;
     }
     default: {
@@ -155,6 +162,7 @@ const Checkout = ({
   orderDetails = null,
   validationErrors,
 }) => {
+  const intl = useIntl();
   const location = useLocation();
   const checkoutRoot = useHref("/");
   const navigate = useNavigate();
@@ -174,7 +182,7 @@ const Checkout = ({
 
   useEffect(() => {
     if (location.pathname !== "/") {
-      dispatch({ type: "CHECK_ADDRESS_VALIDITY" });
+      dispatch({ type: "CHECK_ADDRESS_VALIDITY", payload: { intl } });
     }
   }, [location, dispatch]);
 

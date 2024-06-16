@@ -85,3 +85,43 @@ export const BillingAddressSameAsDelivery: Story = {
     });
   },
 };
+
+export const DifferentBillingAddress: Story = {
+  args: {
+    customer: {
+      firstName: "Arsene",
+      lastName: "Lupin",
+      email: "arsene@lupin.fr",
+      phone: "",
+    },
+    deliveryAddress: {
+      company: "",
+      chamberOfCommerce: "",
+      street: "Avenue des Champs-Élysées",
+      number: "42",
+      city: "Paris",
+      postalCode: "75008",
+      country: "N",
+    },
+    billingAddress: {
+      company: "",
+      chamberOfCommerce: "",
+      street: "",
+      number: "",
+      city: "",
+      postalCode: "",
+      country: "N",
+    },
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    expect(
+      canvas.getByLabelText("My billing and delivery address are the same."),
+    ).not.toBeChecked();
+    await waitFor(() => {
+      expect(canvas.getByRole("button", { name: "Continue" })).toBeDisabled();
+    });
+  },
+};

@@ -66,7 +66,14 @@ const Address: React.FC<AddressProps> = ({
       validate={(values) => validateAddressDetails(values, intl)}
       validateOnMount
     >
-      {({ values, handleChange, setFieldValue, isValid, isValidating }) => (
+      {({
+        values,
+        handleChange,
+        setFieldValue,
+        isValid,
+        isValidating,
+        setFieldTouched,
+      }) => (
         <Form>
           <div className="row">
             {/* Personal details */}
@@ -107,6 +114,7 @@ const Address: React.FC<AddressProps> = ({
                   const isSameAddress = !values.billingSameAsDelivery;
                   if (isSameAddress) {
                     setFieldValue("billingAddress", null);
+                    setFieldTouched("billingAddress", undefined);
                   } else {
                     const emptyAddress = {
                       company: "",
