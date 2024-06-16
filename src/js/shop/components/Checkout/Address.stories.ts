@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { fn, expect, within, waitFor } from "@storybook/test";
 import {
   reactRouterParameters,
   withRouter,
@@ -12,7 +12,48 @@ export default {
   component: Address,
   decorators: [withRouter],
   args: {
-    allowSubmit: false,
+    onSubmit: fn(),
+  },
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: { path: "/winkel/checkout/address" },
+    }),
+  },
+} satisfies Meta<typeof Address>;
+
+type Story = StoryObj<typeof Address>;
+
+export const Empty: Story = {
+  args: {
+    customer: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+    },
+    deliveryAddress: {
+      company: "",
+      chamberOfCommerce: "",
+      street: "",
+      number: "",
+      city: "",
+      postalCode: "",
+      country: "N",
+    },
+    billingAddress: null,
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await waitFor(() => {
+      expect(canvas.getByRole("button", { name: "Continue" })).toBeDisabled();
+    });
+  },
+};
+
+export const BillingAddressSameAsDelivery: Story = {
+  args: {
     customer: {
       firstName: "Arsene",
       lastName: "Lupin",
@@ -28,16 +69,19 @@ export default {
       postalCode: "75008",
       country: "N",
     },
-    billingAddress: undefined,
-    onSubmit: fn(),
+    billingAddress: null,
   },
-  parameters: {
-    reactRouter: reactRouterParameters({
-      routing: { path: "/winkel/checkout/address" },
-    }),
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    expect(
+      canvas.getByLabelText("My billing and delivery address are the same."),
+    ).toBeChecked();
+    await waitFor(() => {
+      expect(
+        canvas.getByRole("button", { name: "Continue" }),
+      ).not.toBeDisabled();
+    });
   },
-} satisfies Meta<typeof Address>;
-
-type Story = StoryObj<typeof Address>;
-
-export const Default: Story = { name: "Full page" };
+};

@@ -1,15 +1,15 @@
 import { useContext } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Formik, Form, FormikErrors } from "formik";
 
 import AddressFields from "./AddressFields";
 import { CheckoutContext } from "./Context";
 import PersonalDetailsFields from "./PersonalDetailsFields";
 import Checkbox from "@/forms/Checkbox";
+import { validateAddressDetails } from "./validation";
 import { AddressDetails } from "./types";
 
 export type AddressProps = AddressDetails & {
-  allowSubmit: boolean;
   onSubmit: (values: AddressDetails) => void;
 };
 
@@ -46,9 +46,9 @@ const Address: React.FC<AddressProps> = ({
   customer,
   deliveryAddress,
   billingAddress,
-  allowSubmit,
   onSubmit,
 }) => {
+  const intl = useIntl();
   const { validationErrors: _validationErrors } = useContext(CheckoutContext);
   // FIXME -> in context type
   const validationErrors = _validationErrors as FormikErrors<FormikValues>;
@@ -58,16 +58,15 @@ const Address: React.FC<AddressProps> = ({
         customer,
         deliveryAddress,
         billingAddress,
-        billingSameAsDelivery: true,
+        billingSameAsDelivery: billingAddress == null,
       }}
       initialErrors={validationErrors}
       initialTouched={getInitialTouched(validationErrors)}
-      onSubmit={(values) => {
-        if (!allowSubmit) return;
-        onSubmit(values);
-      }}
+      onSubmit={onSubmit}
+      validate={(values) => validateAddressDetails(values, intl)}
+      validateOnMount
     >
-      {({ values, handleChange, setFieldValue }) => (
+      {({ values, handleChange, setFieldValue, isValid, isValidating }) => (
         <Form>
           <div className="row">
             {/* Personal details */}
@@ -149,7 +148,7 @@ const Address: React.FC<AddressProps> = ({
             <button
               type="submit"
               className="button button--blue pull-right"
-              disabled={!allowSubmit}
+              disabled={isValidating || !isValid}
             >
               <FormattedMessage
                 description="Checkout address: continue"
