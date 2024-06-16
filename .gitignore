@@ -66,3 +66,5 @@ src/static/js/
 # docker pre-populate
 /docker/mysql/*.sql.gz
 /docker/postgres/modelbrouwers.sql.gz
+
+*storybook.log

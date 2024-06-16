@@ -1,8 +1,14 @@
 // Extra styling for BS checkbox
 .checkbox-flex {
   display: flex;
+  gap: 4px;
 
   input {
-    margin-right: 4px;
+    margin: 0;
+  }
+
+  .form-check-label {
+    margin: 0;
+    cursor: pointer;
   }
 }

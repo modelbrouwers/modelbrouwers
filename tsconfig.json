@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src/js/",
+    "outDir": "./static/dist/",
+    "module": "esnext",
+    "target": "es2017",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "noErrorTruncation": true,
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "sourceMap": true
+  },
+  "include": ["src/js"],
+  "exclude": ["node_modules"]
+}
