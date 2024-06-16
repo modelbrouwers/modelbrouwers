@@ -60,6 +60,7 @@ const Address: React.FC<AddressProps> = ({
         billingAddress,
         billingSameAsDelivery: billingAddress == null,
       }}
+      enableReinitialize
       initialErrors={validationErrors}
       initialTouched={getInitialTouched(validationErrors)}
       onSubmit={onSubmit}
