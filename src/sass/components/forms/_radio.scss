@@ -28,7 +28,7 @@
   // button appearance
   border: solid 1px #ccc;
   border-radius: 4px;
-  padding-block: 6px;
+  padding-block: 2px;
   padding-inline: 6px;
 
   // visual effects
@@ -40,6 +40,8 @@
   }
 
   &:hover {
+    background-color: colors.$light-grey;
+
     .radio-option__label {
       text-indent: 1em;
     }

@@ -52,12 +52,11 @@ const Radio: React.FC<RadioProps & JSX.IntrinsicElements["input"]> = ({
   options,
 }) => {
   const labelId = useId();
-
   return (
     <>
-      <label id={labelId} className="radio-group__label">
+      <div id={labelId} className="radio-group__label">
         {label}
-      </label>
+      </div>
       <div className="radio-group" role="group" aria-labelledby={labelId}>
         {options.map((option) => (
           <RadioOption name={name} {...option} />
