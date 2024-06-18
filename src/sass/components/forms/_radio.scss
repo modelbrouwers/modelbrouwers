@@ -1,0 +1,68 @@
+@use "../../modules/bem";
+@use "../../partials/colors";
+
+.radio-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+  grid-row-gap: 0.2em;
+
+  @include bem.element("label") {
+    // nothing yet
+  }
+}
+
+.radio-option {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
+
+  font-size: 1.3em;
+  inline-size: 100%;
+  margin-block: 0;
+  margin-inline: 0;
+
+  // button appearance
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  padding-block: 6px;
+  padding-inline: 6px;
+
+  // visual effects
+  transition: all 0.3s ease;
+
+  &:has(input[type="radio"]:checked) {
+    background-color: colors.$main-blue;
+    color: colors.$white;
+  }
+
+  &:hover {
+    .radio-option__label {
+      text-indent: 1em;
+    }
+  }
+
+  @include bem.element("input") {
+    margin-inline: 0;
+    margin-block: 0;
+  }
+
+  @include bem.element("label") {
+    margin-inline: 0;
+    margin-block: 0;
+    transition: text-indent 0.3s ease;
+  }
+
+  @include bem.element("graphic") {
+    flex-basis: 25%;
+    max-inline-size: 64px;
+    margin-inline-end: 0.5em;
+
+    img {
+      inline-size: 100%;
+    }
+  }
+}
