@@ -5,7 +5,7 @@ import { Formik, Form, FormikErrors } from "formik";
 import AddressFields from "./AddressFields";
 import { CheckoutContext } from "./Context";
 import PersonalDetailsFields from "./PersonalDetailsFields";
-import Checkbox from "@/forms/Checkbox";
+import Checkbox from "@/components/forms/Checkbox";
 import { validateAddressDetails } from "./validation";
 import { AddressDetails } from "./types";
 

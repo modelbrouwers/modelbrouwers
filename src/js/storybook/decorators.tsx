@@ -1,4 +1,3 @@
-import { FormGroup } from "@/shop/components/Checkout/FormFields.js";
 import type { Decorator } from "@storybook/react";
 import { Formik } from "formik";
 
@@ -30,13 +29,5 @@ export const withFormik: Decorator = (Story, context) => {
         <Story />
       )}
     </Formik>
-  );
-};
-
-export const withFormGroup: Decorator = (Story) => {
-  return (
-    <FormGroup>
-      <Story />
-    </FormGroup>
   );
 };
