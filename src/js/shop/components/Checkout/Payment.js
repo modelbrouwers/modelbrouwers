@@ -6,7 +6,7 @@ import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import useAsync from "react-use/esm/useAsync";
 
-import Loader from "components/loaders";
+import Loader from "components/Loader";
 import ErrorBoundary from "components/ErrorBoundary";
 
 import { PaymentConsumer } from "../../../data/shop/payment";
