@@ -65,7 +65,12 @@ export default {
           return HttpResponse.json([
             { id: 1, name: "Payment method 1", logo: "", order: 2 },
             { id: 2, name: "Payment method 2", logo: "", order: 3 },
-            { id: 3, name: "iDeal", logo: "", order: 1 },
+            {
+              id: 3,
+              name: "iDeal",
+              logo: "/assets/ideal-logo-1024.png",
+              order: 1,
+            },
           ]);
         }),
         http.get(`${API_ROOT}api/v1/shop/ideal_banks/`, () => {

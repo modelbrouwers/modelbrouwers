@@ -5,14 +5,17 @@ import orderBy from "lodash/orderBy";
 import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import useAsync from "react-use/esm/useAsync";
+import { Formik, Form } from "formik";
 
 import Loader from "components/Loader";
 import ErrorBoundary from "components/ErrorBoundary";
+import Radio from "@/components/forms/Radio";
 
 import { PaymentConsumer } from "../../../data/shop/payment";
 import { ErrorMessage } from "../Info";
 import { FormField, FormGroup, ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
+import PaymentMethod, { useFetchPaymentMethods } from "./PaymentMethod";
 
 const AddressType = PropTypes.shape({
   company: PropTypes.string,
@@ -32,64 +35,6 @@ const CustomerType = PropTypes.shape({
 });
 
 const paymentConsumer = new PaymentConsumer();
-
-const useFetchPaymentMethods = () => {
-  const {
-    loading,
-    error,
-    value = [],
-  } = useAsync(async () => {
-    const methodList = await paymentConsumer.listMethods();
-    return methodList;
-  }, []);
-  const paymentMethods = orderBy(value, ["order"], ["asc"]);
-  return {
-    loading,
-    error,
-    paymentMethods,
-  };
-};
-
-const PaymentMethod = ({
-  id,
-  name,
-  order,
-  logo = null,
-  isSelected = false,
-  onChange,
-}) => {
-  const className = classNames("payment-method", {
-    "payment-method--has-logo": !!logo,
-    "payment-method--active": isSelected,
-  });
-
-  return (
-    <label className={className}>
-      <input
-        type="radio"
-        className="payment-methods__input"
-        id={`paymentmethod-${id}`}
-        name="paymentMethod"
-        value={id}
-        onChange={onChange}
-        checked={isSelected}
-      />
-      <div className="payment-method__logo">
-        {logo && <img src={logo} alt={name} />}
-      </div>
-      <span className="payment-method__name">{name}</span>
-    </label>
-  );
-};
-
-PaymentMethod.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  order: PropTypes.number.isRequired,
-  logo: PropTypes.string,
-  isSelected: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-};
 
 const useGetPaymentSpecificOptions = (paymentMethod) => {
   const {
@@ -201,7 +146,7 @@ const Payment = ({
   errors,
   checkoutDetails,
 }) => {
-  const { loading, error, paymentMethods } = useFetchPaymentMethods();
+  const { loading, error, paymentMethods = [] } = useFetchPaymentMethods();
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [paymentMethodSpecificState, setPaymentMethodSpecificState] = useState(
     {}
@@ -211,6 +156,7 @@ const Payment = ({
   );
   const paymentMethodOptions = useGetPaymentSpecificOptions(paymentMethod);
 
+  if (loading) return <Loader />;
   if (error) return <ErrorMessage />;
 
   const checkoutData = {
@@ -229,27 +175,33 @@ const Payment = ({
 
   return (
     <>
-      <h3 className="checkout__title">
-        <FormattedMessage
-          description="Checkout: select payment method"
-          defaultMessage="Select your payment method"
-        />
-      </h3>
-
-      {loading && <Loader />}
-
-      <div className="payment-methods">
-        {paymentMethods.map((method) => (
+      <Formik
+        initialValues={{
+          paymentMethod: "",
+          paymentMethodOptions: {},
+        }}
+        enableReinitialize
+        // TODO
+        initialErrors={undefined}
+        initialTouched={undefined}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        <Form>
           <PaymentMethod
-            key={method.id}
-            {...method}
-            isSelected={paymentMethod && method.id === paymentMethod.id}
-            onChange={(event) =>
-              setSelectedMethod(parseInt(event.target.value, 10))
+            label={
+              <h3 className="checkout__title">
+                <FormattedMessage
+                  description="Checkout: select payment method"
+                  defaultMessage="Select your payment method"
+                />
+              </h3>
             }
+            paymentMethods={paymentMethods}
           />
-        ))}
-      </div>
+        </Form>
+      </Formik>
 
       <ErrorBoundary>
         <PaymentMethodSpecificOptions
@@ -270,7 +222,7 @@ const Payment = ({
       <BodyCart store={cartStore} />
       <ErrorList errors={errors?.cart} />
 
-      {/* server side submit */}
+      {/* server side submit - todo: pass ref and programmatically submit it */}
       <form action={confirmPath} method="post">
         <input
           type="hidden"
