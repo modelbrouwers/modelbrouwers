@@ -1,6 +1,6 @@
 import { FormattedMessage } from "react-intl";
 
-import TextField from "@/forms/TextField";
+import TextField from "@/components/forms/TextField";
 
 import { Customer } from "./types";
 
