@@ -38,7 +38,7 @@ function Select<T extends BaseOption>({
         </label>
       )}
       <ReactSelect<T, false>
-        id={id}
+        inputId={id}
         options={options}
         className=""
         value={selectedOption}
