@@ -10,6 +10,10 @@
   @include bem.element("label") {
     // nothing yet
   }
+
+  &:not(:last-child) {
+    margin-block-end: 15px;
+  }
 }
 
 .radio-option {

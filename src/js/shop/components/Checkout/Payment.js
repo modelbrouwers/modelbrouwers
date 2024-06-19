@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import orderBy from "lodash/orderBy";
+import orderBy from "lodash.orderby";
 import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import useAsync from "react-use/esm/useAsync";
@@ -11,11 +11,10 @@ import Loader from "components/Loader";
 import ErrorBoundary from "components/ErrorBoundary";
 import Radio from "@/components/forms/Radio";
 
-import { PaymentConsumer } from "../../../data/shop/payment";
 import { ErrorMessage } from "../Info";
 import { FormField, FormGroup, ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
-import PaymentMethod, { useFetchPaymentMethods } from "./PaymentMethod";
+import SelectPaymentMethod from "./SelectPaymentMethod";
 
 const AddressType = PropTypes.shape({
   company: PropTypes.string,
@@ -33,93 +32,6 @@ const CustomerType = PropTypes.shape({
   email: PropTypes.string,
   phone: PropTypes.string,
 });
-
-const paymentConsumer = new PaymentConsumer();
-
-const useGetPaymentSpecificOptions = (paymentMethod) => {
-  const {
-    loading,
-    error,
-    value = {},
-  } = useAsync(async () => {
-    if (!paymentMethod) return;
-
-    switch (paymentMethod.name.toLowerCase()) {
-      case "ideal": {
-        const idealBanks = await paymentConsumer.listIdealBanks();
-        return { banks: idealBanks.responseData };
-      }
-    }
-  }, [paymentMethod]);
-
-  // TODO: properly set up user feedback with error boundaries
-  if (error) {
-    throw error;
-  }
-
-  return value;
-};
-
-const PaymentMethodSpecificOptions = ({
-  paymentMethod,
-  paymentMethodSpecificState,
-  setPaymentMethodSpecificState,
-  ...props
-}) => {
-  if (!paymentMethod) return null;
-
-  switch (paymentMethod.name.toLowerCase()) {
-    case "ideal": {
-      const { banks } = props;
-      if (!banks) return <Loader />;
-
-      const onBankChange = (bank) => {
-        setPaymentMethodSpecificState({
-          ...paymentMethodSpecificState,
-          bank,
-        });
-      };
-
-      return (
-        <>
-          <div className="spacer" />
-          <FormGroup>
-            <FormField
-              name="bank"
-              label={
-                <FormattedMessage
-                  description="iDeal bank dropdown"
-                  defaultMessage="Select your bank"
-                />
-              }
-              required
-              component={Select}
-              value={paymentMethodSpecificState.bank}
-              options={banks.map((bank) => ({
-                value: bank.id,
-                label: bank.name,
-              }))}
-              onChange={onBankChange}
-              className=""
-              autoFocus={!paymentMethodSpecificState.bank}
-            />
-          </FormGroup>
-        </>
-      );
-    }
-  }
-
-  return null;
-};
-
-PaymentMethodSpecificOptions.propTypes = {
-  paymentMethod: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    order: PropTypes.number.isRequired,
-    logo: PropTypes.string,
-  }),
-};
 
 const addressToSerializerShape = (address) => {
   if (!address) return null;
@@ -146,23 +58,10 @@ const Payment = ({
   errors,
   checkoutDetails,
 }) => {
-  const { loading, error, paymentMethods = [] } = useFetchPaymentMethods();
-  const [selectedMethod, setSelectedMethod] = useState(null);
-  const [paymentMethodSpecificState, setPaymentMethodSpecificState] = useState(
-    {}
-  );
-  const paymentMethod = paymentMethods.find(
-    (method) => method.id === selectedMethod
-  );
-  const paymentMethodOptions = useGetPaymentSpecificOptions(paymentMethod);
-
-  if (loading) return <Loader />;
-  if (error) return <ErrorMessage />;
-
   const checkoutData = {
     cart: cartStore.id,
-    payment_method: selectedMethod,
-    payment_method_options: paymentMethodSpecificState,
+    payment_method: "TODO",
+    payment_method_options: "TODO",
     first_name: checkoutDetails.customer.firstName,
     last_name: checkoutDetails.customer.lastName,
     email: checkoutDetails.customer.email,
@@ -182,14 +81,14 @@ const Payment = ({
         }}
         enableReinitialize
         // TODO
-        initialErrors={undefined}
-        initialTouched={undefined}
         onSubmit={(values) => {
           console.log(values);
         }}
+        initialErrors={undefined}
+        initialTouched={undefined}
       >
         <Form>
-          <PaymentMethod
+          <SelectPaymentMethod
             label={
               <h3 className="checkout__title">
                 <FormattedMessage
@@ -198,19 +97,9 @@ const Payment = ({
                 />
               </h3>
             }
-            paymentMethods={paymentMethods}
           />
         </Form>
       </Formik>
-
-      <ErrorBoundary>
-        <PaymentMethodSpecificOptions
-          paymentMethod={paymentMethod}
-          paymentMethodSpecificState={paymentMethodSpecificState}
-          setPaymentMethodSpecificState={setPaymentMethodSpecificState}
-          {...paymentMethodOptions}
-        />
-      </ErrorBoundary>
 
       <h3 className="checkout__title">
         <FormattedMessage
