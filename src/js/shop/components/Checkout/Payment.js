@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import orderBy from "lodash.orderby";
@@ -58,20 +58,30 @@ const Payment = ({
   errors,
   checkoutDetails,
 }) => {
-  const checkoutData = {
-    cart: cartStore.id,
-    payment_method: "TODO",
-    payment_method_options: "TODO",
-    first_name: checkoutDetails.customer.firstName,
-    last_name: checkoutDetails.customer.lastName,
-    email: checkoutDetails.customer.email,
-    phone: checkoutDetails.customer.phone,
-    delivery_address: addressToSerializerShape(checkoutDetails.deliveryAddress),
-    invoice_address: addressToSerializerShape(checkoutDetails.billingAddress),
+  const submitFormRef = useRef();
+
+  const onFormikSubmit = ({ paymentMethod, paymentMethodOptions }) => {
+    const checkoutData = {
+      cart: cartStore.id,
+      payment_method: parseInt(paymentMethod, 10),
+      payment_method_options: paymentMethodOptions,
+      first_name: checkoutDetails.customer.firstName,
+      last_name: checkoutDetails.customer.lastName,
+      email: checkoutDetails.customer.email,
+      phone: checkoutDetails.customer.phone,
+      delivery_address: addressToSerializerShape(
+        checkoutDetails.deliveryAddress,
+      ),
+      invoice_address: addressToSerializerShape(checkoutDetails.billingAddress),
+    };
+
+    const form = submitFormRef.current;
+    const checkoutDataInput = form.querySelector('input[name="checkoutData"]');
+    checkoutDataInput.value = JSON.stringify(checkoutData);
+    form.submit();
   };
 
   const hasProducts = Boolean(cartStore.products.length);
-
   return (
     <>
       <Formik
@@ -80,12 +90,11 @@ const Payment = ({
           paymentMethodOptions: {},
         }}
         enableReinitialize
+        onSubmit={onFormikSubmit}
         // TODO
-        onSubmit={(values) => {
-          console.log(values);
-        }}
         initialErrors={undefined}
         initialTouched={undefined}
+        validate={undefined}
       >
         <Form>
           <SelectPaymentMethod
@@ -98,43 +107,40 @@ const Payment = ({
               </h3>
             }
           />
+
+          <h3 className="checkout__title">
+            <FormattedMessage
+              description="Checkout: Cart overview"
+              defaultMessage="Cart overview"
+            />
+          </h3>
+
+          <BodyCart store={cartStore} />
+          <ErrorList errors={errors?.cart} />
+
+          <div className="submit-wrapper">
+            <button
+              type="submit"
+              className="btn bg-main-orange"
+              disabled={!hasProducts}
+            >
+              <FormattedMessage
+                description="Checkout: confirm order"
+                defaultMessage="Place order"
+              />
+            </button>
+          </div>
         </Form>
       </Formik>
 
-      <h3 className="checkout__title">
-        <FormattedMessage
-          description="Checkout: Cart overview"
-          defaultMessage="Cart overview"
-        />
-      </h3>
-
-      <BodyCart store={cartStore} />
-      <ErrorList errors={errors?.cart} />
-
-      {/* server side submit - todo: pass ref and programmatically submit it */}
-      <form action={confirmPath} method="post">
+      {/* server side submit */}
+      <form ref={submitFormRef} action={confirmPath} method="post">
         <input
           type="hidden"
           name="csrfmiddlewaretoken"
           defaultValue={csrftoken}
         />
-        <input
-          type="hidden"
-          name="checkoutData"
-          value={JSON.stringify(checkoutData)}
-        />
-        <div className="submit-wrapper">
-          <button
-            type="submit"
-            className="btn bg-main-orange"
-            disabled={!hasProducts}
-          >
-            <FormattedMessage
-              description="Checkout: confirm order"
-              defaultMessage="Place order"
-            />
-          </button>
-        </div>
+        <input type="hidden" name="checkoutData" value="" />
       </form>
     </>
   );

@@ -59,7 +59,7 @@ const Radio: React.FC<RadioProps & JSX.IntrinsicElements["input"]> = ({
       </div>
       <div className="radio-group" role="group" aria-labelledby={labelId}>
         {options.map((option) => (
-          <RadioOption name={name} {...option} />
+          <RadioOption key={option.value} name={name} {...option} />
         ))}
         <ErrorList name={name} />
       </div>
