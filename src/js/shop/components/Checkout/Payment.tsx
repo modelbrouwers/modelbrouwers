@@ -1,39 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import orderBy from "lodash.orderby";
+import { useRef } from "react";
 import { FormattedMessage } from "react-intl";
-import Select from "react-select";
-import useAsync from "react-use/esm/useAsync";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikConfig } from "formik";
 
-import Loader from "components/Loader";
-import ErrorBoundary from "components/ErrorBoundary";
-import Radio from "@/components/forms/Radio";
-
-import { ErrorMessage } from "../Info";
-import { FormField, FormGroup, ErrorList } from "./FormFields";
+import { ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
 import SelectPaymentMethod from "./SelectPaymentMethod";
+import type { CartStore } from "@/shop/types";
+import type { Address, AddressDetails } from "./types";
 
-const AddressType = PropTypes.shape({
-  company: PropTypes.string,
-  chamberOfCommerce: PropTypes.string,
-  street: PropTypes.string,
-  number: PropTypes.string,
-  city: PropTypes.string,
-  postalCode: PropTypes.string,
-  country: PropTypes.string,
-});
-
-const CustomerType = PropTypes.shape({
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  email: PropTypes.string,
-  phone: PropTypes.string,
-});
-
-const addressToSerializerShape = (address) => {
+const addressToSerializerShape = (address: Address | null) => {
   if (!address) return null;
   return {
     street: address.street,
@@ -46,21 +21,39 @@ const addressToSerializerShape = (address) => {
   };
 };
 
-/**
- *
- * Payment method selection & flow
- *
- */
-const Payment = ({
+interface IDealOptions {
+  bank: number;
+}
+
+interface FormikValues {
+  paymentMethod: string;
+  paymentMethodOptions: {} | IDealOptions;
+}
+
+export interface PaymentProps {
+  csrftoken: string;
+  confirmPath: string;
+  cartStore: CartStore;
+  // TODO
+  errors?: {
+    cart?: any;
+  };
+  checkoutDetails: AddressDetails;
+}
+
+const Payment: React.FC<PaymentProps> = ({
   cartStore,
   csrftoken,
   confirmPath,
   errors,
   checkoutDetails,
 }) => {
-  const submitFormRef = useRef();
+  const submitFormRef = useRef<HTMLFormElement>(null);
 
-  const onFormikSubmit = ({ paymentMethod, paymentMethodOptions }) => {
+  const onFormikSubmit: FormikConfig<FormikValues>["onSubmit"] = ({
+    paymentMethod,
+    paymentMethodOptions,
+  }) => {
     const checkoutData = {
       cart: cartStore.id,
       payment_method: parseInt(paymentMethod, 10),
@@ -76,15 +69,18 @@ const Payment = ({
     };
 
     const form = submitFormRef.current;
-    const checkoutDataInput = form.querySelector('input[name="checkoutData"]');
-    checkoutDataInput.value = JSON.stringify(checkoutData);
+    if (form === null) throw new Error("form ref should not be null");
+    const checkoutDataInput = form.querySelector<HTMLInputElement>(
+      'input[name="checkoutData"]',
+    );
+    checkoutDataInput!.value = JSON.stringify(checkoutData);
     form.submit();
   };
 
   const hasProducts = Boolean(cartStore.products.length);
   return (
     <>
-      <Formik
+      <Formik<FormikValues>
         initialValues={{
           paymentMethod: "",
           paymentMethodOptions: {},
@@ -144,18 +140,6 @@ const Payment = ({
       </form>
     </>
   );
-};
-
-Payment.propTypes = {
-  cartStore: PropTypes.object.isRequired,
-  csrftoken: PropTypes.string.isRequired,
-  confirmPath: PropTypes.string.isRequired,
-  errors: PropTypes.object,
-  checkoutDetails: PropTypes.shape({
-    customer: CustomerType.isRequired,
-    deliveryAddress: AddressType.isRequired,
-    billingAddress: AddressType,
-  }).isRequired,
 };
 
 export default Payment;
