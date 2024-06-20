@@ -14,7 +14,7 @@ const Account: React.FC<AccountProps> = ({ nextAfterLogin }) => {
       <div className="layout layout--columns">
         <div className="layout__column layout__column--center">
           <Link
-            to="/address"
+            to="/details-and-delivery"
             className="button button--vertical-center button--large button--icon button--blue"
           >
             <i className="fa fa-user-secret fa-2x" />
