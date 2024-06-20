@@ -22,7 +22,7 @@ export default {
             name: "Polish set",
             image: "https://loremflickr.com/100/100/cat",
             model_name: "XYZ-001",
-            price: "9,99",
+            price: 9.99,
             totalStr: "9,99",
           },
           amount: 1,

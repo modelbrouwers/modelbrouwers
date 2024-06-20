@@ -8,7 +8,7 @@ import {
 import Address from "./Address";
 
 export default {
-  title: "Shop / Checkout / Address / Full page",
+  title: "Shop / Checkout / Delivery / Full page",
   component: Address,
   decorators: [withRouter],
   args: {
