@@ -43,6 +43,7 @@ export default {
         email: "arsene@lupin.fr",
         phone: "",
       },
+      deliveryMethod: "mail",
       deliveryAddress: {
         company: "",
         chamberOfCommerce: "",

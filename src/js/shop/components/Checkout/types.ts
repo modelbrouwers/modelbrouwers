@@ -17,8 +17,18 @@ export interface Address {
   country: "" | CountryOption["value"];
 }
 
-export interface AddressDetails {
-  customer: Customer;
+interface PickupDelivery {
+  deliveryMethod: "pickup";
+  deliveryAddress: null;
+  billingAddress: null;
+}
+
+interface MailDelivery {
+  deliveryMethod: "mail";
   deliveryAddress: Address;
   billingAddress: Address | null;
 }
+
+export type DeliveryDetails = (PickupDelivery | MailDelivery) & {
+  customer: Customer;
+};

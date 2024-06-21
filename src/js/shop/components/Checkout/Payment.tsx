@@ -6,7 +6,7 @@ import { ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
 import SelectPaymentMethod from "./SelectPaymentMethod";
 import type { CartStore } from "@/shop/types";
-import type { Address, AddressDetails } from "./types";
+import type { Address, DeliveryDetails } from "./types";
 
 const addressToSerializerShape = (address: Address | null) => {
   if (!address) return null;
@@ -38,7 +38,7 @@ export interface PaymentProps {
   errors?: {
     cart?: any;
   };
-  checkoutDetails: AddressDetails;
+  checkoutDetails: DeliveryDetails;
 }
 
 const Payment: React.FC<PaymentProps> = ({
