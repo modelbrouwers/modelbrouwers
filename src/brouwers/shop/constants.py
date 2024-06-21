@@ -40,5 +40,5 @@ class PaymentStatuses(models.TextChoices):
 
 
 class DeliveryMethods(models.TextChoices):
-    pickup = "pickup", _("Pick up")
+    pickup = "pickup", _("Pickup")
     mail = "mail", _("By mail")

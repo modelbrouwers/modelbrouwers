@@ -18,10 +18,10 @@ import { useImmerReducer } from "use-immer";
 
 import FAIcon from "../../../components/FAIcon";
 import { Account, Address, Payment, Confirmation } from ".";
-import { EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
 import { camelize } from "./utils";
 import { validateAddressDetails } from "./validation";
+import { EMPTY_ADDRESS } from "./Address";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
   classNames("navigation__link", {
@@ -66,7 +66,7 @@ const initialState = {
     email: "",
     phone: "",
   },
-  deliveryAddress: EMPTY_ADDRESS,
+  deliveryAddress: null,
   billingAddress: null, // same as delivery address
   addressStepValid: false,
 };
@@ -81,6 +81,7 @@ const reducer = (draft, action) => {
       const customer = camelize(user);
       if (isAuthenticated) {
         draft.customer = customer;
+        if (!draft.deliveryAddress) draft.deliveryAddress = EMPTY_ADDRESS;
         for (const [field, value] of Object.entries(customer.profile)) {
           draft.deliveryAddress[field] = value;
         }
