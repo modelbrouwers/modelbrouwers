@@ -8,7 +8,7 @@ from django.utils.translation import get_language, gettext_lazy as _
 from rest_framework import serializers
 
 from .api.viewsets import PaymentMethodViewSet
-from .constants import OrderStatuses
+from .constants import DeliveryMethods, OrderStatuses
 from .models import Address, Cart, CartProduct, Order
 from .payments.payment_options import SisowIDeal
 from .payments.service import register
@@ -36,7 +36,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
     )
     payment_method_options = serializers.JSONField(allow_null=True)
 
-    delivery_address = AddressSerializer(required=True)
+    delivery_address = AddressSerializer(required=True, allow_null=True)
     invoice_address = AddressSerializer(required=False, allow_null=True)
 
     class Meta:
@@ -46,6 +46,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
             "last_name",
             "email",
             "phone",
+            "delivery_method",
             "delivery_address",
             "invoice_address",
             "cart",
@@ -78,6 +79,17 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
                     )
                 }
             )
+
+        if (
+            attrs["delivery_method"] == DeliveryMethods.mail
+            and not attrs["delivery_address"]
+        ):
+            raise serializers.ValidationError(
+                {
+                    "delivery_address": _("A delivery address is required."),
+                }
+            )
+
         payment_method = attrs["payment_method"]
         options = attrs.get("payment_method_options") or {}
 
@@ -136,6 +148,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
                 "last_name": self.validated_data["last_name"],
                 "email": self.validated_data["email"],
                 "phone": self.validated_data["phone"],
+                "delivery_method": self.validated_data["delivery_method"],
                 "delivery_address": delivery_address,
                 "invoice_address": invoice_address,
                 "language": get_language(),

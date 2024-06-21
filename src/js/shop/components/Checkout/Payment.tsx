@@ -62,6 +62,7 @@ const Payment: React.FC<PaymentProps> = ({
       last_name: checkoutDetails.customer.lastName,
       email: checkoutDetails.customer.email,
       phone: checkoutDetails.customer.phone,
+      delivery_method: checkoutDetails.deliveryMethod,
       delivery_address: addressToSerializerShape(
         checkoutDetails.deliveryAddress,
       ),

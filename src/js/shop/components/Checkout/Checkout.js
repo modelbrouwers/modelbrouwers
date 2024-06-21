@@ -66,6 +66,7 @@ const initialState = {
     email: "",
     phone: "",
   },
+  deliveryMethod: "mail",
   deliveryAddress: null,
   billingAddress: null, // same as delivery address
   addressStepValid: false,
@@ -113,7 +114,7 @@ const reducer = (draft, action) => {
       }
       break;
     }
-    case "ADDRESS_SUBMITTED": {
+    case "DELIVERY_DETAILS_SUBMITTED": {
       Object.assign(draft, action.payload);
       break;
     }
@@ -261,7 +262,10 @@ const Checkout = ({
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}
                   onSubmit={(values) => {
-                    dispatch({ type: "ADDRESS_SUBMITTED", payload: values });
+                    dispatch({
+                      type: "DELIVERY_DETAILS_SUBMITTED",
+                      payload: values,
+                    });
                     navigate("/payment");
                   }}
                   allowSubmit={state.addressStepValid}
@@ -277,6 +281,7 @@ const Checkout = ({
                   confirmPath={confirmPath}
                   checkoutDetails={{
                     customer: state.customer,
+                    deliveryMethod: state.deliveryMethod,
                     deliveryAddress: state.deliveryAddress,
                     billingAddress: state.billingAddress,
                   }}
