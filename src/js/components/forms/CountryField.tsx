@@ -1,5 +1,5 @@
 import { ComponentProps, ReactNode } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import countries from "i18n-iso-countries";
 
 import Select from "./Select";
@@ -13,6 +13,14 @@ const SUPPORTED_COUNTRIES = {
   N: (lang: string) => countries.getName("NL", lang),
   B: (lang: string) => countries.getName("BE", lang),
   D: (lang: string) => countries.getName("DE", lang),
+};
+
+export const getCountryName = (
+  intl: IntlShape,
+  country: keyof typeof SUPPORTED_COUNTRIES,
+): string => {
+  const langCode = intl.locale.split("-")[0];
+  return SUPPORTED_COUNTRIES[country](langCode);
 };
 
 export interface CountryOption {

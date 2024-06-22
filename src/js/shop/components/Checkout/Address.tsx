@@ -2,13 +2,17 @@ import { useContext } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Formik, Form, FormikErrors } from "formik";
 
+import Checkbox from "@/components/forms/Checkbox";
+import { CartStore } from "@/shop/types";
+import ErrorBoundary from "@/components/ErrorBoundary.js";
+
 import AddressFields from "./AddressFields";
 import { CheckoutContext } from "./Context";
-import PersonalDetailsFields from "./PersonalDetailsFields";
-import Checkbox from "@/components/forms/Checkbox";
-import { validateAddressDetails } from "./validation";
-import type { Address as AddressType, DeliveryDetails } from "./types";
 import DeliveryMethod from "./DeliveryMethod";
+import PersonalDetailsFields from "./PersonalDetailsFields";
+import ShippingCosts from "./ShippingCosts";
+import type { Address as AddressType, DeliveryDetails } from "./types";
+import { validateAddressDetails } from "./validation";
 
 export const EMPTY_ADDRESS: AddressType = {
   company: "",
@@ -21,6 +25,7 @@ export const EMPTY_ADDRESS: AddressType = {
 };
 
 export type AddressProps = DeliveryDetails & {
+  cartStore: CartStore;
   onSubmit: (values: DeliveryDetails) => void;
 };
 
@@ -54,6 +59,7 @@ const getInitialTouched = (errors: any) => {
 };
 
 const Address: React.FC<AddressProps> = ({
+  cartStore,
   customer,
   deliveryAddress,
   billingAddress,
@@ -111,6 +117,11 @@ const Address: React.FC<AddressProps> = ({
                 />
               </h3>
               <DeliveryMethod />
+              <div aria-live="polite">
+                <ErrorBoundary>
+                  <ShippingCosts cartStore={cartStore} />
+                </ErrorBoundary>
+              </div>
             </div>
           </div>
 
