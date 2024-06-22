@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -121,8 +122,15 @@ class Order(models.Model):
         constraints = [
             models.CheckConstraint(
                 name="delivery_address_when_shipping",
-                check=models.Q(
-                    delivery_method=DeliveryMethods.mail, delivery_address__isnull=False
+                check=(
+                    Q(
+                        delivery_method=DeliveryMethods.mail,
+                        delivery_address__isnull=False,
+                    )
+                    | ~Q(delivery_method=DeliveryMethods.mail)
+                ),
+                violation_error_message=_(
+                    "A delivery address must be specified when deliverying via mail."
                 ),
             )
         ]
