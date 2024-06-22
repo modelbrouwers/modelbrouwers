@@ -87,7 +87,7 @@ const Address: React.FC<AddressProps> = ({
         isValidating,
         setFieldTouched,
       }) => (
-        <Form>
+        <Form style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
           <div className="row">
             {/* Personal details */}
             <div className="col-xs-12 col-md-6">
