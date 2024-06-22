@@ -14,7 +14,7 @@ export interface Address {
   number: string;
   city: string;
   postalCode: string;
-  country: "" | CountryOption["value"];
+  country: CountryOption["value"];
 }
 
 interface PickupDelivery {

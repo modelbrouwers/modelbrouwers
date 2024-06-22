@@ -1,9 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn, expect, within, waitFor } from "@storybook/test";
+import { http, HttpResponse } from "msw";
 import {
   reactRouterParameters,
   withRouter,
 } from "storybook-addon-remix-react-router";
+
+import { API_ROOT } from "@/constants.js";
 
 import Address from "./Address";
 
@@ -13,11 +16,27 @@ export default {
   decorators: [withRouter],
   args: {
     onSubmit: fn(),
+    cartStore: {
+      id: 123,
+      user: {},
+      products: [],
+      total: "9,99",
+    },
   },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: { path: "/winkel/checkout/address" },
     }),
+    msw: {
+      handlers: [
+        http.get(`${API_ROOT}api/v1/shop/shipping-costs/`, () => {
+          return HttpResponse.json({
+            price: 11.9,
+            weight: "320 g",
+          });
+        }),
+      ],
+    },
   },
 } satisfies Meta<typeof Address>;
 

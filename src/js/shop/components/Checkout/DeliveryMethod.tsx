@@ -1,5 +1,4 @@
 import { useFormikContext } from "formik";
-import type { FormikValues } from "./Address";
 import {
   FormattedMessage,
   MessageDescriptor,
@@ -8,6 +7,8 @@ import {
 } from "react-intl";
 import Select from "@/components/forms/Select";
 import { useEffect, useState } from "react";
+
+import type { FormikValues } from "./Address";
 
 interface OptionDescription {
   value: FormikValues["deliveryMethod"];
