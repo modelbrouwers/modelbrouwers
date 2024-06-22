@@ -7,9 +7,7 @@ import {
   useIntl,
 } from "react-intl";
 import Select from "@/components/forms/Select";
-import { useEffect } from "react";
-
-export interface DeliveryMethodProps {}
+import { useEffect, useState } from "react";
 
 interface OptionDescription {
   value: FormikValues["deliveryMethod"];
@@ -38,18 +36,41 @@ const DELIVERY_OPTIONS: OptionDescription[] = [
   },
 ];
 
-const DeliveryMethod: React.FC<DeliveryMethodProps> = ({}) => {
+const DeliveryMethod: React.FC = () => {
   const intl = useIntl();
   const {
-    values: { deliveryMethod },
+    values: {
+      deliveryMethod,
+      deliveryAddress,
+      billingSameAsDelivery,
+      billingAddress,
+    },
     setFieldValue,
   } = useFormikContext<FormikValues>();
+  const [previousAddressFields, setPreviousAddressFields] =
+    useState<
+      Pick<
+        FormikValues,
+        "deliveryAddress" | "billingSameAsDelivery" | "billingAddress"
+      >
+    >();
 
   useEffect(() => {
     if (deliveryMethod === "pickup") {
+      setPreviousAddressFields({
+        deliveryAddress,
+        billingSameAsDelivery,
+        billingAddress,
+      });
       setFieldValue("deliveryAddress", null);
-      setFieldValue("billingAddress", null);
       setFieldValue("billingSameAsDelivery", true);
+      setFieldValue("billingAddress", null);
+    } else if (deliveryMethod === "mail" && previousAddressFields) {
+      const { deliveryAddress, billingSameAsDelivery, billingAddress } =
+        previousAddressFields;
+      setFieldValue("deliveryAddress", deliveryAddress);
+      setFieldValue("billingSameAsDelivery", billingSameAsDelivery);
+      setFieldValue("billingAddress", billingAddress);
     }
   }, [deliveryMethod]);
 

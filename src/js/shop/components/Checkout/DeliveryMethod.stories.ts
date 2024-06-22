@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { withFormik } from "@/storybook/decorators";
 
 import DeliveryMethod from "./DeliveryMethod";
+import type { FormikValues } from "./Address";
 
 export default {
   title: "Shop / Checkout / Delivery / DeliveryMethod",
@@ -11,8 +12,25 @@ export default {
   parameters: {
     formik: {
       initialValues: {
-        deliveryMethod: null,
-      },
+        customer: {
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+        },
+        deliveryMethod: "mail",
+        deliveryAddress: {
+          company: "",
+          chamberOfCommerce: "",
+          street: "",
+          number: "",
+          city: "",
+          postalCode: "",
+          country: "N",
+        },
+        billingSameAsDelivery: true,
+        billingAddress: null,
+      } satisfies FormikValues,
       initialErrors: {},
     },
   },
