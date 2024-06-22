@@ -10,6 +10,74 @@ export interface AddressFieldsProps {
 
 const AddressFields: React.FC<AddressFieldsProps> = ({ prefix }) => (
   <>
+    <CountryField
+      name={`${prefix}.country`}
+      label={
+        <FormattedMessage
+          description="Checkout address: country"
+          defaultMessage="Country"
+        />
+      }
+      required
+      placeholder={
+        <FormattedMessage
+          description="Country dropdown placeholder"
+          defaultMessage="Select country"
+        />
+      }
+    />
+    <div className="row">
+      <div className="col-xs-12 col-md-6">
+        <TextField
+          name={`${prefix}.street`}
+          label={
+            <FormattedMessage
+              description="Delivery address: street"
+              defaultMessage="Street"
+            />
+          }
+          required
+        />
+      </div>
+      <div className="col-xs-12 col-md-6">
+        <TextField
+          name={`${prefix}.number`}
+          label={
+            <FormattedMessage
+              description="Delivery address: number"
+              defaultMessage="Number"
+            />
+          }
+          required
+        />
+      </div>
+    </div>
+    <div className="row">
+      <div className="col-xs-12 col-md-6">
+        <TextField
+          name={`${prefix}.postalCode`}
+          label={
+            <FormattedMessage
+              description="Delivery address: zip"
+              defaultMessage="ZIP code"
+            />
+          }
+          required
+        />
+      </div>
+      <div className="col-xs-12 col-md-6">
+        <TextField
+          name={`${prefix}.city`}
+          label={
+            <FormattedMessage
+              description="Delivery address: city"
+              defaultMessage="City"
+            />
+          }
+          required
+        />
+      </div>
+    </div>
     <TextField
       name={`${prefix}.company`}
       label={
@@ -25,62 +93,6 @@ const AddressFields: React.FC<AddressFieldsProps> = ({ prefix }) => (
         <FormattedMessage
           description="Delivery address: kvk"
           defaultMessage="KVK"
-        />
-      }
-    />
-    <TextField
-      name={`${prefix}.street`}
-      label={
-        <FormattedMessage
-          description="Delivery address: street"
-          defaultMessage="Street"
-        />
-      }
-      required
-    />
-    <TextField
-      name={`${prefix}.number`}
-      label={
-        <FormattedMessage
-          description="Delivery address: number"
-          defaultMessage="Number"
-        />
-      }
-      required
-    />
-    <TextField
-      name={`${prefix}.city`}
-      label={
-        <FormattedMessage
-          description="Delivery address: city"
-          defaultMessage="City"
-        />
-      }
-      required
-    />
-    <TextField
-      name={`${prefix}.postalCode`}
-      label={
-        <FormattedMessage
-          description="Delivery address: zip"
-          defaultMessage="ZIP code"
-        />
-      }
-      required
-    />
-    <CountryField
-      name={`${prefix}.country`}
-      label={
-        <FormattedMessage
-          description="Checkout address: country"
-          defaultMessage="Country"
-        />
-      }
-      required
-      placeholder={
-        <FormattedMessage
-          description="Country dropdown placeholder"
-          defaultMessage="Select country"
         />
       }
     />
