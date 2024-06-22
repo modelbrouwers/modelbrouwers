@@ -22,7 +22,7 @@ export default {
             name: "Polish set",
             image: "https://loremflickr.com/100/100/cat",
             model_name: "XYZ-001",
-            price: "9,99",
+            price: 9.99,
             totalStr: "9,99",
           },
           amount: 1,
@@ -43,6 +43,7 @@ export default {
         email: "arsene@lupin.fr",
         phone: "",
       },
+      deliveryMethod: "mail",
       deliveryAddress: {
         company: "",
         chamberOfCommerce: "",
@@ -65,7 +66,12 @@ export default {
           return HttpResponse.json([
             { id: 1, name: "Payment method 1", logo: "", order: 2 },
             { id: 2, name: "Payment method 2", logo: "", order: 3 },
-            { id: 3, name: "iDeal", logo: "", order: 1 },
+            {
+              id: 3,
+              name: "iDeal",
+              logo: "/assets/ideal-logo-1024.png",
+              order: 1,
+            },
           ]);
         }),
         http.get(`${API_ROOT}api/v1/shop/ideal_banks/`, () => {

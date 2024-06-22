@@ -18,10 +18,10 @@ import { useImmerReducer } from "use-immer";
 
 import FAIcon from "../../../components/FAIcon";
 import { Account, Address, Payment, Confirmation } from ".";
-import { EMPTY_ADDRESS } from "./constants";
 import { CheckoutContext } from "./Context";
 import { camelize } from "./utils";
 import { validateAddressDetails } from "./validation";
+import { EMPTY_ADDRESS } from "./Address";
 
 const getActiveNavClassNames = ({ isActive, enabled = false }) =>
   classNames("navigation__link", {
@@ -66,7 +66,8 @@ const initialState = {
     email: "",
     phone: "",
   },
-  deliveryAddress: EMPTY_ADDRESS,
+  deliveryMethod: "mail",
+  deliveryAddress: null,
   billingAddress: null, // same as delivery address
   addressStepValid: false,
 };
@@ -81,6 +82,7 @@ const reducer = (draft, action) => {
       const customer = camelize(user);
       if (isAuthenticated) {
         draft.customer = customer;
+        if (!draft.deliveryAddress) draft.deliveryAddress = EMPTY_ADDRESS;
         for (const [field, value] of Object.entries(customer.profile)) {
           draft.deliveryAddress[field] = value;
         }
@@ -112,7 +114,7 @@ const reducer = (draft, action) => {
       }
       break;
     }
-    case "ADDRESS_SUBMITTED": {
+    case "DELIVERY_DETAILS_SUBMITTED": {
       Object.assign(draft, action.payload);
       break;
     }
@@ -237,7 +239,9 @@ const Checkout = ({
             <Route
               path="/"
               element={
-                <Navigate to={isAuthenticated ? "address" : "account"} />
+                <Navigate
+                  to={isAuthenticated ? "details-and-delivery" : "account"}
+                />
               }
             />
             <Route
@@ -251,14 +255,18 @@ const Checkout = ({
               }
             />
             <Route
-              path="address"
+              path="details-and-delivery"
               element={
                 <Address
+                  cartStore={cartStore}
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}
                   onSubmit={(values) => {
-                    dispatch({ type: "ADDRESS_SUBMITTED", payload: values });
+                    dispatch({
+                      type: "DELIVERY_DETAILS_SUBMITTED",
+                      payload: values,
+                    });
                     navigate("/payment");
                   }}
                   allowSubmit={state.addressStepValid}
@@ -274,6 +282,7 @@ const Checkout = ({
                   confirmPath={confirmPath}
                   checkoutDetails={{
                     customer: state.customer,
+                    deliveryMethod: state.deliveryMethod,
                     deliveryAddress: state.deliveryAddress,
                     billingAddress: state.billingAddress,
                   }}
@@ -282,7 +291,7 @@ const Checkout = ({
               }
             />
             {/* This is a backend URL - if there are validation errors, it renders
-                            the response at this URL. */}
+                the response at this URL. */}
             <Route
               path="confirm"
               element={<Navigate to={firstRouteWithErrors} />}
@@ -320,14 +329,14 @@ const Checkout = ({
           </li>
           <li className="navigation__item">
             <NavLink
-              to="address"
+              to="details-and-delivery"
               className={getActiveNavClassNames}
               enabled
               hasErrors={hasAddressValidationErrors}
             >
               <FormattedMessage
-                description="Tab: address"
-                defaultMessage="Address"
+                description="Tab: details/address"
+                defaultMessage="Details and delivery"
               />
             </NavLink>
           </li>

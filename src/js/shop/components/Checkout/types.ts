@@ -1,4 +1,4 @@
-import { CountryOption } from "@/forms/CountryField";
+import { CountryOption } from "@/components/forms/CountryField";
 
 export interface Customer {
   firstName: string;
@@ -14,11 +14,21 @@ export interface Address {
   number: string;
   city: string;
   postalCode: string;
-  country: "" | CountryOption["value"];
+  country: CountryOption["value"];
 }
 
-export interface AddressDetails {
-  customer: Customer;
+interface PickupDelivery {
+  deliveryMethod: "pickup";
+  deliveryAddress: null;
+  billingAddress: null;
+}
+
+interface MailDelivery {
+  deliveryMethod: "mail";
   deliveryAddress: Address;
   billingAddress: Address | null;
 }
+
+export type DeliveryDetails = (PickupDelivery | MailDelivery) & {
+  customer: Customer;
+};

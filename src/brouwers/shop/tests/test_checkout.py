@@ -9,7 +9,7 @@ from django_webtest import WebTest
 
 from brouwers.utils.tests.html_assert import strip_all_attributes
 
-from ..constants import CART_SESSION_KEY
+from ..constants import CART_SESSION_KEY, DeliveryMethods
 from ..models import Cart, Order, ShopConfiguration
 from .factories import (
     CartProductFactory,
@@ -49,6 +49,7 @@ class CheckoutTests(WebTest):
             "last_name": "Chocolonely",
             "email": "tony@example.com",
             "phone": "",
+            "delivery_method": DeliveryMethods.mail,
             "delivery_address": {
                 "street": "Sesamstraat",
                 "number": "101",
@@ -112,6 +113,7 @@ class CheckoutTests(WebTest):
             "last_name": "Chocolonely",
             "email": "tony@example.com",
             "phone": "",
+            "delivery_method": DeliveryMethods.mail,
             "delivery_address": {
                 "street": "Sesamstraat",
                 "number": "101",

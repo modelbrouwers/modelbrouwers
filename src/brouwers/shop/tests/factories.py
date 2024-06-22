@@ -7,7 +7,7 @@ import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
 
-from ..constants import OrderStatuses, PaymentStatuses
+from ..constants import DeliveryMethods, OrderStatuses, PaymentStatuses
 from ..models import Cart, CartProduct, Category, Product, ProductManufacturer
 from ..payments.registry import register
 
@@ -105,12 +105,20 @@ class OrderFactory(factory.django.DjangoModelFactory):
     status = OrderStatuses.received
     first_name = factory.Faker("first_name")
     email = factory.Faker("free_email")
-    delivery_address = factory.SubFactory(AddressFactory)
+    delivery_method = factory.fuzzy.FuzzyChoice(list(DeliveryMethods.values))
+    delivery_address = factory.Maybe(
+        "needs_address",
+        yes_declaration=factory.SubFactory(AddressFactory),
+        no_declaration=None,
+    )
 
     class Meta:
         model = "shop.Order"
 
     class Params:
+        needs_address = factory.LazyAttribute(
+            lambda o: o.delivery_method == DeliveryMethods.mail
+        )
         with_payment = factory.Trait(
             payment=factory.RelatedFactory(
                 "brouwers.shop.tests.factories.PaymentFactory",
@@ -162,3 +170,15 @@ class PaymentFactory(factory.django.DjangoModelFactory):
                 },
             },
         )
+
+
+class ShippingCostFactory(factory.django.DjangoModelFactory):
+    # TODO: properly refactor to django-countries
+    country = factory.fuzzy.FuzzyChoice(["N", "B", "D"])
+    label = factory.fuzzy.FuzzyChoice(["enveloppe", "small package", "large package"])
+    max_weight = factory.fuzzy.FuzzyInteger(10, 15_000)
+    price = factory.fuzzy.FuzzyDecimal(2.95, 25)
+
+    class Meta:
+        model = "shop.ShippingCost"
+        django_get_or_create = ("country", "max_weight")
