@@ -80,7 +80,9 @@ class AdminUserCreationForm(forms.ModelForm):
 
 
 class UserCreationForm(AdminUserCreationForm):
-    captcha = ReCaptchaField(widget=ReCaptchaV3(action="signup"))
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV3(action="signup", attrs={"required_score": 0.5})
+    )
     accept_terms = forms.BooleanField(
         label=_("I have read and accepted the registration terms"), required=True
     )
