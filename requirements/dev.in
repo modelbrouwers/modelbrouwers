@@ -1,5 +1,7 @@
+-c ci.txt
+-r ci.txt
+
 # Helpers
-pip-tools
 bump2version
 
 # Code formatting
