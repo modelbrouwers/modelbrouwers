@@ -171,7 +171,7 @@ django-treebeard==4.7.1
     #   -r requirements/base.txt
 django-webtest==1.9.11
     # via -r requirements/test-tools.in
-djangorestframework==3.14.0
+djangorestframework==3.15.2
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -322,7 +322,6 @@ pytz==2024.1
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-    #   djangorestframework
 pyyaml==6.0.1
     # via
     #   -c requirements/base.txt
