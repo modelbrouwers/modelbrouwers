@@ -17,13 +17,18 @@
         {% ifchanged event.date.year %}
             {% if not forloop.first %}</section>{% endif %}
 
-            <h2>{{ event.date.year }}</h2>
+            <h2 class="timeline-section-title">{{ event.date.year }}</h2>
 
-            {% if not forloop.last %}<section class="timeline-section timeline-section--year">{% endif %}
+            {% if not forloop.last %}
+                <section class="timeline-section timeline-section--year" id="year-{{ event.date.year }}">
+            {% endif %}
         {% endifchanged %}
 
-        <article id="event-{{ event.id }}" class="timeline__event">
-            <h3 class="timeline__event-title">{{ event.title }}</h3>
+        <article id="event-{{ event.id }}" class="timeline__event {% cycle 'timeline__event--odd' 'timeline__event--even' %}">
+            <h3 class="timeline__event-title">
+                {{ event.title }}
+                <span class="timeline__event-date">{{ event.date|date }}</span>
+            </h3>
 
             {% if event.body_text %}
                 <div class="timeline__event-body">
@@ -38,6 +43,8 @@
             {% endif %}
 
         </article>
+
+        <div class="timeline__line-segment"></div>
 
     {% endfor %}
 
