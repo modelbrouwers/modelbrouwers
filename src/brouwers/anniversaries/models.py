@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -25,6 +26,14 @@ class RemarkableEvent(models.Model):
         blank=True,
         help_text=_("An image to display on the timeline."),
     )
+    image_alt_text = models.TextField(
+        _("image alt text"),
+        blank=True,
+        help_text=_(
+            "Describe what's visible in the image for users with visual impairments. "
+            "An alt text is required if you upload an image."
+        ),
+    )
 
     class Meta:
         verbose_name = _("remarkable event")
@@ -33,3 +42,14 @@ class RemarkableEvent(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def clean(self):
+        super().clean()
+
+        if self.image and not self.image_alt_text:
+            raise ValidationError(
+                _(
+                    "You must provide an alt text when adding an image to ensure "
+                    "accessibilty."
+                )
+            )
