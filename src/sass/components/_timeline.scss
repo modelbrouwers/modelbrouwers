@@ -1,0 +1,126 @@
+@use "../modules/bem";
+@use "../modules/responsive";
+
+@mixin timeline-line() {
+  display: block;
+  inline-size: 8px;
+  background-color: #4095fd;
+  block-size: 100%;
+  min-block-size: 20px;
+  margin-block: 0;
+  margin-inline: auto;
+}
+
+.timeline {
+  --timeline-event-padding: 20px;
+  --timeline-event-max-inline-size: 75dvw;
+
+  @include bem.element("title") {
+    font-size: 3rem;
+    margin-block-start: 2rem;
+    margin-block-end: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  @include bem.element("event") {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "title title"
+      "body image";
+    border: solid 1px #ccc;
+    padding-block-start: 0;
+    padding-block-end: var(--timeline-event-padding);
+    padding-inline: 0;
+    block-size: clamp(100px, 50dvh, 400px);
+    inline-size: clamp(300px, 100%, var(--timeline-event-max-inline-size));
+    overflow: auto;
+    box-shadow: 2px 3px 5px 0 rgba(0, 0, 0, 0.2);
+
+    @include bem.modifier("odd") {
+      align-self: flex-start;
+    }
+
+    @include bem.modifier("even") {
+      align-self: flex-end;
+    }
+  }
+
+  @include bem.element("event-title") {
+    grid-area: title;
+    position: sticky;
+    inset-block-start: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(3px);
+    padding-block: var(--timeline-event-padding);
+    padding-inline: var(--timeline-event-padding);
+    margin: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  @include bem.element("event-date") {
+    font-size: 1.7rem;
+    color: #919291;
+  }
+
+  @include bem.element("event-body") {
+    grid-area: body;
+    padding-inline-start: var(--timeline-event-padding);
+  }
+
+  @include bem.element("event-image") {
+    grid-area: image;
+    padding-inline-end: var(--timeline-event-padding);
+
+    img {
+      inline-size: clamp(50px, 100%, 100%);
+    }
+  }
+
+  @include bem.element("line-segment") {
+    @include timeline-line;
+  }
+}
+
+.timeline-section-title {
+  color: #222222;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  letter-spacing: 2rem;
+  text-indent: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+
+  &:before,
+  &:after {
+    content: "";
+    @include timeline-line;
+  }
+}
+
+.timeline-section {
+  display: flex;
+  flex-direction: column;
+
+  @include bem.modifier("year") {
+  }
+}
+
+@include responsive.laptop {
+  .timeline {
+    --timeline-event-max-inline-size: 700px;
+  }
+}
+
+@include responsive.desktop {
+  .timeline {
+    --timeline-event-max-inline-size: 700px;
+  }
+}

@@ -140,6 +140,7 @@ INSTALLED_APPS = [
     # Modelbrouwers
     "brouwers.users",
     "brouwers.albums",
+    "brouwers.anniversaries",
     "brouwers.awards",
     "brouwers.banning",
     "brouwers.builds",

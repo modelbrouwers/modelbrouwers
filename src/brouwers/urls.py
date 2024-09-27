@@ -6,6 +6,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views.generic.base import RedirectView, TemplateView
 
+from brouwers.anniversaries.views import TwentyYearsAnniversaryView
 from brouwers.contact.views import ContactMessageCreateView
 
 # FIXME: this breaks laziness
@@ -27,6 +28,12 @@ urlpatterns = (
         path("api/v1/", include("brouwers.api.urls", namespace="api")),
         # just a placeholder for the url
         path("", RedirectView.as_view(url="/index.php"), name="index"),
+        path("20/", RedirectView.as_view(pattern_name="20-years-anniversary")),
+        path(
+            "20-jaar/",
+            TwentyYearsAnniversaryView.as_view(),
+            name="20-years-anniversary",
+        ),
         path("albums/", include("brouwers.albums.urls", namespace="albums")),
         path("awards/", include("brouwers.awards.urls")),
         path(

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n bleach_tags %}
+
+{% block body-class %}20-years{% endblock %}
+
+{% block sub-nav %}{% endblock sub-nav %}
+
+{% block content %}
+<div class="timeline">
+
+    <h1 class="timeline__title">
+        {% trans "20 years Modelbrouwers.nl!" %}
+    </h1>
+
+    {% for event in events %}
+
+        {% ifchanged event.date.year %}
+            {% if not forloop.first %}</section>{% endif %}
+
+            <h2 class="timeline-section-title">{{ event.date.year }}</h2>
+
+            {% if not forloop.last %}
+                <section class="timeline-section timeline-section--year" id="year-{{ event.date.year }}">
+            {% endif %}
+        {% endifchanged %}
+
+        <article id="event-{{ event.id }}" class="timeline__event {% cycle 'timeline__event--odd' 'timeline__event--even' %}">
+            <h3 class="timeline__event-title">
+                {{ event.title }}
+                <span class="timeline__event-date">{{ event.date|date }}</span>
+            </h3>
+
+            {% if event.body_text %}
+                <div class="timeline__event-body">
+                    {{ event.body_text|bleach }}
+                </div>
+            {% endif %}
+
+            {% if event.image %}
+                <figure class="timeline__event-image">
+                    <img src="{{ event.image.url }}" alt="{{ event.image_alt_text }}" />
+                </figure>
+            {% endif %}
+
+        </article>
+
+        <div class="timeline__line-segment"></div>
+
+    {% endfor %}
+
+</div>
+{% endblock content %}
+
+
+{% block footer %}{% endblock footer %}
