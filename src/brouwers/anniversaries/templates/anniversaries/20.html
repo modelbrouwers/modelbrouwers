@@ -15,7 +15,7 @@
 </header>
 {% endblock %}
 
-{% block content %}
+{% block main %}
 <div class="timeline">
 
     {% for event in events %}
@@ -30,25 +30,29 @@
             {% endif %}
         {% endifchanged %}
 
-        <article id="event-{{ event.id }}" class="timeline__event {% cycle 'timeline__event--odd' 'timeline__event--even' %}">
-            <h3 class="timeline__event-title">
-                {{ event.title }}
-                <span class="timeline__event-date">{{ event.date|date }}</span>
-            </h3>
+        <div class="container-fluid timeline__event-backdrop {% cycle 'timeline__event-backdrop--odd' 'timeline__event-backdrop--even' %}">
+            <div class="container">
+                <article id="event-{{ event.id }}" class="timeline__event {% cycle 'timeline__event--odd' 'timeline__event--even' %}">
+                    <h3 class="timeline__event-title">
+                        {{ event.title }}
+                        <span class="timeline__event-date">{{ event.date|date }}</span>
+                    </h3>
 
-            {% if event.body_text %}
-                <div class="timeline__event-body">
-                    {{ event.body_text|bleach }}
-                </div>
-            {% endif %}
+                    {% if event.body_text %}
+                        <div class="timeline__event-body">
+                            {{ event.body_text|bleach }}
+                        </div>
+                    {% endif %}
 
-            {% if event.image %}
-                <figure class="timeline__event-image">
-                    <img src="{{ event.image.url }}" alt="{{ event.image_alt_text }}" />
-                </figure>
-            {% endif %}
+                    {% if event.image %}
+                        <figure class="timeline__event-image">
+                            <img src="{{ event.image.url }}" alt="{{ event.image_alt_text }}" />
+                        </figure>
+                    {% endif %}
 
-        </article>
+                </article>
+            </div>
+        </div>
 
         {% ifchanged event.date.year %}
             {% if not forloop.last %}
@@ -60,7 +64,7 @@
     {% endfor %}
 
 </div>
-{% endblock content %}
+{% endblock main %}
 
 
 {% block footer %}{% endblock footer %}

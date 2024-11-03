@@ -5,15 +5,16 @@
   display: block;
   inline-size: 8px;
   background-color: #4095fd;
-  block-size: 100%;
-  min-block-size: 20px;
-  margin-block: 0;
+  block-size: var(--timeline-line-size);
   margin-inline: auto;
+  margin-block: calc(-0.5 * var(--timeline-line-size));
 }
 
 body.twenty-years {
   --timeline-event-padding: 20px;
   --timeline-event-max-inline-size: 75dvw;
+  --timeline-event-lightblue: #3d95fd33;
+  --timeline-line-size: 30px;
 
   .eye-catcher {
     margin-block: 0;
@@ -31,6 +32,22 @@ body.twenty-years {
 }
 
 .timeline {
+  @include bem.element("event-backdrop") {
+    padding-inline: 0;
+    padding-block: calc(var(--timeline-line-size) / 2);
+    inline-size: 100%;
+
+    @include bem.modifier("odd") {
+      background-color: var(--timeline-event-lightblue);
+    }
+
+    > .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
   @include bem.element("event") {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -45,6 +62,7 @@ body.twenty-years {
     block-size: clamp(100px, 50dvh, 400px);
     inline-size: clamp(300px, 100%, var(--timeline-event-max-inline-size));
     overflow: auto;
+    background-color: #ffffff;
     box-shadow: 2px 3px 5px 0 rgba(0, 0, 0, 0.2);
 
     @include bem.modifier("odd") {
@@ -110,6 +128,14 @@ body.twenty-years {
   &:after {
     content: "";
     @include timeline-line;
+  }
+
+  &:before {
+    margin-block-end: 0;
+  }
+
+  &:after {
+    margin-block-start: 0;
   }
 }
 
