@@ -11,18 +11,26 @@
   margin-inline: auto;
 }
 
-.timeline {
+body.twenty-years {
   --timeline-event-padding: 20px;
   --timeline-event-max-inline-size: 75dvw;
 
-  @include bem.element("title") {
-    font-size: 3rem;
-    margin-block-start: 2rem;
-    margin-block-end: 2rem;
-    text-align: center;
-    text-transform: uppercase;
+  .eye-catcher {
+    margin-block: 0;
+    padding-inline: 15px;
+    padding-block: 0;
   }
+}
 
+.timeline-title {
+  font-size: 3rem;
+  margin-block-start: 2rem;
+  margin-block-end: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.timeline {
   @include bem.element("event") {
     display: grid;
     grid-template-columns: 1fr 1fr;

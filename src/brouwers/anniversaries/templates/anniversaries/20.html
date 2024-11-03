@@ -3,16 +3,20 @@
 
 {% block title %} {% trans "20 years anniversary" %}{% endblock %}
 
-{% block body-class %}20-years{% endblock %}
+{% block body-class %}twenty-years{% endblock %}
 
 {% block sub-nav %}{% endblock sub-nav %}
 
-{% block content %}
-<div class="timeline">
-
-    <h1 class="timeline__title">
+{% block eye-catcher %}
+<header class="container-fluid eye-catcher">
+    <h1 class="timeline-title">
         {% trans "20 years Modelbrouwers.nl!" %}
     </h1>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="timeline">
 
     {% for event in events %}
 
