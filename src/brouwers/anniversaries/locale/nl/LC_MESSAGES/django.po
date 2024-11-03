@@ -79,7 +79,7 @@ msgstr ""
 
 #: templates/anniversaries/20.html:4
 msgid "20 years anniversary"
-msgstr "20e verjaardag"
+msgstr "20 jaar Modelbrouwers"
 
 #: templates/anniversaries/20.html:14
 msgid "20 years Modelbrouwers.nl!"
