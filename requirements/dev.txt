@@ -491,7 +491,7 @@ uwsgi==2.0.24
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-waitress==3.0.0
+waitress==3.0.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
