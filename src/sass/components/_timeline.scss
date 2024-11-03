@@ -113,6 +113,45 @@
   }
 }
 
+@include responsive.lte-mobile {
+  .timeline {
+    @include bem.element("event") {
+      inline-size: calc(100dvw - 30px);
+      block-size: clamp(100px, 100%, 90dvh);
+      max-block-size: 90dvh; // why doesn't the clamp work?
+
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-template-areas:
+        "title"
+        "body"
+        "image";
+
+      @include bem.modifier("odd") {
+        align-self: center;
+      }
+
+      @include bem.modifier("even") {
+        align-self: center;
+      }
+    }
+
+    @include bem.element("event-title") {
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+    }
+
+    @include bem.element("event-body") {
+      padding-inline: var(--timeline-event-padding);
+    }
+
+    @include bem.element("event-image") {
+      padding-inline: var(--timeline-event-padding);
+    }
+  }
+}
+
 @include responsive.laptop {
   .timeline {
     --timeline-event-max-inline-size: 700px;
