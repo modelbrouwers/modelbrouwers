@@ -113,6 +113,22 @@
   }
 }
 
+@include responsive.lte-mobile {
+  .timeline {
+    @include bem.element("event") {
+      inline-size: calc(100dvw - 30px);
+
+      @include bem.modifier("odd") {
+        align-self: center;
+      }
+
+      @include bem.modifier("even") {
+        align-self: center;
+      }
+    }
+  }
+}
+
 @include responsive.laptop {
   .timeline {
     --timeline-event-max-inline-size: 700px;
