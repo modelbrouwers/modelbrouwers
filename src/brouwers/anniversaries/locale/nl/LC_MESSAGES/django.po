@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-03 19:04+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: models.py:10
+msgid "date"
+msgstr "datum"
+
+#: models.py:11
+msgid "The day on which this significant event happened."
+msgstr "De datum waarop deze gebeurtenis plaats vond."
+
+#: models.py:14
+msgid "title"
+msgstr "titel"
+
+#: models.py:16
+msgid "Short title that should invite the user to read more."
+msgstr "Korte titel die de lezer uitnodigt om meer te lezen."
+
+#: models.py:19
+msgid "body text"
+msgstr "inhoudtekst"
+
+#: models.py:21
+msgid "The full text providing more context about this specific moment."
+msgstr "De volledige tekst die dit specifieke moment in detail beschrijft."
+
+#: models.py:24
+msgid "image"
+msgstr "afbeelding"
+
+#: models.py:27
+msgid "An image to display on the timeline."
+msgstr "Een afbeelding om op de tijdlijn weer te geven."
+
+#: models.py:30
+msgid "image alt text"
+msgstr "toegankelijke alt-tekst"
+
+#: models.py:33
+msgid ""
+"Describe what's visible in the image for users with visual impairments. An "
+"alt text is required if you upload an image."
+msgstr ""
+"Beschrijf wat de afbeelding afbeeldt zodat gebruikers met visuele beperkingen de "
+"afbeelding ook begrijpen. Je moet een toegankelijke tekst opgeven als je een "
+"afbeelding toevoegt."
+
+#: models.py:39
+msgid "remarkable event"
+msgstr "bijzondere gebeurtenis"
+
+#: models.py:40
+msgid "remarkable events"
+msgstr "bijzondere gebeurtenisen"
+
+#: models.py:52
+msgid ""
+"You must provide an alt text when adding an image to ensure accessibilty."
+msgstr ""
+"Je moet een toegankelijke alt-tekst opgeven wanneer je een afbeelding toevoegt "
+"zodat gebruikers met visuele beperkingen ook de pagina kunnen gebruiken."
+
+#: templates/anniversaries/20.html:4
+msgid "20 years anniversary"
+msgstr "20e verjaardag"
+
+#: templates/anniversaries/20.html:14
+msgid "20 years Modelbrouwers.nl!"
+msgstr "20 jaar Modelbrouwers.nl!"
