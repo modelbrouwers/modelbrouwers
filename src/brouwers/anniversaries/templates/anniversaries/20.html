@@ -44,7 +44,12 @@
 
         </article>
 
-        <div class="timeline__line-segment"></div>
+        {% ifchanged event.date.year %}
+            {% if not forloop.last %}
+                <div class="timeline__line-segment"></div>
+            {% endif %}
+        {% else %}
+        {% endifchanged %}
 
     {% endfor %}
 
