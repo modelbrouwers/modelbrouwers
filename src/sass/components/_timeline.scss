@@ -55,11 +55,13 @@ body.twenty-years {
     grid-template-areas:
       "title title"
       "body image";
+    column-gap: var(--timeline-event-padding);
     border: solid 1px #ccc;
     padding-block-start: 0;
     padding-block-end: var(--timeline-event-padding);
     padding-inline: 0;
-    block-size: clamp(100px, 50dvh, 400px);
+    min-block-size: 100px;
+    max-block-size: 400px;
     inline-size: clamp(300px, 100%, var(--timeline-event-max-inline-size));
     overflow: auto;
     background-color: #ffffff;
@@ -71,6 +73,20 @@ body.twenty-years {
 
     @include bem.modifier("even") {
       align-self: flex-end;
+    }
+
+    @include bem.modifier("no-image") {
+      display: block;
+      padding-inline-end: var(--timeline-event-padding);
+    }
+
+    @include bem.modifier("no-body-text") {
+      display: block;
+      max-block-size: 75dvh;
+
+      .timeline__event-image {
+        padding-inline-start: var(--timeline-event-padding);
+      }
     }
   }
 

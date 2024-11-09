@@ -32,7 +32,7 @@
 
         <div class="container-fluid timeline__event-backdrop {% cycle 'timeline__event-backdrop--odd' 'timeline__event-backdrop--even' %}">
             <div class="container">
-                <article id="event-{{ event.id }}" class="timeline__event {% cycle 'timeline__event--odd' 'timeline__event--even' %}">
+                <article id="event-{{ event.id }}" class="timeline__event {% cycle 'timeline__event--odd' 'timeline__event--even' %} {% if not event.image %}timeline__event--no-image{% endif %} {% if not event.body_text %}timeline__event--no-body-text{% endif %}">
                     <h3 class="timeline__event-title">
                         {{ event.title }}
                         <span class="timeline__event-date">{{ event.date|date }}</span>
