@@ -34,6 +34,7 @@ class ShowCasedModelSignUpForm(forms.ModelForm):
         )
         widgets = {
             "owner": forms.HiddenInput(),
+            "is_competitor": forms.HiddenInput(),
         }
 
     def __init__(self, *args, **kwargs):

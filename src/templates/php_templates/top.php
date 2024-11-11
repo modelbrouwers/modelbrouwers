@@ -14,7 +14,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">
-                    <img src="/static/images/logo/logo_modelbrouwers.png" alt="Terug naar de homepage">
+                    <img src="/static/images/logo/logo20.png" alt="Terug naar de homepage">
                 </a>
             </div>
 

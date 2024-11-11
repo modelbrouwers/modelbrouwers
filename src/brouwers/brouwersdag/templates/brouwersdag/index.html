@@ -5,33 +5,12 @@
 {% block content %}
 <div class="jumbotron">
     <h1>{% trans "Model signup" %}</h1>
-
-    <p>{% trans "Below you can find out which models will be on display. The list is updated after every model sign-up!" %}</p>
-
-    <p>{% trans "What are you waiting for? If you're coming, bring a model!" %}</p>
-
-    <div class="row">
-
-        <div class="col-md-4">
-            <a class="btn btn-primary btn-lg" role="button" href="{% url 'brouwersdag:model-signup' %}">{% trans "Add your models" %}</a>
-        </div>
-
-        <div class="col-md-8 text-right-md text-right-lg text-right-xl">
-            <i class="fa fa-info-circle fa-lg"></i>
-            {% blocktrans trimmed %}
-            More info on <a class="btn btn-default btn-lg" href="http://www.modelbouwdag.nl/">www.modelbouwdag.nl</a>
-            {% endblocktrans %}
-        </div>
-    </div>
+    <a class="btn btn-primary btn-lg" role="button" href="{% url 'brouwersdag:model-signup' %}">{% trans "Add your models" %}</a>
 </div>
-<p class="text-muted">{% trans "Click the above button to sign up for the competition" %}</p>
+<p class="text-muted">{% trans "Click the above button to sign up models for the club table." %}</p>
 
 <section>
-    <h2>{% trans "Confirmed models" %}
-        <small class="pull-right">
-            {% blocktrans %}{{ n_total }} total, {{ n_competition }} competition{% endblocktrans %}
-        </small>
-    </h2>
+    <h2>{% trans "Confirmed models" %} <span class="badge">({{ n_total }})</span></h2>
     <div class="row">
         {% with rows=object_list|rows:3 %}
             <div class="col-md-4 col-xs-12">

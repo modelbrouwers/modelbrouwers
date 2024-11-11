@@ -10,6 +10,5 @@
       <li{% if request.path == url_bd_index %} class="active"{% endif %}><a href="{{ url_bd_index }}">Home</a></li>
       <li{% if request.path == url_bd_signup %} class="active"{% endif %}><a href="{{ url_bd_signup }}">{% trans "Signup" %}</a></li>
       <li{% if request.path == url_bd_my_models %} class="active"{% endif %}><a href="{{ url_bd_my_models }}">{% trans "My models" %}</a></li>
-        <li><a href="http://modelbouwdag.nl/">{% trans "Website" %}</a></li>
     </ul>
 {% endblock %}
