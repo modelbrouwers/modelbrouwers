@@ -5,12 +5,7 @@
 {% block eye-catcher %}
 <header class="container-fluid eye-catcher">
     <div class="container">
-
-        <h1>
-            {% blocktrans trimmed with year=brouwersdag.date.year %}Modelbouwdag{{ year }}{% endblocktrans %}
-            <small>{% trans "Time to do your models sign-up!" %}</small>
-        </h1>
-
+        <h1>{% trans "Model signup" %}</h1>
         <p>{% trans "If you want to display multiple models, just fill in the form again for each extra model." %}</p>
     </div>
 </header>
@@ -20,71 +15,39 @@
 {% block content %}
 <div class="main-content">
 
-    <div class="well">
-        <i class="fa fa-info-circle fa-lg"></i>
-        {% trans "Attention! This form serves multiple purposes. Please read the below description." %}
-    </div>
+    <p>Modelbrouwers leden kunnen via dit formulier hun modellen aanmelden om te plaatsen op de tafels van de Modelbrouwers clubtafels. Er geldt geen beperking in het aantal modellen, en je hoeft niet per se aan de tafels te bouwen.</p>
 
-    <div>
-        <p>Modelbrouwers leden kunnen via dit formulier hun modellen aanmelden om te plaatsen op de tafels van de Modelbrouwers clubtafels. Er geldt geen beperking in het aantal modellen, en je hoeft niet per se aan de tafels te bouwen. Modelbrouwers leden die live bouwen (aanmelden via <a href="mailto:sergei@modelbrouwers.nl">sergei@modelbrouwers.nl</a> of stuur een PB naar BBT) hebben echter wel gratis toegang tot de modelbouwdag.</p>
+    <p class="text-center">
+        <i class="fa fa-warning"></i>
+        <strong>Gelieve the afmetingen in te vullen zodat we de beschikbare tafelruimte kunnen
+        inplannen!</strong>
+        <i class="fa fa-warning"></i>
+    </p>
 
-        <p>Modellen van andere clubs hoeven niet te worden aangemeld, zij krijgen immers ruimte bij het aanmelden van de club.</p>
+    <h1 class="text-primary">
+        <small>{% trans "Time to do your models sign-up!" %}</small>
+    </h1>
 
-        <p><strong>WEDSTRIJD</strong></p>
+    <p class="text-muted">
+        {% trans "If you want to display multiple models, just fill in the form again for each extra model." %}
+    </p>
 
-        <p>Ook kunnen Modelbrouwers clubleden EN alle andere exposanten via dit formulier een model inschrijven voor de wedstrijd. De jury is het publiek van de modelbouwdag en het thema is simpel: 'Welk model spreekt je het meeste aan?'. De wedstrijd modellen komen NIET op een wedstrijdtafel te staan maar zijn op dag te herkennen aan felgekleurde kaarten met een nummer op de tafels van de betreffende club.</p>
-    </div>
+    {% load_widgets form='horizontal.form' %}
 
-    <div class="row">
-        <div class="col-sm-8">
-            <h1 class="text-primary">
-                {% blocktrans trimmed with year=brouwersdag.date.year %}Modelbouwdag {{ year }}{% endblocktrans %}
-                <small>{% trans "Time to do your models sign-up!" %}</small>
-            </h1>
+    <form action="." method="post" class="form-horizontal" role="form">
+        {% csrf_token %}
 
-            <p class="text-muted">
-                {% trans "If you want to display multiple models, just fill in the form again for each extra model." %}
-            </p>
+        {% widget 'form:non_field_errors' %}
 
-            {% load_widgets form='horizontal.form' %}
-
-            <form action="." method="post" class="form-horizontal" role="form">
-                {% csrf_token %}
-
-                {% widget 'form:non_field_errors' %}
-
-                {% for field in form %}
-                    {% form_field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
-                {% endfor %}
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-primary">{% block submit_button %}{% trans "Add model" %}{% endblock %}</button>
-                    </div>
-                </div>
-            </form>
+        {% for field in form %}
+            {% form_field field placeholder=field.label label_grid='col-sm-3' field_grid='col-sm-8' %}
+        {% endfor %}
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn btn-primary">{% block submit_button %}{% trans "Add model" %}{% endblock %}</button>
+            </div>
         </div>
-
-        <div class="col-sm-4">
-            <h2 class="text-muted" style="margin-top: 0;">{% trans "Competition information" %}</h2>
-            <aside>
-                {% if not form.competition %}
-                    {% trans "There's no competition planned (yet)." %}
-                {% else %}
-
-                    {% if form.competition.max_num_models %}
-                    <p class="text-warning">
-                        {% blocktrans count n=form.competition.max_num_models trimmed %}
-                            Attention! You can enter only one model in the competition. Extra models will be rejected.
-                            {% plural %}
-                            Attention! You can enter a maximum of <strong>{{ n }}</strong> models in the competition. Extra models will be rejected.
-                        {% endblocktrans %}
-                    </p>
-                    {% endif %}
-                {% endif %}
-            </aside>
-        </div>
-
-    </div>
+    </form>
 
 </div>
 {% endblock content %}

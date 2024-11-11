@@ -54,7 +54,13 @@ urlpatterns = (
         path("builds/", include("brouwers.builds.urls", namespace="builds")),
         path("ou/", include("brouwers.online_users.urls")),
         path(
-            "modelbouwdag/",
+            "modelbouwdag/sign-up/",
+            RedirectView.as_view(
+                permanent=True, pattern_name="brouwersdag:model-signup"
+            ),
+        ),
+        path(
+            "esm/",
             include("brouwers.brouwersdag.urls", namespace="brouwersdag"),
         ),
         path("i18n/", include("django.conf.urls.i18n")),
