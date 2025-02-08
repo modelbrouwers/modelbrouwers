@@ -92,6 +92,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
+    ip_address_joined = models.GenericIPAddressField(
+        _("ip address"),
+        help_text=_("IP address used during registration."),
+        protocol="both",
+        blank=True,
+        null=True,
+    )
 
     # cross db-relation
     forumuser_id = models.IntegerField(_("forum user id"), blank=True, null=True)

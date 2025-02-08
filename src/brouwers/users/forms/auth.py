@@ -86,6 +86,7 @@ class UserCreationForm(AdminUserCreationForm):
     accept_terms = forms.BooleanField(
         label=_("I have read and accepted the registration terms"), required=True
     )
+    birthday = forms.DateField(required=False)
 
     class Meta:
         model = User
