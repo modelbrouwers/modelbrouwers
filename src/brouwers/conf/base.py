@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -428,6 +429,10 @@ else:
     GIT_SHA = None
 
 RELEASE = config("RELEASE", GIT_SHA)
+
+GEOIP_DATABASE_PATH = config(
+    "GEOIP_DATABASE_PATH", default="/tmp/geoip/GeoLite2-Country.mmdb"
+)
 
 #################
 # APP SPECIFICS #
