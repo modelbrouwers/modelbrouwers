@@ -92,6 +92,11 @@ class UserCreationForm(AdminUserCreationForm):
         model = User
         fields = ("username", "email")
 
+    def clean_birthday(self):
+        if self.cleaned_data.get("birthday"):
+            raise forms.ValidationError(_("invalid"))
+        return ""
+
 
 class AuthForm(AuthenticationForm):
     captcha = ReCaptchaField(widget=ReCaptchaV3(action="login"))

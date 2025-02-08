@@ -1,6 +1,7 @@
 # Common packages
 bleach
 furl
+geoip2
 html2text
 lxml
 mail-cleaner
