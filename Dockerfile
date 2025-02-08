@@ -16,6 +16,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install
         libxslt-dev \
         shared-mime-info \
         libmemcached-dev \
+        libmaxminddb-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -58,6 +59,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y --no-install
         gettext \
         shared-mime-info \
         libmemcached11 \
+        libmaxminddb0 \
         # lxml deps
         libxml2 \
         libxslt1.1 \
