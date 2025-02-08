@@ -28,7 +28,7 @@
 {% block content %}
 <div class="row">
 
-    <form action="." method="post" class="form-horizontal col-xs-12 col-md-7 col-xl-5" id="form-register">
+    <form action="." method="post" class="form-horizontal col-xs-12 col-md-7 col-xl-5" id="form-register" novalidate>
         {% load_widgets form='horizontal.form' %}
         {% csrf_token %}
 
@@ -41,6 +41,9 @@
             {% form_field form.email %}
             {% form_field form.password1 %}
             {% form_field form.password2 %}
+            <div style="display:none;">
+                {% form_field form.birthday required=True %}
+            </div>
             {% form_field form.accept_terms %}
         </fieldset>
         {{ form.captcha }}
