@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import orderBy from "lodash.orderby";
+import orderBy from "lodash/orderBy";
 import { FormattedMessage } from "react-intl";
 import Select from "react-select";
 import useAsync from "react-use/esm/useAsync";
@@ -204,10 +204,10 @@ const Payment = ({
   const { loading, error, paymentMethods } = useFetchPaymentMethods();
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [paymentMethodSpecificState, setPaymentMethodSpecificState] = useState(
-    {},
+    {}
   );
   const paymentMethod = paymentMethods.find(
-    (method) => method.id === selectedMethod,
+    (method) => method.id === selectedMethod
   );
   const paymentMethodOptions = useGetPaymentSpecificOptions(paymentMethod);
 

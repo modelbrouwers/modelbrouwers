@@ -1,5 +1,5 @@
-import camelCase from "lodash.camelcase";
-import isObject from "lodash.isobject";
+import camelCase from "lodash/camelCase";
+import isObject from "lodash/isObject";
 
 // Temporary solution - we should use drf-camelcase-renderer to the backend later.
 export const camelize = (obj) => {

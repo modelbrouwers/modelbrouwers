@@ -1,6 +1,6 @@
 import get from "lodash/get";
 import unset from "lodash/unset";
-import set from "lodash.set";
+import set from "lodash/set";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
@@ -124,7 +124,7 @@ const reducer = (draft, action) => {
           deliveryAddress: draft.deliveryAddress,
           billingAddress: draft.billingAddress,
         },
-        intl,
+        intl
       );
       draft.addressStepValid = Object.keys(errors).length === 0;
       break;
@@ -202,11 +202,11 @@ const Checkout = ({
 
   const hasAddressValidationErrors = checkHasValidationErrors(
     validationErrors,
-    ["customer", "deliveryAddress", "invoiceAddress"],
+    ["customer", "deliveryAddress", "invoiceAddress"]
   );
   const hasPaymentValidationErrors = checkHasValidationErrors(
     validationErrors,
-    ["paymentMethod", "paymentMethodOptions", "cart"],
+    ["paymentMethod", "paymentMethodOptions", "cart"]
   );
   let firstRouteWithErrors = "/";
   if (hasAddressValidationErrors) {

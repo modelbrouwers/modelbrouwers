@@ -10,14 +10,6 @@ import { reactIntl } from "./reactIntl.ts";
 initialize();
 
 const preview: Preview = {
-  globals: {
-    locale: reactIntl.defaultLocale,
-    locales: {
-      en: "English",
-      nl: "Nederlands",
-      de: "Deutsch",
-    },
-  },
   parameters: {
     controls: {
       matchers: {
@@ -27,7 +19,19 @@ const preview: Preview = {
     },
     reactIntl,
   },
+
   loaders: [mswLoader],
+
+  initialGlobals: {
+    locale: reactIntl.defaultLocale,
+    locales: {
+      en: "English",
+      nl: "Nederlands",
+      de: "Deutsch",
+    },
+  },
+
+  tags: ["autodocs"]
 };
 
 export default preview;

@@ -8,7 +8,9 @@ const config: StorybookConfig = {
     disableTelemetry: true,
     disableWhatsNewNotifications: true,
   },
+
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+
   addons: [
     "@storybook/addon-webpack5-compiler-babel",
     "@storybook/addon-links",
@@ -47,10 +49,12 @@ const config: StorybookConfig = {
     "storybook-react-intl",
     "storybook-addon-remix-react-router",
   ],
+
   framework: {
     name: "@storybook/react-webpack5",
     options: {},
   },
+
   staticDirs: [
     { from: "../static/fonts", to: "fonts" },
     { from: "../static/font-awesome/fonts", to: "fonts" },
@@ -75,5 +79,11 @@ const config: StorybookConfig = {
 
     return config;
   },
+
+  docs: {},
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript"
+  }
 };
 export default config;
