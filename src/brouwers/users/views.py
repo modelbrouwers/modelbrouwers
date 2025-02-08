@@ -16,6 +16,7 @@ from extra_views import InlineFormSetFactory, NamedFormsetsMixin, UpdateWithInli
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
 from brouwers.general.models import UserProfile
+from brouwers.general.utils import get_client_ip
 from brouwers.utils.views import LoginRequiredMixin
 
 from .forms import AuthForm, UserCreationForm
@@ -126,6 +127,10 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        user = self.object
+        assert user is not None
+        user.ip_address_joined = get_client_ip(self.request)
+        user.save()
         self.do_login(form)
 
         mail = UserRegistrationEmail(user=self.object)

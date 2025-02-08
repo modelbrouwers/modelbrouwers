@@ -13,6 +13,7 @@ class UserAdmin(_UserAdmin):
         "first_name",
         "last_name",
         "date_joined",
+        "ip_address_joined",
         "is_staff",
         "is_superuser",
         "forumuser_id",
