@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from decimal import Decimal
-from typing import Callable
+from typing import Callable, ClassVar
 
 from django.db import models
 from django.utils import formats
@@ -9,7 +11,7 @@ from brouwers.general.constants import CountryChoices
 from brouwers.general.fields import CountryField
 
 
-class ShippingCostManager(models.Manager):
+class ShippingCostManager(models.Manager["ShippingCost"]):
 
     def get_price(self, country: CountryChoices | str, weight: int) -> None | Decimal:
         qs = (
@@ -26,7 +28,8 @@ class ShippingCost(models.Model):
     Models the price of shipping up to a given weight, for a given country.
 
     XXX: how to handle orders to a country without costs configured?
-    XXX: how to handle orders that fall outside of the weight range?
+    XXX: how to handle orders that fall outside of the weight range? Divide total weight
+    by max_weight? Do some smart matching?
     """
 
     label = models.CharField(
@@ -51,7 +54,9 @@ class ShippingCost(models.Model):
         help_text=_("Shipping cost for this weight limit, including VAT."),
     )
 
-    objects = ShippingCostManager()
+    objects: ClassVar[  # pyright: ignore[reportIncompatibleVariableOverride]
+        ShippingCostManager
+    ] = ShippingCostManager()
 
     get_country_display: Callable[[], str]
 

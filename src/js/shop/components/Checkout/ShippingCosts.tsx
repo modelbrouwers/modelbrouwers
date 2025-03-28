@@ -23,8 +23,12 @@ const fetchShippingCosts = async (
   cartId: number,
   country: CountryValue,
 ): Promise<ShippingCostsInfo> => {
-  const result = paymentConsumer.calculateShippingCosts(cartId, country);
-  return result;
+  const { weight, price: priceStr } =
+    await paymentConsumer.calculateShippingCosts(cartId, country);
+  return {
+    price: parseFloat(priceStr),
+    weight,
+  };
 };
 
 export interface ShippingCostsProps {

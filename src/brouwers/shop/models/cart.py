@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from decimal import Decimal
+from typing import ClassVar
 
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
@@ -11,6 +14,7 @@ from ..managers import CartQuerySet
 
 
 class Cart(models.Model):
+    id: int
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -31,7 +35,8 @@ class Cart(models.Model):
         null=True,
     )
 
-    objects = CartQuerySet.as_manager()
+    objects: ClassVar[CartQuerySet] = CartQuerySet.as_manager()  # type: ignore
+    products: models.QuerySet["CartProduct"]
 
     class Meta:
         verbose_name = _("cart")
@@ -45,14 +50,14 @@ class Cart(models.Model):
         """
         Total price of all the products in the cart
         """
-        return sum(product.total for product in self.products.all())
+        return sum((product.total for product in self.products.all()), start=Decimal(0))
 
     @property
-    def weight(self) -> Decimal:
+    def weight(self) -> int:
         """
         Calculate the weight in grams.
         """
-        return sum(product.weight for product in self.products.all())
+        return int(sum(product.weight for product in self.products.all()))
 
     def save_snapshot(self) -> None:
         """

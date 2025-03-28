@@ -71,7 +71,7 @@ export default {
       handlers: [
         http.get(`${API_ROOT}api/v1/shop/shipping-costs/`, () => {
           return HttpResponse.json({
-            price: 11.9,
+            price: "11.9",
             weight: "320 g",
           });
         }),
