@@ -7,6 +7,7 @@ import {
 } from "storybook-addon-remix-react-router";
 
 import { API_ROOT } from "@/constants.js";
+import { CartStore } from "@/shop/store";
 
 import Address from "./Address";
 
@@ -16,12 +17,19 @@ export default {
   decorators: [withRouter],
   args: {
     onSubmit: fn(),
-    cartStore: {
+    cartStore: new CartStore({
       id: 123,
-      user: {},
+      user: {
+        username: "BBT",
+        first_name: "B.",
+        last_name: "BT",
+        email: "bbt@example.com",
+        phone: "",
+      },
+      status: "open",
       products: [],
       total: "9,99",
-    },
+    }),
   },
   parameters: {
     reactRouter: reactRouterParameters({

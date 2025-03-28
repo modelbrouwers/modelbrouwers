@@ -2,7 +2,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from "react-intl";
 import { useFormikContext } from "formik";
 
 import { getCountryName } from "@/components/forms/CountryField";
-import { CartStore } from "@/shop/types";
+import type { CartStore } from "@/shop/store";
 
 import type { FormikValues } from "./Address";
 import { PaymentConsumer } from "@/data/shop/payment.js";

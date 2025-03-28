@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 import { API_ROOT } from "@/constants.js";
 import { withFormik } from "@/storybook/decorators";
+import { CartStore } from "@/shop/store";
 
 import ShippingCosts, { ShippingCostsProps } from "./ShippingCosts";
 import type { FormikValues } from "./Address";
@@ -29,12 +30,19 @@ export default {
   decorators: [withFormik],
   args: {
     country: "N",
-    cartStore: {
+    cartStore: new CartStore({
       id: 123,
-      user: {},
+      user: {
+        username: 'BBT',
+        first_name: 'B.',
+        last_name: 'BT',
+        email: 'bbt@example.com',
+        phone: '',
+      },
+      status: 'open',
       products: [],
       total: "9,99",
-    },
+    }),
     onPriceRetrieved: fn(),
   },
   argTypes: {

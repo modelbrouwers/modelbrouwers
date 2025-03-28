@@ -1,5 +1,11 @@
 // TODO: complete this
-export interface User {}
+export interface User {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+}
 
 export interface Product {
   id: number;
@@ -14,16 +20,17 @@ export interface Product {
 }
 
 export interface CartProduct {
-  // id: number | null;
-  // cartId: number;
-  product: Product | null;
+  id: number | null;
+  product: Product;
   amount: number;
-  totalStr: string;
+  cart: number; // ID
+  total: string; // decimal serialized to string
 }
 
-export interface CartStore {
-  id: number | null;
+export interface Cart {
+  id: number;
   user: User;
+  status: "open" | "processing" | "closed";
   products: CartProduct[];
-  total: string;
+  total: string; // decimal serialized to string
 }

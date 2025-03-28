@@ -1,13 +1,24 @@
 import { makeObservable, observable, action, computed } from "mobx";
-import { CartProductConsumer } from "./../data/shop/cart";
+import { CartProductConsumer } from "../data/shop/cart";
+
+import type { Cart, CartProduct as APICartProduct, Product } from "./types";
+
+interface AddProductData {
+    id: number | null;
+    product: number;
+    amount: number;
+    cart: number;
+}
 
 export class CartStore {
-    products = [];
+    products: CartProduct[] = [];
     user = {};
-    id = null;
+    id: number;
     status = null;
 
-    constructor(cart) {
+    private cartProductConsumer: CartProductConsumer;
+
+    public constructor(cart: Cart) {
         makeObservable(this, {
             products: observable,
             user: observable,
@@ -26,16 +37,16 @@ export class CartStore {
         this.user = cart.user;
     }
 
-    get total() {
+    public get total(): string {
         const total = this.products.reduce((acc, curr) => acc + curr.total, 0);
         return total.toFixed(2);
     }
 
-    get amount() {
+    public get amount(): number {
         return this.products.reduce((acc, curr) => acc + curr.amount, 0);
     }
 
-    addProduct(data) {
+    public addProduct(data: AddProductData) {
         const existingCardProduct = this.findProduct(data.product);
         if (existingCardProduct) {
             return this.changeAmount(data.product, data.amount);
@@ -47,51 +58,55 @@ export class CartStore {
             .catch((err) => console.log("Error adding product", err));
     }
 
-    removeProduct(id) {
+    public removeProduct(id: number) {
         this.cartProductConsumer
             .removeProduct(id)
             .then(() => {
                 this.products = this.products.filter((p) => p.id !== id);
             })
-            .catch((err) => console.log("error deleting product", err));
+            .catch((err: unknown) =>
+                console.log("error deleting product", err),
+            );
     }
 
-    clearCart() {
+    public clearCart() {
+        // @ts-expect-error
         this.products.clear();
     }
 
     /**
-     * Find cart product by it's product's id
-     * @param id
-     * @returns {*}
+     * Find cart product by it's product's `id`.
      */
-    findProduct(id) {
+    private findProduct(id: number): CartProduct | undefined {
         return this.products.find((cp) => Number(cp.product.id) === Number(id));
     }
 
-    changeAmount(productId, amount) {
+    public changeAmount(productId: number, amount: number): void {
         const cartProduct = this.findProduct(productId);
+        if (!cartProduct) throw new Error("Product not found.");
+
         const cpAmount = cartProduct.amount + amount;
 
         if (cpAmount <= 0) {
-            this.removeProduct(cartProduct.id);
+            this.removeProduct(cartProduct.id!);
         } else {
             this.cartProductConsumer
                 .updateAmount(cartProduct.id, cpAmount)
                 .then(() => cartProduct.setAmount(cpAmount))
-                .catch((err) => console.log("could not update amount", err));
+                .catch((err: unknown) =>
+                    console.log("could not update amount", err),
+                );
         }
     }
 }
 
 export class CartProduct {
-    id = null;
-    store = null;
-    cartId = null;
-    product = null;
+    id: number | null = null;
+    cartId: number;
+    product: Product;
     amount = 0;
 
-    constructor(cartProduct = {}, store) {
+    public constructor(cartProduct: APICartProduct) {
         makeObservable(this, {
             amount: observable,
             setAmount: action,
@@ -101,30 +116,29 @@ export class CartProduct {
             totalStr: computed,
         });
 
-        this.store = store;
         this.id = cartProduct.id;
         this.amount = cartProduct.amount;
         this.cartId = cartProduct.cart;
         this.product = cartProduct.product;
     }
 
-    setAmount(amount) {
+    public setAmount(amount: number) {
         this.amount = amount;
     }
 
-    increaseAmount(amount) {
+    public increaseAmount(amount: number) {
         this.amount += amount;
     }
 
-    decreaseAmount(amount) {
+    public decreaseAmount(amount: number) {
         this.amount -= amount;
     }
 
-    get total() {
+    public get total(): number {
         return this.amount * this.product.price;
     }
 
-    get totalStr() {
+    public get totalStr(): string {
         return (this.amount * this.product.price).toFixed(2);
     }
 }

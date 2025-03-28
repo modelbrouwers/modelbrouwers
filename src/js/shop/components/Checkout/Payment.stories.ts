@@ -6,6 +6,7 @@ import {
 import { http, HttpResponse } from "msw";
 
 import { API_ROOT } from "@/constants.js";
+import { CartStore } from "@/shop/store";
 
 import Payment from "./Payment";
 
@@ -14,9 +15,19 @@ export default {
   component: Payment,
   decorators: [withRouter],
   args: {
-    cartStore: {
-      products: [
-        {
+    cartStore: new CartStore({
+      id: 123,
+      user: {
+        username: 'BBT',
+        first_name: 'B.',
+        last_name: 'BT',
+        email: 'bbt@example.com',
+        phone: '',
+      },
+      status: 'open',
+      products: [{
+          id: 456,
+          cart: 123,
           product: {
             id: 42,
             name: "Polish set",
@@ -26,13 +37,10 @@ export default {
             totalStr: "9,99",
           },
           amount: 1,
-          totalStr: "9,99",
-        },
-      ],
-      user: {},
-      id: 42,
+          total: '9.99',
+        }],
       total: "12,99",
-    },
+    }),
     csrftoken: "csrftoken",
     confirmPath: "/winkel/checkout/confirm",
     errors: {},

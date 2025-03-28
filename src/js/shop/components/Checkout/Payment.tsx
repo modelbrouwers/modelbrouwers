@@ -5,7 +5,7 @@ import { Formik, Form, FormikConfig } from "formik";
 import { ErrorList } from "./FormFields";
 import { BodyCart } from "../Cart";
 import SelectPaymentMethod from "./SelectPaymentMethod";
-import type { CartStore } from "@/shop/types";
+import type { CartStore } from "@/shop/store";
 import type { Address, DeliveryDetails } from "./types";
 
 const addressToSerializerShape = (address: Address | null) => {

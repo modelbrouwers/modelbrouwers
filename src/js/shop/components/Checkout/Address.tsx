@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { Formik, Form, FormikErrors } from "formik";
 
 import Checkbox from "@/components/forms/Checkbox";
-import { CartStore } from "@/shop/types";
+import type { CartStore } from "@/shop/store";
 import ErrorBoundary from "@/components/ErrorBoundary.js";
 
 import AddressFields from "./AddressFields";
