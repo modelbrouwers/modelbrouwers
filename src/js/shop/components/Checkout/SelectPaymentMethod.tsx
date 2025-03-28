@@ -1,8 +1,7 @@
 import { useFormikContext } from "formik";
 import { ReactNode, useEffect } from "react";
 import useAsync from "react-use/esm/useAsync";
-// @ts-expect-error
-import orderBy from "lodash.orderby";
+import orderBy from "lodash/orderBy";
 
 import ErrorBoundary from "@/components/ErrorBoundary.js";
 import Radio from "@/components/forms/Radio";
