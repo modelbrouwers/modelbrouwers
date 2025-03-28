@@ -16,6 +16,8 @@ export class CartStore {
     id: number;
     status = null;
 
+    shippingCosts: number = 0;
+
     private cartProductConsumer: CartProductConsumer;
 
     public constructor(cart: Cart) {
@@ -23,12 +25,14 @@ export class CartStore {
             products: observable,
             user: observable,
             status: observable,
+            shippingCosts: observable,
             total: computed,
             amount: computed,
             addProduct: action,
             removeProduct: action,
             clearCart: action,
             changeAmount: action,
+            setShippingCosts: action,
         });
 
         this.products = cart.products.map((cp) => new CartProduct(cp));
@@ -38,7 +42,11 @@ export class CartStore {
     }
 
     public get total(): string {
-        const total = this.products.reduce((acc, curr) => acc + curr.total, 0);
+        const totalProducts = this.products.reduce(
+            (acc, curr) => acc + curr.total,
+            0,
+        );
+        const total = totalProducts + this.shippingCosts;
         return total.toFixed(2);
     }
 
@@ -97,6 +105,10 @@ export class CartStore {
                     console.log("could not update amount", err),
                 );
         }
+    }
+
+    public setShippingCosts(costs: number): void {
+        this.shippingCosts = costs;
     }
 }
 

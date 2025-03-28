@@ -33,29 +33,32 @@ const fetchShippingCosts = async (
 
 export interface ShippingCostsProps {
   cartStore: CartStore;
-  onPriceRetrieved?: (price: number) => void;
 }
 
-const ShippingCosts: React.FC<ShippingCostsProps> = ({
-  cartStore: { id: cartId },
-  onPriceRetrieved,
-}) => {
+const ShippingCosts: React.FC<ShippingCostsProps> = ({ cartStore }) => {
   const intl = useIntl();
   const {
     values: { deliveryMethod, deliveryAddress },
   } = useFormikContext<FormikValues>();
   const country = deliveryAddress?.country;
+  const { id: cartId } = cartStore;
 
   const {
     loading,
     error,
     value: costInfo,
   } = useAsync(async () => {
-    if (deliveryMethod === "pickup" || !cartId) return undefined;
+    if (!cartId || !country) return undefined;
+
+    if (deliveryMethod === "pickup") {
+      cartStore.setShippingCosts(0);
+      return undefined;
+    }
+
     const info = await fetchShippingCosts(cartId, country);
-    onPriceRetrieved?.(info.price);
+    cartStore.setShippingCosts(info.price);
     return info;
-  }, [cartId, country, deliveryMethod]);
+  }, [cartStore, cartId, country, deliveryMethod]);
 
   if (error) throw error;
 

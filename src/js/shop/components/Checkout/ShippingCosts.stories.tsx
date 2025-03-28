@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { useFormikContext } from "formik";
 import { http, HttpResponse } from "msw";
 import { useEffect } from "react";
@@ -43,13 +42,13 @@ export default {
       products: [],
       total: "9,99",
     }),
-    onPriceRetrieved: fn(),
   },
   argTypes: {
     country: {
       control: "inline-radio",
       options: ["N", "B", "D"],
     },
+    cartStore: {table: {disable: true}}
   },
   parameters: {
     formik: {

@@ -31,6 +31,9 @@ export default {
       total: "9,99",
     }),
   },
+  argTypes: {
+    cartStore: {table: {disable: true}}
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: { path: "/winkel/checkout/address" },

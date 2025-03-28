@@ -64,6 +64,9 @@ export default {
       billingAddress: null,
     },
   },
+  argTypes: {
+    cartStore: {table: {disable: true}}
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: { path: "/winkel/checkout/payment" },
