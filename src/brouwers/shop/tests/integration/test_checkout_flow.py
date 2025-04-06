@@ -3,6 +3,7 @@ Integration tests for shop checkout flow.
 """
 
 from decimal import Decimal
+from unittest.mock import patch
 
 from django.test import override_settings
 from django.urls import reverse
@@ -44,6 +45,10 @@ class CheckoutTests(SeleniumTests):
             vat=Decimal("0.20"),  # easier math in tests :-)
             categories=[category],
         )
+
+        patcher = patch("brouwers.shop.api.views.get_ideal_banks", return_value=[])
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
         with self.subTest("put products in cart"):
             # view category page (product list)
@@ -106,7 +111,7 @@ class CheckoutTests(SeleniumTests):
             self.assertTrue(self.selenium.current_url.endswith("/payment"))
 
             # select first payment method (bank transfer)
-            self.selenium.find_element(By.CSS_SELECTOR, ".payment-method").click()
+            self.selenium.find_element(By.CSS_SELECTOR, ".radio-option").click()
 
             # confirm & submit
             submit_button = self.selenium.find_element(

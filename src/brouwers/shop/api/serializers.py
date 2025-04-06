@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from decimal import Decimal
 
 from django.utils.translation import gettext_lazy as _
 
@@ -94,7 +95,7 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         fields = ("id", "user", "status", "products", "total")
 
-    def get_total(self, obj):
+    def get_total(self, obj: Cart) -> Decimal:
         return obj.total
 
 

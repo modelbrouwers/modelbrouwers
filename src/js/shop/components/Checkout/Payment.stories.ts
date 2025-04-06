@@ -6,6 +6,7 @@ import {
 import { http, HttpResponse } from "msw";
 
 import { API_ROOT } from "@/constants.js";
+import { CartStore } from "@/shop/store";
 
 import Payment from "./Payment";
 
@@ -14,25 +15,32 @@ export default {
   component: Payment,
   decorators: [withRouter],
   args: {
-    cartStore: {
-      products: [
-        {
+    cartStore: new CartStore({
+      id: 123,
+      user: {
+        username: 'BBT',
+        first_name: 'B.',
+        last_name: 'BT',
+        email: 'bbt@example.com',
+        phone: '',
+      },
+      status: 'open',
+      products: [{
+          id: 456,
+          cart: 123,
           product: {
             id: 42,
             name: "Polish set",
             image: "https://loremflickr.com/100/100/cat",
             model_name: "XYZ-001",
-            price: "9,99",
+            price: 9.99,
             totalStr: "9,99",
           },
           amount: 1,
-          totalStr: "9,99",
-        },
-      ],
-      user: {},
-      id: 42,
+          total: '9.99',
+        }],
       total: "12,99",
-    },
+    }),
     csrftoken: "csrftoken",
     confirmPath: "/winkel/checkout/confirm",
     errors: {},
@@ -43,6 +51,7 @@ export default {
         email: "arsene@lupin.fr",
         phone: "",
       },
+      deliveryMethod: "mail",
       deliveryAddress: {
         company: "",
         chamberOfCommerce: "",
@@ -55,6 +64,9 @@ export default {
       billingAddress: null,
     },
   },
+  argTypes: {
+    cartStore: {table: {disable: true}}
+  },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: { path: "/winkel/checkout/payment" },
@@ -65,7 +77,12 @@ export default {
           return HttpResponse.json([
             { id: 1, name: "Payment method 1", logo: "", order: 2 },
             { id: 2, name: "Payment method 2", logo: "", order: 3 },
-            { id: 3, name: "iDeal", logo: "", order: 1 },
+            {
+              id: 3,
+              name: "iDeal",
+              logo: "/assets/ideal-logo-1024.png",
+              order: 1,
+            },
           ]);
         }),
         http.get(`${API_ROOT}api/v1/shop/ideal_banks/`, () => {

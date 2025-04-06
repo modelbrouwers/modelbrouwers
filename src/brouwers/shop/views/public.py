@@ -15,12 +15,14 @@ from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
+from brouwers.shop.models import ShippingCost
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from ..constants import (
     CART_SESSION_KEY,
     ORDERS_SESSION_KEY,
     CartStatuses,
+    DeliveryMethods,
     PaymentStatuses,
 )
 from ..emails import send_order_confirmation_email
@@ -232,7 +234,7 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
             return self.render_to_response(context)
 
         # everything is valid, proceed to checkout
-        cart = serializer.validated_data["cart"]
+        cart: Cart = serializer.validated_data["cart"]
         payment_method = serializer.validated_data["payment_method"]
         bank = serializer.validated_data.get("bank")
 
@@ -240,11 +242,13 @@ class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View)
         cart.status = CartStatuses.processing
         cart.save_snapshot()
         cart.save()
-        # convert euros to eurocents
-        total_amount = int(cart.total * 100)
 
         # store order
         order = serializer.save_order()
+
+        # convert euros to eurocents
+        total_amount = int((cart.total + order.shipping_costs) * 100)
+
         payment = Payment.objects.create(
             order=order,
             payment_method=payment_method,

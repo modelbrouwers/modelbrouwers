@@ -7,7 +7,7 @@ import "../src/sass/screen.scss";
 
 import { reactIntl } from "./reactIntl.ts";
 
-initialize();
+initialize({ onUnhandledRequest: "bypass" });
 
 const preview: Preview = {
   parameters: {
