@@ -114,6 +114,14 @@ class Order(models.Model):
         _("language"), max_length=10, default="nl", choices=settings.LANGUAGES
     )
 
+    shipping_costs = models.DecimalField(
+        _("shipping costs"),
+        decimal_places=2,
+        max_digits=6,
+        blank=True,
+        null=True,
+    )
+
     payment: "Payment"
 
     class Meta:

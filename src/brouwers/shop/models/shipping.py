@@ -16,11 +16,18 @@ class ShippingCostManager(models.Manager["ShippingCost"]):
     def get_price(self, country: CountryChoices | str, weight: int) -> None | Decimal:
         qs = (
             self.filter(country=country)
-            .exclude(max_weight__lt=weight)
             .order_by("max_weight")
             .values_list("price", flat=True)
         )
-        return qs.first()
+        shipping_cost = qs.exclude(max_weight__lt=weight).first()
+
+        # edge case - total order weight exceeds the maximum configured weight, we go
+        # with the max configured in this case.
+        # TODO: double check this!
+        if shipping_cost is None:
+            shipping_cost = qs.last()
+
+        return shipping_cost
 
 
 class ShippingCost(models.Model):

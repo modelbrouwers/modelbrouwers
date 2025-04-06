@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Optional
 
 from django.contrib import admin
@@ -315,6 +316,7 @@ class OrderAdmin(admin.ModelAdmin):
         "last_name",
         "email",
         "status",
+        "total_price",
         "payment_status",
         "delivery_method",
     )
@@ -334,3 +336,11 @@ class OrderAdmin(admin.ModelAdmin):
         if not obj.payment:
             return None
         return obj.payment.get_status_display()
+
+    @admin.display(description=_("Price"))
+    def total_price(self, obj: Order) -> Decimal | None:
+        if (snapshot := obj.cart.snapshot_data) is None:
+            return None
+        items_total = Decimal(snapshot["total"])
+        shipping = Decimal(obj.shipping_costs or 0)
+        return items_total + shipping

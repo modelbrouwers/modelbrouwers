@@ -72,6 +72,8 @@ const initialState = {
   addressStepValid: false,
 };
 
+const SESSION_STORAGE_KEY = "deliveryDetails";
+
 const reducer = (draft, action) => {
   switch (action.type) {
     case "STATE_FROM_PROPS": {
@@ -115,7 +117,12 @@ const reducer = (draft, action) => {
       break;
     }
     case "DELIVERY_DETAILS_SUBMITTED": {
-      Object.assign(draft, action.payload);
+      const details = action.payload;
+      Object.assign(draft, details);
+      window.sessionStorage.setItem(
+        SESSION_STORAGE_KEY,
+        JSON.stringify(details)
+      );
       break;
     }
     case "CHECK_ADDRESS_VALIDITY": {
