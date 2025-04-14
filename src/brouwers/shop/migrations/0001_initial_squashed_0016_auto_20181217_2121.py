@@ -549,7 +549,6 @@ class Migration(migrations.Migration):
                 (
                     "main_category",
                     models.OneToOneField(
-                        default=1,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="homepage_categories",
                         to="shop.category",
