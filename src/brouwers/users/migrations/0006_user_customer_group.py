@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("shop", "0016_auto_20181217_2121"),
+        ("shop", "0001_initial_squashed_0016_auto_20181217_2121"),
         ("users", "0005_datadownloadrequest_downloaded"),
     ]
 
