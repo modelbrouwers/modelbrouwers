@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -9,7 +10,7 @@ from furl import furl
 
 from brouwers.general.fields import CountryField
 
-from ..constants import OrderStatuses
+from ..constants import DeliveryMethods, OrderStatuses
 from .utils import get_random_reference
 
 if TYPE_CHECKING:
@@ -85,11 +86,18 @@ class Order(models.Model):
     phone = models.CharField(_("phone number"), max_length=100, blank=True)
 
     # addresses
+    delivery_method = models.CharField(
+        _("delivery method"),
+        max_length=20,
+        choices=DeliveryMethods.choices,
+    )
     delivery_address = models.OneToOneField(
         "Address",
         on_delete=models.PROTECT,
         related_name="delivery_order",
         help_text=_("Address for delivery"),
+        blank=True,
+        null=True,
     )
     invoice_address = models.OneToOneField(
         "Address",
@@ -106,11 +114,34 @@ class Order(models.Model):
         _("language"), max_length=10, default="nl", choices=settings.LANGUAGES
     )
 
+    shipping_costs = models.DecimalField(
+        _("shipping costs"),
+        decimal_places=2,
+        max_digits=6,
+        blank=True,
+        null=True,
+    )
+
     payment: "Payment"
 
     class Meta:
         verbose_name = _("order")
         verbose_name_plural = _("orders")
+        constraints = [
+            models.CheckConstraint(
+                name="delivery_address_when_shipping",
+                check=(
+                    Q(
+                        delivery_method=DeliveryMethods.mail,
+                        delivery_address__isnull=False,
+                    )
+                    | ~Q(delivery_method=DeliveryMethods.mail)
+                ),
+                violation_error_message=_(
+                    "A delivery address must be specified when deliverying via mail."
+                ),
+            )
+        ]
 
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)

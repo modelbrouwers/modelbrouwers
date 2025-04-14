@@ -1,5 +1,6 @@
 import csv
 import io
+from decimal import Decimal
 
 from django.test import TestCase
 from django.urls import reverse
@@ -8,8 +9,9 @@ from django_webtest import WebTest
 
 from brouwers.users.tests.factories import UserFactory
 
+from ..constants import WeightUnits
 from ..models import Category
-from .factories import CategoryFactory
+from .factories import CartFactory, CartProductFactory, CategoryFactory, ProductFactory
 
 
 class CategoryImportExportTest(WebTest):
