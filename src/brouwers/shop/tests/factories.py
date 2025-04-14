@@ -183,3 +183,15 @@ class PaymentFactory(factory.django.DjangoModelFactory[Payment]):
                 },
             },
         )
+
+
+class ShippingCostFactory(factory.django.DjangoModelFactory[ShippingCost]):
+    # TODO: properly refactor to django-countries
+    country = factory.fuzzy.FuzzyChoice(["N", "B", "D"])
+    label = factory.fuzzy.FuzzyChoice(["enveloppe", "small package", "large package"])
+    max_weight = factory.fuzzy.FuzzyInteger(10, 15_000)
+    price = factory.fuzzy.FuzzyDecimal(2.95, 25)
+
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
+        model = ShippingCost
+        django_get_or_create = ("country", "max_weight")
