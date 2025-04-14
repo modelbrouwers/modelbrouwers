@@ -1,5 +1,6 @@
 import csv
 import io
+from decimal import Decimal
 
 from django.test import TestCase
 from django.urls import reverse
@@ -8,8 +9,9 @@ from django_webtest import WebTest
 
 from brouwers.users.tests.factories import UserFactory
 
+from ..constants import WeightUnits
 from ..models import Category
-from .factories import CategoryFactory
+from .factories import CartFactory, CartProductFactory, CategoryFactory, ProductFactory
 
 
 class CategoryImportExportTest(WebTest):
@@ -51,3 +53,55 @@ class CategoryModelTest(TestCase):
 
         child1.add_child()
         self.assertEqual(len(child1.get_children()), 1)
+
+
+class ProductModelTests(TestCase):
+    def test_calculate_weight_in_grams(self):
+        with self.subTest("gram units"):
+            product1 = ProductFactory.create(weight_unit=WeightUnits.gram, weight=300)
+
+            self.assertEqual(product1.weight_in_grams, 300)
+        with self.subTest("kg units"):
+            product2 = ProductFactory.create(
+                weight_unit=WeightUnits.kilogram, weight=Decimal("0.55")
+            )
+
+            self.assertEqual(product2.weight_in_grams, 550)
+
+
+class CartModelTests(TestCase):
+    def test_calculate_total(self):
+        cart = CartFactory.create()
+        CartProductFactory.create(
+            cart=cart,
+            product__price=Decimal(10),
+            amount=2,
+        )
+        CartProductFactory.create(
+            cart=cart,
+            product__price=Decimal(5),
+            amount=1,
+        )
+
+        total = cart.total
+
+        self.assertEqual(total, Decimal(25))
+
+    def test_calculate_weight(self):
+        cart = CartFactory.create()
+        CartProductFactory.create(
+            cart=cart,
+            product__weight_unit=WeightUnits.kilogram,
+            product__weight=Decimal(0.6),
+            amount=2,
+        )
+        CartProductFactory.create(
+            cart=cart,
+            product__weight_unit=WeightUnits.gram,
+            product__weight=Decimal(150),
+            amount=1,
+        )
+
+        weight = cart.weight
+
+        self.assertEqual(weight, 1350)

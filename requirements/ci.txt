@@ -203,7 +203,7 @@ et-xmlfile==1.1.0
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   openpyxl
-factory-boy==3.3.0
+factory-boy==3.3.2
     # via -r requirements/test-tools.in
 faker==23.3.0
     # via factory-boy

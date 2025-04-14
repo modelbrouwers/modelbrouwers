@@ -3,6 +3,7 @@ Integration tests for shop checkout flow.
 """
 
 from decimal import Decimal
+from unittest.mock import patch
 
 from django.test import override_settings
 from django.urls import reverse
@@ -11,11 +12,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from brouwers.general.constants import CountryChoices
 from brouwers.utils.tests.selenium import SeleniumTests
 
 from ...constants import OrderStatuses
 from ...models import Cart, Order, ShopConfiguration
-from ..factories import CategoryFactory, PaymentMethodFactory, ProductFactory
+from ..factories import (
+    CategoryFactory,
+    PaymentMethodFactory,
+    ProductFactory,
+    ShippingCostFactory,
+)
 
 
 @override_settings(LANGUAGE_CODE="en")
@@ -44,6 +51,16 @@ class CheckoutTests(SeleniumTests):
             vat=Decimal("0.20"),  # easier math in tests :-)
             categories=[category],
         )
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=100, price=Decimal("4.95")
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=1000, price=Decimal("9.95")
+        )
+
+        patcher = patch("brouwers.shop.api.views.get_ideal_banks", return_value=[])
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
         with self.subTest("put products in cart"):
             # view category page (product list)

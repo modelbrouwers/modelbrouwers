@@ -225,7 +225,7 @@ et-xmlfile==1.1.0
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   openpyxl
-factory-boy==3.3.0
+factory-boy==3.3.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt

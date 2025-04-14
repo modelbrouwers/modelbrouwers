@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Optional
 
 from django.contrib import admin
@@ -23,6 +24,7 @@ from .models import (
     Product,
     ProductImage,
     ProductManufacturer,
+    ShippingCost,
     ShopConfiguration,
 )
 from .resources import CategoryResource, ProductResource
@@ -229,6 +231,18 @@ class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
     )
 
 
+@admin.register(ShippingCost)
+class ShippingCostAdmin(admin.ModelAdmin):
+    list_display = ("country", "label", "formatted_weight", "price")
+    list_filter = ("country",)
+    search_fields = ("label",)
+    ordering = ("country", "max_weight")
+
+    @admin.display(description=_("maximum weight"), ordering="max_weight")
+    def formatted_weight(self, obj: ShippingCost) -> str:
+        return obj.format_weight()
+
+
 #
 # Carts/orders/payments
 #
@@ -302,7 +316,9 @@ class OrderAdmin(admin.ModelAdmin):
         "last_name",
         "email",
         "status",
+        "total_price",
         "payment_status",
+        "delivery_method",
     )
     list_select_related = ("payment",)
     search_fields = ("first_name", "last_name", "reference", "email")
@@ -320,3 +336,11 @@ class OrderAdmin(admin.ModelAdmin):
         if not obj.payment:
             return None
         return obj.payment.get_status_display()
+
+    @admin.display(description=_("Price"))
+    def total_price(self, obj: Order) -> Decimal | None:
+        if (snapshot := obj.cart.snapshot_data) is None:
+            return None
+        items_total = Decimal(snapshot["total"])
+        shipping = Decimal(obj.shipping_costs or 0)
+        return items_total + shipping

@@ -148,6 +148,18 @@
                 &euro;&nbsp;{{ total_vat|floatformat:"2g" }}
             </td>
         </tr>
+
+        {% if shipping_costs %}
+        <tr>
+            <td style="{{ tbody_style }}; text-align: right;" colspan="3">
+                <strong>{% translate "Shipping costs" %}:</strong>
+            </td>
+            <td style="{{ tbody_style }}; text-align: right;">
+                &euro;&nbsp;{{ shipping_costs|floatformat:"2g" }}
+            </td>
+        </tr>
+        {% endif %}
+
         <tr>
             <td style="{{ tbody_style }}; text-align: right;" colspan="3">
                 <strong>{% translate "Total" %}:</strong>

@@ -1,3 +1,6 @@
+from decimal import Decimal
+from typing import assert_never
+
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
@@ -119,6 +122,17 @@ class Product(models.Model):
         if self.image:
             schema["image"] = self.image.url
         return schema
+
+    @property
+    def weight_in_grams(self) -> Decimal:
+        _enum_value = WeightUnits(self.weight_unit)
+        match _enum_value:
+            case WeightUnits.gram:
+                return self.weight
+            case WeightUnits.kilogram:
+                return self.weight * 1000
+            case _:  # pragma: no cover
+                assert_never(_enum_value)
 
 
 class ProductImage(models.Model):

@@ -56,7 +56,9 @@ def render_order_confirmation(
 
     payment = order.payment if hasattr(order, "payment") else None
 
-    products = order.cart.snapshot_data["products"]
+    snapshot = order.cart.snapshot_data
+    products = snapshot["products"]
+
     total_vat = sum(
         (
             Decimal(prod["amount"]) * Decimal(prod["vat"]) * Decimal(prod["price"])
@@ -64,6 +66,8 @@ def render_order_confirmation(
         ),
         Decimal(0),
     )
+    shipping_costs = Decimal(order.shipping_costs or 0)
+    total_products = Decimal(snapshot["total"])
 
     confirmation_url = furl(order.get_confirmation_link())
     confirmation_url.scheme = base.scheme
@@ -95,8 +99,9 @@ def render_order_confirmation(
             "delivery_address": order.delivery_address,
             "invoice_address": order.invoice_address or order.delivery_address,
             "products": products,
-            "total": (total := Decimal(order.cart.snapshot_data["total"])),
-            "subtotal": (total - total_vat).quantize(TWO_DIGITS),
+            "shipping_costs": shipping_costs,
+            "total": total_products + shipping_costs,
+            "subtotal": (total_products - total_vat).quantize(TWO_DIGITS),
             "total_vat": total_vat.quantize(TWO_DIGITS),
         }
         content = template.render(context)

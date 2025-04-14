@@ -1,9 +1,16 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db.models import Q, QuerySet
 
 from .constants import CART_SESSION_KEY, CartStatuses
 
+if TYPE_CHECKING:
+    from .models import Cart
 
-class CartQuerySet(QuerySet):
+
+class CartQuerySet(QuerySet["Cart"]):
     def open(self):
         """
         Filter carts by 'open' status.

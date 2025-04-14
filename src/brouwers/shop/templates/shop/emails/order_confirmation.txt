@@ -35,6 +35,7 @@ Products:{% endblocktrans %}{% for product in products %}
 
 {% translate "Subtotal" %}: € {{ subtotal|floatformat:"2g" }}
 {% translate "VAT" %}: € {{ total_vat|floatformat:"2g" }}
+{% if shipping_costs %}{% translate "Shipping costs" %}: € {{ shipping_costs|floatformat:"2g" }}{% endif %}
 {% translate "Total" %}: € {{ total|floatformat:"2g" }}
 
 {% blocktranslate with link=order.link %}
