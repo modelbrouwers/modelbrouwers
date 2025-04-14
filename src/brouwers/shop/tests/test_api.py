@@ -6,11 +6,17 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from brouwers.general.constants import CountryChoices
 from brouwers.users.tests.factories import UserFactory
 
-from ..constants import CartStatuses
+from ..constants import CART_SESSION_KEY, CartStatuses, WeightUnits
 from ..models import Cart
-from .factories import CartFactory, CartProductFactory, ProductFactory
+from .factories import (
+    CartFactory,
+    CartProductFactory,
+    ProductFactory,
+    ShippingCostFactory,
+)
 
 
 class ProductApiTest(APITestCase):
@@ -174,13 +180,120 @@ class CartApiTest(APITestCase):
     def test_get_cart_total(self):
         cart = CartFactory.create(user=self.user)
         product = ProductFactory.create(price=Decimal("1.15"))
-        cart_product = CartProductFactory.create(product=product, amount=4, cart=cart)
+        CartProductFactory.create(product=product, amount=4, cart=cart)
         product2 = ProductFactory.create(price=Decimal("0.15"))
-        cart_product2 = CartProductFactory.create(
-            product=product2, amount=40, cart=cart
-        )
+        CartProductFactory.create(product=product2, amount=40, cart=cart)
 
         response = self.client.get(reverse("api:cart-detail"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["total"], Decimal("10.60"))
+
+
+class GetShippingCostsTests(APITestCase):
+
+    def test_invalid_cart_id_parameter(self):
+        endpoint = reverse("api:shipping-costs")
+        cases = (
+            ("missing cart_id", {}),
+            ("cart_id empty", {"cart_id": ""}),
+            ("cart_id not numeric", {"cart_id": "abc"}),
+            (
+                "cart_id points to closed cart",
+                {"cart_id": CartFactory.create(status=CartStatuses.closed).pk},
+            ),
+            (
+                "cart_id points to processing cart",
+                {"cart_id": CartFactory.create(status=CartStatuses.processing).pk},
+            ),
+            (
+                "cart_id does not exist",
+                {"cart_id": Cart.objects.order_by("-pk")[:1][0].pk + 1},
+            ),
+        )
+        for case, params in cases:
+            with self.subTest(case=case):
+                response = self.client.get(
+                    endpoint, data={"country": CountryChoices.nl, **params}
+                )
+
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_invalid_country(self):
+        cart = CartFactory.create(status=CartStatuses.open)
+        session = self.client.session
+        session[CART_SESSION_KEY] = cart.pk
+        session.save()
+        endpoint = reverse("api:shipping-costs")
+
+        cases = (
+            ("missing country param", {}),
+            ("unsupported country param", {"country": "JA"}),
+        )
+
+        for case, params in cases:
+            with self.subTest(case=case):
+                response = self.client.get(
+                    endpoint, data={"cart_id": cart.pk, **params}
+                )
+
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_calculate_price_from_weight(self):
+        endpoint = reverse("api:shipping-costs")
+        cart = CartFactory.create(status=CartStatuses.open)
+        session = self.client.session
+        session[CART_SESSION_KEY] = cart.pk
+        session.save()
+        CartProductFactory.create(
+            cart=cart,
+            product__weight_unit=WeightUnits.gram,
+            product__weight=150,
+            amount=2,
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=100, price=Decimal("2.95")
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=400, price=Decimal("9.95")
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=1000, price=Decimal("19.95")
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.be, max_weight=400, price=Decimal("11.95")
+        )
+
+        response = self.client.get(
+            endpoint, data={"cart_id": cart.pk, "country": CountryChoices.nl}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["price"], "9.95")
+        self.assertEqual(response.data["weight"], "300 g")
+
+    def test_calculate_cart_shipping_costs_more_than_1kg(self):
+        endpoint = reverse("api:shipping-costs")
+        cart = CartFactory.create(status=CartStatuses.open)
+        session = self.client.session
+        session[CART_SESSION_KEY] = cart.pk
+        session.save()
+        CartProductFactory.create(
+            cart=cart,
+            product__weight_unit=WeightUnits.gram,
+            product__weight=550,
+            amount=2,
+        )
+        ShippingCostFactory.create(
+            country=CountryChoices.nl, max_weight=1000, price=Decimal("19.95")
+        )
+
+        response = self.client.get(
+            endpoint,
+            data={"cart_id": cart.pk, "country": CountryChoices.nl},
+            HTTP_ACCEPT_LANGUAGE="nl",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["weight"], "1,1 kg")
+        self.assertEqual(response.data["price"], "19.95")
