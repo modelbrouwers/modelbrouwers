@@ -50,7 +50,14 @@ class Cart(models.Model):
         """
         Total price of all the products in the cart
         """
-        return sum(product.total for product in self.products.all())
+        return sum((product.total for product in self.products.all()), start=Decimal(0))
+
+    @property
+    def weight(self) -> int:
+        """
+        Calculate the weight in grams.
+        """
+        return int(sum(product.weight for product in self.products.all()))
 
     def save_snapshot(self) -> None:
         """
@@ -100,3 +107,10 @@ class CartProduct(models.Model):
         Total price for the amount of products
         """
         return (self.product.price * self.amount).quantize(TWO_DIGITS)
+
+    @property
+    def weight(self) -> Decimal:
+        """
+        Calculate the weight in grams.
+        """
+        return self.product.weight_in_grams * self.amount
