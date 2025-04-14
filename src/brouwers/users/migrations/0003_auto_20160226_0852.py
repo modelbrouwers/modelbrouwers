@@ -4,32 +4,11 @@
 from django.db import migrations
 
 
-def sync_user_forumuser(apps, schema_editor):
-    """
-    Synchronizes the unsynchronized users with their forum user.
-    """
-    User = apps.get_model("users", "User")
-    ForumUser = apps.get_model("forum_tools", "ForumUser")
-    for user in User.objects.filter(forumuser_id__isnull=True):
-        # triggers lookup and save, and e-mail sync via post_save
-        try:
-            return ForumUser.objects.get(pk=user.forumuser_id)
-        except ForumUser.DoesNotExist:
-            forum_user = ForumUser.objects.filter(username=user.username).first()
-            if not user.forumuser_id and forum_user is not None:
-                user.forumuser_id = forum_user.pk
-                user.save()
-                if forum_user.user_email != user.email:
-                    forum_user.user_email = user.email
-                    forum_user.save()
-            return forum_user
-        return None
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
         ("users", "0002_auto_20150530_2311"),
     ]
 
-    operations = [migrations.RunPython(sync_user_forumuser)]
+    # Remove to squash migrations
+    operations = []
