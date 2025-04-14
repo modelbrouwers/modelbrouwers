@@ -7,8 +7,19 @@ import factory.fuzzy
 
 from brouwers.users.tests.factories import UserFactory
 
-from ..constants import OrderStatuses, PaymentStatuses
-from ..models import Cart, CartProduct, Category, Product, ProductManufacturer
+from ..constants import DeliveryMethods, OrderStatuses, PaymentStatuses
+from ..models import (
+    Address,
+    Cart,
+    CartProduct,
+    Category,
+    Order,
+    Payment,
+    PaymentMethod,
+    Product,
+    ProductManufacturer,
+    ShippingCost,
+)
 from ..payments.registry import register
 
 LOCALES = [
@@ -20,10 +31,10 @@ LOCALES = [
 ]
 
 
-class CategoryFactory(factory.django.DjangoModelFactory):
+class CategoryFactory(factory.django.DjangoModelFactory[Category]):
     name = factory.Sequence(lambda n: "category-{}".format(n))
 
-    class Meta:
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = Category
 
     @classmethod
@@ -35,14 +46,16 @@ class CategoryFactory(factory.django.DjangoModelFactory):
         return model_class.add_root(**kwargs)
 
 
-class ProductManufacturerFactory(factory.django.DjangoModelFactory):
+class ProductManufacturerFactory(
+    factory.django.DjangoModelFactory[ProductManufacturer]
+):
     name = factory.Faker("name")
 
-    class Meta:
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = ProductManufacturer
 
 
-class ProductFactory(factory.django.DjangoModelFactory):
+class ProductFactory(factory.django.DjangoModelFactory[Product]):
     name = factory.Faker("name")
     slug = factory.Sequence(lambda n: f"product-{n:04}")
     model_name = factory.Faker("name")
@@ -50,7 +63,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
     price = factory.fuzzy.FuzzyDecimal(0, 5)
     vat = Decimal("0.21")
 
-    class Meta:
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = Product
         skip_postgeneration_save = True
 
@@ -70,8 +83,8 @@ class ProductFactory(factory.django.DjangoModelFactory):
                     self.categories.add(CategoryFactory.create(category=category))
 
 
-class CartFactory(factory.django.DjangoModelFactory):
-    class Meta:
+class CartFactory(factory.django.DjangoModelFactory[Cart]):
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = Cart
 
     class Params:
@@ -80,37 +93,45 @@ class CartFactory(factory.django.DjangoModelFactory):
         )
 
 
-class CartProductFactory(factory.django.DjangoModelFactory):
+class CartProductFactory(factory.django.DjangoModelFactory[CartProduct]):
     product = factory.SubFactory(ProductFactory)
     cart = factory.SubFactory(CartFactory)
     amount = factory.fuzzy.FuzzyInteger(1, 18)
 
-    class Meta:
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = CartProduct
 
 
-class AddressFactory(factory.django.DjangoModelFactory):
+class AddressFactory(factory.django.DjangoModelFactory[Address]):
     street = factory.Faker("street_address", locale=random.choice(LOCALES))
     postal_code = factory.Faker("postcode", locale=random.choice(LOCALES))
     city = factory.Faker("city", locale=random.choice(LOCALES))
     # TODO: properly refactor to django-countries
     country = factory.fuzzy.FuzzyChoice(["N", "B", "D"])
 
-    class Meta:
-        model = "shop.Address"
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
+        model = Address
 
 
-class OrderFactory(factory.django.DjangoModelFactory):
+class OrderFactory(factory.django.DjangoModelFactory[Order]):
     cart = factory.SubFactory(CartFactory)
     status = OrderStatuses.received
     first_name = factory.Faker("first_name")
     email = factory.Faker("free_email")
-    delivery_address = factory.SubFactory(AddressFactory)
+    delivery_method = factory.fuzzy.FuzzyChoice(list(DeliveryMethods.values))
+    delivery_address = factory.Maybe(
+        "needs_address",
+        yes_declaration=factory.SubFactory(AddressFactory),
+        no_declaration=None,
+    )
 
-    class Meta:
-        model = "shop.Order"
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
+        model = Order
 
     class Params:
+        needs_address = factory.LazyAttribute(
+            lambda o: o.delivery_method == DeliveryMethods.mail
+        )
         with_payment = factory.Trait(
             payment=factory.RelatedFactory(
                 "brouwers.shop.tests.factories.PaymentFactory",
@@ -119,22 +140,22 @@ class OrderFactory(factory.django.DjangoModelFactory):
         )
 
 
-class PaymentMethodFactory(factory.django.DjangoModelFactory):
+class PaymentMethodFactory(factory.django.DjangoModelFactory[PaymentMethod]):
     name = factory.Faker("word")
     method = factory.fuzzy.FuzzyChoice((plugin.identifier for plugin in register))
 
-    class Meta:
-        model = "shop.PaymentMethod"
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
+        model = PaymentMethod
         django_get_or_create = ("method",)
 
 
-class PaymentFactory(factory.django.DjangoModelFactory):
+class PaymentFactory(factory.django.DjangoModelFactory[Payment]):
     order = factory.SubFactory(OrderFactory)
     payment_method = factory.SubFactory(PaymentMethodFactory)
     amount = factory.fuzzy.FuzzyInteger(1, 50000)
 
-    class Meta:
-        model = "shop.Payment"
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
+        model = Payment
 
     class Params:
         is_cancelled = factory.Trait(

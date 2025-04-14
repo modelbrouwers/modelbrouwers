@@ -11,6 +11,7 @@ __all__ = ["PaymentMethod", "Payment"]
 
 
 class PaymentMethod(models.Model):
+    id: int
     name = models.CharField(_("name"), max_length=50)
     method = models.CharField(_("method"), max_length=50, unique=True)
     logo = models.ImageField(_("logo"), upload_to="shop/payment_methods/", blank=True)
