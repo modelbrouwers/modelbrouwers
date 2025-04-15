@@ -5,11 +5,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "**.py"
+    tags:
+      - '*'
   pull_request:
-    paths:
-      - "**.py"
   workflow_dispatch:
 
 jobs:
@@ -67,3 +65,20 @@ jobs:
       - name: Run flake8
         run: flake8 src
         continue-on-error: true
+
+  prettier:
+    name: Check frontend code formatting with prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install prettier
+        run: npm ci
+
+      - name: Run prettier
+        run: |
+          npm run checkformat
