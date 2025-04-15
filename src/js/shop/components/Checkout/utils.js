@@ -1,8 +1,8 @@
-import camelCase from "lodash/camelCase";
-import isObject from "lodash/isObject";
+import camelCase from 'lodash/camelCase';
+import isObject from 'lodash/isObject';
 
 // Temporary solution - we should use drf-camelcase-renderer to the backend later.
-export const camelize = (obj) => {
+export const camelize = obj => {
   // recurse into arrays
   if (Array.isArray(obj)) {
     return obj.map(camelize);

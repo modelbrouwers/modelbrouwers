@@ -1,6 +1,6 @@
-@use "../../modules/bem";
-@use "../../partials/colors";
-@use "../../modules/responsive";
+@use '../../modules/bem';
+@use '../../partials/colors';
+@use '../../modules/responsive';
 
 .dashboard-tile {
   --dashboard-tile-size: 280px;
@@ -40,12 +40,12 @@
     background-color: colors.$main-light-blue;
   }
 
-  @include bem.element("icon") {
+  @include bem.element('icon') {
     padding-block: 20px;
     transition: transform 0.2s ease;
   }
 
-  @include bem.element("label") {
+  @include bem.element('label') {
     font-size: 2rem;
   }
 

@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack",
     "dev": "webpack -w --devtool eval-source-map",
-    "prettier-watch": "onchange '**/*.js' -e 'src/static/bundles/**/*.js' -- prettier --write {{changed}}",
+    "format": "prettier --write 'src/{js,sass}/**/*.{js,ts,tsx,scss,mdx}'",
+    "checkformat": "prettier --check 'src/{js,sass}/**/*.{js,ts,tsx,scss,mdx}'",
     "makemessages-en": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
     "makemessages-nl": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/nl.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
     "makemessages-de": "formatjs extract 'src/js/**/*.js' --format src/js/i18n-formatter.js --out-file src/js/locale/locales/de.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
@@ -83,6 +84,7 @@
     "@storybook/react": "^8.6.12",
     "@storybook/react-webpack5": "^8.6.12",
     "@storybook/test": "^8.6.12",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/lodash": "^4.17.15",
     "autoprefixer": "^10.4.4",
     "babel-loader": "^8.0.5",
@@ -96,7 +98,7 @@
     "onchange": "^7.1.0",
     "postcss-loader": "^6.2.1",
     "postcss-selector-lint": "^1.0.2",
-    "prettier": "^2.6.2",
+    "prettier": "^3.5.3",
     "sass": "^1.50.1",
     "sass-loader": "^12.6.0",
     "storybook": "^8.6.12",
@@ -113,5 +115,28 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "prettier": {
+    "$schema": "http://json.schemastore.org/prettierrc",
+    "plugins": [
+      "@trivago/prettier-plugin-sort-imports"
+    ],
+    "arrowParens": "avoid",
+    "bracketSpacing": false,
+    "bracketSameLine": false,
+    "jsxSingleQuote": false,
+    "printWidth": 100,
+    "proseWrap": "always",
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "useTabs": false,
+    "importOrder": [
+      "^((albums|builds|components|data|forms|forum|kitreviews|kits|locale|ponyjs|router|scripts|shop|storybook)/(.*)|(constants|csrf|fallback-img|forum|i18n|index|mobile-nav))$",
+      "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
   }
 }

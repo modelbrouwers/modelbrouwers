@@ -1,5 +1,5 @@
-@use "../modules/bem";
-@use "../modules/responsive";
+@use '../modules/bem';
+@use '../modules/responsive';
 
 @mixin timeline-line() {
   display: block;
@@ -32,12 +32,12 @@ body.twenty-years {
 }
 
 .timeline {
-  @include bem.element("event-backdrop") {
+  @include bem.element('event-backdrop') {
     padding-inline: 0;
     padding-block: calc(var(--timeline-line-size) / 2);
     inline-size: 100%;
 
-    @include bem.modifier("odd") {
+    @include bem.modifier('odd') {
       background-color: var(--timeline-event-lightblue);
     }
 
@@ -48,13 +48,13 @@ body.twenty-years {
     }
   }
 
-  @include bem.element("event") {
+  @include bem.element('event') {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     grid-template-areas:
-      "title title"
-      "body image";
+      'title title'
+      'body image';
     column-gap: var(--timeline-event-padding);
     border: solid 1px #ccc;
     padding-block-start: 0;
@@ -67,20 +67,20 @@ body.twenty-years {
     background-color: #ffffff;
     box-shadow: 2px 3px 5px 0 rgba(0, 0, 0, 0.2);
 
-    @include bem.modifier("odd") {
+    @include bem.modifier('odd') {
       align-self: flex-start;
     }
 
-    @include bem.modifier("even") {
+    @include bem.modifier('even') {
       align-self: flex-end;
     }
 
-    @include bem.modifier("no-image") {
+    @include bem.modifier('no-image') {
       display: block;
       padding-inline-end: var(--timeline-event-padding);
     }
 
-    @include bem.modifier("no-body-text") {
+    @include bem.modifier('no-body-text') {
       display: block;
       max-block-size: 75dvh;
 
@@ -90,7 +90,7 @@ body.twenty-years {
     }
   }
 
-  @include bem.element("event-title") {
+  @include bem.element('event-title') {
     grid-area: title;
     position: sticky;
     inset-block-start: 0;
@@ -105,17 +105,17 @@ body.twenty-years {
     align-items: flex-end;
   }
 
-  @include bem.element("event-date") {
+  @include bem.element('event-date') {
     font-size: 1.7rem;
     color: #919291;
   }
 
-  @include bem.element("event-body") {
+  @include bem.element('event-body') {
     grid-area: body;
     padding-inline-start: var(--timeline-event-padding);
   }
 
-  @include bem.element("event-image") {
+  @include bem.element('event-image') {
     grid-area: image;
     padding-inline-end: var(--timeline-event-padding);
 
@@ -124,7 +124,7 @@ body.twenty-years {
     }
   }
 
-  @include bem.element("line-segment") {
+  @include bem.element('line-segment') {
     @include timeline-line;
   }
 }
@@ -142,7 +142,7 @@ body.twenty-years {
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     @include timeline-line;
   }
 
@@ -159,13 +159,13 @@ body.twenty-years {
   display: flex;
   flex-direction: column;
 
-  @include bem.modifier("year") {
+  @include bem.modifier('year') {
   }
 }
 
 @include responsive.lte-mobile {
   .timeline {
-    @include bem.element("event") {
+    @include bem.element('event') {
       inline-size: calc(100dvw - 30px);
       block-size: clamp(100px, 100%, 90dvh);
       max-block-size: 90dvh; // why doesn't the clamp work?
@@ -173,30 +173,30 @@ body.twenty-years {
       grid-template-columns: 1fr;
       grid-template-rows: auto;
       grid-template-areas:
-        "title"
-        "body"
-        "image";
+        'title'
+        'body'
+        'image';
 
-      @include bem.modifier("odd") {
+      @include bem.modifier('odd') {
         align-self: center;
       }
 
-      @include bem.modifier("even") {
+      @include bem.modifier('even') {
         align-self: center;
       }
     }
 
-    @include bem.element("event-title") {
+    @include bem.element('event-title') {
       flex-direction: column;
       justify-content: start;
       align-items: start;
     }
 
-    @include bem.element("event-body") {
+    @include bem.element('event-body') {
       padding-inline: var(--timeline-event-padding);
     }
 
-    @include bem.element("event-image") {
+    @include bem.element('event-image') {
       padding-inline: var(--timeline-event-padding);
     }
   }

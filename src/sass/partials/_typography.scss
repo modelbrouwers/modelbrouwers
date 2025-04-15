@@ -1,10 +1,10 @@
-@use "../modules/bem";
-@use "../modules/responsive";
+@use '../modules/bem';
+@use '../modules/responsive';
 
 // headings
 
 .heading {
-  @include bem.modifier("plain") {
+  @include bem.modifier('plain') {
     color: var(--mb-color-text);
   }
 }

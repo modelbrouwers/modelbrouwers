@@ -67,11 +67,16 @@ body.fade-small-logo .navbar-brand img {
       font-size: 115%;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
-      text-shadow: #aaa 1px 1px 3px, #aaa 1px 1px 1px, #bbb 1px 1px 0,
+      text-shadow:
+        #aaa 1px 1px 3px,
+        #aaa 1px 1px 1px,
+        #bbb 1px 1px 0,
         #bbb 0 0 1px;
       border: solid 1px #c8c8c8;
       border-bottom: none;
-      box-shadow: #aaa 0 -1px 1px -1px, 3px 0 4px rgba(0, 0, 0, 0.1),
+      box-shadow:
+        #aaa 0 -1px 1px -1px,
+        3px 0 4px rgba(0, 0, 0, 0.1),
         inset $broken-white 0 2px 1px;
       overflow: hidden; // cut off bottom shadow
       &:hover,
@@ -134,7 +139,7 @@ body.fade-small-logo .navbar-brand img {
       a {
         display: block;
         height: 25px;
-        background-image: url("../images/shop/products_sprite.png");
+        background-image: url('../images/shop/products_sprite.png');
         background-repeat: no-repeat;
       }
     }

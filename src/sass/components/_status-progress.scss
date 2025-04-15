@@ -1,5 +1,5 @@
-@use "../modules/bem";
-@use "../modules/responsive";
+@use '../modules/bem';
+@use '../modules/responsive';
 
 $status-progress-padding-inline: 0.5em;
 
@@ -8,7 +8,7 @@ $status-progress-padding-inline: 0.5em;
   justify-content: space-between;
   align-items: center;
 
-  @include bem.element("spacer") {
+  @include bem.element('spacer') {
     flex-grow: 1;
     flex-basis: 100%;
     border-top: dotted 1px $main-grey;
@@ -17,7 +17,7 @@ $status-progress-padding-inline: 0.5em;
     min-width: 1em;
   }
 
-  @include bem.element("step") {
+  @include bem.element('step') {
     padding-inline: $status-progress-padding-inline;
     padding-block: 0.2em;
 
@@ -29,7 +29,7 @@ $status-progress-padding-inline: 0.5em;
       margin-inline-end: -$status-progress-padding-inline;
     }
 
-    @include bem.modifier("current") {
+    @include bem.modifier('current') {
       font-weight: 900;
       font-style: italic;
       color: $main-orange;

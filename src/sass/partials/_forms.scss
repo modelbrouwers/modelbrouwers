@@ -4,7 +4,7 @@ label {
   &.required {
     font-weight: 700;
     &:after {
-      content: "*";
+      content: '*';
     }
   }
 }
@@ -166,7 +166,7 @@ form {
   }
 }
 
-input[type="range"] {
+input[type='range'] {
   appearance: none;
   background: transparent;
   border: none;

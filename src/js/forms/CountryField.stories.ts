@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { withFormik } from "@/storybook/decorators";
+import {withFormik} from '@/storybook/decorators';
+import type {Meta, StoryObj} from '@storybook/react';
 
-import CountryField from "./CountryField";
+import CountryField from './CountryField';
 
 export default {
-  title: "Components / Forms / CountryField",
+  title: 'Components / Forms / CountryField',
   component: CountryField,
   decorators: [withFormik],
   args: {
-    name: "country",
-    label: "Select a country",
+    name: 'country',
+    label: 'Select a country',
     required: true,
   },
   parameters: {
     formik: {
       initialValues: {
-        country: "N",
+        country: 'N',
       },
     },
   },
@@ -24,14 +24,14 @@ export default {
 type Story = StoryObj<typeof CountryField>;
 
 export const Default: Story = {
-  name: "CountryField",
+  name: 'CountryField',
 };
 
 export const Empty: Story = {
   parameters: {
     formik: {
       initialValues: {
-        country: "",
+        country: '',
       },
     },
   },
@@ -44,7 +44,7 @@ export const WithError: Story = {
         country: true,
       },
       initialErrors: {
-        country: "Some error",
+        country: 'Some error',
       },
     },
   },

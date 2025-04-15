@@ -1,5 +1,5 @@
-@import "../../partials/colors";
-@import "../../partials/responsive";
+@import '../../partials/colors';
+@import '../../partials/responsive';
 
 $awards-podium-spacing: 10px;
 
@@ -58,7 +58,7 @@ $awards-podium-spacing: 10px;
       display: flex;
       justify-content: center;
       text-align: center;
-      align-items: center;;
+      align-items: center;
       // border: solid 1px $awards-podium-border-color;
       padding: 1em;
       font-weight: bolder;

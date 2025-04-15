@@ -1,16 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import React from 'react';
+import Dropzone, {Input} from 'react-dropzone-uploader/dist/react-dropzone-uploader';
 
-import Dropzone, {
-  Input,
-} from "react-dropzone-uploader/dist/react-dropzone-uploader";
+import {csrfToken} from '../../csrf';
 
-import { csrfToken } from "../../csrf";
-
-const ENDPOINT = "/api/v1/kits/boxart/";
+const ENDPOINT = '/api/v1/kits/boxart/';
 const MAX_SIZE = 1024 * 1024 * 10; // 10 MB
 
-const DropzoneInput = (props) => {
+const DropzoneInput = props => {
   const {
     className,
     labelClassName,
@@ -48,7 +45,7 @@ const DropzoneInput = (props) => {
           accept={accept}
           multiple={multiple}
           disabled={disabled}
-          onChange={async (e) => {
+          onChange={async e => {
             const target = e.target;
             const chosenFiles = await getFilesFromEvent(e);
             onFiles(chosenFiles);
@@ -60,22 +57,22 @@ const DropzoneInput = (props) => {
   );
 };
 
-const BoxartUpload = ({ onComplete }) => {
-  const getUploadParams = ({ file, meta }) => {
+const BoxartUpload = ({onComplete}) => {
+  const getUploadParams = ({file, meta}) => {
     const body = new FormData();
-    body.append("image", file);
+    body.append('image', file);
     return {
       url: ENDPOINT,
       headers: {
-        "X-CSRFToken": csrfToken,
-        Accept: "application/json",
+        'X-CSRFToken': csrfToken,
+        Accept: 'application/json',
       },
       body,
     };
   };
 
-  const handleChangeStatus = ({ meta, file, xhr }, status) => {
-    if (status === "done") {
+  const handleChangeStatus = ({meta, file, xhr}, status) => {
+    if (status === 'done') {
       const response = JSON.parse(xhr.response);
       onComplete(response);
     }

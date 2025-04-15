@@ -1,5 +1,5 @@
-@use "../../modules/bem";
-@use "../../modules/responsive";
+@use '../../modules/bem';
+@use '../../modules/responsive';
 
 .order-summary {
   display: flex;
@@ -9,13 +9,14 @@
   border: solid 1px #e6e6e6;
 
   &:hover {
-    box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+    box-shadow:
+      0 2px 8px 0 rgba(186, 198, 208, 0.5),
       0 2px 8px 0 rgba(0, 157, 255, 0.05);
     background-color: rgba($main-blue, 0.05);
   }
 
-  @include bem.modifier("new") {
-    @include bem.element("reference") {
+  @include bem.modifier('new') {
+    @include bem.element('reference') {
       display: flex;
       justify-content: flex-start;
       gap: 4px;
@@ -23,7 +24,7 @@
       margin-inline-start: -10px;
 
       &:before {
-        content: "";
+        content: '';
         background-color: $main-pink;
         display: block;
         border-radius: 50%;
@@ -33,18 +34,18 @@
     }
   }
 
-  @include bem.element("heading") {
+  @include bem.element('heading') {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  @include bem.element("reference") {
+  @include bem.element('reference') {
     font-weight: 700;
     margin-block: 0;
   }
 
-  @include bem.element("price") {
+  @include bem.element('price') {
     font-size: 1.1em;
     font-weight: 700;
     background-color: $light-grey;
@@ -55,7 +56,7 @@
     border-radius: 10px 3px;
   }
 
-  @include bem.element("name") {
+  @include bem.element('name') {
     font-weight: 700;
     font-size: 1.1em;
   }
@@ -63,7 +64,7 @@
 
 @include responsive.gte-tablet {
   .order-summary {
-    @include bem.element("metadata") {
+    @include bem.element('metadata') {
       display: flex;
       justify-content: space-between;
       gap: 10px;

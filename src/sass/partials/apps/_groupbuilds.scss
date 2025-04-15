@@ -1,5 +1,4 @@
 body.groupbuilds {
-
   .detail {
     margin-bottom: 25px;
   }
@@ -19,7 +18,8 @@ body.groupbuilds {
     margin-bottom: 25px;
   }
 
-  #calendar, #build-list {
+  #calendar,
+  #build-list {
     margin-top: 15px;
     background-color: #f5f5f5;
     border-radius: 5px;
@@ -41,7 +41,7 @@ body.groupbuilds {
         color: $white;
 
         &:nth-child(odd) {
-          background-color: rgba($main-blue,0.68);
+          background-color: rgba($main-blue, 0.68);
         }
 
         &:first-child {
@@ -57,7 +57,6 @@ body.groupbuilds {
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
     }
-
 
     .today-marker {
       width: 3px;
@@ -97,7 +96,7 @@ body.groupbuilds {
           span.end {
             font-size: 80%;
             line-height: 20px;
-            float:right;
+            float: right;
           }
         }
       }
@@ -120,7 +119,7 @@ body.groupbuilds {
   #build-list .tab-content {
     padding: 15px;
     background-color: $white;
-    border: solid 1px #DDD;
+    border: solid 1px #ddd;
     border-top: none;
   }
 
@@ -134,7 +133,6 @@ body.groupbuilds {
     }
 
     &.finished {
-
       .fa-ellipsis-h {
         display: none;
       }

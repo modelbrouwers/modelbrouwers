@@ -1,5 +1,5 @@
-@use "../modules/bem";
-@use "../modules/responsive";
+@use '../modules/bem';
+@use '../modules/responsive';
 
 .key-value {
   display: flex;
@@ -9,27 +9,27 @@
   align-items: flex-start;
   font-size: 1.1em;
 
-  @include bem.element("label") {
+  @include bem.element('label') {
     color: var(--mb-color-main-grey);
   }
 
-  @include bem.element("text") {
+  @include bem.element('text') {
     font-weight: 900;
 
-    @include bem.modifier("700") {
+    @include bem.modifier('700') {
       font-weight: 700;
     }
   }
 
-  @include bem.modifier("plain") {
-    @include bem.element("label") {
+  @include bem.modifier('plain') {
+    @include bem.element('label') {
       color: inherit;
     }
 
-    @include bem.element("text") {
+    @include bem.element('text') {
       font-weight: inherit;
 
-      @include bem.modifier("700") {
+      @include bem.modifier('700') {
         font-weight: 700;
       }
     }
@@ -43,29 +43,29 @@
 
     &:not(:last-child) {
       &:after {
-        content: "|";
+        content: '|';
         padding-left: 0.5rem;
         color: var(--mb-color-main-grey);
       }
     }
 
-    @include bem.modifier("stretch-mobile") {
+    @include bem.modifier('stretch-mobile') {
       justify-content: space-between;
 
       &:after {
         display: none;
       }
 
-      @include bem.element("label") {
+      @include bem.element('label') {
         &:after {
           display: none;
         }
       }
     }
 
-    @include bem.element("label") {
+    @include bem.element('label') {
       &:after {
-        content: ":";
+        content: ':';
         padding-right: 0.2rem;
       }
     }
@@ -74,11 +74,11 @@
 
 @include responsive.gt-mobile {
   .key-value {
-    @include bem.element("label") {
+    @include bem.element('label') {
       min-width: 6em;
     }
 
-    @include bem.element("text") {
+    @include bem.element('text') {
       text-align: right;
     }
   }

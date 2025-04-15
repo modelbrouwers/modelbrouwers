@@ -1,4 +1,4 @@
-@import "../partials/colors";
+@import '../partials/colors';
 
 $dropzone-min-height: 100px;
 
@@ -33,7 +33,7 @@ $dropzone-min-height: 100px;
   margin-bottom: 0;
   color: $text-color;
 
-  input[type="file"] {
+  input[type='file'] {
     position: fixed;
     top: -1000px;
   }
@@ -63,11 +63,10 @@ $dropzone-min-height: 100px;
       background: $main-green;
     }
 
-    &[value="100"] {
+    &[value='100'] {
       display: none;
     }
   }
 }
-
 
 // <div class="dzu-previewContainer"><img class="dzu-previewImage" src="blob:http://localhost:8000/69a8a06d-013c-4cb5-b380-93043bd357a0" alt="image001.jpg, 5.2kB" title="image001.jpg, 5.2kB"><div class="dzu-previewStatusContainer"><progress max="100" value="100"></progress></div></div>

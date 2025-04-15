@@ -1,4 +1,4 @@
-@use "../../modules/bem";
+@use '../../modules/bem';
 
 .product-card {
   @at-root .card-grid__card#{&} {
@@ -10,24 +10,24 @@
   height: auto;
   border: $border;
 
-  @include bem.element("image-link") {
+  @include bem.element('image-link') {
     display: block;
     width: 100%;
     flex: 1 0 auto;
   }
 
-  @include bem.element("image") {
+  @include bem.element('image') {
     width: 100%;
     flex: 1 0 auto;
   }
 
-  @include bem.element("name") {
+  @include bem.element('name') {
     padding: 5px 0;
     flex: 1 0 auto;
     font-size: 1.1em;
   }
 
-  @include bem.element("price") {
+  @include bem.element('price') {
     font-weight: bold;
     margin: 5px 0;
     flex: 0;
@@ -35,20 +35,20 @@
   }
 
   @include gt-mobile {
-    @include bem.element("image-link") {
+    @include bem.element('image-link') {
       order: 1;
     }
 
-    @include bem.element("name") {
+    @include bem.element('name') {
       color: $text-color;
       order: 2;
     }
 
-    @include bem.element("price") {
+    @include bem.element('price') {
       order: 4;
     }
 
-    @include bem.element("actions") {
+    @include bem.element('actions') {
       order: 3;
       margin-top: 0.5em;
       display: flex;

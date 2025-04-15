@@ -1,12 +1,11 @@
 .review-preview {
-
   border: solid 1px $default-border-color;
   padding: 15px;
 
   &.review-preview--with-ratings {
     .review-preview__body {
-        padding-top: 2em;
-        max-height: 200px;
+      padding-top: 2em;
+      max-height: 200px;
     }
   }
 
@@ -36,7 +35,7 @@
     padding-top: 1em;
 
     &:after {
-      content: " ";
+      content: ' ';
       position: absolute;
       width: 100%;
       display: block;
@@ -61,7 +60,7 @@
     }
   }
 
-  @media(max-width: 992px) {
+  @media (max-width: 992px) {
     & &__details {
       text-align: left;
     }

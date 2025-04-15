@@ -1,9 +1,9 @@
-import { ReactNode, useId } from "react";
-import { useField } from "formik";
-import clsx from "clsx";
+import clsx from 'clsx';
+import {useField} from 'formik';
+import {ReactNode, useId} from 'react';
 
-import ErrorList from "./ErrorList";
-import FormGroup, { FormGroupProps } from "./FormGroup";
+import ErrorList from './ErrorList';
+import FormGroup, {FormGroupProps} from './FormGroup';
 
 export interface TextFieldProps {
   name: string;
@@ -11,7 +11,7 @@ export interface TextFieldProps {
   formGroupProps?: FormGroupProps;
 }
 
-const TextField: React.FC<TextFieldProps & JSX.IntrinsicElements["input"]> = ({
+const TextField: React.FC<TextFieldProps & JSX.IntrinsicElements['input']> = ({
   name,
   label,
   className: _className,
@@ -20,14 +20,11 @@ const TextField: React.FC<TextFieldProps & JSX.IntrinsicElements["input"]> = ({
 }) => {
   const id = useId();
   const [field] = useField<string>(name);
-  const className = clsx("form-control", _className);
+  const className = clsx('form-control', _className);
   return (
     <FormGroup {...formGroupProps}>
       {label && (
-        <label
-          htmlFor={id}
-          className={clsx("control-label", { required: props.required })}
-        >
+        <label htmlFor={id} className={clsx('control-label', {required: props.required})}>
           {label}
         </label>
       )}

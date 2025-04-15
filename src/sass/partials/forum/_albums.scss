@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 body.forum {
   $sidebar-width: 20%;
@@ -73,7 +73,9 @@ body.forum {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
       @include raised(2);
-      transition: opacity 0.5s linear 0.5s, left 0.5s ease,
+      transition:
+        opacity 0.5s linear 0.5s,
+        left 0.5s ease,
         visibility 0.5s linear 0.5s;
 
       .fa {

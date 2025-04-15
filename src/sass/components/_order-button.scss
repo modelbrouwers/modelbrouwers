@@ -1,5 +1,5 @@
-@use "../modules/bem";
-@use "../modules/responsive";
+@use '../modules/bem';
+@use '../modules/responsive';
 
 .order-button {
   display: flex;
@@ -9,11 +9,11 @@
     border-radius: 0 4px 4px 0;
   }
 
-  @include bem.element("amount-label") {
+  @include bem.element('amount-label') {
     display: none; // SR only
   }
 
-  @include bem.element("amount") {
+  @include bem.element('amount') {
     width: var(--mb-order-button-input-width, 50px);
     padding: 0 5px;
     border: 1px solid var(--mb-color-main-blue);
@@ -32,7 +32,7 @@
   }
 
   @include responsive.lte-mobile {
-    @include bem.element("amount") {
+    @include bem.element('amount') {
       --mb-order-button-input-width: 100px;
     }
 

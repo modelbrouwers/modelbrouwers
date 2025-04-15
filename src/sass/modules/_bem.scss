@@ -23,9 +23,9 @@
 //   `.block.block--modifier {...}`
 //   `.block .block__element {...}`
 
-@use "sass:list" as list;
-@use "sass:string" as string;
-@use "sass:selector" as selector;
+@use 'sass:list' as list;
+@use 'sass:string' as string;
+@use 'sass:selector' as selector;
 
 /// Split a string on separator
 ///
@@ -73,7 +73,7 @@
 @mixin element($element) {
   // capture the block, even if there is a modifier on the block
   $block: nth(simple-selectors(&), 1);
-  $selector: "#{&} #{$block}__#{$element}";
+  $selector: '#{&} #{$block}__#{$element}';
   @at-root #{$selector} {
     @content;
   }
@@ -104,20 +104,17 @@
   // we grab the _first_ selector list item - & can refer to multiple, but that's very
   // un-bem like and unsupported here.
   $target: list.nth(&, 1);
-  $bits: _str-split(string.quote(#{$target}), " ");
+  $bits: _str-split(string.quote(#{$target}), ' ');
 
   @if (length($bits) == 1) {
     // block
-    $selector: selector.append(&, "#{&}--#{$modifier}");
+    $selector: selector.append(&, '#{&}--#{$modifier}');
   } @else {
     // block__element
     $block: list.nth($bits, 1); // block, possibly with a modifier
     $element: list.nth($bits, 2);
-    $element_with_modifier: selector.append(
-      $element,
-      "#{$element}--#{$modifier}"
-    );
-    $selector: "#{$block} #{$element_with_modifier}";
+    $element_with_modifier: selector.append($element, '#{$element}--#{$modifier}');
+    $selector: '#{$block} #{$element_with_modifier}';
   }
 
   @at-root #{$selector} {

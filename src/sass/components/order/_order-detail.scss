@@ -1,36 +1,36 @@
-@use "../../modules/bem";
-@use "../../modules/responsive";
+@use '../../modules/bem';
+@use '../../modules/responsive';
 
 .order-detail {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    "status customer"
-    "buttonrow customer"
-    "products customer";
+    'status customer'
+    'buttonrow customer'
+    'products customer';
   gap: 10px;
 
   address {
     margin: 0;
   }
 
-  @include bem.element("status") {
+  @include bem.element('status') {
     grid-area: status;
     padding-block-start: 20px;
   }
 
-  @include bem.element("products") {
+  @include bem.element('products') {
     grid-area: products;
   }
 
-  @include bem.element("customer") {
+  @include bem.element('customer') {
     grid-area: customer;
     display: flex;
     flex-direction: column;
   }
 
-  @include bem.element("heading") {
+  @include bem.element('heading') {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,38 +47,38 @@
     }
   }
 
-  @include bem.element("heading-badges") {
+  @include bem.element('heading-badges') {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 4px;
   }
 
-  @include bem.element("heading-badge") {
+  @include bem.element('heading-badge') {
     display: block;
     border-radius: 14px;
     padding-inline: 6px;
     padding-block: 4px;
     border: solid 1px $light-grey;
 
-    @include bem.modifier("neutral") {
+    @include bem.modifier('neutral') {
       background-color: $light-grey;
     }
 
-    @include bem.modifier("success") {
+    @include bem.modifier('success') {
       background-color: $main-green;
       border-color: transparent;
       color: #fff;
     }
 
-    @include bem.modifier("danger") {
+    @include bem.modifier('danger') {
       background-color: $main-red;
       border-color: transparent;
       color: #fff;
     }
   }
 
-  @include bem.element("form") {
+  @include bem.element('form') {
     .form-group {
       display: flex;
       gap: 10px;
@@ -94,9 +94,10 @@
     }
   }
 
-  @include bem.element("button-row") {
+  @include bem.element('button-row') {
     grid-area: buttonrow;
-    box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+    box-shadow:
+      0 2px 8px 0 rgba(186, 198, 208, 0.5),
       0 2px 8px 0 rgba(0, 157, 255, 0.05);
     background-color: white;
     padding-block: 10px;
@@ -114,7 +115,7 @@
     }
   }
 
-  @include bem.element("meta") {
+  @include bem.element('meta') {
     ul {
       list-style: revert;
       margin: revert;
@@ -128,12 +129,12 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-template-areas:
-      "status"
-      "products"
-      "customer"
-      "buttonrow";
+      'status'
+      'products'
+      'customer'
+      'buttonrow';
 
-    @include bem.element("button-row") {
+    @include bem.element('button-row') {
       flex-direction: column;
     }
   }
@@ -141,24 +142,26 @@
 
 @include responsive.gte-tablet {
   .order-detail {
-    @include bem.element("status") {
-      box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+    @include bem.element('status') {
+      box-shadow:
+        0 2px 8px 0 rgba(186, 198, 208, 0.5),
         0 2px 8px 0 rgba(0, 157, 255, 0.05);
       padding-inline-start: 10px;
       padding-inline-end: 10px;
     }
 
-    @include bem.element("customer") {
+    @include bem.element('customer') {
       align-self: start;
       position: sticky;
       top: 20px;
-      box-shadow: 0 2px 8px 0 rgba(186, 198, 208, 0.5),
+      box-shadow:
+        0 2px 8px 0 rgba(186, 198, 208, 0.5),
         0 2px 8px 0 rgba(0, 157, 255, 0.05);
       padding-inline-start: 10px;
       padding-inline-end: 10px;
     }
 
-    @include bem.element("button-row") {
+    @include bem.element('button-row') {
       text-align: right;
       box-shadow: none;
       padding-block: 0;

@@ -58,7 +58,8 @@ div.gb-inset {
           @include text-raised(1);
         }
 
-        &.finished, &.finished:hover {
+        &.finished,
+        &.finished:hover {
           color: $main-green;
         }
       }
@@ -72,6 +73,5 @@ div.gb-inset {
         font-weight: bold;
       }
     }
-
   }
 }

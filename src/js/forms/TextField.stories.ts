@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { withFormik } from "@/storybook/decorators";
+import {withFormik} from '@/storybook/decorators';
+import type {Meta, StoryObj} from '@storybook/react';
 
-import TextField from "./TextField";
+import TextField from './TextField';
 
 export default {
-  title: "Components / Forms / TextField",
+  title: 'Components / Forms / TextField',
   component: TextField,
   decorators: [withFormik],
   args: {
-    name: "example",
-    label: "Example textfield",
+    name: 'example',
+    label: 'Example textfield',
   },
   parameters: {
     formik: {
       initialValues: {
-        example: "initial value",
+        example: 'initial value',
       },
     },
   },
@@ -23,7 +23,7 @@ export default {
 type Story = StoryObj<typeof TextField>;
 
 export const Default: Story = {
-  name: "TextField",
+  name: 'TextField',
 };
 
 export const WithError: Story = {
@@ -33,7 +33,7 @@ export const WithError: Story = {
         example: true,
       },
       initialErrors: {
-        example: "Some error",
+        example: 'Some error',
       },
     },
   },

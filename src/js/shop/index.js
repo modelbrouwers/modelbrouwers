@@ -1,16 +1,16 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import { IntlProvider } from "react-intl";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import {IntlProvider} from 'react-intl';
+import {BrowserRouter as Router} from 'react-router-dom';
 
-import { CartConsumer } from "../data/shop/cart";
-import { TopbarCart, CartProduct, CartDetail } from "./components/Cart";
-import { Checkout } from "./components/Checkout";
-import { camelize } from "./components/Checkout/utils";
-import { CartStore } from "./store";
-import { getIntlProviderProps } from "../i18n";
+import {CartConsumer} from '../data/shop/cart';
+import {getIntlProviderProps} from '../i18n';
+import {CartDetail, CartProduct, TopbarCart} from './components/Cart';
+import {Checkout} from './components/Checkout';
+import {camelize} from './components/Checkout/utils';
+import {CartStore} from './store';
 
-const getDataFromScript = (scriptId) => {
+const getDataFromScript = scriptId => {
   const node = document.getElementById(scriptId);
   if (!node) return null;
   const data = JSON.parse(node.innerText);
@@ -19,9 +19,9 @@ const getDataFromScript = (scriptId) => {
 
 const bindAddToCartForm = (form, cartStore) => {
   if (!form) return;
-  form.addEventListener("submit", (event) => {
+  form.addEventListener('submit', event => {
     event.preventDefault();
-    const { productId, amount } = Object.fromEntries(new FormData(form));
+    const {productId, amount} = Object.fromEntries(new FormData(form));
     cartStore.addProduct({
       product: parseInt(productId),
       amount: parseInt(amount),
@@ -32,7 +32,7 @@ const bindAddToCartForm = (form, cartStore) => {
 export default class Page {
   static init() {
     getIntlProviderProps()
-      .then((intlProviderProps) => {
+      .then(intlProviderProps => {
         this.intlProviderProps = intlProviderProps;
         this.initRating();
         this.initCart();
@@ -41,12 +41,12 @@ export default class Page {
   }
 
   static initRating() {
-    const nodes = document.querySelectorAll(".rating-input__star");
-    const activeClass = "rating-input__option--is-active";
+    const nodes = document.querySelectorAll('.rating-input__star');
+    const activeClass = 'rating-input__option--is-active';
 
     if (nodes && nodes.length) {
       for (let node of nodes) {
-        node.addEventListener("click", function (e) {
+        node.addEventListener('click', function (e) {
           const id = e.target.dataset.id;
           const el = document.getElementById(id);
           const activeNodes = document.querySelectorAll(`.${activeClass}`);
@@ -64,25 +64,21 @@ export default class Page {
 
   static async initCart() {
     const intlProps = this.intlProviderProps;
-    const node = document.getElementById("react-cart");
-    const detailNode = document.getElementById("react-cart-detail");
+    const node = document.getElementById('react-cart');
+    const detailNode = document.getElementById('react-cart-detail');
 
     // set up cart action handlers on list/overview pages
-    const initCartActions = (cartStore) => {
-      const products = document.getElementsByClassName("product-card");
+    const initCartActions = cartStore => {
+      const products = document.getElementsByClassName('product-card');
 
       for (let product of products) {
-        const { product: id, stock } = product.dataset;
-        const reactNode = product.querySelector(".react-cart-actions");
+        const {product: id, stock} = product.dataset;
+        const reactNode = product.querySelector('.react-cart-actions');
 
         createRoot(reactNode).render(
           <IntlProvider {...intlProps}>
-            <CartProduct
-              store={cartStore}
-              productId={id}
-              hasStock={parseInt(stock) > 0}
-            />
-          </IntlProvider>
+            <CartProduct store={cartStore} productId={id} hasStock={parseInt(stock) > 0} />
+          </IntlProvider>,
         );
       }
     };
@@ -94,7 +90,7 @@ export default class Page {
       initCartActions(cartStore);
       this.initCheckout(intlProps, cartStore);
       if (node) {
-        const { checkoutPath, cartDetailPath } = node.dataset;
+        const {checkoutPath, cartDetailPath} = node.dataset;
         createRoot(node).render(
           <IntlProvider {...intlProps}>
             <TopbarCart
@@ -102,47 +98,42 @@ export default class Page {
               checkoutPath={checkoutPath}
               cartDetailPath={cartDetailPath}
             />
-          </IntlProvider>
+          </IntlProvider>,
         );
       }
 
       if (detailNode) {
-        const { checkoutPath: detailCheckoutPath, indexPath } =
-          detailNode.dataset;
+        const {checkoutPath: detailCheckoutPath, indexPath} = detailNode.dataset;
         createRoot(detailNode).render(
           <IntlProvider {...intlProps}>
-            <CartDetail
-              store={cartStore}
-              checkoutPath={detailCheckoutPath}
-              indexPath={indexPath}
-            />
-          </IntlProvider>
+            <CartDetail store={cartStore} checkoutPath={detailCheckoutPath} indexPath={indexPath} />
+          </IntlProvider>,
         );
       }
 
-      const productOrder = document.querySelector(".product .order-button");
+      const productOrder = document.querySelector('.product .order-button');
       bindAddToCartForm(productOrder, cartStore);
     } catch (err) {
-      console.error("Error retrieving cart", err);
+      console.error('Error retrieving cart', err);
       // TODO render error page/modal/toast
     }
   }
 
   static initCheckout(intlProps, cartStore) {
-    const node = document.getElementById("react-checkout");
+    const node = document.getElementById('react-checkout');
     if (!node) return;
-    const { path: basePath, csrftoken, confirmPath } = node.dataset;
+    const {path: basePath, csrftoken, confirmPath} = node.dataset;
     const root = createRoot(node);
 
     // read user profile data from DOM, if user is not authenticated, this will be
     // an empty object
-    const userProfileScript = document.getElementById("user_profile_data");
+    const userProfileScript = document.getElementById('user_profile_data');
     const user = JSON.parse(userProfileScript.innerText);
 
     // read backend data and validation errors
-    const checkoutData = getDataFromScript("checkout-data");
-    const validationErrors = getDataFromScript("checkout-errors");
-    const orderDetails = getDataFromScript("order-details");
+    const checkoutData = getDataFromScript('checkout-data');
+    const validationErrors = getDataFromScript('checkout-errors');
+    const orderDetails = getDataFromScript('order-details');
 
     // mount and render the checkout component in the DOM
     root.render(
@@ -158,7 +149,7 @@ export default class Page {
             validationErrors={validationErrors}
           />
         </Router>
-      </IntlProvider>
+      </IntlProvider>,
     );
   }
 }

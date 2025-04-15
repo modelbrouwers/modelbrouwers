@@ -1,9 +1,9 @@
-@use "../modules/bem";
+@use '../modules/bem';
 
 .backlink {
   display: block;
 
-  @include bem.modifier("light") {
+  @include bem.modifier('light') {
     color: darken($white, 10%);
   }
 }

@@ -1,28 +1,28 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { withFormik } from "@/storybook/decorators";
+import {withFormik} from '@/storybook/decorators';
+import type {Meta, StoryObj} from '@storybook/react';
 
-import AddressFields from "./AddressFields";
+import AddressFields from './AddressFields';
 
 export default {
-  title: "Shop / Checkout / Address / AddressFields",
+  title: 'Shop / Checkout / Address / AddressFields',
   component: AddressFields,
   decorators: [withFormik],
   args: {
-    prefix: "prefix",
+    prefix: 'prefix',
   },
   argTypes: {
-    prefix: { control: { disable: true } },
+    prefix: {control: {disable: true}},
   },
   parameters: {
     formik: {
       initialValues: {
         prefix: {
-          company: "",
-          chamberOfCommerce: "",
-          street: "",
-          number: "",
-          city: "",
-          postalCode: "",
+          company: '',
+          chamberOfCommerce: '',
+          street: '',
+          number: '',
+          city: '',
+          postalCode: '',
           country: null,
         },
       },
@@ -40,13 +40,13 @@ export const FilledOut: Story = {
     formik: {
       initialValues: {
         prefix: {
-          company: "ACME",
-          chamberOfCommerce: "12345678",
-          street: "Bosmanlaan",
-          number: "123",
-          city: "Hamsterdam",
-          postalCode: "1017 AB",
-          country: "N",
+          company: 'ACME',
+          chamberOfCommerce: '12345678',
+          street: 'Bosmanlaan',
+          number: '123',
+          city: 'Hamsterdam',
+          postalCode: '1017 AB',
+          country: 'N',
         },
       },
       initialTouched: {
@@ -69,13 +69,13 @@ export const WithErrors: Story = {
     formik: {
       initialErrors: {
         prefix: {
-          company: ["Something went horribly wrong!"],
-          chamberOfCommerce: ["Something went horribly wrong!"],
-          street: ["Something went horribly wrong!"],
-          number: ["Something went horribly wrong!"],
-          city: ["Something went horribly wrong!"],
-          postalCode: ["Something went horribly wrong!"],
-          country: ["Something went horribly wrong!"],
+          company: ['Something went horribly wrong!'],
+          chamberOfCommerce: ['Something went horribly wrong!'],
+          street: ['Something went horribly wrong!'],
+          number: ['Something went horribly wrong!'],
+          city: ['Something went horribly wrong!'],
+          postalCode: ['Something went horribly wrong!'],
+          country: ['Something went horribly wrong!'],
         },
       },
       initialTouched: {

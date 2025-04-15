@@ -29,7 +29,6 @@ $ps-rail-offset: 3px;
 
 .ps {
   @each $dimension in x, y {
-
     & &__rail-#{$dimension} {
       @include ps-dimensions($dimension);
       background-color: $ps-rail-hover;
