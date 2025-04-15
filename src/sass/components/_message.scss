@@ -1,4 +1,4 @@
-@use "../modules/bem";
+@use '../modules/bem';
 
 .message {
   --message-background-color: transparent;
@@ -17,7 +17,7 @@
   align-items: center;
   gap: var(--message-spacing);
 
-  @include bem.modifier("slim") {
+  @include bem.modifier('slim') {
     margin: 0;
     padding: 0;
     border: none;
@@ -26,11 +26,11 @@
     gap: calc(var(--message-spacing) / 2);
   }
 
-  @include bem.modifier("info") {
+  @include bem.modifier('info') {
     --message-background-color: #cde4ff;
   }
 
-  @include bem.modifier("warning") {
+  @include bem.modifier('warning') {
     --message-background-color: var(--mb-color-main-orange);
     --message-color: #ffffff;
     --message-border-color: var(--mb-color-main-orange);

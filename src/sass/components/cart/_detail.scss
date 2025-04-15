@@ -17,7 +17,6 @@
   }
 
   &__tbody {
-
     tr:not(last-child) {
       border-bottom: $border-light;
     }
@@ -67,5 +66,3 @@
     padding: 30px 0;
   }
 }
-
-

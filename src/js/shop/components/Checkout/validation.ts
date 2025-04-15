@@ -1,19 +1,17 @@
-import { IntlShape, defineMessage } from "react-intl";
+import {IntlShape, defineMessage} from 'react-intl';
 
-import { Address, Customer, AddressDetails } from "./types";
+import {Address, AddressDetails, Customer} from './types';
 
 const ERR_REQUIRED = defineMessage({
-  description: "Validation error message for required field",
-  defaultMessage: "This field is required.", // TODO: add labels
+  description: 'Validation error message for required field',
+  defaultMessage: 'This field is required.', // TODO: add labels
 });
 
 type Errors<T extends object> = {
   [K in keyof T]?: string | (T[K] extends object ? Errors<T[K]> : string);
 };
 
-function makeMandatoryFieldsValidator<T extends object>(
-  fields: Array<keyof T>,
-) {
+function makeMandatoryFieldsValidator<T extends object>(fields: Array<keyof T>) {
   function validator(obj: Partial<T>, intl: IntlShape): Errors<T> {
     const errors: Errors<T> = {};
     for (const fieldName of fields) {
@@ -26,17 +24,17 @@ function makeMandatoryFieldsValidator<T extends object>(
 }
 
 export const validateAddress = makeMandatoryFieldsValidator<Address>([
-  "street",
-  "number",
-  "city",
-  "postalCode",
-  "country",
+  'street',
+  'number',
+  'city',
+  'postalCode',
+  'country',
 ]);
 
 export const validateCustomer = makeMandatoryFieldsValidator<Customer>([
-  "firstName",
-  "lastName",
-  "email",
+  'firstName',
+  'lastName',
+  'email',
 ]);
 
 export const validateAddressDetails = (
@@ -45,7 +43,7 @@ export const validateAddressDetails = (
 ): Errors<AddressDetails> => {
   const errors: Errors<AddressDetails> = {};
 
-  const { customer, deliveryAddress, billingAddress } = details;
+  const {customer, deliveryAddress, billingAddress} = details;
 
   if (customer) {
     const customerErrors = validateCustomer(customer, intl);

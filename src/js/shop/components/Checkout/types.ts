@@ -1,4 +1,4 @@
-import { CountryOption } from "@/forms/CountryField";
+import {CountryOption} from '@/forms/CountryField';
 
 export interface Customer {
   firstName: string;
@@ -14,7 +14,7 @@ export interface Address {
   number: string;
   city: string;
   postalCode: string;
-  country: "" | CountryOption["value"];
+  country: '' | CountryOption['value'];
 }
 
 export interface AddressDetails {

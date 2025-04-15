@@ -1,14 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn, expect, within, waitFor } from "@storybook/test";
-import {
-  reactRouterParameters,
-  withRouter,
-} from "storybook-addon-remix-react-router";
+import type {Meta, StoryObj} from '@storybook/react';
+import {expect, fn, waitFor, within} from '@storybook/test';
+import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-router';
 
-import Address from "./Address";
+import Address from './Address';
 
 export default {
-  title: "Shop / Checkout / Address / Full page",
+  title: 'Shop / Checkout / Address / Full page',
   component: Address,
   decorators: [withRouter],
   args: {
@@ -16,7 +13,7 @@ export default {
   },
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: "/winkel/checkout/address" },
+      routing: {path: '/winkel/checkout/address'},
     }),
   },
 } satisfies Meta<typeof Address>;
@@ -26,28 +23,28 @@ type Story = StoryObj<typeof Address>;
 export const Empty: Story = {
   args: {
     customer: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
     },
     deliveryAddress: {
-      company: "",
-      chamberOfCommerce: "",
-      street: "",
-      number: "",
-      city: "",
-      postalCode: "",
-      country: "N",
+      company: '',
+      chamberOfCommerce: '',
+      street: '',
+      number: '',
+      city: '',
+      postalCode: '',
+      country: 'N',
     },
     billingAddress: null,
   },
 
-  play: async ({ canvasElement }) => {
+  play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
 
     await waitFor(() => {
-      expect(canvas.getByRole("button", { name: "Continue" })).toBeDisabled();
+      expect(canvas.getByRole('button', {name: 'Continue'})).toBeDisabled();
     });
   },
 };
@@ -55,33 +52,29 @@ export const Empty: Story = {
 export const BillingAddressSameAsDelivery: Story = {
   args: {
     customer: {
-      firstName: "Arsene",
-      lastName: "Lupin",
-      email: "arsene@lupin.fr",
-      phone: "",
+      firstName: 'Arsene',
+      lastName: 'Lupin',
+      email: 'arsene@lupin.fr',
+      phone: '',
     },
     deliveryAddress: {
-      company: "",
-      chamberOfCommerce: "",
-      street: "Avenue des Champs-Élysées",
-      number: "42",
-      city: "Paris",
-      postalCode: "75008",
-      country: "N",
+      company: '',
+      chamberOfCommerce: '',
+      street: 'Avenue des Champs-Élysées',
+      number: '42',
+      city: 'Paris',
+      postalCode: '75008',
+      country: 'N',
     },
     billingAddress: null,
   },
 
-  play: async ({ canvasElement }) => {
+  play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
 
-    expect(
-      canvas.getByLabelText("My billing and delivery address are the same."),
-    ).toBeChecked();
+    expect(canvas.getByLabelText('My billing and delivery address are the same.')).toBeChecked();
     await waitFor(() => {
-      expect(
-        canvas.getByRole("button", { name: "Continue" }),
-      ).not.toBeDisabled();
+      expect(canvas.getByRole('button', {name: 'Continue'})).not.toBeDisabled();
     });
   },
 };
@@ -89,39 +82,39 @@ export const BillingAddressSameAsDelivery: Story = {
 export const DifferentBillingAddress: Story = {
   args: {
     customer: {
-      firstName: "Arsene",
-      lastName: "Lupin",
-      email: "arsene@lupin.fr",
-      phone: "",
+      firstName: 'Arsene',
+      lastName: 'Lupin',
+      email: 'arsene@lupin.fr',
+      phone: '',
     },
     deliveryAddress: {
-      company: "",
-      chamberOfCommerce: "",
-      street: "Avenue des Champs-Élysées",
-      number: "42",
-      city: "Paris",
-      postalCode: "75008",
-      country: "N",
+      company: '',
+      chamberOfCommerce: '',
+      street: 'Avenue des Champs-Élysées',
+      number: '42',
+      city: 'Paris',
+      postalCode: '75008',
+      country: 'N',
     },
     billingAddress: {
-      company: "",
-      chamberOfCommerce: "",
-      street: "",
-      number: "",
-      city: "",
-      postalCode: "",
-      country: "N",
+      company: '',
+      chamberOfCommerce: '',
+      street: '',
+      number: '',
+      city: '',
+      postalCode: '',
+      country: 'N',
     },
   },
 
-  play: async ({ canvasElement }) => {
+  play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
 
     expect(
-      canvas.getByLabelText("My billing and delivery address are the same."),
+      canvas.getByLabelText('My billing and delivery address are the same.'),
     ).not.toBeChecked();
     await waitFor(() => {
-      expect(canvas.getByRole("button", { name: "Continue" })).toBeDisabled();
+      expect(canvas.getByRole('button', {name: 'Continue'})).toBeDisabled();
     });
   },
 };

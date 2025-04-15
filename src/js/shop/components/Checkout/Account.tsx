@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import {FormattedMessage} from 'react-intl';
+import {Link} from 'react-router-dom';
 
-const LOGIN_URL = "/login/";
-const SIGNUP_URL = "/regiser/";
+const LOGIN_URL = '/login/';
+const SIGNUP_URL = '/regiser/';
 
 export interface AccountProps {
-  nextAfterLogin: string extends "" ? never : string;
+  nextAfterLogin: string extends '' ? never : string;
 }
 
-const Account: React.FC<AccountProps> = ({ nextAfterLogin }) => {
+const Account: React.FC<AccountProps> = ({nextAfterLogin}) => {
   return (
     <>
       <div className="layout layout--columns">
@@ -35,10 +35,7 @@ const Account: React.FC<AccountProps> = ({ nextAfterLogin }) => {
                 className="button button--blue button--large button--icon button--vertical-center"
               >
                 <i className="fa fa-sign-in" />
-                <FormattedMessage
-                  description="Checkout with login"
-                  defaultMessage="Sign in"
-                />
+                <FormattedMessage description="Checkout with login" defaultMessage="Sign in" />
               </a>
             </div>
 

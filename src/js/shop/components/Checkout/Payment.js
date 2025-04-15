@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import orderBy from "lodash/orderBy";
-import { FormattedMessage } from "react-intl";
-import Select from "react-select";
-import useAsync from "react-use/esm/useAsync";
+import classNames from 'classnames';
+import orderBy from 'lodash/orderBy';
+import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
+import {FormattedMessage} from 'react-intl';
+import Select from 'react-select';
+import useAsync from 'react-use/esm/useAsync';
 
-import Loader from "components/loaders";
-import ErrorBoundary from "components/ErrorBoundary";
+import ErrorBoundary from 'components/ErrorBoundary';
+import Loader from 'components/loaders';
 
-import { PaymentConsumer } from "../../../data/shop/payment";
-import { ErrorMessage } from "../Info";
-import { FormField, FormGroup, ErrorList } from "./FormFields";
-import { BodyCart } from "../Cart";
+import {PaymentConsumer} from '../../../data/shop/payment';
+import {BodyCart} from '../Cart';
+import {ErrorMessage} from '../Info';
+import {ErrorList, FormField, FormGroup} from './FormFields';
 
 const AddressType = PropTypes.shape({
   company: PropTypes.string,
@@ -42,7 +42,7 @@ const useFetchPaymentMethods = () => {
     const methodList = await paymentConsumer.listMethods();
     return methodList;
   }, []);
-  const paymentMethods = orderBy(value, ["order"], ["asc"]);
+  const paymentMethods = orderBy(value, ['order'], ['asc']);
   return {
     loading,
     error,
@@ -50,17 +50,10 @@ const useFetchPaymentMethods = () => {
   };
 };
 
-const PaymentMethod = ({
-  id,
-  name,
-  order,
-  logo = null,
-  isSelected = false,
-  onChange,
-}) => {
-  const className = classNames("payment-method", {
-    "payment-method--has-logo": !!logo,
-    "payment-method--active": isSelected,
+const PaymentMethod = ({id, name, order, logo = null, isSelected = false, onChange}) => {
+  const className = classNames('payment-method', {
+    'payment-method--has-logo': !!logo,
+    'payment-method--active': isSelected,
   });
 
   return (
@@ -74,9 +67,7 @@ const PaymentMethod = ({
         onChange={onChange}
         checked={isSelected}
       />
-      <div className="payment-method__logo">
-        {logo && <img src={logo} alt={name} />}
-      </div>
+      <div className="payment-method__logo">{logo && <img src={logo} alt={name} />}</div>
       <span className="payment-method__name">{name}</span>
     </label>
   );
@@ -91,7 +82,7 @@ PaymentMethod.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-const useGetPaymentSpecificOptions = (paymentMethod) => {
+const useGetPaymentSpecificOptions = paymentMethod => {
   const {
     loading,
     error,
@@ -100,9 +91,9 @@ const useGetPaymentSpecificOptions = (paymentMethod) => {
     if (!paymentMethod) return;
 
     switch (paymentMethod.name.toLowerCase()) {
-      case "ideal": {
+      case 'ideal': {
         const idealBanks = await paymentConsumer.listIdealBanks();
-        return { banks: idealBanks.responseData };
+        return {banks: idealBanks.responseData};
       }
     }
   }, [paymentMethod]);
@@ -124,11 +115,11 @@ const PaymentMethodSpecificOptions = ({
   if (!paymentMethod) return null;
 
   switch (paymentMethod.name.toLowerCase()) {
-    case "ideal": {
-      const { banks } = props;
+    case 'ideal': {
+      const {banks} = props;
       if (!banks) return <Loader />;
 
-      const onBankChange = (bank) => {
+      const onBankChange = bank => {
         setPaymentMethodSpecificState({
           ...paymentMethodSpecificState,
           bank,
@@ -150,7 +141,7 @@ const PaymentMethodSpecificOptions = ({
               required
               component={Select}
               value={paymentMethodSpecificState.bank}
-              options={banks.map((bank) => ({
+              options={banks.map(bank => ({
                 value: bank.id,
                 label: bank.name,
               }))}
@@ -176,7 +167,7 @@ PaymentMethodSpecificOptions.propTypes = {
   }),
 };
 
-const addressToSerializerShape = (address) => {
+const addressToSerializerShape = address => {
   if (!address) return null;
   return {
     street: address.street,
@@ -194,21 +185,11 @@ const addressToSerializerShape = (address) => {
  * Payment method selection & flow
  *
  */
-const Payment = ({
-  cartStore,
-  csrftoken,
-  confirmPath,
-  errors,
-  checkoutDetails,
-}) => {
-  const { loading, error, paymentMethods } = useFetchPaymentMethods();
+const Payment = ({cartStore, csrftoken, confirmPath, errors, checkoutDetails}) => {
+  const {loading, error, paymentMethods} = useFetchPaymentMethods();
   const [selectedMethod, setSelectedMethod] = useState(null);
-  const [paymentMethodSpecificState, setPaymentMethodSpecificState] = useState(
-    {}
-  );
-  const paymentMethod = paymentMethods.find(
-    (method) => method.id === selectedMethod
-  );
+  const [paymentMethodSpecificState, setPaymentMethodSpecificState] = useState({});
+  const paymentMethod = paymentMethods.find(method => method.id === selectedMethod);
   const paymentMethodOptions = useGetPaymentSpecificOptions(paymentMethod);
 
   if (error) return <ErrorMessage />;
@@ -239,14 +220,12 @@ const Payment = ({
       {loading && <Loader />}
 
       <div className="payment-methods">
-        {paymentMethods.map((method) => (
+        {paymentMethods.map(method => (
           <PaymentMethod
             key={method.id}
             {...method}
             isSelected={paymentMethod && method.id === paymentMethod.id}
-            onChange={(event) =>
-              setSelectedMethod(parseInt(event.target.value, 10))
-            }
+            onChange={event => setSelectedMethod(parseInt(event.target.value, 10))}
           />
         ))}
       </div>
@@ -261,10 +240,7 @@ const Payment = ({
       </ErrorBoundary>
 
       <h3 className="checkout__title">
-        <FormattedMessage
-          description="Checkout: Cart overview"
-          defaultMessage="Cart overview"
-        />
+        <FormattedMessage description="Checkout: Cart overview" defaultMessage="Cart overview" />
       </h3>
 
       <BodyCart store={cartStore} />
@@ -272,26 +248,11 @@ const Payment = ({
 
       {/* server side submit */}
       <form action={confirmPath} method="post">
-        <input
-          type="hidden"
-          name="csrfmiddlewaretoken"
-          defaultValue={csrftoken}
-        />
-        <input
-          type="hidden"
-          name="checkoutData"
-          value={JSON.stringify(checkoutData)}
-        />
+        <input type="hidden" name="csrfmiddlewaretoken" defaultValue={csrftoken} />
+        <input type="hidden" name="checkoutData" value={JSON.stringify(checkoutData)} />
         <div className="submit-wrapper">
-          <button
-            type="submit"
-            className="btn bg-main-orange"
-            disabled={!hasProducts}
-          >
-            <FormattedMessage
-              description="Checkout: confirm order"
-              defaultMessage="Place order"
-            />
+          <button type="submit" className="btn bg-main-orange" disabled={!hasProducts}>
+            <FormattedMessage description="Checkout: confirm order" defaultMessage="Place order" />
           </button>
         </div>
       </form>

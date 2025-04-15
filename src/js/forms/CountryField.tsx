@@ -1,20 +1,20 @@
-import clsx from "clsx";
-import { useField } from "formik";
-import { ReactNode, useId } from "react";
-import Select, { Props, GroupBase } from "react-select";
-import { useIntl } from "react-intl";
-import countries from "i18n-iso-countries";
+import clsx from 'clsx';
+import {useField} from 'formik';
+import countries from 'i18n-iso-countries';
+import {ReactNode, useId} from 'react';
+import {useIntl} from 'react-intl';
+import Select, {GroupBase, Props} from 'react-select';
 
-import ErrorList from "./ErrorList";
-import FormGroup from "./FormGroup";
+import ErrorList from './ErrorList';
+import FormGroup from './FormGroup';
 
 // TODO: can we split this in the bundle?
-countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
-countries.registerLocale(require("i18n-iso-countries/langs/nl.json"));
-countries.registerLocale(require("i18n-iso-countries/langs/de.json"));
+countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
+countries.registerLocale(require('i18n-iso-countries/langs/nl.json'));
+countries.registerLocale(require('i18n-iso-countries/langs/de.json'));
 
 export interface CountryOption {
-  value: "N" | "B" | "D";
+  value: 'N' | 'B' | 'D';
   label: string;
 }
 
@@ -24,40 +24,31 @@ export interface CountryFieldProps {
 }
 
 const SUPPORTED_COUNTRIES = {
-  N: (lang: string) => countries.getName("NL", lang),
-  B: (lang: string) => countries.getName("BE", lang),
-  D: (lang: string) => countries.getName("DE", lang),
+  N: (lang: string) => countries.getName('NL', lang),
+  B: (lang: string) => countries.getName('BE', lang),
+  D: (lang: string) => countries.getName('DE', lang),
 };
 
 const CountryField: React.FC<
   CountryFieldProps & Props<CountryOption, false, GroupBase<CountryOption>>
-> = ({ name, label, ...props }) => {
+> = ({name, label, ...props}) => {
   const intl = useIntl();
   const id = useId();
-  const [{ value, ...field }, , helpers] = useField<
-    CountryOption["value"] | undefined
-  >(name);
+  const [{value, ...field}, , helpers] = useField<CountryOption['value'] | undefined>(name);
 
   // build localized list of country names
-  const langCode = intl.locale.split("-")[0];
-  const countryOptions = Object.entries(SUPPORTED_COUNTRIES).map(
-    ([value, nameGetter]) => ({
-      value: value as keyof typeof SUPPORTED_COUNTRIES,
-      label: nameGetter(langCode),
-    }),
-  );
+  const langCode = intl.locale.split('-')[0];
+  const countryOptions = Object.entries(SUPPORTED_COUNTRIES).map(([value, nameGetter]) => ({
+    value: value as keyof typeof SUPPORTED_COUNTRIES,
+    label: nameGetter(langCode),
+  }));
 
-  const selectedOption = countryOptions.find(
-    (option) => option.value === value,
-  );
+  const selectedOption = countryOptions.find(option => option.value === value);
 
   return (
     <FormGroup>
       {label && (
-        <label
-          htmlFor={id}
-          className={clsx("control-label", { required: props.required })}
-        >
+        <label htmlFor={id} className={clsx('control-label', {required: props.required})}>
           {label}
         </label>
       )}

@@ -1,13 +1,13 @@
-import { useContext } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-import { Formik, Form, FormikErrors } from "formik";
+import Checkbox from '@/forms/Checkbox';
+import {Form, Formik, FormikErrors} from 'formik';
+import {useContext} from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
 
-import AddressFields from "./AddressFields";
-import { CheckoutContext } from "./Context";
-import PersonalDetailsFields from "./PersonalDetailsFields";
-import Checkbox from "@/forms/Checkbox";
-import { validateAddressDetails } from "./validation";
-import { AddressDetails } from "./types";
+import AddressFields from './AddressFields';
+import {CheckoutContext} from './Context';
+import PersonalDetailsFields from './PersonalDetailsFields';
+import {AddressDetails} from './types';
+import {validateAddressDetails} from './validation';
 
 export type AddressProps = AddressDetails & {
   onSubmit: (values: AddressDetails) => void;
@@ -29,11 +29,11 @@ const getInitialTouched = (errors: any) => {
 
   Object.entries(errors).forEach(([key, errorOrObject]) => {
     switch (typeof errorOrObject) {
-      case "string": {
+      case 'string': {
         touched[key] = true;
         break;
       }
-      case "object": {
+      case 'object': {
         touched[key] = getInitialTouched(errorOrObject);
         break;
       }
@@ -42,14 +42,9 @@ const getInitialTouched = (errors: any) => {
   return touched;
 };
 
-const Address: React.FC<AddressProps> = ({
-  customer,
-  deliveryAddress,
-  billingAddress,
-  onSubmit,
-}) => {
+const Address: React.FC<AddressProps> = ({customer, deliveryAddress, billingAddress, onSubmit}) => {
   const intl = useIntl();
-  const { validationErrors: _validationErrors } = useContext(CheckoutContext);
+  const {validationErrors: _validationErrors} = useContext(CheckoutContext);
   // FIXME -> in context type
   const validationErrors = _validationErrors as FormikErrors<FormikValues>;
   return (
@@ -64,17 +59,10 @@ const Address: React.FC<AddressProps> = ({
       initialErrors={validationErrors}
       initialTouched={getInitialTouched(validationErrors)}
       onSubmit={onSubmit}
-      validate={(values) => validateAddressDetails(values, intl)}
+      validate={values => validateAddressDetails(values, intl)}
       validateOnMount
     >
-      {({
-        values,
-        handleChange,
-        setFieldValue,
-        isValid,
-        isValidating,
-        setFieldTouched,
-      }) => (
+      {({values, handleChange, setFieldValue, isValid, isValidating, setFieldTouched}) => (
         <Form>
           <div className="row">
             {/* Personal details */}
@@ -109,24 +97,24 @@ const Address: React.FC<AddressProps> = ({
                     defaultMessage="My billing and delivery address are the same."
                   />
                 }
-                onChange={async (event) => {
+                onChange={async event => {
                   handleChange(event);
                   // it's a checkbox, so the value toggles
                   const isSameAddress = !values.billingSameAsDelivery;
                   if (isSameAddress) {
-                    setFieldValue("billingAddress", null);
-                    setFieldTouched("billingAddress", undefined);
+                    setFieldValue('billingAddress', null);
+                    setFieldTouched('billingAddress', undefined);
                   } else {
                     const emptyAddress = {
-                      company: "",
-                      chamberOfCommerce: "",
-                      street: "",
-                      number: "",
-                      city: "",
-                      postalCode: "",
-                      country: values.deliveryAddress.country || "N",
+                      company: '',
+                      chamberOfCommerce: '',
+                      street: '',
+                      number: '',
+                      city: '',
+                      postalCode: '',
+                      country: values.deliveryAddress.country || 'N',
                     };
-                    setFieldValue("billingAddress", emptyAddress);
+                    setFieldValue('billingAddress', emptyAddress);
                   }
                 }}
               />

@@ -1,5 +1,4 @@
 .kit {
-
   .kit__header {
     border-bottom: solid 3px rgba($main-light-blue, 0.5);
     padding-bottom: 0.5em;
@@ -30,7 +29,7 @@
 
   .kit__boxart {
     opacity: 0.7;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
     text-align: center;
 
     &:hover,
@@ -46,5 +45,4 @@
     padding: 4px;
     max-width: 100%;
   }
-
 }

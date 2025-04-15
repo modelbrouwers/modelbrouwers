@@ -1,11 +1,11 @@
 @mixin gt-mobile {
-  @media(min-width: $gt-mobile) {
+  @media (min-width: $gt-mobile) {
     @content;
   }
 }
 
 @mixin lte-mobile {
-  @media(max-width: $gt-mobile) {
+  @media (max-width: $gt-mobile) {
     @content;
   }
 }

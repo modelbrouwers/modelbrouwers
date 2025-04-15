@@ -1,29 +1,23 @@
-import { ReactNode, useId } from "react";
-import { useField } from "formik";
+import {useField} from 'formik';
+import {ReactNode, useId} from 'react';
 
-import ErrorList from "./ErrorList";
+import ErrorList from './ErrorList';
 
 export interface CheckboxProps {
   name: string;
   label: ReactNode;
 }
 
-const TextField: React.FC<CheckboxProps & JSX.IntrinsicElements["input"]> = ({
+const TextField: React.FC<CheckboxProps & JSX.IntrinsicElements['input']> = ({
   name,
   label,
   ...props
 }) => {
   const id = useId();
-  const [field] = useField({ name, type: "checkbox" });
+  const [field] = useField({name, type: 'checkbox'});
   return (
     <div className="form-check checkbox-flex">
-      <input
-        type="checkbox"
-        id={id}
-        className="form-check-input"
-        {...field}
-        {...props}
-      />
+      <input type="checkbox" id={id} className="form-check-input" {...field} {...props} />
       <label htmlFor={id} className="form-check-label">
         {label}
       </label>

@@ -2,7 +2,6 @@
   margin-top: 15px;
 
   .add-kit {
-
     display: none; // initially, hidden, until no search results turn up
 
     a:hover,
@@ -23,7 +22,6 @@
   }
 
   .preview {
-
     .h5 {
       @include ellipsis;
       margin-bottom: 5px;
@@ -51,8 +49,8 @@
       }
     }
 
-    input[type="checkbox"],
-    input[type="radio"] {
+    input[type='checkbox'],
+    input[type='radio'] {
       display: none;
       @include selected-fa();
     }
@@ -80,5 +78,4 @@
     align-items: center;
     justify-content: center;
   }
-
 }

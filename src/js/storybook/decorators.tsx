@@ -1,6 +1,6 @@
-import { FormGroup } from "@/shop/components/Checkout/FormFields.js";
-import type { Decorator } from "@storybook/react";
-import { Formik } from "formik";
+import {FormGroup} from '@/shop/components/Checkout/FormFields.js';
+import type {Decorator} from '@storybook/react';
+import {Formik} from 'formik';
 
 export const withFormik: Decorator = (Story, context) => {
   const isDisabled = context.parameters?.formik?.disable ?? false;
@@ -33,7 +33,7 @@ export const withFormik: Decorator = (Story, context) => {
   );
 };
 
-export const withFormGroup: Decorator = (Story) => {
+export const withFormGroup: Decorator = Story => {
   return (
     <FormGroup>
       <Story />

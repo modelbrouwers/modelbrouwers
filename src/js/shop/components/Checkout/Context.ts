@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { AddressDetails } from "./types";
+import {AddressDetails} from './types';
 
 export type CheckoutContextType = {
   [K in keyof AddressDetails]: AddressDetails[K] | null;
@@ -16,6 +16,6 @@ const CheckoutContext = React.createContext<CheckoutContextType>({
   billingAddress: null,
 });
 
-CheckoutContext.displayName = "CheckoutContext";
+CheckoutContext.displayName = 'CheckoutContext';
 
-export { CheckoutContext };
+export {CheckoutContext};

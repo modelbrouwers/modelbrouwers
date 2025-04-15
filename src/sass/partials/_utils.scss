@@ -2,19 +2,25 @@
 * Hide the dotted lines around an element when it receives focus.
 */
 
-* { _noFocusLine: expression(this.hideFocus=true); } /* ie7 */
-::-moz-focus-inner {border:0;}                       /* firefox */
+* {
+  _nofocusline: expression(this.hideFocus=true);
+} /* ie7 */
+::-moz-focus-inner {
+  border: 0;
+} /* firefox */
 select:-moz-focusring {
-    color: transparent;
-    text-shadow: 0 0 0 #000;
+  color: transparent;
+  text-shadow: 0 0 0 #000;
 }
-:focus, a:focus {outline:none;}                      /* ie8, chrome, etc */
-
+:focus,
+a:focus {
+  outline: none;
+} /* ie8, chrome, etc */
 
 @mixin ellipsis {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .r {
@@ -23,11 +29,10 @@ select:-moz-focusring {
 }
 
 .relative {
-    position: relative;
+  position: relative;
 }
 
-
-@mixin bw(){
+@mixin bw() {
   //Internet Explorer 6 - 9
   filter: gray;
 
@@ -51,11 +56,15 @@ select:-moz-focusring {
 }
 
 @mixin raised($dp: 1) {
-  box-shadow: 0 0 $dp*5px 0 rgba($black, 0.4), 0 $dp*5px $dp*7px 0 rgba($black, 0.3);
+  box-shadow:
+    0 0 $dp * 5px 0 rgba($black, 0.4),
+    0 $dp * 5px $dp * 7px 0 rgba($black, 0.3);
 }
 
 @mixin text-raised($dp: 1) {
-  text-shadow: 0 0 $dp*5px 0 rgba($black, 0.4), 0 $dp*5px $dp*7px 0 rgba($black, 0.3);
+  text-shadow:
+    0 0 $dp * 5px 0 rgba($black, 0.4),
+    0 $dp * 5px $dp * 7px 0 rgba($black, 0.3);
 }
 
 @mixin menu-feedback() {
@@ -72,10 +81,9 @@ select:-moz-focusring {
 
 // top down
 @mixin text-background() {
-  $gradient: linear-gradient(180deg, rgba(black, .5), rgba(black, .1));
+  $gradient: linear-gradient(180deg, rgba(black, 0.5), rgba(black, 0.1));
   background: $gradient;
 }
-
 
 @mixin selected-fa($color: $main-green, $raise: 1) {
   & + label + .fa {

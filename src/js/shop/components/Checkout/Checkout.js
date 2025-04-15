@@ -1,45 +1,39 @@
-import get from "lodash/get";
-import unset from "lodash/unset";
-import set from "lodash/set";
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import classNames from 'classnames';
+import get from 'lodash/get';
+import set from 'lodash/set';
+import unset from 'lodash/unset';
+import PropTypes from 'prop-types';
+import React, {useEffect} from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {
-  NavLink as RRNavLink,
   Navigate,
-  Routes,
+  NavLink as RRNavLink,
   Route,
-  useLocation,
+  Routes,
   useHref,
+  useLocation,
   useNavigate,
-} from "react-router-dom";
-import { FormattedMessage, useIntl } from "react-intl";
-import classNames from "classnames";
-import { useImmerReducer } from "use-immer";
+} from 'react-router-dom';
+import {useImmerReducer} from 'use-immer';
 
-import FAIcon from "../../../components/FAIcon";
-import { Account, Address, Payment, Confirmation } from ".";
-import { EMPTY_ADDRESS } from "./constants";
-import { CheckoutContext } from "./Context";
-import { camelize } from "./utils";
-import { validateAddressDetails } from "./validation";
+import {Account, Address, Confirmation, Payment} from '.';
+import FAIcon from '../../../components/FAIcon';
+import {CheckoutContext} from './Context';
+import {EMPTY_ADDRESS} from './constants';
+import {camelize} from './utils';
+import {validateAddressDetails} from './validation';
 
-const getActiveNavClassNames = ({ isActive, enabled = false }) =>
-  classNames("navigation__link", {
-    "navigation__link--active": isActive,
-    "navigation__link--enabled": enabled,
+const getActiveNavClassNames = ({isActive, enabled = false}) =>
+  classNames('navigation__link', {
+    'navigation__link--active': isActive,
+    'navigation__link--enabled': enabled,
   });
 
-const NavLink = ({
-  enabled = false,
-  className,
-  hasErrors = false,
-  children,
-  ...props
-}) => {
-  const Container = enabled ? RRNavLink : "span";
+const NavLink = ({enabled = false, className, hasErrors = false, children, ...props}) => {
+  const Container = enabled ? RRNavLink : 'span';
   const wrappedClassname = enabled
-    ? ({ isActive }) => className({ isActive, enabled })
-    : className({ isActive: false, enabled });
+    ? ({isActive}) => className({isActive, enabled})
+    : className({isActive: false, enabled});
 
   if (hasErrors) {
     children = (
@@ -61,10 +55,10 @@ const NavLink = ({
 
 const initialState = {
   customer: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
   },
   deliveryAddress: EMPTY_ADDRESS,
   billingAddress: null, // same as delivery address
@@ -73,8 +67,8 @@ const initialState = {
 
 const reducer = (draft, action) => {
   switch (action.type) {
-    case "STATE_FROM_PROPS": {
-      const { user, checkoutData } = action.payload;
+    case 'STATE_FROM_PROPS': {
+      const {user, checkoutData} = action.payload;
       const isAuthenticated = Object.keys(user).length > 1;
 
       // first, process any pre-filled user details (for authenticated users)
@@ -86,7 +80,7 @@ const reducer = (draft, action) => {
         }
         draft.deliveryAddress.postalCode = customer.profile.postal;
         if (!draft.deliveryAddress.country) {
-          draft.deliveryAddress.country = "N";
+          draft.deliveryAddress.country = 'N';
         }
       }
 
@@ -112,19 +106,19 @@ const reducer = (draft, action) => {
       }
       break;
     }
-    case "ADDRESS_SUBMITTED": {
+    case 'ADDRESS_SUBMITTED': {
       Object.assign(draft, action.payload);
       break;
     }
-    case "CHECK_ADDRESS_VALIDITY": {
-      const { intl } = action.payload;
+    case 'CHECK_ADDRESS_VALIDITY': {
+      const {intl} = action.payload;
       const errors = validateAddressDetails(
         {
           customer: draft.customer,
           deliveryAddress: draft.deliveryAddress,
           billingAddress: draft.billingAddress,
         },
-        intl
+        intl,
       );
       draft.addressStepValid = Object.keys(errors).length === 0;
       break;
@@ -141,7 +135,7 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
   for (const key of keys) {
     if (!validationErrors[key]) continue;
     const errors = Object.values(validationErrors[key]);
-    if (errors.some((errorList) => errorList && errorList.length > 0)) {
+    if (errors.some(errorList => errorList && errorList.length > 0)) {
       return true;
     }
   }
@@ -164,7 +158,7 @@ const Checkout = ({
 }) => {
   const intl = useIntl();
   const location = useLocation();
-  const checkoutRoot = useHref("/");
+  const checkoutRoot = useHref('/');
   const navigate = useNavigate();
 
   const isAuthenticated = Object.keys(user).length > 1;
@@ -172,7 +166,7 @@ const Checkout = ({
 
   useEffect(() => {
     dispatch({
-      type: "STATE_FROM_PROPS",
+      type: 'STATE_FROM_PROPS',
       payload: {
         user,
         checkoutData,
@@ -181,17 +175,17 @@ const Checkout = ({
   }, [dispatch, user, checkoutData]);
 
   useEffect(() => {
-    if (location.pathname !== "/") {
-      dispatch({ type: "CHECK_ADDRESS_VALIDITY", payload: { intl } });
+    if (location.pathname !== '/') {
+      dispatch({type: 'CHECK_ADDRESS_VALIDITY', payload: {intl}});
     }
   }, [location, dispatch]);
 
   // re-arrange validation errors to match component structure
   const ERROR_MAP = {
-    firstName: "customer.firstName",
-    lastName: "customer.lastName",
-    email: "customer.email",
-    phone: "customer.phone",
+    firstName: 'customer.firstName',
+    lastName: 'customer.lastName',
+    email: 'customer.email',
+    phone: 'customer.phone',
   };
   for (const [from, to] of Object.entries(ERROR_MAP)) {
     const errors = get(validationErrors, from);
@@ -200,28 +194,27 @@ const Checkout = ({
     unset(validationErrors, from);
   }
 
-  const hasAddressValidationErrors = checkHasValidationErrors(
-    validationErrors,
-    ["customer", "deliveryAddress", "invoiceAddress"]
-  );
-  const hasPaymentValidationErrors = checkHasValidationErrors(
-    validationErrors,
-    ["paymentMethod", "paymentMethodOptions", "cart"]
-  );
-  let firstRouteWithErrors = "/";
+  const hasAddressValidationErrors = checkHasValidationErrors(validationErrors, [
+    'customer',
+    'deliveryAddress',
+    'invoiceAddress',
+  ]);
+  const hasPaymentValidationErrors = checkHasValidationErrors(validationErrors, [
+    'paymentMethod',
+    'paymentMethodOptions',
+    'cart',
+  ]);
+  let firstRouteWithErrors = '/';
   if (hasAddressValidationErrors) {
-    firstRouteWithErrors = "/address";
+    firstRouteWithErrors = '/address';
   } else if (hasPaymentValidationErrors) {
-    firstRouteWithErrors = "/payment";
+    firstRouteWithErrors = '/payment';
   }
 
   return (
     <div className="nav-wrapper">
       <h2 className="nav-wrapper__title">
-        <FormattedMessage
-          description="Checkout header"
-          defaultMessage="Checkout"
-        />
+        <FormattedMessage description="Checkout header" defaultMessage="Checkout" />
       </h2>
 
       <div className="nav-wrapper__content">
@@ -234,12 +227,7 @@ const Checkout = ({
           }}
         >
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Navigate to={isAuthenticated ? "address" : "account"} />
-              }
-            />
+            <Route path="/" element={<Navigate to={isAuthenticated ? 'address' : 'account'} />} />
             <Route
               path="account"
               element={
@@ -257,9 +245,9 @@ const Checkout = ({
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}
-                  onSubmit={(values) => {
-                    dispatch({ type: "ADDRESS_SUBMITTED", payload: values });
-                    navigate("/payment");
+                  onSubmit={values => {
+                    dispatch({type: 'ADDRESS_SUBMITTED', payload: values});
+                    navigate('/payment');
                   }}
                   allowSubmit={state.addressStepValid}
                 />
@@ -283,20 +271,14 @@ const Checkout = ({
             />
             {/* This is a backend URL - if there are validation errors, it renders
                             the response at this URL. */}
-            <Route
-              path="confirm"
-              element={<Navigate to={firstRouteWithErrors} />}
-            />
+            <Route path="confirm" element={<Navigate to={firstRouteWithErrors} />} />
 
             {/* Success page */}
             {orderDetails && (
               <Route
                 path="confirmation"
                 element={
-                  <Confirmation
-                    orderNumber={orderDetails.number}
-                    message={orderDetails.message}
-                  />
+                  <Confirmation orderNumber={orderDetails.number} message={orderDetails.message} />
                 }
               />
             )}
@@ -307,15 +289,8 @@ const Checkout = ({
       <nav className="nav-wrapper__nav">
         <ul className="navigation">
           <li className="navigation__item">
-            <NavLink
-              to="account"
-              className={getActiveNavClassNames}
-              enabled={!isAuthenticated}
-            >
-              <FormattedMessage
-                description="Tab: account"
-                defaultMessage="Account"
-              />
+            <NavLink to="account" className={getActiveNavClassNames} enabled={!isAuthenticated}>
+              <FormattedMessage description="Tab: account" defaultMessage="Account" />
             </NavLink>
           </li>
           <li className="navigation__item">
@@ -325,10 +300,7 @@ const Checkout = ({
               enabled
               hasErrors={hasAddressValidationErrors}
             >
-              <FormattedMessage
-                description="Tab: address"
-                defaultMessage="Address"
-              />
+              <FormattedMessage description="Tab: address" defaultMessage="Address" />
             </NavLink>
           </li>
           <li className="navigation__item">
@@ -338,22 +310,12 @@ const Checkout = ({
               enabled={state.addressStepValid}
               hasErrors={hasPaymentValidationErrors}
             >
-              <FormattedMessage
-                description="Tab: payment"
-                defaultMessage="Payment"
-              />
+              <FormattedMessage description="Tab: payment" defaultMessage="Payment" />
             </NavLink>
           </li>
           <li className="navigation__item">
-            <NavLink
-              to="confirmation"
-              className={getActiveNavClassNames}
-              enabled={!!orderDetails}
-            >
-              <FormattedMessage
-                description="Tab: confirm"
-                defaultMessage="Confirmation"
-              />
+            <NavLink to="confirmation" className={getActiveNavClassNames} enabled={!!orderDetails}>
+              <FormattedMessage description="Tab: confirm" defaultMessage="Confirmation" />
             </NavLink>
           </li>
         </ul>
@@ -377,7 +339,7 @@ Checkout.propTypes = {
       number: PropTypes.string.isRequired,
       postal: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,
-      country: PropTypes.oneOf(["", "N", "B", "F", "G"]),
+      country: PropTypes.oneOf(['', 'N', 'B', 'F', 'G']),
     }),
   }),
   checkoutData: PropTypes.object,

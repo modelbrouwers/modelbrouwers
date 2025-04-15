@@ -1,5 +1,5 @@
-@use "../../modules/bem";
-@use "../../modules/responsive";
+@use '../../modules/bem';
+@use '../../modules/responsive';
 
 $column-gap: 10px;
 $row-gap: 10px;
@@ -10,8 +10,8 @@ $padding: 10px;
   grid-template-columns: 1fr 5fr 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    "header header header header"
-    "img name model amount";
+    'header header header header'
+    'img name model amount';
   column-gap: $column-gap;
   row-gap: $row-gap;
   justify-content: start;
@@ -24,14 +24,14 @@ $padding: 10px;
   border-start-start-radius: 4px;
   border-start-end-radius: 4px;
 
-  @include bem.element("header-background") {
+  @include bem.element('header-background') {
     grid-template-area: header;
   }
 
-  @include bem.element("product") {
+  @include bem.element('product') {
     display: contents;
 
-    @include bem.modifier("headings") {
+    @include bem.modifier('headings') {
       font-weight: 600;
       grid-area: header;
 
@@ -69,13 +69,13 @@ $padding: 10px;
     }
   }
 
-  @include bem.element("product-amount") {
+  @include bem.element('product-amount') {
     display: flex;
     justify-content: flex-end;
     font-weight: 600;
   }
 
-  @include bem.element("product-link") {
+  @include bem.element('product-link') {
     font-weight: 600;
   }
 }

@@ -1,11 +1,10 @@
-import type { Preview } from "@storybook/react";
-import { initialize, mswLoader } from "msw-storybook-addon";
+import type {Preview} from '@storybook/react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
+import {initialize, mswLoader} from 'msw-storybook-addon';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "font-awesome/css/font-awesome.min.css";
-import "../src/sass/screen.scss";
-
-import { reactIntl } from "./reactIntl.ts";
+import '../src/sass/screen.scss';
+import {reactIntl} from './reactIntl.ts';
 
 initialize();
 
@@ -25,13 +24,13 @@ const preview: Preview = {
   initialGlobals: {
     locale: reactIntl.defaultLocale,
     locales: {
-      en: "English",
-      nl: "Nederlands",
-      de: "Deutsch",
+      en: 'English',
+      nl: 'Nederlands',
+      de: 'Deutsch',
     },
   },
 
-  tags: ["autodocs"]
+  tags: ['autodocs'],
 };
 
 export default preview;

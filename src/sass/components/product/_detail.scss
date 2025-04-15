@@ -1,16 +1,16 @@
-@use "../../modules/bem";
-@use "../../modules/responsive";
+@use '../../modules/bem';
+@use '../../modules/responsive';
 
 .product {
-  @include bem.element("info") {
+  @include bem.element('info') {
     margin-bottom: 2em;
   }
 
-  @include bem.element("picture") {
+  @include bem.element('picture') {
     max-width: 100%;
   }
 
-  @include bem.element("price") {
+  @include bem.element('price') {
     font-size: 2.5em;
     width: 100%;
     font-weight: 700;
@@ -20,24 +20,24 @@
 
 @include responsive.lte-mobile {
   .product {
-    @include bem.element("info") {
+    @include bem.element('info') {
       display: flex;
       flex-direction: column;
       gap: 1em;
     }
 
-    @include bem.element("properties") {
+    @include bem.element('properties') {
       display: inline-flex;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
 
-    @include bem.element("image") {
+    @include bem.element('image') {
       flex-basis: 100%;
       width: 100%;
     }
 
-    @include bem.element("order") {
+    @include bem.element('order') {
       width: 100%;
 
       .order-button {
@@ -50,27 +50,27 @@
 
 @include responsive.gt-mobile {
   .product {
-    @include bem.element("info") {
+    @include bem.element('info') {
       display: grid;
       grid-template-columns: [main] 2fr [sidebar] 1fr;
       grid-template-rows: min-content min-content;
       grid-template-areas:
-        "image order"
-        "image properties";
+        'image order'
+        'image properties';
       column-gap: 1em;
       row-gap: 0.5em;
     }
 
-    @include bem.element("image") {
+    @include bem.element('image') {
       grid-area: image;
     }
 
-    @include bem.element("order") {
+    @include bem.element('order') {
       grid-area: order;
       align-self: center;
     }
 
-    @include bem.element("properties") {
+    @include bem.element('properties') {
       grid-area: properties;
       align-self: start;
       display: flex;

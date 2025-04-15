@@ -41,6 +41,10 @@
 }
 
 @mixin spinner() {
-  -webkit-animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
-          animation: fa-spin 1s infinite steps(8), change-color 1s infinite steps(6);
+  -webkit-animation:
+    fa-spin 1s infinite steps(8),
+    change-color 1s infinite steps(6);
+  animation:
+    fa-spin 1s infinite steps(8),
+    change-color 1s infinite steps(6);
 }
