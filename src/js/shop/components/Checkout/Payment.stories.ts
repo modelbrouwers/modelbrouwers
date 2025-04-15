@@ -1,7 +1,8 @@
-import {API_ROOT} from '@/constants.js';
 import type {Meta, StoryObj} from '@storybook/react';
 import {HttpResponse, http} from 'msw';
 import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-router';
+
+import {API_ROOT} from '@/constants.js';
 
 import Payment from './Payment';
 

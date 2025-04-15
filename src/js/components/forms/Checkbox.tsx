@@ -8,7 +8,7 @@ export interface CheckboxProps {
   label: ReactNode;
 }
 
-const TextField: React.FC<CheckboxProps & JSX.IntrinsicElements['input']> = ({
+const Checkbox: React.FC<CheckboxProps & JSX.IntrinsicElements['input']> = ({
   name,
   label,
   ...props
@@ -26,4 +26,4 @@ const TextField: React.FC<CheckboxProps & JSX.IntrinsicElements['input']> = ({
   );
 };
 
-export default TextField;
+export default Checkbox;

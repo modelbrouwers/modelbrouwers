@@ -1,7 +1,8 @@
-import CountryField from '@/forms/CountryField';
-import TextField from '@/forms/TextField';
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
+
+import CountryField from '@/components/forms/CountryField';
+import TextField from '@/components/forms/TextField';
 
 export interface AddressFieldsProps {
   prefix: string extends '' ? never : string;

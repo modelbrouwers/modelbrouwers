@@ -1,7 +1,8 @@
-import Checkbox from '@/forms/Checkbox';
 import {Form, Formik, FormikErrors} from 'formik';
 import {useContext} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
+
+import Checkbox from '@/components/forms/Checkbox';
 
 import AddressFields from './AddressFields';
 import {CheckoutContext} from './Context';

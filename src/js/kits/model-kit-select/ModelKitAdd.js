@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import ReactDOM from 'react-dom';
 import {useEvent} from 'react-use';
 
-import {FormField} from '../../components/forms/FormField';
+import {FormField} from '../../components/forms/FormField.js';
 import {RadioSelect} from '../../components/forms/RadioSelect';
 import {Brand, BrandConsumer} from '../../data/kits/brand';
 import {ModelKitConsumer} from '../../data/kits/modelkit';

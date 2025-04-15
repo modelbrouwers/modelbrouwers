@@ -1,5 +1,6 @@
-import {withFormik} from '@/storybook/decorators';
 import type {Meta, StoryObj} from '@storybook/react';
+
+import {withFormik} from '@/storybook/decorators';
 
 import AddressFields from './AddressFields';
 
