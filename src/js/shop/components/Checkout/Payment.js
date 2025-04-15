@@ -7,7 +7,7 @@ import Select from 'react-select';
 import useAsync from 'react-use/esm/useAsync';
 
 import ErrorBoundary from 'components/ErrorBoundary';
-import Loader from 'components/loaders';
+import Loader from 'components/Loader';
 
 import {PaymentConsumer} from '../../../data/shop/payment';
 import {BodyCart} from '../Cart';

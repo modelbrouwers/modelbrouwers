@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import useAsync from 'react-use/esm/useAsync';
 
-import Loader from '../components/loaders';
+import Loader from 'components/Loader';
+
 import {PhotoConsumer} from '../data/albums/photo';
 import Image from './Image';
 

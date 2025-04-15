@@ -4,7 +4,8 @@ import useAsync from 'react-use/esm/useAsync';
 import {A11y, Navigation, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import Loader from '../components/loaders';
+import Loader from 'components/Loader';
+
 import {Photo, PhotoConsumer} from '../data/albums/photo';
 
 const photoConsumer = new PhotoConsumer();

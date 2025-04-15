@@ -4,7 +4,8 @@ import useAsync from 'react-use/esm/useAsync';
 import {A11y, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import Loader from '../components/loaders';
+import Loader from 'components/Loader';
+
 import {STATIC} from '../constants';
 import {AlbumConsumer} from '../data/albums/album';
 

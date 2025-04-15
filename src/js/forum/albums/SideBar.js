@@ -5,7 +5,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import useAsync from 'react-use/esm/useAsync';
 
-import Loader from '../../components/loaders';
+import Loader from 'components/Loader';
+
 import {MyPhotoConsumer} from '../../data/albums/photo';
 import Paginator from '../../scripts/paginator';
 import AlbumSelect from './AlbumSelect';

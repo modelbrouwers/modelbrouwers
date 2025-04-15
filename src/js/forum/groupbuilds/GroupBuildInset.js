@@ -3,7 +3,8 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import useAsync from 'react-use/esm/useAsync';
 
-import Loader from '../../components/loaders';
+import Loader from 'components/Loader';
+
 import {GroupBuildConsumer} from '../../data/group-build';
 import GroupBuildParticipantsTable from './GroupBuildParticipantsTable';
 
