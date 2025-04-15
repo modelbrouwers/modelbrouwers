@@ -4,9 +4,9 @@ import React, {useContext, useReducer} from 'react';
 import {useAsync, useDebounce} from 'react-use';
 import {useImmerReducer} from 'use-immer';
 
-import {default as SpinningLoader} from '../../components/loaders';
+import Loader from 'components/Loader';
+
 import {ModelKitConsumer} from '../../data/kits/modelkit';
-import {Loader} from '../../shop/components/Loader';
 import {FilterForm} from './FilterForm';
 import {KitPreviews} from './KitPreview';
 import {ModelKitAdd} from './ModelKitAdd';
@@ -133,7 +133,7 @@ const LoadMore = ({show = false, onClick, children = 'load more'}) => {
       <button className="btn bg-main-blue" type="button" onClick={onClick}>
         {children}
       </button>
-      <SpinningLoader />
+      <Loader />
     </div>
   );
 };

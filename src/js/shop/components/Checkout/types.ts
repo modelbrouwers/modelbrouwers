@@ -1,4 +1,4 @@
-import {CountryOption} from '@/forms/CountryField';
+import {CountryOption} from '@/components/forms/CountryField';
 
 export interface Customer {
   firstName: string;

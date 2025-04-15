@@ -134,6 +134,7 @@
     "useTabs": false,
     "importOrder": [
       "^((albums|builds|components|data|forms|forum|kitreviews|kits|locale|ponyjs|router|scripts|shop|storybook)/(.*)|(constants|csrf|fallback-img|forum|i18n|index|mobile-nav))$",
+      "^@/.*",
       "^[./]"
     ],
     "importOrderSeparation": true,
