@@ -1,20 +1,50 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {expect, fn, waitFor, within} from '@storybook/test';
+import {HttpResponse, http} from 'msw';
 import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-router';
+
+import {API_ROOT} from '@/constants.js';
+import {CartStore} from '@/shop/store.js';
 
 import Address from './Address';
 
 export default {
-  title: 'Shop / Checkout / Address / Full page',
+  title: 'Shop / Checkout / Delivery / Full page',
   component: Address,
   decorators: [withRouter],
   args: {
     onSubmit: fn(),
+    cartStore: new CartStore({
+      id: 123,
+      user: {
+        username: 'BBT',
+        first_name: 'B.',
+        last_name: 'BT',
+        email: 'bbt@example.com',
+        phone: '',
+      },
+      status: 'open',
+      products: [],
+      total: '9,99',
+    }),
+  },
+  argTypes: {
+    cartStore: {table: {disable: true}},
   },
   parameters: {
     reactRouter: reactRouterParameters({
       routing: {path: '/winkel/checkout/address'},
     }),
+    msw: {
+      handlers: [
+        http.get(`${API_ROOT}api/v1/shop/shipping-costs/`, () => {
+          return HttpResponse.json({
+            price: 11.9,
+            weight: '320 g',
+          });
+        }),
+      ],
+    },
   },
 } satisfies Meta<typeof Address>;
 

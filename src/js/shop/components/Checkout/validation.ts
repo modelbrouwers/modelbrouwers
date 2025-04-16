@@ -1,6 +1,6 @@
 import {IntlShape, defineMessage} from 'react-intl';
 
-import {Address, AddressDetails, Customer} from './types';
+import {Address, Customer, DeliveryDetails} from './types';
 
 const ERR_REQUIRED = defineMessage({
   description: 'Validation error message for required field',
@@ -38,10 +38,10 @@ export const validateCustomer = makeMandatoryFieldsValidator<Customer>([
 ]);
 
 export const validateAddressDetails = (
-  details: Partial<AddressDetails>,
+  details: Partial<DeliveryDetails>,
   intl: IntlShape,
-): Errors<AddressDetails> => {
-  const errors: Errors<AddressDetails> = {};
+): Errors<DeliveryDetails> => {
+  const errors: Errors<DeliveryDetails> = {};
 
   const {customer, deliveryAddress, billingAddress} = details;
 
@@ -52,14 +52,18 @@ export const validateAddressDetails = (
     }
   }
 
-  if (deliveryAddress) {
+  if (!details.deliveryMethod) {
+    errors.deliveryMethod = intl.formatMessage(ERR_REQUIRED);
+  }
+
+  if (details.deliveryMethod === 'mail' && deliveryAddress) {
     const deliveryAddressErrors = validateAddress(deliveryAddress, intl);
     if (Object.keys(deliveryAddressErrors).length) {
       errors.deliveryAddress = deliveryAddressErrors;
     }
   }
 
-  if (billingAddress) {
+  if (details.deliveryMethod === 'mail' && billingAddress) {
     const billingAddressErrors = validateAddress(billingAddress, intl);
     if (Object.keys(billingAddressErrors).length) {
       // @ts-expect-error -> use zod instead to fix the type errors

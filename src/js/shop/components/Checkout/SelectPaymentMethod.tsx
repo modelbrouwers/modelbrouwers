@@ -4,16 +4,13 @@ import {ReactNode, useEffect} from 'react';
 import useAsync from 'react-use/esm/useAsync';
 
 import ErrorBoundary from 'components/ErrorBoundary.js';
-import {PaymentConsumer} from 'data/shop/payment';
+import {listIDealBanks, listMethods} from 'data/shop/payment';
 
 import Loader from '@/components/Loader';
 import Radio from '@/components/forms/Radio';
 
 import {ErrorMessage} from '../Info';
 import BankField from './BankField';
-
-// TODO: replace with plain fetch
-const paymentConsumer = new PaymentConsumer();
 
 // AVAILABLE PAYMENT METHODS
 
@@ -25,14 +22,7 @@ interface PaymentMethod {
 }
 
 const useFetchPaymentMethods = () => {
-  const {
-    loading,
-    error,
-    value = [],
-  } = useAsync(async () => {
-    const methodList = await paymentConsumer.listMethods();
-    return methodList;
-  }, []);
+  const {loading, error, value = []} = useAsync(async () => await listMethods(), []);
   const paymentMethods: PaymentMethod[] = orderBy(value, ['order'], ['asc']);
   return {
     loading,
@@ -42,20 +32,9 @@ const useFetchPaymentMethods = () => {
 };
 
 // IDEAL BANKS
-interface IDealBank {
-  id: number;
-  name: string;
-}
 
 const useFetchIDealBanks = () => {
-  const {
-    loading,
-    error,
-    value = [],
-  } = useAsync(async () => {
-    const response: {responseData: IDealBank[]} = await paymentConsumer.listIdealBanks();
-    return response.responseData;
-  }, []);
+  const {loading, error, value = []} = useAsync(async () => await listIDealBanks(), []);
   return {loading, error, banks: value};
 };
 

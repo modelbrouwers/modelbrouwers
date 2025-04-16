@@ -2,19 +2,34 @@ import {Form, Formik, FormikErrors} from 'formik';
 import {useContext} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 
+import ErrorBoundary from '@/components/ErrorBoundary.js';
 import Checkbox from '@/components/forms/Checkbox';
+import type {CartStore} from '@/shop/store';
 
 import AddressFields from './AddressFields';
 import {CheckoutContext} from './Context';
+import DeliveryMethod from './DeliveryMethod';
 import PersonalDetailsFields from './PersonalDetailsFields';
-import {AddressDetails} from './types';
+import ShippingCosts from './ShippingCosts';
+import type {Address as AddressType, DeliveryDetails} from './types';
 import {validateAddressDetails} from './validation';
 
-export type AddressProps = AddressDetails & {
-  onSubmit: (values: AddressDetails) => void;
+export const EMPTY_ADDRESS: AddressType = {
+  company: '',
+  chamberOfCommerce: '',
+  street: '',
+  number: '',
+  city: '',
+  postalCode: '',
+  country: 'N',
 };
 
-type FormikValues = AddressDetails & {
+export type AddressProps = DeliveryDetails & {
+  cartStore: CartStore;
+  onSubmit: (values: DeliveryDetails) => void;
+};
+
+export type FormikValues = DeliveryDetails & {
   billingSameAsDelivery: boolean;
 };
 
@@ -43,7 +58,13 @@ const getInitialTouched = (errors: any) => {
   return touched;
 };
 
-const Address: React.FC<AddressProps> = ({customer, deliveryAddress, billingAddress, onSubmit}) => {
+const Address: React.FC<AddressProps> = ({
+  cartStore,
+  customer,
+  deliveryAddress,
+  billingAddress,
+  onSubmit,
+}) => {
   const intl = useIntl();
   const {validationErrors: _validationErrors} = useContext(CheckoutContext);
   // FIXME -> in context type
@@ -52,7 +73,8 @@ const Address: React.FC<AddressProps> = ({customer, deliveryAddress, billingAddr
     <Formik<FormikValues>
       initialValues={{
         customer,
-        deliveryAddress,
+        deliveryMethod: 'mail',
+        deliveryAddress: deliveryAddress || EMPTY_ADDRESS,
         billingAddress,
         billingSameAsDelivery: billingAddress == null,
       }}
@@ -64,13 +86,13 @@ const Address: React.FC<AddressProps> = ({customer, deliveryAddress, billingAddr
       validateOnMount
     >
       {({values, handleChange, setFieldValue, isValid, isValidating, setFieldTouched}) => (
-        <Form>
+        <Form style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
           <div className="row">
             {/* Personal details */}
             <div className="col-xs-12 col-md-6">
               <h3 className="checkout__title">
                 <FormattedMessage
-                  description="Checkout address: personal details"
+                  description="Delivery details: personal details"
                   defaultMessage="Personal details"
                 />
               </h3>
@@ -79,67 +101,87 @@ const Address: React.FC<AddressProps> = ({customer, deliveryAddress, billingAddr
           </div>
 
           <div className="row">
-            {/* Delivery address */}
-            <div className="col-md-6 col-xs-12">
+            {/* Delivery method */}
+            <div className="col-xs-12 col-md-6">
               <h3 className="checkout__title">
                 <FormattedMessage
-                  description="Delivery address: deliveryAddress"
-                  defaultMessage="Delivery address"
+                  description="Delivery details: delivery method"
+                  defaultMessage="Delivery or pickup?"
                 />
               </h3>
-
-              <AddressFields prefix="deliveryAddress" />
-
-              <Checkbox
-                name="billingSameAsDelivery"
-                label={
-                  <FormattedMessage
-                    description="Checkout address: billingAddressSame"
-                    defaultMessage="My billing and delivery address are the same."
-                  />
-                }
-                onChange={async event => {
-                  handleChange(event);
-                  // it's a checkbox, so the value toggles
-                  const isSameAddress = !values.billingSameAsDelivery;
-                  if (isSameAddress) {
-                    setFieldValue('billingAddress', null);
-                    setFieldTouched('billingAddress', undefined);
-                  } else {
-                    const emptyAddress = {
-                      company: '',
-                      chamberOfCommerce: '',
-                      street: '',
-                      number: '',
-                      city: '',
-                      postalCode: '',
-                      country: values.deliveryAddress.country || 'N',
-                    };
-                    setFieldValue('billingAddress', emptyAddress);
-                  }
-                }}
-              />
+              <DeliveryMethod />
+              <div aria-live="polite">
+                <ErrorBoundary>
+                  <ShippingCosts cartStore={cartStore} />
+                </ErrorBoundary>
+              </div>
             </div>
+          </div>
 
-            {/*Billing address*/}
-            {!values.billingSameAsDelivery && (
+          {values.deliveryMethod === 'mail' && (
+            <div className="row">
+              {/* Delivery address */}
               <div className="col-md-6 col-xs-12">
                 <h3 className="checkout__title">
                   <FormattedMessage
-                    description="Billing address: billingAddress"
-                    defaultMessage="Billing address"
+                    description="Delivery address: deliveryAddress"
+                    defaultMessage="Delivery address"
                   />
                 </h3>
-                <AddressFields prefix="billingAddress" />
+
+                <AddressFields prefix="deliveryAddress" />
+
+                <Checkbox
+                  name="billingSameAsDelivery"
+                  label={
+                    <FormattedMessage
+                      description="Delivery details: billingAddressSame"
+                      defaultMessage="My billing and delivery address are the same."
+                    />
+                  }
+                  onChange={async event => {
+                    handleChange(event);
+                    // it's a checkbox, so the value toggles
+                    const isSameAddress = !values.billingSameAsDelivery;
+                    if (isSameAddress) {
+                      setFieldValue('billingAddress', null);
+                      setFieldTouched('billingAddress', undefined);
+                    } else {
+                      const emptyAddress = {
+                        company: '',
+                        chamberOfCommerce: '',
+                        street: '',
+                        number: '',
+                        city: '',
+                        postalCode: '',
+                        country: values.deliveryAddress.country || 'N',
+                      };
+                      setFieldValue('billingAddress', emptyAddress);
+                    }
+                  }}
+                />
               </div>
-            )}
-          </div>
+
+              {/*Billing address*/}
+              {!values.billingSameAsDelivery && (
+                <div className="col-md-6 col-xs-12">
+                  <h3 className="checkout__title">
+                    <FormattedMessage
+                      description="Billing address: billingAddress"
+                      defaultMessage="Billing address"
+                    />
+                  </h3>
+                  <AddressFields prefix="billingAddress" />
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="spacer" />
           <div>
             <small className="checkout__help-text">
               <FormattedMessage
-                description="Checkout address: requiredFields"
+                description="Delivery details: requiredFields"
                 defaultMessage="* Required fields"
               />
             </small>
@@ -149,7 +191,7 @@ const Address: React.FC<AddressProps> = ({customer, deliveryAddress, billingAddr
               disabled={isValidating || !isValid}
             >
               <FormattedMessage
-                description="Checkout address: continue"
+                description="Delivery details: continue"
                 defaultMessage="Continue"
               />
             </button>
