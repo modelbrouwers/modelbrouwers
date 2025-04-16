@@ -32,7 +32,7 @@ export const calculateShippingCosts = async (
   cartId: number,
   country: CountryOption['value'],
 ): Promise<ShippingsCostsResponse> => {
-  const shippingCosts = await get<ShippingsCostsResponse>('shipping-costs/', {
+  const shippingCosts = await get<ShippingsCostsResponse>('api/v1/shop/shipping-costs/', {
     cart_id: cartId.toString(),
     country,
   });
