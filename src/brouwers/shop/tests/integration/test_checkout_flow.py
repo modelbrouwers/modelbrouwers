@@ -123,7 +123,7 @@ class CheckoutTests(SeleniumTests):
             self.assertTrue(self.selenium.current_url.endswith("/payment"))
 
             # select first payment method (bank transfer)
-            self.selenium.find_element(By.CSS_SELECTOR, ".payment-method").click()
+            self.selenium.find_element(By.CSS_SELECTOR, ".radio-option").click()
 
             # confirm & submit
             submit_button = self.selenium.find_element(
