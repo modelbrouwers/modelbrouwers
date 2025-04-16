@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {AddressDetails} from './types';
+import {DeliveryDetails} from './types';
 
 export type CheckoutContextType = {
-  [K in keyof AddressDetails]: AddressDetails[K] | null;
+  [K in keyof DeliveryDetails]: DeliveryDetails[K] | null;
 } & {
   // TODO -> recursive structure where every node can be an error list from DRF
   validationErrors: unknown;
@@ -12,6 +12,7 @@ export type CheckoutContextType = {
 const CheckoutContext = React.createContext<CheckoutContextType>({
   validationErrors: null,
   customer: null,
+  deliveryMethod: null,
   deliveryAddress: null,
   billingAddress: null,
 });
