@@ -1,3 +1,10 @@
+@use '../../modules/bem';
+
+.cart-inset {
+  @include bem.element('') {
+  }
+}
+
 .cart {
   padding: 20px;
 
@@ -85,13 +92,13 @@
     position: absolute;
     right: 0;
     background: $white;
-    width: 380px;
+    inline-size: 380px;
     border-radius: 6px 0 6px 6px;
   }
 
   &__products {
     overflow-y: scroll;
-    max-height: 300px;
+    max-block-size: 300px;
   }
 }
 
@@ -105,7 +112,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
+    inline-size: 50px;
     text-align: center;
   }
 }

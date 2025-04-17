@@ -1,48 +1,23 @@
 {
-  "+kXYqX": {
-    "defaultMessage": "Country",
-    "description": "Checkout address: country",
-    "originalDefault": "Country"
-  },
-  "/Eg5rz": {
-    "defaultMessage": "Billing address",
-    "description": "Billing address: billingAddress",
-    "originalDefault": "Billing address"
+  "/Ad+ya": {
+    "defaultMessage": "Additional information",
+    "description": "Confirmation message title",
+    "originalDefault": "Additional information"
   },
   "/N7xse": {
     "defaultMessage": "Finished?",
     "description": "GB participants table, finished header.",
     "originalDefault": "Finished?"
   },
-  "0IKVYp": {
-    "defaultMessage": "City",
-    "description": "Delivery address: city",
-    "originalDefault": "City"
+  "1K/q6M": {
+    "defaultMessage": "Remove one",
+    "description": "Decrement button accessible label",
+    "originalDefault": "Remove one"
   },
-  "3UvxIB": {
-    "defaultMessage": "Street",
-    "description": "Delivery address: street",
-    "originalDefault": "Street"
-  },
-  "3c81Yt": {
-    "defaultMessage": "Number",
-    "description": "Billing address: number",
-    "originalDefault": "Number"
-  },
-  "4+G0m8": {
-    "defaultMessage": "KVK",
-    "description": "Delivery address: kvk",
-    "originalDefault": "KVK"
-  },
-  "4sjMB/": {
-    "defaultMessage": "KVK",
-    "description": "Billing address: kvk",
-    "originalDefault": "KVK"
-  },
-  "6qobm2": {
-    "defaultMessage": "City",
-    "description": "Billing address: city",
-    "originalDefault": "City"
+  "24+V/B": {
+    "defaultMessage": "amount",
+    "description": "Payment cart overview: amount title",
+    "originalDefault": "amount"
   },
   "7wbY42": {
     "defaultMessage": "Participants",
@@ -54,20 +29,15 @@
     "description": "Groupbuild inset in forum post, rules title",
     "originalDefault": "Rules"
   },
-  "9xJNKa": {
-    "defaultMessage": "Continue",
-    "description": "Checkout address: continue",
-    "originalDefault": "Continue"
+  "9Xc4ce": {
+    "defaultMessage": "Success!",
+    "description": "Confirmation title",
+    "originalDefault": "Success!"
   },
   "B4vH06": {
     "defaultMessage": "Description",
     "description": "Groupbuild inset in forum post, description title",
     "originalDefault": "Description"
-  },
-  "BFOrds": {
-    "defaultMessage": "Email address",
-    "description": "Checkout address: email",
-    "originalDefault": "Email address"
   },
   "BxbHDf": {
     "defaultMessage": "Brouwer",
@@ -84,90 +54,50 @@
     "description": "Checkout header",
     "originalDefault": "Checkout"
   },
-  "DXeHjf": {
-    "defaultMessage": "Required fields",
-    "description": "Checkout address: requiredFields",
-    "originalDefault": "Required fields"
-  },
-  "EG8GlO": {
-    "defaultMessage": "Number",
-    "description": "Delivery address: number",
-    "originalDefault": "Number"
-  },
-  "FYuL74": {
-    "defaultMessage": "My billing and delivery address are the same.",
-    "description": "Checkout address: billingAddressSame",
-    "originalDefault": "My billing and delivery address are the same."
-  },
   "GhZs+k": {
     "defaultMessage": "Confirmation",
     "description": "Tab: confirm",
     "originalDefault": "Confirmation"
-  },
-  "GuiGSo": {
-    "defaultMessage": "Company",
-    "description": "Billing address: company",
-    "originalDefault": "Company"
-  },
-  "GxgjcH": {
-    "defaultMessage": "Phone number",
-    "description": "Checkout address: phone",
-    "originalDefault": "Phone number"
   },
   "IlIaZ2": {
     "defaultMessage": "Start: {start}, end: {end}",
     "description": "Groupbuild inset in forum post, start and end dates",
     "originalDefault": "Start: {start}, end: {end}"
   },
+  "J15APO": {
+    "defaultMessage": "Your cart is empty!",
+    "description": "Payment page: cart empty",
+    "originalDefault": "Your cart is empty!"
+  },
+  "JAVg6k": {
+    "defaultMessage": "total",
+    "description": "Payment cart overview: total price title",
+    "originalDefault": "total"
+  },
   "JFs7tB": {
     "defaultMessage": "Model",
     "description": "GB participants table, model header.",
     "originalDefault": "Model"
   },
-  "O3sAqY": {
-    "defaultMessage": "Personal details",
-    "description": "Checkout address: personal details",
-    "originalDefault": "Personal details"
+  "KZ9pSc": {
+    "defaultMessage": "product",
+    "description": "Payment cart overview: name title",
+    "originalDefault": "product"
   },
-  "Ovk5iw": {
-    "defaultMessage": "ZIP code",
-    "description": "Delivery address: zip",
-    "originalDefault": "ZIP code"
+  "LYbu8S": {
+    "defaultMessage": "Your order with reference <bold>{orderNumber}</bold> was received!",
+    "description": "Order confirmation generic text",
+    "originalDefault": "Your order with reference <bold>{orderNumber}</bold> was received!"
   },
-  "PKVzgg": {
-    "defaultMessage": "First name",
-    "description": "Checkout address: firstName",
-    "originalDefault": "First name"
+  "XGRjNR": {
+    "defaultMessage": "Shopping cart",
+    "description": "Shopping cart title",
+    "originalDefault": "Shopping cart"
   },
-  "PmaF7F": {
-    "defaultMessage": "Country",
-    "description": "Billing address: country",
-    "originalDefault": "Country"
-  },
-  "Qiw2De": {
-    "defaultMessage": "Select your payment method",
-    "description": "Checkout: select payment method",
-    "originalDefault": "Select your payment method"
-  },
-  "W4CwLT": {
-    "defaultMessage": "Street",
-    "description": "Billing address: street",
-    "originalDefault": "Street"
-  },
-  "bsyaaX": {
-    "defaultMessage": "Sign up",
-    "description": "Checkout with account creation",
-    "originalDefault": "Sign up"
-  },
-  "dbSo0d": {
-    "defaultMessage": "Continue without signup",
-    "description": "Checkout with account link",
-    "originalDefault": "Continue without signup"
-  },
-  "fJMjTz": {
-    "defaultMessage": "Sign in",
-    "description": "Checkout with login",
-    "originalDefault": "Sign in"
+  "XlMu5g": {
+    "defaultMessage": "Add one",
+    "description": "Increment button accessible label",
+    "originalDefault": "Add one"
   },
   "forum.albums.photosNav.next": {
     "defaultMessage": "Next",
@@ -188,11 +118,6 @@
   "forum.albums.sidebar.title": {
     "defaultMessage": "Albums",
     "originalDefault": "Albums"
-  },
-  "ilLhfJ": {
-    "defaultMessage": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future).",
-    "description": "Checkout account options description",
-    "originalDefault": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
   },
   "iziEr8": {
     "defaultMessage": "Reload page",
@@ -218,25 +143,10 @@
     "description": "General error message",
     "originalDefault": "Oops, something went wrong. Please try again later."
   },
-  "mzZEkB": {
-    "defaultMessage": "ZIP code",
-    "description": "Billing address: zip",
-    "originalDefault": "ZIP code"
-  },
-  "nul77H": {
-    "defaultMessage": "Delivery address",
-    "description": "Delivery address: deliveryAddress",
-    "originalDefault": "Delivery address"
-  },
-  "oNlKJN": {
-    "defaultMessage": "Company",
-    "description": "Delivery address: company",
-    "originalDefault": "Company"
-  },
-  "ocBRLh": {
-    "defaultMessage": "Last name",
-    "description": "Checkout address: lastName",
-    "originalDefault": "Last name"
+  "oD9PGg": {
+    "defaultMessage": "price",
+    "description": "Payment cart overview: unit price title",
+    "originalDefault": "price"
   },
   "osdebM": {
     "defaultMessage": "Checkout",
@@ -292,27 +202,10 @@
     "defaultMessage": "Add to cart",
     "originalDefault": "Add to cart"
   },
-  "shop.cart.topbar.checkout": {
-    "defaultMessage": "Checkout",
-    "originalDefault": "Checkout"
-  },
-  "shop.cart.topbar.item.count": {
-    "defaultMessage": "{count, number} {count, plural, one {item} other {items}}",
-    "originalDefault": "{count, number} {count, plural, one {item} other {items}}"
-  },
-  "shop.cart.topbar.view.cart": {
-    "defaultMessage": "View cart",
-    "originalDefault": "View cart"
-  },
   "tPmUAf": {
     "defaultMessage": "Rules topic",
     "description": "Groupbuild inset in forum post, rules topic title",
     "originalDefault": "Rules topic"
-  },
-  "v2t0Vo": {
-    "defaultMessage": "or",
-    "description": "'Or' (Separator between options)",
-    "originalDefault": "or"
   },
   "vRPK2q": {
     "defaultMessage": "Payment",
@@ -323,10 +216,5 @@
     "defaultMessage": "Topic",
     "description": "GB participants table, topic header.",
     "originalDefault": "Topic"
-  },
-  "yy0Fua": {
-    "defaultMessage": "Select country",
-    "description": "Country dropdown placeholder",
-    "originalDefault": "Select country"
   }
 }

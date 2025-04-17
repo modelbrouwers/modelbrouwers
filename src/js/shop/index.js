@@ -8,6 +8,7 @@ import {getIntlProviderProps} from '../i18n';
 import {CartDetail, CartProduct, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
 import {camelize} from './components/Checkout/utils';
+import {CartProduct as CartProductData} from './data';
 import {CartStore} from './store';
 
 const getDataFromScript = scriptId => {
@@ -94,7 +95,14 @@ export default class Page {
         createRoot(node).render(
           <IntlProvider {...intlProps}>
             <TopbarCart
-              store={cartStore}
+              cartProducts={cartStore.products.map(
+                cp =>
+                  new CartProductData({
+                    id: cp.id,
+                    product: cp.product,
+                    amount: cp.amount,
+                  }),
+              )}
               checkoutPath={checkoutPath}
               cartDetailPath={cartDetailPath}
             />
