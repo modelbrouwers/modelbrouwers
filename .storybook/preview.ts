@@ -29,8 +29,6 @@ const preview: Preview = {
       de: 'Deutsch',
     },
   },
-
-  tags: ['autodocs'],
 };
 
 export default preview;
