@@ -4,17 +4,15 @@ import {DecrementButton, IncrementButton} from './AmountButtons';
 
 export interface ProductControlsProps {
   currentAmount: number;
+  hasStock: boolean;
   onChangeAmount: (amount: 1 | -1) => void;
-  canIncrement: boolean;
-  canAdd: boolean;
   onAddProduct: () => void;
 }
 
 const ProductControls: React.FC<ProductControlsProps> = ({
   currentAmount,
+  hasStock,
   onChangeAmount,
-  canIncrement,
-  canAdd,
   onAddProduct,
 }) => {
   if (currentAmount > 0) {
@@ -22,7 +20,7 @@ const ProductControls: React.FC<ProductControlsProps> = ({
       <div className="controls__row">
         <DecrementButton onClick={() => onChangeAmount(-1)} />
         <span className="controls__amount">{currentAmount}</span>
-        <IncrementButton onClick={() => onChangeAmount(-1)} disabled={!canIncrement} />
+        <IncrementButton onClick={() => onChangeAmount(1)} disabled={!hasStock} />
       </div>
     );
   }
@@ -31,7 +29,7 @@ const ProductControls: React.FC<ProductControlsProps> = ({
     <button
       className="button button--blue button__add"
       onClick={() => onAddProduct()}
-      disabled={!canAdd}
+      disabled={!hasStock}
     >
       <FormattedMessage id="shop.cart.product.actions.add" defaultMessage="Add to cart" />
     </button>

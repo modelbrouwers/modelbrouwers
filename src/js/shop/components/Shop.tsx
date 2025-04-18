@@ -5,11 +5,21 @@ import {getCartDetails} from '@/data/shop/cart';
 
 import {CartProduct} from '../data';
 import {TopbarCart} from './Cart';
+import ProductControls from './Cart/ProductControls';
+
+export interface CatalogueProduct {
+  id: number;
+  stock: number;
+  controlsNode: HTMLDivElement;
+}
 
 export interface ShopProps {
   topbarCartNode: HTMLDivElement | null;
+  productsOnPage: CatalogueProduct[];
   cartDetailPath: string;
   checkoutPath: string;
+  onAddToCart: (productId: number) => void;
+  onChangeAmount: (productId: number, amount: 1 | -1) => void;
 }
 
 /**
@@ -18,7 +28,14 @@ export interface ShopProps {
  * Takes care of tracking the shop state and renders all sub components into their
  * assigned portal nodes.
  */
-const Shop: React.FC<ShopProps> = ({topbarCartNode, cartDetailPath, checkoutPath}) => {
+const Shop: React.FC<ShopProps> = ({
+  topbarCartNode,
+  productsOnPage,
+  cartDetailPath,
+  checkoutPath,
+  onAddToCart,
+  onChangeAmount,
+}) => {
   const {
     loading,
     value: cart,
@@ -46,6 +63,20 @@ const Shop: React.FC<ShopProps> = ({topbarCartNode, cartDetailPath, checkoutPath
           />,
           topbarCartNode,
         )}
+      <>
+        {productsOnPage.map(({id, stock, controlsNode}, idx) =>
+          createPortal(
+            <ProductControls
+              currentAmount={cart.products.find(cp => cp.product.id === id)?.amount ?? 0}
+              hasStock={stock > 0}
+              onChangeAmount={amount => onChangeAmount(id, amount)}
+              onAddProduct={() => onAddToCart(id)}
+            />,
+            controlsNode,
+            `${id}-${idx}`,
+          ),
+        )}
+      </>
     </>
   );
 };

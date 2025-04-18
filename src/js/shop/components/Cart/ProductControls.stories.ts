@@ -9,8 +9,7 @@ export default {
   args: {
     currentAmount: 1,
     onChangeAmount: fn(),
-    canIncrement: true,
-    canAdd: true,
+    hasStock: true,
     onAddProduct: fn(),
   },
   parameters: {
@@ -24,20 +23,20 @@ export const Default: Story = {};
 
 export const CannotIncrement: Story = {
   args: {
-    canIncrement: false,
+    hasStock: false,
   },
 };
 
 export const ZeroAmountCanAdd: Story = {
   args: {
     currentAmount: 0,
-    canAdd: true,
+    hasStock: true,
   },
 };
 
 export const ZeroAmountCannotAdd: Story = {
   args: {
     currentAmount: 0,
-    canAdd: false,
+    hasStock: false,
   },
 };
