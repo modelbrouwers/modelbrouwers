@@ -4,6 +4,7 @@ import {HttpResponse, http} from 'msw';
 import {useEffect, useRef, useState} from 'react';
 
 import {API_ROOT} from '@/constants.js';
+import type {CartData, CartProductData} from '@/data/shop/cart';
 
 import Shop, {type CatalogueProduct} from './Shop';
 
@@ -12,6 +13,54 @@ interface NodesType {
   cartDetailNode: HTMLDivElement | null;
   productsOnPage: CatalogueProduct[];
 }
+
+const PRODUCTS = [
+  {
+    id: 1,
+    name: 'Product 1',
+    image: 'https://loremflickr.com/400/300/cat',
+    price: 3.78,
+    stock: 5,
+  },
+  {
+    id: 2,
+    name: 'Product 2',
+    image: 'https://loremflickr.com/400/300/cat',
+    price: 2.07,
+    stock: 100,
+  },
+  {
+    id: 888,
+    name: 'Product 888',
+    image: 'https://loremflickr.com/400/300/cat',
+    price: 9.99,
+    stock: 5,
+  },
+  {
+    id: 999,
+    name: 'Product 999',
+    image: 'https://loremflickr.com/400/300/cat',
+    price: 5.0,
+    stock: 0,
+  },
+];
+
+const MOCK_CART_DATA: CartData = {
+  id: 42,
+  user: null,
+  products: [
+    {
+      id: 1,
+      product: PRODUCTS.find(p => p.id === 1)!,
+      amount: 1,
+    },
+    {
+      id: 2,
+      product: PRODUCTS.find(p => p.id === 2)!,
+      amount: 3,
+    },
+  ],
+};
 
 const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
   const reactCartRef = useRef<HTMLDivElement | null>(null);
@@ -57,18 +106,12 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
       <div ref={reactCartDetailRef} id="react-cart-detail" />
 
       <div className="card-grid" ref={productsRef}>
-        <div className="card-grid__card product-card" data-id="1" data-stock="5">
-          <div className="product-card__name">Product 1</div>
-          <div className="react-cart-actions" />
-        </div>
-        <div className="card-grid__card product-card" data-id="999" data-stock="0">
-          <div className="product-card__name">Product 999</div>
-          <div className="react-cart-actions" />
-        </div>
-        <div className="card-grid__card product-card" data-id="2" data-stock="100">
-          <div className="product-card__name">Product 2</div>
-          <div className="react-cart-actions" />
-        </div>
+        {PRODUCTS.map(({id, name, stock}) => (
+          <div key={id} className="card-grid__card product-card" data-id={id} data-stock={stock}>
+            <div className="product-card__name">{name}</div>
+            <div className="react-cart-actions" />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -80,42 +123,20 @@ export default {
   args: {
     cartDetailPath: '/winkel/cart/42/',
     checkoutPath: '/winkel/checkout/',
-    onAddToCart: fn(),
+    onAddToCart: fn(
+      (productId: number): Promise<CartProductData> =>
+        Promise.resolve({
+          id: productId,
+          product: PRODUCTS.find(p => p.id === productId)!,
+          amount: 1,
+        }),
+    ),
     onChangeAmount: fn(),
   },
   render: args => <ShopIndex {...args} />,
   parameters: {
     msw: {
-      handlers: [
-        http.get(`${API_ROOT}api/v1/shop/cart/`, () => {
-          return HttpResponse.json({
-            id: 42,
-            user: null,
-            products: [
-              {
-                id: 1,
-                product: {
-                  id: 1,
-                  name: 'Product 1',
-                  image: 'https://loremflickr.com/400/300/cat',
-                  price: 3.78,
-                },
-                amount: 1,
-              },
-              {
-                id: 2,
-                product: {
-                  id: 2,
-                  name: 'Product 2',
-                  image: 'https://loremflickr.com/400/300/cat',
-                  price: 2.07,
-                },
-                amount: 3,
-              },
-            ],
-          });
-        }),
-      ],
+      handlers: [http.get(`${API_ROOT}api/v1/shop/cart/`, () => HttpResponse.json(MOCK_CART_DATA))],
     },
   },
 } satisfies Meta<typeof Shop>;

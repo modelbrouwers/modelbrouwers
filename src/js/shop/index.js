@@ -65,7 +65,14 @@ export default class Page {
             productsOnPage={productsOnPage}
             checkoutPath={checkoutPath}
             cartDetailPath={cartDetailPath}
-            onAddToCart={productId => cartStore.addProduct({product: productId, amount: 1})}
+            onAddToCart={async productId => {
+              const cartProduct = await cartStore.cartProductConsumer.addProduct({
+                cart: cartStore.id,
+                product: productId,
+                amount: 1,
+              });
+              return cartProduct;
+            }}
             onChangeAmount={(productId, amount) => cartStore.changeAmount(productId, amount)}
           />
         </IntlProvider>,
