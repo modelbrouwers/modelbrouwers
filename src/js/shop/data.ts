@@ -1,21 +1,4 @@
-export interface Product {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  // vat: number;
-  // categories: unknown; // TODO
-  // model_name: string;
-  // absoluteUrl: string;
-  // totalStr: string;
-}
-
-interface CartProductData {
-  id: number;
-  product: Product;
-  amount: number;
-  // cart: number; // cart ID
-}
+import type {CartProductData, Product} from '@/data/shop/cart';
 
 /**
  * Metadata/relation of a product in a cart.

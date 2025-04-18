@@ -1,18 +1,43 @@
 import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
 
-import {API_ROOT} from '../../constants';
+import {API_ROOT} from '@//constants.js';
+import {get} from '@/data/api-client';
 
-class Cart extends CrudConsumerObject {}
-
-export class CartConsumer extends CrudConsumer {
-  constructor(endpoint = `${API_ROOT}api/v1/shop/cart`, objectClass = Cart) {
-    super(endpoint, objectClass);
-  }
-
-  fetch() {
-    return this.get('/');
-  }
+export interface Product {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  // vat: number;
+  // categories: unknown; // TODO
+  // model_name: string;
+  // absoluteUrl: string;
+  // totalStr: string;
 }
+
+export interface CartProductData {
+  id: number;
+  product: Product;
+  amount: number;
+  // cart: number; // cart ID
+}
+
+export interface CartData {
+  id: number;
+  products: CartProductData[];
+  user: {
+    username: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+  } | null;
+}
+
+export const getCartDetails = async (): Promise<CartData> => {
+  const cart = await get<CartData>('shop/cart/');
+  return cart!;
+};
 
 class CartProduct extends CrudConsumerObject {}
 

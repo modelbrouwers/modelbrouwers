@@ -29,7 +29,7 @@ export const get = async <T = unknown>(
   relativeUrl: string,
   params: string[][] | Record<string, string> | string | URLSearchParams = {},
 ): Promise<T | null> => {
-  const normalizedUrl = new URL(`${API_ROOT}${relativeUrl}`, window.location.origin);
+  const normalizedUrl = new URL(`${API_ROOT}api/v1/${relativeUrl}`, window.location.origin);
   const searchParams = new URLSearchParams(params);
   normalizedUrl.search = searchParams.toString();
 

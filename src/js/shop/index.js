@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import {CartConsumer} from '../data/shop/cart';
+import {getCartDetails} from '../data/shop/cart';
 import {getIntlProviderProps} from '../i18n';
 import {CartDetail, CartProduct, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
@@ -85,8 +85,7 @@ export default class Page {
     };
 
     try {
-      this.cartConsumer = new CartConsumer();
-      const cart = await this.cartConsumer.fetch();
+      const cart = await getCartDetails();
       let cartStore = new CartStore(cart);
       initCartActions(cartStore);
       this.initCheckout(intlProps, cartStore);

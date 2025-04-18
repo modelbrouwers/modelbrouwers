@@ -1,5 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react';
+import {HttpResponse, http} from 'msw';
 import {useEffect, useRef, useState} from 'react';
+
+import {API_ROOT} from '@/constants.js';
 
 import Shop from './Shop';
 
@@ -43,6 +46,40 @@ export default {
         <Shop {...args} {...nodes} />
       </div>
     );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(`${API_ROOT}api/v1/shop/cart/`, () => {
+          return HttpResponse.json({
+            id: 42,
+            user: null,
+            products: [
+              {
+                id: 1,
+                product: {
+                  id: 1,
+                  name: 'Product 1',
+                  image: 'https://loremflickr.com/400/300/cat',
+                  price: 3.78,
+                },
+                amount: 1,
+              },
+              {
+                id: 2,
+                product: {
+                  id: 2,
+                  name: 'Product 2',
+                  image: 'https://loremflickr.com/400/300/cat',
+                  price: 2.07,
+                },
+                amount: 3,
+              },
+            ],
+          });
+        }),
+      ],
+    },
   },
 } satisfies Meta<typeof Shop>;
 
