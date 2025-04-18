@@ -8,7 +8,7 @@ import {getIntlProviderProps} from '../i18n';
 import {CartDetail, CartProduct, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
 import {camelize} from './components/Checkout/utils';
-import {CartProduct as CartProductData} from './data';
+import Shop from './components/Shop';
 import {CartStore} from './store';
 
 const getDataFromScript = scriptId => {
@@ -31,17 +31,21 @@ const bindAddToCartForm = (form, cartStore) => {
 };
 
 export default class Page {
-  static init() {
-    getIntlProviderProps()
-      .then(intlProviderProps => {
-        this.intlProviderProps = intlProviderProps;
-        this.initCart();
-      })
-      .catch(console.error);
+  static async init() {
+    try {
+      const intlProviderProps = await getIntlProviderProps();
+      this.initCart(intlProviderProps);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  static async initCart() {
-    const intlProps = this.intlProviderProps;
+  static async initCart(intlProps) {
+    // find root node for our root component
+    const rootNode = document.getElementById('react-root-shop');
+    this.reactRoot = createRoot(rootNode);
+
+    // find portal nodes
     const node = document.getElementById('react-cart');
     const detailNode = document.getElementById('react-cart-detail');
 
@@ -61,30 +65,20 @@ export default class Page {
       }
     };
 
+    const {checkoutPath = '', cartDetailPath = ''} = node?.dataset || {};
+
     try {
+      this.reactRoot.render(
+        <IntlProvider {...intlProps}>
+          <Shop topbarCartNode={node} checkoutPath={checkoutPath} cartDetailPath={cartDetailPath} />
+        </IntlProvider>,
+      );
+
+      // legacy
       const cart = await getCartDetails();
       let cartStore = new CartStore(cart);
       initCartActions(cartStore);
       this.initCheckout(intlProps, cartStore);
-      if (node) {
-        const {checkoutPath, cartDetailPath} = node.dataset;
-        createRoot(node).render(
-          <IntlProvider {...intlProps}>
-            <TopbarCart
-              cartProducts={cartStore.products.map(
-                cp =>
-                  new CartProductData({
-                    id: cp.id,
-                    product: cp.product,
-                    amount: cp.amount,
-                  }),
-              )}
-              checkoutPath={checkoutPath}
-              cartDetailPath={cartDetailPath}
-            />
-          </IntlProvider>,
-        );
-      }
 
       if (detailNode) {
         const {checkoutPath: detailCheckoutPath, indexPath} = detailNode.dataset;
