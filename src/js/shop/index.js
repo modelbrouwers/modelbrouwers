@@ -5,7 +5,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 
 import {getCartDetails} from '../data/shop/cart';
 import {getIntlProviderProps} from '../i18n';
-import {CartDetail, CartProduct, TopbarCart} from './components/Cart';
+import {CartDetail, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
 import {camelize} from './components/Checkout/utils';
 import Shop from './components/Shop';
@@ -49,35 +49,31 @@ export default class Page {
     const node = document.getElementById('react-cart');
     const detailNode = document.getElementById('react-cart-detail');
 
-    // set up cart action handlers on list/overview pages
-    const initCartActions = cartStore => {
-      const products = document.getElementsByClassName('product-card');
-
-      for (let product of products) {
-        const {product: id, stock} = product.dataset;
-        const reactNode = product.querySelector('.react-cart-actions');
-
-        createRoot(reactNode).render(
-          <IntlProvider {...intlProps}>
-            <CartProduct store={cartStore} productId={id} hasStock={parseInt(stock) > 0} />
-          </IntlProvider>,
-        );
-      }
-    };
+    const productsOnPage = Array.from(document.querySelectorAll('.product-card')).map(node => ({
+      id: parseInt(node.dataset.product),
+      stock: parseInt(node.dataset.stock),
+      controlsNode: node.querySelector('.react-cart-actions'),
+    }));
 
     const {checkoutPath = '', cartDetailPath = ''} = node?.dataset || {};
 
     try {
       this.reactRoot.render(
         <IntlProvider {...intlProps}>
-          <Shop topbarCartNode={node} checkoutPath={checkoutPath} cartDetailPath={cartDetailPath} />
+          <Shop
+            topbarCartNode={node}
+            productsOnPage={productsOnPage}
+            checkoutPath={checkoutPath}
+            cartDetailPath={cartDetailPath}
+            onAddToCart={productId => cartStore.addProduct({product: productId, amount: 1})}
+            onChangeAmount={(productId, amount) => cartStore.changeAmount(productId, amount)}
+          />
         </IntlProvider>,
       );
 
       // legacy
       const cart = await getCartDetails();
       let cartStore = new CartStore(cart);
-      initCartActions(cartStore);
       this.initCheckout(intlProps, cartStore);
 
       if (detailNode) {
