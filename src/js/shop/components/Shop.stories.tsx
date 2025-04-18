@@ -11,7 +11,10 @@ interface NodesType {
 export default {
   title: 'Shop / Full functionality',
   component: Shop,
-  args: {},
+  args: {
+    cartDetailPath: '/winkel/cart/42/',
+    checkoutPath: '/winkel/checkout/',
+  },
   render: args => {
     const reactCartRef = useRef<HTMLDivElement | null>(null);
     const reactCartDetailRef = useRef<HTMLDivElement | null>(null);

@@ -10,7 +10,7 @@ export interface Product {
   // totalStr: string;
 }
 
-interface CartProductArgs {
+interface CartProductData {
   id: number;
   product: Product;
   amount: number;
@@ -28,7 +28,7 @@ export class CartProduct {
   readonly product: Product;
   public amount: number;
 
-  constructor({id, product, amount}: CartProductArgs) {
+  constructor({id, product, amount}: CartProductData) {
     this.id = id;
     this.product = product;
     this.amount = amount;
