@@ -5,7 +5,12 @@ import {BrowserRouter as Router} from 'react-router-dom';
 
 import {setCsrfTokenValue} from '@/data/api-client';
 
-import {deleteCartProduct, getCartDetails, patchCartProductAmount} from '../data/shop/cart';
+import {
+  createCartProduct,
+  deleteCartProduct,
+  getCartDetails,
+  patchCartProductAmount,
+} from '../data/shop/cart';
 import {getIntlProviderProps} from '../i18n';
 import {CartDetail, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
@@ -73,14 +78,7 @@ export default class Page {
             productsOnPage={productsOnPage}
             checkoutPath={checkoutPath}
             cartDetailPath={cartDetailPath}
-            onAddToCart={async productId => {
-              const cartProduct = await cartStore.cartProductConsumer.addProduct({
-                cart: cartStore.id,
-                product: productId,
-                amount: 1,
-              });
-              return cartProduct;
-            }}
+            onAddToCart={async productId => await createCartProduct(cartStore.id, productId)}
             onChangeAmount={async (cartProductId, newAmount) => {
               if (newAmount > 0) {
                 const updatedCartProduct = await patchCartProductAmount(cartProductId, newAmount);

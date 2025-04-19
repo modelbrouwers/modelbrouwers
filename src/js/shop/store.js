@@ -15,7 +15,6 @@ export class CartStore {
       status: observable,
       total: computed,
       amount: computed,
-      addProduct: action,
       removeProduct: action,
       clearCart: action,
       changeAmount: action,
@@ -34,18 +33,6 @@ export class CartStore {
 
   get amount() {
     return this.products.reduce((acc, curr) => acc + curr.amount, 0);
-  }
-
-  addProduct(data) {
-    const existingCardProduct = this.findProduct(data.product);
-    if (existingCardProduct) {
-      return this.changeAmount(data.product, data.amount);
-    }
-    const postData = {...data, cart: this.id};
-    return this.cartProductConsumer
-      .addProduct(postData)
-      .then(resp => this.products.push(new CartProduct(resp)))
-      .catch(err => console.log('Error adding product', err));
   }
 
   removeProduct(id) {

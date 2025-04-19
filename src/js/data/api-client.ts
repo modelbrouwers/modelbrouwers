@@ -52,6 +52,24 @@ export const get = async <T = unknown>(
   return data;
 };
 
+export const post = async <T = unknown, U = unknown>(
+  relativeUrl: string,
+  data: U,
+): Promise<T | null> => {
+  const normalizedUrl = normalizeUrl(relativeUrl);
+  const options: RequestInit = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': CSRF_TOKEN,
+    },
+    body: JSON.stringify(data),
+  };
+  const response = await request(normalizedUrl, options);
+  const responseData: T | null = response.status === 204 ? null : await response.json();
+  return responseData;
+};
+
 export const patch = async <T = unknown, U = unknown>(
   relativeUrl: string,
   data: U,
