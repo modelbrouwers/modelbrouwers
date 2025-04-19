@@ -102,21 +102,6 @@
   }
 }
 
-.controls {
-  &__row {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__amount {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: 50px;
-    text-align: center;
-  }
-}
-
 @include lte-mobile {
   .cart {
     &#{&}--full {

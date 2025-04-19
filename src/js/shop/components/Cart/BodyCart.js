@@ -7,6 +7,7 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
 import {DecrementButton, IncrementButton} from './AmountButtons';
+import {AmountControls} from './ProductControls';
 import ProductImage from './ProductImage';
 
 const CartProduct = ({cartProduct, onChange}) => {
@@ -23,17 +24,9 @@ const CartProduct = ({cartProduct, onChange}) => {
       <div className="cart-product__name">
         <a href={absoluteUrl}>{name}</a>
       </div>
-      <div className="cart-product__amount">
-        <DecrementButton onClick={() => onChange(amount - 1)} />
-        <input
-          type="number"
-          name="amount"
-          value={amount}
-          onChange={event => onChange(event.target.value)}
-          min="0"
-        />
-        <IncrementButton onClick={() => onChange(amount + 1)} />
-      </div>
+
+      <AmountControls currentAmount={amount} amountEditable onChangeAmount={onChange} />
+
       <div className="cart-product__price">&euro; {price}</div>
       <div className="cart-product__total">&euro; {totalStr}</div>
       {/* TODO: add remove option */}

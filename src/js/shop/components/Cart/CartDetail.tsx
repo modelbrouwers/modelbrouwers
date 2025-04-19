@@ -8,6 +8,8 @@ import ProductImage from './ProductImage';
 import messages from './messages';
 import {getTotal} from './utils';
 
+type Header = keyof typeof messages;
+
 const HEADERS: MessageDescriptor[] = [
   messages.image,
   messages.productName,

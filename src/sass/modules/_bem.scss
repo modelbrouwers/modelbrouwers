@@ -56,6 +56,12 @@
   @return $split-arr;
 }
 
+@function get-element($base, $element) {
+  // capture the block, even if there is a modifier on the block
+  $block: nth(simple-selectors($base), 1);
+  @return '#{$block}__#{$element}';
+}
+
 /// Output rules for elements within a block.
 ///
 /// Ensures the specific `.block .block__element` selector.
@@ -71,9 +77,8 @@
 /// @example css - Output
 ///   .my-block .my-block__some-element {display: inline-block;}
 @mixin element($element) {
-  // capture the block, even if there is a modifier on the block
-  $block: nth(simple-selectors(&), 1);
-  $selector: '#{&} #{$block}__#{$element}';
+  $element-selector: get-element(&, $element);
+  $selector: '#{&} #{$element-selector}';
   @at-root #{$selector} {
     @content;
   }

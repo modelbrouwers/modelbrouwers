@@ -40,3 +40,9 @@ export const ZeroAmountCannotAdd: Story = {
     hasStock: false,
   },
 };
+
+export const AmountEditable: Story = {
+  args: {
+    amountEditable: true,
+  },
+};
