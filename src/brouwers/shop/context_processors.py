@@ -1,4 +1,4 @@
-from typing import Dict, Optional, TypedDict
+from typing import TypedDict
 
 from django.http import HttpRequest
 from django.urls import reverse
@@ -7,11 +7,12 @@ from .models import Cart
 
 
 class CartContext(TypedDict):
-    cart: Optional[Cart]
+    cart: Cart | None
     cart_url: str
 
 
 def cart(request: HttpRequest) -> CartContext:
+    # TODO: use template tag instead
     cart = Cart.objects.open().for_request(request).last()
     return {
         "cart": cart,

@@ -39,11 +39,11 @@ export default class Page {
     // find root node for our root component
     const rootNode = document.getElementById('react-root-shop');
     this.reactRoot = createRoot(rootNode);
-    const {csrftoken} = rootNode.dataset;
+    const {csrftoken, indexPath, checkoutPath, cartDetailPath} = rootNode.dataset;
     setCsrfTokenValue(csrftoken);
 
     // find portal nodes
-    const cartNode = document.getElementById('react-cart');
+    const topbarCartNode = document.getElementById('react-topbar-cart');
     const detailNode = document.getElementById('react-cart-detail');
     const addProductNode = document.querySelector('.product .order-button');
 
@@ -53,13 +53,11 @@ export default class Page {
       controlsNode: node.querySelector('.react-cart-actions'),
     }));
 
-    const {checkoutPath = '', cartDetailPath = ''} = cartNode?.dataset || {};
-
     try {
       this.reactRoot.render(
         <IntlProvider {...intlProps}>
           <Shop
-            topbarCartNode={cartNode}
+            topbarCartNode={topbarCartNode}
             productsOnPage={productsOnPage}
             addProductNode={addProductNode}
             checkoutPath={checkoutPath}

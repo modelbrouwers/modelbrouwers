@@ -6,11 +6,12 @@
 {% block sub-nav %}{% endblock %}
 
 {% block content %}
-    <div id="react-root-shop" data-csrftoken="{{ csrf_token }}"></div>
     <div
-        id="react-cart"
-        class="cart"
+        id="react-root-shop"
+        data-csrftoken="{{ csrf_token }}"
+        data-index-path="{% url 'shop:index' %}"
         data-checkout-path="{% url 'shop:checkout' %}"
         data-cart-detail-path="{{ cart_url }}"
     ></div>
+    <div id="react-topbar-cart" class="cart"></div>
 {% endblock content %}
