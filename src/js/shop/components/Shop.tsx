@@ -1,3 +1,4 @@
+import {useCallback, useEffect} from 'react';
 import {createPortal} from 'react-dom';
 import useAsync from 'react-use/esm/useAsync';
 import {ImmerReducer, useImmerReducer} from 'use-immer';
@@ -73,9 +74,10 @@ const reducer: ImmerReducer<ShopState, DispatchAction> = (
 export interface ShopProps {
   topbarCartNode: HTMLDivElement | null;
   productsOnPage: CatalogueProduct[];
+  addProductNode: HTMLFormElement | null;
   cartDetailPath: string;
   checkoutPath: string;
-  onAddToCart: (productId: number) => Promise<CartProductData>;
+  onAddToCart: (productId: number, amount?: number) => Promise<CartProductData>;
   onChangeAmount: (cartProductId: number, amount: number) => Promise<CartProductData | null>;
 }
 
@@ -88,6 +90,7 @@ export interface ShopProps {
 const Shop: React.FC<ShopProps> = ({
   topbarCartNode,
   productsOnPage,
+  addProductNode,
   cartDetailPath,
   checkoutPath,
   onAddToCart,
@@ -105,6 +108,8 @@ const Shop: React.FC<ShopProps> = ({
     };
     dispatch({type: 'CART_LOADED', payload: cart});
   }, []);
+
+  useAddProductFormSubmit(addProductNode, cart?.products, onAddToCart, onChangeAmount, dispatch);
 
   if (error) throw error;
   if (loading || cart === null) return null;
@@ -162,6 +167,52 @@ const Shop: React.FC<ShopProps> = ({
       )}
     </>
   );
+};
+
+const useAddProductFormSubmit = (
+  addProductNode: ShopProps['addProductNode'],
+  currentProducts: CartProduct[] | undefined = [],
+  onAddToCart: ShopProps['onAddToCart'],
+  onChangeAmount: ShopProps['onChangeAmount'],
+  dispatch: React.Dispatch<DispatchAction>,
+) => {
+  const onAddProductFormSubmit = useCallback(
+    async (event: SubmitEvent) => {
+      event.preventDefault();
+      const formData = new FormData(event.target as HTMLFormElement);
+
+      const productId = parseInt(formData.get('productId') as string);
+      const amount = parseInt(formData.get('amount') as string);
+
+      const existingCartProduct = currentProducts.find(cp => cp.product.id === productId);
+      if (!existingCartProduct) {
+        const cartProductData = await onAddToCart(productId, amount);
+        dispatch({
+          type: 'PRODUCT_ADDED',
+          payload: new CartProduct(cartProductData),
+        });
+      } else {
+        const newAmount = existingCartProduct.amount + amount;
+        const cartProductData = await onChangeAmount(existingCartProduct.id, newAmount);
+        dispatch({
+          type: 'CART_PRODUCT_AMOUNT_UPDATED',
+          payload: {
+            id: existingCartProduct.id,
+            cartProductData,
+          },
+        });
+      }
+    },
+    [onAddToCart, onChangeAmount, dispatch, currentProducts],
+  );
+
+  useEffect(() => {
+    if (!addProductNode) return;
+    addProductNode.addEventListener('submit', onAddProductFormSubmit);
+    return () => {
+      addProductNode.removeEventListener('submit', onAddProductFormSubmit);
+    };
+  }, [addProductNode, onAddProductFormSubmit]);
 };
 
 export default Shop;

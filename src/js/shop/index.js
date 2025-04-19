@@ -25,22 +25,6 @@ const getDataFromScript = scriptId => {
   return data ? camelize(data) : null;
 };
 
-// TODO: ensure this properly updates the state -> move into Shop component. Will probably
-// require some API updates.
-const bindAddToCartForm = (form, cartStore) => {
-  if (!form) return;
-  form.addEventListener('submit', async event => {
-    event.preventDefault();
-    const {productId, amount} = Object.fromEntries(new FormData(form));
-    // TODO: check if it needs to create or update (should just do a PUT call instead?)
-    await cartStore.cartProductConsumer.addProduct({
-      cart: cartStore.id,
-      product: parseInt(productId),
-      amount: parseInt(amount),
-    });
-  });
-};
-
 export default class Page {
   static async init() {
     try {
@@ -61,6 +45,7 @@ export default class Page {
     // find portal nodes
     const cartNode = document.getElementById('react-cart');
     const detailNode = document.getElementById('react-cart-detail');
+    const addProductNode = document.querySelector('.product .order-button');
 
     const productsOnPage = Array.from(document.querySelectorAll('.product-card')).map(node => ({
       id: parseInt(node.dataset.product),
@@ -76,9 +61,12 @@ export default class Page {
           <Shop
             topbarCartNode={cartNode}
             productsOnPage={productsOnPage}
+            addProductNode={addProductNode}
             checkoutPath={checkoutPath}
             cartDetailPath={cartDetailPath}
-            onAddToCart={async productId => await createCartProduct(cartStore.id, productId)}
+            onAddToCart={async (productId, amount) =>
+              await createCartProduct(cartStore.id, productId, amount)
+            }
             onChangeAmount={async (cartProductId, newAmount) => {
               if (newAmount > 0) {
                 const updatedCartProduct = await patchCartProductAmount(cartProductId, newAmount);
@@ -105,9 +93,6 @@ export default class Page {
           </IntlProvider>,
         );
       }
-
-      const productOrder = document.querySelector('.product .order-button');
-      bindAddToCartForm(productOrder, cartStore);
     } catch (err) {
       console.error('Error retrieving cart', err);
       // TODO render error page/modal/toast

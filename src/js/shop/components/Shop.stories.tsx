@@ -12,6 +12,7 @@ interface NodesType {
   topbarCartNode: HTMLDivElement | null;
   cartDetailNode: HTMLDivElement | null;
   productsOnPage: CatalogueProduct[];
+  addProductNode: HTMLFormElement | null;
 }
 
 const PRODUCTS = [
@@ -66,11 +67,13 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
   const reactCartRef = useRef<HTMLDivElement | null>(null);
   const reactCartDetailRef = useRef<HTMLDivElement | null>(null);
   const productsRef = useRef<HTMLDivElement | null>(null);
+  const orderFormRef = useRef<HTMLFormElement | null>(null);
 
   const [nodes, setNodes] = useState<NodesType>({
     topbarCartNode: null,
     cartDetailNode: null,
     productsOnPage: [],
+    addProductNode: null,
   });
 
   useEffect(() => {
@@ -84,6 +87,7 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
       topbarCartNode: reactCartRef.current,
       cartDetailNode: reactCartDetailRef.current,
       productsOnPage: productsOnPage,
+      addProductNode: orderFormRef.current,
     });
   }, []);
 
@@ -105,6 +109,8 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
       <div ref={reactCartRef} id="react-cart" />
       <div ref={reactCartDetailRef} id="react-cart-detail" />
 
+      <hr style={{borderBottom: 'solid 1px #DDD', inlineSize: '80%'}} />
+
       <div className="card-grid" ref={productsRef}>
         {PRODUCTS.map(({id, name, stock}) => (
           <div key={id} className="card-grid__card product-card" data-id={id} data-stock={stock}>
@@ -113,6 +119,29 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
           </div>
         ))}
       </div>
+
+      <hr style={{borderBottom: 'solid 1px #DDD', inlineSize: '80%'}} />
+
+      <article className="product">
+        <h1 className="heading heading--plain">Product 888</h1>
+        <form className="order-button" ref={orderFormRef}>
+          <label htmlFor="amount" className="order-button__amount-label">
+            Amount
+          </label>
+          <input type="hidden" name="productId" defaultValue="888" />
+          <input
+            id="amount"
+            className="order-button__amount"
+            type="number"
+            name="amount"
+            min="0"
+            defaultValue="1"
+          />
+          <button type="submit" className="button button--blue button--order">
+            Add to cart
+          </button>
+        </form>
+      </article>
     </div>
   );
 };
@@ -123,15 +152,18 @@ export default {
   args: {
     cartDetailPath: '/winkel/cart/42/',
     checkoutPath: '/winkel/checkout/',
-    onAddToCart: fn(
-      (productId: number): Promise<CartProductData> =>
-        Promise.resolve({
-          id: productId,
-          cart: MOCK_CART_DATA.id,
-          product: PRODUCTS.find(p => p.id === productId)!,
-          amount: 1,
-        }),
-    ),
+    onAddToCart: fn((productId: number, amount: number = 1): Promise<CartProductData> => {
+      const newCartProduct: CartProductData = {
+        id: productId,
+        product: PRODUCTS.find(p => p.id === productId)!,
+        amount: amount,
+      };
+      MOCK_CART_DATA.products.push(newCartProduct);
+      return Promise.resolve({
+        ...newCartProduct,
+        cart: MOCK_CART_DATA.id,
+      });
+    }),
     onChangeAmount: fn(
       (cartProductId: number, newAmount: number): Promise<CartProductData | null> => {
         const cp = MOCK_CART_DATA.products.find(cp => cp.id === cartProductId)!;
@@ -147,6 +179,10 @@ export default {
         );
       },
     ),
+  },
+  argTypes: {
+    topbarCartNode: {table: {disable: true}},
+    productsOnPage: {table: {disable: true}},
   },
   render: args => <ShopIndex {...args} />,
   parameters: {

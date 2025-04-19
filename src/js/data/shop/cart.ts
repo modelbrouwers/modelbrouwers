@@ -42,17 +42,18 @@ export const getCartDetails = async (): Promise<CartData> => {
 interface CreateCartProductData {
   cart: number;
   product: number;
-  amount: 1;
+  amount: number;
 }
 
 export const createCartProduct = async (
   cartId: number,
   productId: number,
+  amount: number = 1,
 ): Promise<CartProductData> => {
   const cartProductData = await post<CartProductData, CreateCartProductData>('shop/cart-product/', {
     cart: cartId,
     product: productId,
-    amount: 1,
+    amount: amount,
   });
   return cartProductData!;
 };
