@@ -6,6 +6,7 @@ import type {CartProduct} from '@/shop/data';
 
 import Price from './Price';
 import ProductImage from './ProductImage';
+import {getTotal} from './utils';
 
 export interface TopbarCartProps {
   cartProducts: CartProduct[];
@@ -29,10 +30,6 @@ const TopbarCart: React.FC<TopbarCartProps> = ({
     (acc: number, cp: CartProduct) => acc + cp.amount,
     0,
   );
-  const totalPrice: number = cartProducts.reduce(
-    (acc: number, cp: CartProduct) => acc + cp.total,
-    0,
-  );
   return (
     <div className="cart__row">
       <div
@@ -54,7 +51,7 @@ const TopbarCart: React.FC<TopbarCartProps> = ({
                 />
               </div>
               <div className="cart__price">
-                <Price value={totalPrice} />
+                <Price value={getTotal(cartProducts)} />
               </div>
             </div>
           </div>

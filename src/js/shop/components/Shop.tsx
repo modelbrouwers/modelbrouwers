@@ -6,7 +6,7 @@ import {ImmerReducer, useImmerReducer} from 'use-immer';
 import {CartData, CartProductData, getCartDetails} from '@/data/shop/cart';
 
 import {CartProduct} from '../data';
-import {TopbarCart} from './Cart';
+import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
 
 export interface CatalogueProduct {
@@ -75,8 +75,10 @@ export interface ShopProps {
   topbarCartNode: HTMLDivElement | null;
   productsOnPage: CatalogueProduct[];
   addProductNode: HTMLFormElement | null;
+  cartDetailNode: HTMLDivElement | null;
   cartDetailPath: string;
   checkoutPath: string;
+  indexPath: string;
   onAddToCart: (productId: number, amount?: number) => Promise<CartProductData>;
   onChangeAmount: (cartProductId: number, amount: number) => Promise<CartProductData | null>;
 }
@@ -91,8 +93,10 @@ const Shop: React.FC<ShopProps> = ({
   topbarCartNode,
   productsOnPage,
   addProductNode,
+  cartDetailNode,
   cartDetailPath,
   checkoutPath,
+  indexPath,
   onAddToCart,
   onChangeAmount,
 }) => {
@@ -165,6 +169,25 @@ const Shop: React.FC<ShopProps> = ({
           `${id}-${idx}`,
         ),
       )}
+      {cartDetailNode &&
+        createPortal(
+          <CartDetail
+            checkoutPath={checkoutPath}
+            indexPath={indexPath}
+            cartProducts={cart.products}
+            onChangeAmount={async (cartProductId: number, newAmount: number) => {
+              const cartProductData = await onChangeAmount(cartProductId, newAmount);
+              dispatch({
+                type: 'CART_PRODUCT_AMOUNT_UPDATED',
+                payload: {
+                  id: cartProductId,
+                  cartProductData,
+                },
+              });
+            }}
+          />,
+          cartDetailNode,
+        )}
     </>
   );
 };

@@ -22,6 +22,7 @@ const PRODUCTS = [
     image: 'https://loremflickr.com/400/300/cat',
     price: 3.78,
     stock: 5,
+    model_name: 'MB001',
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ const PRODUCTS = [
     image: 'https://loremflickr.com/400/300/cat',
     price: 2.07,
     stock: 100,
+    model_name: 'MB002',
   },
   {
     id: 888,
@@ -36,6 +38,7 @@ const PRODUCTS = [
     image: 'https://loremflickr.com/400/300/cat',
     price: 9.99,
     stock: 5,
+    model_name: 'MB888',
   },
   {
     id: 999,
@@ -43,6 +46,7 @@ const PRODUCTS = [
     image: 'https://loremflickr.com/400/300/cat',
     price: 5.0,
     stock: 0,
+    model_name: 'MB999',
   },
 ];
 
@@ -107,7 +111,6 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
     >
       <Shop {...args} {...nodes} />
       <div ref={reactCartRef} id="react-cart" />
-      <div ref={reactCartDetailRef} id="react-cart-detail" />
 
       <hr style={{borderBottom: 'solid 1px #DDD', inlineSize: '80%'}} />
 
@@ -142,6 +145,10 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
           </button>
         </form>
       </article>
+
+      <hr style={{borderBottom: 'solid 1px #DDD', inlineSize: '80%'}} />
+
+      <div ref={reactCartDetailRef} id="react-cart-detail" />
     </div>
   );
 };
@@ -152,6 +159,7 @@ export default {
   args: {
     cartDetailPath: '/winkel/cart/42/',
     checkoutPath: '/winkel/checkout/',
+    indexPath: '/winkel/',
     onAddToCart: fn((productId: number, amount: number = 1): Promise<CartProductData> => {
       const newCartProduct: CartProductData = {
         id: productId,

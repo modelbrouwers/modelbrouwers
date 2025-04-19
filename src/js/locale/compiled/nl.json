@@ -1,14 +1,38 @@
 {
+  "+kXYqX": [
+    {
+      "type": 0,
+      "value": "Country"
+    }
+  ],
+  "/168YP": [
+    {
+      "type": 0,
+      "value": "Continue"
+    }
+  ],
   "/Ad+ya": [
     {
       "type": 0,
       "value": "Additional information"
     }
   ],
+  "/Eg5rz": [
+    {
+      "type": 0,
+      "value": "Billing address"
+    }
+  ],
   "/N7xse": [
     {
       "type": 0,
       "value": "Klaar?"
+    }
+  ],
+  "0IKVYp": [
+    {
+      "type": 0,
+      "value": "City"
     }
   ],
   "1K/q6M": [
@@ -21,6 +45,42 @@
     {
       "type": 0,
       "value": "amount"
+    }
+  ],
+  "3UvxIB": [
+    {
+      "type": 0,
+      "value": "Street"
+    }
+  ],
+  "3V0Onx": [
+    {
+      "type": 0,
+      "value": "* Required fields"
+    }
+  ],
+  "4+G0m8": [
+    {
+      "type": 0,
+      "value": "KVK"
+    }
+  ],
+  "73/HqL": [
+    {
+      "type": 0,
+      "value": "Delivery or pickup?"
+    }
+  ],
+  "79Rcfd": [
+    {
+      "type": 0,
+      "value": "Pickup"
+    }
+  ],
+  "7cEb3d": [
+    {
+      "type": 0,
+      "value": "Select your bank"
     }
   ],
   "7wbY42": [
@@ -47,6 +107,12 @@
       "value": "Omschrijving"
     }
   ],
+  "BFOrds": [
+    {
+      "type": 0,
+      "value": "Email address"
+    }
+  ],
   "BxbHDf": [
     {
       "type": 0,
@@ -65,10 +131,28 @@
       "value": "Checkout"
     }
   ],
+  "DwmapZ": [
+    {
+      "type": 0,
+      "value": "By mail"
+    }
+  ],
+  "EG8GlO": [
+    {
+      "type": 0,
+      "value": "Number"
+    }
+  ],
   "GhZs+k": [
     {
       "type": 0,
       "value": "Confirmation"
+    }
+  ],
+  "GxgjcH": [
+    {
+      "type": 0,
+      "value": "Phone number"
     }
   ],
   "IlIaZ2": [
@@ -107,6 +191,20 @@
       "value": "Model"
     }
   ],
+  "K4XU1v": [
+    {
+      "type": 0,
+      "value": "Remove product '"
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": "'"
+    }
+  ],
   "KZ9pSc": [
     {
       "type": 0,
@@ -133,6 +231,30 @@
       "value": " was received!"
     }
   ],
+  "Ovk5iw": [
+    {
+      "type": 0,
+      "value": "ZIP code"
+    }
+  ],
+  "PKVzgg": [
+    {
+      "type": 0,
+      "value": "First name"
+    }
+  ],
+  "Qiw2De": [
+    {
+      "type": 0,
+      "value": "Select your payment method"
+    }
+  ],
+  "VlE87W": [
+    {
+      "type": 0,
+      "value": "Place order"
+    }
+  ],
   "XGRjNR": [
     {
       "type": 0,
@@ -143,6 +265,24 @@
     {
       "type": 0,
       "value": "Add one"
+    }
+  ],
+  "bsyaaX": [
+    {
+      "type": 0,
+      "value": "Sign up"
+    }
+  ],
+  "dbSo0d": [
+    {
+      "type": 0,
+      "value": "Continue without signup"
+    }
+  ],
+  "fJMjTz": [
+    {
+      "type": 0,
+      "value": "Sign in"
     }
   ],
   "forum.albums.photosNav.next": [
@@ -189,6 +329,12 @@
       "value": "Albums"
     }
   ],
+  "ilLhfJ": [
+    {
+      "type": 0,
+      "value": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
+    }
+  ],
   "iziEr8": [
     {
       "type": 0,
@@ -207,6 +353,18 @@
       "value": "zoek op naam"
     }
   ],
+  "komVq4": [
+    {
+      "type": 0,
+      "value": "Personal details"
+    }
+  ],
+  "l9i+Cg": [
+    {
+      "type": 0,
+      "value": "This field is required."
+    }
+  ],
   "m0WW7s": [
     {
       "type": 0,
@@ -219,16 +377,72 @@
       "value": "Oops, something went wrong. Please try again later."
     }
   ],
+  "nul77H": [
+    {
+      "type": 0,
+      "value": "Delivery address"
+    }
+  ],
   "oD9PGg": [
     {
       "type": 0,
       "value": "price"
     }
   ],
+  "oNlKJN": [
+    {
+      "type": 0,
+      "value": "Company"
+    }
+  ],
+  "ocBRLh": [
+    {
+      "type": 0,
+      "value": "Last name"
+    }
+  ],
   "osdebM": [
     {
       "type": 0,
       "value": "Checkout"
+    }
+  ],
+  "oyF3u3": [
+    {
+      "type": 0,
+      "value": "Delivery method"
+    }
+  ],
+  "p3b1TD": [
+    {
+      "type": 0,
+      "value": "Shipping to "
+    },
+    {
+      "type": 1,
+      "value": "country"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "type": 1,
+      "value": "weight"
+    },
+    {
+      "type": 0,
+      "value": "): "
+    },
+    {
+      "type": 1,
+      "value": "price"
+    }
+  ],
+  "rAlq4/": [
+    {
+      "type": 0,
+      "value": "My billing and delivery address are the same."
     }
   ],
   "sg6151": [
@@ -240,31 +454,31 @@
   "shop.cart.detail.cart.subtotal": [
     {
       "type": 0,
-      "value": "Subtotaal"
+      "value": "Sub-total"
     }
   ],
   "shop.cart.detail.cart.taxes": [
     {
       "type": 0,
-      "value": "BTW"
+      "value": "Taxes"
     }
   ],
   "shop.cart.detail.cart.total": [
     {
       "type": 0,
-      "value": "Totaal"
+      "value": "Total"
     }
   ],
   "shop.cart.detail.header.header": [
     {
       "type": 0,
-      "value": "Totaal"
+      "value": "Total"
     }
   ],
   "shop.cart.detail.header.image": [
     {
       "type": 0,
-      "value": "Afbeelding"
+      "value": "Image"
     }
   ],
   "shop.cart.detail.header.model": [
@@ -276,37 +490,96 @@
   "shop.cart.detail.header.product.name": [
     {
       "type": 0,
-      "value": "Artikel"
+      "value": "Product Name"
     }
   ],
   "shop.cart.detail.header.quantity": [
     {
       "type": 0,
-      "value": "Aantal"
+      "value": "Quantity"
     }
   ],
   "shop.cart.detail.header.unit.price": [
     {
       "type": 0,
-      "value": "Stukprijs"
+      "value": "Unit Price"
     }
   ],
   "shop.cart.detail.title.cart.total": [
     {
       "type": 0,
-      "value": "Totaal"
+      "value": "Cart total"
     }
   ],
   "shop.cart.product.actions.add": [
     {
       "type": 0,
-      "value": "Toevoegen aan winkelmandje"
+      "value": "Add to cart"
+    }
+  ],
+  "shop.cart.topbar.checkout": [
+    {
+      "type": 0,
+      "value": "Checkout"
+    }
+  ],
+  "shop.cart.topbar.item.count": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "items"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "shop.cart.topbar.view.cart": [
+    {
+      "type": 0,
+      "value": "View cart"
+    }
+  ],
+  "swul1g": [
+    {
+      "type": 0,
+      "value": "Cart overview"
     }
   ],
   "tPmUAf": [
     {
       "type": 0,
       "value": "Topic met regels"
+    }
+  ],
+  "v2t0Vo": [
+    {
+      "type": 0,
+      "value": "or"
     }
   ],
   "vRPK2q": [
@@ -319,6 +592,12 @@
     {
       "type": 0,
       "value": "Topic"
+    }
+  ],
+  "yy0Fua": [
+    {
+      "type": 0,
+      "value": "Select country"
     }
   ]
 }

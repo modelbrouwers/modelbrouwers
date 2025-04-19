@@ -1,4 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
+import {fn} from '@storybook/test';
+
+import {CartProduct} from '@/shop/data';
 
 import CartDetail from './CartDetail';
 
@@ -6,27 +9,22 @@ export default {
   title: 'Shop / Cart / CartDetail',
   component: CartDetail,
   args: {
-    store: {
-      products: [
-        {
-          product: {
-            id: 42,
-            name: 'Polish set',
-            image: 'https://loremflickr.com/100/100/cat',
-            model_name: 'XYZ-001',
-            price: '9,99',
-            totalStr: '9,99',
-          },
-          amount: 1,
-          totalStr: '9,99',
+    cartProducts: [
+      new CartProduct({
+        id: 1,
+        product: {
+          id: 42,
+          name: 'Polish set',
+          image: 'https://loremflickr.com/100/100/cat',
+          model_name: 'XYZ-001',
+          price: 9.99,
         },
-      ],
-      user: {},
-      id: 42,
-      total: '12,99',
-    },
-    checkoutPath: '/winkel/checkout',
-    indexPath: '/winkel',
+        amount: 1,
+      }),
+    ],
+    onChangeAmount: fn(),
+    checkoutPath: '/winkel/checkout/',
+    indexPath: '/winkel/',
   },
 } satisfies Meta<typeof CartDetail>;
 

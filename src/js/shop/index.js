@@ -44,7 +44,7 @@ export default class Page {
 
     // find portal nodes
     const topbarCartNode = document.getElementById('react-topbar-cart');
-    const detailNode = document.getElementById('react-cart-detail');
+    const cartDetailNode = document.getElementById('react-cart-detail');
     const addProductNode = document.querySelector('.product .order-button');
 
     const productsOnPage = Array.from(document.querySelectorAll('.product-card')).map(node => ({
@@ -60,6 +60,7 @@ export default class Page {
             topbarCartNode={topbarCartNode}
             productsOnPage={productsOnPage}
             addProductNode={addProductNode}
+            cartDetailNode={cartDetailNode}
             checkoutPath={checkoutPath}
             cartDetailPath={cartDetailPath}
             onAddToCart={async (productId, amount) =>
@@ -82,15 +83,6 @@ export default class Page {
       const cart = await getCartDetails();
       let cartStore = new CartStore(cart);
       this.initCheckout(intlProps, cartStore);
-
-      if (detailNode) {
-        const {checkoutPath: detailCheckoutPath, indexPath} = detailNode.dataset;
-        createRoot(detailNode).render(
-          <IntlProvider {...intlProps}>
-            <CartDetail store={cartStore} checkoutPath={detailCheckoutPath} indexPath={indexPath} />
-          </IntlProvider>,
-        );
-      }
     } catch (err) {
       console.error('Error retrieving cart', err);
       // TODO render error page/modal/toast

@@ -5,9 +5,9 @@ export interface Product {
   name: string;
   image: string;
   price: number;
+  model_name: string;
   // vat: number;
   // categories: unknown; // TODO
-  // model_name: string;
   // absoluteUrl: string;
   // totalStr: string;
 }

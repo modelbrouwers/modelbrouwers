@@ -1,13 +1,33 @@
 {
+  "+kXYqX": {
+    "defaultMessage": "Country",
+    "description": "Checkout address: country",
+    "originalDefault": "Country"
+  },
+  "/168YP": {
+    "defaultMessage": "Continue",
+    "description": "Delivery details: continue",
+    "originalDefault": "Continue"
+  },
   "/Ad+ya": {
     "defaultMessage": "Additional information",
     "description": "Confirmation message title",
     "originalDefault": "Additional information"
   },
+  "/Eg5rz": {
+    "defaultMessage": "Billing address",
+    "description": "Billing address: billingAddress",
+    "originalDefault": "Billing address"
+  },
   "/N7xse": {
     "defaultMessage": "Finished?",
     "description": "GB participants table, finished header.",
     "originalDefault": "Finished?"
+  },
+  "0IKVYp": {
+    "defaultMessage": "City",
+    "description": "Delivery address: city",
+    "originalDefault": "City"
   },
   "1K/q6M": {
     "defaultMessage": "Remove one",
@@ -18,6 +38,36 @@
     "defaultMessage": "amount",
     "description": "Payment cart overview: amount title",
     "originalDefault": "amount"
+  },
+  "3UvxIB": {
+    "defaultMessage": "Street",
+    "description": "Delivery address: street",
+    "originalDefault": "Street"
+  },
+  "3V0Onx": {
+    "defaultMessage": "* Required fields",
+    "description": "Delivery details: requiredFields",
+    "originalDefault": "* Required fields"
+  },
+  "4+G0m8": {
+    "defaultMessage": "KVK",
+    "description": "Delivery address: kvk",
+    "originalDefault": "KVK"
+  },
+  "73/HqL": {
+    "defaultMessage": "Delivery or pickup?",
+    "description": "Delivery details: delivery method",
+    "originalDefault": "Delivery or pickup?"
+  },
+  "79Rcfd": {
+    "defaultMessage": "Pickup",
+    "description": "Delivery method 'mail' option label",
+    "originalDefault": "Pickup"
+  },
+  "7cEb3d": {
+    "defaultMessage": "Select your bank",
+    "description": "iDeal bank dropdown",
+    "originalDefault": "Select your bank"
   },
   "7wbY42": {
     "defaultMessage": "Participants",
@@ -39,6 +89,11 @@
     "description": "Groupbuild inset in forum post, description title",
     "originalDefault": "Description"
   },
+  "BFOrds": {
+    "defaultMessage": "Email address",
+    "description": "Checkout address: email",
+    "originalDefault": "Email address"
+  },
   "BxbHDf": {
     "defaultMessage": "Brouwer",
     "description": "GB participants table, brouwer header.",
@@ -54,10 +109,25 @@
     "description": "Checkout header",
     "originalDefault": "Checkout"
   },
+  "DwmapZ": {
+    "defaultMessage": "By mail",
+    "description": "Delivery method 'mail' option label",
+    "originalDefault": "By mail"
+  },
+  "EG8GlO": {
+    "defaultMessage": "Number",
+    "description": "Delivery address: number",
+    "originalDefault": "Number"
+  },
   "GhZs+k": {
     "defaultMessage": "Confirmation",
     "description": "Tab: confirm",
     "originalDefault": "Confirmation"
+  },
+  "GxgjcH": {
+    "defaultMessage": "Phone number",
+    "description": "Checkout address: phone",
+    "originalDefault": "Phone number"
   },
   "IlIaZ2": {
     "defaultMessage": "Start: {start}, end: {end}",
@@ -79,6 +149,11 @@
     "description": "GB participants table, model header.",
     "originalDefault": "Model"
   },
+  "K4XU1v": {
+    "defaultMessage": "Remove product ''{name}''",
+    "description": "Cart: remove product button label",
+    "originalDefault": "Remove product ''{name}''"
+  },
   "KZ9pSc": {
     "defaultMessage": "product",
     "description": "Payment cart overview: name title",
@@ -89,6 +164,26 @@
     "description": "Order confirmation generic text",
     "originalDefault": "Your order with reference <bold>{orderNumber}</bold> was received!"
   },
+  "Ovk5iw": {
+    "defaultMessage": "ZIP code",
+    "description": "Delivery address: zip",
+    "originalDefault": "ZIP code"
+  },
+  "PKVzgg": {
+    "defaultMessage": "First name",
+    "description": "Checkout address: firstName",
+    "originalDefault": "First name"
+  },
+  "Qiw2De": {
+    "defaultMessage": "Select your payment method",
+    "description": "Checkout: select payment method",
+    "originalDefault": "Select your payment method"
+  },
+  "VlE87W": {
+    "defaultMessage": "Place order",
+    "description": "Checkout: confirm order",
+    "originalDefault": "Place order"
+  },
   "XGRjNR": {
     "defaultMessage": "Shopping cart",
     "description": "Shopping cart title",
@@ -98,6 +193,21 @@
     "defaultMessage": "Add one",
     "description": "Increment button accessible label",
     "originalDefault": "Add one"
+  },
+  "bsyaaX": {
+    "defaultMessage": "Sign up",
+    "description": "Checkout with account creation",
+    "originalDefault": "Sign up"
+  },
+  "dbSo0d": {
+    "defaultMessage": "Continue without signup",
+    "description": "Checkout with account link",
+    "originalDefault": "Continue without signup"
+  },
+  "fJMjTz": {
+    "defaultMessage": "Sign in",
+    "description": "Checkout with login",
+    "originalDefault": "Sign in"
   },
   "forum.albums.photosNav.next": {
     "defaultMessage": "Next",
@@ -119,6 +229,11 @@
     "defaultMessage": "Albums",
     "originalDefault": "Albums"
   },
+  "ilLhfJ": {
+    "defaultMessage": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future).",
+    "description": "Checkout account options description",
+    "originalDefault": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
+  },
   "iziEr8": {
     "defaultMessage": "Reload page",
     "description": "General error: reload page button",
@@ -133,6 +248,16 @@
     "defaultMessage": "filter by name",
     "originalDefault": "filter by name"
   },
+  "komVq4": {
+    "defaultMessage": "Personal details",
+    "description": "Delivery details: personal details",
+    "originalDefault": "Personal details"
+  },
+  "l9i+Cg": {
+    "defaultMessage": "This field is required.",
+    "description": "Validation error message for required field",
+    "originalDefault": "This field is required."
+  },
   "m0WW7s": {
     "defaultMessage": "Continue shopping",
     "description": "Button back to webshop homepage",
@@ -143,15 +268,45 @@
     "description": "General error message",
     "originalDefault": "Oops, something went wrong. Please try again later."
   },
+  "nul77H": {
+    "defaultMessage": "Delivery address",
+    "description": "Delivery address: deliveryAddress",
+    "originalDefault": "Delivery address"
+  },
   "oD9PGg": {
     "defaultMessage": "price",
     "description": "Payment cart overview: unit price title",
     "originalDefault": "price"
   },
+  "oNlKJN": {
+    "defaultMessage": "Company",
+    "description": "Delivery address: company",
+    "originalDefault": "Company"
+  },
+  "ocBRLh": {
+    "defaultMessage": "Last name",
+    "description": "Checkout address: lastName",
+    "originalDefault": "Last name"
+  },
   "osdebM": {
     "defaultMessage": "Checkout",
     "description": "Button to webshop checkout",
     "originalDefault": "Checkout"
+  },
+  "oyF3u3": {
+    "defaultMessage": "Delivery method",
+    "description": "Delivery method form field label",
+    "originalDefault": "Delivery method"
+  },
+  "p3b1TD": {
+    "defaultMessage": "Shipping to {country} ({weight}): {price}",
+    "description": "Shipping costs value",
+    "originalDefault": "Shipping to {country} ({weight}): {price}"
+  },
+  "rAlq4/": {
+    "defaultMessage": "My billing and delivery address are the same.",
+    "description": "Delivery details: billingAddressSame",
+    "originalDefault": "My billing and delivery address are the same."
   },
   "sg6151": {
     "defaultMessage": "Account",
@@ -167,7 +322,7 @@
     "originalDefault": "Taxes"
   },
   "shop.cart.detail.cart.total": {
-    "defaultMessage": "Sub-total",
+    "defaultMessage": "Total",
     "originalDefault": "Total"
   },
   "shop.cart.detail.header.header": {
@@ -202,10 +357,32 @@
     "defaultMessage": "Add to cart",
     "originalDefault": "Add to cart"
   },
+  "shop.cart.topbar.checkout": {
+    "defaultMessage": "Checkout",
+    "originalDefault": "Checkout"
+  },
+  "shop.cart.topbar.item.count": {
+    "defaultMessage": "{count, number} {count, plural, one {item} other {items}}",
+    "originalDefault": "{count, number} {count, plural, one {item} other {items}}"
+  },
+  "shop.cart.topbar.view.cart": {
+    "defaultMessage": "View cart",
+    "originalDefault": "View cart"
+  },
+  "swul1g": {
+    "defaultMessage": "Cart overview",
+    "description": "Checkout: Cart overview",
+    "originalDefault": "Cart overview"
+  },
   "tPmUAf": {
     "defaultMessage": "Rules topic",
     "description": "Groupbuild inset in forum post, rules topic title",
     "originalDefault": "Rules topic"
+  },
+  "v2t0Vo": {
+    "defaultMessage": "or",
+    "description": "'Or' (Separator between options)",
+    "originalDefault": "or"
   },
   "vRPK2q": {
     "defaultMessage": "Payment",
@@ -216,5 +393,10 @@
     "defaultMessage": "Topic",
     "description": "GB participants table, topic header.",
     "originalDefault": "Topic"
+  },
+  "yy0Fua": {
+    "defaultMessage": "Select country",
+    "description": "Country dropdown placeholder",
+    "originalDefault": "Select country"
   }
 }
