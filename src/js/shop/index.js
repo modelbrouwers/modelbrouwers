@@ -3,7 +3,9 @@ import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import {getCartDetails} from '../data/shop/cart';
+import {setCsrfTokenValue} from '@/data/api-client';
+
+import {deleteCartProduct, getCartDetails, patchCartProductAmount} from '../data/shop/cart';
 import {getIntlProviderProps} from '../i18n';
 import {CartDetail, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
@@ -18,12 +20,16 @@ const getDataFromScript = scriptId => {
   return data ? camelize(data) : null;
 };
 
+// TODO: ensure this properly updates the state -> move into Shop component. Will probably
+// require some API updates.
 const bindAddToCartForm = (form, cartStore) => {
   if (!form) return;
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
     const {productId, amount} = Object.fromEntries(new FormData(form));
-    cartStore.addProduct({
+    // TODO: check if it needs to create or update (should just do a PUT call instead?)
+    await cartStore.cartProductConsumer.addProduct({
+      cart: cartStore.id,
       product: parseInt(productId),
       amount: parseInt(amount),
     });
@@ -44,9 +50,11 @@ export default class Page {
     // find root node for our root component
     const rootNode = document.getElementById('react-root-shop');
     this.reactRoot = createRoot(rootNode);
+    const {csrftoken} = rootNode.dataset;
+    setCsrfTokenValue(csrftoken);
 
     // find portal nodes
-    const node = document.getElementById('react-cart');
+    const cartNode = document.getElementById('react-cart');
     const detailNode = document.getElementById('react-cart-detail');
 
     const productsOnPage = Array.from(document.querySelectorAll('.product-card')).map(node => ({
@@ -55,13 +63,13 @@ export default class Page {
       controlsNode: node.querySelector('.react-cart-actions'),
     }));
 
-    const {checkoutPath = '', cartDetailPath = ''} = node?.dataset || {};
+    const {checkoutPath = '', cartDetailPath = ''} = cartNode?.dataset || {};
 
     try {
       this.reactRoot.render(
         <IntlProvider {...intlProps}>
           <Shop
-            topbarCartNode={node}
+            topbarCartNode={cartNode}
             productsOnPage={productsOnPage}
             checkoutPath={checkoutPath}
             cartDetailPath={cartDetailPath}
@@ -73,7 +81,15 @@ export default class Page {
               });
               return cartProduct;
             }}
-            onChangeAmount={(productId, amount) => cartStore.changeAmount(productId, amount)}
+            onChangeAmount={async (cartProductId, newAmount) => {
+              if (newAmount > 0) {
+                const updatedCartProduct = await patchCartProductAmount(cartProductId, newAmount);
+                return updatedCartProduct;
+              } else {
+                await deleteCartProduct(cartProductId);
+                return null;
+              }
+            }}
           />
         </IntlProvider>,
       );

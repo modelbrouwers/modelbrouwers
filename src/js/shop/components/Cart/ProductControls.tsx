@@ -5,7 +5,7 @@ import {DecrementButton, IncrementButton} from './AmountButtons';
 export interface ProductControlsProps {
   currentAmount: number;
   hasStock: boolean;
-  onChangeAmount: (amount: 1 | -1) => void;
+  onChangeAmount: (newAmount: number) => void;
   onAddProduct: () => void;
 }
 
@@ -18,9 +18,9 @@ const ProductControls: React.FC<ProductControlsProps> = ({
   if (currentAmount > 0) {
     return (
       <div className="controls__row">
-        <DecrementButton onClick={() => onChangeAmount(-1)} />
+        <DecrementButton onClick={() => onChangeAmount(currentAmount - 1)} />
         <span className="controls__amount">{currentAmount}</span>
-        <IncrementButton onClick={() => onChangeAmount(1)} disabled={!hasStock} />
+        <IncrementButton onClick={() => onChangeAmount(currentAmount + 1)} disabled={!hasStock} />
       </div>
     );
   }

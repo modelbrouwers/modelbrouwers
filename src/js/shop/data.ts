@@ -1,3 +1,5 @@
+import {immerable} from 'immer';
+
 import type {CartProductData, Product} from '@/data/shop/cart';
 
 /**
@@ -7,6 +9,8 @@ import type {CartProductData, Product} from '@/data/shop/cart';
  * calculate/define them.
  */
 export class CartProduct {
+  [immerable] = true;
+
   readonly id: number;
   readonly product: Product;
   public amount: number;

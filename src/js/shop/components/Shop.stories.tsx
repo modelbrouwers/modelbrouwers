@@ -127,11 +127,26 @@ export default {
       (productId: number): Promise<CartProductData> =>
         Promise.resolve({
           id: productId,
+          cart: MOCK_CART_DATA.id,
           product: PRODUCTS.find(p => p.id === productId)!,
           amount: 1,
         }),
     ),
-    onChangeAmount: fn(),
+    onChangeAmount: fn(
+      (cartProductId: number, newAmount: number): Promise<CartProductData | null> => {
+        const cp = MOCK_CART_DATA.products.find(cp => cp.id === cartProductId)!;
+        return Promise.resolve(
+          newAmount > 0
+            ? {
+                id: cp.id,
+                cart: MOCK_CART_DATA.id,
+                product: PRODUCTS.find(p => p.id === cp.product.id)!,
+                amount: newAmount,
+              }
+            : null,
+        );
+      },
+    ),
   },
   render: args => <ShopIndex {...args} />,
   parameters: {

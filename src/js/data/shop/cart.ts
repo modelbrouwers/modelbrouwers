@@ -1,7 +1,7 @@
 import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
 
 import {API_ROOT} from '@//constants.js';
-import {get} from '@/data/api-client';
+import {destroy, get, patch} from '@/data/api-client';
 
 export interface Product {
   id: number;
@@ -38,6 +38,17 @@ export const getCartDetails = async (): Promise<CartData> => {
   const cart = await get<CartData>('shop/cart/');
   return cart!;
 };
+
+export const patchCartProductAmount = async (
+  id: number,
+  amount: number,
+): Promise<CartProductData> => {
+  const updatedCartProductData = await patch<CartProductData>(`shop/cart-product/${id}/`, {amount});
+  return updatedCartProductData!;
+};
+
+export const deleteCartProduct = async (id: number): Promise<null> =>
+  await destroy(`shop/cart-product/${id}/`);
 
 class CartProduct extends CrudConsumerObject {}
 
