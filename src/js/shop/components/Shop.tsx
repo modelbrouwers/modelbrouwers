@@ -130,38 +130,36 @@ const Shop: React.FC<ShopProps> = ({
           />,
           topbarCartNode,
         )}
-      <>
-        {productsOnPage.map(({id, stock, controlsNode}, idx) =>
-          createPortal(
-            <ProductControls
-              currentAmount={cart.products.find(cp => cp.product.id === id)?.amount ?? 0}
-              hasStock={stock > 0}
-              onAddProduct={async () => {
-                const cartProductData = await onAddToCart(id);
-                dispatch({
-                  type: 'PRODUCT_ADDED',
-                  payload: new CartProduct(cartProductData),
-                });
-              }}
-              onChangeAmount={async newAmount => {
-                // you can only change the amount if it's already in your cart, so we are
-                // guaranteed to have a hit
-                const cartProductId = cart.products.find(cp => cp.product.id === id)!.id;
-                const cartProductData = await onChangeAmount(cartProductId, newAmount);
-                dispatch({
-                  type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                  payload: {
-                    id: cartProductId,
-                    cartProductData,
-                  },
-                });
-              }}
-            />,
-            controlsNode,
-            `${id}-${idx}`,
-          ),
-        )}
-      </>
+      {productsOnPage.map(({id, stock, controlsNode}, idx) =>
+        createPortal(
+          <ProductControls
+            currentAmount={cart.products.find(cp => cp.product.id === id)?.amount ?? 0}
+            hasStock={stock > 0}
+            onAddProduct={async () => {
+              const cartProductData = await onAddToCart(id);
+              dispatch({
+                type: 'PRODUCT_ADDED',
+                payload: new CartProduct(cartProductData),
+              });
+            }}
+            onChangeAmount={async newAmount => {
+              // you can only change the amount if it's already in your cart, so we are
+              // guaranteed to have a hit
+              const cartProductId = cart.products.find(cp => cp.product.id === id)!.id;
+              const cartProductData = await onChangeAmount(cartProductId, newAmount);
+              dispatch({
+                type: 'CART_PRODUCT_AMOUNT_UPDATED',
+                payload: {
+                  id: cartProductId,
+                  cartProductData,
+                },
+              });
+            }}
+          />,
+          controlsNode,
+          `${id}-${idx}`,
+        ),
+      )}
     </>
   );
 };
