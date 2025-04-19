@@ -117,7 +117,16 @@ const Shop: React.FC<ShopProps> = ({
             cartDetailPath={cartDetailPath}
             checkoutPath={checkoutPath}
             cartProducts={cart.products}
-            onRemoveProduct={console.log}
+            onRemoveProduct={async (cartProductId: number) => {
+              const cartProductData = await onChangeAmount(cartProductId, 0);
+              dispatch({
+                type: 'CART_PRODUCT_AMOUNT_UPDATED',
+                payload: {
+                  id: cartProductId,
+                  cartProductData,
+                },
+              });
+            }}
           />,
           topbarCartNode,
         )}
