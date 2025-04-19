@@ -1,6 +1,6 @@
 import {action, computed, makeObservable, observable} from 'mobx';
 
-import {CartProductConsumer} from './../data/shop/cart';
+import {deleteCartProduct, patchCartProductAmount} from './../data/shop/cart';
 
 export class CartStore {
   products = [];
@@ -21,7 +21,6 @@ export class CartStore {
     });
 
     this.products = cart.products.map(cp => new CartProduct(cp));
-    this.cartProductConsumer = new CartProductConsumer();
     this.id = cart.id;
     this.user = cart.user;
   }
@@ -36,8 +35,7 @@ export class CartStore {
   }
 
   removeProduct(id) {
-    this.cartProductConsumer
-      .removeProduct(id)
+    deleteCartProduct(id)
       .then(() => {
         this.products = this.products.filter(p => p.id !== id);
       })
@@ -64,8 +62,7 @@ export class CartStore {
     if (cpAmount <= 0) {
       this.removeProduct(cartProduct.id);
     } else {
-      this.cartProductConsumer
-        .updateAmount(cartProduct.id, cpAmount)
+      patchCartProductAmount(cartProduct.id, cpAmount)
         .then(() => cartProduct.setAmount(cpAmount))
         .catch(err => console.log('could not update amount', err));
     }

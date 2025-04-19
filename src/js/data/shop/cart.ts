@@ -1,6 +1,3 @@
-import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
-
-import {API_ROOT} from '@/constants.js';
 import {destroy, get, patch, post} from '@/data/api-client';
 
 export interface Product {
@@ -68,43 +65,3 @@ export const patchCartProductAmount = async (
 
 export const deleteCartProduct = async (id: number): Promise<null> =>
   await destroy(`shop/cart-product/${id}/`);
-
-class CartProduct extends CrudConsumerObject {}
-
-export class CartProductConsumer extends CrudConsumer {
-  constructor(endpoint = `${API_ROOT}api/v1/shop/cart-product`, objectClass = CartProduct) {
-    super(endpoint, objectClass);
-  }
-
-  getCartProduct(id) {
-    return this.get(`/${id}`);
-  }
-
-  getCartProducts(params) {
-    return this.get(`/`, params);
-  }
-
-  /**
-   * Add product to cart
-   * @param {Object} data
-   * @property {Number} product - id of the product
-   * @property {Number} cart - id of the cart
-   * @property {Number} amount - amount of products
-   * @returns {Promise}
-   */
-  addProduct(data) {
-    return this.post('/', data);
-  }
-
-  /**
-   * Completely remove product from cart
-   * @param id
-   */
-  removeProduct(id) {
-    return this.delete(`/${id}`);
-  }
-
-  updateAmount(id, amount) {
-    return this.patch(`/${id}/`, {amount});
-  }
-}
