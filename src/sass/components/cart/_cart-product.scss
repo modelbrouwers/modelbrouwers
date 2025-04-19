@@ -1,3 +1,5 @@
+@use '../../modules/bem';
+
 .cart-product {
   display: flex;
   align-items: center;
@@ -31,9 +33,13 @@
     width: 25%;
   }
 
-  &__remove {
-    cursor: pointer;
-    width: 5%;
+  @include bem.element('remove') {
+    border: none;
+    background-image: none;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    inline-size: 1.1em;
   }
 
   &#{&}--small {

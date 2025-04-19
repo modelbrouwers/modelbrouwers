@@ -1,6 +1,6 @@
 import {action, computed, makeObservable, observable} from 'mobx';
 
-import {CartProductConsumer} from './../data/shop/cart';
+import {deleteCartProduct, patchCartProductAmount} from './../data/shop/cart';
 
 export class CartStore {
   products = [];
@@ -15,14 +15,12 @@ export class CartStore {
       status: observable,
       total: computed,
       amount: computed,
-      addProduct: action,
       removeProduct: action,
       clearCart: action,
       changeAmount: action,
     });
 
     this.products = cart.products.map(cp => new CartProduct(cp));
-    this.cartProductConsumer = new CartProductConsumer();
     this.id = cart.id;
     this.user = cart.user;
   }
@@ -36,21 +34,8 @@ export class CartStore {
     return this.products.reduce((acc, curr) => acc + curr.amount, 0);
   }
 
-  addProduct(data) {
-    const existingCardProduct = this.findProduct(data.product);
-    if (existingCardProduct) {
-      return this.changeAmount(data.product, data.amount);
-    }
-    const postData = {...data, cart: this.id};
-    return this.cartProductConsumer
-      .addProduct(postData)
-      .then(resp => this.products.push(new CartProduct(resp)))
-      .catch(err => console.log('Error adding product', err));
-  }
-
   removeProduct(id) {
-    this.cartProductConsumer
-      .removeProduct(id)
+    deleteCartProduct(id)
       .then(() => {
         this.products = this.products.filter(p => p.id !== id);
       })
@@ -77,8 +62,7 @@ export class CartStore {
     if (cpAmount <= 0) {
       this.removeProduct(cartProduct.id);
     } else {
-      this.cartProductConsumer
-        .updateAmount(cartProduct.id, cpAmount)
+      patchCartProductAmount(cartProduct.id, cpAmount)
         .then(() => cartProduct.setAmount(cpAmount))
         .catch(err => console.log('could not update amount', err));
     }
@@ -96,8 +80,6 @@ export class CartProduct {
     makeObservable(this, {
       amount: observable,
       setAmount: action,
-      increaseAmount: action,
-      decreaseAmount: action,
       total: computed,
       totalStr: computed,
     });
@@ -111,14 +93,6 @@ export class CartProduct {
 
   setAmount(amount) {
     this.amount = amount;
-  }
-
-  increaseAmount(amount) {
-    this.amount += amount;
-  }
-
-  decreaseAmount(amount) {
-    this.amount -= amount;
   }
 
   get total() {

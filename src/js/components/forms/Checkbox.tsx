@@ -8,7 +8,7 @@ export interface CheckboxProps {
   label: ReactNode;
 }
 
-const Checkbox: React.FC<CheckboxProps & JSX.IntrinsicElements['input']> = ({
+const Checkbox: React.FC<CheckboxProps & React.ComponentPropsWithoutRef<'input'>> = ({
   name,
   label,
   ...props

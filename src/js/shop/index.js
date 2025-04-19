@@ -3,11 +3,19 @@ import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import {CartConsumer} from '../data/shop/cart';
+import {setCsrfTokenValue} from '@/data/api-client';
+
+import {
+  createCartProduct,
+  deleteCartProduct,
+  getCartDetails,
+  patchCartProductAmount,
+} from '../data/shop/cart';
 import {getIntlProviderProps} from '../i18n';
-import {CartDetail, CartProduct, TopbarCart} from './components/Cart';
+import {CartDetail, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
 import {camelize} from './components/Checkout/utils';
+import Shop from './components/Shop';
 import {CartStore} from './store';
 
 const getDataFromScript = scriptId => {
@@ -17,102 +25,64 @@ const getDataFromScript = scriptId => {
   return data ? camelize(data) : null;
 };
 
-const bindAddToCartForm = (form, cartStore) => {
-  if (!form) return;
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    const {productId, amount} = Object.fromEntries(new FormData(form));
-    cartStore.addProduct({
-      product: parseInt(productId),
-      amount: parseInt(amount),
-    });
-  });
-};
-
 export default class Page {
-  static init() {
-    getIntlProviderProps()
-      .then(intlProviderProps => {
-        this.intlProviderProps = intlProviderProps;
-        this.initRating();
-        this.initCart();
-      })
-      .catch(console.error);
-  }
-
-  static initRating() {
-    const nodes = document.querySelectorAll('.rating-input__star');
-    const activeClass = 'rating-input__option--is-active';
-
-    if (nodes && nodes.length) {
-      for (let node of nodes) {
-        node.addEventListener('click', function (e) {
-          const id = e.target.dataset.id;
-          const el = document.getElementById(id);
-          const activeNodes = document.querySelectorAll(`.${activeClass}`);
-
-          for (let activeNode of activeNodes) {
-            activeNode.classList.remove(activeClass);
-          }
-
-          el.parentNode.classList.add(activeClass);
-          el.checked = true;
-        });
-      }
+  static async init() {
+    try {
+      const intlProviderProps = await getIntlProviderProps();
+      this.initCart(intlProviderProps);
+    } catch (err) {
+      console.log(err);
     }
   }
 
-  static async initCart() {
-    const intlProps = this.intlProviderProps;
-    const node = document.getElementById('react-cart');
-    const detailNode = document.getElementById('react-cart-detail');
+  static async initCart(intlProps) {
+    // find root node for our root component
+    const rootNode = document.getElementById('react-root-shop');
+    this.reactRoot = createRoot(rootNode);
+    const {csrftoken, indexPath, checkoutPath, cartDetailPath} = rootNode.dataset;
+    setCsrfTokenValue(csrftoken);
 
-    // set up cart action handlers on list/overview pages
-    const initCartActions = cartStore => {
-      const products = document.getElementsByClassName('product-card');
+    // find portal nodes
+    const topbarCartNode = document.getElementById('react-topbar-cart');
+    const cartDetailNode = document.getElementById('react-cart-detail');
+    const addProductNode = document.querySelector('.product .order-button');
 
-      for (let product of products) {
-        const {product: id, stock} = product.dataset;
-        const reactNode = product.querySelector('.react-cart-actions');
-
-        createRoot(reactNode).render(
-          <IntlProvider {...intlProps}>
-            <CartProduct store={cartStore} productId={id} hasStock={parseInt(stock) > 0} />
-          </IntlProvider>,
-        );
-      }
-    };
+    const productsOnPage = Array.from(document.querySelectorAll('.product-card')).map(node => ({
+      id: parseInt(node.dataset.product),
+      stock: parseInt(node.dataset.stock),
+      controlsNode: node.querySelector('.react-cart-actions'),
+    }));
 
     try {
-      this.cartConsumer = new CartConsumer();
-      const cart = await this.cartConsumer.fetch();
+      this.reactRoot.render(
+        <IntlProvider {...intlProps}>
+          <Shop
+            topbarCartNode={topbarCartNode}
+            productsOnPage={productsOnPage}
+            addProductNode={addProductNode}
+            cartDetailNode={cartDetailNode}
+            checkoutPath={checkoutPath}
+            cartDetailPath={cartDetailPath}
+            onAddToCart={async (productId, amount) =>
+              await createCartProduct(cartStore.id, productId, amount)
+            }
+            onChangeAmount={async (cartProductId, newAmount) => {
+              if (newAmount > 0) {
+                const updatedCartProduct = await patchCartProductAmount(cartProductId, newAmount);
+                return updatedCartProduct;
+              } else {
+                await deleteCartProduct(cartProductId);
+                return null;
+              }
+            }}
+          />
+        </IntlProvider>,
+      );
+
+      // legacy
+      const cart = await getCartDetails();
       let cartStore = new CartStore(cart);
-      initCartActions(cartStore);
       this.initCheckout(intlProps, cartStore);
-      if (node) {
-        const {checkoutPath, cartDetailPath} = node.dataset;
-        createRoot(node).render(
-          <IntlProvider {...intlProps}>
-            <TopbarCart
-              store={cartStore}
-              checkoutPath={checkoutPath}
-              cartDetailPath={cartDetailPath}
-            />
-          </IntlProvider>,
-        );
-      }
-
-      if (detailNode) {
-        const {checkoutPath: detailCheckoutPath, indexPath} = detailNode.dataset;
-        createRoot(detailNode).render(
-          <IntlProvider {...intlProps}>
-            <CartDetail store={cartStore} checkoutPath={detailCheckoutPath} indexPath={indexPath} />
-          </IntlProvider>,
-        );
-      }
-
-      const productOrder = document.querySelector('.product .order-button');
-      bindAddToCartForm(productOrder, cartStore);
     } catch (err) {
       console.error('Error retrieving cart', err);
       // TODO render error page/modal/toast

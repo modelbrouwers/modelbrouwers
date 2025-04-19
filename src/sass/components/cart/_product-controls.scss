@@ -1,0 +1,37 @@
+@use '../../modules/bem';
+
+.amount-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.2em;
+
+  $input-element: bem.get-element(&, 'input');
+
+  &:has(#{$input-element}) button {
+    padding-block: 3px;
+    padding-inline: 6px;
+  }
+
+  @include bem.element('input') {
+    inline-size: 100%;
+    max-inline-size: 4em;
+    text-align: center;
+
+    // don't display the up/down arrows
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  @include bem.element('current') {
+    display: block;
+    min-inline-size: 45px;
+    text-align: center;
+    font-weight: 600;
+  }
+}

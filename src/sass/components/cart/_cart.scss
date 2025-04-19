@@ -1,3 +1,10 @@
+@use '../../modules/bem';
+
+.cart-inset {
+  @include bem.element('') {
+  }
+}
+
 .cart {
   padding: 20px;
 
@@ -85,28 +92,25 @@
     position: absolute;
     right: 0;
     background: $white;
-    width: 380px;
+    inline-size: 380px;
     border-radius: 6px 0 6px 6px;
   }
 
   &__products {
     overflow-y: scroll;
-    max-height: 300px;
+    max-block-size: 300px;
   }
 }
 
-.controls {
-  &__row {
-    display: flex;
-    justify-content: space-between;
-  }
+.cart {
+  .cart-products-table-header {
+    &__col-productName {
+      inline-size: 45%;
+    }
 
-  &__amount {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    text-align: center;
+    &__col-quantity {
+      text-align: center;
+    }
   }
 }
 

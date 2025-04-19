@@ -9,7 +9,7 @@ export interface PaymentMethod {
 }
 
 export const listMethods = async (): Promise<PaymentMethod[]> => {
-  const methods = await get<PaymentMethod[]>('api/v1/shop/paymentmethod/');
+  const methods = await get<PaymentMethod[]>('shop/paymentmethod/');
   return methods!;
 };
 
@@ -19,7 +19,7 @@ export interface IDealBank {
 }
 
 export const listIDealBanks = async (): Promise<IDealBank[]> => {
-  const banks = await get<IDealBank[]>('api/v1/shop/ideal_banks/');
+  const banks = await get<IDealBank[]>('shop/ideal_banks/');
   return banks!;
 };
 
@@ -32,7 +32,7 @@ export const calculateShippingCosts = async (
   cartId: number,
   country: CountryOption['value'],
 ): Promise<ShippingsCostsResponse> => {
-  const shippingCosts = await get<ShippingsCostsResponse>('api/v1/shop/shipping-costs/', {
+  const shippingCosts = await get<ShippingsCostsResponse>('shop/shipping-costs/', {
     cart_id: cartId.toString(),
     country,
   });

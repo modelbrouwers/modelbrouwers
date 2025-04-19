@@ -11,7 +11,7 @@ export interface TextFieldProps {
   formGroupProps?: FormGroupProps;
 }
 
-const TextField: React.FC<TextFieldProps & JSX.IntrinsicElements['input']> = ({
+const TextField: React.FC<TextFieldProps & React.ComponentPropsWithoutRef<'input'>> = ({
   name,
   label,
   className: _className,
