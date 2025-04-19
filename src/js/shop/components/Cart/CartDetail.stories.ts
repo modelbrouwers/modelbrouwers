@@ -21,6 +21,17 @@ export default {
         },
         amount: 1,
       }),
+      new CartProduct({
+        id: 2,
+        product: {
+          id: 43,
+          name: 'Rubber gloves',
+          image: 'https://loremflickr.com/100/100/cat',
+          model_name: 'MB-999',
+          price: 0.5,
+        },
+        amount: 5,
+      }),
     ],
     onChangeAmount: fn(),
     checkoutPath: '/winkel/checkout/',

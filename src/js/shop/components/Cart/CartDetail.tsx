@@ -1,23 +1,10 @@
-import {FormattedMessage, type MessageDescriptor} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 
-import {CartProduct} from '@/shop/data';
+import type {CartProduct} from '@/shop/data';
 
+import {CartProductRow, CartProductsTableHeader, type Column} from './CartProductsTable';
 import Price from './Price';
-import {AmountControls} from './ProductControls';
-import ProductImage from './ProductImage';
-import messages from './messages';
 import {getTotal} from './utils';
-
-type Header = keyof typeof messages;
-
-const HEADERS: MessageDescriptor[] = [
-  messages.image,
-  messages.productName,
-  messages.model,
-  messages.quantity,
-  messages.unitPrice,
-  messages.totalHeader,
-];
 
 export interface CartDetailProps {
   checkoutPath: string;
@@ -25,6 +12,15 @@ export interface CartDetailProps {
   cartProducts: CartProduct[];
   onChangeAmount: (cartProductId: number, newAmount: number) => Promise<void>;
 }
+
+const CART_DETAIL_COLUMNS: Column[] = [
+  'image',
+  'productName',
+  'model',
+  'quantity',
+  'unitPrice',
+  'totalHeader',
+];
 
 /**
  * Display the contents of the shopping cart.
@@ -40,45 +36,16 @@ const CartDetail: React.FC<CartDetailProps> = ({
       <FormattedMessage description="Shopping cart title" defaultMessage="Shopping cart" />
     </h2>
 
-    <table className="cart-detail__table">
-      <thead className="cart-detail__thead">
-        <tr>
-          {HEADERS.map((header, i) => (
-            <FormattedMessage {...header} tagName="th" key={i} />
-          ))}
-        </tr>
-      </thead>
-      <tbody className="cart-detail__tbody">
+    <table className="cart-products-table">
+      <CartProductsTableHeader columns={CART_DETAIL_COLUMNS} />
+      <tbody>
         {cartProducts.map(cp => (
-          <tr key={cp.id}>
-            <td>
-              <ProductImage product={cp.product} className="cart-detail__image" />
-            </td>
-            <td>
-              <a href="#" className="cart-detail__name">
-                {cp.product.name}
-              </a>
-            </td>
-            <td>
-              <p className="cart-detail__model">{cp.product.model_name}</p>
-            </td>
-            <td className="cart-detail__quantity">
-              <AmountControls
-                currentAmount={cp.amount}
-                onChangeAmount={(newAmount: number) => onChangeAmount(cp.id, newAmount)}
-              />
-            </td>
-            <td>
-              <p className="cart-detail__unit-price">
-                <Price value={cp.product.price} />
-              </p>
-            </td>
-            <td>
-              <p className="cart-detail__product-total">
-                <Price value={cp.total} />
-              </p>
-            </td>
-          </tr>
+          <CartProductRow
+            key={cp.id}
+            columns={CART_DETAIL_COLUMNS}
+            cartProduct={cp}
+            onChangeAmount={onChangeAmount}
+          />
         ))}
       </tbody>
     </table>

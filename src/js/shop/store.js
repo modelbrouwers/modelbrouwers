@@ -80,8 +80,6 @@ export class CartProduct {
     makeObservable(this, {
       amount: observable,
       setAmount: action,
-      increaseAmount: action,
-      decreaseAmount: action,
       total: computed,
       totalStr: computed,
     });
@@ -95,14 +93,6 @@ export class CartProduct {
 
   setAmount(amount) {
     this.amount = amount;
-  }
-
-  increaseAmount(amount) {
-    this.amount += amount;
-  }
-
-  decreaseAmount(amount) {
-    this.amount -= amount;
   }
 
   get total() {

@@ -7,51 +7,13 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
 import {DecrementButton, IncrementButton} from './AmountButtons';
+import {CartProductRow, CartProductsTableHeader} from './CartProductsTable';
 import {AmountControls} from './ProductControls';
 import ProductImage from './ProductImage';
 
-const CartProduct = ({cartProduct, onChange}) => {
-  const {
-    product: {name, price, absoluteUrl},
-    amount,
-    totalStr,
-  } = cartProduct;
-  return (
-    <div className="cart-product cart-product--full">
-      <div className="cart-product__image">
-        <ProductImage product={cartProduct.product} />
-      </div>
-      <div className="cart-product__name">
-        <a href={absoluteUrl}>{name}</a>
-      </div>
-
-      <AmountControls currentAmount={amount} amountEditable onChangeAmount={onChange} />
-
-      <div className="cart-product__price">&euro; {price}</div>
-      <div className="cart-product__total">&euro; {totalStr}</div>
-      {/* TODO: add remove option */}
-    </div>
-  );
-};
-
-CartProduct.propTypes = {
-  cartProduct: PropTypes.shape({
-    product: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      img: PropTypes.string,
-      price: PropTypes.string.isRequired,
-    }).isRequired,
-    amount: PropTypes.number.isRequired,
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
-};
+const BODY_CART_COLUMNS = ['image', 'productName', 'quantity', 'unitPrice', 'totalHeader'];
 
 const BodyCart = ({store: cart}) => {
-  const onChange = (cartProduct, newAmount) => {
-    const delta = parseInt(newAmount, 10) - cartProduct.amount;
-    cart.changeAmount(cartProduct.product.id, delta);
-  };
-
   if (!cart.products.length) {
     return (
       <FormattedMessage
@@ -63,43 +25,24 @@ const BodyCart = ({store: cart}) => {
 
   return (
     <div className="cart cart--full">
-      <div className="cart__product-list">
-        <div className="cart-product cart-product--full cart-product--list-header">
-          <div className="cart-product__image"></div>
-          <div className="cart-product__name">
-            <FormattedMessage
-              description="Payment cart overview: name title"
-              defaultMessage="product"
+      <table className="cart-products-table">
+        <CartProductsTableHeader columns={BODY_CART_COLUMNS} />
+        <tbody>
+          {cart.products.map(cp => (
+            // TODO: add remove option
+            <CartProductRow
+              key={cp.id}
+              columns={BODY_CART_COLUMNS}
+              cartProduct={cp}
+              amountEditable
+              onChangeAmount={(cartProductId, newAmount) => {
+                const delta = newAmount - cp.amount;
+                cart.changeAmount(cp.product.id, delta);
+              }}
             />
-          </div>
-          <div className="cart-product__amount">
-            <FormattedMessage
-              description="Payment cart overview: amount title"
-              defaultMessage="amount"
-            />
-          </div>
-          <div className="cart-product__price">
-            <FormattedMessage
-              description="Payment cart overview: unit price title"
-              defaultMessage="price"
-            />
-          </div>
-          <div className="cart-product__total">
-            <FormattedMessage
-              description="Payment cart overview: total price title"
-              defaultMessage="total"
-            />
-          </div>
-        </div>
-
-        {cart.products.map((cartProduct, index) => (
-          <CartProduct
-            key={`${cartProduct.product.id}-${index}`}
-            cartProduct={cartProduct}
-            onChange={newAmount => onChange(cartProduct, newAmount)}
-          />
-        ))}
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

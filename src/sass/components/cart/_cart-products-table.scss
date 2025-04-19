@@ -1,0 +1,39 @@
+@use '../../modules/bem';
+@use '../../partials/colors';
+
+.cart-products-table {
+  width: 100%;
+  // table-layout: fixed;
+  border: solid 1px colors.$bg-light;
+
+  tr:not(last-child) {
+    border-bottom: solid 1px colors.$bg-light;
+  }
+
+  td {
+    padding-block: 0;
+    padding-inline: 10px;
+  }
+}
+
+.cart-products-table-header {
+  background-color: colors.$bg-light;
+
+  th {
+    padding: 10px;
+  }
+}
+
+.cart-product-row {
+  @include bem.element('product-image') {
+    inline-size: 50px;
+    block-size: 50px;
+    object-fit: contain;
+  }
+
+  @include bem.element('quantity') {
+    .amount-controls {
+      justify-content: center;
+    }
+  }
+}

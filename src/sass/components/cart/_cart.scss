@@ -102,6 +102,18 @@
   }
 }
 
+.cart {
+  .cart-products-table-header {
+    &__col-productName {
+      inline-size: 45%;
+    }
+
+    &__col-quantity {
+      text-align: center;
+    }
+  }
+}
+
 @include lte-mobile {
   .cart {
     &#{&}--full {
