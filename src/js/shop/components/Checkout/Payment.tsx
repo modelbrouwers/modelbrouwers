@@ -4,7 +4,7 @@ import {FormattedMessage} from 'react-intl';
 
 import type {CartStore} from '@/shop/store';
 
-import {BodyCart} from '../Cart';
+import {PaymentCartOverview} from '../Cart';
 import {ErrorList} from './FormFields';
 import SelectPaymentMethod from './SelectPaymentMethod';
 import type {Address, DeliveryDetails} from './types';
@@ -109,7 +109,7 @@ const Payment: React.FC<PaymentProps> = ({
             />
           </h3>
 
-          <BodyCart store={cartStore} />
+          <PaymentCartOverview store={cartStore} />
           <ErrorList errors={errors?.cart} />
 
           <div className="submit-wrapper">

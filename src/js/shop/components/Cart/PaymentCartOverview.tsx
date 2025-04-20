@@ -2,18 +2,26 @@
  * Render the shopping cart in the body of the page
  */
 import {observer} from 'mobx-react';
-import PropTypes from 'prop-types';
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import {DecrementButton, IncrementButton} from './AmountButtons';
-import {CartProductRow, CartProductsTableHeader} from './CartProductsTable';
-import {AmountControls} from './ProductControls';
-import ProductImage from './ProductImage';
+import type {CartStore} from '@/shop/store';
 
-const BODY_CART_COLUMNS = ['image', 'productName', 'quantity', 'unitPrice', 'totalHeader'];
+import {CartProductRow, CartProductsTableHeader, Column} from './CartProductsTable';
 
-const BodyCart = ({store: cart}) => {
+const BODY_CART_COLUMNS: Column[] = [
+  'image',
+  'productName',
+  'quantity',
+  'unitPrice',
+  'totalHeader',
+];
+
+export interface PaymentCartOverviewProps {
+  store: CartStore;
+}
+
+const PaymentCartOverview: React.FC<PaymentCartOverviewProps> = ({store: cart}) => {
   if (!cart.products.length) {
     return (
       <FormattedMessage
@@ -35,7 +43,7 @@ const BodyCart = ({store: cart}) => {
               columns={BODY_CART_COLUMNS}
               cartProduct={cp}
               amountEditable
-              onChangeAmount={(cartProductId, newAmount) => {
+              onChangeAmount={async (_, newAmount) => {
                 const delta = newAmount - cp.amount;
                 cart.changeAmount(cp.product.id, delta);
               }}
@@ -47,8 +55,4 @@ const BodyCart = ({store: cart}) => {
   );
 };
 
-BodyCart.propTypes = {
-  store: PropTypes.object.isRequired,
-};
-
-export default observer(BodyCart);
+export default observer(PaymentCartOverview);
