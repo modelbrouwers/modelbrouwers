@@ -7,7 +7,7 @@ import {API_ROOT} from '@/constants.js';
 import {CartStore} from '@/shop/store.js';
 import {withFormik} from '@/storybook/decorators';
 
-import type {FormikValues} from './Address';
+import type {FormikValues} from './Delivery';
 import ShippingCosts, {ShippingCostsProps} from './ShippingCosts';
 
 interface Args extends ShippingCostsProps {

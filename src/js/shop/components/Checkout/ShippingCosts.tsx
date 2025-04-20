@@ -6,7 +6,7 @@ import {getCountryName} from '@/components/forms/CountryField';
 import {calculateShippingCosts} from '@/data/shop/payment';
 import type {CartStore} from '@/shop/store.js';
 
-import type {FormikValues} from './Address';
+import type {FormikValues} from './Delivery';
 
 type CountryValue = NonNullable<FormikValues['deliveryAddress']>['country'];
 

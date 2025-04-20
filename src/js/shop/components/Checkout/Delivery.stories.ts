@@ -6,11 +6,11 @@ import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-rou
 import {API_ROOT} from '@/constants.js';
 import {CartStore} from '@/shop/store.js';
 
-import Address from './Address';
+import Delivery from './Delivery';
 
 export default {
   title: 'Shop / Checkout / Delivery / Full page',
-  component: Address,
+  component: Delivery,
   decorators: [withRouter],
   args: {
     onSubmit: fn(),
@@ -46,9 +46,9 @@ export default {
       ],
     },
   },
-} satisfies Meta<typeof Address>;
+} satisfies Meta<typeof Delivery>;
 
-type Story = StoryObj<typeof Address>;
+type Story = StoryObj<typeof Delivery>;
 
 export const Empty: Story = {
   args: {

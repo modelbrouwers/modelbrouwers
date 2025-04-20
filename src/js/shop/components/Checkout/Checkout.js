@@ -16,7 +16,7 @@ import {
 } from 'react-router-dom';
 import {useImmerReducer} from 'use-immer';
 
-import {Account, Address, Confirmation, Payment} from '.';
+import {Account, Confirmation, Delivery, Payment} from '.';
 import FAIcon from '../../../components/FAIcon';
 import {CartProduct} from '../../data';
 import {CheckoutContext} from './Context';
@@ -244,7 +244,7 @@ const Checkout = ({
             <Route
               path="address"
               element={
-                <Address
+                <Delivery
                   cartStore={cartStore}
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
