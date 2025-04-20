@@ -16,6 +16,7 @@ import {CartDetail, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
 import {camelize} from './components/Checkout/utils';
 import Shop from './components/Shop';
+import {CartProduct} from './data';
 import {CartStore} from './store';
 
 const getDataFromScript = scriptId => {
@@ -114,6 +115,13 @@ export default class Page {
             confirmPath={confirmPath}
             user={user}
             cartStore={cartStore}
+            cartId={cartStore.id}
+            cartProducts={cartStore.products.map(cpData => new CartProduct(cpData))}
+            onChangeAmount={async (cartProductId, newAmount) => {
+              const cp = cartStore.products.find(cp => cp.id === cartProductId);
+              const delta = newAmount - cp.amount;
+              cartStore.changeAmount(cp.product.id, delta);
+            }}
             checkoutData={checkoutData}
             orderDetails={orderDetails}
             validationErrors={validationErrors}

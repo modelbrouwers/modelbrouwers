@@ -149,7 +149,7 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
  *
  */
 const Checkout = ({
-  cartStore,
+  cartId,
   cartProducts,
   onChangeAmount,
   user,
@@ -245,7 +245,7 @@ const Checkout = ({
               path="address"
               element={
                 <Delivery
-                  cartId={cartStore.id}
+                  cartId={cartId}
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}
@@ -261,13 +261,9 @@ const Checkout = ({
               path="payment"
               element={
                 <Payment
-                  cartId={cartStore.id}
-                  cartProducts={cartStore.products.map(cpData => new CartProduct(cpData))}
-                  onChangeAmount={async (cartProductId, newAmount) => {
-                    const cp = cartStore.products.find(cp => cp.id === cartProductId);
-                    const delta = newAmount - cp.amount;
-                    cartStore.changeAmount(cp.product.id, delta);
-                  }}
+                  cartId={cartId}
+                  cartProducts={cartProducts}
+                  onChangeAmount={onChangeAmount}
                   csrftoken={csrftoken}
                   confirmPath={confirmPath}
                   checkoutDetails={{
@@ -335,7 +331,6 @@ const Checkout = ({
 };
 
 Checkout.propTypes = {
-  cartStore: PropTypes.object.isRequired,
   csrftoken: PropTypes.string.isRequired,
   confirmPath: PropTypes.string.isRequired,
   user: PropTypes.shape({
