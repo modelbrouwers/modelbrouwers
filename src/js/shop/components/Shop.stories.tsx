@@ -13,6 +13,7 @@ interface NodesType {
   cartDetailNode: HTMLDivElement | null;
   productsOnPage: CatalogueProduct[];
   addProductNode: HTMLFormElement | null;
+  checkoutNode: HTMLDivElement | null;
 }
 
 const PRODUCTS = [
@@ -68,16 +69,18 @@ const MOCK_CART_DATA: CartData = {
 };
 
 const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
-  const reactCartRef = useRef<HTMLDivElement | null>(null);
-  const reactCartDetailRef = useRef<HTMLDivElement | null>(null);
-  const productsRef = useRef<HTMLDivElement | null>(null);
-  const orderFormRef = useRef<HTMLFormElement | null>(null);
+  const reactCartRef = useRef<HTMLDivElement>(null);
+  const reactCartDetailRef = useRef<HTMLDivElement>(null);
+  const productsRef = useRef<HTMLDivElement>(null);
+  const orderFormRef = useRef<HTMLFormElement>(null);
+  const checkoutRef = useRef<HTMLDivElement>(null);
 
   const [nodes, setNodes] = useState<NodesType>({
     topbarCartNode: null,
     cartDetailNode: null,
     productsOnPage: [],
     addProductNode: null,
+    checkoutNode: null,
   });
 
   useEffect(() => {
@@ -92,6 +95,7 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
       cartDetailNode: reactCartDetailRef.current,
       productsOnPage: productsOnPage,
       addProductNode: orderFormRef.current,
+      checkoutNode: checkoutRef.current,
     });
   }, []);
 
@@ -149,6 +153,10 @@ const ShopIndex: React.FC<React.ComponentProps<typeof Shop>> = ({...args}) => {
       <hr style={{borderBottom: 'solid 1px #DDD', inlineSize: '80%'}} />
 
       <div ref={reactCartDetailRef} id="react-cart-detail" />
+
+      <hr style={{borderBottom: 'solid 1px #DDD', inlineSize: '80%'}} />
+
+      <div ref={checkoutRef} id="react-checkout" />
     </div>
   );
 };

@@ -76,6 +76,7 @@ export interface ShopProps {
   productsOnPage: CatalogueProduct[];
   addProductNode: HTMLFormElement | null;
   cartDetailNode: HTMLDivElement | null;
+  checkoutNode: HTMLDivElement | null;
   cartDetailPath: string;
   checkoutPath: string;
   indexPath: string;
@@ -94,6 +95,7 @@ const Shop: React.FC<ShopProps> = ({
   productsOnPage,
   addProductNode,
   cartDetailNode,
+  checkoutNode,
   cartDetailPath,
   checkoutPath,
   indexPath,
@@ -188,6 +190,7 @@ const Shop: React.FC<ShopProps> = ({
           />,
           cartDetailNode,
         )}
+      {checkoutNode && createPortal(<p>Checkout!</p>, checkoutNode)}
     </>
   );
 };
