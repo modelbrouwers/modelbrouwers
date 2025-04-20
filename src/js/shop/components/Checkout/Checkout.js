@@ -245,7 +245,7 @@ const Checkout = ({
               path="address"
               element={
                 <Delivery
-                  cartStore={cartStore}
+                  cartId={cartStore.id}
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}

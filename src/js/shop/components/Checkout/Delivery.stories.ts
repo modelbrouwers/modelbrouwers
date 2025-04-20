@@ -4,7 +4,6 @@ import {HttpResponse, http} from 'msw';
 import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-router';
 
 import {API_ROOT} from '@/constants.js';
-import {CartStore} from '@/shop/store.js';
 
 import Delivery from './Delivery';
 
@@ -14,22 +13,7 @@ export default {
   decorators: [withRouter],
   args: {
     onSubmit: fn(),
-    cartStore: new CartStore({
-      id: 123,
-      user: {
-        username: 'BBT',
-        first_name: 'B.',
-        last_name: 'BT',
-        email: 'bbt@example.com',
-        phone: '',
-      },
-      status: 'open',
-      products: [],
-      total: '9,99',
-    }),
-  },
-  argTypes: {
-    cartStore: {table: {disable: true}},
+    cartId: 123,
   },
   parameters: {
     reactRouter: reactRouterParameters({
