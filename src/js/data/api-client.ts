@@ -1,5 +1,13 @@
 import {API_ROOT} from '@/constants.js';
 
+let CSRF_TOKEN: string = '';
+
+export const setCsrfTokenValue = (value: string): void => {
+  CSRF_TOKEN = value;
+};
+
+export const getCsrfTokenValue = (): string => CSRF_TOKEN;
+
 const FETCH_DEFAULTS: RequestInit = {
   method: 'GET',
   credentials: 'include',
@@ -19,6 +27,17 @@ const request = async (url: URL, opts: RequestInit = {}): Promise<Response> => {
   return response;
 };
 
+type QueryParams = string[][] | Record<string, string> | string | URLSearchParams;
+
+const normalizeUrl = (relativeUrl: string, params?: QueryParams): URL => {
+  const normalizedUrl = new URL(`${API_ROOT}api/v1/${relativeUrl}`, window.location.origin);
+  if (params) {
+    const searchParams = new URLSearchParams(params);
+    normalizedUrl.search = searchParams.toString();
+  }
+  return normalizedUrl;
+};
+
 /**
  * Make a GET api call to `url`, with optional query string parameters.
  *
@@ -27,14 +46,58 @@ const request = async (url: URL, opts: RequestInit = {}): Promise<Response> => {
  */
 export const get = async <T = unknown>(
   relativeUrl: string,
-  params: string[][] | Record<string, string> | string | URLSearchParams = {},
+  params: QueryParams = {},
 ): Promise<T | null> => {
-  const normalizedUrl = new URL(`${API_ROOT}${relativeUrl}`, window.location.origin);
-  const searchParams = new URLSearchParams(params);
-  normalizedUrl.search = searchParams.toString();
-
+  const normalizedUrl = normalizeUrl(relativeUrl, params);
   const response = await request(normalizedUrl);
-
   const data: T | null = response.status === 204 ? null : await response.json();
   return data;
+};
+
+export const post = async <T = unknown, U = unknown>(
+  relativeUrl: string,
+  data: U,
+): Promise<T | null> => {
+  const normalizedUrl = normalizeUrl(relativeUrl);
+  const options: RequestInit = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': CSRF_TOKEN,
+    },
+    body: JSON.stringify(data),
+  };
+  const response = await request(normalizedUrl, options);
+  const responseData: T | null = response.status === 204 ? null : await response.json();
+  return responseData;
+};
+
+export const patch = async <T = unknown, U = unknown>(
+  relativeUrl: string,
+  data: U,
+): Promise<T | null> => {
+  const normalizedUrl = normalizeUrl(relativeUrl);
+  const options: RequestInit = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': CSRF_TOKEN,
+    },
+    body: JSON.stringify(data),
+  };
+  const response = await request(normalizedUrl, options);
+  const responseData: T | null = response.status === 204 ? null : await response.json();
+  return responseData;
+};
+
+export const destroy = async (relativeUrl: string): Promise<null> => {
+  const normalizedUrl = normalizeUrl(relativeUrl);
+  const options: RequestInit = {
+    method: 'DELETE',
+    headers: {
+      'X-CSRFToken': CSRF_TOKEN,
+    },
+  };
+  await request(normalizedUrl, options);
+  return null;
 };

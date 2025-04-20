@@ -5,6 +5,18 @@
       "value": "Country"
     }
   ],
+  "/168YP": [
+    {
+      "type": 0,
+      "value": "Continue"
+    }
+  ],
+  "/Ad+ya": [
+    {
+      "type": 0,
+      "value": "Additional information"
+    }
+  ],
   "/Eg5rz": [
     {
       "type": 0,
@@ -23,16 +35,28 @@
       "value": "City"
     }
   ],
+  "1K/q6M": [
+    {
+      "type": 0,
+      "value": "Remove one"
+    }
+  ],
+  "24+V/B": [
+    {
+      "type": 0,
+      "value": "amount"
+    }
+  ],
   "3UvxIB": [
     {
       "type": 0,
       "value": "Street"
     }
   ],
-  "3c81Yt": [
+  "3V0Onx": [
     {
       "type": 0,
-      "value": "Number"
+      "value": "* Required fields"
     }
   ],
   "4+G0m8": [
@@ -41,16 +65,22 @@
       "value": "KVK"
     }
   ],
-  "4sjMB/": [
+  "73/HqL": [
     {
       "type": 0,
-      "value": "KVK"
+      "value": "Delivery or pickup?"
     }
   ],
-  "6qobm2": [
+  "79Rcfd": [
     {
       "type": 0,
-      "value": "City"
+      "value": "Pickup"
+    }
+  ],
+  "7cEb3d": [
+    {
+      "type": 0,
+      "value": "Select your bank"
     }
   ],
   "7wbY42": [
@@ -65,10 +95,10 @@
       "value": "Rules"
     }
   ],
-  "9xJNKa": [
+  "9Xc4ce": [
     {
       "type": 0,
-      "value": "Continue"
+      "value": "Success!"
     }
   ],
   "B4vH06": [
@@ -101,10 +131,10 @@
       "value": "Checkout"
     }
   ],
-  "DXeHjf": [
+  "DwmapZ": [
     {
       "type": 0,
-      "value": "Required fields"
+      "value": "By mail"
     }
   ],
   "EG8GlO": [
@@ -113,22 +143,10 @@
       "value": "Number"
     }
   ],
-  "FYuL74": [
-    {
-      "type": 0,
-      "value": "My billing and delivery address are the same."
-    }
-  ],
   "GhZs+k": [
     {
       "type": 0,
       "value": "Confirmation"
-    }
-  ],
-  "GuiGSo": [
-    {
-      "type": 0,
-      "value": "Company"
     }
   ],
   "GxgjcH": [
@@ -155,16 +173,62 @@
       "value": "end"
     }
   ],
+  "J15APO": [
+    {
+      "type": 0,
+      "value": "Your cart is empty!"
+    }
+  ],
+  "JAVg6k": [
+    {
+      "type": 0,
+      "value": "total"
+    }
+  ],
   "JFs7tB": [
     {
       "type": 0,
       "value": "Model"
     }
   ],
-  "O3sAqY": [
+  "K4XU1v": [
     {
       "type": 0,
-      "value": "Personal details"
+      "value": "Remove product '"
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": "'"
+    }
+  ],
+  "KZ9pSc": [
+    {
+      "type": 0,
+      "value": "product"
+    }
+  ],
+  "LYbu8S": [
+    {
+      "type": 0,
+      "value": "Your order with reference "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "orderNumber"
+        }
+      ],
+      "type": 8,
+      "value": "bold"
+    },
+    {
+      "type": 0,
+      "value": " was received!"
     }
   ],
   "Ovk5iw": [
@@ -179,22 +243,28 @@
       "value": "First name"
     }
   ],
-  "PmaF7F": [
-    {
-      "type": 0,
-      "value": "Country"
-    }
-  ],
   "Qiw2De": [
     {
       "type": 0,
       "value": "Select your payment method"
     }
   ],
-  "W4CwLT": [
+  "VlE87W": [
     {
       "type": 0,
-      "value": "Street"
+      "value": "Place order"
+    }
+  ],
+  "XGRjNR": [
+    {
+      "type": 0,
+      "value": "Shopping cart"
+    }
+  ],
+  "XlMu5g": [
+    {
+      "type": 0,
+      "value": "Add one"
     }
   ],
   "bsyaaX": [
@@ -283,6 +353,18 @@
       "value": "filter by name"
     }
   ],
+  "komVq4": [
+    {
+      "type": 0,
+      "value": "Personal details"
+    }
+  ],
+  "l9i+Cg": [
+    {
+      "type": 0,
+      "value": "This field is required."
+    }
+  ],
   "m0WW7s": [
     {
       "type": 0,
@@ -295,16 +377,16 @@
       "value": "Oops, something went wrong. Please try again later."
     }
   ],
-  "mzZEkB": [
-    {
-      "type": 0,
-      "value": "ZIP code"
-    }
-  ],
   "nul77H": [
     {
       "type": 0,
       "value": "Delivery address"
+    }
+  ],
+  "oD9PGg": [
+    {
+      "type": 0,
+      "value": "price"
     }
   ],
   "oNlKJN": [
@@ -323,6 +405,44 @@
     {
       "type": 0,
       "value": "Checkout"
+    }
+  ],
+  "oyF3u3": [
+    {
+      "type": 0,
+      "value": "Delivery method"
+    }
+  ],
+  "p3b1TD": [
+    {
+      "type": 0,
+      "value": "Shipping to "
+    },
+    {
+      "type": 1,
+      "value": "country"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "type": 1,
+      "value": "weight"
+    },
+    {
+      "type": 0,
+      "value": "): "
+    },
+    {
+      "type": 1,
+      "value": "price"
+    }
+  ],
+  "rAlq4/": [
+    {
+      "type": 0,
+      "value": "My billing and delivery address are the same."
     }
   ],
   "sg6151": [
@@ -346,7 +466,7 @@
   "shop.cart.detail.cart.total": [
     {
       "type": 0,
-      "value": "Sub-total"
+      "value": "Total"
     }
   ],
   "shop.cart.detail.header.header": [
@@ -442,6 +562,12 @@
     {
       "type": 0,
       "value": "View cart"
+    }
+  ],
+  "swul1g": [
+    {
+      "type": 0,
+      "value": "Cart overview"
     }
   ],
   "tPmUAf": [

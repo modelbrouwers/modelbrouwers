@@ -16,8 +16,9 @@ import {
 } from 'react-router-dom';
 import {useImmerReducer} from 'use-immer';
 
-import {Account, Address, Confirmation, Payment} from '.';
+import {Account, Confirmation, Delivery, Payment} from '.';
 import FAIcon from '../../../components/FAIcon';
+import {CartProduct} from '../../data';
 import {CheckoutContext} from './Context';
 import {EMPTY_ADDRESS} from './constants';
 import {camelize} from './utils';
@@ -148,9 +149,11 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
  *
  */
 const Checkout = ({
-  cartStore,
+  cartId,
   user,
-  csrftoken,
+  cartProducts,
+  onChangeAmount,
+
   confirmPath,
   checkoutData,
   orderDetails = null,
@@ -241,7 +244,8 @@ const Checkout = ({
             <Route
               path="address"
               element={
-                <Address
+                <Delivery
+                  cartId={cartId}
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}
@@ -257,8 +261,9 @@ const Checkout = ({
               path="payment"
               element={
                 <Payment
-                  cartStore={cartStore}
-                  csrftoken={csrftoken}
+                  cartId={cartId}
+                  cartProducts={cartProducts}
+                  onChangeAmount={onChangeAmount}
                   confirmPath={confirmPath}
                   checkoutDetails={{
                     customer: state.customer,
@@ -325,8 +330,6 @@ const Checkout = ({
 };
 
 Checkout.propTypes = {
-  cartStore: PropTypes.object.isRequired,
-  csrftoken: PropTypes.string.isRequired,
   confirmPath: PropTypes.string.isRequired,
   user: PropTypes.shape({
     username: PropTypes.string,

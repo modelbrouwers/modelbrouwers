@@ -2,9 +2,10 @@ import {Form, Formik, FormikConfig} from 'formik';
 import {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import type {CartStore} from '@/shop/store';
+import {getCsrfTokenValue} from '@/data/api-client';
+import type {CartProduct} from '@/shop/data';
 
-import {BodyCart} from '../Cart';
+import {PaymentCartOverview} from '../Cart';
 import {ErrorList} from './FormFields';
 import SelectPaymentMethod from './SelectPaymentMethod';
 import type {Address, DeliveryDetails} from './types';
@@ -32,8 +33,9 @@ interface FormikValues {
 }
 
 export interface PaymentProps {
-  cartStore: CartStore;
-  csrftoken: string;
+  cartId: number;
+  cartProducts: CartProduct[];
+  onChangeAmount: (cartProductId: number, newAmount: number) => Promise<void>;
   confirmPath: string;
   checkoutDetails: DeliveryDetails;
   // TODO
@@ -43,8 +45,9 @@ export interface PaymentProps {
 }
 
 const Payment: React.FC<PaymentProps> = ({
-  cartStore,
-  csrftoken,
+  cartId,
+  cartProducts,
+  onChangeAmount,
   confirmPath,
   errors,
   checkoutDetails,
@@ -56,7 +59,7 @@ const Payment: React.FC<PaymentProps> = ({
     paymentMethodOptions,
   }) => {
     const checkoutData = {
-      cart: cartStore.id,
+      cart: cartId,
       payment_method: parseInt(paymentMethod, 10),
       payment_method_options: paymentMethodOptions,
       first_name: checkoutDetails.customer.firstName,
@@ -75,7 +78,7 @@ const Payment: React.FC<PaymentProps> = ({
     form.submit();
   };
 
-  const hasProducts = Boolean(cartStore.products.length);
+  const hasProducts = Boolean(cartProducts.length);
   return (
     <>
       <Formik<FormikValues>
@@ -109,7 +112,7 @@ const Payment: React.FC<PaymentProps> = ({
             />
           </h3>
 
-          <BodyCart store={cartStore} />
+          <PaymentCartOverview cartProducts={cartProducts} onChangeAmount={onChangeAmount} />
           <ErrorList errors={errors?.cart} />
 
           <div className="submit-wrapper">
@@ -125,7 +128,7 @@ const Payment: React.FC<PaymentProps> = ({
 
       {/* server side submit */}
       <form ref={submitFormRef} action={confirmPath} method="post">
-        <input type="hidden" name="csrfmiddlewaretoken" defaultValue={csrftoken} />
+        <input type="hidden" name="csrfmiddlewaretoken" defaultValue={getCsrfTokenValue()} />
         <input type="hidden" name="checkoutData" value="" />
       </form>
     </>

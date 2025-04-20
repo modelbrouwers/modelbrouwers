@@ -3,12 +3,20 @@ import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import {CartConsumer} from '../data/shop/cart';
+import {setCsrfTokenValue} from '@/data/api-client';
+
+import {
+  createCartProduct,
+  deleteCartProduct,
+  getCartDetails,
+  patchCartProductAmount,
+} from '../data/shop/cart';
 import {getIntlProviderProps} from '../i18n';
-import {CartDetail, CartProduct, TopbarCart} from './components/Cart';
+import {CartDetail, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
 import {camelize} from './components/Checkout/utils';
-import {CartStore} from './store';
+import Shop from './components/Shop';
+import {CartProduct} from './data';
 
 const getDataFromScript = scriptId => {
   const node = document.getElementById(scriptId);
@@ -17,139 +25,82 @@ const getDataFromScript = scriptId => {
   return data ? camelize(data) : null;
 };
 
-const bindAddToCartForm = (form, cartStore) => {
-  if (!form) return;
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    const {productId, amount} = Object.fromEntries(new FormData(form));
-    cartStore.addProduct({
-      product: parseInt(productId),
-      amount: parseInt(amount),
-    });
-  });
-};
-
 export default class Page {
-  static init() {
-    getIntlProviderProps()
-      .then(intlProviderProps => {
-        this.intlProviderProps = intlProviderProps;
-        this.initRating();
-        this.initCart();
-      })
-      .catch(console.error);
-  }
-
-  static initRating() {
-    const nodes = document.querySelectorAll('.rating-input__star');
-    const activeClass = 'rating-input__option--is-active';
-
-    if (nodes && nodes.length) {
-      for (let node of nodes) {
-        node.addEventListener('click', function (e) {
-          const id = e.target.dataset.id;
-          const el = document.getElementById(id);
-          const activeNodes = document.querySelectorAll(`.${activeClass}`);
-
-          for (let activeNode of activeNodes) {
-            activeNode.classList.remove(activeClass);
-          }
-
-          el.parentNode.classList.add(activeClass);
-          el.checked = true;
-        });
-      }
-    }
-  }
-
-  static async initCart() {
-    const intlProps = this.intlProviderProps;
-    const node = document.getElementById('react-cart');
-    const detailNode = document.getElementById('react-cart-detail');
-
-    // set up cart action handlers on list/overview pages
-    const initCartActions = cartStore => {
-      const products = document.getElementsByClassName('product-card');
-
-      for (let product of products) {
-        const {product: id, stock} = product.dataset;
-        const reactNode = product.querySelector('.react-cart-actions');
-
-        createRoot(reactNode).render(
-          <IntlProvider {...intlProps}>
-            <CartProduct store={cartStore} productId={id} hasStock={parseInt(stock) > 0} />
-          </IntlProvider>,
-        );
-      }
-    };
-
+  static async init() {
     try {
-      this.cartConsumer = new CartConsumer();
-      const cart = await this.cartConsumer.fetch();
-      let cartStore = new CartStore(cart);
-      initCartActions(cartStore);
-      this.initCheckout(intlProps, cartStore);
-      if (node) {
-        const {checkoutPath, cartDetailPath} = node.dataset;
-        createRoot(node).render(
-          <IntlProvider {...intlProps}>
-            <TopbarCart
-              store={cartStore}
-              checkoutPath={checkoutPath}
-              cartDetailPath={cartDetailPath}
-            />
-          </IntlProvider>,
-        );
-      }
-
-      if (detailNode) {
-        const {checkoutPath: detailCheckoutPath, indexPath} = detailNode.dataset;
-        createRoot(detailNode).render(
-          <IntlProvider {...intlProps}>
-            <CartDetail store={cartStore} checkoutPath={detailCheckoutPath} indexPath={indexPath} />
-          </IntlProvider>,
-        );
-      }
-
-      const productOrder = document.querySelector('.product .order-button');
-      bindAddToCartForm(productOrder, cartStore);
+      const intlProviderProps = await getIntlProviderProps();
+      this.initCart(intlProviderProps);
     } catch (err) {
-      console.error('Error retrieving cart', err);
-      // TODO render error page/modal/toast
+      console.log(err);
     }
   }
 
-  static initCheckout(intlProps, cartStore) {
-    const node = document.getElementById('react-checkout');
-    if (!node) return;
-    const {path: basePath, csrftoken, confirmPath} = node.dataset;
-    const root = createRoot(node);
+  static async initCart(intlProps) {
+    // find root node for our root component
+    const rootNode = document.getElementById('react-root-shop');
+    this.reactRoot = createRoot(rootNode);
+    const {csrftoken, indexPath, cartDetailPath, checkoutPath, confirmPath} = rootNode.dataset;
+    setCsrfTokenValue(csrftoken);
+
+    // find portal nodes
+    const topbarCartNode = document.getElementById('react-topbar-cart');
+    const cartDetailNode = document.getElementById('react-cart-detail');
+    const addProductNode = document.querySelector('.product .order-button');
+    const checkoutNode = document.getElementById('react-checkout');
+
+    const productsOnPage = Array.from(document.querySelectorAll('.product-card')).map(node => ({
+      id: parseInt(node.dataset.product),
+      stock: parseInt(node.dataset.stock),
+      controlsNode: node.querySelector('.react-cart-actions'),
+    }));
 
     // read user profile data from DOM, if user is not authenticated, this will be
     // an empty object
+    // TODO: camelize data and update components/type definitions
     const userProfileScript = document.getElementById('user_profile_data');
-    const user = JSON.parse(userProfileScript.innerText);
+    const user = userProfileScript ? JSON.parse(userProfileScript.innerText) : {};
 
     // read backend data and validation errors
     const checkoutData = getDataFromScript('checkout-data');
-    const validationErrors = getDataFromScript('checkout-errors');
     const orderDetails = getDataFromScript('order-details');
+    const validationErrors = getDataFromScript('checkout-errors');
 
-    // mount and render the checkout component in the DOM
-    root.render(
-      <IntlProvider {...intlProps}>
-        <Router basename={basePath}>
-          <Checkout
-            csrftoken={csrftoken}
-            confirmPath={confirmPath}
+    try {
+      this.reactRoot.render(
+        <IntlProvider {...intlProps}>
+          <Shop
+            topbarCartNode={topbarCartNode}
+            productsOnPage={productsOnPage}
+            addProductNode={addProductNode}
+            cartDetailNode={cartDetailNode}
+            checkoutNode={checkoutNode}
+            // TODO
             user={user}
-            cartStore={cartStore}
+            indexPath={indexPath}
+            cartDetailPath={cartDetailPath}
+            checkoutPath={checkoutPath}
+            confirmPath={confirmPath}
+            onAddToCart={async (cartId, productId, amount) =>
+              await createCartProduct(cartId, productId, amount)
+            }
+            onChangeAmount={async (cartProductId, newAmount) => {
+              if (newAmount > 0) {
+                const updatedCartProduct = await patchCartProductAmount(cartProductId, newAmount);
+                return updatedCartProduct;
+              } else {
+                await deleteCartProduct(cartProductId);
+                return null;
+              }
+            }}
             checkoutData={checkoutData}
             orderDetails={orderDetails}
             validationErrors={validationErrors}
           />
-        </Router>
-      </IntlProvider>,
-    );
+        </IntlProvider>,
+      );
+    } catch (err) {
+      console.error('Error retrieving cart', err);
+      // TODO render error page/modal/toast
+    }
   }
 }

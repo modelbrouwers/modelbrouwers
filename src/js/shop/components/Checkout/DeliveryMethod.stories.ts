@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react';
 
 import {withFormik} from '@/storybook/decorators';
 
-import type {FormikValues} from './Address';
+import type {FormikValues} from './Delivery';
 import DeliveryMethod from './DeliveryMethod';
 
 export default {

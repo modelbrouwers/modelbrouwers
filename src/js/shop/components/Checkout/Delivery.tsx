@@ -4,7 +4,6 @@ import {FormattedMessage, useIntl} from 'react-intl';
 
 import ErrorBoundary from '@/components/ErrorBoundary.js';
 import Checkbox from '@/components/forms/Checkbox';
-import type {CartStore} from '@/shop/store';
 
 import AddressFields from './AddressFields';
 import {CheckoutContext} from './Context';
@@ -25,7 +24,7 @@ export const EMPTY_ADDRESS: AddressType = {
 };
 
 export type AddressProps = DeliveryDetails & {
-  cartStore: CartStore;
+  cartId: number;
   onSubmit: (values: DeliveryDetails) => void;
 };
 
@@ -59,7 +58,7 @@ const getInitialTouched = (errors: any) => {
 };
 
 const Address: React.FC<AddressProps> = ({
-  cartStore,
+  cartId,
   customer,
   deliveryAddress,
   billingAddress,
@@ -112,7 +111,7 @@ const Address: React.FC<AddressProps> = ({
               <DeliveryMethod />
               <div aria-live="polite">
                 <ErrorBoundary>
-                  <ShippingCosts cartStore={cartStore} />
+                  <ShippingCosts cartId={cartId} />
                 </ErrorBoundary>
               </div>
             </div>

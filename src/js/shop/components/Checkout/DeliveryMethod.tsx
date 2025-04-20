@@ -4,7 +4,7 @@ import {FormattedMessage, MessageDescriptor, defineMessage, useIntl} from 'react
 
 import Select from '@/components/forms/Select';
 
-import type {FormikValues} from './Address';
+import type {FormikValues} from './Delivery';
 
 interface OptionDescription {
   value: FormikValues['deliveryMethod'];

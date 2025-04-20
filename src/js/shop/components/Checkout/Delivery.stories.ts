@@ -4,32 +4,16 @@ import {HttpResponse, http} from 'msw';
 import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-router';
 
 import {API_ROOT} from '@/constants.js';
-import {CartStore} from '@/shop/store.js';
 
-import Address from './Address';
+import Delivery from './Delivery';
 
 export default {
   title: 'Shop / Checkout / Delivery / Full page',
-  component: Address,
+  component: Delivery,
   decorators: [withRouter],
   args: {
     onSubmit: fn(),
-    cartStore: new CartStore({
-      id: 123,
-      user: {
-        username: 'BBT',
-        first_name: 'B.',
-        last_name: 'BT',
-        email: 'bbt@example.com',
-        phone: '',
-      },
-      status: 'open',
-      products: [],
-      total: '9,99',
-    }),
-  },
-  argTypes: {
-    cartStore: {table: {disable: true}},
+    cartId: 123,
   },
   parameters: {
     reactRouter: reactRouterParameters({
@@ -46,9 +30,9 @@ export default {
       ],
     },
   },
-} satisfies Meta<typeof Address>;
+} satisfies Meta<typeof Delivery>;
 
-type Story = StoryObj<typeof Address>;
+type Story = StoryObj<typeof Delivery>;
 
 export const Empty: Story = {
   args: {

@@ -1,8 +1,7 @@
 from django import template
 from django.template import Library, TemplateSyntaxError
 
-from ..constants import OrderStatuses, PaymentStatuses
-from ..models import Category, Order, Payment, Product
+from ..models import Category, Product
 
 register = Library()
 
