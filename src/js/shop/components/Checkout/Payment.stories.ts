@@ -1,9 +1,10 @@
 import type {Meta, StoryObj} from '@storybook/react';
+import {fn} from '@storybook/test';
 import {HttpResponse, http} from 'msw';
 import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-router';
 
 import {API_ROOT} from '@/constants.js';
-import {CartStore} from '@/shop/store.js';
+import {CartProduct} from '@/shop/data';
 
 import Payment from './Payment';
 
@@ -12,34 +13,21 @@ export default {
   component: Payment,
   decorators: [withRouter],
   args: {
-    cartStore: new CartStore({
-      id: 123,
-      user: {
-        username: 'BBT',
-        first_name: 'B.',
-        last_name: 'BT',
-        email: 'bbt@example.com',
-        phone: '',
-      },
-      status: 'open',
-      products: [
-        {
-          id: 456,
-          cart: 123,
-          product: {
-            id: 42,
-            name: 'Polish set',
-            image: 'https://loremflickr.com/100/100/cat',
-            model_name: 'XYZ-001',
-            price: 9.99,
-            totalStr: '9,99',
-          },
-          amount: 1,
-          total: '9.99',
+    cartId: 10,
+    cartProducts: [
+      new CartProduct({
+        id: 456,
+        product: {
+          id: 42,
+          name: 'Polish set',
+          image: 'https://loremflickr.com/100/100/cat',
+          model_name: 'XYZ-001',
+          price: 9.99,
         },
-      ],
-      total: '12,99',
-    }),
+        amount: 1,
+      }),
+    ],
+    onChangeAmount: fn(),
     csrftoken: 'csrftoken',
     confirmPath: '/winkel/checkout/confirm',
     errors: {},
@@ -63,9 +51,7 @@ export default {
       billingAddress: null,
     },
   },
-  argTypes: {
-    cartStore: {table: {disable: true}},
-  },
+  argTypes: {},
   parameters: {
     reactRouter: reactRouterParameters({
       routing: {path: '/winkel/checkout/payment'},

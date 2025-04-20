@@ -2,8 +2,7 @@ import {Form, Formik, FormikConfig} from 'formik';
 import {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import {CartProduct} from '@/shop/data';
-import type {CartStore} from '@/shop/store';
+import type {CartProduct} from '@/shop/data';
 
 import {PaymentCartOverview} from '../Cart';
 import {ErrorList} from './FormFields';
@@ -33,7 +32,9 @@ interface FormikValues {
 }
 
 export interface PaymentProps {
-  cartStore: CartStore;
+  cartId: number;
+  cartProducts: CartProduct[];
+  onChangeAmount: (cartProductId: number, newAmount: number) => Promise<void>;
   csrftoken: string;
   confirmPath: string;
   checkoutDetails: DeliveryDetails;
@@ -44,7 +45,9 @@ export interface PaymentProps {
 }
 
 const Payment: React.FC<PaymentProps> = ({
-  cartStore,
+  cartId,
+  cartProducts,
+  onChangeAmount,
   csrftoken,
   confirmPath,
   errors,
@@ -57,7 +60,7 @@ const Payment: React.FC<PaymentProps> = ({
     paymentMethodOptions,
   }) => {
     const checkoutData = {
-      cart: cartStore.id,
+      cart: cartId,
       payment_method: parseInt(paymentMethod, 10),
       payment_method_options: paymentMethodOptions,
       first_name: checkoutDetails.customer.firstName,
@@ -76,7 +79,7 @@ const Payment: React.FC<PaymentProps> = ({
     form.submit();
   };
 
-  const hasProducts = Boolean(cartStore.products.length);
+  const hasProducts = Boolean(cartProducts.length);
   return (
     <>
       <Formik<FormikValues>
@@ -110,14 +113,7 @@ const Payment: React.FC<PaymentProps> = ({
             />
           </h3>
 
-          <PaymentCartOverview
-            cartProducts={cartStore.products.map(cpData => new CartProduct(cpData))}
-            onChangeAmount={async (cartProductId: number, newAmount: number) => {
-              const cp = cartStore.products.find(cp => cp.id === cartProductId)!;
-              const delta = newAmount - cp.amount;
-              cartStore.changeAmount(cp.product.id, delta);
-            }}
-          />
+          <PaymentCartOverview cartProducts={cartProducts} onChangeAmount={onChangeAmount} />
           <ErrorList errors={errors?.cart} />
 
           <div className="submit-wrapper">

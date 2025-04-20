@@ -18,6 +18,7 @@ import {useImmerReducer} from 'use-immer';
 
 import {Account, Address, Confirmation, Payment} from '.';
 import FAIcon from '../../../components/FAIcon';
+import {CartProduct} from '../../data';
 import {CheckoutContext} from './Context';
 import {EMPTY_ADDRESS} from './constants';
 import {camelize} from './utils';
@@ -149,6 +150,8 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
  */
 const Checkout = ({
   cartStore,
+  cartProducts,
+  onChangeAmount,
   user,
   csrftoken,
   confirmPath,
@@ -242,6 +245,7 @@ const Checkout = ({
               path="address"
               element={
                 <Address
+                  cartStore={cartStore}
                   customer={state.customer}
                   deliveryAddress={state.deliveryAddress}
                   billingAddress={state.billingAddress}
@@ -257,7 +261,13 @@ const Checkout = ({
               path="payment"
               element={
                 <Payment
-                  cartStore={cartStore}
+                  cartId={cartStore.id}
+                  cartProducts={cartStore.products.map(cpData => new CartProduct(cpData))}
+                  onChangeAmount={async (cartProductId, newAmount) => {
+                    const cp = cartStore.products.find(cp => cp.id === cartProductId);
+                    const delta = newAmount - cp.amount;
+                    cartStore.changeAmount(cp.product.id, delta);
+                  }}
                   csrftoken={csrftoken}
                   confirmPath={confirmPath}
                   checkoutDetails={{
