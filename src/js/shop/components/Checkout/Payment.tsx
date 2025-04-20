@@ -2,6 +2,7 @@ import {Form, Formik, FormikConfig} from 'formik';
 import {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 
+import {CartProduct} from '@/shop/data';
 import type {CartStore} from '@/shop/store';
 
 import {PaymentCartOverview} from '../Cart';
@@ -109,7 +110,14 @@ const Payment: React.FC<PaymentProps> = ({
             />
           </h3>
 
-          <PaymentCartOverview store={cartStore} />
+          <PaymentCartOverview
+            cartProducts={cartStore.products.map(cpData => new CartProduct(cpData))}
+            onChangeAmount={async (cartProductId: number, newAmount: number) => {
+              const cp = cartStore.products.find(cp => cp.id === cartProductId)!;
+              const delta = newAmount - cp.amount;
+              cartStore.changeAmount(cp.product.id, delta);
+            }}
+          />
           <ErrorList errors={errors?.cart} />
 
           <div className="submit-wrapper">
