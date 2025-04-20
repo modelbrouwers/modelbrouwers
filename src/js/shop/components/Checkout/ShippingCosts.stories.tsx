@@ -4,7 +4,6 @@ import {HttpResponse, http} from 'msw';
 import {useEffect} from 'react';
 
 import {API_ROOT} from '@/constants.js';
-import {CartStore} from '@/shop/store.js';
 import {withFormik} from '@/storybook/decorators';
 
 import type {FormikValues} from './Delivery';
@@ -29,26 +28,13 @@ export default {
   decorators: [withFormik],
   args: {
     country: 'N',
-    cartStore: new CartStore({
-      id: 123,
-      user: {
-        username: 'BBT',
-        first_name: 'B.',
-        last_name: 'BT',
-        email: 'bbt@example.com',
-        phone: '',
-      },
-      status: 'open',
-      products: [],
-      total: '9,99',
-    }),
+    cartId: 123,
   },
   argTypes: {
     country: {
       control: 'inline-radio',
       options: ['N', 'B', 'D'],
     },
-    cartStore: {table: {disable: true}},
   },
   parameters: {
     formik: {

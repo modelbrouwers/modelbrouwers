@@ -4,7 +4,6 @@ import useAsync from 'react-use/esm/useAsync';
 
 import {getCountryName} from '@/components/forms/CountryField';
 import {calculateShippingCosts} from '@/data/shop/payment';
-import type {CartStore} from '@/shop/store.js';
 
 import type {FormikValues} from './Delivery';
 
@@ -27,16 +26,15 @@ const fetchShippingCosts = async (
 };
 
 export interface ShippingCostsProps {
-  cartStore: CartStore;
+  cartId: number;
 }
 
-const ShippingCosts: React.FC<ShippingCostsProps> = ({cartStore}) => {
+const ShippingCosts: React.FC<ShippingCostsProps> = ({cartId}) => {
   const intl = useIntl();
   const {
     values: {deliveryMethod, deliveryAddress},
   } = useFormikContext<FormikValues>();
   const country = deliveryAddress?.country;
-  const {id: cartId} = cartStore;
 
   const {
     loading,
@@ -53,7 +51,7 @@ const ShippingCosts: React.FC<ShippingCostsProps> = ({cartStore}) => {
     const info = await fetchShippingCosts(cartId, country);
     // cartStore.setShippingCosts(info.price);
     return info;
-  }, [cartStore, cartId, country, deliveryMethod]);
+  }, [cartId, country, deliveryMethod]);
 
   if (error) throw error;
 

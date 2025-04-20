@@ -112,7 +112,7 @@ const Address: React.FC<AddressProps> = ({
               <DeliveryMethod />
               <div aria-live="polite">
                 <ErrorBoundary>
-                  <ShippingCosts cartStore={cartStore} />
+                  <ShippingCosts cartId={cartStore.id!} />
                 </ErrorBoundary>
               </div>
             </div>
