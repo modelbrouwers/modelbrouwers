@@ -28,7 +28,6 @@ export default {
       }),
     ],
     onChangeAmount: fn(),
-    csrftoken: 'csrftoken',
     confirmPath: '/winkel/checkout/confirm',
     errors: {},
     checkoutDetails: {

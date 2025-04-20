@@ -195,6 +195,8 @@ export default {
         );
       },
     ),
+    user: {}, // anonymous user
+    confirmPath: '/winkel/checkout/confirm/',
   },
   argTypes: {
     topbarCartNode: {table: {disable: true}},

@@ -6,6 +6,8 @@ export const setCsrfTokenValue = (value: string): void => {
   CSRF_TOKEN = value;
 };
 
+export const getCsrfTokenValue = (): string => CSRF_TOKEN;
+
 const FETCH_DEFAULTS: RequestInit = {
   method: 'GET',
   credentials: 'include',

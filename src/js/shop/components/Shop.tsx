@@ -1,13 +1,16 @@
 import {useCallback, useEffect} from 'react';
 import {createPortal} from 'react-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 import useAsync from 'react-use/esm/useAsync';
 import {ImmerReducer, useImmerReducer} from 'use-immer';
 
+import type {CountryOption} from '@/components/forms/CountryField';
 import {CartData, CartProductData, getCartDetails} from '@/data/shop/cart';
 
 import {CartProduct} from '../data';
 import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
+import {Checkout} from './Checkout';
 
 export interface CatalogueProduct {
   id: number;
@@ -77,11 +80,42 @@ export interface ShopProps {
   addProductNode: HTMLFormElement | null;
   cartDetailNode: HTMLDivElement | null;
   checkoutNode: HTMLDivElement | null;
+  user: {
+    username?: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    phone?: string;
+    profile?: {
+      street?: string;
+      number?: string;
+      postal?: string;
+      city?: string;
+      country?: CountryOption['value'] | 'F';
+    };
+  };
+  indexPath: string;
   cartDetailPath: string;
   checkoutPath: string;
-  indexPath: string;
-  onAddToCart: (productId: number, amount?: number) => Promise<CartProductData>;
+  confirmPath: string;
+  onAddToCart: (cartId: number, productId: number, amount?: number) => Promise<CartProductData>;
   onChangeAmount: (cartProductId: number, amount: number) => Promise<CartProductData | null>;
+  // TODO: properly define this
+  checkoutData?: null | {
+    delivery_address: unknown;
+    invoice_address: unknown;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    payment_method: string;
+    payment_method_options: object;
+  };
+  orderDetails?: {
+    number: string;
+    message: string;
+  };
+  validationErrors: unknown;
 }
 
 /**
@@ -96,11 +130,16 @@ const Shop: React.FC<ShopProps> = ({
   addProductNode,
   cartDetailNode,
   checkoutNode,
+  user,
+  indexPath,
   cartDetailPath,
   checkoutPath,
-  indexPath,
+  confirmPath,
   onAddToCart,
   onChangeAmount,
+  checkoutData,
+  orderDetails,
+  validationErrors,
 }) => {
   const [{cart}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
     cart: null,
@@ -115,7 +154,14 @@ const Shop: React.FC<ShopProps> = ({
     dispatch({type: 'CART_LOADED', payload: cart});
   }, []);
 
-  useAddProductFormSubmit(addProductNode, cart?.products, onAddToCart, onChangeAmount, dispatch);
+  useAddProductFormSubmit(
+    addProductNode,
+    cart?.id,
+    cart?.products,
+    onAddToCart,
+    onChangeAmount,
+    dispatch,
+  );
 
   if (error) throw error;
   if (loading || cart === null) return null;
@@ -147,7 +193,7 @@ const Shop: React.FC<ShopProps> = ({
             currentAmount={cart.products.find(cp => cp.product.id === id)?.amount ?? 0}
             hasStock={stock > 0}
             onAddProduct={async () => {
-              const cartProductData = await onAddToCart(id);
+              const cartProductData = await onAddToCart(cart.id, id);
               dispatch({
                 type: 'PRODUCT_ADDED',
                 payload: new CartProduct(cartProductData),
@@ -190,13 +236,39 @@ const Shop: React.FC<ShopProps> = ({
           />,
           cartDetailNode,
         )}
-      {checkoutNode && createPortal(<p>Checkout!</p>, checkoutNode)}
+      {checkoutNode &&
+        createPortal(
+          <Router basename={checkoutPath}>
+            <Checkout
+              cartId={cart.id}
+              user={user}
+              cartProducts={cart.products}
+              onChangeAmount={async (cartProductId: number, newAmount: number) => {
+                const cartProductData = await onChangeAmount(cartProductId, newAmount);
+                dispatch({
+                  type: 'CART_PRODUCT_AMOUNT_UPDATED',
+                  payload: {
+                    id: cartProductId,
+                    cartProductData,
+                  },
+                });
+              }}
+              confirmPath={confirmPath}
+              checkoutData={checkoutData}
+              // @ts-expect-error
+              orderDetails={orderDetails}
+              validationErrors={validationErrors}
+            />
+          </Router>,
+          checkoutNode,
+        )}
     </>
   );
 };
 
 const useAddProductFormSubmit = (
   addProductNode: ShopProps['addProductNode'],
+  cartId: number | undefined,
   currentProducts: CartProduct[] | undefined = [],
   onAddToCart: ShopProps['onAddToCart'],
   onChangeAmount: ShopProps['onChangeAmount'],
@@ -212,7 +284,7 @@ const useAddProductFormSubmit = (
 
       const existingCartProduct = currentProducts.find(cp => cp.product.id === productId);
       if (!existingCartProduct) {
-        const cartProductData = await onAddToCart(productId, amount);
+        const cartProductData = await onAddToCart(cartId!, productId, amount);
         dispatch({
           type: 'PRODUCT_ADDED',
           payload: new CartProduct(cartProductData),
@@ -229,7 +301,7 @@ const useAddProductFormSubmit = (
         });
       }
     },
-    [onAddToCart, onChangeAmount, dispatch, currentProducts],
+    [cartId, onAddToCart, onChangeAmount, dispatch, currentProducts],
   );
 
   useEffect(() => {

@@ -150,10 +150,10 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
  */
 const Checkout = ({
   cartId,
+  user,
   cartProducts,
   onChangeAmount,
-  user,
-  csrftoken,
+
   confirmPath,
   checkoutData,
   orderDetails = null,
@@ -264,7 +264,6 @@ const Checkout = ({
                   cartId={cartId}
                   cartProducts={cartProducts}
                   onChangeAmount={onChangeAmount}
-                  csrftoken={csrftoken}
                   confirmPath={confirmPath}
                   checkoutDetails={{
                     customer: state.customer,
@@ -331,7 +330,6 @@ const Checkout = ({
 };
 
 Checkout.propTypes = {
-  csrftoken: PropTypes.string.isRequired,
   confirmPath: PropTypes.string.isRequired,
   user: PropTypes.shape({
     username: PropTypes.string,

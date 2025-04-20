@@ -2,6 +2,7 @@ import {Form, Formik, FormikConfig} from 'formik';
 import {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 
+import {getCsrfTokenValue} from '@/data/api-client';
 import type {CartProduct} from '@/shop/data';
 
 import {PaymentCartOverview} from '../Cart';
@@ -35,7 +36,6 @@ export interface PaymentProps {
   cartId: number;
   cartProducts: CartProduct[];
   onChangeAmount: (cartProductId: number, newAmount: number) => Promise<void>;
-  csrftoken: string;
   confirmPath: string;
   checkoutDetails: DeliveryDetails;
   // TODO
@@ -48,7 +48,6 @@ const Payment: React.FC<PaymentProps> = ({
   cartId,
   cartProducts,
   onChangeAmount,
-  csrftoken,
   confirmPath,
   errors,
   checkoutDetails,
@@ -129,7 +128,7 @@ const Payment: React.FC<PaymentProps> = ({
 
       {/* server side submit */}
       <form ref={submitFormRef} action={confirmPath} method="post">
-        <input type="hidden" name="csrfmiddlewaretoken" defaultValue={csrftoken} />
+        <input type="hidden" name="csrfmiddlewaretoken" defaultValue={getCsrfTokenValue()} />
         <input type="hidden" name="checkoutData" value="" />
       </form>
     </>
