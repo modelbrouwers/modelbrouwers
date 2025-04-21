@@ -23,7 +23,7 @@ export const EMPTY_ADDRESS: AddressType = {
   country: 'N',
 };
 
-export type AddressProps = DeliveryDetails & {
+export type DeliveryProps = DeliveryDetails & {
   cartId: number;
   onSubmit: (values: DeliveryDetails) => void;
 };
@@ -57,7 +57,7 @@ const getInitialTouched = (errors: any) => {
   return touched;
 };
 
-const Address: React.FC<AddressProps> = ({
+const Delivery: React.FC<DeliveryProps> = ({
   cartId,
   customer,
   deliveryAddress,
@@ -201,4 +201,4 @@ const Address: React.FC<AddressProps> = ({
   );
 };
 
-export default Address;
+export default Delivery;
