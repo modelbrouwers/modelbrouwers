@@ -2,15 +2,13 @@ import React, {useContext} from 'react';
 
 import {CartProduct} from '@/shop/data';
 
-import {DeliveryDetails} from './types';
+import type {DeliveryDetails, PaymentDetails} from './types';
 
 interface CheckoutContextType {
   cartId: number;
   cartProducts: CartProduct[];
-  deliveryDetails: DeliveryDetails & {
-    paymentMethod: number;
-    paymentMethodOptions: null | Record<string, any>;
-  };
+  onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
+  deliveryDetails: DeliveryDetails & PaymentDetails;
   confirmPath: string;
   setDeliveryDetails: (values: DeliveryDetails) => void;
   // TODO -> recursive structure where every node can be an error list from DRF
@@ -20,6 +18,7 @@ interface CheckoutContextType {
 const CheckoutContext = React.createContext<CheckoutContextType>({
   cartId: 0,
   cartProducts: [],
+  onChangeProductAmount: async () => {},
   deliveryDetails: {
     customer: {
       firstName: '',

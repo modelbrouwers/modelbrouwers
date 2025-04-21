@@ -4,12 +4,9 @@ import {type ImmerReducer, useImmerReducer} from 'use-immer';
 import {CartProduct} from '@/shop/data';
 
 import {CheckoutContext} from './Context';
-import type {DeliveryDetails} from './types';
+import type {DeliveryDetails, PaymentDetails} from './types';
 
-type CheckoutState = DeliveryDetails & {
-  paymentMethod: number;
-  paymentMethodOptions: null | Record<string, any>;
-};
+type CheckoutState = DeliveryDetails & PaymentDetails;
 
 type DispatchAction = {
   type: 'SET_DELIVERY_DETAILS';
@@ -36,6 +33,7 @@ const reducer: ImmerReducer<CheckoutState, DispatchAction> = (
 export interface CheckoutProviderProps {
   cartId: number;
   cartProducts: CartProduct[];
+  onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
   initialData: CheckoutState;
   confirmPath: string;
   // TODO
@@ -46,6 +44,7 @@ export interface CheckoutProviderProps {
 const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
   cartId,
   cartProducts,
+  onChangeProductAmount,
   initialData,
   confirmPath,
   validationErrors,
@@ -67,10 +66,11 @@ const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
       value={{
         cartId,
         cartProducts,
+        onChangeProductAmount,
         deliveryDetails: state,
         confirmPath,
-        validationErrors,
         setDeliveryDetails,
+        validationErrors,
       }}
     >
       {children}

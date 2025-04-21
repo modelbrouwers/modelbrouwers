@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import unset from 'lodash/unset';
-import PropTypes from 'prop-types';
 import {useEffect} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {
@@ -12,15 +11,12 @@ import {
   Routes,
   useHref,
   useLocation,
-  useNavigate,
 } from 'react-router-dom';
 import {useImmerReducer} from 'use-immer';
 
 import {Account, Confirmation, Delivery, Payment} from '.';
 import FAIcon from '../../../components/FAIcon';
-import {CheckoutContext} from './Context';
 import {EMPTY_ADDRESS} from './constants';
-import {camelize} from './utils';
 import {validateAddressDetails} from './validation';
 
 const getActiveNavClassNames = ({isActive, enabled = false}) =>
@@ -67,49 +63,6 @@ const initialState = {
 
 const reducer = (draft, action) => {
   switch (action.type) {
-    case 'STATE_FROM_PROPS': {
-      const {user, checkoutData} = action.payload;
-      const isAuthenticated = Object.keys(user).length > 1;
-
-      // first, process any pre-filled user details (for authenticated users)
-      const customer = camelize(user);
-      if (isAuthenticated) {
-        draft.customer = customer;
-        for (const [field, value] of Object.entries(customer.profile)) {
-          draft.deliveryAddress[field] = value;
-        }
-        draft.deliveryAddress.postalCode = customer.profile.postal;
-        if (!draft.deliveryAddress.country) {
-          draft.deliveryAddress.country = 'N';
-        }
-      }
-
-      // next, process the filled out data
-      if (checkoutData && Object.keys(checkoutData).length) {
-        const {
-          deliveryAddress,
-          invoiceAddress: billingAddress,
-          firstName,
-          lastName,
-          email,
-          phone,
-          paymentMethod,
-          paymentMethodOptions,
-        } = camelize(checkoutData);
-
-        if (deliveryAddress) draft.deliveryAddress = deliveryAddress;
-        if (billingAddress) draft.billingAddress = billingAddress;
-        if (firstName) draft.customer.firstName = firstName;
-        if (lastName) draft.customer.lastName = lastName;
-        if (email) draft.customer.email = email;
-        if (phone) draft.customer.phone = phone;
-      }
-      break;
-    }
-    case 'ADDRESS_SUBMITTED': {
-      Object.assign(draft, action.payload);
-      break;
-    }
     case 'CHECK_ADDRESS_VALIDITY': {
       const {intl} = action.payload;
       const errors = validateAddressDetails(
@@ -147,33 +100,13 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
  * Checkout
  *
  */
-const Checkout = ({
-  cartId,
-  user,
-  cartProducts,
-  onChangeAmount,
-  confirmPath,
-  checkoutData,
-  orderDetails = null,
-  validationErrors,
-}) => {
+const Checkout = ({user, orderDetails = null, validationErrors}) => {
   const intl = useIntl();
   const location = useLocation();
   const checkoutRoot = useHref('/');
-  const navigate = useNavigate();
 
   const isAuthenticated = Object.keys(user).length > 1;
   const [state, dispatch] = useImmerReducer(reducer, initialState);
-
-  useEffect(() => {
-    dispatch({
-      type: 'STATE_FROM_PROPS',
-      payload: {
-        user,
-        checkoutData,
-      },
-    });
-  }, [dispatch, user, checkoutData]);
 
   useEffect(() => {
     if (location.pathname !== '/') {
@@ -232,23 +165,7 @@ const Checkout = ({
             }
           />
           <Route path="address" Component={Delivery} />
-          <Route
-            path="payment"
-            element={
-              <Payment
-                cartId={cartId}
-                cartProducts={cartProducts}
-                onChangeAmount={onChangeAmount}
-                confirmPath={confirmPath}
-                checkoutDetails={{
-                  customer: state.customer,
-                  deliveryAddress: state.deliveryAddress,
-                  billingAddress: state.billingAddress,
-                }}
-                errors={validationErrors}
-              />
-            }
-          />
+          <Route path="payment" Component={Payment} />
           {/* This is a backend URL - if there are validation errors, it renders
                             the response at this URL. */}
           <Route path="confirm" element={<Navigate to={firstRouteWithErrors} />} />
@@ -304,7 +221,6 @@ const Checkout = ({
 };
 
 // Checkout.propTypes = {
-//   confirmPath: PropTypes.string.isRequired,
 //   user: PropTypes.shape({
 //     username: PropTypes.string,
 //     first_name: PropTypes.string,
@@ -319,7 +235,6 @@ const Checkout = ({
 //       country: PropTypes.oneOf(['', 'N', 'B', 'F', 'G']),
 //     }),
 //   }),
-//   checkoutData: PropTypes.object,
 //   orderDetails: PropTypes.shape({
 //     number: PropTypes.string.isRequired,
 //     message: PropTypes.string.isRequired,

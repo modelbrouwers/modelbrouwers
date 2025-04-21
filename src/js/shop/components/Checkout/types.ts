@@ -33,6 +33,11 @@ export type DeliveryDetails = (PickupDelivery | MailDelivery) & {
   customer: Customer;
 };
 
+export interface PaymentDetails {
+  paymentMethod: number;
+  paymentMethodOptions: null | Record<string, any>;
+}
+
 /**
  * Matches the backend serializer processing the address data.
  *

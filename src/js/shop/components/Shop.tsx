@@ -155,6 +155,20 @@ const Shop: React.FC<ShopProps> = ({
     dispatch,
   );
 
+  const onChangeProductAmount = useCallback(
+    async (cartProductId: number, newAmount: number) => {
+      const cartProductData = await onChangeAmount(cartProductId, newAmount);
+      dispatch({
+        type: 'CART_PRODUCT_AMOUNT_UPDATED',
+        payload: {
+          id: cartProductId,
+          cartProductData,
+        },
+      });
+    },
+    [dispatch, onChangeAmount],
+  );
+
   if (error) throw error;
   if (loading || cart === null) return null;
 
@@ -166,16 +180,9 @@ const Shop: React.FC<ShopProps> = ({
             cartDetailPath={cartDetailPath}
             checkoutPath={checkoutPath}
             cartProducts={cart.products}
-            onRemoveProduct={async (cartProductId: number) => {
-              const cartProductData = await onChangeAmount(cartProductId, 0);
-              dispatch({
-                type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                payload: {
-                  id: cartProductId,
-                  cartProductData,
-                },
-              });
-            }}
+            onRemoveProduct={async (cartProductId: number) =>
+              await onChangeProductAmount(cartProductId, 0)
+            }
           />,
           topbarCartNode,
         )}
@@ -195,14 +202,7 @@ const Shop: React.FC<ShopProps> = ({
               // you can only change the amount if it's already in your cart, so we are
               // guaranteed to have a hit
               const cartProductId = cart.products.find(cp => cp.product.id === id)!.id;
-              const cartProductData = await onChangeAmount(cartProductId, newAmount);
-              dispatch({
-                type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                payload: {
-                  id: cartProductId,
-                  cartProductData,
-                },
-              });
+              await onChangeProductAmount(cartProductId, newAmount);
             }}
           />,
           controlsNode,
@@ -215,16 +215,7 @@ const Shop: React.FC<ShopProps> = ({
             checkoutPath={checkoutPath}
             indexPath={indexPath}
             cartProducts={cart.products}
-            onChangeAmount={async (cartProductId: number, newAmount: number) => {
-              const cartProductData = await onChangeAmount(cartProductId, newAmount);
-              dispatch({
-                type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                payload: {
-                  id: cartProductId,
-                  cartProductData,
-                },
-              });
-            }}
+            onChangeAmount={onChangeProductAmount}
           />,
           cartDetailNode,
         )}
@@ -233,6 +224,7 @@ const Shop: React.FC<ShopProps> = ({
           <CheckoutProvider
             cartId={cart.id}
             cartProducts={cart.products}
+            onChangeProductAmount={onChangeProductAmount}
             initialData={propsToInitialData(user, checkoutData)}
             confirmPath={confirmPath}
             validationErrors={validationErrors}
@@ -245,21 +237,7 @@ const Shop: React.FC<ShopProps> = ({
               }}
             >
               <Checkout
-                cartId={cart.id}
                 user={user}
-                cartProducts={cart.products}
-                onChangeAmount={async (cartProductId: number, newAmount: number) => {
-                  const cartProductData = await onChangeAmount(cartProductId, newAmount);
-                  dispatch({
-                    type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                    payload: {
-                      id: cartProductId,
-                      cartProductData,
-                    },
-                  });
-                }}
-                confirmPath={confirmPath}
-                checkoutData={checkoutData}
                 // @ts-expect-error
                 orderDetails={orderDetails}
                 validationErrors={validationErrors}
