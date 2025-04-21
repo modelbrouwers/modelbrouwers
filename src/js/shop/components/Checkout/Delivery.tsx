@@ -1,32 +1,17 @@
 import {Form, Formik, FormikErrors} from 'formik';
-import {useContext} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
+import {useNavigate} from 'react-router-dom';
 
 import ErrorBoundary from '@/components/ErrorBoundary.js';
 import Checkbox from '@/components/forms/Checkbox';
 
 import AddressFields from './AddressFields';
-import {CheckoutContext} from './Context';
+import {useCheckoutContext} from './Context';
 import DeliveryMethod from './DeliveryMethod';
 import PersonalDetailsFields from './PersonalDetailsFields';
 import ShippingCosts from './ShippingCosts';
-import type {Address as AddressType, DeliveryDetails} from './types';
+import type {DeliveryDetails} from './types';
 import {validateAddressDetails} from './validation';
-
-export const EMPTY_ADDRESS: AddressType = {
-  company: '',
-  chamberOfCommerce: '',
-  street: '',
-  number: '',
-  city: '',
-  postalCode: '',
-  country: 'N',
-};
-
-export type DeliveryProps = DeliveryDetails & {
-  cartId: number;
-  onSubmit: (values: DeliveryDetails) => void;
-};
 
 export type FormikValues = DeliveryDetails & {
   billingSameAsDelivery: boolean;
@@ -57,30 +42,30 @@ const getInitialTouched = (errors: any) => {
   return touched;
 };
 
-const Delivery: React.FC<DeliveryProps> = ({
-  cartId,
-  customer,
-  deliveryAddress,
-  billingAddress,
-  onSubmit,
-}) => {
+const Delivery: React.FC = () => {
   const intl = useIntl();
-  const {validationErrors: _validationErrors} = useContext(CheckoutContext);
+  const navigate = useNavigate();
+  const {
+    cartId,
+    deliveryDetails,
+    setDeliveryDetails,
+    validationErrors: _validationErrors,
+  } = useCheckoutContext();
   // FIXME -> in context type
   const validationErrors = _validationErrors as FormikErrors<FormikValues>;
   return (
     <Formik<FormikValues>
       initialValues={{
-        customer,
-        deliveryMethod: 'mail',
-        deliveryAddress: deliveryAddress || EMPTY_ADDRESS,
-        billingAddress,
-        billingSameAsDelivery: billingAddress == null,
+        ...deliveryDetails,
+        billingSameAsDelivery: deliveryDetails.billingAddress == null,
       }}
       enableReinitialize
       initialErrors={validationErrors}
       initialTouched={getInitialTouched(validationErrors)}
-      onSubmit={onSubmit}
+      onSubmit={async values => {
+        setDeliveryDetails(values);
+        navigate('/payment');
+      }}
       validate={values => validateAddressDetails(values, intl)}
       validateOnMount
     >

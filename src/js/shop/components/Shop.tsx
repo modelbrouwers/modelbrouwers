@@ -10,7 +10,9 @@ import {CartData, CartProductData, getCartDetails} from '@/data/shop/cart';
 import {CartProduct} from '../data';
 import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
-import {Checkout} from './Checkout';
+import {Checkout, CheckoutProvider} from './Checkout';
+import {CheckoutProviderProps} from './Checkout/CheckoutProvider';
+import {ConfirmOrderData} from './Checkout/types';
 
 export interface CatalogueProduct {
   id: number;
@@ -100,17 +102,7 @@ export interface ShopProps {
   confirmPath: string;
   onAddToCart: (cartId: number, productId: number, amount?: number) => Promise<CartProductData>;
   onChangeAmount: (cartProductId: number, amount: number) => Promise<CartProductData | null>;
-  // TODO: properly define this
-  checkoutData?: null | {
-    delivery_address: unknown;
-    invoice_address: unknown;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    payment_method: string;
-    payment_method_options: object;
-  };
+  checkoutData?: ConfirmOrderData | null;
   orderDetails?: {
     number: string;
     message: string;
@@ -238,38 +230,95 @@ const Shop: React.FC<ShopProps> = ({
         )}
       {checkoutNode &&
         createPortal(
-          <Router
-            basename={checkoutPath}
-            future={{
-              v7_relativeSplatPath: true,
-              v7_startTransition: true,
-            }}
+          <CheckoutProvider
+            cartId={cart.id}
+            cartProducts={cart.products}
+            initialData={propsToInitialData(user, checkoutData)}
+            confirmPath={confirmPath}
+            validationErrors={validationErrors}
           >
-            <Checkout
-              cartId={cart.id}
-              user={user}
-              cartProducts={cart.products}
-              onChangeAmount={async (cartProductId: number, newAmount: number) => {
-                const cartProductData = await onChangeAmount(cartProductId, newAmount);
-                dispatch({
-                  type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                  payload: {
-                    id: cartProductId,
-                    cartProductData,
-                  },
-                });
+            <Router
+              basename={checkoutPath}
+              future={{
+                v7_relativeSplatPath: true,
+                v7_startTransition: true,
               }}
-              confirmPath={confirmPath}
-              checkoutData={checkoutData}
-              // @ts-expect-error
-              orderDetails={orderDetails}
-              validationErrors={validationErrors}
-            />
-          </Router>,
+            >
+              <Checkout
+                cartId={cart.id}
+                user={user}
+                cartProducts={cart.products}
+                onChangeAmount={async (cartProductId: number, newAmount: number) => {
+                  const cartProductData = await onChangeAmount(cartProductId, newAmount);
+                  dispatch({
+                    type: 'CART_PRODUCT_AMOUNT_UPDATED',
+                    payload: {
+                      id: cartProductId,
+                      cartProductData,
+                    },
+                  });
+                }}
+                confirmPath={confirmPath}
+                checkoutData={checkoutData}
+                // @ts-expect-error
+                orderDetails={orderDetails}
+                validationErrors={validationErrors}
+              />
+            </Router>
+          </CheckoutProvider>,
           checkoutNode,
         )}
     </>
   );
+};
+
+// TODO: move to checkout?
+const propsToInitialData = (
+  user: ShopProps['user'],
+  checkoutData: ShopProps['checkoutData'],
+): CheckoutProviderProps['initialData'] => {
+  const deliveryMethod = checkoutData?.delivery_method || 'mail';
+  const base: Omit<
+    CheckoutProviderProps['initialData'],
+    'deliveryMethod' | 'deliveryAddress' | 'billingAddress'
+  > = {
+    customer: {
+      firstName: user?.first_name ?? '',
+      lastName: user?.last_name ?? '',
+      email: user?.email ?? '',
+      phone: user?.phone ?? '',
+    },
+    paymentMethod: checkoutData?.payment_method ?? 0,
+    paymentMethodOptions: checkoutData?.payment_method_options ?? null,
+  };
+  if (deliveryMethod === 'pickup') {
+    return {...base, deliveryMethod, deliveryAddress: null, billingAddress: null};
+  }
+
+  // France is not supported
+  const userCountry = user?.profile?.country === 'F' ? 'N' : user?.profile?.country || 'N';
+
+  const deliveryAddress = checkoutData?.delivery_address
+    ? {
+        street: checkoutData?.delivery_address?.street,
+        number: checkoutData?.delivery_address?.number,
+        city: checkoutData?.delivery_address?.city,
+        postalCode: checkoutData?.delivery_address?.postal_code,
+        country: checkoutData?.delivery_address?.country,
+        company: checkoutData?.delivery_address?.company,
+        chamberOfCommerce: checkoutData?.delivery_address?.chamber_of_commerce,
+      }
+    : {
+        street: user?.profile?.street ?? '',
+        number: user?.profile?.number ?? '',
+        city: user?.profile?.city ?? '',
+        postalCode: user?.profile?.postal ?? '',
+        country: userCountry,
+        company: '',
+        chamberOfCommerce: '',
+      };
+
+  return {...base, deliveryMethod, deliveryAddress, billingAddress: null};
 };
 
 const useAddProductFormSubmit = (

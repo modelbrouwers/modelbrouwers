@@ -219,74 +219,50 @@ const Checkout = ({
       </h2>
 
       <div className="nav-wrapper__content">
-        <CheckoutContext.Provider
-          value={{
-            validationErrors,
-            customer: state.customer,
-            deliveryAddress: state.deliveryAddress,
-            billingAddress: state.billingAddress,
-          }}
-        >
-          <Routes>
-            <Route path="/" element={<Navigate to={isAuthenticated ? 'address' : 'account'} />} />
-            <Route
-              path="account"
-              element={
-                isAuthenticated ? (
-                  <Navigate to="/address" />
-                ) : (
-                  <Account nextAfterLogin={checkoutRoot} />
-                )
-              }
-            />
-            <Route
-              path="address"
-              element={
-                <Delivery
-                  cartId={cartId}
-                  customer={state.customer}
-                  deliveryAddress={state.deliveryAddress}
-                  billingAddress={state.billingAddress}
-                  onSubmit={values => {
-                    dispatch({type: 'ADDRESS_SUBMITTED', payload: values});
-                    navigate('/payment');
-                  }}
-                  allowSubmit={state.addressStepValid}
-                />
-              }
-            />
-            <Route
-              path="payment"
-              element={
-                <Payment
-                  cartId={cartId}
-                  cartProducts={cartProducts}
-                  onChangeAmount={onChangeAmount}
-                  confirmPath={confirmPath}
-                  checkoutDetails={{
-                    customer: state.customer,
-                    deliveryAddress: state.deliveryAddress,
-                    billingAddress: state.billingAddress,
-                  }}
-                  errors={validationErrors}
-                />
-              }
-            />
-            {/* This is a backend URL - if there are validation errors, it renders
-                            the response at this URL. */}
-            <Route path="confirm" element={<Navigate to={firstRouteWithErrors} />} />
-
-            {/* Success page */}
-            {orderDetails && (
-              <Route
-                path="confirmation"
-                element={
-                  <Confirmation orderNumber={orderDetails.number} message={orderDetails.message} />
-                }
+        <Routes>
+          <Route path="/" element={<Navigate to={isAuthenticated ? 'address' : 'account'} />} />
+          <Route
+            path="account"
+            element={
+              isAuthenticated ? (
+                <Navigate to="/address" />
+              ) : (
+                <Account nextAfterLogin={checkoutRoot} />
+              )
+            }
+          />
+          <Route path="address" Component={Delivery} />
+          <Route
+            path="payment"
+            element={
+              <Payment
+                cartId={cartId}
+                cartProducts={cartProducts}
+                onChangeAmount={onChangeAmount}
+                confirmPath={confirmPath}
+                checkoutDetails={{
+                  customer: state.customer,
+                  deliveryAddress: state.deliveryAddress,
+                  billingAddress: state.billingAddress,
+                }}
+                errors={validationErrors}
               />
-            )}
-          </Routes>
-        </CheckoutContext.Provider>
+            }
+          />
+          {/* This is a backend URL - if there are validation errors, it renders
+                            the response at this URL. */}
+          <Route path="confirm" element={<Navigate to={firstRouteWithErrors} />} />
+
+          {/* Success page */}
+          {orderDetails && (
+            <Route
+              path="confirmation"
+              element={
+                <Confirmation orderNumber={orderDetails.number} message={orderDetails.message} />
+              }
+            />
+          )}
+        </Routes>
       </div>
 
       <nav className="nav-wrapper__nav">
@@ -327,28 +303,28 @@ const Checkout = ({
   );
 };
 
-Checkout.propTypes = {
-  confirmPath: PropTypes.string.isRequired,
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-    email: PropTypes.string,
-    phone: PropTypes.string,
-    profile: PropTypes.shape({
-      street: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      postal: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      country: PropTypes.oneOf(['', 'N', 'B', 'F', 'G']),
-    }),
-  }),
-  checkoutData: PropTypes.object,
-  orderDetails: PropTypes.shape({
-    number: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-  }),
-  validationErrors: PropTypes.object,
-};
+// Checkout.propTypes = {
+//   confirmPath: PropTypes.string.isRequired,
+//   user: PropTypes.shape({
+//     username: PropTypes.string,
+//     first_name: PropTypes.string,
+//     last_name: PropTypes.string,
+//     email: PropTypes.string,
+//     phone: PropTypes.string,
+//     profile: PropTypes.shape({
+//       street: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//       postal: PropTypes.string.isRequired,
+//       city: PropTypes.string.isRequired,
+//       country: PropTypes.oneOf(['', 'N', 'B', 'F', 'G']),
+//     }),
+//   }),
+//   checkoutData: PropTypes.object,
+//   orderDetails: PropTypes.shape({
+//     number: PropTypes.string.isRequired,
+//     message: PropTypes.string.isRequired,
+//   }),
+//   validationErrors: PropTypes.object,
+// };
 
 export default Checkout;
