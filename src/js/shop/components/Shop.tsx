@@ -238,7 +238,13 @@ const Shop: React.FC<ShopProps> = ({
         )}
       {checkoutNode &&
         createPortal(
-          <Router basename={checkoutPath}>
+          <Router
+            basename={checkoutPath}
+            future={{
+              v7_relativeSplatPath: true,
+              v7_startTransition: true,
+            }}
+          >
             <Checkout
               cartId={cart.id}
               user={user}

@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import set from 'lodash/set';
 import unset from 'lodash/unset';
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {
   Navigate,
@@ -18,7 +18,6 @@ import {useImmerReducer} from 'use-immer';
 
 import {Account, Confirmation, Delivery, Payment} from '.';
 import FAIcon from '../../../components/FAIcon';
-import {CartProduct} from '../../data';
 import {CheckoutContext} from './Context';
 import {EMPTY_ADDRESS} from './constants';
 import {camelize} from './utils';
@@ -153,7 +152,6 @@ const Checkout = ({
   user,
   cartProducts,
   onChangeAmount,
-
   confirmPath,
   checkoutData,
   orderDetails = null,
