@@ -112,9 +112,29 @@ export type OrderDetails = null | {
   message: string;
 };
 
+export type AddressValidationErrors = Partial<
+  Record<
+    'street' | 'number' | 'postal_code' | 'city' | 'country' | 'company' | 'chamber_of_commerce',
+    string[]
+  >
+>;
+
+type RecursiveError = string[] | {[K: string]: RecursiveError};
+
 /**
  * Matches the backend serializer processing the checkout data.
  *
  * @see `brouwers.shop.serializers.ConfirmOrderSerializer`
  */
-export interface CheckoutValidationErrors {}
+export interface CheckoutValidationErrors {
+  first_name?: string[];
+  last_name?: string[];
+  email?: string[];
+  phone?: string[];
+  delivery_method?: string[];
+  delivery_address?: string[] | AddressValidationErrors;
+  invoice_address?: string[] | AddressValidationErrors;
+  cart?: string[];
+  payment_method?: string[];
+  payment_method_options?: RecursiveError;
+}

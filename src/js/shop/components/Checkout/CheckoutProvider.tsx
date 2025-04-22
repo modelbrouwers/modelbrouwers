@@ -4,7 +4,13 @@ import {type ImmerReducer, useImmerReducer} from 'use-immer';
 import {CartProduct} from '@/shop/data';
 
 import {CheckoutContext} from './Context';
-import type {DeliveryDetails, OrderDetails, PaymentDetails, UserData} from './types';
+import type {
+  CheckoutValidationErrors,
+  DeliveryDetails,
+  OrderDetails,
+  PaymentDetails,
+  UserData,
+} from './types';
 
 type CheckoutState = DeliveryDetails & PaymentDetails;
 
@@ -38,8 +44,7 @@ export interface CheckoutProviderProps {
   initialData: CheckoutState;
   confirmPath: string;
   orderDetails: OrderDetails;
-  // TODO
-  validationErrors: unknown;
+  validationErrors: CheckoutValidationErrors | null;
   children?: React.ReactNode;
 }
 

@@ -106,7 +106,6 @@ const Payment: React.FC = () => {
           </h3>
 
           <PaymentCartOverview cartProducts={cartProducts} onChangeAmount={onChangeProductAmount} />
-          {/* @ts-expect-error */}
           <ErrorList errors={validationErrors?.cart} />
 
           <div className="submit-wrapper">

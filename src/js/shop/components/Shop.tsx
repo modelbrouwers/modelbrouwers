@@ -11,7 +11,12 @@ import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
 import {Checkout, CheckoutProvider} from './Checkout';
 import type {CheckoutProviderProps} from './Checkout/CheckoutProvider';
-import type {ConfirmOrderData, OrderDetails, UserData} from './Checkout/types';
+import type {
+  CheckoutValidationErrors,
+  ConfirmOrderData,
+  OrderDetails,
+  UserData,
+} from './Checkout/types';
 
 export interface CatalogueProduct {
   id: number;
@@ -90,7 +95,7 @@ export interface ShopProps {
   onChangeAmount: (cartProductId: number, amount: number) => Promise<CartProductData | null>;
   checkoutData?: ConfirmOrderData | null;
   orderDetails: OrderDetails;
-  validationErrors: unknown;
+  validationErrors: CheckoutValidationErrors | null;
 }
 
 /**
