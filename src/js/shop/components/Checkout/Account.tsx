@@ -1,14 +1,19 @@
 import {FormattedMessage} from 'react-intl';
-import {Link} from 'react-router-dom';
+import {Link, Navigate, useHref} from 'react-router-dom';
+
+import {useCheckoutContext} from './Context';
 
 const LOGIN_URL = '/login/';
 const SIGNUP_URL = '/register/';
 
-export interface AccountProps {
-  nextAfterLogin: string extends '' ? never : string;
-}
+const Account: React.FC = () => {
+  const {isAuthenticated} = useCheckoutContext();
+  const checkoutRoot = useHref('/');
 
-const Account: React.FC<AccountProps> = ({nextAfterLogin}) => {
+  if (isAuthenticated) {
+    return <Navigate to="/address" />;
+  }
+
   return (
     <>
       <div className="layout layout--columns">
@@ -31,7 +36,7 @@ const Account: React.FC<AccountProps> = ({nextAfterLogin}) => {
           <div className="layout layout--rows">
             <div className="layout__row">
               <a
-                href={`${LOGIN_URL}?next=${nextAfterLogin}`}
+                href={`${LOGIN_URL}?next=${checkoutRoot}`}
                 className="button button--blue button--large button--icon button--vertical-center"
               >
                 <i className="fa fa-sign-in" />
@@ -48,7 +53,7 @@ const Account: React.FC<AccountProps> = ({nextAfterLogin}) => {
 
             <div className="layout__row">
               <a
-                href={`${SIGNUP_URL}?next=${nextAfterLogin}&from=checkout`}
+                href={`${SIGNUP_URL}?next=${checkoutRoot}&from=checkout`}
                 className="button button--plain button--large button--icon button--vertical-center"
               >
                 <i className="fa fa-user-plus" />

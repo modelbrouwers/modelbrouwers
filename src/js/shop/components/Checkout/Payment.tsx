@@ -2,9 +2,10 @@ import {Form, Formik, FormikConfig} from 'formik';
 import {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 
+import ErrorBoundary from '@/components/ErrorBoundary.js';
 import {getCsrfTokenValue} from '@/data/api-client';
+import {PaymentCartOverview} from '@/shop/components/Cart';
 
-import {PaymentCartOverview} from '../Cart';
 import {useCheckoutContext} from './Context';
 import {ErrorList} from './FormFields';
 import SelectPaymentMethod from './SelectPaymentMethod';
@@ -84,16 +85,18 @@ const Payment: React.FC = () => {
         validate={undefined}
       >
         <Form>
-          <SelectPaymentMethod
-            label={
-              <h3 className="checkout__title">
-                <FormattedMessage
-                  description="Checkout: select payment method"
-                  defaultMessage="Select your payment method"
-                />
-              </h3>
-            }
-          />
+          <ErrorBoundary>
+            <SelectPaymentMethod
+              label={
+                <h3 className="checkout__title">
+                  <FormattedMessage
+                    description="Checkout: select payment method"
+                    defaultMessage="Select your payment method"
+                  />
+                </h3>
+              }
+            />
+          </ErrorBoundary>
 
           <h3 className="checkout__title">
             <FormattedMessage

@@ -154,20 +154,11 @@ const Checkout = ({orderDetails = null, validationErrors}) => {
       <div className="nav-wrapper__content">
         <Routes>
           <Route path="/" Component={CheckoutIndex} />
-          <Route
-            path="account"
-            element={
-              isAuthenticated ? (
-                <Navigate to="/address" />
-              ) : (
-                <Account nextAfterLogin={checkoutRoot} />
-              )
-            }
-          />
+          <Route path="account" Component={Account} />
           <Route path="address" Component={Delivery} />
           <Route path="payment" Component={Payment} />
           {/* This is a backend URL - if there are validation errors, it renders
-                            the response at this URL. */}
+              the response at this URL. */}
           <Route path="confirm" element={<Navigate to={firstRouteWithErrors} />} />
 
           {/* Success page */}
