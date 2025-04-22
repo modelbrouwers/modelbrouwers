@@ -106,3 +106,8 @@ export interface ConfirmOrderData {
    */
   payment_method_options: null | Record<string, any>;
 }
+
+export type OrderDetails = null | {
+  number: string;
+  message: string;
+};

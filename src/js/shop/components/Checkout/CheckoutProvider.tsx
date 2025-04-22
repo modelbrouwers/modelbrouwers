@@ -4,7 +4,7 @@ import {type ImmerReducer, useImmerReducer} from 'use-immer';
 import {CartProduct} from '@/shop/data';
 
 import {CheckoutContext} from './Context';
-import type {DeliveryDetails, PaymentDetails, UserData} from './types';
+import type {DeliveryDetails, OrderDetails, PaymentDetails, UserData} from './types';
 
 type CheckoutState = DeliveryDetails & PaymentDetails;
 
@@ -37,6 +37,7 @@ export interface CheckoutProviderProps {
   onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
   initialData: CheckoutState;
   confirmPath: string;
+  orderDetails: OrderDetails;
   // TODO
   validationErrors: unknown;
   children?: React.ReactNode;
@@ -49,6 +50,7 @@ const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
   onChangeProductAmount,
   initialData,
   confirmPath,
+  orderDetails,
   validationErrors,
   children,
 }) => {
@@ -73,6 +75,7 @@ const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
         deliveryDetails: state,
         confirmPath,
         setDeliveryDetails,
+        orderDetails,
         validationErrors,
       }}
     >

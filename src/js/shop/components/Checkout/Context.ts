@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 
 import {CartProduct} from '@/shop/data';
 
-import type {DeliveryDetails, PaymentDetails} from './types';
+import type {DeliveryDetails, OrderDetails, PaymentDetails} from './types';
 
 interface CheckoutContextType {
   isAuthenticated: boolean;
@@ -12,6 +12,7 @@ interface CheckoutContextType {
   deliveryDetails: DeliveryDetails & PaymentDetails;
   confirmPath: string;
   setDeliveryDetails: (values: DeliveryDetails) => void;
+  orderDetails: OrderDetails;
   // TODO -> recursive structure where every node can be an error list from DRF
   validationErrors: unknown;
 }
@@ -36,6 +37,7 @@ const CheckoutContext = React.createContext<CheckoutContextType>({
   },
   confirmPath: '/checkout/confirm/',
   setDeliveryDetails: () => {},
+  orderDetails: null,
   validationErrors: null,
 });
 
