@@ -5,6 +5,7 @@ import {CartProduct} from '@/shop/data';
 import type {DeliveryDetails, PaymentDetails} from './types';
 
 interface CheckoutContextType {
+  isAuthenticated: boolean;
   cartId: number;
   cartProducts: CartProduct[];
   onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
@@ -16,6 +17,7 @@ interface CheckoutContextType {
 }
 
 const CheckoutContext = React.createContext<CheckoutContextType>({
+  isAuthenticated: false,
   cartId: 0,
   cartProducts: [],
   onChangeProductAmount: async () => {},

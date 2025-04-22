@@ -4,15 +4,14 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import useAsync from 'react-use/esm/useAsync';
 import {ImmerReducer, useImmerReducer} from 'use-immer';
 
-import type {CountryOption} from '@/components/forms/CountryField';
-import {CartData, CartProductData, getCartDetails} from '@/data/shop/cart';
+import {type CartData, type CartProductData, getCartDetails} from '@/data/shop/cart';
 
 import {CartProduct} from '../data';
 import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
 import {Checkout, CheckoutProvider} from './Checkout';
-import {CheckoutProviderProps} from './Checkout/CheckoutProvider';
-import {ConfirmOrderData} from './Checkout/types';
+import type {CheckoutProviderProps} from './Checkout/CheckoutProvider';
+import type {ConfirmOrderData, UserData} from './Checkout/types';
 
 export interface CatalogueProduct {
   id: number;
@@ -82,20 +81,7 @@ export interface ShopProps {
   addProductNode: HTMLFormElement | null;
   cartDetailNode: HTMLDivElement | null;
   checkoutNode: HTMLDivElement | null;
-  user: {
-    username?: string;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
-    phone?: string;
-    profile?: {
-      street?: string;
-      number?: string;
-      postal?: string;
-      city?: string;
-      country?: CountryOption['value'] | 'F';
-    };
-  };
+  user: UserData | null;
   indexPath: string;
   cartDetailPath: string;
   checkoutPath: string;
@@ -222,6 +208,7 @@ const Shop: React.FC<ShopProps> = ({
       {checkoutNode &&
         createPortal(
           <CheckoutProvider
+            user={user}
             cartId={cart.id}
             cartProducts={cart.products}
             onChangeProductAmount={onChangeProductAmount}
@@ -252,7 +239,7 @@ const Shop: React.FC<ShopProps> = ({
 
 // TODO: move to checkout?
 const propsToInitialData = (
-  user: ShopProps['user'],
+  user: UserData | null,
   checkoutData: ShopProps['checkoutData'],
 ): CheckoutProviderProps['initialData'] => {
   const deliveryMethod = checkoutData?.delivery_method || 'mail';

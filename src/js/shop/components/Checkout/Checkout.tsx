@@ -16,6 +16,8 @@ import {useImmerReducer} from 'use-immer';
 
 import {Account, Confirmation, Delivery, Payment} from '.';
 import FAIcon from '../../../components/FAIcon';
+import CheckoutIndex from './CheckoutIndex';
+import {useCheckoutContext} from './Context';
 import {EMPTY_ADDRESS} from './constants';
 import {validateAddressDetails} from './validation';
 
@@ -96,16 +98,14 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
 };
 
 /**
- *
  * Checkout
- *
  */
-const Checkout = ({user, orderDetails = null, validationErrors}) => {
+const Checkout = ({orderDetails = null, validationErrors}) => {
   const intl = useIntl();
   const location = useLocation();
   const checkoutRoot = useHref('/');
+  const {isAuthenticated} = useCheckoutContext();
 
-  const isAuthenticated = Object.keys(user).length > 1;
   const [state, dispatch] = useImmerReducer(reducer, initialState);
 
   useEffect(() => {
@@ -153,7 +153,7 @@ const Checkout = ({user, orderDetails = null, validationErrors}) => {
 
       <div className="nav-wrapper__content">
         <Routes>
-          <Route path="/" element={<Navigate to={isAuthenticated ? 'address' : 'account'} />} />
+          <Route path="/" Component={CheckoutIndex} />
           <Route
             path="account"
             element={
@@ -221,20 +221,6 @@ const Checkout = ({user, orderDetails = null, validationErrors}) => {
 };
 
 // Checkout.propTypes = {
-//   user: PropTypes.shape({
-//     username: PropTypes.string,
-//     first_name: PropTypes.string,
-//     last_name: PropTypes.string,
-//     email: PropTypes.string,
-//     phone: PropTypes.string,
-//     profile: PropTypes.shape({
-//       street: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//       postal: PropTypes.string.isRequired,
-//       city: PropTypes.string.isRequired,
-//       country: PropTypes.oneOf(['', 'N', 'B', 'F', 'G']),
-//     }),
-//   }),
 //   orderDetails: PropTypes.shape({
 //     number: PropTypes.string.isRequired,
 //     message: PropTypes.string.isRequired,

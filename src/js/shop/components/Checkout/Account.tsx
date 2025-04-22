@@ -2,7 +2,7 @@ import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router-dom';
 
 const LOGIN_URL = '/login/';
-const SIGNUP_URL = '/regiser/';
+const SIGNUP_URL = '/register/';
 
 export interface AccountProps {
   nextAfterLogin: string extends '' ? never : string;

@@ -1,4 +1,4 @@
-import {CountryOption} from '@/components/forms/CountryField';
+import type {CountryOption} from '@/components/forms/CountryField';
 
 export interface Customer {
   firstName: string;
@@ -36,6 +36,26 @@ export type DeliveryDetails = (PickupDelivery | MailDelivery) & {
 export interface PaymentDetails {
   paymentMethod: number;
   paymentMethodOptions: null | Record<string, any>;
+}
+
+/**
+ * Matches the backend serializer exposing the user details.
+ *
+ * @see `brouwers.users.api.serializers.UserWithProfileSerializer`
+ */
+export interface UserData {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  profile: {
+    street: string;
+    number: string;
+    postal: string;
+    city: string;
+    country: CountryOption['value'] | 'F' | '';
+  };
 }
 
 /**
