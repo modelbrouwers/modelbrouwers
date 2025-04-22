@@ -93,10 +93,10 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
 /**
  * Checkout
  */
-const Checkout = ({orderDetails = null}) => {
+const Checkout: React.FC = () => {
   const intl = useIntl();
   const location = useLocation();
-  const {isAuthenticated, validationErrors} = useCheckoutContext();
+  const {isAuthenticated, validationErrors, orderDetails} = useCheckoutContext();
 
   const [state, dispatch] = useImmerReducer(reducer, initialState);
 
@@ -145,23 +145,15 @@ const Checkout = ({orderDetails = null}) => {
 
       <div className="nav-wrapper__content">
         <Routes>
-          <Route path="/" Component={CheckoutIndex} />
+          <Route path="" Component={CheckoutIndex} />
           <Route path="account" Component={Account} />
           <Route path="address" Component={Delivery} />
           <Route path="payment" Component={Payment} />
           {/* This is a backend URL - if there are validation errors, it renders
               the response at this URL. */}
           <Route path="confirm" element={<Navigate to={firstRouteWithErrors} />} />
-
           {/* Success page */}
-          {orderDetails && (
-            <Route
-              path="confirmation"
-              element={
-                <Confirmation orderNumber={orderDetails.number} message={orderDetails.message} />
-              }
-            />
-          )}
+          <Route path="confirmation" Component={Confirmation} />
         </Routes>
       </div>
 
@@ -193,7 +185,11 @@ const Checkout = ({orderDetails = null}) => {
             </NavLink>
           </li>
           <li className="navigation__item">
-            <NavLink to="confirmation" className={getActiveNavClassNames} enabled={!!orderDetails}>
+            <NavLink
+              to="confirmation"
+              className={getActiveNavClassNames}
+              enabled={orderDetails !== null}
+            >
               <FormattedMessage description="Tab: confirm" defaultMessage="Confirmation" />
             </NavLink>
           </li>
@@ -202,12 +198,5 @@ const Checkout = ({orderDetails = null}) => {
     </div>
   );
 };
-
-// Checkout.propTypes = {
-//   orderDetails: PropTypes.shape({
-//     number: PropTypes.string.isRequired,
-//     message: PropTypes.string.isRequired,
-//   }),
-// };
 
 export default Checkout;

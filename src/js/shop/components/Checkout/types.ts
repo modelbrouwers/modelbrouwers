@@ -111,3 +111,10 @@ export type OrderDetails = null | {
   number: string;
   message: string;
 };
+
+/**
+ * Matches the backend serializer processing the checkout data.
+ *
+ * @see `brouwers.shop.serializers.ConfirmOrderSerializer`
+ */
+export interface CheckoutValidationErrors {}

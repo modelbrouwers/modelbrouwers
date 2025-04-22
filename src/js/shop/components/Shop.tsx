@@ -211,6 +211,7 @@ const Shop: React.FC<ShopProps> = ({
             onChangeProductAmount={onChangeProductAmount}
             initialData={propsToInitialData(user, checkoutData)}
             confirmPath={confirmPath}
+            orderDetails={orderDetails}
             validationErrors={validationErrors}
           >
             <Router
@@ -220,8 +221,7 @@ const Shop: React.FC<ShopProps> = ({
                 v7_startTransition: true,
               }}
             >
-              {/* @ts-expect-error */}
-              <Checkout orderDetails={orderDetails} />
+              <Checkout />
             </Router>
           </CheckoutProvider>,
           checkoutNode,

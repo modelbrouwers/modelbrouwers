@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import {FormattedMessage} from 'react-intl';
-import {Link} from 'react-router-dom';
 
-const Confirmation = ({orderNumber, message = ''}) => {
+import {useCheckoutContext} from './Context';
+
+const Confirmation: React.FC = () => {
+  const {orderDetails} = useCheckoutContext();
+  if (orderDetails === null) throw new Error('Cannot show confirmation without order details.');
+  const {number: orderNumber, message} = orderDetails;
   return (
     <>
       <h3 style={{marginTop: 0}}>
@@ -32,11 +34,6 @@ const Confirmation = ({orderNumber, message = ''}) => {
       )}
     </>
   );
-};
-
-Confirmation.propTypes = {
-  orderNumber: PropTypes.string.isRequired,
-  message: PropTypes.string,
 };
 
 export default Confirmation;
