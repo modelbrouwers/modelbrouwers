@@ -4,14 +4,7 @@ import set from 'lodash/set';
 import unset from 'lodash/unset';
 import {useEffect} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {
-  Navigate,
-  NavLink as RRNavLink,
-  Route,
-  Routes,
-  useHref,
-  useLocation,
-} from 'react-router-dom';
+import {Navigate, NavLink as RRNavLink, Route, Routes, useLocation} from 'react-router-dom';
 import {useImmerReducer} from 'use-immer';
 
 import {Account, Confirmation, Delivery, Payment} from '.';
@@ -100,11 +93,10 @@ const checkHasValidationErrors = (validationErrors, errorKey) => {
 /**
  * Checkout
  */
-const Checkout = ({orderDetails = null, validationErrors}) => {
+const Checkout = ({orderDetails = null}) => {
   const intl = useIntl();
   const location = useLocation();
-  const checkoutRoot = useHref('/');
-  const {isAuthenticated} = useCheckoutContext();
+  const {isAuthenticated, validationErrors} = useCheckoutContext();
 
   const [state, dispatch] = useImmerReducer(reducer, initialState);
 
@@ -216,7 +208,6 @@ const Checkout = ({orderDetails = null, validationErrors}) => {
 //     number: PropTypes.string.isRequired,
 //     message: PropTypes.string.isRequired,
 //   }),
-//   validationErrors: PropTypes.object,
 // };
 
 export default Checkout;

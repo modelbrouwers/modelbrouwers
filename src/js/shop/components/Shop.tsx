@@ -223,12 +223,8 @@ const Shop: React.FC<ShopProps> = ({
                 v7_startTransition: true,
               }}
             >
-              <Checkout
-                user={user}
-                // @ts-expect-error
-                orderDetails={orderDetails}
-                validationErrors={validationErrors}
-              />
+              {/* @ts-expect-error */}
+              <Checkout orderDetails={orderDetails} />
             </Router>
           </CheckoutProvider>,
           checkoutNode,
