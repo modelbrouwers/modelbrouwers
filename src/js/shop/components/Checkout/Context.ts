@@ -1,3 +1,4 @@
+import {FormikErrors} from 'formik';
 import React, {useContext} from 'react';
 
 import {CartProduct} from '@/shop/data';
@@ -19,6 +20,10 @@ interface CheckoutContextType {
   setDeliveryDetails: (values: DeliveryDetails) => void;
   orderDetails: OrderDetails;
   validationErrors: CheckoutValidationErrors | null;
+  deliveryDetailsErrors: FormikErrors<DeliveryDetails>;
+  hasDeliveryDetailsErrors: boolean;
+  paymentErrors: FormikErrors<PaymentDetails>;
+  hasPaymentErrors: boolean;
 }
 
 const CheckoutContext = React.createContext<CheckoutContextType>({
@@ -43,6 +48,10 @@ const CheckoutContext = React.createContext<CheckoutContextType>({
   setDeliveryDetails: () => {},
   orderDetails: null,
   validationErrors: null,
+  deliveryDetailsErrors: {},
+  hasDeliveryDetailsErrors: false,
+  paymentErrors: {},
+  hasPaymentErrors: false,
 });
 
 CheckoutContext.displayName = 'CheckoutContext';

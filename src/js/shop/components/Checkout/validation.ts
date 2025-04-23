@@ -37,6 +37,7 @@ export const validateCustomer = makeMandatoryFieldsValidator<Customer>([
   'email',
 ]);
 
+// TODO: replace with Zod?
 export const validateAddressDetails = (
   details: Partial<DeliveryDetails>,
   intl: IntlShape,
