@@ -1,11 +1,14 @@
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Route, Routes, useLocation} from 'react-router-dom';
 
-import {Account, Confirmation, Delivery, Payment} from '.';
+import Account from './Account';
 import CheckoutIndex from './CheckoutIndex';
+import Confirmation from './Confirmation';
 import {useCheckoutContext} from './Context';
+import Delivery from './Delivery';
 import NavLink from './NavLink';
 import NavigateToErrors from './NavigateToErrors';
+import Payment from './Payment';
 import {validateAddressDetails} from './validation';
 
 /**

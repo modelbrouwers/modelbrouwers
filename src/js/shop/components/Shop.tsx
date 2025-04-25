@@ -5,8 +5,8 @@ import useAsync from 'react-use/esm/useAsync';
 import {ImmerReducer, useImmerReducer} from 'use-immer';
 
 import {type CartData, type CartProductData, getCartDetails} from '@/data/shop/cart';
+import {CartProduct} from '@/shop/data';
 
-import {CartProduct} from '../data';
 import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
 import {Checkout, CheckoutProvider} from './Checkout';

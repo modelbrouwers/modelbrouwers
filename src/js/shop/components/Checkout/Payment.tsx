@@ -7,7 +7,7 @@ import {getCsrfTokenValue} from '@/data/api-client';
 import {PaymentCartOverview} from '@/shop/components/Cart';
 
 import {useCheckoutContext} from './Context';
-import {ErrorList} from './FormFields';
+import ErrorList from './ErrorList';
 import SelectPaymentMethod from './SelectPaymentMethod';
 import type {Address, AddressData, ConfirmOrderData} from './types';
 
