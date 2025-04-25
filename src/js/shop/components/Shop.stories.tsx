@@ -195,7 +195,7 @@ export default {
         );
       },
     ),
-    user: {}, // anonymous user
+    user: null, // anonymous user
     confirmPath: '/winkel/checkout/confirm/',
   },
   argTypes: {
