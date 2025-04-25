@@ -1,43 +1,12 @@
-import classNames from 'classnames';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {NavLink as RRNavLink, Route, Routes, useLocation} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 
 import {Account, Confirmation, Delivery, Payment} from '.';
-import FAIcon from '../../../components/FAIcon';
 import CheckoutIndex from './CheckoutIndex';
 import {useCheckoutContext} from './Context';
+import NavLink from './NavLink';
 import NavigateToErrors from './NavigateToErrors';
 import {validateAddressDetails} from './validation';
-
-const getActiveNavClassNames = ({isActive, enabled = false}) =>
-  classNames('navigation__link', {
-    'navigation__link--active': isActive,
-    'navigation__link--enabled': enabled,
-  });
-
-const NavLink = ({enabled = false, className, hasErrors = false, children, ...props}) => {
-  const Container = enabled ? RRNavLink : 'span';
-  const wrappedClassname = enabled
-    ? ({isActive}) => className({isActive, enabled})
-    : className({isActive: false, enabled});
-
-  if (hasErrors) {
-    children = (
-      <span className="nav-link-wrapper">
-        <span className="nav-link-wrapper__text">{children}</span>
-        <span className="nav-link-wrapper__icon">
-          <FAIcon icon="exclamation-circle" />
-        </span>
-      </span>
-    );
-  }
-
-  return (
-    <Container {...props} className={wrappedClassname}>
-      {children}
-    </Container>
-  );
-};
 
 /**
  * Checkout
@@ -79,36 +48,22 @@ const Checkout: React.FC = () => {
       <nav className="nav-wrapper__nav">
         <ul className="navigation">
           <li className="navigation__item">
-            <NavLink to="account" className={getActiveNavClassNames} enabled={!isAuthenticated}>
+            <NavLink to="account" isEnabled={!isAuthenticated}>
               <FormattedMessage description="Tab: account" defaultMessage="Account" />
             </NavLink>
           </li>
           <li className="navigation__item">
-            <NavLink
-              to="address"
-              className={getActiveNavClassNames}
-              enabled
-              hasErrors={hasDeliveryDetailsErrors}
-            >
+            <NavLink to="address" isEnabled hasErrors={hasDeliveryDetailsErrors}>
               <FormattedMessage description="Tab: address" defaultMessage="Address" />
             </NavLink>
           </li>
           <li className="navigation__item">
-            <NavLink
-              to="payment"
-              className={getActiveNavClassNames}
-              enabled={addressStepValid}
-              hasErrors={hasPaymentErrors}
-            >
+            <NavLink to="payment" isEnabled={addressStepValid} hasErrors={hasPaymentErrors}>
               <FormattedMessage description="Tab: payment" defaultMessage="Payment" />
             </NavLink>
           </li>
           <li className="navigation__item">
-            <NavLink
-              to="confirmation"
-              className={getActiveNavClassNames}
-              enabled={orderDetails !== null}
-            >
+            <NavLink to="confirmation" isEnabled={orderDetails !== null}>
               <FormattedMessage description="Tab: confirm" defaultMessage="Confirmation" />
             </NavLink>
           </li>
