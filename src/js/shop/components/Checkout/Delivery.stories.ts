@@ -6,11 +6,12 @@ import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-rou
 import {API_ROOT} from '@/constants.js';
 
 import Delivery from './Delivery';
+import {withCheckout} from './storybook';
 
 export default {
   title: 'Shop / Checkout / Delivery / Full page',
   component: Delivery,
-  decorators: [withRouter],
+  decorators: [withRouter, withCheckout],
   args: {
     onSubmit: fn(),
     cartId: 123,
@@ -35,23 +36,27 @@ export default {
 type Story = StoryObj<typeof Delivery>;
 
 export const Empty: Story = {
-  args: {
-    customer: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
+  parameters: {
+    checkout: {
+      initialData: {
+        customer: {
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+        },
+        deliveryAddress: {
+          company: '',
+          chamberOfCommerce: '',
+          street: '',
+          number: '',
+          city: '',
+          postalCode: '',
+          country: 'N',
+        },
+        billingAddress: null,
+      },
     },
-    deliveryAddress: {
-      company: '',
-      chamberOfCommerce: '',
-      street: '',
-      number: '',
-      city: '',
-      postalCode: '',
-      country: 'N',
-    },
-    billingAddress: null,
   },
 
   play: async ({canvasElement}) => {
@@ -64,23 +69,27 @@ export const Empty: Story = {
 };
 
 export const BillingAddressSameAsDelivery: Story = {
-  args: {
-    customer: {
-      firstName: 'Arsene',
-      lastName: 'Lupin',
-      email: 'arsene@lupin.fr',
-      phone: '',
+  parameters: {
+    checkout: {
+      initialData: {
+        customer: {
+          firstName: 'Arsene',
+          lastName: 'Lupin',
+          email: 'arsene@lupin.fr',
+          phone: '',
+        },
+        deliveryAddress: {
+          company: '',
+          chamberOfCommerce: '',
+          street: 'Avenue des Champs-Élysées',
+          number: '42',
+          city: 'Paris',
+          postalCode: '75008',
+          country: 'N',
+        },
+        billingAddress: null,
+      },
     },
-    deliveryAddress: {
-      company: '',
-      chamberOfCommerce: '',
-      street: 'Avenue des Champs-Élysées',
-      number: '42',
-      city: 'Paris',
-      postalCode: '75008',
-      country: 'N',
-    },
-    billingAddress: null,
   },
 
   play: async ({canvasElement}) => {
@@ -94,30 +103,34 @@ export const BillingAddressSameAsDelivery: Story = {
 };
 
 export const DifferentBillingAddress: Story = {
-  args: {
-    customer: {
-      firstName: 'Arsene',
-      lastName: 'Lupin',
-      email: 'arsene@lupin.fr',
-      phone: '',
-    },
-    deliveryAddress: {
-      company: '',
-      chamberOfCommerce: '',
-      street: 'Avenue des Champs-Élysées',
-      number: '42',
-      city: 'Paris',
-      postalCode: '75008',
-      country: 'N',
-    },
-    billingAddress: {
-      company: '',
-      chamberOfCommerce: '',
-      street: '',
-      number: '',
-      city: '',
-      postalCode: '',
-      country: 'N',
+  parameters: {
+    checkout: {
+      initialData: {
+        customer: {
+          firstName: 'Arsene',
+          lastName: 'Lupin',
+          email: 'arsene@lupin.fr',
+          phone: '',
+        },
+        deliveryAddress: {
+          company: '',
+          chamberOfCommerce: '',
+          street: 'Avenue des Champs-Élysées',
+          number: '42',
+          city: 'Paris',
+          postalCode: '75008',
+          country: 'N',
+        },
+        billingAddress: {
+          company: '',
+          chamberOfCommerce: '',
+          street: '',
+          number: '',
+          city: '',
+          postalCode: '',
+          country: 'N',
+        },
+      },
     },
   },
 

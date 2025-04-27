@@ -7,51 +7,48 @@ import {API_ROOT} from '@/constants.js';
 import {CartProduct} from '@/shop/data';
 
 import Payment from './Payment';
+import {withCheckout} from './storybook';
 
 export default {
   title: 'Shop / Checkout / Payment',
   component: Payment,
-  decorators: [withRouter],
-  args: {
-    cartId: 10,
-    cartProducts: [
-      new CartProduct({
-        id: 456,
-        product: {
-          id: 42,
-          name: 'Polish set',
-          image: 'https://loremflickr.com/100/100/cat',
-          model_name: 'XYZ-001',
-          price: 9.99,
-        },
-        amount: 1,
-      }),
-    ],
-    onChangeAmount: fn(),
-    confirmPath: '/winkel/checkout/confirm',
-    errors: {},
-    checkoutDetails: {
-      customer: {
-        firstName: 'Arsene',
-        lastName: 'Lupin',
-        email: 'arsene@lupin.fr',
-        phone: '',
-      },
-      deliveryMethod: 'mail',
-      deliveryAddress: {
-        company: '',
-        chamberOfCommerce: '',
-        street: 'Avenue des Champs-Élysées',
-        number: '42',
-        city: 'Paris',
-        postalCode: '75008',
-        country: 'N',
-      },
-      billingAddress: null,
-    },
-  },
-  argTypes: {},
+  decorators: [withRouter, withCheckout],
   parameters: {
+    checkout: {
+      cartId: 10,
+      cartProducts: [
+        new CartProduct({
+          id: 456,
+          product: {
+            id: 42,
+            name: 'Polish set',
+            image: 'https://loremflickr.com/100/100/cat',
+            model_name: 'XYZ-001',
+            price: 9.99,
+          },
+          amount: 1,
+        }),
+      ],
+      onChangeProductAmount: fn(),
+      initialData: {
+        customer: {
+          firstName: 'Arsene',
+          lastName: 'Lupin',
+          email: 'arsene@lupin.fr',
+          phone: '',
+        },
+        deliveryMethod: 'mail',
+        deliveryAddress: {
+          company: '',
+          chamberOfCommerce: '',
+          street: 'Avenue des Champs-Élysées',
+          number: '42',
+          city: 'Paris',
+          postalCode: '75008',
+          country: 'N',
+        },
+      },
+    },
     reactRouter: reactRouterParameters({
       routing: {path: '/winkel/checkout/payment'},
     }),
