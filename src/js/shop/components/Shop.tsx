@@ -1,16 +1,23 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {createPortal} from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
+import {RouterProvider, createBrowserRouter, createMemoryRouter} from 'react-router-dom';
 import useAsync from 'react-use/esm/useAsync';
 import {ImmerReducer, useImmerReducer} from 'use-immer';
 
-import type {CountryOption} from '@/components/forms/CountryField';
-import {CartData, CartProductData, getCartDetails} from '@/data/shop/cart';
+import {type CartData, type CartProductData, getCartDetails} from '@/data/shop/cart';
+import {CartProduct} from '@/shop/data';
 
-import {CartProduct} from '../data';
 import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
-import {Checkout} from './Checkout';
+import {CheckoutProvider} from './Checkout';
+import type {CheckoutProviderProps} from './Checkout/CheckoutProvider';
+import checkoutRoutes from './Checkout/routes';
+import type {
+  CheckoutValidationErrors,
+  ConfirmOrderData,
+  OrderDetails,
+  UserData,
+} from './Checkout/types';
 
 export interface CatalogueProduct {
   id: number;
@@ -80,42 +87,17 @@ export interface ShopProps {
   addProductNode: HTMLFormElement | null;
   cartDetailNode: HTMLDivElement | null;
   checkoutNode: HTMLDivElement | null;
-  user: {
-    username?: string;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
-    phone?: string;
-    profile?: {
-      street?: string;
-      number?: string;
-      postal?: string;
-      city?: string;
-      country?: CountryOption['value'] | 'F';
-    };
-  };
+  user: UserData | null;
   indexPath: string;
   cartDetailPath: string;
   checkoutPath: string;
   confirmPath: string;
   onAddToCart: (cartId: number, productId: number, amount?: number) => Promise<CartProductData>;
   onChangeAmount: (cartProductId: number, amount: number) => Promise<CartProductData | null>;
-  // TODO: properly define this
-  checkoutData?: null | {
-    delivery_address: unknown;
-    invoice_address: unknown;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    payment_method: string;
-    payment_method_options: object;
-  };
-  orderDetails?: {
-    number: string;
-    message: string;
-  };
-  validationErrors: unknown;
+  checkoutData?: ConfirmOrderData | null;
+  orderDetails: OrderDetails;
+  validationErrors: CheckoutValidationErrors | null;
+  checkoutUseMemoryRouter?: boolean;
 }
 
 /**
@@ -140,6 +122,7 @@ const Shop: React.FC<ShopProps> = ({
   checkoutData,
   orderDetails,
   validationErrors,
+  checkoutUseMemoryRouter = false,
 }) => {
   const [{cart}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
     cart: null,
@@ -163,6 +146,30 @@ const Shop: React.FC<ShopProps> = ({
     dispatch,
   );
 
+  const onChangeProductAmount = useCallback(
+    async (cartProductId: number, newAmount: number) => {
+      const cartProductData = await onChangeAmount(cartProductId, newAmount);
+      dispatch({
+        type: 'CART_PRODUCT_AMOUNT_UPDATED',
+        payload: {
+          id: cartProductId,
+          cartProductData,
+        },
+      });
+    },
+    [dispatch, onChangeAmount],
+  );
+
+  const checkoutRouter = useMemo(() => {
+    const createRouter = checkoutUseMemoryRouter ? createMemoryRouter : createBrowserRouter;
+    const extra = checkoutUseMemoryRouter ? {initialEntries: [checkoutPath]} : {};
+    return createRouter(checkoutRoutes, {
+      basename: checkoutPath,
+      future: {v7_relativeSplatPath: true},
+      ...extra,
+    });
+  }, [checkoutUseMemoryRouter, checkoutPath]);
+
   if (error) throw error;
   if (loading || cart === null) return null;
 
@@ -174,16 +181,9 @@ const Shop: React.FC<ShopProps> = ({
             cartDetailPath={cartDetailPath}
             checkoutPath={checkoutPath}
             cartProducts={cart.products}
-            onRemoveProduct={async (cartProductId: number) => {
-              const cartProductData = await onChangeAmount(cartProductId, 0);
-              dispatch({
-                type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                payload: {
-                  id: cartProductId,
-                  cartProductData,
-                },
-              });
-            }}
+            onRemoveProduct={async (cartProductId: number) =>
+              await onChangeProductAmount(cartProductId, 0)
+            }
           />,
           topbarCartNode,
         )}
@@ -203,14 +203,7 @@ const Shop: React.FC<ShopProps> = ({
               // you can only change the amount if it's already in your cart, so we are
               // guaranteed to have a hit
               const cartProductId = cart.products.find(cp => cp.product.id === id)!.id;
-              const cartProductData = await onChangeAmount(cartProductId, newAmount);
-              dispatch({
-                type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                payload: {
-                  id: cartProductId,
-                  cartProductData,
-                },
-              });
+              await onChangeProductAmount(cartProductId, newAmount);
             }}
           />,
           controlsNode,
@@ -223,47 +216,77 @@ const Shop: React.FC<ShopProps> = ({
             checkoutPath={checkoutPath}
             indexPath={indexPath}
             cartProducts={cart.products}
-            onChangeAmount={async (cartProductId: number, newAmount: number) => {
-              const cartProductData = await onChangeAmount(cartProductId, newAmount);
-              dispatch({
-                type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                payload: {
-                  id: cartProductId,
-                  cartProductData,
-                },
-              });
-            }}
+            onChangeAmount={onChangeProductAmount}
           />,
           cartDetailNode,
         )}
       {checkoutNode &&
         createPortal(
-          <Router basename={checkoutPath}>
-            <Checkout
-              cartId={cart.id}
-              user={user}
-              cartProducts={cart.products}
-              onChangeAmount={async (cartProductId: number, newAmount: number) => {
-                const cartProductData = await onChangeAmount(cartProductId, newAmount);
-                dispatch({
-                  type: 'CART_PRODUCT_AMOUNT_UPDATED',
-                  payload: {
-                    id: cartProductId,
-                    cartProductData,
-                  },
-                });
-              }}
-              confirmPath={confirmPath}
-              checkoutData={checkoutData}
-              // @ts-expect-error
-              orderDetails={orderDetails}
-              validationErrors={validationErrors}
-            />
-          </Router>,
+          <CheckoutProvider
+            user={user}
+            cartId={cart.id}
+            cartProducts={cart.products}
+            onChangeProductAmount={onChangeProductAmount}
+            initialData={propsToInitialData(user, checkoutData)}
+            confirmPath={confirmPath}
+            orderDetails={orderDetails}
+            validationErrors={validationErrors}
+          >
+            <RouterProvider router={checkoutRouter} future={{v7_startTransition: true}} />
+          </CheckoutProvider>,
           checkoutNode,
         )}
     </>
   );
+};
+
+// TODO: move to checkout?
+const propsToInitialData = (
+  user: UserData | null,
+  checkoutData: ShopProps['checkoutData'],
+): CheckoutProviderProps['initialData'] => {
+  const deliveryMethod = checkoutData?.delivery_method || 'mail';
+  const base: Omit<
+    CheckoutProviderProps['initialData'],
+    'deliveryMethod' | 'deliveryAddress' | 'billingAddress'
+  > = {
+    customer: {
+      firstName: user?.first_name ?? '',
+      lastName: user?.last_name ?? '',
+      email: user?.email ?? '',
+      phone: user?.phone ?? '',
+    },
+    paymentMethod: checkoutData?.payment_method ?? 0,
+    paymentMethodOptions: checkoutData?.payment_method_options ?? null,
+  };
+  if (deliveryMethod === 'pickup') {
+    return {...base, deliveryMethod, deliveryAddress: null, billingAddress: null};
+  }
+
+  // France is not supported
+  const userCountry = user?.profile?.country === 'F' ? 'N' : user?.profile?.country || 'N';
+
+  const deliveryAddress = checkoutData?.delivery_address
+    ? {
+        street: checkoutData?.delivery_address?.street,
+        number: checkoutData?.delivery_address?.number,
+        city: checkoutData?.delivery_address?.city,
+        postalCode: checkoutData?.delivery_address?.postal_code,
+        country: checkoutData?.delivery_address?.country,
+        company: checkoutData?.delivery_address?.company,
+        chamberOfCommerce: checkoutData?.delivery_address?.chamber_of_commerce,
+      }
+    : {
+        street: user?.profile?.street ?? '',
+        number: user?.profile?.number ?? '',
+        city: user?.profile?.city ?? '',
+        postalCode: user?.profile?.postal ?? '',
+        country: userCountry,
+        company: '',
+        chamberOfCommerce: '',
+      };
+
+  return {...base, deliveryMethod, deliveryAddress, billingAddress: null};
 };
 
 const useAddProductFormSubmit = (

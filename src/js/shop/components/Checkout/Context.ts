@@ -1,22 +1,61 @@
-import React from 'react';
+import {FormikErrors} from 'formik';
+import React, {useContext} from 'react';
 
-import {DeliveryDetails} from './types';
+import {CartProduct} from '@/shop/data';
 
-export type CheckoutContextType = {
-  [K in keyof DeliveryDetails]: DeliveryDetails[K] | null;
-} & {
-  // TODO -> recursive structure where every node can be an error list from DRF
-  validationErrors: unknown;
-};
+import type {
+  CheckoutValidationErrors,
+  DeliveryDetails,
+  OrderDetails,
+  PaymentDetails,
+} from './types';
+
+interface CheckoutContextType {
+  isAuthenticated: boolean;
+  cartId: number;
+  cartProducts: CartProduct[];
+  onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
+  deliveryDetails: DeliveryDetails & PaymentDetails;
+  confirmPath: string;
+  setDeliveryDetails: (values: DeliveryDetails) => void;
+  orderDetails: OrderDetails;
+  validationErrors: CheckoutValidationErrors | null;
+  deliveryDetailsErrors: FormikErrors<DeliveryDetails>;
+  hasDeliveryDetailsErrors: boolean;
+  paymentErrors: FormikErrors<PaymentDetails>;
+  hasPaymentErrors: boolean;
+}
 
 const CheckoutContext = React.createContext<CheckoutContextType>({
+  isAuthenticated: false,
+  cartId: 0,
+  cartProducts: [],
+  onChangeProductAmount: async () => {},
+  deliveryDetails: {
+    customer: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+    },
+    deliveryMethod: 'pickup',
+    deliveryAddress: null,
+    billingAddress: null,
+    paymentMethod: 0,
+    paymentMethodOptions: null,
+  },
+  confirmPath: '/checkout/confirm/',
+  setDeliveryDetails: () => {},
+  orderDetails: null,
   validationErrors: null,
-  customer: null,
-  deliveryMethod: null,
-  deliveryAddress: null,
-  billingAddress: null,
+  deliveryDetailsErrors: {},
+  hasDeliveryDetailsErrors: false,
+  paymentErrors: {},
+  hasPaymentErrors: false,
 });
 
 CheckoutContext.displayName = 'CheckoutContext';
 
-export {CheckoutContext};
+const useCheckoutContext = () => useContext(CheckoutContext);
+
+export {CheckoutContext, useCheckoutContext};

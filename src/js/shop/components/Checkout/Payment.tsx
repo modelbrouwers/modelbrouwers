@@ -2,15 +2,16 @@ import {Form, Formik, FormikConfig} from 'formik';
 import {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 
+import ErrorBoundary from '@/components/ErrorBoundary.js';
 import {getCsrfTokenValue} from '@/data/api-client';
-import type {CartProduct} from '@/shop/data';
+import {PaymentCartOverview} from '@/shop/components/Cart';
 
-import {PaymentCartOverview} from '../Cart';
-import {ErrorList} from './FormFields';
+import {useCheckoutContext} from './Context';
+import ErrorList from './ErrorList';
 import SelectPaymentMethod from './SelectPaymentMethod';
-import type {Address, DeliveryDetails} from './types';
+import type {Address, AddressData, ConfirmOrderData} from './types';
 
-const addressToSerializerShape = (address: Address | null) => {
+const addressToSerializerShape = (address: Address | null): AddressData | null => {
   if (!address) return null;
   return {
     street: address.street,
@@ -32,43 +33,33 @@ interface FormikValues {
   paymentMethodOptions: {} | IDealOptions;
 }
 
-export interface PaymentProps {
-  cartId: number;
-  cartProducts: CartProduct[];
-  onChangeAmount: (cartProductId: number, newAmount: number) => Promise<void>;
-  confirmPath: string;
-  checkoutDetails: DeliveryDetails;
-  // TODO
-  errors?: {
-    cart?: any;
-  };
-}
+const Payment: React.FC = () => {
+  const {
+    cartId,
+    cartProducts,
+    onChangeProductAmount,
+    confirmPath,
+    deliveryDetails,
+    validationErrors,
+  } = useCheckoutContext();
 
-const Payment: React.FC<PaymentProps> = ({
-  cartId,
-  cartProducts,
-  onChangeAmount,
-  confirmPath,
-  errors,
-  checkoutDetails,
-}) => {
   const submitFormRef = useRef<HTMLFormElement>(null);
 
   const onFormikSubmit: FormikConfig<FormikValues>['onSubmit'] = ({
     paymentMethod,
     paymentMethodOptions,
   }) => {
-    const checkoutData = {
+    const checkoutData: ConfirmOrderData = {
       cart: cartId,
       payment_method: parseInt(paymentMethod, 10),
       payment_method_options: paymentMethodOptions,
-      first_name: checkoutDetails.customer.firstName,
-      last_name: checkoutDetails.customer.lastName,
-      email: checkoutDetails.customer.email,
-      phone: checkoutDetails.customer.phone,
-      delivery_method: checkoutDetails.deliveryMethod,
-      delivery_address: addressToSerializerShape(checkoutDetails.deliveryAddress),
-      invoice_address: addressToSerializerShape(checkoutDetails.billingAddress),
+      first_name: deliveryDetails.customer.firstName,
+      last_name: deliveryDetails.customer.lastName,
+      email: deliveryDetails.customer.email,
+      phone: deliveryDetails.customer.phone,
+      delivery_method: deliveryDetails.deliveryMethod,
+      delivery_address: addressToSerializerShape(deliveryDetails.deliveryAddress),
+      invoice_address: addressToSerializerShape(deliveryDetails.billingAddress),
     };
 
     const form = submitFormRef.current;
@@ -94,16 +85,18 @@ const Payment: React.FC<PaymentProps> = ({
         validate={undefined}
       >
         <Form>
-          <SelectPaymentMethod
-            label={
-              <h3 className="checkout__title">
-                <FormattedMessage
-                  description="Checkout: select payment method"
-                  defaultMessage="Select your payment method"
-                />
-              </h3>
-            }
-          />
+          <ErrorBoundary>
+            <SelectPaymentMethod
+              label={
+                <h3 className="checkout__title">
+                  <FormattedMessage
+                    description="Checkout: select payment method"
+                    defaultMessage="Select your payment method"
+                  />
+                </h3>
+              }
+            />
+          </ErrorBoundary>
 
           <h3 className="checkout__title">
             <FormattedMessage
@@ -112,8 +105,8 @@ const Payment: React.FC<PaymentProps> = ({
             />
           </h3>
 
-          <PaymentCartOverview cartProducts={cartProducts} onChangeAmount={onChangeAmount} />
-          <ErrorList errors={errors?.cart} />
+          <PaymentCartOverview cartProducts={cartProducts} onChangeAmount={onChangeProductAmount} />
+          <ErrorList errors={validationErrors?.cart} />
 
           <div className="submit-wrapper">
             <button type="submit" className="btn bg-main-orange" disabled={!hasProducts}>

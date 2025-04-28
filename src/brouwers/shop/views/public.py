@@ -177,7 +177,7 @@ class CheckoutMixin:
                 context={"request": self.request},
             ).data
         else:
-            context["user_profile_data"] = {}
+            context["user_profile_data"] = None
 
         if order_id := self.request.GET.get("orderId"):
             order_ids = self.request.session.get(ORDERS_SESSION_KEY, [])

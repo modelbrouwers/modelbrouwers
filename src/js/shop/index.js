@@ -1,7 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
-import {BrowserRouter as Router} from 'react-router-dom';
 
 import {setCsrfTokenValue} from '@/data/api-client';
 

@@ -1,4 +1,4 @@
-import {CountryOption} from '@/components/forms/CountryField';
+import type {CountryOption} from '@/components/forms/CountryField';
 
 export interface Customer {
   firstName: string;
@@ -32,3 +32,109 @@ interface MailDelivery {
 export type DeliveryDetails = (PickupDelivery | MailDelivery) & {
   customer: Customer;
 };
+
+export interface PaymentDetails {
+  paymentMethod: number;
+  paymentMethodOptions: null | Record<string, any>;
+}
+
+/**
+ * Matches the backend serializer exposing the user details.
+ *
+ * @see `brouwers.users.api.serializers.UserWithProfileSerializer`
+ */
+export interface UserData {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  profile: {
+    street: string;
+    number: string;
+    postal: string;
+    city: string;
+    country: CountryOption['value'] | 'F' | '';
+  };
+}
+
+/**
+ * Matches the backend serializer processing the address data.
+ *
+ * @see `brouwers.shop.serializers.AddressSerializer`
+ */
+export interface AddressData {
+  street: string;
+  number: string;
+  postal_code: string;
+  city: string;
+  country: Address['country'];
+  company: string;
+  chamber_of_commerce: string;
+}
+
+/**
+ * Matches the backend serializer processing the checkout data.
+ *
+ * @see `brouwers.shop.serializers.ConfirmOrderSerializer`
+ */
+export interface ConfirmOrderData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string; // may be empty
+  delivery_method: DeliveryDetails['deliveryMethod'];
+  /**
+   * Delivery address is `null` when delivery method pickup is chosen.
+   */
+  delivery_address: null | AddressData;
+  /**
+   * Invoice address is `null` when delivery method pickup is chosen, or it's the same
+   * as the delivery address.
+   */
+  invoice_address: null | AddressData;
+  /**
+   * Primary key of the cart being checkout out.
+   */
+  cart: number;
+  /**
+   * Primary key of the selected payment method.
+   */
+  payment_method: number;
+  /**
+   * The shape of the payment options is determined by the selected payment method.
+   */
+  payment_method_options: null | Record<string, any>;
+}
+
+export type OrderDetails = null | {
+  number: string;
+  message: string;
+};
+
+export type AddressValidationErrors = Partial<
+  Record<
+    'street' | 'number' | 'postal_code' | 'city' | 'country' | 'company' | 'chamber_of_commerce',
+    string[]
+  >
+>;
+
+type RecursiveError = string[] | {[K: string]: RecursiveError};
+
+/**
+ * Matches the backend serializer processing the checkout data.
+ *
+ * @see `brouwers.shop.serializers.ConfirmOrderSerializer`
+ */
+export interface CheckoutValidationErrors {
+  first_name?: string[];
+  last_name?: string[];
+  email?: string[];
+  phone?: string[];
+  delivery_method?: string[];
+  delivery_address?: string[] | AddressValidationErrors;
+  invoice_address?: string[] | AddressValidationErrors;
+  cart?: string[];
+  payment_method?: string[];
+  payment_method_options?: RecursiveError;
+}

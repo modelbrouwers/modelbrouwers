@@ -195,8 +195,9 @@ export default {
         );
       },
     ),
-    user: {}, // anonymous user
+    user: null, // anonymous user
     confirmPath: '/winkel/checkout/confirm/',
+    checkoutUseMemoryRouter: true,
   },
   argTypes: {
     topbarCartNode: {table: {disable: true}},
@@ -205,7 +206,34 @@ export default {
   render: args => <ShopIndex {...args} />,
   parameters: {
     msw: {
-      handlers: [http.get(`${API_ROOT}api/v1/shop/cart/`, () => HttpResponse.json(MOCK_CART_DATA))],
+      handlers: [
+        http.get(`${API_ROOT}api/v1/shop/cart/`, () => HttpResponse.json(MOCK_CART_DATA)),
+        http.get(`${API_ROOT}api/v1/shop/shipping-costs/`, () => {
+          return HttpResponse.json({
+            price: 11.9,
+            weight: '320 g',
+          });
+        }),
+        http.get(`${API_ROOT}api/v1/shop/paymentmethod/`, () => {
+          return HttpResponse.json([
+            {id: 1, name: 'Payment method 1', logo: '', order: 2},
+            {id: 2, name: 'Payment method 2', logo: '', order: 3},
+            {
+              id: 3,
+              name: 'iDeal',
+              logo: '/assets/ideal-logo-1024.png',
+              order: 1,
+            },
+          ]);
+        }),
+        http.get(`${API_ROOT}api/v1/shop/ideal_banks/`, () => {
+          return HttpResponse.json([
+            {id: 1, name: 'Bank 1'},
+            {id: 2, name: 'Bank 2'},
+            {id: 3, name: 'Bank 3'},
+          ]);
+        }),
+      ],
     },
   },
 } satisfies Meta<typeof Shop>;
