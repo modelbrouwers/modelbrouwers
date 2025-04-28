@@ -1,6 +1,6 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {createPortal} from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
+import {RouterProvider, createBrowserRouter, createMemoryRouter} from 'react-router-dom';
 import useAsync from 'react-use/esm/useAsync';
 import {ImmerReducer, useImmerReducer} from 'use-immer';
 
@@ -9,8 +9,9 @@ import {CartProduct} from '@/shop/data';
 
 import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
-import {Checkout, CheckoutProvider} from './Checkout';
+import {CheckoutProvider} from './Checkout';
 import type {CheckoutProviderProps} from './Checkout/CheckoutProvider';
+import checkoutRoutes from './Checkout/routes';
 import type {
   CheckoutValidationErrors,
   ConfirmOrderData,
@@ -96,6 +97,7 @@ export interface ShopProps {
   checkoutData?: ConfirmOrderData | null;
   orderDetails: OrderDetails;
   validationErrors: CheckoutValidationErrors | null;
+  checkoutUseMemoryRouter?: boolean;
 }
 
 /**
@@ -120,6 +122,7 @@ const Shop: React.FC<ShopProps> = ({
   checkoutData,
   orderDetails,
   validationErrors,
+  checkoutUseMemoryRouter = false,
 }) => {
   const [{cart}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
     cart: null,
@@ -156,6 +159,16 @@ const Shop: React.FC<ShopProps> = ({
     },
     [dispatch, onChangeAmount],
   );
+
+  const checkoutRouter = useMemo(() => {
+    const createRouter = checkoutUseMemoryRouter ? createMemoryRouter : createBrowserRouter;
+    const extra = checkoutUseMemoryRouter ? {initialEntries: [checkoutPath]} : {};
+    return createRouter(checkoutRoutes, {
+      basename: checkoutPath,
+      future: {v7_relativeSplatPath: true},
+      ...extra,
+    });
+  }, [checkoutUseMemoryRouter, checkoutPath]);
 
   if (error) throw error;
   if (loading || cart === null) return null;
@@ -219,15 +232,7 @@ const Shop: React.FC<ShopProps> = ({
             orderDetails={orderDetails}
             validationErrors={validationErrors}
           >
-            <Router
-              basename={checkoutPath}
-              future={{
-                v7_relativeSplatPath: true,
-                v7_startTransition: true,
-              }}
-            >
-              <Checkout />
-            </Router>
+            <RouterProvider router={checkoutRouter} future={{v7_startTransition: true}} />
           </CheckoutProvider>,
           checkoutNode,
         )}

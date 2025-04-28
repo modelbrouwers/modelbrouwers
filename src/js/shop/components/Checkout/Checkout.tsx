@@ -1,14 +1,8 @@
 import {FormattedMessage, useIntl} from 'react-intl';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {Outlet, useLocation} from 'react-router-dom';
 
-import Account from './Account';
-import CheckoutIndex from './CheckoutIndex';
-import Confirmation from './Confirmation';
 import {useCheckoutContext} from './Context';
-import Delivery from './Delivery';
 import NavLink from './NavLink';
-import NavigateToErrors from './NavigateToErrors';
-import Payment from './Payment';
 import {validateAddressDetails} from './validation';
 
 /**
@@ -35,17 +29,7 @@ const Checkout: React.FC = () => {
       </h2>
 
       <div className="nav-wrapper__content">
-        <Routes>
-          <Route path="" Component={CheckoutIndex} />
-          <Route path="account" Component={Account} />
-          <Route path="address" Component={Delivery} />
-          <Route path="payment" Component={Payment} />
-          {/* This is a backend URL - if there are validation errors, it renders
-              the response at this URL. */}
-          <Route path="confirm" Component={NavigateToErrors} />
-          {/* Success page */}
-          <Route path="confirmation" Component={Confirmation} />
-        </Routes>
+        <Outlet />
       </div>
 
       <nav className="nav-wrapper__nav">
