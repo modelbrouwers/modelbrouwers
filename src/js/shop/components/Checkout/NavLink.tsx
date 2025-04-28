@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import {NavLink as RRNavLink} from 'react-router-dom';
+import {NavLink as RRNavLink} from 'react-router';
 
 import FAIcon from '@/components/FAIcon.js';
 

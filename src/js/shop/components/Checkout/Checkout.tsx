@@ -1,5 +1,5 @@
 import {FormattedMessage, useIntl} from 'react-intl';
-import {Outlet, useLocation} from 'react-router-dom';
+import {Outlet, useLocation} from 'react-router';
 
 import {useCheckoutContext} from './Context';
 import NavLink from './NavLink';

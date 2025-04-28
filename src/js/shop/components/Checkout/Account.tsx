@@ -1,5 +1,5 @@
 import {FormattedMessage} from 'react-intl';
-import {Link, Navigate, useHref} from 'react-router-dom';
+import {Link, Navigate, useHref} from 'react-router';
 
 import {useCheckoutContext} from './Context';
 
