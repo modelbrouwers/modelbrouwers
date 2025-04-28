@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useMemo} from 'react';
 import {createPortal} from 'react-dom';
-import {RouterProvider, createBrowserRouter, createMemoryRouter} from 'react-router-dom';
+import {createBrowserRouter, createMemoryRouter} from 'react-router';
+import {RouterProvider} from 'react-router/dom';
 import useAsync from 'react-use/esm/useAsync';
 import {ImmerReducer, useImmerReducer} from 'use-immer';
 
@@ -165,7 +166,6 @@ const Shop: React.FC<ShopProps> = ({
     const extra = checkoutUseMemoryRouter ? {initialEntries: [checkoutPath]} : {};
     return createRouter(checkoutRoutes, {
       basename: checkoutPath,
-      future: {v7_relativeSplatPath: true},
       ...extra,
     });
   }, [checkoutUseMemoryRouter, checkoutPath]);
@@ -232,7 +232,7 @@ const Shop: React.FC<ShopProps> = ({
             orderDetails={orderDetails}
             validationErrors={validationErrors}
           >
-            <RouterProvider router={checkoutRouter} future={{v7_startTransition: true}} />
+            <RouterProvider router={checkoutRouter} />
           </CheckoutProvider>,
           checkoutNode,
         )}

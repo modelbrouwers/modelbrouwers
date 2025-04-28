@@ -1,6 +1,6 @@
 import {Form, Formik, FormikErrors} from 'formik';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router';
 
 import ErrorBoundary from '@/components/ErrorBoundary.js';
 import Checkbox from '@/components/forms/Checkbox';
