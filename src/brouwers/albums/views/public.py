@@ -5,6 +5,7 @@ import os
 import zipfile
 
 from django.conf import settings
+from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.db.models import F, Q
 from django.views.generic import DetailView, ListView
 from django.views.generic.detail import SingleObjectMixin
@@ -14,7 +15,7 @@ from django_sendfile import sendfile
 # from brouwers.awards.models import Nomination
 from brouwers.utils.views import LoginRequiredMixin
 
-from ..models import Album, AlbumDownload, Photo
+from ..models import ALBUM_SEARCH_VECTOR, Album, AlbumDownload, Photo
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +51,30 @@ class IndexView(ListView):
             .order_by("-uploaded")[:20]
         )
         return super().get_context_data(**kwargs)
+
+
+class SearchView(ListView):
+    queryset = Album.objects.public().select_related("user", "cover")
+    template_name = "albums/album/list.html"
+    context_object_name = "albums"
+    paginate_by = 16
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get("q")
+        if not query:
+            return qs.none()
+
+        rank = SearchRank(
+            vector=ALBUM_SEARCH_VECTOR, query=SearchQuery(query, config="dutch")
+        )
+        qs = (
+            qs.annotate(rank=rank)
+            .filter(Q(rank__gte=0.1) | Q(user__username__icontains=query))
+            .order_by("-rank")
+        )
+
+        return qs
 
 
 class AlbumListView(ListView):

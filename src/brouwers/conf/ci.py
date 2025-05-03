@@ -9,7 +9,6 @@ os.environ.setdefault("DB_PASSWORD", "")
 
 from .base import *  # noqa isort:skip
 
-# Secrets
 DATABASES["mysql"] = {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}
 DATABASES["legacy_shop"] = {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}
 

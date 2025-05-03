@@ -80,6 +80,34 @@ class PublicViewTests(WebTest):
         detail = self.app.get(url, user=self.user)
         self.assertEqual(detail.status_code, 200)
 
+    def test_search_view(self):
+        url = reverse("albums:search")
+        album1 = AlbumFactory.create(user__username="John", title="VW Beetle")
+        album2 = AlbumFactory.create(user__username="Jonas", title="Brouwverslagen")
+
+        with self.subTest("no query param"):
+            empty_response = self.app.get(url)
+
+            self.assertQuerysetEqual(empty_response.context["albums"], [])
+
+        with self.subTest("search username"):
+            search_response = self.app.get(url, {"q": "John"})
+
+            self.assertQuerysetEqual(
+                search_response.context["albums"],
+                [album1.pk],
+                transform=lambda a: a.pk,
+            )
+
+        with self.subTest("fuzzy search"):
+            search_response = self.app.get(url, {"q": "Brouwverslag"})  # stemming!
+
+            self.assertQuerysetEqual(
+                search_response.context["albums"],
+                [album2.pk],
+                transform=lambda a: a.pk,
+            )
+
 
 class DownloadTests(LoginRequiredMixin, WebTest):
     def test_zip_download(self):
