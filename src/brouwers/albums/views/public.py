@@ -55,7 +55,7 @@ class IndexView(ListView):
 
 class SearchView(ListView):
     queryset = Album.objects.public().select_related("user", "cover")
-    template_name = "albums/album/list.html"
+    template_name = "albums/album/search_results.html"
     context_object_name = "albums"
     paginate_by = 16
 

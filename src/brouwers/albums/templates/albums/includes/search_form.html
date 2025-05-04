@@ -1,0 +1,6 @@
+{% load i18n %}
+<form action="{% url 'albums:search' %}" method="get" class="search-form">
+    <label for="search-input" class="sr-only">{% trans "Search terms" %}</label>
+    <input id="search-input" class="form-control" name="q" placeholder="{% trans 'Topic or username' %}" value="{{ request.GET.q }}" >
+    <button type="submit" class="btn button button--orange">{% trans "Search" %}</button>
+</form>

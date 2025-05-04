@@ -6,8 +6,10 @@
 
 <section>
     <h2>
-        {% trans "All public albums" %}
-        <i class="pull-right fa fa-folder-open-o"></i>
+        {% blocktrans with query=request.GET.q trimmed %}
+            Search results for "{{ query }}"
+        {% endblocktrans %}
+        <i class="pull-right fa fa-search"></i>
     </h2>
     <div class="row">
         {% for album in albums %}
