@@ -4,17 +4,17 @@ furl
 geoip2
 html2text
 lxml
+lxml-html-clean
 mail-cleaner
 mysqlclient
 openpyxl
 Pillow  # handle images
-psycopg2  # database driver
+psycopg  # database driver
 pydantic
 python-dateutil
 python-decouple  # processing of envvar configs
 python-dotenv  # environment variables for secrets
 pylibmc
-pytz  # handle timezones
 requests
 requests-oauthlib
 WeasyPrint

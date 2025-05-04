@@ -503,7 +503,7 @@ CORS_ALLOW_CREDENTIALS = config("CORS_ENABLED", default=False)
 #
 # DJANGO-BLEACH
 #
-BLEACH_ALLOWED_TAGS = [
+BLEACH_ALLOWED_TAGS = {
     "a",
     "abbr",
     "acronym",
@@ -522,7 +522,7 @@ BLEACH_ALLOWED_TAGS = [
     "br",
     "img",
     "hr",
-]
+}
 BLEACH_ALLOWED_ATTRIBUTES = {
     "a": ["href", "title", "rel"],
     "abbr": ["title"],
