@@ -1,6 +1,7 @@
 import json
 
 from django import template
+from django.core.paginator import Page
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.html import _json_script_escapes, format_html
 from django.utils.safestring import mark_safe
@@ -58,3 +59,9 @@ def json_ld_script(value):
         '<script type="application/ld+json">{}</script>',
         mark_safe(json_str),
     )
+
+
+@register.simple_tag
+def elided_page_range(page: Page):
+    paginator = page.paginator
+    return paginator.get_elided_page_range(number=page.number)

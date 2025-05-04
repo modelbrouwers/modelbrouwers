@@ -1,4 +1,4 @@
-{% if is_paginated %}{% load i18n %}
+{% if is_paginated %}{% load i18n brouwers %}
 <nav class="text-right">
   <ul class="pagination">
     <li class="{{ page_obj.has_previous|yesno:',disabled' }}">
@@ -11,9 +11,16 @@
         {% endif %}
     </li>
 
-    {% for page in paginator.page_range %}
+    {% elided_page_range page_obj as page_range %}
+    {% for page in page_range %}
         <li class="{% if page == page_obj.number %}active{% endif %}">
-            <a href="{% querystring page=page %}">{{ page }}</a>
+
+            {% if page == paginator.ELLIPSIS %}
+                <a href="#">{{ page }}</a>
+            {% else %}
+                <a href="{% querystring page=page %}">{{ page }}</a>
+            {% endif %}
+
         </li>
     {% endfor %}
 
