@@ -12,10 +12,14 @@ os.environ.setdefault("CACHE_PREFIX", "production")
 
 from .base import *  # noqa isort:skip
 
-
-# The file storage engine to use when collecting static files with the
-# collectstatic management command.
-STATICFILES_STORAGE = "brouwers.staticfiles_storage.ManifestStaticFilesStorage"
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "brouwers.staticfiles_storage.ManifestStaticFilesStorage",
+    },
+}
 
 #
 # LOGGING
