@@ -80,7 +80,7 @@ class RouterView(View):
 
     @staticmethod
     def try_candidates(
-        callback: Callable[[ViewFunc], Any]
+        callback: Callable[[ViewFunc], Any],
     ) -> Tuple[Callable, HttpResponseBase]:
         candidates = (
             ProductDetailView.as_view(),
