@@ -16,4 +16,5 @@ from .public import (
     AlbumListView,
     IndexView,
     PhotoDetailView,
+    SearchView,
 )

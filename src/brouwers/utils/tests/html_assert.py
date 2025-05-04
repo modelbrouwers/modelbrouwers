@@ -5,7 +5,7 @@ HTML assertion utilities.
 
 Taken from https://github.com/open-formulieren/open-forms.git
 """
-from lxml.html.clean import Cleaner
+from lxml_html_clean import Cleaner
 
 
 def strip_all_attributes(document: str):

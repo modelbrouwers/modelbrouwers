@@ -17,12 +17,14 @@ from .views import (
     PhotoRestoreView,
     PhotoUpdateView,
     PreferencesUpdateView,
+    SearchView,
     UploadView,
 )
 
 app_name = "albums"
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
+    path("search/", SearchView.as_view(), name="search"),
     path("new/", AlbumCreateView.as_view(), name="create"),
     path("list/", RedirectView.as_view(pattern_name="albums:all", permanent=True)),
     path("all/", AlbumListView.as_view(), name="all"),

@@ -3,6 +3,8 @@ import warnings
 from datetime import datetime, timezone
 
 from django.conf import settings
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVector
 from django.core import validators
 from django.core.cache import cache
 from django.db import models
@@ -42,6 +44,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+ALBUM_SEARCH_VECTOR = SearchVector("title", weight="A", config="dutch") + SearchVector(
+    "description", weight="C", config="dutch"
+)
 
 
 class Album(models.Model):
@@ -120,6 +127,9 @@ class Album(models.Model):
         # order_with_respect_to = "user"
         ordering = ("order", "title")
         unique_together = (("user", "title"),)
+        indexes = [
+            GinIndex(ALBUM_SEARCH_VECTOR, name="album_search"),
+        ]
         permissions = (
             ("edit_album", _("Can edit/remove album")),
             ("see_all_albums", _("Can see all albums")),

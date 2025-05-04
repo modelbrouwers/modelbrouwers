@@ -1,9 +1,9 @@
-{% if is_paginated %}{% load i18n %}
+{% if is_paginated %}{% load i18n brouwers %}
 <nav class="text-right">
   <ul class="pagination">
     <li class="{{ page_obj.has_previous|yesno:',disabled' }}">
         {% if page_obj.has_previous %}
-          <a href="?page={{ page_obj.previous_page_number }}" aria-label="{% trans "Previous" %}">
+          <a href="{% querystring page=page_obj.previous_page_number %}" aria-label="{% trans "Previous" %}">
             <span aria-hidden="true">&laquo;</span>
           </a>
         {% else %}
@@ -11,15 +11,22 @@
         {% endif %}
     </li>
 
-    {% for page in paginator.page_range %}
+    {% elided_page_range page_obj as page_range %}
+    {% for page in page_range %}
         <li class="{% if page == page_obj.number %}active{% endif %}">
-            <a href="?page={{ page }}">{{ page }}</a>
+
+            {% if page == paginator.ELLIPSIS %}
+                <a href="#">{{ page }}</a>
+            {% else %}
+                <a href="{% querystring page=page %}">{{ page }}</a>
+            {% endif %}
+
         </li>
     {% endfor %}
 
     <li class="{{ page_obj.has_next|yesno:',disabled' }}">
         {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}" aria-label="{% trans "Next" %}">
+          <a href="{% querystring page=page_obj.next_page_number %}" aria-label="{% trans "Next" %}">
             <span aria-hidden="true">&raquo;</span>
           </a>
         {% else %}

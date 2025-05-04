@@ -25,7 +25,7 @@ class CategoryImportExportTest(WebTest):
         url = reverse("admin:shop_category_export")
         categories = self.app.get(url, user=self.superuser)
         form = categories.forms[1]
-        form["file_format"].select("0")
+        form["format"].select("0")
         response = form.submit()
 
         self.assertEqual(response.status_code, 200)
