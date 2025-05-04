@@ -90,7 +90,7 @@ diff-match-patch==20241021
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-import-export
-django==4.2.20
+django==5.1.8
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt

@@ -88,12 +88,12 @@ class PublicViewTests(WebTest):
         with self.subTest("no query param"):
             empty_response = self.app.get(url)
 
-            self.assertQuerysetEqual(empty_response.context["albums"], [])
+            self.assertQuerySetEqual(empty_response.context["albums"], [])
 
         with self.subTest("search username"):
             search_response = self.app.get(url, {"q": "John"})
 
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 search_response.context["albums"],
                 [album1.pk],
                 transform=lambda a: a.pk,
@@ -102,7 +102,7 @@ class PublicViewTests(WebTest):
         with self.subTest("fuzzy search"):
             search_response = self.app.get(url, {"q": "Brouwverslag"})  # stemming!
 
-            self.assertQuerysetEqual(
+            self.assertQuerySetEqual(
                 search_response.context["albums"],
                 [album2.pk],
                 transform=lambda a: a.pk,

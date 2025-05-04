@@ -20,7 +20,7 @@ requests-oauthlib
 WeasyPrint
 
 # Django packages
-Django ~= 4.2
+Django ~= 5.1.0
 django-admin-index
 django-autoslug
 django-bleach
