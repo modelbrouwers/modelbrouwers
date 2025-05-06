@@ -5,8 +5,6 @@ from django.forms import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from brouwers.general.utils import get_username
-
 
 class Ban(models.Model):
     """Model to hold bans. Middleware grabs the bans from the database."""
@@ -57,7 +55,7 @@ class Ban(models.Model):
 
     def __str__(self):
         if self.user:
-            return _("Ban: %(username)s") % {"username": get_username(self)}
+            return _("Ban: %(username)s") % {"username": self.user.username}
         else:
             return _("Ban: %(ip)s") % {"ip": self.ip}
 

@@ -10,22 +10,6 @@ import geoip2.database
 logger = logging.getLogger(__name__)
 
 
-def get_forumname_for_username(username):
-    return username.replace(
-        "_", " "
-    )  # FIXME NOT always valid, users can have underscores!
-
-
-def get_username_for_user(user):
-    return get_forumname_for_username(user.username)
-
-
-def get_username(obj, field="user"):
-    user = getattr(obj, field)
-    username = get_username_for_user(user)
-    return username
-
-
 def clean_username(username):
     return username.replace("'", "ʹ").lower()
 
@@ -34,7 +18,6 @@ def clean_username_fallback(username):
     return username.replace("'", " ").lower()
 
 
-# KEEPING SPAMMERS OUT ####################
 def get_client_ip(request):
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
     if x_forwarded_for:

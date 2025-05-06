@@ -10,11 +10,7 @@ from django.views.generic import View
 
 from brouwers.general.decorators import login_required_403, user_passes_test_403
 from brouwers.general.models import UserProfile
-from brouwers.general.utils import (
-    clean_username,
-    clean_username_fallback,
-    get_username_for_user,
-)
+from brouwers.general.utils import clean_username, clean_username_fallback
 
 from .forms import ForumForm, PosterIDsForm
 from .models import (
@@ -50,31 +46,6 @@ class SyncDataView(View):
             for link in links_to_be_synced
         }
         return JsonResponse(data)
-
-
-class ChatView(View):
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            nickname = get_username_for_user(request.user)
-        else:
-            nickname = settings.IRC_DEFAULT_NICK
-
-        html = render_to_string(
-            "chat.html",
-            {
-                "MIBBIT_SETTINGS": settings.MIBBIT_SETTINGS,
-                "IRC_SERVER": settings.IRC_SERVER,
-                "IRC_CHANNEL": settings.IRC_CHANNEL,
-                "nickname": nickname,
-            },
-        )
-        return JsonResponse(
-            {
-                "html": html,
-                "title": "Brouwers chat [%s, %s]"
-                % (settings.IRC_SERVER, settings.IRC_CHANNEL),
-            }
-        )
 
 
 class ModDataView(PermissionRequiredMixin, View):

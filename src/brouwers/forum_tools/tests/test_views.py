@@ -4,13 +4,7 @@ from django.urls import reverse
 from brouwers.users.tests.factories import UserFactory
 
 
-class ChatTests(TestCase):
-    def test_get_chat_widget(self):
-        url = reverse("forum_tools:get_chat")
-
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, 200)
+class ForumToolsViewTests(TestCase):
 
     def test_get_sync_data(self):
         url = reverse("forum_tools:get_sync_data")
