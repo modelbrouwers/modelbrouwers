@@ -1,6 +1,10 @@
 import html
 
+from django.contrib.auth.models import AnonymousUser
+
 from rest_framework import fields, serializers
+
+from brouwers.users.models import User
 
 from ..models import Forum, Topic
 
@@ -33,7 +37,9 @@ class TopicSerializer(serializers.ModelSerializer):
         return html.unescape(obj.topic_title)
 
     def get_is_dead(self, obj) -> bool:
-        user = self.context["request"].user
-        if obj.author_id == user.forumuser_id:
-            return False
-        return obj.is_dead
+        user: User | AnonymousUser = self.context["request"].user
+        match user:
+            case User() if obj.author_id == user.forumuser_id:
+                return False
+            case _:
+                return obj.is_dead
