@@ -1,3 +1,6 @@
+import logging
+from urllib.request import HTTPError
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -13,6 +16,8 @@ from brouwers.forum_tools.fields import ForumToolsIDField
 from brouwers.kits.fields import KitsManyToManyField
 
 from .validators import validate_image_url
+
+logger = logging.getLogger(__name__)
 
 
 def get_build_slug(build):
@@ -142,9 +147,17 @@ class BuildPhoto(models.Model):
             return FALLBACK
 
         # try to obtain a thumbnail from the remote
-        thumbnail = get_thumbnail(self.photo_url, geometry, **options)
-        if thumbnail.exists():
-            return thumbnail.url
+        try:
+            thumbnail = get_thumbnail(self.photo_url, geometry, **options)
+            if thumbnail.exists():
+                return thumbnail.url
+        except HTTPError as exc:
+            logger.warning(
+                "Image at %s appears to be gone",
+                self.photo_url,
+                extra={"pk": self.pk},
+                exc_info=exc,
+            )
 
         # at this point, we couldn't write a thumbnail - mark the photo URL as broken
         # and fall back instead

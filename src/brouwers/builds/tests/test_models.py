@@ -1,5 +1,7 @@
+from http.client import HTTPMessage
 from io import BytesIO, StringIO
 from unittest.mock import patch
+from urllib.request import HTTPError
 
 from django.conf import settings
 from django.core.management import call_command
@@ -123,3 +125,16 @@ class BuildPhotoThumbnailTests(TestCase):
 
         mock_urlopen.assert_called()
         self.assertEqual(mock_urlopen.call_count, 1)
+
+    def test_photo_download_404(self):
+        build_photo = BuildPhotoFactory(with_photo_url=True)
+
+        with patch(
+            "brouwers.builds.models.get_thumbnail",
+            side_effect=HTTPError(
+                "http://dummy", 404, "Not Found", HTTPMessage(), None
+            ),
+        ):
+            thumbnail = build_photo.image_thumbnail
+
+        self.assertTrue(thumbnail.startswith(settings.STATIC_URL))
