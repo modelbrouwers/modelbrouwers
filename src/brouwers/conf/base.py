@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 import sentry_sdk
+from sentry_sdk.integrations.logging import ignore_logger
 
 from .utils import config, get_sentry_integrations
 
@@ -493,6 +494,8 @@ if SENTRY_DSN:
     sentry_sdk.init(
         **SENTRY_CONFIG, integrations=get_sentry_integrations(), send_default_pii=True
     )
+    ignore_logger("sorl.thumbnail")
+    ignore_logger("sorl.thumbnail.base")
 
 #
 # CORSHEADERS
