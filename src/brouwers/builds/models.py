@@ -10,6 +10,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from autoslug import AutoSlugField
+from PIL import UnidentifiedImageError
 from sorl.thumbnail.shortcuts import get_thumbnail
 
 from brouwers.forum_tools.fields import ForumToolsIDField
@@ -151,7 +152,7 @@ class BuildPhoto(models.Model):
             thumbnail = get_thumbnail(self.photo_url, geometry, **options)
             if thumbnail.exists():
                 return thumbnail.url
-        except (HTTPError, URLError) as exc:
+        except (HTTPError, URLError, UnidentifiedImageError) as exc:
             logger.warning(
                 "Image at %s appears to be gone",
                 self.photo_url,
