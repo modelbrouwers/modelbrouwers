@@ -1,5 +1,5 @@
 import logging
-from urllib.request import HTTPError
+from urllib.error import HTTPError, URLError
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -151,7 +151,7 @@ class BuildPhoto(models.Model):
             thumbnail = get_thumbnail(self.photo_url, geometry, **options)
             if thumbnail.exists():
                 return thumbnail.url
-        except HTTPError as exc:
+        except (HTTPError, URLError) as exc:
             logger.warning(
                 "Image at %s appears to be gone",
                 self.photo_url,
