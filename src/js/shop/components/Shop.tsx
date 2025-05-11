@@ -172,6 +172,11 @@ const Shop: React.FC<ShopProps> = ({
     [dispatch, onChangeAmount],
   );
 
+  const onChangeShippingCosts = useCallback(
+    (costs: ShippingCosts) => dispatch({type: 'SET_SHIPPING_COSTS', payload: costs}),
+    [dispatch],
+  );
+
   const checkoutRouter = useMemo(() => {
     const createRouter = checkoutUseMemoryRouter ? createMemoryRouter : createBrowserRouter;
     const extra = checkoutUseMemoryRouter ? {initialEntries: [checkoutPath]} : {};
@@ -180,11 +185,6 @@ const Shop: React.FC<ShopProps> = ({
       ...extra,
     });
   }, [checkoutUseMemoryRouter, checkoutPath]);
-
-  const onChangeShippingCosts = useCallback(
-    (costs: ShippingCosts) => dispatch({type: 'SET_SHIPPING_COSTS', payload: costs}),
-    [dispatch],
-  );
 
   if (error) throw error;
   if (loading || cart === null) return null;

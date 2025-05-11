@@ -2,6 +2,7 @@ import {Form, Formik, FormikErrors} from 'formik';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useNavigate} from 'react-router';
 
+import ErrorBoundary from '@/components/ErrorBoundary.js';
 import Checkbox from '@/components/forms/Checkbox';
 
 import AddressFields from './AddressFields';
@@ -93,7 +94,9 @@ const Delivery: React.FC = () => {
               </h3>
               <DeliveryMethod />
               <div aria-live="polite">
-                <ShippingCosts />
+                <ErrorBoundary>
+                  <ShippingCosts />
+                </ErrorBoundary>
               </div>
             </div>
           </div>

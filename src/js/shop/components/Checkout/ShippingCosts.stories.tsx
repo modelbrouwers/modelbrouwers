@@ -1,7 +1,9 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {useFormikContext} from 'formik';
+import {HttpResponse, http} from 'msw';
 import {useEffect} from 'react';
 
+import {API_ROOT} from '@/constants.js';
 import {withFormik} from '@/storybook/decorators';
 
 import type {FormikValues} from './Delivery';
@@ -63,6 +65,16 @@ export default {
         price: 11.9,
         weight: '320 g',
       },
+    },
+    msw: {
+      handlers: [
+        http.get(`${API_ROOT}api/v1/shop/shipping-costs/`, () => {
+          return HttpResponse.json({
+            price: '11.9',
+            weight: '320 g',
+          });
+        }),
+      ],
     },
   },
 } satisfies Meta<Args>;

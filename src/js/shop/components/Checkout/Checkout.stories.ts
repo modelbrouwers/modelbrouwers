@@ -36,6 +36,10 @@ export default {
       checkoutData: {},
       orderDetails: null,
       validationErrors: {},
+      shippingCosts: {
+        price: 11.9,
+        weight: '320 g',
+      },
     },
     reactRouter: {
       routing: checkoutRoutes,
