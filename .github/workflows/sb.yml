@@ -48,6 +48,42 @@ jobs:
         with:
           path: ./storybook-static
 
+  tests:
+    name: Run storybook (interaction) tests
+    runs-on: ubuntu-latest
+
+    needs:
+      - storybook
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Set up test environment
+        run: |
+          npm ci --legacy-peer-deps
+          npx playwright install --with-deps chromium
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ./storybook-static
+
+      - name: Extract artifact
+        run: |
+          tar -xvf artifact.tar
+          rm artifact.tar
+        working-directory: ./storybook-static
+
+      - name: Serve storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --quiet" \
+            "npx wait-on -l http://127.0.0.1:6006 && npm test"
+
   deploy:
     environment:
       name: github-pages
@@ -61,7 +97,8 @@ jobs:
 
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Exclude PRs
-    needs: storybook
+    needs:
+      - tests
     steps:
       - name: Setup Pages
         id: pages
