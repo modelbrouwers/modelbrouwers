@@ -79,7 +79,7 @@ export const Flow: Story = {
     const canvas = within(canvasElement);
 
     await step('Account', async () => {
-      await userEvent.click(canvas.getByRole('link', {name: 'Continue without signup'}));
+      await userEvent.click(await canvas.findByRole('link', {name: 'Continue without signup'}));
     });
 
     await step('Delivery details', async () => {

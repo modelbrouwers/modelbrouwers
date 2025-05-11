@@ -1,0 +1,108 @@
+name: Storybook CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages-${{ github.ref_name }}' # unique builds for branch/tag name
+  cancel-in-progress: true
+
+env:
+  DJANGO_SETTINGS_MODULE: brouwers.conf.ci
+
+jobs:
+  storybook:
+    name: Create storybook build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Setup backend
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libmemcached-dev
+          pip install uv
+          uv pip install --system -r requirements/ci.txt
+          npm ci --legacy-peer-deps
+          python src/manage.py collectstatic --noinput
+
+      - name: Build Storybook docs
+        run: npm run build-storybook
+        env:
+          API_BASE_URL: 'http://localhost:8000'
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./storybook-static
+
+  tests:
+    name: Run storybook (interaction) tests
+    runs-on: ubuntu-latest
+
+    needs:
+      - storybook
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Set up test environment
+        run: |
+          npm ci --legacy-peer-deps
+          npx playwright install --with-deps chromium
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ./storybook-static
+
+      - name: Extract artifact
+        run: |
+          tar -xvf artifact.tar
+          rm artifact.tar
+        working-directory: ./storybook-static
+
+      - name: Serve storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --quiet" \
+            "npx wait-on -l http://127.0.0.1:6006 && npm test"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Exclude PRs
+    needs:
+      - tests
+    steps:
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
