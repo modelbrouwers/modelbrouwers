@@ -1,21 +1,19 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import {useIntl} from 'react-intl';
 
 import FAIcon from '../../../components/FAIcon';
 
-const BaseButton = ({icon, onClick, ...props}) => (
+export interface BaseButtonProps extends React.ComponentProps<'button'> {
+  icon: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const BaseButton: React.FC<BaseButtonProps> = ({icon, onClick, ...props}) => (
   <button type="button" className="button button--blue" onClick={onClick} {...props}>
     <FAIcon icon={icon} />
   </button>
 );
 
-BaseButton.propTypes = {
-  icon: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
-
-const IncrementButton = ({onClick, ...props}) => {
+const IncrementButton: React.FC<Omit<BaseButtonProps, 'icon'>> = ({onClick, ...props}) => {
   const intl = useIntl();
   const label = intl.formatMessage({
     description: 'Increment button accessible label',
@@ -24,21 +22,13 @@ const IncrementButton = ({onClick, ...props}) => {
   return <BaseButton icon="plus" onClick={onClick} aria-label={label} {...props} />;
 };
 
-IncrementButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
-
-const DecrementButton = ({onClick, ...props}) => {
+const DecrementButton: React.FC<Omit<BaseButtonProps, 'icon'>> = ({onClick, ...props}) => {
   const intl = useIntl();
   const label = intl.formatMessage({
     description: 'Decrement button accessible label',
     defaultMessage: 'Remove one',
   });
   return <BaseButton icon="minus" onClick={onClick} aria-label={label} {...props} />;
-};
-
-DecrementButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
 };
 
 export {IncrementButton, DecrementButton};
