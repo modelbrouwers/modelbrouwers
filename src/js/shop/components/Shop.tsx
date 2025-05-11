@@ -271,10 +271,10 @@ const propsToInitialData = (
     'deliveryMethod' | 'deliveryAddress' | 'billingAddress'
   > = {
     customer: {
-      firstName: user?.first_name ?? '',
-      lastName: user?.last_name ?? '',
-      email: user?.email ?? '',
-      phone: user?.phone ?? '',
+      firstName: checkoutData?.first_name ?? user?.first_name ?? '',
+      lastName: checkoutData?.last_name ?? user?.last_name ?? '',
+      email: checkoutData?.email ?? user?.email ?? '',
+      phone: checkoutData?.phone ?? user?.phone ?? '',
     },
     paymentMethod: checkoutData?.payment_method ?? 0,
     paymentMethodOptions: checkoutData?.payment_method_options ?? null,

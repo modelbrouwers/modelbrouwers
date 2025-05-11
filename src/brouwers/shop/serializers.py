@@ -70,10 +70,6 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
             Prefetch("products", queryset=CartProduct.objects.select_related("product"))
         )
 
-        # TODO: remove once the frontend has been updated
-        fields["delivery_method"].required = False
-        fields["delivery_method"].default = DeliveryMethods.mail
-
         return fields
 
     def validate(self, attrs: dict):

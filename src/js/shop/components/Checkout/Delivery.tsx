@@ -1,4 +1,4 @@
-import {Form, Formik, FormikErrors} from 'formik';
+import {Form, Formik, setNestedObjectValues} from 'formik';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useNavigate} from 'react-router';
 
@@ -17,55 +17,25 @@ export type FormikValues = DeliveryDetails & {
   billingSameAsDelivery: boolean;
 };
 
-// FIXME: could probably be done in a type safe way, but it is complicated so maybe it's
-// just a bad idea?
-type Touched = {
-  [K in string]: any;
-};
-
-const getInitialTouched = (errors: any) => {
-  const touched: Touched = {};
-  if (!errors) return touched;
-
-  Object.entries(errors).forEach(([key, errorOrObject]) => {
-    switch (typeof errorOrObject) {
-      case 'string': {
-        touched[key] = true;
-        break;
-      }
-      case 'object': {
-        touched[key] = getInitialTouched(errorOrObject);
-        break;
-      }
-    }
-  });
-  return touched;
-};
-
 const Delivery: React.FC = () => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const {
-    deliveryDetails,
-    setDeliveryDetails,
-    validationErrors: _validationErrors,
-  } = useCheckoutContext();
-  // FIXME -> in context type
-  const validationErrors = _validationErrors as FormikErrors<FormikValues>;
+  const {deliveryDetails, setDeliveryDetails, deliveryDetailsErrors} = useCheckoutContext();
   return (
     <Formik<FormikValues>
       initialValues={{
         ...deliveryDetails,
         billingSameAsDelivery: deliveryDetails.billingAddress == null,
       }}
-      enableReinitialize
-      initialErrors={validationErrors}
-      initialTouched={getInitialTouched(validationErrors)}
+      initialErrors={deliveryDetailsErrors}
+      initialTouched={setNestedObjectValues(deliveryDetailsErrors, true)}
       onSubmit={async values => {
         setDeliveryDetails(values);
         navigate('/payment');
       }}
+      // TODO: use zod schema for validation
       validate={values => validateAddressDetails(values, intl)}
+      // TODO: this causes validation errors from the server to immediately dissapear
       validateOnMount
     >
       {({values, handleChange, setFieldValue, isValid, isValidating, setFieldTouched}) => (
