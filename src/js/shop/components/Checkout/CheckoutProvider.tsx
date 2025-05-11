@@ -12,6 +12,7 @@ import type {
   DeliveryDetails,
   OrderDetails,
   PaymentDetails,
+  ShippingCosts,
   UserData,
 } from './types';
 
@@ -44,6 +45,8 @@ export interface CheckoutProviderProps {
   cartId: number;
   cartProducts: CartProduct[];
   onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
+  shippingCosts: ShippingCosts;
+  onChangeShippingCosts: (costs: ShippingCosts) => void;
   initialData: CheckoutState;
   confirmPath: string;
   orderDetails: OrderDetails;
@@ -56,6 +59,8 @@ const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
   cartId,
   cartProducts,
   onChangeProductAmount,
+  shippingCosts,
+  onChangeShippingCosts,
   initialData,
   confirmPath,
   orderDetails,
@@ -123,6 +128,8 @@ const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
         cartId,
         cartProducts,
         onChangeProductAmount,
+        shippingCosts,
+        onChangeShippingCosts,
         deliveryDetails: state,
         confirmPath,
         setDeliveryDetails,

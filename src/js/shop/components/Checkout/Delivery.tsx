@@ -2,7 +2,6 @@ import {Form, Formik, FormikErrors} from 'formik';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useNavigate} from 'react-router';
 
-import ErrorBoundary from '@/components/ErrorBoundary.js';
 import Checkbox from '@/components/forms/Checkbox';
 
 import AddressFields from './AddressFields';
@@ -46,7 +45,6 @@ const Delivery: React.FC = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const {
-    cartId,
     deliveryDetails,
     setDeliveryDetails,
     validationErrors: _validationErrors,
@@ -95,9 +93,7 @@ const Delivery: React.FC = () => {
               </h3>
               <DeliveryMethod />
               <div aria-live="polite">
-                <ErrorBoundary>
-                  <ShippingCosts cartId={cartId} />
-                </ErrorBoundary>
+                <ShippingCosts />
               </div>
             </div>
           </div>

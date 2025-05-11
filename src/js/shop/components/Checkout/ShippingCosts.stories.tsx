@@ -1,15 +1,14 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {useFormikContext} from 'formik';
-import {HttpResponse, http} from 'msw';
 import {useEffect} from 'react';
 
-import {API_ROOT} from '@/constants.js';
 import {withFormik} from '@/storybook/decorators';
 
 import type {FormikValues} from './Delivery';
-import ShippingCosts, {ShippingCostsProps} from './ShippingCosts';
+import ShippingCosts from './ShippingCosts';
+import {withCheckout} from './storybook';
 
-interface Args extends ShippingCostsProps {
+interface Args {
   country: NonNullable<FormikValues['deliveryAddress']>['country'];
 }
 
@@ -25,10 +24,9 @@ export default {
   title: 'Shop / Checkout / Delivery / ShippingCosts',
   component: ShippingCosts,
   render: ({...args}) => <Wrapper {...args} />,
-  decorators: [withFormik],
+  decorators: [withFormik, withCheckout],
   args: {
     country: 'N',
-    cartId: 123,
   },
   argTypes: {
     country: {
@@ -60,15 +58,11 @@ export default {
       } satisfies FormikValues,
       initialErrors: {},
     },
-    msw: {
-      handlers: [
-        http.get(`${API_ROOT}api/v1/shop/shipping-costs/`, () => {
-          return HttpResponse.json({
-            price: '11.9',
-            weight: '320 g',
-          });
-        }),
-      ],
+    checkout: {
+      shippingCosts: {
+        price: 11.9,
+        weight: '320 g',
+      },
     },
   },
 } satisfies Meta<Args>;

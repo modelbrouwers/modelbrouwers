@@ -8,6 +8,7 @@ import type {
   DeliveryDetails,
   OrderDetails,
   PaymentDetails,
+  ShippingCosts,
 } from './types';
 
 interface CheckoutContextType {
@@ -15,6 +16,8 @@ interface CheckoutContextType {
   cartId: number;
   cartProducts: CartProduct[];
   onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
+  shippingCosts: ShippingCosts;
+  onChangeShippingCosts: (costs: ShippingCosts) => void;
   deliveryDetails: DeliveryDetails & PaymentDetails;
   confirmPath: string;
   setDeliveryDetails: (values: DeliveryDetails) => void;
@@ -31,6 +34,8 @@ const CheckoutContext = React.createContext<CheckoutContextType>({
   cartId: 0,
   cartProducts: [],
   onChangeProductAmount: async () => {},
+  shippingCosts: {price: 0, weight: ''},
+  onChangeShippingCosts: () => {},
   deliveryDetails: {
     customer: {
       firstName: '',

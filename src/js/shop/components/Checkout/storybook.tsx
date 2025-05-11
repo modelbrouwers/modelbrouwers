@@ -61,6 +61,8 @@ export const withCheckout: Decorator = (Story, {parameters}) => {
       cartId={checkoutParams?.cartId ?? 12}
       cartProducts={checkoutParams?.cartProducts ?? DEFAULT_CART_PRODUCTS}
       onChangeProductAmount={checkoutParams?.onChangeProductAmount ?? fn()}
+      shippingCosts={checkoutParams?.shippingCosts ?? {price: 0, weight: ''}}
+      onChangeShippingCosts={checkoutParams?.onChangeShippingCosts ?? fn()}
       initialData={initialData}
       confirmPath="/winkel/checkout/confirm"
       orderDetails={checkoutParams?.orderDetails ?? null}

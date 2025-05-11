@@ -17,6 +17,7 @@ import type {
   CheckoutValidationErrors,
   ConfirmOrderData,
   OrderDetails,
+  ShippingCosts,
   UserData,
 } from './Checkout/types';
 
@@ -28,7 +29,7 @@ export interface CatalogueProduct {
 
 interface ShopState {
   cart: null | (Pick<CartData, 'id' | 'user'> & {products: CartProduct[]});
-  shippingCosts: number;
+  shippingCosts: ShippingCosts;
 }
 
 type DispatchAction =
@@ -46,6 +47,10 @@ type DispatchAction =
         id: number;
         cartProductData: CartProductData | null;
       };
+    }
+  | {
+      type: 'SET_SHIPPING_COSTS';
+      payload: ShippingCosts;
     };
 
 const reducer: ImmerReducer<ShopState, DispatchAction> = (
@@ -74,6 +79,10 @@ const reducer: ImmerReducer<ShopState, DispatchAction> = (
         draft.cart.products[existingIndex].amount = cartProductData.amount;
       }
 
+      break;
+    }
+    case 'SET_SHIPPING_COSTS': {
+      draft.shippingCosts = action.payload;
       break;
     }
     default: {
@@ -128,7 +137,7 @@ const Shop: React.FC<ShopProps> = ({
 }) => {
   const [{cart, shippingCosts}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
     cart: null,
-    shippingCosts: 0,
+    shippingCosts: {price: 0, weight: ''},
   });
 
   const {loading, error} = useAsync(async () => {
@@ -172,6 +181,11 @@ const Shop: React.FC<ShopProps> = ({
     });
   }, [checkoutUseMemoryRouter, checkoutPath]);
 
+  const onChangeShippingCosts = useCallback(
+    (costs: ShippingCosts) => dispatch({type: 'SET_SHIPPING_COSTS', payload: costs}),
+    [dispatch],
+  );
+
   if (error) throw error;
   if (loading || cart === null) return null;
 
@@ -186,7 +200,7 @@ const Shop: React.FC<ShopProps> = ({
             onRemoveProduct={async (cartProductId: number) =>
               await onChangeProductAmount(cartProductId, 0)
             }
-            shippingCosts={shippingCosts}
+            shippingCosts={shippingCosts.price}
           />,
           topbarCartNode,
         )}
@@ -220,7 +234,7 @@ const Shop: React.FC<ShopProps> = ({
             indexPath={indexPath}
             cartProducts={cart.products}
             onChangeAmount={onChangeProductAmount}
-            shippingCosts={shippingCosts}
+            shippingCosts={shippingCosts.price}
           />,
           cartDetailNode,
         )}
@@ -231,6 +245,8 @@ const Shop: React.FC<ShopProps> = ({
             cartId={cart.id}
             cartProducts={cart.products}
             onChangeProductAmount={onChangeProductAmount}
+            shippingCosts={shippingCosts}
+            onChangeShippingCosts={onChangeShippingCosts}
             initialData={propsToInitialData(user, checkoutData)}
             confirmPath={confirmPath}
             orderDetails={orderDetails}

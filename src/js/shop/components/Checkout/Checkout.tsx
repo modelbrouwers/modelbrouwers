@@ -1,5 +1,8 @@
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Outlet, useLocation} from 'react-router';
+import useAsync from 'react-use/esm/useAsync';
+
+import {calculateShippingCosts} from '@/data/shop/payment';
 
 import {useCheckoutContext} from './Context';
 import NavLink from './NavLink';
@@ -18,6 +21,13 @@ const Checkout: React.FC = () => {
     hasPaymentErrors,
     orderDetails,
   } = useCheckoutContext();
+
+  // XXX: capture errors in a better way, but this may never crash the entire checkout
+  // process!
+  const shippingCostsError = useUpdateShippingCosts();
+  if (shippingCostsError) {
+    console.error(shippingCostsError);
+  }
 
   const addressStepErrors = validateAddressDetails(deliveryDetails, intl);
   const addressStepValid = pathname !== '/' && Object.keys(addressStepErrors).length === 0;
@@ -58,6 +68,28 @@ const Checkout: React.FC = () => {
       </nav>
     </div>
   );
+};
+
+const useUpdateShippingCosts = () => {
+  const {deliveryDetails, cartId, cartProducts, onChangeShippingCosts} = useCheckoutContext();
+
+  // update the shipping costs when there are changes detected
+  const {deliveryMethod, deliveryAddress} = deliveryDetails;
+  const deliveryCountry = deliveryAddress?.country;
+  const cartContents = JSON.stringify(cartProducts);
+
+  const {error} = useAsync(async () => {
+    // check whether we need to make a call in the first place
+    if (deliveryMethod === 'pickup' || !cartId || !deliveryCountry) {
+      onChangeShippingCosts({price: 0, weight: ''});
+      return;
+    } else {
+      const costs = await calculateShippingCosts(cartId, deliveryCountry);
+      onChangeShippingCosts(costs);
+    }
+  }, [, onChangeShippingCosts, cartId, cartContents, deliveryMethod, deliveryCountry]);
+
+  return error;
 };
 
 export default Checkout;
