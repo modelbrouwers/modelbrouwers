@@ -7,8 +7,11 @@ export default {
   component: ProductImage,
   args: {
     product: {
+      id: 1,
       name: 'A product',
       image: 'https://loremflickr.com/400/300/cat',
+      price: 0.99,
+      model_name: 'EU123',
     },
   },
 } satisfies Meta<typeof ProductImage>;
