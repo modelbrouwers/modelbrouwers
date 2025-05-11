@@ -41,6 +41,10 @@ export default {
 
 type Story = StoryObj<typeof CartDetail>;
 
-export const Default: Story = {
-  name: 'CartDetail',
+export const Default: Story = {};
+
+export const WithShippingCosts: Story = {
+  args: {
+    shippingCosts: 2.99,
+  },
 };

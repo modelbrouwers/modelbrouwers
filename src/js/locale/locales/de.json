@@ -34,11 +34,6 @@
     "description": "Decrement button accessible label",
     "originalDefault": "Remove one"
   },
-  "24+V/B": {
-    "defaultMessage": "amount",
-    "description": "Payment cart overview: amount title",
-    "originalDefault": "amount"
-  },
   "3UvxIB": {
     "defaultMessage": "Street",
     "description": "Delivery address: street",
@@ -119,6 +114,11 @@
     "description": "Delivery address: number",
     "originalDefault": "Number"
   },
+  "GHHsMN": {
+    "defaultMessage": "Shipping costs",
+    "description": "Cart detail: shipping costs label",
+    "originalDefault": "Shipping costs"
+  },
   "GhZs+k": {
     "defaultMessage": "Confirmation",
     "description": "Tab: confirm",
@@ -139,11 +139,6 @@
     "description": "Payment page: cart empty",
     "originalDefault": "Your cart is empty!"
   },
-  "JAVg6k": {
-    "defaultMessage": "total",
-    "description": "Payment cart overview: total price title",
-    "originalDefault": "total"
-  },
   "JFs7tB": {
     "defaultMessage": "Model",
     "description": "GB participants table, model header.",
@@ -153,11 +148,6 @@
     "defaultMessage": "Remove product ''{name}''",
     "description": "Cart: remove product button label",
     "originalDefault": "Remove product ''{name}''"
-  },
-  "KZ9pSc": {
-    "defaultMessage": "product",
-    "description": "Payment cart overview: name title",
-    "originalDefault": "product"
   },
   "LYbu8S": {
     "defaultMessage": "Your order with reference <bold>{orderNumber}</bold> was received!",
@@ -272,11 +262,6 @@
     "defaultMessage": "Delivery address",
     "description": "Delivery address: deliveryAddress",
     "originalDefault": "Delivery address"
-  },
-  "oD9PGg": {
-    "defaultMessage": "price",
-    "description": "Payment cart overview: unit price title",
-    "originalDefault": "price"
   },
   "oNlKJN": {
     "defaultMessage": "Company",
@@ -393,6 +378,11 @@
     "defaultMessage": "Topic",
     "description": "GB participants table, topic header.",
     "originalDefault": "Topic"
+  },
+  "ysHRbD": {
+    "defaultMessage": "Shipping: <costs></costs>",
+    "description": "TopbarCart shipping costs",
+    "originalDefault": "Shipping: <costs></costs>"
   },
   "yy0Fua": {
     "defaultMessage": "Select country",

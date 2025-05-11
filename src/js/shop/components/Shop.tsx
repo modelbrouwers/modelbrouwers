@@ -17,6 +17,7 @@ import type {
   CheckoutValidationErrors,
   ConfirmOrderData,
   OrderDetails,
+  ShippingCosts,
   UserData,
 } from './Checkout/types';
 
@@ -28,6 +29,7 @@ export interface CatalogueProduct {
 
 interface ShopState {
   cart: null | (Pick<CartData, 'id' | 'user'> & {products: CartProduct[]});
+  shippingCosts: ShippingCosts;
 }
 
 type DispatchAction =
@@ -45,6 +47,10 @@ type DispatchAction =
         id: number;
         cartProductData: CartProductData | null;
       };
+    }
+  | {
+      type: 'SET_SHIPPING_COSTS';
+      payload: ShippingCosts;
     };
 
 const reducer: ImmerReducer<ShopState, DispatchAction> = (
@@ -73,6 +79,10 @@ const reducer: ImmerReducer<ShopState, DispatchAction> = (
         draft.cart.products[existingIndex].amount = cartProductData.amount;
       }
 
+      break;
+    }
+    case 'SET_SHIPPING_COSTS': {
+      draft.shippingCosts = action.payload;
       break;
     }
     default: {
@@ -125,8 +135,9 @@ const Shop: React.FC<ShopProps> = ({
   validationErrors,
   checkoutUseMemoryRouter = false,
 }) => {
-  const [{cart}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
+  const [{cart, shippingCosts}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
     cart: null,
+    shippingCosts: {price: 0, weight: ''},
   });
 
   const {loading, error} = useAsync(async () => {
@@ -161,6 +172,11 @@ const Shop: React.FC<ShopProps> = ({
     [dispatch, onChangeAmount],
   );
 
+  const onChangeShippingCosts = useCallback(
+    (costs: ShippingCosts) => dispatch({type: 'SET_SHIPPING_COSTS', payload: costs}),
+    [dispatch],
+  );
+
   const checkoutRouter = useMemo(() => {
     const createRouter = checkoutUseMemoryRouter ? createMemoryRouter : createBrowserRouter;
     const extra = checkoutUseMemoryRouter ? {initialEntries: [checkoutPath]} : {};
@@ -184,6 +200,7 @@ const Shop: React.FC<ShopProps> = ({
             onRemoveProduct={async (cartProductId: number) =>
               await onChangeProductAmount(cartProductId, 0)
             }
+            shippingCosts={shippingCosts.price}
           />,
           topbarCartNode,
         )}
@@ -217,6 +234,7 @@ const Shop: React.FC<ShopProps> = ({
             indexPath={indexPath}
             cartProducts={cart.products}
             onChangeAmount={onChangeProductAmount}
+            shippingCosts={shippingCosts.price}
           />,
           cartDetailNode,
         )}
@@ -227,6 +245,8 @@ const Shop: React.FC<ShopProps> = ({
             cartId={cart.id}
             cartProducts={cart.products}
             onChangeProductAmount={onChangeProductAmount}
+            shippingCosts={shippingCosts}
+            onChangeShippingCosts={onChangeShippingCosts}
             initialData={propsToInitialData(user, checkoutData)}
             confirmPath={confirmPath}
             orderDetails={orderDetails}
@@ -251,10 +271,10 @@ const propsToInitialData = (
     'deliveryMethod' | 'deliveryAddress' | 'billingAddress'
   > = {
     customer: {
-      firstName: user?.first_name ?? '',
-      lastName: user?.last_name ?? '',
-      email: user?.email ?? '',
-      phone: user?.phone ?? '',
+      firstName: checkoutData?.first_name ?? user?.first_name ?? '',
+      lastName: checkoutData?.last_name ?? user?.last_name ?? '',
+      email: checkoutData?.email ?? user?.email ?? '',
+      phone: checkoutData?.phone ?? user?.phone ?? '',
     },
     paymentMethod: checkoutData?.payment_method ?? 0,
     paymentMethodOptions: checkoutData?.payment_method_options ?? null,

@@ -13,7 +13,6 @@ import {
 import {getIntlProviderProps} from '../i18n';
 import {CartDetail, TopbarCart} from './components/Cart';
 import {Checkout} from './components/Checkout';
-import {camelize} from './components/Checkout/utils';
 import Shop from './components/Shop';
 import {CartProduct} from './data';
 
@@ -21,7 +20,7 @@ const getDataFromScript = scriptId => {
   const node = document.getElementById(scriptId);
   if (!node) return null;
   const data = JSON.parse(node.innerText);
-  return data ? camelize(data) : null;
+  return data;
 };
 
 export default class Page {
@@ -55,7 +54,6 @@ export default class Page {
 
     // read user profile data from DOM, if user is not authenticated, this will be
     // an empty object
-    // TODO: camelize data and update components/type definitions
     const userProfileScript = document.getElementById('user_profile_data');
     const user = userProfileScript ? JSON.parse(userProfileScript.innerText) : {};
 

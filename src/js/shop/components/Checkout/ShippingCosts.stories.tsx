@@ -7,9 +7,10 @@ import {API_ROOT} from '@/constants.js';
 import {withFormik} from '@/storybook/decorators';
 
 import type {FormikValues} from './Delivery';
-import ShippingCosts, {ShippingCostsProps} from './ShippingCosts';
+import ShippingCosts from './ShippingCosts';
+import {withCheckout} from './storybook';
 
-interface Args extends ShippingCostsProps {
+interface Args {
   country: NonNullable<FormikValues['deliveryAddress']>['country'];
 }
 
@@ -25,10 +26,9 @@ export default {
   title: 'Shop / Checkout / Delivery / ShippingCosts',
   component: ShippingCosts,
   render: ({...args}) => <Wrapper {...args} />,
-  decorators: [withFormik],
+  decorators: [withFormik, withCheckout],
   args: {
     country: 'N',
-    cartId: 123,
   },
   argTypes: {
     country: {
@@ -59,6 +59,12 @@ export default {
         billingAddress: null,
       } satisfies FormikValues,
       initialErrors: {},
+    },
+    checkout: {
+      shippingCosts: {
+        price: 11.9,
+        weight: '320 g',
+      },
     },
     msw: {
       handlers: [

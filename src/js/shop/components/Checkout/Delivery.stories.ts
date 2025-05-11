@@ -20,6 +20,12 @@ export default {
     reactRouter: reactRouterParameters({
       routing: {path: '/winkel/checkout/address'},
     }),
+    checkout: {
+      shippingCosts: {
+        price: 11.9,
+        weight: '320 g',
+      },
+    },
     msw: {
       handlers: [
         http.get(`${API_ROOT}api/v1/shop/shipping-costs/`, () => {

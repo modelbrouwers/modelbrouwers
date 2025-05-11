@@ -28,13 +28,22 @@ export interface ShippingsCostsResponse {
   price: string;
 }
 
+export interface ShippingCostsInfo {
+  price: number;
+  weight: string;
+}
+
 export const calculateShippingCosts = async (
   cartId: number,
   country: CountryOption['value'],
-): Promise<ShippingsCostsResponse> => {
+): Promise<ShippingCostsInfo> => {
   const shippingCosts = await get<ShippingsCostsResponse>('shop/shipping-costs/', {
     cart_id: cartId.toString(),
     country,
   });
-  return shippingCosts!;
+  const {weight, price: priceStr} = shippingCosts!;
+  return {
+    price: parseFloat(priceStr),
+    weight,
+  };
 };

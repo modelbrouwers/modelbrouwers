@@ -94,8 +94,8 @@ jobs:
           # Use Docker `latest` tag convention
           [ "$VERSION" == "main" ] && VERSION=latest
 
-          echo ::set-output name=tag::${VERSION}
-          echo ::set-output name=git_hash::${GITHUB_SHA}
+          echo "tag=${VERSION}" >> $GITHUB_OUTPUT
+          echo "git_hash=${GITHUB_SHA}" >> $GITHUB_OUTPUT
       - name: Build the Docker image
         run: |
           docker build \

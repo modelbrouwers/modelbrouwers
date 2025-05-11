@@ -11,7 +11,7 @@ const Account: React.FC = () => {
   const checkoutRoot = useHref('/');
 
   if (isAuthenticated) {
-    return <Navigate to="/address" />;
+    return <Navigate to="../delivery" />;
   }
 
   return (
@@ -19,7 +19,7 @@ const Account: React.FC = () => {
       <div className="layout layout--columns">
         <div className="layout__column layout__column--center">
           <Link
-            to="/address"
+            to="../delivery"
             className="button button--vertical-center button--large button--icon button--blue"
           >
             <i className="fa fa-user-secret fa-2x" />

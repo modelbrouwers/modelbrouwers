@@ -29,6 +29,11 @@ interface MailDelivery {
   billingAddress: Address | null;
 }
 
+export interface ShippingCosts {
+  price: number;
+  weight: string;
+}
+
 export type DeliveryDetails = (PickupDelivery | MailDelivery) & {
   customer: Customer;
 };

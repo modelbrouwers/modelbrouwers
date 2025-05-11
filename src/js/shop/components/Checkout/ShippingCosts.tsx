@@ -5,61 +5,36 @@ import useAsync from 'react-use/esm/useAsync';
 import {getCountryName} from '@/components/forms/CountryField';
 import {calculateShippingCosts} from '@/data/shop/payment';
 
+import {useCheckoutContext} from './Context';
 import type {FormikValues} from './Delivery';
 
-type CountryValue = NonNullable<FormikValues['deliveryAddress']>['country'];
-
-interface ShippingCostsInfo {
-  price: number;
-  weight: string;
-}
-
-const fetchShippingCosts = async (
-  cartId: number,
-  country: CountryValue,
-): Promise<ShippingCostsInfo> => {
-  const {weight, price: priceStr} = await calculateShippingCosts(cartId, country);
-  return {
-    price: parseFloat(priceStr),
-    weight,
-  };
-};
-
-export interface ShippingCostsProps {
-  cartId: number;
-}
-
-const ShippingCosts: React.FC<ShippingCostsProps> = ({cartId}) => {
+const ShippingCosts: React.FC = () => {
   const intl = useIntl();
+  const {cartId, shippingCosts, onChangeShippingCosts} = useCheckoutContext();
   const {
     values: {deliveryMethod, deliveryAddress},
   } = useFormikContext<FormikValues>();
   const country = deliveryAddress?.country;
 
-  const {
-    loading,
-    error,
-    value: costInfo,
-  } = useAsync(async () => {
+  const {loading, error} = useAsync(async () => {
     if (!cartId || !country) return undefined;
 
     if (deliveryMethod === 'pickup') {
-      // cartStore.setShippingCosts(0);
-      return undefined;
+      onChangeShippingCosts({price: 0, weight: ''});
+      return;
+    } else {
+      const info = await calculateShippingCosts(cartId, country);
+      onChangeShippingCosts(info);
     }
-
-    const info = await fetchShippingCosts(cartId, country);
-    // cartStore.setShippingCosts(info.price);
-    return info;
-  }, [cartId, country, deliveryMethod]);
+  }, [onChangeShippingCosts, cartId, deliveryMethod, country]);
 
   if (error) throw error;
 
-  if (deliveryMethod !== 'mail' || !country || loading || !costInfo) {
+  if (deliveryMethod !== 'mail' || !country || loading) {
     return null;
   }
 
-  const {weight, price} = costInfo;
+  const {weight, price} = shippingCosts;
   return (
     <FormattedMessage
       tagName="p"

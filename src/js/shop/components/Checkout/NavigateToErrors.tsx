@@ -7,7 +7,7 @@ import {useCheckoutContext} from './Context';
  */
 const NavigateToErrors: React.FC = () => {
   const {hasDeliveryDetailsErrors, hasPaymentErrors} = useCheckoutContext();
-  const navigateTo = hasDeliveryDetailsErrors ? '/address' : hasPaymentErrors ? '/payment' : '/';
+  const navigateTo = hasDeliveryDetailsErrors ? '/delivery' : hasPaymentErrors ? '/payment' : '/';
   return <Navigate to={navigateTo} />;
 };
 

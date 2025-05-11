@@ -45,9 +45,15 @@ export default {
 type Story = StoryObj<typeof TopbarCart>;
 
 export const Default: Story = {
-  name: 'TopbarCart',
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
     await userEvent.hover(canvas.getByText('4 items'));
+  },
+};
+
+export const WithShippingCosts: Story = {
+  ...Default,
+  args: {
+    shippingCosts: 2.99,
   },
 };

@@ -41,12 +41,6 @@
       "value": "Remove one"
     }
   ],
-  "24+V/B": [
-    {
-      "type": 0,
-      "value": "amount"
-    }
-  ],
   "3UvxIB": [
     {
       "type": 0,
@@ -143,6 +137,12 @@
       "value": "Number"
     }
   ],
+  "GHHsMN": [
+    {
+      "type": 0,
+      "value": "Shipping costs"
+    }
+  ],
   "GhZs+k": [
     {
       "type": 0,
@@ -179,12 +179,6 @@
       "value": "Your cart is empty!"
     }
   ],
-  "JAVg6k": [
-    {
-      "type": 0,
-      "value": "total"
-    }
-  ],
   "JFs7tB": [
     {
       "type": 0,
@@ -203,12 +197,6 @@
     {
       "type": 0,
       "value": "'"
-    }
-  ],
-  "KZ9pSc": [
-    {
-      "type": 0,
-      "value": "product"
     }
   ],
   "LYbu8S": [
@@ -381,12 +369,6 @@
     {
       "type": 0,
       "value": "Delivery address"
-    }
-  ],
-  "oD9PGg": [
-    {
-      "type": 0,
-      "value": "price"
     }
   ],
   "oNlKJN": [
@@ -592,6 +574,18 @@
     {
       "type": 0,
       "value": "Topic"
+    }
+  ],
+  "ysHRbD": [
+    {
+      "type": 0,
+      "value": "Shipping: "
+    },
+    {
+      "children": [
+      ],
+      "type": 8,
+      "value": "costs"
     }
   ],
   "yy0Fua": [
