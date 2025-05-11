@@ -51,7 +51,7 @@ class CategoryModelTest(TestCase):
 
         self.assertEqual(len(root.get_children()), 2)
 
-        child1.add_child()
+        child1.add_child(name="nested child")
         self.assertEqual(len(child1.get_children()), 1)
 
 
