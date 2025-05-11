@@ -56,6 +56,7 @@ npm-debug.log
 # Build results
 src/static/css/
 src/static/bundles/
+/storybook-static
 !src/static/css/images
 !src/static/css/base.css
 !src/static/css/common.css
