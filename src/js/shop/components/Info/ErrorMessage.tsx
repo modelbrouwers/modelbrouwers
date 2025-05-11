@@ -1,14 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
-/**
- *
- * Info
- *
- */
-const ErrorMessage = ({message = null}) => {
-  if (message == null) {
+export interface ErrorMessageProps {
+  message?: React.ReactNode;
+}
+
+const ErrorMessage: React.FC<ErrorMessageProps> = ({message}) => {
+  if (!message) {
     message = (
       <FormattedMessage
         description="General error message"
@@ -16,12 +13,7 @@ const ErrorMessage = ({message = null}) => {
       />
     );
   }
-
   return <div>{message}</div>;
-};
-
-ErrorMessage.propTypes = {
-  message: PropTypes.node,
 };
 
 export default ErrorMessage;
