@@ -114,6 +114,11 @@
     "description": "Delivery address: number",
     "originalDefault": "Number"
   },
+  "GHHsMN": {
+    "defaultMessage": "Shipping costs",
+    "description": "Cart detail: shipping costs label",
+    "originalDefault": "Shipping costs"
+  },
   "GhZs+k": {
     "defaultMessage": "Confirmation",
     "description": "Tab: confirm",

@@ -11,6 +11,10 @@
 
   @include bem.element('label') {
     color: var(--mb-color-main-grey);
+
+    @include bem.modifier('plain') {
+      color: inherit;
+    }
   }
 
   @include bem.element('text') {
@@ -23,7 +27,7 @@
 
   @include bem.modifier('plain') {
     @include bem.element('label') {
-      color: inherit;
+      @extend .key-value__label--plain;
     }
 
     @include bem.element('text') {

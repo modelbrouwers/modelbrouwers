@@ -11,6 +11,7 @@ export interface CartDetailProps {
   indexPath: string;
   cartProducts: CartProduct[];
   onChangeAmount: (cartProductId: number, newAmount: number) => Promise<void>;
+  shippingCosts: number;
 }
 
 const CART_DETAIL_COLUMNS: Column[] = [
@@ -28,6 +29,7 @@ const CART_DETAIL_COLUMNS: Column[] = [
 const CartDetail: React.FC<CartDetailProps> = ({
   cartProducts,
   onChangeAmount,
+  shippingCosts = 0,
   checkoutPath,
   indexPath,
 }) => (
@@ -57,26 +59,29 @@ const CartDetail: React.FC<CartDetailProps> = ({
           <h4>
             <FormattedMessage id="shop.cart.detail.title.cart.total" defaultMessage="Cart total" />
           </h4>
-          <div className="cart-detail__info-row">
-            <span className="cart-detail__text">
-              <FormattedMessage id="shop.cart.detail.cart.subtotal" defaultMessage="Sub-total" />
-            </span>
-            <span className="cart-detail__value">N/A</span>
-          </div>
-          <div className="cart-detail__info-row">
-            <span className="cart-detail__text">
-              <FormattedMessage id="shop.cart.detail.cart.taxes" defaultMessage="Taxes" />
-            </span>
-            <span className="cart-detail__value">N/A</span>
-          </div>
-          <div className="cart-detail__info-row">
-            <span className="cart-detail__text">
-              <FormattedMessage id="shop.cart.detail.cart.total" defaultMessage="Total" />
-            </span>
-            <span className="cart-detail__value">
-              <Price value={getTotal(cartProducts)} />
-            </span>
-          </div>
+
+          {/* TODO */}
+          <PriceKeyValue price={0}>
+            <FormattedMessage id="shop.cart.detail.cart.subtotal" defaultMessage="Sub-total" />
+          </PriceKeyValue>
+
+          {/* TODO */}
+          <PriceKeyValue price={0}>
+            <FormattedMessage id="shop.cart.detail.cart.taxes" defaultMessage="Taxes" />
+          </PriceKeyValue>
+
+          {shippingCosts ? (
+            <PriceKeyValue price={shippingCosts}>
+              <FormattedMessage
+                description="Cart detail: shipping costs label"
+                defaultMessage="Shipping costs"
+              />
+            </PriceKeyValue>
+          ) : null}
+
+          <PriceKeyValue price={getTotal(cartProducts) + shippingCosts}>
+            <FormattedMessage id="shop.cart.detail.cart.total" defaultMessage="Total" />
+          </PriceKeyValue>
         </div>
 
         <div className="cart-detail__action-row">
@@ -92,6 +97,20 @@ const CartDetail: React.FC<CartDetailProps> = ({
         </div>
       </div>
     </div>
+  </div>
+);
+
+interface PriceKeyValueProps {
+  children: React.ReactNode;
+  price: number;
+}
+
+const PriceKeyValue: React.FC<PriceKeyValueProps> = ({children, price}) => (
+  <div className="key-value key-value--stretch-mobile">
+    <span className="key-value__label key-value__label--plain">{children}</span>
+    <span className="key-value__text">
+      <Price value={price} />
+    </span>
   </div>
 );
 
