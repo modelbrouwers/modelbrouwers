@@ -13,6 +13,7 @@ export interface TopbarCartProps {
   cartDetailPath: string;
   checkoutPath: string;
   onRemoveProduct: (id: number) => void;
+  shippingCosts: number;
 }
 
 /**
@@ -24,6 +25,7 @@ const TopbarCart: React.FC<TopbarCartProps> = ({
   cartDetailPath,
   checkoutPath,
   onRemoveProduct,
+  shippingCosts = 0,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const totalProductCount: number = cartProducts.reduce(
@@ -51,7 +53,7 @@ const TopbarCart: React.FC<TopbarCartProps> = ({
                 />
               </div>
               <div className="cart__price">
-                <Price value={getTotal(cartProducts)} />
+                <Price value={getTotal(cartProducts) + shippingCosts} />
               </div>
             </div>
           </div>
@@ -65,11 +67,24 @@ const TopbarCart: React.FC<TopbarCartProps> = ({
               <FormattedMessage id="shop.cart.topbar.checkout" defaultMessage="Checkout" />
             </a>
           </div>
+
           <ul className="cart__products">
             {cartProducts.map(cp => (
               <TopbarCartProduct key={cp.id} cartProduct={cp} onRemove={onRemoveProduct} />
             ))}
           </ul>
+
+          {shippingCosts ? (
+            <div className="cart__shipping">
+              <FormattedMessage
+                description="TopbarCart shipping costs"
+                defaultMessage="Shipping: <costs></costs>"
+                values={{
+                  costs: () => <Price value={shippingCosts} />,
+                }}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
