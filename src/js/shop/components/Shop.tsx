@@ -28,6 +28,7 @@ export interface CatalogueProduct {
 
 interface ShopState {
   cart: null | (Pick<CartData, 'id' | 'user'> & {products: CartProduct[]});
+  shippingCosts: number;
 }
 
 type DispatchAction =
@@ -125,8 +126,9 @@ const Shop: React.FC<ShopProps> = ({
   validationErrors,
   checkoutUseMemoryRouter = false,
 }) => {
-  const [{cart}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
+  const [{cart, shippingCosts}, dispatch] = useImmerReducer<ShopState, DispatchAction>(reducer, {
     cart: null,
+    shippingCosts: 0,
   });
 
   const {loading, error} = useAsync(async () => {
@@ -184,6 +186,7 @@ const Shop: React.FC<ShopProps> = ({
             onRemoveProduct={async (cartProductId: number) =>
               await onChangeProductAmount(cartProductId, 0)
             }
+            shippingCosts={shippingCosts}
           />,
           topbarCartNode,
         )}
@@ -217,6 +220,7 @@ const Shop: React.FC<ShopProps> = ({
             indexPath={indexPath}
             cartProducts={cart.products}
             onChangeAmount={onChangeProductAmount}
+            shippingCosts={shippingCosts}
           />,
           cartDetailNode,
         )}
