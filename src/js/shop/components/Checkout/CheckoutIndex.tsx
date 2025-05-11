@@ -4,7 +4,7 @@ import {useCheckoutContext} from './Context';
 
 const CheckoutIndex: React.FC = () => {
   const {isAuthenticated} = useCheckoutContext();
-  return <Navigate to={isAuthenticated ? 'address' : 'account'} />;
+  return <Navigate to={isAuthenticated ? 'delivery' : 'account'} />;
 };
 
 export default CheckoutIndex;

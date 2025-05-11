@@ -50,8 +50,8 @@ const Checkout: React.FC = () => {
             </NavLink>
           </li>
           <li className="navigation__item">
-            <NavLink to="address" isEnabled hasErrors={hasDeliveryDetailsErrors}>
-              <FormattedMessage description="Tab: address" defaultMessage="Address" />
+            <NavLink to="delivery" isEnabled hasErrors={hasDeliveryDetailsErrors}>
+              <FormattedMessage description="Tab: delivery" defaultMessage="Delivery" />
             </NavLink>
           </li>
           <li className="navigation__item">

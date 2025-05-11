@@ -22,7 +22,7 @@ const routes: RouteObject[] = [
         Component: Account,
       },
       {
-        path: 'address',
+        path: 'delivery',
         Component: Delivery,
       },
       {
