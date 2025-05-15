@@ -38,11 +38,12 @@ from ..models import (
 from ..payments.service import register, start_payment
 from ..serializers import ConfirmOrderSerializer
 from ..utils import ViewFunc, view_instance
+from .mixins import TestPermissionsRequiredMixin
 
 logger = logging.getLogger(__name__)
 
 
-class IndexView(ListView):
+class IndexView(TestPermissionsRequiredMixin, ListView):
     queryset = HomepageCategory.objects.select_related("main_category").order_by(
         "order"
     )
@@ -56,13 +57,15 @@ class IndexView(ListView):
 
 
 def _call_detail_view(
-    candidate: Callable[..., HttpResponseBase], *, request: HttpRequest, slug: str
-):
-    # breakpoint()
+    candidate: Callable[..., HttpResponseBase],
+    *,
+    request: HttpRequest,
+    slug: str,
+) -> HttpResponseBase:
     return candidate(request, slug=slug)
 
 
-class RouterView(View):
+class RouterView(TestPermissionsRequiredMixin, View):
     """
     Route the path to the most appropriate specialized view.
 
@@ -100,7 +103,7 @@ class RouterView(View):
         raise Http404("No catalogue resource found.")
 
 
-class CategoryDetailView(DetailView):
+class CategoryDetailView(TestPermissionsRequiredMixin, DetailView):
     model = Category
     template_name = "shop/category_detail.html"
     context_object_name = "category"
@@ -111,7 +114,7 @@ class CategoryDetailView(DetailView):
         return ctx
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(TestPermissionsRequiredMixin, DetailView):
     queryset = Product.objects.filter(active=True)
     context_object_name = "product"
     template_name = "shop/product_detail.html"
@@ -159,7 +162,7 @@ class ProductDetailView(DetailView):
             raise Category.DoesNotExist("Category does not exist") from err
 
 
-class CartDetailView(DetailView):
+class CartDetailView(TestPermissionsRequiredMixin, DetailView):
     queryset = Cart.objects.all()
     template_name = "shop/cart_detail.html"
 
@@ -203,11 +206,17 @@ class CheckoutMixin:
         return context
 
 
-class CheckoutView(CheckoutMixin, TemplateView):
+class CheckoutView(TestPermissionsRequiredMixin, CheckoutMixin, TemplateView):
     pass
 
 
-class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View):
+class ConfirmOrderView(
+    TestPermissionsRequiredMixin,
+    CheckoutMixin,
+    TemplateResponseMixin,
+    ContextMixin,
+    View,
+):
     """
     Submit an order and redirect to the selected payment provider.
 

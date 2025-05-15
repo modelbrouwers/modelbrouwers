@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.views.generic.detail import SingleObjectMixin
 
 from furl import furl
