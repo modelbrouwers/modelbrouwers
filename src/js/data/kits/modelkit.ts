@@ -1,5 +1,7 @@
 import {get, post} from '@/data/api-client';
 
+import type {BrandData} from './brand';
+
 interface ListQueryParameters {
   /**
    * ID of the brand.
@@ -17,16 +19,6 @@ interface ListQueryParameters {
    * Page number, 1-indexed.
    */
   page?: number;
-}
-
-interface BrandData {
-  id: number;
-  name: string;
-  is_active: boolean;
-  // Ommitted for list endpoint
-  logo: {
-    small: string;
-  };
 }
 
 interface ScaleData {

@@ -1,7 +1,26 @@
 import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
 
+import {get} from '@/data/api-client';
+
 import {API_ROOT} from '../../constants';
 import {handleValidationErrors} from '../utils';
+
+export interface BrandData {
+  id: number;
+  name: string;
+  is_active: boolean;
+  // Ommitted for list endpoint
+  logo: {
+    small: string;
+  };
+}
+
+export type ListBrandData = Omit<BrandData, 'logo'>;
+
+export const listBrands = async (): Promise<ListBrandData[]> => {
+  const responseData = await get<ListBrandData[]>('kits/brand/');
+  return responseData!;
+};
 
 class Brand extends CrudConsumerObject {}
 

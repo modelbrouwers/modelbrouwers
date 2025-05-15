@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import {useAsync} from 'react-use';
 
-import {BrandConsumer} from '../../data/kits/brand';
+import {type ListBrandData, listBrands} from '@/data/kits/brand';
+
 import {ScaleConsumer} from '../../data/kits/scale';
 import {SearchInput} from './SearchInput';
 
-const brandConsumer = new BrandConsumer();
-const brandOptionGetter = brand => {
+const brandOptionGetter = (brand: ListBrandData) => {
   return {
     value: brand.id.toString(),
     label: brand.name,
@@ -35,7 +35,7 @@ const FilterForm: React.FC<FilterFormProps> = ({onChange}) => {
     value: {brands = [], scales = []} = {},
     error,
   } = useAsync(async () => {
-    const [brands, scales] = await Promise.all([brandConsumer.list(), scaleConsumer.list()]);
+    const [brands, scales] = await Promise.all([listBrands(), scaleConsumer.list()]);
     return {brands, scales};
   }, []);
 
@@ -45,11 +45,11 @@ const FilterForm: React.FC<FilterFormProps> = ({onChange}) => {
   return (
     <div className="row">
       <div className="col-xs-12 col-sm-4">
-        <Select
+        <Select<ListBrandData>
           name="brand"
           isLoading={loading}
           options={brands}
-          getOptionValue={brand => brand.id}
+          getOptionValue={brand => brand.id.toString()}
           getOptionLabel={brand => brand.name}
           isClearable
           isSearchable
