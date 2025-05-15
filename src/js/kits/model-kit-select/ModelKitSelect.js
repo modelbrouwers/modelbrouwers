@@ -93,7 +93,13 @@ const getReducer = allowMultiple => {
         // set the search result if it's page one, or append them if it's a higher page.
         const {results, next: nextUrl} = action.payload;
         draft.loading = false;
-        draft.searchResults.push(...results);
+
+        if (draft.page === 1) {
+          draft.searchResults = results;
+        } else {
+          draft.searchResults.push(...results);
+        }
+
         draft.hasNext = nextUrl !== null;
         break;
       }

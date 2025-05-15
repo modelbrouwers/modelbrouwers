@@ -1,9 +1,4 @@
-import {CrudConsumer, CrudConsumerObject, LinkedPageNumberList} from 'consumerjs';
-
 import {get, post} from '@/data/api-client';
-
-import {API_ROOT} from '../../constants';
-import {handleValidationErrors} from '../utils';
 
 interface ListQueryParameters {
   /**
@@ -52,6 +47,11 @@ interface ModelKitData {
   };
 }
 
+export const getModelKit = async (id: number): Promise<ModelKitData> => {
+  const cart = await get<ModelKitData>(`kits/kit/${id}/`);
+  return cart!;
+};
+
 interface ListResponseData {
   count: number;
   paginate_by: number;
@@ -59,11 +59,6 @@ interface ListResponseData {
   next: string | null;
   results: ModelKitData[];
 }
-
-export const getModelKit = async (id: number): Promise<ModelKitData> => {
-  const cart = await get<ModelKitData>(`kits/kit/${id}/`);
-  return cart!;
-};
 
 export const listModelKits = async (query: ListQueryParameters): Promise<ListResponseData> => {
   const params = Object.entries(query).map((entry: [string, string | number]): [string, string] => {
@@ -74,29 +69,15 @@ export const listModelKits = async (query: ListQueryParameters): Promise<ListRes
   return responseData!;
 };
 
-class ModelKit extends CrudConsumerObject {}
-
-class ModelKitConsumer extends CrudConsumer {
-  constructor(endpoint = `${API_ROOT}api/v1/kits/kit/`, objectClass = ModelKit) {
-    super(endpoint, objectClass, {
-      parserDataPath: 'results',
-      listClass: LinkedPageNumberList,
-    });
-  }
-
-  list() {
-    return this.get('');
-  }
-
-  filter(filters) {
-    return this.get('', filters);
-  }
-
-  create(data) {
-    return super.create(data).catch(err => {
-      return Promise.reject(handleValidationErrors(err));
-    });
-  }
+interface CreateKitData extends Pick<ModelKitData, 'name' | 'kit_number' | 'difficulty'> {
+  box_image_uuid: string;
 }
 
-export {ModelKitConsumer};
+interface CreateKitResponseData extends ModelKitData {
+  url_kitreviews: string;
+}
+
+export const createModelKit = async (data: CreateKitData): Promise<CreateKitResponseData> => {
+  const kit = await post<CreateKitResponseData, CreateKitData>('kits/kit/', data);
+  return kit!;
+};

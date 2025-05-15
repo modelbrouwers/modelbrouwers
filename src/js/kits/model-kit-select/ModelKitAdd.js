@@ -3,10 +3,11 @@ import React, {useContext} from 'react';
 import ReactDOM from 'react-dom';
 import {useEvent} from 'react-use';
 
+import {createModelKit} from '@/data/kits/modelkit';
+
 import {FormField} from '../../components/forms/FormField.js';
 import {RadioSelect} from '../../components/forms/RadioSelect';
 import {Brand, BrandConsumer} from '../../data/kits/brand';
-import {ModelKitConsumer} from '../../data/kits/modelkit';
 import {Scale, ScaleConsumer, cleanScale} from '../../data/kits/scale';
 import BoxartUpload from './BoxartUpload';
 import {brandOptionGetter, scaleOptionGetter} from './FilterForm';
@@ -25,7 +26,6 @@ const DIFFICULTY_CHOICES = [
 
 const brandConsumer = new BrandConsumer();
 const scaleConsumer = new ScaleConsumer();
-const kitConsumer = new ModelKitConsumer();
 
 const AddKitForm = ({
   brand = null,
@@ -135,7 +135,7 @@ const ModelKitAdd = ({
 }) => {
   const {modal, modalBody, modalForm} = useContext(ModalContext);
 
-  const onSubmit = event => {
+  const onSubmit = async event => {
     event.preventDefault();
     const submitData = {
       brand: brand ? brand.id : null,
@@ -147,20 +147,20 @@ const ModelKitAdd = ({
     };
 
     // submit to backend
-    kitConsumer
-      .create(submitData)
-      .then(kit => {
-        // handle the different serializers in the backend
-        kit.brand = brand;
-        kit.scale = scale;
-        // FIXME: legacy bootstrap
-        modal.modal('hide');
-        onKitAdded(kit);
-      })
-      .catch(errors => {
-        console.log(errors);
-        // TODO: handle validation errors
-      });
+    let kit;
+    try {
+      kit = await createModelKit(submitData);
+    } catch (err) {
+      // TODO: handle validation errors
+      console.error(err);
+    }
+
+    // handle the different serializers in the backend
+    kit.brand = brand;
+    kit.scale = scale;
+    // FIXME: legacy bootstrap
+    modal.modal('hide');
+    onKitAdded(kit);
   };
 
   useEvent('submit', onSubmit, modalForm);

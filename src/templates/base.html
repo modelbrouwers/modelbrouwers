@@ -45,7 +45,7 @@
 
         {% block eye-catcher %}{% endblock %}
 
-        <main>
+        <main data-csrftoken="{{ csrf_token }}">
             {% block main %}
                 <div class="container">
                     {% block content %}{% endblock content %}

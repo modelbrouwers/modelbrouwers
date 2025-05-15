@@ -3,11 +3,10 @@ import React, {useContext} from 'react';
 import {useEvent} from 'react-use';
 import {useImmerReducer} from 'use-immer';
 
-import {ModelKitConsumer} from '../data/kits/modelkit';
+import {createModelKit} from '@/data/kits/modelkit';
+
 import {AddKitForm} from '../kits/model-kit-select/ModelKitAdd';
 import {ModalContext} from '../kits/model-kit-select/context';
-
-const kitConsumer = new ModelKitConsumer();
 
 const initialState = {
   brand: null,
@@ -63,7 +62,7 @@ const KitReviewKitAdd = ({onKitAdded}) => {
    * Submit handler, invoked when the create form is submitted.
    * @param  {DOMEvent} event The submit event
    */
-  const onSubmit = event => {
+  const onSubmit = async event => {
     event.preventDefault();
 
     const submitData = {
@@ -76,18 +75,18 @@ const KitReviewKitAdd = ({onKitAdded}) => {
     };
 
     // submit to backend
-    kitConsumer
-      .create(submitData)
-      .then(kit => {
-        // handle the different serializers in the backend
-        kit.brand = brand;
-        kit.scale = scale;
-        onKitAdded(kit);
-      })
-      .catch(errors => {
-        console.log(errors);
-        // TODO: handle validation errors
-      });
+    let kit;
+    try {
+      kit = await createModelKit(submitData);
+    } catch (err) {
+      // TODO: handle validation errors
+      console.error(err);
+    }
+
+    // handle the different serializers in the backend
+    kit.brand = brand;
+    kit.scale = scale;
+    onKitAdded(kit);
   };
   useEvent('submit', onSubmit, modalForm);
 
