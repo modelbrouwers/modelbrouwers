@@ -2,7 +2,7 @@
 Modelbrouwers.nl
 ================
 
-:Version: 2.10.3
+:Version: 2.11.0
 :Source: https://github.com/modelbrouwers/modelbrouwers
 :Keywords: scale modeling, phpBB3, forum, albums, community
 
