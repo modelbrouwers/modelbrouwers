@@ -1,6 +1,7 @@
 import {get, post} from '@/data/api-client';
 
 import type {BrandData} from './brand';
+import type {ScaleData} from './scale';
 
 interface ListQueryParameters {
   /**
@@ -19,12 +20,6 @@ interface ListQueryParameters {
    * Page number, 1-indexed.
    */
   page?: number;
-}
-
-interface ScaleData {
-  id: number;
-  scale: number;
-  __str__: string;
 }
 
 interface ModelKitData {

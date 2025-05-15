@@ -1,11 +1,24 @@
 import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
 
+import {get} from '@/data/api-client';
+
 import {API_ROOT} from '../../constants';
 import {handleValidationErrors} from '../utils';
 
-let reScale = new RegExp('1[/:]([0-9]*)');
+export interface ScaleData {
+  id: number;
+  scale: number;
+  __str__: string;
+}
 
-const cleanScale = input => {
+export const listScales = async (): Promise<ScaleData[]> => {
+  const responseData = await get<ScaleData[]>('kits/scale/');
+  return responseData!;
+};
+
+const reScale = new RegExp('1[/:]([0-9]*)');
+
+const cleanScale = (input: string) => {
   if (isNaN(Number(input))) {
     let match = reScale.exec(input);
     if (match) {

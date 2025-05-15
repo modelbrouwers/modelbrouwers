@@ -3,8 +3,8 @@ import Select from 'react-select';
 import {useAsync} from 'react-use';
 
 import {type ListBrandData, listBrands} from '@/data/kits/brand';
+import {type ScaleData, listScales} from '@/data/kits/scale';
 
-import {ScaleConsumer} from '../../data/kits/scale';
 import {SearchInput} from './SearchInput';
 
 const brandOptionGetter = (brand: ListBrandData) => {
@@ -15,8 +15,7 @@ const brandOptionGetter = (brand: ListBrandData) => {
   };
 };
 
-const scaleConsumer = new ScaleConsumer();
-const scaleOptionGetter = scale => {
+const scaleOptionGetter = (scale: ScaleData) => {
   return {
     value: scale.id.toString(),
     label: scale.__str__,
@@ -35,7 +34,7 @@ const FilterForm: React.FC<FilterFormProps> = ({onChange}) => {
     value: {brands = [], scales = []} = {},
     error,
   } = useAsync(async () => {
-    const [brands, scales] = await Promise.all([listBrands(), scaleConsumer.list()]);
+    const [brands, scales] = await Promise.all([listBrands(), listScales()] as const);
     return {brands, scales};
   }, []);
 
@@ -58,11 +57,11 @@ const FilterForm: React.FC<FilterFormProps> = ({onChange}) => {
       </div>
 
       <div className="col-xs-12 col-sm-4">
-        <Select
+        <Select<ScaleData>
           name="scale"
           isLoading={loading}
           options={scales}
-          getOptionValue={scale => scale.id}
+          getOptionValue={scale => scale.id.toString()}
           getOptionLabel={scale => scale.__str__}
           isClearable
           isSearchable

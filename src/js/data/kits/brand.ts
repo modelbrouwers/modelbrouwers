@@ -29,10 +29,6 @@ class BrandConsumer extends CrudConsumer {
     super(endpoint, objectClass);
   }
 
-  list() {
-    return this.get('');
-  }
-
   filter(params) {
     return this.get('', params);
   }
