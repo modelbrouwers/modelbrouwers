@@ -3,7 +3,7 @@ import uuid
 from django.template import engines
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.translation import gettext as _, override
+from django.utils import translation
 
 from django_webtest import WebTest
 
@@ -35,33 +35,33 @@ class BreadcrumbsTests(TestCase):
         self.assertHTMLEqual(
             rendered,
             '<div class="breadcrumbs">'
-            '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>'
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/root">Root</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/root/child1">Child1</a>'
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/root/child1">Child1</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/root/child1/child2">Child2</a></div>',
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/root/child1/child2">Child2</a></div>',
         )
 
         rendered2 = template.render({"node": child1})
         self.assertHTMLEqual(
             rendered2,
             '<div class="breadcrumbs">'
-            '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>'
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/root">Root</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/root/child1">Child1</a>',
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/root/child1">Child1</a>',
         )
 
         rendered3 = template.render({"node": root})
         self.assertHTMLEqual(
             rendered3,
             '<div class="breadcrumbs">'
-            '<a class="breadcrumbs__item" href="/winkel/">Home</a>'
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/">Home</a>'
             '<span class="breadcrumbs__separator"> > </span>'
-            '<a class="breadcrumbs__item" href="/winkel/root">Root</a>',
+            '<a class="breadcrumbs__item" href="/nieuwe-winkel/root">Root</a>',
         )
 
 
@@ -114,7 +114,7 @@ class CatalogueRouterTests(TestCase):
 
         for good_url, template_name in good_urls:
             with self.subTest(good_url=good_url):
-                response = self.client.get(f"/winkel{good_url}")
+                response = self.client.get(f"/nieuwe-winkel{good_url}")
 
                 self.assertEqual(response.status_code, 200)
                 self.assertTemplateUsed(response, template_name)
@@ -149,7 +149,7 @@ class ProductDetailViewTests(WebTest):
         )
 
         with self.subTest("nl content"):
-            with override("nl"):
+            with translation.override("nl"):
                 url = product.get_absolute_url()
             detail_page = self.app.get(
                 url, extra_environ={"HTTP_ACCEPT_LANGUAGE": "nl"}
@@ -159,7 +159,7 @@ class ProductDetailViewTests(WebTest):
             self.assertContains(detail_page, "Testproduct")
 
         with self.subTest("en content"):
-            with override("en"):
+            with translation.override("en"):
                 url = product.get_absolute_url()
             detail_page = self.app.get(
                 url, extra_environ={"HTTP_ACCEPT_LANGUAGE": "en"}

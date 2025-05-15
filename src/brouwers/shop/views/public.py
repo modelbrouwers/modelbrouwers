@@ -1,7 +1,9 @@
 import json
 import logging
 import re
-from typing import Any, Callable, Tuple
+from collections.abc import Sequence
+from functools import partial
+from typing import Callable
 from urllib.parse import urlsplit
 
 from django.core.exceptions import PermissionDenied
@@ -15,14 +17,12 @@ from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
-from brouwers.shop.models import ShippingCost
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from ..constants import (
     CART_SESSION_KEY,
     ORDERS_SESSION_KEY,
     CartStatuses,
-    DeliveryMethods,
     PaymentStatuses,
 )
 from ..emails import send_order_confirmation_email
@@ -38,11 +38,12 @@ from ..models import (
 from ..payments.service import register, start_payment
 from ..serializers import ConfirmOrderSerializer
 from ..utils import ViewFunc, view_instance
+from .mixins import TestPermissionsRequiredMixin
 
 logger = logging.getLogger(__name__)
 
 
-class IndexView(ListView):
+class IndexView(TestPermissionsRequiredMixin, ListView):
     queryset = HomepageCategory.objects.select_related("main_category").order_by(
         "order"
     )
@@ -55,7 +56,16 @@ class IndexView(ListView):
         return context
 
 
-class RouterView(View):
+def _call_detail_view(
+    candidate: Callable[..., HttpResponseBase],
+    *,
+    request: HttpRequest,
+    slug: str,
+) -> HttpResponseBase:
+    return candidate(request, slug=slug)
+
+
+class RouterView(TestPermissionsRequiredMixin, View):
     """
     Route the path to the most appropriate specialized view.
 
@@ -68,7 +78,8 @@ class RouterView(View):
 
     def dispatch(self, request: HttpRequest, path: str):
         slug = self._validate_path(path)
-        return self.try_candidates(lambda candidate: candidate(request, slug=slug))
+        callback = partial(_call_detail_view, request=request, slug=slug)
+        return self.try_candidates(callback)
 
     @staticmethod
     def _validate_path(path: str) -> str:
@@ -79,22 +90,20 @@ class RouterView(View):
         return bits[-1]
 
     @staticmethod
-    def try_candidates(
-        callback: Callable[[ViewFunc], Any],
-    ) -> Tuple[Callable, HttpResponseBase]:
-        candidates = (
+    def try_candidates[T](callback: Callable[..., T]) -> T:
+        candidates: Sequence[Callable[..., HttpResponseBase]] = (
             ProductDetailView.as_view(),
             CategoryDetailView.as_view(),
         )
         for candidate in candidates:
             try:
-                return callback(candidate)  # type:ignore
+                return callback(candidate)
             except Http404:
                 continue
         raise Http404("No catalogue resource found.")
 
 
-class CategoryDetailView(DetailView):
+class CategoryDetailView(TestPermissionsRequiredMixin, DetailView):
     model = Category
     template_name = "shop/category_detail.html"
     context_object_name = "category"
@@ -105,7 +114,7 @@ class CategoryDetailView(DetailView):
         return ctx
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(TestPermissionsRequiredMixin, DetailView):
     queryset = Product.objects.filter(active=True)
     context_object_name = "product"
     template_name = "shop/product_detail.html"
@@ -139,7 +148,7 @@ class ProductDetailView(DetailView):
 
         slug = RouterView._validate_path(callback_kwargs["path"])
 
-        def _try_candidate(candidate: ViewFunc):
+        def _try_candidate(candidate: ViewFunc) -> Category | Product:
             view = view_instance(candidate, slug=slug)
             # args and kwargs must match the respective CategoryDetailView args and kwargs
             return view.get_object()
@@ -153,7 +162,7 @@ class ProductDetailView(DetailView):
             raise Category.DoesNotExist("Category does not exist") from err
 
 
-class CartDetailView(DetailView):
+class CartDetailView(TestPermissionsRequiredMixin, DetailView):
     queryset = Cart.objects.all()
     template_name = "shop/cart_detail.html"
 
@@ -197,11 +206,17 @@ class CheckoutMixin:
         return context
 
 
-class CheckoutView(CheckoutMixin, TemplateView):
+class CheckoutView(TestPermissionsRequiredMixin, CheckoutMixin, TemplateView):
     pass
 
 
-class ConfirmOrderView(CheckoutMixin, TemplateResponseMixin, ContextMixin, View):
+class ConfirmOrderView(
+    TestPermissionsRequiredMixin,
+    CheckoutMixin,
+    TemplateResponseMixin,
+    ContextMixin,
+    View,
+):
     """
     Submit an order and redirect to the selected payment provider.
 

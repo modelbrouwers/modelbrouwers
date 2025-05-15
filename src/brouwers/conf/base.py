@@ -570,7 +570,8 @@ IRC_DEFAULT_NICK = "brouwer%3F%3F"
 #
 # SHOP
 #
-SHOP_ENABLED = False
+
+# TODO: move to singleton config
 SHOP_BRAND_NAME = config("SHOP_BRAND_NAME", "Modelbrouwers")
 
 #

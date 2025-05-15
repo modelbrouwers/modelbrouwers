@@ -10,3 +10,8 @@ def reload_urlconf():
         reload(sys.modules[settings.ROOT_URLCONF])
         clear_url_caches()
     return import_module(settings.ROOT_URLCONF)
+
+
+def is_testing():
+    test_app = "brouwers.forum_tools.tests.custom_fields"
+    return test_app in settings.INSTALLED_APPS

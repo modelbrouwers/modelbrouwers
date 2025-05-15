@@ -64,19 +64,13 @@ urlpatterns = (
             include("brouwers.brouwersdag.urls", namespace="brouwersdag"),
         ),
         path("i18n/", include("django.conf.urls.i18n")),
+        path("nieuwe-winkel/", include("brouwers.shop.urls", namespace="shop")),
         path("", include("brouwers.users.urls", namespace="users")),
         path("", include("brouwers.general.urls")),
     ]
     + staticfiles_urlpatterns()
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
 )
-
-
-if settings.SHOP_ENABLED:
-    urlpatterns.append(
-        path("winkel/", include("brouwers.shop.urls", namespace="shop")),
-    )
-
 
 if settings.DEBUG:
     urlpatterns += [
