@@ -5,5 +5,3 @@ os.environ.setdefault("ALLOWED_HOSTS", "staging.modelbrouwers.nl")
 os.environ.setdefault("CACHE_PREFIX", "staging")
 
 from .production import *  # noqa isort:skip
-
-SHOP_ENABLED = True

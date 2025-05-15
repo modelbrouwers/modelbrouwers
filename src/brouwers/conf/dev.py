@@ -26,9 +26,6 @@ DEBUG_TOOLBAR_CONFIG = {
     "JQUERY_URL": "",
 }
 
-# Custom settings
-SHOP_ENABLED = True
-
 #
 # Logging outgoing requests
 #

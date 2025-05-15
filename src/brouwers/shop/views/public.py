@@ -1,7 +1,9 @@
 import json
 import logging
 import re
-from typing import Any, Callable, Tuple
+from collections.abc import Sequence
+from functools import partial
+from typing import Callable
 from urllib.parse import urlsplit
 
 from django.core.exceptions import PermissionDenied
@@ -15,14 +17,12 @@ from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
-from brouwers.shop.models import ShippingCost
 from brouwers.users.api.serializers import UserWithProfileSerializer
 
 from ..constants import (
     CART_SESSION_KEY,
     ORDERS_SESSION_KEY,
     CartStatuses,
-    DeliveryMethods,
     PaymentStatuses,
 )
 from ..emails import send_order_confirmation_email
@@ -55,6 +55,13 @@ class IndexView(ListView):
         return context
 
 
+def _call_detail_view(
+    candidate: Callable[..., HttpResponseBase], *, request: HttpRequest, slug: str
+):
+    # breakpoint()
+    return candidate(request, slug=slug)
+
+
 class RouterView(View):
     """
     Route the path to the most appropriate specialized view.
@@ -68,7 +75,8 @@ class RouterView(View):
 
     def dispatch(self, request: HttpRequest, path: str):
         slug = self._validate_path(path)
-        return self.try_candidates(lambda candidate: candidate(request, slug=slug))
+        callback = partial(_call_detail_view, request=request, slug=slug)
+        return self.try_candidates(callback)
 
     @staticmethod
     def _validate_path(path: str) -> str:
@@ -79,16 +87,14 @@ class RouterView(View):
         return bits[-1]
 
     @staticmethod
-    def try_candidates(
-        callback: Callable[[ViewFunc], Any],
-    ) -> Tuple[Callable, HttpResponseBase]:
-        candidates = (
+    def try_candidates[T](callback: Callable[..., T]) -> T:
+        candidates: Sequence[Callable[..., HttpResponseBase]] = (
             ProductDetailView.as_view(),
             CategoryDetailView.as_view(),
         )
         for candidate in candidates:
             try:
-                return callback(candidate)  # type:ignore
+                return callback(candidate)
             except Http404:
                 continue
         raise Http404("No catalogue resource found.")
@@ -139,7 +145,7 @@ class ProductDetailView(DetailView):
 
         slug = RouterView._validate_path(callback_kwargs["path"])
 
-        def _try_candidate(candidate: ViewFunc):
+        def _try_candidate(candidate: ViewFunc) -> Category | Product:
             view = view_instance(candidate, slug=slug)
             # args and kwargs must match the respective CategoryDetailView args and kwargs
             return view.get_object()

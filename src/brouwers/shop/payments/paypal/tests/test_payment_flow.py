@@ -86,12 +86,12 @@ class PaypalPaymentFlowTests(TestCase):
         ]
         self.assertEqual(
             experience_context["return_url"],
-            f"http://testserver/winkel/payments/paypal/{payment.pk}/return?next=%2Ffoo",
+            f"http://testserver/nieuwe-winkel/payments/paypal/{payment.pk}/return?next=%2Ffoo",
         )
         self.assertEqual(
             experience_context["cancel_url"],
-            f"http://testserver/winkel/payments/paypal/{payment.pk}/cancel"
-            "?next=%2Fwinkel%2Fcheckout%2Fpayment",
+            f"http://testserver/nieuwe-winkel/payments/paypal/{payment.pk}/cancel"
+            "?next=%2Fnieuwe-winkel%2Fcheckout%2Fpayment",
         )
 
     @patch_cache({"token": {"expires_in": 3600, "access_token": "brouwers-dummy"}})
@@ -273,7 +273,7 @@ class PaypalPaymentFlowTests(TestCase):
             },
         )
 
-        self.assertRedirects(response, "/winkel/", fetch_redirect_response=False)
+        self.assertRedirects(response, "/nieuwe-winkel/", fetch_redirect_response=False)
 
     def test_cancel_flow_error_conditions(self):
         with self.subTest("accessing payment different payment method"):
