@@ -7,10 +7,10 @@ import {createModelKit} from '@/data/kits/modelkit';
 
 import {FormField} from '../../components/forms/FormField.js';
 import {RadioSelect} from '../../components/forms/RadioSelect';
-import {Brand, BrandConsumer} from '../../data/kits/brand';
 import {Scale, ScaleConsumer, cleanScale} from '../../data/kits/scale';
 import BoxartUpload from './BoxartUpload';
-import {brandOptionGetter, scaleOptionGetter} from './FilterForm';
+import CreateBrandSelect from './CreateBrandSelect';
+import {scaleOptionGetter} from './FilterForm';
 import KitFieldSelect from './KitFieldSelect';
 import {ModalContext} from './context';
 
@@ -24,7 +24,6 @@ const DIFFICULTY_CHOICES = [
   {value: '50', display: 'very hard'},
 ];
 
-const brandConsumer = new BrandConsumer();
 const scaleConsumer = new ScaleConsumer();
 
 const AddKitForm = ({
@@ -49,14 +48,7 @@ const AddKitForm = ({
   return (
     <div className="form-horizontal">
       <FormField htmlId="add-kit-brand" label="brand" required={true}>
-        <KitFieldSelect
-          name="brand"
-          consumer={brandConsumer}
-          prepareQuery={inputValue => (inputValue ? {name: inputValue} : {})}
-          optionGetter={brandOptionGetter}
-          onChange={onSelectChange}
-          value={brand}
-        />
+        <CreateBrandSelect value={brand} onChange={value => onChange({name: 'brand', value})} />
       </FormField>
       <FormField htmlId="add-kit-scale" label="scale" required={true}>
         <KitFieldSelect
@@ -116,7 +108,6 @@ const AddKitForm = ({
 
 AddKitForm.propTypes = {
   onChange: PropTypes.func.isRequired,
-  brand: PropTypes.instanceOf(Brand),
   scale: PropTypes.instanceOf(Scale),
   name: PropTypes.string,
   kitNumber: PropTypes.string,
@@ -179,7 +170,6 @@ const ModelKitAdd = ({
 };
 
 ModelKitAdd.propTypes = {
-  brand: PropTypes.instanceOf(Brand),
   scale: PropTypes.instanceOf(Scale),
   name: PropTypes.string,
   kitNumber: PropTypes.string,

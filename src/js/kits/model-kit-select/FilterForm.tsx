@@ -7,14 +7,6 @@ import {type ScaleData, listScales} from '@/data/kits/scale';
 
 import {SearchInput} from './SearchInput';
 
-const brandOptionGetter = (brand: ListBrandData) => {
-  return {
-    value: brand.id.toString(),
-    label: brand.name,
-    option: brand,
-  };
-};
-
 const scaleOptionGetter = (scale: ScaleData) => {
   return {
     value: scale.id.toString(),
@@ -87,4 +79,4 @@ FilterForm.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export {FilterForm, brandOptionGetter, scaleOptionGetter};
+export {FilterForm, scaleOptionGetter};

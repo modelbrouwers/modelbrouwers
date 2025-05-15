@@ -1,9 +1,4 @@
-import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
-
-import {get} from '@/data/api-client';
-
-import {API_ROOT} from '../../constants';
-import {handleValidationErrors} from '../utils';
+import {get, post} from '@/data/api-client';
 
 export interface BrandData {
   id: number;
@@ -22,22 +17,7 @@ export const listBrands = async (): Promise<ListBrandData[]> => {
   return responseData!;
 };
 
-class Brand extends CrudConsumerObject {}
-
-class BrandConsumer extends CrudConsumer {
-  constructor(endpoint = `${API_ROOT}api/v1/kits/brand/`, objectClass = Brand) {
-    super(endpoint, objectClass);
-  }
-
-  filter(params) {
-    return this.get('', params);
-  }
-
-  fromRaw(name) {
-    return this.create({name}).catch(err => {
-      return Promise.reject(handleValidationErrors(err));
-    });
-  }
-}
-
-export {Brand, BrandConsumer};
+export const createBrand = async (name: string): Promise<BrandData> => {
+  const brand = await post<BrandData, {name: string}>('kits/brand/', {name});
+  return brand!;
+};
