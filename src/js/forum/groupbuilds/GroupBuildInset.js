@@ -117,7 +117,7 @@ GroupBuildDetails.propTypes = {
 };
 
 const GroupBuildInset = ({id}) => {
-  const {loading, error, value: groupbuild} = useAsync(getGroupBuild(id), [id]);
+  const {loading, error, value: groupbuild} = useAsync(async () => await getGroupBuild(id), [id]);
 
   if (loading) {
     return <Loader />;
