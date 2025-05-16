@@ -115,7 +115,12 @@ const SideBar = ({onInsertPhoto}) => {
         </div>
       </div>
 
-      <div className="lid" onClick={() => setClosed(false)}>
+      <div
+        className="lid"
+        onClick={() => setClosed(false)}
+        role="button"
+        aria-label="Toon albums en foto's"
+      >
         <i className="fa fa-camera fa-rotate-270 fa-2x" />
       </div>
     </>

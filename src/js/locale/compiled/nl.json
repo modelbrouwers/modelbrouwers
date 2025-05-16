@@ -113,12 +113,6 @@
       "value": "Brouwer"
     }
   ],
-  "CCvXMf": [
-    {
-      "type": 0,
-      "value": "Address"
-    }
-  ],
   "D5xbSP": [
     {
       "type": 0,
@@ -317,16 +311,16 @@
       "value": "Albums"
     }
   ],
+  "hBtXPb": [
+    {
+      "type": 0,
+      "value": "Insert photo"
+    }
+  ],
   "ilLhfJ": [
     {
       "type": 0,
       "value": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
-    }
-  ],
-  "iziEr8": [
-    {
-      "type": 0,
-      "value": "Reload page"
     }
   ],
   "jHygYM": [
@@ -363,6 +357,12 @@
     {
       "type": 0,
       "value": "Oops, something went wrong. Please try again later."
+    }
+  ],
+  "n2Bpcz": [
+    {
+      "type": 0,
+      "value": "Delivery"
     }
   ],
   "nul77H": [

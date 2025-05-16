@@ -1,6 +1,7 @@
 @use 'sass:math';
 
-body.forum {
+body.forum,
+#storybook-root {
   $sidebar-width: 20%;
   $sidebar-bg: rgba($main-blue, 0.87);
 

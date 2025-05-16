@@ -17,7 +17,7 @@ const Render: React.FC = () => {
 };
 
 export default {
-  title: 'Forum / dead topics',
+  title: 'Forum / Dead topics',
   render: () => <Render />,
   decorators: [
     Story => (
