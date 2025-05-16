@@ -52,7 +52,8 @@ export const Opened: Story = {
         ),
         http.get(`${API_ROOT}api/v1/my/photos/`, () =>
           HttpResponse.json({
-            count: 2,
+            count: 3,
+            paginate_by: 2,
             previous: null,
             next: null,
             results: [

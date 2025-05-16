@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import useAsync from 'react-use/esm/useAsync';
 
-import {Album, AlbumConsumer} from '../../data/albums/album';
-
-const albumConsumer = new AlbumConsumer();
+import {listOwnAlbums} from '@/data/albums/album';
 
 const AlbumSelect = ({onChange, selected = null}) => {
   const {
@@ -12,7 +10,7 @@ const AlbumSelect = ({onChange, selected = null}) => {
     error,
     value: albums,
   } = useAsync(async () => {
-    const albums = await albumConsumer.list();
+    const albums = await listOwnAlbums();
     if (albums.length && !selected) {
       onChange(albums[0]);
     }
@@ -45,7 +43,7 @@ const AlbumSelect = ({onChange, selected = null}) => {
 
 AlbumSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
-  selected: PropTypes.instanceOf(Album),
+  selected: PropTypes.object,
 };
 
 export default AlbumSelect;

@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import Paginator from '../../scripts/paginator';
-
 const NavButton = ({label, content, onClick}) => (
   <a href="#" aria-label={label} onClick={onClick}>
     <span aria-hidden="true">{content}</span>
@@ -16,22 +14,25 @@ NavButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-const PhotosPagination = ({paginator = null, onPageRequested}) => {
-  if (paginator == null) return null;
+const PhotosPagination = ({page = 1, numPages = 0, onPageRequested}) => {
+  if (numPages < 2) return null;
 
   const onLinkClick = (pageNr, event) => {
     event.preventDefault();
     onPageRequested(pageNr);
   };
 
+  const hasPrevious = page > 1;
+  const hasNext = page < numPages;
+
   return (
     <div id="photo-list-pagination">
       <nav className="text-right">
         <ul className="pagination">
-          <li className={paginator.has_previous ? '' : 'disabled'}>
-            {paginator.has_previous ? (
+          <li className={hasPrevious ? '' : 'disabled'}>
+            {hasPrevious ? (
               <NavButton
-                onClick={onLinkClick.bind(this, paginator.previous_page_number)}
+                onClick={event => onLinkClick(page - 1, event)}
                 content="&laquo;"
                 label={
                   <FormattedMessage
@@ -47,18 +48,21 @@ const PhotosPagination = ({paginator = null, onPageRequested}) => {
             )}
           </li>
 
-          {paginator.page_range.map(page => (
-            <li className={page === paginator.number ? 'active' : ''} key={page}>
-              <a href="#" onClick={onLinkClick.bind(this, page)}>
-                {page}
-              </a>
-            </li>
-          ))}
+          {[...Array(numPages).keys()].map(index => {
+            const _page = index + 1;
+            return (
+              <li className={_page === page ? 'active' : ''} key={_page}>
+                <a href="#" onClick={event => onLinkClick(_page, event)}>
+                  {_page}
+                </a>
+              </li>
+            );
+          })}
 
-          <li className={paginator.has_next ? '' : 'disabled'}>
-            {paginator.has_next ? (
+          <li className={hasNext ? '' : 'disabled'}>
+            {hasNext ? (
               <NavButton
-                onClick={onLinkClick.bind(this, paginator.next_page_number)}
+                onClick={event => onLinkClick(page + 1, event)}
                 content="&raquo;"
                 label={<FormattedMessage id="forum.albums.photosNav.next" defaultMessage="Next" />}
               />
@@ -75,7 +79,8 @@ const PhotosPagination = ({paginator = null, onPageRequested}) => {
 };
 
 PhotosPagination.propTypes = {
-  paginator: PropTypes.instanceOf(Paginator),
+  page: PropTypes.number.isRequired,
+  numPages: PropTypes.number.isRequired,
   onPageRequested: PropTypes.func.isRequired,
 };
 

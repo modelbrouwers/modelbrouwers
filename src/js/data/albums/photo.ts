@@ -1,14 +1,55 @@
 import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
 
+import {get} from '@/data/api-client';
+
 import {API_ROOT} from '../../constants';
 // TODO: refactor out
 import Paginator from '../../scripts/paginator';
 
-class Photo extends CrudConsumerObject {
-  get bbcode() {
-    return `[photo data-id="${this.id}"]${this.image.large}[/photo]`;
-  }
+interface ListQueryParameters {
+  /**
+   * ID of the album to retrieve photos for.
+   */
+  albumId: number;
+  /**
+   * Page number, 1-indexed.
+   */
+  page?: number;
+}
 
+interface PhotoData {
+  id: number;
+  user: number;
+  description: string;
+  image: {
+    large: string;
+    thumb: string;
+  };
+}
+
+interface ListResponseData {
+  count: number;
+  paginate_by: number;
+  previous: string | null;
+  next: string | null;
+  results: PhotoData[];
+}
+
+export const listOwnPhotos = async (query: ListQueryParameters): Promise<ListResponseData> => {
+  const params = Object.entries(query).map((entry: [string, string | number]): [string, string] => {
+    const [key, value] = entry;
+    return [key, value.toString()];
+  });
+  const paginatedResponseData = await get<ListResponseData>('my/photos/', params);
+  return paginatedResponseData!;
+};
+
+export const getOwnPhoto = async (id: number): Promise<PhotoData> => {
+  const photoData = await get<PhotoData>(`my/photos/${id}/`);
+  return photoData!;
+};
+
+class Photo extends CrudConsumerObject {
   rotate(direction) {
     return this.__consumer__.rotate(this.id, direction);
   }
@@ -61,11 +102,6 @@ class MyPhotoConsumer extends CrudConsumer {
 
   setAsCover(id) {
     return this.post(`/${id}/set_cover/`);
-  }
-
-  getForAlbum(albumId, extraFilters = {}) {
-    let filters = Object.assign({album: albumId}, extraFilters);
-    return this.get('/', filters);
   }
 }
 

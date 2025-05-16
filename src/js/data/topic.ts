@@ -1,6 +1,6 @@
 import {get} from '@/data/api-client';
 
-interface TopicData {
+export interface TopicData {
   topic_id: number;
   forum: number;
   topic_title: string;
