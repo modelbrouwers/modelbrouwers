@@ -3,7 +3,8 @@
 import $ from 'jquery';
 import URI from 'urijs';
 
-import {TopicConsumer} from '../data/topic';
+import {getTopic} from '@/data/topic';
+
 import urlconf from './urlconf';
 
 const conf = {
@@ -28,25 +29,19 @@ export default class App {
   }
 
   static initDeadTopics() {
-    const consumer = new TopicConsumer();
-
-    const test_url = function (e) {
+    const test_url = async function (e) {
       e.preventDefault();
       var a = $(this);
       var topic_id = a.data('topic-id');
 
-      consumer
-        .retrieve(topic_id)
-        .then(data => {
-          if (!data.is_dead) {
-            window.location = a.attr('href');
-          } else {
-            $('body').css('overflow-y', 'hidden');
-            $('#blanket, #dead_topic').show();
-            $('#message_topic_dead').text(data.text_dead);
-          }
-        })
-        .catch(console.error);
+      const {is_dead, text_dead} = await getTopic(parseInt(topic_id));
+      if (!is_dead) {
+        window.location = a.attr('href');
+      } else {
+        $('body').css('overflow-y', 'hidden');
+        $('#blanket, #dead_topic').show();
+        $('#message_topic_dead').text(text_dead);
+      }
 
       return false;
     };
