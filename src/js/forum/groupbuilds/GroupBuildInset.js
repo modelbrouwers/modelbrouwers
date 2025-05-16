@@ -5,10 +5,9 @@ import useAsync from 'react-use/esm/useAsync';
 
 import Loader from 'components/Loader';
 
-import {GroupBuildConsumer} from '../../data/group-build';
-import GroupBuildParticipantsTable from './GroupBuildParticipantsTable';
+import {getGroupBuild} from '@/data/group-build';
 
-const consumer = new GroupBuildConsumer();
+import GroupBuildParticipantsTable from './GroupBuildParticipantsTable';
 
 const LinebreaksBr = ({text, className, component: Component = 'p'}) => (
   <Component className={className}>
@@ -118,11 +117,7 @@ GroupBuildDetails.propTypes = {
 };
 
 const GroupBuildInset = ({id}) => {
-  const {
-    loading,
-    error,
-    value: groupbuild,
-  } = useAsync(async () => await consumer.read(`${id}/`), [id]);
+  const {loading, error, value: groupbuild} = useAsync(getGroupBuild(id), [id]);
 
   if (loading) {
     return <Loader />;
