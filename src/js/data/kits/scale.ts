@@ -1,9 +1,4 @@
-import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
-
-import {get} from '@/data/api-client';
-
-import {API_ROOT} from '../../constants';
-import {handleValidationErrors} from '../utils';
+import {get, post} from '@/data/api-client';
 
 export interface ScaleData {
   id: number;
@@ -16,39 +11,21 @@ export const listScales = async (): Promise<ScaleData[]> => {
   return responseData!;
 };
 
-const reScale = new RegExp('1[/:]([0-9]*)');
+const RE_SCALE = new RegExp('1[/:]([0-9]+)');
 
-const cleanScale = (input: string) => {
-  if (isNaN(Number(input))) {
-    let match = reScale.exec(input);
+export const parseScale = (input: string): number => {
+  const asNumber = Number(input);
+  if (isNaN(asNumber)) {
+    const match = RE_SCALE.exec(input);
     if (match) {
-      input = match[1];
+      return parseInt(match[1], 10);
     }
   }
-  return input;
+  return asNumber;
 };
 
-class Scale extends CrudConsumerObject {}
-
-class ScaleConsumer extends CrudConsumer {
-  constructor(endpoint = `${API_ROOT}api/v1/kits/scale/`, objectClass = Scale) {
-    super(endpoint, objectClass);
-  }
-
-  list() {
-    return this.get('');
-  }
-
-  filter(params) {
-    return this.get('', params);
-  }
-
-  fromRaw(scale) {
-    scale = cleanScale(scale);
-    return this.create({scale}).catch(err => {
-      return Promise.reject(handleValidationErrors(err));
-    });
-  }
-}
-
-export {cleanScale, Scale, ScaleConsumer};
+export const createScale = async (scale: string): Promise<ScaleData> => {
+  const numericScale = parseScale(scale);
+  const brand = await post<ScaleData, {scale: number}>('kits/scale/', {scale: numericScale});
+  return brand!;
+};

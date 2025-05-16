@@ -4,14 +4,13 @@ import ReactDOM from 'react-dom';
 import {useEvent} from 'react-use';
 
 import {createModelKit} from '@/data/kits/modelkit';
+import {parseScale} from '@/data/kits/scale';
 
 import {FormField} from '../../components/forms/FormField.js';
 import {RadioSelect} from '../../components/forms/RadioSelect';
-import {Scale, ScaleConsumer, cleanScale} from '../../data/kits/scale';
 import BoxartUpload from './BoxartUpload';
 import CreateBrandSelect from './CreateBrandSelect';
-import {scaleOptionGetter} from './FilterForm';
-import KitFieldSelect from './KitFieldSelect';
+import CreateScaleSelect from './CreateScaleSelect';
 import {ModalContext} from './context';
 
 // see brouwers.kits.models.KitDifficulties
@@ -23,8 +22,6 @@ const DIFFICULTY_CHOICES = [
   {value: '40', display: 'hard'},
   {value: '50', display: 'very hard'},
 ];
-
-const scaleConsumer = new ScaleConsumer();
 
 const AddKitForm = ({
   brand = null,
@@ -51,14 +48,7 @@ const AddKitForm = ({
         <CreateBrandSelect value={brand} onChange={value => onChange({name: 'brand', value})} />
       </FormField>
       <FormField htmlId="add-kit-scale" label="scale" required={true}>
-        <KitFieldSelect
-          name="scale"
-          consumer={scaleConsumer}
-          prepareQuery={inputValue => (inputValue ? {scale: cleanScale(inputValue)} : {})}
-          optionGetter={scaleOptionGetter}
-          onChange={onSelectChange}
-          value={scale}
-        />
+        <CreateScaleSelect value={scale} onChange={value => onChange({name: 'scale', value})} />
       </FormField>
       <FormField htmlId="add-kit-name" label="name" required={true}>
         <input
@@ -108,7 +98,6 @@ const AddKitForm = ({
 
 AddKitForm.propTypes = {
   onChange: PropTypes.func.isRequired,
-  scale: PropTypes.instanceOf(Scale),
   name: PropTypes.string,
   kitNumber: PropTypes.string,
   difficulty: PropTypes.string.isRequired,
@@ -170,7 +159,6 @@ const ModelKitAdd = ({
 };
 
 ModelKitAdd.propTypes = {
-  scale: PropTypes.instanceOf(Scale),
   name: PropTypes.string,
   kitNumber: PropTypes.string,
   difficulty: PropTypes.string,
