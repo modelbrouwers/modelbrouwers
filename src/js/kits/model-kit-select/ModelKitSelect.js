@@ -8,7 +8,7 @@ import Loader from 'components/Loader';
 
 import {getModelKit, listModelKits} from '@/data/kits/modelkit';
 
-import {FilterForm} from './FilterForm';
+import FilterForm from './FilterForm';
 import {KitPreviews} from './KitPreview';
 import {ModelKitAdd} from './ModelKitAdd';
 import {ModalContext} from './context';

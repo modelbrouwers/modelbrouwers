@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Select from 'react-select';
 import {useAsync} from 'react-use';
 
@@ -67,8 +66,4 @@ const FilterForm: React.FC<FilterFormProps> = ({onChange}) => {
   );
 };
 
-FilterForm.propTypes = {
-  onChange: PropTypes.func.isRequired,
-};
-
-export {FilterForm};
+export default FilterForm;
