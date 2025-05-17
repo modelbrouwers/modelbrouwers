@@ -38,7 +38,7 @@ const useLoadPhotos = (album, page = 1) => {
     value: {photos = [], numPages = 0} = {},
   } = useAsync(async () => {
     if (!album) return [];
-    const photosResponse = await listOwnPhotos({albumId: album.id, page});
+    const photosResponse = await listOwnPhotos({album: album.id, page});
     const numPages = Math.ceil(photosResponse.count / photosResponse.paginate_by);
     return {
       photos: photosResponse.results,

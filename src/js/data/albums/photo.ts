@@ -10,14 +10,14 @@ interface ListQueryParameters {
   /**
    * ID of the album to retrieve photos for.
    */
-  albumId: number;
+  album: number;
   /**
    * Page number, 1-indexed.
    */
   page?: number;
 }
 
-interface PhotoData {
+interface OwnPhotoData {
   id: number;
   user: number;
   description: string;
@@ -27,30 +27,55 @@ interface PhotoData {
   };
 }
 
-interface ListResponseData {
+interface ListResponseData<T> {
   count: number;
   paginate_by: number;
   previous: string | null;
   next: string | null;
-  results: PhotoData[];
+  results: T[];
 }
 
-export const listOwnPhotos = async (query: ListQueryParameters): Promise<ListResponseData> => {
+export const listOwnPhotos = async (
+  query: ListQueryParameters,
+): Promise<ListResponseData<OwnPhotoData>> => {
   const params = Object.entries(query).map((entry: [string, string | number]): [string, string] => {
     const [key, value] = entry;
     return [key, value.toString()];
   });
-  const paginatedResponseData = await get<ListResponseData>('my/photos/', params);
+  const paginatedResponseData = await get<ListResponseData<OwnPhotoData>>('my/photos/', params);
   return paginatedResponseData!;
 };
 
-export const getOwnPhoto = async (id: number): Promise<PhotoData> => {
-  const photoData = await get<PhotoData>(`my/photos/${id}/`);
+export const getOwnPhoto = async (id: number): Promise<OwnPhotoData> => {
+  const photoData = await get<OwnPhotoData>(`my/photos/${id}/`);
   return photoData!;
 };
 
 export const setAsCover = async (id: number): Promise<void> => {
   await post(`my/photos/${id}/set_cover/`);
+};
+
+interface PhotoData {
+  id: number;
+  user: {username: string};
+  description: string;
+  image: {
+    large: string;
+    thumb: string;
+  };
+  width: number;
+  height: number;
+  uploaded: string; // ISO-8601
+  order: number;
+}
+
+export const listAlbumPhotos = async (query: ListQueryParameters): Promise<PhotoData[]> => {
+  const params = Object.entries(query).map((entry: [string, string | number]): [string, string] => {
+    const [key, value] = entry;
+    return [key, value.toString()];
+  });
+  const paginatedResponseData = await get<ListResponseData<PhotoData>>('albums/photo/', params);
+  return paginatedResponseData!.results;
 };
 
 class Photo extends CrudConsumerObject {
