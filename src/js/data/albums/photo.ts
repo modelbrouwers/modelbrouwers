@@ -1,6 +1,6 @@
 import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
 
-import {get} from '@/data/api-client';
+import {get, post} from '@/data/api-client';
 
 import {API_ROOT} from '../../constants';
 // TODO: refactor out
@@ -49,6 +49,10 @@ export const getOwnPhoto = async (id: number): Promise<PhotoData> => {
   return photoData!;
 };
 
+export const setAsCover = async (id: number): Promise<void> => {
+  await post(`my/photos/${id}/set_cover/`);
+};
+
 class Photo extends CrudConsumerObject {
   rotate(direction) {
     return this.__consumer__.rotate(this.id, direction);
@@ -89,20 +93,4 @@ class PhotoConsumer extends CrudConsumer {
   }
 }
 
-class MyPhoto extends Photo {
-  setAsCover() {
-    this.__consumer__.setAsCover(this.id);
-  }
-}
-
-class MyPhotoConsumer extends CrudConsumer {
-  constructor(endpoint = `${API_ROOT}api/v1/my/photos`, objectClass = Photo) {
-    super(endpoint, objectClass);
-  }
-
-  setAsCover(id) {
-    return this.post(`/${id}/set_cover/`);
-  }
-}
-
-export {Photo, PhotoConsumer, MyPhotoConsumer};
+export {Photo, PhotoConsumer};

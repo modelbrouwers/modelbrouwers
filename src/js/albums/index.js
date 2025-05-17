@@ -2,22 +2,17 @@ import $ from 'jquery';
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 
-import {MyPhotoConsumer} from '../data/albums/photo';
+import {setAsCover} from '@/data/albums/photo';
+
 import LightBox from './LightBox';
 import {Control, RotateControl} from './photo-detail';
 import {PhotoUpload} from './upload';
 
-const myPhotoConsumer = new MyPhotoConsumer();
-
-const setCover = photoNode => {
-  const photoId = photoNode.dataset.id;
-  const promise = myPhotoConsumer.setAsCover(photoId);
-  promise
-    .then(() => {
-      $('.cover').removeClass('cover');
-      photoNode.classList.add('cover');
-    })
-    .catch(console.error);
+const setCover = async photoNode => {
+  const photoId = parseInt(photoNode.dataset.id);
+  await setAsCover(photoId);
+  $('.cover').removeClass('cover');
+  photoNode.classList.add('cover');
 };
 
 export default class Page {
@@ -78,7 +73,8 @@ export default class Page {
 
       if (action === 'set-cover') {
         const photoNode = node.closest('article').querySelector('.album-photo');
-        return setCover(photoNode);
+        setCover(photoNode);
+        return;
       }
 
       let cls = getControlClass(action);

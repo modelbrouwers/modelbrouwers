@@ -56,7 +56,7 @@ export const get = async <T = unknown>(
 
 export const post = async <T = unknown, U = unknown>(
   relativeUrl: string,
-  data: U,
+  data?: U | undefined,
 ): Promise<T | null> => {
   const normalizedUrl = normalizeUrl(relativeUrl);
   const options: RequestInit = {
@@ -65,7 +65,7 @@ export const post = async <T = unknown, U = unknown>(
       'Content-Type': 'application/json',
       'X-CSRFToken': CSRF_TOKEN,
     },
-    body: JSON.stringify(data),
+    body: data !== undefined ? JSON.stringify(data) : undefined,
   };
   const response = await request(normalizedUrl, options);
   const responseData: T | null = response.status === 204 ? null : await response.json();
