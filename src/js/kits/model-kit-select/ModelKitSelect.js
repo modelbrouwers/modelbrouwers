@@ -6,15 +6,14 @@ import {useImmerReducer} from 'use-immer';
 
 import Loader from 'components/Loader';
 
-import {ModelKitConsumer} from '../../data/kits/modelkit';
-import {FilterForm} from './FilterForm';
+import {getModelKit, listModelKits} from '@/data/kits/modelkit';
+
+import FilterForm from './FilterForm';
 import {KitPreviews} from './KitPreview';
 import {ModelKitAdd} from './ModelKitAdd';
 import {ModalContext} from './context';
 
 const DEBOUNCE = 300; // debounce in ms
-
-const modelKitConsumer = new ModelKitConsumer();
 
 const isEmpty = obj => !Object.keys(obj).length;
 
@@ -92,10 +91,16 @@ const getReducer = allowMultiple => {
 
       case 'SET_SEARCH_RESULTS': {
         // set the search result if it's page one, or append them if it's a higher page.
-        const results = action.payload;
+        const {results, next: nextUrl} = action.payload;
         draft.loading = false;
-        draft.searchResults = draft.page === 1 ? results : [...draft.searchResults, ...results];
-        draft.hasNext = results.responseData.next !== null;
+
+        if (draft.page === 1) {
+          draft.searchResults = results;
+        } else {
+          draft.searchResults.push(...results);
+        }
+
+        draft.hasNext = nextUrl !== null;
         break;
       }
 
@@ -124,16 +129,19 @@ const getReducer = allowMultiple => {
   return reducer;
 };
 
-const LoadMore = ({show = false, onClick, children = 'load more'}) => {
+const LoadMore = ({show = false, loading = false, onClick, children = 'load more'}) => {
   if (!show) {
     return null;
   }
   return (
     <div className="col-xs-12 col-sm-4 col-md-3 col-xl-2 preview center-all">
-      <button className="btn bg-main-blue" type="button" onClick={onClick}>
-        {children}
-      </button>
-      <Loader />
+      {loading ? (
+        <Loader />
+      ) : (
+        <button className="btn bg-main-blue" type="button" onClick={onClick}>
+          {children}
+        </button>
+      )}
     </div>
   );
 };
@@ -158,33 +166,23 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
 
   // load the preview for selected kit IDs
   // this is one-off, so no state dependencies!
-  useAsync(() => {
-    const promises = selectedIds.map(id => modelKitConsumer.read(id));
-    return Promise.all(promises)
-      .then(kits => {
-        dispatch({
-          type: 'SET_INITIAL_KITS',
-          payload: kits,
-        });
-      })
-      .catch(console.error);
+  useAsync(async () => {
+    const promises = selectedIds.map(getModelKit);
+    const kits = await Promise.all(promises);
+    dispatch({
+      type: 'SET_INITIAL_KITS',
+      payload: kits,
+    });
   }, []);
 
   // make an API call whenever the search params change
   // TODO: use the const [_, cancel] = args (on unmount -> cancel)
   useDebounce(
-    () => {
+    async () => {
       if (isEmpty(searchParams)) return;
       dispatch({type: 'SET_LOADING'});
-      modelKitConsumer
-        .filter({...searchParams, page: page})
-        .then(resultList => {
-          dispatch({
-            type: 'SET_SEARCH_RESULTS',
-            payload: resultList,
-          });
-        })
-        .catch(console.error);
+      const listResponseData = await listModelKits({...searchParams, page});
+      dispatch({type: 'SET_SEARCH_RESULTS', payload: listResponseData});
     },
     DEBOUNCE,
     [searchParams, page],
@@ -298,7 +296,11 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
               })
             }
           />
-          <LoadMore show={hasNext} onClick={() => dispatch({type: 'INCREMENT_PAGE'})} />
+          <LoadMore
+            show={hasNext}
+            loading={loading}
+            onClick={() => dispatch({type: 'INCREMENT_PAGE'})}
+          />
         </div>
       </div>
     </>

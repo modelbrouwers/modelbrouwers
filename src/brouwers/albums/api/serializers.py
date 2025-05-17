@@ -5,7 +5,7 @@ from brouwers.users.api.serializers import SimpleUserSerializer
 from brouwers.utils.api.fields import ThumbnailField
 
 from ..models import Album, Photo
-from ..serializers import PreferencesSerializer  # noqa pragma: no cover
+from ..serializers import PreferencesSerializer  # noqa
 
 
 class AlbumSerializer(serializers.ModelSerializer):

@@ -4,12 +4,10 @@ import useAsync from 'react-use/esm/useAsync';
 import {A11y, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import Loader from 'components/Loader';
+import Loader from '@/components/Loader';
+import {listOwnAlbums} from '@/data/albums/album';
 
 import {STATIC} from '../constants';
-import {AlbumConsumer} from '../data/albums/album';
-
-const albumConsumer = new AlbumConsumer();
 
 const CoverImage = ({cover, title = ''}) => {
   const alt = cover ? `album: ${title}` : 'album';
@@ -63,7 +61,7 @@ AlbumInput.propTypes = {
  * @return {JSX}
  */
 const AlbumPicker = ({onSelect, selectedAlbumId = null}) => {
-  const {loading, error, value: albums} = useAsync(async () => await albumConsumer.list(), []);
+  const {loading, error, value: albums} = useAsync(listOwnAlbums, []);
 
   if (loading) {
     return <Loader center />;

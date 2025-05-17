@@ -4,11 +4,8 @@ import useAsync from 'react-use/esm/useAsync';
 import {A11y, Navigation, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import Loader from 'components/Loader';
-
-import {Photo, PhotoConsumer} from '../data/albums/photo';
-
-const photoConsumer = new PhotoConsumer();
+import Loader from '@/components/Loader';
+import {listAlbumPhotos} from '@/data/albums/photo';
 
 const getPhotoIndex = (photos, photoId) => {
   const photo = photos.find(photo => photo.id === photoId);
@@ -21,9 +18,7 @@ const LightBox = ({albumId, page, selectedPhotoId}) => {
     loading,
     error,
     value: photos = [],
-  } = useAsync(async () => {
-    return await photoConsumer.getForAlbum(albumId, page);
-  }, [albumId, page]);
+  } = useAsync(async () => await listAlbumPhotos({album: albumId, page}), [albumId, page]);
 
   useEffect(() => {
     const swiper = swiperRef.current;
@@ -64,7 +59,6 @@ LightBox.propTypes = {
   albumId: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
   selectedPhotoId: PropTypes.number.isRequired,
-  photos: PropTypes.arrayOf(PropTypes.instanceOf(Photo)),
 };
 
 export default LightBox;

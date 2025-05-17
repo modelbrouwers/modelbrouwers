@@ -94,11 +94,6 @@
     "description": "GB participants table, brouwer header.",
     "originalDefault": "Brouwer"
   },
-  "CCvXMf": {
-    "defaultMessage": "Address",
-    "description": "Tab: address",
-    "originalDefault": "Address"
-  },
   "D5xbSP": {
     "defaultMessage": "Checkout",
     "description": "Checkout header",
@@ -219,15 +214,15 @@
     "defaultMessage": "Albums",
     "originalDefault": "Albums"
   },
+  "hBtXPb": {
+    "defaultMessage": "Insert photo",
+    "description": "Accessible label for photo insert link",
+    "originalDefault": "Insert photo"
+  },
   "ilLhfJ": {
     "defaultMessage": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future).",
     "description": "Checkout account options description",
     "originalDefault": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
-  },
-  "iziEr8": {
-    "defaultMessage": "Reload page",
-    "description": "General error: reload page button",
-    "originalDefault": "Reload page"
   },
   "jHygYM": {
     "defaultMessage": "View outside of forum",
@@ -257,6 +252,11 @@
     "defaultMessage": "Oops, something went wrong. Please try again later.",
     "description": "General error message",
     "originalDefault": "Oops, something went wrong. Please try again later."
+  },
+  "n2Bpcz": {
+    "defaultMessage": "Delivery",
+    "description": "Tab: delivery",
+    "originalDefault": "Delivery"
   },
   "nul77H": {
     "defaultMessage": "Delivery address",

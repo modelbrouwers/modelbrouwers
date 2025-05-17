@@ -1,4 +1,4 @@
-import {PhotoConsumer} from '../data/albums/photo';
+import {rotatePhoto} from '@/data/albums/photo';
 
 export class Control {
   constructor($node, $target) {
@@ -39,29 +39,22 @@ export class RotateControl extends Control {
       'rotate-right': 'cw',
     };
     this.direction = direction_mapping[this.action];
-
-    this.photoConsumer = new PhotoConsumer();
   }
 
-  activate() {
+  async activate() {
     this.node.addClass('active');
     $('.modal-backdrop').removeClass('hidden');
 
-    let id = this.target.data('id');
+    const id = parseInt(this.target.data('id'));
 
-    this.photoConsumer
-      .read(id)
-      .then(photo => {
-        return photo.rotate(this.direction);
-      })
-      .then(photo => {
-        const img = new Image();
-        const timestamp = new Date().getTime();
-        img.src = `${photo.image.large}?cache_bust=${timestamp}`;
-        this.target.find('img').attr('src', img.src);
-        this.deactivate(); // removes the highlighting
-      })
-      .catch(console.error);
+    const photo = await rotatePhoto(id, this.direction);
+    const timestamp = new Date().getTime();
+    const newImageUrl = `${photo.image.large}?cache_bust=${timestamp}`;
+
+    const img = new Image();
+    img.src = newImageUrl;
+    this.target.find('img').attr('src', img.src);
+    this.deactivate(); // removes the highlighting
   }
 
   deactivate() {

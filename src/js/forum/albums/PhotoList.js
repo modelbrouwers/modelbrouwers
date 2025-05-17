@@ -1,13 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import {Photo} from '../../data/albums/photo';
 
 const PhotoPreview = ({thumbnailUrl, description = '', onSelect}) => {
+  const intl = useIntl();
   return (
     <figure className="album-photo">
-      <a href="#" onClick={onSelect}>
+      <a
+        href="#"
+        onClick={onSelect}
+        aria-label={intl.formatMessage({
+          description: 'Accessible label for photo insert link',
+          defaultMessage: 'Insert photo',
+        })}
+      >
         <img src={thumbnailUrl} alt={description} />
       </a>
       <figcaption>{description}</figcaption>

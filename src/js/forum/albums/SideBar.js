@@ -5,15 +5,12 @@ import React, {useEffect, useRef, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import useAsync from 'react-use/esm/useAsync';
 
-import Loader from 'components/Loader';
+import Loader from '@/components/Loader';
+import {getOwnPhoto, listOwnPhotos} from '@/data/albums/photo';
 
-import {MyPhotoConsumer} from '../../data/albums/photo';
-import Paginator from '../../scripts/paginator';
 import AlbumSelect from './AlbumSelect';
 import PhotoList from './PhotoList';
 import PhotosPagination from './PhotosPagination';
-
-const myPhotoConsumer = new MyPhotoConsumer();
 
 const usePerfectScrollbar = () => {
   const containerRef = useRef(null);
@@ -34,47 +31,32 @@ const usePerfectScrollbar = () => {
   return containerRef;
 };
 
-const useLoadPhotos = (album, page) => {
-  const paginatorRef = useRef(new Paginator());
+const useLoadPhotos = (album, page = 1) => {
   const {
     loading,
     error,
-    value: photos = [],
+    value: {photos = [], numPages = 0} = {},
   } = useAsync(async () => {
-    const filters = page ? {page} : {};
-    const photosResponse = await album.getPhotos(filters);
-    const paginator = new Paginator();
-    paginator.paginate(photosResponse, page);
-    paginatorRef.current = paginator;
-    return photosResponse.results;
-  }, [album, page, paginatorRef]);
-
-  return {
-    loading,
-    error,
-    photos,
-    paginatorRef,
-  };
+    if (!album) return [];
+    const photosResponse = await listOwnPhotos({album: album.id, page});
+    const numPages = Math.ceil(photosResponse.count / photosResponse.paginate_by);
+    return {
+      photos: photosResponse.results,
+      numPages,
+    };
+  }, [album, page]);
+  return {loading, error, photos, numPages};
 };
 
 const SideBar = ({onInsertPhoto}) => {
   const [closed, setClosed] = useState(true);
   const [album, setAlbum] = useState(null);
-  const [page, setPage] = useState(null);
+  const [page, setPage] = useState(1);
 
   const containerRef = usePerfectScrollbar();
-  const {loading, error, photos, paginatorRef} = useLoadPhotos(album, page);
+  const {loading, error, photos, numPages} = useLoadPhotos(album, page);
 
-  const onPhotoSelect = async (photo, event) => {
-    event.preventDefault();
-    photo = await myPhotoConsumer.read(`${photo.id}/`);
-    onInsertPhoto(photo.bbcode);
-  };
-
-  const className = classNames('box-sizing', {
-    closed: closed,
-    open: !closed,
-  });
+  const className = classNames('box-sizing', {closed: closed, open: !closed});
 
   return (
     <>
@@ -94,7 +76,7 @@ const SideBar = ({onInsertPhoto}) => {
             <AlbumSelect
               onChange={album => {
                 setAlbum(album);
-                setPage(null);
+                setPage(1);
               }}
               selected={album}
             />
@@ -107,15 +89,28 @@ const SideBar = ({onInsertPhoto}) => {
             <div id="photo-list-container">
               {loading ? <Loader center /> : null}
 
-              <PhotoList photos={photos} onPhotoSelect={onPhotoSelect} />
+              <PhotoList
+                photos={photos}
+                onPhotoSelect={async ({id}, event) => {
+                  event.preventDefault();
+                  const photo = await getOwnPhoto(id);
+                  const bbcode = `[photo data-id="${photo.id}"]${photo.image.large}[/photo]`;
+                  onInsertPhoto(bbcode);
+                }}
+              />
             </div>
 
-            <PhotosPagination paginator={paginatorRef.current} onPageRequested={setPage} />
+            <PhotosPagination page={page} numPages={numPages} onPageRequested={setPage} />
           </section>
         </div>
       </div>
 
-      <div className="lid" onClick={() => setClosed(false)}>
+      <div
+        className="lid"
+        onClick={() => setClosed(false)}
+        role="button"
+        aria-label="Toon albums en foto's"
+      >
         <i className="fa fa-camera fa-rotate-270 fa-2x" />
       </div>
     </>
