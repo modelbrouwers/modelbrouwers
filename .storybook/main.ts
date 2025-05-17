@@ -1,7 +1,7 @@
 import type {StorybookConfig} from '@storybook/react-webpack5';
 import path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import {EnvironmentPlugin} from 'webpack';
+import {EnvironmentPlugin, ProvidePlugin} from 'webpack';
 
 const config: StorybookConfig = {
   core: {
@@ -65,6 +65,13 @@ const config: StorybookConfig = {
       new EnvironmentPlugin({
         BACKEND_SERVER: 'http://localhost:8000/',
         STATIC_ROOT: '/static',
+      }),
+    );
+    config.plugins.push(
+      new ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        'window.jQuery': 'jquery',
       }),
     );
 

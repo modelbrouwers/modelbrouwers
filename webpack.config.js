@@ -1,13 +1,13 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const argv = require("yargs").argv;
-const webpack = require("webpack");
-const path = require("path");
-const transform = require("@formatjs/ts-transformer").transform;
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const argv = require('yargs').argv;
+const webpack = require('webpack');
+const path = require('path');
+const transform = require('@formatjs/ts-transformer').transform;
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 // Set isProduction based on environment or argv.
 
-let isProduction = process.env.NODE_ENV === "production";
+let isProduction = process.env.NODE_ENV === 'production';
 if (argv.production) {
   isProduction = true;
 }
@@ -23,30 +23,30 @@ module.exports = {
     main: `${__dirname}/src/js/index.js`,
     forum: `${__dirname}/src/js/forum.js`,
     // CSS
-    "screen-css": `${__dirname}/src/sass/screen.scss`,
-    "forum-css": `${__dirname}/src/sass/forum.scss`,
-    "print-brouwersdag-css": `${__dirname}/src/sass/print_brouwersdag.scss`,
+    'screen-css': `${__dirname}/src/sass/screen.scss`,
+    'forum-css': `${__dirname}/src/sass/forum.scss`,
+    'print-brouwersdag-css': `${__dirname}/src/sass/print_brouwersdag.scss`,
   },
 
   // Path to the (transpiled) js & CSS
   output: {
     path: `${__dirname}/src/static/bundles/`,
-    filename: "[name].js", // file
-    chunkFilename: "[name].bundle.js",
-    publicPath: "/static/bundles/",
+    filename: '[name].js', // file
+    chunkFilename: '[name].bundle.js',
+    publicPath: '/static/bundles/',
   },
 
   plugins: [
     new MiniCssExtractPlugin(),
     new webpack.EnvironmentPlugin({
-      BACKEND_SERVER: "/",
-      STATIC_ROOT: "/static",
+      BACKEND_SERVER: '/',
+      STATIC_ROOT: '/static',
     }),
-    // Necessary for some libs that rely on global jQuery to work (e.g. Typeahead)
+    // Necessary for some libs that rely on global jQuery to work (e.g. bootstrap)
     new webpack.ProvidePlugin({
-      jQuery: "jquery",
-      $: "jquery",
-      "window.jQuery": "jquery",
+      jQuery: 'jquery',
+      $: 'jquery',
+      'window.jQuery': 'jquery',
     }),
   ],
 
@@ -54,19 +54,19 @@ module.exports = {
     rules: [
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"],
+        use: ['file-loader'],
       },
       {
         test: /\.tsx?$/,
         // exclude: /node_modules/,
         use: {
-          loader: "ts-loader",
+          loader: 'ts-loader',
           options: {
             getCustomTransformers() {
               return {
                 before: [
                   transform({
-                    overrideIdFn: "[sha512:contenthash:base64:6]",
+                    overrideIdFn: '[sha512:contenthash:base64:6]',
                   }),
                 ],
               };
@@ -78,7 +78,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules)/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             cacheDirectory: true,
           },
@@ -86,7 +86,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|eot|ttf)$/,
-        loader: "url-loader",
+        loader: 'url-loader',
       },
       // scss
       {
@@ -97,7 +97,7 @@ module.exports = {
 
           // Loads CSS files.
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               url: false,
             },
@@ -105,16 +105,16 @@ module.exports = {
 
           // Runs postcss configuration (postcss.config.js).
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
           },
 
           // Compiles .scss to .css.
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sassOptions: {
                 comments: false,
-                style: "compressed",
+                style: 'compressed',
               },
               sourceMap: argv.sourcemap,
             },
@@ -125,13 +125,13 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-    modules: [path.resolve(__dirname, "src/js/"), "node_modules"],
+    extensions: ['.tsx', '.ts', '.js'],
+    modules: [path.resolve(__dirname, 'src/js/'), 'node_modules'],
     plugins: [new TsconfigPathsPlugin()],
   },
 
-  mode: isProduction ? "production" : "development",
+  mode: isProduction ? 'production' : 'development',
 
   // Use --sourcemap to generate sourcemap.
-  devtool: argv.sourcemap ? "source-map" : false,
+  devtool: argv.sourcemap ? 'source-map' : false,
 };
