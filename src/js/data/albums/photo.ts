@@ -3,8 +3,6 @@ import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
 import {get, post} from '@/data/api-client';
 
 import {API_ROOT} from '../../constants';
-// TODO: refactor out
-import Paginator from '../../scripts/paginator';
 
 interface ListQueryParameters {
   /**
@@ -78,6 +76,26 @@ export const listAlbumPhotos = async (query: ListQueryParameters): Promise<Photo
   return paginatedResponseData!.results;
 };
 
+export const listAllAlbumPhotos = async (albumId: number): Promise<PhotoData[]> => {
+  const query = {album: albumId.toString()};
+  // get first page to determine how many pages to retrieve
+  const paginatedResponseData = await get<ListResponseData<PhotoData>>('albums/photo/', {
+    ...query,
+    page: '1',
+  });
+  const {count, paginate_by, results} = paginatedResponseData!;
+  const numPages = Math.ceil(count / paginate_by);
+
+  // figure out all the other pages to load in parallel
+  const pageNumbersToRetrieve = [...Array(numPages - 1).keys()].map(index => index + 2);
+  const otherPagePromises = pageNumbersToRetrieve.map(page => {
+    const params = {...query, page: page.toString()};
+    return get<ListResponseData<PhotoData>>('albums/photo/', params);
+  });
+  const resolvedPromises = await Promise.all(otherPagePromises);
+  return resolvedPromises.reduce((acc, response) => acc.concat(response!.results), results);
+};
+
 class Photo extends CrudConsumerObject {
   rotate(direction) {
     return this.__consumer__.rotate(this.id, direction);
@@ -87,29 +105,6 @@ class Photo extends CrudConsumerObject {
 class PhotoConsumer extends CrudConsumer {
   constructor(endpoint = `${API_ROOT}api/v1/albums/photo`, objectClass = Photo) {
     super(endpoint, objectClass);
-
-    // this.parserDataPath = 'results';
-  }
-
-  async getForAlbum(albumId, page) {
-    const response = await this.get('/', {album: albumId, page: page});
-    return response.results;
-  }
-
-  async getAllForAlbum(albumId) {
-    const paginatedResponse = await this.get('/', {
-      album: albumId,
-      page: 1,
-    });
-    // initialize on the first result set
-    const paginator = new Paginator();
-    paginator.paginate(paginatedResponse);
-    const extraPagePromises = paginator.page_range
-      .slice(1)
-      .map(pageNr => this.get('/', {album: albumId, page: pageNr}));
-    const allResponses = await Promise.all([paginatedResponse, ...extraPagePromises]);
-    const allResults = allResponses.map(response => response.results);
-    return allResults.flat();
   }
 
   rotate(id, direction) {

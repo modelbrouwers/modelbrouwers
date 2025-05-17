@@ -4,10 +4,9 @@ import useAsync from 'react-use/esm/useAsync';
 
 import Loader from 'components/Loader';
 
-import {PhotoConsumer} from '../data/albums/photo';
-import Image from './Image';
+import {listAllAlbumPhotos} from '@/data/albums/photo';
 
-const photoConsumer = new PhotoConsumer();
+import Image from './Image';
 
 const PhotoInput = ({id, image, description, selected, onChange}) => {
   const htmlId = `id_build-photo-${id}`;
@@ -50,7 +49,7 @@ const PhotoPicker = ({albumId, selectedPhotoIds = [], onToggle}) => {
     loading,
     error,
     value: photos,
-  } = useAsync(async () => await photoConsumer.getAllForAlbum(albumId), [albumId]);
+  } = useAsync(async () => await listAllAlbumPhotos(albumId), [albumId]);
 
   if (loading) {
     return <Loader center />;
