@@ -46,7 +46,6 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
                    data-placement="auto top"
                    data-content="{% trans 'Collapses the image if it is higher than the browser window' %}"
                 ></i>
-                {# <i class="fa fa-fw fa-expand fa-2x" data-action="expand"></i> #}
             </div>
 
             {% if photo.user == user %}
@@ -65,14 +64,6 @@ Statistics: {{ views }} views, uploaded: {{ uploaded }}
                    data-placement="auto top"
                    data-content="{% trans 'Rotate the image to the right' %}"
                 ></i>
-                <!--
-                <i class="fa fa-fw fa-arrows-v fa-2x"
-                   data-action="rotate-180"
-                   data-trigger="hover focus"
-                   data-toggle="popover"
-                   data-placement="auto top"
-                   data-content="{% trans 'Flip the image upside down' %}"
-                ></i>-->
             </div>
             {% endif %}
         </div>

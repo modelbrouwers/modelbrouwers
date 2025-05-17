@@ -64,22 +64,6 @@ class PhotoViewSet(viewsets.ModelViewSet):
             {"success": False}, status=status.HTTP_400_BAD_REQUEST
         )  # pragma: no cover
 
-    def next_or_previous(self, request, next=True, *args, **kwargs):
-        attr = "next" if next else "previous"
-        current = self.get_object()
-        qs = getattr(Photo.objects, attr)
-        photo = qs(current, user=self.request.user)
-        serializer = self.get_serializer(photo)
-        return Response(serializer.data)
-
-    @action(detail=True, methods=["get"])
-    def next(self, request, *args, **kwargs):
-        return self.next_or_previous(request, next=True, *args, **kwargs)
-
-    @action(detail=True, methods=["get"])
-    def previous(self, request, *args, **kwargs):
-        return self.next_or_previous(request, next=False, *args, **kwargs)
-
     @action(detail=True, methods=["patch"])
     def rotate(self, request, *args, **kwargs):
         photo = self.get_object()
