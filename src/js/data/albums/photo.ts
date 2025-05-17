@@ -1,8 +1,8 @@
-import {CrudConsumer, CrudConsumerObject} from 'consumerjs';
+import {get, patch, post} from '@/data/api-client';
 
-import {get, post} from '@/data/api-client';
-
-import {API_ROOT} from '../../constants';
+/**
+ * Own photos interactions
+ */
 
 interface ListQueryParameters {
   /**
@@ -53,6 +53,10 @@ export const setAsCover = async (id: number): Promise<void> => {
   await post(`my/photos/${id}/set_cover/`);
 };
 
+/**
+ * Generic albums/photos interaction
+ */
+
 interface PhotoData {
   id: number;
   user: {username: string};
@@ -96,21 +100,14 @@ export const listAllAlbumPhotos = async (albumId: number): Promise<PhotoData[]> 
   return resolvedPromises.reduce((acc, response) => acc.concat(response!.results), results);
 };
 
-class Photo extends CrudConsumerObject {
-  rotate(direction) {
-    return this.__consumer__.rotate(this.id, direction);
-  }
+interface RotateBody {
+  direction: 'cw' | 'ccw';
 }
 
-class PhotoConsumer extends CrudConsumer {
-  constructor(endpoint = `${API_ROOT}api/v1/albums/photo`, objectClass = Photo) {
-    super(endpoint, objectClass);
-  }
-
-  rotate(id, direction) {
-    const endpoint = `/${id}/rotate/`;
-    return this.patch(endpoint, {direction: direction});
-  }
-}
-
-export {Photo, PhotoConsumer};
+export const rotatePhoto = async (
+  id: number,
+  direction: RotateBody['direction'],
+): Promise<PhotoData> => {
+  const photoData = await patch<PhotoData, RotateBody>(`albums/photo/${id}/rotate/`, {direction});
+  return photoData!;
+};

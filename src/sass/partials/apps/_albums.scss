@@ -11,7 +11,8 @@
   }
 }
 
-body.albums {
+body.albums,
+#storybook-root {
   header {
     .dropdown-toggle {
       @include menu-feedback();
@@ -112,7 +113,8 @@ body.albums {
   }
 }
 
-body.albums.photo-detail {
+body.albums.photo-detail,
+#storybook-root {
   header {
     margin-bottom: 10px; // instead of 20
 
