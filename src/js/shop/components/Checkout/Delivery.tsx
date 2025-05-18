@@ -33,7 +33,11 @@ const Delivery: React.FC = () => {
       initialTouched={setNestedObjectValues(deliveryDetailsErrors, true)}
       onSubmit={async values => {
         setDeliveryDetails(values);
-        window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
+        try {
+          window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
+        } catch (err) {
+          console.error(err);
+        }
         navigate('/payment');
       }}
       // TODO: use zod schema for validation

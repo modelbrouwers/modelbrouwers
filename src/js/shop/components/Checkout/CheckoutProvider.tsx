@@ -5,6 +5,7 @@ import {type ImmerReducer, useImmerReducer} from 'use-immer';
 import {CartProduct} from '@/shop/data';
 
 import {CheckoutContext} from './Context';
+import {type FormikValues as DeliveryValues, LOCAL_STORAGE_KEY} from './Delivery';
 import type {
   Address,
   AddressValidationErrors,
@@ -152,13 +153,20 @@ const propsToInitialData = (
   user: UserData | null,
   checkoutData: ConfirmOrderData | undefined | null,
 ): CheckoutState => {
-  const deliveryMethod = checkoutData?.delivery_method || 'mail';
+  const localStorageData: string | null = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+  const storedDetails: DeliveryValues | null = localStorageData
+    ? JSON.parse(localStorageData)
+    : null;
+
+  const deliveryMethod = checkoutData?.delivery_method || storedDetails?.deliveryMethod || 'mail';
   const base: Omit<CheckoutState, 'deliveryMethod' | 'deliveryAddress' | 'billingAddress'> = {
     customer: {
-      firstName: checkoutData?.first_name ?? user?.first_name ?? '',
-      lastName: checkoutData?.last_name ?? user?.last_name ?? '',
-      email: checkoutData?.email ?? user?.email ?? '',
-      phone: checkoutData?.phone ?? user?.phone ?? '',
+      firstName:
+        checkoutData?.first_name ?? storedDetails?.customer?.firstName ?? user?.first_name ?? '',
+      lastName:
+        checkoutData?.last_name ?? storedDetails?.customer?.lastName ?? user?.last_name ?? '',
+      email: checkoutData?.email ?? storedDetails?.customer?.email ?? user?.email ?? '',
+      phone: checkoutData?.phone ?? storedDetails?.customer?.phone ?? user?.phone ?? '',
     },
     paymentMethod: checkoutData?.payment_method ?? 0,
     paymentMethodOptions: checkoutData?.payment_method_options ?? null,
@@ -170,6 +178,15 @@ const propsToInitialData = (
   // France is not supported
   const userCountry = user?.profile?.country === 'F' ? 'N' : user?.profile?.country || 'N';
 
+  const addressDefaults: Address = {
+    street: '',
+    number: '',
+    city: '',
+    postalCode: '',
+    country: userCountry,
+    company: '',
+    chamberOfCommerce: '',
+  };
   const deliveryAddress = checkoutData?.delivery_address
     ? {
         street: checkoutData?.delivery_address?.street,
@@ -181,13 +198,13 @@ const propsToInitialData = (
         chamberOfCommerce: checkoutData?.delivery_address?.chamber_of_commerce,
       }
     : {
-        street: user?.profile?.street ?? '',
-        number: user?.profile?.number ?? '',
-        city: user?.profile?.city ?? '',
-        postalCode: user?.profile?.postal ?? '',
-        country: userCountry,
-        company: '',
-        chamberOfCommerce: '',
+        street: storedDetails?.deliveryAddress?.street ?? user?.profile?.street ?? '',
+        number: storedDetails?.deliveryAddress?.number ?? user?.profile?.number ?? '',
+        city: storedDetails?.deliveryAddress?.city ?? user?.profile?.city ?? '',
+        postalCode: storedDetails?.deliveryAddress?.postalCode ?? user?.profile?.postal ?? '',
+        country: storedDetails?.deliveryAddress?.country ?? userCountry,
+        company: storedDetails?.deliveryAddress?.company ?? '',
+        chamberOfCommerce: storedDetails?.deliveryAddress?.chamberOfCommerce ?? '',
       };
 
   const billingAddress = checkoutData?.invoice_address
@@ -200,7 +217,12 @@ const propsToInitialData = (
         company: checkoutData?.invoice_address?.company,
         chamberOfCommerce: checkoutData?.invoice_address?.chamber_of_commerce,
       }
-    : null;
+    : storedDetails?.billingAddress
+      ? {
+          ...addressDefaults,
+          ...storedDetails?.billingAddress,
+        }
+      : null;
 
   return {...base, deliveryMethod, deliveryAddress, billingAddress};
 };
