@@ -8,6 +8,7 @@ import {CartProduct} from '@/shop/data';
 
 import Payment from './Payment';
 import {withCheckout} from './storybook';
+import type {ConfirmOrderData} from './types';
 
 export default {
   title: 'Shop / Checkout / Payment',
@@ -30,24 +31,22 @@ export default {
         }),
       ],
       onChangeProductAmount: fn(),
-      initialData: {
-        customer: {
-          firstName: 'Arsene',
-          lastName: 'Lupin',
-          email: 'arsene@lupin.fr',
-          phone: '',
-        },
-        deliveryMethod: 'mail',
-        deliveryAddress: {
+      checkoutData: {
+        first_name: 'Arsene',
+        last_name: 'Lupin',
+        email: 'arsene@lupin.fr',
+        phone: '',
+        delivery_address: {
           company: '',
-          chamberOfCommerce: '',
+          chamber_of_commerce: '',
           street: 'Avenue des Champs-Élysées',
           number: '42',
           city: 'Paris',
-          postalCode: '75008',
+          postal_code: '75008',
           country: 'N',
         },
-      },
+        invoice_address: null,
+      } satisfies Partial<ConfirmOrderData>,
     },
     reactRouter: reactRouterParameters({
       routing: {path: '/winkel/checkout/payment'},

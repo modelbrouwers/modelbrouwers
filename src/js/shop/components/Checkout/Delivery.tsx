@@ -13,6 +13,8 @@ import ShippingCosts from './ShippingCosts';
 import type {DeliveryDetails} from './types';
 import {validateAddressDetails} from './validation';
 
+export const LOCAL_STORAGE_KEY = 'mb:shop:deliveryDetails';
+
 export type FormikValues = DeliveryDetails & {
   billingSameAsDelivery: boolean;
 };
@@ -31,6 +33,11 @@ const Delivery: React.FC = () => {
       initialTouched={setNestedObjectValues(deliveryDetailsErrors, true)}
       onSubmit={async values => {
         setDeliveryDetails(values);
+        try {
+          window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
+        } catch (err) {
+          console.error(err);
+        }
         navigate('/payment');
       }}
       // TODO: use zod schema for validation

@@ -11,7 +11,6 @@ import {CartProduct} from '@/shop/data';
 import {CartDetail, TopbarCart} from './Cart';
 import ProductControls from './Cart/ProductControls';
 import {CheckoutProvider} from './Checkout';
-import type {CheckoutProviderProps} from './Checkout/CheckoutProvider';
 import checkoutRoutes from './Checkout/routes';
 import type {
   CheckoutValidationErrors,
@@ -247,7 +246,7 @@ const Shop: React.FC<ShopProps> = ({
             onChangeProductAmount={onChangeProductAmount}
             shippingCosts={shippingCosts}
             onChangeShippingCosts={onChangeShippingCosts}
-            initialData={propsToInitialData(user, checkoutData)}
+            checkoutData={checkoutData}
             confirmPath={confirmPath}
             orderDetails={orderDetails}
             validationErrors={validationErrors}
@@ -258,55 +257,6 @@ const Shop: React.FC<ShopProps> = ({
         )}
     </>
   );
-};
-
-// TODO: move to checkout?
-const propsToInitialData = (
-  user: UserData | null,
-  checkoutData: ShopProps['checkoutData'],
-): CheckoutProviderProps['initialData'] => {
-  const deliveryMethod = checkoutData?.delivery_method || 'mail';
-  const base: Omit<
-    CheckoutProviderProps['initialData'],
-    'deliveryMethod' | 'deliveryAddress' | 'billingAddress'
-  > = {
-    customer: {
-      firstName: checkoutData?.first_name ?? user?.first_name ?? '',
-      lastName: checkoutData?.last_name ?? user?.last_name ?? '',
-      email: checkoutData?.email ?? user?.email ?? '',
-      phone: checkoutData?.phone ?? user?.phone ?? '',
-    },
-    paymentMethod: checkoutData?.payment_method ?? 0,
-    paymentMethodOptions: checkoutData?.payment_method_options ?? null,
-  };
-  if (deliveryMethod === 'pickup') {
-    return {...base, deliveryMethod, deliveryAddress: null, billingAddress: null};
-  }
-
-  // France is not supported
-  const userCountry = user?.profile?.country === 'F' ? 'N' : user?.profile?.country || 'N';
-
-  const deliveryAddress = checkoutData?.delivery_address
-    ? {
-        street: checkoutData?.delivery_address?.street,
-        number: checkoutData?.delivery_address?.number,
-        city: checkoutData?.delivery_address?.city,
-        postalCode: checkoutData?.delivery_address?.postal_code,
-        country: checkoutData?.delivery_address?.country,
-        company: checkoutData?.delivery_address?.company,
-        chamberOfCommerce: checkoutData?.delivery_address?.chamber_of_commerce,
-      }
-    : {
-        street: user?.profile?.street ?? '',
-        number: user?.profile?.number ?? '',
-        city: user?.profile?.city ?? '',
-        postalCode: user?.profile?.postal ?? '',
-        country: userCountry,
-        company: '',
-        chamberOfCommerce: '',
-      };
-
-  return {...base, deliveryMethod, deliveryAddress, billingAddress: null};
 };
 
 const useAddProductFormSubmit = (
