@@ -9,6 +9,7 @@ import type {
   Address,
   AddressValidationErrors,
   CheckoutValidationErrors,
+  ConfirmOrderData,
   DeliveryDetails,
   OrderDetails,
   PaymentDetails,
@@ -47,7 +48,7 @@ export interface CheckoutProviderProps {
   onChangeProductAmount: (cartProductId: number, newAmount: number) => Promise<void>;
   shippingCosts: ShippingCosts;
   onChangeShippingCosts: (costs: ShippingCosts) => void;
-  initialData: CheckoutState;
+  checkoutData?: ConfirmOrderData | null;
   confirmPath: string;
   orderDetails: OrderDetails;
   validationErrors: CheckoutValidationErrors | null;
@@ -61,12 +62,13 @@ const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
   onChangeProductAmount,
   shippingCosts,
   onChangeShippingCosts,
-  initialData,
+  checkoutData,
   confirmPath,
   orderDetails,
   validationErrors,
   children,
 }) => {
+  const initialData: CheckoutState = propsToInitialData(user, checkoutData);
   const [state, dispatch] = useImmerReducer<CheckoutState, DispatchAction>(reducer, initialData);
 
   const setDeliveryDetails = useCallback(
@@ -144,6 +146,63 @@ const CheckoutProvider: React.FC<CheckoutProviderProps> = ({
       {children}
     </CheckoutContext.Provider>
   );
+};
+
+const propsToInitialData = (
+  user: UserData | null,
+  checkoutData: ConfirmOrderData | undefined | null,
+): CheckoutState => {
+  const deliveryMethod = checkoutData?.delivery_method || 'mail';
+  const base: Omit<CheckoutState, 'deliveryMethod' | 'deliveryAddress' | 'billingAddress'> = {
+    customer: {
+      firstName: checkoutData?.first_name ?? user?.first_name ?? '',
+      lastName: checkoutData?.last_name ?? user?.last_name ?? '',
+      email: checkoutData?.email ?? user?.email ?? '',
+      phone: checkoutData?.phone ?? user?.phone ?? '',
+    },
+    paymentMethod: checkoutData?.payment_method ?? 0,
+    paymentMethodOptions: checkoutData?.payment_method_options ?? null,
+  };
+  if (deliveryMethod === 'pickup') {
+    return {...base, deliveryMethod, deliveryAddress: null, billingAddress: null};
+  }
+
+  // France is not supported
+  const userCountry = user?.profile?.country === 'F' ? 'N' : user?.profile?.country || 'N';
+
+  const deliveryAddress = checkoutData?.delivery_address
+    ? {
+        street: checkoutData?.delivery_address?.street,
+        number: checkoutData?.delivery_address?.number,
+        city: checkoutData?.delivery_address?.city,
+        postalCode: checkoutData?.delivery_address?.postal_code,
+        country: checkoutData?.delivery_address?.country,
+        company: checkoutData?.delivery_address?.company,
+        chamberOfCommerce: checkoutData?.delivery_address?.chamber_of_commerce,
+      }
+    : {
+        street: user?.profile?.street ?? '',
+        number: user?.profile?.number ?? '',
+        city: user?.profile?.city ?? '',
+        postalCode: user?.profile?.postal ?? '',
+        country: userCountry,
+        company: '',
+        chamberOfCommerce: '',
+      };
+
+  const billingAddress = checkoutData?.invoice_address
+    ? {
+        street: checkoutData?.invoice_address?.street,
+        number: checkoutData?.invoice_address?.number,
+        city: checkoutData?.invoice_address?.city,
+        postalCode: checkoutData?.invoice_address?.postal_code,
+        country: checkoutData?.invoice_address?.country,
+        company: checkoutData?.invoice_address?.company,
+        chamberOfCommerce: checkoutData?.invoice_address?.chamber_of_commerce,
+      }
+    : null;
+
+  return {...base, deliveryMethod, deliveryAddress, billingAddress};
 };
 
 const processAddressValidationErrors = (

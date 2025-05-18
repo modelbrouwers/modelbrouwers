@@ -7,6 +7,7 @@ import {API_ROOT} from '@/constants.js';
 
 import Delivery from './Delivery';
 import {withCheckout} from './storybook';
+import type {ConfirmOrderData} from './types';
 
 export default {
   title: 'Shop / Checkout / Delivery / Full page',
@@ -42,29 +43,6 @@ export default {
 type Story = StoryObj<typeof Delivery>;
 
 export const Empty: Story = {
-  parameters: {
-    checkout: {
-      initialData: {
-        customer: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-        },
-        deliveryAddress: {
-          company: '',
-          chamberOfCommerce: '',
-          street: '',
-          number: '',
-          city: '',
-          postalCode: '',
-          country: 'N',
-        },
-        billingAddress: null,
-      },
-    },
-  },
-
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
 
@@ -77,24 +55,22 @@ export const Empty: Story = {
 export const BillingAddressSameAsDelivery: Story = {
   parameters: {
     checkout: {
-      initialData: {
-        customer: {
-          firstName: 'Arsene',
-          lastName: 'Lupin',
-          email: 'arsene@lupin.fr',
-          phone: '',
-        },
-        deliveryAddress: {
+      checkoutData: {
+        first_name: 'Arsene',
+        last_name: 'Lupin',
+        email: 'arsene@lupin.fr',
+        phone: '',
+        delivery_address: {
           company: '',
-          chamberOfCommerce: '',
+          chamber_of_commerce: '',
           street: 'Avenue des Champs-Élysées',
           number: '42',
           city: 'Paris',
-          postalCode: '75008',
+          postal_code: '75008',
           country: 'N',
         },
-        billingAddress: null,
-      },
+        invoice_address: null,
+      } satisfies Partial<ConfirmOrderData>,
     },
   },
 
@@ -111,32 +87,30 @@ export const BillingAddressSameAsDelivery: Story = {
 export const DifferentBillingAddress: Story = {
   parameters: {
     checkout: {
-      initialData: {
-        customer: {
-          firstName: 'Arsene',
-          lastName: 'Lupin',
-          email: 'arsene@lupin.fr',
-          phone: '',
-        },
-        deliveryAddress: {
+      checkoutData: {
+        first_name: 'Arsene',
+        last_name: 'Lupin',
+        email: 'arsene@lupin.fr',
+        phone: '',
+        delivery_address: {
           company: '',
-          chamberOfCommerce: '',
+          chamber_of_commerce: '',
           street: 'Avenue des Champs-Élysées',
           number: '42',
           city: 'Paris',
-          postalCode: '75008',
+          postal_code: '75008',
           country: 'N',
         },
-        billingAddress: {
+        invoice_address: {
           company: '',
-          chamberOfCommerce: '',
+          chamber_of_commerce: '',
           street: '',
           number: '',
           city: '',
-          postalCode: '',
+          postal_code: '',
           country: 'N',
         },
-      },
+      } satisfies Partial<ConfirmOrderData>,
     },
   },
 

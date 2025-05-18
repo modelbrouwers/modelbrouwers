@@ -1,9 +1,11 @@
 import {Decorator} from '@storybook/react';
 import {fn} from '@storybook/test';
+import {useEffect} from 'react';
 
 import {CartProduct} from '@/shop/data';
 
-import CheckoutProvider, {CheckoutProviderProps} from './CheckoutProvider';
+import CheckoutProvider from './CheckoutProvider';
+import {LOCAL_STORAGE_KEY} from './Delivery';
 
 const DEFAULT_CART_PRODUCTS: CartProduct[] = [
   new CartProduct({
@@ -30,31 +32,20 @@ const DEFAULT_CART_PRODUCTS: CartProduct[] = [
   }),
 ];
 
-const DEFAULT_INITIAL_DATA: CheckoutProviderProps['initialData'] = {
-  deliveryMethod: 'mail',
-  deliveryAddress: {
-    country: 'N',
-    street: '',
-    number: '',
-    city: '',
-    postalCode: '',
-    company: '',
-    chamberOfCommerce: '',
-  },
-  billingAddress: null,
-  customer: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-  },
-  paymentMethod: 0,
-  paymentMethodOptions: null,
+const clearLocalStorage = () => {
+  window.localStorage.removeItem(LOCAL_STORAGE_KEY);
 };
 
 export const withCheckout: Decorator = (Story, {parameters}) => {
+  // ensure we clear items from the local storage before and after to clean up side
+  // effects
+  useEffect(() => {
+    clearLocalStorage();
+    return clearLocalStorage;
+  }, []);
+
   const checkoutParams = parameters?.checkout;
-  const initialData = {...DEFAULT_INITIAL_DATA, ...(checkoutParams?.initialData ?? {})};
+  const checkoutData = checkoutParams?.checkoutData;
   return (
     <CheckoutProvider
       user={checkoutParams?.user ?? null}
@@ -63,7 +54,7 @@ export const withCheckout: Decorator = (Story, {parameters}) => {
       onChangeProductAmount={checkoutParams?.onChangeProductAmount ?? fn()}
       shippingCosts={checkoutParams?.shippingCosts ?? {price: 0, weight: ''}}
       onChangeShippingCosts={checkoutParams?.onChangeShippingCosts ?? fn()}
-      initialData={initialData}
+      checkoutData={checkoutData}
       confirmPath="/winkel/checkout/confirm"
       orderDetails={checkoutParams?.orderDetails ?? null}
       validationErrors={checkoutParams?.validationErrors ?? null}

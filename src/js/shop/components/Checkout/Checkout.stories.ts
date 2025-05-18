@@ -33,7 +33,6 @@ export default {
       ],
       onChangeAmount: fn(),
       confirmPath: '/winkel/checkout/confirm/',
-      checkoutData: {},
       orderDetails: null,
       validationErrors: {},
       shippingCosts: {
