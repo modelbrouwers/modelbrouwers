@@ -39,7 +39,7 @@ class RegistrationAttemptAdmin(admin.ModelAdmin):
         "timestamp",
         "ip_address",
         "success",
-        "_is_banned",
+        "is_banned",
         "type_of_visitor",
     )
     list_filter = ("success", "timestamp", "type_of_visitor")
