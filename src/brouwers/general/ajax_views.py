@@ -1,7 +1,7 @@
 import json
 
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic.base import View
 
 from brouwers.general.decorators import login_required_403
@@ -42,4 +42,4 @@ class AnnouncementView(View):
         announcement = Announcement.objects.get_current()
         if announcement is not None:
             data["html"] = announcement.text
-        return HttpResponse(json.dumps(data), content_type="application/json")
+        return JsonResponse(data)
