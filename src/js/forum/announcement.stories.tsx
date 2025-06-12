@@ -32,7 +32,7 @@ export const HasAnnouncement: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(`${API_ROOT}utils/get-announcement/`, () =>
+        http.get(`${API_ROOT}api/v1/forum_tools/announcement/`, () =>
           HttpResponse.json({
             html: '<p>An announcement from the backend</p>',
           }),
@@ -46,7 +46,9 @@ export const NoAnnouncement: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(`${API_ROOT}utils/get-announcement/`, () => HttpResponse.json({html: null})),
+        http.get(`${API_ROOT}api/v1/forum_tools/announcement/`, () =>
+          HttpResponse.json({html: null}),
+        ),
       ],
     },
   },
