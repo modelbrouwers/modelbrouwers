@@ -1,414 +1,218 @@
 [
-{
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 0,
-        "translations": {
-            "nl": "Accounts"
-        },
-        "name": "Accounts",
-        "slug": "accounts",
-        "models": [
-            [
-                "auth",
-                "group"
-            ],
-            [
-                "banning",
-                "ban"
-            ],
-            [
-                "forum_tools",
-                "forumuser"
-            ],
-            [
-                "general",
-                "userprofile"
-            ],
-            [
-                "online_users",
-                "trackeduser"
-            ],
-            [
-                "users",
-                "datadownloadrequest"
-            ],
-            [
-                "users",
-                "user"
-            ]
-        ]
+      "order": 0,
+      "translations": {
+        "nl": "Accounts"
+      },
+      "name": "Accounts",
+      "slug": "accounts",
+      "models": [
+        ["auth", "group"],
+        ["banning", "ban"],
+        ["forum_tools", "forumuser"],
+        ["general", "userprofile"],
+        ["online_users", "trackeduser"],
+        ["users", "datadownloadrequest"],
+        ["users", "user"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 3,
-        "translations": {
-            "nl": "Albums"
-        },
-        "name": "Albums",
-        "slug": "albums",
-        "models": [
-            [
-                "albums",
-                "album"
-            ],
-            [
-                "albums",
-                "albumdownload"
-            ],
-            [
-                "albums",
-                "albumgroup"
-            ],
-            [
-                "albums",
-                "category"
-            ],
-            [
-                "albums",
-                "photo"
-            ],
-            [
-                "albums",
-                "preferences"
-            ]
-        ]
+      "order": 3,
+      "translations": {
+        "nl": "Albums"
+      },
+      "name": "Albums",
+      "slug": "albums",
+      "models": [
+        ["albums", "album"],
+        ["albums", "albumdownload"],
+        ["albums", "albumgroup"],
+        ["albums", "category"],
+        ["albums", "photo"],
+        ["albums", "preferences"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 4,
-        "translations": {
-            "nl": "Forum"
-        },
-        "name": "Forum",
-        "slug": "forum",
-        "models": [
-            [
-                "forum_tools",
-                "buildreportsforum"
-            ],
-            [
-                "forum_tools",
-                "forum"
-            ],
-            [
-                "forum_tools",
-                "forumcategory"
-            ],
-            [
-                "forum_tools",
-                "forumlinkbase"
-            ],
-            [
-                "forum_tools",
-                "forumlinksynced"
-            ],
-            [
-                "forum_tools",
-                "forumpostcountrestriction"
-            ],
-            [
-                "forum_tools",
-                "forumuser"
-            ],
-            [
-                "forum_tools",
-                "report"
-            ],
-            [
-                "forum_tools",
-                "topic"
-            ]
-        ]
+      "order": 4,
+      "translations": {
+        "nl": "Forum"
+      },
+      "name": "Forum",
+      "slug": "forum",
+      "models": [
+        ["forum_tools", "buildreportsforum"],
+        ["forum_tools", "forum"],
+        ["forum_tools", "forumcategory"],
+        ["forum_tools", "forumpostcountrestriction"],
+        ["forum_tools", "forumuser"],
+        ["forum_tools", "report"],
+        ["forum_tools", "topic"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 5,
-        "translations": {
-            "nl": "Brouwverslagen"
-        },
-        "name": "Build reports",
-        "slug": "build-reports",
-        "models": [
-            [
-                "builds",
-                "build"
-            ],
-            [
-                "builds",
-                "buildphoto"
-            ]
-        ]
+      "order": 5,
+      "translations": {
+        "nl": "Brouwverslagen"
+      },
+      "name": "Build reports",
+      "slug": "build-reports",
+      "models": [
+        ["builds", "build"],
+        ["builds", "buildphoto"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 1,
-        "translations": {
-            "nl": "Shop / catalogus"
-        },
-        "name": "Shop / catalog",
-        "slug": "shop-catalog",
-        "models": [
-            [
-                "shop",
-                "cart"
-            ],
-            [
-                "shop",
-                "cartproduct"
-            ],
-            [
-                "shop",
-                "category"
-            ],
-            [
-                "shop",
-                "categorycarouselimage"
-            ],
-            [
-                "shop",
-                "homepagecategory"
-            ],
-            [
-                "shop",
-                "homepagecategorychild"
-            ],
-            [
-                "shop",
-                "product"
-            ],
-            [
-                "shop",
-                "productimage"
-            ],
-            [
-                "shop",
-                "productmanufacturer"
-            ]
-        ]
+      "order": 1,
+      "translations": {
+        "nl": "Shop / catalogus"
+      },
+      "name": "Shop / catalog",
+      "slug": "shop-catalog",
+      "models": [
+        ["shop", "cart"],
+        ["shop", "cartproduct"],
+        ["shop", "category"],
+        ["shop", "categorycarouselimage"],
+        ["shop", "homepagecategory"],
+        ["shop", "homepagecategorychild"],
+        ["shop", "product"],
+        ["shop", "productimage"],
+        ["shop", "productmanufacturer"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 2,
-        "translations": {
-            "nl": "Shop / backoffice"
-        },
-        "name": "Shop / backoffice",
-        "slug": "shop-backoffice",
-        "models": [
-            [
-                "shop",
-                "address"
-            ],
-            [
-                "shop",
-                "customergroup"
-            ],
-            [
-                "shop",
-                "order"
-            ],
-            [
-                "shop",
-                "payment"
-            ],
-            [
-                "shop",
-                "paymentmethod"
-            ],
-            [
-                "shop",
-                "shippingcost"
-            ],
-            [
-                "shop",
-                "shopconfiguration"
-            ]
-        ]
+      "order": 2,
+      "translations": {
+        "nl": "Shop / backoffice"
+      },
+      "name": "Shop / backoffice",
+      "slug": "shop-backoffice",
+      "models": [
+        ["shop", "address"],
+        ["shop", "customergroup"],
+        ["shop", "order"],
+        ["shop", "payment"],
+        ["shop", "paymentmethod"],
+        ["shop", "shippingcost"],
+        ["shop", "shopconfiguration"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 6,
-        "translations": {
-            "nl": "Kitreviews"
-        },
-        "name": "Kit reviews",
-        "slug": "kit-reviews",
-        "models": [
-            [
-                "kitreviews",
-                "kitreview"
-            ],
-            [
-                "kitreviews",
-                "kitreviewproperty"
-            ],
-            [
-                "kitreviews",
-                "kitreviewpropertyrating"
-            ],
-            [
-                "kitreviews",
-                "kitreviewvote"
-            ],
-            [
-                "kits",
-                "boxart"
-            ],
-            [
-                "kits",
-                "brand"
-            ],
-            [
-                "kits",
-                "modelkit"
-            ],
-            [
-                "kits",
-                "scale"
-            ]
-        ]
+      "order": 6,
+      "translations": {
+        "nl": "Kitreviews"
+      },
+      "name": "Kit reviews",
+      "slug": "kit-reviews",
+      "models": [
+        ["kitreviews", "kitreview"],
+        ["kitreviews", "kitreviewproperty"],
+        ["kitreviews", "kitreviewpropertyrating"],
+        ["kitreviews", "kitreviewvote"],
+        ["kits", "boxart"],
+        ["kits", "brand"],
+        ["kits", "modelkit"],
+        ["kits", "scale"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 7,
-        "translations": {
-            "nl": "Awards"
-        },
-        "name": "Awards",
-        "slug": "awards",
-        "models": [
-            [
-                "awards",
-                "category"
-            ],
-            [
-                "awards",
-                "project"
-            ],
-            [
-                "awards",
-                "vote"
-            ]
-        ]
+      "order": 7,
+      "translations": {
+        "nl": "Awards"
+      },
+      "name": "Awards",
+      "slug": "awards",
+      "models": [
+        ["awards", "category"],
+        ["awards", "project"],
+        ["awards", "vote"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 9,
-        "translations": {
-            "nl": "Configuratie"
-        },
-        "name": "Configuration",
-        "slug": "configuration",
-        "models": [
-            [
-                "admin_index",
-                "appgroup"
-            ],
-            [
-                "admin_index",
-                "applink"
-            ],
-            [
-                "admin_index",
-                "contenttypeproxy"
-            ],
-            [
-                "general",
-                "announcement"
-            ],
-            [
-                "legacy_shop",
-                "ocsetting"
-            ],
-            [
-                "redirects",
-                "redirect"
-            ],
-            [
-                "sites",
-                "site"
-            ],
-            [
-                "taggit",
-                "tag"
-            ]
-        ]
+      "order": 9,
+      "translations": {
+        "nl": "Configuratie"
+      },
+      "name": "Configuration",
+      "slug": "configuration",
+      "models": [
+        ["admin_index", "appgroup"],
+        ["admin_index", "applink"],
+        ["admin_index", "contenttypeproxy"],
+        ["general", "announcement"],
+        ["legacy_shop", "ocsetting"],
+        ["redirects", "redirect"],
+        ["sites", "site"],
+        ["taggit", "tag"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 10,
-        "translations": {
-            "nl": "Logs"
-        },
-        "name": "Logs",
-        "slug": "logs",
-        "models": [
-            [
-                "admin",
-                "logentry"
-            ],
-            [
-                "general",
-                "registrationattempt"
-            ]
-        ]
+      "order": 10,
+      "translations": {
+        "nl": "Logs"
+      },
+      "name": "Logs",
+      "slug": "logs",
+      "models": [
+        ["admin", "logentry"],
+        ["general", "registrationattempt"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 8,
-        "translations": {
-            "nl": "Groepsbouwen"
-        },
-        "name": "Group builds",
-        "slug": "group-builds",
-        "models": [
-            [
-                "groupbuilds",
-                "groupbuild"
-            ],
-            [
-                "groupbuilds",
-                "participant"
-            ]
-        ]
+      "order": 8,
+      "translations": {
+        "nl": "Groepsbouwen"
+      },
+      "name": "Group builds",
+      "slug": "group-builds",
+      "models": [
+        ["groupbuilds", "groupbuild"],
+        ["groupbuilds", "participant"]
+      ]
     }
-},
-{
+  },
+  {
     "model": "admin_index.appgroup",
     "fields": {
-        "order": 11,
-        "translations": {
-            "nl": "Contact"
-        },
-        "name": "Contact",
-        "slug": "contact",
-        "models": [
-            [
-                "contact",
-                "contactmessage"
-            ]
-        ]
+      "order": 11,
+      "translations": {
+        "nl": "Contact"
+      },
+      "name": "Contact",
+      "slug": "contact",
+      "models": [["contact", "contactmessage"]]
     }
-}
+  }
 ]

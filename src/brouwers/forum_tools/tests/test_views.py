@@ -6,13 +6,6 @@ from brouwers.users.tests.factories import UserFactory
 
 class ForumToolsViewTests(TestCase):
 
-    def test_get_sync_data(self):
-        url = reverse("forum_tools:get_sync_data")
-
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, 200)
-
     def test_get_mod_data_anon(self):
         url = reverse("forum_tools:get_mod_data")
 

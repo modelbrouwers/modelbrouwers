@@ -13,13 +13,7 @@ from brouwers.general.models import UserProfile
 from brouwers.general.utils import clean_username, clean_username_fallback
 
 from .forms import ForumForm, PosterIDsForm
-from .models import (
-    BuildReportsForum,
-    ForumLinkBase,
-    ForumPostCountRestriction,
-    ForumUser,
-    Report,
-)
+from .models import BuildReportsForum, ForumPostCountRestriction, ForumUser, Report
 
 
 class CacheMixin(object):
@@ -31,21 +25,6 @@ class CacheMixin(object):
     def dispatch(self, *args, **kwargs):
         cache = cache_page(self.get_cache_timeout())
         return cache(super().dispatch)(*args, **kwargs)
-
-
-class SyncDataView(View):
-    cache_timeout = 60 * 60 * 24
-
-    def get(self, request, *args, **kwargs):
-        today = date.today()
-        links_to_be_synced = ForumLinkBase.objects.filter(
-            enabled=True, to_date__gte=today, from_date__lte=today
-        ).prefetch_related("forumlinksynced_set")
-        data = {
-            link.link_id: [l.link_id for l in link.forumlinksynced_set.all()]
-            for link in links_to_be_synced
-        }
-        return JsonResponse(data)
 
 
 class ModDataView(PermissionRequiredMixin, View):

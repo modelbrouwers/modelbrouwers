@@ -19,7 +19,6 @@ export default class App {
   static init() {
     this.pingServer();
     this.initDeadTopics();
-    this.syncUnreadPosts();
     this.initPostPermissions();
   }
 
@@ -56,24 +55,6 @@ export default class App {
     // dead-topics - bind clicks on reply buttons
     $(conf.selectors.new_post).click(test_url);
     $('a#close_message').click(hideOverlayDeadTopics);
-  }
-
-  static syncUnreadPosts() {
-    const syncNewPostsIndicators = response => {
-      $.each(response, function (key, value) {
-        var source = $('#' + key);
-        var cls = source.attr('class');
-        var title = source.attr('title');
-        $.each(value, function (key, value) {
-          $('#' + value)
-            .attr('class', cls)
-            .attr('title', title);
-        });
-      });
-    };
-
-    // sync 'oranje briefjes'
-    $.get(urlconf.forum_tools.sync_data, syncNewPostsIndicators);
   }
 
   static initPostPermissions() {
