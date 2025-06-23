@@ -1,0 +1,74 @@
+@use '../modules/bem';
+
+.modal {
+  @include bem.modifier('native') {
+    &:open {
+      display: grid;
+    }
+
+    grid-template-columns: 1fr min-content;
+    grid-template-areas:
+      'body close'
+      'body close';
+    padding: 15px;
+    column: 15px;
+
+    min-inline-size: 200px;
+    inline-size: fit-content;
+    max-inline-size: 90dvw;
+
+    min-block-size: 150px;
+    block-size: fit-content;
+    max-block-size: 90dvh;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+
+    &:has(.modal__title) {
+      grid-template-areas:
+        'title close'
+        'body body';
+    }
+
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(1px);
+    }
+
+    @include bem.element('close') {
+      grid-area: close;
+      align-self: start;
+      justify-self: end;
+      background-color: transparent;
+      border: none;
+      padding: 5px;
+      text-align: center;
+      margin-inline-end: -10px;
+      margin-block-start: -10px;
+      transition: transform ease 0.1s;
+      opacity: 0.75;
+
+      &:focus {
+        outline: revert;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    @include bem.element('title') {
+      grid-area: title;
+      color: inherit !important;
+      padding: 0;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    @include bem.element('body') {
+      grid-area: body;
+    }
+  }
+}
