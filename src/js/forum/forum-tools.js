@@ -17,14 +17,8 @@ const conf = {
 
 export default class App {
   static init() {
-    this.pingServer();
     this.initDeadTopics();
     this.initPostPermissions();
-  }
-
-  static pingServer() {
-    // ping the Django server, ignore exceptions
-    $.get(urlconf.ou.so);
   }
 
   static initDeadTopics() {

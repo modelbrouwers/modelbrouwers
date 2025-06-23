@@ -52,7 +52,6 @@ urlpatterns = (
         path("secret_santa/", TemplateView.as_view(template_name="santa_removed.html")),
         path("shirts/", TemplateView.as_view(template_name="shirts_removed.html")),
         path("builds/", include("brouwers.builds.urls", namespace="builds")),
-        path("ou/", include("brouwers.online_users.urls")),
         path(
             "modelbouwdag/sign-up/",
             RedirectView.as_view(

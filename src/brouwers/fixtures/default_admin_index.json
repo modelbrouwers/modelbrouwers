@@ -13,7 +13,6 @@
         ["banning", "ban"],
         ["forum_tools", "forumuser"],
         ["general", "userprofile"],
-        ["online_users", "trackeduser"],
         ["users", "datadownloadrequest"],
         ["users", "user"]
       ]
