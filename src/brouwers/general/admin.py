@@ -29,7 +29,7 @@ class UserProfileAdmin(admin.ModelAdmin):
         "exclude_from_nomination",
         "last_vote",
     )
-    list_filter = ("allow_sharing", "exclude_from_nomination")
+    list_filter = ("exclude_from_nomination",)
     search_fields = ("forum_nickname", "user__email")
 
 
@@ -39,7 +39,7 @@ class RegistrationAttemptAdmin(admin.ModelAdmin):
         "timestamp",
         "ip_address",
         "success",
-        "_is_banned",
+        "is_banned",
         "type_of_visitor",
     )
     list_filter = ("success", "timestamp", "type_of_visitor")

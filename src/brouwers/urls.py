@@ -52,7 +52,6 @@ urlpatterns = (
         path("secret_santa/", TemplateView.as_view(template_name="santa_removed.html")),
         path("shirts/", TemplateView.as_view(template_name="shirts_removed.html")),
         path("builds/", include("brouwers.builds.urls", namespace="builds")),
-        path("ou/", include("brouwers.online_users.urls")),
         path(
             "modelbouwdag/sign-up/",
             RedirectView.as_view(
@@ -66,7 +65,6 @@ urlpatterns = (
         path("i18n/", include("django.conf.urls.i18n")),
         path("nieuwe-winkel/", include("brouwers.shop.urls", namespace="shop")),
         path("", include("brouwers.users.urls", namespace="users")),
-        path("", include("brouwers.general.urls")),
     ]
     + staticfiles_urlpatterns()
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)

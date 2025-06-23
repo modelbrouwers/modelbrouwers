@@ -1,28 +1,15 @@
 from django.contrib import admin
-from django.utils.translation import gettext
+from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 
 from .models import (
     BuildReportsForum,
     Forum,
     ForumCategory,
-    ForumLinkBase,
-    ForumLinkSynced,
     ForumPostCountRestriction,
     ForumUser,
     Report,
 )
-
-
-class ForumLinkSyncedInline(admin.TabularInline):
-    model = ForumLinkSynced
-
-
-@admin.register(ForumLinkBase)
-class ForumLinkBaseAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "link_id", "enabled", "from_date", "to_date")
-    list_editable = ("link_id", "enabled", "from_date", "to_date")
-    list_filter = ("enabled", "from_date", "to_date")
-    inlines = [ForumLinkSyncedInline]
 
 
 @admin.register(Forum)
@@ -49,12 +36,13 @@ class ForumUserAdmin(admin.ModelAdmin):
     )
     search_fields = ("username", "user_email")
 
+    @admin.display(description=_("Link"))
     def show_absolute_url(self, obj):
-        click = gettext("forum profile")
-        return '<a href="%s">%s</a>' % (obj.get_absolute_url(), click)
-
-    show_absolute_url.allow_tags = True
-    show_absolute_url.short_description = gettext("Link")
+        return format_html(
+            '<a href="%s">%s</a>',
+            obj.get_absolute_url(),
+            _("forum profile"),
+        )
 
 
 @admin.register(ForumPostCountRestriction)

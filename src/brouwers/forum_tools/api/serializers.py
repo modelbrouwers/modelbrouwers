@@ -4,6 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 
 from rest_framework import fields, serializers
 
+from brouwers.general.models import Announcement
 from brouwers.users.models import User
 
 from ..models import Forum, Topic
@@ -43,3 +44,11 @@ class TopicSerializer(serializers.ModelSerializer):
                 return False
             case _:
                 return obj.is_dead
+
+
+class AnnouncementSerializer(serializers.ModelSerializer):
+    html = serializers.CharField(source="text", read_only=True, allow_null=True)
+
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
+        model = Announcement
+        fields = ("html",)

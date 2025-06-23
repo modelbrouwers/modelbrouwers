@@ -153,7 +153,6 @@ class ProfileInline(InlineFormSetFactory):
         "province",
         "country",  # address
         "exclude_from_nomination",  # awards
-        "allow_sharing",  # privacy
     )
     factory_kwargs = {
         "can_delete": False,

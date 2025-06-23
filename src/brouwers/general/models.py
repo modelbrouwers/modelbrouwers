@@ -1,18 +1,19 @@
-from datetime import date, timedelta
+from __future__ import annotations
+
+from datetime import date
+from typing import ClassVar
 
 from django.conf import settings
+from django.contrib import admin
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.html import strip_tags
-from django.utils.translation import get_language, gettext_lazy as _, ngettext as _n
+from django.utils.translation import get_language, gettext_lazy as _
 
 from brouwers.awards.models import Category
 
 from .fields import CountryField
-
-MAX_REGISTRATION_ATTEMPTS = 3
-STANDARD_BAN_TIME_HOURS = 12
 
 
 class UserProfile(models.Model):
@@ -40,26 +41,16 @@ class UserProfile(models.Model):
     province = models.CharField(_("province"), max_length=255, blank=True)
     country = CountryField(blank=True)
 
-    # allow social sharing
-    allow_sharing = models.BooleanField(
-        _("allow social sharing"),
-        default=False,
-        help_text=_(
-            "Checking this gives us permission to share your topics and albums on social media. "
-            "Uncheck if you don't want to share."
-        ),
-    )
+    class Meta:
+        verbose_name = _("userprofile")
+        verbose_name_plural = _("userprofiles")
+        ordering = ["forum_nickname"]
 
     def __str__(self):
         return self.forum_nickname
 
     def full_name(self):
         return self.user.get_full_name()
-
-    class Meta:
-        verbose_name = _("userprofile")
-        verbose_name_plural = _("userprofiles")
-        ordering = ["forum_nickname"]
 
     @property
     def is_address_ok(self):
@@ -87,6 +78,7 @@ class RegistrationAttempt(models.Model):
     ban = models.OneToOneField(
         "banning.Ban", blank=True, null=True, on_delete=models.SET_NULL
     )
+    ban_id: int | None
 
     class Meta:
         verbose_name = _("registration attempt")
@@ -96,72 +88,18 @@ class RegistrationAttempt(models.Model):
     def __str__(self):
         return self.username
 
-    def _is_banned(self):
+    @admin.display(description=_("is banned"), boolean=True)
+    def is_banned(self) -> bool:
         return self.ban_id is not None
 
-    _is_banned.boolean = True
-    is_banned = property(_is_banned)
 
-    def set_ban(self):
-        """
-        Logic to set a ban on failed registration attempts. If a ban is required,
-        the time (in weeks) is exponentially in function of faulty attempts.
-
-        Returns False if no bans were set.
-        """
-
-        num_attempts = RegistrationAttempt.objects.filter(
-            ip_address=self.ip_address, success=False
-        ).count()
-
-        if num_attempts >= 2:
-            from brouwers.banning.models import Ban
-
-            kwargs = {}
-
-            # expiry date
-            if num_attempts >= MAX_REGISTRATION_ATTEMPTS:
-                import math
-
-                i = num_attempts - MAX_REGISTRATION_ATTEMPTS
-                num_weeks = round(math.exp(i))
-                if num_weeks <= 52:
-                    kwargs["expiry_date"] = timezone.now() + timedelta(weeks=num_weeks)
-                # else kwarg not set -> permaban
-            else:
-                kwargs["expiry_date"] = timezone.now() + timedelta(
-                    hours=STANDARD_BAN_TIME_HOURS
-                )
-
-            kwargs["reason"] = _n(
-                "The system flagged you as a bot or your registration attempt was not valid.",
-                "You tried registering %(times)s times without succes, the system flagged you as a "
-                "bot.",
-                num_attempts,
-            ) % {"times": num_attempts}
-            kwargs["reason_internal"] = _(
-                "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
-            ) % {"num_attempts": num_attempts, "max": MAX_REGISTRATION_ATTEMPTS}
-            kwargs["automatic"] = True
-
-            ban = Ban.objects.create(ip=self.ip_address, **kwargs)
-
-            # set the ban to the registration attempt
-            self.ban = ban
-            self.save()
-            return ban
-        return False
-
-
-class AnnouncementManager(models.Manager):
-    def get_current(self):
+class AnnouncementManager(models.Manager["Announcement"]):
+    def get_current(self) -> Announcement | None:
+        qs = self.get_queryset()
         now = timezone.now()
         lang_code = get_language()[:2]
         q = Q(to_date__lt=now) | Q(from_date__gt=now)
-        qs = super().get_queryset().filter(language=lang_code).exclude(q)
-        if qs.exists():
-            return qs[0]
-        return None
+        return qs.filter(language=lang_code).exclude(q).first()
 
 
 class Announcement(models.Model):
@@ -172,7 +110,9 @@ class Announcement(models.Model):
     from_date = models.DateTimeField(blank=True, null=True)
     to_date = models.DateTimeField(blank=True, null=True)
 
-    objects = AnnouncementManager()
+    objects: ClassVar[  # pyright: ignore[reportIncompatibleVariableOverride]
+        AnnouncementManager
+    ] = AnnouncementManager()
 
     class Meta:
         verbose_name = _("announcement")

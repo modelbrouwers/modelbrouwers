@@ -75,9 +75,6 @@ class DataDownload(object):
         # TODO: KR properties and property ratings
         # review_votes = user.kitreviewvote_set.all()
 
-        # online_users
-        tracked_user = user.trackeduser if hasattr(user, "trackeduser") else None
-
         # users
         data_downloads = user.datadownloadrequest_set.all()
 
@@ -103,7 +100,6 @@ class DataDownload(object):
             ("data-download/builds.html", {"builds": builds}),
             ("data-download/kit_reviews.html", {"reviews": reviews}),
             # ('data-download/kit_review_votes.html', {'review_votes': review_votes}),
-            ("data-download/tracking.html", {"tracked_users": tracked_user}),
             (
                 "data-download/download_requests.html",
                 {"data_downloads": data_downloads},
