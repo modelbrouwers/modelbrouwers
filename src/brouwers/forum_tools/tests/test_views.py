@@ -22,16 +22,6 @@ class ForumToolsViewTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_get_sharing_perms(self):
-        url = reverse("forum_tools:get_sharing_perms")
-        user = UserFactory.create(is_superuser=True)
-        user.groups.create(name="content sharing")
-        self.client.force_login(user)
-
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, 200)
-
     def test_get_build_report_forums(self):
         url = reverse("forum_tools:get_build_report_forums")
 

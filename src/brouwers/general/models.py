@@ -41,16 +41,6 @@ class UserProfile(models.Model):
     province = models.CharField(_("province"), max_length=255, blank=True)
     country = CountryField(blank=True)
 
-    # allow social sharing
-    allow_sharing = models.BooleanField(
-        _("allow social sharing"),
-        default=False,
-        help_text=_(
-            "Checking this gives us permission to share your topics and albums on social media. "
-            "Uncheck if you don't want to share."
-        ),
-    )
-
     class Meta:
         verbose_name = _("userprofile")
         verbose_name_plural = _("userprofiles")

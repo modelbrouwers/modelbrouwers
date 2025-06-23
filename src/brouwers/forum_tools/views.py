@@ -1,18 +1,14 @@
-from datetime import date
-
 from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import JsonResponse
-from django.template.loader import render_to_string
 from django.utils.translation import gettext as _, ngettext as _n
 from django.views.decorators.cache import cache_page
 from django.views.generic import View
 
-from brouwers.general.decorators import login_required_403, user_passes_test_403
-from brouwers.general.models import UserProfile
+from brouwers.general.decorators import login_required_403
 from brouwers.general.utils import clean_username, clean_username_fallback
 
-from .forms import ForumForm, PosterIDsForm
+from .forms import ForumForm
 from .models import BuildReportsForum, ForumPostCountRestriction, ForumUser, Report
 
 
@@ -39,36 +35,6 @@ class ModDataView(PermissionRequiredMixin, View):
             % {"num": count},
         }
         return JsonResponse(data)
-
-
-@user_passes_test_403(
-    lambda u: u.groups.filter(name__iexact="content sharing").exists()
-)
-def get_sharing_perms(request):
-    data = {}
-    form = PosterIDsForm(request.GET)
-    if form.is_valid():
-        forumusers = ForumUser.objects.filter(user_id__in=form.poster_ids)
-
-        if forumusers:
-            # render text in template
-            allowed = render_to_string("forum_tools/sharing_allowed.html")
-            not_allowed = render_to_string("forum_tools/sharing_not_allowed.html")
-
-            # manual 'joining' on username
-            usernames = [forum_user.username for forum_user in forumusers]
-            profiles = {
-                profile.forum_nickname: profile
-                for profile in UserProfile.objects.filter(forum_nickname__in=usernames)
-            }
-
-            for forumuser in forumusers:
-                profile = profiles.get(forumuser.username)
-                data[forumuser.user_id] = (
-                    allowed if (profile and profile.allow_sharing) else not_allowed
-                )
-
-    return JsonResponse(data)
 
 
 @login_required_403
