@@ -7,9 +7,10 @@ import {type ScaleData, createScale, listScales, parseScale} from '@/data/kits/s
 export interface CreateScaleSelectProps {
   onChange: (scale: ScaleData | null) => void;
   value: ScaleData | null;
+  inputId?: string;
 }
 
-const CreateScaleSelect: React.FC<CreateScaleSelectProps> = ({value, onChange}) => {
+const CreateScaleSelect: React.FC<CreateScaleSelectProps> = ({value, onChange, inputId}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [scales, setScales] = useState<ScaleData[]>([]);
   const {loading, error} = useAsync(async () => setScales(await listScales()), []);
@@ -20,6 +21,7 @@ const CreateScaleSelect: React.FC<CreateScaleSelectProps> = ({value, onChange}) 
   return (
     <CreatableSelect<ScaleData>
       name="scale"
+      inputId={inputId}
       isLoading={loading}
       options={scales}
       value={value}

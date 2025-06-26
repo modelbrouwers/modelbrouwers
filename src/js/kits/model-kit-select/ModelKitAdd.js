@@ -45,10 +45,18 @@ const AddKitForm = ({
   return (
     <div className="form-horizontal">
       <FormField htmlId="add-kit-brand" label="brand" required={true}>
-        <CreateBrandSelect value={brand} onChange={value => onChange({name: 'brand', value})} />
+        <CreateBrandSelect
+          inputId="add-kit-brand"
+          value={brand}
+          onChange={value => onChange({name: 'brand', value})}
+        />
       </FormField>
       <FormField htmlId="add-kit-scale" label="scale" required={true}>
-        <CreateScaleSelect value={scale} onChange={value => onChange({name: 'scale', value})} />
+        <CreateScaleSelect
+          inputId="add-kit-scale"
+          value={scale}
+          onChange={value => onChange({name: 'scale', value})}
+        />
       </FormField>
       <FormField htmlId="add-kit-name" label="name" required={true}>
         <input
@@ -59,6 +67,7 @@ const AddKitForm = ({
           value={name}
           placeholder="kit name"
           onChange={onInputChange}
+          id="add-kit-name"
         />
       </FormField>
       <FormField htmlId="add-kit-number" label="kit number" required={false}>
@@ -69,6 +78,7 @@ const AddKitForm = ({
           value={kitNumber}
           placeholder="kit number"
           onChange={onInputChange}
+          id="add-kit-number"
         />
       </FormField>
 

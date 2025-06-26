@@ -7,11 +7,11 @@
     }
 
     grid-template-columns: 1fr min-content;
+    grid-template-rows: auto 1fr;
     grid-template-areas:
       'body close'
       'body close';
     padding: 15px;
-    column: 15px;
 
     min-inline-size: 200px;
     inline-size: fit-content;
@@ -65,10 +65,27 @@
       padding: 0;
       margin: 0;
       font-size: 24px;
+
+      position: sticky;
+      top: 0;
     }
 
     @include bem.element('body') {
       grid-area: body;
+      overflow-y: auto;
+    }
+
+    @include bem.element('footer') {
+      margin-block-start: 15px;
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 5px;
+      padding-inline: 15px;
+      padding-block-start: 5px;
+      position: sticky;
+      inset-block-end: 0;
+      background-color: #fff;
+      border-block-start: 1px solid rgba(0, 0, 0, 0.2);
     }
   }
 }

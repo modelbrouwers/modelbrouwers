@@ -1,26 +1,12 @@
 import 'bootstrap';
 import 'jquery';
-import React from 'react';
 import {createRoot} from 'react-dom/client';
+import {IntlProvider} from 'react-intl';
 
-import {ModalContext} from '../kits/model-kit-select/context';
-import KitReviewKitAdd from './KitreviewKitAdd';
+import {getIntlProviderProps} from '@/i18n.js';
+
+import AddNewKitButton from './AddNewKitButton';
 import Slider from './slider.js';
-
-const onKitAdded = kit => {
-  window.location = kit.url_kitreviews;
-};
-
-const onAddNewKitClick = (event, btnNode, modalContext) => {
-  event.preventDefault();
-  const root = createRoot(modalContext.modalBody);
-  root.render(
-    <ModalContext.Provider value={modalContext}>
-      <KitReviewKitAdd onKitAdded={onKitAdded} />
-    </ModalContext.Provider>,
-  );
-  modalContext.modal.modal('show');
-};
 
 export default class Page {
   static init() {
@@ -30,16 +16,22 @@ export default class Page {
     this.initKitCreate();
   }
 
-  static initKitCreate() {
+  static async initKitCreate() {
+    const buttonNode = document.getElementById('find-kit-form__button-add-kit');
     const modalNode = document.getElementById('add-kit-modal');
-    const modal = $(modalNode);
-    const modalBody = modalNode ? modalNode.querySelector('.modal-body') : null;
-    const modalForm = modalNode ? modalNode.querySelector('form') : null;
+    if (!buttonNode || !modalNode) return;
 
-    const modalContext = {modal, modalBody, modalForm};
-    const nodes = document.querySelectorAll('.find-kit-form__button-add-kit');
-    for (const node of nodes) {
-      node.addEventListener('click', event => onAddNewKitClick(event, node, modalContext));
-    }
+    const intlProps = await getIntlProviderProps();
+    const root = createRoot(buttonNode);
+    root.render(
+      <IntlProvider {...intlProps}>
+        <AddNewKitButton
+          modalNode={modalNode}
+          onKitAdded={kit => {
+            window.location = kit.url_kitreviews;
+          }}
+        />
+      </IntlProvider>,
+    );
   }
 }
