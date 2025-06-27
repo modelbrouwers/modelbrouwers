@@ -104,6 +104,11 @@
     "description": "Delivery method 'mail' option label",
     "originalDefault": "By mail"
   },
+  "EDsIoh": {
+    "defaultMessage": "Please, only add new kits if they were not available via the search function.",
+    "description": "Create kit modal subheading",
+    "originalDefault": "Please, only add new kits if they were not available via the search function."
+  },
   "EG8GlO": {
     "defaultMessage": "Number",
     "description": "Delivery address: number",
@@ -164,6 +169,11 @@
     "description": "Checkout: select payment method",
     "originalDefault": "Select your payment method"
   },
+  "U+ONwt": {
+    "defaultMessage": "Close",
+    "description": "Modal close button",
+    "originalDefault": "Close"
+  },
   "VlE87W": {
     "defaultMessage": "Place order",
     "description": "Checkout: confirm order",
@@ -179,6 +189,11 @@
     "description": "Increment button accessible label",
     "originalDefault": "Add one"
   },
+  "a4lMPQ": {
+    "defaultMessage": "Save",
+    "description": "Save form button",
+    "originalDefault": "Save"
+  },
   "bsyaaX": {
     "defaultMessage": "Sign up",
     "description": "Checkout with account creation",
@@ -188,6 +203,11 @@
     "defaultMessage": "Continue without signup",
     "description": "Checkout with account link",
     "originalDefault": "Continue without signup"
+  },
+  "edOZWO": {
+    "defaultMessage": "Add new kit",
+    "description": "Add new kit button label",
+    "originalDefault": "Add new kit"
   },
   "fJMjTz": {
     "defaultMessage": "Sign in",
@@ -373,6 +393,11 @@
     "defaultMessage": "Payment",
     "description": "Tab: payment",
     "originalDefault": "Payment"
+  },
+  "x0iZxN": {
+    "defaultMessage": "Add new kit to the database",
+    "description": "Create kit modal title",
+    "originalDefault": "Add new kit to the database"
   },
   "y/pElv": {
     "defaultMessage": "Topic",
