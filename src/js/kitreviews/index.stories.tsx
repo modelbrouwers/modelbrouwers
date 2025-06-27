@@ -65,7 +65,7 @@ type Story = StoryObj<Args>;
 export const OpenAddKitModal: Story = {
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', {name: 'Add new kit'});
+    const button = await canvas.findByRole('button', {name: 'Add new kit'});
     expect(button).toBeVisible();
 
     await userEvent.click(button);
