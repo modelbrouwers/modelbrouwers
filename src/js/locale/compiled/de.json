@@ -125,6 +125,12 @@
       "value": "By mail"
     }
   ],
+  "EDsIoh": [
+    {
+      "type": 0,
+      "value": "Please, only add new kits if they were not available via the search function."
+    }
+  ],
   "EG8GlO": [
     {
       "type": 0,
@@ -231,6 +237,12 @@
       "value": "Select your payment method"
     }
   ],
+  "U+ONwt": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
   "VlE87W": [
     {
       "type": 0,
@@ -249,6 +261,12 @@
       "value": "Add one"
     }
   ],
+  "a4lMPQ": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
   "bsyaaX": [
     {
       "type": 0,
@@ -259,6 +277,12 @@
     {
       "type": 0,
       "value": "Continue without signup"
+    }
+  ],
+  "edOZWO": [
+    {
+      "type": 0,
+      "value": "Add new kit"
     }
   ],
   "fJMjTz": [
@@ -568,6 +592,12 @@
     {
       "type": 0,
       "value": "Payment"
+    }
+  ],
+  "x0iZxN": [
+    {
+      "type": 0,
+      "value": "Add new kit to the database"
     }
   ],
   "y/pElv": [

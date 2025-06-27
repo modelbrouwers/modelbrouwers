@@ -2,25 +2,25 @@
   "+kXYqX": [
     {
       "type": 0,
-      "value": "Country"
+      "value": "Land"
     }
   ],
   "/168YP": [
     {
       "type": 0,
-      "value": "Continue"
+      "value": "Doorgaan"
     }
   ],
   "/Ad+ya": [
     {
       "type": 0,
-      "value": "Additional information"
+      "value": "Extra informatie"
     }
   ],
   "/Eg5rz": [
     {
       "type": 0,
-      "value": "Billing address"
+      "value": "Factuuradres"
     }
   ],
   "/N7xse": [
@@ -32,25 +32,25 @@
   "0IKVYp": [
     {
       "type": 0,
-      "value": "City"
+      "value": "Stad"
     }
   ],
   "1K/q6M": [
     {
       "type": 0,
-      "value": "Remove one"
+      "value": "Verwijder één"
     }
   ],
   "3UvxIB": [
     {
       "type": 0,
-      "value": "Street"
+      "value": "Straat"
     }
   ],
   "3V0Onx": [
     {
       "type": 0,
-      "value": "* Required fields"
+      "value": "* Verplichte velden"
     }
   ],
   "4+G0m8": [
@@ -62,19 +62,19 @@
   "73/HqL": [
     {
       "type": 0,
-      "value": "Delivery or pickup?"
+      "value": "Bezorgen of ophalen?"
     }
   ],
   "79Rcfd": [
     {
       "type": 0,
-      "value": "Pickup"
+      "value": "Ophalen"
     }
   ],
   "7cEb3d": [
     {
       "type": 0,
-      "value": "Select your bank"
+      "value": "Kies je bank"
     }
   ],
   "7wbY42": [
@@ -116,37 +116,43 @@
   "D5xbSP": [
     {
       "type": 0,
-      "value": "Checkout"
+      "value": "Afrekenen"
     }
   ],
   "DwmapZ": [
     {
       "type": 0,
-      "value": "By mail"
+      "value": "Bezorgen per post"
+    }
+  ],
+  "EDsIoh": [
+    {
+      "type": 0,
+      "value": "Gelieve enkel nieuwe kits toe te voegen als ze niet te vinden zijn via de zoekfunctie."
     }
   ],
   "EG8GlO": [
     {
       "type": 0,
-      "value": "Number"
+      "value": "Nummer"
     }
   ],
   "GHHsMN": [
     {
       "type": 0,
-      "value": "Shipping costs"
+      "value": "Verzendkosten"
     }
   ],
   "GhZs+k": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Bevestiging"
     }
   ],
   "GxgjcH": [
     {
       "type": 0,
-      "value": "Phone number"
+      "value": "Telefoonnummer"
     }
   ],
   "IlIaZ2": [
@@ -170,7 +176,7 @@
   "J15APO": [
     {
       "type": 0,
-      "value": "Your cart is empty!"
+      "value": "Je winkelmandje is leeg!"
     }
   ],
   "JFs7tB": [
@@ -182,7 +188,7 @@
   "K4XU1v": [
     {
       "type": 0,
-      "value": "Remove product '"
+      "value": "Verwijder product '"
     },
     {
       "type": 1,
@@ -196,7 +202,7 @@
   "LYbu8S": [
     {
       "type": 0,
-      "value": "Your order with reference "
+      "value": "Je bestelling met bestelnummer "
     },
     {
       "children": [
@@ -210,61 +216,79 @@
     },
     {
       "type": 0,
-      "value": " was received!"
+      "value": " is ontvangen!"
     }
   ],
   "Ovk5iw": [
     {
       "type": 0,
-      "value": "ZIP code"
+      "value": "Postcode"
     }
   ],
   "PKVzgg": [
     {
       "type": 0,
-      "value": "First name"
+      "value": "Voornaam"
     }
   ],
   "Qiw2De": [
     {
       "type": 0,
-      "value": "Select your payment method"
+      "value": "Kies je betaalmethode"
+    }
+  ],
+  "U+ONwt": [
+    {
+      "type": 0,
+      "value": "Sluiten"
     }
   ],
   "VlE87W": [
     {
       "type": 0,
-      "value": "Place order"
+      "value": "Bestelling plaatsen"
     }
   ],
   "XGRjNR": [
     {
       "type": 0,
-      "value": "Shopping cart"
+      "value": "Winkelmandje"
     }
   ],
   "XlMu5g": [
     {
       "type": 0,
-      "value": "Add one"
+      "value": "Voeg één toe"
+    }
+  ],
+  "a4lMPQ": [
+    {
+      "type": 0,
+      "value": "Bewaren"
     }
   ],
   "bsyaaX": [
     {
       "type": 0,
-      "value": "Sign up"
+      "value": "Registreren"
     }
   ],
   "dbSo0d": [
     {
       "type": 0,
-      "value": "Continue without signup"
+      "value": "Doorgaan zonder account"
+    }
+  ],
+  "edOZWO": [
+    {
+      "type": 0,
+      "value": "Voeg nieuwe kit toe"
     }
   ],
   "fJMjTz": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Inloggen"
     }
   ],
   "forum.albums.photosNav.next": [
@@ -314,13 +338,13 @@
   "hBtXPb": [
     {
       "type": 0,
-      "value": "Insert photo"
+      "value": "Foto invoegen"
     }
   ],
   "ilLhfJ": [
     {
       "type": 0,
-      "value": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
+      "value": "Kies hoe je verder wil gaan. Afrekenen kan zonder account, maar als je een account hebt of aanmaakt, dan kunnen we je gegevens (in de toekomst) alvast voor-invullen."
     }
   ],
   "jHygYM": [
@@ -338,67 +362,67 @@
   "komVq4": [
     {
       "type": 0,
-      "value": "Personal details"
+      "value": "Persoonlijke gegevens"
     }
   ],
   "l9i+Cg": [
     {
       "type": 0,
-      "value": "This field is required."
+      "value": "Dit veld is verplicht."
     }
   ],
   "m0WW7s": [
     {
       "type": 0,
-      "value": "Continue shopping"
+      "value": "Verder winkelen"
     }
   ],
   "mMHo4X": [
     {
       "type": 0,
-      "value": "Oops, something went wrong. Please try again later."
+      "value": "Oeps, er ging iets fout. Gelieve later opnieuw te proberen."
     }
   ],
   "n2Bpcz": [
     {
       "type": 0,
-      "value": "Delivery"
+      "value": "Bezorging"
     }
   ],
   "nul77H": [
     {
       "type": 0,
-      "value": "Delivery address"
+      "value": "Bezorgadres"
     }
   ],
   "oNlKJN": [
     {
       "type": 0,
-      "value": "Company"
+      "value": "Bedrijf"
     }
   ],
   "ocBRLh": [
     {
       "type": 0,
-      "value": "Last name"
+      "value": "Achternaam"
     }
   ],
   "osdebM": [
     {
       "type": 0,
-      "value": "Checkout"
+      "value": "Afrekenen"
     }
   ],
   "oyF3u3": [
     {
       "type": 0,
-      "value": "Delivery method"
+      "value": "Bezorgmethode"
     }
   ],
   "p3b1TD": [
     {
       "type": 0,
-      "value": "Shipping to "
+      "value": "Opsturen naar "
     },
     {
       "type": 1,
@@ -424,7 +448,7 @@
   "rAlq4/": [
     {
       "type": 0,
-      "value": "My billing and delivery address are the same."
+      "value": "Mijn bezorg- en factuuradres zijn hetzelfde."
     }
   ],
   "sg6151": [
@@ -436,31 +460,31 @@
   "shop.cart.detail.cart.subtotal": [
     {
       "type": 0,
-      "value": "Sub-total"
+      "value": "Subtotaal"
     }
   ],
   "shop.cart.detail.cart.taxes": [
     {
       "type": 0,
-      "value": "Taxes"
+      "value": "BTW"
     }
   ],
   "shop.cart.detail.cart.total": [
     {
       "type": 0,
-      "value": "Total"
+      "value": "Totaal"
     }
   ],
   "shop.cart.detail.header.header": [
     {
       "type": 0,
-      "value": "Total"
+      "value": "Totaal"
     }
   ],
   "shop.cart.detail.header.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "Afbeelding"
     }
   ],
   "shop.cart.detail.header.model": [
@@ -472,37 +496,37 @@
   "shop.cart.detail.header.product.name": [
     {
       "type": 0,
-      "value": "Product Name"
+      "value": "Productnaam"
     }
   ],
   "shop.cart.detail.header.quantity": [
     {
       "type": 0,
-      "value": "Quantity"
+      "value": "Aantal"
     }
   ],
   "shop.cart.detail.header.unit.price": [
     {
       "type": 0,
-      "value": "Unit Price"
+      "value": "Stukprijs"
     }
   ],
   "shop.cart.detail.title.cart.total": [
     {
       "type": 0,
-      "value": "Cart total"
+      "value": "Totaal winkelmandje"
     }
   ],
   "shop.cart.product.actions.add": [
     {
       "type": 0,
-      "value": "Add to cart"
+      "value": "Voeg toe aan winkelmandje"
     }
   ],
   "shop.cart.topbar.checkout": [
     {
       "type": 0,
-      "value": "Checkout"
+      "value": "Afrekenen"
     }
   ],
   "shop.cart.topbar.item.count": [
@@ -518,19 +542,19 @@
     {
       "offset": 0,
       "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "item"
-            }
-          ]
-        },
         "other": {
           "value": [
             {
               "type": 0,
               "value": "items"
+            }
+          ]
+        },
+        "één": {
+          "value": [
+            {
+              "type": 0,
+              "value": "item"
             }
           ]
         }
@@ -543,13 +567,13 @@
   "shop.cart.topbar.view.cart": [
     {
       "type": 0,
-      "value": "View cart"
+      "value": "Toon winkelmandje"
     }
   ],
   "swul1g": [
     {
       "type": 0,
-      "value": "Cart overview"
+      "value": "Overzicht"
     }
   ],
   "tPmUAf": [
@@ -561,13 +585,19 @@
   "v2t0Vo": [
     {
       "type": 0,
-      "value": "or"
+      "value": "of"
     }
   ],
   "vRPK2q": [
     {
       "type": 0,
-      "value": "Payment"
+      "value": "Betaling"
+    }
+  ],
+  "x0iZxN": [
+    {
+      "type": 0,
+      "value": "Voeg een nieuwe kit toe aan de databank"
     }
   ],
   "y/pElv": [
@@ -579,7 +609,7 @@
   "ysHRbD": [
     {
       "type": 0,
-      "value": "Shipping: "
+      "value": "Opsturen: "
     },
     {
       "children": [
@@ -591,7 +621,7 @@
   "yy0Fua": [
     {
       "type": 0,
-      "value": "Select country"
+      "value": "Kies land"
     }
   ]
 }

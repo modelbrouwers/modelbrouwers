@@ -26,9 +26,13 @@
         {% if user.is_authenticated %}
             {% trans "or" %}
 
-            <button class="button button--icon button--orange find-kit-form__button-add-kit">
-                <i class="fa fa-plus"></i> {% trans 'Add new kit' %}
-            </button>
+            <div id="find-kit-form__button-add-kit">
+                {# React managed #}
+                <button class="button button--icon button--orange">
+                    <i class="fa fa-plus"></i> {% trans 'Add new kit' %}
+                </button>
+            </div>
+
         {% endif %}
 
     </div>

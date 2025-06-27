@@ -1,7 +1,4 @@
 import PropTypes from 'prop-types';
-import React, {useContext} from 'react';
-import ReactDOM from 'react-dom';
-import {useEvent} from 'react-use';
 
 import {createModelKit} from '@/data/kits/modelkit';
 import {parseScale} from '@/data/kits/scale';
@@ -11,7 +8,6 @@ import {RadioSelect} from '../../components/forms/RadioSelect';
 import BoxartUpload from './BoxartUpload';
 import CreateBrandSelect from './CreateBrandSelect';
 import CreateScaleSelect from './CreateScaleSelect';
-import {ModalContext} from './context';
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
@@ -30,6 +26,8 @@ const AddKitForm = ({
   kitNumber = '',
   difficulty,
   onChange,
+  onSubmit,
+  formId,
 }) => {
   const onSelectChange = (selectedOption, action) => {
     const {name} = action;
@@ -43,12 +41,20 @@ const AddKitForm = ({
   };
 
   return (
-    <div className="form-horizontal">
+    <form className="form-horizontal" id={formId} onSubmit={onSubmit}>
       <FormField htmlId="add-kit-brand" label="brand" required={true}>
-        <CreateBrandSelect value={brand} onChange={value => onChange({name: 'brand', value})} />
+        <CreateBrandSelect
+          inputId="add-kit-brand"
+          value={brand}
+          onChange={value => onChange({name: 'brand', value})}
+        />
       </FormField>
       <FormField htmlId="add-kit-scale" label="scale" required={true}>
-        <CreateScaleSelect value={scale} onChange={value => onChange({name: 'scale', value})} />
+        <CreateScaleSelect
+          inputId="add-kit-scale"
+          value={scale}
+          onChange={value => onChange({name: 'scale', value})}
+        />
       </FormField>
       <FormField htmlId="add-kit-name" label="name" required={true}>
         <input
@@ -59,6 +65,7 @@ const AddKitForm = ({
           value={name}
           placeholder="kit name"
           onChange={onInputChange}
+          id="add-kit-name"
         />
       </FormField>
       <FormField htmlId="add-kit-number" label="kit number" required={false}>
@@ -69,6 +76,7 @@ const AddKitForm = ({
           value={kitNumber}
           placeholder="kit number"
           onChange={onInputChange}
+          id="add-kit-number"
         />
       </FormField>
 
@@ -92,15 +100,17 @@ const AddKitForm = ({
         onChange={onInputChange}
         currentValue={difficulty}
       />
-    </div>
+    </form>
   );
 };
 
 AddKitForm.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   name: PropTypes.string,
   kitNumber: PropTypes.string,
   difficulty: PropTypes.string.isRequired,
+  formId: PropTypes.string,
 };
 
 const ModelKitAdd = ({
@@ -112,9 +122,8 @@ const ModelKitAdd = ({
   boxartUUID = null,
   onChange,
   onKitAdded,
+  formId,
 }) => {
-  const {modal, modalBody, modalForm} = useContext(ModalContext);
-
   const onSubmit = async event => {
     event.preventDefault();
     const submitData = {
@@ -138,23 +147,20 @@ const ModelKitAdd = ({
     // handle the different serializers in the backend
     kit.brand = brand;
     kit.scale = scale;
-    // FIXME: legacy bootstrap
-    modal.modal('hide');
     onKitAdded(kit);
   };
 
-  useEvent('submit', onSubmit, modalForm);
-
-  return ReactDOM.createPortal(
+  return (
     <AddKitForm
+      formId={formId}
       brand={brand}
       scale={scale}
       name={name}
       kitNumber={kitNumber}
       difficulty={difficulty}
       onChange={onChange}
-    />,
-    modalBody,
+      onSubmit={onSubmit}
+    />
   );
 };
 

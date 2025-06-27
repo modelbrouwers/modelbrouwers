@@ -1,21 +1,21 @@
 {
   "+kXYqX": {
-    "defaultMessage": "Country",
+    "defaultMessage": "Land",
     "description": "Checkout address: country",
     "originalDefault": "Country"
   },
   "/168YP": {
-    "defaultMessage": "Continue",
+    "defaultMessage": "Doorgaan",
     "description": "Delivery details: continue",
     "originalDefault": "Continue"
   },
   "/Ad+ya": {
-    "defaultMessage": "Additional information",
+    "defaultMessage": "Extra informatie",
     "description": "Confirmation message title",
     "originalDefault": "Additional information"
   },
   "/Eg5rz": {
-    "defaultMessage": "Billing address",
+    "defaultMessage": "Factuuradres",
     "description": "Billing address: billingAddress",
     "originalDefault": "Billing address"
   },
@@ -25,22 +25,22 @@
     "originalDefault": "Finished?"
   },
   "0IKVYp": {
-    "defaultMessage": "City",
+    "defaultMessage": "Stad",
     "description": "Delivery address: city",
     "originalDefault": "City"
   },
   "1K/q6M": {
-    "defaultMessage": "Remove one",
+    "defaultMessage": "Verwijder één",
     "description": "Decrement button accessible label",
     "originalDefault": "Remove one"
   },
   "3UvxIB": {
-    "defaultMessage": "Street",
+    "defaultMessage": "Straat",
     "description": "Delivery address: street",
     "originalDefault": "Street"
   },
   "3V0Onx": {
-    "defaultMessage": "* Required fields",
+    "defaultMessage": "* Verplichte velden",
     "description": "Delivery details: requiredFields",
     "originalDefault": "* Required fields"
   },
@@ -50,17 +50,17 @@
     "originalDefault": "KVK"
   },
   "73/HqL": {
-    "defaultMessage": "Delivery or pickup?",
+    "defaultMessage": "Bezorgen of ophalen?",
     "description": "Delivery details: delivery method",
     "originalDefault": "Delivery or pickup?"
   },
   "79Rcfd": {
-    "defaultMessage": "Pickup",
+    "defaultMessage": "Ophalen",
     "description": "Delivery method 'mail' option label",
     "originalDefault": "Pickup"
   },
   "7cEb3d": {
-    "defaultMessage": "Select your bank",
+    "defaultMessage": "Kies je bank",
     "description": "iDeal bank dropdown",
     "originalDefault": "Select your bank"
   },
@@ -95,32 +95,37 @@
     "originalDefault": "Brouwer"
   },
   "D5xbSP": {
-    "defaultMessage": "Checkout",
+    "defaultMessage": "Afrekenen",
     "description": "Checkout header",
     "originalDefault": "Checkout"
   },
   "DwmapZ": {
-    "defaultMessage": "By mail",
+    "defaultMessage": "Bezorgen per post",
     "description": "Delivery method 'mail' option label",
     "originalDefault": "By mail"
   },
+  "EDsIoh": {
+    "defaultMessage": "Gelieve enkel nieuwe kits toe te voegen als ze niet te vinden zijn via de zoekfunctie.",
+    "description": "Create kit modal subheading",
+    "originalDefault": "Please, only add new kits if they were not available via the search function."
+  },
   "EG8GlO": {
-    "defaultMessage": "Number",
+    "defaultMessage": "Nummer",
     "description": "Delivery address: number",
     "originalDefault": "Number"
   },
   "GHHsMN": {
-    "defaultMessage": "Shipping costs",
+    "defaultMessage": "Verzendkosten",
     "description": "Cart detail: shipping costs label",
     "originalDefault": "Shipping costs"
   },
   "GhZs+k": {
-    "defaultMessage": "Confirmation",
+    "defaultMessage": "Bevestiging",
     "description": "Tab: confirm",
     "originalDefault": "Confirmation"
   },
   "GxgjcH": {
-    "defaultMessage": "Phone number",
+    "defaultMessage": "Telefoonnummer",
     "description": "Checkout address: phone",
     "originalDefault": "Phone number"
   },
@@ -130,7 +135,7 @@
     "originalDefault": "Start: {start}, end: {end}"
   },
   "J15APO": {
-    "defaultMessage": "Your cart is empty!",
+    "defaultMessage": "Je winkelmandje is leeg!",
     "description": "Payment page: cart empty",
     "originalDefault": "Your cart is empty!"
   },
@@ -140,57 +145,72 @@
     "originalDefault": "Model"
   },
   "K4XU1v": {
-    "defaultMessage": "Remove product ''{name}''",
+    "defaultMessage": "Verwijder product ''{name}''",
     "description": "Cart: remove product button label",
     "originalDefault": "Remove product ''{name}''"
   },
   "LYbu8S": {
-    "defaultMessage": "Your order with reference <bold>{orderNumber}</bold> was received!",
+    "defaultMessage": "Je bestelling met bestelnummer <bold>{orderNumber}</bold> is ontvangen!",
     "description": "Order confirmation generic text",
     "originalDefault": "Your order with reference <bold>{orderNumber}</bold> was received!"
   },
   "Ovk5iw": {
-    "defaultMessage": "ZIP code",
+    "defaultMessage": "Postcode",
     "description": "Delivery address: zip",
     "originalDefault": "ZIP code"
   },
   "PKVzgg": {
-    "defaultMessage": "First name",
+    "defaultMessage": "Voornaam",
     "description": "Checkout address: firstName",
     "originalDefault": "First name"
   },
   "Qiw2De": {
-    "defaultMessage": "Select your payment method",
+    "defaultMessage": "Kies je betaalmethode",
     "description": "Checkout: select payment method",
     "originalDefault": "Select your payment method"
   },
+  "U+ONwt": {
+    "defaultMessage": "Sluiten",
+    "description": "Modal close button",
+    "originalDefault": "Close"
+  },
   "VlE87W": {
-    "defaultMessage": "Place order",
+    "defaultMessage": "Bestelling plaatsen",
     "description": "Checkout: confirm order",
     "originalDefault": "Place order"
   },
   "XGRjNR": {
-    "defaultMessage": "Shopping cart",
+    "defaultMessage": "Winkelmandje",
     "description": "Shopping cart title",
     "originalDefault": "Shopping cart"
   },
   "XlMu5g": {
-    "defaultMessage": "Add one",
+    "defaultMessage": "Voeg één toe",
     "description": "Increment button accessible label",
     "originalDefault": "Add one"
   },
+  "a4lMPQ": {
+    "defaultMessage": "Bewaren",
+    "description": "Save form button",
+    "originalDefault": "Save"
+  },
   "bsyaaX": {
-    "defaultMessage": "Sign up",
+    "defaultMessage": "Registreren",
     "description": "Checkout with account creation",
     "originalDefault": "Sign up"
   },
   "dbSo0d": {
-    "defaultMessage": "Continue without signup",
+    "defaultMessage": "Doorgaan zonder account",
     "description": "Checkout with account link",
     "originalDefault": "Continue without signup"
   },
+  "edOZWO": {
+    "defaultMessage": "Voeg nieuwe kit toe",
+    "description": "Add new kit button label",
+    "originalDefault": "Add new kit"
+  },
   "fJMjTz": {
-    "defaultMessage": "Sign in",
+    "defaultMessage": "Inloggen",
     "description": "Checkout with login",
     "originalDefault": "Sign in"
   },
@@ -215,12 +235,12 @@
     "originalDefault": "Albums"
   },
   "hBtXPb": {
-    "defaultMessage": "Insert photo",
+    "defaultMessage": "Foto invoegen",
     "description": "Accessible label for photo insert link",
     "originalDefault": "Insert photo"
   },
   "ilLhfJ": {
-    "defaultMessage": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future).",
+    "defaultMessage": "Kies hoe je verder wil gaan. Afrekenen kan zonder account, maar als je een account hebt of aanmaakt, dan kunnen we je gegevens (in de toekomst) alvast voor-invullen.",
     "description": "Checkout account options description",
     "originalDefault": "Please select how you'd like to continue. No account is required for checkout, but if you do have or create one, we can fill out your details for you (in the future)."
   },
@@ -234,62 +254,62 @@
     "originalDefault": "filter by name"
   },
   "komVq4": {
-    "defaultMessage": "Personal details",
+    "defaultMessage": "Persoonlijke gegevens",
     "description": "Delivery details: personal details",
     "originalDefault": "Personal details"
   },
   "l9i+Cg": {
-    "defaultMessage": "This field is required.",
+    "defaultMessage": "Dit veld is verplicht.",
     "description": "Validation error message for required field",
     "originalDefault": "This field is required."
   },
   "m0WW7s": {
-    "defaultMessage": "Continue shopping",
+    "defaultMessage": "Verder winkelen",
     "description": "Button back to webshop homepage",
     "originalDefault": "Continue shopping"
   },
   "mMHo4X": {
-    "defaultMessage": "Oops, something went wrong. Please try again later.",
+    "defaultMessage": "Oeps, er ging iets fout. Gelieve later opnieuw te proberen.",
     "description": "General error message",
     "originalDefault": "Oops, something went wrong. Please try again later."
   },
   "n2Bpcz": {
-    "defaultMessage": "Delivery",
+    "defaultMessage": "Bezorging",
     "description": "Tab: delivery",
     "originalDefault": "Delivery"
   },
   "nul77H": {
-    "defaultMessage": "Delivery address",
+    "defaultMessage": "Bezorgadres",
     "description": "Delivery address: deliveryAddress",
     "originalDefault": "Delivery address"
   },
   "oNlKJN": {
-    "defaultMessage": "Company",
+    "defaultMessage": "Bedrijf",
     "description": "Delivery address: company",
     "originalDefault": "Company"
   },
   "ocBRLh": {
-    "defaultMessage": "Last name",
+    "defaultMessage": "Achternaam",
     "description": "Checkout address: lastName",
     "originalDefault": "Last name"
   },
   "osdebM": {
-    "defaultMessage": "Checkout",
+    "defaultMessage": "Afrekenen",
     "description": "Button to webshop checkout",
     "originalDefault": "Checkout"
   },
   "oyF3u3": {
-    "defaultMessage": "Delivery method",
+    "defaultMessage": "Bezorgmethode",
     "description": "Delivery method form field label",
     "originalDefault": "Delivery method"
   },
   "p3b1TD": {
-    "defaultMessage": "Shipping to {country} ({weight}): {price}",
+    "defaultMessage": "Opsturen naar {country} ({weight}): {price}",
     "description": "Shipping costs value",
     "originalDefault": "Shipping to {country} ({weight}): {price}"
   },
   "rAlq4/": {
-    "defaultMessage": "My billing and delivery address are the same.",
+    "defaultMessage": "Mijn bezorg- en factuuradres zijn hetzelfde.",
     "description": "Delivery details: billingAddressSame",
     "originalDefault": "My billing and delivery address are the same."
   },
@@ -299,23 +319,23 @@
     "originalDefault": "Account"
   },
   "shop.cart.detail.cart.subtotal": {
-    "defaultMessage": "Sub-total",
+    "defaultMessage": "Subtotaal",
     "originalDefault": "Sub-total"
   },
   "shop.cart.detail.cart.taxes": {
-    "defaultMessage": "Taxes",
+    "defaultMessage": "BTW",
     "originalDefault": "Taxes"
   },
   "shop.cart.detail.cart.total": {
-    "defaultMessage": "Total",
+    "defaultMessage": "Totaal",
     "originalDefault": "Total"
   },
   "shop.cart.detail.header.header": {
-    "defaultMessage": "Total",
+    "defaultMessage": "Totaal",
     "originalDefault": "Total"
   },
   "shop.cart.detail.header.image": {
-    "defaultMessage": "Image",
+    "defaultMessage": "Afbeelding",
     "originalDefault": "Image"
   },
   "shop.cart.detail.header.model": {
@@ -323,39 +343,39 @@
     "originalDefault": "Model"
   },
   "shop.cart.detail.header.product.name": {
-    "defaultMessage": "Product Name",
+    "defaultMessage": "Productnaam",
     "originalDefault": "Product Name"
   },
   "shop.cart.detail.header.quantity": {
-    "defaultMessage": "Quantity",
+    "defaultMessage": "Aantal",
     "originalDefault": "Quantity"
   },
   "shop.cart.detail.header.unit.price": {
-    "defaultMessage": "Unit Price",
+    "defaultMessage": "Stukprijs",
     "originalDefault": "Unit Price"
   },
   "shop.cart.detail.title.cart.total": {
-    "defaultMessage": "Cart total",
+    "defaultMessage": "Totaal winkelmandje",
     "originalDefault": "Cart total"
   },
   "shop.cart.product.actions.add": {
-    "defaultMessage": "Add to cart",
+    "defaultMessage": "Voeg toe aan winkelmandje",
     "originalDefault": "Add to cart"
   },
   "shop.cart.topbar.checkout": {
-    "defaultMessage": "Checkout",
+    "defaultMessage": "Afrekenen",
     "originalDefault": "Checkout"
   },
   "shop.cart.topbar.item.count": {
-    "defaultMessage": "{count, number} {count, plural, one {item} other {items}}",
+    "defaultMessage": "{count, number} {count, plural, één {item} other {items}}",
     "originalDefault": "{count, number} {count, plural, one {item} other {items}}"
   },
   "shop.cart.topbar.view.cart": {
-    "defaultMessage": "View cart",
+    "defaultMessage": "Toon winkelmandje",
     "originalDefault": "View cart"
   },
   "swul1g": {
-    "defaultMessage": "Cart overview",
+    "defaultMessage": "Overzicht",
     "description": "Checkout: Cart overview",
     "originalDefault": "Cart overview"
   },
@@ -365,14 +385,19 @@
     "originalDefault": "Rules topic"
   },
   "v2t0Vo": {
-    "defaultMessage": "or",
+    "defaultMessage": "of",
     "description": "'Or' (Separator between options)",
     "originalDefault": "or"
   },
   "vRPK2q": {
-    "defaultMessage": "Payment",
+    "defaultMessage": "Betaling",
     "description": "Tab: payment",
     "originalDefault": "Payment"
+  },
+  "x0iZxN": {
+    "defaultMessage": "Voeg een nieuwe kit toe aan de databank",
+    "description": "Create kit modal title",
+    "originalDefault": "Add new kit to the database"
   },
   "y/pElv": {
     "defaultMessage": "Topic",
@@ -380,12 +405,12 @@
     "originalDefault": "Topic"
   },
   "ysHRbD": {
-    "defaultMessage": "Shipping: <costs></costs>",
+    "defaultMessage": "Opsturen: <costs></costs>",
     "description": "TopbarCart shipping costs",
     "originalDefault": "Shipping: <costs></costs>"
   },
   "yy0Fua": {
-    "defaultMessage": "Select country",
+    "defaultMessage": "Kies land",
     "description": "Country dropdown placeholder",
     "originalDefault": "Select country"
   }

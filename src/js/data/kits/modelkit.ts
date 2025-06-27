@@ -60,7 +60,7 @@ interface CreateKitData extends Pick<ModelKitData, 'name' | 'kit_number' | 'diff
   box_image_uuid: string;
 }
 
-interface CreateKitResponseData extends ModelKitData {
+export interface CreateKitResponseData extends ModelKitData {
   url_kitreviews: string;
 }
 

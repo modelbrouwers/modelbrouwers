@@ -242,7 +242,7 @@ class SearchViewTests(WebTest):
 
         search_url = search_results.request.url
 
-        self.assertEqual(len(search_results.forms), 3)
+        self.assertEqual(len(search_results.forms), 2)
         login_form = search_results.forms[1]
         self.assertEqual(login_form.action, reverse("users:login"))
         login_page = login_form.submit()

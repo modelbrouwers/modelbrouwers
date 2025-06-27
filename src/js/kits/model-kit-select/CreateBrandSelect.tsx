@@ -7,9 +7,10 @@ import {type ListBrandData, createBrand, listBrands} from '@/data/kits/brand';
 export interface CreateBrandSelectProps {
   onChange: (brand: ListBrandData | null) => void;
   value: ListBrandData | null;
+  inputId?: string;
 }
 
-const CreateBrandSelect: React.FC<CreateBrandSelectProps> = ({value, onChange}) => {
+const CreateBrandSelect: React.FC<CreateBrandSelectProps> = ({value, onChange, inputId}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [brands, setBrands] = useState<ListBrandData[]>([]);
   const {loading, error} = useAsync(async () => setBrands(await listBrands()), []);
@@ -20,6 +21,7 @@ const CreateBrandSelect: React.FC<CreateBrandSelectProps> = ({value, onChange}) 
   return (
     <CreatableSelect<ListBrandData>
       name="brand"
+      inputId={inputId}
       isLoading={loading}
       options={brands}
       value={value}

@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
-import {useEvent} from 'react-use';
 import {useImmerReducer} from 'use-immer';
 
 import {createModelKit} from '@/data/kits/modelkit';
 
 import {AddKitForm} from '../kits/model-kit-select/ModelKitAdd';
-import {ModalContext} from '../kits/model-kit-select/context';
 
 const initialState = {
   brand: null,
@@ -34,8 +32,7 @@ const reducer = (draft, action) => {
   }
 };
 
-const KitReviewKitAdd = ({onKitAdded}) => {
-  const {modalForm} = useContext(ModalContext);
+const KitReviewKitAdd = ({onKitAdded, formId}) => {
   const [{brand, scale, name, kit_number, difficulty, boxartUUID}, dispatch] = useImmerReducer(
     reducer,
     initialState,
@@ -88,22 +85,24 @@ const KitReviewKitAdd = ({onKitAdded}) => {
     kit.scale = scale;
     onKitAdded(kit);
   };
-  useEvent('submit', onSubmit, modalForm);
 
   return (
     <AddKitForm
+      formId={formId}
       brand={brand}
       scale={scale}
       name={name}
       kitNumber={kit_number}
       difficulty={difficulty}
       onChange={onChange}
+      onSubmit={onSubmit}
     />
   );
 };
 
 KitReviewKitAdd.propTypes = {
   onKitAdded: PropTypes.func.isRequired,
+  formId: PropTypes.string,
 };
 
 export default KitReviewKitAdd;

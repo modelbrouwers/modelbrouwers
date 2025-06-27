@@ -1,19 +1,22 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useContext, useReducer} from 'react';
+import React, {useContext, useReducer, useState} from 'react';
+import {createPortal} from 'react-dom';
+import {FormattedMessage} from 'react-intl';
 import {useAsync, useDebounce} from 'react-use';
 import {useImmerReducer} from 'use-immer';
 
-import Loader from 'components/Loader';
-
+import Loader from '@/components/Loader';
 import {getModelKit, listModelKits} from '@/data/kits/modelkit';
+import AddKitModal from '@/kits/AddKitModal';
 
 import FilterForm from './FilterForm';
 import {KitPreviews} from './KitPreview';
 import {ModelKitAdd} from './ModelKitAdd';
-import {ModalContext} from './context';
 
 const DEBOUNCE = 300; // debounce in ms
+
+const FORM_ID = 'add-kit-form';
 
 const isEmpty = obj => !Object.keys(obj).length;
 
@@ -152,8 +155,8 @@ LoadMore.propTypes = {
   children: PropTypes.node,
 };
 
-const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []}) => {
-  const {modal} = useContext(ModalContext);
+const ModelKitSelect = ({modalNode, label, htmlName, allowMultiple = false, selected = []}) => {
+  const [modalOpen, setModalOpen] = useState(false);
 
   // track filter parameters & search results
   const reducer = getReducer(allowMultiple);
@@ -237,13 +240,23 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
     });
   };
 
-  // legacy bootstrap modal
-  const openModal = event => {
-    event.preventDefault();
-    modal.modal('show');
-  };
-
   const noResults = !loading && !isEmpty(searchParams) && searchResults.length === 0;
+
+  const modal = (
+    <AddKitModal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} formId={FORM_ID}>
+      <ModelKitAdd
+        formId={FORM_ID}
+        brand={createKitData.brand}
+        scale={createKitData.scale}
+        name={createKitData.name}
+        kitNumber={createKitData.kit_number}
+        difficulty={createKitData.difficulty}
+        boxartUUID={createKitData.boxartUUID}
+        onChange={onCreateFieldChange}
+        onKitAdded={onKitAdded}
+      />
+    </AddKitModal>
+  );
 
   return (
     <>
@@ -267,20 +280,17 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
         >
           {noResults ? (
             <div className="text-center add-kit col-xs-12">
-              <ModelKitAdd
-                brand={createKitData.brand}
-                scale={createKitData.scale}
-                name={createKitData.name}
-                kitNumber={createKitData.kit_number}
-                difficulty={createKitData.difficulty}
-                boxartUUID={createKitData.boxartUUID}
-                onChange={onCreateFieldChange}
-                onKitAdded={onKitAdded}
-              />
-              <a href="#" onClick={openModal}>
+              <a
+                href="#"
+                onClick={event => {
+                  event.preventDefault();
+                  setModalOpen(true);
+                }}
+              >
                 <h3>&hellip; of voeg een nieuwe kit toe</h3>
                 <i className="fa fa-plus fa-5x" />
               </a>
+              {modalNode ? createPortal(modal, modalNode) : modal}
             </div>
           ) : null}
 
@@ -308,6 +318,7 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
 };
 
 ModelKitSelect.propTypes = {
+  modalNode: PropTypes.instanceOf(HTMLElement),
   label: PropTypes.string.isRequired,
   htmlName: PropTypes.string.isRequired,
   allowMultiple: PropTypes.bool,

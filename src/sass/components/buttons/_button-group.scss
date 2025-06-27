@@ -1,4 +1,7 @@
 .button-group {
   padding: 1em;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1em;
 }

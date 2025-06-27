@@ -1,18 +1,12 @@
-import 'bootstrap';
-import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 
 import {getIntlProviderProps} from '../../i18n';
 import {ModelKitSelect} from './ModelKitSelect';
-import {ModalContext} from './context';
 
 // mount the detected components, based on class name
 const nodes = document.querySelectorAll('.model-kit-select');
 const modalNode = document.getElementById('add-kit-modal');
-const modal = $(modalNode);
-const modalBody = modalNode ? modalNode.querySelector('.modal-body') : null;
-const modalForm = modalNode ? modalNode.querySelector('form') : null;
 
 getIntlProviderProps()
   .then(intlProviderProps => {
@@ -26,14 +20,13 @@ getIntlProviderProps()
       // mount component in the DOM node
       createRoot(node).render(
         <IntlProvider {...intlProviderProps}>
-          <ModalContext.Provider value={{modal, modalBody, modalForm}}>
-            <ModelKitSelect
-              label={label}
-              allowMultiple={_allowMultiple}
-              htmlName={htmlname}
-              selected={_selected}
-            />
-          </ModalContext.Provider>
+          <ModelKitSelect
+            modalNode={modalNode}
+            label={label}
+            allowMultiple={_allowMultiple}
+            htmlName={htmlname}
+            selected={_selected}
+          />
         </IntlProvider>,
       );
     }
