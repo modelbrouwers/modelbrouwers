@@ -1,5 +1,3 @@
-import 'bootstrap';
-import 'jquery';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 
