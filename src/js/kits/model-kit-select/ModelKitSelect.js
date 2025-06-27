@@ -1,19 +1,22 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useContext, useReducer} from 'react';
+import React, {useContext, useReducer, useState} from 'react';
+import {createPortal} from 'react-dom';
+import {FormattedMessage} from 'react-intl';
 import {useAsync, useDebounce} from 'react-use';
 import {useImmerReducer} from 'use-immer';
 
-import Loader from 'components/Loader';
-
+import Loader from '@/components/Loader';
+import Modal from '@/components/modals/Modal';
 import {getModelKit, listModelKits} from '@/data/kits/modelkit';
 
 import FilterForm from './FilterForm';
 import {KitPreviews} from './KitPreview';
 import {ModelKitAdd} from './ModelKitAdd';
-import {ModalContext} from './context';
 
 const DEBOUNCE = 300; // debounce in ms
+
+const FORM_ID = 'add-kit-form';
 
 const isEmpty = obj => !Object.keys(obj).length;
 
@@ -152,8 +155,8 @@ LoadMore.propTypes = {
   children: PropTypes.node,
 };
 
-const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []}) => {
-  const {modal} = useContext(ModalContext);
+const ModelKitSelect = ({modalNode, label, htmlName, allowMultiple = false, selected = []}) => {
+  const [modalOpen, setModalOpen] = useState(false);
 
   // track filter parameters & search results
   const reducer = getReducer(allowMultiple);
@@ -237,13 +240,48 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
     });
   };
 
-  // legacy bootstrap modal
-  const openModal = event => {
-    event.preventDefault();
-    modal.modal('show');
-  };
-
   const noResults = !loading && !isEmpty(searchParams) && searchResults.length === 0;
+
+  const modal = (
+    <Modal
+      isOpen={modalOpen}
+      onRequestClose={() => setModalOpen(false)}
+      title={
+        <FormattedMessage
+          description="Create kit modal title"
+          defaultMessage="Add new kit to the database"
+        />
+      }
+    >
+      <p>
+        <FormattedMessage
+          description="Create kit modal subheading"
+          defaultMessage="Please, only add new kits if they were not available via the search function."
+        />
+      </p>
+      <div className="container-fluid">
+        <ModelKitAdd
+          formId={FORM_ID}
+          brand={createKitData.brand}
+          scale={createKitData.scale}
+          name={createKitData.name}
+          kitNumber={createKitData.kit_number}
+          difficulty={createKitData.difficulty}
+          boxartUUID={createKitData.boxartUUID}
+          onChange={onCreateFieldChange}
+          onKitAdded={onKitAdded}
+        />
+      </div>
+      <div className="modal__footer modal__footer--reverse">
+        <button type="submit" className="btn bg-main-blue" form={FORM_ID}>
+          <FormattedMessage description="Save form button" defaultMessage="Save" />
+        </button>
+        <button type="button" className="btn bg-main-grey" onClick={() => setModalOpen(false)}>
+          <FormattedMessage description="Modal close button" defaultMessage="Close" />
+        </button>
+      </div>
+    </Modal>
+  );
 
   return (
     <>
@@ -267,20 +305,17 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
         >
           {noResults ? (
             <div className="text-center add-kit col-xs-12">
-              <ModelKitAdd
-                brand={createKitData.brand}
-                scale={createKitData.scale}
-                name={createKitData.name}
-                kitNumber={createKitData.kit_number}
-                difficulty={createKitData.difficulty}
-                boxartUUID={createKitData.boxartUUID}
-                onChange={onCreateFieldChange}
-                onKitAdded={onKitAdded}
-              />
-              <a href="#" onClick={openModal}>
+              <a
+                href="#"
+                onClick={event => {
+                  event.preventDefault();
+                  setModalOpen(true);
+                }}
+              >
                 <h3>&hellip; of voeg een nieuwe kit toe</h3>
                 <i className="fa fa-plus fa-5x" />
               </a>
+              {modalNode ? createPortal(modal, modalNode) : modal}
             </div>
           ) : null}
 
@@ -308,6 +343,7 @@ const ModelKitSelect = ({label, htmlName, allowMultiple = false, selected = []})
 };
 
 ModelKitSelect.propTypes = {
+  modalNode: PropTypes.instanceOf(HTMLElement),
   label: PropTypes.string.isRequired,
   htmlName: PropTypes.string.isRequired,
   allowMultiple: PropTypes.bool,

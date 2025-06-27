@@ -1,7 +1,4 @@
 import PropTypes from 'prop-types';
-import React, {useContext} from 'react';
-import ReactDOM from 'react-dom';
-import {useEvent} from 'react-use';
 
 import {createModelKit} from '@/data/kits/modelkit';
 import {parseScale} from '@/data/kits/scale';
@@ -11,7 +8,6 @@ import {RadioSelect} from '../../components/forms/RadioSelect';
 import BoxartUpload from './BoxartUpload';
 import CreateBrandSelect from './CreateBrandSelect';
 import CreateScaleSelect from './CreateScaleSelect';
-import {ModalContext} from './context';
 
 // see brouwers.kits.models.KitDifficulties
 // TODO: inject this into the DOM and read from the DOM
@@ -122,9 +118,8 @@ const ModelKitAdd = ({
   boxartUUID = null,
   onChange,
   onKitAdded,
+  formId,
 }) => {
-  const {modal, modalBody, modalForm} = useContext(ModalContext);
-
   const onSubmit = async event => {
     event.preventDefault();
     const submitData = {
@@ -148,23 +143,20 @@ const ModelKitAdd = ({
     // handle the different serializers in the backend
     kit.brand = brand;
     kit.scale = scale;
-    // FIXME: legacy bootstrap
-    modal.modal('hide');
     onKitAdded(kit);
   };
 
-  useEvent('submit', onSubmit, modalForm);
-
-  return ReactDOM.createPortal(
-    <AddKitForm
-      brand={brand}
-      scale={scale}
-      name={name}
-      kitNumber={kitNumber}
-      difficulty={difficulty}
-      onChange={onChange}
-    />,
-    modalBody,
+  return (
+    <form id={formId} onSubmit={onSubmit}>
+      <AddKitForm
+        brand={brand}
+        scale={scale}
+        name={name}
+        kitNumber={kitNumber}
+        difficulty={difficulty}
+        onChange={onChange}
+      />
+    </form>
   );
 };
 
