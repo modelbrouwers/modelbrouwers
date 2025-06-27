@@ -7,8 +7,8 @@ import {useAsync, useDebounce} from 'react-use';
 import {useImmerReducer} from 'use-immer';
 
 import Loader from '@/components/Loader';
-import Modal from '@/components/modals/Modal';
 import {getModelKit, listModelKits} from '@/data/kits/modelkit';
+import AddKitModal from '@/kits/AddKitModal';
 
 import FilterForm from './FilterForm';
 import {KitPreviews} from './KitPreview';
@@ -243,44 +243,19 @@ const ModelKitSelect = ({modalNode, label, htmlName, allowMultiple = false, sele
   const noResults = !loading && !isEmpty(searchParams) && searchResults.length === 0;
 
   const modal = (
-    <Modal
-      isOpen={modalOpen}
-      onRequestClose={() => setModalOpen(false)}
-      title={
-        <FormattedMessage
-          description="Create kit modal title"
-          defaultMessage="Add new kit to the database"
-        />
-      }
-    >
-      <p>
-        <FormattedMessage
-          description="Create kit modal subheading"
-          defaultMessage="Please, only add new kits if they were not available via the search function."
-        />
-      </p>
-      <div className="container-fluid">
-        <ModelKitAdd
-          formId={FORM_ID}
-          brand={createKitData.brand}
-          scale={createKitData.scale}
-          name={createKitData.name}
-          kitNumber={createKitData.kit_number}
-          difficulty={createKitData.difficulty}
-          boxartUUID={createKitData.boxartUUID}
-          onChange={onCreateFieldChange}
-          onKitAdded={onKitAdded}
-        />
-      </div>
-      <div className="modal__footer modal__footer--reverse">
-        <button type="submit" className="btn bg-main-blue" form={FORM_ID}>
-          <FormattedMessage description="Save form button" defaultMessage="Save" />
-        </button>
-        <button type="button" className="btn bg-main-grey" onClick={() => setModalOpen(false)}>
-          <FormattedMessage description="Modal close button" defaultMessage="Close" />
-        </button>
-      </div>
-    </Modal>
+    <AddKitModal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} formId={FORM_ID}>
+      <ModelKitAdd
+        formId={FORM_ID}
+        brand={createKitData.brand}
+        scale={createKitData.scale}
+        name={createKitData.name}
+        kitNumber={createKitData.kit_number}
+        difficulty={createKitData.difficulty}
+        boxartUUID={createKitData.boxartUUID}
+        onChange={onCreateFieldChange}
+        onKitAdded={onKitAdded}
+      />
+    </AddKitModal>
   );
 
   return (

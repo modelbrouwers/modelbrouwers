@@ -26,6 +26,8 @@ const AddKitForm = ({
   kitNumber = '',
   difficulty,
   onChange,
+  onSubmit,
+  formId,
 }) => {
   const onSelectChange = (selectedOption, action) => {
     const {name} = action;
@@ -39,7 +41,7 @@ const AddKitForm = ({
   };
 
   return (
-    <div className="form-horizontal">
+    <form className="form-horizontal" id={formId} onSubmit={onSubmit}>
       <FormField htmlId="add-kit-brand" label="brand" required={true}>
         <CreateBrandSelect
           inputId="add-kit-brand"
@@ -98,15 +100,17 @@ const AddKitForm = ({
         onChange={onInputChange}
         currentValue={difficulty}
       />
-    </div>
+    </form>
   );
 };
 
 AddKitForm.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   name: PropTypes.string,
   kitNumber: PropTypes.string,
   difficulty: PropTypes.string.isRequired,
+  formId: PropTypes.string,
 };
 
 const ModelKitAdd = ({
@@ -147,16 +151,16 @@ const ModelKitAdd = ({
   };
 
   return (
-    <form id={formId} onSubmit={onSubmit}>
-      <AddKitForm
-        brand={brand}
-        scale={scale}
-        name={name}
-        kitNumber={kitNumber}
-        difficulty={difficulty}
-        onChange={onChange}
-      />
-    </form>
+    <AddKitForm
+      formId={formId}
+      brand={brand}
+      scale={scale}
+      name={name}
+      kitNumber={kitNumber}
+      difficulty={difficulty}
+      onChange={onChange}
+      onSubmit={onSubmit}
+    />
   );
 };
 

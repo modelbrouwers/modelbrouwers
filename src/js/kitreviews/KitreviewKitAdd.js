@@ -87,16 +87,16 @@ const KitReviewKitAdd = ({onKitAdded, formId}) => {
   };
 
   return (
-    <form id={formId} onSubmit={onSubmit}>
-      <AddKitForm
-        brand={brand}
-        scale={scale}
-        name={name}
-        kitNumber={kit_number}
-        difficulty={difficulty}
-        onChange={onChange}
-      />
-    </form>
+    <AddKitForm
+      formId={formId}
+      brand={brand}
+      scale={scale}
+      name={name}
+      kitNumber={kit_number}
+      difficulty={difficulty}
+      onChange={onChange}
+      onSubmit={onSubmit}
+    />
   );
 };
 
