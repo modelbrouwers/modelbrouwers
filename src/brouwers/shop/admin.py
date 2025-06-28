@@ -46,7 +46,7 @@ class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
 
 
 @admin.register(Product)
-class ProductAdmin(ImportExportMixin, TranslationAdmin):
+class ProductAdmin(ImportExportMixin, TranslationAdmin[Product]):
     list_display = (
         "name",
         "model_name",
