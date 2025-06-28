@@ -1,3 +1,4 @@
+from autoslug.settings import slugify
 from import_export.resources import ModelResource
 
 from .models import Category, Product
@@ -27,3 +28,10 @@ class ProductResource(ModelResource):
             "height",
             "weight",
         )
+
+    def before_save_instance(self, instance: Product, row, **kwargs) -> None:
+        if not instance.slug:
+            instance.slug = slugify(instance.name)
+
+        if instance.stock is None:
+            instance.stock = 0
