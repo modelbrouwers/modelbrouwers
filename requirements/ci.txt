@@ -128,7 +128,7 @@ django-filter==25.1
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   djangorestframework-filters
-django-import-export==4.3.7
+django-import-export==4.3.8
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
