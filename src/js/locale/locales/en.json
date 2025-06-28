@@ -34,6 +34,11 @@
     "description": "Decrement button accessible label",
     "originalDefault": "Remove one"
   },
+  "1sDBO3": {
+    "defaultMessage": "I want to reply anyway.",
+    "description": "Dead topic: reply anyway URL label",
+    "originalDefault": "I want to reply anyway."
+  },
   "3UvxIB": {
     "defaultMessage": "Street",
     "description": "Delivery address: street",
