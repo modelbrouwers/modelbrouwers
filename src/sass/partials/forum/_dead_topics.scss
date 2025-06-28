@@ -1,0 +1,8 @@
+// PHPBB3 templates are served with an XHTML 1.0 doc type... the default positioning
+// of modals is kinda screwed here...
+#dead_topic .modal {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+}
