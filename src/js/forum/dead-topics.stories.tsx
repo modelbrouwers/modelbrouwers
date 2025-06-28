@@ -25,7 +25,7 @@ export default {
         <a href="#newpost" className="new-post" data-topic-id="123">
           Add post
         </a>
-        <div id="message_topic_dead" />
+        <div id="dead_topic" data-post-reply-url="#" />
         <Story />
       </div>
     ),
@@ -60,6 +60,9 @@ export const Trigger: Story = {
     const addPost = canvas.getByRole('link', {name: 'Add post'});
     await userEvent.click(addPost);
 
-    expect(await canvas.findByText('This topic is no longer active')).toBeVisible();
+    const dialogElement = await canvas.findByRole('dialog');
+    const dialog = within(dialogElement);
+
+    expect(await dialog.findByText('This topic is no longer active')).toBeVisible();
   },
 };
