@@ -168,6 +168,23 @@ class ProductDetailViewTests(WebTest):
             self.assertEqual(detail_page.status_code, 200)
             self.assertContains(detail_page, "Test product")
 
+    def test_product_detail_without_any_assigned_categories(self):
+        CategoryFactory.create(name="Root")
+        product = ProductFactory.create(
+            active=True,
+            with_image=True,
+            name_nl="Testproduct",
+            slug_nl="testproduct",
+            name_en="Test product",
+            slug_en="test-product",
+        )
+        assert not product.categories.exists()
+        url = product.get_absolute_url()
+
+        detail_page = self.app.get(url)
+
+        self.assertEqual(detail_page.status_code, 200)
+
     def test_inactive_product(self):
         product = ProductFactory.create(active=False)
 
