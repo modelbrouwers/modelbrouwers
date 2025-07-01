@@ -24,6 +24,8 @@ def is_in_branch(node1, node2) -> bool:
     """
     if node1 == node2:
         return True
+    if not node1 or not node2:
+        return False
     return node1.is_descendant_of(node2)
 
 
@@ -93,7 +95,7 @@ class ActiveNodeNode(template.Node):
     def render(self, context):
         nodes = [entry[0] for entry in self.nodes_var.resolve(context)]
         current_node = self.current_node_var.resolve(context)
-        if current_node not in nodes:
+        if current_node is not None and current_node not in nodes:
             # find closest parent
             parents = [
                 parent for parent in nodes if current_node.is_descendant_of(parent)
