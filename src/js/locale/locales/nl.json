@@ -174,6 +174,11 @@
     "description": "Checkout: select payment method",
     "originalDefault": "Select your payment method"
   },
+  "RU1ahV": {
+    "defaultMessage": "Je moet precies één album selecteren om de foto''s aan toe te voegen.",
+    "description": "Albums upload: album selection error",
+    "originalDefault": "You must select exactly one album to upload the photos to."
+  },
   "U+ONwt": {
     "defaultMessage": "Sluiten",
     "description": "Modal close button",
@@ -388,6 +393,11 @@
     "defaultMessage": "Topic met regels",
     "description": "Groupbuild inset in forum post, rules topic title",
     "originalDefault": "Rules topic"
+  },
+  "uYho7B": {
+    "defaultMessage": "Ongeldige albumkeuze",
+    "description": "Albums upload: album selection error modal title",
+    "originalDefault": "Incorrect album selection"
   },
   "v2t0Vo": {
     "defaultMessage": "of",

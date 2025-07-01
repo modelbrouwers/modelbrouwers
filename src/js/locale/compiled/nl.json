@@ -41,6 +41,12 @@
       "value": "Verwijder één"
     }
   ],
+  "1sDBO3": [
+    {
+      "type": 0,
+      "value": "Ik wil toch reageren."
+    }
+  ],
   "3UvxIB": [
     {
       "type": 0,
@@ -235,6 +241,12 @@
     {
       "type": 0,
       "value": "Kies je betaalmethode"
+    }
+  ],
+  "RU1ahV": [
+    {
+      "type": 0,
+      "value": "Je moet precies één album selecteren om de foto's aan toe te voegen."
     }
   ],
   "U+ONwt": [
@@ -580,6 +592,12 @@
     {
       "type": 0,
       "value": "Topic met regels"
+    }
+  ],
+  "uYho7B": [
+    {
+      "type": 0,
+      "value": "Ongeldige albumkeuze"
     }
   ],
   "v2t0Vo": [
