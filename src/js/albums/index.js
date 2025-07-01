@@ -6,7 +6,7 @@ import {setAsCover} from '@/data/albums/photo';
 
 import LightBox from './LightBox';
 import {Control, RotateControl} from './photo-detail';
-import {PhotoUpload} from './upload';
+import initUpload from './upload';
 
 const setCover = async photoNode => {
   const photoId = parseInt(photoNode.dataset.id);
@@ -19,7 +19,7 @@ export default class Page {
   static init() {
     this.initLightbox();
     this.initControls();
-    new PhotoUpload();
+    initUpload();
     this.initPhotoEdit();
   }
 

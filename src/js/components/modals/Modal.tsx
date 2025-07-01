@@ -37,8 +37,7 @@ const Modal: React.FC<ModalProps> = ({isOpen, onRequestClose, title, children}) 
     >
       {title && (
         <h2 className="modal__title" id={titleId}>
-          {' '}
-          {title}{' '}
+          {title}
         </h2>
       )}
       <button className="modal__close" onClick={() => onRequestClose()}>
