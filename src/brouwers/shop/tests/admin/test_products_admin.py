@@ -8,7 +8,7 @@ from webtest import Upload
 from brouwers.users.tests.factories import UserFactory
 
 from ...models import Product
-from ..factories import ProductFactory
+from ..factories import ProductFactory, ProductManufacturerFactory
 
 
 class ProductAdminTests(WebTest):
@@ -82,3 +82,40 @@ class ProductAdminTests(WebTest):
         confirm_response = confirm_form.submit()
         self.assertEqual(confirm_response.status_code, 302)
         self.assertEqual(Product.objects.count(), 1)
+
+    def test_import_with_manufacturer(self):
+        manufacturer = ProductManufacturerFactory.create()
+        import_data = json.dumps(
+            [
+                {
+                    "id": "",
+                    "name": "My product",
+                    "slug": "",
+                    "model_name": "Awesome thing",
+                    "stock": "",
+                    "price": "",
+                    "vat": "",
+                    "description": "",
+                    "meta_description": "",
+                    "length": "",
+                    "width": "",
+                    "height": "",
+                    "weight": "",
+                    "manufacturer": str(manufacturer.pk),
+                }
+            ]
+        )
+        import_page = self.app.get(reverse("admin:shop_product_import"))
+        import_form = import_page.forms[1]
+        import_form["import_file"] = Upload(
+            "export.json", import_data.encode("utf-8"), "application/json"
+        )
+        import_form["format"].select(text="json")
+
+        import_response = import_form.submit()
+        confirm_form = import_response.forms[1]
+        confirm_response = confirm_form.submit()
+
+        self.assertEqual(confirm_response.status_code, 302)
+        product = Product.objects.get()
+        self.assertEqual(product.manufacturer, manufacturer)
