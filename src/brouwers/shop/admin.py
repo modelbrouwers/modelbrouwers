@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import Optional
 
 from django.contrib import admin
+from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
 
 from import_export.admin import ImportExportMixin
@@ -66,7 +67,6 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin[Product]):
         "categories",
         "manufacturer",
     )
-    list_select_related = ("manufacturer",)
     search_fields = (
         "name",
         "meta_description",
@@ -126,10 +126,13 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin[Product]):
     resource_classes = (ProductResource,)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related("tags")
+        return super().get_queryset(request).prefetch_related("tags", "manufacturer")
 
     def tag_list(self, obj):
-        return ", ".join(o.name for o in obj.tags.all())
+        body = format_html_join(
+            " • ", "<span>{}</span>", ((tag.name,) for tag in obj.tags.all())
+        )
+        return format_html('<div style="max-inline-size: 200px;">{}</div>', body)
 
 
 @admin.register(ProductImage)
