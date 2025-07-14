@@ -8,7 +8,7 @@ from webtest import Upload
 from brouwers.users.tests.factories import UserFactory
 
 from ...models import Product
-from ..factories import ProductFactory, ProductManufacturerFactory
+from ..factories import CategoryFactory, ProductFactory, ProductManufacturerFactory
 
 
 class ProductAdminTests(WebTest):
@@ -119,3 +119,48 @@ class ProductAdminTests(WebTest):
         self.assertEqual(confirm_response.status_code, 302)
         product = Product.objects.get()
         self.assertEqual(product.manufacturer, manufacturer)
+
+    def test_import_with_categories(self):
+        CategoryFactory.create(name="first")
+        category_2 = CategoryFactory.create(name="second")
+        category_3 = CategoryFactory.create(name="third")
+
+        import_data = json.dumps(
+            [
+                {
+                    "id": "",
+                    "name": "My product",
+                    "slug": "",
+                    "model_name": "Awesome thing",
+                    "stock": "",
+                    "price": "",
+                    "vat": "",
+                    "description": "",
+                    "meta_description": "",
+                    "length": "",
+                    "width": "",
+                    "height": "",
+                    "weight": "",
+                    "manufacturer": "",
+                    "categories": f"{category_2.pk},{category_3.pk}",
+                }
+            ]
+        )
+        import_page = self.app.get(reverse("admin:shop_product_import"))
+        import_form = import_page.forms[1]
+        import_form["import_file"] = Upload(
+            "export.json", import_data.encode("utf-8"), "application/json"
+        )
+        import_form["format"].select(text="json")
+
+        import_response = import_form.submit()
+        confirm_form = import_response.forms[1]
+        confirm_response = confirm_form.submit()
+
+        self.assertEqual(confirm_response.status_code, 302)
+        product = Product.objects.get()
+        self.assertQuerySetEqual(
+            product.categories.values_list("pk", flat=True),
+            {category_2.pk, category_3.pk},
+            ordered=False,
+        )
