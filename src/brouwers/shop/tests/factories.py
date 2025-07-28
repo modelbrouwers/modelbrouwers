@@ -32,7 +32,9 @@ LOCALES = [
 
 
 class CategoryFactory(factory.django.DjangoModelFactory[Category]):
-    name = factory.Sequence(lambda n: "category-{}".format(n))
+    # left-pad to get lexical sort to behave correctly, otherwise the tree insertion
+    # is messed up
+    name = factory.Sequence(lambda n: f"category-{n:0>4}")
 
     class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = Category
