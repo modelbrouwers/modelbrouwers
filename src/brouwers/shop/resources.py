@@ -12,8 +12,9 @@ from autoslug.settings import slugify
 from import_export import fields
 from import_export.instance_loaders import CachedInstanceLoader
 from import_export.resources import ModelResource
-from import_export.widgets import ManyToManyWidget
+from import_export.widgets import ManyToManyWidget, Widget
 from tablib import Dataset
+from taggit.utils import edit_string_for_tags, parse_tags
 
 from .models import Category, Product, ProductManufacturer
 
@@ -63,13 +64,17 @@ class ProductResource(ModelResource):
             "weight",
             "manufacturer",
             "categories",
+            "tags",
         )
 
     # called during export
     def filter_export(
         self, queryset: models.QuerySet[Product], **kwargs
     ) -> models.QuerySet[Product]:
-        return queryset.prefetch_related("manufacturer", "categories")
+        return queryset.prefetch_related("manufacturer", "categories", "tags")
+
+    def dehydrate_tags(self, instance: Product) -> str:
+        return edit_string_for_tags(instance.tags.all())
 
     # called during import
     def get_queryset(self) -> models.QuerySet[Product]:
