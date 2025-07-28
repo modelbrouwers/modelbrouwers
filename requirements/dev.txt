@@ -5,12 +5,12 @@ aiohappyeyeballs==2.6.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   aiohttp
-aiohttp==3.11.18
+aiohttp==3.12.14
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   geoip2
-aiosignal==1.3.2
+aiosignal==1.4.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -335,7 +335,7 @@ packaging==25.0
     # via black
 pathspec==0.12.1
     # via black
-pillow==11.2.1
+pillow==11.3.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -500,6 +500,7 @@ typing-extensions==4.13.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   aiosignal
     #   beautifulsoup4
     #   psycopg
     #   pydantic
