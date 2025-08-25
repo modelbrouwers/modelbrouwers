@@ -204,3 +204,46 @@ class ProductAdminTests(WebTest):
             {"Tag One", "tag two", "tag,with,commas"},
             ordered=False,
         )
+
+    def test_import_with_related_products(self):
+        product1, product2 = ProductFactory.create_batch(2)
+        import_data = json.dumps(
+            [
+                {
+                    "id": "",
+                    "name": "My product",
+                    "slug": "",
+                    "model_name": "Awesome thing",
+                    "stock": "",
+                    "price": "",
+                    "vat": "",
+                    "description": "",
+                    "meta_description": "",
+                    "length": "",
+                    "width": "",
+                    "height": "",
+                    "weight": "",
+                    "related_products": f"{product1.pk},{product2.pk}",
+                }
+            ]
+        )
+        import_page = self.app.get(reverse("admin:shop_product_import"))
+        import_form = import_page.forms[1]
+        import_form["import_file"] = Upload(
+            "export.json", import_data.encode("utf-8"), "application/json"
+        )
+        import_form["format"].select(text="json")
+
+        import_response = import_form.submit()
+        confirm_form = import_response.forms[1]
+        confirm_response = confirm_form.submit()
+
+        self.assertEqual(confirm_response.status_code, 302)
+        created_product = Product.objects.order_by("-pk").first()
+        assert created_product is not None
+        self.assertQuerySetEqual(
+            created_product.related_products.all(),
+            [product1, product2],
+            ordered=False,
+            transform=lambda p: p,
+        )

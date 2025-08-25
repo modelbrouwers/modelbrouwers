@@ -28,7 +28,7 @@ class CategoryResource(ModelResource):
         fields = ("id", "name", "image", "enabled", "meta_description")
 
 
-class CategoriesWidget(ManyToManyWidget):
+class OptimizedM2MWidget(ManyToManyWidget):
 
     def render(self, value, obj=None, **kwargs):
         if value is None:
@@ -39,13 +39,19 @@ class CategoriesWidget(ManyToManyWidget):
 class M2MData(TypedDict, total=False):
     categories: Collection[int]
     tags: Collection[str]
+    related_products: Collection[int]
 
 
 class ProductResource(ModelResource):
     categories = fields.Field(
         attribute="category_ids",
         column_name="categories",
-        widget=CategoriesWidget(model=Category),
+        widget=OptimizedM2MWidget(model=Category),
+    )
+    related_products = fields.Field(
+        attribute="related_product_ids",
+        column_name="related_products",
+        widget=OptimizedM2MWidget(model=Product),
     )
 
     _row_to_instance: dict[int, Product]
@@ -73,13 +79,19 @@ class ProductResource(ModelResource):
             "manufacturer",
             "categories",
             "tags",
+            "related_products",
         )
 
     # called during export
     def filter_export(
         self, queryset: models.QuerySet[Product], **kwargs
     ) -> models.QuerySet[Product]:
-        return queryset.prefetch_related("manufacturer", "categories", "tags")
+        return queryset.prefetch_related(
+            "manufacturer",
+            "categories",
+            "tags",
+            "related_products",
+        )
 
     def dehydrate_tags(self, instance: Product) -> str:
         return edit_string_for_tags(instance.tags.all())
@@ -93,6 +105,11 @@ class ProductResource(ModelResource):
                 "categories",
                 queryset=Category.objects.only("pk"),
                 to_attr="category_ids",
+            ),
+            models.Prefetch(
+                "related_products",
+                queryset=Product.objects.only("pk"),
+                to_attr="related_product_ids",
             ),
         )
 
@@ -109,6 +126,10 @@ class ProductResource(ModelResource):
         # return all tags by name - if duplicates exist, the oldest (by PK) is returned
         qs = Tag.objects.only("pk", "name").order_by("pk").distinct().iterator()
         return {tag.name: tag for tag in qs}
+
+    @cached_property
+    def all_products(self):
+        return Product.objects.in_bulk(field_name="id")
 
     def before_import(self, dataset: Dataset, **kwargs) -> None:
         super().before_import(dataset, **kwargs)
@@ -154,6 +175,26 @@ class ProductResource(ModelResource):
         else:
             self._m2m_data[row_number]["tags"] = tag_names
 
+        # validate the related products, since m2m fields are skipped on bulk imports
+        try:
+            related_product_ids = [
+                int(stripped_x)
+                for (x) in row.get("related_products", "").split(",")
+                if (stripped_x := x.strip())
+            ]
+        except (ValueError, TypeError) as exc:
+            raise ValidationError(
+                {
+                    "related_products": _(
+                        "Related products must be a comma separated list of database IDs."
+                    )
+                }
+            ) from exc
+        else:
+            self._m2m_data[row_number]["related_products"] = [
+                pk for pk in related_product_ids if pk in self.all_products
+            ]
+
         super().import_instance(instance, row, **kwargs)
 
     def import_field(self, field, instance, row, is_m2m=False, **kwargs) -> None:
@@ -184,6 +225,7 @@ class ProductResource(ModelResource):
         fields = super().get_bulk_update_fields()
         fields.remove("categories")
         fields.remove("tags")
+        fields.remove("related_products")
         return fields
 
     def after_import(self, dataset: Dataset, result, **kwargs) -> None:
@@ -218,3 +260,18 @@ class ProductResource(ModelResource):
             for tag_name in self._m2m_data[row_number].get("tags", ())
         ]
         TaggedItem.objects.bulk_create(product_tags, ignore_conflicts=True)
+
+        # add the related product relations in bulk. ignore_conflicts ensures that
+        # duplicates are ignored if the relation already exists (since the m2m field
+        # creates a unique constraint)
+        RelatedProduct = Product._meta.get_field(
+            "related_products"
+        ).remote_field.through
+        related_products = [
+            RelatedProduct(
+                from_product=product, to_product=self.all_products[product_id]
+            )
+            for row_number, product in self._row_to_instance.items()
+            for product_id in self._m2m_data[row_number].get("related_products", ())
+        ]
+        RelatedProduct.objects.bulk_create(related_products, ignore_conflicts=True)
