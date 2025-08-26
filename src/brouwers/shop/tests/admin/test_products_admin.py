@@ -367,3 +367,52 @@ class ProductAdminTests(WebTest):
                 import_response,
                 _("Related products must be a comma separated list of database IDs."),
             )
+
+    def test_export_import_roundtrip_to_update(self):
+        category = CategoryFactory.create()
+        p1, p2 = ProductFactory.create_batch(2)
+        export_page = self.app.get(reverse("admin:shop_product_export"))
+        export_form = export_page.forms[1]
+        export_form["format"].select(text="json")
+        export_response = export_form.submit()
+        assert export_response.status_code == 200
+
+        export = sorted(export_response.json_body, key=lambda x: int(x["id"]))
+        assert export[0]["id"] == str(p1.pk)
+        export[0]["categories"] = str(category.pk)
+        export[0]["tags"] = "new-tag"
+        export[0]["related_products"] = str(p2.pk)
+        # import the export file again
+        import_page = self.app.get(reverse("admin:shop_product_import"))
+        import_form = import_page.forms[1]
+        import_form["import_file"] = Upload(
+            "export.json", json.dumps(export).encode("utf-8"), "application/json"
+        )
+        import_form["format"].select(text="json")
+        import_response = import_form.submit()
+        preview_table = import_response.pyquery("table.import-preview")
+        self.assertTrue(preview_table)
+        confirm_form = import_response.forms[1]
+
+        confirm_response = confirm_form.submit()
+
+        self.assertEqual(confirm_response.status_code, 302)
+        self.assertEqual(Product.objects.count(), 2)
+        p1.refresh_from_db()
+        self.assertQuerySetEqual(
+            p1.categories.all(),
+            {category},
+            transform=lambda c: c,
+            ordered=False,
+        )
+        self.assertQuerySetEqual(
+            p1.tags.values_list("name", flat=True),
+            ["new-tag"],
+            transform=lambda s: s,
+            ordered=False,
+        )
+        self.assertQuerySetEqual(
+            p1.related_products.all(),
+            list(Product.objects.filter(pk=p2.pk)),
+            ordered=False,
+        )
