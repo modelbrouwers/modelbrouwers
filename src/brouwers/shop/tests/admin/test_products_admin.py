@@ -3,6 +3,7 @@ import json
 from django.urls import reverse
 
 from django_webtest import WebTest
+from taggit.models import Tag, TaggedItem
 from webtest import Upload
 
 from brouwers.users.tests.factories import UserFactory
@@ -46,6 +47,44 @@ class ProductAdminTests(WebTest):
         confirm_response = confirm_form.submit()
         self.assertEqual(confirm_response.status_code, 302)
         self.assertEqual(Product.objects.count(), 10)
+
+    def test_export_with_relations(self):
+        p1, p2, p3 = ProductFactory.create_batch(3)
+        c1, c2, c3 = CategoryFactory.create_batch(3)
+        p1.categories.add(c1, c2)
+        p2.categories.add(c3)
+        TaggedItem.objects.create(
+            tag=Tag.objects.create(name="a tag"), content_object=p2
+        )
+        p3.related_products.add(p1)
+
+        export_page = self.app.get(reverse("admin:shop_product_export"))
+        export_form = export_page.forms[1]
+        export_form["format"].select(text="json")
+        export_response = export_form.submit()
+        assert export_response.status_code == 200
+        export_data = export_response.json_body
+
+        exported_products = sorted(export_data, key=lambda i: int(i["id"]))
+        assert exported_products[0]["id"] == str(p1.pk)
+        assert exported_products[1]["id"] == str(p2.pk)
+        assert exported_products[2]["id"] == str(p3.pk)
+
+        with self.subTest("categories"):
+            self.assertEqual(
+                set(exported_products[0]["categories"].split(",")),
+                {str(c1.pk), str(c2.pk)},
+            )
+            self.assertEqual(
+                set(exported_products[1]["categories"].split(",")),
+                {str(c3.pk)},
+            )
+
+        with self.subTest("tags"):
+            self.assertEqual(exported_products[1]["tags"], '"a tag"')
+
+        with self.subTest("related products"):
+            self.assertEqual(exported_products[2]["related_products"], str(p1.pk))
 
     def test_import_minimal_fields(self):
         import_data = json.dumps(

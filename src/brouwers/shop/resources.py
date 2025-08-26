@@ -4,7 +4,6 @@ from collections import defaultdict
 from collections.abc import Collection
 from typing import TypedDict
 
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
@@ -88,9 +87,17 @@ class ProductResource(ModelResource):
     ) -> models.QuerySet[Product]:
         return queryset.prefetch_related(
             "manufacturer",
-            "categories",
+            models.Prefetch(
+                "categories",
+                queryset=Category.objects.only("pk"),
+                to_attr="category_ids",
+            ),
+            models.Prefetch(
+                "related_products",
+                queryset=Product.objects.only("pk"),
+                to_attr="related_product_ids",
+            ),
             "tags",
-            "related_products",
         )
 
     def dehydrate_tags(self, instance: Product) -> str:
