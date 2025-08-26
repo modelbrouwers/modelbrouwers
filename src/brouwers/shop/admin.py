@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import Optional
 
 from django.contrib import admin
+from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
 
 from import_export.admin import ImportExportMixin
@@ -37,9 +38,9 @@ from .resources import CategoryResource, ProductResource
 @admin.register(Category)
 class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
     form = movenodeform_factory(Category)
-    list_display = ("name", "image", "enabled")
+    list_display = ("name", "image", "enabled", "id")
     list_filter = ("enabled",)
-    search_fields = ("name", "meta_description")
+    search_fields = ("name", "meta_description", "id")
     resource_classes = (CategoryResource,)
     # TODO - override template to include import-export buttons
     change_list_template = "admin/tree_change_list.html"
@@ -60,13 +61,13 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin[Product]):
         "weight",
         "manufacturer",
         "tag_list",
+        "id",
     )
     list_filter = (
         "active",
         "categories",
         "manufacturer",
     )
-    list_select_related = ("manufacturer",)
     search_fields = (
         "name",
         "meta_description",
@@ -78,6 +79,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin[Product]):
         "height",
         "weight",
         "manufacturer__name",
+        "id",
     )
     fieldsets = (  # type:ignore
         (
@@ -126,10 +128,13 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin[Product]):
     resource_classes = (ProductResource,)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related("tags")
+        return super().get_queryset(request).prefetch_related("tags", "manufacturer")
 
     def tag_list(self, obj):
-        return ", ".join(o.name for o in obj.tags.all())
+        body = format_html_join(
+            " • ", "<span>{}</span>", ((tag.name,) for tag in obj.tags.all())
+        )
+        return format_html('<div style="max-inline-size: 200px;">{}</div>', body)
 
 
 @admin.register(ProductImage)
@@ -141,9 +146,9 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 @admin.register(ProductManufacturer)
 class ProductManufacturerAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("name", "id")
     list_filter = ("name",)
-    search_fields = ("name",)
+    search_fields = ("name", "id")
 
 
 #
