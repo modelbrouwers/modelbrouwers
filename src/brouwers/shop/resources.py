@@ -168,19 +168,8 @@ class ProductResource(ModelResource):
             ]
 
         # validate the tags, m2m fields are skipped on bulk imports
-        try:
-            tag_names: Collection[str] = parse_tags(row.get("tags"))
-        except (ValueError, TypeError) as exc:
-            raise ValidationError(
-                {
-                    "tags": _(
-                        "Tags must be a comma separated list of tag names. If the tag "
-                        "contains commas, make sure to put it between double quotes."
-                    )
-                }
-            ) from exc
-        else:
-            self._m2m_data[row_number]["tags"] = tag_names
+        tag_names: Collection[str] = parse_tags(row.get("tags"))
+        self._m2m_data[row_number]["tags"] = tag_names
 
         # validate the related products, since m2m fields are skipped on bulk imports
         try:

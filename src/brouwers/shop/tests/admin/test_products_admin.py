@@ -1,6 +1,7 @@
 import json
 
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from django_webtest import WebTest
 from taggit.models import Tag, TaggedItem
@@ -286,3 +287,83 @@ class ProductAdminTests(WebTest):
             ordered=False,
             transform=lambda p: p,
         )
+
+    def test_import_with_invalid_datatypes(self):
+        import_data = json.dumps(
+            [
+                {
+                    "id": "",
+                    "name": "My product",
+                    "slug": "",
+                    "model_name": "Awesome thing",
+                    "stock": "",
+                    "price": "",
+                    "vat": "",
+                    "description": "",
+                    "meta_description": "",
+                    "length": "",
+                    "width": "",
+                    "height": "",
+                    "weight": "",
+                    "categories": "a,b",
+                    "tags": "",
+                    "related_products": "",
+                },
+                {
+                    "id": "",
+                    "name": "My product",
+                    "slug": "",
+                    "model_name": "Awesome thing",
+                    "stock": "",
+                    "price": "",
+                    "vat": "",
+                    "description": "",
+                    "meta_description": "",
+                    "length": "",
+                    "width": "",
+                    "height": "",
+                    "weight": "",
+                    "categories": "",
+                    "tags": '"unclosed quote',
+                    "related_products": "",
+                },
+                {
+                    "id": "",
+                    "name": "My product",
+                    "slug": "",
+                    "model_name": "Awesome thing",
+                    "stock": "",
+                    "price": "",
+                    "vat": "",
+                    "description": "",
+                    "meta_description": "",
+                    "length": "",
+                    "width": "",
+                    "height": "",
+                    "weight": "",
+                    "categories": "",
+                    "tags": "",
+                    "related_products": "a,b",
+                },
+            ]
+        )
+        import_page = self.app.get(reverse("admin:shop_product_import"))
+        import_form = import_page.forms[1]
+        import_form["import_file"] = Upload(
+            "export.json", import_data.encode("utf-8"), "application/json"
+        )
+        import_form["format"].select(text="json")
+
+        import_response = import_form.submit()
+
+        with self.subTest("categories"):
+            self.assertContains(
+                import_response,
+                _("Categories must be a comma separated list of database IDs."),
+            )
+
+        with self.subTest("related products"):
+            self.assertContains(
+                import_response,
+                _("Related products must be a comma separated list of database IDs."),
+            )
