@@ -9,7 +9,6 @@ import brouwers.utils.storages
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("users", "0001_initial"),
         ("users", "0002_auto_20150530_2311"),

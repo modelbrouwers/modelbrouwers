@@ -22,7 +22,7 @@ class AddKitForm(forms.Form):
     )
 
 
-class ModelKitSelectMixin(object):
+class ModelKitSelectMixin:
     """
     Mixin that injects subforms into sniplates widgets.
     """

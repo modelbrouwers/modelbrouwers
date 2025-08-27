@@ -24,7 +24,6 @@ def start_payment(
     success_page: str = "",
     cancel_page: str = "",
 ) -> str:
-
     payment_return = _build_callback_url(
         "shop:paypal-return",
         {"pk": payment.pk},

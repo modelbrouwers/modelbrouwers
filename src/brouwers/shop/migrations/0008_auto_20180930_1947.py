@@ -7,7 +7,6 @@ import autoslug.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0007_auto_20180930_1917"),
     ]

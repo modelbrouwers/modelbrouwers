@@ -28,7 +28,6 @@ class CategoryResource(ModelResource):
 
 
 class OptimizedM2MWidget(ManyToManyWidget):
-
     def render(self, value, obj=None, **kwargs):
         if value is None:
             return ""

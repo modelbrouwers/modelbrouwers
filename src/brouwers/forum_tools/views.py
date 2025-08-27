@@ -12,7 +12,7 @@ from .forms import ForumForm
 from .models import BuildReportsForum, ForumPostCountRestriction, ForumUser, Report
 
 
-class CacheMixin(object):
+class CacheMixin:
     cache_timeout = 60
 
     def get_cache_timeout(self):

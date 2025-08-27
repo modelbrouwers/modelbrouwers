@@ -18,11 +18,11 @@ class PublicViewTests(WebTest):
     def test_index(self):
         AlbumFactory.create_batch(13)
         AlbumFactory.create_batch(2, trash=True)
-        for i in range(4):
+        for _i in range(4):
             PhotoFactory.create(album__public=True)
-        for i in range(2):
+        for _i in range(2):
             PhotoFactory.create(album__public=False)
-        for i in range(2):
+        for _i in range(2):
             PhotoFactory.create(trash=True)
 
         index = self.app.get(reverse("albums:index"))
@@ -177,7 +177,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_update)
         # try it anyway
         update_page = self.app.get(url_update)
-        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_update)
+        expected_redirect = f"{settings.LOGIN_URL}?next={url_update}"
         self.assertRedirects(update_page, expected_redirect)
 
         # other user
@@ -203,7 +203,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_delete)
         # try it anyway
         delete_page = self.app.get(url_delete)
-        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_delete)
+        expected_redirect = f"{settings.LOGIN_URL}?next={url_delete}"
         self.assertRedirects(delete_page, expected_redirect)
 
         # other user
@@ -253,7 +253,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_delete)
         # try it anyway
         delete_page = self.app.get(url_delete)
-        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_delete)
+        expected_redirect = f"{settings.LOGIN_URL}?next={url_delete}"
         self.assertRedirects(delete_page, expected_redirect)
 
         # other user
@@ -278,7 +278,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.app.get(photo.get_absolute_url(), status=404)
         # try it anyway
         restore_page = self.app.get(url_restore)
-        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_restore)
+        expected_redirect = f"{settings.LOGIN_URL}?next={url_restore}"
         self.assertRedirects(restore_page, expected_redirect)
 
         # other user
@@ -308,7 +308,7 @@ class PrivateViewTests(LoginRequiredMixin, WebTest):
         self.assertNotContains(detail_page, url_update)
         # try it anyway
         update_page = self.app.get(url_update)
-        expected_redirect = "%s?next=%s" % (settings.LOGIN_URL, url_update)
+        expected_redirect = f"{settings.LOGIN_URL}?next={url_update}"
         self.assertRedirects(update_page, expected_redirect)
 
         # other user

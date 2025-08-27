@@ -31,7 +31,7 @@ class ForumToolsIDField(FieldCacheMixin, PositiveIntegerField):
         setattr(cls, name, ForumToolsDescriptor(self))
 
     def get_attname(self):
-        return "{0}_id".format(self.name)
+        return f"{self.name}_id"
 
     def get_attname_column(self):
         attname, column = super().get_attname_column()
@@ -41,7 +41,7 @@ class ForumToolsIDField(FieldCacheMixin, PositiveIntegerField):
         return self.name
 
 
-class ForumToolsDescriptor(object):
+class ForumToolsDescriptor:
     def __init__(self, field_with_rel):
         self.field = field_with_rel
         self.type = field_with_rel._type
@@ -80,7 +80,7 @@ class ForumToolsDescriptor(object):
         elif self.type == "forum":
             model = Forum
         else:
-            raise ValueError("Unknown type: %s" % self.type)
+            raise ValueError(f"Unknown type: {self.type}")
 
         if not pk:
             return None
@@ -95,23 +95,11 @@ class ForumToolsDescriptor(object):
 
         if self.type == "topic" and not isinstance(value, Topic):
             raise ValueError(
-                'Cannot assign "%r": "%s.%s" must be a "%s" instance.'
-                % (
-                    value,
-                    instance._meta.object_name,
-                    self.field.name,
-                    Topic._meta.object_name,
-                )
+                f'Cannot assign "{value!r}": "{instance._meta.object_name}.{self.field.name}" must be a "{Topic._meta.object_name}" instance.'
             )
         elif self.type == "forum" and not isinstance(value, Forum):
             raise ValueError(
-                'Cannot assign "%r": "%s.%s" must be a "%s" instance.'
-                % (
-                    value,
-                    instance._meta.object_name,
-                    self.field.name,
-                    Forum._meta.object_name,
-                )
+                f'Cannot assign "{value!r}": "{instance._meta.object_name}.{self.field.name}" must be a "{Forum._meta.object_name}" instance.'
             )
         elif self.type not in ["topic", "forum"]:
-            raise ValueError("Unknown type: %s" % self.type)
+            raise ValueError(f"Unknown type: {self.type}")

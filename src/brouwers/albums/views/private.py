@@ -8,7 +8,6 @@ from ..models import Album
 
 
 class MyAlbumsView(LoginRequiredMixin, TemplateView):
-
     template_name = "albums/my_albums.html"
 
     def get_queryset(self, **extra_filters):

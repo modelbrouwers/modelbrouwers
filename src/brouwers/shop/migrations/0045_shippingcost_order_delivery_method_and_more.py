@@ -7,7 +7,6 @@ import brouwers.general.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0044_alter_product_related_products"),
     ]

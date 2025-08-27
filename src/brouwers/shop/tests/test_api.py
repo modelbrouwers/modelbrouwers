@@ -77,7 +77,7 @@ class CartApiTest(APITestCase):
         # User shouldn't be able see other users' carts
         user2 = UserFactory.create()
         self.client.force_authenticate(user=user2)
-        cart2 = CartFactory.create(user=user2)
+        CartFactory.create(user=user2)
 
         response = self.client.get(reverse("api:cart-detail"))
 
@@ -191,7 +191,6 @@ class CartApiTest(APITestCase):
 
 
 class GetShippingCostsTests(APITestCase):
-
     def test_invalid_cart_id_parameter(self):
         endpoint = reverse("api:shipping-costs")
         cases = (

@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from brouwers.users.tests.factories import UserFactory
 
-from .factory_models import ForumUserFactory
+from .factories import ForumUserFactory
 
 
 class UserSyncTests(TestCase):

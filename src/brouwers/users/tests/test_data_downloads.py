@@ -77,7 +77,7 @@ class ViewTests(WebTest):
 
     def test_no_auth(self):
         url = reverse("users:data-download-file", kwargs={"pk": 0})
-        redirect_url = "{}?next={}".format(settings.LOGIN_URL, url)
+        redirect_url = f"{settings.LOGIN_URL}?next={url}"
 
         response = self.client.get(url)
 

@@ -23,7 +23,7 @@ from .models import Build, BuildPhoto
 User = get_user_model()
 
 
-class BuildSearchMixin(object):
+class BuildSearchMixin:
     def get_context_data(self, **kwargs):
         kwargs["search_form"] = BuildSearchForm(auto_id=False)
         return super().get_context_data(**kwargs)
@@ -106,7 +106,7 @@ class ForumUserRedirectView(SingleObjectMixin, RedirectView):
         try:
             user = User.objects.get_from_forum(forum_user)
         except User.DoesNotExist:
-            raise Http404
+            raise Http404 from None
         return reverse("builds:user_build_list", kwargs={"user_id": user.id})
 
 

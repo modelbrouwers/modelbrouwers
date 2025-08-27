@@ -21,7 +21,7 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     category = factory.SubFactory(CategoryFactory)
-    title = factory.Sequence(lambda n: "album {0}".format(n))
+    title = factory.Sequence(lambda n: f"album {n}")
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):

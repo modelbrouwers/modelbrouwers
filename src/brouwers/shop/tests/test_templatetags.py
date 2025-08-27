@@ -27,10 +27,10 @@ class RecordCategoryPathTests(TestCase):
     def test_process_tree_correctly(self):
         root = CategoryFactory.create(slug="root")
         child1 = CategoryFactory.create(slug="child-1", parent=root)
-        child11 = CategoryFactory.create(slug="child-1-1", parent=child1)
+        CategoryFactory.create(slug="child-1-1", parent=child1)
         child12 = CategoryFactory.create(slug="child-1-2", parent=child1)
-        child121 = CategoryFactory.create(slug="child-1-2-1", parent=child12)
-        child2 = CategoryFactory.create(slug="child-2", parent=root)
+        CategoryFactory.create(slug="child-1-2-1", parent=child12)
+        CategoryFactory.create(slug="child-2", parent=root)
         tpl = dedent(
             """
             {% load shop %}

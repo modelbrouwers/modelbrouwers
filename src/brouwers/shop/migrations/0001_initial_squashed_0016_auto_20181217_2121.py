@@ -11,7 +11,6 @@ import taggit.managers
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("shop", "0001_initial"),
         ("shop", "0002_auto_20180401_1858"),

@@ -23,7 +23,6 @@ from .factories import (
 
 
 class CheckoutTests(WebTest):
-
     csrf_checks = False
 
     @classmethod

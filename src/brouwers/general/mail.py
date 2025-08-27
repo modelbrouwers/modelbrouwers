@@ -8,7 +8,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 
 
-class MultiAlternativesEmail(object):
+class MultiAlternativesEmail:
     """CBV approach for MultiAlternativesEmail"""
 
     template_name = None
@@ -33,7 +33,7 @@ class MultiAlternativesEmail(object):
                 "'template_name' or an implementation of 'get_template'"
             )
         else:
-            template_name = "%s.%s" % (self.template_name, content)
+            template_name = f"{self.template_name}.{content}"
             return get_template(template_name)
 
     def get_subject(self):
@@ -51,7 +51,7 @@ class MultiAlternativesEmail(object):
                 "'to' or an implementation of 'get_to'"
             )
         # iterable and not string
-        if isinstance(self.to, (tuple, list)):
+        if isinstance(self.to, tuple | list):
             return self.to
         return [self.to]
 

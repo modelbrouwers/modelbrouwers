@@ -1,3 +1,4 @@
+# ruff: noqa: F401 F403 F405
 import os
 import sys
 import warnings
@@ -9,7 +10,7 @@ os.environ.setdefault("IS_HTTPS", "no")
 os.environ.setdefault("SENDFILE_BACKEND", "django_sendfile.backends.development")
 os.environ.setdefault("CORS_ENABLED", "yes")
 
-from .base import *  # noqa isort:skip
+from .base import *
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
@@ -85,7 +86,7 @@ warnings.filterwarnings(
 
 # Local overrides
 try:
-    from .local import *  # noqa
+    from .local import *
 except ImportError:
     pass
 

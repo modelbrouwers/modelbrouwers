@@ -6,7 +6,6 @@ import brouwers.forum_tools.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("awards", "0004_auto_20210420_2201"),
     ]

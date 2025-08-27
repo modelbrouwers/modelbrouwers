@@ -27,9 +27,9 @@ class SeleniumTests(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        assert (
-            WebDriver
-        ), "Selenium must be configured, see the SELENIUM_WEBDRIVER envvar"
+        assert WebDriver, (
+            "Selenium must be configured, see the SELENIUM_WEBDRIVER envvar"
+        )
         assert Options, "Selenium must be configured, see the SELENIUM_WEBDRIVER envvar"
 
         options = Options()

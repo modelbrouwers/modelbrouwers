@@ -21,8 +21,8 @@ class ForumUserFactory(factory.django.DjangoModelFactory):
         model = ForumUser
         skip_postgeneration_save = True
 
-    username = factory.Sequence(lambda n: "User {n}".format(n=n))
-    user_email = factory.Sequence(lambda n: "user{n}@domain.com".format(n=n))
+    username = factory.Sequence(lambda n: f"User {n}")
+    user_email = factory.Sequence(lambda n: f"user{n}@domain.com")
     user_posts = 10
 
     @factory.post_generation
@@ -36,14 +36,14 @@ class ForumCategoryFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ForumCategory
 
-    name = factory.Sequence(lambda n: "Category {0}".format(n))
+    name = factory.Sequence(lambda n: f"Category {n}")
 
 
 class ForumFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Forum
 
-    forum_name = factory.Sequence(lambda n: "Forum {0}".format(n))
+    forum_name = factory.Sequence(lambda n: f"Forum {n}")
 
 
 class TopicFactory(factory.django.DjangoModelFactory):
@@ -51,5 +51,5 @@ class TopicFactory(factory.django.DjangoModelFactory):
         model = Topic
 
     forum = factory.SubFactory(ForumFactory)
-    topic_title = factory.Sequence(lambda n: "Topic {0}".format(n))
+    topic_title = factory.Sequence(lambda n: f"Topic {n}")
     create_time = factory.LazyAttribute(lambda *args: int(time.time()))

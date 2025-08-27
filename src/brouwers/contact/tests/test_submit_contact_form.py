@@ -1,7 +1,6 @@
 from django.core import mail
 from django.db import connections
 from django.urls import reverse
-from django.utils.translation import gettext as _
 
 from django_webtest import WebTest
 

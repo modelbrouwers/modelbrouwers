@@ -7,7 +7,6 @@ from brouwers.shop.models.utils import get_max_order
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0019_auto_20190524_0918"),
     ]

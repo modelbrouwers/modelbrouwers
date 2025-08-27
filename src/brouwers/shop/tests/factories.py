@@ -144,7 +144,7 @@ class OrderFactory(factory.django.DjangoModelFactory[Order]):
 
 class PaymentMethodFactory(factory.django.DjangoModelFactory[PaymentMethod]):
     name = factory.Faker("word")
-    method = factory.fuzzy.FuzzyChoice((plugin.identifier for plugin in register))
+    method = factory.fuzzy.FuzzyChoice(plugin.identifier for plugin in register)
 
     class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = PaymentMethod

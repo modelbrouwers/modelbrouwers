@@ -10,7 +10,6 @@ import brouwers.general.fields
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("general", "0001_initial"),
         ("general", "0002_auto_20180930_1917"),

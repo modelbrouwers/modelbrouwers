@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Callable, Optional, Type, TypedDict, Union
+from typing import TypedDict
 
 from django.http import HttpRequest
 from django.http.response import HttpResponseBase
@@ -11,14 +12,14 @@ from ..models import Order, Payment
 
 __all__ = ["register", "PaymentContext", "Plugin"]
 
-PluginType = Type["Plugin"]
-LazyStr = Union[Promise, str]
+PluginType = type["Plugin"]
+LazyStr = Promise | str
 
 
 class PaymentContext(TypedDict):
     request: HttpRequest
     next_page: str
-    order: Optional[Order]
+    order: Order | None
 
 
 @dataclass
@@ -36,7 +37,7 @@ class Plugin(ABC):
     @abstractmethod
     def start_payment(
         self, payment: Payment, context: PaymentContext
-    ) -> Optional[HttpResponseBase]:  # pragma: no cover
+    ) -> HttpResponseBase | None:  # pragma: no cover
         """
         Given a payment instance, handle the actual payment flow.
 

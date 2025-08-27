@@ -3,15 +3,15 @@ from django.conf import settings
 from webtest.forms import Text
 
 
-class LoginRequiredMixin(object):
+class LoginRequiredMixin:
     def _test_login_required(self, url, response=None):
         if response is None:
             response = self.app.get(url)
-        redirect = "{}?next={}".format(settings.LOGIN_URL, url)
+        redirect = f"{settings.LOGIN_URL}?next={url}"
         self.assertRedirects(response, redirect)
 
 
-class WebTestFormMixin(object):
+class WebTestFormMixin:
     def _add_field(self, form, name, value):
         def get_pos(item):
             if isinstance(item, list):

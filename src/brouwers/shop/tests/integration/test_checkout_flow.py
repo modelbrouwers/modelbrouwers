@@ -85,7 +85,6 @@ class CheckoutTests(SeleniumTests):
 
         # 2. Enter checkout flow and fill out details
         with self.subTest("checkout: enter details"):
-
             checkout_url = f"{self.live_server_url}{reverse('shop:checkout')}"
             self.selenium.get(checkout_url)
 

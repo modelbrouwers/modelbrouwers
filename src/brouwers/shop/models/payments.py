@@ -107,15 +107,15 @@ class Payment(models.Model):
 
     def format_amount(self) -> str:
         amount_in_euro = Decimal(self.amount) / 100
-        return "€ {amount}".format(amount=localize(amount_in_euro))
+        return f"€ {localize(amount_in_euro)}"
 
     def mark_paid(self) -> None:
         if self.status == PaymentStatuses.completed:
             return
 
-        assert (
-            self.status != PaymentStatuses.cancelled
-        ), "Cannot mark cancelled payment as completed"
+        assert self.status != PaymentStatuses.cancelled, (
+            "Cannot mark cancelled payment as completed"
+        )
         assert self.order_id is not None, "Cannot complete historical payments"
 
         self.status = PaymentStatuses.completed

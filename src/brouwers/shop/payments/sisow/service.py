@@ -1,6 +1,7 @@
+from collections.abc import Iterator
 from dataclasses import dataclass
 from functools import lru_cache
-from typing import Iterator, List, Tuple, cast
+from typing import cast
 from urllib.parse import unquote
 
 from django.http import HttpRequest
@@ -21,21 +22,21 @@ class iDealBank:
     name: str
 
 
-@lru_cache()
-def get_ideal_banks() -> List[iDealBank]:
+@lru_cache
+def get_ideal_banks() -> list[iDealBank]:
     root = xml_request("DirectoryRequest")
-    _issuers = root.findall("*/{{{ns}}}issuer".format(ns=NS))
+    _issuers = root.findall(f"*/{{{NS}}}issuer")
     banks = [
         iDealBank(
-            id=issuer.find("{{{ns}}}issuerid".format(ns=NS)).text,
-            name=issuer.find("{{{ns}}}issuername".format(ns=NS)).text,
+            id=issuer.find(f"{{{NS}}}issuerid").text,
+            name=issuer.find(f"{{{NS}}}issuername").text,
         )
         for issuer in _issuers
     ]
     return banks
 
 
-def get_ideal_bank_choices() -> Iterator[Tuple[str, str]]:
+def get_ideal_bank_choices() -> Iterator[tuple[str, str]]:
     for bank in get_ideal_banks():
         yield (bank.id, bank.name)
 
@@ -85,11 +86,11 @@ def start_payment(payment: Payment, request: HttpRequest, next_page="") -> str:
     root = xml_request("TransactionRequest", method="post", data=post_data)
 
     # verify the response
-    transaction = root.find("{{{ns}}}transaction".format(ns=NS))
+    transaction = root.find(f"{{{NS}}}transaction")
 
-    url = transaction.find("{{{ns}}}issuerurl".format(ns=NS)).text
-    trx_id = transaction.find("{{{ns}}}trxid".format(ns=NS)).text
-    signature_sha1 = root.find("{{{ns}}}signature/{{{ns}}}sha1".format(ns=NS)).text
+    url = transaction.find(f"{{{NS}}}issuerurl").text
+    trx_id = transaction.find(f"{{{NS}}}trxid").text
+    signature_sha1 = root.find(f"{{{NS}}}signature/{{{NS}}}sha1").text
     # this pattern is the general case - applies for ideal, mrcash and sofort
     expected_sha1 = calculate_sha1(
         trx_id, url, config.sisow_merchant_id, config.sisow_merchant_key

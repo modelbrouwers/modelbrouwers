@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Optional, cast
+from typing import cast
 
 from django.conf import settings
 from django.core.cache import caches
@@ -20,7 +20,7 @@ TOKEN_CACHE_KEY = "paypal:access-token"
 
 
 class Client:
-    _session: Optional[OAuth2Session] = None
+    _session: OAuth2Session | None = None
 
     def __init__(self):
         self.cache = caches["default"]

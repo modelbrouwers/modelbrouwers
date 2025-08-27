@@ -8,7 +8,6 @@ from ..models import Boxart, Brand, ModelKit, Scale
 
 
 class BrandSerializer(serializers.ModelSerializer):
-
     logo = ThumbnailField(
         (("small", "100x100"),), opts={"upscale": False}, required=False
     )
@@ -32,7 +31,6 @@ class ScaleSerializer(serializers.ModelSerializer):
 
 
 class ModelKitSerializer(serializers.ModelSerializer):
-
     brand = BrandSerializer()
     scale = ScaleSerializer()
     box_image = ThumbnailField(
@@ -58,7 +56,6 @@ def upload_exists(uuid):
 
 
 class CreateModelKitSerializer(serializers.ModelSerializer):
-
     box_image_uuid = fields.UUIDField(
         write_only=True, validators=[upload_exists], required=False, allow_null=True
     )

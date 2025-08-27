@@ -7,7 +7,6 @@ import brouwers.kits.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("kitreviews", "0001_initial"),
     ]

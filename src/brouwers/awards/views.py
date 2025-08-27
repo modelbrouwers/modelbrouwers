@@ -1,6 +1,5 @@
 from itertools import groupby
 from operator import attrgetter
-from typing import Optional
 
 from django.db.models import F, Window
 from django.db.models.functions import DenseRank
@@ -37,10 +36,9 @@ def get_winners(year: int):
 
 
 class WinnersView(TemplateView):
-
     template_name = "awards/winners.html"
 
-    def get_context_data(self, year: Optional[int] = None, **kwargs):
+    def get_context_data(self, year: int | None = None, **kwargs):
         context = super().get_context_data(**kwargs)
 
         editions = (

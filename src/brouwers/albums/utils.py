@@ -41,8 +41,8 @@ def get_or_create_originals_folder(album_folder):
             os.makedirs(originals_folder)
         except OSError as err:
             raise ImproperlyConfigured(
-                "Could not create directory: %s (%s)" % (originals_folder, err)
-            )
+                f"Could not create directory: {originals_folder}"
+            ) from err
     return originals_folder
 
 

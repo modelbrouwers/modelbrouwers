@@ -4,7 +4,7 @@ from django.test import SimpleTestCase, TestCase
 from ..forms.fields import ForumIDField, TopicIDField
 from ..models import Forum
 from .custom_fields.models import MyModel
-from .factory_models import ForumFactory, TopicFactory
+from .factories import ForumFactory, TopicFactory
 
 
 class FormFieldTests(SimpleTestCase):
@@ -23,7 +23,6 @@ class FormFieldTests(SimpleTestCase):
         self.invalid_url2 = "gibberish"
 
     def test_forum_field(self):
-
         value = self.forum_field.to_python(self.data["forum_id"])
         self.assertEqual(value, 10)
 
@@ -41,7 +40,6 @@ class FormFieldTests(SimpleTestCase):
             self.forum_field.to_python(self.invalid_url2)
 
     def test_topic_field(self):
-
         value = self.topic_field.to_python(self.data["topic_id"])
         self.assertEqual(value, 1)
 

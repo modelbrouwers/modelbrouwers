@@ -6,7 +6,6 @@ import brouwers.shop.models.orders
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0039_auto_20221231_1651"),
     ]

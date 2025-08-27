@@ -9,7 +9,7 @@ Modelbrouwers.nl
 Modelbrouwers.nl is a scale modeling community. The website hosts a phpBB3 board,
 albums software and a webshop.
 
-|build| |coverage| |python-versions| |black|
+|build| |coverage| |python-versions| |ruff|
 
 .. |build| image:: https://github.com/modelbrouwers/modelbrouwers/workflows/Run%20CI/badge.svg
     :target: https://github.com/modelbrouwers/modelbrouwers/actions?query=workflow%3A%22Run+CI%22
@@ -17,9 +17,9 @@ albums software and a webshop.
 .. |coverage| image:: https://codecov.io/github/modelbrouwers/modelbrouwers/branch/main/graph/badge.svg?token=OBBXJ94dVo
     :target: https://codecov.io/github/modelbrouwers/modelbrouwers
 
-.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :alt: Code style
-    :target: https://github.com/psf/black
+.. |ruff| image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+    :target: https://github.com/astral-sh/ruff
+    :alt: Ruff
 
 .. |python-versions| image:: https://img.shields.io/badge/python-3.12-blue.svg
     :alt: Supported Python versions

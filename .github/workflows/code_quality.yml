@@ -11,60 +11,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  isort:
-    name: Code imports
+  ruff:
+    name: Run ruff
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version-file: "pyproject.toml"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install --yes libmemcached-dev
-          pip install uv
           uv pip install --system -r requirements/dev.txt
-      - name: Run isort
-        run: isort --check-only --diff .
-
-  black:
-    name: Code format
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes libmemcached-dev
-          pip install uv
-          uv pip install --system -r requirements/dev.txt
-      - name: Run black
-        run: black --check --diff src doc
-
-  flake8:
-    name: Code style
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes libmemcached-dev
-          pip install uv
-          uv pip install --system -r requirements/dev.txt
-      - name: Run flake8
-        run: flake8 src
-        continue-on-error: true
+      - run: |
+          ruff check --output-format=github .
+          ruff format --check
 
   prettier:
     name: Check frontend code formatting with prettier

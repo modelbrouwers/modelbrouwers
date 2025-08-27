@@ -1,4 +1,4 @@
-from typing import Dict, List, Literal
+from typing import Literal
 
 from pydantic import BaseModel
 
@@ -14,10 +14,10 @@ class PaypalOrder(BaseModel):
     status: Literal[
         "CREATED", "SAVED", "APPROVED", "VOIDED", "COMPLETED", "PAYER_ACTION_REQUIRED"
     ]
-    links: List[Link]
+    links: list[Link]
 
     @property
-    def parsed_links(self) -> Dict[str, Link]:
+    def parsed_links(self) -> dict[str, Link]:
         return {link.rel: link for link in self.links}
 
     def get_redirect_url(self) -> str:

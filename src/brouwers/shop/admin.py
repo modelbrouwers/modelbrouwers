@@ -1,5 +1,4 @@
 from decimal import Decimal
-from typing import Optional
 
 from django.contrib import admin
 from django.utils.html import format_html, format_html_join
@@ -337,7 +336,7 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [HistoricalPaymentInline]
 
     @admin.display(description=_("Payment status"))  # type:ignore
-    def payment_status(self, obj: Order) -> Optional[str]:
+    def payment_status(self, obj: Order) -> str | None:
         if not obj.payment:
             return None
         return obj.payment.get_status_display()

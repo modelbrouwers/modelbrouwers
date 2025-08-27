@@ -63,7 +63,7 @@ class PhotoViewsetTests(APITestCase):
         self.client.login(username=self.user.username, password="password")
         response = self.client.get(self.list_url, {"album": self.album.pk})
         self.assertEqual(response.data["count"], 10)
-        for photo, result in zip(photos, response.data["results"]):
+        for photo, result in zip(photos, response.data["results"], strict=False):
             self.assertEqual(photo.id, result["id"])
             self.assertEqual(set(result["image"].keys()), set(["large", "thumb"]))
 

@@ -32,9 +32,9 @@ class CrudTests(LoginRequiredMixin, WebTest):
         form = create.forms["album-form"]
         form["title"] = "My first album"
         form["description"] = "Dummy description"
-        form["topic"] = "http://modelbrouwers.nl/phpBB3/viewtopic.php?f=%d&t=%d" % (
-            topic.forum_id,
-            topic.topic_id,
+        form["topic"] = (
+            "http://modelbrouwers.nl/phpBB3/viewtopic.php"
+            f"?f={topic.forum_id}&t={topic.topic_id}"
         )
 
         response = form.submit()
@@ -79,7 +79,6 @@ class CrudTests(LoginRequiredMixin, WebTest):
 
 
 class UploadTests(LoginRequiredMixin, WebTest):
-
     url = reverse("albums:upload")
 
     def setUp(self):

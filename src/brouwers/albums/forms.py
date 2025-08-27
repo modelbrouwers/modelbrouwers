@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from .models import Album, Category, Photo, Preferences
 
 
-class AlbumQuerysetFormMixin(object):
+class AlbumQuerysetFormMixin:
     """
     Mixin that limits the albums for the Carousel slider to the
     logged in user.

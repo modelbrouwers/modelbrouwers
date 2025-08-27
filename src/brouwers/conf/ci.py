@@ -1,3 +1,4 @@
+# ruff: noqa: F401 F403 F405
 import os
 
 os.environ.setdefault("SECRET_KEY", "ci-key")
@@ -7,7 +8,7 @@ os.environ.setdefault("DB_NAME", "brouwers")
 os.environ.setdefault("DB_USER", "postgres")
 os.environ.setdefault("DB_PASSWORD", "")
 
-from .base import *  # noqa isort:skip
+from .base import *
 
 DATABASES["mysql"] = {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}
 DATABASES["legacy_shop"] = {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}

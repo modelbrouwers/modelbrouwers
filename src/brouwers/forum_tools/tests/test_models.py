@@ -4,7 +4,7 @@ from django.utils.http import urlencode
 
 from brouwers.utils.tests import reload_urlconf
 
-from .factory_models import ForumFactory, TopicFactory
+from .factories import ForumFactory, TopicFactory
 
 
 @override_settings(PHPBB_URL="/forum/")
@@ -16,7 +16,7 @@ class URLTests(TestCase):
 
     def test_absolute_url_forum(self):
         url = self.forum.get_absolute_url()
-        expected_url = "/forum/viewforum.php?f={0}".format(self.forum.pk)
+        expected_url = f"/forum/viewforum.php?f={self.forum.pk}"
         self.assertEqual(expected_url, url)
 
     def test_absolute_url_topic(self):

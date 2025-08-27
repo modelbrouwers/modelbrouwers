@@ -1,6 +1,5 @@
 import os
-import warnings
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
@@ -52,7 +51,6 @@ ALBUM_SEARCH_VECTOR = SearchVector("title", weight="A", config="dutch") + Search
 
 
 class Album(models.Model):
-
     # owner of the album
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -87,7 +85,7 @@ class Album(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(_("last modified"), auto_now=True)
     last_upload = models.DateTimeField(
-        default=datetime(1970, 1, 1, 0, 0, 0).replace(tzinfo=timezone.utc),
+        default=datetime(1970, 1, 1, 0, 0, 0).replace(tzinfo=UTC),
         db_index=True,
     )
     views = models.PositiveIntegerField(default=0)
@@ -252,7 +250,7 @@ class Photo(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "albumphoto %d" % self.id
+        return f"albumphoto {self.pk}"
 
     def get_absolute_url(self):
         return reverse("albums:photo-detail", kwargs={"pk": self.pk})
@@ -265,14 +263,13 @@ class Photo(models.Model):
         return self.image.storage.exists(self.image.name)
 
     def rotate(self, degrees=90):
-        assert degrees in [90, -90], "Invalid angle provided: %s" % degrees
+        assert degrees in [90, -90], f"Invalid angle provided: {degrees}"
         rotate_img(self.image, degrees=degrees)
         self.width, self.height = self.height, self.width
         self.save()
 
 
 class Preferences(models.Model):
-
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     auto_start_uploading = models.BooleanField(
@@ -299,17 +296,8 @@ class Preferences(models.Model):
         return _("Preferences for %(user)s") % {"user": user}
 
     @classmethod
-    def get_or_create(cls, user):
-        warnings.warn(
-            "Preferences.get_or_create is deprecated. Use Preferences"
-            ".objects.get_for(user)",
-            DeprecationWarning,
-        )
-        return cls.objects.get_for(user)
-
-    @classmethod
     def _get_cache_key(cls, user_id):
-        return "album-preferences:%d" % user_id
+        return f"album-preferences:{user_id}"
 
     def cache(self):
         """
@@ -339,7 +327,7 @@ class AlbumDownload(models.Model):
         ordering = ("-timestamp",)
 
     def __str__(self):
-        return _(
-            "Download of %(album)s by %(username)s"
-            % {"album": self.album.title, "username": self.downloader.username}
+        return _("Download of {album} by {username}").format(
+            album=self.album.title,
+            username=self.downloader.username,
         )

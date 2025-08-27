@@ -80,14 +80,14 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
 
         self._add_field(form, "photos-0-id", "")
         self._add_field(form, "photos-0-build", "")
-        self._add_field(form, "photos-0-photo", "{}".format(photos[0].pk))
+        self._add_field(form, "photos-0-photo", f"{photos[0].pk}")
         self._add_field(form, "photos-0-photo_url", "")
         self._add_field(form, "photos-0-order", "")
 
         self._add_field(form, "photos-1-id", "")
         self._add_field(form, "photos-1-build", "")
         self._add_field(form, "photos-1-photo", "")
-        url = "https://modelbrouwers.nl%s" % photos[1].image.url
+        url = f"https://modelbrouwers.nl{photos[1].image.url}"
         self._add_field(form, "photos-1-photo_url", url)
         self._add_field(form, "photos-1-order", "")
 
@@ -123,7 +123,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
 
         # test that non-auth can't update
         response = self.app.get(url)
-        self.assertRedirects(response, "{}?next={}".format(settings.LOGIN_URL, url))
+        self.assertRedirects(response, f"{settings.LOGIN_URL}?next={url}")
 
         # test that different user can't update
         other_user = UserFactory.create()
@@ -144,7 +144,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         form["photos-TOTAL_FORMS"] = "2"
         self._add_field(form, "photos-1-id", "")
         self._add_field(form, "photos-1-build", "")
-        self._add_field(form, "photos-1-photo", "{}".format(photo.pk))
+        self._add_field(form, "photos-1-photo", f"{photo.pk}")
         self._add_field(form, "photos-1-photo_url", "")
         self._add_field(form, "photos-1-order", "")
 
@@ -177,9 +177,7 @@ class ViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
         form = page.forms[0]
 
         self.assertEqual(form["title"].value, "Dummy title")
-        self.assertTrue(
-            form["topic"].value.endswith("viewtopic.php?t={}".format(topic.pk))
-        )
+        self.assertTrue(form["topic"].value.endswith(f"viewtopic.php?t={topic.pk}"))
 
 
 class ForumUserViewTests(WebTest):

@@ -26,7 +26,7 @@ from .models import DataDownloadRequest
 User = get_user_model()
 
 
-class RedirectFormMixin(object):
+class RedirectFormMixin:
     """Mixin to determine the next page after an authentication step."""
 
     default_redirect_url = settings.LOGIN_REDIRECT_URL

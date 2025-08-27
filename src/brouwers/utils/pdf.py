@@ -7,7 +7,7 @@ class PDFTemplateResponse(TemplateResponse):
         kwargs["content_type"] = "application/pdf"
         super().__init__(*args, **kwargs)
         if filename:
-            self["Content-Disposition"] = 'attachment; filename="%s"' % filename
+            self["Content-Disposition"] = f'attachment; filename="{filename}"'
         else:
             self["Content-Disposition"] = "attachment"
 

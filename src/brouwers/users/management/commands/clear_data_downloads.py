@@ -14,8 +14,6 @@ class Command(BaseCommand):
         downloaded_requests = DataDownloadRequest.objects.filter(
             downloaded__lt=hour_ago
         ).exclude(zip_file="")
-        self.stdout.write(
-            "Clearing {count} files".format(count=downloaded_requests.count())
-        )
+        self.stdout.write(f"Clearing {downloaded_requests.count()} files")
         for download_request in downloaded_requests:
             download_request.zip_file.delete(save=True)

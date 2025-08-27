@@ -6,7 +6,6 @@ import brouwers.shop.models.utils
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0026_address_order"),
     ]

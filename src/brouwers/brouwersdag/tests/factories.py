@@ -9,7 +9,7 @@ class CompetitionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Competition
 
-    name = factory.Sequence(lambda n: "Competition {0}".format(n))
+    name = factory.Sequence(lambda n: f"Competition {n}")
     is_current = False
 
 
@@ -17,8 +17,8 @@ class ShowCasedModelFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ShowCasedModel
 
-    owner_name = factory.Sequence(lambda n: "Owner {0}".format(n))
-    email = factory.Sequence(lambda n: "Owner {0}".format(n))
-    name = factory.Sequence(lambda n: "Model {0}".format(n))
+    owner_name = factory.Sequence(lambda n: f"Owner {n}")
+    email = factory.Sequence(lambda n: f"Owner {n}")
+    name = factory.Sequence(lambda n: f"Model {n}")
     brand = factory.SubFactory(BrandFactory)
     scale = 48

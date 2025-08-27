@@ -9,7 +9,6 @@ import brouwers.utils.storages
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("users", "0003_auto_20160226_0852"),
     ]

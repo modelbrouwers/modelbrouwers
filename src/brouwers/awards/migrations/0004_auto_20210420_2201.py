@@ -6,7 +6,6 @@ import autoslug.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("awards", "0003_auto_20160811_2230"),
     ]

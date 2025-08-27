@@ -5,6 +5,7 @@ HTML assertion utilities.
 
 Taken from https://github.com/open-formulieren/open-forms.git
 """
+
 from lxml_html_clean import Cleaner
 
 

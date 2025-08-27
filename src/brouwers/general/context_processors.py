@@ -15,7 +15,7 @@ def connection(request):
 def djsettings(request):
     phpbb_url = settings.PHPBB_URL
     if not phpbb_url[0] == "/":
-        phpbb_url = "/{}".format(phpbb_url)
+        phpbb_url = f"/{phpbb_url}"
     if not phpbb_url[-1] == "/":
         phpbb_url += "/"
     return {"PHPBB_URL": phpbb_url}

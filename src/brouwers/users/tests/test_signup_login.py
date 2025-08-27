@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django_webtest import WebTest
 
-from brouwers.forum_tools.tests.factory_models import ForumUserFactory
+from brouwers.forum_tools.tests.factories import ForumUserFactory
 from brouwers.utils.tests.recaptcha import mock_recaptcha
 
 from .factories import UserFactory

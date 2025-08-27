@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 
 from django.http import HttpRequest
 from django.http.response import HttpResponseBase
@@ -14,7 +13,7 @@ __all__ = ["start_payment", "register"]
 
 def start_payment(
     payment: Payment, request: HttpRequest, **context
-) -> Optional[HttpResponseBase]:
+) -> HttpResponseBase | None:
     context["request"] = request
     plugin_id = payment.payment_method.method
     plugin = register[plugin_id]

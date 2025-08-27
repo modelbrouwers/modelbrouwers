@@ -122,8 +122,9 @@ class CatalogueRouterTests(TestCase):
 
 class CategoryDetailViewTests(WebTest):
     def test_list_active_products(self):
-        _, root2 = CategoryFactory.create(name="Root 1"), CategoryFactory.create(
-            name="Root 2"
+        _, root2 = (
+            CategoryFactory.create(name="Root 1"),
+            CategoryFactory.create(name="Root 2"),
         )
         child = CategoryFactory.create(parent=root2, name="Child 2")
         ProductFactory.create(categories=[child], active=True, name="active-visible")
@@ -193,10 +194,11 @@ class ProductDetailViewTests(WebTest):
         self.assertEqual(detail_page.status_code, 404)
 
     def test_category_expanded(self):
-        root1, root2 = CategoryFactory.create(name="Root 1"), CategoryFactory.create(
-            name="Root 2"
+        root1, root2 = (
+            CategoryFactory.create(name="Root 1"),
+            CategoryFactory.create(name="Root 2"),
         )
-        child1 = CategoryFactory.create(parent=root1, name="Child 1")
+        CategoryFactory.create(parent=root1, name="Child 1")
         child2 = CategoryFactory.create(parent=root2, name="Child 2")
         product = ProductFactory.create(categories=[child2])
 
@@ -209,8 +211,9 @@ class ProductDetailViewTests(WebTest):
         self.assertEqual(node_labels, ["Root 2", "Child 2"])
 
     def test_default_category_expanded_with_multiple(self):
-        root1, root2 = CategoryFactory.create(name="Root 1"), CategoryFactory.create(
-            name="Root 2"
+        root1, root2 = (
+            CategoryFactory.create(name="Root 1"),
+            CategoryFactory.create(name="Root 2"),
         )
         child1 = CategoryFactory.create(parent=root1, name="Child 1")
         child2 = CategoryFactory.create(parent=root2, name="Child 2")
@@ -240,7 +243,6 @@ class ProductDetailViewTests(WebTest):
 
         for referer in referers:
             with self.subTest(referer=referer):
-
                 detail_page = self.app.get(
                     url,
                     extra_environ={

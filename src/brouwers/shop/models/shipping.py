@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from decimal import Decimal
-from typing import Callable, ClassVar
+from typing import ClassVar
 
 from django.db import models
 from django.utils import formats
@@ -12,7 +13,6 @@ from brouwers.general.fields import CountryField
 
 
 class ShippingCostManager(models.Manager["ShippingCost"]):
-
     def get_price(self, country: CountryChoices | str, weight: int) -> None | Decimal:
         qs = (
             self.filter(country=country)

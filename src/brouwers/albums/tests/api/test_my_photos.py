@@ -49,7 +49,7 @@ class MyPhotoTests(APITestCase):
 
         photos.reverse()
         results = response.data["results"]
-        for photo, result in zip(photos, results):
+        for photo, result in zip(photos, results, strict=False):
             self.assertEqual(result["id"], photo.id)
             self.assertEqual(result["user"], photo.user_id)
             image = result["image"]
@@ -61,7 +61,7 @@ class MyPhotoTests(APITestCase):
         self.assertEqual(response.data["count"], 3)
         results = response.data["results"]
 
-        for result, photo in zip(results, photos[-3:]):
+        for result, photo in zip(results, photos[-3:], strict=False):
             self.assertEqual(result["id"], photo.id)
 
     def test_custom_pagination(self):

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("general", "0001_initial_squashed_0007_auto_20240226_0904"),
     ]

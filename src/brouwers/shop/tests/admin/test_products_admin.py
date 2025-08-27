@@ -14,7 +14,6 @@ from ..factories import CategoryFactory, ProductFactory, ProductManufacturerFact
 
 
 class ProductAdminTests(WebTest):
-
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()

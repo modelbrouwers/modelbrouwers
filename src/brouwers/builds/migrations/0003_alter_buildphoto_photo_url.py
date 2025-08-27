@@ -6,7 +6,6 @@ import brouwers.builds.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("builds", "0002_buildphoto_image_gone"),
     ]
