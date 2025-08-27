@@ -1,2 +1,5 @@
 # Reformat everything with prettier (updated config)
 fc3837b795135d71dde3569afc31aa8f25d382c0
+# Ruff format & lint
+584d68a31c504eb2d9af79aebe8cdcffef273433
+27cfd818aef1f1ef754db0051df3b751348b6df2
