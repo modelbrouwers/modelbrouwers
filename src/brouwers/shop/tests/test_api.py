@@ -191,7 +191,6 @@ class CartApiTest(APITestCase):
 
 
 class GetShippingCostsTests(APITestCase):
-
     def test_invalid_cart_id_parameter(self):
         endpoint = reverse("api:shipping-costs")
         cases = (

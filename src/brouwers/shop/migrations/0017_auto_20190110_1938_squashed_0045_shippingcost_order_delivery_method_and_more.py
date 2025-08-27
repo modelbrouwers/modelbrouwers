@@ -13,7 +13,6 @@ import brouwers.shop.models.utils
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("shop", "0017_auto_20190110_1938"),
         ("shop", "0018_paymentmethod_shopconfiguration"),

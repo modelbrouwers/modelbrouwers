@@ -5,7 +5,6 @@ from brouwers.users.tests.factories import UserFactory
 
 
 class ForumToolsViewTests(TestCase):
-
     def test_get_mod_data_anon(self):
         url = reverse("forum_tools:get_mod_data")
 

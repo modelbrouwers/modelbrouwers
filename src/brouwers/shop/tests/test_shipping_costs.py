@@ -9,7 +9,6 @@ from .factories import ShippingCostFactory
 
 
 class SimpleModelTests(SimpleTestCase):
-
     @override_settings(LANGUAGE_CODE="en")
     def test_repr(self):
         shipping_cost = ShippingCostFactory.build(
@@ -37,7 +36,6 @@ class SimpleModelTests(SimpleTestCase):
 
 
 class ModelTests(TestCase):
-
     def test_lookup_shipping_costs(self):
         ShippingCostFactory.create(
             country=CountryChoices.nl, max_weight=20, price=Decimal("2.95")

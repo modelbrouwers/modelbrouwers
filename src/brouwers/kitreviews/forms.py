@@ -51,7 +51,6 @@ class FindModelKitForm(forms.Form):
 
 
 class KitReviewForm(forms.ModelForm):
-
     topic = forms.ModelChoiceField(queryset=Topic.objects.none(), required=False)
 
     class Meta:

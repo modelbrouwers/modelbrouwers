@@ -140,7 +140,7 @@ class ConfirmOrderSerializer(serializers.ModelSerializer):
         """
         cart = self.validated_data["cart"]
 
-        match (delivery_method := self.validated_data["delivery_method"]):
+        match delivery_method := self.validated_data["delivery_method"]:
             case DeliveryMethods.mail:
                 delivery_address = Address.objects.create(
                     **self.validated_data["delivery_address"]

@@ -7,7 +7,6 @@ import brouwers.general.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0025_cart_snapshot_data"),
     ]

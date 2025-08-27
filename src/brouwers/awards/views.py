@@ -37,7 +37,6 @@ def get_winners(year: int):
 
 
 class WinnersView(TemplateView):
-
     template_name = "awards/winners.html"
 
     def get_context_data(self, year: Optional[int] = None, **kwargs):

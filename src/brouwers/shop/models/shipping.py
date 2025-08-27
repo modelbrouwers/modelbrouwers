@@ -12,7 +12,6 @@ from brouwers.general.fields import CountryField
 
 
 class ShippingCostManager(models.Manager["ShippingCost"]):
-
     def get_price(self, country: CountryChoices | str, weight: int) -> None | Decimal:
         qs = (
             self.filter(country=country)

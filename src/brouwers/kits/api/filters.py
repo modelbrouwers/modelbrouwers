@@ -4,7 +4,6 @@ from ..models import Brand, ModelKit, Scale
 
 
 class ModelKitFilter(filters.FilterSet):
-
     name = filters.CharFilter(field_name="name", lookup_expr="icontains")
 
     class Meta:
@@ -13,7 +12,6 @@ class ModelKitFilter(filters.FilterSet):
 
 
 class BrandFilter(filters.FilterSet):
-
     name = filters.CharFilter(field_name="name", lookup_expr="icontains")
 
     class Meta:
@@ -22,7 +20,6 @@ class BrandFilter(filters.FilterSet):
 
 
 class ScaleFilter(filters.FilterSet):
-
     scale = filters.NumberFilter(field_name="scale")
 
     class Meta:

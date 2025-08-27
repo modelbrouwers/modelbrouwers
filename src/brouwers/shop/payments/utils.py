@@ -35,9 +35,9 @@ def on_payment_failure(payment: Payment, request: HttpRequest) -> None:
     payment.cancel()
 
     # re-add the cart to the session
-    assert (
-        payment.historical_order is not None
-    ), "Cancelling a payment must set the historical order"
+    assert payment.historical_order is not None, (
+        "Cancelling a payment must set the historical order"
+    )
     cart = payment.historical_order.cart
     cart.status = CartStatuses.open
     cart.save(update_fields=["status"])

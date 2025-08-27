@@ -6,7 +6,6 @@ import ckeditor.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []

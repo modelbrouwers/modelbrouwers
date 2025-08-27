@@ -9,7 +9,6 @@ import brouwers.shop.models.utils
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0020_auto_20190524_0927"),
     ]

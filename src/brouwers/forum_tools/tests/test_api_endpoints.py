@@ -6,7 +6,6 @@ from .factories import TopicFactory
 
 
 class TopicDetailEndpointTests(APITestCase):
-
     def test_anonymous_user(self):
         topic = TopicFactory.create()
         endpoint = reverse("api:forum_tools:topic-detail", kwargs={"pk": topic.pk})

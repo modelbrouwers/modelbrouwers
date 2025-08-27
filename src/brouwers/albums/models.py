@@ -52,7 +52,6 @@ ALBUM_SEARCH_VECTOR = SearchVector("title", weight="A", config="dutch") + Search
 
 
 class Album(models.Model):
-
     # owner of the album
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -272,7 +271,6 @@ class Photo(models.Model):
 
 
 class Preferences(models.Model):
-
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     auto_start_uploading = models.BooleanField(

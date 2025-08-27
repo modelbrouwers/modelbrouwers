@@ -9,7 +9,6 @@ import brouwers.forum_tools.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

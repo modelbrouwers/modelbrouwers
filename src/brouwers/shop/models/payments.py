@@ -113,9 +113,9 @@ class Payment(models.Model):
         if self.status == PaymentStatuses.completed:
             return
 
-        assert (
-            self.status != PaymentStatuses.cancelled
-        ), "Cannot mark cancelled payment as completed"
+        assert self.status != PaymentStatuses.cancelled, (
+            "Cannot mark cancelled payment as completed"
+        )
         assert self.order_id is not None, "Cannot complete historical payments"
 
         self.status = PaymentStatuses.completed

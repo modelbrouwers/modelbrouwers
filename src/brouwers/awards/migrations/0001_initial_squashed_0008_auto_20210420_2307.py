@@ -12,7 +12,6 @@ import brouwers.forum_tools.fields
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("awards", "0001_initial"),
         ("awards", "0002_auto_20150405_2118"),

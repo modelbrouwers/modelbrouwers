@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-
     help = "Imports the missing image files for an user"
 
     def add_arguments(self, parser):

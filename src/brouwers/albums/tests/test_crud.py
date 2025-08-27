@@ -79,7 +79,6 @@ class CrudTests(LoginRequiredMixin, WebTest):
 
 
 class UploadTests(LoginRequiredMixin, WebTest):
-
     url = reverse("albums:upload")
 
     def setUp(self):

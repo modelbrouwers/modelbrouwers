@@ -6,7 +6,6 @@ import brouwers.general.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("general", "0004_auto_20220619_1442"),
     ]

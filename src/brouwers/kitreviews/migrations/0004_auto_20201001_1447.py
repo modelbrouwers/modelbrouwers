@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("kitreviews", "0003_auto_20160908_1740"),
     ]

@@ -12,7 +12,6 @@ import brouwers.kits.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

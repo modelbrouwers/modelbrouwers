@@ -5,7 +5,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("shop", "0009_auto_20180930_2016"),
         ("shop", "0007_categorycarouselimage"),
