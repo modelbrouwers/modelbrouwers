@@ -7,7 +7,7 @@ from django.db.models import Q, QuerySet
 from .constants import CART_SESSION_KEY, CartStatuses
 
 if TYPE_CHECKING:
-    from .models import Cart
+    pass
 
 
 class CartQuerySet(QuerySet["Cart"]):

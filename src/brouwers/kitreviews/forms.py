@@ -39,9 +39,7 @@ class FindModelKitForm(forms.Form):
             name_parts = kit_name.split(" ")
             # order doesn't matter, just find the kits with names that have all
             # the search terms
-            q_list = []
-            for part in name_parts:
-                q_list.append(Q(name__icontains=part))
+            q_list = [Q(name__icontains=part) for part in name_parts]
             results = results.filter(*q_list)
 
         scale = self.cleaned_data["scale"]

@@ -21,11 +21,11 @@ from brouwers.builds.models import BuildPhoto
 from ...models import DataDownloadRequest
 
 
-class DataDownload(object):
+class DataDownload:
     def __init__(self, download_request):
         self.download_request = download_request
         self.tempdir = tempfile.mkdtemp(dir=settings.PRIVATE_MEDIA_ROOT)
-        self.filename = "{}.zip".format(self.tempdir)
+        self.filename = f"{self.tempdir}.zip"
 
     def __enter__(self):
         return self
@@ -127,7 +127,7 @@ class DataDownload(object):
                 os.makedirs(target_dir)
             try:
                 shutil.copy(source, target)
-            except IOError:
+            except OSError:
                 pass
 
     def cleanup(self):
@@ -136,7 +136,7 @@ class DataDownload(object):
 
     def archive(self):
         with ZipFile(self.filename, "w", allowZip64=True) as zipfile:
-            for dir_path, dirs, files in os.walk(self.tempdir):
+            for dir_path, _dirs, files in os.walk(self.tempdir):
                 for fn in files:
                     full_path = os.path.join(dir_path, fn)
                     arcname = os.path.relpath(full_path, self.tempdir)

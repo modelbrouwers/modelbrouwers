@@ -83,7 +83,7 @@ class Build(models.Model):
         url = self.topic.get_absolute_url()
         if self.topic_start_page > 1:
             offset = settings.PHPBB_POSTS_PER_PAGE * (self.topic_start_page - 1)
-            url += "&start={0}".format(offset)
+            url += f"&start={offset}"
         return url
 
     @cached_property

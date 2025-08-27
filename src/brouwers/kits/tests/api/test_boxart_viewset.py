@@ -36,7 +36,7 @@ class BoxartTests(APITestCase):
             response.data,
             {
                 "uuid": boxart.uuid,
-                "image": "http://testserver{}".format(boxart.image.url),
+                "image": f"http://testserver{boxart.image.url}",
                 "success": True,
             },
         )

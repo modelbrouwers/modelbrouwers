@@ -16,7 +16,7 @@ class ProfileTests(WebTest):
         """Test that login is required to edit the profile"""
         url = reverse("users:profile")
         redirect = self.app.get(url)
-        expected_url = "{}?next={}".format(settings.LOGIN_URL, url)
+        expected_url = f"{settings.LOGIN_URL}?next={url}"
         self.assertRedirects(redirect, expected_url)
 
         edit_page = self.app.get(url, user=self.user)

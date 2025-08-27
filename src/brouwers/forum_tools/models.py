@@ -1,5 +1,5 @@
 import zlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from django.conf import settings
 from django.db import models
@@ -73,7 +73,7 @@ class ForumUser(models.Model):
         verbose_name = _("forum user")
         verbose_name_plural = _("forum users")
         ordering = ("username",)
-        db_table = "%susers" % settings.PHPBB_TABLE_PREFIX
+        db_table = f"{settings.PHPBB_TABLE_PREFIX}users"
 
     def __str__(self):
         return self.username
@@ -83,12 +83,12 @@ class ForumUser(models.Model):
             "mode": "viewprofile",
             "u": self.user_id,
         }
-        return "{0}?{1}".format(reverse("phpBB:memberlist"), urlencode(qs))
+        return "{}?{}".format(reverse("phpBB:memberlist"), urlencode(qs))
 
     def get_email_hash(self):
         email = self.user_email
         h = zlib.crc32(email.lower().encode("ascii")) & 0xFFFFFFFF
-        return "%s%s" % (h, len(email))
+        return f"{h}{len(email)}"
 
     def save(self, *args, **kwargs):
         self.user_email_hash = self.get_email_hash()
@@ -124,7 +124,7 @@ class Forum(models.Model):
 
     def get_absolute_url(self):
         qs = {"f": self.forum_id}
-        return "{0}?{1}".format(reverse("phpBB:viewforum"), urlencode(qs))
+        return "{}?{}".format(reverse("phpBB:viewforum"), urlencode(qs))
 
     class Meta:
         managed = False
@@ -159,14 +159,14 @@ class Topic(models.Model):
         qs = {"t": self.topic_id}
         if self.forum.pk:
             qs["f"] = self.forum.pk
-        return "{0}?{1}".format(reverse("phpBB:viewtopic"), urlencode(qs))
+        return "{}?{}".format(reverse("phpBB:viewtopic"), urlencode(qs))
 
     @property
     def created(self):
-        return datetime.fromtimestamp(self.create_time, tz=timezone.utc)
+        return datetime.fromtimestamp(self.create_time, tz=UTC)
 
     def get_last_post_time(self):
-        return datetime.fromtimestamp(self.last_post_time, tz=timezone.utc)
+        return datetime.fromtimestamp(self.last_post_time, tz=UTC)
 
     @property
     def is_dead(self):
@@ -236,11 +236,11 @@ class Report(models.Model):
         managed = False
         verbose_name = _("report")
         verbose_name_plural = _("reports")
-        db_table = "%sreports" % settings.PHPBB_TABLE_PREFIX
+        db_table = f"{settings.PHPBB_TABLE_PREFIX}reports"
         permissions = (("can_see_reports", _("Can see (number of) open reports")),)
 
     def __str__(self):
-        return _("Report %(id)s" % {"id": self.report_id})
+        return _("Report {id}".format(id=self.report_id))
 
     def report_time(self):
         return datetime.fromtimestamp(self.report_time_int)

@@ -20,7 +20,7 @@ from ..models import ALBUM_SEARCH_VECTOR, Album, AlbumDownload, Photo
 logger = logging.getLogger(__name__)
 
 
-class AlbumQuerysetMixin(object):
+class AlbumQuerysetMixin:
     queryset = Album.objects.public()
 
     def get_album_queryset(self):
@@ -129,7 +129,7 @@ class AlbumDownloadView(LoginRequiredMixin, AlbumQuerysetMixin, DetailView):
             "albums",
             str(album.user_id),
             str(album.id),
-            "{}.zip".format(album.id),
+            f"{album.id}.zip",
         )
 
         if not reuse_zip:
@@ -143,7 +143,7 @@ class AlbumDownloadView(LoginRequiredMixin, AlbumQuerysetMixin, DetailView):
             with zipfile.ZipFile(filename, "w") as ziph:
                 for photo in album.photo_set.filter(trash=False):
                     if not photo.exists:
-                        logger.warn("Missing photo: %d" % photo.id)
+                        logger.warning("Missing photo: %d", photo.id)
                         continue
                     image = photo.image.path
                     ziph.write(image, os.path.split(image)[1])

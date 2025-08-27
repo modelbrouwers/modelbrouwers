@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from decimal import Decimal
-from typing import Callable, ClassVar
+from typing import ClassVar
 
 from django.db import models
 from django.utils import formats

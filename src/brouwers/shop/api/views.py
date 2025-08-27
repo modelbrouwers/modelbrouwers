@@ -58,7 +58,7 @@ class GetShippingCostsView(views.APIView):
         try:
             country = CountryChoices(request.GET.get("country"))
         except ValueError:
-            raise serializers.ValidationError({"country": "Invalid country."})
+            raise serializers.ValidationError({"country": "Invalid country."}) from None
 
         # now the cart and country have been validated, calculate the price
         total_weight_in_grams = cart.weight

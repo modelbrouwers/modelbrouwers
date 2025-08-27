@@ -136,6 +136,6 @@ class LegacyRedirectView(RedirectView):
         try:
             review_id = int(self.request.GET.get("review"))
         except (ValueError, TypeError):
-            raise Http404
+            raise Http404 from None
         review = get_object_or_404(KitReview, legacy_id=review_id)
         return review.get_absolute_url()

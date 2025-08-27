@@ -81,14 +81,14 @@ class ShowCasedModel(models.Model):
         super().save(*args, **kwargs)
 
     def get_scale(self):
-        return "1:{0}".format(self.scale) if self.scale else ""
+        return f"1:{self.scale}" if self.scale else ""
 
     def get_absolute_url(self):
         return reverse("brouwersdag:model-detail", kwargs={"pk": self.pk})
 
     def get_url(self):
         domain = Site.objects.get_current().domain
-        return "{0}{1}".format(domain, self.get_absolute_url())
+        return f"{domain}{self.get_absolute_url()}"
 
 
 class Competition(models.Model):
@@ -150,7 +150,7 @@ class Brouwersdag(models.Model):
         ordering = ("-date",)
 
     def __str__(self):
-        return self.name or "Brouwersdag %s" % self.date.year
+        return self.name or f"Brouwersdag {self.date.year}"
 
 
 class Exhibitor(models.Model):

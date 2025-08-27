@@ -128,7 +128,7 @@ class AddReviewViewTests(WebTestFormMixin, LoginRequiredMixin, WebTest):
 
         # non-authored topics may not be shown
         with self.assertRaisesRegex(
-            ValueError, r"^Option %s not found \(from" % topic1.pk
+            ValueError, rf"^Option {topic1.pk} not found \(from"
         ):
             form["topic"].select(topic1.pk)
         form["topic"].select(topic2.pk)

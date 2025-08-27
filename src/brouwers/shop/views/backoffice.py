@@ -44,10 +44,7 @@ class OrderDetailView(BackofficeRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["num_products"] = sum(
-            (
-                cart_product.amount
-                for cart_product in context["order"].cart.products.all()
-            )
+            cart_product.amount for cart_product in context["order"].cart.products.all()
         )
         return context
 

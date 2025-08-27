@@ -1,7 +1,7 @@
 from ..models import Preferences
 
 
-class override_preferences(object):
+class override_preferences:
     def __init__(self, user, **kwargs):
         assert len(kwargs), "You must provide at least one field"
         self.kwargs = kwargs

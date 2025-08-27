@@ -58,15 +58,15 @@ class Scale(models.Model):
         verbose_name_plural = _("scales")
         ordering = ["scale"]
 
-    def get_repr(self, separator=":"):
-        return "1%s%d" % (separator, self.scale)
-
     def __str__(self):
         return self.get_repr()
 
+    def get_repr(self, separator=":"):
+        return f"1{separator}{self.scale}"
+
 
 def get_kit_slug(instance):
-    return "{0} {1}".format(instance.name, instance.brand.name)
+    return f"{instance.name} {instance.brand.name}"
 
 
 class ModelKit(models.Model):
@@ -113,7 +113,7 @@ class ModelKit(models.Model):
         verbose_name_plural = _("model kits")
 
     def __str__(self):
-        return "{brand} - {name}".format(brand=self.brand, name=self.name)
+        return f"{self.brand} - {self.name}"
 
     def save(self, *args, **kwargs):
         """

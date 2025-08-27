@@ -40,7 +40,7 @@ class MyAlbumTests(APITestCase):
         # ensure pagination is disabled
         self.assertNotIn("count", response.data)
 
-        for album, result in zip(albums, response.data):
+        for album, result in zip(albums, response.data, strict=False):
             self.assertEqual(result["id"], album.id)
             self.assertEqual(result["title"], album.title)
             self.assertEqual(result["description"], album.description)

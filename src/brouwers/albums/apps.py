@@ -7,4 +7,4 @@ class AlbumsConfig(AppConfig):
     verbose_name = _("Albums")
 
     def ready(self):
-        from . import signals
+        from . import signals  # noqa: F401

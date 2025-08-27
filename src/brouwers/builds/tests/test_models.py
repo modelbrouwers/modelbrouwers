@@ -32,9 +32,7 @@ class BuildTests(TestCase):
     def test_topic_url(self):
         self.assertEqual(
             self.build.topic_url,
-            "/forum/viewtopic.php?t={0}&f={1}&start=5".format(
-                self.topic.pk, self.topic.forum_id
-            ),
+            f"/forum/viewtopic.php?t={self.topic.pk}&f={self.topic.forum_id}&start=5",
         )
 
     def test_topic_url_no_startpage(self):
@@ -42,7 +40,7 @@ class BuildTests(TestCase):
         build = BuildFactory.create(topic_id=topic.pk)
         self.assertEqual(
             build.topic_url,
-            "/forum/viewtopic.php?t={0}&f={1}".format(topic.pk, topic.forum_id),
+            f"/forum/viewtopic.php?t={topic.pk}&f={topic.forum_id}",
         )
 
     def test_topic_url_None(self):

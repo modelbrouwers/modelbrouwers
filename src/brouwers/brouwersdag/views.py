@@ -18,7 +18,7 @@ from .forms import ShowCasedModelSignUpForm
 from .models import Brouwersdag, Competition, ShowCasedModel
 
 
-class OwnModelsMixin(object):
+class OwnModelsMixin:
     def get_queryset(self):
         qs = super().get_queryset()
         user = self.request.user
@@ -47,7 +47,7 @@ class IndexView(ListView):
         return context
 
 
-class CompetitionMixin(object):
+class CompetitionMixin:
     def get_competition(self):
         if not hasattr(self, "_competition"):
             try:

@@ -36,7 +36,7 @@ class Cart(models.Model):
     )
 
     objects: ClassVar[CartQuerySet] = CartQuerySet.as_manager()  # type: ignore
-    products: models.QuerySet["CartProduct"]
+    products: models.QuerySet[CartProduct]
 
     class Meta:
         verbose_name = _("cart")

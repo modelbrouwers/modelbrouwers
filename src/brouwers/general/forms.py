@@ -21,7 +21,7 @@ class RedirectForm(forms.Form):
     def clean_redirect(self):
         path = self.cleaned_data.get("redirect")
         if path and self._check_allowed_host_and_scheme(path):
-            return "%s%s" % (settings.PHPBB_URL, path[1:])
+            return f"{settings.PHPBB_URL}{path[1:]}"
         return None
 
     def clean_next(self):

@@ -73,11 +73,13 @@ class BuildSearchForm(forms.Form):
             .filter(Q(user__username__icontains=q) | Q(title__icontains=q))
             .order_by("title")
         )
-        for build in builds:
-            results.append(
+        results.extend(
+            [
                 {
-                    "display": "{0.user.username} - {0.title}".format(build),
+                    "display": f"{build.user.username} - {build.title}",
                     "url": build.get_absolute_url(),
                 }
-            )
+                for build in builds
+            ]
+        )
         return results

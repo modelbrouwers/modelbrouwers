@@ -198,7 +198,7 @@ class ProductDetailViewTests(WebTest):
             CategoryFactory.create(name="Root 1"),
             CategoryFactory.create(name="Root 2"),
         )
-        child1 = CategoryFactory.create(parent=root1, name="Child 1")
+        CategoryFactory.create(parent=root1, name="Child 1")
         child2 = CategoryFactory.create(parent=root2, name="Child 2")
         product = ProductFactory.create(categories=[child2])
 

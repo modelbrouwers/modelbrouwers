@@ -7,7 +7,7 @@ from ..models import Brand, ModelKit, Scale
 
 
 class BrandFactory(factory.django.DjangoModelFactory):
-    name = factory.Sequence(lambda n: "Brand {n:05d}".format(n=n))
+    name = factory.Sequence(lambda n: f"Brand {n:05d}")
     logo = factory.django.ImageField()
 
     class Meta:
@@ -24,7 +24,7 @@ class ScaleFactory(factory.django.DjangoModelFactory):
 
 
 class ModelKitFactory(factory.django.DjangoModelFactory):
-    name = factory.Sequence(lambda n: "Kit {n}".format(n=n))
+    name = factory.Sequence(lambda n: f"Kit {n}")
     brand = factory.SubFactory(BrandFactory)
     scale = factory.SubFactory(ScaleFactory)
     box_image = factory.django.ImageField()

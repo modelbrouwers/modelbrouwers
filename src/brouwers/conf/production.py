@@ -3,6 +3,7 @@ Production environment settings module.
 Tweaks the base settings so that caching mechanisms are used where possible,
 and HTTPS is leveraged where possible to further secure things.
 """
+# ruff: noqa: F401 F403 F405
 
 import os
 
@@ -10,7 +11,7 @@ os.environ.setdefault("SESSION_COOKIE_DOMAIN", ".modelbrouwers.nl")
 os.environ.setdefault("ALLOWED_HOSTS", ".modelbrouwers.nl")
 os.environ.setdefault("CACHE_PREFIX", "production")
 
-from .base import *  # noqa isort:skip
+from .base import *
 
 STORAGES = {
     "default": {

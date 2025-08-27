@@ -6,7 +6,7 @@ from django.utils.html import format_html_join
 
 def get_urlname(obj):
     app_label, model_name = obj._meta.app_label, obj._meta.model_name
-    return "admin:{}_{}_change".format(app_label, model_name)
+    return f"admin:{app_label}_{model_name}_change"
 
 
 def get_reverse_args(obj, *arg_names):
@@ -37,9 +37,7 @@ def related_list(short_description=None, repr_attr=None):
         @wraps(method)
         def f(*args, **kwargs):
             related_qs = method(*args, **kwargs)
-            return ", ".join(
-                ["{}".format(get_repr_attr(rel, repr_attr)) for rel in related_qs]
-            )
+            return ", ".join([f"{get_repr_attr(rel, repr_attr)}" for rel in related_qs])
 
         return f
 

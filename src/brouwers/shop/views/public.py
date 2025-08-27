@@ -1,9 +1,8 @@
 import json
 import logging
 import re
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from functools import partial
-from typing import Callable
 from urllib.parse import urlsplit
 
 from django.core.exceptions import PermissionDenied

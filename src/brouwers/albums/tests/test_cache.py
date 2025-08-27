@@ -27,7 +27,7 @@ class CacheTests(TestCase):
         self.client.login(username=user.username, password="password")
         self.assertEqual(Preferences.objects.filter(user=user).count(), 0)
 
-        cache_key = "album-preferences:%d" % user.id
+        cache_key = f"album-preferences:{user.id}"
 
         # make sure the cache is empty
         prefs = cache.get(cache_key)

@@ -54,7 +54,9 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         initial = super().get_initial()
-        initial.setdefault("title", "album %s" % timezone.now().strftime("%d-%m-%Y"))
+        initial.setdefault(
+            "title", "album {}".format(timezone.now().strftime("%d-%m-%Y"))
+        )
         return initial
 
     def form_valid(self, form):
@@ -63,7 +65,7 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         url = super().get_success_url()
-        return "%s%s" % (url, "?album=%s" % self.object.id)
+        return f"{url}?album={self.object.id}"
 
 
 class AlbumUpdateView(LoginRequiredMixin, UpdateView):
@@ -112,7 +114,7 @@ class AlbumRestoreView(AlbumUpdateView):
     }
 
 
-class PhotoSuccessURLMixin(object):
+class PhotoSuccessURLMixin:
     def get_success_url(self):
         if not self.object.trash:
             return self.object.get_absolute_url()

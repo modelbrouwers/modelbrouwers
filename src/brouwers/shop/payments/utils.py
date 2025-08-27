@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.contrib import messages
 from django.http import HttpRequest
 from django.utils.http import url_has_allowed_host_and_scheme
@@ -9,7 +7,7 @@ from ..constants import CART_SESSION_KEY, CartStatuses
 from ..models import Payment
 
 
-def get_next_page(request: HttpRequest, next_param="next") -> Optional[str]:
+def get_next_page(request: HttpRequest, next_param="next") -> str | None:
     if not (next_page := request.GET.get(next_param)):
         return None
 

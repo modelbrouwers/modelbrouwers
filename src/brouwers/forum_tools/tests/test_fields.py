@@ -4,7 +4,7 @@ from django.test import SimpleTestCase, TestCase
 from ..forms.fields import ForumIDField, TopicIDField
 from ..models import Forum
 from .custom_fields.models import MyModel
-from .factory_models import ForumFactory, TopicFactory
+from .factories import ForumFactory, TopicFactory
 
 
 class FormFieldTests(SimpleTestCase):

@@ -27,7 +27,7 @@ class ClientTests(SimpleTestCase):
 
         with self.subTest("client session accessed"):
             with client:
-                client.session
+                client.session  # noqa: B018
             mock_close.assert_called_once()
 
     @patch_cache(backend="django.core.cache.backends.locmem.LocMemCache")

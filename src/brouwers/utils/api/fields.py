@@ -17,18 +17,18 @@ class ThumbnailField(fields.ImageField):
         request = self.context.get("request", None)
         for name, dim in self.dimensions:
             if not value:
-                thumbs["%s" % name] = None
+                thumbs[f"{name}"] = None
                 continue
 
             try:
                 image = get_thumbnail(value, dim, **self.opts)
-            except IOError:
+            except OSError:
                 logger.exception("Could not create thumb/scaled version.")
                 continue
             if request is not None:
                 img_url = request.build_absolute_uri(image.url)
             else:
                 img_url = super().to_representation(image.url)
-            thumbs["%s" % name] = img_url
+            thumbs[f"{name}"] = img_url
 
         return thumbs

@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "ordering": ["forum_name"],
-                "db_table": "%sforums" % settings.PHPBB_TABLE_PREFIX,
+                "db_table": f"{settings.PHPBB_TABLE_PREFIX}forums",
                 "managed": settings.TESTING,
             },
             bases=(models.Model,),
@@ -257,7 +257,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "ordering": ("username",),
-                "db_table": "%susers" % settings.PHPBB_TABLE_PREFIX,
+                "db_table": f"{settings.PHPBB_TABLE_PREFIX}users",
                 "verbose_name": "forum user",
                 "verbose_name_plural": "forum users",
                 "managed": settings.TESTING,
@@ -292,7 +292,7 @@ class Migration(migrations.Migration):
                 ("report_text", models.TextField(verbose_name="text", blank=True)),
             ],
             options={
-                "db_table": "%sreports" % settings.PHPBB_TABLE_PREFIX,
+                "db_table": f"{settings.PHPBB_TABLE_PREFIX}reports",
                 "verbose_name": "report",
                 "verbose_name_plural": "reports",
                 "permissions": (
@@ -332,7 +332,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "ordering": ["topic_id"],
-                "db_table": "%stopics" % settings.PHPBB_TABLE_PREFIX,
+                "db_table": f"{settings.PHPBB_TABLE_PREFIX}topics",
                 "managed": settings.TESTING,
             },
             bases=(models.Model,),
