@@ -52,3 +52,43 @@ replace = ":Version: {new_version}"
 filename = "package.json"
 search = "  \"version\": \"{current_version}\""
 replace = "  \"version\": \"{new_version}\""
+
+[tool.ruff]
+extend-exclude = [
+    "static",
+    "storybook-static",
+    "media",
+    "public",
+    "src/manage.py",
+    # Might be created by developers:
+    "src/openforms/conf/local.py",
+]
+
+[tool.ruff.lint]
+extend-select = [
+    "UP",  # pyupgrade
+    # "DJ",  # django
+    "LOG", # logging
+    "G",
+    "I",     # isort
+    # "E",   # pycodestyle
+    "F",     # pyflakes
+    "PERF",# perflint
+    "B",     # flake8-bugbear
+    # "TID251",# tidy-imports
+    # "TID253",
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+section-order = [
+    "future",
+    "standard-library",
+    "django",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.isort.sections]
+"django" = ["django"]
