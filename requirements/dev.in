@@ -4,10 +4,8 @@
 # Helpers
 bump-my-version
 
-# Code formatting
-black
-isort
-flake8
+# Code formatting & linting
+ruff
 
 # Debug tooling
 django-debug-toolbar
