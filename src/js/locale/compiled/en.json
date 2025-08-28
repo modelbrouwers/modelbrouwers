@@ -41,6 +41,12 @@
       "value": "Remove one"
     }
   ],
+  "1sDBO3": [
+    {
+      "type": 0,
+      "value": "I want to reply anyway."
+    }
+  ],
   "3UvxIB": [
     {
       "type": 0,
@@ -235,6 +241,12 @@
     {
       "type": 0,
       "value": "Select your payment method"
+    }
+  ],
+  "RU1ahV": [
+    {
+      "type": 0,
+      "value": "You must select exactly one album to upload the photos to."
     }
   ],
   "U+ONwt": [
@@ -580,6 +592,12 @@
     {
       "type": 0,
       "value": "Rules topic"
+    }
+  ],
+  "uYho7B": [
+    {
+      "type": 0,
+      "value": "Incorrect album selection"
     }
   ],
   "v2t0Vo": [

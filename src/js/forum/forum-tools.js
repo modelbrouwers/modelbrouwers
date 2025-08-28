@@ -1,18 +1,17 @@
-'use strict';
-
 import $ from 'jquery';
+import {createRoot} from 'react-dom/client';
+import {IntlProvider} from 'react-intl';
 import URI from 'urijs';
 
 import {getTopic} from '@/data/topic';
+import {getIntlProviderProps} from '@/i18n.js';
 
+import DeadTopicModal from './DeadTopicModal';
 import urlconf from './urlconf';
 
 const conf = {
   forum_id_key: 'f',
   topic_id_key: 't',
-  selectors: {
-    new_post: 'a.new-post',
-  },
 };
 
 export default class App {
@@ -21,34 +20,46 @@ export default class App {
     this.initPostPermissions();
   }
 
-  static initDeadTopics() {
-    const test_url = async function (e) {
-      e.preventDefault();
-      var a = $(this);
-      var topic_id = a.data('topic-id');
-
-      const {is_dead, text_dead} = await getTopic(parseInt(topic_id));
-      if (!is_dead) {
-        window.location = a.attr('href');
-      } else {
-        $('body').css('overflow-y', 'hidden');
-        $('#blanket, #dead_topic').show();
-        $('#message_topic_dead').text(text_dead);
-      }
-
-      return false;
-    };
-
-    const hideOverlayDeadTopics = () => {
-      $('div#blanket').hide();
-      $('div#dead_topic').hide();
-      $('body').css('overflow-y', 'auto');
-      return false;
-    };
-
+  static async initDeadTopics() {
     // dead-topics - bind clicks on reply buttons
-    $(conf.selectors.new_post).click(test_url);
-    $('a#close_message').click(hideOverlayDeadTopics);
+    const rootNode = document.getElementById('dead_topic');
+    if (!rootNode) return;
+    const inltPropsPromise = getIntlProviderProps();
+
+    const {postReplyUrl} = rootNode.dataset;
+
+    let reactRoot = createRoot(rootNode);
+    const resetRoot = () => {
+      reactRoot.unmount();
+      reactRoot = createRoot(rootNode);
+    };
+
+    const addNewPostLinks = document.querySelectorAll('a.new-post');
+    for (const link of addNewPostLinks) {
+      link.addEventListener('click', async event => {
+        event.preventDefault();
+        const anchor = event.currentTarget;
+        const {topicId} = anchor.dataset;
+
+        // check if it's okay or not
+        const {is_dead, text_dead} = await getTopic(parseInt(topicId));
+        if (!is_dead) {
+          window.location = anchor.href;
+          return;
+        }
+
+        const intlProps = await inltPropsPromise;
+        reactRoot.render(
+          <IntlProvider {...intlProps}>
+            <DeadTopicModal
+              message={text_dead}
+              replyTopicUrl={postReplyUrl}
+              onRequestClose={resetRoot}
+            />
+          </IntlProvider>,
+        );
+      });
+    }
   }
 
   static initPostPermissions() {
