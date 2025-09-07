@@ -49,6 +49,7 @@
       margin-block-start: -10px;
       transition: transform ease 0.1s;
       opacity: 0.75;
+      cursor: pointer;
 
       &:focus {
         outline: revert;

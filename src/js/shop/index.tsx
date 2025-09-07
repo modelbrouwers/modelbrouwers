@@ -20,7 +20,6 @@ export default class Page {
   static async init() {
     try {
       const intlProviderProps = await getIntlProviderProps();
-      // @ts-expect-error
       this.initCart(intlProviderProps);
     } catch (err) {
       console.log(err);

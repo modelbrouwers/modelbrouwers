@@ -57,7 +57,7 @@ export const setAsCover = async (id: number): Promise<void> => {
  * Generic albums/photos interaction
  */
 
-interface PhotoData {
+export interface PhotoData {
   id: number;
   user: {username: string};
   description: string;

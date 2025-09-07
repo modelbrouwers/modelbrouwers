@@ -26,7 +26,8 @@ const getIntlProviderProps = async () => {
 };
 
 const getLocale = () => {
-  return document.querySelector('html').getAttribute('lang');
+  const lang = document.querySelector('html').getAttribute('lang');
+  return lang.substring(0, 2);
 };
 
 export {loadLocaleData, getIntlProviderProps, getLocale};

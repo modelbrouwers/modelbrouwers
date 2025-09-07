@@ -1,12 +1,14 @@
 import $ from 'jquery';
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+import {IntlProvider} from 'react-intl';
 
 import {setAsCover} from '@/data/albums/photo';
+import {getIntlProviderProps} from '@/i18n.js';
 
 import LightBox from './LightBox';
 import {Control, RotateControl} from './photo-detail';
-import {PhotoUpload} from './upload';
+import initUpload from './upload';
 
 const setCover = async photoNode => {
   const photoId = parseInt(photoNode.dataset.id);
@@ -19,33 +21,37 @@ export default class Page {
   static init() {
     this.initLightbox();
     this.initControls();
-    new PhotoUpload();
+    initUpload();
     this.initPhotoEdit();
   }
 
-  static initLightbox() {
+  static async initLightbox() {
     const lightBox = document.getElementById('modal-lightbox');
     if (!lightBox) return;
-    const targetNode = lightBox.querySelector('.modal-content');
 
     const thumbs = document.querySelectorAll('#photo-thumbs .album-photo');
     if (!thumbs.length) return;
 
-    const {album, page} = lightBox.dataset;
+    const intlProviderProps = await getIntlProviderProps();
 
+    const {album, page} = lightBox.dataset;
+    const root = createRoot(lightBox);
+
+    let recreateTrigger = 0;
     for (const thumb of thumbs) {
       thumb.addEventListener('click', event => {
         event.preventDefault();
+        recreateTrigger++;
         const {id: photoId} = event.currentTarget.dataset;
-        // TODO: change modals to non-bootstrap
-        $(lightBox).modal('show');
-        const root = createRoot(targetNode);
         root.render(
-          <LightBox
-            albumId={parseInt(album, 10)}
-            page={parseInt(page, 10)}
-            selectedPhotoId={parseInt(photoId, 10)}
-          />,
+          <IntlProvider {...intlProviderProps}>
+            <LightBox
+              key={recreateTrigger}
+              albumId={parseInt(album, 10)}
+              page={parseInt(page, 10)}
+              selectedPhotoId={parseInt(photoId, 10)}
+            />
+          </IntlProvider>,
         );
       });
     }

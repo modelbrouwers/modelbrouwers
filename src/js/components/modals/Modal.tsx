@@ -24,6 +24,18 @@ const Modal: React.FC<ModalProps> = ({isOpen, onRequestClose, title, children}) 
     }
   }, [isOpen]);
 
+  // sync state back from closedby firing a close event
+  useEffect(() => {
+    const modalElement = modalRef.current!;
+    const onClosed = () => {
+      if (isOpen) onRequestClose();
+    };
+    modalElement.addEventListener('close', onClosed);
+    return () => {
+      modalElement.removeEventListener('close', onClosed);
+    };
+  }, [isOpen]);
+
   return (
     <dialog
       className="modal modal--native"
@@ -34,11 +46,12 @@ const Modal: React.FC<ModalProps> = ({isOpen, onRequestClose, title, children}) 
         }
       }}
       aria-labelledby={titleId}
+      // @ts-expect-error
+      closedby="any"
     >
       {title && (
         <h2 className="modal__title" id={titleId}>
-          {' '}
-          {title}{' '}
+          {title}
         </h2>
       )}
       <button className="modal__close" onClick={() => onRequestClose()}>
