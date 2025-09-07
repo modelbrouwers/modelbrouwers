@@ -8,20 +8,6 @@ import LightBox from './LightBox';
 export default {
   title: 'Albums / LightBox',
   component: LightBox,
-  decorators: [
-    Story => (
-      <>
-        <div className="modal fade lightbox in" style={{display: 'block', paddingRight: '15px'}}>
-          <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <Story />
-            </div>
-          </div>
-        </div>
-        <div className="modal-backdrop fade in" />
-      </>
-    ),
-  ],
   args: {
     albumId: 99,
     page: 1,

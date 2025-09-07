@@ -15,13 +15,14 @@ const initUpload = () => {
 
   const intlProviderPropsPromise = getIntlProviderProps();
   const modalNode = document.getElementById('modal-albums');
-  let modalRoot = createRoot(modalNode);
-  const onCloseModal = () => {
-    modalRoot.unmount();
-    modalRoot = createRoot(modalNode);
-  };
 
   if (elem) {
+    let modalRoot = createRoot(modalNode);
+    const onCloseModal = () => {
+      modalRoot.unmount();
+      modalRoot = createRoot(modalNode);
+    };
+
     const uploadSettings = JSON.parse(document.getElementById('uploadSettings').innerText);
     uploader = new qq.FineUploader({
       element: elem,

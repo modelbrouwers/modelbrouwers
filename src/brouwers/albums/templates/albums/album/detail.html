@@ -76,13 +76,5 @@
 
 
 {% block modals %}
-    <div class="modal fade lightbox" id="modal-lightbox" data-album="{{ album.pk }}" data-page="{{ page_obj.number }}">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="text-center" id="image-loader">
-                    <i class="fa fa-pulse fa-spinner fa-4x"></i>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="modal-lightbox" data-album="{{ album.pk }}" data-page="{{ page_obj.number }}">{# React managed #}</div>
 {% endblock %}
