@@ -1,6 +1,9 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db import models
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, UpdateView
+
+from brouwers.shop.models.cart import CartProduct
 
 from ..constants import OrderStatuses
 from ..forms import OrderDetailForm
@@ -34,7 +37,13 @@ class OrderListView(BackofficeRequiredMixin, ListView):
 
 
 class OrderDetailView(BackofficeRequiredMixin, UpdateView):
-    queryset = Order.objects.select_related("cart", "payment")
+    queryset = Order.objects.select_related(
+        "cart", "payment", "delivery_address", "invoice_address"
+    ).prefetch_related(
+        models.Prefetch(
+            "cart__products", queryset=CartProduct.objects.select_related("product")
+        )
+    )
     form_class = OrderDetailForm
     slug_field = "reference"
     slug_url_kwarg = "reference"
