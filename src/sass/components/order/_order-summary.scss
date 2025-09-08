@@ -34,6 +34,12 @@
     }
   }
 
+  @include bem.modifier('actionable') {
+    @include bem.element('detail-link') {
+      @extend .button--orange;
+    }
+  }
+
   @include bem.element('heading') {
     display: flex;
     justify-content: space-between;
