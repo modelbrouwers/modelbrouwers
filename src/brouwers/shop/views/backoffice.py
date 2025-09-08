@@ -5,7 +5,7 @@ from django.views.generic import ListView, TemplateView, UpdateView
 
 from brouwers.shop.models.cart import CartProduct
 
-from ..constants import OrderStatuses
+from ..constants import DeliveryMethods, OrderStatuses
 from ..forms import OrderDetailForm
 from ..models import Order
 
@@ -52,8 +52,14 @@ class OrderDetailView(BackofficeRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["num_products"] = sum(
-            cart_product.amount for cart_product in context["order"].cart.products.all()
+        context.update(
+            {
+                "DeliveryMethods": DeliveryMethods,
+                "num_products": sum(
+                    cart_product.amount
+                    for cart_product in context["order"].cart.products.all()
+                ),
+            }
         )
         return context
 
