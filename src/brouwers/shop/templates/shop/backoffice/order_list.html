@@ -24,7 +24,7 @@
     <ol class="order-list">
         {% for order in orders %}
             {% url 'shop:order-detail' reference=order.reference as detail_url %}
-            <li class="order-summary {% if order.status == 'received' %}order-summary--new{% endif %}">
+            <li class="order-summary {% if order.status == 'received' %}order-summary--new{% endif %} {% if order.is_actionable %}order-summary--actionable{% endif %}">
 
                 <heading class="order-summary__heading">
                     <h2 class="order-summary__reference">
@@ -82,8 +82,12 @@
                 </div>
 
                 <div class="text-right">
-                    <a href="{{ detail_url }}" class="button button--orange">
+                    <a href="{{ detail_url }}" class="button button--light-blue order-summary__detail-link">
                         {% trans "Manage order" %}
+                        {% if order.is_actionable %}
+                            &nbsp;
+                            <i class="fa fa-exclamation" title="{% trans "Order is actionable" %}"></i>
+                        {% endif %}
                     </a>
                 </div>
             </li>
