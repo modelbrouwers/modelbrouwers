@@ -150,7 +150,7 @@ class ProductResource(ModelResource):
         try:
             category_ids = [
                 int(stripped_x)
-                for (x) in row.get("categories", "").split(",")
+                for (x) in (row.get("categories") or "").split(",")
                 if (stripped_x := x.strip())
             ]
         except (ValueError, TypeError) as exc:
@@ -174,7 +174,7 @@ class ProductResource(ModelResource):
         try:
             related_product_ids = [
                 int(stripped_x)
-                for (x) in row.get("related_products", "").split(",")
+                for (x) in (row.get("related_products") or "").split(",")
                 if (stripped_x := x.strip())
             ]
         except (ValueError, TypeError) as exc:
