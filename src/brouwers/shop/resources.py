@@ -24,7 +24,19 @@ from .models import Category, Product, ProductManufacturer
 class CategoryResource(ModelResource):
     class Meta:
         model = Category
-        fields = ("id", "name", "image", "enabled", "meta_description")
+        fields = (
+            "id",
+            "name",
+            "image",
+            "enabled",
+            "meta_description",
+            "path",
+            "depth",
+            "numchild",
+        )
+
+    def after_import(self, dataset: Dataset, result, **kwargs) -> None:
+        Category.fix_tree(fix_paths=False)
 
 
 class OptimizedM2MWidget(ManyToManyWidget):
