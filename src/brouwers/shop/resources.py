@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from collections.abc import Collection
+from collections.abc import Collection, Sequence
 from typing import TypedDict
 
 from django.core.exceptions import ValidationError
@@ -157,14 +157,23 @@ class ProductResource(ModelResource):
     def import_instance(
         self, instance: Product, row, *, row_number: int, **kwargs
     ) -> None:
+        def _parse_csv_ids(col_name: str) -> Sequence[int]:
+            _raw_value = row.get(col_name)
+            match _raw_value:
+                case None | "":
+                    return ()
+                case int():
+                    return (_raw_value,)
+                case str():
+                    bits = (bit.strip() for bit in _raw_value.split(","))
+                    return [int(bit) for bit in bits]
+                case _:  # pragma: no cover
+                    raise TypeError(f"Unsupported type {type(_raw_value)}")
+
         # modify import hook to validate the categories, since m2m fields are skipped
         # on bulk imports
         try:
-            category_ids = [
-                int(stripped_x)
-                for (x) in (row.get("categories") or "").split(",")
-                if (stripped_x := x.strip())
-            ]
+            category_ids = _parse_csv_ids("categories")
         except (ValueError, TypeError) as exc:
             raise ValidationError(
                 {
@@ -184,11 +193,7 @@ class ProductResource(ModelResource):
 
         # validate the related products, since m2m fields are skipped on bulk imports
         try:
-            related_product_ids = [
-                int(stripped_x)
-                for (x) in (row.get("related_products") or "").split(",")
-                if (stripped_x := x.strip())
-            ]
+            related_product_ids = _parse_csv_ids("related_products")
         except (ValueError, TypeError) as exc:
             raise ValidationError(
                 {
