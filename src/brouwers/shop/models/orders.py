@@ -10,7 +10,7 @@ from furl import furl
 
 from brouwers.general.fields import CountryField
 
-from ..constants import DeliveryMethods, OrderStatuses
+from ..constants import DeliveryMethods, OrderStatuses, PaymentStatuses
 from .utils import get_random_reference
 
 if TYPE_CHECKING:
@@ -145,6 +145,16 @@ class Order(models.Model):
 
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)
+
+    @property
+    def is_actionable(self) -> bool:
+        if self.payment.status != PaymentStatuses.completed:
+            return False
+
+        if self.status == OrderStatuses.received:
+            return True
+
+        return False
 
     def get_full_name(self) -> str:
         bits = [self.first_name, self.last_name]
