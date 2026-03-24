@@ -46,14 +46,6 @@
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('font-awesome/css/font-awesome.min.css');<!-- ENDPHP -->" charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="<!-- PHP --> echo $storage->url('bundles/forum-css.css');<!-- ENDPHP -->" charset="utf-8"/>
 
-    <style type="text/css">
-        div#___gcse_0 input.gsc-input, form.gsc-search-box{font-size: 0.9em;}
-        div.gsc-input-box, input.gsc-search-button.gsc-search-button-v2 {height: 18px;}
-        #gs_tti0{padding: 2px 4px 0;}
-        div.gsc-control-cse.gsc-control-cse-nl{padding: 0;}
-        input.gsc-search-button.gsc-search-button-v2{padding: 3px 27px;height: 12px;margin-top: 0;}
-    </style>
-
 <script type="text/javascript">
 // <![CDATA[
 <!-- IF S_USER_PM_POPUP -->
@@ -188,7 +180,7 @@ function marklist(id, name, state)
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a href="/index.php"><img src="<!-- PHP --> echo $storage->url('images/logo/logo20.png');<!-- ENDPHP -->" border="0" alt="Tuus" vspace="1" /></a>
+                            <a href="/index.php"><img src="{T_THEME_PATH}/images/modelbrouwers.gif" border="0" alt="Tuus" vspace="1" /></a>
                          </td>
                         <td>
                             <center>
@@ -222,7 +214,7 @@ function marklist(id, name, state)
                             <td>&nbsp;</td>
                             <td>
                             <!-- Google CSE Search Box -->
-                                <div style="width:372px;height:18px;position:relative;">
+                                <div id="gcse-container">
                                     <script type="text/javascript">
                                       (function() {
                                         var cx = '014647983356809770866:isouu01clny';
