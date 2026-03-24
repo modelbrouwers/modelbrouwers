@@ -313,6 +313,10 @@ python-dotenv==1.1.0
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+redis==7.4.0
+    # via
+    #   -c requirements/base.txt
+    #   -r requirements/base.txt
 requests==2.32.5
     # via
     #   -c requirements/base.txt

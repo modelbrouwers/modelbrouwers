@@ -15,6 +15,7 @@ python-dateutil
 python-decouple  # processing of envvar configs
 python-dotenv  # environment variables for secrets
 pylibmc
+redis
 requests
 requests-oauthlib
 

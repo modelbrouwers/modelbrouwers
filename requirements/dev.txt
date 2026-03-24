@@ -380,6 +380,10 @@ python-dotenv==1.1.0
     #   pydantic-settings
 questionary==2.1.0
     # via bump-my-version
+redis==7.4.0
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 requests==2.32.5
     # via
     #   -c requirements/ci.txt
