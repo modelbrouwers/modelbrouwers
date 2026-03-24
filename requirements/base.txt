@@ -2,7 +2,7 @@
 #    ./bin/compile_dependencies.sh
 aiohappyeyeballs==2.6.1
     # via aiohttp
-aiohttp==3.12.14
+aiohttp==3.13.3
     # via geoip2
 aiosignal==1.4.0
     # via aiohttp
@@ -26,7 +26,7 @@ charset-normalizer==3.4.2
     # via requests
 diff-match-patch==20241021
     # via django-import-export
-django==5.2.6
+django==5.2.12
     # via
     #   -r requirements/base.in
     #   django-admin-index
@@ -115,7 +115,7 @@ lxml==5.4.0
     #   -r requirements/base.in
     #   lxml-html-clean
     #   mail-cleaner
-lxml-html-clean==0.4.2
+lxml-html-clean==0.4.4
     # via -r requirements/base.in
 mail-cleaner==1.2.0
     # via -r requirements/base.in
@@ -133,7 +133,7 @@ openpyxl==3.1.5
     # via -r requirements/base.in
 orderedmultidict==1.0.1
     # via furl
-pillow==11.3.0
+pillow==12.1.1
     # via -r requirements/base.in
 polib==1.2.0
     # via django-rosetta
@@ -155,7 +155,7 @@ python-decouple==3.8
     # via -r requirements/base.in
 python-dotenv==1.1.0
     # via -r requirements/base.in
-requests==2.32.4
+requests==2.32.5
     # via
     #   -r requirements/base.in
     #   django-rosetta
@@ -173,7 +173,7 @@ six==1.17.0
     #   python-dateutil
 sorl-thumbnail==12.11.0
     # via -r requirements/base.in
-sqlparse==0.5.3
+sqlparse==0.5.5
     # via django
 tablib==3.8.0
     # via django-import-export
@@ -188,7 +188,7 @@ typing-extensions==4.13.2
     #   typing-inspection
 typing-inspection==0.4.0
     # via pydantic
-urllib3==2.5.0
+urllib3==2.6.3
     # via
     #   requests
     #   sentry-sdk

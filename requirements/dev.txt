@@ -5,7 +5,7 @@ aiohappyeyeballs==2.6.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   aiohttp
-aiohttp==3.12.14
+aiohttp==3.13.3
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -81,7 +81,7 @@ diff-match-patch==20241021
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-import-export
-django==5.2.6
+django==5.2.12
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -268,7 +268,7 @@ lxml==5.4.0
     #   lxml-html-clean
     #   mail-cleaner
     #   pyquery
-lxml-html-clean==0.4.2
+lxml-html-clean==0.4.4
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -315,7 +315,7 @@ outcome==1.3.0.post0
     #   -r requirements/ci.txt
     #   trio
     #   trio-websocket
-pillow==11.3.0
+pillow==12.1.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -380,7 +380,7 @@ python-dotenv==1.1.0
     #   pydantic-settings
 questionary==2.1.0
     # via bump-my-version
-requests==2.32.4
+requests==2.32.5
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -440,7 +440,7 @@ soupsieve==2.7
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   beautifulsoup4
-sqlparse==0.5.3
+sqlparse==0.5.5
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -497,7 +497,7 @@ tzdata==2025.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   faker
-urllib3==2.5.0
+urllib3==2.6.3
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
