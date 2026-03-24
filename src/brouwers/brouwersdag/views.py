@@ -11,8 +11,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from brouwers.utils.pdf import PDFTemplateView
-from brouwers.utils.views import LoginRequiredMixin, StaffRequiredMixin
+from brouwers.utils.views import LoginRequiredMixin
 
 from .forms import ShowCasedModelSignUpForm
 from .models import Brouwersdag, Competition, ShowCasedModel
@@ -126,17 +125,6 @@ class MyModelsView(LoginRequiredMixin, OwnModelsMixin, ListView):
 class CancelSignupView(OwnModelsMixin, DeleteView):
     model = ShowCasedModel
     success_url = reverse_lazy("brouwersdag:my-models")
-
-
-class PrintSignupsView(StaffRequiredMixin, PDFTemplateView):
-    template_name = "brouwersdag/print.html"
-
-    def get_context_data(self, **kwargs):
-        current_bd = Brouwersdag.objects.get_current()
-        base_qs = ShowCasedModel.objects.filter(brouwersdag=current_bd).order_by("id")
-        kwargs["regular"] = base_qs.exclude(is_competitor=True)
-        kwargs["competition"] = base_qs.filter(is_competitor=True)
-        return super().get_context_data(**kwargs)
 
 
 class GoToBuildReportView(RedirectView):

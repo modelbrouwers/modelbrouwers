@@ -14,5 +14,4 @@ urlpatterns = [
     path("my-models/", views.MyModelsView.as_view(), name="my-models"),
     path("my-models/<int:pk>/", views.EditModelView.as_view(), name="edit-model"),
     path("models/<int:pk>/", views.GoToBuildReportView.as_view(), name="model-detail"),
-    path("print/", views.PrintSignupsView.as_view(), name="print-signups"),
 ]

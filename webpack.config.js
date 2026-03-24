@@ -25,7 +25,6 @@ module.exports = {
     // CSS
     'screen-css': `${__dirname}/src/sass/screen.scss`,
     'forum-css': `${__dirname}/src/sass/forum.scss`,
-    'print-brouwersdag-css': `${__dirname}/src/sass/print_brouwersdag.scss`,
   },
 
   // Path to the (transpiled) js & CSS
