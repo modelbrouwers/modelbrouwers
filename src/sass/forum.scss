@@ -12,3 +12,49 @@
 
 @import 'components/modal';
 @import 'partials/forum/dead_topics';
+
+// Google custom search engine box styling overrides because it's so obnoxious
+#gcse-container {
+  margin-top: -6px;
+
+  .gsc-control-cse {
+    padding: 0;
+  }
+
+  form.gsc-search-box {
+    max-width: 372px;
+    margin: 0;
+  }
+
+  input.gsc-input {
+    line-height: 18px;
+  }
+
+  .gsc-input .gsc-input-box {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .gsib_a {
+    background-size: 16px 16px;
+    background-position: left 4px center;
+    padding: 4px 4px 4px 24px;
+
+    &:before {
+      width: 24px;
+    }
+  }
+
+  .gsib_b {
+    width: 24px;
+    height: 24px;
+  }
+
+  .gscb_a {
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
