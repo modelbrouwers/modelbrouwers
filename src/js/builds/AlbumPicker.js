@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import useAsync from 'react-use/esm/useAsync';
-import {A11y, Scrollbar} from 'swiper';
+import {A11y, Scrollbar} from 'swiper/modules';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import Loader from '@/components/Loader';

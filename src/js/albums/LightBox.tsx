@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import useAsync from 'react-use/esm/useAsync';
-// @ts-expect-error
-import {A11y, Navigation, Scrollbar} from 'swiper';
+import {A11y, Navigation, Scrollbar} from 'swiper/modules';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import type {Swiper as SwiperCls} from 'swiper/types';
 
