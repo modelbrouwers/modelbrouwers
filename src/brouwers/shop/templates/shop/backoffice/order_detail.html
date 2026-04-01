@@ -127,18 +127,25 @@
         </section>
 
         <section>
-            <h3>{% trans "Delivery address" %}</h3>
+            <h3>{% trans "Delivery" %}</h3>
+            <p>{{ order.get_delivery_method_display }}</p>
+
+            <strong>{% trans "Delivery address" %}</strong>
             {% include "shop/includes/address.html" with address=order.delivery_address %}
         </section>
+
+        {% if order.delivery_method == DeliveryMethods.mail %}
 
         <section>
             <h3>{% trans "Invoice address" %}</h3>
             {% if not order.invoice_address %}
                 <p>{% trans "Same as delivery address." %}</p>
             {% else %}
+
                 {% include "shop/includes/address.html" with address=order.invoice_address %}
             {% endif %}
         </section>
+        {% endif %}
 
         <aside class="order-detail__meta">
             <h2 class="h3">{% trans "Order details" %}</h2>
