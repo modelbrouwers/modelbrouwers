@@ -31,7 +31,7 @@ module.exports = {
   output: {
     path: `${__dirname}/src/static/bundles/`,
     filename: '[name].js', // file
-    chunkFilename: '[name].bundle.js',
+    chunkFilename: '[name].[contenthash:8].bundle.js',
     publicPath: '/static/bundles/',
   },
 
