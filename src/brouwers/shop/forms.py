@@ -74,4 +74,5 @@ class OrderDetailForm(forms.ModelForm):
         ):
             payment.status = new_payment_status
             payment.save()
+
         return obj

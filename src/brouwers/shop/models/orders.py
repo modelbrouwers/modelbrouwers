@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Literal
 
 from django.conf import settings
 from django.db import models
@@ -63,6 +64,14 @@ def get_order_reference():
     raise RuntimeError(
         f"Could not get a unused reference after {iterations} attempts!"
     )  # pragma: no cover
+
+
+type OrderFieldsForUpdateEmail = Literal[
+    "payment.status",
+    "status",
+    "track_and_trace_code",
+    "track_and_trace_link",
+]
 
 
 class Order(models.Model):
@@ -164,6 +173,21 @@ class Order(models.Model):
 
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)
+
+    @staticmethod
+    def get_changed_fields(
+        order_old: "Order", order_new: "Order"
+    ) -> Sequence[OrderFieldsForUpdateEmail]:
+        attrs: list[OrderFieldsForUpdateEmail] = []
+        if order_new.status != order_old.status:
+            attrs.append("status")
+        if order_new.payment.status != order_old.payment.status:
+            attrs.append("payment.status")
+        if order_new.track_and_trace_code != order_old.track_and_trace_code:
+            attrs.append("track_and_trace_code")
+        if order_new.track_and_trace_link != order_old.track_and_trace_link:
+            attrs.append("track_and_trace_link")
+        return attrs
 
     @property
     def is_actionable(self) -> bool:

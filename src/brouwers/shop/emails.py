@@ -13,7 +13,7 @@ from mail_cleaner.sanitizer import sanitize_content
 from mail_cleaner.text import strip_tags_plus
 
 from .constants import TWO_DIGITS
-from .models import Order, ShopConfiguration
+from .models import Order, OrderFieldsForUpdateEmail, ShopConfiguration
 
 
 def send_order_confirmation_email(order: Order, base_url: str) -> None:
@@ -110,3 +110,10 @@ def render_order_confirmation(
         content = strip_tags_plus(content)
 
     return sanitize_content(content, allowlist=[base.netloc])
+
+
+def send_order_update_email(
+    order: Order,
+    base_url: str,
+    changed_fields: OrderFieldsForUpdateEmail,
+): ...  # TODO

@@ -1,11 +1,14 @@
+from functools import partial
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.db import models
+from django.db import models, transaction
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, UpdateView
 
 from brouwers.shop.models.cart import CartProduct
 
 from ..constants import DeliveryMethods, OrderStatuses
+from ..emails import send_order_update_email
 from ..forms import OrderDetailForm
 from ..models import Order
 
@@ -62,6 +65,27 @@ class OrderDetailView(BackofficeRequiredMixin, UpdateView):
             }
         )
         return context
+
+    @transaction.atomic()
+    def form_valid(self, form):
+        old_state = self.object
+
+        response = super().form_valid(form)
+
+        if form.cleaned_data.get("send_email_notification") and (
+            changed_fields := Order.get_changed_fields(old_state, self.object)
+        ):
+            base_url = self.request.build_absolute_uri(reverse("index"))
+            transaction.on_commit(
+                partial(
+                    send_order_update_email,
+                    order=self.object,
+                    base_url=base_url,
+                    changed_fields=changed_fields,
+                )
+            )
+
+        return response
 
     def get_success_url(self) -> str:
         return reverse("shop:order-detail", kwargs={"reference": self.object.reference})
