@@ -161,3 +161,24 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+details summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+
+  &:before {
+    font-family: 'FontAwesome';
+    content: '\f054';
+    width: 1.28571429em;
+  }
+}
+
+details[open] summary:before {
+  content: '\f078';
+}
+
+details summary > * {
+  display: inline;
+}
