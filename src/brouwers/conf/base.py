@@ -388,8 +388,6 @@ LOGIN_URL = reverse_lazy("users:login")
 
 LOGIN_REDIRECT_URL = reverse_lazy("index")
 
-SKIP_AUTH_USER_MODEL_MIGRATIONS = True
-
 #
 # SECURITY settings
 #
