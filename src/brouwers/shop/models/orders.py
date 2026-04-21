@@ -121,6 +121,25 @@ class Order(models.Model):
         blank=True,
         null=True,
     )
+    track_and_trace_code = models.CharField(
+        _("track and trace code"),
+        max_length=100,
+        blank=True,
+        help_text=_(
+            "If available, the track and trace code for the client to follow their "
+            "parcel."
+        ),
+    )
+    track_and_trace_link = models.URLField(
+        _("track and trace link"),
+        max_length=512,
+        blank=True,
+        help_text=_(
+            "If available, the clickable track and trace link for the client to follow "
+            "their parcel. If both the link and code are provided, the link will be "
+            "displayed in the email."
+        ),
+    )
 
     payment: "Payment"
 

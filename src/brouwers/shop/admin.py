@@ -337,11 +337,52 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ("first_name", "last_name", "reference", "email")
     list_filter = ("status",)
     date_hierarchy = "created"
+    fieldsets = (
+        (
+            None,
+            {"fields": ("reference", "status", "cart")},
+        ),
+        (
+            _("Customer"),
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "phone",
+                )
+            },
+        ),
+        (
+            _("Shipping & invoicing"),
+            {
+                "fields": (
+                    "delivery_method",
+                    "delivery_address",
+                    "invoice_address",
+                    "shipping_costs",
+                    "track_and_trace_code",
+                    "track_and_trace_link",
+                )
+            },
+        ),
+        (
+            _("Metadata"),
+            {
+                "fields": (
+                    "created",
+                    "modified",
+                    "language",
+                )
+            },
+        ),
+    )
     raw_id_fields = (
         "cart",
         "delivery_address",
         "invoice_address",
     )
+    readonly_fields = ("created", "modified")
     inlines = [HistoricalPaymentInline]
 
     @admin.display(description=_("Payment status"))  # type:ignore
