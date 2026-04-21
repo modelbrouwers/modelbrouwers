@@ -132,6 +132,9 @@
 
             <strong>{% trans "Delivery address" %}</strong>
             {% include "shop/includes/address.html" with address=order.delivery_address %}
+
+            <strong>{% trans "Shipping costs" %}</strong>
+            <p>&euro; {{ order.shipping_costs }}</p>
         </section>
 
         {% if order.delivery_method == DeliveryMethods.mail %}
