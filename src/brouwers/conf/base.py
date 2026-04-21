@@ -56,6 +56,10 @@ USE_THOUSAND_SEPARATOR = False
 
 DATE_FORMAT = "d-m-Y"
 
+_mariadb_storage_engine = config(
+    "MARIADB_STORAGE_ENGINE_SETTING", default="storage_engine"
+)
+
 #
 # DATABASE and CACHING setup
 #
@@ -75,7 +79,7 @@ DATABASES = {
         "PASSWORD": config("FORUM_DB_PASSWORD", "brouwers"),
         "HOST": config("FORUM_DB_HOST", "localhost"),
         "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES', storage_engine=MYISAM",
+            "init_command": f"SET sql_mode='STRICT_TRANS_TABLES', {_mariadb_storage_engine}=MYISAM",
         },
     },
     "legacy_shop": {  # read data from the legacy shop database
@@ -85,7 +89,7 @@ DATABASES = {
         "PASSWORD": config("LEGACY_SHOP_DB_PASSWORD", "brouwers"),
         "HOST": config("LEGACY_SHOP_DB_HOST", "localhost"),
         "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES', storage_engine=MYISAM",
+            "init_command": f"SET sql_mode='STRICT_TRANS_TABLES', {_mariadb_storage_engine}=MYISAM",
         },
     },
 }
