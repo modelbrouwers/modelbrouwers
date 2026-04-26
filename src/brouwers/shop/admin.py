@@ -20,6 +20,7 @@ from .models import (
     HomepageCategory,
     HomepageCategoryChild,
     Order,
+    OrderEvent,
     Payment,
     PaymentMethod,
     Product,
@@ -321,6 +322,18 @@ class HistoricalPaymentInline(admin.TabularInline):
     extra = 0
 
 
+class OrderEventInline(admin.TabularInline):
+    model = OrderEvent
+    fields = ("timestamp", "get_event_display", "event_data")
+    readonly_fields = fields
+    extra = 0
+    ordering = ("-timestamp",)
+
+    @admin.display(description=_("event"), ordering="event")
+    def get_event_display(self, obj: OrderEvent) -> str:
+        return obj.get_event_display()
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
@@ -383,7 +396,7 @@ class OrderAdmin(admin.ModelAdmin):
         "invoice_address",
     )
     readonly_fields = ("created", "modified")
-    inlines = [HistoricalPaymentInline]
+    inlines = [OrderEventInline, HistoricalPaymentInline]
 
     @admin.display(description=_("Payment status"))  # type:ignore
     def payment_status(self, obj: Order) -> str | None:
@@ -398,3 +411,13 @@ class OrderAdmin(admin.ModelAdmin):
         items_total = Decimal(snapshot["total"])
         shipping = Decimal(obj.shipping_costs or 0)
         return items_total + shipping
+
+
+@admin.register(OrderEvent)
+class OrderEventAdmin(admin.ModelAdmin):
+    list_display = ("order", "event", "timestamp")
+    list_select_related = ("order",)
+    list_filter = ("event", "timestamp")
+    date_hierarchy = "timestamp"
+    search_fields = ("order__reference",)
+    ordering = ("-timestamp",)

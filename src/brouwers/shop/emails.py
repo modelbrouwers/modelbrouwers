@@ -1,5 +1,6 @@
+from collections.abc import Sequence
 from decimal import Decimal
-from typing import Literal, cast
+from typing import Literal
 
 from django.conf import settings
 from django.template.loader import get_template
@@ -17,7 +18,7 @@ from .models import Order, OrderFieldsForUpdateEmail, ShopConfiguration
 
 
 def send_order_confirmation_email(order: Order, base_url: str) -> None:
-    config = cast(ShopConfiguration, ShopConfiguration.get_solo())
+    config = ShopConfiguration.get_solo()
     base = furl(base_url)
 
     subject = _("Modelbrouwers - order {order_number}").format(
@@ -115,5 +116,5 @@ def render_order_confirmation(
 def send_order_update_email(
     order: Order,
     base_url: str,
-    changed_fields: OrderFieldsForUpdateEmail,
+    changed_fields: Sequence[OrderFieldsForUpdateEmail],
 ): ...  # TODO

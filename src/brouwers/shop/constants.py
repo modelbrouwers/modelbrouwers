@@ -42,3 +42,10 @@ class PaymentStatuses(models.TextChoices):
 class DeliveryMethods(models.TextChoices):
     pickup = "pickup", _("Pickup")
     mail = "mail", _("By mail")
+
+
+class OrderEvents(models.TextChoices):
+    placed = "placed", _("Order placed")
+    status_changed = "status_changed", _("Status changed")
+    payment_status_changed = "payment_status_changed", _("Payment status changed")
+    email_sent = "email_sent", _("Email sent")

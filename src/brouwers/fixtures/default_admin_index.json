@@ -107,6 +107,7 @@
         ["shop", "address"],
         ["shop", "customergroup"],
         ["shop", "order"],
+        ["shop", "orderevent"],
         ["shop", "payment"],
         ["shop", "paymentmethod"],
         ["shop", "shippingcost"],

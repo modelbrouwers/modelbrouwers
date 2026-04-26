@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Literal
 
 from django.conf import settings
@@ -206,3 +206,38 @@ class Order(models.Model):
     def get_confirmation_link(self) -> str:
         path = reverse("shop:checkout", kwargs={"path": "confirmation"})
         return furl(path).set({"orderId": self.pk}).url
+
+
+class OrderEvent(models.Model):
+    """
+    Event that happened in relation to a particular order.
+
+    All events together build up a timeline/history of an entire order.
+    """
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name=_("order"))
+    timestamp = models.DateTimeField(
+        _("timestamp"),
+        auto_now_add=True,
+        help_text=_("Moment in time when the event occurred."),
+    )
+    event = models.CharField(_("event type"), max_length=50)
+    event_data = models.JSONField(
+        _("event data"),
+        null=True,
+        blank=True,
+        help_text=_("Additional data relevant for the selected event type."),
+    )
+
+    get_event_display: Callable[[], str]
+
+    class Meta:
+        verbose_name = _("order event")
+        verbose_name_plural = _("order events")
+
+    def __str__(self) -> str:
+        return _("{timestamp}: {order} - {event}").format(
+            timestamp=self.timestamp.isoformat(),
+            order=self.order.reference if self.order else "(-)",
+            event=self.get_event_display(),
+        )
