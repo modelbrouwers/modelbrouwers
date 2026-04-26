@@ -328,6 +328,10 @@ class OrderEventInline(admin.TabularInline):
     readonly_fields = fields
     extra = 0
     ordering = ("-timestamp",)
+    can_delete = False
+
+    def has_add_permission(self, request, obj) -> bool:
+        return False
 
     @admin.display(description=_("event"), ordering="event")
     def get_event_display(self, obj: OrderEvent) -> str:

@@ -11,7 +11,7 @@ from furl import furl
 
 from brouwers.general.fields import CountryField
 
-from ..constants import DeliveryMethods, OrderStatuses, PaymentStatuses
+from ..constants import DeliveryMethods, OrderEvents, OrderStatuses, PaymentStatuses
 from .utils import get_random_reference
 
 if TYPE_CHECKING:
@@ -178,11 +178,16 @@ class Order(models.Model):
     def get_changed_fields(
         order_old: "Order", order_new: "Order"
     ) -> Sequence[OrderFieldsForUpdateEmail]:
+        from .payments import Payment
+
         attrs: list[OrderFieldsForUpdateEmail] = []
         if order_new.status != order_old.status:
             attrs.append("status")
-        if order_new.payment.status != order_old.payment.status:
-            attrs.append("payment.status")
+        try:
+            if order_new.payment.status != order_old.payment.status:
+                attrs.append("payment.status")
+        except Payment.DoesNotExist:
+            pass
         if order_new.track_and_trace_code != order_old.track_and_trace_code:
             attrs.append("track_and_trace_code")
         if order_new.track_and_trace_link != order_old.track_and_trace_link:
@@ -221,7 +226,7 @@ class OrderEvent(models.Model):
         auto_now_add=True,
         help_text=_("Moment in time when the event occurred."),
     )
-    event = models.CharField(_("event type"), max_length=50)
+    event = models.CharField(_("event type"), max_length=50, choices=OrderEvents)
     event_data = models.JSONField(
         _("event data"),
         null=True,

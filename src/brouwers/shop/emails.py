@@ -13,7 +13,7 @@ from mail_cleaner.mail import send_mail_plus
 from mail_cleaner.sanitizer import sanitize_content
 from mail_cleaner.text import strip_tags_plus
 
-from .constants import TWO_DIGITS
+from .constants import TWO_DIGITS, OrderEvents
 from .models import Order, OrderFieldsForUpdateEmail, ShopConfiguration
 
 
@@ -26,15 +26,23 @@ def send_order_confirmation_email(order: Order, base_url: str) -> None:
     )
     html_body = render_order_confirmation(order=order, base=base, mode="html")
     text_body = render_order_confirmation(order=order, base=base, mode="text")
+    recipient = order.email
 
     send_mail_plus(
         subject,
         message=text_body,
         from_email=config.from_email or settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[order.email],
+        recipient_list=[recipient],
         cc=None,
         html_message=html_body,
         headers={"Content-Language": order.language},
+    )
+    order.orderevent_set.create(
+        event=OrderEvents.email_sent,
+        event_data={
+            "subject": subject,
+            "to": recipient,
+        },
     )
 
 
@@ -117,4 +125,15 @@ def send_order_update_email(
     order: Order,
     base_url: str,
     changed_fields: Sequence[OrderFieldsForUpdateEmail],
-): ...  # TODO
+):
+    recipient = order.email
+
+    # TODO: actual email sending :-)
+
+    order.orderevent_set.create(
+        event=OrderEvents.email_sent,
+        event_data={
+            "subject": "TODO",
+            "to": recipient,
+        },
+    )

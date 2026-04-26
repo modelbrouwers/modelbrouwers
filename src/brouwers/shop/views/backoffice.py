@@ -7,7 +7,7 @@ from django.views.generic import ListView, TemplateView, UpdateView
 
 from brouwers.shop.models.cart import CartProduct
 
-from ..constants import DeliveryMethods, OrderStatuses
+from ..constants import DeliveryMethods, OrderEvents, OrderStatuses
 from ..emails import send_order_update_email
 from ..forms import OrderDetailForm
 from ..models import Order
@@ -68,18 +68,37 @@ class OrderDetailView(BackofficeRequiredMixin, UpdateView):
 
     @transaction.atomic()
     def form_valid(self, form):
-        old_state = self.object
+        # fetch old record from DB so that no mutation can affect old vs new state
+        # comparison
+        old_state = self.get_object()
 
         response = super().form_valid(form)
 
-        if form.cleaned_data.get("send_email_notification") and (
-            changed_fields := Order.get_changed_fields(old_state, self.object)
-        ):
+        order = self.object
+        changed_fields = Order.get_changed_fields(old_state, order)
+        if "payment.status" in changed_fields:
+            order.orderevent_set.create(
+                event=OrderEvents.payment_status_changed,
+                event_data={
+                    "old": old_state.payment.status,
+                    "new": order.payment.status,
+                },
+            )
+        if "status" in changed_fields:
+            order.orderevent_set.create(
+                event=OrderEvents.status_changed,
+                event_data={
+                    "old": old_state.status,
+                    "new": order.status,
+                },
+            )
+
+        if form.cleaned_data.get("send_email_notification") and changed_fields:
             base_url = self.request.build_absolute_uri(reverse("index"))
             transaction.on_commit(
                 partial(
                     send_order_update_email,
-                    order=self.object,
+                    order=order,
                     base_url=base_url,
                     changed_fields=changed_fields,
                 )
