@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.contrib import admin
+from django.db.models import Count
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
 
@@ -37,12 +38,20 @@ from .resources import CategoryResource, ProductResource
 @admin.register(Category)
 class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
     form = movenodeform_factory(Category)
-    list_display = ("name", "image", "enabled", "id")
+    list_display = ("name", "image", "enabled", "num_products", "id")
     list_filter = ("enabled",)
     search_fields = ("name", "meta_description", "id")
     resource_classes = (CategoryResource,)
     # TODO - override template to include import-export buttons
     change_list_template = "admin/tree_change_list.html"
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.annotate(num_products=Count("products"))
+
+    @admin.display(description=_("product count"), ordering="num_products")
+    def num_products(self, obj: Category) -> int:
+        return obj.num_products
 
 
 @admin.register(Product)
