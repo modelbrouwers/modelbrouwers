@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -10,6 +11,10 @@ from django.utils.translation import gettext_lazy as _
 
 from brouwers.forum_tools.models import ForumUser
 from brouwers.utils.storages import private_media_storage
+
+
+def get_ui_languages() -> list[tuple[str, str]]:
+    return settings.LANGUAGES
 
 
 class UserManager(BaseUserManager):
@@ -98,6 +103,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         protocol="both",
         blank=True,
         null=True,
+    )
+
+    # user preferences
+    ui_language = models.CharField(
+        _("UI language"),
+        max_length=10,
+        choices=get_ui_languages(),
+        default="",
+        blank=True,
+        help_text=_(
+            "Preferred UI language. If unset, your browser preferences are respected."
+        ),
     )
 
     # cross db-relation

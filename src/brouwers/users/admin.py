@@ -23,7 +23,15 @@ class UserAdmin(_UserAdmin):
         "forumuser_id",
     )
     fieldsets = _UserAdmin.fieldsets + (  # type: ignore
-        (_("Extra"), {"fields": ("ip_address_joined",)}),
+        (
+            _("Extra"),
+            {
+                "fields": (
+                    "ui_language",
+                    "ip_address_joined",
+                )
+            },
+        ),
     )
     list_editable = ("email", "forumuser_id")
     ordering = ["-date_joined", "username"]
