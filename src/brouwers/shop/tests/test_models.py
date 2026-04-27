@@ -9,9 +9,15 @@ from django_webtest import WebTest
 
 from brouwers.users.tests.factories import UserFactory
 
-from ..constants import WeightUnits
-from ..models import Category
-from .factories import CartFactory, CartProductFactory, CategoryFactory, ProductFactory
+from ..constants import OrderStatuses, PaymentStatuses, WeightUnits
+from ..models import Category, Order
+from .factories import (
+    CartFactory,
+    CartProductFactory,
+    CategoryFactory,
+    OrderFactory,
+    ProductFactory,
+)
 
 
 class CategoryImportExportTest(WebTest):
@@ -114,3 +120,91 @@ class CartModelTests(TestCase):
         weight = cart.weight
 
         self.assertEqual(weight, 1350)
+
+
+class OrderModelTests(TestCase):
+    def test_detect_changed_fields(self):
+        with self.subTest("identical instances"):
+            order = OrderFactory.build()
+
+            changed_fields = Order.get_changed_fields(order, order)
+
+            self.assertEqual(len(changed_fields), 0)
+
+        with self.subTest("changed status and t&t codes"):
+            order1 = OrderFactory.build(
+                status=OrderStatuses.processing,
+                track_and_trace_code="code1",
+                track_and_trace_link="https://t.and.trace/link1",
+            )
+            order2 = OrderFactory.build(
+                status=OrderStatuses.cancelled,
+                track_and_trace_code="code2",
+                track_and_trace_link="https://t.and.trace/link2",
+            )
+
+            changed_fields = Order.get_changed_fields(order1, order2)
+
+            self.assertEqual(len(changed_fields), 3)
+            self.assertEqual(
+                set(changed_fields),
+                {"status", "track_and_trace_code", "track_and_trace_link"},
+            )
+
+        with self.subTest("payment status changes are detected"):
+            order3 = OrderFactory.create(
+                with_payment=True, payment__status=PaymentStatuses.pending
+            )
+            order4 = Order.objects.select_related("payment").get(pk=order3.pk)
+            order4.payment.status = PaymentStatuses.cancelled
+            order4.payment.save()
+
+            changed_fields = Order.get_changed_fields(order3, order4)
+
+            self.assertEqual(len(changed_fields), 1)
+            self.assertEqual(changed_fields[0], "payment.status")
+
+    def test_actionable_orders_without_payment(self):
+        combinations = [
+            (OrderStatuses.received, True),
+            (OrderStatuses.processing, False),
+            (OrderStatuses.shipped, False),
+            (OrderStatuses.cancelled, False),
+        ]
+        _all_statuses = [c[0] for c in combinations]
+        for value in OrderStatuses.values:
+            assert value in _all_statuses
+
+        for status, expected in combinations:
+            with self.subTest(status=status):
+                order = OrderFactory.create(with_payment=False, status=status)
+
+                self.assertEqual(order.is_actionable, expected)
+
+    def test_actionable_orders_with_payment(self):
+        combinations = [
+            (OrderStatuses.received, PaymentStatuses.pending, False),
+            (
+                OrderStatuses.received,
+                PaymentStatuses.completed,
+                True,
+            ),
+            (OrderStatuses.received, PaymentStatuses.cancelled, False),
+            (OrderStatuses.processing, PaymentStatuses.pending, False),
+            (OrderStatuses.processing, PaymentStatuses.completed, False),
+            (OrderStatuses.processing, PaymentStatuses.cancelled, False),
+            (OrderStatuses.shipped, PaymentStatuses.pending, False),
+            (OrderStatuses.shipped, PaymentStatuses.completed, False),
+            (OrderStatuses.shipped, PaymentStatuses.cancelled, False),
+            (OrderStatuses.cancelled, PaymentStatuses.pending, False),
+            (OrderStatuses.cancelled, PaymentStatuses.completed, False),
+            (OrderStatuses.cancelled, PaymentStatuses.cancelled, False),
+        ]
+
+        for status, payment_status, expected in combinations:
+            with self.subTest(status=status):
+                order = OrderFactory.create(
+                    with_payment=True, status=status, payment__status=payment_status
+                )
+
+                self.assertEqual(order.is_actionable, expected)

@@ -201,8 +201,14 @@ class Order(models.Model):
 
     @property
     def is_actionable(self) -> bool:
-        if self.payment.status != PaymentStatuses.completed:
-            return False
+        from .payments import Payment
+
+        try:
+            payment = self.payment
+            if payment.status != PaymentStatuses.completed:
+                return False
+        except Payment.DoesNotExist:
+            pass
 
         if self.status == OrderStatuses.received:
             return True
