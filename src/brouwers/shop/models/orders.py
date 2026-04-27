@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Literal, assert_never
 
@@ -152,7 +154,8 @@ class Order(models.Model):
         ),
     )
 
-    payment: "Payment"
+    payment: Payment
+    orderevent_set: models.QuerySet[OrderEvent]
 
     class Meta:
         verbose_name = _("order")
@@ -178,7 +181,7 @@ class Order(models.Model):
 
     @staticmethod
     def get_changed_fields(
-        order_old: "Order", order_new: "Order"
+        order_old: Order, order_new: Order
     ) -> Sequence[OrderFieldsForUpdateEmail]:
         from .payments import Payment
 

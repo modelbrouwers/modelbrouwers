@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core import mail
 from django.test import TestCase
 from django.urls import reverse
 
@@ -7,7 +8,7 @@ from django_webtest import WebTest
 from brouwers.shop.models import Payment
 from brouwers.users.tests.factories import UserFactory
 
-from ...constants import OrderStatuses, PaymentStatuses
+from ...constants import OrderEvents, OrderStatuses, PaymentStatuses
 from ..factories import OrderFactory
 
 
@@ -64,6 +65,28 @@ class FunctionalOrderDetailTests(WebTest):
 
         self.assertContains(response, "MB-1234")
 
+    def test_saving_without_changes_triggers_no_email(self):
+        order = OrderFactory.create(
+            reference="MB-1234",
+            status=OrderStatuses.received,
+            with_payment=True,
+            payment__status=PaymentStatuses.pending,
+        )
+        detail_url = reverse("shop:order-detail", kwargs={"reference": "MB-1234"})
+        order_detail_page = self.app.get(detail_url, user=self.user)
+        form = order_detail_page.forms[0]
+        assert form["status"].value == OrderStatuses.received
+        assert form["payment_status"].value == PaymentStatuses.pending
+
+        with self.captureOnCommitCallbacks(execute=True):
+            updated_detail_page = form.submit().follow()
+
+        self.assertTemplateUsed(
+            updated_detail_page, "shop/backoffice/order_detail.html"
+        )
+        self.assertFalse(order.orderevent_set.exists())
+        self.assertEqual(len(mail.outbox), 0)
+
     def test_can_change_order_status(self):
         order = OrderFactory.create(
             reference="MB-1234",
@@ -89,6 +112,15 @@ class FunctionalOrderDetailTests(WebTest):
         order.refresh_from_db()
         self.assertEqual(order.status, OrderStatuses.processing)
         self.assertEqual(order.payment.status, PaymentStatuses.completed)
+        self.assertEqual(
+            order.orderevent_set.filter(event=OrderEvents.status_changed).count(), 1
+        )
+        self.assertEqual(
+            order.orderevent_set.filter(
+                event=OrderEvents.payment_status_changed
+            ).count(),
+            1,
+        )
 
     def test_change_order_status_without_any_payment(self):
         order = OrderFactory.create(
@@ -113,3 +145,11 @@ class FunctionalOrderDetailTests(WebTest):
         order.refresh_from_db()
         self.assertEqual(order.status, OrderStatuses.cancelled)
         self.assertFalse(Payment.objects.exists())
+        self.assertEqual(
+            order.orderevent_set.filter(event=OrderEvents.status_changed).count(), 1
+        )
+        self.assertFalse(
+            order.orderevent_set.filter(
+                event=OrderEvents.payment_status_changed
+            ).exists()
+        )

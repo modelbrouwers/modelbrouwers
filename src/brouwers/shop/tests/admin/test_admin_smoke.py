@@ -5,11 +5,13 @@ Smoke tests for the admin.
 from decimal import Decimal
 
 from django.test import TestCase
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext as _
 
 from brouwers.users.tests.factories import UserFactory
 
-from ...constants import CartStatuses, DeliveryMethods
+from ...constants import CartStatuses, DeliveryMethods, OrderEvents
+from ...models import OrderEvent
 from ..factories import (
     CartFactory,
     CartProductFactory,
@@ -72,6 +74,15 @@ class OrderAdminSmokeTests(BaseAdminTestCase):
         response = self.client.get(self.url, {"q": "foo"})
 
         self.assertEqual(response.status_code, 200)
+
+    def test_change_page_with_order_events(self):
+        order = OrderFactory.create()
+        OrderEvent.objects.create(order=order, event=OrderEvents.placed)
+
+        response = self.client.get(reverse("admin:shop_order_change", args=(order.pk,)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, _("Order placed"))
 
 
 class PaymentAdminSmokeTests(BaseAdminTestCase):
