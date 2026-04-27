@@ -62,6 +62,8 @@ class OrderDetailView(BackofficeRequiredMixin, UpdateView):
                     cart_product.amount
                     for cart_product in context["order"].cart.products.all()
                 ),
+                "OrderEvents": OrderEvents,
+                "history": context["order"].orderevent_set.order_by("-timestamp"),
             }
         )
         return context

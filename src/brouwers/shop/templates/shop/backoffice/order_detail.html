@@ -201,6 +201,32 @@
         </aside>
     </div>
 
+    <section class="order-detail__history">
+        <details>
+            <summary>
+                <h2>{% trans "History" %}</h2>
+            </summary>
+
+            <ol class="order-event-list">
+                {% for event in history %}
+                    <li class="order-event-list__item">
+                        <div class="order-event">
+                            <div class="order-event__details">
+                                {{ event.get_description }}
+                            </div>
+
+                            <time datetime="{{ event.timestamp.isoformat }}" title="{{ event.timestamp }}" class="order-event__timestamp">
+                                {% blocktrans with since=event.timestamp|timesince trimmed %}
+                                    {{ since }} ago
+                                {% endblocktrans %}
+                            </time>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </details>
+    </section>
+
     <div class="order-detail__button-row">
         <div class="checkbox">
             <label>

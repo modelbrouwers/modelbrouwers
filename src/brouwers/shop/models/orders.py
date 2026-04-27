@@ -1,10 +1,12 @@
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, assert_never
 
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.functional import Promise
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from furl import furl
@@ -246,3 +248,34 @@ class OrderEvent(models.Model):
             order=self.order.reference if self.order else "(-)",
             event=self.get_event_display(),
         )
+
+    def get_description(self) -> str | Promise:
+        """
+        Return the event description with all necessary context.
+        """
+        event = OrderEvents(self.event)
+        match event:
+            case OrderEvents.placed:
+                return self.get_event_display()
+            case OrderEvents.status_changed:
+                old_status = OrderStatuses(self.event_data["old"])
+                new_status = OrderStatuses(self.event_data["new"])
+                return _("Status changed from '{old}' to '{new}'").format(
+                    old=old_status.label.lower(),
+                    new=new_status.label.lower(),
+                )
+            case OrderEvents.payment_status_changed:
+                old_status = PaymentStatuses(self.event_data["old"])
+                new_status = PaymentStatuses(self.event_data["new"])
+                return _("Payment status changed from '{old}' to '{new}'").format(
+                    old=old_status.label.lower(),
+                    new=new_status.label.lower(),
+                )
+            case OrderEvents.email_sent:
+                return format_html(
+                    "Email sent to <a href=\"mailto:{to}\">{to}</a> with subject '{subject}'",
+                    to=self.event_data["to"],
+                    subject=self.event_data["subject"],
+                )
+            case _:  # pragma: no cover
+                assert_never(event)

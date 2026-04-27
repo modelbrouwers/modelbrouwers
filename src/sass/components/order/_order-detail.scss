@@ -8,7 +8,8 @@
   grid-template-areas:
     'status customer'
     'buttonrow customer'
-    'products customer';
+    'products customer'
+    'history customer';
   gap: 10px;
 
   address {
@@ -95,6 +96,23 @@
     }
   }
 
+  @include bem.element('history') {
+    grid-area: history;
+
+    h1,
+    h2 {
+      margin-block: 0;
+    }
+
+    details {
+      padding-block: 1em;
+
+      summary {
+        margin-block-end: 1em;
+      }
+    }
+  }
+
   @include bem.element('button-row') {
     grid-area: buttonrow;
     box-shadow:
@@ -133,6 +151,7 @@
       'status'
       'products'
       'customer'
+      'history'
       'buttonrow';
 
     @include bem.element('button-row') {
