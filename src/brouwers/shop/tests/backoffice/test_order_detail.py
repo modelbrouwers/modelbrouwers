@@ -153,3 +153,33 @@ class FunctionalOrderDetailTests(WebTest):
                 event=OrderEvents.payment_status_changed
             ).exists()
         )
+
+    def test_change_order_status_with_email_notification_is_logged(self):
+        order = OrderFactory.create(
+            reference="MB-1234",
+            status=OrderStatuses.received,
+            with_payment=True,
+            payment__status=PaymentStatuses.completed,
+        )
+        detail_url = reverse("shop:order-detail", kwargs={"reference": "MB-1234"})
+        order_detail_page = self.app.get(detail_url, user=self.user)
+        form = order_detail_page.forms[0]
+        assert form["status"].value == OrderStatuses.received
+        assert form["payment_status"].value == PaymentStatuses.completed
+
+        form["status"].select(OrderStatuses.shipped)
+        form["send_email_notification"].checked = True
+
+        with self.captureOnCommitCallbacks(execute=True):
+            form.submit().follow()
+
+        order.refresh_from_db()
+        self.assertEqual(order.status, OrderStatuses.shipped)
+
+        self.assertEqual(
+            order.orderevent_set.filter(event=OrderEvents.status_changed).count(), 1
+        )
+        self.assertEqual(
+            order.orderevent_set.filter(event=OrderEvents.email_sent).count(), 1
+        )
+        # TODO: assert on mailbox when actual mail sending is implemented
