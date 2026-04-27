@@ -175,6 +175,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "sessionprofile.middleware.SessionProfileMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "brouwers.middleware.LocaleMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     # after auth middleware, checks if user is authenticated
     "brouwers.banning.middleware.BanningMiddleware",

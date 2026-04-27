@@ -71,6 +71,28 @@
 
         {% endwith %}
 
+        {% if order.delivery_method == DeliveryMethods.mail %}
+            <details>
+                <summary>
+                    <heading class="order-detail__heading">
+                        <h3> {% trans "Track and trace" %} </h3>
+                    </heading>
+                </summary>
+
+                <div class="order-detail__form">
+                    <div class="form-group">
+                        {{ form.track_and_trace_code.label_tag }}
+                        {{ form.track_and_trace_code }}
+                    </div>
+                    <p>{% trans "or" %}</p>
+                    <div class="form-group">
+                        {{ form.track_and_trace_link.label_tag }}
+                        {{ form.track_and_trace_link }}
+                    </div>
+                </div>
+            </details>
+        {% endif %}
+
     </section>
 
     <section class="order-detail__products">
@@ -127,18 +149,28 @@
         </section>
 
         <section>
-            <h3>{% trans "Delivery address" %}</h3>
+            <h3>{% trans "Delivery" %}</h3>
+            <p>{{ order.get_delivery_method_display }}</p>
+
+            <strong>{% trans "Delivery address" %}</strong>
             {% include "shop/includes/address.html" with address=order.delivery_address %}
+
+            <strong>{% trans "Shipping costs" %}</strong>
+            <p>&euro; {{ order.shipping_costs }}</p>
         </section>
+
+        {% if order.delivery_method == DeliveryMethods.mail %}
 
         <section>
             <h3>{% trans "Invoice address" %}</h3>
             {% if not order.invoice_address %}
                 <p>{% trans "Same as delivery address." %}</p>
             {% else %}
+
                 {% include "shop/includes/address.html" with address=order.invoice_address %}
             {% endif %}
         </section>
+        {% endif %}
 
         <aside class="order-detail__meta">
             <h2 class="h3">{% trans "Order details" %}</h2>
@@ -168,6 +200,32 @@
             </ul>
         </aside>
     </div>
+
+    <section class="order-detail__history">
+        <details>
+            <summary>
+                <h2>{% trans "History" %}</h2>
+            </summary>
+
+            <ol class="order-event-list">
+                {% for event in history %}
+                    <li class="order-event-list__item">
+                        <div class="order-event">
+                            <div class="order-event__details">
+                                {{ event.get_description }}
+                            </div>
+
+                            <time datetime="{{ event.timestamp.isoformat }}" title="{{ event.timestamp }}" class="order-event__timestamp">
+                                {% blocktrans with since=event.timestamp|timesince trimmed %}
+                                    {{ since }} ago
+                                {% endblocktrans %}
+                            </time>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </details>
+    </section>
 
     <div class="order-detail__button-row">
         <div class="checkbox">

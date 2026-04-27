@@ -1,5 +1,6 @@
+from collections.abc import Sequence
 from decimal import Decimal
-from typing import Literal, cast
+from typing import Literal
 
 from django.conf import settings
 from django.template.loader import get_template
@@ -12,12 +13,12 @@ from mail_cleaner.mail import send_mail_plus
 from mail_cleaner.sanitizer import sanitize_content
 from mail_cleaner.text import strip_tags_plus
 
-from .constants import TWO_DIGITS
-from .models import Order, ShopConfiguration
+from .constants import TWO_DIGITS, OrderEvents
+from .models import Order, OrderFieldsForUpdateEmail, ShopConfiguration
 
 
 def send_order_confirmation_email(order: Order, base_url: str) -> None:
-    config = cast(ShopConfiguration, ShopConfiguration.get_solo())
+    config = ShopConfiguration.get_solo()
     base = furl(base_url)
 
     subject = _("Modelbrouwers - order {order_number}").format(
@@ -25,15 +26,23 @@ def send_order_confirmation_email(order: Order, base_url: str) -> None:
     )
     html_body = render_order_confirmation(order=order, base=base, mode="html")
     text_body = render_order_confirmation(order=order, base=base, mode="text")
+    recipient = order.email
 
     send_mail_plus(
         subject,
         message=text_body,
         from_email=config.from_email or settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[order.email],
+        recipient_list=[recipient],
         cc=None,
         html_message=html_body,
         headers={"Content-Language": order.language},
+    )
+    order.orderevent_set.create(
+        event=OrderEvents.email_sent,
+        event_data={
+            "subject": subject,
+            "to": recipient,
+        },
     )
 
 
@@ -110,3 +119,21 @@ def render_order_confirmation(
         content = strip_tags_plus(content)
 
     return sanitize_content(content, allowlist=[base.netloc])
+
+
+def send_order_update_email(
+    order: Order,
+    base_url: str,
+    changed_fields: Sequence[OrderFieldsForUpdateEmail],
+):
+    recipient = order.email
+
+    # TODO: actual email sending :-)
+
+    order.orderevent_set.create(
+        event=OrderEvents.email_sent,
+        event_data={
+            "subject": "TODO",
+            "to": recipient,
+        },
+    )

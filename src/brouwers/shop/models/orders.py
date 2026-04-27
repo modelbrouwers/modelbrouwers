@@ -1,16 +1,21 @@
-from typing import TYPE_CHECKING
+from __future__ import annotations
+
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Literal, assert_never
 
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.functional import Promise
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from furl import furl
 
 from brouwers.general.fields import CountryField
 
-from ..constants import DeliveryMethods, OrderStatuses
+from ..constants import DeliveryMethods, OrderEvents, OrderStatuses, PaymentStatuses
 from .utils import get_random_reference
 
 if TYPE_CHECKING:
@@ -63,6 +68,14 @@ def get_order_reference():
     raise RuntimeError(
         f"Could not get a unused reference after {iterations} attempts!"
     )  # pragma: no cover
+
+
+type OrderFieldsForUpdateEmail = Literal[
+    "payment.status",
+    "status",
+    "track_and_trace_code",
+    "track_and_trace_link",
+]
 
 
 class Order(models.Model):
@@ -121,8 +134,28 @@ class Order(models.Model):
         blank=True,
         null=True,
     )
+    track_and_trace_code = models.CharField(
+        _("track and trace code"),
+        max_length=100,
+        blank=True,
+        help_text=_(
+            "If available, the track and trace code for the client to follow their "
+            "parcel."
+        ),
+    )
+    track_and_trace_link = models.URLField(
+        _("track and trace link"),
+        max_length=512,
+        blank=True,
+        help_text=_(
+            "If available, the clickable track and trace link for the client to follow "
+            "their parcel. If both the link and code are provided, the link will be "
+            "displayed in the email."
+        ),
+    )
 
-    payment: "Payment"
+    payment: Payment
+    orderevent_set: models.QuerySet[OrderEvent]
 
     class Meta:
         verbose_name = _("order")
@@ -146,6 +179,42 @@ class Order(models.Model):
     def __str__(self):
         return _("Order {pk}").format(pk=self.pk)
 
+    @staticmethod
+    def get_changed_fields(
+        order_old: Order, order_new: Order
+    ) -> Sequence[OrderFieldsForUpdateEmail]:
+        from .payments import Payment
+
+        attrs: list[OrderFieldsForUpdateEmail] = []
+        if order_new.status != order_old.status:
+            attrs.append("status")
+        try:
+            if order_new.payment.status != order_old.payment.status:
+                attrs.append("payment.status")
+        except Payment.DoesNotExist:
+            pass
+        if order_new.track_and_trace_code != order_old.track_and_trace_code:
+            attrs.append("track_and_trace_code")
+        if order_new.track_and_trace_link != order_old.track_and_trace_link:
+            attrs.append("track_and_trace_link")
+        return attrs
+
+    @property
+    def is_actionable(self) -> bool:
+        from .payments import Payment
+
+        try:
+            payment = self.payment
+            if payment.status != PaymentStatuses.completed:
+                return False
+        except Payment.DoesNotExist:
+            pass
+
+        if self.status == OrderStatuses.received:
+            return True
+
+        return False
+
     def get_full_name(self) -> str:
         bits = [self.first_name, self.last_name]
         return " ".join(bits).strip()
@@ -153,3 +222,69 @@ class Order(models.Model):
     def get_confirmation_link(self) -> str:
         path = reverse("shop:checkout", kwargs={"path": "confirmation"})
         return furl(path).set({"orderId": self.pk}).url
+
+
+class OrderEvent(models.Model):
+    """
+    Event that happened in relation to a particular order.
+
+    All events together build up a timeline/history of an entire order.
+    """
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name=_("order"))
+    timestamp = models.DateTimeField(
+        _("timestamp"),
+        auto_now_add=True,
+        help_text=_("Moment in time when the event occurred."),
+    )
+    event = models.CharField(_("event type"), max_length=50, choices=OrderEvents)
+    event_data = models.JSONField(
+        _("event data"),
+        null=True,
+        blank=True,
+        help_text=_("Additional data relevant for the selected event type."),
+    )
+
+    get_event_display: Callable[[], str]
+
+    class Meta:
+        verbose_name = _("order event")
+        verbose_name_plural = _("order events")
+
+    def __str__(self) -> str:
+        return _("{timestamp}: {order} - {event}").format(
+            timestamp=self.timestamp.isoformat(),
+            order=self.order.reference if self.order else "(-)",
+            event=self.get_event_display(),
+        )
+
+    def get_description(self) -> str | Promise:
+        """
+        Return the event description with all necessary context.
+        """
+        event = OrderEvents(self.event)
+        match event:
+            case OrderEvents.placed:
+                return self.get_event_display()
+            case OrderEvents.status_changed:
+                old_status = OrderStatuses(self.event_data["old"])
+                new_status = OrderStatuses(self.event_data["new"])
+                return _("Status changed from '{old}' to '{new}'").format(
+                    old=old_status.label.lower(),
+                    new=new_status.label.lower(),
+                )
+            case OrderEvents.payment_status_changed:
+                old_status = PaymentStatuses(self.event_data["old"])
+                new_status = PaymentStatuses(self.event_data["new"])
+                return _("Payment status changed from '{old}' to '{new}'").format(
+                    old=old_status.label.lower(),
+                    new=new_status.label.lower(),
+                )
+            case OrderEvents.email_sent:
+                return format_html(
+                    "Email sent to <a href=\"mailto:{to}\">{to}</a> with subject '{subject}'",
+                    to=self.event_data["to"],
+                    subject=self.event_data["subject"],
+                )
+            case _:  # pragma: no cover
+                assert_never(event)

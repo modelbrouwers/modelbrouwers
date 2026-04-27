@@ -4,7 +4,7 @@ from django.db import models, transaction
 from django.templatetags.l10n import localize
 from django.utils.translation import gettext_lazy as _
 
-from ..constants import PaymentStatuses
+from ..constants import OrderEvents, PaymentStatuses
 from .utils import get_max_order, get_payment_reference
 
 __all__ = ["PaymentMethod", "Payment"]
@@ -109,8 +109,9 @@ class Payment(models.Model):
         amount_in_euro = Decimal(self.amount) / 100
         return f"€ {localize(amount_in_euro)}"
 
+    @transaction.atomic
     def mark_paid(self) -> None:
-        if self.status == PaymentStatuses.completed:
+        if (old_status := self.status) == PaymentStatuses.completed:
             return
 
         assert self.status != PaymentStatuses.cancelled, (
@@ -120,13 +121,21 @@ class Payment(models.Model):
 
         self.status = PaymentStatuses.completed
         self.save()
+        self.order.orderevent_set.create(
+            event=OrderEvents.payment_status_changed,
+            event_data={"old": old_status, "new": self.status},
+        )
 
     @transaction.atomic()
     def cancel(self) -> None:
-        if self.status == PaymentStatuses.cancelled:
+        if (old_status := self.status) == PaymentStatuses.cancelled:
             return
 
         self.historical_order = self.order
         self.order = None
         self.status = PaymentStatuses.cancelled
         self.save()
+        self.historical_order.orderevent_set.create(
+            event=OrderEvents.payment_status_changed,
+            event_data={"old": old_status, "new": self.status},
+        )

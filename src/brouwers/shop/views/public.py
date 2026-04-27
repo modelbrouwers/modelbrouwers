@@ -22,6 +22,7 @@ from ..constants import (
     CART_SESSION_KEY,
     ORDERS_SESSION_KEY,
     CartStatuses,
+    OrderEvents,
     PaymentStatuses,
 )
 from ..emails import send_order_confirmation_email
@@ -31,6 +32,7 @@ from ..models import (
     CategoryCarouselImage,
     HomepageCategory,
     Order,
+    OrderEvent,
     Payment,
     Product,
 )
@@ -259,6 +261,7 @@ class ConfirmOrderView(
 
         # store order
         order = serializer.save_order()
+        OrderEvent.objects.create(order=order, event=OrderEvents.placed)
 
         # convert euros to eurocents
         total_amount = int((cart.total + order.shipping_costs) * 100)

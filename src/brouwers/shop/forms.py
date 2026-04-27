@@ -31,9 +31,25 @@ class OrderDetailForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ("status",)
+        fields = (
+            "status",
+            "track_and_trace_code",
+            "track_and_trace_link",
+        )
         widgets = {
             "status": forms.Select(attrs={"class": "form-control"}),
+            "track_and_trace_code": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": _("3SAAAA9999999"),
+                }
+            ),
+            "track_and_trace_link": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": _("https://jouw.postnl.nl/track-and-trace/..."),
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -58,4 +74,5 @@ class OrderDetailForm(forms.ModelForm):
         ):
             payment.status = new_payment_status
             payment.save()
+
         return obj

@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.contrib import admin
+from django.db.models import Count
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
 
@@ -19,6 +20,7 @@ from .models import (
     HomepageCategory,
     HomepageCategoryChild,
     Order,
+    OrderEvent,
     Payment,
     PaymentMethod,
     Product,
@@ -37,12 +39,20 @@ from .resources import CategoryResource, ProductResource
 @admin.register(Category)
 class CategoryAdmin(ImportExportMixin, TranslationAdmin, TreeAdmin):
     form = movenodeform_factory(Category)
-    list_display = ("name", "image", "enabled", "id")
+    list_display = ("name", "image", "enabled", "num_products", "id")
     list_filter = ("enabled",)
     search_fields = ("name", "meta_description", "id")
     resource_classes = (CategoryResource,)
     # TODO - override template to include import-export buttons
     change_list_template = "admin/tree_change_list.html"
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.annotate(num_products=Count("products"))
+
+    @admin.display(description=_("product count"), ordering="num_products")
+    def num_products(self, obj: Category) -> int:
+        return obj.num_products
 
 
 @admin.register(Product)
@@ -312,6 +322,22 @@ class HistoricalPaymentInline(admin.TabularInline):
     extra = 0
 
 
+class OrderEventInline(admin.TabularInline):
+    model = OrderEvent
+    fields = ("timestamp", "get_event_display", "event_data")
+    readonly_fields = fields
+    extra = 0
+    ordering = ("-timestamp",)
+    can_delete = False
+
+    def has_add_permission(self, request, obj) -> bool:
+        return False
+
+    @admin.display(description=_("event"), ordering="event")
+    def get_event_display(self, obj: OrderEvent) -> str:
+        return obj.get_event_display()
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
@@ -328,12 +354,53 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ("first_name", "last_name", "reference", "email")
     list_filter = ("status",)
     date_hierarchy = "created"
+    fieldsets = (
+        (
+            None,
+            {"fields": ("reference", "status", "cart")},
+        ),
+        (
+            _("Customer"),
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "phone",
+                )
+            },
+        ),
+        (
+            _("Shipping & invoicing"),
+            {
+                "fields": (
+                    "delivery_method",
+                    "delivery_address",
+                    "invoice_address",
+                    "shipping_costs",
+                    "track_and_trace_code",
+                    "track_and_trace_link",
+                )
+            },
+        ),
+        (
+            _("Metadata"),
+            {
+                "fields": (
+                    "created",
+                    "modified",
+                    "language",
+                )
+            },
+        ),
+    )
     raw_id_fields = (
         "cart",
         "delivery_address",
         "invoice_address",
     )
-    inlines = [HistoricalPaymentInline]
+    readonly_fields = ("created", "modified")
+    inlines = [OrderEventInline, HistoricalPaymentInline]
 
     @admin.display(description=_("Payment status"))  # type:ignore
     def payment_status(self, obj: Order) -> str | None:
@@ -348,3 +415,13 @@ class OrderAdmin(admin.ModelAdmin):
         items_total = Decimal(snapshot["total"])
         shipping = Decimal(obj.shipping_costs or 0)
         return items_total + shipping
+
+
+@admin.register(OrderEvent)
+class OrderEventAdmin(admin.ModelAdmin):
+    list_display = ("order", "event", "timestamp")
+    list_select_related = ("order",)
+    list_filter = ("event", "timestamp")
+    date_hierarchy = "timestamp"
+    search_fields = ("order__reference",)
+    ordering = ("-timestamp",)

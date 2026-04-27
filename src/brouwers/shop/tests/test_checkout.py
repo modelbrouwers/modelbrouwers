@@ -3,6 +3,7 @@ from decimal import Decimal
 from unittest.mock import patch
 
 from django.core import mail
+from django.test import override_settings
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
@@ -198,6 +199,23 @@ class CheckoutTests(WebTest):
                 # 35.42 + 9.95 = 45.37 (products + shipping)
                 self.assertInHTML("<td>&euro;&nbsp;7,08</td>", html_body)
                 self.assertInHTML("<td>&euro;&nbsp;45,37</td>", html_body)
+
+        with (
+            self.subTest("order history"),
+            override_settings(LANGUAGE_CODE="en"),
+        ):
+            events = order.orderevent_set.order_by("-timestamp")
+            self.assertEqual(len(events), 2)
+            email_sent, order_placed = events
+
+            self.assertEqual(
+                email_sent.get_description(),
+                (
+                    'Email sent to <a href="mailto:tony@example.com">tony@example.com'
+                    f"</a> with subject 'Modelbrouwers - order {order.reference}'"
+                ),
+            )
+            self.assertEqual(order_placed.get_description(), "Order placed")
 
     def test_checkout_delivery_by_mail_without_delivery_address_is_blocked(self):
         self.addCleanup(ShopConfiguration.clear_cache)
