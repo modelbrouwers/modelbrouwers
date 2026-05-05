@@ -378,6 +378,11 @@ python-dotenv==1.2.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   pydantic-settings
+pyyaml==6.0.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   vcrpy
 questionary==2.1.0
     # via bump-my-version
 redis==7.4.0
@@ -512,6 +517,10 @@ uwsgi==2.0.29
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+vcrpy==8.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 waitress==3.0.2
     # via
     #   -c requirements/ci.txt
@@ -542,6 +551,11 @@ webtest==3.0.4
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-webtest
+wrapt==2.1.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   vcrpy
 wsproto==1.2.0
     # via
     #   -c requirements/ci.txt

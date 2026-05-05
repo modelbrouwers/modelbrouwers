@@ -11,3 +11,4 @@ pyquery
 requests-mock
 selenium
 tblib
+vcrpy
