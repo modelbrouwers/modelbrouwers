@@ -216,7 +216,7 @@ idna==3.10
     #   requests
     #   trio
     #   yarl
-lxml==5.4.0
+lxml==6.1.0
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt

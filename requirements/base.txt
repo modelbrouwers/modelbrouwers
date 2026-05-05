@@ -110,7 +110,7 @@ idna==3.10
     # via
     #   requests
     #   yarl
-lxml==5.4.0
+lxml==6.1.0
     # via
     #   -r requirements/base.in
     #   lxml-html-clean
