@@ -1,5 +1,4 @@
 import hashlib
-from typing import cast
 from urllib.parse import urljoin
 
 import lxml
@@ -13,7 +12,7 @@ NS = "https://www.sisow.nl/Sisow/REST"
 
 
 def xml_request(resource: str, method="get", **kwargs) -> lxml.etree.ElementTree:
-    config = cast(ShopConfiguration, ShopConfiguration.get_solo())
+    config = ShopConfiguration.get_solo()
 
     if config.sisow_test_mode:
         kwargs.setdefault("params", {})
