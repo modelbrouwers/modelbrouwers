@@ -110,6 +110,7 @@
         ["shop", "orderevent"],
         ["shop", "payment"],
         ["shop", "paymentmethod"],
+        ["shop", "sendcloudshippingoption"],
         ["shop", "shippingcost"],
         ["shop", "shopconfiguration"]
       ]

@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -42,8 +43,43 @@ class ShopConfiguration(SingletonModel):
         ),
     )
 
+    # sendcloud
+    sendcloud_public_key = models.CharField(
+        _("sendcloud public key"),
+        blank=True,
+        help_text=_(
+            "Public key for the Sendcloud integration, also known as the 'api key'."
+        ),
+    )
+    sendcloud_private_key = models.CharField(
+        _("sendcloud private key"),
+        blank=True,
+        help_text=_(
+            "Private key for the Sendcloud integration, also known as the 'api secret'."
+        ),
+    )
+
     class Meta:
         verbose_name = _("Shop configuration")
 
     def __str__(self):
         return "Shop configuration"
+
+    def clean(self):
+        super().clean()
+
+        self._validate_sendcloud_config()
+
+    def _validate_sendcloud_config(self) -> None:
+        from ..sendcloud import Client
+
+        if not self.sendcloud_public_key or not self.sendcloud_private_key:
+            return
+
+        with Client(config=self) as client:
+            credentials_valid = client.check_auth_ok()
+
+        if not credentials_valid:
+            raise ValidationError(
+                _("The sendcloud credentials don't appear to be valid.")
+            )
