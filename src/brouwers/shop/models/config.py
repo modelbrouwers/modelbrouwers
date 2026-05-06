@@ -81,5 +81,5 @@ class ShopConfiguration(SingletonModel):
 
         if not credentials_valid:
             raise ValidationError(
-                _("The sendcloud credentials don't appear to be valid.")
+                _("The Sendcloud credentials don't appear to be valid.")
             )
