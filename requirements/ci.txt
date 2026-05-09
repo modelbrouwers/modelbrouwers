@@ -40,14 +40,14 @@ bleach==5.0.1
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   django-bleach
-certifi==2025.4.26
+certifi==2026.4.22
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   requests
     #   selenium
     #   sentry-sdk
-charset-normalizer==3.4.2
+charset-normalizer==3.4.7
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -215,7 +215,7 @@ html2text==2025.4.15
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-idna==3.10
+idna==3.13
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt

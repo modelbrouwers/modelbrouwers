@@ -18,11 +18,11 @@ bleach==5.0.1
     # via
     #   -r requirements/base.in
     #   django-bleach
-certifi==2025.4.26
+certifi==2026.4.22
     # via
     #   requests
     #   sentry-sdk
-charset-normalizer==3.4.2
+charset-normalizer==3.4.7
     # via requests
 diff-match-patch==20241021
     # via django-import-export
@@ -111,7 +111,7 @@ geoip2==5.0.1
     # via -r requirements/base.in
 html2text==2025.4.15
     # via -r requirements/base.in
-idna==3.10
+idna==3.13
     # via
     #   requests
     #   yarl
