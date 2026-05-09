@@ -12,6 +12,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from furl import furl
+from privates.fields import PrivateMediaFileField
 
 from brouwers.general.fields import CountryField
 
@@ -133,6 +134,11 @@ class Order(models.Model):
         max_digits=6,
         blank=True,
         null=True,
+    )
+    shipping_label = PrivateMediaFileField(
+        _("shipping label"),
+        blank=True,
+        help_text=_("Shipping label (from Sendcloud) for the parcel."),
     )
     track_and_trace_code = models.CharField(
         _("track and trace code"),

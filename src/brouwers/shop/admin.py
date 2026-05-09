@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 import requests
 from import_export.admin import ImportExportMixin
 from modeltranslation.admin import TranslationAdmin
+from privates.admin import PrivateMediaMixin
 from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
@@ -393,7 +394,7 @@ class OrderEventInline(admin.TabularInline):
 
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(PrivateMediaMixin, admin.ModelAdmin):
     list_display = (
         "reference",
         "first_name",
@@ -432,6 +433,7 @@ class OrderAdmin(admin.ModelAdmin):
                     "delivery_address",
                     "invoice_address",
                     "shipping_costs",
+                    "shipping_label",
                     "track_and_trace_code",
                     "track_and_trace_link",
                 )
