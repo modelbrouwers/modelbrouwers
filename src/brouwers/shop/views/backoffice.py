@@ -5,6 +5,8 @@ from django.db import models, transaction
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, UpdateView
 
+from privates.views import PrivateMediaView
+
 from brouwers.shop.models.cart import CartProduct
 
 from ..constants import DeliveryMethods, OrderEvents, OrderStatuses
@@ -110,3 +112,14 @@ class OrderDetailView(BackofficeRequiredMixin, UpdateView):
 
     def get_success_url(self) -> str:
         return reverse("shop:order-detail", kwargs={"reference": self.object.reference})
+
+
+class OrderShippingLabelView(BackofficeRequiredMixin, PrivateMediaView):
+    queryset = Order.objects.filter(delivery_method=DeliveryMethods.mail)
+    slug_field = "reference"
+    slug_url_kwarg = "reference"
+    file_field = "shipping_label"
+
+    def has_permission(self):
+        has_base_perms = super().has_permission()
+        return has_base_perms and self.get_object().shipping_label

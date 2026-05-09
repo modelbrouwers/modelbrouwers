@@ -16,6 +16,10 @@
     margin: 0;
   }
 
+  a[disabled] {
+    cursor: not-allowed;
+  }
+
   @include bem.element('status') {
     grid-area: status;
     padding-block-start: 20px;
