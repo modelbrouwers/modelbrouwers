@@ -436,6 +436,7 @@ class OrderAdmin(PrivateMediaMixin, admin.ModelAdmin):
                     "shipping_label",
                     "track_and_trace_code",
                     "track_and_trace_link",
+                    "sendcloud_shipment_id",
                 )
             },
         ),
@@ -455,7 +456,7 @@ class OrderAdmin(PrivateMediaMixin, admin.ModelAdmin):
         "delivery_address",
         "invoice_address",
     )
-    readonly_fields = ("created", "modified")
+    readonly_fields = ("created", "modified", "sendcloud_shipment_id")
     inlines = [OrderEventInline, HistoricalPaymentInline]
 
     @admin.display(description=_("Payment status"))  # type:ignore

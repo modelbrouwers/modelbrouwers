@@ -6,12 +6,16 @@ Implements a `Sendcloud`_ API client integration.
 
 from __future__ import annotations
 
+import base64
 import logging
 from collections.abc import Mapping
 from dataclasses import dataclass
 from decimal import Decimal
+from io import BytesIO
 from typing import Literal, NotRequired, TypedDict, assert_never
 from urllib.parse import urljoin
+
+from django.core.files import File
 
 import requests
 from requests.auth import HTTPBasicAuth
@@ -122,6 +126,13 @@ class Client(requests.Session):
         self.headers["Accept"] = "application/json"
 
     @property
+    def is_ready_for_use(self) -> bool:
+        config = self.config
+        if not config.sendcloud_public_key or not config.sendcloud_private_key:
+            return False
+        return True
+
+    @property
     def config(self) -> ShopConfiguration:
         if self._config is None:
             self._config = ShopConfiguration.get_solo()
@@ -176,7 +187,7 @@ class Client(requests.Session):
         city: str,
         country: LegacyCountry,
         company: str = "",
-        weight_in_grams: Decimal,
+        weight_in_grams: int,
     ) -> ShippingLabelResult:
         """
         Synchronously announce a shipment to create a shipping label.
@@ -184,10 +195,10 @@ class Client(requests.Session):
         country_code = _country_to_iso_country_code(country)
         if weight_in_grams > 1000:
             weight_unit = "kg"
-            weight = str((weight_in_grams / 1000).quantize(Decimal("0.1")))
+            weight = str((Decimal(weight_in_grams) / 1000).quantize(Decimal("0.1")))
         else:
             weight_unit = "g"
-            weight = str(weight_in_grams.quantize(Decimal("1")))
+            weight = str(weight_in_grams)
 
         shipping_option_code = SendcloudShippingOption.objects.get_code_for_country(
             country
@@ -223,13 +234,26 @@ class Client(requests.Session):
         response = self.post("shipments/announce", json=body)
         response.raise_for_status()
 
-        # TODO: post-process & store label as file?
+        # The label is only returned if there's a single parcel in the shipment (!).
         data = response.json()["data"]
         assert len(data["parcels"]) == 1
         parcel_data = data["parcels"][0]
+
+        match mime_type := data["label_details"]["mime_type"]:
+            case "application/pdf":
+                label_ext = ".pdf"
+            case "image/png":
+                label_ext = ".png"
+            case "application/zpl":
+                label_ext = ".zpl"
+            case _:  # pragma: no cover
+                raise NotImplementedError(f"Unexpected mime type {mime_type}")
+
+        label_data = base64.b64decode(parcel_data["label_file"])
         return ShippingLabelResult(
             id=data["id"],
-            label_file=parcel_data["label_file"],
+            label_file=File(BytesIO(label_data)),
+            label_ext=label_ext,
             tracking_number=parcel_data["tracking_number"],
             tracking_url=parcel_data["tracking_url"],
         )
@@ -244,6 +268,7 @@ class Client(requests.Session):
 @dataclass
 class ShippingLabelResult:
     id: str
-    label_file: str  # base64 encoded label data
+    label_file: File
     tracking_number: str
     tracking_url: str
+    label_ext: str

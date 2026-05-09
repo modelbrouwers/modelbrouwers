@@ -140,6 +140,9 @@ class Order(models.Model):
         blank=True,
         help_text=_("Shipping label (from Sendcloud) for the parcel."),
     )
+    sendcloud_shipment_id = models.CharField(
+        _("sendcloud shipment ID"), max_length=200, blank=True, editable=False
+    )
     track_and_trace_code = models.CharField(
         _("track and trace code"),
         max_length=100,

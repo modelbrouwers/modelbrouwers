@@ -1,5 +1,4 @@
 import os
-from decimal import Decimal
 
 from django.test import tag
 from django.urls import reverse
@@ -38,7 +37,7 @@ class SendcloudClientTests(VCRTestCase):
                 postal_code="2964AK",
                 city="Groot-Ammers",
                 country="N",
-                weight_in_grams=Decimal(513),
+                weight_in_grams=513,
             )
 
             # cancel the shipment to avoid potential costs!
@@ -46,6 +45,7 @@ class SendcloudClientTests(VCRTestCase):
 
         self.assertGreater(len(result.id), 0)
         self.assertGreater(len(result.label_file), 0)
+        self.assertEqual(result.label_ext, ".pdf")
         self.assertGreater(len(result.tracking_number), 0)
         self.assertGreater(len(result.tracking_url), 0)
 
@@ -60,7 +60,7 @@ class SendcloudClientTests(VCRTestCase):
                 postal_code="93451",
                 city="City:  Neukirchen",
                 country="D",
-                weight_in_grams=Decimal(1200),
+                weight_in_grams=1200,
             )
 
             # cancel the shipment to avoid potential costs!
@@ -68,6 +68,7 @@ class SendcloudClientTests(VCRTestCase):
 
         self.assertGreater(len(result.id), 0)
         self.assertGreater(len(result.label_file), 0)
+        self.assertEqual(result.label_ext, ".pdf")
         self.assertGreater(len(result.tracking_number), 0)
         self.assertGreater(len(result.tracking_url), 0)
 
