@@ -96,6 +96,7 @@ django==5.2.13
     #   django-import-export
     #   django-js-asset
     #   django-modeltranslation
+    #   django-privates
     #   django-recaptcha
     #   django-rosetta
     #   django-sendfile2
@@ -161,6 +162,10 @@ django-ordered-model==3.7.4
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-admin-index
+django-privates==3.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 django-recaptcha==4.1.0
     # via
     #   -c requirements/ci.txt
@@ -173,6 +178,7 @@ django-sendfile2==0.7.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   django-privates
 django-sessionprofile==3.0.0
     # via
     #   -c requirements/ci.txt
