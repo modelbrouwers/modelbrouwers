@@ -36,10 +36,10 @@ jobs:
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-      memcached:
-        image: memcached:1.6
+      redis:
+        image: redis:8
         ports:
-          - 11211:11211
+          - 6379:6379
 
     steps:
       - uses: actions/checkout@v6.0.2
@@ -52,8 +52,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes libmemcached-dev
           pip install uv
           uv pip install --system -r requirements/ci.txt
 
