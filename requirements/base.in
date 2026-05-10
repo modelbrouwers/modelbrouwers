@@ -28,6 +28,7 @@ django-ckeditor
 django-cors-headers
 django-extra-views
 django-loginas
+django-privates
 django-recaptcha
 django-rosetta
 django-sendfile2

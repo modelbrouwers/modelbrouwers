@@ -14,6 +14,7 @@ from .views import (
     IndexView,
     OrderDetailView,
     OrderListView,
+    OrderShippingLabelView,
     RouterView,
 )
 
@@ -39,6 +40,11 @@ urlpatterns = [
                     "orders/<slug:reference>/",
                     OrderDetailView.as_view(),
                     name="order-detail",
+                ),
+                path(
+                    "orders/<slug:reference>/shipping-label/",
+                    OrderShippingLabelView.as_view(),
+                    name="order-shipping-label",
                 ),
             ]
         ),

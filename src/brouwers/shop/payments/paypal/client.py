@@ -1,5 +1,4 @@
 from decimal import Decimal
-from typing import cast
 
 from django.conf import settings
 from django.core.cache import caches
@@ -35,7 +34,7 @@ class Client:
 
     @cached_property
     def config(self):
-        return cast(ShopConfiguration, ShopConfiguration.get_solo())
+        return ShopConfiguration.get_solo()
 
     @cached_property
     def base_url(self) -> str:

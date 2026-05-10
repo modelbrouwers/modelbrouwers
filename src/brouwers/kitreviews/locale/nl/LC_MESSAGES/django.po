@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: 2016-09-11 00:31+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,43 +35,43 @@ msgstr "Kitnaam"
 msgid "Scale"
 msgstr "Schaal"
 
-#: src/brouwers/kitreviews/models.py:27
+#: src/brouwers/kitreviews/models.py:25
 msgid "model kit"
 msgstr "bouwdoos"
 
-#: src/brouwers/kitreviews/models.py:29
+#: src/brouwers/kitreviews/models.py:27
 msgid "review"
 msgstr "review"
 
-#: src/brouwers/kitreviews/models.py:29
-msgid "This is your review. You can use BBCode here."
-msgstr "Dit is je reviewtekst. Je kan BBCode gebruiken."
+#: src/brouwers/kitreviews/models.py:28
+msgid "The content of the review. Please be detailed!"
+msgstr ""
 
-#: src/brouwers/kitreviews/models.py:43
+#: src/brouwers/kitreviews/models.py:39
 msgid "album"
 msgstr "album"
 
-#: src/brouwers/kitreviews/models.py:46
+#: src/brouwers/kitreviews/models.py:42
 msgid "topic"
 msgstr "topic"
 
-#: src/brouwers/kitreviews/models.py:50
+#: src/brouwers/kitreviews/models.py:46
 msgid "ID of the topic on Modelbrouwers."
 msgstr "Link naar het forumtopic/brouwverslag."
 
-#: src/brouwers/kitreviews/models.py:53
+#: src/brouwers/kitreviews/models.py:49
 msgid "external topic url"
 msgstr "externe topiclink"
 
-#: src/brouwers/kitreviews/models.py:55
+#: src/brouwers/kitreviews/models.py:51
 msgid "URL to the topic not hosted on Modelbrouwers"
 msgstr "Link naar het verslag NIET op Modelbrouwers"
 
-#: src/brouwers/kitreviews/models.py:60
+#: src/brouwers/kitreviews/models.py:56
 msgid "show real name?"
 msgstr "echte naam weergeven?"
 
-#: src/brouwers/kitreviews/models.py:63
+#: src/brouwers/kitreviews/models.py:59
 msgid ""
 "Checking this option will display your real name as reviewer. Uncheck to use "
 "your nickname."
@@ -79,61 +79,61 @@ msgstr ""
 "Indien je deze optie aanvinkt, dan wordt je echt naam gebruikt als auteur "
 "van de review. Vink dit uit om je gebruikersnaam te tonen."
 
-#: src/brouwers/kitreviews/models.py:72
+#: src/brouwers/kitreviews/models.py:68
 msgid "is reviewed?"
 msgstr "gereviewed?"
 
-#: src/brouwers/kitreviews/models.py:77
+#: src/brouwers/kitreviews/models.py:73
 msgid "kit review"
 msgstr "kitreview"
 
-#: src/brouwers/kitreviews/models.py:78
+#: src/brouwers/kitreviews/models.py:74
 msgid "kit reviews"
 msgstr "kitreviews"
 
-#: src/brouwers/kitreviews/models.py:81
+#: src/brouwers/kitreviews/models.py:77
 #, python-format
 msgid "Review: %(kit)s by %(user)s"
 msgstr "Review: %(kit)s door %(user)s"
 
-#: src/brouwers/kitreviews/models.py:123
+#: src/brouwers/kitreviews/models.py:110
 msgid "vote"
 msgstr "stem"
 
-#: src/brouwers/kitreviews/models.py:128
+#: src/brouwers/kitreviews/models.py:115
 msgid "kit review vote"
 msgstr "kitreviewstem"
 
-#: src/brouwers/kitreviews/models.py:129
+#: src/brouwers/kitreviews/models.py:116
 msgid "kit review votes"
 msgstr "kitreview stemmen"
 
-#: src/brouwers/kitreviews/models.py:133
+#: src/brouwers/kitreviews/models.py:120
 #, python-format
 msgid "Vote for review by %(review_submitter)s"
 msgstr "Stem voor review door %(review_submitter)s"
 
-#: src/brouwers/kitreviews/models.py:143
+#: src/brouwers/kitreviews/models.py:130
 msgid "name"
 msgstr "naam"
 
-#: src/brouwers/kitreviews/models.py:147
+#: src/brouwers/kitreviews/models.py:134
 msgid "kit review property"
 msgstr "kitrevieweigenschap"
 
-#: src/brouwers/kitreviews/models.py:148
+#: src/brouwers/kitreviews/models.py:135
 msgid "kit review properties"
 msgstr "kitrevieweigenschappen"
 
-#: src/brouwers/kitreviews/models.py:164
+#: src/brouwers/kitreviews/models.py:151
 msgid "rating"
 msgstr "waardering"
 
-#: src/brouwers/kitreviews/models.py:170
+#: src/brouwers/kitreviews/models.py:157
 msgid "kit review property rating"
 msgstr "eigenschapwaardering"
 
-#: src/brouwers/kitreviews/models.py:171
+#: src/brouwers/kitreviews/models.py:158
 msgid "kit review property ratings"
 msgstr "eigenschapwaarderingen"
 
@@ -216,7 +216,7 @@ msgstr ""
 "Oeps, we konden geen bouwdoos vinden in onze databank! Wil je hem toevoegen?"
 
 #: src/brouwers/kitreviews/templates/kitreviews/find_kit.html:32
-#: src/brouwers/kitreviews/tests/test_views.py:259
+#: src/brouwers/kitreviews/tests/test_views.py:256
 msgid "Add kit"
 msgstr "Bouwdoos toevoegen"
 
@@ -255,7 +255,7 @@ msgstr "Zoek bouwdozen"
 msgid "or"
 msgstr "of"
 
-#: src/brouwers/kitreviews/templates/kitreviews/find_kit_form.html:30
+#: src/brouwers/kitreviews/templates/kitreviews/find_kit_form.html:32
 msgid "Add new kit"
 msgstr "Voeg nieuwe kit toe"
 
@@ -311,6 +311,3 @@ msgstr "andere reviews"
 #: src/brouwers/kitreviews/tests/test_views.py:78
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
-
-#~ msgid "unrated"
-#~ msgstr "geen waardering"

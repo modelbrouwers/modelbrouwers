@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "foo"
 msgstr ""
 
-#: src/brouwers/conf/base.py:39
+#: src/brouwers/conf/base.py:40
 msgid "Dutch"
 msgstr "Nederlands"
 
-#: src/brouwers/conf/base.py:40
+#: src/brouwers/conf/base.py:41
 msgid "English"
 msgstr "Engels"
 
-#: src/brouwers/conf/base.py:41
+#: src/brouwers/conf/base.py:42
 msgid "German"
 msgstr ""
 
@@ -41,58 +41,94 @@ msgstr ""
 msgid "Website logo"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:95
+#: src/brouwers/shop/admin.py:60
+msgid "product count"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:115
 msgid "Sales"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:101
+#: src/brouwers/shop/admin.py:121
 msgid "Product details"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:116
+#: src/brouwers/shop/admin.py:136
 msgid "SEO"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:208
+#: src/brouwers/shop/admin.py:231
 msgid "Sisow/Buckaroo"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:217
+#: src/brouwers/shop/admin.py:240
 #: src/brouwers/shop/payments/payment_options.py:21
 msgid "Bank transfer"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:219
+#: src/brouwers/shop/admin.py:242
 msgid "Paypal"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:228
+#: src/brouwers/shop/admin.py:251
 msgid "Email"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:290
+#: src/brouwers/shop/admin.py:252
+msgid "Sendcloud"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:263 src/brouwers/shop/models/shipping.py:52
+msgid "maximum weight"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:373
 msgid "historical payment"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:291
+#: src/brouwers/shop/admin.py:374
 msgid "historical payments"
 msgstr ""
 
-#: src/brouwers/shop/admin.py:318
+#: src/brouwers/shop/admin.py:391
+msgid "event"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:418
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:156
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:43
+msgid "Customer"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:429
+msgid "Shipping & invoicing"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:444
+msgid "Metadata"
+msgstr ""
+
+#: src/brouwers/shop/admin.py:462
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:50
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:50
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:14
 msgid "Payment status"
 msgstr ""
 
-#: src/brouwers/shop/api/serializers.py:108
-msgid "id"
+#: src/brouwers/shop/admin.py:468
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:118
+msgid "Price"
 msgstr ""
 
 #: src/brouwers/shop/api/serializers.py:109
+msgid "id"
+msgstr ""
+
+#: src/brouwers/shop/api/serializers.py:110
 #: src/brouwers/shop/models/categories.py:10
 #: src/brouwers/shop/models/customers.py:6
-#: src/brouwers/shop/models/payments.py:14
-#: src/brouwers/shop/models/products.py:17
+#: src/brouwers/shop/models/payments.py:15
+#: src/brouwers/shop/models/products.py:20
 msgid "name"
 msgstr ""
 
@@ -148,52 +184,93 @@ msgstr ""
 msgid "Completed"
 msgstr ""
 
-#: src/brouwers/shop/emails.py:23
+#: src/brouwers/shop/constants.py:43
+msgid "Pickup"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:44
+msgid "By mail"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:48
+#: src/brouwers/shop/tests/admin/test_admin_smoke.py:85
+msgid "Order placed"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:49
+msgid "Status changed"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:50
+msgid "Payment status changed"
+msgstr ""
+
+#: src/brouwers/shop/constants.py:51
+msgid "Email sent"
+msgstr ""
+
+#: src/brouwers/shop/emails.py:24
 #, python-brace-format
 msgid "Modelbrouwers - order {order_number}"
 msgstr ""
 
-#: src/brouwers/shop/emails.py:76
+#: src/brouwers/shop/emails.py:89
 #, python-brace-format
 msgid "Order confirmation - {order_number}"
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:22 src/brouwers/shop/models/orders.py:71
-#: src/brouwers/shop/models/payments.py:58
+#: src/brouwers/shop/forms.py:20
+msgid "Change payment status"
+msgstr ""
+
+#: src/brouwers/shop/forms.py:26
+msgid "Send email notification"
+msgstr ""
+
+#: src/brouwers/shop/forms.py:44
+msgid "3SAAAA9999999"
+msgstr ""
+
+#: src/brouwers/shop/forms.py:50
+msgid "https://jouw.postnl.nl/track-and-trace/..."
+msgstr ""
+
+#: src/brouwers/shop/models/cart.py:26 src/brouwers/shop/models/orders.py:86
+#: src/brouwers/shop/models/payments.py:59
 #: src/brouwers/shop/payments/sisow/forms.py:23
 msgid "status"
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:28
+#: src/brouwers/shop/models/cart.py:32
 msgid "snapshot data"
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:30
+#: src/brouwers/shop/models/cart.py:34
 msgid "Snapshot of order information with frozen prices."
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:37
+#: src/brouwers/shop/models/cart.py:42
 msgid "cart"
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:38
+#: src/brouwers/shop/models/cart.py:43
 msgid "carts"
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:83 src/brouwers/shop/models/payments.py:55
+#: src/brouwers/shop/models/cart.py:95 src/brouwers/shop/models/payments.py:56
 msgid "amount"
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:86
+#: src/brouwers/shop/models/cart.py:98
 msgid "cart product"
 msgstr ""
 
-#: src/brouwers/shop/models/cart.py:87
+#: src/brouwers/shop/models/cart.py:99
 msgid "cart products"
 msgstr ""
 
 #: src/brouwers/shop/models/categories.py:11
-#: src/brouwers/shop/models/products.py:18
+#: src/brouwers/shop/models/products.py:21
 msgid "slug"
 msgstr ""
 
@@ -202,12 +279,12 @@ msgid "thumbnail"
 msgstr ""
 
 #: src/brouwers/shop/models/categories.py:13
-#: src/brouwers/shop/models/payments.py:18
+#: src/brouwers/shop/models/payments.py:19
 msgid "enabled"
 msgstr ""
 
 #: src/brouwers/shop/models/categories.py:17
-#: src/brouwers/shop/models/products.py:32
+#: src/brouwers/shop/models/products.py:35
 msgid "meta description"
 msgstr ""
 
@@ -240,55 +317,75 @@ msgstr ""
 msgid "category carousel images"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:11
+#: src/brouwers/shop/models/config.py:12
 msgid "sisow test mode"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:13
+#: src/brouwers/shop/models/config.py:14
 msgid "sisow merchant ID"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:16
+#: src/brouwers/shop/models/config.py:17
 msgid "sisow merchant key"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:21
-#, fuzzy
-#| msgid "Migrations"
+#: src/brouwers/shop/models/config.py:22
 msgid "instructions"
-msgstr "Migraties"
+msgstr "instructies"
 
-#: src/brouwers/shop/models/config.py:23
+#: src/brouwers/shop/models/config.py:24
 msgid ""
 "Enter the instructions to display to the customer on how to transfer the "
 "money."
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:28
+#: src/brouwers/shop/models/config.py:29
 msgid "paypal sandbox"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:30
+#: src/brouwers/shop/models/config.py:31
 msgid "paypal API client ID"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:32
+#: src/brouwers/shop/models/config.py:33
 msgid "paypal API secret"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:36
+#: src/brouwers/shop/models/config.py:37
 msgid "from email"
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:39
+#: src/brouwers/shop/models/config.py:40
 msgid ""
 "Email address for outgoing e-mails. This will end up in the 'From' header - "
 "you must ensure that your outgoing email server is appropriately configured. "
 "If left blank, the default value from the settings is used."
 msgstr ""
 
-#: src/brouwers/shop/models/config.py:46
+#: src/brouwers/shop/models/config.py:48
+msgid "sendcloud public key"
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:51
+msgid "Public key for the Sendcloud integration, also known as the 'api key'."
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:55
+msgid "sendcloud private key"
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:58
+msgid ""
+"Private key for the Sendcloud integration, also known as the 'api secret'."
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:63
 msgid "Shop configuration"
+msgstr ""
+
+#: src/brouwers/shop/models/config.py:83
+#: src/brouwers/shop/tests/test_sendcloud.py:116
+msgid "The Sendcloud credentials don't appear to be valid."
 msgstr ""
 
 #: src/brouwers/shop/models/customers.py:8
@@ -303,170 +400,253 @@ msgstr ""
 msgid "customer groups"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:20
+#: src/brouwers/shop/models/orders.py:27
 msgid "street name"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:21
+#: src/brouwers/shop/models/orders.py:28
 msgid "house number"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:22
+#: src/brouwers/shop/models/orders.py:29
 msgid "postal code"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:23
+#: src/brouwers/shop/models/orders.py:30
 msgid "city"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:27
+#: src/brouwers/shop/models/orders.py:34
 msgid "company"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:29
+#: src/brouwers/shop/models/orders.py:36
 msgid "chamber of commerce number"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:33
+#: src/brouwers/shop/models/orders.py:40
 msgid "address"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:34
+#: src/brouwers/shop/models/orders.py:41
 msgid "addresses"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:69
+#: src/brouwers/shop/models/orders.py:84
 msgid "shopping cart"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:73
-#: src/brouwers/shop/models/payments.py:64
+#: src/brouwers/shop/models/orders.py:88
+#: src/brouwers/shop/models/payments.py:65
 msgid "reference"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:77
+#: src/brouwers/shop/models/orders.py:92
 msgid "A unique order reference"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:82
-#, fuzzy
-#| msgid "First page"
+#: src/brouwers/shop/models/orders.py:97
 msgid "first name"
-msgstr "Eerste pagina"
+msgstr "voornaam"
 
-#: src/brouwers/shop/models/orders.py:83
-#, fuzzy
-#| msgid "Last page"
+#: src/brouwers/shop/models/orders.py:98
 msgid "last name"
-msgstr "Laatste pagina"
+msgstr "achternaam"
 
-#: src/brouwers/shop/models/orders.py:84
+#: src/brouwers/shop/models/orders.py:99
 msgid "email"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:85
+#: src/brouwers/shop/models/orders.py:100
 msgid "phone number"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:92
-msgid "Address for delivery"
-msgstr ""
-
-#: src/brouwers/shop/models/orders.py:103
-#: src/brouwers/shop/models/payments.py:88
-msgid "created"
-msgstr ""
-
 #: src/brouwers/shop/models/orders.py:104
-#: src/brouwers/shop/models/payments.py:89
-msgid "modified"
-msgstr ""
-
-#: src/brouwers/shop/models/orders.py:106
-msgid "language"
+msgid "delivery method"
 msgstr ""
 
 #: src/brouwers/shop/models/orders.py:112
-#: src/brouwers/shop/models/payments.py:48
+msgid "Address for delivery"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:125
+#: src/brouwers/shop/models/payments.py:89
+msgid "created"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:126
+#: src/brouwers/shop/models/payments.py:90
+msgid "modified"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:128
+msgid "language"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:132
+#: src/brouwers/shop/models/shipping.py:72
+msgid "shipping costs"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:139
+msgid "shipping label"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:141
+msgid "Shipping label (from Sendcloud) for the parcel."
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:144
+msgid "sendcloud shipment ID"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:147
+msgid "track and trace code"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:151
+msgid ""
+"If available, the track and trace code for the client to follow their parcel."
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:156
+msgid "track and trace link"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:160
+msgid ""
+"If available, the clickable track and trace link for the client to follow "
+"their parcel. If both the link and code are provided, the link will be "
+"displayed in the email."
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:170
+#: src/brouwers/shop/models/orders.py:243
+#: src/brouwers/shop/models/payments.py:49
 #: src/brouwers/shop/models/presentation.py:16
 #: src/brouwers/shop/models/presentation.py:40
 msgid "order"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:113
+#: src/brouwers/shop/models/orders.py:171
 msgid "orders"
 msgstr ""
 
-#: src/brouwers/shop/models/orders.py:116
+#: src/brouwers/shop/models/orders.py:183
+msgid "A delivery address must be specified when deliverying via mail."
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:189
 #, python-brace-format
 msgid "Order {pk}"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:15
-msgid "method"
+#: src/brouwers/shop/models/orders.py:245
+msgid "timestamp"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:247
+msgid "Moment in time when the event occurred."
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:249
+msgid "event type"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:251
+msgid "event data"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:254
+msgid "Additional data relevant for the selected event type."
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:260
+msgid "order event"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:261
+msgid "order events"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:264
+#, python-brace-format
+msgid "{timestamp}: {order} - {event}"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:281
+#, python-brace-format
+msgid "Status changed from '{old}' to '{new}'"
+msgstr ""
+
+#: src/brouwers/shop/models/orders.py:288
+#, python-brace-format
+msgid "Payment status changed from '{old}' to '{new}'"
 msgstr ""
 
 #: src/brouwers/shop/models/payments.py:16
-#, fuzzy
-#| msgid "logout"
-msgid "logo"
-msgstr "uitloggen"
+msgid "method"
+msgstr ""
 
-#: src/brouwers/shop/models/payments.py:20
+#: src/brouwers/shop/models/payments.py:17
+msgid "logo"
+msgstr "logo"
+
+#: src/brouwers/shop/models/payments.py:21
 msgid "Whether the payment method can be used at checkout or not."
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:22
+#: src/brouwers/shop/models/payments.py:23
 msgid "ordering"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:25
+#: src/brouwers/shop/models/payments.py:26
 msgid "payment method"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:26
+#: src/brouwers/shop/models/payments.py:27
 msgid "payment methods"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:49
+#: src/brouwers/shop/models/payments.py:50
 msgid "The order being paid by this payment."
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:52
+#: src/brouwers/shop/models/payments.py:53
 msgid "Payment method used"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:55
+#: src/brouwers/shop/models/payments.py:56
 msgid "Amount to be paid, in eurocents."
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:68
+#: src/brouwers/shop/models/payments.py:69
 msgid "A unique payment reference"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:71
+#: src/brouwers/shop/models/payments.py:72
 msgid "payment data"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:74
+#: src/brouwers/shop/models/payments.py:75
 msgid "The exact payment data is provider-specific"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:82
+#: src/brouwers/shop/models/payments.py:83
 msgid "historical order"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:84
+#: src/brouwers/shop/models/payments.py:85
 msgid ""
 "Order this payment was for, in case it was cancelled/aborted. You cannot set "
 "order and historical order at the same time."
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:92
+#: src/brouwers/shop/models/payments.py:93
 msgid "payment"
 msgstr ""
 
-#: src/brouwers/shop/models/payments.py:93
+#: src/brouwers/shop/models/payments.py:94
 msgid "payments"
 msgstr ""
 
@@ -491,96 +671,161 @@ msgstr ""
 msgid "homepage category children"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:19
+#: src/brouwers/shop/models/products.py:22
 msgid "model name"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:21
+#: src/brouwers/shop/models/products.py:24
 msgid "stock"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:21
+#: src/brouwers/shop/models/products.py:24
 msgid "Number of items in stock"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:23
+#: src/brouwers/shop/models/products.py:26
+#: src/brouwers/shop/models/shipping.py:58
 msgid "price"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:24
+#: src/brouwers/shop/models/products.py:27
 msgid "vat"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:27
+#: src/brouwers/shop/models/products.py:30
 msgid "image"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:35
+#: src/brouwers/shop/models/products.py:38
 msgid ""
 "If filled, populates the description meta tag for SEO purposes. If left "
 "blank, then the HTML tags are stripped from the regular description field "
 "and this content is used."
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:43
+#: src/brouwers/shop/models/products.py:46
 msgid "length"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:45
+#: src/brouwers/shop/models/products.py:48
 msgid "width"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:47
+#: src/brouwers/shop/models/products.py:50
 msgid "height"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:50
+#: src/brouwers/shop/models/products.py:53
 msgid "length unit"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:57
+#: src/brouwers/shop/models/products.py:60
 msgid "weight"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:60
+#: src/brouwers/shop/models/products.py:63
 msgid "weight unit"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:76
+#: src/brouwers/shop/models/products.py:79
 msgid "active"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:78
+#: src/brouwers/shop/models/products.py:81
 msgid "Inactive products do not show up on the site"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:83
+#: src/brouwers/shop/models/products.py:86
 msgid "product"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:84
+#: src/brouwers/shop/models/products.py:87
 msgid "products"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:132
-#: src/brouwers/shop/models/products.py:135
+#: src/brouwers/shop/models/products.py:146
+#: src/brouwers/shop/models/products.py:149
 msgid "product image"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:136
+#: src/brouwers/shop/models/products.py:150
 msgid "product images"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:140
+#: src/brouwers/shop/models/products.py:154
 msgid "manufacturer"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:143
+#: src/brouwers/shop/models/products.py:157
 msgid "product manufacturer"
 msgstr ""
 
-#: src/brouwers/shop/models/products.py:144
+#: src/brouwers/shop/models/products.py:158
 msgid "product manufacturers"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:43
+msgid "label"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:45
+msgid "Descriptive label, e.g. 'enveloppe' or 'small package'."
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:48
+#: src/brouwers/shop/models/shipping.py:108
+msgid "country"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:49
+#: src/brouwers/shop/models/shipping.py:109
+msgid "Country to ship the order to."
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:54
+msgid "Maximum weight (in grams) for orders to match this shipping cost."
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:61
+msgid "Shipping cost for this weight limit, including VAT."
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:71
+msgid "shipping cost"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:81
+#, python-brace-format
+msgid "{country} - {label}, ≤ {weight}: € {price}"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:91
+#, python-brace-format
+msgid "{} kg"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:92
+#, python-brace-format
+msgid "{} g"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:112
+msgid "shipping option code"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:115
+msgid ""
+"Shipping option to the specified country. Under the hood this stores the "
+"unique identifier from the Sendcloud API. Select a country and save this "
+"before you can pick a shipping option."
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:129
+msgid "sendcloud shipping option"
+msgstr ""
+
+#: src/brouwers/shop/models/shipping.py:130
+msgid "sendcloud shipping options"
 msgstr ""
 
 #: src/brouwers/shop/payments/payment_options.py:33
@@ -599,7 +844,7 @@ msgstr ""
 msgid "Mister Cash"
 msgstr ""
 
-#: src/brouwers/shop/payments/registry.py:29
+#: src/brouwers/shop/payments/registry.py:30
 msgid "Set the 'verbose_name' attribute for a human-readable name"
 msgstr ""
 
@@ -698,20 +943,247 @@ msgstr ""
 msgid "Your payment is (still) being processed"
 msgstr ""
 
-#: src/brouwers/shop/payments/utils.py:46
+#: src/brouwers/shop/payments/utils.py:44
 msgid "Your payment was not received (yet) - please retry."
 msgstr ""
 
-#: src/brouwers/shop/serializers.py:76
+#: src/brouwers/shop/resources.py:181
+#: src/brouwers/shop/tests/admin/test_products_admin.py:361
+msgid "Categories must be a comma separated list of database IDs."
+msgstr ""
+
+#: src/brouwers/shop/resources.py:201
+#: src/brouwers/shop/tests/admin/test_products_admin.py:367
+msgid "Related products must be a comma separated list of database IDs."
+msgstr ""
+
+#: src/brouwers/shop/serializers.py:83
 msgid "Checking a cart without any products is not possible."
 msgstr ""
 
-#: src/brouwers/shop/serializers.py:94
+#: src/brouwers/shop/serializers.py:96
+msgid "A delivery address is required."
+msgstr ""
+
+#: src/brouwers/shop/serializers.py:113
 msgid "Please select your iDeal bank."
 msgstr ""
 
-#: src/brouwers/shop/serializers.py:108
+#: src/brouwers/shop/serializers.py:127
 msgid "Please select a valid bank."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/base.html:9
+msgid "Toggle navigation"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/base.html:15
+msgid "Back to the Modelbrouwers.nl homepage"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/base.html:25
+msgid "Order list"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/base.html:30
+#: src/brouwers/shop/templates/shop/backoffice/dashboard.html:41
+msgid "Manage products"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/dashboard.html:4
+msgid "Shop backoffice | Dashboard"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/dashboard.html:12
+msgid "Shop dashboard"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/dashboard.html:16
+msgid "Quick overview to manage the shop."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/dashboard.html:30
+#, python-format
+msgid "Orders (1 new)"
+msgid_plural "Orders (%(new_order_count)s new)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:5
+#, python-format
+msgid "Shop backoffice | Order %(ref)s"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:15
+msgid "Current status"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:29
+msgid "Change status to"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:38
+msgid "Payment"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:69
+msgid "There is no payment information for this order."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:78
+msgid "Shipping"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:91
+msgid "Create label (Sendcloud)"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:98
+msgid "Download label"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:103
+msgid "or"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:117
+#: src/brouwers/shop/templates/shop/category_detail.html:35
+msgid "Products"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:125
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:116
+msgid "Product"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:126
+#: src/brouwers/shop/templates/shop/product_detail.html:36
+msgid "Model"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:127
+#: src/brouwers/shop/templates/shop/product_detail.html:57
+msgid "Amount"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:136
+#, python-format
+msgid "Product image for '%(name)s' "
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:143
+msgid "-"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:169
+msgid "Delivery"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:172
+msgid "Delivery address"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:175
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:155
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:38
+#: src/brouwers/shop/tests/test_checkout.py:194
+msgid "Shipping costs"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:182
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:97
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:26
+msgid "Invoice address"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:184
+msgid "Same as delivery address."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:193
+msgid "Order details"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:197
+#, python-format
+msgid ""
+"\n"
+"                        Created:\n"
+"                        <time datetime=\"%(isodate)s\" title=\"%(title)s\">\n"
+"                            %(since)s ago\n"
+"                        </time>\n"
+"                    "
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:205
+#, python-format
+msgid ""
+"\n"
+"                        Last modified:\n"
+"                        <time datetime=\"%(isodate)s\" title=\"%(title)s\">\n"
+"                            %(since)s ago\n"
+"                        </time>\n"
+"                    "
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:213
+#, python-format
+msgid ""
+"\n"
+"                        Language: %(lang)s\n"
+"                    "
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:224
+msgid "History"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:236
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:76
+#, python-format
+msgid "%(since)s ago"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_detail.html:255
+msgid "Save changes"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:4
+msgid "Shop backoffice | Orders"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:12
+msgid "Orders"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:16
+msgid "Overview of all orders, sorted by most recently placed first."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:31
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:34
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:9
+msgid "Order number"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:56
+msgid "No payment information."
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:63
+msgid "Order status"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:72
+msgid "Placed"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:86
+msgid "Manage order"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/backoffice/order_list.html:89
+msgid "Order is actionable"
 msgstr ""
 
 #: src/brouwers/shop/templates/shop/base.html:4
@@ -720,10 +1192,6 @@ msgstr ""
 
 #: src/brouwers/shop/templates/shop/category_detail.html:19
 msgid "Subcategories"
-msgstr ""
-
-#: src/brouwers/shop/templates/shop/category_detail.html:35
-msgid "Products"
 msgstr ""
 
 #: src/brouwers/shop/templates/shop/emails/includes/address.html:4
@@ -745,11 +1213,6 @@ msgstr ""
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:27
 msgid "Details"
-msgstr ""
-
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:34
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:9
-msgid "Order number"
 msgstr ""
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:38
@@ -782,36 +1245,21 @@ msgstr ""
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:78
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:18
-#, fuzzy
-#| msgid "Migrations"
 msgid "Instructions"
-msgstr "Migraties"
+msgstr "Instructies"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:96
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:23
 msgid "Shipping address"
 msgstr ""
 
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:97
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:26
-msgid "Invoice address"
-msgstr ""
-
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:116
-msgid "Product"
-msgstr ""
-
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:117
 msgid "Qty."
 msgstr ""
 
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:118
-msgid "Price"
-msgstr ""
-
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:119
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:153
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:38
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:165
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:39
 msgid "Total"
 msgstr ""
 
@@ -825,8 +1273,8 @@ msgstr ""
 msgid "VAT"
 msgstr ""
 
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:167
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:44
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.html:179
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:45
 msgid "You can reply to this email if you have any questions."
 msgstr ""
 
@@ -850,11 +1298,16 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:40
+#: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:41
 #, python-format
 msgid ""
 "\n"
 "To view your order, please navigate to: %(link)s\n"
+msgstr ""
+
+#: src/brouwers/shop/templates/shop/includes/address.html:5
+#, python-format
+msgid "Chamber of Commerce: %(coc)s"
 msgstr ""
 
 #: src/brouwers/shop/templates/shop/includes/breadcrumbs.html:4
@@ -886,163 +1339,31 @@ msgstr ""
 msgid "Pay"
 msgstr ""
 
-#: src/brouwers/shop/templates/shop/product_detail.html:36
-msgid "Model"
-msgstr ""
-
 #: src/brouwers/shop/templates/shop/product_detail.html:42
 msgid "Stock"
 msgstr ""
 
-#: src/brouwers/shop/templates/shop/product_detail.html:57
-msgid "Amount"
-msgstr ""
-
-#: src/brouwers/shop/templates/shop/product_detail.html:71
+#: src/brouwers/shop/templates/shop/product_detail.html:70
 msgid "Add to cart"
 msgstr ""
 
-#: src/brouwers/shop/templates/shop/product_detail.html:78
+#: src/brouwers/shop/templates/shop/product_detail.html:77
 msgid "Apologies - this product is currently out of stock."
 msgstr ""
 
-#: src/brouwers/shop/templates/shop/product_detail.html:86
+#: src/brouwers/shop/templates/shop/product_detail.html:85
 msgid "Description"
 msgstr ""
 
-#, fuzzy
-#~| msgid "Migrations"
-#~ msgid "Migrations"
-#~ msgstr "Migraties"
+#: src/brouwers/shop/tests/backoffice/test_dashboard.py:60
+#, python-format
+msgid "Orders (%(new_order_count)s new)"
+msgstr ""
 
-#~ msgid "album user migration"
-#~ msgstr "albumgebruikermigratie"
+#: src/brouwers/shop/views/backoffice.py:154
+msgid "Sendcloud is not (yet) configured."
+msgstr ""
 
-#~ msgid "album user migrations"
-#~ msgstr "albumgebruikermigraties"
-
-#, fuzzy
-#~| msgid "Back to the Modelbrouwers.nl homepage"
-#~ msgid "ID of the topic on Modelbrouwers."
-#~ msgstr "Terug naar de Modelbrouwers.nl homepage"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "is reviewed?"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "kit review"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "kit reviews"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "kit review property"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "kit review properties"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Migrations"
-#~ msgid "rating"
-#~ msgstr "Migraties"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "Add a review"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "Kit Reviews"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "No reviews yet"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "Latest reviews"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Migrations"
-#~ msgid "Ratings"
-#~ msgstr "Migraties"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "other reviews"
-#~ msgstr "Ga naar de kitreviews!"
-
-#, fuzzy
-#~| msgid "Visit the kit reviews!"
-#~ msgid "Find kits/reviews"
-#~ msgstr "Ga naar de kitreviews!"
-
-#~ msgid "%(nickname)s - %(title)s"
-#~ msgstr "%(nickname)s - %(title)s"
-
-#~ msgid "Oops... a 404!"
-#~ msgstr "Oeps... een 404!"
-
-#~ msgid ""
-#~ "The requested page could not be found or isn't accessible because of "
-#~ "limited user rights. Click on the big logo above or click <a href=\"/"
-#~ "\">here</a> to return to the homepage. Alternatively, use the back button "
-#~ "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
-#~ "previous page."
-#~ msgstr ""
-#~ "De opgevraagde pagina kon niet gevonden worden of je hebt niet voldoende "
-#~ "rechten om de pagina te bekijken. Klik op het grote logo hierboven of "
-#~ "klik <a href=\"/\">hier</a> om naar de homepage terug te keren. Je kan "
-#~ "ook de 'terug'-knop in je browser gebruiken, of <a "
-#~ "href=\"%(return)s\">hier</a> klikken om naar de vorige pagina terug te "
-#~ "keren."
-
-#~ msgid "Materials and knowledge for scale modelling."
-#~ msgstr "Materialen en kennisbank voor de modelbouw."
-
-#~ msgid "Login"
-#~ msgstr "Inloggen"
-
-#~ msgid "Profile"
-#~ msgstr "Profiel"
-
-#~ msgid "Fix the error:"
-#~ msgstr "Herstel de fout:"
-
-#~ msgid "Visit the homepage!"
-#~ msgstr "Ga naar de homepage!"
-
-#~ msgid "Visit the board!"
-#~ msgstr "Ga naar het forum!"
-
-#~ msgid "Visit the shop!"
-#~ msgstr "Ga naar de shop!"
-
-#~ msgid "You are now in the albums!"
-#~ msgstr "Je bent nu in de fotoalbums!"
-
-#~ msgid "of"
-#~ msgstr "van"
-
-#~ msgid "Modelbrouwers.nl admin"
-#~ msgstr "Modelbrouwers.nl administratie"
-
-#~ msgid "administration"
-#~ msgstr "administratie"
-
-#~ msgid "Find a member"
-#~ msgstr "Zoek een forumlid"
+#: src/brouwers/shop/views/backoffice.py:176
+msgid "Label created."
+msgstr ""

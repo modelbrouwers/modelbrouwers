@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: 2024-03-09 23:06+0100\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,81 +19,81 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Translated-Using: django-rosetta 0.10.0\n"
 
-#: src/brouwers/builds/models.py:34
+#: src/brouwers/builds/models.py:40
 msgid "title"
 msgstr "titel"
 
-#: src/brouwers/builds/models.py:34
+#: src/brouwers/builds/models.py:40
 msgid "Enter a descriptive build title."
 msgstr "Geef een duidelijke omschrijving."
 
-#: src/brouwers/builds/models.py:36
+#: src/brouwers/builds/models.py:42
 msgid "slug"
 msgstr "slug"
 
-#: src/brouwers/builds/models.py:40
+#: src/brouwers/builds/models.py:46
 msgid "kits"
 msgstr "kits"
 
-#: src/brouwers/builds/models.py:45
+#: src/brouwers/builds/models.py:51
 msgid "build report topic"
 msgstr "brouwverslagtopic"
 
-#: src/brouwers/builds/models.py:48
+#: src/brouwers/builds/models.py:54
 msgid "topic start page"
 msgstr "startpagina"
 
-#: src/brouwers/builds/models.py:52
+#: src/brouwers/builds/models.py:58
 msgid "start date"
 msgstr "begindatum"
 
-#: src/brouwers/builds/models.py:53
+#: src/brouwers/builds/models.py:59
 msgid "end date"
 msgstr "einddatum"
 
-#: src/brouwers/builds/models.py:56
+#: src/brouwers/builds/models.py:62
 msgid "build report"
 msgstr "brouwverslag"
 
-#: src/brouwers/builds/models.py:57
+#: src/brouwers/builds/models.py:63
 msgid "build reports"
 msgstr "brouwverslagen"
 
-#: src/brouwers/builds/models.py:61
+#: src/brouwers/builds/models.py:67
 #, python-format
 msgid "%(username)s - %(title)s"
 msgstr "%(username)s - %(title)s"
 
-#: src/brouwers/builds/models.py:94
+#: src/brouwers/builds/models.py:100
 msgid "build"
 msgstr "bouw"
 
-#: src/brouwers/builds/models.py:101
+#: src/brouwers/builds/models.py:107
 msgid "Link to an image"
 msgstr "Link naar een foto"
 
-#: src/brouwers/builds/models.py:105
+#: src/brouwers/builds/models.py:111
 msgid "Order in which photos are shown"
 msgstr "Volgorde waarin de foto's getoond worden"
 
-#: src/brouwers/builds/models.py:110
+#: src/brouwers/builds/models.py:116
 msgid "image gone"
 msgstr ""
 
-#: src/brouwers/builds/models.py:115
+#: src/brouwers/builds/models.py:121
 msgid "build photo"
 msgstr "bouwfoto"
 
-#: src/brouwers/builds/models.py:116
+#: src/brouwers/builds/models.py:122
 msgid "build photos"
 msgstr "bouwfoto's"
 
-#: src/brouwers/builds/models.py:120
+#: src/brouwers/builds/models.py:126
 #, python-format
 msgid "Photo for build %(build)s"
 msgstr "Foto voor bouw %(build)s"
 
-#: src/brouwers/builds/models.py:125
+#: src/brouwers/builds/models.py:131
 msgid "Provide either an album photo or a link to a photo."
 msgstr "Geef een albumfoto of een link naar een foto op."
 
@@ -104,19 +104,18 @@ msgid "Builds"
 msgstr "Brouwverslagen"
 
 #: src/brouwers/builds/templates/builds/base.html:18
-#| msgid ""
-#| "\n"
-#| "                In the 'Builds' section you can track your others and your own projects.\n"
-#| "                Keep a history of the kits you have built and quickly find the matching topic.\n"
-#| "            "
 msgid ""
 "\n"
-"                    In the 'Builds' section you can track your others and your own projects.\n"
-"                    Keep a history of the kits you have built and quickly find the matching topic.\n"
+"                    In the 'Builds' section you can track your others and "
+"your own projects.\n"
+"                    Keep a history of the kits you have built and quickly "
+"find the matching topic.\n"
 "                "
 msgstr ""
 "\n"
-"In het 'Brouwverslagen' gedeelte kan je je eigen projecten bijhouden en die van anderen bekijken. Je bewaart een geschiedenis van de kits die je gebouwd hebt, en je kan snel het bijhorende topic terugvinden!"
+"In het 'Brouwverslagen' gedeelte kan je je eigen projecten bijhouden en die "
+"van anderen bekijken. Je bewaart een geschiedenis van de kits die je gebouwd "
+"hebt, en je kan snel het bijhorende topic terugvinden!"
 
 #: src/brouwers/builds/templates/builds/base.html:28
 #: src/brouwers/builds/templates/builds/build_form.html:72
@@ -156,7 +155,8 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Door nieuwe verslagen aan je profiel toe te voegen kan je snel en makkelijk al je creaties terugvinden, zonder het halve forum te hoeven doorspitten!"
+"Door nieuwe verslagen aan je profiel toe te voegen kan je snel en makkelijk "
+"al je creaties terugvinden, zonder het halve forum te hoeven doorspitten!"
 
 #: src/brouwers/builds/templates/builds/build_form.html:18
 msgid "Cancel"
@@ -169,12 +169,13 @@ msgstr "Gebruikte kit(s)"
 #: src/brouwers/builds/templates/builds/build_form.html:42
 msgid ""
 "You can select kits from our database here. Use the\n"
-"        dropdowns to narrow your search. If your kit isn't in our database yet,\n"
+"        dropdowns to narrow your search. If your kit isn't in our database "
+"yet,\n"
 "        you can add it yourself!"
 msgstr ""
 "Hier kan je kits uit de kitdatabank selecteren. Gebruik de menu's om je "
-"zoekopdracht te verfijnen. Als je kit nog niet bestaat in onze databank, dan"
-" kan je deze zelf toevoegen!"
+"zoekopdracht te verfijnen. Als je kit nog niet bestaat in onze databank, dan "
+"kan je deze zelf toevoegen!"
 
 #: src/brouwers/builds/templates/builds/build_form.html:47
 msgid "Select a kit"
@@ -244,112 +245,4 @@ msgstr "Mijn projecten"
 
 #: src/brouwers/builds/validators.py:10
 msgid "Enter a valid image URL."
-msgstr ""
-
-#~ msgid "Edit build report"
-#~ msgstr "Brouwverslag bewerken"
-
-#~ msgid "General information"
-#~ msgstr "Algemene informatie"
-
-#~ msgid "Kit information"
-#~ msgstr "Kitinformatie"
-
-#~ msgid "Enter a keyword or the name of the builder"
-#~ msgstr "Geef een zoekterm of de naam van de bouwer"
-
-#~ msgid "Start date"
-#~ msgstr "Begindatum"
-
-#~ msgid "End date"
-#~ msgstr "Einddatum"
-
-#~ msgid "This URL doesn't point to a forum topic."
-#~ msgstr "Deze URL wijst niet naar een forum brouwverslag."
-
-#~ msgid "link to the build report"
-#~ msgstr "link naar het brouwverslag"
-
-#~ msgid "Topic ID"
-#~ msgstr "Topic id"
-
-#~ msgid "PHPBB topic id, used to build the link to the topic."
-#~ msgstr ""
-#~ "PHPBB topic id, wordt gebruikt om de link naar het brouwverslag te "
-#~ "genereren."
-
-#~ msgid "Forum ID"
-#~ msgstr "Forum id"
-
-#~ msgid "Used to determine the 'category'."
-#~ msgstr "Wordt gebruikt om de categorie te bepalen."
-
-#~ msgid "scale"
-#~ msgstr "schaal"
-
-#~ msgid "Enter the number after the \"1:\" or \"1/\". E.g. 1/48 --> enter 48."
-#~ msgstr "Geef de schaal (bv voor 1/48 geef je 48)."
-
-#~ msgid "brand"
-#~ msgstr "merk"
-
-#~ msgid ""
-#~ "Use this page to link your projects to your profile. Caution, everything you"
-#~ " enter here is public for all visitors!"
-#~ msgstr ""
-#~ "Gebruik deze pagina om je projecten te linken naar je profiel. PAS OP: alles"
-#~ " wat je hier opgeeft is voor alle bezoekers zichtbaar!"
-
-#~ msgid "Save"
-#~ msgstr "Opslaan"
-
-#~ msgid "loading"
-#~ msgstr "laden"
-
-#~ msgid "Sign in to add your own build reports!"
-#~ msgstr "Log in om brouwverslagen toe te voegen!"
-
-#~ msgid "Build reports"
-#~ msgstr "Brouwverslagen"
-
-#~ msgid "Overview / Add build report"
-#~ msgstr "Overzicht / Voeg brouwverslag toe"
-
-#~ msgid "Title"
-#~ msgstr "Titel"
-
-#~ msgid "Brand"
-#~ msgstr "Merk"
-
-#~ msgid "Scale"
-#~ msgstr "Schaal"
-
-#~ msgid "No build reports were found for this user!"
-#~ msgstr "Van deze gebruiker zijn geen brouwverslagen gevonden!"
-
-#~ msgid "Build photos"
-#~ msgstr "Bouwfoto's"
-
-#~ msgid "URL"
-#~ msgstr "URL"
-
-#~ msgid "Check to delete photo"
-#~ msgstr "Vink aan om de foto te verwijderen"
-
-#~ msgid "Topic url"
-#~ msgstr "URL van het verslag"
-
-#~ msgid "Go to topic..."
-#~ msgstr "Ga naar dit verslag"
-
-#~ msgid "brand name (old)"
-#~ msgstr "merk"
-
-#~ msgid "Enter a link to a photo"
-#~ msgstr "Geef de URL van een foto"
-
-#~ msgid "Photo 2"
-#~ msgstr "Foto 2"
-
-#~ msgid "Photo 3"
-#~ msgstr "Foto 3"
+msgstr "Geef een werkende afbeeldingslink op."

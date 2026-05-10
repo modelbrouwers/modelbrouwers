@@ -47,9 +47,9 @@ bleach==5.0.1
     #   django-bleach
 bracex==2.6
     # via wcmatch
-bump-my-version==1.2.1
+bump-my-version==1.3.0
     # via -r requirements/dev.in
-certifi==2025.4.26
+certifi==2026.4.22
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -58,7 +58,7 @@ certifi==2025.4.26
     #   requests
     #   selenium
     #   sentry-sdk
-charset-normalizer==3.4.2
+charset-normalizer==3.4.7
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -96,6 +96,7 @@ django==5.2.13
     #   django-import-export
     #   django-js-asset
     #   django-modeltranslation
+    #   django-privates
     #   django-recaptcha
     #   django-rosetta
     #   django-sendfile2
@@ -161,6 +162,10 @@ django-ordered-model==3.7.4
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-admin-index
+django-privates==3.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 django-recaptcha==4.1.0
     # via
     #   -c requirements/ci.txt
@@ -173,6 +178,7 @@ django-sendfile2==0.7.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   django-privates
 django-sessionprofile==3.0.0
     # via
     #   -c requirements/ci.txt
@@ -252,7 +258,7 @@ httpcore==1.0.9
     # via httpx
 httpx==0.28.1
     # via bump-my-version
-idna==3.10
+idna==3.13
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -378,6 +384,11 @@ python-dotenv==1.2.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   pydantic-settings
+pyyaml==6.0.3
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   vcrpy
 questionary==2.1.0
     # via bump-my-version
 redis==7.4.0
@@ -512,6 +523,10 @@ uwsgi==2.0.29
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+vcrpy==8.1.1
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
 waitress==3.0.2
     # via
     #   -c requirements/ci.txt
@@ -519,7 +534,7 @@ waitress==3.0.2
     #   webtest
 wcmatch==10.1
     # via bump-my-version
-wcwidth==0.2.13
+wcwidth==0.7.0
     # via prompt-toolkit
 webencodings==0.5.1
     # via
@@ -542,6 +557,11 @@ webtest==3.0.4
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-webtest
+wrapt==2.1.2
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   vcrpy
 wsproto==1.2.0
     # via
     #   -c requirements/ci.txt

@@ -90,3 +90,47 @@ class ShippingCost(models.Model):
             value = round(self.max_weight / 1000, 2)
             return _("{} kg").format(formats.number_format(value, decimal_pos=2))
         return _("{} g").format(self.max_weight)
+
+
+class SendcloudShippingOptionManager(models.Manager["SendcloudShippingOption"]):
+    def get_code_for_country(self, country: CountryChoices | str) -> str:
+        # grab configured record or fall back to the default
+        instance = self.filter(country=country).first() or self.model()
+        return instance.shipping_option_code
+
+
+class SendcloudShippingOption(models.Model):
+    """
+    Configures the shipping option code to use for a particular country.
+    """
+
+    country = CountryField(
+        verbose_name=_("country"),
+        help_text=_("Country to ship the order to."),
+    )
+    shipping_option_code = models.CharField(
+        _("shipping option code"),
+        max_length=100,
+        help_text=_(
+            "Shipping option to the specified country. Under the hood this stores "
+            "the unique identifier from the Sendcloud API. Select a country and save "
+            "this before you can pick a shipping option."
+        ),
+        default="dpd:shop2home",
+    )
+
+    objects: ClassVar[  # pyright: ignore[reportIncompatibleVariableOverride]
+        SendcloudShippingOptionManager
+    ] = SendcloudShippingOptionManager()
+
+    get_country_display: Callable[[], str]
+
+    class Meta:
+        verbose_name = _("sendcloud shipping option")
+        verbose_name_plural = _("sendcloud shipping options")
+        constraints = [
+            models.UniqueConstraint(fields=("country",), name="unique_country"),
+        ]
+
+    def __str__(self):
+        return self.get_country_display()

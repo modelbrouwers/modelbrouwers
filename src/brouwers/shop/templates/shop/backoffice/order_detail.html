@@ -75,19 +75,36 @@
             <details>
                 <summary>
                     <heading class="order-detail__heading">
-                        <h3> {% trans "Track and trace" %} </h3>
+                        <h3> {% trans "Shipping" %} </h3>
                     </heading>
                 </summary>
 
                 <div class="order-detail__form">
+
                     <div class="form-group">
-                        {{ form.track_and_trace_code.label_tag }}
-                        {{ form.track_and_trace_code }}
+                        <button
+                            type="submit"
+                            form="send-to-sendcloud"
+                            class="btn btn-sm button button--orange"
+                            {% if order.shipping_label %}disabled{% endif %}
+                        >
+                            {% trans "Create label (Sendcloud)" %}
+                        </button>
+                        <a
+                            href="{% if not order.shipping_label %}#{% else %}{% url 'shop:order-shipping-label' reference=order.reference %}{% endif %}"
+                            target="_blank"
+                            class="btn btn-sm button button--light-blue"
+                            {% if not order.shipping_label %}disabled{% endif %}
+                        >{% trans "Download label" %}</a>
                     </div>
-                    <p>{% trans "or" %}</p>
                     <div class="form-group">
                         {{ form.track_and_trace_link.label_tag }}
                         {{ form.track_and_trace_link }}
+                        {% trans "or" %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.track_and_trace_code.label_tag }}
+                        {{ form.track_and_trace_code }}
                     </div>
                 </div>
             </details>
@@ -239,5 +256,11 @@
         </button>
     </div>
 </form>
+
+{% if order.delivery_method == DeliveryMethods.mail and not order.shipping_label %}
+    <form action="{% url 'shop:order-shipping-label' reference=order.reference %}" method="post" id="send-to-sendcloud">
+        {% csrf_token %}
+    </form>
+{% endif %}
 {% endblock %}
 

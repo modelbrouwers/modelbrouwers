@@ -40,14 +40,14 @@ bleach==5.0.1
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   django-bleach
-certifi==2025.4.26
+certifi==2026.4.22
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   requests
     #   selenium
     #   sentry-sdk
-charset-normalizer==3.4.2
+charset-normalizer==3.4.7
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -74,6 +74,7 @@ django==5.2.13
     #   django-import-export
     #   django-js-asset
     #   django-modeltranslation
+    #   django-privates
     #   django-recaptcha
     #   django-rosetta
     #   django-sendfile2
@@ -135,6 +136,10 @@ django-ordered-model==3.7.4
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   django-admin-index
+django-privates==3.1.1
+    # via
+    #   -c requirements/base.txt
+    #   -r requirements/base.txt
 django-recaptcha==4.1.0
     # via
     #   -c requirements/base.txt
@@ -147,6 +152,7 @@ django-sendfile2==0.7.2
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+    #   django-privates
 django-sessionprofile==3.0.0
     # via
     #   -c requirements/base.txt
@@ -209,7 +215,7 @@ html2text==2025.4.15
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-idna==3.10
+idna==3.13
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -313,6 +319,8 @@ python-dotenv==1.2.2
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+pyyaml==6.0.3
+    # via vcrpy
 redis==7.4.0
     # via
     #   -c requirements/base.txt
@@ -407,6 +415,8 @@ uwsgi==2.0.29
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+vcrpy==8.1.1
+    # via -r requirements/test-tools.in
 waitress==3.0.2
     # via webtest
 webencodings==0.5.1
@@ -421,6 +431,8 @@ websocket-client==1.8.0
     # via selenium
 webtest==3.0.4
     # via django-webtest
+wrapt==2.1.2
+    # via vcrpy
 wsproto==1.2.0
     # via trio-websocket
 yarl==1.20.0

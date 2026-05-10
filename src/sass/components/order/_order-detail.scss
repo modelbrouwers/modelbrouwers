@@ -16,6 +16,10 @@
     margin: 0;
   }
 
+  a[disabled] {
+    cursor: not-allowed;
+  }
+
   @include bem.element('status') {
     grid-area: status;
     padding-block-start: 20px;
@@ -162,6 +166,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      row-gap: 1em;
 
       .form-group {
         justify-content: space-between;

@@ -1,0 +1,74 @@
+interactions:
+- request:
+    body: '{"from_address": {"country_code": "NL"}, "to_address": {"country_code":
+      "BE"}}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '78'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.33.1
+    method: POST
+    uri: https://panel.sendcloud.sc/api/v3/shipping-options
+  response:
+    body:
+      string: '{"data":[{"code":"dpd:shop2shop","name":"DPD Shop2Shop","carrier":{"code":"dpd","name":"DPD"},"product":{"code":"dpd:shop2shop","name":"DPD
+        Shop2Shop"},"functionalities":{"b2b":true,"b2c":true,"ers":false,"size":null,"tyres":false,"sorted":false,"boxable":false,"premium":false,"returns":false,"segment":null,"tracked":true,"id_check":false,"incoterm":null,"manually":false,"priority":null,"age_check":null,"insurance":520,"labelless":false,"last_mile":"service_point","signature":true,"surcharge":false,"first_mile":"dropoff","multicollo":true,"bulky_goods":false,"form_factor":"parcel","fresh_goods":false,"eco_delivery":false,"service_area":"international","flex_delivery":false,"fragile_goods":false,"non_conveyable":false,"dangerous_goods":false,"delivery_before":null,"cash_on_delivery":null,"harmonized_label":false,"weekend_delivery":null,"carrier_insurance":false,"delivery_attempts":1,"delivery_deadline":"best_effort","neighbor_delivery":false,"customs_value_limit":null,"registered_delivery":false,"carrier_billing_type":null,"personalized_delivery":false,"direct_contract_only":false},"max_dimensions":{"width":"50.00","length":"100.00","height":"50.00","unit":"cm"},"weight":{"min":{"value":"0.001","unit":"kg"},"max":{"value":"20.001","unit":"kg"}},"parcel_billed_weights":[{"unit":"kg","value":"1.000","volumetric":false,"calculation":null,"parcel_number":1}],"contract":{"id":52024,"client_id":"","carrier_code":"dpd","name":"Sendcloud
+        broker (bulk)"},"requirements":{"fields":[],"export_documents":false,"is_service_point_required":true},"quotes":[],"charging_type":"label_creation"},{"code":"sendcloud:letter","name":"Unstamped
+        letter","carrier":{"code":"sendcloud","name":"Sendcloud"},"product":{"code":"sendcloud:letter","name":"Unstamped
+        letter"},"functionalities":{"b2b":true,"b2c":true,"ers":false,"size":null,"tyres":false,"sorted":false,"boxable":false,"premium":false,"returns":false,"segment":null,"tracked":false,"id_check":false,"incoterm":null,"manually":false,"priority":null,"age_check":null,"insurance":null,"labelless":false,"last_mile":"home_delivery","signature":false,"surcharge":false,"first_mile":"dropoff","multicollo":false,"bulky_goods":false,"form_factor":"mailbox","fresh_goods":false,"eco_delivery":false,"service_area":"domestic","flex_delivery":false,"fragile_goods":false,"non_conveyable":false,"dangerous_goods":false,"delivery_before":null,"cash_on_delivery":null,"harmonized_label":false,"weekend_delivery":null,"carrier_insurance":false,"delivery_attempts":1,"delivery_deadline":"best_effort","neighbor_delivery":true,"customs_value_limit":null,"registered_delivery":false,"carrier_billing_type":null,"personalized_delivery":false,"direct_contract_only":false},"max_dimensions":{"width":"0.00","length":"0.00","height":"0.00","unit":"cm"},"weight":{"min":{"value":"0.001","unit":"kg"},"max":{"value":"1000.000","unit":"kg"}},"parcel_billed_weights":[{"unit":"kg","value":"1.000","volumetric":false,"calculation":null,"parcel_number":1}],"contract":null,"requirements":{"fields":[],"export_documents":false,"is_service_point_required":false},"quotes":[],"charging_type":"label_creation"},{"code":"dpd:home","name":"DPD
+        Home","carrier":{"code":"dpd","name":"DPD"},"product":{"code":"dpd:home","name":"DPD
+        Home"},"functionalities":{"b2b":false,"b2c":true,"ers":false,"size":null,"tyres":false,"sorted":false,"boxable":false,"premium":false,"returns":false,"segment":null,"tracked":true,"id_check":false,"incoterm":null,"manually":false,"priority":null,"age_check":null,"insurance":520,"labelless":false,"last_mile":"home_delivery","signature":true,"surcharge":false,"first_mile":"pickup","multicollo":true,"bulky_goods":false,"form_factor":"parcel","fresh_goods":false,"eco_delivery":false,"service_area":"domestic","flex_delivery":false,"fragile_goods":false,"non_conveyable":false,"dangerous_goods":false,"delivery_before":null,"cash_on_delivery":null,"harmonized_label":false,"weekend_delivery":null,"carrier_insurance":false,"delivery_attempts":1,"delivery_deadline":"best_effort","neighbor_delivery":true,"customs_value_limit":null,"registered_delivery":false,"carrier_billing_type":null,"personalized_delivery":false,"direct_contract_only":false},"max_dimensions":{"width":"0.00","length":"175.00","height":"0.00","unit":"cm"},"weight":{"min":{"value":"0.001","unit":"kg"},"max":{"value":"31.501","unit":"kg"}},"parcel_billed_weights":[{"unit":"kg","value":"1.000","volumetric":false,"calculation":null,"parcel_number":1}],"contract":{"id":52024,"client_id":"","carrier_code":"dpd","name":"Sendcloud
+        broker (bulk)"},"requirements":{"fields":["to_email"],"export_documents":false,"is_service_point_required":false},"quotes":[],"charging_type":"label_creation"},{"code":"dpd:shop2home","name":"DPD
+        Shop2Home","carrier":{"code":"dpd","name":"DPD"},"product":{"code":"dpd:shop2home","name":"DPD
+        Shop2Home"},"functionalities":{"b2b":true,"b2c":true,"ers":false,"size":null,"tyres":false,"sorted":false,"boxable":false,"premium":false,"returns":false,"segment":null,"tracked":true,"id_check":false,"incoterm":null,"manually":false,"priority":null,"age_check":null,"insurance":520,"labelless":false,"last_mile":"home_delivery","signature":true,"surcharge":false,"first_mile":"dropoff","multicollo":true,"bulky_goods":false,"form_factor":"parcel","fresh_goods":false,"eco_delivery":false,"service_area":"international","flex_delivery":false,"fragile_goods":false,"non_conveyable":false,"dangerous_goods":false,"delivery_before":null,"cash_on_delivery":null,"harmonized_label":false,"weekend_delivery":null,"carrier_insurance":false,"delivery_attempts":1,"delivery_deadline":"best_effort","neighbor_delivery":true,"customs_value_limit":null,"registered_delivery":false,"carrier_billing_type":null,"personalized_delivery":false,"direct_contract_only":false},"max_dimensions":{"width":"50.00","length":"100.00","height":"50.00","unit":"cm"},"weight":{"min":{"value":"0.001","unit":"kg"},"max":{"value":"20.001","unit":"kg"}},"parcel_billed_weights":[{"unit":"kg","value":"1.000","volumetric":false,"calculation":null,"parcel_number":1}],"contract":{"id":52024,"client_id":"","carrier_code":"dpd","name":"Sendcloud
+        broker (bulk)"},"requirements":{"fields":[],"export_documents":false,"is_service_point_required":false},"quotes":[],"charging_type":"label_creation"},{"code":"dpd:classic/service_point","name":"DPD
+        Classic (Service point)","carrier":{"code":"dpd","name":"DPD"},"product":{"code":"dpd:classic/service_point","name":"DPD
+        Classic Service point"},"functionalities":{"b2b":true,"b2c":true,"ers":false,"size":null,"tyres":false,"sorted":false,"boxable":false,"premium":false,"returns":false,"segment":null,"tracked":true,"id_check":false,"incoterm":"ddp","manually":false,"priority":null,"age_check":null,"insurance":520,"labelless":false,"last_mile":"service_point","signature":true,"surcharge":false,"first_mile":"pickup_dropoff","multicollo":true,"bulky_goods":false,"form_factor":"parcel","fresh_goods":false,"eco_delivery":false,"service_area":"domestic","flex_delivery":false,"fragile_goods":false,"non_conveyable":false,"dangerous_goods":false,"delivery_before":null,"cash_on_delivery":null,"harmonized_label":false,"weekend_delivery":null,"carrier_insurance":false,"delivery_attempts":1,"delivery_deadline":"best_effort","neighbor_delivery":true,"customs_value_limit":null,"registered_delivery":false,"carrier_billing_type":null,"personalized_delivery":false,"direct_contract_only":false},"max_dimensions":{"width":"50.00","length":"175.00","height":"50.00","unit":"cm"},"weight":{"min":{"value":"0.001","unit":"kg"},"max":{"value":"20.001","unit":"kg"}},"parcel_billed_weights":[{"unit":"kg","value":"1.000","volumetric":false,"calculation":null,"parcel_number":1}],"contract":{"id":52024,"client_id":"","carrier_code":"dpd","name":"Sendcloud
+        broker (bulk)"},"requirements":{"fields":[],"export_documents":false,"is_service_point_required":true},"quotes":[],"charging_type":"label_creation"}],"message":null}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 09 May 2026 13:38:09 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 447163709b16a97083db09f6ac040b38.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - kid35oVbwkv8cjNUnRhS8T6EG1y0pYrJ3eIaKkcJrddyDTekWyFyLA==
+      X-Amz-Cf-Pop:
+      - AMS1-P1
+      X-Cache:
+      - Miss from cloudfront
+      content-length:
+      - '7970'
+      cross-origin-opener-policy:
+      - same-origin
+      referrer-policy:
+      - same-origin
+      server:
+      - uvicorn
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - origin, Cookie
+      - Accept-Encoding
+      - Origin
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

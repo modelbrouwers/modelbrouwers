@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: 2016-09-09 19:47+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,8 +148,7 @@ msgid "model kits"
 msgstr "bouwdozen"
 
 #: src/brouwers/kits/models.py:140
-#, fuzzy, python-brace-format
-#| msgid "A kit from {brand} with kut number '{kit_number}' already exists"
+#, python-brace-format
 msgid "A kit from {brand} with kit number '{kit_number}' already exists"
 msgstr "Er bestaat al een kit van {brand} met kitnummer '{kit_number}'."
 
@@ -162,16 +161,12 @@ msgid "created"
 msgstr ""
 
 #: src/brouwers/kits/models.py:166
-#, fuzzy
-#| msgid "box image"
 msgid "boxart image upload"
-msgstr "boxart"
+msgstr "boxart-afbeelding"
 
 #: src/brouwers/kits/models.py:167
-#, fuzzy
-#| msgid "box image"
 msgid "boxart image uploads"
-msgstr "boxart"
+msgstr "boxart-afbeeldingen"
 
 #: src/brouwers/kits/templates/admin/kits/mark_duplicate.html:8
 msgid "Home"
@@ -190,25 +185,6 @@ msgstr "Ja, ik ben zeker"
 msgid "No, take me back"
 msgstr "Nee, keer terug"
 
-#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:11
-msgid "Add new kit to the database"
-msgstr "Voeg een nieuwe kit toe aan de databank"
-
-#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:12
-msgid ""
-"Please, only add new kits if they were not available via the search function."
-msgstr ""
-"Gelieve enkel nieuwe kits toe te voegen als ze niet te vinden zijn via de "
-"zoekfunctie."
-
-#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:20
-msgid "Close"
-msgstr "Sluiten"
-
-#: src/brouwers/kits/templates/kits/includes/add_kit_modal_react.html:21
-msgid "Save"
-msgstr "Bewaren"
-
 #: src/brouwers/kits/tests/api/test_kit_viewset.py:109
 msgid "Invalid upload specified"
 msgstr ""
@@ -216,18 +192,3 @@ msgstr ""
 #: src/brouwers/kits/widgets.py:11
 msgid "name"
 msgstr "naam"
-
-#~ msgid "load more"
-#~ msgstr "meer tonen"
-
-#~ msgid "choose the brand"
-#~ msgstr "kies het merk"
-
-#~ msgid "choose the scale"
-#~ msgstr "kies de schaal"
-
-#~ msgid "filter by name"
-#~ msgstr "zoek op naam"
-
-#~ msgid "&hellip; or add a new kit"
-#~ msgstr "&hellip; of voeg een nieuwe kit toe"

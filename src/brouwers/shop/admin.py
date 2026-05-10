@@ -1,12 +1,16 @@
+import logging
 from decimal import Decimal
 
+from django import forms
 from django.contrib import admin
 from django.db.models import Count
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
 
+import requests
 from import_export.admin import ImportExportMixin
 from modeltranslation.admin import TranslationAdmin
+from privates.admin import PrivateMediaMixin
 from solo.admin import SingletonModelAdmin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
@@ -26,10 +30,13 @@ from .models import (
     Product,
     ProductImage,
     ProductManufacturer,
+    SendcloudShippingOption,
     ShippingCost,
     ShopConfiguration,
 )
 from .resources import CategoryResource, ProductResource
+
+logger = logging.getLogger(__name__)
 
 #
 # Catalogue
@@ -90,7 +97,7 @@ class ProductAdmin(ImportExportMixin, TranslationAdmin[Product]):
         "manufacturer__name",
         "id",
     )
-    fieldsets = (  # type:ignore
+    fieldsets = (
         (
             None,
             {
@@ -219,7 +226,7 @@ class PaymentMethodAdmin(TranslationAdmin):
 
 @admin.register(ShopConfiguration)
 class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
-    fieldsets = (  # type:ignore
+    fieldsets = (
         (
             _("Sisow/Buckaroo"),
             {
@@ -242,6 +249,7 @@ class ShopConfigurationAdmin(SingletonModelAdmin, TranslationAdmin):
             },
         ),
         (_("Email"), {"fields": ("from_email",)}),
+        (_("Sendcloud"), {"fields": ("sendcloud_public_key", "sendcloud_private_key")}),
     )
 
 
@@ -255,6 +263,53 @@ class ShippingCostAdmin(admin.ModelAdmin):
     @admin.display(description=_("maximum weight"), ordering="max_weight")
     def formatted_weight(self, obj: ShippingCost) -> str:
         return obj.format_weight()
+
+
+class SendcloudShippingOptionForm(forms.ModelForm):
+    class Meta:
+        model = SendcloudShippingOption
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        from .sendcloud import Client
+
+        super().__init__(*args, **kwargs)
+
+        if not (country := self.instance.country):
+            return
+
+        config = ShopConfiguration.get_solo()
+        # ok, assume credentials valid
+        if not config.sendcloud_public_key or not config.sendcloud_private_key:
+            return
+
+        assert "shipping_option_code" in self.fields
+        with Client(config=config) as client:
+            try:
+                shipping_option_codes = client.get_available_shipping_options(
+                    to_country=country
+                )
+            except requests.RequestException:
+                logger.exception("Failed retrieving Sendcloud shipping options")
+                return
+
+        if (
+            current_code := self.instance.shipping_option_code
+        ) and current_code not in shipping_option_codes:
+            all_options = {current_code: current_code, **shipping_option_codes}
+        else:
+            all_options = shipping_option_codes
+
+        self.fields["shipping_option_code"].widget = forms.Select(
+            choices=all_options.items(),
+        )
+
+
+@admin.register(SendcloudShippingOption)
+class SendcloudShippingOptionAdmin(admin.ModelAdmin):
+    list_display = ("country", "shipping_option_code")
+    ordering = ("country",)
+    form = SendcloudShippingOptionForm
 
 
 #
@@ -339,7 +394,7 @@ class OrderEventInline(admin.TabularInline):
 
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(PrivateMediaMixin, admin.ModelAdmin):
     list_display = (
         "reference",
         "first_name",
@@ -378,8 +433,10 @@ class OrderAdmin(admin.ModelAdmin):
                     "delivery_address",
                     "invoice_address",
                     "shipping_costs",
+                    "shipping_label",
                     "track_and_trace_code",
                     "track_and_trace_link",
+                    "sendcloud_shipment_id",
                 )
             },
         ),
@@ -399,7 +456,7 @@ class OrderAdmin(admin.ModelAdmin):
         "delivery_address",
         "invoice_address",
     )
-    readonly_fields = ("created", "modified")
+    readonly_fields = ("created", "modified", "sendcloud_shipment_id")
     inlines = [OrderEventInline, HistoricalPaymentInline]
 
     @admin.display(description=_("Payment status"))  # type:ignore

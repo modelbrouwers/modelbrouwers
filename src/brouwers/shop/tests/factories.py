@@ -18,6 +18,7 @@ from ..models import (
     PaymentMethod,
     Product,
     ProductManufacturer,
+    SendcloudShippingOption,
     ShippingCost,
 )
 from ..payments.registry import register
@@ -197,3 +198,13 @@ class ShippingCostFactory(factory.django.DjangoModelFactory[ShippingCost]):
     class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
         model = ShippingCost
         django_get_or_create = ("country", "max_weight")
+
+
+class SendcloudShippingOptionFactory(factory.django.DjangoModelFactory):
+    # TODO: properly refactor to django-countries
+    country = factory.fuzzy.FuzzyChoice(["N", "B", "D"])
+    shipping_option_code = "sendcloud:letter"  # does not result in charges in sendcloud
+
+    class Meta:  # pyright: ignore[reportIncompatibleVariableOverride]
+        model = SendcloudShippingOption
+        django_get_or_create = ("country",)

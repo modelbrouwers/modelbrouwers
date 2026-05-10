@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: 2015-08-25 08:59+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.6\n"
+
+#: src/brouwers/users/admin.py:27
+msgid "Extra"
+msgstr "Extra"
+
+#: src/brouwers/users/admin.py:41
+msgid "location details"
+msgstr "Locatiedetails"
+
+#: src/brouwers/users/admin.py:48
+msgid "country unknown"
+msgstr "land onbekend"
 
 #: src/brouwers/users/apps.py:7
 msgid "Users"
@@ -48,29 +60,31 @@ msgstr "Wachtwoord (bevestiging)"
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord als hierboven in, ter bevestiging."
 
-#: src/brouwers/users/forms/auth.py:85
+#: src/brouwers/users/forms/auth.py:87
 msgid "I have read and accepted the registration terms"
 msgstr "Ik heb de registratievoorwaarden gelezen en geaccepteerd"
 
-#: src/brouwers/users/forms/auth.py:98
+#: src/brouwers/users/forms/auth.py:97
+msgid "invalid"
+msgstr ""
+
+#: src/brouwers/users/forms/auth.py:106
 msgid "Username or email"
 msgstr "Gebruikersnaam of e-mail"
 
-#: src/brouwers/users/forms/auth.py:103
+#: src/brouwers/users/forms/auth.py:111
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: src/brouwers/users/forms/auth.py:122
+#: src/brouwers/users/forms/auth.py:130
 msgid "Fill at least one field."
 msgstr "Vul minstens een veld in."
 
-#: src/brouwers/users/forms/auth.py:124
-#, fuzzy
-#| msgid "We couldn't find a matching user"
+#: src/brouwers/users/forms/auth.py:132
 msgid "We couldn't find a matching user."
 msgstr "Er kon geen overeenkomstige gebruiker gevonden worden"
 
-#: src/brouwers/users/forms/auth.py:144
+#: src/brouwers/users/forms/auth.py:152
 msgid ""
 "Multiple accounts were found, this shouldn't happen. Please contact the "
 "admins (see e-mail in the page footer)."
@@ -78,7 +92,7 @@ msgstr ""
 "Er werden meerdere accounts gevonden, dit zou niet mogen gebeuren. Gelieve "
 "contact op te nemen met de beheerders (e-mailadres staat onderaan de pagina)."
 
-#: src/brouwers/users/forms/auth.py:155
+#: src/brouwers/users/forms/auth.py:163
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
 "reactivate with the link sent by e-mail. Check your spamfolder to see if you "
@@ -88,7 +102,7 @@ msgstr ""
 "activeert met de link verstuurd via e-mail. Controleer je 'ongewenste "
 "berichten' om te zien of je een e-mail gemist hebt."
 
-#: src/brouwers/users/forms/auth.py:180
+#: src/brouwers/users/forms/auth.py:188
 msgid "An e-mail was sent with a link to reset your password."
 msgstr ""
 "Er werd een e-mail verstuurd met een link om je wachtwoord te resetten."
@@ -98,53 +112,51 @@ msgstr ""
 msgid "Your registration on {domain}"
 msgstr "Je registratie op {domain}"
 
-#: src/brouwers/users/management/commands/process_data_downloads.py:165
-#, fuzzy
-#| msgid "Modelbrouwers.nl &bull; Edit profile"
+#: src/brouwers/users/management/commands/process_data_downloads.py:161
 msgid "[Modelbrouwers.nl] Your data download is ready"
-msgstr "Modelbrouwers.nl &bull; Bewerk profiel"
+msgstr "[Modelbrouwers.nl] Je gegevensdownload is klaar"
 
-#: src/brouwers/users/models.py:71
+#: src/brouwers/users/models.py:76
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: src/brouwers/users/models.py:74
+#: src/brouwers/users/models.py:79
 msgid "Required. 30 characters or fewer. All characters allowed."
 msgstr "Verplicht. 30 of minder karakters. Alle karakters zijn toegelaten."
 
-#: src/brouwers/users/models.py:76
+#: src/brouwers/users/models.py:81
 msgid "cleaned username"
 msgstr "cleane gebruikersnaam"
 
-#: src/brouwers/users/models.py:77
+#: src/brouwers/users/models.py:82
 msgid "first name"
 msgstr "voornaam"
 
-#: src/brouwers/users/models.py:78
+#: src/brouwers/users/models.py:83
 msgid "last name"
 msgstr "familienaam"
 
-#: src/brouwers/users/models.py:79
+#: src/brouwers/users/models.py:84
 msgid "email address"
 msgstr "e-mailadres"
 
-#: src/brouwers/users/models.py:80
+#: src/brouwers/users/models.py:85
 msgid "phone number"
 msgstr ""
 
-#: src/brouwers/users/models.py:82
+#: src/brouwers/users/models.py:87
 msgid "staff status"
 msgstr "stafstatus"
 
-#: src/brouwers/users/models.py:84
+#: src/brouwers/users/models.py:89
 msgid "Designates whether the user can log into this admin site."
 msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
 
-#: src/brouwers/users/models.py:87
+#: src/brouwers/users/models.py:92
 msgid "active"
 msgstr "actief"
 
-#: src/brouwers/users/models.py:90
+#: src/brouwers/users/models.py:95
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -152,35 +164,52 @@ msgstr ""
 "Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
 "van gebruikers te verwijderen."
 
-#: src/brouwers/users/models.py:94
+#: src/brouwers/users/models.py:99
 msgid "date joined"
 msgstr "toegetreden"
 
-#: src/brouwers/users/models.py:97
+#: src/brouwers/users/models.py:101
+msgid "ip address"
+msgstr "IP-adres"
+
+#: src/brouwers/users/models.py:102
+msgid "IP address used during registration."
+msgstr ""
+
+#: src/brouwers/users/models.py:110
+msgid "UI language"
+msgstr ""
+
+#: src/brouwers/users/models.py:116
+msgid ""
+"Preferred UI language. If unset, your browser preferences are respected."
+msgstr ""
+
+#: src/brouwers/users/models.py:121
 msgid "forum user id"
 msgstr "forumgebruikerid"
 
-#: src/brouwers/users/models.py:101 src/brouwers/users/models.py:114
+#: src/brouwers/users/models.py:125 src/brouwers/users/models.py:138
 msgid "users"
 msgstr "gebruikers"
 
-#: src/brouwers/users/models.py:113
+#: src/brouwers/users/models.py:137
 msgid "user"
 msgstr "gebruiker"
 
-#: src/brouwers/users/models.py:159
+#: src/brouwers/users/models.py:183
 msgid "finished"
 msgstr ""
 
-#: src/brouwers/users/models.py:160
+#: src/brouwers/users/models.py:184
 msgid "downloaded"
 msgstr ""
 
-#: src/brouwers/users/models.py:162
+#: src/brouwers/users/models.py:186
 msgid "zip file"
 msgstr ""
 
-#: src/brouwers/users/models.py:166
+#: src/brouwers/users/models.py:190
 #, python-brace-format
 msgid "Data download for {user} ({created})"
 msgstr ""
@@ -196,8 +225,8 @@ msgstr ""
 #: src/brouwers/users/templates/users/change_password.html:17
 #: src/brouwers/users/templates/users/password_reset_confirm.html:7
 #: src/brouwers/users/templates/users/password_reset_confirm.html:19
-#: src/brouwers/users/templates/users/profile_edit.html:100
-#: src/brouwers/users/templates/users/profile_edit.html:110
+#: src/brouwers/users/templates/users/profile_edit.html:96
+#: src/brouwers/users/templates/users/profile_edit.html:106
 #: src/brouwers/users/tests/test_views.py:29
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
@@ -410,21 +439,21 @@ msgstr "Social instellingen"
 msgid "Forum profile"
 msgstr "Forumprofiel"
 
-#: src/brouwers/users/templates/users/profile_edit.html:93
+#: src/brouwers/users/templates/users/profile_edit.html:89
 msgid "Save changes"
 msgstr "Bewaar de veranderingen"
 
-#: src/brouwers/users/templates/users/profile_edit.html:115
+#: src/brouwers/users/templates/users/profile_edit.html:111
 msgid "Download data"
 msgstr ""
 
-#: src/brouwers/users/templates/users/profile_edit.html:119
+#: src/brouwers/users/templates/users/profile_edit.html:115
 msgid ""
 "Modelbrouwers.nl takes your privacy seriously. You can download all the data "
 "related to your account by clicking the button below."
 msgstr ""
 
-#: src/brouwers/users/templates/users/profile_edit.html:125
+#: src/brouwers/users/templates/users/profile_edit.html:121
 msgid "Download"
 msgstr ""
 
@@ -471,19 +500,19 @@ msgstr ""
 msgid "Enter your account details"
 msgstr "Voeg je contactgegevens toe"
 
-#: src/brouwers/users/templates/users/register.html:49
+#: src/brouwers/users/templates/users/register.html:53
 msgid "Create your account"
 msgstr "Account aanmaken"
 
-#: src/brouwers/users/templates/users/register.html:51
+#: src/brouwers/users/templates/users/register.html:55
 msgid "Already have an account?"
 msgstr "Heb je al een account?"
 
-#: src/brouwers/users/templates/users/register.html:58
+#: src/brouwers/users/templates/users/register.html:62
 msgid "Terms and conditions"
 msgstr "Regels en voorwaarden"
 
-#: src/brouwers/users/templates/users/register.html:59
+#: src/brouwers/users/templates/users/register.html:63
 msgid ""
 "\n"
 "            Unfortunately, some people need strong and clear rules to "
@@ -500,29 +529,29 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: src/brouwers/users/tests/test_views.py:42 src/brouwers/users/views.py:173
+#: src/brouwers/users/tests/test_views.py:42 src/brouwers/users/views.py:177
 msgid "Your profile data has been updated."
 msgstr "Je profiel is bijgewerkt."
 
-#: src/brouwers/users/views.py:86
+#: src/brouwers/users/views.py:87
 msgid ""
 "There is an existing forum account for this user. Please pick a different "
 "username."
 msgstr ""
 
-#: src/brouwers/users/views.py:109
+#: src/brouwers/users/views.py:110
 msgid "You have been logged out."
 msgstr "Je bent uitgelogd."
 
-#: src/brouwers/users/views.py:111
+#: src/brouwers/users/views.py:112
 msgid "Can't log you out, you weren't logged in!"
 msgstr "Je kan niet uitloggen, je was niet ingelogd!"
 
-#: src/brouwers/users/views.py:202
+#: src/brouwers/users/views.py:206
 msgid "Your password was changed."
 msgstr "Je wachtwoord is gewijzigd."
 
-#: src/brouwers/users/views.py:217
+#: src/brouwers/users/views.py:221
 msgid ""
 "Your data download is being prepared and will be e-mailed when it's ready!"
 msgstr ""
