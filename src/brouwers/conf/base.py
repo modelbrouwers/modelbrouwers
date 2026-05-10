@@ -210,6 +210,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "brouwers.wsgi.application"
 
 LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "src", "locale"),
     os.path.join(DJANGO_PROJECT_DIR, "locale"),
 ]
 

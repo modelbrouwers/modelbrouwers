@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 14:54+0200\n"
+"POT-Creation-Date: 2026-05-10 18:23+0200\n"
 "PO-Revision-Date: 2016-09-09 19:49+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,9 +58,9 @@ msgid ""
 msgstr ""
 "De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
 "doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
-"of klik <a href=\"%(url_index)s\">hier</a> om terug te gaan naar de homepage. Of gebruik "
-"de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
-"te gaan naar de vorige pagina."
+"of klik <a href=\"%(url_index)s\">hier</a> om terug te gaan naar de "
+"homepage. Of gebruik de terug-knop in je browser of klik <a "
+"href=\"%(return)s\">hier</a> om terug te gaan naar de vorige pagina."
 
 #: src/templates/admin/base_site.html:14
 msgid "Modelbrouwers.nl admin"
@@ -167,18 +167,6 @@ msgstr "Schakel de navigatie aan of uit"
 msgid "Back to the Modelbrouwers.nl homepage"
 msgstr "Terug naar de Modelbrouwers.nl homepage"
 
-#: src/templates/pagination.html:5
-msgid "First page"
-msgstr "Eerste pagina"
-
-#: src/templates/pagination.html:16
-msgid "of"
-msgstr "van"
-
-#: src/templates/pagination.html:25
-msgid "Last page"
-msgstr "Laatste pagina"
-
 #: src/templates/santa_removed.html:4
 msgid "Oops! This has been removed..."
 msgstr "Oeps! Dit is verwijderd..."
@@ -198,7 +186,6 @@ msgid ""
 "return to the homepage. Alternatively, use the back button in your browser "
 "or click <a href=\"%(return)s\">here</a> to return to the previous page."
 msgstr ""
-
 
 #: src/templates/search_form.html:16
 msgid "Search"
