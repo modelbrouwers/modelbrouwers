@@ -101,9 +101,9 @@ DATABASE_ROUTERS = ["brouwers.db_router.Router"]
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyLibMCCache",
-        "LOCATION": config("CACHE_URL", "127.0.0.1:11211"),
-        "KEY_PREFIX": config("CACHE_PREFIX", ""),
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": f"redis://{config('CACHE_DEFAULT', default='localhost:6379/0')}",
+        "KEY_PREFIX": config("CACHE_PREFIX", default=""),
     },
 }
 

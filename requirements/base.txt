@@ -152,8 +152,6 @@ pydantic==2.11.4
     # via -r requirements/base.in
 pydantic-core==2.33.2
     # via pydantic
-pylibmc==1.6.3
-    # via -r requirements/base.in
 python-dateutil==2.9.0.post0
     # via -r requirements/base.in
 python-decouple==3.8

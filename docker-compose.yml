@@ -33,7 +33,7 @@ services:
     image: memcached:1.6
 
   redis:
-    image: redis:6
+    image: redis:8
 
   django:
     build: .
