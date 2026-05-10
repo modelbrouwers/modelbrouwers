@@ -81,6 +81,20 @@ class AdminConfigurationTests(VCRMixin, WebTest):
 
         cls.user = UserFactory.create(superuser=True)
 
+    def test_can_save_without_sendcloud_credentials_configured(self):
+        change_page = self.app.get(
+            reverse("admin:shop_shopconfiguration_change", args=(1,)),
+            user=self.user,
+        )
+        form = change_page.forms["shopconfiguration_form"]
+        form["bank_transfer_instructions_nl"] = "dummy"
+        assert form["sendcloud_public_key"].value == ""
+        assert form["sendcloud_private_key"].value == ""
+
+        response = form.submit()
+
+        self.assertEqual(response.status_code, 302)
+
     def test_configure_sendcloud_credentials(self):
         change_page = self.app.get(
             reverse("admin:shop_shopconfiguration_change", args=(1,)),
