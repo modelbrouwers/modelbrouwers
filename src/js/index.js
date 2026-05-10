@@ -2,7 +2,6 @@ import '@babel/polyfill';
 import 'bootstrap';
 import 'bootstrap-datepicker';
 import 'bootstrap-datepicker/js/locales/bootstrap-datepicker.nl';
-import 'bootstrap-select';
 
 import {setCsrfTokenValue} from '@/data/api-client';
 
@@ -40,4 +39,3 @@ $('input.date').datepicker({
   language: 'nl',
   format: 'yyyy-mm-dd',
 });
-$('.selectpicker').selectpicker();
