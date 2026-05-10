@@ -73,10 +73,9 @@ class ShopConfiguration(SingletonModel):
     def _validate_sendcloud_config(self) -> None:
         from ..sendcloud import Client
 
-        if not self.sendcloud_public_key or not self.sendcloud_private_key:
-            return
-
         with Client(config=self) as client:
+            if not client.is_ready_for_use:
+                return
             credentials_valid = client.check_auth_ok()
 
         if not credentials_valid:
