@@ -1,4 +1,3 @@
-import '@babel/polyfill';
 import 'bootstrap';
 
 import {setCsrfTokenValue} from '@/data/api-client';
