@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: 2016-09-09 19:49+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,13 +48,7 @@ msgid "Oops... a 404!"
 msgstr "Oeps... een 404!"
 
 #: src/templates/404.html:25
-#, fuzzy, python-format
-#| msgid ""
-#| "The requested page could not be found or isn't accessible because of "
-#| "limited user rights. Click on the big logo above or click <a href=\"/"
-#| "\">here</a> to return to the homepage. Alternatively, use the back button "
-#| "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
-#| "previous page."
+#, python-format
 msgid ""
 "The requested page could not be found or isn't accessible because of limited "
 "user rights. Click on the big logo above or click <a "
@@ -64,7 +58,7 @@ msgid ""
 msgstr ""
 "De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
 "doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
-"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
+"of klik <a href=\"%(url_index)s\">hier</a> om terug te gaan naar de homepage. Of gebruik "
 "de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
 "te gaan naar de vorige pagina."
 
@@ -80,24 +74,24 @@ msgstr "Brouwverslagen"
 msgid "Find a member"
 msgstr "Vind een gebruiker"
 
-#: src/templates/base.html:58
+#: src/templates/base.html:62
 #, python-format
 msgid "logged in as <a href=\"%(profile_url)s\">%(user)s</a>"
 msgstr "ingelogd als <a href=\"%(profile_url)s\">%(user)s</a>"
 
-#: src/templates/base.html:64
+#: src/templates/base.html:68
 msgid "logout"
 msgstr "uitloggen"
 
-#: src/templates/base.html:69
+#: src/templates/base.html:73
 msgid "Login"
 msgstr "Inloggen"
 
-#: src/templates/base.html:71
+#: src/templates/base.html:75
 msgid "Register"
 msgstr "Registreren"
 
-#: src/templates/base.html:74
+#: src/templates/base.html:78
 msgid "Privacy statement"
 msgstr ""
 
@@ -105,7 +99,7 @@ msgstr ""
 msgid "Previous"
 msgstr "Vorige"
 
-#: src/templates/includes/pagination.html:22
+#: src/templates/includes/pagination.html:29
 msgid "Next"
 msgstr "Volgende"
 
@@ -162,10 +156,8 @@ msgid "group builds"
 msgstr "groepsbouwen"
 
 #: src/templates/nav_tabs_text.html:47
-#, fuzzy
-#| msgid "build"
 msgid "builds"
-msgstr "Brouwverslagen"
+msgstr "verslagen"
 
 #: src/templates/nav_top.html:8
 msgid "Toggle navigation"
@@ -200,23 +192,13 @@ msgstr ""
 "gebruik is deze verwijderd."
 
 #: src/templates/santa_removed.html:15
-#, fuzzy, python-format
-#| msgid ""
-#| "The requested page could not be found or isn't accessible because of "
-#| "limited user rights. Click on the big logo above or click <a href=\"/"
-#| "\">here</a> to return to the homepage. Alternatively, use the back button "
-#| "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
-#| "previous page."
+#, python-format
 msgid ""
 "Click on the big logo above or click <a href=\"%(url_index)s\">here</a> to "
 "return to the homepage. Alternatively, use the back button in your browser "
 "or click <a href=\"%(return)s\">here</a> to return to the previous page."
 msgstr ""
-"De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
-"doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
-"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
-"de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
-"te gaan naar de vorige pagina."
+
 
 #: src/templates/search_form.html:16
 msgid "Search"
@@ -227,13 +209,7 @@ msgid "Oops! There is no more stock..."
 msgstr "Oeps! Er is geen voorraad meer..."
 
 #: src/templates/shirts_removed.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "The requested page could not be found or isn't accessible because of "
-#| "limited user rights. Click on the big logo above or click <a href=\"/"
-#| "\">here</a> to return to the homepage. Alternatively, use the back button "
-#| "in your browser or click <a href=\"%(return)s\">here</a> to return to the "
-#| "previous page."
+#, python-format
 msgid ""
 "Sorry, there are no more shirts in stock, so it's no longer possible to "
 "order them. Click on the big logo above or click <a "
@@ -241,375 +217,3 @@ msgid ""
 "use the back button in your browser or click <a href=\"%(return)s\">here</a> "
 "to return to the previous page."
 msgstr ""
-"De opgevraagde pagina kan niet gevonden worden of is niet toegangkelijk "
-"doordat je beperkte gebruikersrechten hebt. Klik op het grote logo bovenaan "
-"of klik <a href=\"/\">hier</a> om terug te gaan naar de homepage. Of gebruik "
-"de terug-knop in je browser of klik <a href=\"%(return)s\">hier</a> om terug "
-"te gaan naar de vorige pagina."
-
-#~ msgid "English"
-#~ msgstr "Engels"
-
-#~ msgid "Dutch"
-#~ msgstr "Nederlands"
-
-#~ msgid "Materials and knowledge for scale modelling."
-#~ msgstr "Materialen en kennisbank voor de modelbouw."
-
-#~ msgid "Home"
-#~ msgstr "Home"
-
-#~ msgid "Awards"
-#~ msgstr "Awards"
-
-#~ msgid "Secret Santa"
-#~ msgstr "Secret Santa"
-
-#~ msgid "Migrations"
-#~ msgstr "Migraties"
-
-#~ msgid "Profile"
-#~ msgstr "Profiel"
-
-#, python-format
-#~ msgid ""
-#~ "\n"
-#~ "                        Hosting by <a href=\"%(url)s\">Flexwebhosting</"
-#~ "a>\n"
-#~ "                    "
-#~ msgstr ""
-#~ "\n"
-#~ "Hosting door <a href=\"%(url)s\">Flexwebhosting</a>"
-
-#~ msgid "Pick an option"
-#~ msgstr "Kies een optie"
-
-#, python-format
-#~ msgid ""
-#~ "\n"
-#~ "                Current: <a href=\"%(url)s\">%(url)s</a>\n"
-#~ "            "
-#~ msgstr ""
-#~ "\n"
-#~ "Huidige: <a href=\"%(url)s\">%(url)s</a>"
-
-#~ msgid "The form contains errors"
-#~ msgstr "Het formulier bevat fouten"
-
-#~ msgid "There are errors between the forms"
-#~ msgstr "Er zijn foutmeldingen bij de formulieren"
-
-#~ msgid "Submit"
-#~ msgstr "Versturen"
-
-#~ msgid "Fix the error:"
-#~ msgstr "Los het probleem op:"
-
-#~ msgid "Control panel"
-#~ msgstr "Controlepaneel"
-
-#~ msgid "User management"
-#~ msgstr "Gebruikersbeheer"
-
-#~ msgid "Group builds"
-#~ msgstr "Groepsbouwen"
-
-#~ msgid "Brouwersdag"
-#~ msgstr "Brouwersdag"
-
-#~ msgid "Registrations"
-#~ msgstr "Registraties"
-
-#~ msgid "Forum"
-#~ msgstr "Forum"
-
-#~ msgid "Albums"
-#~ msgstr "Albums"
-
-#~ msgid "Misc"
-#~ msgstr "Varia"
-
-#~ msgid "Shirts"
-#~ msgstr "Shirts"
-
-#~ msgid "Recent Actions"
-#~ msgstr "Recente acties"
-
-#~ msgid "Own albums"
-#~ msgstr "albums"
-
-#~ msgid "Group albums"
-#~ msgstr "Groepsbouwen"
-
-#~ msgid "Public albums"
-#~ msgstr "albums"
-
-#~ msgid "album"
-#~ msgstr "albums"
-
-#~ msgid "album groups"
-#~ msgstr "albums"
-
-#~ msgid "Edit album"
-#~ msgstr "albums"
-
-#~ msgid "Restore album"
-#~ msgstr "Ga naar de albums!"
-
-#~ msgid "New album"
-#~ msgstr "albums"
-
-#~ msgid "My albums"
-#~ msgstr "albums"
-
-#~ msgid "All albums"
-#~ msgstr "albums"
-
-#~ msgid "Last uploads"
-#~ msgstr "Laatste pagina"
-
-#~ msgid "Album"
-#~ msgstr "Albums"
-
-#~ msgid "Fix the error"
-#~ msgstr "Los het probleem op:"
-
-#~ msgid "Add album"
-#~ msgstr "albums"
-
-#~ msgid "in the album"
-#~ msgstr "Ga naar de albums!"
-
-#~ msgid "Search albums"
-#~ msgstr "albums"
-
-#~ msgid "reviewed?"
-#~ msgstr "kitreviews"
-
-#~ msgid "last reviewer"
-#~ msgstr "kitreviews"
-
-#~ msgid "last review"
-#~ msgstr "kitreviews"
-
-#~ msgid "nomination"
-#~ msgstr "Migraties"
-
-#~ msgid "nominations"
-#~ msgstr "Migraties"
-
-#~ msgid "Awards home"
-#~ msgstr "Awards"
-
-#~ msgid "Nominations"
-#~ msgstr "Migraties"
-
-#~ msgid "brouwer"
-#~ msgstr "Brouwersdag"
-
-#~ msgid "competitions"
-#~ msgstr "Recente acties"
-
-#~ msgid "brouwersdag"
-#~ msgstr "Brouwersdag"
-
-#~ msgid "brouwersdagen"
-#~ msgstr "Brouwersdag"
-
-#~ msgid "Brouwersdag model signup"
-#~ msgstr "Brouwersdag"
-
-#~ msgid "Brouwersdag 2014"
-#~ msgstr "Brouwersdag"
-
-#~ msgid "Forum ID"
-#~ msgstr "Forum"
-
-#~ msgid "Build reports"
-#~ msgstr "Brouwverslagen"
-
-#~ msgid "My builds"
-#~ msgstr "Groepsbouwen"
-
-#~ msgid "Build photos"
-#~ msgstr "Brouwverslagen"
-
-#~ msgid "From albums"
-#~ msgstr "albums"
-
-#~ msgid "forum profile"
-#~ msgstr "Profiel"
-
-#~ msgid "forum user"
-#~ msgstr "forum"
-
-#~ msgid "forum users"
-#~ msgstr "forum"
-
-#~ msgid "forum id"
-#~ msgstr "forum"
-
-#~ msgid "Username"
-#~ msgstr "Gebruikersbeheer"
-
-#~ msgid "Forum name"
-#~ msgstr "Forum"
-
-#~ msgid "userprofile"
-#~ msgstr "Profiel"
-
-#~ msgid "userprofiles"
-#~ msgstr "Profiel"
-
-#~ msgid "registration question"
-#~ msgstr "Registraties"
-
-#~ msgid "registration attempt"
-#~ msgstr "Registraties"
-
-#~ msgid "registration attempts"
-#~ msgstr "Registraties"
-
-#~ msgid "Registration"
-#~ msgstr "Registraties"
-
-#~ msgid "Terms violations"
-#~ msgstr "Schakel de navigatie aan of uit"
-
-#~ msgid "submitted for review"
-#~ msgstr "Ga naar de kitreviews!"
-
-#~ msgid "denied"
-#~ msgstr "Geen toegang"
-
-#~ msgid "Theme/name of the group build"
-#~ msgstr "Beheer groepsbouwen!"
-
-#~ msgid "Users who manage the group build."
-#~ msgstr "Beheer groepsbouwen!"
-
-#~ msgid "duration"
-#~ msgstr "Migraties"
-
-#~ msgid "group build"
-#~ msgstr "groepsbouwen"
-
-#~ msgid "group build participant"
-#~ msgstr "groepsbouwen"
-
-#~ msgid "group build participants"
-#~ msgstr "groepsbouwen"
-
-#~ msgid "Submit a new group build"
-#~ msgstr "Beheer groepsbouwen!"
-
-#~ msgid "Create group build"
-#~ msgstr "Beheer groepsbouwen!"
-
-#~ msgid "Group builds dashboard"
-#~ msgstr "Groepsbouwen"
-
-#~ msgid "Request denied"
-#~ msgstr "Geen toegang"
-
-#~ msgid "Management"
-#~ msgstr "Gebruikersbeheer"
-
-#~ msgid "Enter the forum names"
-#~ msgstr "Ga naar het forum!"
-
-#~ msgid "Go to forum"
-#~ msgstr "forum"
-
-#~ msgid "Actions"
-#~ msgstr "Recente acties"
-
-#~ msgid "Builder"
-#~ msgstr "Brouwverslagen"
-
-#~ msgid "My groupbuilds"
-#~ msgstr "groepsbouwen"
-
-#~ msgid "All unfinished group builds"
-#~ msgstr "Beheer groepsbouwen!"
-
-#~ msgid "Submitting the group build"
-#~ msgstr "Beheer groepsbouwen!"
-
-#~ msgid "Description"
-#~ msgstr "Registraties"
-
-#~ msgid "end"
-#~ msgstr "Geen toegang"
-
-#~ msgid "Brouwer"
-#~ msgstr "Brouwersdag"
-
-#~ msgid "logo"
-#~ msgstr "uitloggen"
-
-#~ msgid "review"
-#~ msgstr "kitreviews"
-
-#~ msgid "rating"
-#~ msgstr "Migraties"
-
-#~ msgid "ID of the topic on Modelbrouwers."
-#~ msgstr "Terug naar de Modelbrouwers.nl homepage"
-
-#~ msgid "kit review"
-#~ msgstr "kitreviews"
-
-#~ msgid "kit review vote"
-#~ msgstr "kitreviews"
-
-#~ msgid "kit review votes"
-#~ msgstr "kitreviews"
-
-#~ msgid "Find kits/reviews"
-#~ msgstr "kitreviews"
-
-#~ msgid "Add review"
-#~ msgstr "kitreviews"
-
-#~ msgid "Reviews"
-#~ msgstr "kitreviews"
-
-#~ msgid "secret santa"
-#~ msgstr "Secret Santa"
-
-#~ msgid "secret santas"
-#~ msgstr "Secret Santa"
-
-#~ msgid "secret santa edition"
-#~ msgstr "Secret Santa"
-
-#~ msgid "My Secret Santa"
-#~ msgstr "Secret Santa"
-
-#~ msgid "Who's my Secret Santa?"
-#~ msgstr "Secret Santa"
-
-#~ msgid "Modelbrouwers.nl shirt order"
-#~ msgstr "Terug naar de Modelbrouwers.nl homepage"
-
-#~ msgid "first name"
-#~ msgstr "Eerste pagina"
-
-#~ msgid "last name"
-#~ msgstr "Laatste pagina"
-
-#~ msgid "login"
-#~ msgstr "Inloggen"
-
-#~ msgid "Groupbuilds"
-#~ msgstr "Groepsbouwen"
-
-#~ msgid "Your profile"
-#~ msgstr "Profiel"
-
-#~ msgid "Forum profile"
-#~ msgstr "Profiel"
-
-#~ msgid "registration"
-#~ msgstr "Registraties"

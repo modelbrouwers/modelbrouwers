@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: 2024-03-09 23:06+0100\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: Nederlands <LL@li.org>\n"
@@ -23,74 +23,74 @@ msgstr ""
 msgid "Banning"
 msgstr "Verbanningen"
 
-#: src/brouwers/banning/models.py:20
+#: src/brouwers/banning/models.py:18
 msgid "user"
 msgstr "gebruiker"
 
-#: src/brouwers/banning/models.py:26
+#: src/brouwers/banning/models.py:24
 msgid "ip"
 msgstr "ip-adres"
 
-#: src/brouwers/banning/models.py:26
+#: src/brouwers/banning/models.py:24
 msgid "Ip address to ban."
 msgstr "IP-adres om te verbannen."
 
-#: src/brouwers/banning/models.py:29
+#: src/brouwers/banning/models.py:27
 msgid "expiry date"
 msgstr "vervaldatum"
 
-#: src/brouwers/banning/models.py:32
+#: src/brouwers/banning/models.py:30
 msgid "Date the ban expires. Leave blank for permabans."
 msgstr ""
 "Datum waarop de ban vervalt. Laat leeg om permanente bans in te steken."
 
-#: src/brouwers/banning/models.py:34
+#: src/brouwers/banning/models.py:32
 msgid "reason (internal)"
 msgstr "reden (intern)"
 
-#: src/brouwers/banning/models.py:36
+#: src/brouwers/banning/models.py:34
 msgid "reason"
 msgstr "reden"
 
-#: src/brouwers/banning/models.py:38
+#: src/brouwers/banning/models.py:36
 msgid "This reason will be shown to the banned user."
 msgstr "Deze reden is zichtbaar voor de verbannen gebruiker."
 
-#: src/brouwers/banning/models.py:40
+#: src/brouwers/banning/models.py:38
 msgid "automatically created?"
 msgstr "automatisch aangemaakt?"
 
-#: src/brouwers/banning/models.py:43
+#: src/brouwers/banning/models.py:41
 msgid "ban"
 msgstr "verbanning"
 
-#: src/brouwers/banning/models.py:44
+#: src/brouwers/banning/models.py:42
 msgid "bans"
 msgstr "verbanningen"
 
-#: src/brouwers/banning/models.py:49
+#: src/brouwers/banning/models.py:47
 msgid "never"
 msgstr "nooit"
 
-#: src/brouwers/banning/models.py:55
+#: src/brouwers/banning/models.py:53
 msgid "ip ban"
 msgstr "IP-verbanning"
 
-#: src/brouwers/banning/models.py:56
+#: src/brouwers/banning/models.py:54
 msgid "account ban"
 msgstr "accountverbanning"
 
-#: src/brouwers/banning/models.py:60
+#: src/brouwers/banning/models.py:58
 #, python-format
 msgid "Ban: %(username)s"
 msgstr "Verbanning: %(username)s"
 
-#: src/brouwers/banning/models.py:62
+#: src/brouwers/banning/models.py:60
 #, python-format
 msgid "Ban: %(ip)s"
 msgstr "Verbanning: %(ip)s"
 
-#: src/brouwers/banning/models.py:67
+#: src/brouwers/banning/models.py:65
 msgid "Submit either an user or IP address."
 msgstr "Geef ofwel een gebruiker in, ofwel een IP-adres"
 

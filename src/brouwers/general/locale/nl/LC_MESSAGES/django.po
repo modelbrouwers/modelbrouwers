@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 23:02+0100\n"
+"POT-Creation-Date: 2026-05-10 14:54+0200\n"
 "PO-Revision-Date: 2016-09-09 19:44+0020\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,105 +39,91 @@ msgstr "Duitsland"
 msgid "country"
 msgstr "land"
 
-#: src/brouwers/general/models.py:24
+#: src/brouwers/general/models.py:25
 msgid "exclude me from nominations"
 msgstr "sluit me uit van nominaties"
 
-#: src/brouwers/general/models.py:25
+#: src/brouwers/general/models.py:26
 msgid "If checked, you will be excluded from Awards-nominations."
 msgstr "Vink dit aan om niet genomineerd te worden in de Awards."
 
-#: src/brouwers/general/models.py:31
+#: src/brouwers/general/models.py:32
 msgid "street name"
 msgstr "straatnaam"
 
-#: src/brouwers/general/models.py:33
+#: src/brouwers/general/models.py:34
 msgid "number"
 msgstr "nummer"
 
-#: src/brouwers/general/models.py:35
+#: src/brouwers/general/models.py:36
 msgid "house number (+ PO box if applicable)"
 msgstr "huisnummer (+ postbus indien van toepassing)"
 
-#: src/brouwers/general/models.py:38
+#: src/brouwers/general/models.py:39
 msgid "postal code"
 msgstr "postcode"
 
-#: src/brouwers/general/models.py:39
+#: src/brouwers/general/models.py:40
 msgid "city"
 msgstr "stad"
 
-#: src/brouwers/general/models.py:40
+#: src/brouwers/general/models.py:41
 msgid "province"
 msgstr "provincie"
 
 #: src/brouwers/general/models.py:45
-msgid "allow social sharing"
-msgstr "sociaal delen toestaan"
-
-#: src/brouwers/general/models.py:48
-msgid ""
-"Checking this gives us permission to share your topics and albums on social "
-"media. Uncheck if you don't want to share."
-msgstr ""
-"Als je dit aanvinkt, dan geef je toestemming om je topics en albums te delen "
-"op sociale media zoals Facebook. Vink dit uit als je dit niet wil."
-
-#: src/brouwers/general/models.py:60
 msgid "userprofile"
 msgstr "gebruikersprofiel"
 
-#: src/brouwers/general/models.py:61
+#: src/brouwers/general/models.py:46
 msgid "userprofiles"
 msgstr "gebruikersprofielen"
 
-#: src/brouwers/general/models.py:75
+#: src/brouwers/general/models.py:66
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: src/brouwers/general/models.py:77
+#: src/brouwers/general/models.py:68
 msgid "email"
 msgstr "E-mailadres"
 
-#: src/brouwers/general/models.py:78
+#: src/brouwers/general/models.py:69
 msgid "timestamp"
 msgstr "timestamp"
 
-#: src/brouwers/general/models.py:79
+#: src/brouwers/general/models.py:70
 msgid "IP address"
 msgstr "IP adres"
 
-#: src/brouwers/general/models.py:80
+#: src/brouwers/general/models.py:71
 msgid "success"
 msgstr "geslaagd"
 
-#: src/brouwers/general/models.py:85
+#: src/brouwers/general/models.py:76
 msgid "type of visitor"
 msgstr "type bezoeker"
 
-#: src/brouwers/general/models.py:92
+#: src/brouwers/general/models.py:84
 msgid "registration attempt"
 msgstr "registratiepoging"
 
-#: src/brouwers/general/models.py:93
+#: src/brouwers/general/models.py:85
 msgid "registration attempts"
 msgstr "registratiepogingen"
 
-#: src/brouwers/general/models.py:143
-#, python-format
-msgid "Probably spambot, %(num_attempts)s against maximum attempts of %(max)s"
+#: src/brouwers/general/models.py:91
+msgid "is banned"
 msgstr ""
-"Waarschijnlijk spambot, %(num_attempts)s tegenover maximaal %(max)s pogingen."
 
-#: src/brouwers/general/models.py:170
+#: src/brouwers/general/models.py:108
 msgid "language"
 msgstr "taal"
 
-#: src/brouwers/general/models.py:178
+#: src/brouwers/general/models.py:118
 msgid "announcement"
 msgstr "aankondiging"
 
-#: src/brouwers/general/models.py:179
+#: src/brouwers/general/models.py:119
 msgid "announcements"
 msgstr "aankondigingen"
 
@@ -309,266 +295,3 @@ msgstr ""
 "Foutjes kunnen gebeuren. Als je denkt dat er een fout in het spel is, aarzel "
 "dan niet om de admins te contacteren. Het e-mailadres staat onderaan deze "
 "pagina."
-
-#~ msgid "France"
-#~ msgstr "Frankrijk"
-
-#~ msgid "Anti-spambot question"
-#~ msgstr "Anti-spambot vraag"
-
-#~ msgid "Question which must be answered for registration."
-#~ msgstr ""
-#~ "Anti-spambotvraag die beantwoord moet worden om te kunnen registreren."
-
-#~ msgid "registration question"
-#~ msgstr "Registratievraag"
-
-#~ msgid "answer"
-#~ msgstr "antwoord"
-
-#~ msgid "Confirm"
-#~ msgstr "Bevestigen"
-
-#~ msgid "added by"
-#~ msgstr "toegevoegd door"
-
-#~ msgid "User who added the object."
-#~ msgstr "Gebruiker die het object toevoegde."
-
-#~ msgid "added on"
-#~ msgstr "toegevoegd op"
-
-#~ msgid "hash"
-#~ msgstr "hash"
-
-#~ msgid "expire datetime"
-#~ msgstr "vervaldatum"
-
-#~ msgid "password reset"
-#~ msgstr "Wachtwoordreset"
-
-#~ msgid "password resets"
-#~ msgstr "Wachtwoordresets"
-
-#~ msgid "Password reset for %(user)s"
-#~ msgstr "Wachtwoordreset voor %(user)s"
-
-#~ msgid "path from"
-#~ msgstr "pad van"
-
-#~ msgid ""
-#~ "path from where to redirect, without leading "
-#~ "slash.                         E.g. '/shop/' becomse 'shop/'."
-#~ msgstr ""
-#~ "pad vanaf waar geredirect moet worden, zonder forward slash. "
-#~ "Bijvoorbeeld: '/shop/' wordt 'shop/'"
-
-#~ msgid "redirect to"
-#~ msgstr "redirect naar"
-
-#~ msgid "Path (relative or absolute to the docroot) or url."
-#~ msgstr "Pad (relatief of absoluut tot de website root) of url."
-
-#~ msgid "redirect"
-#~ msgstr "omleiding"
-
-#~ msgid "redirects"
-#~ msgstr "omleidingen"
-
-#~ msgid "E-mail"
-#~ msgstr "E-mailadres"
-
-#~ msgid "A user with that username already exists."
-#~ msgstr "Er bestaat al iemand met deze gebruikersnaam."
-
-#~ msgid "The two password fields didn't match."
-#~ msgstr "De wachtwoordvelden zijn niet identiek."
-
-#~ msgid "Username"
-#~ msgstr "Gebruikersnaam"
-
-#~ msgid "E-mail address"
-#~ msgstr "E-mailadres"
-
-#~ msgid "Password"
-#~ msgstr "Wachtwoord"
-
-#~ msgid "Password confirmation"
-#~ msgstr "Wachtwoord - bevestig"
-
-#~ msgid "Enter the same password as above, for verification."
-#~ msgstr "Vul hetzelfde wachtwoord in als hierboven ter controle."
-
-#~ msgid "This e-mail address is already registered."
-#~ msgstr "Dit e-mailadres is al geregistreerd."
-
-#~ msgid "Forum name"
-#~ msgstr "Forumnaam"
-
-#~ msgid "Code"
-#~ msgstr "Code"
-
-#~ msgid "This user doesn't exist on the board, check for typos."
-#~ msgstr "Deze gebruiker bestaat niet op het forum. Controleer op typfouten."
-
-#~ msgid "You entered the wrong code."
-#~ msgstr "Je hebt een foutieve code ingegeven."
-
-#~ msgid "The username entered was not correct."
-#~ msgstr "De ingegeven gebruikersnaam was niet correct."
-
-#~ msgid ""
-#~ "If you forgot your username, you can enter the e-mail address you "
-#~ "registered with."
-#~ msgstr ""
-#~ "Als je je gebruikersnaam vergeten bent, dan kan je het e-mailadres "
-#~ "waarmee je registreerde ingeven."
-
-#~ msgid "This user is unknown in the database."
-#~ msgstr "Deze gebruiker komt niet in de databank voor."
-
-#~ msgid "This email adress is unknown in the database"
-#~ msgstr "Dit e-mailadres komt niet in de databank voor."
-
-#~ msgid "Enter your username or e-mail address."
-#~ msgstr "Voer je gebruikersnaam of e-mailadres in."
-
-#~ msgid "Your password was successfully changed."
-#~ msgstr "Je wachtwoord werd succesvol aangepast."
-
-#~ msgid "Your profile data has been updated."
-#~ msgstr "Je profielgegevens werden bijgewerkt."
-
-#~ msgid "Some fields were not valid, please fix the errors."
-#~ msgstr "Sommige gegevens waren ongeldig, pas a.u.b. de problemen aan."
-
-#~ msgid ""
-#~ "Your account is still inactive! You won't be able to log in until you "
-#~ "reactivate with the link sent by e-mail."
-#~ msgstr ""
-#~ "Je account is nog inactief! Je zal niet kunnen inloggen tot je je account "
-#~ "geheractiveerd hebt via de link die gemaild werd."
-
-#~ msgid ""
-#~ "Hello %(nickname)s, \n"
-#~ "\n"
-#~ "You or someone else has requested a password reset for your Modelbrouwers."
-#~ "nl account.\n"
-#~ "This request will expire after 24 hours.\n"
-#~ "\n"
-#~ "Go to %(url)s to complete your password reset.\n"
-#~ "\n"
-#~ "Sincerely,\n"
-#~ "\n"
-#~ "The Modelbrouwers.nl staff"
-#~ msgstr ""
-#~ "Hallo %(nickname)s, \n"
-#~ "\n"
-#~ "Jijzelf of iemand anders heeft een wachtwoordreset aangevraagd voor je "
-#~ "Modelbrouwers.nl account.\n"
-#~ "Deze aanvraag vervalt na 24 uur.\n"
-#~ "\n"
-#~ "Ga naar %(url)s om je wachtwoordreset uit te voeren.\n"
-#~ "\n"
-#~ "Met vriendelijke groet,\n"
-#~ "\n"
-#~ "Het Modelbrouwers.nl beheer"
-
-#~ msgid "nickname"
-#~ msgstr "gebruikersnaam"
-
-#~ msgid "Modelbrouwers.nl password reset"
-#~ msgstr "Modelbrouwers.nl wachtwoordreset"
-
-#~ msgid "An e-mail was sent to '%(email)s' with a link to reset your pasword."
-#~ msgstr ""
-#~ "Er werd een e-mail verstuurd naar '%(email)s' met een link om je "
-#~ "wachtwoord te resetten."
-
-#~ msgid "Enter your new password"
-#~ msgstr "Vul je nieuwe wachtwoord in"
-
-#~ msgid "confirm"
-#~ msgstr "bevestigen"
-
-#~ msgid "Forgot your password?"
-#~ msgstr "Wachtwoord vergeten?"
-
-#~ msgid "Request a password reset"
-#~ msgstr "Vraag om een wachtwoord reset"
-
-#~ msgid "Change password"
-#~ msgstr "Wachtwoord wijzigen"
-
-#~ msgid "Enter your username or e-mail address to request a password reset."
-#~ msgstr ""
-#~ "Voer je gebruikersnaam of e-mailadres in om een wachtwoordreset aan te "
-#~ "vragen."
-
-#~ msgid "An e-mail will be sent to you with a link to reset your password."
-#~ msgstr ""
-#~ "Er wordt een e-mail verstuurd met een link om je wachtwoord te resetten."
-
-#~ msgid "Modelbrouwers.nl &bull; Edit profile"
-#~ msgstr "Modelbrouwers.nl &bull; Profiel bewerken"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuleren"
-
-#~ msgid "Account details"
-#~ msgstr "Accountdetails"
-
-#~ msgid "Introduce yourself!"
-#~ msgstr "Introduceer jezelf!"
-
-#~ msgid "Your username"
-#~ msgstr "Je gebruikersnaam"
-
-#~ msgid "Address details"
-#~ msgstr "Adresdetails"
-
-#~ msgid "Awards"
-#~ msgstr "Awards"
-
-#~ msgid "Social sharing"
-#~ msgstr "Delen op sociale media"
-
-#~ msgid "Save"
-#~ msgstr "Bewaren"
-
-#~ msgid "Language settings"
-#~ msgstr "Taalinstellingen"
-
-#~ msgid ""
-#~ "Set your preferred language here. Note that this setting is stored in "
-#~ "your cookies, so if you clear those, the default language according to "
-#~ "your browser preferences will be used."
-#~ msgstr ""
-#~ "Stel hier je voorkeurstaal in. Let op, de instellingen worden in je "
-#~ "cookies bewaard. Als je deze wist, wordt de voorkeurstaal op basis van je "
-#~ "browserinstellingen gekozen."
-
-#~ msgid ""
-#~ "Contact admins@modelbrouwers.nl if you are interested in helping with "
-#~ "translations."
-#~ msgstr ""
-#~ "Contacteer admins@modelbrouwers.nl als je interesse hebt om mee te helpen "
-#~ "met vertalingen."
-
-#~ msgid "Anti-Spambot question"
-#~ msgstr "Anti-spambot vraag"
-
-#~ msgid "Answer"
-#~ msgstr "Antwoord"
-
-#~ msgid "Register"
-#~ msgstr "Registreren"
-
-#~ msgid "By registering, you agree to the terms below."
-#~ msgstr "Bij registratie ga je akkoord met de voorwaarden hieronder."
-
-#~ msgid "Registration terms"
-#~ msgstr "Registratievoorwaarden"
-
-#~ msgid "normal user"
-#~ msgstr "normale gebruiker"
