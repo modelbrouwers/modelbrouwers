@@ -4,8 +4,6 @@
  * Essentially, all 'apps' are globals that need to run on every page. Each
  * 'app' can detect if it needs to run or not.
  */
-import '@babel/polyfill';
-
 import AlbumsApp from './forum/albums';
 import './forum/announcement';
 import ForumToolsApp from './forum/forum-tools';

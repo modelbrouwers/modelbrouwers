@@ -34,7 +34,6 @@
   },
   "homepage": "https://github.com/modelbrouwers/modelbrouwers",
   "dependencies": {
-    "@babel/polyfill": "^7.2.5",
     "bootstrap": "^3.4.1",
     "classnames": "^2.2.6",
     "clsx": "^2.1.1",
@@ -61,11 +60,10 @@
     "use-immer": "^0.8.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-transform-runtime": "^7.17.0",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.24.7",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^3.2.4",
     "@formatjs/cli": "^6.2.12",
     "@formatjs/ts-transformer": "^3.13.14",
@@ -84,7 +82,7 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "autoprefixer": "^10.4.4",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^10.1.1",
     "babel-plugin-formatjs": "^10.5.16",
     "css-loader": "^6.7.1",
     "cssnano": "^5.1.7",
