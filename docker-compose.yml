@@ -48,7 +48,7 @@ services:
       - DB_USER=postgres
       - DB_HOST=postgres
       - FORUM_DB_HOST=mysql
-      - CACHE_URL=memcached:11211
+      - CACHE_DEFAULT=redis:6379
       - SESSION_COOKIE_DOMAIN=localhost
       - CORS_ENABLED=yes
     volumes:
