@@ -26,8 +26,6 @@ $('.badge').tooltip({
   placement: 'auto left',
 });
 
-$('td.help_text div').hide(); // hide the help texts
-
 $('img').tooltip({
   track: true,
 });
