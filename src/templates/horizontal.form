@@ -69,7 +69,7 @@
 
 
 {% block DateInput %}
-{% reuse 'input' input_type='text' extra_css_classes='date' raw_value=value %}
+{% reuse 'input' input_type='date' raw_value=raw_value.isoformat %}
 {% endblock %}
 
 

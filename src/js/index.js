@@ -1,7 +1,5 @@
 import '@babel/polyfill';
 import 'bootstrap';
-import 'bootstrap-datepicker';
-import 'bootstrap-datepicker/js/locales/bootstrap-datepicker.nl';
 
 import {setCsrfTokenValue} from '@/data/api-client';
 
@@ -33,9 +31,4 @@ $('td.help_text div').hide(); // hide the help texts
 
 $('img').tooltip({
   track: true,
-});
-
-$('input.date').datepicker({
-  language: 'nl',
-  format: 'yyyy-mm-dd',
 });

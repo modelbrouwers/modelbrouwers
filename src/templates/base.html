@@ -1,6 +1,6 @@
 {% load static i18n %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
-<html lang="en" {% block data-page %}{% endblock %}>
+<html lang="{{ LANGUAGE_CODE }}" {% block data-page %}{% endblock %}>
     <head>
         <meta charset="utf-8">
         <title>Modelbrouwers.nl &bull;{% block title %}{% endblock %}</title>
