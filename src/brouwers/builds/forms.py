@@ -19,10 +19,6 @@ class BuildForm(forms.ModelForm):
             "start_date",
             "end_date",
         )
-        widgets = {
-            "start_date": forms.DateInput(attrs={"class": "date"}),
-            "end_date": forms.DateInput(attrs={"class": "date"}),
-        }
         localized_fields = "__all__"
 
     def __init__(self, *args, **kwargs):

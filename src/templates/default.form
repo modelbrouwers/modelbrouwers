@@ -90,7 +90,7 @@ TODO:
 
 
 {% block DateInput %}
-    {% reuse 'input' input_type='text' extra_css_classes='date' value=raw_value|date:'SHORT_DATE_FORMAT' %}
+{% reuse 'input' input_type='date' raw_value=raw_value.isoformat %}
 {% endblock %}
 
 

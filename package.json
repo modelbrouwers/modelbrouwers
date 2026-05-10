@@ -36,7 +36,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "bootstrap": "^3.4.1",
-    "bootstrap-datepicker": "^1.9.0",
     "classnames": "^2.2.6",
     "clsx": "^2.1.1",
     "fine-uploader": "^5.16.2",
