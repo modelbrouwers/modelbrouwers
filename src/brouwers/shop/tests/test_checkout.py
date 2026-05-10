@@ -5,6 +5,7 @@ from unittest.mock import patch
 from django.core import mail
 from django.test import override_settings
 from django.urls import reverse
+from django.utils import translation
 from django.utils.translation import gettext as _
 
 from django_webtest import WebTest
@@ -208,11 +209,15 @@ class CheckoutTests(WebTest):
             self.assertEqual(len(events), 2)
             email_sent, order_placed = events
 
+            with translation.override(order.language):
+                expected_subject = _("Modelbrouwers - order {order_number}").format(
+                    order_number=order.reference
+                )
             self.assertEqual(
                 email_sent.get_description(),
                 (
                     'Email sent to <a href="mailto:tony@example.com">tony@example.com'
-                    f"</a> with subject 'Modelbrouwers - order {order.reference}'"
+                    f"</a> with subject '{expected_subject}'"
                 ),
             )
             self.assertEqual(order_placed.get_description(), "Order placed")

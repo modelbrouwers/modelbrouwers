@@ -43,86 +43,86 @@ msgstr ""
 
 #: src/brouwers/shop/admin.py:60
 msgid "product count"
-msgstr ""
+msgstr "aantal producten"
 
 #: src/brouwers/shop/admin.py:115
 msgid "Sales"
-msgstr ""
+msgstr "Verkoop"
 
 #: src/brouwers/shop/admin.py:121
 msgid "Product details"
-msgstr ""
+msgstr "Productdetails"
 
 #: src/brouwers/shop/admin.py:136
 msgid "SEO"
-msgstr ""
+msgstr "SEO"
 
 #: src/brouwers/shop/admin.py:231
 msgid "Sisow/Buckaroo"
-msgstr ""
+msgstr "Sisow/Buckaroo"
 
 #: src/brouwers/shop/admin.py:240
 #: src/brouwers/shop/payments/payment_options.py:21
 msgid "Bank transfer"
-msgstr ""
+msgstr "Overschrijving"
 
 #: src/brouwers/shop/admin.py:242
 msgid "Paypal"
-msgstr ""
+msgstr "Paypal"
 
 #: src/brouwers/shop/admin.py:251
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: src/brouwers/shop/admin.py:252
 msgid "Sendcloud"
-msgstr ""
+msgstr "Sendcloud"
 
 #: src/brouwers/shop/admin.py:263 src/brouwers/shop/models/shipping.py:52
 msgid "maximum weight"
-msgstr ""
+msgstr "maximumgewicht"
 
 #: src/brouwers/shop/admin.py:373
 msgid "historical payment"
-msgstr ""
+msgstr "eerdere betaling"
 
 #: src/brouwers/shop/admin.py:374
 msgid "historical payments"
-msgstr ""
+msgstr "eerdere betalingen"
 
 #: src/brouwers/shop/admin.py:391
 msgid "event"
-msgstr ""
+msgstr "gebeurtenis"
 
 #: src/brouwers/shop/admin.py:418
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:156
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:43
 msgid "Customer"
-msgstr ""
+msgstr "Klant"
 
 #: src/brouwers/shop/admin.py:429
 msgid "Shipping & invoicing"
-msgstr ""
+msgstr "Verzending & facturatie"
 
 #: src/brouwers/shop/admin.py:444
 msgid "Metadata"
-msgstr ""
+msgstr "Metagegevens"
 
 #: src/brouwers/shop/admin.py:462
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:50
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:50
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:14
 msgid "Payment status"
-msgstr ""
+msgstr "Betaalstatus"
 
 #: src/brouwers/shop/admin.py:468
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:118
 msgid "Price"
-msgstr ""
+msgstr "Prijs"
 
 #: src/brouwers/shop/api/serializers.py:109
 msgid "id"
-msgstr ""
+msgstr "id"
 
 #: src/brouwers/shop/api/serializers.py:110
 #: src/brouwers/shop/models/categories.py:10
@@ -130,204 +130,208 @@ msgstr ""
 #: src/brouwers/shop/models/payments.py:15
 #: src/brouwers/shop/models/products.py:20
 msgid "name"
-msgstr ""
+msgstr "naam"
 
 #: src/brouwers/shop/constants.py:13
 msgid "Gram"
-msgstr ""
+msgstr "Gram"
 
 #: src/brouwers/shop/constants.py:14
 msgid "Kilogram"
-msgstr ""
+msgstr "Kilogram"
 
 #: src/brouwers/shop/constants.py:18
 msgid "Milimetre"
-msgstr ""
+msgstr "Millimeter"
 
 #: src/brouwers/shop/constants.py:19
 msgid "Centimetre"
-msgstr ""
+msgstr "Centimeter"
 
 #: src/brouwers/shop/constants.py:20
 msgid "Metre"
-msgstr ""
+msgstr "Meter"
 
 #: src/brouwers/shop/constants.py:24
 msgid "Open"
-msgstr ""
+msgstr "Open"
 
 #: src/brouwers/shop/constants.py:25 src/brouwers/shop/constants.py:31
 msgid "Processing"
-msgstr ""
+msgstr "In verwerking"
 
 #: src/brouwers/shop/constants.py:26
 msgid "Closed"
-msgstr ""
+msgstr "Gesloten"
 
 #: src/brouwers/shop/constants.py:30
 msgid "Received"
-msgstr ""
+msgstr "Ontvangen"
 
 #: src/brouwers/shop/constants.py:32
 msgid "Shipped"
-msgstr ""
+msgstr "Verstuurd"
 
 #: src/brouwers/shop/constants.py:33 src/brouwers/shop/constants.py:39
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
 #: src/brouwers/shop/constants.py:37
 msgid "Pending"
-msgstr ""
+msgstr "In verwerking"
 
 #: src/brouwers/shop/constants.py:38
 msgid "Completed"
-msgstr ""
+msgstr "Voltooid"
 
 #: src/brouwers/shop/constants.py:43
 msgid "Pickup"
-msgstr ""
+msgstr "Ophalen"
 
 #: src/brouwers/shop/constants.py:44
 msgid "By mail"
-msgstr ""
+msgstr "Opsturen"
 
 #: src/brouwers/shop/constants.py:48
 #: src/brouwers/shop/tests/admin/test_admin_smoke.py:85
 msgid "Order placed"
-msgstr ""
+msgstr "Bestelling geplaatst"
 
 #: src/brouwers/shop/constants.py:49
 msgid "Status changed"
-msgstr ""
+msgstr "Status gewijzigd"
 
 #: src/brouwers/shop/constants.py:50
 msgid "Payment status changed"
-msgstr ""
+msgstr "Betaalstatus gewijzigd"
 
 #: src/brouwers/shop/constants.py:51
 msgid "Email sent"
-msgstr ""
+msgstr "E-mail verstuurd"
 
 #: src/brouwers/shop/emails.py:24
 #, python-brace-format
 msgid "Modelbrouwers - order {order_number}"
-msgstr ""
+msgstr "Modelbrouwers - bestelling {order_number}"
 
 #: src/brouwers/shop/emails.py:89
 #, python-brace-format
 msgid "Order confirmation - {order_number}"
-msgstr ""
+msgstr "Bestelbevestiging - {order_number}"
 
 #: src/brouwers/shop/forms.py:20
 msgid "Change payment status"
-msgstr ""
+msgstr "Wijzig betaalstatus"
 
 #: src/brouwers/shop/forms.py:26
 msgid "Send email notification"
-msgstr ""
+msgstr "Verstuur update via e-mail"
 
 #: src/brouwers/shop/forms.py:44
 msgid "3SAAAA9999999"
-msgstr ""
+msgstr "3SAAAA9999999"
 
 #: src/brouwers/shop/forms.py:50
 msgid "https://jouw.postnl.nl/track-and-trace/..."
-msgstr ""
+msgstr "https://jouw.postnl.nl/track-and-trace/..."
 
 #: src/brouwers/shop/models/cart.py:26 src/brouwers/shop/models/orders.py:86
 #: src/brouwers/shop/models/payments.py:59
 #: src/brouwers/shop/payments/sisow/forms.py:23
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: src/brouwers/shop/models/cart.py:32
 msgid "snapshot data"
-msgstr ""
+msgstr "snapshot winkelmandje"
 
 #: src/brouwers/shop/models/cart.py:34
 msgid "Snapshot of order information with frozen prices."
 msgstr ""
+"Kopie van bestellingsgegevens met de prijzen die op het moment van bestelling "
+"geldden."
 
 #: src/brouwers/shop/models/cart.py:42
 msgid "cart"
-msgstr ""
+msgstr "winkelmandje"
 
 #: src/brouwers/shop/models/cart.py:43
 msgid "carts"
-msgstr ""
+msgstr "winkelmandjes"
 
 #: src/brouwers/shop/models/cart.py:95 src/brouwers/shop/models/payments.py:56
 msgid "amount"
-msgstr ""
+msgstr "aantal"
 
 #: src/brouwers/shop/models/cart.py:98
 msgid "cart product"
-msgstr ""
+msgstr "product in winkelmandje"
 
 #: src/brouwers/shop/models/cart.py:99
 msgid "cart products"
-msgstr ""
+msgstr "producten in winkelmandjes"
 
 #: src/brouwers/shop/models/categories.py:11
 #: src/brouwers/shop/models/products.py:21
 msgid "slug"
-msgstr ""
+msgstr "identificatie"
 
 #: src/brouwers/shop/models/categories.py:12
 msgid "thumbnail"
-msgstr ""
+msgstr "thumbnail"
 
 #: src/brouwers/shop/models/categories.py:13
 #: src/brouwers/shop/models/payments.py:19
 msgid "enabled"
-msgstr ""
+msgstr "ingeschakeld"
 
 #: src/brouwers/shop/models/categories.py:17
 #: src/brouwers/shop/models/products.py:35
 msgid "meta description"
-msgstr ""
+msgstr "meta-omschrijving"
 
 #: src/brouwers/shop/models/categories.py:19
 msgid "If filled, populates the description meta tag for SEO purposes."
 msgstr ""
+"Wanneer ingevuld wordt de waarde gebruikt voor de 'description' meta tag t.b.v. "
+"zoekmachineoptimalisatie."
 
 #: src/brouwers/shop/models/categories.py:25
 msgid "category"
-msgstr ""
+msgstr "categorie"
 
 #: src/brouwers/shop/models/categories.py:26
 msgid "categories"
-msgstr ""
+msgstr "categorieën"
 
 #: src/brouwers/shop/models/categories.py:42
 msgid "title"
-msgstr ""
+msgstr "titel"
 
 #: src/brouwers/shop/models/categories.py:43
 #: src/brouwers/shop/models/categories.py:47
 msgid "category carousel image"
-msgstr ""
+msgstr "categoriecarouselafbeelding"
 
 #: src/brouwers/shop/models/categories.py:44
 msgid "visible"
-msgstr ""
+msgstr "zichtbaar"
 
 #: src/brouwers/shop/models/categories.py:48
 msgid "category carousel images"
-msgstr ""
+msgstr "categoriecarouselafbeeldingen"
 
 #: src/brouwers/shop/models/config.py:12
 msgid "sisow test mode"
-msgstr ""
+msgstr "sisow test-mode"
 
 #: src/brouwers/shop/models/config.py:14
 msgid "sisow merchant ID"
-msgstr ""
+msgstr "sisow merchant-ID"
 
 #: src/brouwers/shop/models/config.py:17
 msgid "sisow merchant key"
-msgstr ""
+msgstr "sisow merchant-key"
 
 #: src/brouwers/shop/models/config.py:22
 msgid "instructions"
@@ -338,22 +342,24 @@ msgid ""
 "Enter the instructions to display to the customer on how to transfer the "
 "money."
 msgstr ""
+"Geef de instructies op voor de klant die beschrijft hoe ze de overschrijving "
+"kunnen uitvoeren."
 
 #: src/brouwers/shop/models/config.py:29
 msgid "paypal sandbox"
-msgstr ""
+msgstr "paypal testomgeving"
 
 #: src/brouwers/shop/models/config.py:31
 msgid "paypal API client ID"
-msgstr ""
+msgstr "paypal API client ID"
 
 #: src/brouwers/shop/models/config.py:33
 msgid "paypal API secret"
-msgstr ""
+msgstr "paypal API secret"
 
 #: src/brouwers/shop/models/config.py:37
 msgid "from email"
-msgstr ""
+msgstr "van-mailadres"
 
 #: src/brouwers/shop/models/config.py:40
 msgid ""
@@ -361,89 +367,95 @@ msgid ""
 "you must ensure that your outgoing email server is appropriately configured. "
 "If left blank, the default value from the settings is used."
 msgstr ""
+"E-mailadres wat gebruikt wordt voor uitgaande mail. Dit komt terecht in de 'From' "
+"header - de uitgaande mailserver moet correct ingesteld zijn om dit adres toe te "
+"staan. Indien je dit leeg laat, dan worden de standaardinstellingen gebruikt."
 
 #: src/brouwers/shop/models/config.py:48
 msgid "sendcloud public key"
-msgstr ""
+msgstr "sendcloud public key"
 
 #: src/brouwers/shop/models/config.py:51
 msgid "Public key for the Sendcloud integration, also known as the 'api key'."
 msgstr ""
+"Publieke sleutel/identificatie voor de Sendcloud-integratie, ook wel bekend als "
+"de 'api key'."
 
 #: src/brouwers/shop/models/config.py:55
 msgid "sendcloud private key"
-msgstr ""
+msgstr "sendcloud private key"
 
 #: src/brouwers/shop/models/config.py:58
 msgid ""
 "Private key for the Sendcloud integration, also known as the 'api secret'."
 msgstr ""
+"Geheime sleutel voor de Sendcloud-integratie, ook wel bekend als de 'api secret'."
 
 #: src/brouwers/shop/models/config.py:63
 msgid "Shop configuration"
-msgstr ""
+msgstr "Winkelinstellingen"
 
 #: src/brouwers/shop/models/config.py:83
 #: src/brouwers/shop/tests/test_sendcloud.py:116
 msgid "The Sendcloud credentials don't appear to be valid."
-msgstr ""
+msgstr "De Sendcloud sleutels lijken niet correct te zijn."
 
 #: src/brouwers/shop/models/customers.py:8
 msgid "discount"
-msgstr ""
+msgstr "korting"
 
 #: src/brouwers/shop/models/customers.py:12
 msgid "customer group"
-msgstr ""
+msgstr "klantgroep"
 
 #: src/brouwers/shop/models/customers.py:13
 msgid "customer groups"
-msgstr ""
+msgstr "klantgroepen"
 
 #: src/brouwers/shop/models/orders.py:27
 msgid "street name"
-msgstr ""
+msgstr "straatnaam"
 
 #: src/brouwers/shop/models/orders.py:28
 msgid "house number"
-msgstr ""
+msgstr "huisnummer"
 
 #: src/brouwers/shop/models/orders.py:29
 msgid "postal code"
-msgstr ""
+msgstr "postcode"
 
 #: src/brouwers/shop/models/orders.py:30
 msgid "city"
-msgstr ""
+msgstr "plaats"
 
 #: src/brouwers/shop/models/orders.py:34
 msgid "company"
-msgstr ""
+msgstr "bedrijf"
 
 #: src/brouwers/shop/models/orders.py:36
 msgid "chamber of commerce number"
-msgstr ""
+msgstr "KvK-nummer"
 
 #: src/brouwers/shop/models/orders.py:40
 msgid "address"
-msgstr ""
+msgstr "adres"
 
 #: src/brouwers/shop/models/orders.py:41
 msgid "addresses"
-msgstr ""
+msgstr "adressen"
 
 #: src/brouwers/shop/models/orders.py:84
 msgid "shopping cart"
-msgstr ""
+msgstr "winkelmandje"
 
 #: src/brouwers/shop/models/orders.py:88
 #: src/brouwers/shop/models/payments.py:65
 msgid "reference"
-msgstr ""
+msgstr "referentie"
 
 #: src/brouwers/shop/models/orders.py:92
 msgid "A unique order reference"
-msgstr ""
+msgstr "Een unieke bestellingsreferentie"
 
 #: src/brouwers/shop/models/orders.py:97
 msgid "first name"
@@ -455,63 +467,64 @@ msgstr "achternaam"
 
 #: src/brouwers/shop/models/orders.py:99
 msgid "email"
-msgstr ""
+msgstr "e-mail"
 
 #: src/brouwers/shop/models/orders.py:100
 msgid "phone number"
-msgstr ""
+msgstr "telefoonnummer"
 
 #: src/brouwers/shop/models/orders.py:104
 msgid "delivery method"
-msgstr ""
+msgstr "bezorgmethode"
 
 #: src/brouwers/shop/models/orders.py:112
 msgid "Address for delivery"
-msgstr ""
+msgstr "Bezorgadres"
 
 #: src/brouwers/shop/models/orders.py:125
 #: src/brouwers/shop/models/payments.py:89
 msgid "created"
-msgstr ""
+msgstr "aangemaakt"
 
 #: src/brouwers/shop/models/orders.py:126
 #: src/brouwers/shop/models/payments.py:90
 msgid "modified"
-msgstr ""
+msgstr "bijgewerkt"
 
 #: src/brouwers/shop/models/orders.py:128
 msgid "language"
-msgstr ""
+msgstr "taal"
 
 #: src/brouwers/shop/models/orders.py:132
 #: src/brouwers/shop/models/shipping.py:72
 msgid "shipping costs"
-msgstr ""
+msgstr "verzendkosten"
 
 #: src/brouwers/shop/models/orders.py:139
 msgid "shipping label"
-msgstr ""
+msgstr "verzendlabel"
 
 #: src/brouwers/shop/models/orders.py:141
 msgid "Shipping label (from Sendcloud) for the parcel."
-msgstr ""
+msgstr "Verzendlabel (uit Sendcloud) voor het pakketje."
 
 #: src/brouwers/shop/models/orders.py:144
 msgid "sendcloud shipment ID"
-msgstr ""
+msgstr "sendcloud verzending-ID"
 
 #: src/brouwers/shop/models/orders.py:147
 msgid "track and trace code"
-msgstr ""
+msgstr "track-en-trace code"
 
 #: src/brouwers/shop/models/orders.py:151
 msgid ""
 "If available, the track and trace code for the client to follow their parcel."
 msgstr ""
+"Indien beschikbaar, de track-en-trace code waarmee de klant de bestelling kan volgen."
 
 #: src/brouwers/shop/models/orders.py:156
 msgid "track and trace link"
-msgstr ""
+msgstr "track-en-trace link"
 
 #: src/brouwers/shop/models/orders.py:160
 msgid ""
@@ -519,6 +532,8 @@ msgid ""
 "their parcel. If both the link and code are provided, the link will be "
 "displayed in the email."
 msgstr ""
+"Indien beschikbaar, de track-en-trace link waarmee de klant de bestelling kan volgen. "
+"Indien een code én link zijn opgegeven, dan wordt de link communiceerd."
 
 #: src/brouwers/shop/models/orders.py:170
 #: src/brouwers/shop/models/orders.py:243
@@ -526,67 +541,67 @@ msgstr ""
 #: src/brouwers/shop/models/presentation.py:16
 #: src/brouwers/shop/models/presentation.py:40
 msgid "order"
-msgstr ""
+msgstr "bestelling"
 
 #: src/brouwers/shop/models/orders.py:171
 msgid "orders"
-msgstr ""
+msgstr "bestellingen"
 
 #: src/brouwers/shop/models/orders.py:183
 msgid "A delivery address must be specified when deliverying via mail."
-msgstr ""
+msgstr "Je moet een bezorgadres opgeven wanneer je per post bezorgt."
 
 #: src/brouwers/shop/models/orders.py:189
 #, python-brace-format
 msgid "Order {pk}"
-msgstr ""
+msgstr "Bestelling {pk}"
 
 #: src/brouwers/shop/models/orders.py:245
 msgid "timestamp"
-msgstr ""
+msgstr "moment"
 
 #: src/brouwers/shop/models/orders.py:247
 msgid "Moment in time when the event occurred."
-msgstr ""
+msgstr "Moment in de tijd wanneer de gebeurtenis zich voordeed."
 
 #: src/brouwers/shop/models/orders.py:249
 msgid "event type"
-msgstr ""
+msgstr "soort gebeurtenis"
 
 #: src/brouwers/shop/models/orders.py:251
 msgid "event data"
-msgstr ""
+msgstr "gebeurtenisgegevens"
 
 #: src/brouwers/shop/models/orders.py:254
 msgid "Additional data relevant for the selected event type."
-msgstr ""
+msgstr "Extra gegevens die relevant zijn voor de geselecteerde soort gebeurtenis."
 
 #: src/brouwers/shop/models/orders.py:260
 msgid "order event"
-msgstr ""
+msgstr "bestelgeschiedenisgebeurtenis"
 
 #: src/brouwers/shop/models/orders.py:261
 msgid "order events"
-msgstr ""
+msgstr "bestelgeschiedenisgebeurtenissen"
 
 #: src/brouwers/shop/models/orders.py:264
 #, python-brace-format
 msgid "{timestamp}: {order} - {event}"
-msgstr ""
+msgstr "{timestamp}: {order} - {event}"
 
 #: src/brouwers/shop/models/orders.py:281
 #, python-brace-format
 msgid "Status changed from '{old}' to '{new}'"
-msgstr ""
+msgstr "Statuswijziging van '{old}' naar '{new}'"
 
 #: src/brouwers/shop/models/orders.py:288
 #, python-brace-format
 msgid "Payment status changed from '{old}' to '{new}'"
-msgstr ""
+msgstr "Bestaalstatuswijziging van '{old}' naar '{new}'"
 
 #: src/brouwers/shop/models/payments.py:16
 msgid "method"
-msgstr ""
+msgstr "methode"
 
 #: src/brouwers/shop/models/payments.py:17
 msgid "logo"
@@ -594,61 +609,63 @@ msgstr "logo"
 
 #: src/brouwers/shop/models/payments.py:21
 msgid "Whether the payment method can be used at checkout or not."
-msgstr ""
+msgstr "Vink aan om de betaalmethode beschikbaar te maken bij het afrekenen."
 
 #: src/brouwers/shop/models/payments.py:23
 msgid "ordering"
-msgstr ""
+msgstr "sortering"
 
 #: src/brouwers/shop/models/payments.py:26
 msgid "payment method"
-msgstr ""
+msgstr "betaalmethode"
 
 #: src/brouwers/shop/models/payments.py:27
 msgid "payment methods"
-msgstr ""
+msgstr "betaalmethodes"
 
 #: src/brouwers/shop/models/payments.py:50
 msgid "The order being paid by this payment."
-msgstr ""
+msgstr "De bestelling die betaald wordt via deze betaling."
 
 #: src/brouwers/shop/models/payments.py:53
 msgid "Payment method used"
-msgstr ""
+msgstr "Gebruikte betaalmethode"
 
 #: src/brouwers/shop/models/payments.py:56
 msgid "Amount to be paid, in eurocents."
-msgstr ""
+msgstr "Betaalbedrag, in eurocent."
 
 #: src/brouwers/shop/models/payments.py:69
 msgid "A unique payment reference"
-msgstr ""
+msgstr "Een unieke betalingsreferentie"
 
 #: src/brouwers/shop/models/payments.py:72
 msgid "payment data"
-msgstr ""
+msgstr "betalingsgegevens"
 
 #: src/brouwers/shop/models/payments.py:75
 msgid "The exact payment data is provider-specific"
-msgstr ""
+msgstr "De precieze betalingsgegevens zijn afhankelijk van de betaalprovider"
 
 #: src/brouwers/shop/models/payments.py:83
 msgid "historical order"
-msgstr ""
+msgstr "eerdere bestelling"
 
 #: src/brouwers/shop/models/payments.py:85
 msgid ""
 "Order this payment was for, in case it was cancelled/aborted. You cannot set "
 "order and historical order at the same time."
 msgstr ""
+"De bestelilng waarvoor deze betaling was, in het geval van annulering/afbreking. "
+"Je kan niet tegelijk een bestelling en eerdere bestelling koppelen."
 
 #: src/brouwers/shop/models/payments.py:93
 msgid "payment"
-msgstr ""
+msgstr "betaling"
 
 #: src/brouwers/shop/models/payments.py:94
 msgid "payments"
-msgstr ""
+msgstr "betalingen"
 
 #: src/brouwers/shop/models/presentation.py:16
 #: src/brouwers/shop/models/presentation.py:40
@@ -673,11 +690,11 @@ msgstr ""
 
 #: src/brouwers/shop/models/products.py:22
 msgid "model name"
-msgstr ""
+msgstr "modelnaam"
 
 #: src/brouwers/shop/models/products.py:24
 msgid "stock"
-msgstr ""
+msgstr "stock"
 
 #: src/brouwers/shop/models/products.py:24
 msgid "Number of items in stock"
@@ -686,15 +703,15 @@ msgstr ""
 #: src/brouwers/shop/models/products.py:26
 #: src/brouwers/shop/models/shipping.py:58
 msgid "price"
-msgstr ""
+msgstr "prijs"
 
 #: src/brouwers/shop/models/products.py:27
 msgid "vat"
-msgstr ""
+msgstr "BTW"
 
 #: src/brouwers/shop/models/products.py:30
 msgid "image"
-msgstr ""
+msgstr "afbeelding"
 
 #: src/brouwers/shop/models/products.py:38
 msgid ""
@@ -705,113 +722,114 @@ msgstr ""
 
 #: src/brouwers/shop/models/products.py:46
 msgid "length"
-msgstr ""
+msgstr "lengte"
 
 #: src/brouwers/shop/models/products.py:48
 msgid "width"
-msgstr ""
+msgstr "breedte"
 
 #: src/brouwers/shop/models/products.py:50
 msgid "height"
-msgstr ""
+msgstr "hoogte"
 
 #: src/brouwers/shop/models/products.py:53
 msgid "length unit"
-msgstr ""
+msgstr "lengte-eenheid"
 
 #: src/brouwers/shop/models/products.py:60
 msgid "weight"
-msgstr ""
+msgstr "gewicht"
 
 #: src/brouwers/shop/models/products.py:63
 msgid "weight unit"
-msgstr ""
+msgstr "gewichteenheid"
 
 #: src/brouwers/shop/models/products.py:79
 msgid "active"
-msgstr ""
+msgstr "actief"
 
 #: src/brouwers/shop/models/products.py:81
 msgid "Inactive products do not show up on the site"
-msgstr ""
+msgstr "Niet-actieve producten zijn niet zichtbaar op de website"
 
 #: src/brouwers/shop/models/products.py:86
 msgid "product"
-msgstr ""
+msgstr "product"
 
 #: src/brouwers/shop/models/products.py:87
 msgid "products"
-msgstr ""
+msgstr "producten"
 
 #: src/brouwers/shop/models/products.py:146
 #: src/brouwers/shop/models/products.py:149
 msgid "product image"
-msgstr ""
+msgstr "productafbeelding"
 
 #: src/brouwers/shop/models/products.py:150
 msgid "product images"
-msgstr ""
+msgstr "productafbeeldingen"
 
 #: src/brouwers/shop/models/products.py:154
 msgid "manufacturer"
-msgstr ""
+msgstr "fabrikant"
 
 #: src/brouwers/shop/models/products.py:157
 msgid "product manufacturer"
-msgstr ""
+msgstr "fabrikant"
 
 #: src/brouwers/shop/models/products.py:158
 msgid "product manufacturers"
-msgstr ""
+msgstr "fabrikanten"
 
 #: src/brouwers/shop/models/shipping.py:43
 msgid "label"
-msgstr ""
+msgstr "label"
 
 #: src/brouwers/shop/models/shipping.py:45
 msgid "Descriptive label, e.g. 'enveloppe' or 'small package'."
-msgstr ""
+msgstr "Beschrijvend label, bijv. 'enveloppe' of 'klein pakket'."
 
 #: src/brouwers/shop/models/shipping.py:48
 #: src/brouwers/shop/models/shipping.py:108
 msgid "country"
-msgstr ""
+msgstr "land"
 
 #: src/brouwers/shop/models/shipping.py:49
 #: src/brouwers/shop/models/shipping.py:109
 msgid "Country to ship the order to."
-msgstr ""
+msgstr "Land waarnaar de bestelling verstuurd wordt."
 
 #: src/brouwers/shop/models/shipping.py:54
 msgid "Maximum weight (in grams) for orders to match this shipping cost."
 msgstr ""
+"Maximaal gewicht (in gram) van bestellingen om binnen deze verzendkosten te vallen."
 
 #: src/brouwers/shop/models/shipping.py:61
 msgid "Shipping cost for this weight limit, including VAT."
-msgstr ""
+msgstr "Verzendkosten voor deze gewichtslimiet, inclusief BTW."
 
 #: src/brouwers/shop/models/shipping.py:71
 msgid "shipping cost"
-msgstr ""
+msgstr "verzendkosten"
 
 #: src/brouwers/shop/models/shipping.py:81
 #, python-brace-format
 msgid "{country} - {label}, ≤ {weight}: € {price}"
-msgstr ""
+msgstr "{country} - {label}, ≤ {weight}: € {price}"
 
 #: src/brouwers/shop/models/shipping.py:91
 #, python-brace-format
 msgid "{} kg"
-msgstr ""
+msgstr "{} kg"
 
 #: src/brouwers/shop/models/shipping.py:92
 #, python-brace-format
 msgid "{} g"
-msgstr ""
+msgstr "{} g"
 
 #: src/brouwers/shop/models/shipping.py:112
 msgid "shipping option code"
-msgstr ""
+msgstr "verzendoptiecode"
 
 #: src/brouwers/shop/models/shipping.py:115
 msgid ""
@@ -822,27 +840,27 @@ msgstr ""
 
 #: src/brouwers/shop/models/shipping.py:129
 msgid "sendcloud shipping option"
-msgstr ""
+msgstr "sendcloud verzendoptie"
 
 #: src/brouwers/shop/models/shipping.py:130
 msgid "sendcloud shipping options"
-msgstr ""
+msgstr "sendcloud verzendopties"
 
 #: src/brouwers/shop/payments/payment_options.py:33
 msgid "PayPal standard"
-msgstr ""
+msgstr "PayPal standard"
 
 #: src/brouwers/shop/payments/payment_options.py:77
 msgid "iDeal"
-msgstr ""
+msgstr "iDeal"
 
 #: src/brouwers/shop/payments/payment_options.py:83
 msgid "Sofort"
-msgstr ""
+msgstr "Sofort"
 
 #: src/brouwers/shop/payments/payment_options.py:89
 msgid "Mister Cash"
-msgstr ""
+msgstr "Mister Cash"
 
 #: src/brouwers/shop/payments/registry.py:30
 msgid "Set the 'verbose_name' attribute for a human-readable name"
@@ -850,15 +868,15 @@ msgstr ""
 
 #: src/brouwers/shop/payments/sisow/constants.py:12
 msgid "iDEAL"
-msgstr ""
+msgstr "iDEAL"
 
 #: src/brouwers/shop/payments/sisow/constants.py:20
 msgid "SOFORT Banking"
-msgstr ""
+msgstr "SOFORT Banking"
 
 #: src/brouwers/shop/payments/sisow/constants.py:23
 msgid "Bancontact"
-msgstr ""
+msgstr "Bancontact"
 
 #: src/brouwers/shop/payments/sisow/constants.py:39
 msgid "Een succesvolle transactie"
@@ -983,126 +1001,126 @@ msgstr ""
 
 #: src/brouwers/shop/templates/shop/backoffice/base.html:25
 msgid "Order list"
-msgstr ""
+msgstr "Bestellingen"
 
 #: src/brouwers/shop/templates/shop/backoffice/base.html:30
 #: src/brouwers/shop/templates/shop/backoffice/dashboard.html:41
 msgid "Manage products"
-msgstr ""
+msgstr "Beheer producten"
 
 #: src/brouwers/shop/templates/shop/backoffice/dashboard.html:4
 msgid "Shop backoffice | Dashboard"
-msgstr ""
+msgstr "Shop-backoffice | Dashboard"
 
 #: src/brouwers/shop/templates/shop/backoffice/dashboard.html:12
 msgid "Shop dashboard"
-msgstr ""
+msgstr "Shop-dashboard"
 
 #: src/brouwers/shop/templates/shop/backoffice/dashboard.html:16
 msgid "Quick overview to manage the shop."
-msgstr ""
+msgstr "Overzichtspagina voor shop-beheer."
 
 #: src/brouwers/shop/templates/shop/backoffice/dashboard.html:30
 #, python-format
 msgid "Orders (1 new)"
 msgid_plural "Orders (%(new_order_count)s new)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bestellingen (1 nieuwe)"
+msgstr[1] "Bestellingen (%(new_order_count)s nieuwe)"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:5
 #, python-format
 msgid "Shop backoffice | Order %(ref)s"
-msgstr ""
+msgstr "Shop-backoffice | Bestelling %(ref)s"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:15
 msgid "Current status"
-msgstr ""
+msgstr "Huidige status"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:29
 msgid "Change status to"
-msgstr ""
+msgstr "Wijzig status naar"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:38
 msgid "Payment"
-msgstr ""
+msgstr "Betaling"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:69
 msgid "There is no payment information for this order."
-msgstr ""
+msgstr "Er is geen betaalinformatie voor de bestelling."
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:78
 msgid "Shipping"
-msgstr ""
+msgstr "Verzenden"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:91
 msgid "Create label (Sendcloud)"
-msgstr ""
+msgstr "Maak label (Sendcloud)"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:98
 msgid "Download label"
-msgstr ""
+msgstr "Download label"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:103
 msgid "or"
-msgstr ""
+msgstr "of"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:117
 #: src/brouwers/shop/templates/shop/category_detail.html:35
 msgid "Products"
-msgstr ""
+msgstr "Producten"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:125
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:116
 msgid "Product"
-msgstr ""
+msgstr "Product"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:126
 #: src/brouwers/shop/templates/shop/product_detail.html:36
 msgid "Model"
-msgstr ""
+msgstr "Model"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:127
 #: src/brouwers/shop/templates/shop/product_detail.html:57
 msgid "Amount"
-msgstr ""
+msgstr "Aantal"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:136
 #, python-format
 msgid "Product image for '%(name)s' "
-msgstr ""
+msgstr "Productafbeelding voor '%(name)s'"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:143
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:169
 msgid "Delivery"
-msgstr ""
+msgstr "Bezorging"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:172
 msgid "Delivery address"
-msgstr ""
+msgstr "Bezorgadres"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:175
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:155
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:38
 #: src/brouwers/shop/tests/test_checkout.py:194
 msgid "Shipping costs"
-msgstr ""
+msgstr "Verzendkosten"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:182
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:97
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:26
 msgid "Invoice address"
-msgstr ""
+msgstr "Factuuradres"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:184
 msgid "Same as delivery address."
-msgstr ""
+msgstr "Zelfde als bezorgadres."
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:193
 msgid "Order details"
-msgstr ""
+msgstr "Bestellingsdetails"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:197
 #, python-format
@@ -1114,6 +1132,12 @@ msgid ""
 "                        </time>\n"
 "                    "
 msgstr ""
+"\n"
+"                        Aangemaakt:\n"
+"                        <time datetime=\"%(isodate)s\" title=\"%(title)s\">\n"
+"                            %(since)s geleden\n"
+"                        </time>\n"
+"                    "
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:205
 #, python-format
@@ -1125,6 +1149,12 @@ msgid ""
 "                        </time>\n"
 "                    "
 msgstr ""
+"\n"
+"                        Laatst gewijzigd:\n"
+"                        <time datetime=\"%(isodate)s\" title=\"%(title)s\">\n"
+"                            %(since)s geleden\n"
+"                        </time>\n"
+"                    "
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:213
 #, python-format
@@ -1133,72 +1163,75 @@ msgid ""
 "                        Language: %(lang)s\n"
 "                    "
 msgstr ""
+"\n"
+"                        Taal: %(lang)s\n"
+"                    "
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:224
 msgid "History"
-msgstr ""
+msgstr "Geschiedenis"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:236
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:76
 #, python-format
 msgid "%(since)s ago"
-msgstr ""
+msgstr "%(since)s geleden"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:255
 msgid "Save changes"
-msgstr ""
+msgstr "Sla wijzigingen op"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:4
 msgid "Shop backoffice | Orders"
-msgstr ""
+msgstr "Shop-backoffice | Bestellingen"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:12
 msgid "Orders"
-msgstr ""
+msgstr "Bestellingen"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:16
 msgid "Overview of all orders, sorted by most recently placed first."
-msgstr ""
+msgstr "Overzicht van alle bestellingen, gesorteerd op de meest recent geplaatste eerst."
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:31
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:34
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:9
 msgid "Order number"
-msgstr ""
+msgstr "Bestellingsnummer"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:56
 msgid "No payment information."
-msgstr ""
+msgstr "Geen betalingsinformatie."
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:63
 msgid "Order status"
-msgstr ""
+msgstr "Bestelstatus"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:72
 msgid "Placed"
-msgstr ""
+msgstr "Geplaatst"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:86
 msgid "Manage order"
-msgstr ""
+msgstr "Bestelling beheren"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:89
 msgid "Order is actionable"
-msgstr ""
+msgstr "Bestelling kan opgevolgd worden"
 
 #: src/brouwers/shop/templates/shop/base.html:4
 msgid "Shop"
-msgstr ""
+msgstr "Shop"
 
 #: src/brouwers/shop/templates/shop/category_detail.html:19
 msgid "Subcategories"
-msgstr ""
+msgstr "Subcategorieën"
 
 #: src/brouwers/shop/templates/shop/emails/includes/address.html:4
 #: src/brouwers/shop/templates/shop/emails/includes/address.txt:2
 #, python-format
 msgid "%(company)s; to the attention of %(name)s"
-msgstr ""
+msgstr "%(company)s; ter attentie van %(name)s"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:9
 #, python-format
@@ -1213,35 +1246,35 @@ msgstr ""
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:27
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:38
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:10
 msgid "Order date"
-msgstr ""
+msgstr "Besteldatum"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:42
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:11
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:46
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:13
 msgid "Payment method"
-msgstr ""
+msgstr "Betaalmethode"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:55
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:15
 msgid "Shipping method"
-msgstr ""
+msgstr "Bezorgmethode"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:61
 msgid "Email address"
-msgstr ""
+msgstr "E-mailadres"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:65
 msgid "Phone"
-msgstr ""
+msgstr "Telefoonnummer"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:78
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:18
@@ -1251,32 +1284,32 @@ msgstr "Instructies"
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:96
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:23
 msgid "Shipping address"
-msgstr ""
+msgstr "Bezorgadres"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:117
 msgid "Qty."
-msgstr ""
+msgstr "Aantal."
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:119
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:165
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:39
 msgid "Total"
-msgstr ""
+msgstr "Totaal"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:137
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:36
 msgid "Subtotal"
-msgstr ""
+msgstr "Subtotaal"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:145
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:37
 msgid "VAT"
-msgstr ""
+msgstr "BTW"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:179
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:45
 msgid "You can reply to this email if you have any questions."
-msgstr ""
+msgstr "Je kan antwoorden op deze e-mail als je vragen hebt."
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:3
 #, python-format
@@ -1287,6 +1320,10 @@ msgid ""
 "\n"
 "Your order will be processed as soon as we receive payment confirmation.\n"
 msgstr ""
+"\n"
+"Bedankt - je bestelling %(reference)s bij Modelbrouwers is ontvangen."
+"\n"
+"De bestelling zal verwerkt worden zodra de betaling bevestigd is.\n"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:29
 msgid ""
@@ -1296,7 +1333,11 @@ msgid_plural ""
 "\n"
 "Products:"
 msgstr[0] ""
+"\n"
+"Product:"
 msgstr[1] ""
+"\n"
+"Producten:"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:41
 #, python-format
@@ -1304,66 +1345,68 @@ msgid ""
 "\n"
 "To view your order, please navigate to: %(link)s\n"
 msgstr ""
+"\n"
+"Om je bestelgegevens in te zien, open: %(link)s\n"
 
 #: src/brouwers/shop/templates/shop/includes/address.html:5
 #, python-format
 msgid "Chamber of Commerce: %(coc)s"
-msgstr ""
+msgstr "KvK: %(coc)s"
 
 #: src/brouwers/shop/templates/shop/includes/breadcrumbs.html:4
 msgid "Home"
-msgstr ""
+msgstr "Thuis"
 
 #: src/brouwers/shop/templates/shop/includes/product_card.html:21
 msgid "Out of stock."
-msgstr ""
+msgstr "Niet op voorraad."
 
 #: src/brouwers/shop/templates/shop/includes/sidenav.html:9
 msgid "Categories"
-msgstr ""
+msgstr "Categorieën"
 
 #: src/brouwers/shop/templates/shop/index.html:27
 msgid "Previous"
-msgstr ""
+msgstr "Vorige"
 
 #: src/brouwers/shop/templates/shop/index.html:31
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: src/brouwers/shop/templates/shop/index.html:43
 msgid "Search for..."
-msgstr ""
+msgstr "Zoek..."
 
 #: src/brouwers/shop/templates/shop/pay.html:18
 #: src/brouwers/shop/templates/shop/pay_ideal.html:18
 msgid "Pay"
-msgstr ""
+msgstr "Betalen"
 
 #: src/brouwers/shop/templates/shop/product_detail.html:42
 msgid "Stock"
-msgstr ""
+msgstr "Voorraad"
 
 #: src/brouwers/shop/templates/shop/product_detail.html:70
 msgid "Add to cart"
-msgstr ""
+msgstr "Toevoegen aan winkelmandje"
 
 #: src/brouwers/shop/templates/shop/product_detail.html:77
 msgid "Apologies - this product is currently out of stock."
-msgstr ""
+msgstr "Sorry - dit product is momenteel niet op voorraad."
 
 #: src/brouwers/shop/templates/shop/product_detail.html:85
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #: src/brouwers/shop/tests/backoffice/test_dashboard.py:60
 #, python-format
 msgid "Orders (%(new_order_count)s new)"
-msgstr ""
+msgstr "Bestellingen (%(new_order_count)s nieuwe)"
 
 #: src/brouwers/shop/views/backoffice.py:154
 msgid "Sendcloud is not (yet) configured."
-msgstr ""
+msgstr "Sendcloud is (nog) (niet) ingesteld."
 
 #: src/brouwers/shop/views/backoffice.py:176
 msgid "Label created."
-msgstr ""
+msgstr "Label aangemaakt."
