@@ -223,11 +223,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "src", "static"),
-    # node_modules cannot be consistently installed in the 'correct place'.
-    # symlinking results in too many levels of symlinks
-    ("bootstrap", os.path.join(BASE_DIR, "node_modules", "bootstrap")),
-    os.path.join(BASE_DIR, "node_modules", "fine-uploader"),
-    ("font-awesome", os.path.join(BASE_DIR, "node_modules", "font-awesome")),
 ]
 
 STATICFILES_FINDERS = [
