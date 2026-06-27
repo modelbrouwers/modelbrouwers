@@ -26,7 +26,7 @@ RUN pip install uv && uv pip install --system -r requirements/production.txt
 
 
 # Stage 2 - Install frontend deps and build assets
-FROM node:20-bookworm-slim AS frontend-build
+FROM node:24-bookworm-slim AS frontend-build
 
 WORKDIR /app
 
