@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import {NavLink as RRNavLink} from 'react-router';
 
-import FAIcon from '@/components/FAIcon.js';
+import FAIcon from '@/components/FAIcon';
 
 export interface NavLinkProps extends React.ComponentProps<typeof RRNavLink> {
   isEnabled?: boolean;
