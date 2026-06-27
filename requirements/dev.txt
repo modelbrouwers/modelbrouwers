@@ -5,7 +5,7 @@ aiohappyeyeballs==2.6.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   aiohttp
-aiohttp==3.13.5
+aiohttp==3.14.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -81,7 +81,7 @@ diff-match-patch==20241021
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-import-export
-django==5.2.14
+django==5.2.15
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -127,7 +127,7 @@ django-cors-headers==4.7.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-django-debug-toolbar==5.2.0
+django-debug-toolbar==7.0.0
     # via -r requirements/dev.in
 django-extensions==4.1
     # via -r requirements/dev.in
@@ -258,7 +258,7 @@ httpcore==1.0.9
     # via httpx
 httpx==0.28.1
     # via bump-my-version
-idna==3.13
+idna==3.18
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -391,7 +391,7 @@ redis==7.4.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-requests==2.33.1
+requests==2.34.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -488,6 +488,7 @@ typing-extensions==4.13.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   aiohttp
     #   aiosignal
     #   anyio
     #   beautifulsoup4
@@ -508,7 +509,7 @@ tzdata==2025.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   faker
-urllib3==2.6.3
+urllib3==2.7.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -519,7 +520,7 @@ uwsgi==2.0.29
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-vcrpy==8.1.1
+vcrpy==8.2.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -538,7 +539,7 @@ webencodings==0.5.1
     #   -r requirements/ci.txt
     #   bleach
     #   tinycss2
-webob==1.8.9
+webob==1.8.10
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
