@@ -46,7 +46,6 @@ const Modal: React.FC<ModalProps> = ({isOpen, onRequestClose, title, children}) 
         }
       }}
       aria-labelledby={titleId}
-      // @ts-expect-error
       closedby="any"
     >
       {title && (
