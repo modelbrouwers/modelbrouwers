@@ -1,6 +1,7 @@
-import {Decorator} from '@storybook/react';
-import {fn} from '@storybook/test';
+import type {Decorator} from '@storybook/react-webpack5';
 import {useEffect} from 'react';
+
+import {fn} from 'storybook/test';
 
 import {CartProduct} from '@/shop/data';
 

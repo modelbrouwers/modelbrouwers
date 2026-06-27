@@ -1,5 +1,6 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {fn, userEvent, within} from '@storybook/test';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
+
+import {fn, userEvent, within} from 'storybook/test';
 
 import {CartProduct} from '@/shop/data';
 

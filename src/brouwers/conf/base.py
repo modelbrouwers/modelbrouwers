@@ -128,7 +128,7 @@ INSTALLED_APPS = [
     # Third party
     "sessionprofile",
     "rest_framework",
-    "django_bleach",
+    "django_nh3",
     "django_filters",
     "rest_framework_filters",
     "loginas",
@@ -223,6 +223,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "src", "static"),
+    ("bootstrap", os.path.join(BASE_DIR, "node_modules", "bootstrap")),
+    os.path.join(BASE_DIR, "node_modules", "fine-uploader"),
+    ("font-awesome", os.path.join(BASE_DIR, "node_modules", "font-awesome")),
 ]
 
 STATICFILES_FINDERS = [
@@ -502,7 +505,7 @@ CORS_ALLOW_CREDENTIALS = config("CORS_ENABLED", default=False)
 #
 # DJANGO-BLEACH
 #
-BLEACH_ALLOWED_TAGS = {
+NH3_ALLOWED_TAGS = {
     "a",
     "abbr",
     "acronym",
@@ -522,13 +525,13 @@ BLEACH_ALLOWED_TAGS = {
     "img",
     "hr",
 }
-BLEACH_ALLOWED_ATTRIBUTES = {
-    "a": ["href", "title", "rel"],
-    "abbr": ["title"],
-    "acronym": ["title"],
-    "img": ["src", "alt", "height", "width"],
+NH3_ALLOWED_ATTRIBUTES = {
+    "a": {"href", "title", "rel"},
+    "abbr": {"title"},
+    "acronym": {"title"},
+    "img": {"src", "alt", "height", "width"},
 }
-BLEACH_STRIP_TAGS = True
+NH3_LINK_REL = None
 
 #
 # DJANGO-RECAPTCHA

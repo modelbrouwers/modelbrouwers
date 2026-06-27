@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {createPortal} from 'react-dom';
 import {FormattedMessage} from 'react-intl';
 
-import FAIcon from '@/components/FAIcon.js';
+import FAIcon from '@/components/FAIcon';
 import {CreateKitResponseData} from '@/data/kits/modelkit';
 import AddKitModal from '@/kits/AddKitModal';
 

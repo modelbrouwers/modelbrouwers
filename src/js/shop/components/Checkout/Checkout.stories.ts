@@ -1,7 +1,8 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {expect, fn, userEvent, waitFor, within} from '@storybook/test';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {HttpResponse, http} from 'msw';
 import {withRouter} from 'storybook-addon-remix-react-router';
+
+import {expect, fn, userEvent, waitFor, within} from 'storybook/test';
 
 import {API_ROOT} from '@/constants.js';
 import {CartProduct} from '@/shop/data';

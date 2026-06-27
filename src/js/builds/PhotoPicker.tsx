@@ -1,14 +1,23 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import useAsync from 'react-use/esm/useAsync';
 
 import Loader from 'components/Loader';
 
-import {listAllAlbumPhotos} from '@/data/albums/photo';
+import {PhotoData, listAllAlbumPhotos} from '@/data/albums/photo';
 
 import Image from './Image';
 
-const PhotoInput = ({id, image, description, selected, onChange}) => {
+interface PhotoInputProps {
+  id: number;
+  image: {
+    thumb: string;
+    large: string;
+  };
+  description: string;
+  selected: boolean;
+  onChange: (id: number, selected: boolean) => void;
+}
+
+const PhotoInput: React.FC<PhotoInputProps> = ({id, image, description, selected, onChange}) => {
   const htmlId = `id_build-photo-${id}`;
 
   const onCheckboxChange = () => {
@@ -35,20 +44,17 @@ const PhotoInput = ({id, image, description, selected, onChange}) => {
   );
 };
 
-PhotoInput.propTypes = {
-  id: PropTypes.number.isRequired,
-  image: PropTypes.shape({
-    thumb: PropTypes.string.isRequired,
-    large: PropTypes.string.isRequired,
-  }).isRequired,
-  description: PropTypes.string.isRequired,
-};
+export interface PhotoPickerProps {
+  albumId: number;
+  selectedPhotoIds: number[];
+  onToggle: (photo: PhotoData, checked: boolean) => void;
+}
 
-const PhotoPicker = ({albumId, selectedPhotoIds = [], onToggle}) => {
+const PhotoPicker: React.FC<PhotoPickerProps> = ({albumId, selectedPhotoIds = [], onToggle}) => {
   const {
     loading,
     error,
-    value: photos,
+    value: photos = [],
   } = useAsync(async () => await listAllAlbumPhotos(albumId), [albumId]);
 
   if (loading) {
@@ -60,8 +66,8 @@ const PhotoPicker = ({albumId, selectedPhotoIds = [], onToggle}) => {
     return 'Something went wrong.';
   }
 
-  const onChange = (id, checked) => {
-    const photo = photos.find(photo => photo.id === id);
+  const onChange = (id: number, checked: boolean) => {
+    const photo = photos.find(photo => photo.id === id)!;
     onToggle(photo, checked);
   };
 
@@ -77,12 +83,6 @@ const PhotoPicker = ({albumId, selectedPhotoIds = [], onToggle}) => {
       ))}
     </div>
   );
-};
-
-PhotoPicker.propTypes = {
-  albumId: PropTypes.number.isRequired,
-  selectedPhotoIds: PropTypes.arrayOf(PropTypes.number.isRequired),
-  onToggle: PropTypes.func.isRequired,
 };
 
 export default PhotoPicker;

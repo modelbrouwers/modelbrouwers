@@ -1,7 +1,7 @@
 import {useEffect, useId, useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 
-import FAIcon from '@/components/FAIcon.js';
+import FAIcon from '@/components/FAIcon';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -46,7 +46,6 @@ const Modal: React.FC<ModalProps> = ({isOpen, onRequestClose, title, children}) 
         }
       }}
       aria-labelledby={titleId}
-      // @ts-expect-error
       closedby="any"
     >
       {title && (

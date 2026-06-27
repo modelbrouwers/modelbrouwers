@@ -3,7 +3,7 @@
     "baseUrl": "src/js/",
     "outDir": "./static/dist/",
     "module": "esnext",
-    "target": "es2017",
+    "target": "es2020",
     "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "bundler",

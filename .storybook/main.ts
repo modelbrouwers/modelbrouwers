@@ -1,7 +1,16 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
 import type {StorybookConfig} from '@storybook/react-webpack5';
-import path from 'path';
+import {createRequire} from 'node:module';
+import {fileURLToPath} from 'node:url';
+import path, {dirname} from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import {EnvironmentPlugin, ProvidePlugin} from 'webpack';
+import webpack from 'webpack';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
+
+const {EnvironmentPlugin, ProvidePlugin} = webpack;
 
 const config: StorybookConfig = {
   core: {
@@ -14,9 +23,6 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-webpack5-compiler-babel',
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@chromatic-com/storybook',
-    '@storybook/addon-interactions',
     {
       name: '@storybook/addon-styling-webpack',
       options: {
@@ -45,6 +51,7 @@ const config: StorybookConfig = {
     },
     'storybook-react-intl',
     'storybook-addon-remix-react-router',
+    '@storybook/addon-docs',
   ],
 
   framework: {

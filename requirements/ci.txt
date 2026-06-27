@@ -5,7 +5,7 @@ aiohappyeyeballs==2.6.1
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   aiohttp
-aiohttp==3.13.5
+aiohttp==3.14.1
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -35,11 +35,6 @@ attrs==25.3.0
     #   trio
 beautifulsoup4==4.13.4
     # via webtest
-bleach==5.0.1
-    # via
-    #   -c requirements/base.txt
-    #   -r requirements/base.txt
-    #   django-bleach
 certifi==2026.4.22
     # via
     #   -c requirements/base.txt
@@ -61,12 +56,11 @@ diff-match-patch==20241021
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   django-import-export
-django==5.2.14
+django==5.2.15
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   django-admin-index
-    #   django-bleach
     #   django-ckeditor
     #   django-cors-headers
     #   django-extra-views
@@ -74,6 +68,7 @@ django==5.2.14
     #   django-import-export
     #   django-js-asset
     #   django-modeltranslation
+    #   django-nh3
     #   django-privates
     #   django-recaptcha
     #   django-rosetta
@@ -90,10 +85,6 @@ django-admin-index==4.0.0
     #   -c requirements/base.txt
     #   -r requirements/base.txt
 django-autoslug==1.9.9
-    # via
-    #   -c requirements/base.txt
-    #   -r requirements/base.txt
-django-bleach==3.1.0
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -128,6 +119,10 @@ django-loginas==0.3.11
     #   -c requirements/base.txt
     #   -r requirements/base.txt
 django-modeltranslation==0.19.14
+    # via
+    #   -c requirements/base.txt
+    #   -r requirements/base.txt
+django-nh3==0.3.1
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -215,7 +210,7 @@ html2text==2025.4.15
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-idna==3.13
+idna==3.18
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -252,6 +247,11 @@ mysqlclient==2.2.7
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+nh3==0.3.6
+    # via
+    #   -c requirements/base.txt
+    #   -r requirements/base.txt
+    #   django-nh3
 oauthlib==3.2.2
     # via
     #   -c requirements/base.txt
@@ -321,7 +321,7 @@ redis==7.4.0
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-requests==2.33.1
+requests==2.34.2
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -345,7 +345,6 @@ six==1.17.0
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-    #   bleach
     #   furl
     #   orderedmultidict
     #   python-dateutil
@@ -371,11 +370,6 @@ tablib==3.8.0
     #   django-import-export
 tblib==3.1.0
     # via -r requirements/test-tools.in
-tinycss2==1.1.1
-    # via
-    #   -c requirements/base.txt
-    #   -r requirements/base.txt
-    #   bleach
 trio==0.30.0
     # via
     #   selenium
@@ -386,8 +380,10 @@ typing-extensions==4.13.2
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
+    #   aiohttp
     #   aiosignal
     #   beautifulsoup4
+    #   django-nh3
     #   psycopg
     #   pydantic
     #   pydantic-core
@@ -400,7 +396,7 @@ typing-inspection==0.4.0
     #   pydantic
 tzdata==2025.2
     # via faker
-urllib3==2.6.3
+urllib3==2.7.0
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -411,17 +407,11 @@ uwsgi==2.0.29
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
-vcrpy==8.1.1
+vcrpy==8.2.1
     # via -r requirements/test-tools.in
 waitress==3.0.2
     # via webtest
-webencodings==0.5.1
-    # via
-    #   -c requirements/base.txt
-    #   -r requirements/base.txt
-    #   bleach
-    #   tinycss2
-webob==1.8.9
+webob==1.8.10
     # via webtest
 websocket-client==1.8.0
     # via selenium

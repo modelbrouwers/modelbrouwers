@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {useFormikContext} from 'formik';
 import {HttpResponse, http} from 'msw';
 import {useEffect} from 'react';

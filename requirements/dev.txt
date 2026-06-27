@@ -5,7 +5,7 @@ aiohappyeyeballs==2.6.1
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   aiohttp
-aiohttp==3.13.5
+aiohttp==3.14.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -40,11 +40,6 @@ beautifulsoup4==4.13.4
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   webtest
-bleach==5.0.1
-    # via
-    #   -c requirements/ci.txt
-    #   -r requirements/ci.txt
-    #   django-bleach
 bracex==2.6
     # via wcmatch
 bump-my-version==1.3.0
@@ -81,12 +76,11 @@ diff-match-patch==20241021
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-import-export
-django==5.2.14
+django==5.2.15
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   django-admin-index
-    #   django-bleach
     #   django-ckeditor
     #   django-cors-headers
     #   django-debug-toolbar
@@ -96,6 +90,7 @@ django==5.2.14
     #   django-import-export
     #   django-js-asset
     #   django-modeltranslation
+    #   django-nh3
     #   django-privates
     #   django-recaptcha
     #   django-rosetta
@@ -115,10 +110,6 @@ django-autoslug==1.9.9
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-django-bleach==3.1.0
-    # via
-    #   -c requirements/ci.txt
-    #   -r requirements/ci.txt
 django-ckeditor==6.7.2
     # via
     #   -c requirements/ci.txt
@@ -127,7 +118,7 @@ django-cors-headers==4.7.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-django-debug-toolbar==5.2.0
+django-debug-toolbar==7.0.0
     # via -r requirements/dev.in
 django-extensions==4.1
     # via -r requirements/dev.in
@@ -154,6 +145,10 @@ django-loginas==0.3.11
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
 django-modeltranslation==0.19.14
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+django-nh3==0.3.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -258,7 +253,7 @@ httpcore==1.0.9
     # via httpx
 httpx==0.28.1
     # via bump-my-version
-idna==3.13
+idna==3.18
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -301,6 +296,11 @@ mysqlclient==2.2.7
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+nh3==0.3.6
+    # via
+    #   -c requirements/ci.txt
+    #   -r requirements/ci.txt
+    #   django-nh3
 oauthlib==3.2.2
     # via
     #   -c requirements/ci.txt
@@ -391,7 +391,7 @@ redis==7.4.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-requests==2.33.1
+requests==2.34.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -427,7 +427,6 @@ six==1.17.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-    #   bleach
     #   furl
     #   orderedmultidict
     #   python-dateutil
@@ -466,11 +465,6 @@ tblib==3.1.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-tinycss2==1.1.1
-    # via
-    #   -c requirements/ci.txt
-    #   -r requirements/ci.txt
-    #   bleach
 tomlkit==0.13.3
     # via bump-my-version
 trio==0.30.0
@@ -488,9 +482,11 @@ typing-extensions==4.13.2
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
+    #   aiohttp
     #   aiosignal
     #   anyio
     #   beautifulsoup4
+    #   django-nh3
     #   psycopg
     #   pydantic
     #   pydantic-core
@@ -508,7 +504,7 @@ tzdata==2025.2
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
     #   faker
-urllib3==2.6.3
+urllib3==2.7.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -519,7 +515,7 @@ uwsgi==2.0.29
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-vcrpy==8.1.1
+vcrpy==8.2.1
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -532,13 +528,7 @@ wcmatch==10.1
     # via bump-my-version
 wcwidth==0.7.0
     # via prompt-toolkit
-webencodings==0.5.1
-    # via
-    #   -c requirements/ci.txt
-    #   -r requirements/ci.txt
-    #   bleach
-    #   tinycss2
-webob==1.8.9
+webob==1.8.10
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
