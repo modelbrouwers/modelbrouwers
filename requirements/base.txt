@@ -14,10 +14,6 @@ asgiref==3.8.1
     #   django-cors-headers
 attrs==25.3.0
     # via aiohttp
-bleach==5.0.1
-    # via
-    #   -r requirements/base.in
-    #   django-bleach
 certifi==2026.4.22
     # via
     #   requests
@@ -30,7 +26,6 @@ django==5.2.15
     # via
     #   -r requirements/base.in
     #   django-admin-index
-    #   django-bleach
     #   django-ckeditor
     #   django-cors-headers
     #   django-extra-views
@@ -38,6 +33,7 @@ django==5.2.15
     #   django-import-export
     #   django-js-asset
     #   django-modeltranslation
+    #   django-nh3
     #   django-privates
     #   django-recaptcha
     #   django-rosetta
@@ -52,8 +48,6 @@ django==5.2.15
 django-admin-index==4.0.0
     # via -r requirements/base.in
 django-autoslug==1.9.9
-    # via -r requirements/base.in
-django-bleach==3.1.0
     # via -r requirements/base.in
 django-ckeditor==6.7.2
     # via -r requirements/base.in
@@ -70,6 +64,8 @@ django-js-asset==3.1.2
 django-loginas==0.3.11
     # via -r requirements/base.in
 django-modeltranslation==0.19.14
+    # via -r requirements/base.in
+django-nh3==0.3.1
     # via -r requirements/base.in
 django-ordered-model==3.7.4
     # via django-admin-index
@@ -132,6 +128,8 @@ multidict==6.4.3
     #   yarl
 mysqlclient==2.2.7
     # via -r requirements/base.in
+nh3==0.3.6
+    # via django-nh3
 oauthlib==3.2.2
     # via requests-oauthlib
 openpyxl==3.1.5
@@ -172,7 +170,6 @@ sentry-sdk==2.27.0
     # via -r requirements/base.in
 six==1.17.0
     # via
-    #   bleach
     #   furl
     #   orderedmultidict
     #   python-dateutil
@@ -182,12 +179,11 @@ sqlparse==0.5.5
     # via django
 tablib==3.8.0
     # via django-import-export
-tinycss2==1.1.1
-    # via bleach
 typing-extensions==4.13.2
     # via
     #   aiohttp
     #   aiosignal
+    #   django-nh3
     #   psycopg
     #   pydantic
     #   pydantic-core
@@ -200,9 +196,5 @@ urllib3==2.7.0
     #   sentry-sdk
 uwsgi==2.0.29
     # via -r requirements/base.in
-webencodings==0.5.1
-    # via
-    #   bleach
-    #   tinycss2
 yarl==1.20.0
     # via aiohttp

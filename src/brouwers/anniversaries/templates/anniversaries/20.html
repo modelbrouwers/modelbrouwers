@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n bleach_tags %}
+{% load i18n nh3_tags %}
 
 {% block title %} {% trans "20 years anniversary" %}{% endblock %}
 
@@ -40,7 +40,7 @@
 
                     {% if event.body_text %}
                         <div class="timeline__event-body">
-                            {{ event.body_text|bleach }}
+                            {{ event.body_text|nh3 }}
                         </div>
                     {% endif %}
 
