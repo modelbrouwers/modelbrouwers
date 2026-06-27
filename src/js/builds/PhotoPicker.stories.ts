@@ -1,6 +1,7 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {fn} from '@storybook/test';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {HttpResponse, http} from 'msw';
+
+import {fn} from 'storybook/test';
 
 import {API_ROOT} from '@/constants.js';
 

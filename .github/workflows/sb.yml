@@ -31,11 +31,9 @@ jobs:
 
       - name: Setup backend
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes libmemcached-dev
           pip install uv
           uv pip install --system -r requirements/ci.txt
-          npm ci --legacy-peer-deps
+          npm ci
           python src/manage.py collectstatic --noinput
 
       - name: Build Storybook docs

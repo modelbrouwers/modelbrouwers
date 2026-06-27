@@ -1,6 +1,7 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {expect, fn, userEvent, within} from '@storybook/test';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {useState} from 'react';
+
+import {expect, fn, userEvent, within} from 'storybook/test';
 
 import Modal from './Modal';
 

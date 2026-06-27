@@ -14,9 +14,6 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-webpack5-compiler-babel',
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@chromatic-com/storybook',
-    '@storybook/addon-interactions',
     {
       name: '@storybook/addon-styling-webpack',
       options: {
@@ -45,6 +42,7 @@ const config: StorybookConfig = {
     },
     'storybook-react-intl',
     'storybook-addon-remix-react-router',
+    '@storybook/addon-docs',
   ],
 
   framework: {

@@ -1,4 +1,4 @@
-import type {Preview} from '@storybook/react';
+import type {Preview} from '@storybook/react-webpack5';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';

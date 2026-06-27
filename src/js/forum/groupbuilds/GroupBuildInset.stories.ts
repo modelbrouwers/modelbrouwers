@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {HttpResponse, http} from 'msw';
 
 import {API_ROOT} from '@/constants.js';

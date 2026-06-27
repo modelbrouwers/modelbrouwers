@@ -1,7 +1,8 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {expect, userEvent, within} from '@storybook/test';
+import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {HttpResponse, http} from 'msw';
 import {useEffect} from 'react';
+
+import {expect, userEvent, within} from 'storybook/test';
 
 import {API_ROOT} from '@/constants.js';
 
