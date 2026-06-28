@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from brouwers.general.utils import lookup_country
 
 from .forms import AdminUserCreationForm
-from .models import DataDownloadRequest, User
+from .models import DataDownloadRequest, RegistrationRequest, User
 
 
 @admin.register(User)
@@ -48,6 +48,21 @@ class UserAdmin(_UserAdmin):
             country=country or _("country unknown"),
             ip=ip,
         )
+
+
+@admin.register(RegistrationRequest)
+class RegistrationRequestAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "is_approved",
+        "created",
+    )
+    list_filter = ("is_approved", "created")
+    list_select_related = ("user",)
+    search_fields = ("user__username",)
+    ordering = ("-created",)
+    raw_id_fields = ("user",)
+    # TODO: actions to approve/reject
 
 
 @admin.register(DataDownloadRequest)

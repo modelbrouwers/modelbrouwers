@@ -177,6 +177,39 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.userprofile
 
 
+class RegistrationRequest(models.Model):
+    """
+    Track requests for registration, in case of additional verification.
+
+    To deal with spam accounts, we require manual verification for some user
+    registrations. Non-approved requests map to deactivated user accounts.
+    """
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    motivation = models.TextField(
+        _("motivation"),
+        blank=False,
+        help_text=_("Explanation of the user why they want to create an account."),
+    )
+    created = models.DateTimeField(_("created"), auto_now_add=True)
+    is_approved = models.BooleanField(
+        _("is approved?"),
+        null=True,
+        default=None,
+        help_text=_("Request outcome - approved requests lead to account activation."),
+    )
+    approved_or_rejected_on = models.DateTimeField(
+        _("approved or rejected on"),
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_("Timestamp of when the request was approved or rejected."),
+    )
+
+    def __str__(self):
+        return self.user.username
+
+
 class DataDownloadRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
