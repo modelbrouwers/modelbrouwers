@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% load i18n sniplates %}
+
+
+{% block title %}Modelbrouwers.nl &bull; {% trans 'registration' %}{% endblock %}
+
+
+{% block eye-catcher %}
+<header class="eye-catcher">
+    <div class="container">
+        <h1>{% trans "Additional information required" %}
+            <small>{% trans "just one more step" %}</small>
+        </h1>
+
+    </div>
+</header>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <h2>{% trans "Tell us a bit more" %}</h2>
+
+    <p>{% blocktrans trimmed %}
+        We're honored to see you're interested in our community! However, to protect
+        our members from irrelevant content, we want to make sure new users positively
+        contribute, and that's why your account creation will require approval by an
+        admin.
+    {% endblocktrans %}</p>
+
+    <p>{% blocktrans trimmed %}
+        Your account is created, but currently deactivated.
+        You will receive an email when your account is activated.
+    {% endblocktrans %}</p>
+
+    <form action="." method="post" class="form-horizontal" novalidate>
+        {% load_widgets form='horizontal.form' %}
+        {% csrf_token %}
+
+        {% widget 'form:non_field_errors' %}
+
+        {% with label_grid='col-sm-5' field_grid='col-sm-7' %}
+        <fieldset class="well">
+            {% form_field form.motivation %}
+        </fieldset>
+        {% endwith %}
+
+        <div class="submit-wrapper">
+            <button type="submit" class="btn bg-main-orange">{% trans "Submit request" %}</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

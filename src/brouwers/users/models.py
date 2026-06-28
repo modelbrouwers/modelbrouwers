@@ -189,7 +189,7 @@ class RegistrationRequest(models.Model):
     motivation = models.TextField(
         _("motivation"),
         blank=False,
-        help_text=_("Explanation of the user why they want to create an account."),
+        help_text=_("Please explain why you want create an account with us."),
     )
     created = models.DateTimeField(_("created"), auto_now_add=True)
     is_approved = models.BooleanField(

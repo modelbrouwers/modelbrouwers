@@ -12,6 +12,7 @@ from .views import (
     LogoutView,
     PasswordChangedView,
     ProfileView,
+    RegistrationRequestView,
     RegistrationView,
     RequestDataDownloadView,
     UserProfileDetailView,
@@ -23,6 +24,7 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="logout"),
     path("profile/", ProfileView.as_view(), name="profile"),
     path("register/", RegistrationView.as_view(), name="register"),
+    path("register/request/", RegistrationRequestView.as_view(), name="register-extra"),
     path("users/<int:pk>/", UserProfileDetailView.as_view(), name="detail"),
     # password reset
     path(

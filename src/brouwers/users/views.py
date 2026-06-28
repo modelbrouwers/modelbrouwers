@@ -21,7 +21,7 @@ from brouwers.utils.views import LoginRequiredMixin
 
 from .forms import AuthForm, UserCreationForm
 from .mail import UserRegistrationEmail
-from .models import DataDownloadRequest
+from .models import DataDownloadRequest, RegistrationRequest
 
 User = get_user_model()
 
@@ -122,6 +122,9 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
+            if True:
+                # TODO: only do this for non-activated users!
+                return redirect("users:register-extra")
             return redirect("index")
         return super().get(request, *args, **kwargs)
 
@@ -141,6 +144,23 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
         pw = form.cleaned_data["password1"]
         user = authenticate(username=self.object.username, password=pw)
         login(self.request, user)
+
+
+class RegistrationRequestView(LoginRequiredMixin, generic.CreateView):
+    model = RegistrationRequest
+    fields = ("motivation",)
+    template_name = "users/register_request.html"
+    success_url = reverse_lazy("users:profile")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if existing_requeset := getattr(self.request.user, "registrationrequest", None):
+            kwargs["instance"] = existing_requeset
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class ProfileInline(InlineFormSetFactory):
