@@ -1,2 +1,11 @@
 User-Agent: *
 Crawl-delay: 2.0
+
+User-Agent: dotbot
+Disallow: /
+
+User-Agent: PetalBot
+Disallow: /
+
+User-Agent: AhrefsBot
+Disallow: /
