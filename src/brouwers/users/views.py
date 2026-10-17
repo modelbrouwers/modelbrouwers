@@ -135,10 +135,20 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
         assert user is not None
         user.ip_address_joined = get_client_ip(self.request)
         user.save()
-        self.do_login(form)
+        if user.is_active:
+            self.do_login(form)
+        else:
+            messages.info(
+                self.request,
+                _(
+                    "Your account was created, but needs to be reviewed by an "
+                    "administrator before you can log in. We do this to combat spam."
+                ),
+            )
 
         mail = UserRegistrationEmail(user=self.object)
         transaction.on_commit(mail.send)
+
         return response
 
     def do_login(self, form):
