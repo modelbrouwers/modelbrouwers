@@ -93,6 +93,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     registration_motivation = models.TextField(
         _("registration motivation"),
         blank=True,
+        max_length=500,
         help_text=_("Explanation given why they wanted to create an account."),
     )
     approved_or_rejected_on = models.DateTimeField(

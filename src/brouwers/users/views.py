@@ -125,6 +125,10 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
             return redirect("index")
         return super().get(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        return {**kwargs, "require_motivation": True}
+
     def form_valid(self, form):
         response = super().form_valid(form)
         user = self.object
