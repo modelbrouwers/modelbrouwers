@@ -170,7 +170,7 @@ django-treebeard==4.7.1
     #   -r requirements/base.txt
 django-webtest==1.9.13
     # via -r requirements/test-tools.in
-djangorestframework==3.16.0
+djangorestframework==3.18.3
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -363,7 +363,7 @@ sqlparse==0.6.0
     #   -c requirements/base.txt
     #   -r requirements/base.txt
     #   django
-tablib==3.8.0
+tablib==3.10.0
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
@@ -411,7 +411,7 @@ vcrpy==8.2.1
     # via -r requirements/test-tools.in
 waitress==3.0.2
     # via webtest
-webob==1.8.10
+webob==1.8.11
     # via webtest
 websocket-client==1.8.0
     # via selenium

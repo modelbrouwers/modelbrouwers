@@ -198,7 +198,7 @@ django-webtest==1.9.13
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
-djangorestframework==3.16.0
+djangorestframework==3.18.3
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -455,7 +455,7 @@ sqlparse==0.6.0
     #   -r requirements/ci.txt
     #   django
     #   django-debug-toolbar
-tablib==3.8.0
+tablib==3.10.0
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt
@@ -527,7 +527,7 @@ wcmatch==10.1
     # via bump-my-version
 wcwidth==0.7.0
     # via prompt-toolkit
-webob==1.8.10
+webob==1.8.11
     # via
     #   -c requirements/ci.txt
     #   -r requirements/ci.txt

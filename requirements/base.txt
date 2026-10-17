@@ -89,7 +89,7 @@ django-taggit==6.1.0
     # via -r requirements/base.in
 django-treebeard==4.7.1
     # via -r requirements/base.in
-djangorestframework==3.16.0
+djangorestframework==3.18.3
     # via
     #   -r requirements/base.in
     #   djangorestframework-filters
@@ -177,7 +177,7 @@ sorl-thumbnail==12.11.0
     # via -r requirements/base.in
 sqlparse==0.6.0
     # via django
-tablib==3.8.0
+tablib==3.10.0
     # via django-import-export
 typing-extensions==4.13.2
     # via
