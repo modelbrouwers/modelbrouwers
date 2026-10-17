@@ -1,0 +1,108 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        .submit-row {
+            justify-content: space-between;
+        }
+
+        button[name="approve"] {
+            display: block;
+            background: var(--default-button-bg);
+            padding: 10px 15px;
+            text-transform: uppercase;
+
+            font-weight: 400;
+            height: 2.1875rem;
+            line-height: 0.9375rem;
+
+            &:focus,
+            &:hover,
+            &:active {
+                background: var(--default-button-hover-bg);
+            }
+        }
+
+        button[name="reject"] {
+            display: block;
+            background: var(--delete-button-bg);
+            padding: 10px 15px;
+
+            font-weight: 400;
+            height: 2.1875rem;
+            line-height: 0.9375rem;
+
+            &:focus,
+            &:hover,
+            &:active {
+                background: var(--delete-button-hover-bg);
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <form action="." method="post" id="registration_approval_form" novalidate>
+        {% csrf_token %}
+
+        <p>
+            {% trans "Please use the information below to reject or approve the user signup." %}
+        </p>
+
+        <fieldset class="module aligned " aria-labelledby="fieldset-0-0-heading">
+            <h2 id="fieldset-0-0-heading" class="fieldset-heading">
+                {% trans "Signup details" %}
+            </h2>
+
+            <div class="form-row">
+                <div>
+                    <div class="flex-container">
+                        <label>{% trans "IP and location" %}</label>
+                        <div class="readonly">{{ location_details }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <div class="flex-container">
+                        <label>{% trans "Reason for account creation" %}</label>
+                        <div class="readonly">{{ user.registration_motivation }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <div class="flex-container">
+                        <label>{% trans "Date and time" %}</label>
+                        <div class="readonly">
+                            <time datetime="{{ user.date_joined.isoformat }}">
+                                {% blocktrans with time_ago=user.date_joined|timesince trimmed %}
+                                    {{ time_ago }} ago
+                                {% endblocktrans %}
+                            </time>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <p>
+            {% trans "If this looks legitimate, you can approve the signup - otherwise reject it." %}
+        </p>
+
+        <div class="submit-row">
+            <button type="submit" class="button default" name="approve">
+                {% trans "Approve" %}
+            </button>
+            <button type="submit" class="button" name="reject">
+                {% trans "Reject" %}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
