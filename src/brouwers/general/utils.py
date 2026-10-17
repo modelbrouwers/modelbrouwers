@@ -6,6 +6,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import Context, loader
 
 import geoip2.database
+import geoip2.errors
 
 logger = logging.getLogger(__name__)
 
@@ -32,11 +33,15 @@ def lookup_country(ip_address: str) -> str:
         logger.debug("Database does not exist at path %s", db_path)
         return ""
     with geoip2.database.Reader(db_path) as reader:
-        response = reader.country(ip_address)
+        try:
+            response = reader.country(ip_address)
+        except geoip2.errors.AddressNotFoundError:
+            logger.debug("ip_address_lookup_failed", extra={"address": ip_address})
+            return "?"
     return f"{response.country.name} / {response.continent.code}"
 
 
-def send_inactive_user_mail(user):
+def send_inactive_user_mail(user) -> None:
     c = Context({"user": user})
     template_name = "mails/new_inactive_user"
 
@@ -49,4 +54,3 @@ def send_inactive_user_mail(user):
     msg.to = [admin[1] for admin in settings.ADMINS]  # email addresses
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-    return
