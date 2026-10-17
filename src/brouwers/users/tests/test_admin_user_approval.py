@@ -1,3 +1,4 @@
+from django.core import mail
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -64,7 +65,8 @@ class UserApprovalTests(WebTest):
         form = approval_page.forms["registration_approval_form"]
 
         assert "reject" in form.fields
-        response = form.submit(name="reject")
+        with self.captureOnCommitCallbacks(execute=True):
+            response = form.submit(name="reject")
 
         self.assertEqual(response.status_code, 302)
         self.signed_up_user.refresh_from_db()
@@ -72,19 +74,30 @@ class UserApprovalTests(WebTest):
         self.assertIsNotNone(self.signed_up_user.approved_or_rejected_on)
         self.assertFalse(self.signed_up_user.needs_registration_approval)
 
+        with self.subTest("email notification sent"):
+            self.assertEqual(len(mail.outbox), 1)
+            message = mail.outbox[0]
+            self.assertEqual(message.to, ["not-a-spammer@example.com"])
+
     def test_approving_activates_account(self):
         self.app.set_user(self.superuser)
         approval_page = self.app.get(self.admin_url_approval)
         form = approval_page.forms["registration_approval_form"]
 
         assert "approve" in form.fields
-        response = form.submit(name="approve")
+        with self.captureOnCommitCallbacks(execute=True):
+            response = form.submit(name="approve")
 
         self.assertEqual(response.status_code, 302)
         self.signed_up_user.refresh_from_db()
         self.assertTrue(self.signed_up_user.is_active)
         self.assertIsNotNone(self.signed_up_user.approved_or_rejected_on)
         self.assertFalse(self.signed_up_user.needs_registration_approval)
+
+        with self.subTest("email notification sent"):
+            self.assertEqual(len(mail.outbox), 1)
+            message = mail.outbox[0]
+            self.assertEqual(message.to, ["not-a-spammer@example.com"])
 
     def test_user_cannot_be_approved_or_rejected_twice(self):
         now = timezone.now()
@@ -102,8 +115,6 @@ class UserApprovalTests(WebTest):
         )
         self.signed_up_user.refresh_from_db()
         self.assertEqual(self.signed_up_user.approved_or_rejected_on, now)
-
-    def test_rejection_or_approval_send_notification_email(self): ...
 
     def test_staff_user_must_pick_approve_or_reject(self):
         self.app.set_user(self.superuser)

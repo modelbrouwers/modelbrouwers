@@ -1,0 +1,26 @@
+{% load i18n %}
+{% if is_approved %}
+{% blocktrans with username=user.username domain=site.domain trimmed %}
+<p>
+    Hi {{ username }},
+    <br>
+    <br>
+    Your account was reviewed and activated - you can now log in on {{ domain }}!
+</p>
+{% endblocktrans %}
+{% else %}
+{% blocktrans with username=user.username domain=site.domain trimmed %}
+<p>
+    Hi {{ username }},
+    <br>
+    <br>
+    Your account registration was reviewed and rejected. If you believe this to be an
+    error, try contacting us via the email address in the footer of the website.
+</p>
+{% endblocktrans %}
+{% endif %}
+
+{% blocktrans with name=site.name %}
+<p>Sincerely,<br>
+The {{ name }} staff.</p>
+{% endblocktrans %}

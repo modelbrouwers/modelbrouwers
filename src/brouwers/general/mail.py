@@ -6,13 +6,14 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
+from django.utils.functional import Promise
 
 
 class MultiAlternativesEmail:
     """CBV approach for MultiAlternativesEmail"""
 
     template_name = None
-    subject = None
+    subject: str | Promise | None = None
     to = None
     msg = None
 
@@ -36,7 +37,7 @@ class MultiAlternativesEmail:
             template_name = f"{self.template_name}.{content}"
             return get_template(template_name)
 
-    def get_subject(self):
+    def get_subject(self) -> str | Promise:
         if self.subject is None:
             raise ImproperlyConfigured(
                 "MultiAlternativesEmail requires either a definition of "

@@ -16,6 +16,7 @@ from django.utils.translation import gettext_lazy as _
 from brouwers.general.utils import lookup_country
 
 from .forms import AdminUserCreationForm
+from .mail import RegistrationProcessedMail
 from .models import DataDownloadRequest, User
 
 
@@ -127,7 +128,10 @@ class UserAdmin(_UserAdmin):
                     msg,
                     level=messages.SUCCESS if is_approved else messages.INFO,
                 )
-                # TODO: send email with result
+
+                mail = RegistrationProcessedMail(user=user)
+                transaction.on_commit(mail.send)
+
                 return redirect("admin:users_user_changelist")
 
         return TemplateResponse(
