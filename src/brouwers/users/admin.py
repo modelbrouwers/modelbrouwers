@@ -14,12 +14,10 @@ class UserAdmin(_UserAdmin):
     list_display = (
         "username",
         "email",
-        "first_name",
-        "last_name",
         "date_joined",
+        "is_active",
+        "registration_complete",
         "location_details",
-        "is_staff",
-        "is_superuser",
         "forumuser_id",
     )
     fieldsets = _UserAdmin.fieldsets + (  # type: ignore
@@ -27,16 +25,31 @@ class UserAdmin(_UserAdmin):
             _("Extra"),
             {
                 "fields": (
+                    "forumuser_id",
                     "ui_language",
                     "ip_address_joined",
                 )
             },
         ),
+        (
+            _("Registration"),
+            {
+                "fields": (
+                    "registration_motivation",
+                    "approved_or_rejected_on",
+                ),
+            },
+        ),
     )
-    list_editable = ("email", "forumuser_id")
-    ordering = ["-date_joined", "username"]
+
+    ordering = ("-date_joined", "username")
     add_form = AdminUserCreationForm
     change_form_template = "loginas/change_form.html"
+    readonly_fields = ("registration_motivation", "approved_or_rejected_on")
+
+    @admin.display(description=_("Registration complete"), boolean=True)
+    def registration_complete(self, obj: User) -> bool:
+        return not obj.needs_registration_approval
 
     @admin.display(description=_("location details"))
     def location_details(self, obj: User) -> str | None:

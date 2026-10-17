@@ -88,6 +88,21 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text=_("Designates whether the user can log into this admin site."),
     )
+
+    # registration details
+    registration_motivation = models.TextField(
+        _("registration motivation"),
+        blank=True,
+        help_text=_("Explanation given why they wanted to create an account."),
+    )
+    approved_or_rejected_on = models.DateTimeField(
+        _("approved or rejected on"),
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_("Timestamp of when the request was approved or rejected."),
+    )
+
     is_active = models.BooleanField(
         _("active"),
         default=True,
@@ -175,6 +190,28 @@ class User(AbstractBaseUser, PermissionsMixin):
     @cached_property
     def profile(self):
         return self.userprofile
+
+    @property
+    def needs_registration_approval(self) -> bool:
+        """
+        Determine whether this user registration needs to be processed or not.
+
+        The registration is guaranteed to have been processed if an approval or
+        rejection timestamp is set - this implies an explicit approval action before.
+
+        Other skip conditions are:
+
+        * the user account is active -> it went through already - accounts pending
+          approval are supposed to be deactivated
+        * there's no motivation entered, so there's nothing to consider. The field is
+          only required during signup based on conditions during the time of signup (
+          foreign IP address country, possible manual force-verify everything...)
+        """
+        return bool(
+            self.approved_or_rejected_on is None
+            and not self.is_active
+            and self.registration_motivation
+        )
 
 
 class DataDownloadRequest(models.Model):
