@@ -26,7 +26,7 @@ const AddKitModal: React.FC<AddKitModalProps> = ({isOpen, onRequestClose, formId
         defaultMessage="Please, only add new kits if they were not available via the search function."
       />
     </p>
-    <div className="container-fluid">{children}</div>
+    {children}
     <div className="modal__footer modal__footer--reverse">
       <button type="submit" className="btn bg-main-blue" form={formId}>
         <FormattedMessage description="Save form button" defaultMessage="Save" />

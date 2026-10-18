@@ -3,7 +3,7 @@ import {useFormikContext} from 'formik';
 import {HttpResponse, http} from 'msw';
 import {useEffect} from 'react';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 import {withFormik} from '@/storybook/decorators';
 
 import type {FormikValues} from './Delivery';

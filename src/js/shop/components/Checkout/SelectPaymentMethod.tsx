@@ -82,6 +82,7 @@ const SelectPaymentMethod: React.FC<SelectPaymentMethodProps> = ({label}) => {
             label: name,
             graphic: logo ? <img src={logo} alt={name} /> : undefined,
           }))}
+          appearance="buttons"
         />
       )}
 

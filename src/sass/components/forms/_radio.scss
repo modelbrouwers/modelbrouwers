@@ -2,17 +2,19 @@
 @use '../../partials/colors';
 
 .radio-group {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: 1fr;
-  grid-row-gap: 0.2em;
-
   @include bem.element('label') {
-    // nothing yet
+    margin-block-end: 0.5em;
   }
 
-  &:not(:last-child) {
-    margin-block-end: 15px;
+  @include bem.element('options') {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-row-gap: 0.2em;
+
+    &:not(:last-child) {
+      margin-block-end: 15px;
+    }
   }
 }
 
@@ -24,30 +26,32 @@
   align-items: center;
   gap: 0.5em;
 
-  font-size: 1.3em;
-  inline-size: 100%;
-  margin-block: 0;
-  margin-inline: 0;
+  @include bem.modifier('button') {
+    // button appearance
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    padding-block: 2px;
+    padding-inline: 6px;
 
-  // button appearance
-  border: solid 1px #ccc;
-  border-radius: 4px;
-  padding-block: 2px;
-  padding-inline: 6px;
+    font-size: 1.3em;
+    inline-size: 100%;
+    margin-block: 0;
+    margin-inline: 0;
 
-  // visual effects
-  transition: all 0.3s ease;
+    // visual effects
+    transition: all 0.3s ease;
 
-  &:has(input[type='radio']:checked) {
-    background-color: colors.$main-blue;
-    color: colors.$white;
-  }
+    &:has(input[type='radio']:checked) {
+      background-color: colors.$main-blue;
+      color: colors.$white;
+    }
 
-  &:hover {
-    background-color: colors.$light-grey;
+    &:hover {
+      background-color: colors.$light-grey;
 
-    .radio-option__label {
-      text-indent: 1em;
+      .radio-option__label {
+        text-indent: 1em;
+      }
     }
   }
 

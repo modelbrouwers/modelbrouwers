@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from 'react';
 
 import {fn} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 import type {CartData, CartProductData} from '@/data/shop/cart';
 
 import Shop, {type CatalogueProduct} from './Shop';

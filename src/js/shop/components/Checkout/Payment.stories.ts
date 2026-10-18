@@ -4,7 +4,7 @@ import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-rou
 
 import {fn} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 import {CartProduct} from '@/shop/data';
 
 import Payment from './Payment';

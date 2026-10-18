@@ -70,6 +70,7 @@ module.exports = {
                 ],
               };
             },
+            reportFiles: ['src/**/*.{ts,tsx}'],
           },
         },
       },

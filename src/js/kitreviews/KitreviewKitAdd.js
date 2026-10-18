@@ -1,73 +1,22 @@
 import PropTypes from 'prop-types';
-import React, {useContext} from 'react';
-import {useImmerReducer} from 'use-immer';
+import React from 'react';
 
 import {createModelKit} from '@/data/kits/modelkit';
-
-import {AddKitForm} from '../kits/model-kit-select/ModelKitAdd';
-
-const initialState = {
-  brand: null,
-  scale: null,
-  name: '',
-  kit_number: '',
-  difficulty: '30',
-  boxartUUID: null,
-};
-
-const reducer = (draft, action) => {
-  switch (action.type) {
-    case 'SET_CREATE_KIT_PARAM': {
-      const {param, value} = action.payload;
-      if (!value && draft[param]) {
-        delete draft[param];
-      } else if (value) {
-        draft[param] = value;
-      }
-      break;
-    }
-
-    default:
-      throw new Error(`Unknown action: ${action.type}`);
-  }
-};
+import AddKitForm from '@/kits/model-kit-select/AddKitForm';
 
 const KitReviewKitAdd = ({onKitAdded, formId}) => {
-  const [{brand, scale, name, kit_number, difficulty, boxartUUID}, dispatch] = useImmerReducer(
-    reducer,
-    initialState,
-  );
-
-  /**
-   * Handle create form input change
-   * @param  {String} options.name  Parameter name that changed
-   * @param  {String|Number|Object|Null} options.value Value of the parameter
-   * @return {void}                Triggers state update
-   */
-  const onChange = ({name, value}) => {
-    // pre-populate create data
-    dispatch({
-      type: 'SET_CREATE_KIT_PARAM',
-      payload: {
-        param: name,
-        value: value,
-      },
-    });
-  };
-
   /**
    * Submit handler, invoked when the create form is submitted.
    * @param  {DOMEvent} event The submit event
    */
-  const onSubmit = async event => {
-    event.preventDefault();
-
+  const onSubmit = async values => {
+    const {brand, scale, name, kit_number = '', boxartUUID, difficulty} = values;
     const submitData = {
       brand: brand ? brand.id : null,
       scale: scale ? scale.id : null,
-      name: name,
-      kit_number: kit_number || '',
-      difficulty: difficulty,
+      name,
+      kit_number,
+      difficulty,
       box_image_uuid: boxartUUID,
     };
 
@@ -86,18 +35,7 @@ const KitReviewKitAdd = ({onKitAdded, formId}) => {
     onKitAdded(kit);
   };
 
-  return (
-    <AddKitForm
-      formId={formId}
-      brand={brand}
-      scale={scale}
-      name={name}
-      kitNumber={kit_number}
-      difficulty={difficulty}
-      onChange={onChange}
-      onSubmit={onSubmit}
-    />
-  );
+  return <AddKitForm formId={formId} onSubmit={onSubmit} />;
 };
 
 KitReviewKitAdd.propTypes = {

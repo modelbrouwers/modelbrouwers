@@ -39,7 +39,31 @@ export default {
 
 type Story = StoryObj<typeof Radio>;
 
-export const Default: Story = {};
+export const Plain: Story = {
+  args: {
+    appearance: 'plain',
+    options: [
+      {
+        value: 'one',
+        label: 'One',
+      },
+      {
+        value: 'two',
+        label: 'Two',
+      },
+      {
+        value: 'three',
+        label: 'Three',
+      },
+    ],
+  },
+};
+
+export const ButtonOptions: Story = {
+  args: {
+    appearance: 'buttons',
+  },
+};
 
 export const WithError: Story = {
   parameters: {

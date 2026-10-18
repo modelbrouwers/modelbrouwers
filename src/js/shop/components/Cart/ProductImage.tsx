@@ -1,4 +1,4 @@
-import {DEFAULT_IMAGE} from '@/constants.js';
+import {DEFAULT_IMAGE} from '@/constants';
 import type {Product} from '@/data/shop/cart';
 
 export interface ProductImageProps extends React.ComponentProps<'img'> {

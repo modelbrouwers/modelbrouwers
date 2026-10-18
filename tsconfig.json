@@ -20,7 +20,8 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "sourceMap": true
+    "sourceMap": true,
+    "skipLibCheck": true
   },
   "include": ["src/js"],
   "exclude": ["node_modules"]

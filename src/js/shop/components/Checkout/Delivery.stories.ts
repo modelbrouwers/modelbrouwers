@@ -4,7 +4,7 @@ import {reactRouterParameters, withRouter} from 'storybook-addon-remix-react-rou
 
 import {expect, fn, waitFor, within} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 
 import Delivery from './Delivery';
 import {withCheckout} from './storybook';

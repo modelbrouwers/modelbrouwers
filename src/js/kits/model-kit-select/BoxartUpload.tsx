@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Dropzone, {Input} from 'react-dropzone-uploader/dist/react-dropzone-uploader';
+import {useField} from 'formik';
+import Dropzone from 'react-dropzone-uploader';
+import type {IDropzoneProps, IInputProps} from 'react-dropzone-uploader';
 
-import {csrfToken} from '../../csrf';
+import {csrfToken} from '@/csrf.js';
 
 const ENDPOINT = '/api/v1/kits/boxart/';
 const MAX_SIZE = 1024 * 1024 * 10; // 10 MB
 
-const DropzoneInput = props => {
+const DropzoneInput = (props: IInputProps): React.ReactNode => {
   const {
     className,
     labelClassName,
@@ -19,8 +19,6 @@ const DropzoneInput = props => {
     accept,
     multiple,
     disabled,
-    content,
-    withFilesContent,
     onFiles,
     files,
   } = props;
@@ -49,6 +47,7 @@ const DropzoneInput = props => {
             const target = e.target;
             const chosenFiles = await getFilesFromEvent(e);
             onFiles(chosenFiles);
+            // @ts-expect-error
             target.value = null;
           }}
         />
@@ -57,24 +56,26 @@ const DropzoneInput = props => {
   );
 };
 
-const BoxartUpload = ({onComplete}) => {
-  const getUploadParams = ({file, meta}) => {
+const BoxartUpload = () => {
+  const [, , {setValue}] = useField('boxartUUID');
+
+  const getUploadParams: IDropzoneProps['getUploadParams'] = ({file}) => {
     const body = new FormData();
     body.append('image', file);
     return {
       url: ENDPOINT,
       headers: {
-        'X-CSRFToken': csrfToken,
+        'X-CSRFToken': csrfToken!,
         Accept: 'application/json',
       },
       body,
     };
   };
 
-  const handleChangeStatus = ({meta, file, xhr}, status) => {
+  const handleChangeStatus: IDropzoneProps['onChangeStatus'] = ({xhr}, status) => {
     if (status === 'done') {
-      const response = JSON.parse(xhr.response);
-      onComplete(response);
+      const response = JSON.parse(xhr!.response);
+      setValue(response.uuid);
     }
   };
 
@@ -94,10 +95,6 @@ const BoxartUpload = ({onComplete}) => {
       InputComponent={DropzoneInput}
     />
   );
-};
-
-BoxartUpload.propTypes = {
-  onComplete: PropTypes.func.isRequired,
 };
 
 export default BoxartUpload;

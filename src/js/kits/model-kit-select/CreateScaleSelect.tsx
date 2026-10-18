@@ -1,3 +1,4 @@
+import {useField} from 'formik';
 import {useState} from 'react';
 import CreatableSelect from 'react-select/creatable';
 import {useAsync} from 'react-use';
@@ -5,12 +6,12 @@ import {useAsync} from 'react-use';
 import {type ScaleData, createScale, listScales, parseScale} from '@/data/kits/scale';
 
 export interface CreateScaleSelectProps {
-  onChange: (scale: ScaleData | null) => void;
-  value: ScaleData | null;
+  name: string;
   inputId?: string;
 }
 
-const CreateScaleSelect: React.FC<CreateScaleSelectProps> = ({value, onChange, inputId}) => {
+const CreateScaleSelect: React.FC<CreateScaleSelectProps> = ({name, inputId}) => {
+  const [props, , {setValue}] = useField<ScaleData | null>(name);
   const [isLoading, setIsLoading] = useState(false);
   const [scales, setScales] = useState<ScaleData[]>([]);
   const {loading, error} = useAsync(async () => setScales(await listScales()), []);
@@ -20,11 +21,10 @@ const CreateScaleSelect: React.FC<CreateScaleSelectProps> = ({value, onChange, i
 
   return (
     <CreatableSelect<ScaleData>
-      name="scale"
+      {...props}
       inputId={inputId}
       isLoading={loading}
       options={scales}
-      value={value}
       getOptionValue={scale => scale.id.toString()}
       getOptionLabel={scale => scale.__str__}
       isClearable
@@ -41,10 +41,12 @@ const CreateScaleSelect: React.FC<CreateScaleSelectProps> = ({value, onChange, i
         setIsLoading(true);
         const scale = await createScale(inputValue);
         setScales([...scales, scale]);
-        onChange(scale);
+        setValue(scale);
         setIsLoading(false);
       }}
-      onChange={onChange}
+      onChange={newValue => {
+        setValue(newValue);
+      }}
     />
   );
 };

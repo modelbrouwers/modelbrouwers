@@ -1,9 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react-webpack5';
-import {HttpResponse, http} from 'msw';
 
 import {expect, fn, userEvent, within} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {mockGetKitBrands, mockGetKitScales} from '@/kits/mocks';
 
 import AddNewKitButton from './AddNewKitButton';
 
@@ -16,28 +15,8 @@ export default {
   parameters: {
     msw: {
       handlers: {
-        kitBrands: [
-          http.get(`${API_ROOT}api/v1/kits/brand/`, () =>
-            HttpResponse.json([
-              {
-                id: 1,
-                name: 'Revell',
-                is_active: true,
-              },
-            ]),
-          ),
-        ],
-        kitScales: [
-          http.get(`${API_ROOT}api/v1/kits/scale/`, () =>
-            HttpResponse.json([
-              {
-                id: 1,
-                scale: 48,
-                __str__: '1/48',
-              },
-            ]),
-          ),
-        ],
+        kitBrands: [mockGetKitBrands()],
+        kitScales: [mockGetKitScales()],
       },
     },
   },
