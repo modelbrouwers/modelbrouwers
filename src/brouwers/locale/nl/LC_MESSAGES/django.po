@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 14:54+0200\n"
+"POT-Creation-Date: 2026-10-18 12:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: cover/src_brouwers_general_templatetags_handlebars_py.html:247
-msgid "foo"
-msgstr ""
 
 #: src/brouwers/conf/base.py:40
 msgid "Dutch"
@@ -209,7 +205,7 @@ msgstr "Betaalstatus gewijzigd"
 msgid "Email sent"
 msgstr "E-mail verstuurd"
 
-#: src/brouwers/shop/emails.py:24
+#: src/brouwers/shop/emails.py:24 src/brouwers/shop/tests/test_checkout.py:213
 #, python-brace-format
 msgid "Modelbrouwers - order {order_number}"
 msgstr "Modelbrouwers - bestelling {order_number}"
@@ -248,8 +244,8 @@ msgstr "snapshot winkelmandje"
 #: src/brouwers/shop/models/cart.py:34
 msgid "Snapshot of order information with frozen prices."
 msgstr ""
-"Kopie van bestellingsgegevens met de prijzen die op het moment van bestelling "
-"geldden."
+"Kopie van bestellingsgegevens met de prijzen die op het moment van "
+"bestelling geldden."
 
 #: src/brouwers/shop/models/cart.py:42
 msgid "cart"
@@ -293,8 +289,8 @@ msgstr "meta-omschrijving"
 #: src/brouwers/shop/models/categories.py:19
 msgid "If filled, populates the description meta tag for SEO purposes."
 msgstr ""
-"Wanneer ingevuld wordt de waarde gebruikt voor de 'description' meta tag t.b.v. "
-"zoekmachineoptimalisatie."
+"Wanneer ingevuld wordt de waarde gebruikt voor de 'description' meta tag "
+"t.b.v. zoekmachineoptimalisatie."
 
 #: src/brouwers/shop/models/categories.py:25
 msgid "category"
@@ -367,9 +363,10 @@ msgid ""
 "you must ensure that your outgoing email server is appropriately configured. "
 "If left blank, the default value from the settings is used."
 msgstr ""
-"E-mailadres wat gebruikt wordt voor uitgaande mail. Dit komt terecht in de 'From' "
-"header - de uitgaande mailserver moet correct ingesteld zijn om dit adres toe te "
-"staan. Indien je dit leeg laat, dan worden de standaardinstellingen gebruikt."
+"E-mailadres wat gebruikt wordt voor uitgaande mail. Dit komt terecht in de "
+"'From' header - de uitgaande mailserver moet correct ingesteld zijn om dit "
+"adres toe te staan. Indien je dit leeg laat, dan worden de "
+"standaardinstellingen gebruikt."
 
 #: src/brouwers/shop/models/config.py:48
 msgid "sendcloud public key"
@@ -378,8 +375,8 @@ msgstr "sendcloud public key"
 #: src/brouwers/shop/models/config.py:51
 msgid "Public key for the Sendcloud integration, also known as the 'api key'."
 msgstr ""
-"Publieke sleutel/identificatie voor de Sendcloud-integratie, ook wel bekend als "
-"de 'api key'."
+"Publieke sleutel/identificatie voor de Sendcloud-integratie, ook wel bekend "
+"als de 'api key'."
 
 #: src/brouwers/shop/models/config.py:55
 msgid "sendcloud private key"
@@ -389,7 +386,8 @@ msgstr "sendcloud private key"
 msgid ""
 "Private key for the Sendcloud integration, also known as the 'api secret'."
 msgstr ""
-"Geheime sleutel voor de Sendcloud-integratie, ook wel bekend als de 'api secret'."
+"Geheime sleutel voor de Sendcloud-integratie, ook wel bekend als de 'api "
+"secret'."
 
 #: src/brouwers/shop/models/config.py:63
 msgid "Shop configuration"
@@ -520,7 +518,8 @@ msgstr "track-en-trace code"
 msgid ""
 "If available, the track and trace code for the client to follow their parcel."
 msgstr ""
-"Indien beschikbaar, de track-en-trace code waarmee de klant de bestelling kan volgen."
+"Indien beschikbaar, de track-en-trace code waarmee de klant de bestelling "
+"kan volgen."
 
 #: src/brouwers/shop/models/orders.py:156
 msgid "track and trace link"
@@ -532,8 +531,9 @@ msgid ""
 "their parcel. If both the link and code are provided, the link will be "
 "displayed in the email."
 msgstr ""
-"Indien beschikbaar, de track-en-trace link waarmee de klant de bestelling kan volgen. "
-"Indien een code én link zijn opgegeven, dan wordt de link communiceerd."
+"Indien beschikbaar, de track-en-trace link waarmee de klant de bestelling "
+"kan volgen. Indien een code én link zijn opgegeven, dan wordt de link "
+"communiceerd."
 
 #: src/brouwers/shop/models/orders.py:170
 #: src/brouwers/shop/models/orders.py:243
@@ -574,7 +574,8 @@ msgstr "gebeurtenisgegevens"
 
 #: src/brouwers/shop/models/orders.py:254
 msgid "Additional data relevant for the selected event type."
-msgstr "Extra gegevens die relevant zijn voor de geselecteerde soort gebeurtenis."
+msgstr ""
+"Extra gegevens die relevant zijn voor de geselecteerde soort gebeurtenis."
 
 #: src/brouwers/shop/models/orders.py:260
 msgid "order event"
@@ -656,8 +657,9 @@ msgid ""
 "Order this payment was for, in case it was cancelled/aborted. You cannot set "
 "order and historical order at the same time."
 msgstr ""
-"De bestelilng waarvoor deze betaling was, in het geval van annulering/afbreking. "
-"Je kan niet tegelijk een bestelling en eerdere bestelling koppelen."
+"De bestelilng waarvoor deze betaling was, in het geval van annulering/"
+"afbreking. Je kan niet tegelijk een bestelling en eerdere bestelling "
+"koppelen."
 
 #: src/brouwers/shop/models/payments.py:93
 msgid "payment"
@@ -802,7 +804,8 @@ msgstr "Land waarnaar de bestelling verstuurd wordt."
 #: src/brouwers/shop/models/shipping.py:54
 msgid "Maximum weight (in grams) for orders to match this shipping cost."
 msgstr ""
-"Maximaal gewicht (in gram) van bestellingen om binnen deze verzendkosten te vallen."
+"Maximaal gewicht (in gram) van bestellingen om binnen deze verzendkosten te "
+"vallen."
 
 #: src/brouwers/shop/models/shipping.py:61
 msgid "Shipping cost for this weight limit, including VAT."
@@ -1104,7 +1107,7 @@ msgstr "Bezorgadres"
 #: src/brouwers/shop/templates/shop/backoffice/order_detail.html:175
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:155
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:38
-#: src/brouwers/shop/tests/test_checkout.py:194
+#: src/brouwers/shop/tests/test_checkout.py:195
 msgid "Shipping costs"
 msgstr "Verzendkosten"
 
@@ -1191,7 +1194,9 @@ msgstr "Bestellingen"
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:16
 msgid "Overview of all orders, sorted by most recently placed first."
-msgstr "Overzicht van alle bestellingen, gesorteerd op de meest recent geplaatste eerst."
+msgstr ""
+"Overzicht van alle bestellingen, gesorteerd op de meest recent geplaatste "
+"eerst."
 
 #: src/brouwers/shop/templates/shop/backoffice/order_list.html:31
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.html:34
@@ -1321,8 +1326,7 @@ msgid ""
 "Your order will be processed as soon as we receive payment confirmation.\n"
 msgstr ""
 "\n"
-"Bedankt - je bestelling %(reference)s bij Modelbrouwers is ontvangen."
-"\n"
+"Bedankt - je bestelling %(reference)s bij Modelbrouwers is ontvangen.\n"
 "De bestelling zal verwerkt worden zodra de betaling bevestigd is.\n"
 
 #: src/brouwers/shop/templates/shop/emails/order_confirmation.txt:29
