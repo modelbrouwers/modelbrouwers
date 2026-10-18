@@ -4,20 +4,14 @@ import {fn} from 'storybook/test';
 
 import {mockGetKitBrands, mockGetKitScales} from '@/kits/mocks';
 
-import {AddKitForm} from './ModelKitAdd';
+import AddKitForm from './AddKitForm';
 
 export default {
   title: 'Kits / AddKitForm',
   component: AddKitForm,
   args: {
-    brand: null,
-    scale: null,
-    name: '',
-    kitNumber: '',
-    difficulty: '',
-    onChange: fn(),
+    formId: 'add-kit',
     onSubmit: fn(),
-    formId: '',
   },
   parameters: {
     msw: {
@@ -35,18 +29,20 @@ export const Default: Story = {};
 
 export const WithPrepopulatedData: Story = {
   args: {
-    brand: {
-      id: 1,
-      name: 'Revell',
-      is_active: true,
+    initialValues: {
+      brand: {
+        id: 1,
+        name: 'Revell',
+        is_active: true,
+      },
+      scale: {
+        id: 1,
+        scale: 48,
+        __str__: '1/48',
+      },
+      name: 'F-4F Phantom II',
+      kit_number: '123456',
+      difficulty: '30',
     },
-    scale: {
-      id: 1,
-      scale: 48,
-      __str__: '1/48',
-    },
-    name: 'F-4F Phantom II',
-    kitNumber: '123456',
-    difficulty: '30',
   },
 };

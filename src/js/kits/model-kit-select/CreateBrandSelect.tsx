@@ -1,3 +1,4 @@
+import {useField} from 'formik';
 import {useState} from 'react';
 import CreatableSelect from 'react-select/creatable';
 import {useAsync} from 'react-use';
@@ -5,12 +6,12 @@ import {useAsync} from 'react-use';
 import {type ListBrandData, createBrand, listBrands} from '@/data/kits/brand';
 
 export interface CreateBrandSelectProps {
-  onChange: (brand: ListBrandData | null) => void;
-  value: ListBrandData | null;
+  name: string;
   inputId?: string;
 }
 
-const CreateBrandSelect: React.FC<CreateBrandSelectProps> = ({value, onChange, inputId}) => {
+const CreateBrandSelect: React.FC<CreateBrandSelectProps> = ({name, inputId}) => {
+  const [props, , {setValue}] = useField<ListBrandData | null>(name);
   const [isLoading, setIsLoading] = useState(false);
   const [brands, setBrands] = useState<ListBrandData[]>([]);
   const {loading, error} = useAsync(async () => setBrands(await listBrands()), []);
@@ -20,11 +21,10 @@ const CreateBrandSelect: React.FC<CreateBrandSelectProps> = ({value, onChange, i
 
   return (
     <CreatableSelect<ListBrandData>
-      name="brand"
+      {...props}
       inputId={inputId}
       isLoading={loading}
       options={brands}
-      value={value}
       getOptionValue={brand => brand.id.toString()}
       getOptionLabel={brand => brand.name}
       isClearable
@@ -38,10 +38,12 @@ const CreateBrandSelect: React.FC<CreateBrandSelectProps> = ({value, onChange, i
         setIsLoading(true);
         const brand = await createBrand(inputValue);
         setBrands([...brands, brand]);
-        onChange(brand);
+        setValue(brand);
         setIsLoading(false);
       }}
-      onChange={onChange}
+      onChange={newValue => {
+        setValue(newValue);
+      }}
     />
   );
 };

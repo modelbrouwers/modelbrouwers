@@ -1,3 +1,4 @@
+import {useField} from 'formik';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Dropzone, {Input} from 'react-dropzone-uploader/dist/react-dropzone-uploader';
@@ -57,7 +58,9 @@ const DropzoneInput = props => {
   );
 };
 
-const BoxartUpload = ({onComplete}) => {
+const BoxartUpload = () => {
+  const [, , {setValue}] = useField('boxartUUID');
+
   const getUploadParams = ({file, meta}) => {
     const body = new FormData();
     body.append('image', file);
@@ -74,7 +77,7 @@ const BoxartUpload = ({onComplete}) => {
   const handleChangeStatus = ({meta, file, xhr}, status) => {
     if (status === 'done') {
       const response = JSON.parse(xhr.response);
-      onComplete(response);
+      setValue(response.uuid);
     }
   };
 
@@ -94,10 +97,6 @@ const BoxartUpload = ({onComplete}) => {
       InputComponent={DropzoneInput}
     />
   );
-};
-
-BoxartUpload.propTypes = {
-  onComplete: PropTypes.func.isRequired,
 };
 
 export default BoxartUpload;

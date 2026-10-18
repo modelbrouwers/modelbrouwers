@@ -9,18 +9,11 @@ export interface FormFieldProps {
   fieldGrid?: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({
-  htmlId,
-  label,
-  required = false,
-  labelGrid = 'col-sm-4',
-  fieldGrid = 'col-sm-8',
-  children,
-}) => {
+const FormField: React.FC<FormFieldProps> = ({htmlId, label, required = false, children}) => {
   return (
-    <div className="form-group clearfix">
-      <Label label={label} htmlId={htmlId} required={required} labelGrid={labelGrid} />
-      <div className={fieldGrid}>{children}</div>
+    <div className="form-field">
+      <Label label={label} htmlId={htmlId} required={required} labelGrid="" />
+      <div>{children}</div>
     </div>
   );
 };
