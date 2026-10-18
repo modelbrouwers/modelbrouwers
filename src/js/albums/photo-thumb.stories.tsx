@@ -6,7 +6,7 @@ import {useEffect} from 'react';
 
 import {userEvent, within} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 
 import Page from './index.js';
 

@@ -3,7 +3,7 @@ import {HttpResponse, http} from 'msw';
 
 import {fn} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 
 import PhotoPicker from './PhotoPicker';
 

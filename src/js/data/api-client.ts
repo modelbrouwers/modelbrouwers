@@ -1,4 +1,4 @@
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 
 let CSRF_TOKEN: string = '';
 

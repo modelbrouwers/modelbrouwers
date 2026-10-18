@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react-webpack5';
 import {HttpResponse, http} from 'msw';
 import {useEffect} from 'react';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 
 import {fetchAndDisplayAnnouncements} from './announcement';
 

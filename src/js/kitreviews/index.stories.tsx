@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 
 import {expect, userEvent, within} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 import type {ListBrandData} from '@/data/kits/brand';
 import type {ScaleData} from '@/data/kits/scale';
 

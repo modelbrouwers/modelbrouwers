@@ -3,7 +3,7 @@ import {HttpResponse, http} from 'msw';
 
 import {expect, fn, userEvent, within} from 'storybook/test';
 
-import {API_ROOT} from '@/constants.js';
+import {API_ROOT} from '@/constants';
 
 import SideBar from './SideBar';
 
