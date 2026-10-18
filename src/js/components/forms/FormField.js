@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {Label} from './Label';
+import Label from './Label';
 
 const FormField = ({
   htmlId,
