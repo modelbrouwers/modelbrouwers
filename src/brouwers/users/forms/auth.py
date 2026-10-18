@@ -1,3 +1,6 @@
+from collections.abc import Mapping
+from typing import ClassVar
+
 from django import forms
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -9,6 +12,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template import loader
 from django.utils.encoding import force_bytes
+from django.utils.functional import Promise
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import gettext_lazy as _
 
@@ -90,12 +94,42 @@ class UserCreationForm(AdminUserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "email")
+        fields = ("username", "email", "registration_motivation")
+        labels: ClassVar[Mapping[str, Promise]] = {
+            "registration_motivation": _("Motivation"),
+        }
+        help_texts: ClassVar[Mapping[str, Promise]] = {
+            "registration_motivation": _(
+                "Your registration will need to be approved by an administrator. We do "
+                "this to protect our users against spam. Please provide a short "
+                "motivation why you want to create a user account."
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.require_motivation = kwargs.pop("require_motivation", False)
+        super().__init__(*args, **kwargs)
+
+        if self.require_motivation:
+            self.fields["registration_motivation"].required = True
+        else:
+            del self.fields["registration_motivation"]
 
     def clean_birthday(self):
         if self.cleaned_data.get("birthday"):
             raise forms.ValidationError(_("invalid"))
         return ""
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        if self.require_motivation:
+            user.is_active = False  # block login
+            assert user.registration_motivation != ""
+
+        if commit:
+            user.save()
+        return user
 
 
 class AuthForm(AuthenticationForm):

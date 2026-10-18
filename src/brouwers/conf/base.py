@@ -433,6 +433,10 @@ GEOIP_DATABASE_PATH = config(
     "GEOIP_DATABASE_PATH", default="/tmp/geoip/GeoLite2-Country.mmdb"
 )
 
+SIGNUP_MOTIVATION_BYPASS_COUNTRY_CODES = config(
+    "SIGNUP_MOTIVATION_BYPASS_COUNTRY_CODES", split=True, default=""
+)
+
 #################
 # APP SPECIFICS #
 #################

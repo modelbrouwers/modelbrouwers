@@ -44,6 +44,11 @@
             <div style="display:none;">
                 {% form_field form.birthday required=True %}
             </div>
+
+            {% if form.require_motivation %}
+                {% form_field form.registration_motivation %}
+            {% endif %}
+
             {% form_field form.accept_terms %}
         </fieldset>
         {{ form.captcha }}

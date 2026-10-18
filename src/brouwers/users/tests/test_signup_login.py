@@ -1,16 +1,21 @@
+from unittest.mock import patch
+
 from django.conf import settings
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from django_webtest import WebTest
+from geoip2 import models
 
 from brouwers.forum_tools.tests.factories import ForumUserFactory
 from brouwers.utils.tests.recaptcha import mock_recaptcha
 
+from ..models import User
 from .factories import UserFactory
 
 
+@override_settings(SIGNUP_MOTIVATION_BYPASS_COUNTRY_CODES=("NL",))
 class LoginRegisterTests(WebTest):
     def setUp(self):
         super().setUp()
@@ -18,6 +23,13 @@ class LoginRegisterTests(WebTest):
         username = "My user"
         self.user = UserFactory(username=username)
         self.forum_user = ForumUserFactory(username=username)
+
+        self.country_lookup_patcher = patch(
+            "brouwers.users.views.ip_to_country",
+            return_value=models.Country(("en",), country={"iso_code": "NL"}),
+        )
+        self.country_lookup_patcher.start()
+        self.addCleanup(self.country_lookup_patcher.stop)
 
     @mock_recaptcha(is_valid=True, action="login")
     def test_login(self, m):
@@ -203,6 +215,43 @@ class LoginRegisterTests(WebTest):
 
         response = self.client.get(url)
         self.assertRedirects(response, "/", target_status_code=302)
+
+    @override_settings(
+        SIGNUP_MOTIVATION_BYPASS_COUNTRY_CODES=("BE",)
+    )  # mock returns NL
+    @mock_recaptcha(is_valid=True, action="signup")
+    def test_signup_user_with_suspicious_ip_address_location(self, m):
+        signup_page = self.app.get(reverse("users:register"))
+        signup_form = signup_page.forms["form-register"]
+
+        signup_form["username"] = "myUsername"
+        signup_form["email"] = "dummy@example.com"
+        signup_form["password1"] = "password"
+        signup_form["password2"] = "password"
+        signup_form["accept_terms"].checked = True
+        signup_form["captcha"] = "dummy"
+        signup_form["registration_motivation"] = "reason"
+
+        response = signup_form.submit()
+
+        self.assertEqual(response.status_code, 302)
+        # test that the user is *not* logged in
+        self.assertNotIn("_auth_user_id", self.app.session)
+        created_user = User.objects.get(username="myUsername")
+        self.assertFalse(created_user.is_active)
+        self.assertIsNone(created_user.approved_or_rejected_on)
+        self.assertEqual(created_user.registration_motivation, "reason")
+        self.assertTrue(created_user.needs_registration_approval)
+
+    @override_settings(
+        SIGNUP_MOTIVATION_BYPASS_COUNTRY_CODES=("NL",)
+    )  # mock returns NL
+    def test_signup_user_with_trusted_country(self):
+        signup_page = self.app.get(reverse("users:register"))
+
+        signup_form = signup_page.forms["form-register"]
+
+        self.assertNotIn("registration_motivation", signup_form.fields)
 
 
 class LogoutTestCase(TestCase):

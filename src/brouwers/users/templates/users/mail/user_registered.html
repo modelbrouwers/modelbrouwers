@@ -1,14 +1,24 @@
 {% load i18n %}
 
-{% blocktrans with username=user.username domain=site.domain name=site.name %}
+{% blocktrans with username=user.username domain=site.domain %}
 <p>Thank you for your registration on {{ domain }}!</p>
 <br>
 <p>You registered with the username: {{ username }}.
 Your password is safely stored in our database and can not be retrieved.
 You can always reset your password if you can't remember it.</p>
+{% endblocktrans %}
+
 <br>
-<p>See you on the forum!</p>
+<p>
+{% if user.is_active %}
+    {% trans "See you on the forum!" %}
+{% else %}
+    {% trans "Your registration needs to be approved by an administrator before you can log in." %}
+{% endif %}
+</p>
 <br>
+
+{% blocktrans with name=site.name %}
 <p>Sincerely,<br>
 The {{ name }} staff.</p>
 {% endblocktrans %}

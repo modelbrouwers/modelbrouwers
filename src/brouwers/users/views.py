@@ -1,3 +1,5 @@
+import logging
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
@@ -16,12 +18,14 @@ from extra_views import InlineFormSetFactory, NamedFormsetsMixin, UpdateWithInli
 from brouwers.forum_tools.forms import ForumUserForm
 from brouwers.general.forms import RedirectForm
 from brouwers.general.models import UserProfile
-from brouwers.general.utils import get_client_ip
+from brouwers.general.utils import get_client_ip, ip_to_country
 from brouwers.utils.views import LoginRequiredMixin
 
 from .forms import AuthForm, UserCreationForm
 from .mail import UserRegistrationEmail
 from .models import DataDownloadRequest
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -125,16 +129,42 @@ class RegistrationView(RedirectFormMixin, generic.CreateView):
             return redirect("index")
         return super().get(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        ip_address = get_client_ip(self.request)
+        country = ip_to_country(ip_address)
+        skip_verification = (
+            country
+            and country.country.iso_code
+            in settings.SIGNUP_MOTIVATION_BYPASS_COUNTRY_CODES
+        )
+        logger.info(
+            "verification_required_check_done",
+            extra={"ip_address": ip_address, "required": not skip_verification},
+        )
+        return {**kwargs, "require_motivation": not skip_verification}
+
     def form_valid(self, form):
         response = super().form_valid(form)
         user = self.object
         assert user is not None
         user.ip_address_joined = get_client_ip(self.request)
         user.save()
-        self.do_login(form)
+        if user.is_active:
+            self.do_login(form)
+        else:
+            messages.info(
+                self.request,
+                _(
+                    "Your account was created, but needs to be reviewed by an "
+                    "administrator before you can log in. We do this to combat spam."
+                ),
+            )
 
         mail = UserRegistrationEmail(user=self.object)
         transaction.on_commit(mail.send)
+
         return response
 
     def do_login(self, form):

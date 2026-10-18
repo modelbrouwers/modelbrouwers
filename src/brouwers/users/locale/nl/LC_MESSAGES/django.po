@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 14:54+0200\n"
-"PO-Revision-Date: 2015-08-25 08:59+0020\n"
+"POT-Creation-Date: 2026-10-18 12:20+0200\n"
+"PO-Revision-Date: 2026-10-18 12:35+0200\n"
 "Last-Translator: Sergei Maertens <sergeimaertens@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,100 +17,162 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translated-Using: django-rosetta 0.7.6\n"
+"X-Translated-Using: django-rosetta 0.10.2\n"
 
-#: src/brouwers/users/admin.py:27
+#: src/brouwers/users/admin.py:35
 msgid "Extra"
 msgstr "Extra"
 
-#: src/brouwers/users/admin.py:41
+#: src/brouwers/users/admin.py:45
+#| msgid "registration"
+msgid "Registration"
+msgstr "Registratie"
+
+#: src/brouwers/users/admin.py:71
 msgid "location details"
 msgstr "Locatiedetails"
 
-#: src/brouwers/users/admin.py:48
+#: src/brouwers/users/admin.py:78
 msgid "country unknown"
 msgstr "land onbekend"
+
+#: src/brouwers/users/admin.py:91
+msgid "Approve or reject"
+msgstr "Goedkeuren of afwijzen"
+
+#: src/brouwers/users/admin.py:105
+msgid "The user registration is already processed."
+msgstr "De gebruikersregistratie is al beoordeeld."
+
+#: src/brouwers/users/admin.py:115
+#: src/brouwers/users/tests/test_admin_user_approval.py:127
+msgid "You must pick approve or reject."
+msgstr "Je moet kiezen voor goedkeuren of afwijzen."
+
+#: src/brouwers/users/admin.py:122
+msgid "The user account is now activated."
+msgstr "De gebruikersaccount is nu geactiveerd."
+
+#: src/brouwers/users/admin.py:124
+#| msgid "Registration terms"
+msgid "User registration rejected."
+msgstr "Gebruikersregistratie afgekeurd."
+
+#: src/brouwers/users/admin.py:142
+msgid "Approve or reject user signup"
+msgstr "Keur gebruikersregistratie goed of wijs af."
+
+#: src/brouwers/users/admin.py:145
+#, python-brace-format
+msgid "Signup of: {user}"
+msgstr "Registratie van: {user}"
 
 #: src/brouwers/users/apps.py:7
 msgid "Users"
 msgstr "Gebruikers"
 
-#: src/brouwers/users/forms/auth.py:31
-#: src/brouwers/users/tests/test_signup_login.py:167
+#: src/brouwers/users/forms/auth.py:35
+#: src/brouwers/users/tests/test_signup_login.py:179
 msgid "A user with that username already exists."
 msgstr "Deze gebruikersnaam is al bezet."
 
-#: src/brouwers/users/forms/auth.py:32
+#: src/brouwers/users/forms/auth.py:36
 msgid "The two password fields didn't match."
 msgstr "De twee wachtwoordvelden kwamen niet overeen."
 
-#: src/brouwers/users/forms/auth.py:33
+#: src/brouwers/users/forms/auth.py:37
 msgid "This e-mail address is already in use."
 msgstr "Dit e-mailadres is al in gebruik."
 
-#: src/brouwers/users/forms/auth.py:35
+#: src/brouwers/users/forms/auth.py:39
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: src/brouwers/users/forms/auth.py:37
+#: src/brouwers/users/forms/auth.py:41
 msgid "Password confirmation"
 msgstr "Wachtwoord (bevestiging)"
 
-#: src/brouwers/users/forms/auth.py:39
+#: src/brouwers/users/forms/auth.py:43
 msgid "Enter the same password as above, for verification."
 msgstr "Vul hetzelfde wachtwoord als hierboven in, ter bevestiging."
 
-#: src/brouwers/users/forms/auth.py:87
+#: src/brouwers/users/forms/auth.py:91
 msgid "I have read and accepted the registration terms"
 msgstr "Ik heb de registratievoorwaarden gelezen en geaccepteerd"
 
-#: src/brouwers/users/forms/auth.py:97
-msgid "invalid"
-msgstr ""
+#: src/brouwers/users/forms/auth.py:99
+msgid "Motivation"
+msgstr "Motivatie"
 
-#: src/brouwers/users/forms/auth.py:106
+#: src/brouwers/users/forms/auth.py:103
+msgid ""
+"Your registration will need to be approved by an administrator. We do this "
+"to protect our users against spam. Please provide a short motivation why you"
+" want to create a user account."
+msgstr ""
+"Je registratie moet goedgekeurd worden door een beheerder. We doen dit om "
+"onze gebruikers te beschermen tegen spam. Geef een korte (max 500 karakters)"
+" uitleg waarvoor je dit account wil gebruiken."
+
+#: src/brouwers/users/forms/auth.py:120
+msgid "invalid"
+msgstr "ongeldig"
+
+#: src/brouwers/users/forms/auth.py:140
 msgid "Username or email"
 msgstr "Gebruikersnaam of e-mail"
 
-#: src/brouwers/users/forms/auth.py:111
+#: src/brouwers/users/forms/auth.py:145
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: src/brouwers/users/forms/auth.py:130
+#: src/brouwers/users/forms/auth.py:164
 msgid "Fill at least one field."
 msgstr "Vul minstens een veld in."
 
-#: src/brouwers/users/forms/auth.py:132
+#: src/brouwers/users/forms/auth.py:166
 msgid "We couldn't find a matching user."
 msgstr "Er kon geen overeenkomstige gebruiker gevonden worden"
 
-#: src/brouwers/users/forms/auth.py:152
+#: src/brouwers/users/forms/auth.py:186
 msgid ""
 "Multiple accounts were found, this shouldn't happen. Please contact the "
 "admins (see e-mail in the page footer)."
 msgstr ""
 "Er werden meerdere accounts gevonden, dit zou niet mogen gebeuren. Gelieve "
-"contact op te nemen met de beheerders (e-mailadres staat onderaan de pagina)."
+"contact op te nemen met de beheerders (e-mailadres staat onderaan de "
+"pagina)."
 
-#: src/brouwers/users/forms/auth.py:163
+#: src/brouwers/users/forms/auth.py:197
 msgid ""
 "Your account is still inactive! You won't be able to log in until you "
-"reactivate with the link sent by e-mail. Check your spamfolder to see if you "
-"missed an e-mail."
+"reactivate with the link sent by e-mail. Check your spamfolder to see if you"
+" missed an e-mail."
 msgstr ""
 "Je accout is nog inactief! Je zal niet kunnen inloggen tot je opnieuw "
 "activeert met de link verstuurd via e-mail. Controleer je 'ongewenste "
 "berichten' om te zien of je een e-mail gemist hebt."
 
-#: src/brouwers/users/forms/auth.py:188
+#: src/brouwers/users/forms/auth.py:222
 msgid "An e-mail was sent with a link to reset your password."
 msgstr ""
 "Er werd een e-mail verstuurd met een link om je wachtwoord te resetten."
 
-#: src/brouwers/users/mail.py:9
+#: src/brouwers/users/mail.py:11
 #, python-brace-format
 msgid "Your registration on {domain}"
 msgstr "Je registratie op {domain}"
+
+#: src/brouwers/users/mail.py:38
+#, python-brace-format
+#| msgid "Your registration on {domain}"
+msgid "Account activated on {domain}"
+msgstr "Account geactiveerd op {domain}"
+
+#: src/brouwers/users/mail.py:40
+#| msgid "Registration terms"
+msgid "Registration not approved"
+msgstr "Registratie afgewezen"
 
 #: src/brouwers/users/management/commands/process_data_downloads.py:161
 msgid "[Modelbrouwers.nl] Your data download is ready"
@@ -142,7 +204,7 @@ msgstr "e-mailadres"
 
 #: src/brouwers/users/models.py:85
 msgid "phone number"
-msgstr ""
+msgstr "telefoonnummer"
 
 #: src/brouwers/users/models.py:87
 msgid "staff status"
@@ -152,74 +214,139 @@ msgstr "stafstatus"
 msgid "Designates whether the user can log into this admin site."
 msgstr "Geeft aan of de gebruiker kan inloggen in de beheerdersomgeving."
 
-#: src/brouwers/users/models.py:92
+#: src/brouwers/users/models.py:94
+#| msgid "registration"
+msgid "registration motivation"
+msgstr "registratiemotivatie"
+
+#: src/brouwers/users/models.py:97
+msgid "Explanation given why they wanted to create an account."
+msgstr "Reden opgegeven voor het aanmaken van een account."
+
+#: src/brouwers/users/models.py:100
+msgid "approved or rejected on"
+msgstr "goedgekeurd of afgewezen op"
+
+#: src/brouwers/users/models.py:104
+msgid "Timestamp of when the request was approved or rejected."
+msgstr "Moment wanneer het registratieverzoek goedgekeurd of afgewezen is."
+
+#: src/brouwers/users/models.py:108
 msgid "active"
 msgstr "actief"
 
-#: src/brouwers/users/models.py:95
+#: src/brouwers/users/models.py:111
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
-"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats "
-"van gebruikers te verwijderen."
+"Geeft aan of de gebruiker als actief beschouwt wordt. Vink dit uit in plaats"
+" van gebruikers te verwijderen."
 
-#: src/brouwers/users/models.py:99
+#: src/brouwers/users/models.py:115
 msgid "date joined"
 msgstr "toegetreden"
 
-#: src/brouwers/users/models.py:101
+#: src/brouwers/users/models.py:117
 msgid "ip address"
 msgstr "IP-adres"
 
-#: src/brouwers/users/models.py:102
+#: src/brouwers/users/models.py:118
 msgid "IP address used during registration."
-msgstr ""
+msgstr "IP-adres gebruikt tijdens de registratie."
 
-#: src/brouwers/users/models.py:110
+#: src/brouwers/users/models.py:126
 msgid "UI language"
-msgstr ""
+msgstr "UI-taal"
 
-#: src/brouwers/users/models.py:116
+#: src/brouwers/users/models.py:132
 msgid ""
 "Preferred UI language. If unset, your browser preferences are respected."
 msgstr ""
+"Voorkeurstaal voor de gebruikersinterface. Indien niet ingesteld, dan worden"
+" je browservoorkeuren toegepast."
 
-#: src/brouwers/users/models.py:121
+#: src/brouwers/users/models.py:137
 msgid "forum user id"
 msgstr "forumgebruikerid"
 
-#: src/brouwers/users/models.py:125 src/brouwers/users/models.py:138
+#: src/brouwers/users/models.py:141 src/brouwers/users/models.py:154
 msgid "users"
 msgstr "gebruikers"
 
-#: src/brouwers/users/models.py:137
+#: src/brouwers/users/models.py:153
 msgid "user"
 msgstr "gebruiker"
 
-#: src/brouwers/users/models.py:183
+#: src/brouwers/users/models.py:221
 msgid "finished"
-msgstr ""
+msgstr "voltooid"
 
-#: src/brouwers/users/models.py:184
+#: src/brouwers/users/models.py:222
 msgid "downloaded"
-msgstr ""
+msgstr "gedownload"
 
-#: src/brouwers/users/models.py:186
+#: src/brouwers/users/models.py:224
 msgid "zip file"
-msgstr ""
+msgstr "ZIP-bestand"
 
-#: src/brouwers/users/models.py:190
+#: src/brouwers/users/models.py:228
 #, python-brace-format
 msgid "Data download for {user} ({created})"
 msgstr ""
 
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:52
+msgid "Please use the information below to reject or approve the user signup."
+msgstr ""
+"Gebruik de informatie hieronder om de registratie goed te keuren of af te "
+"wijzen."
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:57
+#| msgid "location details"
+msgid "Signup details"
+msgstr "Registratiedetails"
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:63
+msgid "IP and location"
+msgstr "IP-adres en locatie"
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:72
+#| msgid "Enter your account details"
+msgid "Reason for account creation"
+msgstr "Reden voor het aanmaken van een account"
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:81
+msgid "Date and time"
+msgstr "Datum en tijd"
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:84
+#, python-format
+msgid "%(time_ago)s ago"
+msgstr "%(time_ago)s geleden"
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:95
+msgid ""
+"If this looks legitimate, you can approve the signup - otherwise reject it."
+msgstr ""
+"Als dit er niet verdacht uit ziet, dan kan je de registratie goedkeuren - en"
+" anders wijs je deze af."
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:100
+msgid "Approve"
+msgstr "Goedkeuren"
+
+#: src/brouwers/users/templates/admin/users/user/registration_approval.html:103
+msgid "Reject"
+msgstr "Afwijzen"
+
 #: src/brouwers/users/templates/data-download/mail_ready.html:12
 #, python-format
 msgid ""
-"Hi %(username)s, <br> <br> The data download you requested is now ready. You "
-"can download it at %(url)s. <br> <br> Best, <br> Modelbrouwers.nl"
+"Hi %(username)s, <br> <br> The data download you requested is now ready. You"
+" can download it at %(url)s. <br> <br> Best, <br> Modelbrouwers.nl"
 msgstr ""
+"Hoi %(username)s, <br> <br> De gegevensdownload is nu klaar. Je kan deze "
+"downloaden op %(url)s. <br> <br> Met vriendelijke groet, Modelbrouwers.nl"
 
 #: src/brouwers/users/templates/users/change_password.html:6
 #: src/brouwers/users/templates/users/change_password.html:17
@@ -242,14 +369,11 @@ msgstr "Inloggen"
 #: src/brouwers/users/templates/users/login.html:17
 msgid ""
 "\n"
-"                If you're running into login issues, please don't hesitate "
-"to contact the administrators. You can find the e-mail address on the bottom "
-"of this page.\n"
+"                If you're running into login issues, please don't hesitate to contact the administrators. You can find the e-mail address on the bottom of this page.\n"
 "            "
 msgstr ""
 "\n"
-"Indien je inlogproblemen hebt, aarzel niet om de beheerders te contacteren. "
-"Je vindt het e-mailadres onderaan deze pagina."
+"Indien je inlogproblemen hebt, aarzel niet om de beheerders te contacteren. Je vindt het e-mailadres onderaan deze pagina."
 
 #: src/brouwers/users/templates/users/login.html:42
 msgid "Come on in"
@@ -267,8 +391,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Nog geen account? Registreren is gratis en je kan meteen deelnemen in de "
-"community!"
+"Nog geen account? Registreren is gratis en je kan meteen deelnemen in de community!"
 
 #: src/brouwers/users/templates/users/login.html:58
 msgid "Sign up"
@@ -294,8 +417,84 @@ msgstr "Voeg je foto's toe aan onze geintegreerde albums"
 msgid "Participate in groupbuilds focused on a narrow theme"
 msgstr "Neem deel aan groepsbouwen rond een duidelijk thema"
 
+#: src/brouwers/users/templates/users/mail/registration_update.html:3
+#, python-format
+msgid ""
+"<p> Hi %(username)s, <br> <br> Your account was reviewed and activated - you"
+" can now log in on %(domain)s! </p>"
+msgstr ""
+"<p> Hoi %(username)s, <br><br> Je registratie is beoordeeld en je account is"
+" nu actief. Je kan nu inloggen op %(domain)s!</p>"
+
+#: src/brouwers/users/templates/users/mail/registration_update.html:12
+#, python-format
+msgid ""
+"<p> Hi %(username)s, <br> <br> Your account registration was reviewed and "
+"rejected. If you believe this to be an error, try contacting us via the "
+"email address in the footer of the website. </p>"
+msgstr ""
+"<p> Hoi %(username)s, <br><br> Je registratie is beoordeeld en afgewezen. "
+"Als je denkt dat dit onterecht is, dan kan je contact opnemen via het "
+"e-mailadres onderaan de pagina's van de website.</p>"
+
+#: src/brouwers/users/templates/users/mail/registration_update.html:23
+#: src/brouwers/users/templates/users/mail/user_registered.html:21
+#, python-format
+msgid ""
+"\n"
+"<p>Sincerely,<br>\n"
+"The %(name)s staff.</p>\n"
+msgstr ""
+"\n"
+"<p>Met modelbouwgroeten,<br>\n"
+"Het %(name)s beheer</p>\n"
+
+#: src/brouwers/users/templates/users/mail/registration_update.txt:3
+#, python-format
+msgid ""
+"Hi %(username)s, Your account was reviewed and activated - you can now log "
+"in on %(domain)s!"
+msgstr ""
+"Hoi %(username)s,\n"
+"\n"
+"Je registratie is beoordeeld en je account is nu actief. Je kan nu inloggen op %(domain)s!"
+
+#: src/brouwers/users/templates/users/mail/registration_update.txt:9
+#, python-format
+msgid ""
+"Hi %(username)s, Your account registration was reviewed and rejected. If you"
+" believe this to be an error, try contacting us via the email address in the"
+" footer of the website."
+msgstr ""
+"Hoi %(username)s,\n"
+"\n"
+"Je registratie is beoordeeld en afgewezen. Als je denkt dat dit onterecht is, dan kan je contact opnemen via het e-mailadres onderaan de pagina's van de website."
+
+#: src/brouwers/users/templates/users/mail/registration_update.txt:17
+#: src/brouwers/users/templates/users/mail/user_registered.txt:12
+#, python-format
+msgid ""
+"Sincerely,\n"
+"The %(name)s staff.\n"
+msgstr ""
+"Met modelbouwgroeten,\n"
+"\n"
+"Het %(name)s beheer\n"
+
 #: src/brouwers/users/templates/users/mail/user_registered.html:3
 #, python-format
+#| msgid ""
+#| "\n"
+#| "<p>Thank you for your registration on %(domain)s!</p>\n"
+#| "<br>\n"
+#| "<p>You registered with the username: %(username)s.\n"
+#| "Your password is safely stored in our database and can not be retrieved.\n"
+#| "You can always reset your password if you can't remember it.</p>\n"
+#| "<br>\n"
+#| "<p>See you on the forum!</p>\n"
+#| "<br>\n"
+#| "<p>Sincerely,<br>\n"
+#| "The %(name)s staff.</p>\n"
 msgid ""
 "\n"
 "<p>Thank you for your registration on %(domain)s!</p>\n"
@@ -303,50 +502,47 @@ msgid ""
 "<p>You registered with the username: %(username)s.\n"
 "Your password is safely stored in our database and can not be retrieved.\n"
 "You can always reset your password if you can't remember it.</p>\n"
-"<br>\n"
-"<p>See you on the forum!</p>\n"
-"<br>\n"
-"<p>Sincerely,<br>\n"
-"The %(name)s staff.</p>\n"
 msgstr ""
 "\n"
 "<p>Bedankt voor je registratie op %(domain)s!</p>\n"
 "<br>\n"
-"<p>Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is "
-"veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan "
-"altijd je wachtwoord resetten indien je dit vergeten bent.</p>\n"
-"<br>\n"
-"<p>Tot op het forum!</p>\n"
-"<br>\n"
-"<p>Met modelbouwgroeten,<br>\n"
-"Het %(name)s beheer</p>\n"
+"<p>Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je wachtwoord resetten indien je dit vergeten bent.</p>\n"
+
+#: src/brouwers/users/templates/users/mail/user_registered.html:14
+#: src/brouwers/users/templates/users/mail/user_registered.txt:8
+msgid "See you on the forum!"
+msgstr "Tot op het forum!"
+
+#: src/brouwers/users/templates/users/mail/user_registered.html:16
+#: src/brouwers/users/templates/users/mail/user_registered.txt:9
+msgid ""
+"Your registration needs to be approved by an administrator before you can "
+"log in."
+msgstr ""
+"Je account moet beoordeeld worden door een beheerder voor je kan inloggen."
 
 #: src/brouwers/users/templates/users/mail/user_registered.txt:3
 #, python-format
+#| msgid ""
+#| "\n"
+#| "Thank you for your registration on %(domain)s!\n"
+#| "\n"
+#| "You registered with the username: %(username)s. Your password is safely stored in our database and can not be retrieved. You can always reset your password if you can't remember it.\n"
+#| "\n"
+#| "See you on the forum!\n"
+#| "\n"
+#| "Sincerely,\n"
+#| "The %(name)s staff.\n"
 msgid ""
 "\n"
 "Thank you for your registration on %(domain)s!\n"
 "\n"
-"You registered with the username: %(username)s. Your password is safely "
-"stored in our database and can not be retrieved. You can always reset your "
-"password if you can't remember it.\n"
-"\n"
-"See you on the forum!\n"
-"\n"
-"Sincerely,\n"
-"The %(name)s staff.\n"
+"You registered with the username: %(username)s. Your password is safely stored in our database and can not be retrieved. You can always reset your password if you can't remember it."
 msgstr ""
 "\n"
 "Bedankt voor je registratie op %(domain)s!\n"
 "\n"
-"Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig "
-"opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je "
-"wachtwoord resetten indien je dit vergeten bent.\n"
-"\n"
-"Tot op het forum!\n"
-"\n"
-"Met modelbouwgroeten,\n"
-"Het %(name)s beheer\n"
+"Je registreerde met de gebruikersnaam: %(username)s. Je wachtwoord is veilig opgeslagen in onze database en kan niet uitgelezen worden. Je kan altijd je wachtwoord resetten indien je dit vergeten bent."
 
 #: src/brouwers/users/templates/users/password_reset.html:3
 msgid "Modelbrouwers.nl &bull; Reset password"
@@ -445,17 +641,17 @@ msgstr "Bewaar de veranderingen"
 
 #: src/brouwers/users/templates/users/profile_edit.html:111
 msgid "Download data"
-msgstr ""
+msgstr "Gegevens downloaden"
 
 #: src/brouwers/users/templates/users/profile_edit.html:115
 msgid ""
-"Modelbrouwers.nl takes your privacy seriously. You can download all the data "
-"related to your account by clicking the button below."
+"Modelbrouwers.nl takes your privacy seriously. You can download all the data"
+" related to your account by clicking the button below."
 msgstr ""
 
 #: src/brouwers/users/templates/users/profile_edit.html:121
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: src/brouwers/users/templates/users/register.html:4
 msgid "registration"
@@ -472,218 +668,86 @@ msgstr "je bent maar een stap verwijderd van je eigen account"
 #: src/brouwers/users/templates/users/register.html:14
 msgid ""
 "\n"
-"            We're happy to see you join our beautiful hobby hub where you "
-"can exchange tips and tricks\n"
+"            We're happy to see you join our beautiful hobby hub where you can exchange tips and tricks\n"
 "            and participate in the community!\n"
 "        "
 msgstr ""
 "\n"
-"We zijn blij dat we je in onze 'hobby hub' mogen verwelkomen, waar je tips "
-"en tricks kan uitwisselen en deel kan nemen in de community!"
+"We zijn blij dat we je in onze 'hobby hub' mogen verwelkomen, waar je tips en tricks kan uitwisselen en deel kan nemen in de community!"
 
 #: src/brouwers/users/templates/users/register.html:19
 msgid ""
-"When you're done, don't forget to introduce yourself in the appropriate "
-"forum,\n"
-"        and make yourself familiar with our rules. If you run into any "
-"trouble, you can contact the\n"
-"        staff via PM (personal message), or contact the admins via the e-"
-"mail address below.\n"
+"When you're done, don't forget to introduce yourself in the appropriate forum,\n"
+"        and make yourself familiar with our rules. If you run into any trouble, you can contact the\n"
+"        staff via PM (personal message), or contact the admins via the e-mail address below.\n"
 "        "
 msgstr ""
 "Vergeet niet om jezelf op het forum voor te stellen als je klaar bent, en "
 "lees de forumregels. Indien je tegen problemen aan loopt, dan kan je de "
-"moderators via PB (persoonlijk bericht) contacteren, of je kan de beheerders "
-"mailen via het e-mailadres onderaan de pagina."
+"moderators via PB (persoonlijk bericht) contacteren, of je kan de beheerders"
+" mailen via het e-mailadres onderaan de pagina."
 
 #: src/brouwers/users/templates/users/register.html:37
 msgid "Enter your account details"
 msgstr "Voeg je contactgegevens toe"
 
-#: src/brouwers/users/templates/users/register.html:53
+#: src/brouwers/users/templates/users/register.html:58
 msgid "Create your account"
 msgstr "Account aanmaken"
 
-#: src/brouwers/users/templates/users/register.html:55
+#: src/brouwers/users/templates/users/register.html:60
 msgid "Already have an account?"
 msgstr "Heb je al een account?"
 
-#: src/brouwers/users/templates/users/register.html:62
+#: src/brouwers/users/templates/users/register.html:67
 msgid "Terms and conditions"
 msgstr "Regels en voorwaarden"
 
-#: src/brouwers/users/templates/users/register.html:63
+#: src/brouwers/users/templates/users/register.html:68
 msgid ""
 "\n"
-"            Unfortunately, some people need strong and clear rules to "
-"behave. When you create an account,\n"
+"            Unfortunately, some people need strong and clear rules to behave. When you create an account,\n"
 "            you agree with these terms and conditions.\n"
 "        "
 msgstr ""
 "\n"
-"Helaas hebben sommige mensen sterke en duidelijke regels nodig om zich te "
-"gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels "
-"en voorwaarden."
+"Helaas hebben sommige mensen sterke en duidelijke regels nodig om zich te gedragen. Wanneer je een account aanmaakt, dan ga je akkoord met deze regels en voorwaarden."
 
-#: src/brouwers/users/tests/test_signup_login.py:142
+#: src/brouwers/users/tests/test_signup_login.py:154
 msgid "This field is required."
-msgstr ""
+msgstr "Dit veld is verplicht."
 
-#: src/brouwers/users/tests/test_views.py:42 src/brouwers/users/views.py:177
+#: src/brouwers/users/tests/test_views.py:42 src/brouwers/users/views.py:207
 msgid "Your profile data has been updated."
 msgstr "Je profiel is bijgewerkt."
 
-#: src/brouwers/users/views.py:87
+#: src/brouwers/users/views.py:91
 msgid ""
 "There is an existing forum account for this user. Please pick a different "
 "username."
 msgstr ""
 
-#: src/brouwers/users/views.py:110
+#: src/brouwers/users/views.py:114
 msgid "You have been logged out."
 msgstr "Je bent uitgelogd."
 
-#: src/brouwers/users/views.py:112
+#: src/brouwers/users/views.py:116
 msgid "Can't log you out, you weren't logged in!"
 msgstr "Je kan niet uitloggen, je was niet ingelogd!"
 
-#: src/brouwers/users/views.py:206
+#: src/brouwers/users/views.py:160
+msgid ""
+"Your account was created, but needs to be reviewed by an administrator "
+"before you can log in. We do this to combat spam."
+msgstr ""
+"Je account is aangemaakt, maar moet beoordeeld worden door een beheerder "
+"voor je kan inloggen. We doen dit als maatregel tegen spam."
+
+#: src/brouwers/users/views.py:236
 msgid "Your password was changed."
 msgstr "Je wachtwoord is gewijzigd."
 
-#: src/brouwers/users/views.py:221
+#: src/brouwers/users/views.py:251
 msgid ""
 "Your data download is being prepared and will be e-mailed when it's ready!"
 msgstr ""
-
-#~ msgid "Answer"
-#~ msgstr "Antwoord"
-
-#~ msgid "Invalid answer. Make sure to read the entire question!"
-#~ msgstr "Ongeldig antwoord. Lees de volledige vraag!"
-
-#~ msgid "You provided an incorrect answer to the anti-bot question."
-#~ msgstr "Je gaf een ongeldig antwoord op de anti-bot vraag."
-
-#, python-brace-format
-#~ msgid "{domain} account creation - activation required"
-#~ msgstr "{domain} account aangemaakt - activatie nodig"
-
-#, python-format
-#~ msgid ""
-#~ "\n"
-#~ "<p>Hi %(username)s,</p>\n"
-#~ "<br />\n"
-#~ "<p>You just attempted to login, but your account is not activated. You "
-#~ "can activate on the following link: %(protocol)s://"
-#~ "%(domain)s%(activation_url)s (copy and paste this link in your browser).</"
-#~ "p>\n"
-#~ "<br />\n"
-#~ "<p>After activation, you will be logged in automagically and redirected "
-#~ "to the pagewhere you can set/change your password.</p>\n"
-#~ "<br />\n"
-#~ "<p>The account you're activating, is a single-sign-on account. With the "
-#~ "same account you will have access to the forums, albums and all future "
-#~ "modules of the website! Eventually the kit-reviews module and the shop "
-#~ "will be integrated with this account.</p>\n"
-#~ "<br />\n"
-#~ "<p>If you run into problems, just reply to this e-mail.</p>\n"
-#~ "<br />\n"
-#~ "<p>Happy modelling,<br />\n"
-#~ "your faithful %(site_name)s administrators</p>\n"
-#~ msgstr ""
-#~ "\n"
-#~ "<p>Hoi %(username)s,</p>\n"
-#~ "<br />\n"
-#~ "<p>Je hebt net proberen in te loggen, maar je account is niet actief. Je "
-#~ "kan activeren op de volgende link: %(protocol)s://"
-#~ "%(domain)s%(activation_url)s (kopieer en plak deze link in je browser "
-#~ "indien deze niet klikbaar is).</p>\n"
-#~ "<br />\n"
-#~ "<p>Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
-#~ "opnieuw instellen.</p>\n"
-#~ "<br />\n"
-#~ "<p>De account die je activeert is een Single-Sign-On (SSO) account. Dit "
-#~ "betekent dat je met dezelfde account toegang hebt tot het forum en de "
-#~ "albums en toekomstige delen van de website.</p>\n"
-#~ "<br />\n"
-#~ "<p>Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
-#~ "beantwoorden.</p>\n"
-#~ "<br />\n"
-#~ "<p>Happy modelling,<br />\n"
-#~ "de %(site_name)s beheerders</p>\n"
-
-#, python-format
-#~ msgid ""
-#~ "\n"
-#~ "Hi %(username)s,\n"
-#~ "\n"
-#~ "You just attempted to login, but your account is not activated. You can "
-#~ "activate on the following link: %(protocol)s://"
-#~ "%(domain)s%(activation_url)s (copy and paste this link in your browser).\n"
-#~ "\n"
-#~ "After activation, you will be logged in automagically and redirected to "
-#~ "the pagewhere you can set/change your password.\n"
-#~ "\n"
-#~ "The account you're activating, is a single-sign-on account. With the same "
-#~ "account you will have access to the forums, albums and all future modules "
-#~ "of the website! Eventually the kit-reviews module and the shop will be "
-#~ "integrated with this account.\n"
-#~ "\n"
-#~ "If you run into problems, just reply to this e-mail.\n"
-#~ "\n"
-#~ "Happy modelling,\n"
-#~ "your faithful %(site_name)s administrators\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Hoi %(username)s,\n"
-#~ "\n"
-#~ "Je hebt net proberen in te loggen, maar je account is niet actief. Je kan "
-#~ "activeren op de volgende link: %(protocol)s://"
-#~ "%(domain)s%(activation_url)s (kopieer en plak deze link in je browser "
-#~ "indien deze niet klikbaar is).\n"
-#~ "\n"
-#~ "Na het activeren wordt je automatisch ingelogd en kan je je wachtwoord "
-#~ "opnieuw instellen.\n"
-#~ "\n"
-#~ "De account die je activeert is een single-sign-on (SSO) account. Dit "
-#~ "betekent dat je met dezelfde account toegang hebt tot het forum en de "
-#~ "albums en toekomstige delen van de website.\n"
-#~ "\n"
-#~ "Indien je tegen problemen aanloopt, dan kan je gewoon deze mail "
-#~ "beantwoorden\n"
-#~ "\n"
-#~ "Happy modelling,\n"
-#~ "de %(site_name)s beheerders\n"
-
-#~ msgid "Anti-spam question"
-#~ msgstr "Anti-spambot vraag"
-
-#~ msgid "Carefully read the question, the answer is often literally in there!"
-#~ msgstr "Lees de vraag zorgvuldig, het antwoord staat er vaak letterlijk in!"
-
-#~ msgid ""
-#~ "We found an existing forum account for this username, but it appears that "
-#~ "were was no coupling account yet. We automatically created a coupling "
-#~ "account, which is not activated yet. You should receive an e-mail soon "
-#~ "with a link to activate your account. Coupling accounts were added to "
-#~ "introduce SSO (single sign on) in the future for the entire domain."
-#~ msgstr ""
-#~ "We vonden een bestaande forumaccount voor deze gebruikersnaam, maar het "
-#~ "lijkt erop dat er nog geen gekoppelde account bestaat. Deze werd "
-#~ "automatisch aangemaakt maar moet nog geactiveerd worden. Je zou ieder "
-#~ "moment een e-mail moeten ontvangen waarin een link staat om je account te "
-#~ "activeren. Deze gekoppelde accounts werden ingevoerd om SSO (single sign "
-#~ "on) in de toekomst mogelijk te maken voor de volledige website."
-
-#~ msgid "Registration: fill out the form below. All fields are required."
-#~ msgstr "Registratie: vul het formulier in. Alle velden zijn verplicht."
-
-#~ msgid "Register"
-#~ msgstr "Registreren"
-
-#~ msgid "By registering, you agree to the terms below."
-#~ msgstr "Door te registreren ga je akkoord met de onderstaande voorwaarden."
-
-#~ msgid "Registration terms"
-#~ msgstr "Registratievoorwaarden"
