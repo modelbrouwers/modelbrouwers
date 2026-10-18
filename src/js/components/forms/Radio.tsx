@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {useField} from 'formik';
 import {ReactNode, useId} from 'react';
 
@@ -16,15 +17,15 @@ export interface RadioOptionProps {
    * Ensure these are phrasing content, as it will be nested in a label tag.
    */
   graphic?: ReactNode;
+  appearance: 'plain' | 'buttons';
 }
 
-const RadioOption: React.FC<RadioOptionProps> = ({name, value, label, graphic}) => {
+const RadioOption: React.FC<RadioOptionProps> = ({name, value, label, graphic, appearance}) => {
   const [field] = useField<string>({name, value, type: 'radio'});
-
   return (
-    <label className="radio-option">
+    <label className={clsx('radio-option', {'radio-option--button': appearance === 'buttons'})}>
       <input type="radio" className="radio-option__input" {...field} />
-      <span className="radio-option__graphic">{graphic}</span>
+      {appearance === 'buttons' && <span className="radio-option__graphic">{graphic}</span>}
       <span className="radio-option__label">{label}</span>
     </label>
   );
@@ -33,7 +34,8 @@ const RadioOption: React.FC<RadioOptionProps> = ({name, value, label, graphic}) 
 export interface RadioProps {
   name: string;
   label: ReactNode;
-  options: Omit<RadioOptionProps, 'name'>[];
+  options: Omit<RadioOptionProps, 'name' | 'appearance'>[];
+  appearance?: 'plain' | 'buttons';
 }
 
 /**
@@ -41,20 +43,25 @@ export interface RadioProps {
  *
  * There is room for graphics for each radio option.
  */
-const Radio: React.FC<RadioProps & JSX.IntrinsicElements['input']> = ({name, label, options}) => {
+const Radio: React.FC<RadioProps & JSX.IntrinsicElements['input']> = ({
+  name,
+  label,
+  options,
+  appearance = 'plain',
+}) => {
   const labelId = useId();
   return (
-    <>
+    <div className="radio-group">
       <div id={labelId} className="radio-group__label">
         {label}
       </div>
-      <div className="radio-group" role="group" aria-labelledby={labelId}>
+      <div className="radio-group__options" role="group" aria-labelledby={labelId}>
         {options.map(option => (
-          <RadioOption key={option.value} name={name} {...option} />
+          <RadioOption key={option.value} name={name} {...option} appearance={appearance} />
         ))}
         <ErrorList name={name} />
       </div>
-    </>
+    </div>
   );
 };
 
