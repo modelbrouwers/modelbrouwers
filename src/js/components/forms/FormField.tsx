@@ -1,9 +1,15 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-
 import Label from './Label';
 
-const FormField = ({
+export interface FormFieldProps {
+  children: React.ReactNode;
+  htmlId: string;
+  label: string;
+  required?: boolean;
+  labelGrid?: string;
+  fieldGrid?: string;
+}
+
+const FormField: React.FC<FormFieldProps> = ({
   htmlId,
   label,
   required = false,
@@ -19,12 +25,4 @@ const FormField = ({
   );
 };
 
-FormField.propTypes = {
-  htmlId: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-  labelGrid: PropTypes.string,
-  fieldGrid: PropTypes.string,
-};
-
-export {FormField};
+export default FormField;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {createModelKit} from '@/data/kits/modelkit';
 import {parseScale} from '@/data/kits/scale';
 
-import {FormField} from '../../components/forms/FormField.js';
+import FormField from '../../components/forms/FormField';
 import {RadioSelect} from '../../components/forms/RadioSelect';
 import BoxartUpload from './BoxartUpload';
 import CreateBrandSelect from './CreateBrandSelect';
