@@ -35,7 +35,7 @@ attrs==25.3.0
     #   trio
 beautifulsoup4==4.13.4
     # via webtest
-certifi==2026.4.22
+certifi==2026.10.23
     # via
     #   -c requirements/base.txt
     #   -r requirements/base.txt
